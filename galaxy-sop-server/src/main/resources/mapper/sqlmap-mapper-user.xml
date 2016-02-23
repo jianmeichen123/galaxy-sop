@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.user.User">
+   	<resultMap id="BaseResultMap" type="UserPO">
+		 <id column="id" property="id" />
+		 <result property="realName" column="real_name" />
+		 <result property="email" column="email" />
+		 <result property="mobile" column="mobile" />
+		 <result property="telephone" column="telephone" />
+		 <result property="createdTime" column="created_time" />
+		 <result property="updatedTime" column="updated_time" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+        	id,
+        	real_name,
+        	email,
+        	mobile,
+        	telephone,
+        	created_time,
+        	updated_time
+	</sql>
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="realName != null"> and real_name =#{realName}</if>
+				<if test="email != null"> and email =#{email}</if>
+				<if test="mobile != null"> and mobile =#{mobile}</if>
+				<if test="telephone != null"> and telephone =#{telephone}</if>
+				<if test="createdTime != null"> and created_time =#{createdTime}</if>
+				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+				<!-- 模糊查询 -->
+				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(id) from t_user
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_user where id = #{id}
+	</select>
+	
+  	<insert id="insert" parameterType="UserPO" >
+	    <![CDATA[
+	        insert into
+	        t_user (
+        	   id,
+        	   real_name,
+        	   email,
+        	   mobile,
+        	   telephone,
+        	   created_time
+	        ) values (
+        	   #{id},
+        	   #{realName},
+        	   #{email},
+        	   #{mobile},
+        	   #{telephone},
+        	   #{createdTime}
+	        )
+	    ]]>
+    </insert>
+    
+    <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="UserPO">
+		update t_user
+		<set>
+			<if test="realName != null">  real_name =#{realName},</if>
+			<if test="email != null">  email =#{email},</if>
+			<if test="mobile != null">  mobile =#{mobile},</if>
+			<if test="telephone != null">  telephone =#{telephone},</if>
+			<if test="createdTime != null">  created_time =#{createdTime},</if>
+			<if test="updatedTime != null">  updated_time =#{updatedTime}</if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="realName != null"> and real_name =#{realName}</if>
+				<if test="email != null"> and email =#{email}</if>
+				<if test="mobile != null"> and mobile =#{mobile}</if>
+				<if test="telephone != null"> and telephone =#{telephone}</if>
+				<if test="createdTime != null"> and created_time =#{createdTime}</if>
+				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+			</trim>
+		</where>
+	</update>
+    <!-- 通过ID更新 -->
+	<update id="updateById" parameterType="UserPO">
+		update t_user
+		<set>
+			<if test="realName != null">  real_name =#{realName},</if>
+			<if test="email != null">  email =#{email},</if>
+			<if test="mobile != null">  mobile =#{mobile},</if>
+			<if test="telephone != null">  telephone =#{telephone},</if>
+			<if test="createdTime != null">  created_time =#{createdTime},</if>
+			<if test="updatedTime != null">  updated_time =#{updatedTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+    
+    <!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from t_user
+		<include refid="Base_Where_Clause" />
+	</delete>
+     <!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="UserPO">
+		delete from t_user where id = #{id}
+	</delete>
+</mapper>

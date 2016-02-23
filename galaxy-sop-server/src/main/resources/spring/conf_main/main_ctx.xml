@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+          http://www.springframework.org/schema/beans/spring-beans-4.0.xsd   
+           http://www.springframework.org/schema/context   
+           http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+           http://www.springframework.org/schema/aop   
+           http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+           http://www.springframework.org/schema/task 
+           http://www.springframework.org/schema/task/spring-task-4.0.xsd 
+           http://www.springframework.org/schema/mvc 
+		   http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+	<!-- 启用Spring Annotation -->
+	<context:annotation-config />
+	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
+	<context:component-scan base-package="com.galaxyinternet">
+		<!-- 不扫描Controller注解的类 -->
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<aop:config proxy-target-class="true" />
+	<bean
+		class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"></bean>
+
+	<bean id="dataSource_parent" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="maxActive" value="80" />
+		<property name="minIdle" value="20" />
+		<property name="maxIdle" value="80" />
+		<property name="testOnBorrow" value="true" />
+		<property name="testOnReturn" value="true" />
+		<property name="testWhileIdle" value="true" />
+
+		<!--此处处理mysql超过8小时需要重连的问题 c3p0 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"></property>
+		<property name="minEvictableIdleTimeMillis" value="60000"></property>
+		<property name="validationQuery" value="select 1"></property>
+	</bean>
+
+	<bean id="dataSource" parent="dataSource_parent">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+
+	<!-- <bean id="dataSourceUser" parent="dataSource_parent"> <property name="url" 
+		value="${jdbc.url.user}" /> <property name="username" value="${jdbc.username}" 
+		/> <property name="password" value="${jdbc.password}" /> </bean> -->
+
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!--配置事务属性 -->
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!--配置需要管理的方法 -->
+	<aop:config>
+		<aop:pointcut id="allManagerMethod" expression="execution(* *..service..*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod" />
+	</aop:config>
+
+	<!--创建SqlSessionFactory，同时指定数据源 -->
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:db/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+	</bean> -->
+
+	<!-- 给SqlSessionDaoSupport注入默认的sessionfactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:db/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+	</bean>
+
+	<!-- 配置SQLSession模板 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
+		scope="prototype">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="txManager" />
+
+	<!-- 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.galaxyinternet.admin.mapper" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<property name="markerInterface" value="com.galaxyinternet.common.mapper.SqlMapper" />
+	</bean> -->
+
+</beans>
