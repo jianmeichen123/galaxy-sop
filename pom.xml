@@ -4,7 +4,7 @@
 	<groupId>com.galaxyinternet</groupId>
 	<artifactId>galaxy-sop</artifactId>
 	<packaging>pom</packaging>
-	<name/>
+	<name />
 	<version>1.0.0</version>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,12 +14,13 @@
 		<module>galaxy-sop-api</module>
 		<module>galaxy-sop-server</module>
 	</modules>
+
 	<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址. -->
-	<!-- <repositories>
+	<repositories>
 		<repository>
 			<id>nexus</id>
 			<name>Team Nexus Repository</name>
-			<url>http://192.168.101.89:8081/nexus/content/groups/public</url>
+			<url>http://nexus.gi.com/content/groups/public/</url>
 			<snapshots>
 				<enabled>true</enabled>
 				<updatePolicy>always</updatePolicy>
@@ -31,29 +32,17 @@
 				<checksumPolicy>ignore</checksumPolicy>
 			</releases>
 		</repository>
-	</repositories> -->
-	 
+	</repositories>
+
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
 				<version>1.7</version>
-				<!-- <executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>src/main/java</source>
-								<source>src/main/gen</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions> -->
+				<!-- <executions> <execution> <id>add-source</id> <phase>generate-sources</phase> 
+					<goals> <goal>add-source</goal> </goals> <configuration> <sources> <source>src/main/java</source> 
+					<source>src/main/gen</source> </sources> </configuration> </execution> </executions> -->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -71,6 +60,7 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<profiles>
 		<profile>
 			<id>snapshotsjar</id>
@@ -81,7 +71,7 @@
 			<distributionManagement>
 				<snapshotRepository>
 					<id>Snapshots</id>
-					<url>http://192.168.101.89:8081/nexus/content/repositories/snapshots/</url>
+					<url>http://nexus.gi.com/content/repositories/snapshots/</url>
 				</snapshotRepository>
 			</distributionManagement>
 			<build>
@@ -120,7 +110,7 @@
 			<distributionManagement>
 				<repository>
 					<id>Releases</id>
-					<url>http://192.168.101.89:8081/nexus/content/repositories/releases/</url>
+					<url>http://nexus.gi.com/content/repositories/releases/</url>
 				</repository>
 			</distributionManagement>
 			<build>
@@ -148,4 +138,5 @@
 			</build>
 		</profile>
 	</profiles>
+
 </project>

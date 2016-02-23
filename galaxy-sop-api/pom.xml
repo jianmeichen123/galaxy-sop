@@ -13,16 +13,26 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
-	<!-- <repositories>
+
+	<!-- 如有Nexus私服, 取消注释并指向正确的服务器地址. -->
+	<repositories>
 		<repository>
 			<id>nexus</id>
 			<name>Team Nexus Repository</name>
-			<url>http://127.0.0.1:8081/nexus/content/groups/public</url>
+			<url>http://nexus.gi.com/content/groups/public/</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>ignore</checksumPolicy>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>ignore</checksumPolicy>
+			</releases>
 		</repository>
-	</repositories> -->
-	<!-- <repositories> <repository> <id>cm</id> <name>maven_repositories</name> 
-		<layout>default</layout> <url>http://repository.sonatype.org/content/groups/public/ 
-		</url> <snapshots> <enabled>false</enabled> </snapshots> </repository> </repositories> -->
+	</repositories>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -66,21 +76,15 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.16</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>net.sf.json-lib</groupId>
-			<artifactId>json-lib</artifactId>
-			<version>2.2.3</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>net.sf.json-lib</groupId> <artifactId>json-lib</artifactId> 
+			<version>2.2.3</version> </dependency> -->
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 			<version>3.2.2</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>commons-httpclient</groupId>
-			<artifactId>commons-httpclient</artifactId>
-			<version>3.1</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>commons-httpclient</groupId> <artifactId>commons-httpclient</artifactId> 
+			<version>3.1</version> </dependency> -->
 	</dependencies>
 	<profiles>
 		<profile>
@@ -92,7 +96,7 @@
 			<distributionManagement>
 				<snapshotRepository>
 					<id>Snapshots</id>
-					<url>http://127.0.0.1:8081/nexus/content/repositories/snapshots/</url>
+					<url>http://nexus.gi.com/content/repositories/snapshots/</url>
 				</snapshotRepository>
 			</distributionManagement>
 			<build>
@@ -131,7 +135,7 @@
 			<distributionManagement>
 				<repository>
 					<id>Releases</id>
-					<url>http://127.0.0.1:8081/nexus/content/repositories/releases/</url>
+					<url>http://nexus.gi.com/content/repositories/releases/</url>
 				</repository>
 			</distributionManagement>
 			<build>

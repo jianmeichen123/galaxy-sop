@@ -14,12 +14,15 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.1.RELEASE</spring.version>
 	</properties>
-	<!-- <repositories> <repository> <id>nexus</id> <name>Team Nexus Repository</name> 
-		<url>http://127.0.0.1:8081/nexus/content/groups/public</url> </repository> 
-		</repositories> -->
-	<!-- <repositories> <repository> <id>cm</id> <name>maven_repositories</name> 
-		<layout>default</layout> <url>http://repository.sonatype.org/content/groups/public/ 
-		</url> <snapshots> <enabled>false</enabled> </snapshots> </repository> </repositories> -->
+
+	<repositories>
+		<repository>
+			<id>nexus</id>
+			<name>Team Nexus Repository</name>
+			<url>http://nexus.gi.com/content/groups/public/</url>
+		</repository>
+	</repositories>
+
 	<build>
 		<plugins>
 			<!-- war插件, 设定war名称不带版本号 -->
@@ -85,13 +88,11 @@
 					<mongodb.address>192.168.101.131:27017</mongodb.address> -->
 
 				<!-- redis集群配置 -->
-				<!-- <redis1.url>101.200.78.14:6379</redis1.url> 
-				<redis2.url>101.200.78.14:6379</redis2.url> 
-				<redis.master>galaxymaster</redis.master>  -->
-				
-				<!-- <redis.url>101.200.78.14</redis.url>
-				<redis.port>6379</redis.port> -->
-				
+				<!-- <redis1.url>101.200.78.14:6379</redis1.url> <redis2.url>101.200.78.14:6379</redis2.url> 
+					<redis.master>galaxymaster</redis.master> -->
+
+				<!-- <redis.url>101.200.78.14</redis.url> <redis.port>6379</redis.port> -->
+
 			</properties>
 		</profile>
 		<profile>
