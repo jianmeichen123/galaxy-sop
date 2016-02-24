@@ -64,10 +64,9 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-				<!-- ?characterEncoding=utf8&amp;autoReconnect=truezeroDateTimeBehavior=convertToNull&amp; -->
 				<!-- 数据库连接地址和数据库名 -->
 				<jdbc.url>
-					jdbc:mysql://127.0.0.1:3306/galaxy_star
+					jdbc:mysql://127.0.0.1:3306/galaxy_star?characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true
 				</jdbc.url>
 				<!-- <jdbc.user.url> jdbc:mysql://127.0.0.1:3306/galaxy_user?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8 
 					</jdbc.user.url> -->
@@ -160,7 +159,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.galaxyinternet</groupId>
-			<artifactId>galaxy-platform-api</artifactId>
+			<artifactId>galaxy-sop-api</artifactId>
 			<version>${project.version}</version>
 			<!-- <exclusions> <exclusion> <artifactId>commons-collections</artifactId> 
 				<groupId>commons-collections</groupId> </exclusion> </exclusions> -->
