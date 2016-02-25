@@ -44,7 +44,7 @@ public class UserController extends BaseControllerImpl<User, UserBo> {
 		cache.set(user.getMobile(), 100, user);
 		
 		System.out.println(cache.get(user.getMobile()));
-		
+		//
 		return responseBody;
 	}
 }
