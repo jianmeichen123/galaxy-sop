@@ -1,0 +1,60 @@
+package com.galaxyinternet.model.project;
+
+import com.galaxyinternet.framework.core.model.BaseEntity;
+
+public class ProjectShares extends BaseEntity {
+	private static final long serialVersionUID = 1L;
+
+    private Long projectId;
+
+    private String sharesType;
+
+    private String sharesOwner;
+
+    private Integer sharesRatio;
+
+    private String gainMode;
+
+    private String remark;
+
+
+    public String getSharesType() {
+        return sharesType;
+    }
+
+    public void setSharesType(String sharesType) {
+        this.sharesType = sharesType == null ? null : sharesType.trim();
+    }
+
+    public String getSharesOwner() {
+        return sharesOwner;
+    }
+
+    public void setSharesOwner(String sharesOwner) {
+        this.sharesOwner = sharesOwner == null ? null : sharesOwner.trim();
+    }
+
+    public Integer getSharesRatio() {
+        return sharesRatio;
+    }
+
+    public void setSharesRatio(Integer sharesRatio) {
+        this.sharesRatio = sharesRatio;
+    }
+
+    public String getGainMode() {
+        return gainMode;
+    }
+
+    public void setGainMode(String gainMode) {
+        this.gainMode = gainMode == null ? null : gainMode.trim();
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
+    }
+}
