@@ -32,6 +32,16 @@
 		<param-name>log4jRefreshInterval</param-name>
 		<param-value>60000</param-value>
 	</context-param>
+	
+	
+	<filter>
+		<filter-name>loginFilter</filter-name>
+		<filter-class>com.galaxyinternet.framework.core.filter.LoginFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 	<listener>
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
