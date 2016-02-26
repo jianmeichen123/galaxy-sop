@@ -1,6 +1,5 @@
 package com.galaxyinternet.model.project;
 
-import java.math.BigDecimal;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
@@ -17,13 +16,13 @@ public class Project extends BaseEntity {
 
     private Long projectDepartid;
 
-    private BigDecimal projectValuations;
+    private Double projectValuations;
 
-    private BigDecimal projectContribution;
+    private Double projectContribution;
 
     private String currencyUnit;
 
-    private BigDecimal projectShareRatio;
+    private Double projectShareRatio;
 
     private Long createUid;
 
@@ -84,19 +83,19 @@ public class Project extends BaseEntity {
         this.projectDepartid = projectDepartid;
     }
 
-    public BigDecimal getProjectValuations() {
+    public Double getProjectValuations() {
         return projectValuations;
     }
 
-    public void setProjectValuations(BigDecimal projectValuations) {
+    public void setProjectValuations(Double projectValuations) {
         this.projectValuations = projectValuations;
     }
 
-    public BigDecimal getProjectContribution() {
+    public Double getProjectContribution() {
         return projectContribution;
     }
 
-    public void setProjectContribution(BigDecimal projectContribution) {
+    public void setProjectContribution(Double projectContribution) {
         this.projectContribution = projectContribution;
     }
 
@@ -108,11 +107,11 @@ public class Project extends BaseEntity {
         this.currencyUnit = currencyUnit == null ? null : currencyUnit.trim();
     }
 
-    public BigDecimal getProjectShareRatio() {
+    public Double getProjectShareRatio() {
         return projectShareRatio;
     }
 
-    public void setProjectShareRatio(BigDecimal projectShareRatio) {
+    public void setProjectShareRatio(Double projectShareRatio) {
         this.projectShareRatio = projectShareRatio;
     }
 
