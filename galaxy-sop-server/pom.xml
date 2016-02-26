@@ -66,7 +66,7 @@
 			<properties>
 				<!-- 数据库连接地址和数据库名 -->
 				<jdbc.url>
-					jdbc:mysql://10.9.11.232:3306/fx_db?characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true
+					jdbc:mysql://10.9.11.232:3306/fx_db
 				</jdbc.url>
 				<!-- <jdbc.user.url> jdbc:mysql://127.0.0.1:3306/galaxy_user?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8 
 					</jdbc.user.url> -->
@@ -101,7 +101,7 @@
 			</activation>
 			<properties>
 				<jdbc.url>
-					jdbc:mysql://127.0.0.1:3306/galaxy_star?characterEncoding=utf8&amp;zeroDateTimeBehavior=convertToNull&amp;autoReconnect=true
+					jdbc:mysql://127.0.0.1:3306/galaxy_star?characterEncoding=utf8&amp;autoReconnect=true
 				</jdbc.url>
 				<!-- <jdbc.user.url> jdbc:mysql://127.0.0.1:3306/galaxy_user?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8 
 					</jdbc.user.url> -->
