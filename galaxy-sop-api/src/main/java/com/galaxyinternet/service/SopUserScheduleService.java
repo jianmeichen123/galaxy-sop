@@ -8,6 +8,6 @@ import com.galaxyinternet.model.soptask.SopUserSchedule;
 
 public interface SopUserScheduleService extends BaseService<SopUserSchedule>{
 
-	public List<SopUserScheduleBo> selectSopUserScheduleByTime(Long currentTime);
+	public List<SopUserScheduleBo> selectSopUserScheduleByTime(Long currentTime,Integer type);
 	
 }

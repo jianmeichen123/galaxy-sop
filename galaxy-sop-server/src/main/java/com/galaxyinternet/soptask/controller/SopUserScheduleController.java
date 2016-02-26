@@ -66,18 +66,19 @@ public class SopUserScheduleController extends
 	}
 
 	/***
-	 * 获取我的日程前三条信息
+	 * 获取我的日程前三条信息|
+	 * type: 1:前三条数据?更多
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/selectSopUserSchedule", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public ResponseData<SopUserSchedule> selectUserScheduleByTime() {
+	@RequestMapping(value = "/selectSopUserSchedule/{type}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public ResponseData<SopUserSchedule> selectUserScheduleByTime(@PathVariable Integer type) {
 
 		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
 		Result result = new Result();
 		Long currentTime = System.currentTimeMillis();
 		List<SopUserScheduleBo> list = sopUserScheduleService
-				.selectSopUserScheduleByTime(currentTime);
+				.selectSopUserScheduleByTime(currentTime,type);
 		result.setMessage(list);
 		responseBody.setResult(result);
 
