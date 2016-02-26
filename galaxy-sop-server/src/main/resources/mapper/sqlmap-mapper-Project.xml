@@ -12,6 +12,8 @@
     <result column="project_contribution" property="projectContribution" jdbcType="DECIMAL" />
     <result column="currency_unit" property="currencyUnit" jdbcType="VARCHAR" />
     <result column="project_share_ratio" property="projectShareRatio" jdbcType="DECIMAL" />
+    <result column="project_company" property="projectCompany" jdbcType="VARCHAR" />
+    <result column="project_company_code" property="projectCompanyCode" jdbcType="VARCHAR" />
     <result column="create_uid" property="createUid" jdbcType="BIGINT" />
     <result column="create_uname" property="createUname" jdbcType="VARCHAR" />
     <result column="create_uposition" property="createUposition" jdbcType="VARCHAR" />
@@ -29,7 +31,7 @@
   
   <sql id="Base_Column_List" >
     id, project_name, project_code, project_type, project_careerline, project_departId, 
-    project_valuations, project_contribution, currency_unit, project_share_ratio, create_uid, 
+    project_valuations, project_contribution, currency_unit, project_share_ratio, project_company, project_company_code, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
     project_describe, project_business_model, company_location, user_portrait, prospect_analysis
   </sql>
@@ -49,6 +51,10 @@
 		      <if test="projectContribution != null" >  and project_contribution = #{projectContribution,jdbcType=DECIMAL} </if>
 		      <if test="currencyUnit != null" > and currency_unit = #{currencyUnit,jdbcType=VARCHAR} </if>
 		      <if test="projectShareRatio != null" > and project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL} </if>
+		      
+		      <if test="projectCompany != null" > and project_company = #{projectCompany,jdbcType=VARCHAR} </if>
+		      <if test="projectCompanyCode != null" > and project_company_code = #{projectCompanyCode,jdbcType=VARCHAR} </if>
+		      
 		      <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
 		      <if test="createUname != null" > and create_uname = #{createUname,jdbcType=VARCHAR} </if>
 		      <if test="createUposition != null" > and create_uposition = #{createUposition,jdbcType=VARCHAR} </if>
@@ -97,7 +103,7 @@
 	     insert into sop_project (id, project_name, project_code, 
 	      project_type, project_careerline, project_departId, 
 	      project_valuations, project_contribution, 
-	      currency_unit, project_share_ratio, create_uid, 
+	      currency_unit, project_share_ratio, project_company, project_company_code, create_uid, 
 	      create_uname, create_uposition, project_progress, 
 	      project_status, updated_time, created_time, 
 	      project_describe, project_business_model, 
@@ -106,7 +112,7 @@
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, 
 	      #{projectType,jdbcType=VARCHAR}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{projectContribution,jdbcType=DECIMAL}, 
-	      #{currencyUnit,jdbcType=VARCHAR}, #{projectShareRatio,jdbcType=DECIMAL}, #{createUid,jdbcType=BIGINT}, 
+	      #{currencyUnit,jdbcType=VARCHAR}, #{projectShareRatio,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{projectCompanyCode,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
 	      #{createUname,jdbcType=VARCHAR}, #{createUposition,jdbcType=VARCHAR}, #{projectProgress,jdbcType=VARCHAR}, 
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
@@ -128,6 +134,10 @@
 		      <if test="projectContribution != null" >   project_contribution = #{projectContribution,jdbcType=DECIMAL}, </if>
 		      <if test="currencyUnit != null" >  currency_unit = #{currencyUnit,jdbcType=VARCHAR}, </if>
 		      <if test="projectShareRatio != null" > project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL}, </if>
+		      
+		      <if test="projectCompany != null" >  project_company = #{projectCompany,jdbcType=VARCHAR}, </if>
+		      <if test="projectCompanyCode != null" >  project_company_code = #{projectCompanyCode,jdbcType=VARCHAR}, </if>
+		      
 		      <if test="createUid != null" >  create_uid = #{createUid,jdbcType=BIGINT}, </if>
 		      <if test="createUname != null" >  create_uname = #{createUname,jdbcType=VARCHAR}, </if>
 		      <if test="createUposition != null" >  create_uposition = #{createUposition,jdbcType=VARCHAR}, </if>
@@ -143,8 +153,8 @@
 		</set>
 		<where>
 			<trim prefixOverrides="and">
-				<if test="id != null"> and id =#{id}</if>
-				<if test="projectName != null" > and project_name = #{projectName,jdbcType=VARCHAR} </if>
+			  <if test="id != null"> and id =#{id}</if>
+			  <if test="projectName != null" > and project_name = #{projectName,jdbcType=VARCHAR} </if>
 		      <if test="projectCode != null" > and project_code = #{projectCode,jdbcType=VARCHAR} </if>
 		      <if test="projectType != null" > and project_type = #{projectType,jdbcType=VARCHAR} </if>
 		      <if test="projectCareerline != null" > and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
@@ -153,6 +163,10 @@
 		      <if test="projectContribution != null" >  and project_contribution = #{projectContribution,jdbcType=DECIMAL} </if>
 		      <if test="currencyUnit != null" > and currency_unit = #{currencyUnit,jdbcType=VARCHAR} </if>
 		      <if test="projectShareRatio != null" > and project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL} </if>
+		      
+		      <if test="projectCompany != null" > and project_company = #{projectCompany,jdbcType=VARCHAR} </if>
+		      <if test="projectCompanyCode != null" > and project_company_code = #{projectCompanyCode,jdbcType=VARCHAR} </if>
+		      
 		      <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
 		      <if test="createUname != null" > and create_uname = #{createUname,jdbcType=VARCHAR} </if>
 		      <if test="createUposition != null" > and create_uposition = #{createUposition,jdbcType=VARCHAR} </if>
@@ -181,6 +195,8 @@
 		      <if test="projectContribution != null" >   project_contribution = #{projectContribution,jdbcType=DECIMAL}, </if>
 		      <if test="currencyUnit != null" >  currency_unit = #{currencyUnit,jdbcType=VARCHAR}, </if>
 		      <if test="projectShareRatio != null" > project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL}, </if>
+		      <if test="projectCompany != null" >  project_company = #{projectCompany,jdbcType=VARCHAR}, </if>
+		      <if test="projectCompanyCode != null" >  project_company_code = #{projectCompanyCode,jdbcType=VARCHAR}, </if>
 		      <if test="createUid != null" >  create_uid = #{createUid,jdbcType=BIGINT}, </if>
 		      <if test="createUname != null" >  create_uname = #{createUname,jdbcType=VARCHAR}, </if>
 		      <if test="createUposition != null" >  create_uposition = #{createUposition,jdbcType=VARCHAR}, </if>

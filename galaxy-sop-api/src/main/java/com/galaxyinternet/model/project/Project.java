@@ -23,6 +23,10 @@ public class Project extends BaseEntity {
     private String currencyUnit;
 
     private Double projectShareRatio;
+    
+    private String projectCompany;
+    
+    private String projectCompanyCode;
 
     private Long createUid;
 
@@ -114,8 +118,24 @@ public class Project extends BaseEntity {
     public void setProjectShareRatio(Double projectShareRatio) {
         this.projectShareRatio = projectShareRatio;
     }
+    
+    public String getProjectCompany() {
+		return projectCompany;
+	}
 
-    public Long getCreateUid() {
+	public void setProjectCompany(String projectCompany) {
+		this.projectCompany = projectCompany;
+	}
+
+	public String getProjectCompanyCode() {
+		return projectCompanyCode;
+	}
+
+	public void setProjectCompanyCode(String projectCompanyCode) {
+		this.projectCompanyCode = projectCompanyCode;
+	}
+
+	public Long getCreateUid() {
         return createUid;
     }
 
