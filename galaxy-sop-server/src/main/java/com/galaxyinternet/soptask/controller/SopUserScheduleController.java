@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.galaxyinternet.bo.SopUserScheduleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.soptask.SopUserSchedule;
 import com.galaxyinternet.service.SopUserScheduleService;
@@ -50,38 +53,44 @@ public class SopUserScheduleController extends
 
 		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
 		Result result = new Result();
-
-		if ("1".equals(status)) {
-			// 获取用户id
-			sopUserSchedule.setUserId(0);
-			sopUserScheduleService.insert(sopUserSchedule);
-			result.setMessage("添加日程成功!");
-		} else {
-			sopUserScheduleService.updateById(sopUserSchedule);
-			result.setMessage("修改日程成功!");
+		result.setStatus(Status.OK);
+		try {
+			if ("1".equals(status)) {
+				// 获取用户id待写
+				sopUserSchedule.setUserId(0);
+				sopUserScheduleService.insert(sopUserSchedule);
+				result.setMessage("添加日程成功!");
+			} else {
+				sopUserScheduleService.updateById(sopUserSchedule);
+				result.setMessage("修改日程成功!");
+			}
+		} catch (Exception e) {
+			logger.error("操作日程失败!");
+			result.setMessage("操作日程失败!");
+			result.setStatus(Status.ERROR);
 		}
-
 		responseBody.setResult(result);
 		return responseBody;
 	}
 
 	/***
-	 * 获取我的日程前三条信息|
-	 * type: 1:前三条数据?更多
+	 * 获取我的日程前三条信息| type: 1:前三条数据?更多
+	 * 
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/selectSopUserSchedule/{type}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public ResponseData<SopUserSchedule> selectUserScheduleByTime(@PathVariable Integer type) {
+	public ResponseData<SopUserSchedule> selectUserScheduleByTime(
+			@PathVariable Integer type) {
 
+		// 后续添加user等信息
 		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
-		Result result = new Result();
 		Long currentTime = System.currentTimeMillis();
 		List<SopUserScheduleBo> list = sopUserScheduleService
-				.selectSopUserScheduleByTime(currentTime,type);
-		result.setMessage(list);
-		responseBody.setResult(result);
-
+				.selectSopUserScheduleByTime(currentTime, type);
+		Page<SopUserScheduleBo> page = new Page<SopUserScheduleBo>(list, null,
+				null);
+		responseBody.setPageVoList(page);
 		return responseBody;
 	}
 
