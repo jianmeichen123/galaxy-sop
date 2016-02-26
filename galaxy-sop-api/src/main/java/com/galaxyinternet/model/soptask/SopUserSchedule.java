@@ -1,4 +1,4 @@
-package com.galaxyinternet.model.user;
+package com.galaxyinternet.model.soptask;
 
 import java.sql.Timestamp;
 
