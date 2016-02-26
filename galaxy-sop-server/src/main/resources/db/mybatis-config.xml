@@ -5,5 +5,6 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="UserPO" type="com.galaxyinternet.model.user.User" />
+		<typeAlias alias="SopTaskPO" type="com.galaxyinternet.model.soptask.SopTask" />
 	</typeAliases>
 </configuration>

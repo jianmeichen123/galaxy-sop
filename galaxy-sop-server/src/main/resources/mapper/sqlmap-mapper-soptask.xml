@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.soptask.SopTask">
+	<resultMap id="BaseResultMap" type="SopTaskPO">
+		<id column="id" property="id" />
+		<result property="projectId" column="project_id" />
+		<result property="taskName" column="task_name" />
+		<result property="taskType" column="task_type" />
+		<result property="taskOrder" column="task_order" />
+		<result property="taskDeadline" column="task_deadline" />
+		<result property="taskDestination" column="task_destination" />
+		<result property="taskReceiveUid" column="task_receive_uid" />
+		<result property="taskStatus" column="task_status" />
+		<result property="remark" column="remark" />
+		<result property="createdTime" column="created_time" />
+		<result property="updatedTime" column="updated_time" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,
+		project_id,
+		task_name,
+		task_type,
+		task_order,
+		task_deadline,
+		task_destination,
+		task_receive_uid,
+		task_status,
+		remark,
+		updated_time,
+		created_time
+	</sql>
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="taskName != null"> and task_name =#{taskName}</if>
+				<if test="taskType != null"> and task_type =#{taskType}</if>
+				<if test="taskOrder != null"> and task_order =#{taskOrder}</if>
+				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
+				<if test="taskDestination != null"> and task_destination =#{taskDestination}</if>
+				<if test="taskReceiveUid != null"> and task_receive_uid =#{taskReceiveUid}</if>
+				<if test="taskStatus != null"> and task_status =#{taskStatus}</if>
+				<if test="remark != null"> and remark =#{remark}</if>
+				<if test="createdTime != null"> and created_time =#{createdTime}</if>
+				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+				<!-- 模糊查询 -->
+				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(id) from sop_task
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_task
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_task where id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="SopTaskPO">
+	    <![CDATA[
+	        insert into
+	        sop_task (
+        	   id,
+        	   project_id,
+        	   task_name,
+        	   task_type,
+        	   task_order,
+        	   task_deadline,
+        	   task_destination,
+        	   task_receive_uid,
+        	   task_status,
+        	   remark,
+        	   created_time
+	        ) values (
+        	   #{id},
+        	   #{projectId},	   
+        	   #{taskName},
+        	   #{taskType},
+        	   #{taskOrder},
+        	   #{taskDeadline},
+        	   #{taskDestination},
+        	   #{taskReceiveUid},
+        	   #{taskStatus},
+        	   #{remark},
+        	   #{createdTime}
+	        )
+	    ]]>
+	</insert>
+
+	<!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="SopTaskPO">
+		update sop_task
+		<set>
+			<if test="id != null"> and id =#{id}</if>
+			<if test="projectId != null"> and project_id =#{projectId},</if>
+			<if test="taskName != null"> and task_name =#{taskName},</if>
+			<if test="taskType != null"> and task_type =#{taskType},</if>
+			<if test="taskOrder != null"> and task_order =#{taskOrder},</if>
+			<if test="taskDeadline != null"> and task_deadline =#{taskDeadline},</if>
+			<if test="taskDestination != null"> and task_destination =#{taskDestination},</if>
+			<if test="taskReceiveUid != null"> and task_receive_uid =#{taskReceiveUid},</if>
+			<if test="taskStatus != null"> and task_status =#{taskStatus},</if>
+			<if test="remark != null"> and remark =#{remark},</if>
+			<if test="createdTime != null"> and created_time =#{createdTime},</if>
+			<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="taskName != null"> and task_name =#{taskName}</if>
+				<if test="taskType != null"> and task_type =#{taskType}</if>
+				<if test="taskOrder != null"> and task_order =#{taskOrder}</if>
+				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
+				<if test="taskDestination != null"> and task_destination =#{taskDestination}</if>
+				<if test="taskReceiveUid != null"> and task_receive_uid =#{taskReceiveUid}</if>
+				<if test="taskStatus != null"> and task_status =#{taskStatus}</if>
+				<if test="remark != null"> and remark =#{remark}</if>
+				<if test="createdTime != null"> and created_time =#{createdTime}</if>
+				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+			</trim>
+		</where>
+	</update>
+	<!-- 通过ID更新 -->
+	<update id="updateById" parameterType="SopTaskPO">
+		update sop_task
+		<set>
+			<if test="id != null"> and id =#{id}</if>
+			<if test="projectId != null"> and project_id =#{projectId},</if>
+			<if test="taskName != null"> and task_name =#{taskName},</if>
+			<if test="taskType != null"> and task_type =#{taskType},</if>
+			<if test="taskOrder != null"> and task_order =#{taskOrder},</if>
+			<if test="taskDeadline != null"> and task_deadline =#{taskDeadline},</if>
+			<if test="taskDestination != null"> and task_destination =#{taskDestination},</if>
+			<if test="taskReceiveUid != null"> and task_receive_uid =#{taskReceiveUid},</if>
+			<if test="taskStatus != null"> and task_status =#{taskStatus},</if>
+			<if test="remark != null"> and remark =#{remark},</if>
+			<if test="createdTime != null"> and created_time =#{createdTime},</if>
+			<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_task
+		<include refid="Base_Where_Clause" />
+	</delete>
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="SopTaskPO">
+		delete from sop_task where
+		id = #{id}
+	</delete>
+</mapper>
