@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.project.ProjectShares" >
+
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.project.ProjectShares" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="shares_type" property="sharesType" jdbcType="VARCHAR" />
+    <result column="shares_owner" property="sharesOwner" jdbcType="VARCHAR" />
+    <result column="shares_ratio" property="sharesRatio" jdbcType="DECIMAL" />
+    <result column="gain_mode" property="gainMode" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    id, project_id, shares_type, shares_owner, shares_ratio, gain_mode, remark
+  </sql>
+  
+  
+  <sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+			     <if test="sharesType != null" >and shares_type = #{sharesType,jdbcType=VARCHAR} </if>
+			     <if test="sharesOwner != null" >and shares_owner = #{sharesOwner,jdbcType=VARCHAR} </if>
+			     <if test="sharesRatio != null" >and shares_ratio = #{sharesRatio,jdbcType=DECIMAL} </if>
+			     <if test="gainMode != null" >and gain_mode = #{gainMode,jdbcType=VARCHAR} </if>
+			     <if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from sop_project_shares
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_project_shares
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_project_shares where id = #{id}
+	</select>
+	
+  	<insert id="insert" parameterType="com.galaxyinternet.model.project.ProjectShares" >
+	    <![CDATA[
+	    insert into sop_project_shares (id, project_id, shares_type, 
+	      shares_owner, shares_ratio, gain_mode, 
+	      remark)
+	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{sharesType,jdbcType=VARCHAR}, 
+	      #{sharesOwner,jdbcType=VARCHAR}, #{sharesRatio,jdbcType=DECIMAL}, #{gainMode,jdbcType=VARCHAR}, 
+	      #{remark,jdbcType=VARCHAR})
+	    ]]>
+    </insert>
+    
+    <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.project.ProjectShares">
+		update sop_project_shares
+		<set>
+			<if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+		     <if test="sharesType != null" > shares_type = #{sharesType,jdbcType=VARCHAR}, </if>
+		     <if test="sharesOwner != null" > shares_owner = #{sharesOwner,jdbcType=VARCHAR}, </if>
+		     <if test="sharesRatio != null" > shares_ratio = #{sharesRatio,jdbcType=DECIMAL}, </if>
+		     <if test="gainMode != null" > gain_mode = #{gainMode,jdbcType=VARCHAR}, </if>
+		     <if test="remark != null" > remark = #{remark,jdbcType=VARCHAR} </if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+			    <if test="sharesType != null" >and shares_type = #{sharesType,jdbcType=VARCHAR} </if>
+			    <if test="sharesOwner != null" >and shares_owner = #{sharesOwner,jdbcType=VARCHAR} </if>
+			    <if test="sharesRatio != null" >and shares_ratio = #{sharesRatio,jdbcType=DECIMAL} </if>
+			    <if test="gainMode != null" >and gain_mode = #{gainMode,jdbcType=VARCHAR} </if>
+			    <if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
+			</trim>
+		</where>
+	</update>
+    <!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.project.ProjectShares">
+		update sop_project_shares
+		<set>
+			<if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+		     <if test="sharesType != null" > shares_type = #{sharesType,jdbcType=VARCHAR}, </if>
+		     <if test="sharesOwner != null" > shares_owner = #{sharesOwner,jdbcType=VARCHAR}, </if>
+		     <if test="sharesRatio != null" > shares_ratio = #{sharesRatio,jdbcType=DECIMAL}, </if>
+		     <if test="gainMode != null" > gain_mode = #{gainMode,jdbcType=VARCHAR}, </if>
+		     <if test="remark != null" > remark = #{remark,jdbcType=VARCHAR} </if>
+		</set>
+		where id = #{id}
+	</update>
+    
+    <!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_project_shares
+		<include refid="Base_Where_Clause" />
+	</delete>
+     <!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="com.galaxyinternet.model.project.ProjectShares">
+		delete from sop_project_shares where id = #{id}
+	</delete>
+	
+	
+  
+</mapper>
