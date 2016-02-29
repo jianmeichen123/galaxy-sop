@@ -1,13 +1,18 @@
 package com.galaxyinternet.bo.project;
 
+import java.util.List;
+
 import com.galaxyinternet.model.project.Project;
 
 public class ProjectBo extends Project {
+	
 	private static final long serialVersionUID = 1L;
 
 	private String extendFiled;// 业务对象中扩展的字段
 	
 	private String nameLike;//模糊查询条件匹配
+	
+	private List<String>  ids;//业务扩展字段---项目ids
 
 	public String getExtendFiled() {
 		return extendFiled;
@@ -24,6 +29,15 @@ public class ProjectBo extends Project {
 	public void setNameLike(String nameLike) {
 		this.nameLike = nameLike;
 	}
+
+	public List<String> getIds() {
+		return ids;
+	}
+
+	public void setIds(List<String> ids) {
+		this.ids = ids;
+	}
+	
 	
 	
   
