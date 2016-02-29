@@ -35,16 +35,18 @@
 
 	<sql id="Base_Where_Clause">
 		<where>
-		       is_delete = 0
+			is_delete = 0
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null"> and project_id =#{projectId}</if>
 				<if test="taskName != null"> and task_name =#{taskName}</if>
 				<if test="taskType != null"> and task_type =#{taskType}</if>
 				<if test="taskOrder != null"> and task_order =#{taskOrder}</if>
-				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
 				<if test="taskDestination != null"> and task_destination =#{taskDestination}</if>
-				<if test="taskReceiveUid != null"> and task_receive_uid =#{taskReceiveUid}</if>
+				<if test="taskReceiveUid != null and taskDeadline != null">
+					and (task_receive_uid =#{taskReceiveUid} or (task_deadline
+					=#{taskDeadline} and task_type=1 ))
+				</if>
 				<if test="taskStatus != null"> and task_status =#{taskStatus}</if>
 				<if test="remark != null"> and remark =#{remark}</if>
 				<if test="createdTime != null"> and created_time =#{createdTime}</if>
@@ -52,11 +54,11 @@
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 				<if test="ids != null">
-			        AND project_id IN
-				    <foreach collection="ids" index="item" item="item" open="("
-				       separator="," close=")">
-				       	#{item}
-				     </foreach>
+					AND project_id IN
+					<foreach collection="ids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
 				</if>
 			</trim>
 		</where>
@@ -87,11 +89,11 @@
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 				<if test="ids != null">
-			        AND project_id IN
-				    <foreach collection="ids" index="item" item="item" open="("
-				       separator="," close=")">
-				       	#{item}
-				     </foreach>
+					AND project_id IN
+					<foreach collection="ids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
 				</if>
 			</trim>
 		</where>
