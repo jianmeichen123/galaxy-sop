@@ -9,6 +9,8 @@ public class PersonPool extends BaseEntity{
 	
     private String personName;
     private Integer personSex;
+    private Integer personAge;
+    private String personDuties;
     private Date personBirthday;
     private String personIdcard;
     private String personTelephone;
@@ -44,7 +46,23 @@ public class PersonPool extends BaseEntity{
         this.personSex = personSex;
     }
 
-    public Date getPersonBirthday() {
+    public Integer getPersonAge() {
+		return personAge;
+	}
+
+	public void setPersonAge(Integer personAge) {
+		this.personAge = personAge;
+	}
+
+	public String getPersonDuties() {
+		return personDuties;
+	}
+
+	public void setPersonDuties(String personDuties) {
+		this.personDuties = personDuties;
+	}
+
+	public Date getPersonBirthday() {
         return personBirthday;
     }
 
