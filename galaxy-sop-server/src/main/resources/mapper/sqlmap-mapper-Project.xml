@@ -69,6 +69,16 @@
 		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
+				<if test="nameLike != null">and (project_name like CONCAT("%",#{nameLike},"%") or create_uname like CONCAT("%",#{nameLike},"%"))
+				
+				</if>
+				<if test="ids != null">
+					AND id IN
+					<foreach collection="ids" index="item" item="item" open="("
+	                      separator="," close=")">
+	                          #{item}
+                    </foreach>
+				</if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
