@@ -21,6 +21,7 @@ public abstract class ValidationUtil {
 		throwSopException(ExceptionMessage.FIELD_NOT_ALLOWED_EMPTY, fieldName);
 		return true;
 	}
+	
 
 
 	public static boolean isEmptyOrLessThan(
