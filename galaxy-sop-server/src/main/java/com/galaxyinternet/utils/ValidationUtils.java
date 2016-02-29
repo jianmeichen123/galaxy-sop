@@ -10,7 +10,7 @@ import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 
 
 
-public abstract class ValidationUtil {
+public abstract class ValidationUtils {
 
 
 
