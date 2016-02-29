@@ -2,6 +2,8 @@ package com.galaxyinternet.soptask.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.soptask.SopUserSchedule;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SopUserScheduleService;
 
 @Controller
@@ -32,6 +35,9 @@ public class SopUserScheduleController extends
 
 	@Autowired
 	private SopUserScheduleService sopUserScheduleService;
+	
+	@Autowired
+	com.galaxyinternet.framework.cache.Cache cache;
 
 	@Override
 	protected BaseService<SopUserSchedule> getBaseService() {
@@ -49,15 +55,20 @@ public class SopUserScheduleController extends
 	@RequestMapping(value = "/addOrUpdateSopUserSchedule/{status}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopUserSchedule> addUserSchedule(
 			@RequestBody SopUserSchedule sopUserSchedule,
-			@PathVariable String status) {
-
+			@PathVariable String status,HttpServletRequest request) {
+		
 		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
+		Object ob=request.getSession().getAttribute("sessionUser");
+		if(ob == null){
+			responseBody.setResult(new Result(Status.ERROR,"no login status."));
+			return responseBody;
+		}
+		User user=(User) ob;
+		sopUserSchedule.setUserId(user.getId());
 		Result result = new Result();
 		result.setStatus(Status.OK);
 		try {
 			if ("1".equals(status)) {
-				// 获取用户id待写
-				sopUserSchedule.setUserId(0);
 				sopUserScheduleService.insert(sopUserSchedule);
 				result.setMessage("添加日程成功!");
 			} else {
@@ -81,13 +92,18 @@ public class SopUserScheduleController extends
 	@ResponseBody
 	@RequestMapping(value = "/selectSopUserSchedule/{type}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public ResponseData<SopUserSchedule> selectUserScheduleByTime(
-			@PathVariable Integer type) {
+			@PathVariable Integer type,HttpServletRequest request) {
 
-		// 后续添加user等信息
 		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
+		Object ob=request.getSession().getAttribute("sessionUser");
+		if(ob == null){
+			responseBody.setResult(new Result(Status.ERROR,"no login status."));
+			return responseBody;
+		}
+		User user=(User) ob;
 		Long currentTime = System.currentTimeMillis();
 		List<SopUserScheduleBo> list = sopUserScheduleService
-				.selectSopUserScheduleByTime(currentTime, type);
+				.selectSopUserScheduleByTime(user.getId(),currentTime, type);
 		Page<SopUserScheduleBo> page = new Page<SopUserScheduleBo>(list, null,
 				null);
 		responseBody.setPageVoList(page);

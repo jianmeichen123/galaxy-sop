@@ -1,7 +1,9 @@
 package com.galaxyinternet.soptask.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,22 +32,19 @@ public class SopUserScheduleServiceImpl extends
 	 * 获取我的日程前三条信息 type: 1:前三条数据?更多 currentTime 当前系统时间
 	 */
 	@Override
-	public List<SopUserScheduleBo> selectSopUserScheduleByTime(
+	public List<SopUserScheduleBo> selectSopUserScheduleByTime(Long userId,
 			Long currentTime, Integer type) {
 		// TODO Auto-generated method stub
 		// 获取大于当前系统时间的数据信息
-		SopUserSchedule query = new SopUserSchedule();
-		query.setCreatedTime(currentTime);
-		List<SopUserSchedule> list = sopUserScheduleDao.selectList(query);
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("userId", userId);
+		params.put("createdTime", currentTime);
+		params.put("type", type);
+		List<SopUserSchedule> list = sopUserScheduleDao.selectSopUserScheduleByTime(params);
 		// 取数据的前三条信息并进行时间判断
 		List<SopUserScheduleBo> sopUserScheduleBoList = new ArrayList<SopUserScheduleBo>();
-		for (int i = 0; i < list.size(); i++) {
-
-			if (i == 3 && type == 1) {
-				break;
-			}
+		for (SopUserSchedule sopUser:list) {
 			SopUserScheduleBo sopbo = new SopUserScheduleBo();
-			SopUserSchedule sopUser = list.get(i);
 			String message = "";
 			if (type == 1) {
 				long l = sopUser.getCreatedTime() - currentTime;
@@ -64,13 +63,14 @@ public class SopUserScheduleServiceImpl extends
 				if (day == 2) {
 					message = "后天";
 				}
+				sopbo.setItemType(sopUser.getItemType());
+				sopbo.setItemOrder(sopUser.getItemOrder());
+				sopbo.setUserId(sopUser.getUserId());
+				sopbo.setCreatedTime(sopUser.getCreatedTime());
 				sopbo.setTimeTask(message + messageContent);
+				sopUserScheduleBoList.add(sopbo);
+				
 			}
-			sopbo.setItemType(sopUser.getItemType());
-			sopbo.setItemOrder(sopUser.getItemOrder());
-			sopbo.setUserId(sopUser.getUserId());
-			sopbo.setCreatedTime(sopUser.getCreatedTime());
-			sopUserScheduleBoList.add(sopbo);
 		}
 		return sopUserScheduleBoList;
 

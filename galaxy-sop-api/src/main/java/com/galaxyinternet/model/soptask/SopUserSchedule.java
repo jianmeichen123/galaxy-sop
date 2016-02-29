@@ -11,7 +11,7 @@ public class SopUserSchedule extends BaseEntity {
 	/**
 	 * 用户id
 	 */
-	private int userId;
+	private Long userId;
 
 	/**
 	 * 事项类型 : 任务 会议 访谈...
@@ -33,12 +33,14 @@ public class SopUserSchedule extends BaseEntity {
 	 */
 	private Timestamp itemDate;
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+   
+
+	public Long getUserId() {
+		return userId;
 	}
 
-	public int getUserId() {
-		return userId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public void setItemType(int itemType) {
