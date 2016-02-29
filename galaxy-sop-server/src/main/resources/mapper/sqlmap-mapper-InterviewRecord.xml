@@ -5,6 +5,7 @@
   <resultMap id="BaseResultMap" type="com.galaxyinternet.model.project.InterviewRecord" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="file_id" property="fileId" jdbcType="BIGINT" />
     <result column="view_date" property="viewDate" jdbcType="TIMESTAMP" />
     <result column="view_target" property="viewTarget" jdbcType="VARCHAR" />
     <result column="view_notes" property="viewNotes" jdbcType="VARCHAR" />
@@ -12,7 +13,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, project_id, view_date, view_target, view_notes, created_time
+    id, project_id,file_id, view_date, view_target, view_notes, created_time
   </sql>
   
   <sql id="Base_Where_Clause">
@@ -20,6 +21,7 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="fileId != null" >and file_id = #{fileId,jdbcType=BIGINT} </if>
 				<if test="viewDate != null" > and view_date = #{viewDate,jdbcType=TIMESTAMP} </if>
 				<if test="viewTarget != null" > and view_target = #{viewTarget,jdbcType=VARCHAR} </if>
 				<if test="viewNotes != null" > and view_notes = #{viewNotes,jdbcType=VARCHAR} </if>
@@ -57,10 +59,10 @@
 	
   	<insert id="insert" parameterType="com.galaxyinternet.model.project.InterviewRecord" >
 	    <![CDATA[
-		insert into sop_interview_record (id, project_id, view_date, 
+		insert into sop_interview_record (id, project_id, file_id,view_date, 
 		  view_target, view_notes, created_time
       	)
-	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{viewDate,jdbcType=TIMESTAMP}, 
+	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, #{viewDate,jdbcType=TIMESTAMP}, 
 	      #{viewTarget,jdbcType=VARCHAR}, #{viewNotes,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT}
 		)
 	    ]]>
@@ -71,6 +73,7 @@
 		update sop_interview_record
 		<set>
 		  <if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+		  <if test="fileId != null" > file_id = #{fileId,jdbcType=BIGINT}, </if>
 	      <if test="viewDate != null" > view_date = #{viewDate,jdbcType=TIMESTAMP}, </if>
 	      <if test="viewTarget != null" > view_target = #{viewTarget,jdbcType=VARCHAR}, </if>
 	      <if test="viewNotes != null" > view_notes = #{viewNotes,jdbcType=VARCHAR}, </if>
@@ -80,6 +83,7 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
+	      		<if test="fileId != null" >and file_id = #{fileId,jdbcType=BIGINT} </if>
 	      		<if test="viewDate != null" >and view_date = #{viewDate,jdbcType=TIMESTAMP} </if>
 	      		<if test="viewTarget != null" > and view_target = #{viewTarget,jdbcType=VARCHAR} </if>
 	      		<if test="viewNotes != null" > and view_notes = #{viewNotes,jdbcType=VARCHAR} </if>
@@ -92,6 +96,7 @@
 		update sop_interview_record
 		<set>
 		  <if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+	      <if test="fileId != null" > file_id = #{fileId,jdbcType=BIGINT}, </if>
 	      <if test="viewDate != null" > view_date = #{viewDate,jdbcType=TIMESTAMP}, </if>
 	      <if test="viewTarget != null" > view_target = #{viewTarget,jdbcType=VARCHAR}, </if>
 	      <if test="viewNotes != null" > view_notes = #{viewNotes,jdbcType=VARCHAR}, </if>
@@ -109,6 +114,61 @@
 	<delete id="deleteById" parameterType="UserPO">
 		delete from sop_interview_record where id = #{id}
 	</delete>
+	
+	
+	
+	
+	<resultMap id="PageResultMap" type="com.galaxyinternet.bo.project.InterviewRecordBo" >
+	    <id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+	    <result column="project_name" property="proName" jdbcType="BIGINT" />
+	    <result column="file_id" property="fileId" jdbcType="BIGINT" />
+	    <result column="view_date" property="viewDate" jdbcType="TIMESTAMP" />
+	    <result column="view_target" property="viewTarget" jdbcType="VARCHAR" />
+	    <result column="view_notes" property="viewNotes" jdbcType="VARCHAR" />
+	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+	</resultMap>
+  
+	<!-- 查询 -->
+	<select id="selectInterviewPage" resultMap="PageResultMap" parameterType="java.util.Map">
+		select
+			ir.id, ir.project_id, p.project_name, ir.file_id, ir.view_date, ir.view_target, 
+			ir.view_notes, ir.created_time
+		from sop_interview_record ir , sop_project p 
+		where ir.project_id = p.id
+			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
+			<if test="startTime != null"> <![CDATA[  and ir.viewDate >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and ir.viewDate <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="params.param != null">
+				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
+			</if>
+			<!-- 模糊查询  like '%${params.param}%' -->
+			<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
+		order by ir.view_date desc,ir.created_time desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="selectInterviewCount" resultMap="java.lang.Long" parameterType="java.util.Map">
+	  select count(*) from (
+		select
+			ir.id, ir.project_id, p.project_name, ir.file_id, ir.view_date, ir.view_target, 
+			ir.view_notes, ir.created_time
+		from sop_interview_record ir , sop_project p 
+		where ir.project_id = p.id
+			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
+			<if test="startTime != null"> <![CDATA[  and ir.viewDate >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and ir.viewDate <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="params.param != null">
+				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
+			</if>
+		) a
+	</select>
+	
+	
+  
   
   
 </mapper>

@@ -15,6 +15,8 @@ public class MeetingScheduling extends BaseEntity {
 
     private Date meetingDate;
 
+    private String status;
+
     private String remark;
 
     public Long getProjectId() {
@@ -48,8 +50,16 @@ public class MeetingScheduling extends BaseEntity {
     public void setMeetingDate(Date meetingDate) {
         this.meetingDate = meetingDate;
     }
+    
+    public String getStatus() {
+		return status;
+	}
 
-    public String getRemark() {
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getRemark() {
         return remark;
     }
 

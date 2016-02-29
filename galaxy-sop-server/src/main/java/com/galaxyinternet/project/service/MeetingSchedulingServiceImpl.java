@@ -10,7 +10,7 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.service.MeetingSchedulingService;
 
 
-@Service("com.galaxyinternet.service.meetingSchedulingService")
+@Service("com.galaxyinternet.service.MeetingSchedulingService")
 public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingScheduling> implements MeetingSchedulingService {
 
 	@Autowired
@@ -21,5 +21,9 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 		return this.meetingSchedulingDao;
 	}
 
+	@Override
+	public int updateCountBySelective(MeetingScheduling entity) {
+		return meetingSchedulingDao.updateCountBySelective(entity);
+	}
 
 }
