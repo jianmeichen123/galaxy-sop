@@ -3,16 +3,19 @@
 <mapper namespace="com.galaxyinternet.model.project.MeetingRecord" >
 
   <resultMap id="BaseResultMap" type="com.galaxyinternet.model.project.MeetingRecord" >
-    <id column="id" property="id" jdbcType="BIGINT" />
+  	<id column="id" property="id" jdbcType="BIGINT" />
     <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="file_id" property="fileId" jdbcType="BIGINT" />
     <result column="meeting_date" property="meetingDate" jdbcType="TIMESTAMP" />
     <result column="meeting_type" property="meetingType" jdbcType="VARCHAR" />
+    <result column="meeting_result" property="meetingResult" jdbcType="VARCHAR" />
     <result column="meeting_notes" property="meetingNotes" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
   </resultMap>
   
+  
   <sql id="Base_Column_List" >
-    id, project_id, meeting_date, meeting_type, meeting_notes, created_time
+    id, project_id, file_id, meeting_date, meeting_type, meeting_result, meeting_notes, created_time
   </sql>
   
   
@@ -21,8 +24,10 @@
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
 			  <if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+			  <if test="fileId != null" >and file_id = #{fileId,jdbcType=BIGINT} </if>
 		      <if test="meetingDate != null" >and meeting_date = #{meetingDate,jdbcType=TIMESTAMP} </if>
 		      <if test="meetingType != null" >and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+		      <if test="meetingResult != null" >and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
 		      <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
 		      <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			  <!-- 模糊查询 -->
@@ -58,12 +63,12 @@
 	
   	<insert id="insert" parameterType="com.galaxyinternet.model.project.MeetingRecord" >
 	    <![CDATA[
-	     insert into sop_meeting_record (id, project_id, meeting_date, 
-	      meeting_type, meeting_notes, created_time
-	      )
-	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{meetingDate,jdbcType=TIMESTAMP}, 
-	      #{meetingType,jdbcType=VARCHAR}, #{meetingNotes,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT}
-	      )
+	    insert into sop_meeting_record (id, project_id, file_id, 
+	      meeting_date, meeting_type, meeting_result, 
+	      meeting_notes, created_time)
+	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, 
+	      #{meetingDate,jdbcType=TIMESTAMP}, #{meetingType,jdbcType=VARCHAR}, #{meetingResult,jdbcType=VARCHAR}, 
+	      #{meetingNotes,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT})
 	    ]]>
     </insert>
     
@@ -72,8 +77,10 @@
 		update sop_meeting_record
 		<set>
 			<if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+			<if test="fileId != null" > file_id = #{fileId,jdbcType=BIGINT}, </if>
 		    <if test="meetingDate != null" > meeting_date = #{meetingDate,jdbcType=TIMESTAMP}, </if>
 		    <if test="meetingType != null" > meeting_type = #{meetingType,jdbcType=VARCHAR}, </if>
+		    <if test="meetingResult != null" > meeting_result = #{meetingResult,jdbcType=VARCHAR}, </if>
 		    <if test="meetingNotes != null" > meeting_notes = #{meetingNotes,jdbcType=VARCHAR}, </if>
 		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>
 		</set>
@@ -81,8 +88,10 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+		        <if test="fileId != null" >and file_id = #{fileId,jdbcType=BIGINT} </if>
 		        <if test="meetingDate != null" >and meeting_date = #{meetingDate,jdbcType=TIMESTAMP} </if>
 		        <if test="meetingType != null" >and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+		        <if test="meetingResult != null" >and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
 		        <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
 		        <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			</trim>
@@ -93,13 +102,16 @@
 		update sop_meeting_record
 		<set>
 			<if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+			<if test="fileId != null" > file_id = #{fileId,jdbcType=BIGINT}, </if>
 		    <if test="meetingDate != null" > meeting_date = #{meetingDate,jdbcType=TIMESTAMP}, </if>
 		    <if test="meetingType != null" > meeting_type = #{meetingType,jdbcType=VARCHAR}, </if>
+		    <if test="meetingResult != null" > meeting_result = #{meetingResult,jdbcType=VARCHAR}, </if>
 		    <if test="meetingNotes != null" > meeting_notes = #{meetingNotes,jdbcType=VARCHAR}, </if>
 		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id}
 	</update>
+	
     
     <!-- 删除 -->
 	<delete id="delete" parameterType="java.util.Map">
@@ -111,5 +123,57 @@
 		delete from sop_meeting_record where id = #{id}
 	</delete>
   
+  
+  
+  
+	<resultMap id="PageResultMap" type="com.galaxyinternet.bo.project.MeetingRecordBo" >
+		<id column="id" property="id" jdbcType="BIGINT" />
+	    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+	    <result column="project_name" property="proName" jdbcType="BIGINT" />
+	    <result column="file_id" property="fileId" jdbcType="BIGINT" />
+	    <result column="meeting_date" property="meetingDate" jdbcType="TIMESTAMP" />
+	    <result column="meeting_type" property="meetingType" jdbcType="VARCHAR" />
+	    <result column="meeting_result" property="meetingResult" jdbcType="VARCHAR" />
+	    <result column="meeting_notes" property="meetingNotes" jdbcType="VARCHAR" />
+	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+	</resultMap>
+	
+  
+	<!-- 查询 -->
+	<select id="selectMeetPage" resultMap="PageResultMap" parameterType="java.util.Map">
+		select
+			sm.id, sm.project_id, p.project_name, sm.file_id, sm.meeting_date, sm.meeting_type, 
+			sm.meeting_result, sm.meeting_notes, sm.created_time
+		from sop_meeting_record sm , sop_project p 
+		where ir.project_id = p.id
+			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
+			<if test="startTime != null"> <![CDATA[  and sm.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and sm.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="params.param != null">
+				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
+			</if>
+			<!-- 模糊查询  like '%${params.param}%' -->
+			<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
+		order by sm.meeting_date desc,sm.created_time desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<!-- 查询 -->
+	<select id="selectMeetCount" resultMap="java.lang.Long" parameterType="java.util.Map">
+	  select count(*) from (
+		sm.id, sm.project_id, p.project_name, sm.file_id, sm.meeting_date, sm.meeting_type, 
+			sm.meeting_result, sm.meeting_notes, sm.created_time
+		from sop_meeting_record sm , sop_project p 
+		where ir.project_id = p.id
+			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
+			<if test="startTime != null"> <![CDATA[  and sm.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and sm.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="params.param != null">
+				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
+			</if>
+		) a
+	</select>
   
 </mapper>

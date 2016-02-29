@@ -7,14 +7,17 @@ import com.galaxyinternet.framework.core.model.BaseEntity;
 public class MeetingRecord  extends BaseEntity{
 	private static final long serialVersionUID = 1L;
 
-    private Long projectId;
+	 private Long projectId;
+
+    private Long fileId;
 
     private Date meetingDate;
 
     private String meetingType;
 
-    private String meetingNotes;
+    private String meetingResult;
 
+    private String meetingNotes;
 
     public Long getProjectId() {
         return projectId;
@@ -24,7 +27,15 @@ public class MeetingRecord  extends BaseEntity{
         this.projectId = projectId;
     }
 
-    public Date getMeetingDate() {
+    public Long getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(Long fileId) {
+		this.fileId = fileId;
+	}
+
+	public Date getMeetingDate() {
         return meetingDate;
     }
 
@@ -40,7 +51,16 @@ public class MeetingRecord  extends BaseEntity{
         this.meetingType = meetingType == null ? null : meetingType.trim();
     }
 
-    public String getMeetingNotes() {
+    
+    public String getMeetingResult() {
+		return meetingResult;
+	}
+
+	public void setMeetingResult(String meetingResult) {
+		this.meetingResult = meetingResult;
+	}
+
+	public String getMeetingNotes() {
         return meetingNotes;
     }
 

@@ -9,6 +9,8 @@ public class InterviewRecord extends BaseEntity{
 	private static final long serialVersionUID = 1L;
 	
     private Long projectId;
+    
+    private Long fileId;
 
     private Date viewDate;
 
@@ -25,7 +27,15 @@ public class InterviewRecord extends BaseEntity{
         this.projectId = projectId;
     }
 
-    public Date getViewDate() {
+    public Long getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(Long fileId) {
+		this.fileId = fileId;
+	}
+
+	public Date getViewDate() {
         return viewDate;
     }
 

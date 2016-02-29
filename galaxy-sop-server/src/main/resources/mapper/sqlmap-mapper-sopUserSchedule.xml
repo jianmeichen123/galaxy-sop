@@ -136,4 +136,16 @@
 	<delete id="deleteById" parameterType="SopUserSchedulePO">
 		delete from sop_user_schedule where id = #{id}
 	</delete>
+	
+	<!-- 查询 -->
+	<select id="selectByTime" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_user_schedule where created_time >=#{createdTime} 
+		<if test="userId != null">  and user_id =#{userId} </if>
+		order by created_time asc 
+		<if test="type == 1">  limit 3</if>
+	</select>
+	
+	
 </mapper>
