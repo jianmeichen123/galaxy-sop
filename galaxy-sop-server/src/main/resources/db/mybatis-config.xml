@@ -6,6 +6,7 @@
 	<typeAliases>
 		<typeAlias alias="UserPO" type="com.galaxyinternet.model.user.User" />
 		<typeAlias alias="SopTaskPO" type="com.galaxyinternet.model.soptask.SopTask" />
+		<typeAlias alias="SopTaskBO" type="com.galaxyinternet.bo.SopTaskBo" />
 	    <typeAlias alias="SopUserSchedulePO" type="com.galaxyinternet.model.soptask.SopUserSchedule" />
 	</typeAliases>
 </configuration>
