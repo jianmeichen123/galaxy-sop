@@ -10,7 +10,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.service.ProjectService;
 
 
-@Service("com.galaxyinternet.service.projectService")
+@Service("com.galaxyinternet.service.ProjectService")
 public class ProjectServiceImpl extends BaseServiceImpl<Project> implements ProjectService {
 
 	@Autowired

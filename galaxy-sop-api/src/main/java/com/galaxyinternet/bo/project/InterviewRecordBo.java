@@ -6,14 +6,57 @@ public class InterviewRecordBo extends InterviewRecord{
 
 	private static final long serialVersionUID = 1L;
 	
-	private String extendFiled;// 业务对象中扩展的字段
-
-	public String getExtendFiled() {
-		return extendFiled;
+	private String proName;
+	
+	private Long uid;
+	private String startTime;
+	private String endTime;
+	private String proNameCode;
+	
+	
+	public String getProName() {
+		return proName;
 	}
 
-	public void setExtendFiled(String extendFiled) {
-		this.extendFiled = extendFiled;
+	public void setProName(String proName) {
+		this.proName = proName;
 	}
 
+	
+	public Long getUid() {
+		return uid;
+	}
+
+	public void setUid(Long uid) {
+		this.uid = uid;
+	}
+
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getProNameCode() {
+		return proNameCode;
+	}
+
+	public void setProNameCode(String proNameCode) {
+		this.proNameCode = proNameCode;
+	}
+	
+	
+
+    
 }

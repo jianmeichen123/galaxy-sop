@@ -10,7 +10,7 @@ import com.galaxyinternet.model.project.ProjectShares;
 import com.galaxyinternet.service.ProjectSharesService;
 
 
-@Service("com.galaxyinternet.service.projectSharesService")
+@Service("com.galaxyinternet.service.ProjectSharesService")
 public class ProjectSharesServiceImpl extends BaseServiceImpl<ProjectShares> implements ProjectSharesService {
 
 	@Autowired
