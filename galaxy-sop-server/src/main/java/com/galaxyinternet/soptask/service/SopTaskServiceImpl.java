@@ -22,7 +22,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.service.SopTaskService;
 
-import static com.galaxyinternet.utils.ValidationUtil.*;
+import static com.galaxyinternet.utils.ExceptUtils.*;
 
 @Service("com.galaxyinternet.service.SopTaskService")
 public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopTaskService {
