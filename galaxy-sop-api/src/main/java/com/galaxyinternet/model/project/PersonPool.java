@@ -2,8 +2,11 @@ package com.galaxyinternet.model.project;
 
 import java.util.Date;
 
-public class PersonPool {
-    private Long id;
+import com.galaxyinternet.framework.core.model.BaseEntity;
+
+public class PersonPool extends BaseEntity{
+	private static final long serialVersionUID = 1L;
+	
     private String personName;
     private Integer personSex;
     private Date personBirthday;
@@ -24,16 +27,6 @@ public class PersonPool {
     private Integer levelStar;
     private String endComment;
     private Long createId;
-    private Long updatedTime;
-    private Long createdTime;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getPersonName() {
         return personName;
@@ -193,21 +186,5 @@ public class PersonPool {
 
     public void setCreateId(Long createId) {
         this.createId = createId;
-    }
-
-    public Long getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(Long updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    public Long getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Long createdTime) {
-        this.createdTime = createdTime;
     }
 }
