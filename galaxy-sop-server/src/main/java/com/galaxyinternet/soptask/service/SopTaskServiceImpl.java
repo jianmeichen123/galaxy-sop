@@ -16,10 +16,13 @@ import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.service.SopTaskService;
+
+import static com.galaxyinternet.utils.ValidationUtil.*;
 
 @Service("com.galaxyinternet.service.SopTaskService")
 public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopTaskService {
@@ -186,7 +189,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		int result = sopTaskDao.updateById(entity);
 		if(result<=0){
-			throwPlatformException(MessageStatus.UPDATE_TASK_STATUS);
+			throwSopException(ExceptionMessage.UPDATE_TASK_STATUS);
 			return result ;
 		}
 		return result;
@@ -196,7 +199,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	public Long insertsopTask(SopTask entity) {
 		Long result = sopTaskDao.insert(entity);
 		if(result<=0){
-			throwPlatformException(MessageStatus.UPDATE_TASK_STATUS);
+			throwSopException(ExceptionMessage.UPDATE_TASK_STATUS);
 			return result ;
 		}
 		return result;
