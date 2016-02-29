@@ -63,14 +63,13 @@ public class SopUserScheduleServiceImpl extends
 				if (day == 2) {
 					message = "后天";
 				}
-				sopbo.setItemType(sopUser.getItemType());
-				sopbo.setItemOrder(sopUser.getItemOrder());
-				sopbo.setUserId(sopUser.getUserId());
-				sopbo.setCreatedTime(sopUser.getCreatedTime());
 				sopbo.setTimeTask(message + messageContent);
-				sopUserScheduleBoList.add(sopbo);
-				
 			}
+			sopbo.setItemType(sopUser.getItemType());
+			sopbo.setItemOrder(sopUser.getItemOrder());
+			sopbo.setUserId(sopUser.getUserId());
+			sopbo.setCreatedTime(sopUser.getCreatedTime());
+			sopUserScheduleBoList.add(sopbo);
 		}
 		return sopUserScheduleBoList;
 

@@ -144,7 +144,7 @@
 		from sop_user_schedule where created_time >=#{createdTime} 
 		<if test="userId != null">  and user_id =#{userId} </if>
 		order by created_time asc 
-		<if test="type != null">  limit 3</if>
+		<if test="type == 1">  limit 3</if>
 	</select>
 	
 	
