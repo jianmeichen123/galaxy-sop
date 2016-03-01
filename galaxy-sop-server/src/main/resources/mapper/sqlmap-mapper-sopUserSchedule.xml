@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.galaxyinternet.model.soptask.SopUserSchedule">
    	<resultMap id="BaseResultMap" type="SopUserSchedulePO">
-		<id column="id" property="id" />
+		<id column="id" property="id"/>
 		<result column="user_id" property="userId"/>
 	    <result column="item_type" property="itemType"/>
 	    <result column="content" property="content"/>
@@ -133,7 +133,7 @@
 		<include refid="Base_Where_Clause" />
 	</delete>
      <!-- 根据ID删除 -->
-	<delete id="deleteById" parameterType="SopUserSchedulePO">
+	<delete id="deleteById">
 		delete from sop_user_schedule where id = #{id}
 	</delete>
 	
