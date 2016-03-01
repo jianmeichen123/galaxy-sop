@@ -151,7 +151,7 @@
 	</select>
 	
 	<!-- 查询 -->
-	<select id="selectInterviewCount" resultMap="java.lang.Long" parameterType="java.util.Map">
+	<select id="selectInterviewCount" resultType="java.lang.Long" parameterType="java.util.Map">
 	  select count(*) from (
 		select
 			ir.id, ir.project_id, p.project_name, ir.file_id, ir.view_date, ir.view_target, 

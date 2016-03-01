@@ -133,8 +133,8 @@
 		<include refid="Base_Where_Clause" />
 	</delete>
      <!-- 根据ID删除 -->
-	<delete id="deleteById">
-		delete from sop_user_schedule where id = #{id}
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_user_schedule where id = #{id,jdbcType=BIGINT}
 	</delete>
 	
 	<!-- 查询 -->

@@ -161,7 +161,7 @@
 	</select>
 	
 	<!-- 查询 -->
-	<select id="selectMeetCount" resultMap="java.lang.Long" parameterType="java.util.Map">
+	<select id="selectMeetCount" resultType="java.lang.Long" parameterType="java.util.Map">
 	  select count(*) from (
 		sm.id, sm.project_id, p.project_name, sm.file_id, sm.meeting_date, sm.meeting_type, 
 			sm.meeting_result, sm.meeting_notes, sm.created_time
