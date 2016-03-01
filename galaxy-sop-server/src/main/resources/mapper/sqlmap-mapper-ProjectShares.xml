@@ -111,7 +111,7 @@
 		<include refid="Base_Where_Clause" />
 	</delete>
      <!-- 根据ID删除 -->
-	<delete id="deleteById" parameterType="com.galaxyinternet.model.project.ProjectShares">
+	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from sop_project_shares where id = #{id}
 	</delete>
 	
