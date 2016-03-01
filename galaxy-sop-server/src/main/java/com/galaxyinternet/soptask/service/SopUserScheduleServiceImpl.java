@@ -1,5 +1,6 @@
 package com.galaxyinternet.soptask.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ public class SopUserScheduleServiceImpl extends
 		// 获取大于当前系统时间的数据信息
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("userId", userId);
-		params.put("createdTime", currentTime);
+		params.put("itemDate", new Timestamp(currentTime));
 		params.put("type", type);
 		List<SopUserSchedule> list = sopUserScheduleDao.selectSopUserScheduleByTime(params);
 		// 取数据的前三条信息并进行时间判断
@@ -47,8 +48,9 @@ public class SopUserScheduleServiceImpl extends
 			SopUserScheduleBo sopbo = new SopUserScheduleBo();
 			String message = "";
 			if (type == 1) {
-				long l = sopUser.getCreatedTime() - currentTime;
+				long l = sopUser.getItemDate().getTime() - currentTime;
 				long day = l / (24 * 60 * 60 * 1000);
+				/**
 				long hour = (l / (60 * 60 * 1000) - day * 24);
 				long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
 				long s = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
@@ -56,14 +58,17 @@ public class SopUserScheduleServiceImpl extends
 				message += String.valueOf(day) + "天";
 				if (day < 1) {
 					message = "";
-				}
+				}**/
 				if (day == 1) {
-					message = "明天";
+					message = "明天,";
 				}
 				if (day == 2) {
-					message = "后天";
+					message = "后天,";
 				}
-				sopbo.setTimeTask(message + messageContent);
+				if (day > 2) {
+					
+				}
+				sopbo.setTimeTask(message+ sopUser.getContent());
 			}
 			sopbo.setItemType(sopUser.getItemType());
 			sopbo.setItemOrder(sopUser.getItemOrder());
