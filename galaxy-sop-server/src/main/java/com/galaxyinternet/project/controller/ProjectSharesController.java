@@ -127,7 +127,7 @@ public class ProjectSharesController extends BaseControllerImpl<ProjectShares, P
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/deleteProjectShares/{id}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/deleteProjectShares/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectShares> deleteProjectShares(@PathVariable Long id){
 		
 		//角色删除判断-待写

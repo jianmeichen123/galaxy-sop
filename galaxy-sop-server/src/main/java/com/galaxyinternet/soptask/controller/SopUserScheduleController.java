@@ -59,13 +59,8 @@ public class SopUserScheduleController extends
 			@PathVariable String status, HttpServletRequest request) {
 
 		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
-		Object ob = request.getSession().getAttribute("sessionUser");
-		if (ob == null) {
-			responseBody
-					.setResult(new Result(Status.ERROR, "no login status."));
-			return responseBody;
-		}
-		User user = (User) ob;
+		User user = (User) request.getSession().getAttribute(
+				Constants.SESSION_USER_KEY);
 		sopUserSchedule.setUserId(user.getId());
 		Result result = new Result();
 		result.setStatus(Status.OK);
@@ -108,26 +103,5 @@ public class SopUserScheduleController extends
 		return responseBody;
 	}
 
-	@Override
-	@ResponseBody
-	@RequestMapping(value = "/deleteTest/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopUserSchedule> deleteOne(@PathVariable Long id) {
-
-		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
-		Result result = null;
-		if (id == null) {
-			result = new Result(Status.ERROR, "没有传入要删除的ID号！");
-			responseBody.setResult(result);
-			return responseBody;
-		}
-		int count = getBaseService().deleteById(id);
-		if (count == 0) {
-			result = new Result(Status.ERROR, "要删除的记录不存在！");
-			responseBody.setResult(result);
-			return responseBody;
-		}
-		responseBody.setResult(new Result(Status.OK, count));
-		return responseBody;
-	}
 
 }
