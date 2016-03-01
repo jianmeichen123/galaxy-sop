@@ -10,7 +10,6 @@ import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
-import com.galaxyinternet.exception.MessageStatus;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
@@ -70,7 +69,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			    sopTaskBo = setProjectIdsByPList(projectList);
 			    selectListSopTask = sopTaskDao.selectTaskInPids(sopTaskBo, pageable);
 			    if (selectListSopTask != null) {
-					throwPlatformException(MessageStatus.QUERY_LIST_FAIL);
+					throwPlatformException(ExceptionMessage.QUERY_LIST_FAIL);
 					return null;
 				}
 			}
@@ -82,7 +81,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				projectBo = setProjectIdsByTList(selectListSopTask.getContent());	
 				projectList = projectDao.selectProjectByMap(projectBo);
 				if (projectList != null) {
-					throwPlatformException(MessageStatus.QUERY_LIST_FAIL);
+					throwPlatformException(ExceptionMessage.QUERY_LIST_FAIL);
 					return null;
 				}
 				
@@ -103,7 +102,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	 * @param status
 	 * @param args
 	 */
-	public void throwPlatformException(MessageStatus status, Object... args) {
+	public void throwPlatformException(ExceptionMessage status, Object... args) {
 		String message = null;
 		if (args.length == 0) {
 			message = status.getMessage();
