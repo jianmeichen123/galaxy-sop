@@ -139,7 +139,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		pro.setId(pid);
 		
 		if(meetingResult.equals("否决") ){
-			 //update 项目状态
+			//update 项目状态
 			pro.setProjectStatus("关闭"); 
 			projectDao.updateById(pro);
 			
@@ -159,7 +159,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			task1.setTaskType("协同");					//任务类型    协同
 			sopTaskDao.insert(task1);
 			
-			//投资协议  任务生成
+			//股权转让协议  任务生成
 			SopTask task2 = new SopTask();
 			task2.setProjectId(pid);                     //项目id
 			task2.setTaskDestination("投资经理");  		//任务分派到: 投资经理
@@ -191,11 +191,119 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	}
 	
 	
-	
-	
 	@Override
 	public Page<MeetingRecordBo> queryMeetPageList(MeetingRecordBo query, Pageable pageable) {
 		return meetingRecordDao.selectMeetPageList(query, pageable);
 	}
+	
+	
+	/**
+	 * 立项会排期，    修改项目进度、状态
+	 * 				新建 立项会 排期
+	 * @param   project 
+	 * @return
+	 */
+	@Override
+	@Transactional
+	public void projectSchedule(Project project){
+		project.setProjectProgress("立项会");
+		project.setProjectStatus("待定");
+		int i = projectDao.updateById(project);
+		
+		MeetingScheduling ms = new MeetingScheduling();
+		ms.setProjectId(project.getId());
+		ms.setMeetingType("立项会");
+		ms.setStatus("新进");
+		Long id = meetingSchedulingDao.insert(ms);
+		
+	}
+	
+	
+	
+	/**
+	 * 投资意向书阶段，    上传  投资意向书-签署证明；
+	 * 				更新项目阶段；
+	 * 				生成任务;
+	 * @param   project 
+	 * @return
+	 */
+	@Override
+	@Transactional
+	public void upTermSheetSign(Project project,Long userId){
+		project.setProjectProgress("尽职调查");
+		project.setProjectStatus("待定");
+		int i = projectDao.updateById(project);
+		
+		//业务dd  任务生成
+		SopTask task1 = new SopTask();
+		task1.setProjectId(project.getId());         //项目id
+		task1.setTaskDestination("投资经理");  		 //任务分派到: 投资经理
+		task1.setTaskName("上传业务尽职调查报告");    //任务名称：  上传股权转让协议
+		task1.setTaskReceiveUid(userId);             //任务认领人id 
+		task1.setTaskStatus("待完工");				 //任务状态: 2:待完工
+		task1.setTaskType("协同");					 //任务类型    协同
+		sopTaskDao.insert(task1);
+		
+		//人事dd  任务生成
+		SopTask task2 = new SopTask();
+		task2.setProjectId(project.getId());         //项目id
+		task2.setTaskDestination("人事部");  		 //任务分派到: 投资经理
+		task2.setTaskName("上传人事尽职调查报告");        //任务名称：  上传股权转让协议
+		task2.setTaskStatus("待认领");				 //任务状态: 2:待完工
+		task2.setTaskType("协同");					 //任务类型    协同
+		sopTaskDao.insert(task2);
+		
+		//财务dd  任务生成
+		SopTask task3 = new SopTask();
+		task3.setProjectId(project.getId());         //项目id
+		task3.setTaskDestination("财务部");  		 //任务分派到: 投资经理
+		task3.setTaskName("上传财务尽职调查报告");        //任务名称：  上传股权转让协议
+		task3.setTaskStatus("待认领");				 //任务状态: 2:待完工
+		task3.setTaskType("协同");					 //任务类型    协同
+		sopTaskDao.insert(task3);
+		
+		//法务dd  任务生成
+		SopTask task4 = new SopTask();
+		task4.setProjectId(project.getId());         //项目id
+		task4.setTaskDestination("法务部");  		 //任务分派到: 投资经理
+		task4.setTaskName("上传法务尽职调查报告");        //任务名称：  上传股权转让协议
+		task4.setTaskStatus("待认领");				 //任务状态: 2:待完工
+		task4.setTaskType("协同");					 //任务类型    协同
+		sopTaskDao.insert(task4);
+		
+		
+	}
+	
+	
+	/**
+	 * 尽职调查              申请投决会排期，    
+	 * 				修改项目进度、状态；
+	 * 				新建 投决会 排期；
+	 * @param   project 
+	 * @return
+	 */
+	@Override
+	@Transactional
+	public void decisionSchedule(Project project){
+		project.setProjectProgress("投决会");
+		project.setProjectStatus("待定");
+		int i = projectDao.updateById(project);
+		
+		MeetingScheduling ms = new MeetingScheduling();
+		ms.setProjectId(project.getId());
+		ms.setMeetingType("投决会");
+		ms.setStatus("新进");
+		Long id = meetingSchedulingDao.insert(ms);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
