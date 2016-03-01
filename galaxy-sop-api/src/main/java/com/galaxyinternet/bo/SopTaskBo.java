@@ -10,6 +10,8 @@ public class SopTaskBo extends SopTask {
 	private String createUname;// 业务对象中扩展的字段
 	private String projectName;//业务扩展字段---项目名称
 	private List<String>  ids;//业务扩展字段---项目ids
+	
+	private List<String> taskStatusList; //任务状态  完成、待完成
 
 	public String getCreateUname() {
 		return createUname;
@@ -34,5 +36,15 @@ public class SopTaskBo extends SopTask {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+
+	public List<String> getTaskStatusList() {
+		return taskStatusList;
+	}
+
+	public void setTaskStatusList(List<String> taskStatusList) {
+		this.taskStatusList = taskStatusList;
+	}
+	
+	
 
 }

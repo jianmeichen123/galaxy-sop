@@ -1,6 +1,7 @@
 package com.galaxyinternet.soptask.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,7 @@ import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.model.soptask.SopTask;
 
@@ -24,6 +26,16 @@ public class SopTastDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTask
 			return new  Page<SopTask>(contentList, pageable, this.selectCount(query));
 		} catch (Exception e) {
 			throw new DaoException(String.format("根据pids查询：%s", getSqlName(SqlId.SQL_SELECT)), e);
+		}
+	}
+	
+	@Override
+	public List<SopTask> selectForTaskOverList(SopTaskBo query) {
+		try {
+			Map<String, Object> params = BeanUtils.toMap(query);
+			return sqlSessionTemplate.selectList(getSqlName("selectForTaskOver"), params);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询对象列表出错！语句：%s", getSqlName("selectForTaskOver")), e);
 		}
 	}
 }

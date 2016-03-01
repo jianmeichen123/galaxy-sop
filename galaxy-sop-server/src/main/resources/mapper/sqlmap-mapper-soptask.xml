@@ -209,4 +209,27 @@
 		delete from sop_task where
 		id = #{id}
 	</delete>
+	
+	<!-- 根据taskStatus查询 -->
+	<select id="selectForTaskOver" resultMap="BaseResultMap" parameterType="com.galaxyinternet.bo.SopTaskBo">
+		select
+		<include refid="Base_Column_List" />
+		from sop_task
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="taskName != null"> and task_name =#{taskName}</if>
+				<if test="taskType != null"> and task_type =#{taskType}</if>
+				<if test="taskDestination != null"> and task_destination =#{taskDestination}</if>
+				<if test="taskReceiveUid != null"> and task_receive_uid =#{taskReceiveUid}</if>
+				<if test="taskStatus != null"> and task_status =#{taskStatus}</if>
+				<if test="taskStatusList != null"> 
+					and task_status in
+					<foreach collection="taskStatusList" item="taskStatusList" index="index" open="(" close=")" separator=",">
+			            #{resid}
+			        </foreach>
+				</if>
+			</trim>
+		</where>
+	</select>
 </mapper>

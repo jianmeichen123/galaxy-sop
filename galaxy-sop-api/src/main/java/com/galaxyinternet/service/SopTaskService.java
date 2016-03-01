@@ -1,5 +1,7 @@
 package com.galaxyinternet.service;
 
+import java.util.List;
+
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -28,5 +30,13 @@ public interface SopTaskService extends BaseService<SopTask> {
 	 * @return
 	 */
 	public int updateById(SopTask entity) ;
+	
+	/**
+	 * @author zf
+	 * @category 由任务状态查询任务
+	 * @return
+	 */
+	public List<SopTask> selectForTaskOverList(SopTaskBo query);
+	
 }
 
