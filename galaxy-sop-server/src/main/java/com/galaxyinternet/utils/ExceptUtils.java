@@ -11,9 +11,7 @@ import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 
 
 public abstract class ExceptUtils {
-
-
-
+	
 	public static boolean isNullOrEmpty( String fieldName, String value) {
 		if (hasText(value)) {
 			return false;
