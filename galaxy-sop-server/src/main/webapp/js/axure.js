@@ -1,0 +1,463 @@
+// JavaScript Document
+(function($){
+	//定位
+	$.fn.Fixed = function(options) {
+		var opts = $.extend({
+			x: 0,
+            y: 0
+        }, options);
+		var isIe6 = false;
+		if(window.ActiveXObject)//判断浏览器是否属于IE
+		{
+			var browser=navigator.appName
+			var b_version=navigator.appVersion
+			var version=b_version.split(";");
+			var trim_Version=version[1].replace(/[ ]/g,"");
+			if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE6.0"){
+				isIe6 = true;	
+			}
+		}
+        if (isIe6) {
+			var $html =  $("html");
+			($html.css("backgroundAttachment") !== "fixed") && ($html.css("backgroundAttachment", "fixed"));
+			($html.css("backgroundImage")=="none") && ($html.css("backgroundImage", "url(about:blank)"));
+        };
+        return this.each(function() {
+			var $this = $(this),_this = this;
+			if (isIe6){
+				$this.css("position", "absolute");
+				_this.style.setExpression("left", 'eval(document.documentElement.scrollLeft + ' + opts.x + ') + "px"');
+				_this.style.setExpression("top", 'eval(document.documentElement.scrollTop + ' + opts.y + ') + "px"');
+			}else{
+				$this.css({
+					position:"fixed",
+					left:opts.x,
+					top:opts.y
+				});
+			};
+        });
+    };
+	/*
+		弹出层{
+			w:弹出层宽度
+			tit:弹出层标题
+			txt:弹出层内容模版
+			callback:弹出后执行	
+		}
+	*/
+	$.popup = function(options){
+		var opts = $.extend({
+			txt:"",
+			callback:function(t,postionEve){},
+			hideback:function(t){}
+		},options);
+		var strBg = "<div id=\"popbg\"><iframe frameborder=\"0\" src=\"about:blank\"></iframe></div>";
+		var strPop = "<div id=\"pop\"><a href=\"javascript:;\" data-close=\"close\" class=\"close null\">关闭</a><div id=\"popTxt\"><p class='popwait'>数据加载中，请稍候...</p></div></div>";
+		//判断是否需要重新插入
+		function appStr(o,s){
+			if(o.length==0){
+				$("body").append(s);
+			}else{
+				o.show();	
+			}	
+		};
+		appStr($("#popbg"),strBg);
+		appStr($("#pop"),strPop);
+		//添加内容
+		if(opts.txt!=""){
+			$("#popTxt").html(opts.txt);
+		}
+		//定位屏幕位置
+		var postionEve = function(){
+			var wh = parseInt($("#pop").outerWidth(true)),
+				ht = parseInt($("#pop").outerHeight(true));
+			var win_w = $(window).width(),
+				win_h = $(window).height(),
+				win_x = (win_w-wh)/2,
+				win_y = (win_h-ht)/2;
+			$("#popbg,#popbg iframe").css({"height":win_h});
+			$("#pop").Fixed({
+				x:win_x,
+				y:win_y
+			});
+		}
+		//弹层打开后执行事件
+		opts.callback($("#pop"),postionEve);
+		postionEve();
+		$(window).on("scroll resize",postionEve);
+		//关闭弹层
+		$("#pop").on("click","[data-close='close']",function(){
+			opts.hideback($("#pop"));
+			$("#popbg,#pop").remove();
+		});
+	};
+	//切换样式控制
+	$.fn.changeClass = function(options){
+		if($(this).length==0){ return false};
+		var $this = $(this);
+		var opts = $.extend({
+			calssName:"on",
+			onback:function(){},
+			outback:function(){}
+		},options);
+		$("body").on("mouseenter",$this.selector,function(){
+			$(this).addClass(opts.calssName);
+			opts.onback.apply(this);
+		});
+		$("body").on("mouseleave",$this.selector,function(){
+			$(this).removeClass(opts.calssName);
+			opts.outback.apply(this);
+		});
+	};
+	//展开关闭控制
+	$.fn.toggleshow = function(options){
+		if($(this).length==0){ return false};
+		var opts = $.extend({
+			showCallback:function(t){},
+			hideCallback:function(t){}
+		},options);
+		return $(this).each(function(index){	
+			var $this = $(this);
+			 $this.find("[data-btn='show']").on("click",function(){
+				$this.find("[data-box='box']").show();
+				opts.showCallback($this.find("[data-box='box']"));
+				return false;
+			});
+			 $this.find("[data-btn='hide']").on("click",function(){
+				 $this.find("[data-box='box']").hide();
+				opts.hideCallback($this.find("[data-box='box']"));
+				return false;
+			});
+		});
+	};
+	//点击空白关闭
+	$.fn.closeDom = function(fn){
+		if($(this).length==0){return false;}
+		var $this = $(this);
+		var documentHide = function(event){
+			var whichOne = event.which,targetOne = event.target;
+			var oneBox = $this.has($(targetOne)).length == 0?false:true;
+			(whichOne==1||whichOne==0)&&!oneBox?$this.hide():false;
+			fn();
+		};
+		$(document).on("mousedown",documentHide);	
+	}
+	/*
+		tab卡{
+			defaultnum: 默认第几个显示	
+		}
+		使用规则
+		占用属性{
+			data-tab="nav",
+			data-tab="con":座位导航和内容集合
+			data-tab="suffix":下标标识	
+		}
+	*/
+	$.fn.tabchange = function(options){
+		if($(this).length==0) return false;
+		var opts = $.extend({
+			defaultnum:0,
+			onClass:"on",
+			eventType:"click",
+			movetime:300
+		},options);
+		function tab(t){
+			this.nav = t.find("[data-tab='nav']");
+			this.onclass = opts.onClass;
+			this.con = t.find("[data-tab='con']");
+			this.suffix = t.find("[data-tab='suffix']");
+			this.num = opts.defaultnum;
+			this.time = opts.movetime;
+		};
+		tab.prototype = {
+			seton : function(){
+				var _this = this;
+				_this.nav.removeClass(_this.onclass);
+				_this.con.hide();
+				_this.nav.eq(_this.num).addClass(_this.onclass);
+				_this.con.eq(_this.num).show();	
+				_this.setsuffix();
+			},
+			setsuffix : function(n){
+				if(this.suffix.length==0) return false;
+				var _this = this,
+					_width = _this.suffix.width();;
+				_this.suffix.stop(true).animate({
+					"left" : _width*this.num	
+				},_this.time);
+			}
+		};
+		return $(this).each(function() {
+            var $this = $(this);
+			var obj = new tab($this);
+			obj.seton();
+			//事件执行
+			obj.nav.on(opts.eventType,function(){
+				obj.num = $(this).index();
+				obj.seton();
+			});
+        });
+	};
+	//日期和时间
+	$.fn.today = function(options){
+		if($(this).length==0){return false;}
+		var $this = $(this);
+		var opts = $.extend({
+			time:".time",
+			date:".date"	
+		},options);
+		var _time = $this.find(opts.time),
+			_date = $this.find(opts.date);
+		function checkTime(i){
+		  if(i<10){i="0"+ i}
+		  return i
+		}
+		function week(i){
+			switch(i){
+				case 0:
+					return "周末";
+				break;	
+				case 1:
+					return "周一";
+				break;	
+				case 2:
+					return "周二";
+				break;	
+				case 3:
+					return "周三";
+				break;	
+				case 4:
+					return "周四";
+				break;	
+				case 5:
+					return "周五";
+				break;	
+				case 6:
+					return "周六";
+				break;	
+			}	
+		}
+		function getdate(){
+			var nowDate  = new Date(),
+				nyr = nowDate.getFullYear()+"年"+(nowDate.getMonth()+1)+"月"+nowDate.getDate()+"日&nbsp;"+week(nowDate.getDay()),
+				sfm = checkTime(nowDate.getHours())+":"+checkTime(nowDate.getMinutes())+":"+checkTime(nowDate.getSeconds());
+			_time.html(sfm);
+			_date.html(nyr);
+			window.setTimeout(getdate,500);
+		}
+		getdate();
+	};
+	//柱状图
+	$.fn.histogram = function(){
+		if($(this).length==0){ return false}
+		function showEve(t){
+			this.t = t;
+			this.height = this.t.height();
+			this.ul = this.t.children("ul");
+			this.ulist = this.ul.children();
+			this.ulen = this.ulist.length;
+			this.ol = this.t.children("ol");
+			this.olist = this.ol.children();
+			this.olen = this.olist.length;
+			//获取最大值
+			this.maxNum = parseInt(this.olist.eq(0).children().html());
+			//细分高度
+			this.every = (this.height/this.maxNum).toFixed(2);
+		}
+		showEve.prototype = {
+			init:function(){
+				var _this = this;
+				if(_this.ulen==0){return false;}
+				_this.setbg().setwidth().pace();
+			},
+			//设置背景
+			setbg:function(){
+				var _this = this;
+				_this.olist.each(function(){
+					var $self = $(this),
+						$num = parseInt($self.children().html());
+					var _heght = $num*_this.every;
+					$self.stop(true).animate({
+						height:_heght
+					},{ 
+						easing: 'linear', 
+						duration: 500
+					})
+				});
+				return _this;
+			},
+			//设置柱状图宽度和间隔
+			setwidth:function(){
+				var _this = this;
+				var _width = parseFloat(100/(_this.ulen*2+1)).toFixed(2);
+				_this.ulist.css("width",_width+"%");
+				var num = 1;
+				_this.ulist.each(function(index){
+					var $self = $(this);
+					var _left = _width*(index+num);
+					num++;
+					$self.css("left",_left+"%").children().css("display","block");
+				});
+				return _this;
+			},
+			//柱状图展示
+			pace:function(){
+				var _this = this;
+				_this.ulist.each(function(index){
+					var $self = $(this),
+						_pace = parseInt($self.attr("data-pace"))*_this.every;
+					$self.stop(true).animate({
+						height:_pace
+					},{ 
+						easing: 'linear', 
+						duration: 500
+					})
+				});
+				return _this;	
+			}
+		}
+		return $(this).each(function(){
+			var obj = new showEve($(this));
+			obj.init();
+		});
+	};
+	/*获取html模版弹窗*/
+	$.getHtml = function(options){
+		var opts = $.extend({
+			url:"",//模版请求地址
+			data:"",//传递参数
+			okback:function(){}//模版反回成功执行	
+		},options);
+		//拉取静态模版
+		$.popup({
+			callback:function(t,postionEve){
+				$.ajax({
+					type:"GET",
+					data:opts.data,
+					dataType:"html",
+					url:opts.url,
+					success:function(html){
+						$("#popTxt").html(html);
+						postionEve();
+						opts.okback();
+					},
+					error:function(){
+						alert("网络错误")
+					}	
+				})
+			}	
+		});
+	};
+	/*
+		日期{
+			stamp:当前时间戳
+			tit : 时间月份标题
+			onClass:日期点击样式
+			callback:点击日期后执行---参数为点击的时间戳年月日逗号分隔
+		}
+		使用规则
+		占用 属性date="list" 存放日期天数列表 
+		占用属性 date-day  用来存放当前日期
+		占用 data-btn属性来标注前后按钮:prev,next
+	*/
+	$.fn.calendar = function(options){
+		if($(this).length==0) return false;
+		var opts = $.extend({
+			stamp : +(new Date()),
+			tit : "dt>strong",
+			callback:function(){}
+		},options);
+		function date(t){	
+			//节点属性
+			this.listdom = t.find("[date='list']");
+			this.title = t.find(opts.tit);
+			this.prevBtn = t.find("[data-btn='prev']");
+			this.nextBtn = t.find("[data-btn='next']");
+			//date属性
+			this.dobj = new Date(opts.stamp);
+			this.year = this.dobj.getFullYear();
+			this.month = this.dobj.getMonth();
+			this.date = this.dobj.getDate();
+			this.week = this.dobj.getDay();
+			this.monthcount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+			//记录属性
+			this.readY = this.year;
+			this.readM = this.month;
+			//对外接口
+			this.callback = opts.callback;
+		};
+		date.prototype = {
+			init:function(){
+				var _this = this;
+				//设置二月天数，设置日期标题，设置日期列表，切换日历
+				_this.february().setdateTit().setdatelist().changeDate().cutDate();
+			},
+			//2月份日期总数推算
+			february : function(){
+				var _this = this;
+				if ((_this.year % 4 == 0 && _this.year % 100 != 0) || _this.year % 400 == 0){_this.monthcount[1] = 29; };	
+				return _this;
+			},
+			//设置日历标题
+			setdateTit : function(){
+				var _this = this;
+				_this.title.html(_this.readY+"年"+(_this.readM+1)+"月");
+				return _this;
+			},
+			//日期列表创建
+			setdatelist:function(){
+				var _this = this;
+				//当月第一天为周几
+				var first = new Date(_this.readY,_this.readM,1).getDay();
+				var monArr = [];
+				for(var i=0; i<first; i++){
+					monArr.push("<li></li>");
+				}
+				for(var i=1,len = _this.monthcount[_this.readM]; i<=len; i++){
+					var _class = "";
+					if(_this.year==_this.readY&&_this.month==_this.readM&&_this.date==i){
+						_class = "on";
+					}
+					monArr.push("<li class=\""+_class+"\"><a href=\"javascript:;\" date-day=\""+_this.readY+","+(_this.readM+1)+","+i+"\">"+i+"</a></li>");	
+				}
+				_this.listdom.html(monArr.join(""));
+				return _this;
+			},
+			//日历点击
+			changeDate:function(){
+				var _this = this;
+				_this.listdom.on("click","li a",function(){
+					var _date = $(this).attr("date-day");
+					_this.callback(_date);
+					return false;
+				});
+				return _this;
+			},
+			//切换日期
+			cutDate:function(){
+				var _this = this;
+				_this.prevBtn.on("click",function(){
+					_this.readM = _this.readM-1;
+					_this.readY = _this.readM<0?_this.readY-1:_this.readY;
+					_this.readM = _this.readM<0?11:_this.readM;
+					//重置月份统计，标题，列表
+					_this.february().setdateTit().setdatelist();
+					return false;
+				});
+				_this.nextBtn.on("click",function(){
+					_this.readM = _this.readM+1;
+					_this.readY = _this.readM>11?_this.readY+1:_this.readY;
+					_this.readM = _this.readM>11?0:_this.readM;
+					//重置月份统计，标题，列表
+					_this.february().setdateTit().setdatelist();
+					return false;
+				});	
+			}
+		};
+		return $(this).each(function() {
+			var $this = $(this);
+			var obj = new date($this);
+			obj.init();
+        });
+	};
+})(jQuery);
