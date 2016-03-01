@@ -165,7 +165,7 @@
 		<include refid="Base_Where_Clause" />
 	</delete>
      <!-- 根据ID删除 -->
-	<delete id="deleteById" parameterType="UserPO">
+	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from sop_person_pool where id = #{id}
 	</delete>
 	
