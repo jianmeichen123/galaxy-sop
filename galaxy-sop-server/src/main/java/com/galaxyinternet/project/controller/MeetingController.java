@@ -11,13 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
-import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.framework.core.model.BaseUser;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -26,12 +22,8 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
-import com.galaxyinternet.service.MeetingSchedulingService;
-import com.galaxyinternet.service.ProjectService;
 
 @Controller
 @RequestMapping("/galaxy/meeetingRecord")
@@ -39,8 +31,6 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 	
 	final Logger logger = LoggerFactory.getLogger(MeetingController.class);
 	
-	@Autowired
-	private InterviewRecordService interviewRecordService;
 	@Autowired
 	private MeetingRecordService meetingRecordService;
 	
@@ -127,7 +117,7 @@ public class MeetingController extends BaseControllerImpl<MeetingRecord, Meeting
 			return responseBody;
 			
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "queryInterviewPageList faild"));
+			responseBody.setResult(new Result(Status.ERROR, "queryMeetPageList faild"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("queryInterviewPageList ",e);

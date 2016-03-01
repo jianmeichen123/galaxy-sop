@@ -5,6 +5,8 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="person_name" property="personName" jdbcType="VARCHAR" />
     <result column="person_sex" property="personSex" jdbcType="INTEGER" />
+    <result column="person_age" property="personAge" jdbcType="INTEGER" />
+    <result column="person_duties" property="personDuties" jdbcType="VARCHAR" />
     <result column="person_birthday" property="personBirthday" jdbcType="TIMESTAMP" />
     <result column="person_idcard" property="personIdcard" jdbcType="VARCHAR" />
     <result column="person_telephone" property="personTelephone" jdbcType="VARCHAR" />
@@ -28,7 +30,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, person_name, person_sex, person_birthday, person_idcard, person_telephone, person_email, 
+    id, person_name, person_sex, person_age, person_duties, person_birthday, person_idcard, person_telephone, person_email, 
     person_character, person_goodness, person_disparity, talk_ability, team_ability, 
     business_strength, free, team_role, member_relation, labor_dispute, ability_star, 
     level_star, end_comment, create_id, updated_time, created_time
@@ -72,11 +74,12 @@
 	
   	<insert id="insert" parameterType="com.galaxyinternet.model.project.Project" >
 	    <![CDATA[
-	     insert into sop_person_pool (id, person_name, person_sex, person_birthday, person_idcard, person_telephone, person_email, 
+	     insert into sop_person_pool (id, person_name, person_sex, person_age, person_duties, person_birthday, person_idcard, person_telephone, person_email, 
     		person_character, person_goodness, person_disparity, talk_ability, team_ability, 
    			business_strength, free, team_role, member_relation, labor_dispute, ability_star, 
     		level_star, end_comment, create_id, updated_time, created_time)
 	    values (#{id,jdbcType=BIGINT}, #{personName,jdbcType=VARCHAR}, #{personSex,jdbcType=INTEGER}, 
+	      #{personAge,jdbcType=INTEGER}, #{personDuties,jdbcType=VARCHAR},
 	      #{personBirthday,jdbcType=TIMESTAMP}, #{personIdcard,jdbcType=VARCHAR}, #{personTelephone,jdbcType=VARCHAR}, 
 	      #{personEmail,jdbcType=VARCHAR}, #{personCharacter,jdbcType=VARCHAR}, 
 	      #{personGoodness,jdbcType=VARCHAR}, #{personDisparity,jdbcType=VARCHAR}, #{talkAbility,jdbcType=INTEGER}, #{teamAbility,jdbcType=INTEGER}, 
@@ -94,6 +97,8 @@
 		<set>
 			<if test="personName != null" >  person_name = #{personName,jdbcType=VARCHAR}, </if>
 		      <if test="personSex != null" >  person_sex = #{personSex,jdbcType=INTEGER}, </if>
+		      <if test="personAge != null" >  person_age = #{personAge,jdbcType=INTEGER}, </if>
+		      <if test="personDuties != null" >  person_duties = #{personDuties,jdbcType=VARCHAR}, </if>
 		      <if test="personBirthday != null" >  person_birthday = #{personBirthday,jdbcType=TIMESTAMP}, </if>
 		      <if test="personIdcard != null" > person_idcard = #{personIdcard,jdbcType=VARCHAR}, </if>
 		      <if test="personTelephone != null" >  person_telephone = #{personTelephone,jdbcType=VARCHAR}, </if>
@@ -128,6 +133,8 @@
 		<set>
 			<if test="personName != null" >  person_name = #{personName,jdbcType=VARCHAR}, </if>
 		      <if test="personSex != null" >  person_sex = #{personSex,jdbcType=INTEGER}, </if>
+		      <if test="personAge != null" >  person_age = #{personAge,jdbcType=INTEGER}, </if>
+		      <if test="personDuties != null" >  person_duties = #{personDuties,jdbcType=VARCHAR}, </if>
 		      <if test="personBirthday != null" >  person_birthday = #{personBirthday,jdbcType=TIMESTAMP}, </if>
 		      <if test="personIdcard != null" > person_idcard = #{personIdcard,jdbcType=VARCHAR}, </if>
 		      <if test="personTelephone != null" >  person_telephone = #{personTelephone,jdbcType=VARCHAR}, </if>
