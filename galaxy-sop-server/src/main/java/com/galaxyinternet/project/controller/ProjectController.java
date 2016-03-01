@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -72,7 +73,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute("sessionUser");
+		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -115,7 +116,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute("sessionUser");
+		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -150,7 +151,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute("sessionUser");
+		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -187,7 +188,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute("sessionUser");
+		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -219,7 +220,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute("sessionUser");
+		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -256,7 +257,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute("sessionUser");
+		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
