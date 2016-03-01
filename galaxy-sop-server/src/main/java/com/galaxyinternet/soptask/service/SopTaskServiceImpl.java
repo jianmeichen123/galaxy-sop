@@ -204,4 +204,9 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		return result;
 	}
 	
+	
+	@Override
+	public List<SopTask> selectForTaskOverList(SopTaskBo query){
+		return sopTaskDao.selectForTaskOverList(query);
+	}
 }

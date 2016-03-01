@@ -1,5 +1,7 @@
 package com.galaxyinternet.dao.soptask;
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 
 import com.galaxyinternet.bo.SopTaskBo;
@@ -13,4 +15,9 @@ public interface SopTaskDao extends BaseDao<SopTask, Long> {
 	    * @return
 	    */
 	public Page<SopTask> selectTaskInPids(SopTaskBo query,Pageable pageable);
+	
+	
+	public List<SopTask> selectForTaskOverList(SopTaskBo query);
+	
+	
 }

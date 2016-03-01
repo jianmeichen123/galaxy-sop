@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.SopUserScheduleBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
@@ -27,7 +28,7 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SopUserScheduleService;
 
 @Controller
-@RequestMapping("/galaxy/userSchedule")
+@RequestMapping("/galaxy/sopUserSchedule")
 public class SopUserScheduleController extends
 		BaseControllerImpl<SopUserSchedule, SopUserScheduleBo> {
 	final Logger logger = LoggerFactory
@@ -35,7 +36,7 @@ public class SopUserScheduleController extends
 
 	@Autowired
 	private SopUserScheduleService sopUserScheduleService;
-	
+
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 
@@ -55,15 +56,16 @@ public class SopUserScheduleController extends
 	@RequestMapping(value = "/addOrUpdateSopUserSchedule/{status}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopUserSchedule> addUserSchedule(
 			@RequestBody SopUserSchedule sopUserSchedule,
-			@PathVariable String status,HttpServletRequest request) {
-		
+			@PathVariable String status, HttpServletRequest request) {
+
 		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
-		Object ob=request.getSession().getAttribute("sessionUser");
-		if(ob == null){
-			responseBody.setResult(new Result(Status.ERROR,"no login status."));
+		Object ob = request.getSession().getAttribute("sessionUser");
+		if (ob == null) {
+			responseBody
+					.setResult(new Result(Status.ERROR, "no login status."));
 			return responseBody;
 		}
-		User user=(User) ob;
+		User user = (User) ob;
 		sopUserSchedule.setUserId(user.getId());
 		Result result = new Result();
 		result.setStatus(Status.OK);
@@ -92,21 +94,39 @@ public class SopUserScheduleController extends
 	@ResponseBody
 	@RequestMapping(value = "/selectSopUserSchedule/{type}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public ResponseData<SopUserSchedule> selectUserScheduleByTime(
-			@PathVariable Integer type,HttpServletRequest request) {
+			@PathVariable Integer type, HttpServletRequest request) {
 
 		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
-		Object ob=request.getSession().getAttribute("sessionUser");
-		if(ob == null){
-			responseBody.setResult(new Result(Status.ERROR,"no login status."));
-			return responseBody;
-		}
-		User user=(User) ob;
+		User user = (User) request.getSession().getAttribute(
+				Constants.SESSION_USER_KEY);
 		Long currentTime = System.currentTimeMillis();
 		List<SopUserScheduleBo> list = sopUserScheduleService
-				.selectSopUserScheduleByTime(user.getId(),currentTime, type);
+				.selectSopUserScheduleByTime(user.getId(), currentTime, type);
 		Page<SopUserScheduleBo> page = new Page<SopUserScheduleBo>(list, null,
 				null);
 		responseBody.setPageVoList(page);
+		return responseBody;
+	}
+
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/deleteTest/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopUserSchedule> deleteOne(@PathVariable Long id) {
+
+		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
+		Result result = null;
+		if (id == null) {
+			result = new Result(Status.ERROR, "没有传入要删除的ID号！");
+			responseBody.setResult(result);
+			return responseBody;
+		}
+		int count = getBaseService().deleteById(id);
+		if (count == 0) {
+			result = new Result(Status.ERROR, "要删除的记录不存在！");
+			responseBody.setResult(result);
+			return responseBody;
+		}
+		responseBody.setResult(new Result(Status.OK, count));
 		return responseBody;
 	}
 
