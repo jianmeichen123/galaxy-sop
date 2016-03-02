@@ -18,6 +18,7 @@ import com.galaxyinternet.bo.MenusBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.model.Header;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -41,39 +42,64 @@ public class CommonController extends BaseControllerImpl<Menus, MenusBo> {
 	@ResponseBody
 	@RequestMapping(value = "/menu", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Menus> menu(HttpServletRequest request){
-			ResponseData<Menus> responseBody = new ResponseData<Menus>();	
-			
-			//获取项目根路径
+			ResponseData<Menus> responseBody = new ResponseData<Menus>();
+			Header header = new Header();
+			header.setSessionId(request.getHeader(Constants.SESSION_ID_KEY));
+			responseBody.setHeader(header);
 			String p = request.getRequestURI();
 			String url = request.getRequestURL().toString();
 			String contextPath = request.getContextPath();
-			String host = request.getRemoteHost();
-			int port = request.getRemotePort();
 			String u = null;
 			if(contextPath == null || "".equals(contextPath.trim())){
+				url.substring(0, url.indexOf(p) + 1);
 			}else{
 				u = url.substring(0, url.indexOf(contextPath) + contextPath.length() + 1);
 			}
 			
-			Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
+			Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			if(obj == null){
 				responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 				return responseBody;
 			}
 			User user = (User) obj;
 			
-			
-			
 			List<Menus> tabs = new ArrayList<Menus>();
-			tabs.add(new Menus("工作界面",""));
-			
+			//通用Tab
+			tabs.add(new Menus("工作界面", u + ""));
+			tabs.add(new Menus("待办任务", u + ""));
+			tabs.add(new Menus("消息提醒", u + ""));
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.TZJL)){
-				
+				tabs.add(new Menus("添加项目", u + ""));
+				tabs.add(new Menus("我的项目", u + ""));
+				tabs.add(new Menus("访谈跟进", u + ""));
+				tabs.add(new Menus("会议纪要", u + ""));
+				tabs.add(new Menus("数据简报", u + ""));
 			}
 			
-		    responseBody.setEntityList(tabs);	
+			if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)
+					|| roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)
+					|| roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
+				tabs.add(new Menus("完善简历", u + ""));
+			}
+			
+			if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
+				tabs.add(new Menus("尽调报告", u + ""));
+			}
+			
+			if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
+				tabs.add(new Menus("付款凭证", u + ""));
+			}
+			
+			if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
+				tabs.add(new Menus("股权交割", u + ""));
+			}
+			
+			tabs.add(new Menus("模板管理", u + ""));
+			tabs.add(new Menus("档案管理", u + ""));
+			
+		    responseBody.setEntityList(tabs);
 			return responseBody;
 	}
 

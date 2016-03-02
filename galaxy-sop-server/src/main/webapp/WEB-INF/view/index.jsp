@@ -12,32 +12,9 @@
 </head>
 
 <body>
-<div class="header clearfix">
 
-	<a href="javascript:;" class="logo null">繁星</a>
-    <!--头部中间-->
-    <div class="min clearfix">
-        <!--用户信息-->
-        <div class="usermsg clearfix">
-            <span class="light_blue">当前您有：</span>
-            <a href="javascript:;" class="work">待办任务<em>23</em></a>
-            <a href="javascript:;" class="work">紧急任务<em class="bubble">5</em></a>
-            <a href="javascript:;" class="work">消息提醒<em>4</em></a> 
-        </div>    	<!--当日信息-->
-    	<div class="todaymsg clearfix">
-        	<span>北京</span>
-            <span class="weather1">小雨</span>
-            <span>7/-13度；</span>
-            <span>今日限行尾号为 5、0，明日为不限行！</span>            
-        </div>
-    </div>
-    <!-- 头部右边 -->
-    <div class="usermsg rit clearfix">
-        <span class="ico name">早上好，闫皓</span>
-        <b class="line null">分割线</b>
-        <a href="javascript:;" class="loginout">退出</a>
-    </div>
-</div>
+<jsp:include page="./common/header.jsp" flush="true"></jsp:include>
+
 <div class="pagebox clearfix">
 	<!--右侧-->
     <div class="rit">
@@ -132,39 +109,11 @@
             </dd>
         </dl>
     </div>
-	<!--左侧导航-->
-	<ul class="lft">
-    	<li class="on">
-        	<a href="index.html">工作桌面</a>
-        </li>
-        <li>
-        	<a href="dbrw.html">待办任务</a>
-        </li>
-        <li>
-        	<a href="xxtx.html">消息提醒</a>
-        </li>
-        <li>
-        	<a href="tjxm.html">添加项目</a>
-        </li>
-        <li>
-        	<a href="wdxm.html">我的项目</a>
-        </li>
-        <li>
-        	<a href="ftgj.html">访谈跟进</a>
-        </li>
-        <li>
-        	<a href="hyjy.html">会议纪要</a>
-        </li>
-        <li>
-        	<a href="dagl.html">档案管理</a>
-        </li>
-        <li>
-        	<a href="mbgl.html">模板管理</a>
-        </li>
-        <li>
-        	<a href="sjbbjb.html">数据报表</a>
-        </li>
-    </ul>
+    
+    
+	<jsp:include page="./common/menu.jsp" flush="true"></jsp:include>
+	
+	
     <!--中部内容-->
     <div class="min">
         <!--表格列表-->
@@ -406,9 +355,37 @@
  
 </div>
 
-<script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
-</body>
+<jsp:include page="./common/footer.jsp" flush="true"></jsp:include></body>
+<script type="text/javascript">
+$(function(){
+	var url = location.search;
+	var sessionId=url.split("=")[1];
+	$.ajax({
+		 beforeSend :function(xhr){ 
+			//设置消息头
+			xhr.setRequestHeader('sessionID',sessionId);
+		 },
+		 url:"<%=path %>/galaxy/common/menu",
+		 data:{},
+		 async: false,
+		 type: "GET",
+		 dataType:"json",
+		 contentType:"application/json; charset=UTF-8",
+ 	     cache: true,
+ 	     error: function(request) {
+ 	         alert("Connection error");
+ 	     },
+ 	     success: function(data) {
+ 	    	 $("#sid").val(data.header.sessionId);
+ 	    	 var html = "";
+ 	    	 $.each(data.entityList, function(i,o){
+ 	    		 // class="on"
+ 	    		 html += '<li><a href="' + o.url + '">' + o.menuName + '</a></li>';
+ 	    	 });
+ 	    	 $("#menus").html(html);
+ 	  	 }
+ 	 }); 
+});
+</script>
 </html>
 
