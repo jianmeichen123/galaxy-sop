@@ -148,18 +148,18 @@
 	<update id="updateByIdSelective" parameterType="SopTaskPO">
 		update sop_task
 		<set>
-			<if test="id != null"> and id =#{id}</if>
-			<if test="projectId != null"> and project_id =#{projectId},</if>
-			<if test="taskName != null"> and task_name =#{taskName},</if>
-			<if test="taskType != null"> and task_type =#{taskType},</if>
-			<if test="taskOrder != null"> and task_order =#{taskOrder},</if>
-			<if test="taskDeadline != null"> and task_deadline =#{taskDeadline},</if>
-			<if test="taskDestination != null"> and task_destination =#{taskDestination},</if>
-			<if test="taskReceiveUid != null"> and task_receive_uid =#{taskReceiveUid},</if>
-			<if test="taskStatus != null"> and task_status =#{taskStatus},</if>
-			<if test="remark != null"> and remark =#{remark},</if>
-			<if test="createdTime != null"> and created_time =#{createdTime},</if>
-			<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+			<if test="id != null">  id =#{id},</if>
+			<if test="projectId != null">  project_id =#{projectId},</if>
+			<if test="taskName != null">  task_name =#{taskName},</if>
+			<if test="taskType != null">  task_type =#{taskType},</if>
+			<if test="taskOrder != null">  task_order =#{taskOrder},</if>
+			<if test="taskDeadline != null">  task_deadline =#{taskDeadline},</if>
+			<if test="taskDestination != null">  task_destination =#{taskDestination},</if>
+			<if test="taskReceiveUid != null">  task_receive_uid =#{taskReceiveUid},</if>
+			<if test="taskStatus != null">  task_status =#{taskStatus},</if>
+			<if test="remark != null">  remark =#{remark},</if>
+			<if test="createdTime != null">  created_time =#{createdTime},</if>
+			<if test="updatedTime != null">  updated_time =#{updatedTime}</if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -182,18 +182,18 @@
 	<update id="updateById" parameterType="SopTaskPO">
 		update sop_task
 		<set>
-			<if test="id != null"> and id =#{id}</if>
-			<if test="projectId != null"> and project_id =#{projectId},</if>
-			<if test="taskName != null"> and task_name =#{taskName},</if>
-			<if test="taskType != null"> and task_type =#{taskType},</if>
-			<if test="taskOrder != null"> and task_order =#{taskOrder},</if>
-			<if test="taskDeadline != null"> and task_deadline =#{taskDeadline},</if>
-			<if test="taskDestination != null"> and task_destination =#{taskDestination},</if>
-			<if test="taskReceiveUid != null"> and task_receive_uid =#{taskReceiveUid},</if>
-			<if test="taskStatus != null"> and task_status =#{taskStatus},</if>
-			<if test="remark != null"> and remark =#{remark},</if>
-			<if test="createdTime != null"> and created_time =#{createdTime},</if>
-			<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+			<if test="id != null">  id =#{id},</if>
+			<if test="projectId != null">  project_id =#{projectId},</if>
+			<if test="taskName != null">  task_name =#{taskName},</if>
+			<if test="taskType != null">  task_type =#{taskType},</if>
+			<if test="taskOrder != null">  task_order =#{taskOrder},</if>
+			<if test="taskDeadline != null">  task_deadline =#{taskDeadline},</if>
+			<if test="taskDestination != null">  task_destination =#{taskDestination},</if>
+			<if test="taskReceiveUid != null">  task_receive_uid =#{taskReceiveUid},</if>
+			<if test="taskStatus != null">  task_status =#{taskStatus},</if>
+			<if test="remark != null">  remark =#{remark},</if>
+			<if test="createdTime != null">  created_time =#{createdTime},</if>
+			<if test="updatedTime != null">  updated_time =#{updatedTime}</if>
 		</set>
 		where id = #{id}
 	</update>
