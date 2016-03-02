@@ -9,6 +9,11 @@ public class Menus extends BaseEntity {
 	private String menuName;
 	private String url;
 	
+	public Menus(){}
+	public Menus(String menuName, String url){
+		this.menuName = menuName;
+		this.url = url;
+	}
 	
 	public String getMenuName() {
 		return menuName;
