@@ -1,4 +1,4 @@
-package com.galaxyinternet.menu.controller;
+package com.galaxyinternet.common.controller;
 
 import java.util.ArrayList;
 import java.util.List;
