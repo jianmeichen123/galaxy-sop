@@ -74,7 +74,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 		
 		if(user != null){
-			if(project.getCreateUid()==null || user.getId()!=project.getCreateUid()){ 
+			if(project.getCreateUid()==null || user.getId().longValue()!=project.getCreateUid().longValue()){ 
 				return "不允许操作他人项目";
 			}
 		}
@@ -90,8 +90,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	/**
 	 * 接触访谈阶段: 访谈添加
 	 * @param   interviewRecord 
-	 * 			
-	 * 				produces="application/text;charset=utf-8"
+	 * 			produces="application/text;charset=utf-8"
 	 * @return
 	 */
 	@ResponseBody
@@ -143,7 +142,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/queryInterview", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/queryInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ,PageRequest pageable ) {
 		
 		ResponseData<InterviewRecordBo> responseBody = new ResponseData<InterviewRecordBo>();
@@ -180,7 +179,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/startReview/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> addInterview(HttpServletRequest request,@PathVariable Long pid) {
+	public ResponseData<Project> startReview(HttpServletRequest request,@PathVariable Long pid) {
 		
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
@@ -220,7 +219,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/addmeet", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/addmeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecord meetingRecord ) {
 		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
 		
@@ -244,10 +243,10 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			prograss = "立项会";
 		}else if(meetingRecord.getMeetingType().equals("投决会")){
 			prograss = "投决会";
-		}else{
+		}/*else{
 			responseBody.setResult(new Result(Status.ERROR, "会议类型无法识别"));
 			return responseBody;
-		}
+		}*/
 		
 		//project id 验证
 		Project project = new Project();
@@ -284,7 +283,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/queryMeet", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/queryMeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecordBo> queryMeet(HttpServletRequest request,@RequestBody MeetingRecordBo query ,PageRequest pageable ) {
 		
 		ResponseData<MeetingRecordBo> responseBody = new ResponseData<MeetingRecordBo>();
@@ -312,7 +311,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 
 	/**
-	 * CEO评审阶段： 申请立项会排期，    
+	 * CEO评审阶段： 申请 立项会 排期，    
 	 * 				判断操作人为项目创建人；
 	 * 				判断项目当前阶段、当前状态；
 	 * 				修改项目进度、状态；
@@ -343,7 +342,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			return responseBody;
 		}
 		
-
 		try {
 			meetingRecordService.projectSchedule(project);
 			
@@ -374,7 +372,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/upProjectFile/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> opTermSheet(HttpServletRequest request,String workType,@PathVariable Long pid) {
+	public ResponseData<Project> upProjectFile(HttpServletRequest request,String workType,@PathVariable Long pid) {
 		
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
@@ -398,7 +396,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				proProgress = "投资协议";
 				taskName = "上传股权转让协议";
 			}else{
-				responseBody.setResult(new Result(Status.ERROR, "文件业务类型不能识别"));
+				responseBody.setResult(new Result(Status.OK, "文件业务类型不能识别"));
 				return responseBody;
 			}
 		}else{
@@ -434,6 +432,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR, "任务检索为空"));
 				return responseBody;
 			}
+			
 			//修改任务状态完成
 			task.setTaskStatus("已完成");
 			sopTaskService.updateById(task);
@@ -441,7 +440,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "upTermSheet faild"));
+			responseBody.setResult(new Result(Status.ERROR, "upProjectFile-task faild"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);
@@ -490,7 +489,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR, "Front task is not complete"));
 				return responseBody;
 			}
-			
 			
 			//修改项目进度、生成任务
 			meetingRecordService.upTermSheetSign(project,user.getId());
@@ -555,7 +553,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "projectSchedule faild"));
+			responseBody.setResult(new Result(Status.ERROR, "applyDecision faild"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);

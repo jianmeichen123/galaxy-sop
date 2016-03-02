@@ -32,8 +32,8 @@ public class SopTastDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTask
 	@Override
 	public List<SopTask> selectForTaskOverList(SopTaskBo query) {
 		try {
-			Map<String, Object> params = BeanUtils.toMap(query);
-			return sqlSessionTemplate.selectList(getSqlName("selectForTaskOver"), params);
+			//Map<String, Object> params = BeanUtils.toMap(query);
+			return sqlSessionTemplate.selectList(getSqlName("selectForTaskOver"), query);
 		} catch (Exception e) {
 			throw new DaoException(String.format("查询对象列表出错！语句：%s", getSqlName("selectForTaskOver")), e);
 		}

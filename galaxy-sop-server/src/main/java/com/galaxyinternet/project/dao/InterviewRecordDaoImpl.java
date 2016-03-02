@@ -27,7 +27,7 @@ public class InterviewRecordDaoImpl extends BaseDaoImpl<InterviewRecord, Long> i
 	@Override
 	public Page<InterviewRecordBo> selectInterviewPageList(InterviewRecordBo query, Pageable pageable) {
 		try {
-			List<InterviewRecordBo> contentList = sqlSessionTemplate.selectList(this.getSqlNamespace()+ ".selectInterviewPage" ,getParams(query, pageable));
+			List<InterviewRecordBo> contentList = sqlSessionTemplate.selectList(getSqlName("selectInterviewPage") ,getParams(query, pageable));
 			
 			System.err.println("contentList==>>"+GSONUtil.toJson(contentList));
 			
