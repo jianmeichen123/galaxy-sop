@@ -225,7 +225,7 @@
 				<if test="taskStatusList != null"> 
 					and task_status in
 					<foreach collection="taskStatusList" item="taskStatusList" index="index" open="(" close=")" separator=",">
-			            #{resid}
+			            #{taskStatusList}
 			        </foreach>
 				</if>
 			</trim>

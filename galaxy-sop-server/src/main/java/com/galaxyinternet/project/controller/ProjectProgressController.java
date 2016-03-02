@@ -440,7 +440,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "upTermSheet faild"));
+			responseBody.setResult(new Result(Status.ERROR, "upProjectFile-task faild"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);
@@ -553,7 +553,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "projectSchedule faild"));
+			responseBody.setResult(new Result(Status.ERROR, "applyDecision faild"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);
