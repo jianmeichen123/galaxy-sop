@@ -34,6 +34,7 @@ import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.RoleService;
+import com.galaxyinternet.service.UserRoleService;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -44,7 +45,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
-	private RoleService roleService;
+	private UserRoleService userRoleService;
 	@Autowired
 	private PersonPoolService personPoolService;
 	@Autowired
@@ -80,7 +81,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		User user = (User) obj;
 		//判断当前用户是否为投资经理
-		List<Long> roleIdList = roleService.selectRoleIdByUser(user.getId());
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		if(!roleIdList.contains(UserConstant.HHR) && !roleIdList.contains(UserConstant.TZJL)){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限添加项目!"));
 			return responseBody;
