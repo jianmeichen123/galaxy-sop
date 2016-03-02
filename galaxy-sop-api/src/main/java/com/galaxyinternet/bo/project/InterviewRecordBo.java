@@ -39,17 +39,23 @@ public class InterviewRecordBo extends InterviewRecord{
 	}
 
 	public void setStartTime(String startTime) {
+		if (startTime != null && startTime.length() == 10) {
+			startTime = startTime + " 00:00:00";
+		}
 		this.startTime = startTime;
 	}
-
+	
 	public String getEndTime() {
 		return endTime;
 	}
 
 	public void setEndTime(String endTime) {
+		if (endTime != null && endTime.length() == 10) {
+			endTime = endTime + " 23:59:59";
+		}
 		this.endTime = endTime;
 	}
-
+	
 	public String getProNameCode() {
 		return proNameCode;
 	}

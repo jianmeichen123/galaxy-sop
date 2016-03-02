@@ -108,11 +108,11 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		ms.setMeetingDate(meetingRecord.getMeetingDate());
 		ms.setMeetingType(meetingRecord.getMeetingType());
 		
-		if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals("待定")) {
+		if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals("待定")) {
 			ms.setStatus("待定");
-		}else if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals("否决")) {
+		}else if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals("否决")) {
 			ms.setStatus("否决");
-		}if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals("通过")) {
+		}if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals("通过")) {
 			ms.setStatus("通过");
 		}
 		

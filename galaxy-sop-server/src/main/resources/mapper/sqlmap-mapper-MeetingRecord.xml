@@ -145,11 +145,12 @@
 			sm.id, sm.project_id, p.project_name, sm.file_id, sm.meeting_date, sm.meeting_type, 
 			sm.meeting_result, sm.meeting_notes, sm.created_time
 		from sop_meeting_record sm , sop_project p 
-		where ir.project_id = p.id
+		where sm.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
+			<if test="projectId != null"> and p.id = #{projectId,jdbcType=BIGINT} </if>
 			<if test="startTime != null"> <![CDATA[  and sm.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 			<if test="endTime != null"> <![CDATA[ and sm.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
-			<if test="params.param != null">
+			<if test="proNameCode != null">
 				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
 			</if>
 			<!-- 模糊查询  like '%${params.param}%' -->
@@ -163,14 +164,16 @@
 	<!-- 查询 -->
 	<select id="selectMeetCount" resultType="java.lang.Long" parameterType="java.util.Map">
 	  select count(*) from (
-		sm.id, sm.project_id, p.project_name, sm.file_id, sm.meeting_date, sm.meeting_type, 
+	  	select
+			sm.id, sm.project_id, p.project_name, sm.file_id, sm.meeting_date, sm.meeting_type, 
 			sm.meeting_result, sm.meeting_notes, sm.created_time
 		from sop_meeting_record sm , sop_project p 
-		where ir.project_id = p.id
+		where sm.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
+			<if test="projectId != null"> and p.id = #{projectId,jdbcType=BIGINT} </if>
 			<if test="startTime != null"> <![CDATA[  and sm.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 			<if test="endTime != null"> <![CDATA[ and sm.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
-			<if test="params.param != null">
+			<if test="proNameCode != null">
 				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
 			</if>
 		) a

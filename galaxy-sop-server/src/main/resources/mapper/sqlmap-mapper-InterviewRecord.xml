@@ -137,9 +137,10 @@
 		from sop_interview_record ir , sop_project p 
 		where ir.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
-			<if test="startTime != null"> <![CDATA[  and ir.viewDate >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
-			<if test="endTime != null"> <![CDATA[ and ir.viewDate <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
-			<if test="params.param != null">
+			<if test="projectId != null"> and p.id = #{projectId,jdbcType=BIGINT} </if>
+			<if test="startTime != null"> <![CDATA[  and ir.view_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and ir.view_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="proNameCode != null">
 				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
 			</if>
 			<!-- 模糊查询  like '%${params.param}%' -->
@@ -159,9 +160,10 @@
 		from sop_interview_record ir , sop_project p 
 		where ir.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
-			<if test="startTime != null"> <![CDATA[  and ir.viewDate >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
-			<if test="endTime != null"> <![CDATA[ and ir.viewDate <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
-			<if test="params.param != null">
+			<if test="projectId != null"> and p.id = #{projectId,jdbcType=BIGINT} </if>
+			<if test="startTime != null"> <![CDATA[  and ir.view_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and ir.view_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="proNameCode != null">
 				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
 			</if>
 		) a
