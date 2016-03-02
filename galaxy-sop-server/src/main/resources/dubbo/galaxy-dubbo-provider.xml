@@ -31,13 +31,13 @@
 	http://code.alibabatech.com/schema/dubbo
     http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
 	
-	<!-- 
+	
 	<dubbo:monitor protocol="registry" />
     <dubbo:application name="${dubbo.application.name}" />
     <dubbo:registry address="${dubbo.registry.address}" protocol="${dubbo.protocol.name}"/>
     <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
     <dubbo:consumer timeout="10000" check="false" />
-    
+ <!-- 
     <dubbo:service interface="com.galaxyinternet.service.UserService" ref="com.galaxyinternet.service.UserService" version="1.0.0"/>
- 	-->
+ 	   -->
 </beans>
