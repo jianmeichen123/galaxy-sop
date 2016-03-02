@@ -7,6 +7,8 @@ public class InterviewRecordBo extends InterviewRecord{
 	private static final long serialVersionUID = 1L;
 	
 	private String proName;
+	private String furi;
+	private String fname;
 	
 	private Long uid;
 	private String startTime;
@@ -55,6 +57,23 @@ public class InterviewRecordBo extends InterviewRecord{
 	public void setProNameCode(String proNameCode) {
 		this.proNameCode = proNameCode;
 	}
+
+	public String getFuri() {
+		return furi;
+	}
+
+	public void setFuri(String furi) {
+		this.furi = furi;
+	}
+
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+	
 	
 	
 

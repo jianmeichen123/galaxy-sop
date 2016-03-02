@@ -33,7 +33,7 @@ public class InterviewRecordDaoImpl extends BaseDaoImpl<InterviewRecord, Long> i
 			
 			return new  Page<InterviewRecordBo>(contentList, pageable, selectInterviewCount(query));
 		} catch (Exception e) {
-			throw new DaoException(String.format("根据分页对象查询列表出错！语句:%s", getSqlName(SqlId.SQL_SELECT)), e);
+			throw new DaoException(String.format("根据分页对象查询列表出错！语句:%s", getSqlName("selectInterviewPage")), e);
 		}
 	}
 	
@@ -43,7 +43,7 @@ public class InterviewRecordDaoImpl extends BaseDaoImpl<InterviewRecord, Long> i
 			Map<String, Object> params = BeanUtils.toMap(query);
 			return sqlSessionTemplate.selectOne(this.getSqlNamespace()+ ".selectInterviewCount", params);
 		} catch (Exception e) {
-			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName(SqlId.SQL_SELECT_COUNT)), e);
+			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("selectInterviewCount")), e);
 		}
 	}
 	

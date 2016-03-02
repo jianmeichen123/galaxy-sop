@@ -22,6 +22,7 @@ import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -65,18 +66,41 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
+	public String errMessage(Project project,User user,String prograss){
+		if(project == null){
+			return "项目检索为空";
+		}else if(project.getProjectStatus().equals("关闭")){
+			return "项目已经关闭";
+		}
+		
+		if(user != null){
+			if(project.getCreateUid()==null || user.getId()!=project.getCreateUid()){ 
+				return "不允许操作他人项目";
+			}
+		}
+		if(prograss != null){
+			if(project.getProjectProgress()==null || !project.getProjectProgress().equals(prograss) ){
+				return "项目当前阶段不允许进行该操作";
+			}
+		}
+		return null;
+	}
+	
 	
 	/**
-	 * 接触访谈阶段
-	 * 			访谈添加
+	 * 接触访谈阶段: 访谈添加
 	 * @param   interviewRecord 
+	 * 			
+	 * 				produces="application/text;charset=utf-8"
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/addInterview", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InterviewRecord> addInterview(HttpServletRequest request,@RequestBody InterviewRecord interviewRecord ) {
+	@RequestMapping(value = "/addInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecord interviewRecord ,HttpServletRequest request ) {
 		
 		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+		
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		if(interviewRecord.getProjectId() == null 
 				|| interviewRecord.getViewDate() == null 
@@ -86,6 +110,16 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			return responseBody;
 		}
 		
+		//project id 验证
+		Project project = new Project();
+		project = projectService.queryById(interviewRecord.getProjectId());
+		
+		String err = errMessage(project,user,"接触访谈");
+		if(err!=null && err.length()>0){
+			responseBody.setResult(new Result(Status.ERROR, err));
+			return responseBody;
+		}
+				
 		try {
 			Long id = interviewRecordService.insert(interviewRecord);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -102,8 +136,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	
-	
 	/**
 	 * 访谈查询,
 	 * 			查询个人项目下的访谈记录  
@@ -116,13 +148,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		ResponseData<InterviewRecordBo> responseBody = new ResponseData<InterviewRecordBo>();
 		
-		//String sessionId = request.getHeader("sessionID");
-		Object obj = request.getSession().getAttribute("sessionUser"); 
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "validate loging session failed"));
-			return responseBody;
-		}
-		User user = (User)obj;
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		try {
 			query.setUid(user.getId());
@@ -144,14 +170,13 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	
 	/**
-	 * 接触访谈阶段
-	 * 				启动内部评审，判断操作人为项目创建人
+	 * 接触访谈阶段: 启动内部评审，
+	 * 				判断操作人为项目创建人
 	 * 				判断项目当前阶段
 	 * 				修改项目进度、状态
 	 * @param   project 
-	 * @return
+	 * @return  
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/startReview/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -159,30 +184,17 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
-		//session 验证
-		Object obj = request.getSession().getAttribute("sessionUser"); 
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "validate loging session failed"));
-			return responseBody;
-		}
-		User user = (User)obj;
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
-		//project id 验证
 		Project project = new Project();
 		project = projectService.queryById(pid);
 		
-		if(project==null){
-			responseBody.setResult(new Result(Status.ERROR, "project id is not exist"));
-			return responseBody;
-		}else if(!project.getProjectProgress().equals("接触访谈")){
-			responseBody.setResult(new Result(Status.ERROR, "project now progress is not allowed"));
+		String err = errMessage(project,user,"接触访谈");
+		if(err!=null && err.length()>0){
+			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
 		}
-		if(user.getId()!=project.getCreateUid()){ //操作权限验证
-			responseBody.setResult(new Result(Status.ERROR, "can not operation by other"));
-			return responseBody;
-		}
-
+				
 		try {
 			project.setProjectProgress("内部评审");
 			project.setProjectStatus("待定");
@@ -201,30 +213,18 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	
-	
-	
-	
-	
 	/**
-	 * 内部评审、 CEO评审 、 立项会、投决会  阶段
-	 * 			添加会议记录   
+	 * 内部评审、 CEO评审 、 立项会、投决会  阶段 : 添加会议记录   
 	 * 			判断会议结论，更新项目进度，启动关联任务
 	 * @param   interviewRecord 
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/add", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InterviewRecord> addInterview(HttpServletRequest request,@RequestBody MeetingRecord meetingRecord ) {
-		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+	@RequestMapping(value = "/addmeet", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecord meetingRecord ) {
+		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
 		
-		//String sessionId = request.getHeader("sessionID");
-		Object obj = request.getSession().getAttribute("sessionUser"); 
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "validate loging session failed"));
-			return responseBody;
-		}
-		User user = (User)obj;
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		if(meetingRecord.getProjectId() == null 
 				|| meetingRecord.getMeetingDate() == null 
@@ -232,6 +232,30 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				|| meetingRecord.getMeetingResult() == null 
 				|| meetingRecord.getMeetingNotes() == null ){
 			responseBody.setResult(new Result(Status.ERROR, "meetingRecord info not complete"));
+			return responseBody;
+		}
+		
+		String prograss = "";
+		if(meetingRecord.getMeetingType().equals("内评会")){
+			prograss = "内部评审";
+		}else if(meetingRecord.getMeetingType().equals("CEO评审")){
+			prograss = "CEO评审";
+		}else if(meetingRecord.getMeetingType().equals("立项会")){
+			prograss = "立项会";
+		}else if(meetingRecord.getMeetingType().equals("投决会")){
+			prograss = "投决会";
+		}else{
+			responseBody.setResult(new Result(Status.ERROR, "会议类型无法识别"));
+			return responseBody;
+		}
+		
+		//project id 验证
+		Project project = new Project();
+		project = projectService.queryById(meetingRecord.getProjectId());
+		
+		String err = errMessage(project,user,prograss);
+		if(err!=null && err.length()>0){
+			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
 		}
 		
@@ -265,13 +289,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		ResponseData<MeetingRecordBo> responseBody = new ResponseData<MeetingRecordBo>();
 		
-		//String sessionId = request.getHeader("sessionID");
-		Object obj = request.getSession().getAttribute("sessionUser"); 
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "validate loging session failed"));
-			return responseBody;
-		}
-		User user = (User)obj;
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		try {
 			query.setUid(user.getId());
@@ -292,8 +310,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return responseBody;
 	}
 	
-	
-	
 
 	/**
 	 * CEO评审阶段： 申请立项会排期，    
@@ -310,32 +326,23 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
-		//session 验证
-		Object obj = request.getSession().getAttribute("sessionUser"); 
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "validate loging session failed"));
-			return responseBody;
-		}
-		User user = (User)obj;
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		//project id 验证
 		Project project = new Project();
 		project = projectService.queryById(pid);
 		
-		if(project==null){
-			responseBody.setResult(new Result(Status.ERROR, "project id is not exist"));
-			return responseBody;
-		}else if(!project.getProjectProgress().equals("CEO评审") ){
-			responseBody.setResult(new Result(Status.ERROR, "project now progress is not allowed"));
-			return responseBody;
-		}else if(!project.getProjectStatus().equals("通过")){
-			responseBody.setResult(new Result(Status.ERROR, "project now status is not allowed"));
+		String err = errMessage(project,user,"CEO评审");
+		if(err!=null && err.length()>0){
+			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
 		}
-		if(user.getId()!=project.getCreateUid()){ //操作权限验证
-			responseBody.setResult(new Result(Status.ERROR, "can not operation by other"));
+		
+		if(!project.getProjectStatus().equals("通过")){
+			responseBody.setResult(new Result(Status.ERROR, "会议未通过"));
 			return responseBody;
 		}
+		
 
 		try {
 			meetingRecordService.projectSchedule(project);
@@ -354,54 +361,79 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	
-	
 	/**
-	 * 投资意向书阶段： 上传  投资意向书；
+	 * 投资意向书  阶段： 上传  投资意向书；
+	 * 尽职调查       阶段: 上传  业务尽职调查报告；
+	 * 投资协议       阶段： 上传 投资协议、股权转让协议
 	 * 				判断操作人为项目创建人；
 	 * 				判断项目当前阶段；
-	 * 				更新任务状态；
-	 * @param   project 
+	 * 
+	 * 更新任务状态；
+	 * @param   workType 文件业务类型 
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/upTermSheet/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> opTermSheet(HttpServletRequest request,@PathVariable Long pid) {
+	@RequestMapping(value = "/upProjectFile/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> opTermSheet(HttpServletRequest request,String workType,@PathVariable Long pid) {
 		
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
-		//session 验证
-		Object obj = request.getSession().getAttribute("sessionUser"); 
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "validate loging session failed"));
+		String proProgress = "";
+		String taskName = "";
+		
+		if(workType!=null){
+			if(workType.equals("投资意向书")){
+				proProgress = "投资意向书";
+				taskName = "上传投资意向书";
+				
+			}else if(workType.equals("业务尽职调查报告")){
+				proProgress = "尽职调查";
+				taskName = "上传业务尽职调查报告";
+				
+			}else if(workType.equals("投资协议")){
+				proProgress = "投资协议";
+				taskName = "上传投资协议";
+				
+			}else if(workType.equals("股权转让协议")){
+				proProgress = "投资协议";
+				taskName = "上传股权转让协议";
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, "文件业务类型不能识别"));
+				return responseBody;
+			}
+		}else{
+			responseBody.setResult(new Result(Status.ERROR, "文件业务类型为空"));
 			return responseBody;
 		}
-		User user = (User)obj;
+		
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		//project id 验证
 		Project project = new Project();
 		project = projectService.queryById(pid);
 		
-		if(project==null){
-			responseBody.setResult(new Result(Status.ERROR, "project id is not exist"));
-			return responseBody;
-		}else if(!project.getProjectProgress().equals("投资意向书") ){
-			responseBody.setResult(new Result(Status.ERROR, "project now progress is not allowed"));
+		//项目为 内部创建，不需要  股权转让协议
+		if(project.getProjectType()!=null && project.getProjectType().equals("内部创建") && workType.equals("股权转让协议")){
+			responseBody.setResult(new Result(Status.ERROR, "该项目不需要股权转让协议"));
 			return responseBody;
 		}
-		if(user.getId()!=project.getCreateUid()){ //操作权限验证
-			responseBody.setResult(new Result(Status.ERROR, "can not operation by other"));
+				
+		String err = errMessage(project,user,proProgress);
+		if(err!=null && err.length()>0){
+			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
 		}
 
 		try {
 			SopTask task = new SopTask();
 			task.setProjectId(pid);
-			task.setTaskName("上传投资意向书");          //任务名称：    上传投资意向书
+			task.setTaskName(taskName);          
 			task.setTaskReceiveUid(user.getId());
 			task = sopTaskService.queryOne(task);
-			//上传
-			
+			if(task==null){
+				responseBody.setResult(new Result(Status.ERROR, "任务检索为空"));
+				return responseBody;
+			}
 			//修改任务状态完成
 			task.setTaskStatus("已完成");
 			sopTaskService.updateById(task);
@@ -420,8 +452,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	
-	
 	/**
 	 * 投资意向书阶段：上传  投资意向书-签署证明；
 	 * 				判断操作人为项目创建人；
@@ -437,43 +467,29 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
-		//session 验证
-		Object obj = request.getSession().getAttribute("sessionUser"); 
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "validate loging session failed"));
-			return responseBody;
-		}
-		User user = (User)obj;
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		//project id 验证
 		Project project = new Project();
 		project = projectService.queryById(pid);
 		
-		if(project==null){
-			responseBody.setResult(new Result(Status.ERROR, "project id is not exist"));
-			return responseBody;
-		}else if(!project.getProjectProgress().equals("投资意向书") ){
-			responseBody.setResult(new Result(Status.ERROR, "project now progress is not allowed"));
-			return responseBody;
-		}
-		//上传  投资意向书  任务验证已完成
-		SopTask task = new SopTask();
-		task.setProjectId(pid);
-		task.setTaskName("上传投资意向书");          //任务名称：    上传投资意向书
-		task.setTaskReceiveUid(user.getId());
-		task = sopTaskService.queryOne(task);
-		if(!task.getTaskStatus().equals("已完成")){
-			responseBody.setResult(new Result(Status.ERROR, "Front task is not complete"));
+		String err = errMessage(project,user,"投资意向书");
+		if(err!=null && err.length()>0){
+			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
 		}
 		
-		if(user.getId()!=project.getCreateUid()){ //操作权限验证
-			responseBody.setResult(new Result(Status.ERROR, "can not operation by other"));
-			return responseBody;
-		}
-
 		try {
-			//上传 签署证明
+			//上传  投资意向书  任务验证已完成
+			SopTask task = new SopTask();
+			task.setProjectId(pid);
+			task.setTaskName("上传投资意向书");          //任务名称：    上传投资意向书
+			task.setTaskReceiveUid(user.getId());
+			task = sopTaskService.queryOne(task);
+			if(task.getTaskStatus()==null || !task.getTaskStatus().equals("已完成")){
+				responseBody.setResult(new Result(Status.ERROR, "Front task is not complete"));
+				return responseBody;
+			}
 			
 			
 			//修改项目进度、生成任务
@@ -493,10 +509,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	
-	
 	/**
-	 * 尽职调查阶段，申请投决会；
+	 * 尽职调查阶段，申请 投决会；
 	 * 				判断操作人为项目创建人；
 	 * 				判断项目当前阶段、当前任务；
 	 * 				更新项目阶段；
@@ -510,44 +524,32 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
-		//session 验证
-		Object obj = request.getSession().getAttribute("sessionUser"); 
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "validate loging session failed"));
-			return responseBody;
-		}
-		User user = (User)obj;
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		//project id 验证
 		Project project = new Project();
 		project = projectService.queryById(pid);
 		
-		if(project==null){
-			responseBody.setResult(new Result(Status.ERROR, "project id is not exist"));
-			return responseBody;
-		}else if(!project.getProjectProgress().equals("尽职调查") ){
-			responseBody.setResult(new Result(Status.ERROR, "project now progress is not allowed"));
-			return responseBody;
-		}
-		if(user.getId()!=project.getCreateUid()){ //操作权限验证
-			responseBody.setResult(new Result(Status.ERROR, "can not operation by other"));
-			return responseBody;
-		}
-
-		//验证任务都完成
-		SopTaskBo task = new SopTaskBo();
-		task.setProjectId(pid);
-		List<String> sl = new ArrayList<String>();
-		sl.add("待认领");
-		sl.add("待完工");
-		task.setTaskStatusList(sl);
-		List<SopTask> tlist = sopTaskService.selectForTaskOverList(task);
-		if(tlist!=null && tlist.size()>0){
-			responseBody.setResult(new Result(Status.ERROR, "task is not over"));
+		String err = errMessage(project,user,"尽职调查");
+		if(err!=null && err.length()>0){
+			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
 		}
 		
 		try {
+			//验证任务都完成
+			SopTaskBo task = new SopTaskBo();
+			task.setProjectId(pid);
+			List<String> sl = new ArrayList<String>();
+			sl.add("待认领");
+			sl.add("待完工");
+			task.setTaskStatusList(sl);
+			List<SopTask> tlist = sopTaskService.selectForTaskOverList(task);
+			if(tlist!=null && tlist.size()>0){
+				responseBody.setResult(new Result(Status.ERROR, "task is not over"));
+				return responseBody;
+			}
+			
 			meetingRecordService.decisionSchedule(project);
 			
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -563,6 +565,67 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return responseBody;
 	}
 	
+	
+	/**
+	 * 投资协议 阶段：上传  投资协议-签署证明；
+	 * 				判断操作人为项目创建人；
+	 * 				判断项目当前阶段、当前任务状态；
+	 * 				更新项目阶段；
+	 * 				生成任务
+	 * @param   project 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/upInvestmentSign/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> upInvestmentSign(HttpServletRequest request,@PathVariable Long pid) {
+		
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		
+		//project id 验证
+		Project project = new Project();
+		project = projectService.queryById(pid);
+		
+		String err = errMessage(project,user,"投资协议");
+		if(err!=null && err.length()>0){
+			responseBody.setResult(new Result(Status.ERROR, err));
+			return responseBody;
+		}
+		
+		try {
+			//验证任务完成
+			SopTaskBo task = new SopTaskBo();
+			task.setProjectId(pid);
+			task.setTaskReceiveUid(user.getId());
+			List<String> sl = new ArrayList<String>();
+			sl.add("待认领");
+			sl.add("待完工");
+			task.setTaskStatusList(sl);
+			List<SopTask> tlist = sopTaskService.selectForTaskOverList(task);
+			if(tlist!=null && tlist.size()>0){
+				responseBody.setResult(new Result(Status.ERROR, "task is not over"));
+				return responseBody;
+			}
+			
+			//修改项目进度、生成任务
+			meetingRecordService.upInvestmentSign(project);
+			
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(project.getId());
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, "upTermSheet faild"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("update project faild ",e);
+			}
+		}
+		
+		return responseBody;
+	}
+
+
+
 	
 	
 	

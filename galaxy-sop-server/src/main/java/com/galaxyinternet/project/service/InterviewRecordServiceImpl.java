@@ -1,6 +1,7 @@
 package com.galaxyinternet.project.service;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,10 +28,19 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	}
 
 	
-
 	@Override
 	public Page<InterviewRecordBo> queryInterviewPageList(InterviewRecordBo query, Pageable pageable) {
-		return interviewRecordDao.selectInterviewPageList(query, pageable);
+		Page<InterviewRecordBo> viewPage = interviewRecordDao.selectInterviewPageList(query, pageable);
+		if(viewPage.getContent()!=null && viewPage.getContent().size()>0){
+			//file实体
+			for(InterviewRecordBo ib : viewPage.getContent()){
+				//查询附件信息
+				ib.setFname("");
+				ib.setFuri("");
+			}
+		}
+		
+		return viewPage;
 	}
 	
 	

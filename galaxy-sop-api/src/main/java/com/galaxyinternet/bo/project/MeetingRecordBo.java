@@ -6,6 +6,8 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private static final long serialVersionUID = 1L;
 
 	private String proName; //项目名称 - 会议记录
+	private String furi;
+	private String fname;
 	
 	private Long uid; //项目创建人
 	private String startTime;
@@ -41,8 +43,18 @@ public class MeetingRecordBo  extends MeetingRecord{
 	public void setProNameCode(String proNameCode) {
 		this.proNameCode = proNameCode;
 	}
-	
-	
+	public String getFuri() {
+		return furi;
+	}
+	public void setFuri(String furi) {
+		this.furi = furi;
+	}
+	public String getFname() {
+		return fname;
+	}
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
 	
 
 }

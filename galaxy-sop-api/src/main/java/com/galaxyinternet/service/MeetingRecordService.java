@@ -19,4 +19,6 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	public void upTermSheetSign(Project project,Long uid);
 	
 	public void decisionSchedule(Project project);
+	
+	public void upInvestmentSign(Project project);
 }
