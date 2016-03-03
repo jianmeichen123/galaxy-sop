@@ -1,8 +1,8 @@
 package com.galaxyinternet.bo.project;
 
-import com.galaxyinternet.model.HR.personLearn;
+import com.galaxyinternet.model.hr.PersonLearn;
 
-public class personLearnBo extends personLearn{
+public class personLearnBo extends PersonLearn{
 
 	/**
 	 * 
