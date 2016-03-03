@@ -52,7 +52,8 @@ public class CommonController extends BaseControllerImpl<Menus, MenusBo> {
 			String contextPath = request.getContextPath();
 			String u = null;
 			if(contextPath == null || "".equals(contextPath.trim())){
-				url.substring(0, url.indexOf(p) + 1);
+				//rl.substring(0, url.indexOf(p) + 1);
+				u = url.substring(0, url.indexOf(p) + 1);
 			}else{
 				u = url.substring(0, url.indexOf(contextPath) + contextPath.length() + 1);
 			}
@@ -74,8 +75,8 @@ public class CommonController extends BaseControllerImpl<Menus, MenusBo> {
 			if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.TZJL)){
 				tabs.add(new Menus(4L, "添加项目", u + ""));
 				tabs.add(new Menus(5L, "我的项目", u + ""));
-				tabs.add(new Menus(6L, "访谈跟进", u + ""));
-				tabs.add(new Menus(7L, "会议纪要", u + ""));
+				tabs.add(new Menus(6L, "访谈跟进", u + "galaxy/project/progress/interView"));
+				tabs.add(new Menus(7L, "会议纪要", u + "galaxy/project/progress/meetView"));
 				tabs.add(new Menus(8L, "数据简报", u + ""));
 			}
 			
