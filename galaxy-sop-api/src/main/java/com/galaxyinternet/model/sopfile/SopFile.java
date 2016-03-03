@@ -24,7 +24,7 @@ public class SopFile extends BaseEntity {
     /**
      * 业务分类
      */
-    private Integer fileWorktype;
+    private String fileWorktype;
 
     
     /**
@@ -56,7 +56,7 @@ public class SopFile extends BaseEntity {
      * 档案状态
      * 缺失，已上传，已审核
      */
-    private Integer fileStatus;
+    private String fileStatus;
   
     /**
      * 上传人/起草者
@@ -105,12 +105,12 @@ public class SopFile extends BaseEntity {
     }
 
     
-    public Integer getFileWorktype() {
+    public String getFileWorktype() {
         return fileWorktype;
     }
 
     
-    public void setFileWorktype(Integer fileWorktype) {
+    public void setFileWorktype(String fileWorktype) {
         this.fileWorktype = fileWorktype;
     }
 
@@ -155,12 +155,12 @@ public class SopFile extends BaseEntity {
     }
 
     
-    public Integer getFileStatus() {
+    public String getFileStatus() {
         return fileStatus;
     }
 
     
-    public void setFileStatus(Integer fileStatus) {
+    public void setFileStatus(String fileStatus) {
         this.fileStatus = fileStatus;
     }
 
