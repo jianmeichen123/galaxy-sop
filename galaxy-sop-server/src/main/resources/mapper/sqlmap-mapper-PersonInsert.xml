@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.HR.personInvest" >
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.HR.personInvest" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="investment_amount" property="investmentAmount" jdbcType="DECIMAL" />
+    <result column="share_ratio" property="shareRatio" jdbcType="DECIMAL" />
+    <result column="project_director" property="projectDirector" jdbcType="VACHAR" />
+    <result column="emceed_position" property="emceedPosition " jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+			id,person_id,company_name,investment_amount,share_ratio,project_director,emceed_position,telephone,updated_time,created_time                                         
+  </sql>
+
+  <sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+			  <if test="id != null"> and id =#{id}</if>
+			  <if test="personId != null" > and person_id = #{personId,jdbcType=VARCHAR} </if>
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from sop_person_invest_experience
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_person_invest_experience
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_person_invest_experience where id = #{id}
+	</select>
+	<!-- 添加 -->
+  	<insert id="insert" parameterType="com.galaxyinternet.model.HR.personInvest" >
+	    <![CDATA[
+	     insert into sop_person_invest_experience (id,person_id,company_name,investment_amount,share_ratio,project_director,emceed_position,telephone,updated_time,created_time)
+	    values (#{id,jdbcType=BIGINT}, #{personId,jdbcType=BIGINT}, #{companyName,jdbcType=VARCHAR}, 
+	      #{investmentAmount,jdbcType=DECIMAL}, #{shareRatio,jdbcType=DECIMAL},
+	      #{projectDirector,jdbcType=VACHAR}, #{emceedPosition,jdbcType=TIMESTAMP}, #{telephone,jdbcType=VARCHAR}, 	 
+	      #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT})
+	    ]]>
+    </insert>
+    
+    <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.HR.personInvest">
+		update  sop_person_invest_experience
+		<set>
+			
+		    <result column="person_id" property="personId" jdbcType="BIGINT" />
+		    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+		    <result column="investment_amount" property="investmentAmount" jdbcType="DECIMAL" />
+		    <result column="share_ratio" property="shareRatio" jdbcType="DECIMAL" />
+		    <result column="project_director" property="projectDirector" jdbcType="VACHAR" />
+		    <result column="emceed_position" property="emceedPosition " jdbcType="VARCHAR" />
+		    <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
+		    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+			  <if test="id != null"> and id =#{id}</if>
+			  <if test="personId != null" > and person_id = #{personId,jdbcType=BIGINT} </if>
+			</trim>
+		</where>
+	</update>
+    <!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.HR.personInvest">
+		update sop_person_invest_experience
+		<set>
+			<result column="person_id" property="personId" jdbcType="BIGINT" />
+		    <result column="company_name" property="personSex" jdbcType="VARCHAR" />
+		    <result column="work_depart" property="workDepart" jdbcType="VARCHAR" />
+		    <result column="work_position" property="workPosition" jdbcType="VARCHAR" />
+		    <result column="work_content" property="workContent" jdbcType="VACHAR" />
+		    <result column="work_effect" property="workEffect " jdbcType="VARCHAR" />
+		    <result column="work_emolument" property="workEmolument" jdbcType="INTEGER" />
+		    <result column="begin_work" property="beginWork" jdbcType="TIMESTAMP" />
+		    
+		    <result column="over_work" property="overWork " jdbcType="TIMESTAMP" />
+		    <result column="leave_reason" property="leaveReason" jdbcType="VARCHAR" />
+		    <result column="leader_name" property="leaderName" jdbcType="VARCHAR" />
+		    <result column="leader_position" property="leaderPosition" jdbcType="VARCHAR" />
+		    <result column="leader_phone" property="leaderPhone " jdbcType="VARCHAR" />
+		    <result column="colleague_name" property="colleaguName" jdbcType="VARCHAR" />
+		    <result column="colleague_position" property="colleaguePosition" jdbcType="VARCHAR" />
+		    <result column="colleague_phone" property="colleaguePhone" jdbcType="VARCHAR" />
+		
+		    <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
+		    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+		</set>
+		where id = #{id}
+	</update>
+    
+    <!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_person_invest_experience
+		<include refid="Base_Where_Clause" />
+	</delete>
+     <!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_person_invest_experience where id = #{id}
+	</delete>
+	
+	
+</mapper>

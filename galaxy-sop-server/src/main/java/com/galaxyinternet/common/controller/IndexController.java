@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/galaxy")
 public class IndexController {
 	
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	@RequestMapping(value = "/redirect", method = RequestMethod.GET)
 	public String index() {
+		return "redirect:/galaxy/index";
+	}
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	public String redirect() {
 		return "index";
 	}
-	
 }
