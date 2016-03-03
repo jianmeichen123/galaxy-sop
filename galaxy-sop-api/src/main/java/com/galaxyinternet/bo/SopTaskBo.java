@@ -10,7 +10,8 @@ public class SopTaskBo extends SopTask {
 	private String createUname;// 业务对象中扩展的字段
 	private String projectName;//业务扩展字段---项目名称
 	private List<String>  ids;//业务扩展字段---项目ids
-	
+	private String taskDeadlineformat;
+	private String caozuo;
 	private List<String> taskStatusList; //任务状态  完成、待完成
 
 	public String getCreateUname() {
@@ -43,6 +44,22 @@ public class SopTaskBo extends SopTask {
 
 	public void setTaskStatusList(List<String> taskStatusList) {
 		this.taskStatusList = taskStatusList;
+	}
+
+	public String getTaskDeadlineformat() {
+		return taskDeadlineformat;
+	}
+
+	public void setTaskDeadlineformat(String taskDeadlineformat) {
+		this.taskDeadlineformat = taskDeadlineformat;
+	}
+
+	public String getCaozuo() {
+		return caozuo;
+	}
+
+	public void setCaozuo(String caozuo) {
+		this.caozuo = caozuo;
 	}
 	
 	

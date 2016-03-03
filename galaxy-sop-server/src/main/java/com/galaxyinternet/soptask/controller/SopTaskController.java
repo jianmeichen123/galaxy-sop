@@ -1,5 +1,6 @@
 package com.galaxyinternet.soptask.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -23,18 +25,28 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.StringEx;
+import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
 
 @Controller
 @RequestMapping("/galaxy/soptask")
 public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	final Logger logger = LoggerFactory.getLogger(SopTaskController.class);
+	
 	@Autowired
 	private SopTaskService sopTaskService;
-	// @Autowiredo
-	// UserRepository userRepository;
-
+	
+	@Autowired
+	private DepartmentService departmentService;
+	
+	@Autowired
+	private ProjectService projectService;
+	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 
@@ -42,6 +54,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	protected BaseService<SopTask> getBaseService() {
 		return this.sopTaskService;
 	}
+	
+	/**
+	 * 默认页面
+	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public String list() {
+		return "soptask/tasklist";
+	}
+
 
 	/**
 	 * @category 根据角色获取当前登录人所属角色的所有任务
@@ -51,15 +72,26 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/taskListByRole", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopTask> taskListByRole(PageRequest pageable, @RequestBody SopTask sopTask) {
-		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
-		// 获取当前登录人，并且查询该登录人所属角色
-		sopTask.setTaskDestination("1");
+	@RequestMapping(value = "/taskListByRole", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopTaskBo> taskListByRole(PageRequest pageable,@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request) {
+		ResponseData<SopTaskBo> responseBody = new ResponseData<SopTaskBo>();
+		//SopTaskBo sopTaskBo=new SopTaskBo();
+		//当前登录人
+		User user = (User) request.getSession().getAttribute(
+				Constants.SESSION_USER_KEY);
+		sopTaskBo.setTaskReceiveUid(user.getId());
+		//根据当前登录认查询部门
+		Department Department=new Department();//
+		Department.setId(user.getDepartmentId());
+		Department queryOne = departmentService.queryOne(Department);
+		if(StringEx.isNullOrEmpty(queryOne)){
+			sopTaskBo.setTaskDestination(queryOne.getId().toString());
+		}
+		sopTaskBo.setTaskReceiveUid((long)1);
 		Result result = new Result();
 		try {
-			Page<SopTaskBo> list = sopTaskService.tasklist(pageable, sopTask);
-			responseBody.setPageVoList((Page<SopTaskBo>) list);
+			Page<SopTaskBo> list = sopTaskService.tasklist(pageable, sopTaskBo,request);
+			responseBody.setPageList(list);
 			result.setStatus(Status.OK);
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
@@ -113,7 +145,11 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateTaskStatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopTask> updateTaskStatus( @RequestBody SopTask entity) {
+	public ResponseData<SopTask> updateTaskStatus( @RequestBody SopTask entity,HttpServletRequest request) {
+		//当前登录人
+				User user = (User) request.getSession().getAttribute(
+						Constants.SESSION_USER_KEY);
+				entity.setTaskReceiveUid(user.getId());
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
 		Result result = new Result();
 		try {
@@ -128,4 +164,30 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		responseBody.setResult(result);
 		return responseBody;
 	}
+
+	/**
+	 * @category 处理任务，人，财务，法务查询项目详情
+	 * @author chenjianmei
+	 * @serialData 2016-02-26
+	 * @param pageable
+	 * @return
+	 *@PathVariable("taskId") String taskId
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/selectProjectByTaskId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> selectProjectByTaskId( @PathVariable Long projectid,HttpServletRequest request) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		Result result = new Result();
+	    Project queryProjectById = projectService.queryById(projectid);
+	   //项目创建者用户ID与当前登录人ID是否一样
+		if(queryProjectById == null ){
+			responseBody.setResult(new Result(Status.ERROR, "获取项目详情失败!"));
+			return responseBody;
+		}
+	    result.setStatus(Status.OK);
+		responseBody.setResult(result);
+		responseBody.setEntity(queryProjectById);
+		return responseBody;
+	}
+	
 }
