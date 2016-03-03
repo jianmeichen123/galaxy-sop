@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.MenusBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.constants.RequestUrl;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Header;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -52,7 +53,7 @@ public class CommonController extends BaseControllerImpl<Menus, MenusBo> {
 			String contextPath = request.getContextPath();
 			String u = null;
 			if(contextPath == null || "".equals(contextPath.trim())){
-				url.substring(0, url.indexOf(p) + 1);
+				u = url.substring(0, url.indexOf(p) + 1);
 			}else{
 				u = url.substring(0, url.indexOf(contextPath) + contextPath.length() + 1);
 			}
@@ -67,7 +68,7 @@ public class CommonController extends BaseControllerImpl<Menus, MenusBo> {
 			List<Menus> tabs = new ArrayList<Menus>();
 			//通用Tab
 			tabs.add(new Menus(1L, "工作界面", u + ""));
-			tabs.add(new Menus(2L, "待办任务", u + ""));
+			tabs.add(new Menus(2L, "待办任务", u + RequestUrl.MENU_SOPTASK));
 			tabs.add(new Menus(3L, "消息提醒", u + ""));
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
