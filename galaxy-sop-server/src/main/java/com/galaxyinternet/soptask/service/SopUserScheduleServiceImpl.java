@@ -1,7 +1,10 @@
 package com.galaxyinternet.soptask.service;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,11 +34,13 @@ public class SopUserScheduleServiceImpl extends
 
 	/***
 	 * 获取我的日程前三条信息 type: 1:前三条数据?更多 currentTime 当前系统时间
+	 * @throws ParseException 
 	 */
 	@Override
 	public List<SopUserScheduleBo> selectSopUserScheduleByTime(Long userId,
-			Long currentTime, Integer type) {
+			Long currentTime, Integer type) throws ParseException {
 		// TODO Auto-generated method stub
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		// 获取大于当前系统时间的数据信息
 		Map<String,Object> params=new HashMap<String,Object>();
 		params.put("userId", userId);
@@ -47,8 +52,10 @@ public class SopUserScheduleServiceImpl extends
 		for (SopUserSchedule sopUser:list) {
 			SopUserScheduleBo sopbo = new SopUserScheduleBo();
 			String message = "";
+			String str[] = sopUser.getItemDate().toString().split(" ");
+	        Date date = sdf.parse(str[0]);
 			if (type == 1) {
-				long l = sopUser.getItemDate().getTime() - currentTime;
+				long l = date.getTime() - currentTime;
 				long day = l / (24 * 60 * 60 * 1000);
 				/**
 				long hour = (l / (60 * 60 * 1000) - day * 24);
@@ -66,7 +73,7 @@ public class SopUserScheduleServiceImpl extends
 					message = "后天,";
 				}
 				if (day > 2) {
-					
+					message = str[0]+",";
 				}
 				sopbo.setTimeTask(message+ sopUser.getContent());
 			}
