@@ -33,6 +33,6 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "/app", method = RequestMethod.GET)
 	public String addProject() {
-		return "index";
+		return "project/add";
 	}
 }
