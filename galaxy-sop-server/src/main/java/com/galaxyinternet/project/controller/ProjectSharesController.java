@@ -1,4 +1,8 @@
 package com.galaxyinternet.project.controller;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.ProjectSharesBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -20,7 +26,9 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.ProjectShares;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectSharesService;
+import com.galaxyinternet.service.UserRoleService;
 
 @Controller
 @RequestMapping("/galaxy/projectShares")
@@ -33,6 +41,10 @@ public class ProjectSharesController extends BaseControllerImpl<ProjectShares, P
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
+	
+	@Autowired
+	private UserRoleService userRoleService;
+	
 	
 	@Override
 	protected BaseService<ProjectShares> getBaseService() {
@@ -104,12 +116,17 @@ public class ProjectSharesController extends BaseControllerImpl<ProjectShares, P
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateProjectShares", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectShares> updateProjectShares(ProjectShares shares){
+	public ResponseData<ProjectShares> updateProjectShares(ProjectShares shares,HttpServletRequest request){
 		
-		//获取角色权限，有权限才会进行修改
 		ResponseData<ProjectShares> responseBody = new ResponseData<ProjectShares>();
+		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		
+		if(!roleIdList.contains(UserConstant.TZJL)){
+			responseBody.setResult(new Result(Status.ERROR, "没有权限进行修改!"));
+		}
 		if(shares.getId() == null){
-			responseBody.setResult(new Result(Status.OK, "ID不能为空!"));
+			responseBody.setResult(new Result(Status.ERROR, "ID不能为空!"));
 			return responseBody;
 		}
 		try{
