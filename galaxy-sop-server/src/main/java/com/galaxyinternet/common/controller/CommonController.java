@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.bo.MenusBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -103,7 +102,6 @@ public class CommonController extends BaseControllerImpl<Menus, MenusBo> {
 			tabs.add(new Menus(14L, "档案管理", u + ""));
 			
 		    responseBody.setEntityList(tabs);
-		    System.out.println(JSON.toJSONString(responseBody));
 			return responseBody;
 	}
 

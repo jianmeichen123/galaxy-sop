@@ -108,7 +108,7 @@
 		from sop_project where id = #{id}
 	</select>
 	
-  	<insert id="insert" parameterType="com.galaxyinternet.model.project.Project" >
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.Project" >
 	    <![CDATA[
 	     insert into sop_project (id, project_name, project_code, 
 	      project_type, project_careerline, project_departId, 

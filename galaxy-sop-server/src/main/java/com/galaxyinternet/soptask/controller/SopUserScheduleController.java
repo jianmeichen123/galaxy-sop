@@ -62,22 +62,18 @@ public class SopUserScheduleController extends
 		User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
 		sopUserSchedule.setUserId(user.getId());
-		Result result = new Result();
-		result.setStatus(Status.OK);
 		try {
 			if ("1".equals(status)) {
 				sopUserScheduleService.insert(sopUserSchedule);
-				result.setMessage("添加日程成功!");
+				responseBody.setResult(new Result(Status.OK,"添加日程成功!"));
 			} else {
 				sopUserScheduleService.updateById(sopUserSchedule);
-				result.setMessage("修改日程成功!");
+				responseBody.setResult(new Result(Status.OK,"修改日程成功!"));
 			}
 		} catch (Exception e) {
-			logger.error("操作日程失败!");
-			result.setMessage("操作日程失败!");
-			result.setStatus(Status.ERROR);
+			logger.error("操作日程失败!",e);
+			responseBody.setResult(new Result(Status.ERROR,"操作日程失败!"));
 		}
-		responseBody.setResult(result);
 		return responseBody;
 	}
 
