@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.galaxyinternet.dao.sopfile.SopFileMapper">
 	<resultMap id="BaseResultMap" type="SopFilePO">
-
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="project_id" jdbcType="BIGINT" property="projectId" />
 		<result column="project_progress" jdbcType="VARCHAR" property="projectProgress" />
@@ -22,7 +21,6 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-
 		id, project_id, project_progress, file_worktype, career_line,
 		file_source, file_type,
 		remark, file_status, file_uid, fil_uri, updated_time, created_time,
@@ -90,202 +88,72 @@
 	
 	<!-- 根据ID删除 -->
 	<delete id="deleteById" parameterType="java.lang.Long">
-
 		delete from sop_file
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	
-<!-- 	<insert id="insert" parameterType="SopFilePO"> -->
-
-<!-- 		insert into sop_file (id, project_id, project_progress, -->
-<!-- 		file_worktype, career_line, file_source, -->
-<!-- 		file_type, remark, file_status, -->
-<!-- 		file_uid, fil_uri, updated_time, -->
-<!-- 		created_time, file_length, file_key, -->
-<!-- 		bucket_name) -->
-<!-- 		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, -->
-<!-- 		#{projectProgress,jdbcType=VARCHAR}, -->
-<!-- 		#{fileWorktype,jdbcType=INTEGER}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=INTEGER}, -->
-<!-- 		#{fileType,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, -->
-<!-- 		#{fileStatus,jdbcType=INTEGER}, -->
-<!-- 		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, -->
-<!-- 		#{createdTime,jdbcType=BIGINT}, #{fileLength,jdbcType=BIGINT}, -->
-<!-- 		#{fileKey,jdbcType=VARCHAR}, -->
-<!-- 		#{bucketName,jdbcType=VARCHAR}) -->
-<!-- 	</insert> -->
-	<insert id="insert" parameterType="SopFilePO">
-
-		insert into sop_file
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
-			<if test="projectId != null">
-				project_id,
-			</if>
-			<if test="projectProgress != null">
-				project_progress,
-			</if>
-			<if test="fileWorktype != null">
-				file_worktype,
-			</if>
-			<if test="careerLine != null">
-				career_line,
-			</if>
-			<if test="fileSource != null">
-				file_source,
-			</if>
-			<if test="fileType != null">
-				file_type,
-			</if>
-			<if test="remark != null">
-				remark,
-			</if>
-			<if test="fileStatus != null">
-				file_status,
-			</if>
-			<if test="fileUid != null">
-				file_uid,
-			</if>
-			<if test="filUri != null">
-				fil_uri,
-			</if>
-			<if test="updatedTime != null">
-				updated_time,
-			</if>
-			<if test="createdTime != null">
-				created_time,
-			</if>
-			<if test="fileLength != null">
-				file_length,
-			</if>
-			<if test="fileKey != null">
-				file_key,
-			</if>
-			<if test="bucketName != null">
-				bucket_name,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=BIGINT},
-			</if>
-			<if test="projectId != null">
-				#{projectId,jdbcType=BIGINT},
-			</if>
-			<if test="projectProgress != null">
-				#{projectProgress,jdbcType=VARCHAR},
-			</if>
-			<if test="fileWorktype != null">
-				#{fileWorktype,jdbcType=INTEGER},
-			</if>
-			<if test="careerLine != null">
-				#{careerLine,jdbcType=BIGINT},
-			</if>
-			<if test="fileSource != null">
-				#{fileSource,jdbcType=INTEGER},
-			</if>
-			<if test="fileType != null">
-				#{fileType,jdbcType=INTEGER},
-			</if>
-			<if test="remark != null">
-				#{remark,jdbcType=VARCHAR},
-			</if>
-			<if test="fileStatus != null">
-				#{fileStatus,jdbcType=INTEGER},
-			</if>
-			<if test="fileUid != null">
-				#{fileUid,jdbcType=BIGINT},
-			</if>
-			<if test="filUri != null">
-				#{filUri,jdbcType=VARCHAR},
-			</if>
-			<if test="updatedTime != null">
-				#{updatedTime,jdbcType=BIGINT},
-			</if>
-			<if test="createdTime != null">
-				#{createdTime,jdbcType=BIGINT},
-			</if>
-			<if test="fileLength != null">
-				#{fileLength,jdbcType=BIGINT},
-			</if>
-			<if test="fileKey != null">
-				#{fileKey,jdbcType=VARCHAR},
-			</if>
-			<if test="bucketName != null">
-				#{bucketName,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</insert>
+ 	<insert id="insert" parameterType="SopFilePO">
+ 		insert into sop_file (id, project_id, project_progress,
+ 		file_worktype, career_line, file_source,
+ 		file_type, remark, file_status,
+ 		file_uid, fil_uri, updated_time,
+ 		created_time, file_length, file_key,
+ 		bucket_name)
+ 		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT},
+ 		#{projectProgress,jdbcType=VARCHAR},
+ 		#{fileWorktype,jdbcType=INTEGER}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=INTEGER},
+ 		#{fileType,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR},
+ 		#{fileStatus,jdbcType=INTEGER},
+ 		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT},
+ 		#{createdTime,jdbcType=BIGINT}, #{fileLength,jdbcType=BIGINT},
+ 		#{fileKey,jdbcType=VARCHAR},
+ 		#{bucketName,jdbcType=VARCHAR})
+ 	</insert>
 	
 	<update id="updateByIdSelective" parameterType="SopFilePO">
 		update sop_file
 		<set>
-			<if test="projectId != null">
-				project_id = #{projectId,jdbcType=BIGINT},
-			</if>
-			<if test="projectProgress != null">
-				project_progress = #{projectProgress,jdbcType=VARCHAR},
-			</if>
-			<if test="fileWorktype != null">
-				file_worktype = #{fileWorktype,jdbcType=INTEGER},
-			</if>
-			<if test="careerLine != null">
-				career_line = #{careerLine,jdbcType=BIGINT},
-			</if>
-			<if test="fileSource != null">
-				file_source = #{fileSource,jdbcType=INTEGER},
-			</if>
-			<if test="fileType != null">
-				file_type = #{fileType,jdbcType=INTEGER},
-			</if>
-			<if test="remark != null">
-				remark = #{remark,jdbcType=VARCHAR},
-			</if>
-			<if test="fileStatus != null">
-				file_status = #{fileStatus,jdbcType=INTEGER},
-			</if>
-			<if test="fileUid != null">
-				file_uid = #{fileUid,jdbcType=BIGINT},
-			</if>
-			<if test="filUri != null">
-				fil_uri = #{filUri,jdbcType=VARCHAR},
-			</if>
-			<if test="updatedTime != null">
-				updated_time = #{updatedTime,jdbcType=BIGINT},
-			</if>
-			<if test="createdTime != null">
-				created_time = #{createdTime,jdbcType=BIGINT},
-			</if>
-			<if test="fileLength != null">
-				file_length = #{fileLength,jdbcType=BIGINT},
-			</if>
-			<if test="fileKey != null">
-				file_key = #{fileKey,jdbcType=VARCHAR},
-			</if>
-			<if test="bucketName != null">
-				bucket_name = #{bucketName,jdbcType=VARCHAR},
-			</if>
+			<if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
+			<if test="projectProgress != null"> project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
+			<if test="fileWorktype != null"> file_worktype = #{fileWorktype,jdbcType=INTEGER}, </if>
+			<if test="careerLine != null"> career_line = #{careerLine,jdbcType=BIGINT}, </if>
+			<if test="fileSource != null"> file_source = #{fileSource,jdbcType=INTEGER}, </if>
+			<if test="fileType != null"> file_type = #{fileType,jdbcType=INTEGER}, </if>
+			<if test="remark != null"> remark = #{remark,jdbcType=VARCHAR}, </if>
+			<if test="fileStatus != null"> file_status = #{fileStatus,jdbcType=INTEGER}, </if>
+			<if test="fileUid != null"> file_uid = #{fileUid,jdbcType=BIGINT}, </if>
+			<if test="filUri != null"> fil_uri = #{filUri,jdbcType=VARCHAR}, </if>
+			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT}, </if>
+			<if test="fileLength != null"> file_length = #{fileLength,jdbcType=BIGINT}, </if>
+			<if test="fileKey != null"> file_key = #{fileKey,jdbcType=VARCHAR}, </if>
+			<if test="bucketName != null"> bucket_name = #{bucketName,jdbcType=VARCHAR}, </if>
 		</set>
-		where id = #{id,jdbcType=BIGINT}
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+			</trim>
+		</where>
 	</update>
 	<update id="updateById" parameterType="SopFilePO">
-		update sop_file
-		set project_id = #{projectId,jdbcType=BIGINT},
-		project_progress = #{projectProgress,jdbcType=VARCHAR},
-		file_worktype = #{fileWorktype,jdbcType=INTEGER},
-		career_line = #{careerLine,jdbcType=BIGINT},
-		file_source = #{fileSource,jdbcType=INTEGER},
-		file_type = #{fileType,jdbcType=INTEGER},
-		remark = #{remark,jdbcType=VARCHAR},
-		file_status = #{fileStatus,jdbcType=INTEGER},
-		file_uid = #{fileUid,jdbcType=BIGINT},
-		fil_uri = #{filUri,jdbcType=VARCHAR},
-		updated_time = #{updatedTime,jdbcType=BIGINT},
-		created_time = #{createdTime,jdbcType=BIGINT},
-		file_length = #{fileLength,jdbcType=BIGINT},
-		file_key = #{fileKey,jdbcType=VARCHAR},
-		bucket_name = #{bucketName,jdbcType=VARCHAR}
+		<set>
+			<if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
+			<if test="projectProgress != null"> project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
+			<if test="fileWorktype != null"> file_worktype = #{fileWorktype,jdbcType=INTEGER}, </if>
+			<if test="careerLine != null"> career_line = #{careerLine,jdbcType=BIGINT}, </if>
+			<if test="fileSource != null"> file_source = #{fileSource,jdbcType=INTEGER}, </if>
+			<if test="fileType != null"> file_type = #{fileType,jdbcType=INTEGER}, </if>
+			<if test="remark != null"> remark = #{remark,jdbcType=VARCHAR}, </if>
+			<if test="fileStatus != null"> file_status = #{fileStatus,jdbcType=INTEGER}, </if>
+			<if test="fileUid != null"> file_uid = #{fileUid,jdbcType=BIGINT}, </if>
+			<if test="filUri != null"> fil_uri = #{filUri,jdbcType=VARCHAR}, </if>
+			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT}, </if>
+			<if test="fileLength != null"> file_length = #{fileLength,jdbcType=BIGINT}, </if>
+			<if test="fileKey != null"> file_key = #{fileKey,jdbcType=VARCHAR}, </if>
+			<if test="bucketName != null"> bucket_name = #{bucketName,jdbcType=VARCHAR}, </if>
+		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	
