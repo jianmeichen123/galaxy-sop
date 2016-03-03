@@ -37,7 +37,7 @@
                       <td>
                         <dl>
                           <dt>项目编码：</dt>
-                          <dd>10000001</dd>
+                          <dd id="pcode">--------</dd>
                         </dl>
                       </td>
                       <td>
@@ -471,6 +471,11 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(4);
+		sendAjaxRequest("<%=path %>/galaxy/project/cpc","GET","{}",function(data){
+			var code = data.entity.pcode;
+			$("#pcode").empty();
+			$("#pcode").html(code);
+		});
 	});
 </script>
 </html>

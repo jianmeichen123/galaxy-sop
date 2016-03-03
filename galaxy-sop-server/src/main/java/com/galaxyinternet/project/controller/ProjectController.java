@@ -1,5 +1,6 @@
 package com.galaxyinternet.project.controller;
 
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -26,10 +27,12 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
@@ -49,6 +52,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private PersonPoolService personPoolService;
 	@Autowired
 	private ProjectPersonService projectPersonService;
+	@Autowired
+	private ConfigService configService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -73,7 +78,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -120,7 +125,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -155,7 +160,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -192,7 +197,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -224,7 +229,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -261,7 +266,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
@@ -280,6 +285,39 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	
-	
-	
+	/**
+	 * 创建项目编码
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/cpc", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Config> createProjectCode(HttpServletRequest request){
+		ResponseData<Config> responseBody = new ResponseData<Config>();
+		
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if(obj == null){
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		User user = (User) obj;
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		if(!roleIdList.contains(UserConstant.HHR) && !roleIdList.contains(UserConstant.TZJL)){
+			responseBody.setResult(new Result(Status.ERROR, "没有权限!"));
+			return responseBody;
+		}
+		
+		try {
+			//long did = user.getDepartmentId();
+			Config config = configService.createCode();
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setGroupingUsed(false);
+			nf.setMaximumIntegerDigits(6);
+			nf.setMinimumIntegerDigits(6);
+			config.setPcode("10" + nf.format(Integer.parseInt(config.getValue())));
+			responseBody.setEntity(config);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseBody;
+	}
 }
