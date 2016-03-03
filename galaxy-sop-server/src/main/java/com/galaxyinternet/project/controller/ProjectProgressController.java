@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.galaxyinternet.bo.SopTaskBo;
-import com.galaxyinternet.bo.project.InterviewRecordBo;
-import com.galaxyinternet.bo.project.MeetingRecordBo;
-import com.galaxyinternet.bo.project.ProjectBo;
+
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
@@ -29,14 +26,24 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+
+import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.bo.project.InterviewRecordBo;
+import com.galaxyinternet.bo.project.MeetingRecordBo;
+import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.bo.sopfile.SopFileBo;
+
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
+
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 
 @Controller
@@ -58,12 +65,18 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	private InterviewRecordService interviewRecordService;
 	
 	@Autowired
+	private  SopFileService sopFileService;
+	
+	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
+	
+	
 	
 	@Override
 	protected BaseService<Project> getBaseService() {
 		return this.projectService;
 	}
+	
 	
 	
 	public String errMessage(Project project,User user,String prograss){
@@ -197,7 +210,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		try {
 			project.setProjectProgress("内部评审");
 			project.setProjectStatus("待定");
-			int i = projectService.updateById(project);
+			projectService.updateById(project);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
@@ -259,7 +272,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 		
 		try {
-			Long id = meetingRecordService.insertMeet(meetingRecord, user.getId());
+			Long id = meetingRecordService.insertMeet(meetingRecord,project, user.getId());
 			
 			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -357,6 +370,72 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		return responseBody;
 	}
+	
+	
+	/**
+	 * 显示文件上传信息;  
+	 * 投资意向书  ； 尽职调查     ； 投资协议     ; 股权交割     
+	 * @param   proProgress 项目当前阶段
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/proFileInfo/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> proFileInfo(HttpServletRequest request,String proProgress,@PathVariable Long pid) {
+		
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		
+		List<String> fileworktypeList = new ArrayList<String>();
+		
+		if(proProgress!=null){
+			if(proProgress.equals("投资意向书")){
+				fileworktypeList.add("投资意向书");
+				
+			}else if(proProgress.equals("尽职调查")){
+				fileworktypeList.add("业务尽职调查报告");
+				fileworktypeList.add("法务尽职调查报告");
+				fileworktypeList.add("财务尽职调查报告");
+				fileworktypeList.add("人事尽职调查报告");
+				
+			}else if(proProgress.equals("投资协议")){
+				fileworktypeList.add("投资协议");
+				fileworktypeList.add("股权转让协议");
+				
+			}else if(proProgress.equals("股权交割")){
+				fileworktypeList.add("资金拨付凭证");
+				fileworktypeList.add("工商变更登记凭证");
+				
+			}else{
+				responseBody.setResult(new Result(Status.OK, "项目阶段类型不能识别"));
+				return responseBody;
+			}
+		}else{
+			responseBody.setResult(new Result(Status.ERROR, "项目阶段为空"));
+			return responseBody;
+		}
+		
+
+		try {
+			List<SopFile> fileList = new ArrayList<SopFile>();
+			
+			SopFileBo  sbo =  new SopFileBo();
+			sbo.setProjectId(pid);
+			sbo.setFileworktypeList(fileworktypeList);
+			
+			fileList = sopFileService.selectByFileTypeList(sbo);
+			
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setEntityList(fileList);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, "upProjectFile-task faild"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("update project faild ",e);
+			}
+		}
+		
+		return responseBody;
+	}
+	
 	
 	
 	/**

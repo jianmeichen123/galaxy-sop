@@ -41,7 +41,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 
 	@Override
 	@Transactional
-	public Long insertMeet(MeetingRecord meetingRecord,Long userId) {
+	public Long insertMeet(MeetingRecord meetingRecord,Project project,Long userId) {
 		Long id = getBaseDao().insert(meetingRecord);
 		
 		// 会议结论： 待定(默认)、 否决、 通过
@@ -62,7 +62,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals("投决会")) {
 			pqcUpdate(meetingRecord);
 			if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals("待定")) {
-				tjh(meetingRecord.getProjectId(), meetingRecord.getMeetingResult(), userId);
+				tjh(meetingRecord.getProjectId(), project, meetingRecord.getMeetingResult(), userId);
 			}
 		}
 		
@@ -151,8 +151,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	
 	
 	//投决会
-	public void tjh(Long pid,String meetingResult,Long userId){
-		Project pro =  projectDao.selectById(pid);
+	public void tjh(Long pid,Project pro,String meetingResult,Long userId){
 		
 		if(meetingResult.equals("否决") ){
 			//update 项目状态
@@ -228,6 +227,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		ms.setProjectId(project.getId());
 		ms.setMeetingType("立项会");
 		ms.setStatus("新进");
+		ms.setMeetingCount(0);
 		Long id = meetingSchedulingDao.insert(ms);
 		
 	}
@@ -290,7 +290,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	
 	
 	/**
-	 * 尽职调查              申请投决会排期，    
+	 * 尽职调查              申请  投决会 排期，    
 	 * 				修改项目进度、状态；
 	 * 				新建 投决会 排期；
 	 * @param   project 
@@ -307,6 +307,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		ms.setProjectId(project.getId());
 		ms.setMeetingType("投决会");
 		ms.setStatus("新进");
+		ms.setMeetingCount(0);
 		Long id = meetingSchedulingDao.insert(ms);
 		
 	}

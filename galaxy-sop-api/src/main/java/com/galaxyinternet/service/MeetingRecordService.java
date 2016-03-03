@@ -10,7 +10,7 @@ import com.galaxyinternet.model.project.Project;
 
 public interface MeetingRecordService extends BaseService<MeetingRecord> {
 
-	public Long insertMeet(MeetingRecord meetingRecord,Long userId);
+	public Long insertMeet(MeetingRecord meetingRecord,Project project,Long userId);
 	
 	public Page<MeetingRecordBo> queryMeetPageList(MeetingRecordBo query, Pageable pageable);
 	

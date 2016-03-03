@@ -1,8 +1,11 @@
 package com.galaxyinternet.sopfile.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
@@ -20,6 +23,13 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	protected BaseDao<SopFile, Long> getBaseDao() {
 		// TODO Auto-generated method stub
 		return this.sopFileDao;
+	}
+
+	
+	
+	@Override
+	public List<SopFile> selectByFileTypeList(SopFileBo sbo) {
+		return sopFileDao.queryByFileTypeList(sbo);
 	}
 	
 	

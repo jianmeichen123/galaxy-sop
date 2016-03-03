@@ -118,12 +118,14 @@
 		where id = #{id}
 	</update>
     
-    
+	
     <!-- 更新会议，次数加 -->
 	<update id="updateCountBySelective" parameterType="com.galaxyinternet.model.project.MeetingScheduling">
 		update sop_meeting_scheduling
 		<set>
-			meeting_count = meeting_count+1,
+			<![CDATA[
+			meeting_count = (CASE WHEN  meeting_count IS NULL THEN 1 ELSE  meeting_count+1  END),
+			 ]]>
 			<if test="meetingDate != null" > meeting_date = #{meetingDate,jdbcType=TIMESTAMP}, </if>
 			<if test="status != null" > status = #{status,jdbcType=VARCHAR}, </if>
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
