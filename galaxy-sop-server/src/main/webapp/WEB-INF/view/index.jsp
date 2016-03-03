@@ -358,13 +358,7 @@
 <jsp:include page="./common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
 $(function(){
-	var url = location.search;
-	var sessionId=url.split("=")[1];
 	$.ajax({
-		 beforeSend :function(xhr){ 
-			//设置消息头
-			xhr.setRequestHeader('sessionID',sessionId);
-		 },
 		 url:"<%=path %>/galaxy/common/menu/1",
 		 data:{},
 		 async: false,
