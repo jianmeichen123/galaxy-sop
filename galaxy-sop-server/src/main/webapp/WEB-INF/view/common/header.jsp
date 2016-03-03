@@ -2,8 +2,6 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<input type="hidden" id="sid" value=""/>
-
 <div class="header clearfix">
 	<a href="javascript:;" class="logo null">繁星</a>
     <!--头部中间-->
