@@ -10,10 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.bo.MenusBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -40,11 +42,11 @@ public class CommonController extends BaseControllerImpl<Menus, MenusBo> {
 	com.galaxyinternet.framework.cache.Cache cache;
 
 	@ResponseBody
-	@RequestMapping(value = "/menu", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Menus> menu(HttpServletRequest request){
+	@RequestMapping(value = "/menu/{selected}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Menus> menu(@PathVariable("selected") int selected, HttpServletRequest request){
 			ResponseData<Menus> responseBody = new ResponseData<Menus>();
 			Header header = new Header();
-			header.setSessionId(request.getHeader(Constants.SESSION_ID_KEY));
+			header.setAttachment(selected);
 			responseBody.setHeader(header);
 			String p = request.getRequestURI();
 			String url = request.getRequestURL().toString();
@@ -65,41 +67,43 @@ public class CommonController extends BaseControllerImpl<Menus, MenusBo> {
 			
 			List<Menus> tabs = new ArrayList<Menus>();
 			//通用Tab
-			tabs.add(new Menus("工作界面", u + ""));
-			tabs.add(new Menus("待办任务", u + ""));
-			tabs.add(new Menus("消息提醒", u + ""));
+			tabs.add(new Menus(1L, "工作界面", u + ""));
+			tabs.add(new Menus(2L, "待办任务", u + ""));
+			tabs.add(new Menus(3L, "消息提醒", u + ""));
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.TZJL)){
-				tabs.add(new Menus("添加项目", u + ""));
-				tabs.add(new Menus("我的项目", u + ""));
-				tabs.add(new Menus("访谈跟进", u + ""));
-				tabs.add(new Menus("会议纪要", u + ""));
-				tabs.add(new Menus("数据简报", u + ""));
+				tabs.add(new Menus(4L, "添加项目", u + ""));
+				tabs.add(new Menus(5L, "我的项目", u + ""));
+				tabs.add(new Menus(6L, "访谈跟进", u + ""));
+				tabs.add(new Menus(7L, "会议纪要", u + ""));
+				tabs.add(new Menus(8L, "数据简报", u + ""));
 			}
+			
 			
 			if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)
 					|| roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)
 					|| roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-				tabs.add(new Menus("完善简历", u + ""));
+				tabs.add(new Menus(9L, "尽调报告", u + ""));
 			}
 			
 			if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
-				tabs.add(new Menus("尽调报告", u + ""));
+				tabs.add(new Menus(10L, "完善简历", u + ""));
 			}
 			
 			if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
-				tabs.add(new Menus("付款凭证", u + ""));
+				tabs.add(new Menus(11L, "付款凭证", u + ""));
 			}
 			
 			if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-				tabs.add(new Menus("股权交割", u + ""));
+				tabs.add(new Menus(12L, "股权交割", u + ""));
 			}
 			
-			tabs.add(new Menus("模板管理", u + ""));
-			tabs.add(new Menus("档案管理", u + ""));
+			tabs.add(new Menus(13L, "模板管理", u + ""));
+			tabs.add(new Menus(14L, "档案管理", u + ""));
 			
 		    responseBody.setEntityList(tabs);
+		    System.out.println(JSON.toJSONString(responseBody));
 			return responseBody;
 	}
 

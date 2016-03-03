@@ -365,7 +365,7 @@ $(function(){
 			//设置消息头
 			xhr.setRequestHeader('sessionID',sessionId);
 		 },
-		 url:"<%=path %>/galaxy/common/menu",
+		 url:"<%=path %>/galaxy/common/menu/1",
 		 data:{},
 		 async: false,
 		 type: "GET",
@@ -376,11 +376,14 @@ $(function(){
  	         alert("Connection error");
  	     },
  	     success: function(data) {
- 	    	 $("#sid").val(data.header.sessionId);
+ 	    	 var selected = data.header.attachment;
  	    	 var html = "";
  	    	 $.each(data.entityList, function(i,o){
- 	    		 // class="on"
- 	    		 html += '<li><a href="' + o.url + '">' + o.menuName + '</a></li>';
+ 	    		 if(selected == o.id){
+ 	    			html += '<li class="on"><a href="' + o.url + '">' + o.menuName + '</a></li>';
+ 	    		 }else{
+ 	    			html += '<li><a href="' + o.url + '">' + o.menuName + '</a></li>';
+ 	    		 }
  	    	 });
  	    	 $("#menus").html(html);
  	  	 }
