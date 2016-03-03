@@ -33,7 +33,6 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.RoleService;
 import com.galaxyinternet.service.UserRoleService;
 
 @Controller
@@ -95,10 +94,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		Long did = user.getDepartmentId();
 		project.setProjectDepartid(did);
 		project.setCreatedTime((new Date()).getTime());
-		Long id = projectService.insert(project);
-		if(id > 0){
-			responseBody.setResult(new Result(Status.OK,"项目添加成功!"));
-			responseBody.setEntity(project);
+		try {
+			long id = projectService.newProject(project);
+			if(id > 0){
+				responseBody.setResult(new Result(Status.OK,"项目添加成功!"));
+				responseBody.setEntity(project);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return responseBody;
 	}
@@ -275,6 +278,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		responseBody.setResult(new Result(Status.OK,"查询成功!"));
 		responseBody.setPageList(pageList);
 		return responseBody;
+	}
+	
+	/**
+	 * 创建项目编码
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/cpc", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String createProjectCode(){
+		
+		
 	}
 	
 }

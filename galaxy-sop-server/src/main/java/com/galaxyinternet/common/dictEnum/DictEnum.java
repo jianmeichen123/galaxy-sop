@@ -2,20 +2,18 @@ package com.galaxyinternet.common.dictEnum;
 
 public enum DictEnum {
 	
-	项目类型("项目类型","xmlx"),
-	项目进度("项目进度","xmjd"),
+	项目类型("项目类型","projectType"),
+	项目进度("项目进度","projectProgress"),
 	
-	会议类型("会议类型","hylx"),
+	会议类型("会议类型","meetingType"),
 	
-	会议结论("会议结论","hyjl"),
+	会议结论("会议结论","meetingResult"),
 	
-	任务名称("任务名称","rwmc"),
-	任务类型("任务类型","rwlx"),
-	任务状态("任务状态","rwzt"),
+	任务类型("任务类型","taskType"),
+	任务状态("任务状态","taskStatus"),
 	
-	档案类型("档案类型","dalx"),
-	档案业务类型("档案业务类型","daywlx"),
-	档案存储类型("档案存储类型","dacclx");
+	档案业务分类("档案业务分类","fileWorktype"),
+	档案存储类型("档案存储类型","fileType");
 	
 	private String name;
 
@@ -36,14 +34,14 @@ public enum DictEnum {
 
 	
 	//项目类型
-	public enum xmlx {
-		外部项目("外部项目","xmlx:1"),
-		内部创建("内部创建","xmlx:2");
+	public enum projectType {
+		外部项目("外部项目","projectType:1"),
+		内部创建("内部创建","projectType:2");
 		private String name;
 
 		private String code;
 
-		private xmlx(String name, String code) {
+		private projectType(String name, String code) {
 			this.name = name;
 			this.code = code;
 		}
@@ -58,22 +56,22 @@ public enum DictEnum {
 	}	
 	
 	//项目进度
-	public enum xmjd {
-		接触访谈("接触访谈","xmjd:1"),
-		内部评审("内部评审","xmjd:2"),
-		CEO评审("CEO评审","xmjd:3"),
-		立项会("立项会","xmjd:4"),
-		投资意向书("投资意向书","xmjd:5"),
-		尽职调查("尽职调查","xmjd:6"),
-		投资决策会("投资决策会","xmjd:7"),
-		投资协议("投资协议","xmjd:8"),
-		股权交割("股权交割","xmjd:9"),
-		投后运营("投后运营","xmjd:10");
+	public enum projectProgress {
+		接触访谈("接触访谈","projectProgress:1"),
+		内部评审("内部评审","projectProgress:2"),
+		CEO评审("CEO评审","projectProgress:3"),
+		立项会("立项会","projectProgress:4"),
+		投资意向书("投资意向书","projectProgress:5"),
+		尽职调查("尽职调查","projectProgress:6"),
+		投资决策会("投资决策会","projectProgress:7"),
+		投资协议("投资协议","projectProgress:8"),
+		股权交割("股权交割","projectProgress:9"),
+		投后运营("投后运营","projectProgress:10");
 		private String name;
 
 		private String code;
 
-		private xmjd(String name, String code) {
+		private projectProgress(String name, String code) {
 			this.name = name;
 			this.code = code;
 		}
@@ -88,16 +86,16 @@ public enum DictEnum {
 	}
 		
 	//会议类型
-	public enum hylx {
-		内评会("内评会","hylx:1"),
-		CEO评审("CEO评审","hylx:2"),
-		立项会("立项会","hylx:3"),
-		投决会("投决会","hylx:4");
+	public enum meetingType {
+		内评会("内评会","meetingType:1"),
+		CEO评审("CEO评审","meetingType:2"),
+		立项会("立项会","meetingType:3"),
+		投决会("投决会","meetingType:4");
 		private String name;
 
 		private String code;
 
-		private hylx(String name, String code) {
+		private meetingType(String name, String code) {
 			this.name = name;
 			this.code = code;
 		}
@@ -112,15 +110,15 @@ public enum DictEnum {
 	}
 	
 	//会议结论
-	public enum hyjl {
-		通过("通过","hyjl:1"),
-		待定("待定","hyjl:2"),
-		否决("否决","hyjl:3");
+	public enum meetingResult {
+		通过("通过","meetingResult:1"),
+		待定("待定","meetingResult:2"),
+		否决("否决","meetingResult:3");
 		private String name;
 
 		private String code;
 
-		private hyjl(String name, String code) {
+		private meetingResult(String name, String code) {
 			this.name = name;
 			this.code = code;
 		}
@@ -134,38 +132,15 @@ public enum DictEnum {
 		}
 	}		
 	
-	//任务名称,
-	public enum rwmc {
-		审批流程("审批流程领","rwlx:1"),
-		协同办公("协同办公","rwlx:2");
-		private String name;
-
-		private String code;
-
-		private rwmc(String name, String code) {
-			this.name = name;
-			this.code = code;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public String getCode() {
-			return code;
-		}
-	}
-	
-	
 	//任务类型
-	public enum rwlx {
-		审批流程("审批流程领","rwlx:1"),
-		协同办公("协同办公","rwlx:2");
+	public enum taskType {
+		审批流程("审批流程领","taskType:1"),
+		协同办公("协同办公","taskType:2");
 		private String name;
 
 		private String code;
 
-		private rwlx(String name, String code) {
+		private taskType(String name, String code) {
 			this.name = name;
 			this.code = code;
 		}
@@ -180,15 +155,15 @@ public enum DictEnum {
 	}
 	
 	//任务状态
-	public enum rwzt {
-		待认领("待认领","rwzt:1"),
-		待完工("待完工","rwzt:2"),
-		已完成("已完成","rwzt:3");
+	public enum taskStatus {
+		待认领("待认领","taskStatus:1"),
+		待完工("待完工","taskStatus:2"),
+		已完成("已完成","taskStatus:3");
 		private String name;
 
 		private String code;
 
-		private rwzt(String name, String code) {
+		private taskStatus(String name, String code) {
 			this.name = name;
 			this.code = code;
 		}
@@ -230,23 +205,26 @@ public enum DictEnum {
 	}	
 	
 	
-	//档案业务类型
-	public enum daywlx {
-		商业计划书("商业计划书","daywlx:1"),
-		尽职调查报告("尽职调查报告","daywlx:2"),
-		会议纪要("会议纪要","daywlx:3"),
-		投资意向书("投资意向书","daywlx:4"),
-		投资协议("投资协议","daywlx:5"),
-		股权转让协议("股权转让协议","daywlx:6"),
-		凭证图("凭证图","daywlx:7"),
-		资金拨付凭证("资金拨付凭证","daywlx:8"),
-		工商变更登记凭证("工商变更登记凭证","daywlx:9");
+	//档案业务分类
+	public enum fileWorktype {
+		业务尽职调查报告("业务尽职调查报告","fileWorktype:1"),
+		人力资源尽职调查报告("人力资源尽职调查报告","fileWorktype:2"),
+		法务尽职调查报告("法务尽职调查报告","fileWorktype:3"),
+		财务尽职调查报告("财务尽职调查报告","fileWorktype:4"),
+		投资意向书("投资意向书","fileWorktype:5"),
+		投资协议("投资协议","fileWorktype:6"),
+		股权转让协议("股权转让协议","fileWorktype:7"),
+		工商转让凭证("工商转让凭证","fileWorktype:8"),
+		资金拨付凭证("资金拨付凭证","fileWorktype:9"),
+		公司资料("公司资料","fileWorktype:10"),
+		财务预测报告("财务预测报告","fileWorktype:11"),
+		商业计划("商业计划","fileWorktype:12");
 		
 		private String name;
 
 		private String code;
 
-		private daywlx(String name, String code) {
+		private fileWorktype(String name, String code) {
 			this.name = name;
 			this.code = code;
 		}
@@ -262,16 +240,16 @@ public enum DictEnum {
 	
 	
 	//档案存储类型
-	public enum dacclx {
-		档案("档案","dacclx:1"),
-		音频文件("待音频文件","dacclx:2"),
-		视频文件("视频文件","dacclx:3"),
-		图片("图片","dacclx:4");
+	public enum fileType {
+		档案("档案","fileType:1"),
+		音频文件("待音频文件","fileType:2"),
+		视频文件("视频文件","fileType:3"),
+		图片("图片","fileType:4");
 		private String name;
 
 		private String code;
 
-		private dacclx(String name, String code) {
+		private fileType(String name, String code) {
 			this.name = name;
 			this.code = code;
 		}
