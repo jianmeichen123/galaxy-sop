@@ -26,7 +26,8 @@ $().ready( function() {
 	<!--右侧-->
     <div class="rit">
         <!--时间-->
-        <div class="top">
+        <div class="top" id="top">
+          <!-- 
         	<b class="sj ico null">三角</b>
             <div class="tody ico">
             	<p class="time"></p>
@@ -36,6 +37,7 @@ $().ready( function() {
             <a href="javascript:;" class="link"><b class="b2 null">点</b>后天，要和夹克的虾团队见面</a>
             <a href="javascript:;" class="link"><b class="b3 null">点</b>5天后，买飞机票</a>
             <div class="morebox"><a href="javascript:;" class="more null">more</a></div>
+        -->
         </div>
         <!--立项排期会-->
         <dl>
