@@ -280,15 +280,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	
-	/**
-	 * 创建项目编码
-	 * @author yangshuhua
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/cpc", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String createProjectCode(){
-		
-		
-	}
+	
 	
 }
