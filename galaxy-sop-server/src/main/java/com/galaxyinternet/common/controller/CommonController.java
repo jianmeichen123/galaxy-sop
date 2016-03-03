@@ -67,13 +67,13 @@ public class CommonController extends BaseControllerImpl<Menus, MenusBo> {
 			
 			List<Menus> tabs = new ArrayList<Menus>();
 			//通用Tab
-			tabs.add(new Menus(1L, "工作界面", u + ""));
+			tabs.add(new Menus(1L, "工作界面", u + "galaxy/index"));
 			tabs.add(new Menus(2L, "待办任务", u + ""));
 			tabs.add(new Menus(3L, "消息提醒", u + ""));
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.TZJL)){
-				tabs.add(new Menus(4L, "添加项目", u + ""));
+				tabs.add(new Menus(4L, "添加项目", u + "galaxy/app"));
 				tabs.add(new Menus(5L, "我的项目", u + ""));
 				tabs.add(new Menus(6L, "访谈跟进", u + "galaxy/project/progress/interView"));
 				tabs.add(new Menus(7L, "会议纪要", u + "galaxy/project/progress/meetView"));
