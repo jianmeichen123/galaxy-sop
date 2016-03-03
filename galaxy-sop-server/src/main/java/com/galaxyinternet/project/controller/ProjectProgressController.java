@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -70,8 +71,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 	
-	
-	
 	@Override
 	protected BaseService<Project> getBaseService() {
 		return this.projectService;
@@ -82,7 +81,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public String errMessage(Project project,User user,String prograss){
 		if(project == null){
 			return "项目检索为空";
-		}else if(project.getProjectStatus().equals("关闭")){
+		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())){ //字典 项目状态 = 会议结论 关闭
 			return "项目已经关闭";
 		}
 		
@@ -99,6 +98,21 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return null;
 	}
 	
+	/**
+	 * 访谈默认页面 
+	 */
+	@RequestMapping(value = "/interView", method = RequestMethod.GET)
+	public String interView() {
+		return "interview/view";
+	}
+	
+	/**
+	 * 访添加页面
+	 */
+	@RequestMapping(value = "/interViewAdd", method = RequestMethod.GET)
+	public String interViewAdd() {
+		return "interview/interviewtc";
+	}
 	
 	/**
 	 * 接触访谈阶段: 访谈添加
@@ -126,7 +140,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		Project project = new Project();
 		project = projectService.queryById(interviewRecord.getProjectId());
 		
-		String err = errMessage(project,user,"接触访谈");
+		String err = errMessage(project,user,DictEnum.projectProgress.接触访谈.getCode());   //字典  项目进度  接触访谈 
 		if(err!=null && err.length()>0){
 			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
@@ -201,15 +215,15 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		Project project = new Project();
 		project = projectService.queryById(pid);
 		
-		String err = errMessage(project,user,"接触访谈");
+		String err = errMessage(project,user,DictEnum.projectProgress.接触访谈.getCode());   //字典  项目进度  接触访谈
 		if(err!=null && err.length()>0){
 			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
 		}
 				
 		try {
-			project.setProjectProgress("内部评审");
-			project.setProjectStatus("待定");
+			project.setProjectProgress(DictEnum.projectProgress.内部评审.getCode());   //字典  项目进度  内部评审
+			project.setProjectStatus(DictEnum.meetingResult.待定.getCode());     //字典 项目状态 = 会议结论   待定
 			projectService.updateById(project);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
@@ -223,6 +237,18 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		return responseBody;
 	}
+	
+	
+	
+	
+	/**
+	 * 访谈默认页面 
+	 */
+	@RequestMapping(value = "/meetView", method = RequestMethod.GET)
+	public String meetView() {
+		return "meeting/view";
+	}
+	
 	
 	
 	/**
@@ -248,14 +274,17 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 		
 		String prograss = "";
-		if(meetingRecord.getMeetingType().equals("内评会")){
-			prograss = "内部评审";
-		}else if(meetingRecord.getMeetingType().equals("CEO评审")){
-			prograss = "CEO评审";
-		}else if(meetingRecord.getMeetingType().equals("立项会")){
-			prograss = "立项会";
-		}else if(meetingRecord.getMeetingType().equals("投决会")){
-			prograss = "投决会";
+		if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       //字典  会议类型   内评会
+			prograss = DictEnum.projectProgress.内部评审.getCode();                                 	//字典  项目进度  内部评审
+			
+		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ //字典  会议类型   CEO评审
+			prograss = DictEnum.projectProgress.CEO评审.getCode(); 								//字典   项目进度  CEO评审
+			
+		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	//字典  会议类型   立项会
+			prograss = DictEnum.projectProgress.立项会.getCode(); 										//字典   项目进度    立项会
+			
+		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	//字典  会议类型   投决会
+			prograss = DictEnum.projectProgress.投资决策会.getCode(); 									//字典   项目进度     投资决策会
 		}/*else{
 			responseBody.setResult(new Result(Status.ERROR, "会议类型无法识别"));
 			return responseBody;
@@ -272,7 +301,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 		
 		try {
-			Long id = meetingRecordService.insertMeet(meetingRecord,project, user.getId());
+			Long id = meetingRecordService.insertMeet(meetingRecord,project, user.getId(),user.getDepartmentId());
 			
 			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -344,13 +373,13 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		Project project = new Project();
 		project = projectService.queryById(pid);
 		
-		String err = errMessage(project,user,"CEO评审");
+		String err = errMessage(project,user,DictEnum.projectProgress.CEO评审.getCode());   //字典   项目进度  CEO评审
 		if(err!=null && err.length()>0){
 			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
 		}
 		
-		if(!project.getProjectStatus().equals("通过")){
+		if(!project.getProjectStatus().equals(DictEnum.meetingResult.通过.getCode())){   //字典 项目状态 = 会议结论  通过
 			responseBody.setResult(new Result(Status.ERROR, "会议未通过"));
 			return responseBody;
 		}
@@ -387,22 +416,22 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		List<String> fileworktypeList = new ArrayList<String>();
 		
 		if(proProgress!=null){
-			if(proProgress.equals("投资意向书")){
-				fileworktypeList.add("投资意向书");
+			if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode())){      //字典   项目进度     投资意向书
+				fileworktypeList.add(DictEnum.fileWorktype.投资意向书.getCode());   //字典   档案业务类型   投资意向书
 				
-			}else if(proProgress.equals("尽职调查")){
-				fileworktypeList.add("业务尽职调查报告");
-				fileworktypeList.add("法务尽职调查报告");
-				fileworktypeList.add("财务尽职调查报告");
-				fileworktypeList.add("人事尽职调查报告");
+			}else if(proProgress.equals(DictEnum.projectProgress.尽职调查.getCode())){  //字典   项目进度     尽职调查
+				fileworktypeList.add(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());  //字典   档案业务类型   尽职调查报告
+				fileworktypeList.add(DictEnum.fileWorktype.财务尽职调查报告.getCode());
+				fileworktypeList.add(DictEnum.fileWorktype.法务尽职调查报告.getCode());
+				fileworktypeList.add(DictEnum.fileWorktype.业务尽职调查报告.getCode());
 				
-			}else if(proProgress.equals("投资协议")){
-				fileworktypeList.add("投资协议");
-				fileworktypeList.add("股权转让协议");
+			}else if(proProgress.equals(DictEnum.projectProgress.投资协议.getCode())){   //字典   项目进度     投资协议 
+				fileworktypeList.add(DictEnum.fileWorktype.投资协议.getCode());      //字典   档案业务类型   投资协议
+				fileworktypeList.add(DictEnum.fileWorktype.股权转让协议.getCode());     //字典   档案业务类型   股权转让协议
 				
-			}else if(proProgress.equals("股权交割")){
-				fileworktypeList.add("资金拨付凭证");
-				fileworktypeList.add("工商变更登记凭证");
+			}else if(proProgress.equals(DictEnum.projectProgress.股权交割.getCode())){   //字典   项目进度   股权交割
+				fileworktypeList.add(DictEnum.fileWorktype.资金拨付凭证.getCode());   //字典   档案业务类型   资金拨付凭证
+				fileworktypeList.add(DictEnum.fileWorktype.工商转让凭证.getCode());  //字典   档案业务类型   工商变更登记凭证
 				
 			}else{
 				responseBody.setResult(new Result(Status.OK, "项目阶段类型不能识别"));
@@ -419,6 +448,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 			SopFileBo  sbo =  new SopFileBo();
 			sbo.setProjectId(pid);
+			sbo.setProjectProgress(proProgress);
 			sbo.setFileworktypeList(fileworktypeList);
 			
 			fileList = sopFileService.selectByFileTypeList(sbo);
@@ -459,20 +489,20 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		String taskName = "";
 		
 		if(workType!=null){
-			if(workType.equals("投资意向书")){
-				proProgress = "投资意向书";
+			if(workType.equals(DictEnum.fileWorktype.投资意向书.getCode())){  //字典   档案业务类型   投资意向书
+				proProgress = DictEnum.projectProgress.投资意向书.getCode() ;									  
 				taskName = "上传投资意向书";
 				
-			}else if(workType.equals("业务尽职调查报告")){
-				proProgress = "尽职调查";
+			}else if(workType.equals(DictEnum.fileWorktype.业务尽职调查报告.getCode())){
+				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
 				taskName = "上传业务尽职调查报告";
 				
-			}else if(workType.equals("投资协议")){
-				proProgress = "投资协议";
+			}else if(workType.equals(DictEnum.fileWorktype.投资协议.getCode())){
+				proProgress = DictEnum.projectProgress.投资协议.getCode() ; 
 				taskName = "上传投资协议";
 				
-			}else if(workType.equals("股权转让协议")){
-				proProgress = "投资协议";
+			}else if(workType.equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+				proProgress = DictEnum.projectProgress.投资协议.getCode() ; 
 				taskName = "上传股权转让协议";
 			}else{
 				responseBody.setResult(new Result(Status.OK, "文件业务类型不能识别"));
@@ -490,7 +520,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		project = projectService.queryById(pid);
 		
 		//项目为 内部创建，不需要  股权转让协议
-		if(project.getProjectType()!=null && project.getProjectType().equals("内部创建") && workType.equals("股权转让协议")){
+		if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.内部创建.getCode()) && workType.equals(DictEnum.fileWorktype.股权转让协议.getCode())){
 			responseBody.setResult(new Result(Status.ERROR, "该项目不需要股权转让协议"));
 			return responseBody;
 		}
@@ -513,7 +543,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}
 			
 			//修改任务状态完成
-			task.setTaskStatus("已完成");
+			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
 			sopTaskService.updateById(task);
 			
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -551,7 +581,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		Project project = new Project();
 		project = projectService.queryById(pid);
 		
-		String err = errMessage(project,user,"投资意向书");
+		String err = errMessage(project,user,DictEnum.projectProgress.投资意向书.getCode());
 		if(err!=null && err.length()>0){
 			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
@@ -564,13 +594,13 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			task.setTaskName("上传投资意向书");          //任务名称：    上传投资意向书
 			task.setTaskReceiveUid(user.getId());
 			task = sopTaskService.queryOne(task);
-			if(task.getTaskStatus()==null || !task.getTaskStatus().equals("已完成")){
+			if(task.getTaskStatus()==null || !task.getTaskStatus().equals(DictEnum.taskStatus.已完成.getCode())){
 				responseBody.setResult(new Result(Status.ERROR, "Front task is not complete"));
 				return responseBody;
 			}
 			
 			//修改项目进度、生成任务
-			meetingRecordService.upTermSheetSign(project,user.getId());
+			meetingRecordService.upTermSheetSign(project,user.getId(),user.getDepartmentId());
 			
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
@@ -607,7 +637,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		Project project = new Project();
 		project = projectService.queryById(pid);
 		
-		String err = errMessage(project,user,"尽职调查");
+		String err = errMessage(project,user,DictEnum.projectProgress.尽职调查.getCode());
 		if(err!=null && err.length()>0){
 			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
@@ -618,8 +648,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			SopTaskBo task = new SopTaskBo();
 			task.setProjectId(pid);
 			List<String> sl = new ArrayList<String>();
-			sl.add("待认领");
-			sl.add("待完工");
+			sl.add(DictEnum.taskStatus.待认领.getCode());
+			sl.add(DictEnum.taskStatus.待完工.getCode());
 			task.setTaskStatusList(sl);
 			List<SopTask> tlist = sopTaskService.selectForTaskOverList(task);
 			if(tlist!=null && tlist.size()>0){
@@ -664,7 +694,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		Project project = new Project();
 		project = projectService.queryById(pid);
 		
-		String err = errMessage(project,user,"投资协议");
+		String err = errMessage(project,user,DictEnum.projectProgress.投资协议.getCode());
 		if(err!=null && err.length()>0){
 			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
@@ -676,8 +706,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			task.setProjectId(pid);
 			task.setTaskReceiveUid(user.getId());
 			List<String> sl = new ArrayList<String>();
-			sl.add("待认领");
-			sl.add("待完工");
+			sl.add(DictEnum.taskStatus.待认领.getCode());
+			sl.add(DictEnum.taskStatus.待完工.getCode());
 			task.setTaskStatusList(sl);
 			List<SopTask> tlist = sopTaskService.selectForTaskOverList(task);
 			if(tlist!=null && tlist.size()>0){
