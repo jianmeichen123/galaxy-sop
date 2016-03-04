@@ -72,10 +72,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> addProject(@RequestBody Project project, HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		if(project == null || project.getProjectCode() == null || "".equals(project.getProjectCode().trim())  
-				|| project.getProjectName() == null || "".equals(project.getProjectName().trim())
+		if(project == null || project.getProjectName() == null || "".equals(project.getProjectName().trim())
 				|| project.getProjectType() == null || "".equals(project.getProjectType().trim())){
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+			return responseBody;
+		}
+		Object code = request.getSession().getAttribute(Constants.SESSION_PROJECT_CODE);
+		if(code == null){
+			responseBody.setResult(new Result(Status.ERROR, "项目编码丢失!"));
 			return responseBody;
 		}
 		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -90,6 +94,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "没有权限添加项目!"));
 			return responseBody;
 		}
+		project.setProjectCode(String.valueOf(code));
 		project.setCreateUid(user.getId());
 		project.setCreateUname(user.getNickName());
 		//from字典
@@ -313,7 +318,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			nf.setGroupingUsed(false);
 			nf.setMaximumIntegerDigits(6);
 			nf.setMinimumIntegerDigits(6);
-			config.setPcode("10" + nf.format(Integer.parseInt(config.getValue())));
+			String code = "10" + nf.format(Integer.parseInt(config.getValue()));
+			request.getSession().setAttribute(Constants.SESSION_PROJECT_CODE, code);
+			config.setPcode(code);
 			responseBody.setEntity(config);
 		} catch (Exception e) {
 			e.printStackTrace();

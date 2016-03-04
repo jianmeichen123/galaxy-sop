@@ -18,7 +18,6 @@ function sendAjaxRequest(url, method, params, callback) {
 		contentType : "application/json; charset=UTF-8",
 		async : false,
 		error : function(request) {
-			alert("connetion error");
 		},
 		success : function(data) {
 			if (callback) {
