@@ -67,12 +67,21 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 */
 	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
 	public String goClaimtcPage(HttpServletRequest request) {
-		String id=request.getParameter("id");
+		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
 		SopTask sopTask=new SopTask();
-		sopTask.setId(Long.parseLong(id));
-		SopTask queryOne = sopTaskService.queryOne(sopTask);
-		request.setAttribute("id", id);
-		request.setAttribute("projectId",queryOne.getProjectId());
+		Result result = new Result();
+		Object ob = request.getSession().getAttribute("sessionUser");
+		sopTask.setTaskStatus("2");
+		try {
+			Long id = sopTaskService.insertsopTask(sopTask);
+			responseBody.setId(id);
+			result.setStatus(Status.OK);
+		} catch (PlatformException e) {
+			result.addError(e.getMessage());
+		} catch (Exception e) {
+			result.addError("生成任务失败");
+			logger.error("生成任务失败", e);
+		}
 		return "soptask/claimtc";
 	}
 	/**
@@ -168,7 +177,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 *@PathVariable("taskId") String taskId
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/updateTaskStatus", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/updateTaskStatus", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTask> updateTaskStatus( @RequestBody SopTask entity,HttpServletRequest request) {
 		//当前登录人
 				User user = (User) request.getSession().getAttribute(
