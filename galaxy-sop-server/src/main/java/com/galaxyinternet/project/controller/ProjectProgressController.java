@@ -526,7 +526,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
 		String proProgress = "";
-		String taskName = "上传";
+		String taskName = "";
 		//根据角色判断-显示文件上传列表
 		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 				
