@@ -173,10 +173,14 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder()==null?"":sopTasknew.getTaskOrder());
 			sopTaskBo.setTaskDestination(sopTasknew.getTaskDestination()==null?"":sopTasknew.getTaskDestination());
 			sopTaskBo.setTaskStatus(sopTasknew.getTaskStatus()==null?"":sopTasknew.getTaskStatus());
+			
 			if(sopTasknew.getTaskStatus().equals("1")){
+				StringBuffer caozuohtml=new StringBuffer();
 				sopTaskBo.setCaozuo("待认领");
 				sopTaskBo.setTaskStatus("待认领");
 				sopTaskBo.setStatusFlag("1");
+				caozuohtml.append("<a href=").append("/galaxy/soptask/goClaimtcPage?id="+sopTaskBo.getId())
+				.append("     data-btn='claim'").append(" >").append("待认领").append("</a>");
 			}
 			if(sopTasknew.getTaskStatus().equals("2")){
 				sopTaskBo.setCaozuo("待完工");

@@ -12,6 +12,7 @@
 <title>待办任务</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+<!--  <script src="<%=path %>/js/soptask.js" type="text/javascript"></script>-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 </head>
 
@@ -37,7 +38,7 @@
                 <li><a href="javascript:;" id="claim" >待认领<span>(10)</span></a></li>
                 <li><a href="javascript:;" id="todeal">待完工<span>(4)</span></a></li>
                 <li><a href="javascript:;"id="finish">已完成</a></li>   
-                <a href="/galaxy/soptask/goClaimtcPage" data-btn="claim">认领</a>        
+                <a href="/galaxy/soptask/goClaimtcPage?id=1" data-btn="claim">认领</a>        
           </ul>
         </div>
         <!--表格内容-->
@@ -78,7 +79,6 @@
           </div>
     </div>
 </div>
-<script src="<%=path %>/js/soptask.js" type="text/javascript"></script>
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">

@@ -10,7 +10,7 @@ function getSopTaskList(jsonData){
 	var url = location.search;
 	var sessionId=url.split("=")[1];
 	$.ajax({
-		url :'/galaxy/soptask/taskListByRole',
+		url :platformUrl.geSopTastList,
 		async : false,
 		type : 'POST',
 		data : JSON.stringify(jsonData),
@@ -58,7 +58,10 @@ function setData(obj ,searchName){
 				 '<td>'+soptask.projectName+'</td>'+
 				 '<td>'+soptask.createUname+'</td>'+
 				 '<td>'+soptask.remark+'</td>'+
-				 '<td class="caozuo"><a href="javascript:;" class="blue" id="flag_"'+soptask.statusFlag+'>'+soptask.caozuo+'</a><td></tr>'; 	
+				// '<td class="caozuo"><a href="/galaxy/soptask/goClaimtcPage?id=1" data-btn="claim" class="blue" id="flag_'+soptask.statusFlag+'">'+soptask.caozuo+'</a>'+
+				// '<input type="hidden" id="taskId" value="'+soptask.id+'"></td>'+
+				 '<td><a href="/galaxy/soptask/goClaimtcPage?id=1" data-btn="claim">认领</a><td>'+
+				' </tr>'; 	
 			 tasklist_tody.append(tr);
 		  });
 	}
@@ -95,13 +98,19 @@ $(".searchbox .clearfix").on("click", "#search", function() {
 	}
 	setData(this,searchName);
 });
+var pid;
 //操作处理   startFlag  1，待认领；2，待处理；3，已完成
-$(".caozuo").on("click", "a", function() {
+//$(".caozuo").on("click", "a", function() {
+//	alert("123");
+/*	var obj=this;
+	var url = location.search;
+	var sessionId=url.split("=")[1];
 	 var str=this.id;
-	var startFlag=str.subStr(str.length-1,1) ;
-	var jsonData={"taskStatus":startFlag};
+	 var taskId=$("#taskId").val();
+	var startFlag=str.substr(str.length-1,1) ;
+	var jsonData={"taskStatus":startFlag,"id":taskId};
 	$.ajax({
-		url :'/galaxy/soptask/updateTaskStatus',
+		url :platformUrl.updateTaskStatus,
 		async : false,
 		type : 'POST',
 		data : JSON.stringify(jsonData),
@@ -116,13 +125,19 @@ $(".caozuo").on("click", "a", function() {
 		success : function(data) {
 			console.log(data);
 			if(data.result.status == 'OK'){
-				if(startFlag==="1"){				
-					this.href='/galaxy/soptask/goClaimtcPage?id='+data.entity.id;
+				if(startFlag==="1"){	
+					pid=data.entity.projectid;
+					obj.href='/galaxy/soptask/goClaimtcPage?id='+data.entity.id;
 				} 
 			}
-		}
-});	
-});
+		}*/
+//	this.href='/galaxy/soptask/goClaimtcPage?id=1';
+//});	
 
+//单击按钮刷新页列表里面的内容
+$(".pubbtn").on("click", "a", function() {
+	alert(11111);
+	//this.href='/galaxy/soptask/doTask?projectId='+pid;
+});
 })
 
