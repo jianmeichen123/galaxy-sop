@@ -23,6 +23,7 @@ public class PersonWork extends BaseEntity{
 	private String colleagueName;//同事姓名
 	private String colleaguePosition;//同事职位
 	private String colleaguePhone;//同事电话
+	
 	public Long getId() {
 		return id;
 	}
