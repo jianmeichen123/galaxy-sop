@@ -62,7 +62,7 @@
 		from sop_meeting_scheduling where id = #{id}
 	</select>
 	
-  	<insert id="insert" parameterType="com.galaxyinternet.model.project.MeetingScheduling" >
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.MeetingScheduling" >
 	    <![CDATA[
 		insert into sop_meeting_scheduling (id, project_id, meeting_type, 
 	      meeting_count, meeting_date, status, 
