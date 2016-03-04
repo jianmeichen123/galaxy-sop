@@ -62,7 +62,31 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	public String list() {
 		return "soptask/tasklist";
 	}
-
+	/**
+	 * 弹出页面
+	 */
+	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
+	public String goClaimtcPage(HttpServletRequest request) {
+		String id=request.getParameter("id");
+		SopTask sopTask=new SopTask();
+		sopTask.setId(Long.parseLong(id));
+		SopTask queryOne = sopTaskService.queryOne(sopTask);
+		request.setAttribute("id", id);
+		request.setAttribute("projectId",queryOne.getProjectId());
+		return "soptask/claimtc";
+	}
+	/**
+	 * 弹出页面
+	 */
+	@RequestMapping(value = "/doTask",method = RequestMethod.GET)
+	public String doTask(HttpServletRequest request) {
+		
+		String projectId=request.getParameter("projectId");	
+		request.setAttribute("projectId", projectId);
+		
+		return "soptask/doTask";
+	}
+	
 
 	/**
 	 * @category 根据角色获取当前登录人所属角色的所有任务
@@ -84,7 +108,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		Department Department=new Department();//
 		Department.setId(user.getDepartmentId());
 		Department queryOne = departmentService.queryOne(Department);
-		if(StringEx.isNullOrEmpty(queryOne)){
+		if(!StringEx.isNullOrEmpty(queryOne)){
 			sopTaskBo.setTaskDestination(queryOne.getId().toString());
 		}
 		sopTaskBo.setTaskReceiveUid((long)1);
@@ -161,6 +185,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			result.addError("修改任务状态失败");
 			logger.error("修改任务状态失败", e);
 		}
+		responseBody.setEntity(entity);
 		responseBody.setResult(result);
 		return responseBody;
 	}

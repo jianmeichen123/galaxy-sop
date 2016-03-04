@@ -12,6 +12,7 @@ public enum DictEnum {
 	任务类型("任务类型","taskType"),
 	任务状态("任务状态","taskStatus"),
 	
+	档案状态("档案状态","fileStatus"),
 	档案业务分类("档案业务分类","fileWorktype"),
 	档案存储类型("档案存储类型","fileType");
 	
@@ -204,6 +205,27 @@ public enum DictEnum {
 
 	}	
 	
+	
+	//档案状态
+	public enum fileStatus{
+		缺失("缺失","fileStatus:1"),
+		已上传("已上传","fileStatus:2"),
+		已签署("已签署","fileStatus:3");
+		
+		private String name;
+		private String code;
+		private fileStatus(String name, String code) {
+			this.name = name;
+			this.code = code;
+		}
+		public String getName() {
+			return name;
+		}
+
+		public String getCode() {
+			return code;
+		}
+	}
 	
 	//档案业务分类
 	public enum fileWorktype {

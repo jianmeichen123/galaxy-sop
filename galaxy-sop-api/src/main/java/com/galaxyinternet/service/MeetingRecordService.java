@@ -8,17 +8,20 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 
+
+
 public interface MeetingRecordService extends BaseService<MeetingRecord> {
 
-	public Long insertMeet(MeetingRecord meetingRecord,Project project,Long userId);
+	public Long insertMeet(MeetingRecord meetingRecord,Project project,Long userid,Long departid);
 	
 	public Page<MeetingRecordBo> queryMeetPageList(MeetingRecordBo query, Pageable pageable);
 	
 	public void projectSchedule(Project project);
 
-	public void upTermSheetSign(Project project,Long uid);
+	public void upTermSheetSign(Project project,Long userid,Long departid);
 	
 	public void decisionSchedule(Project project);
 	
 	public void upInvestmentSign(Project project);
+
 }
