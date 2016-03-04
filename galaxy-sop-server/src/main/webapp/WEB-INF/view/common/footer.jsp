@@ -15,7 +15,6 @@ function createMenus(current){
 	   		 }
 	   	 });
 	   	 $("#menus").html(html);
-	   	 window.location.href = platformUrl.toIndex;
 	},null);
 }
 </script>
