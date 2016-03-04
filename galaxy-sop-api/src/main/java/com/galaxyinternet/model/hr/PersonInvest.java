@@ -12,8 +12,8 @@ public class PersonInvest extends BaseEntity {
 		private Long id; //人力_投资经历id 
 		private Long personId;//关联人力资源id
 		private String companyName;//公司名称
-		private Double inverstmentAmount;//投资金额
-		private Double shareRation;//股权占比
+		private Double investmentAmount;//投资金额 investment_amount
+		private Double shareRatio;//股权占比
 		private String projectDirector;//项目负责人;
 		private String emceedPosition;//担任职位
 		private String telephone;//联系方式
@@ -38,17 +38,19 @@ public class PersonInvest extends BaseEntity {
 		public void setCompanyName(String companyName) {
 			this.companyName = companyName;
 		}
-		public Double getInverstmentAmount() {
-			return inverstmentAmount;
+		
+		public Double getInvestmentAmount() {
+			return investmentAmount;
 		}
-		public void setInverstmentAmount(Double inverstmentAmount) {
-			this.inverstmentAmount = inverstmentAmount;
+		public void setInvestmentAmount(Double investmentAmount) {
+			this.investmentAmount = investmentAmount;
 		}
-		public Double getShareRation() {
-			return shareRation;
+		
+		public Double getShareRatio() {
+			return shareRatio;
 		}
-		public void setShareRation(Double shareRation) {
-			this.shareRation = shareRation;
+		public void setShareRatio(Double shareRatio) {
+			this.shareRatio = shareRatio;
 		}
 		public String getProjectDirector() {
 			return projectDirector;

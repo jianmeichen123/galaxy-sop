@@ -11,8 +11,8 @@ public class PersonLearn extends BaseEntity{
 	private Long personId; //关联人力资源的ID 
 	private String degree; //字典 学历,关联数据字典数据项ID
 	private String school; //学校
-	private String major;   //专业             
-	private String educationType; //字典  学制  全日制、自考...
+	private String major;   //专业 education_type             
+	private String educationType; //字典  学制  全日制、自考...educationType
 	private Date   beginDate; //入学时间
 	private Date   overDate; // 毕业时间
 	private String certificateNumber; //证书编号      
@@ -107,9 +107,7 @@ public class PersonLearn extends BaseEntity{
 	public void setClassmatePhone(String classmatePhone) {
 		this.classmatePhone = classmatePhone;
 	}
-
-	                              
-	          
+	
 	
 	
                                  
