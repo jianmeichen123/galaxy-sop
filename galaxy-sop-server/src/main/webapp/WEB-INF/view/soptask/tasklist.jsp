@@ -26,7 +26,7 @@
         	<!--搜索-->
           <div class="searchbox clearfix">
             <input type="text" placeholder="请输入项目名或投资经理名" class="txt"/>
-            <a href="javascript:;" class="bluebtn ico cx">查询</a>
+            <a href="javascript:;" class="bluebtn ico cx" id="search">查询</a>
           </div>
             <!--tips连接-->
         	<ul class="tipslink">
@@ -35,7 +35,8 @@
                 <li><a href="javascript:;" id="normal" >正常<span>(5)</span></a></li>
                 <li><a href="javascript:;" id="claim" >待认领<span>(10)</span></a></li>
                 <li><a href="javascript:;" id="todeal">待完工<span>(4)</span></a></li>
-                <li><a href="javascript:;"id="finish">已完成</a></li>           
+                <li><a href="javascript:;"id="finish">已完成</a></li>   
+                <a href="/galaxy/soptask/goClaimtcPage" data-btn="claim">认领</a>        
           </ul>
         </div>
         <!--表格内容-->

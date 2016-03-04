@@ -53,18 +53,9 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		Page<SopTaskBo> formatData=new Page<>(null, pageable, null);
 		List<Project> projectList = new ArrayList<Project>();
 		Page<SopTask> selectListSopTask =new Page<>(null, pageable, null);
-		String taskOrder=request.getParameter("taskOrder");
-	    String taskType=request.getParameter("taskType");
-		if(!StringEx.isNullOrEmpty(taskOrder)){
-			sopTaskBo.setTaskOrder(taskOrder);
-		}
-		if(!StringEx.isNullOrEmpty(taskType)){
-			sopTaskBo.setTaskOrder(taskOrder);
-		}
-		// 如果查询条件部位空的时候，现根据项目名称或者投资经理去查询该项目的任务列表
-		if (sopTaskBo.getCreateUname() != null && !"".equals(sopTaskBo.getCreateUname())) {
+	// 如果查询条件部位空的时候，现根据项目名称或者投资经理去查询该项目的任务列表
+		if (sopTaskBo.getNameLike() != null && !"".equals(sopTaskBo.getNameLike())) {
 			// 查询该项目投资经理或者项目名称查询相应的项目
-			projectBo.setNameLike(sopTaskBo.getCreateUname());
 			projectList = projectDao.selectProjectByMap(projectBo);
 			if(!projectList.isEmpty()){
 			    sopTaskBo = setProjectIdsByPList(projectList);
@@ -183,16 +174,19 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			sopTaskBo.setTaskDestination(sopTasknew.getTaskDestination()==null?"":sopTasknew.getTaskDestination());
 			sopTaskBo.setTaskStatus(sopTasknew.getTaskStatus()==null?"":sopTasknew.getTaskStatus());
 			if(sopTasknew.getTaskStatus().equals("1")){
-				sopTaskBo.setCaozuo("待完工");
-				sopTaskBo.setTaskStatus("待完工");
+				sopTaskBo.setCaozuo("待认领");
+				sopTaskBo.setTaskStatus("待认领");
+				sopTaskBo.setStatusFlag("1");
 			}
 			if(sopTasknew.getTaskStatus().equals("2")){
-				sopTaskBo.setCaozuo("待处理");
-				sopTaskBo.setTaskStatus("待处理");
-						}
+				sopTaskBo.setCaozuo("待完工");
+				sopTaskBo.setTaskStatus("待完工");
+				sopTaskBo.setStatusFlag("2");
+			}
 			if(sopTasknew.getTaskStatus().equals("3")){
 				sopTaskBo.setCaozuo("已完成");
 				sopTaskBo.setTaskStatus("已完成");
+				sopTaskBo.setStatusFlag("3");
 			}
 			
 			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder()==null?"":sopTasknew.getTaskOrder());

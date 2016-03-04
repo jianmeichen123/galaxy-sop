@@ -13,6 +13,8 @@ public class SopTaskBo extends SopTask {
 	private String taskDeadlineformat;
 	private String caozuo;
 	private List<String> taskStatusList; //任务状态  完成、待完成
+	private String nameLike;
+	private String statusFlag;
 
 	public String getCreateUname() {
 		return createUname;
@@ -60,6 +62,22 @@ public class SopTaskBo extends SopTask {
 
 	public void setCaozuo(String caozuo) {
 		this.caozuo = caozuo;
+	}
+
+	public String getNameLike() {
+		return nameLike;
+	}
+
+	public void setNameLike(String nameLike) {
+		this.nameLike = nameLike;
+	}
+
+	public String getStatusFlag() {
+		return statusFlag;
+	}
+
+	public void setStatusFlag(String statusFlag) {
+		this.statusFlag = statusFlag;
 	}
 	
 	
