@@ -21,9 +21,17 @@ var platformUrl = {
 	 */
 	toIndex : Constants.platformEndpointURL + "/galaxy/redirect",
 	/**
+	 * 查询模板列表
+	 */
+	queryTemplate : "/galaxy/template/queryTemplate",
+	/**
 	 * 查询模板相关数据
 	 */
 	getTempRelatedData:"/galaxy/template/getRelatedData",
+	/**
+	 * 模板上传
+	 */
+	tempUpload:"/galaxy/template/upload",
 }
 
 /**
