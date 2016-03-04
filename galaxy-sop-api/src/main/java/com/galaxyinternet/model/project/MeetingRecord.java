@@ -1,8 +1,10 @@
 package com.galaxyinternet.model.project;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class MeetingRecord  extends BaseEntity{
 	private static final long serialVersionUID = 1L;
@@ -12,6 +14,7 @@ public class MeetingRecord  extends BaseEntity{
     private Long fileId;
 
     private Date meetingDate;
+    private String meetingDateStr;
 
     private String meetingType;
 
@@ -36,9 +39,16 @@ public class MeetingRecord  extends BaseEntity{
 	}
 
 	public Date getMeetingDate() {
+		if(meetingDate==null && meetingDateStr!=null && meetingDateStr.trim().length()>0){
+			try {
+				meetingDate = DateUtil.convertStringToDate(meetingDateStr);
+			} catch (ParseException e) {
+				meetingDate = null;
+			}
+		}
         return meetingDate;
     }
-
+	
     public void setMeetingDate(Date meetingDate) {
         this.meetingDate = meetingDate;
     }
@@ -68,4 +78,13 @@ public class MeetingRecord  extends BaseEntity{
         this.meetingNotes = meetingNotes == null ? null : meetingNotes.trim();
     }
 
+	public String getMeetingDateStr() {
+		return meetingDateStr;
+	}
+
+	public void setMeetingDateStr(String meetingDateStr) {
+		this.meetingDateStr = meetingDateStr;
+	}
+
+    
 }

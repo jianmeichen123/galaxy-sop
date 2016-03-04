@@ -131,16 +131,18 @@
 
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-
+<script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 $(function(){
 	createMenus(6);
 
-
 	
 	
 });
+
+
+
 </script>
 </html>
 

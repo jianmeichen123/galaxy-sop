@@ -17,6 +17,7 @@ public class InterviewRecordBo extends InterviewRecord{
 	private int inpro; //是否项目内查看 1：是
 	
 	
+	
 	public String getProName() {
 		return proName;
 	}
@@ -88,7 +89,7 @@ public class InterviewRecordBo extends InterviewRecord{
 	public void setInpro(int inpro) {
 		this.inpro = inpro;
 	}
-	
+
 	
 	
 

@@ -1,8 +1,10 @@
 package com.galaxyinternet.model.project;
 
+import java.text.ParseException;
 import java.util.Date;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class InterviewRecord extends BaseEntity{
 
@@ -13,11 +15,11 @@ public class InterviewRecord extends BaseEntity{
     private Long fileId;
 
     private Date viewDate;
-
+    private String viewDateStr;
+    
     private String viewTarget;
 
     private String viewNotes;
-
 
     public Long getProjectId() {
         return projectId;
@@ -36,6 +38,13 @@ public class InterviewRecord extends BaseEntity{
 	}
 
 	public Date getViewDate() {
+		if(viewDate==null && viewDateStr!=null && viewDateStr.trim().length()>0){
+			try {
+				viewDate = DateUtil.convertStringToDate(viewDateStr);
+			} catch (ParseException e) {
+				viewDate = null;
+			}
+		}
         return viewDate;
     }
 
@@ -59,4 +68,13 @@ public class InterviewRecord extends BaseEntity{
         this.viewNotes = viewNotes == null ? null : viewNotes.trim();
     }
 
+    
+    public String getViewDateStr() {
+		return viewDateStr;
+	}
+
+	public void setViewDateStr(String viewDateStr){
+		this.viewDateStr = viewDateStr;
+	}
+	
 }

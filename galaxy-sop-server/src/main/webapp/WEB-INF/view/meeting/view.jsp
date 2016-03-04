@@ -140,7 +140,7 @@
 
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-
+<script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 $(function(){
