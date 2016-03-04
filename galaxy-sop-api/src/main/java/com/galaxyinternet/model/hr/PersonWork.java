@@ -1,10 +1,10 @@
-package com.galaxyinternet.model.HR;
+package com.galaxyinternet.model.hr;
 
 import java.util.Date;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
-public class personWork extends BaseEntity{
+public class PersonWork extends BaseEntity{
 	
 	private static final long serialVersionUID = 1L;
 	private Long id;//人力_工作经历项的ID 

@@ -1,8 +1,8 @@
 package com.galaxyinternet.bo.project;
 
-import com.galaxyinternet.model.HR.personWork;
+import com.galaxyinternet.model.hr.PersonWork;
 
-public class personWorkBo extends personWork{
+public class personWorkBo extends PersonWork{
 
 	private static final long serialVersionUID = 1L;
 }

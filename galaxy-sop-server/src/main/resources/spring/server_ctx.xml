@@ -26,4 +26,16 @@
 	<import resource="classpath*:applicationContext-cache.xml" />
 	<!-- <import resource="classpath*:redis/galaxy-redis-config.xml" /> -->
 	<!-- <import resource="classpath*:redis/userRepository-context.xml" /> -->
+	
+	<!-- 用于初始化不同项目的请求地址，存入redis中 -->
+	<bean id="com.galaxyinternet.framework.core.config.ConfigBean" class="com.galaxyinternet.framework.core.config.ConfigBean">
+		<constructor-arg index="0" value="endpoint.properties" />
+		<constructor-arg index="1">
+			<list>
+				<value>galaxy.project.platform.endpoint</value>
+				<value>galaxy.project.report.endpoint</value>
+			</list>
+		</constructor-arg>
+		<constructor-arg index="2" ref="cache" />
+	</bean>
 </beans>
