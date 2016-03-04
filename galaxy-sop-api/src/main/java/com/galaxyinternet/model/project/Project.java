@@ -20,7 +20,7 @@ public class Project extends BaseEntity {
 
     private Double projectContribution;
 
-    private String currencyUnit;
+    private Integer currencyUnit;
 
     private Double projectShareRatio;
     
@@ -103,12 +103,12 @@ public class Project extends BaseEntity {
         this.projectContribution = projectContribution;
     }
 
-    public String getCurrencyUnit() {
+    public Integer getCurrencyUnit() {
         return currencyUnit;
     }
 
-    public void setCurrencyUnit(String currencyUnit) {
-        this.currencyUnit = currencyUnit == null ? null : currencyUnit.trim();
+    public void setCurrencyUnit(Integer currencyUnit) {
+        this.currencyUnit = currencyUnit;
     }
 
     public Double getProjectShareRatio() {

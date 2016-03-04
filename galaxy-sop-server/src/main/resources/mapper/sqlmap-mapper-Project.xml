@@ -10,7 +10,7 @@
     <result column="project_departId" property="projectDepartid" jdbcType="BIGINT" />
     <result column="project_valuations" property="projectValuations" jdbcType="DECIMAL" />
     <result column="project_contribution" property="projectContribution" jdbcType="DECIMAL" />
-    <result column="currency_unit" property="currencyUnit" jdbcType="VARCHAR" />
+    <result column="currency_unit" property="currencyUnit" jdbcType="INTEGER" />
     <result column="project_share_ratio" property="projectShareRatio" jdbcType="DECIMAL" />
     <result column="project_company" property="projectCompany" jdbcType="VARCHAR" />
     <result column="project_company_code" property="projectCompanyCode" jdbcType="VARCHAR" />
@@ -49,7 +49,7 @@
 		      <if test="projectDepartid != null" > and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
 		      <if test="projectValuations != null" > and project_valuations = #{projectValuations,jdbcType=DECIMAL} </if>
 		      <if test="projectContribution != null" >  and project_contribution = #{projectContribution,jdbcType=DECIMAL} </if>
-		      <if test="currencyUnit != null" > and currency_unit = #{currencyUnit,jdbcType=VARCHAR} </if>
+		      <if test="currencyUnit != null" > and currency_unit = #{currencyUnit,jdbcType=INTEGER} </if>
 		      <if test="projectShareRatio != null" > and project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL} </if>
 		      
 		      <if test="projectCompany != null" > and project_company = #{projectCompany,jdbcType=VARCHAR} </if>
@@ -122,7 +122,7 @@
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, 
 	      #{projectType,jdbcType=VARCHAR}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{projectContribution,jdbcType=DECIMAL}, 
-	      #{currencyUnit,jdbcType=VARCHAR}, #{projectShareRatio,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{projectCompanyCode,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
+	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{projectCompanyCode,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
 	      #{createUname,jdbcType=VARCHAR}, #{createUposition,jdbcType=VARCHAR}, #{projectProgress,jdbcType=VARCHAR}, 
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
@@ -142,7 +142,7 @@
 		      <if test="projectDepartid != null" >  project_departId = #{projectDepartid,jdbcType=BIGINT}, </if>
 		      <if test="projectValuations != null" >   project_valuations = #{projectValuations,jdbcType=DECIMAL}, </if>
 		      <if test="projectContribution != null" >   project_contribution = #{projectContribution,jdbcType=DECIMAL}, </if>
-		      <if test="currencyUnit != null" >  currency_unit = #{currencyUnit,jdbcType=VARCHAR}, </if>
+		      <if test="currencyUnit != null" >  currency_unit = #{currencyUnit,jdbcType=INTEGER}, </if>
 		      <if test="projectShareRatio != null" > project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL}, </if>
 		      
 		      <if test="projectCompany != null" >  project_company = #{projectCompany,jdbcType=VARCHAR}, </if>
@@ -171,7 +171,7 @@
 		      <if test="projectDepartid != null" > and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
 		      <if test="projectValuations != null" > and project_valuations = #{projectValuations,jdbcType=DECIMAL} </if>
 		      <if test="projectContribution != null" >  and project_contribution = #{projectContribution,jdbcType=DECIMAL} </if>
-		      <if test="currencyUnit != null" > and currency_unit = #{currencyUnit,jdbcType=VARCHAR} </if>
+		      <if test="currencyUnit != null" > and currency_unit = #{currencyUnit,jdbcType=INTEGER} </if>
 		      <if test="projectShareRatio != null" > and project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL} </if>
 		      
 		      <if test="projectCompany != null" > and project_company = #{projectCompany,jdbcType=VARCHAR} </if>
@@ -203,7 +203,7 @@
 		      <if test="projectDepartid != null" >  project_departId = #{projectDepartid,jdbcType=BIGINT}, </if>
 		      <if test="projectValuations != null" >   project_valuations = #{projectValuations,jdbcType=DECIMAL}, </if>
 		      <if test="projectContribution != null" >   project_contribution = #{projectContribution,jdbcType=DECIMAL}, </if>
-		      <if test="currencyUnit != null" >  currency_unit = #{currencyUnit,jdbcType=VARCHAR}, </if>
+		      <if test="currencyUnit != null" >  currency_unit = #{currencyUnit,jdbcType=INTEGER}, </if>
 		      <if test="projectShareRatio != null" > project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL}, </if>
 		      <if test="projectCompany != null" >  project_company = #{projectCompany,jdbcType=VARCHAR}, </if>
 		      <if test="projectCompanyCode != null" >  project_company_code = #{projectCompanyCode,jdbcType=VARCHAR}, </if>

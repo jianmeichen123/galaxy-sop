@@ -62,16 +62,6 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 		return rtn;
 	}
 	
-	@RequestMapping("/showUploadWin")
-	public String showUploadWin(@RequestParam String id)
-	{
-		return "template/upload";
-	}
-	@RequestMapping("/showUpdateWin")
-	public String showUpdateWin(@RequestParam String id)
-	{
-		return "template/update";
-	}
 	@RequestMapping("/getRelatedData")
 	@ResponseBody
 	public Map getRelatedData()

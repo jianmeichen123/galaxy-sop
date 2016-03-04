@@ -3,6 +3,8 @@ package com.galaxyinternet.soptask.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.model.project.Project;
@@ -45,21 +48,19 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	 */
 
 	@Override
-	public Page<SopTaskBo> tasklist(PageRequest pageable, SopTask query) {
-
-		SopTaskBo sopTaskBo = new SopTaskBo();
+	public Page<SopTaskBo> tasklist(PageRequest pageable, SopTaskBo sopTaskBo,HttpServletRequest request) {
 		ProjectBo projectBo =new ProjectBo();
 		Page<SopTaskBo> formatData=new Page<>(null, pageable, null);
-		if (query.getTaskOrder() != null && !"".equals(query.getTaskOrder())) {
-
-			sopTaskBo.setTaskOrder(query.getTaskOrder());
-		}
-
-		if (query.getTaskStatus() != null && !"".equals(query.getTaskStatus())) {
-			sopTaskBo.setTaskStatus(query.getTaskStatus());
-		}
 		List<Project> projectList = new ArrayList<Project>();
 		Page<SopTask> selectListSopTask =new Page<>(null, pageable, null);
+		String taskOrder=request.getParameter("taskOrder");
+	    String taskType=request.getParameter("taskType");
+		if(!StringEx.isNullOrEmpty(taskOrder)){
+			sopTaskBo.setTaskOrder(taskOrder);
+		}
+		if(!StringEx.isNullOrEmpty(taskType)){
+			sopTaskBo.setTaskOrder(taskOrder);
+		}
 		// 如果查询条件部位空的时候，现根据项目名称或者投资经理去查询该项目的任务列表
 		if (sopTaskBo.getCreateUname() != null && !"".equals(sopTaskBo.getCreateUname())) {
 			// 查询该项目投资经理或者项目名称查询相应的项目
@@ -68,7 +69,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			if(!projectList.isEmpty()){
 			    sopTaskBo = setProjectIdsByPList(projectList);
 			    selectListSopTask = sopTaskDao.selectTaskInPids(sopTaskBo, pageable);
-			    if (selectListSopTask != null) {
+			    if (selectListSopTask == null) {
 					throwPlatformException(ExceptionMessage.QUERY_LIST_FAIL);
 					return null;
 				}
@@ -80,7 +81,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			if(selectListSopTask!=null && !selectListSopTask.getContent().isEmpty()){		
 				projectBo = setProjectIdsByTList(selectListSopTask.getContent());	
 				projectList = projectDao.selectProjectByMap(projectBo);
-				if (projectList != null) {
+				if (projectList == null) {
 					throwPlatformException(ExceptionMessage.QUERY_LIST_FAIL);
 					return null;
 				}
@@ -161,17 +162,42 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	public Page<SopTaskBo> formatData(Page<SopTask> sopTaskData, List<Project> projectList) {
 		Page<SopTaskBo> sopTaskPage = new Page<>(null, null, null);
 		List<SopTaskBo> SopTaskBoList = new ArrayList<SopTaskBo>();
+		
 		for (int i = 0; i < sopTaskData.getContent().size(); i++) {
-			SopTaskBo sopTasknew = (SopTaskBo) sopTaskData.getContent().get(i);
+			SopTask sopTasknew =  sopTaskData.getContent().get(i);
+			SopTaskBo sopTaskBo=new SopTaskBo();
 			for (Project project : projectList) {
 				if (sopTasknew.getProjectId() == project.getId()) {
-					sopTasknew.setProjectName(project.getProjectName());
-					sopTasknew.setCreateUname(project.getCreateUname());
+					sopTaskBo.setProjectName(project.getProjectName());
+					sopTaskBo.setCreateUname(project.getCreateUname());
 					break;
 				}
 
 			}
-			SopTaskBoList.add(sopTasknew);
+			sopTaskBo.setId(sopTasknew.getId());
+		
+			sopTaskBo.setTaskDeadlineformat(DateUtil.convertDateToString(sopTasknew.getTaskDeadline()));//
+			sopTaskBo.setTaskName(sopTasknew.getTaskName()==null?"":sopTasknew.getTaskName());
+			sopTaskBo.setTaskType(sopTasknew.getTaskType()==null?"":sopTasknew.getTaskType());
+			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder()==null?"":sopTasknew.getTaskOrder());
+			sopTaskBo.setTaskDestination(sopTasknew.getTaskDestination()==null?"":sopTasknew.getTaskDestination());
+			sopTaskBo.setTaskStatus(sopTasknew.getTaskStatus()==null?"":sopTasknew.getTaskStatus());
+			if(sopTasknew.getTaskStatus().equals("1")){
+				sopTaskBo.setCaozuo("待完工");
+				sopTaskBo.setTaskStatus("待完工");
+			}
+			if(sopTasknew.getTaskStatus().equals("2")){
+				sopTaskBo.setCaozuo("待处理");
+				sopTaskBo.setTaskStatus("待处理");
+						}
+			if(sopTasknew.getTaskStatus().equals("3")){
+				sopTaskBo.setCaozuo("已完成");
+				sopTaskBo.setTaskStatus("已完成");
+			}
+			
+			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder()==null?"":sopTasknew.getTaskOrder());
+			sopTaskBo.setRemark(sopTasknew.getRemark()==null?"":sopTasknew.getRemark());
+			SopTaskBoList.add(sopTaskBo);
 		}
 		sopTaskPage.setContent(SopTaskBoList);
 		sopTaskPage.setPageable(sopTaskData.getPageable());
@@ -180,10 +206,10 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	}
 	@Override
 	public int updateById(SopTask entity) {
-		if (StringEx.isNullOrEmpty(entity.getTaskStatus()) && entity.getTaskStatus().equals("1")) {
+		if (!StringEx.isNullOrEmpty(entity.getTaskStatus()) && entity.getTaskStatus().equals("1")) {
 			entity.setTaskStatus("2");
 		}
-		if (StringEx.isNullOrEmpty(entity.getTaskStatus()) && entity.getTaskStatus().equals("2")) {
+		if (!StringEx.isNullOrEmpty(entity.getTaskStatus()) && entity.getTaskStatus().equals("2")) {
 			entity.setTaskStatus("3");
 		}
 		int result = sopTaskDao.updateById(entity);

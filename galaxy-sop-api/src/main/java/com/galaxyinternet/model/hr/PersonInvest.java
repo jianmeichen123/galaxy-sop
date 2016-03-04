@@ -1,8 +1,8 @@
-package com.galaxyinternet.model.HR;
+package com.galaxyinternet.model.hr;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
-public class personInvest extends BaseEntity {
+public class PersonInvest extends BaseEntity {
 
 	/**
 	 * gxc

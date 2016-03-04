@@ -17,20 +17,6 @@ public class SopTask extends BaseEntity{
      private Date taskDeadline;
      private String taskDestination;
      private Long taskReceiveUid;
-     private String createUname;
-     private String projectName;
-     public String getCreateUname() {
-		return createUname;
-	}
-	public void setCreateUname(String createUname) {
-		this.createUname = createUname;
-	}
-	public String getProjectName() {
-		return projectName;
-	}
-	public void setProjectName(String projectName) {
-		this.projectName = projectName;
-	}
 	public Long getProjectId() {
 		return projectId;
 	}

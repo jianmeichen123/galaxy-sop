@@ -57,7 +57,7 @@
 		from sop_interview_record where id = #{id}
 	</select>
 	
-  	<insert id="insert" parameterType="com.galaxyinternet.model.project.InterviewRecord" >
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.InterviewRecord" >
 	    <![CDATA[
 		insert into sop_interview_record (id, project_id, file_id,view_date, 
 		  view_target, view_notes, created_time

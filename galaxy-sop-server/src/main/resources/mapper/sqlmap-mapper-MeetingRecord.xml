@@ -61,7 +61,7 @@
 		from sop_meeting_record where id = #{id}
 	</select>
 	
-  	<insert id="insert" parameterType="com.galaxyinternet.model.project.MeetingRecord" >
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.MeetingRecord" >
 	    <![CDATA[
 	    insert into sop_meeting_record (id, project_id, file_id, 
 	      meeting_date, meeting_type, meeting_result, 

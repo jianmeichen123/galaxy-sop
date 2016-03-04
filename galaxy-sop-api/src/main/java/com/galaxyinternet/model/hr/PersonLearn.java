@@ -1,10 +1,10 @@
-package com.galaxyinternet.model.HR;
+package com.galaxyinternet.model.hr;
 
 import java.util.Date;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
-public class personLearn extends BaseEntity{
+public class PersonLearn extends BaseEntity{
 
 	private static final long serialVersionUID = 1L;
 	private Long id;  //人力_学习经历项ID

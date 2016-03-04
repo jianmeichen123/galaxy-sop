@@ -8,7 +8,11 @@
 <meta charset="utf-8">
 <title>繁星</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path%>/js/jquery-1.7.2.min.js" type="text/javascript"></script>
+<script src="<%=path%>/js/sopUserSchedule.js" type="text/javascript"></script>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+<!-- jsp文件头和头部 -->
+<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 </head>
 
 <body>
@@ -19,7 +23,8 @@
 	<!--右侧-->
     <div class="rit">
         <!--时间-->
-        <div class="top">
+        <div class="top" id="top">
+          <!-- 
         	<b class="sj ico null">三角</b>
             <div class="tody ico">
             	<p class="time"></p>
@@ -29,6 +34,7 @@
             <a href="javascript:;" class="link"><b class="b2 null">点</b>后天，要和夹克的虾团队见面</a>
             <a href="javascript:;" class="link"><b class="b3 null">点</b>5天后，买飞机票</a>
             <div class="morebox"><a href="javascript:;" class="more null">more</a></div>
+        -->
         </div>
         <!--立项排期会-->
         <dl>

@@ -10,6 +10,7 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <script src="<%=path %>/js/common.js" type="text/javascript"></script>
+<script src="<%=path %>/js/platformUrl.js" type="text/javascript"></script>
 <script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
@@ -129,7 +130,7 @@ $(function(){
 function loadTempList()
 {
 	$.ajax({
-		url:"<%=path %>/galaxy/template/queryTemplate",
+		url:"<%=path %>"+platformUrl.queryTemplate,
 		type : 'GET',
 		dataType : "json",
 		success:function(data){

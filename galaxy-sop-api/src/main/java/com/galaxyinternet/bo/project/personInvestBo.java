@@ -1,8 +1,8 @@
 package com.galaxyinternet.bo.project;
 
-import com.galaxyinternet.model.HR.personInvest;
+import com.galaxyinternet.model.hr.PersonInvest;
 
-public class personInvestBo extends personInvest{
+public class personInvestBo extends PersonInvest{
 
 	private static final long serialVersionUID = 1L;
 }

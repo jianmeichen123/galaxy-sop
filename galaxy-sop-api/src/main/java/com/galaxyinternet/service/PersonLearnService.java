@@ -1,8 +1,8 @@
 package com.galaxyinternet.service;
 
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.HR.personLearn;
+import com.galaxyinternet.model.hr.PersonLearn;
 
-public interface PersonLearnService extends BaseService<personLearn> {
+public interface PersonLearnService extends BaseService<PersonLearn> {
 
 }

@@ -1,5 +1,8 @@
 package com.galaxyinternet.soptask.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,21 +84,24 @@ public class SopUserScheduleController extends
 	 * 获取我的日程前三条信息| type: 1:前三条数据?更多
 	 * 
 	 * @return
+	 * @throws ParseException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/selectSopUserSchedule/{type}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-	public ResponseData<SopUserSchedule> selectUserScheduleByTime(
-			@PathVariable Integer type, HttpServletRequest request) {
+	public ResponseData<SopUserScheduleBo> selectUserScheduleByTime(
+			@PathVariable Integer type, HttpServletRequest request) throws ParseException {
 
-		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
+		ResponseData<SopUserScheduleBo> responseBody = new ResponseData<SopUserScheduleBo>();
 		User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
-		Long currentTime = System.currentTimeMillis();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String date = sdf.format(new Date());
+		Long currentTime = sdf.parse(date).getTime();
 		List<SopUserScheduleBo> list = sopUserScheduleService
 				.selectSopUserScheduleByTime(user.getId(), currentTime, type);
 		Page<SopUserScheduleBo> page = new Page<SopUserScheduleBo>(list, null,
 				null);
-		responseBody.setPageVoList(page);
+		responseBody.setPageList(page);
 		return responseBody;
 	}
 
