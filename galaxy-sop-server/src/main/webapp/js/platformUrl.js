@@ -7,7 +7,7 @@ var platformUrl = {
 	/**
 	 * 验证登录
 	 */
-	createMenus : "/galaxy/common/menu/",
+	createMenus : "./common/menu/",
 	/**
 	 * 获取项目编码接口地址
 	 */
@@ -20,6 +20,18 @@ var platformUrl = {
 	 * 跳转到首页
 	 */
 	toIndex : Constants.platformEndpointURL + "/galaxy/redirect",
+	/**
+	 * 查询模板列表
+	 */
+	queryTemplate : "/galaxy/template/queryTemplate",
+	/**
+	 * 查询模板相关数据
+	 */
+	getTempRelatedData:"/galaxy/template/getRelatedData",
+	/**
+	 * 模板上传
+	 */
+	tempUpload:"/galaxy/template/upload",
 }
 
 /**

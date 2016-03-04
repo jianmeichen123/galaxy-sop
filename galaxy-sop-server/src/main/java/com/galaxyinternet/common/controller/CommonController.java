@@ -108,13 +108,4 @@ public class CommonController {
 	    responseBody.setEntityList(tabs);
 		return responseBody;
 	}
-	/**
-	 * 创建项目编码
-	 * @author yangshuhua
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/gst", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String getServerTime(){
-		return "{\"time\":\"" + DateUtil.refFormatNowDate() + "\"}";
-	}
 }

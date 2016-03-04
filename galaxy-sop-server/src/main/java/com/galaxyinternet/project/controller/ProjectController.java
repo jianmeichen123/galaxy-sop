@@ -97,6 +97,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		project.setProjectCode(String.valueOf(code));
+		if(project.getProjectValuations() != null && project.getProjectValuations() > 0 
+				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
+			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectValuations());
+		}
 		project.setCreateUid(user.getId());
 		project.setCreateUname(user.getNickName());
 		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
@@ -109,7 +113,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			long id = projectService.newProject(project);
 			if(id > 0){
 				responseBody.setResult(new Result(Status.OK,"项目添加成功!"));
-				responseBody.setEntity(project);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

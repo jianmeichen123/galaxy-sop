@@ -9,11 +9,7 @@
 <title>繁星</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-<script src="<%=path %>/js/common.js" type="text/javascript"></script>
-<script src="<%=path %>/js/platformUrl.js" type="text/javascript"></script>
-<script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
+<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 </head>
 
 <body>
@@ -68,55 +64,36 @@
 </div>
 <!-- upload dialog start -->
 <div id="upload-dialog" class="archivestc" style="display:none;">
+<form id="upload-from" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="id">
 	<h2>模板更新</h2>   
     <dl class="fmdl clearfix">
     	<dt>存储类型：</dt>
         <dd>
-        	<select name="docType">
-            	<option value="1">文档</option>
-            	<option value="2">音频文件</option>
-            	<option value="3">视频文件</option>
-            	<option value="4">图片</option>
-            </select>
+        	<select name="docType"></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
     	<dt>业务分类：</dt>
         <dd>
-        	<select>
-            	<option value="1">业务尽职调查报告</option>
-            	<option value="2">人力资源尽职调查报告</option>
-            	<option value="3">法务尽职调查报告</option>
-            	<option value="4">财务尽职调查报告</option>
-            	<option value="5">投资意向书</option>
-            	<option value="6">投资协议</option>
-            	<option value="7">股权转让协议</option>
-            	<option value="8">工商转让凭证</option>
-            	<option value="9">资金拨付凭证</option>
-            	<option value="10">公司资料</option>
-            	<option value="11">财务预测报告</option>
-            	<option value="12">商业计划</option>
-            </select>
-        </dd>
-        <dd>
-        	<label><input type="checkbox"/>签署凭证</label>
+        	<select name="worktype"></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
     	<dt>所属部门：</dt>
         <dd>
-        	<input type="text" placeholder="请输入项目名称或编号" class="txt"/>
+        	<select name="department"></select>
         </dd>
-        <dd><a class="searchbtn null" href="javascript:;">搜索</a></dd>
     </dl>
     <div class="fmload clearfix">
     	<p class="loadname"></p>
-        <input type="file" class="load"/>
+        <input type="file" class="load" onchange="selectFile(this)"/>
         <a href="javascript:;" class="pubbtn fffbtn">选择档案</a>
     </div>
     <div class="fmarea">
-    	<textarea></textarea>
+    	<textarea name="remark"></textarea>
     </div>
+</form>
     <a href="javascript:;" class="pubbtn bluebtn">上传保存</a>
 </div>
 <!-- upload dialog end -->
@@ -125,70 +102,113 @@
 $(function(){
 	createMenus(1);
 	loadTempList();
+	loadRelatedData();
 });
 
 function loadTempList()
 {
-	$.ajax({
-		url:"<%=path %>"+platformUrl.queryTemplate,
-		type : 'GET',
-		dataType : "json",
-		success:function(data){
-			$("#template-table tbody").empty();
-			$.each(data.entityList,function(){
-				var $tr = $('<tr></tr>');
-				$tr.append('<td><input type="checkbox" name="document" checked="checked"/></td>') ;
-				$tr.append('<td>'+this.workTypeDesc+'</td>') ;
-				$tr.append('<td>'+this.departmentDesc+'</td>') ;
-				$tr.append('<td>'+this.docTypeDesc+'</td>') ;
-				$tr.append('<td>'+this.updateUname+'</td>') ;
-				$tr.append('<td>'+Number(this.updatedTime).toDate().format("yyyy/MM/dd")+'</td>') ;
-				if(this.fileUri != null)
-				{
-					$tr.append('<td><a data-act="download" data-tid='+this.id+' href="javascript:; " class="blue">下载</a><a data-act="update" data-tid='+this.id+' href="javascript:; " class="blue">更新</a></td>') ; 
-				}
-				else
-				{
-					$tr.append('<td><a data-act="upload" data-tid='+this.id+' href="javascript:; " class="blue">上传</a></td>') ;
-				}
-				$("#template-table tbody").append($tr);
-				setBtnHandler();
-			});
-		}
-	});
+	sendGetRequest(
+			"<%=path %>"+platformUrl.queryTemplate,
+			null,
+			function(data){
+				$("#template-table tbody").empty();
+				$.each(data.entityList,function(){
+					var $tr = $('<tr></tr>');
+					$tr.append('<td><input type="checkbox" name="document" checked="checked"/></td>') ;
+					$tr.append('<td>'+this.workTypeDesc+'</td>') ;
+					$tr.append('<td>'+this.departmentDesc+'</td>') ;
+					$tr.append('<td>'+this.docTypeDesc+'</td>') ;
+					$tr.append('<td>'+this.updateUname+'</td>') ;
+					$tr.append('<td>'+Number(this.updatedTime).toDate().format("yyyy/MM/dd")+'</td>') ;
+					if(this.fileKey != null)
+					{
+						$tr.append('<td><a data-act="download" data-tid='+this.id+' href="javascript:; " class="blue">下载</a><a data-act="update" data-tid='+this.id+' href="javascript:; " class="blue">更新</a></td>') ; 
+					}
+					else
+					{
+						$tr.append('<td><a data-act="upload" data-tid='+this.id+' href="javascript:; " class="blue">上传</a></td>') ;
+					}
+					$("#template-table tbody").append($tr);
+					
+					handleDownload();
+					handleUpload();
+				});
+			}
+	);
 }
 
-function setBtnHandler()
+function loadRelatedData()
+{
+	sendGetRequest(
+			"<%=path %>"+platformUrl.getTempRelatedData,
+			null,
+			function(data){
+				$.each(data.fileType,function(){
+					$("#upload-from [name='docType']").append("<option value='"+this.value+"'>"+this.name+"</option>")
+				});
+				$.each(data.fileWorktype,function(){
+					$("#upload-from [name='worktype']").append("<option value='"+this.value+"'>"+this.name+"</option>")
+				});
+				$.each(data.department,function(){
+					$("#upload-from [name='department']").append("<option value='"+this.id+"'>"+this.name+"</option>")
+				});
+			}
+	);
+}
+
+function handleDownload()
 {
 	$("[data-act='download']").click(function(){
 		
 	});
-	$("[data-act='upload']").click(function(){
+}
+
+function handleUpload()
+{
+	$("[data-act='update'],[data-act='upload']").click(function(){
 		var $self = $(this);
 		var id = $self.data("tid");
 		$.popup({
 			txt:$("#upload-dialog").html(),
 			callback:function(t,postionEve){
 				postionEve();
-				$("#upload-dialog").show().children("h2").text("模板上传");
-			}
-		});
-	});
-	$("[data-act='update']").click(function(){
-		var $self = $(this);
-		var id = $self.data("tid");
-		$.popup({
-			txt:$("#upload-dialog").html(),
-			callback:function(t,postionEve){
-				postionEve();
-				$("#upload-dialog").show().children("h2").text("模板更新");
+				$("#popTxt").html($("#upload-dialog").html());
+				$("#upload-from input[name='id']").val($self.data("tid"));
+				if($self.data('act') == 'update')
+				{
+					$("#popTxt").find("h2").text("模板更新");
+				}
+				else
+				{
+					$("#popTxt").find("h2").text("模板上传");
+				}
 			}
 		});
 	});
 }
-
-
-
+function selectFile(ele)
+{
+	var file = ele.value;
+	var dotPos = file.lastIndexOf(".");
+	var ext = file.substring(dotPos);
+	if(/\.(doc|docx|xls|xlsx|pdf)$/.test(ext.toLowerCase()))
+	{
+		$("#upload-from [name='docType']").val(1);
+	}
+	else if(/\.(mp3|wmv)$/.test(ext.toLowerCase()))
+	{
+		$("#upload-from [name='docType']").val(2);
+	}
+	else if(/\.(avi|mov|wmv|mkv)$/.test(ext.toLowerCase()))
+	{
+		$("#upload-from [name='docType']").val(3);
+	}
+	else
+	{
+		$("#upload-from [name='docType']").val(4);
+	}
+	
+}
 </script>
 </body>
 </html>

@@ -1,8 +1,11 @@
 package com.galaxyinternet.template.controller;
 
-import java.util.HashMap;
+import java.io.File;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,15 +14,17 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.template.SopTemplateBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.department.Department;
-import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
@@ -64,36 +69,15 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	
 	@RequestMapping("/getRelatedData")
 	@ResponseBody
-	public Map getRelatedData()
+	public Map<String,Object> getRelatedData()
 	{
-		Map map = new HashMap();
-		Object datas = cache.get("fileType");
-		if(datas == null)
-		{
-			List<Dict> list = dictService.selectByParentCode("fileType");
-			cache.set("fileType", list);
-			datas = cache.get("fileType");
-		}
-		map.put("fileTypes", datas);
-		
-		datas = cache.get("fileWorktype");
-		if(datas == null)
-		{
-			List<Dict> list = dictService.selectByParentCode("fileWorktype");
-			cache.set("fileWorktype", list);
-			datas = cache.get("fileWorktype");
-		}
-		map.put("fileWorktype", datas);
-		
-		datas = cache.get("department");
-		if(datas == null)
-		{
-			List<Department> list = deptService.queryAll();
-			cache.set("department", list);
-			datas = cache.get("department");
-		}
-		map.put("department", datas);
-		
-		return map;
+		return templateService.getRelatedData();
 	}
+	@RequestMapping("/upload")
+	public void upload(HttpServletRequest request, HttpServletResponse response)
+	{
+		
+		
+	}
+	
 }
