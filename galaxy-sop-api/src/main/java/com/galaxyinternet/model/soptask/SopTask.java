@@ -10,6 +10,7 @@ public class SopTask extends BaseEntity{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	 private Long id;
      private Long projectId;
      private String taskName;
      private String taskType;
@@ -72,6 +73,12 @@ public class SopTask extends BaseEntity{
 		this.remark = remark;
 	}
 	private String taskStatus;
-     private String remark;   
+     private String remark;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}   
     
 }
