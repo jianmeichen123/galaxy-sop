@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
@@ -98,9 +99,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project.setProjectCode(String.valueOf(code));
 		project.setCreateUid(user.getId());
 		project.setCreateUname(user.getNickName());
-		//from字典
-		project.setProjectProgress("pp-01");
-		project.setProjectStatus("ps-01");
+		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
+		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
 		//获取当前登录人的部门信息
 		Long did = user.getDepartmentId();
 		project.setProjectDepartid(did);

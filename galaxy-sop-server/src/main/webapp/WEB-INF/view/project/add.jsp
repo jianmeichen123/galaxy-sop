@@ -46,7 +46,7 @@
                       <td>
                         <dl>
                           <dt>创建时间：</dt>
-                          <dd id="serverTime">--------</dd>
+                          <dd class="date"></dd>
                         </dl>
                       </td>
                   </tr>
@@ -177,23 +177,14 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(4);
-		sendAjaxRequest("<%=path %>/galaxy/project/cpc","GET","{}",function(data){
+		sendGetRequest(platformUrl.getProjectCode, {}, function(data){
 			var code = data.entity.pcode;
 			$("#pcode").empty();
 			$("#pcode").html(code);
 		});
-		sendAjaxRequest("<%=path %>/galaxy/common/gst","GET","{}",function(data){
-			var time = data.time;
-			$("#serverTime").empty();
-			$("#serverTime").html(time);
-		});
 	});
 	function add(){
-		sendAjaxRequest("<%=path %>/galaxy/project/ap","POST",$("#add_form").serialize(),function(data){
-			var time = data.time;
-			$("#serverTime").empty();
-			$("#serverTime").html(time);
-		});
+		sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){},null);
 	}
 </script>
 </html>

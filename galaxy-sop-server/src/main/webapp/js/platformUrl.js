@@ -9,13 +9,17 @@ var platformUrl = {
 	 */
 	createMenus : "./common/menu/",
 	/**
+	 * 获取项目编码接口地址
+	 */
+	getProjectCode : "./project/cpc",
+	/**
+	 * 添加项目
+	 */
+	addProject : "./project/ap",
+	/**
 	 * 跳转到首页
 	 */
 	toIndex : Constants.platformEndpointURL + "/galaxy/redirect",
-	/**
-	 * 模板列表显示
-	 */
-	queryTemplate:"/galaxy/template/queryTemplate",
 }
 
 /**

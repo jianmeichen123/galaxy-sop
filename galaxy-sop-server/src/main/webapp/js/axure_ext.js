@@ -30,6 +30,7 @@ $(function(){
 	
 	//日程时间
 	$(".pagebox .rit .top .tody").today();
+	$(".projectmsg_d .block").today();
 	//柱状图
 	$(".histogram").histogram();
 	//表格滑过
