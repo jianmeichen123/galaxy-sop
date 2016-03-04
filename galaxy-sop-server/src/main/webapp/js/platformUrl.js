@@ -20,6 +20,10 @@ var platformUrl = {
 	 * 跳转到首页
 	 */
 	toIndex : Constants.platformEndpointURL + "/galaxy/redirect",
+	/**
+	 * 查询模板相关数据
+	 */
+	getTempRelatedData:"/galaxy/template/getRelatedData",
 }
 
 /**
