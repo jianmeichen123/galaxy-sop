@@ -54,7 +54,7 @@
                       <td>
                         <dl>
                           <dt>项目名称：</dt>
-                          <dd><input type="text" id="projectName" name="projectName" value="" placeholder="项目名称"></dd>
+                          <dd><input type="text" id="projectName" name="projectName" value="" placeholder="项目名称" data-valid="isNonEmpty||isEmail" data-error="email不能为空||邮箱格式不正确"></dd>
                         </dl>
                       </td>
                       <td>
@@ -182,7 +182,29 @@
 			$("#pcode").empty();
 			$("#pcode").html(code);
 		});
+		$("#projectShareRatio").blur(function(){
+			var valuations = calculationValuations();
+			$("#projectValuations").text("");
+			if(valuations){
+				$("#projectValuations").text(valuations);
+			}
+		});
+		$("#projectContribution").blur(function(){
+			var valuations = calculationValuations();
+			$("#projectValuations").text("");
+			if(valuations){
+				$("#projectValuations").text(valuations);
+			}
+		});
 	});
+	function calculationValuations(){
+		var projectShareRatio = $("#projectShareRatio").val();
+		var projectContribution = $("#projectContribution").val();
+		if(projectShareRatio > 0 && projectContribution > 0){
+			return projectContribution * (100/projectShareRatio);
+		}
+		return null;
+	}
 	function add(){
 		sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){},null);
 	}
