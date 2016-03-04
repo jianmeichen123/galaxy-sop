@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -148,6 +149,24 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if(num > 0){
 			responseBody.setResult(new Result(Status.OK,"项目修改成功!"));
 		}
+		return responseBody;
+	}
+	
+	/**
+	 * 查询指定的项目信息接口
+	 * @author yangshuhua
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/sp/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> selectProject(@PathVariable("pid") String pid, HttpServletRequest request) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		Project project = projectService.queryById(Long.parseLong(pid));
+		if(project == null){
+			responseBody.setResult(new Result(Status.ERROR, "未查找到指定项目信息!"));
+			return responseBody;
+		}
+		responseBody.setEntity(project);
 		return responseBody;
 	}
 	
