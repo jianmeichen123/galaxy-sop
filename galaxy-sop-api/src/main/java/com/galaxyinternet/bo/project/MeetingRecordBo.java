@@ -13,6 +13,8 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private String startTime;
 	private String endTime;
 	private String proNameCode;
+	private int inpro; //是否项目内查看 1：是
+	
 	public String getProName() {
 		return proName;
 	}
@@ -62,6 +64,12 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setFname(String fname) {
 		this.fname = fname;
+	}
+	public int getInpro() {
+		return inpro;
+	}
+	public void setInpro(int inpro) {
+		this.inpro = inpro;
 	}
 	
 

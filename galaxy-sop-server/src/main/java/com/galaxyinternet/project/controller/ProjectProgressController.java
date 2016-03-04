@@ -107,7 +107,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	/**
-	 * 访添加页面
+	 * 添加页面
 	 */
 	@RequestMapping(value = "/interViewAdd", method = RequestMethod.GET)
 	public String interViewAdd() {
@@ -242,14 +242,20 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	
 	/**
-	 * 访谈默认页面 
+	 * 会议默认页面 
 	 */
 	@RequestMapping(value = "/meetView", method = RequestMethod.GET)
 	public String meetView() {
 		return "meeting/view";
 	}
 	
-	
+	/**
+	 * 会议添加页面
+	 */
+	@RequestMapping(value = "/meetAddView", method = RequestMethod.GET)
+	public String meetAddView() {
+		return "meeting/meetingtc";
+	}
 	
 	/**
 	 * 内部评审、 CEO评审 、 立项会、投决会  阶段 : 添加会议记录   
