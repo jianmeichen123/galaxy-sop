@@ -33,7 +33,7 @@ public class SopTemplateServiceImpl extends BaseServiceImpl<SopTemplate>implemen
 		return this.tempalteDao;
 	}
 
-	public Map<String,Object> getTelatedData()
+	public Map<String,Object> getRelatedData()
 	{
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		String key = "fileType";

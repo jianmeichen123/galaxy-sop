@@ -69,9 +69,9 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	
 	@RequestMapping("/getRelatedData")
 	@ResponseBody
-	public Map<String,Object> getTelatedData()
+	public Map<String,Object> getRelatedData()
 	{
-		return templateService.getTelatedData();
+		return templateService.getRelatedData();
 	}
 	@RequestMapping("/upload")
 	public void upload(HttpServletRequest request, HttpServletResponse response)
