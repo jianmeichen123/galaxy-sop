@@ -127,9 +127,10 @@ String projectId=(String)request.getAttribute("projectId");
     </div>
  
 </div>
-<script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/jquery-1.7.2.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
+<jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>ssss
 <script type="text/javascript">
 	$(function(){
 		createMenus(2);

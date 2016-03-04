@@ -12,6 +12,7 @@
 <title>待办任务</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 </head>
 
 <body>
@@ -77,11 +78,8 @@
           </div>
     </div>
 </div>
-<script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=path %>/js/soptask.js" type="text/javascript"></script>
-</body>
+
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
 	$(function(){
