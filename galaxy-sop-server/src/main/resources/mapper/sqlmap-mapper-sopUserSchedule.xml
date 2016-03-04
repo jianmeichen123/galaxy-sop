@@ -141,7 +141,7 @@
 	<select id="selectByTime" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
-		from sop_user_schedule where item_date >=#{itemDate} 
+		from sop_user_schedule where item_date > #{itemDate} 
 		<if test="userId != null">  and user_id =#{userId} </if>
 		order by item_date asc 
 		<if test="type == 1">  limit 3</if>
