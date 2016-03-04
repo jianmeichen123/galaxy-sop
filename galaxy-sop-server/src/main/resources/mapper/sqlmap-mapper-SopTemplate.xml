@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.template.SopTemplate">
+	<resultMap id="BaseResultMap" type="SopTemplatePO">
+		<id column="id" 					property="id"				jdbcType="BIGINT"  />
+		<result column="worktype" 			property="worktype" 		jdbcType="INTEGER" 	/>
+		<result column="worktype_desc" 		property="workTypeDesc" 	jdbcType="VARCHAR" 	/>
+		<result column="department_id" 		property="departmentId" 	jdbcType="INTEGER" 	/>
+		<result column="department_desc" 	property="departmentDesc" 	jdbcType="VARCHAR" 	/>
+		<result column="doc_type" 			property="docType"  		jdbcType="INTEGER"	/>
+		<result column="doc_type_desc" 		property="docTypeDesc"  	jdbcType="VARCHAR"	/>
+		<result column="create_uid" 		property="createUid" 		jdbcType="BIGINT" />
+		<result column="create_time" 		property="createdTime" 		jdbcType="BIGINT" />
+		<result column="update_uid" 		property="updateUid" 		jdbcType="BIGINT" />
+		<result column="update_uname" 		property="updateUname" 		jdbcType="VARCHAR" />
+		<result column="update_time" 		property="updatedTime" 		jdbcType="BIGINT" />
+		<result column="file_uri"  			property="fileUri" 			jdbcType="VARCHAR"/>
+		<result column="file_length" 		property="fileLength" 		jdbcType="BIGINT" />
+		<result column="file_key" 			property="fileKey" 			jdbcType="VARCHAR" />
+		<result column="bucket_name" 		property="bucketName" 		jdbcType="VARCHAR" />
+		<result column="remark" 			property="remark" 			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, worktype, department_id, doc_type, 
+		create_uid,	create_time, update_uid,update_time,
+		file_uri, file_length, file_key, bucket_name,
+		remark
+	</sql>
+	<sql id="Base_Column_With_Related_List">
+		t.id, t.worktype, t.department_id, t.doc_type, 
+		t.create_uid,	t.create_time, t.update_uid,t.update_time,
+		t.file_uri, t.file_length, t.file_key, t.bucket_name,
+		t.remark,
+		d.name as department_desc,
+		wt.name as worktype_desc,
+		ft.name as doc_type_desc,
+		u.real_name as update_uname
+	</sql>
+	
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="worktype != null" > and worktype = #{worktype,jdbcType=BIGINT} </if>
+				<if test="docType != null" > and doc_type = #{fileType,jdbcType=BIGINT} </if>
+				<if test="filUri != null" > and fil_uri = #{filUri,jdbcType=BIGINT} </if>
+				<if test="fileLength != null" > and file_length = #{fileLength,jdbcType=BIGINT} </if>
+				<if test="fileKey != null" > and file_key = #{fileKey,jdbcType=BIGINT} </if>
+				<if test="bucketName != null" > and bucket_name = #{bucketName,jdbcType=BIGINT} </if>				
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	<!-- 根据ID查询-->
+	<select id="selectById" parameterType="java.lang.Long"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sop_template
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_With_Related_List" />
+		from sop_template t
+		left join t_department d on d.id = t.department_id
+		left join dict wt on wt.parent_code = 'fileWorktype' and t.worktype = wt.dict_value
+		left join dict ft on ft.parent_code = 'fileType' and t.doc_type = ft.dict_value
+		left join t_user u on t.update_uid = u.id
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(id) from sop_template
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_template
+		<include refid="Base_Where_Clause" />
+	</delete>
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_template
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
+ 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="SopTemplatePO">
+ 		insert into sop_template 
+ 		(
+ 			id, 
+ 			worktype, 
+ 			department_id, 
+ 			doc_type, 
+			create_uid,	
+			create_time, 
+			update_uid,
+			update_time,
+			fil_uri, 
+			file_length, 
+			file_key, 
+			bucket_name,
+			remark
+ 		)
+ 		values 
+ 		(
+ 			#{id,jdbcType=BIGINT}, 
+ 			#{departmentId,jdbcType=BIGINT},
+ 			#{docType,jdbcType=INTEGER},
+ 			#{createUid,jdbcType=BIGINT},
+ 			#{createdTime,jdbcType=BIGINT},
+ 			#{updateUid,jdbcType=BIGINT},
+ 			#{updatedTime,jdbcType=BIGINT},
+ 			#{fileUri,jdbcType=VARCHAR}
+ 			#{fileLength,jdbcType=BIGINT},
+ 			#{fileKey,jdbcType=VARCHAR},
+ 			#{bucketName,jdbcType=VARCHAR},
+ 			#{remark,jdbcType=VARCHAR}
+ 		)
+ 	</insert>
+	
+	
+	<update id="updateById" parameterType="SopTemplatePO">
+		update sop_template
+		<set>
+			<if test="departmentId != null"> department_id = #{department_id,jdbcType=BIGINT}, </if>
+			<if test="docType != null"> doc_type = #{docType,jdbcType=INTEGER}, </if>
+			<if test="updateUid != null"> update_uid = #{updateUid,jdbcType=BIGINT}, </if>
+			<if test="updatedTime != null"> update_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="fileUri != null"> file_uri = #{fileUri,jdbcType=VARCHAR}, </if>
+			<if test="fileLength != null"> file_length = #{fileLength,jdbcType=BIGINT}, </if>
+			<if test="fileKey != null"> file_key = #{fileKey,jdbcType=VARCHAR}, </if>
+			<if test="bucketName != null"> bucket_name = #{bucketName,jdbcType=VARCHAR}, </if>
+			<if test="remark != null"> remark = #{remark,jdbcType=VARCHAR}</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>
