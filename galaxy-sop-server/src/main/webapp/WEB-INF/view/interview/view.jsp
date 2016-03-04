@@ -9,6 +9,8 @@
 <title>繁星</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+
+<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 </head>
 
 <body>
@@ -128,36 +130,16 @@
 </div>
 
 
-
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 
 
 <script type="text/javascript">
 $(function(){
-	$.ajax({
-		 url:"<%=path %>/galaxy/common/menu/6",
-		 data:{},
-		 async: false,
-		 type: "GET",
-		 dataType:"json",
-		 contentType:"application/json; charset=UTF-8",
- 	     cache: true,
- 	     error: function(request) {
- 	         alert("Connection error");
- 	     },
- 	     success: function(data) {
- 	    	 var selected = data.header.attachment;
- 	    	 var html = "";
- 	    	 $.each(data.entityList, function(i,o){
- 	    		 if(selected == o.id){
- 	    			html += '<li class="on"><a href="' + o.url + '">' + o.menuName + '</a></li>';
- 	    		 }else{
- 	    			html += '<li><a href="' + o.url + '">' + o.menuName + '</a></li>';
- 	    		 }
- 	    	 });
- 	    	 $("#menus").html(html);
- 	  	 }
- 	 }); 
+	createMenus(6);
+
+
+	
+	
 });
 </script>
 </html>
