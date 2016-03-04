@@ -71,7 +71,7 @@ public class CommonController {
 		List<Menus> tabs = new ArrayList<Menus>();
 		//通用Tab
 		tabs.add(new Menus(1L, "工作界面", u + "galaxy/index"));
-		tabs.add(new Menus(2L, "待办任务", u + ""));
+		tabs.add(new Menus(2L, "待办任务", u + "galaxy/soptask"));
 		tabs.add(new Menus(3L, "消息提醒", u + ""));
 		
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
