@@ -20,7 +20,6 @@ String endpoint = (String)application.getAttribute(Constants.GALAXYINTERNET_FX_E
 <script src="<%=request.getContextPath() %>/js/json2.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/soptask.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <!-- end -->
 <script type="text/javascript">
