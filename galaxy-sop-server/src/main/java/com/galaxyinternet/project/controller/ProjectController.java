@@ -97,7 +97,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		project.setProjectCode(String.valueOf(code));
-		if(project.getProjectValuations() != null && project.getProjectValuations() > 0 
+		if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
 				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
 			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectValuations());
 		}
@@ -142,8 +142,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) obj;
 		
 		Project p = projectService.queryById(project.getId());
+		if(p == null){
+			responseBody.setResult(new Result(Status.ERROR, "未找到相应的项目信息!"));
+			return responseBody;
+		}
 		//项目创建者用户ID与当前登录人ID是否一样
-		if(p != null && user.getId() != p.getCreateUid()){
+		if(user.getId().longValue() != p.getCreateUid().longValue()){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限修改该项目!"));
 			return responseBody;
 		}
@@ -154,6 +158,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	
 	
 	/**
 	 * 查询指定的项目信息接口

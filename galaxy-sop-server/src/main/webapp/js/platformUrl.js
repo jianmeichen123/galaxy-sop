@@ -17,6 +17,14 @@ var platformUrl = {
 	 */
 	addProject : "./project/ap",
 	/**
+	 * 获取项目详情
+	 */
+	detailProject : "./project/sp/",
+	/**
+	 * 修改项目信息
+	 */
+	updateProject : "./project/up",
+	/**
 	 * 跳转到首页
 	 */
 	toIndex : Constants.platformEndpointURL + "/galaxy/redirect",
@@ -32,26 +40,6 @@ var platformUrl = {
 	 * 模板上传
 	 */
 	tempUpload:"/galaxy/template/upload",
-	
-	
-	
-	
-	
-	
-	/**
-	 * 获取登录人的项目,阶段为：
-	 */
-	getUserPro : "/galaxy/project/progress/queryPerPro",
-	
-	/**
-	 * 访谈添加：
-	 */
-	saveInteverView : "/galaxy/project/progress/addInterview",
-	
-	/**
-	 * 访谈添加：
-	 */
-	saveMeet : "/galaxy/project/progress/addmeet",
 }
 
 /**

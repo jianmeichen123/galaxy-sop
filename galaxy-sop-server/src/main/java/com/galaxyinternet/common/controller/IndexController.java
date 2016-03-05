@@ -35,4 +35,22 @@ public class IndexController {
 	public String addProject() {
 		return "project/add";
 	}
+	
+	/**
+	 * 跳转到修改项目页面
+	 * @return
+	 */
+	@RequestMapping(value = "/upp", method = RequestMethod.GET)
+	public String updateProject() {
+		return "project/update";
+	}
+	
+	/**
+	 * 添加团队成员弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/addperson", method = RequestMethod.GET)
+	public String addPerson() {
+		return "project/addPerson";
+	}
 }
