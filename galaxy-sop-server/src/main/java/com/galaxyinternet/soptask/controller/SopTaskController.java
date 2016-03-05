@@ -68,13 +68,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
 	public String goClaimtcPage(HttpServletRequest request) {
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
+		String id = request.getParameter("id");
+		
 		SopTask sopTask=new SopTask();
+		sopTask.setId(Long.parseLong(id));
 		Result result = new Result();
-		Object ob = request.getSession().getAttribute("sessionUser");
 		sopTask.setTaskStatus("2");
 		try {
-			Long id = sopTaskService.insertsopTask(sopTask);
-			responseBody.setId(id);
+			 sopTaskService.updateById(sopTask);
+			responseBody.setId(Long.parseLong(id));
 			result.setStatus(Status.OK);
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());

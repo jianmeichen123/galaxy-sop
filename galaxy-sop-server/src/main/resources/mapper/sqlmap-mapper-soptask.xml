@@ -42,7 +42,7 @@
 				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
 				<if test="taskDestination != null and taskDestination!='' "> and task_destination =#{taskDestination}</if>	
 				<if test="taskReceiveUid != null and taskReceiveUid!=''">
-					and (task_receive_uid =#{taskReceiveUid} or task_type=1 )
+					and (task_receive_uid =#{taskReceiveUid} or task_status=1 )
 				</if>
 				<if test="taskStatus != null and taskStatus!='' "> and task_status =#{taskStatus}</if>
 				<if test="remark != null"> and remark =#{remark}</if>
@@ -79,7 +79,7 @@
 				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
 				<if test="taskDestination != null and taskDestination!='' "> and task_destination =#{taskDestination}</if>	
 				<if test="taskReceiveUid != null and taskReceiveUid!='' and taskType!=1">
-					and (task_receive_uid =#{taskReceiveUid} or task_type=1 )
+					and (task_receive_uid =#{taskReceiveUid} or task_status=1 )
 				</if>
 				<if test="taskStatus != null and taskStatus!='' " > and task_status =#{taskStatus}</if>
 				<if test="remark != null"> and remark =#{remark}</if>

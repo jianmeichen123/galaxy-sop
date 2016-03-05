@@ -14,6 +14,8 @@
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!--  <script src="<%=path %>/js/soptask.js" type="text/javascript"></script>-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
+<script src="<%=request.getContextPath() %>/js/soptask.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 </head>
 
 <body>

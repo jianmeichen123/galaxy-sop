@@ -16,6 +16,7 @@ public class SopTaskBo extends SopTask {
 	private String nameLike;
 	private String statusFlag;
 	private String caozuohtml;
+	private int hours;
 
 	public String getCreateUname() {
 		return createUname;
@@ -87,6 +88,14 @@ public class SopTaskBo extends SopTask {
 	
 	public void setCaozuohtml(String caozuohtml) {
 		this.caozuohtml = caozuohtml;
+	}
+
+	public int getHours() {
+		return hours;
+	}
+
+	public void setHours(int hours) {
+		this.hours = hours;
 	}
 	
 	

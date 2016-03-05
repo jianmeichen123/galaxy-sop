@@ -44,6 +44,10 @@ var platformUrl = {
 	 * 模板上传
 	 */
 	tempUpload:"/galaxy/template/upload",
+	/**
+	 * 模板上传
+	 */
+	tempUpload:"/galaxy/soptask/taskListByRole",
 }
 
 /**
