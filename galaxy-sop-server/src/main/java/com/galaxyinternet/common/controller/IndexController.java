@@ -53,4 +53,13 @@ public class IndexController {
 	public String addPerson() {
 		return "project/addPerson";
 	}
+	
+	/**
+	 * 到我的项目页面
+	 * @return
+	 */
+	@RequestMapping(value = "/myproject", method = RequestMethod.GET)
+	public String myproject() {
+		return "project/list";
+	}
 }

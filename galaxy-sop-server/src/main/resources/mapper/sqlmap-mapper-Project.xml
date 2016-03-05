@@ -43,6 +43,7 @@
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
 			  <if test="projectName != null" > and project_name = #{projectName,jdbcType=VARCHAR} </if>
+			  <if test="nameCodeLike != null and nameCodeLike !=''" > and (project_name like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%") or project_code like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%")) </if>
 		      <if test="projectCode != null" > and project_code = #{projectCode,jdbcType=VARCHAR} </if>
 		      <if test="projectType != null" > and project_type = #{projectType,jdbcType=VARCHAR} </if>
 		      <if test="projectCareerline != null" > and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>

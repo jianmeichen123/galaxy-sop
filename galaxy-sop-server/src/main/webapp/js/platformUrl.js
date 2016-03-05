@@ -25,6 +25,10 @@ var platformUrl = {
 	 */
 	updateProject : "./project/up",
 	/**
+	 * 添加团队成员
+	 */
+	addPerson : "./project/app",
+	/**
 	 * 跳转到首页
 	 */
 	toIndex : Constants.platformEndpointURL + "/galaxy/redirect",

@@ -10,6 +10,8 @@ public class PersonPool extends BaseEntity{
     private String personName;
     private Integer personSex;
     private Integer personAge;
+    private String highestDegree;
+    private Integer workTime;
     private String personDuties;
     private Date personBirthday;
     private String personIdcard;
@@ -52,6 +54,22 @@ public class PersonPool extends BaseEntity{
 
 	public void setPersonAge(Integer personAge) {
 		this.personAge = personAge;
+	}
+
+	public String getHighestDegree() {
+		return highestDegree;
+	}
+
+	public void setHighestDegree(String highestDegree) {
+		this.highestDegree = highestDegree;
+	}
+
+	public Integer getWorkTime() {
+		return workTime;
+	}
+
+	public void setWorkTime(Integer workTime) {
+		this.workTime = workTime;
 	}
 
 	public String getPersonDuties() {

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	import="com.galaxyinternet.framework.core.constants.Constants"
+	import="com.galaxyinternet.framework.core.constants.Constants,com.galaxyinternet.framework.core.oss.OSSConstant"
 	pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -12,7 +12,7 @@
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <%User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-String endpoint = (String)application.getAttribute(Constants.GALAXYINTERNET_FX_ENDPOINT);
+String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
 %>
 <!-- 这里写js和css文件---------start -->
 <script src="<%=request.getContextPath() %>/js/jquery-1.11.1.js" type="text/javascript"></script>

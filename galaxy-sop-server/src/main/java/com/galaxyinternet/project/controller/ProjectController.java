@@ -21,6 +21,7 @@ import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
@@ -175,6 +176,35 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		responseBody.setEntity(project);
+		return responseBody;
+	}
+	
+	/**
+	 * 获取用户列表数据 重新组装关联数据
+	 * 
+	 * @param
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/spl", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody Project project) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (obj == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		try {
+			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
+			responseBody.setPageList(pageProject);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
 		return responseBody;
 	}
 	

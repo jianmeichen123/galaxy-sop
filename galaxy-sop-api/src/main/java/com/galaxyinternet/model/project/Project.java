@@ -1,10 +1,10 @@
 package com.galaxyinternet.model.project;
 
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
-public class Project extends BaseEntity {
+public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
 	 private String projectName;
@@ -39,6 +39,7 @@ public class Project extends BaseEntity {
 
     private String projectStatus;
     
+    private String nameCodeLike;
     
     //详情数据转换
   	private String createDate;
@@ -245,6 +246,14 @@ public class Project extends BaseEntity {
 
 	public String getType() {
 		return type;
+	}
+
+	public String getNameCodeLike() {
+		return nameCodeLike;
+	}
+
+	public void setNameCodeLike(String nameCodeLike) {
+		this.nameCodeLike = nameCodeLike;
 	}
 
 }
