@@ -40,7 +40,6 @@ function setProSelect(data){
 }
 
 
-
 //保存访谈记录
 function saveInterView(){
 	var	condition =  getSaveCondition();
@@ -68,7 +67,8 @@ function saveCallBack(data){
 
 
 
-//验证获取参数
+
+//验证获取保存参数
 function getSaveCondition(){
 	
 	var	condition = {};
@@ -119,4 +119,50 @@ function getSaveCondition(){
 }
 
 
+
+//查询
+function selectViewPage(){
+	$("#interVierTable").bootstrapTable('refresh',
+		{
+	      url : platformUrl.selectViewPage,
+	      queryParams:getQueryCondition
+		}
+	);
+}
+
+
+//验证获取保存参数
+function getQueryCondition(){
+	
+	var	condition = {};
+	
+	var startTime = $("#startTime").val();
+	var endTime = $("#endTime").val();
+	var proNameCode = $.trim($("#proNameCode").val());
+
+	
+	if(startTime != null && startTime!= ""){
+		condition.startTime = startTime;
+	}
+	
+	if(endTime != null && endTime!= ""){
+		condition.endTime = endTime;
+	}
+	
+	if(proNameCode != null && proNameCode!= ""){
+		condition.proNameCode = proNameCode;
+	}
+
+	
+	return condition;
+}
+
+
+//table format
+function dateFormat(value, row, index){
+	return "<fmt:formatDate value='"+value+"' pattern='yyyy-MM-dd'/>";
+}
+function fileFormat(value, row, index){
+	return "<fmt:formatDate value='"+value+"' pattern='yyyy-MM-dd'/>";
+}
 

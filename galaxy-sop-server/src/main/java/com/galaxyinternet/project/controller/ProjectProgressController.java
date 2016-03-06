@@ -170,7 +170,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ,PageRequest pageable ) {
+	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ) {
 		
 		ResponseData<InterviewRecordBo> responseBody = new ResponseData<InterviewRecordBo>();
 		
@@ -179,7 +179,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		try {
 			query.setUid(user.getId());
 			
-			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPageList(query, pageable);
+			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPageList(query,  new PageRequest(query.getPageNumber()==null?0:query.getPageNumber(), query.getPageSize()==null?10:query.getPageSize()) );
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
