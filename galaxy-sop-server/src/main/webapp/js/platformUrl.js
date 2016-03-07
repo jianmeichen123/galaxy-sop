@@ -43,7 +43,15 @@ var platformUrl = {
 	/**
 	 * 模板上传
 	 */
-	tempUpload:"/galaxy/template/upload"
+	tempUpload:"/galaxy/template/upload",
+	/**
+	 * 模板保存
+	 */
+	tempSave:"/galaxy/template/save",
+	/**
+	 * 模板下载
+	 */
+	tempDownload:"/galaxy/template/download"
 }
 
 /**
