@@ -85,7 +85,10 @@ function getSaveCondition(){
 	var projectId = $("#projectId").val();
 	var viewDateStr = $("#viewDate").val();
 	var viewTarget = $.trim($("#viewTarget").val());
-	var viewNotes = $.trim($("#viewNotes").val());
+	//var viewNotes = $.trim($("#viewNotes").val());
+	var um = UM.getEditor('viewNotes');
+	var viewNotes = $.trim(um.getContent());
+	
 	var fileId = $("#viewfileID").val();
 	
 	if(projectId == null || projectId == ""){

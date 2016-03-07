@@ -7,6 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
+
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 
 <!-- bootstrap-table -->
@@ -43,8 +44,37 @@
             </div>
         </div>
        
+       
+        <!-- 搜索条件 -->
+        <div class="min_document clearfix"  id="custom-toolbar">
+          <div class="bottom searchall clearfix">
+          
+            <dl class="fmdl fmmr fmdll clearfix">
+              <dt>访谈日期：</dt>
+              <dd>
+                <input class="form-control" type="date" id = "startTime" name="startTime"  />
+                <span>至</span>
+                <input class="form-control" type="date" id = "endTime"  name="endTime"  />
+              </dd>
+            </dl>
+            
+            <dl class="fmdl fmdll clearfix">
+              <dt></dt>
+              <dd>
+                <input type="text" class="txt s_txt" placeholder="请输入项目名称或编号" id = "proNameCode" name="proNameCode" />
+              </dd>
+              
+              <dd>
+               <a href="javascript:;" class="bluebtn ico cx" action="querySearch">查询</a>
+              </dd>
+
+            </dl>
+          </div>
+        </div>
+        
+        
           <div class="tab-pane active" id="view">		
-			<div id="custom-toolbar">
+			<!-- <div id="custom-toolbar">
 			    <div class="form-inline" role="form">
 			        <div class="form-group">
 			            <div class="input-group">
@@ -61,7 +91,7 @@
 			        </div>
 			        <button type="submit" class="btn btn-default" name="querySearch">搜索</button>
 			    </div>
-			</div>
+			</div> -->
 			<table  id="data-table" data-url="/galaxy/project/progress/queryInterview" data-method="post" 
 	          		data-side-pagination="server" data-pagination="true" 
 	          		data-toolbar="#custom-toolbar" data-page-list="[1,2,4,8,50]"
@@ -84,40 +114,14 @@
     </div>
 </div>
 
-
-<jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-
-<!-- bootstrap-table  -->
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+
+</body>
+
 
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 
-
-<script type="text/javascript">
-$(function(){
-	
-	/* //height : 400, queryParamsType : 'pageNo',
-	$("#interVierTable").bootstrapTable({
-		url : platformUrl.selectViewPage,
-		method : 'post',
-		queryParams:getQueryCondition,
-		queryParamsType: 'size|page',
-		cache : false,
-		striped : true,
-		pagination : true,
-		pageSize : 2,
-		pageList : [2,4, 8],
-		showColumns : true,
-		showRefresh : true,
-		minimumCountColumns : 2,
-		clickToSelect : true,
-	}); */
-	
-});
-
-
-
-</script>
 </html>
 

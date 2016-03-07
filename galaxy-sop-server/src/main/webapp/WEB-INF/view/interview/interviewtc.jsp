@@ -36,7 +36,7 @@
 <!-- 赋值     var um = UM.getEditor('describe_editor');
 		um.setContent(data.entity.projectDescribe); 
 		
-	取值 	var um = UM.getEditor('describe_editor');
+	取值 	var um = UM.getEditor('viewNotes');
 		var projectDescribe = um.getContent();
 		-->
           
@@ -45,8 +45,8 @@
 	        <dd>
 	        	  <div type="text/plain" id="viewNotes" style="width:100%;height:100px;"></div>
 			</dd>
-	          <dd class="fctbox">
-	         <!--    <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+	          <!--   <dd class="fctbox">
+	          <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 	            <a href="javascript:;" id="save_viewNotes" class="ico f4" data-btn="submit">保存</a>
 	            <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
 	            <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
@@ -60,7 +60,7 @@
         <dd>
             <div class="fmload clearfix">
                 <p class="loadname"></p>
-                <input type="file" class="load"/>
+                <input type="file" name="file" class="load"/>
                 <a href="javascript:;" class="pubbtn fffbtn">上传录音</a>
                 
                 <input type="hidden" id="viewfileID" name = "fileId" value="" /> 
