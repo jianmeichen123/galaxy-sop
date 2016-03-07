@@ -7,8 +7,13 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
+
+<link href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+
+<!-- bootstrap-table -->
+<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 </head>
@@ -30,123 +35,76 @@
                 <a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting" class="pubbtn lpubbtn bluebtn ico c4">添加会议纪要</a>
             </div>
         </div>
-        <!-- 搜索条件 -->
-        <div class="min_document clearfix">
-          <div class="bottom searchall clearfix">
-            <dl class="fmdl fmmr fmdll clearfix">
-              <dt>会议类型：</dt>
-              <dd class="clearfix">
-                <label><input type="radio" name="source" checked/>不限</label>
-                <label><input type="radio" name="source"/>内评会</label>
-                <label><input type="radio" name="source"/>CEO评审</label>
-                <label><input type="radio" name="source"/>立项会</label>
-                <label><input type="radio" name="source"/>投决会</label>
-              </dd>
-            </dl>
-            <dl class="fmdl fmmr fmdll clearfix">
-              <dt>会议日期：</dt>
-              <dd>
-                <input type="text" class="txt time" value="2016-01-01"  />
-                <span>至</span>
-                <input type="text" class="txt time" value="2016-01-01"  />
-              </dd>
-            </dl>
-            <dl class="fmdl fmdll clearfix">
-              <dt></dt>
-              <dd>
-                <input type="text" class="txt s_txt" placeholder="请输入项目名称或编号" />
-              </dd>
-              <dd>
-               <a href="javascript:;" class="bluebtn ico cx">查询</a>
-              </dd>
-            </dl>
-          </div>
-        </div>
-        <!--表格内容-->
-        <table width="100%" cellspacing="0" cellpadding="0"  class='table_l'>
-              <thead>
-                  <tr>
-                      <th>会议概况</th>
-                      <th>项目信息</th>
-                      <th>会议纪要</th>
-                  </tr>
-              </thead>                                                                                                                                    
-              <tbody>
-                  <tr>
-                      <td><em></em>会议日期：<span>2016-01-26</span></td>
-                      <td rowspan="3"><em></em><span>食乐淘</span><br/><em></em><span>立项会</span></td>
-                      <td rowspan="3"><em></em><span>1.沟通有问题沟通有问题沟通有问题沟通有问题沟通有问题沟通有问题</span><br/><em></em><span>2.公司有水分；</span><br/><em></em><span>3.BP不完善！</span></td>
-                  </tr>
-                  <tr>
-                      <td class="noborder"><em></em>会议结论：<span>通过</span></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-                      <td></td>
-                      <td></td>
-                  </tr>                  
-                  <tr>
-                      <td><em></em>会议日期：<span>2016-01-26</span></td>
-                      <td rowspan="3"><em></em><span>食乐淘</span><br/><em></em><span>CEO评审会</span></td>
-                      <td rowspan="3"><em></em><span>访谈有效，还有三个问题需要解决。</span></td>
-                  </tr>
-                  <tr>
-                      <td class="noborder"><em></em>会议结论：<span>通过</span></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-                      <td></td>
-                      <td></td>
-                  </tr>                  
-                  <tr>
-                      <td><em></em>会议日期：<span>2016-01-26</span></td>
-                      <td rowspan="3"><em></em><span>食乐淘</span><br/><em></em><span>立项会</span></td>
-                      <td rowspan="3"><em></em><span>1.沟通有问题沟通有问题沟通有问题沟通有问题沟通有问题沟通有问题</span><br/><em></em><span>2.公司有水分；</span><br/><em></em><span>3.BP不完善！</span></td>
-                  </tr>
-                  <tr>
-                      <td class="noborder"><em></em>会议结论：<span>通过</span></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
-                  <tr>
-                      <td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-                      <td></td>
-                      <td></td>
-                  </tr>
-              </tbody>
-          </table>
-          <!--分页-->
-          <div class="pagright clearfix">
-              <ul class="paging clearfix">
-                  <li>每页<input type="text" class="txt" value="20"/>条/共<span>9</span>条记录</li>
-                  <li class="margin">共1页</li>
-                  <li><a href="javascript:;">|&lt;</a></li>
-                  <li><a href="javascript:;">&lt;</a></li>
-                  <li><a href="javascript:;">&gt;</a></li>
-                  <li><a href="javascript:;">&gt;|</a></li>
-                  <li class="jump clearfix">
-                      第<input type="text" class="txt" value="1"/>页
-                      <input type="button" class="btn margin" value="GO">
-                  </li>
-              </ul>
-          </div>
-    </div>
+
+
+		<div class="tab-pane active" id="view">
+		
+			<div id="custom-toolbar">
+				<div class="form-inline" role="form">
+				
+					<div class="form-group">
+						<div class="input-group">
+							会议类型： <input type="radio" name="meetingType" value="" />全部 
+							 		<input type="radio" name="meetingType" value="meetingType:1" />内评会 
+									<input type="radio" name="meetingType" value="meetingType:2" />CEO评审
+									<input type="radio" name="meetingType" value="meetingType:3" />立项会
+									<input type="radio" name="meetingType" value="meetingType:4" />投决会
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="input-group">
+							会议日期： <input class="form-control" type="date" placeholder="会议日期(开始)" id="startTime" name="startTime">
+						</div>
+						<div class="input-group">
+							<span>至</span><input class="form-control" type="date" placeholder="会议日期(结束)" id="endTime" name="endTime">
+						</div>
+					</div>
+
+					<div class="form-group">
+						<input class="form-control" type="text" placeholder="项目名称或编号" id="proNameCode" name="proNameCode">
+						
+					</div>
+					<button type="submit" class="btn btn-default" name="querySearch">搜索</button>
+				</div>
+			</div>
+			
+			<table id="data-table" data-url="/galaxy/project/progress/queryMeet"
+				data-method="post" data-side-pagination="server"
+				data-pagination="true" data-toolbar="#custom-toolbar"
+				data-page-list="[1,2,4,8,50]" data-id-field="lottoId"
+				data-show-refresh="true">
+				<thead>
+					<tr>
+						<th data-field="meetingDateStr" data-align="center">会议日期</th>
+						<th data-field="proName" data-align="center">项目信息</th>
+						<th data-field="meetingTypeStr" data-align="center">会议类型</th>
+						<th data-field="meetingNotes" data-align="center">会议纪要</th>
+						<th data-field="meetingResultStr" data-align="center">会议结论</th>
+						<th data-field="fname" data-align="center">会议录音</th>
+					</tr>
+				</thead>
+			</table>
+
+		</div>
+
+
+	</div>
 </div>
 
 
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+
+<!-- bootstrap-table  -->
+<script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 $(function(){
 
-	createMenus(7);
-	
 	
 	
 });
