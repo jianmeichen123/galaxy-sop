@@ -82,4 +82,25 @@ public class SopTemplateServiceImpl extends BaseServiceImpl<SopTemplate>implemen
 		public abstract Object handle();
 	}
 
+	@Override
+	public int updateById(SopTemplate vo) {
+		SopTemplate po = queryById(vo.getId());
+		if(po != null)
+		{
+			po.setDocType(vo.getDocType());
+			po.setWorktype(vo.getWorktype());
+			po.setDepartmentId(vo.getDepartmentId());
+			po.setUpdatedTime(System.currentTimeMillis());
+			po.setUpdateUid(vo.getUpdateUid());
+			po.setRemark(vo.getRemark());
+			po.setFileKey(vo.getFileKey());
+			po.setBucketName(vo.getBucketName());
+			return super.updateById(po);
+		}
+		return 0;
+	}
+	
+	
+	
+
 }
