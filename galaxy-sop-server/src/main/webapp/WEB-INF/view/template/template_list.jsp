@@ -169,7 +169,10 @@ function loadRelatedData()
 function handleDownload()
 {
 	$("[data-act='download']").click(function(){
-		
+		var $self = $(this);
+		var id = $self.data("tid");
+		var url = "<%=path %>"+platformUrl.tempDownload+"/"+id;
+		window.location.href=url;
 	});
 }
 
