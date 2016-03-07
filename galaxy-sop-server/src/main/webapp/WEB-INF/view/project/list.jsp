@@ -12,7 +12,8 @@
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
-<!-- 分页一css+三js -->
+<!-- 分页二css+三js -->
+<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-3.3.5.css"  type="text/css">
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
@@ -32,61 +33,43 @@
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
                 <a href="添加项目.html" class="pubbtn bluebtn ico c4">添加项目</a>
-                <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a>
             </div>
         </div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix">
-			<div class="bottom searchall clearfix">
+			<div class="bottom searchall clearfix" id="custom-toolbar">
 				<dl class="fmdl fml fmdll clearfix">
-					<dt>账户状态：</dt>
-					<dd>
-						<label for=""><input type="radio" name="status">不限</label>
-						<label for=""><input type="radio" id="disabled" value="1" name="status">已禁用</label>
-					</dd>
-				</dl>
-				<dl class="fmdl fml fmdll clearfix">
-					<dt>所属部门：</dt>
-					<dd>
-						<select id='selectDept'>
-							<option value="">全部</option>
-						</select>
-					</dd>
-				</dl>
+	              <dt>项目类别：</dt>
+	              <dd>
+	                <select>
+	                  <option>全部</option>
+	                </select>
+	              </dd>
+	            </dl>
+	            <dl class="fmdl fml fmdll clearfix">
+	              <dt>项目进度：</dt>
+	              <dd>
+	                <select>
+	                  <option>全部</option>
+	                </select>
+	              </dd>
+	            </dl>
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
+		              <dd>
+		                <input type="text" class="txt" placeholder="请输入项目名称或投资经理名称" />
+		              </dd>
 					<dd>
-						<input type="text" class="txt" id="search_text" placeholder="请输入姓名或手机号" />
-					</dd>
-					<dd>
-						<a href="javascript:void(0)" class="bluebtn ico cx" onclick="searchForm()">查询</a>
+						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
 					</dd>
 				</dl>
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">		
-			<div id="custom-toolbar">
-			    <div class="form-inline" role="form">
-			        <div class="form-group">
-			            <div class="input-group">
-			                <input class="form-control" type="text" placeholder="名称" name="nameCodeLike">
-			            </div>
-			        </div>
-			        <div class="form-group">
-			            <div class="input-group">
-			                <input class="form-control" type="date" placeholder="创建时间(开始)" name="createTimeStart">
-			            </div>
-			        	<div class="input-group">
-			                <input class="form-control" type="date" placeholder="创建时间(结束)" name="createTimeEnd">
-			            </div>
-			        </div>
-			        <button type="submit" class="btn btn-default" name="querySearch">搜索</button>
-			    </div>
-			</div>
 			<table id="data-table" data-url="project/spl" data-height="555" 
 				data-method="post" data-show-refresh="true" 
 				data-side-pagination="server" data-pagination="true" 
-				data-page-list="[1, 5, 50]" data-search="false">
+				data-page-list="[2, 15, 50]" data-search="false">
 				<thead>
 				    <tr>
 			        	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
@@ -95,14 +78,19 @@
  					</tr>	
  				</thead>
 			</table>
-           </div>
+       </div>
     </div>
 </div>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
 	$(function(){
 		createMenus(5);
 	});
+	function editor(value, row, index){
+		var id=row.id;
+		return "<a data-btn='myproject' href='<%=path %>/galaxy/ips'>查看</a>";
+	}
 </script>
 <script src="<%=path %>/js/init.js"></script>
 </html>
