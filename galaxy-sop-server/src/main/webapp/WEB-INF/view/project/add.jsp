@@ -122,54 +122,6 @@
                 <a href="javascript:add();" class="pubbtn bluebtn">保存</a>
               </div>
           </div>
-          <!-- 第2部分 -->
-          <div class="block block2 shadow">
-            <dl>
-              <dt>项目概述</dt>
-            </dl>
-          </div>
-          <!-- 第3部分 -->
-          <div class="block block2">
-            <dl>
-              <dt>商业模式</dt>
-            </dl>
-          </div>
-          <!-- 第4部分 -->
-          <div class="block block2">
-            <dl>
-              <dt>公司定位</dt>
-            </dl>
-          </div>
-          <!-- 第5部分 -->
-          <div class="block block2 shadow">
-            <dl>
-              <dt>用户分析</dt>
-            </dl>
-          </div>
-          <!-- 第6部分 -->
-          <div class="block block2 shadow">
-            <dl>
-              <dt>竞情分析</dt>
-            </dl>
-          </div>
-          <!-- 第7部分 -->
-          <div class="block block2 clearfix">
-            <dl>
-              <dt>团队成员</dt>
-            </dl>
-          </div> 
-          <!-- 第8部分  -->      
-          <div class="block block2">
-            <dl>
-              <dt>股权结构</dt>
-            </dl>
-          </div> 
-          <!-- 第9部分 -->       
-          <div class="block block2">
-            <dl>
-              <dt>档案库</dt>
-            </dl>
-          </div>        
         </div>
     </div> 
 </div>
@@ -206,7 +158,9 @@
 		return null;
 	}
 	function add(){
-		sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){},null);
+		sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
+			window.location.href = "<%=path %>/galaxy/mpl";
+		},null);
 	}
 </script>
 </html>
