@@ -1,4 +1,13 @@
+$(function(){
 
+	createMenus(6);
+	
+	$('#data-table').bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		
+	});
+	
+});
 //访谈记录查询个人项目
 function queryPerPro(){
 	var condition = {};
@@ -163,6 +172,6 @@ function dateFormat(value, row, index){
 	return "<fmt:formatDate value='"+value+"' pattern='yyyy-MM-dd'/>";
 }
 function fileFormat(value, row, index){
-	return "<fmt:formatDate value='"+value+"' pattern='yyyy-MM-dd'/>";
+	return "";
 }
 
