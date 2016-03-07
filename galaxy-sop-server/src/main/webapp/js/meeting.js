@@ -1,4 +1,13 @@
+$(function(){
 
+	createMenus(7);
+	
+	$('#data-table').bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		
+	});
+	
+});
 //查询个人项目
 function queryPerPro(){
 	var condition = {};
