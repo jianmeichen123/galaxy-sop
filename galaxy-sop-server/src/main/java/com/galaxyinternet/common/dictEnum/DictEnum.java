@@ -33,7 +33,25 @@ public enum DictEnum {
 		return code;
 	}
 
-	
+    /**
+     * 根据code get name
+     * @param reslut
+     * @return
+     */
+    public static String getNameByCode(String code) {
+        
+        if (code != null && !code.trim().equals("")) {
+            
+        	DictEnum[] values = DictEnum.values();
+            for (int i = 0;i < values.length;i++) {
+                if (code.equals(values[i].getCode())) {
+                    return values[i].getName();
+                }                
+            }
+        }
+        return null;
+    }
+    
 	//项目类型
 	public enum projectType {
 		外部项目("外部项目","projectType:1"),
@@ -54,6 +72,25 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	projectType[] values = projectType.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 	}	
 	
 	//项目进度
@@ -84,6 +121,25 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	projectProgress[] values = projectProgress.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 	}
 		
 	//会议类型
@@ -108,6 +164,25 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	meetingType[] values = meetingType.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 	}
 	
 	//会议结论
@@ -131,6 +206,25 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	meetingResult[] values = meetingResult.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 	}		
 	
 	//任务类型
@@ -153,6 +247,25 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	taskType[] values = taskType.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 	}
 	
 	//任务状态
@@ -176,6 +289,25 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	taskStatus[] values = taskStatus.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 
 	}
 			
