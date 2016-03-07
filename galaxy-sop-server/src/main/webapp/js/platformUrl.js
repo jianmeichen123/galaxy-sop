@@ -51,7 +51,13 @@ var platformUrl = {
 	/**
 	 * 模板下载
 	 */
-	tempDownload:"/galaxy/template/download"
+	tempDownload:"/galaxy/template/download",
+	
+	/**
+	 * 修改团队成员
+	 */
+	updatePerson : "/galaxy/project/upp",
+	
 }
 
 /**
