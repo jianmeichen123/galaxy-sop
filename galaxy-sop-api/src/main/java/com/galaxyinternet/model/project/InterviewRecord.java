@@ -38,17 +38,41 @@ public class InterviewRecord extends BaseEntity{
 	}
 
 	public Date getViewDate() {
-		if(viewDate==null && viewDateStr!=null && viewDateStr.trim().length()>0){
+		if(viewDate==null && viewDateStr!=null && viewDateStr.trim().length() == 10 ){
 			try {
-				viewDate = DateUtil.convertStringToDate(viewDateStr);
+				if( viewDateStr.indexOf("/") != -1){
+					viewDate = DateUtil.convertStringToDate(this.viewDateStr.replaceAll("/", "-"));
+	    		}else{
+	    			viewDate = DateUtil.convertStringToDate(this.viewDateStr);
+	    		}
 			} catch (ParseException e) {
 				viewDate = null;
+			}
+		}else{
+			if(viewDateStr==null && viewDate!=null){
+				viewDateStr = DateUtil.convertDateToString(viewDate);
 			}
 		}
         return viewDate;
     }
 
     public void setViewDate(Date viewDate) {
+    	if(viewDate==null && viewDateStr!=null && viewDateStr.trim().length() == 10 ){
+			try {
+				if( viewDateStr.indexOf("/") != -1){
+					viewDate = DateUtil.convertStringToDate(this.viewDateStr.replaceAll("/", "-"));
+	    		}else{
+	    			viewDate = DateUtil.convertStringToDate(this.viewDateStr);
+	    		}
+			} catch (ParseException e) {
+				viewDate = null;
+			}
+		}else{
+			if(viewDateStr==null && viewDate!=null){
+				viewDateStr = DateUtil.convertDateToString(viewDate);
+			}
+		}
+
         this.viewDate = viewDate;
     }
 
@@ -70,10 +94,16 @@ public class InterviewRecord extends BaseEntity{
 
     
     public String getViewDateStr() {
+    	if(viewDateStr==null && viewDate!=null){
+			viewDateStr = DateUtil.convertDateToString(viewDate);
+		}
 		return viewDateStr;
 	}
 
 	public void setViewDateStr(String viewDateStr){
+		if(viewDateStr==null && viewDate!=null){
+			viewDateStr = DateUtil.convertDateToString(viewDate);
+		}
 		this.viewDateStr = viewDateStr;
 	}
 	
