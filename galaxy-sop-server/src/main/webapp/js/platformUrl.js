@@ -43,15 +43,11 @@ var platformUrl = {
 	/**
 	 * 模板上传
 	 */
-	tempUpload:"/galaxy/template/upload",
-	/**
-	 * 模板保存
-	 */
-	tempSave:"/galaxy/template/save",
-	/**
-	 * 模板下载
-	 */
-	tempDownload:"/galaxy/template/download"
+	tempUpload:"/galaxy/template/upload"
+		/**
+		 * 任务列表加载
+		 */
+	geSopTastList:"/galaxy/soptask/taskListByRole"
 }
 
 /**
