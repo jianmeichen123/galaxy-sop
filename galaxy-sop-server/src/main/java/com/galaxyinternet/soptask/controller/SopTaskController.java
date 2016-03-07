@@ -114,15 +114,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		//当前登录人
 		User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
-		sopTaskBo.setTaskReceiveUid(user.getId());
+		sopTaskBo.setAssignUid(user.getId());
 		//根据当前登录认查询部门
 		Department Department=new Department();//
 		Department.setId(user.getDepartmentId());
 		Department queryOne = departmentService.queryOne(Department);
 		if(!StringEx.isNullOrEmpty(queryOne)){
-			sopTaskBo.setTaskDestination(queryOne.getId().toString());
+			sopTaskBo.setDepartmentId(queryOne.getId());
 		}
-		sopTaskBo.setTaskReceiveUid((long)1);
+		sopTaskBo.setAssignUid((long)1);
 		Result result = new Result();
 		try {
 			Page<SopTaskBo> list = sopTaskService.tasklist(pageable, sopTaskBo,request);
@@ -184,7 +184,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		//当前登录人
 				User user = (User) request.getSession().getAttribute(
 						Constants.SESSION_USER_KEY);
-				entity.setTaskReceiveUid(user.getId());
+				entity.setAssignUid(user.getId());
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
 		Result result = new Result();
 		try {

@@ -171,8 +171,8 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			sopTaskBo.setTaskDeadlineformat(DateUtil.convertDateToString(sopTasknew.getTaskDeadline()));//
 			sopTaskBo.setTaskName(sopTasknew.getTaskName()==null?"":sopTasknew.getTaskName());
 			sopTaskBo.setTaskType(sopTasknew.getTaskType()==null?"":sopTasknew.getTaskType());
-			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder()==null?"":sopTasknew.getTaskOrder());
-			sopTaskBo.setTaskDestination(sopTasknew.getTaskDestination()==null?"":sopTasknew.getTaskDestination());
+			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder());
+			sopTaskBo.setDepartmentId(sopTasknew.getDepartmentId());
 			sopTaskBo.setTaskStatus(sopTasknew.getTaskStatus()==null?"":sopTasknew.getTaskStatus());
 			
 			if(sopTasknew.getTaskStatus().equals(DictEnum.taskStatus.待认领.getCode())){
@@ -203,7 +203,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setCaozuohtml(finishtml.toString());
 			}
 			
-			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder()==null?"":sopTasknew.getTaskOrder());
+			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder());
 			sopTaskBo.setRemark(sopTasknew.getRemark()==null?"":sopTasknew.getRemark());
 			sopTaskBo.setHours(convertDatte(sopTasknew.getTaskDeadline()));
 			
