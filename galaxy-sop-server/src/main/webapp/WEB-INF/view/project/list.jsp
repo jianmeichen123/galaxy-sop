@@ -9,14 +9,13 @@
 <title>繁星SOP-添加项目</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!-- bootstrap-table -->
-<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <!-- 分页一css+三js -->
+<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script src="<%=path %>/js/init.js"></script>
 </head>
 
 <body>
@@ -101,9 +100,10 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
-	function editor(){
-		return "";
-	}
+	$(function(){
+		createMenus(5);
+	});
 </script>
+<script src="<%=path %>/js/init.js"></script>
 </html>
 
