@@ -8,12 +8,14 @@
 <meta charset="utf-8">
 <title>繁星SOP-添加项目</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<!-- bootstrap-table -->
-<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
-<!-- 分页一css+三js -->
+<!-- 分页二css+四js -->
+<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
@@ -38,7 +40,7 @@
         </div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix">
-			<div class="bottom searchall clearfix">
+			<div class="bottom searchall clearfix" id="custom-toolbar">
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>项目类别：</dt>
 	              <dd>
@@ -73,30 +75,12 @@
 						<input type="text" class="txt" id="search_text" placeholder="请输入姓名或手机号" />
 					</dd>
 					<dd>
-						<a href="javascript:void(0)" class="bluebtn ico cx" onclick="searchForm()">查询</a>
+						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
 					</dd>
 				</dl>
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">		
-			<div id="custom-toolbar">
-			    <div class="form-inline" role="form">
-			        <div class="form-group">
-			            <div class="input-group">
-			                <input class="form-control" type="text" placeholder="名称" name="nameCodeLike">
-			            </div>
-			        </div>
-			        <div class="form-group">
-			            <div class="input-group">
-			                <input class="form-control" type="date" placeholder="创建时间(开始)" name="createTimeStart">
-			            </div>
-			        	<div class="input-group">
-			                <input class="form-control" type="date" placeholder="创建时间(结束)" name="createTimeEnd">
-			            </div>
-			        </div>
-			        <button type="submit" class="btn btn-default" name="querySearch">搜索</button>
-			    </div>
-			</div>
 			<table id="data-table" data-url="project/spl" data-height="555" 
 				data-method="post" data-show-refresh="true" 
 				data-side-pagination="server" data-pagination="true" 
@@ -117,9 +101,30 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
-	function editor(){
-		return "";
+	createMenus(5);
+	function editor(value, row, index){
+		var id=row.id;
+		var options = "<button type='button' class='btn btn-primary btn-option' data-toggle='modal' data-target='#myModal'>查看</button>";
+		return options;
 	}
 </script>
-</html>
 
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</html>
