@@ -366,7 +366,7 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(1);
-		loadAjaxSopUserSchedule('','/galaxy/sopUserSchedule/selectSopUserSchedule/1');
+		loadAjaxSopUserSchedule('','./sopUserSchedule/selectSopUserSchedule/1');
 	});
 </script>
 </html>

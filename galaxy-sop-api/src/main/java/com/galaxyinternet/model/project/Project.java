@@ -78,8 +78,8 @@ public class Project extends PagableEntity {
 
     public void setProjectType(String projectType) {
         this.projectType = projectType == null ? null : projectType.trim();
-        if(this.projectType != null){
-			this.type = DictEnum.projectType.getNameByCode(this.projectType);
+        if(projectType != null){
+			this.type = DictEnum.projectType.getNameByCode(projectType);
 		}
     }
 
@@ -177,8 +177,8 @@ public class Project extends PagableEntity {
 
     public void setProjectProgress(String projectProgress) {
         this.projectProgress = projectProgress == null ? null : projectProgress.trim();
-        if(this.getProjectProgress() != null){
-			this.progress = DictEnum.projectProgress.getNameByCode(this.projectProgress);
+        if(projectProgress != null){
+			this.progress = DictEnum.projectProgress.getNameByCode(projectProgress);
 		}
     }
 
@@ -248,8 +248,8 @@ public class Project extends PagableEntity {
     
     @Override
     public void setCreatedTime(Long createdTime) {
-    	if(this.createdTime != null){
-    		this.createDate = DateUtil.longToString(this.createdTime);
+    	if(createdTime != null){
+    		this.createDate = DateUtil.longToString(createdTime);
     	}
     }
 
