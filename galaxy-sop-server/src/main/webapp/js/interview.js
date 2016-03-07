@@ -121,18 +121,18 @@ function getSaveCondition(){
 
 
 //查询
-function selectViewPage(){
+/*function selectViewPage(){
 	$("#interVierTable").bootstrapTable('refresh',
 		{
 	      url : platformUrl.selectViewPage,
 	      queryParams:getQueryCondition
 		}
 	);
-}
+}*/
 
 
 //验证获取保存参数
-function getQueryCondition(){
+/*function getQueryCondition(){
 	
 	var	condition = {};
 	
@@ -155,7 +155,7 @@ function getQueryCondition(){
 
 	
 	return condition;
-}
+}*/
 
 
 //table format
@@ -163,6 +163,6 @@ function dateFormat(value, row, index){
 	return "<fmt:formatDate value='"+value+"' pattern='yyyy-MM-dd'/>";
 }
 function fileFormat(value, row, index){
-	return "<fmt:formatDate value='"+value+"' pattern='yyyy-MM-dd'/>";
+	return "无录音";
 }
 

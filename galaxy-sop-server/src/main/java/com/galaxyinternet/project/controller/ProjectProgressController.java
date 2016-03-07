@@ -138,7 +138,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				|| interviewRecord.getViewDate() == null 
 				|| interviewRecord.getViewTarget() == null
 				|| interviewRecord.getViewNotes() == null ){
-			responseBody.setResult(new Result(Status.ERROR, "interviewRecord info not complete"));
+			responseBody.setResult(new Result(Status.ERROR,null, "interviewRecord info not complete"));
 			return responseBody;
 		}
 		
@@ -176,7 +176,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ,PageRequest pageable ) {
+	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ) {
 		
 		ResponseData<InterviewRecordBo> responseBody = new ResponseData<InterviewRecordBo>();
 		
@@ -185,7 +185,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		try {
 			query.setUid(user.getId());
 			
-			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPageList(query, pageable);
+			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPageList(query,  new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()) );
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
@@ -223,7 +223,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		String err = errMessage(project,user,DictEnum.projectProgress.接触访谈.getCode());   //字典  项目进度  接触访谈
 		if(err!=null && err.length()>0){
-			responseBody.setResult(new Result(Status.ERROR, err));
+			responseBody.setResult(new Result(Status.ERROR,null, err));
 			return responseBody;
 		}
 				
@@ -338,7 +338,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryMeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingRecordBo> queryMeet(HttpServletRequest request,@RequestBody MeetingRecordBo query ,PageRequest pageable ) {
+	public ResponseData<MeetingRecordBo> queryMeet(HttpServletRequest request,@RequestBody MeetingRecordBo query ) {
 		
 		ResponseData<MeetingRecordBo> responseBody = new ResponseData<MeetingRecordBo>();
 		
@@ -347,7 +347,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		try {
 			query.setUid(user.getId());
 			
-			Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPageList(query, pageable);
+			Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPageList(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
@@ -474,7 +474,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				}
 				
 			}else{
-				responseBody.setResult(new Result(Status.OK, "项目阶段类型不能识别"));
+				responseBody.setResult(new Result(Status.OK,null, "项目阶段类型不能识别"));
 				return responseBody;
 			}
 		}else{
