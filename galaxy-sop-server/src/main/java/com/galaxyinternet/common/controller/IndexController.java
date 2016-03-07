@@ -58,7 +58,7 @@ public class IndexController {
 	 * 到我的项目页面
 	 * @return
 	 */
-	@RequestMapping(value = "/myproject", method = RequestMethod.GET)
+	@RequestMapping(value = "/mpl", method = RequestMethod.GET)
 	public String myproject() {
 		return "project/list";
 	}
