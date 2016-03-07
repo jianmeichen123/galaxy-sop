@@ -1,6 +1,7 @@
 package com.galaxyinternet.model.project;
 
 
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
@@ -44,6 +45,7 @@ public class Project extends PagableEntity {
     //详情数据转换
   	private String createDate;
   	private String type;
+  	private String progress;
 
 
     public Long getId() {
@@ -76,10 +78,8 @@ public class Project extends PagableEntity {
 
     public void setProjectType(String projectType) {
         this.projectType = projectType == null ? null : projectType.trim();
-        if(this.projectType != null && "projectType:2".equals(this.projectType)){
-			this.type = "内部创建";
-		}else{
-			this.type = "外部投资";
+        if(this.projectType != null){
+			this.type = DictEnum.projectType.getNameByCode(this.projectType);
 		}
     }
 
@@ -177,6 +177,9 @@ public class Project extends PagableEntity {
 
     public void setProjectProgress(String projectProgress) {
         this.projectProgress = projectProgress == null ? null : projectProgress.trim();
+        if(this.getProjectProgress() != null){
+			this.progress = DictEnum.projectProgress.getNameByCode(this.projectProgress);
+		}
     }
 
     public String getProjectStatus() {
@@ -240,8 +243,18 @@ public class Project extends PagableEntity {
     }
     
     public String getCreateDate() {
-		this.createDate = DateUtil.longToString(this.createdTime);
 		return createDate;
+	}
+    
+    @Override
+    public void setCreatedTime(Long createdTime) {
+    	if(this.createdTime != null){
+    		this.createDate = DateUtil.longToString(this.createdTime);
+    	}
+    }
+
+	public String getProgress() {
+		return progress;
 	}
 
 	public String getType() {

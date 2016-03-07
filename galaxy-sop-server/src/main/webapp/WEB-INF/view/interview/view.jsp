@@ -16,11 +16,7 @@
 
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 
-<!-- 富文本编辑器 -->
-<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
-<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
 
 
 </head>
@@ -138,7 +134,7 @@
 <!-- bootstrap-table  -->
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-
+	
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 
 

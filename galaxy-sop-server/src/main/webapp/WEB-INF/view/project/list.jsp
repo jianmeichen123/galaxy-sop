@@ -40,20 +40,33 @@
 		<div class="min_document clearfix">
 			<div class="bottom searchall clearfix">
 				<dl class="fmdl fml fmdll clearfix">
-					<dt>账户状态：</dt>
-					<dd>
-						<label for=""><input type="radio" name="status">不限</label>
-						<label for=""><input type="radio" id="disabled" value="1" name="status">已禁用</label>
-					</dd>
-				</dl>
-				<dl class="fmdl fml fmdll clearfix">
-					<dt>所属部门：</dt>
-					<dd>
-						<select id='selectDept'>
-							<option value="">全部</option>
-						</select>
-					</dd>
-				</dl>
+	              <dt>项目类别：</dt>
+	              <dd>
+	                <select name="projectType">
+	                  <option value="">全部</option>
+	                  <option value="projectType:1">外部投资</option>
+	                  <option value="projectType:2">内部创建</option>
+	                </select>
+	              </dd>
+	            </dl>
+	            <dl class="fmdl fml fmdll clearfix">
+	              <dt>项目进度：</dt>
+	              <dd>
+	                <select name="projectProgress">
+	                  <option value="">全部</option>
+	                  <option value="projectProgress:1">接触访谈</option>
+	                  <option value="projectProgress:2">内部评审</option>
+	                  <option value="projectProgress:3">CEO评审</option>
+	                  <option value="projectProgress:4">立项会</option>
+	                  <option value="projectProgress:5">投资意向书</option>
+	                  <option value="projectProgress:6">尽职调查</option>
+	                  <option value="projectProgress:7">投资决策会</option>
+	                  <option value="projectProgress:8">投资协议</option>
+	                  <option value="projectProgress:9">股权交割</option>
+	                  <!-- <option value="projectProgress:10">投后运营</option> -->
+	                </select>
+	              </dd>
+	            </dl>
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
@@ -90,8 +103,11 @@
 				data-page-list="[1, 5, 50]" data-search="false">
 				<thead>
 				    <tr>
+				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
 			        	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
-			        	<th data-field="projectCode" data-align="center" class="data-input">项目状态</th>
+			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
+			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
+			        	<th data-field="createDate" data-align="center" class="data-input">创建日期</th>
 			        	<th data-align="center" class="col-md-2" data-formatter="editor">操作</th>
  					</tr>	
  				</thead>
