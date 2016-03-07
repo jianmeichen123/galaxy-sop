@@ -1,6 +1,7 @@
 package com.galaxyinternet.project.controller;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,42 +17,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
-
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
-
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
+import com.galaxyinternet.service.UserRoleService;
 
 @Controller
 @RequestMapping("/galaxy/project/progress")
 public class ProjectProgressController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	final Logger logger = LoggerFactory.getLogger(ProjectProgressController.class);
+	
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	@Autowired
 	private ProjectService projectService;
@@ -132,7 +138,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				|| interviewRecord.getViewDate() == null 
 				|| interviewRecord.getViewTarget() == null
 				|| interviewRecord.getViewNotes() == null ){
-			responseBody.setResult(new Result(Status.ERROR,null, "interviewRecord info not complete"));
+			responseBody.setResult(new Result(Status.ERROR, "interviewRecord info not complete"));
 			return responseBody;
 		}
 		
@@ -217,7 +223,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		String err = errMessage(project,user,DictEnum.projectProgress.接触访谈.getCode());   //字典  项目进度  接触访谈
 		if(err!=null && err.length()>0){
-			responseBody.setResult(new Result(Status.ERROR,null, err));
+			responseBody.setResult(new Result(Status.ERROR, err));
 			return responseBody;
 		}
 				
@@ -421,26 +427,54 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		List<String> fileworktypeList = new ArrayList<String>();
 		
+		//根据角色判断-显示文件上传列表
+		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		
 		if(proProgress!=null){
-			if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode())){      //字典   项目进度     投资意向书
+			if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && roleIdList.contains(UserConstant.TZJL)){      //字典   项目进度     投资意向书
 				fileworktypeList.add(DictEnum.fileWorktype.投资意向书.getCode());   //字典   档案业务类型   投资意向书
 				
 			}else if(proProgress.equals(DictEnum.projectProgress.尽职调查.getCode())){  //字典   项目进度     尽职调查
-				fileworktypeList.add(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());  //字典   档案业务类型   尽职调查报告
-				fileworktypeList.add(DictEnum.fileWorktype.财务尽职调查报告.getCode());
-				fileworktypeList.add(DictEnum.fileWorktype.法务尽职调查报告.getCode());
-				fileworktypeList.add(DictEnum.fileWorktype.业务尽职调查报告.getCode());
+				
+				//人事|投资经理
+				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HRJL) 
+						|| roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.HRZJ)){
+				         fileworktypeList.add(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());  //字典   档案业务类型   尽职调查报告
+				}
+				//财务|投资经理
+				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) 
+						|| roleIdList.contains(UserConstant.CWZJ)){
+				        fileworktypeList.add(DictEnum.fileWorktype.财务尽职调查报告.getCode());
+				}
+				//法务|投资经理
+				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) 
+						|| roleIdList.contains(UserConstant.FWZJ)){
+				        fileworktypeList.add(DictEnum.fileWorktype.法务尽职调查报告.getCode());
+				}
+				//投资经理
+				if(roleIdList.contains(UserConstant.TZJL)){
+				        fileworktypeList.add(DictEnum.fileWorktype.业务尽职调查报告.getCode());
+				}
 				
 			}else if(proProgress.equals(DictEnum.projectProgress.投资协议.getCode())){   //字典   项目进度     投资协议 
-				fileworktypeList.add(DictEnum.fileWorktype.投资协议.getCode());      //字典   档案业务类型   投资协议
-				fileworktypeList.add(DictEnum.fileWorktype.股权转让协议.getCode());     //字典   档案业务类型   股权转让协议
+				        fileworktypeList.add(DictEnum.fileWorktype.投资协议.getCode());      //字典   档案业务类型   投资协议
+				        fileworktypeList.add(DictEnum.fileWorktype.股权转让协议.getCode());     //字典   档案业务类型   股权转让协议
 				
 			}else if(proProgress.equals(DictEnum.projectProgress.股权交割.getCode())){   //字典   项目进度   股权交割
-				fileworktypeList.add(DictEnum.fileWorktype.资金拨付凭证.getCode());   //字典   档案业务类型   资金拨付凭证
-				fileworktypeList.add(DictEnum.fileWorktype.工商转让凭证.getCode());  //字典   档案业务类型   工商变更登记凭证
+				//财务|投资经理
+				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) ||
+						roleIdList.contains(UserConstant.CWZJ)){
+				       fileworktypeList.add(DictEnum.fileWorktype.资金拨付凭证.getCode());   //字典   档案业务类型   资金拨付凭证
+				}
+				//法务|投资经理
+				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) 
+						|| roleIdList.contains(UserConstant.FWZJ)){
+				       fileworktypeList.add(DictEnum.fileWorktype.工商转让凭证.getCode());  //字典   档案业务类型   工商变更登记凭证
+				}
 				
 			}else{
-				responseBody.setResult(new Result(Status.OK,null, "项目阶段类型不能识别"));
+				responseBody.setResult(new Result(Status.OK, "项目阶段类型不能识别"));
 				return responseBody;
 			}
 		}else{
@@ -486,14 +520,16 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/upProjectFile/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> upProjectFile(HttpServletRequest request,String workType,@PathVariable Long pid) {
+	@RequestMapping(value = "/upProjectFile/{pid}/{fileid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> upProjectFile(HttpServletRequest request,String workType,@PathVariable Long pid,@PathVariable Long fileid,@RequestBody SopFile sopFile) {
 		
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		
 		String proProgress = "";
 		String taskName = "";
-		
+		//根据角色判断-显示文件上传列表
+		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+				
 		if(workType!=null){
 			if(workType.equals(DictEnum.fileWorktype.投资意向书.getCode())){  //字典   档案业务类型   投资意向书
 				proProgress = DictEnum.projectProgress.投资意向书.getCode() ;									  
@@ -510,6 +546,27 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}else if(workType.equals(DictEnum.fileWorktype.股权转让协议.getCode())){
 				proProgress = DictEnum.projectProgress.投资协议.getCode() ; 
 				taskName = "上传股权转让协议";
+				
+			}else if(workType.equals(DictEnum.fileWorktype.人力资源尽职调查报告.getCode())){
+				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
+				taskName = "上传人力资源尽职调查报告";
+				
+			}else if(workType.equals(DictEnum.fileWorktype.财务尽职调查报告.getCode())){
+				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
+				taskName = "上传财务尽职调查报告";
+				
+			}else if(workType.equals(DictEnum.fileWorktype.法务尽职调查报告.getCode())){
+				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
+				taskName = "上传法务尽职调查报告";
+				
+			}else if(workType.equals(DictEnum.fileWorktype.工商转让凭证.getCode())){
+				proProgress = DictEnum.projectProgress.股权交割.getCode() ;
+				taskName = "上传工商转让凭证";
+				
+			}else if(workType.equals(DictEnum.fileWorktype.资金拨付凭证.getCode())){
+				proProgress = DictEnum.projectProgress.股权交割.getCode() ;
+				taskName = "上传资金拨付凭证";
+				
 			}else{
 				responseBody.setResult(new Result(Status.OK, "文件业务类型不能识别"));
 				return responseBody;
@@ -518,8 +575,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.ERROR,null, "文件业务类型为空"));
 			return responseBody;
 		}
-		
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		//project id 验证
 		Project project = new Project();
@@ -538,6 +593,20 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 
 		try {
+			
+			//上传成功修改 sopfile里面的数据-根据fileid修改sopfile
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			//文件上传
+			String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+			MultipartFile multipartFile = multipartRequest.getFile("file");
+			try{
+				File file = (File)multipartFile;
+				OSSHelper.simpleUploadByOSS(file,key);
+				sopFileService.updateById(sopFile);
+			}catch(Exception e){
+				logger.error("上传文件错误：", e);
+				responseBody.setResult(new Result(Status.ERROR,"上传文件失败!"));
+			}
 			SopTask task = new SopTask();
 			task.setProjectId(pid);
 			task.setTaskName(taskName);          
