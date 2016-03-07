@@ -300,7 +300,7 @@ $(function(){
 		//这里如果是复选框 你需要判断是否为选中
 		//if(!$(this).is(":checked")){return false;}
 		var $self = $(this);
-		var _url = $self.attr("data-href");
+		var _url = $self.attr("href");
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
@@ -308,8 +308,7 @@ $(function(){
 				$(".myprojecttc .tabtable").tabchange();
 			}//模版反回成功执行	
 		});
-		return true;
+		return false;
 	});	
-
-
 });
+

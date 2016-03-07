@@ -76,7 +76,7 @@ public class CommonController {
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.TZJL)){
 			tabs.add(new Menus(4L, "添加项目", u + "galaxy/app"));
-			tabs.add(new Menus(5L, "我的项目", u + "galaxy/myproject"));
+			tabs.add(new Menus(5L, "我的项目", u + "galaxy/mpl"));
 			tabs.add(new Menus(6L, "访谈跟进", u + "galaxy/project/progress/interView"));
 			tabs.add(new Menus(7L, "会议纪要", u + "galaxy/project/progress/meetView"));
 			tabs.add(new Menus(8L, "数据简报", u + ""));

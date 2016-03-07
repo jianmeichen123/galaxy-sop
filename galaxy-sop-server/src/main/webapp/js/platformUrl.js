@@ -43,35 +43,7 @@ var platformUrl = {
 	/**
 	 * 模板上传
 	 */
-	tempUpload:"/galaxy/template/upload",
-	/**
-	 * 模板保存
-	 */
-	tempSave:"/galaxy/template/save",
-	
-	
-	
-	
-	
-	/**
-	 * 访谈查询 page
-	 */
-	selectViewPage : "/galaxy/project/progress/queryInterview",
-	
-	/**
-	 * 获取登录人的项目,阶段为：
-	 */
-	getUserPro : "/galaxy/project/progress/queryPerPro",
-	
-	/**
-	 * 访谈添加：
-	 */
-	saveInteverView : "/galaxy/project/progress/addInterview",
-	
-	/**
-	 * 会议添加：
-	 */
-	saveMeet : "/galaxy/project/progress/addmeet",
+	tempUpload:"/galaxy/template/upload"
 }
 
 /**
