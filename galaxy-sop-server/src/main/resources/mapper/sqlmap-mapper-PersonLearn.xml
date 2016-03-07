@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.hr.PersonLearn" >
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.hr.PersonLearn" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="education_type" property="educationType" jdbcType="VARCHAR" />
+    <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
+    <result column="over_date" property="overDate" jdbcType="TIMESTAMP" />
+    <result column="certificate_number" property="certificateNumber" jdbcType="VARCHAR" />
+    <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="teacher_position" property="teacherPosition" jdbcType="VARCHAR" />
+    <result column="teacher_phone" property="teacherPhone " jdbcType="VARCHAR" />    
+    <result column="classmate_name" property="classmateName" jdbcType="VARCHAR" />
+    <result column="classmate_phone" property="classmatePhone" jdbcType="VARCHAR" />
+    <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+		 id,person_id,degree,school,major,education_type,begin_date,over_date,certificate_number,teacher_name,teacher_position,teacher_phone,classmate_name,classmate_phone,updated_time,created_time                                                            
+  </sql>
+
+  <sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+			  <if test="id != null"> and id =#{id}</if>
+			  <if test="personId != null" > and person_id = #{personId,jdbcType=BIGINT} </if>
+			  <if test="degree != null" > and degree = #{degree,jdbcType=VARCHAR} </if>
+			  <if test="school != null" > and school = #{school,jdbcType=VARCHAR} </if>
+			  <if test="major != null" > and major = #{major,jdbcType=VARCHAR} </if>
+			  <if test="educationType != null" > and education_type = #{educationType,jdbcType=VARCHAR} </if>
+			  <if test="beginDate != null" > and begin_date = #{beginDate,jdbcType=TIMESTAMP} </if>
+			  <if test="overDate != null" > and over_date = #{overDate,jdbcType=TIMESTAMP} </if>
+			  <if test="certificateNumber != null" > and certificate_number = #{certificateNumber,jdbcType=VARCHAR} </if>
+			  <if test="teacherName != null" > and teacher_name = #{teacherName,jdbcType=VARCHAR} </if>
+			  <if test="teacherPosition != null" > and teacher_position = #{teacherPosition,jdbcType=VARCHAR} </if>
+			  <if test="teacherPhone != null" > and teacher_phone = #{teacherPhone,jdbcType=VARCHAR} </if>
+			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
+			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
+			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
+			  <if test="createdTime != null" > and created_time = #{personId,jdbcType=BIGINT} </if>
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from sop_person_learning_experience
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_person_learning_experience
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_person_learning_experience where id = #{id}
+	</select>
+	<!-- 添加 -->
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.hr.PersonLearn" >
+	    <![CDATA[
+	     insert into sop_person_learning_experience (id,person_id,degree,school,major,education_type,begin_date,over_date,certificate_number,teacher_name,teacher_position,teacher_phone,classmate_name,classmate_phone,updated_time,created_time)
+	    values (#{id,jdbcType=BIGINT}, #{personId,jdbcType=BIGINT}, #{degree,jdbcType=VARCHAR}, 
+	      #{school,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR},
+	      #{educationType,jdbcType=VARCHAR}, #{beginDate,jdbcType=TIMESTAMP}, #{overDate,jdbcType=TIMESTAMP}, 
+	      #{certificateNumber,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, 
+	      #{teacherPosition,jdbcType=VARCHAR}, #{teacherPhone,jdbcType=VARCHAR}, #{classmateName,jdbcType=VARCHAR}, #{classmatePhone,jdbcType=VARCHAR},  
+	      #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT})
+	    ]]>
+    </insert>
+    
+    <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.hr.PersonLearn">
+		update sop_person_learning_experience
+		<set>
+			  <if test="personId != null" > and person_id = #{personId,jdbcType=BIGINT} </if>
+			  <if test="degree != null" > and degree = #{degree,jdbcType=VARCHAR} </if>
+			  <if test="school != null" > and school = #{school,jdbcType=VARCHAR} </if>
+			  <if test="major != null" > and major = #{major,jdbcType=VARCHAR} </if>
+			  <if test="educationType != null" > and education_type = #{educationType,jdbcType=VARCHAR} </if>
+			  <if test="beginDate != null" > and begin_date = #{beginDate,jdbcType=TIMESTAMP} </if>
+			  <if test="overDate != null" > and over_date = #{overDate,jdbcType=TIMESTAMP} </if>
+			  <if test="certificateNumber != null" > and certificate_number = #{certificateNumber,jdbcType=VARCHAR} </if>
+			  <if test="teacherName != null" > and teacher_name = #{teacherName,jdbcType=VARCHAR} </if>
+			  <if test="teacherPosition != null" > and teacher_position = #{teacherPosition,jdbcType=VARCHAR} </if>
+			  <if test="teacherPhone != null" > and teacher_phone = #{teacherPhone,jdbcType=VARCHAR} </if>
+			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
+			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
+			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
+			  <if test="createdTime != null" > and created_time = #{personId,jdbcType=BIGINT} </if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+			  <if test="id != null"> and id =#{id}</if>
+			  <if test="personId != null" > and person_id = #{personId,jdbcType=BIGINT} </if>
+			  <if test="degree != null" > and degree = #{degree,jdbcType=VARCHAR} </if>
+			  <if test="school != null" > and school = #{school,jdbcType=VARCHAR} </if>
+			  <if test="major != null" > and major = #{major,jdbcType=VARCHAR} </if>
+			  <if test="educationType != null" > and education_type = #{educationType,jdbcType=VARCHAR} </if>
+			  <if test="beginDate != null" > and begin_date = #{beginDate,jdbcType=TIMESTAMP} </if>
+			  <if test="overDate != null" > and over_date = #{overDate,jdbcType=TIMESTAMP} </if>
+			  <if test="certificateNumber != null" > and certificate_number = #{certificateNumber,jdbcType=VARCHAR} </if>
+			  <if test="teacherName != null" > and teacher_name = #{teacherName,jdbcType=VARCHAR} </if>
+			  <if test="teacherPosition != null" > and teacher_position = #{teacherPosition,jdbcType=VARCHAR} </if>
+			  <if test="teacherPhone != null" > and teacher_phone = #{teacherPhone,jdbcType=VARCHAR} </if>
+			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
+			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
+			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
+			  <if test="createdTime != null" > and created_time = #{personId,jdbcType=BIGINT} </if>
+			</trim>
+		</where>
+	</update>
+    <!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.hr.PersonLearn">
+		update sop_person_learning_experience
+		<set>
+			  <if test="personId != null" > and person_id = #{personId,jdbcType=BIGINT} </if>
+			  <if test="degree != null" > and degree = #{degree,jdbcType=VARCHAR} </if>
+			  <if test="school != null" > and school = #{school,jdbcType=VARCHAR} </if>
+			  <if test="major != null" > and major = #{major,jdbcType=VARCHAR} </if>
+			  <if test="educationType != null" > and education_type = #{educationType,jdbcType=VARCHAR} </if>
+			  <if test="beginDate != null" > and begin_date = #{beginDate,jdbcType=TIMESTAMP} </if>
+			  <if test="overDate != null" > and over_date = #{overDate,jdbcType=TIMESTAMP} </if>
+			  <if test="certificateNumber != null" > and certificate_number = #{certificateNumber,jdbcType=VARCHAR} </if>
+			  <if test="teacherName != null" > and teacher_name = #{teacherName,jdbcType=VARCHAR} </if>
+			  <if test="teacherPosition != null" > and teacher_position = #{teacherPosition,jdbcType=VARCHAR} </if>
+			  <if test="teacherPhone != null" > and teacher_phone = #{teacherPhone,jdbcType=VARCHAR} </if>
+			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
+			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
+			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
+			  <if test="createdTime != null" > and created_time = #{personId,jdbcType=BIGINT} </if>
+		</set>
+		where id = #{id}
+	</update>
+    
+    <!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_person_learning_experience
+		<include refid="Base_Where_Clause" />
+	</delete>
+     <!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_person_learning_experience where id = #{id}
+	</delete>
+	
+	
+</mapper>
