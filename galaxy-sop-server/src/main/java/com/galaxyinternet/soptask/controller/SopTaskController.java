@@ -68,15 +68,13 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
 	public String goClaimtcPage(HttpServletRequest request) {
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
-		String id = request.getParameter("id");
-		
 		SopTask sopTask=new SopTask();
-		sopTask.setId(Long.parseLong(id));
 		Result result = new Result();
+		Object ob = request.getSession().getAttribute("sessionUser");
 		sopTask.setTaskStatus("2");
 		try {
-			 sopTaskService.updateById(sopTask);
-			responseBody.setId(Long.parseLong(id));
+			Long id = sopTaskService.insertsopTask(sopTask);
+			responseBody.setId(id);
 			result.setStatus(Status.OK);
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
@@ -114,15 +112,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		//当前登录人
 		User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
-		sopTaskBo.setTaskReceiveUid(user.getId());
+		sopTaskBo.setAssignUid(user.getId());
 		//根据当前登录认查询部门
 		Department Department=new Department();//
 		Department.setId(user.getDepartmentId());
 		Department queryOne = departmentService.queryOne(Department);
 		if(!StringEx.isNullOrEmpty(queryOne)){
-			sopTaskBo.setTaskDestination(queryOne.getId().toString());
+			sopTaskBo.setDepartmentId(queryOne.getId());
 		}
-		sopTaskBo.setTaskReceiveUid((long)1);
+		sopTaskBo.setAssignUid((long)1);
 		Result result = new Result();
 		try {
 			Page<SopTaskBo> list = sopTaskService.tasklist(pageable, sopTaskBo,request);
@@ -184,7 +182,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		//当前登录人
 				User user = (User) request.getSession().getAttribute(
 						Constants.SESSION_USER_KEY);
-				entity.setTaskReceiveUid(user.getId());
+				entity.setAssignUid(user.getId());
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
 		Result result = new Result();
 		try {

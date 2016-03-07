@@ -230,7 +230,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) obj;
 		Project p = projectService.queryById(pool.getProjectId());
 		//项目创建者用户ID与当前登录人ID是否一样
-		if(p != null && user.getId() != p.getCreateUid()){
+		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限为该项目添加团队成员!"));
 			return responseBody;
 		}

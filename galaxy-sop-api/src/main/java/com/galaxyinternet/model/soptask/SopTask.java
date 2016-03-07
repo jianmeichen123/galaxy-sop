@@ -14,10 +14,10 @@ public class SopTask extends BaseEntity{
      private Long projectId;
      private String taskName;
      private String taskType;
-     private String taskOrder;
+     private Integer taskOrder;
      private Date taskDeadline;
-     private String taskDestination;
-     private Long taskReceiveUid;
+     private Long departmentId;
+     private Long assignUid;
 	public Long getProjectId() {
 		return projectId;
 	}
@@ -36,10 +36,10 @@ public class SopTask extends BaseEntity{
 	public void setTaskType(String taskType) {
 		this.taskType = taskType;
 	}
-	public String getTaskOrder() {
+	public Integer getTaskOrder() {
 		return taskOrder;
 	}
-	public void setTaskOrder(String taskOrder) {
+	public void setTaskOrder(Integer taskOrder) {
 		this.taskOrder = taskOrder;
 	}
 	public Date getTaskDeadline() {
@@ -48,17 +48,17 @@ public class SopTask extends BaseEntity{
 	public void setTaskDeadline(Date taskDeadline) {
 		this.taskDeadline = taskDeadline;
 	}
-	public String getTaskDestination() {
-		return taskDestination;
+	public Long getDepartmentId() {
+		return departmentId;
 	}
-	public void setTaskDestination(String taskDestination) {
-		this.taskDestination = taskDestination;
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
 	}
-	public Long getTaskReceiveUid() {
-		return taskReceiveUid;
+	public Long getAssignUid() {
+		return assignUid;
 	}
-	public void setTaskReceiveUid(Long taskReceiveUid) {
-		this.taskReceiveUid = taskReceiveUid;
+	public void setAssignUid(Long assignUid) {
+		this.assignUid = assignUid;
 	}
 	public String getTaskStatus() {
 		return taskStatus;

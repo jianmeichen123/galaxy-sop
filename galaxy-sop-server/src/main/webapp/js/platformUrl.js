@@ -7,7 +7,7 @@ var platformUrl = {
 	/**
 	 * 验证登录
 	 */
-	createMenus : "/galaxy/common/menu/",
+	createMenus : "./common/menu/",
 	/**
 	 * 获取项目编码接口地址
 	 */
@@ -44,34 +44,6 @@ var platformUrl = {
 	 * 模板上传
 	 */
 	tempUpload:"/galaxy/template/upload",
-	/**
-	 * 模板上传
-	 */
-	tempUpload:"/galaxy/soptask/taskListByRole",
-	
-	
-	
-	
-	
-	/**
-	 * 访谈查询 page
-	 */
-	selectViewPage : "/galaxy/project/progress/queryInterview",
-	
-	/**
-	 * 获取登录人的项目,阶段为：
-	 */
-	getUserPro : "/galaxy/project/progress/queryPerPro",
-	
-	/**
-	 * 访谈添加：
-	 */
-	saveInteverView : "/galaxy/project/progress/addInterview",
-	
-	/**
-	 * 会议添加：
-	 */
-	saveMeet : "/galaxy/project/progress/addmeet",
 }
 
 /**

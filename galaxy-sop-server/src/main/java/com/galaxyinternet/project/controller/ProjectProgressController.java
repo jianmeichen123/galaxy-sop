@@ -170,7 +170,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ) {
+	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ,PageRequest pageable ) {
 		
 		ResponseData<InterviewRecordBo> responseBody = new ResponseData<InterviewRecordBo>();
 		
@@ -179,7 +179,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		try {
 			query.setUid(user.getId());
 			
-			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPageList(query,  new PageRequest(query.getPageNumber()==null?0:query.getPageNumber(), query.getPageSize()==null?10:query.getPageSize()) );
+			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPageList(query, pageable);
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
@@ -540,8 +540,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		try {
 			SopTask task = new SopTask();
 			task.setProjectId(pid);
-			task.setTaskName(taskName);          
-			task.setTaskReceiveUid(user.getId());
+			task.setTaskName(taskName);
+			task.setAssignUid(user.getId());
 			task = sopTaskService.queryOne(task);
 			if(task==null){
 				responseBody.setResult(new Result(Status.ERROR, null,"任务检索为空"));
@@ -598,7 +598,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			SopTask task = new SopTask();
 			task.setProjectId(pid);
 			task.setTaskName("上传投资意向书");          //任务名称：    上传投资意向书
-			task.setTaskReceiveUid(user.getId());
+			task.setAssignUid(user.getId());
 			task = sopTaskService.queryOne(task);
 			if(task.getTaskStatus()==null || !task.getTaskStatus().equals(DictEnum.taskStatus.已完成.getCode())){
 				responseBody.setResult(new Result(Status.ERROR,null, "Front task is not complete"));
@@ -710,7 +710,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			//验证任务完成
 			SopTaskBo task = new SopTaskBo();
 			task.setProjectId(pid);
-			task.setTaskReceiveUid(user.getId());
+			task.setAssignUid(user.getId());
 			List<String> sl = new ArrayList<String>();
 			sl.add(DictEnum.taskStatus.待认领.getCode());
 			sl.add(DictEnum.taskStatus.待完工.getCode());

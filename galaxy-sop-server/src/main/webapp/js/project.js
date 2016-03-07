@@ -86,6 +86,7 @@ $(function(){
 		var um = UM.getEditor('analysis_editor');
 		um.setContent(data.entity.prospectAnalysis);
 	},null);
+	
 	/**
 	 * 计算初始估值
 	 */
@@ -106,16 +107,6 @@ $(function(){
 			$("#project_valuations").text(valuations);
 		}
 	});
-	/**
-	 * 添加团队成员
-	 */
-	$("#savePerson").click(function(){
-		var projectId = $("#pid");
-		if(projectId != ''){
-			$("#projectId").val(projectId);
-			sendPostRequestByJsonObj(platformUrl.addPerson, JSON.parse($("#person_form").serializeObject()), function(){},null);
-		}
-	});
 });
 /**
  * 计算初始估值
@@ -127,6 +118,17 @@ function calculationValuations(){
 		return projectContribution * (100/projectShareRatio);
 	}
 	return null;
+}
+/**
+ * 添加团队成员
+ */
+function addPerson(){
+	var projectId = $("#pid").val();
+	alert(projectId);
+	if(projectId != ''){
+		$("#projectId").val(projectId);
+		sendPostRequestByJsonObj(platformUrl.addPerson, JSON.parse($("#person_form").serializeObject()), function(){},null);
+	}
 }
 /**
  * 更新项目信息
