@@ -58,17 +58,8 @@ public class IndexController {
 	 * 到我的项目页面
 	 * @return
 	 */
-	@RequestMapping(value = "/mpl", method = RequestMethod.GET)
+	@RequestMapping(value = "/myproject", method = RequestMethod.GET)
 	public String myproject() {
 		return "project/list";
-	}
-	
-	/**
-	 * 项目进度弹出层
-	 * @return
-	 */
-	@RequestMapping(value = "/ips", method = RequestMethod.GET)
-	public String inProjectStage() {
-		return "project/stage/stage";
 	}
 }

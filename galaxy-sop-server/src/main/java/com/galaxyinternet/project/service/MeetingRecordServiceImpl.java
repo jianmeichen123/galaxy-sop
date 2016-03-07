@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
-import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
@@ -143,7 +142,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			task.setProjectId(pid);                     //项目id
 			task.setDepartmentId(udepartid);  	        //任务分派到: 投资经理
 			task.setTaskName("上传投资意向书");          //任务名称：    上传投资意向书
-			task.setAssignUid(userid);             //任务认领人id 
+			task.setTaskReceiveUid(userid);             //任务认领人id 
 			task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());		//任务状态: 2:待完工
 			task.setTaskType(DictEnum.taskType.协同办公.getCode());			//任务类型    协同
 			
@@ -172,7 +171,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			task1.setProjectId(pid);                     //项目id
 			task1.setDepartmentId(udepartid);  		    //任务分派到: 投资经理
 			task1.setTaskName("上传投资协议");          //任务名称：   上传投资协议
-			task1.setAssignUid(userid);             //任务认领人id 
+			task1.setTaskReceiveUid(userid);             //任务认领人id 
 			task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				//任务状态: 2:待完工
 			task1.setTaskType(DictEnum.taskType.协同办公.getCode());				//任务类型    协同
 			sopTaskDao.insert(task1);
@@ -183,7 +182,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				task2.setProjectId(pid);                    //项目id
 				task1.setDepartmentId(udepartid);  		//任务分派到: 投资经理
 				task2.setTaskName("上传股权转让协议");       //任务名称：  上传股权转让协议
-				task2.setAssignUid(userid);            //任务认领人id 
+				task2.setTaskReceiveUid(userid);            //任务认领人id 
 				task2.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				//任务状态: 2:待完工
 				task2.setTaskType(DictEnum.taskType.协同办公.getCode());					//任务类型    协同
 				sopTaskDao.insert(task2);
@@ -255,7 +254,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		task1.setProjectId(project.getId());         //项目id
 		task1.setDepartmentId(departid);  		 //任务分派到: 投资经理
 		task1.setTaskName("上传业务尽职调查报告");    //任务名称：  上传股权转让协议
-		task1.setAssignUid(userid);             //任务认领人id 
+		task1.setTaskReceiveUid(userid);             //任务认领人id 
 		task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				 //任务状态: 2:待完工
 		task1.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
 		sopTaskDao.insert(task1);
@@ -263,7 +262,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		//人事dd  任务生成
 		SopTask task2 = new SopTask();
 		task2.setProjectId(project.getId());         //项目id
-		task2.setDepartmentId(SopConstant.DEPARTMENT_RS_ID);  		 //任务分派到: 投资经理
+		task2.setTaskDestination("人事部");  		 //任务分派到: 投资经理
 		task2.setTaskName("上传人事尽职调查报告");        //任务名称：  上传股权转让协议
 		task2.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
 		task2.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
@@ -272,7 +271,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		//财务dd  任务生成
 		SopTask task3 = new SopTask();
 		task3.setProjectId(project.getId());         //项目id
-		task3.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);  		 //任务分派到: 投资经理
+		task3.setTaskDestination("财务部");  		 //任务分派到: 投资经理
 		task3.setTaskName("上传财务尽职调查报告");     //任务名称：  上传股权转让协议
 		task3.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
 		task3.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
@@ -281,7 +280,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		//法务dd  任务生成
 		SopTask task4 = new SopTask();
 		task4.setProjectId(project.getId());         //项目id
-		task4.setDepartmentId(SopConstant.DEPARTMENT_FW_ID);  		 //任务分派到: 投资经理
+		task4.setTaskDestination("法务部");  		 //任务分派到: 投资经理
 		task4.setTaskName("上传法务尽职调查报告");        //任务名称：  上传股权转让协议
 		task4.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
 		task4.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同

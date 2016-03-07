@@ -8,8 +8,8 @@
 		<result property="taskType" column="task_type" />
 		<result property="taskOrder" column="task_order" />
 		<result property="taskDeadline" column="task_deadline" />
-		<result property="departmentId" column="department_id" />
-		<result property="assignUid" column="assign_uid" />
+		<result property="taskDestination" column="task_destination" />
+		<result property="taskReceiveUid" column="task_receive_uid" />
 		<result property="taskStatus" column="task_status" />
 		<result property="remark" column="remark" />
 		<result property="createdTime" column="created_time" />
@@ -23,8 +23,8 @@
 		task_type,
 		task_order,
 		task_deadline,
-		department_id,
-		assign_uid,
+		task_destination,
+		task_receive_uid,
 		task_status,
 		remark,
 		updated_time,
@@ -40,9 +40,9 @@
 				<if test="taskType != null and taskType!='' "> and task_type =#{taskType}</if>
 				<if test="taskOrder != null and taskOrder!='' "> and task_order =#{taskOrder}</if>
 				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
-				<if test="departmentId != null and departmentId != ''"> and department_id =#{departmentId}</if>	
-				<if test="assignUid != null and assignUid != ''">
-					and (assign_uid =#{assignUid} or task_type=1 )
+				<if test="taskDestination != null and taskDestination!='' "> and task_destination =#{taskDestination}</if>	
+				<if test="taskReceiveUid != null and taskReceiveUid!=''">
+					and (task_receive_uid =#{taskReceiveUid} or task_status=1 )
 				</if>
 				<if test="taskStatus != null and taskStatus!='' "> and task_status =#{taskStatus}</if>
 				<if test="remark != null"> and remark =#{remark}</if>
@@ -77,9 +77,9 @@
 				<if test="taskType != null and taskType!='' "> and task_type =#{taskType}</if>
 				<if test="taskOrder != null and taskOrder!='' "> and task_order =#{taskOrder}</if>
 				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
-				<if test="departmentId != null and departmentId != ''"> and department_id =#{departmentId}</if>	
-				<if test="assignUid != null and assignUid != ''">
-					and (assign_uid =#{assignUid} or task_type=1 )
+				<if test="taskDestination != null and taskDestination!='' "> and task_destination =#{taskDestination}</if>	
+				<if test="taskReceiveUid != null and taskReceiveUid!='' and taskType!=1">
+					and (task_receive_uid =#{taskReceiveUid} or task_status=1 )
 				</if>
 				<if test="taskStatus != null and taskStatus!='' " > and task_status =#{taskStatus}</if>
 				<if test="remark != null"> and remark =#{remark}</if>
@@ -113,7 +113,7 @@
 		from sop_task where id = #{id}
 	</select>
 
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="SopTaskPO">
+	<insert id="insert" parameterType="SopTaskPO">
 	    <![CDATA[
 	        insert into
 	        sop_task (
@@ -123,8 +123,8 @@
         	   task_type,
         	   task_order,
         	   task_deadline,
-        	   department_id,
-        	   assign_uid,
+        	   task_destination,
+        	   task_receive_uid,
         	   task_status,
         	   remark,
         	   created_time
@@ -135,8 +135,8 @@
         	   #{taskType},
         	   #{taskOrder},
         	   #{taskDeadline},
-        	   #{departmentId},
-        	   #{assignUid},
+        	   #{taskDestination},
+        	   #{taskReceiveUid},
         	   #{taskStatus},
         	   #{remark},
         	   #{createdTime}
@@ -154,8 +154,8 @@
 			<if test="taskType != null">  task_type =#{taskType},</if>
 			<if test="taskOrder != null">  task_order =#{taskOrder},</if>
 			<if test="taskDeadline != null">  task_deadline =#{taskDeadline},</if>
-			<if test="departmentId != null">  department_id =#{departmentId},</if>
-			<if test="assignUid != null">  assign_uid =#{assignUid},</if>
+			<if test="taskDestination != null">  task_destination =#{taskDestination},</if>
+			<if test="taskReceiveUid != null">  task_receive_uid =#{taskReceiveUid},</if>
 			<if test="taskStatus != null">  task_status =#{taskStatus},</if>
 			<if test="remark != null">  remark =#{remark},</if>
 			<if test="createdTime != null">  created_time =#{createdTime},</if>
@@ -169,8 +169,8 @@
 				<if test="taskType != null"> and task_type =#{taskType}</if>
 				<if test="taskOrder != null"> and task_order =#{taskOrder}</if>
 				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
-				<if test="departmentId != null"> and department_id =#{departmentId}</if>
-				<if test="assignUid != null"> and assign_uid =#{assignUid}</if>
+				<if test="taskDestination != null"> and task_destination =#{taskDestination}</if>
+				<if test="taskReceiveUid != null"> and task_receive_uid =#{taskReceiveUid}</if>
 				<if test="taskStatus != null"> and task_status =#{taskStatus}</if>
 				<if test="remark != null"> and remark =#{remark}</if>
 				<if test="createdTime != null"> and created_time =#{createdTime}</if>
@@ -188,8 +188,8 @@
 			<if test="taskType != null">  task_type =#{taskType},</if>
 			<if test="taskOrder != null">  task_order =#{taskOrder},</if>
 			<if test="taskDeadline != null">  task_deadline =#{taskDeadline},</if>
-			<if test="departmentId != null">  department_id =#{departmentId},</if>
-			<if test="assignUid != null">  assign_uid =#{assignUid},</if>
+			<if test="taskDestination != null">  task_destination =#{taskDestination},</if>
+			<if test="taskReceiveUid != null">  task_receive_uid =#{taskReceiveUid},</if>
 			<if test="taskStatus != null">  task_status =#{taskStatus},</if>
 			<if test="remark != null">  remark =#{remark},</if>
 			<if test="createdTime != null">  created_time =#{createdTime},</if>
@@ -219,8 +219,8 @@
 				<if test="projectId != null"> and project_id =#{projectId}</if>
 				<if test="taskName != null"> and task_name =#{taskName}</if>
 				<if test="taskType != null"> and task_type =#{taskType}</if>
-				<if test="departmentId != null"> and department_id =#{departmentId}</if>
-				<if test="assignUid != null"> and assign_uid =#{assignUid}</if>
+				<if test="taskDestination != null"> and task_destination =#{taskDestination}</if>
+				<if test="taskReceiveUid != null"> and task_receive_uid =#{taskReceiveUid}</if>
 				<if test="taskStatus != null"> and task_status =#{taskStatus}</if>
 				<if test="taskStatusList != null"> 
 					and task_status in

@@ -133,7 +133,7 @@
 	<update id="updateById" parameterType="SopTemplatePO">
 		update sop_template
 		<set>
-			<if test="departmentId != null"> department_id = #{department_id,jdbcType=BIGINT}, </if>
+			<if test="departmentId != null"> department_id = #{departmentId,jdbcType=BIGINT}, </if>
 			<if test="docType != null"> doc_type = #{docType,jdbcType=INTEGER}, </if>
 			<if test="updateUid != null"> update_uid = #{updateUid,jdbcType=BIGINT}, </if>
 			<if test="updatedTime != null"> update_time = #{updatedTime,jdbcType=BIGINT}, </if>

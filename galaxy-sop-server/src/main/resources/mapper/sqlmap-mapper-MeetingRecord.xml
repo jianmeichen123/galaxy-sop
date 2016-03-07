@@ -148,7 +148,6 @@
 		where sm.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
 			<if test="projectId != null"> and p.id = #{projectId,jdbcType=BIGINT} </if>
-			<if test="meetingType != null"> and sm.meeting_type = #{meetingType} </if>
 			<if test="startTime != null"> <![CDATA[  and sm.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 			<if test="endTime != null"> <![CDATA[ and sm.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
 			<if test="proNameCode != null">
@@ -172,7 +171,6 @@
 		where sm.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
 			<if test="projectId != null"> and p.id = #{projectId,jdbcType=BIGINT} </if>
-			<if test="meetingType != null"> and sm.meeting_type = #{meetingType} </if>
 			<if test="startTime != null"> <![CDATA[  and sm.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 			<if test="endTime != null"> <![CDATA[ and sm.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
 			<if test="proNameCode != null">

@@ -100,7 +100,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project.setProjectCode(String.valueOf(code));
 		if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
 				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
-			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectValuations());
 		}
 		project.setCreateUid(user.getId());
 		project.setCreateUname(user.getNickName());
@@ -230,7 +230,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) obj;
 		Project p = projectService.queryById(pool.getProjectId());
 		//项目创建者用户ID与当前登录人ID是否一样
-		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
+		if(p != null && user.getId() != p.getCreateUid()){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限为该项目添加团队成员!"));
 			return responseBody;
 		}

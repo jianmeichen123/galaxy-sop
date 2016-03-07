@@ -496,11 +496,7 @@
     };
     
     BootstrapTable.prototype.initCustomToolbar = function () {
-    	
     	$("#custom-toolbar").on("click","button[type='submit']",function(){
-    		$('#data-table').bootstrapTable("querySearch");
-    	});
-    	$("#custom-toolbar").on("click","a[action='querySearch']",function(){
     		$('#data-table').bootstrapTable("querySearch");
     	});
 	}
@@ -921,19 +917,19 @@
             this.options.icons = calculateObjectValue(null, this.options.icons);
         }
 
-        /*if (this.options.showPaginationSwitch) {
+        if (this.options.showPaginationSwitch) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s">',
                     this.options.formatPaginationSwitch()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
                 '</button>');
-        }*/
+        }
 
-        /*if (this.options.showRefresh) {
+        if (this.options.showRefresh) {
             html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" name="refresh" title="%s">',
                     this.options.formatRefresh()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.refresh),
                 '</button>');
-        }*/
+        }
 
         if (this.options.showToggle) {
             html.push(sprintf('<button class="btn btn-default' + (this.options.iconSize === undefined ? '' : ' btn-' + this.options.iconSize) + '" type="button" name="toggle" title="%s">',
@@ -1646,33 +1642,14 @@
 
         this.trigger('post-body');
     };
-     ///querySerch
+
     BootstrapTable.prototype.getCustomToolbar = function () {
     	var toolbar = $("#custom-toolbar");
     	var query = {};
-    	toolbar.find("input[name][type!='radio']").each(function(){
+    	toolbar.find("input").each(function(){
     		var input = $(this);
     		var name = input.attr("name");
     		var val = input.val();
-    		if(val!=''){
-    			query[name]=val;
-    		}
-    	});
-    	toolbar.find("input[type='radio']").each(function(){
-    		var input = $(this);
-    		var name = input.attr("name");
-    		if(input.attr("checked")=="checked"||input.prop("checked")==true){
-    			var val = input.val();
-        		if(val!=''){
-        			query[name]=val;
-        		}
-    		}
-    	});
-    	
-    	toolbar.find("select[name]").each(function(){
-    		var select = $(this);
-    		var name = select.attr("name");
-    		var val = select.val();
     		if(val!=''){
     			query[name]=val;
     		}

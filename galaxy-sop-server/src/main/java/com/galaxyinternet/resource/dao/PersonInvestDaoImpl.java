@@ -11,6 +11,5 @@ import com.galaxyinternet.model.hr.PersonInvest;
 public class PersonInvestDaoImpl  extends BaseDaoImpl<PersonInvest, Long> implements PersonInvestDao{
 
 	
-	
 }
 

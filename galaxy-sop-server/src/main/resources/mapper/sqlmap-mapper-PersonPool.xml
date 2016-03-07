@@ -74,7 +74,7 @@
 		from sop_person_pool where id = #{id}
 	</select>
 	
-  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.Project" >
+  	<insert id="insert" parameterType="com.galaxyinternet.model.project.Project" >
 	    <![CDATA[
 	     insert into sop_person_pool (id, person_name, person_sex, person_age, highest_degree, work_time, person_duties, person_birthday, person_idcard, person_telephone, person_email, 
     		person_character, person_goodness, person_disparity, talk_ability, team_ability, 

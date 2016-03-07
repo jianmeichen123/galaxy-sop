@@ -10,6 +10,7 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -64,8 +65,9 @@
 </div>
 <!-- upload dialog start -->
 <div id="upload-dialog" class="archivestc" style="display:none;">
-<form id="upload-from" method="post" enctype="multipart/form-data">
+<form id="upload-form">
 	<input type="hidden" name="id">
+	<input type="hidden" name="fileKey">
 	<h2>模板更新</h2>   
     <dl class="fmdl clearfix">
     	<dt>存储类型：</dt>
@@ -82,29 +84,35 @@
     <dl class="fmdl clearfix">
     	<dt>所属部门：</dt>
         <dd>
-        	<select name="department"></select>
+        	<select name="departmentId"></select>
         </dd>
     </dl>
-    <div class="fmload clearfix">
-    	<p class="loadname"></p>
-        <input type="file" class="load" onchange="selectFile(this)"/>
-        <a href="javascript:;" class="pubbtn fffbtn">选择档案</a>
+    <div class="fmdl clearfix">
+    	<dd>
+        <input type="text" name="bucketName" class="txt" onchange="selectFile(this)"/>
+    	</dd>
+    	<dd>
+        <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>
+    	</dd>
     </div>
     <div class="fmarea">
     	<textarea name="remark"></textarea>
     </div>
 </form>
-    <a href="javascript:;" class="pubbtn bluebtn">上传保存</a>
+    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
 </div>
 <!-- upload dialog end -->
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
+var uploader;
 $(function(){
-	createMenus(1);
+	createMenus(13);
 	loadTempList();
 	loadRelatedData();
 });
-
+/**
+ * 加载模板列表
+ */
 function loadTempList()
 {
 	sendGetRequest(
@@ -113,7 +121,7 @@ function loadTempList()
 			function(data){
 				$("#template-table tbody").empty();
 				$.each(data.entityList,function(){
-					var $tr = $('<tr></tr>');
+					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-bucket-name="'+this.bucketName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'"></tr>');
 					$tr.append('<td><input type="checkbox" name="document" checked="checked"/></td>') ;
 					$tr.append('<td>'+this.workTypeDesc+'</td>') ;
 					$tr.append('<td>'+this.departmentDesc+'</td>') ;
@@ -130,13 +138,15 @@ function loadTempList()
 					}
 					$("#template-table tbody").append($tr);
 					
-					handleDownload();
-					handleUpload();
 				});
+				handleDownload();
+				handleUpload();
 			}
 	);
 }
-
+/**
+ * 加载下拉列表数据
+ */
 function loadRelatedData()
 {
 	sendGetRequest(
@@ -144,13 +154,13 @@ function loadRelatedData()
 			null,
 			function(data){
 				$.each(data.fileType,function(){
-					$("#upload-from [name='docType']").append("<option value='"+this.value+"'>"+this.name+"</option>")
+					$("#upload-form [name='docType']").append("<option value='"+this.value+"'>"+this.name+"</option>")
 				});
 				$.each(data.fileWorktype,function(){
-					$("#upload-from [name='worktype']").append("<option value='"+this.value+"'>"+this.name+"</option>")
+					$("#upload-form [name='worktype']").append("<option value='"+this.value+"'>"+this.name+"</option>")
 				});
 				$.each(data.department,function(){
-					$("#upload-from [name='department']").append("<option value='"+this.id+"'>"+this.name+"</option>")
+					$("#upload-form [name='departmentId']").append("<option value='"+this.id+"'>"+this.name+"</option>")
 				});
 			}
 	);
@@ -173,7 +183,7 @@ function handleUpload()
 			callback:function(t,postionEve){
 				postionEve();
 				$("#popTxt").html($("#upload-dialog").html());
-				$("#upload-from input[name='id']").val($self.data("tid"));
+				$("#upload-form input[name='id']").val($self.data("tid"));
 				if($self.data('act') == 'update')
 				{
 					$("#popTxt").find("h2").text("模板更新");
@@ -182,10 +192,17 @@ function handleUpload()
 				{
 					$("#popTxt").find("h2").text("模板上传");
 				}
+				
+				initUpload();
+				var row = $("tr[data-id='"+id+"']")[0];
+				setForm($("#popTxt #upload-form"),row.dataset);
 			}
 		});
 	});
 }
+/**
+ * 判断文档类型
+ */
 function selectFile(ele)
 {
 	var file = ele.value;
@@ -193,19 +210,77 @@ function selectFile(ele)
 	var ext = file.substring(dotPos);
 	if(/\.(doc|docx|xls|xlsx|pdf)$/.test(ext.toLowerCase()))
 	{
-		$("#upload-from [name='docType']").val(1);
+		$("#upload-form [name='docType']").val(1);
 	}
 	else if(/\.(mp3|wmv)$/.test(ext.toLowerCase()))
 	{
-		$("#upload-from [name='docType']").val(2);
+		$("#upload-form [name='docType']").val(2);
 	}
 	else if(/\.(avi|mov|wmv|mkv)$/.test(ext.toLowerCase()))
 	{
-		$("#upload-from [name='docType']").val(3);
+		$("#upload-form [name='docType']").val(3);
 	}
 	else
 	{
-		$("#upload-from [name='docType']").val(4);
+		$("#upload-form [name='docType']").val(4);
+	}
+	
+}
+
+function initUpload()
+{
+	var uploader = new plupload.Uploader({
+		runtimes : 'html5,flash,silverlight,html4',
+		browse_button : $("#popTxt").find("#file-select-btn")[0], 
+		url : '<%=path %>'+platformUrl.tempUpload,
+		multi_selection:false,
+		filters : {
+			max_file_size : '10mb'
+		},
+
+		init: {
+			PostInit: function() {
+				$("#popTxt").find("#upload-btn").click(function(){
+					uploader.start();
+					return false;
+				});
+			},
+
+			FilesAdded: function(up, files) {
+				plupload.each(files, function(file) {
+					$("#popTxt input[name='bucketName']").val(file.name);
+				});
+			},
+			
+			FileUploaded: function(up, files, rtn) {
+				$("#popTxt input[name='fileKey']").val(rtn.response);
+				$form = $("#popTxt #upload-form");
+				var data = JSON.parse($form .serializeObject());
+				var url = "<%=path %>"+platformUrl.tempSave
+				sendPostRequestByJsonObj(
+						url,
+						data,
+						function(data){
+							alert("上传成功.");
+							loadTempList();
+						}
+				);
+			}
+		}
+	});
+
+	uploader.init();
+	
+}
+
+function setForm(form,data)
+{
+	for(key in data)
+	{
+		if(data[key] != 'undefined' && data[key])
+		{
+			form.find("[name='"+key+"']").val(data[key]);
+		}
 	}
 	
 }
