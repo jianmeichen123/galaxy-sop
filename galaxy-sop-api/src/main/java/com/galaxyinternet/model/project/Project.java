@@ -1,9 +1,10 @@
 package com.galaxyinternet.model.project;
 
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
-public class Project extends BaseEntity {
+public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
 	 private String projectName;
@@ -37,6 +38,12 @@ public class Project extends BaseEntity {
     private String projectProgress;
 
     private String projectStatus;
+    
+    private String nameCodeLike;
+    
+    //详情数据转换
+  	private String createDate;
+  	private String type;
 
 
     public Long getId() {
@@ -69,6 +76,11 @@ public class Project extends BaseEntity {
 
     public void setProjectType(String projectType) {
         this.projectType = projectType == null ? null : projectType.trim();
+        if(this.projectType != null && "projectType:2".equals(this.projectType)){
+			this.type = "内部创建";
+		}else{
+			this.type = "外部投资";
+		}
     }
 
     public String getProjectCareerline() {
@@ -226,5 +238,22 @@ public class Project extends BaseEntity {
     public void setProspectAnalysis(String prospectAnalysis) {
         this.prospectAnalysis = prospectAnalysis == null ? null : prospectAnalysis.trim();
     }
+    
+    public String getCreateDate() {
+		this.createDate = DateUtil.longToString(this.createdTime);
+		return createDate;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public String getNameCodeLike() {
+		return nameCodeLike;
+	}
+
+	public void setNameCodeLike(String nameCodeLike) {
+		this.nameCodeLike = nameCodeLike;
+	}
 
 }

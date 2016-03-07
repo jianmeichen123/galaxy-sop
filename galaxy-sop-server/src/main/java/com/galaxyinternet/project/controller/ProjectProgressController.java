@@ -609,8 +609,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}
 			SopTask task = new SopTask();
 			task.setProjectId(pid);
-			task.setTaskName(taskName);          
-			task.setTaskReceiveUid(user.getId());
+			task.setTaskName(taskName);
+			task.setAssignUid(user.getId());
 			task = sopTaskService.queryOne(task);
 			if(task==null){
 				responseBody.setResult(new Result(Status.ERROR, null,"任务检索为空"));
@@ -667,7 +667,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			SopTask task = new SopTask();
 			task.setProjectId(pid);
 			task.setTaskName("上传投资意向书");          //任务名称：    上传投资意向书
-			task.setTaskReceiveUid(user.getId());
+			task.setAssignUid(user.getId());
 			task = sopTaskService.queryOne(task);
 			if(task.getTaskStatus()==null || !task.getTaskStatus().equals(DictEnum.taskStatus.已完成.getCode())){
 				responseBody.setResult(new Result(Status.ERROR,null, "Front task is not complete"));
@@ -779,7 +779,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			//验证任务完成
 			SopTaskBo task = new SopTaskBo();
 			task.setProjectId(pid);
-			task.setTaskReceiveUid(user.getId());
+			task.setAssignUid(user.getId());
 			List<String> sl = new ArrayList<String>();
 			sl.add(DictEnum.taskStatus.待认领.getCode());
 			sl.add(DictEnum.taskStatus.待完工.getCode());

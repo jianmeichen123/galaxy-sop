@@ -50,7 +50,7 @@ function setData(obj ,searchName){
 			 var tr='<tr>'+
 				 '<td>1</td>'+
 				 '<td><span class="red">'+soptask.taskOrder+'</span></td>'+
-				 '<td>8小时</td>'+
+				 '<td>'+ soptask.hours+'</td>'+
 				 '<td>'+ soptask.taskDeadlineformat+'</td>'+
 				 '<td>'+soptask.taskType+'</td>'+
 				 '<td>'+soptask.taskName+'</td>'+
@@ -58,9 +58,10 @@ function setData(obj ,searchName){
 				 '<td>'+soptask.projectName+'</td>'+
 				 '<td>'+soptask.createUname+'</td>'+
 				 '<td>'+soptask.remark+'</td>'+
+				 '<td>'+soptask.caozuohtml+'<td>'+
 				// '<td class="caozuo"><a href="/galaxy/soptask/goClaimtcPage?id=1" data-btn="claim" class="blue" id="flag_'+soptask.statusFlag+'">'+soptask.caozuo+'</a>'+
 				// '<input type="hidden" id="taskId" value="'+soptask.id+'"></td>'+
-				 '<td><a href="/galaxy/soptask/goClaimtcPage?id=1" data-btn="claim">认领</a><td>'+
+				 //'<td><a href="/galaxy/soptask/goClaimtcPage?id=1" data-btn="claim">认领</a><td>'+
 				' </tr>'; 	
 			 tasklist_tody.append(tr);
 		  });

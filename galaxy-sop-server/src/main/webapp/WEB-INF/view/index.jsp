@@ -8,7 +8,6 @@
 <meta charset="utf-8">
 <title>繁星</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<script src="<%=path%>/js/jquery-1.7.2.min.js" type="text/javascript"></script>
 <script src="<%=path%>/js/sopUserSchedule.js" type="text/javascript"></script>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->

@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.PersonPoolBo;
+import com.galaxyinternet.common.constants.SopConstant;
+import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectPersonDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
@@ -42,12 +44,11 @@ public class PersonPoolServiceImpl extends BaseServiceImpl<PersonPool> implement
 		
 		SopTask task = new SopTask();
 		task.setProjectId(pool.getProjectId());
-		task.setTaskName("完善简历");
-		//from字典
-		task.setTaskType("t-001");
-		task.setTaskOrder("tl-001");
-		task.setTaskDestination("td-001");
-		task.setTaskStatus("ts-001");
+		task.setTaskName(SopConstant.TASK_NAME_WSJL);
+		task.setTaskType(DictEnum.taskType.协同办公.getCode());
+		task.setTaskOrder(SopConstant.NORMAL_STATUS);
+		task.setDepartmentId(SopConstant.DEPARTMENT_RS_ID);
+		task.setTaskStatus(DictEnum.taskStatus.待认领.getCode());
 		task.setCreatedTime(System.currentTimeMillis());
 		sopTaskDao.insert(task);
 		return id;

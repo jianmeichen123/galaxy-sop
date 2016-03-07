@@ -43,6 +43,7 @@
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
 			  <if test="projectName != null" > and project_name = #{projectName,jdbcType=VARCHAR} </if>
+			  <if test="nameCodeLike != null and nameCodeLike !=''" > and (project_name like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%") or project_code like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%")) </if>
 		      <if test="projectCode != null" > and project_code = #{projectCode,jdbcType=VARCHAR} </if>
 		      <if test="projectType != null" > and project_type = #{projectType,jdbcType=VARCHAR} </if>
 		      <if test="projectCareerline != null" > and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
@@ -135,9 +136,11 @@
 	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.project.Project">
 		update sop_project
 		<set>
-			<if test="projectName != null" >  project_name = #{projectName,jdbcType=VARCHAR}, </if>
+			  <!-- 
+			  <if test="projectName != null" >  project_name = #{projectName,jdbcType=VARCHAR}, </if>
 		      <if test="projectCode != null" >  project_code = #{projectCode,jdbcType=VARCHAR}, </if>
 		      <if test="projectType != null" >  project_type = #{projectType,jdbcType=VARCHAR}, </if>
+		       -->
 		      <if test="projectCareerline != null" > project_careerline = #{projectCareerline,jdbcType=VARCHAR}, </if>
 		      <if test="projectDepartid != null" >  project_departId = #{projectDepartid,jdbcType=BIGINT}, </if>
 		      <if test="projectValuations != null" >   project_valuations = #{projectValuations,jdbcType=DECIMAL}, </if>
@@ -183,7 +186,9 @@
 		      <if test="projectProgress != null" > and project_progress = #{projectProgress,jdbcType=VARCHAR} </if>
 		      <if test="projectStatus != null" > and project_status = #{projectStatus,jdbcType=VARCHAR} </if>
 		      <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
-		      <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
+		      <!--
+		      <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
+		      -->
 		      <if test="projectDescribe != null" > and project_describe = #{projectDescribe,jdbcType=LONGVARCHAR} </if>
 		      <if test="projectBusinessModel != null" > and project_business_model = #{projectBusinessModel,jdbcType=LONGVARCHAR} </if>
 		      <if test="companyLocation != null" > and company_location = #{companyLocation,jdbcType=LONGVARCHAR} </if>
@@ -196,9 +201,11 @@
 	<update id="updateById" parameterType="com.galaxyinternet.model.project.Project">
 		update sop_project
 		<set>
-			<if test="projectName != null" >  project_name = #{projectName,jdbcType=VARCHAR}, </if>
+			  <!-- 
+			  <if test="projectName != null" >  project_name = #{projectName,jdbcType=VARCHAR}, </if>
 		      <if test="projectCode != null" >  project_code = #{projectCode,jdbcType=VARCHAR}, </if>
 		      <if test="projectType != null" >  project_type = #{projectType,jdbcType=VARCHAR}, </if>
+		       -->
 		      <if test="projectCareerline != null" > project_careerline = #{projectCareerline,jdbcType=VARCHAR}, </if>
 		      <if test="projectDepartid != null" >  project_departId = #{projectDepartid,jdbcType=BIGINT}, </if>
 		      <if test="projectValuations != null" >   project_valuations = #{projectValuations,jdbcType=DECIMAL}, </if>
@@ -213,7 +220,9 @@
 		      <if test="projectProgress != null" >  project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
 		      <if test="projectStatus != null" >  project_status = #{projectStatus,jdbcType=VARCHAR}, </if>
 		      <if test="updatedTime != null" >  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+		      <!--
 		      <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
+		      -->
 		      <if test="projectDescribe != null" >  project_describe = #{projectDescribe,jdbcType=LONGVARCHAR}, </if>
 		      <if test="projectBusinessModel != null" >  project_business_model = #{projectBusinessModel,jdbcType=LONGVARCHAR}, </if>
 		      <if test="companyLocation != null" >  company_location = #{companyLocation,jdbcType=LONGVARCHAR}, </if>

@@ -21,6 +21,7 @@ import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
@@ -97,9 +98,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		project.setProjectCode(String.valueOf(code));
-		if(project.getProjectValuations() != null && project.getProjectValuations() > 0 
+		if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
 				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
-			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectValuations());
+			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
 		}
 		project.setCreateUid(user.getId());
 		project.setCreateUname(user.getNickName());
@@ -142,8 +143,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) obj;
 		
 		Project p = projectService.queryById(project.getId());
+		if(p == null){
+			responseBody.setResult(new Result(Status.ERROR, "未找到相应的项目信息!"));
+			return responseBody;
+		}
 		//项目创建者用户ID与当前登录人ID是否一样
-		if(p != null && user.getId() != p.getCreateUid()){
+		if(user.getId().longValue() != p.getCreateUid().longValue()){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限修改该项目!"));
 			return responseBody;
 		}
@@ -154,6 +159,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	
 	
 	/**
 	 * 查询指定的项目信息接口
@@ -170,6 +176,35 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		responseBody.setEntity(project);
+		return responseBody;
+	}
+	
+	/**
+	 * 获取用户列表数据 重新组装关联数据
+	 * 
+	 * @param
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/spl", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody Project project) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (obj == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		try {
+			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
+			responseBody.setPageList(pageProject);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
 		return responseBody;
 	}
 	
@@ -195,7 +230,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) obj;
 		Project p = projectService.queryById(pool.getProjectId());
 		//项目创建者用户ID与当前登录人ID是否一样
-		if(p != null && user.getId() != p.getCreateUid()){
+		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限为该项目添加团队成员!"));
 			return responseBody;
 		}

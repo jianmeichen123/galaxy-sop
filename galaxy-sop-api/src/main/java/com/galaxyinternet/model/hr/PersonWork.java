@@ -18,7 +18,8 @@ public class PersonWork extends BaseEntity{
 	private Date beginWork;//入职时间 
 	private Date overWork;//离职时间
 	private String leaveReason;//离职原因
-	private String leaderPosition;//上级姓名
+	private String leaderName;//上级姓名
+	private String leaderPosition;//上级职位
 	private String leaderPhone;//上级电话
 	private String colleagueName;//同事姓名
 	private String colleaguePosition;//同事职位
@@ -121,5 +122,13 @@ public class PersonWork extends BaseEntity{
 	public void setColleaguePhone(String colleaguePhone) {
 		this.colleaguePhone = colleaguePhone;
 	}
+	public String getLeaderName() {
+		return leaderName;
+	}
+	public void setLeaderName(String leaderName) {
+		this.leaderName = leaderName;
+	}
+	
+	
 	
 }
