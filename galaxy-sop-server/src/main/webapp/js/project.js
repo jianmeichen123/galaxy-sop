@@ -106,17 +106,123 @@ $(function(){
 			$("#project_valuations").text(valuations);
 		}
 	});
-	/**
-	 * 添加团队成员
-	 */
-	$("#savePerson").click(function(){
-		var projectId = $("#pid");
-		if(projectId != ''){
-			$("#projectId").val(projectId);
-			sendPostRequestByJsonObj(platformUrl.addPerson, JSON.parse($("#person_form").serializeObject()), function(){},null);
-		}
-	});
+	
+	
+	
+
 });
+
+/** 添加团队成员
+	 */
+
+function savePerson(){
+	var projectId = $("#pid").val();
+	if(projectId != ''){
+		$("#projectId").val(projectId);
+		sendPostRequestByJsonObj(platformUrl.addPerson, JSON.parse($("#person_form").serializeObject()), savePersonCallBack,null);
+	}
+}
+
+/**
+ * 添加股权结构
+ */
+function savaStock(){
+	var projectId = $("#pid").val();
+	if(projectId != ''){
+		$("#projectId").val(projectId);
+		sendPostRequestByJsonObj(platformUrl.addStock, JSON.parse($("#stock_form").serializeObject()), saveProjectCallBack,null);
+	}
+}
+
+/**
+ * 修改股权结构
+ */
+function updateStock(){
+	var projectId = $("#pid").val();
+	if(projectId != ''){
+		$("#projectId").val(projectId);
+		sendPostRequestByJsonObj(platformUrl.updateStock, JSON.parse($("#up_stock_form").serializeObject()),saveProjectCallBack,null);
+	}
+	//window.location.reload("/galaxy/upp");
+}
+
+/**
+ * 删除股权结构
+ * @param id
+ */
+function delStock(id,url){
+	var projectId = $("#pid").val();
+	var url = "/galaxy/projectShares/deleteProjectShares/"+id+"/"+projectId;
+	if(projectId != ''){
+		$("#projectId").val(projectId);
+		sendGetRequest(url,'',saveProjectCallBack,null);
+	}
+}
+
+/**
+ * 修改团队成员
+ */
+function updatePerson(){
+	var projectId = $("#pid").val();
+	if(projectId != ''){
+		$("#projectId").val(projectId);
+		sendPostRequestByJsonObj(platformUrl.updatePerson, JSON.parse($("#up_person_form").serializeObject()),savePersonCallBack,null);
+	}
+}
+/**
+ * 删除团队成员
+ * @param id
+ */
+function deletePer(id,url){
+	var projectId = $("#pid").val();
+	var url = "/galaxy/project/dpp/"+id+"/"+projectId;
+	if(projectId != ''){
+		$("#projectId").val(projectId);
+		sendGetRequest(url,'',savePersonCallBack,null);
+	}
+}
+
+//保存成功回调
+function savePersonCallBack(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		alert("error "+data.result.message);
+		return;
+	}
+	alert("操作成功!");
+	$("#popbg,#pop").remove();
+	//window.location.reload("/galaxy/upp");
+	getTabPerson();
+}
+
+//保存成功回调
+function saveProjectCallBack(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		alert("error "+data.result.message);
+		return;
+	}
+	alert("操作成功!");
+	$("#popbg,#pop").remove();
+	//window.location.reload("/galaxy/upp");
+	getTabShare();
+}
+
+function refresh(){
+	window.location.href=window.location.href;
+}
+
+//删除成功回调
+function deleteProjectCallBack(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		alert("error "+data.result.message);
+		return;
+	}
+	alert("删除成功!");
+	window.location.reload("/galaxy/upp");
+}
+
 /**
  * 计算初始估值
  */

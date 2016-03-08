@@ -7,9 +7,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>繁星SOP-添加项目</title>
+	
+	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+	<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
 	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<!-- jsp文件头和头部 -->
+	<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
 	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 	<!-- 富文本编辑器 -->
 	<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
@@ -17,6 +21,9 @@
     <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
     <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script type="text/javascript" src="<%=path %>/js/project.js"></script>
+
+    <script src="<%=path %>/js/init.js"></script>
+
 </head>
 
 <body>
@@ -185,93 +192,19 @@
               <dd class="full_w describe clearfix">
               	<div class="btnbox_f">
                   <a href="<%=path %>/galaxy/addperson" data-btn="addmen" class="ico b1">添加</a>
+                  <!--  
                   <a href="javascript:;" class="ico b2">修改</a>
-                  <a href="javascript:;" class="ico b3">删除</a>
+                  <a href="javascript:;" class="ico b3">删除</a>-->
                 </div>
                 <div class="clearfix"></div>
-                <table width="100%" cellspacing="0"  cellpadding="0">
-                  <thead>
-                      <tr>
-                          <th>姓名</th>
-                          <th>性别</th>
-                          <th>年龄</th>
-                          <th>当前职务</th>
-                          <th>电话</th>
-                          <th>最高学历</th>
-                          <th>工作年限</th>
-                          <th>能力匹配</th>
-                          <th>评级</th>
-                          <th>操作</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>王小林</td>
-                          <td>男</td>
-                          <td>33</td>
-                          <td>CEO</td>
-                          <td>15901454545</td>
-                          <td>博士</td>
-                          <td>12</td>
-                          <td><img src="img/star.png" alt="" class="star"></td>
-                          <td><img src="img/star.png" alt="" class="star"></td>
-                          <td>个人简历</td>
-                      </tr>
-                      <tr>
-                          <td>王小林</td>
-                          <td>男</td>
-                          <td>33</td>
-                          <td>CEO</td>
-                          <td>15901454545</td>
-                          <td>博士</td>
-                          <td>12</td>
-                          <td><img src="img/star.png" alt="" class="star"></td>
-                          <td><img src="img/star.png" alt="" class="star"></td>
-                          <td>个人简历</td>
-                      </tr>
-                      <tr>
-                          <td>王小林</td>
-                          <td>男</td>
-                          <td>33</td>
-                          <td>CEO</td>
-                          <td>15901454545</td>
-                          <td>博士</td>
-                          <td>12</td>
-                          <td></td>
-                          <td></td>
-                          <td>个人简历</td>
-                      </tr>
-                      <tr>
-                          <td>王小林</td>
-                          <td>男</td>
-                          <td>33</td>
-                          <td>CEO</td>
-                          <td>15901454545</td>
-                          <td>博士</td>
-                          <td>12</td>
-                          <td></td>
-                          <td></td>
-                          <td>个人简历</td>
-                      </tr>
-                      <tr>
-                          <td>王小林</td>
-                          <td>男</td>
-                          <td>33</td>
-                          <td>CEO</td>
-                          <td>15901454545</td>
-                          <td>博士</td>
-                          <td>12</td>
-                          <td></td>
-                          <td></td>
-                          <td>个人简历</td>
-                      </tr>
-                  </tbody>
-                </table>
-                <ul>
-                  <li><a href="javascript:;">首页</a></li>
-                  <li><a href="javascript:;">上一页</a><span class="active">/</span><a href="javascript:;" class="active">下一页</a></li>
-                  <li><a href="javascript:;" class="active">末页</a></li>
-                </ul>
+                <div class="tab-pane active" id="view">	
+	               	<table id="tablePerson"  data-height="555" 
+	               	data-method="post" data-show-refresh="true" 
+					data-side-pagination="server" data-pagination="true" 
+					data-page-list="[1, 5, 50]" data-search="false">
+					</table> 
+				</div>
+				
               </dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a><a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
@@ -284,59 +217,18 @@
               <dt>股权结构</dt>
               <dd class="full_w describe clearfix">
               <div class="btnbox_f">
-                  <a href="javascript:;" class="ico b1">添加</a>
+                  <a href="<%=path %>/galaxy/projectShares/addShares" data-btn="stock" class="ico b1">添加</a>
+                  <!-- 
                   <a href="javascript:;" class="ico b2">修改</a>
                   <a href="javascript:;" class="ico b3">删除</a>
+                   -->
                 </div>
                 <div class="clearfix"></div>
-                <table width="100%" cellspacing="0"  cellpadding="0">
-                  <thead>
-                      <tr>
-                          <th>类型</th>
-                          <th>所有权人</th>
-                          <th>占比</th>
-                          <th>获取方式</th>
-                          <th>备注</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>自然人</td>
-                          <td>CEO</td>
-                          <td>20%</td>
-                          <td>创始人</td>
-                          <td></td>
-                      </tr>
-                      <tr>
-                          <td>自然人</td>
-                          <td>CEO</td>
-                          <td>20%</td>
-                          <td>创始人</td>
-                          <td></td>
-                      </tr>
-                      <tr>
-                          <td>自然人</td>
-                          <td>CEO</td>
-                          <td>20%</td>
-                          <td>创始人</td>
-                          <td></td>
-                      </tr>
-                      <tr>
-                          <td>自然人</td>
-                          <td>CEO</td>
-                          <td>20%</td>
-                          <td>创始人</td>
-                          <td></td>
-                      </tr>
-                      <tr>
-                          <td>自然人</td>
-                          <td>CEO</td>
-                          <td>20%</td>
-                          <td>创始人</td>
-                          <td></td>
-                      </tr>
-                  </tbody>
-                </table>
+                  <div class="tab-pane active" id="pView">	
+	               <table id="table" data-height="555" data-method="post"
+	               	 data-show-refresh="true">
+					</table>
+				</div>
               </dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a><a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
@@ -452,9 +344,199 @@
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-
-<script type="text/javascript">
+<script src="<%=path %>/js/init.js"></script>
+<!-- bootstrap-table -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
+<script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=request.getContextPath() %>/js/axure.js"></script>
+<script>
+	createMenus(5);
+	function editor(value, row, index){
+		var id=row.id;
+		var url='<%=path %>/galaxy/project/updatePro/'+id;
+		var options = '<div class="btnbox_f"><a href="javascript:;" class="ico b2">人人简历</a>'+
+			'<a href="#" data-btn="addmen" class="ico b2" onclick="updatePer('+id+')">修改</a>'+
+            '<a href="#" data-btn="addmen" class="ico b2" onclick="deletePer('+id+')">删除</a></div>';
+		return options;
+	}
+	function formatGender(index, row) {
+		if (row.gender == true) {
+			return "男";
+		} else {
+			return "女";
+		}
+	}
+	function updatePer(id){
+		var _url = "<%=path %>/galaxy/project/updatePro/"+id;
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+			
+			}//模版反回成功执行	
+		});
+		return false;
+	}
+	getTabPerson();
+	getTabShare();
 	
-</script>
+	function getTabPerson(){
+		var $table = $('#tablePerson');
+	    $table.bootstrapTable({
+	    url: "project/queryProjectPerson", 
+	    dataType: "json",
+	    pagination: true, //分页
+	    search: false, //显示搜索框
+	    pageList: [1,5,20],
+	    queryParams: queryParams,
+	    sidePagination: "server", //服务端处理分页
+	          columns: [
+	                  {
+	                    title: '姓名',
+	                      field: 'personName',
+	                      align: 'center',
+	                      valign: 'middle'
+	                  },
+	                  {
+                        title: '性别',
+                        field: 'personSex',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter:function(value,row,index){ 
+                        	if (row.gender == true) {
+                    			return "男";
+                    		} else {
+                    			return "女";
+                    		}
+                        }
+	                    },
+	                    {
+	                        title: '年龄',
+	                          field: 'personAge',
+	                          align: 'center',
+	                          valign: 'middle'
+	                     },
+	                     {
+	                          title: '当前职务',
+	                            field: 'personDuties',
+	                            align: 'center',
+	                            valign: 'middle'
+	                  },
+	                  {
+	                      title: '电话',
+	                        field: 'personTelephone',
+	                        align: 'center',
+	                        valign: 'middle'
+	                  },
+	                  {
+	                      title: '最高学历',
+	                        field: 'highestDegree',
+	                        align: 'center',
+	                        valign: 'middle'
+	                  },
+	                  {
+	                      title: '工作年限',
+	                        field: 'workTime',
+	                        align: 'center',
+	                        valign: 'middle'
+	                  },
+	                  {
+	                      title: '操作',
+	                      field: 'id',
+	                      align: 'center',
+	                      formatter:function(value,row,index){  
+		                   var a = '<a href="javascript:;" class="ico b2">人人简历</a>';
+		                   var e = '<a href="#" mce_href="#" data-btn="stock" class="ico b2" onclick="updatePer(\''+ row.id + '\')">修改</a> ';  
+		                   var d = '<a href="#" mce_href="#" data-btn="addmen" class="ico b2" onclick="deletePer(\''+ row.id +'\')">删除</a> ';  
+	                        return '<div class="btnbox_f">'+a+e+d+'</div>';  
+	                    } 
+	                  }
+	              ]
+	      });
+	      $table.bootstrapTable('refresh');
+		}
+	//股权结构列表
+	function getTabShare(){
+	var $table = $('#table');
+    $table.bootstrapTable({
+    url: "projectShares/selectProjectShares", 
+    dataType: "json",
+    pagination: true, //分页
+    search: false, //显示搜索框
+    showRefresh: true,
+    pageList: [1,5,20],
+    queryParams: queryParams,
+    sidePagination: "server", //服务端处理分页
+          columns: [
+                  {
+                    title: '类型',
+                      field: 'sharesType',
+                      align: 'center',
+                      valign: 'middle'
+                  },
+                  {
+                      title: '所有权人',
+                        field: 'sharesOwner',
+                        align: 'center',
+                        valign: 'middle'
+                    },
+                    {
+                        title: '占比',
+                          field: 'sharesRatio',
+                          align: 'center',
+                          valign: 'middle'
+                     },
+                     {
+                          title: '获取方式',
+                            field: 'gainMode',
+                            align: 'center',
+                            valign: 'middle'
+                  },
+                  {
+                      title: '备注',
+                        field: 'remark',
+                        align: 'center',
+                        valign: 'middle'
+                  },
+                  {
+                      title: '操作',
+                      field: 'id',
+                      align: 'center',
+                      formatter:function(value,row,index){  
+                   var e = '<a href="#" mce_href="#" data-btn="stock" class="ico b2" onclick="editStock(\''+ row.id + '\')">修改</a> ';  
+                   var d = '<a href="#" mce_href="#" data-btn="addmen" class="ico b2" onclick="delStock(\''+ row.id +'\')">删除</a> ';  
+                        return '<div class="btnbox_f">'+e+d+'</div>';  
+                    } 
+                  }
+              ]
+      });
+      $table.bootstrapTable('refresh');
+	}
+    //页面传参
+    function queryParams(params) {
+    	return {
+	    	pageSize: params.limit,
+	    	pageNum: params.offset,
+	    	order: params.order
+    	};
+    }
+    
+    function editStock(id){
+    	var _url = "<%=path %>/galaxy/projectShares/updateShare/"+id;
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+			
+			}//模版反回成功执行	
+		});
+		return false;
+    }
+    
+    
+	
+</script>	   
+
 </html>
 

@@ -68,6 +68,16 @@ var platformUrl = {
 	top5ProjectMeeting : "/galaxy/home/top5ProjectMeeting",
 	ProjectVoteWill: "/galaxy/home/ProjectVoteWill",
 	moreProjectVoteWill:"/galaxy/home/moreProjectVoteWill",
+	
+	/**
+	 * 添加股权结构
+	 */
+	addStock : "/galaxy/projectShares/addProjectShares",
+	
+	/**
+	 * 修改股权结构
+	 */
+	updateStock : "/galaxy/projectShares/updateProjectShares",
 
 }
 
