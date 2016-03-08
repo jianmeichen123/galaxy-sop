@@ -36,7 +36,7 @@
 			</trim>
 		</where>
 		<!-- <if test="sorting != null">order by ${sorting}</if> -->
-		order by meeting_count,meeting_date desc
+		order by meeting_count desc,meeting_date desc
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
@@ -61,14 +61,14 @@
 		<include refid="Base_Column_List" />
 		    from sop_meeting_scheduling 
 		    where meeting_type =  #{type}
-		    order by meeting_count,meeting_date desc limit 5
+		    order by meeting_count desc,meeting_date desc limit 5
 	</select>
 	 <select id="selectProjectMeetingByType" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		    from sop_meeting_scheduling 
 		    where meeting_type =  #{type}
-		    order by meeting_count,meeting_date desc 
+		    order by meeting_count desc,meeting_date desc 
 	</select>
 	<!-- 根据ID查询 -->
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
