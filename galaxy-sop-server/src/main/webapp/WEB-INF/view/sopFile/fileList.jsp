@@ -32,7 +32,7 @@
             </div>
         </div>
         <!-- 搜索条件 -->
-        <div class="min_document clearfix">
+        <div class="min_document clearfix"  id="custom-toolbar">
           <div class="top clearfix">
             <dl class="fmdl fml  fmdll clearfix">
               <dt>档案来源：</dt>
@@ -75,178 +75,39 @@
               <input type="text" class="txt" placeholder="请输入项目名称或投资经理名称" />
             </dd>
             <dd>
-            <a href="javascript:;" class="bluebtn ico cx">查询</a>
+            <a href="javascript:;" class="bluebtn ico cx" action="querySearch">查询</a>
             </dd>
           </dl>
         </div>
         </div>
-        <!--表格内容-->
-        <table width="100%" cellspacing="0" cellpadding="0" >
-              <thead>
-                  <tr>
-                      <th></th>
-                      <th>所属业务线</th>
-                      <th>所属项目</th>
-                      <th>档案管理</th>
-                      <th>起草者</th>
-                      <th>存储类型</th>
-                      <th>业务分类</th>
-                      <th>更新日期</th>
-                      <th>档案状态</th>
-                      <th>附件查看</th>
-                  </tr>
-              </thead>                                                                                                                                    
-              <tbody>
-                  <tr>
-                      <td><input type="radio" name="document" checked/></td>
-                      <td>互联网旅游</td>
-                      <td>项目名称</td>
-                      <td>内部</td>
-                      <td>万晓宇</td>
-                      <td>文档</td>
-                      <td>BP</td>
-                      <td>2016-01-22</td>
-                      <td>已签署归档</td>
-                      <td><a href="javascript:; " class="blue">附件</a></td>   
-                  </tr>
-                  <tr>
-                      <td><input type="radio" name="document"/></td>
-                      <td>互联网旅游</td>
-                      <td>项目名称</td>
-                      <td>内部</td>
-                      <td>万晓宇</td>
-                      <td>文档</td>
-                      <td>BP</td>
-                      <td>2016-01-22</td>
-                      <td>已签署归档</td>
-                      <td><a href="javascript:; " class="blue">附件</a></td>   
-                  </tr>
-                  <tr>
-                      <td><input type="radio" name="document"/></td>
-                      <td>互联网旅游</td>
-                      <td>项目名称</td>
-                      <td>内部</td>
-                      <td>万晓宇</td>
-                      <td>文档</td>
-                      <td>BP</td>
-                      <td>2016-01-22</td>
-                      <td>已签署归档</td>
-                      <td><a href="javascript:; " class="blue">附件</a></td>   
-                  </tr>
-                  <tr>
-                      <td><input type="radio" name="document"/></td>
-                      <td>互联网旅游</td>
-                      <td>项目名称</td>
-                      <td>内部</td>
-                      <td>万晓宇</td>
-                      <td>文档</td>
-                      <td>BP</td>
-                      <td>2016-01-22</td>
-                      <td>已签署归档</td>
-                      <td><a href="javascript:; " class="blue">附件</a></td>   
-                  </tr>
-                  <tr>
-                      <td><input type="radio" name="document"/></td>
-                      <td>互联网旅游</td>
-                      <td>项目名称</td>
-                      <td>内部</td>
-                      <td>万晓宇</td>
-                      <td>文档</td>
-                      <td>BP</td>
-                      <td>2016-01-22</td>
-                      <td>已签署归档</td>
-                      <td><a href="javascript:; " class="blue">附件</a></td>   
-                  </tr>
-                  <tr>
-                      <td><input type="radio" name="document"/></td>
-                      <td>互联网旅游</td>
-                      <td>项目名称</td>
-                      <td>内部</td>
-                      <td>万晓宇</td>
-                      <td>文档</td>
-                      <td>BP</td>
-                      <td>2016-01-22</td>
-                      <td>已签署归档</td>
-                      <td><a href="javascript:; " class="blue">附件</a></td>   
-                  </tr>
-                  <tr>
-                      <td><input type="radio" name="document"/></td>
-                      <td>互联网旅游</td>
-                      <td>项目名称</td>
-                      <td>内部</td>
-                      <td>万晓宇</td>
-                      <td>文档</td>
-                      <td>BP</td>
-                      <td>2016-01-22</td>
-                      <td>已签署归档</td>
-                      <td><a href="javascript:; " class="blue">附件</a></td>   
-                  </tr>
-                  <tr>
-                      <td><input type="radio" name="document"/></td>
-                      <td>互联网旅游</td>
-                      <td>项目名称</td>
-                      <td>内部</td>
-                      <td>万晓宇</td>
-                      <td>文档</td>
-                      <td>BP</td>
-                      <td>2016-01-22</td>
-                      <td>已签署归档</td>
-                      <td><a href="javascript:; " class="blue">附件</a></td>   
-                  </tr>
-                  <tr>
-                      <td><input type="radio" name="document"/></td>
-                      <td>互联网旅游</td>
-                      <td>项目名称</td>
-                      <td>内部</td>
-                      <td>万晓宇</td>
-                      <td>文档</td>
-                      <td>BP</td>
-                      <td>2016-01-22</td>
-                      <td>已签署归档</td>
-                      <td><a href="javascript:; " class="blue">附件</a></td>   
-                  </tr>
-              </tbody>
-          </table>
-          <!--分页-->
-          <div class="pagright clearfix">
-              <ul class="paging clearfix">
-                  <li>每页<input type="text" class="txt" value="20"/>条/共<span>9</span>条记录</li>
-                  <li class="margin">共1页</li>
-                  <li><a href="javascript:;">|&lt;</a></li>
-                  <li><a href="javascript:;">&lt;</a></li>
-                  <li><a href="javascript:;">&gt;</a></li>
-                  <li><a href="javascript:;">&gt;|</a></li>
-                  <li class="jump clearfix">
-                      第<input type="text" class="txt" value="1"/>页
-                      <input type="button" class="btn margin" value="GO">
-                  </li>
-              </ul>
-          </div>
+       <div class="tab-pane active" id="view">		
+			<table  id="data-table" data-url="/galaxy/sopFile/querySopFile" data-method="post" 
+	          		data-side-pagination="server" data-pagination="true" 
+	          		data-toolbar="#custom-toolbar" data-page-list="[3,6,10,20]"
+					data-id-field="lottoId" data-show-refresh="true">
+				<thead>
+					<tr>
+						<th></th>
+                      	<th data-field="ftgk" data-align="center">所属业务线</th>
+                      	<th data-field="ftgk" data-align="center">所属项目</th>
+                      	<th data-field="ftgk" data-align="center">档案管理</th>
+                      	<th data-field="ftgk" data-align="center">起草者</th>
+                      	<th data-field="ftgk" data-align="center">存储类型</th>
+                      	<th data-field="ftgk" data-align="center">业务分类</th>
+                      	<th data-field="ftgk" data-align="center">更新日期</th>
+                      	<th data-field="ftgk" data-align="center">档案状态</th>
+                     	<th >附件查看</th>
+                      	   
+						<th data-field="ftgk" data-align="center">访谈概况</th>
+						<th data-field="proName" data-align="center">所属项目</th>  
+						<th data-field="viewNotes" data-align="center">访谈日志</th>
+					</tr>
+				</thead>
+			</table>
+           </div>      
     </div>
 </div>
-<textarea id="calendar" class="none">
-<dl class="calendar">
-    <dt>
-        <strong></strong>
-        <a href="javascript:;" class="btn lft" data-btn="prev">&lt;</a>
-        <a href="javascript:;" class="btn rit" data-btn="next">&gt;</a>
-    </dt>
-    <dd class="week">
-        <ul>
-            <li><a href="javascript:;">天</a></li>
-            <li><a href="javascript:;">一</a></li>
-            <li><a href="javascript:;">二</a></li>
-            <li><a href="javascript:;">三</a></li>
-            <li><a href="javascript:;">四</a></li>
-            <li><a href="javascript:;">五</a></li>
-            <li><a href="javascript:;">六</a></li>
-        </ul>
-    </dd>
-    <dd>
-        <ul date="list"></ul>
-    </dd>
-</dl>
-</textarea>
+
 <!-- 弹出页面 -->
 <div id="addFile" class="archivestc" style="display: none;">
 	<dl class="fmdl clearfix">
