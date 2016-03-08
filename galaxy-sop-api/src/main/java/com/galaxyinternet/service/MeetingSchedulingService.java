@@ -10,36 +10,17 @@ public interface MeetingSchedulingService extends BaseService<MeetingScheduling>
 	
 	public int updateCountBySelective(MeetingScheduling entity);
 	/**
-	 * 立项会排期top5列表
+	 * 排期top5列表
 	 * @author zhaoying
 	 * @return
 	 */
 	List<MeetingSchedulingBo>selectTop5ProjectMeetingByType(String type);
 	
 	/**
-	 * 立项会排期 all
+	 * 排期 all
 	 * @author zhaoying
 	 * @return
 	 */
 	List<MeetingSchedulingBo>selectProjectMeetingByType(String type);
-	
-	
-	
-	
-	/**
-	 * 投决会排期top5列表
-	 * @author gxc
-	 * @return
-	 */
-	List<MeetingSchedulingBo>selectProjectVoteWill();
-
-	/**
-	 * 投决会排期 all
-	 * @author gxc
-	 * @return
-	 */
-	List<MeetingSchedulingBo>selectMoreProjectVoteWill();
-	
-	
 	
 }
