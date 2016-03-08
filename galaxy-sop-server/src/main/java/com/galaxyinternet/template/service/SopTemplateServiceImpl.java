@@ -95,6 +95,7 @@ public class SopTemplateServiceImpl extends BaseServiceImpl<SopTemplate>implemen
 			po.setRemark(vo.getRemark());
 			po.setFileKey(vo.getFileKey());
 			po.setBucketName(vo.getBucketName());
+			po.setFileLength(vo.getFileLength());
 			return super.updateById(po);
 		}
 		return 0;

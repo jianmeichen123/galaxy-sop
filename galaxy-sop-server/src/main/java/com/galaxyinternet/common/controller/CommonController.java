@@ -102,7 +102,9 @@ public class CommonController {
 		}
 		
 		tabs.add(new Menus(13L, "模板管理", u + "galaxy/template"));
-		tabs.add(new Menus(14L, "档案管理", u + ""));
+
+		tabs.add(new Menus(14L, "档案管理", u + "galaxy/sopFile/toFileList"));
+
 		
 	    responseBody.setEntityList(tabs);
 		return responseBody;

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -104,6 +105,30 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return null;
 	}
 	
+	@RequestMapping("/upload")
+	@ResponseBody
+	public String upload(@RequestParam MultipartFile file)
+	{
+		String key = null;
+		 try {
+			if(file != null)
+			 {
+				String fileName = file.getOriginalFilename();
+				int dotPos = fileName.lastIndexOf(".");
+				key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				String ext = fileName.substring(dotPos);
+				File temp = File.createTempFile(key, ext);
+				file.transferTo(temp);
+				OSSHelper.simpleUploadByOSS(temp,key);
+				
+			 }
+		} catch (Exception e) {
+			Object msg = "上传失败！";
+			logger.error(msg.toString(),e);
+		}
+		return key;
+	}
+	
 	/**
 	 * 访谈默认页面 
 	 */
@@ -153,6 +178,19 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 				
 		try {
+			//上传成功修改 sopfile里面的数据-根据fileid修改sopfile
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			//文件上传
+			String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+			MultipartFile multipartFile = multipartRequest.getFile("file");
+			try{
+				File file = (File)multipartFile;
+				OSSHelper.simpleUploadByOSS(file,key);
+			}catch(Exception e){
+				logger.error("上传文件错误：", e);
+				responseBody.setResult(new Result(Status.ERROR,null,"上传文件失败!"));
+			}
+			
 			Long id = interviewRecordService.insert(interviewRecord);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(id);
@@ -333,7 +371,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	/**
 	 * 内部评审、 CEO评审 、 立项会、投决会  阶段
 	 * 			查询个人项目下的会议记录
-	 * @param   interviewRecord 
+	 * @param    
 	 * @return
 	 */
 	@ResponseBody

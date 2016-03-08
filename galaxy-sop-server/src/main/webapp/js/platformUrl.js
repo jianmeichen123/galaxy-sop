@@ -52,12 +52,32 @@ var platformUrl = {
 	 * 模板下载
 	 */
 	tempDownload:"/galaxy/template/download",
+	/**
+	 * 模板邮件
+	 */
+	tempSendMail:"/galaxy/template/sendMail",
 	
 	/**
 	 * 修改团队成员
 	 */
 	updatePerson : "/galaxy/project/upp",
 	
+	/**
+	 * top5立项会排期
+	 */
+	top5ProjectMeeting : "/galaxy/home/top5ProjectMeeting",
+	
+	/**
+	 * 所有立项会排期
+	 */
+	moreProjectMeeting : "/galaxy/home/moreProjectMeeting",
+	
+	/**
+	 * 根据findByParentCode查询数据字典
+	 */
+	dictFindByParentCode : "/galaxy/sopFile/getDictByParent",
+	
+
 }
 
 /**

@@ -15,7 +15,7 @@
         <dl class="fmdl clearfix">
             <dt>会议召开日期：</dt>
             <dd>
-                <input type="text" id="meetingDateStr" name = "meetingDateStr"  placeholder="访谈日期" class="txt" />
+            	<input class="form-control" type="date" id="startTime" name="startTime" id="meetingDateStr" name = "meetingDateStr" />
             </dd>
         </dl>
     </div>
@@ -38,19 +38,21 @@
             </dd>
         </dl>
     </div>
+    
     <dl class="fmdl clearfix">
-        <dt>会议纪要：</dt>
-        <dd>
+       <dt>会议纪要:</dt>
+       <dd>
+       	  <div type="text/plain" id="meetingNotes" style="width:100%;height:100px;"></div>
+		</dd>
+         <!--   <dd class="fctbox">
+         <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+           <a href="javascript:;" id="save_viewNotes" class="ico f4" data-btn="submit">保存</a>
+           <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
+           <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
+           <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
+         </dd> -->
+      </dl>
         
-        <div class="edit">
-        	<textarea style="width:588px;height:200px;" id="meetingNotes" name = "meetingNotes"  placeholder="访谈纪要"  ></textarea>
-         </div>
-         
-<!--             <div class="edit">
-                这里是编辑器
-            </div> -->
-        </dd>
-    </dl>
     <dl class="fmdl clearfix">
         <dt>会议录音：</dt>
         <dd>
@@ -59,7 +61,7 @@
                 <input type="file" class="load"/>
                 <a href="javascript:;" class="pubbtn fffbtn">上传录音</a>
                 
-                 <input type="hidden" id="meetfileID" name = "fileId" value="" /> 
+                 <input type="hidden" id="meetfileID" name="fileId" value="" /> 
             </div>
         </dd>
     </dl>
@@ -67,3 +69,14 @@
     	<a href="javascript:saveMeet()" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
+
+<!-- <script type="text/javascript">
+$(function(){
+
+ 	var um = UM.getEditor('meetingNotes');
+	um.setContent(""); 
+
+
+});
+
+</script> -->

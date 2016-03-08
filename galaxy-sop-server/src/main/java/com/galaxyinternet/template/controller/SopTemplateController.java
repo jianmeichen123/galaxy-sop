@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.dubbo.common.utils.StringUtils;
 import com.galaxyinternet.bo.template.SopTemplateBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -36,7 +39,9 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.template.SopTemplate;
+import com.galaxyinternet.model.template.TemplateMailInfo;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SopTemplateService;
 @Controller
@@ -79,8 +84,11 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	}
 	@RequestMapping("/upload")
 	@ResponseBody
-	public String upload(@RequestParam MultipartFile file)
+	public Map<String,Object> upload(@RequestParam MultipartFile file)
 	{
+		Map<String,Object> rtn = new HashMap<String,Object> ();
+		rtn.put("fileKey", "");
+		rtn.put("fileLength", "0");
 		String key = null;
 		 try {
 			if(file != null)
@@ -92,13 +100,14 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 				File temp = File.createTempFile(key, ext);
 				file.transferTo(temp);
 				OSSHelper.simpleUploadByOSS(temp,key);
-				
+				rtn.put("fileKey", key);
+				rtn.put("fileLength", temp.length()/1024);
 			 }
 		} catch (Exception e) {
 			Object msg = "上传失败！";
 			logger.error(msg.toString(),e);
 		}
-		return key;
+		return rtn;
 	}
 	@RequestMapping("/save")
 	@ResponseBody
@@ -135,7 +144,6 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			}
 			String fileName = template.getBucketName();
 			int dotPos = fileName.lastIndexOf(".");
-			String[] part = fileName.split(".");
 			String prefix = fileName.substring(0, dotPos);
 			String suffix = fileName.substring(dotPos);
 			File temp = File.createTempFile(prefix, suffix);
@@ -172,6 +180,54 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 				logger.error("下载失败.",e);
 			}
 		}
+	}
+	@RequestMapping("/sendMail")
+	@ResponseBody
+	public Result sendMail(@RequestBody TemplateMailInfo mailInfo)
+	{
+		Result rtn = new Result();
+		try 
+		{
+			SopTemplateBo bo = new SopTemplateBo();
+			bo.setIds(mailInfo.getTemplateIds());
+			
+			List<SopTemplate> list = templateService.queryList(bo);
+			List<String> fileList = new ArrayList<String>();
+			for(SopTemplate template : list)
+			{
+				String fileName = template.getBucketName();
+				int dotPos = fileName.lastIndexOf(".");
+				String prefix = fileName.substring(0, dotPos);
+				String suffix = fileName.substring(dotPos);
+				File temp = File.createTempFile(prefix, suffix);
+				OSSHelper.simpleDownloadByOSS(temp, template.getFileKey());
+				fileList.add(temp.getAbsolutePath());
+			}
+			
+			if(StringUtils.isNotEmpty(mailInfo.getZipFlag()))
+			{
+				//TODO generate zip file
+			}
+			
+			
+			boolean success = SimpleMailSender.sendMailWithAttachfile(mailInfo.getToAddress(), mailInfo.getTitle(), mailInfo.getContent(), fileList);
+			if(success)
+			{
+				if(StringUtils.isNotEmpty(mailInfo.getSmFlag()))
+				{
+					//TODO generate SM notify
+				}
+				rtn.addOK("邮件发送成功.");
+			}
+			else
+			{
+				rtn.addError("邮件发送失败。");
+			}
+		} catch (Exception e) {
+			logger.error("邮件发送失败。",e);
+			rtn.addError("邮件发送失败。");
+		}
+		return rtn;
 	}
 	
 }

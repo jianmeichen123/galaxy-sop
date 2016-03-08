@@ -496,8 +496,13 @@
     };
     
     BootstrapTable.prototype.initCustomToolbar = function () {
+    	
+    	var that = $(this);
     	$("#custom-toolbar").on("click","button[type='submit']",function(){
-    		$('#data-table').bootstrapTable("querySearch");
+    		that.trigger("querySearch");
+    	});
+    	$("#custom-toolbar").on("click","a[action='querySearch']",function(){
+    		that.trigger("querySearch");
     	});
 	}
     BootstrapTable.prototype.initLocale = function () {
@@ -917,7 +922,7 @@
             this.options.icons = calculateObjectValue(null, this.options.icons);
         }
 
-        if (this.options.showPaginationSwitch) {
+        /*if (this.options.showPaginationSwitch) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s">',
                     this.options.formatPaginationSwitch()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
@@ -936,7 +941,7 @@
                     this.options.formatToggle()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
                 '</button>');
-        }
+        }*/
 
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
@@ -1538,7 +1543,7 @@
         }
 
         // click to select by column
-        this.$body.find('> tr[data-index] > td').off('click dblclick').on('click dblclick', function (e) {
+        this.$body.find('> tr[data-index] > td').off(' dblclick').on('click dblclick', function (e) {
             var $td = $(this),
                 $tr = $td.parent(),
                 item = that.data[$tr.data('index')],
@@ -1642,14 +1647,33 @@
 
         this.trigger('post-body');
     };
-
+     ///querySerch
     BootstrapTable.prototype.getCustomToolbar = function () {
     	var toolbar = $("#custom-toolbar");
     	var query = {};
-    	toolbar.find("input").each(function(){
+    	toolbar.find("input[name][type!='radio']").each(function(){
     		var input = $(this);
     		var name = input.attr("name");
     		var val = input.val();
+    		if(val!=''){
+    			query[name]=val;
+    		}
+    	});
+    	toolbar.find("input[type='radio']").each(function(){
+    		var input = $(this);
+    		var name = input.attr("name");
+    		if(input.attr("checked")=="checked"||input.prop("checked")==true){
+    			var val = input.val();
+        		if(val!=''){
+        			query[name]=val;
+        		}
+    		}
+    	});
+    	
+    	toolbar.find("select[name]").each(function(){
+    		var select = $(this);
+    		var name = select.attr("name");
+    		var val = select.val();
     		if(val!=''){
     			query[name]=val;
     		}
@@ -1675,7 +1699,6 @@
         }
 
         if (this.options.queryParamsType === 'limit') {
-        	console.log("limit");
             params = {
                 search: params.searchText,
                 sort: params.sortName,
@@ -1690,7 +1713,6 @@
         }
         ///修改
         if (this.options.queryParamsType === 'size|page') {
-        	console.log("size|page")
             params = {
                 search: params.searchText,
                 sort: params.sortName,
@@ -2032,7 +2054,6 @@
 
     BootstrapTable.prototype.load = function (data) {
         var fixedScroll = false;
-        console.log(data);
         // #431: support pagination
         if (this.options.sidePagination === 'server') {
         	//修改

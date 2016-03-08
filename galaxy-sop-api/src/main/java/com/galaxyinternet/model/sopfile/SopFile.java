@@ -83,6 +83,11 @@ public class SopFile extends BaseEntity {
      * 档案BackName
      */
     private String bucketName;
+    
+    /**
+     * 文档名称
+     */
+    private String fileName;
 
     
     public Long getProjectId() {
@@ -212,6 +217,16 @@ public class SopFile extends BaseEntity {
 
 	public void setBucketName(String bucketName) {
 		this.bucketName = bucketName;
+	}
+
+
+	public String getFileName() {
+		return fileName;
+	}
+
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
     

@@ -18,6 +18,8 @@
 		<result column="file_length" jdbcType="BIGINT" property="fileLength" />
 		<result column="file_key" jdbcType="VARCHAR" property="fileKey" />
 		<result column="bucket_name" jdbcType="VARCHAR" property="bucketName" />
+		<result column="file_name" jdbcType="VARCHAR" property="fileName" />
+		
 	</resultMap>
 	
 	<sql id="Base_Column_List">
@@ -25,7 +27,7 @@
 		file_source, file_type,
 		remark, file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
-		file_key, bucket_name
+		file_key, bucket_name,file_name
 	</sql>
 	
 	<sql id="Base_Where_Clause">
@@ -45,8 +47,9 @@
 				<if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 				<if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
 				<if test="fileLength != null" > and file_length = #{fileLength,jdbcType=BIGINT} </if>
-				<if test="fileKey != null" > and file_key = #{fileKey,jdbcType=BIGINT} </if>
-				<if test="bucketName != null" > and bucket_name = #{bucketName,jdbcType=BIGINT} </if>				
+				<if test="fileKey != null" > and file_key = #{fileKey,jdbcType=VARCHAR} </if>
+				<if test="bucketName != null" > and bucket_name = #{bucketName,jdbcType=VARCHAR} </if>
+				<if test="fileName != null" > and file_name = #{bucketName,jdbcType=VARCHAR} </if>			
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>
@@ -107,7 +110,8 @@
  		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT},
  		#{createdTime,jdbcType=BIGINT}, #{fileLength,jdbcType=BIGINT},
  		#{fileKey,jdbcType=VARCHAR},
- 		#{bucketName,jdbcType=VARCHAR})
+ 		#{bucketName,jdbcType=VARCHAR},
+ 		#{fileName,jdbcType=VARCHAR})
  	</insert>
 	
 	<update id="updateByIdSelective" parameterType="SopFilePO">
@@ -128,6 +132,7 @@
 			<if test="fileLength != null"> file_length = #{fileLength,jdbcType=BIGINT}, </if>
 			<if test="fileKey != null"> file_key = #{fileKey,jdbcType=VARCHAR}, </if>
 			<if test="bucketName != null"> bucket_name = #{bucketName,jdbcType=VARCHAR}, </if>
+			<if test="fileName != null"> file_name = #{fileName,jdbcType=VARCHAR}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -153,6 +158,7 @@
 			<if test="fileLength != null"> file_length = #{fileLength,jdbcType=BIGINT}, </if>
 			<if test="fileKey != null"> file_key = #{fileKey,jdbcType=VARCHAR}, </if>
 			<if test="bucketName != null"> bucket_name = #{bucketName,jdbcType=VARCHAR}, </if>
+			<if test="fileName != null"> file_name = #{fileName,jdbcType=VARCHAR}, </if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>

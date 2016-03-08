@@ -1,5 +1,4 @@
 $(function(){
-
 	createMenus(6);
 	
 	$('#data-table').bootstrapTable({
@@ -8,6 +7,22 @@ $(function(){
 	});
 	
 });
+
+//编辑框初始化
+function umInit(){
+	var um = UM.getEditor('viewNotes');
+	try {
+		um.setContent("");
+	} catch (e) {
+		return;
+	}
+	
+	
+}
+
+
+
+
 //访谈记录查询个人项目
 function queryPerPro(){
 	var condition = {};
@@ -85,7 +100,10 @@ function getSaveCondition(){
 	var projectId = $("#projectId").val();
 	var viewDateStr = $("#viewDate").val();
 	var viewTarget = $.trim($("#viewTarget").val());
-	var viewNotes = $.trim($("#viewNotes").val());
+	//var viewNotes = $.trim($("#viewNotes").val());
+	var um = UM.getEditor('viewNotes');
+	var viewNotes = $.trim(um.getContent());
+	
 	var fileId = $("#viewfileID").val();
 	
 	if(projectId == null || projectId == ""){
