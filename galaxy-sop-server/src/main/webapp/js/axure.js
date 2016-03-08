@@ -48,50 +48,125 @@
 	$.popup = function(options){
 		var opts = $.extend({
 			txt:"",
-			callback:function(t,postionEve){},
-			hideback:function(t){}
+			showback:function(){},
+			hideback:function(){}
 		},options);
-		var strBg = "<div id=\"popbg\"><iframe frameborder=\"0\" src=\"about:blank\"></iframe></div>";
-		var strPop = "<div id=\"pop\"><a href=\"javascript:;\" data-close=\"close\" class=\"close null\">关闭</a><div id=\"popTxt\"><p class='popwait'>数据加载中，请稍候...</p></div></div>";
-		//判断是否需要重新插入
-		function appStr(o,s){
-			if(o.length==0){
-				$("body").append(s);
-			}else{
-				o.show();	
-			}	
+		function popEve(){
+			this.strbg = "<div id=\"popbg\"><iframe frameborder=\"0\" src=\"about:blank\"></iframe></div>";
+			this.strpop = "<div class=\"pop\"  data-id=\"popid"+$(".pop").length+"\"><a href=\"javascript:;\" data-close=\"close\" class=\"close null\">关闭</a><div class=\"poptxt\"><p class='popwait'>数据加载中，请稍候...</p></div></div>";
+			this.txt = opts.txt;//弹层添加数据
+			this.statusmove = true;//移动状态标识
+			this.mousexy = {};//存放鼠标xy容器
+			//显示出来之后执行
+			this.showback = opts.showback;
+			//隐藏后执行
+			this.hideback = opts.hideback;
+			this.id = "[data-id='popid"+$(".pop").length+"']";
+		}
+		popEve.prototype = {
+			init:function(){
+				var _this = this;
+				_this.insertbg().inserttxt().postionEve().mousedrag().closepop();
+			},
+			//背景插入
+			insertbg:function(dom){
+				var _this = this;
+				if($("#popbg").length==0){
+					$("body").append(_this.strbg);
+				}
+				return _this;
+			},
+			//内容插入
+			inserttxt:function(){
+				var _this = this;
+				//插入弹窗外部皮肤
+				$("body").append(_this.strpop);
+				//插入内容
+				$(_this.id).children(".poptxt").html(_this.txt);
+				//清楚zindex
+				$(".pop").removeClass("popzx");
+				//对外接口
+				_this.showback.apply(_this);
+				return _this;	
+			},
+			//弹层居中定位显示
+			postionEve:function(){
+				var _this = this;
+				var wh = parseInt($(_this.id).outerWidth(true)),
+					ht = parseInt($(_this.id).outerHeight(true));
+				var win_w = $(window).width(),
+					win_h = $(window).height(),
+					win_x = (win_w-wh)/2,
+					win_y = (win_h-ht)/2;
+				//背景设置高度+显示
+				$("#popbg,#popbg iframe").css({"height":win_h});
+				$("#popbg").show().animate({
+					opacity:0.7
+				},300);
+				//弹出层定位+显示
+				$(_this.id).Fixed({
+					x:win_x,
+					y:win_y
+				});
+				$(_this.id).animate({
+					opacity:1
+				},400);
+				return _this;	
+			},
+			//鼠标拖动
+			mousedrag:function(){
+				var _this = this;
+				$(_this.id).on("mousedown",function(){
+					var $self = $(this);
+					//弹层zindex
+					$(".pop").removeClass("popzx");
+					$self.addClass("popzx");
+					//移动状态
+					_this.statusmove = true;
+					$self.on("mousemove",function(e){
+						if(!_this.statusmove){ return false;}
+						var e = e||window.event;
+						var x=e.pageX||e.clientX; //鼠标移动时获取x轴坐标
+						var y=e.pageY||e.clientY; //鼠标移动时获取y轴坐标
+						if(_this.mousexy.x==null){
+							_this.mousexy.x = x;
+						}
+						if(_this.mousexy.y==null){
+							_this.mousexy.y = y;
+						}
+						$self.Fixed({
+							x:parseInt($self.css("left"))+(x-_this.mousexy.x),
+							y:parseInt($self.css("top"))+(y-_this.mousexy.y)
+						});
+						_this.mousexy.x = x;
+						_this.mousexy.y = y;
+					});	
+				});
+				//接触绑定move
+				$(_this.id).on("mouseup mouseleave",function(){
+					_this.statusmove = false;
+					delete _this.mousexy.x;
+					delete _this.mousexy.y;
+				});
+				return _this;	
+			},
+			closepop:function(){
+				var _this = this;
+				$(_this.id).on("click","[data-close='close']",function(){
+						$(_this.id).remove();
+						//关闭对外接口
+						_this.hideback.apply(_this);
+						//判断是否关闭背景
+						if($(".pop").length==0){
+							$("#popbg").hide();	
+						}
+						return false;
+				});
+				return _this;
+			}
 		};
-		appStr($("#popbg"),strBg);
-		appStr($("#pop"),strPop);
-		//添加内容
-		if(opts.txt!=""){
-			$("#popTxt").html(opts.txt);
-		}
-		//定位屏幕位置
-		var postionEve = function(){
-			var wh = parseInt($("#pop").outerWidth(true)),
-				ht = parseInt($("#pop").outerHeight(true));
-			var win_w = $(window).width(),
-				win_h = $(window).height(),
-				win_x = (win_w-wh)/2,
-				win_y = (win_h-ht)/2;
-			$("#popbg,#popbg iframe").css({"height":win_h});
-			$("#pop").Fixed({
-				x:win_x,
-				y:win_y
-			});
-		}
-		//弹层打开后执行事件
-		opts.callback($("#pop"),postionEve);
-		postionEve();
-		$(window).on("scroll resize",postionEve);
-		//关闭弹层
-		$("#pop").on("click","[data-close='close']",function(){
-			opts.hideback($("#pop"));
-			$("#popbg,#pop").remove();
-			var obj=$("#all")[0];
-			setData(obj);
-		});
+		var obj = new popEve();
+		obj.init();
 	};
 	//切换样式控制
 	$.fn.changeClass = function(options){
@@ -158,7 +233,7 @@
 	$.fn.tabchange = function(options){
 		if($(this).length==0) return false;
 		var opts = $.extend({
-			defaultnum:0,
+			//defaultnum:0,
 			onClass:"on",
 			eventType:"click",
 			movetime:300
@@ -167,6 +242,51 @@
 			this.nav = t.find("[data-tab='nav']");
 			this.onclass = opts.onClass;
 			this.con = t.find("[data-tab='con']");
+			this.suffix = t.find("[data-tab='suffix']");
+			this.num = opts.defaultnum;
+			this.time = opts.movetime;
+		};
+		tab.prototype = {
+			seton : function(){
+				var _this = this;
+				_this.nav.removeClass(_this.onclass);
+				_this.con.hide();
+				_this.nav.eq(_this.num).addClass(_this.onclass);
+				_this.con.eq(_this.num).show();	
+				_this.setsuffix();
+			},
+			setsuffix : function(n){
+				if(this.suffix.length==0) return false;
+				var _this = this,
+					_width = _this.suffix.width();;
+				_this.suffix.stop(true).animate({
+					"left" : _width*this.num	
+				},_this.time);
+			}
+		};
+		return $(this).each(function() {
+            var $this = $(this);
+			var obj = new tab($this);
+			obj.seton();
+			//事件执行
+			obj.nav.on(opts.eventType,function(){
+				obj.num = $(this).index();
+				obj.seton();
+			});
+        });
+	};	
+	$.fn.tabchange1 = function(options){
+		if($(this).length==0) return false;
+		var opts = $.extend({
+			defaultnum:0,
+			onClass:"on",
+			eventType:"click",
+			movetime:300
+		},options);
+		function tab(t){
+			this.nav = t.find("[data-tab='nav1']");
+			this.onclass = opts.onClass;
+			this.con = t.find("[data-tab='con1']");
 			this.suffix = t.find("[data-tab='suffix']");
 			this.num = opts.defaultnum;
 			this.time = opts.movetime;
@@ -248,7 +368,7 @@
 			window.setTimeout(getdate,500);
 		}
 		getdate();
-	};
+	};	
 	//柱状图
 	$.fn.histogram = function(){
 		if($(this).length==0){ return false}
@@ -332,16 +452,18 @@
 		},options);
 		//拉取静态模版
 		$.popup({
-			callback:function(t,postionEve){
+			showback:function(){
+				var _this = this;
 				$.ajax({
 					type:"GET",
 					data:opts.data,
 					dataType:"html",
 					url:opts.url,
 					success:function(html){
-						$("#popTxt").html(html);
-						postionEve();
+						$(_this.id).find(".poptxt").html(html);
 						opts.okback();
+						//重新定位
+						_this.postionEve();
 					},
 					error:function(){
 						alert("网络错误")

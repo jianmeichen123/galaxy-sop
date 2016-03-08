@@ -12,8 +12,9 @@
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
+<script src="<%=path %>/js/my_ext.js"></script>
+<script src="<%=path %>/js/my.js"></script>
 <!-- 分页二css+四js -->
-<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
@@ -80,7 +81,8 @@
 				</dl>
 			</div>
 		</div>
-		<div class="tab-pane active" id="view">		
+		<div class="tab-pane active" id="view">	
+			<input type="hidden" id="project_id" value="">	
 			<table id="data-table" data-url="project/spl" data-height="555" 
 				data-method="post" data-show-refresh="true" 
 				data-side-pagination="server" data-pagination="true" 
@@ -100,31 +102,38 @@
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script type="text/javascript">
 	createMenus(5);
 	function editor(value, row, index){
 		var id=row.id;
-		var options = "<button type='button' class='btn btn-primary btn-option' data-toggle='modal' data-target='#myModal'>查看</button>";
+		var options = "<a href='#' data-btn='myproject' onclick='info(" + id + ")'>查看</a>";
 		return options;
 	}
+	
+	function info(id){
+		var _url='<%=path%>/galaxy/ips';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$(".myprojecttc .tabtable").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
+				/**
+				 * 加载项目详情数据
+				 */
+				sendGetRequest(platformUrl.detailProject + id, {}, function(data){
+					$("#project_name").text(data.entity.projectName);
+					var progress = data.entity.projectProgress;
+					progress = progress.replace(":","_");
+					$("#" + progress).addClass("on");
+					$("#" + progress + "_con").css("display","block");
+				},null);
+			}//模版反回成功执行	
+		});
+		$("#project_id").val(id);
+		return false;
+	}
 </script>
-
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 </html>
