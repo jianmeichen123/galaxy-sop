@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <div class="myprojecttc" >
   <a href="javascript:;" data-close="close" class="close null">关闭</a>
           <!-- 项目介绍 -->
