@@ -447,8 +447,8 @@
 	                      align: 'center',
 	                      formatter:function(value,row,index){  
 		                   var a = '<a href="javascript:;" class="ico b2">人人简历</a>';
-		                   var e = '<a href="#" mce_href="#" data-btn="stock" class="ico b2" onclick="updatePer(\''+ row.id + '\')">修改</a> ';  
-		                   var d = '<a href="#" mce_href="#" data-btn="addmen" class="ico b2" onclick="deletePer(\''+ row.id +'\')">删除</a> ';  
+		                   var e = '<a href="javascript:;" mce_href="#" data-btn="stock" class="ico b2" onclick="updatePer(\''+ row.id + '\')">修改</a> ';  
+		                   var d = '<a href="javascript:;" mce_href="#" data-btn="addmen" class="ico b2" onclick="deletePer(\''+ row.id +'\')">删除</a> ';  
 	                        return '<div class="btnbox_f">'+a+e+d+'</div>';  
 	                    } 
 	                  }
@@ -504,8 +504,8 @@
                       field: 'id',
                       align: 'center',
                       formatter:function(value,row,index){  
-                   var e = '<a href="#" mce_href="#" data-btn="stock" class="ico b2" onclick="editStock(\''+ row.id + '\')">修改</a> ';  
-                   var d = '<a href="#" mce_href="#" data-btn="addmen" class="ico b2" onclick="delStock(\''+ row.id +'\')">删除</a> ';  
+                   var e = '<a href="javascript:;" mce_href="#" data-btn="stock" class="ico b2" onclick="editStock(\''+ row.id + '\')">修改</a> ';  
+                   var d = '<a href="javascript:;" mce_href="#" data-btn="addmen" class="ico b2" onclick="delStock(\''+ row.id +'\')">删除</a> ';  
                         return '<div class="btnbox_f">'+e+d+'</div>';  
                     } 
                   }
