@@ -357,20 +357,6 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
-		
-		public static String getNameByCode(String code) {
-	        
-	        if (code != null && !code.trim().equals("")) {
-	            
-	        	fileStatus[] values = fileStatus.values();
-	            for (int i = 0;i < values.length;i++) {
-	                if (code.equals(values[i].getCode())) {
-	                    return values[i].getName();
-	                }                
-	            }
-	        }
-	        return null;
-	    }
 	}
 	
 	//档案业务分类
@@ -404,6 +390,24 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	fileWorktype[] values = fileWorktype.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 	}
 	
 	
@@ -429,7 +433,12 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
-		public static String getNameByCode(String code) {
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
 	        
 	        if (code != null && !code.trim().equals("")) {
 	            

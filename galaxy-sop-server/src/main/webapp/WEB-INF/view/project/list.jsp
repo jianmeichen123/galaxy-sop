@@ -84,7 +84,9 @@
 		<div class="tab-pane active" id="view">	
 			<input type="hidden" id="project_id" value="">	
 			<table id="data-table" data-url="project/spl" data-height="555" 
-				data-page-list="[1, 5, 50]" data-toolbar="#custom-toolbar">
+				data-method="post" data-show-refresh="true" 
+				data-side-pagination="server" data-pagination="true" 
+				data-page-list="[1, 5, 50]" data-search="false">
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
@@ -133,16 +135,17 @@
 					}
 					$("#" + progress).addClass("on");
 					$("#" + progress + "_con").css("display","block");
-					tiggerTable($("#" + progress + "_table"),3,id);
 				},null);
+				
+				//
+				
 			}
 		});
 		$("#project_id").val(id);
-		$("input[name='projectId']").val(id);
 		return false;
 	}
 	
-	function air(){
+	function air(id){
 		var _url='<%=path%>/galaxy/air';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -155,5 +158,6 @@
 		});
 		return false;
 	}
+	
 </script>
 </html>

@@ -1,7 +1,9 @@
 package com.galaxyinternet.model.sopfile;
 
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class SopFile extends PagableEntity {
     /**
@@ -89,7 +91,42 @@ public class SopFile extends PagableEntity {
      * 文档名称
      */
     private String fileName;
+    
+    
+    //详情数据转换
+  	private String createDate;
+  	private String progress;
+  	private String fType;
+  	private String fWorktype;
+  	
+  	
+  	
+  	
+  	
+  	 public String getfType() {
+		return fType;
+	}
 
+	public String getfWorktype() {
+		return fWorktype;
+	}
+
+	public String getCreateDate() {
+ 		return createDate;
+ 	}
+     
+     @Override
+     public void setCreatedTime(Long createdTime) {
+     	if(createdTime != null){
+     		this.createDate = DateUtil.longToString(createdTime);
+     	}
+     }
+     
+ 
+
+ 	public String getProgress() {
+ 		return progress;
+ 	}
     
     public Long getProjectId() {
         return projectId;
@@ -100,14 +137,15 @@ public class SopFile extends PagableEntity {
         this.projectId = projectId;
     }
 
-    
     public String getProjectProgress() {
         return projectProgress;
     }
 
-    
     public void setProjectProgress(String projectProgress) {
-        this.projectProgress = projectProgress;
+        this.projectProgress = projectProgress == null ? null : projectProgress.trim();
+        if(projectProgress != null){
+			this.progress = DictEnum.projectProgress.getNameByCode(projectProgress);
+		}
     }
 
     
@@ -117,7 +155,10 @@ public class SopFile extends PagableEntity {
 
     
     public void setFileWorktype(String fileWorktype) {
-        this.fileWorktype = fileWorktype;
+    	 this.fileWorktype = fileWorktype == null ? null : fileWorktype.trim();
+         if(fileWorktype != null){
+ 			this.fWorktype = DictEnum.fileWorktype.getNameByCode(fileWorktype);
+ 		}
     }
 
     
@@ -148,11 +189,10 @@ public class SopFile extends PagableEntity {
 
 
 	public void setFileType(String fileType) {
-		this.fileType = fileType;
-		if(fileType != null)
-		{
-			fileTypeDesc = DictEnum.fileType.getNameByCode(fileType);
-		}
+		 this.fileType = fileType == null ? null : fileType.trim();
+         if(fileType != null){
+ 			this.fType = DictEnum.fileType.getNameByCode(fileType);
+ 		}
 	}
 
 
@@ -173,10 +213,6 @@ public class SopFile extends PagableEntity {
     
     public void setFileStatus(String fileStatus) {
         this.fileStatus = fileStatus;
-        if(fileStatus != null)
-        {
-        	fileStatusDesc = DictEnum.fileStatus.getNameByCode(fileStatus);
-        }
     }
 
     
@@ -239,11 +275,6 @@ public class SopFile extends PagableEntity {
 		this.fileName = fileName;
 	}
 
-    private String fileStatusDesc;
-    private String fileTypeDesc;
-
-    
-    
     
 
 }
