@@ -26,7 +26,7 @@
         <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="javascript:;" class="pubbtn bluebtn ico c3">发邮件给</a>
+                <a href="javascript:;" class="pubbtn bluebtn ico c3" id="show-mail-btn">发邮件给</a>
             </div>
         </div>
         <!--表格内容-->
@@ -68,6 +68,7 @@
 <form id="upload-form">
 	<input type="hidden" name="id">
 	<input type="hidden" name="fileKey">
+	<input type="hidden" name="fileLength">
 	<h2>模板更新</h2>   
     <dl class="fmdl clearfix">
     	<dt>存储类型：</dt>
@@ -102,6 +103,71 @@
     <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
 </div>
 <!-- upload dialog end -->
+<!-- Mail dialog start-->
+<div id="mail-dialog" style="display:none;">
+<form id="mail-form">
+<div class="emailtc" >
+    <h2>模板管理-邮件分享</h2>
+    <dl class="fmdl clearfix">
+        <dt>发件人：</dt>
+        <dd class="clearfix">
+            <input type="text" name="fromAddress" value="${sessionScope.galax_session_user.email }" class="txt"/>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+        <dt>收件人：</dt>
+        <dd class="clearfix">
+            <input type="text" name="toAddress" class="txt"/>
+        </dd>
+        <dd>            
+            <label class="red">&#42;&nbsp;必填</label>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+        <dt>邮件标题：</dt>
+        <dd class="clearfix">
+            <input type="text" name="title" class="txt"/>
+        </dd>
+        <dd>            
+            <label class="red">&#42;&nbsp;必填</label>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+    	<dt>邮件正文:</dt>
+        <dd class="clearfix">
+        	<textarea name="content"></textarea>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+        <dt>邮件分类:</dt>
+        <dd class="clearfix">
+            <table width="100%" cellspacing="0" cellpadding="0" id="attach-table">
+              <thead>
+                  <tr>
+                      <th>序号</th>
+                      <th>档案名称</th>
+                      <th>档案大小/m </th>
+                  </tr>
+              </thead>                                                                                                                     
+              <tbody>
+              </tbody>
+          </table> 
+
+        </dd>
+    </dl>
+    <div class="checkbox">
+        <label for=""><input name="zipFlag" type="checkbox">自动打成一个压缩包附件发送</label>
+    </div>    
+    <div class="checkbox">
+        <label for=""><input name="smFlag" type="checkbox">发送成功后短信通知</label>
+    </div>
+    <div class="btnbox">
+    	<a href="javascript:;" class="pubbtn bluebtn" id="send-mail-btn">发送</a>
+    </div>
+</div>
+</form>
+</div>
+<!-- Mail dialog end -->
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
 var uploader;
@@ -109,6 +175,9 @@ $(function(){
 	createMenus(13);
 	loadTempList();
 	loadRelatedData();
+	$("#show-mail-btn").click(function(){
+		showMailPopup();
+	});
 });
 /**
  * 加载模板列表
@@ -121,8 +190,8 @@ function loadTempList()
 			function(data){
 				$("#template-table tbody").empty();
 				$.each(data.entityList,function(){
-					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-bucket-name="'+this.bucketName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'"></tr>');
-					$tr.append('<td><input type="checkbox" name="document" checked="checked"/></td>') ;
+					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-bucket-name="'+this.bucketName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-file-length="'+this.fileLength+'"></tr>');
+					$tr.append('<td><input type="checkbox" name="document" /></td>') ;
 					$tr.append('<td>'+this.workTypeDesc+'</td>') ;
 					$tr.append('<td>'+this.departmentDesc+'</td>') ;
 					$tr.append('<td>'+this.docTypeDesc+'</td>') ;
@@ -256,7 +325,9 @@ function initUpload()
 			},
 			
 			FileUploaded: function(up, files, rtn) {
-				$("#popTxt input[name='fileKey']").val(rtn.response);
+				var result = $.parseJSON(rtn.response);
+				$("#popTxt input[name='fileKey']").val(result.fileKey);
+				$("#popTxt input[name='fileLength']").val(result.fileLength);
 				$form = $("#popTxt #upload-form");
 				var data = JSON.parse($form .serializeObject());
 				var url = "<%=path %>"+platformUrl.tempSave
@@ -286,6 +357,53 @@ function setForm(form,data)
 		}
 	}
 	
+}
+
+function showMailPopup()
+{
+	var flags = $("#template-table input[type='checkbox']:checked");
+	var len = flags.length;
+	if(len == 0 )
+	{
+		alert("请选择模板.");
+		return;
+	}
+	
+	$.popup({
+		txt:$("#upload-dialog").html(),
+		callback:function(t,postionEve){
+			postionEve();
+			$("#popTxt").html($("#mail-dialog").html());
+
+			var i=0;
+			
+			$.each(flags,function(){
+				var flag = $(this);
+				i++;
+				var $row = $(this).closest("tr");
+				var $tr=$("<tr></tr>");
+				$tr.append("<td>"+ i +"</td>");
+				$tr.append("<td>"+ $row.data('bucket-name') +"</td>");
+				$tr.append("<td>"+ $row.data('file-length') +"</td>");
+				$("#popTxt #attach-table tbody").append($tr);
+				$("#popTxt #mail-form").prepend('<input type="hidden" name="templateIds" value="'+$row.data('id')+'">');
+			});
+			$("#popTxt #send-mail-btn").click(function(){
+				
+				var $form = $("#popTxt #mail-form");
+				var data = JSON.parse($form .serializeObject());
+				var url = "<%=path %>"+platformUrl.tempSendMail;
+				sendPostRequestByJsonObj(
+						url,
+						data,
+						function(data){
+							alert("发送邮件成功.");
+							//loadTempList();
+						}
+				);
+			});
+		}
+	});
 }
 </script>
 </body>

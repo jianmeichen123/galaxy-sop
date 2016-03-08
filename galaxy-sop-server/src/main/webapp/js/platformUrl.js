@@ -52,6 +52,10 @@ var platformUrl = {
 	 * 模板下载
 	 */
 	tempDownload:"/galaxy/template/download",
+	/**
+	 * 模板邮件
+	 */
+	tempSendMail:"/galaxy/template/sendMail",
 	
 	/**
 	 * 修改团队成员

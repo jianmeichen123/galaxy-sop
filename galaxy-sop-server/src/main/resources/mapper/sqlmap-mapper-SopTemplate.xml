@@ -73,7 +73,23 @@
 		left join dict wt on wt.parent_code = 'fileWorktype' and t.worktype = wt.dict_value
 		left join dict ft on ft.parent_code = 'fileType' and t.doc_type = ft.dict_value
 		left join t_user u on t.update_uid = u.id
-		<include refid="Base_Where_Clause" />
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="worktype != null" > and worktype = #{worktype,jdbcType=BIGINT} </if>
+				<if test="docType != null" > and doc_type = #{fileType,jdbcType=BIGINT} </if>
+				<if test="filUri != null" > and fil_uri = #{filUri,jdbcType=BIGINT} </if>
+				<if test="fileLength != null" > and file_length = #{fileLength,jdbcType=BIGINT} </if>
+				<if test="fileKey != null" > and file_key = #{fileKey,jdbcType=BIGINT} </if>
+				<if test="bucketName != null" > and bucket_name = #{bucketName,jdbcType=BIGINT} </if>
+				<if test="ids != null">
+					and t.id in 
+					<foreach collection="ids" item="item" open="("  separator="," close=")">
+					#{item}
+					</foreach>
+				</if>				
+			</trim>
+		</where>
 	</select>
 	
 	<!-- 查询总数 -->
