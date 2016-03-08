@@ -66,10 +66,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	/**
 	 * 弹出页面
 	 */
-	@ResponseBody
 	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
 	public String goClaimtcPage(HttpServletRequest request) {
-		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
+
 		//当前登录人
 		User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
@@ -83,6 +82,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		try {
 			sopTask.setAssignUid(user.getId());
 			 sopTaskService.updateById(sopTask);
+			 request.setAttribute("taskid", id);
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
 		} catch (Exception e) {

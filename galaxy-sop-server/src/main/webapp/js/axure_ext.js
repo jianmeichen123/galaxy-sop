@@ -176,7 +176,16 @@ $(function(){
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
-			okback:function(){}//模版反回成功执行	
+			okback:function(){
+				var taskid=getProjectid();
+				$(".btnbox").on("click", "#dotask", function() {
+					this.href="/galaxy/soptask/doTask?projectid="+taskid;
+	            });
+				//单击按钮刷新页列表里面的内容
+				$(".btnbox").on("click", "#notdo", function() {
+					this.href="/galaxy/soptask";
+				 });
+			}//模版反回成功执行	
 		});
 		return false;
 	});

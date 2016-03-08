@@ -10,6 +10,7 @@ String projectId=(String)request.getAttribute("projectId");
 <meta charset="utf-8">
 <title>待办任务-基本信息</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 </head>
 
@@ -127,13 +128,10 @@ String projectId=(String)request.getAttribute("projectId");
     </div>
  
 </div>
-<script src="<%=path %>/js/jquery-1.7.2.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
-<jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>ssss
+<jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
 	$(function(){
-		createMenus(2);
+		createMenus(11);
 	});
 </script>
 </body>

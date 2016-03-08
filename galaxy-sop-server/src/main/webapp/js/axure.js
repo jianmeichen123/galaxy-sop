@@ -89,6 +89,8 @@
 		$("#pop").on("click","[data-close='close']",function(){
 			opts.hideback($("#pop"));
 			$("#popbg,#pop").remove();
+			var obj=$("#all")[0];
+			setData(obj);
 		});
 	};
 	//切换样式控制

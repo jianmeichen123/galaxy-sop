@@ -29,7 +29,7 @@
         <div class="top clearfix">
         	<!--搜索-->
           <div class="searchbox clearfix">
-            <input type="text" placeholder="请输入项目名或投资经理名" class="txt"/>
+            <input type="text" placeholder="请输入项目名或投资经理名" class="txt" id="searchName"/>
             <a href="javascript:;" class="bluebtn ico cx" id="search">查询</a>
           </div>
             <!--tips连接-->
@@ -40,7 +40,8 @@
                 <li><a href="javascript:;" id="claim" >待认领<span>(10)</span></a></li>
                 <li><a href="javascript:;" id="todeal">待完工<span>(4)</span></a></li>
                 <li><a href="javascript:;"id="finish">已完成</a></li>   
-                <a href="/galaxy/soptask/goClaimtcPage?id=1" data-btn="claim">认领</a>        
+                <a href="/galaxy/soptask/goClaimtcPage?id=1" data-btn="claim">认领</a>  
+                  <input type="text" name="tid" value="">      
           </ul>
         </div>
         <!--表格内容-->
@@ -86,6 +87,7 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(2);
+		
 	});
 </script>
 </html>

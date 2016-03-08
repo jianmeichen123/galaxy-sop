@@ -7,7 +7,7 @@ var platformUrl = {
 	/**
 	 * 验证登录
 	 */
-	createMenus : "./common/menu/",
+	createMenus : "/galaxy/common/menu/",
 	/**
 	 * 获取项目编码接口地址
 	 */
