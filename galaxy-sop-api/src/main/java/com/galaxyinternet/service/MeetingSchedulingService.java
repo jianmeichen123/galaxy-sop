@@ -22,4 +22,24 @@ public interface MeetingSchedulingService extends BaseService<MeetingScheduling>
 	 * @return
 	 */
 	List<MeetingSchedulingBo>selectProjectMeetingByType(String type);
+	
+	
+	
+	
+	/**
+	 * 投决会排期top5列表
+	 * @author gxc
+	 * @return
+	 */
+	List<MeetingSchedulingBo>selectProjectVoteWill();
+
+	/**
+	 * 投决会排期 all
+	 * @author gxc
+	 * @return
+	 */
+	List<MeetingSchedulingBo>selectMoreProjectVoteWill();
+	
+	
+	
 }
