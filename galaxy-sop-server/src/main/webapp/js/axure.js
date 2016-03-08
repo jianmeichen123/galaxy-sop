@@ -150,10 +150,12 @@
 				});
 				return _this;	
 			},
+			
 			closepop:function(){
 				var _this = this;
 				$(_this.id).on("click","[data-close='close']",function(){
 						$(_this.id).remove();
+						
 						//关闭对外接口
 						_this.hideback.apply(_this);
 						//判断是否关闭背景

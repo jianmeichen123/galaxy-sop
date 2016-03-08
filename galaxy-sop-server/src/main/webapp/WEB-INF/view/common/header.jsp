@@ -1,6 +1,9 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page import="com.galaxyinternet.model.user.User"%>
+<%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
 <% 
 	String path = request.getContextPath(); 
+    User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 %>
 <div class="header clearfix">
 	<a href="javascript:;" class="logo null">繁星</a>
@@ -22,8 +25,16 @@
     </div>
     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
-        <span class="ico name">早上好，闫皓</span>
+        <span class="ico name">早上好，<%=user.getNickName() %></span>
         <b class="line null">分割线</b>
-        <a href="javascript:;" class="loginout">退出</a>
+        <a href="" class="loginout">退出</a>
     </div>
 </div>
+<script>
+$(function(){
+	$(".usermsg").on("click", ".loginout", function() {
+		this.href=Constants.platformEndpointURL+'/galaxy/userlogin/logout';
+	});
+});
+
+</script>
