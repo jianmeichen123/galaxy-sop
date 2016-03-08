@@ -3,7 +3,7 @@ package com.galaxyinternet.common.dictEnum;
 public class DictUtil {
 	public static String getStatusName(String code){
 		String name="";
-		if(code.equals(DictEnum.taskStatus.待认领.getCode()))	{
+		if(code.equals(DictEnum.taskStatus.待认领.getCode()))	{ 
 			name=DictEnum.taskStatus.待认领.getName();
 		}
 		if(code.equals(DictEnum.taskStatus.待完工.getCode()))	{
