@@ -127,12 +127,32 @@
 					$("#project_name").text(data.entity.projectName);
 					var progress = data.entity.projectProgress;
 					progress = progress.replace(":","_");
+					var index = progress.substr(progress.length-1,1);
+					for(var i = 1; i<10; i++){
+						if(i > index){
+							$("#projectProgress_" + i).addClass("disabled");
+						}
+					}
 					$("#" + progress).addClass("on");
 					$("#" + progress + "_con").css("display","block");
 				},null);
-			}//模版反回成功执行	
+			}
 		});
 		$("#project_id").val(id);
+		return false;
+	}
+	
+	function air(id){
+		var _url='<%=path%>/galaxy/air';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
+			}
+		});
 		return false;
 	}
 </script>
