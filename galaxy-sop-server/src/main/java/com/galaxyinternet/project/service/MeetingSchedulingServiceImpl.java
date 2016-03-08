@@ -43,6 +43,8 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 			 for (Project project :projectList)   {
 				 if (meeting.getProjectId() == project.getId()) {
 					 meeting.setProjectName(project.getProjectName());
+					 meeting.setProjectCareerline(project.getProjectCareerline());
+					 meeting.setCreateUname(project.getCreateUname());
 				 }
 			 }
 		 }
@@ -58,6 +60,8 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 			 for (Project project :projectList)   {
 				 if (meeting.getProjectId() == project.getId()) {
 					 meeting.setProjectName(project.getProjectName());
+					 meeting.setProjectCareerline(project.getProjectCareerline());
+					 meeting.setCreateUname(project.getCreateUname());
 				 }
 			 }
 		 }

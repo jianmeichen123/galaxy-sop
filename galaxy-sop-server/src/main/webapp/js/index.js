@@ -3,9 +3,7 @@
 
 	var moreProjectMeetingList ={};
 
-	var ProjectVoteWill ={};
 
-	var moreProjectVoteWill={};
 	// top5立项排期
 	function top5ProjectMeeting() {
 		sendGetRequest(platformUrl.top5ProjectMeeting, null, top5ProjectMeetingCallback, null);
@@ -18,7 +16,7 @@
 
 	// 所有立项排期
 	function moreProjectMeeting() {
-		sendGetRequest(platformUrl.moreProjectMeeting, null, moreProjectMeetingCallback, null);
+		sendGetRequest("http://localhost:8080/galaxy-sop-server/galaxy/home/moreProjectMeeting", null, moreProjectMeetingCallback, null);
 	}
 
 
@@ -34,13 +32,12 @@
 		var list = data.entityList;
 		if(list != "" || list != undefined || list != null){
 			var tbodyList = $("#tbody"); 
-			
-			tbodyList.empty();
+			var i=0;
 			$(list).each(function(){
 				 var temp = $(this)[0];
-				
+				 i=i+1;
 				 var tr='<tr>'+
-					 '<td>1</td>'+
+					 '<td>'+i+'</td>'+
 					 '<td>'+ temp.projectName+'</td>'+
 					 '<td>'+ temp.meetingDate+'</td>'+
 					 '<td>'+temp.meetingCount+'</td>'+
@@ -52,17 +49,18 @@
 	}
 
 	function top5ProjectMeetingCallback(data) {
-		
 		var list = data.entityList;
 		if(list != "" || list != undefined || list != null){
 			var tbodyList = $("#tlbody"); 
 			tbodyList.empty();
+			var i=0;
 			$(list).each(function(){
 				 var templ = $(this)[0];
+				 i=i+1;
 				 var tr='<tr>'+
-					 '<td>1</td>'+
+					 '<td>'+i+'</td>'+
 					 '<td>'+ templ.projectName+'</td>'+
-					 '<td>'+ templ.meetingDate+'</td>'+
+					 '<td>'+ formatDate(templ.meetingDate)+'</td>'+
 					 '<td>'+templ.meetingCount+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
@@ -70,9 +68,57 @@
 			
 		}
 	}
-
-
-
-function moreProjectMeetingCallback(data) {
-	moreProjectMeetingList = data.entityList;
+	function moreProjectMeetingCallback(data) {
+		var list = data.entityList;
+		if(list != "" || list != undefined || list != null){
+			var tbodyList = $("#tbody"); 
+			tbodyList.empty();
+			var i=0;
+			$(list).each(function(){
+				 var templ = $(this)[0];
+				 i=i+1;
+				 var tr='<tr>'+
+					 '<td>'+i+'</td>'+
+					 '<td>'+ templ.projectName+'</td>'+
+					 '<td>'+ formatDate(templ.meetingDate)+'</td>'+
+					 '<td>'+templ.meetingCount+'</td>'+
+					' </tr>'; 
+				 tbodyList.append(tr);
+			  });
+			
+		}
+	}
+	
+	function formatDate(date, format) {   
+	    if (!date) return;   
+	    if (!format) format = "yyyy-MM-dd";   
+	    switch(typeof date) {   
+	        case "string":   
+	            date = new Date(date.replace(/-/, "/"));   
+	            break;   
+	        case "number":   
+	            date = new Date(date);   
+	            break;   
+	    }    
+	    if (!date instanceof Date) return;   
+	    var dict = {   
+	        "yyyy": date.getFullYear(),   
+	        "M": date.getMonth() + 1,   
+	        "d": date.getDate(),   
+	        "H": date.getHours(),   
+	        "m": date.getMinutes(),   
+	        "s": date.getSeconds(),   
+	        "MM": ("" + (date.getMonth() + 101)).substr(1),   
+	        "dd": ("" + (date.getDate() + 100)).substr(1),   
+	        "HH": ("" + (date.getHours() + 100)).substr(1),   
+	        "mm": ("" + (date.getMinutes() + 100)).substr(1),   
+	        "ss": ("" + (date.getSeconds() + 100)).substr(1)   
+	    };       
+	    return format.replace(/(yyyy|MM?|dd?|HH?|ss?|mm?)/g, function() {   
+	        return dict[arguments[0]];   
+	    });                   
+	}   
+function showList() {
+	alert("ok");
+	moreProjectMeeting();
 }

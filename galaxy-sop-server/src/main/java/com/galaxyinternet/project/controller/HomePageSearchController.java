@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -105,13 +105,13 @@ public class HomePageSearchController
 			HttpServletRequest request) {
 
 		ResponseData<MeetingSchedulingBo> responseBody = new ResponseData<MeetingSchedulingBo>();
-		Object obj = request.getSession()
+	/*	Object obj = request.getSession()
 				.getAttribute(Constants.SESSION_USER_KEY);
 		if (obj == null) {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
 		}
-		// User user = (User)
+*/		// User user = (User)
 		// request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 
@@ -144,12 +144,12 @@ public class HomePageSearchController
 			HttpServletRequest request) {
 
 		ResponseData<MeetingSchedulingBo> responseBody = new ResponseData<MeetingSchedulingBo>();
-		Object obj = request.getSession()
+		/*Object obj = request.getSession()
 				.getAttribute(Constants.SESSION_USER_KEY);
 		if (obj == null) {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
-		}
+		}*/
 
 		try {
 
@@ -176,12 +176,12 @@ public class HomePageSearchController
 			HttpServletRequest request) {
 
 		ResponseData<MeetingSchedulingBo> responseBody = new ResponseData<MeetingSchedulingBo>();
-		Object obj = request.getSession()
+		/*Object obj = request.getSession()
 				.getAttribute(Constants.SESSION_USER_KEY);
 		if (obj == null) {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
-		}
+		}*/
 		// User user = (User)
 		// request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
@@ -204,6 +204,14 @@ public class HomePageSearchController
 		return responseBody;
 	}
 	
+	/**
+	 * 到立项会排期,投诀会
+	 * @return
+	 */
+	@RequestMapping(value = "/projectMeeting", method = RequestMethod.GET)
+	public String projectMeeting() {
+		return "meeting/projectMeeting";
+	}
 	
 	
 }
