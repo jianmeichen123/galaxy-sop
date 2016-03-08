@@ -26,12 +26,14 @@ import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.InterviewRecordBo;
@@ -105,28 +107,64 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return null;
 	}
 	
+	
 	@RequestMapping("/upload")
 	@ResponseBody
-	public String upload(@RequestParam MultipartFile file)
-	{
+	public ResponseData<SopFile> upload(HttpServletRequest request,@RequestParam MultipartFile file){
+		
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		
 		String key = null;
 		 try {
 			if(file != null)
 			 {
 				String fileName = file.getOriginalFilename();
-				int dotPos = fileName.lastIndexOf(".");
-				key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				String ext = fileName.substring(dotPos);
-				File temp = File.createTempFile(key, ext);
-				file.transferTo(temp);
-				OSSHelper.simpleUploadByOSS(temp,key);
 				
+				int dotPos = fileName.lastIndexOf(".");
+				
+				key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				
+				String ext = fileName.substring(dotPos);
+				
+				//File temp = File.createTempFile(key, ext);
+				
+				String path = request.getSession().getServletContext().getRealPath("upload");
+				//File tempFile = new File(path,fileName);
+				File temp = File.createTempFile(path,fileName);
+				
+				//存储临时文件
+				file.transferTo(temp);
+				
+				//上传至阿里云
+				UploadFileResult upResult = OSSHelper.simpleUploadByOSS(temp,key);
+				
+				//若文件上传成功
+				if(upResult.getResult().getStatus().equals("OK")){
+					SopFile sopFile = new SopFile();
+					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); //bucketName
+					sopFile.setFileKey(key);   //fileKey
+					sopFile.setFileLength(temp.length());  //文件大小
+					sopFile.setFileName(temp.getName());  //文件名称
+					sopFile.setFileUid(user.getId());	 //上传人
+					//sopFile.setFileType("");  //存储类型
+					// sopFile.setFileSource(Integer.parseInt(fileSource));  //档案来源
+					//sopFile.setFileWorktype(fileWorkType);    //业务分类
+					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+					sopFileService.insert(sopFile);
+					
+					responseBody.setResult(new Result(Status.OK, ""));
+					responseBody.setId(sopFile.getId());
+				}
 			 }
 		} catch (Exception e) {
-			Object msg = "上传失败！";
-			logger.error(msg.toString(),e);
+			responseBody.setResult(new Result(Status.ERROR,null, "上传失败"));
+			if(logger.isErrorEnabled()){
+				logger.error("上传失败 ",e);
+			}
 		}
-		return key;
+		return responseBody;
 	}
 	
 	/**
@@ -144,6 +182,109 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public String interViewAdd() {
 		return "interview/interviewtc";
 	}
+	
+	
+	/**
+	 * 接触访谈阶段: 附件添加 -访谈添加
+	 * @param   interviewRecord 
+	 * 			produces="application/text;charset=utf-8"
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/addFileInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<InterviewRecord> addFileInterview(@RequestBody InterviewRecord interviewRecord ,HttpServletRequest request ) {
+		
+		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+		
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		
+//		InterviewRecord interviewRecord = new InterviewRecord();
+//		String projectId = request.getParameter("projectId");
+//		String viewDateStr = request.getParameter("viewDateStr");
+//		String viewTarget = request.getParameter("viewTarget");
+//		String viewNotes = request.getParameter("viewNotes");
+		
+		
+		if(interviewRecord.getProjectId() == null 
+				|| interviewRecord.getViewDate() == null 
+				|| interviewRecord.getViewTarget() == null
+				|| interviewRecord.getViewNotes() == null ){
+			responseBody.setResult(new Result(Status.ERROR,null, "interviewRecord info not complete"));
+			return responseBody;
+		}
+		
+		try {
+			
+			//project id 验证
+			Project project = new Project();
+			project = projectService.queryById(interviewRecord.getProjectId());
+			
+			String err = errMessage(project,user,DictEnum.projectProgress.接触访谈.getCode());   //字典  项目进度  接触访谈 
+			if(err!=null && err.length()>0){
+				responseBody.setResult(new Result(Status.ERROR,null, err));
+				return responseBody;
+			}
+				
+		
+			//请求转换
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			MultipartFile file = multipartRequest.getFile("file");
+			String key = "";
+			
+			if(file != null){
+				String fileName = file.getOriginalFilename();  
+				
+				int dotPos = fileName.lastIndexOf(".");
+				
+				key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				
+				String ext = fileName.substring(dotPos);
+				
+				//File temp = File.createTempFile(key, ext);
+				
+				String path = request.getSession().getServletContext().getRealPath("upload");
+				//File tempFile = new File(path,fileName);
+				File temp = File.createTempFile(path,fileName);
+				
+				//存储临时文件
+				file.transferTo(temp);
+				
+				//上传至阿里云
+				UploadFileResult upResult = OSSHelper.simpleUploadByOSS(temp,key);
+				
+				//若文件上传成功
+				if(upResult.getResult().getStatus().equals("OK")){
+					SopFile sopFile = new SopFile();
+					sopFile.setProjectId(interviewRecord.getProjectId());
+					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); //bucketName
+					sopFile.setFileKey(key);   //fileKey
+					sopFile.setFileLength(temp.length());  //文件大小
+					sopFile.setFileName(temp.getName());  //文件名称
+					sopFile.setFileUid(user.getId());	 //上传人
+					//sopFile.setFileType("");  //存储类型
+					// sopFile.setFileSource(Integer.parseInt(fileSource));  //档案来源
+					//sopFile.setFileWorktype(fileWorkType);    //业务分类
+					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+					sopFileService.insert(sopFile);
+					
+					interviewRecord.setFileId(sopFile.getId());
+				}
+			 }
+			
+			Long id = interviewRecordService.insert(interviewRecord);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(id);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "insert interviewRecord faild"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("insert interviewRecord faild ",e);
+			}
+		}
+		
+		return responseBody;
+	}
+	
 	
 	/**
 	 * 接触访谈阶段: 访谈添加
@@ -178,18 +319,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 				
 		try {
-			//上传成功修改 sopfile里面的数据-根据fileid修改sopfile
-			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-			//文件上传
-			String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-			MultipartFile multipartFile = multipartRequest.getFile("file");
-			try{
-				File file = (File)multipartFile;
-				OSSHelper.simpleUploadByOSS(file,key);
-			}catch(Exception e){
-				logger.error("上传文件错误：", e);
-				responseBody.setResult(new Result(Status.ERROR,null,"上传文件失败!"));
-			}
 			
 			Long id = interviewRecordService.insert(interviewRecord);
 			responseBody.setResult(new Result(Status.OK, ""));

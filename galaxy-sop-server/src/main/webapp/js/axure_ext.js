@@ -232,6 +232,7 @@ $(function(){
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
+				umInit();
 				queryPerPro();
 			}//模版反回成功执行	
 		});
@@ -245,7 +246,10 @@ $(function(){
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
+				//umInit();
+				initUpload();
 				queryPerPro();
+				$('.edui-container').show();
 			}//模版反回成功执行	
 		});
 		return false;

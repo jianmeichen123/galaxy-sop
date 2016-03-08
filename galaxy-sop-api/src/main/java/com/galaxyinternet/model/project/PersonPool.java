@@ -3,8 +3,9 @@ package com.galaxyinternet.model.project;
 import java.util.Date;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.model.PagableEntity;
 
-public class PersonPool extends BaseEntity{
+public class PersonPool extends PagableEntity{
 	private static final long serialVersionUID = 1L;
 	
     private String personName;

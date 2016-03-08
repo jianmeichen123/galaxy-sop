@@ -62,4 +62,20 @@ public class IndexController {
 	public String myproject() {
 		return "project/list";
 	}
+	/**
+	 * 到我的项目页面
+	 * @return
+	 */
+	@RequestMapping(value = "/ips", method = RequestMethod.GET)
+	public String inProjectStage() {
+		return "project/stage";
+	}
+	/**
+	 * 到添加访谈记录弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/air", method = RequestMethod.GET)
+	public String addInterviewRecord() {
+		return "project/air";
+	}
 }

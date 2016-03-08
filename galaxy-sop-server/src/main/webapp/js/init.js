@@ -1,19 +1,12 @@
-/**
- * 
- */
-    $(function () {
-    	$('#data-table').bootstrapTable({
-    		queryParamsType: 'size|page', // undefined
-    		
-    	});
-        
-    	 $(".form_datetime").datetimepicker({
-    		 	language:"zh-CN",
-    	        format: "yyyy-mm-dd HH:ii",
-    	        showMeridian: true,
-    	        autoclose: true,
-    	        todayBtn: true
-    	    });
-    
-
-    });
+$(function () {
+	$('#data-table').bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		pageSize:10,
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+        search: false,
+	});
+	
+});

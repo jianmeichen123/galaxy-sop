@@ -13,7 +13,10 @@ public class ProjectBo extends Project {
 	private String nameLike;//模糊查询条件匹配
 	
 	private List<String>  ids;//业务扩展字段---项目ids
-
+	
+	private String partnerName;//合伙人姓名
+	
+	
 	public String getExtendFiled() {
 		return extendFiled;
 	}
@@ -37,8 +40,14 @@ public class ProjectBo extends Project {
 	public void setIds(List<String> ids) {
 		this.ids = ids;
 	}
-	
-	
+
+	public String getPartnerName() {
+		return partnerName;
+	}
+
+	public void setPartnerName(String partnerName) {
+		this.partnerName = partnerName;
+	}
 	
   
 }

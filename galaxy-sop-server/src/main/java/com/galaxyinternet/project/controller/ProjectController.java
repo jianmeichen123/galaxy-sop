@@ -230,7 +230,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) obj;
 		Project p = projectService.queryById(pool.getProjectId());
 		//项目创建者用户ID与当前登录人ID是否一样
-		if(p != null && user.getId() != p.getCreateUid()){
+		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限为该项目添加团队成员!"));
 			return responseBody;
 		}
@@ -267,7 +267,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) obj;
 		Project p = projectService.queryById(pool.getProjectId());
 		//项目创建者用户ID与当前登录人ID是否一样
-		if(p != null && user.getId() != p.getCreateUid()){
+		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限修改该项目的团队成员信息!"));
 			return responseBody;
 		}
@@ -284,10 +284,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/dpp", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPoolBo> deleteProjectPerson(@RequestBody PersonPoolBo pool, HttpServletRequest request) {
+	@RequestMapping(value = "/dpp/{id}/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPoolBo> deleteProjectPerson(@PathVariable("id") Long id,@PathVariable("projectId") Long projectId, HttpServletRequest request) {
 		ResponseData<PersonPoolBo> responseBody = new ResponseData<PersonPoolBo>();
-		if(pool == null || pool.getId() == null || pool.getProjectId() == null){
+		if(projectId == null){
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
@@ -297,19 +297,20 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		User user = (User) obj;
-		Project p = projectService.queryById(pool.getProjectId());
+		Project p = projectService.queryById(projectId);
 		//项目创建者用户ID与当前登录人ID是否一样
-		if(p != null && user.getId() != p.getCreateUid()){
+		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限删除该项目的团队成员!"));
 			return responseBody;
 		}
-		
-		ProjectPerson pp = new ProjectPerson();
-		pp.setPersonId(pool.getId());
-		pp.setProjectId(pool.getProjectId());
+		ProjectPerson pp=new ProjectPerson();
+		pp.setPersonId(id);
+		pp.setProjectId(projectId);
 		int num = projectPersonService.delete(pp);
 		
-		if(num > 0){
+		int mump = personPoolService.deleteById(id);
+		
+		if(num > 0 && mump > 0){
 			responseBody.setResult(new Result(Status.OK,"团队成员删除成功!"));
 		}
 		return responseBody;
@@ -321,30 +322,29 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/queryProjectPerson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> queryProjectPerson(PersonPoolBo pb, PageRequest pageable, HttpServletRequest request) {
+	@RequestMapping(value = "/queryProjectPerson",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> queryProjectPerson(HttpServletRequest request,@RequestBody PersonPool personPool) {
 		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
-		if(pb.getProjectId() == null){
-			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
-			return responseBody;
-		}
+		
 		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
 		}
-		User user = (User) obj;
-		Project p = projectService.queryById(pb.getProjectId());
-		//项目创建者用户ID与当前登录人ID是否一样
-		if(p != null && user.getId() != p.getCreateUid()){
-			responseBody.setResult(new Result(Status.ERROR, "没有权限查看该项目的团队成员信息!"));
+		try {
+			Page<PersonPool> pageList = personPoolService.queryPageList(personPool, new PageRequest(personPool.getPageNum(), personPool.getPageSize()));
+			responseBody.setPageList(pageList);
+			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
 		}
-		
-		Page<PersonPool> pageList = personPoolService.queryPageList(pb, pageable);
-		responseBody.setResult(new Result(Status.OK,"查询成功!"));
-		responseBody.setPageList(pageList);
 		return responseBody;
+		
+		
 	}
 	
 	/**
@@ -384,4 +384,72 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	
+	/***
+	 * 获取项目信息
+	 * @param pid
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getProjectInfo/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectBo> projectInfo(@PathVariable("pid") String pid, HttpServletRequest request) {
+	
+		
+		ProjectBo projectBo=new ProjectBo();
+		//查询项目信息
+		ResponseData<ProjectBo> responseBody = new ResponseData<ProjectBo>();
+		Project project = projectService.queryById(Long.parseLong(pid));
+		if(project == null){
+			responseBody.setResult(new Result(Status.ERROR, "未查找到指定项目信息!"));
+			return responseBody;
+		}
+		//项目合伙人
+		/**
+		ProjectPerson person=new ProjectPerson();
+		person.setProjectId(project.getId());
+		ProjectPerson pp=projectPersonService.queryOne(person);
+		
+		if(pp == null ){
+			responseBody.setResult(new Result(Status.ERROR, "未查找到指定项目关联合伙人信息!"));
+			return responseBody;
+		}
+		//人资信息
+		PersonPool pool=personPoolService.queryById(pp.getPersonId());
+		if(pool == null){
+			responseBody.setResult(new Result(Status.ERROR, "未查找到指定项目合伙人信息!"));
+			return responseBody;
+		}***/
+		
+		projectBo.setProjectName(project.getProjectName());
+		projectBo.setProjectCode(project.getProjectCode());
+		projectBo.setProjectDescribe(project.getProjectDescribe());
+		projectBo.setProjectType(project.getProjectType());
+		//projectBo.setPartnerName(pool.getPersonName());
+		projectBo.setCreateUname(project.getCreateUname());
+		projectBo.setProjectCareerline(project.getProjectCareerline());
+		responseBody.setEntity(projectBo);
+		
+		
+		return responseBody;
+	}
+	
+	
+	/**
+	 * 跳转到修改项目页面
+	 * @return
+	 */
+	@RequestMapping(value = "/updatePro/{id}", method = RequestMethod.GET)
+	public String updateProject(@PathVariable("id") Long id,HttpServletRequest request) {
+		
+		PersonPool person = personPoolService.queryById(id);
+		if(person == null ){
+			return "未查找到指定信息!";
+		}
+		request.setAttribute("person", person);
+		return "project/updatePerson";
+	}
+	
+
+	
 }

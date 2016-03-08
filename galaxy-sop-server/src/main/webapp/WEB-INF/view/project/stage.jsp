@@ -1,9 +1,10 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
 <div class="myprojecttc" >
   <a href="javascript:;" data-close="close" class="close null">关闭</a>
           <!-- 项目介绍 -->
           <div class="pjt_introduct clearfix">
             <div class="clearfix">
-              <h3>食乐淘项目</h3>
+              <h3 id="project_name"></h3>
               <dl class="update">
                 <dt>最新内容更新</dt>
                 <dd>
@@ -12,13 +13,13 @@
               </dl>           
             </div>
 
-            <ul class="pjt_brf clearfix">
+            <!-- <ul class="pjt_brf clearfix">
               <li><b class="b4"></b>2016-01-22</li>
               <li>内部评审会</li>
               <li>
                 <span class="grey"><b class="b4"></b>会议结论：</span>跟踪
               </li>
-            </ul>
+            </ul> -->
           </div>
 
           <div class="tabtable">
@@ -30,7 +31,7 @@
                 <li data-tab="nav" id="projectProgress_2"><a href="javascript:;">内部评审</a></li>           
                 <li data-tab="nav" id="projectProgress_3"><a href="javascript:;">CEO评审</a></li>           
                 <li data-tab="nav" id="projectProgress_4"><a href="javascript:;">立项会</a></li>           
-                <li data-tab="nav" class="disabled" id="projectProgress_5"><a href="javascript:;">投资意向书</a></li>           
+                <li data-tab="nav" id="projectProgress_5"><a href="javascript:;">投资意向书</a></li>           
                 <li data-tab="nav" id="projectProgress_6"><a href="javascript:;">尽职调查</a></li>           
                 <li data-tab="nav" id="projectProgress_7"><a href="javascript:;">投决会</a></li>           
                 <li data-tab="nav" id="projectProgress_8"><a href="javascript:;">投资协议</a></li>           
@@ -216,7 +217,7 @@
               <div class="block" data-tab="con" id="projectProgress_1_con">
                 <!--按钮-->
                 <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-                    <a href="javascript:;" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
+                    <a href="#" data-btn="meeting" onclick="air('');" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
                     <a href="javascript:;" class="pubbtn fffbtn lpubbtn">启动内部评审</a>
                 </div>
 

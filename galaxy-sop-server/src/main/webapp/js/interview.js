@@ -1,5 +1,4 @@
 $(function(){
-
 	createMenus(6);
 	
 	$('#data-table').bootstrapTable({
@@ -8,6 +7,9 @@ $(function(){
 	});
 	
 });
+
+
+
 //访谈记录查询个人项目
 function queryPerPro(){
 	var condition = {};
@@ -49,6 +51,105 @@ function setProSelect(data){
 }
 
 
+
+
+
+
+//编辑框初始化
+function umInit(){
+	var um = UM.getEditor('viewNotes');
+	try {
+		um.setContent("");
+	} catch (e) {
+		return;
+	}
+}
+
+//plupload上传对象初始化,   绑定保存
+function initUpload() {
+	// 定义 上传插件 方法 、  plupload 上传对象初始化
+	var uploader = new plupload.Uploader({
+		runtimes : 'html5,flash,silverlight,html4',
+		browse_button : $("#file-select-btn")[0], // you can pass in id...
+		url : "/galaxy/project/progress/addFileInterview",
+		multipart:true,
+		multi_selection:false,
+		filters : {
+			max_file_size : '10mb',
+			mime_types: [
+			    {title : "YP files", extensions : "mp3,avi"},
+				{title : "Image files", extensions : "jpg,gif,png"},
+				{title : "Zip files", extensions : "zip,rar"},
+				{title : "Offices files", extensions : "doc,docx,excel"}
+			]
+		},
+
+		init: {
+			//上传按钮点击事件 - 开始上传
+			PostInit: function() {
+				$("#saveInterView").click(function(){
+					alert("按钮 触发 上传保存事件，开始上传，访问后台");
+					
+					//传到后台的参数
+					//uploader.multipart_params = { id : "12345" };
+					
+					uploader.start();
+					return false;
+				});
+			},
+			
+			//添加上传文件后，把文件名 赋值 给 input
+			FilesAdded: function(up, files) {
+				alert("文件名赋给input");
+				plupload.each(files, function(file) {
+					/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
+					$("#fileName").val(file.name);
+				});
+			},
+			
+			//上传进度
+			UploadProgress: function(up, file) {
+			},
+			
+			//文件上传后， 返回值  赋值,  再ajax 保存入库
+			FileUploaded: function(up, files, rtn) {
+				var result = $.parseJSON(rtn.response);
+				
+				alert("保存成功");
+				location.reload(true);
+				
+				/*$("#popTxt input[name='fileKey']").val(result.fileKey);
+				$("#popTxt input[name='fileLength']").val(result.fileLength);
+				$form = $("#popTxt #upload-form");
+				
+				//表单数据 json 格式化
+				var data = JSON.parse($form .serializeObject());
+				var url = ""+platformUrl.tempSave
+				
+				sendPostRequestByJsonObj( url, data, function(data){ alert("上传成功."); loadTempList(); } );*/
+			},
+			BeforeUpload:function(up){
+				//表单函数提交
+				/*var form = {
+						"fileSource" : $("#popTxt").find("input[name='fileSource']:checked").val(),
+						"fileType" : $("#popTxt").find("#fileType").val(),
+						"fileWorkType" : $("popTxt").find("#fileWorkType").val(),
+						"projectId" : "123456"	
+				}*/
+				up.settings.multipart_params = getSaveCondition();
+			},
+			Error: function(up, err) {
+				alert(err);
+				//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+			}
+		}
+	});
+
+	uploader.init();
+}
+
+
+
 //保存访谈记录
 function saveInterView(){
 	var	condition =  getSaveCondition();
@@ -72,6 +173,7 @@ function saveCallBack(data){
 	
 	alert("保存成功");
 	$("#popbg,#pop").remove();
+	location.reload(true);
 }
 
 
@@ -129,6 +231,11 @@ function getSaveCondition(){
 	
 	return condition;
 }
+
+
+
+
+
 
 
 

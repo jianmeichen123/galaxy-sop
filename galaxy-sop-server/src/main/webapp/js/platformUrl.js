@@ -7,7 +7,7 @@ var platformUrl = {
 	/**
 	 * 验证登录
 	 */
-	createMenus : "./common/menu/",
+	createMenus : "/galaxy/common/menu/",
 	/**
 	 * 获取项目编码接口地址
 	 */
@@ -68,6 +68,37 @@ var platformUrl = {
 	top5ProjectMeeting : "/galaxy/home/top5ProjectMeeting",
 	ProjectVoteWill: "/galaxy/home/ProjectVoteWill",
 	moreProjectVoteWill:"/galaxy/home/moreProjectVoteWill",
+	
+	/**
+	 * 添加股权结构
+	 */
+	addStock : "/galaxy/projectShares/addProjectShares",
+	
+	/**
+	 * 修改股权结构
+	 */
+	updateStock : "/galaxy/projectShares/updateProjectShares",
+	
+	
+	/**
+	 * 访谈查询 page
+	 */
+	selectViewPage : "/galaxy/project/progress/queryInterview",
+	
+	/**
+	 * 获取登录人的项目,阶段为：
+	 */
+	getUserPro : "/galaxy/project/progress/queryPerPro",
+	
+	/**
+	 * 访谈添加：附件上传
+	 */
+	saveInteverView : "/galaxy/project/progress/addInterview",
+	
+	/**
+	 * 会议添加：
+	 */
+	saveMeet : "/galaxy/project/progress/addmeet",
 
 }
 
