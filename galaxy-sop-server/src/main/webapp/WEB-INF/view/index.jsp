@@ -57,9 +57,9 @@
             </dd>
             <dd class="clearfix">
            
-             <a href="/html/projectMeeting.html" data-btn="project" class="more null">more</a>
-<!--              <a href="http://localhost:8080/galaxy-sop-server/html/projectMeeting.html" data-btn="project" class="more null">more</a>
- -->            </dd>
+<!--              <a href="/html/projectMeeting.html" data-btn="project" class="more null">more</a>
+ -->             <a href="http://localhost:8080/galaxy-sop-server/html/projectMeeting.html?type=1" data-btn="project" class="more null">more</a>
+            </dd>
         </dl>
         <!--投决会排期-->
         <dl class="tjh_block">
@@ -80,7 +80,7 @@
                 </table>
             </dd>
             <dd class="clearfix">
-                <a href="javascript:;" class="more null">more</a>
+                <a href="http://localhost:8080/galaxy-sop-server/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
             </dd>
         </dl>
     </div>
@@ -335,8 +335,8 @@
 	$(function(){
 		top5ProjectMeeting();
 		ProjectVoteWill();
-		/* createMenus(1);
-		loadAjaxSopUserSchedule('','./sopUserSchedule/selectSopUserSchedule/1'); */
+		createMenus(1);
+		loadAjaxSopUserSchedule('','./sopUserSchedule/selectSopUserSchedule/1');
 	});
 </script>
 </html>

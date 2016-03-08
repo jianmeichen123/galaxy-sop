@@ -220,7 +220,36 @@ $(function(){
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
-			okback:function(){showList();}//模版反回成功执行	
+			okback:function(){
+				/*if (_url.indexOf("?") != -1){
+					var index = _url.indexOf("?");
+					var str =_url.substring(index+1);
+					alert(str)
+					if (str =="type=1") {
+						showList();
+					} else {
+						//投诀会
+						showList1();
+					}
+					
+				}else {
+					showList();
+				}*/
+				showList();
+				}//模版反回成功执行	
+		});
+		return false;
+	});
+	
+	$("[data-btn='vote']").on("click",function(){
+		var $self = $(this);
+		var _url = $self.attr("href");
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				showList1();
+				}//模版反回成功执行	
 		});
 		return false;
 	});

@@ -22,7 +22,7 @@
 
 	//所有投决会
 	function moreProjectVoteWill() {
-		sendGetRequest(platformUrl.moreProjectVoteWill, null, moreProjectVoteWillCallback, null);
+		sendGetRequest(platformUrl.moreProjectVoteWill, null, moreVotebodyMeetingCallback, null);
 	}
 
 
@@ -39,7 +39,7 @@
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
 					 '<td>'+ temp.projectName+'</td>'+
-					 '<td>'+ temp.meetingDate+'</td>'+
+					 '<td>'+ formatDate(temp.meetingDate)+'</td>'+
 					 '<td>'+temp.meetingCount+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
@@ -92,6 +92,31 @@
 			
 		}
 	}
+	function moreVotebodyMeetingCallback(data) {
+		var list = data.entityList;
+		if(list != "" || list != undefined || list != null){
+			var tbodyList = $("#votebody"); 
+			tbodyList.empty();
+			var i=0;
+			$(list).each(function(){
+				 var templ = $(this)[0];
+				 i=i+1;
+				 var tr='<tr>'+
+					 '<td>'+i+'</td>'+
+					 '<td>'+ templ.projectName+'</td>'+
+					 '<td>'+ templ.status+'</td>'+
+					 '<td>'+ formatDate(templ.meetingDate)+'</td>'+
+					 '<td>'+templ.meetingCount+'</td>'+
+					 '<td>'+templ.projectCareerline+'</td>'+
+					 '<td>'+templ.createUname+'</td>'+
+					 '<td>'+templ.remark+'</td>'+
+					' </tr>'; 
+				 tbodyList.append(tr);
+			  });
+			
+		}
+	}
+	
 	
 	function formatDate(date, format) {   
 	    if (!date) return;   
@@ -123,6 +148,8 @@
 	    });                   
 	}   
 function showList() {
-	alert("ok");
 	moreProjectMeeting();
+}
+function showList1() {
+	moreProjectVoteWill();
 }
