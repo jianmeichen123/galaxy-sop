@@ -12,6 +12,7 @@
 <!-- jsp文件头和头部 -->
 <jsp:include page="./common/taglib.jsp" flush="true"></jsp:include>
 <script src="<%=path%>/js/sopUserSchedule.js" type="text/javascript"></script>
+<script src="<%=path%>/js/index.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -41,7 +42,7 @@
         <dl>
         	<dt>立项会排期</dt>
             <dd>
-            	<table width="100%" cellspacing="0" cellpadding="0" class="index">
+            	<table id="projectMeeting" width="100%" cellspacing="0" cellpadding="0" class="index">
                     <thead>
                         <tr>
                             <th>序号</th>
@@ -51,24 +52,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>美好时代</td>
-                            <td>2016-1-1</td>
-                            <td><span class="blue">2</span></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>美好时代</td>
-                            <td>2016-1-1</td>
-                            <td><span class="blue">2</span></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>美好时代</td>
-                            <td>2016-1-1</td>
-                            <td><span class="blue">2</span></td>
-                        </tr>
                     </tbody>
                 </table>
             </dd>
