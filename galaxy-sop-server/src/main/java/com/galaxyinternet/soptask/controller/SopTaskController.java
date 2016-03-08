@@ -1,6 +1,12 @@
 package com.galaxyinternet.soptask.controller;
 
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -113,7 +119,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/taskListByRole", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopTaskBo> taskListByRole(PageRequest pageable,@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request) {
+	public ResponseData<SopTaskBo> taskListByRole(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request) {
 		ResponseData<SopTaskBo> responseBody = new ResponseData<SopTaskBo>();
 		//SopTaskBo sopTaskBo=new SopTaskBo();
 		//当前登录人
@@ -129,8 +135,14 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		}
 		Result result = new Result();
 		try {
-			Page<SopTaskBo> list = sopTaskService.tasklist(pageable, sopTaskBo,request);
+			Page<SopTaskBo> list = sopTaskService.tasklist(new PageRequest(sopTaskBo.getPageNum(),sopTaskBo.getPageSize()), sopTaskBo,request);
+			if(null==list.getContent()){
+				List<SopTaskBo> SopTaskBoList = new ArrayList<SopTaskBo>();
+				list.setTotal((long)0);
+				list.setContent(SopTaskBoList);
+			}
 			responseBody.setPageList(list);
+			
 			result.setStatus(Status.OK);
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());

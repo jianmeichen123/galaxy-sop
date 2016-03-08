@@ -56,6 +56,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		Page<SopTask> selectListSopTask =new Page<>(null, pageable, null);
 	// 如果查询条件部位空的时候，现根据项目名称或者投资经理去查询该项目的任务列表
 		if (sopTaskBo.getNameLike() != null && !"".equals(sopTaskBo.getNameLike())) {
+			projectBo.setNameLike(sopTaskBo.getNameLike());
 			// 查询该项目投资经理或者项目名称查询相应的项目
 			projectList = projectDao.selectProjectByMap(projectBo);
 			if(!projectList.isEmpty()){
@@ -182,7 +183,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 //				sopTaskBo.setStatusFlag("1");/.append("/galaxy/soptask/goClaimtcPage?id="+sopTaskBo.getId())
 				caozuohtml.append("<a id='dai'")
 				.append("     data-btn='claim'").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("<input type='hidden' id='taskid' ")
-						.append(" value='"+sopTasknew.getId()+"'").append("<input type='hidden' id='projectid' ").append(" value='"+sopTasknew.getProjectId()+"'");
+						.append(" value='"+sopTasknew.getId()+"'").append("/><input type='hidden' id='projectid' ").append(" value='"+sopTasknew.getProjectId()+"' />");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
 			if(sopTasknew.getTaskStatus().equals("taskStatus:2")){
@@ -210,6 +211,9 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		sopTaskPage.setContent(SopTaskBoList);
 		sopTaskPage.setPageable(sopTaskData.getPageable());
 		sopTaskPage.setTotal(sopTaskData.getTotal());
+		if(sopTaskPage.getContent().isEmpty()){
+			sopTaskPage.setTotal((long)0);
+		}
 		return sopTaskPage;
 	}
 	@Override

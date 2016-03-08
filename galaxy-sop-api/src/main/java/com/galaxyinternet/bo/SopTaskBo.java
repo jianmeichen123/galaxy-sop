@@ -2,9 +2,10 @@ package com.galaxyinternet.bo;
 
 import java.util.List;
 
+import com.galaxyinternet.framework.core.model.Pagable;
 import com.galaxyinternet.model.soptask.SopTask;
 
-public class SopTaskBo extends SopTask {
+public class SopTaskBo extends  SopTask implements Pagable{
 
 	private static final long serialVersionUID = 1L;
 	private String createUname;// 业务对象中扩展的字段
@@ -17,7 +18,6 @@ public class SopTaskBo extends SopTask {
 	private String statusFlag;
 	private String caozuohtml;
 	private int hours;
-
 	public String getCreateUname() {
 		return createUname;
 	}
@@ -93,11 +93,28 @@ public class SopTaskBo extends SopTask {
 	public int getHours() {
 		return hours;
 	}
+	
+	protected Integer pageSize;
+	protected Integer pageNum;
 
-	public void setHours(int hours) {
-		this.hours = hours;
+	@Override
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
 	}
-	
-	
 
+	@Override
+	public Integer getPageSize() {
+		return this.pageSize;
+	}
+
+	@Override
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
+
+	}
+
+	@Override
+	public Integer getPageNum() {
+		return this.pageNum;
+	}
 }

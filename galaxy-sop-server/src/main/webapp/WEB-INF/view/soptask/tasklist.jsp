@@ -11,10 +11,11 @@
 <meta charset="utf-8">
 <title>待办任务</title>
 
+
+<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"  type="text/css">
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"  type="text/css">
    <!-- bootstrap-table -->
-<link rel="stylesheet" href="bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link rel="stylesheet" href="/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!--  <script src="<%=path %>/js/soptask.js" type="text/javascript"></script>-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
@@ -33,7 +34,7 @@
         	<!--搜索-->
           <div class="searchbox clearfix">
             <input type="hidden"  id="tipslink_val"/>
-            <input  name="keyWords" type="text" placeholder="请输入项目名或投资经理名" class="txt"/>
+            <input  name="nameLike" type="text" placeholder="请输入项目名或投资经理名" class="txt"/>
             <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
 
           </div>
@@ -49,7 +50,8 @@
         </div>
         <!--表格内容-->
 						<table width="100%" cellspacing="0" cellpadding="0" 
-						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"  data-page-list="[2, 10, 30]" >
+						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"  data-page-list="[1, 10, 30]" data-show-refresh="true" 
+				         data-side-pagination="server" data-pagination="true" >
 						   <thead>
 						    <tr>
 						        <th data-field="taskOrder" data-align="center" class="data-input">优先级</th>
@@ -78,6 +80,7 @@
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/init.js"></script>	
+
 <script type="text/javascript">
 	$(function(){
 		createMenus(2);

@@ -3,6 +3,29 @@
  */
 var projectid ;
 $(function(){
+	//待认领
+	$("table").on("click", "a[data-btn='claim']", function() {
+		console.log("ok");
+		var taskid=$("#taskid").val();
+		projectid=$("#projectid").val();
+	   	var _url = "/galaxy/soptask/goClaimtcPage?id="+taskid;
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				var taskid=getProjectid();
+				$(".btnbox").on("click", "#dotask", function() {
+					this.href="/galaxy/soptask/doTask?projectid="+taskid;
+	            });
+				//单击按钮刷新页列表里面的内容
+				$(".btnbox").on("click", "#notdo", function() {
+					$("#data-table").bootstrapTable("refresh");
+				 });
+			}//模版反回成功执行	
+		});
+		return false;
+	});
+
 
 	$(".tipslink").on("click","a",function(){
 		var a = $(this);
@@ -21,40 +44,12 @@ $(function(){
 		}
 		
 		$("#data-table").bootstrapTable("querySearch");
+	
 	});
 	
 	
-	//待认领
-	$("#dai").on("click", "", function() {
-		var taskid=$("#taskid").val();
-		projectid=$("#projectid").val();
-		this.href="/galaxy/soptask/goClaimtcPage?id="+taskid;
-	});
+	
 });
-	//根据a标签的id去封装json参数
-	function judgeQueryType(obj,searchName){
-		var dataType;
-		if(obj.id==="all"){
-		     dataType={"taskOrder":0,"taskStatus":"","nameLike":searchName};
-		}
-		if(obj.id==="urgent"){
-			 dataType={"taskOrder":"taskType:2","taskStatus":"","nameLike":searchName};
-		}
-		if(obj.id==="normal"){
-			 dataType={"taskOrder":"taskType:3","taskStatus":"","nameLike":searchName};
-		}
-		if(obj.id==="claim"){
-			 dataType={"taskOrder":0,"taskStatus":"taskStatus:1","nameLike":searchName};
-		}
-		if(obj.id==="todeal"){
-		     dataType={"taskOrder":0,"taskStatus":"taskStatus:2","nameLike":searchName};
-		}
-		if(obj.id==="finish"){
-		     dataType={"taskOrder":0,"taskStatus":"taskStatus:3","nameLike":searchName};
-		}
-		return dataType;
-		
-	}
 function getProjectid(){
 	return projectid;
 }
