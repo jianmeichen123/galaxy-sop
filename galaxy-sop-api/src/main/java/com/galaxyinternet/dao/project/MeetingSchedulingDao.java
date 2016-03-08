@@ -11,10 +11,12 @@ public interface MeetingSchedulingDao extends BaseDao<MeetingScheduling, Long> {
 	public int updateCountBySelective(MeetingScheduling meetingScheduling);
 	
 	/**
-	 * 查询top5立项会，按次数时间降序
+	 * 查询top5，按次数时间降序
 	 * @author zhaoying
 	 * @return
 	 */
-	List<MeetingSchedulingBo> selectTop5ProjectMeeting();
+	List<MeetingSchedulingBo> selectTop5ProjectMeetingByType(String type);
+	
+	List<MeetingSchedulingBo> selectProjectMeetingByType(String type);
 
 }

@@ -14,12 +14,12 @@ public interface MeetingSchedulingService extends BaseService<MeetingScheduling>
 	 * @author zhaoying
 	 * @return
 	 */
-	List<MeetingSchedulingBo>selectTop5ProjectMeeting();
+	List<MeetingSchedulingBo>selectTop5ProjectMeetingByType(String type);
 	
 	/**
 	 * 立项会排期 all
 	 * @author zhaoying
 	 * @return
 	 */
-	List<MeetingSchedulingBo>selectMoreProjectMeeting();
+	List<MeetingSchedulingBo>selectProjectMeetingByType(String type);
 }

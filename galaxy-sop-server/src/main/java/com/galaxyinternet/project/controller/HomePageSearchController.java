@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -73,7 +74,7 @@ public class HomePageSearchController
 		try {
 
 			List<MeetingSchedulingBo> list = meetingSchedulingService
-					.selectTop5ProjectMeeting();
+					.selectTop5ProjectMeetingByType(SopConstant.PROJECT_MEETING);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(list);
 			return responseBody;
@@ -115,7 +116,7 @@ public class HomePageSearchController
 		try {
 
 			List<MeetingSchedulingBo> list = meetingSchedulingService
-					.selectMoreProjectMeeting();
+					.selectProjectMeetingByType(SopConstant.PROJECT_MEETING);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(list);
 			return responseBody;

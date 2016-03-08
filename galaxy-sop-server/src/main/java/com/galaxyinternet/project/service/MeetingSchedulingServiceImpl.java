@@ -1,6 +1,5 @@
 package com.galaxyinternet.project.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +35,9 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 	}
 
 	@Override
-	public List<MeetingSchedulingBo> selectTop5ProjectMeeting() {
-		// TODO Auto-generated method stub
-		 List<MeetingSchedulingBo> meetingList = meetingSchedulingDao.selectTop5ProjectMeeting();
+	public List<MeetingSchedulingBo> selectTop5ProjectMeetingByType(
+			String type) {
+		 List<MeetingSchedulingBo> meetingList = meetingSchedulingDao.selectTop5ProjectMeetingByType(type);
 		 List<Project> projectList = projectService.queryAll();
 		 for (MeetingSchedulingBo meeting : meetingList) {
 			 for (Project project :projectList)   {
@@ -52,22 +51,18 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 	}
 
 	@Override
-	public List<MeetingSchedulingBo> selectMoreProjectMeeting() {
-		
-		List<MeetingSchedulingBo> meetingListBo = new ArrayList<MeetingSchedulingBo>();
-		List<MeetingScheduling> meetingList = meetingSchedulingDao.selectAll();
-		List<Project> projectList = projectService.queryAll();
-		 for (MeetingScheduling meeting : meetingList) {
-			 MeetingSchedulingBo bo = (MeetingSchedulingBo) meeting;
+	public List<MeetingSchedulingBo> selectProjectMeetingByType(String type) {
+		 List<MeetingSchedulingBo> meetingList = meetingSchedulingDao.selectProjectMeetingByType(type);
+		 List<Project> projectList = projectService.queryAll();
+		 for (MeetingSchedulingBo meeting : meetingList) {
 			 for (Project project :projectList)   {
 				 if (meeting.getProjectId() == project.getId()) {
-					 bo.setProjectName(project.getProjectName());
+					 meeting.setProjectName(project.getProjectName());
 				 }
 			 }
-			 meetingListBo.add(bo);
 		 }
 		 
-		 return meetingListBo;
+		 return meetingList;
 	}
 
 }

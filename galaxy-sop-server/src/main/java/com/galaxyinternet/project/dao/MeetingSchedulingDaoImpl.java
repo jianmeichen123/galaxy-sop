@@ -29,12 +29,24 @@ public class MeetingSchedulingDaoImpl extends BaseDaoImpl<MeetingScheduling, Lon
 		}
 	}
 
+
 	@Override
-	public List<MeetingSchedulingBo> selectTop5ProjectMeeting() {
+	public List<MeetingSchedulingBo> selectTop5ProjectMeetingByType(
+			String type) {
 		try {
-			return sqlSessionTemplate.selectList(getSqlName("selectTop5ProjectMeeting"));
+			return sqlSessionTemplate.selectList(getSqlName("selectTop5ProjectMeeting"),type);
 		} catch (Exception e) {
-			throw new DaoException(String.format("查询top5立项会排期出错！语句：%s", getSqlName("selectTop5ProjectMeeting")),
+			throw new DaoException(String.format("查询top5排期出错！语句：%s", getSqlName("selectTop5ProjectMeetingByType")),
+					e);
+		}
+	}
+
+	@Override
+	public List<MeetingSchedulingBo> selectProjectMeetingByType(String type) {
+		try {
+			return sqlSessionTemplate.selectList(getSqlName("selectProjectMeetingByType"),type);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询排期出错！语句：%s", getSqlName("selectProjectMeetingByType")),
 					e);
 		}
 	}

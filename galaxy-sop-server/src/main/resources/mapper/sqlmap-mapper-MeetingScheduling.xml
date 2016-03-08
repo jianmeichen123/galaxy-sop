@@ -56,12 +56,19 @@
 		<include refid="Base_Where_Clause" />
 	</select>
 	<!-- 查询top5立项会 -->
-    <select id="selectTop5ProjectMeeting" resultMap="BaseResultMap" parameterType="java.util.Map">
+    <select id="selectTop5ProjectMeetingByType" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		    from sop_meeting_scheduling 
-		    where meeting_type = "meetingType:3"
+		    where meeting_type =  #{type}
 		    order by meeting_count,meeting_date desc limit 5
+	</select>
+	 <select id="selectProjectMeetingByType" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		    from sop_meeting_scheduling 
+		    where meeting_type =  #{type}
+		    order by meeting_count,meeting_date desc 
 	</select>
 	<!-- 根据ID查询 -->
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">

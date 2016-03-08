@@ -13,5 +13,9 @@ public interface SopConstant {
 	
 	//任务名称
 	public static final String TASK_NAME_WSJL = "完善简历";
+	//立项会类型
+	static final String PROJECT_MEETING ="meetingType:3";
+	//投诀会类型
+	static final String VOTE_MEETING ="meetingType:4";
 
 }
