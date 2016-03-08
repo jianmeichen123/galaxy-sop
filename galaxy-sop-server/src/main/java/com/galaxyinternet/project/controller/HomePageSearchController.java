@@ -138,7 +138,7 @@ public class HomePageSearchController
 	 * gxc
 	 */
 	
-	/*@ResponseBody
+	@ResponseBody
 	@RequestMapping(value = "/ProjectVoteWill",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingSchedulingBo> ProjectVoteWill(
 			HttpServletRequest request) {
@@ -154,7 +154,7 @@ public class HomePageSearchController
 		try {
 
 			List<MeetingSchedulingBo> list = meetingSchedulingService
-					.selectMoreProjectVoteWill();
+					.selectTop5ProjectMeetingByType(SopConstant.VOTE_MEETING);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(list);
 			return responseBody;
@@ -187,7 +187,7 @@ public class HomePageSearchController
 		try {
 
 			List<MeetingSchedulingBo> list = meetingSchedulingService
-					.selectMoreProjectVoteWill();
+					.selectProjectMeetingByType(SopConstant.VOTE_MEETING);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(list);
 			return responseBody;
@@ -202,7 +202,7 @@ public class HomePageSearchController
 		}
 
 		return responseBody;
-	}*/
+	}
 	
 	
 	

@@ -51,7 +51,7 @@
                             <th>过会次数</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tlbody">
                     </tbody>
                 </table>
             </dd>
@@ -72,25 +72,8 @@
                             <th>过会次数</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>美好时代</td>
-                            <td>2016-1-1</td>
-                            <td><span class="blue">2</span></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>美好时代</td>
-                            <td>2016-1-1</td>
-                            <td><span class="blue">2</span></td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>美好时代</td>
-                            <td>2016-1-1</td>
-                            <td><span class="blue">2</span></td>
-                        </tr>
+                    <tbody id="tbody">
+                        
                     </tbody>
                 </table>
             </dd>
@@ -348,6 +331,7 @@
 <jsp:include page="./common/footer.jsp" flush="true"></jsp:include>
 <script type="text/javascript">
 	$(function(){
+		
 		createMenus(1);
 		loadAjaxSopUserSchedule('','./sopUserSchedule/selectSopUserSchedule/1');
 	});
