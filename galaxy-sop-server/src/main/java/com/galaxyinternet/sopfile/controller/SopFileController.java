@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -217,6 +218,14 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	public String toUploadFile(){
 		return "sopFile/uploadFile";
 	}
-	
 
+	@Override
+	@RequestMapping(value = "/selectList", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseData<SopFile> selectList(@RequestBody SopFileBo query) {
+		// TODO Auto-generated method stub
+		return super.selectList(query);
+	}
+	
+	
 }

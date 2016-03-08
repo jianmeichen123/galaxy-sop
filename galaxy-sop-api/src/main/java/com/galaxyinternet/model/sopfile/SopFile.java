@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.sopfile;
 
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
 public class SopFile extends BaseEntity {
@@ -148,6 +149,10 @@ public class SopFile extends BaseEntity {
 
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
+		if(fileType != null)
+		{
+			fileTypeDesc = DictEnum.fileType.getNameByCode(fileType);
+		}
 	}
 
 
@@ -168,6 +173,10 @@ public class SopFile extends BaseEntity {
     
     public void setFileStatus(String fileStatus) {
         this.fileStatus = fileStatus;
+        if(fileStatus != null)
+        {
+        	fileStatusDesc = DictEnum.fileStatus.getNameByCode(fileStatus);
+        }
     }
 
     
@@ -230,6 +239,11 @@ public class SopFile extends BaseEntity {
 		this.fileName = fileName;
 	}
 
+    private String fileStatusDesc;
+    private String fileTypeDesc;
+
+    
+    
     
 
 }

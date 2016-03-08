@@ -357,6 +357,20 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
+		
+		public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	fileStatus[] values = fileStatus.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 	}
 	
 	//档案业务分类
@@ -415,6 +429,19 @@ public enum DictEnum {
 		public String getCode() {
 			return code;
 		}
+		public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	fileType[] values = fileType.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
 	}
 	
 	
