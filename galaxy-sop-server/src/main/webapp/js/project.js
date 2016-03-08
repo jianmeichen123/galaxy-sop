@@ -189,7 +189,7 @@ function savePersonCallBack(data){
 		alert("error "+data.result.message);
 		return;
 	}
-	alert("操作成功!");
+	//alert("操作成功!");
 	$("#popbg,#pop").remove();
 	//window.location.reload("/galaxy/upp");
 	getTabPerson();
@@ -202,7 +202,7 @@ function saveProjectCallBack(data){
 		alert("error "+data.result.message);
 		return;
 	}
-	alert("操作成功!");
+	//alert("操作成功!");
 	$("#popbg,#pop").remove();
 	//window.location.reload("/galaxy/upp");
 	getTabShare();
