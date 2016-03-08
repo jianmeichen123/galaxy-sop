@@ -121,12 +121,16 @@
 				data-show-refresh="false">
 				<thead>
 					<tr>
-						<th data-field="meetingDateStr" data-align="center">会议日期</th>
+						<!-- <th data-field="meetingDateStr" data-align="center">会议日期</th>
 						<th data-field="proName" data-align="center">项目信息</th>
 						<th data-field="meetingTypeStr" data-align="center">会议类型</th>
 						<th data-field="meetingNotes" data-align="center">会议纪要</th>
 						<th data-field="meetingResultStr" data-align="center">会议结论</th>
 						<th data-field="fname" data-align="center">会议录音</th>
+						 -->
+						<th data-field="hygk" data-align="center">会议概况</th>
+						<th data-field="proInfo" data-align="center">项目信息</th>  
+						<th data-field="meetingNotes" data-align="center">会议记要</th>
 					</tr>
 				</thead>
 			</table>

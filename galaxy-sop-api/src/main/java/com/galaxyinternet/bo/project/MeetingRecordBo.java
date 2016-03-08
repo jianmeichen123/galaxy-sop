@@ -6,7 +6,7 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private static final long serialVersionUID = 1L;
 
 	private String proName; //项目名称 - 会议记录
-	private String furi;
+	private String fkey;
 	private String fname;
 	
 	private Long uid; //项目创建人
@@ -17,6 +17,10 @@ public class MeetingRecordBo  extends MeetingRecord{
 	
 	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
+	
+	private String hygk;
+	private String proInfo;
+	
 	
 	public String getProName() {
 		return proName;
@@ -65,12 +69,7 @@ public class MeetingRecordBo  extends MeetingRecord{
 		 this.proNameCode = proNameCode == null ? null : proNameCode.trim();
 	}
 	
-	public String getFuri() {
-		return furi;
-	}
-	public void setFuri(String furi) {
-		this.furi = furi;
-	}
+	
 	public String getFname() {
 		return fname;
 	}
@@ -94,6 +93,24 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
+	}
+	public String getFkey() {
+		return fkey;
+	}
+	public void setFkey(String fkey) {
+		this.fkey = fkey;
+	}
+	public String getHygk() {
+		return hygk;
+	}
+	public void setHygk(String hygk) {
+		this.hygk = hygk;
+	}
+	public String getProInfo() {
+		return proInfo;
+	}
+	public void setProInfo(String proInfo) {
+		this.proInfo = proInfo;
 	}
 	
 

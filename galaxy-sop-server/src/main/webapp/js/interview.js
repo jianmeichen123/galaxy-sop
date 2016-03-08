@@ -1,5 +1,4 @@
 $(function(){
-
 	createMenus(6);
 	
 	$('#data-table').bootstrapTable({
@@ -8,6 +7,22 @@ $(function(){
 	});
 	
 });
+
+//编辑框初始化
+function umInit(){
+	var um = UM.getEditor('viewNotes');
+	try {
+		um.setContent("");
+	} catch (e) {
+		return;
+	}
+	
+	
+}
+
+
+
+
 //访谈记录查询个人项目
 function queryPerPro(){
 	var condition = {};
