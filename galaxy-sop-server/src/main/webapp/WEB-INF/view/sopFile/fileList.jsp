@@ -7,12 +7,10 @@
 <head>
 <meta charset="utf-8">
 <title>繁星SOP-添加项目</title>
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<%-- <script src="<%=path %>/js/axure_ext.js" type="text/javascript" ></script> --%>
-
-<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
-<script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
+	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+	<!-- jsp文件头和头部 -->
+	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 </head>
 
 <body>
@@ -28,9 +26,9 @@
         <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-                <a class="pubbtn bluebtn ico c1" href="toUploadFile" data-btn="archives">档案上传</a>
-                <a href="javascript:;" class="pubbtn bluebtn ico c2">档案更新</a>
-                <a href="javascript:;" class="pubbtn bluebtn ico c3">发邮件给</a>
+                <a class="pubbtn bluebtn ico c1" href="javascript:;" id="uploadOpenBtn">档案上传</a>
+                <a href="javascript:;" class="pubbtn bluebtn ico c2" id = "openBtn">档案更新</a>
+                <a href="javascript:;" class="pubbtn bluebtn ico c3" >发邮件给</a>
             </div>
         </div>
         <!-- 搜索条件 -->
@@ -249,11 +247,63 @@
     </dd>
 </dl>
 </textarea>
+<!-- 弹出页面 -->
+<div id="addFile" class="archivestc" style="display: none;">
+	<dl class="fmdl clearfix">
+    	<dt>档案来源：</dt>
+        <dd class="clearfix">
+        	<label><input name="fileSource" type="radio" value = "1" checked="checked"/>内部</label>
+            <label><input name="fileSource" type="radio" value = "2"/>外部</label>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+    	<dt>存储类型：</dt>
+        <dd>
+        	<select id="fileType">
+            	<option>sadasd</option>
+            </select>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+    	<dt>业务分类：</dt>
+        <dd>
+        	<select id="fileWorkType">
+            	<option>sadasd</option>
+            </select>
+        </dd>
+        <dd>
+        	<label><input type="checkbox"/>签署凭证</label>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+    	<dt>所属项目：</dt>
+        <dd>
+        	<input type="text" placeholder="请输入项目名称或编号" class="txt"/>
+        </dd>
+        <dd><a class="searchbtn null" href="javascript:;">搜索</a></dd>
+    </dl>
+    
+     <dl class="fmdl clearfix">
+    	<dt>文档上传：</dt>
+        <dd>
+        	<input type="text" class="txt" id="fileTxt"/>
+        </dd>
+        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="selectBtn">选择档案</a></dd>
+    </dl>  
+<!--     <div class="fmarea"> -->
+<!--     	<TEXTAREA ID="FILELIST"></TEXTAREA> -->
+<!-- 		<div  id="filelist"></div> -->
+<!-- 		<div  id="console"></div> -->
+<!--     </div> -->
+    <a href="javascript:;" class="pubbtn bluebtn" id="uploadBtn";>上传保存</a>
+    <input type="hidden" id="pathInput" value="<%=path%>">
+</div>
+
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
 <script type="text/javascript">
-	$(function(){
-		createMenus(14);
-	});
+
 </script>
 </html>
 
