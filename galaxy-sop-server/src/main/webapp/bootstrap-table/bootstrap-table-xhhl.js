@@ -498,10 +498,10 @@
     BootstrapTable.prototype.initCustomToolbar = function () {
     	
     	var that = $(this);
-    	$("div[name='custom-toolbar']").on("click","button[type='submit']",function(){
+    	this.$toolbar.on("click","button[type='submit']",function(){
     		that.trigger("querySearch");
     	});
-    	$("div[name='custom-toolbar']").on("click","a[action='querySearch']",function(){
+    	this.$toolbar.on("click","a[action='querySearch']",function(){
     		that.trigger("querySearch");
     	});
 	}
@@ -1649,7 +1649,7 @@
     };
      ///querySerch
     BootstrapTable.prototype.getCustomToolbar = function () {
-    	var toolbar = $("#custom-toolbar");
+    	var toolbar = this.$toolbar;
     	var query = {};
     	toolbar.find("input[name][type!='radio']").each(function(){
     		var input = $(this);
