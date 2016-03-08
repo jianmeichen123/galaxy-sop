@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
@@ -58,7 +57,7 @@ public class HomePageSearchController
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/top5ProjectMeeting", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/top5ProjectMeeting",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingSchedulingBo> top5ProjectMeeting(
 			HttpServletRequest request) {
 
@@ -100,7 +99,7 @@ public class HomePageSearchController
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/moreProjectMeeting", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/moreProjectMeeting",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingSchedulingBo> moreProjectMeeting(
 			HttpServletRequest request) {
 

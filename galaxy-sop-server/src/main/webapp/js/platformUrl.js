@@ -62,6 +62,16 @@ var platformUrl = {
 	 */
 	updatePerson : "/galaxy/project/upp",
 	
+	/**
+	 * top5立项会排期
+	 */
+	top5ProjectMeeting : "/galaxy/home/top5ProjectMeeting",
+	
+	/**
+	 * 所有立项会排期
+	 */
+	moreProjectMeeting : "/galaxy/home/moreProjectMeeting",
+	
 }
 
 /**
