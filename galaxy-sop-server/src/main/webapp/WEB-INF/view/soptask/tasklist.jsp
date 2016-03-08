@@ -10,12 +10,15 @@
 <head>
 <meta charset="utf-8">
 <title>待办任务</title>
+
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"  type="text/css">
+   <!-- bootstrap-table -->
+<link rel="stylesheet" href="bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!--  <script src="<%=path %>/js/soptask.js" type="text/javascript"></script>-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
-<script src="<%=request.getContextPath() %>/js/soptask.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
+
 </head>
 
 <body>
@@ -26,64 +29,55 @@
  	<div class="ritmin">
     	<h2>待办任务</h2>
         <!--页眉-->
-        <div class="top clearfix">
+        <div class="top clearfix" id="custom-toolbar">
         	<!--搜索-->
           <div class="searchbox clearfix">
-            <input type="text" placeholder="请输入项目名或投资经理名" class="txt" id="searchName"/>
-            <a href="javascript:;" class="bluebtn ico cx" id="search">查询</a>
+            <input type="hidden"  id="tipslink_val"/>
+            <input  name="keyWords" type="text" placeholder="请输入项目名或投资经理名" class="txt"/>
+            <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
+
           </div>
             <!--tips连接-->
         	<ul class="tipslink">
-            	<li><a href="javascript:;" id="all" >全部<span>(14)</span></a></li>
-                <li><a href="javascript:;" id="urgent" >紧急<span>(2)</span></a></li>
-                <li><a href="javascript:;" id="normal" >正常<span>(5)</span></a></li>
-                <li><a href="javascript:;" id="claim" >待认领<span>(10)</span></a></li>
-                <li><a href="javascript:;" id="todeal">待完工<span>(4)</span></a></li>
-                <li><a href="javascript:;"id="finish">已完成</a></li>   
-                <a href="/galaxy/soptask/goClaimtcPage?id=1" data-btn="claim">认领</a>  
-                  <input type="text" name="tid" value="">      
+            	<li><a href="javascript:;" id="all" query-by="all" query-val="all">全部<span>(14)</span></a></li>
+                <li><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">紧急<span>(2)</span></a></li>
+                <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span>(5)</span></a></li>
+                <li><a href="javascript:;" id="claim" query-by="taskStatus" query-val="taskStatus:1">待认领<span>(10)</span></a></li>
+                <li><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">待完工<span>(4)</span></a></li>
+                <li><a href="javascript:;"id="finish" query-by="taskStatus" query-val="taskStatus:3">已完成</a></li>   
           </ul>
         </div>
         <!--表格内容-->
-        <table width="100%" cellspacing="0" cellpadding="0" >
-              <thead>
-                  <tr>
-                      <th>序号</th>
-                      <th>优先级</th>
-                      <th>剩余时间</th>
-                      <th>提交日期</th>
-                      <th>任务类型</th>
-                      <th>任务名称</th>
-                      <th>任务状态</th>
-                      <th>所属项目</th>
-                      <th>投资经理</th>
-                      <th>备注</th>
-                      <th>操作</th>
-                  </tr>
-              </thead >                                                                                                                                    
-              <tbody id="tasklist">
-           
-              </tbody>
-          </table>
-          <!--分页-->
-          <div class="pagright clearfix">
-              <ul class="paging clearfix">
-                  <li>每页<input type="text" class="txt" value="20"/>条/共<span>9</span>条记录</li>
-                  <li class="margin">共1页</li>
-                  <li><a href="javascript:;">|&lt;</a></li>
-                  <li><a href="javascript:;">&lt;</a></li>
-                  <li><a href="javascript:;">&gt;</a></li>
-                  <li><a href="javascript:;">&gt;|</a></li>
-                  <li class="jump clearfix">
-                      第<input type="text" class="txt" value="1"/>页
-                      <input type="button" class="btn margin" value="GO">
-                  </li>
-              </ul>
-          </div>
+						<table width="100%" cellspacing="0" cellpadding="0" 
+						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"  data-page-list="[2, 10, 30]" >
+						   <thead>
+						    <tr>
+						        <th data-field="taskOrder" data-align="center" class="data-input">优先级</th>
+						        <th data-field="hours" data-align="center" class="data-input">剩余时间</th>
+						        <th data-field="taskDeadlineformat" data-align="center" class="col-md-1 status ">提交日期</th>
+						        <th data-field="taskType" data-align="center" >任务类型</th>
+						        <th data-field="taskName" data-align="center" >任务名</th>
+						        <th data-field="taskStatus" data-align="center" class="col-md-2" >任务状态</th>
+						        <th data-field="projectName" data-align="center" class="col-md-2" >所属项目</th>
+						        <th data-field="createUname" data-align="center" class="col-md-2" >投资经理</th>
+						        <th data-align="center" data-field="remark" class="col-md-2" >备注</th>
+								<th data-align="center" class="col-md-2" data-field="caozuohtml" >操作</th>
+   						 	</tr>	
+   						 	</thead>
+					</table>
+	
+
     </div>
 </div>
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<script src="<%=request.getContextPath() %>/js/soptask.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>	
+<!-- bootstrap-table -->
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=request.getContextPath() %>/js/init.js"></script>	
 <script type="text/javascript">
 	$(function(){
 		createMenus(2);
