@@ -1,9 +1,9 @@
 package com.galaxyinternet.model.sopfile;
 
 import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.model.PagableEntity;
 
-public class SopFile extends BaseEntity {
+public class SopFile extends PagableEntity {
     /**
 	 * 
 	 */

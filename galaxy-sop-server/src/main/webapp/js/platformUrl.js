@@ -99,6 +99,10 @@ var platformUrl = {
 	 * 会议添加：
 	 */
 	saveMeet : "/galaxy/project/progress/addmeet",
+	/**
+	 * 根据findByParentCode查询数据字典
+	 */
+	dictFindByParentCode : "/galaxy/sopFile/getDictByParent",
 
 }
 

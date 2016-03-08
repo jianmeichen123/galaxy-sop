@@ -1,5 +1,5 @@
 function init(){
-	createMenus(14)
+	createMenus(14);
 	var utils = {
 			path : $("#pathInput").val(),
 			each : function(_data,_dom,type){
@@ -13,26 +13,24 @@ function init(){
 	//上传弹出框
 	var popPanel = {
 			init : function(){
+//				alert("初始化面板");
 				$("#uploadOpenBtn").click(function(){
 					//判断对话框是否存在
 					if(popPanel.isCreate()){
-//						alert("打开popup面板");
+						alert("打开popup面板");
 						$("#popbg,#pop").show();
 					}else{
 //						alert("创建popup面板");
 						$.popup({
-							txt : $("#upload-dialog").html(),
-							callback:function(t,postionEve){
-								postionEve();
-								$("#popTxt").html($("#addFile").html());
-//								alert("弹出层初始化");
-								
-																
-								
+							txt : $("#addFile").html(),
+							showback:function(){
+//								$("#popTxt").html($("#addFile").html());
+								alert("弹出层初始化");
+								var _this = this;
 								//plupload上传对象初始化
 								var uploader = new plupload.Uploader({
 									runtimes : 'html5,flash,silverlight,html4',
-									browse_button : $("#popTxt").find("#selectBtn")[0], // you can pass in id...
+									browse_button : $(_this.id).find("#selectBtn")[0], // you can pass in id...
 									url : utils.path + '/galaxy/sopFile/simpleUpload',
 									multipart:true,
 									multi_selection:false,
@@ -48,7 +46,7 @@ function init(){
 										PostInit: function(){
 											
 											//上传按钮点击事件开始上传
-											$("#popTxt").find("#uploadBtn").click(function(){
+											$(_this.id).find("#uploadBtn").click(function(){
 												alert("上传保存事件并关闭弹出框");
 												uploader.start();
 												return false;
@@ -58,14 +56,16 @@ function init(){
 											plupload.each(files, function(file) {
 //												alert(111111);
 //												document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
-												$("#popTxt").find("#fileTxt").val(file.name);
+												$(_this.id).find("#fileTxt").val(file.name);
 											});
 										},
 										UploadProgress: function(up, file) {
 										},
 										FileUploaded:function(up,file,result){
 											if(result.status==200){
-												if(result.response.status == "OK"){
+												var _restmp = $.parseJSON(result.response);
+												alert(_restmp.status)
+												if(_restmp.status == "OK"){
 													alert("上传成功");
 													popPanel.close();
 												}else{
@@ -79,9 +79,9 @@ function init(){
 										BeforeUpload:function(up){
 											
 											var form = {
-													"fileSource" : $("#popTxt").find("input[name='fileSource']:checked").val(),
-													"fileType" : $("#popTxt").find("#fileType").val(),
-													"fileWorkType" : $("#popTxt").find("#fileWorkType").val(),
+													"fileSource" : $(_this.id).find("input[name='fileSource']:checked").val(),
+													"fileType" : $(_this.id).find("#fileType").val(),
+													"fileWorkType" : $(_this.id).find("#fileWorkType").val(),
 													"projectId" : "10"	
 											}
 											
@@ -93,8 +93,6 @@ function init(){
 										}
 									}
 								});							
-								//初始化上传面板页面数据
-								popPanel.initData();
 								//初始化plupload插件
 								uploader.init();								
 							},
@@ -107,7 +105,7 @@ function init(){
 					
 				});
 			},
-			initData : function(){
+			initData : function(_this){
 //				alert(platformUrl.dictFindByParentCode);
 				sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,popPanel.initDataCallBack,null);
 				sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,popPanel.initDataCallBack,null);
@@ -120,11 +118,11 @@ function init(){
 				switch(data.result.message){
 				case "fileType" : 
 //					_type = "fileType";
-					_dom = $("#popTxt").find("#fileType");
+					_dom = $("#addFile").find("#fileType");
 					break;
 				case "fileWorkType":
 //					_type = "fileWorktype"
-					_dom = $("#popTxt").find("#fileWorkType");
+					_dom = $("#addFile").find("#fileWorkType");
 					break;
 				}
 				utils.each(data,_dom,null);
@@ -145,7 +143,9 @@ function init(){
 	}
 	
 	//弹出层初始化
-	popPanel.init();	
+	popPanel.init();
+	//初始化上传面板页面数据
+	popPanel.initData();
 }
 
 $(document).ready(init());

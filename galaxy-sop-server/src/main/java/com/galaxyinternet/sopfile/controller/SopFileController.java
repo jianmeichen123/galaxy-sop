@@ -30,6 +30,8 @@ import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -204,15 +206,49 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		responseBody.setResult(result);
 		return responseBody;
 	}
+	
+	/**
+	 * 获取档案列表
+	 * 
+	 * @param
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/searchSopFileList", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> searchSopFileList(HttpServletRequest request, @RequestBody SopFile sopFile) {
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (obj == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		try {
+			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,new PageRequest(sopFile.getPageNum(), sopFile.getPageSize()));
+			responseBody.setPageList(pageSopFile);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
+		return responseBody;
+	}
 
 	    
 
 	
 	
+	/**
+	 * 档案管理模块入口
+	 * @return
+	 */
 	@RequestMapping(value="/toFileList",method = RequestMethod.GET)
 	public String toFileList(){
 		return "sopFile/fileList";
 	}
+	
 	
 	@RequestMapping(value="/toUploadFile",method = RequestMethod.GET)
 	public String toUploadFile(){

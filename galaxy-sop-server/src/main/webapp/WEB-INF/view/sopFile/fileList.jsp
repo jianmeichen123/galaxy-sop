@@ -11,6 +11,12 @@
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<!-- jsp文件头和头部 -->
 	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
+	<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css">
+	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+	<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
+	<script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
+	<script src="<%=path%>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+    <script src="<%=path %>/js/init.js"></script>
 </head>
 
 <body>
@@ -26,9 +32,15 @@
         <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-                <a class="pubbtn bluebtn ico c1" href="javascript:;" id="uploadOpenBtn">档案上传</a>
-                <a href="javascript:;" class="pubbtn bluebtn ico c2" id = "openBtn">档案更新</a>
-                <a href="javascript:;" class="pubbtn bluebtn ico c3" >发邮件给</a>
+            	<button type="button" class="btn btn-primary" id="uploadOpenBtn">
+            		<span class="glyphicon glyphicon-upload"></span>档案上传
+            	</button>
+            	<button type="button" class="btn btn-primary" id="openBtn">
+            		<span class="glyphicon glyphicon-upload"></span>档案更新
+            	</button>
+            	<button type="button" class="btn btn-primary" id="emailBtn">
+            		<span class="glyphicon glyphicon-upload"></span>发邮件给
+            	</button>
             </div>
         </div>
         <!-- 搜索条件 -->
@@ -75,39 +87,37 @@
               <input type="text" class="txt" placeholder="请输入项目名称或投资经理名称" />
             </dd>
             <dd>
-            <a href="javascript:;" class="bluebtn ico cx" action="querySearch">查询</a>
+            <button type="button" class="btn btn-primary" action="querySearch" id="openBtn">
+            		<span class="glyphicon glyphicon-search"></span>查询
+            </button>
             </dd>
           </dl>
         </div>
         </div>
        <div class="tab-pane active" id="view">		
-			<table  id="data-table" data-url="/galaxy/sopFile/querySopFile" data-method="post" 
+			<table  id="data-table" data-url="/galaxy/sopFile/searchSopFileList" data-method="post" 
 	          		data-side-pagination="server" data-pagination="true" 
 	          		data-toolbar="#custom-toolbar" data-page-list="[3,6,10,20]"
 					data-id-field="lottoId" data-show-refresh="true">
 				<thead>
 					<tr>
 						<th></th>
-                      	<th data-field="ftgk" data-align="center">所属业务线</th>
-                      	<th data-field="ftgk" data-align="center">所属项目</th>
-                      	<th data-field="ftgk" data-align="center">档案管理</th>
-                      	<th data-field="ftgk" data-align="center">起草者</th>
-                      	<th data-field="ftgk" data-align="center">存储类型</th>
-                      	<th data-field="ftgk" data-align="center">业务分类</th>
-                      	<th data-field="ftgk" data-align="center">更新日期</th>
-                      	<th data-field="ftgk" data-align="center">档案状态</th>
-                     	<th >附件查看</th>
-                      	   
-						<th data-field="ftgk" data-align="center">访谈概况</th>
-						<th data-field="proName" data-align="center">所属项目</th>  
-						<th data-field="viewNotes" data-align="center">访谈日志</th>
+						<th data-field="sopFileId" data-align="center">所属业务线</th>
+                      	<th data-field="careerLine" data-align="center">所属业务线</th>
+                      	<th data-field="projectId" data-align="center">所属项目</th>
+                      	<th data-field="fileSource" data-align="center">档案管理</th>
+                      	<th data-field="fileUid" data-align="center">起草者</th>
+                      	<th data-field="fileType" data-align="center">存储类型</th>
+                      	<th data-field="fileWorktype" data-align="center">业务分类</th>
+                      	<th data-field="updateTime" data-align="center">更新日期</th>
+                      	<th data-field="fileStatus" data-align="center">档案状态</th>
+						<th ><a href="/download?sopFileId" >附件查看</a></th>
 					</tr>
 				</thead>
 			</table>
            </div>      
     </div>
 </div>
-
 <!-- 弹出页面 -->
 <div id="addFile" class="archivestc" style="display: none;">
 	<dl class="fmdl clearfix">
@@ -156,13 +166,14 @@
 <!-- 		<div  id="filelist"></div> -->
 <!-- 		<div  id="console"></div> -->
 <!--     </div> -->
-    <a href="javascript:;" class="pubbtn bluebtn" id="uploadBtn";>上传保存</a>
+    <a href="javascript:;" class="pubbtn bluebtn" id="uploadBtn">上传保存</a>
     <input type="hidden" id="pathInput" value="<%=path%>">
 </div>
 
-<jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+</body>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
+ <script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
 <script type="text/javascript">
 
 </script>
