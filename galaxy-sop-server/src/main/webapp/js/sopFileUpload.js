@@ -19,10 +19,6 @@ function init(){
 		init: {
 			PostInit: function() {
 				document.getElementById('uploadBtn').onclick = function() {
-					uploader.multipart_params = {
-							id : "asd",
-							name : ""
-					}
 					uploader.start();
 					return false;
 				};
@@ -35,22 +31,16 @@ function init(){
 			},
 
 			UploadProgress: function(up, file) {
-//				document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+				document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
 			},
-			FileUploaded:function(up,file,result){
-				alert(1111);
-				alert(file.id);
-				alert(file.name);
-				alert(result.response);//服务器返回的文本
-				alert(result.responseHeaders)//服务器返回头信息
-				alert(result.status);//服务器返回状态
-			},
+
 			Error: function(up, err) {
 				document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			}
 		}
 	});
 	uploader.init();
+	
 	$("#uploadBtn").click(function(){
 		
 	});
