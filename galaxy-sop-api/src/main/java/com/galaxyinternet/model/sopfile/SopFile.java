@@ -37,14 +37,14 @@ public class SopFile extends BaseEntity {
      * 档案来源 
      * 1:内部 2:外部
      */
-    private Integer fileSource;
+    private String fileSource;
 
     
     /**
      * 存储类型 
      * 1:文档 2:图片 3:音视频
      */
-    private Integer fileType;
+    private String fileType;
 
     
     /**
@@ -130,27 +130,28 @@ public class SopFile extends BaseEntity {
     }
 
     
-    public Integer getFileSource() {
-        return fileSource;
-    }
-
     
-    public void setFileSource(Integer fileSource) {
-        this.fileSource = fileSource;
-    }
+    public String getFileSource() {
+		return fileSource;
+	}
 
-    
-    public Integer getFileType() {
-        return fileType;
-    }
 
-    
-    public void setFileType(Integer fileType) {
-        this.fileType = fileType;
-    }
+	public void setFileSource(String fileSource) {
+		this.fileSource = fileSource;
+	}
 
-    
-    public String getRemark() {
+
+	public String getFileType() {
+		return fileType;
+	}
+
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
+	}
+
+
+	public String getRemark() {
         return remark;
     }
 

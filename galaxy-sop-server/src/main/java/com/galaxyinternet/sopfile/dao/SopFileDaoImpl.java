@@ -30,6 +30,15 @@ public class SopFileDaoImpl extends BaseDaoImpl<SopFile, Long> implements SopFil
 		
 		
 	}
+	
+	/**
+	 * 通过项目及业务分类获取唯一档案
+	 * @param sf
+	 * @return
+	 */
+	public SopFile queryByProjectAndFileWorkType(SopFile sf){
+		return sqlSessionTemplate.selectOne(getSqlName("queryByProjectAndFileWorkType"), sf);
+	}
 
 	
 	

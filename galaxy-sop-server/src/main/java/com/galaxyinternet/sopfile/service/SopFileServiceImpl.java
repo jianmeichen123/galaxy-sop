@@ -32,6 +32,15 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		return sopFileDao.queryByFileTypeList(sbo);
 	}
 	
+	/**
+	 * 通过项目ID及业务分类获取唯一档案
+	 * @param sf
+	 * @return
+	 */
+	public SopFile selectByProjectAndFileWorkType(SopFile sf){
+		return sopFileDao.queryByProjectAndFileWorkType(sf);
+	}
+	
 	
 	
 	
