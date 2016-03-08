@@ -2,6 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+
 <!doctype html>
 <html>
 <head>
@@ -19,10 +20,6 @@
 
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
-<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
-
 
 </head>
 
@@ -119,6 +116,9 @@
 
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<!-- file -->
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 
 </body>

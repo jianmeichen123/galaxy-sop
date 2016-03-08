@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+
+
 <div class="meetingtc">
 	<div class="top clearfix">
     	<div class="searchall clearfix">
@@ -57,15 +59,16 @@
     
     <dl class="fmdl clearfix">
         <dt>访谈录音：</dt>
-        <dd>
+        
             <div class="fmload clearfix">
-                <p class="loadname"></p>
-                <input type="file" name="file" class="load"/>
-                <a href="javascript:;" class="pubbtn fffbtn">上传录音</a>
-                
-                <input type="hidden" id="viewfileID" name = "fileId" value="" /> 
+            <dd>
+	        	<input type="text" name="fileName" id="fileName" class="txt" readonly="readonly"/>
+	        </dd>
+	        <dd>
+	        	<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">上传录音</a>
+    		</dd>
             </div>
-        </dd>
+        
     </dl>
     
     <div class="btnbox">
@@ -73,6 +76,17 @@
     </div>
 </div>
 
+
+<script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.min.js"></script>
+<script type="text/javascript" src="${ctx}/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script src="${ctx}/js/plupload.full.min.js" type="text/javascript"></script>
+ 
+ <script type="text/javascript">
+		UM.getEditor('viewNotes');
+</script>
+    
 <!-- <script type="text/javascript">
 $(function(){
 
