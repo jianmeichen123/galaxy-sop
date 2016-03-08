@@ -32,24 +32,35 @@
         </dl>
     </div>
     
-    <dl class="fmdl clearfix">
-        <dt>访谈纪要：</dt>
-        <dd>
-        <div class="edit">
-        	<textarea style="width:588px;height:200px;" id="viewNotes" name = "viewNotes"  placeholder="访谈纪要"  ></textarea>
-         </div>
-            <!-- <div class="edit">
-               	<textarea  id="viewNotes" name = "viewNotes"  placeholder="访谈纪要"  ></textarea>
-            </div> -->
-        </dd>
-    </dl>
+
+<!-- 赋值     var um = UM.getEditor('describe_editor');
+		um.setContent(data.entity.projectDescribe); 
+		
+	取值 	var um = UM.getEditor('viewNotes');
+		var projectDescribe = um.getContent();
+		-->
+          
+	    <dl class="fmdl clearfix">
+	        <dt>访谈纪要:</dt>
+	        <dd>
+	        	  <div type="text/plain" id="viewNotes" style="width:100%;height:100px;"></div>
+			</dd>
+	          <!--   <dd class="fctbox">
+	          <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+	            <a href="javascript:;" id="save_viewNotes" class="ico f4" data-btn="submit">保存</a>
+	            <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
+	            <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
+	            <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
+	          </dd> -->
+        </dl>
+            
     
     <dl class="fmdl clearfix">
         <dt>访谈录音：</dt>
         <dd>
             <div class="fmload clearfix">
                 <p class="loadname"></p>
-                <input type="file" class="load"/>
+                <input type="file" name="file" class="load"/>
                 <a href="javascript:;" class="pubbtn fffbtn">上传录音</a>
                 
                 <input type="hidden" id="viewfileID" name = "fileId" value="" /> 
@@ -61,5 +72,13 @@
     	<a href="javascript:saveInterView()" id="saveInterView" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
     </div>
 </div>
+<script type="text/javascript">
+$(function(){
+
+ 	var um = UM.getEditor('viewNotes');
+	um.setContent(""); 
 
 
+});
+
+</script>

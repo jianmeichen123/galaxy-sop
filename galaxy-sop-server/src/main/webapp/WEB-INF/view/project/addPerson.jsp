@@ -5,7 +5,7 @@
 <div class="addmentc">
   <div class="form clearfix">
   <form action="" id="person_form" method="post">
-  	<input type="hidden" name="projectId" value="" id="projectId">
+  	<input type="hidden" value="" id="projectId">
     <div class="left">
       <dl class="fmdl fml">
         <dt>姓名：</dt>
@@ -47,5 +47,6 @@
     </div>
     </form>
   </div>
-      <a href="javascript:addPerson();" class="pubbtn bluebtn">保存</a>
+      <a href="javascript:;" id="savePerson" class="pubbtn bluebtn">保存</a>
 </div>
+

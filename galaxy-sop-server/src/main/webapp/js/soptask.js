@@ -10,15 +10,12 @@ function getSopTaskList(jsonData){
 	var url = location.search;
 	var sessionId=url.split("=")[1];
 	$.ajax({
-		url :platformUrl.geSopTastList,
+		url :'/galaxy/soptask/taskListByRole',
 		async : false,
 		type : 'POST',
 		data : JSON.stringify(jsonData),
 	    contentType:"application/json; charset=UTF-8",
 		dataType : "json",
-		beforeSend :function(xhr){ 
-			xhr.setRequestHeader('sessionID',sessionId);
-		},
 		cache : false,
 		error:function(){     
 	    }, 
@@ -71,7 +68,7 @@ function setData(obj ,searchName){
 function judgeQueryType(obj,searchName){
 	var dataType;
 	if(obj.id==="all"){
-	     dataType={"taskOrder":"","taskStatus":"","nameLike":searchName};
+	     dataType={"taskOrder":0,"taskStatus":"","nameLike":searchName};
 	}
 	if(obj.id==="urgent"){
 		 dataType={"taskOrder":"2","taskStatus":"","nameLike":searchName};
@@ -80,13 +77,13 @@ function judgeQueryType(obj,searchName){
 		 dataType={"taskOrder":"3","taskStatus":"","nameLike":searchName};
 	}
 	if(obj.id==="claim"){
-		 dataType={"taskOrder":"","taskStatus":"1","nameLike":searchName};
+		 dataType={"taskOrder":0,"taskStatus":"1","nameLike":searchName};
 	}
 	if(obj.id==="todeal"){
-	     dataType={"taskOrder":"","taskStatus":"2","nameLike":searchName};
+	     dataType={"taskOrder":0,"taskStatus":"2","nameLike":searchName};
 	}
 	if(obj.id==="finish"){
-	     dataType={"taskOrder":"","taskStatus":"3","nameLike":searchName};
+	     dataType={"taskOrder":0,"taskStatus":"3","nameLike":searchName};
 	}
 	return dataType;
 	

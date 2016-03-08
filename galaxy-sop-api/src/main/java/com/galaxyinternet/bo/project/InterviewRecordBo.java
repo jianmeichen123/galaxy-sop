@@ -16,17 +16,17 @@ public class InterviewRecordBo extends InterviewRecord{
 	private String proNameCode;
 	private int inpro; //是否项目内查看 1：是
 	
-	private Integer pageNumber;// 页码，默认是第一页
+	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
 	
 	
 
-	public Integer getPageNumber() {
-		return pageNumber;
+	public Integer getPageNum() {
+		return pageNum;
 	}
 
-	public void setPageNumber(Integer pageNumber) {
-		this.pageNumber = pageNumber;
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
 	}
 
 	public Integer getPageSize() {
@@ -78,11 +78,11 @@ public class InterviewRecordBo extends InterviewRecord{
 	}
 	
 	public String getProNameCode() {
-		return proNameCode;
+		return proNameCode == null ? null : proNameCode.trim();
 	}
 
 	public void setProNameCode(String proNameCode) {
-		this.proNameCode = proNameCode;
+		 this.proNameCode = proNameCode == null ? null : proNameCode.trim();
 	}
 
 	public String getFuri() {

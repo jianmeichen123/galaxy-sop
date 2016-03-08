@@ -77,6 +77,7 @@ var platformUrl = {
 	 */
 	dictFindByParentCode : "/galaxy/sopFile/getDictByParent",
 	
+
 }
 
 /**

@@ -1,4 +1,13 @@
+$(function(){
 
+	createMenus(6);
+	
+	$('#data-table').bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		
+	});
+	
+});
 //访谈记录查询个人项目
 function queryPerPro(){
 	var condition = {};
@@ -76,7 +85,10 @@ function getSaveCondition(){
 	var projectId = $("#projectId").val();
 	var viewDateStr = $("#viewDate").val();
 	var viewTarget = $.trim($("#viewTarget").val());
-	var viewNotes = $.trim($("#viewNotes").val());
+	//var viewNotes = $.trim($("#viewNotes").val());
+	var um = UM.getEditor('viewNotes');
+	var viewNotes = $.trim(um.getContent());
+	
 	var fileId = $("#viewfileID").val();
 	
 	if(projectId == null || projectId == ""){
@@ -163,6 +175,6 @@ function dateFormat(value, row, index){
 	return "<fmt:formatDate value='"+value+"' pattern='yyyy-MM-dd'/>";
 }
 function fileFormat(value, row, index){
-	return "<fmt:formatDate value='"+value+"' pattern='yyyy-MM-dd'/>";
+	return "";
 }
 

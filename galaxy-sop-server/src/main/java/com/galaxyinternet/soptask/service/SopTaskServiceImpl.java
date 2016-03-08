@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.dictEnum.DictUtil;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.exception.PlatformException;
@@ -167,30 +168,38 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			}
 			sopTaskBo.setId(sopTasknew.getId());
 		
-			sopTaskBo.setTaskDeadlineformat(DateUtil.convertDateToString(sopTasknew.getTaskDeadline()));//
+			sopTaskBo.setTaskDeadlineformat(sopTasknew.getTaskDeadline()!=null?DateUtil.convertDateToString(sopTasknew.getTaskDeadline()):"");//
 			sopTaskBo.setTaskName(sopTasknew.getTaskName()==null?"":sopTasknew.getTaskName());
-			sopTaskBo.setTaskType(sopTasknew.getTaskType()==null?"":sopTasknew.getTaskType());
+			sopTaskBo.setTaskType(sopTasknew.getTaskType()==null?"":DictUtil.getTypeName(sopTasknew.getTaskType()));
 			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder());
 			sopTaskBo.setDepartmentId(sopTasknew.getDepartmentId());
 			sopTaskBo.setTaskStatus(sopTasknew.getTaskStatus()==null?"":sopTasknew.getTaskStatus());
 			
-			if(sopTasknew.getTaskStatus().equals("1")){
+			if(sopTasknew.getTaskStatus().equals("taskStatus:1")){
 				StringBuffer caozuohtml=new StringBuffer();
-				sopTaskBo.setCaozuo("待认领");
-				sopTaskBo.setTaskStatus("待认领");
+				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
+				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("1");
 				caozuohtml.append("<a href=").append("/galaxy/soptask/goClaimtcPage?id="+sopTaskBo.getId())
-				.append("     data-btn='claim'").append(" >").append("待认领").append("</a>");
+				.append("     data-btn='claim'").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
+				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
-			if(sopTasknew.getTaskStatus().equals("2")){
-				sopTaskBo.setCaozuo("待完工");
-				sopTaskBo.setTaskStatus("待完工");
+			if(sopTasknew.getTaskStatus().equals("taskStatus:2")){
+				StringBuffer caozuohtml=new StringBuffer();
+				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
+				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("2");
+				caozuohtml.append("<a ").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
+				sopTaskBo.setCaozuohtml(caozuohtml.toString());
+		
 			}
-			if(sopTasknew.getTaskStatus().equals("3")){
-				sopTaskBo.setCaozuo("已完成");
-				sopTaskBo.setTaskStatus("已完成");
+			if(sopTasknew.getTaskStatus().equals("taskStatus:3")){
+				StringBuffer caozuohtml=new StringBuffer();
+				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
+				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("3");
+				caozuohtml.append("<a ").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
+				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
 			
 			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder());

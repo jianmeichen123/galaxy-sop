@@ -1,4 +1,4 @@
-package com.galaxyinternet.common.dictEnum;
+package com.galaxyinternet.common.enums;
 
 public enum DictEnum {
 	

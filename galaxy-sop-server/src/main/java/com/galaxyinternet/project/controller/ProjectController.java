@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -230,7 +230,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) obj;
 		Project p = projectService.queryById(pool.getProjectId());
 		//项目创建者用户ID与当前登录人ID是否一样
-		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
+		if(p != null && user.getId() != p.getCreateUid()){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限为该项目添加团队成员!"));
 			return responseBody;
 		}

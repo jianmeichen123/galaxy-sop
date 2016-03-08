@@ -1,3 +1,13 @@
+$(function(){
+
+	createMenus(7);
+	
+	$('#data-table').bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		
+	});
+	
+});
 
 //查询个人项目
 function queryPerPro(){
@@ -77,7 +87,11 @@ function getMeetCondition(){
 	var meetingDateStr = $.trim($("#meetingDateStr").val());
 	var meetingType = $.trim($('input:radio[name="meetingType"]:checked').val());
 	var meetingResult = $.trim($('input:radio[name="meetingResult"]:checked').val());
-	var meetingNotes = $.trim($("#meetingNotes").val());
+	//var meetingNotes = $.trim($("#meetingNotes").val());
+	
+	var um = UM.getEditor('meetingNotes');
+	var meetingNotes = $.trim(um.getContent());
+	
 	var fileId = $("#meetfileID").val();
 	
 	if(projectId == null || projectId == ""){

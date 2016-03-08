@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.galaxyinternet.common.dictEnum.DictEnum;
-import com.galaxyinternet.common.dictEnum.DictEnum.fileStatus;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;

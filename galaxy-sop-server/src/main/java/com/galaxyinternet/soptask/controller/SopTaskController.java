@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
@@ -65,17 +66,23 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	/**
 	 * 弹出页面
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
 	public String goClaimtcPage(HttpServletRequest request) {
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
+		//当前登录人
+		User user = (User) request.getSession().getAttribute(
+				Constants.SESSION_USER_KEY);
 		SopTask sopTask=new SopTask();
 		Result result = new Result();
-		Object ob = request.getSession().getAttribute("sessionUser");
-		sopTask.setTaskStatus("2");
+		String id=request.getParameter("id");
+		if(id!=null&&!"".equals(id)){
+			sopTask.setId(Long.parseLong(id));
+		}
+		sopTask.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
 		try {
-			Long id = sopTaskService.insertsopTask(sopTask);
-			responseBody.setId(id);
-			result.setStatus(Status.OK);
+			sopTask.setAssignUid(user.getId());
+			 sopTaskService.updateById(sopTask);
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
 		} catch (Exception e) {
@@ -120,7 +127,6 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		if(!StringEx.isNullOrEmpty(queryOne)){
 			sopTaskBo.setDepartmentId(queryOne.getId());
 		}
-		sopTaskBo.setAssignUid((long)1);
 		Result result = new Result();
 		try {
 			Page<SopTaskBo> list = sopTaskService.tasklist(pageable, sopTaskBo,request);

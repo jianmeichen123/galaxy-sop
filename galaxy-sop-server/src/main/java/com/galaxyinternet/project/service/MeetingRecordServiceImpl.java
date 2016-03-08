@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
-import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.ProjectDao;
@@ -19,7 +19,6 @@ import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopTask;
-import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.MeetingRecordService;
 
 
@@ -141,7 +140,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			//投资意向书  任务生成
 			SopTask task = new SopTask();
 			task.setProjectId(pid);                     //项目id
-//			task.setTaskDestination(udepartid);  	//任务分派到: 投资经理
+			task.setAssignUid(udepartid);  	//任务分派到: 投资经理
 			task.setTaskName("上传投资意向书");          //任务名称：    上传投资意向书
 			task.setAssignUid(userid);             //任务认领人id 
 			task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());		//任务状态: 2:待完工
@@ -170,7 +169,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			//投资协议  任务生成
 			SopTask task1 = new SopTask();
 			task1.setProjectId(pid);                     //项目id
-//			task1.setTaskDestination(udepartid);  		//任务分派到: 投资经理
+			task1.setAssignUid(udepartid);  		//任务分派到: 投资经理
 			task1.setTaskName("上传投资协议");          //任务名称：   上传投资协议
 			task1.setAssignUid(userid);             //任务认领人id 
 			task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				//任务状态: 2:待完工
@@ -181,7 +180,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				//股权转让协议  任务生成
 				SopTask task2 = new SopTask();
 				task2.setProjectId(pid);                    //项目id
-//				task1.setTaskDestination(udepartid);  		//任务分派到: 投资经理
+				task1.setAssignUid(udepartid);  		//任务分派到: 投资经理
 				task2.setTaskName("上传股权转让协议");       //任务名称：  上传股权转让协议
 				task2.setAssignUid(userid);            //任务认领人id 
 				task2.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				//任务状态: 2:待完工
@@ -253,7 +252,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		//业务dd  任务生成
 		SopTask task1 = new SopTask();
 		task1.setProjectId(project.getId());         //项目id
-//		task1.setTaskDestination(departid);  		 //任务分派到: 投资经理
+		task1.setAssignUid(departid);  		 //任务分派到: 投资经理
 		task1.setTaskName("上传业务尽职调查报告");    //任务名称：  上传股权转让协议
 		task1.setAssignUid(userid);             //任务认领人id 
 		task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				 //任务状态: 2:待完工
@@ -333,7 +332,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		//财务  任务生成
 		SopTask task3 = new SopTask();
 		task3.setProjectId(project.getId());         //项目id
-//		task3.setTaskDestination("财务部");  		 //任务分派到: 投资经理
+		task3.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);  		 //任务分派到: 投资经理
 		task3.setTaskName("上传资金拨付凭证");        //任务名称：  上传资金拨付凭证
 		task3.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待认领
 		task3.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
@@ -342,7 +341,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		//法务  任务生成
 		SopTask task4 = new SopTask();
 		task4.setProjectId(project.getId());         //项目id
-//		task4.setTaskDestination("法务部");  		 //任务分派到: 投资经理
+		task4.setDepartmentId(SopConstant.DEPARTMENT_FW_ID); 		 //任务分派到: 投资经理
 		task4.setTaskName("上传工商变更登记凭证");        //任务名称：  上传工商变更登记凭证
 		task4.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待认领
 		task4.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同

@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.common.constants.SopConstant;
-import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectPersonDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;

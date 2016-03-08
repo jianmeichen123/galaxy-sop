@@ -8,12 +8,14 @@
 <meta charset="utf-8">
 <title>繁星SOP-添加项目</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<!-- bootstrap-table -->
-<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
-<!-- 分页一css+三js -->
+<!-- 分页二css+四js -->
+<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
@@ -38,60 +40,58 @@
         </div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix">
-			<div class="bottom searchall clearfix">
+			<div class="bottom searchall clearfix" id="custom-toolbar">
 				<dl class="fmdl fml fmdll clearfix">
-					<dt>账户状态：</dt>
-					<dd>
-						<label for=""><input type="radio" name="status">不限</label>
-						<label for=""><input type="radio" id="disabled" value="1" name="status">已禁用</label>
-					</dd>
-				</dl>
-				<dl class="fmdl fml fmdll clearfix">
-					<dt>所属部门：</dt>
-					<dd>
-						<select id='selectDept'>
-							<option value="">全部</option>
-						</select>
-					</dd>
-				</dl>
+	              <dt>项目类别：</dt>
+	              <dd>
+	                <select name="projectType">
+	                  <option value="">全部</option>
+	                  <option value="projectType:1">外部投资</option>
+	                  <option value="projectType:2">内部创建</option>
+	                </select>
+	              </dd>
+	            </dl>
+	            <dl class="fmdl fml fmdll clearfix">
+	              <dt>项目进度：</dt>
+	              <dd>
+	                <select name="projectProgress">
+	                  <option value="">全部</option>
+	                  <option value="projectProgress:1">接触访谈</option>
+	                  <option value="projectProgress:2">内部评审</option>
+	                  <option value="projectProgress:3">CEO评审</option>
+	                  <option value="projectProgress:4">立项会</option>
+	                  <option value="projectProgress:5">投资意向书</option>
+	                  <option value="projectProgress:6">尽职调查</option>
+	                  <option value="projectProgress:7">投资决策会</option>
+	                  <option value="projectProgress:8">投资协议</option>
+	                  <option value="projectProgress:9">股权交割</option>
+	                  <!-- <option value="projectProgress:10">投后运营</option> -->
+	                </select>
+	              </dd>
+	            </dl>
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
 						<input type="text" class="txt" id="search_text" placeholder="请输入姓名或手机号" />
 					</dd>
 					<dd>
-						<a href="javascript:void(0)" class="bluebtn ico cx" onclick="searchForm()">查询</a>
+						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
 					</dd>
 				</dl>
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">		
-			<div id="custom-toolbar">
-			    <div class="form-inline" role="form">
-			        <div class="form-group">
-			            <div class="input-group">
-			                <input class="form-control" type="text" placeholder="名称" name="nameCodeLike">
-			            </div>
-			        </div>
-			        <div class="form-group">
-			            <div class="input-group">
-			                <input class="form-control" type="date" placeholder="创建时间(开始)" name="createTimeStart">
-			            </div>
-			        	<div class="input-group">
-			                <input class="form-control" type="date" placeholder="创建时间(结束)" name="createTimeEnd">
-			            </div>
-			        </div>
-			        <button type="submit" class="btn btn-default" name="querySearch">搜索</button>
-			    </div>
-			</div>
 			<table id="data-table" data-url="project/spl" data-height="555" 
 				data-method="post" data-show-refresh="true" 
 				data-side-pagination="server" data-pagination="true" 
 				data-page-list="[1, 5, 50]" data-search="false">
 				<thead>
 				    <tr>
+				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
 			        	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
-			        	<th data-field="projectCode" data-align="center" class="data-input">项目状态</th>
+			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
+			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
+			        	<th data-field="createDate" data-align="center" class="data-input">创建日期</th>
 			        	<th data-align="center" class="col-md-2" data-formatter="editor">操作</th>
  					</tr>	
  				</thead>
@@ -101,9 +101,30 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
-	function editor(){
-		return "";
+	createMenus(5);
+	function editor(value, row, index){
+		var id=row.id;
+		var options = "<button type='button' class='btn btn-primary btn-option' data-toggle='modal' data-target='#myModal'>查看</button>";
+		return options;
 	}
 </script>
-</html>
 
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</html>

@@ -5,4 +5,5 @@ import com.galaxyinternet.model.hr.PersonLearn;
 
 public interface PersonLearnDao extends BaseDao<PersonLearn, Long> {
 
+	
 }

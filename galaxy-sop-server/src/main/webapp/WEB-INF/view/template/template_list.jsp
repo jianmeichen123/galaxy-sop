@@ -10,6 +10,7 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -25,7 +26,7 @@
         <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="javascript:;" class="pubbtn bluebtn ico c3">发邮件给</a>
+                <a href="javascript:;" class="pubbtn bluebtn ico c3" id="show-mail-btn">发邮件给</a>
             </div>
         </div>
         <!--表格内容-->
@@ -64,8 +65,10 @@
 </div>
 <!-- upload dialog start -->
 <div id="upload-dialog" class="archivestc" style="display:none;">
-<form id="upload-from" method="post" enctype="multipart/form-data">
+<form id="upload-form">
 	<input type="hidden" name="id">
+	<input type="hidden" name="fileKey">
+	<input type="hidden" name="fileLength">
 	<h2>模板更新</h2>   
     <dl class="fmdl clearfix">
     	<dt>存储类型：</dt>
@@ -82,29 +85,103 @@
     <dl class="fmdl clearfix">
     	<dt>所属部门：</dt>
         <dd>
-        	<select name="department"></select>
+        	<select name="departmentId"></select>
         </dd>
     </dl>
-    <div class="fmload clearfix">
-    	<p class="loadname"></p>
-        <input type="file" class="load" onchange="selectFile(this)"/>
-        <a href="javascript:;" class="pubbtn fffbtn">选择档案</a>
+    <div class="fmdl clearfix">
+    	<dd>
+        <input type="text" name="bucketName" class="txt" onchange="selectFile(this)"/>
+    	</dd>
+    	<dd>
+        <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>
+    	</dd>
     </div>
     <div class="fmarea">
     	<textarea name="remark"></textarea>
     </div>
 </form>
-    <a href="javascript:;" class="pubbtn bluebtn">上传保存</a>
+    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
 </div>
 <!-- upload dialog end -->
+<!-- Mail dialog start-->
+<div id="mail-dialog" style="display:none;">
+<form id="mail-form">
+<div class="emailtc" >
+    <h2>模板管理-邮件分享</h2>
+    <dl class="fmdl clearfix">
+        <dt>发件人：</dt>
+        <dd class="clearfix">
+            <input type="text" name="fromAddress" value="${sessionScope.galax_session_user.email }" class="txt"/>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+        <dt>收件人：</dt>
+        <dd class="clearfix">
+            <input type="text" name="toAddress" class="txt"/>
+        </dd>
+        <dd>            
+            <label class="red">&#42;&nbsp;必填</label>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+        <dt>邮件标题：</dt>
+        <dd class="clearfix">
+            <input type="text" name="title" class="txt"/>
+        </dd>
+        <dd>            
+            <label class="red">&#42;&nbsp;必填</label>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+    	<dt>邮件正文:</dt>
+        <dd class="clearfix">
+        	<textarea name="content"></textarea>
+        </dd>
+    </dl>
+    <dl class="fmdl clearfix">
+        <dt>邮件分类:</dt>
+        <dd class="clearfix">
+            <table width="100%" cellspacing="0" cellpadding="0" id="attach-table">
+              <thead>
+                  <tr>
+                      <th>序号</th>
+                      <th>档案名称</th>
+                      <th>档案大小/m </th>
+                  </tr>
+              </thead>                                                                                                                     
+              <tbody>
+              </tbody>
+          </table> 
+
+        </dd>
+    </dl>
+    <div class="checkbox">
+        <label for=""><input name="zipFlag" type="checkbox">自动打成一个压缩包附件发送</label>
+    </div>    
+    <div class="checkbox">
+        <label for=""><input name="smFlag" type="checkbox">发送成功后短信通知</label>
+    </div>
+    <div class="btnbox">
+    	<a href="javascript:;" class="pubbtn bluebtn" id="send-mail-btn">发送</a>
+    </div>
+</div>
+</form>
+</div>
+<!-- Mail dialog end -->
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
+var uploader;
 $(function(){
-	createMenus(1);
+	createMenus(13);
 	loadTempList();
 	loadRelatedData();
+	$("#show-mail-btn").click(function(){
+		showMailPopup();
+	});
 });
-
+/**
+ * 加载模板列表
+ */
 function loadTempList()
 {
 	sendGetRequest(
@@ -113,8 +190,8 @@ function loadTempList()
 			function(data){
 				$("#template-table tbody").empty();
 				$.each(data.entityList,function(){
-					var $tr = $('<tr></tr>');
-					$tr.append('<td><input type="checkbox" name="document" checked="checked"/></td>') ;
+					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-bucket-name="'+this.bucketName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-file-length="'+this.fileLength+'"></tr>');
+					$tr.append('<td><input type="checkbox" name="document" /></td>') ;
 					$tr.append('<td>'+this.workTypeDesc+'</td>') ;
 					$tr.append('<td>'+this.departmentDesc+'</td>') ;
 					$tr.append('<td>'+this.docTypeDesc+'</td>') ;
@@ -130,13 +207,15 @@ function loadTempList()
 					}
 					$("#template-table tbody").append($tr);
 					
-					handleDownload();
-					handleUpload();
 				});
+				handleDownload();
+				handleUpload();
 			}
 	);
 }
-
+/**
+ * 加载下拉列表数据
+ */
 function loadRelatedData()
 {
 	sendGetRequest(
@@ -144,13 +223,13 @@ function loadRelatedData()
 			null,
 			function(data){
 				$.each(data.fileType,function(){
-					$("#upload-from [name='docType']").append("<option value='"+this.value+"'>"+this.name+"</option>")
+					$("#upload-form [name='docType']").append("<option value='"+this.value+"'>"+this.name+"</option>")
 				});
 				$.each(data.fileWorktype,function(){
-					$("#upload-from [name='worktype']").append("<option value='"+this.value+"'>"+this.name+"</option>")
+					$("#upload-form [name='worktype']").append("<option value='"+this.value+"'>"+this.name+"</option>")
 				});
 				$.each(data.department,function(){
-					$("#upload-from [name='department']").append("<option value='"+this.id+"'>"+this.name+"</option>")
+					$("#upload-form [name='departmentId']").append("<option value='"+this.id+"'>"+this.name+"</option>")
 				});
 			}
 	);
@@ -159,7 +238,10 @@ function loadRelatedData()
 function handleDownload()
 {
 	$("[data-act='download']").click(function(){
-		
+		var $self = $(this);
+		var id = $self.data("tid");
+		var url = "<%=path %>"+platformUrl.tempDownload+"/"+id;
+		window.location.href=url;
 	});
 }
 
@@ -173,7 +255,7 @@ function handleUpload()
 			callback:function(t,postionEve){
 				postionEve();
 				$("#popTxt").html($("#upload-dialog").html());
-				$("#upload-from input[name='id']").val($self.data("tid"));
+				$("#upload-form input[name='id']").val($self.data("tid"));
 				if($self.data('act') == 'update')
 				{
 					$("#popTxt").find("h2").text("模板更新");
@@ -182,10 +264,17 @@ function handleUpload()
 				{
 					$("#popTxt").find("h2").text("模板上传");
 				}
+				
+				initUpload();
+				var row = $("tr[data-id='"+id+"']")[0];
+				setForm($("#popTxt #upload-form"),row.dataset);
 			}
 		});
 	});
 }
+/**
+ * 判断文档类型
+ */
 function selectFile(ele)
 {
 	var file = ele.value;
@@ -193,21 +282,128 @@ function selectFile(ele)
 	var ext = file.substring(dotPos);
 	if(/\.(doc|docx|xls|xlsx|pdf)$/.test(ext.toLowerCase()))
 	{
-		$("#upload-from [name='docType']").val(1);
+		$("#upload-form [name='docType']").val(1);
 	}
 	else if(/\.(mp3|wmv)$/.test(ext.toLowerCase()))
 	{
-		$("#upload-from [name='docType']").val(2);
+		$("#upload-form [name='docType']").val(2);
 	}
 	else if(/\.(avi|mov|wmv|mkv)$/.test(ext.toLowerCase()))
 	{
-		$("#upload-from [name='docType']").val(3);
+		$("#upload-form [name='docType']").val(3);
 	}
 	else
 	{
-		$("#upload-from [name='docType']").val(4);
+		$("#upload-form [name='docType']").val(4);
 	}
 	
+}
+
+function initUpload()
+{
+	var uploader = new plupload.Uploader({
+		runtimes : 'html5,flash,silverlight,html4',
+		browse_button : $("#popTxt").find("#file-select-btn")[0], 
+		url : '<%=path %>'+platformUrl.tempUpload,
+		multi_selection:false,
+		filters : {
+			max_file_size : '10mb'
+		},
+
+		init: {
+			PostInit: function() {
+				$("#popTxt").find("#upload-btn").click(function(){
+					uploader.start();
+					return false;
+				});
+			},
+
+			FilesAdded: function(up, files) {
+				plupload.each(files, function(file) {
+					$("#popTxt input[name='bucketName']").val(file.name);
+				});
+			},
+			
+			FileUploaded: function(up, files, rtn) {
+				var result = $.parseJSON(rtn.response);
+				$("#popTxt input[name='fileKey']").val(result.fileKey);
+				$("#popTxt input[name='fileLength']").val(result.fileLength);
+				$form = $("#popTxt #upload-form");
+				var data = JSON.parse($form .serializeObject());
+				var url = "<%=path %>"+platformUrl.tempSave
+				sendPostRequestByJsonObj(
+						url,
+						data,
+						function(data){
+							alert("上传成功.");
+							loadTempList();
+						}
+				);
+			}
+		}
+	});
+
+	uploader.init();
+	
+}
+
+function setForm(form,data)
+{
+	for(key in data)
+	{
+		if(data[key] != 'undefined' && data[key])
+		{
+			form.find("[name='"+key+"']").val(data[key]);
+		}
+	}
+	
+}
+
+function showMailPopup()
+{
+	var flags = $("#template-table input[type='checkbox']:checked");
+	var len = flags.length;
+	if(len == 0 )
+	{
+		alert("请选择模板.");
+		return;
+	}
+	
+	$.popup({
+		txt:$("#upload-dialog").html(),
+		callback:function(t,postionEve){
+			postionEve();
+			$("#popTxt").html($("#mail-dialog").html());
+
+			var i=0;
+			
+			$.each(flags,function(){
+				var flag = $(this);
+				i++;
+				var $row = $(this).closest("tr");
+				var $tr=$("<tr></tr>");
+				$tr.append("<td>"+ i +"</td>");
+				$tr.append("<td>"+ $row.data('bucket-name') +"</td>");
+				$tr.append("<td>"+ $row.data('file-length') +"</td>");
+				$("#popTxt #attach-table tbody").append($tr);
+				$("#popTxt #mail-form").prepend('<input type="hidden" name="templateIds" value="'+$row.data('id')+'">');
+			});
+			$("#popTxt #send-mail-btn").click(function(){
+				
+				var $form = $("#popTxt #mail-form");
+				var data = JSON.parse($form .serializeObject());
+				var url = "<%=path %>"+platformUrl.tempSendMail;
+				sendPostRequestByJsonObj(
+						url,
+						data,
+						function(data){
+							alert("发送邮件成功.");
+							//loadTempList();
+						}
+				);
+			});
+		}
+	});
 }
 </script>
 </body>
