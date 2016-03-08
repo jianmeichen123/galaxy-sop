@@ -498,10 +498,10 @@
     BootstrapTable.prototype.initCustomToolbar = function () {
     	
     	var that = $(this);
-    	$("#custom-toolbar").on("click","button[type='submit']",function(){
+    	$("div[name='custom-toolbar']").on("click","button[type='submit']",function(){
     		that.trigger("querySearch");
     	});
-    	$("#custom-toolbar").on("click","a[action='querySearch']",function(){
+    	$("div[name='custom-toolbar']").on("click","a[action='querySearch']",function(){
     		that.trigger("querySearch");
     	});
 	}
