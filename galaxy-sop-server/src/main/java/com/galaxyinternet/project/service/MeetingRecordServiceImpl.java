@@ -1,16 +1,20 @@
 package com.galaxyinternet.project.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.ProjectDao;
+import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
@@ -18,6 +22,7 @@ import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.service.MeetingRecordService;
 
@@ -32,6 +37,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	private ProjectDao projectDao;
 	@Autowired
 	private SopTaskDao sopTaskDao;
+	@Autowired
+	private SopFileDao sopFileDao;
 	@Autowired
 	private MeetingSchedulingDao meetingSchedulingDao;
 	
@@ -199,14 +206,29 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	public Page<MeetingRecordBo> queryMeetPageList(MeetingRecordBo query, Pageable pageable) {
 		Page<MeetingRecordBo> mpage = meetingRecordDao.selectMeetPageList(query, pageable);
 		
-		if(mpage.getContent()!=null && mpage.getContent().size()>0){
-			//file实体
-			for(MeetingRecordBo ib : mpage.getContent()){
-				//查询附件信息
-				ib.setFname("");
-				ib.setFuri("");
+		List<MeetingRecordBo> contentList = mpage.getContent();
+		
+		if(contentList!=null){
+			SopFile file = null;
+			String fileInfo = "";
+			
+			for(MeetingRecordBo ib : contentList){
+				if(ib.getFileId()!=null){
+					file = sopFileDao.selectById(ib.getFileId());
+					
+					if(file!=null){
+						//ib.setFname(file.getFileName());
+						ib.setFkey(file.getFileKey());
+						fileInfo = "<a href=\"javascript:filedown("+ib.getFileId()+","+file.getFileKey()+");\" key=\""+ file.getFileKey()+"\">"+file.getFileKey()+"</a>";
+					}
+				}
+				ib.setHygk("<div style=\"text-align:left;margin-left:20%;\">会议日期："+ib.getMeetingDateStr()+"</br>会议结论："+ib.getMeetingResultStr()+"</br>会议录音："+fileInfo+"</div>");
+			
+				//ib.setProInfo("<div style=\"text-align:left;margin-left:20%;\">"+ib.getProName()+"</br>"+ib.getMeetingResultStr()+"</div>");
+				ib.setProInfo(ib.getProName()+"</br>"+ib.getMeetingTypeStr());
 			}
 		}
+		
 		return mpage;
 	}
 	

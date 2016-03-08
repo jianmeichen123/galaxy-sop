@@ -17,7 +17,7 @@
         <dl class="fmdl clearfix">
             <dt>访谈日期：</dt>
             <dd>
-            	<input type="text" id="viewDate" name = "viewDate"  placeholder="访谈日期" class="txt" />
+            	<input class="form-control" type="date"  id="viewDate" name = "viewDate" placeholder="访谈日期"/>
             </dd>
         </dl>
     </div>
@@ -72,13 +72,14 @@
     	<a href="javascript:saveInterView()" id="saveInterView" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
     </div>
 </div>
-<script type="text/javascript">
+
+<!-- <script type="text/javascript">
 $(function(){
 
- 	var um = UM.getEditor('viewNotes');
+	var um = UM.getEditor('viewNotes');
 	um.setContent(""); 
 
 
 });
 
-</script>
+</script> -->

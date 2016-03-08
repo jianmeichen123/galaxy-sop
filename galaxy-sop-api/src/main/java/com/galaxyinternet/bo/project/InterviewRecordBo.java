@@ -7,7 +7,7 @@ public class InterviewRecordBo extends InterviewRecord{
 	private static final long serialVersionUID = 1L;
 	
 	private String proName;
-	private String furi;
+	private String fkey;
 	private String fname;
 	
 	private Long uid;
@@ -19,6 +19,7 @@ public class InterviewRecordBo extends InterviewRecord{
 	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
 	
+	private String ftgk;
 	
 
 	public Integer getPageNum() {
@@ -85,12 +86,15 @@ public class InterviewRecordBo extends InterviewRecord{
 		 this.proNameCode = proNameCode == null ? null : proNameCode.trim();
 	}
 
-	public String getFuri() {
-		return furi;
+
+
+
+	public String getFkey() {
+		return fkey;
 	}
 
-	public void setFuri(String furi) {
-		this.furi = furi;
+	public void setFkey(String fkey) {
+		this.fkey = fkey;
 	}
 
 	public String getFname() {
@@ -107,6 +111,14 @@ public class InterviewRecordBo extends InterviewRecord{
 
 	public void setInpro(int inpro) {
 		this.inpro = inpro;
+	}
+
+	public String getFtgk() {
+		return ftgk;
+	}
+
+	public void setFtgk(String ftgk) {
+		this.ftgk = ftgk;
 	}
 
 	

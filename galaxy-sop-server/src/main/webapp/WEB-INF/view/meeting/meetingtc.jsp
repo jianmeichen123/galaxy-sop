@@ -15,7 +15,7 @@
         <dl class="fmdl clearfix">
             <dt>会议召开日期：</dt>
             <dd>
-                <input type="text" id="meetingDateStr" name = "meetingDateStr"  placeholder="访谈日期" class="txt" />
+            	<input class="form-control" type="date" id="startTime" name="startTime" id="meetingDateStr" name = "meetingDateStr" />
             </dd>
         </dl>
     </div>
@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(function(){
 
  	var um = UM.getEditor('meetingNotes');
@@ -79,4 +79,4 @@ $(function(){
 
 });
 
-</script>
+</script> -->

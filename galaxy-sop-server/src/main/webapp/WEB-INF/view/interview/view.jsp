@@ -39,8 +39,8 @@
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
-            <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview" class="pubbtn lpubbtn bluebtn ico c4">添加访谈记录</a>
+            <div class="btnbox_f btnbox_f1 clearfix">   <!-- onclick="umInit()" -->
+                <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview" class="pubbtn lpubbtn bluebtn ico c4"  >添加访谈记录</a>
             </div>
         </div>
        
@@ -94,15 +94,18 @@
 			</div> -->
 			<table  id="data-table" data-url="/galaxy/project/progress/queryInterview" data-method="post" 
 	          		data-side-pagination="server" data-pagination="true" 
-	          		data-toolbar="#custom-toolbar" data-page-list="[1,2,4,8,50]"
+	          		data-toolbar="#custom-toolbar" data-page-list="[3,6,10,20]"
 					data-id-field="lottoId" data-show-refresh="true">
 				<thead>
 					<tr>
-						<th data-field="viewDateStr" data-align="center">访谈日期</th>
+						<!-- <th data-field="viewDateStr" data-align="center">访谈日期</th>
 						<th data-field="proName" data-align="center">所属项目</th>  
 						<th data-field="viewNotes" data-align="center">访谈日志</th>
 						<th data-field="viewTarget" data-align="center">访谈对象</th>
-						<th data-field="fname" data-align="center" data-formatter="fileFormat">会议录音</th>
+						<th data-field="fname" data-align="center" data-formatter="fileFormat">会议录音</th> -->
+						<th data-field="ftgk" data-align="center">访谈概况</th>
+						<th data-field="proName" data-align="center">所属项目</th>  
+						<th data-field="viewNotes" data-align="center">访谈日志</th>
 					</tr>
 				</thead>
 			</table>
@@ -119,7 +122,6 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 
 </body>
-
 
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 
