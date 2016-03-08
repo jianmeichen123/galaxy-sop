@@ -34,7 +34,7 @@ public class MeetingSchedulingDaoImpl extends BaseDaoImpl<MeetingScheduling, Lon
 	public List<MeetingSchedulingBo> selectTop5ProjectMeetingByType(
 			String type) {
 		try {
-			return sqlSessionTemplate.selectList(getSqlName("selectTop5ProjectMeeting"),type);
+			return sqlSessionTemplate.selectList(getSqlName("selectTop5ProjectMeetingByType"),type);
 		} catch (Exception e) {
 			throw new DaoException(String.format("查询top5排期出错！语句：%s", getSqlName("selectTop5ProjectMeetingByType")),
 					e);

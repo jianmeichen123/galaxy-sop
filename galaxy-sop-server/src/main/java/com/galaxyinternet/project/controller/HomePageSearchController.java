@@ -63,12 +63,12 @@ public class HomePageSearchController
 			HttpServletRequest request) {
 
 		ResponseData<MeetingSchedulingBo> responseBody = new ResponseData<MeetingSchedulingBo>();
-		Object obj = request.getSession()
+		/*Object obj = request.getSession()
 				.getAttribute(Constants.SESSION_USER_KEY);
 		if (obj == null) {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
-		}
+		}*/
 		// User user = (User)
 		// request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
