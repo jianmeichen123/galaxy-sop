@@ -71,7 +71,7 @@
 	function moreProjectMeetingCallback(data) {
 		var list = data.entityList;
 		if(list != "" || list != undefined || list != null){
-			var tbodyList = $("#tbody"); 
+			var tbodyList = $("#tcbody"); 
 			tbodyList.empty();
 			var i=0;
 			$(list).each(function(){
@@ -80,8 +80,12 @@
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
 					 '<td>'+ templ.projectName+'</td>'+
+					 '<td>'+ templ.status+'</td>'+
 					 '<td>'+ formatDate(templ.meetingDate)+'</td>'+
 					 '<td>'+templ.meetingCount+'</td>'+
+					 '<td>'+templ.projectCareerline+'</td>'+
+					 '<td>'+templ.createUname+'</td>'+
+					 '<td>'+templ.remark+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
