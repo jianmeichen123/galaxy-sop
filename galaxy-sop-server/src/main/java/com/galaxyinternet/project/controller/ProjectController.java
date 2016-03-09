@@ -100,7 +100,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project.setProjectCode(String.valueOf(code));
 		if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
 				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
-			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectValuations());
+			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
 		}
 		project.setCreateUid(user.getId());
 		project.setCreateUname(user.getNickName());
