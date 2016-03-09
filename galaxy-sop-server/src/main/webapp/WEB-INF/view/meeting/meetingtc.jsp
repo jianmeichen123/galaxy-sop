@@ -15,7 +15,7 @@
         <dl class="fmdl clearfix">
             <dt>会议召开日期：</dt>
             <dd>
-            	<input class="form-control" type="date" id="startTime" name="startTime" id="meetingDateStr" name = "meetingDateStr" />
+            	<input class="form-control" type="date" id="meetingDateStr" name = "meetingDateStr" />
             </dd>
         </dl>
     </div>
@@ -55,7 +55,17 @@
         
     <dl class="fmdl clearfix">
         <dt>会议录音：</dt>
-        <dd>
+        
+        <div class="fmload clearfix">
+            <dd>
+	        	<input type="text" name="fileName" id="fileName" class="txt" readonly="readonly"/>
+	        </dd>
+	        <dd>
+	        	<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">上传录音</a>
+    		</dd>
+        </div>
+            
+        <!-- <dd>
             <div class="fmload clearfix">
                 <p class="loadname"></p>
                 <input type="file" class="load"/>
@@ -63,12 +73,24 @@
                 
                  <input type="hidden" id="meetfileID" name="fileId" value="" /> 
             </div>
-        </dd>
+        </dd> -->
     </dl>
-    <div class="btnbox">
-    	<a href="javascript:saveMeet()" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
+    <div class="btnbox"><!--  saveMeet() -->
+    	<a href="javascript:;" class="pubbtn bluebtn" id="savemeet">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.min.js"></script>
+<script type="text/javascript" src="${ctx}/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script src="${ctx}/js/plupload.full.min.js" type="text/javascript"></script>
+ 
+ <script type="text/javascript">
+		UM.getEditor('meetingNotes');
+</script>
 
 <!-- <script type="text/javascript">
 $(function(){

@@ -1,11 +1,14 @@
 package com.galaxyinternet.project.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
@@ -16,8 +19,15 @@ import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
+import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
+import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
@@ -48,9 +58,74 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		return this.meetingRecordDao;
 	}
 
+	
+	//文件上传, 成功后插入 sopfile 数据库
+	@Transactional
+	public Long upfile(MultipartFile file,Long uid,String path,Long projectId,String projectProgress){
+		Long fileId = null;
+		try {
+			UploadFileResult upResult = null;
+			
+			if(file != null){
+				String fileName = file.getOriginalFilename(); // secondarytile.png  全名
+				
+				int dotPos = fileName.lastIndexOf(".");
+				
+				String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				
+				String ext = fileName.substring(dotPos);  // .png  
+				
+				File temp = new File(path,fileName);
+				if (!temp.exists()) {
+					temp.mkdirs();
+				}
+				
+				file.transferTo(temp);  //存储临时文件
+				
+				upResult = OSSHelper.simpleUploadByOSS(temp,key);  //上传至阿里云
+				
+				//若文件上传成功
+				if(upResult.getResult().getStatus()!=null && upResult.getResult().getStatus().equals(Status.OK)){
+					
+					SopFile sopFile = new SopFile();
+					sopFile.setProjectId(projectId);
+					sopFile.setProjectProgress(projectProgress);
+					sopFile.setBucketName(upResult.getBucketName()); //bucketName
+					sopFile.setFileKey(key);   //fileKey
+					sopFile.setFileLength(upResult.getContentLength());  //文件大小
+					sopFile.setFileName(fileName);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
+					sopFile.setFileUid(uid);	 //上传人
+					//sopFile.setFileType("");   //存储类型
+					//sopFile.setFileSource(Integer.parseInt(fileSource));  //档案来源
+					//sopFile.setFileWorktype(fileWorkType);    //业务分类
+					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+					
+					fileId = sopFileDao.insert(sopFile);
+					
+					//meetingRecord.setFileId(sopFile.getId());
+				}else{
+					throw new BusinessException("meeting service upfile failed");
+				}
+			}
+		} catch (Exception e) {
+			throw new BusinessException("meeting service upfile failed", e);
+		}
+		
+		return fileId;
+	}
+	
+	
+	
+	
 	@Override
 	@Transactional
-	public Long insertMeet(MeetingRecord meetingRecord,Project project,Long userid,Long udepartid) {
+	public Long insertMeet(MeetingRecord meetingRecord,Project project,MultipartFile file, String path,Long userid,Long udepartid) {
+		
+		if(file != null){
+			Long fileId = upfile(file,userid,path,project.getId(),project.getProgress());
+			meetingRecord.setFileId(fileId);
+		}
+		
 		Long id = getBaseDao().insert(meetingRecord);
 		
 		// 会议结论： 待定(默认)、 否决、 通过
@@ -80,6 +155,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	
 	
 	//内评会
+	@Transactional
 	public void lph(Long pid,String meetingResult){
 		Project pro = new Project();
 		pro.setId(pid);
@@ -96,6 +172,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	}
 	
 	//CEO评审  
+	@Transactional
 	public void ceops(Long pid,String meetingResult){
 		Project pro = new Project();
 		pro.setId(pid);
@@ -111,6 +188,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	}
 	
 	//会议排期池 修改
+	@Transactional
 	public void pqcUpdate(MeetingRecord meetingRecord){
 		MeetingScheduling ms = new MeetingScheduling();
 		ms.setProjectId(meetingRecord.getProjectId());
@@ -129,6 +207,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	}
 		
 	//立项会
+	@Transactional
 	public void lxh(Long pid,String meetingResult,Long userid,Long udepartid){
 		Project pro = new Project();
 		pro.setId(pid);
@@ -160,6 +239,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	
 	
 	//投决会
+	@Transactional
 	public void tjh(Long pid,Project pro,String meetingResult,Long userid,Long udepartid){
 		
 		if(meetingResult.equals(DictEnum.meetingResult.否决.getCode()) ){
@@ -209,17 +289,16 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		List<MeetingRecordBo> contentList = mpage.getContent();
 		
 		if(contentList!=null){
-			SopFile file = null;
-			String fileInfo = "";
-			
 			for(MeetingRecordBo ib : contentList){
+				String fileInfo = "";
+				
 				if(ib.getFileId()!=null){
-					file = sopFileDao.selectById(ib.getFileId());
+					SopFile file = sopFileDao.selectById(ib.getFileId());
 					
 					if(file!=null){
 						//ib.setFname(file.getFileName());
 						ib.setFkey(file.getFileKey());
-						fileInfo = "<a href=\"javascript:filedown("+ib.getFileId()+","+file.getFileKey()+");\" key=\""+ file.getFileKey()+"\">"+file.getFileKey()+"</a>";
+						fileInfo = "<a href=\"javascript:filedown("+ib.getFileId()+","+file.getFileKey()+");\" key=\""+ file.getFileKey()+"\">"+file.getFileName()+"</a>";
 					}
 				}
 				ib.setHygk("<div style=\"text-align:left;margin-left:20%;\">会议日期："+ib.getMeetingDateStr()+"</br>会议结论："+ib.getMeetingResultStr()+"</br>会议录音："+fileInfo+"</div>");

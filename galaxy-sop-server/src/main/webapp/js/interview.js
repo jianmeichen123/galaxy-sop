@@ -88,19 +88,20 @@ function initUpload() {
 			//上传按钮点击事件 - 开始上传
 			PostInit: function() {
 				$("#saveInterView").click(function(){
-					alert("按钮 触发 上传保存事件，开始上传，访问后台");
-					
+					var file = $("#fileName").val();
+					if(file.length > 0){
+						uploader.start();
+					}else{
+						saveInterView();
+					}
 					//传到后台的参数
 					//uploader.multipart_params = { id : "12345" };
-					
-					uploader.start();
 					return false;
 				});
 			},
 			
 			//添加上传文件后，把文件名 赋值 给 input
 			FilesAdded: function(up, files) {
-				alert("文件名赋给input");
 				plupload.each(files, function(file) {
 					/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
 					$("#fileName").val(file.name);
@@ -113,10 +114,14 @@ function initUpload() {
 			
 			//文件上传后， 返回值  赋值,  再ajax 保存入库
 			FileUploaded: function(up, files, rtn) {
-				var result = $.parseJSON(rtn.response);
-				
+				var response = $.parseJSON(rtn.response);
+				var rs = response.result.status;
+				if(rs == "ERROR"){ //OK, ERROR
+					alert("error "+data.result.message);
+					return false;
+				}
 				alert("保存成功");
-				location.reload(true);
+				location.reload(true);s
 				
 				/*$("#popTxt input[name='fileKey']").val(result.fileKey);
 				$("#popTxt input[name='fileLength']").val(result.fileLength);
@@ -130,16 +135,11 @@ function initUpload() {
 			},
 			BeforeUpload:function(up){
 				//表单函数提交
-				/*var form = {
-						"fileSource" : $("#popTxt").find("input[name='fileSource']:checked").val(),
-						"fileType" : $("#popTxt").find("#fileType").val(),
-						"fileWorkType" : $("popTxt").find("#fileWorkType").val(),
-						"projectId" : "123456"	
-				}*/
+				//alert(JSON.stringify(getSaveCondition()));
 				up.settings.multipart_params = getSaveCondition();
 			},
 			Error: function(up, err) {
-				alert(err);
+				alert("错误"+err);
 				//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			}
 		}
@@ -156,7 +156,7 @@ function saveInterView(){
 	if(condition == false || condition == "false"){
 		return;
 	}
-	
+	alert("no file save");
 	sendPostRequestByJsonObj(platformUrl.saveInteverView,condition,saveCallBack,null);
 }
 

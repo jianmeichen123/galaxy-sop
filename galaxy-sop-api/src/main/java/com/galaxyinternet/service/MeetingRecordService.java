@@ -1,6 +1,7 @@
 package com.galaxyinternet.service;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.framework.core.model.Page;
@@ -12,7 +13,8 @@ import com.galaxyinternet.model.project.Project;
 
 public interface MeetingRecordService extends BaseService<MeetingRecord> {
 
-	public Long insertMeet(MeetingRecord meetingRecord,Project project,Long userid,Long departid);
+	//public Long insertMeet(MeetingRecord meetingRecord,Project project,Long userid,Long departid);
+	public Long insertMeet(MeetingRecord meetingRecord, Project project, MultipartFile file, String path, Long id,Long departmentId);
 	
 	public Page<MeetingRecordBo> queryMeetPageList(MeetingRecordBo query, Pageable pageable);
 	
@@ -23,5 +25,7 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	public void decisionSchedule(Project project);
 	
 	public void upInvestmentSign(Project project);
+
+
 
 }

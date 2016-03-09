@@ -71,8 +71,8 @@
         
     </dl>
     
-    <div class="btnbox">
-    	<a href="javascript:saveInterView()" id="saveInterView" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
+    <div class="btnbox"> <!-- saveInterView() -->
+    	<a href="javascript:;" id="saveInterView" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
     </div>
 </div>
 

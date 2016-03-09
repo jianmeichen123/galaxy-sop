@@ -115,9 +115,23 @@ public class MeetingRecord  extends BaseEntity{
 	}
 
 	public void setMeetingDateStr(String meetingDateStr) {
-		if(meetingDateStr==null && meetingDate!=null){
-			meetingDateStr = DateUtil.convertDateToString(meetingDate);
+		if(meetingDate==null && meetingDateStr!=null && meetingDateStr.trim().length() == 10 ){
+			try {
+				if( meetingDateStr.indexOf("/") != -1){
+					meetingDate = DateUtil.convertStringToDate(this.meetingDateStr.replaceAll("/", "-"));
+	    		}else{
+	    			meetingDate = DateUtil.convertStringToDate(this.meetingDateStr);
+	    		}
+				
+			} catch (ParseException e) {
+				meetingDate = null;
+			}
+		}else{
+			if(meetingDateStr==null && meetingDate!=null){
+				meetingDateStr = DateUtil.convertDateToString(meetingDate);
+			}
 		}
+		
 		this.meetingDateStr = meetingDateStr;
 	}
 	
