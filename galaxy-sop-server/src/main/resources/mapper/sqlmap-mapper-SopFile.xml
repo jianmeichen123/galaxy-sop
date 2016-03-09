@@ -142,6 +142,7 @@
 		</where>
 	</update>
 	<update id="updateById" parameterType="SopFilePO">
+		update sop_file
 		<set>
 			<if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
 			<if test="projectProgress != null"> project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
