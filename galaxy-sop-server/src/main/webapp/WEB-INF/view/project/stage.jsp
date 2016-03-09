@@ -700,7 +700,7 @@
 			</div>
 			<!-- 股权交割信息  -->
 			<div class="block" data-tab="con" id="projectProgress_9_con">
-				<!--表格内容-->
+				<!--表格内容
 				<table width="100%" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
@@ -738,7 +738,7 @@
 							<td><a href="javascript:; " class="blue"></a></td>
 						</tr>
 					</tbody>
-				</table>
+				</table>-->
 			</div>
 			<!-- 操作日志  -->
 			<div class="block" data-tab="con">
@@ -785,11 +785,13 @@
 		</div>
 	</div>
 </div>
-<scritp type="text/javascript">
+<script type="text/javascript">
+
 delivery();
 function delivery(){
+	var id=$("#project_id").val();
 	$.ajax({
-		url : '/galaxy/project/progress/proFileInfo/17',
+		url : '/galaxy/project/progress/proFileInfo/'+id,
 		data : null,
 		async : false,
 		type : 'GET',
@@ -847,4 +849,4 @@ function delivery(){
 	});
 	
 }
-</scritp>
+</script>
