@@ -10,7 +10,7 @@ $(function () {
 	});
 });
 
-function tiggerTable(e,pageSize,id){
+function tiggerTable(e,pageSize){
 	e.bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:pageSize,
