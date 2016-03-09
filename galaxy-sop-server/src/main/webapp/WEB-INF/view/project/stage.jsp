@@ -380,7 +380,7 @@
 			
 			<!-- 投资意向书信息 -->
 			<div class="block" data-tab="con" id="projectProgress_5_con">
-				<!--按钮-->
+			   <!-- 
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>
 					<a href="javascript:;" class="pubbtn fffbtn lpubbtn">更新投资意向书</a> <a
@@ -390,7 +390,6 @@
 					<h2>投资意向书盖章流程</h2>
 					<img src="img/process.png" alt="">
 				</div>
-				<!--表格内容-->
 				<table width="100%" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
@@ -410,7 +409,7 @@
 							<td><a href="#" class="blue">附件</a></td>
 						</tr>
 					</tbody>
-				</table>
+				</table> -->
 			</div>
 			<!-- 尽职调查信息 -->
 			<div class="block" data-tab="con" id="projectProgress_6_con">
