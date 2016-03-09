@@ -26,6 +26,36 @@
 	}
 
 
+	//主页待办任务
+	function selectSopTask(){
+		var jsonData={"pageNum":0,"pageSize":5}; 
+		sendPostRequestByJsonObj(platformUrl.soptaskshouye,jsonData, SopTaskCallback, null);
+	}
+
+	function SopTaskCallback(data){
+		//组装数据
+		alert(111)
+		var list =  data.pageList.content;
+		if(list != "" || list != undefined || list != null){
+			var tbodyList = $("#sopStak"); 
+			var i=0;
+			$(list).each(function(){
+				 var temp = $(this)[0];
+				 i=i+1;
+				 var tr='<tr>'+
+					 '<td>'+i+'</td>'+
+					 '<td>'+ temp.taskOrder+'</td>'+
+					 '<td>'+ temp.taskType+'</td>'+
+					 '<td>'+ temp.projectName+'</td>'+
+					 '<td>'+ temp.taskStatus+'</td>'+
+					 '<td>'+ temp.hours+'</td>'+
+					 '<td>'+temp.caozuohtml+'</td>'+
+					' </tr>'; 
+				 tbodyList.append(tr);
+			  });
+			
+		}
+	}
 
 	function ProjectVoteWillCallback(data){
 		//根据id判断类型（组装json数据）
