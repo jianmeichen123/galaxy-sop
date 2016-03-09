@@ -58,7 +58,7 @@
             <dd class="clearfix">
            
 <!--              <a href="/html/projectMeeting.html" data-btn="project" class="more null">more</a>
- -->             <a href="http://localhost:8080/galaxy-sop-server/html/projectMeeting.html?type=1" data-btn="project" class="more null">more</a>
+ -->             <a href="/html/projectMeeting.html" data-btn="project" class="more null">more</a>
             </dd>
         </dl>
         <!--投决会排期-->
@@ -80,7 +80,8 @@
                 </table>
             </dd>
             <dd class="clearfix">
-                <a href="http://localhost:8080/galaxy-sop-server/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
+                <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
+<!--                 <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
             </dd>
         </dl>
     </div>
@@ -110,36 +111,8 @@
                                     <th>操作</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><span class="red">特急</span></td>
-                                    <td>审批流程</td>
-                                    <td>内部审核</td>
-                                    <td>待认领</td>
-                                    <td>2016-1-21</td>
-                                    <td>
-                                    	<a href="javascript:;" class="blue">认领</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><span class="red">特急</span></td>
-                                    <td>审批流程</td>
-                                    <td>内部审核</td>
-                                    <td>待认领</td>
-                                    <td>2016-1-21</td>
-                                    <td><a href="javascript:;" class="blue">认领</a></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><span class="red">特急</span></td>
-                                    <td>审批流程</td>
-                                    <td>内部审核</td>
-                                    <td>待认领</td>
-                                    <td>2016-1-21</td>
-                                    <td><a href="javascript:;" class="blue">认领</a></td>
-                                </tr>
+                            <tbody id="sopStak">
+                               
                             </tbody>
                         </table>
                     </dd>
@@ -335,8 +308,9 @@
 	$(function(){
 		top5ProjectMeeting();
 		ProjectVoteWill();
+		selectSopTask();
 		createMenus(1);
-		loadAjaxSopUserSchedule('','./sopUserSchedule/selectSopUserSchedule/1');
+		loadAjaxSopUserSchedule('','./sopUserSchedule/selectSopUserSchedule/1'); 
 	});
 </script>
 </html>
