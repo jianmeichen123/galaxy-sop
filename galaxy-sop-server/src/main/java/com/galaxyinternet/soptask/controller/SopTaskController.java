@@ -2,10 +2,9 @@ package com.galaxyinternet.soptask.controller;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.exception.PlatformException;
@@ -240,6 +240,71 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		responseBody.setResult(result);
 		responseBody.setEntity(queryProjectById);
 		return responseBody;
+	}
+	
+	
+	/**
+	 * 当前待办总数
+	 * @author zhaoying
+	 * @param sopTaskBo
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/totalMission",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> totalMission(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//当前登录人
+		/*User user = (User) request.getSession().getAttribute(
+				Constants.SESSION_USER_KEY);
+		sopTaskBo.setAssignUid(user.getId());*/
+		sopTaskBo.setAssignUid(1l);
+		sopTaskBo.setTaskStatus(SopConstant.TASK_MISSION_STATUS);
+		Long total = 0l;
+		try {
+			total = sopTaskService.selectTotalMission(sopTaskBo);
+			map.put("status", Status.OK);
+			map.put("total",total);
+		} catch (PlatformException e) {
+			map.put("message","查询失败");
+		} catch (Exception e) {
+			map.put("message","查询总数失败");
+			logger.error("查询待办任务失败", e);
+		}
+	
+		return map;
+	}
+	
+	/**
+	 * 紧急总数
+	 * @author zhaoying
+	 * @param sopTaskBo
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/totalUrgent", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> totalUrgent(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		//当前登录人
+		/*User user = (User) request.getSession().getAttribute(
+				Constants.SESSION_USER_KEY);
+		sopTaskBo.setAssignUid(user.getId());*/
+		sopTaskBo.setAssignUid(1l);
+		sopTaskBo.setTaskOrder(SopConstant.TASK_URGENT_STATUS);
+		Long total = 0l;
+		try {
+			total = sopTaskService.selectTotalUrgent(sopTaskBo);
+			map.put("status", Status.OK);
+			map.put("total",total);
+		} catch (PlatformException e) {
+			map.put("message","查询失败");
+		} catch (Exception e) {
+			map.put("message","查询总数失败");
+			logger.error("查询紧急任务失败", e);
+		}
+	
+		return map;
 	}
 	
 }

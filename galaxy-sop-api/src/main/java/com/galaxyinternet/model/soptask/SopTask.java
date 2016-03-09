@@ -10,7 +10,7 @@ public class SopTask extends BaseEntity{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	 private Long id;
+//	 private Long id;
      private Long projectId;
      private String taskName;
      private String taskType;

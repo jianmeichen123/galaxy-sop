@@ -17,5 +17,11 @@ public interface SopConstant {
 	static final String PROJECT_MEETING ="meetingType:3";
 	//投诀会类型
 	static final String VOTE_MEETING ="meetingType:4";
+	
+	//待办任务
+	static final String TASK_MISSION_STATUS ="taskStatus:2";
+	//紧急任务
+	static final Integer TASK_URGENT_STATUS =1;
+	
 
 }

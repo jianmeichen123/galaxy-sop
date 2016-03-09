@@ -19,5 +19,7 @@ public interface SopTaskDao extends BaseDao<SopTask, Long> {
 	
 	public List<SopTask> selectForTaskOverList(SopTaskBo query);
 	
+	Long selectTotalMission(SopTaskBo query);
 	
+	Long selectTotalUrgent(SopTaskBo query);
 }

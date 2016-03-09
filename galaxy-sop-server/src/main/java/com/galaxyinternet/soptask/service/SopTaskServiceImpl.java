@@ -247,4 +247,14 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	public List<SopTask> selectForTaskOverList(SopTaskBo query){
 		return sopTaskDao.selectForTaskOverList(query);
 	}
+
+	@Override
+	public Long selectTotalMission(SopTaskBo query) {
+		return sopTaskDao.selectTotalMission(query);
+	}
+
+	@Override
+	public Long selectTotalUrgent(SopTaskBo query) {
+		return sopTaskDao.selectTotalUrgent(query);
+	}
 }

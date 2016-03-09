@@ -40,5 +40,21 @@ public interface SopTaskService extends BaseService<SopTask> {
 	 */
 	public List<SopTask> selectForTaskOverList(SopTaskBo query);
 	
+	/**
+	 * 待办任务总数
+	 * @author zhaoying
+	 * @param query
+	 * @return
+	 */
+    Long selectTotalMission(SopTaskBo query);
+	
+    /**
+     * 紧急任务总数
+     * @author zhaoying
+     * @param query
+     * @return
+     */
+	Long selectTotalUrgent(SopTaskBo query);
+	
 }
 
