@@ -59,6 +59,12 @@ var platformUrl = {
 	 */
 	updatePerson : sopContentUrl + "/galaxy/project/upp",
 	
+	/**---------首页相关 begin  */
+	/**
+	 * 修改团队成员
+	 */
+	updatePerson : sopContentUrl + "/galaxy/project/upp",
+	
 	/**
 	 * 立项排期所有
 	 */
@@ -67,8 +73,25 @@ var platformUrl = {
 	 * top5立项会排期
 	 */
 	top5ProjectMeeting : sopContentUrl + "/galaxy/home/top5ProjectMeeting",
+	/**
+	 * 投诀会排期top5
+	 */
 	ProjectVoteWill: sopContentUrl + "/galaxy/home/ProjectVoteWill",
+	/**
+	 * 投诀会排期所有
+	 */
 	moreProjectVoteWill: sopContentUrl + "/galaxy/home/moreProjectVoteWill",
+	/**
+	 * 紧急任务总数
+	 */
+	totalUrgent: sopContentUrl + "/galaxy/soptask/totalMission",
+	/**
+	 * 待办任务总数
+	 */
+	totalMission: sopContentUrl + "/galaxy/soptask/totalMission",
+	
+	
+	/**-------首页相关 end  */
 	
 	/**
 	 * 添加股权结构
