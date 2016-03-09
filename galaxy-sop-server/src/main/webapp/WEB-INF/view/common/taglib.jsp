@@ -12,6 +12,10 @@
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <%User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+String sessionId = "";
+if(null != user) {
+	sessionId = user.getSessionId();
+}
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
 %>
 <!-- 这里写js和css文件---------start -->
@@ -25,8 +29,6 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 <script type="text/javascript">
 	var contextEndPoint = '<%=endpoint%>';
 	endpointObj = JSON.parse(contextEndPoint);
-</script>
-<script type="text/javascript">
-	 var sessionId = '<%=user.getSessionId()%>';
+	var sessionId = '<%=sessionId%>';
 </script>
 <script src="<%=request.getContextPath() %>/js/platformUrl.js" type="text/javascript"></script>
