@@ -14,6 +14,7 @@ public class SopTask extends BaseEntity{
      private Long projectId;
      private String taskName;
      private String taskType;
+     private Integer taskFlag;
      private Integer taskOrder;
      private Date taskDeadline;
      private Long departmentId;
@@ -35,6 +36,12 @@ public class SopTask extends BaseEntity{
 	}
 	public void setTaskType(String taskType) {
 		this.taskType = taskType;
+	}
+	public Integer getTaskFlag() {
+		return taskFlag;
+	}
+	public void setTaskFlag(Integer taskFlag) {
+		this.taskFlag = taskFlag;
 	}
 	public Integer getTaskOrder() {
 		return taskOrder;
