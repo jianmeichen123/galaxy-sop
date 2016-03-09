@@ -183,7 +183,7 @@ function showList() {
 function showList1() {
 	moreProjectVoteWill();
 }
-//紧急任务
+/*//紧急任务
 function totalUrgent() {
 	sendGetRequest(platformUrl.totalUrgent, null, totalUrgentCallback, null);
 }
@@ -198,4 +198,4 @@ function totalUrgentCallback(data) {
 function totalMissionCallback(data) {
 	$('.bubble').html(data.total)
 }
-
+*/

@@ -273,10 +273,27 @@ function totalMission() {
 	sendGetRequest(platformUrl.totalMission, null, totalMissionCallback, null);
 }
 function totalUrgentCallback(data) {
-	$('.totalUrgent').html(data.total)
+	var total = 0 ;
+	if (data.total != null) {
+		total =data.total;
+	}
+	$('.totalUrgent').html(total);
 }
 
 function totalMissionCallback(data) {
-	$('.bubble').html(data.total)
+	var total = 0 ;
+	if (data.total != null) {
+		total =data.total;
+	}
+	$('.bubble').html(total)
 }
+
+function fillHeaderdata() {
+	setInterval(function() {
+		totalUrgent();
+	    totalMission();
+
+	}, 300000);
+}
+
 
