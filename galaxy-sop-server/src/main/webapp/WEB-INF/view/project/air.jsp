@@ -4,7 +4,6 @@
 %>
 <!-- 添加访谈记录弹出层 -->
 <div class="meetingtc">
-	<input type="hidden" value="" name="projectId">
 	<div class="top clearfix">
         <dl class="fmdl clearfix">
             <dt>访谈日期：</dt>
@@ -29,22 +28,19 @@
     </dl>
     <dl class="fmdl clearfix">
         <dt>会议录音：</dt>
-        <dd>
-            <div class="fmload clearfix">
-                <p class="loadname"></p>
-                <input type="file" class="load"/>
-                <a href="javascript:;" class="pubbtn fffbtn">上传录音</a>
-            </div>
-        </dd>
+        <div class="fmload clearfix">
+            <dd>
+	        	<input type="text" name="fileName" id="file_object" class="txt" readonly="readonly"/>
+	        </dd>
+	        <dd>
+	        	<a href="javascript:;" class="pubbtn fffbtn" id="select_btn">上传录音</a>
+    		</dd>
+        </div>
     </dl>
     <div class="btnbox">
-    	<a href="javascript:;" id="saveInterView" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
+    	<a href="javascript:;" id="save_interview" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
-<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	UM.getEditor('viewNotes');
 </script>

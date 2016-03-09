@@ -180,3 +180,88 @@ Date.prototype.format = function(fmt){
 		  return fmt;   
 }
 
+
+/**
+ * 文件上传
+ * 参数：
+ * fileurl-上传文件的后台接口地址
+ * selectBtnId-选择文件的button的id
+ * fileInputId-type="file"的input的id
+ * submitBtnId-点击上传的按钮的id
+ * paramsFunction-获取其他表单值得函数
+ * 注意：
+ * 1.再引入plupload.full.min.js后，一定要在页面加载时就初始化调用该函数
+ */
+function toinitUpload(fileurl,selectBtnId,fileInputId,submitBtnId,paramsFunction) {
+	//上传对象初始化
+	var uploader = new plupload.Uploader({
+		runtimes : 'html5,flash,silverlight,html4',
+		browse_button : $("#" + selectBtnId)[0], // you can pass in id...
+		url : fileurl,
+		multipart:true,
+		multi_selection:false,
+		filters : {
+			max_file_size : '10mb',
+			mime_types: [
+			    {title : "YP files", extensions : "mp3,avi"},
+				{title : "Image files", extensions : "jpg,gif,png"},
+				{title : "Zip files", extensions : "zip,rar"},
+				{title : "Offices files", extensions : "doc,docx,excel"}
+			]
+		},
+		init: {
+			//上传按钮点击事件 - 开始上传
+			PostInit: function() {
+				$("#" + submitBtnId).click(function(){
+					var file = $("#" + fileInputId).val();
+					if(file.length > 0){
+						uploader.start();
+					}else{
+						saveInterView();
+					}
+					//传到后台的参数
+					//uploader.multipart_params = { id : "12345" };
+					return false;
+				});
+			},
+			//添加上传文件后，把文件名 赋值 给 input
+			FilesAdded: function(up, files) {
+				plupload.each(files, function(file) {
+					/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
+					$("#" + fileInputId).val(file.name);
+				});
+			},
+			//上传进度
+			UploadProgress: function(up, file) {},
+			//文件上传后， 返回值  赋值,  再ajax 保存入库
+			FileUploaded: function(up, files, rtn) {
+				var response = $.parseJSON(rtn.response);
+				var rs = response.result.status;
+				if(rs == "ERROR"){ //OK, ERROR
+					alert("error "+data.result.message);
+					return false;
+				}
+				alert("保存成功");
+				location.reload(true);
+				
+				/*$("#popTxt input[name='fileKey']").val(result.fileKey);
+				$("#popTxt input[name='fileLength']").val(result.fileLength);
+				$form = $("#popTxt #upload-form");
+				//表单数据 json 格式化
+				var data = JSON.parse($form .serializeObject());
+				var url = ""+platformUrl.tempSave
+				sendPostRequestByJsonObj( url, data, function(data){ alert("上传成功."); loadTempList(); } );*/
+			},
+			BeforeUpload:function(up){
+				//表单函数提交
+				//alert(JSON.stringify(getSaveCondition()));
+				up.settings.multipart_params = paramsFunction();
+			},
+			Error: function(up, err) {
+				alert("错误"+err);
+			}
+		}
+	});
+	uploader.init();
+}
+
