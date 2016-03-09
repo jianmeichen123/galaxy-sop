@@ -98,6 +98,7 @@ public class SopFile extends PagableEntity {
   	private String progress;
   	private String fType;
   	private String fWorktype;
+  	private String fileStatusDesc;
   	
   	
   	
@@ -213,6 +214,10 @@ public class SopFile extends PagableEntity {
     
     public void setFileStatus(String fileStatus) {
         this.fileStatus = fileStatus;
+        if(fileStatus != null)
+        {
+        	fileStatusDesc = DictEnum.fileStatus.getNameByCode(fileStatus);
+        }
     }
 
     
@@ -273,6 +278,10 @@ public class SopFile extends PagableEntity {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	public String getFileStatusDesc() {
+		return fileStatusDesc;
 	}
 
     

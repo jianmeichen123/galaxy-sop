@@ -28,7 +28,7 @@
       <div class="clearfix"></div>
         <!--项目基本信息内容-->
         <div class="projectmsg clearfix">
-          <h2>去哪儿旅游020</h2>
+          <h2></h2>
           <!-- 上半部分 -->
           <div class="top" id="project-summary">
             <table width="100%" cellspacing="5" cellpadding="0" >
@@ -99,18 +99,18 @@
           <!-- 人事尽职调查报告  hrjzdc;-->
           <jsp:include page="/galaxy/taskprocess/showFileList"></jsp:include>
         </div>
+
     </div>
+ 
 </div>
- <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
 $(function(){
-	createMenus(1);
 	getProjectInfo();
 });
 
 function getProjectInfo()
 {
-	var url = "../"+platformUrl.detailProject+"${projectId}";
+	var url = "../"+platformUrl.detailProject+"/${projectId}";
 	sendGetRequest(
 		url,
 		null,
@@ -130,6 +130,7 @@ function getProjectInfo()
 					self.text(project[id]);
 				}
 			});
+			$(".projectmsg h2").text(project.projectName);
 		}
 	);
 }

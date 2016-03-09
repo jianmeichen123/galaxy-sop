@@ -104,6 +104,14 @@ var platformUrl = {
 	 * 根据findByParentCode查询数据字典
 	 */
 	dictFindByParentCode : sopContentUrl + "/galaxy/sopFile/getDictByParent",
+	/**
+	 * 文档查询-无分页
+	 */
+	queryFile : sopContentUrl+"/galaxy/sopFile/query",
+	/**
+	 * 任务处理-上传文档
+	 */
+	uploadFile2Task : sopContentUrl+"/galaxy/taskprocess/uploadFile"
 
 }
 

@@ -255,12 +255,19 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return "sopFile/uploadFile";
 	}
 
-	@Override
-	@RequestMapping(value = "/selectList", produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/query", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ResponseData<SopFile> selectList(@RequestBody SopFileBo query) {
-		// TODO Auto-generated method stub
-		return super.selectList(query);
+	public ResponseData<SopFile> query(@RequestBody SopFileBo query) {
+		ResponseData<SopFile> resp = new ResponseData<SopFile>();
+		try {
+			List<SopFile> entityList = sopFileService.queryList(query);
+			resp.setEntityList(entityList);
+		} catch (Exception e) {
+			Object msg = "查询出错.";
+			logger.error(msg.toString());
+			resp.getResult().addError(msg);
+		}
+		return resp;
 	}
 	
 	
