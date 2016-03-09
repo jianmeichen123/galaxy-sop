@@ -264,4 +264,19 @@ function toinitUpload(fileurl,selectBtnId,fileInputId,submitBtnId,paramsFunction
 	});
 	uploader.init();
 }
+//紧急任务
+function totalUrgent() {
+	sendGetRequest(platformUrl.totalUrgent, null, totalUrgentCallback, null);
+}
+//待办任务
+function totalMission() {
+	sendGetRequest(platformUrl.totalMission, null, totalMissionCallback, null);
+}
+function totalUrgentCallback(data) {
+	$('.totalUrgent').html(data.total)
+}
+
+function totalMissionCallback(data) {
+	$('.bubble').html(data.total)
+}
 

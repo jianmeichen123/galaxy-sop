@@ -273,237 +273,111 @@
 					</thead>
 				</table>
 			</div>
-			<!-- 内部评审信息 -->
+			
+			<!-- 内部评审信息      2  meetingType:1 -->
 			<div class="block" data-tab="con" id="projectProgress_2_con">
+
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a href="javascript:addLPH();" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+				</div>
+				<div id="projectProgress_2_table_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+					<input type="hidden" name="meetingType" value="meetingType:1">
 				</div>
 				<!--表格内容-->
-				<table width="100%" cellspacing="0" cellpadding="0" class='table_l'>
+				<table id="projectProgress_2_table"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"
+					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[3,6,10,20]">
 					<thead>
 						<tr>
-							<th>会议概况</th>
-							<th>会议纪要</th>
+							<th data-field="hygk" data-align="center">会议概况</th>
+							<th data-field="meetingNotes" data-align="center">会议记要</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em>访谈有效，沟通愉快！</td>
-						</tr>
-						<tr>
-							<td class="noborder red"><em></em>会议结论：<span>否决</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em><span>访谈有效，还有三个问题需要解决。</span></td>
-						</tr>
-						<tr>
-							<td class="noborder green"><em></em>会议结论：<span>通过</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em>访谈有效，沟通愉快！</td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议结论：<span>待定</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
 				</table>
-				<!--分页-->
-				<div class="pagright pagright_m clearfix">
-					<ul class="paging clearfix">
-						<li>每页<input type="text" class="txt" value="20" />条/共<span>9</span>条记录
-						</li>
-						<li class="margin">共1页</li>
-						<li><a href="javascript:;">|&lt;</a></li>
-						<li><a href="javascript:;">&lt;</a></li>
-						<li><a href="javascript:;">&gt;</a></li>
-						<li><a href="javascript:;">&gt;|</a></li>
-						<li class="jump clearfix">第<input type="text" class="txt"
-							value="1" />页 <input type="button" class="btn margin" value="GO">
-						</li>
-					</ul>
-				</div>
-
 			</div>
-			<!-- CEO评审信息 -->
+
+
+
+			<!-- CEO评审信息   3   meetingType:2-->
 			<div class="block" data-tab="con" id="projectProgress_3_con">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" class="pubbtn fffbtn lpubbtn">添加会议记录</a> <a
-						href="javascript:;" class="pubbtn fffbtn lpubbtn">立项会排期</a>
+					<a href="javascript:addCEOPS();" class="pubbtn fffbtn lpubbtn">添加会议记录</a> 
+					<a href="javascript:lxhpq();" class="pubbtn fffbtn lpubbtn">立项会排期</a>
 				</div>
-
+				
+				<div id="projectProgress_3_table_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+					<input type="hidden" name=meetingType value="meetingType:2">
+				</div>
 				<!--表格内容-->
-				<table width="100%" cellspacing="0" cellpadding="0" class='table_l'>
+				<table id="projectProgress_3_table"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,6,10,20]"
+					data-toolbar="#projectProgress_3_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th>会议概况</th>
-							<th>会议纪要</th>
+							<th data-field="hygk" data-align="center">会议概况</th>
+							<th data-field="meetingNotes" data-align="center">会议记要</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em>访谈有效，沟通愉快！</td>
-						</tr>
-						<tr>
-							<td class="noborder red"><em></em>会议结论：<span>否决</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em><span>访谈有效，还有三个问题需要解决。</span></td>
-						</tr>
-						<tr>
-							<td class="noborder green"><em></em>会议结论：<span>通过</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em>访谈有效，沟通愉快！</td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议结论：<span>待定</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
 				</table>
-				<!--分页-->
-				<div class="pagright pagright_m clearfix">
-					<ul class="paging clearfix">
-						<li>每页<input type="text" class="txt" value="20" />条/共<span>9</span>条记录
-						</li>
-						<li class="margin">共1页</li>
-						<li><a href="javascript:;">|&lt;</a></li>
-						<li><a href="javascript:;">&lt;</a></li>
-						<li><a href="javascript:;">&gt;</a></li>
-						<li><a href="javascript:;">&gt;|</a></li>
-						<li class="jump clearfix">第<input type="text" class="txt"
-							value="1" />页 <input type="button" class="btn margin" value="GO">
-						</li>
-					</ul>
-				</div>
 
 			</div>
+			
+			
+			
 			<!-- 立项会信息 -->
 			<div class="block" data-tab="con" id="projectProgress_4_con">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a href="javascript:addLXH();" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 				</div>
 
+				<div id="projectProgress_4_table_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+					<input type="hidden" name=meetingType value="meetingType:3">
+				</div>
 				<!--表格内容-->
-				<table width="100%" cellspacing="0" cellpadding="0" class='table_l'>
+				<table id="projectProgress_4_table"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,6,10,20]"
+					data-toolbar="#projectProgress_4_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th>会议概况</th>
-							<th>会议纪要</th>
+							<th data-field="hygk" data-align="center">会议概况</th>
+							<th data-field="meetingNotes" data-align="center">会议记要</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em>访谈有效，沟通愉快！</td>
-						</tr>
-						<tr>
-							<td class="noborder red"><em></em>会议结论：<span>否决</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><span><em></em>访谈有效，还有三个问题需要解决。</span></td>
-						</tr>
-						<tr>
-							<td class="noborder green"><em></em>会议结论：<span>通过</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em>访谈有效，沟通愉快！</td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议结论：<span>待定</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
 				</table>
-				<!--分页-->
-				<div class="pagright pagright_m clearfix">
-					<ul class="paging clearfix">
-						<li>每页<input type="text" class="txt" value="20" />条/共<span>9</span>条记录
-						</li>
-						<li class="margin">共1页</li>
-						<li><a href="javascript:;">|&lt;</a></li>
-						<li><a href="javascript:;">&lt;</a></li>
-						<li><a href="javascript:;">&gt;</a></li>
-						<li><a href="javascript:;">&gt;|</a></li>
-						<li class="jump clearfix">第<input type="text" class="txt"
-							value="1" />页 <input type="button" class="btn margin" value="GO">
-						</li>
-					</ul>
-				</div>
 
 			</div>
+			
+			
+			<!-- 投决会信息 -->
+			<div class="block" data-tab="con" id="projectProgress_7_con">
+				<!--按钮-->
+				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
+					<a href="javascript:addTJH();" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+				</div>
+
+				<div id="projectProgress_7_table_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+					<input type="hidden" name=meetingType value="meetingType:4">
+				</div>
+				<!--表格内容-->
+				<table id="projectProgress_7_table"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,6,10,20]"
+					data-toolbar="#projectProgress_7_table_custom-toolbar">
+					<thead>
+						<tr>
+							<th data-field="hygk" data-align="center">会议概况</th>
+							<th data-field="meetingNotes" data-align="center">会议记要</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			
 			<!-- 投资意向书信息 -->
 			<div class="block" data-tab="con" id="projectProgress_5_con">
 				<!--按钮-->

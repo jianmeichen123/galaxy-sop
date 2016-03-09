@@ -99,4 +99,41 @@ public class IndexController {
 	public String addmeetingRecord() {
 		return "project/voto";
 	}
+	
+	
+	/**
+	 * 跳转到LPHtc
+	 * @return
+	 */
+	@RequestMapping(value = "/lphtc", method = RequestMethod.GET)
+	public String lphtc(HttpServletRequest request) {
+		return "project/LPHtc";
+	}
+	
+	/**
+	 * 跳转到ceopstc
+	 * @return
+	 */
+	@RequestMapping(value = "/ceopstc", method = RequestMethod.GET)
+	public String ceopstc(HttpServletRequest request) {
+		return "project/CEOPStc";
+	}
+	
+	/**
+	 * 跳转到LxHtc
+	 * @return
+	 */
+	@RequestMapping(value = "/lxhtc", method = RequestMethod.GET)
+	public String lxhtc(HttpServletRequest request) {
+		return "project/LXHtc";
+	}
+	
+	/**
+	 * 跳转到TJHtc
+	 * @return
+	 */
+	@RequestMapping(value = "/tjhtc", method = RequestMethod.GET)
+	public String tjhtc(HttpServletRequest request) {
+		return "project/TJHtc";
+	}
 }

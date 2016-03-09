@@ -305,5 +305,202 @@
 		});
 		return false;
 	}
+	
+	
+//////////////////   zf    LPH:内评会  CEO：ceo评审    LXH：立项会     ////////////////////////
+	/* plupload上传对象初始化,   绑定保存
+		fileSelectBtnId: 选择文件按钮id
+		addUrl ： 保存调用路径url
+		saveBtnId： 保存按钮ID
+		inputFileId ： 文件名显示input框id
+		chooseN：请求会议类型  LPH:内评会  CEO：ceo评审    LXH：立项会
+	*/
+	function initNUpload(fileSelectBtnId,addUrl,saveBtnId,inputFileId,chooseN) {
+		
+		// 定义 上传插件 方法 、  plupload 上传对象初始化
+		var uploader = new plupload.Uploader({
+			runtimes : 'html5,flash,silverlight,html4',
+			browse_button : $("#"+fileSelectBtnId)[0],   // $("#file-select-btn")[0]
+			url : addUrl,
+			multipart:true,
+			multi_selection:false,
+			filters : {
+				max_file_size : '10mb',
+				mime_types: [
+				    {title : "YP files", extensions : "mp3,avi"},
+					{title : "Image files", extensions : "jpg,gif,png"},
+					{title : "Zip files", extensions : "zip,rar"},
+					{title : "Offices files", extensions : "doc,docx,excel"}
+				]
+			},
+			init: {
+				//上传按钮点击事件 - 开始上传
+				PostInit: function() {
+					$("#"+saveBtnId).click(function(){
+						uploader.start();
+						return false;
+					});
+				},
+				//添加上传文件后，把文件名 赋值 给 input
+				FilesAdded: function(up, files) {
+					plupload.each(files, function(file) {
+						/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
+						$("#"+inputFileId).val(file.name);
+					});
+				},
+				
+				//上传进度
+				UploadProgress: function(up, file) {
+				},
+				//文件上传后， 返回值  赋值,  再ajax 保存入库
+				FileUploaded: function(up, files, rtn) {
+					var response = $.parseJSON(rtn.response);
+					var rs = response.result.status;
+					if(rs == "ERROR"){ //OK, ERROR
+						alert("error "+response.result.message);
+						return;
+					}
+					alert("保存成功");
+					location.reload(true);
+				},
+				BeforeUpload:function(up){
+					//表单函数提交
+					//alert(JSON.stringify(getMeetCondition()));
+					var res;
+					if(chooseN == "LPH"){
+						res = getNcondition("LPH_meetingDateStr","meetingType:1","LPH_meetingResult","LPH_meetingNotes");
+					}else if (chooseN == "CEO"){
+						res = getNcondition("CEO_meetingDateStr","meetingType:2","CEO_meetingResult","CEO_meetingNotes");
+					}else if (chooseN == "LXH"){
+						res = getNcondition("LXH_meetingDateStr","meetingType:3","LXH_meetingResult","LXH_meetingNotes");
+					}else if (chooseN == "TJH"){
+						res = getNcondition("TJH_meetingDateStr","meetingType:4","TJH_meetingResult","TJH_meetingNotes");
+					}
+					
+					if(res == false || res =="false"){
+						up.stop();
+						return;
+					}
+					
+					up.settings.multipart_params = res;
+				},
+				Error: function(up, err) {
+					alert("错误"+err);
+					//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+				}
+			}
+		});
+
+		uploader.init();
+	}
+	
+	//验证获取参数
+	function getNcondition(dateId,meetingType,resultRadioName,noteId){
+		var	condition = {};
+		
+		var projectId = $("input[name='projectId']").val();
+		//var projectId = $("#project_id").val();
+		var meetingDateStr = $.trim($("#"+dateId).val());
+		var meetingType = meetingType;
+		var meetingResult = $.trim($('input:radio[name='+resultRadioName+']:checked').val());
+		var um = UM.getEditor(noteId);
+		var meetingNotes = $.trim(um.getContent());
+		
+		if(projectId == null || projectId == ""){
+			alert("项目不能为空");
+			return false;
+		}
+		if(meetingDateStr == null ||  meetingDateStr == ""){
+			alert("日期不能为空");
+			return false;
+		}
+		if(meetingResult == null ||  meetingResult == ""){
+			alert("结果不能为空");
+			return false;
+		}
+		if(meetingNotes == null || meetingNotes == ""){
+			alert("记录不能为空");
+			return false;
+		}
+		
+		condition.projectId = projectId;
+		condition.meetingDateStr = meetingDateStr;
+		condition.meetingType = meetingType;
+		condition.meetingResult = meetingResult;
+		condition.meetingNotes = meetingNotes;
+		return condition;
+	}
+	
+	function addLPH(){
+		var _url='<%=path %>/galaxy/lphtc';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$('.edui-container').show();
+				initNUpload("LPH_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","LPH_savemeet","LPH_fileName","LPH");
+				//setLPHtc();
+			}//模版反回成功执行	
+		});
+		return false;
+	}
+	
+	function addCEOPS(){
+		var _url='<%=path %>/galaxy/ceopstc';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$('.edui-container').show();
+				initNUpload("CEO_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","CEO_savemeet","CEO_fileName","CEO");
+				//setLPHtc();
+			}//模版反回成功执行	
+		});
+		return false;
+	}
+
+	function lxhpq(){
+		var projectId = $("input[name='projectId']").val();
+		var _url='<%=path %>/galaxy/project/progress/proSchedule/'+projectId;
+		
+		sendGetRequest(_url,null,function(data){
+			var result = data.result.status;
+			if(result == "ERROR"){ //OK, ERROR
+				alert("申请失败  "+data.result.message);
+				return;
+			}else{
+				alert("申请成功");
+				location.reload(true);
+			}
+		},null);
+	}
+	
+	function addLXH(){
+		var _url='<%=path %>/galaxy/lxhtc';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$('.edui-container').show();
+				initNUpload("LXH_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","LXH_savemeet","LXH_fileName","LXH");
+				//setLPHtc();
+			}//模版反回成功执行	
+		});
+		return false;
+	}
+	
+	function addTJH(){
+		var _url='<%=path %>/galaxy/tjhtc';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$('.edui-container').show();
+				initNUpload("TJH_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","TJH_savemeet","TJH_fileName","TJH");
+				//setLPHtc();
+			}//模版反回成功执行	
+		});
+		return false;
+	}
 </script>
 </html>
