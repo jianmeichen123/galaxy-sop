@@ -20,8 +20,14 @@
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
+
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -105,12 +111,17 @@
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script type="text/javascript">
 	createMenus(5);
+	/**
+	 * 分页数据生成操作内容
+	 */
 	function editor(value, row, index){
 		var id=row.id;
 		var options = "<a href='#' data-btn='myproject' onclick='info(" + id + ")'>查看</a>";
 		return options;
 	}
-	
+	/**
+	 * 查看项目阶段详情的弹出层
+	 */
 	function info(id){
 		var _url='<%=path%>/galaxy/ips';
 		$.getHtml({
@@ -132,18 +143,32 @@
 					var index = progress.substr(progress.length-1,1);
 					for(var i = 1; i<10; i++){
 						if(i > index){
+							//当前阶段之后的tab变为不可用
 							$("#projectProgress_" + i).addClass("disabled");
 						}
+						if(i == 1){
+							tiggerTable($("#" + progress + "_table"),3);
+						}
+						//为Tab添加点击事件，用于重新刷新
+						$("#projectProgress_" + i).on("click",function(){
+							var id = $(this).attr("id");
+							var indexNum = id.substr(id.length-1,1);
+							if(indexNum == 1){
+								tiggerTable($("#" + progress + "_table"),3);
+							}
+						});
 					}
 					$("#" + progress).addClass("on");
 					$("#" + progress + "_con").css("display","block");
-					tiggerTable($("#" + progress + "_table"),3);
 				},null);
 			}
 		});
 		return false;
 	}
-	function air(id){
+	/**
+	 * 上传接触访谈纪要弹出层
+	 */
+	function air(){
 		var _url='<%=path%>/galaxy/air';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -152,7 +177,130 @@
 				$(".meetingtc").tabchange();
 				$('.searchbox').toggleshow();
 				leicj();
-				$("input[name='projectId']").val($("#project_id").val());
+				//初始化文件上传
+				toinitUpload(sopContentUrl + "/galaxy/project/progress/addFileInterview",
+						"select_btn","file_object","save_interview",
+						function getSaveCondition(){
+							var	condition = {};
+							var projectId = $("#project_id").val();
+							var viewDateStr = $("#viewDate").val();
+							var viewTarget = $.trim($("#viewTarget").val());
+							var um = UM.getEditor('viewNotes');
+							var viewNotes = $.trim(um.getContent());
+							var fileId = $("#viewfileID").val();
+							if(projectId == null || projectId == ""){
+								alert("项目不能为空");
+								return false;
+							}else{
+								condition.projectId = projectId;
+							}
+							if(viewDateStr == null ||  viewDateStr == ""){
+								alert("日期不能为空");
+								return false;
+							}else{
+								condition.viewDateStr = viewDateStr;
+							}
+							if(viewTarget == null ||  viewTarget == ""){
+								alert("对象不能为空");
+								return false;
+							}else{
+								condition.viewTarget = viewTarget;
+							}
+							if(viewNotes != null && viewNotes!= ""){
+								condition.viewNotes = viewNotes;
+							}
+							if(fileId != null && fileId!= ""){
+								condition.fileId = fileId;
+							}
+							/*var	condition = {
+								"projectId" : projectId,
+								"viewDate" : viewDate,
+								"viewTarget" : viewTarget,
+								"viewNotes" : viewNotes,
+								"fileId" : fileId
+							};*/
+							return condition;
+						});
+			}
+		});
+		return false;
+	}
+	
+	/**
+	 * 启动内部评审
+	 */
+	function startReview(){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null && pid != undefined){
+			sendGetRequest(platformUrl.startReview + pid, {}, function(data){
+				$.getHtml({
+					url:sopContentUrl + "/galaxy/tip/1",//模版请求地址
+					data:"",//传递参数
+					okback:function(){
+						
+					}
+				});
+			});
+		}
+	}
+	
+	/**
+	 * 上传投决会议记录
+	 */
+	function voto(){
+		var _url='<%=path%>/galaxy/voto';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
+				//初始化文件上传
+				toinitUpload(sopContentUrl + "/galaxy/project/progress/addfilemeet",
+						"file-select-btn","fileName","savemeet",
+						function getMeetCondition(){
+						var	condition = {};
+						var projectId = $("#project_id").val();
+						var meetingDateStr = $.trim($("#meetingDateStr").val());
+						var meetingType = $.trim($('input:radio[name="meetingType"]:checked').val());
+						var meetingResult = $.trim($('input:radio[name="meetingResult"]:checked').val());
+						//var meetingNotes = $.trim($("#meetingNotes").val());
+						var um = UM.getEditor('meetingNotes');
+						var meetingNotes = $.trim(um.getContent());
+						var fileId = $("#meetfileID").val();
+						if(projectId == null || projectId == ""){
+							alert("项目不能为空");
+							return false;
+						}else{
+							condition.projectId = projectId;
+						}
+						if(meetingDateStr == null ||  meetingDateStr == ""){
+							alert("日期不能为空");
+							return false;
+						}else{
+							condition.meetingDateStr = meetingDateStr;
+						}
+						if(meetingType == null ||  meetingType == ""){
+							alert("类型不能为空");
+							return false;
+						}else{
+							condition.meetingType = meetingType;
+						}
+						if(meetingResult == null ||  meetingResult == ""){
+							alert("结果不能为空");
+							return false;
+						}else{
+							condition.meetingResult = meetingResult;
+						}
+						if(meetingNotes != null && meetingNotes!= ""){
+							condition.meetingNotes = meetingNotes;
+						}
+						if(fileId != null && fileId!= ""){
+							condition.fileId = fileId;
+						}
+						return condition;
+					});
 			}
 		});
 		return false;

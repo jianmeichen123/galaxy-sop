@@ -244,7 +244,7 @@
 		select count(id) from sop_task
 		    where 
 		           assign_uid = #{assignUid} and 
-		           task_order= > 0
+		           task_order > 0
 	</select>
 	
 </mapper>

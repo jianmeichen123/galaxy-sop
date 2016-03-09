@@ -118,9 +118,9 @@ public class MeetingRecord  extends BaseEntity{
 		if(meetingDate==null && meetingDateStr!=null && meetingDateStr.trim().length() == 10 ){
 			try {
 				if( meetingDateStr.indexOf("/") != -1){
-					meetingDate = DateUtil.convertStringToDate(this.meetingDateStr.replaceAll("/", "-"));
+					meetingDate = DateUtil.convertStringToDate(meetingDateStr.replaceAll("/", "-"));
 	    		}else{
-	    			meetingDate = DateUtil.convertStringToDate(this.meetingDateStr);
+	    			meetingDate = DateUtil.convertStringToDate(meetingDateStr);
 	    		}
 				
 			} catch (ParseException e) {

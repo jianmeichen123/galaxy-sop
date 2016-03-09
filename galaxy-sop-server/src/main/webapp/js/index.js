@@ -34,7 +34,7 @@
 
 	function SopTaskCallback(data){
 		//组装数据
-		alert(111)
+		
 		var list =  data.pageList.content;
 		if(list != "" || list != undefined || list != null){
 			var tbodyList = $("#sopStak"); 
@@ -192,9 +192,10 @@ function totalMission() {
 	sendGetRequest(platformUrl.totalMission, null, totalMissionCallback, null);
 }
 function totalUrgentCallback(data) {
-	$("#totalUrgent").val(data.total)
+	$('.totalUrgent').html(data.total)
 }
 
 function totalMissionCallback(data) {
-	$("#totalMission").val(data.total)
+	$('.bubble').html(data.total)
 }
+

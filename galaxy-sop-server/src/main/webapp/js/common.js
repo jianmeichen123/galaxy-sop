@@ -238,7 +238,7 @@ function toinitUpload(fileurl,selectBtnId,fileInputId,submitBtnId,paramsFunction
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					alert("error "+data.result.message);
+					alert("error "+response.result.message);
 					return false;
 				}
 				alert("保存成功");

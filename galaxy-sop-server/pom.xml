@@ -91,11 +91,11 @@
 				<!-- dubbo -->
 				<dubbo.application.name>galaxyDubboprovider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
-				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
-				<dubbo.protocol.port>8910</dubbo.protocol.port>
+				<dubbo.registry.address>zookeeper://10.9.210.22:12181?client=zkclient</dubbo.registry.address>
+				<dubbo.protocol.port>8082</dubbo.protocol.port>
 				
-				<galaxy.project.platform.endpoint>http://127.0.0.1:8080/</galaxy.project.platform.endpoint>
-				<galaxy.project.report.endpoint>http://127.0.0.1:8866/</galaxy.project.report.endpoint>
+				<galaxy.project.platform.endpoint>http://fx.qa.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
+				<galaxy.project.report.endpoint>http://fx.qa.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				
 				<!-- memcached <memcached.list_1.ip>192.168.101.22</memcached.list_1.ip> 
 					<memcached.list_1.port>11211</memcached.list_1.port> <memcached.object_1.ip>192.168.101.22</memcached.object_1.ip> 

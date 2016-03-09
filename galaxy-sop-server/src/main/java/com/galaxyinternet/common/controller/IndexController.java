@@ -1,6 +1,9 @@
 package com.galaxyinternet.common.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -77,5 +80,23 @@ public class IndexController {
 	@RequestMapping(value = "/air", method = RequestMethod.GET)
 	public String addInterviewRecord() {
 		return "project/air";
+	}
+	
+	/**
+	 * 操作成功提示弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/tip/{type}", method = RequestMethod.GET)
+	public String tip(HttpServletRequest request, @PathVariable("type") int type) {
+		request.setAttribute("tipType", type);
+		return "common/tip";
+	}
+	/**
+	 * 到添加投决会弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/voto", method = RequestMethod.GET)
+	public String addmeetingRecord() {
+		return "project/voto";
 	}
 }

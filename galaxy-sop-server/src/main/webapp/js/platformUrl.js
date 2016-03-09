@@ -5,15 +5,14 @@ var Constants = {
 var sopContentUrl = "http://127.0.0.1:8888/galaxy-sop-server";
 
 var platformUrl = {
-		/**
-		 * 跳转到登录
-		 * 
-		 */
-		toLoginPage:Constants.platformEndpointURL +"/galaxy/userlogin/toLogin",
-		/**
-		 * 注销
-		 */
-		logout:Constants.platformEndpointURL +"/galaxy/userlogin/logout",
+	/**
+	 * 跳转到登录
+	 */
+	toLoginPage:Constants.platformEndpointURL +"/galaxy/userlogin/toLogin",
+	/**
+	 * 注销
+	 */
+	logout:Constants.platformEndpointURL +"/galaxy/userlogin/logout",
 	/**
 	 * 验证登录
 	 */
@@ -68,12 +67,6 @@ var platformUrl = {
 	 */
 	updatePerson : sopContentUrl + "/galaxy/project/upp",
 	
-	/**---------首页相关 begin  */
-	/**
-	 * 修改团队成员
-	 */
-	updatePerson : sopContentUrl + "/galaxy/project/upp",
-	
 	/**
 	 * 立项排期所有
 	 */
@@ -93,7 +86,7 @@ var platformUrl = {
 	/**
 	 * 紧急任务总数
 	 */
-	totalUrgent: sopContentUrl + "/galaxy/soptask/totalMission",
+	totalUrgent: sopContentUrl + "/galaxy/soptask/totalUrgent",
 	/**
 	 * 待办任务总数
 	 */
@@ -148,7 +141,11 @@ var platformUrl = {
 	/**
 	 * 任务处理-上传文档
 	 */
-	uploadFile2Task : sopContentUrl+"/galaxy/taskprocess/uploadFile"
+	uploadFile2Task : sopContentUrl+"/galaxy/taskprocess/uploadFile",
+	/**
+	 * 启动内部评审
+	 */
+	startReview : sopContentUrl + "/galaxy/project/progress/startReview/",
 
 }
 
