@@ -256,8 +256,8 @@
 			<div class="block" data-tab="con" id="projectProgress_1_con">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="#" data-btn="meeting" onclick="air();" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
-					<a href="javascript:;" class="pubbtn fffbtn lpubbtn">启动内部评审</a>
+					<a href="#" data-btn="interview" onclick="air();" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
+					<a href="javascript:startReview();" class="pubbtn fffbtn lpubbtn">启动内部评审</a>
 				</div>
 				<div id="projectProgress_1_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
@@ -543,11 +543,11 @@
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" class="pubbtn fffbtn llpubbtn">上传业务尽职调查报告</a>
-					<a href="javascript:;" class="pubbtn fffbtn lpubbtn">申请投决会排期</a>
+					<a href="javascript:;" class="pubbtn fffbtn lpubbtn" style="display:none;">申请投决会排期</a>
 				</div>
 				<div class="process clearfix">
 					<h2>业务尽调报告审核流程</h2>
-					<img src="img/process1.png" alt="">
+					<img src="<%=path %>/img/process1.png" alt="">
 				</div>
 				<!--表格内容-->
 				<table width="100%" cellspacing="0" cellpadding="0">
