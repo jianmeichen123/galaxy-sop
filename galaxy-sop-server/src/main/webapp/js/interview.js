@@ -71,7 +71,7 @@ function initUpload() {
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $("#file-select-btn")[0], // you can pass in id...
-		url : "/galaxy/project/progress/addFileInterview",
+		url : sopContentUrl + "/galaxy/project/progress/addFileInterview",
 		multipart:true,
 		multi_selection:false,
 		filters : {
