@@ -43,9 +43,14 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	protected BaseService<SopTask> getBaseService() {
 		return sopTaskService;
 	}
-	
+	/**
+	 * 
+	 * @param projectId
+	 * @param pageName 显示页面，比如人事尽职调查传入hrjzdc
+	 * @return
+	 */
 	@RequestMapping("/showTaskInfo")
-	public ModelAndView showFileInfo(@RequestParam Long projectId,@RequestParam String pageName)
+	public ModelAndView showTaskInfo(@RequestParam Long projectId,@RequestParam String pageName)
 	{
 		ModelAndView mv = new ModelAndView("/taskProcess/task_info");
 		mv.addObject("projectId", projectId);

@@ -103,14 +103,16 @@
     </div>
  
 </div>
+<jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
 $(function(){
+	createMenus(2);
 	getProjectInfo();
 });
 
 function getProjectInfo()
 {
-	var url = "../"+platformUrl.detailProject+"/${projectId}";
+	var url = platformUrl.detailProject+"/${projectId}";
 	sendGetRequest(
 		url,
 		null,

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.common.constants.SopConstant;
@@ -101,12 +102,11 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 * 弹出页面
 	 */
 	@RequestMapping(value = "/doTask",method = RequestMethod.GET)
-	public String doTask(HttpServletRequest request) {
+	public ModelAndView doTask(Long projectId) {
 		
-		String projectId=request.getParameter("projectId");	
-		request.setAttribute("projectId", projectId);
+		String pageName = "hrjzdc";
 		
-		return "soptask/doTask";
+		return taskProcessController.showTaskInfo(projectId, pageName);
 	}
 	
 

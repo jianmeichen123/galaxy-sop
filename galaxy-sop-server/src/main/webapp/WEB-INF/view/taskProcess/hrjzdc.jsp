@@ -79,7 +79,7 @@ $(function(){
 });
 function loadRows()
 {
-	var url = "<%=path %>"+platformUrl.queryFile;
+	var url = platformUrl.queryFile;
 	var data = {
 		"projectId":"${projectId}",
 		"fileWorktype":"fileWorktype:1"
@@ -113,7 +113,7 @@ function isBlank(val)
 function loadRelatedData()
 {
 	sendGetRequest(
-			"<%=path %>"+platformUrl.getTempRelatedData,
+			platformUrl.getTempRelatedData,
 			null,
 			function(data){
 				$.each(data.fileType,function(){
@@ -141,7 +141,7 @@ function initUpload(_dialog){
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
-		url : '<%=path %>'+platformUrl.uploadFile2Task,
+		url : platformUrl.uploadFile2Task,
 		multi_selection:false,
 		filters : {
 			max_file_size : '30mb'
@@ -163,7 +163,7 @@ function initUpload(_dialog){
 						var $form =$(_dialog.id).find("form")
 						var data = JSON.parse($form.serializeObject());
 						sendGetRequest(
-								'<%=path %>'+platformUrl.uploadFile2Task,
+								platformUrl.uploadFile2Task,
 								data,
 								function(data){
 									afterSave(data);
