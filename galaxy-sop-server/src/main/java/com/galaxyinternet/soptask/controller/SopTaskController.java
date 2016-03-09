@@ -252,8 +252,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/totalMission",  produces = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> totalMission(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request) {
+	public Map<String, Object> totalMission(HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		SopTaskBo sopTaskBo  = new SopTaskBo();
 		//当前登录人
 		/*User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
@@ -284,8 +285,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/totalUrgent", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object> totalUrgent(@RequestBody SopTaskBo sopTaskBo,HttpServletRequest request) {
+	public Map<String, Object> totalUrgent(HttpServletRequest request) {
 		Map<String, Object> map = new HashMap<String, Object>();
+		SopTaskBo sopTaskBo  = new SopTaskBo();
 		//当前登录人
 		/*User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
