@@ -192,9 +192,10 @@ function totalMission() {
 	sendGetRequest(platformUrl.totalMission, null, totalMissionCallback, null);
 }
 function totalUrgentCallback(data) {
-	$("#totalUrgent").val(data.total)
+	$('.totalUrgent').html(data.total)
 }
 
 function totalMissionCallback(data) {
-	$("#totalMission").val(data.total)
+	$('.bubble').html(data.total)
 }
+

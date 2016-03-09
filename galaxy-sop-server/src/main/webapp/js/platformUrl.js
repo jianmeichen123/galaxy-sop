@@ -1,19 +1,19 @@
-var Constants = {
+/*var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
-}
-var sopContentUrl = "http://127.0.0.1:8888/galaxy-sop-server";
+}*/
+var sopContentUrl = "http://127.0.0.1:8080/galaxy-sop-server";
 
 var platformUrl = {
 		/**
 		 * 跳转到登录
 		 * 
 		 */
-		toLoginPage:Constants.platformEndpointURL +"/galaxy/userlogin/toLogin",
+	//	toLoginPage:Constants.platformEndpointURL +"/galaxy/userlogin/toLogin",
 		/**
 		 * 注销
 		 */
-		logout:Constants.platformEndpointURL +"/galaxy/userlogin/logout",
+//		logout:Constants.platformEndpointURL +"/galaxy/userlogin/logout",
 	/**
 	 * 验证登录
 	 */
@@ -41,7 +41,7 @@ var platformUrl = {
 	/**
 	 * 跳转到首页
 	 */
-	toIndex : Constants.platformEndpointURL + "/galaxy/redirect",
+//	toIndex : Constants.platformEndpointURL + "/galaxy/redirect",
 	/**
 	 * 查询模板列表
 	 */
@@ -93,7 +93,7 @@ var platformUrl = {
 	/**
 	 * 紧急任务总数
 	 */
-	totalUrgent: sopContentUrl + "/galaxy/soptask/totalMission",
+	totalUrgent: sopContentUrl + "/galaxy/soptask/totalUrgent",
 	/**
 	 * 待办任务总数
 	 */
