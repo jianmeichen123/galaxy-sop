@@ -117,7 +117,7 @@
                         </table>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="javascript:;" class="more null">more</a>
+                    	<a href="/galaxy/soptask" class="more null">more</a>
                     </dd>
                 </dl>
                 <dl>
@@ -305,7 +305,7 @@
 
 <jsp:include page="./common/footer.jsp" flush="true"></jsp:include>
 <script type="text/javascript">
-	$(function(){
+	$(function(){		
 		top5ProjectMeeting();
 		ProjectVoteWill();
 		selectSopTask();
