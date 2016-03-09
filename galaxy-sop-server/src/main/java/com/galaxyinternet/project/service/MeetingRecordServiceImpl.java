@@ -226,7 +226,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			//投资意向书  任务生成
 			SopTask task = new SopTask();
 			task.setProjectId(pid);                     //项目id
-			task.setAssignUid(udepartid);  	//任务分派到: 投资经理
+			task.setDepartmentId(udepartid);  	//任务分派到: 投资经理
 			task.setTaskName("上传投资意向书");          //任务名称：    上传投资意向书
 			task.setAssignUid(userid);             //任务认领人id 
 			task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());		//任务状态: 2:待完工
@@ -256,7 +256,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			//投资协议  任务生成
 			SopTask task1 = new SopTask();
 			task1.setProjectId(pid);                     //项目id
-			task1.setAssignUid(udepartid);  		//任务分派到: 投资经理
+			task1.setDepartmentId(udepartid);  		//任务分派到: 投资经理
 			task1.setTaskName("上传投资协议");          //任务名称：   上传投资协议
 			task1.setAssignUid(userid);             //任务认领人id 
 			task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				//任务状态: 2:待完工
@@ -267,7 +267,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				//股权转让协议  任务生成
 				SopTask task2 = new SopTask();
 				task2.setProjectId(pid);                    //项目id
-				task1.setAssignUid(udepartid);  		//任务分派到: 投资经理
+				task1.setDepartmentId(udepartid);  		//任务分派到: 投资经理
 				task2.setTaskName("上传股权转让协议");       //任务名称：  上传股权转让协议
 				task2.setAssignUid(userid);            //任务认领人id 
 				task2.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				//任务状态: 2:待完工
@@ -353,7 +353,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		//业务dd  任务生成
 		SopTask task1 = new SopTask();
 		task1.setProjectId(project.getId());         //项目id
-		task1.setAssignUid(departid);  		 //任务分派到: 投资经理
+		task1.setDepartmentId(departid);  		 //任务分派到: 投资经理
 		task1.setTaskName("上传业务尽职调查报告");    //任务名称：  上传股权转让协议
 		task1.setAssignUid(userid);             //任务认领人id 
 		task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				 //任务状态: 2:待完工
