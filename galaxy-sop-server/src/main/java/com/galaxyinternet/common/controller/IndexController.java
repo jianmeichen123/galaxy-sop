@@ -91,4 +91,12 @@ public class IndexController {
 		request.setAttribute("tipType", type);
 		return "common/tip";
 	}
+	/**
+	 * 到添加投决会弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/voto", method = RequestMethod.GET)
+	public String addmeetingRecord() {
+		return "project/voto";
+	}
 }

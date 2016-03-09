@@ -243,5 +243,67 @@
 			});
 		}
 	}
+	
+	/**
+	 * 上传投决会议记录
+	 */
+	function voto(){
+		var _url='<%=path%>/galaxy/voto';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
+				//初始化文件上传
+				toinitUpload(sopContentUrl + "/galaxy/project/progress/addfilemeet",
+						"file-select-btn","fileName","savemeet",
+						function getMeetCondition(){
+						var	condition = {};
+						var projectId = $("#project_id").val();
+						var meetingDateStr = $.trim($("#meetingDateStr").val());
+						var meetingType = $.trim($('input:radio[name="meetingType"]:checked').val());
+						var meetingResult = $.trim($('input:radio[name="meetingResult"]:checked').val());
+						//var meetingNotes = $.trim($("#meetingNotes").val());
+						var um = UM.getEditor('meetingNotes');
+						var meetingNotes = $.trim(um.getContent());
+						var fileId = $("#meetfileID").val();
+						if(projectId == null || projectId == ""){
+							alert("项目不能为空");
+							return false;
+						}else{
+							condition.projectId = projectId;
+						}
+						if(meetingDateStr == null ||  meetingDateStr == ""){
+							alert("日期不能为空");
+							return false;
+						}else{
+							condition.meetingDateStr = meetingDateStr;
+						}
+						if(meetingType == null ||  meetingType == ""){
+							alert("类型不能为空");
+							return false;
+						}else{
+							condition.meetingType = meetingType;
+						}
+						if(meetingResult == null ||  meetingResult == ""){
+							alert("结果不能为空");
+							return false;
+						}else{
+							condition.meetingResult = meetingResult;
+						}
+						if(meetingNotes != null && meetingNotes!= ""){
+							condition.meetingNotes = meetingNotes;
+						}
+						if(fileId != null && fileId!= ""){
+							condition.fileId = fileId;
+						}
+						return condition;
+					});
+			}
+		});
+		return false;
+	}
 </script>
 </html>

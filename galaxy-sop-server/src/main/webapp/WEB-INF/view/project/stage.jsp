@@ -597,61 +597,22 @@
 			<div class="block" data-tab="con" id="projectProgress_7_con">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+				<a href="#" onclick="voto();" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 				</div>
-
+				<div id="projectProgress_7_table_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+					<input type="hidden" name=meetingType value="meetingType:4">
+				</div>	
 				<!--表格内容-->
-				<table width="100%" cellspacing="0" cellpadding="0" class='table_l'>
+				<table id="projectProgress_7_table" width="100%" cellspacing="0" cellpadding="0" class='table_l'
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"
+					data-page-list="[3,6,10]" data-toolbar="#projectProgress_7_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th>会议概况</th>
-							<th>会议纪要</th>
+							<th data-field="hygk" data-align="center">会议概况</th>
+							<th data-field="meetingNotes" data-align="center">会议纪要</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em>访谈有效，沟通愉快！</td>
-						</tr>
-						<tr>
-							<td class="noborder red"><em></em>会议结论：<span>否决</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em><span>访谈有效，还有三个问题需要解决。</span></td>
-						</tr>
-						<tr>
-							<td class="noborder green"><em></em>会议结论：<span>通过</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td><em></em>会议日期：<span>2016-01-26</span></td>
-							<td rowspan="3"><em></em>访谈有效，沟通愉快！</td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议结论：<span>待定</span></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="noborder"><em></em>会议录音：<a href="#" class="blue">会议录音.mp3</a></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
 				</table>
 			</div>
 			<!-- 投资协议 -->
