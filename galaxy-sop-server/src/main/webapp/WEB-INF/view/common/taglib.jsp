@@ -26,4 +26,7 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 	var contextEndPoint = '<%=endpoint%>';
 	endpointObj = JSON.parse(contextEndPoint);
 </script>
+<script type="text/javascript">
+	 var sessionId = '<%=user.getSessionId()%>';
+</script>
 <script src="<%=request.getContextPath() %>/js/platformUrl.js" type="text/javascript"></script>

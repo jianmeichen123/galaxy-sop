@@ -5,6 +5,15 @@ var Constants = {
 var sopContentUrl = "http://127.0.0.1:8888/galaxy-sop-server";
 
 var platformUrl = {
+		/**
+		 * 跳转到登录
+		 * 
+		 */
+		toLoginPage:Constants.platformEndpointURL +"/galaxy/userlogin/toLogin",
+		/**
+		 * 注销
+		 */
+		logout:Constants.platformEndpointURL +"/galaxy/userlogin/logout",
 	/**
 	 * 验证登录
 	 */

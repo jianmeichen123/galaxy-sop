@@ -25,16 +25,35 @@
     </div>
     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
-        <span class="ico name">早上好，<%=user.getNickName() %></span>
+        <span class="ico name">早上好，闫皓</span>
         <b class="line null">分割线</b>
-        <a href="" class="loginout">退出</a>
+        <a href="javascript:logout()" class="loginout">退出</a>
     </div>
 </div>
-<script>
-$(function(){
-	$(".usermsg").on("click", ".loginout", function() {
-		this.href=Constants.platformEndpointURL+'/galaxy/userlogin/logout';
-	});
-});
+<script type="text/javascript">
 
+ function logout(){
+	// location.href=platformUrl.logout+"?sid="+sessionId;
+		alert(sessionId);
+		$.ajax({
+			url : platformUrl.logout,
+			type : "POST",
+			dataType : "json",
+			contentType : "application/json; charset=UTF-8",
+			async : false,
+			beforeSend : function(xhr) {
+				if (sessionId) {
+					xhr.setRequestHeader("sessionId", sessionId);
+				}
+			},
+			error : function(request) {
+				alert("connetion error");
+			},
+			success : function(data) {
+				if(data.result.status=="OK"){
+					location.href=platformUrl.toLoginPage;
+				}
+			}
+		}); 
+} 
 </script>
