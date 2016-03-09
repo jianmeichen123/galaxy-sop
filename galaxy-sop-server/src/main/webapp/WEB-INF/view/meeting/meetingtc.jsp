@@ -44,13 +44,6 @@
        <dd>
        	  <div type="text/plain" id="meetingNotes" style="width:100%;height:100px;"></div>
 		</dd>
-         <!--   <dd class="fctbox">
-         <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-           <a href="javascript:;" id="save_viewNotes" class="ico f4" data-btn="submit">保存</a>
-           <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
-           <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
-           <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-         </dd> -->
       </dl>
         
     <dl class="fmdl clearfix">
@@ -64,16 +57,6 @@
 	        	<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">上传录音</a>
     		</dd>
         </div>
-            
-        <!-- <dd>
-            <div class="fmload clearfix">
-                <p class="loadname"></p>
-                <input type="file" class="load"/>
-                <a href="javascript:;" class="pubbtn fffbtn">上传录音</a>
-                
-                 <input type="hidden" id="meetfileID" name="fileId" value="" /> 
-            </div>
-        </dd> -->
     </dl>
     <div class="btnbox"><!--  saveMeet() -->
     	<a href="javascript:;" class="pubbtn bluebtn" id="savemeet">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
@@ -92,13 +75,3 @@
 		UM.getEditor('meetingNotes');
 </script>
 
-<!-- <script type="text/javascript">
-$(function(){
-
- 	var um = UM.getEditor('meetingNotes');
-	um.setContent(""); 
-
-
-});
-
-</script> -->

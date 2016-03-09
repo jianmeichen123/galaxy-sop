@@ -60,9 +60,9 @@ public class InterviewRecord extends BaseEntity{
     	if(viewDate==null && viewDateStr!=null && viewDateStr.trim().length() == 10 ){
 			try {
 				if( viewDateStr.indexOf("/") != -1){
-					viewDate = DateUtil.convertStringToDate(this.viewDateStr.replaceAll("/", "-"));
+					viewDate = DateUtil.convertStringToDate(viewDateStr.replaceAll("/", "-"));
 	    		}else{
-	    			viewDate = DateUtil.convertStringToDate(this.viewDateStr);
+	    			viewDate = DateUtil.convertStringToDate(viewDateStr);
 	    		}
 			} catch (ParseException e) {
 				viewDate = null;

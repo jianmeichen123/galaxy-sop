@@ -82,38 +82,6 @@
         </div>
         
 		<div class="tab-pane active" id="view">
-		
-<!-- 			<div id="custom-toolbar">
-				<div class="form-inline" role="form">
-				
-					<div class="form-group">
-						<div class="input-group">
-							会议类型： 
-									<input type="radio" name="meetingType" value="" />全部 
-							 		<input type="radio" name="meetingType" value="meetingType:1" />内评会 
-									<input type="radio" name="meetingType" value="meetingType:2" />CEO评审
-									<input type="radio" name="meetingType" value="meetingType:3" />立项会
-									<input type="radio" name="meetingType" value="meetingType:4" />投决会
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="input-group">
-							会议日期： <input class="form-control" type="date" placeholder="会议日期(开始)" id="startTime" name="startTime">
-						</div>
-						<div class="input-group">
-							<span>至</span><input class="form-control" type="date" placeholder="会议日期(结束)" id="endTime" name="endTime">
-						</div>
-					</div>
-
-					<div class="form-group">
-						<input class="form-control" type="text" placeholder="项目名称或编号" id="proNameCode" name="proNameCode">
-						
-					</div>
-					<button type="submit" class="btn btn-default" name="querySearch">搜索</button>
-				</div>
-			</div>
-			 -->
 			<table id="data-table" data-url="/galaxy/project/progress/queryMeet"
 				data-method="post" data-side-pagination="server"
 				data-pagination="true" data-toolbar="#custom-toolbar"

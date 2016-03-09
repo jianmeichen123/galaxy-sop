@@ -32,7 +32,9 @@ function setProSelect(data){
 	
 	if(result == "ERROR"){ //OK, ERROR
 		alert("error "+data.result.message);
-		$("#popbg,#pop").remove();
+		
+		//$("#popbg,#pop").remove();
+		
 		return;
 	}
 	
@@ -40,7 +42,8 @@ function setProSelect(data){
 	
 	if(entityList.length == 0 ){
 		alert("无相关项目可添加记录");
-		$("#popbg,#pop").remove();
+		
+		//$("#popbg,#pop").remove();
 		return;
 	}else{
 		for(var i=0;i<data.entityList.length;i++){
@@ -52,26 +55,13 @@ function setProSelect(data){
 
 
 
-
-
-
-//编辑框初始化
-function umInit(){
-	var um = UM.getEditor('viewNotes');
-	try {
-		um.setContent("");
-	} catch (e) {
-		return;
-	}
-}
-
 //plupload上传对象初始化,   绑定保存
 function initUpload() {
 	// 定义 上传插件 方法 、  plupload 上传对象初始化
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $("#file-select-btn")[0], // you can pass in id...
-		url : sopContentUrl + "/galaxy/project/progress/addFileInterview",
+		url : platformUrl.saveViewFile,
 		multipart:true,
 		multi_selection:false,
 		filters : {
@@ -121,7 +111,7 @@ function initUpload() {
 					return false;
 				}
 				alert("保存成功");
-				location.reload(true);s
+				location.reload(true);
 				
 				/*$("#popTxt input[name='fileKey']").val(result.fileKey);
 				$("#popTxt input[name='fileLength']").val(result.fileLength);
@@ -136,6 +126,11 @@ function initUpload() {
 			BeforeUpload:function(up){
 				//表单函数提交
 				//alert(JSON.stringify(getSaveCondition()));
+				var res = getSaveCondition();
+				if(res == false || res == "false"){
+					up.stop();
+					return;
+				}
 				up.settings.multipart_params = getSaveCondition();
 			},
 			Error: function(up, err) {
@@ -156,8 +151,7 @@ function saveInterView(){
 	if(condition == false || condition == "false"){
 		return;
 	}
-	alert("no file save");
-	sendPostRequestByJsonObj(platformUrl.saveInteverView,condition,saveCallBack,null);
+	sendPostRequestByJsonObj(platformUrl.saveView,condition,saveCallBack,null);
 }
 
 
@@ -167,12 +161,11 @@ function saveCallBack(data){
 	
 	if(result == "ERROR"){ //OK, ERROR
 		alert("error "+data.result.message);
-		
 		return;
 	}
 	
 	alert("保存成功");
-	$("#popbg,#pop").remove();
+	//$("#popbg,#pop").remove();
 	location.reload(true);
 }
 
@@ -181,7 +174,6 @@ function saveCallBack(data){
 
 //验证获取保存参数
 function getSaveCondition(){
-	
 	var	condition = {};
 	
 	var projectId = $("#projectId").val();
@@ -196,31 +188,32 @@ function getSaveCondition(){
 	if(projectId == null || projectId == ""){
 		alert("项目不能为空");
 		return false;
-	}else{
-		condition.projectId = projectId;
 	}
 	
 	if(viewDateStr == null ||  viewDateStr == ""){
 		alert("日期不能为空");
 		return false;
-	}else{
-		condition.viewDateStr = viewDateStr;
 	}
 	
 	if(viewTarget == null ||  viewTarget == ""){
 		alert("对象不能为空");
 		return false;
-	}else{
-		condition.viewTarget = viewTarget;
 	}
 	
-	if(viewNotes != null && viewNotes!= ""){
-		condition.viewNotes = viewNotes;
+	if(viewNotes == null || viewNotes== ""){
+		alert("记录不能为空");
+		return false;
 	}
 	
 	if(fileId != null && fileId!= ""){
 		condition.fileId = fileId;
 	}
+	
+	condition.projectId = projectId;
+	condition.viewDateStr = viewDateStr;
+	condition.viewTarget = viewTarget;
+	condition.viewNotes = viewNotes;
+	
 	/*var	condition = {
 		"projectId" : projectId,
 		"viewDate" : viewDate,
@@ -237,8 +230,6 @@ function getSaveCondition(){
 
 
 
-
-
 //查询
 function selectViewPage(){
 	$("#interVierTable").bootstrapTable('refresh',
@@ -248,7 +239,6 @@ function selectViewPage(){
 		}
 	);
 }
-
 
 //验证获取保存参数
 function getQueryCondition(){
@@ -272,7 +262,6 @@ function getQueryCondition(){
 		condition.proNameCode = proNameCode;
 	}
 
-	
 	return condition;
 }
 

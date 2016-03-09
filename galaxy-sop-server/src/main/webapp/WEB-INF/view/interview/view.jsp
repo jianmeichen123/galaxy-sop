@@ -71,24 +71,6 @@
         
         
           <div class="tab-pane active" id="view">		
-			<!-- <div id="custom-toolbar">
-			    <div class="form-inline" role="form">
-			        <div class="form-group">
-			            <div class="input-group">
-			                <input class="form-control" type="text" placeholder="项目名称或编号" id = "proNameCode" name="proNameCode">
-			            </div>
-			        </div>
-			        <div class="form-group">
-			            <div class="input-group">
-			                <input class="form-control" type="date" placeholder="访谈日期(开始)" id = "startTime" name="startTime">
-			            </div>
-			        	<div class="input-group">
-			                <input class="form-control" type="date" placeholder="访谈日期(结束)" id = "endTime"  name="endTime">
-			            </div>
-			        </div>
-			        <button type="submit" class="btn btn-default" name="querySearch">搜索</button>
-			    </div>
-			</div> -->
 			<table  id="data-table" data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
 	          		data-side-pagination="server" data-pagination="true" 
 	          		data-toolbar="#custom-toolbar" data-page-list="[3,6,10,20]"

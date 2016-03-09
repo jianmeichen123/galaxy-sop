@@ -43,7 +43,7 @@ function setProSelect(data){
 	
 	if(entityList.length == 0 ){
 		alert("无相关项目可添加记录");
-		$("#popbg,#pop").remove();
+		//$("#popbg,#pop").remove();
 		return;
 	}else{
 		for(var i=0;i<data.entityList.length;i++){
@@ -75,7 +75,8 @@ function saveMeetCallBack(data){
 	}
 	
 	alert("保存成功");
-	$("#popbg,#pop").remove();
+	//$("#popbg,#pop").remove();
+	location.reload(true);
 }
 
 
@@ -122,12 +123,11 @@ function getMeetCondition(){
 		condition.meetingResult = meetingResult;
 	}
 	
-	if(meetingNotes != null && meetingNotes!= ""){
+	if(meetingNotes == null || meetingNotes== ""){
+		alert("记录不能为空");
+		return false;
+	}else{
 		condition.meetingNotes = meetingNotes;
-	}
-	
-	if(fileId != null && fileId!= ""){
-		condition.fileId = fileId;
 	}
 	
 	return condition;
@@ -142,7 +142,7 @@ function initUpload() {
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $("#file-select-btn")[0], // you can pass in id...
-		url : "/galaxy/project/progress/addfilemeet",
+		url : platformUrl.saveMeetFile,
 		multipart:true,
 		multi_selection:false,
 		filters : {
@@ -186,7 +186,7 @@ function initUpload() {
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					alert("error "+data.result.message);
+					alert("error "+response.result.message);
 					return;
 				}
 				alert("保存成功");
