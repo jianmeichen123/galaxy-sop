@@ -89,7 +89,7 @@
 			        <button type="submit" class="btn btn-default" name="querySearch">搜索</button>
 			    </div>
 			</div> -->
-			<table  id="data-table" data-url="/galaxy/project/progress/queryInterview" data-method="post" 
+			<table  id="data-table" data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
 	          		data-side-pagination="server" data-pagination="true" 
 	          		data-toolbar="#custom-toolbar" data-page-list="[3,6,10,20]"
 					data-id-field="lottoId" data-show-refresh="true">

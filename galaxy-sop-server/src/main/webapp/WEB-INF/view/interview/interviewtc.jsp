@@ -1,5 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-
+<% 
+	String path = request.getContextPath(); 
+%>
 
 <div class="meetingtc">
 	<div class="top clearfix">
@@ -77,11 +79,11 @@
 </div>
 
 
-<script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.min.js"></script>
-<script type="text/javascript" src="${ctx}/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 
-<script src="${ctx}/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
  
  <script type="text/javascript">
 		UM.getEditor('viewNotes');
