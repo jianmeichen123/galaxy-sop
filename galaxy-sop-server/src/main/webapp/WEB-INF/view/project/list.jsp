@@ -33,6 +33,7 @@
 	<!--右中部内容-->
  	<div class="ritmin">
     	<h2>我的项目</h2>
+    	<input type="hidden" id="project_id" value=""/>
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
@@ -125,6 +126,7 @@
 				sendGetRequest(platformUrl.detailProject + id, {}, function(data){
 					$("#project_name").text(data.entity.projectName);
 					$("input[name='projectId']").val(data.entity.id);
+					$("#project_id").val(id);
 					var progress = data.entity.projectProgress;
 					progress = progress.replace(":","_");
 					var index = progress.substr(progress.length-1,1);
@@ -141,8 +143,7 @@
 		});
 		return false;
 	}
-	
-	function air(){
+	function air(id){
 		var _url='<%=path%>/galaxy/air';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -151,6 +152,7 @@
 				$(".meetingtc").tabchange();
 				$('.searchbox').toggleshow();
 				leicj();
+				$("input[name='projectId']").val($("#project_id").val());
 			}
 		});
 		return false;
