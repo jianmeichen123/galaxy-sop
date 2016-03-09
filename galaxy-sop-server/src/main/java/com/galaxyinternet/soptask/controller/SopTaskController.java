@@ -57,6 +57,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
+	
+	@Autowired
+	SopTaskProcessController taskProcessController;
 
 	@Override
 	protected BaseService<SopTask> getBaseService() {
