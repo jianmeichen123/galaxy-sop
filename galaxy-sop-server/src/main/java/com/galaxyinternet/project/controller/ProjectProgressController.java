@@ -581,6 +581,9 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		List<String> fileworktypeList = new ArrayList<String>();
 		
+		Project project = projectService.queryById(pid);
+		proProgress = project.getProgress();
+		
 		//根据角色判断-显示文件上传列表
 		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
