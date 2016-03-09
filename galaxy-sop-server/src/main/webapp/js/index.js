@@ -34,7 +34,7 @@
 
 	function SopTaskCallback(data){
 		//组装数据
-		alert(111)
+		
 		var list =  data.pageList.content;
 		if(list != "" || list != undefined || list != null){
 			var tbodyList = $("#sopStak"); 
