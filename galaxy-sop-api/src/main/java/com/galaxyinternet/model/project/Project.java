@@ -248,6 +248,7 @@ public class Project extends PagableEntity {
     
     @Override
     public void setCreatedTime(Long createdTime) {
+    	this.createdTime = createdTime;
     	if(createdTime != null){
     		this.createDate = DateUtil.longToString(createdTime);
     	}
