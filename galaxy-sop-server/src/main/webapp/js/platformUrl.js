@@ -100,6 +100,11 @@ var platformUrl = {
 	totalMission: sopContentUrl + "/galaxy/soptask/totalMission",
 	
 	
+	/**gxc
+	 * 主页的待办任务:
+	 */		
+	soptaskshouye: "/galaxy/soptask/taskListByRole",
+	
 	/**-------首页相关 end  */
 	
 	/**
