@@ -264,7 +264,7 @@
 				</div>
 				<table id="projectProgress_1_table"
 					data-url="<%=path%>/galaxy/project/progress/queryInterview"
-					data-page-list="[3,6,10,20]" data-toolbar="#projectProgress_1_table_custom-toolbar">
+					data-page-list="[3,6,10]" data-toolbar="#projectProgress_1_table_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-field="ftgk" data-align="center">访谈概况</th>

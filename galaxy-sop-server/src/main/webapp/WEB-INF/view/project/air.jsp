@@ -1,10 +1,15 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<% 
+	String path = request.getContextPath(); 
+%>
 <!-- 添加访谈记录弹出层 -->
 <div class="meetingtc">
 	<div class="top clearfix">
         <dl class="fmdl clearfix">
             <dt>访谈日期：</dt>
-            <dd class="date"></dd>
+            <dd>
+            	<input class="form-control" type="date" id="startTime" name="startTime"/>
+            </dd>
         </dl>
     </div>
     <div class="min clearfix">
@@ -18,9 +23,7 @@
     <dl class="fmdl clearfix">
         <dt>会议纪要：</dt>
         <dd>
-            <div class="edit">
-                	这里是编辑器
-            </div>
+            <div type="text/plain" id="detail" style="width:100%;height:100px;"></div>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
@@ -37,3 +40,10 @@
     	<a href="javascript:;" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+ <script type="text/javascript">
+		UM.getEditor('detail');
+</script>
