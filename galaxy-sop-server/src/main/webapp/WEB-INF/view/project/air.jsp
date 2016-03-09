@@ -23,7 +23,7 @@
     <dl class="fmdl clearfix">
         <dt>会议纪要：</dt>
         <dd>
-            <div type="text/plain" id="detail" style="width:100%;height:100px;"></div>
+            <div type="text/plain" id="metting_detail" style="width:100%;height:100px;"></div>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
@@ -45,5 +45,6 @@
 <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
  <script type="text/javascript">
-		UM.getEditor('detail');
+	UM.getEditor('metting_detail');
+		
 </script>
