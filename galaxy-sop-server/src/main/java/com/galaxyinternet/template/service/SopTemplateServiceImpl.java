@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.galaxyinternet.dao.template.SopTemplateDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
@@ -91,6 +91,7 @@ public class SopTemplateServiceImpl extends BaseServiceImpl<SopTemplate>implemen
 			po.setWorktype(vo.getWorktype());
 			po.setDepartmentId(vo.getDepartmentId());
 			po.setUpdatedTime(System.currentTimeMillis());
+			po.setUpdateUname(vo.getUpdateUname());
 			po.setUpdateUid(vo.getUpdateUid());
 			po.setRemark(vo.getRemark());
 			po.setFileKey(vo.getFileKey());
@@ -99,6 +100,37 @@ public class SopTemplateServiceImpl extends BaseServiceImpl<SopTemplate>implemen
 			return super.updateById(po);
 		}
 		return 0;
+	}
+
+	@Override
+	public List<SopTemplate> queryAll() {
+		// TODO Auto-generated method stub
+		List<SopTemplate> list = super.queryAll();
+		if(list != null && list.size()>0)
+		{
+			List<Department> depList = deptService.queryAll();
+			if(depList != null && depList.size()>0)
+			{
+				for(SopTemplate temp : list)
+				{
+					Long depId = temp.getDepartmentId();
+					if(depId == null)
+					{
+						continue;
+					}
+					for(Department dep : depList)
+					{
+						if(depId == dep.getId())
+						{
+							temp.setDepartmentDesc(dep.getName());
+							break;
+						}
+					}
+				}
+			}
+			
+		}
+		return list;
 	}
 	
 	

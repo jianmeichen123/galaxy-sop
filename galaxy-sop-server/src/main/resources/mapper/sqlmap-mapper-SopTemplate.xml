@@ -21,8 +21,8 @@
 	
 	<sql id="Base_Column_List">
 		id, worktype, department_id, doc_type, 
-		create_uid,	create_time, update_uid,update_time,
-		file_uri, file_length, file_key, bucket_name,
+		create_uid,	create_time, update_uid,update_time,update_uname,
+		file_uri, file_length, file_key, file_name,bucket_name,
 		remark
 	</sql>
 	
@@ -96,6 +96,7 @@
 			create_time, 
 			update_uid,
 			update_time,
+			update_uname,
 			fil_uri, 
 			file_length, 
 			file_key, 
@@ -112,6 +113,7 @@
  			#{createdTime,jdbcType=BIGINT},
  			#{updateUid,jdbcType=BIGINT},
  			#{updatedTime,jdbcType=BIGINT},
+ 			#{updateUname,jdbcType=VARCHAR},
  			#{fileUri,jdbcType=VARCHAR}
  			#{fileLength,jdbcType=BIGINT},
  			#{fileKey,jdbcType=VARCHAR},
@@ -126,9 +128,10 @@
 		update sop_template
 		<set>
 			<if test="departmentId != null"> department_id = #{departmentId,jdbcType=BIGINT}, </if>
-			<if test="docType != null"> doc_type = #{docType,jdbcType=INTEGER}, </if>
+			<if test="docType != null"> doc_type = #{docType,jdbcType=VARCHAR}, </if>
 			<if test="updateUid != null"> update_uid = #{updateUid,jdbcType=BIGINT}, </if>
 			<if test="updatedTime != null"> update_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="updateUname != null"> update_uname = #{updateUname,jdbcType=VARCHAR}, </if>
 			<if test="fileUri != null"> file_uri = #{fileUri,jdbcType=VARCHAR}, </if>
 			<if test="fileLength != null"> file_length = #{fileLength,jdbcType=BIGINT}, </if>
 			<if test="fileKey != null"> file_key = #{fileKey,jdbcType=VARCHAR}, </if>

@@ -45,7 +45,7 @@
               <tbody>
               </tbody>
           </table>
-          <!--分页-->
+          <!--分页
           <div class="pagright clearfix">
               <ul class="paging clearfix">
                   <li>每页<input type="text" class="txt" value="20"/>条/共<span>9</span>条记录</li>
@@ -60,6 +60,7 @@
                   </li>
               </ul>
           </div>
+          -->
     </div>
  
 </div>
@@ -173,8 +174,8 @@
 var uploader;
 $(function(){
 	createMenus(13);
-	loadTempList();
 	loadRelatedData();
+	loadTempList();
 	$("#show-mail-btn").click(function(){
 		showMailPopup();
 	});

@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -101,7 +102,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 				file.transferTo(temp);
 				OSSHelper.simpleUploadByOSS(temp,key);
 				rtn.put("fileKey", key);
-				rtn.put("fileLength", temp.length()/1024);
+				rtn.put("fileLength", temp.length());
 			 }
 		} catch (Exception e) {
 			Object msg = "上传失败！";
@@ -122,6 +123,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 		}
 		try {
 			template.setUpdateUid(((User)obj).getId());
+			template.setUpdateUname(((User)obj).getRealName());
 			templateService.updateById(template);
 		} catch (Exception e) {
 			Object msg = "保存失败";
@@ -142,18 +144,25 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			{
 				throw new Exception();
 			}
-			String fileName = template.getBucketName();
+			String fileName = template.getFileName();
 			int dotPos = fileName.lastIndexOf(".");
 			String prefix = fileName.substring(0, dotPos);
 			String suffix = fileName.substring(dotPos);
 			File temp = File.createTempFile(prefix, suffix);
 			
 			OSSHelper.simpleDownloadByOSS(temp, template.getFileKey());
+			String dlName = fileName;
+			
+			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
+				dlName = URLEncoder.encode(fileName, "UTF-8");  
+			} else {  
+				dlName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");  
+			} 
 			
 			response.reset();
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/x-download");
-			response.setHeader("Content-Disposition", "attachment;filename=" + new String(template.getBucketName().getBytes("UTF-8"),"UTF-8"));
+			response.setHeader("Content-Disposition", "attachment;filename=" + dlName);
 			response.setHeader("Content-Length", "" + temp.length());
 			out = new BufferedOutputStream(response.getOutputStream());
 			fis = new BufferedInputStream(new FileInputStream(temp.getPath()));
