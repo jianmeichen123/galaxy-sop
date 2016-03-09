@@ -12,7 +12,7 @@
         <!--用户信息-->
         <div class="usermsg clearfix">
             <span class="light_blue">当前您有：</span>
-            <a href="javascript:;" class="work">待办任务<em class="totalUrgent"></em></a>
+            <a href="/galaxy/soptask" class="work">待办任务<em class="totalUrgent"></em></a>
             <a href="javascript:;" class="work">紧急任务<em class="bubble"></em></a>
             <a href="javascript:;" class="work">消息提醒<em>4</em></a> 
         </div>    	<!--当日信息-->
