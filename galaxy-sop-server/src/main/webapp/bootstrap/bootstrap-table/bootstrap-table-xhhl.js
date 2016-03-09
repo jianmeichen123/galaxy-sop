@@ -498,10 +498,10 @@
     BootstrapTable.prototype.initCustomToolbar = function () {
     	
     	var that = $(this);
-    	$("#custom-toolbar").on("click","button[type='submit']",function(){
+    	this.$toolbar.on("click","button[type='submit']",function(){
     		that.trigger("querySearch");
     	});
-    	$("#custom-toolbar").on("click","a[action='querySearch']",function(){
+    	this.$toolbar.on("click","a[action='querySearch']",function(){
     		that.trigger("querySearch");
     	});
 	}
@@ -922,7 +922,7 @@
             this.options.icons = calculateObjectValue(null, this.options.icons);
         }
 
-        if (this.options.showPaginationSwitch) {
+        /*if (this.options.showPaginationSwitch) {
             html.push(sprintf('<button class="btn btn-default" type="button" name="paginationSwitch" title="%s">',
                     this.options.formatPaginationSwitch()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.paginationSwitchDown),
@@ -941,7 +941,7 @@
                     this.options.formatToggle()),
                 sprintf('<i class="%s %s"></i>', this.options.iconsPrefix, this.options.icons.toggle),
                 '</button>');
-        }
+        }*/
 
         if (this.options.showColumns) {
             html.push(sprintf('<div class="keep-open btn-group" title="%s">',
@@ -1649,7 +1649,7 @@
     };
      ///querySerch
     BootstrapTable.prototype.getCustomToolbar = function () {
-    	var toolbar = $("#custom-toolbar");
+    	var toolbar = this.$toolbar;
     	var query = {};
     	toolbar.find("input[name][type!='radio']").each(function(){
     		var input = $(this);
