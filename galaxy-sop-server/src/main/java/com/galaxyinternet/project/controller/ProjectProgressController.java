@@ -834,6 +834,10 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			//修改项目进度、生成任务
 			meetingRecordService.upTermSheetSign(project,user.getId(),user.getDepartmentId());
 			
+			
+			
+			
+			
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
