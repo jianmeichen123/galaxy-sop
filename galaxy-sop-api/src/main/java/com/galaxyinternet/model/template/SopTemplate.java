@@ -1,16 +1,17 @@
 package com.galaxyinternet.model.template;
 
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.BaseEntity;
 
 public class SopTemplate extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer worktype;
+	private String worktype;
 	private String workTypeDesc;
 	private Long departmentId;
 	private String departmentDesc;
-	private Integer docType;
+	private String docType;
 	private String docTypeDesc;
 	private String fileUri;
 	private Long fileLength;
@@ -20,13 +21,24 @@ public class SopTemplate extends BaseEntity {
     private Long updateUid;
     private String updateUname;
     private String remark;
+    private String fileName;
     
     
-	public Integer getWorktype() {
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	public String getWorktype() {
 		return worktype;
 	}
-	public void setWorktype(Integer worktype) {
+	public void setWorktype(String worktype) {
 		this.worktype = worktype;
+		if(worktype != null)
+		{
+			workTypeDesc = DictEnum.fileWorktype.getNameByCode(worktype);
+		}
 	}
 	public String getWorkTypeDesc() {
 		return workTypeDesc;
@@ -46,11 +58,15 @@ public class SopTemplate extends BaseEntity {
 	public void setDepartmentDesc(String departmentDesc) {
 		this.departmentDesc = departmentDesc;
 	}
-	public Integer getDocType() {
+	public String getDocType() {
 		return docType;
 	}
-	public void setDocType(Integer docType) {
+	public void setDocType(String docType) {
 		this.docType = docType;
+		if(docType != null)
+		{
+			docTypeDesc = DictEnum.fileType.getNameByCode(docType);
+		}
 	}
 	public String getDocTypeDesc() {
 		return docTypeDesc;

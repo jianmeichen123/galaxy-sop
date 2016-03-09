@@ -90,7 +90,7 @@
     </dl>
     <div class="fmdl clearfix">
     	<dd>
-        <input type="text" name="bucketName" class="txt" onchange="selectFile(this)"/>
+        <input type="text" name="fileName" class="txt" onchange="selectFile(this)"/>
     	</dd>
     	<dd>
         <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>
@@ -185,12 +185,12 @@ $(function(){
 function loadTempList()
 {
 	sendGetRequest(
-			"<%=path %>"+platformUrl.queryTemplate,
+			platformUrl.queryTemplate,
 			null,
 			function(data){
 				$("#template-table tbody").empty();
 				$.each(data.entityList,function(){
-					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-bucket-name="'+this.bucketName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-file-length="'+this.fileLength+'"></tr>');
+					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-file-length="'+this.fileLength+'"></tr>');
 					$tr.append('<td><input type="checkbox" name="document" /></td>') ;
 					$tr.append('<td>'+this.workTypeDesc+'</td>') ;
 					$tr.append('<td>'+this.departmentDesc+'</td>') ;
@@ -219,14 +219,14 @@ function loadTempList()
 function loadRelatedData()
 {
 	sendGetRequest(
-			"<%=path %>"+platformUrl.getTempRelatedData,
+			platformUrl.getTempRelatedData,
 			null,
 			function(data){
 				$.each(data.fileType,function(){
-					$("#upload-form [name='docType']").append("<option value='"+this.value+"'>"+this.name+"</option>")
+					$("#upload-form [name='docType']").append("<option value='"+this.code+"'>"+this.name+"</option>")
 				});
 				$.each(data.fileWorktype,function(){
-					$("#upload-form [name='worktype']").append("<option value='"+this.value+"'>"+this.name+"</option>")
+					$("#upload-form [name='worktype']").append("<option value='"+this.code+"'>"+this.name+"</option>")
 				});
 				$.each(data.department,function(){
 					$("#upload-form [name='departmentId']").append("<option value='"+this.id+"'>"+this.name+"</option>")
@@ -240,7 +240,7 @@ function handleDownload()
 	$("[data-act='download']").click(function(){
 		var $self = $(this);
 		var id = $self.data("tid");
-		var url = "<%=path %>"+platformUrl.tempDownload+"/"+id;
+		var url = platformUrl.tempDownload+"/"+id;
 		window.location.href=url;
 	});
 }
@@ -252,22 +252,22 @@ function handleUpload()
 		var id = $self.data("tid");
 		$.popup({
 			txt:$("#upload-dialog").html(),
-			callback:function(t,postionEve){
-				postionEve();
-				$("#popTxt").html($("#upload-dialog").html());
+			showback:function(){
+				var _dialog = this;
 				$("#upload-form input[name='id']").val($self.data("tid"));
 				if($self.data('act') == 'update')
 				{
-					$("#popTxt").find("h2").text("模板更新");
+					$(_dialog.id).find("h2").text("模板更新");
 				}
 				else
 				{
-					$("#popTxt").find("h2").text("模板上传");
+					$(_dialog.id).find("h2").text("模板上传");
 				}
 				
-				initUpload();
+				initUpload(_dialog);
 				var row = $("tr[data-id='"+id+"']")[0];
-				setForm($("#popTxt #upload-form"),row.dataset);
+				var $form = $(_dialog.id).find("#upload-form");
+				setForm($form,row.dataset);
 			}
 		});
 	});
@@ -299,12 +299,12 @@ function selectFile(ele)
 	
 }
 
-function initUpload()
+function initUpload(_dialog)
 {
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
-		browse_button : $("#popTxt").find("#file-select-btn")[0], 
-		url : '<%=path %>'+platformUrl.tempUpload,
+		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
+		url : platformUrl.tempUpload,
 		multi_selection:false,
 		filters : {
 			max_file_size : '10mb'
@@ -312,7 +312,7 @@ function initUpload()
 
 		init: {
 			PostInit: function() {
-				$("#popTxt").find("#upload-btn").click(function(){
+				$(_dialog.id).find("#upload-btn").click(function(){
 					uploader.start();
 					return false;
 				});
@@ -320,17 +320,17 @@ function initUpload()
 
 			FilesAdded: function(up, files) {
 				plupload.each(files, function(file) {
-					$("#popTxt input[name='bucketName']").val(file.name);
+					$(_dialog.id).find("input[name='fileName']").val(file.name);
 				});
 			},
 			
 			FileUploaded: function(up, files, rtn) {
 				var result = $.parseJSON(rtn.response);
-				$("#popTxt input[name='fileKey']").val(result.fileKey);
-				$("#popTxt input[name='fileLength']").val(result.fileLength);
-				$form = $("#popTxt #upload-form");
+				$(_dialog.id).find("input[name='fileKey']").val(result.fileKey);
+				$(_dialog.id).find("input[name='fileLength']").val(result.fileLength);
+				$form = $(_dialog.id).find("#upload-form");
 				var data = JSON.parse($form .serializeObject());
-				var url = "<%=path %>"+platformUrl.tempSave
+				var url = platformUrl.tempSave
 				sendPostRequestByJsonObj(
 						url,
 						data,
@@ -371,34 +371,30 @@ function showMailPopup()
 	
 	$.popup({
 		txt:$("#upload-dialog").html(),
-		callback:function(t,postionEve){
-			postionEve();
-			$("#popTxt").html($("#mail-dialog").html());
-
+		callback:function(){
+			var _dialog = this;
 			var i=0;
-			
 			$.each(flags,function(){
 				var flag = $(this);
 				i++;
 				var $row = $(this).closest("tr");
 				var $tr=$("<tr></tr>");
 				$tr.append("<td>"+ i +"</td>");
-				$tr.append("<td>"+ $row.data('bucket-name') +"</td>");
+				$tr.append("<td>"+ $row.data('file-name') +"</td>");
 				$tr.append("<td>"+ $row.data('file-length') +"</td>");
-				$("#popTxt #attach-table tbody").append($tr);
-				$("#popTxt #mail-form").prepend('<input type="hidden" name="templateIds" value="'+$row.data('id')+'">');
+				$(_dialog.id).find("#attach-table tbody").append($tr);
+				$(_dialog.id).find("#mail-form").prepend('<input type="hidden" name="templateIds" value="'+$row.data('id')+'">');
 			});
-			$("#popTxt #send-mail-btn").click(function(){
+			$(_dialog.id).find("#send-mail-btn").click(function(){
 				
-				var $form = $("#popTxt #mail-form");
+				var $form = $(_dialog.id).find("#mail-form");
 				var data = JSON.parse($form .serializeObject());
-				var url = "<%=path %>"+platformUrl.tempSendMail;
+				var url = platformUrl.tempSendMail;
 				sendPostRequestByJsonObj(
 						url,
 						data,
 						function(data){
 							alert("发送邮件成功.");
-							//loadTempList();
 						}
 				);
 			});
