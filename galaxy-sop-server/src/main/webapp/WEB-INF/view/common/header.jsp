@@ -31,7 +31,8 @@
     </div>
 </div>
 <script type="text/javascript">
-
+  totalUrgent();
+  totalMission();
  function logout(){
 	// location.href=platformUrl.logout+"?sid="+sessionId;
 		alert(sessionId);
