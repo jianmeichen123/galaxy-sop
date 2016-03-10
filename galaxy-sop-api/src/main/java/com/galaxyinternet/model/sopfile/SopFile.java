@@ -1,7 +1,8 @@
 package com.galaxyinternet.model.sopfile;
 
+import java.util.Map;
+
 import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
@@ -103,12 +104,28 @@ public class SopFile extends PagableEntity {
   	private String fType;
   	private String fWorktype;
   	private String fileStatusDesc;
+  	private String updatedDate;
+  	private Map<String,String> params;
   	
-  	
-  	
-  	
-  	
-  	 public String getfType() {
+
+
+	public String getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(String updatedDate) {
+     		this.updatedDate = updatedDate;
+	}
+
+	public Map<String, String> getParams() {
+		return params;
+	}
+
+	public void setParams(Map<String, String> params) {
+		this.params = params;
+	}
+
+	public String getfType() {
 		return fType;
 	}
 
@@ -120,12 +137,21 @@ public class SopFile extends PagableEntity {
  		return createDate;
  	}
      
+	@Override
+	public void setCreatedTime(Long createdTime) {
+		super.setCreatedTime(createdTime);
+		if (createdTime != null) {
+			this.createDate = DateUtil.longToString(createdTime);
+		}
+	}
      @Override
-     public void setCreatedTime(Long createdTime) {
-     	if(createdTime != null){
-     		this.createDate = DateUtil.longToString(createdTime);
+    public void setUpdatedTime(Long updatedTime) {
+    	// TODO Auto-generated method stub
+    	super.setUpdatedTime(updatedTime);
+    	if(updatedTime != null){
+     		this.updatedDate = DateUtil.longToString(updatedTime);
      	}
-     }
+    }
      
  
 

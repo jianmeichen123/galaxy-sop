@@ -1,6 +1,7 @@
 package com.galaxyinternet.sopfile.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -39,6 +40,17 @@ public class SopFileDaoImpl extends BaseDaoImpl<SopFile, Long> implements SopFil
 	public SopFile queryByProjectAndFileWorkType(SopFile sf){
 		return sqlSessionTemplate.selectOne(getSqlName("queryByProjectAndFileWorkType"), sf);
 	}
+
+	/**
+	 * 查询项目名称
+	 * @param map
+	 * @return
+	 */
+	public List<Map<String, String>> queryProjectName(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(getSqlName("queryProjectName"), map);
+	}
+
 
 	
 	

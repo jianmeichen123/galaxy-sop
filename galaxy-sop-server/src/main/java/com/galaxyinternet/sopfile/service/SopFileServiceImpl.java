@@ -1,13 +1,16 @@
 package com.galaxyinternet.sopfile.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.service.SopFileService;
@@ -39,6 +42,19 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 */
 	public SopFile selectByProjectAndFileWorkType(SopFile sf){
 		return sopFileDao.queryByProjectAndFileWorkType(sf);
+	}
+
+
+	
+	public Page<SopFile> queryPageList(SopFile query, Pageable pageable) {
+		// TODO Auto-generated method stub
+		Page<SopFile> pageEntity = super.queryPageList(query, pageable);
+		List<SopFile> sopFileList = pageEntity.getContent();
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map
+//		sopFileDao.queryProjectName(sopFileList);
+//		return null;
+		return null;
 	}
 	
 	

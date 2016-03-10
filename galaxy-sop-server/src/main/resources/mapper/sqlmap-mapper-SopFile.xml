@@ -26,7 +26,7 @@
 	<sql id="Base_Column_List">
 		id, project_id, project_progress, file_worktype, career_line,
 		file_source, file_type,
-		remark, voucher_id, file_status, file_uid, fil_uri, updated_time, created_time,
+		remark, voucher_id,  file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
 		file_key, bucket_name,file_name
 	</sql>
@@ -185,7 +185,7 @@
 		from sop_file
 		<where>
 			<trim prefixOverrides="and">
-				<if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
 				<if test="projectProgress != null" > and project_progress = #{projectProgress} </if>
 				<if test="fileworktypeList != null"> 
 					and file_worktype in
@@ -209,6 +209,22 @@
 			</trim>
 		</where>
 	</select>
+	
+	<!-- 批量查询项目名称 -->
+	<select id="queryProjectName" resultType="java.util.Map" parameterType="java.util.Map">
+		select
+		id,project_name
+		from sop_project
+		<where>
+			id IN
+				<foreach collection="list" index="item" item="item" open="("
+	                      separator="," close=")">
+	                  #{item.projectId}
+                </foreach>
+		</where>
+	</select>
+	
+
 	
 	
 	

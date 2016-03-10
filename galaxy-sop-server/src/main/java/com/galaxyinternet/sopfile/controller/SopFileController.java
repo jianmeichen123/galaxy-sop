@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,7 +47,6 @@ import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
-import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.MeetingRecordService;
@@ -92,6 +92,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	@RequestMapping(value="/simpleUpload",method=RequestMethod.POST)
 	public Result uploadFile(HttpServletRequest request,HttpServletResponse response){
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		//BTO
+		SopFile sopFile = null;
 		Result result = new Result();
 		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		User user = (User) obj;
@@ -126,9 +128,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			//上传至阿里云
 			UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);
 			
+			
 			//若文件上传成功
 			if(upResult.getResult().getStatus().equals(Status.OK)){
-				SopFile sopFile = new SopFile();
+				sopFile = new SopFile();
 				sopFile.setProjectId(Long.parseLong(projectId));
 				sopFile.setFileWorktype(fileWorkType);
 				sopFile = sopFileService.selectByProjectAndFileWorkType(sopFile);
@@ -158,7 +161,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				result.setStatus(Status.ERROR);
 				result.addError(ERR_UPLOAD_ALCLOUD);
 			}
-			result.setStatus(Status.OK);	
+			result.setStatus(Status.OK);
+			result.setMessage(sopFile.getProjectId());
 		}catch(DaoException e){
 			result.addError(ERR_UPLOAD_DAO);
 		} catch (IOException e) {
@@ -336,7 +340,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	}
 	
 	/**
-	 * 获取档案列表
+	 * 获取档案列表(分页查询)
 	 * 
 	 * @param
 	 * @return
@@ -364,6 +368,40 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return responseBody;
 	}
 
+	/**
+	 * 获取档案列表
+	 * 
+	 * @param
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/searchSopFileListWithoutPage", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> searchSopFileListWithoutPage(HttpServletRequest request, @RequestBody SopFile sopFile) {
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (obj == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		SopFileBo sbo = new SopFileBo();
+		List<String> fileWorktypeList = new ArrayList<String>();
+		fileWorktypeList.add(DictEnum.fileWorktype.投资协议.getCode());   //字典   投资协议
+		fileWorktypeList.add(DictEnum.fileWorktype.股权转让协议.getCode());
+		sbo.setProjectId(sopFile.getProjectId());
+		sbo.setFileworktypeList(fileWorktypeList);
+		try {
+			List<SopFile> sopFileList = sopFileService.selectByFileTypeList(sbo);
+			responseBody.setEntityList(sopFileList);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (DaoException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
+		return responseBody;
+	}
 	    
 
 	

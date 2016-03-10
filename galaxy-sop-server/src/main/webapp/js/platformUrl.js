@@ -2,7 +2,7 @@ var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
-var sopContentUrl = "http://127.0.0.1:8888/galaxy-sop-server";
+var sopContentUrl = "http://127.0.0.1:8888";
 
 var platformUrl = {
 	/**
@@ -135,45 +135,19 @@ var platformUrl = {
 	tab_tjhtc : sopContentUrl + "/galaxy/project/tjhtc",
 	
 	/**
-	 * 获取登录人的项目（会议类型、访谈阶段）：
+	 * 获取登录人的项目,阶段为：
 	 */
 	getUserPro : sopContentUrl + "/galaxy/project/progress/queryPerPro",
 	
 	/**
-	 * 访谈添加 弹出 page
+	 * 访谈添加：附件上传
 	 */
-	toViewAdd : sopContentUrl + "/galaxy/project/progress/interViewAdd",
-	/**
-	 * 访谈查询 page
-	 */
-	selectViewPage : sopContentUrl + "/galaxy/project/progress/queryInterview",
-	/**
-	 * 访谈添加：
-	 */
-	saveView : sopContentUrl + "/galaxy/project/progress/addInterview",
-	/**
-	 * 访谈添加,附加附件：
-	 */
-	saveViewFile : sopContentUrl + "/galaxy/project/progress/addFileInterview",
+	saveInteverView : sopContentUrl + "/galaxy/project/progress/addInterview",
 	
-	/**
-	 * 会议添加 弹出 page
-	 */
-	tomeetAdd : sopContentUrl + "/galaxy/project/progress/meetAddView",
 	/**
 	 * 会议添加：
 	 */
 	saveMeet : sopContentUrl + "/galaxy/project/progress/addmeet",
-	/**
-	 * 会议+附件添加：
-	 */
-	saveMeetFile : sopContentUrl + "/galaxy/project/progress/addfilemeet",
-	/**
-	 * 会议查询：
-	 */
-	selectMeetPage : sopContentUrl + "/galaxy/project/progress/queryMeet",
-	
-	
 	/**
 	 * 根据findByParentCode查询数据字典
 	 */
@@ -187,6 +161,14 @@ var platformUrl = {
 	 */
 	uploadFile2Task : sopContentUrl+"/galaxy/taskprocess/uploadFile",
 	/**
+	 * 档案列表查询(不分页)
+	 */
+	searchSopFileListWithoutPage : sopContentUrl + "/galaxy/sopFile/searchSopFileListWithoutPage",
+	/**
+	 * 档案上传
+	 */
+	simpleSopFileUpload : sopContentUrl + '/galaxy/sopFile/simpleUpload',
+	/**
 	 * 启动内部评审
 	 */
 	startReview : sopContentUrl + "/galaxy/project/progress/startReview/",
@@ -194,14 +176,10 @@ var platformUrl = {
 	 * 我的项目-文档下载
 	 */
 	downLoadFile : sopContentUrl+"/galaxy/sopFile/downloadFile",
-	/**
+/**
 	 * 获取尽职调查文件列表
 	 */
-	getFileList : sopContentUrl + "/galaxy/project/progress/proFileInfo/",
-	/**
-	 * 申请投决会排期
-	 */
-	inTjh : sopContentUrl + "/galaxy/project/progress/applyDecision/",
+	getFileList : sopContentUrl + "/galaxy/project/progress/proFileInfo/"
 }
 
 /**

@@ -234,7 +234,7 @@
 					$("#" + progress).addClass("on");
 					$("#" + progress + "_con").css("display","block");
 				},null);
-				
+				dataGrid.load(id);				
 			}
 		});
 		return false;
