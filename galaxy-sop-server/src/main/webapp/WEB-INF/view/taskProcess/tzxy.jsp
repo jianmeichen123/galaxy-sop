@@ -6,28 +6,30 @@
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
-				<th>业务类别</th>
+				<th>业务类型</th>
+				<th>存储类型</th>
 				<th>更新日期</th>
-				<th>经办经理</th>
-				<th>档案类型</th>
 				<th>档案状态</th>
-				<th>催办</th>
-				<th>查看附件</th>
+				<th>上传/查看附件</th>
+				<th>签署凭证</th>
 			</tr>
 		</thead>
 		<tbody>
 		</tbody>
 	</table>
+<!-- 	
 	<ul>
-		<li><a href="javascript:;" id="show-upload-btn">上传业务尽职调查报告</a></li>
-		<li><a href="javascript:;">申请投决会排期</a></li>
+		<li><a href="javascript:;" id="show-upload-btn">${btnTxt }</a></li>
+		<li><a href="javascript:;">提交完成</a></li>
 	</ul>
+	 -->
 </div>
 <!-- 弹出页面 -->
 <div id="upload-dialog" style="display: none;">
 	<div class="archivestc" >
 	<form>
 		<input type="hidden" name="id">
+		<input type="hidden" name="type">
 		<dl class="fmdl clearfix">
 	    	<dt>档案来源：</dt>
 	        <dd class="clearfix">
@@ -75,40 +77,40 @@
 $(function(){
 	loadRows();
 	loadRelatedData();
-	$("#show-upload-btn").click(function(){
-		showUploadPopup();
-	});
-	$("#download-template-btn").click(function(){
-		window.location.href=platformUrl.tempDownload+"?worktype=fileWorktype:5";
-	});
 });
 function loadRows()
 {
 	var url = platformUrl.queryFile;
 	var data = {
 		"projectId":"${projectId}",
-		"fileworktypeList":["fileWorktype:1","fileWorktype:2","fileWorktype:3","fileWorktype:4"]
+		"fileworktypeList":["fileWorktype:6","fileWorktype:7"]
 	};
 	$("#hrjzdc-table tbody").empty();
 	sendPostRequestByJsonObj(
 			url,
 			data,
 			function(data){
+				
 				$.each(data.entityList,function(){
-					var $tr = $('<tr data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
+					var $tr = $('<tr data-id="'+this.id+'" data-voucher-id="'+this.voucherId+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
 					$tr.append('<td>'+(isBlank(this.fWorktype) ? "" : this.fWorktype) +'</td>');
-					$tr.append('<td>'+(isBlank(this.updatedTime) ? "" : Number(this.updatedTime).toDate().format("yyyy/MM/dd"))+'</td>');
-					$tr.append('<td>'+(isBlank(this.fileUid) ? "" : fileUid) +'</td>');
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
+					$tr.append('<td>'+(isBlank(this.updatedTime) ? "" : Number(this.updatedTime).toDate().format("yyyy/MM/dd"))+'</td>');
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
-					$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\">催办</a>" : "")+'</td>');
 					if(isBlank(this.fileName)){
-						$tr.append('<td></td>');
+						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-type="">上传</a></td>');
 					}
 					else
 					{
-						$tr.append('<td><a href="#" onclick="downloadFile(this)">'+this.fileName+'</a></td>');
+						$tr.append('<td><a href="javascript:;">'+this.fileName+'</a></td>');
 					}
+					if(isBlank(this.voucherFileName)){
+						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-type="voucher">上传</a></td>');
+					}
+					else
+					{
+						$tr.append('<td><a href="javascript:;">'+this.voucherFileName+'</a></td>');
+					}	
 					$("#hrjzdc-table tbody").append($tr);
 				});
 			}
@@ -138,23 +140,31 @@ function loadRelatedData()
 			}
 	);
 }
-function showUploadPopup()
+function showUploadPopup(ele)
 {
+	var row = $(ele).closest("tr");
+	var type = $(ele).data("type");
 	$.popup({
 		txt:$("#upload-dialog").html(),
 		showback:function(){
 			var _this = this;
-			initUpload(_this);
-			initForm(_this);
+			initUpload(_this,type);
+			console.log(row.data("file-worktype"));
+			console.log(type);
+			initForm(_this,row.data("file-worktype"),type);
 		}
 	});
 }
-function initUpload(_dialog){
-	
+function initUpload(_dialog,type){
+	var url = platformUrl.uploadFile2Task;
+	if(type == 'voucher')
+	{
+		url = "<%=path%>/galaxy/taskprocess/uploadVoucher";
+	}
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
-		url : platformUrl.uploadFile2Task,
+		url : url,
 		multi_selection:false,
 		filters : {
 			max_file_size : '30mb'
@@ -219,17 +229,25 @@ function afterSave(data)
 		alert("上传失败.");
 	}
 }
-function initForm(_dialog)
+function initForm(_dialog,fileWorktype,type)
 {
-	var $row = $("#hrjzdc-table tbody tr[data-file-worktype='fileWorktype:1']");
+	console.log('initform');
+	var $row = $("#hrjzdc-table tbody tr[data-file-worktype='"+fileWorktype+"']");
 	var fileType = $row.data('file-type');
 	var fileName = $row.data('file-name');
 	var fileSource = $row.data('file-source');
 	var remark = $row.data('remark');
-	
-	$(_dialog.id).find("[name='id']").val($row.data('id'));
+	console.log($row.data('voucher-id'));
+	if(type == 'voucher')
+	{
+		$(_dialog.id).find("[name='id']").val($row.data('voucher-id'));
+	}
+	else
+	{
+		$(_dialog.id).find("[name='id']").val($row.data('id'));
+	}
+	$(_dialog.id).find("[name='type']").val(type);
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
-	$(_dialog.id).find("[name='fileType']").val();
 	$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
 	$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());

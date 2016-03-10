@@ -32,6 +32,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.Project;
@@ -108,9 +109,13 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	public ModelAndView doTask(Long taskId) {
 		
 		ModelAndView mv = new ModelAndView("/taskProcess/task_info");
-		SopTask task = sopTaskService.queryById(taskId);
-		mv.addObject("projectId", task.getProjectId());
-		mv.addObject("taskFlag", task.getTaskFlag());
+		try {
+			SopTask task = sopTaskService.queryById(taskId);
+			mv.addObject("projectId", task.getProjectId());
+			mv.addObject("taskFlag", task.getTaskFlag());
+		} catch (Exception e) {
+			throw new PlatformException(ExceptionMessage.QUERY_LIST_FAIL.getMessage(),e);
+		}
 		return mv;
 	}
 	

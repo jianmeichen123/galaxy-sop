@@ -24,9 +24,11 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
+import com.galaxyinternet.service.SopVoucherFileService;
 
 
 @Controller
@@ -38,7 +40,8 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	private SopTaskService sopTaskService;
 	@Autowired
 	private SopFileService sopFileService;
-
+	@Autowired
+	private SopVoucherFileService sopVoucherFileService;
 	@Override
 	protected BaseService<SopTask> getBaseService() {
 		return sopTaskService;
@@ -131,6 +134,46 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				bo.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 			}
 			sopFileService.updateById(bo);
+			result.setStatus(Status.OK);
+			
+		} catch (Exception e) {
+			Object msg = "上传失败";
+			result.addError(msg);
+			logger.error(msg.toString(),e);
+		}
+		
+		return result;
+	}
+	@ResponseBody
+	@RequestMapping("/uploadVoucher")
+	public Result uploadVoucher(SopVoucherFile bo, HttpServletRequest request)
+	{
+		Result result = new Result();
+		try {
+			MultipartFile file = null;
+			if(request instanceof MultipartHttpServletRequest)
+			{
+				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+				file = multipartRequest.getFile("file");
+			}
+			if(file != null)
+			{
+				String fileName = file.getOriginalFilename();
+				int dotPos = fileName.lastIndexOf(".");
+				String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				String ext = fileName.substring(dotPos);
+				File temp = File.createTempFile(key, ext);
+				Long length = temp.length();
+				file.transferTo(temp);
+				OSSHelper.simpleUploadByOSS(temp,key);
+				
+				bo.setFileKey(key);
+				bo.setFileLength(length);
+				bo.setFileName(fileName);
+				bo.setUpdatedTime(System.currentTimeMillis());
+				bo.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+			}
+			sopVoucherFileService.updateById(bo);
 			result.setStatus(Status.OK);
 			
 		} catch (Exception e) {

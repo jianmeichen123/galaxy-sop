@@ -106,6 +106,7 @@ public class SopFile extends PagableEntity {
   	private String fileStatusDesc;
   	private String updatedDate;
   	private Map<String,String> params;
+  	private String voucherFileName;
   	
 
 
@@ -320,6 +321,14 @@ public class SopFile extends PagableEntity {
 
 	public String getFileStatusDesc() {
 		return fileStatusDesc;
+	}
+
+	public String getVoucherFileName() {
+		return voucherFileName;
+	}
+
+	public void setVoucherFileName(String voucherFileName) {
+		this.voucherFileName = voucherFileName;
 	}
 
     

@@ -47,6 +47,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DictService;
@@ -54,6 +55,7 @@ import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
+import com.galaxyinternet.service.SopVoucherFileService;
 
 @Controller
 @RequestMapping("/galaxy/sopFile")
@@ -82,6 +84,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	
 	@Autowired
 	private MeetingRecordService meetingRecordService;
+	@Autowired
+	private SopVoucherFileService sopVoucherFileService;
 	
 	@Override
 	protected BaseService<SopFile> getBaseService() {
@@ -442,19 +446,37 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	{
 		InputStream fis = null;
 		OutputStream out = null;
+		String type = request.getParameter("type");
 		try {
-			SopFile file = sopFileService.queryById(id);
-			if(file == null)
+			String fileName = null;
+			String key = null;
+			if("voucher".equals(type))
 			{
-				throw new Exception();
+				SopVoucherFile file = sopVoucherFileService.queryById(id);
+				if(file == null)
+				{
+					throw new Exception();
+				}
+				fileName = file.getFileName();
+				key = file.getFileKey();
 			}
-			String fileName = file.getFileName();
+			else
+			{
+				SopFile file = sopFileService.queryById(id);
+				if(file == null)
+				{
+					throw new Exception();
+				}
+				fileName = file.getFileName();
+				key = file.getFileKey();
+			}
+			
 			int dotPos = fileName.lastIndexOf(".");
 			String prefix = fileName.substring(0, dotPos);
 			String suffix = fileName.substring(dotPos);
 			File temp = File.createTempFile(prefix, suffix);
 			
-			OSSHelper.simpleDownloadByOSS(temp, file.getFileKey());
+			OSSHelper.simpleDownloadByOSS(temp, key);
 			
 			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
 				fileName = URLEncoder.encode(fileName, "UTF-8");  

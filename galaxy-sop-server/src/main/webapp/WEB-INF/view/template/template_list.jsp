@@ -198,7 +198,7 @@ function loadTempList()
 					$tr.append('<td>'+this.docTypeDesc+'</td>') ;
 					$tr.append('<td>'+this.updateUname+'</td>') ;
 					$tr.append('<td>'+Number(this.updatedTime).toDate().format("yyyy/MM/dd")+'</td>') ;
-					if(this.fileKey != null)
+					if(this.fileName != null)
 					{
 						$tr.append('<td><a data-act="download" data-tid='+this.id+' href="javascript:; " class="blue">下载</a><a data-act="update" data-tid='+this.id+' href="javascript:; " class="blue">更新</a></td>') ; 
 					}
