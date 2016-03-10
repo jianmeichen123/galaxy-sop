@@ -216,11 +216,11 @@
 								projectProgress5($("#project_id").val());
 							}
 							if(id == 'projectProgress_9'){
+								$("#projectProgress_8_con").css("display","none");
 								$("#projectProgress_9").addClass("on");
 								$("#projectProgress_9_con").css("display","block");
 								projectProgress9($("#project_id").val());
 							}
-							
 							var indexNum = id.substr(id.length-1,1);
 							if(indexNum == '1'){
 								$('#projectProgress_1_table').bootstrapTable({url:'<%=path%>/galaxy/project/progress/queryInterview',method:'post',queryParams: queryParams ,queryParamsType: "limit",detailView: false,sidePagination: "server",pageSize: 10,pageList: [10, 25, 50, 100],search: false,showRefresh: true,minimumCountColumns: 2,clickToSelect: false,});
