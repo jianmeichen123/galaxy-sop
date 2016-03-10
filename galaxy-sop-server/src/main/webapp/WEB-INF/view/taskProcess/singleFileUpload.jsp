@@ -29,8 +29,8 @@
 		<dl class="fmdl clearfix">
 	    	<dt>档案来源：</dt>
 	        <dd class="clearfix">
-	        	<label><input name="fileSource" type="radio" value = "1" disabled/>内部</label>
-	            <label><input name="fileSource" type="radio" value = "2" disabled/>外部</label>
+	        	<label><input name="fileSource" type="radio" value = "1"/>内部</label>
+	            <label><input name="fileSource" type="radio" value = "2"/>外部</label>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -95,7 +95,13 @@ function loadRows()
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
 					$tr.append('<td>'+(isBlank(this.updatedTime) ? "" : Number(this.updatedTime).toDate().format("yyyy/MM/dd"))+'</td>');
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
-					$tr.append('<td>'+(isBlank(this.fileName) ? "" : this.fileName)+'</td>');
+					if(isBlank(this.fileName)){
+						$tr.append('<td></td>');
+					}
+					else
+					{
+						$tr.append('<td><a href="#" onclick="downloadFile(this)">'+this.fileName+'</a></td>');
+					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
 			}
@@ -220,5 +226,11 @@ function initForm(_dialog)
 	$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
 	$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());
+}
+function downloadFile(ele)
+{
+	var row = $(ele).closest("tr");
+	var fileId = row.data("id");
+	window.location.href=platformUrl.downLoadFile+"/"+fileId;
 }
 </script>
