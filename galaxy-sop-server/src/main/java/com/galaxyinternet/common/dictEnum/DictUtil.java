@@ -24,5 +24,18 @@ public class DictUtil {
 		}
 		return name;
 	}
+	public static String getTaskOrderName(Integer code){
+		String name="";
+		if(code==0)	{
+			name="正常";
+		}
+		if(code==1)	{
+			name="紧急";
+		}
+		if(code==2)	{
+			name="特急";
+		}
+		return name;
+	}
 
 }

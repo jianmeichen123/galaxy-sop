@@ -227,9 +227,32 @@
 							}
 							var indexNum = id.substr(id.length-1,1);
 							
+							var indexNum = id.substr(id.length-1,1);
 							if(indexNum == '1'){
-								$('#projectProgress_1_table').bootstrapTable({url:'<%=path%>/galaxy/project/progress/queryInterview',method:'post',queryParams: queryParams ,queryParamsType: "limit",detailView: false,sidePagination: "server",pageSize: 10,pageList: [10, 25, 50, 100],search: false,showRefresh: true,minimumCountColumns: 2,clickToSelect: false,});
-								$("#projectProgress_1_table").bootstrapTable('refresh');
+							   $("#projectProgress_1_con").css("display","block");
+								tiggerTable($("#projectProgress_1_table"),3);
+							}
+							if(indexNum == '2'){
+							 $("#projectProgress_2_con").css("display","block");
+								tiggerTable($("#projectProgress_2_table"),3);
+							}
+							if(indexNum == '3'){
+								 $("#projectProgress_3_con").css("display","block");
+								  tiggerTable($("#projectProgress_3_table"),3);
+								}
+							if(indexNum == '4'){
+							    $("#projectProgress_4_con").css("display","block");
+							    tiggerTable($("#projectProgress_4_table"),3);
+							}
+							if(indexNum == '6'){
+								$("#projectProgress_5_con").css("display","none");
+								 $("#projectProgress_6_con").css("display","block");
+								 tiggerTable($("#projectProgress_6_table"),3);
+							  }
+							if(indexNum == '7'){
+								$("#projectProgress_6_con").css("display","none");
+								$("#projectProgress_7_con").css("display","block");
+								 tiggerTable($("#projectProgress_7_table"),3);
 							}
 							
 						});

@@ -172,7 +172,8 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			sopTaskBo.setTaskDeadlineformat(sopTasknew.getTaskDeadline()!=null?DateUtil.convertDateToString(sopTasknew.getTaskDeadline()):"");//
 			sopTaskBo.setTaskName(sopTasknew.getTaskName()==null?"":sopTasknew.getTaskName());
 			sopTaskBo.setTaskType(sopTasknew.getTaskType()==null?"":DictUtil.getTypeName(sopTasknew.getTaskType()));
-			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder());
+			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder()==null?0:sopTasknew.getTaskOrder());
+			sopTaskBo.setOrderRemark(sopTasknew.getTaskOrder()==null?"":DictUtil.getTaskOrderName(sopTasknew.getTaskOrder()));
 			sopTaskBo.setDepartmentId(sopTasknew.getDepartmentId());
 			sopTaskBo.setTaskStatus(sopTasknew.getTaskStatus()==null?"":sopTasknew.getTaskStatus());
 			
@@ -191,7 +192,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("2");
-				caozuohtml.append("<a ").append("   href='/galaxy/soptask/doTask'  ").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
+				caozuohtml.append("<a ").append("   href='/galaxy/soptask/doTask?taskId="+sopTasknew.getProjectId()+"'").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 		
 			}
@@ -203,8 +204,6 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				caozuohtml.append("<a ").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
-			
-			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder());
 			sopTaskBo.setRemark(sopTasknew.getRemark()==null?"":sopTasknew.getRemark());
 			SopTaskBoList.add(sopTaskBo);
 		}

@@ -1,21 +1,21 @@
 /**
  * sop用户任务
  */
-var projectid ;
+var taskId ;
 $(function(){
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
 		console.log("ok");
-		var taskid=$("#taskid").val();
+		taskId=$("#taskid").val();
 		projectid=$("#projectid").val();
-	   	var _url = "/galaxy/soptask/goClaimtcPage?id="+taskid;
+	   	var _url = "/galaxy/soptask/goClaimtcPage?id="+taskId;
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				var taskid=getProjectid();
+				var taskid=getTaskId();
 				$(".btnbox").on("click", "#dotask", function() {
-					this.href="/galaxy/soptask/doTask?projectid="+taskid;
+					this.href="/galaxy/soptask/doTask?taskId="+taskid;
 	            });
 				//单击按钮刷新页列表里面的内容
 				$(".btnbox").on("click", "#notdo", function() {
@@ -50,8 +50,8 @@ $(function(){
 	
 	
 });
-function getProjectid(){
-	return projectid;
+function getTaskId(){
+	return taskId;
 }
 
 

@@ -18,6 +18,7 @@ public class SopTaskBo extends  SopTask implements Pagable{
 	private String statusFlag;
 	private String caozuohtml;
 	private int hours;
+	private String orderRemark;
 	public String getCreateUname() {
 		return createUname;
 	}
@@ -117,4 +118,14 @@ public class SopTaskBo extends  SopTask implements Pagable{
 	public Integer getPageNum() {
 		return this.pageNum;
 	}
+
+	public String getOrderRemark() {
+		return orderRemark;
+	}
+
+	public void setOrderRemark(String orderRemark) {
+		this.orderRemark = orderRemark;
+	}
+	
+	
 }
