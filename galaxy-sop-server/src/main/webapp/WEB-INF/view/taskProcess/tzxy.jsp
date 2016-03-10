@@ -159,7 +159,7 @@ function initUpload(_dialog,type){
 	var url = platformUrl.uploadFile2Task;
 	if(type == 'voucher')
 	{
-		url = "<%=path%>/galaxy/taskprocess/uploadVoucher";
+		url = platformUrl.uploadVoucher2Task;
 	}
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',

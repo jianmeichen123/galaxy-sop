@@ -161,6 +161,10 @@ var platformUrl = {
 	 */
 	uploadFile2Task : sopContentUrl+"/galaxy/taskprocess/uploadFile",
 	/**
+	 * 任务处理-上传签署凭证
+	 */
+	uploadVoucher2Task : sopContentUrl+"/galaxy/taskprocess/uploadVoucher",
+	/**
 	 * 档案列表查询(不分页)
 	 */
 	searchSopFileListWithoutPage : sopContentUrl + "/galaxy/sopFile/searchSopFileListWithoutPage",
