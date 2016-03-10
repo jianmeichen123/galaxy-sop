@@ -88,9 +88,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				viewName = "/taskProcess/singleFileUpload";
 				break;
 			case 9 : //工商变更登记凭证
-				btnTxt = "上传工商变更登记凭证";
-				fileWorktype = "fileWorktype:8";
-				viewName = "/taskProcess/singleFileUpload";
+				viewName = "/taskProcess/gsbg";
 				break;
 			default :
 				logger.error("Error taskFlag "+ taskFlag);
