@@ -261,10 +261,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SopTaskBo sopTaskBo  = new SopTaskBo();
 		//当前登录人
-		/*User user = (User) request.getSession().getAttribute(
+		User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
-		sopTaskBo.setAssignUid(user.getId());*/
-		sopTaskBo.setAssignUid(1l);
+		sopTaskBo.setAssignUid(user.getId());
 		sopTaskBo.setTaskStatus(SopConstant.TASK_MISSION_STATUS);
 		Long total = 0l;
 		try {
@@ -294,10 +293,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		Map<String, Object> map = new HashMap<String, Object>();
 		SopTaskBo sopTaskBo  = new SopTaskBo();
 		//当前登录人
-		/*User user = (User) request.getSession().getAttribute(
+		User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
-		sopTaskBo.setAssignUid(user.getId());*/
-		sopTaskBo.setAssignUid(1l);
+		sopTaskBo.setAssignUid(user.getId());
 		sopTaskBo.setTaskOrder(SopConstant.TASK_URGENT_STATUS);
 		Long total = 0l;
 		try {
