@@ -107,7 +107,11 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@RequestMapping(value = "/doTask",method = RequestMethod.GET)
 	public ModelAndView doTask(Long taskId) {
 		
-		return taskProcessController.showTaskInfo(taskId);
+		ModelAndView mv = new ModelAndView("/taskProcess/task_info");
+		SopTask task = sopTaskService.queryById(taskId);
+		mv.addObject("projectId", task.getProjectId());
+		mv.addObject("taskFlag", task.getTaskFlag());
+		return mv;
 	}
 	
 

@@ -632,6 +632,21 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		return null;
 	}
+	@ResponseBody
+	@RequestMapping(value = "/selectProjectFiles", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> selectProjectFiles(@RequestBody SopFileBo query)
+	{
+		ResponseData<SopFile> resp = new ResponseData<SopFile>();
+		try {
+			List<SopFile> entityList = sopFileService.selectByFileTypeList(query);
+			resp.setEntityList(entityList);
+		} catch (Exception e) {
+			Object msg = "查询失败.";
+			resp.getResult().addError(msg);
+			logger.error(msg.toString(),e);
+		}
+		return resp;
+	}
 	
 	
 }

@@ -133,17 +133,18 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 		
 		return resp;
 	}
-	@RequestMapping("/download/{id}")
-	public void download(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
+	@RequestMapping("/download")
+	public void download(SopTemplate query, HttpServletRequest request, HttpServletResponse response)
 	{
 		InputStream fis = null;
 		OutputStream out = null;
 		try {
-			SopTemplate template = templateService.queryById(id);
-			if(template == null)
+			List<SopTemplate> list = templateService.queryList(query);
+			if(list == null || list.size() == 0)
 			{
-				throw new Exception();
+				throw new Exception("未找到模板");
 			}
+			SopTemplate template = list.iterator().next();
 			String fileName = template.getFileName();
 			int dotPos = fileName.lastIndexOf(".");
 			String prefix = fileName.substring(0, dotPos);

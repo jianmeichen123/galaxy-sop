@@ -49,7 +49,13 @@
 				<if test="fileLength != null" > and file_length = #{fileLength,jdbcType=BIGINT} </if>
 				<if test="fileKey != null" > and file_key = #{fileKey,jdbcType=VARCHAR} </if>
 				<if test="bucketName != null" > and bucket_name = #{bucketName,jdbcType=VARCHAR} </if>
-				<if test="fileName != null" > and file_name = #{bucketName,jdbcType=VARCHAR} </if>			
+				<if test="fileName != null" > and file_name = #{bucketName,jdbcType=VARCHAR} </if>
+				<if test="fileworktypeList != null"> 
+					and file_worktype in
+					<foreach collection="fileworktypeList" item="fileworktypeList" index="index" open="(" close=")" separator=",">
+			            #{fileworktypeList}
+			        </foreach>
+				</if>			
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>

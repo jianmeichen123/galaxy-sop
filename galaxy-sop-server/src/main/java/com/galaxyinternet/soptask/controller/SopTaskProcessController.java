@@ -43,21 +43,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	protected BaseService<SopTask> getBaseService() {
 		return sopTaskService;
 	}
-	/**
-	 * 
-	 * @param projectId
-	 * @param pageName 显示页面，比如人事尽职调查传入hrjzdc
-	 * @return
-	 */
-	@RequestMapping("/showTaskInfo")
-	public ModelAndView showTaskInfo(@RequestParam Long taskId)
-	{
-		ModelAndView mv = new ModelAndView("/taskProcess/task_info");
-		SopTask task = sopTaskService.queryById(taskId);
-		mv.addObject("projectId", task.getProjectId());
-		mv.addObject("taskFlag", task.getTaskFlag());
-		return mv;
-	}
+	
 	@RequestMapping("/showFileList")
 	public ModelAndView showFileList(@RequestParam Integer taskFlag)
 	{
@@ -71,9 +57,8 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				viewName = "/taskProcess/wsjl";
 				break;
 			case 1 : //表示投资意向书
-				btnTxt = "上传投资意向书";
 				fileWorktype = "fileWorktype:5";
-				viewName = "/taskProcess/singleFileUpload";
+				viewName = "/taskProcess/tzyxs";
 				break;
 			case 2 : //人事尽职调查报告
 				btnTxt = "上传尽调报告";

@@ -241,7 +241,7 @@ function handleDownload()
 	$("[data-act='download']").click(function(){
 		var $self = $(this);
 		var id = $self.data("tid");
-		var url = platformUrl.tempDownload+"/"+id;
+		var url = platformUrl.tempDownload+"?id="+id;
 		window.location.href=url;
 	});
 }
@@ -371,10 +371,11 @@ function showMailPopup()
 	}
 	
 	$.popup({
-		txt:$("#upload-dialog").html(),
-		callback:function(){
+		txt:$("#mail-dialog").html(),
+		showback:function(){
 			var _dialog = this;
 			var i=0;
+			console.log(flags);
 			$.each(flags,function(){
 				var flag = $(this);
 				i++;
