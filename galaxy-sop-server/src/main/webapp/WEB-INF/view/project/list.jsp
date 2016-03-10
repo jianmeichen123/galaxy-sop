@@ -27,7 +27,7 @@
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+
 </head>
 
 <body>
@@ -155,6 +155,8 @@
     <input type="hidden" id="pathInput" value="<%=path%>">
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script type="text/javascript">
 	createMenus(5);
@@ -196,20 +198,40 @@
 						if(i == 1){
 							tiggerTable($("#" + progress + "_table"),3);
 						}
+						if(i == 5){
+							projectProgress5(id);
+						}
+						if(i == 9){
+							projectProgress9(id);
+						}
+						
 						//为Tab添加点击事件，用于重新刷新
 						$("#projectProgress_" + i).on("click",function(){
 							var id = $(this).attr("id");
+							
+							if(id == 'projectProgress_5'){
+								$("#projectProgress_7_con").css("display","none");
+								$("#projectProgress_5").addClass("on");
+								$("#projectProgress_5_con").css("display","block");
+								projectProgress5($("#project_id").val());
+							}
+							if(id == 'projectProgress_9'){
+								$("#projectProgress_9").addClass("on");
+								$("#projectProgress_9_con").css("display","block");
+								projectProgress9($("#project_id").val());
+							}
+							
 							var indexNum = id.substr(id.length-1,1);
-							if(indexNum == 1){
-								tiggerTable($("#" + progress + "_table"),3);
+							if(indexNum == '1'){
+								$('#projectProgress_1_table').bootstrapTable({url:'<%=path%>/galaxy/project/progress/queryInterview',method:'post',queryParams: queryParams ,queryParamsType: "limit",detailView: false,sidePagination: "server",pageSize: 10,pageList: [10, 25, 50, 100],search: false,showRefresh: true,minimumCountColumns: 2,clickToSelect: false,});
+								$("#projectProgress_1_table").bootstrapTable('refresh');
 							}
 						});
 					}
 					$("#" + progress).addClass("on");
 					$("#" + progress + "_con").css("display","block");
 				},null);
-				projectProgress9(id);
-				projectProgress5(id);
+				
 			}
 		});
 		return false;
@@ -554,7 +576,7 @@
 	
 	function projectProgress9(id){
 		$.ajax({
-			url : '/galaxy/project/progress/proFileInfo/'+id,
+			url : '/galaxy/project/progress/proFileInfo/'+id+'/9',
 			data : null,
 			async : false,
 			type : 'GET',
@@ -579,46 +601,45 @@
 					                 '</tr>'+
 					            '</thead>'+                                                                                                                                   
 					             '<tbody>';
-					for(var p in dataList){
-								var typehtml = "";
-								if (typeof(dataList[p].fType) == "undefined") { 
-									typehtml ='<td></td>';
-								}else{
-									typehtml = '<td>'+dataList[p].fType+'</td>';
+								for(var p in dataList){
+											var typehtml = "";
+											if (typeof(dataList[p].fType) == "undefined") { 
+												typehtml ='<td></td>';
+											}else{
+												typehtml = '<td>'+dataList[p].fType+'</td>';
+											}
+											var handlehtml = "";
+											
+											if (dataList[p].fileStatusDesc == "缺失") { 
+												handlehtml ='<td><a href="javascript:; " class="blue">催办</a></td>';
+											}else{
+												handlehtml = '<td>'+dataList[p].fileName+'</td>';
+											}
+											var endhtml ="";
+											if (dataList[p].fileStatusDesc == "缺失") { 
+												endhtml ='<td></td>';
+											}else{
+												endhtml = '<td><a href="javascript:; " onclick="handleDownload('+dataList[p].id+');" class="blue">附件</a></td>';
+											}
+											
+											htmlstart +='<tr>'+
+											'<td>'+dataList[p].fWorktype+'</td>'+
+											'<td>'+dataList[p].createDate+'</td>'+
+											typehtml+
+											'<td></td>'+
+											handlehtml+   
+											endhtml+   
+											'</tr>';   
+											
 								}
-								var handlehtml = "";
-								
-								if (dataList[p].fileStatusDesc == "缺失") { 
-									handlehtml ='<td><a href="javascript:; " class="blue">催办</a></td>';
-								}else{
-									handlehtml = '<td>'+dataList[p].fileName+'</td>';
-								}
-								
-								var endhtml ="";
-								if (dataList[p].fileStatusDesc == "缺失") { 
-									endhtml ='<td></td>';
-								}else{
-									endhtml = '<td><a href="javascript:; " onclick="handleDownload('+dataList[p].id+');" class="blue">附件</a></td>';
-								}
-								
-								htmlstart +='<tr>'+
-								'<td>'+dataList[p].fWorktype+'</td>'+
-								'<td>'+dataList[p].createDate+'</td>'+
-								typehtml+
-								'<td></td>'+
-								handlehtml+   
-								endhtml+   
-								'</tr>';   
-								
-					}
 					var htmlend= '</tbody></table>';
-					document.getElementById("projectProgress_9_con").innerHTML +=htmlstart+htmlend;
+					$("#projectProgress_9_con").html(htmlstart+htmlend);
 			}
 		});
 	}
 	function projectProgress5(id){
 		$.ajax({
-			url : '/galaxy/project/progress/proFileInfo/'+id,
+			url : '/galaxy/project/progress/proFileInfo/'+id+'/5',
 			data : null,
 			async : false,
 			type : 'GET',
@@ -638,7 +659,6 @@
 						}else{
 							handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="init('+id+','+2+');">上传签署证明</a></td>';
 						}
-				        
 						 var htmlhead = '<div class="btnbox_f btnbox_f1 btnbox_m clearfix">'+
 					        '<a href="javascript:;" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>'+
 					        handlefile+
@@ -692,7 +712,7 @@
 								
 					}
 					var htmlend= '</tbody></table>';
-					document.getElementById("projectProgress_5_con").innerHTML +=htmlstart+htmlend;
+					$("#projectProgress_5_con").html(htmlstart+htmlend);
 			}
 		});
 	
@@ -716,7 +736,6 @@
 					});
 				}
 		}
-			
 		//上传弹出框
 		var popPanel = {
 				init : function(){
@@ -766,12 +785,12 @@
 												if(result.status==200){
 													var _restmp = $.parseJSON(result.response);
 													alert(_restmp.status)
-													if(_restmp.status == "OK"){
+													if(_restmp.result.status == "OK"){
 														alert("上传成功");
 														popPanel.close();
 														
 													}else{
-														alert(result.response.errorCode);
+														alert(_restmp.result.message);
 													}
 													
 												}else{
@@ -791,7 +810,6 @@
 											},
 											Error: function(up, err) {
 												alert("上传失败"+err);
-//												document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 											}
 										}
 									});							
@@ -848,5 +866,16 @@
 		var url = "<%=path %>"+platformUrl.downLoadFile+"/"+id;
 		window.location.href=url;
 	}
+	
+	   //页面传参
+    function queryParams(params) {
+		var projectIdstr=$("#project_id").val();
+    	return {
+	    	pageSize: params.limit,
+	    	pageNum: params.offset,
+	    	order: params.order,
+	    	projectId:projectIdstr,
+    	};
+    }
 </script>
 </html>

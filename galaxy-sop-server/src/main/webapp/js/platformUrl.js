@@ -190,6 +190,10 @@ var platformUrl = {
 	 * 启动内部评审
 	 */
 	startReview : sopContentUrl + "/galaxy/project/progress/startReview/",
+	/**
+	 * 我的项目-文档下载
+	 */
+	downLoadFile : sopContentUrl+"/galaxy/sopFile/downloadFile",
 
 }
 
