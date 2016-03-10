@@ -194,7 +194,14 @@ var platformUrl = {
 	 * 我的项目-文档下载
 	 */
 	downLoadFile : sopContentUrl+"/galaxy/sopFile/downloadFile",
-
+	/**
+	 * 获取尽职调查文件列表
+	 */
+	getFileList : sopContentUrl + "/galaxy/project/progress/proFileInfo/",
+	/**
+	 * 申请投决会排期
+	 */
+	inTjh : sopContentUrl + "/galaxy/project/progress/applyDecision/",
 }
 
 /**

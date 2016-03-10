@@ -386,8 +386,8 @@
 			<div class="block" data-tab="con" id="projectProgress_6_con">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" class="pubbtn fffbtn llpubbtn">上传业务尽职调查报告</a>
-					<a href="javascript:;" class="pubbtn fffbtn lpubbtn" style="display:none;">申请投决会排期</a>
+					<a href="javascript:uploadYwjd();"  class="pubbtn fffbtn llpubbtn">上传业务尽职调查报告</a>
+					<a href="javascript:inTjh();" class="pubbtn fffbtn lpubbtn">申请投决会排期</a>
 				</div>
 				<div class="process clearfix">
 					<h2>业务尽调报告审核流程</h2>
@@ -399,41 +399,14 @@
 						<tr>
 							<th>业务类别</th>
 							<th>更新日期</th>
-							<th>经办经理</th>
+							<th>经办部门</th>
 							<th>存储类型</th>
 							<th>档案状态</th>
 							<th>催办</th>
 							<th>查看附件</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>人事尽职调查报告</td>
-							<td>2016-01-21</td>
-							<td>人事经理</td>
-							<td>文档</td>
-							<td>已上传</td>
-							<td></td>
-							<td><a href="#" class="blue">附件</a></td>
-						</tr>
-						<tr>
-							<td>人事尽职调查报告</td>
-							<td>2016-01-21</td>
-							<td>人事经理</td>
-							<td>文档</td>
-							<td>已上传</td>
-							<td></td>
-							<td><a href="#" class="blue">附件</a></td>
-						</tr>
-						<tr>
-							<td>人事尽职调查报告</td>
-							<td>2016-01-21</td>
-							<td>人事经理</td>
-							<td>文档</td>
-							<td>已上传</td>
-							<td></td>
-							<td><a href="#" class="blue">附件</a></td>
-						</tr>
+					<tbody id="fileList">
 					</tbody>
 				</table>
 			</div>

@@ -204,6 +204,9 @@
 						if(i == 9){
 							projectProgress9(id);
 						}
+						if(i == 6){
+							jzdc();
+						}
 						
 						//为Tab添加点击事件，用于重新刷新
 						$("#projectProgress_" + i).on("click",function(){
@@ -377,6 +380,84 @@
 		return false;
 	}
 	
+	
+	/**
+	 * 尽职调查
+	 */
+	 function jzdc(){
+		 var pid = $("#project_id").val();
+		 if(pid != '' && pid != null){
+			 /**
+			  *  生成尽职调查报告列表
+			  */
+			 sendGetRequest(
+					 sopContentUrl + '/galaxy/project/progress/proFileInfo/'+pid+'/6', 
+					 null, function(data){
+				 var html = "";
+				 $.each(data.entityList, function(i,o){
+					 html += "<tr>";
+					 if(o.fileWorktype == 'fileWorktype:1'){
+						 html += "<td>业务尽职调查报告";
+						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "<td>投资&杨一</td><td>文档</td>";
+					 }else if(o.fileWorktype == 'fileWorktype:2'){
+						 html += "<td>人事尽职调查报告";
+						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "<td>人事部</td><td>文档</td>";
+					 }else if(o.fileWorktype == 'fileWorktype:3'){
+						 html += "<td>法务尽职调查报告";
+						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "<td>法务部</td><td>文档</td>";
+					 }else if(o.fileWorktype == 'fileWorktype:4'){
+						 html += "<td>财务尽职调查报告";
+						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "<td>财务部</td><td>文档</td>";
+					 }
+					 if(o.fileStatus == 'fileStatus:1'){
+						 html += "<td>缺失</td>";
+						 if(o.fileWorktype != 'fileWorktype:1'){
+							 html += "<td><a href='javascript:void(0);'>催办</a></td>";
+						 }else{
+							 html += "<td></td>";
+						 }
+						 html += "<td>无</td>";
+					 }else if(o.fileStatus == 'fileStatus:2'){
+						 html += "<td>已上传</td>";
+						 html += "<td></td>";
+						 html += "<td><a href='javascript:void(0);'>" + o.fileName + "</a></td>";
+					 }else if(o.fileStatus == 'fileStatus:3'){
+						 html += "<td>已签署</td>";
+						 html += "<td></td>";
+						 html += "<td><a href='javascript:void(0);'>" + o.fileName + "</a></td>";
+					 }
+					 html += "</tr>";
+			   	 });
+				 $("#fileList").append(html);
+			 });
+		 }
+	}
+	
+	/**
+	 * 点击上传业务尽调报告按钮
+	 */
+	function uploadYwjd(){
+		var pid = $("#project_id").val();
+		init(pid, 1, 2);
+	}
+	/**
+	 * 点击申请投决会按钮
+	 */
+	function inTjh(){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null && pid != undefined){
+			sendGetRequest(
+					platformUrl.inTjh + pid,
+					null,
+					function(data){
+						
+					});
+		}
+	}
 	
 //////////////////   zf    LPH:内评会  CEO：ceo评审    LXH：立项会     ////////////////////////
 	/* plupload上传对象初始化,   绑定保存
@@ -576,7 +657,7 @@
 	
 	function projectProgress9(id){
 		$.ajax({
-			url : '/galaxy/project/progress/proFileInfo/'+id+'/9',
+			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id+'/9',
 			data : null,
 			async : false,
 			type : 'GET',
@@ -639,7 +720,7 @@
 	}
 	function projectProgress5(id){
 		$.ajax({
-			url : '/galaxy/project/progress/proFileInfo/'+id+'/5',
+			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id+'/5',
 			data : null,
 			async : false,
 			type : 'GET',
@@ -655,7 +736,7 @@
 					for(var p in dataList){
 						var handlefile="";
 				        if (dataList[p].fileStatusDesc == "缺失") { 
-				        	handlefile ='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="init('+id+','+1+');">上传投资意向书</a></td>';
+				        	handlefile ='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="init('+id+','+1+','+1+');">上传投资意向书</a></td>';
 						}else{
 							handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="init('+id+','+2+');">上传签署证明</a></td>';
 						}
@@ -718,13 +799,13 @@
 	
 	}
 	
-	function init(id,type){
+	function init(id,type,flag){
 		var urls ='';
 		if(type == '1'){
-			urls = '/galaxy/sopFile/projectFileUpload/';
+			urls = sopContentUrl + '/galaxy/sopFile/projectFileUpload/';
 		}
 		if(type == '2'){
-			urls = '/galaxy/sopFile/commonUpload/';
+			urls = sopContentUrl + '/galaxy/sopFile/commonUpload/';
 		}
 		var utils = {
 				path : $("#pathInput").val(),
@@ -732,10 +813,15 @@
 					_dom.empty();
 					$.each(_data.entityList,function(){
 							_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
-							  $("#fileWorkType option[value='fileWorktype:5']").attr("selected","selected");
+							if(flag == '1'){
+								$("#fileWorkType option[value='fileWorktype:5']").attr("selected","selected");
+							}else if(flag == '2'){
+								$("#fileWorkType option[value='fileWorktype:1']").attr("selected","selected");
+							}
 					});
 				}
 		}
+			
 		//上传弹出框
 		var popPanel = {
 				init : function(){
@@ -753,7 +839,7 @@
 									var uploader = new plupload.Uploader({
 										runtimes : 'html5,flash,silverlight,html4',
 										browse_button : $(_this.id).find("#selectBtn")[0], // you can pass in id...
-										url : utils.path + urls,
+										url : urls,
 										multipart:true,
 										multi_selection:false,
 										filters : {
@@ -785,12 +871,12 @@
 												if(result.status==200){
 													var _restmp = $.parseJSON(result.response);
 													alert(_restmp.status)
-													if(_restmp.result.status == "OK"){
+													if(_restmp.status == "OK"){
 														alert("上传成功");
 														popPanel.close();
 														
 													}else{
-														alert(_restmp.result.message);
+														alert(result.response.errorCode);
 													}
 													
 												}else{
@@ -798,7 +884,6 @@
 												}
 											},
 											BeforeUpload:function(up){
-												
 												var form = {
 														"fileSource" : $(_this.id).find("input[name='fileSource']:checked").val(),
 														"fileType" : $(_this.id).find("#fileType").val(),
@@ -810,6 +895,7 @@
 											},
 											Error: function(up, err) {
 												alert("上传失败"+err);
+//												document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 											}
 										}
 									});							
