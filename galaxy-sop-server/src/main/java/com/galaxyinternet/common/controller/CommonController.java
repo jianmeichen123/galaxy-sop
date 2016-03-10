@@ -104,8 +104,13 @@ public class CommonController {
 		tabs.add(new Menus(13L, "模板管理", u + "galaxy/template"));
 
 		tabs.add(new Menus(14L, "档案管理", u + "galaxy/sopFile/toFileList"));
-
 		
+		//管理员
+		if(roleIdList.contains(16)){
+			tabs.clear();
+			tabs.add(new Menus(15L, "用户管理", "http://fx.qa.galaxyinternet.com/platform/galaxy/user"));
+			tabs.add(new Menus(16L, "数据字典", "http://fx.qa.galaxyinternet.com/platform/galaxy/dict/index"));
+		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;
 	}
