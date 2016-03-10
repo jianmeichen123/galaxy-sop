@@ -102,14 +102,14 @@ function loadRows()
 					}
 					else
 					{
-						$tr.append('<td><a href="javascript:;">'+this.fileName+'</a></td>');
+						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="">'+this.fileName+'</a></td>');
 					}
 					if(isBlank(this.voucherFileName)){
 						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-type="voucher">上传</a></td>');
 					}
 					else
 					{
-						$tr.append('<td><a href="javascript:;">'+this.voucherFileName+'</a></td>');
+						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="voucher">'+this.voucherFileName+'</a></td>');
 					}	
 					$("#hrjzdc-table tbody").append($tr);
 				});
@@ -256,6 +256,11 @@ function downloadFile(ele)
 {
 	var row = $(ele).closest("tr");
 	var fileId = row.data("id");
-	window.location.href=platformUrl.downLoadFile+"/"+fileId;
+	var type = $(ele).data("type");
+	if(type == 'voucher')
+	{
+		fileId = row.data("voucher-id")
+	}
+	window.location.href=platformUrl.downLoadFile+"/"+fileId+"?type="+type;
 }
 </script>
