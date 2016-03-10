@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.galaxyinternet.model.sopfile.SopFile">
-	<resultMap id="BaseResultMap" type="SopFilePO">
+<mapper namespace="com.galaxyinternet.model.sopfile.SopVoucherFile">
+	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.sopfile.SopVoucherFile">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="project_id" jdbcType="BIGINT" property="projectId" />
 		<result column="project_progress" jdbcType="VARCHAR" property="projectProgress" />
@@ -10,7 +10,6 @@
 		<result column="file_source" jdbcType="VARCHAR" property="fileSource" />
 		<result column="file_type" jdbcType="VARCHAR" property="fileType" />
 		<result column="remark" jdbcType="VARCHAR" property="remark" />
-		<result column="voucher_id" jdbcType="BIGINT" property="voucherId" />
 		<result column="file_status" jdbcType="VARCHAR" property="fileStatus" />
 		<result column="file_uid" jdbcType="BIGINT" property="fileUid" />
 		<result column="fil_uri" jdbcType="VARCHAR" property="filUri" />
@@ -26,7 +25,7 @@
 	<sql id="Base_Column_List">
 		id, project_id, project_progress, file_worktype, career_line,
 		file_source, file_type,
-		remark, voucher_id,  file_status, file_uid, fil_uri, updated_time, created_time,
+		remark,  file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
 		file_key, bucket_name,file_name
 	</sql>
@@ -42,7 +41,6 @@
 				<if test="fileSource != null" > and file_source = #{fileSource,jdbcType=VARCHAR} </if>
 				<if test="fileType != null" > and file_type = #{fileType,jdbcType=VARCHAR} </if>
 				<if test="remark != null" > and remark = #{remark,jdbcType=VARCHAR} </if>
-				<if test="voucherId != null" > and voucher_id = #{voucherId,jdbcType=BIGINT} </if>
 				<if test="fileStatus != null" > and file_status = #{fileStatus,jdbcType=VARCHAR} </if>
 				<if test="fileUid != null" > and file_uid = #{fileUid,jdbcType=BIGINT} </if>
 				<if test="filUri != null" > and fil_uri = #{filUri,jdbcType=BIGINT} </if>
@@ -72,7 +70,7 @@
 		resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from sop_file
+		from sop_voucher_file
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	
@@ -80,40 +78,40 @@
 	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
-		from sop_file
+		from sop_voucher_file
 		<include refid="Base_Where_Clause" />
 	</select>
 	
 	<!-- 查询总数 -->
 	<select id="selectCount" resultType="java.lang.Long"
 		parameterType="java.util.Map">
-		select count(id) from sop_file
+		select count(id) from sop_voucher_file
 		<include refid="Base_Where_Clause" />
 	</select>
 	
 	<!-- 删除 -->
 	<delete id="delete" parameterType="java.util.Map">
-		delete from sop_file
+		delete from sop_voucher_file
 		<include refid="Base_Where_Clause" />
 	</delete>
 	
 	<!-- 根据ID删除 -->
 	<delete id="deleteById" parameterType="java.lang.Long">
-		delete from sop_file
+		delete from sop_voucher_file
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	
- 	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="SopFilePO">
- 		insert into sop_file (id, project_id, project_progress,
+ 	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.galaxyinternet.model.sopfile.SopVoucherFile">
+ 		insert into sop_voucher_file (id, project_id, project_progress,
  		file_worktype, career_line, file_source,
- 		file_type, remark, voucher_id, file_status,
+ 		file_type, remark, file_status,
  		file_uid, fil_uri, updated_time,
  		created_time, file_length, file_key,
  		bucket_name,file_name)
  		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT},
  		#{projectProgress,jdbcType=VARCHAR},
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
- 		#{fileType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{voucherId,jdbcType=BIGINT},
+ 		#{fileType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
  		#{fileStatus,jdbcType=VARCHAR},
  		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT},
  		#{createdTime,jdbcType=BIGINT}, #{fileLength,jdbcType=BIGINT},
@@ -122,8 +120,8 @@
  		#{fileName,jdbcType=VARCHAR})
  	</insert>
 	
-	<update id="updateByIdSelective" parameterType="SopFilePO">
-		update sop_file
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.sopfile.SopVoucherFile">
+		update sop_voucher_file
 		<set>
 			<if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
 			<if test="projectProgress != null"> project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
@@ -132,7 +130,6 @@
 			<if test="fileSource != null"> file_source = #{fileSource,jdbcType=VARCHAR}, </if>
 			<if test="fileType != null"> file_type = #{fileType,jdbcType=VARCHAR}, </if>
 			<if test="remark != null"> remark = #{remark,jdbcType=VARCHAR}, </if>
-			<if test="voucherId != null"> voucher_id = #{voucherId,jdbcType=BIGINT}, </if>
 			<if test="fileStatus != null"> file_status = #{fileStatus,jdbcType=VARCHAR}, </if>
 			<if test="fileUid != null"> file_uid = #{fileUid,jdbcType=BIGINT}, </if>
 			<if test="filUri != null"> fil_uri = #{filUri,jdbcType=VARCHAR}, </if>
@@ -150,8 +147,8 @@
 			</trim>
 		</where>
 	</update>
-	<update id="updateById" parameterType="SopFilePO">
-		update sop_file
+	<update id="updateById" parameterType="com.galaxyinternet.model.sopfile.SopVoucherFile">
+		update sop_voucher_file
 		<set>
 			<if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
 			<if test="projectProgress != null"> project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
@@ -160,7 +157,6 @@
 			<if test="fileSource != null"> file_source = #{fileSource,jdbcType=VARCHAR}, </if>
 			<if test="fileType != null"> file_type = #{fileType,jdbcType=VARCHAR}, </if>
 			<if test="remark != null"> remark = #{remark,jdbcType=VARCHAR}, </if>
-			<if test="voucherId != null"> voucher_id = #{voucherId,jdbcType=BIGINT}, </if>
 			<if test="fileStatus != null"> file_status = #{fileStatus,jdbcType=VARCHAR}, </if>
 			<if test="fileUid != null"> file_uid = #{fileUid,jdbcType=BIGINT}, </if>
 			<if test="filUri != null"> fil_uri = #{filUri,jdbcType=VARCHAR}, </if>
@@ -173,59 +169,4 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-	
-	
-	
-	
-	
-	<!-- 根据worktypeList查询 -->
-	<select id="selectFileListByType" resultMap="BaseResultMap" parameterType="com.galaxyinternet.bo.sopfile.SopFileBo">
-		select
-		<include refid="Base_Column_List" />
-		from sop_file
-		<where>
-			<trim prefixOverrides="and">
-				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
-				<if test="projectProgress != null" > and project_progress = #{projectProgress} </if>
-				<if test="fileworktypeList != null"> 
-					and file_worktype in
-					<foreach collection="fileworktypeList" item="fileworktypeList" index="index" open="(" close=")" separator=",">
-			            #{fileworktypeList}
-			        </foreach>
-				</if>
-			</trim>
-		</where>
-	</select>
-	
-	<!-- 根据worktypeList查询 -->
-	<select id="queryByProjectAndFileWorkType" resultMap="BaseResultMap" parameterType="SopFilePO">
-		select
-		<include refid="Base_Column_List" />
-		from sop_file
-		<where>
-			<trim prefixOverrides="and">
-				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
-				<if test="fileWorktype != null" > and  file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if>
-			</trim>
-		</where>
-	</select>
-	
-	<!-- 批量查询项目名称 -->
-	<select id="queryProjectName" resultType="java.util.Map" parameterType="java.util.Map">
-		select
-		id,project_name
-		from sop_project
-		<where>
-			id IN
-				<foreach collection="list" index="item" item="item" open="("
-	                      separator="," close=")">
-	                  #{item.projectId}
-                </foreach>
-		</where>
-	</select>
-	
-
-	
-	
-	
 </mapper>
