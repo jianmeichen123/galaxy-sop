@@ -113,7 +113,7 @@
  		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT},
  		#{projectProgress,jdbcType=VARCHAR},
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
- 		#{fileType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+ 		#{fileType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{voucherId,jdbcType=BIGINT},
  		#{fileStatus,jdbcType=VARCHAR},
  		#{fileUid,jdbcType=BIGINT}, #{filUri,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT},
  		#{createdTime,jdbcType=BIGINT}, #{fileLength,jdbcType=BIGINT},

@@ -351,7 +351,6 @@
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
 <script>
-	createMenus(5);
 	function editor(value, row, index){
 		var id=row.id;
 		var url='<%=path %>/galaxy/project/updatePro/'+id;
