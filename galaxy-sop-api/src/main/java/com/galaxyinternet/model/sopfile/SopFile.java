@@ -54,6 +54,10 @@ public class SopFile extends PagableEntity {
      * 档案摘要
      */
     private String remark;
+    /**
+     * 签署凭证Id
+     */
+    private Long voucherId;
     
     /**
      * 档案状态
@@ -207,7 +211,15 @@ public class SopFile extends PagableEntity {
     }
 
     
-    public String getFileStatus() {
+    public Long getVoucherId() {
+		return voucherId;
+	}
+
+	public void setVoucherId(Long voucherId) {
+		this.voucherId = voucherId;
+	}
+
+	public String getFileStatus() {
         return fileStatus;
     }
 

@@ -10,6 +10,7 @@
 		<result column="file_source" jdbcType="VARCHAR" property="fileSource" />
 		<result column="file_type" jdbcType="VARCHAR" property="fileType" />
 		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="voucher_id" jdbcType="BIGINT" property="voucherId" />
 		<result column="file_status" jdbcType="VARCHAR" property="fileStatus" />
 		<result column="file_uid" jdbcType="BIGINT" property="fileUid" />
 		<result column="fil_uri" jdbcType="VARCHAR" property="filUri" />
@@ -25,7 +26,7 @@
 	<sql id="Base_Column_List">
 		id, project_id, project_progress, file_worktype, career_line,
 		file_source, file_type,
-		remark, file_status, file_uid, fil_uri, updated_time, created_time,
+		remark, voucher_id, file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
 		file_key, bucket_name,file_name
 	</sql>
@@ -40,7 +41,8 @@
 				<if test="careerLine != null" > and career_line = #{careerLine,jdbcType=VARCHAR} </if>
 				<if test="fileSource != null" > and file_source = #{fileSource,jdbcType=VARCHAR} </if>
 				<if test="fileType != null" > and file_type = #{fileType,jdbcType=VARCHAR} </if>
-				<if test="remark != null" > and remark = #{remark,jdbcType=BIGINT} </if>
+				<if test="remark != null" > and remark = #{remark,jdbcType=VARCHAR} </if>
+				<if test="voucherId != null" > and voucher_id = #{voucherId,jdbcType=BIGINT} </if>
 				<if test="fileStatus != null" > and file_status = #{fileStatus,jdbcType=VARCHAR} </if>
 				<if test="fileUid != null" > and file_uid = #{fileUid,jdbcType=BIGINT} </if>
 				<if test="filUri != null" > and fil_uri = #{filUri,jdbcType=BIGINT} </if>
@@ -104,7 +106,7 @@
  	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="SopFilePO">
  		insert into sop_file (id, project_id, project_progress,
  		file_worktype, career_line, file_source,
- 		file_type, remark, file_status,
+ 		file_type, remark, voucher_id, file_status,
  		file_uid, fil_uri, updated_time,
  		created_time, file_length, file_key,
  		bucket_name,file_name)
@@ -130,6 +132,7 @@
 			<if test="fileSource != null"> file_source = #{fileSource,jdbcType=VARCHAR}, </if>
 			<if test="fileType != null"> file_type = #{fileType,jdbcType=VARCHAR}, </if>
 			<if test="remark != null"> remark = #{remark,jdbcType=VARCHAR}, </if>
+			<if test="voucherId != null"> voucher_id = #{voucherId,jdbcType=BIGINT}, </if>
 			<if test="fileStatus != null"> file_status = #{fileStatus,jdbcType=VARCHAR}, </if>
 			<if test="fileUid != null"> file_uid = #{fileUid,jdbcType=BIGINT}, </if>
 			<if test="filUri != null"> fil_uri = #{filUri,jdbcType=VARCHAR}, </if>
@@ -157,6 +160,7 @@
 			<if test="fileSource != null"> file_source = #{fileSource,jdbcType=VARCHAR}, </if>
 			<if test="fileType != null"> file_type = #{fileType,jdbcType=VARCHAR}, </if>
 			<if test="remark != null"> remark = #{remark,jdbcType=VARCHAR}, </if>
+			<if test="voucherId != null"> voucher_id = #{voucherId,jdbcType=BIGINT}, </if>
 			<if test="fileStatus != null"> file_status = #{fileStatus,jdbcType=VARCHAR}, </if>
 			<if test="fileUid != null"> file_uid = #{fileUid,jdbcType=BIGINT}, </if>
 			<if test="filUri != null"> fil_uri = #{filUri,jdbcType=VARCHAR}, </if>
