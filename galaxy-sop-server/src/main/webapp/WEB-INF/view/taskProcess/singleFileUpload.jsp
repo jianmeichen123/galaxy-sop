@@ -17,7 +17,7 @@
 		</tbody>
 	</table>
 	<ul>
-		<li><a href="javascript:;" id="show-upload-btn">上传尽调报告</a></li>
+		<li><a href="javascript:;" id="show-upload-btn">${btnTxt }</a></li>
 		<li><a href="javascript:;">提交完成</a></li>
 	</ul>
 </div>
@@ -82,7 +82,7 @@ function loadRows()
 	var url = platformUrl.queryFile;
 	var data = {
 		"projectId":"${projectId}",
-		"fileWorktype":"fileWorktype:1"
+		"fileWorktype":"${fileWorktype}"
 	};
 	$("#hrjzdc-table tbody").empty();
 	sendPostRequestByJsonObj(

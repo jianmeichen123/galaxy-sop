@@ -50,17 +50,70 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	 * @return
 	 */
 	@RequestMapping("/showTaskInfo")
-	public ModelAndView showTaskInfo(@RequestParam Long projectId,@RequestParam String pageName)
+	public ModelAndView showTaskInfo(@RequestParam Long taskId)
 	{
 		ModelAndView mv = new ModelAndView("/taskProcess/task_info");
-		mv.addObject("projectId", projectId);
-		mv.addObject("pageName", pageName);
+		SopTask task = sopTaskService.queryById(taskId);
+		mv.addObject("projectId", task.getProjectId());
+		mv.addObject("taskFlag", task.getTaskFlag());
 		return mv;
 	}
 	@RequestMapping("/showFileList")
-	public String showFileList(@RequestParam String pageName)
+	public ModelAndView showFileList(@RequestParam Integer taskFlag)
 	{
-		return "/taskProcess/"+pageName;
+		ModelAndView mv = new ModelAndView();
+		String viewName = "";
+		String btnTxt = "";
+		String fileWorktype = "";
+		switch(taskFlag)
+		{
+			case 0: //完善简历
+				viewName = "/taskProcess/wsjl";
+				break;
+			case 1 : //表示投资意向书
+				btnTxt = "上传投资意向书";
+				fileWorktype = "fileWorktype:5";
+				viewName = "/taskProcess/singleFileUpload";
+				break;
+			case 2 : //人事尽职调查报告
+				btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:2";
+				viewName = "/taskProcess/singleFileUpload";
+				break;
+			case 3 : //法务尽职调查报告
+				btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:3";
+				viewName = "/taskProcess/singleFileUpload";
+				break;
+			case 4 : //财务尽调报告
+				btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:4";
+				viewName = "/taskProcess/singleFileUpload";
+				break;
+			case 5 : //业务尽调报告
+				viewName = "/taskProcess/ywjd";
+				break;
+			case 6 : //投资协议
+			case 7 : //股权转让协议
+				viewName = "/taskProcess/tzxy";
+				break;
+			case 8 : //资金拨付凭证
+				btnTxt = "上传资金拨付凭证";
+				fileWorktype = "fileWorktype:9";
+				viewName = "/taskProcess/singleFileUpload";
+				break;
+			case 9 : //工商变更登记凭证
+				btnTxt = "上传工商变更登记凭证";
+				fileWorktype = "fileWorktype:8";
+				viewName = "/taskProcess/singleFileUpload";
+				break;
+			default :
+				logger.error("Error taskFlag "+ taskFlag);
+		}
+		mv.setViewName(viewName);
+		mv.addObject("fileWorktype", fileWorktype);
+		mv.addObject("btnTxt", btnTxt);
+		return mv;
 	}
 	
 	@ResponseBody

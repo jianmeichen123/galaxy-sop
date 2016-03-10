@@ -105,11 +105,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 * 弹出页面
 	 */
 	@RequestMapping(value = "/doTask",method = RequestMethod.GET)
-	public ModelAndView doTask(Long projectId) {
+	public ModelAndView doTask(Long taskId) {
 		
-		String pageName = "hrjzdc";
-		
-		return taskProcessController.showTaskInfo(projectId, pageName);
+		return taskProcessController.showTaskInfo(taskId);
 	}
 	
 
