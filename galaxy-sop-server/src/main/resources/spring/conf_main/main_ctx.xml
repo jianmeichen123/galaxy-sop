@@ -49,10 +49,6 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 
-	<!-- <bean id="dataSourceUser" parent="dataSource_parent"> <property name="url" 
-		value="${jdbc.url.user}" /> <property name="username" value="${jdbc.username}" 
-		/> <property name="password" value="${jdbc.password}" /> </bean> -->
-
 	<bean id="txManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
@@ -65,7 +61,7 @@
 			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="del*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="*" read-only="true" />
+			<tx:method name="*" read-only="false" />
 		</tx:attributes>
 	</tx:advice>
 
@@ -74,13 +70,6 @@
 		<aop:pointcut id="allManagerMethod" expression="execution(* *..service..*.*(..))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="allManagerMethod" />
 	</aop:config>
-
-	<!--创建SqlSessionFactory，同时指定数据源 -->
-	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:db/mybatis-config.xml" />
-		<property name="mapperLocations" value="classpath:mapper/*.xml" />
-	</bean> -->
 
 	<!-- 给SqlSessionDaoSupport注入默认的sessionfactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -96,11 +85,4 @@
 	</bean>
 	
 	<tx:annotation-driven transaction-manager="txManager" />
-
-	<!-- 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.galaxyinternet.admin.mapper" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-		<property name="markerInterface" value="com.galaxyinternet.common.mapper.SqlMapper" />
-	</bean> -->
-
 </beans>
