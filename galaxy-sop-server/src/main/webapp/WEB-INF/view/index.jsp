@@ -310,7 +310,7 @@
 		ProjectVoteWill();
 		selectSopTask();
 		createMenus(1);
-		loadAjaxSopUserSchedule('','./sopUserSchedule/selectSopUserSchedule/1'); 
+		loadAjaxSopUserSchedule('',sopContentUrl + '/galaxy/sopUserSchedule/selectSopUserSchedule/1'); 
 	});
 </script>
 </html>

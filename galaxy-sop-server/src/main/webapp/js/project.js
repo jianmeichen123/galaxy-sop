@@ -61,7 +61,7 @@ $(function(){
 	/**
 	 * 加载项目详情数据
 	 */
-	sendGetRequest(platformUrl.detailProject + "28", {}, function(data){
+	sendGetRequest(platformUrl.detailProject + "${requestScope.pid}", {}, function(data){
 		$("#pid").val(data.entity.id);
 		$("#project_name").text(data.entity.projectName);
 		$("#project_code").text(data.entity.projectCode);

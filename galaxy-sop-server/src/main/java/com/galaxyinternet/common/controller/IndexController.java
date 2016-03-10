@@ -43,8 +43,9 @@ public class IndexController {
 	 * 跳转到修改项目页面
 	 * @return
 	 */
-	@RequestMapping(value = "/upp", method = RequestMethod.GET)
-	public String updateProject() {
+	@RequestMapping(value = "/upp/{pid}", method = RequestMethod.GET)
+	public String updateProject(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		request.setAttribute("pid", pid);
 		return "project/update";
 	}
 	
