@@ -96,8 +96,9 @@
 						<th data-field="meetingResultStr" data-align="center">会议结论</th>
 						<th data-field="fname" data-align="center">会议录音</th>
 						 -->
-						<th data-field="hygk" data-align="center">会议概况</th>
-						<th data-field="proInfo" data-align="center">项目信息</th>  
+						 <th data-align="center" data-formatter="rowcolumnFormat">会议概况</th>
+						<!-- <th data-field="hygk" data-align="center">会议概况</th> -->
+						<th data-align="center"  data-formatter="proinfoFormat" >项目信息</th>  
 						<th data-field="meetingNotes" data-align="center">会议记要</th>
 					</tr>
 				</thead>

@@ -35,7 +35,8 @@ function setProSelect(data){
 	
 	if(result == "ERROR"){ //OK, ERROR
 		alert("error "+data.result.message);
-		$("#popbg,#pop").remove();
+		$(".pop").remove();
+		$("#popbg").hide();	
 		return;
 	}
 	
@@ -43,7 +44,8 @@ function setProSelect(data){
 	
 	if(entityList.length == 0 ){
 		alert("无相关项目可添加记录");
-		//$("#popbg,#pop").remove();
+		$(".pop").remove();
+		$("#popbg").hide();	
 		return;
 	}else{
 		for(var i=0;i<data.entityList.length;i++){
@@ -207,6 +209,26 @@ function initUpload() {
 	uploader.init();
 }
 
+
+//table format
+function rowcolumnFormat(value, row, index){
+	var fileinfo = "";
+	var rc = "";
+	if(row.fileId != null && row.fileId != undefined && row.fileId != "undefined"){
+		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+	}
+	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+				"会议日期："+row.meetingDateStr+
+				"</br>会议结论："+row.meetingResultStr+
+				"</br>会议录音："+fileinfo+
+			"</div>" ;
+	return rc;
+}
+
+//table format
+function proinfoFormat(value, row, index){
+	return row.proName+"</br>"+row.meetingTypeStr;
+}
 
 
 

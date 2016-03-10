@@ -1,7 +1,14 @@
 package com.galaxyinternet.project.controller;
 
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +53,7 @@ import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
@@ -94,17 +102,27 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())){ //字典 项目状态 = 会议结论 关闭
 			return "项目已经关闭";
 		}
-		
 		if(user != null){
 			if(project.getCreateUid()==null || user.getId().longValue()!=project.getCreateUid().longValue()){ 
 				return "不允许操作他人项目";
 			}
 		}
 		if(prograss != null){
-			if(project.getProjectProgress()==null || !project.getProjectProgress().equals(prograss) ){
-				return "项目当前阶段不允许进行该操作";
+			if(project.getProjectProgress()!=null){
+				try {
+					int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;
+					int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
+					if(projectPro < operationPro){
+						return "项目当前阶段不允许进行该操作";
+					}
+				} catch (Exception e) {
+					return "项目阶段不和规范";
+				}
+			}else{
+				return "项目阶段出错";
 			}
 		}
+		
 		return null;
 	}
 	
@@ -247,6 +265,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ) {
 		
 		ResponseData<InterviewRecordBo> responseBody = new ResponseData<InterviewRecordBo>();
+		
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		try {
@@ -573,14 +592,15 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/proFileInfo/{pid}/{proProgressid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopFile> proFileInfo(HttpServletRequest request,@PathVariable("pid") Long pid,@PathVariable("proProgressid") Long proProgressid) {
+	@RequestMapping(value = "/proFileInfo/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> proFileInfo(HttpServletRequest request,String proProgress,@PathVariable Long pid) {
 		
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 		
 		List<String> fileworktypeList = new ArrayList<String>();
 		
-		String proProgress = "projectProgress:"+proProgressid;
+		Project project = projectService.queryById(pid);
+		proProgress = project.getProjectProgress();
 		
 		//根据角色判断-显示文件上传列表
 		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -1016,6 +1036,70 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		return responseBody;
 	}
+	
+	
+	/**文件下载
+	 * @param id  sopfile 文件 id
+	 *
+	 **/
+	@RequestMapping("/download/{id}")
+	public void download(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
+	{
+		InputStream fis = null;
+		OutputStream out = null;
+		try {
+			SopFile template = sopFileService.queryById(id);
+			if(template == null)
+			{
+				throw new Exception();
+			}
+			String fileName = template.getFileName();
+			int dotPos = fileName.lastIndexOf(".");
+			String prefix = fileName.substring(0, dotPos);
+			String suffix = fileName.substring(dotPos);
+			File temp = File.createTempFile(prefix, suffix);
+			
+			OSSHelper.simpleDownloadByOSS(temp, template.getFileKey());
+			String dlName = fileName;
+			
+			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
+				dlName = URLEncoder.encode(fileName, "UTF-8");  
+			} else {  
+				dlName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");  
+			} 
+			
+			response.reset();
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("application/x-download");
+			response.setHeader("Content-Disposition", "attachment;filename=" + dlName);
+			response.setHeader("Content-Length", "" + temp.length());
+			out = new BufferedOutputStream(response.getOutputStream());
+			fis = new BufferedInputStream(new FileInputStream(temp.getPath()));
+			byte[] buffer = new byte[fis.available()];
+			fis.read(buffer);
+			out.write(buffer);
+			out.flush();
+			response.flushBuffer();
+		} catch (Exception e) {
+			logger.error("下载失败.",e);
+		}
+		finally
+		{
+			try {
+				if(fis != null)
+				{
+					fis.close();
+				}
+				if(out != null)
+				{
+					out.close();
+				}
+			} catch (IOException e) {
+				logger.error("下载失败.",e);
+			}
+		}
+	}
+	
 	
 	
 	

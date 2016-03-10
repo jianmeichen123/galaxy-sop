@@ -56,6 +56,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 
 	
 	//文件上传, 成功后插入 sopfile 数据库
+	//返回 附件id
 	@Transactional
 	public Long upfile(MultipartFile file,Long uid,String path,Long projectId,String projectProgress){
 		Long fileId = null;
@@ -246,7 +247,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	}
 	
 	
-	//投决会
+	//投决会 
+	// --> 投资协议
 	@Transactional
 	public void tjh(Long pid,Project pro,String meetingResult,Long userid,Long udepartid){
 		
@@ -320,24 +322,19 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		
 		if(contentList!=null){
 			for(MeetingRecordBo ib : contentList){
-				String fileInfo = "";
-				
+				//String fileInfo = "";
 				if(ib.getFileId()!=null){
 					SopFile file = sopFileDao.selectById(ib.getFileId());
-					
 					if(file!=null){
-						//ib.setFname(file.getFileName());
+						ib.setFname(file.getFileName());
 						ib.setFkey(file.getFileKey());
-						fileInfo = "<a href=\"javascript:filedown("+ib.getFileId()+","+file.getFileKey()+");\" key=\""+ file.getFileKey()+"\">"+file.getFileName()+"</a>";
+						//fileInfo = "<a href=\"javascript:filedown("+ib.getFileId()+","+file.getFileKey()+");\" key=\""+ file.getFileKey()+"\">"+file.getFileName()+"</a>";
 					}
 				}
-				ib.setHygk("<div style=\"text-align:left;margin-left:20%;\">会议日期："+ib.getMeetingDateStr()+"</br>会议结论："+ib.getMeetingResultStr()+"</br>会议录音："+fileInfo+"</div>");
-			
-				//ib.setProInfo("<div style=\"text-align:left;margin-left:20%;\">"+ib.getProName()+"</br>"+ib.getMeetingResultStr()+"</div>");
-				ib.setProInfo(ib.getProName()+"</br>"+ib.getMeetingTypeStr());
+				//ib.setHygk("<div style=\"text-align:left;margin-left:20%;\">会议日期："+ib.getMeetingDateStr()+"</br>会议结论："+ib.getMeetingResultStr()+"</br>会议录音："+fileInfo+"</div>");
+				//ib.setProInfo(ib.getProName()+"</br>"+ib.getMeetingTypeStr());
 			}
 		}
-		
 		return mpage;
 	}
 	
@@ -368,7 +365,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	
 	/**
 	 * 投资意向书阶段，    上传  投资意向书-签署证明；
-	 * 				更新项目阶段；
+	 * 				更新项目阶段；  --》  尽职调查
 	 * 				生成任务;
 	 * @param   project 
 	 * @return
@@ -421,45 +418,48 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		task2.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
 		sopTaskDao.insert(task2);
 		
-		//财务dd  任务生成
-		SopTask task3 = new SopTask();
-		task3.setProjectId(project.getId());         //项目id
-		task3.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);  		 //任务分派到: 投资经理
-		task3.setTaskName("上传财务尽职调查报告");     //任务名称：  上传股权转让协议
-		//0 完善简历、
-		//1 投资意向书、
-		//2 人事尽职调查报告、
-		//3 法务尽职调查报告、
-		//4 财务尽调报告、
-		//5 业务尽调报告、
-		//6 投资协议、
-		//7 股权转让协议、
-		//8 资金拨付凭证、
-		//9 工商变更登记凭证
-		task3.setTaskFlag(4);
-		task3.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
-		task3.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
-		sopTaskDao.insert(task3);
 		
-		//法务dd  任务生成
-		SopTask task4 = new SopTask();
-		task4.setProjectId(project.getId());         //项目id
-		task4.setDepartmentId(SopConstant.DEPARTMENT_FW_ID);  		 //任务分派到: 投资经理
-		task4.setTaskName("上传法务尽职调查报告");        //任务名称：  上传股权转让协议
-		//0 完善简历、
-		//1 投资意向书、
-		//2 人事尽职调查报告、
-		//3 法务尽职调查报告、
-		//4 财务尽调报告、
-		//5 业务尽调报告、
-		//6 投资协议、
-		//7 股权转让协议、
-		//8 资金拨付凭证、
-		//9 工商变更登记凭证
-		task4.setTaskFlag(3);
-		task4.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
-		task4.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
-		sopTaskDao.insert(task4);
+		if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.外部项目.getCode())){
+			//财务dd  任务生成
+			SopTask task3 = new SopTask();
+			task3.setProjectId(project.getId());         //项目id
+			task3.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);  		 //任务分派到: 投资经理
+			task3.setTaskName("上传财务尽职调查报告");     //任务名称：  上传股权转让协议
+			//0 完善简历、
+			//1 投资意向书、
+			//2 人事尽职调查报告、
+			//3 法务尽职调查报告、
+			//4 财务尽调报告、
+			//5 业务尽调报告、
+			//6 投资协议、
+			//7 股权转让协议、
+			//8 资金拨付凭证、
+			//9 工商变更登记凭证
+			task3.setTaskFlag(4);
+			task3.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
+			task3.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
+			sopTaskDao.insert(task3);
+			
+			//法务dd  任务生成
+			SopTask task4 = new SopTask();
+			task4.setProjectId(project.getId());         //项目id
+			task4.setDepartmentId(SopConstant.DEPARTMENT_FW_ID);  		 //任务分派到: 投资经理
+			task4.setTaskName("上传法务尽职调查报告");        //任务名称：  上传股权转让协议
+			//0 完善简历、
+			//1 投资意向书、
+			//2 人事尽职调查报告、
+			//3 法务尽职调查报告、
+			//4 财务尽调报告、
+			//5 业务尽调报告、
+			//6 投资协议、
+			//7 股权转让协议、
+			//8 资金拨付凭证、
+			//9 工商变更登记凭证
+			task4.setTaskFlag(3);
+			task4.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
+			task4.setTaskType(DictEnum.taskType.协同办公.getCode());				 //任务类型    协同
+			sopTaskDao.insert(task4);
+		}
 	}
 	
 	

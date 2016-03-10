@@ -125,18 +125,14 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				if(ib.getFileId()!=null){
 					SopFile file  = sopFileDao.selectById(ib.getFileId());
 					if(file!=null){
-						//ib.setFname(file.getFileName());
+						ib.setFname(file.getFileName());
 						ib.setFkey(file.getFileKey());
-						fileInfo = "<a href=\"javascript:filedown("+ib.getFileId()+","+file.getFileKey()+");\" key=\""+ file.getFileKey()+"\">"+file.getFileName()+"</a>";
+						//fileInfo = "<a href=\"javascript:filedown("+ib.getFileId()+","+file.getFileKey()+");\" key=\""+ file.getFileKey()+"\">"+file.getFileName()+"</a>";
 					}
 				}
-				
-				ib.setFtgk("<div style=\"text-align:left;margin-left:20%;\">会议日期："+ib.getViewDateStr()+"</br>访谈对象："+ib.getViewTarget()+"</br>会议录音："+fileInfo+"</div>");
+				//ib.setFtgk("<div style=\"text-align:left;margin-left:20%;\">会议日期："+ib.getViewDateStr()+"</br>访谈对象："+ib.getViewTarget()+"</br>会议录音："+fileInfo+"</div>");
 			}
 		}
-		
-		
-		
 		return viewPage;
 	}
 	

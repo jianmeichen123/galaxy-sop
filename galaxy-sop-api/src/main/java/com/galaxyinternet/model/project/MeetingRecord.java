@@ -86,6 +86,17 @@ public class MeetingRecord  extends BaseEntity{
     }
 
     public void setMeetingType(String meetingType) {
+    	if(meetingType!=null){
+			if(meetingType.equals("meetingType:1")){
+				meetingTypeStr = "内评会";
+			}else if(meetingType.equals("meetingType:2")){
+				meetingTypeStr = "CEO评审";
+			}else if(meetingType.equals("meetingType:3")){
+				this.meetingTypeStr = "立项会";
+			}else if(meetingType.equals("meetingType:4")){
+				meetingTypeStr = "投决会";
+			}
+		}
         this.meetingType = meetingType == null ? null : meetingType.trim();
     }
 
@@ -95,6 +106,15 @@ public class MeetingRecord  extends BaseEntity{
 	}
 
 	public void setMeetingResult(String meetingResult) {
+		if(meetingResult!=null&&meetingResultStr==null){
+			if(meetingResult.equals("meetingResult:1")){
+				meetingResultStr = "通过";
+			}else if(meetingResult.equals("meetingResult:2")){
+				meetingResultStr = "待定";
+			}else if(meetingResult.equals("meetingResult:3")){
+				meetingResultStr = "否决";
+			}
+		}
 		this.meetingResult = meetingResult == null ? null : meetingResult.trim();
 	}
 
@@ -131,63 +151,42 @@ public class MeetingRecord  extends BaseEntity{
 				meetingDateStr = DateUtil.convertDateToString(meetingDate);
 			}
 		}
-		
 		this.meetingDateStr = meetingDateStr;
 	}
 	
 	public String getMeetingTypeStr() {
-		if(this.meetingType!=null){
-			if(this.meetingType.equals("meetingType:1")){
-				this.meetingTypeStr = "内评会";
-			}else if(this.meetingType.equals("meetingType:2")){
-				this.meetingTypeStr = "CEO评审";
-			}else if(this.meetingType.equals("meetingType:3")){
-				this.meetingTypeStr = "立项会";
-			}else if(this.meetingType.equals("meetingType:4")){
-				this.meetingTypeStr = "投决会";
+		if(meetingType!=null&&meetingTypeStr==null){
+			if(meetingType.equals("meetingType:1")){
+				meetingTypeStr = "内评会";
+			}else if(meetingType.equals("meetingType:2")){
+				meetingTypeStr = "CEO评审";
+			}else if(meetingType.equals("meetingType:3")){
+				meetingTypeStr = "立项会";
+			}else if(meetingType.equals("meetingType:4")){
+				meetingTypeStr = "投决会";
 			}
 		}
 		return meetingTypeStr;
 	}
 
 	public void setMeetingTypeStr(String meetingTypeStr) {
-		if(this.meetingType!=null){
-			if(this.meetingType.equals("meetingType:1")){
-				this.meetingTypeStr = "内评会";
-			}else if(this.meetingType.equals("meetingType:2")){
-				this.meetingTypeStr = "CEO评审";
-			}else if(this.meetingType.equals("meetingType:3")){
-				this.meetingTypeStr = "立项会";
-			}else if(this.meetingType.equals("meetingType:4")){
-				this.meetingTypeStr = "投决会";
-			}
-		}
 		this.meetingTypeStr = meetingTypeStr;
 	}
 		
 	public String getMeetingResultStr() {
-		if(this.meetingResult!=null){
-			if(this.meetingResult.equals("meetingResult:1")){
-				this.meetingResultStr = "通过";
-			}else if(this.meetingResult.equals("meetingResult:2")){
-				this.meetingResultStr = "待定";
-			}else if(this.meetingResult.equals("meetingResult:3")){
-				this.meetingResultStr = "否决";
+		if(meetingResult!=null&&meetingResultStr==null){
+			if(meetingResult.equals("meetingResult:1")){
+				meetingResultStr = "通过";
+			}else if(meetingResult.equals("meetingResult:2")){
+				meetingResultStr = "待定";
+			}else if(meetingResult.equals("meetingResult:3")){
+				meetingResultStr = "否决";
 			}
 		}
 		return meetingResultStr;
 	}
 
 	public void setMeetingResultStr(String meetingResultStr) {
-		if(this.meetingResult!=null){
-			if(this.meetingResult.equals("meetingResult:1")){
-				this.meetingResultStr = "通过";
-			}else if(this.meetingResult.equals("meetingResult:2")){
-				this.meetingResultStr = "待定";
-			}else if(this.meetingResult.equals("meetingResult:3")){
-				this.meetingResultStr = "否决";
-			}
-		}
 		this.meetingResultStr = meetingResultStr;
 	}
 

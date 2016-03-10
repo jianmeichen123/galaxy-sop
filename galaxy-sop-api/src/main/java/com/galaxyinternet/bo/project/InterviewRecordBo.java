@@ -19,8 +19,6 @@ public class InterviewRecordBo extends InterviewRecord{
 	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
 	
-	private String ftgk;
-	
 
 	public Integer getPageNum() {
 		return pageNum;
@@ -113,13 +111,7 @@ public class InterviewRecordBo extends InterviewRecord{
 		this.inpro = inpro;
 	}
 
-	public String getFtgk() {
-		return ftgk;
-	}
 
-	public void setFtgk(String ftgk) {
-		this.ftgk = ftgk;
-	}
 
 	
 	

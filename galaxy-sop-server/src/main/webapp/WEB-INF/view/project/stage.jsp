@@ -267,8 +267,9 @@
 					data-page-list="[3,6,10]" data-toolbar="#projectProgress_1_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-field="ftgk" data-align="center">访谈概况</th>
-							<th data-field="viewNotes" data-align="center">访谈日志</th>
+							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
+						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
+						<th data-field="viewNotes" data-align="center">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
@@ -291,7 +292,7 @@
 					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[3,6,10,20]">
 					<thead>
 						<tr>
-							<th data-field="hygk" data-align="center">会议概况</th>
+							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
 							<th data-field="meetingNotes" data-align="center">会议记要</th>
 						</tr>
 					</thead>
@@ -318,7 +319,7 @@
 					data-toolbar="#projectProgress_3_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-field="hygk" data-align="center">会议概况</th>
+							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
 							<th data-field="meetingNotes" data-align="center">会议记要</th>
 						</tr>
 					</thead>
@@ -345,7 +346,7 @@
 					data-toolbar="#projectProgress_4_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-field="hygk" data-align="center">会议概况</th>
+							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
 							<th data-field="meetingNotes" data-align="center">会议记要</th>
 						</tr>
 					</thead>
@@ -371,7 +372,7 @@
 					data-toolbar="#projectProgress_7_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-field="hygk" data-align="center">会议概况</th>
+							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
 							<th data-field="meetingNotes" data-align="center">会议记要</th>
 						</tr>
 					</thead>
@@ -426,8 +427,8 @@
 					data-page-list="[3,6,10]" data-toolbar="#projectProgress_7_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-field="hygk" data-align="center">会议概况</th>
-							<th data-field="meetingNotes" data-align="center">会议纪要</th>
+							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
+							<th data-field="meetingNotes" data-align="center">会议记要</th>
 						</tr>
 					</thead>
 				</table>

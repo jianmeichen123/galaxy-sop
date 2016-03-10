@@ -18,10 +18,6 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
 	
-	private String hygk;
-	private String proInfo;
-	
-	
 	public String getProName() {
 		return proName;
 	}
@@ -100,18 +96,5 @@ public class MeetingRecordBo  extends MeetingRecord{
 	public void setFkey(String fkey) {
 		this.fkey = fkey;
 	}
-	public String getHygk() {
-		return hygk;
-	}
-	public void setHygk(String hygk) {
-		this.hygk = hygk;
-	}
-	public String getProInfo() {
-		return proInfo;
-	}
-	public void setProInfo(String proInfo) {
-		this.proInfo = proInfo;
-	}
 	
-
 }

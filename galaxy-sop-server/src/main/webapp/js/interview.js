@@ -33,6 +33,8 @@ function setProSelect(data){
 	if(result == "ERROR"){ //OK, ERROR
 		alert("error "+data.result.message);
 		
+		$(".pop").remove();
+		$("#popbg").hide();	
 		//$("#popbg,#pop").remove();
 		
 		return;
@@ -42,8 +44,9 @@ function setProSelect(data){
 	
 	if(entityList.length == 0 ){
 		alert("无相关项目可添加记录");
-		
-		//$("#popbg,#pop").remove();
+		$(".pop").remove();
+		$("#popbg").remove();	
+		//$("#popbg,.pop").remove();
 		return;
 	}else{
 		for(var i=0;i<data.entityList.length;i++){
@@ -54,6 +57,16 @@ function setProSelect(data){
 }
 
 
+//附件点击下载
+function filedown(fileid , filekey){
+	try {
+		var url = platformUrl.downfilebyid+"/"+fileid;
+		window.location.href=url;
+	} catch (e) {
+		console.log(e);
+		alert("下载失败");
+	}
+}
 
 //plupload上传对象初始化,   绑定保存
 function initUpload() {
@@ -100,6 +113,7 @@ function initUpload() {
 			
 			//上传进度
 			UploadProgress: function(up, file) {
+				
 			},
 			
 			//文件上传后， 返回值  赋值,  再ajax 保存入库
@@ -267,10 +281,21 @@ function getQueryCondition(){
 
 
 //table format
-function dateFormat(value, row, index){
-	return "<fmt:formatDate value='"+value+"' pattern='yyyy-MM-dd'/>";
+function rowcolumnFormat(value, row, index){
+	var fileinfo = "" ;
+	var rc = "";
+	if( row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
+		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+	}
+	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+				"访谈日期："+row.viewDateStr+
+				"</br>访谈对象："+row.viewTarget+
+				"</br>访谈录音："+fileinfo+
+			"</div>" ;
+	return rc;
 }
-function fileFormat(value, row, index){
-	return "";
-}
+
+
+
+
 

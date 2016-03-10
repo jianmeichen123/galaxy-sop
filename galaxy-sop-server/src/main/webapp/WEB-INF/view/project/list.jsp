@@ -463,7 +463,39 @@
 		}
 	}
 	
-//////////////////   zf    LPH:内评会  CEO：ceo评审    LXH：立项会     ////////////////////////
+
+	
+	
+	//table format
+	function ftcolumnFormat(value, row, index){
+		var fileinfo = "" ;
+		var rc = "";
+		if( row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
+			fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+		}
+		rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+					"访谈日期："+row.viewDateStr+
+					"</br>访谈对象："+row.viewTarget+
+					"</br>访谈录音："+fileinfo+
+				"</div>" ;
+		return rc;
+	}
+		
+	function metcolumnFormat(value, row, index){
+		var fileinfo = "";
+		var rc = "";
+		if(row.fileId != null && row.fileId != undefined && row.fileId != "undefined"){
+			fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+		}
+		rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+					"会议日期："+row.meetingDateStr+
+					"</br>会议结论："+row.meetingResultStr+
+					"</br>会议录音："+fileinfo+
+				"</div>" ;
+		return rc;
+	}
+
+
 	/* plupload上传对象初始化,   绑定保存
 		fileSelectBtnId: 选择文件按钮id
 		addUrl ： 保存调用路径url
