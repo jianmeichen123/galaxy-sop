@@ -124,7 +124,7 @@ public class IndexController {
 	 * @return
 	 */
 	@RequestMapping(value = "/lxhtc", method = RequestMethod.GET)
-	public String lxhtc(HttpServletRequest request) {
+	public String lxhtc() {
 		return "project/LXHtc";
 	}
 	
@@ -133,7 +133,15 @@ public class IndexController {
 	 * @return
 	 */
 	@RequestMapping(value = "/tjhtc", method = RequestMethod.GET)
-	public String tjhtc(HttpServletRequest request) {
+	public String tjhtc() {
 		return "project/TJHtc";
+	}
+	/**
+	 * 弹出上传业务尽职调查报告
+	 * @return
+	 */
+	@RequestMapping(value = "/uywjd", method = RequestMethod.GET)
+	public String uywjd() {
+		return "project/uploadFile";
 	}
 }
