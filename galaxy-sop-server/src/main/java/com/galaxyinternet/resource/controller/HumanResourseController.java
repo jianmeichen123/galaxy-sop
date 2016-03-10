@@ -55,7 +55,7 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/toaddPersonHr/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> toaddPersonHr(@RequestBody PersonPool personPool, HttpServletRequest request,
+	public ResponseData<PersonPool> toaddPersonHr(HttpServletRequest request,
 			@PathVariable Long pid){
 		
 			ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();	
@@ -77,7 +77,7 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 	 * @return ||personPool.getPersonDuties()==null
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/addPersonHr{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/addPersonHr", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<PersonPool> addPersonHr(@RequestBody PersonPool personPool, HttpServletRequest request,
 			@PathVariable Long pid
 			) {
@@ -97,7 +97,7 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 			return responseBody;
 		}*/		
 		try {			
-			personPool.setId(pid);
+//			personPool.setId(pid);
 			Long id = (long) personPoolService.updateById(personPool);
 			System.out.println("ok");
 			if(id > 0)

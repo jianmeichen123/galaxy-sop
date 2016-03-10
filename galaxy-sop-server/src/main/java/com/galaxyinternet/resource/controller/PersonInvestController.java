@@ -47,7 +47,7 @@ public class PersonInvestController extends BaseControllerImpl<PersonInvest, per
 	 * @return  //			@PathVariable Long pid
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/addPersonLearn/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/addPersonLearn", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<PersonInvest> addPersonLearn(@RequestBody PersonInvest personInvest, HttpServletRequest request,
 			@PathVariable Long pid
 			) {
@@ -62,7 +62,7 @@ public class PersonInvestController extends BaseControllerImpl<PersonInvest, per
 		}*/
 		try {
 			personInvest.setCreatedTime(new Date().getTime());
-			personInvest.setPersonId(pid);
+//			personInvest.setPersonId(pid);
 			Long id =personInvestService.insert(personInvest);
 			if(id > 0)
 				responseBody.setResult(new Result(Status.OK,"保存成功!"));

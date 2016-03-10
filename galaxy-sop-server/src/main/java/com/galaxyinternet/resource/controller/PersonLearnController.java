@@ -1,6 +1,6 @@
 package com.galaxyinternet.resource.controller;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,13 +42,13 @@ public class PersonLearnController extends BaseControllerImpl<PersonLearn, perso
 	}
 	
 	/**
-	 * 个人简历之学历
+	 * 批量增加学历
 	 * @author gxc
 	 * @return 
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/addPersonLearn/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonLearn> addPersonLearn(@RequestBody PersonLearn personLearn, HttpServletRequest request,
+	@RequestMapping(value = "/addPersonLearn", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonLearn> addPersonLearn(@RequestBody List<PersonLearn> personLearnList, HttpServletRequest request,
 			@PathVariable Long pid
 			
 			) {
@@ -62,14 +62,9 @@ public class PersonLearnController extends BaseControllerImpl<PersonLearn, perso
 			return responseBody;
 		}*/
 		try {
-			personLearn.setCreatedTime(new Date().getTime());
-			personLearn.setPersonId(pid);
-			Long id =personLearnService.insert(personLearn);
-			if(id > 0)
-				responseBody.setResult(new Result(Status.OK,"保存成功!"));
-				responseBody.setEntity(personLearn);
-			}
-		catch (Exception e) {
+			personLearnService.insertInBatch(personLearnList);
+			responseBody.setResult(new Result(Status.OK,"保存成功!"));
+		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "insert hrxl faild"));	
 		}
 		

@@ -1,6 +1,6 @@
 package com.galaxyinternet.resource.controller;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,13 +43,13 @@ public class PersonWorkController extends BaseControllerImpl<PersonWork, personW
 	}
 	
 	/**
-	 * 个人简历之工作简历
+	 * 批量增加工作经历 ，前端传json数组
 	 * @author gxc
 	 * @return/{pid}
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/addPersonWork/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonWork> addPersonWork(@RequestBody PersonWork personWork, HttpServletRequest request,
+	@RequestMapping(value = "/addPersonWork", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonWork> addPersonWork(@RequestBody List<PersonWork> personWorkList, HttpServletRequest request,
 			@PathVariable Long pid
 			
 			) {
@@ -64,15 +64,10 @@ public class PersonWorkController extends BaseControllerImpl<PersonWork, personW
 			return responseBody;
 		}*/
 		try {
-			personWork.setCreatedTime(new Date().getTime());
-			personWork.setPersonId(pid);
+			personWorkService.insertInBatch(personWorkList);
+			responseBody.setResult(new Result(Status.OK,"保存成功!"));
 			
-			Long id =personWorkService.insert(personWork);
-			if(id > 0)
-				responseBody.setResult(new Result(Status.OK,"保存成功!"));
-				responseBody.setEntity(personWork);
-			}
-		catch (Exception e) {
+		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "insert hrwork faild"));	
 		}		
 		return responseBody;
