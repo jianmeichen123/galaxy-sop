@@ -380,36 +380,7 @@
 			
 			<!-- 投资意向书信息 -->
 			<div class="block" data-tab="con" id="projectProgress_5_con">
-			   <!-- 
-				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>
-					<a href="javascript:;" class="pubbtn fffbtn lpubbtn">更新投资意向书</a> <a
-						href="javascript:;" class="pubbtn fffbtn lpubbtn">上传签署证明</a>
-				</div>
-				<div class="process clearfix">
-					<h2>投资意向书盖章流程</h2>
-					<img src="img/process.png" alt="">
-				</div>
-				<table width="100%" cellspacing="0" cellpadding="0">
-					<thead>
-						<tr>
-							<th>创建日期</th>
-							<th>存储类型</th>
-							<th>更新日期</th>
-							<th>档案状态</th>
-							<th>查看附件</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>2016-01-20</td>
-							<td>文档</td>
-							<td>2016-01-21</td>
-							<td>已上传</td>
-							<td><a href="#" class="blue">附件</a></td>
-						</tr>
-					</tbody>
-				</table> -->
+			  
 			</div>
 			<!-- 尽职调查信息 -->
 			<div class="block" data-tab="con" id="projectProgress_6_con">
@@ -621,66 +592,4 @@
 </div>
 <script type="text/javascript">
 
-delivery();
-function delivery(){
-	var id=$("#project_id").val();
-	$.ajax({
-		url : '/galaxy/project/progress/proFileInfo/'+id,
-		data : null,
-		async : false,
-		type : 'GET',
-		dataType : "json",
-		contentType:"application/json; charset=UTF-8",
-		cache : false,
-		error:function(){     
-	        alert('error');     
-	    }, 
-		success : function(data) {
-			 var json = eval(data);
-			 var dataList=json.entityList;
-			 var htmlstart='<table width=\"100%" cellspacing="0" cellpadding="0" >'+
-				             '<thead>'+
-				                '<tr>'+
-				                 '<th>业务分类</th>'+
-				                 '<th>创建日期</th>'+
-				                 '<th>存储类型</th>'+
-				                 '<th>更新日期</th>'+
-				                 '<th>催办</th>'+
-				                 '<th>查看附件</th>'+
-				                 '</tr>'+
-				            '</thead>'+                                                                                                                                   
-				             '<tbody>';
-				for(var p in dataList){
-							var typehtml = "";
-							if (typeof(dataList[p].fType) == "undefined") { 
-								typehtml ='<td></td>';
-							}else{
-								typehtml = '<td>'+dataList[p].fType+'</td>';
-							}
-							var handlehtml ="";
-							
-							if (dataList[p].fileStatus == "fileStatus:1") { 
-								handlehtml ='<td><a href="javascript:; " class="blue">催办</a></td>';
-							}else{
-								handlehtml = '<td>'+dataList[p].fileName+'</td>';
-							}
-							
-							htmlstart +='<tr>'+
-							'<td>'+dataList[p].fWorktype+'</td>'+
-							'<td>'+dataList[p].createDate+'</td>'+
-							typehtml+
-							'<td></td>'+
-							handlehtml+   
-							'<td><a href="javascript:; " class="blue"></a></td>'+   
-							'</tr>';   
-							
-				}
-				var htmlend= '</tbody></table>';
-				//$("#projectProgress_9_con").html="<h1>test</h1>";
-				//$("#delivery").html +=htmlstart+htmlend;
-				document.getElementById("projectProgress_9_con").innerHTML +=htmlstart+htmlend;
-		}
-	});
-	
-}
 </script>

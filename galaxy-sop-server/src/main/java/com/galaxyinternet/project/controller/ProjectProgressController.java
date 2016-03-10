@@ -247,7 +247,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ) {
 		
 		ResponseData<InterviewRecordBo> responseBody = new ResponseData<InterviewRecordBo>();
-		
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		try {
@@ -574,15 +573,14 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/proFileInfo/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopFile> proFileInfo(HttpServletRequest request,String proProgress,@PathVariable Long pid) {
+	@RequestMapping(value = "/proFileInfo/{pid}/{proProgressid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> proFileInfo(HttpServletRequest request,@PathVariable("pid") Long pid,@PathVariable("proProgressid") Long proProgressid) {
 		
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 		
 		List<String> fileworktypeList = new ArrayList<String>();
 		
-		Project project = projectService.queryById(pid);
-		proProgress = project.getProjectProgress();
+		String proProgress = "projectProgress:"+proProgressid;
 		
 		//根据角色判断-显示文件上传列表
 		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
