@@ -45,7 +45,7 @@
         <div class="projectmsg_d clearfix">
           <h2 id="project_name"></h2>
           <form action="" method="post" id="update_form_basic">
-          <input type="hidden" id="pid" name="id" value=""/>
+          <input type="hidden" id="pid" name="id" value="${requestScope.pid}"/>
           <!-- 第1部分 -->
           <div class="block block1">
             <table width="100%" cellspacing="5" cellpadding="0" >

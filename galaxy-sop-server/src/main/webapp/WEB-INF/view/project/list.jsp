@@ -166,7 +166,7 @@
 	function editor(value, row, index){
 		var id=row.id;
 		var options = "<a href='#' data-btn='myproject' onclick='info(" + id + ")'>查看</a>";
-		options += "<a href='<%=path%>/galaxy/upp'>查看</a>";
+		options += "<a href='<%=path%>/galaxy/upp/"+id+"'>修改</a>";
 		return options;
 	}
 	/**

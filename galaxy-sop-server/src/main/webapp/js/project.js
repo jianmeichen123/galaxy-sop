@@ -1,4 +1,5 @@
 $(function(){
+	var pid = $("#pid").val();
 	/**
 	 * 生成左边菜单项列表
 	 */
@@ -7,7 +8,6 @@ $(function(){
 	 * 保存项目描述
 	 */
 	$("#save_describe").click(function(){
-		var pid = $("#pid").val();
 		var um = UM.getEditor('describe_editor');
 		var projectDescribe = um.getContent();
 		if(pid != '' && projectDescribe != ''){
@@ -18,7 +18,6 @@ $(function(){
 	 * 保存商业模式
 	 */
 	$("#save_business_model").click(function(){
-		var pid = $("#pid").val();
 		var um = UM.getEditor('business_model_editor');
 		var projectBusinessModel = um.getContent();
 		if(pid != '' && projectBusinessModel != ''){
@@ -29,7 +28,6 @@ $(function(){
 	 * 保存公司定位
 	 */
 	$("#save_location").click(function(){
-		var pid = $("#pid").val();
 		var um = UM.getEditor('location_editor');
 		var companyLocation = um.getContent();
 		if(pid != '' && companyLocation != ''){
@@ -40,7 +38,6 @@ $(function(){
 	 * 保存用户画像
 	 */
 	$("#save_portrait").click(function(){
-		var pid = $("#pid").val();
 		var um = UM.getEditor('portrait_editor');
 		var userPortrait = um.getContent();
 		if(pid != '' && userPortrait != ''){
@@ -51,7 +48,6 @@ $(function(){
 	 * 保存尽情分析
 	 */
 	$("#save_analysis").click(function(){
-		var pid = $("#pid").val();
 		var um = UM.getEditor('analysis_editor');
 		var prospectAnalysis = um.getContent();
 		if(pid != '' && prospectAnalysis != ''){
@@ -61,8 +57,7 @@ $(function(){
 	/**
 	 * 加载项目详情数据
 	 */
-	sendGetRequest(platformUrl.detailProject + "${requestScope.pid}", {}, function(data){
-		$("#pid").val(data.entity.id);
+	sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 		$("#project_name").text(data.entity.projectName);
 		$("#project_code").text(data.entity.projectCode);
 		$("#create_date").text(data.entity.createDate);
