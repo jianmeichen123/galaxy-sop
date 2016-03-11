@@ -111,6 +111,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		ModelAndView mv = new ModelAndView("/taskProcess/task_info");
 		try {
 			SopTask task = sopTaskService.queryById(taskId);
+			mv.addObject("taskId", taskId);
 			mv.addObject("projectId", task.getProjectId());
 			mv.addObject("taskFlag", task.getTaskFlag());
 		} catch (Exception e) {

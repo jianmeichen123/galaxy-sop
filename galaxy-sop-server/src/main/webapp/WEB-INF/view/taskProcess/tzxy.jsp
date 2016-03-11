@@ -149,8 +149,6 @@ function showUploadPopup(ele)
 		showback:function(){
 			var _this = this;
 			initUpload(_this,type);
-			console.log(row.data("file-worktype"));
-			console.log(type);
 			initForm(_this,row.data("file-worktype"),type);
 		}
 	});

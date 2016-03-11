@@ -183,7 +183,11 @@ var platformUrl = {
 /**
 	 * 获取尽职调查文件列表
 	 */
-	getFileList : sopContentUrl + "/galaxy/project/progress/proFileInfo/"
+	getFileList : sopContentUrl + "/galaxy/project/progress/proFileInfo/",
+	/**
+	 * 更新任务状态
+	 */
+	updateTaskStatus: sopContentUrl + "/galaxy/soptask/updateTaskStatus"
 }
 
 /**
