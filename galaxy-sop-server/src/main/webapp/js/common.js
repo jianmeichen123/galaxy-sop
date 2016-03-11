@@ -279,11 +279,13 @@ function totalMissionCallback(data) {
 }
 
 function fillHeaderdata() {
-	setInterval(function() {
+	totalUrgent();
+	    totalMission();
+	/*setInterval(function() {
 		totalUrgent();
 	    totalMission();
 
-	}, 300000);
+	}, 300000);*/
 }
 
 
