@@ -383,7 +383,7 @@
 	function getTabPerson(){
 		var $table = $('#tablePerson');
 	    $table.bootstrapTable({
-	    url: "project/queryProjectPerson", 
+	    url: sopContentUrl + "/galaxy/project/queryProjectPerson", 
 	    dataType: "json",
 	    pagination: true, //分页
 	    search: false, //显示搜索框
