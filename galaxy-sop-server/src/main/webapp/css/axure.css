@@ -153,14 +153,12 @@ table .width_gd{width:10%;}
 }
 .dropdown-menu {
   position: absolute;
-  top: 100%;
-  left: 0;
+  left: 305px;
   z-index: 1000;
   display: none;
   float: left;
   min-width: 160px;
   padding: 5px 0;
-  margin: 2px 0 0;
   font-size: 14px;
   text-align: left;
   list-style: none;
@@ -208,6 +206,32 @@ table .width_gd{width:10%;}
   background-color: transparent;
   background-image: none;
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.open > .dropdown-menu {
+  display: block;
+}
+.open > .dropdown-toggle.btn-default {
+  color: #333;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+}
+.btn-default:active:hover,
+.btn-default.active:hover,
+.open > .dropdown-toggle.btn-default:hover,
+.btn-default:active:focus,
+.btn-default.active:focus,
+.open > .dropdown-toggle.btn-default:focus,
+.btn-default:active.focus,
+.btn-default.active.focus,
+.open > .dropdown-toggle.btn-default.focus {
+  color: #333;
+  background-color: #d4d4d4;
+  border-color: #8c8c8c;
+}
+.btn-default:active,
+.btn-default.active,
+.open > .dropdown-toggle.btn-default {
+  background-image: none;
 }
 
 /*公用柱状图*/
@@ -681,7 +705,7 @@ right: 200px;}
 .dictionary ul{ float:left; width:140px; margin:46px 3px 0 0}
 .dictionary ul li{ float:left; width:140px; height:30px; cursor:pointer; margin:0 0 2px; border-radius:4px; text-align:center; line-height:30px; background:#ffffff; font-size:14px; color:#3e4351}
 .dictionary ul .on{ background:#66b1f2; color:#FFF}
-.dictionary .tabbox{ float:left; width:312px; display:none}
+.dictionary .tabbox{ float:left; width:312px;}
 .dictionary .tabbox dt{ height:45px; border-radius:4px 4px 0 0; margin:0 0 2px; padding:0 12px; background:#FFF; font-size:16px; color:#6b799f; line-height:44px}
 .dictionary .tabbox .tool{ float:right; height:14px; margin:14px 0 0}
 .dictionary .tabbox .tool .ico{ background-image:url(../img/dictionary.png); margin:0 10px 0 0; height:14px; float:left}
