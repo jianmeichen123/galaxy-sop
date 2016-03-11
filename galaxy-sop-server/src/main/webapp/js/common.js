@@ -22,15 +22,10 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun, sessionId) {
 			if (sessionId) {
 				xhr.setRequestHeader("sessionId", sessionId);
 			}
-			xhr.setRequestHeader("Access-Control-Allow-Headers",
-					"X-Requested-With");
-			xhr
-					.setRequestHeader("Access-Control-Allow-Headers",
-							"Content-Type");
 		},
 		async : false,
 		error : function(request) {
-			alert("connetion error");
+			//alert("connetion error");
 		},
 		success : function(data) {
 			if (callbackFun) {
@@ -81,15 +76,10 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun, sessionId) {
 			if (sessionId) {
 				xhr.setRequestHeader("sessionId", sessionId);
 			}
-			xhr.setRequestHeader("Access-Control-Allow-Headers",
-					"X-Requested-With");
-			xhr
-					.setRequestHeader("Access-Control-Allow-Headers",
-							"Content-Type");
 		},
 		async : false,
 		error : function(request) {
-			alert("connetion error");
+			//alert("connetion error");
 		},
 		success : function(data) {
 			if (callbackFun) {
