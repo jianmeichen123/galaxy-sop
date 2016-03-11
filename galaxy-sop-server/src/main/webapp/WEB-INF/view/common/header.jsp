@@ -25,7 +25,8 @@
     </div>
     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
-        <span class="ico name">早上好，<%=nick_name%></span>
+       <%--  <span class="ico name">早上好，<%=nick_name%></span> --%>
+        <span class="ico name">早上好，岩浩</span>
         <b class="line null">分割线</b>
         <a href="javascript:logout()" class="loginout">退出</a>
     </div>
