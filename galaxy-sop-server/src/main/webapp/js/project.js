@@ -170,7 +170,7 @@ function updatePerson(){
  */
 function deletePer(id,url){
 	var projectId = $("#pid").val();
-	var url = "/galaxy/project/dpp/"+id+"/"+projectId;
+	var url = sopContentUrl + "/galaxy/project/dpp/"+id+"/"+projectId;
 	if(projectId != ''){
 		$("#projectId").val(projectId);
 		sendGetRequest(url,'',savePersonCallBack,null);
