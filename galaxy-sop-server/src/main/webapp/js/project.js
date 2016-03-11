@@ -147,7 +147,7 @@ function updateStock(){
  */
 function delStock(id,url){
 	var projectId = $("#pid").val();
-	var url = "/galaxy/projectShares/deleteProjectShares/"+id+"/"+projectId;
+	var url = sopContentUrl + "/galaxy/projectShares/deleteProjectShares/"+id+"/"+projectId;
 	if(projectId != ''){
 		$("#projectId").val(projectId);
 		sendGetRequest(url,'',saveProjectCallBack,null);
@@ -170,7 +170,7 @@ function updatePerson(){
  */
 function deletePer(id,url){
 	var projectId = $("#pid").val();
-	var url = "/galaxy/project/dpp/"+id+"/"+projectId;
+	var url = sopContentUrl + "/galaxy/project/dpp/"+id+"/"+projectId;
 	if(projectId != ''){
 		$("#projectId").val(projectId);
 		sendGetRequest(url,'',savePersonCallBack,null);
@@ -186,7 +186,7 @@ function savePersonCallBack(data){
 	}
 	//alert("操作成功!");
 	$("#popbg,#pop").remove();
-	//window.location.reload("/galaxy/upp");
+	//window.location.reload(sopContentUrl + "/galaxy/upp");
 	getTabPerson();
 }
 
@@ -199,7 +199,7 @@ function saveProjectCallBack(data){
 	}
 	//alert("操作成功!");
 	$("#popbg,#pop").remove();
-	//window.location.reload("/galaxy/upp");
+	//window.location.reload(sopContentUrl + "/galaxy/upp");
 	getTabShare();
 }
 
@@ -215,7 +215,7 @@ function deleteProjectCallBack(data){
 		return;
 	}
 	alert("删除成功!");
-	window.location.reload("/galaxy/upp");
+	window.location.reload(sopContentUrl + "/galaxy/upp");
 }
 
 /**
