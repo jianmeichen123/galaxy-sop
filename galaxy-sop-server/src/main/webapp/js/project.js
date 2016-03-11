@@ -181,7 +181,7 @@ function deletePer(id,url){
 function savePersonCallBack(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		alert("error "+data.result.message);
+		//alert("error "+data.result.message);
 		return;
 	}
 	//alert("操作成功!");
@@ -194,7 +194,7 @@ function savePersonCallBack(data){
 function saveProjectCallBack(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		alert("error "+data.result.message);
+		//alert("error "+data.result.message);
 		return;
 	}
 	//alert("操作成功!");
@@ -211,10 +211,10 @@ function refresh(){
 function deleteProjectCallBack(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		alert("error "+data.result.message);
+		//alert("error "+data.result.message);
 		return;
 	}
-	alert("删除成功!");
+	//alert("删除成功!");
 	window.location.reload(sopContentUrl + "/galaxy/upp");
 }
 

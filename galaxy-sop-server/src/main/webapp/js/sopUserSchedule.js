@@ -8,7 +8,7 @@ function loadAjaxSopUserSchedule(type,url){
 		contentType:"application/json; charset=UTF-8",
 		cache : false,
 		error:function(){     
-	        alert('error');     
+	        //alert('error');     
 	    }, 
 		success : function(data) {
 			 var json = eval(data);

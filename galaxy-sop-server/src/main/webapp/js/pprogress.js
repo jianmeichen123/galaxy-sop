@@ -8,7 +8,7 @@
 			contentType:"application/json; charset=UTF-8",
 			cache : false,
 			error:function(){     
-		        alert('error');     
+		       // alert('error');     
 		    }, 
 			success : function(data) {
 				 var json = eval(data);
@@ -71,7 +71,7 @@
 			contentType:"application/json; charset=UTF-8",
 			cache : false,
 			error:function(){     
-		        alert('error');     
+		        //alert('error');     
 		    }, 
 			success : function(data) {
 				 var json = eval(data);
@@ -172,7 +172,7 @@
 				init : function(){
 						//判断对话框是否存在
 						if(popPanel.isCreate()){
-							alert("打开popup面板");
+							//alert("打开popup面板");
 							$("#popbg,#pop").show();
 						}else{
 							$.popup({
@@ -200,7 +200,7 @@
 												
 												//上传按钮点击事件开始上传
 												$(_this.id).find("#uploadBtn").click(function(){
-													alert("上传保存事件并关闭弹出框");
+													//alert("上传保存事件并关闭弹出框");
 													uploader.start();
 													return false;
 												})

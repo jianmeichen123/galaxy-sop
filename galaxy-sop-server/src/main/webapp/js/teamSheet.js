@@ -1,6 +1,6 @@
 	var dataGrid = {
 			load : function(projectId){
-				alert("更新Grid");
+				//alert("更新Grid");
 				var params = {
 						"projectId" : projectId
 				}
@@ -37,11 +37,11 @@
 				);	
 			},
 			empty : function(_tbody){
-				alert("清空Grid");
+				//alert("清空Grid");
 				_tbody.empty();
 			},
 			render : function(_tr,param){
-				alert("渲染Grid");
+				//alert("渲染Grid");
 			},
 			initPanel : function(_item){
 				$("[data-tid='"+_item.id+"'][data-act='uploadFileBtn']").click(function(){
@@ -67,7 +67,7 @@
 				$.popup({
 					txt : $("#addFile").html(),
 					showback:function(){
-						alert("弹出层初始化");
+						//alert("弹出层初始化");
 						var _this = this;
 						win.fillData(_this,_formdata);
 						//plupload上传对象初始化
@@ -89,7 +89,7 @@
 								PostInit: function(){	
 									//上传按钮点击事件开始上传
 									$(_this.id).find("#uploadBtn").click(function(){
-										alert("上传保存事件并关闭弹出框");
+										//alert("上传保存事件并关闭弹出框");
 										uploader.start();
 										return false;
 									})
