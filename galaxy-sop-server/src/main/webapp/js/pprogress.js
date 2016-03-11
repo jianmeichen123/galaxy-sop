@@ -215,8 +215,7 @@
 											FileUploaded:function(up,file,result){
 												if(result.status==200){
 													var _restmp = $.parseJSON(result.response);
-													alert(_restmp.status)
-													if(_restmp.status == "OK"){
+													if(_restmp.result.status == "OK"){
 														alert("上传成功");
 														popPanel.close();
 														
