@@ -16,7 +16,7 @@
 
 	// 所有立项排期
 	function moreProjectMeeting() {
-		sendGetRequest("http://localhost:8080/galaxy-sop-server/galaxy/home/moreProjectMeeting", null, moreProjectMeetingCallback, null);
+		sendGetRequest(sopContentUrl+"/galaxy/home/moreProjectMeeting", null, moreProjectMeetingCallback, null);
 	}
 
 
