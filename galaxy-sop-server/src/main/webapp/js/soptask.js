@@ -8,14 +8,14 @@ $(function(){
 		console.log("ok");
 		taskId=$("#taskid").val();
 		projectid=$("#projectid").val();
-	   	var _url = "/galaxy/soptask/goClaimtcPage?id="+taskId;
+	   	var _url = sopContentUrl+"/galaxy/soptask/goClaimtcPage?id="+taskId;
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
 				var taskid=getTaskId();
 				$(".btnbox").on("click", "#dotask", function() {
-					this.href="/galaxy/soptask/doTask?taskId="+taskid;
+					this.href=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskid;
 	            });
 				//单击按钮刷新页列表里面的内容
 				$(".btnbox").on("click", "#notdo", function() {
