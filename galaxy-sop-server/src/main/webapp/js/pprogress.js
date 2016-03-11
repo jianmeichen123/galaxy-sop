@@ -1,6 +1,6 @@
 	function projectProgress9(id){
 		$.ajax({
-			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id+'/9',
+			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id,
 			data : null,
 			async : false,
 			type : 'GET',
@@ -63,7 +63,7 @@
 	}
 	function projectProgress5(id){
 		$.ajax({
-			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id+'/5',
+			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id,
 			data : null,
 			async : false,
 			type : 'GET',
@@ -221,7 +221,7 @@
 														popPanel.close();
 														
 													}else{
-														alert(result.response.errorCode);
+														alert(_restmp.result.message);
 													}
 													
 												}else{

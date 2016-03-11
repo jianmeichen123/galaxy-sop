@@ -76,6 +76,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	@Autowired
 	Cache cache;
 	
+	
 	@Autowired
 	private SopTaskService sopTaskService;
 	
@@ -230,6 +231,16 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			if(task.getTaskStatus()==null || !task.getTaskStatus().equals(DictEnum.taskStatus.已完成.getCode())){
 				result.addError("Front task is not complete");
 			}
+			
+			SopFile queryFile=new SopFile();
+			queryFile.setProjectId(Long.parseLong(projectId));
+			queryFile.setFileWorktype(fileWorkType);
+			SopFile sopf=sopFileService.queryOne(queryFile);
+			
+			if(!sopf.getFileStatus().equals(DictEnum.taskStatus.已完成.getCode())){
+				result.addError("未上传投资意向书!");
+			}
+			
 			//存储临时文件
 			multipartFile.transferTo(tempFile);
 			//上传至阿里云
@@ -237,41 +248,26 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			
 			//若文件上传成功
 			if(upResult.getResult().getStatus().equals(Status.OK)){
-				SopFile sopFile = new SopFile();
-				sopFile.setProjectId(Long.parseLong(projectId));
-				sopFile.setFileWorktype(fileWorkType);
-				//bucketName
-				sopFile.setBucketName(OSSFactory.getDefaultBucketName());
-				//fileKey
-				sopFile.setFileKey(fileKey);
-				//文件大小
-				sopFile.setFileLength(tempFile.length());
-				//文件名称
-				sopFile.setFileName(tempFile.getName());
-				//上传人
-				sopFile.setFileUid(user.getId());		
-				//存储类型
-				sopFile.setFileType(fileType);
-				//档案来源
-				sopFile.setFileSource(fileSource);
-//				//业务分类
-//				sopFile.setFileWorktype(fileWorkType);
-				//档案摘要
-				
-				//档案状态
-				sopFile.setProjectProgress("签署证明");
-				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-				//将文件信息保存到数据库中
-				sopFileService.insert(sopFile);
 				
 				//project id 验证
 				Project project = new Project();
 				project = projectService.queryById(Long.valueOf(projectId));
-				
 				String err = errMessage(project,user,DictEnum.projectProgress.投资意向书.getCode());
 				if(err!=null && err.length()>0){
 					result.addError(err);
 				}
+				SopVoucherFile bo=new SopVoucherFile();
+				bo.setId(sopf.getVoucherId());
+				bo.setProjectId(Long.parseLong(projectId));
+				bo.setProjectProgress(project.getProjectProgress());
+				bo.setFileWorktype(sopf.getFileWorktype());
+				bo.setFileType(sopf.getFileType());
+				bo.setFileKey(fileKey);
+				bo.setFileLength(tempFile.length());
+				bo.setFileName(tempFile.getName());
+				bo.setUpdatedTime(System.currentTimeMillis());
+				bo.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				sopVoucherFileService.updateById(bo);
 				//修改项目进度、生成任务
 				meetingRecordService.upTermSheetSign(project,user.getId(),user.getDepartmentId());
 			}		
@@ -589,7 +585,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		task.setProjectId(Long.valueOf(projectId));
 		task.setTaskName(taskName);
 		task.setAssignUid(user.getId());
+		
 		task = sopTaskService.queryOne(task);
+		if(task==null){
+			responseBody.setResult(new Result(Status.ERROR, null,"任务检索为空"));
+			return responseBody;
+		}
 		
 		//project id 验证
 		Project project = new Project();
@@ -657,11 +658,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 				//将文件信息保存到数据库中
 				sopFileService.updateByIdSelective(sopFile);
-		
-				if(task==null){
-					responseBody.setResult(new Result(Status.ERROR, null,"任务检索为空"));
-					return responseBody;
-				}
 				//修改任务状态完成
 				task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
 				sopTaskService.updateById(task);
