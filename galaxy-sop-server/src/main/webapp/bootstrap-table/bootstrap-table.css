@@ -6,7 +6,7 @@
 
 .bootstrap-table .table {
     margin-bottom: 0 !important;
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #E9EBF2;
     border-collapse: collapse !important;
     border-radius: 1px;
 }
@@ -17,7 +17,9 @@
 .bootstrap-table .table > thead > tr > td,
 .bootstrap-table .table > tbody > tr > td,
 .bootstrap-table .table > tfoot > tr > td {
-    padding: 8px !important;
+    padding:5px 8px !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
 }
 
 .bootstrap-table .table.table-no-bordered > thead > tr > th,
@@ -28,12 +30,10 @@
 .fixed-table-container {
     position: relative;
     clear: both;
-    border: 1px solid #dddddd;
+   /*  border: 1px solid #E9EBF2; */
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
-    height: auto !important;
-    padding: 0 !important;
 }
 
 .fixed-table-container.table-no-bordered {
@@ -47,9 +47,11 @@
     -webkit-border-radius: 4px 4px 0 0;
     -moz-border-radius: 4px 4px 0 0;
 }
-
+.fixed-table-header {
+    height:38px;
+}
 .fixed-table-footer {
-    border-top: 1px solid #dddddd;
+    border-top: 1px solid #E9EBF2;
 }
 
 .fixed-table-body {
@@ -66,7 +68,6 @@
     height: 0;
     padding: 0;
     margin: 0;
-    border-left: 1px solid #dddddd;
 }
 
 .fixed-table-container thead th:first-child {
@@ -77,7 +78,7 @@
 }
 
 .fixed-table-container thead th .th-inner {
-    padding: 8px;
+    padding:5px;
     line-height: 24px;
     vertical-align: top;
     overflow: hidden;
@@ -92,7 +93,7 @@
     padding-right: 30px;
 }
 
-.fixed-table-container thead th .both {
+/* .fixed-table-container thead th .both {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAQAAADYWf5HAAAAkElEQVQoz7X QMQ5AQBCF4dWQSJxC5wwax1Cq1e7BAdxD5SL+Tq/QCM1oNiJidwox0355mXnG/DrEtIQ6azioNZQxI0ykPhTQIwhCR+BmBYtlK7kLJYwWCcJA9M4qdrZrd8pPjZWPtOqdRQy320YSV17OatFC4euts6z39GYMKRPCTKY9UnPQ6P+GtMRfGtPnBCiqhAeJPmkqAAAAAElFTkSuQmCC');
 }
 
@@ -102,15 +103,15 @@
 
 .fixed-table-container thead th .desc {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAZUlEQVQ4y2NgGAWjYBSggaqGu5FA/BOIv2PBIPFEUgxjB+IdQPwfC94HxLykus4GiD+hGfQOiB3J8SojEE9EM2wuSJzcsFMG4ttQgx4DsRalkZENxL+AuJQaMcsGxBOAmGvopk8AVz1sLZgg0bsAAAAASUVORK5CYII= ');
-}
+} */
 
 .fixed-table-container th.detail {
     width: 30px;
 }
 
-.fixed-table-container tbody td {
-    border-left: 1px solid #dddddd;
-}
+/* .fixed-table-container tbody td {
+    border-left: 1px solid #E9EBF2;
+} */
 
 .fixed-table-container tbody tr:first-child td {
     border-top: none;
@@ -262,8 +263,8 @@
 
 .bootstrap-table .table > thead > tr > th {
     vertical-align: bottom;
-    border-bottom: 1px solid #ddd;
-}
+/*     border-bottom: 1px solid #ddd;
+ */}
 
 /* support bootstrap 3 */
 .bootstrap-table .table thead > tr > th {
