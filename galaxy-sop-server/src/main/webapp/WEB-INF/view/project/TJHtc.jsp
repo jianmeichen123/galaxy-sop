@@ -66,8 +66,6 @@
 </div>
 
 
-
-<link href="${ctx}/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="${ctx}/ueditor/lang/zh-cn/zh-cn.js"></script>
