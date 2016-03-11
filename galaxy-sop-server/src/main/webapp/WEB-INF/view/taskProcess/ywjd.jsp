@@ -20,7 +20,7 @@
 	</table>
 	<ul>
 		<li><a href="javascript:;" id="show-upload-btn">上传业务尽职调查报告</a></li>
-		<li><a href="javascript:;">申请投决会排期</a></li>
+		<li><a href="javascript:;" id="apply-decision-btn" class="disabled">申请投决会排期</a></li>
 	</ul>
 </div>
 <!-- 弹出页面 -->
@@ -94,6 +94,7 @@ function loadRows()
 			url,
 			data,
 			function(data){
+				var countOfFiles = 0;
 				$.each(data.entityList,function(){
 					var $tr = $('<tr data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
 					$tr.append('<td>'+(isBlank(this.fWorktype) ? "" : this.fWorktype) +'</td>');
@@ -107,10 +108,13 @@ function loadRows()
 					}
 					else
 					{
+						countOfFiles++;
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">'+this.fileName+'</a></td>');
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
+				console.log(countOfFiles);
+				$("#apply-decision-btn").toggleClass('disabled',countOfFiles<4);
 			}
 	);
 }

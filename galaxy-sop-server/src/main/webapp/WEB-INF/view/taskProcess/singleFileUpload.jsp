@@ -18,7 +18,7 @@
 	</table>
 	<ul>
 		<li><a href="javascript:;" id="show-upload-btn">${btnTxt }</a></li>
-		<li><a href="javascript:;">提交完成</a></li>
+		<li><a href="javascript:;" id="complete-task-btn" class="disabled">提交完成</a></li>
 	</ul>
 </div>
 <!-- 弹出页面 -->
@@ -71,10 +71,30 @@
 </div>
 <script type="text/javascript">
 $(function(){
+	console.log("taskId=${taskId}");
 	loadRows();
 	loadRelatedData();
 	$("#show-upload-btn").click(function(){
 		showUploadPopup();
+	});
+	$("#complete-task-btn").click(function(){
+		//更新task为完成状态
+		sendPostRequestByJsonObj(
+			platformUrl.updateTaskStatus,
+			{
+				id:"${taskId}",
+				taskStatus:"taskStatus:3"
+			},
+			function(data){
+				if(data.result.status=="OK"){
+					alert("提交成功。");
+				}
+				else
+				{
+					alert("提交失败。");
+				}
+			}
+		);
 	});
 });
 function loadRows()
@@ -97,10 +117,12 @@ function loadRows()
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
 					if(isBlank(this.fileName)){
 						$tr.append('<td></td>');
+						$("#complete-task-btn").addClass('disabled');
 					}
 					else
 					{
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">'+this.fileName+'</a></td>');
+						$("#complete-task-btn").removeClass('disabled');
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});

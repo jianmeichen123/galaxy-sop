@@ -19,7 +19,7 @@
 	<ul>
 		<li><a href="javascript:;" id="download-template-btn">下载投资意向书模板</a></li>
 		<li><a href="javascript:;" id="show-upload-btn">上传投资意向书</a></li>
-		<li><a href="javascript:;">提交完成</a></li>
+		<li><a href="javascript:;" id="show-voucher-upload-btn" class="disabled">上传签署凭证</a></li>
 	</ul>
 </div>
 <!-- 弹出页面 -->
@@ -77,8 +77,12 @@ $(function(){
 	$("#show-upload-btn").click(function(){
 		showUploadPopup();
 	});
+	
+	$("#show-voucher-upload-btn").click(function(){
+		showUploadPopup("voucher");
+	});
 	$("#download-template-btn").click(function(){
-		window.location.href=platformUrl.tempDownload+"?worktype=fileWorktype:5";
+		window.location.href=platformUrl.tempDownload+"?worktype=${fileWorktype}";
 	});
 });
 function loadRows()
@@ -94,16 +98,18 @@ function loadRows()
 			data,
 			function(data){
 				$.each(data.entityList,function(){
-					var $tr = $('<tr data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
+					var $tr = $('<tr data-voucher-id="'+this.voucherId+'" data-voucher-file-name="'+this.voucherFileName+'" data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
 					$tr.append('<td>'+(isBlank(this.createdTime) ? "" : Number(this.createdTime).toDate().format("yyyy/MM/dd")) +'</td>');
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
 					$tr.append('<td>'+(isBlank(this.updatedTime) ? "" : Number(this.updatedTime).toDate().format("yyyy/MM/dd"))+'</td>');
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
 					if(isBlank(this.fileName)){
+						$("#show-voucher-upload-btn").addClass("disabled");
 						$tr.append('<td></td>');
 					}
 					else
 					{
+						$("#show-voucher-upload-btn").removeClass("disabled");
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">'+this.fileName+'</a></td>');
 					}
 					$("#hrjzdc-table tbody").append($tr);
@@ -135,23 +141,28 @@ function loadRelatedData()
 			}
 	);
 }
-function showUploadPopup()
+function showUploadPopup(type)
 {
 	$.popup({
 		txt:$("#upload-dialog").html(),
 		showback:function(){
 			var _this = this;
-			initUpload(_this);
-			initForm(_this);
+			initUpload(_this,type);
+			initForm(_this,type);
 		}
 	});
 }
-function initUpload(_dialog){
+function initUpload(_dialog,type){
 	
+	var url = platformUrl.uploadFile2Task;
+	if(type == 'voucher')
+	{
+		url = platformUrl.uploadVoucher2Task;
+	}
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
-		url : platformUrl.uploadFile2Task,
+		url : url,
 		multi_selection:false,
 		filters : {
 			max_file_size : '30mb'
@@ -216,19 +227,28 @@ function afterSave(data)
 		alert("上传失败.");
 	}
 }
-function initForm(_dialog)
+function initForm(_dialog,type)
 {
 	var $row = $("#hrjzdc-table tbody tr");
 	var fileType = $row.data('file-type');
 	var fileName = $row.data('file-name');
+	var voucherFileName = $row.data('voucher-file-name');
 	var fileSource = $row.data('file-source');
 	var remark = $row.data('remark');
+	if(type == 'voucher')
+	{
+		$(_dialog.id).find("[name='id']").val($row.data('voucher-id'));
+	}
+	else
+	{
+		
+		$(_dialog.id).find("[name='id']").val($row.data('id'));
+		$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
+		$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
+	}
 	
-	$(_dialog.id).find("[name='id']").val($row.data('id'));
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
 	$(_dialog.id).find("[name='fileType']").val();
-	$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
-	$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());
 }
 function downloadFile(ele)
