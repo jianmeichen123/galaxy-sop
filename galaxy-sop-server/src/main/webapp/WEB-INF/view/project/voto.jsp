@@ -69,7 +69,7 @@
     </div>
 </div>
 
-
+http://fx.qa.galaxyinternet.com/sop
 
 <script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.min.js"></script>
