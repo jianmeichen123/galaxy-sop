@@ -41,6 +41,7 @@
     	<a href="javascript:;" id="save_interview" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
+<script src="<%=request.getContextPath() %>/js/jquery-1.11.1.js" type="text/javascript"></script>
 <script type="text/javascript">
 	UM.getEditor('viewNotes');
 </script>
