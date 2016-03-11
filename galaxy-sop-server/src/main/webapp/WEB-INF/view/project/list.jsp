@@ -11,7 +11,7 @@
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
-<link href="http://fx.qa.galaxyinternet.com/sop/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <script src="<%=path %>/js/my_ext.js"></script>
 <script src="<%=path %>/js/my.js"></script>
