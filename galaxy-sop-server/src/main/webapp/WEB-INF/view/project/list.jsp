@@ -648,7 +648,9 @@
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				$('.edui-container').show();
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
 				initNUpload("LPH_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","LPH_savemeet","LPH_fileName","LPH");
 				//setLPHtc();
 			}//模版反回成功执行	
@@ -662,7 +664,9 @@
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				$('.edui-container').show();
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
 				initNUpload("CEO_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","CEO_savemeet","CEO_fileName","CEO");
 				//setLPHtc();
 			}//模版反回成功执行	
@@ -692,7 +696,9 @@
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				$('.edui-container').show();
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
 				initNUpload("LXH_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","LXH_savemeet","LXH_fileName","LXH");
 				//setLPHtc();
 			}//模版反回成功执行	
@@ -706,7 +712,9 @@
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				$('.edui-container').show();
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
 				initNUpload("TJH_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","TJH_savemeet","TJH_fileName","TJH");
 				//setLPHtc();
 			}//模版反回成功执行	
