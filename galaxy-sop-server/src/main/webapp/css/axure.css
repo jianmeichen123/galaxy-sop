@@ -67,6 +67,149 @@ table .width_gd{width:10%;}
 .paging .jump{ margin:0 0 0 10px}
 .paging .txt{ border:1px solid #ccd2d7; width:20px; height:20px; line-height:20px; text-align:center; background:#e9ebf2; color:#7a8798;margin:0 3px;}
 .paging .jump .btn{ width:26px; height:23px; line-height:20px; cursor:pointer;font-size: 12px;background-color: #fff;border-radius: 2px;border:1px solid #ccd2d7;}
+/*公用分页-引自bootstrap*/
+.fixed-table-pagination{overflow: hidden;}
+.pull-right {float: right !important;}
+.pull-left {float: left !important;}
+.btn > .caret,
+  .dropup > .btn > .caret {
+    border-top-color: #000 !important;
+  }
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin:-2px 2px 0 2px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 4px solid \9;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.pagination-detail{margin:10px 0 0;font-size: 12px;font-family: '微软雅黑';color:#8a97b9;}
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  border-radius: 4px;
+}
+.pagination > li {
+  display: inline;
+}
+.pagination > li > a,
+.pagination > li > span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #66b1f2;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  z-index: 3;
+  color: #23527c;
+  background-color: #eee;
+  border-color: #ddd;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  z-index: 2;
+  color: #fff;
+  cursor: default;
+  background-color: #66b1f2;
+  border-color: #66b1f2;
+}
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #ddd;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #262626;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #66b1f2;
+  outline: 0;
+}
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  color: #777;
+}
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
 /*公用柱状图*/
 .histogram{ position:relative; margin:0 0 30px}
 .histogram ul{ width:100%; height:100%; position:absolute; left:0; top:0; z-index:10}
@@ -331,7 +474,7 @@ table .width_gd{width:10%;}
 /* 首页 */
 .rit .tjh_block{height: 232px;border-bottom-right-radius: 6px;border-bottom-left-radius: 6px;}
 /* 待办任务 */
-.pagebox .ritmin .searchbox{float: right;width:330px; height:30px;}
+.pagebox .ritmin .searchbox{float: right;width:355px; height:30px;}
 .pagebox .ritmin .searchbox .txt{ float:left;border:0;padding:0 8px; background:#ffffff; border-radius:4px;height:30px; line-height:30px; color:#666; font-size:14px; width:230px}
 .pagebox .ritmin .searchbox .btn{ float:right; width:20px; height:20px; background:url(../img/search1.png) no-repeat; margin:8px 0 0}
 /* 消息提醒 */
@@ -458,7 +601,7 @@ table .width_gd{width:10%;}
 .ritmin .min_document .bottom  dl dd .time{display:inline-block;width: 120px;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 100px -150px;}
 .ritmin .min_document .bottom  dl dd .s_txt{width: 190px;}
 .ritmin .min_document .fmdl label,.ritmin .min_document .fmdl select{font-size: 12px;}
-.ritmin .min_document .fmmr{margin:0 4% 0 0;}
+.ritmin .min_document .fmmr{margin:0 10px 0 0;}
 /* 项目分析 */
 .ritmin .tabtable .tabtable_con{background-color: #fff;overflow: hidden;padding:16px 18px 20px;border-radius: 6px;border-top-left-radius: 0;}
 .ritmin .tabtable .tabtable_con .search_box{padding:10px 0 15px 0;background-color: #f3f4f9; overflow: hidden;}
@@ -565,7 +708,7 @@ right: 200px;}
 .loginpage .top .rit{ padding:0 0 0 26px; line-height:24px; height:24px; background-position:0 -268px; font-size:12px; color:#b3b8cb; margin:18px 0 0; font-family:"宋体"; float:right}
 .loginpage .min{ background:url(../img/loginbg.jpg) center center no-repeat; width:1280px; height:572px; padding:130px 0 0; margin:0 auto}
 .loginbox{ width:362px; float:right; margin:0 100px 0 0}
-.loginbox h2{ width:71px; height:33px; background-position:0 0; margin:0 0 16px 17px}
+.loginbox h2{ height:33px; background-position:0 0; margin:0 0 16px 17px}
 .loginbox .txt{ display:block; border:0; width:282px; height:46px; line-height:46px; font-size:14px; color:#666666; font-family:"宋体"; background-color:#edf0f4; border-radius:6px; padding:0 10px 0 36px; margin:0 0 10px 17px}
 .loginbox .uname{ background-position:10px -160px}
 .loginbox .uword{ background-position:10px -216px}
