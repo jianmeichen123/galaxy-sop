@@ -22,4 +22,12 @@ public interface SopTaskDao extends BaseDao<SopTask, Long> {
 	Long selectTotalMission(SopTaskBo query);
 	
 	Long selectTotalUrgent(SopTaskBo query);
+	
+	/**
+	 * 根据任务FLAG进行查询
+	 * @param query
+	 * @return
+	 */
+	public List<SopTask> selectForTaskByFlag(SopTaskBo query);
+	
 }

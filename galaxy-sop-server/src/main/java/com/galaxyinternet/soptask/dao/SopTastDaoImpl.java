@@ -58,4 +58,15 @@ public class SopTastDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTask
 		}
 		
 	}
+
+	/**
+	 * 根据任务FLAG进行查询
+	 * @param query
+	 * @return
+	 */
+	public List<SopTask> selectForTaskByFlag(SopTaskBo query) {
+		// TODO Auto-generated method stub
+		this.sqlSessionTemplate.selectList(getSqlName("selectForTaskByFlag"), query);
+		return null;
+	}
 }

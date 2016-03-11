@@ -104,13 +104,13 @@
 						<th></th>
 						<th data-field="sopFileId" data-align="center">所属业务线</th>
                       	<th data-field="careerLine" data-align="center">所属业务线</th>
-                      	<th data-field="projectId" data-align="center">所属项目</th>
+                      	<th data-field="projectName" data-align="center">所属项目</th>
                       	<th data-field="fileSource" data-align="center">档案管理</th>
                       	<th data-field="fileUid" data-align="center">起草者</th>
-                      	<th data-field="fileType" data-align="center">存储类型</th>
-                      	<th data-field="fileWorktype" data-align="center">业务分类</th>
-                      	<th data-field="updateTime" data-align="center">更新日期</th>
-                      	<th data-field="fileStatus" data-align="center">档案状态</th>
+                      	<th data-field="fType" data-align="center">存储类型</th>
+                      	<th data-field="fWorktype" data-align="center">业务分类</th>
+                      	<th data-field="updatedDate" data-align="center">更新日期</th>
+                      	<th data-field="fileStatusDesc" data-align="center">档案状态</th>
 						<th ><a href="/download?sopFileId" >附件查看</a></th>
 					</tr>
 				</thead>

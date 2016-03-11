@@ -675,6 +675,242 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return responseBody;
 	}
 	
+	/***
+	 * 档案上传通用
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/commonUploadFile",method=RequestMethod.POST)
+	public ResponseData<SopFile> commonUploadFile(HttpServletRequest request,HttpServletResponse response){
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();	
+		//1收集参数
+		//	(fileSource:非必需入力)
+		//2校验参数
+		//3上传阿里云
+		//4业务控制
+		//4.1判断上传是否为签署证明
+		//if 非签署证明时：
+		//	4.1.1 回填 文件表
+		//else签署证明时
+		//	4.1.1 上传签署证明文件表
+		//	4.1.2 修改当前任务状态
+		//		if 所有任务状态均为完成
+		//			if 该签署证明已上传
+		//				提示异常：签署证明不能上传2便
+		//			else 签署证明已上传
+		//				4.1.2.2 更新当前project阶段（张峰的方法）
+		//				4.1.2.3 生成任务(张峰的方法)			
+		//	4.1.3 成功返回当前上传文件信息
+		
+		//1获取参数
+		//文档来源
+		String fileSource = request.getParameter("fileSource");
+		//文档类型
+		String fileType = request.getParameter("fileType");
+		//业务分类
+		String workType = request.getParameter("fileWorkType");
+		//项目ID
+		String projectId = request.getParameter("projectId");
+		//是否签署证明
+		String isProve = request.getParameter("isProve");
+		//备注
+		String remark = request.getParameter("remark");
+		//2校验参数
+		//登录校验
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		User user = (User) obj;
+		if(obj == null){
+			responseBody.setResult(new Result(Status.ERROR, ERROR_NO_LOGIN));
+		}
+		String proProgress = "";
+		Integer taskFlag = null;
+		//业务分类校验 并 初始化任务名称及项目阶段
+		if(workType!=null){
+			if(workType.equals(DictEnum.fileWorktype.投资意向书.getCode())){  //字典   档案业务类型   投资意向书
+				proProgress = DictEnum.projectProgress.投资意向书.getCode() ;									  
+				taskFlag = 1;
+				
+			}else if(workType.equals(DictEnum.fileWorktype.业务尽职调查报告.getCode())){
+				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
+				taskFlag = 5;
+				
+			}else if(workType.equals(DictEnum.fileWorktype.投资协议.getCode())){
+				proProgress = DictEnum.projectProgress.投资协议.getCode() ; 
+				taskFlag = 6;
+				
+			}else if(workType.equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+				proProgress = DictEnum.projectProgress.投资协议.getCode() ; 
+				taskFlag = 7;
+				
+			}else if(workType.equals(DictEnum.fileWorktype.人力资源尽职调查报告.getCode())){
+				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
+				taskFlag = 2;
+				
+			}else if(workType.equals(DictEnum.fileWorktype.财务尽职调查报告.getCode())){
+				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
+				taskFlag = 4;
+				
+			}else if(workType.equals(DictEnum.fileWorktype.法务尽职调查报告.getCode())){
+				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
+				taskFlag = 3;
+				
+			}else if(workType.equals(DictEnum.fileWorktype.工商转让凭证.getCode())){
+				proProgress = DictEnum.projectProgress.股权交割.getCode() ;
+				taskFlag = 9;
+				
+			}else if(workType.equals(DictEnum.fileWorktype.资金拨付凭证.getCode())){
+				proProgress = DictEnum.projectProgress.股权交割.getCode() ;
+				taskFlag = 8;	
+			}else{
+				responseBody.setResult(new Result(Status.OK, "文件业务类型不能识别"));
+				return responseBody;
+			}
+		}else{
+			responseBody.setResult(new Result(Status.ERROR,null, "文件业务类型为空"));
+			return responseBody;
+		}
+		//文档类型校验
+		//文档来源校验		
+
+		try{
+			// 文件上传
+			// 文件唯一key
+			String fileKey = String
+					.valueOf(IdGenerator.generateId(OSSHelper.class));
+			//3 上传阿里云
+			File tempFile = aLiColoudUpload(request,fileKey);
+			//4业务控制 --若文件上传成功-判断是否为签署
+			if(tempFile!=null){
+				//判断是否为签署凭证
+				if(isProve.equals("on")){
+					//为签署凭证
+					//初始化签署凭证文件表
+					SopVoucherFile sopVoucherFile = new SopVoucherFile();
+					sopVoucherFile.setProjectId(Long.parseLong(projectId));
+					sopVoucherFile.setFileWorktype(workType);
+					sopVoucherFile = sopVoucherFileService.queryOne(sopVoucherFile);
+					//bucketName
+					sopVoucherFile.setBucketName(OSSFactory.getDefaultBucketName());
+					//fileKey
+					sopVoucherFile.setFileKey(fileKey);
+					//文件大小
+					sopVoucherFile.setFileLength(tempFile.length());
+					//文件名称
+					sopVoucherFile.setFileName(tempFile.getName());
+					//上传人
+					sopVoucherFile.setFileUid(user.getId());		
+					//存储类型
+					sopVoucherFile.setFileType(fileType);
+					//档案来源
+					sopVoucherFile.setFileSource(fileSource);
+					//档案摘要
+					sopVoucherFile.setRemark(remark);
+					//档案状态
+					sopVoucherFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());		
+					//初始化任务表
+					SopTask task = new SopTask();
+					task.setProjectId(Long.valueOf(projectId));
+					task.setTaskFlag(taskFlag);
+					task.setAssignUid(user.getId());
+					task = sopTaskService.queryOne(task);
+					//校验task任务信息
+					if(task==null){
+						responseBody.setResult(new Result(Status.ERROR, null,"任务检索为空"));
+						return responseBody;
+					}
+					//初始化任务信息
+					Project project = new Project();
+					project = projectService.queryById(Long.valueOf(projectId));
+					//校验项目信息
+					if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.内部创建.getCode()) && workType.equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+						responseBody.setResult(new Result(Status.ERROR,null, "该项目不需要股权转让协议"));
+						return responseBody;
+					}		
+					String err = errMessage(project,user,proProgress);
+					if(err!=null && err.length()>0){
+						responseBody.setResult(new Result(Status.ERROR,null, err));
+						return responseBody;
+					}
+					//签署凭证上传业务逻辑处理
+					sopFileService.updateProve(sopVoucherFile,task,project,user.getId(),user.getDepartmentId());
+					//此处结束
+									
+				}else{
+					//非签署凭证
+					//初始化sopFile对象
+					SopFile sopFile = new SopFile();
+					sopFile.setProjectId(Long.parseLong(projectId));
+					sopFile.setFileWorktype(workType);
+					sopFile = sopFileService.selectByProjectAndFileWorkType(sopFile);
+					//bucketName
+					sopFile.setBucketName(OSSFactory.getDefaultBucketName());
+					//fileKey
+					sopFile.setFileKey(fileKey);
+					//文件大小
+					sopFile.setFileLength(tempFile.length());
+					//文件名称
+					sopFile.setFileName(tempFile.getName());
+					//上传人
+					sopFile.setFileUid(user.getId());		
+					//存储类型
+					sopFile.setFileType(fileType);
+					//档案来源
+					sopFile.setFileSource(fileSource);
+					//档案摘要
+					sopFile.setRemark(remark);
+					//档案状态
+					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());		
+					//调用非签署凭证业务方法
+					sopFileService.updateByIdSelective(sopFile);
+				}		
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_ALCLOUD));
+			}
+			responseBody.setResult(new Result(Status.OK, null));
+		}catch(DaoException e){
+			responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_DAO));
+		}catch(IOException e){
+			// TODO Auto-generated catch block
+			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
+		}
+		return responseBody;
+	}
+	
+	public File aLiColoudUpload(HttpServletRequest request, String fileKey)
+			throws IllegalStateException, IOException {
+		// 请求转换
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		// 获取multipartFile文件
+		MultipartFile multipartFile = multipartRequest.getFile("file");
+		// 获取临时存储路径
+		String path = request.getSession().getServletContext()
+				.getRealPath("upload");
+		// 获取文件名称
+		String fileName = multipartFile.getOriginalFilename();
+		File tempFile = new File(path, fileName);
+		if (!tempFile.exists()) {
+			tempFile.mkdirs();
+		}
+		// 存储临时文件
+		multipartFile.transferTo(tempFile);
+		// 上传至阿里云
+		UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile,
+				fileKey);
+		if (upResult.getResult().getStatus().equals(Status.OK)) {
+			return tempFile;
+		}
+		return null;
+	}
+	
+	/**
+	 * 项目业务逻辑校验
+	 * @param project
+	 * @param user
+	 * @param prograss
+	 * @return
+	 */
 	public String errMessage(Project project,User user,String prograss){
 		if(project == null){
 			return "项目检索为空";
@@ -694,6 +930,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		return null;
 	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/selectProjectFiles", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopFile> selectProjectFiles(@RequestBody SopFileBo query)

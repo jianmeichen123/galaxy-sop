@@ -6,17 +6,30 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.sopfile.SopVoucherFileBo;
+import com.galaxyinternet.common.constants.SopConstant;
+import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.dao.department.DepartmentDao;
+import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
+import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
+import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.SopFileService;
+import com.galaxyinternet.service.UserService;
 
 @Service("com.galaxyinternet.service.SopFileService")
 public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
@@ -26,6 +39,14 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	private SopFileDao sopFileDao;
 	@Autowired
 	private SopVoucherFileDao voucherFileDao;
+	@Autowired
+	private SopTaskDao sopTaskDao;
+	@Autowired
+	private ProjectDao projectDao;
+	@Autowired
+	private DepartmentService departmentService;
+	@Autowired
+	private UserService userService;
 
 	@Override
 	protected BaseDao<SopFile, Long> getBaseDao() {
@@ -50,21 +71,36 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	}
 
 
-	
+	/**
+	 * 分页查询获取project名称
+	 */
 	public Page<SopFile> queryPageList(SopFile query, Pageable pageable) {
 		// TODO Auto-generated method stub
 		Page<SopFile> pageEntity = super.queryPageList(query, pageable);
-		List<SopFile> sopFileList = pageEntity.getContent();
-//		Map<String,Object> map = new HashMap<String,Object>();
-//		map
-//		sopFileDao.queryProjectName(sopFileList);
-//		return null;
-		return null;
+		//获取Project名称
+		for(SopFile sopFile : pageEntity.getContent()){
+			
+			if(sopFile.getProjectId()!=null){
+				Project project = projectDao.selectById(sopFile.getProjectId());
+				sopFile.setProjectName(project.getProjectName());
+			}
+			if(sopFile.getCareerLine()!=null){
+				Department department = departmentService.queryById(sopFile.getCareerLine());
+				sopFile.setCareerLineName(department.getName());
+			}
+			if(sopFile.getFileUid()!=null){
+				User user = userService.queryById(sopFile.getFileUid());
+				sopFile.setFileUName(user.getRealName());
+			}		
+//			
+		}
+		return pageEntity;
 	}
 
 
 
 	@Override
+	@Transactional
 	public List<SopFile> queryList(SopFile query) {
 		List<SopFile> list = super.queryList(query);
 		if(list != null && list.size()>0)
@@ -101,6 +137,218 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		return list;
 	}
 	
+	/**
+	 * 签署凭证上传时业务逻辑处理
+	 * @param sopFile
+	 * @param sopTask
+	 * @param project
+	 * @return
+	 */
+	@Transactional
+	public SopVoucherFile updateProve(SopVoucherFile sopVoucherFile,SopTask sopTask,Project project,Long userId,Long departmentId){
+		//回填签署凭证文件表
+		voucherFileDao.updateById(sopVoucherFile);
+		//修改任务状态完成
+		sopTask.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		sopTaskDao.updateById(sopTask);
+		SopTaskBo sopTaskBo = new SopTaskBo();
+		sopTaskBo.setProjectId(sopTask.getProjectId());
+		List<String> taskFlagList = new ArrayList<String>();
+		if(project.getProgress().equals(DictEnum.projectProgress.投资意向书.getCode())){
+			//投资意向书
+			taskFlagList.add("1");
+		}else if(project.getProgress().equals(DictEnum.projectProgress.投资协议.getCode())){
+			//投资协议
+			taskFlagList.add("6");
+			//股权转让
+			taskFlagList.add("7");
+		}else if(project.getProgress().equals(DictEnum.projectProgress.股权交割.getCode())){
+			//工商签署
+			taskFlagList.add("9");
+		}
+		sopTaskBo.setTaskFlagList(taskFlagList);
+		//判断所有任务状态均为完成
+		if(searchIsAllHasCompleted(sopTaskBo)){
+			//更新当前项目阶段并插入任务
+			if(project.getProgress().equals(DictEnum.projectProgress.投资意向书.getCode())){
+				upTermSheetSign(project, userId, departmentId);
+			}else if(project.getProgress().equals(DictEnum.projectProgress.投资协议.getCode())){
+				upInvestmentSign(project);
+			}else if(project.getProgress().equals(DictEnum.projectProgress.股权交割.getCode())){
+
+			}	
+		}
+
+		return sopVoucherFile;
+	}
+	
+	/**
+	 * 投资协议阶段，    上传  投资协议-签署证明；
+	 * 				更新项目阶段；
+	 * 				生成任务;
+	 * @param   project 
+	 * @return
+	 */
+	private void upInvestmentSign(Project project){
+		project.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
+		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
+		projectDao.updateById(project);
+		
+		//财务  任务生成
+		SopTask task3 = new SopTask();
+		task3.setProjectId(project.getId());         //项目id
+		task3.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);  		 //任务分派到: 投资经理
+		task3.setTaskName("上传资金拨付凭证");        //任务名称：  上传资金拨付凭证
+		//0 完善简历、
+		//1 投资意向书、
+		//2 人事尽职调查报告、
+		//3 法务尽职调查报告、
+		//4 财务尽调报告、
+		//5 业务尽调报告、
+		//6 投资协议、
+		//7 股权转让协议、
+		//8 资金拨付凭证、
+		//9 工商变更登记凭证
+		task3.setTaskFlag(8);
+		task3.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待认领
+		task3.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
+		sopTaskDao.insert(task3);
+		
+		//法务  任务生成
+		SopTask task4 = new SopTask();
+		task4.setProjectId(project.getId());         //项目id
+		task4.setDepartmentId(SopConstant.DEPARTMENT_FW_ID); 		 //任务分派到: 投资经理
+		task4.setTaskName("上传工商变更登记凭证");        //任务名称：  上传工商变更登记凭证
+		//0 完善简历、
+		//1 投资意向书、
+		//2 人事尽职调查报告、
+		//3 法务尽职调查报告、
+		//4 财务尽调报告、
+		//5 业务尽调报告、
+		//6 投资协议、
+		//7 股权转让协议、
+		//8 资金拨付凭证、
+		//9 工商变更登记凭证
+		task4.setTaskFlag(9);
+		task4.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待认领
+		task4.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
+		sopTaskDao.insert(task4);
+		
+	}
+	
+	/**
+	 * 投资意向书阶段，    上传  投资意向书-签署证明；
+	 * 				更新项目阶段；  --》  尽职调查
+	 * 				生成任务;
+	 * @param   project 
+	 * @return
+	 */
+	private void upTermSheetSign(Project project,Long userid,Long departid){
+		project.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
+		projectDao.updateById(project);
+		
+		//业务dd  任务生成
+		SopTask task1 = new SopTask();
+		task1.setProjectId(project.getId());         //项目id
+		task1.setDepartmentId(departid);  		 //任务分派到: 投资经理
+		task1.setTaskName("上传业务尽职调查报告");    //任务名称：  上传股权转让协议
+		//0 完善简历、
+		//1 投资意向书、
+		//2 人事尽职调查报告、
+		//3 法务尽职调查报告、
+		//4 财务尽调报告、
+		//5 业务尽调报告、
+		//6 投资协议、
+		//7 股权转让协议、
+		//8 资金拨付凭证、
+		//9 工商变更登记凭证
+		task1.setTaskFlag(5);
+		task1.setAssignUid(userid);             //任务认领人id 
+		task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				 //任务状态: 2:待完工
+		task1.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
+		sopTaskDao.insert(task1);
+		
+		//人事dd  任务生成
+		SopTask task2 = new SopTask();
+		task2.setProjectId(project.getId());         //项目id
+		task2.setDepartmentId(SopConstant.DEPARTMENT_RS_ID);  		 //任务分派到: 投资经理
+		task2.setTaskName("上传人事尽职调查报告");        //任务名称：  上传股权转让协议
+		//0 完善简历、
+		//1 投资意向书、
+		//2 人事尽职调查报告、
+		//3 法务尽职调查报告、
+		//4 财务尽调报告、
+		//5 业务尽调报告、
+		//6 投资协议、
+		//7 股权转让协议、
+		//8 资金拨付凭证、
+		//9 工商变更登记凭证
+		task2.setTaskFlag(2);
+		task2.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
+		task2.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
+		sopTaskDao.insert(task2);
+		
+		
+		if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.外部项目.getCode())){
+			//财务dd  任务生成
+			SopTask task3 = new SopTask();
+			task3.setProjectId(project.getId());         //项目id
+			task3.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);  		 //任务分派到: 投资经理
+			task3.setTaskName("上传财务尽职调查报告");     //任务名称：  上传股权转让协议
+			//0 完善简历、
+			//1 投资意向书、
+			//2 人事尽职调查报告、
+			//3 法务尽职调查报告、
+			//4 财务尽调报告、
+			//5 业务尽调报告、
+			//6 投资协议、
+			//7 股权转让协议、
+			//8 资金拨付凭证、
+			//9 工商变更登记凭证
+			task3.setTaskFlag(4);
+			task3.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
+			task3.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
+			sopTaskDao.insert(task3);
+			
+			//法务dd  任务生成
+			SopTask task4 = new SopTask();
+			task4.setProjectId(project.getId());         //项目id
+			task4.setDepartmentId(SopConstant.DEPARTMENT_FW_ID);  		 //任务分派到: 投资经理
+			task4.setTaskName("上传法务尽职调查报告");        //任务名称：  上传股权转让协议
+			//0 完善简历、
+			//1 投资意向书、
+			//2 人事尽职调查报告、
+			//3 法务尽职调查报告、
+			//4 财务尽调报告、
+			//5 业务尽调报告、
+			//6 投资协议、
+			//7 股权转让协议、
+			//8 资金拨付凭证、
+			//9 工商变更登记凭证
+			task4.setTaskFlag(3);
+			task4.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
+			task4.setTaskType(DictEnum.taskType.协同办公.getCode());				 //任务类型    协同
+			sopTaskDao.insert(task4);
+		}
+	}
+	
+	/**
+	 * 判断所有任务是否全部完成
+	 * @param sopTaskBo
+	 * @return
+	 */
+	private boolean searchIsAllHasCompleted(SopTaskBo sopTaskBo){
+		List<SopTask> sopTaskList = sopTaskDao.selectForTaskByFlag(sopTaskBo);
+		for(SopTask sopTask : sopTaskList){	
+			if(sopTask.getTaskStatus().equals(DictEnum.taskStatus.已完成)){
+				continue;
+			}else{
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	
 	

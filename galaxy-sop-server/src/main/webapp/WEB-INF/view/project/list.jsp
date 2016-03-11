@@ -156,6 +156,7 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/pprogress.js" type="text/javascript"></script>
 <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -218,6 +219,10 @@
 								$("#projectProgress_5").addClass("on");
 								$("#projectProgress_5_con").css("display","block");
 								projectProgress5($("#project_id").val());
+							}
+							if(id == 'projectProgress_8'){
+								$("#projectProgress_7_con").css("display","none");
+								$("#projectProgress_8_con").css("display","block");
 							}
 							if(id == 'projectProgress_9'){
 								$("#projectProgress_8_con").css("display","none");
@@ -723,5 +728,4 @@
 	}
 
 </script>
-<script src="<%=path %>/js/pprogress.js"></script>
 </html>

@@ -99,14 +99,22 @@ public class SopFile extends PagableEntity {
     
     
     //详情数据转换
-  	private String createDate;
-  	private String progress;
+    //数据库转换
+  	private String fileUName;
+  	private String projectName;
+  	private String careerLineName;
+  	
+  	//枚举转换
   	private String fType;
   	private String fWorktype;
+  	private String progress;
   	private String fileStatusDesc;
   	private String updatedDate;
+  	private String createDate;
+  	private String fSource;
   	private Map<String,String> params;
   	private String voucherFileName;
+
   	
 
 
@@ -212,6 +220,10 @@ public class SopFile extends PagableEntity {
 
 	public void setFileSource(String fileSource) {
 		this.fileSource = fileSource;
+		if(fileSource != null){
+			fSource = DictEnum.档案来源.getNameByCode(fileSource);
+		}
+		
 	}
 
 
@@ -329,6 +341,30 @@ public class SopFile extends PagableEntity {
 
 	public void setVoucherFileName(String voucherFileName) {
 		this.voucherFileName = voucherFileName;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+	public String getFileUName() {
+		return fileUName;
+	}
+
+	public void setFileUName(String fileUName) {
+		this.fileUName = fileUName;
+	}
+
+	public String getCareerLineName() {
+		return careerLineName;
+	}
+
+	public void setCareerLineName(String careerLineName) {
+		this.careerLineName = careerLineName;
 	}
 
     

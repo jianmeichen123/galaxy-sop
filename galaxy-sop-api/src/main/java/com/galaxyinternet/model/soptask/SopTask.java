@@ -19,6 +19,11 @@ public class SopTask extends BaseEntity{
      private Date taskDeadline;
      private Long departmentId;
      private Long assignUid;
+     
+     
+     
+     
+     
 	public Long getProjectId() {
 		return projectId;
 	}

@@ -14,6 +14,7 @@ public class SopTaskBo extends  SopTask implements Pagable{
 	private String taskDeadlineformat;
 	private String caozuo;
 	private List<String> taskStatusList; //任务状态  完成、待完成
+	private List<String> taskFlagList;	//任务FLAG modifyed by zhangzl
 	private String nameLike;
 	private String statusFlag;
 	private String caozuohtml;
@@ -125,6 +126,14 @@ public class SopTaskBo extends  SopTask implements Pagable{
 
 	public void setOrderRemark(String orderRemark) {
 		this.orderRemark = orderRemark;
+	}
+
+	public List<String> getTaskFlagList() {
+		return taskFlagList;
+	}
+
+	public void setTaskFlagList(List<String> taskFlagList) {
+		this.taskFlagList = taskFlagList;
 	}
 	
 	

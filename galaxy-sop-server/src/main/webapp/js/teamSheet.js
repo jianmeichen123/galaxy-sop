@@ -22,12 +22,12 @@
 									$tr.append('<td></td>') ;
 								}	
 								$tr.append('<td>'+this.fileStatusDesc+'</td>') ;
-								if(this.fileKey != null){	
-									$tr.append('<td><a data-act="uploadFileBtn" data-tid='+this.id+' data-worktype='+this.fWorktype+' data-projectid='+this.projectId+' href="javascript:; " class="blue">上传</a></td>')
+								if(this.fileKey == null){	
+									$tr.append('<td><a data-act="uploadFileBtn" data-tid='+this.id+' data-worktype='+this.fWorktype+' data-projectid='+this.projectId+' href="javascript:; " class="blue">上传</a></td>');
 								}else{
-									$tr.append('<td><a data-act="downloadFileBtn" data-tid='+this.id+' data-worktype='+this.fWorktype+' data-projectid='+this.projectId+' href="javascript:; " class="blue">查看</a></td>') ; 	
+									$tr.append('<td><a data-act="downloadFileBtn" data-tid='+this.id+' data-worktype='+this.fWorktype+' data-projectid='+this.projectId+' href="javascript:; " class="blue">查看</a></td>'); 	
 								}
-								
+								$tr.append('<td><a data-act="uploadProveFileBtn" data-tid='+this.id+' data-worktype='+this.fWorktype+' data-projectid='+this.projectId+' href="javascript:; " class="blue">上传</a></td>') ;
 								_tbody.append($tr);
 								dataGrid.initPanel(this);
 								
@@ -45,15 +45,29 @@
 			},
 			initPanel : function(_item){
 				$("[data-tid='"+_item.id+"'][data-act='uploadFileBtn']").click(function(){
+					//上传插件参数
 					var _formdata = {
-							_workType : _item.fWorktype,
-							_workTypeId : _item.fileWorktype,
-							_projectId : _item.projectId
-						}
+							_workType : _item.fileWorktype,
+							_projectId : _item.projectId,
+							
+						};
 					win.initData();
 					win.init(_formdata);
 					
 				});
+				$("[data-tid='"+_item.id+"'][data-act='uploadProveFileBtn']").click(function(){
+					alert("上传签署协议");
+					//上传插件参数
+					var _formdata = {
+							_workType : _item.fileWorktype,
+							_projectId : _item.projectId,
+							_isProve : true
+						};
+					
+					win.init(_formdata);
+				});
+				
+				
 				$("[data-tid='"+_item.id+"'][data-act='downloadFileBtn']").click(function(){
 					alert("下载附件");
 				});
@@ -64,8 +78,9 @@
 	
 	var win = {
 			init : function(_formdata){
+				win.initData();
 				$.popup({
-					txt : $("#addFile").html(),
+					txt : $("#uploadPanel").html(),
 					showback:function(){
 						//alert("弹出层初始化");
 						var _this = this;
@@ -74,7 +89,7 @@
 						var uploader = new plupload.Uploader({
 							runtimes : 'html5,flash,silverlight,html4',
 							browse_button : $(_this.id).find("#selectBtn")[0], // you can pass in id...
-							url : platformUrl.simpleSopFileUpload,
+							url : platformUrl.commonUploadFile,
 							multipart:true,
 							multi_selection:false,
 							filters : {
@@ -123,12 +138,13 @@
 									}
 								},
 								BeforeUpload:function(up){
-									
+									alert($(_this.id).find("#isProve").is(":checked"));
 									var form = {
 											"fileSource" : $(_this.id).find("input[name='fileSource']:checked").val(),
 											"fileType" : $(_this.id).find("#fileType").val(),
-											"fileWorkType" : $(_this.id).find("#fileWorkTypeId").val(),
-											"projectId" : $(_this.id).find("#sopProjectId").val(),	
+											"fileWorkType" : $(_this.id).find("#fileWorkType").val(),
+											"projectId" : $(_this.id).find("#sopProjectId").val(),
+											"isProve" : $(_this.id).find("#isProve").attr("checked")
 									}
 									
 									up.settings.multipart_params = form;
@@ -149,25 +165,51 @@
 				});
 			},
 			fillData : function(_this,_formdata){
+				//业务分类隐藏域
+//				var _fileWorkTypeId = $(_this.id).find("#fileWorkTypeId");
+//				_fileWorkTypeId.val(_formdata._workTypeId);
 
-				var _fileWorkType = $(_this.id).find("#fileWorkType");
-				var _fileWorkTypeId = $(_this.id).find("#fileWorkTypeId");
-				var _sopProject = $(_this.id).find("#sopProject");
-				var _sopProjectId = $(_this.id).find("#sopProjectId");
-				//业务分类id隐藏于
-				_fileWorkTypeId.val(_formdata._workTypeId);
-				//业务分类文本域
-				_fileWorkType.val(_formdata._workType);
-				//项目文本域(此处先写ID)
-				_sopProject.val(_formdata._projectId);
-				//项目ID隐藏域
-				_sopProjectId.val(_formdata._projectId);
-				_fileWorkType.attr("disabled","disabled");		
-				_sopProject.attr("disabled","disabled");
+				var $fileWorkType = $(_this.id).find("#fileWorkType");
+				var $fileType = $(_this.id).find("#fileType");
+				var $sopProjectId = $(_this.id).find("#sopProjectId");
+				var $searchProjectBtn = $(_this.id).find("#searchProjectBtn");
 				
+				var $isProve = $(_this.id).find("#isProve");
+
+				
+				//项目文本域(此处先写ID)
+				$sopProjectId.val(_formdata._projectId);
+				//项目ID隐藏域
+				$sopProjectId.val(_formdata._projectId);
+				
+				
+				
+				//文档分类
+				if(_formdata._fileType){
+					$fileType.val(_formdata._fileType);
+					$fileType.attr("disabled","disabled");	
+				}
+				//业务分类
+				if(_formdata._workType){
+					$fileWorkType.val(_formdata._workType);
+					$fileWorkType.attr("disabled","disabled");		
+				}
+				//项目
+				if(_formdata._projectId){
+					//此处应该获取项目名称
+					$sopProjectId.val(_formdata._projectId);
+					$sopProjectId.attr("disabled","disabled");
+					$searchProjectBtn.attr("disabled","disabled");
+				}
+				//签署证明
+				if(typeof(_formdata._isProve) != "undefined"){
+					$isProve.attr("checked",_formdata._isProve); 
+					$isProve.attr("disabled","disabled")
+				}	
 				
 			},
 			initData : function(){
+				sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,win.initDataCallBack,null);
 				sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,win.initDataCallBack,null);
 			},
 			initDataCallBack : function(data){	
@@ -175,10 +217,14 @@
 				var _type;
 				switch(data.result.message){
 				case "fileType" : 
-					_dom = $("#fileType");
-					break;		
+					_dom = $("#uploadPanel").find("#fileType");
+					break;	
+				case "fileWorkType":
+//					_type = "fileWorktype"
+					_dom = $("#uploadPanel").find("#fileWorkType");
+					break;
 				}
-				utils.each(data,_dom,null);	
+				utils.each(data,_dom,null);
 				},
 			//判断弹出框是否已经存在
 			isCreate : function(){

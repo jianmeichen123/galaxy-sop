@@ -1,14 +1,13 @@
 package com.galaxyinternet.service;
 
 import java.util.List;
-import java.util.Map;
-
-import org.springframework.data.domain.Pageable;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
-import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.sopfile.SopVoucherFile;
+import com.galaxyinternet.model.soptask.SopTask;
 
 /**
  * @author zhongliangzhang
@@ -24,6 +23,17 @@ public interface SopFileService extends BaseService<SopFile> {
 	 */
 	public SopFile selectByProjectAndFileWorkType(SopFile sf);
 	
+	
+	
+	
+	/**
+	 * 签署凭证上传时业务逻辑处理
+	 * @param sopFile
+	 * @param sopTask
+	 * @param project
+	 * @return
+	 */
+	public SopVoucherFile updateProve(SopVoucherFile sopVoucherFile,SopTask sopTask,Project project,Long userId,Long departmentId);
 	
 
 	

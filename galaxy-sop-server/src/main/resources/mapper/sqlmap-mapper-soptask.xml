@@ -241,6 +241,31 @@
 			</trim>
 		</where>
 	</select>
+	
+	<!-- 根据taskFlag查询 -->
+	<select id="selectForTaskByFlag" resultMap="BaseResultMap" parameterType="com.galaxyinternet.bo.SopTaskBo">
+		select
+		<include refid="Base_Column_List" />
+		from sop_task
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="taskName != null"> and task_name =#{taskName}</if>
+				<if test="taskType != null"> and task_type =#{taskType}</if>
+				<if test="taskFlag != null"> and task_flag =#{taskFlag}</if>
+				<if test="departmentId != null"> and department_id =#{departmentId}</if>
+				<if test="assignUid != null"> and assign_uid =#{assignUid}</if>
+				<if test="taskStatus != null"> and task_status =#{taskStatus}</if>
+				<if test="taskFlagList != null"> 
+					and task_status in
+					<foreach collection="taskFlagList" item="taskFlag" index="index" open="(" close=")" separator=",">
+			            #{taskFlag}
+			        </foreach>
+				</if>
+			</trim>
+		</where>
+	</select>
+	
 	<!-- 查询待办总数 -->
 	<select id="selectTotalMission" resultType="java.lang.Long" parameterType="SopTaskPO">
 		select count(id) from sop_task
