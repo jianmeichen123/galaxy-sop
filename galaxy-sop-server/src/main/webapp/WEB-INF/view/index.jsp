@@ -118,7 +118,7 @@
                         </table>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="/galaxy/soptask" class="more null">more</a>
+                    	<a href="http://fx.qa.galaxyinternet.com/sop/galaxy/soptask" class="more null">more</a>
                     </dd>
                 </dl>
                 <dl>
