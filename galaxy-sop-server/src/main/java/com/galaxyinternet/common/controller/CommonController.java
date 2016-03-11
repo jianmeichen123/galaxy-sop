@@ -102,14 +102,24 @@ public class CommonController {
 		}
 		
 		tabs.add(new Menus(13L, "模板管理", u + "galaxy/template"));
-
 		tabs.add(new Menus(14L, "档案管理", u + "galaxy/sopFile/toFileList"));
 		
+		String sessionId = user.getSessionId();
 		//管理员
 		if(roleIdList.contains(16L)){
 			tabs.clear();
-			tabs.add(new Menus(15L, "用户管理", "http://fx.qa.galaxyinternet.com/platform/galaxy/user"));
-			tabs.add(new Menus(16L, "数据字典", "http://fx.qa.galaxyinternet.com/platform/galaxy/dict/index"));
+			tabs.add(new Menus(15L, "用户管理", "http://fx.qa.galaxyinternet.com/platform/galaxy/user?sid=" + sessionId));
+			tabs.add(new Menus(16L, "数据字典", "http://fx.qa.galaxyinternet.com/platform/galaxy/dict/index?sid=" + sessionId));
+		}
+		//高管
+		if(roleIdList.contains(1L) || roleIdList.contains(2L)){
+			tabs.add(new Menus(16L, "项目查询", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projects?sid=" + sessionId));
+			tabs.add(new Menus(16L, "数据简报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/dataBriefing?sid=" + sessionId));
+			tabs.add(new Menus(16L, "项目分析", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projectAnalysis?sid=" + sessionId));
+			tabs.add(new Menus(16L, "绩效考核", "http://fx.qa.galaxyinternet.com/report/galaxy/report/kpi?sid=" + sessionId));
+			tabs.add(new Menus(16L, "投后项目跟踪", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestTrack?sid=" + sessionId));
+			tabs.add(new Menus(16L, "投后业务运营", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestBusiness?sid=" + sessionId));
+			tabs.add(new Menus(16L, "投后企业财报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestFinace?sid=" + sessionId));
 		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;
