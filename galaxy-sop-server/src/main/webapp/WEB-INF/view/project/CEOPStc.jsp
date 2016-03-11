@@ -64,30 +64,6 @@
     	<a href="javascript:;" class="pubbtn bluebtn" id="CEO_savemeet">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
-
-
-
-<link href="${ctx}/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.min.js"></script>
-<script type="text/javascript" src="${ctx}/ueditor/lang/zh-cn/zh-cn.js"></script>
-
-<script src="${ctx}/js/plupload.full.min.js" type="text/javascript"></script>
- 
- <script type="text/javascript">
+<script type="text/javascript">
 		UM.getEditor('CEO_meetingNotes');
-		
-		
-		
 </script>
-
-<!-- <script type="text/javascript">
-$(function(){
-
- 	var um = UM.getEditor('meetingNotes');
-	um.setContent(""); 
-
-
-});
-
-</script> -->

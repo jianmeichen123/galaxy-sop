@@ -58,7 +58,8 @@
             <dd class="clearfix">
            
 <!--              <a href="/html/projectMeeting.html" data-btn="project" class="more null">more</a>
- -->             <a href="/html/projectMeeting.html" data-btn="project" class="more null">more</a>
+ -->            
+              <a href="/sop/html/projectMeeting.html" data-btn="project" class="more null">more</a>
             </dd>
         </dl>
         <!--投决会排期-->
@@ -80,7 +81,7 @@
                 </table>
             </dd>
             <dd class="clearfix">
-                <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
+                <a href="/sop/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
 <!--                 <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
             </dd>
         </dl>
