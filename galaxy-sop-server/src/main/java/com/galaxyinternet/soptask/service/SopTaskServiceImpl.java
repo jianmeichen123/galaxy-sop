@@ -14,6 +14,7 @@ import com.galaxyinternet.common.dictEnum.DictUtil;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.constants.RequestUrl;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -192,7 +193,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("2");
-				caozuohtml.append("<a ").append("   href='/galaxy/soptask/doTask?taskId="+sopTasknew.getProjectId()+"'").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
+				caozuohtml.append("<a ").append("   href=' "+ RequestUrl.DOTASK_URL+"/galaxy/soptask/doTask?taskId="+sopTasknew.getProjectId()+"'").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 		
 			}
