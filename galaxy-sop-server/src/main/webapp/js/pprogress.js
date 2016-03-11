@@ -1,6 +1,6 @@
 	function projectProgress9(id){
 		$.ajax({
-			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id,
+			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id+'/9',
 			data : null,
 			async : false,
 			type : 'GET',
@@ -63,7 +63,7 @@
 	}
 	function projectProgress5(id){
 		$.ajax({
-			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id,
+			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id+'/5',
 			data : null,
 			async : false,
 			type : 'GET',
