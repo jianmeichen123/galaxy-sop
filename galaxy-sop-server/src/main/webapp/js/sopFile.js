@@ -17,7 +17,7 @@ function init(){
 				$("#uploadOpenBtn").click(function(){
 					//判断对话框是否存在
 					if(popPanel.isCreate()){
-						alert("打开popup面板");
+						//alert("打开popup面板");
 						$("#popbg,#pop").show();
 					}else{
 //						alert("创建popup面板");
@@ -25,7 +25,7 @@ function init(){
 							txt : $("#addFile").html(),
 							showback:function(){
 //								$("#popTxt").html($("#addFile").html());
-								alert("弹出层初始化");
+								//alert("弹出层初始化");
 								var _this = this;
 								//plupload上传对象初始化
 								var uploader = new plupload.Uploader({
@@ -47,7 +47,7 @@ function init(){
 											
 											//上传按钮点击事件开始上传
 											$(_this.id).find("#uploadBtn").click(function(){
-												alert("上传保存事件并关闭弹出框");
+												//alert("上传保存事件并关闭弹出框");
 												uploader.start();
 												return false;
 											})
@@ -64,7 +64,7 @@ function init(){
 										FileUploaded:function(up,file,result){
 											if(result.status==200){
 												var _restmp = $.parseJSON(result.response);
-												alert(_restmp.status)
+												//alert(_restmp.status)
 												if(_restmp.status == "OK"){
 													alert("上传成功");
 													popPanel.close();
