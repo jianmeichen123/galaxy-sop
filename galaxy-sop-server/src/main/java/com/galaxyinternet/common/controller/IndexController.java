@@ -106,9 +106,9 @@ public class IndexController {
 	 * 跳转到LPHtc
 	 * @return
 	 */
-	@RequestMapping(value = "/lphtc", method = RequestMethod.GET)
+	@RequestMapping(value = "/mr", method = RequestMethod.GET)
 	public String lphtc(HttpServletRequest request) {
-		return "project/LPHtc";
+		return "project/mr";
 	}
 	
 	/**
@@ -144,5 +144,14 @@ public class IndexController {
 	@RequestMapping(value = "/uywjd", method = RequestMethod.GET)
 	public String uywjd() {
 		return "project/uploadFile";
+	}
+	
+	/**
+	 * 弹出投资意向书弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/tzyx", method = RequestMethod.GET)
+	public String tzyx() {
+		return "project/progress/tzyxs";
 	}
 }

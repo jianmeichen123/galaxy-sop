@@ -13,7 +13,7 @@
         <dl class="fmdl clearfix">
             <dt>会议召开日期：</dt>
             <dd>
-            	<input class="form-control" type="date" id="LPH_meetingDateStr" />
+            	<input class="form-control" type="date" id="meeting_date" />
             </dd>
         </dl>
     </div>
@@ -33,9 +33,9 @@
         <dl class="fmdl clearfix">
             <dt>会议结论：</dt>
             <dd class="clearfix">
-                <label><input type="radio" name="LPH_meetingResult" value="meetingResult:1"/>通过</label>
-                <label><input type="radio" name="LPH_meetingResult" value="meetingResult:2"/>待定</label>
-                <label><input type="radio" name="LPH_meetingResult" value="meetingResult:3"/>否决</label>
+                <label><input type="radio" name="meetingResult" value="meetingResult:1"/>通过</label>
+                <label><input type="radio" name="meetingResult" value="meetingResult:2"/>待定</label>
+                <label><input type="radio" name="meetingResult" value="meetingResult:3"/>否决</label>
             </dd>
         </dl>
     </div>
@@ -43,7 +43,7 @@
     <dl class="fmdl clearfix">
        <dt>会议纪要:</dt>
        <dd>
-       	  <div type="text/plain" id="LPH_meetingNotes" style="width:100%;height:100px;"></div>
+       	  <div type="text/plain" id="meeting_notes" style="width:100%;height:100px;"></div>
 		</dd>
       </dl>
         
@@ -52,18 +52,18 @@
         
         <div class="fmload clearfix">
             <dd>
-	        	<input type="text" name="fileName" id="LPH_fileName" class="txt" readonly="readonly"/>
+	        	<input type="text" name="fileName" id="meeting_file_object" class="txt" readonly="readonly"/>
 	        </dd>
 	        <dd>
-	        	<a href="javascript:;" class="pubbtn fffbtn" id="LPH_file-select-btn">上传录音</a>
+	        	<a href="javascript:;" class="pubbtn fffbtn" id="meeting_select_btn">上传录音</a>
     		</dd>
         </div>
             
     </dl>
     <div class="btnbox"><!--  saveMeet() -->
-    	<a href="javascript:;" class="pubbtn bluebtn" id="LPH_savemeet">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
+    	<a href="javascript:;" class="pubbtn bluebtn" id="save_meeting">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
 <script type="text/javascript">
-		UM.getEditor('LPH_meetingNotes');
+		UM.getEditor('meeting_notes');
 </script>

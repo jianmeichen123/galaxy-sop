@@ -2,7 +2,7 @@ var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
-var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
+var sopContentUrl = "http://127.0.0.1:8888/galaxy-sop-server";
 
 var platformUrl = {
 	/**
@@ -175,19 +175,27 @@ var platformUrl = {
 	/**
 	 * 启动内部评审
 	 */
-	startReview : sopContentUrl + "/galaxy/project/progress/startReview/",
+	startReview : sopContentUrl + "/galaxy/project/startReview/",
 	/**
 	 * 我的项目-文档下载
 	 */
 	downLoadFile : sopContentUrl+"/galaxy/sopFile/downloadFile",
-/**
+	/**
 	 * 获取尽职调查文件列表
 	 */
 	getFileList : sopContentUrl + "/galaxy/project/progress/proFileInfo/",
 	/**
 	 * 更新任务状态
 	 */
-	updateTaskStatus: sopContentUrl + "/galaxy/soptask/updateTaskStatus"
+	updateTaskStatus: sopContentUrl + "/galaxy/soptask/updateTaskStatus",
+	/**
+	 * 项目阶段过程的记录保存
+	 */
+	stageChange : sopContentUrl + "/galaxy/project/stageChange",
+	/**
+	 * 申请立项会操作
+	 */
+	toEstablishStage : sopContentUrl + "/galaxy/project/ges/"
 }
 
 /**

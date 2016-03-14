@@ -46,6 +46,7 @@ public class PersonPoolServiceImpl extends BaseServiceImpl<PersonPool> implement
 		task.setProjectId(pool.getProjectId());
 		task.setTaskName(SopConstant.TASK_NAME_WSJL);
 		task.setTaskType(DictEnum.taskType.协同办公.getCode());
+		task.setTaskFlag(SopConstant.TASK_FLAG_WSJL);
 		task.setTaskOrder(SopConstant.NORMAL_STATUS);
 		task.setDepartmentId(SopConstant.DEPARTMENT_RS_ID);
 		task.setTaskStatus(DictEnum.taskStatus.待认领.getCode());

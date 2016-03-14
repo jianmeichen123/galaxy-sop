@@ -13,6 +13,7 @@ public class Project extends PagableEntity {
     private String projectCode;
 
     private String projectType;
+    private Integer stockTransfer;
 
     private String projectCareerline;
 
@@ -83,7 +84,15 @@ public class Project extends PagableEntity {
 		}
     }
 
-    public String getProjectCareerline() {
+    public Integer getStockTransfer() {
+		return stockTransfer;
+	}
+
+	public void setStockTransfer(Integer stockTransfer) {
+		this.stockTransfer = stockTransfer;
+	}
+
+	public String getProjectCareerline() {
         return projectCareerline;
     }
 

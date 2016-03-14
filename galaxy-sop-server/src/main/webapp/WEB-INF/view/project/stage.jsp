@@ -257,7 +257,7 @@
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="#" data-btn="interview" onclick="air();" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
-					<a href="javascript:startReview();" class="pubbtn fffbtn lpubbtn">启动内部评审</a>
+					<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn">启动内部评审</a>
 				</div>
 				<div id="projectProgress_1_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
@@ -280,7 +280,7 @@
 
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:addLPH();" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a href="javascript:addMettingRecord(2,'meetingType:1');" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 				</div>
 				<div id="projectProgress_2_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
@@ -305,8 +305,8 @@
 			<div class="block" data-tab="con" id="projectProgress_3_con">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:addCEOPS();" class="pubbtn fffbtn lpubbtn">添加会议记录</a> 
-					<a href="javascript:lxhpq();" class="pubbtn fffbtn lpubbtn">立项会排期</a>
+					<a href="javascript:addMettingRecord(3,'meetingType:2');" class="pubbtn fffbtn lpubbtn">添加会议记录</a> 
+					<a href="javascript:toEstablishStage();" class="pubbtn fffbtn lpubbtn">立项会排期</a>
 				</div>
 				
 				<div id="projectProgress_3_table_custom-toolbar">
@@ -333,7 +333,7 @@
 			<div class="block" data-tab="con" id="projectProgress_4_con">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:addLXH();" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a href="javascript:addMettingRecord(4,'meetingType:3');" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 				</div>
 
 				<div id="projectProgress_4_table_custom-toolbar">
@@ -542,10 +542,3 @@
 		</div>
 	</div>
 </div>
-
-<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
-
-
-<script type="text/javascript">
-
-</script>

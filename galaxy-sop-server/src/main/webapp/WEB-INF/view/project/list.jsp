@@ -213,60 +213,52 @@
 						//为Tab添加点击事件，用于重新刷新
 						$("#projectProgress_" + i).on("click",function(){
 							var id = $(this).attr("id");
-							
-							if(id == 'projectProgress_5'){
+							var indexNum = id.substr(id.length-1,1);
+							var pp = data.entity.projectProgress;
+							var pNum = pp.substr(pp.length-1,1);
+							if(indexNum == '1'){
+								if(parseInt(indexNum) < parseInt(pNum)){
+									$("#qdnbps").remove();
+								}
+							    $("#projectProgress_1_con").css("display","block");
+								tiggerTable($("#projectProgress_1_table"),3);
+							}else if(indexNum == '2'){
+							 $("#projectProgress_2_con").css("display","block");
+								tiggerTable($("#projectProgress_2_table"),3);
+							}else if(indexNum == '3'){
+								 $("#projectProgress_3_con").css("display","block");
+								  tiggerTable($("#projectProgress_3_table"),3);
+							} else if(indexNum == '4'){
+							    $("#projectProgress_4_con").css("display","block");
+							    tiggerTable($("#projectProgress_4_table"),3);
+							} else if(indexNum == '5'){
 								$("#projectProgress_7_con").css("display","none");
 								$("#projectProgress_5").addClass("on");
 								$("#projectProgress_5_con").css("display","block");
 								projectProgress5($("#project_id").val());
-							}
-							if(id == 'projectProgress_8'){
+							}else if(indexNum == '6'){
+								$("#projectProgress_5_con").css("display","none");
+								 $("#projectProgress_6_con").css("display","block");
+								 tiggerTable($("#projectProgress_6_table"),3);
+							}else if(indexNum == '7'){
+								$("#projectProgress_6_con").css("display","none");
+								$("#projectProgress_7_con").css("display","block");
+								 tiggerTable($("#projectProgress_7_table"),3);
+							}else if(indexNum == '8'){
 								$("#projectProgress_7_con").css("display","none");
 								$("#projectProgress_8_con").css("display","block");
-							}
-							if(id == 'projectProgress_9'){
+							}else if(indexNum == '9'){
 								$("#projectProgress_8_con").css("display","none");
 								$("#projectProgress_9").addClass("on");
 								$("#projectProgress_9_con").css("display","block");
 								projectProgress9($("#project_id").val());
 							}
-							var indexNum = id.substr(id.length-1,1);
-							
-							var indexNum = id.substr(id.length-1,1);
-							if(indexNum == '1'){
-							   $("#projectProgress_1_con").css("display","block");
-								tiggerTable($("#projectProgress_1_table"),3);
-							}
-							if(indexNum == '2'){
-							 $("#projectProgress_2_con").css("display","block");
-								tiggerTable($("#projectProgress_2_table"),3);
-							}
-							if(indexNum == '3'){
-								 $("#projectProgress_3_con").css("display","block");
-								  tiggerTable($("#projectProgress_3_table"),3);
-								}
-							if(indexNum == '4'){
-							    $("#projectProgress_4_con").css("display","block");
-							    tiggerTable($("#projectProgress_4_table"),3);
-							}
-							if(indexNum == '6'){
-								$("#projectProgress_5_con").css("display","none");
-								 $("#projectProgress_6_con").css("display","block");
-								 tiggerTable($("#projectProgress_6_table"),3);
-							  }
-							if(indexNum == '7'){
-								$("#projectProgress_6_con").css("display","none");
-								$("#projectProgress_7_con").css("display","block");
-								 tiggerTable($("#projectProgress_7_table"),3);
-							}
-							
 						});
 					}
 					$("#" + progress).addClass("on");
 					$("#" + progress + "_con").css("display","block");
 				},null);
 				dataGrid.load(id);
-				
 			}
 		});
 		return false;
@@ -284,45 +276,38 @@
 				$('.searchbox').toggleshow();
 				leicj();
 				//初始化文件上传
-				toinitUpload(sopContentUrl + "/galaxy/project/progress/addFileInterview",
-						"select_btn","file_object","save_interview",
+				toinitUpload(platformUrl.stageChange, "select_btn","file_object","save_interview",
 						function getSaveCondition(){
 							var	condition = {};
-							var projectId = $("#project_id").val();
+							var pid = $("#project_id").val();
 							var viewDateStr = $("#viewDate").val();
 							var viewTarget = $.trim($("#viewTarget").val());
 							var um = UM.getEditor('viewNotes');
 							var viewNotes = $.trim(um.getContent());
 							var fileId = $("#viewfileID").val();
-							if(projectId == null || projectId == ""){
-								alert("项目不能为空");
-								return false;
-							}else{
-								condition.projectId = projectId;
+							if(pid == null || pid == ""){
+								return;
 							}
 							if(viewDateStr == null ||  viewDateStr == ""){
 								alert("日期不能为空");
 								return false;
-							}else{
-								condition.viewDateStr = viewDateStr;
 							}
 							if(viewTarget == null ||  viewTarget == ""){
 								alert("对象不能为空");
 								return false;
-							}else{
-								condition.viewTarget = viewTarget;
 							}
-							if(viewNotes != null && viewNotes!= ""){
-								condition.viewNotes = viewNotes;
-							}
-							if(fileId != null && fileId!= ""){
-								condition.fileId = fileId;
-							}
+							condition.pid = pid;
+							condition.stage = "projectProgress:1";
+							condition.createDate = viewDateStr;
+							condition.target = viewTarget;
+							condition.content = viewNotes;
+							condition.fileId = fileId;
 							/*var	condition = {
-								"projectId" : projectId,
-								"viewDate" : viewDate,
-								"viewTarget" : viewTarget,
-								"viewNotes" : viewNotes,
+								"pid" : pid,
+								"stage" : "projectProgress:1",
+								"createDate" : viewDate,
+								"target" : viewTarget,
+								"content" : viewNotes,
 								"fileId" : fileId
 							};*/
 							return condition;
@@ -339,16 +324,67 @@
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){
 			sendGetRequest(platformUrl.startReview + pid, {}, function(data){
-				$.getHtml({
-					url:sopContentUrl + "/galaxy/tip/1",//模版请求地址
-					data:"",//传递参数
-					okback:function(){
-						
-					}
-				});
 			});
 		}
 	}
+	
+	/**
+	 * 上传会议记录
+	 */
+	 function addMettingRecord(num,meetingType){
+		var _url='<%=path %>/galaxy/mr';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj(meetingType);
+				toinitUpload(platformUrl.stageChange, "meeting_select_btn","meeting_file_object","save_meeting",
+						function getSaveCondition(){
+							var	condition = {};
+							var pid = $("#project_id").val();
+							var meetingDateStr = $.trim($("#meeting_date").val());
+							var meetingResult = $.trim($("input:radio[name='meetingResult']:checked").val());
+							var um = UM.getEditor("meeting_notes");
+							var meetingNotes = $.trim(um.getContent());
+							if(pid == null || pid == ""){
+								alert("项目不能为空");
+								return;
+							}
+							if(meetingDateStr == null ||  meetingDateStr == ""){
+								alert("日期不能为空");
+								return;
+							}
+							if(meetingType == null ||  meetingType == ""){
+								alert("会议类型不能为空");
+								return;
+							}
+							if(meetingResult == null ||  meetingResult == ""){
+								alert("结果不能为空");
+								return;
+							}
+							condition.pid = pid;
+							condition.stage = "projectProgress:"+num;
+							condition.createDate = meetingDateStr;
+							condition.meetingType = meetingType;
+							condition.result = meetingResult;
+							condition.content = meetingNotes;
+							return condition;
+						});
+			}
+		});
+		return false;
+	}
+	
+	function toEstablishStage(){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null && pid != undefined){
+			sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
+			});
+		}
+	}
+	
 	
 	/**
 	 * 上传投决会议记录
@@ -647,21 +683,6 @@
 		return condition;
 	}
 	
-	function addLPH(){
-		var _url='<%=path %>/galaxy/lphtc';
-		$.getHtml({
-			url:_url,//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-				$(".meetingtc").tabchange();
-				$('.searchbox').toggleshow();
-				leicj();
-				initNUpload("LPH_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","LPH_savemeet","LPH_fileName","LPH");
-				//setLPHtc();
-			}//模版反回成功执行	
-		});
-		return false;
-	}
 	
 	function addCEOPS(){
 		var _url='<%=path %>/galaxy/ceopstc';

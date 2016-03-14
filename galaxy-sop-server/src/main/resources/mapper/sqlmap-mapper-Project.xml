@@ -6,6 +6,7 @@
     <result column="project_name" property="projectName" jdbcType="VARCHAR" />
     <result column="project_code" property="projectCode" jdbcType="VARCHAR" />
     <result column="project_type" property="projectType" jdbcType="VARCHAR" />
+    <result column="stock_transfer" property="stockTransfer" jdbcType="INTEGER" />
     <result column="project_careerline" property="projectCareerline" jdbcType="VARCHAR" />
     <result column="project_departId" property="projectDepartid" jdbcType="BIGINT" />
     <result column="project_valuations" property="projectValuations" jdbcType="DECIMAL" />
@@ -30,7 +31,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, project_name, project_code, project_type, project_careerline, project_departId, 
+    id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId, 
     project_valuations, project_contribution, currency_unit, project_share_ratio, project_company, project_company_code, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
     project_describe, project_business_model, company_location, user_portrait, prospect_analysis
@@ -46,6 +47,7 @@
 			  <if test="nameCodeLike != null and nameCodeLike !=''" > and (project_name like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%") or project_code like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%")) </if>
 		      <if test="projectCode != null" > and project_code = #{projectCode,jdbcType=VARCHAR} </if>
 		      <if test="projectType != null" > and project_type = #{projectType,jdbcType=VARCHAR} </if>
+		      <if test="stockTransfer != null" > and stock_transfer = #{stockTransfer,jdbcType=INTEGER} </if>
 		      <if test="projectCareerline != null" > and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
 		      <if test="projectDepartid != null" > and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
 		      <if test="projectValuations != null" > and project_valuations = #{projectValuations,jdbcType=DECIMAL} </if>
@@ -112,7 +114,7 @@
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.Project" >
 	    <![CDATA[
 	     insert into sop_project (id, project_name, project_code, 
-	      project_type, project_careerline, project_departId, 
+	      project_type, stock_transfer, project_careerline, project_departId, 
 	      project_valuations, project_contribution, 
 	      currency_unit, project_share_ratio, project_company, project_company_code, create_uid, 
 	      create_uname, create_uposition, project_progress, 
@@ -121,7 +123,7 @@
 	      company_location, user_portrait, 
 	      prospect_analysis)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, 
-	      #{projectType,jdbcType=VARCHAR}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, 
+	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{projectContribution,jdbcType=DECIMAL}, 
 	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{projectCompanyCode,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
 	      #{createUname,jdbcType=VARCHAR}, #{createUposition,jdbcType=VARCHAR}, #{projectProgress,jdbcType=VARCHAR}, 
@@ -141,6 +143,7 @@
 		      <if test="projectCode != null" >  project_code = #{projectCode,jdbcType=VARCHAR}, </if>
 		      <if test="projectType != null" >  project_type = #{projectType,jdbcType=VARCHAR}, </if>
 		       -->
+		      <if test="stockTransfer != null" >  stock_transfer = #{stockTransfer,jdbcType=INTEGER}, </if>
 		      <if test="projectCareerline != null" > project_careerline = #{projectCareerline,jdbcType=VARCHAR}, </if>
 		      <if test="projectDepartid != null" >  project_departId = #{projectDepartid,jdbcType=BIGINT}, </if>
 		      <if test="projectValuations != null" >   project_valuations = #{projectValuations,jdbcType=DECIMAL}, </if>
@@ -206,6 +209,7 @@
 		      <if test="projectCode != null" >  project_code = #{projectCode,jdbcType=VARCHAR}, </if>
 		      <if test="projectType != null" >  project_type = #{projectType,jdbcType=VARCHAR}, </if>
 		       -->
+		      <if test="stockTransfer != null" >  stock_transfer = #{stockTransfer,jdbcType=INTEGER}, </if>
 		      <if test="projectCareerline != null" > project_careerline = #{projectCareerline,jdbcType=VARCHAR}, </if>
 		      <if test="projectDepartid != null" >  project_departId = #{projectDepartid,jdbcType=BIGINT}, </if>
 		      <if test="projectValuations != null" >   project_valuations = #{projectValuations,jdbcType=DECIMAL}, </if>

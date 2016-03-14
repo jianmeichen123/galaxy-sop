@@ -1,6 +1,13 @@
 package com.galaxyinternet.common.constants;
 
+import java.util.regex.Pattern;
+
 public interface SopConstant {
+	public static final Pattern _meeting_type_pattern_ = Pattern.compile("^meetingType:[0-9]");
+	public static final Pattern _progress_pattern_ = Pattern.compile("^projectProgress:[0-9]");
+	public static final Pattern _meeting_result_pattern_ = Pattern.compile("^meetingResult:[0-9]");
+	public static final Pattern _file_type_pattern_ = Pattern.compile("^fileType:[0-9]");
+	public static final Pattern _file_worktype_pattern_ = Pattern.compile("^fileWorktype:[0-9]");
 	//部门ID
 	public static final long DEPARTMENT_RS_ID = 23L;
 	public static final long DEPARTMENT_CW_ID = 21L;
@@ -10,9 +17,31 @@ public interface SopConstant {
 	
 	//任务状态
 	public static final int NORMAL_STATUS = 0;
+	public static final int N_OVER_STATUS = 1;
+	public static final int OVER_STATUS = 2;
 	
 	//任务名称
 	public static final String TASK_NAME_WSJL = "完善简历";
+	public static final int TASK_FLAG_WSJL = 0;
+	public static final String TASK_NAME_SCTZYXS = "上传投资意向书";
+	public static final int TASK_FLAG_SCTZYXS = 1;
+	public static final String TASK_NAME_RSJD = "上传人事尽职调查报告";
+	public static final int TASK_FLAG_RSJD = 2;
+	public static final String TASK_NAME_FWJD = "上传法务尽职调查报告";
+	public static final int TASK_FLAG_FWJD = 3;
+	public static final String TASK_NAME_CWJD = "上传财务尽职调查报告";
+	public static final int TASK_FLAG_CWJD = 4;
+	public static final String TASK_NAME_YWJD = "上传业务尽职调查报告";
+	public static final int TASK_FLAG_YWJD = 5;
+	public static final String TASK_NAME_TZXY = "上传投资协议";
+	public static final int TASK_FLAG_TZXY = 6;
+	public static final String TASK_NAME_GQZR = "上传股权转让协议";
+	public static final int TASK_FLAG_GQZR = 7;
+	public static final String TASK_NAME_ZJBF = "上传资金拨付凭证";
+	public static final int TASK_FLAG_ZJBF = 8;
+	public static final String TASK_NAME_GSBG = "上传工商变更登记凭证";
+	public static final int TASK_FLAG_GSBG = 9;
+	
 	//立项会类型
 	static final String PROJECT_MEETING ="meetingType:3";
 	//投诀会类型
@@ -22,6 +51,9 @@ public interface SopConstant {
 	static final String TASK_MISSION_STATUS ="taskStatus:2";
 	//紧急任务
 	static final Integer TASK_URGENT_STATUS =1;
+	
+	
+	
 	
 
 }

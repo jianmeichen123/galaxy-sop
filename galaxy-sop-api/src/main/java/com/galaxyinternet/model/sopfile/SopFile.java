@@ -221,7 +221,7 @@ public class SopFile extends PagableEntity {
 	public void setFileSource(String fileSource) {
 		this.fileSource = fileSource;
 		if(fileSource != null){
-			fSource = DictEnum.档案来源.getNameByCode(fileSource);
+			//fSource = DictEnum.files.档案来源.getNameByCode(fileSource);
 		}
 		
 	}

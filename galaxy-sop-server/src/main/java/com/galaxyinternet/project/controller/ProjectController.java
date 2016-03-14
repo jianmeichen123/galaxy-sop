@@ -16,14 +16,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
+import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -35,6 +42,8 @@ import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.project.service.HandlerManager;
+import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
@@ -57,6 +66,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private ProjectPersonService projectPersonService;
 	@Autowired
 	private ConfigService configService;
+	@Autowired
+	private HandlerManager handlerManager;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -450,6 +461,220 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return "project/updatePerson";
 	}
 	
+	
+	/**
+	 * 项目阶段中的文档上传
+	 * 协同部门的人员操作
+	 * @author yangshuhua
+	 */
+	
+	/**
+	 * 项目阶段中的文档上传
+	 * 该项目对应的创建人操作
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectQuery> stageChange(ProjectQuery p, HttpServletRequest request) {
+		ResponseData<ProjectQuery> responseBody = new ResponseData<ProjectQuery>();
+		/**
+		 * 1.参数校验
+		 */
+		if(p.getPid() == null || p.getStage() == null 
+				|| !SopConstant._progress_pattern_.matcher(p.getStage()).matches()
+				|| p.getParseDate() == null){
+			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+			return responseBody;
+		}
+		if(p.getStage().equals(DictEnum.projectProgress.内部评审.getCode()) || p.getStage().equals(DictEnum.projectProgress.CEO评审.getCode())){
+			if(p.getMeetingType() == null || !SopConstant._meeting_type_pattern_.matcher(p.getMeetingType()).matches()
+					|| p.getResult() == null || !SopConstant._meeting_result_pattern_.matcher(p.getResult()).matches()){
+				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+				return responseBody;
+			}
+		}
+		Project project = projectService.queryById(p.getPid());
+		if(project == null){
+			responseBody.setResult(new Result(Status.ERROR, "未找到相应的项目信息!"));
+			return responseBody;
+		}
+		//投资意向书、尽职调查及投资协议的文档上传、更新操作只能在当前阶段才能进行
+		if(p.getStage().equals(DictEnum.projectProgress.投资意向书.getCode()) || p.getStage().equals(DictEnum.projectProgress.尽职调查.getCode())
+				|| p.getStage().equals(DictEnum.projectProgress.投资协议.getCode())){
+			if(p.getType() == null || p.getFileType() == null || !SopConstant._file_type_pattern_.matcher(p.getFileType()).matches()
+					|| p.getFileWorktype() == null || !SopConstant._file_worktype_pattern_.matcher(p.getFileWorktype()).matches()){
+				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+				return responseBody;
+			}
+			int in = Integer.parseInt(p.getStage().substring(p.getStage().length()-1));
+			int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
+			if(in < pin){
+				responseBody.setResult(new Result(Status.ERROR, "该操作已过期!"));
+				return responseBody;
+			}
+		}
+		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if(obj == null){
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		User user = (User) obj;
+		//项目创建者用户ID与当前登录人ID是否一样
+		if(user.getId().longValue() != project.getCreateUid().longValue()){
+			responseBody.setResult(new Result(Status.ERROR, "没有权限修改该项目!"));
+			return responseBody;
+		}
+		p.setCreatedUid(user.getId());
+		p.setDepartmentId(user.getDepartmentId());
+		/**
+		 * 2.文件上传
+		 */
+		UploadFileResult result = null;
+		String fileKey = null;
+		MultipartFile file = null;
+		try {
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+			file = multipartRequest.getFile("file");
+			fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+			result = OSSHelper.simpleUploadByOSS(file.getInputStream(),fileKey);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		/**
+		 * 3.处理业务
+		 */
+		try {
+			if(result != null && result.getResult().getStatus().equals(Result.Status.OK)){
+				p.setFileName(file.getOriginalFilename());
+				//int dotPos = fileName.lastIndexOf(".");String ext = fileName.substring(dotPos);
+				p.setBucketName(result.getBucketName());
+				p.setFileKey(fileKey);
+				p.setFileSize(result.getContentLength());
+				if(handlerManager.getStageHandlers().containsKey(p.getStage())){
+					Handler handler = handlerManager.getStageHandlers().get(p.getStage());
+					Result r = handler.handler(p, project);
+					if(r != null && r.getStatus().equals(Result.Status.OK)){
+						responseBody.setResult(r);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseBody;
+	}
+	
+	
+	
+	/**
+	 * 接触访谈阶段: 启动内部评审
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value="/startReview/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> startReview(HttpServletRequest request,@PathVariable("pid") Long pid) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		Project project = projectService.queryById(pid);
+		Result result = validate(DictEnum.projectProgress.接触访谈.getCode(), project, user);
+		if(!result.getStatus().equals(Status.OK)){
+			responseBody.setResult(result);
+			return responseBody;
+		}
+		try {
+			project.setProjectProgress(DictEnum.projectProgress.内部评审.getCode());   //字典  项目进度  内部评审
+			project.setProjectStatus(DictEnum.meetingResult.待定.getCode());     //字典 项目状态 = 会议结论   待定
+			projectService.updateById(project);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(project.getId());
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "project startReview faild"));
+			if(logger.isErrorEnabled()){
+				logger.error("update project faild ",e);
+			}
+		}
+		return responseBody;
+	}
+	
+	/**
+	 * 申请立项会排期
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value="/ges/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> ges(HttpServletRequest request,@PathVariable("pid") Long pid) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		Project project = projectService.queryById(pid);
+		Result result = validate(DictEnum.projectProgress.CEO评审.getCode(), project, user);
+		if(!result.getStatus().equals(Status.OK)){
+			responseBody.setResult(result);
+			return responseBody;
+		}
+		try {
+			projectService.toEstablishStage(project);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(project.getId());
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "project startReview faild"));
+			if(logger.isErrorEnabled()){
+				logger.error("update project faild ",e);
+			}
+		}
+		return responseBody;
+	}
+	
+	/**
+	 * 申请投决会排期
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value="/smp/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> sureMeetingPool(HttpServletRequest request,@PathVariable("pid") Long pid) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		Project project = projectService.queryById(pid);
+		Result result = validate(DictEnum.projectProgress.尽职调查.getCode(), project, user);
+		if(!result.getStatus().equals(Status.OK)){
+			responseBody.setResult(result);
+			return responseBody;
+		}
+		try {
+			projectService.toSureMeetingStage(project);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(project.getId());
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "project startReview faild"));
+			if(logger.isErrorEnabled()){
+				logger.error("update project faild ",e);
+			}
+		}
+		return responseBody;
+	}
 
+	
+	
+	/**
+	 * 判断项目的操作是否合法
+	 * @author yangshuhua
+	 */
+	public Result validate(String progress, Project project, User user){
+		if(project == null){
+			return new Result(Status.ERROR, "未找到相应的项目信息!");
+		}
+		if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())){
+			return new Result(Status.ERROR, "项目已关闭!");
+		}
+		
+		if(user.getId().longValue() != project.getCreateUid().longValue()){
+			return new Result(Status.ERROR, "没有权限修改该项目!");
+		}
+		int in = Integer.parseInt(progress.substring(progress.length()-1)) ;
+		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
+		if(in < pin){
+			return new Result(Status.ERROR, "501", "该操作已过期!");
+		}
+		return new Result(Status.OK, "200", null);
+	}
 	
 }

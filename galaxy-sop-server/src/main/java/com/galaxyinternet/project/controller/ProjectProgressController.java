@@ -288,47 +288,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	/**
-	 * 接触访谈阶段: 启动内部评审，
-	 * 				判断操作人为项目创建人
-	 * 				判断项目当前阶段
-	 * 				修改项目进度、状态
-	 * @param   project 
-	 * @return  
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/startReview/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> startReview(HttpServletRequest request,@PathVariable Long pid) {
-		
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		
-		Project project = new Project();
-		project = projectService.queryById(pid);
-		
-		String err = errMessage(project,user,DictEnum.projectProgress.接触访谈.getCode());   //字典  项目进度  接触访谈
-		if(err!=null && err.length()>0){
-			responseBody.setResult(new Result(Status.ERROR,null, err));
-			return responseBody;
-		}
-				
-		try {
-			project.setProjectProgress(DictEnum.projectProgress.内部评审.getCode());   //字典  项目进度  内部评审
-			project.setProjectStatus(DictEnum.meetingResult.待定.getCode());     //字典 项目状态 = 会议结论   待定
-			projectService.updateById(project);
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(project.getId());
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "project startReview faild"));
-			
-			if(logger.isErrorEnabled()){
-				logger.error("update project faild ",e);
-			}
-		}
-		
-		return responseBody;
-	}
+	
 	
 	
 	

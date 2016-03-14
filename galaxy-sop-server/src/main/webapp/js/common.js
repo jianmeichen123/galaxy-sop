@@ -204,11 +204,7 @@ function toinitUpload(fileurl,selectBtnId,fileInputId,submitBtnId,paramsFunction
 			PostInit: function() {
 				$("#" + submitBtnId).click(function(){
 					var file = $("#" + fileInputId).val();
-					if(file.length > 0){
-						uploader.start();
-					}else{
-						saveInterView();
-					}
+					uploader.start();
 					//传到后台的参数
 					//uploader.multipart_params = { id : "12345" };
 					return false;
