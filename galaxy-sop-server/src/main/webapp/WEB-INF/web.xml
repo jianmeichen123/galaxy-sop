@@ -45,13 +45,13 @@
 		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
 	</listener>
 	
-	<!-- 支持spring session -->
-	<filter>
+	<!-- jetty测试，配置该fitler 支持spring session -->
+	<!-- <filter>
 		<filter-name>springSessionRepositoryFilter</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>springSessionRepositoryFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	</filter-mapping> -->
 </web-app>
