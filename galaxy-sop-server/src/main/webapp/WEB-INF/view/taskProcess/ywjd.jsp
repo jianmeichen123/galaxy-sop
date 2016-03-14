@@ -99,20 +99,19 @@ function loadRows()
 					var $tr = $('<tr data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
 					$tr.append('<td>'+(isBlank(this.fWorktype) ? "" : this.fWorktype) +'</td>');
 					$tr.append('<td>'+(isBlank(this.updatedTime) ? "" : Number(this.updatedTime).toDate().format("yyyy/MM/dd"))+'</td>');
-					$tr.append('<td>'+(isBlank(this.fileUid) ? "" : fileUid) +'</td>');
+					$tr.append('<td>'+((isBlank(this.fileUid)) ? "" : this.fileUid) +'</td>');
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
 					$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\">催办</a>" : "")+'</td>');
 					if(isBlank(this.fileName)){
 						$tr.append('<td></td>');
-						hasEmpty = true;
-					}
-					else
-					{
 						if(hasEmpty == false)
 						{
 							hasEmpty = true;
 						}
+					}
+					else
+					{
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">'+this.fileName+'</a></td>');
 					}
 					$("#hrjzdc-table tbody").append($tr);
@@ -170,7 +169,6 @@ function initUpload(_dialog){
 		init: {
 			PostInit: function(up) {
 				$(_dialog.id).find("#upload-btn").click(function(){
-					console.log("upload");
 					var fileName = $(_dialog.id).find('[name="fileName"]').val();
 					if(fileName == null || fileName == '')
 					{
@@ -231,10 +229,11 @@ function initForm(_dialog)
 	var fileName = $row.data('file-name');
 	var fileSource = $row.data('file-source');
 	var remark = $row.data('remark');
+	var worktype = $row.data('file-worktype');
 	
 	$(_dialog.id).find("[name='id']").val($row.data('id'));
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
-	$(_dialog.id).find("[name='fileType']").val();
+	$(_dialog.id).find("[name='fileWorktype']").val(worktype);
 	$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
 	$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());

@@ -224,18 +224,7 @@ function initUpload(_dialog,type){
 
 	uploader.init();
 }
-function afterSave(data)
-{
-	if(data.status == "OK")
-	{
-		alert("上传成功.");
-		loadRows();
-	}
-	else
-	{
-		alert("上传失败.");
-	}
-}
+
 function initForm(_dialog,type)
 {
 	var $row = $("#hrjzdc-table tbody tr");
@@ -244,6 +233,7 @@ function initForm(_dialog,type)
 	var voucherFileName = $row.data('voucher-file-name');
 	var fileSource = $row.data('file-source');
 	var remark = $row.data('remark');
+	var worktype = $row.data('file-worktype');
 	if(type == 'voucher')
 	{
 		$(_dialog.id).find("[name='id']").val($row.data('voucher-id'));
@@ -254,11 +244,13 @@ function initForm(_dialog,type)
 		$(_dialog.id).find("[name='id']").val($row.data('id'));
 		$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
 		$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
+		
 	}
 	
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
 	$(_dialog.id).find("[name='fileType']").val();
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());
+	$(_dialog.id).find("[name='fileWorktype']").val(worktype);
 }
 function downloadFile(ele)
 {

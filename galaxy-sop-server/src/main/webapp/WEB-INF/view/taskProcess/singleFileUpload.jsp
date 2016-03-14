@@ -239,11 +239,12 @@ function initForm(_dialog)
 	var fileType = $row.data('file-type');
 	var fileName = $row.data('file-name');
 	var fileSource = $row.data('file-source');
+	var worktype = $row.data('file-worktype');
 	var remark = $row.data('remark');
 	
 	$(_dialog.id).find("[name='id']").val($row.data('id'));
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
-	$(_dialog.id).find("[name='fileType']").val();
+	$(_dialog.id).find("[name='fileWorktype']").val(worktype);
 	$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
 	$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());
