@@ -136,7 +136,7 @@ public class TzyxsHandler implements Handler {
 			//修改
 			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
 			task.setUpdatedTime((new Date()).getTime());
-			sopTaskDao.updateByIdSelective(task);
+			sopTaskDao.updateTask(task);
 		}
 		return new Result(Status.OK,"添加访谈纪要成功!");
 	}

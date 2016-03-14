@@ -257,4 +257,9 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	public Long selectTotalUrgent(SopTaskBo query) {
 		return sopTaskDao.selectTotalUrgent(query);
 	}
+
+	@Override
+	public int updateTask(SopTask task) {
+		return sopTaskDao.updateTask(task);
+	}
 }
