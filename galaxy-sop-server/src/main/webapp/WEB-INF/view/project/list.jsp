@@ -223,11 +223,14 @@
 							    $("#projectProgress_1_con").css("display","block");
 								tiggerTable($("#projectProgress_1_table"),3);
 							}else if(indexNum == '2'){
-							 $("#projectProgress_2_con").css("display","block");
+							    $("#projectProgress_2_con").css("display","block");
 								tiggerTable($("#projectProgress_2_table"),3);
 							}else if(indexNum == '3'){
-								 $("#projectProgress_3_con").css("display","block");
-								  tiggerTable($("#projectProgress_3_table"),3);
+								if(parseInt(indexNum) < parseInt(pNum)){
+									$("#lxhpq").remove();
+								}
+								$("#projectProgress_3_con").css("display","block");
+								tiggerTable($("#projectProgress_3_table"),3);
 							} else if(indexNum == '4'){
 							    $("#projectProgress_4_con").css("display","block");
 							    tiggerTable($("#projectProgress_4_table"),3);
@@ -377,6 +380,9 @@
 		return false;
 	}
 	
+	 /**
+	  * 申请立项会操作
+	  */
 	function toEstablishStage(){
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){

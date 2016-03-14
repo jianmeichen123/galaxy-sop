@@ -306,7 +306,7 @@
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:addMettingRecord(3,'meetingType:2');" class="pubbtn fffbtn lpubbtn">添加会议记录</a> 
-					<a href="javascript:toEstablishStage();" class="pubbtn fffbtn lpubbtn">立项会排期</a>
+					<a href="javascript:toEstablishStage();" id="lxhpq" class="pubbtn fffbtn lpubbtn">立项会排期</a>
 				</div>
 				
 				<div id="projectProgress_3_table_custom-toolbar">
@@ -381,7 +381,33 @@
 			
 			<!-- 投资意向书信息 -->
 			<div class="block" data-tab="con" id="projectProgress_5_con">
-			  
+			  <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
+			  	<a href="javascript:;" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>
+			  	<a href="javascript:;" class="pubbtn fffbtn llpubbtn" onclick="init(71,1,1);">上传投资意向书</a>
+			  </div>
+			  <div class="process clearfix"><h2>投资意向书盖章流程</h2><img src="img/process.png" alt=""></div>
+			  <table width="100%" cellspacing="0" cellpadding="0">
+			  	<thead>
+			  		<tr class="">
+			  			<th>业务分类</th>
+			  			<th>创建日期</th>
+			  			<th>存储类型</th>
+			  			<th>更新日期</th>
+			  			<th>催办</th>
+			  			<th>查看附件</th>
+			  		</tr>
+			  	</thead>
+			  	<tbody>
+			  		<tr class="">
+			  			<td>投资意向书</td>
+			  			<td>2016-03-12</td>
+			  			<td></td>
+			  			<td></td>
+			  			<td><a href="javascript:;" class="blue">催办</a></td>
+			  			<td></td>
+			  		</tr>
+			  	</tbody>
+			  </table>
 			</div>
 			<!-- 尽职调查信息 -->
 			<div class="block" data-tab="con" id="projectProgress_6_con">
