@@ -96,12 +96,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "项目编码丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}
-		User user = (User) obj;
+		User user = (User) getUserFromSession(request);
 		//判断当前用户是否为投资经理
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		if(!roleIdList.contains(UserConstant.HHR) && !roleIdList.contains(UserConstant.TZJL)){
@@ -146,12 +141,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}
-		User user = (User) obj;
+		User user = (User) getUserFromSession(request);
 		
 		Project p = projectService.queryById(project.getId());
 		if(p == null){
@@ -200,11 +190,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/spl", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody Project project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if (obj == null) {
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}
 		try {
 			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
 			responseBody.setPageList(pageProject);
@@ -233,12 +218,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}
-		User user = (User) obj;
+		User user = (User) getUserFromSession(request);
 		Project p = projectService.queryById(pool.getProjectId());
 		//项目创建者用户ID与当前登录人ID是否一样
 		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
@@ -270,12 +250,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}
-		User user = (User) obj;
+		User user = (User) getUserFromSession(request);
 		Project p = projectService.queryById(pool.getProjectId());
 		//项目创建者用户ID与当前登录人ID是否一样
 		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
@@ -302,12 +277,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}
-		User user = (User) obj;
+		User user = (User) getUserFromSession(request);
 		Project p = projectService.queryById(projectId);
 		//项目创建者用户ID与当前登录人ID是否一样
 		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
@@ -336,12 +306,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/queryProjectPerson",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<PersonPool> queryProjectPerson(HttpServletRequest request,@RequestBody PersonPool personPool) {
 		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
-		
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}
 		try {
 			Page<PersonPool> pageList = personPoolService.queryPageList(personPool, new PageRequest(personPool.getPageNum(), personPool.getPageSize()));
 			responseBody.setPageList(pageList);
@@ -367,12 +331,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Config> createProjectCode(HttpServletRequest request){
 		ResponseData<Config> responseBody = new ResponseData<Config>();
 		
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}
-		User user = (User) obj;
+		User user = (User) getUserFromSession(request);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		if(!roleIdList.contains(UserConstant.HHR) && !roleIdList.contains(UserConstant.TZJL)){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限!"));
@@ -513,12 +472,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				return responseBody;
 			}
 		}
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}
-		User user = (User) obj;
+		User user = (User) getUserFromSession(request);
 		//项目创建者用户ID与当前登录人ID是否一样
 		if(user.getId().longValue() != project.getCreateUid().longValue()){
 			responseBody.setResult(new Result(Status.ERROR, "没有权限修改该项目!"));
@@ -574,7 +528,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value="/startReview/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> startReview(HttpServletRequest request,@PathVariable("pid") Long pid) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		User user = (User) getUserFromSession(request);
 		Project project = projectService.queryById(pid);
 		Result result = validate(DictEnum.projectProgress.接触访谈.getCode(), project, user);
 		if(!result.getStatus().equals(Status.OK)){
@@ -604,7 +558,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value="/ges/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> ges(HttpServletRequest request,@PathVariable("pid") Long pid) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		User user = (User) getUserFromSession(request);
 		Project project = projectService.queryById(pid);
 		Result result = validate(DictEnum.projectProgress.CEO评审.getCode(), project, user);
 		if(!result.getStatus().equals(Status.OK)){
@@ -632,7 +586,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value="/smp/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> sureMeetingPool(HttpServletRequest request,@PathVariable("pid") Long pid) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		User user = (User) getUserFromSession(request);
 		Project project = projectService.queryById(pid);
 		Result result = validate(DictEnum.projectProgress.尽职调查.getCode(), project, user);
 		if(!result.getStatus().equals(Status.OK)){
