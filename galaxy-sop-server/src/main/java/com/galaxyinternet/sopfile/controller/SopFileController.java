@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -73,6 +74,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private DictService dictService;
 	@Autowired
 	private ProjectService proJectService;
+	@Autowired
+	private SopVoucherFileDao sopVoucherFileDao;
 	@Autowired
 	Cache cache;
 	
@@ -392,6 +395,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		sbo.setFileworktypeList(fileWorktypeList);
 		try {
 			List<SopFile> sopFileList = sopFileService.selectByFileTypeList(sbo);
+			for(SopFile f : sopFileList){
+				SopVoucherFile sf = sopVoucherFileDao.selectById(f.getVoucherId());
+				f.setVoucherFileKey(sf.getFileKey());
+			}
 			responseBody.setEntityList(sopFileList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;

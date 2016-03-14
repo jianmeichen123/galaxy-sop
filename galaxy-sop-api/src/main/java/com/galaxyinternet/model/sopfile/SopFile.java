@@ -104,6 +104,8 @@ public class SopFile extends PagableEntity {
   	private String projectName;
   	private String careerLineName;
   	
+  	private String voucherFileKey;
+  	
   	//枚举转换
   	private String fType;
   	private String fWorktype;
@@ -365,6 +367,14 @@ public class SopFile extends PagableEntity {
 
 	public void setCareerLineName(String careerLineName) {
 		this.careerLineName = careerLineName;
+	}
+
+	public String getVoucherFileKey() {
+		return voucherFileKey;
+	}
+
+	public void setVoucherFileKey(String voucherFileKey) {
+		this.voucherFileKey = voucherFileKey;
 	}
 
     

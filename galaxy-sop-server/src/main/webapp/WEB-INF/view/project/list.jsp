@@ -625,7 +625,12 @@
 							}else{
 								$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
 							}
-							$tr.append('<td><a href="javascript:tzxyAlert(8,1);" class="blue">上传</a></td>') ;
+							
+							if(this.voucherFileKey == null){	
+								$tr.append('<td><a href="javascript:gqzrAlert(8,0);" class="blue">上传</a></td>');
+							}else{
+								$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+							}
 							_tbody.append($tr);
 						});
 					}
@@ -641,6 +646,60 @@
 	 */
 	 function tzxyAlert(num,i){
 		var _url='<%=path %>/galaxy/tzxy';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
+				if(i == 1){
+					$("#voucherType").attr("checked","checked");
+				}
+				toinitUpload(platformUrl.stageChange, "select_file_btn","file_obj","save_file_btn",
+						function getSaveCondition(){
+					var	condition = {};
+					var pid = $("#project_id").val();
+					if(pid == null || pid == ""){
+						alert("项目不能为空");
+						return;
+					}
+					var type = $("input[name='fileSource']").val();
+					if(type == null || type == ""){
+						alert("档案来源不能为空");
+						return;
+					}
+					var fileType = $("#fileType").val();
+					if(fileType == null || fileType == ""){
+						alert("存储类型不能为空");
+						return;
+					}
+					var fileWorktype = $("#fileWorkType").val();
+					if(fileWorktype == null || fileWorktype == ""){
+						alert("业务分类不能为空");
+						return;
+					}
+					var voucherType = $("input[id='voucherType']:checked").val();
+					var hasStockTransfer = $("input[id='stock_transfer']:checked").val();
+					condition.pid = pid;
+					condition.stage = "projectProgress:"+num;
+					condition.type = type;
+					condition.fileType = fileType;
+					condition.fileWorktype = fileWorktype;
+					condition.voucherType = voucherType;
+					condition.hasStockTransfer=hasStockTransfer;
+					return condition;
+				});
+			}
+		});
+		return false;
+	}
+	
+	 /**
+	  * 股权转让协议弹出层
+	  */
+	 function gqzrAlert(num,i){
+		var _url='<%=path %>/galaxy/gqzr';
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数

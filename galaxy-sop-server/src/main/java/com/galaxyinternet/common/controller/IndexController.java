@@ -170,4 +170,12 @@ public class IndexController {
 	public String tzxy() {
 		return "project/progress/tzxy";
 	}
+	/**
+	 * 弹出股权转让协议的所有弹出框
+	 * @return
+	 */
+	@RequestMapping(value = "/gqzr", method = RequestMethod.GET)
+	public String gqzr() {
+		return "project/progress/gqzr";
+	}
 }
