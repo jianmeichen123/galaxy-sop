@@ -1,10 +1,11 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
-<% 
+<%-- <% 
 	String path = request.getContextPath(); 
     User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-%>
+%> --%>
 <div class="header clearfix">
 	<a href="javascript:;" class="logo null">繁星</a>
     <!--头部中间-->
@@ -23,10 +24,9 @@
             <span>今日限行尾号为 5、0，明日为不限行！</span>            
         </div>
     </div>
-    <!-- 头部右边 -->
+     <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
-       <%--  <span class="ico name">早上好，<%=nick_name%></span> --%>
-        <span class="ico name">早上好，岩浩</span>
+        <span class="ico name">早上好，<%=nick_name%></span>
         <b class="line null">分割线</b>
         <a href="javascript:logout()" class="loginout">退出</a>
     </div>
@@ -44,8 +44,12 @@
 				if (sessionId) {
 					xhr.setRequestHeader("sessionId", sessionId);
 				}
+				if(userId){
+					xhr.setRequestHeader("guserId", userId);
+				}
 			},
 			error : function(request) {
+				//alert("connetion error");
 			},
 			success : function(data) {
 				if(data.result.status=="OK"){

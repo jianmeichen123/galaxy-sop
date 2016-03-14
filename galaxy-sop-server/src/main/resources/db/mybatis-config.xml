@@ -9,5 +9,8 @@
 	    <typeAlias alias="SopUserSchedulePO" type="com.galaxyinternet.model.soptask.SopUserSchedule" />
 	    <typeAlias alias="SopFilePO" type="com.galaxyinternet.model.sopfile.SopFile"/>
 	    <typeAlias alias="SopTemplatePO" type="com.galaxyinternet.model.template.SopTemplate"/>
+	     <typeAlias alias="NewMessagePO" type="com.galaxyinternet.model.message.NewMessage"/>
+	  
+	    
 	</typeAliases>
 </configuration>

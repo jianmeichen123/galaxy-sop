@@ -5,12 +5,12 @@
  *            请求地址
  * @param jsonObj
  *            请求json对象
- * @param sessionId
+ *@param sessionId
  *            请求头中需携带的sessionid
  * @param callbackFun
  *            处理成功后的回调方法
  */
-function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun, sessionId) {
+function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 	$.ajax({
 		url : reqUrl,
 		type : "POST",
@@ -21,6 +21,9 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun, sessionId) {
 		beforeSend : function(xhr) {
 			if (sessionId) {
 				xhr.setRequestHeader("sessionId", sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId", userId);
 			}
 		},
 		async : false,
@@ -47,9 +50,8 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun, sessionId) {
  * @param callbackFun
  *            处理成功后的回调方法
  */
-function sendPostRequestByJsonStr(reqUrl, jsonStr, callbackFun, sessionId) {
-	sendPostRequestByJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun,
-			sessionId);
+function sendPostRequestByJsonStr(reqUrl, jsonStr, callbackFun) {
+	sendPostRequestByJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun);
 }
 
 /**
@@ -64,7 +66,7 @@ function sendPostRequestByJsonStr(reqUrl, jsonStr, callbackFun, sessionId) {
  * @param callbackFun
  *            处理成功后的回调方法
  */
-function sendGetRequest(reqUrl, jsonObj, callbackFun, sessionId) {
+function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 	$.ajax({
 		url : reqUrl,
 		type : "GET",
@@ -75,6 +77,9 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun, sessionId) {
 		beforeSend : function(xhr) {
 			if (sessionId) {
 				xhr.setRequestHeader("sessionId", sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId", userId);
 			}
 		},
 		async : false,
@@ -88,6 +93,66 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun, sessionId) {
 		}
 	});
 }
+
+/**
+ * 发送post请求,不带json数据
+ * 
+ * @param reqUrl
+ *            请求地址
+ * @param sessionId
+ *            请求头中需携带的sessionid
+ * @param callbackFun
+ *            处理成功后的回调方法
+ */
+function sendPostRequest(reqUrl, callbackFun) {
+	$.ajax({
+		url : reqUrl,
+		type : "POST",
+		cache : false,
+		contentType : "application/json; charset=UTF-8",
+		beforeSend : function(xhr) {
+			if (sessionId) {
+				xhr.setRequestHeader("sessionId", sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId", userId);
+			}
+		},
+		async : false,
+		error : function(request) {
+			//alert("connetion error");
+		},
+		success : function(data) {
+			/*var errorCode =data.result.errorCode;
+			if(typeof(errorCode) != "undefined"&&errorCode=="3"){
+				layer.msg(data.result.message,{time:1000},function(){
+					location.href = platformUrl.toLoginPage;
+				})
+			}*/
+			if (callbackFun) {
+				callbackFun(data);
+			}
+		}
+	});
+}
+
+
+
+/**
+ * url:统一跳转url  
+ * 
+ */
+function forwardWithHeader(url){
+	if(url.indexOf("?")==-1){
+		window.location.href = url+"?sid="+sessionId+"&guid="+userId;
+	}else{
+		window.location.href = url+"&sid="+sessionId+"&guid="+userId;
+	}
+}
+
+
+
+
 
 /**
  * 将序列化参数字符串转为json格式

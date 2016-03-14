@@ -94,7 +94,7 @@ function loadRows()
 			url,
 			data,
 			function(data){
-				var countOfFiles = 0;
+				var hasEmpty = false;
 				$.each(data.entityList,function(){
 					var $tr = $('<tr data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
 					$tr.append('<td>'+(isBlank(this.fWorktype) ? "" : this.fWorktype) +'</td>');
@@ -105,16 +105,20 @@ function loadRows()
 					$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\">催办</a>" : "")+'</td>');
 					if(isBlank(this.fileName)){
 						$tr.append('<td></td>');
+						hasEmpty = true;
 					}
 					else
 					{
-						countOfFiles++;
+						if(hasEmpty == false)
+						{
+							hasEmpty = true;
+						}
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">'+this.fileName+'</a></td>');
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
 				console.log(countOfFiles);
-				$("#apply-decision-btn").toggleClass('disabled',countOfFiles<4);
+				$("#apply-decision-btn").toggleClass('disabled',hasEmpty);
 			}
 	);
 }
