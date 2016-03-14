@@ -219,11 +219,11 @@ var platformUrl = {
 	/**
 	 * 项目阶段过程的记录保存
 	 */
-	stageChange : sopContentUrl + "/galaxy/project/stageChange",
+	stageChange : sopContentUrl + "/galaxy/project/stageChange?sid="+sessionId + "&guid="+userId,
 	/**
 	 * 申请立项会操作
 	 */
-	toEstablishStage : sopContentUrl + "/galaxy/project/ges/"
+	toEstablishStage : sopContentUrl + "/galaxy/project/ges/",
 	
 	inTjh : sopContentUrl + "/galaxy/project/smp/"
 }
