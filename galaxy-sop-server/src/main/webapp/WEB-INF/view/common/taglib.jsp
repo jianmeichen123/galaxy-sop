@@ -14,9 +14,11 @@
 <%User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 String sessionId = "";
 String nick_name = "";
+Long userId=null;
 if(null != user) {
 	sessionId = user.getSessionId();
 	nick_name = user.getNickName();
+	userId = user.getId();
 }
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
 %>
@@ -24,14 +26,16 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 <script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-validate.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/json2.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <!-- end -->
 <script type="text/javascript">
 	var contextEndPoint = '<%=endpoint%>';
 	endpointObj = JSON.parse(contextEndPoint);
 	var sessionId = '<%=sessionId%>';
 	var nick_name = '<%=nick_name%>';
+	var userId = '<%=userId%>';
 </script>
+<script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/platformUrl.js" type="text/javascript"></script>
+
