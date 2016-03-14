@@ -1,18 +1,23 @@
 package com.galaxyinternet.common.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.core.constants.Constants;
+
 
 @Controller
 @RequestMapping("/galaxy")
 public class IndexController {
+	
+	@Autowired
+	Cache cache;
 	
 	/**
 	 * 避免url后边附带sessionId，第一次将user放入session后，通过重定向抹去后边参数
@@ -20,7 +25,6 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "/redirect", method = RequestMethod.GET)
 	public String redirect(HttpServletRequest request) {
-		Map<String,String[]> ps = request.getParameterMap();
 		return "redirect:/galaxy/index";
 	}
 	
@@ -29,7 +33,9 @@ public class IndexController {
 	 * @return
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index() {
+	public String index(HttpServletRequest request) {
+		String sessionId = request.getParameter(Constants.SESSOPM_SID_KEY);
+		request.getSession().setAttribute(Constants.SESSION_USER_KEY, cache.get(sessionId));
 		return "index";
 	}
 	
