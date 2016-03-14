@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Header;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -64,18 +65,18 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		User user = (User) getUserFromSession(request);
 		
 		List<Menus> tabs = new ArrayList<Menus>();
+		String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
 		//通用Tab
-		tabs.add(new Menus(1L, "工作界面", u + "galaxy/index"));
-		tabs.add(new Menus(2L, "待办任务", u + "galaxy/soptask"));
+		tabs.add(new Menus(1L, "工作界面", u + "galaxy/index?" + params));
+		tabs.add(new Menus(2L, "待办任务", u + "galaxy/soptask?" + params));
 		tabs.add(new Menus(3L, "消息提醒", u + ""));
 		
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.TZJL)){
-			tabs.add(new Menus(4L, "添加项目", u + "galaxy/app"));
-			tabs.add(new Menus(5L, "我的项目", u + "galaxy/mpl"));
-			tabs.add(new Menus(6L, "访谈跟进", u + "galaxy/project/progress/interView"));
-			tabs.add(new Menus(7L, "会议纪要", u + "galaxy/project/progress/meetView"));
-			tabs.add(new Menus(8L, "数据简报", u + ""));
+			tabs.add(new Menus(4L, "添加项目", u + "galaxy/app?" + params));
+			tabs.add(new Menus(5L, "我的项目", u + "galaxy/mpl?" + params));
+			tabs.add(new Menus(6L, "访谈跟进", u + "galaxy/project/progress/interView?" + params));
+			tabs.add(new Menus(7L, "会议纪要", u + "galaxy/project/progress/meetView?" + params));
 		}
 		
 		
@@ -97,25 +98,25 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.add(new Menus(12L, "股权交割", u + ""));
 		}
 		
-		tabs.add(new Menus(13L, "模板管理", u + "galaxy/template"));
-		tabs.add(new Menus(14L, "档案管理", u + "galaxy/sopFile/toFileList"));
+		tabs.add(new Menus(13L, "模板管理", u + "galaxy/template?" + params));
+		tabs.add(new Menus(14L, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
 		
 		String sessionId = user.getSessionId();
 		//管理员
 		if(roleIdList.contains(16L)){
 			tabs.clear();
-			tabs.add(new Menus(15L, "用户管理", "http://fx.qa.galaxyinternet.com/platform/galaxy/user?sid=" + sessionId));
-			tabs.add(new Menus(16L, "数据字典", "http://fx.qa.galaxyinternet.com/platform/galaxy/dict/index?sid=" + sessionId));
+			tabs.add(new Menus(15L, "用户管理", "http://fx.qa.galaxyinternet.com/platform/galaxy/user?" + params));
+			tabs.add(new Menus(16L, "数据字典", "http://fx.qa.galaxyinternet.com/platform/galaxy/dict/index?" + params));
 		}
 		//高管
 		if(roleIdList.contains(1L) || roleIdList.contains(2L)){
-			tabs.add(new Menus(16L, "项目查询", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projects?sid=" + sessionId));
-			tabs.add(new Menus(16L, "数据简报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/dataBriefing?sid=" + sessionId));
-			tabs.add(new Menus(16L, "项目分析", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projectAnalysis?sid=" + sessionId));
-			tabs.add(new Menus(16L, "绩效考核", "http://fx.qa.galaxyinternet.com/report/galaxy/report/kpi?sid=" + sessionId));
-			tabs.add(new Menus(16L, "投后项目跟踪", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestTrack?sid=" + sessionId));
-			tabs.add(new Menus(16L, "投后业务运营", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestBusiness?sid=" + sessionId));
-			tabs.add(new Menus(16L, "投后企业财报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestFinace?sid=" + sessionId));
+			tabs.add(new Menus(16L, "项目查询", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projects?" + params));
+			tabs.add(new Menus(16L, "数据简报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/dataBriefing?" + params));
+			tabs.add(new Menus(16L, "项目分析", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projectAnalysis?" + params));
+			tabs.add(new Menus(16L, "绩效考核", "http://fx.qa.galaxyinternet.com/report/galaxy/report/kpi?" + params));
+			tabs.add(new Menus(16L, "投后项目跟踪", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestTrack?" + params));
+			tabs.add(new Menus(16L, "投后业务运营", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestBusiness?" + params));
+			tabs.add(new Menus(16L, "投后企业财报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestFinace?" + params));
 		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;
