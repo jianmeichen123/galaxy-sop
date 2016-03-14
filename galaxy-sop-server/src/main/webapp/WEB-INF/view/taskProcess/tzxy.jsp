@@ -162,7 +162,7 @@ function initUpload(_dialog,type){
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
-		url : url,
+		url : url+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
 		filters : {
 			max_file_size : '30mb'
@@ -208,25 +208,23 @@ function initUpload(_dialog,type){
 			},
 			FileUploaded: function(up, files, rtn) {
 				var data = $.parseJSON(rtn.response);
-				afterSave(data)
+				if(data.status == "OK")
+				{
+					alert("上传成功.");
+					$(_dialog.id).find("[data-close='close']").click();
+					loadRows();
+				}
+				else
+				{
+					alert("上传失败.");
+				}
 			}
 		}
 	});
 
 	uploader.init();
 }
-function afterSave(data)
-{
-	if(data.status == "OK")
-	{
-		alert("上传成功.");
-		loadRows();
-	}
-	else
-	{
-		alert("上传失败.");
-	}
-}
+
 function initForm(_dialog,fileWorktype,type)
 {
 	console.log('initform');
@@ -259,6 +257,6 @@ function downloadFile(ele)
 	{
 		fileId = row.data("voucher-id")
 	}
-	window.location.href=platformUrl.downLoadFile+"/"+fileId+"?type="+type;
+	forwardWithHeader(platformUrl.downLoadFile+"/"+fileId+"?type="+type);
 }
 </script>

@@ -242,7 +242,7 @@ function handleDownload()
 		var $self = $(this);
 		var id = $self.data("tid");
 		var url = platformUrl.tempDownload+"?id="+id;
-		window.location.href=url;
+		forwardWithHeader(url);
 	});
 }
 
@@ -305,7 +305,7 @@ function initUpload(_dialog)
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
-		url : platformUrl.tempUpload,
+		url : platformUrl.tempUpload+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
 		filters : {
 			max_file_size : '10mb'
@@ -337,6 +337,7 @@ function initUpload(_dialog)
 						data,
 						function(data){
 							alert("上传成功.");
+							$(_dialog.id).find("[data-close='close']").click();
 							loadTempList();
 						}
 				);

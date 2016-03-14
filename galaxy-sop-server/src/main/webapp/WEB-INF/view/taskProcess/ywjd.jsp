@@ -79,7 +79,7 @@ $(function(){
 		showUploadPopup();
 	});
 	$("#download-template-btn").click(function(){
-		window.location.href=platformUrl.tempDownload+"?worktype=fileWorktype:5";
+		forwardWithHeader(platformUrl.tempDownload+"?worktype=fileWorktype:5");
 	});
 });
 function loadRows()
@@ -117,7 +117,6 @@ function loadRows()
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
-				console.log(countOfFiles);
 				$("#apply-decision-btn").toggleClass('disabled',hasEmpty);
 			}
 	);
@@ -162,7 +161,7 @@ function initUpload(_dialog){
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
-		url : platformUrl.uploadFile2Task,
+		url : platformUrl.uploadFile2Task+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
 		filters : {
 			max_file_size : '30mb'
@@ -208,25 +207,23 @@ function initUpload(_dialog){
 			},
 			FileUploaded: function(up, files, rtn) {
 				var data = $.parseJSON(rtn.response);
-				afterSave(data)
+				if(data.status == "OK")
+				{
+					alert("上传成功.");
+					$(_dialog.id).find("[data-close='close']").click();
+					loadRows();
+				}
+				else
+				{
+					alert("上传失败.");
+				}
 			}
 		}
 	});
 
 	uploader.init();
 }
-function afterSave(data)
-{
-	if(data.status == "OK")
-	{
-		alert("上传成功.");
-		loadRows();
-	}
-	else
-	{
-		alert("上传失败.");
-	}
-}
+
 function initForm(_dialog)
 {
 	var $row = $("#hrjzdc-table tbody tr[data-file-worktype='fileWorktype:1']");
@@ -246,6 +243,6 @@ function downloadFile(ele)
 {
 	var row = $(ele).closest("tr");
 	var fileId = row.data("id");
-	window.location.href=platformUrl.downLoadFile+"/"+fileId;
+	window.location.href=forwardWithHeader(platformUrl.downLoadFile+"/"+fileId);
 }
 </script>

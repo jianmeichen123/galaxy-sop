@@ -82,7 +82,7 @@ $(function(){
 		showUploadPopup("voucher");
 	});
 	$("#download-template-btn").click(function(){
-		window.location.href=platformUrl.tempDownload+"?worktype=${fileWorktype}";
+		forwardWithHeader(platformUrl.tempDownload+"?worktype=${fileWorktype}");
 	});
 });
 function loadRows()
@@ -129,7 +129,7 @@ function isBlank(val)
 function loadRelatedData()
 {
 	sendGetRequest(
-			platformUrl.getTempRelatedData,
+			platformUrl.getTempRelatedData+"?sid="+sessionId+"&guid="+userId,
 			null,
 			function(data){
 				$.each(data.fileType,function(){
@@ -208,7 +208,16 @@ function initUpload(_dialog,type){
 			},
 			FileUploaded: function(up, files, rtn) {
 				var data = $.parseJSON(rtn.response);
-				afterSave(data)
+				if(data.status == "OK")
+				{
+					alert("上传成功.");
+					$(_dialog.id).find("[data-close='close']").click();
+					loadRows();
+				}
+				else
+				{
+					alert("上传失败.");
+				}
 			}
 		}
 	});
