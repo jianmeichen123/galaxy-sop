@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.message.NewMessage" >
+	<resultMap id="BaseResultMap" type="NewMessagePO">
+		<id column="id" property="id" />
+		<result property="userId" column="uid" />
+		<result property="userName" column="uname" />
+		<result property="userRole" column="user_role" />
+		<result property="operationType" column="operation_type" />
+		<result property="projectId" column="project_id" />
+		<result property="projectName" column="project_name" />
+		<result property="operationContent" column="operation_content" />
+		<result property="careerLine" column="career_line" />
+		<result property="createdDate" column="created_time" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,
+		uid,
+		uname,
+		user_role,
+		operation_type,
+		project_id,
+		project_name,
+		operation_content,
+		career_line,
+		created_time
+	</sql>
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="userId != null"> and uid =#{userId}</if>
+				<if test="userName != null"> and uname =#{userName}</if>
+				<if test="userRole != null"> and user_role =#{userRole}</if>
+				<if test="operationType != null"> and operation_type =#{operationType}</if>
+				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="projectName != null"> and project_name =#{projectName}</if>
+				<if test="operationContent != null "> and operation_content =#{operationContent}</if>	
+		        <if test="careerLine != null"> and career_line =#{careerLine}</if>
+				<if test="createdDate != null"> and created_time =#{createdDate}</if>
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(id) from sop_operation_logs
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="userId != null"> and uid =#{userId}</if>
+				<if test="userName != null"> and uname =#{userName}</if>
+				<if test="userRole != null"> and user_role =#{userRole}</if>
+				<if test="operationType != null"> and operation_type =#{operationType}</if>
+				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="projectName != null"> and project_name =#{projectName}</if>
+				<if test="operationContent != null "> and operation_content =#{operationContent}</if>	
+		        <if test="careerLine != null"> and career_line =#{careerLine}</if>
+				<if test="createdDate != null"> and created_time =#{createdDate}</if>
+			</trim>
+		</where>
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_operation_logs
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_operation_logs where id = #{id}
+	</select>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="NewMessagePO">
+	    <![CDATA[
+	        insert into
+	        sop_operation_logs (
+        	   id,
+        	   uid,
+        	   uidname,
+        	   user_role,
+        	   operation_type,
+        	   project_id,
+        	   project_name,
+        	   operation_content,
+        	   career_line,
+        	   created_time
+	        ) values (
+        	   #{id},
+        	   #{userId},	   
+        	   #{userName},
+        	   #{userRole},
+        	   #{operationType},
+        	   #{projectId},
+        	   #{projectName},
+        	   #{operationContent},
+        	   #{careerLine},
+        	   #{createdDate}
+	        )
+	    ]]>
+	</insert>
+
+	<!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="NewMessagePO">
+		update sop_operation_logs
+		<set>
+			<if test="id != null">  id =#{id},</if>
+			<if test="userId != null">  uid =#{userId},</if>
+			<if test="userName != null">  uname =#{userName},</if>
+			<if test="userRole != null">  user_role =#{userRole},</if>
+			<if test="operationType != null">  operation_type =#{operationType},</if>	
+			<if test="projectId != null"> project_id =#{projectId},</if>
+			<if test="projectName != null">  project_name =#{projectName},</if>
+			<if test="operationContent != null">  operation_content =#{operationContent},</if>
+			<if test="careerLine != null">  career_line =#{careerLine},</if>
+			<if test="createdDate != null">  created_time =#{createdDate}</if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+			<if test="id != null"> and id =#{id}</if>
+				<if test="userId != null"> and uid =#{userId}</if>
+				<if test="userName != null"> and uname =#{userName}</if>
+				<if test="userRole != null"> and user_role =#{userRole}</if>
+				<if test="operationType != null"> and operation_type =#{operationType}</if>
+				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="projectName != null"> and project_name =#{projectName}</if>
+				<if test="operationContent != null "> and operation_content =#{operationContent}</if>	
+		        <if test="careerLine != null"> and career_line =#{careerLine}</if>
+				<if test="createdDate != null"> and created_time =#{createdDate}</if>
+			</trim>
+		</where>
+	</update>
+	<!-- 通过ID更新 -->
+	<update id="updateById" parameterType="NewMessagePO">
+		update sop_operation_logs
+		<set>
+			<if test="id != null">  id =#{id},</if>
+			<if test="userId != null">  uid =#{userId},</if>
+			<if test="userName != null">  uname =#{userName},</if>
+			<if test="userRole != null">  user_role =#{userRole},</if>
+			<if test="operationType != null">  operation_type =#{operationType},</if>	
+			<if test="projectId != null"> project_id =#{projectId},</if>
+			<if test="projectName != null">  project_name =#{projectName},</if>
+			<if test="operationContent != null">  operation_content =#{operationContent},</if>
+			<if test="careerLine != null">  career_line =#{careerLine},</if>
+			<if test="createdDate != null">  created_time =#{createdDate}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_operation_logs
+		<include refid="Base_Where_Clause" />
+	</delete>
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="NewMessagePO">
+		delete from sop_operation_logs where
+		id = #{id}
+	</delete>
+</mapper>
