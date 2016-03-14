@@ -1,11 +1,10 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
-<%-- <% 
+<% 
 	String path = request.getContextPath(); 
     User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-%> --%>
+%>
 <div class="header clearfix">
 	<a href="javascript:;" class="logo null">繁星</a>
     <!--头部中间-->
@@ -26,7 +25,7 @@
     </div>
      <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
-        <span class="ico name">早上好，<%=nick_name%></span>
+        <span class="ico name">早上好，<%=user.getNickName()%></span>
         <b class="line null">分割线</b>
         <a href="javascript:logout()" class="loginout">退出</a>
     </div>
