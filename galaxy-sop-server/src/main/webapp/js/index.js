@@ -6,30 +6,30 @@
 
 	// top5立项排期
 	function top5ProjectMeeting() {
-		sendGetRequest(platformUrl.top5ProjectMeeting, null, top5ProjectMeetingCallback, null);
+		sendGetRequest(platformUrl.top5ProjectMeeting, null, top5ProjectMeetingCallback);
 	}
 
 	//top5投决排期
 	function ProjectVoteWill() {
-		sendGetRequest(platformUrl.ProjectVoteWill, null, ProjectVoteWillCallback, null);
+		sendGetRequest(platformUrl.ProjectVoteWill, null, ProjectVoteWillCallback);
 	}
 
 	// 所有立项排期
 	function moreProjectMeeting() {
-		sendGetRequest(sopContentUrl+"/galaxy/home/moreProjectMeeting", null, moreProjectMeetingCallback, null);
+		sendGetRequest(sopContentUrl+"/galaxy/home/moreProjectMeeting", null, moreProjectMeetingCallback);
 	}
 
 
 	//所有投决会
 	function moreProjectVoteWill() {
-		sendGetRequest(platformUrl.moreProjectVoteWill, null, moreVotebodyMeetingCallback, null);
+		sendGetRequest(platformUrl.moreProjectVoteWill, null, moreVotebodyMeetingCallback);
 	}
 
 
 	//主页待办任务
 	function selectSopTask(){
 		var jsonData={"pageNum":0,"pageSize":5}; 
-		sendPostRequestByJsonObj(platformUrl.soptaskshouye,jsonData, SopTaskCallback, null);
+		sendPostRequestByJsonObj(platformUrl.soptaskshouye,jsonData, SopTaskCallback);
 	}
 
 	function SopTaskCallback(data){
