@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -198,6 +201,47 @@ public class HomePageSearchController
 
 			if (logger.isErrorEnabled()) {
 				logger.error("selectMoreProjectVoteWill ", e);
+			}
+		}
+
+		return responseBody;
+	}
+	
+	/**
+	 * 供app使用的立项排期,投诀排期
+	 * 用户id,类型必填
+	 * @author zhaoying
+	 * @param request
+	 * @param query
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/pageProjectMeeting",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingScheduling> pageProjectMeeting(@RequestBody MeetingScheduling meeting,
+			HttpServletRequest request) {
+
+		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
+	/*	Object obj = request.getSession()
+				.getAttribute(Constants.SESSION_USER_KEY);
+		if (obj == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+*/		// User user = (User)
+		// request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try {
+
+			Page<MeetingScheduling> pageList = meetingSchedulingService.queryPageList(meeting,new PageRequest(meeting.getPageNum(), meeting.getPageSize()));
+			responseBody.setPageList(pageList);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,
+					"pageProjectMeeting faild"));
+
+			if (logger.isErrorEnabled()) {
+				logger.error("pageProjectMeeting ", e);
 			}
 		}
 

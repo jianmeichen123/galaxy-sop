@@ -2,7 +2,10 @@ package com.galaxyinternet.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
+import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.MeetingScheduling;
 
@@ -22,5 +25,13 @@ public interface MeetingSchedulingService extends BaseService<MeetingScheduling>
 	 * @return
 	 */
 	List<MeetingSchedulingBo>selectProjectMeetingByType(String type);
+	/**
+	 * 分页查询 供app调用
+	 * @author zhaoying
+	 * @param query
+	 * @param pageable
+	 * @return
+	 */
+	Page<MeetingScheduling> queryMeetingPageList(MeetingScheduling query, Pageable pageable);
 	
 }
