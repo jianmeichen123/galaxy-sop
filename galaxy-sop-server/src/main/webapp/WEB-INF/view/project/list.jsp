@@ -109,8 +109,6 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/pprogress.js" type="text/javascript"></script>
-<script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script type="text/javascript">
 	createMenus(5);

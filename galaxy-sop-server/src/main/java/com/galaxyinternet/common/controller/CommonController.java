@@ -15,19 +15,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.bo.UserBo;
+import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Header;
 import com.galaxyinternet.framework.core.model.ResponseData;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.Menus;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.UserRoleService;
 
 @Controller
 @RequestMapping("/galaxy/common")
-public class CommonController {
+public class CommonController extends BaseControllerImpl<User, UserBo>{
 	
 	final Logger logger = LoggerFactory.getLogger(CommonController.class);
 	
@@ -60,12 +61,7 @@ public class CommonController {
 			u = url.substring(0, url.indexOf(contextPath) + contextPath.length() + 1);
 		}
 		
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}
-		User user = (User) obj;
+		User user = (User) getUserFromSession(request);
 		
 		List<Menus> tabs = new ArrayList<Menus>();
 		//通用Tab
@@ -124,4 +120,10 @@ public class CommonController {
 	    responseBody.setEntityList(tabs);
 		return responseBody;
 	}
+
+	@Override
+	protected BaseService<User> getBaseService() {
+		return null;
+	}
+
 }

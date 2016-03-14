@@ -1,5 +1,7 @@
 package com.galaxyinternet.common.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
@@ -17,7 +19,8 @@ public class IndexController {
 	 * @return
 	 */
 	@RequestMapping(value = "/redirect", method = RequestMethod.GET)
-	public String redirect() {
+	public String redirect(HttpServletRequest request) {
+		Map<String,String[]> ps = request.getParameterMap();
 		return "redirect:/galaxy/index";
 	}
 	
