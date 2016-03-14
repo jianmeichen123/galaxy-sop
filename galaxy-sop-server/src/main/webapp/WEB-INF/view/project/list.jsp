@@ -13,20 +13,6 @@
 <!-- jsp文件头和头部 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
-<script src="<%=path %>/js/my_ext.js"></script>
-<script src="<%=path %>/js/my.js"></script>
-<!-- 分页二css+四js -->
-<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
-<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script src="<%=path %>/js/init.js"></script>
-
-<!-- 富文本编辑器 -->
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
-<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 
 </head>
 
@@ -110,6 +96,21 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
+<script src="<%=path %>/js/my_ext.js"></script>
+<script src="<%=path %>/js/my.js"></script>
+<!-- 分页二css+四js -->
+<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/js/init.js"></script>
+
+<!-- 富文本编辑器 -->
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
 <script type="text/javascript">
 	createMenus(5);
 	/**
