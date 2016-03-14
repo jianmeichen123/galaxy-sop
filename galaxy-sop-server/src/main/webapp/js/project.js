@@ -11,7 +11,7 @@ $(function(){
 		var um = UM.getEditor('describe_editor');
 		var projectDescribe = um.getContent();
 		if(pid != '' && projectDescribe != ''){
-			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, function(){},null);
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, function(){});
 		}
 	});
 	/**
@@ -21,7 +21,7 @@ $(function(){
 		var um = UM.getEditor('business_model_editor');
 		var projectBusinessModel = um.getContent();
 		if(pid != '' && projectBusinessModel != ''){
-			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectBusinessModel" : projectBusinessModel}, function(){},null);
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectBusinessModel" : projectBusinessModel}, function(){});
 		}
 	});
 	/**
@@ -31,7 +31,7 @@ $(function(){
 		var um = UM.getEditor('location_editor');
 		var companyLocation = um.getContent();
 		if(pid != '' && companyLocation != ''){
-			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "companyLocation" : companyLocation}, function(){},null);
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "companyLocation" : companyLocation}, function(){});
 		}
 	});
 	/**
@@ -41,7 +41,7 @@ $(function(){
 		var um = UM.getEditor('portrait_editor');
 		var userPortrait = um.getContent();
 		if(pid != '' && userPortrait != ''){
-			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, function(){},null);
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, function(){});
 		}
 	});
 	/**
@@ -51,7 +51,7 @@ $(function(){
 		var um = UM.getEditor('analysis_editor');
 		var prospectAnalysis = um.getContent();
 		if(pid != '' && prospectAnalysis != ''){
-			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "prospectAnalysis" : prospectAnalysis}, function(){},null);
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "prospectAnalysis" : prospectAnalysis}, function(){});
 		}
 	});
 	/**
@@ -80,7 +80,7 @@ $(function(){
 		um.setContent(data.entity.userPortrait);
 		var um = UM.getEditor('analysis_editor');
 		um.setContent(data.entity.prospectAnalysis);
-	},null);
+	});
 	/**
 	 * 计算初始估值
 	 */
@@ -114,7 +114,7 @@ function savePerson(){
 	var projectId = $("#pid").val();
 	if(projectId != ''){
 		$("#projectId").val(projectId);
-		sendPostRequestByJsonObj(platformUrl.addPerson, JSON.parse($("#person_form").serializeObject()), savePersonCallBack,null);
+		sendPostRequestByJsonObj(platformUrl.addPerson, JSON.parse($("#person_form").serializeObject()), savePersonCallBack);
 	}
 }
 
@@ -125,7 +125,7 @@ function savaStock(){
 	var projectId = $("#pid").val();
 	if(projectId != ''){
 		$("#projectId").val(projectId);
-		sendPostRequestByJsonObj(platformUrl.addStock, JSON.parse($("#stock_form").serializeObject()), saveProjectCallBack,null);
+		sendPostRequestByJsonObj(platformUrl.addStock, JSON.parse($("#stock_form").serializeObject()), saveProjectCallBack);
 	}
 }
 
@@ -136,7 +136,7 @@ function updateStock(){
 	var projectId = $("#pid").val();
 	if(projectId != ''){
 		$("#projectId").val(projectId);
-		sendPostRequestByJsonObj(platformUrl.updateStock, JSON.parse($("#up_stock_form").serializeObject()),saveProjectCallBack,null);
+		sendPostRequestByJsonObj(platformUrl.updateStock, JSON.parse($("#up_stock_form").serializeObject()),saveProjectCallBack);
 	}
 	//window.location.reload("/galaxy/upp");
 }
@@ -150,7 +150,7 @@ function delStock(id,url){
 	var url = sopContentUrl + "/galaxy/projectShares/deleteProjectShares/"+id+"/"+projectId;
 	if(projectId != ''){
 		$("#projectId").val(projectId);
-		sendGetRequest(url,'',saveProjectCallBack,null);
+		sendGetRequest(url,'',saveProjectCallBack);
 	}
 }
 
@@ -161,7 +161,7 @@ function updatePerson(){
 	var projectId = $("#pid").val();
 	if(projectId != ''){
 		$("#projectId").val(projectId);
-		sendPostRequestByJsonObj(platformUrl.updatePerson, JSON.parse($("#up_person_form").serializeObject()),savePersonCallBack,null);
+		sendPostRequestByJsonObj(platformUrl.updatePerson, JSON.parse($("#up_person_form").serializeObject()),savePersonCallBack);
 	}
 }
 /**
@@ -173,7 +173,7 @@ function deletePer(id,url){
 	var url = sopContentUrl + "/galaxy/project/dpp/"+id+"/"+projectId;
 	if(projectId != ''){
 		$("#projectId").val(projectId);
-		sendGetRequest(url,'',savePersonCallBack,null);
+		sendGetRequest(url,'',savePersonCallBack);
 	}
 }
 
@@ -233,5 +233,5 @@ function calculationValuations(){
  * 更新项目信息
  */
 function update(){
-	sendPostRequestByJsonObj(platformUrl.updateProject, JSON.parse($("#update_form_basic").serializeObject()), function(){},null);
+	sendPostRequestByJsonObj(platformUrl.updateProject, JSON.parse($("#update_form_basic").serializeObject()), function(){});
 }

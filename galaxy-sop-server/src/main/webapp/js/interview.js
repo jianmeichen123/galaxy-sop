@@ -21,7 +21,7 @@ function queryPerPro(){
 	}
 	
 	condition.progress = "projectProgress:1";
-	sendGetRequest(platformUrl.getUserPro,condition,setProSelect,null);
+	sendGetRequest(platformUrl.getUserPro,condition,setProSelect);
 }
 
 
@@ -32,11 +32,9 @@ function setProSelect(data){
 	
 	if(result == "ERROR"){ //OK, ERROR
 		alert("error "+data.result.message);
-		
 		$(".pop").remove();
-		$("#popbg").hide();	
+		$("#popbg").remove();	
 		//$("#popbg,#pop").remove();
-		
 		return;
 	}
 	
@@ -53,7 +51,6 @@ function setProSelect(data){
 	    	$("#projectId").append("<option value='"+data.entityList[i].id+"'>"+data.entityList[i].projectName+"</option>");
 	    } 
 	}
-	
 }
 
 
@@ -61,7 +58,7 @@ function setProSelect(data){
 function filedown(fileid , filekey){
 	try {
 		var url = platformUrl.downfilebyid+"/"+fileid;
-		window.location.href=url;
+		window.location.href=forwardWithHeader(url);
 	} catch (e) {
 		console.log(e);
 		alert("下载失败");
@@ -165,7 +162,7 @@ function saveInterView(){
 	if(condition == false || condition == "false"){
 		return;
 	}
-	sendPostRequestByJsonObj(platformUrl.saveView,condition,saveCallBack,null);
+	sendPostRequestByJsonObj(platformUrl.saveView,condition,saveCallBack);
 }
 
 
@@ -212,11 +209,21 @@ function getSaveCondition(){
 	if(viewTarget == null ||  viewTarget == ""){
 		alert("对象不能为空");
 		return false;
+	}else{
+		if(getLength(viewTarget) > 50){
+			alert("对象长度最大50字节");
+			return false;
+		}
 	}
 	
 	if(viewNotes == null || viewNotes== ""){
 		alert("记录不能为空");
 		return false;
+	}else{
+		if(getLength(viewTarget) > 500){
+			alert("记录长度最大500字节");
+			return false;
+		}
 	}
 	
 	if(fileId != null && fileId!= ""){
@@ -240,7 +247,17 @@ function getSaveCondition(){
 }
 
 
-
+function getLength(val){
+	var len = 0;
+	for (var i = 0; i < val.length; i++) {
+		if (val.charCodeAt(i) >= 0x4e00 && val.charCodeAt(i) <= 0x9fa5){ 
+			len += 2;
+		}else {
+			len++;
+		}
+	}
+	return len;
+}
 
 
 

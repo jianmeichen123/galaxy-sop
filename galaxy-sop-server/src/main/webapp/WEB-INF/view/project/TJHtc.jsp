@@ -1,4 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<% 
+	String path = request.getContextPath(); 
+%>
 <div class="meetingtc">
 	<div class="top clearfix">
     	<!-- <div class="searchall clearfix">
@@ -64,8 +67,13 @@
     	<a href="javascript:;" class="pubbtn bluebtn" id="TJH_savemeet">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
+
 <script src="${ctx}/js/plupload.full.min.js" type="text/javascript"></script>
  
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
  <script type="text/javascript">
 		UM.getEditor('TJH_meetingNotes');
 </script>

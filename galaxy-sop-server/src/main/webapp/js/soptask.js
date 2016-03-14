@@ -15,7 +15,7 @@ $(function(){
 			okback:function(){
 				var taskid=getTaskId();
 				$(".btnbox").on("click", "#dotask", function() {
-					this.href=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskid;
+					this.href=forwardWithHeader(sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskid);
 	            });
 				//单击按钮刷新页列表里面的内容
 				$(".btnbox").on("click", "#notdo", function() {

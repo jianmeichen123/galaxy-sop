@@ -7,6 +7,14 @@ function loadAjaxSopUserSchedule(type,url){
 		dataType : "json",
 		contentType:"application/json; charset=UTF-8",
 		cache : false,
+		beforeSend : function(xhr) {
+			if (sessionId) {
+				xhr.setRequestHeader("sessionId", sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId", userId);
+			}
+		},
 		error:function(){     
 	        //alert('error');     
 	    }, 

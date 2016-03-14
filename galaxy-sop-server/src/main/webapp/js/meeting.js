@@ -1,5 +1,4 @@
 $(function(){
-
 	createMenus(7);
 	
 	$('#data-table').bootstrapTable({
@@ -24,36 +23,59 @@ function queryPerPro(){
 		condition.meetingType = meetingType;
 	}
 	
-	sendGetRequest(platformUrl.getUserPro,condition,setProSelect,null);
+	sendGetRequest(platformUrl.getUserPro,condition,setProSelect);
 }
 
 
 //设置项目下拉框
 function setProSelect(data){
-	
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
 		alert("error "+data.result.message);
 		$(".pop").remove();
-		$("#popbg").hide();	
+		$("#popbg").remove();	
 		return;
 	}
 	
 	var entityList = data.entityList;
-	
 	if(entityList.length == 0 ){
 		alert("无相关项目可添加记录");
 		$(".pop").remove();
-		$("#popbg").hide();	
+		$("#popbg").remove();	
 		return;
 	}else{
 		for(var i=0;i<data.entityList.length;i++){
 	    	$("#projectId").append("<option value='"+data.entityList[i].id+"'>"+data.entityList[i].projectName+"</option>");
 	    } 
 	}
-	
 }
+
+
+
+/*<dt>会议类型：</dt>
+<dd class="clearfix">
+    <label><input type="radio" name="meetingType" value="meetingType:1"/>内评会</label>
+    <label><input type="radio" name="meetingType" value="meetingType:2"/>CEO评审</label>
+    <label><input type="radio" name="meetingType" value="meetingType:3"/>立项会</label>
+    <label><input type="radio" name="meetingType" value="meetingType:4"/>投决会</label>
+</dd>*/
+
+//get meettype radios, parentCode 
+// Map<parentCode,Map<code,name>>
+function getMeetTypes(){
+	sendPostRequestByJsonObj(platformUrl.saveMeet,condition,setMeetTypes);
+}
+function setMeetTypes(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		alert("error "+data.result.message);
+		return;
+	}
+	
+	var mapcodename = data.result.message;
+}
+
 
 
 //保存记录
@@ -62,7 +84,7 @@ function saveMeet(){
 	if(condition == false || condition == "false"){
 		return;
 	}
-	sendPostRequestByJsonObj(platformUrl.saveMeet,condition,saveMeetCallBack,null);
+	sendPostRequestByJsonObj(platformUrl.saveMeet,condition,saveMeetCallBack);
 }
 
 
@@ -72,7 +94,6 @@ function saveMeetCallBack(data){
 	
 	if(result == "ERROR"){ //OK, ERROR
 		alert("error "+data.result.message);
-		
 		return;
 	}
 	
@@ -129,13 +150,26 @@ function getMeetCondition(){
 		alert("记录不能为空");
 		return false;
 	}else{
-		condition.meetingNotes = meetingNotes;
+		if(getLength(meetingNotes) > 500){
+			alert("记录长度最大500字节");
+			return false;
+		}
 	}
-	
+	condition.meetingNotes = meetingNotes;
 	return condition;
 }
 
-
+function getLength(val){
+	var len = 0;
+	for (var i = 0; i < val.length; i++) {
+		if (val.charCodeAt(i) >= 0x4e00 && val.charCodeAt(i) <= 0x9fa5){ 
+			len += 2;
+		}else {
+			len++;
+		}
+	}
+	return len;
+}
 
 
 //plupload上传对象初始化,   绑定保存
@@ -209,6 +243,17 @@ function initUpload() {
 	uploader.init();
 }
 
+
+//附件点击下载
+function filedown(fileid , filekey){
+	try {
+		var url = platformUrl.downfilebyid+"/"+fileid;
+		window.location.href=forwardWithHeader(url);
+	} catch (e) {
+		console.log(e);
+		alert("下载失败");
+	}
+}
 
 //table format
 function rowcolumnFormat(value, row, index){

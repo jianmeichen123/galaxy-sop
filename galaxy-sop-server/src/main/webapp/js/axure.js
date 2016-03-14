@@ -461,6 +461,14 @@
 					data:opts.data,
 					dataType:"html",
 					url:opts.url,
+					beforeSend : function(xhr) {
+						if (sessionId) {
+							xhr.setRequestHeader("sessionId", sessionId);
+						}
+						if(userId){
+							xhr.setRequestHeader("guserId", userId);
+						}
+					},
 					success:function(html){
 						$(_this.id).find(".poptxt").html(html);
 						opts.okback();
