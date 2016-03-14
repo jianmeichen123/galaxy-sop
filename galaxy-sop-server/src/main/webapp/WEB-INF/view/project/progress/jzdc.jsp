@@ -26,11 +26,8 @@
     	<dt>业务分类：</dt>
         <dd>
         	<select id="fileWorkType" disabled="disabled">
-            	<option value="fileWorktype:5">投资意向书</option>
+            	<option value="fileWorktype:1">业务尽职调查报告</option>
             </select>
-        </dd>
-        <dd>
-        	<label><input type="checkbox" value="1" id="voucherType"/>签署凭证</label>
         </dd>
     </dl>
     
