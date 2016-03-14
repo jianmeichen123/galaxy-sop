@@ -65,8 +65,12 @@ public class SopTastDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTask
 	 * @return
 	 */
 	public List<SopTask> selectForTaskByFlag(SopTaskBo query) {
-		// TODO Auto-generated method stub
 		this.sqlSessionTemplate.selectList(getSqlName("selectForTaskByFlag"), query);
 		return null;
+	}
+
+	@Override
+	public int updateTask(SopTask task) {
+		return this.sqlSessionTemplate.update(getSqlName("updateTask"), task);
 	}
 }

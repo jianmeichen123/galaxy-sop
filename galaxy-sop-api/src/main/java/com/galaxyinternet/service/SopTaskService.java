@@ -56,5 +56,7 @@ public interface SopTaskService extends BaseService<SopTask> {
      */
 	Long selectTotalUrgent(SopTaskBo query);
 	
+	public int updateTask(SopTask task);
+	
 }
 

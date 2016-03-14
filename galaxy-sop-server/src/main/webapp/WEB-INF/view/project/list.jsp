@@ -156,10 +156,11 @@
 							tzyxs(0);
 						}
 						if(i == 8){
-							tzxy(data.entity.projectType);
+							alert(data.entity.stockTransfer);
+							tzxy(data.entity.stockTransfer,data.entity.projectType);
 						}
 						if(i == 9){
-							projectProgress9(id);
+							gqjg();
 						}
 						if(i == 6){
 							jzdc();
@@ -219,7 +220,7 @@
 								$("#projectProgress_8_con").css("display","none");
 								$("#projectProgress_9").addClass("on");
 								$("#projectProgress_9_con").css("display","block");
-								projectProgress9($("#project_id").val());
+								gqjg();
 							}
 						});
 					}
@@ -291,6 +292,7 @@
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){
 			sendGetRequest(platformUrl.startReview + pid, {}, function(data){
+				alert("启动内部评审成功!");
 			});
 		}
 	}
@@ -598,7 +600,7 @@
 	/**
 	 * 动态生成投资协议的HTML
 	 */
-	function tzxy(projectType){
+	function tzxy(st,projectType){
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null){
 			sendPostRequestByJsonObj(
@@ -619,18 +621,37 @@
 								$tr.append('<td></td>') ;
 							}	
 							$tr.append('<td>'+this.fileStatusDesc+'</td>') ;
-							if(this.fileKey == null){	
-								$tr.append('<td><a href="javascript:tzxyAlert(8,0);" class="blue">上传</a></td>');
-							}else{
-								$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
-							}
-							
-							if(this.voucherFileKey == null){	
-								$tr.append('<td><a href="javascript:gqzrAlert(8,0);" class="blue">上传</a></td>');
-							}else{
-								$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+							if(this.fileWorktype == 'fileWorktype:6'){
+								if(this.fileKey == null){	
+									$tr.append('<td><a href="javascript:tzxyAlert(8,0);" class="blue">上传</a></td>');
+								}else{
+									$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+								}
+								if(this.voucherFileKey == null){	
+									$tr.append('<td><a href="javascript:tzxyAlert(8,1);" class="blue">上传</a></td>');
+								}else{
+									$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+								}
+							}else if(this.fileWorktype == 'fileWorktype:7'){
+								if(this.fileKey == null){	
+									$tr.append('<td><a href="javascript:gqzrAlert(8,0);" class="blue">上传</a></td>');
+								}else{
+									$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+								}
+								if(this.voucherFileKey == null){	
+									$tr.append('<td><a href="javascript:gqzrAlert(8,1);" class="blue">上传</a></td>');
+								}else{
+									$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+								}
 							}
 							_tbody.append($tr);
+							//涉及股权转让
+							alert(st);
+							if(st == 1){
+								
+							}else{
+								
+							}
 						});
 					}
 			);	
@@ -746,6 +767,94 @@
 			}
 		});
 		return false;
+	}
+	 
+	 /**
+	  * 动态生成股权交割的HTML
+	  */
+	function gqjg(){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null){
+			sendPostRequestByJsonObj(
+					platformUrl.searchSopFileListWithoutPage,
+					{"projectId" : pid},
+					function(data){
+						var json = eval(data);
+						 var dataList=json.entityList;
+						 var htmlstart='<table width=\"100%" cellspacing="0" cellpadding="0" >'+
+							             '<thead>'+
+							                '<tr>'+
+							                 '<th>业务分类</th>'+
+							                 '<th>创建日期</th>'+
+							                 '<th>存储类型</th>'+
+							                 '<th>更新日期</th>'+
+							                 '<th>催办</th>'+
+							                 '<th>查看附件</th>'+
+							                 '</tr>'+
+							            '</thead>'+                                                                                                                                   
+							             '<tbody>';
+										for(var p in dataList){
+													var typehtml = "";
+													if (typeof(dataList[p].fType) == "undefined") { 
+														typehtml ='<td></td>';
+													}else{
+														typehtml = '<td>'+dataList[p].fType+'</td>';
+													}
+													var handlehtml = "";
+													
+													if (dataList[p].fileStatusDesc == "缺失") { 
+														handlehtml ='<td><a href="javascript:; " class="blue">催办</a></td>';
+													}else{
+														handlehtml = '<td>'+dataList[p].fileName+'</td>';
+													}
+													var endhtml ="";
+													if (dataList[p].fileStatusDesc == "缺失") { 
+														endhtml ='<td></td>';
+													}else{
+														endhtml = '<td><a href="javascript:; " onclick="handleDownload('+dataList[p].id+');" class="blue">附件</a></td>';
+													}
+													
+													htmlstart +='<tr>'+
+													'<td>'+dataList[p].fWorktype+'</td>'+
+													'<td>'+dataList[p].createDate+'</td>'+
+													typehtml+
+													'<td></td>'+
+													handlehtml+   
+													endhtml+   
+													'</tr>';   
+										}
+							var htmlend= '</tbody></table>';
+							$("#projectProgress_9_con").html(htmlstart+htmlend);
+					}
+			);	
+		}
+	}
+	function ftcolumnFormat(value, row, index){
+		var fileinfo = "" ;
+		var rc = "";
+		if( row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
+			fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+		}
+		rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+					"访谈日期："+row.viewDateStr+
+					"</br>访谈对象："+row.viewTarget+
+					"</br>访谈录音："+fileinfo+
+				"</div>" ;
+		return rc;
+	}
+		
+	function metcolumnFormat(value, row, index){
+		var fileinfo = "";
+		var rc = "";
+		if(row.fileId != null && row.fileId != undefined && row.fileId != "undefined"){
+			fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+		}
+		rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+					"会议日期："+row.meetingDateStr+
+					"</br>会议结论："+row.meetingResultStr+
+					"</br>会议录音："+fileinfo+
+				"</div>" ;
+		return rc;
 	}
 </script>
 </html>

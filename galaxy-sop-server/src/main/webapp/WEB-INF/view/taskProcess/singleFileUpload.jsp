@@ -36,7 +36,7 @@
 	    <dl class="fmdl clearfix">
 	    	<dt>存储类型：</dt>
 	        <dd>
-	        	<select name="fileType" disabled></select>
+	        	<select name="fileType"</select>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -71,7 +71,6 @@
 </div>
 <script type="text/javascript">
 $(function(){
-	console.log("taskId=${taskId}");
 	loadRows();
 	loadRelatedData();
 	$("#show-upload-btn").click(function(){
@@ -178,7 +177,6 @@ function initUpload(_dialog){
 		init: {
 			PostInit: function(up) {
 				$(_dialog.id).find("#upload-btn").click(function(){
-					console.log("upload");
 					var fileName = $(_dialog.id).find('[name="fileName"]').val();
 					if(fileName == null || fileName == '')
 					{
@@ -245,6 +243,7 @@ function initForm(_dialog)
 	$(_dialog.id).find("[name='id']").val($row.data('id'));
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
 	$(_dialog.id).find("[name='fileWorktype']").val(worktype);
+	$(_dialog.id).find("[name='fileType']").val(fileType);
 	$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
 	$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());

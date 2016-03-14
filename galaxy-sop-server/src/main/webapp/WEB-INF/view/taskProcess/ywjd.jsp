@@ -38,7 +38,7 @@
 	    <dl class="fmdl clearfix">
 	    	<dt>存储类型：</dt>
 	        <dd>
-	        	<select name="fileType" disabled></select>
+	        	<select name="fileType"></select>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -234,6 +234,7 @@ function initForm(_dialog)
 	$(_dialog.id).find("[name='id']").val($row.data('id'));
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
 	$(_dialog.id).find("[name='fileWorktype']").val(worktype);
+	$(_dialog.id).find("[name='fileType']").val(fileType);
 	$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
 	$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());

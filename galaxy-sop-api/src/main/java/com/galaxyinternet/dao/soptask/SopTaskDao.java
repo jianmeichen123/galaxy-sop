@@ -30,4 +30,6 @@ public interface SopTaskDao extends BaseDao<SopTask, Long> {
 	 */
 	public List<SopTask> selectForTaskByFlag(SopTaskBo query);
 	
+	public int updateTask(SopTask task);
+	
 }
