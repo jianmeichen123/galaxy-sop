@@ -107,53 +107,6 @@
            </div>
     </div>
 </div>
-<!-- 弹出页面 -->
-<div id="addFile" class="archivestc" style="display: none;">
-	<dl class="fmdl clearfix">
-    	<dt>档案来源：</dt>
-        <dd class="clearfix">
-        	<label><input name="fileSource" type="radio" value = "1" checked="checked"/>内部</label>
-            <label><input name="fileSource" type="radio" value = "2"/>外部</label>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-    	<dt>存储类型：</dt>
-        <dd>
-        	<select id="fileType">
-            	<option>sadasd</option>
-            </select>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-    	<dt>业务分类：</dt>
-        <dd>
-        	<select id="fileWorkType">
-            	<option>sadasd</option>
-            </select>
-        </dd>
-        <dd>
-        	<label><input type="checkbox"/>签署凭证</label>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-    	<dt>所属项目：</dt>
-        <dd>
-        	<input type="text" placeholder="请输入项目名称或编号" class="txt"/>
-        </dd>
-        <dd><a class="searchbtn null" href="javascript:;">搜索</a></dd>
-    </dl>
-    
-     <dl class="fmdl clearfix">
-    	<dt>文档上传：</dt>
-        <dd>
-        	<input type="text" class="txt" id="fileTxt"/>
-        </dd>
-        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="selectBtn">选择档案</a></dd>
-    </dl>  
-
-    <a href="javascript:;" class="pubbtn bluebtn" id="uploadBtn";>上传保存</a>
-    <input type="hidden" id="pathInput" value="<%=path%>">
-</div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/pprogress.js" type="text/javascript"></script>
@@ -201,7 +154,10 @@
 							tiggerTable($("#" + progress + "_table"),3);
 						}
 						if(i == 5){
-							projectProgress5(id);
+							tzyxs(0);
+						}
+						if(i == 8){
+							tzxy(data.entity.projectType);
 						}
 						if(i == 9){
 							projectProgress9(id);
@@ -238,11 +194,18 @@
 								$("#projectProgress_7_con").css("display","none");
 								$("#projectProgress_5").addClass("on");
 								$("#projectProgress_5_con").css("display","block");
-								projectProgress5($("#project_id").val());
+								if(parseInt(indexNum) < parseInt(pNum)){
+									tzyxs(1);
+								}else{
+									tzyxs(0);
+								}
 							}else if(indexNum == '6'){
 								$("#projectProgress_5_con").css("display","none");
 								 $("#projectProgress_6_con").css("display","block");
 								 tiggerTable($("#projectProgress_6_table"),3);
+								 if(parseInt(indexNum) < parseInt(pNum)){
+									 $("#jzdc_options").remove();
+								 }
 							}else if(indexNum == '7'){
 								$("#projectProgress_6_con").css("display","none");
 								$("#projectProgress_7_con").css("display","block");
@@ -250,6 +213,9 @@
 							}else if(indexNum == '8'){
 								$("#projectProgress_7_con").css("display","none");
 								$("#projectProgress_8_con").css("display","block");
+								 if(parseInt(indexNum) < parseInt(pNum)){
+									 $("#tzxy_options").remove();
+								 }
 							}else if(indexNum == '9'){
 								$("#projectProgress_8_con").css("display","none");
 								$("#projectProgress_9").addClass("on");
@@ -261,7 +227,6 @@
 					$("#" + progress).addClass("on");
 					$("#" + progress + "_con").css("display","block");
 				},null);
-				dataGrid.load(id);
 			}
 		});
 		return false;
@@ -391,12 +356,84 @@
 		}
 	}
 	
-	
+	 /**
+	  * 动态生成投资意向书阶段HTML
+	  */
+	function tzyxs(flag){
+		 var pid = $("#project_id").val();
+		 if(pid != '' && pid != null){
+			 /**
+			  *  生成尽职调查报告列表
+			  */
+			 sendGetRequest(
+					 sopContentUrl + '/galaxy/project/progress/proFileInfo/'+pid+'/5',
+					 null, function(data){
+						 var json = eval(data);
+						 var dataList=json.entityList;
+							for(var p in dataList){
+								var handlefile="";
+						        if (dataList[p].fileStatusDesc == "缺失") { 
+						        	handlefile ='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
+								}else{
+									handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
+								}
+						        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">'+
+						        '<a href="javascript:;" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>'+
+						        handlefile+'</div>'+
+							        '<div class="process clearfix">'+
+							        '<h2>投资意向书盖章流程</h2>'+
+							        '<img src="img/process.png" alt="">'+
+							        '</div>';
+							        
+								 var htmlstart=htmlhead+'<table width=\"100%" cellspacing="0" cellpadding="0" >'+
+									             '<thead>'+
+									                '<tr>'+
+									                 '<th>业务分类</th>'+
+									                 '<th>创建日期</th>'+
+									                 '<th>存储类型</th>'+
+									                 '<th>更新日期</th>'+
+									                 '<th>档案状态</th>'+
+									                 '<th>查看附件</th>'+
+									                 '</tr>'+
+									            '</thead>'+                                                                                                                                   
+									             '<tbody>';
+										var typehtml = "";
+										if (typeof(dataList[p].fType) == "undefined") { 
+											typehtml ='<td>未知</td>';
+										}else{
+											typehtml = '<td>'+dataList[p].fType+'</td>';
+										}
+										
+										var endhtml ="";
+										if (dataList[p].fileStatusDesc == "缺失") { 
+											endhtml ='<td>缺失</td>';
+										}else{
+											endhtml = '<td><a href="javascript:;" onclick="handleDownload('+dataList[p].id+');" class="blue">附件</a></td>';
+										}
+										
+										htmlstart +='<tr>'+
+										'<td>'+dataList[p].fWorktype+'</td>'+
+										'<td>'+dataList[p].createDate+'</td>'+
+										typehtml+
+										'<td></td>'+'<td>'+dataList[p].fileStatusDesc+'</td>'+
+										endhtml+
+										'</tr>';   
+										
+							}
+							var htmlend= '</tbody></table>';
+							$("#projectProgress_5_con").html(htmlstart+htmlend);
+							if(flag == 1){
+					        	$("#tzyxs_options").remove();
+					        }
+					 });
+		 }
+	 }
+		 
 	/**
-	 * 上传投决会议记录
+	 * 上传文档
 	 */
-	function voto(){
-		var _url='<%=path%>/galaxy/voto';
+	 function addFile(num,i){
+		var _url='<%=path %>/galaxy/tzyx';
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
@@ -404,60 +441,49 @@
 				$(".meetingtc").tabchange();
 				$('.searchbox').toggleshow();
 				leicj();
-				//初始化文件上传
-				toinitUpload(sopContentUrl + "/galaxy/project/progress/addfilemeet",
-						"file-select-btn","fileName","savemeet",
-						function getMeetCondition(){
-						var	condition = {};
-						var projectId = $("#project_id").val();
-						var meetingDateStr = $.trim($("#meetingDateStr").val());
-						var meetingType = $.trim($('input:radio[name="meetingType"]:checked').val());
-						var meetingResult = $.trim($('input:radio[name="meetingResult"]:checked').val());
-						//var meetingNotes = $.trim($("#meetingNotes").val());
-						var um = UM.getEditor('meetingNotes');
-						var meetingNotes = $.trim(um.getContent());
-						var fileId = $("#meetfileID").val();
-						if(projectId == null || projectId == ""){
-							alert("项目不能为空");
-							return false;
-						}else{
-							condition.projectId = projectId;
-						}
-						if(meetingDateStr == null ||  meetingDateStr == ""){
-							alert("日期不能为空");
-							return false;
-						}else{
-							condition.meetingDateStr = meetingDateStr;
-						}
-						if(meetingType == null ||  meetingType == ""){
-							alert("类型不能为空");
-							return false;
-						}else{
-							condition.meetingType = meetingType;
-						}
-						if(meetingResult == null ||  meetingResult == ""){
-							alert("结果不能为空");
-							return false;
-						}else{
-							condition.meetingResult = meetingResult;
-						}
-						if(meetingNotes != null && meetingNotes!= ""){
-							condition.meetingNotes = meetingNotes;
-						}
-						if(fileId != null && fileId!= ""){
-							condition.fileId = fileId;
-						}
-						return condition;
-					});
+				if(i == 1){
+					$("#voucherType").attr("checked","checked");
+				}
+				toinitUpload(platformUrl.stageChange, "select_file_btn","file_obj","save_file_btn",
+						function getSaveCondition(){
+					var	condition = {};
+					var pid = $("#project_id").val();
+					if(pid == null || pid == ""){
+						alert("项目不能为空");
+						return;
+					}
+					var type = $("input[name='fileSource']").val();
+					if(type == null || type == ""){
+						alert("档案来源不能为空");
+						return;
+					}
+					var fileType = $("#fileType").val();
+					if(fileType == null || fileType == ""){
+						alert("存储类型不能为空");
+						return;
+					}
+					var fileWorktype = $("#fileWorkType").val();
+					if(fileWorktype == null || fileWorktype == ""){
+						alert("业务分类不能为空");
+						return;
+					}
+					var voucherType = $("input[id='voucherType']:checked").val();
+					condition.pid = pid;
+					condition.stage = "projectProgress:"+num;
+					condition.type = type;
+					condition.fileType = fileType;
+					condition.fileWorktype = fileWorktype;
+					condition.voucherType = voucherType;
+					return condition;
+				});
 			}
 		});
 		return false;
 	}
-	
-	
-	/**
-	 * 尽职调查
-	 */
+	 
+	 /**
+	  * 尽职调查
+	  */
 	 function jzdc(){
 		 var pid = $("#project_id").val();
 		 if(pid != '' && pid != null){
@@ -510,13 +536,51 @@
 			 });
 		 }
 	}
-	
-	/**
+	 /**
 	 * 点击上传业务尽调报告按钮
 	 */
 	function uploadYwjd(){
-		var pid = $("#project_id").val();
-		init(pid, 1, 2);
+		var _url='<%=path %>/galaxy/jzdc';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
+				toinitUpload(platformUrl.stageChange, "select_file_btn","file_obj","save_file_btn",
+						function getSaveCondition(){
+					var	condition = {};
+					var pid = $("#project_id").val();
+					if(pid == null || pid == ""){
+						alert("项目不能为空");
+						return;
+					}
+					var type = $("input[name='fileSource']").val();
+					if(type == null || type == ""){
+						alert("档案来源不能为空");
+						return;
+					}
+					var fileType = $("#fileType").val();
+					if(fileType == null || fileType == ""){
+						alert("存储类型不能为空");
+						return;
+					}
+					var fileWorktype = $("#fileWorkType").val();
+					if(fileWorktype == null || fileWorktype == ""){
+						alert("业务分类不能为空");
+						return;
+					}
+					condition.pid = pid;
+					condition.stage = "projectProgress:6";
+					condition.type = type;
+					condition.fileType = fileType;
+					condition.fileWorktype = fileWorktype;
+					return condition;
+				});
+			}
+		});
+		return false;
 	}
 	/**
 	 * 点击申请投决会按钮
@@ -532,227 +596,98 @@
 					});
 		}
 	}
-	
-
-	
-	
-	//table format
-	function ftcolumnFormat(value, row, index){
-		var fileinfo = "" ;
-		var rc = "";
-		if( row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
-			fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+	/**
+	 * 动态生成投资协议的HTML
+	 */
+	function tzxy(projectType){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null){
+			sendPostRequestByJsonObj(
+					platformUrl.searchSopFileListWithoutPage,
+					{"projectId" : pid},
+					function(data){
+						var _table = $("#teamSeheetDataGrid");
+						var _tbody = _table.find("tbody");
+						_tbody.empty();
+						$.each(data.entityList,function(){
+							var $tr = $('<tr></tr>');
+							$tr.append('<td>'+this.fWorktype+'</td>') ;
+							if(this.fileType){
+								$tr.append('<td>'+this.fType+'</td>');
+								$tr.append('<td>'+this.updatedDate+'</td>') ;
+							}else{
+								$tr.append('<td>未知</td>');
+								$tr.append('<td></td>') ;
+							}	
+							$tr.append('<td>'+this.fileStatusDesc+'</td>') ;
+							if(this.fileKey == null){	
+								$tr.append('<td><a href="javascript:tzxyAlert(8,0);" class="blue">上传</a></td>');
+							}else{
+								$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+							}
+							$tr.append('<td><a href="javascript:tzxyAlert(8,1);" class="blue">上传</a></td>') ;
+							_tbody.append($tr);
+						});
+					}
+			);	
+			if(projectType == 'projectType:2'){
+				$("#stock_transfer_model").remove();
+			}
 		}
-		rc = "<div style=\"text-align:left;margin-left:20%;\">"+
-					"访谈日期："+row.viewDateStr+
-					"</br>访谈对象："+row.viewTarget+
-					"</br>访谈录音："+fileinfo+
-				"</div>" ;
-		return rc;
 	}
-		
-	function metcolumnFormat(value, row, index){
-		var fileinfo = "";
-		var rc = "";
-		if(row.fileId != null && row.fileId != undefined && row.fileId != "undefined"){
-			fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
-		}
-		rc = "<div style=\"text-align:left;margin-left:20%;\">"+
-					"会议日期："+row.meetingDateStr+
-					"</br>会议结论："+row.meetingResultStr+
-					"</br>会议录音："+fileinfo+
-				"</div>" ;
-		return rc;
-	}
-
-
-	/* plupload上传对象初始化,   绑定保存
-		fileSelectBtnId: 选择文件按钮id
-		addUrl ： 保存调用路径url
-		saveBtnId： 保存按钮ID
-		inputFileId ： 文件名显示input框id
-		chooseN：请求会议类型  LPH:内评会  CEO：ceo评审    LXH：立项会
-	*/
-	function initNUpload(fileSelectBtnId,addUrl,saveBtnId,inputFileId,chooseN) {
-		
-		// 定义 上传插件 方法 、  plupload 上传对象初始化
-		var uploader = new plupload.Uploader({
-			runtimes : 'html5,flash,silverlight,html4',
-			browse_button : $("#"+fileSelectBtnId)[0],   // $("#file-select-btn")[0]
-			url : addUrl,
-			multipart:true,
-			multi_selection:false,
-			filters : {
-				max_file_size : '10mb',
-				mime_types: [
-				    {title : "YP files", extensions : "mp3,avi"},
-					{title : "Image files", extensions : "jpg,gif,png"},
-					{title : "Zip files", extensions : "zip,rar"},
-					{title : "Offices files", extensions : "doc,docx,excel"}
-				]
-			},
-			init: {
-				//上传按钮点击事件 - 开始上传
-				PostInit: function() {
-					$("#"+saveBtnId).click(function(){
-						uploader.start();
-						return false;
-					});
-				},
-				//添加上传文件后，把文件名 赋值 给 input
-				FilesAdded: function(up, files) {
-					plupload.each(files, function(file) {
-						/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
-						$("#"+inputFileId).val(file.name);
-					});
-				},
-				
-				//上传进度
-				UploadProgress: function(up, file) {
-				},
-				//文件上传后， 返回值  赋值,  再ajax 保存入库
-				FileUploaded: function(up, files, rtn) {
-					var response = $.parseJSON(rtn.response);
-					var rs = response.result.status;
-					if(rs == "ERROR"){ //OK, ERROR
-						alert("error "+response.result.message);
-						return;
-					}
-					alert("保存成功");
-					location.reload(true);
-				},
-				BeforeUpload:function(up){
-					//表单函数提交
-					//alert(JSON.stringify(getMeetCondition()));
-					var res;
-					if(chooseN == "LPH"){
-						res = getNcondition("LPH_meetingDateStr","meetingType:1","LPH_meetingResult","LPH_meetingNotes");
-					}else if (chooseN == "CEO"){
-						res = getNcondition("CEO_meetingDateStr","meetingType:2","CEO_meetingResult","CEO_meetingNotes");
-					}else if (chooseN == "LXH"){
-						res = getNcondition("LXH_meetingDateStr","meetingType:3","LXH_meetingResult","LXH_meetingNotes");
-					}else if (chooseN == "TJH"){
-						res = getNcondition("TJH_meetingDateStr","meetingType:4","TJH_meetingResult","TJH_meetingNotes");
-					}
-					
-					if(res == false || res =="false"){
-						up.stop();
-						return;
-					}
-					
-					up.settings.multipart_params = res;
-				},
-				Error: function(up, err) {
-					alert("错误"+err);
-					//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+	 
+	/**
+	 * 投资协议弹出层
+	 */
+	 function tzxyAlert(num,i){
+		var _url='<%=path %>/galaxy/tzxy';
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$(".meetingtc").tabchange();
+				$('.searchbox').toggleshow();
+				leicj();
+				if(i == 1){
+					$("#voucherType").attr("checked","checked");
 				}
+				toinitUpload(platformUrl.stageChange, "select_file_btn","file_obj","save_file_btn",
+						function getSaveCondition(){
+					var	condition = {};
+					var pid = $("#project_id").val();
+					if(pid == null || pid == ""){
+						alert("项目不能为空");
+						return;
+					}
+					var type = $("input[name='fileSource']").val();
+					if(type == null || type == ""){
+						alert("档案来源不能为空");
+						return;
+					}
+					var fileType = $("#fileType").val();
+					if(fileType == null || fileType == ""){
+						alert("存储类型不能为空");
+						return;
+					}
+					var fileWorktype = $("#fileWorkType").val();
+					if(fileWorktype == null || fileWorktype == ""){
+						alert("业务分类不能为空");
+						return;
+					}
+					var voucherType = $("input[id='voucherType']:checked").val();
+					var hasStockTransfer = $("input[id='stock_transfer']:checked").val();
+					condition.pid = pid;
+					condition.stage = "projectProgress:"+num;
+					condition.type = type;
+					condition.fileType = fileType;
+					condition.fileWorktype = fileWorktype;
+					condition.voucherType = voucherType;
+					condition.hasStockTransfer=hasStockTransfer;
+					return condition;
+				});
 			}
 		});
-
-		uploader.init();
-	}
-	
-	//验证获取参数
-	function getNcondition(dateId,meetingType,resultRadioName,noteId){
-		var	condition = {};
-		
-		var projectId = $("input[name='projectId']").val();
-		//var projectId = $("#project_id").val();
-		var meetingDateStr = $.trim($("#"+dateId).val());
-		var meetingType = meetingType;
-		var meetingResult = $.trim($('input:radio[name='+resultRadioName+']:checked').val());
-		var um = UM.getEditor(noteId);
-		var meetingNotes = $.trim(um.getContent());
-		
-		if(projectId == null || projectId == ""){
-			alert("项目不能为空");
-			return false;
-		}
-		if(meetingDateStr == null ||  meetingDateStr == ""){
-			alert("日期不能为空");
-			return false;
-		}
-		if(meetingResult == null ||  meetingResult == ""){
-			alert("结果不能为空");
-			return false;
-		}
-		if(meetingNotes == null || meetingNotes == ""){
-			alert("记录不能为空");
-			return false;
-		}
-		
-		condition.projectId = projectId;
-		condition.meetingDateStr = meetingDateStr;
-		condition.meetingType = meetingType;
-		condition.meetingResult = meetingResult;
-		condition.meetingNotes = meetingNotes;
-		return condition;
-	}
-	
-	
-	function addCEOPS(){
-		var _url='<%=path %>/galaxy/ceopstc';
-		$.getHtml({
-			url:_url,//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-				$(".meetingtc").tabchange();
-				$('.searchbox').toggleshow();
-				leicj();
-				initNUpload("CEO_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","CEO_savemeet","CEO_fileName","CEO");
-				//setLPHtc();
-			}//模版反回成功执行	
-		});
 		return false;
 	}
-
-	function lxhpq(){
-		var projectId = $("input[name='projectId']").val();
-		var _url='<%=path %>/galaxy/project/progress/proSchedule/'+projectId;
-		
-		sendGetRequest(_url,null,function(data){
-			var result = data.result.status;
-			if(result == "ERROR"){ //OK, ERROR
-				alert("申请失败  "+data.result.message);
-				return;
-			}else{
-				alert("申请成功");
-				location.reload(true);
-			}
-		},null);
-	}
-	
-	function addLXH(){
-		var _url='<%=path %>/galaxy/lxhtc';
-		$.getHtml({
-			url:_url,//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-				$(".meetingtc").tabchange();
-				$('.searchbox').toggleshow();
-				leicj();
-				initNUpload("LXH_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","LXH_savemeet","LXH_fileName","LXH");
-				//setLPHtc();
-			}//模版反回成功执行	
-		});
-		return false;
-	}
-	
-	function addTJH(){
-		var _url='<%=path %>/galaxy/tjhtc';
-		$.getHtml({
-			url:_url,//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-				$(".meetingtc").tabchange();
-				$('.searchbox').toggleshow();
-				leicj();
-				initNUpload("TJH_file-select-btn",sopContentUrl + "/galaxy/project/progress/addfilemeet","TJH_savemeet","TJH_fileName","TJH");
-				//setLPHtc();
-			}//模版反回成功执行	
-		});
-		return false;
-	}
-
 </script>
 </html>

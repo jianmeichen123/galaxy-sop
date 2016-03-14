@@ -154,4 +154,20 @@ public class IndexController {
 	public String tzyx() {
 		return "project/progress/tzyxs";
 	}
+	/**
+	 * 弹出投资意向书弹出层
+	 * @return
+	 */
+	@RequestMapping(value = "/jzdc", method = RequestMethod.GET)
+	public String jzdc() {
+		return "project/progress/jzdc";
+	}
+	/**
+	 * 弹出投资协议阶段的所有弹出框
+	 * @return
+	 */
+	@RequestMapping(value = "/tzxy", method = RequestMethod.GET)
+	public String tzxy() {
+		return "project/progress/tzxy";
+	}
 }
