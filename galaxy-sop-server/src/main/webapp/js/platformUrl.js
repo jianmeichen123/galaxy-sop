@@ -140,6 +140,10 @@ var platformUrl = {
 	getUserPro : sopContentUrl + "/galaxy/project/progress/queryPerPro",
 	
 	/**
+	 * 访谈添加：附件上传
+	 */
+	saveInteverView : sopContentUrl + "/galaxy/project/progress/addInterview",
+	/**
 	 * 访谈添加 弹出 page
 	 */
 	toViewAdd : sopContentUrl + "/galaxy/project/progress/interViewAdd",
@@ -215,11 +219,13 @@ var platformUrl = {
 	/**
 	 * 项目阶段过程的记录保存
 	 */
-	stageChange : sopContentUrl + "/galaxy/project/stageChange",
+	stageChange : sopContentUrl + "/galaxy/project/stageChange?sid="+sessionId + "&guid="+userId,
 	/**
 	 * 申请立项会操作
 	 */
-	toEstablishStage : sopContentUrl + "/galaxy/project/ges/"
+	toEstablishStage : sopContentUrl + "/galaxy/project/ges/",
+	
+	inTjh : sopContentUrl + "/galaxy/project/smp/"
 }
 
 /**
