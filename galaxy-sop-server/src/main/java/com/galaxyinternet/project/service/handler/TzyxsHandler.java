@@ -91,7 +91,7 @@ public class TzyxsHandler implements Handler {
 			task.setTaskName(SopConstant.TASK_NAME_RSJD);
 			task.setTaskFlag(SopConstant.TASK_FLAG_RSJD);
 			task.setTaskStatus(DictEnum.taskStatus.待认领.getCode());
-			task.setDepartmentId(q.getDepartmentId());
+			task.setDepartmentId(SopConstant.DEPARTMENT_RS_ID);
 			sopTaskDao.insert(task);
 			
 			//外部投资需要额外的财务和法务尽调
@@ -100,13 +100,13 @@ public class TzyxsHandler implements Handler {
 				task.setTaskName(SopConstant.TASK_NAME_FWJD);
 				task.setTaskFlag(SopConstant.TASK_FLAG_FWJD);
 				task.setTaskStatus(DictEnum.taskStatus.待认领.getCode());
-				task.setDepartmentId(q.getDepartmentId());
+				task.setDepartmentId(SopConstant.DEPARTMENT_FW_ID);
 				sopTaskDao.insert(task);
 				task.setId(null);
 				task.setTaskName(SopConstant.TASK_NAME_CWJD);
 				task.setTaskFlag(SopConstant.TASK_FLAG_CWJD);
 				task.setTaskStatus(DictEnum.taskStatus.待认领.getCode());
-				task.setDepartmentId(q.getDepartmentId());
+				task.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);
 				sopTaskDao.insert(task);
 			}
 		}else{
