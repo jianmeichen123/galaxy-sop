@@ -37,7 +37,7 @@
 	    <dl class="fmdl clearfix">
 	    	<dt>存储类型：</dt>
 	        <dd>
-	        	<select name="fileType" disabled></select>
+	        	<select name="fileType"></select>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -171,7 +171,6 @@ function initUpload(_dialog,type){
 		init: {
 			PostInit: function(up) {
 				$(_dialog.id).find("#upload-btn").click(function(){
-					console.log("upload");
 					var fileName = $(_dialog.id).find('[name="fileName"]').val();
 					if(fileName == null || fileName == '')
 					{
@@ -248,7 +247,7 @@ function initForm(_dialog,type)
 	}
 	
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
-	$(_dialog.id).find("[name='fileType']").val();
+	$(_dialog.id).find("[name='fileType']").val(fileType);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());
 	$(_dialog.id).find("[name='fileWorktype']").val(worktype);
 }
