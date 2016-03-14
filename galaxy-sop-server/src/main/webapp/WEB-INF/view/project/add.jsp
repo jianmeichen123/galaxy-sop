@@ -207,8 +207,8 @@
 	}
 	function add(){
 		sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
-			window.location.href=sopContentUrl + "/galaxy/mpl";
-		},null);
+			window.location.href=forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+		});
 	}
 </script>
 </html>

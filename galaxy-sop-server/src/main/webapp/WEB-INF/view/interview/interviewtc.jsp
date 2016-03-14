@@ -31,7 +31,7 @@
     	<dl class="fmdl fml clearfix">
             <dt>访谈对象：</dt>
             <dd>
-           		<input type="text" id="viewTarget" name = "viewTarget"  placeholder="访谈对象" class="txt" />
+           		<input type="text" id="viewTarget" name = "viewTarget"  placeholder="访谈对象" class="txt" maxLength="50"/>
             </dd>
         </dl>
     </div>

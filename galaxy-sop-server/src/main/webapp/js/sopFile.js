@@ -107,8 +107,8 @@ function init(){
 			},
 			initData : function(_this){
 //				alert(platformUrl.dictFindByParentCode);
-				sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,popPanel.initDataCallBack,null);
-				sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,popPanel.initDataCallBack,null);
+				sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,popPanel.initDataCallBack);
+				sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,popPanel.initDataCallBack);
 //				sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,popPanel.initDataCallBack,null);
 //				sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,popPanel.initDataCallBack,null);
 			},

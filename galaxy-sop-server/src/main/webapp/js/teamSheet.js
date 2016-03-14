@@ -209,8 +209,8 @@
 				
 			},
 			initData : function(){
-				sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,win.initDataCallBack,null);
-				sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,win.initDataCallBack,null);
+				sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,win.initDataCallBack);
+				sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,win.initDataCallBack);
 			},
 			initDataCallBack : function(data){	
 				var _dom;

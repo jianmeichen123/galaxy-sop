@@ -2,7 +2,7 @@ var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
-var sopContentUrl = "http://127.0.0.1:8888/galaxy-sop-server";
+var sopContentUrl = "http://127.0.0.1:8080";
 
 var platformUrl = {
 	/**
@@ -135,19 +135,43 @@ var platformUrl = {
 	tab_tjhtc : sopContentUrl + "/galaxy/project/tjhtc",
 	
 	/**
-	 * 获取登录人的项目,阶段为：
+	 * 获取登录人的项目（会议类型、访谈阶段）：
 	 */
 	getUserPro : sopContentUrl + "/galaxy/project/progress/queryPerPro",
 	
 	/**
-	 * 访谈添加：附件上传
+	 * 访谈添加 弹出 page
 	 */
-	saveInteverView : sopContentUrl + "/galaxy/project/progress/addInterview",
+	toViewAdd : sopContentUrl + "/galaxy/project/progress/interViewAdd",
+	/**
+	 * 访谈查询 page
+	 */
+	selectViewPage : sopContentUrl + "/galaxy/project/progress/queryInterview",
+	/**
+	 * 访谈添加：
+	 */
+	saveView : sopContentUrl + "/galaxy/project/progress/addInterview",
+	/**
+	 * 访谈添加,附加附件：
+	 */
+	saveViewFile : sopContentUrl + "/galaxy/project/progress/addFileInterview",
 	
+	/**
+	 * 会议添加 弹出 page
+	 */
+	tomeetAdd : sopContentUrl + "/galaxy/project/progress/meetAddView",
 	/**
 	 * 会议添加：
 	 */
 	saveMeet : sopContentUrl + "/galaxy/project/progress/addmeet",
+	/**
+	 * 会议+附件添加：
+	 */
+	saveMeetFile : sopContentUrl + "/galaxy/project/progress/addfilemeet",
+	/**
+	 * 会议查询：
+	 */
+	selectMeetPage : sopContentUrl + "/galaxy/project/progress/queryMeet",
 	/**
 	 * 根据findByParentCode查询数据字典
 	 */
