@@ -617,13 +617,11 @@
 						
 						_tbody.empty();
 						$.each(data.entityList,function(){
-							var $tr;
-							if(this.fileWorktype == 'fileWorktype:6'){
-								$tr = $('<tr></tr>');
-							}else if(this.fileWorktype == 'fileWorktype:7' && st==0){
-								$tr = $('<tr style="display:none;" id="gwxt_tr"></tr>');
+							var $tr=$('<tr></tr>');
+							if(this.fileWorktype == 'fileWorktype:7' && st==0){
+								$tr.attr("id","gwxt_tr").css("display","none");
 							}else if(this.fileWorktype == 'fileWorktype:7' && st==1){
-								$tr = $('<tr id="gwxt_tr"></tr>');
+								$tr.attr("id","gwxt_tr");
 							}
 							$tr.append('<td>'+this.fWorktype+'</td>') ;
 							if(this.fileType){
