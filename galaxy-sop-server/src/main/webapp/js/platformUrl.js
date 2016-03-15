@@ -243,6 +243,10 @@ var platformUrl = {
 	 * 获取部门字典
 	 */
 	getDepartMentDict : sopContentUrl + "/galaxy/sopFile/getDepartmentDict",
+	/**
+	 * 档案上传通用
+	 */
+	commonUploadFile : sopContentUrl + "/galaxy/sopFile/commonUploadFile"
 }
 
 /**
