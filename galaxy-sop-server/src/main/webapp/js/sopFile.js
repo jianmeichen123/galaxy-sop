@@ -102,7 +102,7 @@ var fileGrid = {
 		      }]
 		    });
 		 //初始化查询按钮
-		 $("#searchBtn,#openBtn").click(searchPanel.serarchData);
+		 $("#searchBtn").click(searchPanel.serarchData);
 
 		  
 	},
@@ -110,16 +110,37 @@ var fileGrid = {
 		
 		if(row.fileKey){
 			return [
-		            '<a class="link"  href="javascript:void(0)">',
+			        '<a class="fileupdatelink"  href="javascript:void(0)">',
+			        '更新',
+			        '</a>  ',
+		            '<a class="filedownloadlink"  href="javascript:void(0)">',
 		            '下载',
+		            '</a>  '
+		        ].join('');
+		}else{
+			return [
+		            '<a class="fileupdatelink"  href="javascript:void(0)">',
+		            '更新',
 		            '</a>  '
 		        ].join('');
 		}
 		return '';
 	},
 	operateEvents : {
-		'click .link': function (e, value, row, index) {
+		'click .filedownloadlink': function (e, value, row, index) {
 			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
+        },
+        'click .fileupdatelink' : function(e, value, row, index){
+        	formData = {
+        			_workType : row.fileWorktype,
+        			_projectId : row.projectId,
+        			_projectName : row.projectName,
+        			_isProve : undefined,
+    				callFuc : function(){
+    					searchPanel.serarchData();
+    				}
+    		};
+    		win.init(formData);
         }
 	},
 	downloadCallBackfunction : function(data){
@@ -177,14 +198,14 @@ function init(){
 	createMenus(14);
 	searchPanel.initData();
 	fileGrid.init();
-	$("#uploadOpenBtn").click(function(){
-		formData = {
-				callFuc : function(){
-					searchPanel.serarchData();
-				}
-		};
-		win.init(formData);
-	})
+//	$("#uploadOpenBtn").click(function(){
+//		formData = {
+//				callFuc : function(){
+//					searchPanel.serarchData();
+//				}
+//		};
+//		win.init(formData);
+//	})
 	
 }
 

@@ -32,12 +32,12 @@
         <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-            	<button type="button" class="btn btn-primary" id="uploadOpenBtn">
-            		<span class="glyphicon glyphicon-upload"></span>档案上传
-            	</button>
-            	<button type="button" class="btn btn-primary" id="openBtn">
-            		<span class="glyphicon glyphicon-upload"></span>档案更新
-            	</button>
+<!--             	<button type="button" class="btn btn-primary" id="uploadOpenBtn"> -->
+<!--             		<span class="glyphicon glyphicon-upload"></span>档案上传 -->
+<!--             	</button> -->
+<!--             	<button type="button" class="btn btn-primary" id="openBtn"> -->
+<!--             		<span class="glyphicon glyphicon-upload"></span>档案更新 -->
+<!--             	</button> -->
             	<button type="button" class="btn btn-primary" id="emailBtn">
             		<span class="glyphicon glyphicon-upload"></span>发邮件给
             	</button>

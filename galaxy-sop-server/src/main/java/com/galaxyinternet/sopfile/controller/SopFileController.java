@@ -36,6 +36,7 @@ import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.file.BucketName;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
@@ -44,6 +45,7 @@ import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.oss.GlobalCode;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.department.Department;
@@ -421,7 +423,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}else{
 			
 		}
-		
+		sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 		try {
 			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,new PageRequest(sopFile.getPageNum(), sopFile.getPageSize()));
 			responseBody.setPageList(pageSopFile);
@@ -516,6 +518,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		String type = request.getParameter("type");
 		try {
 			String fileName = null;
+			String fileSuffix = null;
 			String key = null;
 			if("voucher".equals(type))
 			{
@@ -525,6 +528,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					throw new Exception();
 				}
 				fileName = file.getFileName();
+				fileSuffix = file.getFileSuffix();
 				key = file.getFileKey();
 			}
 			else
@@ -535,20 +539,18 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					throw new Exception();
 				}
 				fileName = file.getFileName();
+				fileSuffix = "." + file.getFileSuffix();
 				key = file.getFileKey();
 			}
 			
-			int dotPos = fileName.lastIndexOf(".");
-			String prefix = fileName.substring(0, dotPos);
-			String suffix = fileName.substring(dotPos);
-			File temp = File.createTempFile(prefix, suffix);
+			File temp = File.createTempFile(fileName, fileSuffix);
 			
 			OSSHelper.simpleDownloadByOSS(temp, key);
 			
 			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
-				fileName = URLEncoder.encode(fileName, "UTF-8");  
+				fileName = URLEncoder.encode(fileName, "UTF-8") + URLEncoder.encode(fileSuffix, "UTF-8");  
 			} else {  
-				fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");  
+				fileName = new String((fileName + fileSuffix).getBytes("UTF-8"), "ISO8859-1");  
 			} 
 			response.reset();
 			response.setCharacterEncoding("UTF-8");
@@ -872,10 +874,16 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					sopVoucherFile.setFileKey(fileKey);
 					//文件大小
 					sopVoucherFile.setFileLength(file.getSize());
-					//文件名称
-					sopVoucherFile.setFileName(transFileNames(file.getOriginalFilename())[0]);
-					//文件后缀
-					sopVoucherFile.setFileSuffix(transFileNames(file.getOriginalFilename())[1]);
+					
+					String[] fileStr = transFileNames(file.getOriginalFilename());
+					if(fileStr.length > 0){
+						//文件名称
+						sopVoucherFile.setFileName(fileStr[0]);
+						//文件后缀
+						sopVoucherFile.setFileSuffix(fileStr[1]);
+					}else{
+						sopVoucherFile.setFileName(file.getOriginalFilename());
+					}	
 					//上传人
 					sopVoucherFile.setFileUid(user.getId());		
 					//存储类型
@@ -927,10 +935,18 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					sopFile.setFileKey(fileKey);
 					//文件大小
 					sopFile.setFileLength(file.getSize());
-					//文件名称
-					sopFile.setFileName(transFileNames(file.getOriginalFilename())[0]);
-					//文件后缀
-					sopFile.setFileSuffix(transFileNames(file.getOriginalFilename())[1]);
+					
+					String[] fileStr = transFileNames(file.getOriginalFilename());			
+					if(fileStr.length > 0){
+						//文件名称
+						sopFile.setFileName(fileStr[0]);
+						//文件后缀
+						sopFile.setFileSuffix(fileStr[1]);
+					}else{
+						//文件名称
+						sopFile.setFileName(file.getOriginalFilename());
+					}
+
 					//上传人
 					sopFile.setFileUid(user.getId());		
 					//存储类型
@@ -958,7 +974,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	}
 	
 	private String[] transFileNames(String fileFullName){
-		return fileFullName.split(".");
+		return fileFullName.split("\\.");
 	}
 	
 	public MultipartFile aLiColoudUpload(HttpServletRequest request, String fileKey)
@@ -971,22 +987,27 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 
 		
 		// 获取临时存储路径
-//		String path = request.getSession().getServletContext()
-//				.getRealPath("upload");
+		String path = request.getSession().getServletContext()
+				.getRealPath("upload");
 		// 获取文件名称
-//		String fileName = multipartFile.getOriginalFilename();
-//		File tempFile = new File(path, fileName);
-//		if (!tempFile.exists()) {
-//			tempFile.mkdirs();
-//		}
+		String fileName = multipartFile.getOriginalFilename();
+		File tempFile = new File(path, fileName);
+		if (!tempFile.exists()) {
+			tempFile.mkdirs();
+		}
 		// 存储临时文件
-//		multipartFile.transferTo(tempFile);
+		multipartFile.transferTo(tempFile);
 		// 上传至阿里云
-		UploadFileResult upResult = OSSHelper.simpleUploadByOSS(multipartFile.getInputStream(),
-				fileKey);
-		if (upResult.getResult().getStatus().equals(Status.OK)) {
+		int result = OSSHelper.uploadSupportBreakpoint(tempFile, BucketName.DEV.getName(), fileKey);
+		if(result == GlobalCode.ERROR){
+		}else{
 			return multipartFile;
 		}
+//		UploadFileResult upResult = OSSHelper.simpleUploadByOSS(multipartFile.getInputStream(),
+//				fileKey);
+//		if (upResult.getResult().getStatus().equals(Status.OK)) {
+//			result == GlobalCode.ERROR
+//		}
 		return null;
 	}
 	

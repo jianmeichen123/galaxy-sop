@@ -99,10 +99,11 @@
 							multipart:true,
 							multi_selection:false,
 							filters : {
-								max_file_size : '10mb',
+								max_file_size : '25mb',
 								mime_types: [
+								    {title : "Zip files", extensions : "zip,rar"},
 									{title : "Image files", extensions : "jpg,gif,png"},
-									{title : "Zip files", extensions : "zip,rar"},
+									{title : "audio files", extensions : "mp3,WAV,MOV"},
 									{title : "Offices files", extensions : "doc,docx,excel"}
 								]
 							},
@@ -202,8 +203,8 @@
 				//项目
 				if(_formdata._projectId){
 					//此处应该获取项目名称
-					$sopProjectId.data("tid",_formdata_projectId);
-					$sopProjectId.val(_formdata._projectId);
+					$sopProjectId.data("tid",_formdata._projectId);
+					$sopProjectId.val(_formdata._projectName);
 					$sopProjectId.attr("disabled","disabled");
 					$searchProjectBtn.attr("disabled","disabled");
 					
