@@ -21,6 +21,7 @@ public class SopVoucherFile extends BaseEntity {
     private String fileKey;
     private String bucketName;
     private String fileName;
+    private String fileSuffix;
 
     public Long getProjectId() {
         return projectId;
@@ -106,4 +107,11 @@ public class SopVoucherFile extends BaseEntity {
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
 	}
+	public String getFileSuffix() {
+		return fileSuffix;
+	}
+	public void setFileSuffix(String fileSuffix) {
+		this.fileSuffix = fileSuffix;
+	}
+	
 }

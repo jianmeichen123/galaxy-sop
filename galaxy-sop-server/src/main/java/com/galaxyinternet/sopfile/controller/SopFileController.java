@@ -855,9 +855,9 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			String fileKey = String
 					.valueOf(IdGenerator.generateId(OSSHelper.class));
 			//3 上传阿里云
-			File tempFile = aLiColoudUpload(request,fileKey);
+			MultipartFile file = aLiColoudUpload(request,fileKey);
 			//4业务控制 --若文件上传成功-判断是否为签署
-			if(tempFile!=null){
+			if(file!=null){
 				//判断是否为签署凭证
 				if("on".equals(isProve)){
 					//为签署凭证
@@ -871,9 +871,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					//fileKey
 					sopVoucherFile.setFileKey(fileKey);
 					//文件大小
-					sopVoucherFile.setFileLength(tempFile.length());
+					sopVoucherFile.setFileLength(file.getSize());
 					//文件名称
-					sopVoucherFile.setFileName(tempFile.getName());
+					sopVoucherFile.setFileName(transFileNames(file.getOriginalFilename())[0]);
+					//文件后缀
+					sopVoucherFile.setFileSuffix(transFileNames(file.getOriginalFilename())[1]);
 					//上传人
 					sopVoucherFile.setFileUid(user.getId());		
 					//存储类型
@@ -924,9 +926,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					//fileKey
 					sopFile.setFileKey(fileKey);
 					//文件大小
-					sopFile.setFileLength(tempFile.length());
+					sopFile.setFileLength(file.getSize());
 					//文件名称
-					sopFile.setFileName(tempFile.getName());
+					sopFile.setFileName(transFileNames(file.getOriginalFilename())[0]);
+					//文件后缀
+					sopFile.setFileSuffix(transFileNames(file.getOriginalFilename())[1]);
 					//上传人
 					sopFile.setFileUid(user.getId());		
 					//存储类型
@@ -953,28 +957,35 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return responseBody;
 	}
 	
-	public File aLiColoudUpload(HttpServletRequest request, String fileKey)
+	private String[] transFileNames(String fileFullName){
+		return fileFullName.split(".");
+	}
+	
+	public MultipartFile aLiColoudUpload(HttpServletRequest request, String fileKey)
 			throws IllegalStateException, IOException {
 		// 请求转换
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		// 获取multipartFile文件
 		MultipartFile multipartFile = multipartRequest.getFile("file");
+		
+
+		
 		// 获取临时存储路径
-		String path = request.getSession().getServletContext()
-				.getRealPath("upload");
+//		String path = request.getSession().getServletContext()
+//				.getRealPath("upload");
 		// 获取文件名称
-		String fileName = multipartFile.getOriginalFilename();
-		File tempFile = new File(path, fileName);
-		if (!tempFile.exists()) {
-			tempFile.mkdirs();
-		}
+//		String fileName = multipartFile.getOriginalFilename();
+//		File tempFile = new File(path, fileName);
+//		if (!tempFile.exists()) {
+//			tempFile.mkdirs();
+//		}
 		// 存储临时文件
-		multipartFile.transferTo(tempFile);
+//		multipartFile.transferTo(tempFile);
 		// 上传至阿里云
-		UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile,
+		UploadFileResult upResult = OSSHelper.simpleUploadByOSS(multipartFile.getInputStream(),
 				fileKey);
 		if (upResult.getResult().getStatus().equals(Status.OK)) {
-			return tempFile;
+			return multipartFile;
 		}
 		return null;
 	}

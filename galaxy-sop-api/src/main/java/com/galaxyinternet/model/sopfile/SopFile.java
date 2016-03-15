@@ -98,6 +98,13 @@ public class SopFile extends PagableEntity {
      */
     private String fileName;
     
+    /**
+     * 文档后缀
+     */
+    private String fileSuffix;
+    
+    
+    
     
     //详情数据转换
     //数据库转换
@@ -389,6 +396,14 @@ public class SopFile extends PagableEntity {
 
 	public void setProjectIdList(List<Long> projectIdList) {
 		this.projectIdList = projectIdList;
+	}
+
+	public String getFileSuffix() {
+		return fileSuffix;
+	}
+
+	public void setFileSuffix(String fileSuffix) {
+		this.fileSuffix = fileSuffix;
 	}
 
     

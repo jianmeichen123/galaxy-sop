@@ -20,6 +20,7 @@
 		<result column="file_key" jdbcType="VARCHAR" property="fileKey" />
 		<result column="bucket_name" jdbcType="VARCHAR" property="bucketName" />
 		<result column="file_name" jdbcType="VARCHAR" property="fileName" />
+		<result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
 		
 	</resultMap>
 	
@@ -28,7 +29,7 @@
 		file_source, file_type,
 		remark, voucher_id,  file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
-		file_key, bucket_name,file_name
+		file_key, bucket_name,file_name,file_suffix
 	</sql>
 	
 	<sql id="Base_Where_Clause">
@@ -51,7 +52,8 @@
 				<if test="fileLength != null" > and file_length = #{fileLength,jdbcType=BIGINT} </if>
 				<if test="fileKey != null" > and file_key = #{fileKey,jdbcType=VARCHAR} </if>
 				<if test="bucketName != null" > and bucket_name = #{bucketName,jdbcType=VARCHAR} </if>
-				<if test="fileName != null" > and file_name = #{bucketName,jdbcType=VARCHAR} </if>
+				<if test="fileName != null" > and file_name = #{fileName,jdbcType=VARCHAR} </if>
+				<if test="fileSuffix != null" > and file_suffix = #{fileSuffix,jdbcType=VARCHAR} </if>
 				<if test="fileworktypeList != null"> 
 					and file_worktype in
 					<foreach collection="fileworktypeList" item="fileworktypeList" index="index" open="(" close=")" separator=",">
@@ -115,7 +117,7 @@
  		file_type, remark, voucher_id, file_status,
  		file_uid, fil_uri, updated_time,
  		created_time, file_length, file_key,
- 		bucket_name,file_name)
+ 		bucket_name,file_name,file_suffix)
  		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT},
  		#{projectProgress,jdbcType=VARCHAR},
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
@@ -125,7 +127,8 @@
  		#{createdTime,jdbcType=BIGINT}, #{fileLength,jdbcType=BIGINT},
  		#{fileKey,jdbcType=VARCHAR},
  		#{bucketName,jdbcType=VARCHAR},
- 		#{fileName,jdbcType=VARCHAR})
+ 		#{fileName,jdbcType=VARCHAR},
+ 		#{fileSuffix,jdbcType=VARCHAR})
  	</insert>
 	
 	<update id="updateByIdSelective" parameterType="SopFilePO">
@@ -148,6 +151,7 @@
 			<if test="fileKey != null"> file_key = #{fileKey,jdbcType=VARCHAR}, </if>
 			<if test="bucketName != null"> bucket_name = #{bucketName,jdbcType=VARCHAR}, </if>
 			<if test="fileName != null"> file_name = #{fileName,jdbcType=VARCHAR}, </if>
+			<if test="fileSuffix != null"> file_suffix = #{fileSuffix,jdbcType=VARCHAR}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -176,6 +180,7 @@
 			<if test="fileKey != null"> file_key = #{fileKey,jdbcType=VARCHAR}, </if>
 			<if test="bucketName != null"> bucket_name = #{bucketName,jdbcType=VARCHAR}, </if>
 			<if test="fileName != null"> file_name = #{fileName,jdbcType=VARCHAR}, </if>
+			<if test="fileSuffix != null"> file_suffix = #{fileSuffix,jdbcType=VARCHAR}, </if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
