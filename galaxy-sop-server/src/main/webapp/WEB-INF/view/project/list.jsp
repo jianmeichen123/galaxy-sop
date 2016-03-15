@@ -604,12 +604,14 @@
 	function tzxy(st,projectType){
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null){
-			sendGetRequest(
+			var _table = $("#teamSeheetDataGrid");
+			var _tbody = _table.find("tbody");
+			_tbody.empty();
+			sendPostRequestByJsonObj(
 					platformUrl.searchSopFileListWithoutPage,
 					{"projectId" : pid},
 					function(data){
-						var _table = $("#teamSeheetDataGrid");
-						var _tbody = _table.find("tbody");
+						
 						_tbody.empty();
 						$.each(data.entityList,function(){
 							if(st == 1){
@@ -780,7 +782,7 @@
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null){
 			sendGetRequest(
-					platformUrl.getFileList+pid+"/9",
+					platformUrl.getFileList + pid + "/9",
 					null,
 					function(data){
 						var json = eval(data);
