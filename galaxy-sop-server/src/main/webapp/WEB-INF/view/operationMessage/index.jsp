@@ -40,8 +40,8 @@
           </div>
         		<select name="type">
 	        		<option value="">全部</option>
-	        		<option value="1">项目</option>
-	        		<option value="2">任务</option>
+	        		<option value="项目">项目</option>
+	        		<option value="任务">任务</option>
         		</select>
             <!--tips连接-->
         	<ul class="tipslink">

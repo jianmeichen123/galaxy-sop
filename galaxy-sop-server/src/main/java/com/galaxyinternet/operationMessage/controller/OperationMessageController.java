@@ -59,10 +59,25 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			responseBody.setPageList(operationMessage);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;	
-			} catch (PlatformException e) {
+		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
 			logger.error("queryUserList ", e);
 		}
 		return responseBody;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/remind", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<OperationMessage> remind(HttpServletRequest request) {
+		ResponseData<OperationMessage> responseBody = new ResponseData<OperationMessage>();
+		try {
+			return responseBody;	
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			logger.error("queryUserList ", e);
+		}
+		return responseBody;
+	}
+	
+	
 }
