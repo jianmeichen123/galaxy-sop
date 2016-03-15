@@ -115,7 +115,7 @@
  		file_type, remark, file_status,
  		file_uid, fil_uri, updated_time,
  		created_time, file_length, file_key,
- 		bucket_name,file_name,fileSuffix)
+ 		bucket_name,file_name,file_suffix)
  		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT},
  		#{projectProgress,jdbcType=VARCHAR},
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
