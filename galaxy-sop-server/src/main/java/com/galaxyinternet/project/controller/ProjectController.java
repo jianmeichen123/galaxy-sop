@@ -499,11 +499,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		 */
 		try {
 			if(result != null && result.getResult().getStatus().equals(Result.Status.OK)){
-				p.setFileName(file.getOriginalFilename());
+				String fileOriginalName = file.getOriginalFilename();
+				p.setFileName(fileOriginalName.substring(0, fileOriginalName.lastIndexOf(".")));
+				p.setSuffix(fileOriginalName.substring(fileOriginalName.lastIndexOf(".") + 1));
 				//int dotPos = fileName.lastIndexOf(".");String ext = fileName.substring(dotPos);
 				p.setBucketName(result.getBucketName());
 				p.setFileKey(fileKey);
-				p.setFileSize(result.getContentLength());
+				p.setFileSize(file.getSize());
 				if(handlerManager.getStageHandlers().containsKey(p.getStage())){
 					Handler handler = handlerManager.getStageHandlers().get(p.getStage());
 					Result r = handler.handler(p, project);
@@ -517,7 +519,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
-	
 	
 	
 	/**

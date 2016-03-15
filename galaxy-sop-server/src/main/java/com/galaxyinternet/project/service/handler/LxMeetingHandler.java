@@ -62,6 +62,7 @@ public class LxMeetingHandler implements Handler {
 		file.setFileKey(q.getFileKey());
 		file.setBucketName(q.getBucketName());
 		file.setFileName(q.getFileName());
+		file.setFileSuffix(q.getSuffix());
 		long fid = sopFileDao.insert(file);
 		MeetingRecord mr = new MeetingRecord();
 		mr.setProjectId(q.getPid());
