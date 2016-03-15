@@ -37,6 +37,7 @@ public class ProjectQuery extends ViewQuery{
 	
 	//文件属性
 	private String fileName;
+	private String suffix;
 	private String bucketName;
 	private String fileKey;
 	private long fileSize;
@@ -133,6 +134,12 @@ public class ProjectQuery extends ViewQuery{
 	}
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	public String getSuffix() {
+		return suffix;
+	}
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
 	}
 	public String getBucketName() {
 		return bucketName;
