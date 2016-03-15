@@ -333,7 +333,6 @@ function totalUrgentCallback(data) {
 
 function totalMissionCallback(data) {
 	var total = 0 ;
-	alert(data.total)
 	if (data.total != null) {
 		total =data.total;
 	}

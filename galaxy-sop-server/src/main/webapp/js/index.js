@@ -68,8 +68,8 @@
 				 i=i+1;
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td>'+ temp.projectName+'</td>'+
-					 '<td>'+ formatDate(temp.meetingDate)+'</td>'+
+					 '<td>'+ getValue(temp.projectName)+'</td>'+
+					 '<td>'+ getValue(formatDate(temp.meetingDate))+'</td>'+
 					 '<td>'+temp.meetingCount+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
@@ -89,8 +89,8 @@
 				 i=i+1;
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td>'+ templ.projectName+'</td>'+
-					 '<td>'+ formatDate(templ.meetingDate)+'</td>'+
+					 '<td>'+ getValue(templ.projectName)+'</td>'+
+					 '<td>'+ getValue(formatDate(templ.meetingDate))+'</td>'+
 					 '<td>'+templ.meetingCount+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
@@ -109,13 +109,13 @@
 				 i=i+1;
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td>'+ templ.projectName+'</td>'+
-					 '<td>'+ templ.status+'</td>'+
-					 '<td>'+ formatDate(templ.meetingDate)+'</td>'+
+					 '<td>'+ getValue(templ.projectName)+'</td>'+
+					 '<td>'+ getValue(templ.status)+'</td>'+
+					 '<td>'+ getValue(formatDate(templ.meetingDate))+'</td>'+
 					 '<td>'+templ.meetingCount+'</td>'+
-					 '<td>'+templ.projectCareerline+'</td>'+
-					 '<td>'+templ.createUname+'</td>'+
-					 '<td>'+templ.remark+'</td>'+
+					 '<td>'+getValue(templ.projectCareerline)+'</td>'+
+					 '<td>'+getValue(templ.createUname)+'</td>'+
+					 '<td>'+getValue(templ.remark)+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
@@ -133,13 +133,13 @@
 				 i=i+1;
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td>'+ templ.projectName+'</td>'+
-					 '<td>'+ templ.status+'</td>'+
-					 '<td>'+ formatDate(templ.meetingDate)+'</td>'+
+					 '<td>'+ getValue(templ.projectName)+'</td>'+
+					 '<td>'+ getValue(templ.status)+'</td>'+
+					 '<td>'+ getValue(formatDate(templ.meetingDate))+'</td>'+
 					 '<td>'+templ.meetingCount+'</td>'+
-					 '<td>'+templ.projectCareerline+'</td>'+
-					 '<td>'+templ.createUname+'</td>'+
-					 '<td>'+templ.remark+'</td>'+
+					 '<td>'+getValue(templ.projectCareerline)+'</td>'+
+					 '<td>'+getValue(templ.createUname)+'</td>'+
+					 '<td>'+getValue(templ.remark)+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
@@ -147,9 +147,16 @@
 		}
 	}
 	
+	function getValue(str) {
+		if (typeof(str) == "undefined") { 
+			 return ""
+		}  else {
+			return str;
+		}
+	}
 	
 	function formatDate(date, format) {   
-	    if (!date) return;   
+	    if (!date) return null;   
 	    if (!format) format = "yyyy-MM-dd";   
 	    switch(typeof date) {   
 	        case "string":   
