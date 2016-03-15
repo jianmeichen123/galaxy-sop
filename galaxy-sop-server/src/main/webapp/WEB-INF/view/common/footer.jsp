@@ -15,6 +15,6 @@ function createMenus(current){
 	   		 }
 	   	 });
 	   	 $("#menus").html(html);
-	},null);
+	});
 }
 </script>
