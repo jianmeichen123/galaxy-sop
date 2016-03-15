@@ -3,6 +3,7 @@
 	String path = request.getContextPath(); 
 %>
 <div class="btm">
+	<input type="checkbox" name="hasStockTransfer" value="1">是否涉及股权转让
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
@@ -156,7 +157,7 @@ function showUploadPopup(ele)
 	});
 }
 function initUpload(_dialog,type){
-	var url = platformUrl.stageChange;
+	var url = platformUrl.stageChange+"1";
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
@@ -212,6 +213,7 @@ function initUpload(_dialog,type){
 				var data = JSON.parse($form.serializeObject());
 				data['type'] = data['fileSource'];
 				data['fileWorktype']=$form.find("[name='fileWorktype']").val();
+				data['hasStockTransfer']=$("[name='hasStockTransfer']:checked").val();
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {
