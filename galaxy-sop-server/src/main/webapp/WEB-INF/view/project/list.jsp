@@ -617,8 +617,10 @@
 							var $tr;
 							if(this.fileWorktype == 'fileWorktype:6'){
 								$tr = $('<tr></tr>');
-							}else if(this.fileWorktype == 'fileWorktype:7'){
+							}else if(this.fileWorktype == 'fileWorktype:7' && st==0){
 								$tr = $('<tr style="display:none;" id="gwxt_tr"></tr>');
+							}else if(this.fileWorktype == 'fileWorktype:7' && st==1){
+								$tr = $('<tr id="gwxt_tr"></tr>');
 							}
 							$tr.append('<td>'+this.fWorktype+'</td>') ;
 							if(this.fileType){
