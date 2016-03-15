@@ -27,6 +27,8 @@
 	<div class="archivestc" >
 	<form>
 		<input type="hidden" name="id">
+		<input type="hidden" name="pid" value="${projectId }">
+		<input type="hidden" name="stage" value="projectProgress:5">
 		<dl class="fmdl clearfix">
 	    	<dt>档案来源：</dt>
 	        <dd class="clearfix">
@@ -46,7 +48,7 @@
 	        	<select name="fileWorktype" disabled></select>
 	        </dd>
 	        <dd>
-	        	<label><input type="checkbox"/>签署凭证</label>
+	        	<label><input type="checkbox" name="voucherType" value="1"/>签署凭证</label>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -154,11 +156,7 @@ function showUploadPopup(type)
 }
 function initUpload(_dialog,type){
 	
-	var url = platformUrl.uploadFile2Task;
-	if(type == 'voucher')
-	{
-		url = platformUrl.uploadVoucher2Task;
-	}
+	var url = platformUrl.stageChange;
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
@@ -182,11 +180,23 @@ function initUpload(_dialog,type){
 					{
 						var $form =$(_dialog.id).find("form")
 						var data = JSON.parse($form.serializeObject());
+						data['type']=data['fileSource'];
+						console.log(data);
 						sendGetRequest(
 								platformUrl.uploadFile2Task,
 								data,
 								function(data){
-									afterSave(data);
+									var data = $.parseJSON(rtn.response);
+									if(data.result.status == "OK")
+									{
+										alert("上传成功.");
+										$(_dialog.id).find("[data-close='close']").click();
+										loadRows();
+									}
+									else
+									{
+										alert("上传失败.");
+									}
 								}
 						);
 					}
@@ -203,11 +213,13 @@ function initUpload(_dialog,type){
 			BeforeUpload:function(up){
 				var $form =$(_dialog.id).find("form")
 				var data = JSON.parse($form.serializeObject());
+				data['type']=data['fileSource'];
+				data['fileWorktype']='fileWorktype:5';
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {
 				var data = $.parseJSON(rtn.response);
-				if(data.status == "OK")
+				if(data.result.status == "OK")
 				{
 					alert("上传成功.");
 					$(_dialog.id).find("[data-close='close']").click();
@@ -233,9 +245,11 @@ function initForm(_dialog,type)
 	var fileSource = $row.data('file-source');
 	var remark = $row.data('remark');
 	var worktype = $row.data('file-worktype');
+	var projectId = $row.data('project-id');
 	if(type == 'voucher')
 	{
 		$(_dialog.id).find("[name='id']").val($row.data('voucher-id'));
+		$(_dialog.id).find("[name='voucherType']").attr('checked',true);
 	}
 	else
 	{
@@ -245,7 +259,6 @@ function initForm(_dialog,type)
 		$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 		
 	}
-	
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
 	$(_dialog.id).find("[name='fileType']").val(fileType);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());

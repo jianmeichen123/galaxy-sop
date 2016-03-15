@@ -192,7 +192,16 @@ function initUpload(_dialog){
 								platformUrl.uploadFile2Task,
 								data,
 								function(data){
-									afterSave(data);
+									if(data.status == "OK")
+									{
+										alert("上传成功.");
+										$(_dialog.id).find("[data-close='close']").click();
+										loadRows();
+									}
+									else
+									{
+										alert("上传失败.");
+									}
 								}
 						);
 					}
