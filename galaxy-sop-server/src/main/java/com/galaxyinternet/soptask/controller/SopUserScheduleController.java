@@ -1,9 +1,11 @@
 package com.galaxyinternet.soptask.controller;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.galaxyinternet.bo.SheduleCommon;
 import com.galaxyinternet.bo.SopUserScheduleBo;
+import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
@@ -48,28 +52,28 @@ public class SopUserScheduleController extends
 		// TODO Auto-generated method stub
 		return this.sopUserScheduleService;
 	}
-
 	/***
 	 * 添加|修改我的日程 status 1:添加,2:修改
 	 * 
 	 * @param sopUserSchedule
-	 * @return
-	 */
+	 * @return*/
+	
 	@ResponseBody
-	@RequestMapping(value = "/addOrUpdateSopUserSchedule/{status}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopUserSchedule> addUserSchedule(
-			@RequestBody SopUserSchedule sopUserSchedule,
-			@PathVariable String status, HttpServletRequest request) {
-
-		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
+	@RequestMapping(value = "/addOrUpdateSopUserSchedule", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopUserScheduleBo> addProjectPerson(@RequestBody SopUserScheduleBo sopUserSchedule, HttpServletRequest request) {
+		ResponseData<SopUserScheduleBo> responseBody = new ResponseData<SopUserScheduleBo>();
 		User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
 		sopUserSchedule.setUserId(user.getId());
+		String date=sopUserSchedule.getItemDateStr()+" 00:00:00";
+		System.out.println(date);
 		try {
-			if ("1".equals(status)) {
+			if(sopUserSchedule.getId() == null){
+				sopUserSchedule.setItemDate(Timestamp.valueOf(date));
 				sopUserScheduleService.insert(sopUserSchedule);
 				responseBody.setResult(new Result(Status.OK,"添加日程成功!"));
-			} else {
+			}else{
+				sopUserSchedule.setItemDate(Timestamp.valueOf(date));
 				sopUserScheduleService.updateById(sopUserSchedule);
 				responseBody.setResult(new Result(Status.OK,"修改日程成功!"));
 			}
@@ -79,8 +83,6 @@ public class SopUserScheduleController extends
 		}
 		return responseBody;
 	}
-	
-
 	/***
 	 * 获取我的日程前三条信息| type: 1:前三条数据?更多
 	 * 
@@ -103,6 +105,43 @@ public class SopUserScheduleController extends
 		Page<SopUserScheduleBo> page = new Page<SopUserScheduleBo>(list, null,
 				null);
 		responseBody.setPageList(page);
+		
+		return responseBody;
+	}
+	
+	
+	/***
+	 * 获取日程列表
+	 */
+	@RequestMapping(value = "/scheduleList",method = RequestMethod.GET)
+	public String scheduleList(HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute(
+				Constants.SESSION_USER_KEY);
+		List<SheduleCommon> sop=sopUserScheduleService.scheduleListByDate(user.getId());
+		request.setAttribute("sheduleList", sop);
+		return "shedule/sheduleList";
+	}
+	
+	/***
+	 * 获取日程信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getSchedule/{id}", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public ResponseData<SopUserScheduleBo> getSchedule(
+			@PathVariable Long id, HttpServletRequest request) throws ParseException {
+
+		ResponseData<SopUserScheduleBo> responseBody = new ResponseData<SopUserScheduleBo>();
+		User user = (User) request.getSession().getAttribute(
+				Constants.SESSION_USER_KEY);
+		try{
+			SopUserScheduleBo sop= (SopUserScheduleBo) sopUserScheduleService.queryById(id);
+			String str[] = sop.getItemDate().toString().split(" ");
+			sop.setTimeTask(str[0]);
+			responseBody.setEntity(sop);
+			responseBody.setResult(new Result(Status.OK,"成功!"));
+		}catch(Exception e){
+			responseBody.setResult(new Result(Status.ERROR,"失败!"));
+		}
 		return responseBody;
 	}
 

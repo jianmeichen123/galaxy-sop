@@ -1,3 +1,4 @@
+//首页日程数据渲染
 function loadAjaxSopUserSchedule(type,url){
 	$.ajax({
 		url : url,
@@ -7,31 +8,26 @@ function loadAjaxSopUserSchedule(type,url){
 		dataType : "json",
 		contentType:"application/json; charset=UTF-8",
 		cache : false,
-		beforeSend : function(xhr) {
-			if (sessionId) {
-				xhr.setRequestHeader("sessionId", sessionId);
-			}
-			if(userId){
-				xhr.setRequestHeader("guserId", userId);
-			}
-		},
 		error:function(){     
-	        //alert('error');     
 	    }, 
 		success : function(data) {
 			 var json = eval(data);
 			 var dataList=json.pageList.content;
+			 $("#top").html("");
 			 var htmlstart="";
-			 /**
-			 var htmlstart= "<b class=\"sj ico null\">三角</b>"+
-	                        "<div class=\"tody ico\">"+
-            	            "<p class=\"time\"></p>"+
-                            "<p class=\"date\"></p>"+
-                            "</div>";**/
 			 for(var p in dataList){
 				 htmlstart +="<a href=\"javascript:;\" class=\"link\"><b class=\"b1 null\">点</b>"+dataList[p].timeTask+"</a>";
 			 }
-			 document.getElementById("top").innerHTML +=htmlstart;
+			 $("#top").html(htmlstart);
 		}
 	});
+}
+//点击日程面板
+function shecudle(){
+	$.getHtml({
+		url:platformUrl.toShedule,//模版请求地址
+		data:"",//传递参数
+			
+	});
+	return false;
 }

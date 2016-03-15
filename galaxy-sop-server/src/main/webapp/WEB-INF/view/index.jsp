@@ -13,6 +13,8 @@
 <jsp:include page="./common/taglib.jsp" flush="true"></jsp:include>
 <script src="<%=path%>/js/sopUserSchedule.js" type="text/javascript"></script>
 <script src="<%=path%>/js/index.js" type="text/javascript"></script>
+<link href="<%=path %>/css/calendar.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="<%=path %>/js/calendarnew.js"></script>
 </head>
 
 <body>
@@ -23,7 +25,7 @@
 	<!--右侧-->
     <div class="rit">
         <!--时间-->
-        <div class="top">
+        <div class="top"  onclick="shecudle();">
         	<b class="sj ico null">三角</b>
             <div class="tody ico">
             	<p class="time"></p>

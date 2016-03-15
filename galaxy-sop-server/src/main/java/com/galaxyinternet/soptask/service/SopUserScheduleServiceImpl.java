@@ -12,6 +12,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.galaxyinternet.bo.SheduleCommon;
 import com.galaxyinternet.bo.SopUserScheduleBo;
 import com.galaxyinternet.dao.soptask.SopUserScheduleDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
@@ -66,6 +67,10 @@ public class SopUserScheduleServiceImpl extends
 				if (day < 1) {
 					message = "";
 				}**/
+				if (day == 0) {
+					String time=str[1].substring(0, str[1].lastIndexOf("."));
+					message = "今天,"+"["+time+"]";
+				}
 				if (day == 1) {
 					message = "明天,";
 				}
@@ -86,5 +91,23 @@ public class SopUserScheduleServiceImpl extends
 		return sopUserScheduleBoList;
 
 	}
+
+	@Override
+	public List<SheduleCommon> scheduleListByDate(Long userId) {
+		// TODO Auto-generated method stub
+		// 获取大于当前系统时间的数据信息
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("userId", userId);
+		List<SheduleCommon> list = sopUserScheduleDao.selectScheduleListByDate(params);
+		for(SheduleCommon common:list){
+			String month=common.getMonths();
+			params.put("itemDate", month);
+			List<SopUserSchedule> soplist=sopUserScheduleDao.selectSopUserScheduleDesc(params);
+			common.setList(soplist);
+		}
+		return list;
+	}
+
+
 
 }
