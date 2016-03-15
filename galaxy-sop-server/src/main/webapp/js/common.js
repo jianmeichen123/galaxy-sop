@@ -91,7 +91,8 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 			//alert("connetion error");
 		},
 		success : function(data) {
-			if(data.result.errorCode=="3"){
+			
+			if(typeof(data.result) != 'undefined' && data.result.errorCode=="3"){
 				location.href = platformUrl.toLoginPage;
 			}
 			if (callbackFun) {
