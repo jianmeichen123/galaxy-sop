@@ -101,6 +101,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 		mv.setViewName(viewName);
 		mv.addObject("fileWorktype", fileWorktype);
 		mv.addObject("btnTxt", btnTxt);
+		mv.addObject("taskFlag", taskFlag);
 		return mv;
 	}
 	
