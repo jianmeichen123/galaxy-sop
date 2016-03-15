@@ -105,7 +105,7 @@
             <dl>
               <dt>项目概述</dt>
               <dd class="edit">
-              	  <script type="text/plain" id="describe_editor" style="width:1000px;height:100px;">
+              	  <script type="text/plain" id="describe_editor" style="width:100%;height:100px;">
 				  </script>
 			 </dd>
               <dd class="fctbox">
@@ -122,7 +122,7 @@
             <dl>
               <dt>商业模式</dt>
               <dd class="edit">
-              	  <script type="text/plain" id="business_model_editor" style="width:1000px;height:100px;">
+              	  <script type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
 				  </script>
 		      </dd>
               <dd class="fctbox">
@@ -139,7 +139,7 @@
             <dl>
               <dt>公司定位</dt>
               <dd class="edit">
-			      <script type="text/plain" id="location_editor" style="width:1000px;height:100px;">
+			      <script type="text/plain" id="location_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
               <dd class="fctbox">
@@ -156,7 +156,7 @@
             <dl>
               <dt>用户分析</dt>
               <dd class="edit">
-			  	  <script type="text/plain" id="portrait_editor" style="width:1000px;height:100px;">
+			  	  <script type="text/plain" id="portrait_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
               <dd class="fctbox">
@@ -173,7 +173,7 @@
             <dl>
               <dt>竞情分析</dt>
               <dd class="edit">
-			      <script type="text/plain" id="analysis_editor" style="width:1000px;height:100px;">
+			      <script type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
               <dd class="fctbox">
