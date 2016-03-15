@@ -29,7 +29,8 @@ $(function(){
 	});
 	//待认领
 	$("table").on("click", "#doclaim", function() {
-		var taskId=taskId=$("#claimid").val();
+		var task=this;
+		var taskId=task.childNodes[1].value;
 		var url=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId;
 	    forwardWithHeader(url);
 	//	this.href=endUrl;

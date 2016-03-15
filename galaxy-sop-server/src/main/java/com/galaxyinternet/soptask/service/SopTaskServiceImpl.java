@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import com.galaxyinternet.common.dictEnum.DictUtil;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.RequestUrl;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
@@ -84,7 +86,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 			// 组装数据
 		if(selectListSopTask!=null && !projectList.isEmpty()){
-		   formatData = formatData(selectListSopTask,projectList);
+		   formatData = formatData(selectListSopTask,projectList,request);
 		}
 		return formatData;
 
@@ -153,7 +155,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	 * @param projectList
 	 * @return
 	 */
-	public Page<SopTaskBo> formatData(Page<SopTask> sopTaskData, List<Project> projectList) {
+	public Page<SopTaskBo> formatData(Page<SopTask> sopTaskData, List<Project> projectList,HttpServletRequest  request) {
 		Page<SopTaskBo> sopTaskPage = new Page<>(null, null, null);
 		List<SopTaskBo> SopTaskBoList = new ArrayList<SopTaskBo>();
 		
@@ -193,8 +195,9 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("2");
+			//	String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
 				caozuohtml.append("<a ").append(" id='doclaim' ").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus()))
-				.append("<input type='hidden' id='claimid' ").append(" value='"+sopTasknew.getId()+"'").append("</a>");
+				.append("<input type='hidden'").append(" value='"+sopTasknew.getId()+"'/>").append("</a>");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 		
 			}
