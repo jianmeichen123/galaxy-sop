@@ -614,10 +614,12 @@
 						
 						_tbody.empty();
 						$.each(data.entityList,function(){
-							if(st == 1){
-								
+							var $tr;
+							if(this.fileWorktype == 'fileWorktype:6'){
+								$tr = $('<tr></tr>');
+							}else if(this.fileWorktype == 'fileWorktype:7'){
+								$tr = $('<tr style="display:none;" id="gwxt_tr"></tr>');
 							}
-							var $tr = $('<tr></tr>');
 							$tr.append('<td>'+this.fWorktype+'</td>') ;
 							if(this.fileType){
 								$tr.append('<td>'+this.fType+'</td>');
@@ -721,6 +723,16 @@
 		return false;
 	}
 	
+	/**
+	 * "是否涉及股权转让"按钮点击事件
+	 */
+	function selected(obj){
+		if(obj.checked){
+			$("#gwxt_tr").css("display","table-row");
+		}else{
+			$("#gwxt_tr").css("display","none");
+		}
+	}
 	 /**
 	  * 股权转让协议弹出层
 	  */

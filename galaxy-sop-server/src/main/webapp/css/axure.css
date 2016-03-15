@@ -37,6 +37,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 table{ background:#ffffff; border-bottom:1px solid #f6f7fa}
 table th{ text-align:center; color:#3e4351; font-weight:normal; font-size:12px; line-height:38px;}
 table td{ line-height:30px; text-align:center; font-size:12px; color:#7a8798; font-family:"宋体"; border-top:1px solid #e9ebf2;}
+.fixed_width td{width: 16.5%;}
 table td a{ font-size:12px; margin:0 2px; color:#7a8798; font-family:"宋体"}
 table .on td{ background:#f4fafc}
 .noborder{border-top: 0 !important;}
