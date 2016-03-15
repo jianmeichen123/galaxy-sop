@@ -149,7 +149,7 @@
 	
 	function getValue(str) {
 		if (typeof(str) == "undefined") { 
-			 return ""
+			 return "-";
 		}  else {
 			return str;
 		}
