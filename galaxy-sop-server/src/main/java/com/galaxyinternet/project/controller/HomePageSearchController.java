@@ -231,7 +231,7 @@ public class HomePageSearchController
 		// request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 
-			Page<MeetingScheduling> pageList = meetingSchedulingService.queryPageList(meeting,new PageRequest(meeting.getPageNum(), meeting.getPageSize()));
+			Page<MeetingScheduling> pageList = meetingSchedulingService.queryMeetingPageList(meeting,new PageRequest(meeting.getPageNum(), meeting.getPageSize()));
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
