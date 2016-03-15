@@ -107,21 +107,54 @@ $(function(){
 
 });
 
+/***
+ * 添加团队成员表单验证
+ * @returns {Boolean}
+ */
+function checkFormValida(){
+	  var personName = $("#personName").val();
+	  var personAge = $("#personAge").val();
+	  var personDuties = $("#personDuties").val();
+	  
+	  if(personName==""){
+			$("#personName").focus();
+	        layer.tips('请输入用户名', '#personName');
+	        return false;
+	  }
+	  
+	  if(personAge==""){
+			$("#personAge").focus();
+	        layer.tips('请输入年龄', '#personAge');
+	        return false;
+	  }
+	  
+	  if(personDuties==""){
+			$("#personDuties").focus();
+	        layer.tips('请输入职务', '#personDuties');
+	        return false;
+	  }
+	  return true;
+}
 /** 添加团队成员
 	 */
 
 function savePerson(){
+	
+	
+	if(checkFormValida()){
 	var projectId = $("#pid").val();
 	if(projectId != ''){
 		$("#projectId").val(projectId);
 		sendPostRequestByJsonObj(platformUrl.addPerson, JSON.parse($("#person_form").serializeObject()), savePersonCallBack);
-	}
+	}}
 }
+
 
 /**
  * 添加股权结构
  */
 function savaStock(){
+	
 	var projectId = $("#pid").val();
 	if(projectId != ''){
 		$("#projectId").val(projectId);
@@ -185,7 +218,7 @@ function savePersonCallBack(data){
 		return;
 	}
 	//alert("操作成功!");
-	$("#popbg,#pop").remove();
+	$("#popbg,#powindow").remove();
 	//window.location.reload(sopContentUrl + "/galaxy/upp");
 	getTabPerson();
 }
