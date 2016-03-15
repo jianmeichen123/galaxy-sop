@@ -230,7 +230,11 @@ var platformUrl = {
 	/**
 	 * 我的日程
 	 */
-	toShedule : sopContentUrl + "/galaxy/sopUserSchedule/scheduleList"
+	toShedule : sopContentUrl + "/galaxy/sopUserSchedule/scheduleList",
+	/**
+	 * 档案列表
+	 */
+	searchSopFileList : sopContentUrl + "/galaxy/sopFile/searchSopFileList",
 }
 
 /**

@@ -49,7 +49,9 @@
 					var _formdata = {
 							_workType : _item.fileWorktype,
 							_projectId : _item.projectId,
-							
+							callFuc : function(){
+								dataGrid.load(_projectId);
+							}
 						};
 					win.initData();
 					win.init(_formdata);
@@ -61,7 +63,10 @@
 					var _formdata = {
 							_workType : _item.fileWorktype,
 							_projectId : _item.projectId,
-							_isProve : true
+							_isProve : true,
+							callFuc : function(){
+								dataGrid.load(_projectId);
+							}
 						};
 					
 					win.init(_formdata);
@@ -79,6 +84,7 @@
 	var win = {
 			init : function(_formdata){
 				win.initData();
+				win.callFuc = _formdata.callFuc;
 				$.popup({
 					txt : $("#uploadPanel").html(),
 					showback:function(){
@@ -111,7 +117,6 @@
 								},
 								FilesAdded: function(up, files) {
 									plupload.each(files, function(file) {
-//										alert(111111);
 //										document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 										$(_this.id).find("#fileTxt").val(file.name);
 									});
@@ -121,16 +126,14 @@
 								FileUploaded:function(up,file,result){
 									if(result.status==200){
 										var _restmp = $.parseJSON(result.response);
-//										alert(_restmp.status)
-//										alert(_restmp.message);
 										var _projectId = _restmp.message;
-										if(_restmp.status == "OK"){
+										if(_restmp.result.status == "OK"){
 											alert("上传成功");
 											win.close(_this);
-//											popEve.closepop();
+											win.callFuc();
 											dataGrid.load(_projectId);
 										}else{
-											alert(result.response.errorCode);
+											alert(_restmp.result.errorCode);
 										}
 										
 									}else{
@@ -138,13 +141,14 @@
 									}
 								},
 								BeforeUpload:function(up){
-									alert($(_this.id).find("#isProve").is(":checked"));
+//									alert($(_this.id).find("#isProve").is(":checked"));
 									var form = {
 											"fileSource" : $(_this.id).find("input[name='fileSource']:checked").val(),
 											"fileType" : $(_this.id).find("#fileType").val(),
 											"fileWorkType" : $(_this.id).find("#fileWorkType").val(),
-											"projectId" : $(_this.id).find("#sopProjectId").val(),
-											"isProve" : $(_this.id).find("#isProve").attr("checked")
+											"projectId" : $(_this.id).find("#sopProjectId").data("tid"),
+											"isProve" : $(_this.id).find("#isProve").attr("checked"),
+											"remark" : $(_this.id).find("#FILELIST").val()
 									}
 									
 									up.settings.multipart_params = form;
@@ -175,6 +179,7 @@
 				var $searchProjectBtn = $(_this.id).find("#searchProjectBtn");
 				
 				var $isProve = $(_this.id).find("#isProve");
+				
 
 				
 				//项目文本域(此处先写ID)
@@ -197,9 +202,15 @@
 				//项目
 				if(_formdata._projectId){
 					//此处应该获取项目名称
+					$sopProjectId.data("tid",_formdata_projectId);
 					$sopProjectId.val(_formdata._projectId);
 					$sopProjectId.attr("disabled","disabled");
 					$searchProjectBtn.attr("disabled","disabled");
+					
+				}else{
+					$searchProjectBtn.click(function(){
+						commWin.init("searchProjectPanel",$sopProjectId);
+					})
 				}
 				//签署证明
 				if(typeof(_formdata._isProve) != "undefined"){
@@ -229,6 +240,9 @@
 			//判断弹出框是否已经存在
 			isCreate : function(){
 				return $("#pop").length>0;
+			},
+			callFuc : function(){
+				
 			},
 			//关闭弹出框
 			close : function(_this){

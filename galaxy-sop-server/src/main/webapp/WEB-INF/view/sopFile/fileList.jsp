@@ -49,18 +49,19 @@
             <dl class="fmdl fml  fmdll clearfix">
               <dt>档案来源：</dt>
               <dd class="clearfix">
-                <label><input type="radio" name="source" checked/>不限</label>
-                <label><input type="radio" name="source"/>内部</label>
-                <label><input type="radio" name="source"/>外部</label>
+				<!--name="fileSource" -->
+                <label><input type="radio" name="source" value = "all" checked/>不限</label>
+                <label><input type="radio" name="source" value = "1"/>内部</label>
+                <label><input type="radio" name="source" value = "2"/>外部</label>
             </dd>
           </dl>
           <dl class="fmdl fmdll clearfix">
             <dt>存储类型：</dt>
             <dd class="clearfix">
-                <label><input type="radio" name="type" checked/>不限</label>
-                <label><input type="radio" name="type"/>文档</label>
-                <label><input type="radio" name="type"/>图片</label>
-                <label><input type="radio" name="type"/>音视频</label>
+				<!--name = "fileType"  -->
+                <select id="searchFileType">
+                	<option>全部</option>
+              	</select>
             </dd>
           </dl>          
         </div>
@@ -68,7 +69,8 @@
           <dl class="fmdl fml fmdll clearfix">
             <dt>业务分类：</dt>
             <dd>
-              <select>
+			  <!--name = "fileWorktype"  -->
+              <select id="searchFileWorktype">
                 <option>全部</option>
               </select>
             </dd>
@@ -76,7 +78,8 @@
           <dl class="fmdl fml fmdll clearfix">
             <dt>所属业务线：</dt>
             <dd>
-              <select>
+			  <!--name="careerLine" -->
+              <select id="searchCareerLine">
                 <option>全部</option>
               </select>
             </dd>
@@ -84,10 +87,10 @@
           <dl class="fmdl fmdll clearfix">
             <dt></dt>
             <dd>
-              <input type="text" class="txt" placeholder="请输入项目名称或投资经理名称" />
+              <input type="text" id="searchProjectId" class="txt" placeholder="请输入项目名称或投资经理名称" />
             </dd>
             <dd>
-            <button type="button" class="btn btn-primary" action="querySearch" id="openBtn">
+            <button type="button" class="btn btn-primary"  id="searchBtn">
             		<span class="glyphicon glyphicon-search"></span>查询
             </button>
             </dd>
@@ -95,85 +98,23 @@
         </div>
         </div>
        <div class="tab-pane active" id="view">		
-			<table  id="data-table" data-url="/galaxy/sopFile/searchSopFileList" data-method="post" 
-	          		data-side-pagination="server" data-pagination="true" 
-	          		data-toolbar="#custom-toolbar" data-page-list="[3,6,10,20]"
-					data-id-field="lottoId" data-show-refresh="true">
-				<thead>
-					<tr>
-						<th></th>
-						<th data-field="sopFileId" data-align="center">所属业务线</th>
-                      	<th data-field="careerLine" data-align="center">所属业务线</th>
-                      	<th data-field="projectName" data-align="center">所属项目</th>
-                      	<th data-field="fileSource" data-align="center">档案管理</th>
-                      	<th data-field="fileUid" data-align="center">起草者</th>
-                      	<th data-field="fType" data-align="center">存储类型</th>
-                      	<th data-field="fWorktype" data-align="center">业务分类</th>
-                      	<th data-field="updatedDate" data-align="center">更新日期</th>
-                      	<th data-field="fileStatusDesc" data-align="center">档案状态</th>
-						<th ><a href="/download?sopFileId" >附件查看</a></th>
-					</tr>
-				</thead>
-			</table>
+			<table id="fileGrid"></table>
            </div>      
     </div>
 </div>
-<!-- 弹出页面 -->
-<div id="addFile" class="archivestc" style="display: none;">
-	<dl class="fmdl clearfix">
-    	<dt>档案来源：</dt>
-        <dd class="clearfix">
-        	<label><input name="fileSource" type="radio" value = "1" checked="checked"/>内部</label>
-            <label><input name="fileSource" type="radio" value = "2"/>外部</label>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-    	<dt>存储类型：</dt>
-        <dd>
-        	<select id="fileType">
-            	<option>sadasd</option>
-            </select>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-    	<dt>业务分类：</dt>
-        <dd>
-        	<select id="fileWorkType">
-            	<option>sadasd</option>
-            </select>
-        </dd>
-        <dd>
-        	<label><input type="checkbox"/>签署凭证</label>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-    	<dt>所属项目：</dt>
-        <dd>
-        	<input type="text" placeholder="请输入项目名称或编号" class="txt"/>
-        </dd>
-        <dd><a class="searchbtn null" href="javascript:;">搜索</a></dd>
-    </dl>
-    
-     <dl class="fmdl clearfix">
-    	<dt>文档上传：</dt>
-        <dd>
-        	<input type="text" class="txt" id="fileTxt"/>
-        </dd>
-        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="selectBtn">选择档案</a></dd>
-    </dl>  
-<!--     <div class="fmarea"> -->
-<!--     	<TEXTAREA ID="FILELIST"></TEXTAREA> -->
-<!-- 		<div  id="filelist"></div> -->
-<!-- 		<div  id="console"></div> -->
-<!--     </div> -->
-    <a href="javascript:;" class="pubbtn bluebtn" id="uploadBtn">上传保存</a>
-    <input type="hidden" id="pathInput" value="<%=path%>">
-</div>
+
+<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
+<jsp:include page="../sopFile/projectDialog.jsp" flush="true"></jsp:include>
+
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 </body>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+ <script src="<%=path %>/js/commWin.js" type="text/javascript"></script>
+ <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script>
  <script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
+
+
 <script type="text/javascript">
 
 </script>
