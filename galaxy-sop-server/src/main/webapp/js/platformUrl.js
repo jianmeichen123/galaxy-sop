@@ -3,6 +3,7 @@ var Constants = {
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
 var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
+//var sopContentUrl = "http://127.0.0.1:8080";
 
 var platformUrl = {
 	/**
@@ -225,7 +226,11 @@ var platformUrl = {
 	 */
 	toEstablishStage : sopContentUrl + "/galaxy/project/ges/",
 	
-	inTjh : sopContentUrl + "/galaxy/project/smp/"
+	inTjh : sopContentUrl + "/galaxy/project/smp/",
+	/**
+	 * 我的日程
+	 */
+	toShedule : sopContentUrl + "/galaxy/sopUserSchedule/scheduleList"
 }
 
 /**

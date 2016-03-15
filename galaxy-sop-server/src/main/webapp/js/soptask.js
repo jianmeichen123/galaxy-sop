@@ -1,21 +1,23 @@
 /**
  * sop用户任务
  */
-var taskId ;
 $(function(){
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
 		console.log("ok");
-		taskId=$("#taskid").val();
+		var taskId=$("#taskid").val();
 		projectid=$("#projectid").val();
-	   	var _url = sopContentUrl+"/galaxy/soptask/goClaimtcPage?id="+taskId;
+	    var  _url=sopContentUrl+"/galaxy/soptask/goClaimtcPage?id="+taskId+"&sid="+sessionId+"&guid="+userId;
+	  // 	var _url = forwardWithHeader(claimUrl);
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				var taskid=getTaskId();
-				$(".btnbox").on("click", "#dotask", function() {
-					this.href=forwardWithHeader(sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskid);
+			//	var taskid=getTaskId();
+				$(".btnbox").on("click", "#dotask", function() {	
+				//	var endUrl=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId+"&sid="+sessionId+"&guid="+userId;
+					var endUrl=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId;
+					forwardWithHeader(endUrl);
 	            });
 				//单击按钮刷新页列表里面的内容
 				$(".btnbox").on("click", "#notdo", function() {
@@ -25,6 +27,16 @@ $(function(){
 		});
 		return false;
 	});
+	//待认领
+	$("table").on("click", "#doclaim", function() {
+		var taskId=taskId=$("#claimid").val();
+		var url=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId;
+	    forwardWithHeader(url);
+	//	this.href=endUrl;
+	});
+	
+
+
 
 
 	$(".tipslink").on("click","a",function(){
@@ -46,12 +58,7 @@ $(function(){
 		$("#data-table").bootstrapTable("querySearch");
 	
 	});
-	
-	
-	
+		
 });
-function getTaskId(){
-	return taskId;
-}
 
 

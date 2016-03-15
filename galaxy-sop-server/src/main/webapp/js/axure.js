@@ -53,7 +53,7 @@
 		},options);
 		function popEve(){
 			this.strbg = "<div id=\"popbg\"><iframe frameborder=\"0\" src=\"about:blank\"></iframe></div>";
-			this.strpop = "<div class=\"pop\"  data-id=\"popid"+$(".pop").length+"\"><a href=\"javascript:;\" data-close=\"close\" class=\"close null\">关闭</a><div class=\"poptxt\"><p class='popwait'>数据加载中，请稍候...</p></div></div>";
+			this.strpop = "<div id=\"powindow\" class=\"pop\"  data-id=\"popid"+$(".pop").length+"\"><a href=\"javascript:;\" data-close=\"close\" class=\"close null\">关闭</a><div class=\"poptxt\"><p class='popwait'>数据加载中，请稍候...</p></div></div>";
 			this.txt = opts.txt;//弹层添加数据
 			this.statusmove = true;//移动状态标识
 			this.mousexy = {};//存放鼠标xy容器

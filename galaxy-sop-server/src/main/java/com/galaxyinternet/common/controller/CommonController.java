@@ -70,8 +70,8 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		tabs.add(new Menus(1L, "工作界面", u + "galaxy/index?" + params));
 		tabs.add(new Menus(2L, "待办任务", u + "galaxy/soptask?" + params));
 		tabs.add(new Menus(3L, "消息提醒", u + ""));
-		
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		
 		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.TZJL)){
 			tabs.add(new Menus(4L, "添加项目", u + "galaxy/app?" + params));
 			tabs.add(new Menus(5L, "我的项目", u + "galaxy/mpl?" + params));
@@ -101,22 +101,26 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		tabs.add(new Menus(13L, "模板管理", u + "galaxy/template?" + params));
 		tabs.add(new Menus(14L, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
 		
-		String sessionId = user.getSessionId();
 		//管理员
 		if(roleIdList.contains(16L)){
 			tabs.clear();
 			tabs.add(new Menus(15L, "用户管理", "http://fx.qa.galaxyinternet.com/platform/galaxy/user?" + params));
 			tabs.add(new Menus(16L, "数据字典", "http://fx.qa.galaxyinternet.com/platform/galaxy/dict/index?" + params));
 		}
+		
+		
 		//高管
 		if(roleIdList.contains(1L) || roleIdList.contains(2L)){
-			tabs.add(new Menus(16L, "项目查询", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projects?" + params));
-			tabs.add(new Menus(16L, "数据简报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/dataBriefing?" + params));
-			tabs.add(new Menus(16L, "项目分析", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projectAnalysis?" + params));
-			tabs.add(new Menus(16L, "绩效考核", "http://fx.qa.galaxyinternet.com/report/galaxy/report/kpi?" + params));
-			tabs.add(new Menus(16L, "投后项目跟踪", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestTrack?" + params));
-			tabs.add(new Menus(16L, "投后业务运营", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestBusiness?" + params));
-			tabs.add(new Menus(16L, "投后企业财报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestFinace?" + params));
+			tabs.clear();
+			tabs.add(new Menus(1L, "工作界面", "http://127.0.0.1:8777/galaxy-sop-server/galaxy/index?" + params));
+			tabs.add(new Menus(3L, "消息提醒", u + ""));
+			tabs.add(new Menus(16L, "项目查询", "http://127.0.0.1:8777/report/galaxy/report/projects?" + params));
+			tabs.add(new Menus(16L, "数据简报", "http://127.0.0.1:8777/report/galaxy/report/dataBriefing?" + params));
+			tabs.add(new Menus(16L, "项目分析", "http://127.0.0.1:8777/report/galaxy/report/projectAnalysis?" + params));
+			tabs.add(new Menus(16L, "绩效考核", "http://127.0.0.1:8777/report/galaxy/report/kpi?" + params));
+			tabs.add(new Menus(16L, "投后项目跟踪", "http://127.0.0.1:8777/report/galaxy/report/afterInvestTrack?" + params));
+			tabs.add(new Menus(16L, "投后业务运营", "http://127.0.0.1:8777/report/galaxy/report/afterInvestBusiness?" + params));
+			tabs.add(new Menus(16L, "投后企业财报", "http://127.0.0.1:8777/report/galaxy/report/afterInvestFinace?" + params));
 		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;

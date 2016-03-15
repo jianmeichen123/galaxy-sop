@@ -1752,6 +1752,14 @@
             cache: this.options.cache,
             contentType: this.options.contentType,
             dataType: this.options.dataType,
+    		beforeSend : function(xhr) {
+    			if (sessionId) {
+    				xhr.setRequestHeader("sessionId", sessionId);
+    			}
+    			if(userId){
+    				xhr.setRequestHeader("guserId", userId);
+    			}
+    		},
             success: function (res) {
                 res = calculateObjectValue(that.options, that.options.responseHandler, [res], res);
                 that.load(res);
