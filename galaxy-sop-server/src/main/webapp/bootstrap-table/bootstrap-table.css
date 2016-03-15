@@ -17,7 +17,7 @@
 .bootstrap-table .table > thead > tr > td,
 .bootstrap-table .table > tbody > tr > td,
 .bootstrap-table .table > tfoot > tr > td {
-    padding:5px 8px !important;
+    padding:0 8px !important;
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
 }
@@ -48,7 +48,7 @@
     -moz-border-radius: 4px 4px 0 0;
 }
 .fixed-table-header {
-    height:38px;
+    height:auto;
 }
 .fixed-table-footer {
     border-top: 1px solid #E9EBF2;
@@ -57,7 +57,6 @@
 .fixed-table-body {
     overflow-x: auto;
     overflow-y: auto;
-    height: 100%;
 }
 
 .fixed-table-container table {

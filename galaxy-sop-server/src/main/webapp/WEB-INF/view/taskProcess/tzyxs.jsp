@@ -268,6 +268,6 @@ function downloadFile(ele)
 {
 	var row = $(ele).closest("tr");
 	var fileId = row.data("id");
-	window.location.href=platformUrl.downLoadFile+"/"+fileId;
+	forwardWithHeader(platformUrl.downLoadFile+"/"+fileId);
 }
 </script>
