@@ -5,7 +5,6 @@ $(function(){
 		queryParamsType: 'size|page', // undefined
 		
 	});
-	
 });
 
 //查询个人项目
@@ -72,7 +71,6 @@ function setMeetTypes(data){
 		alert("error "+data.result.message);
 		return;
 	}
-	
 	var mapcodename = data.result.message;
 }
 
@@ -80,7 +78,8 @@ function setMeetTypes(data){
 
 //保存记录
 function saveMeet(){
-	var	condition =  getMeetCondition();
+	var	condition = getMeetCondition(null,"projectId", "meetingDateStr", 
+			null,"meetingType", "meetingResult","meetingNotes");
 	if(condition == false || condition == "false"){
 		return;
 	}
@@ -103,73 +102,6 @@ function saveMeetCallBack(data){
 }
 
 
-//验证获取参数
-function getMeetCondition(){
-	var	condition = {};
-	
-	var projectId = $("#projectId").val();
-	var meetingDateStr = $.trim($("#meetingDateStr").val());
-	var meetingType = $.trim($('input:radio[name="meetingType"]:checked').val());
-	var meetingResult = $.trim($('input:radio[name="meetingResult"]:checked').val());
-	//var meetingNotes = $.trim($("#meetingNotes").val());
-	
-	var um = UM.getEditor('meetingNotes');
-	var meetingNotes = $.trim(um.getContent());
-	
-	var fileId = $("#meetfileID").val();
-	
-	if(projectId == null || projectId == ""){
-		alert("项目不能为空");
-		return false;
-	}else{
-		condition.projectId = projectId;
-	}
-	
-	if(meetingDateStr == null ||  meetingDateStr == ""){
-		alert("日期不能为空");
-		return false;
-	}else{
-		condition.meetingDateStr = meetingDateStr;
-	}
-	
-	if(meetingType == null ||  meetingType == ""){
-		alert("类型不能为空");
-		return false;
-	}else{
-		condition.meetingType = meetingType;
-	}
-	
-	if(meetingResult == null ||  meetingResult == ""){
-		alert("结果不能为空");
-		return false;
-	}else{
-		condition.meetingResult = meetingResult;
-	}
-	
-	if(meetingNotes == null || meetingNotes== ""){
-		alert("记录不能为空");
-		return false;
-	}else{
-		if(getLength(meetingNotes) > 500){
-			alert("记录长度最大500字节");
-			return false;
-		}
-	}
-	condition.meetingNotes = meetingNotes;
-	return condition;
-}
-
-function getLength(val){
-	var len = 0;
-	for (var i = 0; i < val.length; i++) {
-		if (val.charCodeAt(i) >= 0x4e00 && val.charCodeAt(i) <= 0x9fa5){ 
-			len += 2;
-		}else {
-			len++;
-		}
-	}
-	return len;
-}
 
 
 //plupload上传对象初始化,   绑定保存
@@ -231,7 +163,13 @@ function initUpload() {
 			BeforeUpload:function(up){
 				//表单函数提交
 				//alert(JSON.stringify(getMeetCondition()));
-				up.settings.multipart_params = getMeetCondition();
+				var res = getMeetCondition(null,"projectId", "meetingDateStr", 
+						null,"meetingType", "meetingResult","meetingNotes");
+				if(res == false || res == "false"){
+					up.stop();
+					return;
+				}
+				up.settings.multipart_params = res;
 			},
 			Error: function(up, err) {
 				alert("错误"+err);
@@ -244,36 +182,6 @@ function initUpload() {
 }
 
 
-//附件点击下载
-function filedown(fileid , filekey){
-	try {
-		var url = platformUrl.downfilebyid+"/"+fileid;
-		window.location.href=forwardWithHeader(url);
-	} catch (e) {
-		console.log(e);
-		alert("下载失败");
-	}
-}
-
-//table format
-function rowcolumnFormat(value, row, index){
-	var fileinfo = "";
-	var rc = "";
-	if(row.fileId != null && row.fileId != undefined && row.fileId != "undefined"){
-		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
-	}
-	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
-				"会议日期："+row.meetingDateStr+
-				"</br>会议结论："+row.meetingResultStr+
-				"</br>会议录音："+fileinfo+
-			"</div>" ;
-	return rc;
-}
-
-//table format
-function proinfoFormat(value, row, index){
-	return row.proName+"</br>"+row.meetingTypeStr;
-}
 
 
 

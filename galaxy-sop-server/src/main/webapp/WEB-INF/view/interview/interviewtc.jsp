@@ -11,12 +11,10 @@
                 <dd>
                 	<select id="projectId" name="projectId" >
                     </select>
-                    
                 	<!-- <input type="text" id="proName" name = "proName"  placeholder="请输入关键字查找" class="txt"/>
                 	<input type="hidden" id="projectId" name = "projectId" value="" /> -->
                 </dd>
             </dl>
-           <!--  <a href="javascript:;" class="searchbtn null">搜索</a> -->
         </div>
         <dl class="fmdl clearfix">
             <dt>访谈日期：</dt>
@@ -25,7 +23,6 @@
             </dd>
         </dl>
     </div>
-    
     
     <div class="min clearfix">
     	<dl class="fmdl fml clearfix">
@@ -36,14 +33,13 @@
         </dl>
     </div>
     
-
 <!-- 赋值     var um = UM.getEditor('describe_editor');
 		um.setContent(data.entity.projectDescribe); 
 		
 	取值 	var um = UM.getEditor('viewNotes');
 		var projectDescribe = um.getContent();
 		-->
-          
+		
 	    <dl class="fmdl clearfix">
 	        <dt>访谈纪要:</dt>
 	        <dd>
@@ -76,19 +72,7 @@
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
- 
  <script type="text/javascript">
 		UM.getEditor('viewNotes');
 </script>
     
-<!-- <script type="text/javascript">
-$(function(){
-
-	var um = UM.getEditor('viewNotes');
-	um.setContent(""); 
-
-
-});
-
-</script> -->

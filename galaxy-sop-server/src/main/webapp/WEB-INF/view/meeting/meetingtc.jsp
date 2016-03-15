@@ -69,8 +69,6 @@
 <script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="${ctx}/ueditor/lang/zh-cn/zh-cn.js"></script>
 
-<script src="${ctx}/js/plupload.full.min.js" type="text/javascript"></script>
- 
  <script type="text/javascript">
 		UM.getEditor('meetingNotes');
 </script>

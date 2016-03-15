@@ -77,12 +77,7 @@
 					data-id-field="lottoId" data-show-refresh="true">
 				<thead>
 					<tr>
-						<!-- <th data-field="viewDateStr" data-align="center">访谈日期</th>
-						<th data-field="proName" data-align="center">所属项目</th>  
-						<th data-field="viewNotes" data-align="center">访谈日志</th>
-						<th data-field="viewTarget" data-align="center">访谈对象</th>
-						<th data-field="fname" data-align="center" data-formatter="fileFormat">会议录音</th> -->
-						<th data-align="center" data-formatter="rowcolumnFormat">访谈概况</th>
+						<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
 						<th data-field="proName" data-align="center">所属项目</th>  
 						<th data-field="viewNotes" data-align="center">访谈日志</th>
@@ -91,9 +86,6 @@
 			</table>
 
            </div>
-           
-          
-          
     </div>
 </div>
 
@@ -102,11 +94,12 @@
 <!-- file -->
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 
+<script src="<%=path %>/js/interview.js" type="text/javascript"></script>
+
+
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 
 </body>
-
-<script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 
 </html>
 

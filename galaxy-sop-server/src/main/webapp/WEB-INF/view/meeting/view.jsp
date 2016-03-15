@@ -17,9 +17,6 @@
 
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<%-- <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
-<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script> --%>
 
 </head>
 
@@ -89,16 +86,9 @@
 				data-show-refresh="false">
 				<thead>
 					<tr>
-						<!-- <th data-field="meetingDateStr" data-align="center">会议日期</th>
-						<th data-field="proName" data-align="center">项目信息</th>
-						<th data-field="meetingTypeStr" data-align="center">会议类型</th>
-						<th data-field="meetingNotes" data-align="center">会议纪要</th>
-						<th data-field="meetingResultStr" data-align="center">会议结论</th>
-						<th data-field="fname" data-align="center">会议录音</th>
-						 -->
-						 <th data-align="center" data-formatter="rowcolumnFormat">会议概况</th>
+						 <th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
 						<!-- <th data-field="hygk" data-align="center">会议概况</th> -->
-						<th data-align="center"  data-formatter="proinfoFormat" >项目信息</th>  
+						<th data-align="center"  data-formatter="meetProInfoFormat" >项目信息</th>  
 						<th data-field="meetingNotes" data-align="center">会议记要</th>
 					</tr>
 				</thead>
@@ -119,6 +109,8 @@
 <!-- bootstrap-table  -->
 <script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
+<script src="${ctx}/js/plupload.full.min.js" type="text/javascript"></script>
 
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
 

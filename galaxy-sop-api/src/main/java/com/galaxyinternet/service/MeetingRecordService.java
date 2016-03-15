@@ -14,7 +14,7 @@ import com.galaxyinternet.model.project.Project;
 public interface MeetingRecordService extends BaseService<MeetingRecord> {
 
 	//public Long insertMeet(MeetingRecord meetingRecord,Project project,Long userid,Long departid);
-	public Long insertMeet(MeetingRecord meetingRecord, Project project, MultipartFile file, String path, Long id,Long departmentId);
+	public Long insertMeet(MeetingRecord meetingRecord, Project project, MultipartFile file, String path, Long id,Long departmentId,boolean equalNowPrograss);
 	
 	public Page<MeetingRecordBo> queryMeetPageList(MeetingRecordBo query, Pageable pageable);
 	

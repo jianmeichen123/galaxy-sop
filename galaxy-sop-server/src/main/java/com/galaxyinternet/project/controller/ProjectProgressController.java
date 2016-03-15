@@ -376,7 +376,14 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			MultipartFile file = multipartRequest.getFile("file");
 			String path = request.getSession().getServletContext().getRealPath("upload");
 			
-			Long id = meetingRecordService.insertMeet(meetingRecord,project,file,path, user.getId(),user.getDepartmentId());
+			boolean equalNowPrograss = true;
+			int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;//会议对应的阶段
+			int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ; //项目阶段
+			if(projectPro > operationPro){
+				equalNowPrograss = false;
+			}
+			
+			Long id = meetingRecordService.insertMeet(meetingRecord,project,file,path, user.getId(),user.getDepartmentId(),equalNowPrograss);
 			
 			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -433,18 +440,25 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			return responseBody;
 		}*/
 		
-		//project id 验证
-		Project project = new Project();
-		project = projectService.queryById(meetingRecord.getProjectId());
-		
-		String err = errMessage(project,user,prograss);
-		if(err!=null && err.length()>0){
-			responseBody.setResult(new Result(Status.ERROR,null, err));
-			return responseBody;
-		}
-		
 		try {
-			Long id = meetingRecordService.insertMeet(meetingRecord,project,null,null, user.getId(),user.getDepartmentId());
+			//project id 验证
+			Project project = new Project();
+			project = projectService.queryById(meetingRecord.getProjectId());
+			
+			String err = errMessage(project,user,prograss);
+			if(err!=null && err.length()>0){
+				responseBody.setResult(new Result(Status.ERROR,null, err));
+				return responseBody;
+			}
+		
+			boolean equalNowPrograss = true;
+			int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;//会议对应的阶段
+			int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ; //项目阶段
+			if(projectPro > operationPro){
+				equalNowPrograss = false;
+			}
+			
+			Long id = meetingRecordService.insertMeet(meetingRecord,project,null,null, user.getId(),user.getDepartmentId(),equalNowPrograss);
 			//Long id = meetingRecordService.insertMeet(meetingRecord,project, user.getId(),user.getDepartmentId());
 			
 			responseBody.setId(id);
@@ -961,9 +975,11 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		List<Project> perProList = new ArrayList<Project>();
 		try {
 			ProjectBo query = new ProjectBo();
-			if(progress!=null){
+			/*if(progress!=null){
 				query.setProjectProgress(progress);
-			}else if(meetingType!=null){
+			}*/
+				
+			if(meetingType!=null){
 				if(meetingType.equals(DictEnum.meetingType.CEO评审.getCode())){
 					query.setProjectProgress(DictEnum.projectProgress.CEO评审.getCode());
 					

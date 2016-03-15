@@ -3,7 +3,12 @@ $(function(){
 	
 	$('#data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
-		
+		pageSize:3,
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+        search: false,
 	});
 	
 });
@@ -19,7 +24,6 @@ function queryPerPro(){
 	if(proName != null && proName != ""){
 		condition.nameLike = proName;
 	}
-	
 	condition.progress = "projectProgress:1";
 	sendGetRequest(platformUrl.getUserPro,condition,setProSelect);
 }
@@ -39,7 +43,6 @@ function setProSelect(data){
 	}
 	
 	var entityList = data.entityList;
-	
 	if(entityList.length == 0 ){
 		alert("无相关项目可添加记录");
 		$(".pop").remove();
@@ -53,17 +56,6 @@ function setProSelect(data){
 	}
 }
 
-
-//附件点击下载
-function filedown(fileid , filekey){
-	try {
-		var url = platformUrl.downfilebyid+"/"+fileid;
-		window.location.href=forwardWithHeader(url);
-	} catch (e) {
-		console.log(e);
-		alert("下载失败");
-	}
-}
 
 //plupload上传对象初始化,   绑定保存
 function initUpload() {
@@ -109,7 +101,7 @@ function initUpload() {
 			},
 			
 			//上传进度
-			UploadProgress: function(up, file) {
+			UploadProgress: function(up, file) { 
 				
 			},
 			
@@ -123,26 +115,16 @@ function initUpload() {
 				}
 				alert("保存成功");
 				location.reload(true);
-				
-				/*$("#popTxt input[name='fileKey']").val(result.fileKey);
-				$("#popTxt input[name='fileLength']").val(result.fileLength);
-				$form = $("#popTxt #upload-form");
-				
-				//表单数据 json 格式化
-				var data = JSON.parse($form .serializeObject());
-				var url = ""+platformUrl.tempSave
-				
-				sendPostRequestByJsonObj( url, data, function(data){ alert("上传成功."); loadTempList(); } );*/
 			},
 			BeforeUpload:function(up){
 				//表单函数提交
 				//alert(JSON.stringify(getSaveCondition()));
-				var res = getSaveCondition();
+				var res = getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
 				if(res == false || res == "false"){
 					up.stop();
 					return;
 				}
-				up.settings.multipart_params = getSaveCondition();
+				up.settings.multipart_params = res;
 			},
 			Error: function(up, err) {
 				alert("错误"+err);
@@ -158,7 +140,7 @@ function initUpload() {
 
 //保存访谈记录
 function saveInterView(){
-	var	condition =  getSaveCondition();
+	var	condition =  getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
 	if(condition == false || condition == "false"){
 		return;
 	}
@@ -174,7 +156,6 @@ function saveCallBack(data){
 		alert("error "+data.result.message);
 		return;
 	}
-	
 	alert("保存成功");
 	//$("#popbg,#pop").remove();
 	location.reload(true);
@@ -183,134 +164,6 @@ function saveCallBack(data){
 
 
 
-//验证获取保存参数
-function getSaveCondition(){
-	var	condition = {};
-	
-	var projectId = $("#projectId").val();
-	var viewDateStr = $("#viewDate").val();
-	var viewTarget = $.trim($("#viewTarget").val());
-	//var viewNotes = $.trim($("#viewNotes").val());
-	var um = UM.getEditor('viewNotes');
-	var viewNotes = $.trim(um.getContent());
-	
-	var fileId = $("#viewfileID").val();
-	
-	if(projectId == null || projectId == ""){
-		alert("项目不能为空");
-		return false;
-	}
-	
-	if(viewDateStr == null ||  viewDateStr == ""){
-		alert("日期不能为空");
-		return false;
-	}
-	
-	if(viewTarget == null ||  viewTarget == ""){
-		alert("对象不能为空");
-		return false;
-	}else{
-		if(getLength(viewTarget) > 50){
-			alert("对象长度最大50字节");
-			return false;
-		}
-	}
-	
-	if(viewNotes == null || viewNotes== ""){
-		alert("记录不能为空");
-		return false;
-	}else{
-		if(getLength(viewTarget) > 500){
-			alert("记录长度最大500字节");
-			return false;
-		}
-	}
-	
-	if(fileId != null && fileId!= ""){
-		condition.fileId = fileId;
-	}
-	
-	condition.projectId = projectId;
-	condition.viewDateStr = viewDateStr;
-	condition.viewTarget = viewTarget;
-	condition.viewNotes = viewNotes;
-	
-	/*var	condition = {
-		"projectId" : projectId,
-		"viewDate" : viewDate,
-		"viewTarget" : viewTarget,
-		"viewNotes" : viewNotes,
-		"fileId" : fileId
-	};*/
-	
-	return condition;
-}
-
-
-function getLength(val){
-	var len = 0;
-	for (var i = 0; i < val.length; i++) {
-		if (val.charCodeAt(i) >= 0x4e00 && val.charCodeAt(i) <= 0x9fa5){ 
-			len += 2;
-		}else {
-			len++;
-		}
-	}
-	return len;
-}
-
-
-
-//查询
-function selectViewPage(){
-	$("#interVierTable").bootstrapTable('refresh',
-		{
-	      url : platformUrl.selectViewPage,
-	      queryParams:getQueryCondition
-		}
-	);
-}
-
-//验证获取保存参数
-function getQueryCondition(){
-	
-	var	condition = {};
-	
-	var startTime = $("#startTime").val();
-	var endTime = $("#endTime").val();
-	var proNameCode = $.trim($("#proNameCode").val());
-
-	
-	if(startTime != null && startTime!= ""){
-		condition.startTime = startTime;
-	}
-	
-	if(endTime != null && endTime!= ""){
-		condition.endTime = endTime;
-	}
-	
-	if(proNameCode != null && proNameCode!= ""){
-		condition.proNameCode = proNameCode;
-	}
-
-	return condition;
-}
-
-
-//table format
-function rowcolumnFormat(value, row, index){
-	var fileinfo = "" ;
-	var rc = "";
-	if( row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
-		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
-	}
-	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
-				"访谈日期："+row.viewDateStr+
-				"</br>访谈对象："+row.viewTarget+
-				"</br>访谈录音："+fileinfo+
-			"</div>" ;
-	return rc;
-}
 
 
 

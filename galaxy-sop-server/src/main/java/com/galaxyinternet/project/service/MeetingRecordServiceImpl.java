@@ -116,37 +116,35 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	
 	@Override
 	@Transactional
-	public Long insertMeet(MeetingRecord meetingRecord,Project project,MultipartFile file, String path,Long userid,Long udepartid) {
-		
+	public Long insertMeet(MeetingRecord meetingRecord,Project project,MultipartFile file, String path,Long userid,Long udepartid,boolean equalNowPrograss) {
 		if(file != null){
 			Long fileId = upfile(file,userid,path,project.getId(),project.getProgress());
 			meetingRecord.setFileId(fileId);
 		}
-		
 		Long id = getBaseDao().insert(meetingRecord);
-		
 		// 会议结论： 待定(默认)、 否决、 通过
 		// 会议类型 2:内评会、3：CEO评审、 4:立项会、 7投决会、
-		if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())) {
-			if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
-				lph(meetingRecord.getProjectId(), meetingRecord.getMeetingResult());
-			}
-		} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())) {
-			if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
-				ceops(meetingRecord.getProjectId(), meetingRecord.getMeetingResult());
-			}
-		} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())) {
-			pqcUpdate(meetingRecord);
-			if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
-				lxh(meetingRecord.getProjectId(), meetingRecord.getMeetingResult(), userid, udepartid);
-			}
-		} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())) {
-			pqcUpdate(meetingRecord);
-			if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
-				tjh(meetingRecord.getProjectId(), project, meetingRecord.getMeetingResult(), userid ,udepartid);
+		if(equalNowPrograss){
+			if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())) {
+				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
+					lph(meetingRecord.getProjectId(), meetingRecord.getMeetingResult());
+				}
+			} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())) {
+				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
+					ceops(meetingRecord.getProjectId(), meetingRecord.getMeetingResult());
+				}
+			} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())) {
+				pqcUpdate(meetingRecord);
+				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
+					lxh(meetingRecord.getProjectId(), meetingRecord.getMeetingResult(), userid, udepartid);
+				}
+			} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())) {
+				pqcUpdate(meetingRecord);
+				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
+					tjh(meetingRecord.getProjectId(), project, meetingRecord.getMeetingResult(), userid ,udepartid);
+				}
 			}
 		}
-		
 		return id;
 	}
 	
