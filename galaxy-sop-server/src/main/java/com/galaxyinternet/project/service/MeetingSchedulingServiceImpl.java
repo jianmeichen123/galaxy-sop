@@ -49,6 +49,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 					 meeting.setCreateUname(project.getCreateUname());
 				 }
 			 }
+			 setDefaultValue(meeting);
 		 }
 		 
 		 return meetingList;
@@ -66,9 +67,32 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 					 meeting.setCreateUname(project.getCreateUname());
 				 }
 			 }
+			 
+			 setDefaultValue(meeting);
 		 }
 		 
 		 return meetingList;
+	}
+
+	private void setDefaultValue(MeetingScheduling meeting) {
+		if (meeting.getMeetingCount()==null) {
+			 meeting.setMeetingCount(0);
+		 }
+		 if (meeting.getProjectName() == null) {
+			 meeting.setProjectName("");
+		 }
+		 
+		 if (meeting.getProjectCareerline()==null) {
+			 meeting.setProjectCareerline("");
+		 }
+		 
+		 if (meeting.getRemark() == null) {
+			 meeting.setRemark("");
+		 }
+		 
+		 if (meeting.getCreateUname() == null) {
+			 meeting.setCreateUname("");
+		 }
 	}
 
 	@Override
@@ -85,6 +109,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 					 meeting.setCreateUname(project.getCreateUname());
 				 }
 			 }
+			 setDefaultValue(meeting);
 		 }
 	    page.setContent(content);
 		return page;

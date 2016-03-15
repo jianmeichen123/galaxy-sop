@@ -33,7 +33,7 @@
 		<dl class="fmdl clearfix">
 	    	<dt>档案来源：</dt>
 	        <dd class="clearfix">
-	        	<label><input name="fileSource" type="radio" value = "1" />内部</label>
+	        	<label><input name="fileSource" type="radio" value = "1" checked/>内部</label>
 	            <label><input name="fileSource" type="radio" value = "2" />外部</label>
 	        </dd>
 	    </dl>
@@ -228,7 +228,7 @@ function initUpload(_dialog){
 				var $form =$(_dialog.id).find("form")
 				var data = JSON.parse($form.serializeObject());
 				data['type'] = data['fileSource'];
-				data['fileWorktype']='fileWorktype:6';
+				data['fileWorktype']='fileWorktype:1';
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {

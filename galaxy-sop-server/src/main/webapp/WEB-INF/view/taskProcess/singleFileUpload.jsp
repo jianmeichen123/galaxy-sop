@@ -29,14 +29,14 @@
 		<dl class="fmdl clearfix">
 	    	<dt>档案来源：</dt>
 	        <dd class="clearfix">
-	        	<label><input name="fileSource" type="radio" value = "1"/>内部</label>
+	        	<label><input name="fileSource" type="radio" value = "1" checked/>内部</label>
 	            <label><input name="fileSource" type="radio" value = "2"/>外部</label>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
 	    	<dt>存储类型：</dt>
 	        <dd>
-	        	<select name="fileType"</select>
+	        	<select name="fileType"></select>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -87,6 +87,7 @@ $(function(){
 			function(data){
 				if(data.result.status=="OK"){
 					alert("提交成功。");
+					forwardWithHeader(platformUrl.showTask);
 				}
 				else
 				{

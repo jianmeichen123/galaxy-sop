@@ -53,6 +53,7 @@ public class InterviewHandler implements Handler {
 		file.setFileKey(q.getFileKey());
 		file.setBucketName(q.getBucketName());
 		file.setFileName(q.getFileName());
+		file.setFileSuffix(q.getSuffix());
 		long fid = sopFileDao.insert(file);
 		InterviewRecord ir = new InterviewRecord();
 		ir.setProjectId(q.getPid());

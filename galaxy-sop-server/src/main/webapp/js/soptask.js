@@ -4,9 +4,9 @@
 $(function(){
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
-		console.log("ok");
-		var taskId=$("#taskid").val();
-		projectid=$("#projectid").val();
+		var obj=this;
+		var taskId=obj.childNodes[1].value;;
+		var projectid=obj.childNodes[2].value;;
 	    var  _url=sopContentUrl+"/galaxy/soptask/goClaimtcPage?id="+taskId+"&sid="+sessionId+"&guid="+userId;
 	  // 	var _url = forwardWithHeader(claimUrl);
 		$.getHtml({

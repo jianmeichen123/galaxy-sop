@@ -1,5 +1,6 @@
 package com.galaxyinternet.operationMessage.controller;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.OperationMessageService;
 
 @Controller
@@ -33,8 +35,6 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	@Autowired
 	private OperationMessageService operationMessageService;
 	
-	@Autowired
-	com.galaxyinternet.framework.cache.Cache cache;
 	
 	@Override
 	protected BaseService<OperationMessage> getBaseService() {
@@ -52,15 +52,32 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	@RequestMapping(value = "/queryList", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<OperationMessage> queryUserList(HttpServletRequest request,@RequestBody OperationMessageBo operationMessageBo) {
 		ResponseData<OperationMessage> responseBody = new ResponseData<OperationMessage>();
-		try { 
+		try {
+			User user = (User) getUserFromSession(request);
+			operationMessageBo.setOperatorId(user.getId());
 			Page<OperationMessage> operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
 			responseBody.setPageList(operationMessage);
 			responseBody.setResult(new Result(Status.OK, ""));
-			return responseBody;
+			return responseBody;	
 		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
 			logger.error("queryUserList ", e);
 		}
 		return responseBody;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/remind", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<OperationMessage> remind(HttpServletRequest request) {
+		ResponseData<OperationMessage> responseBody = new ResponseData<OperationMessage>();
+		try {
+			return responseBody;	
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			logger.error("queryUserList ", e);
+		}
+		return responseBody;
+	}
+	
+	
 }

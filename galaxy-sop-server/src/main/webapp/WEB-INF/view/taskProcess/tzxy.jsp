@@ -3,6 +3,7 @@
 	String path = request.getContextPath(); 
 %>
 <div class="btm">
+	<input type="checkbox" name="hasStockTransfer" value="1">是否涉及股权转让
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
@@ -212,6 +213,7 @@ function initUpload(_dialog,type){
 				var data = JSON.parse($form.serializeObject());
 				data['type'] = data['fileSource'];
 				data['fileWorktype']=$form.find("[name='fileWorktype']").val();
+				data['hasStockTransfer']=$("[name='hasStockTransfer']:checked").val();
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {

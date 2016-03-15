@@ -32,7 +32,7 @@
 		<dl class="fmdl clearfix">
 	    	<dt>档案来源：</dt>
 	        <dd class="clearfix">
-	        	<label><input name="fileSource" type="radio" value = "1" />内部</label>
+	        	<label><input name="fileSource" type="radio" value = "1" checked/>内部</label>
 	            <label><input name="fileSource" type="radio" value = "2" />外部</label>
 	        </dd>
 	    </dl>
