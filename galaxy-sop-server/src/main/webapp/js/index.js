@@ -67,12 +67,12 @@
 				 var temp = $(this)[0];
 				 i=i+1;
 				 var tr='<tr>'+
-					 '<td>'+i+'</td>'+
-					 '<td>'+ getValue(temp.projectName)+'</td>'+
-					 '<td>'+ getValue(formatDate(temp.meetingDate))+'</td>'+
-					 '<td>'+temp.meetingCount+'</td>'+
-					' </tr>'; 
-				 tbodyList.append(tr);
+				 '<td>'+i+'</td>'+
+				 '<td>'+ getValue(templ.projectName)+'</td>'+
+				 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
+				 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
+				' </tr>'; 
+			 tbodyList.append(tr);
 			  });
 			
 		}
@@ -90,8 +90,8 @@
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
 					 '<td>'+ getValue(templ.projectName)+'</td>'+
-					 '<td>'+ getValue(formatDate(templ.meetingDate))+'</td>'+
-					 '<td>'+templ.meetingCount+'</td>'+
+					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
+					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
@@ -108,16 +108,16 @@
 				 var templ = $(this)[0];
 				 i=i+1;
 				 var tr='<tr>'+
-					 '<td>'+i+'</td>'+
-					 '<td>'+ getValue(templ.projectName)+'</td>'+
-					 '<td>'+ getValue(templ.status)+'</td>'+
-					 '<td>'+ getValue(formatDate(templ.meetingDate))+'</td>'+
-					 '<td>'+templ.meetingCount+'</td>'+
-					 '<td>'+getValue(templ.projectCareerline)+'</td>'+
-					 '<td>'+getValue(templ.createUname)+'</td>'+
-					 '<td>'+getValue(templ.remark)+'</td>'+
-					' </tr>'; 
-				 tbodyList.append(tr);
+				 '<td>'+i+'</td>'+
+				 '<td>'+ getValue(templ.projectName)+'</td>'+
+				 '<td>'+ getStatusValue(templ.status)+'</td>'+
+				 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
+				 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
+				 '<td>'+getValue(templ.projectCareerline)+'</td>'+
+				 '<td>'+getValue(templ.createUname)+'</td>'+
+				 '<td>'+getValue(templ.remark)+'</td>'+
+				' </tr>'; 
+			    tbodyList.append(tr);
 			  });
 			
 		}
@@ -134,9 +134,9 @@
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
 					 '<td>'+ getValue(templ.projectName)+'</td>'+
-					 '<td>'+ getValue(templ.status)+'</td>'+
-					 '<td>'+ getValue(formatDate(templ.meetingDate))+'</td>'+
-					 '<td>'+templ.meetingCount+'</td>'+
+					 '<td>'+ getStatusValue(templ.status)+'</td>'+
+					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
+					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
 					 '<td>'+getValue(templ.projectCareerline)+'</td>'+
 					 '<td>'+getValue(templ.createUname)+'</td>'+
 					 '<td>'+getValue(templ.remark)+'</td>'+
@@ -155,6 +155,32 @@
 		}
 	}
 	
+	function getStatusValue(str) {
+		if (typeof(str) == "undefined" || str == null) { 
+			 return "-";
+		}  else if (str=="taskStatus:2"){
+			return "待完成";
+		} else if(str=="taskStatus:1") {
+			return "待认领";
+		} else if (str=="taskStatus:3") {
+			return "已完成";
+		}
+	}
+	function getDateValue(str) {
+		if (str == null || typeof(str) == "undefined") {
+			return " ";
+		} esle {
+		  return formatDate(str);
+		}
+	}
+	
+	function getIntegerValue(str) {
+		if (str == null) {
+			return 0
+		} else {
+			return str
+		}
+	}
 	function formatDate(date, format) {   
 	    if (!date) return null;   
 	    if (!format) format = "yyyy-MM-dd";   

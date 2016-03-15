@@ -246,7 +246,9 @@ var platformUrl = {
 	/**
 	 * 档案上传通用
 	 */
-	commonUploadFile : sopContentUrl + "/galaxy/sopFile/commonUploadFile"
+	commonUploadFile : sopContentUrl + "/galaxy/sopFile/commonUploadFile",
+	
+	showTask: sopContentUrl + "/galaxy/soptask",
 }
 
 /**
