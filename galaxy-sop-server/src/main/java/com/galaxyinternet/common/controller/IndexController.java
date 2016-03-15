@@ -25,6 +25,8 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "/redirect", method = RequestMethod.GET)
 	public String redirect(HttpServletRequest request) {
+		String sessionId = request.getParameter(Constants.SESSOPM_SID_KEY);
+		request.getSession().setAttribute(Constants.SESSION_USER_KEY, cache.get(sessionId));
 		return "redirect:/galaxy/index";
 	}
 	
@@ -34,8 +36,6 @@ public class IndexController {
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request) {
-		String sessionId = request.getParameter(Constants.SESSOPM_SID_KEY);
-		request.getSession().setAttribute(Constants.SESSION_USER_KEY, cache.get(sessionId));
 		return "index";
 	}
 	
