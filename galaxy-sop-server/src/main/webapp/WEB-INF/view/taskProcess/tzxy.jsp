@@ -80,6 +80,11 @@
 $(function(){
 	loadRows();
 	loadRelatedData();
+	
+	if("${taskFlag}" == 7)
+	{
+		$("[name='hasStockTransfer']").attr('checked',true).attr('disabled',true);
+	}
 });
 function loadRows()
 {
@@ -252,7 +257,6 @@ function initForm(_dialog,fileWorktype,type)
 	{
 		$(_dialog.id).find("[name='id']").val($row.data('id'));
 	}
-	
 	$(_dialog.id).find("[name='type']").val(type);
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
 	$(_dialog.id).find("[name='fileWorktype']").val(worktype);
@@ -260,6 +264,7 @@ function initForm(_dialog,fileWorktype,type)
 	$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
 	$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());
+	
 }
 function downloadFile(ele)
 {
