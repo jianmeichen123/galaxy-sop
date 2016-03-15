@@ -328,19 +328,20 @@ function totalUrgentCallback(data) {
 	if (data.total != null) {
 		total =data.total;
 	}
-	$('.totalUrgent').html(total);
+	$('.bubble').html(total);
 }
 
 function totalMissionCallback(data) {
 	var total = 0 ;
+	alert(data.total)
 	if (data.total != null) {
 		total =data.total;
 	}
-	$('.bubble').html(total)
+	$('.totalUrgent').html(total)
 }
 
 function fillHeaderdata() {
-	totalUrgent();
+	//totalUrgent();
 	    totalMission();
 	/*setInterval(function() {
 		totalUrgent();
