@@ -57,6 +57,12 @@
 					<foreach collection="fileworktypeList" item="fileworktypeList" index="index" open="(" close=")" separator=",">
 			            #{fileworktypeList}
 			        </foreach>
+				</if>
+				<if test="projectIdList != null"> 
+					and project_id in
+					<foreach collection="projectIdList" item="projectId" index="index" open="(" close=")" separator=",">
+			            #{projectId}
+			        </foreach>
 				</if>			
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
