@@ -33,7 +33,7 @@
         <div class="top clearfix" id="custom-toolbar">
         	<!--搜索-->
           <div class="searchbox clearfix">
-            <input type="hidden"  id="tipslink_val" name="module" value="1" class="on"/>
+            <input type="hidden"  id="tipslink_val" name="module" value="1" />
             <input  name="keyword" type="text" placeholder="请输入项目名" class="txt"/>
             <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
 
@@ -46,7 +46,7 @@
             <!--tips连接-->
         	<ul class="tipslink">
 
-                <li><a href="javascript:;" query-by="module" query-val="1">广播消息<span><!-- (10) --></span></a></li>
+                <li><a href="javascript:;" query-by="module" query-val="1" class="on">广播消息<span><!-- (10) --></span></a></li>
                 <li><a href="javascript:;"  query-by="module" query-val="2">与我有关 <span><!-- (4) --></span></a></li>
           </ul>
         </div>
@@ -73,7 +73,7 @@
 </div>
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-<script src="<%=request.getContextPath() %>/js/soptask.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/js/operationMessage.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>	
 <!-- bootstrap-table -->
