@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.sopfile;
 
+import java.util.List;
 import java.util.Map;
 
 import com.galaxyinternet.common.enums.DictEnum;
@@ -116,6 +117,9 @@ public class SopFile extends PagableEntity {
   	private String fSource;
   	private Map<String,String> params;
   	private String voucherFileName;
+  	
+  	//参数
+  	private List<Long> projectIdList;
 
   	
 
@@ -377,6 +381,14 @@ public class SopFile extends PagableEntity {
 
 	public void setVoucherFileKey(String voucherFileKey) {
 		this.voucherFileKey = voucherFileKey;
+	}
+
+	public List<Long> getProjectIdList() {
+		return projectIdList;
+	}
+
+	public void setProjectIdList(List<Long> projectIdList) {
+		this.projectIdList = projectIdList;
 	}
 
     

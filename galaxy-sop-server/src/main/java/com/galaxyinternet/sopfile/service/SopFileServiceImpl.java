@@ -82,15 +82,24 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			
 			if(sopFile.getProjectId()!=null){
 				Project project = projectDao.selectById(sopFile.getProjectId());
-				sopFile.setProjectName(project.getProjectName());
+				//当为空时证明关联数据已被删除
+				if(project!=null){
+					sopFile.setProjectName(project.getProjectName());
+				}
+				
 			}
 			if(sopFile.getCareerLine()!=null){
 				Department department = departmentService.queryById(sopFile.getCareerLine());
-				sopFile.setCareerLineName(department.getName());
+				if(department!=null){
+					sopFile.setCareerLineName(department.getName());
+				}
+				
 			}
 			if(sopFile.getFileUid()!=null){
 				User user = userService.queryById(sopFile.getFileUid());
-				sopFile.setFileUName(user.getRealName());
+				if(sopFile!=null){
+					sopFile.setFileUName(user.getRealName());
+				}
 			}		
 //			
 		}

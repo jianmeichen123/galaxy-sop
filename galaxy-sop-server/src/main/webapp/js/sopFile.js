@@ -1,11 +1,11 @@
 var searchPanel = {
 		initData : function(){
 			//档案类型
-			sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,searchPanel.initDataCallBack,null);
+			sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,searchPanel.initDataCallBack);
 			//业务类型
-			sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,searchPanel.initDataCallBack,null);
+			sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,searchPanel.initDataCallBack);
 			//所属事业线
-			sendGetRequest(platformUrl.getDepartMentDict+"/department",null,searchPanel.initDataCallBack,null);
+			sendGetRequest(platformUrl.getDepartMentDict+"/department",null,searchPanel.initDataCallBack);
 		},
 		initDataCallBack : function(data){
 			var _dom;

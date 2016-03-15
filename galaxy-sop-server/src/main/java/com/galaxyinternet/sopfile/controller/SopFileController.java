@@ -34,6 +34,7 @@ import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
@@ -59,6 +60,7 @@ import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
+import com.galaxyinternet.service.UserRoleService;
 
 @Controller
 @RequestMapping("/galaxy/sopFile")
@@ -80,6 +82,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private DepartmentService departMentService;
 	@Autowired
 	private SopVoucherFileDao sopVoucherFileDao;
+	@Autowired
+	private UserRoleService userRoleService;
 	@Autowired
 	Cache cache;
 	
@@ -385,17 +389,45 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	@RequestMapping(value = "/searchSopFileList", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopFile> searchSopFileList(HttpServletRequest request, @RequestBody SopFile sopFile) {
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		User obj = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if (obj == null) {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
 		}
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj.getId());
+		//角色判断(人事)
+		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
+			sopFile.setFileUid(obj.getId());
+		//财务
+		}else if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
+			sopFile.setFileUid(obj.getId());
+		//法务	
+		}else if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
+			sopFile.setFileUid(obj.getId());
+		//投资经理
+		}else if(roleIdList.contains(UserConstant.TZJL)){
+			Project project = new Project();
+			project.setCreateUid(obj.getId());	
+			List<Project> projectList = proJectService.queryList(project); 
+			List<Long> projectIdList = new ArrayList<Long>();
+			for(Project temp : projectList){
+				projectIdList.add(temp.getId());
+			}
+			sopFile.setProjectIdList(projectIdList);
+		//档案管理员	
+		}else if(roleIdList.contains(UserConstant.DAGLY)){
+		
+		//其他人怎么办
+		}else{
+			
+		}
+		
 		try {
 			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,new PageRequest(sopFile.getPageNum(), sopFile.getPageSize()));
 			responseBody.setPageList(pageSopFile);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
-		} catch (PlatformException e) {
+		} catch (DaoException e) {
 			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
 			if (logger.isErrorEnabled()) {
 				logger.error("queryUserList ", e);
