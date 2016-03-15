@@ -223,7 +223,7 @@ public class SopFile extends PagableEntity {
 	public void setFileSource(String fileSource) {
 		this.fileSource = fileSource;
 		if(fileSource != null){
-			//fSource = DictEnum.files.档案来源.getNameByCode(fileSource);
+			fSource = DictEnum.fileSource.getNameByCode(fileSource);
 		}
 		
 	}
@@ -352,6 +352,8 @@ public class SopFile extends PagableEntity {
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
 	}
+
+
 
 	public String getFileUName() {
 		return fileUName;

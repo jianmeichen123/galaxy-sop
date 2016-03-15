@@ -156,7 +156,6 @@
 							tzyxs(0);
 						}
 						if(i == 8){
-							alert(data.entity.stockTransfer);
 							tzxy(data.entity.stockTransfer,data.entity.projectType);
 						}
 						if(i == 9){
@@ -170,6 +169,7 @@
 						$("#projectProgress_" + i).on("click",function(){
 							var id = $(this).attr("id");
 							var indexNum = id.substr(id.length-1,1);
+							console.log("indexNum:"+indexNum);
 							var pp = data.entity.projectProgress;
 							var pNum = pp.substr(pp.length-1,1);
 							if(indexNum == '1'){
@@ -216,6 +216,7 @@
 								 if(parseInt(indexNum) < parseInt(pNum)){
 									 $("#tzxy_options").remove();
 								 }
+								 tzxy(data.entity.stockTransfer,data.entity.projectType);
 							}else if(indexNum == '9'){
 								$("#projectProgress_8_con").css("display","none");
 								$("#projectProgress_9").addClass("on");
@@ -603,15 +604,24 @@
 	function tzxy(st,projectType){
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null){
+			var _table = $("#teamSeheetDataGrid");
+			var _tbody = _table.find("tbody");
+			_tbody.empty();
 			sendPostRequestByJsonObj(
 					platformUrl.searchSopFileListWithoutPage,
 					{"projectId" : pid},
 					function(data){
-						var _table = $("#teamSeheetDataGrid");
-						var _tbody = _table.find("tbody");
+						
 						_tbody.empty();
 						$.each(data.entityList,function(){
-							var $tr = $('<tr></tr>');
+							var $tr;
+							if(this.fileWorktype == 'fileWorktype:6'){
+								$tr = $('<tr></tr>');
+							}else if(this.fileWorktype == 'fileWorktype:7' && st==0){
+								$tr = $('<tr style="display:none;" id="gwxt_tr"></tr>');
+							}else if(this.fileWorktype == 'fileWorktype:7' && st==1){
+								$tr = $('<tr id="gwxt_tr"></tr>');
+							}
 							$tr.append('<td>'+this.fWorktype+'</td>') ;
 							if(this.fileType){
 								$tr.append('<td>'+this.fType+'</td>');
@@ -646,9 +656,9 @@
 							}
 							_tbody.append($tr);
 							//涉及股权转让
-							alert(st);
 							if(st == 1){
-								
+								$("#stock_transfer").attr("checked","checked");
+								$("#stock_transfer").attr("disabled","true");
 							}else{
 								
 							}
@@ -715,6 +725,16 @@
 		return false;
 	}
 	
+	/**
+	 * "是否涉及股权转让"按钮点击事件
+	 */
+	function selected(obj){
+		if(obj.checked){
+			$("#gwxt_tr").css("display","table-row");
+		}else{
+			$("#gwxt_tr").css("display","none");
+		}
+	}
 	 /**
 	  * 股权转让协议弹出层
 	  */
@@ -775,9 +795,9 @@
 	function gqjg(){
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null){
-			sendPostRequestByJsonObj(
-					platformUrl.searchSopFileListWithoutPage,
-					{"projectId" : pid},
+			sendGetRequest(
+					platformUrl.getFileList + pid + "/9",
+					null,
 					function(data){
 						var json = eval(data);
 						 var dataList=json.entityList;

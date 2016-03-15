@@ -45,12 +45,14 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
@@ -74,6 +76,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private DictService dictService;
 	@Autowired
 	private ProjectService proJectService;
+	@Autowired
+	private DepartmentService departMentService;
 	@Autowired
 	private SopVoucherFileDao sopVoucherFileDao;
 	@Autowired
@@ -308,6 +312,34 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		result.setMessage(parentCode);
 	    result.setStatus(Status.OK);
 	    responseBody.setEntityList(dicts);
+		responseBody.setResult(result);
+		return responseBody;
+	}
+	
+	/**
+	 * 获取部门字典
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getDepartmentDict/{parentCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Department> getDepartmentDict( @PathVariable String parentCode,HttpServletRequest request) {
+		ResponseData<Department> responseBody = new ResponseData<Department>();
+		List<Department> departDicts = null;
+		Result result = new Result();
+		try {
+			departDicts = departMentService.queryAll();	
+		}catch(PlatformException e){
+			result.setErrorCode(e.getCode()+"");
+			result.setMessage(e.getMessage());
+		}catch(Exception e){
+			result.setMessage("系统错误");
+			result.addError("系统错误");
+			logger.error("根据parentId查找数据字典错误",e);
+		}
+	    result.setStatus(Status.OK);
+	    result.setMessage("department");
+	    responseBody.setEntityList(departDicts);
 		responseBody.setResult(result);
 		return responseBody;
 	}
@@ -778,6 +810,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			responseBody.setResult(new Result(Status.ERROR,null, "文件业务类型为空"));
 			return responseBody;
 		}
+		if(projectId==null){
+			responseBody.setResult(new Result(Status.ERROR,null, "项目不能为空"));
+			return responseBody;
+		}
 		//文档类型校验
 		//文档来源校验		
 
@@ -791,7 +827,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			//4业务控制 --若文件上传成功-判断是否为签署
 			if(tempFile!=null){
 				//判断是否为签署凭证
-				if(isProve.equals("on")){
+				if("on".equals(isProve)){
 					//为签署凭证
 					//初始化签署凭证文件表
 					SopVoucherFile sopVoucherFile = new SopVoucherFile();

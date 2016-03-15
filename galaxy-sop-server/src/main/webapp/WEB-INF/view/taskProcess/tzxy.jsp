@@ -30,6 +30,8 @@
 	<form>
 		<input type="hidden" name="id">
 		<input type="hidden" name="type">
+		<input type="hidden" name="pid" value="${projectId }">
+		<input type="hidden" name="stage" value="projectProgress:8">
 		<dl class="fmdl clearfix">
 	    	<dt>档案来源：</dt>
 	        <dd class="clearfix">
@@ -49,7 +51,7 @@
 	        	<select name="fileWorktype" disabled></select>
 	        </dd>
 	        <dd>
-	        	<label><input type="checkbox"/>签署凭证</label>
+	        	<label><input type="checkbox" name="voucherType" value="1"/>签署凭证</label>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -154,11 +156,7 @@ function showUploadPopup(ele)
 	});
 }
 function initUpload(_dialog,type){
-	var url = platformUrl.uploadFile2Task;
-	if(type == 'voucher')
-	{
-		url = platformUrl.uploadVoucher2Task;
-	}
+	var url = platformUrl.stageChange;
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
@@ -186,7 +184,16 @@ function initUpload(_dialog,type){
 								platformUrl.uploadFile2Task,
 								data,
 								function(data){
-									afterSave(data);
+									if(data.result.status == "OK")
+									{
+										alert("上传成功.");
+										$(_dialog.id).find("[data-close='close']").click();
+										loadRows();
+									}
+									else
+									{
+										alert(data.result.errorCode);
+									}
 								}
 						);
 					}
@@ -201,13 +208,15 @@ function initUpload(_dialog,type){
 				});
 			},
 			BeforeUpload:function(up){
-				var $form =$(_dialog.id).find("form")
+				var $form =$(_dialog.id).find("form");
 				var data = JSON.parse($form.serializeObject());
+				data['type'] = data['fileSource'];
+				data['fileWorktype']=$form.find("[name='fileWorktype']").val();
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {
 				var data = $.parseJSON(rtn.response);
-				if(data.status == "OK")
+				if(data.result.status == "OK")
 				{
 					alert("上传成功.");
 					$(_dialog.id).find("[data-close='close']").click();
@@ -215,7 +224,7 @@ function initUpload(_dialog,type){
 				}
 				else
 				{
-					alert("上传失败.");
+					alert(data.result.errorCode);
 				}
 			}
 		}
@@ -235,11 +244,13 @@ function initForm(_dialog,fileWorktype,type)
 	if(type == 'voucher')
 	{
 		$(_dialog.id).find("[name='id']").val($row.data('voucher-id'));
+		$(_dialog.id).find("[name='voucherType']").attr('checked',true);
 	}
 	else
 	{
 		$(_dialog.id).find("[name='id']").val($row.data('id'));
 	}
+	
 	$(_dialog.id).find("[name='type']").val(type);
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
 	$(_dialog.id).find("[name='fileWorktype']").val(worktype);

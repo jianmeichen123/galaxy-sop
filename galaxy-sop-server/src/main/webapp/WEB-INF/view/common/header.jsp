@@ -56,7 +56,7 @@
 			},
 			success : function(data) {
 				if(data.result.status=="OK"){
-					location.href=forwardWithHeader(platformUrl.toLoginPage);
+					forwardWithHeader(platformUrl.toLoginPage);
 				}
 			}
 		}); 

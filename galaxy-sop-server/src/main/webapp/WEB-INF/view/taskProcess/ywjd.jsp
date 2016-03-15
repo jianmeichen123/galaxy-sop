@@ -28,6 +28,8 @@
 	<div class="archivestc" >
 	<form>
 		<input type="hidden" name="id">
+		<input type="hidden" name="pid" value="${projectId }">
+		<input type="hidden" name="stage" value="projectProgress:6">
 		<dl class="fmdl clearfix">
 	    	<dt>档案来源：</dt>
 	        <dd class="clearfix">
@@ -78,8 +80,21 @@ $(function(){
 	$("#show-upload-btn").click(function(){
 		showUploadPopup();
 	});
-	$("#download-template-btn").click(function(){
-		forwardWithHeader(platformUrl.tempDownload+"?worktype=fileWorktype:5");
+	$("#apply-decision-btn").click(function(){
+		sendGetRequest(
+			platformUrl.inTjh+"${projectId}",
+			null,
+			function(data){
+				if(data.result.status == "OK")
+				{
+					alert("申请成功.");
+				}
+				else
+				{
+					alert("申请失败.");
+				}
+			}
+		);
 	});
 });
 function loadRows()
@@ -160,7 +175,7 @@ function initUpload(_dialog){
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
-		url : platformUrl.uploadFile2Task+"?sid="+sessionId+"&guid="+userId,
+		url : platformUrl.stageChange,
 		multi_selection:false,
 		filters : {
 			max_file_size : '30mb'
@@ -180,11 +195,22 @@ function initUpload(_dialog){
 					{
 						var $form =$(_dialog.id).find("form")
 						var data = JSON.parse($form.serializeObject());
+						data['type'] = data['fileSource'];
+						data['fileWorktype']='fileWorktype:6';
 						sendGetRequest(
 								platformUrl.uploadFile2Task,
 								data,
 								function(data){
-									afterSave(data);
+									if(data.result.status == "OK")
+									{
+										alert("上传成功.");
+										$(_dialog.id).find("[data-close='close']").click();
+										loadRows();
+									}
+									else
+									{
+										alert("上传失败.");
+									}
 								}
 						);
 					}
@@ -201,11 +227,13 @@ function initUpload(_dialog){
 			BeforeUpload:function(up){
 				var $form =$(_dialog.id).find("form")
 				var data = JSON.parse($form.serializeObject());
+				data['type'] = data['fileSource'];
+				data['fileWorktype']='fileWorktype:6';
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {
 				var data = $.parseJSON(rtn.response);
-				if(data.status == "OK")
+				if(data.result.status == "OK")
 				{
 					alert("上传成功.");
 					$(_dialog.id).find("[data-close='close']").click();
@@ -243,6 +271,6 @@ function downloadFile(ele)
 {
 	var row = $(ele).closest("tr");
 	var fileId = row.data("id");
-	window.location.href=forwardWithHeader(platformUrl.downLoadFile+"/"+fileId);
+	forwardWithHeader(platformUrl.downLoadFile+"/"+fileId);
 }
 </script>

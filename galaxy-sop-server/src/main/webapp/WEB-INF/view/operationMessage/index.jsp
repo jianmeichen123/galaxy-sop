@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>待办任务</title>
+<title>消息提醒</title>
 
 
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"  type="text/css">
@@ -28,42 +28,42 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
     <!--右中部内容-->
  	<div class="ritmin">
-    	<h2>待办任务</h2>
+    	<h2>消息提醒</h2>
         <!--页眉-->
         <div class="top clearfix" id="custom-toolbar">
         	<!--搜索-->
           <div class="searchbox clearfix">
-            <input type="hidden"  id="tipslink_val"/>
-            <input  name="nameLike" type="text" placeholder="请输入项目名或投资经理名" class="txt"/>
+            <input type="hidden"  id="tipslink_val" name="module" value="1" class="on"/>
+            <input  name="keyword" type="text" placeholder="请输入项目名" class="txt"/>
             <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
 
           </div>
+        		<select name="type">
+	        		<option value="">全部</option>
+	        		<option value="1">项目</option>
+	        		<option value="2">任务</option>
+        		</select>
             <!--tips连接-->
         	<ul class="tipslink">
-            	<li><a href="javascript:;" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
-                <li><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">紧急<span><!-- (2) --></span></a></li>
-                <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span><!-- (5) --></span></a></li>
-                <li><a href="javascript:;" id="claim" query-by="taskStatus" query-val="taskStatus:1">待认领<span><!-- (10) --></span></a></li>
-                <li><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">待完工<span><!-- (4) --></span></a></li>
-                <li><a href="javascript:;"id="finish" query-by="taskStatus" query-val="taskStatus:3">已完成</a></li>   
+
+                <li><a href="javascript:;" query-by="module" query-val="1">广播消息<span><!-- (10) --></span></a></li>
+                <li><a href="javascript:;"  query-by="module" query-val="2">与我有关 <span><!-- (4) --></span></a></li>
           </ul>
         </div>
         <!--表格内容-->
 						<table width="100%" cellspacing="0" cellpadding="0" 
-						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"&sid="+sessionId+"&guid="+userId;"  data-page-list="[1, 10, 30]" data-show-refresh="true" 
-				         data-toolbar="#custom-toolbar" >
+						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/operationMessage/queryList"  data-page-list="[1, 10, 30]"
+						 data-toolbar="#custom-toolbar"
+				         >
 						   <thead>
 						    <tr>
-						        <th data-field="orderRemark" data-align="center" class="data-input">优先级</th>
-						        <th data-field="hours" data-align="center" class="data-input">剩余时间</th>
-						        <th data-field="taskDeadlineformat" data-align="center" class="col-md-1 status ">提交日期</th>
-						        <th data-field="taskType" data-align="center" >任务类型</th>
-						        <th data-field="taskName" data-align="center" width="200px" >任务名</th>
-						        <th data-field="taskStatus" data-align="center" class="col-md-2" >任务状态</th>
-						        <th data-field="projectName" data-align="center" class="col-md-2" >所属项目</th>
-						        <th data-field="createUname" data-align="center" class="col-md-2" >投资经理</th>
-						        <th data-align="center" data-field="remark" class="col-md-2" >备注</th>
-								<th data-align="center" class="col-md-2" data-field="caozuohtml" >操作</th>
+					        <th data-field="department" data-align="center" class="data-input">投资线/部门</th>
+					        <th data-field="role" data-align="center"  class="data-input">角色</th>
+					        <th data-field="type" data-align="center" class="col-md-1 status ">消息类型</th>
+					        <th data-field="projectName" data-align="center" >项目名称</th>
+					        <th data-field="operator" data-align="center" >操作人</th>
+					        <th data-field="content" data-align="center" class="col-md-2" >消息内容</th>
+					        <th data-field="module" data-align="center" class="col-md-2" >模块</th>
    						 	</tr>	
    						 	</thead>
 					</table>
@@ -84,6 +84,7 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(2);
+		
 	});
 </script>
 </html>
