@@ -157,7 +157,7 @@ function showUploadPopup(ele)
 	});
 }
 function initUpload(_dialog,type){
-	var url = platformUrl.stageChange+"1";
+	var url = platformUrl.stageChange;
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
