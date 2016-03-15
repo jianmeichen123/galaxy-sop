@@ -108,19 +108,28 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.add(new Menus(16L, "数据字典", "http://fx.qa.galaxyinternet.com/platform/galaxy/dict/index?" + params));
 		}
 		
-		
 		//高管
 		if(roleIdList.contains(1L) || roleIdList.contains(2L)){
 			tabs.clear();
-			tabs.add(new Menus(1L, "工作界面", "http://127.0.0.1:8777/galaxy-sop-server/galaxy/index?" + params));
+//			tabs.add(new Menus(1L, "工作界面", "http://127.0.0.1:8777/galaxy-sop-server/galaxy/index?" + params));
+//			tabs.add(new Menus(3L, "消息提醒", u + ""));
+//			tabs.add(new Menus(16L, "项目查询", "http://127.0.0.1:8777/report/galaxy/report/projects?" + params));
+//			tabs.add(new Menus(16L, "数据简报", "http://127.0.0.1:8080/report/galaxy/report/dataBriefing?" + params));
+//			tabs.add(new Menus(16L, "项目分析", "http://127.0.0.1:8080/report/galaxy/report/projectAnalysis?" + params));
+//			tabs.add(new Menus(16L, "绩效考核", "http://127.0.0.1:8080/report/galaxy/report/kpi?" + params));
+//			tabs.add(new Menus(16L, "投后项目跟踪", "http://127.0.0.1:8080/report/galaxy/report/afterInvestTrack?" + params));
+//			tabs.add(new Menus(16L, "投后业务运营", "http://127.0.0.1:8080/report/galaxy/report/afterInvestBusiness?" + params));
+//			tabs.add(new Menus(16L, "投后企业财报", "http://127.0.0.1:8080/report/galaxy/report/afterInvestFinace?" + params));
+			
+			tabs.add(new Menus(1L, "工作界面", "http://fx.qa.galaxyinternet.com/sop/galaxy/index?" + params));
 			tabs.add(new Menus(3L, "消息提醒", u + ""));
-			tabs.add(new Menus(16L, "项目查询", "http://127.0.0.1:8777/report/galaxy/report/projects?" + params));
-			tabs.add(new Menus(16L, "数据简报", "http://127.0.0.1:8777/report/galaxy/report/dataBriefing?" + params));
-			tabs.add(new Menus(16L, "项目分析", "http://127.0.0.1:8777/report/galaxy/report/projectAnalysis?" + params));
-			tabs.add(new Menus(16L, "绩效考核", "http://127.0.0.1:8777/report/galaxy/report/kpi?" + params));
-			tabs.add(new Menus(16L, "投后项目跟踪", "http://127.0.0.1:8777/report/galaxy/report/afterInvestTrack?" + params));
-			tabs.add(new Menus(16L, "投后业务运营", "http://127.0.0.1:8777/report/galaxy/report/afterInvestBusiness?" + params));
-			tabs.add(new Menus(16L, "投后企业财报", "http://127.0.0.1:8777/report/galaxy/report/afterInvestFinace?" + params));
+			tabs.add(new Menus(16L, "项目查询", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projects?" + params));
+			tabs.add(new Menus(16L, "数据简报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/dataBriefing?" + params));
+			tabs.add(new Menus(16L, "项目分析", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projectAnalysis?" + params));
+			tabs.add(new Menus(16L, "绩效考核", "http://fx.qa.galaxyinternet.com/report/galaxy/report/kpi?" + params));
+			tabs.add(new Menus(16L, "投后项目跟踪", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestTrack?" + params));
+			tabs.add(new Menus(16L, "投后业务运营", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestBusiness?" + params));
+			tabs.add(new Menus(16L, "投后企业财报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestFinace?" + params));
 		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;
