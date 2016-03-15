@@ -4,6 +4,10 @@
 <% 
 	String path = request.getContextPath(); 
     User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+    String nickName="";
+    if(null != user){
+    	nickName=user.getNickName();
+    }
 %>
 <div class="header clearfix">
 	<a href="javascript:;" class="logo null">繁星</a>
@@ -25,7 +29,7 @@
     </div>
      <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
-        <span class="ico name">早上好，<%=user.getNickName()%></span>
+        <span class="ico name">早上好，<%=nickName%></span>
         <b class="line null">分割线</b>
         <a href="javascript:logout()" class="loginout">退出</a>
     </div>
