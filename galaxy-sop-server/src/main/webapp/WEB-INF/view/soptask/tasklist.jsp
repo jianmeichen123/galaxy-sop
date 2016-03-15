@@ -50,8 +50,8 @@
         </div>
         <!--表格内容-->
 						<table width="100%" cellspacing="0" cellpadding="0" 
-						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"  data-page-list="[1, 10, 30]" data-show-refresh="true" 
-				         data-side-pagination="server" data-pagination="true" >
+						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"&sid="+sessionId+"&guid="+userId;"  data-page-list="[1, 10, 30]" data-show-refresh="true" 
+				         data-toolbar="#custom-toolbar" >
 						   <thead>
 						    <tr>
 						        <th data-field="orderRemark" data-align="center" class="data-input">优先级</th>
@@ -84,7 +84,6 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(2);
-		
 	});
 </script>
 </html>

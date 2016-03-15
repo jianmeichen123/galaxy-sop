@@ -136,8 +136,8 @@
      }
     //保存日程
     function saveShedule(){
-    	var id = $("#id").val();
-    		sendPostRequestByJsonObj('/galaxy/sopUserSchedule/addOrUpdateSopUserSchedule/', JSON.parse($("#shedule_form").serializeObject()), sheduleCallBack,null);
+    	$("#id").remove();
+    	sendPostRequestByJsonObj('/galaxy/sopUserSchedule/addOrUpdateSopUserSchedule/', JSON.parse($("#shedule_form").serializeObject()), sheduleCallBack,null);
     }
     //新建日程
     function newShedule(){
