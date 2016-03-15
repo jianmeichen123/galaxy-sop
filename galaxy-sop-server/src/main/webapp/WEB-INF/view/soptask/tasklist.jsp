@@ -58,7 +58,7 @@
 						        <th data-field="hours" data-align="center" class="data-input">剩余时间</th>
 						        <th data-field="taskDeadlineformat" data-align="center" class="col-md-1 status ">提交日期</th>
 						        <th data-field="taskType" data-align="center" >任务类型</th>
-						        <th data-field="taskName" data-align="center" >任务名</th>
+						        <th data-field="taskName" data-align="center" width="200px" >任务名</th>
 						        <th data-field="taskStatus" data-align="center" class="col-md-2" >任务状态</th>
 						        <th data-field="projectName" data-align="center" class="col-md-2" >所属项目</th>
 						        <th data-field="createUname" data-align="center" class="col-md-2" >投资经理</th>
