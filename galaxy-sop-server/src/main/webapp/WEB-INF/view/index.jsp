@@ -226,24 +226,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2016/1/1 13:35</td>
-                                    <td>张大千</td>
-                                    <td>这里是发送内容</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>2016/1/1 13:35</td>
-                                    <td>张大千</td>
-                                    <td>这里是发送内容</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>2016/1/1 13:35</td>
-                                    <td>张大千</td>
-                                    <td>这里是发送内容</td>
-                                </tr>
                             </tbody>
                         </table>
                     </dd>
@@ -313,6 +295,7 @@
 		ProjectVoteWill();
 		selectSopTask();
 		createMenus(1);
+		top5Message();
 		loadAjaxSopUserSchedule(sopContentUrl + '/galaxy/sopUserSchedule/selectSopUserSchedule/1'); 
 	});
 </script>

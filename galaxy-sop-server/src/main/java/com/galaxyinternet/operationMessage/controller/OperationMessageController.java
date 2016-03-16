@@ -25,6 +25,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationMessageService;
 
 @Controller
@@ -54,8 +55,10 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	public ResponseData<OperationMessage> queryUserList(HttpServletRequest request,@RequestBody OperationMessageBo operationMessageBo) {
 		ResponseData<OperationMessage> responseBody = new ResponseData<OperationMessage>();
 		try {
-			User user = (User) getUserFromSession(request);
-			operationMessageBo.setOperatorId(user.getId());
+			if(operationMessageBo.getModule()!=null&&operationMessageBo.getModule() != PlatformConst.MODULE_BROADCAST_MESSAGE.intValue()){
+				User user = (User) getUserFromSession(request);
+				operationMessageBo.setOperatorId(user.getId());
+			}
 			Page<OperationMessage> operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
 			responseBody.setPageList(operationMessage);
 			responseBody.setResult(new Result(Status.OK, ""));
