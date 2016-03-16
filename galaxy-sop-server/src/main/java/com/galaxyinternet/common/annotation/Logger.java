@@ -7,14 +7,14 @@ import java.lang.annotation.Target;
 
 /**
  * @description 用于记录用户的操作 <br>
- * 注意：beanName和beanClass的配置是有优先级的，
+ *              {@link com.galaxyinternet.common.annotation.LogType}
  * 
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Logger {
 	/**
-	 * @return 是否记录sop的操作日志，默认“否”
+	 * @return 记录sop操作日志的范围，默认生成“消息提醒”中的日志
 	 */
-	boolean writeSopOperationLog() default false;
+	LogType writeOperationScope() default LogType.MESSAGE;
 }
