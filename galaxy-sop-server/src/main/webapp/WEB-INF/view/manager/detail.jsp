@@ -107,12 +107,8 @@
               <dd class="edit">
               	  <script type="text/plain" id="describe_editor" style="width:100%;height:100px;">
 				  </script>
-			  </dd>
-			  <dd class="describe" id="describe_show"></dd>
+			 </dd>
               <dd class="fctbox">
-                <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-                <a href="javascript:;" id="save_describe" class="ico f4" data-btn="submit">保存</a>
-                <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
               </dd>
@@ -126,11 +122,7 @@
               	  <script type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
 				  </script>
 		      </dd>
-		      <dd class="describe" id="model_show"></dd>
               <dd class="fctbox">
-                <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-                <a href="javascript:;" id="save_business_model" class="ico f4" data-btn="submit">保存</a>
-                <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
               </dd>
@@ -144,11 +136,7 @@
 			      <script type="text/plain" id="location_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="location_show"></dd>
               <dd class="fctbox">
-                <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-                <a href="javascript:;" class="ico f4" id="save_location" data-btn="submit">保存</a>
-                <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
               </dd>
@@ -162,11 +150,7 @@
 			  	  <script type="text/plain" id="portrait_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			   <dd class="describe" id="portrait_show"></dd>
               <dd class="fctbox">
-                <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-                <a href="javascript:;" class="ico f4" id="save_portrait" data-btn="submit">保存</a>
-                <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
               </dd>
@@ -180,11 +164,7 @@
 			      <script type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="analysis_show">11111</dd>
               <dd class="fctbox">
-                <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-                <a href="javascript:;" id="save_analysis" class="ico f4" data-btn="submit">保存</a>
-                <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
               </dd>
@@ -344,8 +324,6 @@
             </dl>
           </div>        
         </div>
-        <!-- 关闭按钮 -->
-        <a href="javascript:;" class="pubbtn fffbtn close" data-close="close">关闭项目</a>
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
