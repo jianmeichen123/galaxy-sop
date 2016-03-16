@@ -1,5 +1,7 @@
 package com.galaxyinternet.common.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +10,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.UserRoleService;
 
 
 @Controller
 @RequestMapping("/galaxy")
-public class IndexController {
+public class IndexController extends BaseControllerImpl<User, UserBo> {
+	
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	@Autowired
 	Cache cache;
@@ -27,7 +37,15 @@ public class IndexController {
 	public String redirect(HttpServletRequest request) {
 		String sessionId = request.getParameter(Constants.SESSOPM_SID_KEY);
 		request.getSession().setAttribute(Constants.SESSION_USER_KEY, cache.get(sessionId));
-		return "redirect:/galaxy/index";
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		if(roleIdList != null && (roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO))){
+			String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
+			return "redirect:http://fx.qa.galaxyinternet.com/report/galaxy/report/platform?"+params;
+		}else{
+			return "redirect:/galaxy/index";
+		}
+		
 	}
 	
 	/**
@@ -204,5 +222,10 @@ public class IndexController {
 	@RequestMapping(value = "/gqzr", method = RequestMethod.GET)
 	public String gqzr() {
 		return "project/progress/gqzr";
+	}
+
+	@Override
+	protected BaseService<User> getBaseService() {
+		return null;
 	}
 }
