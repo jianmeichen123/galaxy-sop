@@ -22,7 +22,10 @@ import com.galaxyinternet.service.OperationMessageService;
 /**
  * @description 消息提醒拦截器
  * @author keifer
- * @used 1.在你的controller中的方法中加入注解@Logger <br/>
+ * @used 1.在你的controller中的方法中加入注解,如<br/>
+ *       "@Logger(writeOperationScope=LogType.MESSAGE)，表示记录"消息提醒"功能产生的日志,默认值。如果是此操作该属性可以不写<br/>
+ *       "@Logger(writeOperationScope=LogType.LOG)，表示记录sop中"日志操作"功能产生的日志<br/>
+ *       "@Logger(writeOperationScope=LogType.ALL)，表示记录上面2则功能产生的日志<br/>
  *       2.在方法处理前或后，在reqeust中设置操作的项目名称。例如：ControllerUtils.
  *       setRequestParamsForMessageTip(request,"星河互联创业项目",68) <br/>
  *       3.需要在springmvc配置文件中添加如下配置 <br/>
@@ -57,10 +60,13 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 					GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 						@Override
 						public void run() {
-							operationMessageService.insert(populateOperationMessage(type, user, request));
-							if (logger.writeSopOperationLog()) {
-								// TODO 这里添加SOP中操作操作日志的逻辑
-								//operationLogsService.insert(entity);
+							LogType logType = logger.writeOperationScope();
+							if (logType == LogType.MESSAGE) {
+								operationMessageService.insert(populateOperationMessage(type, user, request));
+							} else if (logType == LogType.ALL) {
+								operationMessageService.insert(populateOperationMessage(type, user, request));
+								// TODO
+							} else if (logType == LogType.LOG) {
 							}
 						}
 					});
@@ -73,6 +79,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	private OperationMessage populateOperationLog(OperationType type, User user, HttpServletRequest request) {
 		return null;
 	}
+
 	private OperationMessage populateOperationMessage(OperationType type, User user, HttpServletRequest request) {
 		OperationMessage entity = new OperationMessage();
 		entity.setContent(type.getContent());

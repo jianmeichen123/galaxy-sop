@@ -230,7 +230,7 @@
                         </table>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="javascript:;" class="more null">more</a>
+                    	<a href="<%=path %>/galaxy/operationMessage/index" class="more null">more</a>
                     </dd>
                 </dl>
                 <dl>

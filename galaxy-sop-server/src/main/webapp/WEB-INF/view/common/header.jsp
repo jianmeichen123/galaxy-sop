@@ -18,7 +18,7 @@
             <span class="light_blue">当前您有：</span>
             <a href="<%=path %>/galaxy/soptask" class="work">待办任务<em class="totalUrgent"></em></a>
             <!-- <a href="<%=path %>/galaxy/soptask" class="work">紧急任务<em class="bubble"></em></a> -->
-            <a href="javascript:;" class="work">消息提醒<em action="remind">4</em></a> 
+            <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">4</em></a> 
         </div>    	<!--当日信息-->
     	<div class="todaymsg clearfix">
         	<span>北京</span>
