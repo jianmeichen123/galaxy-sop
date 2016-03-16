@@ -25,6 +25,7 @@ import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
+import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -38,6 +39,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.common.Config;
+import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
@@ -66,6 +68,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private ProjectPersonService projectPersonService;
 	@Autowired
 	private ConfigService configService;
+	@Autowired
+	private MeetingRecordDao meetingRecordDao;
 	@Autowired
 	private HandlerManager handlerManager;
 	
@@ -599,15 +603,25 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(result);
 			return responseBody;
 		}
-		try {
-			projectService.toEstablishStage(project);
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(project.getId());
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "project startReview faild"));
-			if(logger.isErrorEnabled()){
-				logger.error("update project faild ",e);
+		//必须又一次会议记录为通过
+		MeetingRecord mr = new MeetingRecord();
+		mr.setProjectId(pid);
+		mr.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
+		mr.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+		Long count = meetingRecordDao.selectCount(mr);
+		if(count != null && count > 0){
+			try {
+				projectService.toEstablishStage(project);
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setId(project.getId());
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "异常，未成功!"));
+				if(logger.isErrorEnabled()){
+					logger.error("update project faild ",e);
+				}
 			}
+		}else{
+			responseBody.setResult(new Result(Status.ERROR,null, "不存在通过的会议记录，不能申请立项会!"));
 		}
 		return responseBody;
 	}
