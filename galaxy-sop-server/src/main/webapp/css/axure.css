@@ -578,7 +578,7 @@ table .width_gd{width:10%;}
 .pagebox .projectmsg_d .block1 table td label input[type="radio"]{ position:absolute; left:0; top:9px; *top:4px}
 .pagebox .projectmsg_d .block1 table dl{padding-left:10px;overflow: hidden;}
 .pagebox .projectmsg_d .block1 table dl dt{float: left;font-size: 14px;color:#3e4351;width: 100px;text-align: right;}
-.pagebox .projectmsg_d .block1 table dl dd .transferSharesTxt{width:30px;}
+.pagebox .projectmsg_d .block1 table dl dd .transferSharesTxt{width:60px;}
 .pagebox .projectmsg_d .block1 table dl dd{float: left;font-size: 12px;color:#525662;}
 .pagebox .projectmsg_d .block1 .btnbox{ width:80px;margin:0 auto;}
 .pagebox .projectmsg_d .block1 .btnbox .pubbtn{ width:80px;margin:0 20px 0 0; display:inline-block; *display:inline; zoom:1;}

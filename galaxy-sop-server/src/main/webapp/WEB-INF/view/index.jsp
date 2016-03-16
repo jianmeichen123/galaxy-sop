@@ -120,7 +120,7 @@
                         </table>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="http://fx.qa.galaxyinternet.com/sop/galaxy/soptask" class="more null">more</a>
+                    	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
                     </dd>
                 </dl>
                 <dl>

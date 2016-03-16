@@ -196,7 +196,7 @@
               <dt>团队成员</dt>
               <dd class="full_w describe clearfix">
               	<div class="btnbox_f">
-                  <a href="<%=path %>/galaxy/addperson" data-btn="addmen" class="ico b1">添加</a>
+                  <a href="javascript:;" class="ico b1" onclick="addPerson();">添加</a>
                   <!--  
                   <a href="javascript:;" class="ico b2">修改</a>
                   <a href="javascript:;" class="ico b3">删除</a>-->
@@ -222,7 +222,7 @@
               <dt>股权结构</dt>
               <dd class="full_w describe clearfix">
               <div class="btnbox_f">
-                  <a href="<%=path %>/galaxy/projectShares/addShares" data-btn="stock" class="ico b1">添加</a>
+                  <a href="javascript:;" onclick="addSharesView();" class="ico b1">添加</a>
                   <!-- 
                   <a href="javascript:;" class="ico b2">修改</a>
                   <a href="javascript:;" class="ico b3">删除</a>
@@ -373,7 +373,7 @@
 		}
 	}
 	function updatePer(id){
-		var _url = "<%=path %>/galaxy/project/updatePro/"+id;
+		var _url = platformUrl.updatePerView+id;
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
@@ -389,7 +389,7 @@
 	function getTabPerson(){
 		var $table = $('#tablePerson');
 	    $table.bootstrapTable({
-	    url: sopContentUrl + "/galaxy/project/queryProjectPerson", 
+	    url: platformUrl.projectPersonList,
 	    dataType: "json",
 	    pagination: true, //分页
 	    search: false, //显示搜索框
@@ -465,7 +465,7 @@
 	function getTabShare(){
 	var $table = $('#table');
     $table.bootstrapTable({
-    url: sopContentUrl + "/galaxy/projectShares/selectProjectShares", 
+    url: platformUrl.projectSharesList,  
     dataType: "json",
     pagination: true, //分页
     search: false, //显示搜索框
@@ -529,7 +529,7 @@
     }
     
     function editStock(id){
-    	var _url = "<%=path %>/galaxy/projectShares/updateShare/"+id;
+    	var _url = platformUrl.editStockView+id;
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
@@ -539,6 +539,26 @@
 		});
 		return false;
     }
+    
+    //添加团队成员
+    function addPerson(){
+		$.getHtml({
+			url:platformUrl.addPersonView,//模版请求地址
+			data:"",//传递参数
+				
+		});
+		return false;
+   }
+    
+   //添加股权结构
+   function addSharesView(){
+		$.getHtml({
+			url:platformUrl.addSharesView,//模版请求地址
+			data:"",//传递参数
+				
+		});
+		return false;
+   }
     
     
 	
