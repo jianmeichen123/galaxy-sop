@@ -66,7 +66,8 @@
 		popEve.prototype = {
 			init:function(){
 				var _this = this;
-				_this.insertbg().inserttxt().postionEve().mousedrag().closepop();
+					_this.insertbg().inserttxt().postionEve().mousedrag().closepop();
+
 			},
 			//背景插入
 			insertbg:function(dom){
@@ -150,17 +151,16 @@
 				});
 				return _this;	
 			},
-			
 			closepop:function(){
 				var _this = this;
 				$(_this.id).on("click","[data-close='close']",function(){
 						$(_this.id).remove();
-						
 						//关闭对外接口
 						_this.hideback.apply(_this);
 						//判断是否关闭背景
 						if($(".pop").length==0){
-							$("#popbg").hide();	
+							$("#popbg").hide();
+							$('.tip-yellowsimple').hide();	//表单验证提示关闭
 						}
 						return false;
 				});
@@ -238,7 +238,8 @@
 			//defaultnum:0,
 			onClass:"on",
 			eventType:"click",
-			movetime:300
+			movetime:300,
+			onchangeSuccess:function(data){}
 		},options);
 		function tab(t){
 			this.nav = t.find("[data-tab='nav']");
@@ -274,6 +275,7 @@
 			obj.nav.on(opts.eventType,function(){
 				obj.num = $(this).index();
 				obj.seton();
+				opts.onchangeSuccess.apply(this,[obj.num]);
 			});
         });
 	};	
