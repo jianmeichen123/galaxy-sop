@@ -20,9 +20,11 @@ public class PersonWork extends BaseEntity{
 	private String leaveReason;//离职原因
 	private String leaderName;//上级姓名
 	private String leaderPosition;//上级职位
+	private String leaderRelationship;//上级关系
 	private String leaderPhone;//上级电话
 	private String colleagueName;//同事姓名
 	private String colleaguePosition;//同事职位
+	private String colleagueRelationship; //同事工作关系  新加入的字段
 	private String colleaguePhone;//同事电话
 	
 	public Long getId() {
@@ -127,6 +129,18 @@ public class PersonWork extends BaseEntity{
 	}
 	public void setLeaderName(String leaderName) {
 		this.leaderName = leaderName;
+	}
+	public String getLeaderRelationship() {
+		return leaderRelationship;
+	}
+	public void setLeaderRelationship(String leaderRelationship) {
+		this.leaderRelationship = leaderRelationship;
+	}
+	public String getColleagueRelationship() {
+		return colleagueRelationship;
+	}
+	public void setColleagueRelationship(String colleagueRelationship) {
+		this.colleagueRelationship = colleagueRelationship;
 	}
 	
 	

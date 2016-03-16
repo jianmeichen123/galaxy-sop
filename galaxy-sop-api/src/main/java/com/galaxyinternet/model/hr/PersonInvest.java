@@ -11,12 +11,21 @@ public class PersonInvest extends BaseEntity {
 
 		private Long id; //人力_投资经历id 
 		private Long personId;//关联人力资源id
-		private String companyName;//公司名称
+		private String icompanyName;//公司名称
 		private Double investmentAmount;//投资金额 investment_amount
 		private Double shareRatio;//股权占比
 		private String projectDirector;//项目负责人;
 		private String emceedPosition;//担任职位
 		private String telephone;//联系方式
+		private String acompanyName;//a轮投资公司名称
+		private Double ainvestmentAmount;//a轮投资金额
+		private Double ashareRatio;//a轮股权占比
+		private String atelephone;//a轮联系方式
+		
+		
+		
+		
+		
 		
 		
 		
@@ -32,13 +41,13 @@ public class PersonInvest extends BaseEntity {
 		public void setPersonId(Long personId) {
 			this.personId = personId;
 		}
-		public String getCompanyName() {
-			return companyName;
+
+		public String getIcompanyName() {
+			return icompanyName;
 		}
-		public void setCompanyName(String companyName) {
-			this.companyName = companyName;
+		public void setIcompanyName(String icompanyName) {
+			this.icompanyName = icompanyName;
 		}
-		
 		public Double getInvestmentAmount() {
 			return investmentAmount;
 		}
@@ -70,11 +79,30 @@ public class PersonInvest extends BaseEntity {
 		public void setTelephone(String telephone) {
 			this.telephone = telephone;
 		}
-	
-		
-		
-		
-		
+		public String getAcompanyName() {
+			return acompanyName;
+		}
+		public void setAcompanyName(String acompanyName) {
+			this.acompanyName = acompanyName;
+		}
+		public Double getAinvestmentAmount() {
+			return ainvestmentAmount;
+		}
+		public void setAinvestmentAmount(Double ainvestmentAmount) {
+			this.ainvestmentAmount = ainvestmentAmount;
+		}
+		public Double getAshareRatio() {
+			return ashareRatio;
+		}
+		public void setAshareRatio(Double ashareRatio) {
+			this.ashareRatio = ashareRatio;
+		}
+		public String getAtelephone() {
+			return atelephone;
+		}
+		public void setAtelephone(String atelephone) {
+			this.atelephone = atelephone;
+		}
 	
 	
 }
