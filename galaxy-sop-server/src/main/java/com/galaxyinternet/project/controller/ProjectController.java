@@ -180,9 +180,36 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	
+	
 	/**
-	 * 获取用户列表数据 重新组装关联数据
-	 * 
+	 * 获取项目列表(高管)
+	 * @param
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryAllProjects", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> queryAllProjects(HttpServletRequest request, @RequestBody Project project) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		try {
+			if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){
+				Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
+				responseBody.setPageList(pageProject);
+				responseBody.setResult(new Result(Status.OK, ""));
+			}
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
+		return responseBody;
+	}
+	
+	/**
+	 * 获取项目列表(投资经理)
 	 * @param
 	 * @return
 	 */
@@ -190,6 +217,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/spl", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody Project project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
+		project.setCreateUid(user.getId());
 		try {
 			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
 			responseBody.setPageList(pageProject);

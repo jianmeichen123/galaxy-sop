@@ -264,7 +264,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			//投资协议  任务生成
 			SopTask task1 = new SopTask();
 			task1.setProjectId(pid);                     //项目id
-			task1.setDepartmentId(udepartid);  		//任务分派到: 投资经理
+			task1.setDepartmentId(udepartid);  		   //任务分派到: 投资经理
 			task1.setTaskName("上传投资协议");          //任务名称：   上传投资协议
 			//0 完善简历、
 			//1 投资意向书、
@@ -282,7 +282,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			task1.setTaskType(DictEnum.taskType.协同办公.getCode());				//任务类型    协同
 			sopTaskDao.insert(task1);
 			
-			if(pro.getProjectType().equals(DictEnum.projectType.外部项目.getCode())){
+			/*if(pro.getProjectType().equals(DictEnum.projectType.外部项目.getCode())){
 				//股权转让协议  任务生成
 				SopTask task2 = new SopTask();
 				task2.setProjectId(pid);                    //项目id
@@ -303,7 +303,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				task2.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				//任务状态: 2:待完工
 				task2.setTaskType(DictEnum.taskType.协同办公.getCode());					//任务类型    协同
 				sopTaskDao.insert(task2);
-			}
+			}*/
 		}
 	}
 	

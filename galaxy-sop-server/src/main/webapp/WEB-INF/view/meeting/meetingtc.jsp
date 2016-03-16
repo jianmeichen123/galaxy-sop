@@ -13,9 +13,9 @@
             <!-- <a href="javascript:;" class="searchbtn null">搜索</a> -->
         </div>
         <dl class="fmdl clearfix">
-            <dt>会议召开日期：</dt>
+            <dt>会议召开日期：</dt>  <!-- class="form-control"  -->
             <dd>
-            	<input class="form-control" type="date" id="meetingDateStr" name = "meetingDateStr" />
+            	<input class="txt time" type="date" id="meetingDateStr" name = "meetingDateStr" />
             </dd>
         </dl>
     </div>
