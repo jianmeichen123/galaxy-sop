@@ -120,7 +120,7 @@ public class SopTemplateServiceImpl extends BaseServiceImpl<SopTemplate>implemen
 					}
 					for(Department dep : depList)
 					{
-						if(depId == dep.getId())
+						if(depId.longValue() == dep.getId().longValue())
 						{
 							temp.setDepartmentDesc(dep.getName());
 							break;
