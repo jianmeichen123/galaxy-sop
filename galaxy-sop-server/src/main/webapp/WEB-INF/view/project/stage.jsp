@@ -280,7 +280,7 @@
 
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:addMettingRecord(2,'meetingType:1');" data-btn="interview" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a href="javascript:;" onclick="addMettingRecord(2,'meetingType:1')" data-btn="interview" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 				</div>
 				<div id="projectProgress_2_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
@@ -305,7 +305,7 @@
 			<div class="block" data-tab="con" id="projectProgress_3_con">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:addMettingRecord(3,'meetingType:2');" class="pubbtn fffbtn lpubbtn">添加会议记录</a> 
+					<a href="javascript:;" onclick="addMettingRecord(3,'meetingType:2')" class="pubbtn fffbtn lpubbtn">添加会议记录</a> 
 					<a href="javascript:toEstablishStage();" id="lxhpq" class="pubbtn fffbtn lpubbtn">立项会排期</a>
 				</div>
 				
@@ -333,7 +333,7 @@
 			<div class="block" data-tab="con" id="projectProgress_4_con">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:addMettingRecord(4,'meetingType:3');" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 				</div>
 
 				<div id="projectProgress_4_table_custom-toolbar">
@@ -359,7 +359,7 @@
 			<div class="block" data-tab="con" id="projectProgress_7_con">
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:addMettingRecord(7,'meetingType:4');" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a href="javascript:;" onclick="addMettingRecord(7,'meetingType:4')"  class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 				</div>
 
 				<div id="projectProgress_7_table_custom-toolbar">
