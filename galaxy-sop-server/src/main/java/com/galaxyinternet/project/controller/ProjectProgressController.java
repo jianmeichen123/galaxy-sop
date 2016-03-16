@@ -55,6 +55,7 @@ import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.platform.util.ControllerUtils;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
@@ -152,6 +153,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addFileInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addFileInterview(HttpServletRequest request,HttpServletResponse response ) {
@@ -193,6 +195,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			Long id = interviewRecordService.insertInterview(interviewRecord,project,file,path, user.getId());
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(id);
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "insert interviewRecord faild"));
 			
@@ -211,6 +214,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * 			produces="application/text;charset=utf-8"
 	 * @return
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecord interviewRecord ,HttpServletRequest request ) {
@@ -242,6 +246,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			Long id = interviewRecordService.insert(interviewRecord);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(id);
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "insert interviewRecord faild"));
 			
@@ -317,6 +322,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addfilemeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addFileMeet(HttpServletRequest request,HttpServletResponse response  ) {
@@ -387,7 +393,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, ""));
-			
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "add meetingRecord faild"));
 			
@@ -395,7 +401,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				logger.error("add meetingRecord faild ",e);
 			}
 		}
-		
 		return responseBody;
 	}
 	
@@ -407,6 +412,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addmeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecord meetingRecord ) {
@@ -463,7 +469,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, ""));
-			
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "add meetingRecord faild"));
 			
