@@ -224,6 +224,14 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 		return "project/progress/gqzr";
 	}
 
+	/**
+	 * 完善简历的弹出层
+	 */
+	@RequestMapping(value="/resumetcc", method = RequestMethod.GET)
+	public String resumetcc(){
+		return "/resumetc/resumetc";
+	}
+	
 	@Override
 	protected BaseService<User> getBaseService() {
 		return null;
