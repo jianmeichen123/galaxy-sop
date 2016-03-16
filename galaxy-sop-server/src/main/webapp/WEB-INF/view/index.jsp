@@ -301,6 +301,7 @@
 </script>
 <script>
 $(function(){
+	load_data_chart();
 	function load_data_chart(){
 		var obj ={url:"http://fx.qa.galaxyinternet.com/report/galaxy/report/projectprogress"};
 		obj.contentType="application/json";
