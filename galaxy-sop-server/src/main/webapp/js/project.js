@@ -106,6 +106,10 @@ $(function(){
 			$("#project_valuations").text(valuations);
 		}
 	});
+	function replaceStr(str){
+		var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
+		return result;
+	}
 	
 	
 	

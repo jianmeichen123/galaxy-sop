@@ -296,7 +296,7 @@
 		selectSopTask();
 		createMenus(1);
 		top5Message();
-		loadAjaxSopUserSchedule(sopContentUrl + '/galaxy/sopUserSchedule/selectSopUserSchedule/1'); 
+		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 	});
 </script>
 </html>

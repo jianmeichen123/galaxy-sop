@@ -43,7 +43,10 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	protected BaseDao<InterviewRecord, Long> getBaseDao() {
 		return this.interviewRecordDao;
 	}
-
+	
+	private String[] transFileNames(String fileFullName){
+		return fileFullName.split("\\.");
+	}
 	
 	//文件上传, 成功后插入 sopfile 数据库
 	@Transactional
@@ -79,7 +82,9 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 					sopFile.setBucketName(upResult.getBucketName()); //bucketName
 					sopFile.setFileKey(key);   //fileKey
 					sopFile.setFileLength(upResult.getContentLength());  //文件大小
-					sopFile.setFileName(fileName);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
+					String[] fileNameStr = transFileNames(fileName);
+					sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
+					sopFile.setFileSuffix(fileNameStr[1]);
 					sopFile.setFileUid(uid);	 //上传人
 					//sopFile.setFileType("");   //存储类型
 					//sopFile.setFileSource(Integer.parseInt(fileSource));  //档案来源
