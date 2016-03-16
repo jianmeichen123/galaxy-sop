@@ -12,6 +12,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.model.operationLog.OperationLogType;
+import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.operationMessage.OperationType;
 import com.galaxyinternet.model.user.User;
@@ -23,7 +25,8 @@ import com.galaxyinternet.service.OperationMessageService;
  * @description 消息提醒拦截器
  * @author keifer
  * @used 1.在你的controller中的方法中加入注解,如<br/>
- *       "@Logger(writeOperationScope=LogType.MESSAGE)，表示记录"消息提醒"功能产生的日志,默认值。如果是此操作该属性可以不写<br/>
+ *       "@Logger(writeOperationScope=LogType.MESSAGE)，表示记录"消息提醒"功能产生的日志,默认值。
+ *       如果是此操作该属性可以不写<br/>
  *       "@Logger(writeOperationScope=LogType.LOG)，表示记录sop中"日志操作"功能产生的日志<br/>
  *       "@Logger(writeOperationScope=LogType.ALL)，表示记录上面2则功能产生的日志<br/>
  *       2.在方法处理前或后，在reqeust中设置操作的项目名称。例如：ControllerUtils.
@@ -55,7 +58,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			final Logger logger = method.getAnnotation(Logger.class);
 			if (logger != null) {
 				final OperationType type = OperationType.getObject(uniqueKey);
-				if (null != type) {
+				final OperationLogType operLogType = OperationLogType.getObject(uniqueKey);
+				if (null != type || null != operLogType) {
 					final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 					GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 						@Override
@@ -65,8 +69,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 								operationMessageService.insert(populateOperationMessage(type, user, request));
 							} else if (logType == LogType.ALL) {
 								operationMessageService.insert(populateOperationMessage(type, user, request));
-								// TODO
+								operationLogsService.insert(populateOperationLog(operLogType, user, request));
 							} else if (logType == LogType.LOG) {
+								operationLogsService.insert(populateOperationLog(operLogType, user, request));
 							}
 						}
 					});
@@ -76,8 +81,22 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		super.afterCompletion(request, response, handler, ex);
 	}
 
-	private OperationMessage populateOperationLog(OperationType type, User user, HttpServletRequest request) {
-		return null;
+	private OperationLogs populateOperationLog(OperationLogType type, User user, HttpServletRequest request) {
+		OperationLogs entity = new OperationLogs();
+		entity.setOperationContent(type.getContent());
+		entity.setOperationType(type.getType());
+		entity.setUid(user.getId());
+		entity.setUname(user.getRealName());
+		entity.setDepartName(user.getDepartmentName());
+		entity.setUserDepartid(user.getDepartmentId());
+		entity.setSopstage(type.getSopstage());
+		@SuppressWarnings("unchecked")
+		Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
+		if (null != map && !map.isEmpty()) {
+			entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
+			entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
+		}
+		return entity;
 	}
 
 	private OperationMessage populateOperationMessage(OperationType type, User user, HttpServletRequest request) {
