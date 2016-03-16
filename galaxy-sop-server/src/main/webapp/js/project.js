@@ -149,13 +149,14 @@ function checkFormValida(){
 
 function savePerson(){
 	
+	if(beforeSubmit()){
+		var projectId = $("#pid").val();
+		if(projectId != ''){
+			$("#projectId").val(projectId);
+			sendPostRequestByJsonObj(platformUrl.addPerson, JSON.parse($("#person_form").serializeObject()), savePersonCallBack);
+		}
+	}
 	
-	if(checkFormValida()){
-	var projectId = $("#pid").val();
-	if(projectId != ''){
-		$("#projectId").val(projectId);
-		sendPostRequestByJsonObj(platformUrl.addPerson, JSON.parse($("#person_form").serializeObject()), savePersonCallBack);
-	}}
 }
 
 
