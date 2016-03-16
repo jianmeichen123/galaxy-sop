@@ -320,7 +320,6 @@ $(function(){
 			}
 			chartOptions.series[0].data = re;
 			chartOptions.xAxis.categories = categories;
-			chartOptions.xAxis.labels.useHTML = true;
 			var chart = new Highcharts.Chart(chartOptions);
 		});
 	}
@@ -376,11 +375,6 @@ var chartOptions={
 	        //categories: ['朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
 	    	labels: {
 	    		useHTML:true,
-	    		/*formatter:function(){
-	    			var temp = new Array();
-	    			temp = this.value.split('-');
-	    			return '<a href="javascript:;" onclick="showDetails("'+temp[1]+'");">' + temp[0] + '</a>';
-	    		},*/
 	            rotation: 0,
 	            align: 'center',
 	            style: {
@@ -401,9 +395,9 @@ var chartOptions={
 	    },
 	    tooltip: {
 	    	useHTML: true,
-	    	formatter: function(){
-	    		return this.x +'<br/>项目数:'+ this.y +'个';
-	    	}
+	    	/*formatter: function(){
+	    		return this.point.x +'<br/>项目数:'+ this.point.y +'个';
+	    	}*/
 	    },
 	    series: [{
 	        name: '项目状态分布',
