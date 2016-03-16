@@ -56,7 +56,10 @@
 			<value>UTF-8</value>
 		</property>
 		<property name="maxUploadSize">
-			<value>50000000</value>
+			<!-- 线上: 最大上传文件限制为25M -->
+			<!-- <value>26214400</value> -->
+			<!--测试： 最大上传文件限制为50M -->
+			<value>52428800</value>
 		</property>
 	</bean>
 

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.operationLog.OperationLogs" >
+
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.operationLog.OperationLogs" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="uid" property="uid" jdbcType="BIGINT" />
+    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="user_roleId" property="userRoleid" jdbcType="BIGINT" />
+    <result column="user_role" property="userRole" jdbcType="VARCHAR" />
+    <result column="user_departId" property="userDepartid" jdbcType="BIGINT" />
+    <result column="depart_name" property="departName" jdbcType="VARCHAR" />
+    <result column="operation_type" property="operationType" jdbcType="VARCHAR" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="operation_content" property="operationContent" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    id, uid, uname, user_roleId, user_role, user_departId, depart_name, operation_type, 
+    project_id, project_name, operation_content, created_time
+  </sql>
+  
+  
+  <sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				  <if test="id != null" > #{id,jdbcType=BIGINT}  </if>
+				  <if test="uid != null" >and #{uid,jdbcType=BIGINT} </if>
+				  <if test="uname != null" >and #{uname,jdbcType=VARCHAR} </if>
+				  <if test="userRoleid != null" >and #{userRoleid,jdbcType=BIGINT} </if>
+				  <if test="userRole != null" >and #{userRole,jdbcType=VARCHAR} </if>
+				  <if test="userDepartid != null" >and #{userDepartid,jdbcType=BIGINT} </if>
+				  <if test="departName != null" >and #{departName,jdbcType=VARCHAR} </if>
+				  <if test="operationType != null" >and #{operationType,jdbcType=VARCHAR} </if>
+				  <if test="projectId != null" >and #{projectId,jdbcType=BIGINT} </if>
+				  <if test="projectName != null" >and #{projectName,jdbcType=VARCHAR} </if>
+				  <if test="operationContent != null" >and #{operationContent,jdbcType=VARCHAR} </if>
+				  <if test="createdTime != null" >and #{createdTime,jdbcType=BIGINT} </if>
+				<!-- 模糊查询 -->
+				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from sop_operation_logs
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_operation_logs
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_operation_logs where id = #{id}
+	</select>
+	
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.operationLog.OperationLogs" >
+	    <![CDATA[
+		    insert into sop_operation_logs (id, uid, uname, 
+		      user_roleId, user_role, user_departId, 
+		      depart_name, operation_type, project_id, 
+		      project_name, operation_content, created_time
+		      )
+		    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{uname,jdbcType=VARCHAR}, 
+		      #{userRoleid,jdbcType=BIGINT}, #{userRole,jdbcType=VARCHAR}, #{userDepartid,jdbcType=BIGINT}, 
+		      #{departName,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR}, #{projectId,jdbcType=BIGINT}, 
+		      #{projectName,jdbcType=VARCHAR}, #{operationContent,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT}
+		      )
+	    ]]>
+    </insert>
+    
+    
+    <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.operationLog.OperationLogs">
+		update sop_operation_logs
+		<set>
+		  <if test="uid != null" >uid = #{uid,jdbcType=BIGINT}, </if>
+		  <if test="uname != null" >uname = #{uname,jdbcType=VARCHAR}, </if>
+		  <if test="userRoleid != null" >user_roleId = #{userRoleid,jdbcType=BIGINT}, </if>
+		  <if test="userRole != null" >user_role = #{userRole,jdbcType=VARCHAR}, </if>
+		  <if test="userDepartid != null" >user_departId = #{userDepartid,jdbcType=BIGINT}, </if>
+		  <if test="departName != null" >depart_name = #{departName,jdbcType=VARCHAR}, </if>
+		  <if test="operationType != null" >operation_type = #{operationType,jdbcType=VARCHAR}, </if>
+		  <if test="projectId != null" >project_id = #{projectId,jdbcType=BIGINT}, </if>
+		  <if test="projectName != null" >project_name = #{projectName,jdbcType=VARCHAR}, </if>
+		  <if test="operationContent != null" >operation_content = #{operationContent,jdbcType=VARCHAR}, </if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				  <if test="id != null" >and #{id,jdbcType=BIGINT}  </if>
+				  <if test="uid != null" >and #{uid,jdbcType=BIGINT} </if>
+				  <if test="uname != null" >and #{uname,jdbcType=VARCHAR} </if>
+				  <if test="userRoleid != null" >and #{userRoleid,jdbcType=BIGINT} </if>
+				  <if test="userRole != null" >and #{userRole,jdbcType=VARCHAR} </if>
+				  <if test="userDepartid != null" >and #{userDepartid,jdbcType=BIGINT} </if>
+				  <if test="departName != null" >and #{departName,jdbcType=VARCHAR} </if>
+				  <if test="operationType != null" >and #{operationType,jdbcType=VARCHAR} </if>
+				  <if test="projectId != null" >and #{projectId,jdbcType=BIGINT} </if>
+				  <if test="projectName != null" >and #{projectName,jdbcType=VARCHAR} </if>
+				  <if test="operationContent != null" >and #{operationContent,jdbcType=VARCHAR} </if>
+				  <if test="createdTime != null" >and #{createdTime,jdbcType=BIGINT} </if>
+			</trim>
+		</where>
+	</update>
+	
+    <!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.operationLog.OperationLogs">
+		update sop_operation_logs
+		<set>
+		  <if test="uid != null" >uid = #{uid,jdbcType=BIGINT}, </if>
+		  <if test="uname != null" >uname = #{uname,jdbcType=VARCHAR}, </if>
+		  <if test="userRoleid != null" >user_roleId = #{userRoleid,jdbcType=BIGINT}, </if>
+		  <if test="userRole != null" >user_role = #{userRole,jdbcType=VARCHAR}, </if>
+		  <if test="userDepartid != null" >user_departId = #{userDepartid,jdbcType=BIGINT}, </if>
+		  <if test="departName != null" >depart_name = #{departName,jdbcType=VARCHAR}, </if>
+		  <if test="operationType != null" >operation_type = #{operationType,jdbcType=VARCHAR}, </if>
+		  <if test="projectId != null" >project_id = #{projectId,jdbcType=BIGINT}, </if>
+		  <if test="projectName != null" >project_name = #{projectName,jdbcType=VARCHAR}, </if>
+		  <if test="operationContent != null" >operation_content = #{operationContent,jdbcType=VARCHAR}, </if>
+		</set>
+		where id = #{id}
+	</update>
+    
+    <!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_operation_logs
+		<include refid="Base_Where_Clause" />
+	</delete>
+     <!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_operation_logs where id = #{id}
+	</delete>
+  
+  
+  
+</mapper>
