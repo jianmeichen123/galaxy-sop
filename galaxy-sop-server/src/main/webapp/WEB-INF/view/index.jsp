@@ -15,6 +15,7 @@
 <script src="<%=path%>/js/index.js" type="text/javascript"></script>
 <link href="<%=path %>/css/calendar.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="<%=path %>/js/calendarnew.js"></script>
+<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -181,7 +182,7 @@
                 	<dt><h3 class="ico t3">数据报表</h3></dt>
                     <dd class="zzbox">
                     	<div class="histogram">
-                        	<!--柱状展示图-->
+                        	<!-- 
                             <ul>
                                 <li data-pace="20"><span>全部</span></li>
                                 <li data-pace="30"><span>接触<br>访谈</span></li>
@@ -193,7 +194,6 @@
                                 <li data-pace="23"><span>投资<br>协议</span></li>
                                 <li data-pace="1"><span>投后<br>运营</span></li>
                             </ul>
-                            <!--线性指标图-->
                             <ol class="clearfix">
                             	<li><span>140</span></li>
                                 <li><span>120</span></li>
@@ -203,7 +203,7 @@
                                 <li><span>40</span></li>
                                 <li><span>20</span></li>
                                 <li><span>0</span></li>
-                            </ol>
+                            </ol> -->
                        </div>
                     </dd>
                     <dd class="clearfix">
@@ -298,6 +298,104 @@
 		top5Message();
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 	});
+</script>
+<script>
+$(function(){
+	load_data_chart();
+	function load_data_chart(){
+		var obj ={url:"http://fx.qa.galaxyinternet.com/report/galaxy/report/projectprogress"};
+		obj.contentType="application/json";
+		ajaxCallback(obj,function(data){
+			var result = data.result;
+			var mapList = data.mapList;
+			if(result.status=='ERROR'){
+				$.popup(100,'消息',result.message);
+				return false;
+			}
+			var re = [];
+			var categories = [];
+			for(var i=0;i<mapList.length;i++){
+				re.push( mapList[i].c);
+				categories.push(mapList[i].name);
+			}
+			chartOptions.series[0].data = re;
+			chartOptions.xAxis.categories = categories;
+			chartOptions.xAxis.labels.useHTML = true;
+			var chart = new Highcharts.Chart(chartOptions);
+		});
+	}
+	var chartOptions={
+		chart: {
+			renderTo :'histogram',
+	        type: 'column'
+	        //margin: [ 50, 50, 100, 80]
+	    },
+	    title: {
+	        text: ''
+	    },
+	    //去除版权
+	    credits: {
+	        enabled:false
+	    },
+	    //去除右上角导出图标
+	    exporting: {
+	    	enabled:false
+	    },
+	    xAxis: {
+	        //categories: ['朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
+	    	labels: {
+	    		useHTML:true,
+	    		/*formatter:function(){
+	    			var temp = new Array();
+	    			temp = this.value.split('-');
+	    			return '<a href="javascript:;" onclick="showDetails("'+temp[1]+'");">' + temp[0] + '</a>';
+	    		},*/
+	            rotation: 0,
+	            align: 'center',
+	            style: {
+	                fontSize: '13px',
+	                fontFamily: 'Verdana, sans-serif'
+	            },
+	        }
+	    },
+	    yAxis: {
+	        min: 0,
+	        title: {
+	            //text: '项目数 (个)'
+	            text:''
+	        }
+	    },
+	    legend: {
+	        enabled: false
+	    },
+	    tooltip: {
+	    	useHTML: true,
+	    	formatter: function(){
+	    		return this.x +'<br/>项目数:'+ this.y +'个';
+	    	}
+	    },
+	    series: [{
+	        name: '项目状态分布',
+	        //data: [8,5,4,3,3,2,2,2,2],
+	        dataLabels: {
+	            enabled: true,
+	            rotation: 0,
+	            color: '#FFFFFF',
+	            align: 'center',
+	            x: 0,
+	            y: 25,
+	            style: {
+	                fontSize: '13px',
+	                fontFamily: 'Verdana, sans-serif',
+	                textShadow: '0 0 3px black'
+	            },
+	            formatter:function(){
+	     			return this.point.y;
+				},
+	        }
+	    }]
+	};
+});
 </script>
 </html>
 
