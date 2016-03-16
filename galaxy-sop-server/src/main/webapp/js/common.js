@@ -593,3 +593,8 @@ function meetProInfoFormat(value, row, index){
 	return row.proName+"</br>"+row.meetingTypeStr;
 }
 
+
+//LONG time format
+function longTimeFormat(value, row, index){
+	return Number(value).toDate().format("yyyy/MM/dd")
+}
