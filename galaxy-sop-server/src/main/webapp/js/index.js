@@ -68,9 +68,9 @@
 				 i=i+1;
 				 var tr='<tr>'+
 				 '<td>'+i+'</td>'+
-				 '<td>'+ getValue(templ.projectName)+'</td>'+
-				 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
-				 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
+				 '<td>'+ getValue(temp.projectName)+'</td>'+
+				 '<td>'+ getDateValue(temp.meetingDate)+'</td>'+
+				 '<td>'+getIntegerValue(temp.meetingCount)+'</td>'+
 				' </tr>'; 
 			 tbodyList.append(tr);
 			  });
@@ -169,7 +169,7 @@
 	function getDateValue(str) {
 		if (str == null || typeof(str) == "undefined") {
 			return " ";
-		} esle {
+		} else {
 		  return formatDate(str);
 		}
 	}
