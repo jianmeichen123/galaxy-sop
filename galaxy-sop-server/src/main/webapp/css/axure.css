@@ -35,7 +35,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .none{ display:none}
 .null{ display:block; overflow:hidden; font-size:0; line-height:0; text-indent:-999px}
 /*公用表格*/
-table{ background:#ffffff; border-bottom:1px solid #f6f7fa}
+table{ background:#ffffff;}
 table th{ text-align:center; color:#3e4351; font-weight:normal; font-size:12px; line-height:38px;border-bottom: 1px solid #edeff5;}
 table td{ height:30px;line-height:30px; text-align:center; font-size:12px; color:#7a8798; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
 .fixed_width td{width:16%;}
@@ -96,7 +96,7 @@ table .width_gd{width:10%;}
 }
 .btn-default {
   color: #333;
-  background-color: #fff;
+  background-color: #eee;
   border-color: #ccc;
 }
 .btn > .caret,
@@ -154,7 +154,7 @@ table .width_gd{width:10%;}
   line-height: 1.42857143;
   color: #66b1f2;
   text-decoration: none;
-  background-color: #fff;
+  background-color: #eee;
   border: 1px solid #ddd;
 }
 .pagination > li:first-child > a,
@@ -197,7 +197,7 @@ table .width_gd{width:10%;}
 .pagination > .disabled > a:focus {
   color: #777;
   cursor: not-allowed;
-  background-color: #fff;
+  background-color: #eee;
   border-color: #ddd;
 }
 .dropup{
@@ -239,7 +239,7 @@ table .width_gd{width:10%;}
   font-size: 14px;
   text-align: left;
   list-style: none;
-  background-color: #fff;
+  background-color: #eee;
   -webkit-background-clip: padding-box;
           background-clip: padding-box;
   border: 1px solid #ccc;
@@ -320,6 +320,7 @@ table .width_gd{width:10%;}
 .bluebtn{ background-color:#66b1f2; border-color:#66b1f2; color:#FFF}
 .bluebtn:hover{background-color:#85c1f5; border-color:#85c1f5;text-decoration:none }
 .fffbtn{ background-color:#fdfdfe; border-color:#ccd2d7; color:#4a97da}
+.fffbtn:hover{background-color: #66b1f2;color: #fff;border:1px solid #66b1f2;}
 .btnbox_f{float: left;}
 .btnbox_f a{height: 28px;line-height: 28px;display: inline-block;text-decoration: none;margin: 0 6px 6px 0;}
 .searchbtn_ico{background:#66b1f2 url(../img/btnico2.png) 0 0 no-repeat;}
@@ -337,8 +338,8 @@ table .width_gd{width:10%;}
 .fmdl dd .txt,
 .fmdl dd textarea,
 .fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px; line-height:28px; border-radius:4px; padding:0 4px; font-size:14px; color:#525662; font-family:"宋体"}
-.fmdl dd select{ width:160px}
-.fmdl dd .txt{ width:230px}
+.fmdl dd select{ width:160px;font-size: 12px;}
+.fmdl dd .txt{ width:230px;;font-size: 12px;}
 .fmdl label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; font-size:14px; color:#525662; font-family:"宋体"; position:relative}
 .fmdl label input{ position:absolute; left:0; top:9px; *top:4px}
 
@@ -347,8 +348,8 @@ table .width_gd{width:10%;}
 .fmload .loadname{ width:300px; float:left; margin:0 10px 0 0}
 .fmload .pubbtn{ float:left}
 .fmload .load{ position:absolute; width:80px; height:30px; display:block; left:320px; top:0;filter:alpha(opacity=0);opacity: 0; cursor:pointer}
-.fmarea{display:block; border:1px solid #dadfe3; background:#ffffff;  border-radius:4px; padding:8px; margin:0 0 15px}
-.fmarea textarea{ height:150px; width:100%; border:0;line-height:22px; font-size:14px; color:#525662; font-family:"宋体";}
+.fmarea{display:block; border:1px solid #dadfe3; background:#ffffff;  border-radius:4px; padding:5px; margin:0 0 15px}
+.fmarea textarea{ height:150px; width:100%; border:0;line-height:22px; font-size:12px; color:#525662; font-family:"宋体";}
 /*日历*/
 .calendar{ display:none; width:200px; border:1px solid #999; background:#FFFFFF; padding:5px 5px 0; text-align:center; position:fixed; position:absolute; z-index:50}
 .calendar dt{ height:30px; width:200px; margin:0 auto 5px; background:#e9ebf2; line-height:30px; color:#333; position:relative}
@@ -578,7 +579,7 @@ table .width_gd{width:10%;}
 .pagebox .projectmsg_d .block1 table td label input[type="radio"]{ position:absolute; left:0; top:9px; *top:4px}
 .pagebox .projectmsg_d .block1 table dl{padding-left:10px;overflow: hidden;}
 .pagebox .projectmsg_d .block1 table dl dt{float: left;font-size: 14px;color:#3e4351;width: 100px;text-align: right;}
-.pagebox .projectmsg_d .block1 table dl dd .transferSharesTxt{width:60px;}
+.pagebox .projectmsg_d .block1 table dl dd .transferSharesTxt{width:30px;}
 .pagebox .projectmsg_d .block1 table dl dd{float: left;font-size: 12px;color:#525662;}
 .pagebox .projectmsg_d .block1 .btnbox{ width:80px;margin:0 auto;}
 .pagebox .projectmsg_d .block1 .btnbox .pubbtn{ width:80px;margin:0 20px 0 0; display:inline-block; *display:inline; zoom:1;}
@@ -841,7 +842,8 @@ right: 200px;}
 .loginpage .logo{ width:171px; height:49px; float:left; background:url(../img/logoico.png) no-repeat; margin:8px 0 0}
 .loginpage .top .rit{ padding:0 0 0 26px; line-height:24px; height:24px; background-position:0 -268px; font-size:12px; color:#b3b8cb; margin:18px 0 0; font-family:"宋体"; float:right}
 .loginpage .min{ width:1280px; height:572px; padding:70px 0 0; margin:0 auto}
-.loginpage .pic{width: 759px;height: 448px;background: url(../img/loginbg.png) 0 0 no-repeat;float: left;z-index: 1000;}
+.loginpage .pic{width: 759px;height: 448px;background: url(../img/loginbg.png) 0 0 no-repeat;float: left;-webkit-background-size: 93%;
+background-size: 93%;}
 .loginbox{ width:362px; float:right; margin:48px 100px 0 0;}
 .loginbox h2{ height:33px; background-position:0 0; margin:0 0 16px 17px}
 .loginbox .txt{ display:block; border:0; width:282px; height:46px; line-height:46px; font-size:14px; color:#666666; font-family:"宋体"; background-color:#edf0f4; border-radius:6px; padding:0 10px 0 36px; margin:0 0 10px 17px}
@@ -937,7 +939,7 @@ right: 200px;}
 .emailtc .checkbox label{height: 20px;line-height: 20px;color:#535762;}
 .emailtc .checkbox label input{margin: 2px 5px 0 0;}
 /* 添加团队成员信息弹窗 */
-.addmentc .left,.addmentc .right{width:280px;float: left;}
+.addmentc .left,.addmentc .right{width:390px;float: left;}
 .addmentc dl{margin:10px 0;overflow: hidden;}
 .addmentc dl dt,.addmentc dl dd{float: left;}
 .addmentc dl dt{width:100px;text-align: right;}
@@ -1076,10 +1078,15 @@ right: 200px;}
 .searchtc .top dl dt{width:80px;text-align: right;}
 .searchtc .top dd input{width: 80%;font-size: 12px;}
 .searchtc .pubbtn{margin: 10px auto 0;}
+/* 模板更新弹窗 */
+#upload-form h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
+#upload-form .fmdl{margin:0 0 6px;}
 /* 公共调样式 */
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding:3px;}
 .table{border-radius: 6px;}
 .news_table{border-radius: 0 !important;}
 .news_top{margin:0 !important;}
+.news_top select{float:right;width:100px;height:30px;border: 1px solid #fff;border-radius:4px;margin-right: 20px;}
 .block_pad{padding-top: 10px;}
+#person_form label{width:auto;}

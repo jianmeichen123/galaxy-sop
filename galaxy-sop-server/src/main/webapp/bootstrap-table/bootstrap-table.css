@@ -39,7 +39,7 @@
 .fixed-table-container.table-no-bordered {
     border: 1px solid transparent;
 }
-.fixed-table-pagination{overflow: hidden;margin-top: 10px;}
+.fixed-table-pagination{margin-top: 10px;}
 .fixed-table-footer,
 .fixed-table-header {
     overflow: hidden;
