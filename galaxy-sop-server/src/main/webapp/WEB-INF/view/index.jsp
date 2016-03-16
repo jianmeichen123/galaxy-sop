@@ -355,71 +355,71 @@ function ajaxCallback(obj,callback){
 }
 
 var chartOptions={
-		chart: {
-			renderTo :'histogram',
-	        type: 'column'
-	        //margin: [ 50, 50, 100, 80]
-	    },
-	    title: {
-	        text: ''
-	    },
-	    //去除版权
-	    credits: {
-	        enabled:false
-	    },
-	    //去除右上角导出图标
-	    exporting: {
-	    	enabled:false
-	    },
-	    xAxis: {
-	        //categories: ['朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
-	    	labels: {
-	    		useHTML:true,
-	            rotation: 0,
-	            align: 'center',
-	            style: {
-	                fontSize: '13px',
-	                fontFamily: 'Verdana, sans-serif'
-	            },
-	        }
-	    },
-	    yAxis: {
-	        min: 0,
-	        title: {
-	            //text: '项目数 (个)'
-	            text:''
-	        }
-	    },
-	    legend: {
-	        enabled: false
-	    },
-	    tooltip: {
-	    	useHTML: true,
-	    	/*formatter: function(){
-	    		return this.point.x +'<br/>项目数:'+ this.point.y +'个';
-	    	}*/
-	    },
-	    series: [{
-	        name: '项目状态分布',
-	        //data: [8,5,4,3,3,2,2,2,2],
-	        dataLabels: {
-	            enabled: true,
-	            rotation: 0,
-	            color: '#FFFFFF',
-	            align: 'center',
-	            x: 0,
-	            y: 25,
-	            style: {
-	                fontSize: '13px',
-	                fontFamily: 'Verdana, sans-serif',
-	                textShadow: '0 0 3px black'
-	            },
-	            formatter:function(){
-	     			return this.point.y;
-				},
-	        }
-	    }]
-	};
+	chart: {
+		renderTo :'histogram',
+        type: 'column'
+        //margin: [ 50, 50, 100, 80]
+    },
+    title: {
+        text: ''
+    },
+    //去除版权
+    credits: {
+        enabled:false
+    },
+    //去除右上角导出图标
+    exporting: {
+    	enabled:false
+    },
+    xAxis: {
+        //categories: ['朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
+    	labels: {
+            rotation: 0,
+            align: 'center',
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif'
+            },
+        }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            //text: '项目数 (个)'
+            text:''
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    tooltip: {
+    	/*useHTML: true,
+    	formatter: function(){
+    		return this.point.x +'<br/>项目数:'+ this.point.y +'个';
+    	}*/
+    	enabled:true
+    },
+    series: [{
+        name: '项目状态分布',
+        //data: [8,5,4,3,3,2,2,2,2],
+        dataLabels: {
+            enabled: true,
+            rotation: 0,
+            color: '#FFFFFF',
+            align: 'center',
+            x: 0,
+            y: 25,
+            style: {
+                fontSize: '13px',
+                fontFamily: 'Verdana, sans-serif',
+                textShadow: '0 0 3px black'
+            },
+            formatter:function(){
+     			return this.point.y;
+			},
+        }
+    }]
+};
 </script>
 </html>
 
