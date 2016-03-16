@@ -35,7 +35,7 @@
 
 	//主页待办任务
 	function selectSopTask(){
-		var jsonData={"pageNum":0,"pageSize":5}; 
+		var jsonData={"pageNum":0,"pageSize":3}; 
 		sendPostRequestByJsonObj(platformUrl.soptaskshouye,jsonData, SopTaskCallback);
 	}
 
