@@ -232,7 +232,6 @@
 						tiggerTable($("#projectProgress_table"),5);
 						//$("#projectProgress_table").bootstrapTable("refresh");
 					});
-				});
 				$("#" + progress).addClass("on");
 				$("#" + progress + "_con").css("display","block");
 			},null);
