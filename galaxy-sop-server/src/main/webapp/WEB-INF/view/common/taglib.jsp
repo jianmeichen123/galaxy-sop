@@ -12,7 +12,6 @@
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <%
-String path = request.getContextPath(); 
 User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 String sessionId = "";
 String nick_name = "";
