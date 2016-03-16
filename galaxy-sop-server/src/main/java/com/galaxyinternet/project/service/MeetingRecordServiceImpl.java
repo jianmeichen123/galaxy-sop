@@ -19,6 +19,7 @@ import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.framework.core.file.BucketName;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
@@ -53,7 +54,11 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	protected BaseDao<MeetingRecord, Long> getBaseDao() {
 		return this.meetingRecordDao;
 	}
-
+	
+	private String[] transFileNames(String fileFullName){
+		return fileFullName.split("\\.");
+	}
+	
 	
 	//文件上传, 成功后插入 sopfile 数据库
 	//返回 附件id
@@ -90,7 +95,9 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 					sopFile.setBucketName(upResult.getBucketName()); //bucketName
 					sopFile.setFileKey(key);   //fileKey
 					sopFile.setFileLength(upResult.getContentLength());  //文件大小
-					sopFile.setFileName(fileName);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
+					String[] fileNameStr = transFileNames(fileName);
+					sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
+					sopFile.setFileSuffix(fileNameStr[1]);
 					sopFile.setFileUid(uid);	 //上传人
 					//sopFile.setFileType("");   //存储类型
 					//sopFile.setFileSource(Integer.parseInt(fileSource));  //档案来源
