@@ -194,10 +194,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		try {
 			if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){
-				Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
+				/*Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
 				responseBody.setPageList(pageProject);
-				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setResult(new Result(Status.OK, ""));*/
 			}
+			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
+			responseBody.setPageList(pageProject);
+			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
 		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
@@ -207,6 +210,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+
 	
 	/**
 	 * 获取项目列表(投资经理)
