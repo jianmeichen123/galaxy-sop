@@ -26,6 +26,8 @@ public class OperationLogs extends BaseEntity{
 
     private String operationContent;
     private String operationContentStr;
+    
+    private String sopstage;
 
 
     public Long getUid() {
@@ -124,5 +126,11 @@ public class OperationLogs extends BaseEntity{
 		this.operationContentStr = operationContentStr;
 	}
 
-    
+	public String getSopstage() {
+		return sopstage;
+	}
+
+	public void setSopstage(String sopstage) {
+		this.sopstage = sopstage;
+	}
 }
