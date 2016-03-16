@@ -86,7 +86,7 @@
                       <td>
                         <dl>
                           <dt>出让股份：</dt>
-                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" placeholder="出让股份"></dd>
+                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" placeholder="出让股份" class="transferSharesTxt">%</dd>
                         </dl>
                       </td>
                       <td>
