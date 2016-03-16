@@ -324,7 +324,38 @@ $(function(){
 			var chart = new Highcharts.Chart(chartOptions);
 		});
 	}
-	var chartOptions={
+});
+//通用ajax数据回调
+function ajaxCallback(obj,callback){
+	$.ajax({
+		url:obj.url,
+		dataType:obj.dataType||'json',
+		//contentType: obj.contentType ||"application/x-www-form-urlencoded; charset=UTF-8",
+		contentType:obj.contentType ||"application/json",
+		type:obj.type||'POST',
+		data: JSON.stringify( obj.data||{} ),
+		async : false,
+		beforeSend:function(xhr){
+			if(sessionId){
+				xhr.setRequestHeader("sessionId",sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId",userId);
+			}
+		},
+		error : function(request) {
+			//alert("connetion error");
+		},
+		success:function(data){
+			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+				location.href = platformUrl.toLoginPage;
+			}
+			callback.call(this,data);
+		}
+	});
+}
+
+var chartOptions={
 		chart: {
 			renderTo :'histogram',
 	        type: 'column'
@@ -395,36 +426,6 @@ $(function(){
 	        }
 	    }]
 	};
-});
-//通用ajax数据回调
-function ajaxCallback(obj,callback){
-	$.ajax({
-		url:obj.url,
-		dataType:obj.dataType||'json',
-		//contentType: obj.contentType ||"application/x-www-form-urlencoded; charset=UTF-8",
-		contentType:obj.contentType ||"application/json",
-		type:obj.type||'POST',
-		data: JSON.stringify( obj.data||{} ),
-		async : false,
-		beforeSend:function(xhr){
-			if(sessionId){
-				xhr.setRequestHeader("sessionId",sessionId);
-			}
-			if(userId){
-				xhr.setRequestHeader("guserId",userId);
-			}
-		},
-		error : function(request) {
-			//alert("connetion error");
-		},
-		success:function(data){
-			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
-				location.href = platformUrl.toLoginPage;
-			}
-			callback.call(this,data);
-		}
-	});
-}
 </script>
 </html>
 
