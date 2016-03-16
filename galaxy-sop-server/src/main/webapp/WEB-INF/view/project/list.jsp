@@ -144,6 +144,7 @@
 					var progress = data.entity.projectProgress;
 					progress = progress.replace(":","_");
 					var index = progress.substr(progress.length-1,1);
+					
 					for(var i = 1; i<10; i++){
 						if(i > index){
 							//当前阶段之后的tab变为不可用
@@ -225,9 +226,15 @@
 							}
 						});
 					}
-					$("#" + progress).addClass("on");
-					$("#" + progress + "_con").css("display","block");
-				},null);
+					
+					$("#projectProgress").on("click",function(){
+						$("#progress").addClass("on");
+						$("#projectProgress_con").css("display","block");
+						tiggerTable($("#projectProgress_table"),5);
+						//$("#projectProgress_table").bootstrapTable("refresh");
+					});
+					
+				});
 			}
 		});
 		return false;

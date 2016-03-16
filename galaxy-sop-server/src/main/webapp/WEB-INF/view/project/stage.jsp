@@ -480,48 +480,29 @@
 					</tbody>
 				</table>-->
 			</div>
+			
 			<!-- 操作日志  -->
-			<div class="block" data-tab="con">
-				<!--表格内容-->
-				<table width="100%" cellspacing="0" cellpadding="0">
+			<div class="block" data-tab="con" id="projectProgress_con">
+				<div id="pro_message_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+				</div>
+				<table id="projectProgress_table"
+					data-url="<%=path%>/galaxy/operationMessage/queryList"
+					data-page-list="[5,10]" data-toolbar="#pro_message_custom-toolbar">
 					<thead>
 						<tr>
-							<th>时间</th>
-							<th>操作者</th>
-							<th>动作</th>
-							<th>对象</th>
-							<th>项目</th>
-							<th>业务</th>
+							<th data-field="operator" data-align="center" >操作人</th>
+							<th data-field="role" data-align="center" >角色</th>
+							<th data-field="department" data-align="center">投资线/部门</th>
+							<th data-field="module" data-align="center" >模块</th>
+							<th data-field="type" data-align="center" >消息类型</th>
+							<th data-field="content" data-align="center" >消息内容</th>
+							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>2016-01-20</td>
-							<td>投资经理</td>
-							<td>创建</td>
-							<td>人力资源尽职调查报告</td>
-							<td>项目名称1</td>
-							<td>创建项目</td>
-						</tr>
-						<tr>
-							<td>2016-01-20</td>
-							<td>投资经理</td>
-							<td>创建</td>
-							<td>人力资源尽职调查报告</td>
-							<td>项目名称1</td>
-							<td>创建项目</td>
-						</tr>
-						<tr>
-							<td>2016-01-20</td>
-							<td>投资经理</td>
-							<td>创建</td>
-							<td>人力资源尽职调查报告</td>
-							<td>项目名称1</td>
-							<td>创建项目</td>
-						</tr>
-					</tbody>
 				</table>
 			</div>
+			
 		</div>
 	</div>
 </div>
