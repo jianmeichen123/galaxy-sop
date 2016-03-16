@@ -21,7 +21,7 @@
                 <li data-tab="nav"><a href="javascript:;">外部项目信息</a></li>           
             </ul>
             <!-- tab内容 -->
-            <div class="tabtable_con show"  data-tab="con">
+            <div class="tabtable_con show"  data-tab="con"  model="personPool">
               <div class="tabtable_con1">
                  <h2>核心成员基本资料</h2>
                 <table>
@@ -100,7 +100,7 @@
             </div>
 
             <!-- tab内容 -->
-            <div class="tabtable_con"  data-tab="con">
+            <div class="tabtable_con"  data-tab="con" model="personLearn">
               <div class="tabtable_con1">
                 <h2>学习经历</h2>
                 <input type="button" class="add bluebtn" value="+">
@@ -180,7 +180,7 @@
               </div>
             </div>
             <!-- tab内容 -->
-            <div class="tabtable_con"  data-tab="con">
+            <div class="tabtable_con"  data-tab="con" model="personWork" >
               <div class="tabtable_con1">
                 <h2>工作记录</h2>
                 <input type="button" class="add bluebtn" value="+">
@@ -270,7 +270,7 @@
 
             </div>
             <!-- tab内容 -->
-            <div class="tabtable_con"  data-tab="con">
+            <div class="tabtable_con"  data-tab="con" model="personInvest">
               <div class="tabtable_con1">
                 <h2>投资方信息（天使轮）</h2>
                                 <table>
@@ -339,10 +339,38 @@
               </div>
               </form>
               <div class="btnbox">
-                <a href="javascript:;" onclick="inadd();" class="pubbtn bluebtn">保存</a>
+                <a href="javascript:;"  class="pubbtn bluebtn">保存</a>
                 <a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
               </div>
 
           </div>
 </div>
+<script type="text/javascript">
+$(".btnbox").on("click",".bluebtn",function(){
+	var models = $("div[model]");
+	var data = {};
+	models.each(function(index,item){
+		var it = $(item);
+		//单个实体
+		var model = {}
+		var name = it.attr("model");
+		var tr_arr= new Array()
+		it.find("tr").each(function(index,tr_item){
+			var tr_it = $(tr_item);
+			var inputs= tr_it.find("input");
+			if(inputs.length != 1){
+				var 
+				var tr_it = $(tr_item);
+				var input = {};
+				tr_it.find("input").each(function(index,input_item){
+					var input_it = $(input_item);	
+				});
+			}else{
+				model[$(inputs[0]).attr("name")] = $(inputs[0]).val();
+			}
+		});
+		data[name] = model;
+	});
+});
+</script> 
            
