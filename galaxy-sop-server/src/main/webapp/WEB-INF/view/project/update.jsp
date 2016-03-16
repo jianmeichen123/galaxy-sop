@@ -356,6 +356,7 @@
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
 <script>
+    var pid='${requestScope.pid}';
 	function editor(value, row, index){
 		var id=row.id;
 		var url='<%=path %>/galaxy/project/updatePro/'+id;
@@ -522,7 +523,8 @@
     	return {
 	    	pageSize: params.limit,
 	    	pageNum: params.offset,
-	    	order: params.order
+	    	order: params.order,
+	    	projectId:pid
     	};
     }
     
