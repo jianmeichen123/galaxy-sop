@@ -30,7 +30,7 @@
  	<div class="ritmin">
     	<h2>消息提醒</h2>
         <!--页眉-->
-        <div class="top clearfix" id="custom-toolbar">
+        <div class="top clearfix news_top" id="custom-toolbar">
         	<!--搜索-->
           <div class="searchbox clearfix">
             <input type="hidden"  id="tipslink_val" name="module" value="1" />
@@ -44,15 +44,15 @@
 	        		<option value="任务">任务</option>
         		</select>
             <!--tips连接-->
-        	<ul class="tipslink">
+        	<ul class="tipslink tablink">
 
-                <li><a href="javascript:;" query-by="module" query-val="1" class="on">广播消息<span><!-- (10) --></span></a></li>
+                <li class="on"><a href="javascript:;" query-by="module" query-val="1" >广播消息<span><!-- (10) --></span></a></li>
                 <li><a href="javascript:;"  query-by="module" query-val="2">与我有关 <span><!-- (4) --></span></a></li>
           </ul>
         </div>
         <!--表格内容-->
 						<table width="100%" cellspacing="0" cellpadding="0" 
-						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/operationMessage/queryList"  data-page-list="[1, 10, 30]"
+						 id="data-table" data-url="operationMessageQueryList"  data-page-list="[1, 10, 30]"
 						 data-toolbar="#custom-toolbar"
 				         >
 						   <thead>
