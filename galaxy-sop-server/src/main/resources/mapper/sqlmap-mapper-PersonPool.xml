@@ -44,6 +44,13 @@
 		<where>
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
+			  <if test="ids != null">
+					AND id IN
+					<foreach collection="ids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
 			  <if test="personName != null" > and person_name = #{personName,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>

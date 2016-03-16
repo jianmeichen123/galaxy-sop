@@ -354,10 +354,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryProjectPerson",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> queryProjectPerson(HttpServletRequest request,@RequestBody PersonPool personPool) {
+	public ResponseData<PersonPool> queryProjectPerson(HttpServletRequest request,@RequestBody PersonPoolBo personPoolBo) {
 		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
 		try {
-			Page<PersonPool> pageList = personPoolService.queryPageList(personPool, new PageRequest(personPool.getPageNum(), personPool.getPageSize()));
+			Page<PersonPool> pageList = personPoolService.queryPageListByPid(personPoolBo, new PageRequest(personPoolBo.getPageNum(), personPoolBo.getPageSize()));
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
@@ -371,7 +371,29 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		
 		
 	}
-	
+	/**
+	 * 查询团队成员列表
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryProjectPersonForP",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> queryProjectPersonForP(HttpServletRequest request,@RequestBody PersonPoolBo personPoolBo) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		try {
+			Page<PersonPool> pageList = personPoolService.queryPageListByPid(personPoolBo, new PageRequest(personPoolBo.getPageNum(), personPoolBo.getPageSize()));
+			responseBody.setPageList(pageList);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
+		return responseBody;
+		
+		
+	}
 	/**
 	 * 创建项目编码
 	 * @author yangshuhua

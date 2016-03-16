@@ -180,7 +180,7 @@
 			      <script type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="analysis_show">11111</dd>
+			  <dd class="describe" id="analysis_show"></dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
                 <a href="javascript:;" id="save_analysis" class="ico f4" data-btn="submit">保存</a>
