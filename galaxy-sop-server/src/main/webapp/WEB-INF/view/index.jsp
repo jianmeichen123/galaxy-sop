@@ -351,8 +351,8 @@ var chartOptions={
     xAxis: {
         //categories: ['朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
     	labels: {
-            rotation: 0,
-            align: 'center',
+            rotation: -45,
+            align: 'right',
             style: {
                 fontSize: '13px',
                 fontFamily: 'Verdana, sans-serif'
@@ -376,7 +376,7 @@ var chartOptions={
     	enabled:true
     },
     series: [{
-        name: '项目状态分布',
+        name: '项目数',
         //data: [8,5,4,3,3,2,2,2,2],
         dataLabels: {
             enabled: true,
