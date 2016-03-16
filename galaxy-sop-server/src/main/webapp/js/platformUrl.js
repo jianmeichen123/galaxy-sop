@@ -249,6 +249,10 @@ var platformUrl = {
 	commonUploadFile : sopContentUrl + "/galaxy/sopFile/commonUploadFile",
 	
 	showTask: sopContentUrl + "/galaxy/soptask",
+	
+	operationMessageQueryList : sopContentUrl + "/galaxy/operationMessage/queryList",
+	
+	operationMessageRemind : sopContentUrl + "/galaxy/operationMessage/remind",
 }
 
 /**

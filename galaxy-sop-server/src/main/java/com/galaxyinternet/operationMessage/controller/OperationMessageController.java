@@ -22,6 +22,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.OperationMessageService;
@@ -68,9 +69,16 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	
 	@ResponseBody
 	@RequestMapping(value = "/remind", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<OperationMessage> remind(HttpServletRequest request) {
-		ResponseData<OperationMessage> responseBody = new ResponseData<OperationMessage>();
+	public ResponseData<OperationMessageBo> remind(HttpServletRequest request) {
+		ResponseData<OperationMessageBo> responseBody = new ResponseData<OperationMessageBo>();
 		try {
+			OperationMessageBo operationMessageBo = new OperationMessageBo();
+			operationMessageBo.setCreatedTimeStart(DateUtil.getCurrentDate().getTime());
+			User user = (User) getUserFromSession(request);
+			operationMessageBo.setOperatorId(user.getId());
+			Long count = operationMessageService.selectCount(operationMessageBo);
+			operationMessageBo.setCount(count);;
+			responseBody.setEntity(operationMessageBo);
 			return responseBody;	
 		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
