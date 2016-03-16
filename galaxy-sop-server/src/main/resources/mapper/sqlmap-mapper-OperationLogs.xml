@@ -13,6 +13,7 @@
     <result column="operation_type" property="operationType" jdbcType="VARCHAR" />
     <result column="project_id" property="projectId" jdbcType="BIGINT" />
     <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="sop_stage" property="sopstage" jdbcType="VARCHAR" />
     <result column="operation_content" property="operationContent" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
   </resultMap>
@@ -20,25 +21,26 @@
   
   <sql id="Base_Column_List" >
     id, uid, uname, user_roleId, user_role, user_departId, depart_name, operation_type, 
-    project_id, project_name, operation_content, created_time
+    project_id, project_name,sop_stage, operation_content, created_time
   </sql>
   
   
   <sql id="Base_Where_Clause">
 		<where>
 			<trim prefixOverrides="and">
-				  <if test="id != null" > #{id,jdbcType=BIGINT}  </if>
-				  <if test="uid != null" >and #{uid,jdbcType=BIGINT} </if>
-				  <if test="uname != null" >and #{uname,jdbcType=VARCHAR} </if>
-				  <if test="userRoleid != null" >and #{userRoleid,jdbcType=BIGINT} </if>
-				  <if test="userRole != null" >and #{userRole,jdbcType=VARCHAR} </if>
-				  <if test="userDepartid != null" >and #{userDepartid,jdbcType=BIGINT} </if>
-				  <if test="departName != null" >and #{departName,jdbcType=VARCHAR} </if>
-				  <if test="operationType != null" >and #{operationType,jdbcType=VARCHAR} </if>
-				  <if test="projectId != null" >and #{projectId,jdbcType=BIGINT} </if>
-				  <if test="projectName != null" >and #{projectName,jdbcType=VARCHAR} </if>
-				  <if test="operationContent != null" >and #{operationContent,jdbcType=VARCHAR} </if>
-				  <if test="createdTime != null" >and #{createdTime,jdbcType=BIGINT} </if>
+				  <if test="id != null" >id = #{id,jdbcType=BIGINT}  </if>
+				  <if test="uid != null" >and uid = #{uid,jdbcType=BIGINT} </if>
+				  <if test="uname != null" >and uname = #{uname,jdbcType=VARCHAR} </if>
+				  <if test="userRoleid != null" >and user_roleId = #{userRoleid,jdbcType=BIGINT} </if>
+				  <if test="userRole != null" >and user_role = #{userRole,jdbcType=VARCHAR} </if>
+				  <if test="userDepartid != null" >and user_departId = #{userDepartid,jdbcType=BIGINT} </if>
+				  <if test="departName != null" >and depart_name = #{departName,jdbcType=VARCHAR} </if>
+				  <if test="operationType != null" >and operation_type = #{operationType,jdbcType=VARCHAR} </if>
+				  <if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+				  <if test="projectName != null" >and project_name = #{projectName,jdbcType=VARCHAR} </if>
+				   <if test="sopstage != null" >and sop_stage = #{sopstage,jdbcType=VARCHAR} </if>
+				  <if test="operationContent != null" >and operation_content = #{operationContent,jdbcType=VARCHAR} </if>
+				  <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>
@@ -76,12 +78,12 @@
 		    insert into sop_operation_logs (id, uid, uname, 
 		      user_roleId, user_role, user_departId, 
 		      depart_name, operation_type, project_id, 
-		      project_name, operation_content, created_time
+		      project_name, sop_stage, operation_content, created_time
 		      )
 		    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{uname,jdbcType=VARCHAR}, 
 		      #{userRoleid,jdbcType=BIGINT}, #{userRole,jdbcType=VARCHAR}, #{userDepartid,jdbcType=BIGINT}, 
 		      #{departName,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR}, #{projectId,jdbcType=BIGINT}, 
-		      #{projectName,jdbcType=VARCHAR}, #{operationContent,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT}
+		      #{projectName,jdbcType=VARCHAR}, #{sopstage,jdbcType=VARCHAR},#{operationContent,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT}
 		      )
 	    ]]>
     </insert>
@@ -100,22 +102,24 @@
 		  <if test="operationType != null" >operation_type = #{operationType,jdbcType=VARCHAR}, </if>
 		  <if test="projectId != null" >project_id = #{projectId,jdbcType=BIGINT}, </if>
 		  <if test="projectName != null" >project_name = #{projectName,jdbcType=VARCHAR}, </if>
-		  <if test="operationContent != null" >operation_content = #{operationContent,jdbcType=VARCHAR}, </if>
+		  <if test="sopstage != null" >sop_stage = #{sopstage,jdbcType=VARCHAR}, </if>
+		  <if test="operationContent != null" >operation_content = #{operationContent,jdbcType=VARCHAR} </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
-				  <if test="id != null" >and #{id,jdbcType=BIGINT}  </if>
-				  <if test="uid != null" >and #{uid,jdbcType=BIGINT} </if>
-				  <if test="uname != null" >and #{uname,jdbcType=VARCHAR} </if>
-				  <if test="userRoleid != null" >and #{userRoleid,jdbcType=BIGINT} </if>
-				  <if test="userRole != null" >and #{userRole,jdbcType=VARCHAR} </if>
-				  <if test="userDepartid != null" >and #{userDepartid,jdbcType=BIGINT} </if>
-				  <if test="departName != null" >and #{departName,jdbcType=VARCHAR} </if>
-				  <if test="operationType != null" >and #{operationType,jdbcType=VARCHAR} </if>
-				  <if test="projectId != null" >and #{projectId,jdbcType=BIGINT} </if>
-				  <if test="projectName != null" >and #{projectName,jdbcType=VARCHAR} </if>
-				  <if test="operationContent != null" >and #{operationContent,jdbcType=VARCHAR} </if>
-				  <if test="createdTime != null" >and #{createdTime,jdbcType=BIGINT} </if>
+				   <if test="id != null" >and id = #{id,jdbcType=BIGINT}  </if>
+				  <if test="uid != null" >and uid = #{uid,jdbcType=BIGINT} </if>
+				  <if test="uname != null" >and uname = #{uname,jdbcType=VARCHAR} </if>
+				  <if test="userRoleid != null" >and user_roleId = #{userRoleid,jdbcType=BIGINT} </if>
+				  <if test="userRole != null" >and user_role = #{userRole,jdbcType=VARCHAR} </if>
+				  <if test="userDepartid != null" >and user_departId = #{userDepartid,jdbcType=BIGINT} </if>
+				  <if test="departName != null" >and depart_name = #{departName,jdbcType=VARCHAR} </if>
+				  <if test="operationType != null" >and operation_type = #{operationType,jdbcType=VARCHAR} </if>
+				  <if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+				  <if test="projectName != null" >and project_name = #{projectName,jdbcType=VARCHAR} </if>
+				  <if test="sopstage != null" >and sop_stage = #{sopstage,jdbcType=VARCHAR} </if>
+				  <if test="operationContent != null" >and operation_content = #{operationContent,jdbcType=VARCHAR} </if>
+				  <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			</trim>
 		</where>
 	</update>
@@ -133,6 +137,7 @@
 		  <if test="operationType != null" >operation_type = #{operationType,jdbcType=VARCHAR}, </if>
 		  <if test="projectId != null" >project_id = #{projectId,jdbcType=BIGINT}, </if>
 		  <if test="projectName != null" >project_name = #{projectName,jdbcType=VARCHAR}, </if>
+		  <if test="sopstage != null" >sop_stage = #{sopstage,jdbcType=VARCHAR}, </if>
 		  <if test="operationContent != null" >operation_content = #{operationContent,jdbcType=VARCHAR}, </if>
 		</set>
 		where id = #{id}
