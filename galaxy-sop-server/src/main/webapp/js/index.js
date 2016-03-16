@@ -3,6 +3,13 @@
 
 	var moreProjectMeetingList ={};
 
+	function top5Message() {
+		var data = {};
+		data["pageSize"] = 3;
+		data["pageNum"] = 0;
+		sendPostRequestByJsonObj(platformUrl.operationMessageQueryList, data, top5MessageCallback);
+	}
+	
 
 	// top5立项排期
 	function top5ProjectMeeting() {
@@ -32,6 +39,18 @@
 		sendPostRequestByJsonObj(platformUrl.soptaskshouye,jsonData, SopTaskCallback);
 	}
 
+	function top5MessageCallback(data){
+		if(data.result.status == "OK"){
+			var news_table =  $(".r_news table tbody");
+			var content = data.pageList.content;
+			$(content).each(function(){
+				var item = $(this)[0];
+				var tr = " <tr><td>2</td><td>2016/1/1 13:35</td> <td>"+item.operator+"</td><td>"+item.content+"</td></tr>"
+				news_table.append(tr);
+			})
+		}
+	}
+	
 	function SopTaskCallback(data){
 		//组装数据
 		
