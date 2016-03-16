@@ -14,6 +14,7 @@ import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.model.operationLog.OperationLogType;
 import com.galaxyinternet.model.operationLog.OperationLogs;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.operationMessage.OperationType;
 import com.galaxyinternet.model.user.User;
@@ -31,6 +32,9 @@ import com.galaxyinternet.service.OperationMessageService;
  *       "@Logger(writeOperationScope=LogType.ALL)，表示记录上面2则功能产生的日志<br/>
  *       2.在方法处理前或后，在reqeust中设置操作的项目名称。例如：ControllerUtils.
  *       setRequestParamsForMessageTip(request,"星河互联创业项目",68) <br/>
+ *       注意：如果url里处理多个业务逻辑，分别需
+ *       要记录，在枚举类的url后面加上UrlNumber中的数字,UrlNumber.one.name()如。ControllerUtils.
+ *       setRequestParamsForMessageTip(request,"星河互联创业项目",68,UrlNumber.one)即可。
  *       3.需要在springmvc配置文件中添加如下配置 <br/>
  *       {@code
  * <mvc:interceptors>
@@ -38,7 +42,7 @@ import com.galaxyinternet.service.OperationMessageService;
 			<mvc:mapping path="/**" />
 			<bean class="com.galaxyinternet.common.annotation.MessageHandlerInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> 
 }
  */
 public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
@@ -57,8 +61,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			Method method = handlerMethod.getMethod();
 			final Logger logger = method.getAnnotation(Logger.class);
 			if (logger != null) {
-				final Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
-				String uniqueKey = getUniqueKey(request,map);
+				final Map<String, Object> map = (Map<String, Object>) request
+						.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
+				String uniqueKey = getUniqueKey(request, map);
 				final OperationType type = OperationType.getObject(uniqueKey);
 				final OperationLogType operLogType = OperationLogType.getObject(uniqueKey);
 				if (null != type || null != operLogType) {
@@ -85,7 +90,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		super.afterCompletion(request, response, handler, ex);
 	}
 
-	private String getUniqueKey(HttpServletRequest request,Map<String, Object> map){
+	private String getUniqueKey(HttpServletRequest request, Map<String, Object> map) {
 		String uniqueKey = request.getRequestURL().toString();
 		if (null != map && !map.isEmpty()) {
 			if (map.containsKey(PlatformConst.REQUEST_SCOPE_URL_NUMBER)) {
@@ -94,7 +99,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		}
 		return uniqueKey;
 	}
-	
+
 	private OperationLogs populateOperationLog(OperationLogType type, User user, HttpServletRequest request,
 			Map<String, Object> map) {
 		OperationLogs entity = new OperationLogs();
