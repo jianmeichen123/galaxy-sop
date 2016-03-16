@@ -181,30 +181,7 @@
                 <dl>
                 	<dt><h3 class="ico t3">数据报表</h3></dt>
                     <dd class="zzbox">
-                    	<div class="histogram">
-                        	<!-- 
-                            <ul>
-                                <li data-pace="20"><span>全部</span></li>
-                                <li data-pace="30"><span>接触<br>访谈</span></li>
-                                <li data-pace="50"><span>内部<br>评审</span></li>
-                                <li data-pace="10"><span>立项会</span></li>
-                                <li data-pace="80"><span>投资<br>意向书</span></li>
-                                <li data-pace="140"><span>尽职<br>调查</span></li>
-                                <li data-pace="73"><span>投资<br>决策会</span></li>
-                                <li data-pace="23"><span>投资<br>协议</span></li>
-                                <li data-pace="1"><span>投后<br>运营</span></li>
-                            </ul>
-                            <ol class="clearfix">
-                            	<li><span>140</span></li>
-                                <li><span>120</span></li>
-                                <li><span>100</span></li>
-                                <li><span>80</span></li>
-                                <li><span>60</span></li>
-                                <li><span>40</span></li>
-                                <li><span>20</span></li>
-                                <li><span>0</span></li>
-                            </ol> -->
-                       </div>
+                    	<div id="histogram" class="histogram"></div>
                     </dd>
                     <dd class="clearfix">
                     	<a href="javascript:;" class="more null">more</a>
@@ -361,16 +338,13 @@ var chartOptions={
 	chart: {
 		renderTo :'histogram',
         type: 'column'
-        //margin: [ 50, 50, 100, 80]
     },
     title: {
         text: ''
     },
-    //去除版权
     credits: {
         enabled:false
     },
-    //去除右上角导出图标
     exporting: {
     	enabled:false
     },
@@ -388,7 +362,6 @@ var chartOptions={
     yAxis: {
         min: 0,
         title: {
-            //text: '项目数 (个)'
             text:''
         }
     },
