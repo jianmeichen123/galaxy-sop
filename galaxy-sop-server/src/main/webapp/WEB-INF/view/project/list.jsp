@@ -125,7 +125,9 @@
 	/**
 	 * 查看项目阶段详情的弹出层
 	 */
-	function info(id){
+	 var alertid="";
+		function info(id){
+			alertid=id;
 		var _url='<%=path%>/galaxy/ips';
 		$.getHtml({
 			url:_url,//模版请求地址

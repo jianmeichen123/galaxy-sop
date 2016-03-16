@@ -20,6 +20,7 @@ public class ProjectPersonServiceImpl extends BaseServiceImpl<ProjectPerson> imp
 	protected BaseDao<ProjectPerson, Long> getBaseDao() {
 		return this.projectPersonDao;
 	}
+	
 
 
 }

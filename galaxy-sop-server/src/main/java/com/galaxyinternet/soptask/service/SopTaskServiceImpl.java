@@ -163,7 +163,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			SopTask sopTasknew =  sopTaskData.getContent().get(i);
 			SopTaskBo sopTaskBo=new SopTaskBo();
 			for (Project project : projectList) {
-				if (sopTasknew.getProjectId() == project.getId()) {
+				if (sopTasknew.getProjectId().equals(project.getId())) {
 					sopTaskBo.setProjectName(project.getProjectName());
 					sopTaskBo.setCreateUname(project.getCreateUname());
 					break;

@@ -42,49 +42,77 @@
 			<li data-tab="nav" id="projectProgress"><a href="javascript:;">操作日志</a></li>
 		</ul>
 		<!-- tab内容 -->
+			<!-- tab内容 -->
 		<div class="tabtable_con tabtable_con_close">
 			<!-- 项目基本信息 -->
 			<div class="block block2 show" data-tab="con">
 				<dl>
 					<dt>项目概述</dt>
+					<dd class="describe" id="prodescribe_show"></dd>
 					<dd class="fctbox">
-						<a href="javascript:;" class="ico1 f1">编辑</a><a
-							href="javascript:;" class="ico1 f2">查看详情</a>
+						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+						<a href="javascript:;"  data-btn="hide" style="display:none" class="ico f3">收起</a>
 					</dd>
 				</dl>
 				<dl>
 					<dt>商业模式</dt>
+					<dd class="describe" id="business_model_show"></dd>
 					<dd class="fctbox">
-						<a href="javascript:;" class="ico1 f1">编辑</a><a
-							href="javascript:;" class="ico1 f2">查看详情</a>
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
 					</dd>
 				</dl>
 				<dl>
 					<dt>项目概述</dt>
+					<dd class="describe" id="projectDesc_show"></dd>
 					<dd class="fctbox">
-						<a href="javascript:;" class="ico1 f1">编辑</a><a
-							href="javascript:;" class="ico1 f2">查看详情</a>
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
 					</dd>
 				</dl>
 				<dl>
 					<dt>团队成员</dt>
+					<dd class="full_w describe clearfix">
+						<div class="clearfix">
+						</div>
+						<div class="tab-pane active" id="view">
+							<table id="tablePerson" data-height="555" data-method="post"
+								data-show-refresh="true" data-side-pagination="server"
+								data-pagination="true" data-page-list="[1, 5, 50]"
+								data-search="false">
+							</table>
+						</div>
+
+					</dd>
 					<dd class="fctbox">
-						<a href="javascript:;" class="ico1 f1">编辑</a><a
-							href="javascript:;" class="ico1 f2">查看详情</a>
+						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+						<a href="javascript:;" data-btn="hide" style="display: none"
+							class="ico f3">收起</a>
 					</dd>
 				</dl>
+				
 				<dl>
 					<dt>股权结构</dt>
+					<dd class="full_w describe clearfix">
+						<div class="clearfix"></div>
+						<div class="tab-pane active" id="pView">
+							<table id="table" data-height="555" data-method="post"
+								data-show-refresh="true">
+							</table>
+						</div>
+					</dd>
 					<dd class="fctbox">
-						<a href="javascript:;" class="ico1 f1">编辑</a><a
-							href="javascript:;" class="ico1 f2">查看详情</a>
+						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+						<a href="javascript:;" data-btn="hide" style="display: none"
+							class="ico f3">收起</a>
 					</dd>
 				</dl>
 				<dl class="no_border">
 					<dt>档案库</dt>
+					<dd class="describe">11111</dd>
 					<dd class="fctbox">
-						<a href="javascript:;" class="ico1 f1">编辑</a><a
-							href="javascript:;" class="ico1 f2">查看详情</a>
+						<a href="javascript:;" class="ico1 f2">查看详情</a>
+						<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
 					</dd>
 				</dl>
 			</div>
@@ -507,3 +535,169 @@
 	</div>
 </div>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
+<script>
+//盒子展开隐藏
+	getTabPersonforP();
+	 getTabShareforP();
+     $(".fctbox a").on("click",function(){
+	var $self = $(this),
+		_name = $self.attr("data-btn"),
+		_parent = $self.parent();
+	//点击收起
+	if(_name=="hide"){
+		//关闭展开层
+		_parent.siblings("dd").hide();
+		$self.hide();
+		$self.siblings().hide();
+		$self.siblings("[data-btn='describe']").show();	
+	}
+	//点击查看详情
+	if(_name=="describe"){
+		_parent.siblings("."+_name).show();
+		$self.hide();
+		$self.siblings().hide();
+		$self.siblings("[data-btn='hide']").show();
+	}
+	//点击取消保存
+	if(_name=="reset"){
+		_parent.siblings("dd").hide();
+		$self.hide();
+		$self.siblings().hide();
+		$self.siblings("[data-btn='describe'],[data-btn='edit']").show();	
+	}
+	return false;
+});
+
+ 	function getTabPersonforP(){
+ 		var $table = $('#tablePerson');
+ 	    $table.bootstrapTable({
+ 	    url: sopContentUrl + "/galaxy/project/queryProjectPersonForP", 
+ 	    dataType: "json",
+ 	    pagination: true, //分页
+ 	    search: false, //显示搜索框
+ 	    pageList: [1,5,20],
+ 	    queryParams: queryParamsforP,
+ 	    sidePagination: "server", //服务端处理分页
+ 	          columns: [
+ 	                  {
+ 	                    title: '姓名',
+ 	                      field: 'personName',
+ 	                      align: 'center',
+ 	                      valign: 'middle'
+ 	                  },
+ 	                  {
+                         title: '性别',
+                         field: 'personSex',
+                         align: 'center',
+                         valign: 'middle',
+                         formatter:function(value,row,index){ 
+                         	if (row.gender == true) {
+                     			return "男";
+                     		} else {
+                     			return "女";
+                     		}
+                         }
+ 	                    },
+ 	                    {
+ 	                        title: '年龄',
+ 	                          field: 'personAge',
+ 	                          align: 'center',
+ 	                          valign: 'middle'
+ 	                     },
+ 	                     {
+ 	                          title: '当前职务',
+ 	                            field: 'personDuties',
+ 	                            align: 'center',
+ 	                            valign: 'middle'
+ 	                  },
+ 	                  {
+ 	                      title: '电话',
+ 	                        field: 'personTelephone',
+ 	                        align: 'center',
+ 	                        valign: 'middle'
+ 	                  },
+ 	                  {
+ 	                      title: '最高学历',
+ 	                        field: 'highestDegree',
+ 	                        align: 'center',
+ 	                        valign: 'middle'
+ 	                  },
+ 	                  {
+ 	                      title: '工作年限',
+ 	                        field: 'workTime',
+ 	                        align: 'center',
+ 	                        valign: 'middle'
+ 	                  }
+ 	              ]
+ 	      });
+ 	 //     $table.bootstrapTable('refresh');
+ 		}
+ 	//股权结构列表
+ 	function getTabShareforP(){
+ 	var $table = $('#table');
+     $table.bootstrapTable({
+     url: sopContentUrl + "/galaxy/projectShares/selectProjectShares", 
+     dataType: "json",
+     pagination: true, //分页
+     search: false, //显示搜索框
+     showRefresh: true,
+     pageList: [1,5,20],
+     queryParams: queryParamsforP,
+     sidePagination: "server", //服务端处理分页
+           columns: [
+                   {
+                     title: '类型',
+                       field: 'sharesType',
+                       align: 'center',
+                       valign: 'middle'
+                   },
+                   {
+                       title: '所有权人',
+                         field: 'sharesOwner',
+                         align: 'center',
+                         valign: 'middle'
+                     },
+                     {
+                         title: '占比',
+                           field: 'sharesRatio',
+                           align: 'center',
+                           valign: 'middle'
+                      },
+                      {
+                           title: '获取方式',
+                             field: 'gainMode',
+                             align: 'center',
+                             valign: 'middle'
+                   },
+                   {
+                       title: '备注',
+                         field: 'remark',
+                         align: 'center',
+                         valign: 'middle'
+                   }
+               ]
+       });
+       $table.bootstrapTable('refresh');
+ 	}
+     //页面传参
+     function queryParamsforP(params) {
+     	return {
+ 	    	pageSize: params.limit,
+ 	    	pageNum: params.offset,
+ 	    	order: params.order,
+ 	    	projectId:alertid
+     	};
+     }
+     /**
+ 	 * 加载项目详情数据
+ 	 */
+ 	sendGetRequest(platformUrl.detailProject + alertid, {}, function(data){
+ 		$("#prodescribe_show").text(replaceStr(data.entity.projectDescribe));
+ 		$("#business_model_show").text(replaceStr(data.entity.projectBusinessModel));
+ 		$("#projectDesc_show").text(replaceStr(data.entity.userPortrait));
+ 	});
+ 	function replaceStr(str){
+		var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
+		return result;
+	}
+</script>
