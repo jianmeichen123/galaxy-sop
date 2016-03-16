@@ -69,7 +69,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		//通用Tab
 		tabs.add(new Menus(1L, "工作界面", u + "galaxy/index?" + params));
 		tabs.add(new Menus(2L, "待办任务", u + "galaxy/soptask?" + params));
-		tabs.add(new Menus(3L, "消息提醒", u + ""));
+		tabs.add(new Menus(3L, "消息提醒", u + "galaxy/operationMessage/index"));
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		
 		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.TZJL)){
