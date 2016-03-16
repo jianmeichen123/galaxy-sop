@@ -306,6 +306,7 @@ $(function(){
 		var obj ={url:"http://fx.qa.galaxyinternet.com/report/galaxy/report/projectprogress"};
 		obj.contentType="application/json";
 		ajaxCallback(obj,function(data){
+			console.log("data :" + data);
 			var result = data.result;
 			var mapList = data.mapList;
 			if(result.status=='ERROR'){
@@ -320,6 +321,8 @@ $(function(){
 			}
 			chartOptions.series[0].data = re;
 			chartOptions.xAxis.categories = categories;
+			console.log("re :" + re);
+			console.log(" categories :" +categories);
 			var chart = new Highcharts.Chart(chartOptions);
 		});
 	}
@@ -414,9 +417,9 @@ var chartOptions={
                 fontFamily: 'Verdana, sans-serif',
                 textShadow: '0 0 3px black'
             },
-            formatter:function(){
+            /*formatter:function(){
      			return this.point.y;
-			},
+			},*/
         }
     }]
 };
