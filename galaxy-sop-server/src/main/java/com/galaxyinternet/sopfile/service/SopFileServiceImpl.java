@@ -97,7 +97,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			}
 			if(sopFile.getFileUid()!=null){
 				User user = userService.queryById(sopFile.getFileUid());
-				if(sopFile!=null){
+				if(user!=null){
 					sopFile.setFileUName(user.getRealName());
 				}
 			}		
