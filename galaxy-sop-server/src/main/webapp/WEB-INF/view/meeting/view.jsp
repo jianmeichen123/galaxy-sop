@@ -57,9 +57,9 @@
             <dl class="fmdl fmmr fmdll clearfix">
               <dt>会议日期：</dt>
               <dd>
-                <input class="form-control" type="date" id="startTime" name="startTime" />
+                <input  class="txt time"  type="date" id="startTime" name="startTime" />
                 <span>至</span>
-                <input class="form-control" type="date"  id="endTime" name="endTime" />
+                <input  class="txt time" type="date"  id="endTime" name="endTime" />
                 
                 <!-- <input type="text" class="txt time" id="startTime" name="startTime" /> -->
               </dd>
