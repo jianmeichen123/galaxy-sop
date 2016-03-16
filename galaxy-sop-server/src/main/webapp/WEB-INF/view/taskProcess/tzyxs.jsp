@@ -183,11 +183,10 @@ function initUpload(_dialog,type){
 						data['type']=data['fileSource'];
 						console.log(data);
 						sendGetRequest(
-								platformUrl.uploadFile2Task,
+								url,
 								data,
 								function(data){
-									var data = $.parseJSON(rtn.response);
-									if(data.result.status == "OK")
+									if(data.status == "OK")
 									{
 										alert("上传成功.");
 										$(_dialog.id).find("[data-close='close']").click();
