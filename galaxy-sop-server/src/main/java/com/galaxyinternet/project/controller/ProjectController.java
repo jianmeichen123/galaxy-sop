@@ -39,17 +39,22 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.common.Config;
+import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.service.ConfigService;
+import com.galaxyinternet.service.InterviewRecordService;
+import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
 
 @Controller
@@ -69,7 +74,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private ConfigService configService;
 	@Autowired
-	private MeetingRecordDao meetingRecordDao;
+	private MeetingRecordService meetingRecordService;
+	@Autowired
+	private InterviewRecordService interviewRecordService;
+	@Autowired
+	private SopFileService sopFileService;
 	@Autowired
 	private HandlerManager handlerManager;
 	
@@ -573,17 +582,24 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(result);
 			return responseBody;
 		}
-		try {
-			project.setProjectProgress(DictEnum.projectProgress.内部评审.getCode());   //字典  项目进度  内部评审
-			project.setProjectStatus(DictEnum.meetingResult.待定.getCode());     //字典 项目状态 = 会议结论   待定
-			projectService.updateById(project);
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(project.getId());
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "project startReview faild"));
-			if(logger.isErrorEnabled()){
-				logger.error("update project faild ",e);
+		InterviewRecord ir = new InterviewRecord();
+		ir.setProjectId(pid);
+		Long count = interviewRecordService.queryCount(ir);
+		if(count != null && count.doubleValue() > 0){
+			try {
+				project.setProjectProgress(DictEnum.projectProgress.内部评审.getCode());   //字典  项目进度  内部评审
+				project.setProjectStatus(DictEnum.meetingResult.待定.getCode());     //字典 项目状态 = 会议结论   待定
+				projectService.updateById(project);
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setId(project.getId());
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "异常，启动内部评审失败!"));
+				if(logger.isErrorEnabled()){
+					logger.error("update project faild ",e);
+				}
 			}
+		}else{
+			responseBody.setResult(new Result(Status.ERROR,null, "不存在访谈记录，不允许启动内部评审!"));
 		}
 		return responseBody;
 	}
@@ -608,14 +624,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		mr.setProjectId(pid);
 		mr.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 		mr.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-		Long count = meetingRecordDao.selectCount(mr);
-		if(count != null && count > 0){
+		Long count = meetingRecordService.queryCount(mr);
+		if(count != null && count.doubleValue() > 0){
 			try {
 				projectService.toEstablishStage(project);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
 			} catch (Exception e) {
-				responseBody.setResult(new Result(Status.ERROR,null, "异常，未成功!"));
+				responseBody.setResult(new Result(Status.ERROR,null, "异常，申请立项会失败!"));
 				if(logger.isErrorEnabled()){
 					logger.error("update project faild ",e);
 				}
@@ -641,12 +657,23 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(result);
 			return responseBody;
 		}
+		//验证文档是否齐全
+		SopFile file = new SopFile();
+		file.setProjectId(pid);
+		file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+		List<SopFile> files = sopFileService.queryList(file);
+		for(SopFile f : files){
+			if(f.getFileKey() == null || "".equals(f.getFileKey().trim())){
+				responseBody.setResult(new Result(Status.ERROR,null, "文档不齐全，不能申请投决会!"));
+				return responseBody;
+			}
+		}
 		try {
 			projectService.toSureMeetingStage(project);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "project startReview faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "异常，申请投决会失败!"));
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);
 			}

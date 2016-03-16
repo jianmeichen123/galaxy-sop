@@ -226,17 +226,15 @@
 							}
 						});
 					}
-					
-					
 					$("#projectProgress").on("click",function(){
 						$("#progress").addClass("on");
 						$("#projectProgress_con").css("display","block");
 						tiggerTable($("#projectProgress_table"),5);
 						//$("#projectProgress_table").bootstrapTable("refresh");
 					});
-					
-					$("#" + progress).addClass("on");
-					$("#" + progress + "_con").css("display","block");
+				});
+				$("#" + progress).addClass("on");
+				$("#" + progress + "_con").css("display","block");
 			},null);
 			}
 		});
@@ -306,9 +304,14 @@
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){
 			sendGetRequest(platformUrl.startReview + pid, {}, function(data){
-				layer.msg("启动内部评审成功!");
-				$("#powindow,#popbg").remove();
-				info(pid);
+				var result = data.result.status;
+				if(result == "OK"){
+					layer.msg("启动内部评审成功!");
+					$("#powindow,#popbg").remove();
+					info(pid);
+				}else{
+					layer.msg(data.result.message);
+				}
 			});
 		}
 	}
@@ -375,6 +378,8 @@
 					layer.msg("申请立项会成功!");
 					$("#powindow,#popbg").remove();
 					info(pid);
+				}else{
+					layer.msg(data.result.message);
 				}
 			});
 		}
@@ -624,6 +629,8 @@
 							layer.msg("申请成功!");
 							$("#powindow,#popbg").remove();
 							info(pid);
+						}else{
+							layer.msg(data.result.message);
 						}
 					});
 		}

@@ -42,6 +42,8 @@ public interface SopConstant {
 	public static final String TASK_NAME_GSBG = "上传工商变更登记凭证";
 	public static final int TASK_FLAG_GSBG = 9;
 	
+	//ceo评审
+	static final String CEOPS_MEETING ="meetingType:2";
 	//立项会类型
 	static final String PROJECT_MEETING ="meetingType:3";
 	//投诀会类型
