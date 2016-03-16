@@ -48,30 +48,34 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	@Autowired
 	OperationLogsService operationLogsService;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void afterCompletion(final HttpServletRequest request, HttpServletResponse response, Object handler,
 			Exception ex) throws Exception {
 		if (handler instanceof HandlerMethod) {
-			String uniqueKey = request.getRequestURL().toString();
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
 			Method method = handlerMethod.getMethod();
 			final Logger logger = method.getAnnotation(Logger.class);
 			if (logger != null) {
+				final Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
+				String uniqueKey = getUniqueKey(request,map);
 				final OperationType type = OperationType.getObject(uniqueKey);
 				final OperationLogType operLogType = OperationLogType.getObject(uniqueKey);
 				if (null != type || null != operLogType) {
+
 					final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+
 					GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 						@Override
 						public void run() {
 							LogType logType = logger.writeOperationScope();
 							if (logType == LogType.MESSAGE) {
-								operationMessageService.insert(populateOperationMessage(type, user, request));
+								operationMessageService.insert(populateOperationMessage(type, user, request, map));
 							} else if (logType == LogType.ALL) {
-								operationMessageService.insert(populateOperationMessage(type, user, request));
-								operationLogsService.insert(populateOperationLog(operLogType, user, request));
+								operationMessageService.insert(populateOperationMessage(type, user, request, map));
+								operationLogsService.insert(populateOperationLog(operLogType, user, request, map));
 							} else if (logType == LogType.LOG) {
-								operationLogsService.insert(populateOperationLog(operLogType, user, request));
+								operationLogsService.insert(populateOperationLog(operLogType, user, request, map));
 							}
 						}
 					});
@@ -81,7 +85,18 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		super.afterCompletion(request, response, handler, ex);
 	}
 
-	private OperationLogs populateOperationLog(OperationLogType type, User user, HttpServletRequest request) {
+	private String getUniqueKey(HttpServletRequest request,Map<String, Object> map){
+		String uniqueKey = request.getRequestURL().toString();
+		if (null != map && !map.isEmpty()) {
+			if (map.containsKey(PlatformConst.REQUEST_SCOPE_URL_NUMBER)) {
+				uniqueKey = uniqueKey + "/" + map.get(PlatformConst.REQUEST_SCOPE_URL_NUMBER);
+			}
+		}
+		return uniqueKey;
+	}
+	
+	private OperationLogs populateOperationLog(OperationLogType type, User user, HttpServletRequest request,
+			Map<String, Object> map) {
 		OperationLogs entity = new OperationLogs();
 		entity.setOperationContent(type.getContent());
 		entity.setOperationType(type.getType());
@@ -90,8 +105,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		entity.setDepartName(user.getDepartmentName());
 		entity.setUserDepartid(user.getDepartmentId());
 		entity.setSopstage(type.getSopstage());
-		@SuppressWarnings("unchecked")
-		Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
 		if (null != map && !map.isEmpty()) {
 			entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
 			entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
@@ -99,7 +112,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		return entity;
 	}
 
-	private OperationMessage populateOperationMessage(OperationType type, User user, HttpServletRequest request) {
+	private OperationMessage populateOperationMessage(OperationType type, User user, HttpServletRequest request,
+			Map<String, Object> map) {
 		OperationMessage entity = new OperationMessage();
 		entity.setContent(type.getContent());
 		entity.setDepartment(user.getDepartmentName());
@@ -107,8 +121,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		entity.setOperator(user.getRealName());
 		entity.setRole(user.getRole());
 		entity.setType(type.getType());
-		@SuppressWarnings("unchecked")
-		Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
 		if (null != map && !map.isEmpty()) {
 			entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
 			entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
