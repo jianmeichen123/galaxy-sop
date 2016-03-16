@@ -200,7 +200,7 @@
     	}
     	$("#powindow").remove();
     	$("#popbg").remove();
-    	loadAjaxSopUserSchedule('',sopContentUrl + '/galaxy/sopUserSchedule/selectSopUserSchedule/1'); 
+    	loadAjaxSopUserSchedule(sopContentUrl + '/galaxy/sopUserSchedule/selectSopUserSchedule/1'); 
     	shecudle();
     }
     

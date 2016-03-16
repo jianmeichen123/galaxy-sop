@@ -1,5 +1,5 @@
 //首页日程数据渲染
-function loadAjaxSopUserSchedule(type,url){
+function loadAjaxSopUserSchedule(url){
 	$.ajax({
 		url : url,
 		data : null,
@@ -8,6 +8,14 @@ function loadAjaxSopUserSchedule(type,url){
 		dataType : "json",
 		contentType:"application/json; charset=UTF-8",
 		cache : false,
+		beforeSend : function(xhr) {
+			if (sessionId) {
+				xhr.setRequestHeader("sessionId", sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId", userId);
+			}
+		},
 		error:function(){     
 	    }, 
 		success : function(data) {
