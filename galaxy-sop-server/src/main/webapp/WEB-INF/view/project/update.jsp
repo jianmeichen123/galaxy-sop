@@ -196,7 +196,7 @@
               <dt>团队成员</dt>
               <dd class="full_w describe clearfix">
               	<div class="btnbox_f">
-                  <a href="javascript:;" class="ico b1" onclick="addPerson()">添加</a>
+                  <a href="javascript:;" class="ico b1" onclick="addPerson();">添加</a>
                   <!--  
                   <a href="javascript:;" class="ico b2">修改</a>
                   <a href="javascript:;" class="ico b3">删除</a>-->
@@ -222,7 +222,7 @@
               <dt>股权结构</dt>
               <dd class="full_w describe clearfix">
               <div class="btnbox_f">
-                  <a href="javascript:;" onclick="addSharesView()" class="ico b1">添加</a>
+                  <a href="javascript:;" onclick="addSharesView();" class="ico b1">添加</a>
                   <!-- 
                   <a href="javascript:;" class="ico b2">修改</a>
                   <a href="javascript:;" class="ico b3">删除</a>
