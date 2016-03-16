@@ -53,7 +53,7 @@
 		},options);
 		function popEve(){
 			this.strbg = "<div id=\"popbg\"><iframe frameborder=\"0\" src=\"about:blank\"></iframe></div>";
-			this.strpop = "<div class=\"pop\"  data-id=\"popid"+$(".pop").length+"\"><a href=\"javascript:;\" data-close=\"close\" class=\"close null\">关闭</a><div class=\"poptxt\"><p class='popwait'>数据加载中，请稍候...</p></div></div>";
+			this.strpop = "<div id=\"powindow\" class=\"pop\"  data-id=\"popid"+$(".pop").length+"\"><a href=\"javascript:;\" data-close=\"close\" class=\"close null\">关闭</a><div class=\"poptxt\"><p class='popwait'>数据加载中，请稍候...</p></div></div>";
 			this.txt = opts.txt;//弹层添加数据
 			this.statusmove = true;//移动状态标识
 			this.mousexy = {};//存放鼠标xy容器
@@ -159,7 +159,8 @@
 						_this.hideback.apply(_this);
 						//判断是否关闭背景
 						if($(".pop").length==0){
-							$("#popbg").hide();	
+							$("#popbg").hide();
+							$('.tip-yellowsimple').hide();	//表单验证提示关闭
 						}
 						return false;
 				});
@@ -234,10 +235,11 @@
 	$.fn.tabchange = function(options){
 		if($(this).length==0) return false;
 		var opts = $.extend({
-			defaultnum:0,
+			//defaultnum:0,
 			onClass:"on",
 			eventType:"click",
-			movetime:300
+			movetime:300,
+			onchangeSuccess:function(data){}
 		},options);
 		function tab(t){
 			this.nav = t.find("[data-tab='nav']");
@@ -273,6 +275,7 @@
 			obj.nav.on(opts.eventType,function(){
 				obj.num = $(this).index();
 				obj.seton();
+				opts.onchangeSuccess.apply(this,[obj.num]);
 			});
         });
 	};	
@@ -460,6 +463,14 @@
 					data:opts.data,
 					dataType:"html",
 					url:opts.url,
+					beforeSend : function(xhr) {
+						if (sessionId) {
+							xhr.setRequestHeader("sessionId", sessionId);
+						}
+						if(userId){
+							xhr.setRequestHeader("guserId", userId);
+						}
+					},
 					success:function(html){
 						$(_this.id).find(".poptxt").html(html);
 						opts.okback();
