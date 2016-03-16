@@ -27,7 +27,7 @@ public enum OperationLogType {
 	//添加会议记录的弹出框中点击‘保存’。
 	ADD_MEETING_RECORD("/galaxy/project/stageChange", OperType.ADD.getOperationType(), "会议记录",SopStage.PROJECT_SCHEDULE.getStageName()), 
 	//点击申请立项会排期
-	APPALY_PROJECT_SCHEDULE("", OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.PROJECT_SCHEDULE.getStageName()), 
+	//APPALY_PROJECT_SCHEDULE("", OperType.SUBMIT.getOperationType(), "立项会排期",SopStage.PROJECT_SCHEDULE.getStageName()), 
 
 	//投资意向书阶段
 	//下载投资意向书模版	
@@ -50,7 +50,7 @@ public enum OperationLogType {
 	//投决会阶段
 	//添加会议纪要的弹出框中点击“保存”
 	ADD_VOTE_DECISION_MEETING_NOTE("/galaxy/project/stageChange", OperType.ADD.getOperationType(), "会议记录",SopStage.VOTE_DECISION_MEETING.getStageName()),
-	APPLY_VOTE_DECISION_MEETING_SCHEDULE("", OperType.SUBMIT.getOperationType(), "投决会排期",SopStage.VOTE_DECISION_MEETING.getStageName()),
+	//APPLY_VOTE_DECISION_MEETING_SCHEDULE("", OperType.SUBMIT.getOperationType(), "投决会排期",SopStage.VOTE_DECISION_MEETING.getStageName()),
 	
 	//投资协议阶段
 	//下载投资协议模版	
