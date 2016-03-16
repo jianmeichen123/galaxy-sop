@@ -1,8 +1,14 @@
 $(function () {
-	$('#data-table').bootstrapTable({
+	$table = $('#data-table');
+	var post_url = platformUrl[$table.attr("data-url")];
+	if(post_url == "" ||post_url =="undefined"||post_url == undefined){
+		post_url = $table.attr("data-url");
+	}
+	$table.bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:10,
 		showRefresh : false ,
+		url : post_url,
 		sidePagination: 'server',
 		method : 'post',
 		pagination: true,

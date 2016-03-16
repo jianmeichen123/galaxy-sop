@@ -123,7 +123,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			
 			tabs.add(new Menus(1L, "工作界面", "http://fx.qa.galaxyinternet.com/report/galaxy/report/platform?" + params));
 			tabs.add(new Menus(2L, "消息提醒", u + ""));
-			tabs.add(new Menus(3L, "项目查询", u + ""));
+			tabs.add(new Menus(3L, "项目查询", "http://fx.qa.galaxyinternet.com/report/galaxy/report/catprojectlist?" + params));
 			tabs.add(new Menus(4L, "数据简报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/dataBriefing?" + params));
 			tabs.add(new Menus(5L, "项目分析", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projectAnalysis?" + params));
 			tabs.add(new Menus(6L, "绩效考核", "http://fx.qa.galaxyinternet.com/report/galaxy/report/kpi?" + params));

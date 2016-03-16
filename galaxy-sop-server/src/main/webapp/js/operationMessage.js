@@ -28,7 +28,8 @@ $(function(){
 			tipslink.attr("name",query_by);
 			tipslink.attr("value",query_val)
 		}
-		
+		$(".tablink li").removeClass("on");
+		a.parent().addClass("on");
 		$("#data-table").bootstrapTable("querySearch");
 	
 	});

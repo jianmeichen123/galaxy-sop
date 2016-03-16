@@ -65,7 +65,6 @@ public class SopUserScheduleController extends
 		User user = (User) getUserFromSession(request);
 		sopUserSchedule.setUserId(user.getId());
 		String date=sopUserSchedule.getItemDateStr()+" 00:00:00";
-		System.out.println(date);
 		try {
 			if(sopUserSchedule.getId() == null){
 				sopUserSchedule.setItemDate(Timestamp.valueOf(date));

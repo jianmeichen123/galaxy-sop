@@ -1,4 +1,4 @@
-﻿package com.galaxyinternet.OperationLogs.dao;
+package com.galaxyinternet.OperationLogs.dao;
 
 
 import org.springframework.stereotype.Repository;
