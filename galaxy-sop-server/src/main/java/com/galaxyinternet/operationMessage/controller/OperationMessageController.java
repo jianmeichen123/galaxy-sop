@@ -80,7 +80,8 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			User user = (User) getUserFromSession(request);
 			operationMessageBo.setOperatorId(user.getId());
 			Long count = operationMessageService.selectCount(operationMessageBo);
-			operationMessageBo.setCount(count);;
+			operationMessageBo.setCount(count);
+			operationMessageBo.setOperatorId(null);
 			responseBody.setEntity(operationMessageBo);
 			return responseBody;	
 		} catch (PlatformException e) {
