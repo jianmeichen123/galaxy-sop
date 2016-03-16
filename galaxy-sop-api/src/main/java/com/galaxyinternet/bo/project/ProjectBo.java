@@ -16,6 +16,8 @@ public class ProjectBo extends Project {
 	
 	private String partnerName;//合伙人姓名
 	
+	private String meetingType;
+	
 	
 	public String getExtendFiled() {
 		return extendFiled;
@@ -48,6 +50,15 @@ public class ProjectBo extends Project {
 	public void setPartnerName(String partnerName) {
 		this.partnerName = partnerName;
 	}
+
+	public String getMeetingType() {
+		return meetingType;
+	}
+
+	public void setMeetingType(String meetingType) {
+		this.meetingType = meetingType;
+	}
+	
 	
   
 }

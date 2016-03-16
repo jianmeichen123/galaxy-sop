@@ -40,6 +40,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.common.Config;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
@@ -537,6 +538,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(p.getType() == null || p.getFileType() == null || !SopConstant._file_type_pattern_.matcher(p.getFileType()).matches()
 					|| p.getFileWorktype() == null || !SopConstant._file_worktype_pattern_.matcher(p.getFileWorktype()).matches()){
 				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+				
+				/*// UrlNumber.one 区别日志记录
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), UrlNumber.one);
+				//*/		
+				
 				return responseBody;
 			}
 			int in = Integer.parseInt(p.getStage().substring(p.getStage().length()-1));

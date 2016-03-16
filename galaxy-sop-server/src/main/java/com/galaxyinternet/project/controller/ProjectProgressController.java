@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
@@ -153,7 +154,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addFileInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addFileInterview(HttpServletRequest request,HttpServletResponse response ) {
@@ -165,6 +166,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		String viewDateStr = request.getParameter("viewDateStr");
 		String viewTarget = request.getParameter("viewTarget");
 		String viewNotes = request.getParameter("viewNotes");
+		String fname = request.getParameter("fname");
 					
 		if(projectId == null  || viewDateStr == null  || viewTarget == null || viewNotes == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "interviewRecord info not complete"));
@@ -175,6 +177,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		interviewRecord.setViewDateStr(viewDateStr);
 		interviewRecord.setViewTarget(viewTarget);
 		interviewRecord.setViewNotes(viewNotes);
+		interviewRecord.setFname(fname);
 		
 		try {
 			//project id 验证
@@ -214,7 +217,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * 			produces="application/text;charset=utf-8"
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecord interviewRecord ,HttpServletRequest request ) {
@@ -322,7 +325,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addfilemeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addFileMeet(HttpServletRequest request,HttpServletResponse response  ) {
@@ -412,7 +415,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addmeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecord meetingRecord ) {
@@ -1018,67 +1021,49 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	/**文件下载
-	 * @param id  sopfile 文件 id
-	 *
-	 **/
-	@RequestMapping("/download/{id}")
-	public void download(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
-	{
-		InputStream fis = null;
-		OutputStream out = null;
+	
+	/**获取登录人的项目
+	 * 		绑定登录人
+	 * 		项目进度
+	 * 		
+	 * @param progress 1:接触访谈   2:   String progress ,String nameLike,String meetingType
+	 */	
+	@ResponseBody
+	@RequestMapping(value = "/queryPerProPage", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> queryPerProPage(HttpServletRequest request,@RequestBody ProjectBo query ) {
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		
 		try {
-			SopFile template = sopFileService.queryById(id);
-			if(template == null)
-			{
-				throw new Exception();
+			if(query.getMeetingType()!=null){
+				if(query.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){
+					query.setProjectProgress(DictEnum.projectProgress.CEO评审.getCode());
+					
+				}else if(query.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){
+					query.setProjectProgress(DictEnum.projectProgress.内部评审.getCode());
+					
+				}else if(query.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){
+					query.setProjectProgress(DictEnum.projectProgress.立项会.getCode());
+					
+				}else if(query.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
+					query.setProjectProgress(DictEnum.projectProgress.投资决策会.getCode());
+				}
 			}
-			String fileName = template.getFileName();
-			int dotPos = fileName.lastIndexOf(".");
-			String prefix = fileName.substring(0, dotPos);
-			String suffix = fileName.substring(dotPos);
-			File temp = File.createTempFile(prefix, suffix);
-			
-			OSSHelper.simpleDownloadByOSS(temp, template.getFileKey());
-			String dlName = fileName;
-			
-			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
-				dlName = URLEncoder.encode(fileName, "UTF-8");  
-			} else {  
-				dlName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");  
-			} 
-			
-			response.reset();
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("application/x-download");
-			response.setHeader("Content-Disposition", "attachment;filename=" + dlName);
-			response.setHeader("Content-Length", "" + temp.length());
-			out = new BufferedOutputStream(response.getOutputStream());
-			fis = new BufferedInputStream(new FileInputStream(temp.getPath()));
-			byte[] buffer = new byte[fis.available()];
-			fis.read(buffer);
-			out.write(buffer);
-			out.flush();
-			response.flushBuffer();
+			query.setCreateUid(user.getId());
+			Page<Project> pageProject = projectService.queryPageList(query,new PageRequest(query.getPageNum(), query.getPageSize()));
+			responseBody.setPageList(pageProject);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
 		} catch (Exception e) {
-			logger.error("下载失败.",e);
-		}
-		finally
-		{
-			try {
-				if(fis != null)
-				{
-					fis.close();
-				}
-				if(out != null)
-				{
-					out.close();
-				}
-			} catch (IOException e) {
-				logger.error("下载失败.",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "queryPerProPage faild"));
+			if(logger.isErrorEnabled()){
+				logger.error("queryPerPro faild ",e);
 			}
 		}
+		
+		return responseBody;
 	}
+	
 	
 	
 	
