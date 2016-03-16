@@ -11,6 +11,12 @@
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+
 </head>
 
 <body>
@@ -40,13 +46,15 @@
                       <td>
                         <dl>
                           <dt>项目编码：</dt>
-                          <dd id="pcode">--------</dd>
+                          <dd id="pcode"></dd>
                         </dl>
                       </td>
                       <td>
                         <dl>
                           <dt>创建时间：</dt>
-                          <dd class="date"></dd>
+                          <dd>
+                          	<input type="text" class="datepicker" name="date" readonly value="" />
+                          </dd>
                         </dl>
                       </td>
                   </tr>
