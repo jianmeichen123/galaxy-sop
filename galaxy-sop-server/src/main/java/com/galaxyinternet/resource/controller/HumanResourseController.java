@@ -41,10 +41,21 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 	 * 跳转到完善简历页面
 	 * 
 	 */
-//	@RequestMapping(value="/viewhr")
-//	public String viewhr(){
-//		return "/hrjl/resumetc";
-//	}
+	@RequestMapping(value="/wanshan")
+	public String wanshan(){
+		return "/resumetc/wanshanjianli";
+	}
+	
+	@RequestMapping(value="/resumetcc/", method = RequestMethod.GET)
+	public String resumetcc(){
+//		PersonPool person = personPoolService.queryById(id);
+//		if(person == null ){
+//			return "未查找到指定信息!";
+//		}	
+//		request.setAttribute("person", person);
+		return "/resumetc/resumetc";
+
+		}
 
 	/**
 	 * 回显数据
