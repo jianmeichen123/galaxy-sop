@@ -8,6 +8,7 @@
 <link href="<%=path %>/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
 <script src="<%=path %>/js/star-rating.js" type="text/javascript"></script>
 <script src="<%=path %>/js/resumetc.js" type="text/javascript"></script>
+<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <div class="resumetc" >
           <!-- 个人简历 -->
           <div class="tabtable resume">
@@ -108,38 +109,38 @@
                   <tr>
                     <th>学历：</th>
                     <td><input name ="degree" id="degree" type="text" value=""></td>
-                   <!--  <td><input name ="degree" id="degree" type="text" value=""></td>
-                    <td><input name ="degree" id="degree" type="text" value=""></td> -->
+                   	<td><input name ="degree" id="degree" type="text" value=""></td>
+                    <td><input name ="degree" id="degree" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>学校：</th>
                     <td><input name="school" id="school" type="text" value=""></td>
-                  <!--   <td><input name="school" id="school" type="text" value=""></td>
-                    <td><input name="school" id="school" type="text" value=""></td> -->
+                  	<td><input name="school" id="school" type="text" value=""></td>
+                    <td><input name="school" id="school" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>专业：</th>
                     <td><input name="major"id="major" type="text" value=""></td>
-                    <!-- <td><input name="major"id="major" type="text" value=""></td>
-                    <td><input name="major"id="major" type="text" value=""></td> -->
+                    <td><input name="major"id="major" type="text" value=""></td>
+                    <td><input name="major"id="major" type="text" value=""></td> 
                   </tr>                  
                   <tr>
                     <th>学历性质：</th>
                     <td><input name="educationType" id="educationType" type="text" value=""></td>
-                 <!--    <td><input name="educationType" id="educationType" type="text" value=""></td>
-                    <td><input name="educationType" id="educationType" type="text" value=""></td> -->
+                	<td><input name="educationType" id="educationType" type="text" value=""></td>
+                    <td><input name="educationType" id="educationType" type="text" value=""></td>
                   </tr>                  
-   <!--                <tr>
+   				 <tr>
                     <th>毕业年份：</th>
                     <td><input name="overDate" id="overDate" type="text" value=""></td>
                     <td><input name="overDate" id="overDate" type="text" value=""></td>
                     <td><input name="overDate" id="overDate" type="text" value=""></td>
-                  </tr>     -->              
+                  </tr>             
                   <tr>
                     <th>毕业证书/学历证书的证书编号：</th>
                     <td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td>
-                   <!--  <td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td> -->
+                   	<td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td>
+                    <td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td>
                   </tr>
                 </table>
               </div>
@@ -149,32 +150,32 @@
                   <tr>
                     <th>老师姓名：</th>
                     <td><input name="teacherName" id="teacherName" type="text" value=""></td>
-                   <!--  <td><input name="teacherName" id="teacherName" type="text" value=""></td>
-                    <td><input name="teacherName" id="teacherName" type="text" value=""></td> -->
+                   	<td><input name="teacherName" id="teacherName" type="text" value=""></td>
+                    <td><input name="teacherName" id="teacherName" type="text" value=""></td> 
                   </tr>
                   <tr>
                     <th>部门：</th>
                     <td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td>
-<!--                     <td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td>
-                    <td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td> -->
+					<td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td>
+                    <td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>老师座机：</th>
                     <td><input name="teacherPhone" id="teacherPhone" type="text" value=""></td>
-                    <!-- <td><input name="teacherPhone1" id="teacherPhone1" type="text" value=""></td>
-                    <td><input name="teacherPhone2" id="teacherPhone2" type="text" value=""></td> -->
+                    <td><input name="teacherPhone1" id="teacherPhone1" type="text" value=""></td>
+                    <td><input name="teacherPhone2" id="teacherPhone2" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>同学姓名：</th>
                     <td><input name="classmateName" id="classmateName" type="text" value=""></td>
-                  <!--   <td><input type="text" value=""></td>
-                    <td><input type="text" value=""></td> -->
+                  	<td><input type="text" value=""></td>
+                    <td><input type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>同学电话：</th>
                     <td><input name="classmatePhone" id="classmatePhone" type="text" value=""></td>
-<!--                     <td><input type="text" value=""></td>
-                    <td><input type="text" value=""></td> -->
+	                <td><input type="text" value=""></td>
+                    <td><input type="text" value=""></td>
                   </tr>
                 </table>
               </div>
@@ -188,82 +189,82 @@
                   <tr>
                     <th>公司名称:</th>
                     <td><input type="text" name="companyName" id="companyName" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                    <td><input type="text" name="" id="" value=""></td>
                   </tr>
                   <tr>
                     <th>部门:</th>
                     <td><input type="text" name="workDepart" id="workDepart" value=""></td>
-                   <!--  <td><input type="text" name="" id="" value=""></td> -->
+                   <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>职位:</th>
                     <td><input type="text" name="workPosition" id="workPosition" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                     <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>工作内容:</th>
                     <td><input type="text" name="workContent" id="workContent" value=""></td>
-                   <!--  <td><input type="text" name="" id="" value=""></td> -->
+                   <td><input type="text" name="" id="" value=""></td>
                   </tr>
                   <tr>
                     <th>工作业绩:</th>
                     <td><input type="text" name="workEffect" id="workEffect" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                    <td><input type="text" name="" id="" value=""></td>
                   </tr>
                   <tr>
                     <th>薪酬水平（元/月）:</th>
                     <td><input type="text" name="workEmolument" id="workEmolument" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                    <td><input type="text" name="" id="" value=""></td>
                   </tr>
-<!--                   <tr>
+                <tr>
                     <th>入职时间:</th>
                     <td><input type="text" name="beginWork" id="beginWork" value=""></td>
                     <td><input type="text" name="" id="" value=""></td>
-                  </tr> -->
+                  </tr>
                   <tr>
                     <th>离职原因:</th>
                     <td><input type="text" name="leaveReason" id="leaveReason" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                    <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>上级姓名:</th>
                     <td><input type="text" name="leaderName" id="leaderName" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                     <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>职位:</th>
                     <td><input type="text" name="leaderPosition" id="leaderPosition" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                    <td><input type="text" name="" id="" value=""></td>
                   </tr>
                   <tr>
                     <th>工作关系（如直接上下级）:</th>
                     <td><input type="text" name="leaderRelationship" id="leaderRelationship" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                     <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>联系方式:</th>
                     <td><input type="text" name="leaderPhone" id="leaderPhone" value=""></td>
-                   <!--  <td><input type="text" name="" id="" value=""></td> -->
+                     <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>同事姓名:</th>
                     <td><input type="text" name="colleagueName" id="colleagueName" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                     <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>职位:</th>
                     <td><input type="text" name="colleaguePosition" id="colleaguePosition" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                     <td><input type="text" name="" id="" value=""></td>
                   </tr>
                   <tr>
                     <th>工作关系:</th>
                     <td><input type="text" name="colleagueRelationship" id="colleagueRelationship" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td>  -->              
+                     <td><input type="text" name="" id="" value=""></td>               
                   </tr>                  
                   <tr>
                     <th>座机:</th>
                     <td><input type="text" name="colleaguePhone" id="colleaguePhone" value=""></td>
-                    <!-- <td><input type="text" name="" id="" value=""></td> -->
+                    <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                 </table>
               </div>
