@@ -54,6 +54,7 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	@RequestMapping(value = "/queryList", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<OperationMessage> queryUserList(HttpServletRequest request,@RequestBody OperationMessageBo operationMessageBo) {
 		ResponseData<OperationMessage> responseBody = new ResponseData<OperationMessage>();
+		Result result = new Result();
 		try {
 			if(operationMessageBo.getModule()!=null&&operationMessageBo.getModule() != PlatformConst.MODULE_BROADCAST_MESSAGE.intValue()){
 				User user = (User) getUserFromSession(request);
@@ -64,7 +65,7 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;	
 		} catch (PlatformException e) {
-			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			result.addError(e.getMessage(), e.getCode()+"");
 			logger.error("queryUserList ", e);
 		}
 		return responseBody;
@@ -74,6 +75,7 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	@RequestMapping(value = "/remind", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<OperationMessageBo> remind(HttpServletRequest request) {
 		ResponseData<OperationMessageBo> responseBody = new ResponseData<OperationMessageBo>();
+		Result result = new Result();
 		try {
 			OperationMessageBo operationMessageBo = new OperationMessageBo();
 			operationMessageBo.setCreatedTimeStart(DateUtil.getCurrentDate().getTime());
@@ -85,7 +87,7 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			responseBody.setEntity(operationMessageBo);
 			return responseBody;	
 		} catch (PlatformException e) {
-			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			result.addError(e.getMessage(), e.getCode()+"");
 			logger.error("queryUserList ", e);
 		}
 		return responseBody;
