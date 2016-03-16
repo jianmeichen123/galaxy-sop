@@ -59,6 +59,24 @@ public class IndexController {
 	}
 	
 	/**
+	 * 高管到项目查询
+	 * @return
+	 */
+	@RequestMapping(value = "/cpl", method = RequestMethod.GET)
+	public String catProjectList() {
+		return "manager/list";
+	}
+	/**
+	 * 高管查看项目详情
+	 * @return
+	 */
+	@RequestMapping(value = "/detail/{pid}", method = RequestMethod.GET)
+	public String detailProject(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		request.setAttribute("pid", pid);
+		return "manager/detail";
+	}
+	
+	/**
 	 * 添加团队成员弹出层
 	 * @return
 	 */
