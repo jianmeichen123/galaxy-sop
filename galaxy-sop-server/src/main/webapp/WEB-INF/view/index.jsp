@@ -320,7 +320,6 @@ $(function(){
 			}
 			chartOptions.series[0].data = re;
 			chartOptions.xAxis.categories = categories;
-			chartOptions.xAxis.labels.useHTML = true;
 			var chart = new Highcharts.Chart(chartOptions);
 		});
 	}
@@ -396,9 +395,9 @@ var chartOptions={
 	    },
 	    tooltip: {
 	    	useHTML: true,
-	    	formatter: function(){
+	    	/*formatter: function(){
 	    		return this.point.x +'<br/>项目数:'+ this.point.y +'个';
-	    	}
+	    	}*/
 	    },
 	    series: [{
 	        name: '项目状态分布',
