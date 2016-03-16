@@ -57,13 +57,14 @@
 				         >
 						   <thead>
 						    <tr>
+						    
+						    <th data-field="createdTime" data-formatter="longTimeFormatChines" data-align="center" class="data-input">更新时间</th>
 					        <th data-field="department" data-align="center" class="data-input">投资线/部门</th>
 					        <th data-field="role" data-align="center"  class="data-input">角色</th>
 					        <th data-field="type" data-align="center" class="col-md-1 status ">消息类型</th>
 					        <th data-field="projectName" data-align="center" >项目名称</th>
 					        <th data-field="operator" data-align="center" >操作人</th>
 					        <th data-field="content" data-align="center" class="col-md-2" >消息内容</th>
-					        <th data-field="module" data-align="center" class="col-md-2" >模块</th>
    						 	</tr>	
    						 	</thead>
 					</table>

@@ -43,9 +43,9 @@
 		if(data.result.status == "OK"){
 			var news_table =  $(".r_news table tbody");
 			var content = data.pageList.content;
-			$(content).each(function(){
-				var item = $(this)[0];
-				var tr = " <tr><td>2</td><td>2016/1/1 13:35</td> <td>"+item.operator+"</td><td>"+item.content+"</td></tr>"
+			
+			$(content).each(function(index,item){
+				var tr = " <tr><td>"+(index+1)+"</td><td>"+longTimeFormatChines(item.createdTime)+"</td> <td>"+item.operator+"</td><td>"+item.content+"</td></tr>"
 				news_table.append(tr);
 			})
 		}

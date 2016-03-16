@@ -598,3 +598,6 @@ function meetProInfoFormat(value, row, index){
 function longTimeFormat(value, row, index){
 	return Number(value).toDate().format("yyyy/MM/dd")
 }
+function longTimeFormatChines(value, row, index){
+	return Number(value).toDate().format("yyyy年MM月dd日 hh:mm:ss")
+}
