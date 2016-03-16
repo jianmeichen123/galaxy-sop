@@ -11,7 +11,9 @@
 <%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
-<%User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+<%
+String path = request.getContextPath(); 
+User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 String sessionId = "";
 String nick_name = "";
 Long userId=null;
@@ -22,11 +24,14 @@ if(null != user) {
 }
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
 %>
+
+
 <!-- 这里写js和css文件---------start -->
 <script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-validate.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/json2.js" type="text/javascript"></script>
 <!-- end -->
+
 <script type="text/javascript">
 	var contextEndPoint = '<%=endpoint%>';
 	endpointObj = JSON.parse(contextEndPoint);

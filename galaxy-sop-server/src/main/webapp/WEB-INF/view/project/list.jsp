@@ -11,7 +11,7 @@
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
-<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 
 </head>
@@ -30,13 +30,13 @@
         <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4">添加项目</a>
-                <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
+                <a href="添加项目.html" class="pubbtn bluebtn ico c4">添加项目</a>
+                <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a>
             </div>
         </div>
         <!-- 搜索条件 -->
-		<div class="min_document clearfix">
-			<div class="bottom searchall clearfix" id="custom-toolbar">
+		<div class="min_document clearfix" id="custom-toolbar">
+			<div class="bottom searchall clearfix">
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>项目类别：</dt>
 	              <dd>
@@ -94,7 +94,7 @@
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/my_ext.js"></script>
 <script src="<%=path %>/js/my.js"></script>
@@ -106,10 +106,10 @@
 <script src="<%=path %>/js/init.js"></script>
 
 <!-- 富文本编辑器 -->
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
-<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 
 <script type="text/javascript">
 	createMenus(5);
@@ -118,8 +118,8 @@
 	 */
 	function editor(value, row, index){
 		var id=row.id;
-		var options = "<a href='#' data-btn='myproject' onclick='info(" + id + ")'>查看</a>";
-		options += "<a href='<%=path%>/galaxy/upp/"+id+"'>修改</a>";
+		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>查看</a>";
+		options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>修改</a>";
 		return options;
 	}
 	/**
@@ -236,6 +236,9 @@
 	 * 上传接触访谈纪要弹出层
 	 */
 	function air(){
+		
+		loadJs();
+		
 		var _url='<%=path%>/galaxy/air';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -245,7 +248,7 @@
 				$('.searchbox').toggleshow();
 				leicj();
 				//初始化文件上传
-				toinitUpload(platformUrl.stageChange, "select_btn","file_object","save_interview",
+				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_btn","file_object","save_interview",
 						function getSaveCondition(){
 							var	condition = {};
 							var pid = $("#project_id").val();
@@ -293,9 +296,8 @@
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){
 			sendGetRequest(platformUrl.startReview + pid, {}, function(data){
-				//alert("启动内部评审成功!");
 				layer.msg("启动内部评审成功!");
-				$("#popbg,#powindow").remove();
+				$("#powindow,#popbg").remove();
 				info(pid);
 			});
 		}
@@ -305,6 +307,7 @@
 	 * 上传会议记录
 	 */
 	 function addMettingRecord(num,meetingType){
+		 loadJs();
 		var _url='<%=path %>/galaxy/mr';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -313,7 +316,7 @@
 				$(".meetingtc").tabchange();
 				$('.searchbox').toggleshow();
 				leicj(meetingType);
-				toinitUpload(platformUrl.stageChange, "meeting_select_btn","meeting_file_object","save_meeting",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "meeting_select_btn","meeting_file_object","save_meeting",
 						function getSaveCondition(){
 							var	condition = {};
 							var pid = $("#project_id").val();
@@ -357,6 +360,12 @@
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){
 			sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
+				var result = data.result.status;
+				if(result == "OK"){ 
+					layer.msg("申请立项会成功!");
+					$("#powindow,#popbg").remove();
+					info(pid);
+				}
 			});
 		}
 	}
@@ -438,6 +447,7 @@
 	 * 上传文档
 	 */
 	 function addFile(num,i){
+		 loadJs();
 		var _url='<%=path %>/galaxy/tzyx';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -449,7 +459,7 @@
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
 				}
-				toinitUpload(platformUrl.stageChange, "select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -490,6 +500,7 @@
 	  * 尽职调查
 	  */
 	 function jzdc(){
+		 
 		 var pid = $("#project_id").val();
 		 if(pid != '' && pid != null){
 			 /**
@@ -545,6 +556,7 @@
 	 * 点击上传业务尽调报告按钮
 	 */
 	function uploadYwjd(){
+		loadJs();
 		var _url='<%=path %>/galaxy/jzdc';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -553,7 +565,7 @@
 				$(".meetingtc").tabchange();
 				$('.searchbox').toggleshow();
 				leicj();
-				toinitUpload(platformUrl.stageChange, "select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -597,7 +609,12 @@
 					platformUrl.inTjh + pid,
 					null,
 					function(data){
-						
+						var result = data.result.status;
+						if(result == "OK"){ 
+							layer.msg("申请成功!");
+							$("#powindow,#popbg").remove();
+							info(pid);
+						}
 					});
 		}
 	}
@@ -676,6 +693,7 @@
 	 * 投资协议弹出层
 	 */
 	 function tzxyAlert(num,i){
+		 loadJs();
 		var _url='<%=path %>/galaxy/tzxy';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -687,7 +705,7 @@
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
 				}
-				toinitUpload(platformUrl.stageChange, "select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -740,6 +758,7 @@
 	  * 股权转让协议弹出层
 	  */
 	 function gqzrAlert(num,i){
+		 loadJs();
 		var _url='<%=path %>/galaxy/gqzr';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -751,7 +770,7 @@
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
 				}
-				toinitUpload(platformUrl.stageChange, "select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -877,5 +896,16 @@
 				"</div>" ;
 		return rc;
 	}
+	
+	function loadJs(){
+		$("#f").attr("href","<%=path %>/ueditor/themes/default/css/umeditor.css");
+		$("#a").attr("src","<%=path %>/js/plupload.full.min.js");
+		$("#b").attr("src","<%=path %>/ueditor/dialogs/map/map.js");
+		$("#c").attr("src","<%=path %>/ueditor/umeditor.config.js");
+		$("#d").attr("src","<%=path %>/ueditor/umeditor.min.js");
+		$("#e").attr("src","<%=path %>/ueditor/lang/zh-cn/zh-cn.js");
+		
+	}
 </script>
+
 </html>
