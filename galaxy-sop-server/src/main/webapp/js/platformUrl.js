@@ -3,7 +3,7 @@ var Constants = {
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
 var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
-//var sopContentUrl = "http://127.0.0.1:8888/";
+//var sopContentUrl = "http://127.0.0.1:8080/";
 
 var platformUrl = {
 	/**
@@ -253,6 +253,14 @@ var platformUrl = {
 	operationMessageQueryList : sopContentUrl + "/galaxy/operationMessage/queryList",
 	
 	operationMessageRemind : sopContentUrl + "/galaxy/operationMessage/remind",
+	
+	sheduleMoreThree : sopContentUrl + "/galaxy/sopUserSchedule/selectSopUserSchedule/1",
+	
+	saveShedule : sopContentUrl + "/galaxy/sopUserSchedule/addOrUpdateSopUserSchedule/",
+	
+	sheduleInfo : sopContentUrl + "/galaxy/sopUserSchedule/getSchedule/",
+	
+	deleteShedule : sopContentUrl + "/galaxy/sopUserSchedule/delete/"
 }
 
 /**
