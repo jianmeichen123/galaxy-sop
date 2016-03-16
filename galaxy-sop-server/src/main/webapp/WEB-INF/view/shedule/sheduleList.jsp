@@ -137,7 +137,7 @@
     //保存日程
     function saveShedule(){
     	$("#id").remove();
-    	sendPostRequestByJsonObj('/galaxy/sopUserSchedule/addOrUpdateSopUserSchedule/', JSON.parse($("#shedule_form").serializeObject()), sheduleCallBack,null);
+    	sendPostRequestByJsonObj('/galaxy/sopUserSchedule/addOrUpdateSopUserSchedule/', JSON.parse($("#shedule_form").serializeObject()), sheduleCallBack);
     }
     //新建日程
     function newShedule(){
@@ -151,7 +151,7 @@
     //获取单日程信息
     function getShedule(id){
     	var url='/galaxy/sopUserSchedule/getSchedule/'+id;
-    	sendGetRequest(url,'',getSheduleCallBack,null);
+    	sendGetRequest(url,'',getSheduleCallBack);
     }
     //获取单日程信息回调函数
     function getSheduleCallBack(data){
@@ -189,7 +189,7 @@
     function deleteShedule(){
     	var id=$("#id").val();
     	var url='/galaxy/sopUserSchedule/delete/'+id;
-    	sendGetRequest(url,'',sheduleCallBack,null);
+    	sendGetRequest(url,'',sheduleCallBack);
     }
     //新建|修改|删除回调函数
     function sheduleCallBack(data){
