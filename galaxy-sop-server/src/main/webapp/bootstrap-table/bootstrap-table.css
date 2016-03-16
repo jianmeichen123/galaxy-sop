@@ -10,7 +10,7 @@
     border-collapse: collapse !important;
     border-radius: 1px;
 }
-
+.dropup .caret{content:'';border-top:0px none;border-bottom:4px dashed;}
 .bootstrap-table .table,
 .bootstrap-table .table > tbody > tr > th,
 .bootstrap-table .table > tfoot > tr > th,
@@ -39,7 +39,7 @@
 .fixed-table-container.table-no-bordered {
     border: 1px solid transparent;
 }
-
+.fixed-table-pagination{overflow: hidden;margin-top: 10px;}
 .fixed-table-footer,
 .fixed-table-header {
     overflow: hidden;
@@ -57,6 +57,8 @@
 .fixed-table-body {
     overflow-x: auto;
     overflow-y: auto;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 .fixed-table-container table {
@@ -169,6 +171,8 @@
 }
 
 .fixed-table-pagination .dropup .dropdown-menu {
+    top: auto;
+    bottom: 100%;
     margin-bottom: 0;
 }
 
@@ -200,7 +204,7 @@
     margin-bottom: 10px;
     line-height: 34px;
 }
-
+.fixed-table-toolbar .bars{width: 100%;}
 .fixed-table-pagination li.disabled a {
     pointer-events: none;
     cursor: default;
