@@ -190,7 +190,7 @@ function updateStock(){
  */
 function delStock(id,url){
 	var projectId = $("#pid").val();
-	var url = sopContentUrl + "/galaxy/projectShares/deleteProjectShares/"+id+"/"+projectId;
+	var url = platformUrl.deleteProjectShares+id+"/"+projectId;
 	if(projectId != ''){
 		$("#projectId").val(projectId);
 		sendGetRequest(url,'',saveProjectCallBack);
@@ -213,7 +213,7 @@ function updatePerson(){
  */
 function deletePer(id,url){
 	var projectId = $("#pid").val();
-	var url = sopContentUrl + "/galaxy/project/dpp/"+id+"/"+projectId;
+	var url = platformUrl.deletePPerson+id+"/"+projectId;
 	if(projectId != ''){
 		$("#projectId").val(projectId);
 		sendGetRequest(url,'',savePersonCallBack);

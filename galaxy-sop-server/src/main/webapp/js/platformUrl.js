@@ -254,13 +254,62 @@ var platformUrl = {
 	
 	operationMessageRemind : sopContentUrl + "/galaxy/operationMessage/remind",
 	
+	/***
+	 * 日程显示三条记录
+	 */
 	sheduleMoreThree : sopContentUrl + "/galaxy/sopUserSchedule/selectSopUserSchedule/1",
 	
+	/***
+	 * 保存日程
+	 */
 	saveShedule : sopContentUrl + "/galaxy/sopUserSchedule/addOrUpdateSopUserSchedule/",
 	
+	/**
+	 * 获取日程
+	 */
 	sheduleInfo : sopContentUrl + "/galaxy/sopUserSchedule/getSchedule/",
 	
-	deleteShedule : sopContentUrl + "/galaxy/sopUserSchedule/delete/"
+	/**
+	 * 删除日程
+	 */
+	deleteShedule : sopContentUrl + "/galaxy/sopUserSchedule/delete/",
+	
+	/**
+	 * 添加团队成员跳转页面
+	 */
+	addPersonView : sopContentUrl + "/galaxy/addperson",
+	/**
+	 * 修改团队成员
+	 */
+	updatePerView : sopContentUrl + "/galaxy/project/updatePro/",
+	
+	/***
+	 * 添加股权结构页面
+	 */
+	addSharesView : sopContentUrl + "/galaxy/projectShares/addShares",
+	
+	/**
+	 * 修改股权结构面板
+	 */
+	editStockView : sopContentUrl + "/galaxy/projectShares/updateShare/",
+	/***
+	 * 获取股权结构列表
+	 */
+	projectSharesList : sopContentUrl + "/galaxy/projectShares/selectProjectShares",
+	
+	/**
+	 * 获取团队成员列表
+	 */
+	projectPersonList : sopContentUrl + "/galaxy/project/queryProjectPerson",
+	/**
+	 * 删除股权结构
+	 */
+	deleteProjectShares : sopContentUrl + "/galaxy/projectShares/deleteProjectShares/",
+	
+	/***
+	 * 删除团队成员
+	 */
+	deletePPerson : sopContentUrl + "/galaxy/project/dpp/"
 }
 
 /**
