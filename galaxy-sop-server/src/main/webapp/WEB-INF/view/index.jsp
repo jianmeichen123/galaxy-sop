@@ -306,7 +306,7 @@ $(function(){
 		var obj ={url:"http://fx.qa.galaxyinternet.com/report/galaxy/report/projectprogress"};
 		obj.contentType="application/json";
 		ajaxCallback(obj,function(data){
-			console.log("data :" + data);
+			console.log(data);
 			var result = data.result;
 			var mapList = data.mapList;
 			if(result.status=='ERROR'){
@@ -321,8 +321,8 @@ $(function(){
 			}
 			chartOptions.series[0].data = re;
 			chartOptions.xAxis.categories = categories;
-			console.log("re :" + re);
-			console.log(" categories :" +categories);
+			console.log(re);
+			console.log(categories);
 			var chart = new Highcharts.Chart(chartOptions);
 		});
 	}
