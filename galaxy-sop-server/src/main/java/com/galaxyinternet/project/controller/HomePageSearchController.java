@@ -206,6 +206,89 @@ public class HomePageSearchController
 
 		return responseBody;
 	}
+	/**
+	 * 首页top5CEO评审排期
+	 * 
+	 * @author wangkun
+	 * @param request
+	 * @param query
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/top5CeoPsMeeting",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingSchedulingBo> top5CeoPsMeeting(
+			HttpServletRequest request) {
+
+		ResponseData<MeetingSchedulingBo> responseBody = new ResponseData<MeetingSchedulingBo>();
+		/*Object obj = request.getSession()
+				.getAttribute(Constants.SESSION_USER_KEY);
+		if (obj == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}*/
+		// User user = (User)
+		// request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try {
+
+			List<MeetingSchedulingBo> list = meetingSchedulingService
+					.selectTop5ProjectMeetingByType(SopConstant.CEOPS_MEETING);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setEntityList(list);
+			return responseBody;
+
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,
+					"selectTop5CeoPsMeeting faild"));
+
+			if (logger.isErrorEnabled()) {
+				logger.error("selectTop5CeoPsMeeting ", e);
+			}
+		}
+
+		return responseBody;
+	}
+
+	/**
+	 * CEO评审排期more
+	 * 
+	 * @author wangkun
+	 * @param request
+	 * @param query
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/moreCeoPsMeeting",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingSchedulingBo> moreCeoPsMeeting(
+			HttpServletRequest request) {
+
+		ResponseData<MeetingSchedulingBo> responseBody = new ResponseData<MeetingSchedulingBo>();
+	/*	Object obj = request.getSession()
+				.getAttribute(Constants.SESSION_USER_KEY);
+		if (obj == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+*/		// User user = (User)
+		// request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try {
+
+			List<MeetingSchedulingBo> list = meetingSchedulingService
+					.selectProjectMeetingByType(SopConstant.CEOPS_MEETING);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setEntityList(list);
+			return responseBody;
+
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,
+					"selectMoreCeoPsMeeting faild"));
+
+			if (logger.isErrorEnabled()) {
+				logger.error("selectMoreCeoPsMeeting ", e);
+			}
+		}
+
+		return responseBody;
+	}
 	
 	/**
 	 * 供app使用的立项排期,投诀排期
