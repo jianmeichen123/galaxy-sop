@@ -158,11 +158,11 @@
 	function getStatusValue(str) {
 		if (typeof(str) == "undefined" || str == null) { 
 			 return "-";
-		}  else if (str=="taskStatus:2"){
+		}  else if (str=="meetingResult:2"){
 			return "待完成";
-		} else if(str=="taskStatus:1") {
+		} else if(str=="meetingResult:1") {
 			return "待认领";
-		} else if (str=="taskStatus:3") {
+		} else if (str=="meetingResult:3") {
 			return "已完成";
 		}
 	}
