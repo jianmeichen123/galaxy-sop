@@ -252,7 +252,7 @@ Date.prototype.format = function(fmt){
  * 注意：
  * 1.再引入plupload.full.min.js后，一定要在页面加载时就初始化调用该函数
  */
-function toinitUpload(fileurl,selectBtnId,fileInputId,submitBtnId,paramsFunction) {
+function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunction) {
 	//上传对象初始化
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
@@ -297,8 +297,12 @@ function toinitUpload(fileurl,selectBtnId,fileInputId,submitBtnId,paramsFunction
 					alert("error "+response.result.message);
 					return false;
 				}
-				alert("保存成功");
-				location.reload(true);
+				
+				layer.msg("保存成功");
+				$("#powindow,#popbg").remove();
+				info(pid);
+				
+				//location.reload(true);
 				
 				/*$("#popTxt input[name='fileKey']").val(result.fileKey);
 				$("#popTxt input[name='fileLength']").val(result.fileLength);

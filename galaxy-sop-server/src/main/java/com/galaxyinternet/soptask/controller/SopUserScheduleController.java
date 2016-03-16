@@ -62,8 +62,7 @@ public class SopUserScheduleController extends
 	@RequestMapping(value = "/addOrUpdateSopUserSchedule", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopUserScheduleBo> addProjectPerson(@RequestBody SopUserScheduleBo sopUserSchedule, HttpServletRequest request) {
 		ResponseData<SopUserScheduleBo> responseBody = new ResponseData<SopUserScheduleBo>();
-		User user = (User) request.getSession().getAttribute(
-				Constants.SESSION_USER_KEY);
+		User user = (User) getUserFromSession(request);
 		sopUserSchedule.setUserId(user.getId());
 		String date=sopUserSchedule.getItemDateStr()+" 00:00:00";
 		System.out.println(date);
@@ -95,8 +94,7 @@ public class SopUserScheduleController extends
 			@PathVariable Integer type, HttpServletRequest request) throws ParseException {
 
 		ResponseData<SopUserScheduleBo> responseBody = new ResponseData<SopUserScheduleBo>();
-		User user = (User) request.getSession().getAttribute(
-				Constants.SESSION_USER_KEY);
+		User user = (User) getUserFromSession(request);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String date = sdf.format(new Date());
 		Long currentTime = sdf.parse(date).getTime();
@@ -115,8 +113,7 @@ public class SopUserScheduleController extends
 	 */
 	@RequestMapping(value = "/scheduleList",method = RequestMethod.GET)
 	public String scheduleList(HttpServletRequest request) {
-		User user = (User) request.getSession().getAttribute(
-				Constants.SESSION_USER_KEY);
+		User user = (User) getUserFromSession(request);
 		List<SheduleCommon> sop=sopUserScheduleService.scheduleListByDate(user.getId());
 		request.setAttribute("sheduleList", sop);
 		return "shedule/sheduleList";
@@ -131,8 +128,7 @@ public class SopUserScheduleController extends
 			@PathVariable Long id, HttpServletRequest request) throws ParseException {
 
 		ResponseData<SopUserScheduleBo> responseBody = new ResponseData<SopUserScheduleBo>();
-		User user = (User) request.getSession().getAttribute(
-				Constants.SESSION_USER_KEY);
+		User user = (User) getUserFromSession(request);
 		try{
 			SopUserScheduleBo sop= (SopUserScheduleBo) sopUserScheduleService.queryById(id);
 			String str[] = sop.getItemDate().toString().split(" ");

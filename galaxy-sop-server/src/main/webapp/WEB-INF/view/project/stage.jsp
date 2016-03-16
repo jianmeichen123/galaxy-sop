@@ -280,7 +280,7 @@
 
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:addMettingRecord(2,'meetingType:1');" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a href="javascript:addMettingRecord(2,'meetingType:1');" data-btn="interview" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 				</div>
 				<div id="projectProgress_2_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
@@ -525,3 +525,4 @@
 		</div>
 	</div>
 </div>
+<script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>

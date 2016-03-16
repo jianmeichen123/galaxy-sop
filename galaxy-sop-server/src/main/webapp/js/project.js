@@ -231,7 +231,7 @@ function saveProjectCallBack(data){
 		return;
 	}
 	//alert("操作成功!");
-	$("#popbg,#pop").remove();
+	$("#powindow,#popbg").remove();
 	//window.location.reload(sopContentUrl + "/galaxy/upp");
 	getTabShare();
 }
