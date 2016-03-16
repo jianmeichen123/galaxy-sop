@@ -184,7 +184,7 @@
                     	<div id="histogram" class="histogram"></div>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="javascript:;" class="more null">more</a>
+                    	<a href="http://fx.qa.galaxyinternet.com/report/galaxy/report/dataBriefing" class="more null">more</a>
                     </dd>
                 </dl>
             </div>
