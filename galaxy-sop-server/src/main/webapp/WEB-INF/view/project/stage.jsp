@@ -598,7 +598,9 @@
  		$("#projectDesc_show").text(replaceStr(data.entity.userPortrait));
  	});
  	function replaceStr(str){
-		var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
-		return result;
+ 		if(str){
+ 			var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
+ 			return result;
+ 		}
 	}
 </script>

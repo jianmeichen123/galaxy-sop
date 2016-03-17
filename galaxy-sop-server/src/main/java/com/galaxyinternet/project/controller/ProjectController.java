@@ -24,6 +24,7 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
@@ -412,16 +413,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		
 		try {
-			//long did = user.getDepartmentId();
 			Config config = configService.createCode();
 			NumberFormat nf = NumberFormat.getInstance();
 			nf.setGroupingUsed(false);
 			nf.setMaximumIntegerDigits(6);
 			nf.setMinimumIntegerDigits(6);
-			String code = "10" + nf.format(Integer.parseInt(config.getValue()));
-			request.getSession().setAttribute(Constants.SESSION_PROJECT_CODE, code);
-			config.setPcode(code);
-			responseBody.setEntity(config);
+			Long did = user.getDepartmentId();
+			if(did != null){
+				int code = EnumUtil.getCodeByCareerline(did.longValue());
+				String projectCode = String.valueOf(code) + nf.format(Integer.parseInt(config.getValue()));
+				request.getSession().setAttribute(Constants.SESSION_PROJECT_CODE, projectCode);
+				config.setPcode(projectCode);
+				responseBody.setEntity(config);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -539,9 +543,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					|| p.getFileWorktype() == null || !SopConstant._file_worktype_pattern_.matcher(p.getFileWorktype()).matches()){
 				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 				
-				/*// UrlNumber.one 区别日志记录
+				// UrlNumber.one 区别日志记录
 				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), UrlNumber.one);
-				//*/		
 				
 				return responseBody;
 			}

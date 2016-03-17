@@ -44,7 +44,7 @@
 		from sop_project_person where id = #{id}
 	</select>
 	
-  	<insert id="insert" parameterType="com.galaxyinternet.model.project.ProjectPerson" >
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.ProjectPerson" >
 	    <![CDATA[
 	     insert into sop_project_person (id, project_id, person_id
 	      )

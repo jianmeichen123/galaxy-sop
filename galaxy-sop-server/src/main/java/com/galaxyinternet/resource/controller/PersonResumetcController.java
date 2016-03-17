@@ -1,5 +1,7 @@
 package com.galaxyinternet.resource.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -58,126 +60,31 @@ public class PersonResumetcController extends BaseControllerImpl<PersonResumetc,
 	}	
 	@ResponseBody
 	@RequestMapping(value = "/addpersonResumetc", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonResumetc> personResumetc(@RequestBody PersonResumetc personResumetc, HttpServletRequest request) {
+	public ResponseData<PersonResumetc> personResumetc(@RequestBody PersonResumetcBo personResumetc, HttpServletRequest request) {
 	
 		ResponseData<PersonResumetc> responseBody = new ResponseData<PersonResumetc>();
 
-		/**
-		 * 学习经历
-		 */
-		PersonLearn personLearn = new PersonLearn();
+		List<PersonLearn> personLearnList = personResumetc.getPersonLearnList();
+		List<PersonInvest> personInvestList = personResumetc.getPersonInvestList();
+		List<PersonWork> personWorkList = personResumetc.getPersonWorkList();
 		
-		personLearn.setPersonId(personResumetc.getPersonId());
-		personLearn.setDegree(personResumetc.getAcompanyName());
-		personLearn.setSchool(personResumetc.getSchool());
-		personLearn.setMajor(personResumetc.getMajor());
-		personLearn.setEducationType(personResumetc.getEducationType());
-		personLearn.setBeginDate(personResumetc.getBeginDate());
-		personLearn.setOverDate(personResumetc.getOverDate());
-		personLearn.setCertificateNumber(personResumetc.getCertificateNumber());
-		personLearn.setTeacherName(personResumetc.getTeacherName());
-		personLearn.setTeacherPosition(personResumetc.getTeacherPosition());
-		personLearn.setTeacherPhone(personResumetc.getTeacherPhone());
-		personLearn.setClassmateName(personResumetc.getClassmateName());
-		personLearn.setClassmatePhone(personLearn.getClassmatePhone());
+		PersonPool personPool = personResumetc.getPersonPool();
 		
-		/**
-		 * 外部项目信息
-		 */
-		PersonInvest personInvest = new PersonInvest();
-		
-		personInvest.setPersonId(personResumetc.getPersonId());
-		personInvest.setIcompanyName(personResumetc.getIcompanyName());
-		personInvest.setInvestmentAmount(personResumetc.getInvestmentAmount());
-		personInvest.setShareRatio(personResumetc.getShareRatio());
-		personInvest.setProjectDirector(personResumetc.getProjectDirector());
-		personInvest.setEmceedPosition(personResumetc.getEmceedPosition());
-		personInvest.setTelephone(personResumetc.getTelephone());
-		personInvest.setAcompanyName(personResumetc.getAcompanyName());
-		personInvest.setAinvestmentAmount(personResumetc.getAinvestmentAmount());
-		personInvest.setAshareRatio(personResumetc.getAshareRatio());
-		personInvest.setAtelephone(personResumetc.getAcompanyName());
-		
-		
-		
-		/**
-		 * 工作经历
-		 */
-		PersonWork personWork = new PersonWork();
-		
-		personWork.setPersonId(personResumetc.getPersonId());
-		personWork.setCompanyName(personResumetc.getCompanyName());
-		personWork.setWorkDepart(personResumetc.getWorkDepart());
-		personWork.setWorkPosition(personResumetc.getWorkPosition());
-		personWork.setWorkContent(personResumetc.getWorkContent());
-		personWork.setWorkEffect(personResumetc.getWorkEffect());
-		personWork.setWorkEmolument(personResumetc.getWorkEmolument());
-		personWork.setBeginWork(personResumetc.getBeginWork());
-		personWork.setOverWork(personResumetc.getOverWork());
-		personWork.setLeaveReason(personResumetc.getLeaveReason());
-		personWork.setLeaderName(personResumetc.getLeaderName());
-		personWork.setLeaderPosition(personResumetc.getLeaderPosition());
-		personWork.setLeaderRelationship(personResumetc.getLeaderRelationship());
-		personWork.setLeaderPhone(personResumetc.getLeaderPhone());
-		personWork.setColleagueName(personResumetc.getColleagueName());
-		personWork.setColleaguePosition(personResumetc.getColleaguePosition());
-		personWork.setColleagueRelationship(personResumetc.getColleagueRelationship());
-		personWork.setColleaguePhone(personResumetc.getColleaguePhone());
-		
-		
-		/**
-		 * 个人简历
-		 */
-		PersonPool personPool = new PersonPool();
-		
-		personPool.setPersonName(personResumetc.getPersonName());
-		personPool.setPersonSex(personResumetc.getPersonSex());
-		personPool.setPersonAge(personResumetc.getPersonAge());
-		personPool.setHighestDegree(personResumetc.getHighestDegree());
-		personPool.setWorkTime(personResumetc.getWorkTime());
-		personPool.setPersonDuties(personResumetc.getPersonDuties());
-		personPool.setPersonBirthday(personResumetc.getPersonBirthday());
-		personPool.setPersonIdcard(personResumetc.getPersonIdcard());
-		personPool.setPersonTelephone(personResumetc.getPersonTelephone());
-		personPool.setPersonEmail(personResumetc.getPersonEmail());
-		personPool.setPersonCharacter(personResumetc.getPersonCharacter());
-		personPool.setPersonGoodness(personResumetc.getPersonGoodness());
-		personPool.setPersonDisparity(personResumetc.getPersonDisparity());
-		personPool.setTalkAbility(personResumetc.getTalkAbility());
-		personPool.setTeamAbility(personResumetc.getTeamAbility());
-		personPool.setBusinessStrength(personResumetc.getBusinessStrength());
-		personPool.setFree(personResumetc.getFree());
-		personPool.setTeamRole(personResumetc.getTeamRole());
-		personPool.setMemberRelation(personResumetc.getMemberRelation());
-		personPool.setLaborDispute(personResumetc.getLaborDispute());
-		personPool.setAbilityStar(personResumetc.getAbilityStar());
-		personPool.setLevelStar(personResumetc.getLevelStar());
-		personPool.setEndComment(personResumetc.getEndComment());
-		
-		/*		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}*/	
 		try {
 
-			personPool.setId(personResumetc.getPersonId());
-			Long investid =personInvestService.insert(personInvest);
-			personPoolService.updateById(personPool);
-			Long learnid = personLearnService.insert(personLearn);
-			Long workid= personWorkService.insert(personWork);
-			
-			if(investid > 0||learnid>0||workid>0)
-				responseBody.setResult(new Result(Status.OK,"保存成功!"));
-				System.out.println("成功成功成功成功成功成功成功成功");
-				responseBody.setEntity(personResumetc);
-			}
-		catch (Exception e) {
-			System.out.println("失败失败失败失败失败失败失败失败失败失败");
-			responseBody.setResult(new Result(Status.ERROR, "insert hrxl faild"));	
+			personPoolService.insert(personPool);
+			personInvestService.insertInBatch(personInvestList);
+			personLearnService.insertInBatch(personLearnList);
+			personWorkService.insertInBatch(personWorkList);
+			responseBody.setResult(new Result(Status.OK,"更改成功!"));
+			responseBody.setEntity(personResumetc);
 		}
-		
+		catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, "update hrxl faild"));
+			System.out.println("失败失败失败失败失败失败失败失败失败失败");
+		}		
 		return responseBody;
+		
 
 	}
 	/**

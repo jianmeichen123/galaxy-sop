@@ -164,11 +164,12 @@ function savePerson(){
  * 添加股权结构
  */
 function savaStock(){
-	
-	var projectId = $("#pid").val();
-	if(projectId != ''){
-		$("#projectId").val(projectId);
-		sendPostRequestByJsonObj(platformUrl.addStock, JSON.parse($("#stock_form").serializeObject()), saveProjectCallBack);
+	if(beforeSubmit()){
+		var projectId = $("#pid").val();
+		if(projectId != ''){
+			$("#projectId").val(projectId);
+			sendPostRequestByJsonObj(platformUrl.addStock, JSON.parse($("#stock_form").serializeObject()), saveProjectCallBack);
+		}
 	}
 }
 
@@ -176,12 +177,13 @@ function savaStock(){
  * 修改股权结构
  */
 function updateStock(){
-	var projectId = $("#pid").val();
-	if(projectId != ''){
-		$("#projectId").val(projectId);
-		sendPostRequestByJsonObj(platformUrl.updateStock, JSON.parse($("#up_stock_form").serializeObject()),saveProjectCallBack);
+	if(beforeSubmit()){
+		var projectId = $("#pid").val();
+		if(projectId != ''){
+			$("#projectId").val(projectId);
+			sendPostRequestByJsonObj(platformUrl.updateStock, JSON.parse($("#up_stock_form").serializeObject()),saveProjectCallBack);
+		}
 	}
-	//window.location.reload("/galaxy/upp");
 }
 
 /**
@@ -201,10 +203,12 @@ function delStock(id,url){
  * 修改团队成员
  */
 function updatePerson(){
-	var projectId = $("#pid").val();
-	if(projectId != ''){
-		$("#projectId").val(projectId);
-		sendPostRequestByJsonObj(platformUrl.updatePerson, JSON.parse($("#up_person_form").serializeObject()),savePersonCallBack);
+	if(beforeSubmit()){
+		var projectId = $("#pid").val();
+		if(projectId != ''){
+			$("#projectId").val(projectId);
+			sendPostRequestByJsonObj(platformUrl.updatePerson, JSON.parse($("#up_person_form").serializeObject()),savePersonCallBack);
+		}
 	}
 }
 /**

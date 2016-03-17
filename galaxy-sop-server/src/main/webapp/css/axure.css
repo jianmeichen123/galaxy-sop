@@ -1081,6 +1081,9 @@ background-size: 93%;}
 /* 模板更新弹窗 */
 #upload-form h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 #upload-form .fmdl{margin:0 0 6px;}
+/* 车辆限行 */
+em{font-style: normal;}
+.weather{margin-top: -10px !important;}
 /* 公共调样式 */
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding:3px;}

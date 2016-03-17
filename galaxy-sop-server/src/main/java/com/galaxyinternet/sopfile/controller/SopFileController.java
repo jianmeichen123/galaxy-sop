@@ -73,6 +73,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private static final String ERR_UPLOAD_ALCLOUD = "上传云端时失败";
 	private static final String ERR_UPLOAD_DAO = "上传数据时失败";
 	private static final String ERR_UPLOAD_IO = "上传数据流错误";
+	private static final long SUPPORT_SIZE = 8 * 1024L;
 	
 	@Autowired
 	private SopFileService sopFileService;
@@ -398,7 +399,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		
 		if("dialog".equals(sopFile.getPageType())){
-			
+			sopFile.setFileWorktypeNullFilter("true");
 		}else{
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj.getId());
 			//角色判断(人事)
@@ -525,6 +526,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		try {
 			String fileName = null;
 			String fileSuffix = null;
+			Long fileSize = null;
 			String key = null;
 			if("voucher".equals(type))
 			{
@@ -536,6 +538,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				fileName = file.getFileName();
 				fileSuffix = file.getFileSuffix();
 				key = file.getFileKey();
+				fileSize = file.getFileLength();
 			}
 			else
 			{
@@ -547,13 +550,15 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				fileName = file.getFileName();
 				fileSuffix = "." + file.getFileSuffix();
 				key = file.getFileKey();
+				fileSize = file.getFileLength();
 			}
 			
 			File temp = File.createTempFile(fileName, fileSuffix);
-			
-//			OSSHelper.simpleDownloadByOSS(temp, key);
-			OSSHelper.downloadSupportBreakpoint(temp.getAbsolutePath(),BucketName.DEV.getName(), key);
-			
+			if(fileSize.longValue() > SUPPORT_SIZE){
+				OSSHelper.downloadSupportBreakpoint(temp.getAbsolutePath(),BucketName.DEV.getName(), key);
+			}else{
+				OSSHelper.simpleDownloadByOSS(temp, key);
+			}		
 			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
 				fileName = URLEncoder.encode(fileName, "UTF-8") + URLEncoder.encode(fileSuffix, "UTF-8");  
 			} else {  
