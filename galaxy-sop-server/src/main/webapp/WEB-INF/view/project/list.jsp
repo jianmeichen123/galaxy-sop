@@ -144,6 +144,10 @@
 				 * 加载项目详情数据
 				 */
 				sendGetRequest(platformUrl.detailProject + id, {}, function(data){
+					
+					var pp = data.entity.projectProgress;
+					var pNum = pp.substr(pp.length-1,1);
+					
 					$("#project_name").text(data.entity.projectName);
 					$("input[name='projectId']").val(data.entity.id);
 					$("#project_id").val(id);
@@ -177,8 +181,6 @@
 							var id = $(this).attr("id");
 							var indexNum = id.substr(id.length-1,1);
 							console.log("indexNum:"+indexNum);
-							var pp = data.entity.projectProgress;
-							var pNum = pp.substr(pp.length-1,1);
 							if(indexNum == '1'){
 								if(parseInt(indexNum) < parseInt(pNum)){
 									$("#qdnbps").remove();
@@ -503,7 +505,7 @@
 						alert("项目不能为空");
 						return;
 					}
-					var type = $("input[name='fileSource']").val();
+					var type = $("input[name='fileSource']:checked").val();
 					if(type == null || type == ""){
 						alert("档案来源不能为空");
 						return;
