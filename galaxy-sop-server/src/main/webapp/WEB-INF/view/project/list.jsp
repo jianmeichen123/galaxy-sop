@@ -116,6 +116,7 @@
 <script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
 
 <script type="text/javascript">
+
 	createMenus(5);
 	/**
 	 * 分页数据生成操作内容
@@ -430,7 +431,7 @@
 									handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
 								}
 						        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">'+
-						        '<a href="javascript:;" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>'+
+						        '<a href="javascript:;" onclick="downFile(5);" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>'+
 						        handlefile+'</div>'+
 							        '<div class="process clearfix">'+
 							        '<h2>投资意向书盖章流程</h2>'+
@@ -947,6 +948,7 @@
 		return rc;
 	}
 	
+	
 	function loadJs(){
 		$("#f").attr("href","<%=path %>/ueditor/themes/default/css/umeditor.css");
 		$("#a").attr("src","<%=path %>/js/plupload.full.min.js");
@@ -955,6 +957,11 @@
 		$("#d").attr("src","<%=path %>/ueditor/umeditor.min.js");
 		$("#e").attr("src","<%=path %>/ueditor/lang/zh-cn/zh-cn.js");
 		
+	}
+	
+	function downFile(id){
+		var url = platformUrl.tempDownload+"?id="+id;
+		forwardWithHeader(url);
 	}
 </script>
 
