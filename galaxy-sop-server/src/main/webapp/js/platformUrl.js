@@ -310,7 +310,17 @@ var platformUrl = {
 	/***
 	 * 删除团队成员
 	 */
-	deletePPerson : sopContentUrl + "/galaxy/project/dpp/"
+	deletePPerson : sopContentUrl + "/galaxy/project/dpp/" ,
+	
+	/**
+	 * 完善简历
+	 */
+	addPersonHr :  sopContentUrl + "/galaxy/hrjl/addPersonHr" ,
+	
+	/**
+	 * 完善简历回显
+	 */
+	toaddPersonHr:sopContentUrl + "/galaxy/hrjl/toaddPersonHr/" ,
 }
 
 /**
