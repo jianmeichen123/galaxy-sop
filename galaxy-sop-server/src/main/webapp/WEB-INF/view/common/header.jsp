@@ -40,7 +40,7 @@
         <a href="javascript:logout()" class="loginout">退出</a>
     </div>
 </div>
-<script src="<%%=path %>/js/car_limit.js"></script>
+<script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
  fillHeaderdata();
  sendPostRequest("<%=request.getContextPath() %>"+"/galaxy/operationMessage/remind", remindcbf);
