@@ -73,7 +73,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private static final String ERR_UPLOAD_ALCLOUD = "上传云端时失败";
 	private static final String ERR_UPLOAD_DAO = "上传数据时失败";
 	private static final String ERR_UPLOAD_IO = "上传数据流错误";
-	private static final long SUPPORT_SIZE = 8 * 1024L;
+	private static final long SUPPORT_SIZE = 8 * 1024*1024L;
 	
 	@Autowired
 	private SopFileService sopFileService;
