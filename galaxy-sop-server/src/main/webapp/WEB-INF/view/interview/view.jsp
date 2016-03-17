@@ -73,7 +73,7 @@
           <div class="tab-pane active" id="view">		
 			<table  id="data-table" data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
 	          		data-side-pagination="server" data-pagination="true" 
-	          		data-toolbar="#custom-toolbar" data-page-list="[3,6,10,20]"
+	          		data-toolbar="#custom-toolbar" data-page-list="[5,10,20]"
 					data-id-field="lottoId" data-show-refresh="true">
 				<thead>
 					<tr>

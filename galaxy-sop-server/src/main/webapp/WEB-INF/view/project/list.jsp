@@ -93,6 +93,7 @@
            </div>
     </div>
 </div>
+<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
@@ -110,6 +111,9 @@
 <script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script type="text/javascript" src="<%=path %>/js/teamSheet.js"></script>
+<script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
 
 <script type="text/javascript">
 	createMenus(5);
@@ -234,9 +238,24 @@
 						tiggerTable($("#projectProgress_table"),5);
 						//$("#projectProgress_table").bootstrapTable("refresh");
 					});
-				$("#" + progress).addClass("on");
-				$("#" + progress + "_con").css("display","block");
-			},null);
+					$("#fileRepository").on("click",function(){
+						$("#fileRepository").addClass("on");
+						$("#file_repository").css("display","block");
+						data = {
+								_domid : "file_repository_table",
+								_projectId : $("#project_id").val()
+						}
+						fileGrid.init(data);
+					});				
+					$("#" + progress).addClass("on");
+					$("#" + progress + "_con").css("display","block");
+					
+					
+					
+					
+					
+					
+				},null);
 			}
 		});
 		return false;

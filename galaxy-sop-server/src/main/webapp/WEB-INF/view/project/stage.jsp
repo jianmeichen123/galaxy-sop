@@ -29,7 +29,7 @@
 		<!-- tab标签 -->
 		<ul class="tablink">
 			<li data-tab="nav"><a href="javascript:;">基本信息</a></li>
-			<li data-tab="nav"><a href="javascript:;">档案库</a></li>
+			<li data-tab="nav" id="fileRepository"><a href="javascript:;">档案库</a></li>
 			<li data-tab="nav" id="projectProgress_1"><a href="javascript:;">接触访谈</a></li>
 			<li data-tab="nav" id="projectProgress_2"><a href="javascript:;">内部评审</a></li>
 			<li data-tab="nav" id="projectProgress_3"><a href="javascript:;">CEO评审</a></li>
@@ -118,8 +118,9 @@
 			</div>
 
 			<!-- 档案库信息 -->
-			<div class="block" data-tab="con">
+			<div class="block" data-tab="con" id="file_repository">
 				<!-- 查询选项 -->
+				<form id = 'file_repository_search_form'>
 				<div class="searchbox">
 					<div class="show_more">
 						<a href="#" class="blue open ico1 f4" data-btn='show'>展开</a> <a
@@ -130,68 +131,30 @@
 						<dl class="fmdl fmmr fmmm">
 							<dt>文件来源：</dt>
 							<dd>
-								<label for=""><input type="radio">不限</label>
+								<label for=""><input type="radio" name="fileSource" value="all" checked>不限</label>
 							</dd>
 							<dd>
-								<label for=""><input type="radio">内部</label>
+								<label for=""><input type="radio" name="fileSource" value="1">内部</label>
 							</dd>
 							<dd>
-								<label for=""><input type="radio">外部</label>
+								<label for=""><input type="radio" name="fileSource" value="2">外部</label>
 							</dd>
 						</dl>
-						<dl class="fmdl fmmr fmmm">
+						<dl class="fmdl fmmr fmmm" >
 							<dt>业务分类：</dt>
 							<dd>
-								<select>
-									<option>全部</option>
-									<option>全部1</option>
-									<option>全部2</option>
+								<select name="fileWorktype" id="search_file_worktype">
+									<option value = "all">全部</option>
 								</select>
 							</dd>
 						</dl>
 					</div>
-					<div class="searchbox_hidden" data-btn='box'>
-						<dl class="fmdl fmmr fmmm">
-							<dt>文件来源：</dt>
-							<dd>
-								<label for=""><input type="radio">不限</label>
-							</dd>
-							<dd>
-								<label for=""><input type="radio">缺失</label>
-							</dd>
-							<dd>
-								<label for=""><input type="radio">外部</label>
-							</dd>
-						</dl>
-						<dl class="fmdl fmmr fmmm">
+					<div class="searchbox_hidden" data-btn='box' >
+						<dl class="fmdl fmmr fmmm" id="search_file_status">
 							<dt>档案状态：</dt>
-							<dd>
-								<label for=""><input type="radio">不限</label>
-							</dd>
-							<dd>
-								<label for=""><input type="radio">缺失</label>
-							</dd>
-							<dd>
-								<label for=""><input type="radio">已上传</label>
-							</dd>
-							<dd>
-								<label for=""><input type="radio">已签署</label>
-							</dd>
 						</dl>
-						<dl class="fmdl fmmr fmmm">
+						<dl class="fmdl fmmr fmmm" id="search_file_type">
 							<dt>存储类型：</dt>
-							<dd>
-								<label for=""><input type="radio">不限</label>
-							</dd>
-							<dd>
-								<label for=""><input type="radio">文档</label>
-							</dd>
-							<dd>
-								<label for=""><input type="radio">图片</label>
-							</dd>
-							<dd>
-								<label for=""><input type="radio">音视频</label>
-							</dd>
 						</dl>
 						<dl class="fmdl fmmr fmmm clearfix">
 							<dt>更新时间：</dt>
@@ -200,84 +163,22 @@
 								<input type="text" class="txt time" value="2016-01-01" />
 							</dd>
 							<dd>
-								<a href="javascript:;" class="pubbtn bluebtn">查询</a>
+								<a href="javascript:;" id="file_repository_btn" class="pubbtn bluebtn">查询</a>
 							</dd>
 						</dl>
 					</div>
+					
 
 				</div>
+				</form>
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a>
+<!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a> -->
 					<a href="javascript:;" class="pubbtn fffbtn">发送选中</a>
 				</div>
 
 				<!--表格内容-->
-				<table width="100%" cellspacing="0" cellpadding="0">
-					<thead>
-						<tr>
-							<th></th>
-							<th>文件来源</th>
-							<th>起草者</th>
-							<th>存储类型</th>
-							<th>业务分类</th>
-							<th>更新日期</th>
-							<th>档案状态</th>
-							<th>操作</th>
-							<th>附件查看</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td><input type="radio" name="document" /></td>
-							<td>内部</td>
-							<td>投资经理</td>
-							<td>文档</td>
-							<td>访谈备忘</td>
-							<td>2016年1月26日</td>
-							<td>缺失</td>
-							<td><a href="javascript:; " class="blue">更新</a></td>
-							<td><a href="javascript:; " class="blue">文件1.doc</a></td>
-						</tr>
-						<tr>
-							<td><input type="radio" name="document" /></td>
-							<td>内部</td>
-							<td>投资经理</td>
-							<td>文档</td>
-							<td>访谈备忘</td>
-							<td>2016年1月26日</td>
-							<td>已上传</td>
-							<td><a href="javascript:; " class="blue">更新</a></td>
-							<td><a href="javascript:; " class="blue">文件1.doc</a></td>
-						</tr>
-						<tr>
-							<td><input type="radio" name="document" /></td>
-							<td>内部</td>
-							<td>投资经理</td>
-							<td>文档</td>
-							<td>访谈备忘</td>
-							<td>2016年1月26日</td>
-							<td>已签署</td>
-							<td><a href="javascript:; " class="blue">更新</a></td>
-							<td><a href="javascript:; " class="blue">文件1.doc</a></td>
-						</tr>
-					</tbody>
-				</table>
-				<!--分页-->
-				<div class="pagright pagright_m clearfix">
-					<ul class="paging clearfix">
-						<li>每页<input type="text" class="txt" value="20" />条/共<span>9</span>条记录
-						</li>
-						<li class="margin">共1页</li>
-						<li><a href="javascript:;">|&lt;</a></li>
-						<li><a href="javascript:;">&lt;</a></li>
-						<li><a href="javascript:;">&gt;</a></li>
-						<li><a href="javascript:;">&gt;|</a></li>
-						<li class="jump clearfix">第<input type="text" class="txt"
-							value="1" />页 <input type="button" class="btn margin" value="GO">
-						</li>
-					</ul>
-				</div>
+				<table width="100%" cellspacing="0" cellpadding="0" id="file_repository_table"></table>
 
 			</div>
 			<!-- 接触访谈信息 -->

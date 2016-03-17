@@ -127,6 +127,7 @@ public class SopFile extends PagableEntity {
   	
   	//参数
   	private List<Long> projectIdList;
+  	private String pageType;
 
   	
 
@@ -404,6 +405,14 @@ public class SopFile extends PagableEntity {
 
 	public void setFileSuffix(String fileSuffix) {
 		this.fileSuffix = fileSuffix;
+	}
+
+	public String getPageType() {
+		return pageType;
+	}
+
+	public void setPageType(String pageType) {
+		this.pageType = pageType;
 	}
 
     

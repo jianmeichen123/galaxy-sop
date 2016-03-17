@@ -9,7 +9,7 @@
             <dl>
             	<dt>项目 :</dt>
                 <dd>
-                	<select id="projectId" name="projectId" >
+                	<select id="projectId" name="projectId" valType="required" msg="<font color=red>*</font>不能为空"  >
                     </select>
                 	<!-- <input type="text" id="proName" name = "proName"  placeholder="请输入关键字查找" class="txt"/>
                 	<input type="hidden" id="projectId" name = "projectId" value="" /> -->
@@ -19,7 +19,7 @@
         <dl class="fmdl clearfix">
             <dt>访谈日期：</dt>
             <dd>
-            	<input class="form-control" type="date"  id="viewDate" name = "viewDate" placeholder="访谈日期"/>
+            	<input class="form-control" type="date"  id="viewDate" name = "viewDate" placeholder="访谈日期"  valType="required" msg="<font color=red>*</font>不能为空" />
             </dd>
         </dl>
     </div>
@@ -28,7 +28,7 @@
     	<dl class="fmdl fml clearfix">
             <dt>访谈对象：</dt>
             <dd>
-           		<input type="text" id="viewTarget" name = "viewTarget"  placeholder="访谈对象" class="txt" maxLength="50"/>
+           		<input type="text" id="viewTarget" name = "viewTarget"  placeholder="访谈对象" class="txt" maxLength="50" valType="required" msg="<font color=red>*</font>不能为空" />
             </dd>
         </dl>
     </div>
@@ -71,7 +71,7 @@
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
-
+<jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
  <script type="text/javascript">
 		UM.getEditor('viewNotes');
 </script>
