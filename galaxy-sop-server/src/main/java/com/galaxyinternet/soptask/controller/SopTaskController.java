@@ -24,6 +24,7 @@ import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
@@ -71,12 +72,20 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 * 默认页面
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String list() {
+	public String list(HttpServletRequest request) {
+		//flag判断该请求是不是人事，财务，法务角色登录的尽调报告或者完善简历菜单
+		String flag=request.getParameter("flag");
+		if(null!=flag&&!"".equals(flag)){
+			request.setAttribute("flagUrl",flag);
+		}else{
+			request.setAttribute("flagUrl","");
+		}
 		return "soptask/tasklist";
 	}
 	/**
 	 * 弹出页面
 	 */
+	 @com.galaxyinternet.common.annotation.Logger
 	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
 	public String goClaimtcPage(HttpServletRequest request) {
 
@@ -90,10 +99,14 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			sopTask.setId(Long.parseLong(id));
 		}
 		sopTask.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
+	
 		try {
+			SopTask queryById = sopTaskService.queryById(Long.parseLong(id));
+			Project project = projectService.queryById(queryById.getProjectId());
 			sopTask.setAssignUid(user.getId());
 			 sopTaskService.updateById(sopTask);
-			 request.setAttribute("taskid", id);
+			 request.setAttribute("taskid", id);	
+			 ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
 		} catch (Exception e) {
@@ -105,15 +118,19 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	/**
 	 * 弹出页面
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@RequestMapping(value = "/doTask",method = RequestMethod.GET)
-	public ModelAndView doTask(Long taskId) {
+	public ModelAndView doTask(Long taskId,HttpServletRequest request) {
 		
 		ModelAndView mv = new ModelAndView("/taskProcess/task_info");
 		try {
+			SopTask queryById = sopTaskService.queryById(taskId);
+			Project project = projectService.queryById(queryById.getProjectId());
 			SopTask task = sopTaskService.queryById(taskId);
 			mv.addObject("taskId", taskId);
 			mv.addObject("projectId", task.getProjectId());
 			mv.addObject("taskFlag", task.getTaskFlag());
+		 ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			throw new PlatformException(ExceptionMessage.QUERY_LIST_FAIL.getMessage(),e);
 		}
@@ -137,7 +154,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
 		sopTaskBo.setAssignUid(user.getId());
-		//根据当前登录认查询部门
+     	//根据当前登录认查询部门
 		Department Department=new Department();//
 		Department.setId(user.getDepartmentId());
 		Department queryOne = departmentService.queryOne(Department);
@@ -152,8 +169,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 				list.setTotal((long)0);
 				list.setContent(SopTaskBoList);
 			}
-			responseBody.setPageList(list);
-			
+			responseBody.setPageList(list);	
 			result.setStatus(Status.OK);
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());

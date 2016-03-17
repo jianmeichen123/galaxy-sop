@@ -3,7 +3,6 @@
 <% 
 	String path = request.getContextPath(); 
     java.util.Date date=new java.util.Date();
-    System.out.println(date);
 %>
 <!doctype html>
 <html>
@@ -34,6 +33,7 @@
         	<!--搜索-->
           <div class="searchbox clearfix">
             <input type="hidden"  id="tipslink_val"/>
+            <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
             <input  name="nameLike" type="text" placeholder="请输入项目名或投资经理名" class="txt"/>
             <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
 

@@ -90,13 +90,12 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)
 				|| roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)
 				|| roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-			tabs.add(new Menus(9L, "尽调报告", u + ""));
+			tabs.add(new Menus(9L, "尽调报告", u + "galaxy/soptask?flag=jz&"+ params));
 		}
 		
 		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
-			tabs.add(new Menus(10L, "完善简历", u + "/galaxy/hrjl/wanshan?"+ params));
+			tabs.add(new Menus(10L, "完善简历", u + "galaxy/soptask?flag=jl&"+ params));
 		}
-		
 		if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
 			tabs.add(new Menus(11L, "付款凭证", u + ""));
 		}
