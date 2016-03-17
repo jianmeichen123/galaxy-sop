@@ -39,7 +39,7 @@
 			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
 			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
 			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
-			  <if test="createdTime != null" > and created_time = #{personId,jdbcType=BIGINT} </if>
+			  <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -85,39 +85,26 @@
 	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.hr.PersonLearn">
 		update sop_person_learning_experience
 		<set>
-			  <if test="personId != null" > and person_id = #{personId,jdbcType=BIGINT} </if>
-			  <if test="degree != null" > and degree = #{degree,jdbcType=VARCHAR} </if>
-			  <if test="school != null" > and school = #{school,jdbcType=VARCHAR} </if>
-			  <if test="major != null" > and major = #{major,jdbcType=VARCHAR} </if>
-			  <if test="educationType != null" > and education_type = #{educationType,jdbcType=VARCHAR} </if>
-			  <if test="beginDate != null" > and begin_date = #{beginDate,jdbcType=TIMESTAMP} </if>
-			  <if test="overDate != null" > and over_date = #{overDate,jdbcType=TIMESTAMP} </if>
-			  <if test="certificateNumber != null" > and certificate_number = #{certificateNumber,jdbcType=VARCHAR} </if>
-			  <if test="teacherName != null" > and teacher_name = #{teacherName,jdbcType=VARCHAR} </if>
-			  <if test="teacherPosition != null" > and teacher_position = #{teacherPosition,jdbcType=VARCHAR} </if>
-			  <if test="teacherPhone != null" > and teacher_phone = #{teacherPhone,jdbcType=VARCHAR} </if>
-			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
-			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
-			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
-			  <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
+			  <if test="personId != null" > person_id = #{personId,jdbcType=BIGINT}, </if>
+			  <if test="degree != null" >degree = #{degree,jdbcType=VARCHAR}, </if>
+			  <if test="school != null" >  school = #{school,jdbcType=VARCHAR}, </if>
+			  <if test="major != null" > major = #{major,jdbcType=VARCHAR}, </if>
+			  <if test="educationType != null" >  education_type = #{educationType,jdbcType=VARCHAR}, </if>
+			  <if test="beginDate != null" >  begin_date = #{beginDate,jdbcType=TIMESTAMP}, </if>
+			  <if test="overDate != null" >  over_date = #{overDate,jdbcType=TIMESTAMP}, </if>
+			  <if test="certificateNumber != null" >  certificate_number = #{certificateNumber,jdbcType=VARCHAR}, </if>
+			  <if test="teacherName != null" >  teacher_name = #{teacherName,jdbcType=VARCHAR}, </if>
+			  <if test="teacherPosition != null" >  teacher_position = #{teacherPosition,jdbcType=VARCHAR}, </if>
+			  <if test="teacherPhone != null" >  teacher_phone = #{teacherPhone,jdbcType=VARCHAR}, </if>
+			  <if test="classmateName != null" >  classmate_name = #{classmateName,jdbcType=VARCHAR}, </if>
+			  <if test="classmatePhone != null" >  classmate_phone = #{classmatePhone,jdbcType=VARCHAR}, </if>
+			  <if test="updatedTime != null" >  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>			 
+			  <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
 			  <if test="personId != null" > and person_id = #{personId,jdbcType=BIGINT} </if>
-			  <if test="degree != null" > and degree = #{degree,jdbcType=VARCHAR} </if>
-			  <if test="school != null" > and school = #{school,jdbcType=VARCHAR} </if>
-			  <if test="major != null" > and major = #{major,jdbcType=VARCHAR} </if>
-			  <if test="educationType != null" > and education_type = #{educationType,jdbcType=VARCHAR} </if>
-			  <if test="beginDate != null" > and begin_date = #{beginDate,jdbcType=TIMESTAMP} </if>
-			  <if test="overDate != null" > and over_date = #{overDate,jdbcType=TIMESTAMP} </if>
-			  <if test="certificateNumber != null" > and certificate_number = #{certificateNumber,jdbcType=VARCHAR} </if>
-			  <if test="teacherName != null" > and teacher_name = #{teacherName,jdbcType=VARCHAR} </if>
-			  <if test="teacherPosition != null" > and teacher_position = #{teacherPosition,jdbcType=VARCHAR} </if>
-			  <if test="teacherPhone != null" > and teacher_phone = #{teacherPhone,jdbcType=VARCHAR} </if>
-			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
-			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
-			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
 			  <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			</trim>
 		</where>
@@ -126,21 +113,21 @@
 	<update id="updateById" parameterType="com.galaxyinternet.model.hr.PersonLearn">
 		update sop_person_learning_experience
 		<set>
-			  <if test="personId != null" > and person_id = #{personId,jdbcType=BIGINT} </if>
-			  <if test="degree != null" > and degree = #{degree,jdbcType=VARCHAR} </if>
-			  <if test="school != null" > and school = #{school,jdbcType=VARCHAR} </if>
-			  <if test="major != null" > and major = #{major,jdbcType=VARCHAR} </if>
-			  <if test="educationType != null" > and education_type = #{educationType,jdbcType=VARCHAR} </if>
-			  <if test="beginDate != null" > and begin_date = #{beginDate,jdbcType=TIMESTAMP} </if>
-			  <if test="overDate != null" > and over_date = #{overDate,jdbcType=TIMESTAMP} </if>
-			  <if test="certificateNumber != null" > and certificate_number = #{certificateNumber,jdbcType=VARCHAR} </if>
-			  <if test="teacherName != null" > and teacher_name = #{teacherName,jdbcType=VARCHAR} </if>
-			  <if test="teacherPosition != null" > and teacher_position = #{teacherPosition,jdbcType=VARCHAR} </if>
-			  <if test="teacherPhone != null" > and teacher_phone = #{teacherPhone,jdbcType=VARCHAR} </if>
-			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
-			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
-			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
-			  <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
+			  <if test="personId != null" >  person_id = #{personId,jdbcType=BIGINT},</if>
+			  <if test="degree != null" >  degree = #{degree,jdbcType=VARCHAR}, </if>
+			  <if test="school != null" >  school = #{school,jdbcType=VARCHAR},</if>
+			  <if test="major != null" >  major = #{major,jdbcType=VARCHAR},</if>
+			  <if test="educationType != null" >  education_type = #{educationType,jdbcType=VARCHAR},</if>
+			  <if test="beginDate != null" >  begin_date = #{beginDate,jdbcType=TIMESTAMP}, </if>
+			  <if test="overDate != null" >  over_date = #{overDate,jdbcType=TIMESTAMP}, </if>
+			  <if test="certificateNumber != null" >  certificate_number = #{certificateNumber,jdbcType=VARCHAR}, </if>
+			  <if test="teacherName != null" >  teacher_name = #{teacherName,jdbcType=VARCHAR}, </if>
+			  <if test="teacherPosition != null" >  teacher_position = #{teacherPosition,jdbcType=VARCHAR}, </if>
+			  <if test="teacherPhone != null" >  teacher_phone = #{teacherPhone,jdbcType=VARCHAR}, </if>
+			  <if test="classmateName != null" >  classmate_name = #{classmateName,jdbcType=VARCHAR}, </if>
+			  <if test="classmatePhone != null" >  classmate_phone = #{classmatePhone,jdbcType=VARCHAR}, </if>
+			  <if test="updatedTime != null" >  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>			 
+			  <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		</set>
 		where id = #{id}
 	</update>
