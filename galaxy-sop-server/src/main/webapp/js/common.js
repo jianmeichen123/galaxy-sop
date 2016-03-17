@@ -298,7 +298,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 					return false;
 				}
 				
-				layer.msg("保存成功");
+				layer.msg(response.result.message);
 				$("#powindow,#popbg").remove();
 				info(pid);
 				
