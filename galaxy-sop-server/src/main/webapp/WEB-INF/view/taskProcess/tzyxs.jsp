@@ -39,7 +39,7 @@
 	    <dl class="fmdl clearfix">
 	    	<dt>存储类型：</dt>
 	        <dd>
-	        	<select name="fileType"></select>
+	        	<select name="fileType" data-rule-required="true"></select>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -61,7 +61,7 @@
 	     <dl class="fmdl clearfix">
 	    	<dt>文档上传：</dt>
 	        <dd>
-	        	<input type="text" class="txt" name="fileName" disabled/>
+	        	<input type="text" class="txt" name="fileName" disabled data-rule-required="true"/>
 	        </dd>
 	        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a></dd>
 	    </dl> 
@@ -155,7 +155,7 @@ function showUploadPopup(type)
 	});
 }
 function initUpload(_dialog,type){
-	
+	var validator = $(_dialog.id).find('form').fxValidate({errorElement:'div'});
 	var url = platformUrl.stageChange;
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
@@ -169,6 +169,10 @@ function initUpload(_dialog,type){
 		init: {
 			PostInit: function(up) {
 				$(_dialog.id).find("#upload-btn").click(function(){
+					 if(!validator.form())
+					{
+						return;
+					} 
 					var fileName = $(_dialog.id).find('[name="fileName"]').val();
 					if(fileName == null || fileName == '')
 					{
@@ -181,7 +185,6 @@ function initUpload(_dialog,type){
 						var $form =$(_dialog.id).find("form")
 						var data = JSON.parse($form.serializeObject());
 						data['type']=data['fileSource'];
-						console.log(data);
 						sendGetRequest(
 								url,
 								data,

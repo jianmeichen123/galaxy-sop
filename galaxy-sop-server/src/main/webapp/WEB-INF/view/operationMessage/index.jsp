@@ -84,7 +84,7 @@
 
 <script type="text/javascript">
 	$(function(){
-		createMenus(2);
+		createMenus(3);
 		
 	});
 </script>

@@ -366,10 +366,15 @@ function fillHeaderdata() {
 
 
 //附件点击下载
-function filedown(fileid , filekey){
+function filedown(fileid , filekey, type){
 	try {
 		var url = platformUrl.downLoadFile+"/"+fileid;
-		window.location.href=url+"?sid="+sessionId+"&guid="+userId;
+		var typeparam = "";
+		if(typeof(type) != 'undefined')
+		{
+			typeparam = "&type="+type;
+		}
+		window.location.href=url+"?sid="+sessionId+"&guid="+userId+typeparam;
 	} catch (e) {
 		console.log(e);
 		alert("下载失败");

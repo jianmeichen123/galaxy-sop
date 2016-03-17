@@ -21,10 +21,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -351,10 +353,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryProjectPerson",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> queryProjectPerson(HttpServletRequest request,@RequestBody PersonPool personPool) {
+	public ResponseData<PersonPool> queryProjectPerson(HttpServletRequest request,@RequestBody PersonPoolBo personPoolBo) {
 		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
 		try {
-			Page<PersonPool> pageList = personPoolService.queryPageList(personPool, new PageRequest(personPool.getPageNum(), personPool.getPageSize()));
+			Page<PersonPool> pageList = personPoolService.queryPageListByPid(personPoolBo, new PageRequest(personPoolBo.getPageNum(), personPoolBo.getPageSize()));
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
@@ -368,7 +370,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		
 		
 	}
-	
 	/**
 	 * 创建项目编码
 	 * @author yangshuhua
@@ -706,5 +707,55 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return new Result(Status.OK, "200", null);
 	}
+	
+	
+	
+	
+	/**
+	 * 关闭项目
+	 * @param   pid 项目id 
+	 * @return
+	 */
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
+	@ResponseBody
+	@RequestMapping(value = "/breakpro/{pid}",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> breakproject(@PathVariable Long pid,HttpServletRequest request ) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try {
+			//project id 验证
+			Project project = new Project();
+			project = projectService.queryById(pid);
+			
+			if(project == null || project.getCreateUid()==null){
+				if(!project.getCreateUid().equals(user.getId())){
+					responseBody.setResult(new Result(Status.ERROR,null, "无操作权限"));
+					return responseBody;
+				}
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,null, "项目检索不到"));
+				return responseBody;
+			}
+			
+			project.setProjectStatus(DictEnum.meetingResult.否决.getCode());
+			int id = projectService.updateById(project);
+			if(id!=1){
+				responseBody.setResult(new Result(Status.ERROR,null, "更新失败"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK, ""));
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "add meetingRecord faild"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("add meetingRecord faild ",e);
+			}
+		}
+		
+		return responseBody;
+	}
+	
 	
 }
