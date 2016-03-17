@@ -43,7 +43,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 		 List<Project> projectList = projectService.queryAll();
 		 for (MeetingSchedulingBo meeting : meetingList) {
 			 for (Project project :projectList)   {
-				 if (meeting.getProjectId() == project.getId()) {
+				 if (meeting.getProjectId().longValue() == project.getId().longValue()) {
 					 meeting.setProjectName(project.getProjectName());
 					 meeting.setProjectCareerline(project.getProjectCareerline());
 					 meeting.setCreateUname(project.getCreateUname());
@@ -61,7 +61,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 		 List<Project> projectList = projectService.queryAll();
 		 for (MeetingSchedulingBo meeting : meetingList) {
 			 for (Project project :projectList)   {
-				 if (meeting.getProjectId() == project.getId()) {
+				 if (meeting.getProjectId().longValue() == project.getId().longValue()) {
 					 meeting.setProjectName(project.getProjectName());
 					 meeting.setProjectCareerline(project.getProjectCareerline());
 					 meeting.setCreateUname(project.getCreateUname());
@@ -103,7 +103,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 		 List<MeetingScheduling> content = page.getContent();
 		 for (MeetingScheduling meeting : content) {
 			 for (Project project :projectList)   {
-				 if (meeting.getProjectId() == project.getId()) {
+				 if (meeting.getProjectId().longValue() == project.getId().longValue()) {
 					 meeting.setProjectName(project.getProjectName());
 					 meeting.setProjectCareerline(project.getProjectCareerline());
 					 meeting.setCreateUname(project.getCreateUname());

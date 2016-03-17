@@ -50,14 +50,18 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	
 	//文件上传, 成功后插入 sopfile 数据库
 	@Transactional
-	public Long upfile(MultipartFile file,Long uid,String path,Long projectId,String projectProgress){
+	public Long upfile(MultipartFile file,String fname,Long uid,String path,Long projectId,String projectProgress){
 		Long fileId = null;
 		try {
 			UploadFileResult upResult = null;
 			
 			if(file != null){
-				String fileName = file.getOriginalFilename(); // secondarytile.png  全名
-				
+				String fileName = "";
+				if(fname!=null && fname.trim().length()>0){
+					fileName = fname;
+				}else{
+					 fileName = file.getOriginalFilename(); // secondarytile.png  全名
+				}
 				int dotPos = fileName.lastIndexOf(".");
 				
 				String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
@@ -68,7 +72,6 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				if (!temp.exists()) {
 					temp.mkdirs();
 				}
-				
 				file.transferTo(temp);  //存储临时文件
 				
 				upResult = OSSHelper.simpleUploadByOSS(temp,key);  //上传至阿里云
@@ -83,8 +86,12 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 					sopFile.setFileKey(key);   //fileKey
 					sopFile.setFileLength(upResult.getContentLength());  //文件大小
 					String[] fileNameStr = transFileNames(fileName);
-					sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
-					sopFile.setFileSuffix(fileNameStr[1]);
+					if(fileNameStr.length>1){
+						sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
+						sopFile.setFileSuffix(fileNameStr[1]);
+					}else{
+						sopFile.setFileName(fileNameStr[0]);
+					}
 					sopFile.setFileUid(uid);	 //上传人
 					//sopFile.setFileType("");   //存储类型
 					//sopFile.setFileSource(Integer.parseInt(fileSource));  //档案来源
@@ -110,7 +117,7 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	@Transactional
 	public Long insertInterview(InterviewRecord interviewRecord,Project project,MultipartFile file, String path,Long userid) {
 		if(file != null){
-			Long fileId = upfile(file,userid,path,project.getId(),project.getProgress());
+			Long fileId = upfile(file,interviewRecord.getFname(),userid,path,project.getId(),project.getProgress());
 			interviewRecord.setFileId(fileId);
 		}
 		

@@ -427,6 +427,10 @@ function getInterViewCondition(hasProid,projectId,
 		viewNotesId){
 	var	condition = {};
 	
+	if(!beforeSubmit()){
+		return false;
+	}
+	
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);
 	}else{
@@ -463,7 +467,6 @@ function getInterViewCondition(hasProid,projectId,
 			return false;
 		}
 	}
-	
 	condition.projectId = projectId;
 	condition.viewDateStr = viewDateStr;
 	condition.viewTarget = viewTarget;
@@ -501,6 +504,10 @@ function getMeetCondition(hasProid,projectId,
 		meetNotesId
 		){
 	var	condition = {};
+	
+	if(!beforeSubmit()){
+		return false;
+	}
 	
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);

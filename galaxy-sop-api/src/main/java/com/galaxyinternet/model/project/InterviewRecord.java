@@ -21,6 +21,8 @@ public class InterviewRecord extends BaseEntity{
 
     private String viewNotes;
 
+    private String fname;
+    
     public Long getProjectId() {
         return projectId;
     }
@@ -106,5 +108,15 @@ public class InterviewRecord extends BaseEntity{
 		}
 		this.viewDateStr = viewDateStr;
 	}
+
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+	
+	
 	
 }

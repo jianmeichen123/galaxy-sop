@@ -3,7 +3,8 @@ $(function(){
 	
 	$('#data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
-		pageSize:3,
+		pageSize:5,
+		pageList : [5, 10, 20 ],
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
@@ -24,8 +25,9 @@ function queryPerPro(){
 	if(proName != null && proName != ""){
 		condition.nameLike = proName;
 	}
-	condition.progress = "projectProgress:1";
+	//condition.progress = "projectProgress:1";
 	sendGetRequest(platformUrl.getUserPro,condition,setProSelect);
+	//sendPostRequestByJsonObj("http://127.0.0.1:8080/galaxy/project/progress/queryPerProPage",{pageNum:0,pageSize:5},setProSelect);
 }
 
 
