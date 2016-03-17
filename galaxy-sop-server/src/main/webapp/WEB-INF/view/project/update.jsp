@@ -342,7 +342,7 @@
           </div>        
         </div>
         <!-- 关闭按钮 -->
-        <a href="javascript:;" class="pubbtn fffbtn close" data-close="close" onclick="closePro()" >关闭项目</a>
+        <a href="javascript:;" class="pubbtn fffbtn close"  onclick="closePro()" >关闭项目</a>
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
@@ -356,7 +356,7 @@
     
     
     function closePro(){
-    	sendGetRequest(platformUrl.closeProject,null,closeback);
+    	sendGetRequest(platformUrl.closeProject+pid,null,closeback);
     }
 
 
@@ -368,6 +368,8 @@ function closeback(data){
 		return;
 	}else{
 		alert("该项目已关闭");
+		history.go(-1);
+		//forwardWithHeader(platformUrl.mpl);
 	}
 	location.reload(true);
 }

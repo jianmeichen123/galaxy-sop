@@ -738,13 +738,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			project = projectService.queryById(pid);
 			
 			if(project == null || project.getCreateUid()==null){
+				responseBody.setResult(new Result(Status.ERROR,null, "项目检索不到"));
+				return responseBody;
+			}else{
 				if(!project.getCreateUid().equals(user.getId())){
 					responseBody.setResult(new Result(Status.ERROR,null, "无操作权限"));
 					return responseBody;
 				}
-			}else{
-				responseBody.setResult(new Result(Status.ERROR,null, "项目检索不到"));
-				return responseBody;
 			}
 			
 			project.setProjectStatus(DictEnum.meetingResult.否决.getCode());

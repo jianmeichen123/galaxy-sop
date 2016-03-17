@@ -27,6 +27,10 @@ var platformUrl = {
 	 */
 	addProject : sopContentUrl + "/galaxy/project/ap",
 	/**
+	 * 关闭项目
+	 */
+	closeProject : sopContentUrl + "/galaxy/project/breakpro/",
+	/**
 	 * 获取项目详情
 	 */
 	detailProject : sopContentUrl + "/galaxy/project/sp/",
