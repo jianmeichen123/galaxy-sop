@@ -432,9 +432,9 @@ function getInterViewCondition(hasProid,projectId,
 		viewNotesId){
 	var	condition = {};
 	
-	if(!beforeSubmit()){
+	/*if(!beforeSubmit()){
 		return false;
-	}
+	}*/
 	
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);
