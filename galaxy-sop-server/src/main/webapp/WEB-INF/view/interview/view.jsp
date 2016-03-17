@@ -89,8 +89,12 @@
     </div>
 </div>
 
+
+<!-- 分页二css+四js -->
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
 <!-- file -->
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 
