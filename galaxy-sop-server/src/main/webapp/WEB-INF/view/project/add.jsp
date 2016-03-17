@@ -53,7 +53,7 @@
                         <dl>
                           <dt>创建时间：</dt>
                           <dd>
-                          	<input type="text" class="datepicker" name="createDate" readonly value="" />
+                          	<input type="text" class="datepicker time" name="createDate" readonly value="" />
                           </dd>
                         </dl>
                       </td>
@@ -94,7 +94,7 @@
                       <td>
                         <dl>
                           <dt>出让股份：</dt>
-                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" placeholder="出让股份" class="transferSharesTxt"><span>%</span></dd>
+                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt"><span>&nbsp;%</span></dd>
                         </dl>
                       </td>
                       <td>

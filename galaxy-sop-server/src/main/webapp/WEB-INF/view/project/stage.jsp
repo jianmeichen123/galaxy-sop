@@ -344,7 +344,7 @@
 				<!--按钮-->
 				<div id="tzxy_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" class="pubbtn fffbtn llpubbtn">下载投资协议模板</a>
-					<div id="stock_transfer_model"><input type="checkbox" value="1" onclick="selected(this);" id="stock_transfer">是否涉及股权转让</div>
+					<label id="stock_transfer_model"><input type="checkbox" value="1" onclick="selected(this);" id="stock_transfer">是否涉及股权转让</label>
 				</div>
 				<div class="process clearfix">
 					<h2>投资协议盖章流程</h2>
