@@ -53,7 +53,7 @@
                         <dl>
                           <dt>创建时间：</dt>
                           <dd>
-                          	<input type="text" class="datepicker" name="date" readonly value="" />
+                          	<input type="text" class="datepicker" name="createDate" readonly value="" />
                           </dd>
                         </dl>
                       </td>
