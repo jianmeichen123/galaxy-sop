@@ -7,13 +7,12 @@
 <head>
 	<meta charset="utf-8">
 	<title>繁星SOP-添加项目</title>
-	
+	<script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 	<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
 	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<!-- jsp文件头和头部 -->
-	<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
 	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 	<!-- 富文本编辑器 -->
 	<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
@@ -180,7 +179,7 @@
 			      <script type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="analysis_show"></dd>
+			  <dd class="describe" id="analysis_show">11111</dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
                 <a href="javascript:;" id="save_analysis" class="ico f4" data-btn="submit">保存</a>
@@ -351,7 +350,6 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=path %>/js/init.js"></script>
 <!-- bootstrap-table -->
-<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
@@ -361,8 +359,8 @@
 		var id=row.id;
 		var url='<%=path %>/galaxy/project/updatePro/'+id;
 		var options = '<div class="btnbox_f"><a href="javascript:;" class="ico b2">人人简历</a>'+
-			'<a href="#" data-btn="addmen" class="ico b2" onclick="updatePer('+id+')">修改</a>'+
-            '<a href="#" data-btn="addmen" class="ico b2" onclick="deletePer('+id+')">删除</a></div>';
+			'<a href="javascript:;"  class="ico b2" onclick="updatePer('+id+')">修改</a>'+
+            '<a href="javascript:;"  class="ico b2" onclick="deletePer('+id+')">删除</a></div>';
 		return options;
 	}
 	function formatGender(index, row) {
@@ -372,6 +370,46 @@
 			return "女";
 		}
 	}
+	
+	  function editStock(id){
+	    	var _url = platformUrl.editStockView+id;
+			$.getHtml({
+				url:_url,//模版请求地址
+				data:"",//传递参数
+				okback:function(){
+				
+				}//模版反回成功执行	
+			});
+			return false;
+	    }
+	    
+	    //添加团队成员
+	    function addPerson(){
+			$.getHtml({
+				url:platformUrl.addPersonView,//模版请求地址
+				data:"",//传递参数
+				okback:function(){
+					
+				}//模版反回成功执行	
+					
+			});
+			return false;
+	   }
+	    
+	   //添加股权结构
+	   function addSharesView(){
+			$.getHtml({
+				url:platformUrl.addSharesView,//模版请求地址
+				data:"",//传递参数
+				okback:function(){
+					
+				}//模版反回成功执行	
+					
+			});
+			return false;
+	   }
+	    
+	   
 	function updatePer(id){
 		var _url = platformUrl.updatePerView+id;
 		$.getHtml({
@@ -452,8 +490,8 @@
 	                      align: 'center',
 	                      formatter:function(value,row,index){  
 		                   var a = '<a href="javascript:;" class="ico b2">人人简历</a>';
-		                   var e = '<a href="javascript:;" mce_href="#" data-btn="stock" class="ico b2" onclick="updatePer(\''+ row.id + '\')">修改</a> ';  
-		                   var d = '<a href="javascript:;" mce_href="#" data-btn="addmen" class="ico b2" onclick="deletePer(\''+ row.id +'\')">删除</a> ';  
+		                   var e = '<a href="javascript:;" mce_href="javascript:;" class="ico b2" onclick="updatePer(\''+ row.id + '\')">修改</a> ';  
+		                   var d = '<a href="javascript:;" mce_href="javascript:;" class="ico b2" onclick="deletePer(\''+ row.id +'\')">删除</a> ';  
 	                        return '<div class="btnbox_f">'+a+e+d+'</div>';  
 	                    } 
 	                  }
@@ -509,8 +547,8 @@
                       field: 'id',
                       align: 'center',
                       formatter:function(value,row,index){  
-                   var e = '<a href="javascript:;" mce_href="#" data-btn="stock" class="ico b2" onclick="editStock(\''+ row.id + '\')">修改</a> ';  
-                   var d = '<a href="javascript:;" mce_href="#" data-btn="addmen" class="ico b2" onclick="delStock(\''+ row.id +'\')">删除</a> ';  
+                   var e = '<a href="javascript:;" mce_href="javascript:;" class="ico b2" onclick="editStock(\''+ row.id + '\')">修改</a> ';  
+                   var d = '<a href="javascript:;" mce_href="javascript:;" class="ico b2" onclick="delStock(\''+ row.id +'\')">删除</a> ';  
                         return '<div class="btnbox_f">'+e+d+'</div>';  
                     } 
                   }
@@ -528,38 +566,7 @@
     	};
     }
     
-    function editStock(id){
-    	var _url = platformUrl.editStockView+id;
-		$.getHtml({
-			url:_url,//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-			
-			}//模版反回成功执行	
-		});
-		return false;
-    }
-    
-    //添加团队成员
-    function addPerson(){
-		$.getHtml({
-			url:platformUrl.addPersonView,//模版请求地址
-			data:"",//传递参数
-				
-		});
-		return false;
-   }
-    
-   //添加股权结构
-   function addSharesView(){
-		$.getHtml({
-			url:platformUrl.addSharesView,//模版请求地址
-			data:"",//传递参数
-				
-		});
-		return false;
-   }
-    
+  
     
 	
 </script>	   

@@ -5,7 +5,7 @@
             <dl>
             	<dt>项目 :</dt>
                 <dd>
-                	<select id="projectId" name="projectId" >
+                	<select id="projectId" name="projectId" valType="required" msg="<font color=red>*</font>不能为空" >
                     </select>
                	 <!-- <input type="text" placeholder="请输入关键字查找" class="txt"/> -->
                 </dd>
@@ -15,7 +15,7 @@
         <dl class="fmdl clearfix">
             <dt>会议召开日期：</dt>  <!-- class="form-control"  -->
             <dd>
-            	<input class="txt time" type="date" id="meetingDateStr" name = "meetingDateStr" />
+            	<input class="txt time" type="date" id="meetingDateStr" name = "meetingDateStr" valType="required" msg="<font color=red>*</font>不能为空" />
             </dd>
         </dl>
     </div>
@@ -42,7 +42,7 @@
     <dl class="fmdl clearfix">
        <dt>会议纪要:</dt>
        <dd>
-       	  <div type="text/plain" id="meetingNotes" style="width:100%;height:100px;"></div>
+       	  <div type="text/plain" id="meetingNotes" style="width:100%;height:100px;" valType="required" msg="<font color=red>*</font>不能为空"></div>
 		</dd>
       </dl>
         
@@ -51,7 +51,7 @@
         
         <div class="fmload clearfix">
             <dd>
-	        	<input type="text" name="fileName" id="fileName" class="txt" readonly="readonly"/>
+	        	<input type="text" name="fileName" id="fileName" class="txt" readonly="readonly" />
 	        </dd>
 	        <dd>
 	        	<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">上传录音</a>
@@ -68,7 +68,7 @@
 <script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="${ctx}/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="${ctx}/ueditor/lang/zh-cn/zh-cn.js"></script>
-
+<jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
  <script type="text/javascript">
 		UM.getEditor('meetingNotes');
 </script>

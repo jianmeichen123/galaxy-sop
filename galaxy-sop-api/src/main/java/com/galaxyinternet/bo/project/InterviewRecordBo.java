@@ -8,7 +8,7 @@ public class InterviewRecordBo extends InterviewRecord{
 	
 	private String proName;
 	private String fkey;
-	private String fname;
+	
 	
 	private Long uid;
 	private String startTime;
@@ -93,14 +93,6 @@ public class InterviewRecordBo extends InterviewRecord{
 
 	public void setFkey(String fkey) {
 		this.fkey = fkey;
-	}
-
-	public String getFname() {
-		return fname;
-	}
-
-	public void setFname(String fname) {
-		this.fname = fname;
 	}
 
 	public int getInpro() {
