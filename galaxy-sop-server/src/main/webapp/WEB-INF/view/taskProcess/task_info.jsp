@@ -136,12 +136,23 @@ function getProjectInfo()
 				if(self.attr('id') != 'undefined')
 				{
 					var id = self.attr('id');
-					self.text(project[id]);
+					if(id=='projectDescribe'){
+						self.text(replaceStr(project[id]));
+					}else{
+						self.text(project[id]);
+					}
+					
 				}
 			});
 			$(".projectmsg h2").text(project.projectName);
 		}
 	);
+}
+function replaceStr(str){
+	if(str){
+	   var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
+	return result;
+	}
 }
 
 </script>

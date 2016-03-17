@@ -167,7 +167,7 @@
 							tzyxs(0);
 						}
 						if(i == 8){
-							tzxy(data.entity.stockTransfer,data.entity.projectType,0);
+							tzxy(data.entity.stockTransfer,data.entity.projectType);
 						}
 						if(i == 9){
 							gqjg();
@@ -226,7 +226,7 @@
 								 if(parseInt(indexNum) < parseInt(pNum)){
 									 $("#tzxy_options").remove();
 								 }
-								 tzxy(data.entity.stockTransfer,data.entity.projectType,1);
+								 tzxy(data.entity.stockTransfer,data.entity.projectType);
 							}else if(indexNum == '9'){
 								$("#projectProgress_8_con").css("display","none");
 								$("#projectProgress_9").addClass("on");
@@ -661,7 +661,7 @@
 	/**
 	 * 动态生成投资协议的HTML
 	 */
-	function tzxy(st,projectType,handleTag){
+	function tzxy(st,projectType){
 		//0:首次展示 1：点击触发刷新
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null){
@@ -679,18 +679,10 @@
 								var $tr=$('<tr></tr>');
 								
 								//页面初始化
-								if(this.fileWorktype == 'fileWorktype:7' && st==0 && handleTag==0){
+								if(this.fileWorktype == 'fileWorktype:7' && st==0){
 									$tr.attr("id","gwxt_tr").css("display","none");
-								}else if(this.fileWorktype == 'fileWorktype:7' && st==1 && handleTag==0){
+								}else if(this.fileWorktype == 'fileWorktype:7' && st==1){
 									$tr.attr("id","gwxt_tr");
-								}
-								//tab刷新
-								if(this.fileWorktype == 'fileWorktype:7' && st==0 && handleTag==1){
-									$tr.attr("id","gwxt_tr").css("display","none");
-								}else if(this.fileWorktype == 'fileWorktype:7' && st==1 && handleTag==1 && this.fileKey != null){
-									$tr.attr("id","gwxt_tr");
-								}else if(this.fileWorktype == 'fileWorktype:7' && st==1 && handleTag==1 && this.fileKey == null){
-									$tr.attr("id","gwxt_tr").css("display","none");
 								}
 								
 								$tr.append('<td>'+this.fWorktype+'</td>') ;

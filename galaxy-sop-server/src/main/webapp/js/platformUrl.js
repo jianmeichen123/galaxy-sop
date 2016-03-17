@@ -2,8 +2,8 @@ var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
-//var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
-var sopContentUrl = "http://127.0.0.1:8888/";
+var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
+//var sopContentUrl = "http://127.0.0.1:8888/";
 
 var platformUrl = {
 	/**
@@ -310,7 +310,17 @@ var platformUrl = {
 	/***
 	 * 删除团队成员
 	 */
-	deletePPerson : sopContentUrl + "/galaxy/project/dpp/"
+	deletePPerson : sopContentUrl + "/galaxy/project/dpp/" ,
+	
+	/**
+	 * 完善简历
+	 */
+	addPersonHr :  sopContentUrl + "/galaxy/hrjl/addPersonHr" ,
+	
+	/**
+	 * 完善简历回显
+	 */
+	toaddPersonHr:sopContentUrl + "/galaxy/hrjl/toaddPersonHr/" ,
 }
 
 /**

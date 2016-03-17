@@ -27,7 +27,7 @@
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
     <!--右中部内容-->
- 	<div class="ritmin">
+ 	<div class="ritmin news_ritmin">
     	<h2>消息提醒</h2>
         <!--页眉-->
         <div class="top clearfix news_top" id="custom-toolbar">
