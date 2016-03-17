@@ -51,7 +51,8 @@
 							_projectId : _item.projectId,
 							callFuc : function(){
 								dataGrid.load(_projectId);
-							}
+							},
+							_url : platformUrl.commonUploadFile
 						};
 					win.initData();
 					win.init(_formdata);
@@ -95,7 +96,7 @@
 						var uploader = new plupload.Uploader({
 							runtimes : 'html5,flash,silverlight,html4',
 							browse_button : $(_this.id).find("#selectBtn")[0], // you can pass in id...
-							url : platformUrl.commonUploadFile,
+							url : _formdata._url,
 							multipart:true,
 							multi_selection:false,
 							filters : {
@@ -103,7 +104,7 @@
 								mime_types: [
 								    {title : "Zip files", extensions : "zip,rar"},
 									{title : "Image files", extensions : "jpg,gif,png"},
-									{title : "audio files", extensions : "mp3,WAV,MOV"},
+									{title : "audio files", extensions : "mp3,WAV,MOV,flv"},
 									{title : "Offices files", extensions : "doc,docx,excel"}
 								]
 							},
@@ -143,14 +144,18 @@
 								},
 								BeforeUpload:function(up){
 //									alert($(_this.id).find("#isProve").is(":checked"));
+									
 									var form = {
 											"fileSource" : $(_this.id).find("input[name='fileSource']:checked").val(),
 											"fileType" : $(_this.id).find("#fileType").val(),
 											"fileWorkType" : $(_this.id).find("#fileWorkType").val(),
 											"projectId" : $(_this.id).find("#sopProjectId").data("tid"),
 											"isProve" : $(_this.id).find("#isProve").attr("checked"),
-											"remark" : $(_this.id).find("#FILELIST").val()
-									}
+											"remark" : $(_this.id).find("#FILELIST").val(),
+											"progress" : _formdata._progress
+									};
+									
+		
 									
 									up.settings.multipart_params = form;
 								},

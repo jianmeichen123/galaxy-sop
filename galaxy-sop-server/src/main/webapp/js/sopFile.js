@@ -138,7 +138,8 @@ var fileGrid = {
         			_isProve : undefined,
     				callFuc : function(){
     					searchPanel.serarchData();
-    				}
+    				},
+    				_url : platformUrl.commonUploadFile
     		};
     		win.init(formData);
         }

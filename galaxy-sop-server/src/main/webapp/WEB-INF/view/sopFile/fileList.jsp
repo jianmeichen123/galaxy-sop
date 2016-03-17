@@ -11,7 +11,7 @@
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<!-- jsp文件头和头部 -->
 	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
-	<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css">
+<%-- 	<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
 	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 	<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 	<script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
@@ -38,9 +38,7 @@
 <!--             	<button type="button" class="btn btn-primary" id="openBtn"> -->
 <!--             		<span class="glyphicon glyphicon-upload"></span>档案更新 -->
 <!--             	</button> -->
-            	<button type="button" class="btn btn-primary" id="emailBtn">
-            		<span class="glyphicon glyphicon-upload"></span>发邮件给
-            	</button>
+            	<button type="button" class="pubbtn bluebtn ico c3" id="emailBtn">发邮件给</button>
             </div>
         </div>
         <!-- 搜索条件 -->
@@ -90,9 +88,7 @@
               <input type="text" id="searchProjectId" class="txt" placeholder="请输入项目名称或投资经理名称" />
             </dd>
             <dd>
-            <button type="button" class="btn btn-primary"  id="searchBtn">
-            		<span class="glyphicon glyphicon-search"></span>查询
-            </button>
+            <button type="button" class="bluebtn ico cx"   id="searchBtn">查询</button>
             </dd>
           </dl>
         </div>

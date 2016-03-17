@@ -396,34 +396,40 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
 		}
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj.getId());
-		//角色判断(人事)
-		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
-			sopFile.setFileUid(obj.getId());
-		//财务
-		}else if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-			sopFile.setFileUid(obj.getId());
-		//法务	
-		}else if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
-			sopFile.setFileUid(obj.getId());
-		//投资经理
-		}else if(roleIdList.contains(UserConstant.TZJL)){
-			Project project = new Project();
-			project.setCreateUid(obj.getId());	
-			List<Project> projectList = proJectService.queryList(project); 
-			List<Long> projectIdList = new ArrayList<Long>();
-			for(Project temp : projectList){
-				projectIdList.add(temp.getId());
-			}
-			sopFile.setProjectIdList(projectIdList);
-		//档案管理员	
-		}else if(roleIdList.contains(UserConstant.DAGLY)){
 		
-		//其他人怎么办
-		}else{
+		if("dialog".equals(sopFile.getPageType())){
 			
+		}else{
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj.getId());
+			//角色判断(人事)
+			if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
+				sopFile.setFileUid(obj.getId());
+			//财务
+			}else if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
+				sopFile.setFileUid(obj.getId());
+			//法务	
+			}else if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
+				sopFile.setFileUid(obj.getId());
+			//投资经理
+			}else if(roleIdList.contains(UserConstant.TZJL)){
+				Project project = new Project();
+				project.setCreateUid(obj.getId());	
+				List<Project> projectList = proJectService.queryList(project); 
+				List<Long> projectIdList = new ArrayList<Long>();
+				for(Project temp : projectList){
+					projectIdList.add(temp.getId());
+				}
+				sopFile.setProjectIdList(projectIdList);
+			//档案管理员	
+			}else if(roleIdList.contains(UserConstant.DAGLY)){
+			
+			//其他人怎么办
+			}else{
+				
+			}
+			sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());		
 		}
-		sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+		
 		try {
 			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,new PageRequest(sopFile.getPageNum(), sopFile.getPageSize()));
 			responseBody.setPageList(pageSopFile);
@@ -545,7 +551,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			
 			File temp = File.createTempFile(fileName, fileSuffix);
 			
-			OSSHelper.simpleDownloadByOSS(temp, key);
+//			OSSHelper.simpleDownloadByOSS(temp, key);
+			OSSHelper.downloadSupportBreakpoint(temp.getAbsolutePath(),BucketName.DEV.getName(), key);
 			
 			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
 				fileName = URLEncoder.encode(fileName, "UTF-8") + URLEncoder.encode(fileSuffix, "UTF-8");  

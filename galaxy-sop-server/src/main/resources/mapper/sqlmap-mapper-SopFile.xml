@@ -62,8 +62,8 @@
 				</if>
 				<if test="projectIdList != null"> 
 					and project_id in
-					<foreach collection="projectIdList" item="projectId" index="index" open="(" close=")" separator=",">
-			            #{projectId}
+					<foreach collection="projectIdList" item="id" index="index" open="(" close=")" separator=",">
+			            #{id}
 			        </foreach>
 				</if>			
 				<!-- 模糊查询 -->
