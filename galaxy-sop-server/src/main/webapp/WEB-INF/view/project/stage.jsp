@@ -131,19 +131,19 @@
 						<dl class="fmdl fmmr fmmm">
 							<dt>文件来源：</dt>
 							<dd>
-								<label for=""><input type="radio" name="fileSource" value="all" checked>不限</label>
+								<label for=""><input type="radio" name="search_fileSource" value="all" checked>不限</label>
 							</dd>
 							<dd>
-								<label for=""><input type="radio" name="fileSource" value="1">内部</label>
+								<label for=""><input type="radio" name="search_fileSource" value="1">内部</label>
 							</dd>
 							<dd>
-								<label for=""><input type="radio" name="fileSource" value="2">外部</label>
+								<label for=""><input type="radio" name="search_fileSource" value="2">外部</label>
 							</dd>
 						</dl>
 						<dl class="fmdl fmmr fmmm" >
 							<dt>业务分类：</dt>
 							<dd>
-								<select name="fileWorktype" id="search_file_worktype">
+								<select name="search_fileWorktype" id="search_file_worktype">
 									<option value = "all">全部</option>
 								</select>
 							</dd>

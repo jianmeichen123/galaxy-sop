@@ -1,6 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <!-- 弹出页面 -->
-<div id="uploadPanel" class="archivestc" style="display: none;">
+<div id="uploadPanel" class="meetingtc" style="display: none;">
 	<dl class="fmdl clearfix">
     	<dt>档案来源：</dt>
         <dd class="clearfix">

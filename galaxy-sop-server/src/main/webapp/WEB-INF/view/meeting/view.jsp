@@ -107,6 +107,7 @@
 </body>
 
 <!-- bootstrap-table  -->
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 

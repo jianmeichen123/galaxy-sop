@@ -45,7 +45,7 @@ import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.oss.GlobalCode;
+import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.department.Department;
@@ -73,7 +73,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private static final String ERR_UPLOAD_ALCLOUD = "上传云端时失败";
 	private static final String ERR_UPLOAD_DAO = "上传数据时失败";
 	private static final String ERR_UPLOAD_IO = "上传数据流错误";
-	private static final long SUPPORT_SIZE = 8 * 1024*1024L;
 	
 	@Autowired
 	private SopFileService sopFileService;
@@ -554,7 +553,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			}
 			
 			File temp = File.createTempFile(fileName, fileSuffix);
-			if(fileSize.longValue() > SUPPORT_SIZE){
+			if(fileSize.longValue() > OSSConstant.DOWNLOAD_PART_SIZE){
 				OSSHelper.downloadSupportBreakpoint(temp.getAbsolutePath(),BucketName.DEV.getName(), key);
 			}else{
 				OSSHelper.simpleDownloadByOSS(temp, key);

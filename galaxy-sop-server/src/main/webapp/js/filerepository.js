@@ -3,7 +3,7 @@ var searchPanel = {
 			//档案类型
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,searchPanel.initDataCallBack);
 			//业务类型
-			sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,searchPanel.initDataCallBack);
+			sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorktype",null,searchPanel.initDataCallBack);
 			//档案状态
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileStatus",null,searchPanel.initDataCallBack);
 			
@@ -12,12 +12,13 @@ var searchPanel = {
 			var _dom;
 			var _type;
 			var _domType;
+			var _domName;
 			switch(data.result.message){
 			case "fileType" : 
 				_dom = $("#search_file_type");
 				_domType = "radio";
 				break;
-			case "fileWorkType":
+			case "fileWorktype":
 				_dom = $("#search_file_worktype");
 				break;
 			case "fileStatus":
@@ -27,7 +28,8 @@ var searchPanel = {
 			default :
 				
 			}
-			utils.each(data,_dom,"all",_domType);
+			_domName = "search_" + data.result.message;
+			utils.each(data,_dom,"all",_domType,_domName);
 		}	
 }
 var fileGrid = {
@@ -143,17 +145,16 @@ var fileGrid = {
 	},
 	downloadEvents : {
 		'click .filedownloadlink': function (e, value, row, index) {
-			alert(11);
 			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
         }
 	},
 	queryParams : function(params){
 		var form = $("#file_repository_search_form").serializeObject();
 		form = jQuery.parseJSON(form);
-		params.fileSource = utils.confident(form.fileSource,"all");
-		params.fileType = utils.confident(form.fileType,"all");
-		params.fileWorktype = utils.confident(form.fileWorktype,"all");
-		params.fileStatus = utils.confident(form.fileStatus,"all");
+		params.fileSource = utils.confident(form.search_fileSource,"all");
+		params.fileType = utils.confident(form.search_fileType,"all");
+		params.fileWorktype = utils.confident(form.search_fileWorktype,"all");
+		params.fileStatus = utils.confident(form.search_fileStatus,"all");
 		params.pageType = "dialog";
 		params.projectId = fileGrid.projectId;
 		return params;
@@ -188,7 +189,14 @@ var utils = {
 		each : function(_data,_dom,type,domType,domName){
 			if(type=="all"){
 				if(domType=="radio"){
-					_dom.append("<dd><label for=''><input type='radio' name='fileStatus' value='all' checked>不限</label></dd>");
+					_dom.empty();
+					if(domName == "search_fileType"){
+						_dom.append("<dt>存储类型：</dt>")
+					}else if(domName == "search_fileStatus"){
+						_dom.append("<dt>档案状态：</dt>")
+					}
+					
+					_dom.append("<dd><label for=''><input type='radio' name='"+domName+"' value='all' checked>不限</label></dd>");
 				}else{
 					_dom.empty();
 					_dom.append("<option value='all'>全部</option>");
@@ -198,9 +206,9 @@ var utils = {
 			if(domType=="radio"){
 				$.each(_data.entityList,function(){
 					if(this.code){
-						_dom.append("<dd><label for=''><input type='radio' name='fileStatus' value='"+this.code+"' >"+this.name+"</label></dd>");
+						_dom.append("<dd><label for=''><input type='radio' name='"+domName+"' value='"+this.code+"' >"+this.name+"</label></dd>");
 					}else{
-						_dom.append("<dd><label for=''><input type='radio' name='fileStatus' value='"+this.id+"' >"+this.name+"</label></dd>");
+						_dom.append("<dd><label for=''><input type='radio' name='"+domName+"' value='"+this.id+"' >"+this.name+"</label></dd>");
 					}
 					
 				});
