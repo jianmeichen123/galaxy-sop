@@ -1,9 +1,10 @@
 package com.galaxyinternet.sopfile.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +20,6 @@ import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.sopfile.SopVoucherFileBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum;
-import com.galaxyinternet.dao.department.DepartmentDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
@@ -401,27 +401,41 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		}
 		
 		//调用 上传 接口
-		MultipartFile multipartFile = aLiColoudUpload(request,key,null);
-		if(multipartFile==null){
+		File file = aLiColoudUpload(request,key,null);
+		if(file==null){
 			return new Result(Status.ERROR,null,"aliyun add file failed");
 		}
 		
 		//update table sopfile
-		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
+		String fileName = file.getName();// 获取文件名称
 		
-		String[] fileNameStr = fileName.split("\\.");
-		if(fileNameStr.length == 2){
-			queryfile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
-			queryfile.setFileSuffix(fileNameStr[1]);
-		}else if(fileNameStr.length == 1){
-			queryfile.setFileName(fileNameStr[0]);
-		}
-		queryfile.setFileLength(multipartFile.getSize());  //文件大小
+		Map<String,String> nameMap = transFileNames(fileName);
+		
+		
+//		if(fileNameStr.length == 2){
+//			queryfile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
+//			queryfile.setFileSuffix(fileNameStr[1]);
+//		}else if(fileNameStr.length == 1){
+//			queryfile.setFileName(fileNameStr[0]);
+//		}
+		
+		queryfile.setFileName(nameMap.get("fileName"));
+		queryfile.setFileSuffix(nameMap.get("fileSuffix"));				
+		queryfile.setFileLength(file.length());  //文件大小
 		queryfile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
 		sopFileDao.updateById(queryfile);
 		//update end
 		
 		return new Result(Status.OK,"");
+	}
+	
+	private Map<String,String> transFileNames(String fileName){
+		
+		Map<String,String> retMap = new HashMap<String,String>();
+		int dotPos = fileName.lastIndexOf(".");
+		retMap.put("fileName", fileName.substring(0, dotPos-1));
+		retMap.put("fileSuffix", fileName.substring(dotPos+1));
+		return retMap;
 	}
 	
 	
@@ -433,7 +447,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 * @param bucketName  默认传入 BucketName.DEV.getName()
 	 * @return MultipartFile null=上传失败
 	 */	
-	public MultipartFile aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception {
+	public File aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception {
 		
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
 		MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
@@ -467,7 +481,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			}
 		}
 
-		return multipartFile;
+		return tempFile;
 	}
 	
 	

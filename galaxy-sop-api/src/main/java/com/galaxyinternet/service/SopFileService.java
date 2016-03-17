@@ -1,14 +1,12 @@
 package com.galaxyinternet.service;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -62,6 +60,6 @@ public interface SopFileService extends BaseService<SopFile> {
 	 * @param bucketName  默认传入 BucketName.DEV.getName()
 	 * @return MultipartFile null=上传失败
 	 */	
-	public MultipartFile aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception;
+	public File aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception;
 	
 }

@@ -186,7 +186,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			//调接口上传
 			String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 			String bucketName = BucketName.DEV.getName();
-			MultipartFile file = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
+			File file = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
 			
 			//上传成功后
 			if(file!=null){
@@ -194,7 +194,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				if(fname!=null && fname.trim().length()>0){
 					fileName = fname;
 				}else{
-					fileName = file.getOriginalFilename(); // secondarytile.png  全名
+					fileName = file.getName(); // secondarytile.png  全名
 				}
 				if(fileName == null || fileName.trim().length()==0){
 					responseBody.setResult(new Result(Status.ERROR,null, "get file name failed"));
@@ -207,7 +207,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				sopFile.setProjectProgress(project.getProjectProgress());
 				sopFile.setBucketName(bucketName); 
 				sopFile.setFileKey(fileKey);  
-				sopFile.setFileLength(file.getSize());  //文件大小
+				sopFile.setFileLength(file.length());  //文件大小
 				String[] fileNameStr = fileName.split("\\.");
 				if(fileNameStr.length == 2){
 					sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
@@ -414,7 +414,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			//调接口上传
 			String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 			String bucketName = BucketName.DEV.getName();
-			MultipartFile file = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
+			File file = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
 			
 			//上传成功后
 			if(file!=null){
@@ -422,7 +422,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				if(fname!=null && fname.trim().length()>0){
 					fileName = fname;
 				}else{
-					fileName = file.getOriginalFilename(); // secondarytile.png  全名
+					fileName = file.getName(); // secondarytile.png  全名
 				}
 				if(fileName == null || fileName.trim().length()==0){
 					responseBody.setResult(new Result(Status.ERROR,null, "get file name failed"));
@@ -434,7 +434,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				sopFile.setProjectProgress(project.getProjectProgress());
 				sopFile.setBucketName(bucketName); 
 				sopFile.setFileKey(fileKey);  
-				sopFile.setFileLength(file.getSize());  //文件大小
+				sopFile.setFileLength(file.length());  //文件大小
 				String[] fileNameStr = fileName.split("\\.");
 				if(fileNameStr.length == 2){
 					sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png

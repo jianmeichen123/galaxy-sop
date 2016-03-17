@@ -9,7 +9,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +39,7 @@ import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.file.BucketName;
+import com.galaxyinternet.framework.core.file.DownloadFileResult;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
@@ -48,6 +51,7 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
@@ -551,12 +555,18 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				key = file.getFileKey();
 				fileSize = file.getFileLength();
 			}
-			
-			File temp = File.createTempFile(fileName, fileSuffix);
+			String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
+			File temp = new File(path);
+			File temp1 = new File(path,fileName + fileSuffix);
+			if (!temp.exists()) {
+				temp.mkdirs();
+			}
+			temp1.createNewFile();
 			if(fileSize.longValue() > OSSConstant.DOWNLOAD_PART_SIZE){
 				OSSHelper.downloadSupportBreakpoint(temp.getAbsolutePath(),BucketName.DEV.getName(), key);
 			}else{
-				OSSHelper.simpleDownloadByOSS(temp, key);
+				DownloadFileResult result = OSSHelper.simpleDownloadByOSS(temp1, key);
+				System.err.println(GSONUtil.toJson(result));
 			}		
 			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
 				fileName = URLEncoder.encode(fileName, "UTF-8") + URLEncoder.encode(fileSuffix, "UTF-8");  
@@ -567,13 +577,18 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/x-download");
 			response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-			response.setHeader("Content-Length", "" + temp.length());
+			response.setHeader("Content-Length", "" + temp1.length());
 			out = new BufferedOutputStream(response.getOutputStream());
-			fis = new BufferedInputStream(new FileInputStream(temp.getPath()));
-			byte[] buffer = new byte[fis.available()];
-			fis.read(buffer);
+			fis = new BufferedInputStream(new FileInputStream(temp1.getPath()));
+
+
+			byte[] buffer = new byte[1024 * 2];
+			int count = 0;
+			while ((count = fis.read(buffer)) != -1) {
 			out.write(buffer);
-			out.flush();
+//			out.flush();
+			}	
+	
 			response.flushBuffer();
 		} catch (Exception e) {
 			logger.error("下载失败.",e);
@@ -861,14 +876,14 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		//文档类型校验
 		//文档来源校验		
-
+		File file = null;
 		try{
 			// 文件上传
 			// 文件唯一key
 			String fileKey = String
 					.valueOf(IdGenerator.generateId(OSSHelper.class));
 			//3 上传阿里云
-			MultipartFile file = sopFileService.aLiColoudUpload(request,fileKey,null);
+			file = sopFileService.aLiColoudUpload(request,fileKey,null);
 			//4业务控制 --若文件上传成功-判断是否为签署
 			if(file!=null){
 				//判断是否为签署凭证
@@ -884,17 +899,21 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					//fileKey
 					sopVoucherFile.setFileKey(fileKey);
 					//文件大小
-					sopVoucherFile.setFileLength(file.getSize());
+					sopVoucherFile.setFileLength(file.length());
 					
-					String[] fileStr = transFileNames(file.getOriginalFilename());
-					if(fileStr.length > 0){
-						//文件名称
-						sopVoucherFile.setFileName(fileStr[0]);
-						//文件后缀
-						sopVoucherFile.setFileSuffix(fileStr[1]);
-					}else{
-						sopVoucherFile.setFileName(file.getOriginalFilename());
-					}	
+					Map<String,String> nameMap = transFileNames(file.getName());
+//					if(fileStr.length > 0){
+//						//文件名称
+//						sopVoucherFile.setFileName(fileStr[0]);
+//						//文件后缀
+//						sopVoucherFile.setFileSuffix(fileStr[1]);
+//					}else{
+//						sopVoucherFile.setFileName(file.getOriginalFilename());
+//					}	
+					
+					sopVoucherFile.setFileName(nameMap.get("fileName"));
+					sopVoucherFile.setFileSuffix(nameMap.get("fileSuffix"));	
+					
 					//上传人
 					sopVoucherFile.setFileUid(user.getId());		
 					//存储类型
@@ -945,18 +964,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					//fileKey
 					sopFile.setFileKey(fileKey);
 					//文件大小
-					sopFile.setFileLength(file.getSize());
+					sopFile.setFileLength(file.length());
 					
-					String[] fileStr = transFileNames(file.getOriginalFilename());			
-					if(fileStr.length > 0){
-						//文件名称
-						sopFile.setFileName(fileStr[0]);
-						//文件后缀
-						sopFile.setFileSuffix(fileStr[1]);
-					}else{
-						//文件名称
-						sopFile.setFileName(file.getOriginalFilename());
-					}
+					Map<String,String> nameMap = transFileNames(file.getName());			
+					sopFile.setFileName(nameMap.get("fileName"));
+					sopFile.setFileSuffix(nameMap.get("fileSuffix"));	
 
 					//上传人
 					sopFile.setFileUid(user.getId());		
@@ -981,12 +993,20 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
+		}finally{
+			if(file!=null){
+				file.delete();
+			}	
 		}
 		return responseBody;
 	}
 	
-	private String[] transFileNames(String fileFullName){
-		return fileFullName.split("\\.");
+	private Map<String, String> transFileNames(String fileName) {
+		Map<String, String> retMap = new HashMap<String, String>();
+		int dotPos = fileName.lastIndexOf(".");
+		retMap.put("fileName", fileName.substring(0, dotPos));
+		retMap.put("fileSuffix", fileName.substring(dotPos+1));
+		return retMap;
 	}
 	
 	
