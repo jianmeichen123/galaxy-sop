@@ -183,6 +183,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 * @return
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/sp/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> selectProject(@PathVariable("pid") String pid, HttpServletRequest request) {
@@ -193,6 +194,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		responseBody.setEntity(project);
+		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		return responseBody;
 	}
 	
