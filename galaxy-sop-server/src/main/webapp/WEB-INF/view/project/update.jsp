@@ -342,7 +342,7 @@
           </div>        
         </div>
         <!-- 关闭按钮 -->
-        <a href="javascript:;" class="pubbtn fffbtn close" data-close="close">关闭项目</a>
+        <a href="javascript:;" class="pubbtn fffbtn close" data-close="close" onclick="closePro()" >关闭项目</a>
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
@@ -353,6 +353,29 @@
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
 <script>
     var pid='${requestScope.pid}';
+    
+    
+    function closePro(){
+    	sendGetRequest(platformUrl.closeProject,null,closeback);
+    }
+
+
+//关闭回调
+function closeback(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		alert("error "+data.result.message);
+		return;
+	}else{
+		alert("该项目已关闭");
+	}
+	location.reload(true);
+}
+    
+    
+    
+    
+    
 	function editor(value, row, index){
 		var id=row.id;
 		var url='<%=path %>/galaxy/project/updatePro/'+id;
