@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,7 @@ import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.UserRoleService;
@@ -29,6 +31,8 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	@Autowired
 	Cache cache;
 	
+	private String serverUrl;
+	
 	/**
 	 * 避免url后边附带sessionId，第一次将user放入session后，通过重定向抹去后边参数
 	 * @return
@@ -40,8 +44,11 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 		User user = (User) getUserFromSession(request);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		if(roleIdList != null && (roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO))){
+			
+			serverUrl = getServerUrl();
+			
 			String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
-			return "redirect:http://fx.qa.galaxyinternet.com/report/galaxy/report/platform?"+params;
+			return "redirect:" + serverUrl +"report/galaxy/report/platform?"+params;
 		}else{
 			return "redirect:/galaxy/index";
 		}
@@ -235,5 +242,14 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	@Override
 	protected BaseService<User> getBaseService() {
 		return null;
+	}
+
+	public String getServerUrl() {
+		return serverUrl;
+	}
+	
+	@Value("${project.server.url}")
+	public void setServerUrl(String serverUrl) {
+		this.serverUrl = serverUrl;
 	}
 }

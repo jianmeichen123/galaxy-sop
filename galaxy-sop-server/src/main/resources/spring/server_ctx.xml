@@ -18,7 +18,6 @@
            >
 
 	<!-- 属性配置信息  -->
-	<import resource="conf_util/property_config_ctx.xml" />
 	<import resource="conf_main/main_ctx.xml" />
 	<import resource="conf_service/service_ctx.xml" />
 	<!-- <import resource="classpath*:galaxy-mongo-config.xml" /> -->

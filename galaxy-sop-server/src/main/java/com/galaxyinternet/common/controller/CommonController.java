@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +40,9 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 	
+	private String serverUrl;
+	
+	
 	/**
 	 * 动态生成左边菜单项列表
 	 * @author yangshuhua
@@ -47,6 +51,9 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@ResponseBody
 	@RequestMapping(value = "/menu/{selected}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Menus> menu(@PathVariable("selected") int selected, HttpServletRequest request){
+		
+		serverUrl = getServerUrl();
+		
 		ResponseData<Menus> responseBody = new ResponseData<Menus>();
 		Header header = new Header();
 		header.setAttachment(selected);
@@ -104,32 +111,22 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		//管理员
 		if(roleIdList.contains(16L)){
 			tabs.clear();
-			tabs.add(new Menus(15L, "用户管理", "http://fx.qa.galaxyinternet.com/platform/galaxy/user?" + params));
-			tabs.add(new Menus(16L, "数据字典", "http://fx.qa.galaxyinternet.com/platform/galaxy/dict/index?" + params));
+			tabs.add(new Menus(15L, "用户管理", serverUrl + "platform/galaxy/user?" + params));
+			tabs.add(new Menus(16L, "数据字典", serverUrl + "platform/galaxy/dict/index?" + params));
 		}
 		
 		//高管
 		if(roleIdList.contains(1L) || roleIdList.contains(2L)){
 			tabs.clear();
-//			tabs.add(new Menus(1L, "工作界面", "http://127.0.0.1:8777/galaxy-sop-server/galaxy/index?" + params));
-//			tabs.add(new Menus(3L, "消息提醒", u + ""));
-//			tabs.add(new Menus(16L, "项目查询", "http://127.0.0.1:8777/report/galaxy/report/projects?" + params));
-//			tabs.add(new Menus(16L, "数据简报", "http://127.0.0.1:8080/report/galaxy/report/dataBriefing?" + params));
-//			tabs.add(new Menus(16L, "项目分析", "http://127.0.0.1:8080/report/galaxy/report/projectAnalysis?" + params));
-//			tabs.add(new Menus(16L, "绩效考核", "http://127.0.0.1:8080/report/galaxy/report/kpi?" + params));
-//			tabs.add(new Menus(16L, "投后项目跟踪", "http://127.0.0.1:8080/report/galaxy/report/afterInvestTrack?" + params));
-//			tabs.add(new Menus(16L, "投后业务运营", "http://127.0.0.1:8080/report/galaxy/report/afterInvestBusiness?" + params));
-//			tabs.add(new Menus(16L, "投后企业财报", "http://127.0.0.1:8080/report/galaxy/report/afterInvestFinace?" + params));
-			
-			tabs.add(new Menus(1L, "工作界面", "http://fx.qa.galaxyinternet.com/report/galaxy/report/platform?" + params));
-			tabs.add(new Menus(2L, "消息提醒", "http://fx.qa.galaxyinternet.com/sop/galaxy/operationMessage/index?"+params));
-			tabs.add(new Menus(3L, "项目查询", "http://fx.qa.galaxyinternet.com/sop/galaxy/cpl?" + params));
-			tabs.add(new Menus(4L, "数据简报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/dataBriefing?" + params));
-			tabs.add(new Menus(5L, "项目分析", "http://fx.qa.galaxyinternet.com/report/galaxy/report/projectAnalysis?" + params));
-			tabs.add(new Menus(6L, "绩效考核", "http://fx.qa.galaxyinternet.com/report/galaxy/report/kpi?" + params));
-			tabs.add(new Menus(7L, "投后项目跟踪", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestTrack?" + params));
-			tabs.add(new Menus(8L, "投后业务运营", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestBusiness?" + params));
-			tabs.add(new Menus(9L, "投后企业财报", "http://fx.qa.galaxyinternet.com/report/galaxy/report/afterInvestFinace?" + params));
+			tabs.add(new Menus(1L, "工作界面", serverUrl + "report/galaxy/report/platform?" + params));
+			tabs.add(new Menus(2L, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
+			tabs.add(new Menus(3L, "项目查询", serverUrl +"sop/galaxy/cpl?" + params));
+			tabs.add(new Menus(4L, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
+			tabs.add(new Menus(5L, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
+			tabs.add(new Menus(6L, "绩效考核", serverUrl +"report/galaxy/report/kpi?" + params));
+			tabs.add(new Menus(7L, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params));
+			tabs.add(new Menus(8L, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params));
+			tabs.add(new Menus(9L, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params));
 		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;
@@ -138,6 +135,15 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@Override
 	protected BaseService<User> getBaseService() {
 		return null;
+	}
+
+	public String getServerUrl() {
+		return serverUrl;
+	}
+
+	@Value("${project.server.url}")
+	public void setServerUrl(String serverUrl) {
+		this.serverUrl = serverUrl;
 	}
 
 }

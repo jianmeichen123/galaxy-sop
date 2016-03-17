@@ -92,6 +92,7 @@
 				<dubbo.registry.address>zookeeper://10.9.210.22:12181?client=zkclient</dubbo.registry.address>
 				<dubbo.protocol.port>8082</dubbo.protocol.port>
 
+				<project.server.url>http://fx.dev.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.dev.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
 				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 
