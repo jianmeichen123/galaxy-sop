@@ -203,9 +203,7 @@
                 <div class="clearfix"></div>
                 <div class="tab-pane active" id="view">	
 	               	<table id="tablePerson"  data-height="555" 
-	               	data-method="post" data-show-refresh="true" 
-					data-side-pagination="server" data-pagination="true" 
-					data-page-list="[1, 5, 50]" data-search="false">
+	               	data-method="post" data-show-refresh="true" >
 					</table> 
 				</div>
 				
@@ -425,6 +423,7 @@
 	getTabShare();
 	
 	function getTabPerson(){
+		$(".fixed-table-header").attr("style","display:none");
 		var $table = $('#tablePerson');
 	    $table.bootstrapTable({
 	    url: platformUrl.projectPersonList,
@@ -501,6 +500,7 @@
 		}
 	//股权结构列表
 	function getTabShare(){
+	$(".fixed-table-header").attr("style","display:none");
 	var $table = $('#table');
     $table.bootstrapTable({
     url: platformUrl.projectSharesList,  
