@@ -38,7 +38,16 @@
 				<if test="id != null"> and id =#{id,jdbcType=BIGINT}</if>
 				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
 				<if test="projectProgress != null" >and project_progress = #{projectProgress,jdbcType=VARCHAR} </if>
-				<if test="fileWorktype != null" > and file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if>
+				<if test="fileWorktype != null" > 
+					<choose>
+						<when test="fileWorktypeNullFilter != null">
+							and file_worktype is not null
+						</when>
+						<otherwise>
+							and file_worktype = #{fileWorktype,jdbcType=VARCHAR}
+						</otherwise>
+					</choose>		 
+				</if>
 				<if test="careerLine != null" > and career_line = #{careerLine,jdbcType=VARCHAR} </if>
 				<if test="fileSource != null" > and file_source = #{fileSource,jdbcType=VARCHAR} </if>
 				<if test="fileType != null" > and file_type = #{fileType,jdbcType=VARCHAR} </if>
