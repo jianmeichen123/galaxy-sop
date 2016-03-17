@@ -469,7 +469,7 @@ public enum DictEnum {
 	
 	// 档案来源
 	public enum fileSource {
-		档案("内部", "1"), 音频文件("外部", "2");
+		内部("内部", "1"), 外部("外部", "2");
 		private String name;
 		private String code;
 

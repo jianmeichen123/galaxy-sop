@@ -28,6 +28,7 @@ import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.file.BucketName;
 import com.galaxyinternet.framework.core.file.FileResult;
 import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -60,6 +61,9 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	@Autowired
 	private UserService userService;
 
+	public static final int FILE_SIZE_TO_CUT = 8;
+	
+	
 	@Override
 	protected BaseDao<SopFile, Long> getBaseDao() {
 		// TODO Auto-generated method stub
@@ -375,7 +379,13 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	
 	
 	
-	//文档更新
+	
+	/**
+	 * 文档更新
+	 * 删除aliyun原文件
+	 * 上传新文件
+	 * 更新sopfile表记录
+	 * */
 	public Result updateFile(HttpServletRequest request, Long fid) throws Exception{
 		
 		SopFile queryfile = sopFileDao.selectById(fid);
@@ -393,7 +403,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		}
 		
 		//调用 上传 接口
-		MultipartFile multipartFile = aLiColoudUpload(request,key);
+		MultipartFile multipartFile = aLiColoudUpload(request,key,null);
 		
 		//update table sopfile
 		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
@@ -415,40 +425,52 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	
 	
 	
-	//文档上传
-	public MultipartFile aLiColoudUpload(HttpServletRequest request, String fileKey)
-			throws IllegalStateException, IOException {
-		// 请求转换
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		// 获取multipartFile文件
-		MultipartFile multipartFile = multipartRequest.getFile("file");
+	/**
+	 * 文档上传
+	 * @param request 转为 MultipartFile，获取key=file
+	 * @param fileKey 调用OSSHelper生成的key
+	 * @param bucketName  默认传入 BucketName.DEV.getName()
+	 * @return MultipartFile null=上传失败
+	 */	
+	public MultipartFile aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception {
 		
-
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
+		MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
 		
-		// 获取临时存储路径
-		String path = request.getSession().getServletContext()
-				.getRealPath("upload");
-		// 获取文件名称
-		String fileName = multipartFile.getOriginalFilename();
+		String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
+		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
+		
 		File tempFile = new File(path, fileName);
 		if (!tempFile.exists()) {
 			tempFile.mkdirs();
 		}
-		// 存储临时文件
-		multipartFile.transferTo(tempFile);
-		// 上传至阿里云
-		int result = OSSHelper.uploadSupportBreakpoint(tempFile, BucketName.DEV.getName(), fileKey);
-		if(result == GlobalCode.ERROR){
-		}else{
-			return multipartFile;
+		multipartFile.transferTo(tempFile); // 存储临时文件
+		
+		//begin 上传到aliyun
+		long asize = multipartFile.getSize(); 
+		long bsize = tempFile.length();
+		if(bucketName == null){
+			bucketName = BucketName.DEV.getName();
 		}
-//		UploadFileResult upResult = OSSHelper.simpleUploadByOSS(multipartFile.getInputStream(),
-//				fileKey);
-//		if (upResult.getResult().getStatus().equals(Status.OK)) {
-//			result == GlobalCode.ERROR
-//		}
-		return null;
+		if(asize>FILE_SIZE_TO_CUT*1024*1024){//大文件线程池上传
+			int result = OSSHelper.uploadSupportBreakpoint(tempFile, bucketName, fileKey); // 上传至阿里云
+			if(result == GlobalCode.ERROR){
+				return null;
+			}
+		}else{
+			UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile, bucketName, fileKey);  //上传至阿里云
+			
+			//若文件上传成功
+			if(upResult.getResult().getStatus()==null || upResult.getResult().getStatus().equals(Status.ERROR)){
+				return null;
+			}
+		}
+
+		return multipartFile;
 	}
+	
+	
+	
 	
 	
 

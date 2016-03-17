@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -19,16 +21,16 @@ import com.galaxyinternet.model.soptask.SopTask;
  */
 public interface SopFileService extends BaseService<SopFile> {
 
+	
 	public List<SopFile> selectByFileTypeList(SopFileBo sbo);
+	
+	
 	/**
 	 * 通过项目ID及业务分类获取唯一档案
 	 * @param sf
 	 * @return
 	 */
 	public SopFile selectByProjectAndFileWorkType(SopFile sf);
-	
-	
-	
 	
 	/**
 	 * 签署凭证上传时业务逻辑处理
@@ -41,11 +43,25 @@ public interface SopFileService extends BaseService<SopFile> {
 	
 
 	/**
-	 * 单纯更新file
-	 * @param request
-	 * @param fid  file_id
-	 * @return Result.Status.ERROR\OK 失败\成功
-	 */
+	 * 文档更新:
+	 * 		删除aliyun原文件
+	 * 		上传新文件
+	 * 		更新sopfile表记录
+	 @param request
+	 @param fid  file_id
+	 @return Result.Status.ERROR\OK 失败\成功
+	 * */
 	public Result updateFile(HttpServletRequest request, Long fid) throws Exception;
+	
+	
+	/**
+	 * 单纯文档上传
+	 * 		仅上传到aliyun
+	 * @param request 转为 MultipartFile，获取key=file
+	 * @param fileKey 调用OSSHelper生成的key
+	 * @param bucketName  默认传入 BucketName.DEV.getName()
+	 * @return MultipartFile null=上传失败
+	 */	
+	public MultipartFile aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception;
 	
 }

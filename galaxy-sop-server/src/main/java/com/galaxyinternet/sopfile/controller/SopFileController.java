@@ -869,7 +869,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			String fileKey = String
 					.valueOf(IdGenerator.generateId(OSSHelper.class));
 			//3 上传阿里云
-			MultipartFile file = aLiColoudUpload(request,fileKey);
+			MultipartFile file = sopFileService.aLiColoudUpload(request,fileKey,null);
 			//4业务控制 --若文件上传成功-判断是否为签署
 			if(file!=null){
 				//判断是否为签署凭证
@@ -979,7 +979,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}catch(DaoException e){
 			responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_DAO));
 		}catch(IOException e){
-			// TODO Auto-generated catch block
+			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
+		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
 		}
 		return responseBody;
@@ -989,39 +990,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return fileFullName.split("\\.");
 	}
 	
-	public MultipartFile aLiColoudUpload(HttpServletRequest request, String fileKey)
-			throws IllegalStateException, IOException {
-		// 请求转换
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		// 获取multipartFile文件
-		MultipartFile multipartFile = multipartRequest.getFile("file");
-		
-
-		
-		// 获取临时存储路径
-		String path = request.getSession().getServletContext()
-				.getRealPath("upload");
-		// 获取文件名称
-		String fileName = multipartFile.getOriginalFilename();
-		File tempFile = new File(path, fileName);
-		if (!tempFile.exists()) {
-			tempFile.mkdirs();
-		}
-		// 存储临时文件
-		multipartFile.transferTo(tempFile);
-		// 上传至阿里云
-		int result = OSSHelper.uploadSupportBreakpoint(tempFile, BucketName.DEV.getName(), fileKey);
-		if(result == GlobalCode.ERROR){
-		}else{
-			return multipartFile;
-		}
-//		UploadFileResult upResult = OSSHelper.simpleUploadByOSS(multipartFile.getInputStream(),
-//				fileKey);
-//		if (upResult.getResult().getStatus().equals(Status.OK)) {
-//			result == GlobalCode.ERROR
-//		}
-		return null;
-	}
+	
 	
 	/**
 	 * 项目业务逻辑校验
