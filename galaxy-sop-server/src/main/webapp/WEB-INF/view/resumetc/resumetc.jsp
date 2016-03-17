@@ -13,7 +13,6 @@
           <!-- 个人简历 -->
           <div class="tabtable resume">
           <form action="" id="up_person_form" method="post">
-          <input type="hidden" value="" name="personId" id="personId">
           <!-- tab标签 -->
             <ul class="tablink">
                 <li data-tab="nav"><a href="javascript:;">个人信息</a></li>
@@ -22,13 +21,13 @@
                 <li data-tab="nav"><a href="javascript:;">外部项目信息</a></li>           
             </ul>
             <!-- tab内容 -->
-            <div class="tabtable_con show"  data-tab="con"  model="personPool">
+            <div class="tabtable_con show"  data-tab="con"  model="personPool" multi="false">
               <div class="tabtable_con1">
                  <h2>核心成员基本资料</h2>
                 <table>
                   <tr>
                     <th>团队角色：</th>
-                    <td><input name="teamRole" id="teamRole" type="text" value=""></td>
+                    <td ><input name="teamRole" id="teamRole" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>姓名：</th>
@@ -101,16 +100,16 @@
             </div>
 
             <!-- tab内容 -->
-            <div class="tabtable_con"  data-tab="con" model="personLearn">
+            <div class="tabtable_con"  data-tab="con" model="personLearn" multi="true">
               <div class="tabtable_con1">
                 <h2>学习经历</h2>
                 <input type="button" class="add bluebtn" value="+">
                 <table>
                   <tr>
                     <th>学历：</th>
-                    <td><input name ="degree" id="degree" type="text" value=""></td>
-                   	<td><input name ="degree" id="degree" type="text" value=""></td>
-                    <td><input name ="degree" id="degree" type="text" value=""></td>
+                    <td ><input name ="degree" id="degree" type="text" value=""></td>
+                   	<td ><input name ="degree" id="degree" type="text" value=""></td>
+                    <td ><input name ="degree" id="degree" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>学校：</th>
@@ -181,103 +180,87 @@
               </div>
             </div>
             <!-- tab内容 -->
-            <div class="tabtable_con"  data-tab="con" model="personWork" >
+            <div class="tabtable_con"  data-tab="con" model="personWork" multi="true" >
               <div class="tabtable_con1">
                 <h2>工作记录</h2>
                 <input type="button" class="add bluebtn" value="+">
-                               <table>
+                <table>
                   <tr>
                     <th>公司名称:</th>
-                    <td><input type="text" name="companyName" id="companyName" value=""></td>
-                    <td><input type="text" name="" id="" value=""></td>
+                    <td ><input type="text" name="companyName" id="companyName" value=""></td>
                   </tr>
                   <tr>
                     <th>部门:</th>
                     <td><input type="text" name="workDepart" id="workDepart" value=""></td>
-                   <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>职位:</th>
                     <td><input type="text" name="workPosition" id="workPosition" value=""></td>
-                     <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>工作内容:</th>
                     <td><input type="text" name="workContent" id="workContent" value=""></td>
-                   <td><input type="text" name="" id="" value=""></td>
                   </tr>
                   <tr>
                     <th>工作业绩:</th>
                     <td><input type="text" name="workEffect" id="workEffect" value=""></td>
-                    <td><input type="text" name="" id="" value=""></td>
                   </tr>
                   <tr>
                     <th>薪酬水平（元/月）:</th>
                     <td><input type="text" name="workEmolument" id="workEmolument" value=""></td>
-                    <td><input type="text" name="" id="" value=""></td>
                   </tr>
                 <tr>
                     <th>入职时间:</th>
                     <td><input type="text" name="beginWork" id="beginWork" value=""></td>
-                    <td><input type="text" name="" id="" value=""></td>
                   </tr>
                   <tr>
                     <th>离职原因:</th>
                     <td><input type="text" name="leaveReason" id="leaveReason" value=""></td>
-                    <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>上级姓名:</th>
                     <td><input type="text" name="leaderName" id="leaderName" value=""></td>
-                     <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>职位:</th>
                     <td><input type="text" name="leaderPosition" id="leaderPosition" value=""></td>
-                    <td><input type="text" name="" id="" value=""></td>
                   </tr>
                   <tr>
                     <th>工作关系（如直接上下级）:</th>
                     <td><input type="text" name="leaderRelationship" id="leaderRelationship" value=""></td>
-                     <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>联系方式:</th>
                     <td><input type="text" name="leaderPhone" id="leaderPhone" value=""></td>
-                     <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>同事姓名:</th>
                     <td><input type="text" name="colleagueName" id="colleagueName" value=""></td>
-                     <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                   <tr>
                     <th>职位:</th>
                     <td><input type="text" name="colleaguePosition" id="colleaguePosition" value=""></td>
-                     <td><input type="text" name="" id="" value=""></td>
                   </tr>
                   <tr>
                     <th>工作关系:</th>
                     <td><input type="text" name="colleagueRelationship" id="colleagueRelationship" value=""></td>
-                     <td><input type="text" name="" id="" value=""></td>               
                   </tr>                  
                   <tr>
                     <th>座机:</th>
                     <td><input type="text" name="colleaguePhone" id="colleaguePhone" value=""></td>
-                    <td><input type="text" name="" id="" value=""></td> 
                   </tr>
                 </table>
               </div>
 
             </div>
             <!-- tab内容 -->
-            <div class="tabtable_con"  data-tab="con" model="personInvest">
+            <div class="tabtable_con"  data-tab="con" model="personInvest" multi="false">
               <div class="tabtable_con1">
                 <h2>投资方信息（天使轮）</h2>
-                                <table>
+                   <table>
                   <tr>
                     <th>公司名称：</th>
-                    <td><input type="text" name="icompanyName" id="icompanyName"  value=""></td>
+                    <td ><input type="text" name="icompanyName" id="icompanyName"  value=""></td>
                   </tr>
                   <tr>
                     <th>投资金额：</th>
@@ -347,31 +330,67 @@
           </div>
 </div>
 <script type="text/javascript">
+$("div[model]").on("click",".add",function(){
+	var model = $(this).parent().parent();
+	appendTd(model)
+});
+function appendTd(model){
+	model.find("tr").each(function(index,tr){
+		var input =  $($(tr).find("input")[0]);
+		var name = input.attr("name");
+		var type = input.attr("type");
+		$(tr).append("<td><input type='"+type+"' name='"+name+"'/></td>");
+	});
+}
+function prependTd(model,model_data){
+	model.find("tr[type!=hidden]").each(function(index,item){
+		var tr = $(item);
+		var td = tr.find("td")[0];
+		tr.prepend("<td>"+td.innerHTML+"</td>");
+	});
+}
 $(".btnbox").on("click",".bluebtn",function(){
 	var models = $("div[model]");
 	var data = {};
-	models.each(function(index,item){
+	models.each(function(i,item){
 		var it = $(item);
 		//单个实体
-		var model = {}
+		var model = null ;
 		var name = it.attr("model");
-		var tr_arr= new Array()
-		it.find("tr").each(function(index,tr_item){
-			var tr_it = $(tr_item);
-			var inputs= tr_it.find("input");
-			if(inputs.length != 1){
-				var 
-				var tr_it = $(tr_item);
-				var input = {};
-				tr_it.find("input").each(function(index,input_item){
-					var input_it = $(input_item);	
+		var multi = it.attr("multi");
+		if(multi == true || multi =="true"){
+			model = new Array();
+			var len = it.find("tr").eq(0).find("input[name]").length;
+			for(var i = 0 ;i <len;i++){
+				var son_model = {};
+				it.find("tr").each(function(m,tr_item){
+					var input = $(tr_item).find("input[name][type!=hidden]")[i];
+					if($(input).val() != ''){
+						son_model[$(input).attr("name")] = $(input).val();	
+					}
+					
 				});
-			}else{
-				model[$(inputs[0]).attr("name")] = $(inputs[0]).val();
+				var td = $($(it.find("tr")).find("td[data-by]").eq(i));
+				son_model[td.attr("data-by")] = td.attr("data-val");
+				model[i] = son_model;
 			}
-		});
-		data[name] = model;
+			data[name] = model;	
+		}else{
+			model = {};
+			it.find("input[name]").each(function(index,input){
+				if($(input).val() != ''){
+					model[$(input).attr("name")] = $(input).val() ;
+				}
+			});
+			var td = it.find("td[data-by]");
+			model[td.attr("data-by")] = td.attr("data-val");
+			data[name] = model;
+		}
+		
 	});
+	console.log(data);
+	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, null);
 });
+
 </script> 
            
