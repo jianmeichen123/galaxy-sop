@@ -31,7 +31,7 @@
                   </tr>
                   <tr>
                     <th>姓名：</th>
-                    <td><input name="name" id="name" type="text" value=""></td>
+                    <td><input name="personName" id="personName" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>成员关系：</th>
