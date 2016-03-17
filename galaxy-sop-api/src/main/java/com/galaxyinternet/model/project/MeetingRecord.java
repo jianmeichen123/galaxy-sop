@@ -25,6 +25,8 @@ public class MeetingRecord  extends BaseEntity{
 
     private String meetingNotes;
 
+    private String fname;
+    
     public Long getProjectId() {
         return projectId;
     }
@@ -190,5 +192,14 @@ public class MeetingRecord  extends BaseEntity{
 		this.meetingResultStr = meetingResultStr;
 	}
 
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+	
 
 }

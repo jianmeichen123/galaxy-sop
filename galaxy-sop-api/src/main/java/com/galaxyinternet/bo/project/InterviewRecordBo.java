@@ -9,7 +9,6 @@ public class InterviewRecordBo extends InterviewRecord{
 	private String proName;
 	private String fkey;
 	
-	
 	private Long uid;
 	private String startTime;
 	private String endTime;

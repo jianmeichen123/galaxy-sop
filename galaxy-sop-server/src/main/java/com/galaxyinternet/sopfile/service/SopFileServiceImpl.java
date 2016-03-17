@@ -33,6 +33,7 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.oss.GlobalCode;
+import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.Project;
@@ -60,9 +61,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	private DepartmentService departmentService;
 	@Autowired
 	private UserService userService;
-
-	public static final int FILE_SIZE_TO_CUT = 8;
-	
 	
 	@Override
 	protected BaseDao<SopFile, Long> getBaseDao() {
@@ -385,7 +383,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 * 删除aliyun原文件
 	 * 上传新文件
 	 * 更新sopfile表记录
-	 * */
+	 */
 	public Result updateFile(HttpServletRequest request, Long fid) throws Exception{
 		
 		SopFile queryfile = sopFileDao.selectById(fid);
@@ -404,11 +402,14 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		//调用 上传 接口
 		MultipartFile multipartFile = aLiColoudUpload(request,key,null);
+		if(multipartFile==null){
+			return new Result(Status.ERROR,null,"aliyun add file failed");
+		}
 		
 		//update table sopfile
 		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
 		
-		String[] fileNameStr = fileName.split(".");
+		String[] fileNameStr = fileName.split("\\.");
 		if(fileNameStr.length == 2){
 			queryfile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
 			queryfile.setFileSuffix(fileNameStr[1]);
@@ -452,7 +453,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		if(bucketName == null){
 			bucketName = BucketName.DEV.getName();
 		}
-		if(asize>FILE_SIZE_TO_CUT*1024*1024){//大文件线程池上传
+		if(asize>OSSConstant.UPLOAD_PART_SIZE){//大文件线程池上传
 			int result = OSSHelper.uploadSupportBreakpoint(tempFile, bucketName, fileKey); // 上传至阿里云
 			if(result == GlobalCode.ERROR){
 				return null;

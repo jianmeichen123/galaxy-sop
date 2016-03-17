@@ -1,13 +1,11 @@
 package com.galaxyinternet.project.service;
 
-import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
@@ -18,13 +16,7 @@ import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.exception.BusinessException;
-import com.galaxyinternet.framework.core.file.BucketName;
-import com.galaxyinternet.framework.core.file.OSSHelper;
-import com.galaxyinternet.framework.core.file.UploadFileResult;
-import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
-import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
@@ -55,79 +47,15 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		return this.meetingRecordDao;
 	}
 	
-	private String[] transFileNames(String fileFullName){
-		return fileFullName.split("\\.");
-	}
-	
-	
-	//文件上传, 成功后插入 sopfile 数据库
-	//返回 附件id
-	@Transactional
-	public Long upfile(MultipartFile file,Long uid,String path,Long projectId,String projectProgress){
-		Long fileId = null;
-		try {
-			UploadFileResult upResult = null;
-			
-			if(file != null){
-				String fileName = file.getOriginalFilename(); // secondarytile.png  全名
-				
-				int dotPos = fileName.lastIndexOf(".");
-				
-				String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				
-				String ext = fileName.substring(dotPos);  // .png  
-				
-				File temp = new File(path,fileName);
-				if (!temp.exists()) {
-					temp.mkdirs();
-				}
-				
-				file.transferTo(temp);  //存储临时文件
-				
-				upResult = OSSHelper.simpleUploadByOSS(temp,key);  //上传至阿里云
-				
-				//若文件上传成功
-				if(upResult.getResult().getStatus()!=null && upResult.getResult().getStatus().equals(Status.OK)){
-					
-					SopFile sopFile = new SopFile();
-					sopFile.setProjectId(projectId);
-					sopFile.setProjectProgress(projectProgress);
-					sopFile.setBucketName(upResult.getBucketName()); //bucketName
-					sopFile.setFileKey(key);   //fileKey
-					sopFile.setFileLength(upResult.getContentLength());  //文件大小
-					String[] fileNameStr = transFileNames(fileName);
-					sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
-					sopFile.setFileSuffix(fileNameStr[1]);
-					sopFile.setFileUid(uid);	 //上传人
-					//sopFile.setFileType("");   //存储类型
-					//sopFile.setFileSource(Integer.parseInt(fileSource));  //档案来源
-					//sopFile.setFileWorktype(fileWorkType);    //业务分类
-					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
-					
-					fileId = sopFileDao.insert(sopFile);
-					
-					//meetingRecord.setFileId(sopFile.getId());
-				}else{
-					throw new BusinessException("meeting service upfile failed");
-				}
-			}
-		} catch (Exception e) {
-			throw new BusinessException("meeting service upfile failed", e);
-		}
-		
-		return fileId;
-	}
-	
-	
-	
 	
 	@Override
 	@Transactional
-	public Long insertMeet(MeetingRecord meetingRecord,Project project,MultipartFile file, String path,Long userid,Long udepartid,boolean equalNowPrograss) {
-		if(file != null){
-			Long fileId = upfile(file,userid,path,project.getId(),project.getProgress());
-			meetingRecord.setFileId(fileId);
+	public Long insertMeet(MeetingRecord meetingRecord,Project project,SopFile sopFile,boolean equalNowPrograss) {
+		Long fid = null;
+		if(sopFile.getFileKey()!=null){
+			fid = sopFileDao.insert(sopFile);
 		}
+		meetingRecord.setFileId(fid);
 		Long id = getBaseDao().insert(meetingRecord);
 		// 会议结论： 待定(默认)、 否决、 通过
 		// 会议类型 2:内评会、3：CEO评审、 4:立项会、 7投决会、
@@ -143,12 +71,12 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())) {
 				pqcUpdate(meetingRecord);
 				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
-					lxh(meetingRecord.getProjectId(), meetingRecord.getMeetingResult(), userid, udepartid);
+					lxh(meetingRecord.getProjectId(), meetingRecord.getMeetingResult(), sopFile.getFileUid(), sopFile.getCareerLine());
 				}
 			} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())) {
 				pqcUpdate(meetingRecord);
 				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
-					tjh(meetingRecord.getProjectId(), project, meetingRecord.getMeetingResult(), userid ,udepartid);
+					tjh(meetingRecord.getProjectId(), project, meetingRecord.getMeetingResult(), sopFile.getFileUid(), sopFile.getCareerLine());
 				}
 			}
 		}

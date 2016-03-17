@@ -8,13 +8,13 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopFile;
 
 
 
 public interface MeetingRecordService extends BaseService<MeetingRecord> {
 
-	//public Long insertMeet(MeetingRecord meetingRecord,Project project,Long userid,Long departid);
-	public Long insertMeet(MeetingRecord meetingRecord, Project project, MultipartFile file, String path, Long id,Long departmentId,boolean equalNowPrograss);
+	Long insertMeet(MeetingRecord meetingRecord, Project project, SopFile sopFile, boolean equalNowPrograss);
 	
 	public Page<MeetingRecordBo> queryMeetPageList(MeetingRecordBo query, Pageable pageable);
 	
@@ -25,6 +25,8 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	public void decisionSchedule(Project project);
 	
 	public void upInvestmentSign(Project project);
+
+	
 
 
 
