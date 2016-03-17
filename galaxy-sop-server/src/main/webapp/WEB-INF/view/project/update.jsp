@@ -423,7 +423,8 @@
 	getTabShare();
 	
 	function getTabPerson(){
-		$(".fixed-table-header").attr("style","display:none");
+		var html='<table id="tablePerson"  data-height="555" data-method="post" data-show-refresh="true" ></table>';
+		$("#view").html(html);
 		var $table = $('#tablePerson');
 	    $table.bootstrapTable({
 	    url: platformUrl.projectPersonList,
@@ -500,7 +501,8 @@
 		}
 	//股权结构列表
 	function getTabShare(){
-	$(".fixed-table-header").attr("style","display:none");
+	var html='<table id="table" data-height="555" data-method="post" data-show-refresh="true"></table>';
+	$("pView").html(html);
 	var $table = $('#table');
     $table.bootstrapTable({
     url: platformUrl.projectSharesList,  
