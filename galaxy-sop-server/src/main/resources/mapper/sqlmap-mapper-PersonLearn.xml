@@ -99,7 +99,7 @@
 			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
 			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
 			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
-			  <if test="createdTime != null" > and created_time = #{personId,jdbcType=BIGINT} </if>
+			  <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -118,7 +118,7 @@
 			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
 			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
 			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
-			  <if test="createdTime != null" > and created_time = #{personId,jdbcType=BIGINT} </if>
+			  <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			</trim>
 		</where>
 	</update>
@@ -140,7 +140,7 @@
 			  <if test="classmateName != null" > and classmate_name = #{classmateName,jdbcType=VARCHAR} </if>
 			  <if test="classmatePhone != null" > and classmate_phone = #{classmatePhone,jdbcType=VARCHAR} </if>
 			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>			 
-			  <if test="createdTime != null" > and created_time = #{personId,jdbcType=BIGINT} </if>
+			  <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id}
 	</update>

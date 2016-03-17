@@ -110,16 +110,16 @@ var fileGrid = {
 		
 		if(row.fileKey){
 			return [
-			        '<a class="fileupdatelink"  href="javascript:void(0)">',
+			        '<a class="fileupdatelink blue"  href="javascript:void(0)">',
 			        '更新',
 			        '</a>  ',
-		            '<a class="filedownloadlink"  href="javascript:void(0)">',
+		            '<a class="filedownloadlink blue"  href="javascript:void(0)">',
 		            '下载',
 		            '</a>  '
 		        ].join('');
 		}else{
 			return [
-		            '<a class="fileupdatelink"  href="javascript:void(0)">',
+		            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
 		            '更新',
 		            '</a>  '
 		        ].join('');
