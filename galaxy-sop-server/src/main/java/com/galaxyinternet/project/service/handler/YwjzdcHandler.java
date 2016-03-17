@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.galaxyinternet.common.SopResult;
 import com.galaxyinternet.common.ViewQuery;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
-import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -40,7 +41,7 @@ public class YwjzdcHandler implements Handler {
 
 	@Override
 	@Transactional
-	public Result handler(ViewQuery query, Project project) throws Exception {
+	public SopResult handler(ViewQuery query, Project project) throws Exception {
 		ProjectQuery q = (ProjectQuery) query;
 		SopFile qf = new SopFile();
 		qf.setProjectId(q.getPid());
@@ -69,7 +70,7 @@ public class YwjzdcHandler implements Handler {
 		task.setUpdatedTime((new Date()).getTime());
 		sopTaskDao.updateTask(task);
 		
-		return new Result(Status.OK,"添加访谈纪要成功!");
+		return new SopResult(Status.OK,null,"上传业务尽职调查报告成功!",UrlNumber.seven);
 	}
 	
 }

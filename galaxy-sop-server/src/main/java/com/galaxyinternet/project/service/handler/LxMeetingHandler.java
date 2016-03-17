@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.galaxyinternet.common.SopResult;
 import com.galaxyinternet.common.ViewQuery;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -14,8 +15,8 @@ import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
-import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -47,7 +48,7 @@ public class LxMeetingHandler implements Handler {
 
 	@Override
 	@Transactional
-	public Result handler(ViewQuery query, Project project) throws Exception {
+	public SopResult handler(ViewQuery query, Project project) throws Exception {
 		ProjectQuery q = (ProjectQuery) query;
 		//添加立项会议记录
 		SopFile file = new SopFile();
@@ -103,7 +104,7 @@ public class LxMeetingHandler implements Handler {
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
 		}
-		return new Result(Status.OK,"添加访谈纪要成功!");
+		return new SopResult(Status.OK,null,"添加立项会议记录要成功!",UrlNumber.four);
 	}
 	
 }
