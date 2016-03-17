@@ -38,7 +38,7 @@
 <!--             	<button type="button" class="btn btn-primary" id="openBtn"> -->
 <!--             		<span class="glyphicon glyphicon-upload"></span>档案更新 -->
 <!--             	</button> -->
-            	<button type="button" class="pubbtn bluebtn ico c3" id="emailBtn">发邮件给</button>
+            	<a type="button" class="pubbtn bluebtn ico c3" id="emailBtn">发邮件给</a>
             </div>
         </div>
         <!-- 搜索条件 -->
