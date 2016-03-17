@@ -253,6 +253,7 @@ var platformUrl = {
 	operationMessageQueryList : sopContentUrl + "/galaxy/operationMessage/queryList",
 	
 	operationMessageRemind : sopContentUrl + "/galaxy/operationMessage/remind",
+	MessageIndex : sopContentUrl + "/galaxy/operationMessage/index",
 	
 	/***
 	 * 日程显示三条记录
