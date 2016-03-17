@@ -26,14 +26,6 @@
  	<div class="ritmin">
     	<h2>我的项目</h2>
     	<input type="hidden" id="project_id" value=""/>
-        <!--页眉-->
-        <div class="top clearfix">
-        	<!--按钮-->
-            <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4">添加项目</a>
-                <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
-            </div>
-        </div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix">
 			<div class="bottom searchall clearfix" id="custom-toolbar">

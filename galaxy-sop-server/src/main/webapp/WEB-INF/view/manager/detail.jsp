@@ -7,21 +7,18 @@
 <head>
 	<meta charset="utf-8">
 	<title>繁星SOP-添加项目</title>
-	
+	<script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 	<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
 	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<!-- jsp文件头和头部 -->
-	<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
 	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 	<!-- 富文本编辑器 -->
 	<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
     <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
     <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
-    <script type="text/javascript" src="<%=path %>/js/project.js"></script>
-
     <script src="<%=path %>/js/init.js"></script>
 
 </head>
@@ -59,22 +56,18 @@
                       <td><dl><dt>项目类型：</dt><dd id="projectType"></dd></dl></td>
                   </tr>
                   <tr><td><dl><dt>计划额度：</dt>
-                          <dd><input id="project_contribution" name="projectContribution" type="text" value="" placeholder="计划额度"></dd>
+                          <dd><dd id="project_contribution"></dd></dd>
                         </dl></td>
                       <td><dl><dt>初始估值：</dt><dd id="project_valuations"></dd></dl></td>
                   </tr>
                   <tr>
                       <td><dl><dt>出让股份：</dt>
-                          <dd><input id="project_share_ratio" name="projectShareRatio" type="text" value="" placeholder="出让股份"></dd>
+                          <dd><dd id="project_share_ratio"></dd></dd>
                         </dl></td>
                       <td>
                         <dl>
                           <dt>单位（万）：</dt>
-                          <dd>
-                            <label><input id="currencyUnit0" name="currencyUnit" type="radio" value="0" />人民币</label>
-                            <label><input id="currencyUnit1" name="currencyUnit" type="radio" value="1" />美元</label>
-                            <label><input id="currencyUnit2" name="currencyUnit" type="radio" value="2" />英镑</label>
-                            <label><input id="currencyUnit3" name="currencyUnit" type="radio" value="3" />欧元</label>
+                          <dd id="currencyUnit">
                           </dd>
                         </dl>
                       </td>
@@ -83,13 +76,13 @@
                       <td>
                         <dl>
                           <dt>公司名称：</dt>
-                          <dd><input type="text" value="" id="project_company" name="projectCompany" placeholder="公司名称"></dd>
+                          <dd id="project_company"></dd>
                         </dl>
                       </td>
                       <td>
                         <dl>
                           <dt>组织机构代码：</dt>
-                          <dd><input type="text" value="" class="zzjg_txt" name="projectCompanyCode" id="project_company_code" placeholder="组织机构代码"></dd>
+                          <dd id="project_company_code"></dd>
                         </dl>
                       </td>
                   </tr>                  
@@ -107,7 +100,8 @@
               <dd class="edit">
               	  <script type="text/plain" id="describe_editor" style="width:100%;height:100px;">
 				  </script>
-			 </dd>
+			  </dd>
+			  <dd class="describe" id="describe_show"></dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
@@ -122,6 +116,7 @@
               	  <script type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
 				  </script>
 		      </dd>
+		      <dd class="describe" id="model_show"></dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
@@ -136,6 +131,7 @@
 			      <script type="text/plain" id="location_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
+			  <dd class="describe" id="location_show"></dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
@@ -150,6 +146,7 @@
 			  	  <script type="text/plain" id="portrait_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
+			   <dd class="describe" id="portrait_show"></dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
@@ -164,6 +161,7 @@
 			      <script type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
+			  <dd class="describe" id="analysis_show">11111</dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
@@ -175,18 +173,10 @@
             <dl>
               <dt>团队成员</dt>
               <dd class="full_w describe clearfix">
-              	<div class="btnbox_f">
-                  <a href="<%=path %>/galaxy/addperson" data-btn="addmen" class="ico b1">添加</a>
-                  <!--  
-                  <a href="javascript:;" class="ico b2">修改</a>
-                  <a href="javascript:;" class="ico b3">删除</a>-->
-                </div>
                 <div class="clearfix"></div>
                 <div class="tab-pane active" id="view">	
 	               	<table id="tablePerson"  data-height="555" 
-	               	data-method="post" data-show-refresh="true" 
-					data-side-pagination="server" data-pagination="true" 
-					data-page-list="[1, 5, 50]" data-search="false">
+	               	data-method="post" data-show-refresh="true" >
 					</table> 
 				</div>
 				
@@ -201,13 +191,6 @@
             <dl>
               <dt>股权结构</dt>
               <dd class="full_w describe clearfix">
-              <div class="btnbox_f">
-                  <a href="<%=path %>/galaxy/projectShares/addShares" data-btn="stock" class="ico b1">添加</a>
-                  <!-- 
-                  <a href="javascript:;" class="ico b2">修改</a>
-                  <a href="javascript:;" class="ico b3">删除</a>
-                   -->
-                </div>
                 <div class="clearfix"></div>
                   <div class="tab-pane active" id="pView">	
 	               <table id="table" data-height="555" data-method="post"
@@ -220,128 +203,61 @@
               </dd>
             </dl>
           </div> 
-          <!-- 第9部分 -->       
-          <div class="block block2">
-            <dl>
-              <dt>档案库</dt>
-              <dd class="full_w describe clearfix">
-              	<div class="clearfix">
-                	<div class="btnbox_f">
-                  <a href="javascript:;" class="ico b4">上传</a>
-                  <a href="javascript:;" class="ico b5">发送选中</a>
-                </div>
-                <div class="search tsear clearfix">
-                    <a href="javascript:;" class="bluebtn ico cx">查询</a>
-                    <div class="searoption">
-                      <span>更新时间:</span>
-                      <input type="text" value="2016-01-01" data-date="time" class="time"/>
-                      <span>至</span>
-                      <input type="text" value="2016-05-01" data-date="time"/>
-                    </div>
-                </div>
-                </div>
-                <table width="100%" cellspacing="0"  cellpadding="0">
-                  <thead>
-                      <tr>
-                          <th></th>
-                          <th>文件来源</th>
-                          <th>起草者</th>
-                          <th>存储类型</th>
-                          <th>业务分类</th>
-                          <th>更新日志</th>
-                          <th>档案状态</th>
-                          <th>操作</th>
-                          <th>附件查看</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td><input type="checkbox" name="checkbox" checked="checked"/></td>
-                          <td>内部</td>
-                          <td>投资经理</td>
-                          <td>文档</td>
-                          <td>访谈备忘</td>
-                          <td>2016-01-23</td>
-                          <td>可用</td>
-                          <td>更新</td>
-                          <td>文件1</td>
-                      </tr>
-                      <tr>
-                          <td><input type="checkbox" name="checkbox" checked="checked"/></td>
-                          <td>内部</td>
-                          <td>投资经理</td>
-                          <td>文档</td>
-                          <td>访谈备忘</td>
-                          <td>2016-01-23</td>
-                          <td>可用</td>
-                          <td>更新</td>
-                          <td>文件1</td>
-                      </tr>
-                      <tr>
-                          <td><input type="checkbox" name="checkbox" /></td>
-                          <td>内部</td>
-                          <td>投资经理</td>
-                          <td>文档</td>
-                          <td>访谈备忘</td>
-                          <td>2016-01-23</td>
-                          <td>可用</td>
-                          <td>更新</td>
-                          <td>文件1</td>
-                      </tr>
-                      <tr>
-                          <td><input type="checkbox" name="checkbox" checked="checked"/></td>
-                          <td>内部</td>
-                          <td>投资经理</td>
-                          <td>文档</td>
-                          <td>访谈备忘</td>
-                          <td>2016-01-23</td>
-                          <td>可用</td>
-                          <td>更新</td>
-                          <td>文件1</td>
-                      </tr>
-                      <tr>
-                          <td><input type="checkbox" name="checkbox"/></td>
-                          <td>内部</td>
-                          <td>投资经理</td>
-                          <td>文档</td>
-                          <td>访谈备忘</td>
-                          <td>2016-01-23</td>
-                          <td>可用</td>
-                          <td>更新</td>
-                          <td>文件1</td>
-                      </tr>
-                  </tbody>
-                </table>
-                 <ul>
-                  <li><a href="javascript:;">首页</a></li>
-                  <li><a href="javascript:;">上一页</a><span class="active">/</span><a href="javascript:;" class="active">下一页</a></li>
-                  <li><a href="javascript:;" class="active">末页</a></li>
-                </ul>
-              </dd>
-              <dd class="fctbox">
-                <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a><a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
-            </dl>
-          </div>        
-        </div>
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=path %>/js/init.js"></script>
 <!-- bootstrap-table -->
-<script src="http://cdn.bootcss.com/bootstrap/3.3.6/js/bootstrap.js"></script>
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
 <script>
-	function editor(value, row, index){
-		var id=row.id;
-		var url='<%=path %>/galaxy/project/updatePro/'+id;
-		var options = '<div class="btnbox_f"><a href="javascript:;" class="ico b2">人人简历</a>'+
-			'<a href="#" data-btn="addmen" class="ico b2" onclick="updatePer('+id+')">修改</a>'+
-            '<a href="#" data-btn="addmen" class="ico b2" onclick="deletePer('+id+')">删除</a></div>';
-		return options;
-	}
+
+	$(function(){
+		/**
+		 * 加载项目详情数据
+		 */
+		sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
+			$("#project_name").text(data.entity.projectName);
+			$("#project_code").text(data.entity.projectCode);
+			$("#create_date").text(data.entity.createDate);
+			$("#projectName").text(data.entity.projectName);
+			$("#projectType").text(data.entity.type);
+			$("#project_contribution").text(data.entity.projectContribution);
+			$("#project_valuations").text(data.entity.projectValuations);
+			$("#project_share_ratio").text(data.entity.projectShareRatio);
+			var currencyUnit = "";
+			if(data.entity.currencyUnit == 0){
+				currencyUnit = "人民币"
+			}else if(data.entity.currencyUnit == 1){
+				currencyUnit="美元";
+			}else if(data.entity.currencyUnit == 2){
+				currencyUnit="英镑";
+			}else if(data.entity.currencyUnit == 3){
+				currencyUnit="欧元";
+			}
+			$("#currencyUnit").text(currencyUnit);
+			$("#project_company").text(data.entity.projectCompany);
+			$("#project_company_code").text(data.entity.projectCompanyCode);
+			$("#describe_show").text(replaceStr(data.entity.projectDescribe));
+			$("#model_show").text(replaceStr(data.entity.projectBusinessModel));
+			$("#portrait_show").text(replaceStr(data.entity.userPortrait));
+			$("#location_show").text(replaceStr(data.entity.companyLocation));
+			$("#analysis_show ").text(replaceStr(data.entity.prospectAnalysis));
+			var um = UM.getEditor('describe_editor');
+			um.setContent(data.entity.projectDescribe);
+			var um = UM.getEditor('business_model_editor');
+			um.setContent(data.entity.projectBusinessModel);
+			var um = UM.getEditor('location_editor');
+			um.setContent(data.entity.companyLocation);
+			var um = UM.getEditor('portrait_editor');
+			um.setContent(data.entity.userPortrait);
+			var um = UM.getEditor('analysis_editor');
+			um.setContent(data.entity.prospectAnalysis);
+		});
+	});
+
+    var pid='${requestScope.pid}';
 	function formatGender(index, row) {
 		if (row.gender == true) {
 			return "男";
@@ -349,24 +265,16 @@
 			return "女";
 		}
 	}
-	function updatePer(id){
-		var _url = "<%=path %>/galaxy/project/updatePro/"+id;
-		$.getHtml({
-			url:_url,//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-			
-			}//模版反回成功执行	
-		});
-		return false;
-	}
+	   
 	getTabPerson();
 	getTabShare();
 	
 	function getTabPerson(){
+		var html='<table id="tablePerson"  data-height="555" data-method="post" data-show-refresh="true" ></table>';
+		$("#view").html(html);
 		var $table = $('#tablePerson');
 	    $table.bootstrapTable({
-	    url: sopContentUrl + "/galaxy/project/queryProjectPerson", 
+	    url: platformUrl.projectPersonList,
 	    dataType: "json",
 	    pagination: true, //分页
 	    search: false, //显示搜索框
@@ -422,17 +330,6 @@
 	                        field: 'workTime',
 	                        align: 'center',
 	                        valign: 'middle'
-	                  },
-	                  {
-	                      title: '操作',
-	                      field: 'id',
-	                      align: 'center',
-	                      formatter:function(value,row,index){  
-		                   var a = '<a href="javascript:;" class="ico b2">人人简历</a>';
-		                   var e = '<a href="javascript:;" mce_href="#" data-btn="stock" class="ico b2" onclick="updatePer(\''+ row.id + '\')">修改</a> ';  
-		                   var d = '<a href="javascript:;" mce_href="#" data-btn="addmen" class="ico b2" onclick="deletePer(\''+ row.id +'\')">删除</a> ';  
-	                        return '<div class="btnbox_f">'+a+e+d+'</div>';  
-	                    } 
 	                  }
 	              ]
 	      });
@@ -440,9 +337,11 @@
 		}
 	//股权结构列表
 	function getTabShare(){
+	var html='<table id="table" data-height="555" data-method="post" data-show-refresh="true"></table>';
+	$("#pView").html(html);
 	var $table = $('#table');
     $table.bootstrapTable({
-    url: sopContentUrl + "/galaxy/projectShares/selectProjectShares", 
+    url: platformUrl.projectSharesList,  
     dataType: "json",
     pagination: true, //分页
     search: false, //显示搜索框
@@ -480,16 +379,6 @@
                         field: 'remark',
                         align: 'center',
                         valign: 'middle'
-                  },
-                  {
-                      title: '操作',
-                      field: 'id',
-                      align: 'center',
-                      formatter:function(value,row,index){  
-                   var e = '<a href="javascript:;" mce_href="#" data-btn="stock" class="ico b2" onclick="editStock(\''+ row.id + '\')">修改</a> ';  
-                   var d = '<a href="javascript:;" mce_href="#" data-btn="addmen" class="ico b2" onclick="delStock(\''+ row.id +'\')">删除</a> ';  
-                        return '<div class="btnbox_f">'+e+d+'</div>';  
-                    } 
                   }
               ]
       });
@@ -500,25 +389,9 @@
     	return {
 	    	pageSize: params.limit,
 	    	pageNum: params.offset,
-	    	order: params.order
+	    	order: params.order,
+	    	projectId:pid
     	};
     }
-    
-    function editStock(id){
-    	var _url = "<%=path %>/galaxy/projectShares/updateShare/"+id;
-		$.getHtml({
-			url:_url,//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-			
-			}//模版反回成功执行	
-		});
-		return false;
-    }
-    
-    
-	
 </script>	   
-
 </html>
-
