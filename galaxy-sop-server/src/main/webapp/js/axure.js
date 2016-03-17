@@ -278,6 +278,99 @@
 				opts.onchangeSuccess.apply(this,[obj.num]);
 			});
         });
+	};	$.fn.tabchange = function(options){
+		if($(this).length==0) return false;
+		var opts = $.extend({
+			//defaultnum:0,
+			onClass:"on",
+			eventType:"click",
+			movetime:300,
+			onchangeSuccess:function(data){}
+		},options);
+		function tab(t){
+			this.nav = t.find("[data-tab='nav']");
+			this.onclass = opts.onClass;
+			this.con = t.find("[data-tab='con']");
+			this.suffix = t.find("[data-tab='suffix']");
+			this.num = opts.defaultnum;
+			this.time = opts.movetime;
+		};
+		tab.prototype = {
+			seton : function(){
+				var _this = this;
+				_this.nav.removeClass(_this.onclass);
+				_this.con.hide();
+				_this.nav.eq(_this.num).addClass(_this.onclass);
+				_this.con.eq(_this.num).show();	
+				_this.setsuffix();
+			},
+			setsuffix : function(n){
+				if(this.suffix.length==0) return false;
+				var _this = this,
+					_width = _this.suffix.width();;
+				_this.suffix.stop(true).animate({
+					"left" : _width*this.num	
+				},_this.time);
+			}
+		};
+		return $(this).each(function() {
+            var $this = $(this);
+			var obj = new tab($this);
+			obj.seton();
+			//事件执行
+			obj.nav.on(opts.eventType,function(){
+				obj.num = $(this).index();
+				obj.seton();
+				opts.onchangeSuccess.apply(this,[obj.num]);
+			});
+        });
+	};
+	$.fn.tabchange2 = function(options){
+		if($(this).length==0) return false;
+		var opts = $.extend({
+			defaultnum:0,
+			onClass:"on",
+			eventType:"click",
+			movetime:300,
+			onchangeSuccess:function(data){}
+		},options);
+		function tab(t){
+			this.nav = t.find("[data-tab='nav']");
+			this.onclass = opts.onClass;
+			this.con = t.find("[data-tab='con']");
+			this.suffix = t.find("[data-tab='suffix']");
+			this.num = opts.defaultnum;
+			this.time = opts.movetime;
+		};
+		tab.prototype = {
+			seton : function(){
+				var _this = this;
+				_this.nav.removeClass(_this.onclass);
+				_this.con.hide();
+				_this.nav.eq(_this.num).addClass(_this.onclass);
+				_this.con.eq(_this.num).show();	
+				_this.setsuffix();
+			},
+			setsuffix : function(n){
+				if(this.suffix.length==0) return false;
+				var _this = this,
+					_width = _this.suffix.width();;
+				_this.suffix.stop(true).animate({
+					"left" : _width*this.num	
+				},_this.time);
+			}
+		};
+		return $(this).each(function() {
+            var $this = $(this);
+			var obj = new tab($this);
+			obj.seton();
+			//事件执行
+			obj.nav.on(opts.eventType,function(){
+				obj.num = $(this).index();
+				obj.seton();
+				opts.onchangeSuccess.apply(this,[obj.num]);
+			});
+        });
 	};	
 	$.fn.tabchange1 = function(options){
 		if($(this).length==0) return false;
