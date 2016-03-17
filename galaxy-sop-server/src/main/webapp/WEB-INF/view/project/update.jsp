@@ -502,7 +502,7 @@
 	//股权结构列表
 	function getTabShare(){
 	var html='<table id="table" data-height="555" data-method="post" data-show-refresh="true"></table>';
-	$("pView").html(html);
+	$("#pView").html(html);
 	var $table = $('#table');
     $table.bootstrapTable({
     url: platformUrl.projectSharesList,  
