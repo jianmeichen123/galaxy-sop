@@ -144,6 +144,10 @@
 				 * 加载项目详情数据
 				 */
 				sendGetRequest(platformUrl.detailProject + id, {}, function(data){
+					
+					var pp = data.entity.projectProgress;
+					var pNum = pp.substr(pp.length-1,1);
+					
 					$("#project_name").text(data.entity.projectName);
 					$("input[name='projectId']").val(data.entity.id);
 					$("#project_id").val(id);
@@ -177,8 +181,6 @@
 							var id = $(this).attr("id");
 							var indexNum = id.substr(id.length-1,1);
 							console.log("indexNum:"+indexNum);
-							var pp = data.entity.projectProgress;
-							var pNum = pp.substr(pp.length-1,1);
 							if(indexNum == '1'){
 								if(parseInt(indexNum) < parseInt(pNum)){
 									$("#qdnbps").remove();
@@ -458,7 +460,7 @@
 										if (dataList[p].fileStatusDesc == "缺失") { 
 											endhtml ='<td>缺失</td>';
 										}else{
-											endhtml = '<td><a href="javascript:;" onclick="handleDownload('+dataList[p].id+');" class="blue">附件</a></td>';
+											endhtml = '<td><a href="javascript:;" onclick="filedown('+dataList[p].id+');" class="blue">附件</a></td>';
 										}
 										
 										htmlstart +='<tr>'+
@@ -503,7 +505,7 @@
 						alert("项目不能为空");
 						return;
 					}
-					var type = $("input[name='fileSource']").val();
+					var type = $("input[name='fileSource']:checked").val();
 					if(type == null || type == ""){
 						alert("档案来源不能为空");
 						return;
@@ -576,7 +578,7 @@
 					 }else if(o.fileStatus == 'fileStatus:2'){
 						 html += "<td>已上传</td>";
 						 html += "<td></td>";
-						 html += "<td><a href='javascript:void(0);'>" + o.fileName + "</a></td>";
+						 html += "<td><a href='javascript:filedown("+o.id+");'>" + o.fileName + "</a></td>";
 					 }else if(o.fileStatus == 'fileStatus:3'){
 						 html += "<td>已签署</td>";
 						 html += "<td></td>";
@@ -704,24 +706,24 @@
 									if(this.fileKey == null){	
 										$tr.append('<td><a href="javascript:tzxyAlert(8,0);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
 										$tr.append('<td><a href="javascript:tzxyAlert(8,1);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 									}
 								}else if(this.fileWorktype == 'fileWorktype:7'){
 									
 									if(this.fileKey == null){	
 										$tr.append('<td><a href="javascript:gqzrAlert(8,0);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
 										$tr.append('<td><a href="javascript:gqzrAlert(8,1);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 									}
 								}
 								_tbody.append($tr);
@@ -907,7 +909,7 @@
 													if (dataList[p].fileStatusDesc == "缺失") { 
 														endhtml ='<td></td>';
 													}else{
-														endhtml = '<td><a href="javascript:; " onclick="handleDownload('+dataList[p].id+');" class="blue">附件</a></td>';
+														endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">附件</a></td>';
 													}
 													
 													htmlstart +='<tr>'+

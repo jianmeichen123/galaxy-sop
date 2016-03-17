@@ -97,7 +97,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.add(new Menus(10L, "完善简历", u + "galaxy/soptask?flag=jl&"+ params));
 		}
 		if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
-			tabs.add(new Menus(11L, "付款凭证", u + ""));
+			tabs.add(new Menus(11L, "付款凭证", u + "galaxy/soptask?flag=pz&"+ params));
 		}
 		
 		if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
