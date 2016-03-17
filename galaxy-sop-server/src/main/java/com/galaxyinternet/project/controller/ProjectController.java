@@ -121,6 +121,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
 			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
 		}
+		project.setStockTransfer(0);
 		project.setCreateUid(user.getId());
 		project.setCreateUname(user.getNickName());
 		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
