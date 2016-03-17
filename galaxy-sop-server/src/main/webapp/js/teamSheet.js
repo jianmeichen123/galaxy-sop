@@ -95,7 +95,7 @@
 						//plupload上传对象初始化
 						var uploader = new plupload.Uploader({
 							runtimes : 'html5,flash,silverlight,html4',
-							browse_button : $(_this.id).find("#selectBtn")[0], // you can pass in id...
+							browse_button : $(_this.id).find("#win_selectBtn")[0], // you can pass in id...
 							url : _formdata._url,
 							multipart:true,
 							multi_selection:false,
@@ -111,7 +111,7 @@
 							init: {
 								PostInit: function(){	
 									//上传按钮点击事件开始上传
-									$(_this.id).find("#uploadBtn").click(function(){
+									$(_this.id).find("#win_uploadBtn").click(function(){
 										//alert("上传保存事件并关闭弹出框");
 										uploader.start();
 										return false;
@@ -120,7 +120,7 @@
 								FilesAdded: function(up, files) {
 									plupload.each(files, function(file) {
 //										document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
-										$(_this.id).find("#fileTxt").val(file.name);
+										$(_this.id).find("#win_fileTxt").val(file.name);
 									});
 								},
 								UploadProgress: function(up, file) {
@@ -146,12 +146,12 @@
 //									alert($(_this.id).find("#isProve").is(":checked"));
 									
 									var form = {
-											"fileSource" : $(_this.id).find("input[name='fileSource']:checked").val(),
-											"fileType" : $(_this.id).find("#fileType").val(),
-											"fileWorkType" : $(_this.id).find("#fileWorkType").val(),
-											"projectId" : $(_this.id).find("#sopProjectId").data("tid"),
-											"isProve" : $(_this.id).find("#isProve").attr("checked"),
-											"remark" : $(_this.id).find("#FILELIST").val(),
+											"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
+											"fileType" : $(_this.id).find("#win_fileType").val(),
+											"fileWorkType" : $(_this.id).find("#win_fileWorkType").val(),
+											"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
+											"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
+											"remark" : $(_this.id).find("#win_FILELIST").val(),
 											"progress" : _formdata._progress
 									};
 									
@@ -179,12 +179,12 @@
 //				var _fileWorkTypeId = $(_this.id).find("#fileWorkTypeId");
 //				_fileWorkTypeId.val(_formdata._workTypeId);
 
-				var $fileWorkType = $(_this.id).find("#fileWorkType");
-				var $fileType = $(_this.id).find("#fileType");
-				var $sopProjectId = $(_this.id).find("#sopProjectId");
-				var $searchProjectBtn = $(_this.id).find("#searchProjectBtn");
+				var $fileWorkType = $(_this.id).find("#win_fileWorkType");
+				var $fileType = $(_this.id).find("#win_fileType");
+				var $sopProjectId = $(_this.id).find("#win_sopProjectId");
+				var $searchProjectBtn = $(_this.id).find("#win_searchProjectBtn");
 				
-				var $isProve = $(_this.id).find("#isProve");
+				var $isProve = $(_this.id).find("#win_isProve");
 				
 
 				
@@ -234,11 +234,11 @@
 				var _type;
 				switch(data.result.message){
 				case "fileType" : 
-					_dom = $("#uploadPanel").find("#fileType");
+					_dom = $("#uploadPanel").find("#win_fileType");
 					break;	
 				case "fileWorkType":
 //					_type = "fileWorktype"
-					_dom = $("#uploadPanel").find("#fileWorkType");
+					_dom = $("#uploadPanel").find("#win_fileWorkType");
 					break;
 				}
 				utils.each(data,_dom,null);
