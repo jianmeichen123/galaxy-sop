@@ -144,6 +144,14 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setStatus(DictEnum.meetingResult.待定.getCode());
 		ms.setCreatedTime((new Date()).getTime());
 		meetingSchedulingDao.insert(ms);
+		
+		//修改立项会排期记录为完成
+		MeetingScheduling m = new MeetingScheduling();
+		m.setProjectId(project.getId());
+		m.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
+		m.setStatus(DictEnum.meetingResult.通过.getCode());
+		m.setUpdatedTime((new Date()).getTime());
+		meetingSchedulingDao.updateBySelective(m);
 	}
 
 	@Override

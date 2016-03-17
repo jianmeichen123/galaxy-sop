@@ -18,5 +18,7 @@ public interface MeetingSchedulingDao extends BaseDao<MeetingScheduling, Long> {
 	List<MeetingSchedulingBo> selectTop5ProjectMeetingByType(String type);
 	
 	List<MeetingSchedulingBo> selectProjectMeetingByType(String type);
+	
+	int updateBySelective(MeetingScheduling ms);
 
 }

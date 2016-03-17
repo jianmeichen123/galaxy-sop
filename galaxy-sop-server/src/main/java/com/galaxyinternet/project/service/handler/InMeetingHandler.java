@@ -10,11 +10,13 @@ import com.galaxyinternet.common.ViewQuery;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
+import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.model.project.MeetingRecord;
+import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 
@@ -39,6 +41,8 @@ public class InMeetingHandler implements Handler {
 	private SopFileDao sopFileDao;
 	@Autowired
 	private MeetingRecordDao meetingRecordDao;
+	@Autowired
+	private MeetingSchedulingDao meetingSchedulingDao;
 
 	@Override
 	@Transactional
@@ -77,6 +81,13 @@ public class InMeetingHandler implements Handler {
 			p.setProjectProgress(DictEnum.projectProgress.CEO评审.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
+			MeetingScheduling ms = new MeetingScheduling();
+			ms.setProjectId(project.getId());
+			ms.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
+			ms.setMeetingCount(0);
+			ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			ms.setCreatedTime((new Date()).getTime());
+			meetingSchedulingDao.insert(ms);
 		}
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			p.setProjectStatus(DictEnum.meetingResult.否决.getCode());

@@ -115,4 +115,9 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 		return page;
 	}
 
+	@Override
+	public int updateBySelective(MeetingScheduling ms) {
+		return meetingSchedulingDao.updateBySelective(ms);
+	}
+
 }

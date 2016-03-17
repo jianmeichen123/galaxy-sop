@@ -50,6 +50,12 @@ public class MeetingSchedulingDaoImpl extends BaseDaoImpl<MeetingScheduling, Lon
 					e);
 		}
 	}
+
+
+	@Override
+	public int updateBySelective(MeetingScheduling ms) {
+		return sqlSessionTemplate.update(getSqlName("updateBySelective"), ms);
+	}
 	
 	
 	

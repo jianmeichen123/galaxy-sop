@@ -24,9 +24,7 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.query.ProjectQuery;
-import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -41,18 +39,22 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.common.Config;
-import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.service.ConfigService;
+import com.galaxyinternet.service.InterviewRecordService;
+import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
 
 @Controller
@@ -72,7 +74,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private ConfigService configService;
 	@Autowired
-	private MeetingRecordDao meetingRecordDao;
+	private MeetingRecordService meetingRecordService;
+	@Autowired
+	private InterviewRecordService interviewRecordService;
+	@Autowired
+	private SopFileService sopFileService;
 	@Autowired
 	private HandlerManager handlerManager;
 	
@@ -89,7 +95,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> addProject(@RequestBody Project project, HttpServletRequest request) {
@@ -127,7 +132,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			long id = projectService.newProject(project);
 			if(id > 0){
-				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 				responseBody.setResult(new Result(Status.OK,"项目添加成功!"));
 			}
 		} catch (Exception e) {
@@ -142,7 +146,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/up", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> resetProject(@RequestBody Project project, HttpServletRequest request) {
@@ -167,7 +170,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		int num = projectService.updateById(project);
 		if(num > 0){
 			responseBody.setResult(new Result(Status.OK,"项目修改成功!"));
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		}
 		return responseBody;
 	}
@@ -178,7 +180,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/sp/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> selectProject(@PathVariable("pid") String pid, HttpServletRequest request) {
@@ -189,7 +190,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		responseBody.setEntity(project);
-		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		return responseBody;
 	}
 	
@@ -254,7 +254,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 添加团队成员
 	 * @author yangshuhua
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/app", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<PersonPoolBo> addProjectPerson(@RequestBody PersonPoolBo pool, HttpServletRequest request) {
@@ -278,7 +277,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(id > 0){
 				responseBody.setResult(new Result(Status.OK,"团队成员添加成功!"));
 				responseBody.setEntity(pool);
-				ControllerUtils.setRequestParamsForMessageTip(request, p.getProjectName(), p.getId());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -290,7 +288,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 修改团队成员
 	 * @author yangshuhua
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/upp", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<PersonPoolBo> resetProjectPerson(@RequestBody PersonPoolBo pool, HttpServletRequest request) {
@@ -310,7 +307,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		int num = personPoolService.updateById(pool);
 		if(num > 0){
 			responseBody.setResult(new Result(Status.OK,"团队成员信息修改成功!"));
-			ControllerUtils.setRequestParamsForMessageTip(request, p.getProjectName(), p.getId());
 		}
 		return responseBody;
 	}
@@ -319,7 +315,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 删除团队成员
 	 * @author yangshuhua
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/dpp/{id}/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<PersonPoolBo> deleteProjectPerson(@PathVariable("id") Long id,@PathVariable("projectId") Long projectId, HttpServletRequest request) {
@@ -344,7 +339,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		
 		if(num > 0 && mump > 0){
 			responseBody.setResult(new Result(Status.OK,"团队成员删除成功!"));
-			ControllerUtils.setRequestParamsForMessageTip(request, p.getProjectName(), p.getId());
 		}
 		return responseBody;
 	}
@@ -356,10 +350,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryProjectPerson",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> queryProjectPerson(HttpServletRequest request,@RequestBody PersonPoolBo personPoolBo) {
+	public ResponseData<PersonPool> queryProjectPerson(HttpServletRequest request,@RequestBody PersonPool personPool) {
 		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
 		try {
-			Page<PersonPool> pageList = personPoolService.queryPageListByPid(personPoolBo, new PageRequest(personPoolBo.getPageNum(), personPoolBo.getPageSize()));
+			Page<PersonPool> pageList = personPoolService.queryPageList(personPool, new PageRequest(personPool.getPageNum(), personPool.getPageSize()));
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
@@ -373,29 +367,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		
 		
 	}
-	/**
-	 * 查询团队成员列表
-	 * @author yangshuhua
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/queryProjectPersonForP",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> queryProjectPersonForP(HttpServletRequest request,@RequestBody PersonPoolBo personPoolBo) {
-		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
-		try {
-			Page<PersonPool> pageList = personPoolService.queryPageListByPid(personPoolBo, new PageRequest(personPoolBo.getPageNum(), personPoolBo.getPageSize()));
-			responseBody.setPageList(pageList);
-			responseBody.setResult(new Result(Status.OK, ""));
-			return responseBody;
-		} catch (PlatformException e) {
-			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
-			if (logger.isErrorEnabled()) {
-				logger.error("queryUserList ", e);
-			}
-		}
-		return responseBody;
-		
-		
-	}
+	
 	/**
 	 * 创建项目编码
 	 * @author yangshuhua
@@ -413,19 +385,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		
 		try {
+			//long did = user.getDepartmentId();
 			Config config = configService.createCode();
 			NumberFormat nf = NumberFormat.getInstance();
 			nf.setGroupingUsed(false);
 			nf.setMaximumIntegerDigits(6);
 			nf.setMinimumIntegerDigits(6);
-			Long did = user.getDepartmentId();
-			if(did != null){
-				int code = EnumUtil.getCodeByCareerline(did.longValue());
-				String projectCode = String.valueOf(code) + nf.format(Integer.parseInt(config.getValue()));
-				request.getSession().setAttribute(Constants.SESSION_PROJECT_CODE, projectCode);
-				config.setPcode(projectCode);
-				responseBody.setEntity(config);
-			}
+			String code = "10" + nf.format(Integer.parseInt(config.getValue()));
+			request.getSession().setAttribute(Constants.SESSION_PROJECT_CODE, code);
+			config.setPcode(code);
+			responseBody.setEntity(config);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -438,7 +407,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @param request
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/getProjectInfo/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectBo> projectInfo(@PathVariable("pid") String pid, HttpServletRequest request) {
@@ -477,7 +445,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		projectBo.setCreateUname(project.getCreateUname());
 		projectBo.setProjectCareerline(project.getProjectCareerline());
 		responseBody.setEntity(projectBo);
-		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+		
 		
 		return responseBody;
 	}
@@ -510,7 +478,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 该项目对应的创建人操作
 	 * @author yangshuhua
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> stageChange(ProjectQuery p, HttpServletRequest request) {
@@ -542,10 +509,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(p.getType() == null || p.getFileType() == null || !SopConstant._file_type_pattern_.matcher(p.getFileType()).matches()
 					|| p.getFileWorktype() == null || !SopConstant._file_worktype_pattern_.matcher(p.getFileWorktype()).matches()){
 				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
-				
-				// UrlNumber.one 区别日志记录
-				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), UrlNumber.one);
-				
 				return responseBody;
 			}
 			int in = Integer.parseInt(p.getStage().substring(p.getStage().length()-1));
@@ -593,9 +556,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					Handler handler = handlerManager.getStageHandlers().get(p.getStage());
 					Result r = handler.handler(p, project);
 					if(r != null && r.getStatus().equals(Result.Status.OK)){
-						
 						responseBody.setResult(r);
-						ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 					}
 				}
 			}
@@ -610,7 +571,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 接触访谈阶段: 启动内部评审
 	 * @author yangshuhua
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value="/startReview/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> startReview(HttpServletRequest request,@PathVariable("pid") Long pid) {
@@ -622,18 +582,24 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(result);
 			return responseBody;
 		}
-		try {
-			project.setProjectProgress(DictEnum.projectProgress.内部评审.getCode());   //字典  项目进度  内部评审
-			project.setProjectStatus(DictEnum.meetingResult.待定.getCode());     //字典 项目状态 = 会议结论   待定
-			projectService.updateById(project);
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(project.getId());
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "project startReview faild"));
-			if(logger.isErrorEnabled()){
-				logger.error("update project faild ",e);
+		InterviewRecord ir = new InterviewRecord();
+		ir.setProjectId(pid);
+		Long count = interviewRecordService.queryCount(ir);
+		if(count != null && count.doubleValue() > 0){
+			try {
+				project.setProjectProgress(DictEnum.projectProgress.内部评审.getCode());   //字典  项目进度  内部评审
+				project.setProjectStatus(DictEnum.meetingResult.待定.getCode());     //字典 项目状态 = 会议结论   待定
+				projectService.updateById(project);
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setId(project.getId());
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "异常，启动内部评审失败!"));
+				if(logger.isErrorEnabled()){
+					logger.error("update project faild ",e);
+				}
 			}
+		}else{
+			responseBody.setResult(new Result(Status.ERROR,null, "不存在访谈记录，不允许启动内部评审!"));
 		}
 		return responseBody;
 	}
@@ -642,7 +608,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 申请立项会排期
 	 * @author yangshuhua
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value="/ges/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> ges(HttpServletRequest request,@PathVariable("pid") Long pid) {
@@ -659,15 +624,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		mr.setProjectId(pid);
 		mr.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 		mr.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-		Long count = meetingRecordDao.selectCount(mr);
-		if(count != null && count > 0){
+		Long count = meetingRecordService.queryCount(mr);
+		if(count != null && count.doubleValue() > 0){
 			try {
 				projectService.toEstablishStage(project);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
-				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 			} catch (Exception e) {
-				responseBody.setResult(new Result(Status.ERROR,null, "异常，未成功!"));
+				responseBody.setResult(new Result(Status.ERROR,null, "异常，申请立项会失败!"));
 				if(logger.isErrorEnabled()){
 					logger.error("update project faild ",e);
 				}
@@ -682,7 +646,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 申请投决会排期
 	 * @author yangshuhua
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value="/smp/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> sureMeetingPool(HttpServletRequest request,@PathVariable("pid") Long pid) {
@@ -694,13 +657,23 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(result);
 			return responseBody;
 		}
+		//验证文档是否齐全
+		SopFile file = new SopFile();
+		file.setProjectId(pid);
+		file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+		List<SopFile> files = sopFileService.queryList(file);
+		for(SopFile f : files){
+			if(f.getFileKey() == null || "".equals(f.getFileKey().trim())){
+				responseBody.setResult(new Result(Status.ERROR,null, "文档不齐全，不能申请投决会!"));
+				break;
+			}
+		}
 		try {
 			projectService.toSureMeetingStage(project);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "project startReview faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "异常，申请投决会失败!"));
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);
 			}

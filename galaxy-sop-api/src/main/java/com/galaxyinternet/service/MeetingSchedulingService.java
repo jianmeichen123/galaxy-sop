@@ -34,4 +34,6 @@ public interface MeetingSchedulingService extends BaseService<MeetingScheduling>
 	 */
 	Page<MeetingScheduling> queryMeetingPageList(MeetingScheduling query, Pageable pageable);
 	
+	int updateBySelective(MeetingScheduling ms);
+	
 }
