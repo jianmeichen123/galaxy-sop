@@ -220,6 +220,7 @@
 							}else if(indexNum == '8'){
 								$("#projectProgress_7_con").css("display","none");
 								$("#projectProgress_8_con").css("display","block");
+								
 								 if(parseInt(indexNum) < parseInt(pNum)){
 									 $("#tzxy_options").remove();
 								 }
@@ -659,6 +660,7 @@
 	 * 动态生成投资协议的HTML
 	 */
 	function tzxy(st,projectType,handleTag){
+		//0:首次展示 1：点击触发刷新
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null){
 			var _table = $("#teamSeheetDataGrid");
@@ -671,62 +673,70 @@
 						
 						_tbody.empty();
 						$.each(data.entityList,function(){
-
-							//页面初始化
-							if(this.fileWorktype == 'fileWorktype:7' && st==0 && handleTag==0){
-								$tr.attr("id","gwxt_tr").css("display","none");
-							}else if(this.fileWorktype == 'fileWorktype:7' && st==1 && handleTag==0){
-								$tr.attr("id","gwxt_tr");
-							}
-							//tab刷新
-							if(this.fileWorktype == 'fileWorktype:7' && st==0 && handleTag==1){
-								$tr.attr("id","gwxt_tr").css("display","none");
-							}else if(this.fileWorktype == 'fileWorktype:7' && st==1 && handleTag==1 && this.fileKey != null){
-								$tr.attr("id","gwxt_tr");
-							}else if(this.fileWorktype == 'fileWorktype:7' && st==1 && handleTag==1 && this.fileKey == null){
-								$tr.attr("id","gwxt_tr").css("display","none");
-							}
-							$tr.append('<td>'+this.fWorktype+'</td>') ;
-							if(this.fileType){
-								$tr.append('<td>'+this.fType+'</td>');
-								$tr.append('<td>'+this.updatedDate+'</td>') ;
-							}else{
-								$tr.append('<td>未知</td>');
-								$tr.append('<td></td>') ;
-							}	
-							$tr.append('<td>'+this.fileStatusDesc+'</td>') ;
-							if(this.fileWorktype == 'fileWorktype:6'){
-								if(this.fileKey == null){	
-									$tr.append('<td><a href="javascript:tzxyAlert(8,0);" class="blue">上传</a></td>');
-								}else{
-									$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
-								}
-								if(this.voucherFileKey == null){	
-									$tr.append('<td><a href="javascript:tzxyAlert(8,1);" class="blue">上传</a></td>');
-								}else{
-									$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
-								}
-							}else if(this.fileWorktype == 'fileWorktype:7'){
-								if(this.fileKey == null){	
-									$tr.append('<td><a href="javascript:gqzrAlert(8,0);" class="blue">上传</a></td>');
-								}else{
-									$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
-								}
-								if(this.voucherFileKey == null){	
-									$tr.append('<td><a href="javascript:gqzrAlert(8,1);" class="blue">上传</a></td>');
-								}else{
-									$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
-								}
-							}
-							_tbody.append($tr);
-							//涉及股权转让
-							if(st == 1){
-								$("#stock_transfer").attr("checked","checked");
-								$("#stock_transfer").attr("disabled","true");
-							}else{
+							
+								var $tr=$('<tr></tr>');
 								
-							}
+								//页面初始化
+								if(this.fileWorktype == 'fileWorktype:7' && st==0 && handleTag==0){
+									$tr.attr("id","gwxt_tr").css("display","none");
+								}else if(this.fileWorktype == 'fileWorktype:7' && st==1 && handleTag==0){
+									$tr.attr("id","gwxt_tr");
+								}
+								//tab刷新
+								if(this.fileWorktype == 'fileWorktype:7' && st==0 && handleTag==1){
+									$tr.attr("id","gwxt_tr").css("display","none");
+								}else if(this.fileWorktype == 'fileWorktype:7' && st==1 && handleTag==1 && this.fileKey != null){
+									$tr.attr("id","gwxt_tr");
+								}else if(this.fileWorktype == 'fileWorktype:7' && st==1 && handleTag==1 && this.fileKey == null){
+									$tr.attr("id","gwxt_tr").css("display","none");
+								}
+								
+								$tr.append('<td>'+this.fWorktype+'</td>') ;
+								if(this.fileType){
+									$tr.append('<td>'+this.fType+'</td>');
+									$tr.append('<td>'+this.updatedDate+'</td>') ;
+								}else{
+									$tr.append('<td>未知</td>');
+									$tr.append('<td></td>') ;
+								}	
+								$tr.append('<td>'+this.fileStatusDesc+'</td>') ;
+								if(this.fileWorktype == 'fileWorktype:6'){
+									if(this.fileKey == null){	
+										$tr.append('<td><a href="javascript:tzxyAlert(8,0);" class="blue">上传</a></td>');
+									}else{
+										$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+									}
+									if(this.voucherFileKey == null){	
+										$tr.append('<td><a href="javascript:tzxyAlert(8,1);" class="blue">上传</a></td>');
+									}else{
+										$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+									}
+								}else if(this.fileWorktype == 'fileWorktype:7'){
+									
+									if(this.fileKey == null){	
+										$tr.append('<td><a href="javascript:gqzrAlert(8,0);" class="blue">上传</a></td>');
+									}else{
+										$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+									}
+									if(this.voucherFileKey == null){	
+										$tr.append('<td><a href="javascript:gqzrAlert(8,1);" class="blue">上传</a></td>');
+									}else{
+										$tr.append('<td><a href="javascript:; " class="blue">查看</a></td>'); 	
+									}
+								}
+								_tbody.append($tr);
+								//涉及股权转让
+								if(st == 1){
+									$("#stock_transfer").attr("checked","checked");
+									$("#stock_transfer").attr("disabled","true");
+								}else{
+									
+								}
+							
+							
 						});
+						
+						
 					}
 			);	
 			if(projectType == 'projectType:2'){
