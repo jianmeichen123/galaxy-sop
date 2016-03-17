@@ -128,6 +128,7 @@ public class SopFile extends PagableEntity {
   	//参数
   	private List<Long> projectIdList;
   	private String pageType;
+  	private String fileWorktypeNullFilter;
 
   	
 
@@ -413,6 +414,14 @@ public class SopFile extends PagableEntity {
 
 	public void setPageType(String pageType) {
 		this.pageType = pageType;
+	}
+
+	public String getFileWorktypeNullFilter() {
+		return fileWorktypeNullFilter;
+	}
+
+	public void setFileWorktypeNullFilter(String fileWorktypeNullFilter) {
+		this.fileWorktypeNullFilter = fileWorktypeNullFilter;
 	}
 
     
