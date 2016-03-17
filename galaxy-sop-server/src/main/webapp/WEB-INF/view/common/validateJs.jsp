@@ -11,9 +11,9 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <!-- ajax -->
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
-<!-- bootstrap-table -->
+<!-- bootstrap-table 
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
-<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">-->
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>

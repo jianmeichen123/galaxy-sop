@@ -2,14 +2,14 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<div class="addmentc" type="validate">
+<div class="addmentc">
   <div class="form clearfix">
-  <form action="" id="person_form" method="post">
+  <form action="" id="person_form" method="post" type="validate">
   	<input type="hidden" value="" name="projectId" id="projectId">
     <div class="left">
       <dl class="fmdl fml">
         <dt>姓名：</dt>
-        <dd><input type="text" id="personName" name="personName" value="" class="txt" placeholder="姓名" valType="required" msg="<font color=red>*</font>账号不能为空" /></dd>
+        <dd><input type="text" id="personName" name="personName" value="" class="txt" placeholder="姓名" valType="required" msg="<font color=red>*</font>姓名不能为空" /></dd>
       </dl>
        <dl class="fmdl">
         <dt>年龄：</dt>

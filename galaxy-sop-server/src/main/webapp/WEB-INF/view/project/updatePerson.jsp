@@ -12,19 +12,19 @@
     <div class="left">
       <dl class="fmdl fml">
         <dt>姓名：</dt>
-        <dd><input type="text" id="personName" name="personName" value="${person.personName }" class="txt" placeholder="姓名"/></dd>
+        <dd><input type="text" id="personName" name="personName" value="${person.personName }" class="txt" placeholder="姓名" valType="required" msg="<font color=red>*</font>姓名不能为空" /></dd>
       </dl>
        <dl class="fmdl">
         <dt>年龄：</dt>
-        <dd><input type="text" id="personAge" name="personAge" value="${person.personAge }" class="txt" placeholder="年龄"/></dd>
+        <dd><input type="text" id="personAge" name="personAge" value="${person.personAge }" class="txt" placeholder="年龄" valType="NUMBER" msg="<font color=red>*</font>年龄只能是数字"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>电话号码：</dt>
-        <dd><input type="text" id="personTelephone" name="personTelephone" value="${person.personTelephone }" class="txt" placeholder="电话号码"/></dd>
+        <dd><input type="text" id="personTelephone" name="personTelephone" value="${person.personTelephone }" class="txt" placeholder="电话号码" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"/></dd>
       </dl> 
       <dl class="fmdl">
         <dt>最高学历：</dt>
-        <dd><input type="text" id="highestDegree" name="highestDegree" value="${person.highestDegree }" class="txt" placeholder="最高学历"/></dd>
+        <dd><input type="text" id="highestDegree" name="highestDegree" value="${person.highestDegree }" class="txt" placeholder="最高学历" valType="required" msg="<font color=red>*</font>最高学历不能为空"/></dd>
       </dl>
     </div>
     <div class="right">
@@ -37,18 +37,19 @@
       </dl>  
       <dl class="fmdl">
         <dt>工龄：</dt>
-        <dd><input type="text" id="workTime" name="workTime" value="${person.workTime }" class="txt" placeholder="工龄"/></dd>
+        <dd><input type="text" id="workTime" name="workTime" value="${person.workTime }" class="txt" placeholder="工龄" valType="NUMBER" msg="<font color=red>*</font>工龄只能是数字"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>身份证号码：</dt>
-        <dd><input type="text" id="personIdcard" name="personIdcard" value="${person.personIdcard }" class="txt" placeholder="身份证号码"/></dd>
+        <dd><input type="text" id="personIdcard" name="personIdcard" value="${person.personIdcard }" class="txt" placeholder="身份证号码" valType="IDENTITY" msg="<font color=red>*</font>身份证号码格式不正确"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>职位：</dt>
-        <dd><input type="text" id="personDuties" name="personDuties" value="${person.personDuties }" class="txt" placeholder="职位"/></dd>
+        <dd><input type="text" id="personDuties" name="personDuties" value="${person.personDuties }" class="txt" placeholder="职位" valType="required" msg="<font color=red>*</font>账号不能为空"/></dd>
       </dl>
     </div>
     </form>
   </div>
       <a href="javascript:updatePerson();" class="pubbtn bluebtn">保存</a>
 </div>
+<jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>

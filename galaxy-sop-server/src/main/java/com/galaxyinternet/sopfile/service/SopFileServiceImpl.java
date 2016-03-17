@@ -1,12 +1,18 @@
 package com.galaxyinternet.sopfile.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
@@ -19,7 +25,13 @@ import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.file.BucketName;
+import com.galaxyinternet.framework.core.file.FileResult;
+import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.oss.GlobalCode;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.Project;
@@ -360,6 +372,83 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	}
 	
 	
+	
+	
+	
+	//文档更新
+	public Result updateFile(HttpServletRequest request, Long fid) throws Exception{
+		
+		SopFile queryfile = sopFileDao.selectById(fid);
+		if(queryfile == null){
+			return new Result(Status.ERROR,null);
+		}
+		
+		String key = queryfile.getFileKey();
+		String bucktname = queryfile.getBucketName();
+		
+		//del aliyun
+		FileResult fileResult = OSSHelper.deleteFile(bucktname, key);
+		if(fileResult.getResult().getStatus().equals(Status.ERROR)){
+			return new Result(Status.ERROR,null,"aliyun del old file failed");
+		}
+		
+		//调用 上传 接口
+		MultipartFile multipartFile = aLiColoudUpload(request,key);
+		
+		//update table sopfile
+		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
+		
+		String[] fileNameStr = fileName.split(".");
+		if(fileNameStr.length == 2){
+			queryfile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
+			queryfile.setFileSuffix(fileNameStr[1]);
+		}else if(fileNameStr.length == 1){
+			queryfile.setFileName(fileNameStr[0]);
+		}
+		queryfile.setFileLength(multipartFile.getSize());  //文件大小
+		queryfile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+		sopFileDao.updateById(queryfile);
+		//update end
+		
+		return new Result(Status.OK,"");
+	}
+	
+	
+	
+	//文档上传
+	public MultipartFile aLiColoudUpload(HttpServletRequest request, String fileKey)
+			throws IllegalStateException, IOException {
+		// 请求转换
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		// 获取multipartFile文件
+		MultipartFile multipartFile = multipartRequest.getFile("file");
+		
+
+		
+		// 获取临时存储路径
+		String path = request.getSession().getServletContext()
+				.getRealPath("upload");
+		// 获取文件名称
+		String fileName = multipartFile.getOriginalFilename();
+		File tempFile = new File(path, fileName);
+		if (!tempFile.exists()) {
+			tempFile.mkdirs();
+		}
+		// 存储临时文件
+		multipartFile.transferTo(tempFile);
+		// 上传至阿里云
+		int result = OSSHelper.uploadSupportBreakpoint(tempFile, BucketName.DEV.getName(), fileKey);
+		if(result == GlobalCode.ERROR){
+		}else{
+			return multipartFile;
+		}
+//		UploadFileResult upResult = OSSHelper.simpleUploadByOSS(multipartFile.getInputStream(),
+//				fileKey);
+//		if (upResult.getResult().getStatus().equals(Status.OK)) {
+//			result == GlobalCode.ERROR
+//		}
+		return null;
+	}
 	
 	
 
