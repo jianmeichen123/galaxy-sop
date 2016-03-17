@@ -21,11 +21,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.SopResult;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
-import com.galaxyinternet.dao.project.MeetingRecordDao;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -479,6 +481,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 该项目对应的创建人操作
 	 * @author yangshuhua
 	 */
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.LOG)
 	@ResponseBody
 	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> stageChange(ProjectQuery p, HttpServletRequest request) {
@@ -555,9 +558,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				p.setFileSize(file.getSize());
 				if(handlerManager.getStageHandlers().containsKey(p.getStage())){
 					Handler handler = handlerManager.getStageHandlers().get(p.getStage());
-					Result r = handler.handler(p, project);
+					SopResult r = handler.handler(p, project);
 					if(r != null && r.getStatus().equals(Result.Status.OK)){
 						responseBody.setResult(r);
+						//记录操作日志
+						ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), r.getNumber());
 					}
 				}
 			}
@@ -572,6 +577,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 接触访谈阶段: 启动内部评审
 	 * @author yangshuhua
 	 */
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.LOG)
 	@ResponseBody
 	@RequestMapping(value="/startReview/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> startReview(HttpServletRequest request,@PathVariable("pid") Long pid) {
@@ -593,6 +599,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				projectService.updateById(project);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR,null, "异常，启动内部评审失败!"));
 				if(logger.isErrorEnabled()){
@@ -609,6 +616,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 申请立项会排期
 	 * @author yangshuhua
 	 */
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.LOG)
 	@ResponseBody
 	@RequestMapping(value="/ges/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> ges(HttpServletRequest request,@PathVariable("pid") Long pid) {
@@ -631,6 +639,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				projectService.toEstablishStage(project);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR,null, "异常，申请立项会失败!"));
 				if(logger.isErrorEnabled()){
@@ -647,6 +656,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 申请投决会排期
 	 * @author yangshuhua
 	 */
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.LOG)
 	@ResponseBody
 	@RequestMapping(value="/smp/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> sureMeetingPool(HttpServletRequest request,@PathVariable("pid") Long pid) {
@@ -673,6 +683,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			projectService.toSureMeetingStage(project);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "异常，申请投决会失败!"));
 			if(logger.isErrorEnabled()){
