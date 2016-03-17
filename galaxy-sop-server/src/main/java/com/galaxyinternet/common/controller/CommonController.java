@@ -74,7 +74,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		List<Menus> tabs = new ArrayList<Menus>();
 		String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
 		//通用Tab
-		tabs.add(new Menus(1L, "工作界面", u + "galaxy/index?" + params));
+		tabs.add(new Menus(1L, "工作桌面", u + "galaxy/index?" + params));
 		tabs.add(new Menus(2L, "待办任务", u + "galaxy/soptask?" + params));
 		tabs.add(new Menus(3L, "消息提醒", u + "galaxy/operationMessage/index?" + params));
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
@@ -117,7 +117,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		//高管
 		if(roleIdList.contains(1L) || roleIdList.contains(2L)){
 			tabs.clear();
-			tabs.add(new Menus(1L, "工作界面", serverUrl + "report/galaxy/report/platform?" + params));
+			tabs.add(new Menus(1L, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
 			tabs.add(new Menus(2L, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
 			tabs.add(new Menus(3L, "项目查询", serverUrl +"sop/galaxy/cpl?" + params));
 			tabs.add(new Menus(4L, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));

@@ -259,7 +259,7 @@ table .width_gd{width:10%;}
 .dropdown-menu > .active > a:focus {
   color: #fff;
   text-decoration: none;
-  background-color: #337ab7;
+  background-color: #66b1f2;
   outline: 0;
 }
 .dropdown-menu > .disabled > a,
@@ -340,7 +340,7 @@ table .width_gd{width:10%;}
 .fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px; line-height:28px; border-radius:4px; padding:0 4px; font-size:14px; color:#525662; font-family:"宋体"}
 .fmdl dd select{ width:160px;font-size: 12px;}
 .fmdl dd .txt{ width:230px;;font-size: 12px;}
-.fmdl label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; font-size:14px; color:#525662; font-family:"宋体"; position:relative}
+.fmdl label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; font-size:12px; color:#525662; font-family:"宋体"; position:relative}
 .fmdl label input{ position:absolute; left:0; top:9px; *top:4px}
 
 /*公用上传*/
@@ -599,7 +599,7 @@ table .width_gd{width:10%;}
 .block dl .fctbox .ico{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
 .block dl .fctbox .f1{background-position: 0 0;padding: 0 0 0 22px;}
 .block dl .fctbox .f2{background-position: 0 -19px;padding: 0 0 0 22px;}
-.pagebox .projectmsg_d .block dl .fctbox .f3{background-position: right -38px;padding: 0 28px 0 20px; display:none}
+.block dl .fctbox .f3{background-position: right -38px;padding: 0 28px 0 20px; display:none}
 .pagebox .projectmsg_d .block dl .fctbox .f4{background-position: 0 -57px;padding: 0 0 0 22px;display: none;}
 .pagebox .projectmsg_d .block dl .fctbox .f5{background-position: 0 -76px;padding: 0 0 0 22px;display: none;}
 .pagebox .projectmsg_d .block .btnbox_f{float: left;}
@@ -899,6 +899,7 @@ background-size: 93%;}
 .meetingtc .btnbox{ margin:0 0 0 80px}
 .meetingtc .btnbox .pubbtn{ margin:0 20px 0 0; display:inline-block; *display:inline; zoom:1;}
 .meetingtc dl dd,.meetingtc dl dd label{font-size: 12px;font-family: '宋体';}
+.meetingtc dl dt{font-family: '微软雅黑';line-height: 30px;} 
 /*添加成功弹窗*/
 .addtc{ width:305px; padding:20px 0}
 .addtc .tips{ text-align: center; position:relative; line-height:26px; font-size:16px; color:#1f2128; margin:0 0 30px}
@@ -942,7 +943,7 @@ background-size: 93%;}
 .addmentc .left,.addmentc .right{width:390px;float: left;}
 .addmentc dl{margin:10px 0;overflow: hidden;}
 .addmentc dl dt,.addmentc dl dd{float: left;}
-.addmentc dl dt{width:100px;text-align: right;}
+.addmentc dl dt{width:100px;text-align: right;font-family: '微软雅黑';line-height: 30px;}
 .addmentc .fmdl dd .txt{ width:150px;font-size: 12px;font-family: '宋体';}
 .addmentc .pubbtn{margin: 20px 0 0 250px;}
 /* 立项会弹窗 */
@@ -997,7 +998,7 @@ background-size: 93%;}
 .myprojecttc .tabtable .tabtable_con_close .fmmm{border-bottom: 0;margin:0;}
 .myprojecttc .tabtable .tabtable_con_close .fmmm dt{width: auto;}
 .myprojecttc .tabtable .searchbox{margin:10px 10px 0;}
-.myprojecttc .tabtable .btnbox_m{margin:10px 0 6px 20px;}
+.myprojecttc .tabtable .btnbox_m{margin:10px 0 6px 20px;width:100%;}
 .myprojecttc .tabtable .tabtable_con .block table{border:0;padding:0 10px;}
 .myprojecttc .tabtable .tabtable_con .block table th{background-color: #f9fafc;}
 .myprojecttc .process{width: 100%;overflow: hidden;margin:0 0 20px 0;}
@@ -1013,11 +1014,11 @@ background-size: 93%;}
 .myprojecttc .fmdl .txt{display: inline-block;width: 80px;padding: 0 5px;}
 .myprojecttc .block{border-top-left-radius: 0;border-top-right-radius: 0;}
 .myprojecttc .block .searchbox{position: relative;}
-.myprojecttc .block .default,.myprojecttc .block .searchbox_hidden{width: 60%;}
+.myprojecttc .block .default,.myprojecttc .block .searchbox_hidden{width: 80%;}
 .myprojecttc .block .searchbox .show_more{position: absolute;bottom:10px;right: 100px;font-size: 12px;text-decoration: none;}
 .myprojecttc .block .searchbox .show_more a{margin-left: 10px;cursor: pointer;}
 .myprojecttc .block .searchbox .searchbox_hidden{display: none;}
-.myprojecttc .searchbox{padding: 5px;background-color: #d6d8e1;border-radius: 6px;}
+.myprojecttc .searchbox{padding: 5px;background-color: #f3f4f9;}
 .myprojecttc .searchbox .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
 .myprojecttc .searchbox .f4{background-position: right -95px;padding: 0 28px 0 20px; }
 .myprojecttc .searchbox .f3{background-position: right -40px;padding: 0 20px 0 0px; }
@@ -1088,8 +1089,10 @@ em{font-style: normal;}
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding:3px;}
 .table{border-radius: 6px;}
+.news_ritmin .table{border-top-left-radius: 0px;}
 .news_table{border-radius: 0 !important;}
 .news_top{margin:0 !important;}
 .news_top select{float:right;width:100px;height:30px;border: 1px solid #fff;border-radius:4px;margin-right: 20px;}
 .block_pad{padding-top: 10px;}
-#person_form label{width:auto;}
+.form label{width:auto;}
+dl dd .time{display:inline-block;width: 120px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 100px -150px;}

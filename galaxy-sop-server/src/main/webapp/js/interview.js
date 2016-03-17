@@ -69,12 +69,9 @@ function initUpload() {
 		multipart:true,
 		multi_selection:false,
 		filters : {
-			max_file_size : '10mb',
+			max_file_size : '25mb',
 			mime_types: [
-			    {title : "YP files", extensions : "mp3,avi"},
-				{title : "Image files", extensions : "jpg,gif,png"},
-				{title : "Zip files", extensions : "zip,rar"},
-				{title : "Offices files", extensions : "doc,docx,excel"}
+			    {title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r"}
 			]
 		},
 

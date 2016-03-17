@@ -1,17 +1,14 @@
 package com.galaxyinternet.project.controller;
 
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,26 +21,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.file.BucketName;
 import com.galaxyinternet.framework.core.file.OSSHelper;
-import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.InterviewRecordBo;
@@ -55,7 +50,6 @@ import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
-import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
@@ -172,33 +166,72 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.ERROR,null, "interviewRecord info not complete"));
 			return responseBody;
 		}
-		InterviewRecord interviewRecord = new InterviewRecord();
-		interviewRecord.setProjectId(Long.parseLong(projectId));
-		interviewRecord.setViewDateStr(viewDateStr);
-		interviewRecord.setViewTarget(viewTarget);
-		interviewRecord.setViewNotes(viewNotes);
-		interviewRecord.setFname(fname);
 		
 		try {
-			//project id 验证
+			//project  验证
 			Project project = new Project();
-			project = projectService.queryById(interviewRecord.getProjectId());
-			
+			project = projectService.queryById(Long.parseLong(projectId));
 			String err = errMessage(project,user,DictEnum.projectProgress.接触访谈.getCode());   //字典  项目进度  接触访谈 
 			if(err!=null && err.length()>0){
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
 			
-			//请求转换
-			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-			MultipartFile file = multipartRequest.getFile("file");
-			String path = request.getSession().getServletContext().getRealPath("upload");
+			InterviewRecord interviewRecord = new InterviewRecord();
+			interviewRecord.setProjectId(Long.parseLong(projectId));
+			interviewRecord.setViewDateStr(viewDateStr);
+			interviewRecord.setViewTarget(viewTarget);
+			interviewRecord.setViewNotes(viewNotes);
 			
-			Long id = interviewRecordService.insertInterview(interviewRecord,project,file,path, user.getId());
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(id);
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+			//调接口上传
+			String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+			String bucketName = BucketName.DEV.getName();
+			MultipartFile file = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
+			
+			//上传成功后
+			if(file!=null){
+				String fileName = "";
+				if(fname!=null && fname.trim().length()>0){
+					fileName = fname;
+				}else{
+					fileName = file.getOriginalFilename(); // secondarytile.png  全名
+				}
+				if(fileName == null || fileName.trim().length()==0){
+					responseBody.setResult(new Result(Status.ERROR,null, "get file name failed"));
+					return responseBody;
+				}//end get file name 
+				
+				
+				SopFile sopFile = new SopFile();
+				sopFile.setProjectId(project.getId());
+				sopFile.setProjectProgress(project.getProjectProgress());
+				sopFile.setBucketName(bucketName); 
+				sopFile.setFileKey(fileKey);  
+				sopFile.setFileLength(file.getSize());  //文件大小
+				String[] fileNameStr = fileName.split("\\.");
+				if(fileNameStr.length == 2){
+					sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
+					sopFile.setFileSuffix(fileNameStr[1]);
+				}else if(fileNameStr.length == 1){
+					sopFile.setFileName(fileNameStr[0]);
+				}
+				sopFile.setFileUid(user.getId());	 //上传人
+				sopFile.setCareerLine(user.getDepartmentId());
+				sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
+				sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
+				//sopFile.setFileWorktype(fileWorkType);    //业务分类
+				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+				
+				Long id = interviewRecordService.insertInterview(interviewRecord,sopFile); //掉接口保存 interview、sopfile
+				
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setId(id);
+				
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,null, "上传失败"));
+				return responseBody;
+			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "insert interviewRecord faild"));
 			
@@ -206,7 +239,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				logger.error("insert interviewRecord faild ",e);
 			}
 		}
-		
 		return responseBody;
 	}
 	
@@ -298,9 +330,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	
 	
-	
-	
-	
 	/**
 	 * 会议默认页面 
 	 */
@@ -338,32 +367,26 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		String meetingType = request.getParameter("meetingType");
 		String meetingResult = request.getParameter("meetingResult");
 		String meetingNotes = request.getParameter("meetingNotes");
+		String fname = request.getParameter("fname");
 			
 		if(projectId == null || meetingDateStr == null|| meetingType == null|| meetingResult == null|| meetingNotes == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "meetingRecord info not complete"));
 			return responseBody;
 		}
 		
-		MeetingRecord meetingRecord = new  MeetingRecord();
-		
-		meetingRecord.setProjectId(Long.parseLong(projectId));
-		meetingRecord.setMeetingDateStr(meetingDateStr);
-		meetingRecord.setMeetingType(meetingType);
-		meetingRecord.setMeetingResult(meetingResult);
-		meetingRecord.setMeetingNotes(meetingNotes);
 		
 		try {
 			String prograss = "";
-			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       //字典  会议类型   内评会
+			if(meetingType.equals(DictEnum.meetingType.内评会.getCode())){       //字典  会议类型   内评会
 				prograss = DictEnum.projectProgress.内部评审.getCode();                                 	//字典  项目进度  内部评审
 				
-			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ //字典  会议类型   CEO评审
+			}else if(meetingType.equals(DictEnum.meetingType.CEO评审.getCode())){ //字典  会议类型   CEO评审
 				prograss = DictEnum.projectProgress.CEO评审.getCode(); 								//字典   项目进度  CEO评审
 				
-			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	//字典  会议类型   立项会
+			}else if(meetingType.equals(DictEnum.meetingType.立项会.getCode())){	//字典  会议类型   立项会
 				prograss = DictEnum.projectProgress.立项会.getCode(); 										//字典   项目进度    立项会
 				
-			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	//字典  会议类型   投决会
+			}else if(meetingType.equals(DictEnum.meetingType.投决会.getCode())){	//字典  会议类型   投决会
 				prograss = DictEnum.projectProgress.投资决策会.getCode(); 									//字典   项目进度     投资决策会
 			}/*else{
 				responseBody.setResult(new Result(Status.ERROR,null, "会议类型无法识别"));
@@ -372,34 +395,79 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 			//project id 验证
 			Project project = new Project();
-			project = projectService.queryById(meetingRecord.getProjectId());
+			project = projectService.queryById(Long.parseLong(projectId));
 			
 			String err = errMessage(project,user,prograss);
 			if(err!=null && err.length()>0){
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
-		
-			//请求转换
-			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-			MultipartFile file = multipartRequest.getFile("file");
-			String path = request.getSession().getServletContext().getRealPath("upload");
 			
-			boolean equalNowPrograss = true;
-			int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;//会议对应的阶段
-			int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ; //项目阶段
-			if(projectPro > operationPro){
-				equalNowPrograss = false;
+			MeetingRecord meetingRecord = new  MeetingRecord();
+			meetingRecord.setProjectId(Long.parseLong(projectId));
+			meetingRecord.setMeetingDateStr(meetingDateStr);
+			meetingRecord.setMeetingType(meetingType);
+			meetingRecord.setMeetingResult(meetingResult);
+			meetingRecord.setMeetingNotes(meetingNotes);
+			
+			
+			//调接口上传
+			String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+			String bucketName = BucketName.DEV.getName();
+			MultipartFile file = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
+			
+			//上传成功后
+			if(file!=null){
+				String fileName = "";
+				if(fname!=null && fname.trim().length()>0){
+					fileName = fname;
+				}else{
+					fileName = file.getOriginalFilename(); // secondarytile.png  全名
+				}
+				if(fileName == null || fileName.trim().length()==0){
+					responseBody.setResult(new Result(Status.ERROR,null, "get file name failed"));
+					return responseBody;
+				}//end get file name 
+				
+				SopFile sopFile = new SopFile();
+				sopFile.setProjectId(project.getId());
+				sopFile.setProjectProgress(project.getProjectProgress());
+				sopFile.setBucketName(bucketName); 
+				sopFile.setFileKey(fileKey);  
+				sopFile.setFileLength(file.getSize());  //文件大小
+				String[] fileNameStr = fileName.split("\\.");
+				if(fileNameStr.length == 2){
+					sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
+					sopFile.setFileSuffix(fileNameStr[1]);
+				}else if(fileNameStr.length == 1){
+					sopFile.setFileName(fileNameStr[0]);
+				}
+				sopFile.setFileUid(user.getId());	 //上传人
+				sopFile.setCareerLine(user.getDepartmentId());
+				sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
+				sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
+				//sopFile.setFileWorktype(fileWorkType);    //业务分类
+				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+				
+				//调接口保存 meetrecord 、 sopfile
+				boolean equalNowPrograss = true;  
+				int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;//会议对应的阶段
+				int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ; //项目阶段
+				if(projectPro > operationPro){
+					equalNowPrograss = false;
+				}
+				Long id = meetingRecordService.insertMeet(meetingRecord,project,sopFile,equalNowPrograss);
+			
+				responseBody.setId(id);
+				responseBody.setResult(new Result(Status.OK, ""));
+				
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,null, "上传失败"));
+				return responseBody;
 			}
-			
-			Long id = meetingRecordService.insertMeet(meetingRecord,project,file,path, user.getId(),user.getDepartmentId(),equalNowPrograss);
-			
-			responseBody.setId(id);
-			responseBody.setResult(new Result(Status.OK, ""));
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "add meetingRecord faild"));
-			
 			if(logger.isErrorEnabled()){
 				logger.error("add meetingRecord faild ",e);
 			}
@@ -466,8 +534,10 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			if(projectPro > operationPro){
 				equalNowPrograss = false;
 			}
-			
-			Long id = meetingRecordService.insertMeet(meetingRecord,project,null,null, user.getId(),user.getDepartmentId(),equalNowPrograss);
+			SopFile file = new SopFile();
+			file.setCareerLine(user.getDepartmentId());
+			file.setFileUid(user.getId());
+			Long id = meetingRecordService.insertMeet(meetingRecord,project,file,equalNowPrograss);
 			//Long id = meetingRecordService.insertMeet(meetingRecord,project, user.getId(),user.getDepartmentId());
 			
 			responseBody.setId(id);
@@ -1063,6 +1133,86 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		return responseBody;
 	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * app
+	 * 下载文件 
+	 * @param service
+	 */
+	@RequestMapping("/downloadAppFile/{id}")
+    public ResponseData<SopFile> download(@PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response) throws IOException { 
+    	InputStream inputStream = null;
+    	ServletOutputStream out = null;
+    	
+        SopFile queryfile = sopFileService.queryById(id);
+		if(queryfile == null){
+			return null;
+		}
+		
+		String key = queryfile.getFileKey();
+		long fSize = queryfile.getFileLength();
+		
+		String downFileName = queryfile.getFileName()+ "." + queryfile.getFileSuffix();
+		String path = request.getSession().getServletContext().getRealPath("upload") + File.separator + downFileName;  
+		
+        // File tempfile=new File(path);  
+        // OSSHelper.simpleDownloadByOSS(temp, key);
+
+        
+		String fileName= "";
+		if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
+			fileName = URLEncoder.encode(downFileName, "UTF-8");  
+		} else {  
+			fileName = new String((downFileName).getBytes("UTF-8"), "ISO8859-1");  
+		} 
+		response.reset();
+		response.setCharacterEncoding("utf-8");  
+        response.setContentType("application/x-download");    
+        response.setHeader("Accept-Ranges", "bytes");    
+        response.setHeader("Content-Length", String.valueOf(fSize));    
+        response.setHeader("Content-Disposition", "attachment;fileName=" + fileName); 
+        
+        //inputStream = new FileInputStream(file);
+        long pos = 0;
+        String range = null;
+        if(null != request.getHeader("Range")){
+        	response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
+        	range = request.getHeader("Range").trim();
+        }
+        
+        try{
+        	String temp = range.substring(range.indexOf("=")+1,range.indexOf("-"));
+        	pos = Long.parseLong(temp);
+        }catch(Exception e){
+        	pos = 0;
+        }
+        
+        try{
+        	out = response.getOutputStream();
+	        String contentRange = new StringBuffer("bytes").append(pos).append("-").append(fSize-1).append("/").append(fSize).toString();
+	        response.setHeader("Content-Range", contentRange);
+	        inputStream.skip(pos);
+	        
+        	byte[] buffer = new byte[1024*10];  
+            int length = 0;    
+            while ((length = inputStream.read(buffer, 0, buffer.length)) != -1) {    
+                out.write(buffer, 0, length);  
+            }
+        }catch(Exception e){
+        	System.out.println("ODEX软件下载异常："+e);
+        }
+        
+        return null;
+        
+    }
+	
+	
+	
 	
 	
 	

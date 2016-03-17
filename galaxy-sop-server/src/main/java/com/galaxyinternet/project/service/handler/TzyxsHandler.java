@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.galaxyinternet.common.SopResult;
 import com.galaxyinternet.common.ViewQuery;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -14,8 +15,8 @@ import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
-import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
@@ -48,7 +49,7 @@ public class TzyxsHandler implements Handler {
 
 	@Override
 	@Transactional
-	public Result handler(ViewQuery query, Project project) throws Exception {
+	public SopResult handler(ViewQuery query, Project project) throws Exception {
 		ProjectQuery q = (ProjectQuery) query;
 		if(q.getVoucherType() != null && q.getVoucherType().intValue() == 1){
 			//签署证明
@@ -111,6 +112,7 @@ public class TzyxsHandler implements Handler {
 				task.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);
 				sopTaskDao.insert(task);
 			}
+			return new SopResult(Status.OK,null,"上传投资意向书签署证明成功!",UrlNumber.six);
 		}else{
 			//投资意向书
 			SopFile qf = new SopFile();
@@ -139,8 +141,8 @@ public class TzyxsHandler implements Handler {
 			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
 			task.setUpdatedTime((new Date()).getTime());
 			sopTaskDao.updateTask(task);
+			return new SopResult(Status.OK,null,"上传投资意向书成功!",UrlNumber.five);
 		}
-		return new Result(Status.OK,"添加访谈纪要成功!");
 	}
 	
 }

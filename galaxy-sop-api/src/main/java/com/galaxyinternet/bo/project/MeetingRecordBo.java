@@ -7,7 +7,6 @@ public class MeetingRecordBo  extends MeetingRecord{
 
 	private String proName; //项目名称 - 会议记录
 	private String fkey;
-	private String fname;
 	
 	private Long uid; //项目创建人
 	private String startTime;
@@ -65,13 +64,6 @@ public class MeetingRecordBo  extends MeetingRecord{
 		 this.proNameCode = proNameCode == null ? null : proNameCode.trim();
 	}
 	
-	
-	public String getFname() {
-		return fname;
-	}
-	public void setFname(String fname) {
-		this.fname = fname;
-	}
 	public int getInpro() {
 		return inpro;
 	}

@@ -44,83 +44,12 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		return this.interviewRecordDao;
 	}
 	
-	private String[] transFileNames(String fileFullName){
-		return fileFullName.split("\\.");
-	}
-	
-	//文件上传, 成功后插入 sopfile 数据库
-	@Transactional
-	public Long upfile(MultipartFile file,String fname,Long uid,String path,Long projectId,String projectProgress){
-		Long fileId = null;
-		try {
-			UploadFileResult upResult = null;
-			
-			if(file != null){
-				String fileName = "";
-				if(fname!=null && fname.trim().length()>0){
-					fileName = fname;
-				}else{
-					 fileName = file.getOriginalFilename(); // secondarytile.png  全名
-				}
-				int dotPos = fileName.lastIndexOf(".");
-				
-				String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				
-				String ext = fileName.substring(dotPos);  // .png  
-				
-				File temp = new File(path,fileName);
-				if (!temp.exists()) {
-					temp.mkdirs();
-				}
-				file.transferTo(temp);  //存储临时文件
-				
-				upResult = OSSHelper.simpleUploadByOSS(temp,key);  //上传至阿里云
-				
-				//若文件上传成功
-				if(upResult.getResult().getStatus()!=null && upResult.getResult().getStatus().equals(Status.OK)){
-					
-					SopFile sopFile = new SopFile();
-					sopFile.setProjectId(projectId);
-					sopFile.setProjectProgress(projectProgress);
-					sopFile.setBucketName(upResult.getBucketName()); //bucketName
-					sopFile.setFileKey(key);   //fileKey
-					sopFile.setFileLength(upResult.getContentLength());  //文件大小
-					String[] fileNameStr = transFileNames(fileName);
-					if(fileNameStr.length>1){
-						sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
-						sopFile.setFileSuffix(fileNameStr[1]);
-					}else{
-						sopFile.setFileName(fileNameStr[0]);
-					}
-					sopFile.setFileUid(uid);	 //上传人
-					//sopFile.setFileType("");   //存储类型
-					//sopFile.setFileSource(Integer.parseInt(fileSource));  //档案来源
-					//sopFile.setFileWorktype(fileWorkType);    //业务分类
-					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
-					
-					fileId = sopFileDao.insert(sopFile);
-					
-					//meetingRecord.setFileId(sopFile.getId());
-				}else{
-					throw new BusinessException("meeting service upfile failed");
-				}
-			}
-		} catch (Exception e) {
-			throw new BusinessException("meeting service upfile failed", e);
-		}
-		
-		return fileId;
-	}
-	
 	
 	@Override
 	@Transactional
-	public Long insertInterview(InterviewRecord interviewRecord,Project project,MultipartFile file, String path,Long userid) {
-		if(file != null){
-			Long fileId = upfile(file,interviewRecord.getFname(),userid,path,project.getId(),project.getProgress());
-			interviewRecord.setFileId(fileId);
-		}
-		
+	public Long insertInterview(InterviewRecord interviewRecord,SopFile sopFile) {
+		Long sid = sopFileDao.insert(sopFile);
+		interviewRecord.setFileId(sid);
 		Long id = getBaseDao().insert(interviewRecord);
 		
 		return id;
