@@ -30,7 +30,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	 <!--右中部内容-->
  	<div class="ritmin">
-    <h2>我的项目</h2>
+    <h2>项目详情</h2>
       <!-- 面包屑
       <ul class="breadcrumb">
         <li><a href="javascript:;" class="bcfirst">待办任务</a></li>
@@ -88,9 +88,6 @@
                   </tr>                  
                 </tbody>
               </table>
-              <div class="btnbox">
-                <a href="javascript:update();" class="pubbtn bluebtn">保存</a><!-- <a href="javascript:;" class="pubbtn fffbtn"data-close="close">关闭项目</a> -->
-              </div>
           </div>
           </form>
           <!-- 第2部分 -->
