@@ -68,6 +68,7 @@ public class TzyxsHandler implements Handler {
 			fv.setFileKey(q.getFileKey());
 			fv.setBucketName(q.getBucketName());
 			fv.setFileName(q.getFileName());
+			fv.setFileSuffix(q.getSuffix());
 			sopVoucherFileDao.updateById(fv);
 			//修改项目阶段
 			project.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
