@@ -109,8 +109,8 @@
                 </dd>
             </dl>
             <div class="btnbox">
-                <a href="javascript:;" class="pubbtn fffbtn"data-close="close" onclick="deleteShedule()">删除</a>
-                <a href="javascript:;" class="pubbtn bluebtn" onclick="saveShedule()">编辑</a>
+                <a href="javascript:;" class="pubbtn fffbtn"data-close="close" onclick="deleteShedule()">关闭</a>
+                <a href="javascript:;" class="pubbtn bluebtn" onclick="saveShedule()">保存</a>
             </div>
             </form>
         </div>
