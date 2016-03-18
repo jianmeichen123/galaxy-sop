@@ -137,7 +137,7 @@
     //保存日程
     function saveShedule(){
     	var id=$("#id").val();
-    	if(!id){
+    	if(id == '' || id == 'null' || id == null){
     	  $("#id").remove();
     	}
     	sendPostRequestByJsonObj(platformUrl.saveShedule, JSON.parse($("#shedule_form").serializeObject()), sheduleCallBack);
