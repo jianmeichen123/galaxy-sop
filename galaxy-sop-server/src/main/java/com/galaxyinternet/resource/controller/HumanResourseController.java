@@ -1,5 +1,7 @@
 package com.galaxyinternet.resource.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -14,13 +16,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.PersonPoolBo;
+import com.galaxyinternet.bo.project.personInvestBo;
+import com.galaxyinternet.bo.project.personLearnBo;
+import com.galaxyinternet.bo.project.personWorkBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.hr.PersonInvest;
+import com.galaxyinternet.model.hr.PersonLearn;
+import com.galaxyinternet.model.hr.PersonResumetc;
+import com.galaxyinternet.model.hr.PersonWork;
 import com.galaxyinternet.model.project.PersonPool;
+import com.galaxyinternet.service.PersonInvestService;
+import com.galaxyinternet.service.PersonLearnService;
 import com.galaxyinternet.service.PersonPoolService;
+import com.galaxyinternet.service.PersonWorkService;
 
 @Controller
 @RequestMapping("/galaxy/hrjl")
@@ -30,6 +42,17 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 
 	@Autowired
 	private PersonPoolService personPoolService;
+	
+	
+	@Autowired
+	private PersonLearnService personLearnService;
+	
+	@Autowired
+	private PersonInvestService personInvestService;
+	
+	@Autowired
+	private PersonWorkService personWorkService; 
+	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;	
 	@Override
@@ -66,18 +89,30 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/toaddPersonHr/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> toaddPersonHr(HttpServletRequest request,
+	public ResponseData<PersonResumetc> toaddPersonHr(HttpServletRequest request,
 			@PathVariable Long pid){
 		
-			ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();	
+			ResponseData<PersonResumetc> responseBody = new ResponseData<PersonResumetc>();	
+			PersonPool personPool = personPoolService.queryById(pid);
 			
-			PersonPool personPool1 = personPoolService.queryById(pid);
-			if(personPool1 == null){
-				responseBody.setResult(new Result(Status.ERROR, "未找到相关人员信息"));
-				
-			}else{
-				responseBody.setEntity(personPool1);
-			}			
+			PersonLearn personLearnQuery = new PersonLearn();
+			personLearnQuery.setPersonId(pid);
+			List<PersonLearn> personLearns =  personLearnService.queryList(personLearnQuery);
+	
+			
+			PersonWork personWorkQuery  = new PersonWork();
+			personWorkQuery.setPersonId(pid);
+			List<PersonWork> personWorks =personWorkService.queryList(personWorkQuery);
+			
+			PersonInvest personInvest =new PersonInvest();
+			personInvest.setPersonId(pid);
+			personInvest = personInvestService.queryOne(personInvest);
+			PersonResumetc personResumetc = new PersonResumetc();
+			personResumetc.setPersonInvest(personInvest);
+			personResumetc.setPersonLearn(personLearns);
+			personResumetc.setPersonPool(personPool);
+			personResumetc.setPersonWork(personWorks);
+			responseBody.setEntity(personResumetc);
 			return responseBody;	
 	}
 
@@ -89,37 +124,11 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/addPersonHr", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> addPersonHr(@RequestBody PersonPool personPool, HttpServletRequest request,
-			@PathVariable Long pid
-			) {
-		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
-		/*if(personPool.getPersonName() == null || "".equals(personPool.getPersonName().trim())||personPool.getPersonBirthday()==null||personPool.getPersonAge()==null  || personPool.getPersonSex()==null 
-				||personPool.getPersonCharacter()==null ||personPool.getPersonIdcard()==null || personPool.getPersonTelephone()==null
-				||personPool.getPersonEmail()==null || personPool.getPersonCharacter()==null||personPool.getPersonGoodness()==null || personPool.getPersonDisparity()==null
-				||personPool.getTalkAbility()==null || personPool.getTeamAbility()==null||personPool.getBusinessStrength()==null || personPool.getFree()==null || personPool.getTeamRole()==null
-				||personPool.getMemberRelation()==null || personPool.getLaborDispute()==null || personPool.getAbilityStar()==null || personPool.getLevelStar()==null || personPool.getEndComment()==null)
-		{
-			responseBody.setResult(new Result(Status.ERROR, "个人简历不全请补全!"));
-			return responseBody;
-		}*/
-/*		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
-		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}*/		
-		try {			
-//			personPool.setId(pid);
-			Long id = (long) personPoolService.updateById(personPool);
-			System.out.println("ok");
-			if(id > 0)
-				responseBody.setResult(new Result(Status.OK,"保存成功!"));
-				responseBody.setEntity(personPool);
-			}
-		catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "insert hrjl faild"));	
-		}
+	public ResponseData<PersonPool> addPersonHr(@RequestBody PersonResumetc personResumetc, HttpServletRequest request){
+		personInvestService.WanShan(personResumetc);
 		
-		return responseBody;
+		return null;
+		
 	}
-	
+
 }

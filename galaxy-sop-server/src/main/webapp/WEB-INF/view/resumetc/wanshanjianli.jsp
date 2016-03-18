@@ -7,8 +7,8 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
-<link href="/css/axure.css" type="text/css" rel="stylesheet"/>
-<link href="/css/style.css" type="text/css" rel="stylesheet"/> 
+<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/> 
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
@@ -123,7 +123,7 @@
                       <td>2016-01-20</td>
                       <td>已上传</td>
                       <!-- <td><a href="javascript:;" onclick="test();" data-btn="resume" >完善简历</a></td -->
-                       <td><a href="/galaxy/hrjl/resumetcc/"  DATA-btn="resume" >完善简历</a></td>
+                       <td><a href="<%=path %>/galaxy/hrjl/resumetcc/"  DATA-btn="resume" >完善简历</a></td>
                   </tr> 
               </tbody>
           </TABLE> 
