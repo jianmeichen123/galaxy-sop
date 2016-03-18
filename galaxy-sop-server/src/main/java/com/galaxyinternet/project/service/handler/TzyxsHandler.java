@@ -73,10 +73,18 @@ public class TzyxsHandler implements Handler {
 			project.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 			project.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(project);
-			//待办任务
+			
 			SopTask task = new SopTask();
+			//条件
 			task.setProjectId(q.getPid());
 			task.setTaskType(DictEnum.taskType.协同办公.getCode());
+			task.setTaskFlag(SopConstant.TASK_FLAG_SCTZYXS);
+			//修改
+			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+			task.setUpdatedTime((new Date()).getTime());
+			sopTaskDao.updateTask(task);
+			
+			//待办任务
 			task.setTaskOrder(SopConstant.NORMAL_STATUS);
 			task.setTaskStatus(DictEnum.taskStatus.待认领.getCode());
 			task.setCreatedTime(System.currentTimeMillis());
@@ -131,16 +139,6 @@ public class TzyxsHandler implements Handler {
 			f.setBucketName(q.getBucketName());
 			f.setFileName(q.getFileName());
 			sopFileDao.updateById(f);
-			
-			SopTask task = new SopTask();
-			//条件
-			task.setProjectId(q.getPid());
-			task.setTaskType(DictEnum.taskType.协同办公.getCode());
-			task.setTaskFlag(SopConstant.TASK_FLAG_SCTZYXS);
-			//修改
-			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
-			task.setUpdatedTime((new Date()).getTime());
-			sopTaskDao.updateTask(task);
 			return new SopResult(Status.OK,null,"上传投资意向书成功!",UrlNumber.five);
 		}
 	}
