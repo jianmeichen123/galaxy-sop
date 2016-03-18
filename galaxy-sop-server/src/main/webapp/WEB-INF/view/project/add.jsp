@@ -172,12 +172,12 @@
               <dt>股权结构</dt>
             </dl>
           </div> 
-          <!-- 第9部分 -->       
+          <!-- 第9部分     
           <div class="block block2">
             <dl>
               <dt>档案库</dt>
             </dl>
-          </div>        
+          </div> -->          
         </div>
     </div> 
 </div>

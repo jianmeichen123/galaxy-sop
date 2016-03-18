@@ -237,7 +237,7 @@
               </dd>
             </dl>
           </div> 
-          <!-- 第9部分 -->       
+          <!-- 第9部分     
           <div class="block block2">
             <dl>
               <dt>档案库</dt>
@@ -339,7 +339,7 @@
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a><a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
               </dd>
             </dl>
-          </div>        
+          </div>  -->         
         </div>
         <!-- 关闭按钮 -->
         <a href="javascript:;" class="pubbtn fffbtn close"  onclick="closePro()" >关闭项目</a>
