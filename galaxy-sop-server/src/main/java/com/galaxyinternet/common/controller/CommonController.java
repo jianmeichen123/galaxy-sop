@@ -101,7 +101,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		}
 		
 		if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-			tabs.add(new Menus(12L, "股权交割", u + ""));
+			tabs.add(new Menus(12L, "股权交割", u + "galaxy/soptask?flag=gq&"+ params));
 		}
 		
 		tabs.add(new Menus(13L, "模板管理", u + "galaxy/template?" + params));

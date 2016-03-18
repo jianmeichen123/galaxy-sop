@@ -48,6 +48,9 @@
 				 <if test="flagUrl != '' and flagUrl=='jl' ">
 				        and task_flag ='0' and assign_uid =#{assignUid} and task_status!='taskStatus:3'
 				 </if>
+				 <if test="flagUrl != '' and flagUrl=='gq' ">
+				        and task_flag ='7' and assign_uid =#{assignUid} and task_status!='taskStatus:3'
+				 </if>
 				<if test="taskType != null and taskType!='' "> and task_type =#{taskType}</if>
 				<if test="taskFlag != null"> and task_flag =#{taskFlag}</if>
 				<if test="taskOrder != null and taskOrder!='' "> and task_order =#{taskOrder}</if>
@@ -95,6 +98,10 @@
 				 <if test="flagUrl != '' and flagUrl=='jl' ">
 				        and task_flag ='0' and assign_uid =#{assignUid} and task_status!='taskStatus:3'
 				 </if>
+				 <if test="flagUrl != '' and flagUrl=='gq' ">
+				        and task_flag ='7' and assign_uid =#{assignUid} and task_status!='taskStatus:3'
+				 </if>
+			
 				<if test="taskType != null and taskType!='' "> and task_type =#{taskType}</if>
 				<if test="taskFlag != null"> and task_flag =#{taskFlag}</if>
 				<if test="taskOrder != null and taskOrder!='' "> and task_order =#{taskOrder}</if>
