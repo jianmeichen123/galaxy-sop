@@ -4,6 +4,9 @@
   <resultMap id="BaseResultMap" type="com.galaxyinternet.model.hr.PersonLearn" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="person_id" property="personId" jdbcType="BIGINT" />
+    <result column="degree" property="degree" jdbcType="VARCHAR" />
+    <result column="school" property="school" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
     <result column="education_type" property="educationType" jdbcType="VARCHAR" />
     <result column="begin_date" property="beginDate" jdbcType="TIMESTAMP" />
     <result column="over_date" property="overDate" jdbcType="TIMESTAMP" />
