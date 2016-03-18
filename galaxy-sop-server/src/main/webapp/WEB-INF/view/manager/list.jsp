@@ -27,8 +27,8 @@
     	<h2>我的项目</h2>
     	<input type="hidden" id="project_id" value=""/>
         <!-- 搜索条件 -->
-		<div class="min_document clearfix">
-			<div class="bottom searchall clearfix" id="custom-toolbar">
+		<div class="min_document clearfix" id="custom-toolbar">
+			<div class="bottom searchall clearfix">
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>项目类别：</dt>
 	              <dd>
