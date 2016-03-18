@@ -360,7 +360,7 @@ function wanshancbf(data){
 			
  			$("input:radio[name='personSex'][value='"+personPool['personSex']+"']").attr("checked","checked"); 
 			$("input:radio[name='laborDispute'][value='"+personPool['laborDispute']+"']").attr("checked","checked") ; 
-			$("#endComment").val(model_personPool['endComment']);
+			$("#endComment").val(personPool['endComment']);
 		}
 		var model_personLearn =  $("div[model='personLearn']");
 		var td_personLearn = model_personLearn.find("td[data-by]");
