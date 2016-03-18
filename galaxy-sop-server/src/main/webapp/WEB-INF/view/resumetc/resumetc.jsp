@@ -13,7 +13,7 @@
           <!-- 个人简历 -->
           <div class="tabtable resume">
           <form action="" id="up_person_form" method="post">
-          <input hidden="hidden" id="personId" value="1">
+          <input hidden="hidden" id="personId" value="${personId}">
           <!-- tab标签 -->
             <ul class="tablink">
                 <li data-tab="nav"><a href="javascript:;">个人信息</a></li>
