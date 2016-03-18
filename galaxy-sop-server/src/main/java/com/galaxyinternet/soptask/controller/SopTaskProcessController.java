@@ -1,6 +1,7 @@
 package com.galaxyinternet.soptask.controller;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,8 @@ import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.id.IdGenerator;
@@ -28,7 +31,9 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
+import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -59,6 +64,10 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	private UserRoleService userRoleService;
 	@Autowired
 	private DepartmentService departmentService;
+	
+	
+
+
 	@Override
 	protected BaseService<SopTask> getBaseService() {
 		return sopTaskService;
@@ -210,7 +219,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/taskUrged", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<User> taskUrged(Long id)
+	public ResponseData<User> taskUrged(Long id,HttpServletRequest request)
 	{
 		ResponseData<User> resp = new ResponseData<User>();
 		try {
@@ -264,6 +273,18 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				resp.getResult().addError("请求参数错误");
 				return resp;
 			}
+
+			//当前登录人
+			User curUser = (User) request.getSession().getAttribute(
+					Constants.SESSION_USER_KEY);
+			String time = DateUtil.longToString(task.getUpdatedTime());
+			Date date = new Date();
+			String taskUrgedTime = DateUtil.convertDateToString(date);
+			String toMail = user.getEmail() + Constants.MAIL_SUFFIX;
+			String str = MailTemplateUtils.getContentByTemplate(Constants.MAIL_URGE_CONTENT);
+			String content = PlaceholderConfigurer.formatText(str, user.getRealName(),time,task.getTaskName(),taskUrgedTime,curUser.getRealName());
+			String subject = "催办通知";// 邮件主题
+			SimpleMailSender.sendHtmlMail(toMail, subject, content);
 			resp.setEntity(user);
 			
 		} catch (Exception e) {
