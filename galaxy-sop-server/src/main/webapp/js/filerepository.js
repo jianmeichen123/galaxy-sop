@@ -63,15 +63,6 @@ var fileGrid = {
 			cardView : false, // 是否显示详细视图
 			detailView : false, // 是否显示父子表
 			columns : [{
-				field : 'id',
-				title : 'ID'
-			},{
-				field : 'projectId',
-				title : '项目ID'
-			},{
-				field : 'projectName',
-				title : '项目'
-			},{
 				field : 'fSource',
 				title : '文件来源'
 			}, {
@@ -112,7 +103,7 @@ var fileGrid = {
 	},
 	updateFormatter : function(value,row,index){
 		return [
-	            '<a class="fileupdatelink"  href="javascript:void(0)">',
+	            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
 	            '更新',
 	            '</a>  '
 	        ].join('');
@@ -136,7 +127,7 @@ var fileGrid = {
 	downloadFomatter : function(value, row, index){
 		if(row.fileKey){
 			return [
-			          '<a class="filedownloadlink"  href="javascript:void(0)">',
+			          '<a class="filedownloadlink blue"  href="javascript:void(0)">',
 			          row.fileName,
 			          '</a>  '
 			       ].join('');

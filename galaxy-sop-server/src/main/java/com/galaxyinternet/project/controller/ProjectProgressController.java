@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.bo.project.InterviewRecordBo;
+import com.galaxyinternet.bo.project.MeetingRecordBo;
+import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
@@ -40,11 +45,6 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.bo.SopTaskBo;
-import com.galaxyinternet.bo.project.InterviewRecordBo;
-import com.galaxyinternet.bo.project.MeetingRecordBo;
-import com.galaxyinternet.bo.project.ProjectBo;
-import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
@@ -186,15 +186,18 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			//调接口上传
 			String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 			String bucketName = BucketName.DEV.getName();
-			File file = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
 			
+//			File file = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
+			Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
 			//上传成功后
-			if(file!=null){
+			if(map!=null){
+				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				File file = (File) map.get("file");
 				String fileName = "";
 				if(fname!=null && fname.trim().length()>0){
 					fileName = fname;
 				}else{
-					fileName = file.getName(); // secondarytile.png  全名
+					fileName = nameMap.get("fileName");// secondarytile.png  全名
 				}
 				if(fileName == null || fileName.trim().length()==0){
 					responseBody.setResult(new Result(Status.ERROR,null, "get file name failed"));
@@ -208,13 +211,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				sopFile.setBucketName(bucketName); 
 				sopFile.setFileKey(fileKey);  
 				sopFile.setFileLength(file.length());  //文件大小
-				String[] fileNameStr = fileName.split("\\.");
-				if(fileNameStr.length == 2){
-					sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
-					sopFile.setFileSuffix(fileNameStr[1]);
-				}else if(fileNameStr.length == 1){
-					sopFile.setFileName(fileNameStr[0]);
-				}
+				sopFile.setFileName(fileName);
+				sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 				sopFile.setFileUid(user.getId());	 //上传人
 				sopFile.setCareerLine(user.getDepartmentId());
 				sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
@@ -414,15 +412,18 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			//调接口上传
 			String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 			String bucketName = BucketName.DEV.getName();
-			File file = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
+			Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
+//			File file = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
 			
 			//上传成功后
-			if(file!=null){
+			if(map!=null){
+				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				File file = (File) map.get("file");
 				String fileName = "";
 				if(fname!=null && fname.trim().length()>0){
 					fileName = fname;
 				}else{
-					fileName = file.getName(); // secondarytile.png  全名
+					fileName = nameMap.get("fileName"); // secondarytile.png  全名
 				}
 				if(fileName == null || fileName.trim().length()==0){
 					responseBody.setResult(new Result(Status.ERROR,null, "get file name failed"));
@@ -435,13 +436,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				sopFile.setBucketName(bucketName); 
 				sopFile.setFileKey(fileKey);  
 				sopFile.setFileLength(file.length());  //文件大小
-				String[] fileNameStr = fileName.split("\\.");
-				if(fileNameStr.length == 2){
-					sopFile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
-					sopFile.setFileSuffix(fileNameStr[1]);
-				}else if(fileNameStr.length == 1){
-					sopFile.setFileName(fileNameStr[0]);
-				}
+				sopFile.setFileName(fileName);
+				sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 				sopFile.setFileUid(user.getId());	 //上传人
 				sopFile.setCareerLine(user.getDepartmentId());
 				sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型

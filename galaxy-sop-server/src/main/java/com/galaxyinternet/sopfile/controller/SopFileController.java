@@ -134,11 +134,16 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		//文件唯一key
 		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 		try{
+			Map<String,Object> map = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
 			
-			File tempfile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
+//			File tempfile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
 			
 			//若文件上传成功
-			if(tempfile != null){
+			if(map != null){
+				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				File tempFile = (File) map.get("file");
+				
+				
 				sopFile = new SopFile();
 				sopFile.setProjectId(Long.parseLong(projectId));
 				sopFile.setFileWorktype(fileWorkType);
@@ -148,10 +153,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				//fileKey
 				sopFile.setFileKey(fileKey);
 				//文件大小
-				sopFile.setFileLength(tempfile.length());
-				
-				
-				Map<String,String> nameMap = transFileNames(tempfile.getName());			
+				sopFile.setFileLength(tempFile.length());
+											
 				sopFile.setFileName(nameMap.get("fileName"));
 				sopFile.setFileSuffix(nameMap.get("fileSuffix"));	
 
@@ -240,9 +243,13 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			if(!sopf.getFileStatus().equals(DictEnum.taskStatus.已完成.getCode())){
 				result.addError("未上传投资意向书!");
 			}		
-			File tempFile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);			
+//			File tempFile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
+			Map<String,Object> map = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
+			
 			//若文件上传成功
-			if(tempFile != null){
+			if(map != null){
+				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				File tempFile = (File) map.get("file");
 				
 				//project id 验证
 				Project project = new Project();
@@ -261,7 +268,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				bo.setFileLength(tempFile.length());
 				
 				
-				Map<String,String> nameMap = transFileNames(tempFile.getName());			
+		
 				bo.setFileName(nameMap.get("fileName"));
 				bo.setFileSuffix(nameMap.get("fileSuffix"));
 				
@@ -545,13 +552,13 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			}
 			String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
 			File temp = new File(path);
-			File temp1 = new File(path,fileName + fileSuffix);
+			File temp1 = new File(path,fileName);
 			if (!temp.exists()) {
 				temp.mkdirs();
 			}
 			temp1.createNewFile();
 			if(fileSize.longValue() > OSSConstant.DOWNLOAD_PART_SIZE){
-				OSSHelper.downloadSupportBreakpoint(temp.getAbsolutePath(),BucketName.DEV.getName(), key);
+				OSSHelper.downloadSupportBreakpoint(temp1.getAbsolutePath(),BucketName.DEV.getName(), key);
 			}else{
 				DownloadFileResult result = OSSHelper.simpleDownloadByOSS(temp1, key);
 				System.err.println(GSONUtil.toJson(result));
@@ -703,9 +710,13 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		//文件唯一key
 		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 		try{
-			File tempFile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
+//			File tempFile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
+			Map<String,Object> map = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
 			//若文件上传成功
-			if(tempFile != null){
+			if(map != null){
+				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				File tempFile = (File) map.get("file");
+				
 				SopFile sopFile = new SopFile();
 				sopFile.setProjectId(Long.parseLong(projectId));
 				sopFile.setFileWorktype(workType);
@@ -716,8 +727,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				sopFile.setFileKey(fileKey);
 				//文件大小
 				sopFile.setFileLength(tempFile.length());
-								
-				Map<String,String> nameMap = transFileNames(tempFile.getName());			
+									
 				sopFile.setFileName(nameMap.get("fileName"));
 				sopFile.setFileSuffix(nameMap.get("fileSuffix"));	
 				//文件名称
@@ -864,9 +874,13 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			String fileKey = String
 					.valueOf(IdGenerator.generateId(OSSHelper.class));
 			//3 上传阿里云
-			file = sopFileService.aLiColoudUpload(request,fileKey,null);
+//			file = sopFileService.aLiColoudUpload(request,fileKey,null);
+			Map<String,Object> map = sopFileService.aLiColoudUpload(request,fileKey,null);
+			
 			//4业务控制 --若文件上传成功-判断是否为签署
-			if(file!=null){
+			if(map!=null){
+				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				file = (File) map.get("file");
 				//判断是否为签署凭证
 				if("on".equals(isProve)){
 					//为签署凭证
@@ -882,7 +896,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					//文件大小
 					sopVoucherFile.setFileLength(file.length());
 					
-					Map<String,String> nameMap = transFileNames(file.getName());
 //					if(fileStr.length > 0){
 //						//文件名称
 //						sopVoucherFile.setFileName(fileStr[0]);
@@ -946,8 +959,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					sopFile.setFileKey(fileKey);
 					//文件大小
 					sopFile.setFileLength(file.length());
-					
-					Map<String,String> nameMap = transFileNames(file.getName());			
+							
 					sopFile.setFileName(nameMap.get("fileName"));
 					sopFile.setFileSuffix(nameMap.get("fileSuffix"));	
 
