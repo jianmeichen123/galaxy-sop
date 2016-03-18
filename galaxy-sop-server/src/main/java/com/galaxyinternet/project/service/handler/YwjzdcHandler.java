@@ -58,6 +58,7 @@ public class YwjzdcHandler implements Handler {
 		f.setFileKey(q.getFileKey());
 		f.setBucketName(q.getBucketName());
 		f.setFileName(q.getFileName());
+		f.setFileSuffix(q.getSuffix());
 		sopFileDao.updateById(f);
 		
 		SopTask task = new SopTask();

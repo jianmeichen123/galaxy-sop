@@ -139,6 +139,7 @@ public class TzyxsHandler implements Handler {
 			f.setFileKey(q.getFileKey());
 			f.setBucketName(q.getBucketName());
 			f.setFileName(q.getFileName());
+			f.setFileSuffix(q.getSuffix());
 			sopFileDao.updateById(f);
 			return new SopResult(Status.OK,null,"上传投资意向书成功!",UrlNumber.five);
 		}

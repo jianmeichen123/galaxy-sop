@@ -70,6 +70,7 @@ public class TzxyHandler implements Handler {
 			fv.setFileKey(q.getFileKey());
 			fv.setBucketName(q.getBucketName());
 			fv.setFileName(q.getFileName());
+			fv.setFileSuffix(q.getSuffix());
 			sopVoucherFileDao.updateById(fv);
 			/**
 			 * 如果内部创建，只有投资协议
@@ -144,6 +145,7 @@ public class TzxyHandler implements Handler {
 			f.setFileKey(q.getFileKey());
 			f.setBucketName(q.getBucketName());
 			f.setFileName(q.getFileName());
+			f.setFileSuffix(q.getSuffix());
 			sopFileDao.updateById(f);
 			
 			SopTask task = new SopTask();
