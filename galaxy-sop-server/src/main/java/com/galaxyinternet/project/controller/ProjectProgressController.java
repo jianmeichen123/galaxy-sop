@@ -148,7 +148,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addFileInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addFileInterview(HttpServletRequest request,HttpServletResponse response ) {
@@ -249,7 +249,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * 			produces="application/text;charset=utf-8"
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecord interviewRecord ,HttpServletRequest request ) {
@@ -354,7 +354,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addfilemeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addFileMeet(HttpServletRequest request,HttpServletResponse response  ) {
@@ -483,7 +483,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addmeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecord meetingRecord ) {
@@ -1077,6 +1077,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				query.setNameLike(nameLike);
 			}
 			query.setCreateUid(user.getId());
+			//query.setProjectStatus(DictEnum.meetingResult.否决.getCode()); //not equals
 			perProList = projectService.queryList(query);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(perProList);
@@ -1120,6 +1121,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				}
 			}
 			query.setCreateUid(user.getId());
+			//query.setProjectStatus(DictEnum.meetingResult.否决.getCode()); //not equals
 			Page<Project> pageProject = projectService.queryPageList(query,new PageRequest(query.getPageNum(), query.getPageSize()));
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));
