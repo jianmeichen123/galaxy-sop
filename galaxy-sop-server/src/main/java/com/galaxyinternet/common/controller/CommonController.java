@@ -118,14 +118,14 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		if(roleIdList.contains(1L) || roleIdList.contains(2L)){
 			tabs.clear();
 			tabs.add(new Menus(1L, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
-			tabs.add(new Menus(2L, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
-			tabs.add(new Menus(3L, "项目查询", serverUrl +"sop/galaxy/cpl?" + params));
-			tabs.add(new Menus(4L, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
-			tabs.add(new Menus(5L, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
-			tabs.add(new Menus(6L, "绩效考核", serverUrl +"report/galaxy/report/kpi?" + params));
-			tabs.add(new Menus(7L, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params));
-			tabs.add(new Menus(8L, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params));
-			tabs.add(new Menus(9L, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params));
+			tabs.add(new Menus(3L, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
+			tabs.add(new Menus(4L, "项目查询", serverUrl +"sop/galaxy/cpl?" + params));
+			tabs.add(new Menus(5L, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
+			tabs.add(new Menus(6L, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
+			tabs.add(new Menus(7L, "绩效考核", serverUrl +"report/galaxy/report/kpi?" + params));
+			tabs.add(new Menus(8L, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params));
+			tabs.add(new Menus(9L, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params));
+			tabs.add(new Menus(10L, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params));
 		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;

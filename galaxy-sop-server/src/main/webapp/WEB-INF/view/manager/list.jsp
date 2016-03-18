@@ -98,7 +98,7 @@
 <script src="<%=path %>/js/init.js"></script>
 
 <script type="text/javascript">
-	createMenus(3);
+	createMenus(4);
 	/**
 	 * 分页数据生成操作内容
 	 */
