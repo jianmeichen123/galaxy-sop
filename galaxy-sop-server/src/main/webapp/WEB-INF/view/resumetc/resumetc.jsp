@@ -13,6 +13,7 @@
           <!-- 个人简历 -->
           <div class="tabtable resume">
           <form action="" id="up_person_form" method="post">
+          <input hidden="hidden" id="persionId" value="3">
           <!-- tab标签 -->
             <ul class="tablink">
                 <li data-tab="nav"><a href="javascript:;">个人信息</a></li>
@@ -27,7 +28,7 @@
                 <table>
                   <tr>
                     <th>团队角色：</th>
-                    <td ><input name="teamRole" id="teamRole" type="text" value=""></td>
+                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>姓名：</th>
@@ -107,9 +108,9 @@
                 <table>
                   <tr>
                     <th>学历：</th>
-                    <td ><input name ="degree" id="degree" type="text" value=""></td>
-                   	<td ><input name ="degree" id="degree" type="text" value=""></td>
-                    <td ><input name ="degree" id="degree" type="text" value=""></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""></td>
+                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>学校：</th>
@@ -187,7 +188,7 @@
                 <table>
                   <tr>
                     <th>公司名称:</th>
-                    <td ><input type="text" name="companyName" id="companyName" value=""></td>
+                    <td data-by="id" ><input type="text" name="companyName" id="companyName" value=""></td>
                   </tr>
                   <tr>
                     <th>部门:</th>
@@ -260,7 +261,7 @@
                    <table>
                   <tr>
                     <th>公司名称：</th>
-                    <td ><input type="text" name="icompanyName" id="icompanyName"  value=""></td>
+                    <td data-by="id"><input type="text" name="icompanyName" id="icompanyName"  value=""></td>
                   </tr>
                   <tr>
                     <th>投资金额：</th>
@@ -330,6 +331,56 @@
           </div>
 </div>
 <script type="text/javascript">
+$(function(){
+	sendGetRequest(platformUrl.toaddPersonHr+$("#persionId").val(), null, wanshancbf);
+})
+function wanshancbf(data){
+	if(data.result.status == "OK"){
+		var personInvest = data.entity.personInvest;
+		var personLearns = data.entity.personLearn;
+		var personPool = data.entity.personPool;
+		var personWorks = data.entity.personWork;
+		if(personInvest != undefined ){
+			var model_personInvest = $("div[model='personInvest']");
+			model_personInvest.find("input").each(function(index,input_item){
+				var input  = $(input_item);
+				var name = input.attr("name");
+				input.val(personInvest[name]);
+			});
+			model_personInvest.find("td[data-by]").attr("data-val",personInvest["id"]);
+		}
+		if(personPool != undefined ){
+			var model_personPool = $("div[model='personPool']");
+			model_personPool.find("input").each(function(index,input_item){
+				var input  = $(input_item);
+				var name = input.attr("name");
+				input.val(personPool[name]);
+			});
+			model_personPool.find("td[data-by]").attr("data-val",personPool["id"]);
+		}
+		var model_personLearn =  $("div[model='personLearn']");
+		var td_personLearn = model_personLearn.find("td[data-by]");
+		for(var i = 0 ;i < personLearns.length ;i++){
+			var personLearn = personLearns[i];
+			model_personLearn.find("tr").each(function(m,tr_item){
+				var input = $($(tr_item).find("input[name]")[i]);
+				input.val(personLearn[input.attr("name")]);
+			});
+			$(td_personLearn[i]).attr("data-val",personLearn["id"]);
+		}
+		
+		var model_personWork =  $("div[model='personWork']");
+		var td_personWork = model_personWork.find("td[data-by]");
+		for(var i = 0 ;i < personWorks.length ;i++){
+			var personWork = personWorks[i];
+			model_personWork.find("tr").each(function(m,tr_item){
+				var input = $($(tr_item).find("input[name]")[i]);
+				input.val(personWork[input.attr("name")]);
+			});
+			$(td_personWork[i]).attr("data-val",personWork["id"]);
+		}
+	}
+}
 $("div[model]").on("click",".add",function(){
 	var model = $(this).parent().parent();
 	appendTd(model)
@@ -381,6 +432,7 @@ $(".btnbox").on("click",".bluebtn",function(){
 				if($(input).val() != ''){
 					model[$(input).attr("name")] = $(input).val() ;
 				}
+				
 			});
 			var td = it.find("td[data-by]");
 			model[td.attr("data-by")] = td.attr("data-val");
@@ -388,7 +440,6 @@ $(".btnbox").on("click",".bluebtn",function(){
 		}
 		
 	});
-	console.log(data);
 	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, null);
 });
 

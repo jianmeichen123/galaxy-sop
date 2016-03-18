@@ -54,7 +54,7 @@
 							},
 							_url : platformUrl.commonUploadFile
 						};
-					win.initData();
+//					win.initData();
 					win.init(_formdata);
 					
 				});
@@ -241,8 +241,16 @@
 					_dom = $("#uploadPanel").find("#win_fileWorkType");
 					break;
 				}
-				utils.each(data,_dom,null);
+				win.utils.each(data,_dom,null);
 				},
+			utils : {
+				each : function(_data,_dom,type){
+					_dom.empty();
+					$.each(_data.entityList,function(){
+						_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
+					});
+				}
+			},
 			//判断弹出框是否已经存在
 			isCreate : function(){
 				return $("#pop").length>0;
@@ -266,14 +274,6 @@
 			}
 	};
 	
-	var utils = {
-			each : function(_data,_dom,type){
-				_dom.empty();
-				$.each(_data.entityList,function(){
-					_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
-				});
-			}
-	}
 	
 	function init(){
 		

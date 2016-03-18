@@ -1,4 +1,4 @@
-package com.galaxyinternet.resource.controller;
+/*package com.galaxyinternet.resource.controller;
 
 import java.util.List;
 
@@ -87,18 +87,18 @@ public class PersonResumetcController extends BaseControllerImpl<PersonResumetc,
 		
 
 	}
-	/**
+	*//**
 	 * 更改保存的数据
-	 */
+	 *//*
 	@ResponseBody
 	@RequestMapping(value = "/uppersonResumetc", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<PersonResumetc> uppersonResumetc(@RequestBody PersonResumetc personResumetc, HttpServletRequest request) {
 	
 		ResponseData<PersonResumetc> responseBody = new ResponseData<PersonResumetc>();
 
-		/**
+		*//**
 		 * 学习经历
-		 */
+		 *//*
 		PersonLearn personLearn = new PersonLearn();
 		
 		personLearn.setPersonId(personResumetc.getPersonId());
@@ -115,9 +115,9 @@ public class PersonResumetcController extends BaseControllerImpl<PersonResumetc,
 		personLearn.setClassmateName(personResumetc.getClassmateName());
 		personLearn.setClassmatePhone(personLearn.getClassmatePhone());
 		
-		/**
+		*//**
 		 * 外部项目信息
-		 */
+		 *//*
 		PersonInvest personInvest = new PersonInvest();
 		
 		personInvest.setPersonId(personResumetc.getPersonId());
@@ -134,9 +134,9 @@ public class PersonResumetcController extends BaseControllerImpl<PersonResumetc,
 		
 		
 		
-		/**
+		*//**
 		 * 工作经历
-		 */
+		 *//*
 		PersonWork personWork = new PersonWork();
 		
 		personWork.setPersonId(personResumetc.getPersonId());
@@ -159,9 +159,9 @@ public class PersonResumetcController extends BaseControllerImpl<PersonResumetc,
 		personWork.setColleaguePhone(personResumetc.getColleaguePhone());
 		
 		
-		/**
+		*//**
 		 * 个人简历
-		 */
+		 *//*
 		PersonPool personPool = new PersonPool();
 		
 		personPool.setPersonName(personResumetc.getPersonName());
@@ -188,11 +188,11 @@ public class PersonResumetcController extends BaseControllerImpl<PersonResumetc,
 		personPool.setLevelStar(personResumetc.getLevelStar());
 		personPool.setEndComment(personResumetc.getEndComment());
 		
-		/*		Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
+				Object obj = request.getSession().getAttribute(Constants.SESSION_ID_KEY);
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
-		}*/	
+		}	
 		try {
 
 			int uinvestid =personInvestService.updateById(personInvest);
@@ -215,3 +215,4 @@ public class PersonResumetcController extends BaseControllerImpl<PersonResumetc,
 	}
 
 }
+*/

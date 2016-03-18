@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
@@ -41,7 +40,6 @@ import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.file.BucketName;
 import com.galaxyinternet.framework.core.file.DownloadFileResult;
 import com.galaxyinternet.framework.core.file.OSSHelper;
-import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
