@@ -78,7 +78,8 @@
 	<mvc:interceptors>
 		<!-- 用于处理产生消息提醒&sop操作日志的拦截器 -->
 		<mvc:interceptor>
-			<mvc:mapping path="/**/sop/galaxy/**" />
+			<!-- <mvc:mapping path="/**/sop/galaxy/**" /> -->
+			<mvc:mapping path="/**" />
 			<bean class="com.galaxyinternet.common.annotation.MessageHandlerInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
