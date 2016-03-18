@@ -148,15 +148,17 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				String fileName = file.getOriginalFilename();
 				int dotPos = fileName.lastIndexOf(".");
 				String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				String ext = fileName.substring(dotPos);
-				File temp = File.createTempFile(key, ext);
+				String prefix = fileName.substring(0, dotPos);
+				String suffix = fileName.substring(dotPos);
+				File temp = File.createTempFile(key, suffix);
 				Long length = temp.length();
 				file.transferTo(temp);
 				OSSHelper.simpleUploadByOSS(temp,key);
 				
 				bo.setFileKey(key);
 				bo.setFileLength(length);
-				bo.setFileName(fileName);
+				bo.setFileName(prefix);
+				bo.setFileSuffix(suffix.replaceAll("\\.", ""));
 				bo.setUpdatedTime(System.currentTimeMillis());
 				bo.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 			}

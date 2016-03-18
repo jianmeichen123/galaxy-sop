@@ -112,7 +112,7 @@ function loadRows()
 					else
 					{
 						$("#show-voucher-upload-btn").removeClass("disabled");
-						$tr.append('<td><a href="#" onclick="downloadFile(this)">'+this.fileName+'</a></td>');
+						$tr.append('<td><a href="#" onclick="downloadFile(this)">查看</a></td>');
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
