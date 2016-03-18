@@ -358,9 +358,8 @@ function wanshancbf(data){
 			});
 			model_personPool.find("td[data-by]").attr("data-val",personPool["id"]);
 			
-/* 			$("input[name='personSex'][value='"+model_personPool['personSex']+"']").prop("checked","checked"); 
-			$("input[name='laborDispute'][value='"+model_personPool['laborDispute']+"']").prop("checked","checked") ; */
-			$("input:radio[name='laborDispute'][value='0']").attr("checked","checked") ;
+ 			$("input:radio[name='personSex'][value='"+personPool['personSex']+"']").attr("checked","checked"); 
+			$("input:radio[name='laborDispute'][value='"+personPool['laborDispute']+"']").attr("checked","checked") ; 
 			$("#endComment").val(model_personPool['endComment']);
 		}
 		var model_personLearn =  $("div[model='personLearn']");
