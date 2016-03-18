@@ -401,17 +401,13 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		}
 		
 		//调用 上传 接口
-		File file = aLiColoudUpload(request,key,null);
-		if(file==null){
+//		File file = aLiColoudUpload(request,key,null);
+		Map<String,Object> map = aLiColoudUpload(request, key, null);
+		if(map==null){
 			return new Result(Status.ERROR,null,"aliyun add file failed");
 		}
-		
-		//update table sopfile
-		String fileName = file.getName();// 获取文件名称
-		
-		Map<String,String> nameMap = transFileNames(fileName);
-		
-		
+		Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
+		File file = (File) map.get("file");		
 //		if(fileNameStr.length == 2){
 //			queryfile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
 //			queryfile.setFileSuffix(fileNameStr[1]);
@@ -447,15 +443,16 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 * @param bucketName  默认传入 BucketName.DEV.getName()
 	 * @return MultipartFile null=上传失败
 	 */	
-	public File aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception {
-		
+	public Map<String,Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception {
+		Map<String,Object> retMap = new HashMap<String,Object>();
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
 		MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
 		
 		String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
 		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
 		
-		File tempFile = new File(path, fileName);
+		Map<String,String> nameMap = transFileNames(fileName);
+		File tempFile = new File(path, nameMap.get("fileName"));
 		if (!tempFile.exists()) {
 			tempFile.mkdirs();
 		}
@@ -480,8 +477,10 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				return null;
 			}
 		}
+		retMap.put("nameMap", nameMap);
+		retMap.put("file", tempFile);
 
-		return tempFile;
+		return retMap;
 	}
 	
 	
