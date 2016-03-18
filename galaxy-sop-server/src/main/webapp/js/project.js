@@ -11,9 +11,19 @@ $(function(){
 		var um = UM.getEditor('describe_editor');
 		var projectDescribe = um.getContent();
 		if(pid != '' && projectDescribe != ''){
-			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, function(){});
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess());
 		}
 	});
+	function saveSuccess(){
+		$("edit").hide();
+		$("[data-btn='describe']").show();
+		$("[data-btn='edit']").show();
+		$("[data-btn='reset']").hide();
+		$("[data-btn='submit']").hide();
+		window.location.reload();
+		
+		
+	}
 	/**
 	 * 保存商业模式
 	 */
@@ -21,7 +31,7 @@ $(function(){
 		var um = UM.getEditor('business_model_editor');
 		var projectBusinessModel = um.getContent();
 		if(pid != '' && projectBusinessModel != ''){
-			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectBusinessModel" : projectBusinessModel}, function(){});
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveSuccess());
 		}
 	});
 	/**
@@ -31,7 +41,7 @@ $(function(){
 		var um = UM.getEditor('location_editor');
 		var companyLocation = um.getContent();
 		if(pid != '' && companyLocation != ''){
-			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "companyLocation" : companyLocation}, function(){});
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "companyLocation" : companyLocation}, saveSuccess());
 		}
 	});
 	/**
@@ -51,7 +61,7 @@ $(function(){
 		var um = UM.getEditor('analysis_editor');
 		var prospectAnalysis = um.getContent();
 		if(pid != '' && prospectAnalysis != ''){
-			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "prospectAnalysis" : prospectAnalysis}, function(){});
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "prospectAnalysis" : prospectAnalysis}, saveSuccess());
 		}
 	});
 	/**
