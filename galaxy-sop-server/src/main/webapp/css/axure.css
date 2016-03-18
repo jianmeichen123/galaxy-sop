@@ -305,7 +305,7 @@ table .width_gd{width:10%;}
 .searchbtn{width:20px; height:30px; background:url(../img/search.png) left center no-repeat}
 /*公用联合搜索*/
 .searchall{ margin:0 0 10px}
-.searchall dl{ float:left; line-height:30px; margin:0 30px 0 0;/* height: 30px; */}
+.searchall dl{ float:left; line-height:30px; margin:0 15px 0 0;/* height: 30px; */}
 .searchall dl dt{ font-size:14px; color:#3e4351; margin:0 10px 0 0; float:left;line-height: 30px;font-weight: normal;}
 .searchall dl dd{ height:30px; float:left; margin:0 10px 0 0}
 .searchall dl dd select{ border:1px solid #ccd2d7; color:#525662; height:28px; line-height:28px; font-size:12px; border-radius:4px; background:#FFF; width:140px}
@@ -376,8 +376,8 @@ table .width_gd{width:10%;}
 ::-webkit-scrollbar{width:8px;height:10px;background-color: transparent;}
 ::-webkit-scrollbar-track{background-color:#e9ebf2}
 ::-webkit-scrollbar-thumb{background:#61aae6; border-radius:6px}
-::selection{background-color: transparent;}
-/*头部------------------------*/
+/* ::selection{background-color: transparent;}
+ *//*头部------------------------*/
 .header{ width:100%;min-width: 1280px; height:70px; background:#63abe7; margin:0 auto;position: fixed;top: 0;z-index: 10;}
 .header .rit{float:right !important; margin:30px 0 0 0;line-height: 18px;}
 .header .ico{ background-image:url(../img/headico.png);}
@@ -441,7 +441,7 @@ table .width_gd{width:10%;}
 .pagebox .lft li a:hover{ text-decoration:none; color:#ffffff; background:#99c0e4}
 .pagebox .lft li ul li a{font-family: "微软雅黑";display:block; width:100%; height:40px; text-align:center; line-height:40px; font-size:12px; color:#6b799f}
 .pagebox .lft li div{position: relative;}
-.pagebox .lft li div i{position: absolute;width:10px; height: 9px; background: url(../img/select-arr-default.gif) no-repeat -11px -10px; top:15px; left: 15%;}
+.pagebox .lft li div i{position: absolute;width:10px; height: 9px; background: url(../img/select-arr-default.gif) no-repeat -11px -10px; top:15px; right: 15%;}
 .pagebox .lft li .hide{background-position:-11px -39px; width:10px; height: 9px;}
 .pagebox .lft li ul{width: 100%;margin: 0 auto;background-color: #cbcdd5;display: none;overflow: hidden;} 
 /*中部内容*/
@@ -835,7 +835,7 @@ right: 200px;}
 .dictionary input{width:90%;height:26px;border:1px solid #e9ebf2;border-radius:4px;padding-left:5px;margin-top: 1px;}
 .dictionary table td{width:50%;}
 /*登录*/
-.login{background-color: #fff;}
+.login{background-color: #fff;overflow-y: hidden;}
 .loginpage{background: url(../img/beijing.png) 0 60px repeat-x;}
 .loginpage .ico{ background-image:url(../img/login.png)}
 .loginpage .top{ height:60px; background:#ffffff; padding:0 50px;}
@@ -843,7 +843,7 @@ right: 200px;}
 .loginpage .top .rit{ padding:0 0 0 26px; line-height:24px; height:24px; background-position:0 -268px; font-size:12px; color:#b3b8cb; margin:18px 0 0; font-family:"宋体"; float:right}
 .loginpage .min{ width:1280px; height:572px; padding:70px 0 0; margin:0 auto}
 .loginpage .pic{width: 759px;height: 448px;background: url(../img/loginbg.png) 0 0 no-repeat;float: left;-webkit-background-size: 93%;
-background-size: 93%;}
+background-size: 93%;position: relative;z-index: 10;}
 .loginbox{ width:362px; float:right; margin:48px 100px 0 0;}
 .loginbox h2{ height:33px; background-position:0 0; margin:0 0 16px 17px}
 .loginbox .txt{ display:block; border:0; width:282px; height:46px; line-height:46px; font-size:14px; color:#666666; font-family:"宋体"; background-color:#edf0f4; border-radius:6px; padding:0 10px 0 36px; margin:0 0 10px 17px}
@@ -930,8 +930,8 @@ background-size: 93%;}
 .emailtc h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 .emailtc .fmdl dt{width:100px;text-align: right;}
 .emailtc .fmdl dd .txt{ width:300px}
-.emailtc .fmdl dd textarea{ height:150px; width:360px}
-.emailtc .fmdl dd table{border:1px solid #e9ebf2; border-radius:6px;height:150px; width:370px}
+.emailtc .fmdl dd textarea{ height:120px; width:360px}
+.emailtc .fmdl dd table{border:1px solid #e9ebf2; border-radius:6px;height:auto; width:370px}
 .emailtc .fmdl dd table th{background-color: #f9fafc;}
 .emailtc .fmdl dd .txt,.emailtc .fmdl dd textarea{font-size: 12px;color:#535762;}
 .emailtc .checkbox{margin:0 0 0 110px;}
@@ -1095,4 +1095,15 @@ dl dt,dl label{font-weight: normal !important;}
 .news_top select{float:right;width:100px;height:30px;border: 1px solid #fff;border-radius:4px;margin-right: 20px;}
 .block_pad{padding-top: 10px;}
 .form label{width:auto;}
-dl dd .time{display:inline-block;width: 120px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 100px -150px;}
+.pagebox .projectmsg_d .block1 table td input.time{display:inline-block;width: 120px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 100px -150px;}
+#custom-toolbar dl dt{width:88px;text-align: right;}
+#custom-toolbar dl dd{width:225px;}
+
+/* 用户信息新增弹窗调整样式
+.userinfrotc table tr{height:30px;border-bottom: 1px solid #e9ebf2;}
+.userinfrotc table tr td:first-child{width:125px;padding-right: 10px;text-align: right;background-color: #f9fafc;font-size: 14px;font-family: '微软雅黑';}
+.userinfrotc table tr td:last-child{text-align: left;padding-left: 10px;}
+.userinfrotc table tr .flr{float: right;color:#0000ee;}
+.userinfrotc table tr td label{margin-right: 5px;}
+.userinfrotc table .role td label{width:155px;margin-right: 20px;display: inline-block;}
+.userinfrotc table tr td select{width: 110px;height: 22px;} */
