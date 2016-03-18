@@ -191,7 +191,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
 			//上传成功后
 			if(map!=null){
-				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
 				File file = (File) map.get("file");
 				String fileName = "";
 				if(fname!=null && fname.trim().length()>0){
@@ -417,7 +417,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 			//上传成功后
 			if(map!=null){
-				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
 				File file = (File) map.get("file");
 				String fileName = "";
 				if(fname!=null && fname.trim().length()>0){

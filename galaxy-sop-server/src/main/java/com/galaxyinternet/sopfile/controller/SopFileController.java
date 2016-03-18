@@ -140,7 +140,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			
 			//若文件上传成功
 			if(map != null){
-				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
 				File tempFile = (File) map.get("file");
 				
 				
@@ -248,7 +248,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			
 			//若文件上传成功
 			if(map != null){
-				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
 				File tempFile = (File) map.get("file");
 				
 				//project id 验证
@@ -714,7 +714,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			Map<String,Object> map = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
 			//若文件上传成功
 			if(map != null){
-				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
 				File tempFile = (File) map.get("file");
 				
 				SopFile sopFile = new SopFile();
@@ -879,7 +879,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			
 			//4业务控制 --若文件上传成功-判断是否为签署
 			if(map!=null){
-				Map<String,String> nameMap = (Map<String, String>) map.get("mapName");
+				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
 				file = (File) map.get("file");
 				//判断是否为签署凭证
 				if("on".equals(isProve)){

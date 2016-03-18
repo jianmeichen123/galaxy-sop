@@ -424,12 +424,11 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		return new Result(Status.OK,"");
 	}
-	
-	private Map<String,String> transFileNames(String fileName){
 		
-		Map<String,String> retMap = new HashMap<String,String>();
+	private Map<String, String> transFileNames(String fileName) {
+		Map<String, String> retMap = new HashMap<String, String>();
 		int dotPos = fileName.lastIndexOf(".");
-		retMap.put("fileName", fileName.substring(0, dotPos-1));
+		retMap.put("fileName", fileName.substring(0, dotPos));
 		retMap.put("fileSuffix", fileName.substring(dotPos+1));
 		return retMap;
 	}
