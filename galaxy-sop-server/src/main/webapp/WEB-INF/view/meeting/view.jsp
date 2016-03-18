@@ -79,7 +79,7 @@
         </div>
         
 		<div class="tab-pane active" id="view">
-			<table id="data-table" data-url="/galaxy/project/progress/queryMeet"
+			<table id="data-table" data-url="<%=path %>/galaxy/project/progress/queryMeet"
 				data-method="post" data-side-pagination="server"
 				data-pagination="true" data-toolbar="#custom-toolbar"
 				data-page-list="[1,2,4,8,50]" data-id-field="lottoId"
