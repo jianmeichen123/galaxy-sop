@@ -153,6 +153,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		User user = (User) request.getSession().getAttribute(
 				Constants.SESSION_USER_KEY);
 		sopTaskBo.setAssignUid(user.getId());
+		if(null==sopTaskBo.getFlagUrl()){
+			sopTaskBo.setFlagUrl("");
+		}
      	//根据当前登录认查询部门
 		Department Department=new Department();//
 		Department.setId(user.getDepartmentId());
