@@ -80,7 +80,7 @@
 		<mvc:interceptor>
 			<!-- <mvc:mapping path="/**/sop/galaxy/**" /> -->
 			<mvc:mapping path="/**" />
-			<mvc:exclude-mapping path="/**/*."/>
+			<!-- <mvc:exclude-mapping path="/**/*."/> -->
 			<bean class="com.galaxyinternet.common.annotation.MessageHandlerInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
