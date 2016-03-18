@@ -342,7 +342,7 @@ function wanshancbf(data){
 		var personWorks = data.entity.personWork;
 		if(personInvest != undefined ){
 			var model_personInvest = $("div[model='personInvest']");
-			model_personInvest.find("input").each(function(index,input_item){
+			model_personInvest.find("input[type!='radio']").each(function(index,input_item){
 				var input  = $(input_item);
 				var name = input.attr("name");
 				input.val(personInvest[name]);
@@ -351,12 +351,17 @@ function wanshancbf(data){
 		}
 		if(personPool != undefined ){
 			var model_personPool = $("div[model='personPool']");
-			model_personPool.find("input").each(function(index,input_item){
+			model_personPool.find("input[type!='radio']").each(function(index,input_item){
 				var input  = $(input_item);
 				var name = input.attr("name");
 				input.val(personPool[name]);
 			});
 			model_personPool.find("td[data-by]").attr("data-val",personPool["id"]);
+			
+/* 			$("input[name='personSex'][value='"+model_personPool['personSex']+"']").prop("checked","checked"); 
+			$("input[name='laborDispute'][value='"+model_personPool['laborDispute']+"']").prop("checked","checked") ; */
+			$("input:radio[name='laborDispute'][value='0']").attr("checked","checked") ;
+			$("#endComment").val(model_personPool['endComment']);
 		}
 		var model_personLearn =  $("div[model='personLearn']");
 		var td_personLearn = model_personLearn.find("td[data-by]");
@@ -454,6 +459,9 @@ $(".btnbox").on("click",".bluebtn",function(){
 		
 	});
 	data['personId'] = $("#personId").val();
+	data['personPool']['personSex'] = $("input[name='personSex']:checked").val();
+	data['personPool']['laborDispute'] = $("input[name='laborDispute']:checked").val();
+	data['personPool']['endComment'] = $("#endComment").val();
 	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, savecbf);
 });
 function savecbf(data){
