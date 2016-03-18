@@ -22,7 +22,7 @@ public class PersonResumetc extends BaseEntity {
 	private PersonPool personPool;
 	
 	
-	private Long persionId;
+	private Long personId;
 
 
 	public PersonInvest getPersonInvest() {
@@ -65,15 +65,14 @@ public class PersonResumetc extends BaseEntity {
 	}
 
 
-	public Long getPersionId() {
-		return persionId;
+	public Long getPersonId() {
+		return personId;
 	}
 
 
-	public void setPersionId(Long persionId) {
-		this.persionId = persionId;
+	public void setPersonId(Long personId) {
+		this.personId = personId;
 	}
-
 
 
 	

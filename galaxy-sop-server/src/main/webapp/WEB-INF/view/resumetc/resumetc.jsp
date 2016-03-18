@@ -13,7 +13,7 @@
           <!-- 个人简历 -->
           <div class="tabtable resume">
           <form action="" id="up_person_form" method="post">
-          <input hidden="hidden" id="persionId" value="3">
+          <input hidden="hidden" id="personId" value="1">
           <!-- tab标签 -->
             <ul class="tablink">
                 <li data-tab="nav"><a href="javascript:;">个人信息</a></li>
@@ -162,20 +162,20 @@
                   <tr>
                     <th>老师座机：</th>
                     <td><input name="teacherPhone" id="teacherPhone" type="text" value=""></td>
-                    <td><input name="teacherPhone1" id="teacherPhone1" type="text" value=""></td>
-                    <td><input name="teacherPhone2" id="teacherPhone2" type="text" value=""></td>
+                    <td><input name="teacherPhone" id="teacherPhone" type="text" value=""></td>
+                    <td><input name="teacherPhone" id="teacherPhone" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>同学姓名：</th>
                     <td><input name="classmateName" id="classmateName" type="text" value=""></td>
-                  	<td><input type="text" value=""></td>
-                    <td><input type="text" value=""></td>
+                  	<td><input type="text" name="classmateName"></td>
+                    <td><input type="text" name="classmateName"></td>
                   </tr>
                   <tr>
                     <th>同学电话：</th>
                     <td><input name="classmatePhone" id="classmatePhone" type="text" value=""></td>
-	                <td><input type="text" value=""></td>
-                    <td><input type="text" value=""></td>
+	                <td><input type="text" value="" name="classmatePhone"></td>
+                    <td><input type="text" value="" name="classmatePhone"></td>
                   </tr>
                 </table>
               </div>
@@ -332,7 +332,7 @@
 </div>
 <script type="text/javascript">
 $(function(){
-	sendGetRequest(platformUrl.toaddPersonHr+$("#persionId").val(), null, wanshancbf);
+	sendGetRequest(platformUrl.toaddPersonHr+$("#personId").val(), null, wanshancbf);
 })
 function wanshancbf(data){
 	if(data.result.status == "OK"){
@@ -367,6 +367,11 @@ function wanshancbf(data){
 				input.val(personLearn[input.attr("name")]);
 			});
 			$(td_personLearn[i]).attr("data-val",personLearn["id"]);
+			
+			if(personLearns.length > td_personLearn.length){
+				appendTd(model_personLearn);				
+			}
+			td_personLearn = model_personLearn.find("td[data-by]");
 		}
 		
 		var model_personWork =  $("div[model='personWork']");
@@ -377,7 +382,11 @@ function wanshancbf(data){
 				var input = $($(tr_item).find("input[name]")[i]);
 				input.val(personWork[input.attr("name")]);
 			});
-			$(td_personWork[i]).attr("data-val",personWork["id"]);
+-			$(td_personWork[i]).attr("data-val",personWork["id"]);
+			if(personWorks.length > td_personWork.length){
+				appendTd(model_personWork);				
+			}
+			td_personWork = model_personWork.find("td[data-by]");
 		}
 	}
 }
@@ -390,7 +399,11 @@ function appendTd(model){
 		var input =  $($(tr).find("input")[0]);
 		var name = input.attr("name");
 		var type = input.attr("type");
-		$(tr).append("<td><input type='"+type+"' name='"+name+"'/></td>");
+		if(index == 0 ){
+			$(tr).append("<td data-by='id'><input type='"+type+"' name='"+name+"'/></td>");
+		}else{
+			$(tr).append("<td><input type='"+type+"' name='"+name+"'/></td>");
+		}
 	});
 }
 function prependTd(model,model_data){
@@ -440,8 +453,11 @@ $(".btnbox").on("click",".bluebtn",function(){
 		}
 		
 	});
-	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, null);
+	data['personId'] = $("#personId").val();
+	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, savecbf);
 });
-
+function savecbf(data){
+	layer.msg(data.result.message);
+}
 </script> 
            

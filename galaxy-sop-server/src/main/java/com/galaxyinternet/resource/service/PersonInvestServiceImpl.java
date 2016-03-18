@@ -52,17 +52,15 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 		PersonInvest personInvest = personResumetc.getPersonInvest();
 		
 		PersonPool personPool = personResumetc.getPersonPool();
-		
+		personPool.setId(personResumetc.getPersonId());
 		List<PersonWork> personWorks = personResumetc.getPersonWork();
 		List<PersonLearn> personLearns = personResumetc.getPersonLearn();
 		
-		if(personPool.getId() == null){
-			personPoolDao.insert(personPool);
-		}else {
-			personPoolDao.updateById(personPool);
-		}
+		personPoolDao.updateById(personPool);
 		Long personId = personPool.getId();
-		
+		if(personId == null){
+			return 0;
+		}
 		if(personInvest.getId() == null){
 			personInvest.setPersonId(personId);
 			personInvestDao.insert(personInvest);
