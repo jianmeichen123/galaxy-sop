@@ -8,17 +8,17 @@
     <result column="work_depart" property="workDepart" jdbcType="VARCHAR" />
     <result column="work_position" property="workPosition" jdbcType="VARCHAR" />
     <result column="work_content" property="workContent" jdbcType="VARCHAR" />
-    <result column="work_effect" property="workEffect " jdbcType="VARCHAR" />
+    <result column="work_effect" property="workEffect" jdbcType="VARCHAR" />
     <result column="work_emolument" property="workEmolument" jdbcType="DECIMAL" />
     <result column="begin_work" property="beginWork" jdbcType="TIMESTAMP" />
     
-    <result column="over_work" property="overWork " jdbcType="TIMESTAMP" />
+    <result column="over_work" property="overWork" jdbcType="TIMESTAMP" />
     <result column="leave_reason" property="leaveReason" jdbcType="VARCHAR" />
     <result column="leader_name" property="leaderName" jdbcType="VARCHAR" />
     <result column="leader_position" property="leaderPosition" jdbcType="VARCHAR" />
     <result column="leader_relationship" property="leaderRelationship" jdbcType="VARCHAR" />
     
-    <result column="leader_phone" property="leaderPhone " jdbcType="VARCHAR" />
+    <result column="leader_phone" property="leaderPhone" jdbcType="VARCHAR" />
     <result column="colleague_name" property="colleagueName" jdbcType="VARCHAR" />
     <result column="colleague_relationship" property="colleagueRelationship" jdbcType="VARCHAR" />
     <result column="colleague_position" property="colleaguePosition" jdbcType="VARCHAR" />
