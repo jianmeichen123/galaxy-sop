@@ -184,7 +184,7 @@
                     	<div id="histogram" class="histogram"></div>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="http://fx.qa.galaxyinternet.com/report/galaxy/report/dataBriefing" class="more null">more</a>
+                    	<a href="http://fx.dev.galaxyinternet.com/report/galaxy/report/dataBriefing" class="more null">more</a>
                     </dd>
                 </dl>
             </div>
@@ -280,7 +280,7 @@
 $(function(){
 	load_data_chart();
 	function load_data_chart(){
-		var obj ={url:"http://fx.qa.galaxyinternet.com/report/galaxy/report/projectprogress"};
+		var obj ={url:Constants.reportEndpointURL+"/galaxy/report/projectprogress"};
 		obj.contentType="application/json";
 		ajaxCallback(obj,function(data){
 			console.log(data);
