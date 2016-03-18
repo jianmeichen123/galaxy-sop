@@ -76,8 +76,16 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 							if (logType == LogType.MESSAGE) {
 								operationMessageService.insert(populateOperationMessage(type, user, request, map));
 							} else if (logType == LogType.ALL) {
-								operationMessageService.insert(populateOperationMessage(type, user, request, map));
-								operationLogsService.insert(populateOperationLog(operLogType, user, request, map));
+								try {
+									operationMessageService.insert(populateOperationMessage(type, user, request, map));
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+								try {
+									operationLogsService.insert(populateOperationLog(operLogType, user, request, map));
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
 							} else if (logType == LogType.LOG) {
 								operationLogsService.insert(populateOperationLog(operLogType, user, request, map));
 							}
