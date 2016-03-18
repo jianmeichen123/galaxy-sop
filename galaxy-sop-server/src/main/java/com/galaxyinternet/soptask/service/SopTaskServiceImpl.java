@@ -1,11 +1,12 @@
 package com.galaxyinternet.soptask.service;
 
+import static com.galaxyinternet.utils.ExceptUtils.throwSopException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +14,9 @@ import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.dictEnum.DictUtil;
 import com.galaxyinternet.dao.project.ProjectDao;
+import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.exception.PlatformException;
-import com.galaxyinternet.framework.core.constants.Constants;
-import com.galaxyinternet.framework.core.constants.RequestUrl;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -25,10 +25,9 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.framework.core.utils.StringEx;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.service.SopTaskService;
-
-import static com.galaxyinternet.utils.ExceptUtils.*;
 
 @Service("com.galaxyinternet.service.SopTaskService")
 public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopTaskService {
@@ -39,6 +38,8 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 
 	@Autowired
 	private ProjectDao projectDao;
+	@Autowired
+	private SopFileDao sopFileDao;
 
 	@Override
 	protected BaseDao<SopTask, Long> getBaseDao() {
@@ -266,4 +267,53 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	public int updateTask(SopTask task) {
 		return sopTaskDao.updateTask(task);
 	}
+
+	@Override
+	public SopTask getByFileInfo(Long id) {
+		SopTask task = null;
+		SopFile po = sopFileDao.selectById(id);
+		if(po != null)
+		{
+			Integer taskFlag = this.getTaskFlagByWorktype(po.getFileWorktype());
+			if(taskFlag != null)
+			{
+				SopTask taskQuery = new SopTask();
+				taskQuery.setProjectId(po.getProjectId());
+				taskQuery.setTaskFlag(taskFlag);;
+				task = queryOne(taskQuery);
+			}
+		}
+		return task;
+	}
+	
+	private Integer getTaskFlagByWorktype(String fileWorktype)
+	{
+		Integer taskFlag = null;
+		
+		switch(fileWorktype)
+		{
+		
+			case "fileWorktype:2": // 人事尽调
+				taskFlag = 2;
+				break;
+			case "fileWorktype:3": //法务尽调
+				taskFlag = 3;
+				break;
+			case "fileWorktype:4": //财务尽调
+				taskFlag = 4;
+				break;
+			case "fileWorktype:8": //工商转让凭证
+				taskFlag = 9;
+				break;
+			case "fileWorktype:9": //资金拨付凭证
+				taskFlag = 8;
+				break;
+			default : 
+				taskFlag = null;
+				break;
+		}
+		return taskFlag;
+	}
+	
+	
 }

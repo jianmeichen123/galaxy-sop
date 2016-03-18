@@ -57,6 +57,14 @@ public interface SopTaskService extends BaseService<SopTask> {
 	Long selectTotalUrgent(SopTaskBo query);
 	
 	public int updateTask(SopTask task);
+	/**
+	 * 根据文件信息查询任务
+	 * @param id 传入sop_file.id；
+	 * @return
+	 */
+	public SopTask getByFileInfo(Long id);
+	
+	
 	
 }
 
