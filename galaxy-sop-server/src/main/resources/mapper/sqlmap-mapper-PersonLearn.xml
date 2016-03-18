@@ -13,7 +13,7 @@
     <result column="certificate_number" property="certificateNumber" jdbcType="VARCHAR" />
     <result column="teacher_name" property="teacherName" jdbcType="VARCHAR" />
     <result column="teacher_position" property="teacherPosition" jdbcType="VARCHAR" />
-    <result column="teacher_phone" property="teacherPhone " jdbcType="VARCHAR" />    
+    <result column="teacher_phone" property="teacherPhone" jdbcType="VARCHAR" />    
     <result column="classmate_name" property="classmateName" jdbcType="VARCHAR" />
     <result column="classmate_phone" property="classmatePhone" jdbcType="VARCHAR" />
     <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
