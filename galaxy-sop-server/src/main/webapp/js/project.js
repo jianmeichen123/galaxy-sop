@@ -107,8 +107,11 @@ $(function(){
 		}
 	});
 	function replaceStr(str){
-		var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
-		return result;
+		if(str){
+			var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
+			return result;
+		}
+	
 	}
 	
 	
