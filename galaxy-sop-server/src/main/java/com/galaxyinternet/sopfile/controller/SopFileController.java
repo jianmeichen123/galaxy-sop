@@ -135,25 +135,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		//文件上传
 		//文件唯一key
 		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-		MultipartFile multipartFile = multipartRequest.getFile("file");
-
-		
-		String path = request.getSession().getServletContext().getRealPath("upload");
-		//文件名称
-		String fileName = multipartFile.getOriginalFilename();
-		File tempFile = new File(path,fileName);
-		if (!tempFile.exists()) {
-			tempFile.mkdirs();
-		}
 		try{
-			//存储临时文件
-			multipartFile.transferTo(tempFile);
-			//上传至阿里云
-			UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);
 			
+			File tempfile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
 			
 			//若文件上传成功
-			if(upResult.getResult().getStatus().equals(Status.OK)){
+			if(tempfile != null){
 				sopFile = new SopFile();
 				sopFile.setProjectId(Long.parseLong(projectId));
 				sopFile.setFileWorktype(fileWorkType);
@@ -163,9 +150,15 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				//fileKey
 				sopFile.setFileKey(fileKey);
 				//文件大小
-				sopFile.setFileLength(tempFile.length());
-				//文件名称
-				sopFile.setFileName(tempFile.getName());
+				sopFile.setFileLength(tempfile.length());
+				
+				
+				Map<String,String> nameMap = transFileNames(tempfile.getName());			
+				sopFile.setFileName(nameMap.get("fileName"));
+				sopFile.setFileSuffix(nameMap.get("fileSuffix"));	
+
+//				//文件名称
+//				sopFile.setFileName(tempFile.getName());
 				//上传人
 				sopFile.setFileUid(user.getId());		
 				//存储类型
@@ -189,6 +182,9 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}catch(DaoException e){
 			result.addError(ERR_UPLOAD_DAO);
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			result.addError(e.getMessage()+ERR_UPLOAD_IO);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			result.addError(e.getMessage()+ERR_UPLOAD_IO);
 		}
@@ -226,16 +222,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		//文件上传
 		//文件唯一key
 		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-		MultipartFile multipartFile = multipartRequest.getFile("file");
-
-		
-		String path = request.getSession().getServletContext().getRealPath("upload");
-		//文件名称
-		String fileName = multipartFile.getOriginalFilename();
-		File tempFile = new File(path,fileName);
-		if (!tempFile.exists()) {
-			tempFile.mkdirs();
-		}
 		try{
 			
 			//上传  投资意向书  任务验证已完成
@@ -247,8 +233,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			task = sopTaskService.queryOne(task);
 			if(task.getTaskStatus()==null || !task.getTaskStatus().equals(DictEnum.taskStatus.已完成.getCode())){
 				result.addError("Front task is not complete");
-			}
-			
+			}		
 			SopFile queryFile=new SopFile();
 			queryFile.setProjectId(Long.parseLong(projectId));
 			queryFile.setFileWorktype(fileWorkType);
@@ -256,15 +241,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			
 			if(!sopf.getFileStatus().equals(DictEnum.taskStatus.已完成.getCode())){
 				result.addError("未上传投资意向书!");
-			}
-			
-			//存储临时文件
-			multipartFile.transferTo(tempFile);
-			//上传至阿里云
-			UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);
-			
+			}		
+			File tempFile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);			
 			//若文件上传成功
-			if(upResult.getResult().getStatus().equals(Status.OK)){
+			if(tempFile != null){
 				
 				//project id 验证
 				Project project = new Project();
@@ -281,7 +261,13 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				bo.setFileType(sopf.getFileType());
 				bo.setFileKey(fileKey);
 				bo.setFileLength(tempFile.length());
-				bo.setFileName(tempFile.getName());
+				
+				
+				Map<String,String> nameMap = transFileNames(tempFile.getName());			
+				bo.setFileName(nameMap.get("fileName"));
+				bo.setFileSuffix(nameMap.get("fileSuffix"));
+				
+//				bo.setFileName(tempFile.getName());
 				bo.setUpdatedTime(System.currentTimeMillis());
 				bo.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 				sopVoucherFileService.updateById(bo);
@@ -293,6 +279,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			e.printStackTrace();
 			result.addError(ERR_UPLOAD_DAO);
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			result.addError(e.getMessage()+ERR_UPLOAD_IO);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			result.addError(e.getMessage()+ERR_UPLOAD_IO);
@@ -714,24 +704,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		//文件上传
 		//文件唯一key
 		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-		MultipartFile multipartFile = multipartRequest.getFile("file");
-
-		
-		String path = request.getSession().getServletContext().getRealPath("upload");
-		//文件名称
-		String fileName = multipartFile.getOriginalFilename();
-		File tempFile = new File(path,fileName);
-		if (!tempFile.exists()) {
-			tempFile.mkdirs();
-		}
 		try{
-			//存储临时文件
-			multipartFile.transferTo(tempFile);
-			//上传至阿里云
-			UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);
-			
+			File tempFile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
 			//若文件上传成功
-			if(upResult.getResult().getStatus().equals(Status.OK)){
+			if(tempFile != null){
 				SopFile sopFile = new SopFile();
 				sopFile.setProjectId(Long.parseLong(projectId));
 				sopFile.setFileWorktype(workType);
@@ -742,8 +718,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				sopFile.setFileKey(fileKey);
 				//文件大小
 				sopFile.setFileLength(tempFile.length());
+								
+				Map<String,String> nameMap = transFileNames(tempFile.getName());			
+				sopFile.setFileName(nameMap.get("fileName"));
+				sopFile.setFileSuffix(nameMap.get("fileSuffix"));	
 				//文件名称
-				sopFile.setFileName(tempFile.getName());
+//				sopFile.setFileName(tempFile.getName());			
 				//上传人
 				sopFile.setFileUid(user.getId());		
 				//存储类型
@@ -769,6 +749,9 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return responseBody;

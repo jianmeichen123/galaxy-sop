@@ -62,6 +62,7 @@
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
 					</dd>
 				</dl>
+				<!-- 
 				<dl>
 					<dt>项目概述</dt>
 					<dd class="describe" id="projectDesc_show"></dd>
@@ -69,7 +70,7 @@
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
 					</dd>
-				</dl>
+				</dl> -->
 				<dl>
 					<dt>团队成员</dt>
 					<dd class="full_w describe clearfix">
@@ -107,6 +108,7 @@
 							class="ico f3">收起</a>
 					</dd>
 				</dl>
+				<!-- 
 				<dl class="no_border">
 					<dt>档案库</dt>
 					<dd class="describe">11111</dd>
@@ -114,7 +116,7 @@
 						<a href="javascript:;" class="ico1 f2">查看详情</a>
 						<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
 					</dd>
-				</dl>
+				</dl> -->
 			</div>
 
 			<!-- 档案库信息 -->
@@ -173,8 +175,8 @@
 				</form>
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-<!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a> -->
-					<a href="javascript:;" class="pubbtn fffbtn">发送选中</a>
+<!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a> 
+					<a href="javascript:;" class="pubbtn fffbtn">发送选中</a>-->
 				</div>
 
 				<!--表格内容-->
