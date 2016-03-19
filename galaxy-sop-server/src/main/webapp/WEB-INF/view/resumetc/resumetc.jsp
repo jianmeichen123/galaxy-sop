@@ -13,7 +13,6 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
 <div class="resumetc" >
           <!-- 个人简历 -->
@@ -346,6 +345,30 @@
 <script type="text/javascript">
 $(function(){
  	sendGetRequest(platformUrl.toaddPersonHr+$("#personId").val(), null, wanshancbf);
+ 	$("body").delegate(".datepicker", "focusin", function(){
+ 		$(this).datepicker({
+ 		    format: 'yyyy-mm-dd',
+ 		    language: "zh-CN",
+ 		    autoclose: true,
+ 		    todayHighlight: false,
+ 		    calendarWeeks: true,
+ 		    weekStart:1,
+ 		    today: "Today",
+ 		    todayBtn:'linked',
+ 		    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+ 		    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+ 		    forceParse:false
+ 		    //defaultViewDate: { year: 1977, month: 04, day: 25 },
+ 		    //daysOfWeekDisabled: "0",
+ 		    //daysOfWeekHighlighted: "0",
+ 		    //clearBtn: true,
+ 		    //startView: 1, //0,month 1,year 2,decade
+ 		    //minViewMode: 1,  //0,days 1,month 2,years
+ 		    //maxViewMode: 1, //0,days 1,month 2,years
+ 		    //startDate: '-3d',
+ 		    //endDate: '+3d'
+ 		});
+ 	});
 })
 function wanshancbf(data){
 	if(data.result.status == "OK"){
