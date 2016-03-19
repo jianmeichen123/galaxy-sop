@@ -83,7 +83,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 		switch(taskFlag)
 		{
 			case 0: //完善简历
-				viewName = "/taskProcess/wsjl";
+				viewName = "/resumetc/wanshanjianli";
 				break;
 			case 1 : //表示投资意向书
 				fileWorktype = "fileWorktype:5";

@@ -69,16 +69,13 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 		return "/resumetc/wanshanjianli";
 	}
 	
-	@RequestMapping(value="/resumetcc/", method = RequestMethod.GET)
-	public String resumetcc(){
-//		PersonPool person = personPoolService.queryById(id);
-//		if(person == null ){
-//			return "未查找到指定信息!";
-//		}	
-//		request.setAttribute("person", person);
-		return "/resumetc/resumetc";
+	@RequestMapping(value="/resumetcc", method = RequestMethod.GET)
+	public String resumetcc(HttpServletRequest request){
 
-		}
+		request.setAttribute("personId", request.getParameter("personId"));
+		
+		return "/resumetc/resumetc";
+	}
 
 	/**
 	 * 回显数据
