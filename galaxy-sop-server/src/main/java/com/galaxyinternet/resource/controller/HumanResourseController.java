@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.PersonPoolBo;
-import com.galaxyinternet.bo.project.personInvestBo;
-import com.galaxyinternet.bo.project.personLearnBo;
-import com.galaxyinternet.bo.project.personWorkBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -71,7 +69,7 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 	
 	@RequestMapping(value="/resumetcc", method = RequestMethod.GET)
 	public String resumetcc(HttpServletRequest request){
-
+		
 		request.setAttribute("personId", request.getParameter("personId"));
 		
 		return "/resumetc/resumetc";
@@ -86,31 +84,41 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/toaddPersonHr/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonResumetc> toaddPersonHr(HttpServletRequest request,
-			@PathVariable Long pid){
+	public ResponseData<PersonResumetc> toaddPersonHr(HttpServletRequest request,@PathVariable Long pid){
+			
+			ResponseData<PersonResumetc> responseData = new ResponseData<PersonResumetc>();
+			Result result = new Result();
+			try {
+				PersonPool personPool = personPoolService.queryById(pid);
+				
+				PersonLearn personLearnQuery = new PersonLearn();
+				personLearnQuery.setPersonId(pid);
+				List<PersonLearn> personLearns =  personLearnService.queryList(personLearnQuery);
 		
-			ResponseData<PersonResumetc> responseBody = new ResponseData<PersonResumetc>();	
-			PersonPool personPool = personPoolService.queryById(pid);
-			
-			PersonLearn personLearnQuery = new PersonLearn();
-			personLearnQuery.setPersonId(pid);
-			List<PersonLearn> personLearns =  personLearnService.queryList(personLearnQuery);
-	
-			
-			PersonWork personWorkQuery  = new PersonWork();
-			personWorkQuery.setPersonId(pid);
-			List<PersonWork> personWorks =personWorkService.queryList(personWorkQuery);
-			
-			PersonInvest personInvest =new PersonInvest();
-			personInvest.setPersonId(pid);
-			personInvest = personInvestService.queryOne(personInvest);
-			PersonResumetc personResumetc = new PersonResumetc();
-			personResumetc.setPersonInvest(personInvest);
-			personResumetc.setPersonLearn(personLearns);
-			personResumetc.setPersonPool(personPool);
-			personResumetc.setPersonWork(personWorks);
-			responseBody.setEntity(personResumetc);
-			return responseBody;	
+				
+				PersonWork personWorkQuery  = new PersonWork();
+				personWorkQuery.setPersonId(pid);
+				List<PersonWork> personWorks =personWorkService.queryList(personWorkQuery);
+				
+				PersonInvest personInvest =new PersonInvest();
+				personInvest.setPersonId(pid);
+				personInvest = personInvestService.queryOne(personInvest);
+				PersonResumetc personResumetc = new PersonResumetc();
+				personResumetc.setPersonInvest(personInvest);
+				personResumetc.setPersonLearn(personLearns);
+				personResumetc.setPersonPool(personPool);
+				personResumetc.setPersonWork(personWorks);
+				responseData.setEntity(personResumetc);
+				result.setStatus(Status.OK);
+			} catch (PlatformException e) {
+				result.addError(e.getMessage(), e.getCode()+"");
+				logger.error("queryUserList ", e);
+			} catch (Exception e) {
+				result.addError("系统错误");
+				logger.error("新增错误",e);
+			}
+			responseData.setResult(result);
+			return responseData;	
 	}
 
 	
@@ -121,10 +129,22 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/addPersonHr", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<PersonPool> addPersonHr(@RequestBody PersonResumetc personResumetc, HttpServletRequest request){
-		personInvestService.WanShan(personResumetc);
-		
-		return null;
+	public ResponseData<PersonResumetc> addPersonHr(@RequestBody PersonResumetc personResumetc, HttpServletRequest request){
+		ResponseData<PersonResumetc> responseData = new ResponseData<>();
+		Result result = new Result();
+		try {
+			personInvestService.WanShan(personResumetc);
+			result.setStatus(Status.OK);
+		}  catch (PlatformException e) {
+			result.addError(e.getMessage(), e.getCode()+"");
+			logger.error("addPersonHr ", e);
+		} catch (Exception e) {
+			result.addError("系统错误");
+			logger.error("新增错误",e);
+		}
+		responseData.setResult(result);
+		responseData.setEntity(personResumetc);
+		return responseData;
 		
 	}
 
