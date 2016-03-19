@@ -121,7 +121,7 @@ function loadRows()
 					}
 					else
 					{
-						$tr.append('<td><a href="#" onclick="downloadFile(this)">'+this.fileName+'</a></td>');
+						$tr.append('<td><a href="#" onclick="downloadFile(this)">查看</a></td>');
 						$("#complete-task-btn").removeClass('disabled');
 					}
 					$("#hrjzdc-table tbody").append($tr);

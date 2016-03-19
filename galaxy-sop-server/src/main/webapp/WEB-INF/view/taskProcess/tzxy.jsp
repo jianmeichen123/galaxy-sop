@@ -110,14 +110,14 @@ function loadRows()
 					}
 					else
 					{
-						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="">'+this.fileName+'</a></td>');
+						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="">查看</a></td>');
 					}
 					if(isBlank(this.voucherFileName)){
 						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-type="voucher">上传</a></td>');
 					}
 					else
 					{
-						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="voucher">'+this.voucherFileName+'</a></td>');
+						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="voucher">查看</a></td>');
 					}	
 					$("#hrjzdc-table tbody").append($tr);
 				});

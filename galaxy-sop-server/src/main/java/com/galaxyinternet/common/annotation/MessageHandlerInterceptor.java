@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -46,6 +47,8 @@ import com.galaxyinternet.service.OperationMessageService;
  */
 public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 
+	final org.slf4j.Logger loger = LoggerFactory.getLogger(MessageHandlerInterceptor.class);
+
 	@Autowired
 	OperationMessageService operationMessageService;
 	@Autowired
@@ -66,20 +69,18 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				final OperationType type = OperationType.getObject(uniqueKey);
 				final OperationLogType operLogType = OperationLogType.getObject(uniqueKey);
 				if (null != type || null != operLogType) {
-
 					final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-
 					GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 						@Override
 						public void run() {
 							LogType logType = logger.writeOperationScope();
 							if (logType == LogType.MESSAGE) {
-								operationMessageService.insert(populateOperationMessage(type, user, request, map));
+								insertMessageTip(populateOperationMessage(type, user, request, map));
 							} else if (logType == LogType.ALL) {
-								operationMessageService.insert(populateOperationMessage(type, user, request, map));
-								operationLogsService.insert(populateOperationLog(operLogType, user, request, map));
+								insertMessageTip(populateOperationMessage(type, user, request, map));
+								insertOperationLog(populateOperationLog(operLogType, user, request, map));
 							} else if (logType == LogType.LOG) {
-								operationLogsService.insert(populateOperationLog(operLogType, user, request, map));
+								insertOperationLog(populateOperationLog(operLogType, user, request, map));
 							}
 						}
 					});
@@ -87,6 +88,30 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			}
 		}
 		super.afterCompletion(request, response, handler, ex);
+	}
+
+	/**
+	 * 
+	 * @Description:产生消息提醒的方法
+	 */
+	private void insertMessageTip(OperationMessage message) {
+		try {
+			operationMessageService.insert(message);
+		} catch (Exception e1) {
+			loger.error("产生提醒消息异常，请求数据：" + message, e1);
+		}
+	}
+
+	/**
+	 * 
+	 * @Description:产生操作日志的方法
+	 */
+	private void insertOperationLog(OperationLogs operationLog) {
+		try {
+			operationLogsService.insert(operationLog);
+		} catch (Exception e3) {
+			loger.error("产生SOP操作日志异常，请求数据：" + operationLog, e3);
+		}
 	}
 
 	private String getUniqueKey(HttpServletRequest request, Map<String, Object> map) {
