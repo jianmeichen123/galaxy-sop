@@ -2,12 +2,13 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link rel="<%=path %>/stylesheet" type="text/css" href="css/lq.datetimepick.css"/>
+<link rel="<%=path %>/stylesheet" type="text/css" href="bootstrap/bootstrap-datepicker/css/bootstrap-datepicker.min.css"/>
 <link href="<%=path %>/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
 <script src="<%=path %>/js/star-rating.js" type="text/javascript"></script>
 <script src="<%=path %>/js/resumetc.js" type="text/javascript"></script>
+<script src="<%=path %>/star/jquery.raty.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <div class="resumetc" >
           <!-- 个人简历 -->
@@ -308,14 +309,20 @@
               </dl>
               <div class="tabtable_con1 tabtable_con2">
                 <table>
-<!--                   <tr>
+                  <tr>
                     <th>能力匹配：</th>
-                    <td><input id="input-21c" value="0" type="number" class="rating" min=0 max=5 step=1 data-size="xl" data-stars="8"></td>
+                    <td>
+                    	<div id="abilityStar" action="star"></div>
+                    	<input id="input-21c" name="abilityStar"  type="hidden" target="star">
+                    </td>
                   </tr>
                   <tr>
                     <th>评级：</th>
-                    <td><input id="input-21c" value="0" type="number" class="rating" min=0 max=5 step=1 data-size="xl" data-stars="8"></td>
-                  </tr> -->
+                    <td>
+                    	<div id="levelStar" action="star"></div>
+                    	<input id="input-21c" name="levelStar" type="hidden" target="star">
+                    </td>
+                  </tr>
                   <tr>
                     <th>评语：</th>
                     <td><textarea id="endComment" name="endComment"></textarea></td>
@@ -330,9 +337,10 @@
 
           </div>
 </div>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
-	sendGetRequest(platformUrl.toaddPersonHr+$("#personId").val(), null, wanshancbf);
+ 	sendGetRequest(platformUrl.toaddPersonHr+$("#personId").val(), null, wanshancbf);
 })
 function wanshancbf(data){
 	if(data.result.status == "OK"){
@@ -361,6 +369,18 @@ function wanshancbf(data){
  			$("input:radio[name='personSex'][value='"+personPool['personSex']+"']").attr("checked","checked"); 
 			$("input:radio[name='laborDispute'][value='"+personPool['laborDispute']+"']").attr("checked","checked") ; 
 			$("#endComment").val(personPool['endComment']);
+			$("#levelStar").raty({
+				starOn:"<%=path %>"+"/star/img/star-on.png",
+			    starHalf:"<%=path %>"+ "/star/img/star-half.png",
+			    starOff : "<%=path %>"+"/star/img/star-off.png",
+			    starOn : "<%=path %>"+"/star/img/star-on.png",
+				score: personPool['levelStar']});
+			$("#abilityStar").raty({
+				starOn:"<%=path %>"+"/star/img/star-on.png",
+			    starHalf:"<%=path %>"+ "/star/img/star-half.png",
+			    starOff : "<%=path %>"+"/star/img/star-off.png",
+			    starOn : "<%=path %>"+"/star/img/star-on.png",
+				score: personPool['abilityStar'] });
 		}
 		var model_personLearn =  $("div[model='personLearn']");
 		var td_personLearn = model_personLearn.find("td[data-by]");
@@ -461,11 +481,14 @@ $(".btnbox").on("click",".bluebtn",function(){
 	data['personPool']['personSex'] = $("input[name='personSex']:checked").val();
 	data['personPool']['laborDispute'] = $("input[name='laborDispute']:checked").val();
 	data['personPool']['endComment'] = $("#endComment").val();
+	data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
+	data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
 	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, savecbf);
 });
 function savecbf(data){
 	if(data.result.status == "OK"){
 		layer.msg("成功");
+		$("a[data-close='close']").trigger("click");
 	}else{
 		layer.msg(data.result.message);
 	}
