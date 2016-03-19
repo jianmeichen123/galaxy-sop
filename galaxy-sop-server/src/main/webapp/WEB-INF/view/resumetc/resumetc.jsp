@@ -22,7 +22,7 @@
                 <li data-tab="nav"><a href="javascript:;">外部项目信息</a></li>           
             </ul>
             <!-- tab内容 -->
-            <div class="tabtable_con show"  data-tab="con"  model="personPool" multi="false">
+            <div class="tabtable_con "  data-tab="con"  model="personPool" multi="false">
               <div class="tabtable_con1">
                  <h2>核心成员基本资料</h2>
                 <table>
@@ -132,9 +132,9 @@
                   </tr>                  
    				 <tr>
                     <th>毕业年份：</th>
-                    <td><input name="overDate" id="overDate" type="text" value=""></td>
-                    <td><input name="overDate" id="overDate" type="text" value=""></td>
-                    <td><input name="overDate" id="overDate" type="text" value=""></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
                   </tr>             
                   <tr>
                     <th>毕业证书/学历证书的证书编号：</th>
@@ -212,7 +212,7 @@
                   </tr>
                 <tr>
                     <th>入职时间:</th>
-                    <td><input type="text" name="beginWork" id="beginWork" value=""></td>
+                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""></td>
                   </tr>
                   <tr>
                     <th>离职原因:</th>
@@ -464,7 +464,11 @@ $(".btnbox").on("click",".bluebtn",function(){
 	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, savecbf);
 });
 function savecbf(data){
-	layer.msg(data.result.message);
+	if(data.result.status == "OK"){
+		layer.msg("成功");
+	}else{
+		layer.msg(data.result.message);
+	}
 }
 </script> 
            

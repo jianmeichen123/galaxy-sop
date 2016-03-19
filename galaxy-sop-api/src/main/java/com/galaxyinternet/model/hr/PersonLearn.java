@@ -21,8 +21,8 @@ public class PersonLearn extends BaseEntity{
 	private String teacherPhone; //老师电话
 	private String classmateName;//同学姓名
 	private String classmatePhone;//同学电话
-	
-	
+	private String   beginDateStr; //入学时间
+	private String   overDateStr; // 毕业时间
 	public Long getId() {
 		return id;
 	}
@@ -106,6 +106,18 @@ public class PersonLearn extends BaseEntity{
 	}
 	public void setClassmatePhone(String classmatePhone) {
 		this.classmatePhone = classmatePhone;
+	}
+	public String getBeginDateStr() {
+		return beginDateStr;
+	}
+	public void setBeginDateStr(String beginDateStr) {
+		this.beginDateStr = beginDateStr;
+	}
+	public String getOverDateStr() {
+		return overDateStr;
+	}
+	public void setOverDateStr(String overDateStr) {
+		this.overDateStr = overDateStr;
 	}
 	
 	

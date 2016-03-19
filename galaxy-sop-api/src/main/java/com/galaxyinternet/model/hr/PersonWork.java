@@ -27,6 +27,8 @@ public class PersonWork extends BaseEntity{
 	private String colleagueRelationship; //同事工作关系  新加入的字段
 	private String colleaguePhone;//同事电话
 	
+	private String beginWorkStr;//入职时间 
+	
 	public Long getId() {
 		return id;
 	}
@@ -141,6 +143,12 @@ public class PersonWork extends BaseEntity{
 	}
 	public void setColleagueRelationship(String colleagueRelationship) {
 		this.colleagueRelationship = colleagueRelationship;
+	}
+	public String getBeginWorkStr() {
+		return beginWorkStr;
+	}
+	public void setBeginWorkStr(String beginWorkStr) {
+		this.beginWorkStr = beginWorkStr;
 	}
 	
 	
