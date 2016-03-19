@@ -79,7 +79,7 @@ function SopTaskRenyuan(data){
 			 i=i+1;
 			 var tr='<tr>'+
 				 '<td>'+ temp.personName+'</td>'+
-				 '<td>'+ temp.personSex+'</td>'+
+				 '<td>'+ getValue(temp.personSex)+'</td>'+
 				 '<td>'+ temp.personAge+'</td>'+
 				 '<td>'+ temp.personDuties+'</td>'+
 				 '<td>'+ temp.personTelephone+'</td>'+
@@ -87,6 +87,13 @@ function SopTaskRenyuan(data){
 				' </tr>'; 				
 			 tbodyList.append(tr);
 		  });	
+	}
+	function getValue(str) {
+		if (str == 0) { 
+			 return "男";
+		}  else {
+			return "女";
+		}
 	}
 	
 }
