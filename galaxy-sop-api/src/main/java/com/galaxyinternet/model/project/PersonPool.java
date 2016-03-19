@@ -2,12 +2,13 @@ package com.galaxyinternet.model.project;
 
 import java.util.Date;
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class PersonPool extends PagableEntity{
 	private static final long serialVersionUID = 1L;
 	
+	public final static String ID = "团队成员id";
+	public final static String PERSONNAME = "团队成员名称";
     private String personName;
     private Integer personSex;
     private Integer personAge;

@@ -1,7 +1,6 @@
 package com.galaxyinternet.resource.service;
 
 import static com.galaxyinternet.utils.ExceptUtils.isNull;
-import static com.galaxyinternet.utils.ExceptUtils.throwSopException;
 
 import java.util.List;
 
@@ -15,7 +14,6 @@ import com.galaxyinternet.dao.hr.PersonWorkDao;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.model.hr.PersonInvest;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonResumetc;
@@ -61,7 +59,6 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 		personPool.setUpdatedTime(time);
 		int count = personPoolDao.updateById(personPool);
 		if(count == 0){
-			throwSopException(ExceptionMessage.DATA_NOT_EXISTS, "该个人信息不存在");
 		}
 		PersonInvest personInvest = personResumetc.getPersonInvest();
 		if(personInvest.getId() == null){
