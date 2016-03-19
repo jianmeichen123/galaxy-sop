@@ -10,6 +10,11 @@
 <script src="<%=path %>/js/resumetc.js" type="text/javascript"></script>
 <script src="<%=path %>/star/jquery.raty.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+
 <div class="resumetc" >
           <!-- 个人简历 -->
           <div class="tabtable resume">
@@ -133,9 +138,9 @@
                   </tr>                  
    				 <tr>
                     <th>毕业年份：</th>
-                    <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
-                    <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
-                    <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="start-datepicker"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="start-datepicker"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="start-datepicker"></td>
                   </tr>             
                   <tr>
                     <th>毕业证书/学历证书的证书编号：</th>
@@ -213,7 +218,7 @@
                   </tr>
                 <tr>
                     <th>入职时间:</th>
-                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""></td>
+                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""  class="start-datepicker"></td>
                   </tr>
                   <tr>
                     <th>离职原因:</th>
@@ -423,10 +428,15 @@ function appendTd(model){
 		var input =  $($(tr).find("input")[0]);
 		var name = input.attr("name");
 		var type = input.attr("type");
+		var class_name = input.attr("class");
 		if(index == 0 ){
 			$(tr).append("<td data-by='id'><input type='"+type+"' name='"+name+"'/></td>");
 		}else{
-			$(tr).append("<td><input type='"+type+"' name='"+name+"'/></td>");
+			if(class_name == "start-datepicker"){
+				$(tr).append("<td><input class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
+			}else{
+				$(tr).append("<td><input  ' type='"+type+"' name='"+name+"'/></td>");
+			}
 		}
 	});
 }

@@ -22,6 +22,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.hr.PersonInvest;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonResumetc;
@@ -94,12 +95,21 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 				PersonLearn personLearnQuery = new PersonLearn();
 				personLearnQuery.setPersonId(pid);
 				List<PersonLearn> personLearns =  personLearnService.queryList(personLearnQuery);
-		
+				for (PersonLearn personLearn : personLearns) {
+					if(personLearn.getOverDate()!=null){
+						personLearn.setOverDateStr(DateUtil.convertDateToString(personLearn.getOverDate()));
+					}
+
+				}
 				
 				PersonWork personWorkQuery  = new PersonWork();
 				personWorkQuery.setPersonId(pid);
 				List<PersonWork> personWorks =personWorkService.queryList(personWorkQuery);
-				
+				for (PersonWork personWork : personWorks) {
+					if(personWork.getBeginWork()!=null){
+						personWork.setBeginWorkStr(DateUtil.convertDateToString(personWork.getBeginWork()));
+					}
+				}
 				PersonInvest personInvest =new PersonInvest();
 				personInvest.setPersonId(pid);
 				personInvest = personInvestService.queryOne(personInvest);
