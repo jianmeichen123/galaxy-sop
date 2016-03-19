@@ -11,11 +11,9 @@
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
  <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
  <script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script> 
-<script src='<%=path %>/js/selectUi.js' type='text/javascript'></script>
-<script src='<%=path %>/js/lq.datetimepick.js' type='text/javascript'></script> 
           <!-- 下半部分 -->
           <DIV class="btm">
-            <TABLE width="100%" cellspacing="0" cellpadding="0" >
+            <TABLE width="100%" cellspacing="0" cellpadding="0" >            
               <thead>
                   <tr>
                       <th>姓名 </th>
@@ -38,7 +36,7 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
 $(function(){
-	$(".breadcrumb .bottom_align a").text("完善简历");
+	$(".breadcrumb .bottom_align a").text("完善简历");	
 	createMenus(2);
 	ProjectRenyuan();
 	$("#complete-task-btn").click(function(){
@@ -63,10 +61,9 @@ $(function(){
 	});
 });
 
-function ProjectRenyuan() {	
-	
-	var jsonData={"pageNum":0,"pageSize":500}; 
-	sendPostRequestByJsonObj("/galaxy/project/queryProjectPerson",jsonData, SopTaskRenyuan);
+function ProjectRenyuan() {		
+	var jsonData={"pageNum":0,"pageSize":500,"projectId":"${projectId}"}; 
+	sendPostRequestByJsonObj(platformUrl.toWanshan,jsonData, SopTaskRenyuan);
 }
 function SopTaskRenyuan(data){
 	//组装数据	
@@ -94,31 +91,18 @@ function SopTaskRenyuan(data){
 	
 }
  function tiaozhuan(personId){
- 
-	/*  alert(personId); */
+	
+	var url =platformUrl.personHr
 	$.getHtml({
-		url:"/galaxy/hrjl/resumetcc?personId="+personId,
+		url: url+"?personId="+personId, 
 		data:"",//传递参数
 		okback:function(){
 		/* alert("进入完善简历页面"); */
 		$(".resumetc .tabtable").tabchange2();
 		}//模版反回成功执行	
 	}); 
-
-			/* var $self = $(this);
-			var _url = "/galaxy/hrjl/resumetcc?personId="+personId;
-			$.getHtml({
-				url:_url,//模版请求地址
-				data:"",//传递参数
-				okback:function(){
-					$(".resumetc .tabtable").tabchange();
-					$(".rating-kv").rating();
-				}//模版反回成功执行	
-			});
-			return false; */
 	
 }
-
 
 </script>
 </body>
