@@ -133,4 +133,14 @@ public class OperationLogs extends BaseEntity{
 	public void setSopstage(String sopstage) {
 		this.sopstage = sopstage;
 	}
+
+	@Override
+	public String toString() {
+		return "OperationLogs [uid=" + uid + ", uname=" + uname + ", userRoleid=" + userRoleid + ", userRole="
+				+ userRole + ", userDepartid=" + userDepartid + ", departName=" + departName + ", operationType="
+				+ operationType + ", operationTypeStr=" + operationTypeStr + ", projectId=" + projectId
+				+ ", projectName=" + projectName + ", operationContent=" + operationContent + ", operationContentStr="
+				+ operationContentStr + ", sopstage=" + sopstage + "]";
+	}
+	
 }
