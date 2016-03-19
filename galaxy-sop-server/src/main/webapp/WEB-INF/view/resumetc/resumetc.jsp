@@ -138,9 +138,9 @@
                   </tr>                  
    				 <tr>
                     <th>毕业年份：</th>
-                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="start-datepicker"></td>
-                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="start-datepicker"></td>
-                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="start-datepicker"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
                   </tr>             
                   <tr>
                     <th>毕业证书/学历证书的证书编号：</th>
@@ -218,7 +218,7 @@
                   </tr>
                 <tr>
                     <th>入职时间:</th>
-                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""  class="start-datepicker"></td>
+                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""  class="datepicker"></td>
                   </tr>
                   <tr>
                     <th>离职原因:</th>
@@ -432,7 +432,7 @@ function appendTd(model){
 		if(index == 0 ){
 			$(tr).append("<td data-by='id'><input type='"+type+"' name='"+name+"'/></td>");
 		}else{
-			if(class_name == "start-datepicker"){
+			if(class_name == "datepicker"){
 				$(tr).append("<td><input class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
 			}else{
 				$(tr).append("<td><input  ' type='"+type+"' name='"+name+"'/></td>");
