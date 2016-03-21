@@ -1,14 +1,15 @@
 package com.galaxyinternet.resource.service;
 
-<<<<<<< HEAD
 import static com.galaxyinternet.utils.ExceptUtils.isNull;
 
-=======
 import static com.galaxyinternet.utils.ExceptUtils.*;
 
 import java.text.ParseException;
 import java.util.Date;
->>>>>>> refs/remotes/origin/develop
+import static com.galaxyinternet.utils.ExceptUtils.*;
+
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,10 +69,7 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 		personPool.setUpdatedTime(time);
 		int count = personPoolDao.updateById(personPool);
 		if(count == 0){
-<<<<<<< HEAD
-=======
 			throwSopException(ExceptionMessage.DATA_NOT_EXISTS, "该个人信息不存在");
->>>>>>> refs/remotes/origin/develop
 		}
 		PersonInvest personInvest = personResumetc.getPersonInvest();
 		if(personInvest.getId() == null){

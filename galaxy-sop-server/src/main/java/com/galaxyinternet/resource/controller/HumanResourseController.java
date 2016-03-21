@@ -95,14 +95,6 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 				PersonLearn personLearnQuery = new PersonLearn();
 				personLearnQuery.setPersonId(pid);
 				List<PersonLearn> personLearns =  personLearnService.queryList(personLearnQuery);
-<<<<<<< HEAD
-		
-				
-				PersonWork personWorkQuery  = new PersonWork();
-				personWorkQuery.setPersonId(pid);
-				List<PersonWork> personWorks =personWorkService.queryList(personWorkQuery);
-				
-=======
 				for (PersonLearn personLearn : personLearns) {
 					if(personLearn.getOverDate()!=null){
 						personLearn.setOverDateStr(DateUtil.convertDateToString(personLearn.getOverDate()));
@@ -118,7 +110,6 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 						personWork.setBeginWorkStr(DateUtil.convertDateToString(personWork.getBeginWork()));
 					}
 				}
->>>>>>> refs/remotes/origin/develop
 				PersonInvest personInvest =new PersonInvest();
 				personInvest.setPersonId(pid);
 				personInvest = personInvestService.queryOne(personInvest);

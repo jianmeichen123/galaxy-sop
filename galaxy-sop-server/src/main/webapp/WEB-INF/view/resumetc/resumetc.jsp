@@ -137,9 +137,15 @@
    				 <tr>
                     <th>毕业年份：</th>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
                     <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
                     <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
+=======
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
+>>>>>>> refs/remotes/origin/develop
 =======
                     <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
                     <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
@@ -223,7 +229,11 @@
                 <tr>
                     <th>入职时间:</th>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""></td>
+=======
+                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""  class="datepicker"></td>
+>>>>>>> refs/remotes/origin/develop
 =======
                     <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""  class="datepicker"></td>
 >>>>>>> refs/remotes/origin/develop
@@ -530,10 +540,7 @@ $(".btnbox").on("click",".bluebtn",function(){
 function savecbf(data){
 	if(data.result.status == "OK"){
 		layer.msg("成功");
-<<<<<<< HEAD
-=======
 		$("a[data-close='close']").trigger("click");
->>>>>>> refs/remotes/origin/develop
 	}else{
 		layer.msg(data.result.message);
 	}
