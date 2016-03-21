@@ -11,6 +11,7 @@ public class ProjectBo extends Project {
 	private String extendFiled;// 业务对象中扩展的字段
 	
 	private String nameLike;//模糊查询条件匹配
+	private String resultCloseFilter;//过滤已关闭项目
 	
 	private List<String>  ids;//业务扩展字段---项目ids
 	
@@ -57,6 +58,14 @@ public class ProjectBo extends Project {
 
 	public void setMeetingType(String meetingType) {
 		this.meetingType = meetingType;
+	}
+
+	public String getResultCloseFilter() {
+		return resultCloseFilter;
+	}
+
+	public void setResultCloseFilter(String resultCloseFilter) {
+		this.resultCloseFilter = resultCloseFilter;
 	}
 	
 	

@@ -72,8 +72,10 @@
 		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
-				<if test="nameLike != null">and (project_name like CONCAT("%",#{nameLike},"%") or create_uname like CONCAT("%",#{nameLike},"%"))
-				
+				<if test="nameLike != null">and (project_name like CONCAT("%",#{nameLike},"%") or project_code like CONCAT("%",#{nameLike},"%"))</if>
+				<!-- 过滤已关闭项目 -->
+				<if test="resultCloseFilter != null">
+					AND project_status !=  #{resultCloseFilter,jdbcType=VARCHAR}
 				</if>
 				<if test="ids != null">
 					AND id IN
