@@ -613,3 +613,11 @@ function longTimeFormat(value, row, index){
 function longTimeFormatChines(value, row, index){
 	return Number(value).toDate().format("yyyy年MM月dd日 hh:mm:ss")
 }
+function getVal(val,defaultValIfNull)
+{
+	if(val == "" || val == null || val == 'undefined')
+	{
+		return defaultValIfNull;
+	}
+	return val;
+}
