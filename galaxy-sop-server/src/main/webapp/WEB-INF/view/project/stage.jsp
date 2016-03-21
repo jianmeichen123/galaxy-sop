@@ -428,6 +428,7 @@
 							<th data-field="uname" data-align="center" >操作者</th>
 							<th data-field="operationType" data-align="center">动作</th>
 							<th data-field="operationContent" data-align="center">对象</th>
+							<th data-field="projectName" data-align="center" >项目</th>
 							<th data-field="sopStage" data-align="center" >业务</th>
 						</tr>
 					</thead>
