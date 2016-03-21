@@ -27,7 +27,7 @@
     	<input type="hidden" id="project_id" value=""/>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
-			<div class="bottom searchall clearfix">
+			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>项目类别：</dt>
 	              <dd>

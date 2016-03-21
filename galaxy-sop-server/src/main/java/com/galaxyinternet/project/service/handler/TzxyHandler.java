@@ -154,7 +154,7 @@ public class TzxyHandler implements Handler {
 			task.setTaskType(DictEnum.taskType.协同办公.getCode());
 			if(q.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
 				task.setTaskFlag(SopConstant.TASK_FLAG_TZXY);
-				r = new SopResult(Status.OK,null,"上传股权转让协议成功!",UrlNumber.nine);
+				r = new SopResult(Status.OK,null,"上传投资协议成功!",UrlNumber.nine);
 			}else{
 				task.setTaskFlag(SopConstant.TASK_FLAG_GQZR);
 				r = new SopResult(Status.OK,null,"上传股权转让协议成功!",UrlNumber.ten);

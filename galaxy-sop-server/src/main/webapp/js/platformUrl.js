@@ -2,7 +2,7 @@ var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
-var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
+var sopContentUrl = "http://127.0.0.1:8888/galaxy-sop-server";
 //var sopContentUrl = "http://127.0.0.1:8080/";
 
 var platformUrl = {
@@ -229,8 +229,12 @@ var platformUrl = {
 	 * 申请立项会操作
 	 */
 	toEstablishStage : sopContentUrl + "/galaxy/project/ges/",
-	
+	inLxmeetingPool : sopContentUrl + "/galaxy/project/inlx/",
+	/**
+	 * 申请投决会
+	 */
 	inTjh : sopContentUrl + "/galaxy/project/smp/",
+	inSureMeetingPool : sopContentUrl + "/galaxy/project/intj/",
 	/**
 	 * 我的日程
 	 */

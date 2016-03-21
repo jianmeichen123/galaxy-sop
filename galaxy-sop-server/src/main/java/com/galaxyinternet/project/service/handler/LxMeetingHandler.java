@@ -12,12 +12,14 @@ import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
+import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
+import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -45,6 +47,8 @@ public class LxMeetingHandler implements Handler {
 	private MeetingRecordDao meetingRecordDao;
 	@Autowired
 	private SopTaskDao sopTaskDao;
+	@Autowired
+	private MeetingSchedulingDao meetingSchedulingDao;
 
 	@Override
 	@Transactional
@@ -76,7 +80,12 @@ public class LxMeetingHandler implements Handler {
 		meetingRecordDao.insert(mr);
 		Project p = new Project();
 		p.setId(q.getPid());
-		
+		//修改立项会排期记录:过会次数和状态
+		MeetingScheduling m = new MeetingScheduling();
+		m.setProjectId(q.getPid());
+		m.setMeetingType(DictEnum.meetingType.立项会.getCode());
+		MeetingScheduling tm = meetingSchedulingDao.selectOne(m);
+		tm.setStatus(DictEnum.meetingResult.通过.getCode());
 		/**
 		 * 项目的当前状态为立项会阶段，添加通过的会议记录才回去修改项目阶段到投资意向书
 		 * 否则仅仅保存会议记录，不做项目阶段跳转
@@ -103,7 +112,11 @@ public class LxMeetingHandler implements Handler {
 			p.setProjectStatus(DictEnum.meetingResult.否决.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
+			tm.setStatus(DictEnum.meetingResult.否决.getCode());
 		}
+		tm.setMeetingCount(tm.getMeetingCount() + 1);
+		tm.setUpdatedTime((new Date()).getTime());
+		meetingSchedulingDao.updateBySelective(tm);
 		return new SopResult(Status.OK,null,"添加立项会议记录要成功!",UrlNumber.four);
 	}
 	

@@ -265,6 +265,7 @@
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn">立项会排期</a>
 				</div>
 
 				<div id="projectProgress_4_table_custom-toolbar">
