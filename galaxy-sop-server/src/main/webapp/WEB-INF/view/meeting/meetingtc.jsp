@@ -46,7 +46,7 @@
     <dl class="fmdl clearfix">
        <dt>会议纪要:</dt>
        <dd>
-       	  <div type="text/plain" id="meetingNotes" style="width:100%;height:100px;"></div>
+       	  <div type="text/plain" id="meetingNotes" style="width:100%;height:200px;max-height:200px;overflow:auto;"></div>
 		</dd>
       </dl>
         

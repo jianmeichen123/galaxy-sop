@@ -464,11 +464,11 @@ function getInterViewCondition(hasProid,projectId,
 		}
 	}
 	if(viewNotes == null || viewNotes== ""){
-		alert("记录不能为空");
+		alert("访谈记录不能为空");
 		return false;
 	}else{
 		if(getLength(viewTarget) > 500){
-			alert("记录长度最大500字节");
+			alert("访谈记录长度最大500字节");
 			return false;
 		}
 	}
@@ -550,11 +550,11 @@ function getMeetCondition(hasProid,projectId,
 	}
 	
 	if(meetingNotes == null || meetingNotes== ""){
-		alert("记录不能为空");
+		alert("会议记录不能为空");
 		return false;
 	}else{
 		if(getLength(meetingNotes) > 500){
-			alert("记录长度最大500字节");
+			alert("会议记录长度最大500字节");
 			return false;
 		}
 	}
@@ -621,3 +621,22 @@ function getVal(val,defaultValIfNull)
 	}
 	return val;
 }
+
+
+function subLengthFormat(value, row, index){
+	var len = getLenth($.trim(value));
+	if(len>50){
+		var subValue = $.trim(value).substring(0,25).replace("<p>","").replace("</p>","");
+		value = value.replace("<p>","").replace("</p>","");
+		//$(this).attr("title",value);
+		var str = "<div class=\"subLength\" title="+value + ">"+
+					subValue+"..."+
+				"</div>" ;
+		return str;
+	}else{
+		return value;
+	}
+}
+
+
+

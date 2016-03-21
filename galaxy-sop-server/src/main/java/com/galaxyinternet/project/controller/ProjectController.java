@@ -241,10 +241,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/spl", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody Project project) {
+	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		project.setCreateUid(user.getId());
+		project.setResultCloseFilter(DictEnum.meetingResult.否决.getCode());//过滤已关闭
 		try {
 			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
 			responseBody.setPageList(pageProject);

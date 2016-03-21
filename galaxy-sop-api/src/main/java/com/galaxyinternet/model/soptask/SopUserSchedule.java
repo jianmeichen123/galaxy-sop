@@ -2,9 +2,9 @@ package com.galaxyinternet.model.soptask;
 
 import java.sql.Timestamp;
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.model.PagableEntity;
 
-public class SopUserSchedule extends BaseEntity {
+public class SopUserSchedule extends PagableEntity {
 
 	private static final long serialVersionUID = 1L;
 
