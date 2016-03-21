@@ -53,7 +53,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 			return "redirect:" + serverUrl +"platform/galaxy/user?"+params;
 		}else if(roleIdList != null && roleIdList.contains(UserConstant.DAGLY)){
 			String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
-			return "redirect:/galaxy/template?"+params;
+			return "redirect:/galaxy/sopFile/toFileList?"+params;
 		}else{
 			return "redirect:/galaxy/index";
 		}

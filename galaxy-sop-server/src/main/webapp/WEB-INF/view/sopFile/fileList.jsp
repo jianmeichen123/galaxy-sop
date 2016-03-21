@@ -21,7 +21,7 @@
 
 <body>
 
-<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
+<jsp:include page="../common/file_header.jsp" flush="true"></jsp:include>
 
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
