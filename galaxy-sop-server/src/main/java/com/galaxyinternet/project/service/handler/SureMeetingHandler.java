@@ -12,12 +12,14 @@ import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
+import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
+import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -45,6 +47,8 @@ public class SureMeetingHandler implements Handler {
 	private MeetingRecordDao meetingRecordDao;
 	@Autowired
 	private SopTaskDao sopTaskDao;
+	@Autowired
+	private MeetingSchedulingDao meetingSchedulingDao;
 
 	@Override
 	@Transactional
@@ -77,6 +81,13 @@ public class SureMeetingHandler implements Handler {
 		Project p = new Project();
 		p.setId(q.getPid());
 		
+		//修改立项会排期记录:过会次数和状态
+		MeetingScheduling m = new MeetingScheduling();
+		m.setProjectId(q.getPid());
+		m.setMeetingType(DictEnum.meetingType.投决会.getCode());
+		MeetingScheduling tm = meetingSchedulingDao.selectOne(m);
+		tm.setStatus(DictEnum.meetingResult.通过.getCode());
+		
 		int in = Integer.parseInt(DictEnum.projectProgress.投资决策会.getCode().substring(DictEnum.projectProgress.投资决策会.getCode().length()-1));
 		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
 		if(q.getResult().equals(DictEnum.meetingResult.通过.getCode()) && (in == pin)){
@@ -103,7 +114,11 @@ public class SureMeetingHandler implements Handler {
 			p.setProjectStatus(DictEnum.meetingResult.否决.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
+			tm.setStatus(DictEnum.meetingResult.否决.getCode());
 		}
+		tm.setMeetingCount(tm.getMeetingCount() + 1);
+		tm.setUpdatedTime((new Date()).getTime());
+		meetingSchedulingDao.updateById(tm);
 		return new SopResult(Status.OK,null,"添加投决会议记录成功!",UrlNumber.eight);
 	}
 	

@@ -663,13 +663,34 @@
 		return false;
 	}
 	/**
-	 * 点击申请投决会按钮
+	 * 尽职调查--点击申请投决会按钮
 	 */
 	function inTjh(){
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){
 			sendGetRequest(
 					platformUrl.inTjh + pid,
+					null,
+					function(data){
+						var result = data.result.status;
+						if(result == "OK"){ 
+							layer.msg("申请成功!");
+							$("#powindow,#popbg").remove();
+							info(pid);
+						}else{
+							layer.msg(data.result.message);
+						}
+					});
+		}
+	}
+	/**
+	 * 投决会--点击申请投决会按钮
+	 */
+	function inSureMeetingPool(){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null && pid != undefined){
+			sendGetRequest(
+					platformUrl.inSureMeetingPool + pid,
 					null,
 					function(data){
 						var result = data.result.status;
