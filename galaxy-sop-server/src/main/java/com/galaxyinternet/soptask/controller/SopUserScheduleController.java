@@ -157,7 +157,7 @@ public class SopUserScheduleController extends
 		User user = (User) getUserFromSession(request);		
 		sopUserScheduleBo.setUserId(user.getId());
 		try {
-			Page<SopUserSchedule> pageList = sopUserScheduleService.scheduleListByName(sopUserScheduleBo, new PageRequest(sopUserScheduleBo.getItemType(), sopUserScheduleBo.getPageSize()));
+			Page<SopUserSchedule> pageList = sopUserScheduleService.scheduleListByName(sopUserScheduleBo, new PageRequest(sopUserScheduleBo.getPageNum(), sopUserScheduleBo.getPageSize()));
 			responseBody.setPageList(pageList);
 			return responseBody;
 		} catch (PlatformException e) {

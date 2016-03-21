@@ -3,6 +3,7 @@ package com.galaxyinternet.model.soptask;
 import java.sql.Timestamp;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class SopUserSchedule extends PagableEntity {
 
@@ -32,6 +33,8 @@ public class SopUserSchedule extends PagableEntity {
 	 * 日期
 	 */
 	private Timestamp itemDate;
+	
+	private String itemDateStr;
 
    
 
@@ -69,10 +72,19 @@ public class SopUserSchedule extends PagableEntity {
 
 	public void setItemDate(Timestamp itemDate) {
 		this.itemDate = itemDate;
+    	if(itemDate != null){
+    		String str[] = itemDate.toString().split(" ");
+    		this.itemDateStr = str[0];
+    	}
 	}
 
 	public Timestamp getItemDate() {
 		return itemDate;
 	}
 
+	public String getItemDateStr() {
+		return itemDateStr;
+	}
+
+	
 }
