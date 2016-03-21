@@ -68,7 +68,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" id="nameLike" name="nameLike" placeholder="请输入项目编号和项目名称" />
+						<input type="text" class="txt" id="nameLike" name="nameLike" placeholder="请输入项目名称或编号" />
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
@@ -663,13 +663,34 @@
 		return false;
 	}
 	/**
-	 * 点击申请投决会按钮
+	 * 尽职调查--点击申请投决会按钮
 	 */
 	function inTjh(){
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){
 			sendGetRequest(
 					platformUrl.inTjh + pid,
+					null,
+					function(data){
+						var result = data.result.status;
+						if(result == "OK"){ 
+							layer.msg("申请成功!");
+							$("#powindow,#popbg").remove();
+							info(pid);
+						}else{
+							layer.msg(data.result.message);
+						}
+					});
+		}
+	}
+	/**
+	 * 投决会--点击申请投决会按钮
+	 */
+	function inSureMeetingPool(){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null && pid != undefined){
+			sendGetRequest(
+					platformUrl.inSureMeetingPool + pid,
 					null,
 					function(data){
 						var result = data.result.status;
