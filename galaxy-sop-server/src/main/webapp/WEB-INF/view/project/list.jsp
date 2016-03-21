@@ -203,7 +203,9 @@
 								tiggerTable($("#projectProgress_3_table"),3);
 							} else if(indexNum == '4'){
 								$("#projectProgress_4_con").css("display","block");
-							    $("#reset_btn").css("display","none");
+								if(parseInt(indexNum) < parseInt(pNum)){
+									$("#reset_btn").css("display","none");
+								}
 							    tiggerTable($("#projectProgress_4_table"),3);
 							} else if(indexNum == '5'){
 								$("#projectProgress_7_con").css("display","none");
@@ -224,6 +226,9 @@
 							}else if(indexNum == '7'){
 								$("#projectProgress_6_con").css("display","none");
 								$("#projectProgress_7_con").css("display","block");
+								if(parseInt(indexNum) < parseInt(pNum)){
+									$("#inSure_btn").css("display","none");
+								}
 								 tiggerTable($("#projectProgress_7_table"),3);
 							}else if(indexNum == '8'){
 								$("#projectProgress_7_con").css("display","none");
