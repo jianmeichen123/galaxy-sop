@@ -163,7 +163,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		String fname = request.getParameter("fname");
 					
 		if(projectId == null  || viewDateStr == null  || viewTarget == null || viewNotes == null ){
-			responseBody.setResult(new Result(Status.ERROR,null, "interviewRecord info not complete"));
+			responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
 			return responseBody;
 		}
 		
@@ -231,7 +231,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				return responseBody;
 			}
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "insert interviewRecord faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("insert interviewRecord faild ",e);
@@ -281,7 +281,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setId(id);
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "insert interviewRecord faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("insert interviewRecord faild ",e);
@@ -315,7 +315,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			return responseBody;
 			
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, null,"queryInterviewPageList faild"));
+			responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("queryInterviewPageList ",e);
@@ -368,7 +368,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		String fname = request.getParameter("fname");
 			
 		if(projectId == null || meetingDateStr == null|| meetingType == null|| meetingResult == null|| meetingNotes == null ){
-			responseBody.setResult(new Result(Status.ERROR,null, "meetingRecord info not complete"));
+			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
 		}
 		
@@ -426,7 +426,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					fileName = nameMap.get("fileName"); // secondarytile.png  全名
 				}
 				if(fileName == null || fileName.trim().length()==0){
-					responseBody.setResult(new Result(Status.ERROR,null, "get file name failed"));
+					responseBody.setResult(new Result(Status.ERROR,null, "获取文件名失败"));
 					return responseBody;
 				}//end get file name 
 				
@@ -463,7 +463,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				return responseBody;
 			}
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "add meetingRecord faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
 			if(logger.isErrorEnabled()){
 				logger.error("add meetingRecord faild ",e);
 			}
@@ -492,7 +492,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				|| meetingRecord.getMeetingType() == null 
 				|| meetingRecord.getMeetingResult() == null 
 				|| meetingRecord.getMeetingNotes() == null ){
-			responseBody.setResult(new Result(Status.ERROR,null, "meetingRecord info not complete"));
+			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
 		}
 		
@@ -540,7 +540,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "add meetingRecord faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("add meetingRecord faild ",e);
@@ -574,7 +574,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			return responseBody;
 			
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, null,"queryMeetPageList faild"));
+			responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("queryInterviewPageList ",e);
@@ -718,7 +718,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(fileList);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "upProjectFile-task faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);

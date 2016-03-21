@@ -31,7 +31,7 @@ function setProSelect(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
-		alert("error "+data.result.message);
+		alert(data.result.message);
 		$(".pop").remove();
 		$("#popbg").remove();	
 		return;
@@ -68,7 +68,7 @@ function getMeetTypes(){
 function setMeetTypes(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		alert("error "+data.result.message);
+		alert(data.result.message);
 		return;
 	}
 	var mapcodename = data.result.message;
@@ -92,7 +92,7 @@ function saveMeetCallBack(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
-		alert("error "+data.result.message);
+		alert(data.result.message);
 		return;
 	}
 	
@@ -151,7 +151,7 @@ function initUpload() {
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					alert("error "+response.result.message);
+					alert(response.result.message);
 					return;
 				}
 				alert("保存成功");

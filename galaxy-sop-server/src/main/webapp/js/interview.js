@@ -37,7 +37,7 @@ function setProSelect(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
-		alert("error "+data.result.message);
+		alert(data.result.message);
 		$(".pop").remove();
 		$("#popbg").remove();	
 		//$("#popbg,#pop").remove();
@@ -109,7 +109,7 @@ function initUpload() {
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					alert("error "+response.result.message);
+					alert(response.result.message);
 					return false;
 				}
 				alert("保存成功");
@@ -152,7 +152,7 @@ function saveCallBack(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
-		alert("error "+data.result.message);
+		alert(data.result.message);
 		return;
 	}
 	alert("保存成功");
