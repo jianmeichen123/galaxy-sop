@@ -6,7 +6,6 @@
 <link rel="<%=path %>/stylesheet" type="text/css" href="css/lq.datetimepick.css"/>
 <link rel="<%=path %>/stylesheet" type="text/css" href="bootstrap/bootstrap-datepicker/css/bootstrap-datepicker.min.css"/>
 <link href="<%=path %>/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
-<script src="<%=path %>/js/star-rating.js" type="text/javascript"></script>
 <script src="<%=path %>/js/resumetc.js" type="text/javascript"></script>
 <script src="<%=path %>/star/jquery.raty.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
