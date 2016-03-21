@@ -293,8 +293,11 @@ function calculationValuations(){
  * 更新项目信息
  */
 function update(){
-	sendPostRequestByJsonObj(platformUrl.updateProject, JSON.parse($("#update_form_basic").serializeObject()), function(){
-		layer.msg("修改项目基本信息项目成功!");
-		window.location.reload();
-	});
+	if(beforeSubmit()){
+		sendPostRequestByJsonObj(platformUrl.updateProject, JSON.parse($("#update_form_basic").serializeObject()), function(){
+			layer.msg("修改项目基本信息项目成功!");
+			window.location.reload();
+		});
+	}
+	
 }
