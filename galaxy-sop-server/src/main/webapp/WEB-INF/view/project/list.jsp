@@ -68,7 +68,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" id="nameLike" name="nameLike" placeholder="请输入项目编号和项目名称" />
+						<input type="text" class="txt" id="nameLike" name="nameLike" placeholder="请输入项目名称或编号" />
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
