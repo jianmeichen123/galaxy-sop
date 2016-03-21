@@ -600,6 +600,25 @@ function meetInfoFormat(value, row, index){
 	return rc;
 }
 
+//interview
+function intervierLog(value,row,index){
+	var len = getLength($.trim(value));
+	var strlog=replaceStr(row.viewNotes);
+	if(len>100){
+		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
+		var rc = "";
+		rc = "<div style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\">"
+					+"<a style=\"text-decoration:none\" title='"+strlog+"'>"+subValue+"..."+"</a>"+
+			 "</div>" ;
+		return rc;
+	}else{
+		return strlog;
+	}
+	
+	
+	
+}
+
 //meet table format
 function meetProInfoFormat(value, row, index){
 	return row.proName+"</br>"+row.meetingTypeStr;
@@ -624,19 +643,26 @@ function getVal(val,defaultValIfNull)
 
 
 function subLengthFormat(value, row, index){
-	var len = getLenth($.trim(value));
-	if(len>50){
-		var subValue = $.trim(value).substring(0,25).replace("<p>","").replace("</p>","");
-		value = value.replace("<p>","").replace("</p>","");
+	var len = getLength($.trim(value));
+	var valuelog=replaceStr(row.viewNotes);
+	if(len>100){
+		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
 		//$(this).attr("title",value);
-		var str = "<div class=\"subLength\" title="+value + ">"+
+		var str = "<div class=\"subLength text-overflow\" title='"+valuelog+"'>"+
 					subValue+"..."+
-				"</div>" ;
+				   "</div>" ;
 		return str;
 	}else{
-		return value;
+		return valuelog;
 	}
 }
 
+function replaceStr(str){
+	if(str){
+		var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","").replace("<br/>","").replace("</div>","");
+		return result;
+	}
+
+}
 
 

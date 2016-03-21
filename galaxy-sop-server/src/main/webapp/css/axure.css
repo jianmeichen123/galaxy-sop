@@ -1096,3 +1096,6 @@ dl dt,dl label{font-weight: normal !important;}
 .block_pad{padding-top: 10px;}
 .form label{width:auto;}
 dl dd .time{display:inline-block;width: 120px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 100px -150px;}
+/**切断文字**/
+.text-overflow{width:400px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
+
