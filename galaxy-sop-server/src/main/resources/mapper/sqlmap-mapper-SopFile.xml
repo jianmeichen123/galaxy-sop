@@ -74,7 +74,28 @@
 					<foreach collection="projectIdList" item="id" index="index" open="(" close=")" separator=",">
 			            #{id}
 			        </foreach>
-				</if>			
+				</if>
+				
+				<if test="projectLikeIdList!=null or fileULikeidList!=null"> 
+					and (
+					<trim prefixOverrides="or">
+						<if test="projectLikeIdList!=null">
+							or project_id in
+							<foreach collection="projectLikeIdList" item="id" index="index" open="(" close=")" separator=",">
+			           	 		#{id}
+			        		</foreach>
+						</if>
+						<if test="fileULikeidList!=null">
+							or file_uid in
+							<foreach collection="fileULikeidList" item="id" index="index" open="(" close=")" separator=",">
+			           	 		#{id}
+			        		</foreach>
+						</if>
+					</trim> 
+					)
+				</if>
+				
+							
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>

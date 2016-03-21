@@ -43,9 +43,9 @@
         </div>
         <!-- 搜索条件 -->
         <div class="min_document clearfix"  id="custom-toolbar">
-          <div class="top clearfix">
+          <div class="top clearfix search_adjust searchall">
             <dl class="fmdl fml  fmdll clearfix">
-              <dt>档案来源：</dt>
+              <dt style="margin-right: 24px">档案来源：</dt>
               <dd class="clearfix">
 				<!--name="fileSource" -->
                 <label><input type="radio" name="source" value = "all" checked/>不限</label>

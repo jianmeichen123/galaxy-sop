@@ -23,20 +23,8 @@ var searchPanel = {
 			utils.each(data,_dom,"all");
 		},
 		serarchData : function(){
-			 var fileSource = utils.confident($("input[name='source']:checked").val(),"all");
-			 var fileType = utils.confident($("#searchFileType").val(),"all");
-			 var projectId = $("#searchProjectId").val();
-			 if(projectId=="") projectId=undefined;
-			 var fileWorktype = utils.confident($("#searchFileWorktype").val(),"all");
-			 var careerLine = utils.confident($("#searchCareerLine").val(),"all");
-			 parameters = {query: 
-			 {"fileType" : fileType,
-		      "fileSource" : fileSource,
-		      "projectId" : projectId,
-		      "fileWorktype": fileWorktype,
-		      "careerLine" : careerLine
-		    	  }};
-			 $('#fileGrid').bootstrapTable('refresh',parameters);	 
+			
+			$('#fileGrid').bootstrapTable('refresh',fileGrid.queryParams);	 
 		 }
 };
 
@@ -54,7 +42,7 @@ var fileGrid = {
 		      pagination: true,          //是否显示分页（*）
 		      sortable: false,           //是否启用排序
 		      sortOrder: "asc",          //排序方式
-//		      queryParams: oTableInit.queryParams,//传递参数（*）
+		      queryParams: fileGrid.queryParams,//传递参数（*）
 		      sidePagination: "server",      //分页方式：client客户端分页，server服务端分页（*）
 		      pageNumber:1,            //初始化加载第一页，默认第一页
 		      pageSize: 10,            //每页的记录行数（*）
@@ -143,6 +131,21 @@ var fileGrid = {
     		};
     		win.init(formData);
         }
+	},
+	queryParams : function(params){
+		var fileSource = utils.confident($("input[name='source']:checked").val(),"all");
+		var fileType = utils.confident($("#searchFileType").val(),"all");
+		var projectName = $("#searchProjectId").val();
+		if(projectName=="") projectName=undefined;
+		var fileWorktype = utils.confident($("#searchFileWorktype").val(),"all");
+		var careerLine = utils.confident($("#searchCareerLine").val(),"all");
+		params.fileType = fileType;
+		params.fileSource = fileSource;
+		params.projectName = projectName;
+		params.fileWorktype = fileWorktype;
+		params.careerLine = careerLine;
+//		$('#fileGrid').bootstrapTable('refresh',parameters);	
+		return params;
 	},
 	downloadCallBackfunction : function(data){
 		alert(1)

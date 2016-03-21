@@ -63,6 +63,10 @@ var fileGrid = {
 			cardView : false, // 是否显示详细视图
 			detailView : false, // 是否显示父子表
 			columns : [{
+				field : 'checkbox',
+				checkbox : "true",
+				title : ''
+			},{
 				field : 'fSource',
 				title : '文件来源'
 			}, {

@@ -19,6 +19,8 @@ public class ProjectBo extends Project {
 	
 	private String meetingType;
 	
+	private String nameOnlyLike;//指针对projectName进行模糊查询
+	
 	
 	public String getExtendFiled() {
 		return extendFiled;
@@ -60,6 +62,14 @@ public class ProjectBo extends Project {
 		this.meetingType = meetingType;
 	}
 
+	public String getNameOnlyLike() {
+		return nameOnlyLike;
+	}
+
+	public void setNameOnlyLike(String nameOnlyLike) {
+		this.nameOnlyLike = nameOnlyLike;
+	}
+	
 	public String getResultCloseFilter() {
 		return resultCloseFilter;
 	}

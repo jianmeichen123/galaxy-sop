@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
@@ -65,6 +66,7 @@ import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.service.UserService;
 
 @Controller
 @RequestMapping("/galaxy/sopFile")
@@ -88,6 +90,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private SopVoucherFileDao sopVoucherFileDao;
 	@Autowired
 	private UserRoleService userRoleService;
+	@Autowired
+	private UserService userService;
 	@Autowired
 	Cache cache;
 	
@@ -426,7 +430,40 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			}else{
 				
 			}
-			sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());		
+			sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());	
+			//模糊搜索
+			if(sopFile.getProjectName()!=null && !sopFile.getProjectName().isEmpty()){
+				
+				ProjectBo project = new ProjectBo();
+				project.setNameOnlyLike(sopFile.getProjectName());
+				List<Project> projectList = projectService.queryList(project);
+				
+				User user = new User();
+				user.setKeyword(sopFile.getProjectName());
+				List<User> userList = userService.queryList(user);
+				if((projectList==null || projectList.size()<=0) && (userList==null || userList.size()<=0)){
+					Page<SopFile> pageSopFile = new Page<SopFile>(new ArrayList<SopFile>(), new PageRequest(sopFile.getPageNum(), sopFile.getPageSize()), 0l);
+					responseBody.setPageList(pageSopFile);
+					responseBody.setResult(new Result(Status.OK, ""));
+					return responseBody;
+				}	
+				if(projectList!=null && projectList.size()>0){
+					List<Long> projectIdList = new ArrayList<Long>();
+					for(Project tempPro : projectList){
+						projectIdList.add(tempPro.getId());
+					}
+					sopFile.setProjectLikeIdList(projectIdList);
+				}
+				if(userList!=null && userList.size()>0){
+					List<Long> fileUidList = new ArrayList<Long>();
+					for(User tempUser : userList){
+						fileUidList.add(tempUser.getId());
+					}
+					sopFile.setFileULikeidList(fileUidList);		
+				}
+				
+						
+			}
 		}
 		
 		try {

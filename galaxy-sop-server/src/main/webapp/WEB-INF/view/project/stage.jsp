@@ -161,8 +161,8 @@
 						<dl class="fmdl fmmr fmmm clearfix">
 							<dt>更新时间：</dt>
 							<dd>
-								<input type="text" class="txt time" value="2016-01-01" /> <span>至</span>
-								<input type="text" class="txt time" value="2016-01-01" />
+								<input type="text" class="datepicker time" value="2016-01-01" /> <span>至</span>
+								<input type="text" class="datepicker time" value="2016-01-01" />
 							</dd>
 							<dd>
 								<a href="javascript:;" id="file_repository_btn" class="pubbtn bluebtn">查询</a>
@@ -175,8 +175,8 @@
 				</form>
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-<!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a> 
-					<a href="javascript:;" class="pubbtn fffbtn">发送选中</a>-->
+<!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a>--> 
+					<a href="javascript:;" class="pubbtn fffbtn">发送选中</a> 
 				</div>
 
 				<!--表格内容-->
@@ -440,6 +440,11 @@
 	</div>
 </div>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
+
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script>
 //盒子展开隐藏
 	getTabPersonforP();
