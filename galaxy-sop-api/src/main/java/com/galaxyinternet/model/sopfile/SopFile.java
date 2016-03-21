@@ -127,6 +127,9 @@ public class SopFile extends PagableEntity {
   	
   	//参数
   	private List<Long> projectIdList;
+  	private List<Long> projectLikeIdList;
+  	private List<Long> fileULikeidList;
+  	
   	private String pageType;
   	private String fileWorktypeNullFilter;
 
@@ -423,6 +426,24 @@ public class SopFile extends PagableEntity {
 	public void setFileWorktypeNullFilter(String fileWorktypeNullFilter) {
 		this.fileWorktypeNullFilter = fileWorktypeNullFilter;
 	}
+
+	public List<Long> getFileULikeidList() {
+		return fileULikeidList;
+	}
+
+	public void setFileULikeidList(List<Long> fileULikeidList) {
+		this.fileULikeidList = fileULikeidList;
+	}
+
+	public List<Long> getProjectLikeIdList() {
+		return projectLikeIdList;
+	}
+
+	public void setProjectLikeIdList(List<Long> projectLikeIdList) {
+		this.projectLikeIdList = projectLikeIdList;
+	}
+
+
 
     
 

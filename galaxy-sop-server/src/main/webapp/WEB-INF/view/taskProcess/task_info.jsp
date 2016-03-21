@@ -16,6 +16,8 @@
 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/fxValidate.js" type="text/javascript"></script>
+<script src="<%=path %>/js/my.js" type="text/javascript"></script>
+<script src="<%=path %>/js/my_ext.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -92,7 +94,7 @@
                     <td colspan="2">
                       <dl>
                         <dt>项目概述：</dt>
-                        <dd class="tarea" id="projectDescribe"></dd>
+                        <dd class="tarea" id="projectDescribe"></dd><div class="tips">></div>
                       </dl>
                     </td>
                   </tr>
@@ -137,7 +139,16 @@ function getProjectInfo()
 				{
 					var id = self.attr('id');
 					if(id=='projectDescribe'){
-						self.text(replaceStr(project[id]));
+						var desc = replaceStr(project[id]);
+						if(getLength(desc)>100)
+						{
+							self.text(desc.substring(0,100)+'...');
+						}
+						else
+						{
+							self.text(desc);
+						}
+						self.next().text(desc);
 					}else{
 						self.text(project[id]);
 					}

@@ -2,13 +2,17 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link rel="<%=path %>/stylesheet" type="text/css" href="css/lq.datetimepick.css"/>
+<link rel="<%=path %>/stylesheet" type="text/css" href="bootstrap/bootstrap-datepicker/css/bootstrap-datepicker.min.css"/>
 <link href="<%=path %>/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
-<script src="<%=path %>/js/star-rating.js" type="text/javascript"></script>
 <script src="<%=path %>/js/resumetc.js" type="text/javascript"></script>
+<script src="<%=path %>/star/jquery.raty.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+
 <div class="resumetc" >
           <!-- 个人简历 -->
           <div class="tabtable resume">
@@ -85,7 +89,7 @@
                   </tr>
                   <tr>
                     <th>沟通能力：</th>
-                    <td><input name="talkAbility " id="talkAbility " type="text" value=""></td>
+                    <td><input name="talkAbility" id="talkAbility " type="number" value=""></td>
                   </tr>
                   <tr>
                     <th>团队协作能力：</th>
@@ -132,9 +136,15 @@
                   </tr>                  
    				 <tr>
                     <th>毕业年份：</th>
+<<<<<<< HEAD
                     <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
                     <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
                     <td><input name="overDateStr" id="overDateStr" type="text" value=""></td>
+=======
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
+>>>>>>> refs/remotes/origin/develop
                   </tr>             
                   <tr>
                     <th>毕业证书/学历证书的证书编号：</th>
@@ -212,7 +222,11 @@
                   </tr>
                 <tr>
                     <th>入职时间:</th>
+<<<<<<< HEAD
                     <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""></td>
+=======
+                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""  class="datepicker"></td>
+>>>>>>> refs/remotes/origin/develop
                   </tr>
                   <tr>
                     <th>离职原因:</th>
@@ -269,7 +283,7 @@
                   </tr>
                   <tr>
                     <th>股权占比（%）：</th>
-                    <td><input type="text" name="shareRatio" id="shareRatio"  value=""></td>
+                    <td><input type="number" name="shareRatio" id="shareRatio"  value=""></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>
@@ -290,7 +304,7 @@
                   </tr>
                   <tr>
                     <th>股权占比（%）：</th>
-                    <td><input type="text" name="ashareRatio" id="ashareRatio"  value=""></td>
+                    <td><input type="number" name="ashareRatio" id="ashareRatio"  value=""></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>
@@ -308,14 +322,20 @@
               </dl>
               <div class="tabtable_con1 tabtable_con2">
                 <table>
-<!--                   <tr>
+                  <tr>
                     <th>能力匹配：</th>
-                    <td><input id="input-21c" value="0" type="number" class="rating" min=0 max=5 step=1 data-size="xl" data-stars="8"></td>
+                    <td>
+                    	<div id="abilityStar" action="star"></div>
+                    	<input id="input-21c" name="abilityStar"  type="hidden" target="star">
+                    </td>
                   </tr>
                   <tr>
                     <th>评级：</th>
-                    <td><input id="input-21c" value="0" type="number" class="rating" min=0 max=5 step=1 data-size="xl" data-stars="8"></td>
-                  </tr> -->
+                    <td>
+                    	<div id="levelStar" action="star"></div>
+                    	<input id="input-21c" name="levelStar" type="hidden" target="star">
+                    </td>
+                  </tr>
                   <tr>
                     <th>评语：</th>
                     <td><textarea id="endComment" name="endComment"></textarea></td>
@@ -330,9 +350,34 @@
 
           </div>
 </div>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
-	sendGetRequest(platformUrl.toaddPersonHr+$("#personId").val(), null, wanshancbf);
+ 	sendGetRequest(platformUrl.toaddPersonHr+$("#personId").val(), null, wanshancbf);
+ 	$("body").delegate(".datepicker", "focusin", function(){
+ 		$(this).datepicker({
+ 		    format: 'yyyy-mm-dd',
+ 		    language: "zh-CN",
+ 		    autoclose: true,
+ 		    todayHighlight: false,
+ 		    calendarWeeks: true,
+ 		    weekStart:1,
+ 		    today: "Today",
+ 		    todayBtn:'linked',
+ 		    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+ 		    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+ 		    forceParse:false
+ 		    //defaultViewDate: { year: 1977, month: 04, day: 25 },
+ 		    //daysOfWeekDisabled: "0",
+ 		    //daysOfWeekHighlighted: "0",
+ 		    //clearBtn: true,
+ 		    //startView: 1, //0,month 1,year 2,decade
+ 		    //minViewMode: 1,  //0,days 1,month 2,years
+ 		    //maxViewMode: 1, //0,days 1,month 2,years
+ 		    //startDate: '-3d',
+ 		    //endDate: '+3d'
+ 		});
+ 	});
 })
 function wanshancbf(data){
 	if(data.result.status == "OK"){
@@ -361,6 +406,18 @@ function wanshancbf(data){
  			$("input:radio[name='personSex'][value='"+personPool['personSex']+"']").attr("checked","checked"); 
 			$("input:radio[name='laborDispute'][value='"+personPool['laborDispute']+"']").attr("checked","checked") ; 
 			$("#endComment").val(personPool['endComment']);
+			$("#levelStar").raty({
+				starOn:"<%=path %>"+"/star/img/star-on.png",
+			    starHalf:"<%=path %>"+ "/star/img/star-half.png",
+			    starOff : "<%=path %>"+"/star/img/star-off.png",
+			    starOn : "<%=path %>"+"/star/img/star-on.png",
+				score: personPool['levelStar']});
+			$("#abilityStar").raty({
+				starOn:"<%=path %>"+"/star/img/star-on.png",
+			    starHalf:"<%=path %>"+ "/star/img/star-half.png",
+			    starOff : "<%=path %>"+"/star/img/star-off.png",
+			    starOn : "<%=path %>"+"/star/img/star-on.png",
+				score: personPool['abilityStar'] });
 		}
 		var model_personLearn =  $("div[model='personLearn']");
 		var td_personLearn = model_personLearn.find("td[data-by]");
@@ -403,10 +460,15 @@ function appendTd(model){
 		var input =  $($(tr).find("input")[0]);
 		var name = input.attr("name");
 		var type = input.attr("type");
+		var class_name = input.attr("class");
 		if(index == 0 ){
 			$(tr).append("<td data-by='id'><input type='"+type+"' name='"+name+"'/></td>");
 		}else{
-			$(tr).append("<td><input type='"+type+"' name='"+name+"'/></td>");
+			if(class_name == "datepicker"){
+				$(tr).append("<td><input class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
+			}else{
+				$(tr).append("<td><input  ' type='"+type+"' name='"+name+"'/></td>");
+			}
 		}
 	});
 }
@@ -461,11 +523,17 @@ $(".btnbox").on("click",".bluebtn",function(){
 	data['personPool']['personSex'] = $("input[name='personSex']:checked").val();
 	data['personPool']['laborDispute'] = $("input[name='laborDispute']:checked").val();
 	data['personPool']['endComment'] = $("#endComment").val();
+	data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
+	data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
 	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, savecbf);
 });
 function savecbf(data){
 	if(data.result.status == "OK"){
 		layer.msg("成功");
+<<<<<<< HEAD
+=======
+		$("a[data-close='close']").trigger("click");
+>>>>>>> refs/remotes/origin/develop
 	}else{
 		layer.msg(data.result.message);
 	}

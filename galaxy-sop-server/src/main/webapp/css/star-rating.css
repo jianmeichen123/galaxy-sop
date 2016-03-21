@@ -168,3 +168,7 @@
 .star-rating-rtl .caption {
     padding-right: 5px;
 }
+
+#abilityStar,#levelStar{width:100%;}
+
+#abilityStar img,#levelStar img{display:inline-block;}

@@ -24,12 +24,15 @@ import com.galaxyinternet.bo.SheduleCommon;
 import com.galaxyinternet.bo.SopUserScheduleBo;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.soptask.SopUserSchedule;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SopUserScheduleService;
@@ -118,6 +121,7 @@ public class SopUserScheduleController extends
 		return "shedule/sheduleList";
 	}
 	
+	
 	/***
 	 * 获取日程信息
 	 */
@@ -140,5 +144,33 @@ public class SopUserScheduleController extends
 		return responseBody;
 	}
 
+	/**
+	 * 供app端的接口
+	 * 获取日程代分页模糊查询
+	 * 
+	 * 当前用户的 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryscheduleList",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopUserSchedule> queryscheduleList(HttpServletRequest request,@RequestBody SopUserScheduleBo sopUserScheduleBo) {
+		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
+		User user = (User) getUserFromSession(request);		
+		sopUserScheduleBo.setUserId(user.getId());
+		try {
+			Page<SopUserSchedule> pageList = sopUserScheduleService.scheduleListByName(sopUserScheduleBo, new PageRequest(sopUserScheduleBo.getPageNum(), sopUserScheduleBo.getPageSize()));
+			responseBody.setPageList(pageList);
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryscheduleList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryscheduleList ", e);
+			}
+		}
+		return responseBody;
+		
+		
+	}
+	
+	
 
 }

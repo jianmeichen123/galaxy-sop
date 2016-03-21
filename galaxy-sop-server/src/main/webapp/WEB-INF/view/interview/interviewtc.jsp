@@ -43,7 +43,7 @@
 	    <dl class="fmdl clearfix">
 	        <dt>访谈纪要:</dt>
 	        <dd>
-	        	  <div type="text/plain" id="viewNotes" style="width:100%;height:100px;"></div>
+	        	  <div type="text/plain" id="viewNotes" style="width:100%;height:200px;max-height:200px;overflow:auto;"></div>
 			</dd>
         </dl>
             
@@ -53,10 +53,10 @@
         
             <div class="fmload clearfix">
             <dd>
-	        	<input type="text" name="fileName" id="fileName" class="txt" readonly="readonly"/>
+	        	<input type="text" name="fileName" id="fileName" class="txt" readonly="readonly" />
 	        </dd>
 	        <dd>
-	        	<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">上传录音</a>
+	        	<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn" >上传录音</a>
     		</dd>
             </div>
         

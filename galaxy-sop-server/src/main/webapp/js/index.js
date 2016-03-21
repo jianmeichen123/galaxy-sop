@@ -7,6 +7,7 @@
 		var data = {};
 		data["pageSize"] = 3;
 		data["pageNum"] = 0;
+		data["module"] = 1;
 		sendPostRequestByJsonObj(platformUrl.operationMessageQueryList, data, top5MessageCallback);
 	}
 	
@@ -58,12 +59,29 @@
 		if(list != "" || list != undefined || list != null){
 			var tbodyList = $("#sopStak"); 
 			var i=0;
+			var taskOrder = {
+					"0":"正常",	
+					"1":"紧急",	
+					"2":"特急"
+				};
 			$(list).each(function(){
 				 var temp = $(this)[0];
 				 i=i+1;
+				 var taskOrderDesc = "";
+				 if(temp.taskOrder in taskOrder)
+				 {
+					 if(temp.taskOrder>0)
+					 {
+						 taskOrderDesc = '<font class="red">'+taskOrder[temp.taskOrder]+'</fonr>';
+					 }
+					 else
+					 {
+						 taskOrderDesc = taskOrder[temp.taskOrder];
+					 }
+				 }
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td>'+ temp.taskOrder+'</td>'+
+					 '<td>'+ taskOrderDesc+'</td>'+
 					 '<td>'+ temp.taskType+'</td>'+
 					 '<td>'+ temp.projectName+'</td>'+
 					 '<td>'+ temp.taskStatus+'</td>'+

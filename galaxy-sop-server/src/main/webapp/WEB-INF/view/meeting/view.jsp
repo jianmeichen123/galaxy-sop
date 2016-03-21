@@ -84,12 +84,17 @@
 				data-pagination="true" data-toolbar="#custom-toolbar"
 				data-page-list="[1,2,4,8,50]" data-id-field="lottoId"
 				data-show-refresh="false">
+				<colgroup >
+					<col style="width:20%;"> <!-- 名称 -->
+					<col style="width:20%;"> <!-- 名称 -->
+					<col style="width:60%;">  <!-- 状态 -->
+				</colgroup>
 				<thead>
 					<tr>
 						 <th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
 						<!-- <th data-field="hygk" data-align="center">会议概况</th> -->
 						<th data-align="center"  data-formatter="meetProInfoFormat" >项目信息</th>  
-						<th data-field="meetingNotes" data-align="center">会议记要</th>
+						<th data-field="meetingNotes" data-align="center" >会议记要</th>  <!-- data-formatter="subLengthFormat" -->
 					</tr>
 				</thead>
 			</table>

@@ -43,7 +43,7 @@
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
  fillHeaderdata();
- sendPostRequest("<%=request.getContextPath() %>"+"/galaxy/operationMessage/remind", remindcbf);
+ sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
  function remindcbf(data){
 	if(data.result.status == "OK"){
 		 $(".work em[action='remind']").html(data.entity.count);

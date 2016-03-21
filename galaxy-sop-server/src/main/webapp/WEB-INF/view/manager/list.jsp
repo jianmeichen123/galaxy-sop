@@ -24,11 +24,10 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>我的项目</h2>
     	<input type="hidden" id="project_id" value=""/>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
-			<div class="bottom searchall clearfix">
+			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>项目类别：</dt>
 	              <dd>
@@ -60,7 +59,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" id="search_text" placeholder="请输入姓名或手机号" />
+						<input type="text" class="txt" id="nameLike" name="nameLike" placeholder="请输入项目编号和项目名称" />
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
@@ -98,7 +97,9 @@
 <script src="<%=path %>/js/init.js"></script>
 
 <script type="text/javascript">
+$(function(){
 	createMenus(4);
+});
 	/**
 	 * 分页数据生成操作内容
 	 */

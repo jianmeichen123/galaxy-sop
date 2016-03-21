@@ -243,7 +243,7 @@ function initUpload(_dialog,type){
 function initForm(_dialog,fileWorktype,type)
 {
 	var $row = $("#hrjzdc-table tbody tr[data-file-worktype='"+fileWorktype+"']");
-	var fileType = $row.data('file-type');
+	var fileType = $row.data('file-type') == 'undefined' ? 'fileType:1' : $row.data('file-type');
 	var fileName = $row.data('file-name');
 	var fileSource = $row.data('file-source');
 	var remark = $row.data('remark');

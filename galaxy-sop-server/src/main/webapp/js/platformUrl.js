@@ -3,8 +3,12 @@ var Constants = {
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
 var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
+<<<<<<< HEAD
 //var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
 //var sopContentUrl = "http://127.0.0.1:8888/";
+=======
+//var sopContentUrl = "http://127.0.0.1:8080/";
+>>>>>>> refs/remotes/origin/develop
 
 var platformUrl = {
 	/**
@@ -230,8 +234,12 @@ var platformUrl = {
 	 * 申请立项会操作
 	 */
 	toEstablishStage : sopContentUrl + "/galaxy/project/ges/",
-	
+	inLxmeetingPool : sopContentUrl + "/galaxy/project/inlx/",
+	/**
+	 * 申请投决会
+	 */
 	inTjh : sopContentUrl + "/galaxy/project/smp/",
+	inSureMeetingPool : sopContentUrl + "/galaxy/project/intj/",
 	/**
 	 * 我的日程
 	 */
@@ -326,6 +334,14 @@ var platformUrl = {
 	 * 完善简历回显
 	 */
 	toaddPersonHr:sopContentUrl + "/galaxy/hrjl/toaddPersonHr/" ,
+	/**
+	 * 跳到完善简历页面
+	 */
+	toWanshan: sopContentUrl + "/galaxy/project/queryProjectPerson",
+	/**
+	 * 跳到完善简历页面(弹出)
+	 */
+	personHr: sopContentUrl+"/galaxy/hrjl/resumetcc"
 }
 
 /**

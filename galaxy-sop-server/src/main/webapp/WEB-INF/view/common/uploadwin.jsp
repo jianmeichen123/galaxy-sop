@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <!-- 弹出页面 -->
-<div id="uploadPanel" class="meetingtc" style="display: none;">
+<div id="uploadPanel"  style="display: none;">
+	<div class="meetingtc" >
 	<dl class="fmdl clearfix">
     	<dt>档案来源：</dt>
         <dd class="clearfix">
@@ -53,4 +54,5 @@
     </div>
     <a href="javascript:;" class="pubbtn bluebtn" id="win_uploadBtn">上传保存</a>
 <%--     <input type="hidden" id="pathInput" value="<%=path%>"> --%>
+	</div>
 </div>

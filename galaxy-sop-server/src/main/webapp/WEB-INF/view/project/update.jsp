@@ -10,6 +10,9 @@
 	<script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 	<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
+	<!-- 校验样式 -->
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<!-- jsp文件头和头部 -->
@@ -22,7 +25,11 @@
     <script type="text/javascript" src="<%=path %>/js/project.js"></script>
 
     <script src="<%=path %>/js/init.js"></script>
-
+    <!-- 表单验证 -->
+	<script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+	<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+    <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -58,18 +65,17 @@
                       <td><dl><dt>项目类型：</dt><dd id="projectType"></dd></dl></td>
                   </tr>
                   <tr><td><dl><dt>计划额度：</dt>
-                          <dd><input id="project_contribution" name="projectContribution" type="text" value="" placeholder="计划额度"></dd>
+                          <dd><input id="project_contribution" name="projectContribution" type="text" value="" placeholder="计划额度" valType="NUMBER" msg="<font color=red>*</font>只能是数字"/></dd>
                         </dl></td>
                       <td><dl><dt>初始估值：</dt><dd id="project_valuations"></dd></dl></td>
                   </tr>
                   <tr>
                       <td><dl><dt>出让股份：</dt>
-                          <dd><input id="project_share_ratio" name="projectShareRatio" type="text" value="" placeholder="出让股份"></dd>
+                          <dd><input id="project_share_ratio" name="projectShareRatio" type="text" value="" placeholder="出让股份" valType="NUMBER" msg="<font color=red>*</font>只能是数字"/></dd>
                         </dl></td>
                       <td>
                         <dl>
-                          <dt>单位（万）：</dt>
-                          <dd>
+                          <dt>单位（万）：</dt>                          <dd>
                             <label><input id="currencyUnit0" name="currencyUnit" type="radio" value="0" />人民币</label>
                             <label><input id="currencyUnit1" name="currencyUnit" type="radio" value="1" />美元</label>
                             <label><input id="currencyUnit2" name="currencyUnit" type="radio" value="2" />英镑</label>
@@ -82,13 +88,13 @@
                       <td>
                         <dl>
                           <dt>公司名称：</dt>
-                          <dd><input type="text" value="" id="project_company" name="projectCompany" placeholder="公司名称"></dd>
+                          <dd><input type="text" value="" id="project_company" name="projectCompany" placeholder="公司名称" valType="required" msg="<font color=red>*</font>公司名称不能为空"/></dd>
                         </dl>
                       </td>
                       <td>
                         <dl>
                           <dt>组织机构代码：</dt>
-                          <dd><input type="text" value="" class="zzjg_txt" name="projectCompanyCode" id="project_company_code" placeholder="组织机构代码"></dd>
+                          <dd><input type="text" value="" class="zzjg_txt" name="projectCompanyCode" id="project_company_code" placeholder="组织机构代码" valType="OTHER" regString="^[a-zA-Z\d]+$" msg="<font color=red>*</font>组织代码只能是字母或数字"/></dd>
                         </dl>
                       </td>
                   </tr>                  
@@ -351,6 +357,7 @@
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
+
 <script>
     var pid='${requestScope.pid}';
     
@@ -597,6 +604,8 @@ function closeback(data){
     
 	
 </script>	   
+
+
 
 </html>
 

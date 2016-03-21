@@ -11,12 +11,15 @@ public class ProjectBo extends Project {
 	private String extendFiled;// 业务对象中扩展的字段
 	
 	private String nameLike;//模糊查询条件匹配
+	private String resultCloseFilter;//过滤已关闭项目
 	
 	private List<String>  ids;//业务扩展字段---项目ids
 	
 	private String partnerName;//合伙人姓名
 	
 	private String meetingType;
+	
+	private String nameOnlyLike;//指针对projectName进行模糊查询
 	
 	
 	public String getExtendFiled() {
@@ -57,6 +60,22 @@ public class ProjectBo extends Project {
 
 	public void setMeetingType(String meetingType) {
 		this.meetingType = meetingType;
+	}
+
+	public String getNameOnlyLike() {
+		return nameOnlyLike;
+	}
+
+	public void setNameOnlyLike(String nameOnlyLike) {
+		this.nameOnlyLike = nameOnlyLike;
+	}
+	
+	public String getResultCloseFilter() {
+		return resultCloseFilter;
+	}
+
+	public void setResultCloseFilter(String resultCloseFilter) {
+		this.resultCloseFilter = resultCloseFilter;
 	}
 	
 	

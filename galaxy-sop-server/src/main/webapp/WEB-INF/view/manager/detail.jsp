@@ -211,6 +211,7 @@
 <script>
 
 	$(function(){
+		createMenus(4);
 		/**
 		 * 加载项目详情数据
 		 */

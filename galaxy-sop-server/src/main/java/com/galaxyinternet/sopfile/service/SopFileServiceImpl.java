@@ -459,7 +459,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		//begin 上传到aliyun
 		long asize = multipartFile.getSize(); 
-		long bsize = tempFile.length();
+//		long bsize = tempFile.length();
 		if(bucketName == null){
 			bucketName = BucketName.DEV.getName();
 		}

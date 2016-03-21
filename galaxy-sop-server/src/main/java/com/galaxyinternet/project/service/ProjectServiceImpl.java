@@ -145,7 +145,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setCreatedTime((new Date()).getTime());
 		meetingSchedulingDao.insert(ms);
 		
-		//修改立项会排期记录为完成
+		//修改CEO评审排期记录为完成
 		MeetingScheduling m = new MeetingScheduling();
 		m.setProjectId(project.getId());
 		m.setMeetingType(DictEnum.meetingType.CEO评审.getCode());

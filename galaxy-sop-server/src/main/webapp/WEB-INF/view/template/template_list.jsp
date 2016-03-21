@@ -193,10 +193,10 @@ function loadTempList()
 				$.each(data.entityList,function(){
 					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-file-length="'+this.fileLength+'"></tr>');
 					$tr.append('<td><input type="checkbox" name="document" /></td>') ;
-					$tr.append('<td>'+this.workTypeDesc+'</td>') ;
-					$tr.append('<td>'+this.departmentDesc+'</td>') ;
-					$tr.append('<td>'+this.docTypeDesc+'</td>') ;
-					$tr.append('<td>'+this.updateUname+'</td>') ;
+					$tr.append('<td>'+getVal(this.workTypeDesc,"-")+'</td>') ;
+					$tr.append('<td>'+getVal(this.departmentDesc,"-")+'</td>') ;
+					$tr.append('<td>'+getVal(this.docTypeDesc,"-")+'</td>') ;
+					$tr.append('<td>'+getVal(this.updateUname,"-")+'</td>') ;
 					$tr.append('<td>'+Number(this.updatedTime).toDate().format("yyyy/MM/dd")+'</td>') ;
 					if(this.fileName != null)
 					{

@@ -107,6 +107,12 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		tabs.add(new Menus(13L, "模板管理", u + "galaxy/template?" + params));
 		tabs.add(new Menus(14L, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
 		
+		//档案管理员
+		if(roleIdList.contains(17L)){
+			tabs.clear();
+			tabs.add(new Menus(14L, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
+		}
+		
 		//管理员
 		if(roleIdList.contains(16L)){
 			tabs.clear();

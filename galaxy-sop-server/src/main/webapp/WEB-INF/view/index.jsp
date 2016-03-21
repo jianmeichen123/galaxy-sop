@@ -106,12 +106,12 @@
                     	<table width="100%" cellspacing="0"  cellpadding="0">
                             <thead>
                                 <tr>
-                                    <th>序号</th>
-                                    <th>紧急</th>
+                                    <th>#</th>
+                                    <th>优先级</th>
                                     <th>任务类型</th>
-                                    <th>项目名称</th>
+                                    <th>任务名称</th>
                                     <th>任务状态</th>
-                                    <th>最后期限</th>
+                                    <th>所属项目</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>

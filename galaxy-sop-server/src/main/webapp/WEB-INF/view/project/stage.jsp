@@ -10,7 +10,7 @@
 			<h3 id="project_name"></h3>
 			<dl class="update">
 				<dt>最新内容更新</dt>
-				<dd>
+				<dd  id="pj-title-updated-time">
 					<span>&#40;</span>2016-01-26<span>&#41;</span>
 				</dd>
 			</dl>
@@ -161,8 +161,8 @@
 						<dl class="fmdl fmmr fmmm clearfix">
 							<dt>更新时间：</dt>
 							<dd>
-								<input type="text" class="txt time" value="2016-01-01" /> <span>至</span>
-								<input type="text" class="txt time" value="2016-01-01" />
+								<input type="text" class="datepicker time" value="2016-01-01" /> <span>至</span>
+								<input type="text" class="datepicker time" value="2016-01-01" />
 							</dd>
 							<dd>
 								<a href="javascript:;" id="file_repository_btn" class="pubbtn bluebtn">查询</a>
@@ -175,8 +175,8 @@
 				</form>
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-<!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a> 
-					<a href="javascript:;" class="pubbtn fffbtn">发送选中</a>-->
+<!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a>--> 
+					<a href="javascript:;" class="pubbtn fffbtn">发送选中</a> 
 				</div>
 
 				<!--表格内容-->
@@ -200,7 +200,7 @@
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="intervierLog">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
@@ -265,6 +265,7 @@
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn">立项会排期</a>
 				</div>
 
 				<div id="projectProgress_4_table_custom-toolbar">
@@ -291,6 +292,7 @@
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" onclick="addMettingRecord(7,'meetingType:4')"  class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a id="inSure_btn" href="javascript:;" onclick="inSureMeetingPool()"  class="pubbtn fffbtn lpubbtn">投决会排期</a>
 				</div>
 
 				<div id="projectProgress_7_table_custom-toolbar">
@@ -412,23 +414,23 @@
 				</table>-->
 			</div>
 			
+			
 			<!-- 操作日志  -->
 			<div class="block" data-tab="con" id="projectProgress_con">
 				<div id="pro_message_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
 				</div>
 				<table id="projectProgress_table"
-					data-url="<%=path%>/galaxy/operationMessage/queryList"
+					data-url="<%=path%>/galaxy/operatlog/query"
 					data-page-list="[5,10]" data-toolbar="#pro_message_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-field="operator" data-align="center" >操作人</th>
-							<th data-field="role" data-align="center" >角色</th>
-							<th data-field="department" data-align="center">投资线/部门</th>
-							<th data-field="module" data-align="center" >模块</th>
-							<th data-field="type" data-align="center" >消息类型</th>
-							<th data-field="content" data-align="center" >消息内容</th>
 							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
+							<th data-field="uname" data-align="center" >操作者</th>
+							<th data-field="operationType" data-align="center">动作</th>
+							<th data-field="operationContent" data-align="center">对象</th>
+							<th data-field="projectName" data-align="center" >项目</th>
+							<th data-field="sopStage" data-align="center" >业务</th>
 						</tr>
 					</thead>
 				</table>
@@ -438,6 +440,11 @@
 	</div>
 </div>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
+
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script>
 //盒子展开隐藏
 	getTabPersonforP();

@@ -55,7 +55,7 @@
 				    		  SopUserSchedule shcedule=common.getList().get(j);
 				    		  String str[] = shcedule.getItemDate().toString().split(" ");
 				    	  %>  
-				    		  <dl data-tab='nav' onclick="getShedule(<%=shcedule.getId()%>)">
+				    		  <dl class="on" data-tab='nav' onclick="getShedule(<%=shcedule.getId()%>)">
 			                            <dt><%=shcedule.getContent() %>
 			                            <label class="red">
 			                            <% if("1".equals(shcedule.getItemOrder())){%>紧急<%} %>
@@ -105,7 +105,7 @@
             <dl class="fmdl clearfix">
                 <dt>事项内容：</dt>
                 <dd>
-                    <textarea id="content" name="content"><%=contentstr %></textarea>
+                    <textarea id="content" name="content" valType="required" msg="<font color=red>*</font>事件内容不能为空"><%=contentstr %></textarea>
                 </dd>
             </dl>
             <div class="btnbox">
@@ -136,11 +136,13 @@
      }
     //保存日程
     function saveShedule(){
-    	var id=$("#id").val();
-    	if(id == '' || id == 'null' || id == null){
-    	  $("#id").remove();
+    	if(beforeSubmit()){
+	    	var id=$("#id").val();
+	    	if(id == '' || id == 'null' || id == null){
+	    	  $("#id").remove();
+	    	}
+	    	sendPostRequestByJsonObj(platformUrl.saveShedule, JSON.parse($("#shedule_form").serializeObject()), sheduleCallBack);
     	}
-    	sendPostRequestByJsonObj(platformUrl.saveShedule, JSON.parse($("#shedule_form").serializeObject()), sheduleCallBack);
     }
     //新建日程
     function newShedule(){
@@ -212,4 +214,4 @@
         });
     });
     </script>
-
+   <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>

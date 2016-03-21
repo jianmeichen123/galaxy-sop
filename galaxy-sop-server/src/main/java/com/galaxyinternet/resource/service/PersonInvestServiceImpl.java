@@ -1,7 +1,14 @@
 package com.galaxyinternet.resource.service;
 
+<<<<<<< HEAD
 import static com.galaxyinternet.utils.ExceptUtils.isNull;
 
+=======
+import static com.galaxyinternet.utils.ExceptUtils.*;
+
+import java.text.ParseException;
+import java.util.Date;
+>>>>>>> refs/remotes/origin/develop
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +21,8 @@ import com.galaxyinternet.dao.hr.PersonWorkDao;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.model.hr.PersonInvest;
 import com.galaxyinternet.model.hr.PersonLearn;
 import com.galaxyinternet.model.hr.PersonResumetc;
@@ -59,6 +68,10 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 		personPool.setUpdatedTime(time);
 		int count = personPoolDao.updateById(personPool);
 		if(count == 0){
+<<<<<<< HEAD
+=======
+			throwSopException(ExceptionMessage.DATA_NOT_EXISTS, "该个人信息不存在");
+>>>>>>> refs/remotes/origin/develop
 		}
 		PersonInvest personInvest = personResumetc.getPersonInvest();
 		if(personInvest.getId() == null){
@@ -71,6 +84,14 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 		}
 		List<PersonWork> personWorks = personResumetc.getPersonWork();
 		for (PersonWork personWork : personWorks) {
+			if(personWork.getBeginWorkStr() != null){
+				try {
+					Date date = DateUtil.convertStringToDate(personWork.getBeginWorkStr());
+					personWork.setBeginWork(date);
+				} catch (ParseException e) {
+					System.err.println(e);
+				}
+			}
 			if(personWork.getId() == null){
 				personWork.setPersonId(personId);
 				personWork.setCreatedTime(time);
@@ -82,6 +103,14 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 		}
 		List<PersonLearn> personLearns = personResumetc.getPersonLearn();
 		for (PersonLearn personLearn : personLearns) {
+			if(personLearn.getOverDateStr()!= null){
+				try {
+					Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr());
+					personLearn.setOverDate(date);
+				} catch (ParseException e) {
+					System.err.println(e);
+				}
+			}
 			if(personLearn.getId() == null){
 				personLearn.setPersonId(personId);
 				personLearn.setCreatedTime(time);;

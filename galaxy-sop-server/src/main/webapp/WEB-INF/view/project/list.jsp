@@ -36,7 +36,7 @@
         </div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
-			<div class="bottom searchall clearfix">
+			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>项目类别：</dt>
 	              <dd>
@@ -68,7 +68,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" id="search_text" placeholder="请输入姓名或手机号" />
+						<input type="text" class="txt" id="nameLike" name="nameLike" placeholder="请输入项目名称或编号" />
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
@@ -107,10 +107,13 @@
 <script src="<%=path %>/js/init.js"></script>
 
 <!-- 富文本编辑器 -->
-<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
-<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+
+
 
 <script type="text/javascript" src="<%=path %>/js/teamSheet.js"></script>
 <script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
@@ -145,10 +148,14 @@
 				 * 加载项目详情数据
 				 */
 				sendGetRequest(platformUrl.detailProject + id, {}, function(data){
-					
 					var pp = data.entity.projectProgress;
 					var pNum = pp.substr(pp.length-1,1);
-					
+					var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');
+					if(data.entity.hasOwnProperty('updatedTime'))
+					{
+						updatedTime = Number(data.entity.updatedTime).toDate().format('yyyy-MM-dd');
+					}
+					$("#pj-title-updated-time").html('<span>&#40;</span>'+updatedTime+'<span>&#41;</span>');
 					$("#project_name").text(data.entity.projectName);
 					$("input[name='projectId']").val(data.entity.id);
 					$("#project_id").val(id);
@@ -198,7 +205,10 @@
 								$("#projectProgress_3_con").css("display","block");
 								tiggerTable($("#projectProgress_3_table"),3);
 							} else if(indexNum == '4'){
-							    $("#projectProgress_4_con").css("display","block");
+								$("#projectProgress_4_con").css("display","block");
+								if(parseInt(indexNum) < parseInt(pNum)){
+									$("#reset_btn").css("display","none");
+								}
 							    tiggerTable($("#projectProgress_4_table"),3);
 							} else if(indexNum == '5'){
 								$("#projectProgress_7_con").css("display","none");
@@ -219,6 +229,9 @@
 							}else if(indexNum == '7'){
 								$("#projectProgress_6_con").css("display","none");
 								$("#projectProgress_7_con").css("display","block");
+								if(parseInt(indexNum) < parseInt(pNum)){
+									$("#inSure_btn").css("display","none");
+								}
 								 tiggerTable($("#projectProgress_7_table"),3);
 							}else if(indexNum == '8'){
 								$("#projectProgress_7_con").css("display","none");
@@ -391,12 +404,31 @@
 	}
 	
 	 /**
-	  * 申请立项会操作
+	  * CEO评审阶段申请立项会排期
 	  */
 	function toEstablishStage(){
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){
 			sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
+				var result = data.result.status;
+				if(result == "OK"){ 
+					layer.msg("申请立项会成功!");
+					$("#powindow,#popbg").remove();
+					info(pid);
+				}else{
+					layer.msg(data.result.message);
+				}
+			});
+		}
+	}
+	 
+	/**
+	  * 立项会阶段申请立项会排期
+	  */
+	function toLxmeetingPool(){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null && pid != undefined){
+			sendGetRequest(platformUrl.inLxmeetingPool + pid, {}, function(data){
 				var result = data.result.status;
 				if(result == "OK"){ 
 					layer.msg("申请立项会成功!");
@@ -639,13 +671,34 @@
 		return false;
 	}
 	/**
-	 * 点击申请投决会按钮
+	 * 尽职调查--点击申请投决会按钮
 	 */
 	function inTjh(){
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){
 			sendGetRequest(
 					platformUrl.inTjh + pid,
+					null,
+					function(data){
+						var result = data.result.status;
+						if(result == "OK"){ 
+							layer.msg("申请成功!");
+							$("#powindow,#popbg").remove();
+							info(pid);
+						}else{
+							layer.msg(data.result.message);
+						}
+					});
+		}
+	}
+	/**
+	 * 投决会--点击申请投决会按钮
+	 */
+	function inSureMeetingPool(){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null && pid != undefined){
+			sendGetRequest(
+					platformUrl.inSureMeetingPool + pid,
 					null,
 					function(data){
 						var result = data.result.status;

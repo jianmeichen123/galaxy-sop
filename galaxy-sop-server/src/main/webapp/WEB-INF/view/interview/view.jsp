@@ -20,7 +20,11 @@
 
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-
+<style>
+.tab-pane table th:nth-child(3) {
+    width: 55%;
+}
+</style>
 </head>
 
 <body>
@@ -75,12 +79,17 @@
 	          		data-side-pagination="server" data-pagination="true" 
 	          		data-toolbar="#custom-toolbar" data-page-list="[5,10,20]"
 					data-id-field="lottoId" data-show-refresh="true">
+				<colgroup >
+					<col style="width:20%;"> <!-- 名称 -->
+					<col style="width:20%;"> <!-- 名称 -->
+					<col style="width:60%;">  <!-- 状态 -->
+				</colgroup>
 				<thead>
 					<tr>
 						<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
 						<th data-field="proName" data-align="center">所属项目</th>  
-						<th data-field="viewNotes" data-align="center">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="intervierLog">访谈日志</th>
 					</tr>
 				</thead>
 			</table>
@@ -104,6 +113,11 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 
 </body>
+<script type="text/javascript">
+
+
+
+</script>
 
 </html>
 

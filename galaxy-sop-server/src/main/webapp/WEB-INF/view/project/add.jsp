@@ -6,7 +6,14 @@
 <html>
 <head>
 <meta charset="utf-8">
+<<<<<<< HEAD
 <title>繁星</title>
+=======
+<title>繁星SOP-添加项目</title>
+<!-- 校验样式 -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+>>>>>>> refs/remotes/origin/develop
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
@@ -16,6 +23,10 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 </head>
 
@@ -53,7 +64,7 @@
                         <dl>
                           <dt>创建时间：</dt>
                           <dd>
-                          	<input type="text" class="datepicker time" name="createDate" readonly value="" />
+                          	<input type="text" class="datepicker time" name="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
                           </dd>
                         </dl>
                       </td>
@@ -62,14 +73,14 @@
                       <td>
                         <dl>
                           <dt>项目名称：</dt>
-                          <dd><input type="text" id="projectName" name="projectName" value="" placeholder="项目名称" data-valid="isNonEmpty||isEmail" data-error="email不能为空||邮箱格式不正确"></dd>
+                          <dd><input type="text" id="projectName" name="projectName" value="" placeholder="项目名称" valType="required" msg="<font color=red>*</font>项目名称不能为空"></dd>
                         </dl>
                       </td>
                       <td>
                         <dl>
                           <dt>项目类型：</dt>
                           <dd>
-                            <label><input name="projectType" type="radio" value="projectType:2" />内部创建</label>
+                            <label><input name="projectType" type="radio" value="projectType:2"  checked/>内部创建</label>
                             <label><input name="projectType" type="radio" value="projectType:1" />外部投资</label>
                           </dd>
                         </dl>
@@ -79,7 +90,7 @@
                       <td>
                         <dl>
                           <dt>计划额度：</dt>
-                          <dd><input type="text" id="projectContribution" name="projectContribution" value="" placeholder="计划额度"></dd>
+                          <dd><input type="text" id="projectContribution" name="projectContribution" value="" placeholder="计划额度" valType="NUMBER" msg="<font color=red>*</font>只能是数字"></dd>
                         </dl>
                       </td>                      
                       <td>
@@ -94,14 +105,14 @@
                       <td>
                         <dl>
                           <dt>出让股份：</dt>
-                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt"><span>&nbsp;%</span></dd>
+                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt" valType="NUMBER" msg="<font color=red>*</font>只能是数字"><span>&nbsp;%</span></dd>
                         </dl>
                       </td>
                       <td>
                         <dl>
                           <dt>单位（万）：</dt>
                           <dd>
-                            <label><input name="currencyUnit" type="radio" value="0" />人民币</label>
+                            <label><input name="currencyUnit" type="radio" value="0"  checked/>人民币</label>
                             <label><input name="currencyUnit" type="radio" value="1" />美元</label>
                             <label><input name="currencyUnit" type="radio" value="2" />英镑</label>
                             <label><input name="currencyUnit" type="radio" value="3" />欧元</label>
@@ -113,13 +124,13 @@
                       <td>
                         <dl>
                           <dt>公司名称：</dt>
-                          <dd><input type="text" id="projectCompany" name="projectCompany" value="" placeholder="公司名称"></dd>
+                          <dd><input type="text" id="projectCompany" name="projectCompany" value="" placeholder="公司名称" valType="required" msg="<font color=red>*</font>公司名称不能为空"></dd>
                         </dl>
                       </td>
                       <td>
                         <dl>
                           <dt>组织机构代码：</dt>
-                          <dd><input type="text" id="projectCompanyCode" name="projectCompanyCode" value="" placeholder="组织机构代码" class="zzjg_txt"></dd>
+                          <dd><input type="text" id="projectCompanyCode" name="projectCompanyCode" value="" placeholder="组织机构代码" class="zzjg_txt"  valType="OTHER" regString="^[a-zA-Z\d]+$" msg="<font color=red>*</font>组织代码只能是字母或数字"></dd>
                         </dl>
                       </td>
                   </tr>                   
@@ -214,10 +225,13 @@
 		return null;
 	}
 	function add(){
-		sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
-			forwardWithHeader(sopContentUrl + "/galaxy/mpl");
-		});
+		if(beforeSubmit()){
+			sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
+				forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+			});
+		}
 	}
 </script>
+
 </html>
 

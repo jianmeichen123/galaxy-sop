@@ -464,11 +464,11 @@ function getInterViewCondition(hasProid,projectId,
 		}
 	}
 	if(viewNotes == null || viewNotes== ""){
-		alert("记录不能为空");
+		alert("访谈记录不能为空");
 		return false;
 	}else{
 		if(getLength(viewTarget) > 500){
-			alert("记录长度最大500字节");
+			alert("访谈记录长度最大500字节");
 			return false;
 		}
 	}
@@ -550,11 +550,11 @@ function getMeetCondition(hasProid,projectId,
 	}
 	
 	if(meetingNotes == null || meetingNotes== ""){
-		alert("记录不能为空");
+		alert("会议记录不能为空");
 		return false;
 	}else{
 		if(getLength(meetingNotes) > 500){
-			alert("记录长度最大500字节");
+			alert("会议记录长度最大500字节");
 			return false;
 		}
 	}
@@ -600,6 +600,25 @@ function meetInfoFormat(value, row, index){
 	return rc;
 }
 
+//interview
+function intervierLog(value,row,index){
+	var len = getLength($.trim(value));
+	var strlog=replaceStr(row.viewNotes);
+	if(len>100){
+		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
+		var rc = "";
+		rc = "<div style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\">"
+					+"<a style=\"text-decoration:none\" title='"+strlog+"'>"+subValue+"..."+"</a>"+
+			 "</div>" ;
+		return rc;
+	}else{
+		return strlog;
+	}
+	
+	
+	
+}
+
 //meet table format
 function meetProInfoFormat(value, row, index){
 	return row.proName+"</br>"+row.meetingTypeStr;
@@ -613,3 +632,37 @@ function longTimeFormat(value, row, index){
 function longTimeFormatChines(value, row, index){
 	return Number(value).toDate().format("yyyy年MM月dd日 hh:mm:ss")
 }
+function getVal(val,defaultValIfNull)
+{
+	if(val == "" || val == null || val == 'undefined')
+	{
+		return defaultValIfNull;
+	}
+	return val;
+}
+
+
+function subLengthFormat(value, row, index){
+	var len = getLength($.trim(value));
+	var valuelog=replaceStr(row.viewNotes);
+	if(len>100){
+		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
+		//$(this).attr("title",value);
+		var str = "<div class=\"subLength text-overflow\" title='"+valuelog+"'>"+
+					subValue+"..."+
+				   "</div>" ;
+		return str;
+	}else{
+		return valuelog;
+	}
+}
+
+function replaceStr(str){
+	if(str){
+		var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","").replace("<br/>","").replace("</div>","");
+		return result;
+	}
+
+}
+
+
