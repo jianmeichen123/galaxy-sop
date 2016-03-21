@@ -118,18 +118,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	/**
 	 * 弹出页面
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@RequestMapping(value = "/doTask",method = RequestMethod.GET)
 	public ModelAndView doTask(Long taskId,HttpServletRequest request) {
 		
 		ModelAndView mv = new ModelAndView("/taskProcess/task_info");
 		try {
 			SopTask task = sopTaskService.queryById(taskId);
-			Project project = projectService.queryById(task.getProjectId());
 			mv.addObject("taskId", taskId);
 			mv.addObject("projectId", task.getProjectId());
 			mv.addObject("taskFlag", task.getTaskFlag());
-		 ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			throw new PlatformException(ExceptionMessage.QUERY_LIST_FAIL.getMessage(),e);
 		}
@@ -223,6 +220,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 * @return
 	 *@PathVariable("taskId") String taskId
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/updateTaskStatus", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTask> updateTaskStatus( @RequestBody SopTask entity,HttpServletRequest request) {
@@ -235,6 +233,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		try {
 		    sopTaskService.updateById(entity);
 		     result.setStatus(Status.OK);
+		     Project project = projectService.queryById(entity.getProjectId());
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
 		} catch (Exception e) {
