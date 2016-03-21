@@ -1105,6 +1105,4 @@ dl dt,dl label{font-weight: normal !important;}
 dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 85px -150px !important;}
 .search_adjust .fml dd{width:250px !important;}
 /* 访谈日志 */
-.tab-pane table th:nth-child(3){width: 55%;}
-.tab-pane table td:nth-child(3){padding-left:10%;}
-.tab-pane table td p{text-align: left;text-indent: 0em !important;}
+.text-overflow{width:400px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
