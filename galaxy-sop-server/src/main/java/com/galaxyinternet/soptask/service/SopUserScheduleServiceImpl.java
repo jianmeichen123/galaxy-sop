@@ -10,12 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.bo.SheduleCommon;
 import com.galaxyinternet.bo.SopUserScheduleBo;
 import com.galaxyinternet.dao.soptask.SopUserScheduleDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.soptask.SopUserSchedule;
 import com.galaxyinternet.service.SopUserScheduleService;
@@ -106,6 +108,16 @@ public class SopUserScheduleServiceImpl extends
 			common.setList(soplist);
 		}
 		return list;
+	}
+
+	/**
+	 * 分页模糊查询
+	 */
+	@Override
+	public Page<SopUserSchedule> scheduleListByName(SopUserScheduleBo query, Pageable pageable) {
+		Page<SopUserSchedule> pageList = sopUserScheduleDao.scheduleListByName(query,pageable);
+		
+		return pageList;
 	}
 
 

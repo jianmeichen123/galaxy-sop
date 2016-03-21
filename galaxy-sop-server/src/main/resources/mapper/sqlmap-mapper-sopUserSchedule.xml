@@ -49,7 +49,17 @@
 		select count(id) from sop_user_schedule
 		<include refid="Base_Where_Clause" />
 	</select>
-
+	<!-- 查询总数 -->
+	<select id="selectCountByName" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(id) from sop_user_schedule
+		<where>
+			<trim prefixOverrides="and">
+				<if test="userId != null">  and user_id =#{userId} </if>
+		        <if test="nameLike != null">and item_type like CONCAT("%",#{nameLike},"%")</if>
+			</trim>
+		</where>
+	</select>
 	<!-- 查询 -->
 	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
@@ -153,7 +163,22 @@
 		order by item_date asc 
 		<if test="type == 1">  limit 3</if>
 	</select>
-	
+	<!-- 查询分页日期排序 -->
+	<select id="selectByFenye" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_user_schedule
+		 <where>
+			<trim prefixOverrides="and">
+				<if test="userId != null">  and user_id =#{userId} </if>
+		        <if test="nameLike != null">and item_type like CONCAT("%",#{nameLike},"%")</if>
+			</trim>
+		</where>
+			order by item_date desc 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>	
 	<!-- 按日期查询分组 -->
 	<select id="selectListByDate" resultMap="scheduleResultMap" parameterType="java.lang.Long">
 		select  DATE_FORMAT(item_date,'%Y-%m') as "months",COUNT(id) as "count" FROM sop_user_schedule where <if test="userId != null">  user_id =#{userId} </if> GROUP BY months order by item_date desc; 
