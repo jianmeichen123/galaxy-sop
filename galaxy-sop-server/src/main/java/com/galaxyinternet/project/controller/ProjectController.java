@@ -28,6 +28,7 @@ import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -43,6 +44,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
+import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
@@ -53,6 +55,7 @@ import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
+import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
@@ -81,6 +84,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private InterviewRecordService interviewRecordService;
 	@Autowired
 	private SopFileService sopFileService;
+	@Autowired
+	private MeetingSchedulingService meetingSchedulingService;
 	@Autowired
 	private HandlerManager handlerManager;
 	
@@ -626,7 +631,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	
 	/**
-	 * 申请立项会排期
+	 * CEO评审阶段申请立项会排期
 	 * @author yangshuhua
 	 */
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
@@ -666,7 +671,45 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	
 	/**
-	 * 申请投决会排期
+	 * 立项会阶段申请立项会排期
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value="/inlx/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> inLxmeetingPool(HttpServletRequest request,@PathVariable("pid") Long pid) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
+		Project project = projectService.queryById(pid);
+		Result result = validate(DictEnum.projectProgress.立项会.getCode(), project, user);
+		if(!result.getStatus().equals(Status.OK)){
+			responseBody.setResult(result);
+			return responseBody;
+		}
+		try {
+			MeetingScheduling m = new MeetingScheduling();
+			m.setProjectId(project.getId());
+			m.setMeetingType(DictEnum.meetingType.立项会.getCode());
+			MeetingScheduling tm = meetingSchedulingService.queryOne(m);
+			if(!tm.getStatus().equals(DictEnum.meetingResult.待定.getCode())){
+				tm.setStatus(DictEnum.meetingResult.待定.getCode());
+				tm.setUpdatedTime((new Date()).getTime());
+				meetingSchedulingService.updateById(tm);
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setId(project.getId());
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,null,"项目不能重复申请立项会排期!"));
+			}
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "异常，申请立项会失败!"));
+			if(logger.isErrorEnabled()){
+				logger.error("update project faild ",e);
+			}
+		}
+		return responseBody;
+	}
+	
+	/**
+	 * 尽职调查阶段--申请投决会排期
 	 * @author yangshuhua
 	 */
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
@@ -705,7 +748,45 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
-
+	
+	
+	/**
+	 * 投决会阶段--申请投决会排期
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value="/intj/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> inSureMeetingPool(HttpServletRequest request,@PathVariable("pid") Long pid) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
+		Project project = projectService.queryById(pid);
+		Result result = validate(DictEnum.projectProgress.投资决策会.getCode(), project, user);
+		if(!result.getStatus().equals(Status.OK)){
+			responseBody.setResult(result);
+			return responseBody;
+		}
+		try {
+			MeetingScheduling m = new MeetingScheduling();
+			m.setProjectId(project.getId());
+			m.setMeetingType(DictEnum.meetingType.投决会.getCode());
+			MeetingScheduling tm = meetingSchedulingService.queryOne(m);
+			if(!tm.getStatus().equals(DictEnum.meetingResult.待定.getCode())){
+				tm.setStatus(DictEnum.meetingResult.待定.getCode());
+				tm.setUpdatedTime((new Date()).getTime());
+				meetingSchedulingService.updateById(tm);
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setId(project.getId());
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,null,"项目不能重复申请立项会排期!"));
+			}
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "异常，申请投决会失败!"));
+			if(logger.isErrorEnabled()){
+				logger.error("update project faild ",e);
+			}
+		}
+		return responseBody;
+	}
 	
 	
 	/**

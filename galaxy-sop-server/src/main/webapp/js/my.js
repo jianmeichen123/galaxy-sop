@@ -1,5 +1,4 @@
 function leicj(){
-
   //我的日程弹窗搜索框显示隐藏
   $('.show_more a').on("click",function(){
     var $self=$(this),
@@ -92,8 +91,15 @@ function leicj(){
         
         $(".nav1 .nav,.nav2 .nav,.nav3 .nav,.nav4 .nav").each(function(index, el) {
             $(this).click(function(event) {
+                $(this).addClass('on').siblings().removeClass('on');
                 $(".bottom_r .block").eq(index).show().siblings().hide();
             });
+        });
+
+//投后菜单显示隐藏    
+    $(".pagebox .lft div").click(function(event) {
+          $(this).siblings().stop().slideToggle();
+          $(this).children('i').toggleClass('hide');
         });
 //日期控件
   $("#datetimepicker3").on("click",function(e){

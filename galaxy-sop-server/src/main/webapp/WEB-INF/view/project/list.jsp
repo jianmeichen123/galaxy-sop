@@ -202,7 +202,8 @@
 								$("#projectProgress_3_con").css("display","block");
 								tiggerTable($("#projectProgress_3_table"),3);
 							} else if(indexNum == '4'){
-							    $("#projectProgress_4_con").css("display","block");
+								$("#projectProgress_4_con").css("display","block");
+							    $("#reset_btn").css("display","none");
 							    tiggerTable($("#projectProgress_4_table"),3);
 							} else if(indexNum == '5'){
 								$("#projectProgress_7_con").css("display","none");
@@ -395,12 +396,31 @@
 	}
 	
 	 /**
-	  * 申请立项会操作
+	  * CEO评审阶段申请立项会排期
 	  */
 	function toEstablishStage(){
 		var pid = $("#project_id").val();
 		if(pid != '' && pid != null && pid != undefined){
 			sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
+				var result = data.result.status;
+				if(result == "OK"){ 
+					layer.msg("申请立项会成功!");
+					$("#powindow,#popbg").remove();
+					info(pid);
+				}else{
+					layer.msg(data.result.message);
+				}
+			});
+		}
+	}
+	 
+	/**
+	  * 立项会阶段申请立项会排期
+	  */
+	function toLxmeetingPool(){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null && pid != undefined){
+			sendGetRequest(platformUrl.inLxmeetingPool + pid, {}, function(data){
 				var result = data.result.status;
 				if(result == "OK"){ 
 					layer.msg("申请立项会成功!");
