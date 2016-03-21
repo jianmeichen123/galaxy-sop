@@ -24,7 +24,6 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>我的项目</h2>
     	<input type="hidden" id="project_id" value=""/>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
@@ -98,7 +97,9 @@
 <script src="<%=path %>/js/init.js"></script>
 
 <script type="text/javascript">
+$(function(){
 	createMenus(4);
+});
 	/**
 	 * 分页数据生成操作内容
 	 */
