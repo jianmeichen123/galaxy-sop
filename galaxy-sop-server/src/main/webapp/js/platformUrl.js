@@ -2,7 +2,7 @@ var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
-var sopContentUrl = "http://127.0.0.1:8888/galaxy-sop-server";
+var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
 //var sopContentUrl = "http://127.0.0.1:8080/";
 
 var platformUrl = {

@@ -81,7 +81,7 @@
 		from sop_person_pool where id = #{id}
 	</select>
 	
-  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.Project" >
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.PersonPool" >
 	    <![CDATA[
 	     insert into sop_person_pool (id, person_name, person_sex, person_age, highest_degree, work_time, person_duties, person_birthday, person_idcard, person_telephone, person_email, 
     		person_character, person_goodness, person_disparity, talk_ability, team_ability, 
@@ -101,7 +101,7 @@
     </insert>
     
     <!-- 更新 -->
-	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.project.Project">
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.project.PersonPool">
 		update sop_person_pool
 		<set>
 			<if test="personName != null" >  person_name = #{personName,jdbcType=VARCHAR}, </if>
@@ -139,7 +139,7 @@
 		</where>
 	</update>
     <!-- 通过ID更新 -->
-	<update id="updateById" parameterType="com.galaxyinternet.model.project.Project">
+	<update id="updateById" parameterType="com.galaxyinternet.model.project.PersonPool">
 		update sop_person_pool
 		<set>
 			<if test="personName != null" >  person_name = #{personName,jdbcType=VARCHAR}, </if>

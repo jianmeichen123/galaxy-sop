@@ -89,7 +89,7 @@
                   </tr>
                   <tr>
                     <th>沟通能力：</th>
-                    <td><input name="talkAbility " id="talkAbility " type="text" value=""></td>
+                    <td><input name="talkAbility" id="talkAbility " type="number" value=""></td>
                   </tr>
                   <tr>
                     <th>团队协作能力：</th>
@@ -273,7 +273,7 @@
                   </tr>
                   <tr>
                     <th>股权占比（%）：</th>
-                    <td><input type="text" name="shareRatio" id="shareRatio"  value=""></td>
+                    <td><input type="number" name="shareRatio" id="shareRatio"  value=""></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>
@@ -294,7 +294,7 @@
                   </tr>
                   <tr>
                     <th>股权占比（%）：</th>
-                    <td><input type="text" name="ashareRatio" id="ashareRatio"  value=""></td>
+                    <td><input type="number" name="ashareRatio" id="ashareRatio"  value=""></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>
