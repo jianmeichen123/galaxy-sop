@@ -44,7 +44,7 @@
                 <li><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">紧急<span><!-- (2) --></span></a></li>
                 <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span><!-- (5) --></span></a></li>
                 <li><a href="javascript:;" id="claim" query-by="taskStatus" query-val="taskStatus:1">待认领<span><!-- (10) --></span></a></li>
-                <li><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">处 理<span><!-- (4) --></span></a></li>
+                <li><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">处理<span><!-- (4) --></span></a></li>
                 <li><a href="javascript:;"id="finish" query-by="taskStatus" query-val="taskStatus:3">已完成</a></li>   
           </ul>
         </div>

@@ -950,7 +950,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			task.setProjectId(pid);
 			List<String> sl = new ArrayList<String>();
 			sl.add(DictEnum.taskStatus.待认领.getCode());
-			sl.add(DictEnum.taskStatus.处 理.getCode());
+			sl.add(DictEnum.taskStatus.处理.getCode());
 			task.setTaskStatusList(sl);
 			List<SopTask> tlist = sopTaskService.selectForTaskOverList(task);
 			if(tlist!=null && tlist.size()>0){
@@ -1008,7 +1008,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			task.setAssignUid(user.getId());
 			List<String> sl = new ArrayList<String>();
 			sl.add(DictEnum.taskStatus.待认领.getCode());
-			sl.add(DictEnum.taskStatus.处 理.getCode());
+			sl.add(DictEnum.taskStatus.处理.getCode());
 			task.setTaskStatusList(sl);
 			List<SopTask> tlist = sopTaskService.selectForTaskOverList(task);
 			if(tlist!=null && tlist.size()>0){
