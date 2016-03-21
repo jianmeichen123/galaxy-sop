@@ -1,5 +1,7 @@
 package com.galaxyinternet.bo;
 
+import java.util.List;
+
 import com.galaxyinternet.model.operationLog.OperationLogs;
 
 public class OperationLogsBo extends OperationLogs {
@@ -8,8 +10,8 @@ public class OperationLogsBo extends OperationLogs {
 	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
 	
-	private Integer isMine;
-	private Integer isMyDepart;
+	private Integer isAll; //1:queryAll
+	private List<Long> projectIdList;
 	
 	public Integer getPageNum() {
 		if(pageNum == null){
@@ -30,17 +32,18 @@ public class OperationLogsBo extends OperationLogs {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
-	public Integer getIsMine() {
-		return isMine;
+	
+	public Integer getIsAll() {
+		return isAll;
 	}
-	public void setIsMine(Integer isMine) {
-		this.isMine = isMine;
+	public void setIsAll(Integer isAll) {
+		this.isAll = isAll;
 	}
-	public Integer getIsMyDepart() {
-		return isMyDepart;
+	public List<Long> getProjectIdList() {
+		return projectIdList;
 	}
-	public void setIsMyDepart(Integer isMyDepart) {
-		this.isMyDepart = isMyDepart;
+	public void setProjectIdList(List<Long> projectIdList) {
+		this.projectIdList = projectIdList;
 	}
 	
 	

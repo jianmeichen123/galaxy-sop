@@ -41,11 +41,18 @@
 				   <if test="sopstage != null" >and sop_stage = #{sopstage,jdbcType=VARCHAR} </if>
 				  <if test="operationContent != null" >and operation_content = #{operationContent,jdbcType=VARCHAR} </if>
 				  <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				<if test="projectIdList != null">
+					AND project_id IN
+					<foreach collection="projectIdList" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>
 		</where>
-		<if test="sorting != null">order by ${sorting}</if>
+		order by created_time desc
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
