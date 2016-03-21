@@ -140,7 +140,7 @@ function getProjectInfo()
 					var id = self.attr('id');
 					if(id=='projectDescribe'){
 						var desc = replaceStr(project[id]);
-						if(getLength(desc)>100)
+						if(desc && getLength(desc)>100)
 						{
 							self.text(desc.substring(0,100)+'...');
 						}
