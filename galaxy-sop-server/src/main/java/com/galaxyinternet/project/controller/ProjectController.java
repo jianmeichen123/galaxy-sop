@@ -126,7 +126,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		project.setStockTransfer(0);
 		project.setCreateUid(user.getId());
-		project.setCreateUname(user.getNickName());
+		project.setCreateUname(user.getRealName());
 		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
 		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
 		//获取当前登录人的部门信息
