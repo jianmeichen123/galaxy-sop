@@ -40,7 +40,7 @@
           </div>
             <!--tips连接-->
         	<ul class="tipslink">
-            	<li><a href="javascript:;" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
+            	<li><a href="javascript:;" class="on" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
                 <li><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">紧急<span><!-- (2) --></span></a></li>
                 <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span><!-- (5) --></span></a></li>
                 <li><a href="javascript:;" id="claim" query-by="taskStatus" query-val="taskStatus:1">待认领<span><!-- (10) --></span></a></li>
@@ -82,8 +82,23 @@
 <script src="<%=request.getContextPath() %>/js/init.js"></script>	
 
 <script type="text/javascript">
+    var flag="${flagUrl}";
+    var num=0;
+    if(flag=="jl"){
+    	num=10;
+    }
+    if(flag=="pz"){
+    	num=11;
+    }
+    if(flag=="gq"){
+    	num=12;
+    }
+    if(flag=="jz"){
+    	num=9;
+    }
 	$(function(){
-		createMenus(2);
+	
+		createMenus(num);
 	});
 </script>
 </html>
