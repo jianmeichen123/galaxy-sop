@@ -271,7 +271,7 @@ public enum DictEnum {
 	//任务状态
 	public enum taskStatus {
 		待认领("待认领","taskStatus:1"),
-		待完工("待完工","taskStatus:2"),
+		处理("处理","taskStatus:2"),
 		已完成("已完成","taskStatus:3");
 		private String name;
 
@@ -427,8 +427,8 @@ public enum DictEnum {
 	
 	//档案存储类型
 	public enum fileType {
-		档案("档案","fileType:1"),
-		音频文件("待音频文件","fileType:2"),
+		档案("文档","fileType:1"),
+		音频文件("音频文件","fileType:2"),
 		视频文件("视频文件","fileType:3"),
 		图片("图片","fileType:4");
 		private String name;

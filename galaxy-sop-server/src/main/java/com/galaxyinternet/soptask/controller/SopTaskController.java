@@ -98,7 +98,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		if(id!=null&&!"".equals(id)){
 			sopTask.setId(Long.parseLong(id));
 		}
-		sopTask.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
+		sopTask.setTaskStatus(DictEnum.taskStatus.处理.getCode());
 	
 		try {
 			SopTask queryById = sopTaskService.queryById(Long.parseLong(id));
