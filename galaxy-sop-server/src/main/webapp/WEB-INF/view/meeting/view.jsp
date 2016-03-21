@@ -85,9 +85,9 @@
 				data-page-list="[1,2,4,8,50]" data-id-field="lottoId"
 				data-show-refresh="false">
 				<colgroup >
+					<col style="width:30%;"> <!-- 名称 -->
 					<col style="width:20%;"> <!-- 名称 -->
-					<col style="width:20%;"> <!-- 名称 -->
-					<col style="width:60%;">  <!-- 状态 -->
+					<col style="width:50%;">  <!-- 状态 -->
 				</colgroup>
 				<thead>
 					<tr>

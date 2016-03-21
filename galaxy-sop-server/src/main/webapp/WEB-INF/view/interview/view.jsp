@@ -80,9 +80,9 @@
 	          		data-toolbar="#custom-toolbar" data-page-list="[5,10,20]"
 					data-id-field="lottoId" data-show-refresh="true">
 				<colgroup >
+					<col style="width:30%;"> <!-- 名称 -->
 					<col style="width:20%;"> <!-- 名称 -->
-					<col style="width:20%;"> <!-- 名称 -->
-					<col style="width:60%;">  <!-- 状态 -->
+					<col style="width:50%;">  <!-- 状态 -->
 				</colgroup>
 				<thead>
 					<tr>
