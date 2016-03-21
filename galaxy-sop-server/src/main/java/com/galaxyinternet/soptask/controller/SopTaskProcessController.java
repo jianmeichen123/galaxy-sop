@@ -224,6 +224,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	public ResponseData<User> taskUrged(Long id,HttpServletRequest request)
 	{
 		ResponseData<User> resp = new ResponseData<User>();
+		boolean flag  = true;
 		try {
 			SopTask task = sopTaskService.getByFileInfo(id);
 			if(task == null)
@@ -255,15 +256,27 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				}
 				if(roleId != null)
 				{
+					//当前登录人
+					User curUser = (User) request.getSession().getAttribute(
+							Constants.SESSION_USER_KEY);
 					UserRole urQuery = new UserRole();
 					urQuery.setRoleId(roleId);
 					List<UserRole> urList = userRoleService.queryList(urQuery);
+					//添加催办邮件 
 					if(urList != null && urList.size() >0)
 					{
 						UserRole ur = urList.iterator().next();
 						if(ur.getUserId() != null)
 						{
 							user = userService.queryById(ur.getUserId());
+							String time = DateUtil.longToString(task.getUpdatedTime());
+							Date date = new Date();
+							String taskUrgedTime = DateUtil.convertDateToString(date);
+							String toMail = user.getEmail() + Constants.MAIL_SUFFIX;
+							String str = MailTemplateUtils.getContentByTemplate(Constants.MAIL_URGE_CONTENT);
+							String content = PlaceholderConfigurer.formatText(str, user.getRealName(),time,task.getTaskName(),taskUrgedTime,curUser.getRealName());
+							String subject = "催办通知";// 邮件主题
+							flag = SimpleMailSender.sendHtmlMail(toMail, subject, content)&& flag;
 						}
 						
 					}
@@ -275,19 +288,12 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				resp.getResult().addError("请求参数错误");
 				return resp;
 			}
-
-			//当前登录人
-			User curUser = (User) request.getSession().getAttribute(
-					Constants.SESSION_USER_KEY);
-			String time = DateUtil.longToString(task.getUpdatedTime());
-			Date date = new Date();
-			String taskUrgedTime = DateUtil.convertDateToString(date);
-			String toMail = user.getEmail() + Constants.MAIL_SUFFIX;
-			String str = MailTemplateUtils.getContentByTemplate(Constants.MAIL_URGE_CONTENT);
-			String content = PlaceholderConfigurer.formatText(str, user.getRealName(),time,task.getTaskName(),taskUrgedTime,curUser.getRealName());
-			String subject = "催办通知";// 邮件主题
-			SimpleMailSender.sendHtmlMail(toMail, subject, content);
-			resp.setEntity(user);
+			//邮件发送失败 返回
+			if (flag == false) {
+				resp.getResult().addError("邮件发送失败");
+			} else {
+				resp.getResult().addOK("催办成功");
+			}
 			
 		} catch (Exception e) {
 			String msg = "任务催办失败";

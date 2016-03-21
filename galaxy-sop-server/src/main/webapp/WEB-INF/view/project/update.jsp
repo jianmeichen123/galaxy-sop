@@ -13,7 +13,6 @@
 	<!-- 校验样式 -->
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-  
 	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<!-- jsp文件头和头部 -->
@@ -26,8 +25,11 @@
     <script type="text/javascript" src="<%=path %>/js/project.js"></script>
 
     <script src="<%=path %>/js/init.js"></script>
-    <!-- 校验 -->
-  <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
+    <!-- 表单验证 -->
+	<script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+	<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+    <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -355,6 +357,7 @@
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
+
 <script>
     var pid='${requestScope.pid}';
     
