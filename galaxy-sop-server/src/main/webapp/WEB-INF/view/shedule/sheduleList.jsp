@@ -55,7 +55,7 @@
 				    		  SopUserSchedule shcedule=common.getList().get(j);
 				    		  String str[] = shcedule.getItemDate().toString().split(" ");
 				    	  %>  
-				    		  <dl data-tab='nav' onclick="getShedule(<%=shcedule.getId()%>)">
+				    		  <dl class="on" data-tab='nav' onclick="getShedule(<%=shcedule.getId()%>)">
 			                            <dt><%=shcedule.getContent() %>
 			                            <label class="red">
 			                            <% if("1".equals(shcedule.getItemOrder())){%>紧急<%} %>
