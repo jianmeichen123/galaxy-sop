@@ -2,7 +2,9 @@ package com.galaxyinternet.soptask.service;
 
 import static com.galaxyinternet.utils.ExceptUtils.throwSopException;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -172,8 +174,10 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 
 			}
 			sopTaskBo.setId(sopTasknew.getId());
-		
-			sopTaskBo.setTaskDeadlineformat(sopTasknew.getTaskDeadline()!=null?DateUtil.convertDateToString(sopTasknew.getTaskDeadline()):"");//
+			Date addDate = DateUtil.addDate(LongToDate(sopTasknew.getCreatedTime()),3);
+			int diffHour = DateUtil.getDiffHour(DateUtil.convertDateToStringForChina(addDate),DateUtil.getCurrentDateTime());
+			sopTaskBo.setTaskDeadlineformat(DateUtil.convertDateToString(addDate));//
+			sopTaskBo.setHours(diffHour);
 			sopTaskBo.setTaskName(sopTasknew.getTaskName()==null?"":sopTasknew.getTaskName());
 			sopTaskBo.setTaskType(sopTasknew.getTaskType()==null?"":DictUtil.getTypeName(sopTasknew.getTaskType()));
 			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder()==null?0:sopTasknew.getTaskOrder());
@@ -314,6 +318,16 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		return taskFlag;
 	}
-	
+	public Date LongToDate(Long date ){
+		String longToStr=DateUtil.longToString(date);
+		Date convertStringToDate=null;
+		try {
+			convertStringToDate = DateUtil.convertStringToDate(longToStr,"yyyy-MM-dd");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return convertStringToDate;
+	}
 	
 }

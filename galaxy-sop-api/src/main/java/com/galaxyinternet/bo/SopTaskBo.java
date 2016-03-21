@@ -18,7 +18,7 @@ public class SopTaskBo extends  SopTask implements Pagable{
 	private String nameLike;
 	private String statusFlag;
 	private String caozuohtml;
-	private int hours;
+	private Integer hours;
 	private String orderRemark;
 	private String flagUrl;
 	public String getCreateUname() {
@@ -93,9 +93,6 @@ public class SopTaskBo extends  SopTask implements Pagable{
 		this.caozuohtml = caozuohtml;
 	}
 
-	public int getHours() {
-		return hours;
-	}
 	
 	protected Integer pageSize;
 	protected Integer pageNum;
@@ -144,6 +141,17 @@ public class SopTaskBo extends  SopTask implements Pagable{
 	public void setFlagUrl(String flagUrl) {
 		this.flagUrl = flagUrl;
 	}
+
+	public Integer getHours() {
+		return hours;
+	}
+
+	public void setHours(Integer hours) {
+		this.hours = hours;
+	}
+	
+	
+
 	
 	
 	

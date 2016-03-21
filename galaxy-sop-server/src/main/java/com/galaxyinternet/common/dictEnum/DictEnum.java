@@ -271,7 +271,7 @@ public enum DictEnum {
 	//任务状态
 	public enum taskStatus {
 		待认领("待认领","taskStatus:1"),
-		处理("处理","taskStatus:2"),
+		处 理("处 理","taskStatus:2"),
 		已完成("已完成","taskStatus:3");
 		private String name;
 

@@ -93,7 +93,7 @@ public class TzyxsHandler implements Handler {
 			task.setTaskName(SopConstant.TASK_NAME_YWJD);
 			task.setTaskFlag(SopConstant.TASK_FLAG_YWJD);
 			task.setAssignUid(q.getCreatedUid());
-			task.setTaskStatus(DictEnum.taskStatus.处理.getCode());
+			task.setTaskStatus(DictEnum.taskStatus.处 理.getCode());
 			task.setDepartmentId(q.getDepartmentId());
 			sopTaskDao.insert(task);
 			

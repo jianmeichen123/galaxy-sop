@@ -288,7 +288,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		//9 工商变更登记凭证
 		task1.setTaskFlag(5);
 		task1.setAssignUid(userid);             //任务认领人id 
-		task1.setTaskStatus(DictEnum.taskStatus.处理.getCode());				 //任务状态: 2:待完工
+		task1.setTaskStatus(DictEnum.taskStatus.处 理.getCode());				 //任务状态: 2:待完工
 		task1.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
 		sopTaskDao.insert(task1);
 		

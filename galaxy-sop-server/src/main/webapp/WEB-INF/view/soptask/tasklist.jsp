@@ -44,7 +44,7 @@
                 <li><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">紧急<span><!-- (2) --></span></a></li>
                 <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span><!-- (5) --></span></a></li>
                 <li><a href="javascript:;" id="claim" query-by="taskStatus" query-val="taskStatus:1">待认领<span><!-- (10) --></span></a></li>
-                <li><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">处理<span><!-- (4) --></span></a></li>
+                <li><a href="javascript:;" id="todeal" query-by="taskStatus" query-val="taskStatus:2">处 理<span><!-- (4) --></span></a></li>
                 <li><a href="javascript:;"id="finish" query-by="taskStatus" query-val="taskStatus:3">已完成</a></li>   
           </ul>
         </div>
@@ -55,10 +55,10 @@
 						   <thead>
 						    <tr>
 						        <th data-field="orderRemark" data-align="center" class="data-input">优先级</th>
-						        <th data-field="hours" data-align="center" class="data-input">剩余时间</th>
+						        <th data-field="hours" data-align="center" class="data-input">剩余时间(H)</th>
 						        <th data-field="taskDeadlineformat" data-align="center" class="col-md-1 status ">提交日期</th>
 						        <th data-field="taskType" data-align="center" >任务类型</th>
-						        <th data-field="taskName" data-align="center" width="200px" >任务名</th>
+						        <th data-field="taskName" data-align="center" width="200px" >任务名称</th>
 						        <th data-field="taskStatus" data-align="center" class="col-md-2" >任务状态</th>
 						        <th data-field="projectName" data-align="center" class="col-md-2" >所属项目</th>
 						        <th data-field="createUname" data-align="center" class="col-md-2" >投资经理</th>
