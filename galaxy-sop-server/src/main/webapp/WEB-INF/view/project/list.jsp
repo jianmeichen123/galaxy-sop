@@ -145,10 +145,14 @@
 				 * 加载项目详情数据
 				 */
 				sendGetRequest(platformUrl.detailProject + id, {}, function(data){
-					
 					var pp = data.entity.projectProgress;
 					var pNum = pp.substr(pp.length-1,1);
-					
+					var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');
+					if(data.entity.hasOwnProperty('updatedTime'))
+					{
+						updatedTime = Number(data.entity.updatedTime).toDate().format('yyyy-MM-dd');
+					}
+					$("#pj-title-updated-time").html('<span>&#40;</span>'+updatedTime+'<span>&#41;</span>');
 					$("#project_name").text(data.entity.projectName);
 					$("input[name='projectId']").val(data.entity.id);
 					$("#project_id").val(id);
