@@ -91,7 +91,7 @@
             <dl class="fmdl clearfix">
                 <dt>事项类型：</dt>
                 <dd class="clearfix">
-                    <label for=""><input type="radio" id="itemType0" name="itemType" value="0" checked/>单位</label>
+                    <label for=""><input type="radio" id="itemType0" name="itemType" value="0" checked/>工作</label>
                     <label for=""><input type="radio" id="itemType1" name="itemType" value="1"/>个人</label>
                 </dd>
             </dl>
