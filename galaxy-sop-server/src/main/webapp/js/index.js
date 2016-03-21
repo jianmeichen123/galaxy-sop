@@ -7,6 +7,7 @@
 		var data = {};
 		data["pageSize"] = 3;
 		data["pageNum"] = 0;
+		data["module"] = 1;
 		sendPostRequestByJsonObj(platformUrl.operationMessageQueryList, data, top5MessageCallback);
 	}
 	
