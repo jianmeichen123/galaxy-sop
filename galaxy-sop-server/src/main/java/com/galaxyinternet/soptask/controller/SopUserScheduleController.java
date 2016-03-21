@@ -148,12 +148,14 @@ public class SopUserScheduleController extends
 	 * 供app端的接口
 	 * 获取日程代分页模糊查询
 	 * 
-	 * 
+	 * 当前用户的 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryscheduleList",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopUserSchedule> queryscheduleList(HttpServletRequest request,@RequestBody SopUserScheduleBo sopUserScheduleBo) {
 		ResponseData<SopUserSchedule> responseBody = new ResponseData<SopUserSchedule>();
+		User user = (User) getUserFromSession(request);		
+		sopUserScheduleBo.setUserId(user.getId());
 		try {
 			Page<SopUserSchedule> pageList = sopUserScheduleService.scheduleListByName(sopUserScheduleBo, new PageRequest(sopUserScheduleBo.getItemType(), sopUserScheduleBo.getPageSize()));
 			responseBody.setPageList(pageList);
