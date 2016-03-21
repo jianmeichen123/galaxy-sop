@@ -413,23 +413,22 @@
 				</table>-->
 			</div>
 			
+			
 			<!-- 操作日志  -->
 			<div class="block" data-tab="con" id="projectProgress_con">
 				<div id="pro_message_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
 				</div>
 				<table id="projectProgress_table"
-					data-url="<%=path%>/galaxy/operationMessage/queryList"
+					data-url="<%=path%>/galaxy/operatlog/query"
 					data-page-list="[5,10]" data-toolbar="#pro_message_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-field="operator" data-align="center" >操作人</th>
-							<th data-field="role" data-align="center" >角色</th>
-							<th data-field="department" data-align="center">投资线/部门</th>
-							<th data-field="module" data-align="center" >模块</th>
-							<th data-field="type" data-align="center" >消息类型</th>
-							<th data-field="content" data-align="center" >消息内容</th>
 							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
+							<th data-field="uname" data-align="center" >操作者</th>
+							<th data-field="operationType" data-align="center">动作</th>
+							<th data-field="operationContent" data-align="center">对象</th>
+							<th data-field="sopStage" data-align="center" >业务</th>
 						</tr>
 					</thead>
 				</table>
