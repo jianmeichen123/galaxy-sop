@@ -84,7 +84,7 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 						Date date = DateUtil.convertStringToDate(personWork.getBeginWorkStr());
 						personWork.setBeginWork(date);
 					} catch (ParseException e) {
-						System.err.println(e);
+						throwSopException(ExceptionMessage.FIELD_NOT_DATE, "入职时间");
 					}
 				}
 				if(personWork.getId() == null){
@@ -105,7 +105,7 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 						Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr());
 						personLearn.setOverDate(date);
 					} catch (ParseException e) {
-						System.err.println(e);
+						throwSopException(ExceptionMessage.FIELD_NOT_DATE, "毕业时间");
 					}
 				}
 				if(personLearn.getId() == null){
