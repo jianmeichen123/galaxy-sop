@@ -184,7 +184,7 @@
                     	<div id="histogram" class="histogram"></div>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="http://fx.dev.galaxyinternet.com/report/galaxy/report/dataBriefing" class="more null">more</a>
+                    	<a href="<%=reportEndpoint %>/galaxy/report/dataBriefing" class="more null">more</a>
                     </dd>
                 </dl>
             </div>
