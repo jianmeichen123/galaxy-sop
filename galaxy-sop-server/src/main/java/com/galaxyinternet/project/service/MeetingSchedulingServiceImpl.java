@@ -51,7 +51,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 			 for (Project project :projectList)   {
 				 if ((meeting.getProjectId()!=null) && (meeting.getProjectId().longValue() == project.getId().longValue())) {
 					 meeting.setProjectName(project.getProjectName());
-					 String deptName = findDeptName(meeting.getProjectId(),depList);
+					 String deptName = findDeptName(project.getProjectDepartid(),depList);
 					 meeting.setProjectCareerline(deptName);
 					 meeting.setCreateUname(project.getCreateUname());
 				 }
@@ -71,7 +71,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 			 for (Project project :projectList)   {
 				 if ((meeting.getProjectId()!=null) && (meeting.getProjectId().longValue() == project.getId().longValue())) {
 					 meeting.setProjectName(project.getProjectName());
-					 String deptName = findDeptName(meeting.getProjectId(),depList);
+					 String deptName = findDeptName(project.getProjectDepartid(),depList);
 					 meeting.setProjectCareerline(deptName);
 					 meeting.setCreateUname(project.getCreateUname());
 				 }
@@ -115,7 +115,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 			 for (Project project :projectList)   {
 				 if ((meeting.getProjectId()!=null) && (meeting.getProjectId().longValue() == project.getId().longValue())) {
 					 meeting.setProjectName(project.getProjectName());
-					 String deptName = findDeptName(meeting.getProjectId(),depList);
+					 String deptName = findDeptName(project.getProjectDepartid(),depList);
 					 meeting.setProjectCareerline(deptName);
 					 meeting.setCreateUname(project.getCreateUname());
 				 }
@@ -134,7 +134,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 	private String findDeptName(Long deptId,List<Department> depList) {
 		 String deptName = "未知";
 		 for (Department dept:depList) {
-			 if (dept.getId().equals(deptId)) {
+			 if (deptId!= null && dept.getId().equals(deptId)) {
 				 deptName = dept.getName();
 			 }
 		 }
