@@ -6,13 +6,17 @@
 <link rel="<%=path %>/stylesheet" type="text/css" href="css/lq.datetimepick.css"/>
 <link rel="<%=path %>/stylesheet" type="text/css" href="bootstrap/bootstrap-datepicker/css/bootstrap-datepicker.min.css"/>
 <link href="<%=path %>/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
-<script src="<%=path %>/js/resumetc.js" type="text/javascript"></script>
 <script src="<%=path %>/star/jquery.raty.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/star-rating.min.js'></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/bootstrap/bootstrap-validator/css/bootstrapValidator.min.css" />
+<script src="<%=path %>/bootstrap/bootstrap-validator/js/bootstrapValidator.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-validator/js/language/zh_CN.js"></script>
 <div class="resumetc" >
           <!-- 个人简历 -->
           <div class="tabtable resume">
@@ -32,11 +36,11 @@
                 <table>
                   <tr>
                     <th>团队角色：</th>
-                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>姓名：</th>
-                    <td><input name="personName" id="personName" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                    <td><input name="personName" id="personName" type="text" value=""  valType="CHAR_CH_SYB" regString="/^[A-Za-z\u4e00-\u9fa5\.]+$/" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
                   </tr>
                   <tr>
                     <th>成员关系：</th>
@@ -112,21 +116,21 @@
                 <table>
                   <tr>
                     <th>学历：</th>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
-                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>学校：</th>
-                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
-                  	<td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
-                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="/^[A-Za-z\u4e00-\u9fa5]+$/" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                  	<td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="/^[A-Za-z\u4e00-\u9fa5]+$/" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="/^[A-Za-z\u4e00-\u9fa5]+$/" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>专业：</th>
-                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
-                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
-                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td> 
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="/^[A-Za-z\u4e00-\u9fa5]+$/" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="/^[A-Za-z\u4e00-\u9fa5]+$/" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="/^[A-Za-z\u4e00-\u9fa5]+$/" msg="<font color=red>*</font>专业只能包含字母、汉字"></td> 
                   </tr>                  
                   <tr>
                     <th>学历性质：</th>
@@ -153,9 +157,9 @@
                 <table>
                   <tr>
                     <th>老师姓名：</th>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
-                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td> 
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="/^[A-Za-z\u4e00-\u9fa5\.]+$/" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="/^[A-Za-z\u4e00-\u9fa5\.]+$/" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="/^[A-Za-z\u4e00-\u9fa5\.]+$/" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td> 
                   </tr>
                   <tr>
                     <th>部门：</th>
@@ -340,7 +344,7 @@
 
           </div>
 </div>
-<jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
+
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
@@ -452,13 +456,29 @@ function appendTd(model){
 		var name = input.attr("name");
 		var type = input.attr("type");
 		var class_name = input.attr("class");
+		var valType = input.attr("valType");
+		var msg = input.attr("msg");
+		var regString = input.attr("regString");
+		var textsIn = input.attr("textsIn");
+		if(textsIn=='undefined'||textsIn== undefined){
+			textsIn = "";
+		}
+		if(msg=='undefined'||msg== undefined){
+			msg = "";
+		}
+		if(valType=='undefined'||valType== undefined){
+			valType = "";
+		}
+		if(regString=='undefined'||regString== undefined){
+			regString = "";
+		}
 		if(index == 0 ){
-			$(tr).append("<td data-by='id'><input type='"+type+"' name='"+name+"'/></td>");
+			$(tr).append("<td data-by='id'><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
 		}else{
 			if(class_name == "datepicker"){
-				$(tr).append("<td><input class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
+				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
 			}else{
-				$(tr).append("<td><input  ' type='"+type+"' name='"+name+"'/></td>");
+				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
 			}
 		}
 	});
@@ -473,6 +493,7 @@ function prependTd(model,model_data){
 $(".btnbox").on("click",".bluebtn",function(){
 	var models = $("div[model]");
 	var data = {};
+	var flag = true;
 	models.each(function(i,item){
 		var it = $(item);
 		//单个实体
@@ -487,7 +508,11 @@ $(".btnbox").on("click",".bluebtn",function(){
 				it.find("tr").each(function(m,tr_item){
 					var input = $(tr_item).find("input[name][type!=hidden]")[i];
 					if($(input).val() != ''){
-						son_model[$(input).attr("name")] = $(input).val();	
+						son_model[$(input).attr("name")] = $(input).val();
+						if(!resemetValidate($(input))){
+							flag = false;
+							return;
+						}
 					}
 					
 				});
@@ -501,6 +526,10 @@ $(".btnbox").on("click",".bluebtn",function(){
 			it.find("input[name]").each(function(index,input){
 				if($(input).val() != ''){
 					model[$(input).attr("name")] = $(input).val() ;
+					if(!resemetValidate($(input))){
+						flag = false;
+						return;
+					}
 				}
 				
 			});
@@ -510,14 +539,107 @@ $(".btnbox").on("click",".bluebtn",function(){
 		}
 		
 	});
+	if(!flag){
+		return;
+	}
 	data['personId'] = $("#personId").val();
 	data['personPool']['personSex'] = $("input[name='personSex']:checked").val();
 	data['personPool']['laborDispute'] = $("input[name='laborDispute']:checked").val();
 	data['personPool']['endComment'] = $("#endComment").val();
-	data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
-	data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
-	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, savecbf);
+
+	if($("#levelStar").find("input[name='score']").val() != ''){
+		data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
+	}
+	if($("#abilityStar").find("input[name='score']").val() != ''){
+		data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
+	}
+	
+	var flag = 0;
+	var json = {};
+	json['personId'] = $("#personId").val();
+	json['personPool'] = data['personPool'] ;
+	for(var x in data['personInvest']){
+		if(x !='id'){
+			flag ++;
+		}
+	}
+	if(flag > 0){
+		json['personInvest'] = data['personInvest'] ;
+	}
+	var arry_personWork = new Array()
+	for(var x in data['personWork']){
+		flag = 0;
+		for(var y in data['personWork'][x]){
+			if(y !='id'){
+				flag ++;
+			}
+		}
+		if(flag > 0){
+			arry_personWork.push(data['personWork'][x]);
+		}
+	}
+	if(arry_personWork.length >0){
+		json['personWork'] = arry_personWork ;
+	}
+	
+	var arry_personLearn = new Array()
+	for(var x in data['personLearn']){
+		flag = 0;
+		for(var y in data['personLearn'][x]){
+			if(y !='id'){
+				flag ++;
+			}
+		}
+		if(flag > 0){
+			arry_personLearn.push(data['personLearn'][x]);
+		}
+	}
+	if(arry_personLearn.length >0){
+		json['personLearn'] =  arry_personLearn;
+	}
+	sendPostRequestByJsonObj(platformUrl.addPersonHr, json, savecbf);
 });
+function resemetValidate(input){
+	var valType = input.attr("valType");
+	var flag = true;
+	var value = input.val();
+	var regString = input.attr("regString");
+	var textsIn = input.attr("textsIn");
+	if(valType==''||valType=='undefined'||valType==undefined){
+		return flag;
+	}
+	switch (valType) {
+	case "IDENTITY":
+		break;
+	case "MOBILE":
+		flag = /(^1[3|5|8][0-9]{9}$)/.test(value);
+		break;	
+	case "EMAIL":
+		flag = /(^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)/.test(value);
+		break;
+	case "onlyInt":
+		flag = /^[0-9]*$/.test(value);
+		break;
+	case "onlyZh":
+		flag = /^[\u4e00-\u9fa5]+$/.test(value);
+		break;		
+	case "textIn":
+		var txts = regString.split(",");
+		flag = false;
+		break;		
+	default:
+		if(regString!=''){
+			var regexp = ('string' === typeof regString) ? new RegExp(regString) : regString;
+			flag = regexp.test(value);
+			console.log(input.attr("name")+valType+":" +flag)
+		}
+		break;
+	}
+	if(!flag){
+		layer.msg(input.attr("msg"));
+	}
+	return false;
+}
 function savecbf(data){
 	if(data.result.status == "OK"){
 		layer.msg("成功");
