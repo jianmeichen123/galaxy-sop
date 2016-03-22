@@ -2,16 +2,6 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<!-- 校验 -->
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-<!-- 日历插件 -->
-<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-
 <!-- 富文本编辑器 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
@@ -25,7 +15,7 @@
         <dl class="fmdl clearfix">
             <dt>访谈日期：</dt>
             <dd>
-            	<input class="start-datepicker time" readonly type="text" id="viewDate" name="viewDate" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
+            	<input class="form-control" type="date" id="viewDate" name="viewDate"/>
             </dd>
         </dl>
     </div>
@@ -33,7 +23,7 @@
     	<dl class="fmdl fml clearfix">
             <dt>访谈对象：</dt>
             <dd class="clearfix">
-                <input type="text" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt" valType="OTHER" msg="<font color=red>*</font>组织代码只能是字母或数字">
+                <input type="text" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt">
             </dd>
         </dl>
     </div>
