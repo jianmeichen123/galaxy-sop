@@ -32,9 +32,16 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 			//alert("connetion error");
 		},
 		success : function(data) {
-			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+			if(!data.hasOwnProperty("result")&&!data.hasOwnProperty("pageList")
+					&&!data.hasOwnProperty("entity")&&!data.hasOwnProperty("pageVoList")
+					&&!data.hasOwnProperty("entityList")&&!data.hasOwnProperty("id")
+					&&!data.hasOwnProperty("header")
+			){
 				location.href = platformUrl.toLoginPage;
 			}
+			/*if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+				location.href = platformUrl.toLoginPage;
+			}*/
 			if (callbackFun) {
 				callbackFun(data);
 			}
@@ -91,10 +98,16 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 			//alert("connetion error");
 		},
 		success : function(data) {
-			
-			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+			if(!data.hasOwnProperty("result")&&!data.hasOwnProperty("pageList")
+					&&!data.hasOwnProperty("entity")&&!data.hasOwnProperty("pageVoList")
+					&&!data.hasOwnProperty("entityList")&&!data.hasOwnProperty("id")
+					&&!data.hasOwnProperty("header")
+			){
 				location.href = platformUrl.toLoginPage;
 			}
+			/*if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+				location.href = platformUrl.toLoginPage;
+			}*/
 			if (callbackFun) {
 				callbackFun(data);
 			}
@@ -131,9 +144,16 @@ function sendPostRequest(reqUrl, callbackFun) {
 			//alert("connetion error");
 		},
 		success : function(data) {
-			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+			if(!data.hasOwnProperty("result")&&!data.hasOwnProperty("pageList")
+					&&!data.hasOwnProperty("entity")&&!data.hasOwnProperty("pageVoList")
+					&&!data.hasOwnProperty("entityList")&&!data.hasOwnProperty("id")
+					&&!data.hasOwnProperty("header")
+			){
 				location.href = platformUrl.toLoginPage;
 			}
+			/*if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+				location.href = platformUrl.toLoginPage;
+			}*/
 			if (callbackFun) {
 				callbackFun(data);
 			}
@@ -272,17 +292,9 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 		init: {
 			//上传按钮点击事件 - 开始上传
 			PostInit: function() {
-				$("#" + submitBtnId).click(function(up){
+				$("#" + submitBtnId).click(function(){
 					var file = $("#" + fileInputId).val();
-					
-					var param = paramsFunction();
-					if(param == false || param == 'false'){
-						uploader.stop();
-						return;
-					}else{
-						up.settings.multipart_params = param;
-						uploader.start();
-					}
+					uploader.start();
 					//传到后台的参数
 					//uploader.multipart_params = { id : "12345" };
 					return false;
@@ -323,7 +335,13 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 			BeforeUpload:function(up){
 				//表单函数提交
 				//alert(JSON.stringify(getSaveCondition()));
-				
+				var param = paramsFunction();
+				if(param == false || param == 'false'){
+					up.stop();
+					return;
+				}else{
+					up.settings.multipart_params = param;
+				}
 			},
 			Error: function(up, err) {
 				alert("错误"+err);
