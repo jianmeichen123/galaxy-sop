@@ -414,7 +414,6 @@
 				</table>-->
 			</div>
 			
-			
 			<!-- 操作日志  -->
 			<div class="block" data-tab="con" id="projectProgress_con">
 				<div id="pro_message_custom-toolbar">
@@ -430,11 +429,14 @@
 							<th data-field="operationType" data-align="center">动作</th>
 							<th data-field="operationContent" data-align="center">对象</th>
 							<th data-field="projectName" data-align="center" >项目</th>
-							<th data-field="sopStage" data-align="center" >业务</th>
+							<th data-field="sopstage" data-align="center" >业务</th>
 						</tr>
 					</thead>
 				</table>
 			</div>
+		
+
+
 			
 		</div>
 	</div>
