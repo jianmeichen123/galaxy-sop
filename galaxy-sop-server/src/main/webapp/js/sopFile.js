@@ -30,7 +30,13 @@ var searchPanel = {
 
 var fileGrid = {
 	init : 	function(){
-		 $('#fileGrid').bootstrapTable({
+		
+//		$("html").showLoading(
+//				 {
+//				    'addClass': 'loading-indicator'
+//								
+//		});
+		$('#fileGrid').bootstrapTable({
 		      url : platformUrl.searchSopFileList,     //请求后台的URL（*）
 		      queryParamsType: 'size|page', // undefined
 		      showRefresh : false ,
@@ -91,6 +97,11 @@ var fileGrid = {
 		    });
 		 //初始化查询按钮
 		 $("#searchBtn").click(searchPanel.serarchData);
+		 $('#fileGrid').on("load-success.bs.table", function (data) {
+			    // ... 
+//			 $(".ritmin").hideLoading();
+			});
+		 
 
 		  
 	},
@@ -163,16 +174,6 @@ var fileGrid = {
 
 
 
-
-
-
-
-
-
-
-
-
-
 var utils = {
 		path : $("#pathInput").val(),
 		each : function(_data,_dom,type){
@@ -202,14 +203,12 @@ function init(){
 	createMenus(14);
 	searchPanel.initData();
 	fileGrid.init();
-//	$("#uploadOpenBtn").click(function(){
-//		formData = {
-//				callFuc : function(){
-//					searchPanel.serarchData();
-//				}
-//		};
-//		win.init(formData);
-//	})
+	
+	
+	
+	
+	
+	
 	
 }
 
