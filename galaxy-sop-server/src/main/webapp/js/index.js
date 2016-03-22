@@ -269,3 +269,15 @@ function totalMissionCallback(data) {
 	$('.bubble').html(data.total)
 }
 */
+
+$(function(){
+	//待认领
+	$("tbody").on("click", "#doclaim", function() {
+		var task=this;
+		var taskId=task.childNodes[1].value;
+		var url=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId;
+	    forwardWithHeader(url);
+//		this.href=endUrl;
+	});
+});
+

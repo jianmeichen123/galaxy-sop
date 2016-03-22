@@ -63,6 +63,7 @@
 					and (assign_uid =#{assignUid} or task_status='taskStatus:1' )
 				</if>
 				<if test="taskStatus != null and taskStatus!='' "> and task_status =#{taskStatus}</if>
+				<if test="(taskStatus == null or taskStatus=='') and (taskOrder == null or taskOrder=='') "> and task_status !='taskStatus:3'</if>
 				<if test="remark != null"> and remark =#{remark}</if>
 				<if test="createdTime != null"> and created_time =#{createdTime}</if>
 				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
@@ -117,6 +118,7 @@
 					and (assign_uid =#{assignUid} or task_status='taskStatus:1' )
 				</if>
 				<if test="taskStatus != null and taskStatus!='' " > and task_status =#{taskStatus}</if>
+				<if test="(taskStatus == null or taskStatus=='') and (taskOrder == null or taskOrder=='') "> and task_status !='taskStatus:3'</if>
 				<if test="remark != null"> and remark =#{remark}</if>
 				<if test="createdTime != null"> and created_time =#{createdTime}</if>
 				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>

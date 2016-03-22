@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>测试</title>
+<title>繁星</title>
 </head>
 <script src="<%=request.getContextPath() %>/js/jquery-1.7.2.min.js" type="text/javascript"></script>
 <!-- <script type="text/javascript" src="http://code.hs-cn.com/jquery/jquery-1.7.1.min.js"></script> -->

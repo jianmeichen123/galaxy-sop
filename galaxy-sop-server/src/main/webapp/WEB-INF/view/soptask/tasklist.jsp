@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>待办任务</title>
+<title>繁星</title>
 
 
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"  type="text/css">
@@ -40,7 +40,7 @@
           </div>
             <!--tips连接-->
         	<ul class="tipslink">
-            	<li><a href="javascript:;" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
+            	<li class="on"><a href="javascript:;" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
                 <li><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">紧急<span><!-- (2) --></span></a></li>
                 <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span><!-- (5) --></span></a></li>
                 <li><a href="javascript:;" id="claim" query-by="taskStatus" query-val="taskStatus:1">待认领<span><!-- (10) --></span></a></li>
@@ -50,7 +50,7 @@
         </div>
         <!--表格内容-->
 						<table width="100%" cellspacing="0" cellpadding="0" 
-						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"&sid="+sessionId+"&guid="+userId;"  data-page-list="[1, 10, 30]" data-show-refresh="true" 
+						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"  data-page-list="[1, 10, 30]" data-show-refresh="true" 
 				         data-toolbar="#custom-toolbar" >
 						   <thead>
 						    <tr>

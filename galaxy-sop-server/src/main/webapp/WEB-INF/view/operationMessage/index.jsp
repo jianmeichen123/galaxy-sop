@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>消息提醒</title>
+<title>繁星</title>
 
 
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"  type="text/css">

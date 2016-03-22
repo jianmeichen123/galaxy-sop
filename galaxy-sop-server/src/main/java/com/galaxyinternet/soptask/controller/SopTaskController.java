@@ -154,12 +154,12 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			sopTaskBo.setFlagUrl("");
 		}
      	//根据当前登录认查询部门
-		Department Department=new Department();//
-		Department.setId(user.getDepartmentId());
-		Department queryOne = departmentService.queryOne(Department);
-		if(!StringEx.isNullOrEmpty(queryOne)){
-			sopTaskBo.setDepartmentId(queryOne.getId());
-		}
+		//Department Department=new Department();//
+		//Department.setId(user.getDepartmentId());
+	//	Department queryOne = departmentService.queryOne(Department);
+		//if(!StringEx.isNullOrEmpty(queryOne)){
+			sopTaskBo.setDepartmentId(user.getDepartmentId());
+		//}
 		Result result = new Result();
 		try {
 			Page<SopTaskBo> list = sopTaskService.tasklist(new PageRequest(sopTaskBo.getPageNum(),sopTaskBo.getPageSize()), sopTaskBo,request);

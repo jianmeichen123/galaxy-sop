@@ -2,7 +2,10 @@ package com.galaxyinternet.soptask.service;
 
 import static com.galaxyinternet.utils.ExceptUtils.throwSopException;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -172,8 +175,10 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 
 			}
 			sopTaskBo.setId(sopTasknew.getId());
-		
-			sopTaskBo.setTaskDeadlineformat(sopTasknew.getTaskDeadline()!=null?DateUtil.convertDateToString(sopTasknew.getTaskDeadline()):"");//
+			String longToString = DateUtil.longToString(sopTasknew.getCreatedTime());
+		    int diffHour=dateAdd(sopTasknew.getCreatedTime());
+			sopTaskBo.setHours(diffHour);
+			sopTaskBo.setTaskDeadlineformat(longToString);//
 			sopTaskBo.setTaskName(sopTasknew.getTaskName()==null?"":sopTasknew.getTaskName());
 			sopTaskBo.setTaskType(sopTasknew.getTaskType()==null?"":DictUtil.getTypeName(sopTasknew.getTaskType()));
 			sopTaskBo.setTaskOrder(sopTasknew.getTaskOrder()==null?0:sopTasknew.getTaskOrder());
@@ -186,7 +191,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 //				sopTaskBo.setStatusFlag("1");/.append("/galaxy/soptask/goClaimtcPage?id="+sopTaskBo.getId())
-				caozuohtml.append("<a id='dai'")
+				caozuohtml.append("<a id='dai' href='javascript:void(0)' class='blue' ")
 				.append("     data-btn='claim'").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("<input type='hidden' id='taskid' ")
 						.append(" value='"+sopTasknew.getId()+"'").append("/><input type='hidden' id='projectid' ").append(" value='"+sopTasknew.getProjectId()+"' />");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
@@ -197,7 +202,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("2");
 			//	String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
-				caozuohtml.append("<a ").append(" id='doclaim' ").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus()))
+				caozuohtml.append("<a href='javascript:void(0)' class='blue' ").append(" id='doclaim' ").append(" >").append("处理")
 				.append("<input type='hidden'").append(" value='"+sopTasknew.getId()+"'/>").append("</a>");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 		
@@ -314,6 +319,24 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		return taskFlag;
 	}
-	
+	public int dateAdd(Long date){
+		Date convertStringToDate;
+		String convertDateToString="";
+		int diffHour=0;
+		try {
+			Date nowTime = new Date(date);
+			SimpleDateFormat sdFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String retStrFormatNowDate = sdFormatter.format(nowTime);
+		    convertStringToDate = DateUtil.convertStringToDate(retStrFormatNowDate,"yyyy-MM-dd HH:mm:ss");
+			Date addDate = DateUtil.addDate(convertStringToDate,3);
+			convertDateToString = DateUtil.convertDateToStringForChina(addDate);
+			diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.getCurrentDateTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return diffHour;
+	}
 	
 }

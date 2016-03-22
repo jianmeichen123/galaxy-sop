@@ -2,6 +2,9 @@
  * sop用户任务
  */
 $(function(){
+	  $('.tipslink li').on('click',function(){
+	        $(this).addClass('on').siblings().removeClass('on');          
+	      })
 	//待认领
 	$("table").on("click", "a[data-btn='claim']", function() {
 		var obj=this;
@@ -54,12 +57,15 @@ $(function(){
 		}else{
 			tipslink.attr("name",query_by);
 			tipslink.attr("value",query_val)
-		}
+        }
 		
 		$("#data-table").bootstrapTable("querySearch");
 	
 	});
 		
 });
+
+
+
 
 

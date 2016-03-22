@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>繁星SOP-添加项目</title>
+<title>繁星</title>
 <!-- 校验样式 -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
