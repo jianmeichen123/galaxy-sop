@@ -225,6 +225,9 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	{
 		ResponseData<User> resp = new ResponseData<User>();
 		boolean flag  = true;
+		//当前登录人
+		User curUser = (User) request.getSession().getAttribute(
+				Constants.SESSION_USER_KEY);
 		try {
 			SopTask task = sopTaskService.getByFileInfo(id);
 			if(task == null)
@@ -237,6 +240,14 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 			if(task.getAssignUid() != null) //已认领的任务 - 认领人
 			{
 				user = userService.queryById(task.getAssignUid());
+				String time = DateUtil.longToString(task.getUpdatedTime());
+				Date date = new Date();
+				String taskUrgedTime = DateUtil.convertDateToString(date);
+				String toMail = user.getEmail() + Constants.MAIL_SUFFIX;
+				String str = MailTemplateUtils.getContentByTemplate(Constants.MAIL_URGE_CONTENT);
+				String content = PlaceholderConfigurer.formatText(str, user.getRealName(),time,task.getTaskName(),taskUrgedTime,curUser.getRealName());
+				String subject = "催办通知";// 邮件主题
+				flag = SimpleMailSender.sendHtmlMail(toMail, subject, content)&& flag;
 			}
 			else if(task.getDepartmentId() != null) //待认领的任务 - 部门总监
 			{
@@ -256,9 +267,6 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				}
 				if(roleId != null)
 				{
-					//当前登录人
-					User curUser = (User) request.getSession().getAttribute(
-							Constants.SESSION_USER_KEY);
 					UserRole urQuery = new UserRole();
 					urQuery.setRoleId(roleId);
 					List<UserRole> urList = userRoleService.queryList(urQuery);
