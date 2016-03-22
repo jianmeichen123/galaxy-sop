@@ -83,10 +83,10 @@
 					 '<td>'+i+'</td>'+
 					 '<td>'+ taskOrderDesc+'</td>'+
 					 '<td>'+ temp.taskType+'</td>'+
-					 '<td>'+ temp.projectName+'</td>'+
+					 '<td>'+ temp.taskName+'</td>'+
 					 '<td>'+ temp.taskStatus+'</td>'+
-					 '<td>'+ temp.hours+'</td>'+
-					 '<td>'+temp.caozuohtml+'</td>'+
+					 '<td>'+ temp.projectName+'</td>'+
+					 '<td>'+ temp.caozuohtml+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
