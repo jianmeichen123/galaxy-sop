@@ -197,6 +197,7 @@ function loadTempList()
 			null,
 			function(data){
 				$("#template-table tbody").empty();
+				var editableTypes = data.userData.editableTypes;
 				$.each(data.entityList,function(){
 					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-file-length="'+this.fileLength+'"></tr>');
 					$tr.append('<td><input type="checkbox" name="document" /></td>') ;
@@ -207,11 +208,22 @@ function loadTempList()
 					$tr.append('<td>'+Number(this.updatedTime).toDate().format("yyyy/MM/dd")+'</td>') ;
 					if(this.fileName != null)
 					{
-						$tr.append('<td><a data-act="download" data-tid='+this.id+' href="javascript:; " class="blue">下载</a><a data-act="update" data-tid='+this.id+' href="javascript:; " class="blue">更新</a></td>') ; 
+						var $td = $('<td></td>');
+						$td.append('<a data-act="download" data-tid='+this.id+' href="javascript:; " class="blue">下载</a>');
+						if(editableTypes.indexOf(this.worktype)>=0)
+						{
+							$td.append('<a data-act="update" data-tid='+this.id+' href="javascript:; " class="blue">更新</a>');
+						}
+						$tr.append($td) ; 
 					}
 					else
 					{
-						$tr.append('<td><a data-act="upload" data-tid='+this.id+' href="javascript:; " class="blue">上传</a></td>') ;
+						var $td = $('<td></td>');
+						if(editableTypes.indexOf(this.worktype)>=0)
+						{
+							$td.append('<a data-act="upload" data-tid='+this.id+' href="javascript:; " class="blue">上传</a>');
+						}
+						$tr.append($td) ;
 					}
 					$("#template-table tbody").append($tr);
 					

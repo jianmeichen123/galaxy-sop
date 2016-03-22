@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +33,7 @@ import com.alibaba.dubbo.common.utils.StringUtils;
 import com.galaxyinternet.bo.template.SopTemplateBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -41,16 +41,20 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
+import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.template.TemplateMailInfo;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SopTemplateService;
+import com.galaxyinternet.service.UserService;
 @Controller
 @RequestMapping("/galaxy/template")
 public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTemplateBo> {
 	final Logger logger = LoggerFactory.getLogger(SopTemplateController.class);
 	@Autowired
 	private SopTemplateService templateService;
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	protected BaseService<SopTemplate> getBaseService() {
@@ -63,12 +67,50 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	}
 	@ResponseBody
 	@RequestMapping(value = "/queryTemplate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopTemplate> queryTemplate()
+	public ResponseData<SopTemplate> queryTemplate(HttpServletRequest request)
 	{
 		ResponseData<SopTemplate> rtn = new ResponseData<SopTemplate>();
 		try {
-			List<SopTemplate> list = templateService.queryAll();
-			rtn.setEntityList(list);
+			User user = (User) getUserFromSession(request);
+			if(user != null && user.getId() != null)
+			{
+				Role role = userService.getRoleByUserId(user.getId());
+				List<String>  types = null;
+				String typesStr = "";
+				String editableTypes = "";
+				if(UserConstant.TZJL == role.getId())
+				{
+					typesStr = "fileWorktype:1,fileWorktype:2,fileWorktype:3,fileWorktype:4,fileWorktype:5,fileWorktype:6,fileWorktype:7";
+					editableTypes = "fileWorktype:1";
+				}
+				else if(UserConstant.HRJL == role.getId() || UserConstant.HRJL == role.getId() )
+				{
+					typesStr = "fileWorktype:2";
+					editableTypes = "fileWorktype:2";
+				}
+				else if(UserConstant.CWJL == role.getId() || UserConstant.CWJL == role.getId() )
+				{
+					typesStr = "fileWorktype:4";
+					editableTypes = "fileWorktype:4";
+				}
+				else if(UserConstant.FWJL == role.getId() || UserConstant.FWJL == role.getId() )
+				{
+					typesStr = "fileWorktype:3,fileWorktype:5,fileWorktype:6,fileWorktype:7";
+					editableTypes = "fileWorktype:3,fileWorktype:5,fileWorktype:6,fileWorktype:7";
+				}
+				
+				if(typesStr != null && typesStr.length()>0)
+				{
+					types = Arrays.asList(typesStr.split(","));
+					SopTemplateBo query = new SopTemplateBo();
+					query.setFileWorktypes(types);
+					List<SopTemplate> list = templateService.queryList(query);
+					rtn.setEntityList(list);
+					Map<String, Object> userData = new HashMap<String, Object>();
+					userData.put("editableTypes", editableTypes);
+					rtn.setUserData(userData);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			rtn.getResult().addError("模板查询失败.");
@@ -193,7 +235,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	}
 	@RequestMapping("/sendMail")
 	@ResponseBody
-	public Result sendMail(@RequestBody TemplateMailInfo mailInfo)
+	public Result sendMail(HttpServletRequest request,@RequestBody TemplateMailInfo mailInfo)
 	{
 		Result rtn = new Result();
 		try 
@@ -202,7 +244,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			bo.setIds(mailInfo.getTemplateIds());
 			
 			List<SopTemplate> list = templateService.queryList(bo);
-			List<String> fileList = new ArrayList<String>();
+			/*List<String> fileList = new ArrayList<String>();
 			for(SopTemplate template : list)
 			{
 				String fileName = template.getBucketName();
@@ -213,14 +255,24 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 				OSSHelper.simpleDownloadByOSS(temp, template.getFileKey());
 				fileList.add(temp.getAbsolutePath());
 			}
-			
+			*/
 			if(StringUtils.isNotEmpty(mailInfo.getZipFlag()))
 			{
 				//TODO generate zip file
 			}
 			
+			StringBuffer content = new StringBuffer();
+			content.append(mailInfo.getContent());
+			content.append("<br/>");
+			content.append("邮件附件:<br/>");
 			
-			boolean success = SimpleMailSender.sendMailWithAttachfile(mailInfo.getToAddress(), mailInfo.getTitle(), mailInfo.getContent(), fileList);
+			for(SopTemplate template : list)
+			{
+				String fileName = template.getBucketName();
+				content.append("<a href=\"").append(request.getContextPath()).append("/galaxy/commondl").append("\">").append(fileName).append("</a>");
+			}
+			boolean success = SimpleMailSender.sendHtmlMail(mailInfo.getToAddress(),  mailInfo.getTitle(),"");
+			
 			if(success)
 			{
 				if(StringUtils.isNotEmpty(mailInfo.getSmFlag()))
