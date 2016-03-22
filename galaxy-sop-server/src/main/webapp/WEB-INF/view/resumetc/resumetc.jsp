@@ -12,10 +12,7 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+
 <div class="resumetc" >
           <!-- 个人简历 -->
           <div class="tabtable resume">
@@ -35,11 +32,11 @@
                 <table>
                   <tr>
                     <th>团队角色：</th>
-                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""></td>
+                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>姓名：</th>
-                    <td><input name="personName" id="personName" type="text" value=""></td>
+                    <td><input name="personName" id="personName" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
                   </tr>
                   <tr>
                     <th>成员关系：</th>
@@ -63,15 +60,15 @@
                   </tr>  -->
                   <tr>
                     <th>身份证号码：</th>
-                    <td><input name="personIdcard" id="personIdcard" type="text" value="" valType="IDENTITY"  ></td>
+                    <td><input name="personIdcard" id="personIdcard" type="text" value="" class="txt" placeholder="身份证号码" valType="IDENTITY" msg="<font color=red>*</font>身份证号码格式不正确"></td>
                   </tr>
                   <tr>
                     <th>电话：</th>
-                    <td><input name="personTelephone" id="personTelephone" type="text" value=""></td>
+                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"></td>
                   </tr>
                   <tr>
                     <th>邮箱：</th>
-                    <td><input name="personEmail" id="personEmail" type="text" value=""></td>
+                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="MAIL" msg="<font color=red>*</font>电子邮箱格式不正确"></td>
                   </tr>
                 </table>
               </div>
@@ -80,27 +77,27 @@
                 <table>
                   <tr>
                     <th>性格：</th>
-                    <td><input name="personCharacter" id="personCharacter" type="text" value=""></td>
+                    <td><input name="personCharacter" id="personCharacter" type="text" value="" ></td>
                   </tr>
                   <tr>
                     <th>优势：</th>
-                    <td><input name="personGoodness" id="personGoodness" type="text" value=""></td>
+                    <td><input name="personGoodness" id="personGoodness" type="text" value="" ></td>
                   </tr>
                   <tr>
                     <th>劣势：</th>
-                    <td><input name="personDisparity" id="personDisparity" type="text" value=""></td>
+                    <td><input name="personDisparity" id="personDisparity" type="text" value="" ></td>
                   </tr>
                   <tr>
                     <th>沟通能力：</th>
-                    <td><input name="talkAbility" id="talkAbility " type="number" value=""></td>
+                    <td><input name="talkAbility" id="talkAbility " type="number" value="" ></td>
                   </tr>
                   <tr>
                     <th>团队协作能力：</th>
-                    <td><input name="teamAbility" id="teamAbility" type="text" value=""></td>
+                    <td><input name="teamAbility" id="teamAbility" type="text" value="" ></td>
                   </tr>
                   <tr>
                     <th>核心竞争力（业务相关能力）：</th>
-                    <td><input name="businessStrength" id="businessStrength" type="text" value=""> </td>
+                    <td><input name="businessStrength" id="businessStrength" type="text" value="" > </td>
                   </tr>
                 </table>
               </div>
@@ -115,21 +112,21 @@
                 <table>
                   <tr>
                     <th>学历：</th>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""></td>
-                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""></td>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>学校：</th>
-                    <td><input name="school" id="school" type="text" value=""></td>
-                  	<td><input name="school" id="school" type="text" value=""></td>
-                    <td><input name="school" id="school" type="text" value=""></td>
+                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                  	<td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>专业：</th>
-                    <td><input name="major"id="major" type="text" value=""></td>
-                    <td><input name="major"id="major" type="text" value=""></td>
-                    <td><input name="major"id="major" type="text" value=""></td> 
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td> 
                   </tr>                  
                   <tr>
                     <th>学历性质：</th>
@@ -145,9 +142,9 @@
                   </tr>             
                   <tr>
                     <th>毕业证书/学历证书的证书编号：</th>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td>
-                   	<td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td>
+                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="NUMBER" msg="<font color=red>*</font>证书编号只能是数字"></td>
+                   	<td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="NUMBER" msg="<font color=red>*</font>证书编号只能是数字"></td>
+                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="NUMBER" msg="<font color=red>*</font>证书编号只能是数字"></td>
                   </tr>
                 </table>
               </div>
@@ -156,9 +153,9 @@
                 <table>
                   <tr>
                     <th>老师姓名：</th>
-                    <td><input name="teacherName" id="teacherName" type="text" value=""></td>
-                   	<td><input name="teacherName" id="teacherName" type="text" value=""></td>
-                    <td><input name="teacherName" id="teacherName" type="text" value=""></td> 
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td> 
                   </tr>
                   <tr>
                     <th>部门：</th>
@@ -343,6 +340,7 @@
 
           </div>
 </div>
+<jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
@@ -454,21 +452,13 @@ function appendTd(model){
 		var name = input.attr("name");
 		var type = input.attr("type");
 		var class_name = input.attr("class");
-		var valType = input.attr("valType");
-		var msg = input.attr("msg");
-		if(msg=='undefined'||msg== undefined){
-			msg = "";
-		}
-		if(valType=='undefined'||valType== undefined){
-			valType = "";
-		}
 		if(index == 0 ){
-			$(tr).append("<td data-by='id'><input msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
+			$(tr).append("<td data-by='id'><input type='"+type+"' name='"+name+"'/></td>");
 		}else{
 			if(class_name == "datepicker"){
 				$(tr).append("<td><input class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
 			}else{
-				$(tr).append("<td><input  msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
+				$(tr).append("<td><input  ' type='"+type+"' name='"+name+"'/></td>");
 			}
 		}
 	});
@@ -496,7 +486,6 @@ $(".btnbox").on("click",".bluebtn",function(){
 				var son_model = {};
 				it.find("tr").each(function(m,tr_item){
 					var input = $(tr_item).find("input[name][type!=hidden]")[i];
-					
 					if($(input).val() != ''){
 						son_model[$(input).attr("name")] = $(input).val();	
 					}
@@ -525,58 +514,9 @@ $(".btnbox").on("click",".bluebtn",function(){
 	data['personPool']['personSex'] = $("input[name='personSex']:checked").val();
 	data['personPool']['laborDispute'] = $("input[name='laborDispute']:checked").val();
 	data['personPool']['endComment'] = $("#endComment").val();
-
-	if($("#levelStar").find("input[name='score']").val() != ''){
-		data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
-	}
-	if($("#abilityStar").find("input[name='score']").val() != ''){
-		data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
-	}
-	
-	var flag = 0;
-	var json = {};
-	json['personId'] = $("#personId").val();
-	json['personPool'] = data['personPool'] ;
-	for(var x in data['personInvest']){
-		if(x !='id'){
-			flag ++;
-		}
-	}
-	if(flag > 0){
-		json['personInvest'] = data['personInvest'] ;
-	}
-	var arry_personWork = new Array()
-	for(var x in data['personWork']){
-		flag = 0;
-		for(var y in data['personWork'][x]){
-			if(y !='id'){
-				flag ++;
-			}
-		}
-		if(flag > 0){
-			arry_personWork.push(data['personWork'][x]);
-		}
-	}
-	if(arry_personWork.length >0){
-		json['personWork'] = arry_personWork ;
-	}
-	
-	var arry_personLearn = new Array()
-	for(var x in data['personLearn']){
-		flag = 0;
-		for(var y in data['personLearn'][x]){
-			if(y !='id'){
-				flag ++;
-			}
-		}
-		if(flag > 0){
-			arry_personLearn.push(data['personLearn'][x]);
-		}
-	}
-	if(arry_personLearn.length >0){
-		json['personLearn'] =  arry_personLearn;
-	}
-	sendPostRequestByJsonObj(platformUrl.addPersonHr, json, savecbf);
+	data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
+	data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
+	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, savecbf);
 });
 function savecbf(data){
 	if(data.result.status == "OK"){
