@@ -66,50 +66,56 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 			throwSopException(ExceptionMessage.DATA_NOT_EXISTS, "该个人信息不存在");
 		}
 		PersonInvest personInvest = personResumetc.getPersonInvest();
-		if(personInvest.getId() == null){
-			personInvest.setPersonId(personId);
-			personInvest.setCreatedTime(time);
-			personInvestDao.insert(personInvest);
-		}else {
-			personInvest.setUpdatedTime(time);
-			personInvestDao.updateById(personInvest);
+		if(personInvest != null){
+			if(personInvest.getId() == null){
+				personInvest.setPersonId(personId);
+				personInvest.setCreatedTime(time);
+				personInvestDao.insert(personInvest);
+			}else {
+				personInvest.setUpdatedTime(time);
+				personInvestDao.updateById(personInvest);
+			}
 		}
 		List<PersonWork> personWorks = personResumetc.getPersonWork();
-		for (PersonWork personWork : personWorks) {
-			if(personWork.getBeginWorkStr() != null){
-				try {
-					Date date = DateUtil.convertStringToDate(personWork.getBeginWorkStr());
-					personWork.setBeginWork(date);
-				} catch (ParseException e) {
-					System.err.println(e);
+		if(personWorks != null && personWorks.size() >0){
+			for (PersonWork personWork : personWorks) {
+				if(personWork.getBeginWorkStr() != null){
+					try {
+						Date date = DateUtil.convertStringToDate(personWork.getBeginWorkStr());
+						personWork.setBeginWork(date);
+					} catch (ParseException e) {
+						System.err.println(e);
+					}
 				}
-			}
-			if(personWork.getId() == null){
-				personWork.setPersonId(personId);
-				personWork.setCreatedTime(time);
-				personWorkDao.insert(personWork);
-			}else {
-				personWork.setUpdatedTime(time);
-				personWorkDao.updateById(personWork);
+				if(personWork.getId() == null){
+					personWork.setPersonId(personId);
+					personWork.setCreatedTime(time);
+					personWorkDao.insert(personWork);
+				}else {
+					personWork.setUpdatedTime(time);
+					personWorkDao.updateById(personWork);
+				}
 			}
 		}
 		List<PersonLearn> personLearns = personResumetc.getPersonLearn();
-		for (PersonLearn personLearn : personLearns) {
-			if(personLearn.getOverDateStr()!= null){
-				try {
-					Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr());
-					personLearn.setOverDate(date);
-				} catch (ParseException e) {
-					System.err.println(e);
+		if(personLearns != null&& personLearns.size() >0){
+			for (PersonLearn personLearn : personLearns) {
+				if(personLearn.getOverDateStr()!= null){
+					try {
+						Date date = DateUtil.convertStringToDate(personLearn.getOverDateStr());
+						personLearn.setOverDate(date);
+					} catch (ParseException e) {
+						System.err.println(e);
+					}
 				}
-			}
-			if(personLearn.getId() == null){
-				personLearn.setPersonId(personId);
-				personLearn.setCreatedTime(time);;
-				personLearnDao.insert(personLearn);
-			}else {
-				personLearn.setUpdatedTime(time);
-				personLearnDao.updateById(personLearn);
+				if(personLearn.getId() == null){
+					personLearn.setPersonId(personId);
+					personLearn.setCreatedTime(time);;
+					personLearnDao.insert(personLearn);
+				}else {
+					personLearn.setUpdatedTime(time);
+					personLearnDao.updateById(personLearn);
+				}
 			}
 		}
 
