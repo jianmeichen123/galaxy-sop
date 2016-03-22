@@ -3,9 +3,11 @@ package com.galaxyinternet.project.controller;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,6 @@ import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
-import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -860,6 +861,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		
 		return responseBody;
 	}
-	
-	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@ResponseBody
+	@RequestMapping(value="/getSummary", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData getSummary(HttpServletRequest request)
+	{
+		ResponseData resp = new ResponseData();
+		try {
+			String userId = getUserId(request);
+			if(StringUtils.isNotEmpty(userId));
+			Map<String, Object> summary = projectService.getSummary(Long.valueOf(userId));
+			resp.setUserData(summary);
+		} catch (Exception e) {
+			logger.error("获取数据快览失败",e);
+			resp.getResult().addError("获取数据快览失败");
+		}
+		
+		return resp;
+	}
 }

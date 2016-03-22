@@ -278,5 +278,16 @@ public class Project extends PagableEntity {
 	public void setNameCodeLike(String nameCodeLike) {
 		this.nameCodeLike = nameCodeLike;
 	}
+	
+	private Long count;
+
+
+	public Long getCount() {
+		return count;
+	}
+
+	public void setCount(Long count) {
+		this.count = count;
+	}
 
 }

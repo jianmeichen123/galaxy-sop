@@ -15,5 +15,7 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 	 */
 	public List<Project> selectProjectByMap(ProjectBo query);
 	
-
+	public Project selectTotalSummary(ProjectBo query);
+	
+	public List<Project> selectStageSummary(ProjectBo query);
 }

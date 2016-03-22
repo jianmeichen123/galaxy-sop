@@ -21,7 +21,26 @@ public class ProjectBo extends Project {
 	
 	private String nameOnlyLike;//指针对projectName进行模糊查询
 	
+	private Long createDateFrom;
+	private Long createDateThrough;
 	
+	
+	public Long getCreateDateFrom() {
+		return createDateFrom;
+	}
+
+	public void setCreateDateFrom(Long createDateFrom) {
+		this.createDateFrom = createDateFrom;
+	}
+
+	public Long getCreateDateThrough() {
+		return createDateThrough;
+	}
+
+	public void setCreateDateThrough(Long createDateThrough) {
+		this.createDateThrough = createDateThrough;
+	}
+
 	public String getExtendFiled() {
 		return extendFiled;
 	}

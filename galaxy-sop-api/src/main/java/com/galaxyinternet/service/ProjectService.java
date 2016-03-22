@@ -1,5 +1,7 @@
 package com.galaxyinternet.service;
 
+import java.util.Map;
+
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
 
@@ -19,5 +21,7 @@ public interface ProjectService extends BaseService<Project> {
 	 * 申请投决会
 	 */
 	public void toSureMeetingStage(Project project) throws Exception;
+	
+	public Map<String, Object> getSummary(Long userId) throws Exception;
 
 }
