@@ -12,7 +12,10 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <div class="resumetc" >
           <!-- 个人简历 -->
           <div class="tabtable resume">
@@ -60,15 +63,15 @@
                   </tr>  -->
                   <tr>
                     <th>身份证号码：</th>
-                    <td><input name="personIdcard" id="personIdcard" type="text" value="" class="txt" placeholder="身份证号码" valType="IDENTITY" msg="<font color=red>*</font>身份证号码格式不正确"></td>
+                    <td><input name="personIdcard" id="personIdcard" type="text" value="" valType="IDENTITY"  ></td>
                   </tr>
                   <tr>
                     <th>电话：</th>
-                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"></td>
+                    <td><input name="personTelephone" id="personTelephone" type="text" value=""></td>
                   </tr>
                   <tr>
                     <th>邮箱：</th>
-                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="MAIL" msg="<font color=red>*</font>电子邮箱格式不正确"></td>
+                    <td><input name="personEmail" id="personEmail" type="text" value=""></td>
                   </tr>
                 </table>
               </div>
@@ -451,13 +454,21 @@ function appendTd(model){
 		var name = input.attr("name");
 		var type = input.attr("type");
 		var class_name = input.attr("class");
+		var valType = input.attr("valType");
+		var msg = input.attr("msg");
+		if(msg=='undefined'||msg== undefined){
+			msg = "";
+		}
+		if(valType=='undefined'||valType== undefined){
+			valType = "";
+		}
 		if(index == 0 ){
-			$(tr).append("<td data-by='id'><input type='"+type+"' name='"+name+"'/></td>");
+			$(tr).append("<td data-by='id'><input msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
 		}else{
 			if(class_name == "datepicker"){
 				$(tr).append("<td><input class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
 			}else{
-				$(tr).append("<td><input  ' type='"+type+"' name='"+name+"'/></td>");
+				$(tr).append("<td><input  msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
 			}
 		}
 	});
@@ -485,6 +496,7 @@ $(".btnbox").on("click",".bluebtn",function(){
 				var son_model = {};
 				it.find("tr").each(function(m,tr_item){
 					var input = $(tr_item).find("input[name][type!=hidden]")[i];
+					
 					if($(input).val() != ''){
 						son_model[$(input).attr("name")] = $(input).val();	
 					}
@@ -513,9 +525,58 @@ $(".btnbox").on("click",".bluebtn",function(){
 	data['personPool']['personSex'] = $("input[name='personSex']:checked").val();
 	data['personPool']['laborDispute'] = $("input[name='laborDispute']:checked").val();
 	data['personPool']['endComment'] = $("#endComment").val();
-	data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
-	data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
-	sendPostRequestByJsonObj(platformUrl.addPersonHr, data, savecbf);
+
+	if($("#levelStar").find("input[name='score']").val() != ''){
+		data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
+	}
+	if($("#abilityStar").find("input[name='score']").val() != ''){
+		data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
+	}
+	
+	var flag = 0;
+	var json = {};
+	json['personId'] = $("#personId").val();
+	json['personPool'] = data['personPool'] ;
+	for(var x in data['personInvest']){
+		if(x !='id'){
+			flag ++;
+		}
+	}
+	if(flag > 0){
+		json['personInvest'] = data['personInvest'] ;
+	}
+	var arry_personWork = new Array()
+	for(var x in data['personWork']){
+		flag = 0;
+		for(var y in data['personWork'][x]){
+			if(y !='id'){
+				flag ++;
+			}
+		}
+		if(flag > 0){
+			arry_personWork.push(data['personWork'][x]);
+		}
+	}
+	if(arry_personWork.length >0){
+		json['personWork'] = arry_personWork ;
+	}
+	
+	var arry_personLearn = new Array()
+	for(var x in data['personLearn']){
+		flag = 0;
+		for(var y in data['personLearn'][x]){
+			if(y !='id'){
+				flag ++;
+			}
+		}
+		if(flag > 0){
+			arry_personLearn.push(data['personLearn'][x]);
+		}
+	}
+	if(arry_personLearn.length >0){
+		json['personLearn'] =  arry_personLearn;
+	}
+	sendPostRequestByJsonObj(platformUrl.addPersonHr, json, savecbf);
 });
 function savecbf(data){
 	if(data.result.status == "OK"){
