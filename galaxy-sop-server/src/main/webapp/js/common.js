@@ -458,9 +458,9 @@ function getInterViewCondition(hasProid,projectId,
 		viewNotesId){
 	var	condition = {};
 	
-	if(!beforeSubmit()){
+	/*if(!beforeSubmit()){
 		return false;
-	}
+	}*/
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);
 	}else{
@@ -535,9 +535,9 @@ function getMeetCondition(hasProid,projectId,
 		){
 	var	condition = {};
 	
-	if(!beforeSubmit()){
+	/*if(!beforeSubmit()){
 		return false;
-	}
+	}*/
 	
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);
