@@ -22,7 +22,7 @@
     <!--头部中间-->
     <div class="min clearfix">
         <!--用户信息-->
-        <c:if test="<%=roleId %>!=17">
+        <c:if test="<%=roleId !=17 %>">
         <div class="usermsg clearfix">
             <span class="light_blue">当前您有：</span>
             <a href="<%=path %>/galaxy/soptask" class="work">待办任务<em class="totalUrgent"></em></a>
