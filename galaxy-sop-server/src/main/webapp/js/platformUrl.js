@@ -337,7 +337,11 @@ var platformUrl = {
 	/**
 	 * 跳到完善简历页面(弹出)
 	 */
-	personHr: sopContentUrl+"/galaxy/hrjl/resumetcc"
+	personHr: sopContentUrl+"/galaxy/hrjl/resumetcc",
+	/**
+	 * 催办
+	 */
+	taskUrged:sopContentUrl + "/galaxy/taskprocess/taskUrged"
 }
 
 /**
