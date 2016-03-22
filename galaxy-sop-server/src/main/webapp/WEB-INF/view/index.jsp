@@ -111,7 +111,7 @@ String reportEndpoint = String.valueOf(endpointMap.get("galaxy.project.report.en
                     	<table width="100%" cellspacing="0"  cellpadding="0">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>序号</th>
                                     <th>优先级</th>
                                     <th>任务类型</th>
                                     <th>任务名称</th>
