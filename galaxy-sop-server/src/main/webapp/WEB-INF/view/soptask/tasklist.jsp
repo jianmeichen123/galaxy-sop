@@ -40,11 +40,7 @@
           </div>
             <!--tips连接-->
         	<ul class="tipslink">
-<<<<<<< HEAD
-            	<li><a href="javascript:;" class="on" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
-=======
             	<li class="on"><a href="javascript:;" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
->>>>>>> refs/remotes/origin/develop
                 <li><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">紧急<span><!-- (2) --></span></a></li>
                 <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span><!-- (5) --></span></a></li>
                 <li><a href="javascript:;" id="claim" query-by="taskStatus" query-val="taskStatus:1">待认领<span><!-- (10) --></span></a></li>
