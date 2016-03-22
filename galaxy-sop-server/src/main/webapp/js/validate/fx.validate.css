@@ -1,0 +1,30 @@
+
+.tooltip-inner {
+  max-width: 200px;
+  padding: 3px 8px;
+  color: #000;
+  text-align: center;
+  background-color: #fff9c9;
+  border-radius: 4px;
+}
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+.tooltip.right .tooltip-arrow {
+    border-right-color: #fff9c9;
+    border-width: 5px 5px 5px 0;
+    left: 0;
+    margin-top: -5px;
+    top: 50%;
+}
+.tooltip.top .tooltip-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #fff;
+}

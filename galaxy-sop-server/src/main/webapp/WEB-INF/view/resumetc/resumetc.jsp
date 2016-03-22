@@ -32,11 +32,11 @@
                 <table>
                   <tr>
                     <th>团队角色：</th>
-                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""></td>
+                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>姓名：</th>
-                    <td><input name="personName" id="personName" type="text" value=""></td>
+                    <td><input name="personName" id="personName" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
                   </tr>
                   <tr>
                     <th>成员关系：</th>
@@ -77,27 +77,27 @@
                 <table>
                   <tr>
                     <th>性格：</th>
-                    <td><input name="personCharacter" id="personCharacter" type="text" value=""></td>
+                    <td><input name="personCharacter" id="personCharacter" type="text" value="" ></td>
                   </tr>
                   <tr>
                     <th>优势：</th>
-                    <td><input name="personGoodness" id="personGoodness" type="text" value=""></td>
+                    <td><input name="personGoodness" id="personGoodness" type="text" value="" ></td>
                   </tr>
                   <tr>
                     <th>劣势：</th>
-                    <td><input name="personDisparity" id="personDisparity" type="text" value=""></td>
+                    <td><input name="personDisparity" id="personDisparity" type="text" value="" ></td>
                   </tr>
                   <tr>
                     <th>沟通能力：</th>
-                    <td><input name="talkAbility" id="talkAbility " type="number" value=""></td>
+                    <td><input name="talkAbility" id="talkAbility " type="number" value="" ></td>
                   </tr>
                   <tr>
                     <th>团队协作能力：</th>
-                    <td><input name="teamAbility" id="teamAbility" type="text" value=""></td>
+                    <td><input name="teamAbility" id="teamAbility" type="text" value="" ></td>
                   </tr>
                   <tr>
                     <th>核心竞争力（业务相关能力）：</th>
-                    <td><input name="businessStrength" id="businessStrength" type="text" value=""> </td>
+                    <td><input name="businessStrength" id="businessStrength" type="text" value="" > </td>
                   </tr>
                 </table>
               </div>
@@ -112,21 +112,21 @@
                 <table>
                   <tr>
                     <th>学历：</th>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""></td>
-                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""></td>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>学校：</th>
-                    <td><input name="school" id="school" type="text" value=""></td>
-                  	<td><input name="school" id="school" type="text" value=""></td>
-                    <td><input name="school" id="school" type="text" value=""></td>
+                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                  	<td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>专业：</th>
-                    <td><input name="major"id="major" type="text" value=""></td>
-                    <td><input name="major"id="major" type="text" value=""></td>
-                    <td><input name="major"id="major" type="text" value=""></td> 
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td> 
                   </tr>                  
                   <tr>
                     <th>学历性质：</th>
@@ -142,9 +142,9 @@
                   </tr>             
                   <tr>
                     <th>毕业证书/学历证书的证书编号：</th>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td>
-                   	<td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value=""></td>
+                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="NUMBER" msg="<font color=red>*</font>证书编号只能是数字"></td>
+                   	<td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="NUMBER" msg="<font color=red>*</font>证书编号只能是数字"></td>
+                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="NUMBER" msg="<font color=red>*</font>证书编号只能是数字"></td>
                   </tr>
                 </table>
               </div>
@@ -153,9 +153,9 @@
                 <table>
                   <tr>
                     <th>老师姓名：</th>
-                    <td><input name="teacherName" id="teacherName" type="text" value=""></td>
-                   	<td><input name="teacherName" id="teacherName" type="text" value=""></td>
-                    <td><input name="teacherName" id="teacherName" type="text" value=""></td> 
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td> 
                   </tr>
                   <tr>
                     <th>部门：</th>
@@ -340,6 +340,7 @@
 
           </div>
 </div>
+<jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){

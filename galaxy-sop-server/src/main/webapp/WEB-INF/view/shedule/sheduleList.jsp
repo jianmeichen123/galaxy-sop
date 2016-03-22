@@ -14,7 +14,10 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 <div class="schedule1tc">
     <div class="top clearfix">
@@ -89,8 +92,7 @@
             <dl class="fmdl clearfix">
                 <dt>处理日期：</dt>
                 <dd class="clearfix">
-                    <!-- <input class="form-control" type="date" id="itemDate" name="itemDateStr" value="<%=timestr%>"/> -->
-                    <input class="datepicker time" name="itemDateStr" id="itemDate" type="text" value="<%=timestr%>" readonly="readonly"/>
+                    <input type="text" id="itemDate" class="datepicker time" name="itemDateStr" readonly value="<%=timestr%>" valType="required" msg="<font color=red>*</font>处理日期不能为空"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -110,7 +112,7 @@
             <dl class="fmdl clearfix">
                 <dt>事项内容：</dt>
                 <dd>
-                    <textarea id="content" name="content" valType="required" msg="<font color=red>*</font>事件内容不能为空"><%=contentstr %></textarea>
+                    <textarea id="content" name="content" valType="required" msg="<font color=red>*</font>事件内容不能为空" valType="required" msg="<font color=red>*</font>处理日期不能为空"><%=contentstr %></textarea>
                 </dd>
             </dl>
             <div class="btnbox">
@@ -167,7 +169,7 @@
     	
     	var result = data.result.status;
     	if(result == "ERROR"){ //OK, ERROR
-    		alert("error")
+    		layer.msg("获取失败!");
     		return;
     	}
     	var content = data.entity.content;
@@ -203,14 +205,16 @@
     function sheduleCallBack(data){
     	var result = data.result.status;
     	if(result == "ERROR"){ //OK, ERROR
-    		alert("操作失败!");
+    		layer.msg("操作失败!");
     		return;
     	}
     	$("#powindow").remove();
     	$("#popbg").remove();
     	loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
-    	shecudle();
+    	//shecudle();
+    	layer.msg("操作成功!");
     }
+    
     
   
     $(function() {
@@ -222,8 +226,8 @@
 
    $(".nav").click(function(event) {
            $(this).addClass('on').siblings().removeClass('on');
-           $(".bottom_r .block").eq(index).show().siblings().hide();
+           $(".bottom_r .block").show().siblings().hide();
    });
 
     </script>
-   <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
+<script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>  
