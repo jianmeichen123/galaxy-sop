@@ -24,8 +24,9 @@ if(null != user) {
 	userId = user.getId();
 }
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
+Map<String, Object> endpointMap = new com.google.gson.Gson().fromJson(endpoint,new TypeToken<Map<String, Object>>() {}.getType()); 
+String reportEndpoint = String.valueOf(endpointMap.get("galaxy.project.report.endpoint"));
 %>
-
 
 <!-- 这里写js和css文件---------start -->
 <script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
