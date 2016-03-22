@@ -9,22 +9,18 @@
 	<title>繁星SOP-添加项目</title>
 	<script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
-	<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
-	<!-- 校验样式 -->
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
+<%-- 	<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
+ --%>	<!-- 校验样式 -->
+<%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" /> --%>
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 	<!-- jsp文件头和头部 -->
 	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
-	<!-- 富文本编辑器 -->
-	<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
-    <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script type="text/javascript" src="<%=path %>/js/project.js"></script>
 
     <script src="<%=path %>/js/init.js"></script>
+    
     <!-- 表单验证 -->
 	<script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
@@ -110,12 +106,12 @@
             <dl>
               <dt>项目概述</dt>
               <dd class="edit">
-              	  <script type="text/plain" id="describe_editor" style="width:100%;height:100px;">
-				  </script>
+              	  <div type="text/plain" id="describe_editor" style="width:100%;height:100px;">
+				  </div>
 			  </dd>
 			  <dd class="describe" id="describe_show"></dd>
               <dd class="fctbox">
-                <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+                <a href="javascript:;" class="ico f1" data-btn="edit" onclick="editModelEditor('describe_editor')">编辑</a>
                 <a href="javascript:;" id="save_describe" class="ico f4" data-btn="submit">保存</a>
                 <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
@@ -128,12 +124,12 @@
             <dl>
               <dt>商业模式</dt>
               <dd class="edit">
-              	  <script type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
-				  </script>
+              	  <div type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
+				  </div>
 		      </dd>
 		      <dd class="describe" id="model_show"></dd>
               <dd class="fctbox">
-                <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+                <a href="javascript:;" class="ico f1" data-btn="edit" onclick="editModelEditor('business_model_editor')">编辑</a>
                 <a href="javascript:;" id="save_business_model" class="ico f4" data-btn="submit">保存</a>
                 <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
@@ -146,12 +142,12 @@
             <dl>
               <dt>公司定位</dt>
               <dd class="edit">
-			      <script type="text/plain" id="location_editor" style="width:100%;height:100px;">
-				  </script>
+			      <div type="text/plain" id="location_editor" style="width:100%;height:100px;">
+				  </div>
 			  </dd>
 			  <dd class="describe" id="location_show"></dd>
               <dd class="fctbox">
-                <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+                <a href="javascript:;" class="ico f1" data-btn="edit" onclick="editModelEditor('location_editor')">编辑</a>
                 <a href="javascript:;" class="ico f4" id="save_location" data-btn="submit">保存</a>
                 <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
@@ -164,12 +160,12 @@
             <dl>
               <dt>用户分析</dt>
               <dd class="edit">
-			  	  <script type="text/plain" id="portrait_editor" style="width:100%;height:100px;">
-				  </script>
+			  	  <div type="text/plain" id="portrait_editor" style="width:100%;height:100px;">
+				  </div>
 			  </dd>
 			   <dd class="describe" id="portrait_show"></dd>
               <dd class="fctbox">
-                <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+                <a href="javascript:;" class="ico f1" data-btn="edit" onclick="editModelEditor('portrait_editor')">编辑</a>
                 <a href="javascript:;" class="ico f4" id="save_portrait" data-btn="submit">保存</a>
                 <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
@@ -182,12 +178,12 @@
             <dl>
               <dt>竞情分析</dt>
               <dd class="edit">
-			      <script type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
-				  </script>
+			      <div type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
+				  </div>
 			  </dd>
 			  <dd class="describe" id="analysis_show">11111</dd>
               <dd class="fctbox">
-                <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
+                <a href="javascript:;" class="ico f1" data-btn="edit" onclick="editModelEditor('analysis_editor')">编辑</a>
                 <a href="javascript:;" id="save_analysis" class="ico f4" data-btn="submit">保存</a>
                 <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
@@ -357,10 +353,13 @@
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
-
+	<!-- 富文本编辑器 -->
+	  <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+    <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script>
     var pid='${requestScope.pid}';
-    
     
     function closePro(){
     	sendGetRequest(platformUrl.closeProject+pid,null,closeback);
@@ -600,11 +599,13 @@ function closeback(data){
     	};
     }
     
-  
-    
+    function editModelEditor(id){
+    	UM.getEditor(id);
+    }
+ 
 	
 </script>	   
-
+<%-- <script src="<%=request.getContextPath() %>/js/axure_ext.js"></script> --%>
 
 
 </html>

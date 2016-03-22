@@ -8,6 +8,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
 
 
@@ -55,8 +60,8 @@
 				    		  SopUserSchedule shcedule=common.getList().get(j);
 				    		  String str[] = shcedule.getItemDate().toString().split(" ");
 				    	  %>  
-				    		  <dl class="on" data-tab='nav' onclick="getShedule(<%=shcedule.getId()%>)">
-			                            <dt><%=shcedule.getContent() %>
+				    		  <dl id="currentShedule" class="nav" data-tab='nav' onclick="getShedule(<%=shcedule.getId()%>)">
+			                            <dt><span><%=shcedule.getContent() %></span>
 			                            <label class="red">
 			                            <% if("1".equals(shcedule.getItemOrder())){%>紧急<%} %>
 			                            <% if("0".equals(shcedule.getItemOrder())){%>正常<%} %>
@@ -85,7 +90,7 @@
                 <dt>处理日期：</dt>
                 <dd class="clearfix">
                     <!-- <input class="form-control" type="date" id="itemDate" name="itemDateStr" value="<%=timestr%>"/> -->
-                    <input name="itemDateStr" id="itemDate" type="text" value="<%=timestr%>" id="date" onclick="calendar.show(this);" size="15" maxlength="10" readonly="readonly"/>
+                    <input class="datepicker time" name="itemDateStr" id="itemDate" type="text" value="<%=timestr%>" readonly="readonly"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -210,8 +215,15 @@
   
     $(function() {
         $(".bottom_l .nav_list").click(function(event) {
-            $(this).siblings().stop().slideToggle().parent().siblings().children('dl').slideUp();
+            $(this).siblings().stop().slideToggle().parent().siblings().children('dd').slideUp();
         });
     });
+   
+
+   $(".nav").click(function(event) {
+           $(this).addClass('on').siblings().removeClass('on');
+           $(".bottom_r .block").eq(index).show().siblings().hide();
+   });
+
     </script>
    <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>

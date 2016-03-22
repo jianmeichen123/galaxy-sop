@@ -85,16 +85,16 @@ function leicj(){
    $('.tips').hide();
   });	
  //添加日程弹窗
-         $(".bottom_l .nav_list").click(function(event) {
-            $(this).siblings().stop().slideToggle().parent().siblings().children('dd').slideUp();
-        });
-        
-        $(".nav1 .nav,.nav2 .nav,.nav3 .nav,.nav4 .nav").each(function(index, el) {
-            $(this).click(function(event) {
-                $(this).addClass('on').siblings().removeClass('on');
-                $(".bottom_r .block").eq(index).show().siblings().hide();
-            });
-        });
+ $(".bottom_l .nav_list").click(function(event) {
+    $(this).siblings().stop().slideToggle().parent().siblings().children('dd').slideUp();
+});
+
+$(".nav1 .nav,.nav2 .nav,.nav3 .nav,.nav4 .nav").each(function(index, el) {
+    $(this).click(function(event) {
+        $(this).addClass('on').siblings().removeClass('on');
+        $(".bottom_r .block").eq(index).show().siblings().hide();
+    });
+});
 
 //投后菜单显示隐藏    
     $(".pagebox .lft div").click(function(event) {
