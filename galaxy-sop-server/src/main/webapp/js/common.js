@@ -32,9 +32,16 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 			//alert("connetion error");
 		},
 		success : function(data) {
-			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+			if(!data.hasOwnProperty("result")&&!data.hasOwnProperty("pageList")
+					&&!data.hasOwnProperty("entity")&&!data.hasOwnProperty("pageVoList")
+					&&!data.hasOwnProperty("entityList")&&!data.hasOwnProperty("id")
+					&&!data.hasOwnProperty("header")
+			){
 				location.href = platformUrl.toLoginPage;
 			}
+			/*if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+				location.href = platformUrl.toLoginPage;
+			}*/
 			if (callbackFun) {
 				callbackFun(data);
 			}
@@ -91,10 +98,16 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 			//alert("connetion error");
 		},
 		success : function(data) {
-			
-			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+			if(!data.hasOwnProperty("result")&&!data.hasOwnProperty("pageList")
+					&&!data.hasOwnProperty("entity")&&!data.hasOwnProperty("pageVoList")
+					&&!data.hasOwnProperty("entityList")&&!data.hasOwnProperty("id")
+					&&!data.hasOwnProperty("header")
+			){
 				location.href = platformUrl.toLoginPage;
 			}
+			/*if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+				location.href = platformUrl.toLoginPage;
+			}*/
 			if (callbackFun) {
 				callbackFun(data);
 			}
@@ -131,9 +144,16 @@ function sendPostRequest(reqUrl, callbackFun) {
 			//alert("connetion error");
 		},
 		success : function(data) {
-			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+			if(!data.hasOwnProperty("result")&&!data.hasOwnProperty("pageList")
+					&&!data.hasOwnProperty("entity")&&!data.hasOwnProperty("pageVoList")
+					&&!data.hasOwnProperty("entityList")&&!data.hasOwnProperty("id")
+					&&!data.hasOwnProperty("header")
+			){
 				location.href = platformUrl.toLoginPage;
 			}
+			/*if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
+				location.href = platformUrl.toLoginPage;
+			}*/
 			if (callbackFun) {
 				callbackFun(data);
 			}
