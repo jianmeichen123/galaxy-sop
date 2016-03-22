@@ -4,10 +4,7 @@
 	<parent>
 		<groupId>com.galaxyinternet</groupId>
 		<artifactId>galaxy-sop</artifactId>
-		<!-- QA版本 -->
-		<version>1.0.1-SNAPSHOT</version>
-		<!-- 线上版本 -->
-		<!-- <version>1.0.0</version> -->
+		<version>1.0.0</version>
 	</parent>
 	<artifactId>galaxy-sop-api</artifactId>
 	<packaging>jar</packaging>
