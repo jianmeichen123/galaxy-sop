@@ -83,7 +83,22 @@
 
 <script type="text/javascript">
 	$(function(){
-		createMenus(2);
+		var flag="${flagUrl}";
+		var num=2;
+		if(flag=="jz"){
+			num=9;
+		}
+		if(flag=="jl"){
+			num=10;		
+				}
+		if(flag=="gq"){
+			num=12;
+		}
+		if(flag=="pz"){
+			num=11;
+		}
+		createMenus(num);
+		
 	});
 </script>
 </html>
