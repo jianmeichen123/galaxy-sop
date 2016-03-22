@@ -73,13 +73,16 @@ $(function(){
 	    autoclose: true,
 	    todayHighlight: false,
 	    calendarWeeks: true,
+	    defaultDate : Date,
 	    weekStart:1,
 	    today: "Today",
 	    todayBtn:'linked',
 	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
 	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
-	    forceParse:false
-	    //defaultViewDate: { year: 1977, month: 04, day: 25 },
+	    forceParse:false,
+	    currentText: 'Now',
+	    setDate:'2016-09-09'
+	    //defaultViewDate: new Date()
 	    //daysOfWeekDisabled: "0",
 	    //daysOfWeekHighlighted: "0",
 	    //clearBtn: true,
@@ -89,6 +92,7 @@ $(function(){
 	    //startDate: '-3d',
 	    //endDate: '+3d'
 	});
+	$('.datepicker').datepicker("setDate",new Date());
 	//日期视图--限制选择当天之前的日期
 	$('.end-datepicker').datepicker({
 	    format: 'yyyy-mm-dd',
@@ -96,6 +100,7 @@ $(function(){
 	    autoclose: true,
 	    todayHighlight: false,
 	    calendarWeeks: true,
+	    defaultDate : new Date(),
 	    weekStart:1,
 	    today: "Today",
 	    todayBtn:'linked',
@@ -120,6 +125,7 @@ $(function(){
 	    autoclose: true,
 	    todayHighlight: false,
 	    calendarWeeks: true,
+	    defaultDate : new Date(),
 	    weekStart:1,
 	    today: "Today",
 	    todayBtn:'linked',

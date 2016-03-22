@@ -8,13 +8,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
@@ -92,7 +91,7 @@
             <dl class="fmdl clearfix">
                 <dt>处理日期：</dt>
                 <dd class="clearfix">
-                    <input type="text" id="itemDate" class="datepicker time" name="itemDateStr" readonly value="<%=timestr%>" valType="required" msg="<font color=red>*</font>处理日期不能为空"/>
+                    <input type="text" id="itemDate" class="datepicker time" name="itemDateStr" readonly value="<%=timestr %>" valType="required" msg="<font color=red>*</font>处理日期不能为空"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -112,7 +111,7 @@
             <dl class="fmdl clearfix">
                 <dt>事项内容：</dt>
                 <dd>
-                    <textarea id="content" name="content" valType="required" msg="<font color=red>*</font>事件内容不能为空" valType="required" msg="<font color=red>*</font>处理日期不能为空"><%=contentstr %></textarea>
+                    <textarea id="content" name="content" valType="required" msg="<font color=red>*</font>事件内容不能为空"><%=contentstr %></textarea>
                 </dd>
             </dl>
             <div class="btnbox">
@@ -124,6 +123,10 @@
     </div>
 </div>
     <script type="text/javascript">
+    
+     if('<%=timestr%>' !=''){
+    	 $("#itemDate").val('<%=timestr%>');
+     }
     
      var itemType="<%=itemType%>";//0:工作;1：个人
      var itemOrder="<%=itemOrder%>";//0:正常;1：紧急
@@ -153,7 +156,8 @@
     }
     //新建日程
     function newShedule(){
-    	$("#itemDate").val('');
+    	var time=currentTime();
+    	$("#itemDate").val(time);
     	$("#content").val('');
     	$("#id").val('');
     	$("#id").remove();
@@ -228,6 +232,15 @@
            $(this).addClass('on').siblings().removeClass('on');
            $(".bottom_r .block").show().siblings().hide();
    });
+   
+   function currentTime(){
+	   var myDate = new Date();
+	   var year=myDate.getFullYear();        //获取当前年份(2位)
+	   var month=myDate.getMonth()+1;       //获取当前月份(0-11,0代表1月)
+	   var day=myDate.getDate();  
+	   return year+"-"+month+"-"+day;
+   }
 
     </script>
+
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>  
