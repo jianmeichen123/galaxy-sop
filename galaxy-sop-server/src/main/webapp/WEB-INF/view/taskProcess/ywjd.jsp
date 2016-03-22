@@ -184,6 +184,20 @@ function initUpload(_dialog){
 		init: {
 			PostInit: function(up) {
 				$(_dialog.id).find("#upload-btn").click(function(){
+					
+					var opts = {
+							rules : {
+								fileSource:{
+									required:true
+								}
+								
+							}
+					};
+					var validator = $(_dialog.id).find('form').fxValidate(opts);
+					if(!validator.form())
+					{
+						return;
+					}
 					var fileName = $(_dialog.id).find('[name="fileName"]').val();
 					if(fileName == null || fileName == '')
 					{
@@ -252,6 +266,15 @@ function initUpload(_dialog){
 
 function initForm(_dialog)
 {
+	var opts = {
+			rules : {
+				fileSource:{
+					required:true
+				}
+				
+			}
+	};
+	$(_dialog.id).find('form').fxValidate(opts);
 	var $row = $("#hrjzdc-table tbody tr[data-file-worktype='fileWorktype:1']");
 	var fileType = $row.data('file-type') == 'undefined' ? 'fileType:1' : $row.data('file-type');
 	var fileName = $row.data('file-name');

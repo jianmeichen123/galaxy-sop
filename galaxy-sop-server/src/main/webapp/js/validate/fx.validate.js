@@ -6,16 +6,17 @@ $.fn.fxValidate = function(options){
 			errorElement : 'p',
 	        focusInvalid : false, 
 	        success : function(label,element) { 
-	        	$(element).tooltip('destroy');
+	        	$(element).closest('dd').tooltip('destroy');
 	        },   
-	        errorPlacement : function(error, element) {  
-	            $(element).tooltip({
+	        errorPlacement : function(error, element) { 
+	        	var target = $(element).closest('dd')[0];
+	            $(target).tooltip({
 	            	title:error,
 	            	trigger:'manual',
 	            	placement:'right',
 	            	html:true
 	            });
-	            $(element).tooltip('show');
+	            $(target).tooltip('show');
 	        }
 	};
 	options = $.extend(defaultOption,options);

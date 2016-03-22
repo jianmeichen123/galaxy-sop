@@ -271,7 +271,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 		},
 		init: {
 			//上传按钮点击事件 - 开始上传
-			PostInit: function() {
+			PostInit: function(up) {
 				$("#" + submitBtnId).click(function(){
 					var file = $("#" + fileInputId).val();
 					
@@ -280,8 +280,8 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 						uploader.stop();
 						return;
 					}else{
-						uploader.start();
 						up.settings.multipart_params = param;
+						uploader.start();
 					}
 					//传到后台的参数
 					//uploader.multipart_params = { id : "12345" };
