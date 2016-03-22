@@ -2,9 +2,9 @@
 import="com.galaxyinternet.framework.core.oss.OSSConstant"
 %>
 <% 
-	String path = request.getContextPath(); 
+String path = request.getContextPath(); 
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
-Map<String, Object> endpointMap = new com.google.gson.Gson().fromJson(endpoint,new TypeToken<Map<String, Object>>() {}.getType()); 
+java.util.Map<String, Object> endpointMap = new com.google.gson.Gson().fromJson(endpoint,new TypeToken<Map<String, Object>>() {}.getType()); 
 String reportEndpoint = String.valueOf(endpointMap.get("galaxy.project.report.endpoint"));
 %>
 <!doctype html>
