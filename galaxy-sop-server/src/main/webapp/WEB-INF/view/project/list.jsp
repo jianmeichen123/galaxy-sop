@@ -952,7 +952,7 @@
 													var handlehtml = "";
 													
 													if (dataList[p].fileStatusDesc == "缺失") { 
-														handlehtml ='<td><a href="javascript:; " class="blue">催办</a></td>';
+														handlehtml ='<td><a href="javascript:; " onclick="taskUrged('+dataList[p].id+');"class="blue">催办</a></td>';
 													}else{
 														handlehtml = '<td>'+dataList[p].fileName+'</td>';
 													}
@@ -1016,10 +1016,20 @@
 		$("#e").attr("src","<%=path %>/ueditor/lang/zh-cn/zh-cn.js");
 		
 	}
-	
+	//催办
+	function taskUrged(id) {
+		var url = platformUrl.tempDownload+"?id="+id;
+		var json= {"id":id};
+		sendGetRequest(platformUrl.taskUrged, json, taskCallback);
+	}
 	function downFile(id){
 		var url = platformUrl.tempDownload+"?id="+id;
 		forwardWithHeader(url);
+	}
+	
+	function taskCallback(data) {
+		layer.msg(data.result.message);
+		history.go(0);
 	}
 </script>
 
