@@ -301,11 +301,14 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 					ghl = BigDecimal.valueOf(ghsl).divide(BigDecimal.valueOf(count), 2, BigDecimal.ROUND_HALF_UP).doubleValue();
 				}
 			}
-			
-			BigDecimal val = new BigDecimal(projectValuations,MathContext.UNLIMITED);
+			BigDecimal val = BigDecimal.ZERO;
+			if(projectValuations != null)
+			{
+				val = new BigDecimal(projectValuations,MathContext.UNLIMITED);
+			}
 			val = val.setScale(4, BigDecimal.ROUND_HALF_UP);
 			summary.put("count", count);
-			summary.put("projectValuations", projectValuations != null ? val.toString() : "0");
+			summary.put("projectValuations", val.toString());
 			summary.put("countOfJd", countOfJd);
 			summary.put("countOfYy", countOfYy);
 			summary.put("ghl", ghl);
