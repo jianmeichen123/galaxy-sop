@@ -1,14 +1,7 @@
-$(function(){
-	createMenus(7);
-	
-	$('#data-table').bootstrapTable({
-		queryParamsType: 'size|page', // undefined
-		
-	});
-});
+
 
 //查询个人项目
-function queryPerPro(){
+function queryMeetPerPro(){
 	var condition = {};
 	
 	//模糊查询proName
@@ -17,17 +10,18 @@ function queryPerPro(){
 		condition.nameLike = proName;
 	}
 	
-	var meetingType=$('input:radio[name="meetingType"]:checked').val();
+	/*name 赋值 和 主页面 重了*/
+	 var meetingType=$('input:radio[name="meetingTypeTc"]:checked').val();
 	if(meetingType!=null && meetingType!=""){
 		condition.meetingType = meetingType;
 	}
 	
-	sendGetRequest(platformUrl.getUserPro,condition,setProSelect);
+	sendGetRequest(platformUrl.getUserPro,condition,setMeetProSelect);
 }
 
 
 //设置项目下拉框
-function setProSelect(data){
+function setMeetProSelect(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
@@ -54,7 +48,7 @@ function setProSelect(data){
 
 /*<dt>会议类型：</dt>
 <dd class="clearfix">
-    <label><input type="radio" name="meetingType" value="meetingType:1"/>内评会</label>
+    <label><input type="radio" name="meetingTypeTc" value="meetingType:1"/>内评会</label>
     <label><input type="radio" name="meetingType" value="meetingType:2"/>CEO评审</label>
     <label><input type="radio" name="meetingType" value="meetingType:3"/>立项会</label>
     <label><input type="radio" name="meetingType" value="meetingType:4"/>投决会</label>
@@ -79,7 +73,7 @@ function setMeetTypes(data){
 //保存记录
 function saveMeet(){
 	var	condition = getMeetCondition(null,"projectId", "meetingDateStr", 
-			null,"meetingType", "meetingResult","meetingNotes");
+			null,"meetingTypeTc", "meetingResult","meetingNotes");
 	if(condition == false || condition == "false"){
 		return;
 	}
@@ -95,19 +89,24 @@ function saveMeetCallBack(data){
 		alert(data.result.message);
 		return;
 	}
-	
 	alert("保存成功");
-	//$("#popbg,#pop").remove();
-	location.reload(true);
+	var _this = $("#data-table");
+	if(_this == null || _this.length == 0 || _this == undefined){
+		removePop1();
+	}else{
+		$("#data-table").bootstrapTable('refresh');
+		removePop1();
+	}
+	//location.reload(true);
 }
 
 
 
 
 //plupload上传对象初始化,   绑定保存
-function initUpload() {
+function initMeetUpload() {
 	// 定义 上传插件 方法 、  plupload 上传对象初始化
-	var uploader = new plupload.Uploader({
+	var meetuploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $("#file-select-btn")[0], // you can pass in id...
 		url : platformUrl.saveMeetFile,
@@ -126,7 +125,7 @@ function initUpload() {
 				$("#savemeet").click(function(){
 					var file = $("#fileName").val();
 					if(file.length > 0){
-						uploader.start();
+						meetuploader.start();
 					}else{
 						saveMeet();
 					}
@@ -155,13 +154,20 @@ function initUpload() {
 					return;
 				}
 				alert("保存成功");
-				location.reload(true);
+				var _this = $("#data-table");
+				if(_this == null || _this.length == 0 || _this == undefined){
+					removePop1();
+				}else{
+					$("#data-table").bootstrapTable('refresh');
+					removePop1();
+				}
+				//location.reload(true);
 			},
 			BeforeUpload:function(up){
 				//表单函数提交
 				//alert(JSON.stringify(getMeetCondition()));
 				var res = getMeetCondition(null,"projectId", "meetingDateStr", 
-						null,"meetingType", "meetingResult","meetingNotes");
+						null,"meetingTypeTc", "meetingResult","meetingNotes");
 				if(res == false || res == "false"){
 					up.stop();
 					return;
@@ -175,7 +181,7 @@ function initUpload() {
 		}
 	});
 
-	uploader.init();
+	meetuploader.init();
 }
 
 

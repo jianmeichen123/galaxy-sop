@@ -1,23 +1,7 @@
-$(function(){
-	createMenus(6);
-	
-	$('#data-table').bootstrapTable({
-		queryParamsType: 'size|page', // undefined
-		pageSize:5,
-		pageList : [5, 10, 20 ],
-		showRefresh : false ,
-		sidePagination: 'server',
-		method : 'post',
-		pagination: true,
-        search: false,
-	});
-	
-});
-
 
 
 //访谈记录查询个人项目
-function queryPerPro(){
+function queryViewPerPro(){
 	var condition = {};
 	
 	//模糊查询proName
@@ -26,13 +10,13 @@ function queryPerPro(){
 		condition.nameLike = proName;
 	}
 	//condition.progress = "projectProgress:1";
-	sendGetRequest(platformUrl.getUserPro,condition,setProSelect);
+	sendGetRequest(platformUrl.getUserPro,condition,setViewProSelect);
 	//sendPostRequestByJsonObj("http://127.0.0.1:8080/galaxy/project/progress/queryPerProPage",{pageNum:0,pageSize:5},setProSelect);
 }
 
 
 //设置项目下拉框
-function setProSelect(data){
+function setViewProSelect(data){
 	
 	var result = data.result.status;
 	
@@ -60,9 +44,9 @@ function setProSelect(data){
 
 
 //plupload上传对象初始化,   绑定保存
-function initUpload() {
+function initViewUpload() {
 	// 定义 上传插件 方法 、  plupload 上传对象初始化
-	var uploader = new plupload.Uploader({
+	var viewuploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $("#file-select-btn")[0], // you can pass in id...
 		url : platformUrl.saveViewFile,
@@ -81,12 +65,12 @@ function initUpload() {
 				$("#saveInterView").click(function(){
 					var file = $("#fileName").val();
 					if(file.length > 0){
-						uploader.start();
+						viewuploader.start();
 					}else{
 						saveInterView();
 					}
 					//传到后台的参数
-					//uploader.multipart_params = { id : "12345" };
+					//viewuploader.multipart_params = { id : "12345" };
 					return false;
 				});
 			},
@@ -113,7 +97,14 @@ function initUpload() {
 					return false;
 				}
 				alert("保存成功");
-				location.reload(true);
+				var _this = $("#data-table");
+				if(_this == null || _this.length == 0 || _this == undefined){
+					removePop1();
+				}else{
+					$("#data-table").bootstrapTable('refresh');
+					removePop1();
+				}
+				//location.reload(true);
 			},
 			BeforeUpload:function(up){
 				//表单函数提交
@@ -132,7 +123,7 @@ function initUpload() {
 		}
 	});
 
-	uploader.init();
+	viewuploader.init();
 }
 
 
@@ -157,7 +148,14 @@ function saveCallBack(data){
 	}
 	alert("保存成功");
 	//$("#popbg,#pop").remove();
-	location.reload(true);
+	var _this = $("#data-table");
+	if(_this == null || _this.length == 0 || _this == undefined){
+		removePop1();
+	}else{
+		$("#data-table").bootstrapTable('refresh');
+		removePop1();
+	}
+	//location.reload(true);
 }
 
 
