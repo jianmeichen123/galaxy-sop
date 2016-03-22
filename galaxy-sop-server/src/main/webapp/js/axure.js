@@ -117,7 +117,7 @@
 			//鼠标拖动
 			mousedrag:function(){
 				var _this = this;
-				$(_this.id).on("mousedown",function(){
+				$(_this.id).on("dblclick",function(){
 					var $self = $(this);
 					//弹层zindex
 					$(".pop").removeClass("popzx");

@@ -51,9 +51,17 @@ $(function(){
 	});
 	//盒子展开隐藏
 	$(".fctbox a").on("click",function(){
-		var $self = $(this),
-			_name = $self.attr("data-btn"),
-			_parent = $self.parent();
+		var $self = $(this);
+		var	_name = $self.attr("data-btn");
+		var	_parent = $self.parent();
+		//点击编辑 
+		if(_name=="edit"){
+	        _parent.siblings("."+_name).show();
+	        $(".edui-body-container").focus();
+			$self.hide();
+			$self.siblings().hide();
+			$self.siblings("[data-btn='submit'],[data-btn='reset']").show();	
+		}
 		//点击收起
 		if(_name=="hide"){
 			//关闭展开层
@@ -69,13 +77,7 @@ $(function(){
 			$self.siblings().hide();
 			$self.siblings("[data-btn='hide']").show();
 		}
-		//点击编辑 
-		if(_name=="edit"){
-			_parent.siblings("."+_name).show();
-			$self.hide();
-			$self.siblings().hide();
-			$self.siblings("[data-btn='submit'],[data-btn='reset']").show();	
-		}
+		
 		//点击取消保存
 		if(_name=="reset"){
 			_parent.siblings("dd").hide();

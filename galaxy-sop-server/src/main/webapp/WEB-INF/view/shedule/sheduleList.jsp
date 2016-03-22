@@ -55,8 +55,8 @@
 				    		  SopUserSchedule shcedule=common.getList().get(j);
 				    		  String str[] = shcedule.getItemDate().toString().split(" ");
 				    	  %>  
-				    		  <dl class="on" data-tab='nav' onclick="getShedule(<%=shcedule.getId()%>)">
-			                            <dt><%=shcedule.getContent() %>
+				    		  <dl id="currentShedule" class="nav" data-tab='nav' onclick="getShedule(<%=shcedule.getId()%>)">
+			                            <dt><span><%=shcedule.getContent() %></span>
 			                            <label class="red">
 			                            <% if("1".equals(shcedule.getItemOrder())){%>紧急<%} %>
 			                            <% if("0".equals(shcedule.getItemOrder())){%>正常<%} %>
@@ -210,8 +210,15 @@
   
     $(function() {
         $(".bottom_l .nav_list").click(function(event) {
-            $(this).siblings().stop().slideToggle().parent().siblings().children('dl').slideUp();
+            $(this).siblings().stop().slideToggle().parent().siblings().children('dd').slideUp();
         });
     });
+   
+
+   $(".nav").click(function(event) {
+           $(this).addClass('on').siblings().removeClass('on');
+           $(".bottom_r .block").eq(index).show().siblings().hide();
+   });
+
     </script>
    <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
