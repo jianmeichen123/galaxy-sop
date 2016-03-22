@@ -498,7 +498,7 @@
 										if (dataList[p].fileStatusDesc == "缺失") { 
 											endhtml ='<td>缺失</td>';
 										}else{
-											endhtml = '<td><a href="javascript:;" onclick="filedown('+dataList[p].id+');" class="blue">附件</a></td>';
+											endhtml = '<td><a href="javascript:;" onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
 										}
 										
 										htmlstart +='<tr>'+
@@ -616,7 +616,7 @@
 					 }else if(o.fileStatus == 'fileStatus:2'){
 						 html += "<td>已上传</td>";
 						 html += "<td></td>";
-						 html += "<td><a href='javascript:filedown("+o.id+");'>" + o.fileName + "</a></td>";
+						 html += "<td><a href='javascript:filedown("+o.id+");'>查看</a></td>";
 					 }else if(o.fileStatus == 'fileStatus:3'){
 						 html += "<td>已签署</td>";
 						 html += "<td></td>";
@@ -960,7 +960,7 @@
 													if (dataList[p].fileStatusDesc == "缺失") { 
 														endhtml ='<td></td>';
 													}else{
-														endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">附件</a></td>';
+														endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
 													}
 													
 													htmlstart +='<tr>'+

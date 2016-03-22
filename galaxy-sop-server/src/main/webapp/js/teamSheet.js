@@ -126,6 +126,7 @@
 								UploadProgress: function(up, file) {
 								},
 								FileUploaded:function(up,file,result){
+									$(_this.id).hideLoading();
 									if(result.status==200){
 										var _restmp = $.parseJSON(result.response);
 										var _projectId = _restmp.message;
@@ -155,11 +156,18 @@
 											"progress" : _formdata._progress
 									};
 									
+									$(_this.id).showLoading(
+											 {
+											    'addClass': 'loading-indicator'
+															
+									});
+									
 		
 									
 									up.settings.multipart_params = form;
 								},
 								Error: function(up, err) {
+									$(_this.id).hideLoading();
 									alert("上传失败"+err);
 //									document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 								}

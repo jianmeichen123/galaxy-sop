@@ -452,7 +452,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				List<Project> projectList = projectService.queryList(project);
 				
 				User user = new User();
-				user.setKeyword(sopFile.getProjectName());
+				user.setRealName(sopFile.getProjectName());
 				List<User> userList = userService.queryList(user);
 				if((projectList==null || projectList.size()<=0) && (userList==null || userList.size()<=0)){
 					Page<SopFile> pageSopFile = new Page<SopFile>(new ArrayList<SopFile>(), new PageRequest(sopFile.getPageNum(), sopFile.getPageSize()), 0l);
