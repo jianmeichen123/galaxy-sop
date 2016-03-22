@@ -60,15 +60,15 @@
                   </tr>  -->
                   <tr>
                     <th>身份证号码：</th>
-                    <td><input name="personIdcard" id="personIdcard" type="text" value=""></td>
+                    <td><input name="personIdcard" id="personIdcard" type="text" value="" class="txt" placeholder="身份证号码" valType="IDENTITY" msg="<font color=red>*</font>身份证号码格式不正确"></td>
                   </tr>
                   <tr>
                     <th>电话：</th>
-                    <td><input name="personTelephone" id="personTelephone" type="text" value=""></td>
+                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"></td>
                   </tr>
                   <tr>
                     <th>邮箱：</th>
-                    <td><input name="personEmail" id="personEmail" type="text" value=""></td>
+                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="MAIL" msg="<font color=red>*</font>电子邮箱格式不正确"></td>
                   </tr>
                 </table>
               </div>
