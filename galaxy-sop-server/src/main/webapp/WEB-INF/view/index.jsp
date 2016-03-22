@@ -1,4 +1,6 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"
+import="com.galaxyinternet.framework.core.oss.OSSConstant"
+%>
 <% 
 	String path = request.getContextPath(); 
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
