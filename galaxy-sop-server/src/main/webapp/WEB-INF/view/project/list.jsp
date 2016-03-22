@@ -954,7 +954,7 @@
 													if (dataList[p].fileStatusDesc == "缺失") { 
 														handlehtml ='<td><a href="javascript:; " onclick="taskUrged('+dataList[p].id+');"class="blue">催办</a></td>';
 													}else{
-														handlehtml = '<td>'+dataList[p].fileName+'</td>';
+														handlehtml = '<td></td>';
 													}
 													var endhtml ="";
 													if (dataList[p].fileStatusDesc == "缺失") { 
