@@ -1028,8 +1028,18 @@
 	}
 	
 	function taskCallback(data) {
-		layer.msg(data.result.message);
-		history.go(0);
+		
+		if (data.result.status!="OK") {
+			layer.msg("催办失败");
+		} else {
+			layer.msg(data.result.message, {
+				time : 1000
+			}, function() {
+				history.go(0);
+			});
+		}
+		
+		
 	}
 </script>
 
