@@ -14,11 +14,10 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/star-rating.min.js'></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
-
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/bootstrap/bootstrapvalidator-master/css/bootstrapValidator.min.css" />
-<script type='text/javascript' src='<%=request.getContextPath() %>/bootstrap/bootstrapvalidator-master/js/bootstrapValidator.min.js'></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/bootstrap/bootstrapvalidator-master/js/language/zh_CN.js'></script>
-
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <div class="resumetc" >
           <!-- 个人简历 -->
           <div class="tabtable resume">
@@ -38,11 +37,19 @@
                 <table>
                   <tr>
                     <th>团队角色：</th>
+<<<<<<< HEAD
                     <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+=======
+                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+>>>>>>> refs/remotes/origin/develop
                   </tr>
                   <tr>
                     <th>姓名：</th>
+<<<<<<< HEAD
                     <td><input name="personName" id="personName" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+=======
+                    <td><input name="personName" id="personName" type="text" value=""  valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+>>>>>>> refs/remotes/origin/develop
                   </tr>
                   <tr>
                     <th>成员关系：</th>
@@ -70,11 +77,19 @@
                   </tr>
                   <tr>
                     <th>电话：</th>
+<<<<<<< HEAD
                     <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"></td>
+=======
+                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="isMobile" msg="<font color=red>*</font>手机格式不正确"></td>
+>>>>>>> refs/remotes/origin/develop
                   </tr>
                   <tr>
                     <th>邮箱：</th>
+<<<<<<< HEAD
                     <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="MAIL" msg="<font color=red>*</font>电子邮箱格式不正确"></td>
+=======
+                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="isMail" msg="<font color=red>*</font>电子邮箱格式不正确"></td>
+>>>>>>> refs/remotes/origin/develop
                   </tr>
                 </table>
               </div>
@@ -118,21 +133,39 @@
                 <table>
                   <tr>
                     <th>学历：</th>
+<<<<<<< HEAD
                     <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
                    	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
                     <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+=======
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+>>>>>>> refs/remotes/origin/develop
                   </tr>
                   <tr>
                     <th>学校：</th>
+<<<<<<< HEAD
                     <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
                   	<td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
                     <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+=======
+                    <td><input name="school" id="school" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                  	<td><input name="school" id="school" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+>>>>>>> refs/remotes/origin/develop
                   </tr>
                   <tr>
                     <th>专业：</th>
+<<<<<<< HEAD
                     <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
                     <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
                     <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td> 
+=======
+                    <td><input name="major"id="major" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td> 
+>>>>>>> refs/remotes/origin/develop
                   </tr>                  
                   <tr>
                     <th>学历性质：</th>
@@ -159,9 +192,15 @@
                 <table>
                   <tr>
                     <th>老师姓名：</th>
+<<<<<<< HEAD
                     <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
                    	<td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
                     <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td> 
+=======
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td> 
+>>>>>>> refs/remotes/origin/develop
                   </tr>
                   <tr>
                     <th>部门：</th>
@@ -604,7 +643,7 @@ $(".btnbox").on("click",".bluebtn",function(){
 function resemetValidate(input){
 	var valType = input.attr("valType");
 	var flag = true;
-	var value = input.val();
+/* 	var value = input.val();
 	var regString = input.attr("regString");
 	var textsIn = input.attr("textsIn");
 	if(valType==''||valType=='undefined'||valType==undefined){
@@ -624,20 +663,17 @@ function resemetValidate(input){
 		break;
 	case "onlyZh":
 		flag = /^[\u4e00-\u9fa5]+$/.test(value);
-		break;		
-	case "textIn":
-		var txts = regString.split(",");
-		flag = false;
-		break;		
+		break;	
 	default:
 		if(regString!=''){
-			flag = (new RegExp("/"+regString+"/")).test(value);
+			var regexp = new RegExp(regString);
+			flag = regexp.test(value);
 		}
 		break;
 	}
 	if(!flag){
-		layer.msg(input.attr("msg"));
-	}
+		layer.msg(input.attr("msg")+" :"+input.val());
+	} */
 	return flag;
 }
 function savecbf(data){

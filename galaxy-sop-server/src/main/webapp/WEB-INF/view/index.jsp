@@ -1,6 +1,11 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"
+import="com.galaxyinternet.framework.core.oss.OSSConstant"
+%>
 <% 
-	String path = request.getContextPath(); 
+String path = request.getContextPath();
+String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
+java.util.Map<String, String> map = new com.google.gson.Gson().fromJson(endpoint,new com.google.gson.reflect.TypeToken<java.util.Map<String, String>>() {}.getType());
+String reportEndpoint = map.get("galaxy.project.report.endpoint");
 %>
 <!doctype html>
 <html>
@@ -10,6 +15,9 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
+<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <jsp:include page="./common/taglib.jsp" flush="true"></jsp:include>
 <script src="<%=path%>/js/sopUserSchedule.js" type="text/javascript"></script>
 <script src="<%=path%>/js/index.js" type="text/javascript"></script>
@@ -106,7 +114,7 @@
                     	<table width="100%" cellspacing="0"  cellpadding="0">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>序号</th>
                                     <th>优先级</th>
                                     <th>任务类型</th>
                                     <th>任务名称</th>
@@ -184,7 +192,7 @@
                     	<div id="histogram" class="histogram"></div>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="http://fx.dev.galaxyinternet.com/report/galaxy/report/dataBriefing" class="more null">more</a>
+                    	<a href="<%=reportEndpoint %>/galaxy/report/dataBriefing" class="more null">more</a>
                     </dd>
                 </dl>
             </div>
@@ -253,8 +261,8 @@
                     <dd class="tool">
                     	<a href="javascript:;" class="light_gray"><b class="b1 ico null">ico</b>通讯录</a>
                         <a href="javascript:;" class="light_gray"><b class="b2 ico null">ico</b>估值计算</a>
-                        <a href="javascript:;"><b class="b3 ico null">ico</b>新增会议</a>
-                        <a href="javascript:;"><b class="b4 ico null">ico</b>新增访谈</a>
+                        <a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a>
+                        <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
                         <a href="javascript:;" class="light_gray"><b class="b5 ico null">ico</b>发邮件</a>
                         <a href="javascript:;" class="add ico">&nbsp;</a>
                     </dd>
@@ -266,6 +274,12 @@
 </div>
 
 <jsp:include page="./common/footer.jsp" flush="true"></jsp:include>
+<!-- file -->
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<!-- clude -->
+<script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
+<script src="<%=path %>/js/interview.js" type="text/javascript"></script>
+
 <script type="text/javascript">
 	$(function(){		
 		top5ProjectMeeting();

@@ -13,15 +13,20 @@
 	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <%-- 	<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
 	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+	<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
+
+	
 	<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 	<script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 	<script src="<%=path%>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
     <script src="<%=path %>/js/init.js"></script>
+    <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
+    
 </head>
 
 <body>
 
-<jsp:include page="../common/file_header.jsp" flush="true"></jsp:include>
+<jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
@@ -45,7 +50,7 @@
         <div class="min_document clearfix"  id="custom-toolbar">
           <div class="top clearfix search_adjust searchall">
             <dl class="fmdl fml  fmdll clearfix">
-              <dt style="margin-right: 24px">档案来源：</dt>
+              <dt >&nbsp;&nbsp;&nbsp;档案来源：</dt>
               <dd class="clearfix">
 				<!--name="fileSource" -->
                 <label><input type="radio" name="source" value = "all" checked/>不限</label>
@@ -63,7 +68,7 @@
             </dd>
           </dl>          
         </div>
-        <div class="bottom searchall clearfix">
+        <div class="bottom searchall search_adjust clearfix">
           <dl class="fmdl fml fmdll clearfix">
             <dt>业务分类：</dt>
             <dd>
@@ -102,13 +107,27 @@
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="../sopFile/projectDialog.jsp" flush="true"></jsp:include>
 
+<div class="container">
+  <!-- 注意这里要引入ladda-button的CSS定义-->
+  <button class="btn btn-primary btn-lg ladda-button center-block" id="showmore" data-style="contract-overlay"><!-- 如果你需要其它效果，请修改此data-style属性，这里我们使用contract-overlay -->
+    <span class="ladda-label">
+      更多设计
+    </span>
+  </button>
+</div>
+
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 </body>
+
+
+
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
  <script src="<%=path %>/js/commWin.js" type="text/javascript"></script>
  <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script>
  <script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
+ 
+	
 
 
 <script type="text/javascript">

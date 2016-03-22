@@ -32,6 +32,13 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 			//alert("connetion error");
 		},
 		success : function(data) {
+			/*if(!data.hasOwnProperty("result")&&!data.hasOwnProperty("pageList")
+					&&!data.hasOwnProperty("entity")&&!data.hasOwnProperty("pageVoList")
+					&&!data.hasOwnProperty("entityList")&&!data.hasOwnProperty("id")
+					&&!data.hasOwnProperty("header")
+			){
+				location.href = platformUrl.toLoginPage;
+			}*/
 			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
 				location.href = platformUrl.toLoginPage;
 			}
@@ -91,7 +98,13 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 			//alert("connetion error");
 		},
 		success : function(data) {
-			
+			/*if(!data.hasOwnProperty("result")&&!data.hasOwnProperty("pageList")
+					&&!data.hasOwnProperty("entity")&&!data.hasOwnProperty("pageVoList")
+					&&!data.hasOwnProperty("entityList")&&!data.hasOwnProperty("id")
+					&&!data.hasOwnProperty("header")
+			){
+				location.href = platformUrl.toLoginPage;
+			}*/
 			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
 				location.href = platformUrl.toLoginPage;
 			}
@@ -131,6 +144,13 @@ function sendPostRequest(reqUrl, callbackFun) {
 			//alert("connetion error");
 		},
 		success : function(data) {
+			/*if(!data.hasOwnProperty("result")&&!data.hasOwnProperty("pageList")
+					&&!data.hasOwnProperty("entity")&&!data.hasOwnProperty("pageVoList")
+					&&!data.hasOwnProperty("entityList")&&!data.hasOwnProperty("id")
+					&&!data.hasOwnProperty("header")
+			){
+				location.href = platformUrl.toLoginPage;
+			}*/
 			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
 				location.href = platformUrl.toLoginPage;
 			}
@@ -315,7 +335,13 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 			BeforeUpload:function(up){
 				//表单函数提交
 				//alert(JSON.stringify(getSaveCondition()));
-				up.settings.multipart_params = paramsFunction();
+				var param = paramsFunction();
+				if(param == false || param == 'false'){
+					up.stop();
+					return;
+				}else{
+					up.settings.multipart_params = param;
+				}
 			},
 			Error: function(up, err) {
 				alert("错误"+err);
@@ -435,7 +461,6 @@ function getInterViewCondition(hasProid,projectId,
 	/*if(!beforeSubmit()){
 		return false;
 	}*/
-	
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);
 	}else{
@@ -604,19 +629,17 @@ function meetInfoFormat(value, row, index){
 function intervierLog(value,row,index){
 	var len = getLength($.trim(value));
 	var strlog=replaceStr(row.viewNotes);
+	strlog=strlog.replace("</div>","");
+	strlog=strlog.replace("<br/>","");
+	var strrrr=strlog;
 	if(len>100){
 		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
-		var rc = "";
-		rc = "<div style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\">"
-					+"<a style=\"text-decoration:none\" title='"+strlog+"'>"+subValue+"..."+"</a>"+
-			 "</div>" ;
+		var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...</div>';
+		
 		return rc;
 	}else{
 		return strlog;
 	}
-	
-	
-	
 }
 
 //meet table format
@@ -659,10 +682,15 @@ function subLengthFormat(value, row, index){
 
 function replaceStr(str){
 	if(str){
-		var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","").replace("<br/>","").replace("</div>","");
+		var result=str.replace(/(\n)/g, "");
+		result = result.replace(/(\t)/g, "");
+		result = result.replace(/(\r)/g, "");
+		result = result.replace(/<\/?[^>]*>/g, "");
+		result = result.replace(/\s*/g, "");
 		return result;
 	}
 
 }
+
 
 

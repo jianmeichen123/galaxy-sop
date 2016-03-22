@@ -28,6 +28,7 @@
     <result column="company_location" property="companyLocation" jdbcType="LONGVARCHAR" />
     <result column="user_portrait" property="userPortrait" jdbcType="LONGVARCHAR" />
     <result column="prospect_analysis" property="prospectAnalysis" jdbcType="LONGVARCHAR" />
+    <result column="count" property="count" jdbcType="BIGINT" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -249,5 +250,22 @@
 		delete from sop_project where id = #{id}
 	</delete>
 	
-	
+	<select id="selectTotalSummary" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select count(1) as count,sum(project_valuations) as project_valuations
+		from sop_project
+		<where>
+			  <if test="projectDepartid != null" > project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
+			  <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
+			  <if test="createDateFrom != null" > and created_time <![CDATA[>=]]> #{createDateFrom,jdbcType=BIGINT} </if>
+			  <if test="createDateThrough != null" > and created_time <![CDATA[>=]]> #{createDateThrough,jdbcType=BIGINT} </if>
+		</where>
+	</select>
+	<select id="selectStageSummary" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select count(1)as count,project_progress from sop_project
+		<where>
+			  <if test="projectDepartid != null" > project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
+			  <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
+		</where>
+		group by project_progress
+	</select>
 </mapper>

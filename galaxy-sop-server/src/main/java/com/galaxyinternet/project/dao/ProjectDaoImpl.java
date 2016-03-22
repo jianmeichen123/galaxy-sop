@@ -28,5 +28,17 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 		}
 	}
 
+	@Override
+	public Project selectTotalSummary(ProjectBo query) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectOne(getSqlName("selectTotalSummary"),query);
+	}
+
+	@Override
+	public List<Project> selectStageSummary(ProjectBo query) {
+		// TODO Auto-generated method stub
+		return sqlSessionTemplate.selectList(getSqlName("selectStageSummary"),query);
+	}
+
 
 }

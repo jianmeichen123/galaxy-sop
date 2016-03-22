@@ -7,6 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
+<link rel="stylesheet" type="text/css" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  />
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
@@ -26,7 +27,7 @@
         <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="javascript:;" class="pubbtn bluebtn ico c3" id="show-mail-btn">发邮件给</a>
+                <a href="javascript:;" class="pubbtn bluebtn ico c3" id="show-mail-btn" style="width:120px;">发邮件给</a>
             </div>
         </div>
         <!--表格内容-->
@@ -118,7 +119,7 @@
     <dl class="fmdl clearfix">
         <dt>收件人：</dt>
         <dd class="clearfix">
-            <input type="text" name="toAddress" class="txt"/>
+            <input type="text" name="toAddress" class="txt" data-rule-required="true"/>
         </dd>
         <dd>            
             <label class="red">&#42;&nbsp;必填</label>
@@ -127,7 +128,7 @@
     <dl class="fmdl clearfix">
         <dt>邮件标题：</dt>
         <dd class="clearfix">
-            <input type="text" name="title" class="txt"/>
+            <input type="text" name="title" class="txt" data-rule-required="true"/>
         </dd>
         <dd>            
             <label class="red">&#42;&nbsp;必填</label>
@@ -170,6 +171,12 @@
 </div>
 <!-- Mail dialog end -->
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
+<script type="text/javascript" src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript">
 var uploader;
 $(function(){
@@ -190,6 +197,7 @@ function loadTempList()
 			null,
 			function(data){
 				$("#template-table tbody").empty();
+				var editableTypes = data.userData.editableTypes;
 				$.each(data.entityList,function(){
 					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-file-length="'+this.fileLength+'"></tr>');
 					$tr.append('<td><input type="checkbox" name="document" /></td>') ;
@@ -200,11 +208,22 @@ function loadTempList()
 					$tr.append('<td>'+Number(this.updatedTime).toDate().format("yyyy/MM/dd")+'</td>') ;
 					if(this.fileName != null)
 					{
-						$tr.append('<td><a data-act="download" data-tid='+this.id+' href="javascript:; " class="blue">下载</a><a data-act="update" data-tid='+this.id+' href="javascript:; " class="blue">更新</a></td>') ; 
+						var $td = $('<td></td>');
+						$td.append('<a data-act="download" data-tid='+this.id+' href="javascript:; " class="blue">下载</a>');
+						if(editableTypes.indexOf(this.worktype)>=0)
+						{
+							$td.append('<a data-act="update" data-tid='+this.id+' href="javascript:; " class="blue">更新</a>');
+						}
+						$tr.append($td) ; 
 					}
 					else
 					{
-						$tr.append('<td><a data-act="upload" data-tid='+this.id+' href="javascript:; " class="blue">上传</a></td>') ;
+						var $td = $('<td></td>');
+						if(editableTypes.indexOf(this.worktype)>=0)
+						{
+							$td.append('<a data-act="upload" data-tid='+this.id+' href="javascript:; " class="blue">上传</a>');
+						}
+						$tr.append($td) ;
 					}
 					$("#template-table tbody").append($tr);
 					
@@ -320,8 +339,15 @@ function initUpload(_dialog)
 			},
 
 			FilesAdded: function(up, files) {
-				plupload.each(files, function(file) {
-					$(_dialog.id).find("input[name='fileName']").val(file.name);
+				$.each(uploader.files,function(){
+					if(this != files[0])
+					{
+						uploader.removeFile(this);
+					}
+				});
+				$.each(files, function() {
+					$(_dialog.id).find("input[name='fileName']").val(this.name);
+					
 				});
 			},
 			
@@ -376,7 +402,7 @@ function showMailPopup()
 		showback:function(){
 			var _dialog = this;
 			var i=0;
-			console.log(flags);
+			var valdator = $(_dialog.id).find('form').fxValidate();
 			$.each(flags,function(){
 				var flag = $(this);
 				i++;
@@ -389,8 +415,11 @@ function showMailPopup()
 				$(_dialog.id).find("#mail-form").prepend('<input type="hidden" name="templateIds" value="'+$row.data('id')+'">');
 			});
 			$(_dialog.id).find("#send-mail-btn").click(function(){
-				
-				var $form = $(_dialog.id).find("#mail-form");
+				if(!valdator.form())
+				{
+					return;
+				}
+			/* 	var $form = $(_dialog.id).find("#mail-form");
 				var data = JSON.parse($form .serializeObject());
 				var url = platformUrl.tempSendMail;
 				sendPostRequestByJsonObj(
@@ -399,7 +428,7 @@ function showMailPopup()
 						function(data){
 							alert("发送邮件成功.");
 						}
-				);
+				); */
 			});
 		}
 	});

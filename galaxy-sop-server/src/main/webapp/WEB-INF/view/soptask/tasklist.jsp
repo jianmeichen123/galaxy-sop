@@ -40,7 +40,11 @@
           </div>
             <!--tips连接-->
         	<ul class="tipslink">
+<<<<<<< HEAD
             	<li><a href="javascript:;" class="on" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
+=======
+            	<li class="on"><a href="javascript:;" id="all" query-by="all" query-val="all">全部<span><!-- (14) --></span></a></li>
+>>>>>>> refs/remotes/origin/develop
                 <li><a href="javascript:;" id="urgent" query-by="taskOrder" query-val="1">紧急<span><!-- (2) --></span></a></li>
                 <li><a href="javascript:;" id="normal" query-by="taskOrder" query-val="0" >正常<span><!-- (5) --></span></a></li>
                 <li><a href="javascript:;" id="claim" query-by="taskStatus" query-val="taskStatus:1">待认领<span><!-- (10) --></span></a></li>
@@ -50,7 +54,7 @@
         </div>
         <!--表格内容-->
 						<table width="100%" cellspacing="0" cellpadding="0" 
-						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"&sid="+sessionId+"&guid="+userId;"  data-page-list="[1, 10, 30]" data-show-refresh="true" 
+						 id="data-table" data-url="<%=request.getContextPath() %>/galaxy/soptask/taskListByRole"  data-page-list="[1, 10, 30]" data-show-refresh="true" 
 				         data-toolbar="#custom-toolbar" >
 						   <thead>
 						    <tr>
@@ -97,8 +101,22 @@
     	num=9;
     }
 	$(function(){
-	
+		var flag="${flagUrl}";
+		var num=2;
+		if(flag=="jz"){
+			num=9;
+		}
+		if(flag=="jl"){
+			num=10;		
+				}
+		if(flag=="gq"){
+			num=12;
+		}
+		if(flag=="pz"){
+			num=11;
+		}
 		createMenus(num);
+		
 	});
 </script>
 </html>

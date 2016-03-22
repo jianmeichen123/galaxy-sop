@@ -8,8 +8,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 <div class="schedule1tc">
     <div class="top clearfix">
@@ -55,8 +62,8 @@
 				    		  SopUserSchedule shcedule=common.getList().get(j);
 				    		  String str[] = shcedule.getItemDate().toString().split(" ");
 				    	  %>  
-				    		  <dl class="on" data-tab='nav' onclick="getShedule(<%=shcedule.getId()%>)">
-			                            <dt><%=shcedule.getContent() %>
+				    		  <dl id="currentShedule" class="nav" data-tab='nav' onclick="getShedule(<%=shcedule.getId()%>)">
+			                            <dt><span><%=shcedule.getContent() %></span>
 			                            <label class="red">
 			                            <% if("1".equals(shcedule.getItemOrder())){%>紧急<%} %>
 			                            <% if("0".equals(shcedule.getItemOrder())){%>正常<%} %>
@@ -84,8 +91,7 @@
             <dl class="fmdl clearfix">
                 <dt>处理日期：</dt>
                 <dd class="clearfix">
-                    <!-- <input class="form-control" type="date" id="itemDate" name="itemDateStr" value="<%=timestr%>"/> -->
-                    <input name="itemDateStr" id="itemDate" type="text" value="<%=timestr%>" id="date" onclick="calendar.show(this);" size="15" maxlength="10" readonly="readonly"/>
+                    <input type="text" id="itemDate" class="datepicker time" name="itemDateStr" readonly value="<%=timestr %>" valType="required" msg="<font color=red>*</font>处理日期不能为空"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -118,6 +124,10 @@
 </div>
     <script type="text/javascript">
     
+     if('<%=timestr%>' !=''){
+    	 $("#itemDate").val('<%=timestr%>');
+     }
+    
      var itemType="<%=itemType%>";//0:工作;1：个人
      var itemOrder="<%=itemOrder%>";//0:正常;1：紧急
      
@@ -146,7 +156,8 @@
     }
     //新建日程
     function newShedule(){
-    	$("#itemDate").val('');
+    	var time=currentTime();
+    	$("#itemDate").val(time);
     	$("#content").val('');
     	$("#id").val('');
     	$("#id").remove();
@@ -162,7 +173,7 @@
     	
     	var result = data.result.status;
     	if(result == "ERROR"){ //OK, ERROR
-    		alert("error")
+    		layer.msg("获取失败!");
     		return;
     	}
     	var content = data.entity.content;
@@ -198,20 +209,38 @@
     function sheduleCallBack(data){
     	var result = data.result.status;
     	if(result == "ERROR"){ //OK, ERROR
-    		alert("操作失败!");
+    		layer.msg("操作失败!");
     		return;
     	}
     	$("#powindow").remove();
     	$("#popbg").remove();
     	loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
-    	shecudle();
+    	//shecudle();
+    	layer.msg("操作成功!");
     }
+    
     
   
     $(function() {
         $(".bottom_l .nav_list").click(function(event) {
-            $(this).siblings().stop().slideToggle().parent().siblings().children('dl').slideUp();
+            $(this).siblings().stop().slideToggle().parent().siblings().children('dd').slideUp();
         });
     });
+   
+
+   $(".nav").click(function(event) {
+           $(this).addClass('on').siblings().removeClass('on');
+           $(".bottom_r .block").show().siblings().hide();
+   });
+   
+   function currentTime(){
+	   var myDate = new Date();
+	   var year=myDate.getFullYear();        //获取当前年份(2位)
+	   var month=myDate.getMonth()+1;       //获取当前月份(0-11,0代表1月)
+	   var day=myDate.getDate();  
+	   return year+"-"+month+"-"+day;
+   }
+
     </script>
-   <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
+
+<script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>  

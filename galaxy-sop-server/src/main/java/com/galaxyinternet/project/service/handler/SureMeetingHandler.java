@@ -116,6 +116,7 @@ public class SureMeetingHandler implements Handler {
 			projectDao.updateById(p);
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
 		}
+		tm.setMeetingDate(new Date());
 		tm.setMeetingCount(tm.getMeetingCount() + 1);
 		tm.setUpdatedTime((new Date()).getTime());
 		meetingSchedulingDao.updateById(tm);

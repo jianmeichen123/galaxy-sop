@@ -42,7 +42,7 @@
       </dl>
       <dl class="fmdl">
         <dt>职位：</dt>
-        <dd><input type="text" id="personDuties" name="personDuties" value="" class="txt" placeholder="职位" valType="required" msg="<font color=red>*</font>账号不能为空"/></dd>
+        <dd><input type="text" id="personDuties" name="personDuties" value="" class="txt" placeholder="职位" valType="required" msg="<font color=red>*</font>职位不能为空"/></dd>
       </dl>
     </div>
     </form>

@@ -92,7 +92,6 @@ public class SopTaskBo extends  SopTask implements Pagable{
 	public void setCaozuohtml(String caozuohtml) {
 		this.caozuohtml = caozuohtml;
 	}
-
 	
 	protected Integer pageSize;
 	protected Integer pageNum;
@@ -149,10 +148,5 @@ public class SopTaskBo extends  SopTask implements Pagable{
 	public void setHours(Integer hours) {
 		this.hours = hours;
 	}
-	
-	
-
-	
-	
 	
 }

@@ -127,7 +127,9 @@
 	function editor(value, row, index){
 		var id=row.id;
 		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>查看</a>";
-		options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>修改</a>";
+		if(row.projectStatus != 'meetingResult:3'){
+			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>修改</a>";
+		}
 		return options;
 	}
 	/**
@@ -169,6 +171,9 @@
 							$("#projectProgress_" + i).addClass("disabled");
 						}
 						if(i == 1){
+							if(data.entity.projectStatus == 'meetingResult:3'){
+								$("#options_point").remove();
+							}
 							tiggerTable($("#" + progress + "_table"),3);
 						}
 						if(i == 5){
@@ -493,7 +498,7 @@
 										if (dataList[p].fileStatusDesc == "缺失") { 
 											endhtml ='<td>缺失</td>';
 										}else{
-											endhtml = '<td><a href="javascript:;" onclick="filedown('+dataList[p].id+');" class="blue">附件</a></td>';
+											endhtml = '<td><a href="javascript:;" onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
 										}
 										
 										htmlstart +='<tr>'+
@@ -611,7 +616,7 @@
 					 }else if(o.fileStatus == 'fileStatus:2'){
 						 html += "<td>已上传</td>";
 						 html += "<td></td>";
-						 html += "<td><a href='javascript:filedown("+o.id+");'>" + o.fileName + "</a></td>";
+						 html += "<td><a href='javascript:filedown("+o.id+");'>查看</a></td>";
 					 }else if(o.fileStatus == 'fileStatus:3'){
 						 html += "<td>已签署</td>";
 						 html += "<td></td>";
@@ -947,15 +952,15 @@
 													var handlehtml = "";
 													
 													if (dataList[p].fileStatusDesc == "缺失") { 
-														handlehtml ='<td><a href="javascript:; " class="blue">催办</a></td>';
+														handlehtml ='<td><a href="javascript:; " onclick="taskUrged('+dataList[p].id+');"class="blue">催办</a></td>';
 													}else{
-														handlehtml = '<td>'+dataList[p].fileName+'</td>';
+														handlehtml = '<td></td>';
 													}
 													var endhtml ="";
 													if (dataList[p].fileStatusDesc == "缺失") { 
 														endhtml ='<td></td>';
 													}else{
-														endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">附件</a></td>';
+														endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
 													}
 													
 													htmlstart +='<tr>'+
@@ -1011,10 +1016,30 @@
 		$("#e").attr("src","<%=path %>/ueditor/lang/zh-cn/zh-cn.js");
 		
 	}
-	
+	//催办
+	function taskUrged(id) {
+		var url = platformUrl.tempDownload+"?id="+id;
+		var json= {"id":id};
+		sendGetRequest(platformUrl.taskUrged, json, taskCallback);
+	}
 	function downFile(id){
 		var url = platformUrl.tempDownload+"?id="+id;
 		forwardWithHeader(url);
+	}
+	
+	function taskCallback(data) {
+		
+		if (data.result.status!="OK") {
+			layer.msg("催办失败");
+		} else {
+			layer.msg(data.result.message, {
+				time : 1000
+			}, function() {
+				history.go(0);
+			});
+		}
+		
+		
 	}
 </script>
 

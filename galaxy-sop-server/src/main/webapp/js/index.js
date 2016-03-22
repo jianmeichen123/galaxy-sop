@@ -83,10 +83,10 @@
 					 '<td>'+i+'</td>'+
 					 '<td>'+ taskOrderDesc+'</td>'+
 					 '<td>'+ temp.taskType+'</td>'+
-					 '<td>'+ temp.projectName+'</td>'+
+					 '<td>'+ temp.taskName+'</td>'+
 					 '<td>'+ temp.taskStatus+'</td>'+
-					 '<td>'+ temp.hours+'</td>'+
-					 '<td>'+temp.caozuohtml+'</td>'+
+					 '<td>'+ temp.projectName+'</td>'+
+					 '<td>'+ temp.caozuohtml+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
@@ -269,3 +269,15 @@ function totalMissionCallback(data) {
 	$('.bubble').html(data.total)
 }
 */
+
+$(function(){
+	//待认领
+	$("tbody").on("click", "#doclaim", function() {
+		var task=this;
+		var taskId=task.childNodes[1].value;
+		var url=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId;
+	    forwardWithHeader(url);
+//		this.href=endUrl;
+	});
+});
+
