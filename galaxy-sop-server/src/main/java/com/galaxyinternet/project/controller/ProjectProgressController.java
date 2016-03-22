@@ -1073,7 +1073,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				query.setNameLike(nameLike);
 			}
 			query.setCreateUid(user.getId());
-			//query.setProjectStatus(DictEnum.meetingResult.否决.getCode()); //not equals
+			query.setResultCloseFilter(DictEnum.meetingResult.否决.getCode());//过滤已关闭
 			perProList = projectService.queryList(query);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(perProList);
@@ -1117,6 +1117,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				}
 			}
 			query.setCreateUid(user.getId());
+			query.setResultCloseFilter(DictEnum.meetingResult.否决.getCode());//过滤已关闭
 			//query.setProjectStatus(DictEnum.meetingResult.否决.getCode()); //not equals
 			Page<Project> pageProject = projectService.queryPageList(query,new PageRequest(query.getPageNum(), query.getPageSize()));
 			responseBody.setPageList(pageProject);

@@ -271,8 +271,8 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 		},
 		init: {
 			//上传按钮点击事件 - 开始上传
-			PostInit: function(up) {
-				$("#" + submitBtnId).click(function(){
+			PostInit: function() {
+				$("#" + submitBtnId).click(function(up){
 					var file = $("#" + fileInputId).val();
 					
 					var param = paramsFunction();
@@ -440,10 +440,9 @@ function getInterViewCondition(hasProid,projectId,
 		viewNotesId){
 	var	condition = {};
 	
-	/*if(!beforeSubmit()){
+	if(!beforeSubmit()){
 		return false;
-	}*/
-	
+	}
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);
 	}else{
@@ -518,9 +517,9 @@ function getMeetCondition(hasProid,projectId,
 		){
 	var	condition = {};
 	
-	/*if(!beforeSubmit()){
+	if(!beforeSubmit()){
 		return false;
-	}*/
+	}
 	
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);

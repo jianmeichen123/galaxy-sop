@@ -263,8 +263,8 @@ $(function(){
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				initUpload();
-				queryPerPro();
+				initMeetUpload();
+				queryMeetPerPro();
 				$('.edui-container').show();
 			}//模版反回成功执行	
 		});
@@ -278,8 +278,8 @@ $(function(){
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				initUpload();
-				queryPerPro();
+				initViewUpload();
+				queryViewPerPro();
 				$('.edui-container').show();
 			}//模版反回成功执行	
 		});
