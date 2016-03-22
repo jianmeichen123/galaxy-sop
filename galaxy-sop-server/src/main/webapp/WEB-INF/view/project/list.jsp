@@ -127,7 +127,9 @@
 	function editor(value, row, index){
 		var id=row.id;
 		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>查看</a>";
-		options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>修改</a>";
+		if(row.projectStatus != 'meetingResult:3'){
+			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>修改</a>";
+		}
 		return options;
 	}
 	/**
@@ -169,6 +171,9 @@
 							$("#projectProgress_" + i).addClass("disabled");
 						}
 						if(i == 1){
+							if(data.entity.projectStatus == 'meetingResult:3'){
+								$("#options_point").remove();
+							}
 							tiggerTable($("#" + progress + "_table"),3);
 						}
 						if(i == 5){
