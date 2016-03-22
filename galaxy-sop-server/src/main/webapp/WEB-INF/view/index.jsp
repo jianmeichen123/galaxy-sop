@@ -1,6 +1,11 @@
-<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page language="java" pageEncoding="UTF-8"
+import="com.galaxyinternet.framework.core.oss.OSSConstant"
+%>
 <% 
-	String path = request.getContextPath(); 
+String path = request.getContextPath(); 
+String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
+java.util.Map<String, Object> endpointMap = new com.google.gson.Gson().fromJson(endpoint,new com.google.gson.reflect.TypeToken<java.util.Map<String, Object>>() {}.getType()); 
+String reportEndpoint = String.valueOf(endpointMap.get("galaxy.project.report.endpoint"));
 %>
 <!doctype html>
 <html>
@@ -106,7 +111,7 @@
                     	<table width="100%" cellspacing="0"  cellpadding="0">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>序号</th>
                                     <th>优先级</th>
                                     <th>任务类型</th>
                                     <th>任务名称</th>
@@ -184,7 +189,7 @@
                     	<div id="histogram" class="histogram"></div>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="http://fx.dev.galaxyinternet.com/report/galaxy/report/dataBriefing" class="more null">more</a>
+                    	<a href="<%=reportEndpoint %>/galaxy/report/dataBriefing" class="more null">more</a>
                     </dd>
                 </dl>
             </div>

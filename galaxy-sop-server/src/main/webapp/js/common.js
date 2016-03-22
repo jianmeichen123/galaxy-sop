@@ -274,7 +274,15 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 			PostInit: function() {
 				$("#" + submitBtnId).click(function(){
 					var file = $("#" + fileInputId).val();
-					uploader.start();
+					
+					var param = paramsFunction();
+					if(param == false || param == 'false'){
+						uploader.stop();
+						return;
+					}else{
+						uploader.start();
+						up.settings.multipart_params = param;
+					}
 					//传到后台的参数
 					//uploader.multipart_params = { id : "12345" };
 					return false;
@@ -315,7 +323,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 			BeforeUpload:function(up){
 				//表单函数提交
 				//alert(JSON.stringify(getSaveCondition()));
-				up.settings.multipart_params = paramsFunction();
+				
 			},
 			Error: function(up, err) {
 				alert("错误"+err);

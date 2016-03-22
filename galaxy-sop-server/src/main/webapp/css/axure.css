@@ -1060,18 +1060,19 @@ background-size: 93%;position: relative;z-index: 10;}
 .schedule1tc .searchall .searchbtn,.schedule1tc .searchall .txt{float: left;}
 .schedule1tc .searchall .txt{width: 150px;height: 28px;border:1px solid #e9ebf2;border-radius: 6px;padding: 0 0 0 5px;}
 .schedule1tc .searchall .searchbtn{margin: 0 0 0 10px;}
-.schedule1tc .bottom .bottom_l{float: left;width:150px;border-left:1px solid #e9ebf2;}
+.schedule1tc .bottom .bottom_l{float: left;width:150px;height:312px; overflow-y:scroll;border:1px solid #e9ebf2}
 .schedule1tc .bottom .bottom_l dl{height: auto;}
 .schedule1tc .bottom .bottom_l dl label{float: right;}
 .schedule1tc .bottom .bottom_l dl .nav_list{border:1px solid #e9ebf2;height: 34px;background-color: #f1f2f5;line-height: 34px;padding-left:5px;color:#5d678a;cursor: pointer;}
 .schedule1tc .bottom .bottom_l dl  .tips{display: none;}
 .schedule1tc .bottom .bottom_l dl  .tips .nav{cursor: pointer;}
+.schedule1tc .bottom .bottom_l dl  .tips .nav dt span{width:100px;display:inline-block;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;}
 .schedule1tc .bottom .bottom_l dl .on{display: block;}
 .schedule1tc .bottom .bottom_l dl dd{font-size: 12px;font-family: "宋体"}
-.schedule1tc .bottom .bottom_l dl dd dl{border-bottom:1px solid #e9ebf2;padding: 5px; }
+.schedule1tc .bottom .bottom_l dl dd dl{border-bottom:1px solid #e9ebf2;padding: 5px;border-right:1px solid #e9ebf2;border-left:1px solid #e9ebf2;}
 .schedule1tc .bottom .bottom_l .tips .on{background-color: #f0f0f0; }
 .schedule1tc .bottom .bottom_l dl dd dl dt{font-size: 12px;font-family: "宋体";margin-bottom: 5px;}
-.schedule1tc .bottom .bottom_r{float: left;width: 400px;height: auto;border:1px solid #e9ebf2;padding:5px;}
+.schedule1tc .bottom .bottom_r{float: left;width: 400px;height: 300px;border:1px solid #e9ebf2;padding:5px;}
 .schedule1tc .bottom .bottom_r h2{font-size: 16px;font-family: "微软雅黑";font-weight: normal;color:#5d678a;margin-bottom: 5px;}
 .schedule1tc .bottom .bottom_r dl{margin-left: 10px;}
 .schedule1tc .bottom .bottom_r dl .txt{width: 88px;}
@@ -1104,5 +1105,5 @@ dl dt,dl label{font-weight: normal !important;}
 .form label{width:auto;}
 dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 85px -150px !important;}
 .search_adjust .fml dd{width:250px !important;}
-/* 访谈日志 */
+/**切断文字**/
 .text-overflow{width:400px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
