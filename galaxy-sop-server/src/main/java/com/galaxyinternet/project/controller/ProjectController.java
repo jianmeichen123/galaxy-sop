@@ -51,6 +51,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.service.ConfigService;
@@ -62,6 +63,7 @@ import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.service.UserService;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -77,6 +79,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private PersonPoolService personPoolService;
 	@Autowired
 	private ProjectPersonService projectPersonService;
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private ConfigService configService;
 	@Autowired
@@ -199,10 +203,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> selectProject(@PathVariable("pid") String pid, HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
+		String hhrname="";
+		if(project == null)
+		hhrname=getHHRNname(project);
 		if(project == null){
 			responseBody.setResult(new Result(Status.ERROR, "未查找到指定项目信息!"));
 			return responseBody;
 		}
+		project.setHhrName(hhrname);
 		responseBody.setEntity(project);
 		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		return responseBody;
@@ -251,6 +259,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		project.setCreateUid(user.getId());
+		
 		try {
 			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
 			responseBody.setPageList(pageProject);
@@ -878,4 +887,21 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		
 		return resp;
 	}
+	
+	  public String getHHRNname(Project p){
+		   String hhrname="";
+		   UserRole userrole=new UserRole();
+		   userrole.setId((long)3);
+		   List<UserRole> queryList = userRoleService.queryList(userrole);
+		   for(UserRole ur: queryList){
+			   Long userid=ur.getId();
+			   User queryById = userService.queryById(userid);
+			   if(queryById!=null){
+				   if(queryById.getDepartmentId().equals(p.getProjectDepartid())){
+					   hhrname=queryById.getRealName();
+				   }
+			   }
+		   }
+		   return hhrname;
+	   }
 }

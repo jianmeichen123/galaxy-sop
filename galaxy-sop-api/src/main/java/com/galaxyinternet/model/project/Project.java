@@ -47,7 +47,7 @@ public class Project extends PagableEntity {
   	private String createDate;
   	private String type;
   	private String progress;
-
+    private  String  hhrName;
 
     public Long getId() {
         return id;
@@ -290,4 +290,14 @@ public class Project extends PagableEntity {
 		this.count = count;
 	}
 
+	public String getHhrName() {
+		return hhrName;
+	}
+
+	public void setHhrName(String hhrName) {
+		this.hhrName = hhrName;
+	}
+
+	
+	
 }
