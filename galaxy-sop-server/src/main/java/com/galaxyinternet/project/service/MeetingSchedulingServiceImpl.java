@@ -12,6 +12,7 @@ import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
@@ -134,6 +135,11 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 					 String deptName = findDeptName(project.getProjectDepartid(),depList);
 					 meeting.setProjectCareerline(deptName);
 					 meeting.setCreateUname(project.getCreateUname());
+					 
+					 if (meeting.getMeetingDate()!=null) {
+						String meetingDateStr = DateUtil.convertDateToString(meeting.getMeetingDate());
+						meeting.setMeetingDateStr(meetingDateStr);
+					 }
 				 }
 			 }
 			 setDefaultValue(meeting);

@@ -33,10 +33,21 @@ public class MeetingScheduling extends PagableEntity {
   	//投资事业线
   	private String projectCareerline;
   	//投资经理
-      private String createUname;
-      
-      
-  	public String getProjectCareerline() {
+    private String createUname;
+    private String meetingDateStr; 
+    
+    
+    
+    
+  	public String getMeetingDateStr() {
+		return meetingDateStr;
+	}
+
+	public void setMeetingDateStr(String meetingDateStr) {
+		this.meetingDateStr = meetingDateStr;
+	}
+
+	public String getProjectCareerline() {
   		return projectCareerline;
   	}
 

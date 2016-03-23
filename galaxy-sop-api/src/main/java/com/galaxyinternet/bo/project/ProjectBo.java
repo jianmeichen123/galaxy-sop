@@ -50,11 +50,11 @@ public class ProjectBo extends Project {
 	}
 
 	public String getNameLike() {
-		return nameLike;
+		return nameLike == null ? null : nameLike.trim();
 	}
 
 	public void setNameLike(String nameLike) {
-		this.nameLike = nameLike;
+		this.nameLike = nameLike == null ? null : nameLike.trim();
 	}
 
 	public List<String> getIds() {
@@ -82,11 +82,11 @@ public class ProjectBo extends Project {
 	}
 
 	public String getNameOnlyLike() {
-		return nameOnlyLike;
+		return nameOnlyLike == null ? null : nameOnlyLike.trim();
 	}
 
 	public void setNameOnlyLike(String nameOnlyLike) {
-		this.nameOnlyLike = nameOnlyLike;
+		this.nameOnlyLike = nameOnlyLike == null ? null : nameOnlyLike.trim();
 	}
 	
 	public String getResultCloseFilter() {

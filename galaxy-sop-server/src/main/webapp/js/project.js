@@ -86,7 +86,7 @@ $(function(){
 		$("#portrait_show").text(replaceStr(data.entity.userPortrait));
 		$("#location_show").text(replaceStr(data.entity.companyLocation));
 		$("#analysis_show ").text(replaceStr(data.entity.prospectAnalysis));*/
-		$("#describe_show").html(ata.entity.projectDescribe);
+		$("#describe_show").html(data.entity.projectDescribe);
 		$("#model_show").html(data.entity.projectBusinessModel);
 		$("#portrait_show").html(data.entity.userPortrait);
 		$("#location_show").html(data.entity.companyLocation);
@@ -123,13 +123,13 @@ $(function(){
 			$("#project_valuations").text(valuations);
 		}
 	});
-	function replaceStr(str){
+	/*function replaceStr(str){
 		if(str){
 			var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
 			return result;
 		}
 	
-	}
+	}*/
 	
 	
 	

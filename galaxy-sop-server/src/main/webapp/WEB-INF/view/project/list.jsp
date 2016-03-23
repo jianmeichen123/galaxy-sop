@@ -74,17 +74,17 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" id="nameLike" name="nameLike" placeholder="请输入项目名称或编号" />
+						<input type="text" class="txt" name="nameLike" placeholder="请输入项目名称或编号" />
 					</dd>
 					<dd>
-						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
+						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
 					</dd>
 				</dl>
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">	
 			<table id="data-table" data-url="project/spl" data-height="555" 
-				data-page-list="[1, 5, 50]" data-toolbar="#custom-toolbar">
+				data-page-list="[1, 5, 50]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
@@ -102,13 +102,14 @@
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/fx.upload.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/my_ext.js"></script>
 <script src="<%=path %>/js/my.js"></script>
 <!-- 分页二css+四js -->
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
 
@@ -475,7 +476,7 @@
 						        if (dataList[p].fileStatusDesc == "缺失") { 
 						        	handlefile ='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
 								}else{
-									handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
+									handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateTzyxs()">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
 								}
 						        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">'+
 						        '<a href="javascript:;" onclick="downFile(5);" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>'+
@@ -582,7 +583,91 @@
 		});
 		return false;
 	}
-	 
+	function updateTzyxs(){
+		$("[data-id='popid1']").remove();
+		 loadJs();
+		var _url='<%=path %>/galaxy/tzyx';
+		$.getHtml({
+			url:_url,
+			okback:function(){
+				
+				var uploader = $.fxUpload({
+					props:{
+						browse_button:'select_file_btn',
+						url:platformUrl.stageChange,
+						init:{
+							PostInit: function(up) {
+								$("#save_file_btn").click(function(){
+									if(up.files.length == 0)
+									{
+										layer.msg("请选择文件.");
+										return;
+									}
+									uploader.start();
+								});
+							},
+							FilesAdded: function(up, files) {
+								if(up.files.length > 1){
+									up.splice(0, ip.files.length-1)
+								}
+								$.each(files, function() {
+									$("#file_obj").val(this.name);
+								});
+							},
+							BeforeUpload:function(up){
+								var condition = {};
+								var pid = $("#project_id").val();
+								var type = $("input[name='fileSource']:checked").val();
+								if(type == null || type == ""){
+									layer.msg("档案来源不能为空");
+									up.stop();
+									return;
+								}
+								var fileType = $("#fileType").val();
+								if(fileType == null || fileType == ""){
+									layer.msg("存储类型不能为空");
+									up.stop();
+									return;
+								}
+								var fileWorktype = $("#fileWorkType").val();
+								if(fileWorktype == null || fileWorktype == ""){
+									layer.msg("业务分类不能为空");
+									up.stop();
+									return;
+								}
+								var voucherType = $("input[id='voucherType']:checked").val();
+								condition.pid = pid;
+								condition.stage = "projectProgress:5";
+								condition.type = type;
+								condition.fileType = fileType;
+								condition.fileWorktype = fileWorktype;
+								condition.voucherType = voucherType;
+								
+								up.settings.multipart_params=condition;
+							},
+							FileUploaded: function(up, files, rtn) {
+								var data = $.parseJSON(rtn.response);
+								
+								if(data.result.status == "OK")
+								{
+									layer.msg(data.result.message);
+									var pid = $("#project_id").val()
+									$("#powindow,#popbg").remove();
+									info(pid);
+								}
+								else
+								{
+									layer.msg("上传失败.");
+								}
+							}
+						}
+					}
+				});
+				console.log(uploader);
+			}
+			
+		});
+	} 
 	 /**
 	  * 尽职调查
 	  */
@@ -619,7 +704,8 @@
 					 if(o.fileStatus == 'fileStatus:1'){
 						 html += "<td>缺失</td>";
 						 if(o.fileWorktype != 'fileWorktype:1'){
-							 html += "<td><a href='javascript:void(0);'>催办</a></td>";
+							 html +='<td><a href="javascript:; " onclick="taskUrged('+o.id+');"class="blue">催办 </a></td>';
+
 						 }else{
 							 html += "<td></td>";
 						 }

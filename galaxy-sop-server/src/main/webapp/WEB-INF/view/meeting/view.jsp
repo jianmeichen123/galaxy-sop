@@ -59,9 +59,9 @@
             <dl class="fmdl fmmr fmdll clearfix">
               <dt>会议日期：</dt>
               <dd>
-                <input type="text" class="datepicker time" readonly id="startTime" name="startTime"  style="height:23px;"/>
+                <input type="text" class="datepicker txt time" readonly id="startTime" name="startTime"  style="height:23px;"/>
                 <span>至</span>
-                <input type="text" class="datepicker time" readonly id="endTime" name="endTime"  style="height:23px;"/>
+                <input type="text" class="datepicker txt time" readonly id="endTime" name="endTime"  style="height:23px;"/>
                 
                 <!-- <input type="text" class="txt time" id="startTime" name="startTime" /> -->
               </dd>

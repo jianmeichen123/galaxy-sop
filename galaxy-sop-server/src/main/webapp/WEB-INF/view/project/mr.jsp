@@ -37,7 +37,7 @@
         <dl class="fmdl clearfix">
             <dt>会议召开日期：</dt>
             <dd>
-            	<input class="datepicker time" style="height:24px;" type="text" id="meeting_date" readonly value="" />
+            	<input class="datepicker txt time" style="height:24px;" type="text" id="meeting_date" readonly value="" />
             </dd>
         </dl>
     </div>

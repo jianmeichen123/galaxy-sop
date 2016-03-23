@@ -362,11 +362,11 @@ public class SopFile extends PagableEntity {
 	}
 
 	public String getProjectName() {
-		return projectName;
+		return projectName == null ? null : projectName.trim();
 	}
 
 	public void setProjectName(String projectName) {
-		this.projectName = projectName;
+		this.projectName = projectName == null ? null : projectName.trim();
 	}
 
 

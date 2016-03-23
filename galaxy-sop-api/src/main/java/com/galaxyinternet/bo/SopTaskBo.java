@@ -69,11 +69,11 @@ public class SopTaskBo extends  SopTask{
 	}
 
 	public String getNameLike() {
-		return nameLike;
+		return nameLike == null ? null : nameLike.trim();
 	}
 
 	public void setNameLike(String nameLike) {
-		this.nameLike = nameLike;
+		this.nameLike = nameLike == null ? null : nameLike.trim();
 	}
 
 	public String getStatusFlag() {

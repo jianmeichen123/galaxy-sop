@@ -32,13 +32,13 @@
         <!--当日信息-->
         </c:if>
     	<div class="todaymsg clearfix">
-        	<span class="weather"><iframe allowtransparency="true" frameborder="0" width="133" height="36" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=1&v=0&d=3&bd=0&k=000000&f=004080&q=1&e=1&a=1&c=54511&w=180&h=36&align=center"></iframe></span>
+        	<span class="weather"><iframe allowtransparency="true" frameborder="0" width="220" height="36" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=1&v=0&d=3&bd=0&k=000000&f=004080&q=1&e=1&a=1&c=54511&w=180&h=36&align=center"></iframe></span>
             <span>
                 <em id="sday" style="display:none">
                 2014-01-08
                 </em>
                 <div id="xianhao" class="xianhao">
-                <em class="today" id="todayweek"></em>限行尾号为&nbsp;<em class="todaynum" id="todaynum"></em><em>，</em><em class="tomorrow" id="tomorrowweek"></em>限行尾号为&nbsp;<em class="tomorrownum" id="tomorrownum"></em><em>！</em>　
+                <em class="today" id="todayweek"></em>限行尾号为<em class="todaynum" id="todaynum"></em><em>，</em><em class="tomorrow" id="tomorrowweek"></em>为<em class="tomorrownum" id="tomorrownum"></em><em>！</em>　
                 </div>            
             </span>              
         </div>
