@@ -147,7 +147,6 @@
 				 var tr='<tr>'+
 				 '<td>'+i+'</td>'+
 				 '<td>'+ getValue(templ.projectName)+'</td>'+
-				 '<td>'+ getStatusValue(templ.status)+'</td>'+
 				 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
 				 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
 				 '<td>'+getValue(templ.projectCareerline)+'</td>'+
@@ -171,7 +170,6 @@
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
 					 '<td>'+ getValue(templ.projectName)+'</td>'+
-					 '<td>'+ getStatusValue(templ.status)+'</td>'+
 					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
 					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
 					 '<td>'+getValue(templ.projectCareerline)+'</td>'+
