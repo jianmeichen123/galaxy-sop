@@ -29,11 +29,11 @@
                 <table>
                   <tr>
                     <th>团队角色：</th>
-                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="身团队角色只能包含数字、字母、汉字 长度限制50"></td>
                   </tr>
                   <tr>
                     <th>姓名：</th>
-                    <td><input name="personName" id="personName" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="姓名只能包含字母、汉字、“.”"></td>
+                    <td><input name="personName" id="personName" type="text" value=""  valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="姓名只能包含字母、汉字 长度限制20"></td>
                   </tr>
                   <tr>
                     <th>成员关系：</th>
