@@ -524,7 +524,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectQuery> stageChange(@RequestBody ProjectQuery p, HttpServletRequest request) {
+	public ResponseData<ProjectQuery> stageChange(ProjectQuery p, HttpServletRequest request) {
 		ResponseData<ProjectQuery> responseBody = new ResponseData<ProjectQuery>();
 		/**
 		 * 1.参数校验
