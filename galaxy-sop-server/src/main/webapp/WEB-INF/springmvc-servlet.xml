@@ -84,6 +84,10 @@
 			<bean
 				class="com.galaxyinternet.common.annotation.MessageHandlerInterceptor" />
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.galaxyinternet.framework.core.form.TokenHandlerInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 </beans>
