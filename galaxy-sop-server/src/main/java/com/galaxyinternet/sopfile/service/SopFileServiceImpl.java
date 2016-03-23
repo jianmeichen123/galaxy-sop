@@ -140,6 +140,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		List<SopFile> list = super.queryList(query);
 		if(list != null && list.size()>0)
 		{
+			
 			List<Long> vIds = new ArrayList<Long>();
 			for(SopFile file : list)
 			{
@@ -147,6 +148,13 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				{
 					vIds.add(file.getVoucherId());
 				}
+				if(file.getFileUid()!=null){
+					User user = userService.queryById(file.getFileUid());
+					if(user!=null)
+					{
+						file.setFileUName(user.getRealName());
+					}
+				}	
 			}
 			if(vIds != null && vIds.size()>0)
 			{
