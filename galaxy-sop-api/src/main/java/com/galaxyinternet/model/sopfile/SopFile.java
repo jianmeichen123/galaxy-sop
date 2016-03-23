@@ -130,6 +130,7 @@ public class SopFile extends PagableEntity {
   	private List<Long> projectLikeIdList;
   	private List<Long> fileULikeidList;
   	
+  	private String isEdit;
   	private String pageType;
   	private String fileWorktypeNullFilter;
 
@@ -441,6 +442,14 @@ public class SopFile extends PagableEntity {
 
 	public void setProjectLikeIdList(List<Long> projectLikeIdList) {
 		this.projectLikeIdList = projectLikeIdList;
+	}
+
+	public String getIsEdit() {
+		return isEdit;
+	}
+
+	public void setIsEdit(String isEdit) {
+		this.isEdit = isEdit;
 	}
 
 
