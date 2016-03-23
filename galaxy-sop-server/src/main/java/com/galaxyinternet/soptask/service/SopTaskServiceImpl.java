@@ -67,7 +67,11 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			// 查询该项目投资经理或者项目名称查询相应的项目
 			projectList = projectDao.selectProjectByMap(projectBo);
 			if(!projectList.isEmpty()){
-			    sopTaskBo = setProjectIdsByPList(projectList);
+				List<String> pids = getProjectIds(projectList);
+				if(pids != null && pids.size()>0)
+				{
+					sopTaskBo.setIds(pids);
+				}
 			    selectListSopTask = sopTaskDao.selectTaskInPids(sopTaskBo, pageable);
 			    if (selectListSopTask == null) {
 					throwPlatformException(ExceptionMessage.QUERY_LIST_FAIL);
@@ -112,7 +116,19 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		throw new PlatformException(status.getStatus(), message);
 	}
-
+	public List<String> getProjectIds(List<Project> projectList)
+	{
+		List<String> ids = null;
+		if(projectList != null && projectList.size()>0)
+		{
+			ids = new ArrayList<String>();
+			for(Project project : projectList)
+			{
+				ids.add(project.getId().toString());
+			}
+		}
+		return ids;
+	}
 	/**
 	 * @author chenjianmei
 	 * @category 根据项目项目list拼接项目ids
