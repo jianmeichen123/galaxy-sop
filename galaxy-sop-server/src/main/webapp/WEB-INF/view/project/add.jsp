@@ -190,6 +190,7 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
+   var TOKEN ;
 	$(function(){
 		createMenus(4);
 		sendGetRequest(platformUrl.getProjectCode, {}, function(data){
@@ -222,10 +223,43 @@
 	}
 	function add(){
 		if(beforeSubmit()){
-			sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
-				forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+			//获取TOKEN 用于验证表单提交
+			sendPostRequest(platformUrl.getToken,callback);
+			
+			$.ajax({
+				url : platformUrl.addProject,
+				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
+				async : false,
+				type : 'POST',
+				contentType : "application/json; charset=UTF-8",
+				dataType : "json",
+				cache : false,
+				beforeSend : function(xhr) {
+					if (TOKEN) {
+						xhr.setRequestHeader("TOKEN", TOKEN);
+					}
+					if (sessionId) {
+						xhr.setRequestHeader("sessionId", sessionId);
+					}
+					if(userId){
+						xhr.setRequestHeader("guserId", userId);
+					}
+				},
+				error : function() {
+					layer.msg("操作失败");
+				},
+				success : function(data) {
+					
+					forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+				}
 			});
+			
 		}
+	}
+	
+	function callback(data){
+		TOKEN=data.TOKEN;
+		 return TOKEN;
 	}
 </script>
 
