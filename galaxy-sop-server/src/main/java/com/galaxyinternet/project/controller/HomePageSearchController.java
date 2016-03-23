@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +27,6 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.service.MeetingSchedulingService;
-import com.galaxyinternet.service.UserRoleService;
 
 /**
  * 首页查询相关
@@ -39,8 +40,6 @@ public class HomePageSearchController
 	final Logger logger = LoggerFactory
 			.getLogger(HomePageSearchController.class);
 
-	@Autowired
-	private UserRoleService userRoleService;
 
 	@Autowired
 	private MeetingSchedulingService meetingSchedulingService;
@@ -313,8 +312,15 @@ public class HomePageSearchController
 */		// User user = (User)
 		// request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
-
-			Page<MeetingScheduling> pageList = meetingSchedulingService.queryMeetingPageList(meeting,new PageRequest(meeting.getPageNum(), meeting.getPageSize()));
+			Sort sort = null;
+			if(meeting != null && meeting.getSortName() != null) {
+				if (meeting.getSortDirection().equals("0")) {
+					sort = new Sort(Direction.ASC,meeting.getSortName());
+				} else {
+					sort = new Sort(Direction.DESC,meeting.getSortName());
+				}
+			}
+			Page<MeetingScheduling> pageList = meetingSchedulingService.queryMeetingPageList(meeting,new PageRequest(meeting.getPageNum(), meeting.getPageSize(),sort));
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;

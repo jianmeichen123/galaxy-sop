@@ -31,6 +31,13 @@
 				<if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
 				<if test="updatedTime != null" >and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 				<if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				<if test="projectIdList != null">
+					AND project_id IN
+					<foreach collection="projectIdList" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>
