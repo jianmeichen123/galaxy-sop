@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +92,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	
 	public String errMessage(Project project,User user,String prograss){
 		if(project == null){
 			return "项目检索为空";
@@ -122,7 +122,19 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return null;
 	}
 	
-
+	private Map<String, String> transFileNames(String fileName) {
+		Map<String, String> retMap = new HashMap<String, String>();
+		int dotPos = fileName.lastIndexOf(".");
+		if(dotPos == -1){
+			retMap.put("fileName", fileName);
+			retMap.put("fileSuffix", "");
+		}else{
+			retMap.put("fileName", fileName.substring(0, dotPos));
+			retMap.put("fileSuffix", fileName.substring(dotPos+1));
+		}
+		return retMap;
+	}
+	
 	
 	/**
 	 * 访谈默认页面 
@@ -150,7 +162,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 */
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
-	@RequestMapping(value = "/addFileInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/addFileInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addFileInterview(HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
 		
@@ -162,7 +174,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		String viewNotes = request.getParameter("viewNotes");
 		String fname = request.getParameter("fname");
 					
-		if(projectId == null  || viewDateStr == null  || viewTarget == null || viewNotes == null ){
+		if(projectId == null  || viewDateStr == null  || viewTarget == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
 			return responseBody;
 		}
@@ -191,6 +203,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
 			//上传成功后
 			if(map!=null){
+				@SuppressWarnings("unchecked")
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
 				File file = (File) map.get("file");
 				String fileName = "";
@@ -200,10 +213,9 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					fileName = nameMap.get("fileName");// secondarytile.png  全名
 				}
 				if(fileName == null || fileName.trim().length()==0){
-					responseBody.setResult(new Result(Status.ERROR,null, "get file name failed"));
+					responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
 					return responseBody;
 				}//end get file name 
-				
 				
 				SopFile sopFile = new SopFile();
 				sopFile.setProjectId(project.getId());
@@ -227,14 +239,14 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				
 				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 			}else{
-				responseBody.setResult(new Result(Status.ERROR,null, "上传失败"));
+				responseBody.setResult(new Result(Status.ERROR,null, "访谈添加中上传失败"));
 				return responseBody;
 			}
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
 			
 			if(logger.isErrorEnabled()){
-				logger.error("insert interviewRecord faild ",e);
+				logger.error("addFileInterview 访谈添加失败",e);
 			}
 		}
 		return responseBody;
@@ -249,47 +261,111 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 */
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
-	@RequestMapping(value = "/addInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/addInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecord interviewRecord ,HttpServletRequest request ) {
-		
 		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
-		
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		
-		if(interviewRecord.getProjectId() == null 
-				|| interviewRecord.getViewDate() == null 
-				|| interviewRecord.getViewTarget() == null
-				|| interviewRecord.getViewNotes() == null ){
-			responseBody.setResult(new Result(Status.ERROR,null, "interviewRecord info not complete"));
-			return responseBody;
-		}
-		
-		//project id 验证
-		Project project = new Project();
-		project = projectService.queryById(interviewRecord.getProjectId());
-		
-		String err = errMessage(project,user,DictEnum.projectProgress.接触访谈.getCode());   //字典  项目进度  接触访谈 
-		if(err!=null && err.length()>0){
-			responseBody.setResult(new Result(Status.ERROR,null, err));
-			return responseBody;
-		}
-				
 		try {
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
+			if(interviewRecord.getProjectId() == null 
+					|| interviewRecord.getViewDate() == null 
+					|| interviewRecord.getViewTarget() == null ){
+				responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
+				return responseBody;
+			}
+			
+			//project id 验证
+			Project project = new Project();
+			project = projectService.queryById(interviewRecord.getProjectId());
+			
+			String err = errMessage(project,user,DictEnum.projectProgress.接触访谈.getCode());   //字典  项目进度  接触访谈 
+			if(err!=null && err.length()>0){
+				responseBody.setResult(new Result(Status.ERROR,null, err));
+				return responseBody;
+			}
+		
 			Long id = interviewRecordService.insert(interviewRecord);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(id);
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
+			responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
 			
 			if(logger.isErrorEnabled()){
-				logger.error("insert interviewRecord faild ",e);
+				logger.error(" addInterview 访谈添加失败 ",e);
+			}
+		}
+		return responseBody;
+	}
+	
+	
+	/**
+	 * OSS访谈录音追加
+	 * @param   interviewRecord 
+	 * 			produces="application/text;charset=utf-8"
+	 * @param viewid 访谈id
+	 * @return responseBody.setId(id) fileId
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@ResponseBody
+	@RequestMapping(value = "/addInterview/{viewid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> addFileForView(@PathVariable Long viewid ,@RequestBody SopFile sopFile, HttpServletRequest request ) {
+		
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		try {
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			if(sopFile.getFileKey()==null || sopFile.getBucketName()==null || sopFile.getFileLength()==null||sopFile.getFileName()==null){
+				responseBody.setResult(new Result(Status.ERROR,null, "interviewRecord info not complete"));
+				return responseBody;
+			}
+			
+			//view验证
+			InterviewRecord view = interviewRecordService.queryById(viewid);
+			if(view == null || view.getId() == null){
+				responseBody.setResult(new Result(Status.ERROR,null, "访谈为空"));
+				return responseBody;
+			}
+			//project id 验证
+			Project project = projectService.queryById(view.getProjectId());
+			if(project == null || project.getId() == null){
+				responseBody.setResult(new Result(Status.ERROR,null, "关联项目为空"));
+				return responseBody;
+			}
+			Map<String,String> nameMap = transFileNames(sopFile.getFileName());
+			
+			sopFile.setProjectId(project.getId());
+			sopFile.setProjectProgress(project.getProjectProgress());
+			sopFile.setFileName(nameMap.get("fileName"));
+			sopFile.setFileSuffix(nameMap.get("fileSuffix"));
+			sopFile.setFileUid(user.getId());	 //上传人
+			sopFile.setCareerLine(user.getDepartmentId());
+			sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
+			sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
+			//sopFile.setFileWorktype(fileWorkType);    //业务分类
+			sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+			
+			//调用接口 修改view 新增 sopfile，返回fileid
+			Long id = interviewRecordService.insertFileForView(sopFile,view);
+			if(id == null){
+				responseBody.setResult(new Result(Status.ERROR,null, "录音追加失败"));
+				logger.error("addInterview addFileForView 录音追加失败，返回更新recordview为0 ");
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(id);
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "录音追加失败"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("addInterview addFileForView 录音追加失败",e);
 			}
 		}
 		
 		return responseBody;
 	}
+	
+	
 	
 	
 	/**
@@ -318,7 +394,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
 			
 			if(logger.isErrorEnabled()){
-				logger.error("queryInterviewPageList ",e);
+				logger.error("queryInterview 查询失败",e);
 			}
 		}
 		
@@ -367,11 +443,10 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		String meetingNotes = request.getParameter("meetingNotes");
 		String fname = request.getParameter("fname");
 			
-		if(projectId == null || meetingDateStr == null|| meetingType == null|| meetingResult == null|| meetingNotes == null ){
+		if(projectId == null || meetingDateStr == null|| meetingType == null|| meetingResult == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
 		}
-		
 		
 		try {
 			String prograss = "";
@@ -417,6 +492,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 			//上传成功后
 			if(map!=null){
+				@SuppressWarnings("unchecked")
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
 				File file = (File) map.get("file");
 				String fileName = "";
@@ -463,9 +539,9 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				return responseBody;
 			}
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			responseBody.setResult(new Result(Status.ERROR,null, "会议添加失败"));
 			if(logger.isErrorEnabled()){
-				logger.error("add meetingRecord faild ",e);
+				logger.error("addfilemeet 会议添加失败 ",e);
 			}
 		}
 		return responseBody;
@@ -490,8 +566,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		if(meetingRecord.getProjectId() == null 
 				|| meetingRecord.getMeetingDate() == null 
 				|| meetingRecord.getMeetingType() == null 
-				|| meetingRecord.getMeetingResult() == null 
-				|| meetingRecord.getMeetingNotes() == null ){
+				|| meetingRecord.getMeetingResult() == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
 		}
@@ -540,10 +615,10 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			responseBody.setResult(new Result(Status.ERROR,null, "会议添加失败"));
 			
 			if(logger.isErrorEnabled()){
-				logger.error("add meetingRecord faild ",e);
+				logger.error("addmeet 会议添加失败",e);
 			}
 		}
 		
