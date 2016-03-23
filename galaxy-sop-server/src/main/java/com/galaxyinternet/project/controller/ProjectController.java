@@ -904,10 +904,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	  public String getHHRNname(Project p){
 		   String hhrname="";
 		   UserRole userrole=new UserRole();
-		   userrole.setId((long)3);
+		   userrole.setRoleId((long)3);
 		   List<UserRole> queryList = userRoleService.queryList(userrole);
 		   for(UserRole ur: queryList){
-			   Long userid=ur.getId();
+			   Long userid=ur.getUserId();
 			   User queryById = userService.queryById(userid);
 			   if(queryById!=null){
 				   if(queryById.getDepartmentId().equals(p.getProjectDepartid())){

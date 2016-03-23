@@ -244,41 +244,23 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			bo.setIds(mailInfo.getTemplateIds());
 			
 			List<SopTemplate> list = templateService.queryList(bo);
-			/*List<String> fileList = new ArrayList<String>();
-			for(SopTemplate template : list)
-			{
-				String fileName = template.getBucketName();
-				int dotPos = fileName.lastIndexOf(".");
-				String prefix = fileName.substring(0, dotPos);
-				String suffix = fileName.substring(dotPos);
-				File temp = File.createTempFile(prefix, suffix);
-				OSSHelper.simpleDownloadByOSS(temp, template.getFileKey());
-				fileList.add(temp.getAbsolutePath());
-			}
-			*/
-			if(StringUtils.isNotEmpty(mailInfo.getZipFlag()))
-			{
-				//TODO generate zip file
-			}
 			
 			StringBuffer content = new StringBuffer();
 			content.append(mailInfo.getContent());
 			content.append("<br/>");
 			content.append("邮件附件:<br/>");
-			
+			String endpoint = getCurrEndpoint(request);
+			String linkTemplate = "<a href=\"%s\">%s</a><br/>";
 			for(SopTemplate template : list)
 			{
-				String fileName = template.getBucketName();
-				content.append("<a href=\"").append(request.getContextPath()).append("/galaxy/commondl").append("\">").append(fileName).append("</a>");
+				String fileName = template.getFileName();
+				String href = endpoint+"openEntry/download/template/"+template.getId();
+				content.append(String.format(linkTemplate, href,fileName));
 			}
-			boolean success = SimpleMailSender.sendHtmlMail(mailInfo.getToAddress(),  mailInfo.getTitle(),"");
+			boolean success = SimpleMailSender.sendHtmlMail(mailInfo.getToAddress(),  mailInfo.getTitle(),content.toString());
 			
 			if(success)
 			{
-				if(StringUtils.isNotEmpty(mailInfo.getSmFlag()))
-				{
-					//TODO generate SM notify
-				}
 				rtn.addOK("邮件发送成功.");
 			}
 			else

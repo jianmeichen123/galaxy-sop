@@ -293,11 +293,15 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 			//上传按钮点击事件 - 开始上传
 			PostInit: function() {
 				$("#" + submitBtnId).click(function(){
-					var file = $("#" + fileInputId).val();
-					uploader.start();
-					//传到后台的参数
-					//uploader.multipart_params = { id : "12345" };
-					return false;
+					if(beforeSubmit()){
+						var file = $("#" + fileInputId).val();
+						uploader.start();
+						//传到后台的参数
+						//uploader.multipart_params = { id : "12345" };
+						return false;
+					}
+					
+					
 				});
 			},
 			//添加上传文件后，把文件名 赋值 给 input
@@ -634,7 +638,7 @@ function intervierLog(value,row,index){
 	var strrrr=strlog;
 	if(len>100){
 		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
-		var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...</div>';
+		var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
 		
 		return rc;
 	}else{

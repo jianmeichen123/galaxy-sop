@@ -10,7 +10,7 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
-<link href="<%=path %>/css/bootstrap.min-v3.3.5.css" type="text/css" rel="stylesheet"/>
+<!--  <link href="<%=path %>/css/bootstrap.min-v3.3.5.css" type="text/css" rel="stylesheet"/>-->
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/bootstrap-v3.3.6.js" type="text/javascript"></script>
@@ -31,7 +31,7 @@
     <!-- 面包屑 -->
     <ul class="breadcrumb">
       <li><a href="javascript:;" class="bcfirst">待办任务</a></li>
-      <li class="bottom_align"><span>&gt;</span><a href="javascript:;" class="active">上传文档</a></li>
+      <li class="bottom_align"><a href="javascript:;" class="active">上传文档</a></li>
     </ul>
       <div class="clearfix"></div>
         <!--项目基本信息内容-->
@@ -79,7 +79,7 @@
                       <td>
                         <dl>
                           <dt>合伙人：</dt>
-                          <dd></dd>
+                          <dd id="hhrName"></dd>
                         </dl>
                       </td>
                   </tr>

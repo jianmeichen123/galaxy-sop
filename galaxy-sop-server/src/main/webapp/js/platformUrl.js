@@ -341,7 +341,9 @@ var platformUrl = {
 	/**
 	 * 催办
 	 */
-	taskUrged:sopContentUrl + "/galaxy/taskprocess/taskUrged"
+	taskUrged:sopContentUrl + "/galaxy/taskprocess/taskUrged",
+	
+	tempSendMail:sopContentUrl + "/galaxy/template/sendMail"
 }
 
 /**
