@@ -114,7 +114,7 @@ function loadRows()
 					var $tr = $('<tr data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
 					$tr.append('<td>'+(isBlank(this.fWorktype) ? "" : this.fWorktype) +'</td>');
 					$tr.append('<td>'+(isBlank(this.updatedTime) ? "" : Number(this.updatedTime).toDate().format("yyyy/MM/dd"))+'</td>');
-					$tr.append('<td>'+((isBlank(this.fileUid)) ? "" : this.fileUid) +'</td>');
+					$tr.append('<td>'+((isBlank(this.fileUName)) ? "" : this.fileUName) +'</td>');
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
 					$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\">催办</a>" : "")+'</td>');
