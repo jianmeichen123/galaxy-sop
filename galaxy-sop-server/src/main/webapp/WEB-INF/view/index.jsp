@@ -92,7 +92,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 </table>
             </dd>
             <dd class="clearfix">
-                <a href="/sop/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
+                <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
 <!--                 <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
             </dd>
         </dl>
