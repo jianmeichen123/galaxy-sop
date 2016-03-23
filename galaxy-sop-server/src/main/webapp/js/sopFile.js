@@ -70,7 +70,7 @@ var fileGrid = {
 		        title: '所属项目'
 		      }, {
 		        field: 'fSource',
-		        title: '档案管理'
+		        title: '档案来源'
 		      }, {
 		        field: 'fileUName',
 		        title: '起草者'
