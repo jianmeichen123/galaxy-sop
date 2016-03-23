@@ -463,7 +463,8 @@ function closeback(data){
 	    pagination: true, //分页
 	    search: false, //显示搜索框
 	    pageList: [1,5,20],
-	    queryParams: queryParams,
+	    queryParamsType: 'size|page',
+	    queryParams: function(params){params.projectId="${pid}"; return params;},
 	    sidePagination: "server", //服务端处理分页
 	          columns: [
 	                  {
@@ -542,7 +543,8 @@ function closeback(data){
     search: false, //显示搜索框
     showRefresh: true,
     pageList: [1,5,20],
-    queryParams: queryParams,
+    queryParamsType: 'size|page',
+    queryParams: function(params){params.projectId="${pid}"; return params;},
     sidePagination: "server", //服务端处理分页
           columns: [
                   {
