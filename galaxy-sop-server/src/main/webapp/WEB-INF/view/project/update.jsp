@@ -205,7 +205,7 @@
                 <div class="clearfix"></div>
                 <div class="tab-pane active" id="view">	
 	               	<table id="tablePerson"  data-height="555" 
-	               	data-method="post" data-show-refresh="true" >
+	               	data-method="post" data-page-list="[1, 5, 50]" data-show-refresh="true" >
 					</table> 
 				</div>
 				
@@ -230,7 +230,7 @@
                 <div class="clearfix"></div>
                   <div class="tab-pane active" id="pView">	
 	               <table id="table" data-height="555" data-method="post"
-	               	 data-show-refresh="true">
+	               	 data-page-list="[1, 5, 50]" data-show-refresh="true">
 					</table>
 				</div>
               </dd>
@@ -350,6 +350,7 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=path %>/js/init.js"></script>
 <!-- bootstrap-table -->
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
@@ -454,7 +455,7 @@ function closeback(data){
 	getTabShare();
 	
 	function getTabPerson(){
-		var html='<table id="tablePerson"  data-height="555" data-method="post" data-show-refresh="true" ></table>';
+		var html='<table id="tablePerson"  data-height="555" data-method="post" data-page-list="[1, 5, 50]" data-show-refresh="true" ></table>';
 		$("#view").html(html);
 		var $table = $('#tablePerson');
 	    $table.bootstrapTable({
@@ -533,7 +534,7 @@ function closeback(data){
 		}
 	//股权结构列表
 	function getTabShare(){
-	var html='<table id="table" data-height="555" data-method="post" data-show-refresh="true"></table>';
+	var html='<table id="table" data-height="555" data-method="post" data-page-list="[1, 5, 50]" data-show-refresh="true"></table>';
 	$("#pView").html(html);
 	var $table = $('#table');
     $table.bootstrapTable({
