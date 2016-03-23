@@ -2,6 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <!-- 富文本编辑器 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
@@ -9,13 +10,26 @@
 <script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
+
 <!-- 添加访谈记录弹出层 -->
 <div class="meetingtc">
 	<div class="top clearfix">
         <dl class="fmdl clearfix">
             <dt>访谈日期：</dt>
             <dd>
-            	<input class="form-control" type="date" id="viewDate" name="viewDate"/>
+            	<%-- <input class="form-control" type="date" id="viewDate" name="viewDate" valType="required" msg="<font color=red>*</font>创建时间不能为空"/> --%>
+                <input type="text" class="datepicker time" id="viewDate" name="viewDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
             </dd>
         </dl>
     </div>
@@ -23,14 +37,14 @@
     	<dl class="fmdl fml clearfix">
             <dt>访谈对象：</dt>
             <dd class="clearfix">
-                <input type="text" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt">
+                <input type="text" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt" valType="required" msg="<font color=red>*</font>访谈对象不能为空"/>
             </dd>
         </dl>
     </div>
     <dl class="fmdl clearfix">
         <dt>会议纪要：</dt>
         <dd>
-            <div type="text/plain" id="viewNotes" style="width:100%;height:100px;"></div>
+            <div type="text/plain" id="viewNotes" style="width:100%;height:100px;" valType="requiredDiv" msg="<font color=red>*</font>会议纪要不能为空"></div>
         </dd>
     </dl>
     <dl class="fmdl clearfix">

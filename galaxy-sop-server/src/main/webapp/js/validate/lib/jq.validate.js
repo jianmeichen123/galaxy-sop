@@ -84,6 +84,10 @@ function validateBefore() {
 			if($(this).val()=='') {
 				flag=false;
 			}
+		}else if($(this).attr('valType')=='requiredDiv'){
+			if($(this).text()=='') {
+				flag=false;
+			}
 		}
 		else {//已定义规则的判断
 			flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')});
@@ -108,6 +112,12 @@ function beforeSubmit() {
 				 
 		if($(n).attr("valType")=='required') {//对不能为空的文本框进行验证
 			if($(n).val()=='') {
+			//显示tips			
+			$(n).poshytip('show');
+			flag=false;
+			}
+		}else if($(n).attr("valType")=='requiredDiv'){
+			if($(n).text()=='') {
 			//显示tips			
 			$(n).poshytip('show');
 			flag=false;
