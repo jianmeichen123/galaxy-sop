@@ -81,13 +81,13 @@
     <dl class="fmdl clearfix">
     	<dt>业务分类：</dt>
         <dd>
-        	<select name="worktype"></select>
+        	<select name="worktype" disabled></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
     	<dt>所属部门：</dt>
         <dd>
-        	<select name="departmentId"></select>
+        	<select name="departmentId" disabled></select>
         </dd>
     </dl>
     <div class="fmdl clearfix">
@@ -328,6 +328,11 @@ function initUpload(_dialog)
 		init: {
 			PostInit: function() {
 				$(_dialog.id).find("#upload-btn").click(function(){
+					if(uploader.files.length==0)
+					{
+						layer.msg("请选择文件.");
+						return;
+					}
 					uploader.start();
 					return false;
 				});
@@ -357,7 +362,7 @@ function initUpload(_dialog)
 						url,
 						data,
 						function(data){
-							alert("上传成功.");
+							layer.msg("上传成功.");
 							$(_dialog.id).find("[data-close='close']").click();
 							loadTempList();
 						}
@@ -388,7 +393,7 @@ function showMailPopup()
 	var len = flags.length;
 	if(len == 0 )
 	{
-		alert("请选择模板.");
+		layer.msg("请选择模板.");
 		return;
 	}
 	
@@ -421,7 +426,7 @@ function showMailPopup()
 						url,
 						data,
 						function(data){
-							alert("发送邮件成功.");
+							layer.msg("发送邮件成功.");
 						}
 				); 
 			});
