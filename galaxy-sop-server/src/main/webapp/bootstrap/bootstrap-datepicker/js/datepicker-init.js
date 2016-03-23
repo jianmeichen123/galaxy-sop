@@ -143,7 +143,7 @@ $(function(){
 	    //startDate: '-3d',
 	    //endDate: '+3d'
 	});
-
+	$('.start-datepicker').datepicker("setDate",new Date());
 	//月份视图
 	$('.change_month').datepicker({
 		format: "yyyy-mm",
