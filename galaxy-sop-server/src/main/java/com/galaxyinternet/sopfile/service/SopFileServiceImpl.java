@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -44,6 +46,7 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.sopfile.controller.SopFileController;
 
 @Service("com.galaxyinternet.service.SopFileService")
 public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
@@ -61,6 +64,8 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	private DepartmentService departmentService;
 	@Autowired
 	private UserService userService;
+	
+	final Logger logger = LoggerFactory.getLogger(SopFileController.class);
 	
 	@Override
 	protected BaseDao<SopFile, Long> getBaseDao() {
@@ -100,8 +105,8 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				if(project!=null){
 					sopFile.setProjectName(project.getProjectName());
 				}
-				
 			}
+			
 			if(sopFile.getCareerLine()!=null){
 				Department department = departmentService.queryById(sopFile.getCareerLine());
 				if(department!=null){
@@ -114,7 +119,14 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				if(user!=null){
 					sopFile.setFileUName(user.getRealName());
 				}
-			}		
+			}
+			
+			logger.error("!!!!!sopFileId is" + sopFile.getId() );
+			logger.error("!!!!!sopFileUid is" + sopFile.getFileUid());
+			logger.error("!!!!!sopFileUName is" + sopFile.getFileUName());
+			logger.error("!!!!!projectId is" + sopFile.getProjectId() );
+			logger.error("!!!!!projectName is" + sopFile.getProjectName() );
+			
 //			
 		}
 		return pageEntity;

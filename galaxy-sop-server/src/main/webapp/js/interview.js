@@ -22,18 +22,14 @@ function setViewProSelect(data){
 	
 	if(result == "ERROR"){ //OK, ERROR
 		alert(data.result.message);
-		$(".pop").remove();
-		$("#popbg").remove();	
-		//$("#popbg,#pop").remove();
+		removePop1();
 		return;
 	}
 	
 	var entityList = data.entityList;
 	if(entityList.length == 0 ){
 		alert("无相关项目可添加记录");
-		$(".pop").remove();
-		$("#popbg").remove();	
-		//$("#popbg,.pop").remove();
+		removePop1();
 		return;
 	}else{
 		for(var i=0;i<data.entityList.length;i++){
@@ -77,8 +73,11 @@ function initViewUpload() {
 			
 			//添加上传文件后，把文件名 赋值 给 input
 			FilesAdded: function(up, files) {
+				if(viewuploader.files.length >= 2){
+					viewuploader.splice(0, viewuploader.files.length-1)
+				}
 				plupload.each(files, function(file) {
-					/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
+					//document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 					$("#fileName").val(file.name);
 				});
 			},

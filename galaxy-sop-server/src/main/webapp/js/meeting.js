@@ -135,6 +135,10 @@ function initMeetUpload() {
 			
 			//添加上传文件后，把文件名 赋值 给 input
 			FilesAdded: function(up, files) {
+				//解决多次文件选择后，文件都存入upload
+				if(meetuploader.files.length >= 2){
+					meetuploader.splice(0, meetuploader.files.length-1)
+				}
 				plupload.each(files, function(file) {
 					/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
 					$("#fileName").val(file.name);
