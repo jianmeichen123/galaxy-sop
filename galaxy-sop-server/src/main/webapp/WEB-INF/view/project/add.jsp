@@ -60,7 +60,7 @@
                         <dl>
                           <dt>创建时间：</dt>
                           <dd>
-                          	<input type="text" class="start-datepicker time" name="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
+                          	<input type="text" class="datepicker time" name="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
                           </dd>
                         </dl>
                       </td>
