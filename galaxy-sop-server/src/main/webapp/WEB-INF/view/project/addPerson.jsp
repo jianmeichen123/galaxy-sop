@@ -9,7 +9,7 @@
     <div class="left">
       <dl class="fmdl fml">
         <dt>姓名：</dt>
-        <dd><input type="text" id="personName" name="personName" value="" class="txt" placeholder="姓名" valType="required" msg="<font color=red>*</font>姓名不能为空" /></dd>
+        <dd><input type="text" id="personName" name="personName" value="" class="txt" placeholder="姓名" valType="OTHER" regString="^\S{1,20}[^\d]+$"msg="<font color=red>*</font>姓名只能是汉字或是字符" /></dd>
       </dl>
        <dl class="fmdl">
         <dt>年龄：</dt>
