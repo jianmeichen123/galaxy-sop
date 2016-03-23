@@ -1,119 +1,286 @@
-/*function test() {
-	window.location.href=forwardWithHeader(sopContentUrl+"/galaxy/hrjl/resumetcc/");
-}*/
-//与完善简历相关js
-
-//完善简历之外部项目保存
-/*function inadd(){
-	var id = $("id").val();
-	var personId = 2;
-//	alert(111)
-	if(id == ''){
-		alert(1)
-		$("#personId").val(personId);
-		sendPostRequestByJsonObj("/galaxy/hrInvest/addPersonInvest ", JSON.parse($("#up_in_form").serializeObject()), saveCallBack);
-	}else(id !=''){
-		alert("有值");
-		sendPostRequestByJsonObj("/galaxy/hrInvest/UPersonInvest ", JSON.parse($("#up_in_form").serializeObject()), saveCallBack);
+var startPath = sopContentUrl;
+$(function(){
+ 	sendGetRequest(platformUrl.toaddPersonHr+$("#personId").val(), null, wanshancbf);
+ 	$("body").delegate(".datepicker", "focusin", function(){
+ 		$(this).datepicker({
+ 		    format: 'yyyy-mm-dd',
+ 		    language: "zh-CN",
+ 		    autoclose: true,
+ 		    todayHighlight: false,
+ 		    calendarWeeks: true,
+ 		    weekStart:1,
+ 		    today: "Today",
+ 		    todayBtn:'linked',
+ 		    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+ 		    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+ 		    forceParse:false
+ 		    //defaultViewDate: { year: 1977, month: 04, day: 25 },
+ 		    //daysOfWeekDisabled: "0",
+ 		    //daysOfWeekHighlighted: "0",
+ 		    //clearBtn: true,
+ 		    //startView: 1, //0,month 1,year 2,decade
+ 		    //minViewMode: 1,  //0,days 1,month 2,years
+ 		    //maxViewMode: 1, //0,days 1,month 2,years
+ 		    //startDate: '-3d',
+ 		    //endDate: '+3d'
+ 		});
+ 	});
+})
+function wanshancbf(data){
+	if(data.result.status == "OK"){
+		var personInvest = data.entity.personInvest;
+		var personLearns = data.entity.personLearn;
+		var personPool = data.entity.personPool;
+		var personWorks = data.entity.personWork;
+		if(personInvest != undefined ){
+			var model_personInvest = $("div[model='personInvest']");
+			model_personInvest.find("input[type!='radio']").each(function(index,input_item){
+				var input  = $(input_item);
+				var name = input.attr("name");
+				input.val(personInvest[name]);
+			});
+			model_personInvest.find("td[data-by]").attr("data-val",personInvest["id"]);
+		}
+		if(personPool != undefined ){
+			var model_personPool = $("div[model='personPool']");
+			model_personPool.find("input[type!='radio']").each(function(index,input_item){
+				var input  = $(input_item);
+				var name = input.attr("name");
+				input.val(personPool[name]);
+			});
+			model_personPool.find("td[data-by]").attr("data-val",personPool["id"]);
+			
+ 			$("input:radio[name='personSex'][value='"+personPool['personSex']+"']").attr("checked","checked"); 
+			$("input:radio[name='laborDispute'][value='"+personPool['laborDispute']+"']").attr("checked","checked") ; 
+			$("#endComment").val(personPool['endComment']);
+			$("#levelStar").raty({
+				starOn:startPath+"/star/img/star-on.png",
+			    starHalf:startPath+ "/star/img/star-half.png",
+			    starOff :startPath +"/star/img/star-off.png",
+			    starOn : startPath+"/star/img/star-on.png",
+				score: personPool['levelStar']});
+			$("#abilityStar").raty({
+				starOn:startPath+"/star/img/star-on.png",
+			    starHalf:startPath+ "/star/img/star-half.png",
+			    starOff : startPath+"/star/img/star-off.png",
+			    starOn :startPath +"/star/img/star-on.png",
+				score: personPool['abilityStar'] });
+		}
+		var model_personLearn =  $("div[model='personLearn']");
+		var td_personLearn = model_personLearn.find("td[data-by]");
+		for(var i = 0 ;i < personLearns.length ;i++){
+			var personLearn = personLearns[i];
+			model_personLearn.find("tr").each(function(m,tr_item){
+				var input = $($(tr_item).find("input[name]")[i]);
+				input.val(personLearn[input.attr("name")]);
+			});
+			$(td_personLearn[i]).attr("data-val",personLearn["id"]);
+			
+			if(personLearns.length > td_personLearn.length){
+				appendTd(model_personLearn);				
+			}
+			td_personLearn = model_personLearn.find("td[data-by]");
+		}
+		
+		var model_personWork =  $("div[model='personWork']");
+		var td_personWork = model_personWork.find("td[data-by]");
+		for(var i = 0 ;i < personWorks.length ;i++){
+			var personWork = personWorks[i];
+			model_personWork.find("tr").each(function(m,tr_item){
+				var input = $($(tr_item).find("input[name]")[i]);
+				input.val(personWork[input.attr("name")]);
+			});
+-			$(td_personWork[i]).attr("data-val",personWork["id"]);
+			if(personWorks.length > td_personWork.length){
+				appendTd(model_personWork);				
+			}
+			td_personWork = model_personWork.find("td[data-by]");
+		}
 	}
 }
-
-//外部项目保存成功回调
-function saveCallBack(data){
-	var result = data.result.status;
-	if(result == "ERROR"){ //OK, ERROR
-		//alert("error "+data.result.message);
+$("div[model]").on("click",".add",function(){
+	var model = $(this).parent().parent();
+	if(model.find("td[data-by]").length > 3){
+		layer.msg("不能再添加了！");
 		return;
 	}
-	alert("操作成功!");
-
+	appendTd(model)
+});
+function appendTd(model){
+	model.find("tr").each(function(index,tr){
+		var input =  $($(tr).find("input")[0]);
+		var name = input.attr("name");
+		var type = input.attr("type");
+		var class_name = input.attr("class");
+		if(index == 0 ){
+			$(tr).append("<td data-by='id'><input  type='"+type+"' name='"+name+"'/></td>");
+		}else{
+			if(class_name == "datepicker"){
+				$(tr).append("<td><input  class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
+			}else{
+				$(tr).append("<td><input type='"+type+"' name='"+name+"'/></td>");
+			}
+		}
+	});
 }
-//完善简历之个人简历保存
-function update(){
-	var Id = 15;
-	alert(111)
-	if(Id != ''){
-		$("#Id").val(Id);
-		sendPostRequestByJsonObj("/galaxy/hrjl/addPersonHr ", JSON.parse($("#up_person_form").serializeObject()), saveCallBackl);
-	}
+function prependTd(model,model_data){
+	model.find("tr[type!=hidden]").each(function(index,item){
+		var tr = $(item);
+		var td = tr.find("td")[0];
+		tr.prepend("<td>"+td.innerHTML+"</td>");
+	});
 }
-
-//个人简历保存成功回调
-function saveCallBackl(data){
-	var result = data.result.status;
-	if(result == "ERROR"){ //OK, ERROR
-		//alert("error "+data.result.message);
+$(".btnbox").on("click",".bluebtn",function(){
+	var models = $("div[model]");
+	var data = {};
+	var flag = true;
+	models.each(function(i,item){
+		var it = $(item);
+		//单个实体
+		var model = null ;
+		var name = it.attr("model");
+		var multi = it.attr("multi");
+		if(multi == true || multi =="true"){
+			model = new Array();
+			var len = it.find("tr").eq(0).find("input[name]").length;
+			for(var i = 0 ;i <len;i++){
+				var son_model = {};
+				it.find("tr").each(function(m,tr_item){
+					var input = $(tr_item).find("input[name][type!=hidden]")[i];
+					if($(input).val() != ''){
+						son_model[$(input).attr("name")] = $(input).val();
+						if(!resemetValidate($(input))){
+							flag = false;
+							return;
+						}
+					}
+					
+				});
+				var td = $($(it.find("tr")).find("td[data-by]").eq(i));
+				son_model[td.attr("data-by")] = td.attr("data-val");
+				model[i] = son_model;
+			}
+			data[name] = model;	
+		}else{
+			model = {};
+			it.find("input[name]").each(function(index,input){
+				if($(input).val() != ''){
+					model[$(input).attr("name")] = $(input).val() ;
+					if(!resemetValidate($(input))){
+						flag = false;
+						return;
+					}
+				}
+				
+			});
+			var td = it.find("td[data-by]");
+			model[td.attr("data-by")] = td.attr("data-val");
+			data[name] = model;
+		}
+		
+	});
+	if(!flag){
 		return;
 	}
-	alert("操作成功!");
+	data['personId'] = $("#personId").val();
+	data['personPool']['personSex'] = $("input[name='personSex']:checked").val();
+	data['personPool']['laborDispute'] = $("input[name='laborDispute']:checked").val();
+	data['personPool']['endComment'] = $("#endComment").val();
 
-}
-//完善简历之外部项目回显数据 
-function sp(){
-	var id = $("id").val();
-	var id = 4;
-	alert(1)
-	if(id !=''){
-		$("#id").val(id);
-		sendGetRequest(platformUrl.detailWorkInvest + id, {}, function(data){
-			$("#companyName").text(data.entity.companyName);
-			$("#investmentAmount").text(data.entity.investmentAmount);
-			$("#shareRatio").text(data.entity.shareRatio);
-			$("#telephone").text(data.entity.telephone);
-			$("#acompanyName").text(data.entity.acompanyName);
-			$("#ainvestmentAmount").val(data.entity.ainvestmentAmount);
-			$("#ashareRatio").text(data.entity.ashareRatio);
-			$("#atelephone").val(data.entity.atelephone);
-		});
+	if($("#levelStar").find("input[name='score']").val() != ''){
+		data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
+	}
+	if($("#abilityStar").find("input[name='score']").val() != ''){
+		data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
 	}
 	
+	var flag = 0;
+	var json = {};
+	json['personId'] = $("#personId").val();
+	json['personPool'] = data['personPool'] ;
+	for(var x in data['personInvest']){
+		if(x !='id'){
+			flag ++;
+		}
+	}
+	if(flag > 0){
+		json['personInvest'] = data['personInvest'] ;
+	}
+	var arry_personWork = new Array()
+	for(var x in data['personWork']){
+		flag = 0;
+		for(var y in data['personWork'][x]){
+			if(y !='id'){
+				flag ++;
+			}
+		}
+		if(flag > 0){
+			arry_personWork.push(data['personWork'][x]);
+		}
+	}
+	if(arry_personWork.length >0){
+		json['personWork'] = arry_personWork ;
+	}
 	
+	var arry_personLearn = new Array()
+	for(var x in data['personLearn']){
+		flag = 0;
+		for(var y in data['personLearn'][x]){
+			if(y !='id'){
+				flag ++;
+			}
+		}
+		if(flag > 0){
+			arry_personLearn.push(data['personLearn'][x]);
+		}
+	}
+	if(arry_personLearn.length >0){
+		json['personLearn'] =  arry_personLearn;
+	}
+	sendPostRequestByJsonObj(platformUrl.addPersonHr, json, savecbf);
+});
+function resemetValidate(input){
+	var valType = input.attr("valType");
+	var flag = true;
+	//flag = beforeSubmit();
+/* 	var value = input.val();
+	var regString = input.attr("regString");
+	var textsIn = input.attr("textsIn");
+	if(valType==''||valType=='undefined'||valType==undefined){
+		return flag;
+	}
+	switch (valType) {
+	case "IDENTITY":
+		break;
+	case "MOBILE":
+		flag = /(^1[3|5|8][0-9]{9}$)/.test(value);
+		break;	
+	case "EMAIL":
+		flag = /(^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)/.test(value);
+		break;
+	case "onlyInt":
+		flag = /^[0-9]*$/.test(value);
+		break;
+	case "onlyZh":
+		flag = /^[\u4e00-\u9fa5]+$/.test(value);
+		break;	
+	default:
+		if(regString!=''){
+			var regexp = new RegExp(regString);
+			flag = regexp.test(value);
+		}
+		break;
+	}
+	if(!flag){
+		layer.msg(input.attr("msg")+" :"+input.val());
+	} */
+	return flag;
 }
-*/
-
-//完善简历修改版
-
-function inadd(){
-	alert(11)
-//	var personId =  $("personId").val();
-	var personId = 4;
-	if(personId != ''){
-		alert(2222)
-		$("#personId").val(personId);
-	sendPostRequestByJsonObj("/galaxy/personResumetc/addpersonResumetc ", JSON.parse($("#up_person_form").serializeObject()), saveCallBack);
+function savecbf(data){
+	if(data.result.status == "OK"){
+		layer.msg("成功");
+		$("a[data-close='close']").trigger("click");
+	}else{
+		layer.msg(data.result.message);
 	}
 }
-function saveCallBack(data){
-	var result = data.result.status;
-	if(result == "ERROR"){ //OK, ERROR
-		//alert("error "+data.result.message);
-		return;
-	}
-	alert("操作成功!");
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
