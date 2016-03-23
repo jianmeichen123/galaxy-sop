@@ -112,13 +112,29 @@ function appendTd(model){
 		var name = input.attr("name");
 		var type = input.attr("type");
 		var class_name = input.attr("class");
+		var valType = input.attr("valType");
+		var msg = input.attr("msg");
+		var regString = input.attr("regString");
+		var textsIn = input.attr("textsIn");
+		if(textsIn=='undefined'||textsIn== undefined){
+			textsIn = "";
+		}
+		if(msg=='undefined'||msg== undefined){
+			msg = "";
+		}
+		if(valType=='undefined'||valType== undefined){
+			valType = "";
+		}
+		if(regString=='undefined'||regString== undefined){
+			regString = "";
+		}
 		if(index == 0 ){
-			$(tr).append("<td data-by='id'><input  type='"+type+"' name='"+name+"'/></td>");
+			$(tr).append("<td data-by='id'><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
 		}else{
 			if(class_name == "datepicker"){
-				$(tr).append("<td><input  class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
+				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
 			}else{
-				$(tr).append("<td><input type='"+type+"' name='"+name+"'/></td>");
+				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
 			}
 		}
 	});

@@ -32,11 +32,11 @@
                 <table>
                   <tr>
                     <th>团队角色：</th>
-                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>姓名：</th>
-                    <td><input name="personName" id="personName" type="text" value=""  valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                    <td><input name="personName" id="personName" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
                   </tr>
                   <tr>
                     <th>成员关系：</th>
@@ -64,11 +64,11 @@
                   </tr>
                   <tr>
                     <th>电话：</th>
-                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="isMobile" msg="<font color=red>*</font>手机格式不正确"></td>
+                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"></td>
                   </tr>
                   <tr>
                     <th>邮箱：</th>
-                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="isMail" msg="<font color=red>*</font>电子邮箱格式不正确"></td>
+                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="MAIL" msg="<font color=red>*</font>电子邮箱格式不正确"></td>
                   </tr>
                 </table>
               </div>
@@ -112,21 +112,21 @@
                 <table>
                   <tr>
                     <th>学历：</th>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
-                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>学校：</th>
-                    <td><input name="school" id="school" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
-                  	<td><input name="school" id="school" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
-                    <td><input name="school" id="school" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                  	<td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>专业：</th>
-                    <td><input name="major"id="major" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
-                    <td><input name="major"id="major" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
-                    <td><input name="major"id="major" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td> 
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td> 
                   </tr>                  
                   <tr>
                     <th>学历性质：</th>
@@ -153,9 +153,9 @@
                 <table>
                   <tr>
                     <th>老师姓名：</th>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
-                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td> 
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td> 
                   </tr>
                   <tr>
                     <th>部门：</th>
@@ -340,6 +340,7 @@
 
           </div>
 </div>
+
 
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/star/jquery.raty.min.js" type="text/javascript"></script>
