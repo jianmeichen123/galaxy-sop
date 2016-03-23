@@ -15,11 +15,15 @@ User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 String sessionId = "";
 String realName = "";
 Long userId=null;
+Long roleId=null;
 if(null != user) {
 	sessionId = user.getSessionId();
 	if(null != user.getRealName()){
 		realName = user.getRealName();
 	}
+    if(null != user.getRoleId()){
+	   roleId = user.getRoleId();
+    }
 	userId = user.getId();
 }
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
