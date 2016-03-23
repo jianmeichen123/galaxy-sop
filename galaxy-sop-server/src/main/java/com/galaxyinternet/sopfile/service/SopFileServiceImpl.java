@@ -74,14 +74,13 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		return this.sopFileDao;
 	}
 	
-	private String tempfilePath;
-	
+	private String tempfilePath = "/data/apps/osstemp/";
 	
 	public String getTempfilePath() {
 		return tempfilePath;
 	}
 
-	@Value("${sop.oss.tempfile.path}")
+	//@Value("${sop.oss.tempfile.path}")
 	public void setTempfilePath(String tempfilePath) {
 		this.tempfilePath = tempfilePath;
 	}
