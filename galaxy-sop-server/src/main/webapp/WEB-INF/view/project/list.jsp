@@ -608,7 +608,7 @@
 					 if(o.fileStatus == 'fileStatus:1'){
 						 html += "<td>缺失</td>";
 						 if(o.fileWorktype != 'fileWorktype:1'){
-							 html += "<td><a href='javascript:void(0);'>催办</a></td>";
+							 html ='<td><a href="javascript:; " onclick="taskUrged('+o.id+');"class="blue">催办</a></td>';
 						 }else{
 							 html += "<td></td>";
 						 }
