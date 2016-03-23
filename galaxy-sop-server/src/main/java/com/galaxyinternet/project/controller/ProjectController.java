@@ -43,6 +43,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.common.Config;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
@@ -55,6 +56,7 @@ import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.service.ConfigService;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
@@ -93,6 +95,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private MeetingSchedulingService meetingSchedulingService;
 	@Autowired
 	private HandlerManager handlerManager;
+	
+	@Autowired
+	private DepartmentService departmentService;
+	
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -204,13 +210,20 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
 		String hhrname="";
-		if(project == null)
-		hhrname=getHHRNname(project);
-		if(project == null){
+	    if(project!=null){
+	    	Department Department=new Department();//
+			Department.setId(project.getProjectDepartid());
+		    Department queryOne = departmentService.queryOne(Department);
+		    if(queryOne!=null){
+		    	project.setProjectCareerline(queryOne.getName());
+		    }
+			hhrname=getHHRNname(project);
+			project.setHhrName(hhrname);
+	    }
+	    if(project == null){
 			responseBody.setResult(new Result(Status.ERROR, "未查找到指定项目信息!"));
 			return responseBody;
 		}
-		project.setHhrName(hhrname);
 		responseBody.setEntity(project);
 		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		return responseBody;
