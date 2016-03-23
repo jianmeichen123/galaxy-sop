@@ -193,6 +193,8 @@
    var TOKEN ;
 	$(function(){
 		createMenus(4);
+		//获取TOKEN 用于验证表单提交
+		sendPostRequest(platformUrl.getToken,callback);
 		sendGetRequest(platformUrl.getProjectCode, {}, function(data){
 			var code = data.entity.pcode;
 			$("#pcode").empty();
@@ -224,12 +226,9 @@
 	function add(){
 		if(beforeSubmit()){
 			
-			sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
+			/* sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
 			 forwardWithHeader(sopContentUrl + "/galaxy/mpl");
-			})
-			/* //获取TOKEN 用于验证表单提交
-			sendPostRequest(platformUrl.getToken,callback);
-			
+			} */
 			$.ajax({
 				url : platformUrl.addProject,
 				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
@@ -257,7 +256,6 @@
 					forwardWithHeader(sopContentUrl + "/galaxy/mpl");
 				}
 			});
-			 */
 		}
 	}
 	
