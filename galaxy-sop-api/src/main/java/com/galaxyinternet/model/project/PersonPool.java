@@ -22,8 +22,8 @@ public class PersonPool extends PagableEntity{
     private String personCharacter;
     private String personGoodness;
     private String personDisparity;
-    private Integer talkAbility;
-    private Integer teamAbility;
+    private String talkAbility;
+    private String teamAbility;
     private String businessStrength;
     private Integer free;
     private String teamRole;
@@ -138,22 +138,6 @@ public class PersonPool extends PagableEntity{
         this.personDisparity = personDisparity == null ? null : personDisparity.trim();
     }
 
-    public Integer getTalkAbility() {
-        return talkAbility;
-    }
-
-    public void setTalkAbility(Integer talkAbility) {
-        this.talkAbility = talkAbility;
-    }
-
-    public Integer getTeamAbility() {
-        return teamAbility;
-    }
-
-    public void setTeamAbility(Integer teamAbility) {
-        this.teamAbility = teamAbility;
-    }
-
     public String getBusinessStrength() {
         return businessStrength;
     }
@@ -225,4 +209,22 @@ public class PersonPool extends PagableEntity{
     public void setCreateId(Long createId) {
         this.createId = createId;
     }
+
+	public String getTalkAbility() {
+		return talkAbility;
+	}
+
+	public void setTalkAbility(String talkAbility) {
+		this.talkAbility = talkAbility;
+	}
+
+	public String getTeamAbility() {
+		return teamAbility;
+	}
+
+	public void setTeamAbility(String teamAbility) {
+		this.teamAbility = teamAbility;
+	}
+    
+    
 }

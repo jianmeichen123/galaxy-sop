@@ -18,7 +18,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .fl{ float:left}
 .fr{ float:right}
 /*公用禁止点击*/
-.disabled{pointer-events: none;background-color: #e8e8e9 !important; -webkit-filter: grayscale(100%); 
+.disabled{pointer-events: none;cursor: not-allowed;cursor:default;background-color: #e8e8e9 !important; -webkit-filter: grayscale(100%); 
         -moz-filter: grayscale(100%); 
         -ms-filter: grayscale(100%); 
         -o-filter: grayscale(100%); 
@@ -44,7 +44,7 @@ table{ background:#ffffff;}
 table th{ text-align:center; color:#3e4351; font-weight:normal; font-size:12px; line-height:38px;border-bottom: 1px solid #edeff5;}
 table td{ height:30px;line-height:30px; text-align:center; font-size:12px; color:#7a8798; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
 .fixed_width td{width:16%;}
-table td a{ font-size:12px; margin:0 2px; color:#7a8798; font-family:"宋体"}
+table td a{ font-size:12px; margin:0 2px; color:#7a8798; font-family:"宋体";margin:0 4px;}
 table .on td{ background:#f8f8fb}
 .noborder{border-top: 0 !important;}
 table em{display: inline-block;width:30%;}
@@ -333,8 +333,8 @@ table .width_gd{width:10%;}
 .searchbtn_ico .cx{background-position: 15px 0;padding: 0 0 0 22px;}
 .export{width: 80px;display: block;margin-left: auto; margin-bottom: 10px;}
 /* 查询公用按钮 */
-.cx{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:6px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 10px -180px;padding:0 8px 0 33px;}
-.tj{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:6px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 10px -212px;padding:0 8px 0 33px;}
+.cx{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 10px -180px;padding:0 8px 0 38px;}
+.tj{ float:right;height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 10px -212px;padding:0 8px 0 38px;}
 
 /*公用表单*/
 .fmdl{ /* margin:0 0 15px; */ display:block; font-size:14px; color:#3e4351;line-height:30px;}
@@ -343,7 +343,7 @@ table .width_gd{width:10%;}
 .fmdl dd select,
 .fmdl dd .txt,
 .fmdl dd textarea,
-.fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px; line-height:28px; border-radius:4px; padding:0 4px; font-size:14px; color:#525662; font-family:"宋体"}
+.fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px !important; line-height:28px; border-radius:4px; padding:0 4px; font-size:14px; color:#525662; font-family:"宋体"}
 .fmdl dd select{ width:160px;font-size: 12px;}
 .fmdl dd .txt{ width:230px;;font-size: 12px;}
 .fmdl label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; font-size:12px; color:#525662; font-family:"宋体"; position:relative}
@@ -354,7 +354,7 @@ table .width_gd{width:10%;}
 .fmload .loadname{ width:300px; float:left; margin:0 10px 0 0}
 .fmload .pubbtn{ float:left}
 .fmload .load{ position:absolute; width:80px; height:30px; display:block; left:320px; top:0;filter:alpha(opacity=0);opacity: 0; cursor:pointer}
-.fmarea{display:block; border:1px solid #dadfe3; background:#ffffff;  border-radius:4px; padding:5px; margin:0 0 15px}
+.fmarea{display:block; border:1px solid #dadfe3; background:#ffffff;  border-radius:4px; padding:3px; margin:0 0 15px}
 .fmarea textarea{ height:150px; width:100%; border:0;line-height:22px; font-size:12px; color:#525662; font-family:"宋体";}
 /*日历*/
 .calendar{ display:none; width:200px; border:1px solid #999; background:#FFFFFF; padding:5px 5px 0; text-align:center; position:fixed; position:absolute; z-index:50}
@@ -384,7 +384,7 @@ table .width_gd{width:10%;}
 ::-webkit-scrollbar-thumb{background:#61aae6; border-radius:6px}
 /* ::selection{background-color: transparent;} */
 /*头部------------------------*/
-.header{ width:100%;min-width: 1280px; height:70px; background:#63abe7; margin:0 auto;position: fixed;top: 0;z-index: 10;}
+.header{ width:100%;min-width: 1280px; height:70px; background:#63abe7; margin:0 auto;position: fixed;top: 0;z-index: 1000;}
 .header .rit{float:right !important; margin:30px 0 0 0;line-height: 18px;}
 .header .ico{ background-image:url(../img/headico.png);}
 .header .logo{ float:left; width:171px; height:49px; margin:10px 0 0 25px; background:url(../img/logo.png) no-repeat}
@@ -392,7 +392,7 @@ table .width_gd{width:10%;}
 .header .min a{ font-family:"宋体"; font-size:12px}
 .header .light_blue{color: #cae2f7;background: url(../img/email.png) 0 4px no-repeat;padding: 0 0 0 20px;}
 /*当日信息*/
-.header .min .todaymsg{ color:#022f83; margin:0 0 0 90px;float: left;}
+.header .min .todaymsg{ color:#022f83; margin:0 0 0 60px;float: left;}
 .header .min .todaymsg span{ float:left; margin:0 12px 0 0}
 /*当日天气*/
 .header .min .weather1{ padding:0 0 0 24px; background:url(../img/weather1.png) left center no-repeat}
@@ -548,7 +548,7 @@ table .width_gd{width:10%;}
 .rit .tjh_block{height: 232px;border-bottom-right-radius: 6px;border-bottom-left-radius: 6px;}
 /* 待办任务 */
 .pagebox .ritmin .searchbox{float: right;width:355px; height:30px;}
-.pagebox .ritmin .searchbox .txt{ float:left;border:0;padding:0 8px; background:#ffffff; border-radius:4px;height:30px; line-height:30px; color:#666; font-size:14px; width:230px}
+.pagebox .ritmin .searchbox .txt{ float:left;border:0;padding:0 8px; background:#ffffff; border-radius:4px;height:30px; line-height:30px; color:#b8bec6; font-size:12px; width:230px}
 .pagebox .ritmin .searchbox .btn{ float:right; width:20px; height:20px; background:url(../img/search1.png) no-repeat; margin:8px 0 0}
 /* 消息提醒 */
 .news_table{display: none;}
@@ -666,7 +666,7 @@ table .width_gd{width:10%;}
 .ritmin .min_document .bottom  dl dd .txt{ font-size:12px;border:1px solid #ccd2d7; color:#3e4351; height:28px; line-height:28px; padding:0 4px; border-radius:4px; background:#FFF; width:210px}
 .ritmin .min_document .bottom .searchbtn{ margin: 0 15px 0 0;background-image:none;}
 /* 我的项目 */
-.ritmin .top .btnbox_f .c4{background-position: 10px -120px;padding: 0 5px 0 15px;}
+.ritmin .top .btnbox_f .c4{background-position: 10px -120px;padding: 0 5px 0 20px;}
 .ritmin .top .btnbox_f .c5{background-position: 15px -90px;padding: 0 0 0 10px;}
 .ritmin .min_document .bottom .searchbtn_blue{ background:url(../img/search1.png) 0 5px no-repeat;}
 
@@ -937,7 +937,7 @@ background-size: 93%;position: relative;z-index: 10;}
 .emailtc .fmdl dt{width:100px;text-align: right;}
 .emailtc .fmdl dd .txt{ width:300px}
 .emailtc .fmdl dd textarea{ height:150px; width:360px}
-.emailtc .fmdl dd table{border:1px solid #e9ebf2; border-radius:6px;height:150px; width:370px}
+.emailtc .fmdl dd table{border:1px solid #e9ebf2; border-radius:6px;height:auto; width:370px}
 .emailtc .fmdl dd table th{background-color: #f9fafc;}
 .emailtc .fmdl dd .txt,.emailtc .fmdl dd textarea{font-size: 12px;color:#535762;}
 .emailtc .checkbox{margin:0 0 0 110px;}
@@ -1052,6 +1052,7 @@ background-size: 93%;position: relative;z-index: 10;}
 .resumetc .tabtable .tabtable_con textarea{width:100%;font-size: 12px;line-height: 20px;}
 .resumetc .tabtable label{font-size: 12px;}
 .resumetc .tabtable .add{width:20px;height:20px;border:0;border-radius: 50%;position: absolute;top:6px;right:8px;color: #fff;font-size: 20px;line-height: 20px;font-weight: bold;}
+/* 搜索弹层 */
 /* 添加日程新的弹窗 */
 .schedule1tc{background-color: #fff;padding: 10px;position: relative;height:400px;}
 .schedule1tc .addbtn{float: left;}
@@ -1060,16 +1061,16 @@ background-size: 93%;position: relative;z-index: 10;}
 .schedule1tc .searchall .searchbtn,.schedule1tc .searchall .txt{float: left;}
 .schedule1tc .searchall .txt{width: 150px;height: 28px;border:1px solid #e9ebf2;border-radius: 6px;padding: 0 0 0 5px;}
 .schedule1tc .searchall .searchbtn{margin: 0 0 0 10px;}
-.schedule1tc .bottom .bottom_l{float: left;width:150px;height:312px; overflow-y:scroll;border:1px solid #e9ebf2}
+.schedule1tc .bottom .bottom_l{float: left;width:150px;height:310px; overflow-y:scroll;border:1px solid #e9ebf2}
 .schedule1tc .bottom .bottom_l dl{height: auto;}
 .schedule1tc .bottom .bottom_l dl label{float: right;}
-.schedule1tc .bottom .bottom_l dl .nav_list{border:1px solid #e9ebf2;height: 34px;background-color: #f1f2f5;line-height: 34px;padding-left:5px;color:#5d678a;cursor: pointer;}
+.schedule1tc .bottom .bottom_l dl .nav_list{border-bottom:1px solid #e9ebf2;height: 34px;background-color: #f1f2f5;line-height: 34px;padding-left:5px;color:#5d678a;cursor: pointer;}
 .schedule1tc .bottom .bottom_l dl  .tips{display: none;}
 .schedule1tc .bottom .bottom_l dl  .tips .nav{cursor: pointer;}
 .schedule1tc .bottom .bottom_l dl  .tips .nav dt span{width:100px;display:inline-block;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;}
 .schedule1tc .bottom .bottom_l dl .on{display: block;}
 .schedule1tc .bottom .bottom_l dl dd{font-size: 12px;font-family: "宋体"}
-.schedule1tc .bottom .bottom_l dl dd dl{border-bottom:1px solid #e9ebf2;padding: 5px;border-right:1px solid #e9ebf2;border-left:1px solid #e9ebf2;}
+.schedule1tc .bottom .bottom_l dl dd dl{border-bottom:1px solid #e9ebf2;padding: 5px;border-right:1px solid #e9ebf2;}
 .schedule1tc .bottom .bottom_l .tips .on{background-color: #f0f0f0; }
 .schedule1tc .bottom .bottom_l dl dd dl dt{font-size: 12px;font-family: "宋体";margin-bottom: 5px;}
 .schedule1tc .bottom .bottom_r{float: left;width: 400px;height: 300px;border:1px solid #e9ebf2;padding:5px;}
@@ -1081,6 +1082,7 @@ background-size: 93%;position: relative;z-index: 10;}
 .schedule1tc .bottom .bottom_r .pubbtn{display: inline-block;margin-right: 10px;}
 .schedule1tc .bottom .bottom_r dd,.schedule1tc .bottom .fmdl label{font-size: 12px;font-family: "宋体" }
 .schedule1tc .bottom .block{display: none;}
+.schedule1tc textarea{font-style: 12px !important;line-height: 20px !important;}
 /* 搜索弹层 */
 .searchtc .top .fmdl{margin: 0 0 8px 0;overflow: hidden;}
 .searchtc .top dl dt,.searchtc .top dl dd{float: left;}
@@ -1089,13 +1091,13 @@ background-size: 93%;position: relative;z-index: 10;}
 .searchtc .pubbtn{margin: 10px auto 0;}
 /* 模板更新弹窗 */
 #upload-form h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
-#upload-form .fmdl{margin:0 0 6px;}
+#upload-form .fmdl{margin:0 0 10px;}
 /* 车辆限行 */
 em{font-style: normal;}
 .weather{margin-top: -10px !important;}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
-#itemDate{border-radius:4px;border:1px solid #dadfe3;padding:3px;}
+#itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}
 .table{border-radius: 6px;}
 .news_ritmin .table{border-top-left-radius: 0px;}
 .news_table{border-radius: 0 !important;}
@@ -1103,7 +1105,8 @@ dl dt,dl label{font-weight: normal !important;}
 .news_top select{float:right;width:100px;height:30px;border: 1px solid #fff;border-radius:4px;margin-right: 20px;}
 .block_pad{padding-top: 10px;}
 .form label{width:auto;}
-dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 85px -150px !important;}
+dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
 .search_adjust .fml dd{width:250px !important;}
 /**切断文字**/
 .text-overflow{width:400px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
+#template-table{border-radius: 6px;}

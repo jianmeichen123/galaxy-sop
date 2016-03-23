@@ -1,6 +1,8 @@
 package com.galaxyinternet.model.project;
 
 
+import java.util.List;
+
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
@@ -42,12 +44,14 @@ public class Project extends PagableEntity {
     private String projectStatus;
     
     private String nameCodeLike;
-    
     //详情数据转换
   	private String createDate;
   	private String type;
   	private String progress;
     private  String  hhrName;
+    
+    //in查询
+    private List<Long> deptIdList;
 
     public Long getId() {
         return id;
@@ -296,6 +300,14 @@ public class Project extends PagableEntity {
 
 	public void setHhrName(String hhrName) {
 		this.hhrName = hhrName;
+	}
+
+	public List<Long> getDeptIdList() {
+		return deptIdList;
+	}
+
+	public void setDeptIdList(List<Long> deptIdList) {
+		this.deptIdList = deptIdList;
 	}
 
 	

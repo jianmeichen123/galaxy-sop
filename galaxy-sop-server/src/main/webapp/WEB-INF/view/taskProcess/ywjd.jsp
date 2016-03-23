@@ -87,11 +87,11 @@ $(function(){
 			function(data){
 				if(data.result.status == "OK")
 				{
-					alert("申请成功.");
+					layer.msg("申请成功.");
 				}
 				else
 				{
-					alert("申请失败.");
+					layer.msg("申请失败.");
 				}
 			}
 		);
@@ -114,7 +114,7 @@ function loadRows()
 					var $tr = $('<tr data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
 					$tr.append('<td>'+(isBlank(this.fWorktype) ? "" : this.fWorktype) +'</td>');
 					$tr.append('<td>'+(isBlank(this.updatedTime) ? "" : Number(this.updatedTime).toDate().format("yyyy/MM/dd"))+'</td>');
-					$tr.append('<td>'+((isBlank(this.fileUid)) ? "" : this.fileUid) +'</td>');
+					$tr.append('<td>'+((isBlank(this.fileUName)) ? "" : this.fileUName) +'</td>');
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
 					$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\">催办</a>" : "")+'</td>');
@@ -201,7 +201,7 @@ function initUpload(_dialog){
 					var fileName = $(_dialog.id).find('[name="fileName"]').val();
 					if(fileName == null || fileName == '')
 					{
-						alert("请选择文件");
+						layer.msg("请选择文件");
 						return;
 					}
 					//只更新内容，不更新文档
@@ -217,13 +217,13 @@ function initUpload(_dialog){
 								function(data){
 									if(data.result.status == "OK")
 									{
-										alert("上传成功.");
+										layer.msg("上传成功.");
 										$(_dialog.id).find("[data-close='close']").click();
 										loadRows();
 									}
 									else
 									{
-										alert("上传失败.");
+										layer.msg("上传失败.");
 									}
 								}
 						);
@@ -234,8 +234,15 @@ function initUpload(_dialog){
 			},
 
 			FilesAdded: function(up, files) {
-				plupload.each(files, function(file) {
-					$(_dialog.id).find("input[name='fileName']").val(file.name);
+				$.each(uploader.files,function(){
+					if(this != files[0])
+					{
+						uploader.removeFile(this);
+					}
+				});
+				$.each(files, function() {
+					$(_dialog.id).find("input[name='fileName']").val(this.name);
+					
 				});
 			},
 			BeforeUpload:function(up){
@@ -249,13 +256,13 @@ function initUpload(_dialog){
 				var data = $.parseJSON(rtn.response);
 				if(data.result.status == "OK")
 				{
-					alert("上传成功.");
+					layer.msg("上传成功.");
 					$(_dialog.id).find("[data-close='close']").click();
 					loadRows();
 				}
 				else
 				{
-					alert("上传失败.");
+					layer.msg("上传失败.");
 				}
 			}
 		}

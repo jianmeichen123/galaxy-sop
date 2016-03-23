@@ -70,7 +70,7 @@ var fileGrid = {
 		        title: '所属项目'
 		      }, {
 		        field: 'fSource',
-		        title: '档案管理'
+		        title: '档案来源'
 		      }, {
 		        field: 'fileUName',
 		        title: '起草者'
@@ -146,7 +146,7 @@ var fileGrid = {
 	queryParams : function(params){
 		var fileSource = utils.confident($("input[name='source']:checked").val(),"all");
 		var fileType = utils.confident($("#searchFileType").val(),"all");
-		var projectName = $("#searchProjectId").val();
+		var projectName = $("#searchProjectId").val().trim();
 		if(projectName=="") projectName=undefined;
 		var fileWorktype = utils.confident($("#searchFileWorktype").val(),"all");
 		var careerLine = utils.confident($("#searchCareerLine").val(),"all");

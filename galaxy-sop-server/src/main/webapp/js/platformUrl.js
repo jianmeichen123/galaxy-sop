@@ -2,8 +2,8 @@ var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
-//var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
 var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
+//var sopContentUrl = "http://127.0.0.1:8888/galaxy-sop-server";
 //var sopContentUrl = "http://127.0.0.1:8082/";
 
 var platformUrl = {
@@ -341,7 +341,9 @@ var platformUrl = {
 	/**
 	 * 催办
 	 */
-	taskUrged:sopContentUrl + "/galaxy/taskprocess/taskUrged"
+	taskUrged:sopContentUrl + "/galaxy/taskprocess/taskUrged",
+	
+	tempSendMail:sopContentUrl + "/galaxy/template/sendMail"
 }
 
 /**

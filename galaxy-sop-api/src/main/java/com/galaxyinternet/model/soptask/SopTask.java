@@ -3,8 +3,9 @@ package com.galaxyinternet.model.soptask;
 import java.util.Date;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.model.PagableEntity;
 
-public class SopTask extends BaseEntity{
+public class SopTask extends PagableEntity{
 
 	/**
 	 * 

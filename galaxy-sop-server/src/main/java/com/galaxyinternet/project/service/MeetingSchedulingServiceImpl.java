@@ -1,5 +1,6 @@
 package com.galaxyinternet.project.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
@@ -107,10 +109,29 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 	@Override
 	public Page<MeetingScheduling> queryMeetingPageList(MeetingScheduling query, Pageable pageable) {
 		
-		 List<Project> projectList = projectService.queryAll();
+		 List<Project> projectList = new ArrayList<Project>();
+		 if (query.getFilterName() == null) {
+			 projectList = projectService.queryAll();
+		 } else if (query.getFilterName().equals("deptId")) {
+			 Project project = new Project();
+			 project.setDeptIdList(query.getDeptIdList());
+			 projectList = projectService.queryList(project);
+			 List<Long> projectIdList = new ArrayList<Long>();
+			 if (projectIdList.size() == 0) {
+				 Page<MeetingScheduling> page = new Page<MeetingScheduling>(null, pageable, (long) 0);
+				 return page;
+			 }
+			 for (Project temp: projectList) {
+				 projectIdList.add(temp.getId());
+			 }
+			 query.setProjectIdList(projectIdList);
+			 
+		 } 
+		  
 		 List<Department> depList = deptService.queryAll();
 		 Page<MeetingScheduling> page = meetingSchedulingDao.selectPageList(query, pageable);
 		 List<MeetingScheduling> content = page.getContent();
+		 
 		 for (MeetingScheduling meeting : content) {
 			 for (Project project :projectList)   {
 				 if ((meeting.getProjectId()!=null) && (meeting.getProjectId().longValue() == project.getId().longValue())) {
@@ -118,11 +139,16 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 					 String deptName = findDeptName(project.getProjectDepartid(),depList);
 					 meeting.setProjectCareerline(deptName);
 					 meeting.setCreateUname(project.getCreateUname());
+					 
+					 if (meeting.getMeetingDate()!=null) {
+						String meetingDateStr = DateUtil.convertDateToString(meeting.getMeetingDate());
+						meeting.setMeetingDateStr(meetingDateStr);
+					 }
 				 }
 			 }
 			 setDefaultValue(meeting);
 		 }
-	    page.setContent(content);
+		 page.setContent(content);
 		return page;
 	}
 

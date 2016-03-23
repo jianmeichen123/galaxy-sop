@@ -6,18 +6,10 @@
 <link rel="<%=path %>/stylesheet" type="text/css" href="css/lq.datetimepick.css"/>
 <link rel="<%=path %>/stylesheet" type="text/css" href="bootstrap/bootstrap-datepicker/css/bootstrap-datepicker.min.css"/>
 <link href="<%=path %>/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
-<script src="<%=path %>/star/jquery.raty.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/star-rating.min.js'></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+
+
+
 <div class="resumetc" >
           <!-- 个人简历 -->
           <div class="tabtable resume">
@@ -37,15 +29,15 @@
                 <table>
                   <tr>
                     <th>团队角色：</th>
-                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="身团队角色只能包含数字、字母、汉字 长度限制50"></td>
                   </tr>
                   <tr>
                     <th>姓名：</th>
-                    <td><input name="personName" id="personName" type="text" value=""  valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
+                    <td><input name="personName" id="personName" type="text" value=""  valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="姓名只能包含字母、汉字 长度限制20"></td>
                   </tr>
                   <tr>
                     <th>成员关系：</th>
-                    <td><input name="memberRelation"  id="memberRelation" type="text" value=""></td>
+                    <td><input name="memberRelation"  id="memberRelation" type="text" value="" valType="MEMBERSHIP" msg="成员关系只能包含汉字，长度20“.”"></td>
                   </tr>
                 </table>
               </div>
@@ -65,15 +57,15 @@
                   </tr>  -->
                   <tr>
                     <th>身份证号码：</th>
-                    <td><input name="personIdcard" id="personIdcard" type="text" value="" class="txt" placeholder="身份证号码" valType="IDENTITY" msg="<font color=red>*</font>身份证号码格式不正确"></td>
+                    <td><input name="personIdcard" id="personIdcard" type="text" value="" class="txt" placeholder="身份证号码" valType="IDENTITY" msg="身份证号码格式不正确"></td>
                   </tr>
                   <tr>
                     <th>电话：</th>
-                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="isMobile" msg="<font color=red>*</font>手机格式不正确"></td>
+                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="手机格式不正确" ></td>
                   </tr>
                   <tr>
                     <th>邮箱：</th>
-                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="isMail" msg="<font color=red>*</font>电子邮箱格式不正确"></td>
+                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="MAIL" msg="电子邮箱格式不正确" ></td>
                   </tr>
                 </table>
               </div>
@@ -82,27 +74,27 @@
                 <table>
                   <tr>
                     <th>性格：</th>
-                    <td><input name="personCharacter" id="personCharacter" type="text" value="" ></td>
-                  </tr>
-                  <tr>
-                    <th>优势：</th>
-                    <td><input name="personGoodness" id="personGoodness" type="text" value="" ></td>
+                    <td><input name="personCharacter" id="personCharacter" type="text" value="" valType="GENERAL" msg="性格文本限制长度500"></td>
                   </tr>
                   <tr>
                     <th>劣势：</th>
-                    <td><input name="personDisparity" id="personDisparity" type="text" value="" ></td>
+                    <td><input name="personGoodness" id="personGoodness" type="text" value="" valType="GENERAL" msg="劣势限制长度500"></td>
+                  </tr>
+                  <tr>
+                    <th>劣势：</th>
+                    <td><input name="personDisparity" id="personDisparity" type="text" value="" valType="GENERAL" msg="劣势限制长度500"></td>
                   </tr>
                   <tr>
                     <th>沟通能力：</th>
-                    <td><input name="talkAbility" id="talkAbility " type="number" value="" ></td>
+                    <td><input name="talkAbility" id="talkAbility " type="text" value=""  valType="GENERAL"  msg="沟通能力限制长度500"></td>
                   </tr>
                   <tr>
                     <th>团队协作能力：</th>
-                    <td><input name="teamAbility" id="teamAbility" type="text" value="" ></td>
+                    <td><input name="teamAbility" id="teamAbility" type="text" value=""  valType="GENERAL" msg="沟通能力限制长度500"></td>
                   </tr>
                   <tr>
                     <th>核心竞争力（业务相关能力）：</th>
-                    <td><input name="businessStrength" id="businessStrength" type="text" value="" > </td>
+                    <td><input name="businessStrength" id="businessStrength" type="text" value=""  valType="GENERAL" msg="沟通能力限制长度500"> </td>
                   </tr>
                 </table>
               </div>
@@ -117,39 +109,39 @@
                 <table>
                   <tr>
                     <th>学历：</th>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
-                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="OTHER"  msg="<font color=red>*</font>身团队角色只能包含数字、字母、汉字"></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包字母、汉字 长度50"></td>
+                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="身学历只能包含字母、汉字 长度50"></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含数字母、汉字 长度50"></td>
                   </tr>
                   <tr>
                     <th>学校：</th>
-                    <td><input name="school" id="school" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
-                  	<td><input name="school" id="school" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
-                    <td><input name="school" id="school" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
+                  	<td><input name="school" id="school" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>专业：</th>
-                    <td><input name="major"id="major" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
-                    <td><input name="major"id="major" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td>
-                    <td><input name="major"id="major" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="<font color=red>*</font>专业只能包含字母、汉字"></td> 
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="专业只能包含字母、汉字 长度50"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="专业只能包含字母、汉字 长度50"></td>
+                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="专业只能包含字母、汉字 长度50"></td> 
                   </tr>                  
                   <tr>
                     <th>学历性质：</th>
-                    <td><input name="educationType" id="educationType" type="text" value=""></td>
-                	<td><input name="educationType" id="educationType" type="text" value=""></td>
-                    <td><input name="educationType" id="educationType" type="text" value=""></td>
+                    <td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 "></td>
+                	<td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 "></td>
+                    <td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 "></td>
                   </tr>                  
    				 <tr>
                     <th>毕业年份：</th>
-                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
-                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
-                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker" valType="DATE" msg="毕业年份错误" ></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker" valType="DATE" msg="毕业年份错误"></td>
+                    <td><input name="overDateStr" id="overDateStr" type="text" value="" class="datepicker" valType="DATE" msg="毕业年份错误"></td>
                   </tr>             
                   <tr>
                     <th>毕业证书/学历证书的证书编号：</th>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="NUMBER" msg="<font color=red>*</font>证书编号只能是数字"></td>
-                   	<td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="NUMBER" msg="<font color=red>*</font>证书编号只能是数字"></td>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="NUMBER" msg="<font color=red>*</font>证书编号只能是数字"></td>
+                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号只能是数字"></td>
+                   	<td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号只能是数字"></td>
+                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号只能是数字"></td>
                   </tr>
                 </table>
               </div>
@@ -158,33 +150,33 @@
                 <table>
                   <tr>
                     <th>老师姓名：</th>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
-                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="OTHER" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="<font color=red>*</font>姓名只能包含字母、汉字、“.”"></td> 
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td>
+                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td>
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td> 
                   </tr>
                   <tr>
                     <th>部门：</th>
-                    <td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td>
-					<td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td>
-                    <td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td>
+                    <td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH"  msg="姓名只能包含字母、汉字数字 长度限制50"></td>
+					<td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH" msg="姓名只能包含字母、汉字数字 长度限制50"></td>
+                    <td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH" msg="姓名只能包含字母、汉字数字 长度限制50"></td>
                   </tr>
                   <tr>
                     <th>老师座机：</th>
-                    <td><input name="teacherPhone" id="teacherPhone" type="text" value=""></td>
-                    <td><input name="teacherPhone" id="teacherPhone" type="text" value=""></td>
-                    <td><input name="teacherPhone" id="teacherPhone" type="text" value=""></td>
+                    <td><input name="teacherPhone" id="teacherPhone" type="text" value="" valType="TEL"  msg="老师座机错误" ></td>
+                    <td><input name="teacherPhone" id="teacherPhone" type="text" value="" alType="TEL"  msg="老师座机错误"></td>
+                    <td><input name="teacherPhone" id="teacherPhone" type="text" value="" alType="TEL"  msg="老师座机错误"></td>
                   </tr>
                   <tr>
                     <th>同学姓名：</th>
-                    <td><input name="classmateName" id="classmateName" type="text" value=""></td>
-                  	<td><input type="text" name="classmateName"></td>
-                    <td><input type="text" name="classmateName"></td>
+                    <td><input name="classmateName" id="classmateName" type="text" value="" valType="CHAR_CH_SYB"  msg="同学姓名只能是汉字 英文 长度限制50"></td>
+                  	<td><input type="text" name="classmateName" valType="CHAR_CH_SYB"  msg="同学姓名只能是汉字 英文长度限制50" ></td>
+                    <td><input type="text" name="classmateName" valType="CHAR_CH_SYB"  msg="同学姓名只能是汉字 英文 长度限制50" ></td>
                   </tr>
                   <tr>
                     <th>同学电话：</th>
-                    <td><input name="classmatePhone" id="classmatePhone" type="text" value=""></td>
-	                <td><input type="text" value="" name="classmatePhone"></td>
-                    <td><input type="text" value="" name="classmatePhone"></td>
+                    <td><input name="classmatePhone" id="classmatePhone" type="text" value="" valType="MOBILE"></td>
+	                <td><input type="text" value="" name="classmatePhone" valType="MOBILE"  msg="同学电话格式错误" ></td>
+                    <td><input type="text" value="" name="classmatePhone" valType="MOBILE"  msg="同学电话格式错误" ></td>
                   </tr>
                 </table>
               </div>
@@ -197,67 +189,67 @@
                 <table>
                   <tr>
                     <th>公司名称:</th>
-                    <td data-by="id" ><input type="text" name="companyName" id="companyName" value=""></td>
+                    <td data-by="id" ><input type="text" name="companyName" id="companyName" value="" valType="COMPANYNAME" msg="公司名称错误"> </td>
                   </tr>
                   <tr>
                     <th>部门:</th>
-                    <td><input type="text" name="workDepart" id="workDepart" value=""></td>
+                    <td><input type="text" name="workDepart" id="workDepart" value="" valType="CHAR_CH" msg="公司名称错误"></td>
                   </tr>
                   <tr>
                     <th>职位:</th>
-                    <td><input type="text" name="workPosition" id="workPosition" value=""></td>
+                    <td><input type="text" name="workPosition" id="workPosition" value="" valType="CHAR_CH" msg="公司名称错误"></td>
                   </tr>
                   <tr>
                     <th>工作内容:</th>
-                    <td><input type="text" name="workContent" id="workContent" value=""></td>
+                    <td><input type="text" name="workContent" id="workContent" value="" valType="CHAR_CH" msg="公司名称错误"></td>
                   </tr>
                   <tr>
                     <th>工作业绩:</th>
-                    <td><input type="text" name="workEffect" id="workEffect" value=""></td>
+                    <td><input type="text" name="workEffect" id="workEffect" value="" valType="CHAR_CH" msg="公司名称错误"></td>
                   </tr>
                   <tr>
                     <th>薪酬水平（元/月）:</th>
-                    <td><input type="text" name="workEmolument" id="workEmolument" value=""></td>
+                    <td><input type="text" name="workEmolument" id="workEmolument" value="" valType="ONLYINT" msg="薪酬水平只能是正整数"></td>
                   </tr>
                 <tr>
                     <th>入职时间:</th>
-                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value=""  class="datepicker"></td>
+                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value="" valType="DATE"  class="datepicker"  msg="<font color=red>*</fon入职时间格式错误"></td>
                   </tr>
                   <tr>
                     <th>离职原因:</th>
-                    <td><input type="text" name="leaveReason" id="leaveReason" value=""></td>
+                    <td><input type="text" name="leaveReason" id="leaveReason" value="" valType="CHAR_CH" msg="离职原因错误"></td>
                   </tr>
                   <tr>
                     <th>上级姓名:</th>
-                    <td><input type="text" name="leaderName" id="leaderName" value=""></td>
+                    <td><input type="text" name="leaderName" id="leaderName" value="" valType="NAME" msg="上级姓名格式错误"></td>
                   </tr>
                   <tr>
                     <th>职位:</th>
-                    <td><input type="text" name="leaderPosition" id="leaderPosition" value=""></td>
+                    <td><input type="text" name="leaderPosition" id="leaderPosition" value="" valType="CHAR_CH" msg="职位格式错误"></td>
                   </tr>
                   <tr>
                     <th>工作关系（如直接上下级）:</th>
-                    <td><input type="text" name="leaderRelationship" id="leaderRelationship" value=""></td>
+                    <td><input type="text" name="leaderRelationship" id="leaderRelationship" value="" valType="CHAR_CH" msg="工作关系错误"></td>
                   </tr>
                   <tr>
                     <th>联系方式:</th>
-                    <td><input type="text" name="leaderPhone" id="leaderPhone" value=""></td>
+                    <td><input type="text" name="leaderPhone" id="leaderPhone" value="" valType="MOBILE" msg="联系方式错误"></td>
                   </tr>
                   <tr>
                     <th>同事姓名:</th>
-                    <td><input type="text" name="colleagueName" id="colleagueName" value=""></td>
+                    <td><input type="text" name="colleagueName" id="colleagueName" value="" valType="NAME" msg="同事姓名格式错误"></td>
                   </tr>
-                  <tr>
+<!--                   <tr>
                     <th>职位:</th>
                     <td><input type="text" name="colleaguePosition" id="colleaguePosition" value=""></td>
                   </tr>
                   <tr>
                     <th>工作关系:</th>
                     <td><input type="text" name="colleagueRelationship" id="colleagueRelationship" value=""></td>
-                  </tr>                  
+                  </tr>   -->                
                   <tr>
                     <th>座机:</th>
-                    <td><input type="text" name="colleaguePhone" id="colleaguePhone" value=""></td>
+                    <td><input type="text" name="colleaguePhone" id="colleaguePhone" value="" valType="TEL" msg="座机格式错误"></td>
                   </tr>
                 </table>
               </div>
@@ -270,19 +262,19 @@
                    <table>
                   <tr>
                     <th>公司名称：</th>
-                    <td data-by="id"><input type="text" name="icompanyName" id="icompanyName"  value=""></td>
+                    <td data-by="id"><input type="text" name="icompanyName" id="icompanyName"  value="" valType="COMPANYNAME" msg="公司名称格式错误"></td>
                   </tr>
                   <tr>
                     <th>投资金额：</th>
-                    <td><input type="text" name="investmentAmount" id="investmentAmount"  value=""></td>
+                    <td><input type="text" name="investmentAmount" id="investmentAmount"  value="" valType="MONEY" msg="投资金额格式方式错误包含数字  万后小数点2位 千分制"></td>
                   </tr>
                   <tr>
                     <th>股权占比（%）：</th>
-                    <td><input type="number" name="shareRatio" id="shareRatio"  value=""></td>
+                    <td><input type="text" name="shareRatio" id="shareRatio"  value="" valType="RATIO" msg="股权占比格式方式错误"></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>
-                    <td><input type="text" name="telephone" id="telephone"  value=""></td>
+                    <td><input type="text" name="telephone" id="telephone"  value="" valType="MOBILE" msg="联系方式错误"></td>
                   </tr>
                 </table>
               </div>
@@ -291,19 +283,19 @@
  				<table>
                   <tr>
                     <th>公司名称：</th>
-                    <td><input type="text" name="acompanyName" id="acompanyName"  value=""></td>
+                    <td><input type="text" name="acompanyName" id="acompanyName"  value="" valType="COMPANYNAME" msg="联系方式错误"></td>
                   </tr>
                   <tr>
                     <th>投资金额：</th>
-                    <td><input type="text" name="ainvestmentAmount" id="ainvestmentAmount"  value=""></td>
+                    <td><input type="text" name="ainvestmentAmount" id="ainvestmentAmount"  value="" valType="MONEY" msg="投资金额格式方式错误包含数字  万后小数点2位 千分制"></td>
                   </tr>
                   <tr>
                     <th>股权占比（%）：</th>
-                    <td><input type="number" name="ashareRatio" id="ashareRatio"  value=""></td>
+                    <td><input type="text" name="ashareRatio" id="ashareRatio"  value=""  valType="RATIO" msg="股权占比格式方式错误"></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>
-                    <td><input type="text" name="atelephone" id="atelephone"  value=""></td>
+                    <td><input type="text" name="atelephone" id="atelephone"  value="" valType="MOBILE" msg="联系方式错误"></td>
                   </tr>
                 </table>
               </div>
@@ -346,303 +338,12 @@
           </div>
 </div>
 
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
-<script type="text/javascript">
-$(function(){
- 	sendGetRequest(platformUrl.toaddPersonHr+$("#personId").val(), null, wanshancbf);
- 	$("body").delegate(".datepicker", "focusin", function(){
- 		$(this).datepicker({
- 		    format: 'yyyy-mm-dd',
- 		    language: "zh-CN",
- 		    autoclose: true,
- 		    todayHighlight: false,
- 		    calendarWeeks: true,
- 		    weekStart:1,
- 		    today: "Today",
- 		    todayBtn:'linked',
- 		    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
- 		    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
- 		    forceParse:false
- 		    //defaultViewDate: { year: 1977, month: 04, day: 25 },
- 		    //daysOfWeekDisabled: "0",
- 		    //daysOfWeekHighlighted: "0",
- 		    //clearBtn: true,
- 		    //startView: 1, //0,month 1,year 2,decade
- 		    //minViewMode: 1,  //0,days 1,month 2,years
- 		    //maxViewMode: 1, //0,days 1,month 2,years
- 		    //startDate: '-3d',
- 		    //endDate: '+3d'
- 		});
- 	});
-})
-function wanshancbf(data){
-	if(data.result.status == "OK"){
-		var personInvest = data.entity.personInvest;
-		var personLearns = data.entity.personLearn;
-		var personPool = data.entity.personPool;
-		var personWorks = data.entity.personWork;
-		if(personInvest != undefined ){
-			var model_personInvest = $("div[model='personInvest']");
-			model_personInvest.find("input[type!='radio']").each(function(index,input_item){
-				var input  = $(input_item);
-				var name = input.attr("name");
-				input.val(personInvest[name]);
-			});
-			model_personInvest.find("td[data-by]").attr("data-val",personInvest["id"]);
-		}
-		if(personPool != undefined ){
-			var model_personPool = $("div[model='personPool']");
-			model_personPool.find("input[type!='radio']").each(function(index,input_item){
-				var input  = $(input_item);
-				var name = input.attr("name");
-				input.val(personPool[name]);
-			});
-			model_personPool.find("td[data-by]").attr("data-val",personPool["id"]);
-			
- 			$("input:radio[name='personSex'][value='"+personPool['personSex']+"']").attr("checked","checked"); 
-			$("input:radio[name='laborDispute'][value='"+personPool['laborDispute']+"']").attr("checked","checked") ; 
-			$("#endComment").val(personPool['endComment']);
-			$("#levelStar").raty({
-				starOn:"<%=path %>"+"/star/img/star-on.png",
-			    starHalf:"<%=path %>"+ "/star/img/star-half.png",
-			    starOff : "<%=path %>"+"/star/img/star-off.png",
-			    starOn : "<%=path %>"+"/star/img/star-on.png",
-				score: personPool['levelStar']});
-			$("#abilityStar").raty({
-				starOn:"<%=path %>"+"/star/img/star-on.png",
-			    starHalf:"<%=path %>"+ "/star/img/star-half.png",
-			    starOff : "<%=path %>"+"/star/img/star-off.png",
-			    starOn : "<%=path %>"+"/star/img/star-on.png",
-				score: personPool['abilityStar'] });
-		}
-		var model_personLearn =  $("div[model='personLearn']");
-		var td_personLearn = model_personLearn.find("td[data-by]");
-		for(var i = 0 ;i < personLearns.length ;i++){
-			var personLearn = personLearns[i];
-			model_personLearn.find("tr").each(function(m,tr_item){
-				var input = $($(tr_item).find("input[name]")[i]);
-				input.val(personLearn[input.attr("name")]);
-			});
-			$(td_personLearn[i]).attr("data-val",personLearn["id"]);
-			
-			if(personLearns.length > td_personLearn.length){
-				appendTd(model_personLearn);				
-			}
-			td_personLearn = model_personLearn.find("td[data-by]");
-		}
-		
-		var model_personWork =  $("div[model='personWork']");
-		var td_personWork = model_personWork.find("td[data-by]");
-		for(var i = 0 ;i < personWorks.length ;i++){
-			var personWork = personWorks[i];
-			model_personWork.find("tr").each(function(m,tr_item){
-				var input = $($(tr_item).find("input[name]")[i]);
-				input.val(personWork[input.attr("name")]);
-			});
--			$(td_personWork[i]).attr("data-val",personWork["id"]);
-			if(personWorks.length > td_personWork.length){
-				appendTd(model_personWork);				
-			}
-			td_personWork = model_personWork.find("td[data-by]");
-		}
-	}
-}
-$("div[model]").on("click",".add",function(){
-	var model = $(this).parent().parent();
-	appendTd(model)
-});
-function appendTd(model){
-	model.find("tr").each(function(index,tr){
-		var input =  $($(tr).find("input")[0]);
-		var name = input.attr("name");
-		var type = input.attr("type");
-		var class_name = input.attr("class");
-		var valType = input.attr("valType");
-		var msg = input.attr("msg");
-		var regString = input.attr("regString");
-		var textsIn = input.attr("textsIn");
-		if(textsIn=='undefined'||textsIn== undefined){
-			textsIn = "";
-		}
-		if(msg=='undefined'||msg== undefined){
-			msg = "";
-		}
-		if(valType=='undefined'||valType== undefined){
-			valType = "";
-		}
-		if(regString=='undefined'||regString== undefined){
-			regString = "";
-		}
-		if(index == 0 ){
-			$(tr).append("<td data-by='id'><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
-		}else{
-			if(class_name == "datepicker"){
-				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
-			}else{
-				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
-			}
-		}
-	});
-}
-function prependTd(model,model_data){
-	model.find("tr[type!=hidden]").each(function(index,item){
-		var tr = $(item);
-		var td = tr.find("td")[0];
-		tr.prepend("<td>"+td.innerHTML+"</td>");
-	});
-}
-$(".btnbox").on("click",".bluebtn",function(){
-	var models = $("div[model]");
-	var data = {};
-	var flag = true;
-	models.each(function(i,item){
-		var it = $(item);
-		//单个实体
-		var model = null ;
-		var name = it.attr("model");
-		var multi = it.attr("multi");
-		if(multi == true || multi =="true"){
-			model = new Array();
-			var len = it.find("tr").eq(0).find("input[name]").length;
-			for(var i = 0 ;i <len;i++){
-				var son_model = {};
-				it.find("tr").each(function(m,tr_item){
-					var input = $(tr_item).find("input[name][type!=hidden]")[i];
-					if($(input).val() != ''){
-						son_model[$(input).attr("name")] = $(input).val();
-						if(!resemetValidate($(input))){
-							flag = false;
-							return;
-						}
-					}
-					
-				});
-				var td = $($(it.find("tr")).find("td[data-by]").eq(i));
-				son_model[td.attr("data-by")] = td.attr("data-val");
-				model[i] = son_model;
-			}
-			data[name] = model;	
-		}else{
-			model = {};
-			it.find("input[name]").each(function(index,input){
-				if($(input).val() != ''){
-					model[$(input).attr("name")] = $(input).val() ;
-					if(!resemetValidate($(input))){
-						flag = false;
-						return;
-					}
-				}
-				
-			});
-			var td = it.find("td[data-by]");
-			model[td.attr("data-by")] = td.attr("data-val");
-			data[name] = model;
-		}
-		
-	});
-	if(!flag){
-		return;
-	}
-	data['personId'] = $("#personId").val();
-	data['personPool']['personSex'] = $("input[name='personSex']:checked").val();
-	data['personPool']['laborDispute'] = $("input[name='laborDispute']:checked").val();
-	data['personPool']['endComment'] = $("#endComment").val();
 
-	if($("#levelStar").find("input[name='score']").val() != ''){
-		data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
-	}
-	if($("#abilityStar").find("input[name='score']").val() != ''){
-		data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
-	}
-	
-	var flag = 0;
-	var json = {};
-	json['personId'] = $("#personId").val();
-	json['personPool'] = data['personPool'] ;
-	for(var x in data['personInvest']){
-		if(x !='id'){
-			flag ++;
-		}
-	}
-	if(flag > 0){
-		json['personInvest'] = data['personInvest'] ;
-	}
-	var arry_personWork = new Array()
-	for(var x in data['personWork']){
-		flag = 0;
-		for(var y in data['personWork'][x]){
-			if(y !='id'){
-				flag ++;
-			}
-		}
-		if(flag > 0){
-			arry_personWork.push(data['personWork'][x]);
-		}
-	}
-	if(arry_personWork.length >0){
-		json['personWork'] = arry_personWork ;
-	}
-	
-	var arry_personLearn = new Array()
-	for(var x in data['personLearn']){
-		flag = 0;
-		for(var y in data['personLearn'][x]){
-			if(y !='id'){
-				flag ++;
-			}
-		}
-		if(flag > 0){
-			arry_personLearn.push(data['personLearn'][x]);
-		}
-	}
-	if(arry_personLearn.length >0){
-		json['personLearn'] =  arry_personLearn;
-	}
-	sendPostRequestByJsonObj(platformUrl.addPersonHr, json, savecbf);
-});
-function resemetValidate(input){
-	var valType = input.attr("valType");
-	var flag = true;
-/* 	var value = input.val();
-	var regString = input.attr("regString");
-	var textsIn = input.attr("textsIn");
-	if(valType==''||valType=='undefined'||valType==undefined){
-		return flag;
-	}
-	switch (valType) {
-	case "IDENTITY":
-		break;
-	case "MOBILE":
-		flag = /(^1[3|5|8][0-9]{9}$)/.test(value);
-		break;	
-	case "EMAIL":
-		flag = /(^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)/.test(value);
-		break;
-	case "onlyInt":
-		flag = /^[0-9]*$/.test(value);
-		break;
-	case "onlyZh":
-		flag = /^[\u4e00-\u9fa5]+$/.test(value);
-		break;	
-	default:
-		if(regString!=''){
-			var regexp = new RegExp(regString);
-			flag = regexp.test(value);
-		}
-		break;
-	}
-	if(!flag){
-		layer.msg(input.attr("msg")+" :"+input.val());
-	} */
-	return flag;
-}
-function savecbf(data){
-	if(data.result.status == "OK"){
-		layer.msg("成功");
-		$("a[data-close='close']").trigger("click");
-	}else{
-		layer.msg(data.result.message);
-	}
-}
-</script> 
+<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
+<script src="<%=path %>/star/jquery.raty.min.js" type="text/javascript"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/star-rating.min.js'></script>
+<script src="<%=path %>/js/resumetc.js" type="text/javascript"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
            

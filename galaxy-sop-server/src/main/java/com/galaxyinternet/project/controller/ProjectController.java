@@ -11,6 +11,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +37,7 @@ import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
+import com.galaxyinternet.framework.core.form.Token;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -42,7 +45,10 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.common.Config;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
@@ -55,6 +61,7 @@ import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.service.ConfigService;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
@@ -95,6 +102,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private HandlerManager handlerManager;
 	
 	@Autowired
+	private DepartmentService departmentService;
+	
+	
+	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 	
 	@Override
@@ -107,6 +118,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 * @return
 	 */
+	@Token
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -204,13 +216,20 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
 		String hhrname="";
-		if(project == null)
-		hhrname=getHHRNname(project);
-		if(project == null){
+	    if(project!=null){
+	    	Department Department=new Department();//
+			Department.setId(project.getProjectDepartid());
+		    Department queryOne = departmentService.queryOne(Department);
+		    if(queryOne!=null){
+		    	project.setProjectCareerline(queryOne.getName());
+		    }
+			hhrname=getHHRNname(project);
+			project.setHhrName(hhrname);
+	    }
+	    if(project == null){
 			responseBody.setResult(new Result(Status.ERROR, "未查找到指定项目信息!"));
 			return responseBody;
 		}
-		project.setHhrName(hhrname);
 		responseBody.setEntity(project);
 		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		return responseBody;
@@ -259,9 +278,25 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		project.setCreateUid(user.getId());
-		
-		try {
-			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
+/*		project.setrComplany("11");
+		project.setbComplany(1000d);
+		project.setaComplany(100d);
+		project.setCascOrDes("created_time");
+		project.setAscOrDes("asc");*/
+		try {		
+			Page<Project>  pageProject=null;
+			if(project.getAscOrDes()!=null&&project.getCascOrDes()!=null){	
+				if(project.getAscOrDes()=="desc"){
+					Sort sort = new Sort(Direction.DESC,project.getCascOrDes());
+					 pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize(),sort));
+					
+				}else if(project.getAscOrDes()=="asc"){
+					Sort sort = new Sort(Direction.ASC,project.getCascOrDes());
+					pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize(),sort));	
+				}													
+			}else{
+				pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));				
+			}
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
@@ -513,16 +548,25 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> stageChange(ProjectQuery p, HttpServletRequest request) {
 		ResponseData<ProjectQuery> responseBody = new ResponseData<ProjectQuery>();
+		if(p.getPid() == null){
+			String json = JSONUtils.getBodyString(request);
+			p = GSONUtil.fromJson(json, ProjectQuery.class);
+		}
 		/**
 		 * 1.参数校验
 		 */
+		//所有都必须附带pid和stage
 		if(p.getPid() == null || p.getStage() == null 
 				|| !SopConstant._progress_pattern_.matcher(p.getStage()).matches()
 				|| p.getParseDate() == null){
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		if(p.getStage().equals(DictEnum.projectProgress.内部评审.getCode()) || p.getStage().equals(DictEnum.projectProgress.CEO评审.getCode())){
+		//如果是内评会、CEO评审会、立项会、投决会,则会议类型和会议结论不能缺少
+		if(p.getStage().equals(DictEnum.projectProgress.内部评审.getCode()) 
+				|| p.getStage().equals(DictEnum.projectProgress.CEO评审.getCode())
+				|| p.getStage().equals(DictEnum.projectProgress.立项会.getCode())
+				|| p.getStage().equals(DictEnum.projectProgress.投资决策会.getCode())){
 			if(p.getMeetingType() == null || !SopConstant._meeting_type_pattern_.matcher(p.getMeetingType()).matches()
 					|| p.getResult() == null || !SopConstant._meeting_result_pattern_.matcher(p.getResult()).matches()){
 				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
@@ -569,20 +613,35 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 			result = OSSHelper.simpleUploadByOSS(file.getInputStream(),fileKey);
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		/**
-		 * 3.处理业务
-		 */
-		try {
-			if(result != null && result.getResult().getStatus().equals(Result.Status.OK)){
-				String fileOriginalName = file.getOriginalFilename();
-				p.setFileName(fileOriginalName.substring(0, fileOriginalName.lastIndexOf(".")));
-				p.setSuffix(fileOriginalName.substring(fileOriginalName.lastIndexOf(".") + 1));
-				//int dotPos = fileName.lastIndexOf(".");String ext = fileName.substring(dotPos);
-				p.setBucketName(result.getBucketName());
-				p.setFileKey(fileKey);
-				p.setFileSize(file.getSize());
+			if(logger.isInfoEnabled()){
+				logger.info("right:no file.");
+			}
+		}finally{
+			
+			//验证是否文件是必须的
+			if(!p.getStage().equals(DictEnum.projectProgress.接触访谈.getCode())
+					&& !p.getStage().equals(DictEnum.projectProgress.内部评审.getCode()) 
+					&& !p.getStage().equals(DictEnum.projectProgress.CEO评审.getCode())
+					&& !p.getStage().equals(DictEnum.projectProgress.立项会.getCode())
+					&& !p.getStage().equals(DictEnum.projectProgress.投资决策会.getCode())){
+				if(result == null || !result.getResult().getStatus().equals(Result.Status.OK)){
+					responseBody.setResult(new Result(Status.ERROR, null,"缺失相应文档!"));
+					return responseBody;
+				}
+			}
+			
+			/**
+			 * 3.处理业务
+			 */
+			try {
+				if(file != null && result != null && result.getResult().getStatus().equals(Result.Status.OK)){
+					String fileOriginalName = file.getOriginalFilename();
+					p.setFileName(fileOriginalName.substring(0, fileOriginalName.lastIndexOf(".")));
+					p.setSuffix(fileOriginalName.substring(fileOriginalName.lastIndexOf(".") + 1));
+					p.setBucketName(result.getBucketName());
+					p.setFileKey(fileKey);
+					p.setFileSize(file.getSize());
+				}
 				if(handlerManager.getStageHandlers().containsKey(p.getStage())){
 					Handler handler = handlerManager.getStageHandlers().get(p.getStage());
 					SopResult r = handler.handler(p, project);
@@ -592,10 +651,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), r.getNumber());
 					}
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+		
 		return responseBody;
 	}
 	
@@ -891,10 +951,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	  public String getHHRNname(Project p){
 		   String hhrname="";
 		   UserRole userrole=new UserRole();
-		   userrole.setId((long)3);
+		   userrole.setRoleId((long)3);
 		   List<UserRole> queryList = userRoleService.queryList(userrole);
 		   for(UserRole ur: queryList){
-			   Long userid=ur.getId();
+			   Long userid=ur.getUserId();
 			   User queryById = userService.queryById(userid);
 			   if(queryById!=null){
 				   if(queryById.getDepartmentId().equals(p.getProjectDepartid())){

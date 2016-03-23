@@ -10,18 +10,6 @@
 		http://www.springframework.org/schema/task 
 		http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
-<!-- 依赖的服务属性配置器 -->
-	<bean id="propertyConfigurer" 
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
-		<property name="locations">
-			<list>
-				<value>classpath:db/database.properties</value>
-				<value>classpath:dubbo/dubbo.properties</value>
-				<!-- <value>classpath:redis/redis.properties</value> -->
-			</list>
-		</property>
-	</bean>
-
 	<!-- Configures the @Controller programming model -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">

@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <title>繁星</title>
 <!-- 校验样式 -->
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
+<!-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" /> -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
@@ -101,7 +101,7 @@
                       <td>
                         <dl>
                           <dt>出让股份：</dt>
-                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt" valType="NUMBER" msg="<font color=red>*</font>只能是数字"><span>&nbsp;%</span></dd>
+                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
                         </dl>
                       </td>
                       <td>
@@ -190,6 +190,7 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
+   var TOKEN ;
 	$(function(){
 		createMenus(4);
 		sendGetRequest(platformUrl.getProjectCode, {}, function(data){
@@ -222,10 +223,43 @@
 	}
 	function add(){
 		if(beforeSubmit()){
-			sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
-				forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+			//获取TOKEN 用于验证表单提交
+			sendPostRequest(platformUrl.getToken,callback);
+			
+			$.ajax({
+				url : platformUrl.addProject,
+				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
+				async : false,
+				type : 'POST',
+				contentType : "application/json; charset=UTF-8",
+				dataType : "json",
+				cache : false,
+				beforeSend : function(xhr) {
+					if (TOKEN) {
+						xhr.setRequestHeader("TOKEN", TOKEN);
+					}
+					if (sessionId) {
+						xhr.setRequestHeader("sessionId", sessionId);
+					}
+					if(userId){
+						xhr.setRequestHeader("guserId", userId);
+					}
+				},
+				error : function() {
+					layer.msg("操作失败");
+				},
+				success : function(data) {
+					
+					forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+				}
 			});
+			
 		}
+	}
+	
+	function callback(data){
+		TOKEN=data.TOKEN;
+		 return TOKEN;
 	}
 </script>
 

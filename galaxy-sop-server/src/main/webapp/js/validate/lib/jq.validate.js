@@ -84,6 +84,12 @@ function validateBefore() {
 			if($(this).val()=='') {
 				flag=false;
 			}
+		}else if($(this).attr('valType')=='requiredDiv'){
+			if($(n).text()!='') {
+				if(!($(this).text()!=''&&$.Validator.match({data:$(this).text(), rule:'OTHER', regString:$(this).attr('regString')}))) {
+				flag=false;
+			}
+		}
 		}
 		else {//已定义规则的判断
 			flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')});
@@ -111,6 +117,14 @@ function beforeSubmit() {
 			//显示tips			
 			$(n).poshytip('show');
 			flag=false;
+			}
+		}else if($(n).attr("valType")=='requiredDiv'){
+			if($(n).text()!='') {
+					if(!($(this).text()!=''&&$.Validator.match({data:$(this).text(), rule:'OTHER', regString:$(this).attr('regString')}))) {
+					//显示tips			
+					$(n).poshytip('show');
+					flag=false;
+				}
 			}
 		}
 		else if($(n).attr("valType")=='OTHER') {//对自定义的文本框进行验证
