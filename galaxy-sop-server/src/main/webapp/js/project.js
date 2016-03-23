@@ -80,11 +80,18 @@ $(function(){
 		$(redioId).attr("checked","checked");
 		$("#project_company").val(data.entity.projectCompany);
 		$("#project_company_code").val(data.entity.projectCompanyCode);
-		$("#describe_show").text(replaceStr(data.entity.projectDescribe));
+		
+/*		$("#describe_show").text(replaceStr(data.entity.projectDescribe));
 		$("#model_show").text(replaceStr(data.entity.projectBusinessModel));
 		$("#portrait_show").text(replaceStr(data.entity.userPortrait));
 		$("#location_show").text(replaceStr(data.entity.companyLocation));
-		$("#analysis_show ").text(replaceStr(data.entity.prospectAnalysis));
+		$("#analysis_show ").text(replaceStr(data.entity.prospectAnalysis));*/
+		$("#describe_show").html(ata.entity.projectDescribe);
+		$("#model_show").html(data.entity.projectBusinessModel);
+		$("#portrait_show").html(data.entity.userPortrait);
+		$("#location_show").html(data.entity.companyLocation);
+		$("#analysis_show ").html(data.entity.prospectAnalysis);
+		
 		var um = UM.getEditor('describe_editor');
 		um.setContent(data.entity.projectDescribe);
 		var um = UM.getEditor('business_model_editor');
