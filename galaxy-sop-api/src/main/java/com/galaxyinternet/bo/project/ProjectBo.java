@@ -24,7 +24,59 @@ public class ProjectBo extends Project {
 	private Long createDateFrom;
 	private Long createDateThrough;
 	
+	private String rComplany;//查询字段
 	
+	private Double bComplany;//最大查询值
+	
+	private Double aComplany;//最小查询值
+	
+	private String cascOrDes;//升降序的字段
+	
+	private String ascOrDes;//加入的是升降序  desc asc
+	
+	
+	
+	
+	public String getrComplany() {
+		return rComplany;
+	}
+
+	public void setrComplany(String rComplany) {
+		this.rComplany = rComplany;
+	}
+
+	public Double getbComplany() {
+		return bComplany;
+	}
+
+	public void setbComplany(Double bComplany) {
+		this.bComplany = bComplany;
+	}
+
+	public Double getaComplany() {
+		return aComplany;
+	}
+
+	public void setaComplany(Double aComplany) {
+		this.aComplany = aComplany;
+	}
+
+	public String getCascOrDes() {
+		return cascOrDes;
+	}
+
+	public void setCascOrDes(String cascOrDes) {
+		this.cascOrDes = cascOrDes;
+	}
+
+	public String getAscOrDes() {
+		return ascOrDes;
+	}
+
+	public void setAscOrDes(String ascOrDes) {
+		this.ascOrDes = ascOrDes;
+	}
+
 	public Long getCreateDateFrom() {
 		return createDateFrom;
 	}
