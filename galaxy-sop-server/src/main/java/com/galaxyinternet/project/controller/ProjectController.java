@@ -11,6 +11,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -272,9 +274,25 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		project.setCreateUid(user.getId());
-		
-		try {
-			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
+/*		project.setrComplany("11");
+		project.setbComplany(1000d);
+		project.setaComplany(100d);*/
+		project.setCascOrDes("created_time");
+		project.setAscOrDes("asc");
+		try {		
+			Page<Project>  pageProject=null;
+			if(project.getAscOrDes()!=null&&project.getCascOrDes()!=null){	
+				if(project.getAscOrDes()=="desc"){
+					Sort sort = new Sort(Direction.DESC,project.getCascOrDes());
+					 pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize(),sort));
+					
+				}else if(project.getAscOrDes()=="asc"){
+					Sort sort = new Sort(Direction.ASC,project.getCascOrDes());
+					pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize(),sort));	
+				}													
+			}else{
+				pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));				
+			}
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;

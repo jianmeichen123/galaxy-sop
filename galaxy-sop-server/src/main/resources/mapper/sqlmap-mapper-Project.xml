@@ -82,6 +82,15 @@
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 				<if test="nameLike != null">and (project_name like CONCAT("%",#{nameLike},"%") or project_code like CONCAT("%",#{nameLike},"%"))</if>
+				<!--根据计划额度查询  -->
+				<if test="rComplany != null"> 
+					<if test="aComplany != null">
+					 	and project_contribution <![CDATA[ >=]]> #{aComplany,jdbcType=DECIMAL} 					 							 
+					</if> 
+					<if test="bComplany != null">
+						and project_contribution  &lt; #{bComplany,jdbcType=DECIMAL} 
+					</if>								 												
+				</if>
 				<!-- 过滤已关闭项目 -->
 				<if test="resultCloseFilter != null">
 					AND project_status !=  #{resultCloseFilter,jdbcType=VARCHAR}
