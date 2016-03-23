@@ -950,14 +950,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	  public String getHHRNname(Project p){
 		   String hhrname="";
 		   UserRole userrole=new UserRole();
-		   userrole.setRoleId((long)3);
+		   userrole.setRoleId(UserConstant.HHR);
 		   List<UserRole> queryList = userRoleService.queryList(userrole);
-		   for(UserRole ur: queryList){
-			   Long userid=ur.getUserId();
-			   User queryById = userService.queryById(userid);
-			   if(queryById!=null){
-				   if(queryById.getDepartmentId().equals(p.getProjectDepartid())){
-					   hhrname=queryById.getRealName();
+		   if(queryList != null && queryList.size()>0)
+		   {
+			   for(UserRole ur: queryList){
+				   Long userid=ur.getUserId();
+				   User queryById = userService.queryById(userid);
+				   if(queryById!=null){
+					   if(queryById.getDepartmentId().equals(p.getProjectDepartid())){
+						   hhrname=queryById.getRealName();
+					   }
 				   }
 			   }
 		   }
