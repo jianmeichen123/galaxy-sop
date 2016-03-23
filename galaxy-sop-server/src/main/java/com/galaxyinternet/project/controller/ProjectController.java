@@ -44,6 +44,8 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.InterviewRecord;
@@ -544,6 +546,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> stageChange(ProjectQuery p, HttpServletRequest request) {
 		ResponseData<ProjectQuery> responseBody = new ResponseData<ProjectQuery>();
+		if(p.getPid() == null){
+			String json = JSONUtils.getBodyString(request);
+			p = GSONUtil.fromJson(json, ProjectQuery.class);
+		}
 		/**
 		 * 1.参数校验
 		 */
@@ -605,20 +611,35 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 			result = OSSHelper.simpleUploadByOSS(file.getInputStream(),fileKey);
 		} catch (Exception e) {
+			if(logger.isInfoEnabled()){
+				logger.info("right:no file.");
+			}
+		}finally{
 			
-		}
-		/**
-		 * 3.处理业务
-		 */
-		try {
-			if(result != null && result.getResult().getStatus().equals(Result.Status.OK)){
-				String fileOriginalName = file.getOriginalFilename();
-				p.setFileName(fileOriginalName.substring(0, fileOriginalName.lastIndexOf(".")));
-				p.setSuffix(fileOriginalName.substring(fileOriginalName.lastIndexOf(".") + 1));
-				//int dotPos = fileName.lastIndexOf(".");String ext = fileName.substring(dotPos);
-				p.setBucketName(result.getBucketName());
-				p.setFileKey(fileKey);
-				p.setFileSize(file.getSize());
+			//验证是否文件是必须的
+			if(!p.getStage().equals(DictEnum.projectProgress.接触访谈.getCode())
+					&& !p.getStage().equals(DictEnum.projectProgress.内部评审.getCode()) 
+					&& !p.getStage().equals(DictEnum.projectProgress.CEO评审.getCode())
+					&& !p.getStage().equals(DictEnum.projectProgress.立项会.getCode())
+					&& !p.getStage().equals(DictEnum.projectProgress.投资决策会.getCode())){
+				if(result == null || !result.getResult().getStatus().equals(Result.Status.OK)){
+					responseBody.setResult(new Result(Status.ERROR, null,"缺失相应文档!"));
+					return responseBody;
+				}
+			}
+			
+			/**
+			 * 3.处理业务
+			 */
+			try {
+				if(file != null && result != null && result.getResult().getStatus().equals(Result.Status.OK)){
+					String fileOriginalName = file.getOriginalFilename();
+					p.setFileName(fileOriginalName.substring(0, fileOriginalName.lastIndexOf(".")));
+					p.setSuffix(fileOriginalName.substring(fileOriginalName.lastIndexOf(".") + 1));
+					p.setBucketName(result.getBucketName());
+					p.setFileKey(fileKey);
+					p.setFileSize(file.getSize());
+				}
 				if(handlerManager.getStageHandlers().containsKey(p.getStage())){
 					Handler handler = handlerManager.getStageHandlers().get(p.getStage());
 					SopResult r = handler.handler(p, project);
@@ -628,10 +649,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), r.getNumber());
 					}
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
+		
 		return responseBody;
 	}
 	
