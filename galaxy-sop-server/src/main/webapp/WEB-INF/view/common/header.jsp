@@ -1,13 +1,20 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% 
 	String path = request.getContextPath(); 
     User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
     String realName="";
+    Long roleId=null;
     if(null != user && null != user.getRealName()){
     	realName=user.getRealName();
     }
+     
+    if(null != user.getRoleId()){
+	   roleId = user.getRoleId();
+    }
+	
 %>
 <link rel="shortcut icon" href="img/favicon.ico" />
 <div class="header clearfix">
@@ -15,12 +22,15 @@
     <!--头部中间-->
     <div class="min clearfix">
         <!--用户信息-->
+        <c:if test="<%=roleId !=17 %>">
         <div class="usermsg clearfix">
             <span class="light_blue">当前您有：</span>
             <a href="<%=path %>/galaxy/soptask" class="work">待办任务<em class="totalUrgent"></em></a>
             <!-- <a href="<%=path %>/galaxy/soptask" class="work">紧急任务<em class="bubble"></em></a> -->
             <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">4</em></a> 
-        </div>    	<!--当日信息-->
+        </div>    	
+        <!--当日信息-->
+        </c:if>
     	<div class="todaymsg clearfix">
         	<span class="weather"><iframe allowtransparency="true" frameborder="0" width="133" height="36" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=1&v=0&d=3&bd=0&k=000000&f=004080&q=1&e=1&a=1&c=54511&w=180&h=36&align=center"></iframe></span>
             <span>
@@ -35,7 +45,7 @@
     </div>
      <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
-        <span class="ico name">早上好，<%=realName%></span>
+        <span class="ico name">您好，<%=realName%></span>
         <b class="line null">分割线</b>
         <a href="javascript:logout()" class="loginout">退出</a>
     </div>

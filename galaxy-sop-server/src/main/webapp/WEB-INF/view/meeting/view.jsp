@@ -12,7 +12,9 @@
 
 <!-- bootstrap-table -->
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
-<!-- <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"  type="text/css"> -->
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 
 <!-- 富文本编辑器 -->
@@ -57,9 +59,9 @@
             <dl class="fmdl fmmr fmdll clearfix">
               <dt>会议日期：</dt>
               <dd>
-                <input  class="txt time"  type="date" id="startTime" name="startTime" />
+                <input type="text" class="datepicker time" readonly id="startTime" name="startTime"  style="height:23px;"/>
                 <span>至</span>
-                <input  class="txt time" type="date"  id="endTime" name="endTime" />
+                <input type="text" class="datepicker time" readonly id="endTime" name="endTime"  style="height:23px;"/>
                 
                 <!-- <input type="text" class="txt time" id="startTime" name="startTime" /> -->
               </dd>
@@ -85,9 +87,9 @@
 				data-page-list="[1,2,4,8,50]" data-id-field="lottoId"
 				data-show-refresh="false">
 				<colgroup >
+					<col style="width:30%;"> <!-- 名称 -->
 					<col style="width:20%;"> <!-- 名称 -->
-					<col style="width:20%;"> <!-- 名称 -->
-					<col style="width:60%;">  <!-- 状态 -->
+					<col style="width:50%;">  <!-- 状态 -->
 				</colgroup>
 				<thead>
 					<tr>
@@ -107,18 +109,35 @@
 
 
 
-<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
-
-</body>
-
 <!-- bootstrap-table  -->
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-
+<!-- upload -->
 <script src="${ctx}/js/plupload.full.min.js" type="text/javascript"></script>
-
+<!-- time -->
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<!-- clude -->
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
+
+<jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+
+<script type="text/javascript">
+
+$(function(){
+	createMenus(7);
+	
+	$('#data-table').bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		
+	});
+});
+</script>
+
+</body>
+
 
 </html>
 

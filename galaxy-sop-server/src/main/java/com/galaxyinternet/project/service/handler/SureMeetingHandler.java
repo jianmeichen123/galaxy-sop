@@ -106,7 +106,7 @@ public class SureMeetingHandler implements Handler {
 			task.setTaskOrder(SopConstant.NORMAL_STATUS);
 			task.setDepartmentId(q.getDepartmentId());
 			task.setAssignUid(q.getCreatedUid());
-			task.setTaskStatus(DictEnum.taskStatus.处理.getCode());
+			task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
 			task.setCreatedTime(System.currentTimeMillis());
 			sopTaskDao.insert(task);
 		}
@@ -116,6 +116,7 @@ public class SureMeetingHandler implements Handler {
 			projectDao.updateById(p);
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
 		}
+		tm.setMeetingDate(new Date());
 		tm.setMeetingCount(tm.getMeetingCount() + 1);
 		tm.setUpdatedTime((new Date()).getTime());
 		meetingSchedulingDao.updateById(tm);

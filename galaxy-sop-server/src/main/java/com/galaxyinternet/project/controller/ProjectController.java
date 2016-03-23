@@ -3,9 +3,11 @@ package com.galaxyinternet.project.controller;
 import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,6 @@ import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
-import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -50,6 +51,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.service.ConfigService;
@@ -61,6 +63,7 @@ import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.service.UserService;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -76,6 +79,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private PersonPoolService personPoolService;
 	@Autowired
 	private ProjectPersonService projectPersonService;
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private ConfigService configService;
 	@Autowired
@@ -198,10 +203,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> selectProject(@PathVariable("pid") String pid, HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
+		String hhrname="";
+		if(project == null)
+		hhrname=getHHRNname(project);
 		if(project == null){
 			responseBody.setResult(new Result(Status.ERROR, "未查找到指定项目信息!"));
 			return responseBody;
 		}
+		project.setHhrName(hhrname);
 		responseBody.setEntity(project);
 		ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		return responseBody;
@@ -215,7 +224,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryAllProjects", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> queryAllProjects(HttpServletRequest request, @RequestBody Project project) {
+	public ResponseData<Project> queryAllProjects(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
@@ -250,7 +259,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		project.setCreateUid(user.getId());
-		project.setResultCloseFilter(DictEnum.meetingResult.否决.getCode());//过滤已关闭
+		
 		try {
 			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
 			responseBody.setPageList(pageProject);
@@ -860,6 +869,39 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		
 		return responseBody;
 	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@ResponseBody
+	@RequestMapping(value="/getSummary", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData getSummary(HttpServletRequest request)
+	{
+		ResponseData resp = new ResponseData();
+		try {
+			String userId = getUserId(request);
+			if(StringUtils.isNotEmpty(userId));
+			Map<String, Object> summary = projectService.getSummary(Long.valueOf(userId));
+			resp.setUserData(summary);
+		} catch (Exception e) {
+			logger.error("获取数据快览失败",e);
+			resp.getResult().addError("获取数据快览失败");
+		}
+		
+		return resp;
+	}
 	
-	
+	  public String getHHRNname(Project p){
+		   String hhrname="";
+		   UserRole userrole=new UserRole();
+		   userrole.setId((long)3);
+		   List<UserRole> queryList = userRoleService.queryList(userrole);
+		   for(UserRole ur: queryList){
+			   Long userid=ur.getId();
+			   User queryById = userService.queryById(userid);
+			   if(queryById!=null){
+				   if(queryById.getDepartmentId().equals(p.getProjectDepartid())){
+					   hhrname=queryById.getRealName();
+				   }
+			   }
+		   }
+		   return hhrname;
+	   }
 }

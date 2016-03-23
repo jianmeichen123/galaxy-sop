@@ -171,7 +171,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			task.setTaskFlag(1);
 			
 			task.setAssignUid(userid);             //任务认领人id 
-			task.setTaskStatus(DictEnum.taskStatus.处理.getCode());		//任务状态: 2:待完工
+			task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());		//任务状态: 2:待完工
 			task.setTaskType(DictEnum.taskType.协同办公.getCode());			//任务类型    协同
 			
 			sopTaskDao.insert(task);
@@ -213,7 +213,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			//9 工商变更登记凭证
 			task1.setTaskFlag(6);
 			task1.setAssignUid(userid);             //任务认领人id 
-			task1.setTaskStatus(DictEnum.taskStatus.处理.getCode());				//任务状态: 2:待完工
+			task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				//任务状态: 2:待完工
 			task1.setTaskType(DictEnum.taskType.协同办公.getCode());				//任务类型    协同
 			sopTaskDao.insert(task1);
 			
@@ -327,7 +327,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		//9 工商变更登记凭证
 		task1.setTaskFlag(5);
 		task1.setAssignUid(userid);             //任务认领人id 
-		task1.setTaskStatus(DictEnum.taskStatus.处理.getCode());				 //任务状态: 2:待完工
+		task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				 //任务状态: 2:待完工
 		task1.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
 		sopTaskDao.insert(task1);
 		

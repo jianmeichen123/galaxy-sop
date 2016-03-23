@@ -6,8 +6,8 @@ public class DictUtil {
 		if(code.equals(DictEnum.taskStatus.待认领.getCode()))	{ 
 			name=DictEnum.taskStatus.待认领.getName();
 		}
-		if(code.equals(DictEnum.taskStatus.处理.getCode()))	{
-			name=DictEnum.taskStatus.处理.getName();
+		if(code.equals(DictEnum.taskStatus.待完工.getCode()))	{
+			name=DictEnum.taskStatus.待完工.getName();
 		}
 		if(code.equals(DictEnum.taskStatus.已完成.getCode()))	{
 			name=DictEnum.taskStatus.已完成.getName();

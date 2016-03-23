@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -107,6 +108,18 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	@Autowired
 	private SopVoucherFileService sopVoucherFileService;
 	
+	private String tempfilePath;
+	
+	
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
+
 	@Override
 	protected BaseService<SopFile> getBaseService() {
 		// TODO Auto-generated method stub
@@ -439,7 +452,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				List<Project> projectList = projectService.queryList(project);
 				
 				User user = new User();
-				user.setKeyword(sopFile.getProjectName());
+				user.setRealName(sopFile.getProjectName());
 				List<User> userList = userService.queryList(user);
 				if((projectList==null || projectList.size()<=0) && (userList==null || userList.size()<=0)){
 					Page<SopFile> pageSopFile = new Page<SopFile>(new ArrayList<SopFile>(), new PageRequest(sopFile.getPageNum(), sopFile.getPageSize()), 0l);
@@ -549,6 +562,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			logger.error(msg.toString());
 			resp.getResult().addError(msg);
 		}
+//		File file = new File(parent, child)
 		return resp;
 	}
 	
@@ -587,7 +601,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				key = file.getFileKey();
 				fileSize = file.getFileLength();
 			}
-			String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
+//			String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
+			String path = tempfilePath;
 			File temp = new File(path);
 			File temp1 = new File(path,fileName);
 			if (!temp.exists()) {

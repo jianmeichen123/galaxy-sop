@@ -9,7 +9,8 @@
             <dl>
             	<dt>项目 :</dt>
                 <dd>
-                	<select id="projectId" name="projectId"  >
+                	<select id="projectId" name="projectId"  
+                	valType="required" msg="<font color=red>*</font>项目不能为空" >
                     </select>
                	 <!-- <input type="text" placeholder="请输入关键字查找" class="txt"/> -->
                 </dd>
@@ -19,7 +20,8 @@
         <dl class="fmdl clearfix">
             <dt>会议召开日期：</dt>  <!-- class="form-control"  -->
             <dd>
-            	<input class="txt time" type="date" id="meetingDateStr" name = "meetingDateStr" />
+            	<input type="text" class="datepicker time" readonly  id="meetingDateStr" name = "meetingDateStr"  style="height:23px;"
+            	valType="required" msg="<font color=red>*</font>会议日期不能为空"  />
             </dd>
         </dl>
     </div>
@@ -27,10 +29,10 @@
     	<dl class="fmdl fml clearfix">
             <dt>会议类型：</dt>
             <dd class="clearfix">
-                <label><input type="radio" name="meetingType" value="meetingType:1"/>内评会</label>
-                <label><input type="radio" name="meetingType" value="meetingType:2"/>CEO评审</label>
-                <label><input type="radio" name="meetingType" value="meetingType:3"/>立项会</label>
-                <label><input type="radio" name="meetingType" value="meetingType:4"/>投决会</label>
+                <label><input type="radio" name="meetingTypeTc" value="meetingType:1"/>内评会</label>
+                <label><input type="radio" name="meetingTypeTc" value="meetingType:2"/>CEO评审</label>
+                <label><input type="radio" name="meetingTypeTc" value="meetingType:3"/>立项会</label>
+                <label><input type="radio" name="meetingTypeTc" value="meetingType:4"/>投决会</label>
             </dd>
         </dl>
         <dl class="fmdl clearfix">
@@ -46,7 +48,8 @@
     <dl class="fmdl clearfix">
        <dt>会议纪要:</dt>
        <dd>
-       	  <div type="text/plain" id="meetingNotes" style="width:100%;height:200px;max-height:200px;overflow:auto;"></div>
+       	  <div type="text/plain" id="meetingNotes" style="width:100%;height:200px;max-height:200px;overflow:auto;" >
+       	  </div>
 		</dd>
       </dl>
         
@@ -72,6 +75,10 @@
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+<!-- time -->
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
  <script type="text/javascript">
 		UM.getEditor('meetingNotes');

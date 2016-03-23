@@ -16,10 +16,13 @@
 
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 
-<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
-
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<!-- common -->
+<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
+
 <style>
 .tab-pane table th:nth-child(3) {
     width: 55%;
@@ -53,9 +56,10 @@
             <dl class="fmdl fmmr fmdll clearfix">
               <dt>访谈日期：</dt>
               <dd>
-                <input class="form-control" type="date" id = "startTime" name="startTime"  />
+              	<!-- <input class="form-control" type="date" id = "startTime" name="startTime"  /> -->
+                <input type="text" class="datepicker time" readonly id="startTime" name="startTime" style="height:23px;"/>
                 <span>至</span>
-                <input class="form-control" type="date" id = "endTime"  name="endTime"  />
+                <input type="text" class="datepicker time" readonly id="endTime"  name="endTime" style="height:23px;"/>
               </dd>
             </dl>
             
@@ -80,9 +84,9 @@
 	          		data-toolbar="#custom-toolbar" data-page-list="[5,10,20]"
 					data-id-field="lottoId" data-show-refresh="true">
 				<colgroup >
+					<col style="width:30%;"> <!-- 名称 -->
 					<col style="width:20%;"> <!-- 名称 -->
-					<col style="width:20%;"> <!-- 名称 -->
-					<col style="width:60%;">  <!-- 状态 -->
+					<col style="width:50%;">  <!-- 状态 -->
 				</colgroup>
 				<thead>
 					<tr>
@@ -103,21 +107,36 @@
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-
 <!-- file -->
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<!-- time -->
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
+<!-- clude -->
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
-
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 
-</body>
 <script type="text/javascript">
-
-
-
+$(function(){
+	createMenus(6);
+	
+	$('#data-table').bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		pageSize:5,
+		pageList : [5, 10, 20 ],
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+        search: false,
+	});
+	
+});
 </script>
+</body>
 
 </html>
 

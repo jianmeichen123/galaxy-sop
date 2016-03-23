@@ -186,7 +186,7 @@
 			<!-- 接触访谈信息 -->
 			<div class="block" data-tab="con" id="projectProgress_1_con">
 				<!--按钮-->
-				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
+				<div id="options_point" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="#" data-btn="interview" onclick="air();" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
 					<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn">启动内部评审</a>
 				</div>
@@ -414,7 +414,6 @@
 				</table>-->
 			</div>
 			
-			
 			<!-- 操作日志  -->
 			<div class="block" data-tab="con" id="projectProgress_con">
 				<div id="pro_message_custom-toolbar">
@@ -430,11 +429,14 @@
 							<th data-field="operationType" data-align="center">动作</th>
 							<th data-field="operationContent" data-align="center">对象</th>
 							<th data-field="projectName" data-align="center" >项目</th>
-							<th data-field="sopStage" data-align="center" >业务</th>
+							<th data-field="sopstage" data-align="center" >业务</th>
 						</tr>
 					</thead>
 				</table>
 			</div>
+		
+
+
 			
 		</div>
 	</div>
@@ -446,7 +448,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script>
-//盒子展开隐藏
+	//盒子展开隐藏
 	getTabPersonforP();
 	 getTabShareforP();
      $(".fctbox a").on("click",function(){
