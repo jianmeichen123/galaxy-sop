@@ -16,8 +16,8 @@
     <result column="person_character" property="personCharacter" jdbcType="VARCHAR" />
     <result column="person_goodness" property="personGoodness" jdbcType="VARCHAR" />
     <result column="person_disparity" property="personDisparity" jdbcType="VARCHAR" />
-    <result column="talk_ability" property="talkAbility" jdbcType="INTEGER" />
-    <result column="team_ability" property="teamAbility" jdbcType="INTEGER" />
+    <result column="talk_ability" property="talkAbility" jdbcType="VARCHAR" />
+    <result column="team_ability" property="teamAbility" jdbcType="VARCHAR" />
     <result column="business_strength" property="businessStrength" jdbcType="VARCHAR" />
     <result column="free" property="free" jdbcType="INTEGER" />
     <result column="team_role" property="teamRole" jdbcType="VARCHAR" />
@@ -117,8 +117,8 @@
 		      <if test="personCharacter != null" >   person_character = #{personCharacter,jdbcType=VARCHAR}, </if>
 		      <if test="personGoodness != null" >  person_goodness = #{personGoodness,jdbcType=VARCHAR}, </if>
 		      <if test="personDisparity != null" > person_disparity = #{personDisparity,jdbcType=VARCHAR}, </if>
-		      <if test="talkAbility != null" >  talk_ability = #{talkAbility,jdbcType=INTEGER}, </if>
-		      <if test="teamAbility != null" >  team_ability = #{teamAbility,jdbcType=INTEGER}, </if>
+		      <if test="talkAbility != null" >  talk_ability = #{talkAbility,jdbcType=VARCHAR}, </if>
+		      <if test="teamAbility != null" >  team_ability = #{teamAbility,jdbcType=VARCHAR}, </if>
 		      <if test="businessStrength != null" >  business_strength = #{businessStrength,jdbcType=VARCHAR}, </if>
 		      <if test="free != null" >  free = #{free,jdbcType=INTEGER}, </if>
 		      <if test="teamRole != null" >  team_role = #{teamRole,jdbcType=VARCHAR}, </if>
@@ -155,8 +155,8 @@
 		      <if test="personCharacter != null" >   person_character = #{personCharacter,jdbcType=VARCHAR}, </if>
 		      <if test="personGoodness != null" >  person_goodness = #{personGoodness,jdbcType=VARCHAR}, </if>
 		      <if test="personDisparity != null" > person_disparity = #{personDisparity,jdbcType=VARCHAR}, </if>
-		      <if test="talkAbility != null" >  talk_ability = #{talkAbility,jdbcType=INTEGER}, </if>
-		      <if test="teamAbility != null" >  team_ability = #{teamAbility,jdbcType=INTEGER}, </if>
+		      <if test="talkAbility != null" >  talk_ability = #{talkAbility,jdbcType=VARCHAR}, </if>
+		      <if test="teamAbility != null" >  team_ability = #{teamAbility,jdbcType=VARCHAR}, </if>
 		      <if test="businessStrength != null" >  business_strength = #{businessStrength,jdbcType=VARCHAR}, </if>
 		      <if test="free != null" >  free = #{free,jdbcType=INTEGER}, </if>
 		      <if test="teamRole != null" >  team_role = #{teamRole,jdbcType=VARCHAR}, </if>

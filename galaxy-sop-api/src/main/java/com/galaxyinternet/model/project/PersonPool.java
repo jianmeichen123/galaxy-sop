@@ -22,7 +22,7 @@ public class PersonPool extends PagableEntity{
     private String personCharacter;
     private String personGoodness;
     private String personDisparity;
-    private Integer talkAbility;
+    private String talkAbility;
     private Integer teamAbility;
     private String businessStrength;
     private Integer free;
@@ -138,14 +138,6 @@ public class PersonPool extends PagableEntity{
         this.personDisparity = personDisparity == null ? null : personDisparity.trim();
     }
 
-    public Integer getTalkAbility() {
-        return talkAbility;
-    }
-
-    public void setTalkAbility(Integer talkAbility) {
-        this.talkAbility = talkAbility;
-    }
-
     public Integer getTeamAbility() {
         return teamAbility;
     }
@@ -225,4 +217,14 @@ public class PersonPool extends PagableEntity{
     public void setCreateId(Long createId) {
         this.createId = createId;
     }
+
+	public String getTalkAbility() {
+		return talkAbility;
+	}
+
+	public void setTalkAbility(String talkAbility) {
+		this.talkAbility = talkAbility;
+	}
+    
+    
 }
