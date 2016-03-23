@@ -499,15 +499,13 @@ function getInterViewCondition(hasProid,projectId,
 			return false;
 		}
 	}
-	if(viewNotes == null || viewNotes== ""){
-		alert("访谈记录不能为空");
-		return false;
-	}else{
-		if(getLength(viewTarget) > 500){
-			alert("访谈记录长度最大500字节");
+	if(viewNotes != null && viewNotes.length > 0){
+		if(viewTarget.length > 3000){
+			alert("访谈记录长度最大3000字符");
 			return false;
 		}
 	}
+	
 	condition.projectId = projectId;
 	condition.viewDateStr = viewDateStr;
 	condition.viewTarget = viewTarget;
@@ -585,12 +583,9 @@ function getMeetCondition(hasProid,projectId,
 		return false;
 	}
 	
-	if(meetingNotes == null || meetingNotes== ""){
-		alert("会议记录不能为空");
-		return false;
-	}else{
-		if(getLength(meetingNotes) > 500){
-			alert("会议记录长度最大500字节");
+	if(meetingNotes != null && meetingNotes.length > 0){
+		if(meetingNotes.length > 3000){
+			alert("会议记录长度最大3000字符");
 			return false;
 		}
 	}
@@ -639,18 +634,21 @@ function meetInfoFormat(value, row, index){
 //interview
 function intervierLog(value,row,index){
 	var len = getLength($.trim(value));
-	var strlog=replaceStr(row.viewNotes);
-	strlog=strlog.replace("</div>","");
-	strlog=strlog.replace("<br/>","");
-	var strrrr=strlog;
-	if(len>100){
-		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
-		var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
-		
-		return rc;
-	}else{
-		return strlog;
+	if(row.viewNotes != ''){
+		var strlog=delHtmlTag(row.viewNotes);
+/*		strlog=strlog.replace("</div>","");
+		strlog=strlog.replace("<br/>","");*/
+		var strrrr=strlog;
+		if(len>100){
+			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
+			
+			return rc;
+		}else{
+			return strlog;
+		}
 	}
+
 }
 
 //meet table format
@@ -701,6 +699,11 @@ function replaceStr(str){
 		return result;
 	}
 
+}
+
+function delHtmlTag(str)
+{
+return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
 }
 
 

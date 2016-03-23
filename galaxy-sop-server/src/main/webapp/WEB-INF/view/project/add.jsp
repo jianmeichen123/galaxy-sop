@@ -60,7 +60,7 @@
                         <dl>
                           <dt>创建时间：</dt>
                           <dd>
-                          	<input type="text" class="start-datepicker time" name="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
+                          	<input type="text" class="datepicker time" name="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
                           </dd>
                         </dl>
                       </td>
@@ -101,7 +101,7 @@
                       <td>
                         <dl>
                           <dt>出让股份：</dt>
-                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt" valType="NUMBER" msg="<font color=red>*</font>只能是数字"><span>&nbsp;%</span></dd>
+                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
                         </dl>
                       </td>
                       <td>

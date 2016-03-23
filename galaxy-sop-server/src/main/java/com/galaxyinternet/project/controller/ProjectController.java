@@ -529,13 +529,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		/**
 		 * 1.参数校验
 		 */
+		//所有都必须附带pid和stage
 		if(p.getPid() == null || p.getStage() == null 
 				|| !SopConstant._progress_pattern_.matcher(p.getStage()).matches()
 				|| p.getParseDate() == null){
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
-		if(p.getStage().equals(DictEnum.projectProgress.内部评审.getCode()) || p.getStage().equals(DictEnum.projectProgress.CEO评审.getCode())){
+		//如果是内评会、CEO评审会、立项会、投决会,则会议类型和会议结论不能缺少
+		if(p.getStage().equals(DictEnum.projectProgress.内部评审.getCode()) 
+				|| p.getStage().equals(DictEnum.projectProgress.CEO评审.getCode())
+				|| p.getStage().equals(DictEnum.projectProgress.立项会.getCode())
+				|| p.getStage().equals(DictEnum.projectProgress.投资决策会.getCode())){
 			if(p.getMeetingType() == null || !SopConstant._meeting_type_pattern_.matcher(p.getMeetingType()).matches()
 					|| p.getResult() == null || !SopConstant._meeting_result_pattern_.matcher(p.getResult()).matches()){
 				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
@@ -582,7 +587,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 			result = OSSHelper.simpleUploadByOSS(file.getInputStream(),fileKey);
 		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 		/**
 		 * 3.处理业务

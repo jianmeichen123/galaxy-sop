@@ -1,10 +1,12 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% 
 	String path = request.getContextPath(); 
     java.util.Date date=new java.util.Date();
     System.out.println(date);
 %>
+
 <!doctype html>
 <html>
 <head>
@@ -47,7 +49,9 @@
         	<ul class="tipslink tablink">
 
                 <li class="on"><a href="javascript:;" query-by="module" query-val="1" >广播消息<span><!-- (10) --></span></a></li>
+                <c:if test="!(<%=roleId ==1 || roleId ==2 || roleId ==3  %>)">
                 <li><a href="javascript:;"  query-by="module" query-val="2">与我有关 <span><!-- (4) --></span></a></li>
+                </c:if>
           </ul>
         </div>
         <!--表格内容-->

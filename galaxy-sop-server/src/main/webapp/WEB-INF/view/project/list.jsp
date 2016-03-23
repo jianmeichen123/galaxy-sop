@@ -7,12 +7,18 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
+
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 </head>
 
@@ -287,6 +293,8 @@
 	 */
 	function air(){
 		
+		$("[data-id='popid1']").remove();
+		
 		loadJs();
 		
 		var _url='<%=path%>/galaxy/air';
@@ -362,7 +370,9 @@
 	 * 上传会议记录
 	 */
 	 function addMettingRecord(num,meetingType){
-		 loadJs();
+		$("[data-id='popid1']").remove();
+		 
+		loadJs();
 		var _url='<%=path %>/galaxy/mr';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -523,6 +533,7 @@
 	 * 上传文档
 	 */
 	 function addFile(num,i){
+		 $("[data-id='popid1']").remove();
 		 loadJs();
 		var _url='<%=path %>/galaxy/tzyx';
 		$.getHtml({
@@ -632,6 +643,7 @@
 	 * 点击上传业务尽调报告按钮
 	 */
 	function uploadYwjd(){
+		$("[data-id='popid1']").remove();
 		loadJs();
 		var _url='<%=path %>/galaxy/jzdc';
 		$.getHtml({
@@ -802,6 +814,7 @@
 	 * 投资协议弹出层
 	 */
 	 function tzxyAlert(num,i){
+		 $("[data-id='popid1']").remove();
 		 loadJs();
 		var _url='<%=path %>/galaxy/tzxy';
 		$.getHtml({
@@ -867,6 +880,7 @@
 	  * 股权转让协议弹出层
 	  */
 	 function gqzrAlert(num,i){
+		 $("[data-id='popid1']").remove();
 		 loadJs();
 		var _url='<%=path %>/galaxy/gqzr';
 		$.getHtml({

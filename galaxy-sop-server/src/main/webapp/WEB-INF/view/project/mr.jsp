@@ -2,6 +2,8 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+
 <!-- 富文本编辑器 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
@@ -9,6 +11,18 @@
 <script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
 <div class="meetingtc">
 	<div class="top clearfix">
     	<!-- <div class="searchall clearfix">
@@ -23,7 +37,7 @@
         <dl class="fmdl clearfix">
             <dt>会议召开日期：</dt>
             <dd>
-            	<input class="form-control" type="date" id="meeting_date" />
+            	<input class="datepicker time" style="height:24px;" type="text" id="meeting_date" readonly value="" />
             </dd>
         </dl>
     </div>
@@ -43,7 +57,7 @@
         <dl class="fmdl clearfix">
             <dt>会议结论：</dt>
             <dd class="clearfix">
-                <label><input type="radio" name="meetingResult" value="meetingResult:1"/>通过</label>
+                <label><input type="radio" checked name="meetingResult" value="meetingResult:1"/>通过</label>
                 <label><input type="radio" name="meetingResult" value="meetingResult:2"/>待定</label>
                 <label><input type="radio" name="meetingResult" value="meetingResult:3"/>否决</label>
             </dd>
@@ -53,7 +67,7 @@
     <dl class="fmdl clearfix">
        <dt>会议纪要:</dt>
        <dd>
-       	  <div type="text/plain" id="meeting_notes" style="width:100%;height:100px;"></div>
+       	  <div type="text/plain" id="meeting_notes" style="width:100%;height:100px;" valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>会议纪要不能为空"></div>
 		</dd>
       </dl>
         
