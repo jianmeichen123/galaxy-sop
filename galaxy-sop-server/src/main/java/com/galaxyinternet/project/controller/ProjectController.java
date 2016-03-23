@@ -278,9 +278,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project.setCreateUid(user.getId());
 /*		project.setrComplany("11");
 		project.setbComplany(1000d);
-		project.setaComplany(100d);*/
+		project.setaComplany(100d);
 		project.setCascOrDes("created_time");
-		project.setAscOrDes("asc");
+		project.setAscOrDes("asc");*/
 		try {		
 			Page<Project>  pageProject=null;
 			if(project.getAscOrDes()!=null&&project.getCascOrDes()!=null){	
