@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <title>繁星</title>
 <!-- 校验样式 -->
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" />
+<!-- <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" /> -->
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->

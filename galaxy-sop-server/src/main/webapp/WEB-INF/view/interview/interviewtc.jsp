@@ -20,7 +20,7 @@
         <dl class="fmdl clearfix">   <!-- valType="required" msg="<font color=red>*</font>不能为空" -->
             <dt>访谈日期：</dt>
             <dd>
-            	<input type="text" class="datepicker time" readonly  id="viewDate" name ="viewDate" style="height:23px;"  
+            	<input type="text" class="datepicker txt time" readonly  id="viewDate" name ="viewDate" style="height:23px;"  
             	valType="required" msg="<font color=red>*</font>访谈日期不能为空"  />
             </dd>
         </dl>

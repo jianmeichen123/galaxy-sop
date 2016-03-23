@@ -20,7 +20,7 @@
         <dl class="fmdl clearfix">
             <dt>会议召开日期：</dt>  <!-- class="form-control"  -->
             <dd>
-            	<input type="text" class="datepicker time" readonly  id="meetingDateStr" name = "meetingDateStr"  style="height:23px;"
+            	<input type="text" class="datepicker txt time" readonly  id="meetingDateStr" name = "meetingDateStr"  style="height:23px;"
             	valType="required" msg="<font color=red>*</font>会议日期不能为空"  />
             </dd>
         </dl>

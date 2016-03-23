@@ -29,7 +29,7 @@
             <dt>访谈日期：</dt>
             <dd>
             	<%-- <input class="form-control" type="date" id="viewDate" name="viewDate" valType="required" msg="<font color=red>*</font>创建时间不能为空"/> --%>
-                <input type="text" class="datepicker time" id="viewDate" name="viewDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
+                <input type="text" class="datepicker txt time" id="viewDate" name="viewDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
             </dd>
         </dl>
     </div>

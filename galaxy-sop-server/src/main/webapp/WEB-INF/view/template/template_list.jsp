@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
-<link rel="stylesheet" type="text/css" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  />
+<!--  <link rel="stylesheet" type="text/css" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  />-->
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>

@@ -67,7 +67,7 @@
                   </tr>
                   <tr>
                       <td><dl><dt>出让股份：</dt>
-                          <dd><input id="project_share_ratio" name="projectShareRatio" type="text" value="" placeholder="出让股份" valType="NUMBER" msg="<font color=red>*</font>只能是数字"/></dd>
+                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
                         </dl></td>
                       <td>
                         <dl>
@@ -197,7 +197,7 @@
               <dt>团队成员</dt>
               <dd class="full_w describe clearfix">
               	<div class="btnbox_f">
-                  <a href="javascript:;" class="ico b1" onclick="addPerson();">添加</a>
+                  <a href="javascript:;" class="ico b1 fffbtn" onclick="addPerson();">添加</a>
                   <!--  
                   <a href="javascript:;" class="ico b2">修改</a>
                   <a href="javascript:;" class="ico b3">删除</a>-->
@@ -221,7 +221,7 @@
               <dt>股权结构</dt>
               <dd class="full_w describe clearfix">
               <div class="btnbox_f">
-                  <a href="javascript:;" onclick="addSharesView();" class="ico b1">添加</a>
+                  <a href="javascript:;" onclick="addSharesView();" class="ico b1 fffbtn">添加</a>
                   <!-- 
                   <a href="javascript:;" class="ico b2">修改</a>
                   <a href="javascript:;" class="ico b3">删除</a>
@@ -520,10 +520,10 @@ function closeback(data){
 	                      field: 'id',
 	                      align: 'center',
 	                      formatter:function(value,row,index){  
-		                   var a = '<a href="javascript:;" class="ico b2">人人简历</a>';
-		                   var e = '<a href="javascript:;" mce_href="javascript:;" class="ico b2" onclick="updatePer(\''+ row.id + '\')">修改</a> ';  
-		                   var d = '<a href="javascript:;" mce_href="javascript:;" class="ico b2" onclick="deletePer(\''+ row.id +'\')">删除</a> ';  
-	                        return '<div class="btnbox_f">'+a+e+d+'</div>';  
+		                   var a = '<a href="javascript:;" class="blue">个人简历</a>';
+		                   var e = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="updatePer(\''+ row.id + '\')">修改</a> ';  
+		                   var d = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="deletePer(\''+ row.id +'\')">删除</a> ';  
+	                        return a+e+d;  
 	                    } 
 	                  }
 	              ]
@@ -580,9 +580,9 @@ function closeback(data){
                       field: 'id',
                       align: 'center',
                       formatter:function(value,row,index){  
-                   var e = '<a href="javascript:;" mce_href="javascript:;" class="ico b2" onclick="editStock(\''+ row.id + '\')">修改</a> ';  
-                   var d = '<a href="javascript:;" mce_href="javascript:;" class="ico b2" onclick="delStock(\''+ row.id +'\')">删除</a> ';  
-                        return '<div class="btnbox_f">'+e+d+'</div>';  
+                   var e = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="editStock(\''+ row.id + '\')">修改</a> ';  
+                   var d = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="delStock(\''+ row.id +'\')">删除</a> ';  
+                        return e+d;  
                     } 
                   }
               ]
