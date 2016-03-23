@@ -117,6 +117,10 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 			 project.setDeptIdList(query.getDeptIdList());
 			 projectList = projectService.queryList(project);
 			 List<Long> projectIdList = new ArrayList<Long>();
+			 if (projectIdList.size() == 0) {
+				 Page<MeetingScheduling> page = new Page<MeetingScheduling>(null, pageable, (long) 0);
+				 return page;
+			 }
 			 for (Project temp: projectList) {
 				 projectIdList.add(temp.getId());
 			 }
