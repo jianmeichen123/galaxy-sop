@@ -499,15 +499,13 @@ function getInterViewCondition(hasProid,projectId,
 			return false;
 		}
 	}
-	if(viewNotes == null || viewNotes== ""){
-		alert("访谈记录不能为空");
-		return false;
-	}else{
-		if(getLength(viewTarget) > 500){
-			alert("访谈记录长度最大500字节");
+	if(viewNotes != null && viewNotes.length > 0){
+		if(viewTarget.length > 3000){
+			alert("访谈记录长度最大3000字符");
 			return false;
 		}
 	}
+	
 	condition.projectId = projectId;
 	condition.viewDateStr = viewDateStr;
 	condition.viewTarget = viewTarget;
@@ -585,12 +583,9 @@ function getMeetCondition(hasProid,projectId,
 		return false;
 	}
 	
-	if(meetingNotes == null || meetingNotes== ""){
-		alert("会议记录不能为空");
-		return false;
-	}else{
-		if(getLength(meetingNotes) > 500){
-			alert("会议记录长度最大500字节");
+	if(meetingNotes != null && meetingNotes.length > 0){
+		if(meetingNotes.length > 3000){
+			alert("会议记录长度最大3000字符");
 			return false;
 		}
 	}
