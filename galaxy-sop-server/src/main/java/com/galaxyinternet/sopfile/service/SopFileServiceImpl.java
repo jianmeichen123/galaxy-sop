@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,6 +72,18 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	protected BaseDao<SopFile, Long> getBaseDao() {
 		// TODO Auto-generated method stub
 		return this.sopFileDao;
+	}
+	
+	private String tempfilePath;
+	
+	
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
 	}
 
 	
@@ -473,7 +486,8 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
 		MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
 		
-		String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
+//		String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
+		String path = tempfilePath;
 		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
 		
 		Map<String,String> nameMap = transFileNames(fileName);

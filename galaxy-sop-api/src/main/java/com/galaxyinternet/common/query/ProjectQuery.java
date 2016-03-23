@@ -3,6 +3,8 @@ package com.galaxyinternet.common.query;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 import com.galaxyinternet.common.ViewQuery;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
@@ -41,6 +43,8 @@ public class ProjectQuery extends ViewQuery{
 	private String bucketName;
 	private String fileKey;
 	private long fileSize;
+	
+	private CommonsMultipartFile file;
 	
 	
 	//操作人属性
@@ -170,5 +174,11 @@ public class ProjectQuery extends ViewQuery{
 	}
 	public void setDepartmentId(long departmentId) {
 		this.departmentId = departmentId;
+	}
+	public CommonsMultipartFile getFile() {
+		return file;
+	}
+	public void setFile(CommonsMultipartFile file) {
+		this.file = file;
 	}
 }

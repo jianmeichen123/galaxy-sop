@@ -49,21 +49,24 @@ public class InMeetingHandler implements Handler {
 	@Transactional
 	public SopResult handler(ViewQuery query, Project project) throws Exception {
 		ProjectQuery q = (ProjectQuery) query;
+		Long fid = null;
+		if(q.getFileKey() != null){
+			SopFile file = new SopFile();
+			file.setProjectId(q.getPid());
+			file.setProjectProgress(q.getStage());
+			file.setCareerLine(q.getDepartmentId());
+			file.setFileType(DictEnum.fileType.音频文件.getCode());
+			file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+			file.setFileUid(q.getCreatedUid());
+			file.setCreatedTime((new Date()).getTime());
+			file.setFileLength(q.getFileSize());
+			file.setFileKey(q.getFileKey());
+			file.setBucketName(q.getBucketName());
+			file.setFileName(q.getFileName());
+			file.setFileSuffix(q.getSuffix());
+			fid = sopFileDao.insert(file);
+		}
 		//添加访谈文件记录
-		SopFile file = new SopFile();
-		file.setProjectId(q.getPid());
-		file.setProjectProgress(q.getStage());
-		file.setCareerLine(q.getDepartmentId());
-		file.setFileType(DictEnum.fileType.音频文件.getCode());
-		file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-		file.setFileUid(q.getCreatedUid());
-		file.setCreatedTime((new Date()).getTime());
-		file.setFileLength(q.getFileSize());
-		file.setFileKey(q.getFileKey());
-		file.setBucketName(q.getBucketName());
-		file.setFileName(q.getFileName());
-		file.setFileSuffix(q.getSuffix());
-		long fid = sopFileDao.insert(file);
 		MeetingRecord mr = new MeetingRecord();
 		mr.setProjectId(q.getPid());
 		mr.setFileId(fid);
