@@ -294,25 +294,34 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 		},
 		init: {
 			//上传按钮点击事件 - 开始上传
-			PostInit: function() {
+			PostInit: function(up) {
 				$("#" + submitBtnId).click(function(){
-					if(beforeSubmit()){
-						var file = $("#" + fileInputId).val();
+					var file = $("#" + fileInputId).val();
+					var param = paramsFunction();
+					console.log(param);
+					console.log(up.files.length);
+					if(up.files.length == 0){
+						sendPostRequestByJsonObj(platformUrl.stageChange,param,function(data){
+							var result = data.result.status;
+							if(result == "OK"){
+								layer.msg(data.result.message);
+								$("#powindow,#popbg").remove();
+								info(pid);
+							}else{
+								layer.msg(data.result.message);
+							}
+							
+							//contentType:"multipart/form-data"
+						});
+					}else{
+						up.settings.multipart_params = param;
 						uploader.start();
-						//传到后台的参数
-						//uploader.multipart_params = { id : "12345" };
-						return false;
 					}
-					
-					
+					return false;
 				});
 			},
 			//添加上传文件后，把文件名 赋值 给 input
 			FilesAdded: function(up, files) {
-				//解决多次文件选择后，文件都存入upload
-				if(uploader.files.length >= 2){
-					uploader.splice(0, uploader.files.length-1)
-				}
 				plupload.each(files, function(file) {
 					/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
 					$("#" + fileInputId).val(file.name);
@@ -346,13 +355,6 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 			BeforeUpload:function(up){
 				//表单函数提交
 				//alert(JSON.stringify(getSaveCondition()));
-				var param = paramsFunction();
-				if(param == false || param == 'false'){
-					up.stop();
-					return;
-				}else{
-					up.settings.multipart_params = param;
-				}
 			},
 			Error: function(up, err) {
 				alert("错误"+err);

@@ -150,15 +150,15 @@
                 <table>
                   <tr>
                     <th>老师姓名：</th>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名长度限制50"></td>
-                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名长度限制50"></td>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名长度限制50"></td> 
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td>
+                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td>
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td> 
                   </tr>
                   <tr>
                     <th>部门：</th>
-                    <td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH"  msg="姓名只能包含字母、汉字数字、“.”"></td>
-					<td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH" msg="姓名只能包含字母、汉字数字、“.”"></td>
-                    <td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH" msg="姓名只能包含字母、汉字数字、“.”"></td>
+                    <td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH"  msg="姓名只能包含字母、汉字数字 长度限制50"></td>
+					<td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH" msg="姓名只能包含字母、汉字数字 长度限制50"></td>
+                    <td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH" msg="姓名只能包含字母、汉字数字 长度限制50"></td>
                   </tr>
                   <tr>
                     <th>老师座机：</th>
@@ -213,7 +213,7 @@
                   </tr>
                 <tr>
                     <th>入职时间:</th>
-                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value="" valType="DATE"  class="datepicker"  msg="<font color=red>*</fon入职时间格式错误">></td>
+                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value="" valType="DATE"  class="datepicker"  msg="<font color=red>*</fon入职时间格式错误"></td>
                   </tr>
                   <tr>
                     <th>离职原因:</th>

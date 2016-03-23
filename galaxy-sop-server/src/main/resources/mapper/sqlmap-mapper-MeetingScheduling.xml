@@ -42,8 +42,9 @@
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>
 		</where>
-		<!-- <if test="sorting != null">order by ${sorting}</if> -->
-		order by meeting_count desc,meeting_date desc
+		<if test="sorting != null">order by ${sorting}</if> 
+		<if test="sorting == null">order by meeting_count desc,meeting_date desc</if> 
+		
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>

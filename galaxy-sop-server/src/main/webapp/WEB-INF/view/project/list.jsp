@@ -74,17 +74,17 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" id="nameLike" name="nameLike" placeholder="请输入项目名称或编号" />
+						<input type="text" class="txt" name="nameLike" placeholder="请输入项目名称或编号" />
 					</dd>
 					<dd>
-						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
+						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
 					</dd>
 				</dl>
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">	
 			<table id="data-table" data-url="project/spl" data-height="555" 
-				data-page-list="[1, 5, 50]" data-toolbar="#custom-toolbar">
+				data-page-list="[1, 5, 50]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
@@ -109,7 +109,7 @@
 <!-- 分页二css+四js -->
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
 

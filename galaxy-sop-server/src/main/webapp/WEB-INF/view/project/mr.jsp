@@ -57,8 +57,8 @@
         <dl class="fmdl clearfix">
             <dt>会议结论：</dt>
             <dd class="clearfix">
-                <label><input type="radio" checked name="meetingResult" value="meetingResult:1"/>通过</label>
-                <label><input type="radio" name="meetingResult" value="meetingResult:2"/>待定</label>
+                <label><input type="radio"  name="meetingResult" value="meetingResult:1"/>通过</label>
+                <label><input type="radio" checked name="meetingResult" value="meetingResult:2"/>待定</label>
                 <label><input type="radio" name="meetingResult" value="meetingResult:3"/>否决</label>
             </dd>
         </dl>
