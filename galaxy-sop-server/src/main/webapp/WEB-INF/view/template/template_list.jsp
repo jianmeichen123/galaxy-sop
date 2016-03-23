@@ -157,12 +157,7 @@
 
         </dd>
     </dl>
-    <div class="checkbox">
-        <label for=""><input name="zipFlag" type="checkbox">自动打成一个压缩包附件发送</label>
-    </div>    
-    <div class="checkbox">
-        <label for=""><input name="smFlag" type="checkbox">发送成功后短信通知</label>
-    </div>
+    
     <div class="btnbox">
     	<a href="javascript:;" class="pubbtn bluebtn" id="send-mail-btn">发送</a>
     </div>
@@ -419,7 +414,7 @@ function showMailPopup()
 				{
 					return;
 				}
-			/* 	var $form = $(_dialog.id).find("#mail-form");
+			 	var $form = $(_dialog.id).find("#mail-form");
 				var data = JSON.parse($form .serializeObject());
 				var url = platformUrl.tempSendMail;
 				sendPostRequestByJsonObj(
@@ -428,7 +423,7 @@ function showMailPopup()
 						function(data){
 							alert("发送邮件成功.");
 						}
-				); */
+				); 
 			});
 		}
 	});

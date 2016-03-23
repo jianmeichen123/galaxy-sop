@@ -233,8 +233,12 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		try {
 		    sopTaskService.updateById(entity);
 		     result.setStatus(Status.OK);
-		     Project project = projectService.queryById(entity.getProjectId());
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+		     SopTask po = sopTaskService.queryById(entity.getId());
+		     if(po != null && po.getProjectId() != null)
+		     {
+		    	 Project project = projectService.queryById(po.getProjectId());
+		    	 ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+		     }
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
 		} catch (Exception e) {
