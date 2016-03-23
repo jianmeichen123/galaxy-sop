@@ -7,6 +7,11 @@ var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
 //var sopContentUrl = "http://127.0.0.1:8082/";
 
 var platformUrl = {
+		
+	/**
+	 * 获取token
+	*/
+	getToken: Constants.platformEndpointURL+ "galaxy/user/formtoken",
 	/**
 	 * 跳转到登录
 	 */
