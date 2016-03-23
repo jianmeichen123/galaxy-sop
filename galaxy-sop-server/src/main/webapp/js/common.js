@@ -639,18 +639,21 @@ function meetInfoFormat(value, row, index){
 //interview
 function intervierLog(value,row,index){
 	var len = getLength($.trim(value));
-	var strlog=replaceStr(row.viewNotes);
-	strlog=strlog.replace("</div>","");
-	strlog=strlog.replace("<br/>","");
-	var strrrr=strlog;
-	if(len>100){
-		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
-		var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
-		
-		return rc;
-	}else{
-		return strlog;
+	if(row.viewNotes != ''){
+		var strlog=replaceStr(row.viewNotes);
+		strlog=strlog.replace("</div>","");
+		strlog=strlog.replace("<br/>","");
+		var strrrr=strlog;
+		if(len>100){
+			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
+			
+			return rc;
+		}else{
+			return strlog;
+		}
 	}
+
 }
 
 //meet table format
