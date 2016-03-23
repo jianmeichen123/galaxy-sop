@@ -16,18 +16,6 @@
            http://www.springframework.org/schema/mvc 
 		   http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 		   
-		   <!-- 依赖的服务属性配置器 -->
-	<bean id="propertyConfigurer" 
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
-		<property name="locations">
-			<list>
-				<value>classpath:db/database.properties</value>
-				<value>classpath:dubbo/dubbo.properties</value>
-				<!-- <value>classpath:redis/redis.properties</value> -->
-			</list>
-		</property>
-	</bean>
-		   
 	<!-- 启用Spring Annotation -->
 	<context:annotation-config />
 	<!-- 使用annotation 自动注册bean,并保证@Required,@Autowired的属性被注入 -->
