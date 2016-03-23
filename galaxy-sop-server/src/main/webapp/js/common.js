@@ -640,9 +640,9 @@ function meetInfoFormat(value, row, index){
 function intervierLog(value,row,index){
 	var len = getLength($.trim(value));
 	if(row.viewNotes != ''){
-		var strlog=replaceStr(row.viewNotes);
-		strlog=strlog.replace("</div>","");
-		strlog=strlog.replace("<br/>","");
+		var strlog=delHtmlTag(row.viewNotes);
+/*		strlog=strlog.replace("</div>","");
+		strlog=strlog.replace("<br/>","");*/
 		var strrrr=strlog;
 		if(len>100){
 			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
@@ -704,6 +704,11 @@ function replaceStr(str){
 		return result;
 	}
 
+}
+
+function delHtmlTag(str)
+{
+return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
 }
 
 

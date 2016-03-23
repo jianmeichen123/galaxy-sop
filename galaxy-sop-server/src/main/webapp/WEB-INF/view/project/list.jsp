@@ -293,6 +293,8 @@
 	 */
 	function air(){
 		
+		$("[data-id='popid1']").remove();
+		
 		loadJs();
 		
 		var _url='<%=path%>/galaxy/air';
@@ -368,7 +370,9 @@
 	 * 上传会议记录
 	 */
 	 function addMettingRecord(num,meetingType){
-		 loadJs();
+		$("[data-id='popid1']").remove();
+		 
+		loadJs();
 		var _url='<%=path %>/galaxy/mr';
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -529,6 +533,7 @@
 	 * 上传文档
 	 */
 	 function addFile(num,i){
+		 $("[data-id='popid1']").remove();
 		 loadJs();
 		var _url='<%=path %>/galaxy/tzyx';
 		$.getHtml({
@@ -614,7 +619,7 @@
 					 if(o.fileStatus == 'fileStatus:1'){
 						 html += "<td>缺失</td>";
 						 if(o.fileWorktype != 'fileWorktype:1'){
-							 html ='<td><a href="javascript:; " onclick="taskUrged('+o.id+');"class="blue">催办</a></td>';
+							 html += "<td><a href='javascript:void(0);'>催办</a></td>";
 						 }else{
 							 html += "<td></td>";
 						 }
@@ -638,6 +643,7 @@
 	 * 点击上传业务尽调报告按钮
 	 */
 	function uploadYwjd(){
+		$("[data-id='popid1']").remove();
 		loadJs();
 		var _url='<%=path %>/galaxy/jzdc';
 		$.getHtml({
@@ -808,6 +814,7 @@
 	 * 投资协议弹出层
 	 */
 	 function tzxyAlert(num,i){
+		 $("[data-id='popid1']").remove();
 		 loadJs();
 		var _url='<%=path %>/galaxy/tzxy';
 		$.getHtml({
@@ -873,6 +880,7 @@
 	  * 股权转让协议弹出层
 	  */
 	 function gqzrAlert(num,i){
+		 $("[data-id='popid1']").remove();
 		 loadJs();
 		var _url='<%=path %>/galaxy/gqzr';
 		$.getHtml({
