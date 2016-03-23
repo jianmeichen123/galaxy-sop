@@ -37,7 +37,6 @@ import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
-import com.galaxyinternet.framework.core.form.Token;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -118,7 +117,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 * @return
 	 */
-	@Token
+	//@Token
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -223,7 +223,11 @@
 	}
 	function add(){
 		if(beforeSubmit()){
-			//获取TOKEN 用于验证表单提交
+			
+			sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
+			 forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+			})
+			/* //获取TOKEN 用于验证表单提交
 			sendPostRequest(platformUrl.getToken,callback);
 			
 			$.ajax({
@@ -253,7 +257,7 @@
 					forwardWithHeader(sopContentUrl + "/galaxy/mpl");
 				}
 			});
-			
+			 */
 		}
 	}
 	
