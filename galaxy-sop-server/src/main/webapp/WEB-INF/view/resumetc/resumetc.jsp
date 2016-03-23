@@ -64,11 +64,11 @@
                   </tr>
                   <tr>
                     <th>电话：</th>
-                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"></td>
+                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确" ></td>
                   </tr>
                   <tr>
                     <th>邮箱：</th>
-                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="MAIL" msg="<font color=red>*</font>电子邮箱格式不正确"></td>
+                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="MAIL" msg="<font color=red>*</font>电子邮箱格式不正确" ></td>
                   </tr>
                 </table>
               </div>
@@ -77,15 +77,15 @@
                 <table>
                   <tr>
                     <th>性格：</th>
-                    <td><input name="personCharacter" id="personCharacter" type="text" value="" ></td>
-                  </tr>
-                  <tr>
-                    <th>优势：</th>
-                    <td><input name="personGoodness" id="personGoodness" type="text" value="" ></td>
+                    <td><input name="personCharacter" id="personCharacter" type="text" value="" valType="GENERAL" msg="<font color=red>*</font>性格文本限制长度500"></td>
                   </tr>
                   <tr>
                     <th>劣势：</th>
-                    <td><input name="personDisparity" id="personDisparity" type="text" value="" ></td>
+                    <td><input name="personGoodness" id="personGoodness" type="text" value="" valType="GENERAL" msg="<font color=red>*</font>劣势限制长度500"></td>
+                  </tr>
+                  <tr>
+                    <th>劣势：</th>
+                    <td><input name="personDisparity" id="personDisparity" type="text" value="" valType="GENERAL" msg="<font color=red>*</font>劣势限制长度500"></td>
                   </tr>
                   <tr>
                     <th>沟通能力：</th>
@@ -130,9 +130,9 @@
                   </tr>                  
                   <tr>
                     <th>学历性质：</th>
-                    <td><input name="educationType" id="educationType" type="text" value=""></td>
-                	<td><input name="educationType" id="educationType" type="text" value=""></td>
-                    <td><input name="educationType" id="educationType" type="text" value=""></td>
+                    <td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH"  msg="<font color=red>*</font>学历性质只能包含字母、汉字"></td>
+                	<td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH"  msg="<font color=red>*</font>学历性质只能包含字母、汉字"></td>
+                    <td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH"  msg="<font color=red>*</font>学历性质只能包含字母、汉字"></td>
                   </tr>                  
    				 <tr>
                     <th>毕业年份：</th>
@@ -159,13 +159,13 @@
                   </tr>
                   <tr>
                     <th>部门：</th>
-                    <td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td>
-					<td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td>
-                    <td><input name="teacherPosition" id="teacherPosition" type="text" value=""></td>
+                    <td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH"  msg="<font color=red>*</font>姓名只能包含字母、汉字数字、“.”"></td>
+					<td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH" msg="<font color=red>*</font>姓名只能包含字母、汉字数字、“.”"></td>
+                    <td><input name="teacherPosition" id="teacherPosition" type="text" value="" valType="NUM_CHAR_CH" msg="<font color=red>*</font>姓名只能包含字母、汉字数字、“.”"></td>
                   </tr>
                   <tr>
                     <th>老师座机：</th>
-                    <td><input name="teacherPhone" id="teacherPhone" type="text" value=""></td>
+                    <td><input name="teacherPhone" id="teacherPhone" type="text" value="" ></td>
                     <td><input name="teacherPhone" id="teacherPhone" type="text" value=""></td>
                     <td><input name="teacherPhone" id="teacherPhone" type="text" value=""></td>
                   </tr>
@@ -177,9 +177,9 @@
                   </tr>
                   <tr>
                     <th>同学电话：</th>
-                    <td><input name="classmatePhone" id="classmatePhone" type="text" value=""></td>
-	                <td><input type="text" value="" name="classmatePhone"></td>
-                    <td><input type="text" value="" name="classmatePhone"></td>
+                    <td><input name="classmatePhone" id="classmatePhone" type="text" value="" valType="MOBILE"></td>
+	                <td><input type="text" value="" name="classmatePhone" valType="MOBILE"></td>
+                    <td><input type="text" value="" name="classmatePhone" valType="MOBILE"></td>
                   </tr>
                 </table>
               </div>
