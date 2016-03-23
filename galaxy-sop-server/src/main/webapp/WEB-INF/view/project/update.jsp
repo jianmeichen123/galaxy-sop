@@ -67,7 +67,7 @@
                   </tr>
                   <tr>
                       <td><dl><dt>出让股份：</dt>
-                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
+                          <dd><input type="text" id="project_share_ratio" name="projectShareRatio" value="" class="transferSharesTxt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
                         </dl></td>
                       <td>
                         <dl>
