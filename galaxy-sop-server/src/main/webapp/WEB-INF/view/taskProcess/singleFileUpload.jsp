@@ -86,12 +86,12 @@ $(function(){
 			},
 			function(data){
 				if(data.result.status=="OK"){
-					alert("提交成功。");
+					layer.msg("提交成功。");
 					forwardWithHeader(platformUrl.showTask);
 				}
 				else
 				{
-					alert("提交失败。");
+					layer.msg("提交失败。");
 				}
 			}
 		);
@@ -181,7 +181,7 @@ function initUpload(_dialog){
 					var fileName = $(_dialog.id).find('[name="fileName"]').val();
 					if(fileName == null || fileName == '')
 					{
-						alert("请选择文件");
+						layer.msg("请选择文件");
 						return;
 					}
 					//只更新内容，不更新文档
@@ -195,13 +195,13 @@ function initUpload(_dialog){
 								function(data){
 									if(data.status == "OK")
 									{
-										alert("上传成功.");
+										layer.msg("上传成功.");
 										$(_dialog.id).find("[data-close='close']").click();
 										loadRows();
 									}
 									else
 									{
-										alert("上传失败.");
+										layer.msg("上传失败.");
 									}
 								}
 						);
@@ -212,8 +212,15 @@ function initUpload(_dialog){
 			},
 
 			FilesAdded: function(up, files) {
-				plupload.each(files, function(file) {
-					$(_dialog.id).find("input[name='fileName']").val(file.name);
+				$.each(uploader.files,function(){
+					if(this != files[0])
+					{
+						uploader.removeFile(this);
+					}
+				});
+				$.each(files, function() {
+					$(_dialog.id).find("input[name='fileName']").val(this.name);
+					
 				});
 			},
 			BeforeUpload:function(up){
@@ -226,13 +233,13 @@ function initUpload(_dialog){
 				
 				if(data.status == "OK")
 				{
-					alert("上传成功.");
+					layer.msg("上传成功.");
 					$(_dialog.id).find("[data-close='close']").click();
 					loadRows();
 				}
 				else
 				{
-					alert("上传失败.");
+					layer.msg("上传失败.");
 				}
 			}
 		}
