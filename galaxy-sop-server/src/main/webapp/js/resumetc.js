@@ -259,27 +259,62 @@ function resemetValidate(input){
 	var valType = input.attr("valType");
 	var flag = true;
 	//flag = beforeSubmit();
-/* 	var value = input.val();
+ 	var value = input.val();
 	var regString = input.attr("regString");
 	var textsIn = input.attr("textsIn");
 	if(valType==''||valType=='undefined'||valType==undefined){
 		return flag;
 	}
 	switch (valType) {
-	case "IDENTITY":
+	case "MONEY":
+		flag = /^(([1-9]+)|([0-9]+\.[0-9]{1,2}))$/.test(value);
 		break;
+	case "RATIO":
+		flag = /^([1]?\d{1,2})$/.test(value);
+		break;
+	case "COMPANYNAME":
+		flag = /^[^\d]{1,100}$/.test(value);
+		break;
+	case "NAME":
+		flag = /^\S{1,20}$/.test(value);
+		break;
+	case "MEMBERSHIP":
+		flag = /^[\u4e00-\u9fa5\w]{1,20}$/.test(value);
+		break;
+	case "CERTIFICATE":
+		flag = /^\d{1,18}$/.test(value);
+		break;
+	case "NUM_CHAR_CH":
+		flag = /[\u4e00-\u9fa5a-zA-Z\d]{1,50}/.test(value);
+		break;
+	case "IDENTITY":
+		flag = /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/.test(value);
+		break;
+	case "CHAR_CH":
+		flag = /^\S{1,100}$/.test(value);
+		break;		
+	case "CHAR_CH_SYB":
+		flag = /^[\u4e00-\u9fa5a-zA-Z]{1,50}$/.test(value);
+		break;	
+	case "TEL":
+		flag = /^0(10|2[0-5789]|\\d{3})-\\d{7,8}$/.test(value);
+		break;			
 	case "MOBILE":
 		flag = /(^1[3|5|8][0-9]{9}$)/.test(value);
 		break;	
-	case "EMAIL":
-		flag = /(^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$)/.test(value);
+	case "MAIL":
+		flag = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/.test(value);
 		break;
-	case "onlyInt":
+	case "ONLYINT":
 		flag = /^[0-9]*$/.test(value);
 		break;
-	case "onlyZh":
+	case "ONLYZH":
 		flag = /^[\u4e00-\u9fa5]+$/.test(value);
 		break;	
+	case "DATE":
+		flag = /([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|(02-(0[1-9]|[1][0-9]|2[0-8])))/.test(value);
+		break;	
+		
 	default:
 		if(regString!=''){
 			var regexp = new RegExp(regString);
@@ -288,8 +323,9 @@ function resemetValidate(input){
 		break;
 	}
 	if(!flag){
-		layer.msg(input.attr("msg")+" :"+input.val());
-	} */
+		layer.msg(input.attr("msg")+"--"+input.val());
+	} 
+	
 	return flag;
 }
 function savecbf(data){
