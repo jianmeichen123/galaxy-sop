@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
-<link rel="stylesheet" type="text/css" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  />
+<!--  <link rel="stylesheet" type="text/css" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  />-->
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
@@ -81,13 +81,13 @@
     <dl class="fmdl clearfix">
     	<dt>业务分类：</dt>
         <dd>
-        	<select name="worktype"></select>
+        	<select name="worktype" disabled></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
     	<dt>所属部门：</dt>
         <dd>
-        	<select name="departmentId"></select>
+        	<select name="departmentId" disabled></select>
         </dd>
     </dl>
     <div class="fmdl clearfix">
@@ -157,12 +157,7 @@
 
         </dd>
     </dl>
-    <div class="checkbox">
-        <label for=""><input name="zipFlag" type="checkbox">自动打成一个压缩包附件发送</label>
-    </div>    
-    <div class="checkbox">
-        <label for=""><input name="smFlag" type="checkbox">发送成功后短信通知</label>
-    </div>
+    
     <div class="btnbox">
     	<a href="javascript:;" class="pubbtn bluebtn" id="send-mail-btn">发送</a>
     </div>
@@ -333,6 +328,11 @@ function initUpload(_dialog)
 		init: {
 			PostInit: function() {
 				$(_dialog.id).find("#upload-btn").click(function(){
+					if(uploader.files.length==0)
+					{
+						layer.msg("请选择文件.");
+						return;
+					}
 					uploader.start();
 					return false;
 				});
@@ -362,7 +362,7 @@ function initUpload(_dialog)
 						url,
 						data,
 						function(data){
-							alert("上传成功.");
+							layer.msg("上传成功.");
 							$(_dialog.id).find("[data-close='close']").click();
 							loadTempList();
 						}
@@ -393,7 +393,7 @@ function showMailPopup()
 	var len = flags.length;
 	if(len == 0 )
 	{
-		alert("请选择模板.");
+		layer.msg("请选择模板.");
 		return;
 	}
 	
@@ -419,16 +419,16 @@ function showMailPopup()
 				{
 					return;
 				}
-			/* 	var $form = $(_dialog.id).find("#mail-form");
+			 	var $form = $(_dialog.id).find("#mail-form");
 				var data = JSON.parse($form .serializeObject());
 				var url = platformUrl.tempSendMail;
 				sendPostRequestByJsonObj(
 						url,
 						data,
 						function(data){
-							alert("发送邮件成功.");
+							layer.msg("发送邮件成功.");
 						}
-				); */
+				); 
 			});
 		}
 	});

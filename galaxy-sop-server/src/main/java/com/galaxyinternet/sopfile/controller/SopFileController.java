@@ -68,6 +68,7 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.RoleUtils;
 
 @Controller
 @RequestMapping("/galaxy/sopFile")
@@ -412,11 +413,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
 		}
-		
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj.getId());
 		if("dialog".equals(sopFile.getPageType())){
 			sopFile.setFileWorktypeNullFilter("true");
 		}else{
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj.getId());
 			//角色判断(人事)
 			if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
 				sopFile.setFileUid(obj.getId());
@@ -481,6 +481,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		
 		try {
 			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,new PageRequest(sopFile.getPageNum(), sopFile.getPageSize()));
+			//操作权限判断
+			for(SopFile temp : pageSopFile.getContent()){
+				String isEdit = RoleUtils.getWorkTypeEdit(roleIdList, temp.getFileWorktype());
+				temp.setIsEdit(isEdit);			
+			}
 			responseBody.setPageList(pageSopFile);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;

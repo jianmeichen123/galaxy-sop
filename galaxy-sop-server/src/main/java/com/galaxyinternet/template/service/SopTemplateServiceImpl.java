@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.galaxyinternet.bo.template.SopTemplateBo;
 import com.galaxyinternet.dao.template.SopTemplateDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
@@ -103,9 +104,9 @@ public class SopTemplateServiceImpl extends BaseServiceImpl<SopTemplate>implemen
 	}
 
 	@Override
-	public List<SopTemplate> queryAll() {
+	public List<SopTemplate> queryList(SopTemplate query) {
 		// TODO Auto-generated method stub
-		List<SopTemplate> list = super.queryAll();
+		List<SopTemplate> list = super.queryList(query);
 		if(list != null && list.size()>0)
 		{
 			List<Department> depList = deptService.queryAll();

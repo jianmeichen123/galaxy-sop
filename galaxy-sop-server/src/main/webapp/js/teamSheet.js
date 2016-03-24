@@ -118,6 +118,10 @@
 									})
 								},
 								FilesAdded: function(up, files) {
+									//解决多次文件选择后，文件都存入upload
+									if(uploader.files.length >= 2){
+										uploader.splice(0, uploader.files.length-1)
+									}
 									plupload.each(files, function(file) {
 //										document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 										$(_this.id).find("#win_fileTxt").val(file.name);

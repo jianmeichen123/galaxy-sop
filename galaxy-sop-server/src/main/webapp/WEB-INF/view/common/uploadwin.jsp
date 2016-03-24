@@ -37,7 +37,8 @@
         <dd>
         	<input type="text" id="win_sopProjectId" data-tid=""  class="txt"/>
         </dd>
-       <!--  <dd><a class="searchbtn null" id="win_searchProjectBtn" href="javascript:;">搜索</a></dd> -->
+       <dd><a class="searchbtn null" id="win_searchProjectBtn" href="javascript:;">搜索</a></dd>
+   
     </dl>
     
      <dl class="fmdl clearfix">

@@ -2,10 +2,9 @@ package com.galaxyinternet.bo;
 
 import java.util.List;
 
-import com.galaxyinternet.framework.core.model.Pagable;
 import com.galaxyinternet.model.soptask.SopTask;
 
-public class SopTaskBo extends  SopTask implements Pagable{
+public class SopTaskBo extends  SopTask{
 
 	private static final long serialVersionUID = 1L;
 	private String createUname;// 业务对象中扩展的字段
@@ -70,11 +69,11 @@ public class SopTaskBo extends  SopTask implements Pagable{
 	}
 
 	public String getNameLike() {
-		return nameLike;
+		return nameLike == null ? null : nameLike.trim();
 	}
 
 	public void setNameLike(String nameLike) {
-		this.nameLike = nameLike;
+		this.nameLike = nameLike == null ? null : nameLike.trim();
 	}
 
 	public String getStatusFlag() {

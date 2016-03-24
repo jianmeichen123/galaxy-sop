@@ -70,7 +70,7 @@ var fileGrid = {
 		        title: '所属项目'
 		      }, {
 		        field: 'fSource',
-		        title: '档案管理'
+		        title: '档案来源'
 		      }, {
 		        field: 'fileUName',
 		        title: '起草者'
@@ -107,7 +107,7 @@ var fileGrid = {
 	},
 	operateFormatter : function(value, row, index){
 		
-		if(row.fileKey){
+		if(row.fileKey && row.isEdit == "true"){
 			return [
 			        '<a class="fileupdatelink blue"  href="javascript:void(0)">',
 			        '更新',
@@ -116,12 +116,20 @@ var fileGrid = {
 		            '下载',
 		            '</a>  '
 		        ].join('');
-		}else{
+		}else if(!row.fileKey && row.isEdit == "true"){
 			return [
 		            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
 		            '更新',
 		            '</a>  '
 		        ].join('');
+		}else if(row.fileKey && row.isEdit == "false"){
+			return [
+			        '<a class="filedownloadlink blue"  href="javascript:void(0)">',
+			        '下载',
+			        '</a>  '
+		        ].join('');
+		}else if(!row.fileKey && row.isEdit == "false"){
+			return '';
 		}
 		return '';
 	},
@@ -146,7 +154,7 @@ var fileGrid = {
 	queryParams : function(params){
 		var fileSource = utils.confident($("input[name='source']:checked").val(),"all");
 		var fileType = utils.confident($("#searchFileType").val(),"all");
-		var projectName = $("#searchProjectId").val();
+		var projectName = $("#searchProjectId").val().trim();
 		if(projectName=="") projectName=undefined;
 		var fileWorktype = utils.confident($("#searchFileWorktype").val(),"all");
 		var careerLine = utils.confident($("#searchCareerLine").val(),"all");

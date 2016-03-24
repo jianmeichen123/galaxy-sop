@@ -59,9 +59,9 @@
             <dl class="fmdl fmmr fmdll clearfix">
               <dt>会议日期：</dt>
               <dd>
-                <input type="text" class="datepicker time" readonly id="startTime" name="startTime"  style="height:23px;"/>
+                <input type="text" class="datepicker txt time" readonly id="startTime" name="startTime"  style="height:23px;"/>
                 <span>至</span>
-                <input type="text" class="datepicker time" readonly id="endTime" name="endTime"  style="height:23px;"/>
+                <input type="text" class="datepicker txt time" readonly id="endTime" name="endTime"  style="height:23px;"/>
                 
                 <!-- <input type="text" class="txt time" id="startTime" name="startTime" /> -->
               </dd>
@@ -114,7 +114,7 @@
 <script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <!-- upload -->
-<script src="${ctx}/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <!-- time -->
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>

@@ -10,9 +10,9 @@
 		http://www.springframework.org/schema/task 
 		http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
-<!-- 依赖的服务属性配置器 -->
-	<bean id="propertyConfigurer" 
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+	<!-- 依赖的服务属性配置器 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
 				<value>classpath:db/database.properties</value>
@@ -50,7 +50,7 @@
 	<mvc:annotation-driven />
 	<!-- 这个default-servlet-handler 可以使用DispatcherServlet的url-pattern 是/*, 如果springmvc找不到handler来处理请求, 
 		会自动放过,让serlvet container处理 -->
-		
+
 	<mvc:default-servlet-handler />
 	<!-- 这个tag是方便匹配请求跟view, 这个view一般是静态的 -->
 	<mvc:view-controller path="/about" view-name="about" />
@@ -81,7 +81,8 @@
 			<!-- <mvc:mapping path="/**/sop/galaxy/**" /> -->
 			<mvc:mapping path="/**" />
 			<!-- <mvc:exclude-mapping path="/**/*."/> -->
-			<bean class="com.galaxyinternet.common.annotation.MessageHandlerInterceptor" />
+			<bean
+				class="com.galaxyinternet.common.annotation.MessageHandlerInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 
