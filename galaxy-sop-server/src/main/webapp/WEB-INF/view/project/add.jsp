@@ -33,7 +33,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    <h2>我的项目</h2>
+    <h2>创建项目</h2>
       <!-- 面包屑 -->
      <!--  <ul class="breadcrumb">
        <li><a href="javascript:;" class="bcfirst">我的项目</a></li>

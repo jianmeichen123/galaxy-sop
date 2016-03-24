@@ -29,7 +29,7 @@ input.disabled{background-color: #000;}
 .ico{ background-repeat:no-repeat}
 .light_blue{background-color: #f4f6fa;}
 /*字体颜色*/
-.red{ color:#ff0000}
+.red{ color:#ff0000}1
 .org{ color:#ffa200}
 .gray{ color:#c2c9cf}
 .blue{ color:#62abe6}
@@ -822,6 +822,7 @@ right: 200px;}
 .chartbox_bottom ul li{color:#5D678A;}
 .chartbox_bottom ul .on{ background:#edeff5; }
 .mask{position: absolute;width:100%;height: 100%;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
+
 .mask1{position: absolute;width:100%;height: 100px;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
 dl dd .time1{display:inline-block !important;width: 100px !important;background:url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
 
