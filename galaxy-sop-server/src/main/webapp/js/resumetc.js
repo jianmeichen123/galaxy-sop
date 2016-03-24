@@ -282,7 +282,7 @@ function resemetValidate(input){
 		flag = /^[^\d]{1,100}$/.test(value);
 		break;
 	case "NAME":
-		flag = /^\S{1,50}[^\d]$/.test(value);
+		flag = /^\S{1,50}[^\d]+$/.test(value);
 		break;
 	case "MEMBERSHIP":
 		flag = /^[\u4e00-\u9fa5]{1,20}$/.test(value);
