@@ -163,8 +163,9 @@ $(".btnbox").on("click",".bluebtn",function(){
 				var son_model = {};
 				it.find("tr").each(function(m,tr_item){
 					var input = $(tr_item).find("input[name][type!=hidden]")[i];
-					if($(input).val().trim() != ''){
-						son_model[$(input).attr("name")] = $(input).val().trim();
+					var val = $(input).val().trim();
+					if(val != ''){
+						son_model[$(input).attr("name")] = val;
 						if(!resemetValidate($(input))){
 							flag = false;
 							return;
@@ -180,8 +181,9 @@ $(".btnbox").on("click",".bluebtn",function(){
 		}else{
 			model = {};
 			it.find("input[name]").each(function(index,input){
-				if($(input).val().trim() != ''){
-					model[$(input).attr("name")] = $(input).val().trim() ;
+				var val = $(input).val().trim();
+				if(val != ''){
+					model[$(input).attr("name")] = val ;
 					if(!resemetValidate($(input))){
 						flag = false;
 						return;
@@ -263,7 +265,7 @@ function resemetValidate(input){
 	var valType = input.attr("valType");
 	var flag = true;
 	//flag = beforeSubmit();
- 	var value = input.val();
+ 	var value = input.val().trim();
 	var regString = input.attr("regString");
 	var textsIn = input.attr("textsIn");
 	if(valType==''||valType=='undefined'||valType==undefined){
@@ -280,7 +282,7 @@ function resemetValidate(input){
 		flag = /^[^\d]{1,100}$/.test(value);
 		break;
 	case "NAME":
-		flag = /^\S{1,20}[^\d]$/.test(value);
+		flag = /^\S{1,50}[^\d]$/.test(value);
 		break;
 	case "MEMBERSHIP":
 		flag = /^[\u4e00-\u9fa5]{1,20}$/.test(value);
@@ -327,7 +329,7 @@ function resemetValidate(input){
 		break;
 	}
 	if(!flag){
-		layer.msg(input.attr("msg")+"--"+input.val());
+		layer.msg(input.attr("msg"));
 	} 
 	
 	return flag;
