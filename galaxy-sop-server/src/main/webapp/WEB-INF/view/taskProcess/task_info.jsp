@@ -101,7 +101,7 @@
                   </tr>
                 </tbody>
               </table>
-            <a href="javascript:;"  class="pjt_more">项目详细信息&gt;</a>
+            <a href='<%=path%>/galaxy/upp/${projectId}'  class="pjt_more">项目详细信息&gt;</a>
           </div>
           <!-- 下半部分 -->
           <!-- 人事尽职调查报告  hrjzdc;-->
