@@ -15,6 +15,7 @@
     	<dt>存储类型：</dt>
         <dd>
         	<select id="fileType">
+        	    <option value="">全部</option>
             	<option value="fileType:1">文档</option>
             	<option value="fileType:2">音频文件</option>
             	<option value="fileType:3">视频文件</option>

@@ -307,7 +307,7 @@
 				$('.searchbox').toggleshow();
 				leicj();
 				//初始化文件上传
-				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_btn","file_object","save_interview",
+				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_btn","file_object","save_interview","",
 						function getSaveCondition(){
 							var	condition = {};
 							var pid = $("#project_id").val();
@@ -382,7 +382,7 @@
 				$(".meetingtc").tabchange();
 				$('.searchbox').toggleshow();
 				leicj(meetingType);
-				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "meeting_select_btn","meeting_file_object","save_meeting",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "meeting_select_btn","meeting_file_object","save_meeting","",
 						function getSaveCondition(){
 							var	condition = {};
 							var pid = $("#project_id").val();
@@ -552,7 +552,7 @@
 				{
 					$("#voucherType").attr("disabled",true);
 				}
-				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -747,7 +747,7 @@
 				$(".meetingtc").tabchange();
 				$('.searchbox').toggleshow();
 				leicj();
-				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -921,7 +921,7 @@
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
 				}
-				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -987,7 +987,7 @@
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
 				}
-				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();

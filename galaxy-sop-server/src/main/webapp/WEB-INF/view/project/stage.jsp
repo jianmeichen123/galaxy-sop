@@ -224,7 +224,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -251,7 +251,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -279,7 +279,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -306,7 +306,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -608,4 +608,10 @@
  		$("#business_model_show").html(data.entity.projectBusinessModel);
  		$("#projectDesc_show").html(data.entity.userPortrait);
  	});
+ 	function replaceStr(str){
+ 		if(str){
+ 			var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
+ 			return result;
+ 		}
+	}
 </script>
