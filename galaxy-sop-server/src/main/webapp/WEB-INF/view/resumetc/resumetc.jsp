@@ -174,7 +174,7 @@
                   </tr>
                   <tr>
                     <th>同学电话：</th>
-                    <td><input name="classmatePhone" id="classmatePhone" type="text" value="" valType="MOBILE"></td>
+                    <td><input name="classmatePhone" id="classmatePhone" type="text" value="" valType="MOBILE" msg="同学电话格式错误" ></td>
 	                <td><input type="text" value="" name="classmatePhone" valType="MOBILE"  msg="同学电话格式错误" ></td>
                     <td><input type="text" value="" name="classmatePhone" valType="MOBILE"  msg="同学电话格式错误" ></td>
                   </tr>
@@ -283,7 +283,7 @@
  				<table>
                   <tr>
                     <th>公司名称：</th>
-                    <td><input type="text" name="acompanyName" id="acompanyName"  value="" valType="COMPANYNAME" msg="联系方式错误"></td>
+                    <td><input type="text" name="acompanyName" id="acompanyName"  value="" valType="COMPANYNAME" msg="公司名称格式错误"></td>
                   </tr>
                   <tr>
                     <th>投资金额：</th>

@@ -262,18 +262,16 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addInterview", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecord interviewRecord ,HttpServletRequest request ) {
+	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecordBo interviewRecord ,HttpServletRequest request ) {
 		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+		Long viewId;
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
-			if(interviewRecord.getProjectId() == null 
-					|| interviewRecord.getViewDate() == null 
-					|| interviewRecord.getViewTarget() == null ){
+			if(interviewRecord == null || interviewRecord.getProjectId() == null || interviewRecord.getViewDate() == null || interviewRecord.getViewTarget() == null ){
 				responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
 				return responseBody;
 			}
-			
 			//project id 验证
 			Project project = new Project();
 			project = projectService.queryById(interviewRecord.getProjectId());
@@ -283,16 +281,48 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
-		
-			Long id = interviewRecordService.insert(interviewRecord);
+			
+			//验证是否附件已上传
+			if(interviewRecord.getFkey()!=null){
+				if(interviewRecord.getBucketName()==null || interviewRecord.getFileLength()==null||interviewRecord.getFname()==null){
+					responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
+					return responseBody;
+				}
+				
+				Map<String,String> nameMap = transFileNames(interviewRecord.getFname());
+				SopFile sopFile = new SopFile();
+				sopFile.setBucketName(interviewRecord.getBucketName());
+				sopFile.setFileKey(interviewRecord.getFkey());
+				sopFile.setFileLength(interviewRecord.getFileLength());
+				sopFile.setFileName(nameMap.get("fileName"));
+				sopFile.setFileSuffix(nameMap.get("fileSuffix"));
+				
+				sopFile.setProjectId(project.getId());
+				sopFile.setProjectProgress(project.getProjectProgress());
+				sopFile.setFileUid(user.getId());	 //上传人
+				sopFile.setCareerLine(user.getDepartmentId());
+				sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
+				sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
+				//sopFile.setFileWorktype(fileWorkType);    //业务分类
+				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+				
+				viewId = interviewRecordService.insertInterview(interviewRecord,sopFile);
+			}else{
+				viewId = interviewRecordService.insert(interviewRecord);
+			}
+			if(viewId == null){
+				responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
+				logger.error("addInterview  谈添加失败 ");
+				return responseBody;
+			}
 			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(id);
+			responseBody.setId(viewId);
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
 			
 			if(logger.isErrorEnabled()){
-				logger.error(" addInterview 访谈添加失败 ",e);
+				logger.error("addInterview 访谈添加失败 ",e);
 			}
 		}
 		return responseBody;
@@ -314,8 +344,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			if(sopFile.getFileKey()==null || sopFile.getBucketName()==null || sopFile.getFileLength()==null||sopFile.getFileName()==null){
-				responseBody.setResult(new Result(Status.ERROR,null, "interviewRecord info not complete"));
+			if(sopFile == null || sopFile.getFileKey()==null || sopFile.getBucketName()==null || sopFile.getFileLength()==null||sopFile.getFileName()==null){
+				responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
 				return responseBody;
 			}
 			
@@ -345,7 +375,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
 			
 			//调用接口 修改view 新增 sopfile，返回fileid
-			Long id = interviewRecordService.insertFileForView(sopFile,view);
+			Long id = interviewRecordService.updateViewForFile(sopFile,view);
 			if(id == null){
 				responseBody.setResult(new Result(Status.ERROR,null, "录音追加失败"));
 				logger.error("addInterview addFileForView 录音追加失败，返回更新recordview为0 ");
