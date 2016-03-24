@@ -46,12 +46,14 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
@@ -82,6 +84,9 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	@Autowired
 	private  SopFileService sopFileService;
+	
+	@Autowired
+	private DepartmentService departmentService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -804,7 +809,10 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			sbo.setFileworktypeList(fileworktypeList);
 			
 			fileList = sopFileService.selectByFileTypeList(sbo);
-			
+			for(SopFile f : fileList){
+				Department depart = departmentService.queryById(f.getCareerLine());
+				f.setCareerLineName(depart.getName());
+			}
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(fileList);
 		} catch (Exception e) {

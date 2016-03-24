@@ -62,6 +62,30 @@
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
 					</dd>
 				</dl>
+					<dl>
+					<dt>公司定位</dt>
+					<dd class="describe" id="location_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl>
+					<dl>
+					<dt>用户分析</dt>
+					<dd class="describe" id="portrait_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl>
+					<dl>
+					<dt>竞情分析</dt>
+					<dd class="describe" id="analysis_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl>
 				<!-- 
 				<dl>
 					<dt>项目概述</dt>
@@ -607,6 +631,12 @@
  		$("#prodescribe_show").html(data.entity.projectDescribe);
  		$("#business_model_show").html(data.entity.projectBusinessModel);
  		$("#projectDesc_show").html(data.entity.userPortrait);
+ 		$("#location_show").html(data.entity.companyLocation);
+ 		$("#portrait_show").html(data.entity.userPortrait);
+ 		$("#analysis_show").html(data.entity.prospectAnalysis);
+ 		
+ 		
+ 		
  	});
  	function replaceStr(str){
  		if(str){
