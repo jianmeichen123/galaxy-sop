@@ -27,6 +27,7 @@ import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.id.IdGenerator;
+import com.galaxyinternet.framework.core.model.BaseUser;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -137,6 +138,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	{
 		Result result = new Result();
 		try {
+			User user = (User) getUserFromSession(request);
 			MultipartFile file = null;
 			if(request instanceof MultipartHttpServletRequest)
 			{
@@ -161,6 +163,10 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				bo.setFileSuffix(suffix.replaceAll("\\.", ""));
 				bo.setUpdatedTime(System.currentTimeMillis());
 				bo.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				if(user != null)
+				{
+					bo.setFileUid(user.getId());
+				}
 			}
 			sopFileService.updateById(bo);
 			result.setStatus(Status.OK);
