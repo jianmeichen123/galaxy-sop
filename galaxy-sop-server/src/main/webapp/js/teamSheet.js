@@ -47,19 +47,21 @@
 				$("[data-tid='"+_item.id+"'][data-act='uploadFileBtn']").click(function(){
 					//上传插件参数
 					var _formdata = {
+							_fileSource : _item.fileSource,
 							_workType : _item.fileWorktype,
 							_projectId : _item.projectId,
 							callFuc : function(){
 								dataGrid.load(_projectId);
 							},
-							_url : platformUrl.commonUploadFile
+							_url : platformUrl.commonUploadFile,
+							_isProve : false
 						};
 //					win.initData();
 					win.init(_formdata);
 					
 				});
 				$("[data-tid='"+_item.id+"'][data-act='uploadProveFileBtn']").click(function(){
-					alert("上传签署协议");
+//					alert("上传签署协议");
 					//上传插件参数
 					var _formdata = {
 							_workType : _item.fileWorktype,
@@ -103,9 +105,9 @@
 								max_file_size : '25mb',
 								mime_types: [
 								    {title : "Zip files", extensions : "zip,rar"},
-									{title : "Image files", extensions : "jpg,gif,png"},
-									{title : "audio files", extensions : "mp3,WAV,MOV,flv"},
-									{title : "Offices files", extensions : "doc,docx,excel"}
+									{title : "Image files", extensions : "bmp,jpg,jpeg,gif,png"},
+									{title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,flv"},
+									{title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers"}
 								]
 							},
 							init: {
@@ -135,16 +137,18 @@
 										var _restmp = $.parseJSON(result.response);
 										var _projectId = _restmp.message;
 										if(_restmp.result.status == "OK"){
-											alert("上传成功");
+											layer.msg("上传成功");
 											win.close(_this);
 											win.callFuc();
 											dataGrid.load(_projectId);
 										}else{
-											alert(_restmp.result.errorCode);
+											layer.msg(_restmp.result.errorCode);
+//											alert(_restmp.result.errorCode);
 										}
 										
 									}else{
-										alert("上传失败");
+										layer.msg("上传失败");
+//										alert("上传失败");
 									}
 								},
 								BeforeUpload:function(up){
@@ -162,12 +166,11 @@
 									
 									$(_this.id).showLoading(
 											 {
-											    'addClass': 'loading-indicator'
-															
-									});
+											    'addClass': 'loading-indicator'						
+											 });
 									
 		
-									
+//									up.settings.headers = from 
 									up.settings.multipart_params = form;
 								},
 								Error: function(up, err) {
@@ -190,7 +193,7 @@
 				//业务分类隐藏域
 //				var _fileWorkTypeId = $(_this.id).find("#fileWorkTypeId");
 //				_fileWorkTypeId.val(_formdata._workTypeId);
-
+//				var $fileSource = $(_this.id).find("input[name='win_fileSource']");
 				var $fileWorkType = $(_this.id).find("#win_fileWorkType");
 				var $fileType = $(_this.id).find("#win_fileType");
 				var $sopProjectId = $(_this.id).find("#win_sopProjectId");
@@ -206,7 +209,10 @@
 				$sopProjectId.val(_formdata._projectId);
 				
 				
-				
+				//文档来源
+				if(typeof(_formdata._fileSource) != "undefined"){
+					$(_this.id).find("input[name='win_fileSource'][value='"+_formdata._fileSource+"']").attr("checked",true);
+				}
 				//文档分类
 				if(_formdata._fileType){
 					$fileType.val(_formdata._fileType);

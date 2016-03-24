@@ -476,7 +476,8 @@
 						        if (dataList[p].fileStatusDesc == "缺失") { 
 						        	handlefile ='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
 								}else{
-									handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateTzyxs()">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
+									var fileSource =  dataList[p].fileSource;
+									handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateTzyxs('+fileSource+')">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
 								}
 						        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">'+
 						        '<a href="javascript:;" onclick="downFile(5);" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>'+
@@ -588,7 +589,7 @@
 		});
 		return false;
 	}
-	function updateTzyxs(){
+	function updateTzyxs(fileSource){
 		$("[data-id='popid1']").remove();
 		 loadJs();
 		var _url='<%=path %>/galaxy/tzyx';
@@ -596,6 +597,9 @@
 			url:_url,
 			okback:function(){
 				$("#voucherType").attr("disabled",true);
+				$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
+								
+
 				var uploader = $.fxUpload({
 					props:{
 						browse_button:'select_file_btn',
