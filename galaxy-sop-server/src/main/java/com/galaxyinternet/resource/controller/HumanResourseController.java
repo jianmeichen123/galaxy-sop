@@ -124,8 +124,8 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 				result.addError(e.getMessage(), e.getCode()+"");
 				logger.error("queryUserList ", e);
 			} catch (Exception e) {
-				result.addError("系统错误");
-				logger.error("新增错误",e);
+				result.addError("系统繁忙，请稍后");
+				logger.error("toaddPersonHr",e);
 			}
 			responseData.setResult(result);
 			return responseData;	
@@ -149,8 +149,8 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 			result.addError(e.getMessage(), e.getCode()+"");
 			logger.error("addPersonHr ", e);
 		} catch (Exception e) {
-			result.addError("系统错误");
-			logger.error("新增错误",e);
+			result.addError("系统繁忙，请稍后");
+			logger.error("addPersonHr",e);
 		}
 		responseData.setResult(result);
 		responseData.setEntity(personResumetc);
