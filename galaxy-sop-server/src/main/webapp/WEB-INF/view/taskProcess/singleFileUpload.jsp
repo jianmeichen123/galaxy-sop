@@ -123,6 +123,11 @@ function loadRows()
 					{
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">查看</a></td>');
 						$("#complete-task-btn").removeClass('disabled');
+						var btnText = $("#show-upload-btn").text();
+						if(btnText != null && btnText.indexOf('上传')>-1)
+						{
+							$("#show-upload-btn").text(btnText.replace('上传','更新'))
+						}
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});

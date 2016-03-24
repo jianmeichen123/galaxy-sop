@@ -163,8 +163,8 @@ $(".btnbox").on("click",".bluebtn",function(){
 				var son_model = {};
 				it.find("tr").each(function(m,tr_item){
 					var input = $(tr_item).find("input[name][type!=hidden]")[i];
-					if($(input).val() != ''){
-						son_model[$(input).attr("name")] = $(input).val();
+					if($(input).val().trim() != ''){
+						son_model[$(input).attr("name")] = $(input).val().trim();
 						if(!resemetValidate($(input))){
 							flag = false;
 							return;
@@ -180,8 +180,8 @@ $(".btnbox").on("click",".bluebtn",function(){
 		}else{
 			model = {};
 			it.find("input[name]").each(function(index,input){
-				if($(input).val() != ''){
-					model[$(input).attr("name")] = $(input).val() ;
+				if($(input).val().trim() != ''){
+					model[$(input).attr("name")] = $(input).val().trim() ;
 					if(!resemetValidate($(input))){
 						flag = false;
 						return;
@@ -195,6 +195,10 @@ $(".btnbox").on("click",".bluebtn",function(){
 		}
 		
 	});
+	if(data['personPool']['personName'] == ''||data['personPool']['personName'] == undefined ||data['personPool']['personName'] == 'undefined'){
+		layer.msg("核心成员基本资料中姓名不能为空");
+		return;
+	}
 	if(!flag){
 		return;
 	}
