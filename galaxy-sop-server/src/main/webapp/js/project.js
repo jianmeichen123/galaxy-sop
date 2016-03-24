@@ -51,7 +51,7 @@ $(function(){
 		var um = UM.getEditor('portrait_editor');
 		var userPortrait = um.getContent();
 		if(pid != '' && userPortrait != ''){
-			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, function(){});
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
 		}
 	});
 	/**

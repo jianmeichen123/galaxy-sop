@@ -160,12 +160,6 @@ function getProjectInfo()
 		}
 	);
 }
-function replaceStr(str){
-	if(str){
-	   var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
-	return result;
-	}
-}
 
 </script>
 </body>
