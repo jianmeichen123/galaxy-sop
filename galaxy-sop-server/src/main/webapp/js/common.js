@@ -287,6 +287,30 @@ function paramsFilter(){
 					];
 	return filtersparams;
 }
+/**
+ * 
+ * @param file-文件
+ * @param fileType-存储类型id
+ */
+function attrFileType(fileType,file){
+	var type=file.name;
+	var arr = new Array();
+	arr = type.split(".");
+	var type="";
+	if(arr){
+		type=arr[1];
+	}
+	var filtersparams=paramsFilter();
+	for(var i=0;i<filtersparams.length;i++){
+		var value=filtersparams[i];
+		var valueExt=value.extensions;
+		if(valueExt.indexOf(type) >= 0 ){
+			var myvalue=value.title;
+			$("#"+fileType+" option[value='"+myvalue+"']").attr("selected",true);
+		}
+	}
+}
+
 function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction) {
 	
 
@@ -339,26 +363,9 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 				plupload.each(files, function(file) {
 					/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
 					$("#" + fileInputId).val(file.name);
-					alert(0)
 					/***存储类型被选中***/
-					alert(fileType)
 					if(fileType){
-						var type=file.name;
-						var arr = new Array();
-						arr = type.split(".");
-						var type="";
-						if(arr){
-							type=arr[1];
-						}
-						var filtersparams=paramsFilter();
-						for(var i=0;i<filtersparams.length;i++){
-							var value=filtersparams[i];
-							var valueExt=value.extensions;
-							if(valueExt.indexOf(type) >= 0 ){
-								var myvalue=value.title;
-								$("#"+fileType+" option[value='"+myvalue+"']").attr("selected",true);
-							}
-						}
+						attrFileType(fileType,file);//定位选中存储类型
 					}
 					
 					
