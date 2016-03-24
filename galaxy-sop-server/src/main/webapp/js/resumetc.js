@@ -276,7 +276,7 @@ function resemetValidate(input){
 		flag = /^(([1-9]+)|([0-9]+\.[0-9]{1,2}))$/.test(value);
 		break;
 	case "RATIO":
-		flag = /^([1]?\d{1,2})$/.test(value);
+		flag = /(^[1-9][0-9]$)|(^100&)|(^[1-9]$)$/.test(value);
 		break;
 	case "COMPANYNAME":
 		flag = value.length < 100;
