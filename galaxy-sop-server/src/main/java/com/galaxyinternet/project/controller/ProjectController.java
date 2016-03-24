@@ -224,7 +224,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		    if(queryOne!=null){
 		    	project.setProjectCareerline(queryOne.getName());
 		    }
-			//hhrname=getHHRNname(project);
+			hhrname=getHHRNname(project);
 			project.setHhrName(hhrname);
 	    }
 	    if(project == null){
