@@ -91,7 +91,7 @@
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
-				<dubbo.registry.address>zookeeper://10.9.210.22:12181?client=zkclient</dubbo.registry.address>
+				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
 				<dubbo.protocol.port>8082</dubbo.protocol.port>
 
 				<project.server.url>http://127.0.0.1:9999/platform/</project.server.url>
