@@ -185,29 +185,6 @@ function initUpload(_dialog,type){
 						layer.msg("请选择文件");
 						return;
 					}
-					//只更新内容，不更新文档
-					if(uploader.files == 0)
-					{
-						var $form =$(_dialog.id).find("form")
-						var data = JSON.parse($form.serializeObject());
-						data['type']=data['fileSource'];
-						sendGetRequest(
-								url,
-								data,
-								function(data){
-									if(data.status == "OK")
-									{
-										layer.msg("上传成功.");
-										$(_dialog.id).find("[data-close='close']").click();
-										loadRows();
-									}
-									else
-									{
-										layer.msg("上传失败.");
-									}
-								}
-						);
-					}
 					uploader.start();
 					return false;
 				});
@@ -222,7 +199,8 @@ function initUpload(_dialog,type){
 				});
 				$.each(files, function() {
 					$(_dialog.id).find("input[name='fileName']").val(this.name);
-					
+					var fileType = getFileTypeByName(this.name);
+					$(_dialog.id).find("[name='fileType']").val(fileType);
 				});
 			},
 			BeforeUpload:function(up){
@@ -270,7 +248,6 @@ function initForm(_dialog,type)
 	{
 		
 		$(_dialog.id).find("[name='id']").val($row.data('id'));
-		$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
 		$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 		
 	}

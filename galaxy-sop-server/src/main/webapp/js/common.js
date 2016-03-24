@@ -279,10 +279,10 @@ Date.prototype.format = function(fmt){
 
 function paramsFilter(){
 	var filtersparams=[
-                        {title : "fileType:1", extensions : "doc,docx,excel,txt"},
-					    {title : "fileType:2", extensions : "mp3"},
+                        {title : "fileType:1", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers"},
+					    {title : "fileType:2", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r"},
 					    {title : "fileType:3", extensions : "avi"},
-						{title : "fileType:4", extensions : "jpg,gif,png"}
+						{title : "fileType:4", extensions : "bmp,jpg,gif,png,jpeg"}
 						
 					];
 	return filtersparams;
@@ -309,6 +309,53 @@ function attrFileType(fileType,file){
 			$("#"+fileType+" option[value='"+myvalue+"']").attr("selected",true);
 		}
 	}
+}
+/**
+ * 获取后缀名
+ * @param fileName
+ * @returns {String}
+ */
+function getFileExt(fileName)
+{
+	var type="";
+	var dotIndex = fileName.lastIndexOf(".");
+	if(dotIndex >- 1)
+	{
+		type = fileName.substr(dotIndex+1);
+		type = type.toLowerCase()
+	}
+	return type;
+}
+
+/**
+ * 根据后缀名确定文档类型
+ * @param ext
+ * @returns {String}
+ */
+function getFileTypeByExt(ext)
+{
+	var type = "";
+	var filtersparams = paramsFilter();
+	for(var i=0;i<filtersparams.length;i++)
+	{
+		var value = filtersparams[i];
+		var valueExt=value.extensions;
+		if(valueExt.indexOf(ext) >= 0 ){
+			type=value.title;
+			break;
+		}
+	}
+	return type;
+}
+function getFileTypeByName(fileName)
+{
+	var type = "";
+	var ext = getFileExt(fileName);
+	if(ext != null && ext != "")
+	{
+		type = getFileTypeByExt(ext);
+	}
+	return type;
 }
 
 function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction) {

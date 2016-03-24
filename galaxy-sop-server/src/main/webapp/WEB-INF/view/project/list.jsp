@@ -755,7 +755,7 @@
 						alert("项目不能为空");
 						return;
 					}
-					var type = $("input[name='fileSource']").val();
+					var type = $("input[name='fileSource']:checked").val();
 					if(type == null || type == ""){
 						alert("档案来源不能为空");
 						return;
@@ -929,7 +929,7 @@
 						alert("项目不能为空");
 						return;
 					}
-					var type = $("input[name='fileSource']").val();
+					var type = $("input[name='fileSource']:checked").val();
 					if(type == null || type == ""){
 						alert("档案来源不能为空");
 						return;
@@ -995,7 +995,7 @@
 						alert("项目不能为空");
 						return;
 					}
-					var type = $("input[name='fileSource']").val();
+					var type = $("input[name='fileSource']:checked").val();
 					if(type == null || type == ""){
 						alert("档案来源不能为空");
 						return;

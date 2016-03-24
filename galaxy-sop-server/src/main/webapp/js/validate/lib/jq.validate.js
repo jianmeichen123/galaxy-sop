@@ -85,11 +85,11 @@ function validateBefore() {
 				flag=false;
 			}
 		}else if($(this).attr('valType')=='requiredDiv'){
-			if($(n).text()!='') {
+			if($(this).text()!='') {
 				if(!($(this).text()!=''&&$.Validator.match({data:$(this).text(), rule:'OTHER', regString:$(this).attr('regString')}))) {
 				flag=false;
-			}
-		}
+			    }
+		   }
 		}
 		else {//已定义规则的判断
 			flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')});
@@ -120,7 +120,7 @@ function beforeSubmit() {
 			}
 		}else if($(n).attr("valType")=='requiredDiv'){
 			if($(n).text()!='') {
-					if(!($(this).text()!=''&&$.Validator.match({data:$(this).text(), rule:'OTHER', regString:$(this).attr('regString')}))) {
+					if(!($(n).text()!=''&&$.Validator.match({data:$(n).text(), rule:'OTHER', regString:$(n).attr('regString')}))) {
 					//显示tips			
 					$(n).poshytip('show');
 					flag=false;
