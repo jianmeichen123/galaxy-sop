@@ -381,7 +381,10 @@ function setForm(form,data)
 	{
 		if(data[key] != 'undefined' && data[key])
 		{
-			form.find("[name='"+key+"']").val(data[key]);
+			if(key != 'fileName')
+			{
+				form.find("[name='"+key+"']").val(data[key]);
+			}
 		}
 	}
 	
