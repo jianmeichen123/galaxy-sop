@@ -26,7 +26,7 @@
             <div class="tabtable_con "  data-tab="con"  model="personPool" multi="false">
               <div class="tabtable_con1">
                  <h2>核心成员基本资料</h2>
-                <table>
+                <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>团队角色：</th>
                     <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="身团队角色只能包含数字、字母、汉字 长度限制50"></td>
@@ -43,7 +43,7 @@
               </div>
               <div class="tabtable_con1">
                 <h2>个人资料</h2>
-                <table>
+                <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>性别：</th>
                     <td>
@@ -71,7 +71,7 @@
               </div>
               <div class="tabtable_con1">
                 <h2>个人能力</h2>
-                <table>
+                <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>性格：</th>
                     <td><input name="personCharacter" id="personCharacter" type="text" value="" valType="GENERAL" msg="性格文本限制长度500"></td>
@@ -106,7 +106,7 @@
               <div class="tabtable_con1">
                 <h2>学习经历</h2>
                 <input type="button" class="add bluebtn" value="+">
-                <table>
+                <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>学历：</th>
                     <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包字母、汉字 长度50"></td>
@@ -147,7 +147,7 @@
               </div>
               <div class="tabtable_con1">
                 <h2>教育背调联系人</h2>               
-                <table>
+                <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>老师姓名：</th>
                     <td><input name="teacherName" id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td>
@@ -186,7 +186,7 @@
               <div class="tabtable_con1">
                 <h2>工作记录</h2>
                 <input type="button" class="add bluebtn" value="+">
-                <table>
+                <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>公司名称:</th>
                     <td data-by="id" ><input type="text" name="companyName" id="companyName" value="" valType="COMPANYNAME" msg="公司名称错误"> </td>
@@ -259,7 +259,7 @@
             <div class="tabtable_con"  data-tab="con" model="personInvest" multi="false">
               <div class="tabtable_con1">
                 <h2>投资方信息（天使轮）</h2>
-                   <table>
+                   <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>公司名称：</th>
                     <td data-by="id"><input type="text" name="icompanyName" id="icompanyName"  value="" valType="COMPANYNAME" msg="公司名称格式错误"></td>
@@ -280,7 +280,7 @@
               </div>
               <div class="tabtable_con1">
                 <h2>投资方信息（Pre A轮）</h2>
- 				<table>
+ 				<table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>公司名称：</th>
                     <td><input type="text" name="acompanyName" id="acompanyName"  value="" valType="COMPANYNAME" msg="公司名称格式错误"></td>
@@ -308,7 +308,7 @@
                 </dd>                
               </dl>
               <div class="tabtable_con1 tabtable_con2">
-                <table>
+                <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>能力匹配：</th>
                     <td>
