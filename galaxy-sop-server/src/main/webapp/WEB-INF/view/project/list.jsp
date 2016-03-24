@@ -515,8 +515,9 @@
 										htmlstart +='<tr>'+
 										'<td>'+dataList[p].fWorktype+'</td>'+
 										'<td>'+dataList[p].createDate+'</td>'+
-										typehtml+
-										'<td></td>'+'<td>'+dataList[p].fileStatusDesc+'</td>'+
+										typehtml
+										+'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'
+										+'<td>'+dataList[p].fileStatusDesc+'</td>'+
 										endhtml+
 										'</tr>';   
 										
