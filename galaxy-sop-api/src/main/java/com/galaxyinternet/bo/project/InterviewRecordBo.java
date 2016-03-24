@@ -8,6 +8,8 @@ public class InterviewRecordBo extends InterviewRecord{
 	
 	private String proName;
 	private String fkey;
+	private String bucketName;
+	private Long fileLength;
 	
 	private Long uid;
 	private String startTime;
@@ -83,9 +85,6 @@ public class InterviewRecordBo extends InterviewRecord{
 		 this.proNameCode = proNameCode == null ? null : proNameCode.trim();
 	}
 
-
-
-
 	public String getFkey() {
 		return fkey;
 	}
@@ -102,10 +101,23 @@ public class InterviewRecordBo extends InterviewRecord{
 		this.inpro = inpro;
 	}
 
+	public String getBucketName() {
+		return bucketName;
+	}
+
+	public void setBucketName(String bucketName) {
+		this.bucketName = bucketName;
+	}
+
+	public Long getFileLength() {
+		return fileLength;
+	}
+
+	public void setFileLength(Long fileLength) {
+		this.fileLength = fileLength;
+	}
 
 
-	
-	
 
     
 }

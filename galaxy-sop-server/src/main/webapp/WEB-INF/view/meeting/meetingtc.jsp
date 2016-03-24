@@ -29,7 +29,7 @@
     	<dl class="fmdl fml clearfix">
             <dt>会议类型：</dt>
             <dd class="clearfix">
-                <label><input type="radio" name="meetingTypeTc" value="meetingType:1"/>内评会</label>
+                <label><input type="radio" name="meetingTypeTc" value="meetingType:1" checked="checked" />内评会</label>
                 <label><input type="radio" name="meetingTypeTc" value="meetingType:2"/>CEO评审</label>
                 <label><input type="radio" name="meetingTypeTc" value="meetingType:3"/>立项会</label>
                 <label><input type="radio" name="meetingTypeTc" value="meetingType:4"/>投决会</label>
@@ -39,7 +39,7 @@
             <dt>会议结论：</dt>
             <dd class="clearfix">
                 <label><input type="radio" name="meetingResult" value="meetingResult:1"/>通过</label>
-                <label><input type="radio" name="meetingResult" value="meetingResult:2"/>待定</label>
+                <label><input type="radio" name="meetingResult" value="meetingResult:2" checked="checked" />待定</label>
                 <label><input type="radio" name="meetingResult" value="meetingResult:3"/>否决</label>
             </dd>
         </dl>
