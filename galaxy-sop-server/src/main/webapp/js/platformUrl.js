@@ -338,7 +338,7 @@ var platformUrl = {
 	/**
 	 * 跳到完善简历页面
 	 */
-	toWanshan: sopContentUrl + "/galaxy/project/queryProjectPerson",
+	toWanshan: sopContentUrl + "/galaxy/project/queryPersonListToTask",
 	/**
 	 * 跳到完善简历页面(弹出)
 	 */

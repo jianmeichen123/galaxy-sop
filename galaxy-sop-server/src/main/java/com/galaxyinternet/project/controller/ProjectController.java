@@ -334,7 +334,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		try {
 			pool.setCreatedTime(System.currentTimeMillis());
-			Long id = personPoolService.savePersonToProject(pool);
+			Long id = personPoolService.addProjectPerson(pool);
 			if(id > 0){
 				responseBody.setResult(new Result(Status.OK,"团队成员添加成功!"));
 				responseBody.setEntity(pool);
@@ -430,9 +430,37 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		}
 		return responseBody;
-		
-		
 	}
+	
+	/**
+	 * 查询完善简历任务所属的人员列表
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryPersonListToTask",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> queryPersonListToTask(HttpServletRequest request,@RequestBody PersonPoolBo personPoolBo) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		if(personPoolBo.getTid() == null || personPoolBo.getProjectId() == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
+			return responseBody;
+		}
+		try {
+			Map<String,Object> params = new HashMap<String,Object>();
+			params.put("pid", personPoolBo.getProjectId());params.put("tid", personPoolBo.getTid());
+			List<PersonPool> list = personPoolService.selectNoToTask(params);
+			if(list != null && !list.isEmpty()){
+				responseBody.setEntityList(list);
+				responseBody.setResult(new Result(Status.OK, null, "查询成功!"));
+			}
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, null, "异常，请重试!"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
+		return responseBody;
+	}
+	
 	/**
 	 * 创建项目编码
 	 * @author yangshuhua

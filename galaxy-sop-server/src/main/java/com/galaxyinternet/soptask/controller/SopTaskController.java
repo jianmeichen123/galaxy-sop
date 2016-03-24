@@ -34,12 +34,11 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.ExceptionMessage;
-import com.galaxyinternet.framework.core.utils.StringEx;
-import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
 
@@ -52,10 +51,10 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	private SopTaskService sopTaskService;
 	
 	@Autowired
-	private DepartmentService departmentService;
+	private ProjectService projectService;
 	
 	@Autowired
-	private ProjectService projectService;
+	private PersonPoolService personPoolService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -67,6 +66,37 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	protected BaseService<SopTask> getBaseService() {
 		return this.sopTaskService;
 	}
+	
+	
+	/**
+	 * 投资经理点击"完善简历"
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/toSureMsg/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopTask> toSureMsg(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
+		if(pid == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
+			return responseBody;
+		}
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("pid", pid);
+		List<PersonPool> list = personPoolService.selectNoToTask(params);
+		if(list == null || list.isEmpty()){
+			responseBody.setResult(new Result(Status.ERROR, null, "没有需要完善信息的成员!"));
+			return responseBody;
+		}
+		try {
+			sopTaskService.toSureMsgForPerson(pid, list);
+			responseBody.setResult(new Result(Status.ERROR, null, "完善简历任务通知成功!"));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null, "异常，请重试!"));
+		}
+		return responseBody;
+	}
+	
+	
 	
 	/**
 	 * 默认页面
