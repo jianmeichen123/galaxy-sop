@@ -1,6 +1,7 @@
 package com.galaxyinternet.project.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,16 @@ public class PersonPoolDaoImpl extends BaseDaoImpl<PersonPool, Long> implements 
 		try {
 			List<PersonPool> contentList= sqlSessionTemplate.selectList(getSqlName(SqlId.SQL_SELECT), getParams(query, pageable));
 			return new  Page<PersonPool>(contentList, pageable, this.selectCount(query));
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据pids查询：%s", getSqlName(SqlId.SQL_SELECT)), e);
+		}
+	}
+
+	@Override
+	public List<PersonPool> selectNoToTask(Map<String,Object> params) {
+		try {
+			List<PersonPool> contentList= sqlSessionTemplate.selectList(getSqlName("selectNoToTask"), params);
+			return contentList;
 		} catch (Exception e) {
 			throw new DaoException(String.format("根据pids查询：%s", getSqlName(SqlId.SQL_SELECT)), e);
 		}
