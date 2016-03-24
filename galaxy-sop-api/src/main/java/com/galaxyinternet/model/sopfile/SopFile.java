@@ -115,7 +115,7 @@ public class SopFile extends PagableEntity {
   	private String voucherFileKey;
   	
   	//枚举转换
-  	private String fType;
+  	private String fType = "";
   	private String fWorktype;
   	private String progress;
   	private String fileStatusDesc;
@@ -154,7 +154,7 @@ public class SopFile extends PagableEntity {
 	}
 
 	public String getfType() {
-		return fType;
+		return fType == null ? "" : fType;
 	}
 
 	public String getfWorktype() {
@@ -255,8 +255,6 @@ public class SopFile extends PagableEntity {
 		 this.fileType = fileType == null ? null : fileType.trim();
          if(fileType != null){
  			this.fType = DictEnum.fileType.getNameByCode(fileType);
-         }else{
-        	 this.fType = "";
          }
 	}
 
