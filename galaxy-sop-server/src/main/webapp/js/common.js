@@ -339,9 +339,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 				plupload.each(files, function(file) {
 					/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
 					$("#" + fileInputId).val(file.name);
-					alert(0)
 					/***存储类型被选中***/
-					alert(fileType)
 					if(fileType){
 						var type=file.name;
 						var arr = new Array();
