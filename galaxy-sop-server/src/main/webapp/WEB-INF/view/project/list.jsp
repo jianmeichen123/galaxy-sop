@@ -688,23 +688,24 @@
 					 null, function(data){
 				 var html = "";
 				 $.each(data.entityList, function(i,o){
+					 console.log(o);
 					 html += "<tr>";
 					 if(o.fileWorktype == 'fileWorktype:1'){
 						 html += "<td>业务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>投资&杨一</td><td>文档</td>";
+						 html += "<td>"+o.careerLineName+"</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:2'){
 						 html += "<td>人事尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>人事部</td><td>文档</td>";
+						 html += "<td>人事部</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:3'){
 						 html += "<td>法务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>法务部</td><td>文档</td>";
+						 html += "<td>法务部</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:4'){
 						 html += "<td>财务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>财务部</td><td>文档</td>";
+						 html += "<td>财务部</td><td>"+o.fType+"</td>";
 					 }
 					 if(o.fileStatus == 'fileStatus:1'){
 						 html += "<td>缺失</td>";
