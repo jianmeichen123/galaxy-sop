@@ -29,7 +29,7 @@ input.disabled{background-color: #000;}
 .ico{ background-repeat:no-repeat}
 .light_blue{background-color: #f4f6fa;}
 /*字体颜色*/
-.red{ color:#ff0000}1
+.red{ color:#ff0000}
 .org{ color:#ffa200}
 .gray{ color:#c2c9cf}
 .blue{ color:#62abe6}
@@ -344,7 +344,7 @@ table .width_gd{width:10%;}
 .fmdl dd select,
 .fmdl dd .txt,
 .fmdl dd textarea,
-.fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px; line-height:28px; border-radius:4px; padding:0 4px; font-size:14px; color:#525662; font-family:"宋体"}
+.fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px; line-height:28px; border-radius:4px; padding:0 4px; font-size:12px; color:#525662; font-family:"宋体"}
 .fmdl dd select{ width:160px;font-size: 12px;}
 .fmdl dd .txt{ width:230px;;font-size: 12px;height:28px !important;}
 .fmdl label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; font-size:12px; color:#525662; font-family:"宋体"; position:relative}
@@ -822,7 +822,6 @@ right: 200px;}
 .chartbox_bottom ul li{color:#5D678A;}
 .chartbox_bottom ul .on{ background:#edeff5; }
 .mask{position: absolute;width:100%;height: 100%;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
-
 .mask1{position: absolute;width:100%;height: 100px;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
 dl dd .time1{display:inline-block !important;width: 100px !important;background:url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
 
