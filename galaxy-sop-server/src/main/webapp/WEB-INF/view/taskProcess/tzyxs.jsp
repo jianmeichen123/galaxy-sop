@@ -108,11 +108,17 @@ function loadRows()
 					if(isBlank(this.fileName)){
 						$("#show-voucher-upload-btn").addClass("disabled");
 						$tr.append('<td></td>');
+						
 					}
 					else
 					{
 						$("#show-voucher-upload-btn").removeClass("disabled");
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">查看</a></td>');
+						$('#show-upload-btn').text('更新投资意向书');
+					}
+					if(!isBlank(this.voucherFileName))
+					{
+						$('#show-upload-btn').addClass('disabled');
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
