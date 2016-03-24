@@ -33,7 +33,7 @@
                   </tr>
                   <tr>
                     <th>姓名：</th>
-                    <td><input name="personName" id="personName" type="text" value=""  valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="姓名格式错误 长度限制20"></td>
+                    <td><input name="personName" id="personName" type="text" value=""  valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="姓名格式错误 长度限制50"></td>
                   </tr>
                   <tr>
                     <th>成员关系：</th>

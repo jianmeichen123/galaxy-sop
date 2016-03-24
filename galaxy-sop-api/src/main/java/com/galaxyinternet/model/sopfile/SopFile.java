@@ -255,7 +255,9 @@ public class SopFile extends PagableEntity {
 		 this.fileType = fileType == null ? null : fileType.trim();
          if(fileType != null){
  			this.fType = DictEnum.fileType.getNameByCode(fileType);
- 		}
+         }else{
+        	 this.fType = "";
+         }
 	}
 
 
@@ -387,6 +389,7 @@ public class SopFile extends PagableEntity {
 	public void setCareerLineName(String careerLineName) {
 		this.careerLineName = careerLineName;
 	}
+
 
 	public String getVoucherFileKey() {
 		return voucherFileKey;
