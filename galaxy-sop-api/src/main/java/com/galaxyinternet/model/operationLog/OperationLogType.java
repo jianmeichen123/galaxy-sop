@@ -56,7 +56,7 @@ public enum OperationLogType {
 	//下载投资协议模版	
 	DOWNLOAD_INVESTMENT_AGREEMENT_TEMPLATE("", OperType.DOWNLOAD.getOperationType(), "投资协议模版",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	//投资协议上传
-	INVESTMENT_AGREEMENT_LOOK("/galaxy/project/stageChange/"+UrlNumber.nine, OperType.DOWNLOAD.getOperationType(), "投资协议",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	INVESTMENT_AGREEMENT_LOOK("/galaxy/project/stageChange/"+UrlNumber.nine, OperType.UPLOAD.getOperationType(), "投资协议",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	//投资协议更新
 	UPDATE_INVESTMENT_AGREEMENT("", OperType.UPDATE.getOperationType(), "投资协议",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	//股权转让协议上传
@@ -89,7 +89,7 @@ public enum OperationLogType {
 		OperationLogType[] types = OperationLogType.values();
 		OperationLogType result = null;
 		for (OperationLogType type : types) {
-			if (uniqueKey.contains(type.getUniqueKey())) {
+			if (type.getUniqueKey()!=null && type.getUniqueKey().trim().length()>0 && uniqueKey.contains(type.getUniqueKey())) {
 				result = type;
 				break;
 			}
