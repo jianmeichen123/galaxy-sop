@@ -2,6 +2,7 @@ package com.galaxyinternet.project.controller;
 
 import java.text.NumberFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -967,4 +968,40 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		   }
 		   return hhrname;
 	   }
+	  
+	  /**
+		 * Ajax判断项目名称，组织机构代码是否重复
+		 */
+		@RequestMapping(value = "checkProject")
+		@ResponseBody
+		public Map<String, Integer>  checkProject(@RequestBody Project  query) {
+			String projectCompanyCode = "";
+			if (query != null && query.getProjectCompanyCode()!= null) {
+				projectCompanyCode = query.getProjectCompanyCode();
+				query.setProjectCompanyCode(null);
+			}
+			List<Project> projectList = projectService.queryList(query);
+			Integer count = 0 ;
+			if (!StringUtils.equals(projectCompanyCode,"")) {
+				for (Project project: projectList) {
+					
+					if (project.getProjectCompanyCode()!= null && StringUtils.equals(projectCompanyCode, project.getProjectCompanyCode())) {
+						count ++;
+					}
+				}
+			}
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			if (projectList.size() < 1) {
+				//不存在重复
+				map.put("count", 0);
+				
+			} else if (count > 0) {
+				//重复且相同组织机构数为count
+				map.put("companyCode", count);
+				map.put("count", projectList.size());
+			} else {
+				map.put("count", projectList.size());
+			}
+			return map;
+		}
 }

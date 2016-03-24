@@ -604,14 +604,8 @@
  	 * 加载项目详情数据
  	 */
  	sendGetRequest(platformUrl.detailProject + alertid, {}, function(data){
- 		$("#prodescribe_show").text(replaceStr(data.entity.projectDescribe));
- 		$("#business_model_show").text(replaceStr(data.entity.projectBusinessModel));
- 		$("#projectDesc_show").text(replaceStr(data.entity.userPortrait));
+ 		$("#prodescribe_show").html(data.entity.projectDescribe);
+ 		$("#business_model_show").html(data.entity.projectBusinessModel);
+ 		$("#projectDesc_show").html(data.entity.userPortrait);
  	});
- 	function replaceStr(str){
- 		if(str){
- 			var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
- 			return result;
- 		}
-	}
 </script>
