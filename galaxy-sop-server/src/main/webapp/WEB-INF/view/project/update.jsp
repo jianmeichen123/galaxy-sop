@@ -613,6 +613,28 @@ function closeback(data){
     	UM.getEditor(id);
     }
  
+    $("#project_share_ratio").blur(function(){
+		var valuations = calculationValuations();
+		$("#project_valuations").text("");
+		if(valuations){
+			$("#project_valuations").text(valuations);
+		}
+	});
+	$("#project_contribution").blur(function(){
+		var valuations = calculationValuations();
+		$("#project_valuations").text("");
+		if(valuations){
+			$("#project_valuations").text(valuations);
+		}
+	});
+	function calculationValuations(){
+		var projectShareRatio = $("#project_share_ratio").val();
+		var projectContribution = $("#project_contribution").val();
+		if(projectShareRatio > 0 && projectContribution > 0){
+			return projectContribution * (100/projectShareRatio);
+		}
+		return null;
+	}
 	
 </script>	   
 <%-- <script src="<%=request.getContextPath() %>/js/axure_ext.js"></script> --%>
