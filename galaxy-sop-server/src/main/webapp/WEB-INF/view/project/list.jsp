@@ -548,6 +548,10 @@
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
 				}
+				else
+				{
+					$("#voucherType").attr("disabled",true);
+				}
 				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn",
 						function getSaveCondition(){
 					var	condition = {};
@@ -591,7 +595,7 @@
 		$.getHtml({
 			url:_url,
 			okback:function(){
-				
+				$("#voucherType").attr("disabled",true);
 				var uploader = $.fxUpload({
 					props:{
 						browse_button:'select_file_btn',
