@@ -726,6 +726,22 @@ function meetInfoFormat(value, row, index){
 	return rc;
 }
 
+
+//interview
+function sublengthFormat(value,row,index){
+	//统一去掉说有标签
+	var delhtmlValue = $.trim(delHtmlTag(value));
+	var len = getLength($.trim(delhtmlValue));
+	if(len>100){
+		var subValue = delhtmlValue.substring(0,100);
+		var rc = "<div id=\"log\"  class=\"text-overflow\" title='"+value+"'>"+subValue+'...'+'</div>';
+		
+		return rc;
+	}else{
+		return delhtmlValue;
+	}
+}
+
 //interview
 function intervierLog(value,row,index){
 	var len = getLength($.trim(value));
