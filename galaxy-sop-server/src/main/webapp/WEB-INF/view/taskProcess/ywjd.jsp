@@ -128,6 +128,10 @@ function loadRows()
 					else
 					{
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">查看</a></td>');
+						if("fileWorktype:1" == this.fileWorktype)
+						{
+							$("#show-upload-btn").text('更新业务尽职调查报告');
+						}
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});

@@ -716,6 +716,9 @@
 						 }
 						 html += "<td>无</td>";
 					 }else if(o.fileStatus == 'fileStatus:2'){
+						 if(o.fileWorktype == 'fileWorktype:1'){
+							 $("#jzdc_options a:eq(0)").text('更新业务尽职调查报告')
+						 }
 						 html += "<td>已上传</td>";
 						 html += "<td></td>";
 						 html += "<td><a href='javascript:filedown("+o.id+");'>查看</a></td>";

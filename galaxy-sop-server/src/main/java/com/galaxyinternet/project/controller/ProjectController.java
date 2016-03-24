@@ -286,11 +286,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {		
 			Page<Project>  pageProject=null;
 			if(project.getAscOrDes()!=null&&project.getCascOrDes()!=null){	
-				if(project.getAscOrDes()=="desc"){
+				if(project.getAscOrDes().equals("desc")){
 					Sort sort = new Sort(Direction.DESC,project.getCascOrDes());
 					 pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize(),sort));
 					
-				}else if(project.getAscOrDes()=="asc"){
+				}else if(project.getAscOrDes().equals("asc")){
 					Sort sort = new Sort(Direction.ASC,project.getCascOrDes());
 					pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize(),sort));	
 				}													
