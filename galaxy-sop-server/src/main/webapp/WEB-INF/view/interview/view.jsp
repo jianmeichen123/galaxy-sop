@@ -84,16 +84,16 @@
 	          		data-toolbar="#custom-toolbar" data-page-list="[5,10,20]"
 					data-id-field="lottoId" data-show-refresh="true">
 				<colgroup >
-					<col style="width:30%;"> <!-- 名称 -->
-					<col style="width:20%;"> <!-- 名称 -->
-					<col style="width:50%;">  <!-- 状态 -->
+					<col style="width:200px;"> <!-- 名称 -->
+					<col style="width:200px;"> <!-- 名称 -->
+					<col style="width:500px;">  <!-- 状态 -->
 				</colgroup>
 				<thead>
 					<tr>
 						<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
 						<th data-field="proName" data-align="center">所属项目</th>  
-						<th data-field="viewNotes" data-align="center" data-formatter="intervierLog">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="sublengthFormat">访谈日志</th>
 					</tr>
 				</thead>
 			</table>
