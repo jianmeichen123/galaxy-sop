@@ -19,7 +19,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
@@ -225,10 +224,15 @@
 	}
 	function add(){
 		if(beforeSubmit()){
-			
 			/* sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
 			 forwardWithHeader(sopContentUrl + "/galaxy/mpl");
 			} */
+			var json = {};
+			var projectName = $("#projectName").val();
+			var projectCompanyCode = $("#projectCompanyCode").val();
+			json = {"projectName":projectName,"projectCompanyCode":projectCompanyCode};
+			sendPostRequestByJsonObj(platformUrl.checkProject,json,callbackcheckProject);
+			
 			$.ajax({
 				url : platformUrl.addProject,
 				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
@@ -262,6 +266,30 @@
 	function callback(data){
 		TOKEN=data.TOKEN;
 		 return TOKEN;
+	}
+	
+	function callbackcheckProject(data) {
+		
+		if (data.count!=0 &&(typeof(data.companyCode) != "undefined") ) {
+			var msg1 = "存在重复项目名，其中本公司存在"+data.companyCode+"个重复,总共"+data.count+"个重复";
+			layer.msg(msg1, {
+				time : 1000
+			}, function() {
+				
+			});
+		} 
+		
+		if (data.count!=0 &&(typeof(data.companyCode) == "undefined")) {
+			var msg2 = "存在重复项目名，其中本公司存在,总共"+data.count+"个重复";
+			layer.msg(msg2, {
+				time : 1000
+			}, function() {
+				
+			});
+		} 
+		 
+		
+		
 	}
 </script>
 
