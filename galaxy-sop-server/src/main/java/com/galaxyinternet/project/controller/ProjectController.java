@@ -988,6 +988,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				   Long userid=ur.getUserId();
 				   User queryById = userService.queryById(userid);
 				   if(queryById!=null){
+					   
+					   if(null==queryById.getDepartmentId()){
+						   return "";
+					   }
 					   if(queryById.getDepartmentId().equals(p.getProjectDepartid())){
 						   hhrname=queryById.getRealName();
 					   }
