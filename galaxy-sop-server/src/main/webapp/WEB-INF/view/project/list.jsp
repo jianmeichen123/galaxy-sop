@@ -1057,13 +1057,14 @@
 													}else{
 														typehtml = '<td>'+dataList[p].fType+'</td>';
 													}
-													var handlehtml = "";
 													
+													var handlehtml = "";
 													if (dataList[p].fileStatusDesc == "缺失") { 
 														handlehtml ='<td><a href="javascript:; " onclick="taskUrged('+dataList[p].id+');"class="blue">催办</a></td>';
 													}else{
 														handlehtml = '<td></td>';
 													}
+													
 													var endhtml ="";
 													if (dataList[p].fileStatusDesc == "缺失") { 
 														endhtml ='<td></td>';
@@ -1071,11 +1072,18 @@
 														endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
 													}
 													
+													var updatedDate ="";
+													if (dataList[p].updatedDate == null || dataList[p].updatedDate == "") { 
+														updatedDate =dataList[p].createDate;
+													}else{
+														updatedDate = dataList[p].updatedData;
+													}
+													
 													htmlstart +='<tr>'+
 													'<td>'+dataList[p].fWorktype+'</td>'+
 													'<td>'+dataList[p].createDate+'</td>'+
 													typehtml+
-													'<td></td>'+
+													'<td>'+updatedDate+'</td>'+
 													handlehtml+   
 													endhtml+   
 													'</tr>';   

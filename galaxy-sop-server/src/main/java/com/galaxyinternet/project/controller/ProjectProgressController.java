@@ -375,14 +375,14 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
 			
 			//调用接口 修改view 新增 sopfile，返回fileid
-			Long id = interviewRecordService.updateViewForFile(sopFile,view);
-			if(id == null){
+			Long fileid = interviewRecordService.updateViewForFile(sopFile,view);
+			if(fileid == null){
 				responseBody.setResult(new Result(Status.ERROR,null, "录音追加失败"));
 				logger.error("addInterview addFileForView 录音追加失败，返回更新recordview为0 ");
 				return responseBody;
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(id);
+			responseBody.setId(fileid);
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "录音追加失败"));
@@ -758,58 +758,43 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		
-		if(proProgress!=null){
-			if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && roleIdList.contains(UserConstant.TZJL)){      //字典   项目进度     投资意向书
-				fileworktypeList.add(DictEnum.fileWorktype.投资意向书.getCode());   //字典   档案业务类型   投资意向书
-				
-			}else if(proProgress.equals(DictEnum.projectProgress.尽职调查.getCode())){  //字典   项目进度     尽职调查
-				
-				//人事|投资经理
-				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HRJL) 
-						|| roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.HRZJ)){
-				         fileworktypeList.add(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());  //字典   档案业务类型   尽职调查报告
-				}
-				//财务|投资经理
-				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) 
-						|| roleIdList.contains(UserConstant.CWZJ)){
-				        fileworktypeList.add(DictEnum.fileWorktype.财务尽职调查报告.getCode());
-				}
-				//法务|投资经理
-				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) 
-						|| roleIdList.contains(UserConstant.FWZJ)){
-				        fileworktypeList.add(DictEnum.fileWorktype.法务尽职调查报告.getCode());
-				}
-				//投资经理
-				if(roleIdList.contains(UserConstant.TZJL)){
-				        fileworktypeList.add(DictEnum.fileWorktype.业务尽职调查报告.getCode());
-				}
-				
-			}else if(proProgress.equals(DictEnum.projectProgress.投资协议.getCode())){   //字典   项目进度     投资协议 
-				        fileworktypeList.add(DictEnum.fileWorktype.投资协议.getCode());      //字典   档案业务类型   投资协议
-				        fileworktypeList.add(DictEnum.fileWorktype.股权转让协议.getCode());     //字典   档案业务类型   股权转让协议
-				
-			}else if(proProgress.equals(DictEnum.projectProgress.股权交割.getCode())){   //字典   项目进度   股权交割
-				//财务|投资经理
-				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) ||
-						roleIdList.contains(UserConstant.CWZJ)){
-				       fileworktypeList.add(DictEnum.fileWorktype.资金拨付凭证.getCode());   //字典   档案业务类型   资金拨付凭证
-				}
-				//法务|投资经理
-				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) 
-						|| roleIdList.contains(UserConstant.FWZJ)){
-				       fileworktypeList.add(DictEnum.fileWorktype.工商转让凭证.getCode());  //字典   档案业务类型   工商变更登记凭证
-				}
-				
-			}else{
-				responseBody.setResult(new Result(Status.OK,null, "项目阶段类型不能识别"));
-				return responseBody;
+		if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && roleIdList.contains(UserConstant.TZJL)){  
+			fileworktypeList.add(DictEnum.fileWorktype.投资意向书.getCode());   
+		}else if(proProgress.equals(DictEnum.projectProgress.尽职调查.getCode())){
+			//人事|投资经理
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HRJL) || roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.HRZJ)){
+			         fileworktypeList.add(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());  
+			}
+			//财务|投资经理
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) || roleIdList.contains(UserConstant.CWZJ)){
+			        fileworktypeList.add(DictEnum.fileWorktype.财务尽职调查报告.getCode());
+			}
+			//法务|投资经理
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.FWZJ)){
+			        fileworktypeList.add(DictEnum.fileWorktype.法务尽职调查报告.getCode());
+			}
+			//投资经理
+			if(roleIdList.contains(UserConstant.TZJL)){
+			        fileworktypeList.add(DictEnum.fileWorktype.业务尽职调查报告.getCode());
+			}
+		}else if(proProgress.equals(DictEnum.projectProgress.投资协议.getCode())){  
+			        fileworktypeList.add(DictEnum.fileWorktype.投资协议.getCode());      
+			        //fileworktypeList.add(DictEnum.fileWorktype.股权转让协议.getCode());  //废弃   
+			
+		}else if(proProgress.equals(DictEnum.projectProgress.股权交割.getCode())){
+			//财务|投资经理
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) || roleIdList.contains(UserConstant.CWZJ)){
+			       fileworktypeList.add(DictEnum.fileWorktype.资金拨付凭证.getCode());   
+			}
+			//法务|投资经理
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.FWZJ)){
+			       fileworktypeList.add(DictEnum.fileWorktype.工商转让凭证.getCode());  
 			}
 		}else{
-			responseBody.setResult(new Result(Status.ERROR,null, "项目阶段为空"));
+			responseBody.setResult(new Result(Status.OK,null, "项目阶段类型不能识别"));
 			return responseBody;
 		}
 		
-
 		try {
 			List<SopFile> fileList = new ArrayList<SopFile>();
 			
@@ -823,10 +808,10 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(fileList);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			responseBody.setResult(new Result(Status.ERROR,null, "查询文件列表失败"));
 			
 			if(logger.isErrorEnabled()){
-				logger.error("update project faild ",e);
+				logger.error("proFileInfo 根据角色项目阶段查询文件列表失败",e);
 			}
 		}
 		

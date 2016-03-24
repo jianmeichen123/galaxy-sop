@@ -229,7 +229,7 @@
                   </tr>
                   <tr>
                     <th>工作关系（如直接上下级）:</th>
-                    <td><input type="text" name="leaderRelationship" id="leaderRelationship" value="" valType="CHAR_CH" msg="工作关系错误"></td>
+                    <td><input type="text" name="leaderRelationship" id="leaderRelationship" value="" valType="MEMBERSHIP" msg="工作关系错误"></td>
                   </tr>
                   <tr>
                     <th>联系方式:</th>
