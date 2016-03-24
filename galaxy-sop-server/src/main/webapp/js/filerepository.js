@@ -7,6 +7,8 @@ var searchPanel = {
 			//档案状态
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileStatus",null,searchPanel.initDataCallBack);
 			
+			$("#file_repository_search_form").find(".datepicker").val("");
+			
 		},
 		initDataCallBack : function(data){
 			var _dom;
@@ -150,6 +152,8 @@ var fileGrid = {
 		params.fileType = utils.confident(form.search_fileType,"all");
 		params.fileWorktype = utils.confident(form.search_fileWorktype,"all");
 		params.fileStatus = utils.confident(form.search_fileStatus,"all");
+		params.startDate = form.file_startDate;
+		params.endDate = form.file_endDate;
 		params.pageType = "dialog";
 		params.projectId = fileGrid.projectId;
 		return params;

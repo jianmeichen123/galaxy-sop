@@ -62,6 +62,30 @@
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
 					</dd>
 				</dl>
+					<dl>
+					<dt>公司定位</dt>
+					<dd class="describe" id="location_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl>
+					<dl>
+					<dt>用户分析</dt>
+					<dd class="describe" id="portrait_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl>
+					<dl>
+					<dt>竞情分析</dt>
+					<dd class="describe" id="analysis_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl>
 				<!-- 
 				<dl>
 					<dt>项目概述</dt>
@@ -161,8 +185,8 @@
 						<dl class="fmdl fmmr fmmm clearfix">
 							<dt>更新时间：</dt>
 							<dd>
-								<input type="text" class="datepicker time" value="2016-01-01" /> <span>至</span>
-								<input type="text" class="datepicker time" value="2016-01-01" />
+								<input type="text" class="datepicker txt time" name="file_startDate" value="2016-01-01" /> <span>至</span>
+								<input type="text" class="datepicker txt time" name="file_endDate" value="2016-01-01" />
 							</dd>
 							<dd>
 								<a href="javascript:;" id="file_repository_btn" class="pubbtn bluebtn">查询</a>
@@ -224,7 +248,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -251,7 +275,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -279,7 +303,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -306,7 +330,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -604,9 +628,15 @@
  	 * 加载项目详情数据
  	 */
  	sendGetRequest(platformUrl.detailProject + alertid, {}, function(data){
- 		$("#prodescribe_show").text(replaceStr(data.entity.projectDescribe));
- 		$("#business_model_show").text(replaceStr(data.entity.projectBusinessModel));
- 		$("#projectDesc_show").text(replaceStr(data.entity.userPortrait));
+ 		$("#prodescribe_show").html(data.entity.projectDescribe);
+ 		$("#business_model_show").html(data.entity.projectBusinessModel);
+ 		$("#projectDesc_show").html(data.entity.userPortrait);
+ 		$("#location_show").html(data.entity.companyLocation);
+ 		$("#portrait_show").html(data.entity.userPortrait);
+ 		$("#analysis_show").html(data.entity.prospectAnalysis);
+ 		
+ 		
+ 		
  	});
  	function replaceStr(str){
  		if(str){

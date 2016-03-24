@@ -3,12 +3,15 @@ package com.galaxyinternet.sopfile.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
+import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.sopfile.SopFile;
 
@@ -50,6 +53,8 @@ public class SopFileDaoImpl extends BaseDaoImpl<SopFile, Long> implements SopFil
 		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(getSqlName("queryProjectName"), map);
 	}
+	
+
 
 
 	

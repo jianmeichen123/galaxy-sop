@@ -13,14 +13,14 @@
 	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <%-- 	<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
 	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
-	<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
+<%-- 	<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css"> --%>
 
 	
 	<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 	<script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
 	<script src="<%=path%>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
     <script src="<%=path %>/js/init.js"></script>
-    <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
+<%--     <script src="<%=path %>/js/jquery.showLoading.min.js"></script> --%>
     
 </head>
 
@@ -107,14 +107,7 @@
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="../sopFile/projectDialog.jsp" flush="true"></jsp:include>
 
-<div class="container">
-  <!-- 注意这里要引入ladda-button的CSS定义-->
-  <button class="btn btn-primary btn-lg ladda-button center-block" id="showmore" data-style="contract-overlay"><!-- 如果你需要其它效果，请修改此data-style属性，这里我们使用contract-overlay -->
-    <span class="ladda-label">
-      更多设计
-    </span>
-  </button>
-</div>
+
 
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>

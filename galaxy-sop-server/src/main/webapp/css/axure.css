@@ -24,6 +24,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
         -o-filter: grayscale(100%); 
         filter:progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);  
         _filter:none;}
+input.disabled{background-color: #000;}
 /*背景图片*/
 .ico{ background-repeat:no-repeat}
 .light_blue{background-color: #f4f6fa;}
@@ -343,9 +344,9 @@ table .width_gd{width:10%;}
 .fmdl dd select,
 .fmdl dd .txt,
 .fmdl dd textarea,
-.fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px !important; line-height:28px; border-radius:4px; padding:0 4px; font-size:14px; color:#525662; font-family:"宋体"}
+.fmload .loadname{ display:block; border:1px solid #dadfe3; background:#ffffff; height:28px; line-height:28px; border-radius:4px; padding:0 4px; font-size:12px; color:#525662; font-family:"宋体"}
 .fmdl dd select{ width:160px;font-size: 12px;}
-.fmdl dd .txt{ width:230px;;font-size: 12px;}
+.fmdl dd .txt{ width:230px;;font-size: 12px;height:28px !important;}
 .fmdl label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; font-size:12px; color:#525662; font-family:"宋体"; position:relative}
 .fmdl label input{ position:absolute; left:0; top:9px; *top:4px}
 
@@ -476,6 +477,10 @@ table .width_gd{width:10%;}
 .pagebox .min .tablist .l_executive{width:49.6%; margin:-2px 2px 0 0}
 .pagebox .min .tablist .l_executive dl,.pagebox .min .tablist .r_executive dl,.pagebox .rit_executive dl{height:200px;overflow: hidden;}
 .pagebox .rit_executive .tjh_block,.pagebox .min .tablist .r_executive .executive_last,.pagebox .min .tablist .l_executive .executive_last{height:234px;overflow: hidden;}
+/* 项目运营添加静态预览标识 begin */
+.pagebox .min .tablist .r_executive .executive_last{position: relative;}
+.pagebox .min .tablist .r_executive .executive_last img{position: absolute;top:50%;left: 50%;margin-left: -74px;margin-top:-60px;z-index: 1000;}
+/* 项目运营添加静态预览标识 end */
 .pagebox .rit_executive .top{height:200px;overflow: hidden;}
 .pagebox .min .tablist .l_executive{width:49.6%; margin:-2px 2px 0 0}
 .pagebox .min .tablist .r_executive{width:49.6%; margin:-2px 2px 0 0}
@@ -790,6 +795,8 @@ table .width_gd{width:10%;}
 /* 投后静态预览 */
 .label_static{position: relative;}
 .label_static img{position: absolute;left: 50%;margin-left: -74px;top: 250px;z-index: 1000;}
+.chartbox_bottom{position: relative;}
+.chartbox_bottom img{position: absolute;left: 50%;margin-left: -74px;top: 220px;z-index: 1000;}
 /* 加皇冠 */
 .tabtable_con table .no1{background:url(../img/hg1.png) center center no-repeat;z-index: -999;font-size: 0;}
 .tabtable_con table .no2{background:url(../img/hg2.png) center center no-repeat;z-index: -999;font-size: 0;}
@@ -814,8 +821,11 @@ right: 200px;}
 .chartbox_bottom .tabtable .tabtable_top a{float: right;}
 .chartbox_bottom ul li{color:#5D678A;}
 .chartbox_bottom ul .on{ background:#edeff5; }
+.mask{position: absolute;width:100%;height: 100%;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
+.mask1{position: absolute;width:100%;height: 100px;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
+dl dd .time1{display:inline-block !important;width: 100px !important;background:url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
 
-/*管理员 数据字典*/
+ /*管理员 数据字典*/
 .dictionary{ padding:0 0 0 90px}
 .dictionary ul{ float:left; width:140px; margin:46px 3px 0 0}
 .dictionary ul li{ float:left; width:140px; height:30px; cursor:pointer; margin:0 0 2px; border-radius:4px; text-align:center; line-height:30px; background:#ffffff; font-size:14px; color:#3e4351}
@@ -936,7 +946,7 @@ background-size: 93%;position: relative;z-index: 10;}
 .emailtc h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 .emailtc .fmdl dt{width:100px;text-align: right;}
 .emailtc .fmdl dd .txt{ width:300px}
-.emailtc .fmdl dd textarea{ height:150px; width:360px}
+.emailtc .fmdl dd textarea{ height:150px; width:360px;line-height: 20px;}
 .emailtc .fmdl dd table{border:1px solid #e9ebf2; border-radius:6px;height:auto; width:370px}
 .emailtc .fmdl dd table th{background-color: #f9fafc;}
 .emailtc .fmdl dd .txt,.emailtc .fmdl dd textarea{font-size: 12px;color:#535762;}
@@ -1040,18 +1050,19 @@ background-size: 93%;position: relative;z-index: 10;}
 .resumetc .tabtable_con1 h2{height: 30px;background-color: #f9fafc;line-height: 30px;text-align: center;font-size: 16px;font-weight: normal;color:#6b799f;}
 .resumetc .tabtable_con1 table{width: 100%;}
 .resumetc .tabtable_con1 table tr{border-bottom:1px solid #e9ebf2;}
-.resumetc .tabtable_con1 table th{width:50%;text-align: right;font-size: 14px;color:#3e4351;height:20px;line-height: 20px}
-.resumetc .tabtable_con1 table td{text-align: left;border: 0;height:20px;line-height: 20px}
+.resumetc .tabtable_con1 table th{width:50%;text-align: right;font-size: 14px;color:#3e4351;height:26px;line-height: 26px}
+.resumetc .tabtable_con1 table td{text-align: left;border: 0;height:26px;line-height: 26px}
 .resumetc .tabtable_con2 table th{width:20%;background-color: #f9fafc;}
 .resumetc .tabtable_con2 dl dt{float: left;width: 100px;}
 .resumetc .fmdl{margin:5px 0;}
 .resumetc .show{display: block;}
 .resumetc .btnbox{ text-align:center}
 .resumetc .btnbox .pubbtn{ margin:0 10px; display:inline-block; *display:inline; zoom:1;}
-.resumetc .tabtable .tabtable_con input[type="text"]{width:100%;font-size: 12px;height:20px;line-height: 20px;}
-.resumetc .tabtable .tabtable_con textarea{width:100%;font-size: 12px;line-height: 20px;}
+.resumetc .tabtable .tabtable_con input[type="text"]{width:96%;font-size: 12px;height:22px;line-height: 22px;}
+.resumetc textarea{width:310px;font-size: 12px;line-height: 20px;height:50px;border:1px solid #dadfe3;border-radius:4px;margin:3px 0 0 2px;}
 .resumetc .tabtable label{font-size: 12px;}
 .resumetc .tabtable .add{width:20px;height:20px;border:0;border-radius: 50%;position: absolute;top:6px;right:8px;color: #fff;font-size: 20px;line-height: 20px;font-weight: bold;}
+
 /* 搜索弹层 */
 /* 添加日程新的弹窗 */
 .schedule1tc{background-color: #fff;padding: 10px;position: relative;height:400px;}
@@ -1110,3 +1121,4 @@ dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../
 /**切断文字**/
 .text-overflow{width:400px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
 #template-table{border-radius: 6px;}
+.percentTxt{width:30px !important;display: inline-block !important;}

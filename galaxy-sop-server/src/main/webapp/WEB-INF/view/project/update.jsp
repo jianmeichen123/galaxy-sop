@@ -198,6 +198,7 @@
               <dd class="full_w describe clearfix">
               	<div class="btnbox_f">
                   <a href="javascript:;" class="ico b1 fffbtn" onclick="addPerson();">添加</a>
+                  <a href="javascript:;" class="ico b1 fffbtn" onclick="toSureMsg();">完善简历</a>
                   <!--  
                   <a href="javascript:;" class="ico b2">修改</a>
                   <a href="javascript:;" class="ico b3">删除</a>-->
@@ -382,7 +383,13 @@ function closeback(data){
 }
     
     
-    
+    function toSureMsg(){
+    	sendGetRequest(
+				 sopContentUrl + '/galaxy/soptask/toSureMsg/'+pid, 
+				 null, function(data){
+					 layer.msg(data.result.message);
+				 });
+    }
     
     
 	function editor(value, row, index){
@@ -606,6 +613,28 @@ function closeback(data){
     	UM.getEditor(id);
     }
  
+    $("#project_share_ratio").blur(function(){
+		var valuations = calculationValuations();
+		$("#project_valuations").text("");
+		if(valuations){
+			$("#project_valuations").text(valuations);
+		}
+	});
+	$("#project_contribution").blur(function(){
+		var valuations = calculationValuations();
+		$("#project_valuations").text("");
+		if(valuations){
+			$("#project_valuations").text(valuations);
+		}
+	});
+	function calculationValuations(){
+		var projectShareRatio = $("#project_share_ratio").val();
+		var projectContribution = $("#project_contribution").val();
+		if(projectShareRatio > 0 && projectContribution > 0){
+			return projectContribution * (100/projectShareRatio);
+		}
+		return null;
+	}
 	
 </script>	   
 <%-- <script src="<%=request.getContextPath() %>/js/axure_ext.js"></script> --%>

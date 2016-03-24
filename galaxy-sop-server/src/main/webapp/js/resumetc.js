@@ -163,8 +163,9 @@ $(".btnbox").on("click",".bluebtn",function(){
 				var son_model = {};
 				it.find("tr").each(function(m,tr_item){
 					var input = $(tr_item).find("input[name][type!=hidden]")[i];
-					if($(input).val() != ''){
-						son_model[$(input).attr("name")] = $(input).val();
+					var val = $(input).val().trim();
+					if(val != ''){
+						son_model[$(input).attr("name")] = val;
 						if(!resemetValidate($(input))){
 							flag = false;
 							return;
@@ -180,8 +181,9 @@ $(".btnbox").on("click",".bluebtn",function(){
 		}else{
 			model = {};
 			it.find("input[name]").each(function(index,input){
-				if($(input).val() != ''){
-					model[$(input).attr("name")] = $(input).val() ;
+				var val = $(input).val().trim();
+				if(val != ''){
+					model[$(input).attr("name")] = val ;
 					if(!resemetValidate($(input))){
 						flag = false;
 						return;
@@ -195,6 +197,10 @@ $(".btnbox").on("click",".bluebtn",function(){
 		}
 		
 	});
+	if(data['personPool']['personName'] == ''||data['personPool']['personName'] == undefined ||data['personPool']['personName'] == 'undefined'){
+		layer.msg("核心成员基本资料中姓名不能为空");
+		return;
+	}
 	if(!flag){
 		return;
 	}
@@ -259,7 +265,7 @@ function resemetValidate(input){
 	var valType = input.attr("valType");
 	var flag = true;
 	//flag = beforeSubmit();
- 	var value = input.val();
+ 	var value = input.val().trim();
 	var regString = input.attr("regString");
 	var textsIn = input.attr("textsIn");
 	if(valType==''||valType=='undefined'||valType==undefined){
@@ -270,19 +276,19 @@ function resemetValidate(input){
 		flag = /^(([1-9]+)|([0-9]+\.[0-9]{1,2}))$/.test(value);
 		break;
 	case "RATIO":
-		flag = /^([1]?\d{1,2})$/.test(value);
+		flag = /(^[1-9][0-9]$)|(^100&)|(^[1-9]$)$/.test(value);
 		break;
 	case "COMPANYNAME":
-		flag = /^[^\d]{1,100}$/.test(value);
+		flag = value.length < 100;
 		break;
 	case "NAME":
-		flag = /^\S{1,20}$/.test(value);
+		flag = value.length < 50;
 		break;
 	case "MEMBERSHIP":
 		flag = /^[\u4e00-\u9fa5]{1,20}$/.test(value);
 		break;
 	case "CERTIFICATE":
-		flag = /^\d{1,18}$/.test(value);
+		flag = /^[a-zA-Z0-9]{1,18}$/.test(value);
 		break;
 	case "NUM_CHAR_CH":
 		flag = /[\u4e00-\u9fa5a-zA-Z\d]{1,50}/.test(value);
@@ -291,13 +297,13 @@ function resemetValidate(input){
 		flag = /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/.test(value);
 		break;
 	case "CHAR_CH":
-		flag = /^\S{1,100}$/.test(value);
+		flag =  value.length < 100;
 		break;		
 	case "CHAR_CH_SYB":
-		flag = /^[\u4e00-\u9fa5a-zA-Z]{1,50}$/.test(value);
+		flag = /^[\u4e00-\u9fa5a-zA-Z]{1,100}$/.test(value);
 		break;	
 	case "TEL":
-		flag = /^0(10|2[0-5789]|\\d{3})-\\d{7,8}$/.test(value);
+		flag = /0\d{2,3}-\d{5,9}|0\d{2,3}-\d{5,9}/.test(value);
 		break;			
 	case "MOBILE":
 		flag = /(^1[3|5|8][0-9]{9}$)/.test(value);
@@ -323,7 +329,7 @@ function resemetValidate(input){
 		break;
 	}
 	if(!flag){
-		layer.msg(input.attr("msg")+"--"+input.val());
+		layer.msg(input.attr("msg"));
 	} 
 	
 	return flag;

@@ -24,6 +24,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
+ 	<h2>项目列表</h2>
     	<input type="hidden" id="project_id" value=""/>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">

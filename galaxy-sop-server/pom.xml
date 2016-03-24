@@ -74,6 +74,32 @@
 	</build>
 
 	<profiles>
+	<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- 数据库连接地址和数据库名 -->
+				<jdbc.url>
+					jdbc:mysql://10.9.11.232:3306/fx_db?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8
+				</jdbc.url>
+				<jdbc.username>fxuser</jdbc.username>
+				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
+				<!-- 本地项目地址 -->
+				<log4j.path>${catalina.base}/logs/</log4j.path>
+				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
+				<!-- dubbo -->
+				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
+				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
+				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
+				<dubbo.protocol.port>8082</dubbo.protocol.port>
+
+				<project.server.url>http://127.0.0.1:9999/platform/</project.server.url>
+				<galaxy.project.platform.endpoint>http://127.0.0.1:9999/platform/</galaxy.project.platform.endpoint>		
+				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
+			</properties>
+		</profile>
 		<profile>
 			<id>dev</id>
 			<activation>

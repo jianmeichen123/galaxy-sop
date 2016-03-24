@@ -3,6 +3,7 @@
 <mapper namespace="com.galaxyinternet.model.project.PersonPool" >
   <resultMap id="BaseResultMap" type="com.galaxyinternet.model.project.PersonPool" >
     <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="tid" property="tid" jdbcType="BIGINT" />
     <result column="person_name" property="personName" jdbcType="VARCHAR" />
     <result column="person_sex" property="personSex" jdbcType="INTEGER" />
     <result column="person_age" property="personAge" jdbcType="INTEGER" />
@@ -32,7 +33,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, person_name, person_sex, person_age, highest_degree, work_time, person_duties, person_birthday, person_idcard, person_telephone, person_email, 
+    id, tid, person_name, person_sex, person_age, highest_degree, work_time, person_duties, person_birthday, person_idcard, person_telephone, person_email, 
     person_character, person_goodness, person_disparity, talk_ability, team_ability, 
     business_strength, free, team_role, member_relation, labor_dispute, ability_star, 
     level_star, end_comment, create_id, updated_time, created_time
@@ -44,6 +45,7 @@
 		<where>
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
+			  <if test="tid != null"> and tid =#{tid}</if>
 			  <if test="ids != null">
 					AND id IN
 					<foreach collection="ids" index="item" item="item" open="("
@@ -73,6 +75,28 @@
 		from sop_person_pool
 		<include refid="Base_Where_Clause" />
 	</select>
+	
+	<!-- 查询[已/未]绑定任务的人员记录 -->
+	<select id="selectNoToTask" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select 
+			
+			pool.id, pool.tid, pool.person_name, pool.person_sex, pool.person_age, 
+			pool.highest_degree, pool.work_time, pool.person_duties, 
+			pool.person_birthday, pool.person_idcard, pool.person_telephone, pool.person_email, 
+    		pool.person_character, pool.person_goodness, pool.person_disparity, pool.talk_ability, 
+    		pool.team_ability, pool.business_strength, pool.free, pool.team_role, pool.member_relation, 
+    		pool.labor_dispute, pool.ability_star, 
+    		pool.level_star, pool.end_comment, pool.create_id, pool.updated_time, pool.created_time
+		
+		from sop_person_pool pool inner join sop_project_person pp on pool.id = pp.person_id
+		<where>
+			<trim prefixOverrides="and">
+			  <if test="pid != null"> and pp.project_id =#{pid}</if>
+			  <if test="tid != null"> and pool.tid =#{tid}</if>
+			  <if test="tid == null"> and pool.tid is null</if>
+			</trim>
+		</where>
+	</select>
 
 	<!-- 根据ID查询 -->
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
@@ -83,11 +107,11 @@
 	
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.PersonPool" >
 	    <![CDATA[
-	     insert into sop_person_pool (id, person_name, person_sex, person_age, highest_degree, work_time, person_duties, person_birthday, person_idcard, person_telephone, person_email, 
+	     insert into sop_person_pool (id,tid, person_name, person_sex, person_age, highest_degree, work_time, person_duties, person_birthday, person_idcard, person_telephone, person_email, 
     		person_character, person_goodness, person_disparity, talk_ability, team_ability, 
    			business_strength, free, team_role, member_relation, labor_dispute, ability_star, 
     		level_star, end_comment, create_id, updated_time, created_time)
-	    values (#{id,jdbcType=BIGINT}, #{personName,jdbcType=VARCHAR}, #{personSex,jdbcType=INTEGER}, 
+	    values (#{id,jdbcType=BIGINT}, #{tid,jdbcType=BIGINT}, #{personName,jdbcType=VARCHAR}, #{personSex,jdbcType=INTEGER}, 
 	      #{personAge,jdbcType=INTEGER}, #{highestDegree,jdbcType=VARCHAR}, #{workTime,jdbcType=INTEGER}, #{personDuties,jdbcType=VARCHAR},
 	      #{personBirthday,jdbcType=TIMESTAMP}, #{personIdcard,jdbcType=VARCHAR}, #{personTelephone,jdbcType=VARCHAR}, 
 	      #{personEmail,jdbcType=VARCHAR}, #{personCharacter,jdbcType=VARCHAR}, 
@@ -104,7 +128,8 @@
 	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.project.PersonPool">
 		update sop_person_pool
 		<set>
-			<if test="personName != null" >  person_name = #{personName,jdbcType=VARCHAR}, </if>
+			  <if test="tid != null" >  tid = #{tid,jdbcType=BIGINT}, </if>
+			  <if test="personName != null" >  person_name = #{personName,jdbcType=VARCHAR}, </if>
 		      <if test="personSex != null" >  person_sex = #{personSex,jdbcType=INTEGER}, </if>
 		      <if test="personAge != null" >  person_age = #{personAge,jdbcType=INTEGER}, </if>
 		      <if test="highestDegree != null" >  highest_degree = #{highestDegree,jdbcType=VARCHAR}, </if>
@@ -142,7 +167,8 @@
 	<update id="updateById" parameterType="com.galaxyinternet.model.project.PersonPool">
 		update sop_person_pool
 		<set>
-			<if test="personName != null" >  person_name = #{personName,jdbcType=VARCHAR}, </if>
+			  <if test="tid != null" >  tid = #{tid,jdbcType=BIGINT}, </if>
+			  <if test="personName != null" >  person_name = #{personName,jdbcType=VARCHAR}, </if>
 		      <if test="personSex != null" >  person_sex = #{personSex,jdbcType=INTEGER}, </if>
 		      <if test="personAge != null" >  person_age = #{personAge,jdbcType=INTEGER}, </if>
 		      <if test="highestDegree != null" >  highest_degree = #{highestDegree,jdbcType=VARCHAR}, </if>

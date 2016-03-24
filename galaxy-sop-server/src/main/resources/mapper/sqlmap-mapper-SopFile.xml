@@ -32,6 +32,7 @@
 		file_key, bucket_name,file_name,file_suffix
 	</sql>
 	
+	
 	<sql id="Base_Where_Clause">
 		<where>
 			<trim prefixOverrides="and">
@@ -100,10 +101,7 @@
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>
 		</where>
-		<if test="sorting != null">order by ${sorting}</if>
-		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
-		</if>
+		
 	</sql>
 	<!-- 根据ID查询-->
 	<select id="selectById" parameterType="java.lang.Long"
@@ -120,6 +118,10 @@
 		<include refid="Base_Column_List" />
 		from sop_file
 		<include refid="Base_Where_Clause" />
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 	
 	<!-- 查询总数 -->
@@ -127,6 +129,10 @@
 		parameterType="java.util.Map">
 		select count(id) from sop_file
 		<include refid="Base_Where_Clause" />
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 	
 	<!-- 删除 -->

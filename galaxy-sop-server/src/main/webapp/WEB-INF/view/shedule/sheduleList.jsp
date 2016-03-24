@@ -111,7 +111,7 @@
             <dl class="fmdl clearfix">
                 <dt>事项内容：</dt>
                 <dd>
-                    <textarea id="content" name="content" valType="OTHER" regString="^.{1,200}$" msg="<font color=red>*</font>事件内容不能为空,且不能超过200字符"><%=contentstr %></textarea>
+                    <textarea id="content" name="content" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>事件内容不能超过200字符"><%=contentstr %></textarea>
                 </dd>
             </dl>
             <div class="btnbox">

@@ -11,7 +11,7 @@ var platformUrl = {
 	/**
 	 * 获取token
 	*/
-	getToken: Constants.platformEndpointURL+ "galaxy/user/formtoken",
+	getToken: Constants.platformEndpointURL+ "/galaxy/user/formtoken",
 	/**
 	 * 跳转到登录
 	 */
@@ -338,7 +338,7 @@ var platformUrl = {
 	/**
 	 * 跳到完善简历页面
 	 */
-	toWanshan: sopContentUrl + "/galaxy/project/queryProjectPerson",
+	toWanshan: sopContentUrl + "/galaxy/project/queryPersonListToTask",
 	/**
 	 * 跳到完善简历页面(弹出)
 	 */
@@ -348,7 +348,11 @@ var platformUrl = {
 	 */
 	taskUrged:sopContentUrl + "/galaxy/taskprocess/taskUrged",
 	
-	tempSendMail:sopContentUrl + "/galaxy/template/sendMail"
+	tempSendMail:sopContentUrl + "/galaxy/template/sendMail" ,
+	/**
+	 * Ajax判断项目名称，组织机构代码是否重复
+	 */
+	checkProject:sopContentUrl + "/galaxy/project/checkProject"
 }
 
 /**

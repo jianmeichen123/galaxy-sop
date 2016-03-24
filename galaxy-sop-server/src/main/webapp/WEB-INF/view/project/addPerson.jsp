@@ -9,15 +9,15 @@
     <div class="left">
       <dl class="fmdl fml">
         <dt>姓名：</dt>
-        <dd><input type="text" id="personName" name="personName" value="" class="txt" placeholder="姓名" valType="OTHER" regString="^\S{1,20}[^\d]+$"msg="<font color=red>*</font>姓名只能是汉字或是字符" /></dd>
+        <dd><input type="text" id="personName" name="personName" value="" class="txt" placeholder="姓名" valType="OTHER" regString="^\S{1,20}[^\d]+$"msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" /></dd>
       </dl>
        <dl class="fmdl">
         <dt>年龄：</dt>
         <dd><input type="text" id="personAge" name="personAge" value="" class="txt" placeholder="年龄" valType="NUMBER" msg="<font color=red>*</font>年龄只能是数字"/></dd>
       </dl>
       <dl class="fmdl">
-        <dt>电话号码：</dt>
-        <dd><input type="text" id="personTelephone" name="personTelephone" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"/></dd>
+        <dt>手机号码：</dt>
+        <dd><input type="text" id="personTelephone" name="personTelephone" value="" class="txt" placeholder="手机号码" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确"/></dd>
       </dl> 
       <dl class="fmdl">
         <dt>最高学历：</dt>

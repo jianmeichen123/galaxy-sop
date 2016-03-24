@@ -9,6 +9,7 @@ public class PersonPool extends PagableEntity{
 	
 	public final static String ID = "团队成员id";
 	public final static String PERSONNAME = "团队成员名称";
+	private Long tid;
     private String personName;
     private Integer personSex;
     private Integer personAge;
@@ -33,11 +34,17 @@ public class PersonPool extends PagableEntity{
     private Integer levelStar;
     private String endComment;
     private Long createId;
+    
 
-    public String getPersonName() {
+	public Long getTid() {
+		return tid;
+	}
+	public void setTid(Long tid) {
+		this.tid = tid;
+	}
+	public String getPersonName() {
         return personName;
     }
-
     public void setPersonName(String personName) {
         this.personName = personName == null ? null : personName.trim();
     }

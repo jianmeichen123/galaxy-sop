@@ -10,11 +10,11 @@ function queryMeetPerPro(){
 		condition.nameLike = proName;
 	}
 	
-	/*name 赋值 和 主页面 重了*/
+	/*name 赋值 和 主页面 重了
 	 var meetingType=$('input:radio[name="meetingTypeTc"]:checked').val();
 	if(meetingType!=null && meetingType!=""){
 		condition.meetingType = meetingType;
-	}
+	}*/
 	
 	sendGetRequest(platformUrl.getUserPro,condition,setMeetProSelect);
 }

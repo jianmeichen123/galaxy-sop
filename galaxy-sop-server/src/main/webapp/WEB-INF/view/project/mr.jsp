@@ -67,7 +67,7 @@
     <dl class="fmdl clearfix">
        <dt>会议纪要:</dt>
        <dd>
-       	  <div type="text/plain" id="meeting_notes" style="width:100%;height:100px;" valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>会议纪要不能为空"></div>
+       	  <div type="text/plain" id="meeting_notes" style="width:100%;height:100px;" valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>会议纪要不能超过9000字符"></div>
 		</dd>
       </dl>
         

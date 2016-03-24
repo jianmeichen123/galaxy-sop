@@ -272,10 +272,96 @@ Date.prototype.format = function(fmt){
  * fileInputId-type="file"的input的id
  * submitBtnId-点击上传的按钮的id
  * paramsFunction-获取其他表单值得函数
+ * fileType-存儲類型select的id
  * 注意：
  * 1.再引入plupload.full.min.js后，一定要在页面加载时就初始化调用该函数
  */
-function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunction) {
+
+function paramsFilter(){
+	var filtersparams=[
+                        {title : "fileType:1", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers"},
+					    {title : "fileType:2", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r"},
+					    {title : "fileType:3", extensions : "avi"},
+						{title : "fileType:4", extensions : "bmp,jpg,gif,png,jpeg"}
+						
+					];
+	return filtersparams;
+}
+/**
+ * 
+ * @param file-文件
+ * @param fileType-存储类型id
+ */
+function attrFileType(fileType,file){
+	var type=file.name;
+	var arr = new Array();
+	arr = type.split(".");
+	var type="";
+	if(arr){
+		type=arr[1];
+	}
+	var filtersparams=paramsFilter();
+	for(var i=0;i<filtersparams.length;i++){
+		var value=filtersparams[i];
+		var valueExt=value.extensions;
+		if(valueExt.indexOf(type) >= 0 ){
+			var myvalue=value.title;
+			$("#"+fileType+" option[value='"+myvalue+"']").attr("selected",true);
+		}
+	}
+}
+/**
+ * 获取后缀名
+ * @param fileName
+ * @returns {String}
+ */
+function getFileExt(fileName)
+{
+	var type="";
+	var dotIndex = fileName.lastIndexOf(".");
+	if(dotIndex >- 1)
+	{
+		type = fileName.substr(dotIndex+1);
+		type = type.toLowerCase()
+	}
+	return type;
+}
+
+/**
+ * 根据后缀名确定文档类型
+ * @param ext
+ * @returns {String}
+ */
+function getFileTypeByExt(ext)
+{
+	var type = "";
+	var filtersparams = paramsFilter();
+	for(var i=0;i<filtersparams.length;i++)
+	{
+		var value = filtersparams[i];
+		var valueExt=value.extensions;
+		if(valueExt.indexOf(ext) >= 0 ){
+			type=value.title;
+			break;
+		}
+	}
+	return type;
+}
+function getFileTypeByName(fileName)
+{
+	var type = "";
+	var ext = getFileExt(fileName);
+	if(ext != null && ext != "")
+	{
+		type = getFileTypeByExt(ext);
+	}
+	return type;
+}
+
+function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction) {
+	
+
+	
 	//上传对象初始化
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
@@ -285,12 +371,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 		multi_selection:false,
 		filters : {
 			max_file_size : '10mb',
-			mime_types: [
-			    {title : "YP files", extensions : "mp3,avi"},
-				{title : "Image files", extensions : "jpg,gif,png"},
-				{title : "Zip files", extensions : "zip,rar"},
-				{title : "Offices files", extensions : "doc,docx,excel"}
-			]
+			mime_types: paramsFilter()
 		},
 		init: {
 			//上传按钮点击事件 - 开始上传
@@ -322,9 +403,19 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 			},
 			//添加上传文件后，把文件名 赋值 给 input
 			FilesAdded: function(up, files) {
+				//解决多次文件选择后，文件都存入upload
+				if(uploader.files.length >= 2){
+					uploader.splice(0, uploader.files.length-1)
+				}
 				plupload.each(files, function(file) {
 					/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
 					$("#" + fileInputId).val(file.name);
+					/***存储类型被选中***/
+					if(fileType){
+						attrFileType(fileType,file);//定位选中存储类型
+					}
+					
+					
 				});
 			},
 			//上传进度
@@ -357,7 +448,9 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,paramsFunc
 				//alert(JSON.stringify(getSaveCondition()));
 			},
 			Error: function(up, err) {
-				alert("错误"+err);
+				//alert("错误"+err);
+				layer.msg("上传格式等错误,请重新选择文件!");
+				
 			}
 		}
 	});
@@ -633,11 +726,47 @@ function meetInfoFormat(value, row, index){
 	return rc;
 }
 
+
+//interview
+function sublengthFormat(value,row,index){
+	//统一去掉说有标签
+	var delhtmlValue = $.trim(delHtmlTag(value));
+	var len = getLength($.trim(delhtmlValue));
+	if(len>100){
+		var subValue = delhtmlValue.substring(0,100);
+		var rc = "<div id=\"log\"  class=\"text-overflow\" title='"+value+"'>"+subValue+'...'+'</div>';
+		
+		return rc;
+	}else{
+		return delhtmlValue;
+	}
+}
+
 //interview
 function intervierLog(value,row,index){
 	var len = getLength($.trim(value));
 	if(row.viewNotes != ''){
 		var strlog=delHtmlTag(row.viewNotes);
+/*		strlog=strlog.replace("</div>","");
+		strlog=strlog.replace("<br/>","");*/
+		var strrrr=strlog;
+		if(len>100){
+			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
+			
+			return rc;
+		}else{
+			return strlog;
+		}
+	}
+
+}
+
+//interview
+function meetingLog(value,row,index){
+	var len = getLength($.trim(value));
+	if(row.viewNotes != ''){
+		var strlog=delHtmlTag(row.meetingNotes);
 /*		strlog=strlog.replace("</div>","");
 		strlog=strlog.replace("<br/>","");*/
 		var strrrr=strlog;
