@@ -18,6 +18,9 @@
 }
 .edui-container .edui-editor-body{
     background-color: #fff;
+    height: 150px;
+    overflow-y:scroll; 
+    overflow-x:hidden;
 }
 .edui-container, .edui-toolbar{
 	width:100% !important;
@@ -33,11 +36,8 @@
     word-wrap:break-word;
     font-size:14px;
     line-height: 20px;
-    height: 200px;
     font-family:sans-serif;
     width:100% !important;
-    height: 150px;
-    overflow-y:scroll; 
 }
 .edui-editor-body.focus{border:1px solid #5c9dff}
 .edui-editor-body table{margin:10px 0 10px;border-collapse:collapse;display:table;}
