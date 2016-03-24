@@ -127,9 +127,9 @@
                   </tr>                  
                   <tr>
                     <th>学历性质：</th>
-                    <td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 "></td>
-                	<td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 "></td>
-                    <td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 "></td>
+                    <td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 长度限制50"></td>
+                	<td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 长度限制50"></td>
+                    <td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 长度限制50"></td>
                   </tr>                  
    				 <tr>
                     <th>毕业年份：</th>
@@ -139,9 +139,9 @@
                   </tr>             
                   <tr>
                     <th>毕业证书/学历证书的证书编号：</th>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号只能是数字"></td>
-                   	<td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号只能是数字"></td>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号只能是数字"></td>
+                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号只能是数字 长度限制18"></td>
+                   	<td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号只能是数字 长度限制18"></td>
+                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号只能是数字 长度限制18"></td>
                   </tr>
                 </table>
               </div>
@@ -270,7 +270,7 @@
                   </tr>
                   <tr>
                     <th>股权占比（%）：</th>
-                    <td><input type="text" name="shareRatio" id="shareRatio"  value="" valType="RATIO" msg="股权占比格式方式错误"></td>
+                    <td><input type="text" name="shareRatio" id="shareRatio"  value="" valType="RATIO" msg="股权占比格式方式错误 股权占比值必须 在0-100之间"></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>
@@ -291,7 +291,7 @@
                   </tr>
                   <tr>
                     <th>股权占比（%）：</th>
-                    <td><input type="text" name="ashareRatio" id="ashareRatio"  value=""  valType="RATIO" msg="股权占比格式方式错误"></td>
+                    <td><input type="text" name="ashareRatio" id="ashareRatio"  value=""  valType="RATIO" msg="股权占比格式方式错误 股权占比值必须在0-100之间"></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>
