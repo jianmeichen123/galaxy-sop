@@ -185,8 +185,8 @@
 						<dl class="fmdl fmmr fmmm clearfix">
 							<dt>更新时间：</dt>
 							<dd>
-								<input type="text" class="datepicker txt time" value="2016-01-01" /> <span>至</span>
-								<input type="text" class="datepicker txt time" value="2016-01-01" />
+								<input type="text" class="datepicker txt time" name="file_startDate" value="2016-01-01" /> <span>至</span>
+								<input type="text" class="datepicker txt time" name="file_endDate" value="2016-01-01" />
 							</dd>
 							<dd>
 								<a href="javascript:;" id="file_repository_btn" class="pubbtn bluebtn">查询</a>
