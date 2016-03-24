@@ -279,16 +279,16 @@ function resemetValidate(input){
 		flag = /^([1]?\d{1,2})$/.test(value);
 		break;
 	case "COMPANYNAME":
-		flag = /^[^\d]{1,100}$/.test(value);
+		flag = value.length < 100;
 		break;
 	case "NAME":
-		flag = /^\S{1,50}[^\d]+$/.test(value);
+		flag = value.length < 50;
 		break;
 	case "MEMBERSHIP":
 		flag = /^[\u4e00-\u9fa5]{1,20}$/.test(value);
 		break;
 	case "CERTIFICATE":
-		flag = /^\d{1,18}$/.test(value);
+		flag = /^[a-zA-Z0-9]{1,18}$/.test(value);
 		break;
 	case "NUM_CHAR_CH":
 		flag = /[\u4e00-\u9fa5a-zA-Z\d]{1,50}/.test(value);
@@ -297,7 +297,7 @@ function resemetValidate(input){
 		flag = /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/.test(value);
 		break;
 	case "CHAR_CH":
-		flag = /^\S{1,100}$/.test(value);
+		flag =  value.length < 100;
 		break;		
 	case "CHAR_CH_SYB":
 		flag = /^[\u4e00-\u9fa5a-zA-Z]{1,100}$/.test(value);
