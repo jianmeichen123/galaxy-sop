@@ -300,7 +300,7 @@ function resemetValidate(input){
 		flag = /^\S{1,100}$/.test(value);
 		break;		
 	case "CHAR_CH_SYB":
-		flag = /^[\u4e00-\u9fa5a-zA-Z]{1,50}$/.test(value);
+		flag = /^[\u4e00-\u9fa5a-zA-Z]{1,100}$/.test(value);
 		break;	
 	case "TEL":
 		flag = /0\d{2,3}-\d{5,9}|0\d{2,3}-\d{5,9}/.test(value);

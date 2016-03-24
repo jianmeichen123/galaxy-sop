@@ -150,9 +150,9 @@
                 <table>
                   <tr>
                     <th>老师姓名：</th>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td>
-                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td> 
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td>
+                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td>
+                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名只包含汉字 字符 长度限制50"></td> 
                   </tr>
                   <tr>
                     <th>部门：</th>
@@ -168,9 +168,9 @@
                   </tr>
                   <tr>
                     <th>同学姓名：</th>
-                    <td><input name="classmateName" id="classmateName" type="text" value="" valType="CHAR_CH_SYB"  msg="同学姓名只能是汉字 英文 长度限制50"></td>
-                  	<td><input type="text" name="classmateName" valType="CHAR_CH_SYB"  msg="同学姓名只能是汉字 英文长度限制50" ></td>
-                    <td><input type="text" name="classmateName" valType="CHAR_CH_SYB"  msg="同学姓名只能是汉字 英文 长度限制50" ></td>
+                    <td><input name="classmateName" id="classmateName" type="text" value="" valType="NAME"  msg="同学姓名只能是汉字 英文 长度限制50"></td>
+                  	<td><input type="text" name="classmateName" valType="NAME"  msg="同学姓名只能是汉字 英文长度限制50" ></td>
+                    <td><input type="text" name="classmateName" valType="NAME"  msg="同学姓名只能是汉字 英文 长度限制50" ></td>
                   </tr>
                   <tr>
                     <th>同学电话：</th>
