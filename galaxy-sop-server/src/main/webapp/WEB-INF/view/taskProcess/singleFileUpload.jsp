@@ -204,7 +204,8 @@ function initUpload(_dialog){
 				});
 				$.each(files, function() {
 					$(_dialog.id).find("input[name='fileName']").val(this.name);
-					
+					var fileType = getFileTypeByName(this.name);
+					$(_dialog.id).find("[name='fileType']").val(fileType);
 				});
 			},
 			BeforeUpload:function(up){
