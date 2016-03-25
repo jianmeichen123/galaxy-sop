@@ -58,8 +58,8 @@
 				<if test="taskFlag != null"> and task_flag =#{taskFlag}</if>
 				<if test="taskOrder != null and taskOrder!='' "> and task_order =#{taskOrder}</if>
 				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
-				<if test="departmentId != null and departmentId != ''"> and department_id =#{departmentId}</if>	
-				<if test="flagUrl == '' and assignUid != null and assignUid != ''">
+				<if test="departmentId != null"> and department_id =#{departmentId}</if>	
+				<if test="assignUid != null">
 					and (assign_uid =#{assignUid} or task_status='taskStatus:1' )
 				</if>
 				<if test="taskStatus != null and taskStatus!='' "> and task_status =#{taskStatus}</if>
@@ -113,8 +113,8 @@
 				<if test="taskFlag != null"> and task_flag =#{taskFlag}</if>
 				<if test="taskOrder != null and taskOrder!='' "> and task_order =#{taskOrder}</if>
 				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
-				<if test="departmentId != null and departmentId != ''"> and department_id =#{departmentId}</if>	
-				<if test="assignUid != null and assignUid != ''">
+				<if test="departmentId != null"> and department_id =#{departmentId}</if>	
+				<if test="assignUid != null">
 					and (assign_uid =#{assignUid} or task_status='taskStatus:1' )
 				</if>
 				<if test="taskStatus != null and taskStatus!='' " > and task_status =#{taskStatus}</if>

@@ -25,7 +25,9 @@
         <c:if test="<%=roleId !=17 %>">
         <div class="usermsg clearfix">
             <span class="light_blue">当前您有：</span>
-            <a href="<%=path %>/galaxy/soptask" class="work">待办任务<em class="totalUrgent"></em></a>
+            <%if(!"1".equals(roleId)&&!"2".equals(roleId)&&!"3".equals(roleId)){%>
+                   <a href="<%=path %>/galaxy/soptask" class="work">待办任务<em class="totalUrgent"></em></a>
+            <%} %>
             <!-- <a href="<%=path %>/galaxy/soptask" class="work">紧急任务<em class="bubble"></em></a> -->
             <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">4</em></a> 
         </div>    	
