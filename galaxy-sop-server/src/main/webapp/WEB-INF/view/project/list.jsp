@@ -1142,7 +1142,7 @@
 													'<td>'+dataList[p].fWorktype+'</td>'+
 													'<td>'+dataList[p].createDate+'</td>'+
 													typehtml+
-													'<td>'+updatedDate+'</td>'+
+													'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'+
 													handlehtml+   
 													endhtml+   
 													'</tr>';   
