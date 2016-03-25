@@ -31,7 +31,7 @@ public enum OperationLogType {
 
 	//投资意向书阶段
 	//下载投资意向书模版	
-	DOWNLOAD_INVESTMENT_TEMPLATE("", OperType.DOWNLOAD.getOperationType(), "投资意向书模版",SopStage.INVESTMENT_INTENT.getStageName()),
+	DOWNLOAD_INVESTMENT_TEMPLATE("/galaxy/template/download/"+UrlNumber.five, OperType.DOWNLOAD.getOperationType(), "投资意向书模版",SopStage.INVESTMENT_INTENT.getStageName()),
 	//上传投资意向书
 	UPLOAD_INVESTMENT_TEMPLATE("/galaxy/project/stageChange/"+UrlNumber.five, OperType.UPLOAD.getOperationType(), "投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
 	//更新投资意向书
@@ -54,7 +54,7 @@ public enum OperationLogType {
 	
 	//投资协议阶段
 	//下载投资协议模版	
-	DOWNLOAD_INVESTMENT_AGREEMENT_TEMPLATE("", OperType.DOWNLOAD.getOperationType(), "投资协议模版",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	DOWNLOAD_INVESTMENT_AGREEMENT_TEMPLATE("/galaxy/template/download/"+UrlNumber.eight, OperType.DOWNLOAD.getOperationType(), "投资协议模版",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	//投资协议上传
 	INVESTMENT_AGREEMENT_LOOK("/galaxy/project/stageChange/"+UrlNumber.nine, OperType.UPLOAD.getOperationType(), "投资协议",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	//投资协议更新
