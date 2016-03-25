@@ -139,6 +139,9 @@
 		}
 		return options;
 	}
+	
+	//全局变量
+	var hasClosed=false;
 	/**
 	 * 查看项目阶段详情的弹出层
 	 */
@@ -157,6 +160,7 @@
 				 * 加载项目详情数据
 				 */
 				sendGetRequest(platformUrl.detailProject + id, {}, function(data){
+					hasClosed = (data.entity.projectStatus == 'meetingResult:3');
 					var pp = data.entity.projectProgress;
 					var pNum = pp.substr(pp.length-1,1);
 					var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');
@@ -178,23 +182,50 @@
 							$("#projectProgress_" + i).addClass("disabled");
 						}
 						if(i == 1){
-							if(data.entity.projectStatus == 'meetingResult:3'){
-								$("#options_point").remove();
+							if(hasClosed){
+								$("#options_point1").remove();
 							}
 							tiggerTable($("#" + progress + "_table"),3);
+						}
+						if(i == 2){
+							if(hasClosed){
+								$("#options_point2").remove();
+							}
+						}
+						if(i == 3){
+							if(hasClosed){
+								$("#options_point3").remove();
+							}
+						}
+						if(i == 4){
+							if(hasClosed){
+								$("#options_point4").remove();
+							}
 						}
 						if(i == 5){
 							tzyxs(0);
 						}
+						if(i == 6){
+							if(hasClosed){
+								$("#jzdc_options").remove();
+							}
+							jzdc();
+						}
+						if(i == 7){
+							if(hasClosed){
+								$("#options_point7").remove();
+							}
+						}
 						if(i == 8){
+							if(hasClosed){
+								$("#tzxy_options").remove();
+							}
 							tzxy(data.entity.stockTransfer,data.entity.projectType);
 						}
 						if(i == 9){
 							gqjg();
 						}
-						if(i == 6){
-							jzdc();
-						}
+						
 						
 						//为Tab添加点击事件，用于重新刷新
 						$("#projectProgress_" + i).on("click",function(){
@@ -473,14 +504,17 @@
 						 var dataList=json.entityList;
 							for(var p in dataList){
 								var handlefile="";
-						        if (dataList[p].fileStatusDesc == "缺失") { 
-						        	handlefile ='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
-								}else{
-									var fileSource =  dataList[p].fileSource;
-									handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateTzyxs('+fileSource+')">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
+								if(!hasClosed){
+									handlefile='<a href="javascript:;" onclick="downFile(5);" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>';
+							        if (dataList[p].fileStatusDesc == "缺失") { 
+							        	handlefile +='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
+									}else{
+										var fileSource =  dataList[p].fileSource;
+										handlefile += '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateTzyxs('+fileSource+')">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
+									}
 								}
+								
 						        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">'+
-						        '<a href="javascript:;" onclick="downFile(5);" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>'+
 						        handlefile+'</div>'+
 							        '<div class="process clearfix">'+
 							        '<h2>投资意向书盖章流程</h2>'+
@@ -1064,7 +1098,7 @@
 													}
 													
 													var handlehtml = "";
-													if (dataList[p].fileStatusDesc == "缺失") { 
+													if (dataList[p].fileStatusDesc == "缺失" && !hasClosed) { 
 														handlehtml ='<td><a href="javascript:; " onclick="taskUrged('+dataList[p].id+');"class="blue">催办</a></td>';
 													}else{
 														handlehtml = '<td></td>';
@@ -1072,7 +1106,7 @@
 													
 													var endhtml ="";
 													if (dataList[p].fileStatusDesc == "缺失") { 
-														endhtml ='<td></td>';
+														endhtml ='<td>'+dataList[p].fileStatusDesc+'</td>';
 													}else{
 														endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
 													}
