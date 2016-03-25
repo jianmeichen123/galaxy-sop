@@ -134,6 +134,10 @@ public class SopFile extends PagableEntity {
   	private String endTime;
   	
   	private String isEdit;
+  	
+  	/**
+  	 *  请求页面
+  	 */
   	private String pageType;
   	private String fileWorktypeNullFilter;
 

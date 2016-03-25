@@ -137,47 +137,47 @@
               </div>
           </div>
           <!-- 第2部分 -->
-          <div class="block block2 shadow">
+     <!--      <div class="block block2 shadow">
             <dl>
               <dt>项目概述</dt>
             </dl>
           </div>
-          <!-- 第3部分 -->
+          第3部分
           <div class="block block2">
             <dl>
               <dt>商业模式</dt>
             </dl>
           </div>
-          <!-- 第4部分 -->
+          第4部分
           <div class="block block2">
             <dl>
               <dt>公司定位</dt>
             </dl>
           </div>
-          <!-- 第5部分 -->
+          第5部分
           <div class="block block2 shadow">
             <dl>
               <dt>用户分析</dt>
             </dl>
           </div>
-          <!-- 第6部分 -->
+          第6部分
           <div class="block block2 shadow">
             <dl>
               <dt>竞情分析</dt>
             </dl>
           </div>
-          <!-- 第7部分 -->
+          第7部分
           <div class="block block2 clearfix">
             <dl>
               <dt>团队成员</dt>
             </dl>
           </div> 
-          <!-- 第8部分  -->      
+          第8部分       
           <div class="block block2">
             <dl>
               <dt>股权结构</dt>
             </dl>
-          </div> 
+          </div>  -->
           <!-- 第9部分     
           <div class="block block2">
             <dl>
@@ -277,13 +277,14 @@
 	function callbackcheckProject(data) {
 		if (data.count!=0 &&(typeof(data.companyCode) != "undefined") ) {
 			message = "存在重复项目名，其中本公司存在"+data.companyCode+"个重复,总共"+data.count+"个重复";
+			return false;
 		} 
-		
 		if (data.count!=0 &&(typeof(data.companyCode) == "undefined")) {
 			message = "存在重复项目名，其中本公司存在0个,总共"+data.count+"个重复";
-			
-		} 
-		  
+			return false;
+		}
+		message="";
+		return true;
 	}
 	function popMessage(message) {
 		layer.open({  
@@ -298,8 +299,10 @@
             yes: function(index,layero){   
             	doPost() ;
             },  
-            cancel: function(index){   
-          	  layer.close(index);  
+            cancel: function(index){  
+            	message ="";
+          	  layer.close(index);
+          	  return false;
             }  
 		  });
 		

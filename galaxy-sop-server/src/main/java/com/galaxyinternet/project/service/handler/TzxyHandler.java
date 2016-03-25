@@ -77,10 +77,10 @@ public class TzxyHandler implements Handler {
 			 * 如果是外部投资，投资协议必须，股权转让非必须[根据其在上传投资协议签署证明时是否勾选"涉及股权转让"来判断]
 			 */
 			if(project.getProjectType().equals(DictEnum.projectType.内部创建.getCode())
-					|| (project.getProjectType().equals(DictEnum.projectType.外部项目.getCode())
+					|| (project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())
 							&& q.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())
 							&& (q.getHasStockTransfer() == null || q.getHasStockTransfer().intValue() != 1)
-							|| project.getProjectType().equals(DictEnum.projectType.外部项目.getCode())
+							|| project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())
 							&& q.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode()) && q.getHasStockTransfer() != null && q.getHasStockTransfer().intValue() == 1)){
 				//修改项目阶段
 				project.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
