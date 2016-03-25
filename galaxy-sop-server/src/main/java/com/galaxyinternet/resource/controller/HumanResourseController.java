@@ -91,7 +91,14 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 			Result result = new Result();
 			try {
 				PersonPool personPool = personPoolService.queryById(pid);
-				
+				if(personPool.getPersonBirthday()==null){
+					String str = personPool.getPersonIdcard();
+					String Str = str.substring(6, 14);
+					Str = Str.substring(0, 4) + "-" + Str.substring(4, 6) + "-" + Str.substring(6);
+					personPool.setPersonBirthdayStr(Str);
+				}else{				
+					personPool.setPersonBirthdayStr(DateUtil.convertDateToString(personPool.getPersonBirthday()));					
+				}
 				PersonLearn personLearnQuery = new PersonLearn();
 				personLearnQuery.setPersonId(pid);
 				List<PersonLearn> personLearns =  personLearnService.queryList(personLearnQuery);

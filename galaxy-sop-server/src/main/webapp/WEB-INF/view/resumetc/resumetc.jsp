@@ -51,10 +51,10 @@
             			<label><input id="personSex1" name="personSex" type="radio" value="1" >女</label>
                     </td>
                   </tr>
-<!--                <tr>
+                <tr>
                     <th>出生日期：</th>
-                    <td><input  type="text"  name="personBirthday" id="personBirthday" value=""/> </td>
-                  </tr>  -->
+                     <td><input  type="text"  name="personBirthdayStr" id="personBirthdayStr" value="" class="datepicker"/> </td>
+                  </tr>  
                   <tr>
                     <th>身份证号码：</th>
                     <td><input name="personIdcard" id="personIdcard" type="text" value="" class="txt" placeholder="身份证号码" valType="IDENTITY" msg="身份证号码格式不正确"></td>

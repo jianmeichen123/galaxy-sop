@@ -35,7 +35,16 @@ public class PersonPool extends PagableEntity{
     private String endComment;
     private Long createId;
     
+    //添加的 时间字段
+    private String personBirthdayStr;
+    
 
+	public String getPersonBirthdayStr() {
+		return personBirthdayStr;
+	}
+	public void setPersonBirthdayStr(String personBirthdayStr) {
+		this.personBirthdayStr = personBirthdayStr;
+	}
 	public Long getTid() {
 		return tid;
 	}

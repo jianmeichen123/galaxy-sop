@@ -61,6 +61,14 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 		isNull(PersonPool.PERSONNAME,personPool.getPersonName());
 		Long time = System.currentTimeMillis();
 		personPool.setUpdatedTime(time);
+		if(personPool.getPersonBirthdayStr() != null){
+			try {
+				Date date = DateUtil.convertStringToDate(personPool.getPersonBirthdayStr());
+				personPool.setPersonBirthday(date);
+			} catch (ParseException e) {
+				System.err.println(e);
+			}
+		}
 		int count = personPoolDao.updateById(personPool);
 		if(count == 0){
 			throwSopException(ExceptionMessage.DATA_NOT_EXISTS, "该个人信息不存在");
