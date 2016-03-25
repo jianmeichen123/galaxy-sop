@@ -8,10 +8,22 @@ function createMenus(current){
 		 var selected = data.header.attachment;
 	   	 var html = "";
 	   	 $.each(data.entityList, function(i,o){
-	   		 if(selected == o.id){
-	   			html += '<li class="on"><a href="' + o.url + '">' + o.menuName + '</a></li>';
+	   		 if(typeof(o.nodes) == "undefined"){
+	   			if(selected == o.id){
+		   			html += '<li class="on"><a href="' + o.url + '">' + o.menuName + '</a></li>';
+		   		}else{
+		   			html += '<li><a href="' + o.url + '">' + o.menuName + '</a></li>';
+		   		}
 	   		 }else{
-	   			html += '<li><a href="' + o.url + '">' + o.menuName + '</a></li>';
+	   			html += '<li><div><i></i>投后运营</div><ul>';
+	   			$.each(o.nodes, function(i,o){
+	   				if(selected == o.id){
+			   			html += '<li class="on"><a href="' + o.url + '">' + o.menuName + '</a></li>';
+			   		}else{
+			   			html += '<li><a href="' + o.url + '">' + o.menuName + '</a></li>';
+			   		}
+	   			});
+	   			html += '</ul></li>';
 	   		 }
 	   	 });
 	   	 $("#menus").html(html);

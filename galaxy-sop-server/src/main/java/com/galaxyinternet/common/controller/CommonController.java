@@ -74,64 +74,69 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		List<Menus> tabs = new ArrayList<Menus>();
 		String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
 		//通用Tab
-		tabs.add(new Menus(1L, "工作桌面", u + "galaxy/index?" + params));
-		tabs.add(new Menus(2L, "待办任务", u + "galaxy/soptask?" + params));
-		tabs.add(new Menus(3L, "消息提醒", u + "galaxy/operationMessage/index?" + params));
+		tabs.add(new Menus(1L, 0, "工作桌面", u + "galaxy/index?" + params));
+		tabs.add(new Menus(2L, 0, "待办任务", u + "galaxy/soptask?" + params));
+		tabs.add(new Menus(3L, 0, "消息提醒", u + "galaxy/operationMessage/index?" + params));
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		
 		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.TZJL)){
-			tabs.add(new Menus(4L, "添加项目", u + "galaxy/app?" + params));
-			tabs.add(new Menus(5L, "我的项目", u + "galaxy/mpl?" + params));
-			tabs.add(new Menus(6L, "访谈跟进", u + "galaxy/project/progress/interView?" + params));
-			tabs.add(new Menus(7L, "会议纪要", u + "galaxy/project/progress/meetView?" + params));
+			tabs.add(new Menus(4L, 0, "添加项目", u + "galaxy/app?" + params));
+			tabs.add(new Menus(5L, 0, "我的项目", u + "galaxy/mpl?" + params));
+			tabs.add(new Menus(6L, 0, "访谈跟进", u + "galaxy/project/progress/interView?" + params));
+			tabs.add(new Menus(7L, 0, "会议纪要", u + "galaxy/project/progress/meetView?" + params));
 		}
-		
 		
 		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)
 				|| roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)
 				|| roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-			tabs.add(new Menus(9L, "尽调报告", u + "galaxy/soptask?flag=jz&"+ params));
+			tabs.add(new Menus(9L, 0, "尽调报告", u + "galaxy/soptask?flag=jz&"+ params));
 		}
 		
 		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
-			tabs.add(new Menus(10L, "完善简历", u + "galaxy/soptask?flag=jl&"+ params));
+			tabs.add(new Menus(10L, 0, "完善简历", u + "galaxy/soptask?flag=jl&"+ params));
 		}
 		if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
-			tabs.add(new Menus(11L, "付款凭证", u + "galaxy/soptask?flag=pz&"+ params));
+			tabs.add(new Menus(11L, 0, "付款凭证", u + "galaxy/soptask?flag=pz&"+ params));
 		}
 		
 		if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-			tabs.add(new Menus(12L, "股权交割", u + "galaxy/soptask?flag=gq&"+ params));
+			tabs.add(new Menus(12L, 0, "股权交割", u + "galaxy/soptask?flag=gq&"+ params));
 		}
 		
-		tabs.add(new Menus(13L, "模板管理", u + "galaxy/template?" + params));
-		tabs.add(new Menus(14L, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
+		tabs.add(new Menus(13L, 0, "模板管理", u + "galaxy/template?" + params));
+		tabs.add(new Menus(14L, 0, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
+		tabs.add(new Menus(15L, 0, "投后运营", "javascript:void(0);")
+				.addNode(new Menus(16L, 1, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params))
+				.addNode(new Menus(17L, 1, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params))
+				.addNode(new Menus(18L, 1, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params)));
+		
 		
 		//档案管理员
 		if(roleIdList.contains(17L)){
 			tabs.clear();
-			tabs.add(new Menus(14L, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
+			tabs.add(new Menus(14L, 0, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
 		}
 		
 		//管理员
 		if(roleIdList.contains(16L)){
 			tabs.clear();
-			tabs.add(new Menus(15L, "用户管理", serverUrl + "platform/galaxy/user?" + params));
-			tabs.add(new Menus(16L, "数据字典", serverUrl + "platform/galaxy/dict/index?" + params));
+			tabs.add(new Menus(15L, 0, "用户管理", serverUrl + "platform/galaxy/user?" + params));
+			tabs.add(new Menus(16L, 0, "数据字典", serverUrl + "platform/galaxy/dict/index?" + params));
 		}
 		
 		//高管
 		if(roleIdList.contains(1L) || roleIdList.contains(2L)){
 			tabs.clear();
-			tabs.add(new Menus(1L, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
-			tabs.add(new Menus(3L, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
-			tabs.add(new Menus(4L, "项目查询", serverUrl +"sop/galaxy/cpl?" + params));
-			tabs.add(new Menus(5L, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
-			tabs.add(new Menus(6L, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
-			tabs.add(new Menus(7L, "绩效考核", serverUrl +"report/galaxy/report/kpi?" + params));
-			tabs.add(new Menus(8L, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params));
-			tabs.add(new Menus(9L, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params));
-			tabs.add(new Menus(10L, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params));
+			tabs.add(new Menus(1L, 0, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
+			tabs.add(new Menus(3L, 0, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
+			tabs.add(new Menus(4L, 0, "项目查询", serverUrl +"sop/galaxy/cpl?" + params));
+			tabs.add(new Menus(5L, 0, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
+			tabs.add(new Menus(6L, 0, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
+			tabs.add(new Menus(7L, 0, "绩效考核", serverUrl +"report/galaxy/report/kpi?" + params));
+			tabs.add(new Menus(11L, 0, "投后运营", "javascript:void(0);")
+					.addNode(new Menus(8L, 1, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params))
+					.addNode(new Menus(9L, 1, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params))
+					.addNode(new Menus(10L, 1, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params)));
 		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;
