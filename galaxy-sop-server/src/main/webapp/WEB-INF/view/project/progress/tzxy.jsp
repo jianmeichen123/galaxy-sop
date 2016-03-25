@@ -31,7 +31,7 @@
             </select>
         </dd>
         <dd>
-        	<label><input type="checkbox" value="1" id="voucherType"/>签署凭证</label>
+        	<label id="tzyxDiv"><input type="checkbox" value="1" id="voucherType"/>签署凭证</label>
         </dd>
     </dl>
     

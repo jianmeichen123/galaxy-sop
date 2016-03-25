@@ -84,7 +84,7 @@
 		</div>
 		<div class="tab-pane active" id="view">	
 			<table id="data-table" data-url="project/spl" data-height="555" 
-				data-page-list="[1, 5, 50]" data-toolbar="#custom-toolbar" data-show-refresh="true">
+				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
@@ -980,7 +980,10 @@
 				$('.searchbox').toggleshow();
 				leicj();
 				if(i == 1){
+					$("#voucherType").attr("disabled",true);
 					$("#voucherType").attr("checked","checked");
+				}else{
+					$("#tzyxDiv").css("display","none");
 				}
 				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
@@ -1046,7 +1049,11 @@
 				$('.searchbox').toggleshow();
 				leicj();
 				if(i == 1){
+					$("#voucherType").attr("disabled",true);
 					$("#voucherType").attr("checked","checked");
+				}else{
+					$("#gqzrDiv").css("display","none");
+					
 				}
 				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){

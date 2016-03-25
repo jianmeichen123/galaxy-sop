@@ -280,7 +280,7 @@
 		} 
 		
 		if (data.count!=0 &&(typeof(data.companyCode) == "undefined")) {
-			message = "存在重复项目名，其中本公司存在,总共"+data.count+"个重复";
+			message = "存在重复项目名，其中本公司存在0个,总共"+data.count+"个重复";
 			
 		} 
 		  
@@ -288,9 +288,9 @@
 	function popMessage(message) {
 		layer.open({  
             type: 1,  
-            area: ['600px', '200px'],    //宽和高  
+            area: ['540px', '150px'],    //宽和高  
             skin: 'layui-layer-lan',     //加上边框：layui-layer-rim；深蓝：layui-layer-lan；墨绿：layui-layer-molv  
-            offset: ['60px', '240px'],  //屏幕坐标位置  
+            offset: ['50%', '50%'],  //屏幕坐标位置  
             shadeClose: true, //点击遮罩关闭  
             closeBtn: 1,     //0:不显示关闭按钮; 1:显示关闭按钮  
             content: message,   
