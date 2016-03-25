@@ -300,7 +300,8 @@
             },  
             cancel: function(index){  
             	message ="";
-          	  layer.close(index);  
+          	  layer.close(index);
+          	  return false;
             }  
 		  });
 		
