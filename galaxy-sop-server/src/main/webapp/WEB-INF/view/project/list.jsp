@@ -84,7 +84,7 @@
 		</div>
 		<div class="tab-pane active" id="view">	
 			<table id="data-table" data-url="project/spl" data-height="555" 
-				data-page-list="[1, 5, 50]" data-toolbar="#custom-toolbar" data-show-refresh="true">
+				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
@@ -582,10 +582,12 @@
 				leicj();
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
+					$("#voucherType").attr("disabled",true);
 				}
 				else
 				{
-					$("#voucherType").attr("disabled",true);
+					$("#voucherDiv").css("display","none");
+					
 				}
 				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
@@ -630,7 +632,7 @@
 		$.getHtml({
 			url:_url,
 			okback:function(){
-				$("#voucherType").attr("disabled",true);
+				$("#voucherDiv").css("display","none");
 				$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
 								
 
@@ -672,7 +674,7 @@
 										var valueExt=value.extensions;
 										if(valueExt.indexOf(type) >= 0 ){
 											var myvalue=value.title;
-											$("#fileType option[value='"+myvalue+"']").attr("selected",true);
+											$("#fileType").val(myvalue);
 										}
 									}
 								});
@@ -978,7 +980,10 @@
 				$('.searchbox').toggleshow();
 				leicj();
 				if(i == 1){
+					$("#voucherType").attr("disabled",true);
 					$("#voucherType").attr("checked","checked");
+				}else{
+					$("#tzyxDiv").css("display","none");
 				}
 				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
@@ -1044,7 +1049,11 @@
 				$('.searchbox').toggleshow();
 				leicj();
 				if(i == 1){
+					$("#voucherType").attr("disabled",true);
 					$("#voucherType").attr("checked","checked");
+				}else{
+					$("#gqzrDiv").css("display","none");
+					
 				}
 				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
@@ -1193,12 +1202,16 @@
 	}
 	//催办
 	function taskUrged(id) {
-		var url = platformUrl.tempDownload+"?id="+id;
 		var json= {"id":id};
 		sendGetRequest(platformUrl.taskUrged, json, taskCallback);
 	}
 	function downFile(id){
-		var url = platformUrl.tempDownload+"?id="+id;
+		var pidParam = "";
+		if(alertid>=0)
+		{
+			pidParam = "&projectId="+alertid;
+		}
+		var url = platformUrl.tempDownload+"?id="+id+pidParam;
 		forwardWithHeader(url);
 	}
 	
@@ -1207,14 +1220,8 @@
 		if (data.result.status!="OK") {
 			layer.msg("催办失败");
 		} else {
-			layer.msg(data.result.message, {
-				time : 1000
-			}, function() {
-				history.go(0);
-			});
+			layer.msg(data.result.message);
 		}
-		
-		
 	}
 	
 	

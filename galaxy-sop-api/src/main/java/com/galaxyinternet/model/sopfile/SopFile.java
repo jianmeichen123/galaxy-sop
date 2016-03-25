@@ -130,6 +130,9 @@ public class SopFile extends PagableEntity {
   	private List<Long> projectLikeIdList;
   	private List<Long> fileULikeidList;
   	
+  	private String startTime;
+  	private String endTime;
+  	
   	private String isEdit;
   	private String pageType;
   	private String fileWorktypeNullFilter;
@@ -452,6 +455,24 @@ public class SopFile extends PagableEntity {
 	public void setIsEdit(String isEdit) {
 		this.isEdit = isEdit;
 	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+
 
 
 

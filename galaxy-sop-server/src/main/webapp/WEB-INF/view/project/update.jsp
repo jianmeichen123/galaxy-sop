@@ -206,7 +206,7 @@
                 <div class="clearfix"></div>
                 <div class="tab-pane active" id="view">	
 	               	<table id="tablePerson"  data-height="555" 
-	               	data-method="post" data-page-list="[1, 5, 50]" data-show-refresh="true" >
+	               	data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
 					</table> 
 				</div>
 				
@@ -231,7 +231,7 @@
                 <div class="clearfix"></div>
                   <div class="tab-pane active" id="pView">	
 	               <table id="table" data-height="555" data-method="post"
-	               	 data-page-list="[1, 5, 50]" data-show-refresh="true">
+	               	 data-page-list="[10,20,30]" data-show-refresh="true">
 					</table>
 				</div>
               </dd>
@@ -462,7 +462,7 @@ function closeback(data){
 	getTabShare();
 	
 	function getTabPerson(){
-		var html='<table id="tablePerson"  data-height="555" data-method="post" data-page-list="[1, 5, 50]" data-show-refresh="true" ></table>';
+		var html='<table id="tablePerson"  data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" ></table>';
 		$("#view").html(html);
 		var $table = $('#tablePerson');
 	    $table.bootstrapTable({
@@ -470,7 +470,7 @@ function closeback(data){
 	    dataType: "json",
 	    pagination: true, //分页
 	    search: false, //显示搜索框
-	    pageList: [1,5,20],
+	    pageList: [10,20,30],
 	    queryParamsType: 'size|page',
 	    queryParams: function(params){params.projectId="${pid}"; return params;},
 	    sidePagination: "server", //服务端处理分页
@@ -541,7 +541,7 @@ function closeback(data){
 		}
 	//股权结构列表
 	function getTabShare(){
-	var html='<table id="table" data-height="555" data-method="post" data-page-list="[1, 5, 50]" data-show-refresh="true"></table>';
+	var html='<table id="table" data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true"></table>';
 	$("#pView").html(html);
 	var $table = $('#table');
     $table.bootstrapTable({
@@ -550,7 +550,7 @@ function closeback(data){
     pagination: true, //分页
     search: false, //显示搜索框
     showRefresh: true,
-    pageList: [1,5,20],
+    pageList: [10,20,30],
     queryParamsType: 'size|page',
     queryParams: function(params){params.projectId="${pid}"; return params;},
     sidePagination: "server", //服务端处理分页
@@ -568,7 +568,7 @@ function closeback(data){
                         valign: 'middle'
                     },
                     {
-                        title: '占比',
+                        title: '占比(%)',
                           field: 'sharesRatio',
                           align: 'center',
                           valign: 'middle'

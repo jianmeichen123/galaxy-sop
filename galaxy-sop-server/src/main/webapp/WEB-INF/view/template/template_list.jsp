@@ -27,7 +27,7 @@
         <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="javascript:;" class="pubbtn bluebtn ico c3" id="show-mail-btn" style="width:120px;">发邮件给</a>
+                <a href="javascript:;" class="pubbtn bluebtn ico c3" id="show-mail-btn">发邮件给</a>
             </div>
         </div>
         <!--表格内容-->
