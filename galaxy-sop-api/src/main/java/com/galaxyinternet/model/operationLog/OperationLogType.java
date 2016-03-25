@@ -1,5 +1,7 @@
 package com.galaxyinternet.model.operationLog;
 
+
+
 /**
  * @Description: sop流程中操作日志的规范类
  * @author keifer
@@ -31,7 +33,7 @@ public enum OperationLogType {
 
 	//投资意向书阶段
 	//下载投资意向书模版	
-	DOWNLOAD_INVESTMENT_TEMPLATE("", OperType.DOWNLOAD.getOperationType(), "投资意向书模版",SopStage.INVESTMENT_INTENT.getStageName()),
+	DOWNLOAD_INVESTMENT_TEMPLATE("/galaxy/template/download/"+UrlNumber.five, OperType.DOWNLOAD.getOperationType(), "投资意向书模版",SopStage.INVESTMENT_INTENT.getStageName()),
 	//上传投资意向书
 	UPLOAD_INVESTMENT_TEMPLATE("/galaxy/project/stageChange/"+UrlNumber.five, OperType.UPLOAD.getOperationType(), "投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
 	//更新投资意向书
@@ -54,7 +56,7 @@ public enum OperationLogType {
 	
 	//投资协议阶段
 	//下载投资协议模版	
-	DOWNLOAD_INVESTMENT_AGREEMENT_TEMPLATE("", OperType.DOWNLOAD.getOperationType(), "投资协议模版",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	DOWNLOAD_INVESTMENT_AGREEMENT_TEMPLATE("/galaxy/template/download/"+UrlNumber.eight, OperType.DOWNLOAD.getOperationType(), "投资协议模版",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	//投资协议上传
 	INVESTMENT_AGREEMENT_LOOK("/galaxy/project/stageChange/"+UrlNumber.nine, OperType.UPLOAD.getOperationType(), "投资协议",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	//投资协议更新
@@ -76,7 +78,13 @@ public enum OperationLogType {
 	//点击资金拨付凭证催办列里的“催办”
 	REMIND_FUNDS_SEND_CERTIFICATE("", OperType.REMINDER.getOperationType(), "资金拨付凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
 	//点击工商变更登记凭证催办列里的“催办”
-	REMIND_COMPANY_CHANGE_CERTIFICATE("", OperType.REMINDER.getOperationType(), "工商变更登记凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName());
+	REMIND_COMPANY_CHANGE_CERTIFICATE("", OperType.REMINDER.getOperationType(), "工商变更登记凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
+	
+	
+	
+	
+	//更新投资意向书 1
+	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName());
 
 	private OperationLogType(String uniqueKey, String type, String content, String sopstage) {
 		this.uniqueKey = uniqueKey;

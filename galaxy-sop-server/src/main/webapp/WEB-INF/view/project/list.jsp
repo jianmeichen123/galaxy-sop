@@ -582,10 +582,12 @@
 				leicj();
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
+					$("#voucherType").attr("disabled",true);
 				}
 				else
 				{
-					$("#voucherType").attr("disabled",true);
+					$("#voucherDiv").css("display","none");
+					
 				}
 				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
@@ -630,7 +632,7 @@
 		$.getHtml({
 			url:_url,
 			okback:function(){
-				$("#voucherType").attr("disabled",true);
+				$("#voucherDiv").css("display","none");
 				$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
 								
 
@@ -650,11 +652,31 @@
 								});
 							},
 							FilesAdded: function(up, files) {
-								if(up.files.length > 1){
+								
+								/* if(up.files.length > 1){
 									up.splice(0, ip.files.length-1)
+								} */
+								//解决多次文件选择后，文件都存入upload
+								if(uploader.files.length >= 1){
+									uploader.splice(0, uploader.files.length-1)
 								}
 								$.each(files, function() {
 									$("#file_obj").val(this.name);
+									var arr = new Array();
+									arr = this.name.split(".");
+									var type="";
+									if(arr){
+										type=arr[1];
+									}
+									var filtersparams=paramsFilter();
+									for(var i=0;i<filtersparams.length;i++){
+										var value=filtersparams[i];
+										var valueExt=value.extensions;
+										if(valueExt.indexOf(type) >= 0 ){
+											var myvalue=value.title;
+											$("#fileType").val(myvalue);
+										}
+									}
 								});
 							},
 							BeforeUpload:function(up){
@@ -1122,7 +1144,7 @@
 													'<td>'+dataList[p].fWorktype+'</td>'+
 													'<td>'+dataList[p].createDate+'</td>'+
 													typehtml+
-													'<td>'+updatedDate+'</td>'+
+													'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'+
 													handlehtml+   
 													endhtml+   
 													'</tr>';   
@@ -1173,12 +1195,16 @@
 	}
 	//催办
 	function taskUrged(id) {
-		var url = platformUrl.tempDownload+"?id="+id;
 		var json= {"id":id};
 		sendGetRequest(platformUrl.taskUrged, json, taskCallback);
 	}
 	function downFile(id){
-		var url = platformUrl.tempDownload+"?id="+id;
+		var pidParam = "";
+		if(alertid>=0)
+		{
+			pidParam = "&projectId="+alertid;
+		}
+		var url = platformUrl.tempDownload+"?id="+id+pidParam;
 		forwardWithHeader(url);
 	}
 	
@@ -1187,15 +1213,11 @@
 		if (data.result.status!="OK") {
 			layer.msg("催办失败");
 		} else {
-			layer.msg(data.result.message, {
-				time : 1000
-			}, function() {
-				history.go(0);
-			});
+			layer.msg(data.result.message);
 		}
-		
-		
 	}
+	
+	
 </script>
 
 </html>

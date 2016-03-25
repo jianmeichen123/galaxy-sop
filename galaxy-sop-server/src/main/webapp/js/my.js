@@ -18,7 +18,7 @@ function leicj(){
         }
         return false;
   })
-      //访谈日志鼠标滑上显示提示框1
+/*      //访谈日志鼠标滑上显示提示框1
     $('.tips_f1').hover(function(){
       $('.tips1').show();
     });
@@ -66,13 +66,18 @@ function leicj(){
   $('.tips_f3').mouseout(function(){
    $('.tips3').hide();
   }); 
-
+*/
 
     //鼠标滑上显示提示框
-    $('.tarea').hover(function(){
-      $('.tips').show();
+    $('.tarea p').hover(function(){
+      if($(this).length>0){
+        $('.tips').show();
+      }
+      else{
+        $('.tips').hide();
+      }
     });
-  $('.tarea').mousemove(function(e){
+  $('.tarea p').mousemove(function(e){
    var top = e.pageY+20;
    var left = e.pageX+20;
    $('.tips').css({
@@ -81,20 +86,20 @@ function leicj(){
    });
   });
   
-  $('.tarea').mouseout(function(){
+  $('.tarea p').mouseout(function(){
    $('.tips').hide();
   });	
  //添加日程弹窗
- $(".bottom_l .nav_list").click(function(event) {
-    $(this).siblings().stop().slideToggle().parent().siblings().children('dd').slideUp();
-});
-
-$(".nav1 .nav,.nav2 .nav,.nav3 .nav,.nav4 .nav").each(function(index, el) {
-    $(this).click(function(event) {
-        $(this).addClass('on').siblings().removeClass('on');
-        $(".bottom_r .block").eq(index).show().siblings().hide();
-    });
-});
+         $(".bottom_l .nav_list").click(function(event) {
+            $(this).siblings().stop().slideToggle().parent().siblings().children('dd').slideUp();
+        });
+        
+        $(".nav1 .nav,.nav2 .nav,.nav3 .nav,.nav4 .nav").each(function(index, el) {
+            $(this).click(function(event) {
+                $(this).addClass('on').siblings().removeClass('on');
+                $(".bottom_r .block").eq(index).show().siblings().hide();
+            });
+        });
 
 //投后菜单显示隐藏    
     $(".pagebox .lft div").click(function(event) {

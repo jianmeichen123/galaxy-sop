@@ -58,6 +58,8 @@
 				<if test="fileUid != null" > and file_uid = #{fileUid,jdbcType=BIGINT} </if>
 				<if test="filUri != null" > and fil_uri = #{filUri,jdbcType=BIGINT} </if>
 				<if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+				<if test="startTime!=null"><![CDATA[  and updated_time >= #{startTime,jdbcType=BIGINT} ]]></if>
+				<if test="endTime!=null"><![CDATA[  and updated_time <= #{endTime,jdbcType=BIGINT} ]]></if>
 				<if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
 				<if test="fileLength != null" > and file_length = #{fileLength,jdbcType=BIGINT} </if>
 				<if test="fileKey != null" > and file_key = #{fileKey,jdbcType=VARCHAR} </if>

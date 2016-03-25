@@ -95,7 +95,7 @@
                     <td colspan="2">
                       <dl>
                         <dt>项目概述：</dt>
-                        <dd class="tarea" id="projectDescribe"></dd><div class="tips">></div>
+                        <dd class="tarea" id="projectDescribe"></dd><div class="tips"></div>
                       </dl>
                     </td>
                   </tr>
