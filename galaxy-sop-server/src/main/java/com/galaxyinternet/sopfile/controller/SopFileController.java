@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -483,7 +484,13 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		
 		try {
-			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,new PageRequest(sopFile.getPageNum(), sopFile.getPageSize()));
+			PageRequest pageRequest = null;
+			if ("index".equals(sopFile.getPageType())) {
+				pageRequest = new PageRequest(1,3,Direction.DESC, "updated_time");
+			}else{
+				pageRequest = new PageRequest(sopFile.getPageNum(), sopFile.getPageSize());
+			}
+			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,pageRequest);
 			//操作权限判断
 			for(SopFile temp : pageSopFile.getContent()){
 				String isEdit = RoleUtils.getWorkTypeEdit(roleIdList, temp.getFileWorktype());

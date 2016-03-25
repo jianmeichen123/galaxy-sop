@@ -302,7 +302,11 @@ $(function(){
 			}//模版反回成功执行	
 		});
 		return false;
-	});
-	
+	});	
+	var data = {
+			_domid : "file_gird_index"
+	}
+	fileGrid.init(data);
+		
 });
 
