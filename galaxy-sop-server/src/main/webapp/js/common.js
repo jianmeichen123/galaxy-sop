@@ -743,32 +743,10 @@ function sublengthFormat(value,row,index){
 }
 
 //interview
-function intervierLog(value,row,index){
+function formatLog(value,row,index){
 	var len = getLength($.trim(value));
-	if(row.viewNotes != ''){
-		var strlog=delHtmlTag(row.viewNotes);
-/*		strlog=strlog.replace("</div>","");
-		strlog=strlog.replace("<br/>","");*/
-		var strrrr=strlog;
-		if(len>100){
-			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
-			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
-			
-			return rc;
-		}else{
-			return strlog;
-		}
-	}
-
-}
-
-//interview
-function meetingLog(value,row,index){
-	var len = getLength($.trim(value));
-	if(row.viewNotes != ''){
-		var strlog=delHtmlTag(row.meetingNotes);
-/*		strlog=strlog.replace("</div>","");
-		strlog=strlog.replace("<br/>","");*/
+	if(value != ''){
+		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
 		if(len>100){
 			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
@@ -811,9 +789,7 @@ function subLengthFormat(value, row, index){
 	if(len>100){
 		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
 		//$(this).attr("title",value);
-		var str = "<div class=\"subLength text-overflow\" title='"+valuelog+"'>"+
-					subValue+"..."+
-				   "</div>" ;
+		var str = "<div class=\"subLength text-overflow\" title='"+valuelog+"'>"+subValue+"..."+"</div>" ;
 		return str;
 	}else{
 		return valuelog;
@@ -834,7 +810,11 @@ function replaceStr(str){
 
 function delHtmlTag(str)
 {
-return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+	if(str){
+		return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+	}
+
+
 }
 
 
