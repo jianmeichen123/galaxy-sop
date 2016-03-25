@@ -143,9 +143,14 @@
 			<if test="proNameCode != null">
 				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
 			</if>
-			<!-- 模糊查询  like '%${params.param}%' -->
 			<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
-		order by ir.view_date desc,ir.created_time desc
+		<if test="property != null">
+			order by #{property} <if test="direction != null"> #{direction} </if>
+		</if>
+		<if test="property == null">
+				order by ir.view_date desc,ir.created_time desc
+		</if>
+		
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>

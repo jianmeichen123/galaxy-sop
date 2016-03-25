@@ -12,27 +12,32 @@ public class InterviewRecordBo extends InterviewRecord{
 	private Long fileLength;
 	
 	private Long uid;
-	private String startTime;
+	private String startTime; // yyyy-mm-dd
 	private String endTime;
 	private String proNameCode;
 	private int inpro; //是否项目内查看 1：是
 	
 	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
-	
+	private String direction;// asc,desc
+	private String property;// 排序的字段名称
 
 	public Integer getPageNum() {
+		if(pageNum == null){
+			pageNum = 0;
+		}
 		return pageNum;
 	}
-
 	public void setPageNum(Integer pageNum) {
 		this.pageNum = pageNum;
 	}
-
+	
 	public Integer getPageSize() {
+		if(pageSize == null){
+			pageSize = 10;
+		}
 		return pageSize;
 	}
-
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
@@ -115,6 +120,18 @@ public class InterviewRecordBo extends InterviewRecord{
 
 	public void setFileLength(Long fileLength) {
 		this.fileLength = fileLength;
+	}
+	public String getDirection() {
+		return direction;
+	}
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	public String getProperty() {
+		return property;
+	}
+	public void setProperty(String property) {
+		this.property = property;
 	}
 
 
