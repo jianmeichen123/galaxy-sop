@@ -169,6 +169,6 @@
     padding-right: 5px;
 }
 
-#abilityStar,#levelStar{width:150px;margin-top: 3px;margin-left: 2px;}
+#abilityStar,#levelStar{width:150px !important;margin-top: 3px;margin-left: 2px;}
 
 #abilityStar img,#levelStar img{display:inline-block;}

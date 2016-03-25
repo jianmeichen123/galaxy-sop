@@ -650,11 +650,31 @@
 								});
 							},
 							FilesAdded: function(up, files) {
-								if(up.files.length > 1){
+								
+								/* if(up.files.length > 1){
 									up.splice(0, ip.files.length-1)
+								} */
+								//解决多次文件选择后，文件都存入upload
+								if(uploader.files.length >= 1){
+									uploader.splice(0, uploader.files.length-1)
 								}
 								$.each(files, function() {
 									$("#file_obj").val(this.name);
+									var arr = new Array();
+									arr = this.name.split(".");
+									var type="";
+									if(arr){
+										type=arr[1];
+									}
+									var filtersparams=paramsFilter();
+									for(var i=0;i<filtersparams.length;i++){
+										var value=filtersparams[i];
+										var valueExt=value.extensions;
+										if(valueExt.indexOf(type) >= 0 ){
+											var myvalue=value.title;
+											$("#fileType option[value='"+myvalue+"']").attr("selected",true);
+										}
+									}
 								});
 							},
 							BeforeUpload:function(up){
@@ -1196,6 +1216,8 @@
 		
 		
 	}
+	
+	
 </script>
 
 </html>
