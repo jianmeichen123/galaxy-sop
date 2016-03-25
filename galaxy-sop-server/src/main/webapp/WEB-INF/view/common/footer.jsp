@@ -15,18 +15,31 @@ function createMenus(current){
 		   			html += '<li><a href="' + o.url + '">' + o.menuName + '</a></li>';
 		   		}
 	   		 }else{
-	   			html += '<li><div><i></i>投后运营</div><ul>';
-	   			$.each(o.nodes, function(i,o){
-	   				if(selected == o.id){
-			   			html += '<li class="on"><a href="' + o.url + '">' + o.menuName + '</a></li>';
-			   		}else{
-			   			html += '<li><a href="' + o.url + '">' + o.menuName + '</a></li>';
-			   		}
-	   			});
-	   			html += '</ul></li>';
+	   			var innerHtml ="";
+	   			var isExend = false;
+	   			 $.each(o.nodes, function(i,obj){
+	   				 if(selected == obj.id){
+	   					isExend = true;
+	   					innerHtml += '<li class="on"><a href="' + obj.url + '">' + obj.menuName + '</a></li>';
+			   		 }else{
+			   			innerHtml += '<li><a href="' + obj.url + '">' + obj.menuName + '</a></li>';
+			   		 }
+	   			 });
+	   			 
+	   			 if(isExend){
+	   				html += '<li><div><i class="hide"></i>'+o.menuName+'</div><ul style="display:block;">';
+	   			 }else{
+	   				html += '<li><div><i></i>'+o.menuName+'</div><ul>';
+	   			 }
+	   			 html += innerHtml;
+	   			 html += '</ul></li>';
 	   		 }
 	   	 });
 	   	 $("#menus").html(html);
+	   	 $(".pagebox .lft div").click(function(event) {
+	   		 $(this).siblings().stop().slideToggle();
+	   		 $(this).children('i').toggleClass('hide');
+	   	 });
 	});
 }
 </script>
