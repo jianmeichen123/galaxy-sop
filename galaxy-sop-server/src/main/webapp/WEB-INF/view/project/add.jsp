@@ -277,13 +277,14 @@
 	function callbackcheckProject(data) {
 		if (data.count!=0 &&(typeof(data.companyCode) != "undefined") ) {
 			message = "存在重复项目名，其中本公司存在"+data.companyCode+"个重复,总共"+data.count+"个重复";
-		} 
-		
+		} else{
+			message="";
+		}
 		if (data.count!=0 &&(typeof(data.companyCode) == "undefined")) {
 			message = "存在重复项目名，其中本公司存在0个,总共"+data.count+"个重复";
-			
-		} 
-		  
+		}else{
+			message="";
+		}
 	}
 	function popMessage(message) {
 		layer.open({  
