@@ -184,6 +184,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		User user = (User) getUserFromSession(request);
+		if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
+				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
+			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+		}
 		
 		Project p = projectService.queryById(project.getId());
 		if(p == null){
