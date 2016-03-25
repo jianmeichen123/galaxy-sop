@@ -2,6 +2,7 @@ package com.galaxyinternet.project.controller;
 
 import java.text.NumberFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -223,7 +224,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		    if(queryOne!=null){
 		    	project.setProjectCareerline(queryOne.getName());
 		    }
-			//hhrname=getHHRNname(project);
+			hhrname=getHHRNname(project);
 			project.setHhrName(hhrname);
 	    }
 	    if(project == null){
@@ -286,11 +287,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {		
 			Page<Project>  pageProject=null;
 			if(project.getAscOrDes()!=null&&project.getCascOrDes()!=null){	
-				if(project.getAscOrDes()=="desc"){
+				if(project.getAscOrDes().equals("desc")){
 					Sort sort = new Sort(Direction.DESC,project.getCascOrDes());
 					 pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize(),sort));
 					
-				}else if(project.getAscOrDes()=="asc"){
+				}else if(project.getAscOrDes().equals("asc")){
 					Sort sort = new Sort(Direction.ASC,project.getCascOrDes());
 					pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize(),sort));	
 				}													
@@ -333,7 +334,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		try {
 			pool.setCreatedTime(System.currentTimeMillis());
-			Long id = personPoolService.savePersonToProject(pool);
+			Long id = personPoolService.addProjectPerson(pool);
 			if(id > 0){
 				responseBody.setResult(new Result(Status.OK,"团队成员添加成功!"));
 				responseBody.setEntity(pool);
@@ -429,9 +430,37 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		}
 		return responseBody;
-		
-		
 	}
+	
+	/**
+	 * 查询完善简历任务所属的人员列表
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryPersonListToTask",method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<PersonPool> queryPersonListToTask(HttpServletRequest request,@RequestBody PersonPoolBo personPoolBo) {
+		ResponseData<PersonPool> responseBody = new ResponseData<PersonPool>();
+		if(personPoolBo.getTid() == null || personPoolBo.getProjectId() == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
+			return responseBody;
+		}
+		try {
+			Map<String,Object> params = new HashMap<String,Object>();
+			params.put("pid", personPoolBo.getProjectId());params.put("tid", personPoolBo.getTid());
+			List<PersonPool> list = personPoolService.selectNoToTask(params);
+			if(list != null && !list.isEmpty()){
+				responseBody.setEntityList(list);
+				responseBody.setResult(new Result(Status.OK, null, "查询成功!"));
+			}
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, null, "异常，请重试!"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
+		return responseBody;
+	}
+	
 	/**
 	 * 创建项目编码
 	 * @author yangshuhua
@@ -959,6 +988,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				   Long userid=ur.getUserId();
 				   User queryById = userService.queryById(userid);
 				   if(queryById!=null){
+					   
+					   if(null==queryById.getDepartmentId()){
+						   return "";
+					   }
 					   if(queryById.getDepartmentId().equals(p.getProjectDepartid())){
 						   hhrname=queryById.getRealName();
 					   }
@@ -967,4 +1000,40 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		   }
 		   return hhrname;
 	   }
+	  
+	  /**
+		 * Ajax判断项目名称，组织机构代码是否重复
+		 */
+		@RequestMapping(value = "checkProject")
+		@ResponseBody
+		public Map<String, Integer>  checkProject(@RequestBody Project  query) {
+			String projectCompanyCode = "";
+			if (query != null && query.getProjectCompanyCode()!= null) {
+				projectCompanyCode = query.getProjectCompanyCode();
+				query.setProjectCompanyCode(null);
+			}
+			List<Project> projectList = projectService.queryList(query);
+			Integer count = 0 ;
+			if (!StringUtils.equals(projectCompanyCode,"")) {
+				for (Project project: projectList) {
+					
+					if (project.getProjectCompanyCode()!= null && StringUtils.equals(projectCompanyCode, project.getProjectCompanyCode())) {
+						count ++;
+					}
+				}
+			}
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			if (projectList.size() < 1) {
+				//不存在重复
+				map.put("count", 0);
+				
+			} else if (count > 0) {
+				//重复且相同组织机构数为count
+				map.put("companyCode", count);
+				map.put("count", projectList.size());
+			} else {
+				map.put("count", projectList.size());
+			}
+			return map;
+		}
 }

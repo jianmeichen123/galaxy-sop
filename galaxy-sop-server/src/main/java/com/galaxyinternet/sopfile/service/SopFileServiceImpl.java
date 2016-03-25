@@ -107,7 +107,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 */
 	public Page<SopFile> queryPageList(SopFile query, Pageable pageable) {
 		// TODO Auto-generated method stub
-		Page<SopFile> pageEntity = super.queryPageList(query, pageable);
+		Page<SopFile> pageEntity = super.queryPageList(query,pageable);
 		//获取Project名称
 		for(SopFile sopFile : pageEntity.getContent()){
 			
@@ -132,14 +132,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 					sopFile.setFileUName(user.getRealName());
 				}
 			}
-			
-			logger.error("!!!!!sopFileId is" + sopFile.getId() );
-			logger.error("!!!!!sopFileUid is" + sopFile.getFileUid());
-			logger.error("!!!!!sopFileUName is" + sopFile.getFileUName());
-			logger.error("!!!!!projectId is" + sopFile.getProjectId() );
-			logger.error("!!!!!projectName is" + sopFile.getProjectName() );
-			
-//			
 		}
 		return pageEntity;
 	}

@@ -70,8 +70,7 @@ public class SopUserScheduleServiceImpl extends
 					message = "";
 				}**/
 				if (day == 0) {
-					String time=str[1].substring(0, str[1].lastIndexOf("."));
-					message = "今天,"+"["+time+"]";
+					message = "今天,";
 				}
 				if (day == 1) {
 					message = "明天,";

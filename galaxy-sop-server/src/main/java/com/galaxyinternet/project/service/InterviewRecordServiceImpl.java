@@ -49,11 +49,27 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	@Transactional
 	public Long insertInterview(InterviewRecord interviewRecord,SopFile sopFile) {
 		Long sid = sopFileDao.insert(sopFile);
+		if(sid == null){
+			return null;
+		}
 		interviewRecord.setFileId(sid);
 		Long id = getBaseDao().insert(interviewRecord);
-		
 		return id;
 	}
+	
+	
+	@Override
+	@Transactional
+	public Long updateViewForFile(SopFile sopFile, InterviewRecord view) {
+		Long fileid = sopFileDao.insert(sopFile);
+		view.setFileId(fileid);
+		int updateN = interviewRecordDao.updateById(view);
+		if(updateN == 0 ){
+			return null;
+		}
+		return fileid;
+	}
+	
 	
 	@Override
 	public Page<InterviewRecordBo> queryInterviewPageList(InterviewRecordBo query, Pageable pageable) {
@@ -75,17 +91,7 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	}
 
 
-	@Override
-	@Transactional
-	public Long insertFileForView(SopFile sopFile, InterviewRecord view) {
-		Long fileid = sopFileDao.insert(sopFile);
-		view.setFileId(fileid);
-		int updateN = interviewRecordDao.updateById(view);
-		if(updateN == 0 ){
-			return null;
-		}
-		return fileid;
-	}
+
 	
 	
 	

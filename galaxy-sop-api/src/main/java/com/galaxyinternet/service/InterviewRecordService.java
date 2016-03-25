@@ -16,6 +16,6 @@ public interface InterviewRecordService extends BaseService<InterviewRecord> {
 	
 	public Page<InterviewRecordBo> queryInterviewPageList(InterviewRecordBo query, Pageable pageable);
 
-	public Long insertFileForView(SopFile sopFile, InterviewRecord view);
+	public Long updateViewForFile(SopFile sopFile, InterviewRecord view);
 
 }

@@ -62,12 +62,12 @@ $(function(){
 });
 
 function ProjectRenyuan() {		
-	var jsonData={"pageNum":0,"pageSize":500,"projectId":"${projectId}"}; 
+	var jsonData={"projectId":"${projectId}","tid":"${taskId}"}; 
 	sendPostRequestByJsonObj(platformUrl.toWanshan,jsonData, SopTaskRenyuan);
 }
 function SopTaskRenyuan(data){
 	//组装数据	
-	var list =  data.pageList.content;
+	var list =  data.entityList;
 	if(list != "" || list != undefined || list != null){
 		var tbodyList = $("#wanShan"); 
 		var i=0;

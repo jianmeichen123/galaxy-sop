@@ -12,10 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictUtil;
+import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
@@ -27,6 +31,7 @@ import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.framework.core.utils.StringEx;
+import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -43,12 +48,34 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	private ProjectDao projectDao;
 	@Autowired
 	private SopFileDao sopFileDao;
+	@Autowired
+	private PersonPoolDao personPoolDao;
 
 	@Override
 	protected BaseDao<SopTask, Long> getBaseDao() {
 		return this.sopTaskDao;
 	}
-
+	
+	@Transactional
+	@Override
+	public void toSureMsgForPerson(Long pid, List<PersonPool> list)  throws Exception {
+		SopTask task = new SopTask();
+		task.setProjectId(pid);
+		task.setTaskName(SopConstant.TASK_NAME_WSJL);
+		task.setTaskType(DictEnum.taskType.协同办公.getCode());
+		task.setTaskFlag(SopConstant.TASK_FLAG_WSJL);
+		task.setTaskOrder(SopConstant.NORMAL_STATUS);
+		task.setDepartmentId(SopConstant.DEPARTMENT_RS_ID);
+		task.setTaskStatus(DictEnum.taskStatus.待认领.getCode());
+		task.setCreatedTime(System.currentTimeMillis());
+		Long tid = sopTaskDao.insert(task);
+		for(PersonPool p : list){
+			p.setTid(tid);
+			personPoolDao.updateById(p);
+		}
+	}
+	
+	
 	/**
 	 * @author chenjianmei
 	 * @category 不同角色的人根据不同的状态获取任列表（包含根据项目名称和投资经理查询任务，包含分页）
@@ -348,7 +375,6 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			convertDateToString = DateUtil.convertDateToStringForChina(addDate);
 			diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.getCurrentDateTime());
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

@@ -19,7 +19,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
@@ -190,6 +189,7 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
+   var message = "";
    var TOKEN ;
 	$(function(){
 		createMenus(4);
@@ -225,11 +225,21 @@
 	}
 	function add(){
 		if(beforeSubmit()){
-			
 			/* sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
 			 forwardWithHeader(sopContentUrl + "/galaxy/mpl");
 			} */
-			$.ajax({
+			var json = {};
+			var projectName = $("#projectName").val();
+			var projectCompanyCode = $("#projectCompanyCode").val();
+			json = {"projectName":projectName,"projectCompanyCode":projectCompanyCode};
+			sendPostRequestByJsonObj(platformUrl.checkProject,json,callbackcheckProject);
+			if (message!="") {
+				popMessage(message);
+			} else {
+				doPost();
+			}
+			//popMessage(message)
+			/* $.ajax({
 				url : platformUrl.addProject,
 				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
 				async : false,
@@ -255,13 +265,73 @@
 					
 					forwardWithHeader(sopContentUrl + "/galaxy/mpl");
 				}
-			});
+			}); */
 		}
 	}
 	
 	function callback(data){
 		TOKEN=data.TOKEN;
 		 return TOKEN;
+	}
+	
+	function callbackcheckProject(data) {
+		if (data.count!=0 &&(typeof(data.companyCode) != "undefined") ) {
+			message = "存在重复项目名，其中本公司存在"+data.companyCode+"个重复,总共"+data.count+"个重复";
+		} 
+		
+		if (data.count!=0 &&(typeof(data.companyCode) == "undefined")) {
+			message = "存在重复项目名，其中本公司存在,总共"+data.count+"个重复";
+			
+		} 
+		  
+	}
+	function popMessage(message) {
+		layer.open({  
+            type: 1,  
+            area: ['600px', '200px'],    //宽和高  
+            skin: 'layui-layer-lan',     //加上边框：layui-layer-rim；深蓝：layui-layer-lan；墨绿：layui-layer-molv  
+            offset: ['60px', '240px'],  //屏幕坐标位置  
+            shadeClose: true, //点击遮罩关闭  
+            closeBtn: 1,     //0:不显示关闭按钮; 1:显示关闭按钮  
+            content: message,   
+            btn: ['确认','取消'],    //按钮1和按钮2的回调分别是yes和cancel，而从按钮3开始，则回调为btn3: function(){}，以此类推  
+            yes: function(index,layero){   
+            	doPost() ;
+            },  
+            cancel: function(index){   
+          	  layer.close(index);  
+            }  
+		  });
+		
+	}
+	function  doPost() {
+		$.ajax({
+			url : platformUrl.addProject,
+			data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
+			async : false,
+			type : 'POST',
+			contentType : "application/json; charset=UTF-8",
+			dataType : "json",
+			cache : false,
+			beforeSend : function(xhr) {
+				if (TOKEN) {
+					xhr.setRequestHeader("TOKEN", TOKEN);
+				}
+				if (sessionId) {
+					xhr.setRequestHeader("sessionId", sessionId);
+				}
+				if(userId){
+					xhr.setRequestHeader("guserId", userId);
+				}
+			},
+			error : function() {
+				layer.msg("操作失败");
+			},
+			success : function(data) {
+				
+				forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+			}
+		}); 
 	}
 </script>
 

@@ -307,7 +307,7 @@
 				$('.searchbox').toggleshow();
 				leicj();
 				//初始化文件上传
-				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_btn","file_object","save_interview",
+				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_btn","file_object","save_interview","",
 						function getSaveCondition(){
 							var	condition = {};
 							var pid = $("#project_id").val();
@@ -382,7 +382,7 @@
 				$(".meetingtc").tabchange();
 				$('.searchbox').toggleshow();
 				leicj(meetingType);
-				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "meeting_select_btn","meeting_file_object","save_meeting",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "meeting_select_btn","meeting_file_object","save_meeting","",
 						function getSaveCondition(){
 							var	condition = {};
 							var pid = $("#project_id").val();
@@ -476,7 +476,8 @@
 						        if (dataList[p].fileStatusDesc == "缺失") { 
 						        	handlefile ='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
 								}else{
-									handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateTzyxs()">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
+									var fileSource =  dataList[p].fileSource;
+									handlefile = '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateTzyxs('+fileSource+')">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
 								}
 						        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">'+
 						        '<a href="javascript:;" onclick="downFile(5);" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>'+
@@ -515,8 +516,9 @@
 										htmlstart +='<tr>'+
 										'<td>'+dataList[p].fWorktype+'</td>'+
 										'<td>'+dataList[p].createDate+'</td>'+
-										typehtml+
-										'<td></td>'+'<td>'+dataList[p].fileStatusDesc+'</td>'+
+										typehtml
+										+'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'
+										+'<td>'+dataList[p].fileStatusDesc+'</td>'+
 										endhtml+
 										'</tr>';   
 										
@@ -547,7 +549,11 @@
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
 				}
-				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn",
+				else
+				{
+					$("#voucherType").attr("disabled",true);
+				}
+				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -583,14 +589,17 @@
 		});
 		return false;
 	}
-	function updateTzyxs(){
+	function updateTzyxs(fileSource){
 		$("[data-id='popid1']").remove();
 		 loadJs();
 		var _url='<%=path %>/galaxy/tzyx';
 		$.getHtml({
 			url:_url,
 			okback:function(){
-				
+				$("#voucherType").attr("disabled",true);
+				$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
+								
+
 				var uploader = $.fxUpload({
 					props:{
 						browse_button:'select_file_btn',
@@ -683,23 +692,24 @@
 					 null, function(data){
 				 var html = "";
 				 $.each(data.entityList, function(i,o){
+					 console.log(o);
 					 html += "<tr>";
 					 if(o.fileWorktype == 'fileWorktype:1'){
 						 html += "<td>业务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>投资&杨一</td><td>文档</td>";
+						 html += "<td>"+o.careerLineName+"</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:2'){
 						 html += "<td>人事尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>人事部</td><td>文档</td>";
+						 html += "<td>人事部</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:3'){
 						 html += "<td>法务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>法务部</td><td>文档</td>";
+						 html += "<td>法务部</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:4'){
 						 html += "<td>财务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>财务部</td><td>文档</td>";
+						 html += "<td>财务部</td><td>"+o.fType+"</td>";
 					 }
 					 if(o.fileStatus == 'fileStatus:1'){
 						 html += "<td>缺失</td>";
@@ -711,6 +721,9 @@
 						 }
 						 html += "<td>无</td>";
 					 }else if(o.fileStatus == 'fileStatus:2'){
+						 if(o.fileWorktype == 'fileWorktype:1'){
+							 $("#jzdc_options a:eq(0)").text('更新业务尽职调查报告')
+						 }
 						 html += "<td>已上传</td>";
 						 html += "<td></td>";
 						 html += "<td><a href='javascript:filedown("+o.id+");'>查看</a></td>";
@@ -739,7 +752,7 @@
 				$(".meetingtc").tabchange();
 				$('.searchbox').toggleshow();
 				leicj();
-				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -747,7 +760,7 @@
 						alert("项目不能为空");
 						return;
 					}
-					var type = $("input[name='fileSource']").val();
+					var type = $("input[name='fileSource']:checked").val();
 					if(type == null || type == ""){
 						alert("档案来源不能为空");
 						return;
@@ -913,7 +926,7 @@
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
 				}
-				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -921,7 +934,7 @@
 						alert("项目不能为空");
 						return;
 					}
-					var type = $("input[name='fileSource']").val();
+					var type = $("input[name='fileSource']:checked").val();
 					if(type == null || type == ""){
 						alert("档案来源不能为空");
 						return;
@@ -979,7 +992,7 @@
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
 				}
-				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn",
+				toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
 					var	condition = {};
 					var pid = $("#project_id").val();
@@ -987,7 +1000,7 @@
 						alert("项目不能为空");
 						return;
 					}
-					var type = $("input[name='fileSource']").val();
+					var type = $("input[name='fileSource']:checked").val();
 					if(type == null || type == ""){
 						alert("档案来源不能为空");
 						return;
@@ -1049,13 +1062,14 @@
 													}else{
 														typehtml = '<td>'+dataList[p].fType+'</td>';
 													}
-													var handlehtml = "";
 													
+													var handlehtml = "";
 													if (dataList[p].fileStatusDesc == "缺失") { 
 														handlehtml ='<td><a href="javascript:; " onclick="taskUrged('+dataList[p].id+');"class="blue">催办</a></td>';
 													}else{
 														handlehtml = '<td></td>';
 													}
+													
 													var endhtml ="";
 													if (dataList[p].fileStatusDesc == "缺失") { 
 														endhtml ='<td></td>';
@@ -1063,11 +1077,18 @@
 														endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
 													}
 													
+													var updatedDate ="";
+													if (dataList[p].updatedDate == null || dataList[p].updatedDate == "") { 
+														updatedDate =dataList[p].createDate;
+													}else{
+														updatedDate = dataList[p].updatedData;
+													}
+													
 													htmlstart +='<tr>'+
 													'<td>'+dataList[p].fWorktype+'</td>'+
 													'<td>'+dataList[p].createDate+'</td>'+
 													typehtml+
-													'<td></td>'+
+													'<td>'+updatedDate+'</td>'+
 													handlehtml+   
 													endhtml+   
 													'</tr>';   

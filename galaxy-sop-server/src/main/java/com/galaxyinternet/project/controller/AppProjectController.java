@@ -1,0 +1,101 @@
+package com.galaxyinternet.project.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
+import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.UserRoleService;
+/**
+ * ios对接接口
+ * @author gxc
+ *
+ */
+@Controller
+@RequestMapping("/galaxy/aproject")
+public class AppProjectController extends BaseControllerImpl<Project, ProjectBo> {
+	
+	final Logger logger = LoggerFactory.getLogger(AppProjectController.class);
+	
+	@Autowired
+	private ProjectService projectService;
+	@Autowired
+	private UserRoleService userRoleService;
+	
+	@Autowired
+	com.galaxyinternet.framework.cache.Cache cache;
+	
+	@Override
+	protected BaseService<Project> getBaseService() {
+		return this.projectService;
+	}	
+	 /**
+	  * 
+	  * 供app端根据角色不同查看不同的项目列表
+	  * 
+	  * 
+	  */
+	   	@ResponseBody
+		@RequestMapping(value = "/splapp", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseData<Project> searchAppProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
+			ResponseData<Project> responseBody = new ResponseData<Project>();
+			User user = (User) getUserFromSession(request);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){				
+			}else if (roleIdList.contains(UserConstant.HHR)){
+				project.setProjectDepartid(user.getDepartmentId());
+			}else{
+				project.setCreateUid(user.getId());
+			}			
+			try {		
+				Page<Project>  pageProject=null;
+				if(project.getAscOrDes()!=null&&project.getCascOrDes()!=null){	
+					if(project.getAscOrDes().equals("desc")){
+						Sort sort = new Sort(Direction.DESC,project.getCascOrDes());
+						 pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize(),sort));						
+					}else if(project.getAscOrDes().equals("asc")){
+						Sort sort = new Sort(Direction.ASC,project.getCascOrDes());
+						pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize(),sort));	
+					}													
+				}else{
+					pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));				
+				}
+				responseBody.setPageList(pageProject);
+				responseBody.setResult(new Result(Status.OK, ""));
+				return responseBody;
+			} catch (PlatformException e) {
+				responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+				if (logger.isErrorEnabled()) {
+					logger.error("queryUserList ", e);
+				}
+			}
+			return responseBody;
+		}
+	 
+
+	  
+	  
+}

@@ -46,12 +46,14 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
@@ -82,6 +84,9 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	@Autowired
 	private  SopFileService sopFileService;
+	
+	@Autowired
+	private DepartmentService departmentService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -262,18 +267,16 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addInterview", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecord interviewRecord ,HttpServletRequest request ) {
+	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecordBo interviewRecord ,HttpServletRequest request ) {
 		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
+		Long viewId;
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
-			if(interviewRecord.getProjectId() == null 
-					|| interviewRecord.getViewDate() == null 
-					|| interviewRecord.getViewTarget() == null ){
+			if(interviewRecord == null || interviewRecord.getProjectId() == null || interviewRecord.getViewDate() == null || interviewRecord.getViewTarget() == null ){
 				responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
 				return responseBody;
 			}
-			
 			//project id 验证
 			Project project = new Project();
 			project = projectService.queryById(interviewRecord.getProjectId());
@@ -283,16 +286,48 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
-		
-			Long id = interviewRecordService.insert(interviewRecord);
+			
+			//验证是否附件已上传
+			if(interviewRecord.getFkey()!=null){
+				if(interviewRecord.getBucketName()==null || interviewRecord.getFileLength()==null||interviewRecord.getFname()==null){
+					responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
+					return responseBody;
+				}
+				
+				Map<String,String> nameMap = transFileNames(interviewRecord.getFname());
+				SopFile sopFile = new SopFile();
+				sopFile.setBucketName(interviewRecord.getBucketName());
+				sopFile.setFileKey(interviewRecord.getFkey());
+				sopFile.setFileLength(interviewRecord.getFileLength());
+				sopFile.setFileName(nameMap.get("fileName"));
+				sopFile.setFileSuffix(nameMap.get("fileSuffix"));
+				
+				sopFile.setProjectId(project.getId());
+				sopFile.setProjectProgress(project.getProjectProgress());
+				sopFile.setFileUid(user.getId());	 //上传人
+				sopFile.setCareerLine(user.getDepartmentId());
+				sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
+				sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
+				//sopFile.setFileWorktype(fileWorkType);    //业务分类
+				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+				
+				viewId = interviewRecordService.insertInterview(interviewRecord,sopFile);
+			}else{
+				viewId = interviewRecordService.insert(interviewRecord);
+			}
+			if(viewId == null){
+				responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
+				logger.error("addInterview  谈添加失败 ");
+				return responseBody;
+			}
 			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(id);
+			responseBody.setId(viewId);
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
 			
 			if(logger.isErrorEnabled()){
-				logger.error(" addInterview 访谈添加失败 ",e);
+				logger.error("addInterview 访谈添加失败 ",e);
 			}
 		}
 		return responseBody;
@@ -314,8 +349,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			if(sopFile.getFileKey()==null || sopFile.getBucketName()==null || sopFile.getFileLength()==null||sopFile.getFileName()==null){
-				responseBody.setResult(new Result(Status.ERROR,null, "interviewRecord info not complete"));
+			if(sopFile == null || sopFile.getFileKey()==null || sopFile.getBucketName()==null || sopFile.getFileLength()==null||sopFile.getFileName()==null){
+				responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
 				return responseBody;
 			}
 			
@@ -345,14 +380,14 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
 			
 			//调用接口 修改view 新增 sopfile，返回fileid
-			Long id = interviewRecordService.insertFileForView(sopFile,view);
-			if(id == null){
+			Long fileid = interviewRecordService.updateViewForFile(sopFile,view);
+			if(fileid == null){
 				responseBody.setResult(new Result(Status.ERROR,null, "录音追加失败"));
 				logger.error("addInterview addFileForView 录音追加失败，返回更新recordview为0 ");
 				return responseBody;
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(id);
+			responseBody.setId(fileid);
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "录音追加失败"));
@@ -728,58 +763,43 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		
-		if(proProgress!=null){
-			if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && roleIdList.contains(UserConstant.TZJL)){      //字典   项目进度     投资意向书
-				fileworktypeList.add(DictEnum.fileWorktype.投资意向书.getCode());   //字典   档案业务类型   投资意向书
-				
-			}else if(proProgress.equals(DictEnum.projectProgress.尽职调查.getCode())){  //字典   项目进度     尽职调查
-				
-				//人事|投资经理
-				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HRJL) 
-						|| roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.HRZJ)){
-				         fileworktypeList.add(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());  //字典   档案业务类型   尽职调查报告
-				}
-				//财务|投资经理
-				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) 
-						|| roleIdList.contains(UserConstant.CWZJ)){
-				        fileworktypeList.add(DictEnum.fileWorktype.财务尽职调查报告.getCode());
-				}
-				//法务|投资经理
-				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) 
-						|| roleIdList.contains(UserConstant.FWZJ)){
-				        fileworktypeList.add(DictEnum.fileWorktype.法务尽职调查报告.getCode());
-				}
-				//投资经理
-				if(roleIdList.contains(UserConstant.TZJL)){
-				        fileworktypeList.add(DictEnum.fileWorktype.业务尽职调查报告.getCode());
-				}
-				
-			}else if(proProgress.equals(DictEnum.projectProgress.投资协议.getCode())){   //字典   项目进度     投资协议 
-				        fileworktypeList.add(DictEnum.fileWorktype.投资协议.getCode());      //字典   档案业务类型   投资协议
-				        fileworktypeList.add(DictEnum.fileWorktype.股权转让协议.getCode());     //字典   档案业务类型   股权转让协议
-				
-			}else if(proProgress.equals(DictEnum.projectProgress.股权交割.getCode())){   //字典   项目进度   股权交割
-				//财务|投资经理
-				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) ||
-						roleIdList.contains(UserConstant.CWZJ)){
-				       fileworktypeList.add(DictEnum.fileWorktype.资金拨付凭证.getCode());   //字典   档案业务类型   资金拨付凭证
-				}
-				//法务|投资经理
-				if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) 
-						|| roleIdList.contains(UserConstant.FWZJ)){
-				       fileworktypeList.add(DictEnum.fileWorktype.工商转让凭证.getCode());  //字典   档案业务类型   工商变更登记凭证
-				}
-				
-			}else{
-				responseBody.setResult(new Result(Status.OK,null, "项目阶段类型不能识别"));
-				return responseBody;
+		if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && roleIdList.contains(UserConstant.TZJL)){  
+			fileworktypeList.add(DictEnum.fileWorktype.投资意向书.getCode());   
+		}else if(proProgress.equals(DictEnum.projectProgress.尽职调查.getCode())){
+			//人事|投资经理
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HRJL) || roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.HRZJ)){
+			         fileworktypeList.add(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());  
+			}
+			//财务|投资经理
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) || roleIdList.contains(UserConstant.CWZJ)){
+			        fileworktypeList.add(DictEnum.fileWorktype.财务尽职调查报告.getCode());
+			}
+			//法务|投资经理
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.FWZJ)){
+			        fileworktypeList.add(DictEnum.fileWorktype.法务尽职调查报告.getCode());
+			}
+			//投资经理
+			if(roleIdList.contains(UserConstant.TZJL)){
+			        fileworktypeList.add(DictEnum.fileWorktype.业务尽职调查报告.getCode());
+			}
+		}else if(proProgress.equals(DictEnum.projectProgress.投资协议.getCode())){  
+			        fileworktypeList.add(DictEnum.fileWorktype.投资协议.getCode());      
+			        //fileworktypeList.add(DictEnum.fileWorktype.股权转让协议.getCode());  //废弃   
+			
+		}else if(proProgress.equals(DictEnum.projectProgress.股权交割.getCode())){
+			//财务|投资经理
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) || roleIdList.contains(UserConstant.CWZJ)){
+			       fileworktypeList.add(DictEnum.fileWorktype.资金拨付凭证.getCode());   
+			}
+			//法务|投资经理
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.FWZJ)){
+			       fileworktypeList.add(DictEnum.fileWorktype.工商转让凭证.getCode());  
 			}
 		}else{
-			responseBody.setResult(new Result(Status.ERROR,null, "项目阶段为空"));
+			responseBody.setResult(new Result(Status.OK,null, "项目阶段类型不能识别"));
 			return responseBody;
 		}
 		
-
 		try {
 			List<SopFile> fileList = new ArrayList<SopFile>();
 			
@@ -789,14 +809,17 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			sbo.setFileworktypeList(fileworktypeList);
 			
 			fileList = sopFileService.selectByFileTypeList(sbo);
-			
+			for(SopFile f : fileList){
+				Department depart = departmentService.queryById(f.getCareerLine());
+				f.setCareerLineName(depart.getName());
+			}
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(fileList);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+			responseBody.setResult(new Result(Status.ERROR,null, "查询文件列表失败"));
 			
 			if(logger.isErrorEnabled()){
-				logger.error("update project faild ",e);
+				logger.error("proFileInfo 根据角色项目阶段查询文件列表失败",e);
 			}
 		}
 		

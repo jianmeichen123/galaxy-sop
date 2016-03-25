@@ -10,30 +10,31 @@
     <div class="left">
       <dl class="fmdl fml">
         <dt>所有权人：</dt>
-        <dd><input type="text" name="sharesOwner" value="${share.sharesOwner }" class="txt" valType="required" msg="<font color=red>*</font>所有权不能为空"/></dd>
+        <dd><input type="text" name="sharesOwner" value="${share.sharesOwner }" class="txt" valType="OTHER" regString="^\S{1,20}[^\d]+$"msg="<font color=red>*</font>只能是汉字或是字符,最长度为20"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>占比：</dt>
-        <dd><input type="text" name="sharesRatio" value="${share.sharesRatio }" class="txt" valType="required" msg="<font color=red>*</font>占比不能为空"/></dd>
+        <dd><input type="text" name="sharesRatio" value="${share.sharesRatio }" class="txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"/><span>%</span></dd>
       </dl> 
     </div>
     <div class="right">
       <dl class="fmdl">
         <dt>类型：</dt>
-        <dd><input type="text" name="sharesType" value="${share.sharesType }" class="txt" valType="required" msg="<font color=red>*</font>类型不能为空"/></dd>
+        <dd><input type="text" name="sharesType" value="${share.sharesType }" class="txt" valType="OTHER" regString="^\S{1,30}$"msg="<font color=red>*</font>不能为空且且字符长度最大30"/></dd>
       </dl>  
       <dl class="fmdl">
         <dt>获取方式：</dt>
-        <dd><input type="text" name="gainMode" value="${share.gainMode }" class="txt" valType="required" msg="<font color=red>*</font>获取方式不能为空"/></dd>
+        <dd><input type="text" name="gainMode" value="${share.gainMode }" class="txt" valType="OTHER" regString="^\S{1,50}$"msg="<font color=red>*</font>不能为空且且字符长度最大50"/></dd>
       </dl>
     </div>
   </div>
   <div class="form_textarea">
     <dl class="fmdl">
       <dt>备注：</dt>
-      <dd><textarea name="remark" >${share.remark }</textarea></dd>
+      <dd><textarea name="remark" valType="requiredDiv" regString="^.{0,2000}$" msg="<font color=red>*</font>不能超过2000字符">${share.remark }</textarea></dd>
     </dl>
   </div>
       <a href="javascript:updateStock();" class="pubbtn bluebtn">保存</a>
   </form>
 </div>
+<jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>

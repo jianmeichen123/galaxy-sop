@@ -76,6 +76,10 @@
 	</bean>
 
 	<mvc:interceptors>
+	<mvc:interceptor>
+		<mvc:mapping path="/**" />
+			<bean class="com.galaxyinternet.framework.core.form.TokenHandlerInterceptor" />
+		</mvc:interceptor>
 		<!-- 用于处理产生消息提醒&sop操作日志的拦截器 -->
 		<mvc:interceptor>
 			<!-- <mvc:mapping path="/**/sop/galaxy/**" /> -->
@@ -84,6 +88,7 @@
 			<bean
 				class="com.galaxyinternet.common.annotation.MessageHandlerInterceptor" />
 		</mvc:interceptor>
+		
 	</mvc:interceptors>
 
 </beans>

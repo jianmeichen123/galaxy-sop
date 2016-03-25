@@ -8,12 +8,20 @@ import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.soptask.SopTask;
 
 /**
  * @author keifer
  */
 public interface SopTaskService extends BaseService<SopTask> {
+	
+	/**
+	 * 完善简历待办任务的生成
+	 */
+	public void toSureMsgForPerson(Long pid, List<PersonPool> list) throws Exception;
+	
+	
 	/**
 	 * @author chenjianmei
 	 * @category 

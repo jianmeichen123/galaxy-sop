@@ -128,6 +128,10 @@ function loadRows()
 					else
 					{
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">查看</a></td>');
+						if("fileWorktype:1" == this.fileWorktype)
+						{
+							$("#show-upload-btn").text('更新业务尽职调查报告');
+						}
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
@@ -204,30 +208,7 @@ function initUpload(_dialog){
 						layer.msg("请选择文件");
 						return;
 					}
-					//只更新内容，不更新文档
-					if(uploader.files == 0)
-					{
-						var $form =$(_dialog.id).find("form")
-						var data = JSON.parse($form.serializeObject());
-						data['type'] = data['fileSource'];
-						data['fileWorktype']='fileWorktype:6';
-						sendGetRequest(
-								platformUrl.uploadFile2Task,
-								data,
-								function(data){
-									if(data.result.status == "OK")
-									{
-										layer.msg("上传成功.");
-										$(_dialog.id).find("[data-close='close']").click();
-										loadRows();
-									}
-									else
-									{
-										layer.msg("上传失败.");
-									}
-								}
-						);
-					}
+					
 					uploader.start();
 					return false;
 				});
@@ -242,7 +223,8 @@ function initUpload(_dialog){
 				});
 				$.each(files, function() {
 					$(_dialog.id).find("input[name='fileName']").val(this.name);
-					
+					var fileType = getFileTypeByName(this.name);
+					$(_dialog.id).find("[name='fileType']").val(fileType);
 				});
 			},
 			BeforeUpload:function(up){
@@ -293,7 +275,7 @@ function initForm(_dialog)
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
 	$(_dialog.id).find("[name='fileWorktype']").val(worktype);
 	$(_dialog.id).find("[name='fileType']").val(fileType);
-	$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
+	//$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
 	$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());
 }
