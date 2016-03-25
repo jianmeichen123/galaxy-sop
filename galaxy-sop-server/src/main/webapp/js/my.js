@@ -69,7 +69,7 @@ function leicj(){
 */
 
     //鼠标滑上显示提示框
-    $('.tarea').hover(function(){
+    $('.tarea p').hover(function(){
       if($(this).length>0){
         $('.tips').show();
       }
@@ -77,7 +77,7 @@ function leicj(){
         $('.tips').hide();
       }
     });
-  $('.tarea').mousemove(function(e){
+  $('.tarea p').mousemove(function(e){
    var top = e.pageY+20;
    var left = e.pageX+20;
    $('.tips').css({
@@ -86,7 +86,7 @@ function leicj(){
    });
   });
   
-  $('.tarea').mouseout(function(){
+  $('.tarea p').mouseout(function(){
    $('.tips').hide();
   });	
  //添加日程弹窗
