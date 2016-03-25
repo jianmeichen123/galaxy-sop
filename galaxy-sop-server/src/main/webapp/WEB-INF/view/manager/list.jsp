@@ -70,7 +70,7 @@
 		</div>
 		<div class="tab-pane active" id="view">	
 			<table id="data-table" data-url="project/queryAllProjects" data-height="555" 
-				data-page-list="[1, 5, 50]" data-toolbar="#custom-toolbar">
+				data-page-list="[10,20,30]" data-toolbar="#custom-toolbar">
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>

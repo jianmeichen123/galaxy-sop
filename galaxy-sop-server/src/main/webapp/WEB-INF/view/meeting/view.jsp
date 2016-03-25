@@ -84,7 +84,7 @@
 			<table id="data-table" data-url="<%=path %>/galaxy/project/progress/queryMeet"
 				data-method="post" data-side-pagination="server"
 				data-pagination="true" data-toolbar="#custom-toolbar"
-				data-page-list="[1,2,4,8,50]" data-id-field="lottoId"
+				data-page-list="[10,20,30]" data-id-field="lottoId"
 				data-show-refresh="false">
 				<colgroup >
 					<col style="width:30%;"> <!-- 名称 -->

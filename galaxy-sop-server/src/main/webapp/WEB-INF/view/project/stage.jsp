@@ -103,7 +103,7 @@
 						<div class="tab-pane active" id="view">
 							<table id="tablePerson" data-height="555" data-method="post"
 								data-show-refresh="true" data-side-pagination="server"
-								data-pagination="true" data-page-list="[1, 5, 50]"
+								data-pagination="true" data-page-list="[10,20,30]"
 								data-search="false">
 							</table>
 						</div>
@@ -219,7 +219,7 @@
 				</div>
 				<table id="projectProgress_1_table"
 					data-url="<%=path%>/galaxy/project/progress/queryInterview"
-					data-page-list="[3,6,10]" data-toolbar="#projectProgress_1_table_custom-toolbar">
+					data-page-list="[10,20,30]" data-toolbar="#projectProgress_1_table_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
@@ -244,7 +244,7 @@
 				<!--表格内容-->
 				<table id="projectProgress_2_table"
 					data-url="<%=path%>/galaxy/project/progress/queryMeet"
-					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[3,6,10,20]">
+					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[10,20,30]">
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
@@ -270,7 +270,7 @@
 				</div>
 				<!--表格内容-->
 				<table id="projectProgress_3_table"
-					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,6,10,20]"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
 					data-toolbar="#projectProgress_3_table_custom-toolbar">
 					<thead>
 						<tr>
@@ -298,7 +298,7 @@
 				</div>
 				<!--表格内容-->
 				<table id="projectProgress_4_table"
-					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,6,10,20]"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
 					data-toolbar="#projectProgress_4_table_custom-toolbar">
 					<thead>
 						<tr>
@@ -325,7 +325,7 @@
 				</div>
 				<!--表格内容-->
 				<table id="projectProgress_7_table"
-					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,6,10,20]"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
 					data-toolbar="#projectProgress_7_table_custom-toolbar">
 					<thead>
 						<tr>
@@ -445,7 +445,7 @@
 				</div>
 				<table id="projectProgress_table"
 					data-url="<%=path%>/galaxy/operatlog/query"
-					data-page-list="[5,10]" data-toolbar="#pro_message_custom-toolbar">
+					data-page-list="[10,20,30]" data-toolbar="#pro_message_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
@@ -511,7 +511,7 @@
  	    dataType: "json",
  	    pagination: true, //分页
  	    search: false, //显示搜索框
- 	    pageList: [1,5,20],
+ 	    pageList: [10,20,30],
  	    queryParams: queryParamsforP,
  	    sidePagination: "server", //服务端处理分页
  	          columns: [
@@ -577,7 +577,7 @@
      pagination: true, //分页
      search: false, //显示搜索框
      showRefresh: true,
-     pageList: [1,5,20],
+     pageList: [10,20,30],
      queryParams: queryParamsforP,
      sidePagination: "server", //服务端处理分页
            columns: [
