@@ -33,6 +33,7 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.cache.Cache;
@@ -54,6 +55,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
@@ -443,6 +445,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			}else{
 				
 			}
+			sopFile.setFileWorktypeNullFilter("true");
 			sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());	
 			//模糊搜索
 			if(sopFile.getProjectName()!=null && !sopFile.getProjectName().isEmpty()){
@@ -832,6 +835,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	@RequestMapping(value="/commonUploadFile",method=RequestMethod.POST)
 	public ResponseData<SopFile> commonUploadFile(HttpServletRequest request,HttpServletResponse response){
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();	
+		UrlNumber num = null;
 		//1收集参数
 		//	(fileSource:非必需入力)
 		//2校验参数
@@ -878,38 +882,39 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			if(workType.equals(DictEnum.fileWorktype.投资意向书.getCode())){  //字典   档案业务类型   投资意向书
 				proProgress = DictEnum.projectProgress.投资意向书.getCode() ;									  
 				taskFlag = 1;
-				
+				num = UrlNumber.one;
 			}else if(workType.equals(DictEnum.fileWorktype.业务尽职调查报告.getCode())){
 				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
 				taskFlag = 5;
-				
+//				num = UrlNumber.five;
 			}else if(workType.equals(DictEnum.fileWorktype.投资协议.getCode())){
 				proProgress = DictEnum.projectProgress.投资协议.getCode() ; 
 				taskFlag = 6;
-				
+//				num = UrlNumber.six;
 			}else if(workType.equals(DictEnum.fileWorktype.股权转让协议.getCode())){
 				proProgress = DictEnum.projectProgress.投资协议.getCode() ; 
 				taskFlag = 7;
-				
+//				num = UrlNumber.seven;
 			}else if(workType.equals(DictEnum.fileWorktype.人力资源尽职调查报告.getCode())){
 				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
 				taskFlag = 2;
-				
+//				num = UrlNumber.two;
 			}else if(workType.equals(DictEnum.fileWorktype.财务尽职调查报告.getCode())){
 				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
 				taskFlag = 4;
-				
+				num = UrlNumber.four;
 			}else if(workType.equals(DictEnum.fileWorktype.法务尽职调查报告.getCode())){
 				proProgress = DictEnum.projectProgress.尽职调查.getCode() ;
 				taskFlag = 3;
-				
+//				num = UrlNumber.three;
 			}else if(workType.equals(DictEnum.fileWorktype.工商转让凭证.getCode())){
 				proProgress = DictEnum.projectProgress.股权交割.getCode() ;
 				taskFlag = 9;
-				
+//				num = UrlNumber.nine;
 			}else if(workType.equals(DictEnum.fileWorktype.资金拨付凭证.getCode())){
 				proProgress = DictEnum.projectProgress.股权交割.getCode() ;
 				taskFlag = 8;	
+//				num = UrlNumber.eight;
 			}else{
 				responseBody.setResult(new Result(Status.OK, "文件业务类型不能识别"));
 				return responseBody;
@@ -1037,6 +1042,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_ALCLOUD));
 			}
 			responseBody.setResult(new Result(Status.OK, null));
+			if(num!=null){
+				String projectName = proJectService.queryById(Long.parseLong(projectId)).getProjectName();
+				ControllerUtils.setRequestParamsForMessageTip(request, projectName, Long.parseLong(projectId),num);
+			}
 		}catch(DaoException e){
 			responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_DAO));
 		}catch(IOException e){
@@ -1048,6 +1057,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				file.delete();
 			}	
 		}
+		
 		return responseBody;
 	}
 	

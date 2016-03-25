@@ -1,5 +1,7 @@
 package com.galaxyinternet.model.operationLog;
 
+
+
 /**
  * @Description: sop流程中操作日志的规范类
  * @author keifer
@@ -76,7 +78,13 @@ public enum OperationLogType {
 	//点击资金拨付凭证催办列里的“催办”
 	REMIND_FUNDS_SEND_CERTIFICATE("", OperType.REMINDER.getOperationType(), "资金拨付凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
 	//点击工商变更登记凭证催办列里的“催办”
-	REMIND_COMPANY_CHANGE_CERTIFICATE("", OperType.REMINDER.getOperationType(), "工商变更登记凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName());
+	REMIND_COMPANY_CHANGE_CERTIFICATE("", OperType.REMINDER.getOperationType(), "工商变更登记凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
+	
+	
+	
+	
+	//更新投资意向书 1
+	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName());
 
 	private OperationLogType(String uniqueKey, String type, String content, String sopstage) {
 		this.uniqueKey = uniqueKey;
