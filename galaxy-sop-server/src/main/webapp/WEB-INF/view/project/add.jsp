@@ -298,7 +298,8 @@
             yes: function(index,layero){   
             	doPost() ;
             },  
-            cancel: function(index){   
+            cancel: function(index){  
+            	message ="";
           	  layer.close(index);  
             }  
 		  });
