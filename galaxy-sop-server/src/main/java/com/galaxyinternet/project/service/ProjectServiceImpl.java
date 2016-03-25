@@ -126,7 +126,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		
 		
 		if(project.getProjectType() != null && 
-				DictEnum.projectType.外部项目.getCode().equals(project.getProjectType())){
+				DictEnum.projectType.外部投资.getCode().equals(project.getProjectType())){
 			//外部投资项目必须四个尽调、内部创建必须两个尽调
 			f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 			f.setFileWorktype(DictEnum.fileWorktype.法务尽职调查报告.getCode());
