@@ -1193,12 +1193,16 @@
 	}
 	//催办
 	function taskUrged(id) {
-		var url = platformUrl.tempDownload+"?id="+id;
 		var json= {"id":id};
 		sendGetRequest(platformUrl.taskUrged, json, taskCallback);
 	}
 	function downFile(id){
-		var url = platformUrl.tempDownload+"?id="+id;
+		var pidParam = "";
+		if(alertid>=0)
+		{
+			pidParam = "&projectId="+alertid;
+		}
+		var url = platformUrl.tempDownload+"?id="+id+pidParam;
 		forwardWithHeader(url);
 	}
 	
@@ -1207,14 +1211,8 @@
 		if (data.result.status!="OK") {
 			layer.msg("催办失败");
 		} else {
-			layer.msg(data.result.message, {
-				time : 1000
-			}, function() {
-				history.go(0);
-			});
+			layer.msg(data.result.message);
 		}
-		
-		
 	}
 	
 	

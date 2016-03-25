@@ -29,9 +29,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.dubbo.common.utils.StringUtils;
 import com.galaxyinternet.bo.template.SopTemplateBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -41,10 +42,13 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
+import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.template.TemplateMailInfo;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTemplateService;
 import com.galaxyinternet.service.UserService;
 @Controller
@@ -55,6 +59,8 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	private SopTemplateService templateService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ProjectService projectService;
 	
 	@Override
 	protected BaseService<SopTemplate> getBaseService() {
@@ -176,6 +182,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 		return resp;
 	}
 	@RequestMapping("/download")
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.LOG)
 	public void download(SopTemplate query, HttpServletRequest request, HttpServletResponse response)
 	{
 		InputStream fis = null;
@@ -187,6 +194,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 				throw new Exception("未找到模板");
 			}
 			SopTemplate template = list.iterator().next();
+			
 			String fileName = template.getFileName();
 			int dotPos = fileName.lastIndexOf(".");
 			String prefix = fileName.substring(0, dotPos);
@@ -214,6 +222,21 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			out.write(buffer);
 			out.flush();
 			response.flushBuffer();
+			
+			String worktype = template.getWorktype();
+			String projectId = request.getParameter("projectId");
+			if(projectId != null && worktype!= null && worktype.indexOf(":")>-1)
+			{
+				String index = worktype.split(":")[1];
+				int num = Integer.valueOf(index);
+				UrlNumber[] numbers = UrlNumber.values();
+				Long pid = Long.valueOf(projectId);
+				Project project = projectService.queryById(pid);
+				if(project != null)
+				{
+					ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),numbers[num-1]);
+				}
+			}
 		} catch (Exception e) {
 			logger.error("下载失败.",e);
 		}
@@ -267,6 +290,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			{
 				rtn.addError("邮件发送失败。");
 			}
+			
 		} catch (Exception e) {
 			logger.error("邮件发送失败。",e);
 			rtn.addError("邮件发送失败。");
