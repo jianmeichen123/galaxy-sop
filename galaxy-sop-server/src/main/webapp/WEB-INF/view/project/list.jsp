@@ -672,7 +672,7 @@
 										var valueExt=value.extensions;
 										if(valueExt.indexOf(type) >= 0 ){
 											var myvalue=value.title;
-											$("#fileType option[value='"+myvalue+"']").attr("selected",true);
+											$("#fileType").val(myvalue);
 										}
 									}
 								});
