@@ -198,7 +198,7 @@
               <dd class="full_w describe clearfix">
               	<div class="btnbox_f">
                   <a href="javascript:;" class="ico b1 fffbtn" onclick="addPerson();">添加</a>
-                  <a href="javascript:;" class="ico b1 fffbtn" onclick="toSureMsg();">完善简历</a>
+                  <a href="javascript:;" class="ico b2 fffbtn" onclick="toSureMsg();">完善简历</a>
                   <!--  
                   <a href="javascript:;" class="ico b2">修改</a>
                   <a href="javascript:;" class="ico b3">删除</a>-->
