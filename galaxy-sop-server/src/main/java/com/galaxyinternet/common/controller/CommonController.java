@@ -105,10 +105,6 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		
 		tabs.add(new Menus(13L, 0, "模板管理", u + "galaxy/template?" + params));
 		tabs.add(new Menus(14L, 0, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
-		tabs.add(new Menus(15L, 0, "投后运营", "javascript:void(0);")
-				.addNode(new Menus(16L, 1, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params))
-				.addNode(new Menus(17L, 1, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params))
-				.addNode(new Menus(18L, 1, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params)));
 		
 		
 		//档案管理员
