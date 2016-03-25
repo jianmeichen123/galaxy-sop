@@ -12,7 +12,7 @@ public class ProjectShares extends PagableEntity {
 
     private String sharesOwner;
 
-    private Integer sharesRatio;
+    private Double sharesRatio;
 
     private String gainMode;
 
@@ -35,15 +35,15 @@ public class ProjectShares extends PagableEntity {
         this.sharesOwner = sharesOwner == null ? null : sharesOwner.trim();
     }
 
-    public Integer getSharesRatio() {
-        return sharesRatio;
-    }
+    public Double getSharesRatio() {
+		return sharesRatio;
+	}
 
-    public void setSharesRatio(Integer sharesRatio) {
-        this.sharesRatio = sharesRatio;
-    }
+	public void setSharesRatio(Double sharesRatio) {
+		this.sharesRatio = sharesRatio;
+	}
 
-    public String getGainMode() {
+	public String getGainMode() {
         return gainMode;
     }
 

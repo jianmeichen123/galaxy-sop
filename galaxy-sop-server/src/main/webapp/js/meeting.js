@@ -25,7 +25,8 @@ function setMeetProSelect(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
-		alert(data.result.message);
+		//alert(data.result.message);
+		layer.msg(data.result.message);
 		$(".pop").remove();
 		$("#popbg").remove();	
 		return;
@@ -33,7 +34,8 @@ function setMeetProSelect(data){
 	
 	var entityList = data.entityList;
 	if(entityList.length == 0 ){
-		alert("无相关项目可添加记录");
+		//alert("无相关项目可添加记录");
+		layer.msg("无相关项目可添加记录");
 		$(".pop").remove();
 		$("#popbg").remove();	
 		return;
@@ -62,7 +64,8 @@ function getMeetTypes(){
 function setMeetTypes(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		alert(data.result.message);
+		//alert(data.result.message);
+		layer.msg(data.result.message);
 		return;
 	}
 	var mapcodename = data.result.message;
@@ -86,10 +89,14 @@ function saveMeetCallBack(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
-		alert(data.result.message);
+		//alert(data.result.message);
+		layer.msg(data.result.message);
 		return;
 	}
-	alert("保存成功");
+	//alert("保存成功");
+	layer.msg("保存成功", {
+		time : 500
+	});
 	var _this = $("#data-table");
 	if(_this == null || _this.length == 0 || _this == undefined){
 		removePop1();
@@ -154,10 +161,14 @@ function initMeetUpload() {
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					alert(response.result.message);
+					//alert(response.result.message);
+					layer.msg(response.result.message);
 					return;
 				}
-				alert("保存成功");
+				//alert("保存成功");
+				layer.msg("保存成功", {
+					time : 500
+				});
 				var _this = $("#data-table");
 				if(_this == null || _this.length == 0 || _this == undefined){
 					removePop1();
@@ -179,7 +190,8 @@ function initMeetUpload() {
 				up.settings.multipart_params = res;
 			},
 			Error: function(up, err) {
-				alert("错误"+err);
+				//alert("错误"+err);
+				layer.msg(err.message);
 				//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			}
 		}

@@ -103,7 +103,7 @@
 						<div class="tab-pane active" id="view">
 							<table id="tablePerson" data-height="555" data-method="post"
 								data-show-refresh="true" data-side-pagination="server"
-								data-pagination="true" data-page-list="[1, 5, 50]"
+								data-pagination="true" data-page-list="[10,20,30]"
 								data-search="false">
 							</table>
 						</div>
@@ -210,7 +210,7 @@
 			<!-- 接触访谈信息 -->
 			<div class="block" data-tab="con" id="projectProgress_1_con">
 				<!--按钮-->
-				<div id="options_point" class="btnbox_f btnbox_f1 btnbox_m clearfix">
+				<div id="options_point1" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="#" data-btn="interview" onclick="air();" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
 					<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn">启动内部评审</a>
 				</div>
@@ -219,12 +219,12 @@
 				</div>
 				<table id="projectProgress_1_table"
 					data-url="<%=path%>/galaxy/project/progress/queryInterview"
-					data-page-list="[3,6,10]" data-toolbar="#projectProgress_1_table_custom-toolbar">
+					data-page-list="[10,20,30]" data-toolbar="#projectProgress_1_table_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center" data-formatter="intervierLog">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
@@ -234,7 +234,7 @@
 			<div class="block" data-tab="con" id="projectProgress_2_con">
 
 				<!--按钮-->
-				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
+				<div id="options_point2" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" onclick="addMettingRecord(2,'meetingType:1')" data-btn="interview" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 				</div>
 				<div id="projectProgress_2_table_custom-toolbar">
@@ -244,11 +244,11 @@
 				<!--表格内容-->
 				<table id="projectProgress_2_table"
 					data-url="<%=path%>/galaxy/project/progress/queryMeet"
-					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[3,6,10,20]">
+					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[10,20,30]">
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -259,7 +259,7 @@
 			<!-- CEO评审信息   3   meetingType:2-->
 			<div class="block" data-tab="con" id="projectProgress_3_con">
 				<!--按钮-->
-				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
+				<div id="options_point3" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" onclick="addMettingRecord(3,'meetingType:2')" class="pubbtn fffbtn lpubbtn">添加会议记录</a> 
 					<a href="javascript:toEstablishStage();" id="lxhpq" class="pubbtn fffbtn lpubbtn">立项会排期</a>
 				</div>
@@ -270,12 +270,12 @@
 				</div>
 				<!--表格内容-->
 				<table id="projectProgress_3_table"
-					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,6,10,20]"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
 					data-toolbar="#projectProgress_3_table_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -287,7 +287,7 @@
 			<!-- 立项会信息 -->
 			<div class="block" data-tab="con" id="projectProgress_4_con">
 				<!--按钮-->
-				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
+				<div id="options_point4" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn">立项会排期</a>
 				</div>
@@ -298,12 +298,12 @@
 				</div>
 				<!--表格内容-->
 				<table id="projectProgress_4_table"
-					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,6,10,20]"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
 					data-toolbar="#projectProgress_4_table_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -314,7 +314,7 @@
 			<!-- 投决会信息 -->
 			<div class="block" data-tab="con" id="projectProgress_7_con">
 				<!--按钮-->
-				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
+				<div id="options_point7" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" onclick="addMettingRecord(7,'meetingType:4')"  class="pubbtn fffbtn lpubbtn">添加会议记录</a>
 					<a id="inSure_btn" href="javascript:;" onclick="inSureMeetingPool()"  class="pubbtn fffbtn lpubbtn">投决会排期</a>
 				</div>
@@ -325,12 +325,12 @@
 				</div>
 				<!--表格内容-->
 				<table id="projectProgress_7_table"
-					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,6,10,20]"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
 					data-toolbar="#projectProgress_7_table_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="meetingLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
 						</tr>
 					</thead>
 				</table>
@@ -445,7 +445,7 @@
 				</div>
 				<table id="projectProgress_table"
 					data-url="<%=path%>/galaxy/operatlog/query"
-					data-page-list="[5,10]" data-toolbar="#pro_message_custom-toolbar">
+					data-page-list="[10,20,30]" data-toolbar="#pro_message_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
@@ -511,7 +511,7 @@
  	    dataType: "json",
  	    pagination: true, //分页
  	    search: false, //显示搜索框
- 	    pageList: [1,5,20],
+ 	    pageList: [10,20,30],
  	    queryParams: queryParamsforP,
  	    sidePagination: "server", //服务端处理分页
  	          columns: [
@@ -577,7 +577,7 @@
      pagination: true, //分页
      search: false, //显示搜索框
      showRefresh: true,
-     pageList: [1,5,20],
+     pageList: [10,20,30],
      queryParams: queryParamsforP,
      sidePagination: "server", //服务端处理分页
            columns: [
@@ -594,7 +594,7 @@
                          valign: 'middle'
                      },
                      {
-                         title: '占比',
+                         title: '占比(%)',
                            field: 'sharesRatio',
                            align: 'center',
                            valign: 'middle'

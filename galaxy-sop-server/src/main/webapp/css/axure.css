@@ -348,7 +348,7 @@ table .width_gd{width:10%;}
 .fmdl dd select{ width:160px;font-size: 12px;}
 .fmdl dd .txt{ width:230px;;font-size: 12px;height:28px !important;}
 .fmdl label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; font-size:12px; color:#525662; font-family:"宋体"; position:relative}
-.fmdl label input{ position:absolute; left:0; top:9px; *top:4px}
+.fmdl label input{ position:absolute; left:0; top:9px !important; *top:4px !important;}
 
 /*公用上传*/
 .fmload{ position:relative; margin:0 0 15px}
@@ -575,7 +575,7 @@ table .width_gd{width:10%;}
 .pagebox .projectmsg .btm ul li a{width:138px;height:28px;border:1px solid #ccd2d7;border-radius: 5px;background-color: #fff;display: inline-block;text-align: center;line-height: 30px;margin-right: 10px;color: #4c97da;text-decoration: none;}
 .pagebox .projectmsg .xmms{color:#525662;text-decoration: none;font-family: "宋体";height: 20px;overflow: hidden;}
 /* tips框 */
-.pagebox .tips{padding: 10px;box-shadow: 2px 2px 2px #ccc;border:1px solid #e9ebf2;border-radius: 6px;width: 300px;font-size: 12px;display: none;position: absolute;background-color: #fff;}
+.pagebox .tips{padding: 10px;box-shadow: 2px 2px 2px #ccc;border:1px solid #e9ebf2;border-radius: 6px;width: 300px;font-size: 12px;display: none;position: absolute;background-color: #fff;line-height: 18px;}
 .tips_f1,.tips_f2,.tips_f3{position: relative;cursor:pointer;}
 .tips1,.tips2,.tips3{z-index:9999;padding: 10px;box-shadow: 2px 2px 2px #ccc;border:1px solid #e9ebf2;border-radius: 6px;width: 300px;font-size: 12px;display: none;position: absolute;background-color: #fff !important;}
 /* 项目详细信息内容 */
@@ -1050,17 +1050,18 @@ background-size: 93%;position: relative;z-index: 10;}
 .resumetc .tabtable_con1 h2{height: 30px;background-color: #f9fafc;line-height: 30px;text-align: center;font-size: 16px;font-weight: normal;color:#6b799f;}
 .resumetc .tabtable_con1 table{width: 100%;}
 .resumetc .tabtable_con1 table tr{border-bottom:1px solid #e9ebf2;}
-.resumetc .tabtable_con1 table th{width:50%;text-align: right;font-size: 14px;color:#3e4351;height:26px;line-height: 26px}
-.resumetc .tabtable_con1 table td{text-align: left;border: 0;height:26px;line-height: 26px}
+.resumetc .tabtable_con1 table th{width:50%;text-align: right;font-size: 14px;color:#3e4351;height:28px;line-height: 28px}
+.resumetc .tabtable_con1 table td{text-align: left;border: 0;height:28px;line-height: 28px}
 .resumetc .tabtable_con2 table th{width:20%;background-color: #f9fafc;}
 .resumetc .tabtable_con2 dl dt{float: left;width: 100px;}
 .resumetc .fmdl{margin:5px 0;}
 .resumetc .show{display: block;}
 .resumetc .btnbox{ text-align:center}
 .resumetc .btnbox .pubbtn{ margin:0 10px; display:inline-block; *display:inline; zoom:1;}
-.resumetc .tabtable .tabtable_con input[type="text"]{width:96%;font-size: 12px;height:22px;line-height: 22px;}
+.resumetc .tabtable .tabtable_con input[type="text"]{width:90%;font-size: 12px;height:22px;line-height: 22px;border:1px solid #dadfe3;border-radius:4px;padding:0 0 0 3px;}
 .resumetc textarea{width:310px;font-size: 12px;line-height: 20px;height:50px;border:1px solid #dadfe3;border-radius:4px;margin:3px 0 0 2px;}
-.resumetc .tabtable label{font-size: 12px;}
+.resumetc .tabtable label{font-size: 12px;position: relative;margin:0 10px 0 0;padding:0 0 0 20px;line-height: 30px;}
+.resumetc .tabtable label input[type="radio"]{position: absolute;top: 0px;}
 .resumetc .tabtable .add{width:20px;height:20px;border:0;border-radius: 50%;position: absolute;top:6px;right:8px;color: #fff;font-size: 20px;line-height: 20px;font-weight: bold;}
 
 /* 搜索弹层 */

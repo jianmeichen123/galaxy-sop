@@ -53,6 +53,7 @@
 	                  <option value="projectProgress:7">投资决策会</option>
 	                  <option value="projectProgress:8">投资协议</option>
 	                  <option value="projectProgress:9">股权交割</option>
+	                  <option value="guanbi">已关闭的项目</option>
 	                  <!-- <option value="projectProgress:10">投后运营</option> -->
 	                </select>
 	              </dd>
@@ -70,7 +71,7 @@
 		</div>
 		<div class="tab-pane active" id="view">	
 			<table id="data-table" data-url="project/queryAllProjects" data-height="555" 
-				data-page-list="[1, 5, 50]" data-toolbar="#custom-toolbar">
+				data-page-list="[10,20,30]" data-toolbar="#custom-toolbar">
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>

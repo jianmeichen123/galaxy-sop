@@ -285,10 +285,11 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 							user = userService.queryById(ur.getUserId());
 							
 							Date date = new Date();
+							String taskCreateDate = DateUtil.longToString(task.getCreatedTime());
 							String taskUrgedTime = DateUtil.convertDateToString(date);
 							String toMail = user.getEmail() + Constants.MAIL_SUFFIX;
 							String str = MailTemplateUtils.getContentByTemplate(Constants.MAIL_URGE_CONTENT_SPECIAL);
-							String content = PlaceholderConfigurer.formatText(str, user.getRealName(),task.getTaskName(),taskUrgedTime,curUser.getRealName());
+							String content = PlaceholderConfigurer.formatText(str, user.getRealName(),taskCreateDate,task.getTaskName(),taskUrgedTime,curUser.getRealName());
 							String subject = "催办通知";// 邮件主题
 							flag = SimpleMailSender.sendHtmlMail(toMail, subject, content)&& flag;
 						}

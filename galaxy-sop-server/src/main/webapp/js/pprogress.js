@@ -45,12 +45,11 @@
 											}else{
 												endhtml = '<td><a href="javascript:; " onclick="handleDownload('+dataList[p].id+');" class="blue">附件</a></td>';
 											}
-											
 											htmlstart +='<tr>'+
 											'<td>'+dataList[p].fWorktype+'</td>'+
 											'<td>'+dataList[p].createDate+'</td>'+
 											typehtml+
-											'<td></td>'+
+											+'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'
 											handlehtml+   
 											endhtml+   
 											'</tr>';   

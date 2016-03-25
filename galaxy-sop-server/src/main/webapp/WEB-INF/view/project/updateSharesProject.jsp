@@ -14,7 +14,7 @@
       </dl>
       <dl class="fmdl">
         <dt>占比：</dt>
-        <dd><input type="text" name="sharesRatio" value="${share.sharesRatio }" class="txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"/><span>%</span></dd>
+        <dd><input type="text" name="sharesRatio" value="${share.sharesRatio }" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"/><span>%</span></dd>
       </dl> 
     </div>
     <div class="right">
