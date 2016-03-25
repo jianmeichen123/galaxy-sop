@@ -106,7 +106,7 @@
             <dl>
               <dt>项目概述</dt>
               <dd class="edit">
-              	  <div type="text/plain" id="describe_editor" style="width:100%;height:100px;">
+              	  <div type="text/plain" id="describe_editor" class="um_width" style="width:100%;height:100px;">
 				  </div>
 			  </dd>
 			  <dd class="describe" id="describe_show"></dd>
@@ -124,7 +124,7 @@
             <dl>
               <dt>商业模式</dt>
               <dd class="edit">
-              	  <div type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
+              	  <div type="text/plain" id="business_model_editor" class="um_width" style="width:100%;height:100px;">
 				  </div>
 		      </dd>
 		      <dd class="describe" id="model_show"></dd>
@@ -142,7 +142,7 @@
             <dl>
               <dt>公司定位</dt>
               <dd class="edit">
-			      <div type="text/plain" id="location_editor" style="width:100%;height:100px;">
+			      <div type="text/plain" id="location_editor" class="um_width" style="width:100%;height:100px;">
 				  </div>
 			  </dd>
 			  <dd class="describe" id="location_show"></dd>
@@ -160,7 +160,7 @@
             <dl>
               <dt>用户分析</dt>
               <dd class="edit">
-			  	  <div type="text/plain" id="portrait_editor" style="width:100%;height:100px;">
+			  	  <div type="text/plain" id="portrait_editor" class="um_width" style="width:100%;height:100px;">
 				  </div>
 			  </dd>
 			   <dd class="describe" id="portrait_show"></dd>
@@ -178,7 +178,7 @@
             <dl>
               <dt>竞情分析</dt>
               <dd class="edit">
-			      <div type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
+			      <div type="text/plain" id="analysis_editor" class="um_width" style="width:100%;height:100px;">
 				  </div>
 			  </dd>
 			  <dd class="describe" id="analysis_show">11111</dd>
