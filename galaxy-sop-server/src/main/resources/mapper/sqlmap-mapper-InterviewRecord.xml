@@ -144,13 +144,14 @@
 				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
 			</if>
 			<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
-		<if test="property != null">
-			order by #{property} <if test="direction != null"> #{direction} </if>
+		<if test="direction != null">
+			order by ir.view_date
+			 <if test="direction == 'desc'"> desc </if>
+			 <if test="direction == 'asc'"> asc </if>
 		</if>
-		<if test="property == null">
-				order by ir.view_date desc,ir.created_time desc
+		<if test="direction == null">
+			order by ir.view_date desc,ir.created_time desc
 		</if>
-		
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
