@@ -137,47 +137,47 @@
               </div>
           </div>
           <!-- 第2部分 -->
-          <div class="block block2 shadow">
+     <!--      <div class="block block2 shadow">
             <dl>
               <dt>项目概述</dt>
             </dl>
           </div>
-          <!-- 第3部分 -->
+          第3部分
           <div class="block block2">
             <dl>
               <dt>商业模式</dt>
             </dl>
           </div>
-          <!-- 第4部分 -->
+          第4部分
           <div class="block block2">
             <dl>
               <dt>公司定位</dt>
             </dl>
           </div>
-          <!-- 第5部分 -->
+          第5部分
           <div class="block block2 shadow">
             <dl>
               <dt>用户分析</dt>
             </dl>
           </div>
-          <!-- 第6部分 -->
+          第6部分
           <div class="block block2 shadow">
             <dl>
               <dt>竞情分析</dt>
             </dl>
           </div>
-          <!-- 第7部分 -->
+          第7部分
           <div class="block block2 clearfix">
             <dl>
               <dt>团队成员</dt>
             </dl>
           </div> 
-          <!-- 第8部分  -->      
+          第8部分       
           <div class="block block2">
             <dl>
               <dt>股权结构</dt>
             </dl>
-          </div> 
+          </div>  -->
           <!-- 第9部分     
           <div class="block block2">
             <dl>
