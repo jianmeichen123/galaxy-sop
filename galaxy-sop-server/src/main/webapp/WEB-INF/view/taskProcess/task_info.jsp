@@ -105,7 +105,7 @@
           </div>
           <!-- 下半部分 -->
           <!-- 人事尽职调查报告  hrjzdc;-->
-          <jsp:include page="<%=path %>/galaxy/taskprocess/showFileList">
+          <jsp:include page="/galaxy/taskprocess/showFileList">
           <jsp:param value="<%=request.getAttribute(\"taskFlag\") %>" name="taskFlag"/>
           </jsp:include>
         </div>
