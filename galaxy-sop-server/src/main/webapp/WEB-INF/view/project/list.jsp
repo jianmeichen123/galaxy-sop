@@ -582,10 +582,12 @@
 				leicj();
 				if(i == 1){
 					$("#voucherType").attr("checked","checked");
+					$("#voucherType").attr("disabled",true);
 				}
 				else
 				{
-					$("#voucherType").attr("disabled",true);
+					$("#voucherDiv").css("display","none");
+					
 				}
 				toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn","fileType",
 						function getSaveCondition(){
@@ -630,7 +632,7 @@
 		$.getHtml({
 			url:_url,
 			okback:function(){
-				$("#voucherType").attr("disabled",true);
+				$("#voucherDiv").css("display","none");
 				$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
 								
 
