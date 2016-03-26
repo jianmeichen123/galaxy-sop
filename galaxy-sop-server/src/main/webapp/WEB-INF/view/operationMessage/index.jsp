@@ -36,7 +36,7 @@
         	<!--搜索-->
           <div class="searchbox clearfix">
             <input type="hidden"  id="tipslink_val" name="module" value="1" />
-            <input  name="keyword" type="text" placeholder="请输入项目名" class="txt"/>
+            <input  name="keyword" type="text" placeholder="请输入项目名称" class="txt"/>
             <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
 
           </div>
