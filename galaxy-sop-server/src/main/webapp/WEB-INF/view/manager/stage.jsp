@@ -1,0 +1,604 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+%>
+<div class="myprojecttc">
+	<a href="javascript:;" data-close="close" class="close null">关闭</a>
+	<!-- 项目介绍 -->
+	<div class="pjt_introduct clearfix">
+		<div class="clearfix">
+			<h3 id="project_name"></h3>
+			<dl class="update">
+				<dt>最新内容更新</dt>
+				<dd  id="pj-title-updated-time">
+					<span>&#40;</span>2016-01-26<span>&#41;</span>
+				</dd>
+			</dl>
+		</div>
+
+		<!-- <ul class="pjt_brf clearfix">
+              <li><b class="b4"></b>2016-01-22</li>
+              <li>内部评审会</li>
+              <li>
+                <span class="grey"><b class="b4"></b>会议结论：</span>跟踪
+              </li>
+            </ul> -->
+	</div>
+
+	<div class="tabtable">
+		<!-- tab标签 -->
+		<ul class="tablink">
+			<li data-tab="nav"><a href="javascript:;">基本信息</a></li>
+			<li data-tab="nav" id="fileRepository"><a href="javascript:;">档案库</a></li>
+			<li data-tab="nav" id="projectProgress_1"><a href="javascript:;">接触访谈</a></li>
+			<li data-tab="nav" id="projectProgress_2"><a href="javascript:;">内部评审</a></li>
+			<li data-tab="nav" id="projectProgress_3"><a href="javascript:;">CEO评审</a></li>
+			<li data-tab="nav" id="projectProgress_4"><a href="javascript:;">立项会</a></li>
+			<li data-tab="nav" id="projectProgress_5"><a href="javascript:;">投资意向书</a></li>
+			<li data-tab="nav" id="projectProgress_6"><a href="javascript:;">尽职调查</a></li>
+			<li data-tab="nav" id="projectProgress_7"><a href="javascript:;">投决会</a></li>
+			<li data-tab="nav" id="projectProgress_8"><a href="javascript:;">投资协议</a></li>
+			<li data-tab="nav" id="projectProgress_9"><a href="javascript:;">股权交割</a></li>
+			<li data-tab="nav" id="projectProgress"><a href="javascript:;">操作日志</a></li>
+		</ul>
+		<!-- tab内容 -->
+			<!-- tab内容 -->
+		<div class="tabtable_con tabtable_con_close">
+			<!-- 项目基本信息 -->
+			<div class="block block2 show" data-tab="con">
+				<dl>
+					<dt>项目概述</dt>
+					<dd class="describe" id="prodescribe_show"></dd>
+					<dd class="fctbox">
+						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+						<a href="javascript:;"  data-btn="hide" style="display:none" class="ico f3">收起</a>
+					</dd>
+				</dl>
+				<dl>
+					<dt>商业模式</dt>
+					<dd class="describe" id="business_model_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl>
+					<dl>
+					<dt>公司定位</dt>
+					<dd class="describe" id="location_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl>
+					<dl>
+					<dt>用户分析</dt>
+					<dd class="describe" id="portrait_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl>
+					<dl>
+					<dt>竞情分析</dt>
+					<dd class="describe" id="analysis_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl>
+				<!-- 
+				<dl>
+					<dt>项目概述</dt>
+					<dd class="describe" id="projectDesc_show"></dd>
+					<dd class="fctbox">
+							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl> -->
+				<dl>
+					<dt>团队成员</dt>
+					<dd class="full_w describe clearfix">
+						<div class="clearfix">
+						</div>
+						<div class="tab-pane active" id="view">
+							<table id="tablePerson" data-height="555" data-method="post"
+								data-show-refresh="true" data-side-pagination="server"
+								data-pagination="true" data-page-list="[10,20,30]"
+								data-search="false">
+							</table>
+						</div>
+
+					</dd>
+					<dd class="fctbox">
+						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+						<a href="javascript:;" data-btn="hide" style="display: none"
+							class="ico f3">收起</a>
+					</dd>
+				</dl>
+				
+				<dl>
+					<dt>股权结构</dt>
+					<dd class="full_w describe clearfix">
+						<div class="clearfix"></div>
+						<div class="tab-pane active" id="pView">
+							<table id="table" data-height="555" data-method="post"
+								data-show-refresh="true">
+							</table>
+						</div>
+					</dd>
+					<dd class="fctbox">
+						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
+						<a href="javascript:;" data-btn="hide" style="display: none"
+							class="ico f3">收起</a>
+					</dd>
+				</dl>
+				<!-- 
+				<dl class="no_border">
+					<dt>档案库</dt>
+					<dd class="describe">11111</dd>
+					<dd class="fctbox">
+						<a href="javascript:;" class="ico1 f2">查看详情</a>
+						<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
+					</dd>
+				</dl> -->
+			</div>
+
+			<!-- 档案库信息 -->
+			<div class="block" data-tab="con" id="file_repository">
+				<!-- 查询选项 -->
+				<form id = 'file_repository_search_form'>
+				<div class="searchbox">
+					<div class="show_more">
+						<a href="#" class="blue open ico1 f4" data-btn='show'>展开</a> <a
+							href="#" class="blue searchbox_hidden hide ico1 f3"
+							data-btn='hide'>收起</a>
+					</div>
+					<div class="default">
+						<dl class="fmdl fmmr fmmm">
+							<dt>文件来源：</dt>
+							<dd>
+								<label for=""><input type="radio" name="search_fileSource" value="all" checked>不限</label>
+							</dd>
+							<dd>
+								<label for=""><input type="radio" name="search_fileSource" value="1">内部</label>
+							</dd>
+							<dd>
+								<label for=""><input type="radio" name="search_fileSource" value="2">外部</label>
+							</dd>
+						</dl>
+						<dl class="fmdl fmmr fmmm" >
+							<dt>业务分类：</dt>
+							<dd>
+								<select name="search_fileWorktype" id="search_file_worktype">
+									<option value = "all">全部</option>
+								</select>
+							</dd>
+						</dl>
+					</div>
+					<div class="searchbox_hidden" data-btn='box' >
+						<dl class="fmdl fmmr fmmm" id="search_file_status">
+							<dt>档案状态：</dt>
+						</dl>
+						<dl class="fmdl fmmr fmmm" id="search_file_type">
+							<dt>存储类型：</dt>
+						</dl>
+						<dl class="fmdl fmmr fmmm clearfix">
+							<dt>更新时间：</dt>
+							<dd>
+								<input type="text" class="datepicker txt time" name="file_startDate" value="2016-01-01" /> <span>至</span>
+								<input type="text" class="datepicker txt time" name="file_endDate" value="2016-01-01" />
+							</dd>
+							<dd>
+								<a href="javascript:;" id="file_repository_btn" class="pubbtn bluebtn">查询</a>
+							</dd>
+						</dl>
+					</div>
+					
+
+				</div>
+				</form>
+				<!--表格内容-->
+				<table width="100%" cellspacing="0" cellpadding="0" id="file_repository_table">
+				</table>
+			</div>
+			<!-- 接触访谈信息 -->
+			<div class="block" data-tab="con" id="projectProgress_1_con">
+				<div id="projectProgress_1_table_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+				</div>
+				<table id="projectProgress_1_table"
+					data-url="<%=path%>/galaxy/project/progress/queryInterview"
+					data-page-list="[10,20,30]" data-toolbar="#projectProgress_1_table_custom-toolbar">
+					<thead>
+						<tr>
+							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
+						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
+						<th data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			
+			<!-- 内部评审信息      2  meetingType:1 -->
+			<div class="block" data-tab="con" id="projectProgress_2_con">
+
+				<div id="projectProgress_2_table_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+					<input type="hidden" name="meetingType" value="meetingType:1">
+				</div>
+				<!--表格内容-->
+				<table id="projectProgress_2_table"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"
+					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[10,20,30]">
+					<thead>
+						<tr>
+							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+
+
+
+			<!-- CEO评审信息   3   meetingType:2-->
+			<div class="block" data-tab="con" id="projectProgress_3_con">
+				<div id="projectProgress_3_table_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+					<input type="hidden" name=meetingType value="meetingType:2">
+				</div>
+				<!--表格内容-->
+				<table id="projectProgress_3_table"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
+					data-toolbar="#projectProgress_3_table_custom-toolbar">
+					<thead>
+						<tr>
+							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+						</tr>
+					</thead>
+				</table>
+
+			</div>
+			
+			
+			
+			<!-- 立项会信息 -->
+			<div class="block" data-tab="con" id="projectProgress_4_con">
+				<div id="projectProgress_4_table_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+					<input type="hidden" name=meetingType value="meetingType:3">
+				</div>
+				<!--表格内容-->
+				<table id="projectProgress_4_table"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
+					data-toolbar="#projectProgress_4_table_custom-toolbar">
+					<thead>
+						<tr>
+							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+						</tr>
+					</thead>
+				</table>
+
+			</div>
+			
+			
+			<!-- 投决会信息 -->
+			<div class="block" data-tab="con" id="projectProgress_7_con">
+				<div id="projectProgress_7_table_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+					<input type="hidden" name=meetingType value="meetingType:4">
+				</div>
+				<!--表格内容-->
+				<table id="projectProgress_7_table"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
+					data-toolbar="#projectProgress_7_table_custom-toolbar">
+					<thead>
+						<tr>
+							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			
+			<!-- 投资意向书信息 -->
+			<div class="block" data-tab="con" id="projectProgress_5_con">
+			</div>
+			<!-- 尽职调查信息 -->
+			<div class="block" data-tab="con" id="projectProgress_6_con">
+				<div class="process clearfix">
+					<h2>业务尽调报告审核流程</h2>
+					<img src="<%=path %>/img/process1.png" alt="">
+				</div>
+				<!--表格内容-->
+				<table width="100%" cellspacing="0" cellpadding="0">
+					<thead>
+						<tr>
+							<th>业务类别</th>
+							<th>更新日期</th>
+							<th>经办部门</th>
+							<th>存储类型</th>
+							<th>档案状态</th>
+							<th>催办</th>
+							<th>查看附件</th>
+						</tr>
+					</thead>
+					<tbody id="fileList">
+					</tbody>
+				</table>
+			</div>
+			<!-- 投资协议 -->
+			<div class="block" data-tab="con" id="projectProgress_8_con">
+				<div class="process clearfix">
+					<h2>投资协议盖章流程</h2>
+					<img src="<%=path %>/img/process2.png" alt="">
+				</div>
+
+				<!--表格内容-->
+				<table class="fixed_width" width="100%" cellspacing="0" cellpadding="0" id="teamSeheetDataGrid">
+					<thead>
+						<tr>
+							<th>业务分类</th>
+							<th>存储类型</th>
+							<th>更新日期</th>
+							<th>档案状态</th>
+							<th>上传/查看附件</th>
+							<th>签署凭证</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<!-- 股权交割信息  -->
+			<div class="block" data-tab="con" id="projectProgress_9_con">
+				<!--表格内容
+				<table width="100%" cellspacing="0" cellpadding="0">
+					<thead>
+						<tr>
+							<th>业务分类</th>
+							<th>创建日期</th>
+							<th>存储类型</th>
+							<th>更新日期</th>
+							<th>催办</th>
+							<th>查看附件</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>资金拨付凭证</td>
+							<td></td>
+							<td>文档</td>
+							<td></td>
+							<td><a href="javascript:; " class="blue">催办</a></td>
+							<td><a href="javascript:; " class="blue"></a></td>
+						</tr>
+						<tr>
+							<td>资金拨付凭证</td>
+							<td></td>
+							<td>文档</td>
+							<td></td>
+							<td><a href="javascript:; " class="blue">催办</a></td>
+							<td><a href="javascript:; " class="blue"></a></td>
+						</tr>
+						<tr>
+							<td>资金拨付凭证</td>
+							<td></td>
+							<td>文档</td>
+							<td></td>
+							<td><a href="javascript:; " class="blue">催办</a></td>
+							<td><a href="javascript:; " class="blue"></a></td>
+						</tr>
+					</tbody>
+				</table>-->
+			</div>
+			
+			<!-- 操作日志  -->
+			<div class="block" data-tab="con" id="projectProgress_con">
+				<div id="pro_message_custom-toolbar">
+					<input type="hidden" name="projectId" value="">
+				</div>
+				<table id="projectProgress_table"
+					data-url="<%=path%>/galaxy/operatlog/query"
+					data-page-list="[10,20,30]" data-toolbar="#pro_message_custom-toolbar">
+					<thead>
+						<tr>
+							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
+							<th data-field="uname" data-align="center" >操作者</th>
+							<th data-field="operationType" data-align="center">动作</th>
+							<th data-field="operationContent" data-align="center">对象</th>
+							<th data-field="projectName" data-align="center" >项目</th>
+							<th data-field="sopstage" data-align="center" >业务</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		
+
+
+			
+		</div>
+	</div>
+</div>
+<script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
+
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<script>
+	//盒子展开隐藏
+	getTabPersonforP();
+	 getTabShareforP();
+     $(".fctbox a").on("click",function(){
+	var $self = $(this),
+		_name = $self.attr("data-btn"),
+		_parent = $self.parent();
+	//点击收起
+	if(_name=="hide"){
+		//关闭展开层
+		_parent.siblings("dd").hide();
+		$self.hide();
+		$self.siblings().hide();
+		$self.siblings("[data-btn='describe']").show();	
+	}
+	//点击查看详情
+	if(_name=="describe"){
+		_parent.siblings("."+_name).show();
+		$self.hide();
+		$self.siblings().hide();
+		$self.siblings("[data-btn='hide']").show();
+	}
+	//点击取消保存
+	if(_name=="reset"){
+		_parent.siblings("dd").hide();
+		$self.hide();
+		$self.siblings().hide();
+		$self.siblings("[data-btn='describe'],[data-btn='edit']").show();	
+	}
+	return false;
+});
+
+ 	function getTabPersonforP(){
+ 		var $table = $('#tablePerson');
+ 	    $table.bootstrapTable({
+ 	    url: sopContentUrl + "/galaxy/project/queryProjectPerson", 
+ 	    dataType: "json",
+ 	    pagination: true, //分页
+ 	    search: false, //显示搜索框
+ 	    pageList: [10,20,30],
+ 	    queryParams: queryParamsforP,
+ 	    sidePagination: "server", //服务端处理分页
+ 	          columns: [
+ 	                  {
+ 	                    title: '姓名',
+ 	                      field: 'personName',
+ 	                      align: 'center',
+ 	                      valign: 'middle'
+ 	                  },
+ 	                  {
+                         title: '性别',
+                         field: 'personSex',
+                         align: 'center',
+                         valign: 'middle',
+                         formatter:function(value,row,index){ 
+                         	if (row.gender == true) {
+                     			return "男";
+                     		} else {
+                     			return "女";
+                     		}
+                         }
+ 	                    },
+ 	                    {
+ 	                        title: '年龄',
+ 	                          field: 'personAge',
+ 	                          align: 'center',
+ 	                          valign: 'middle'
+ 	                     },
+ 	                     {
+ 	                          title: '当前职务',
+ 	                            field: 'personDuties',
+ 	                            align: 'center',
+ 	                            valign: 'middle'
+ 	                  },
+ 	                  {
+ 	                      title: '电话',
+ 	                        field: 'personTelephone',
+ 	                        align: 'center',
+ 	                        valign: 'middle'
+ 	                  },
+ 	                  {
+ 	                      title: '最高学历',
+ 	                        field: 'highestDegree',
+ 	                        align: 'center',
+ 	                        valign: 'middle'
+ 	                  },
+ 	                  {
+ 	                      title: '工作年限',
+ 	                        field: 'workTime',
+ 	                        align: 'center',
+ 	                        valign: 'middle'
+ 	                  }
+ 	              ]
+ 	      });
+ 	 //     $table.bootstrapTable('refresh');
+ 		}
+ 	//股权结构列表
+ 	function getTabShareforP(){
+ 	var $table = $('#table');
+     $table.bootstrapTable({
+     url: sopContentUrl + "/galaxy/projectShares/selectProjectShares", 
+     dataType: "json",
+     pagination: true, //分页
+     search: false, //显示搜索框
+     showRefresh: true,
+     pageList: [10,20,30],
+     queryParams: queryParamsforP,
+     sidePagination: "server", //服务端处理分页
+           columns: [
+                   {
+                     title: '类型',
+                       field: 'sharesType',
+                       align: 'center',
+                       valign: 'middle'
+                   },
+                   {
+                       title: '所有权人',
+                         field: 'sharesOwner',
+                         align: 'center',
+                         valign: 'middle'
+                     },
+                     {
+                         title: '占比(%)',
+                           field: 'sharesRatio',
+                           align: 'center',
+                           valign: 'middle'
+                      },
+                      {
+                           title: '获取方式',
+                             field: 'gainMode',
+                             align: 'center',
+                             valign: 'middle'
+                   },
+                   {
+                       title: '备注',
+                         field: 'remark',
+                         align: 'center',
+                         valign: 'middle'
+                   }
+               ]
+       });
+       $table.bootstrapTable('refresh');
+ 	}
+     //页面传参
+     function queryParamsforP(params) {
+     	return {
+ 	    	pageSize: params.limit,
+ 	    	pageNum: params.offset,
+ 	    	order: params.order,
+ 	    	projectId:alertid
+     	};
+     }
+     /**
+ 	 * 加载项目详情数据
+ 	 */
+ 	sendGetRequest(platformUrl.detailProject + alertid, {}, function(data){
+ 		$("#prodescribe_show").html(data.entity.projectDescribe);
+ 		$("#business_model_show").html(data.entity.projectBusinessModel);
+ 		$("#projectDesc_show").html(data.entity.userPortrait);
+ 		$("#location_show").html(data.entity.companyLocation);
+ 		$("#portrait_show").html(data.entity.userPortrait);
+ 		$("#analysis_show").html(data.entity.prospectAnalysis);
+ 		
+ 		
+ 		
+ 	});
+ 	function replaceStr(str){
+ 		if(str){
+ 			var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
+ 			return result;
+ 		}
+	}
+</script>

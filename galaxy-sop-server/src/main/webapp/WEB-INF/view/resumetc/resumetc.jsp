@@ -81,10 +81,6 @@
                     <td><input name="personGoodness" id="personGoodness" type="text" value="" valType="GENERAL" msg="劣势限制长度500"></td>
                   </tr>
                   <tr>
-                    <th>劣势：</th>
-                    <td><input name="personDisparity" id="personDisparity" type="text" value="" valType="GENERAL" msg="劣势限制长度500"></td>
-                  </tr>
-                  <tr>
                     <th>沟通能力：</th>
                     <td><input name="talkAbility" id="talkAbility " type="text" value=""  valType="GENERAL"  msg="沟通能力限制长度500"></td>
                   </tr>
