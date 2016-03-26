@@ -345,7 +345,7 @@
           </div>  -->         
         </div>
         <!-- 关闭按钮 -->
-        <a href="javascript:;" class="pubbtn fffbtn close"  onclick="closePro()" >关闭项目</a>
+        <a href="javascript:;" class="pubbtn fffbtn close"  onclick="closePro()" >否决项目</a>
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
@@ -364,7 +364,9 @@
     var pid='${requestScope.pid}';
     
     function closePro(){
-    	sendGetRequest(platformUrl.closeProject+pid,null,closeback);
+    	if(confirm("确定要否决项目吗？")){
+    		sendGetRequest(platformUrl.closeProject+pid,null,closeback);
+    	}
     }
 
 
