@@ -37,7 +37,7 @@
                   </tr>
                   <tr>
                     <th>成员关系：</th>
-                    <td><input name="memberRelation"  id="memberRelation" type="text" value="" valType="MEMBERSHIP" msg="成员关系只能包含汉字，长度20 "></td>
+                    <td><input name="memberRelation"  id="memberRelation" type="text" value="" valType="MEMBERSHIP" msg="成员关系只能包含汉字，长度20"></td>
                   </tr>
                 </table>
               </div>
@@ -75,6 +75,10 @@
                   <tr>
                     <th>性格：</th>
                     <td><input name="personCharacter" id="personCharacter" type="text" value="" valType="GENERAL" msg="性格文本限制长度500"></td>
+                  </tr>
+                   <tr>
+                    <th>优势：</th>
+                    <td><input name="personGoodness" id="personGoodness" type="text" value="" valType="GENERAL" msg="优势限制长度500"></td>
                   </tr>
                   <tr>
                     <th>劣势：</th>
