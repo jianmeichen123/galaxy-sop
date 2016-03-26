@@ -85,22 +85,25 @@
                       <td>
                         <dl>
                           <dt>计划额度：</dt>
-                          <dd><input type="text" id="projectContribution" name="projectContribution" value="" placeholder="计划额度" valType="NUMBER" msg="<font color=red>*</font>只能是数字"></dd>
+                          <dd>
+                          	<input type="text" id="projectContribution" name="projectContribution" value="" placeholder="计划额度" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能是整数或两位小数点的数字">
+                          </dd>
                         </dl>
                       </td>                      
                       <td>
                         <dl>
                           <dt>初始估值：</dt>
-                          <dd id="projectValuations"></dd>
+                          <dd id="projectValuations">
+                          	<input type="text" id="projectValuations" name="projectValuations" value="" placeholder="初始估值" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能是整数或两位小数点的数字">
+                          </dd>
                         </dl>
                       </td>
-
                   </tr>
                   <tr>
                       <td>
                         <dl>
                           <dt>出让股份：</dt>
-                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
+                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt" isNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
                         </dl>
                       </td>
                       <td>
@@ -119,13 +122,13 @@
                       <td>
                         <dl>
                           <dt>公司名称：</dt>
-                          <dd><input type="text" id="projectCompany" name="projectCompany" value="" placeholder="公司名称" valType="required" msg="<font color=red>*</font>公司名称不能为空"></dd>
+                          <dd><input type="text" id="projectCompany" name="projectCompany" value="" placeholder="公司名称"></dd>
                         </dl>
                       </td>
                       <td>
                         <dl>
                           <dt>组织机构代码：</dt>
-                          <dd><input type="text" id="projectCompanyCode" name="projectCompanyCode" value="" placeholder="组织机构代码" class="zzjg_txt"  valType="OTHER" regString="^[a-zA-Z\d]+$" msg="<font color=red>*</font>组织代码只能是字母或数字"></dd>
+                          <dd><input type="text" id="projectCompanyCode" name="projectCompanyCode" value="" placeholder="组织机构代码" class="zzjg_txt"></dd>
                         </dl>
                       </td>
                   </tr>                   

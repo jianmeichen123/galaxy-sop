@@ -39,7 +39,8 @@ $(function(){
 			IDENTITY : "((11|12|13|14|15|21|22|23|31|32|33|34|35|36|37|41|42|43|44|45|46|50|51|52|53|54|61|62|63|64|65|71|81|82|91)\\d{4})((((19|20)(([02468][048])|([13579][26]))0229))|((20[0-9][0-9])|(19[0-9][0-9]))((((0[1-9])|(1[0-2]))((0[1-9])|(1\\d)|(2[0-8])))|((((0[1,3-9])|(1[0-2]))(29|30))|(((0[13578])|(1[02]))31))))((\\d{3}(x|X))|(\\d{4}))",
 			CHINESE : "^([\u4E00-\uFA29]|[\uE7C7-\uE7F3])*$",
 			URL : "^http[s]?://[\\w\\.\\-]+$",
-			LIMIT_NUMBER : "^(([1-9]+)|([0-9]+\.[0-9]{1,2}))$"
+			LIMIT_11_NUMBER : "^(([0-9]{1,11})|([0-9]{1,11}\.[0-9]{1,2}))$",
+			LIMIT_2_INTEGER : "^[0-9]{1,2}$"
 		};
 		var flag=false;
 		if(para.rule=='OTHER') {//自定义的验证规则匹配
@@ -93,7 +94,18 @@ function validateBefore() {
 		   }
 		}
 		else {//已定义规则的判断
-			flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')});
+			if($(this).attr("isNULL") =='yes'){//可以为空
+				if($(this).val()!=''){
+					if(!$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')})) {
+						flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')});
+					}
+				}
+				
+			}else{
+				if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')}))) {
+					flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')});
+				}
+			}
 		}
 	}
 	//先清除原来的tips
