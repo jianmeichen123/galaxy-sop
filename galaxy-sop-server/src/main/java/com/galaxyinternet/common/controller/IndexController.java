@@ -96,6 +96,16 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	public String catProjectList() {
 		return "manager/list";
 	}
+	
+	/**
+	 * 高管到项目查询
+	 * @return
+	 */
+	@RequestMapping(value = "/sop", method = RequestMethod.GET)
+	public String sop() {
+		return "manager/stage";
+	}
+	
 	/**
 	 * 高管查看项目详情
 	 * @return
