@@ -37,7 +37,7 @@
                   </tr>
                   <tr>
                     <th>成员关系：</th>
-                    <td><input name="memberRelation"  id="memberRelation" type="text" value="" valType="MEMBERSHIP" msg="成员关系只能包含汉字，长度20“.”"></td>
+                    <td><input name="memberRelation"  id="memberRelation" type="text" value="" valType="MEMBERSHIP" msg="成员关系只能包含汉字，长度20 "></td>
                   </tr>
                 </table>
               </div>
@@ -209,7 +209,7 @@
                   </tr>
                 <tr>
                     <th>入职时间:</th>
-                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value="" valType="DATE"  class="datepicker"  msg="<font color=red>*</fon入职时间格式错误"></td>
+                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value="" valType="DATE"  class="datepicker"  msg="入职时间格式错误"></td>
                   </tr>
                   <tr>
                     <th>离职原因:</th>
