@@ -280,7 +280,7 @@ Date.prototype.format = function(fmt){
 function paramsFilter(){
 	var filtersparams=[
                         {title : "fileType:1", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers"},
-					    {title : "fileType:2", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r"},
+					    {title : "fileType:2", extensions : "mp3,mp4,wav,wma,aac,m4a,m4r"},
 					    {title : "fileType:3", extensions : "avi"},
 						{title : "fileType:4", extensions : "bmp,jpg,gif,png,jpeg"}
 						
@@ -306,7 +306,9 @@ function attrFileType(fileType,file){
 		var valueExt=value.extensions;
 		if(valueExt.indexOf(type) >= 0 ){
 			var myvalue=value.title;
-			$("#"+fileType+" option[value='"+myvalue+"']").attr("selected",true);
+			//$("#"+fileType+" option[value='"+myvalue+"']").attr("selected",true);
+			$("#"+fileType).val(myvalue);
+			
 		}
 	}
 }
@@ -404,7 +406,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 			//添加上传文件后，把文件名 赋值 给 input
 			FilesAdded: function(up, files) {
 				//解决多次文件选择后，文件都存入upload
-				if(uploader.files.length >= 2){
+				if(uploader.files.length >= 1){
 					uploader.splice(0, uploader.files.length-1)
 				}
 				plupload.each(files, function(file) {
@@ -743,32 +745,10 @@ function sublengthFormat(value,row,index){
 }
 
 //interview
-function intervierLog(value,row,index){
+function formatLog(value,row,index){
 	var len = getLength($.trim(value));
-	if(row.viewNotes != ''){
-		var strlog=delHtmlTag(row.viewNotes);
-/*		strlog=strlog.replace("</div>","");
-		strlog=strlog.replace("<br/>","");*/
-		var strrrr=strlog;
-		if(len>100){
-			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
-			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
-			
-			return rc;
-		}else{
-			return strlog;
-		}
-	}
-
-}
-
-//interview
-function meetingLog(value,row,index){
-	var len = getLength($.trim(value));
-	if(row.viewNotes != ''){
-		var strlog=delHtmlTag(row.meetingNotes);
-/*		strlog=strlog.replace("</div>","");
-		strlog=strlog.replace("<br/>","");*/
+	if(value != ''){
+		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
 		if(len>100){
 			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
@@ -811,9 +791,7 @@ function subLengthFormat(value, row, index){
 	if(len>100){
 		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
 		//$(this).attr("title",value);
-		var str = "<div class=\"subLength text-overflow\" title='"+valuelog+"'>"+
-					subValue+"..."+
-				   "</div>" ;
+		var str = "<div class=\"subLength text-overflow\" title='"+valuelog+"'>"+subValue+"..."+"</div>" ;
 		return str;
 	}else{
 		return valuelog;
@@ -834,7 +812,11 @@ function replaceStr(str){
 
 function delHtmlTag(str)
 {
-return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+	if(str){
+		return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+	}
+
+
 }
 
 

@@ -111,12 +111,13 @@
             <dl class="fmdl clearfix">
                 <dt>事项内容：</dt>
                 <dd>
-                    <textarea id="content" name="content" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>事件内容不能超过200字符"><%=contentstr %></textarea>
+                    <textarea id="content" name="content" valType="OTHER" regString="^.{1,200}$" msg="<font color=red>*</font>事件内容不能超过200字符"><%=contentstr %></textarea>
                 </dd>
             </dl>
             <div class="btnbox">
-                <a href="javascript:;" class="pubbtn fffbtn"data-close="close" onclick="deleteShedule()">关闭</a>
                 <a href="javascript:;" class="pubbtn bluebtn" onclick="saveShedule()">保存</a>
+                <a href="javascript:;" class="pubbtn fffbtn"data-close="close" onclick="deleteShedule()">关闭</a>
+
             </div>
             </form>
         </div>

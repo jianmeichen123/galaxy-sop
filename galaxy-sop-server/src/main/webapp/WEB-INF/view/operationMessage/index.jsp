@@ -56,7 +56,7 @@
         </div>
         <!--表格内容-->
 						<table width="100%" cellspacing="0" cellpadding="0" 
-						 id="data-table" data-url="operationMessageQueryList"  data-page-list="[1, 10, 30]"
+						 id="data-table" data-url="operationMessageQueryList"  data-page-list="[10,20,30]"
 						 data-toolbar="#custom-toolbar"
 				         >
 						   <thead>

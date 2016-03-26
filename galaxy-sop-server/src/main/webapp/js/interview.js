@@ -21,14 +21,23 @@ function setViewProSelect(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
+		/*layer.msg(data.result.message, {
+			time : 800
+		}, function() {
+			removePop1();
+		});
+		
 		alert(data.result.message);
+		removePop1();*/
+		layer.msg(data.result.message);
 		removePop1();
 		return;
 	}
 	
 	var entityList = data.entityList;
 	if(entityList.length == 0 ){
-		alert("无相关项目可添加记录");
+		//alert("无相关项目可添加记录");
+		layer.msg("无相关项目可添加记录");
 		removePop1();
 		return;
 	}else{
@@ -92,10 +101,14 @@ function initViewUpload() {
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					alert(response.result.message);
+					//alert(response.result.message);
+					layer.msg(response.result.message);
 					return false;
 				}
-				alert("保存成功");
+				//alert("保存成功");
+				layer.msg("保存成功", {
+					time : 500
+				});
 				var _this = $("#data-table");
 				if(_this == null || _this.length == 0 || _this == undefined){
 					removePop1();
@@ -116,7 +129,8 @@ function initViewUpload() {
 				up.settings.multipart_params = res;
 			},
 			Error: function(up, err) {
-				alert("错误"+err);
+				//alert(err.message);
+				layer.msg(err.message);
 				//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			}
 		}
@@ -142,10 +156,14 @@ function saveCallBack(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
-		alert(data.result.message);
+		//alert(data.result.message);
+		layer.msg(data.result.message);
 		return;
 	}
-	alert("保存成功");
+	//alert("保存成功");
+	layer.msg("保存成功", {
+		time : 500
+	});
 	//$("#popbg,#pop").remove();
 	var _this = $("#data-table");
 	if(_this == null || _this.length == 0 || _this == undefined){

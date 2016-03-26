@@ -95,13 +95,13 @@
                     <td colspan="2">
                       <dl>
                         <dt>项目概述：</dt>
-                        <dd class="tarea" id="projectDescribe"></dd><div class="tips">></div>
+                        <dd class="tarea" id="projectDescribe"></dd><div class="tips"></div>
                       </dl>
                     </td>
                   </tr>
                 </tbody>
-              </table>
-            <a href='<%=path%>/galaxy/upp/${projectId}'  class="pjt_more">项目详细信息&gt;</a>
+              </table>       <%-- <%=path %>/galaxy/detail/  upp --%>
+            <a href='<%=path %>/galaxy/detail/${projectId}'  class="pjt_more">项目详细信息&gt;</a>
           </div>
           <!-- 下半部分 -->
           <!-- 人事尽职调查报告  hrjzdc;-->

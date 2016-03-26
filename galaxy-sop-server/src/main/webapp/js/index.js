@@ -277,5 +277,36 @@ $(function(){
 	    forwardWithHeader(url);
 //		this.href=endUrl;
 	});
+	//待认领
+	$("tbody").on("click", "a[data-btn='claim']", function() {
+		var obj=this;
+		var taskId=obj.childNodes[1].value;;
+		var projectid=obj.childNodes[2].value;;
+	    var  _url=sopContentUrl+"/galaxy/soptask/goClaimtcPage?id="+taskId+"&sid="+sessionId+"&guid="+userId;
+	  // 	var _url = forwardWithHeader(claimUrl);
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+			//	var taskid=getTaskId();
+				$(".btnbox").on("click", "#dotask", function() {	
+				//	var endUrl=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId+"&sid="+sessionId+"&guid="+userId;
+					var endUrl=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId;
+					forwardWithHeader(endUrl);
+	            });
+				//单击按钮刷新页列表里面的内容
+				$(".btnbox").on("click", "#notdo", function() {
+					//$("#data-table").bootstrapTable("refresh");
+					window.location.reload();
+				 });
+			}//模版反回成功执行	
+		});
+		return false;
+	});	
+	var data = {
+			_domid : "file_gird_index"
+	}
+	fileGrid.init(data);
+		
 });
 

@@ -137,47 +137,47 @@
               </div>
           </div>
           <!-- 第2部分 -->
-          <div class="block block2 shadow">
+     <!--      <div class="block block2 shadow">
             <dl>
               <dt>项目概述</dt>
             </dl>
           </div>
-          <!-- 第3部分 -->
+          第3部分
           <div class="block block2">
             <dl>
               <dt>商业模式</dt>
             </dl>
           </div>
-          <!-- 第4部分 -->
+          第4部分
           <div class="block block2">
             <dl>
               <dt>公司定位</dt>
             </dl>
           </div>
-          <!-- 第5部分 -->
+          第5部分
           <div class="block block2 shadow">
             <dl>
               <dt>用户分析</dt>
             </dl>
           </div>
-          <!-- 第6部分 -->
+          第6部分
           <div class="block block2 shadow">
             <dl>
               <dt>竞情分析</dt>
             </dl>
           </div>
-          <!-- 第7部分 -->
+          第7部分
           <div class="block block2 clearfix">
             <dl>
               <dt>团队成员</dt>
             </dl>
           </div> 
-          <!-- 第8部分  -->      
+          第8部分       
           <div class="block block2">
             <dl>
               <dt>股权结构</dt>
             </dl>
-          </div> 
+          </div>  -->
           <!-- 第9部分     
           <div class="block block2">
             <dl>
@@ -277,20 +277,21 @@
 	function callbackcheckProject(data) {
 		if (data.count!=0 &&(typeof(data.companyCode) != "undefined") ) {
 			message = "存在重复项目名，其中本公司存在"+data.companyCode+"个重复,总共"+data.count+"个重复";
+			return false;
 		} 
-		
 		if (data.count!=0 &&(typeof(data.companyCode) == "undefined")) {
-			message = "存在重复项目名，其中本公司存在,总共"+data.count+"个重复";
-			
-		} 
-		  
+			message = "存在重复项目名，其中本公司存在0个,总共"+data.count+"个重复";
+			return false;
+		}
+		message="";
+		return true;
 	}
 	function popMessage(message) {
 		layer.open({  
             type: 1,  
-            area: ['600px', '200px'],    //宽和高  
+            area: ['540px', '150px'],    //宽和高  
             skin: 'layui-layer-lan',     //加上边框：layui-layer-rim；深蓝：layui-layer-lan；墨绿：layui-layer-molv  
-            offset: ['60px', '240px'],  //屏幕坐标位置  
+            offset: ['50%', '50%'],  //屏幕坐标位置  
             shadeClose: true, //点击遮罩关闭  
             closeBtn: 1,     //0:不显示关闭按钮; 1:显示关闭按钮  
             content: message,   
@@ -298,8 +299,10 @@
             yes: function(index,layero){   
             	doPost() ;
             },  
-            cancel: function(index){   
-          	  layer.close(index);  
+            cancel: function(index){  
+            	message ="";
+          	  layer.close(index);
+          	  return false;
             }  
 		  });
 		

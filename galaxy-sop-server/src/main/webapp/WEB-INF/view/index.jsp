@@ -18,8 +18,14 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<!-- 表格插件 -->
+<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 <jsp:include page="./common/taglib.jsp" flush="true"></jsp:include>
+<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
+<script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path%>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path%>/js/sopUserSchedule.js" type="text/javascript"></script>
+<script src="<%=path%>/js/fileindex.js" type="text/javascript"></script>
 <script src="<%=path%>/js/index.js" type="text/javascript"></script>
 <link href="<%=path %>/css/calendar.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="<%=path %>/js/calendarnew.js"></script>
@@ -221,39 +227,12 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 <dl>
                 	<dt><h3 class="ico t5">档案库</h3></dt>
                     <dd>
-                    	<table width="100%" cellspacing="0"  cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>序号</th>
-                                    <th>文档名称</th>
-                                    <th>所属部门</th>
-                                    <th>文档类型</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>业务尽职调查清单</td>
-                                    <td>投资事业部</td>
-                                    <td>文档</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>业务尽职调查清单</td>
-                                    <td>投资事业部</td>
-                                    <td>文档</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>业务尽职调查清单</td>
-                                    <td>投资事业部</td>
-                                    <td>文档</td>
-                                </tr>
-                            </tbody>
+                    	<table width="100%" cellspacing="0"  cellpadding="0" id="file_gird_index">
+                            
                         </table>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="javascript:;" class="more null">more</a>
+                    	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null">more</a>
                     </dd>
                 </dl>
                 <dl  class="tool_radius">

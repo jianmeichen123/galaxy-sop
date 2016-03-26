@@ -223,7 +223,7 @@
 			$("#projectType").text(data.entity.type);
 			$("#project_contribution").text(data.entity.projectContribution);
 			$("#project_valuations").text(data.entity.projectValuations);
-			$("#project_share_ratio").text(data.entity.projectShareRatio);
+			$("#project_share_ratio").text(data.entity.projectShareRatio+"%");
 			var currencyUnit = "";
 			if(data.entity.currencyUnit == 0){
 				currencyUnit = "人民币"
