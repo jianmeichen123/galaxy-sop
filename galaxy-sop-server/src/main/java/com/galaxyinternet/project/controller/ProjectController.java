@@ -46,6 +46,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.common.Config;
@@ -119,13 +120,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 * @return
 	 */
+	@Token
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> addProject(@RequestBody Project project, HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		if(project == null || project.getProjectName() == null || "".equals(project.getProjectName().trim())
-				|| project.getProjectType() == null || "".equals(project.getProjectType().trim())){
+				|| project.getProjectType() == null || "".equals(project.getProjectType().trim())
+				|| project.getCreateDate() == null || "".equals(project.getCreateDate().trim())){
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
@@ -157,8 +160,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		//获取当前登录人的部门信息
 		Long did = user.getDepartmentId();
 		project.setProjectDepartid(did);
-		project.setCreatedTime((new Date()).getTime());
 		try {
+			project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 			long id = projectService.newProject(project);
 			if(id > 0){
 				responseBody.setResult(new Result(Status.OK,"项目添加成功!"));
