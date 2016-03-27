@@ -315,7 +315,7 @@ table .width_gd{width:12%;}
 .searchall dl{ float:left; line-height:30px; margin:0 10px 0 0;/* height: 30px; */}
 .searchall dl dt{ font-size:14px; color:#3e4351; margin:0 10px 0 0; float:left;line-height: 30px;font-weight: normal;}
 .searchall dl dd{ height:30px; float:left; margin:0 10px 0 0}
-.searchall dl dd select{ border:1px solid #ccd2d7; color:#525662; height:28px; line-height:28px; font-size:12px; border-radius:4px; background:#FFF; width:140px}
+.searchall dl dd select{ border:1px solid #ccd2d7; color:#525662; height:30px; line-height:30px; font-size:12px; border-radius:4px; background:#FFF; width:140px}
 .searchall dl dd .txt{ border:1px solid #ccd2d7; color:#3e4351; height:28px; line-height:28px;  font-size:12px;padding:0 4px; border-radius:4px; background:#FFF; width:180px}
 .searchall .searchbtn{ float:left; margin:0 0 0 -30px}
 .searchall .cx,.searchall .tj{margin-left: 30px;}
@@ -394,7 +394,7 @@ table .width_gd{width:12%;}
 .header .light_blue{color: #cae2f7;background: url(../img/email.png) 0 4px no-repeat;padding: 0 0 0 20px;}
 .warning{font-size:12px;font-family:"宋体";width: 100%;height: 20px;line-height: 20px;background-color: #edeff5;color:#3e4351;text-align: center;position: absolute;display: none;}
 .warning i{background: url(../img/jt.png) 0 0 no-repeat;width:14px;height:14px;display: inline-block;-webkit-background-size: cover;
-background-size: cover;margin:0 5px 0  0;}
+background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .warning em{width:15px;height: 15px;position: absolute;right: 10px;top: 0px;background:url(../img/dictionary.png) 0 0 no-repeat;background-position: -64px 0;cursor:pointer;}
  /*当日信息*/
 .header .min .todaymsg{ color:#022f83; margin:0 0 0 60px;float: left;}
@@ -716,7 +716,7 @@ background-size: cover;margin:0 5px 0  0;}
 .ritmin .tabtable .tabtable_con_brif{border-radius: 6px;} 
 .ritmin .tabtable .tabtable_con .chartbox .chartbox_li{position: relative;}
 .ritmin .tabtable .statistic{font-size: 12px;position: absolute;right: 0;top: 5px;width: 500px}
-.ritmin .tabtable .statistic ul li{overflow: hidden;text-align: right;color:#7a8798; font-family: "宋体"}
+.ritmin .tabtable .statistic ul li{overflow: hidden;text-align: right;color:#7a8798; font-family: "宋体";line-height: 20px;}
 .ritmin .tabtable .center .center_l{width: 38%;}
 .ritmin .tabtable .center{border-top:2px solid #edeff5;border-bottom:2px solid #edeff5;}
 .ritmin .tabtable .center .center_l,.ritmin .tabtable .center .center_r{padding:20px 0 0;}
@@ -1130,3 +1130,4 @@ dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../
 #template-table{border-radius: 6px;}
 .percentTxt{width:30px !important;display: inline-block !important;}
 .no_content{font-size: 14px;color:#7a8798;margin: 60px 0 0 0;text-align: center;}
+#container_jdjy{margin-bottom: 10px;}
