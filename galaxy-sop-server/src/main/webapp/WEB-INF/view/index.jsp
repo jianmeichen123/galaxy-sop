@@ -138,7 +138,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
                     </dd>
                 </dl>
-                <dl>
+                <dl class="Creative_library">
+                    <img src="img/sy.png" alt="">
                 	<dt><h3 class="ico t2">创意库</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0">
