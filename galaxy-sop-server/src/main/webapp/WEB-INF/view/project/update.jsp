@@ -534,7 +534,7 @@ function closeback(data){
 	                      field: 'id',
 	                      align: 'center',
 	                      formatter:function(value,row,index){  
-		                   var a = '<a href="javascript:;" class="blue">个人简历</a>';
+		                   var a = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="tiaozhuan(\''+ row.id + '\')" DATA-btn="resume" >个人简历</a>';;
 		                   var e = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="updatePer(\''+ row.id + '\')">修改</a> ';  
 		                   var d = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="deletePer(\''+ row.id +'\')">删除</a> ';  
 	                        return a+e+d;  
@@ -639,6 +639,21 @@ function closeback(data){
 			return projectContribution * (100/projectShareRatio);
 		}
 		return null;
+	}
+
+	//个人简历
+	function tiaozhuan(id){
+		
+		var url =platformUrl.personHHr
+		$.getHtml({
+			url: url+"?personId="+id, 
+			data:"",//传递参数
+			okback:function(){
+			/* alert("进入完善简历页面"); */
+			$(".resumetc .tabtable").tabchange2();
+			}//模版反回成功执行	
+		}); 
+		
 	}
 	
 </script>	   
