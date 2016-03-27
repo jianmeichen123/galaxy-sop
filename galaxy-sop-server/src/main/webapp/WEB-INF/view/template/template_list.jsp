@@ -122,7 +122,7 @@
             <input type="text" name="toAddress" class="txt" data-rule-required="true"/>
         </dd>
         <dd>            
-            <label class="red">&#42;&nbsp;必填</label>
+            <label class="red">&#42;必填</label>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
@@ -131,17 +131,17 @@
             <input type="text" name="title" class="txt" data-rule-required="true"/>
         </dd>
         <dd>            
-            <label class="red">&#42;&nbsp;必填</label>
+            <label class="red">&#42;必填</label>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
-    	<dt>邮件正文:</dt>
+    	<dt>邮件正文：</dt>
         <dd class="clearfix">
         	<textarea name="content"></textarea>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
-        <dt>邮件分类:</dt>
+        <dt>邮件分类：</dt>
         <dd class="clearfix">
             <table width="100%" cellspacing="0" cellpadding="0" id="attach-table">
               <thead>
@@ -200,7 +200,7 @@ function loadTempList()
 					$tr.append('<td>'+getVal(this.departmentDesc,"-")+'</td>') ;
 					$tr.append('<td>'+getVal(this.docTypeDesc,"-")+'</td>') ;
 					$tr.append('<td>'+getVal(this.updateUname,"-")+'</td>') ;
-					$tr.append('<td>'+Number(this.updatedTime).toDate().format("yyyy/MM/dd")+'</td>') ;
+					$tr.append('<td>'+Number(this.updatedTime).toDate().format("yyyy-MM-dd")+'</td>') ;
 					if(this.fileName != null)
 					{
 						var $td = $('<td></td>');

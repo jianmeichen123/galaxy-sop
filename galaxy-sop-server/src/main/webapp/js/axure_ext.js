@@ -57,6 +57,7 @@ $(function(){
 		//点击编辑 
 		if(_name=="edit"){
 	        _parent.siblings("."+_name).show();
+			_parent.parent().parent('.block2').removeClass('shadow');	        
 	        $(".edui-body-container").focus();
 			$self.hide();
 			$self.siblings().hide();
@@ -66,6 +67,7 @@ $(function(){
 		if(_name=="hide"){
 			//关闭展开层
 			_parent.siblings("dd").hide();
+			_parent.parent().parent('.block2').addClass('shadow');			
 			$self.hide();
 			$self.siblings().hide();
 			$self.siblings("[data-btn='describe'],[data-btn='edit']").show();
@@ -73,6 +75,7 @@ $(function(){
 		//点击查看详情
 		if(_name=="describe"){
 			_parent.siblings("."+_name).show();
+			_parent.parent().parent('.block2').removeClass('shadow');			
 			$self.hide();
 			$self.siblings().hide();
 			$self.siblings("[data-btn='hide']").show();
@@ -81,6 +84,7 @@ $(function(){
 		//点击取消保存
 		if(_name=="reset"){
 			_parent.siblings("dd").hide();
+			_parent.parent().parent('.block2').addClass('shadow');			
 			$self.hide();
 			$self.siblings().hide();
 			$self.siblings("[data-btn='describe'],[data-btn='edit']").show();	
