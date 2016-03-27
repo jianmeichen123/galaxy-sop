@@ -31,6 +31,7 @@ import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
@@ -500,16 +501,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		
 		try {
-			//long did = user.getDepartmentId();
 			Config config = configService.createCode();
 			NumberFormat nf = NumberFormat.getInstance();
 			nf.setGroupingUsed(false);
 			nf.setMaximumIntegerDigits(6);
 			nf.setMinimumIntegerDigits(6);
-			String code = "10" + nf.format(Integer.parseInt(config.getValue()));
-			request.getSession().setAttribute(Constants.SESSION_PROJECT_CODE, code);
-			config.setPcode(code);
-			responseBody.setEntity(config);
+			Long did = user.getDepartmentId();
+			if(did != null){
+				int code = EnumUtil.getCodeByCareerline(did.longValue());
+				String projectCode = String.valueOf(code) + nf.format(Integer.parseInt(config.getValue()));
+				request.getSession().setAttribute(Constants.SESSION_PROJECT_CODE, projectCode);
+				config.setPcode(projectCode);
+				responseBody.setEntity(config);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
