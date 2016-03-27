@@ -74,7 +74,7 @@ $(function(){
 		$("#projectName").text(data.entity.projectName);
 		$("#projectType").text(data.entity.type);
 		$("#project_contribution").val(data.entity.projectContribution);
-		$("#project_valuations").text(data.entity.projectValuations);
+		$("#project_valuations").val(data.entity.projectValuations);
 		$("#project_share_ratio").val(data.entity.projectShareRatio);
 		var redioId = "#currencyUnit" + data.entity.currencyUnit;
 		$(redioId).attr("checked","checked");

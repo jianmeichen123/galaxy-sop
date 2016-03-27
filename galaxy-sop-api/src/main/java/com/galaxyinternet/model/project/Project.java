@@ -6,6 +6,7 @@ import java.util.List;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.NumberUtils;
 
 public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
@@ -22,12 +23,13 @@ public class Project extends PagableEntity {
     private Long projectDepartid;
 
     private Double projectValuations;
-
     private Double projectContribution;
-
     private Integer currencyUnit;
-
     private Double projectShareRatio;
+    private String formatContribution;
+    private String formatValuations;
+    private String formatUnit;
+    private String formatShareRatio;
     
     private String projectCompany;
     
@@ -113,6 +115,9 @@ public class Project extends PagableEntity {
     }
 
     public Double getProjectValuations() {
+    	if(this.formatValuations != null && !"".equals(this.formatValuations.trim())){
+			this.projectValuations = NumberUtils.toFormatNoSplit(this.formatValuations.trim());
+		}
         return projectValuations;
     }
 
@@ -121,6 +126,9 @@ public class Project extends PagableEntity {
     }
 
     public Double getProjectContribution() {
+    	if(this.formatContribution != null && !"".equals(this.formatContribution.trim())){
+			this.projectContribution = NumberUtils.toFormatNoSplit(this.formatContribution.trim());
+		}
         return projectContribution;
     }
 
@@ -129,6 +137,9 @@ public class Project extends PagableEntity {
     }
 
     public Integer getCurrencyUnit() {
+    	if(this.formatUnit != null && !"".equals(this.formatUnit.trim())){
+			this.currencyUnit = Integer.parseInt(this.formatUnit.trim());
+		}
         return currencyUnit;
     }
 
@@ -137,6 +148,9 @@ public class Project extends PagableEntity {
     }
 
     public Double getProjectShareRatio() {
+    	if(this.formatShareRatio != null && !"".equals(this.formatShareRatio.trim())){
+			this.projectShareRatio = NumberUtils.toFormatNoSplit(this.formatShareRatio.trim());
+		}
         return projectShareRatio;
     }
 
@@ -144,7 +158,39 @@ public class Project extends PagableEntity {
         this.projectShareRatio = projectShareRatio;
     }
     
-    public String getProjectCompany() {
+    public String getFormatContribution() {
+		return formatContribution;
+	}
+
+	public void setFormatContribution(String formatContribution) {
+		this.formatContribution = formatContribution;
+	}
+
+	public String getFormatValuations() {
+		return formatValuations;
+	}
+
+	public void setFormatValuations(String formatValuations) {
+		this.formatValuations = formatValuations;
+	}
+
+	public String getFormatUnit() {
+		return formatUnit;
+	}
+
+	public void setFormatUnit(String formatUnit) {
+		this.formatUnit = formatUnit;
+	}
+
+	public String getFormatShareRatio() {
+		return formatShareRatio;
+	}
+
+	public void setFormatShareRatio(String formatShareRatio) {
+		this.formatShareRatio = formatShareRatio;
+	}
+
+	public String getProjectCompany() {
 		return projectCompany;
 	}
 

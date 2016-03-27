@@ -18,6 +18,7 @@
 %>
 <link rel="shortcut icon" href="img/favicon.ico" />
 <div class="header clearfix">
+ <div class="warning" id="warning"><i></i>您的浏览器版本过低，繁星系统不提供对IE10以下浏览器的支持，快使用速度更快，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
 	<a href="javascript:;" class="logo null">繁星</a>
     <!--头部中间-->
     <div class="min clearfix">
@@ -54,6 +55,31 @@
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
+
+var warn=document.getElementById('warning');
+var close=document.getElementById('close');
+var Sys = {};
+        var ua = navigator.userAgent.toLowerCase();
+        var s;
+        (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+        (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+        (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+        (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+        (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+       var ie=Sys.ie;
+      /*  if (ie=='9.0'||ie=='8.0'||ie=='7.0'||ie=='6.0'){
+            window.location.href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie"; 
+           warn.style.display='block';
+        };*/
+        if (ie=='10.0'||ie=='11.0'||Sys.chrome||Sys.safari){
+            warn.style.display='none';
+        }
+        else{
+            warn.style.display='block';
+        }
+        function gb(){
+             warn.style.display='none';
+        }
  fillHeaderdata();
  sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
  function remindcbf(data){

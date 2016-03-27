@@ -3,6 +3,9 @@ var Constants = {
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
 var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
+//var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
+//var sopContentUrl = "http://127.0.0.1:8888/sop";
+//var sopContentUrl = "http://127.0.0.1:8080/";
 
 var platformUrl = {
 		
@@ -341,6 +344,12 @@ var platformUrl = {
 	 * 跳到完善简历页面(弹出)
 	 */
 	personHr: sopContentUrl+"/galaxy/hrjl/resumetcc",
+	/**
+	 * 跳到完善简历之项目成员里的个人简历(弹出)
+	 */
+	
+	personHHr: sopContentUrl+"/galaxy/hrjl/genresumetcc",
+	
 	/**
 	 * 催办
 	 */

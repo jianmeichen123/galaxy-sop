@@ -85,13 +85,15 @@
                       <td>
                         <dl>
                           <dt>计划额度：</dt>
-                          <dd><input type="text" id="projectContribution" name="projectContribution" value="" placeholder="计划额度" valType="NUMBER" msg="<font color=red>*</font>只能是数字"></dd>
+                          <dd><input type="text" id="formatContribution" name="formatContribution" value="" placeholder="计划额度" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"></dd>
                         </dl>
                       </td>                      
                       <td>
                         <dl>
                           <dt>初始估值：</dt>
-                          <dd id="projectValuations"></dd>
+                          <dd>
+                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="初始估值" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
+                          </dd>
                         </dl>
                       </td>
 
@@ -100,17 +102,17 @@
                       <td>
                         <dl>
                           <dt>出让股份：</dt>
-                          <dd><input type="text" id="projectShareRatio" name="projectShareRatio" value="" class="transferSharesTxt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
+                          <dd><input type="text" id="formatShareRatio" name="formatShareRatio" value="" class="transferSharesTxt" isNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
                         </dl>
                       </td>
                       <td>
                         <dl>
                           <dt>单位（万）：</dt>
                           <dd>
-                            <label><input name="currencyUnit" type="radio" value="0"  checked/>人民币</label>
-                            <label><input name="currencyUnit" type="radio" value="1" />美元</label>
-                            <label><input name="currencyUnit" type="radio" value="2" />英镑</label>
-                            <label><input name="currencyUnit" type="radio" value="3" />欧元</label>
+                            <label><input name="formatUnit" type="radio" value="0"/>人民币</label>
+                            <label><input name="formatUnit" type="radio" value="1" />美元</label>
+                            <label><input name="formatUnit" type="radio" value="2" />英镑</label>
+                            <label><input name="formatUnit" type="radio" value="3" />欧元</label>
                           </dd>
                         </dl>
                       </td>
@@ -119,13 +121,13 @@
                       <td>
                         <dl>
                           <dt>公司名称：</dt>
-                          <dd><input type="text" id="projectCompany" name="projectCompany" value="" placeholder="公司名称" valType="required" msg="<font color=red>*</font>公司名称不能为空"></dd>
+                          <dd><input type="text" id="projectCompany" name="projectCompany" value="" placeholder="公司名称"></dd>
                         </dl>
                       </td>
                       <td>
                         <dl>
                           <dt>组织机构代码：</dt>
-                          <dd><input type="text" id="projectCompanyCode" name="projectCompanyCode" value="" placeholder="组织机构代码" class="zzjg_txt"  valType="OTHER" regString="^[a-zA-Z\d]+$" msg="<font color=red>*</font>组织代码只能是字母或数字"></dd>
+                          <dd><input type="text" id="projectCompanyCode" name="projectCompanyCode" value="" placeholder="组织机构代码" class="zzjg_txt"  isNULL="yes" valType="CODE" msg='<font color=red>*</font>由字母或数字或"-"组成'></dd>
                         </dl>
                       </td>
                   </tr>                   
@@ -200,24 +202,26 @@
 			$("#pcode").empty();
 			$("#pcode").html(code);
 		});
-		$("#projectShareRatio").blur(function(){
+		$("#formatShareRatio").blur(function(){
 			var valuations = calculationValuations();
-			$("#projectValuations").text("");
-			if(valuations){
-				$("#projectValuations").text(valuations);
+			if(valuations != null){
+				$("#formatValuations").val(valuations.toFixed(2));
 			}
 		});
-		$("#projectContribution").blur(function(){
+		$("#formatContribution").blur(function(){
 			var valuations = calculationValuations();
-			$("#projectValuations").text("");
-			if(valuations){
-				$("#projectValuations").text(valuations);
+			if(valuations != null){
+				$("#formatValuations").val(valuations.toFixed(2));
 			}
 		});
 	});
+	function callback(data){
+		TOKEN=data.TOKEN;
+		return TOKEN;
+	}
 	function calculationValuations(){
-		var projectShareRatio = $("#projectShareRatio").val();
-		var projectContribution = $("#projectContribution").val();
+		var projectShareRatio = $("#formatShareRatio").val();
+		var projectContribution = $("#formatContribution").val();
 		if(projectShareRatio > 0 && projectContribution > 0){
 			return projectContribution * (100/projectShareRatio);
 		}
@@ -225,21 +229,7 @@
 	}
 	function add(){
 		if(beforeSubmit()){
-			/* sendPostRequestByJsonObj(platformUrl.addProject, JSON.parse($("#add_form").serializeObject()), function(){
-			 forwardWithHeader(sopContentUrl + "/galaxy/mpl");
-			} */
-			var json = {};
-			var projectName = $("#projectName").val();
-			var projectCompanyCode = $("#projectCompanyCode").val();
-			json = {"projectName":projectName,"projectCompanyCode":projectCompanyCode};
-			sendPostRequestByJsonObj(platformUrl.checkProject,json,callbackcheckProject);
-			if (message!="") {
-				popMessage(message);
-			} else {
-				doPost();
-			}
-			//popMessage(message)
-			/* $.ajax({
+			$.ajax({
 				url : platformUrl.addProject,
 				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
 				async : false,
@@ -262,79 +252,10 @@
 					layer.msg("操作失败");
 				},
 				success : function(data) {
-					
 					forwardWithHeader(sopContentUrl + "/galaxy/mpl");
 				}
-			}); */
+			}); 
 		}
-	}
-	
-	function callback(data){
-		TOKEN=data.TOKEN;
-		 return TOKEN;
-	}
-	
-	function callbackcheckProject(data) {
-		if (data.count!=0 &&(typeof(data.companyCode) != "undefined") ) {
-			message = "存在重复项目名，其中本公司存在"+data.companyCode+"个重复,总共"+data.count+"个重复";
-			return false;
-		} 
-		if (data.count!=0 &&(typeof(data.companyCode) == "undefined")) {
-			message = "存在重复项目名，其中本公司存在0个,总共"+data.count+"个重复";
-			return false;
-		}
-		message="";
-		return true;
-	}
-	function popMessage(message) {
-		layer.open({  
-            type: 1,  
-            area: ['540px', '150px'],    //宽和高  
-            skin: 'layui-layer-lan',     //加上边框：layui-layer-rim；深蓝：layui-layer-lan；墨绿：layui-layer-molv  
-            offset: ['50%', '50%'],  //屏幕坐标位置  
-            shadeClose: true, //点击遮罩关闭  
-            closeBtn: 1,     //0:不显示关闭按钮; 1:显示关闭按钮  
-            content: message,   
-            btn: ['确认','取消'],    //按钮1和按钮2的回调分别是yes和cancel，而从按钮3开始，则回调为btn3: function(){}，以此类推  
-            yes: function(index,layero){   
-            	doPost() ;
-            },  
-            cancel: function(index){  
-            	message ="";
-          	  layer.close(index);
-          	  return false;
-            }  
-		  });
-		
-	}
-	function  doPost() {
-		$.ajax({
-			url : platformUrl.addProject,
-			data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
-			async : false,
-			type : 'POST',
-			contentType : "application/json; charset=UTF-8",
-			dataType : "json",
-			cache : false,
-			beforeSend : function(xhr) {
-				if (TOKEN) {
-					xhr.setRequestHeader("TOKEN", TOKEN);
-				}
-				if (sessionId) {
-					xhr.setRequestHeader("sessionId", sessionId);
-				}
-				if(userId){
-					xhr.setRequestHeader("guserId", userId);
-				}
-			},
-			error : function() {
-				layer.msg("操作失败");
-			},
-			success : function(data) {
-				
-				forwardWithHeader(sopContentUrl + "/galaxy/mpl");
-			}
-		}); 
 	}
 </script>
 
