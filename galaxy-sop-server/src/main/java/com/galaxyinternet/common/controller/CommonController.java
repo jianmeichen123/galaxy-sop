@@ -79,7 +79,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		tabs.add(new Menus(3L, 0, "消息提醒", u + "galaxy/operationMessage/index?" + params));
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		
-		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.TZJL)){
+		if(roleIdList.contains(UserConstant.TZJL)){
 			tabs.add(new Menus(4L, 0, "添加项目", u + "galaxy/app?" + params));
 			tabs.add(new Menus(5L, 0, "我的项目", u + "galaxy/mpl?" + params));
 			tabs.add(new Menus(6L, 0, "访谈跟进", u + "galaxy/project/progress/interView?" + params));
@@ -121,7 +121,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		}
 		
 		//高管
-		if(roleIdList.contains(1L) || roleIdList.contains(2L)){
+		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(1L) || roleIdList.contains(2L)){
 			tabs.clear();
 			tabs.add(new Menus(1L, 0, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
 			tabs.add(new Menus(3L, 0, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));

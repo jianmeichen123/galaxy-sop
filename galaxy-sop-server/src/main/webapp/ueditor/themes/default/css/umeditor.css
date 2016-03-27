@@ -37,7 +37,10 @@
     font-size:14px;
     line-height: 20px;
     font-family:sans-serif;
-    width:100% !important;
+    width:auto;
+}
+.um_width{
+	 width:100% !important;
 }
 .edui-editor-body.focus{border:1px solid #5c9dff}
 .edui-editor-body table{margin:10px 0 10px;border-collapse:collapse;display:table;}

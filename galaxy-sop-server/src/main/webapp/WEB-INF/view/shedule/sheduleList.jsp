@@ -116,7 +116,7 @@
             </dl>
             <div class="btnbox">
                 <a href="javascript:;" class="pubbtn bluebtn" onclick="saveShedule()">保存</a>
-                <a href="javascript:;" class="pubbtn fffbtn"data-close="close" onclick="deleteShedule()">关闭</a>
+                <a href="javascript:;" class="pubbtn fffbtn"data-close="close">关闭</a>
 
             </div>
             </form>

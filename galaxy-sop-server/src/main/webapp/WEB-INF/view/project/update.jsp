@@ -106,7 +106,7 @@
             <dl>
               <dt>项目概述</dt>
               <dd class="edit">
-              	  <div type="text/plain" id="describe_editor" style="width:100%;height:100px;">
+              	  <div type="text/plain" id="describe_editor" class="um_width" style="width:100%;height:100px;">
 				  </div>
 			  </dd>
 			  <dd class="describe" id="describe_show"></dd>
@@ -124,7 +124,7 @@
             <dl>
               <dt>商业模式</dt>
               <dd class="edit">
-              	  <div type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
+              	  <div type="text/plain" id="business_model_editor" class="um_width" style="width:100%;height:100px;">
 				  </div>
 		      </dd>
 		      <dd class="describe" id="model_show"></dd>
@@ -142,7 +142,7 @@
             <dl>
               <dt>公司定位</dt>
               <dd class="edit">
-			      <div type="text/plain" id="location_editor" style="width:100%;height:100px;">
+			      <div type="text/plain" id="location_editor" class="um_width" style="width:100%;height:100px;">
 				  </div>
 			  </dd>
 			  <dd class="describe" id="location_show"></dd>
@@ -160,7 +160,7 @@
             <dl>
               <dt>用户分析</dt>
               <dd class="edit">
-			  	  <div type="text/plain" id="portrait_editor" style="width:100%;height:100px;">
+			  	  <div type="text/plain" id="portrait_editor" class="um_width" style="width:100%;height:100px;">
 				  </div>
 			  </dd>
 			   <dd class="describe" id="portrait_show"></dd>
@@ -178,10 +178,10 @@
             <dl>
               <dt>竞情分析</dt>
               <dd class="edit">
-			      <div type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
+			      <div type="text/plain" id="analysis_editor" class="um_width" style="width:100%;height:100px;">
 				  </div>
 			  </dd>
-			  <dd class="describe" id="analysis_show">11111</dd>
+			  <dd class="describe" id="analysis_show"></dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f1" data-btn="edit" onclick="editModelEditor('analysis_editor')">编辑</a>
                 <a href="javascript:;" id="save_analysis" class="ico f4" data-btn="submit">保存</a>
@@ -345,7 +345,7 @@
           </div>  -->         
         </div>
         <!-- 关闭按钮 -->
-        <a href="javascript:;" class="pubbtn fffbtn close"  onclick="closePro()" >关闭项目</a>
+        <a href="javascript:;" class="pubbtn fffbtn close"  onclick="closePro()" >否决项目</a>
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
@@ -361,10 +361,15 @@
     <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
     <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script>
+	$(function(){
+		createMenus(5);
+	});
     var pid='${requestScope.pid}';
     
     function closePro(){
-    	sendGetRequest(platformUrl.closeProject+pid,null,closeback);
+    	if(confirm("确定要否决项目吗？")){
+    		sendGetRequest(platformUrl.closeProject+pid,null,closeback);
+    	}
     }
 
 

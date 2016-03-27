@@ -211,11 +211,13 @@ function updateStock(){
  * @param id
  */
 function delStock(id,url){
-	var projectId = $("#pid").val();
-	var url = platformUrl.deleteProjectShares+id+"/"+projectId;
-	if(projectId != ''){
-		$("#projectId").val(projectId);
-		sendGetRequest(url,'',saveProjectCallBack);
+	if(confirm("确定要删除该股权结构吗？")){
+		var projectId = $("#pid").val();
+		var url = platformUrl.deleteProjectShares+id+"/"+projectId;
+		if(projectId != ''){
+			$("#projectId").val(projectId);
+			sendGetRequest(url,'',saveProjectCallBack);
+		}
 	}
 }
 
@@ -236,11 +238,13 @@ function updatePerson(){
  * @param id
  */
 function deletePer(id,url){
-	var projectId = $("#pid").val();
-	var url = platformUrl.deletePPerson+id+"/"+projectId;
-	if(projectId != ''){
-		$("#projectId").val(projectId);
-		sendGetRequest(url,'',savePersonCallBack);
+	if(confirm("确定要删除该团队成员吗？")){
+		var projectId = $("#pid").val();
+		var url = platformUrl.deletePPerson+id+"/"+projectId;
+		if(projectId != ''){
+			$("#projectId").val(projectId);
+			sendGetRequest(url,'',savePersonCallBack);
+		}
 	}
 }
 
