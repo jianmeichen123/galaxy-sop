@@ -188,67 +188,67 @@
                 <input type="button" class="add bluebtn" value="+">
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
-                    <th>公司名称:</th>
+                    <th>公司名称：</th>
                     <td data-by="id" ><input type="text" name="companyName" id="companyName" value="" valType="COMPANYNAME" msg="公司名称格式错误"> </td>
                   </tr>
                   <tr>
-                    <th>部门:</th>
+                    <th>部门：</th>
                     <td><input type="text" name="workDepart" id="workDepart" value="" valType="CHAR_CH" msg="部门名称格式错误"></td>
                   </tr>
                   <tr>
-                    <th>职位:</th>
+                    <th>职位：</th>
                     <td><input type="text" name="workPosition" id="workPosition" value="" valType="CHAR_CH" msg="职位名称格式错误"></td>
                   </tr>
                   <tr>
-                    <th>工作内容:</th>
+                    <th>工作内容：</th>
                     <td><input type="text" name="workContent" id="workContent" value="" valType="CHAR_CH" msg="工作内容格式错误"></td>
                   </tr>
                   <tr>
-                    <th>工作业绩:</th>
+                    <th>工作业绩：</th>
                     <td><input type="text" name="workEffect" id="workEffect" value="" valType="CHAR_CH" msg="工作业绩名称格式错误"></td>
                   </tr>
                   <tr>
-                    <th>薪酬水平（元/月）:</th>
+                    <th>薪酬水平（元/月）：</th>
                     <td><input type="text" name="workEmolument" id="workEmolument" value="" valType="ONLYINT" msg="薪酬水平只能是正整数"></td>
                   </tr>
                 <tr>
-                    <th>入职时间:</th>
+                    <th>入职时间：</th>
                     <td><input type="text" name="beginWorkStr" id="beginWorkStr" value="" valType="DATE"  class="datepicker"  msg="入职时间格式错误"></td>
                   </tr>
                   <tr>
-                    <th>离职原因:</th>
+                    <th>离职原因：</th>
                     <td><input type="text" name="leaveReason" id="leaveReason" value="" valType="CHAR_CH" msg="离职原因格式错误"></td>
                   </tr>
                   <tr>
-                    <th>上级姓名:</th>
+                    <th>上级姓名：</th>
                     <td><input type="text" name="leaderName" id="leaderName" value="" valType="NAME" msg="上级姓名格式错误"></td>
                   </tr>
                   <tr>
-                    <th>职位:</th>
+                    <th>职位：</th>
                     <td><input type="text" name="leaderPosition" id="leaderPosition" value="" valType="CHAR_CH" msg="职位格式错误"></td>
                   </tr>
                   <tr>
-                    <th>工作关系（如直接上下级）:</th>
+                    <th>工作关系（如直接上下级）：</th>
                     <td><input type="text" name="leaderRelationship" id="leaderRelationship" value="" valType="MEMBERSHIP" msg="工作关系格式错误"></td>
                   </tr>
                   <tr>
-                    <th>联系方式:</th>
+                    <th>联系方式：</th>
                     <td><input type="text" name="leaderPhone" id="leaderPhone" value="" valType="MOBILE" msg="联系方式格式错误"></td>
                   </tr>
                   <tr>
-                    <th>同事姓名:</th>
+                    <th>同事姓名：</th>
                     <td><input type="text" name="colleagueName" id="colleagueName" value="" valType="NAME" msg="同事姓名格式错误"></td>
                   </tr>
 <!--                   <tr>
-                    <th>职位:</th>
+                    <th>职位：</th>
                     <td><input type="text" name="colleaguePosition" id="colleaguePosition" value=""></td>
                   </tr>
                   <tr>
-                    <th>工作关系:</th>
+                    <th>工作关系：</th>
                     <td><input type="text" name="colleagueRelationship" id="colleagueRelationship" value=""></td>
                   </tr>   -->                
                   <tr>
-                    <th>座机:</th>
+                    <th>座机：</th>
                     <td><input type="text" name="colleaguePhone" id="colleaguePhone" value="" valType="TEL" msg="座机格式错误"></td>
                   </tr>
                 </table>
