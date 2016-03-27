@@ -61,21 +61,23 @@
                       <td><dl><dt>项目类型：</dt><dd id="projectType"></dd></dl></td>
                   </tr>
                   <tr><td><dl><dt>计划额度：</dt>
-                          <dd><input id="project_contribution" name="projectContribution" type="text" value="" placeholder="计划额度" valType="NUMBER" msg="<font color=red>*</font>只能是数字"/></dd>
+                          <dd><input id="project_contribution" name="formatContribution" type="text" value="" placeholder="计划额度" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/></dd>
                         </dl></td>
-                      <td><dl><dt>初始估值：</dt><dd id="project_valuations"></dd></dl></td>
+                      <td><dl><dt>初始估值：</dt><dd>
+                      <input type="text" id="project_valuations" name="formatValuations" value="" placeholder="初始估值" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
+                      </dd></dl></td>
                   </tr>
                   <tr>
                       <td><dl><dt>出让股份：</dt>
-                          <dd><input type="text" id="project_share_ratio" name="projectShareRatio" value="" class="transferSharesTxt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100)$" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
+                          <dd><input type="text" id="project_share_ratio" name="formatShareRatio" value="" class="transferSharesTxt" isNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
                         </dl></td>
                       <td>
                         <dl>
                           <dt>单位（万）：</dt>                          <dd>
-                            <label><input id="currencyUnit0" name="currencyUnit" type="radio" value="0" />人民币</label>
-                            <label><input id="currencyUnit1" name="currencyUnit" type="radio" value="1" />美元</label>
-                            <label><input id="currencyUnit2" name="currencyUnit" type="radio" value="2" />英镑</label>
-                            <label><input id="currencyUnit3" name="currencyUnit" type="radio" value="3" />欧元</label>
+                            <label><input id="currencyUnit0" name="formatUnit" type="radio" value="0" />人民币</label>
+                            <label><input id="currencyUnit1" name="formatUnit" type="radio" value="1" />美元</label>
+                            <label><input id="currencyUnit2" name="formatUnit" type="radio" value="2" />英镑</label>
+                            <label><input id="currencyUnit3" name="formatUnit" type="radio" value="3" />欧元</label>
                           </dd>
                         </dl>
                       </td>
@@ -84,13 +86,13 @@
                       <td>
                         <dl>
                           <dt>公司名称：</dt>
-                          <dd><input type="text" value="" id="project_company" name="projectCompany" placeholder="公司名称" valType="required" msg="<font color=red>*</font>公司名称不能为空"/></dd>
+                          <dd><input type="text" value="" id="project_company" name="projectCompany" placeholder="公司名称"/></dd>
                         </dl>
                       </td>
                       <td>
                         <dl>
                           <dt>组织机构代码：</dt>
-                          <dd><input type="text" value="" class="zzjg_txt" name="projectCompanyCode" id="project_company_code" placeholder="组织机构代码" valType="OTHER" regString="^[a-zA-Z\d]+$" msg="<font color=red>*</font>组织代码只能是字母或数字"/></dd>
+                          <dd><input type="text" value="" class="zzjg_txt" name="projectCompanyCode" id="project_company_code" placeholder="组织机构代码" isNULL="yes" valType="CODE" msg='<font color=red>*</font>由字母或数字或"-"组成'/></dd>
                         </dl>
                       </td>
                   </tr>                  
@@ -620,16 +622,14 @@ function closeback(data){
  
     $("#project_share_ratio").blur(function(){
 		var valuations = calculationValuations();
-		$("#project_valuations").text("");
 		if(valuations){
-			$("#project_valuations").text(valuations);
+			$("#project_valuations").val(valuations.toFixed(2));
 		}
 	});
 	$("#project_contribution").blur(function(){
 		var valuations = calculationValuations();
-		$("#project_valuations").text("");
 		if(valuations){
-			$("#project_valuations").text(valuations);
+			$("#project_valuations").val(valuations.toFixed(2));
 		}
 	});
 	function calculationValuations(){

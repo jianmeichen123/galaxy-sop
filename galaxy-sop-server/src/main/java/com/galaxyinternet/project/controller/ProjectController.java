@@ -119,7 +119,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @author yangshuhua
 	 * @return
 	 */
-	@Token
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -143,10 +142,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		project.setProjectCode(String.valueOf(code));
-		if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
-				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
-			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+		if(project.getProjectValuations() == null){
+			if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
+					&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
+				project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+			}
 		}
+		
 		project.setStockTransfer(0);
 		project.setCreateUid(user.getId());
 		project.setCreateUname(user.getRealName());
@@ -183,10 +185,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
+		
+		//执行转换
+		project.getProjectContribution();
+		project.getProjectValuations();
+		project.getCurrencyUnit();
+		project.getProjectShareRatio();
+		
 		User user = (User) getUserFromSession(request);
-		if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
-				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
-			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+		if(project.getProjectValuations() == null){
+			if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
+					&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
+				project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+			}
 		}
 		
 		Project p = projectService.queryById(project.getId());
