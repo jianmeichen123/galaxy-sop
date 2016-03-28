@@ -61,7 +61,7 @@ function initViewUpload() {
 			max_file_size : '25mb',
 			mime_types: [
 			    {title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r"}
-			]
+			    ]
 		},
 
 		init: {

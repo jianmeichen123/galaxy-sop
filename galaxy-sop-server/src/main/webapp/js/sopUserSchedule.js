@@ -23,6 +23,17 @@ function loadAjaxSopUserSchedule(url){
 			 var dataList=json.pageList.content;
 			 $("#top").html("");
 			 var htmlstart="";
+			 if (dataList.length==0) {
+					var tbodyList = $("#top"); 
+					var noData =
+				
+						 '<a >'+'没有找到匹配的记录'+'</a>';
+								
+					tbodyList.append(noData);
+			   }
+				if(dataList.length<3){
+					$("#top").siblings().children('.more').css("display","none");
+				}
 			 for(var p in dataList){
 				 htmlstart +="<a href=\"javascript:;\" class=\"link\"><b class=\"b1 null\">点</b>"+dataList[p].timeTask+"</a>";
 			 }
