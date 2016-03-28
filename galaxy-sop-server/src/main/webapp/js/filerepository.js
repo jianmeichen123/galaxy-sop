@@ -17,6 +17,13 @@ var searchPanel = {
 					layer.msg('请选择档案。');
 					return;
 				}
+				for(var i=0;i<rows.length;i++){
+					if(!rows[i].fileKey){
+						layer.msg("发送邮件中含有缺失档案！");
+						return;
+					}
+				}
+
 				var data = {
 						_rows : rows
 				}

@@ -306,8 +306,8 @@
 	
 	var mailWin = {
 			init : function(data){
-				mailWin.callFuc = data._callFuc;
 				var rows = data._rows
+				mailWin.callFuc = data._callFuc;
 				$.popup({
 					txt:$("#mail-dialog").html(),
 					showback:function(){
