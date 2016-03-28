@@ -306,8 +306,8 @@
 	
 	var mailWin = {
 			init : function(data){
-				mailWin.callFuc = data._callFuc;
 				var rows = data._rows
+				mailWin.callFuc = data._callFuc;
 				$.popup({
 					txt:$("#mail-dialog").html(),
 					showback:function(){
@@ -328,7 +328,7 @@
 							var $tr=$("<tr></tr>");
 							$tr.append("<td>"+ i +"</td>");
 							$tr.append("<td>"+ this.fWorktype +"</td>");
-							$tr.append("<td>"+ this.fileLength +"</td>");
+							$tr.append("<td>"+ getFileSize(this.fileLength) +"</td>");
 							$(_dialog.id).find("#attach-table tbody").append($tr);
 							ids.push(this.id);
 							i++;

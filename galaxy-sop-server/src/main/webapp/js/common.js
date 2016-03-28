@@ -860,3 +860,14 @@ function getNowDay(fg){
 	return clock;
 }
 
+function getFileSize(size)
+{
+	if(size>1000000)
+	{
+		return size/1000000 + 'M';
+	}
+	else 
+	{
+		return size/1000 + 'K';
+	}
+}

@@ -17,7 +17,12 @@
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 
 <!-- 校验 -->
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 
@@ -113,10 +118,7 @@
 <script src="<%=path %>/js/my.js"></script>
 <!-- 分页二css+四js -->
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
-<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
-<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
-<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script> 
+
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>

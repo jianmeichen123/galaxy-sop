@@ -154,6 +154,29 @@
 	    ]]>
     </insert>
     
+    <insert id="insertProject" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.Project" >
+	    <![CDATA[
+	     insert into sop_project (id, project_name, project_code, 
+	      project_type, stock_transfer, project_careerline, project_departId, 
+	      project_valuations, project_contribution, 
+	      currency_unit, project_share_ratio, project_company, project_company_code, create_uid, 
+	      create_uname, create_uposition, project_progress, 
+	      project_status, updated_time, created_time, 
+	      project_describe, project_business_model, 
+	      company_location, user_portrait, 
+	      prospect_analysis)
+	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, 
+	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, 
+	      #{projectValuations,jdbcType=DECIMAL}, #{projectContribution,jdbcType=DECIMAL}, 
+	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{projectCompanyCode,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
+	      #{createUname,jdbcType=VARCHAR}, #{createUposition,jdbcType=VARCHAR}, #{projectProgress,jdbcType=VARCHAR}, 
+	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
+	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
+	      #{companyLocation,jdbcType=LONGVARCHAR}, #{userPortrait,jdbcType=LONGVARCHAR}, 
+	      #{prospectAnalysis,jdbcType=LONGVARCHAR})
+	    ]]>
+    </insert>
+    
     <!-- 更新 -->
 	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.project.Project">
 		update sop_project
