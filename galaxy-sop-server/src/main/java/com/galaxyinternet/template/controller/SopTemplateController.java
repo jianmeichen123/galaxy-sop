@@ -89,17 +89,17 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 					typesStr = "fileWorktype:1,fileWorktype:2,fileWorktype:3,fileWorktype:4,fileWorktype:5,fileWorktype:6,fileWorktype:7";
 					editableTypes = "fileWorktype:1";
 				}
-				else if(UserConstant.HRJL == role.getId() || UserConstant.HRJL == role.getId() )
+				else if(UserConstant.HRJL == role.getId() || UserConstant.HRZJ == role.getId() )
 				{
 					typesStr = "fileWorktype:2";
 					editableTypes = "fileWorktype:2";
 				}
-				else if(UserConstant.CWJL == role.getId() || UserConstant.CWJL == role.getId() )
+				else if(UserConstant.CWJL == role.getId() || UserConstant.CWZJ == role.getId() )
 				{
 					typesStr = "fileWorktype:4";
 					editableTypes = "fileWorktype:4";
 				}
-				else if(UserConstant.FWJL == role.getId() || UserConstant.FWJL == role.getId() )
+				else if(UserConstant.FWJL == role.getId() || UserConstant.FWZJ == role.getId() )
 				{
 					typesStr = "fileWorktype:3,fileWorktype:5,fileWorktype:6,fileWorktype:7";
 					editableTypes = "fileWorktype:3,fileWorktype:5,fileWorktype:6,fileWorktype:7";
