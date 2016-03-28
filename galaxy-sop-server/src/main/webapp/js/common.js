@@ -593,9 +593,16 @@ function getInterViewCondition(hasProid,projectId,
 		return false;
 	}
 	if(viewDateStr == null ||  viewDateStr == ""){
-		alert("日期不能为空");
+		alert("访谈日期不能为空");
 		return false;
-	}
+	}else{
+		var clock = getNowDay("-");
+		if((new Date(viewDateStr)) > (new Date(clock))){
+			alert("访谈日期不能超过今天");
+			return false;
+         }
+	 }
+	
 	if(viewTarget == null ||  viewTarget == ""){
 		alert("对象不能为空");
 		return false;
@@ -675,9 +682,15 @@ function getMeetCondition(hasProid,projectId,
 	}
 	
 	if(meetingDateStr == null ||  meetingDateStr == ""){
-		alert("日期不能为空");
+		alert("会议日期不能为空");
 		return false;
-	}
+	}else{
+		var clock = getNowDay("-");
+		if((new Date(meetingDateStr)) > (new Date(clock))){
+			alert("会议日期不能超过今天");
+			return false;
+         }
+	 }
 	
 	if(meetingType == null ||  meetingType == ""){
 		alert("类型不能为空");
@@ -828,5 +841,16 @@ function delHtmlTag(str)
 
 }
 
-
+function getNowDay(fg){
+	var now = new Date();
+	var year = now.getFullYear();       //年
+	var month = now.getMonth() + 1;     //月
+	var day = now.getDate();
+	var clock = year + fg;
+	if(month < 10) clock += "0";
+	clock += month + fg;
+	if(day < 10) clock += "0";
+	clock += day;
+	return clock;
+}
 
