@@ -348,8 +348,16 @@
 									url,
 									data,
 									function(data){
-										layer.msg("发送邮件成功.");
-										mailWin.close(_dialog);
+										if(data.status=="OK")
+										{
+											layer.msg("发送邮件成功.");
+											mailWin.close(_dialog);
+										}
+										else
+										{
+											layer.msg("发送邮件失败.");
+											$(_dialog.id).find("#send-mail-btn").removeClass('disabled');
+										}
 									}
 							); 
 						});
