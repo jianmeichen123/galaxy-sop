@@ -59,7 +59,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	@Transactional
 	public long newProject(Project project) throws Exception {
-		long id = projectDao.insert(project);
+		long id = projectDao.insertProject(project);
 		//通用属性
 		SopFile f = new SopFile();
 		f.setProjectId(id);
