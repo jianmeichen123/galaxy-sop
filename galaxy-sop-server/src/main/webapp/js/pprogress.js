@@ -162,7 +162,7 @@
 												up.settings.multipart_params = form;
 											},
 											Error: function(up, err) {
-												alert("上传失败"+err);
+												layer.msg(err.message);
 //												document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 											}
 										}

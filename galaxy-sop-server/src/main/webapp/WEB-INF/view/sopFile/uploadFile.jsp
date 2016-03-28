@@ -7,6 +7,7 @@
 <head>
 <meta charset="utf-8">
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/sopFileUpload.js" type="text/javascript"></script>
 </head>
 

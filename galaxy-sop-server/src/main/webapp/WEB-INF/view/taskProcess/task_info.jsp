@@ -13,6 +13,7 @@
 <!--  <link href="<%=path %>/css/bootstrap.min-v3.3.5.css" type="text/css" rel="stylesheet"/>-->
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/bootstrap-v3.3.6.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
