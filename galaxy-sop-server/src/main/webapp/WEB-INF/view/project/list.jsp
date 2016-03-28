@@ -20,6 +20,9 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
+
+	<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
+
 </head>
 
 <body>
@@ -100,6 +103,7 @@
     </div>
 </div>
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
+<jsp:include page="/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
@@ -110,6 +114,9 @@
 <!-- 分页二css+四js -->
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script> 
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>

@@ -200,7 +200,7 @@
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
 <!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a>--> 
-					<a href="javascript:;" class="pubbtn fffbtn">发送选中</a> 
+					<a href="javascript:;" class="pubbtn fffbtn" id="file-show-mail-btn">发送选中</a> 
 				</div>
 
 				<!--表格内容-->

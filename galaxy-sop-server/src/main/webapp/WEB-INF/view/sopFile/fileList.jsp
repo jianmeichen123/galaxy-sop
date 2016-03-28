@@ -125,61 +125,7 @@
 
 
 <script type="text/javascript">
-$(function(){
-	$("#show-mail-btn").click(function(){
-		var rows = $("#fileGrid").bootstrapTable('getSelections');
-		if(rows.length==0)
-		{
-			layer.msg('请选择档案。');
-			return;
-		}
-		$.popup({
-			txt:$("#mail-dialog").html(),
-			showback:function(){
-				var _dialog = this;
-				var opts = {
-						rules : {
-							toAddress:{
-								required:true,
-								emails:true
-							}
-							
-						}
-				};
-				var valdator = $(_dialog.id).find('form').fxValidate(opts);
-				var i =1;
-				var ids = new Array();
-				$.each(rows,function(){
-					var $tr=$("<tr></tr>");
-					$tr.append("<td>"+ i +"</td>");
-					$tr.append("<td>"+ this.fWorktype +"</td>");
-					$tr.append("<td>"+ this.fileLength +"</td>");
-					$(_dialog.id).find("#attach-table tbody").append($tr);
-					ids.push(this.id);
-					i++;
-				});
-				
-				$(_dialog.id).find("#send-mail-btn").click(function(){
-					if(!valdator.form())
-					{
-						return;
-					}
-				 	var $form = $(_dialog.id).find("#mail-form");
-					var data = JSON.parse($form .serializeObject());
-					data['templateIds']=ids;
-					var url = platformUrl.fileSendEmail;
-					sendPostRequestByJsonObj(
-							url,
-							data,
-							function(data){
-								layer.msg("发送邮件成功.");
-							}
-					); 
-				});
-			}
-		});
-	});
-});
+
 </script>
 </html>
 

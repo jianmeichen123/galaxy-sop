@@ -120,6 +120,8 @@
 									})
 								},
 								FilesAdded: function(up, files) {
+									var $fileType = $(_this.id).find("#win_fileType");
+									
 									//解决多次文件选择后，文件都存入upload
 									if(uploader.files.length >= 2){
 										uploader.splice(0, uploader.files.length-1)
@@ -127,7 +129,11 @@
 									plupload.each(files, function(file) {
 //										document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 										$(_this.id).find("#win_fileTxt").val(file.name);
+										attrFileType($fileType, file);
 									});
+									
+									
+									
 								},
 								UploadProgress: function(up, file) {
 								},
@@ -298,8 +304,83 @@
 	};
 	
 	
+	var mailWin = {
+			init : function(data){
+				mailWin.callFuc = data._callFuc;
+				var rows = data._rows
+				$.popup({
+					txt:$("#mail-dialog").html(),
+					showback:function(){
+						var _dialog = this;
+						var opts = {
+								rules : {
+									toAddress:{
+										required:true,
+										emails:true
+									}
+									
+								}
+						};
+						var valdator = $(_dialog.id).find('form').fxValidate(opts);
+						var i =1;
+						var ids = new Array();
+						$.each(rows,function(){
+							var $tr=$("<tr></tr>");
+							$tr.append("<td>"+ i +"</td>");
+							$tr.append("<td>"+ this.fWorktype +"</td>");
+							$tr.append("<td>"+ this.fileLength +"</td>");
+							$(_dialog.id).find("#attach-table tbody").append($tr);
+							ids.push(this.id);
+							i++;
+						});
+						
+						$(_dialog.id).find("#send-mail-btn").click(function(){
+							if(!valdator.form())
+							{
+								return;
+							}
+						 	var $form = $(_dialog.id).find("#mail-form");
+							var data = JSON.parse($form .serializeObject());
+							data['templateIds']=ids;
+							var url = platformUrl.fileSendEmail;
+							sendPostRequestByJsonObj(
+									url,
+									data,
+									function(data){
+										layer.msg("发送邮件成功.");
+										mainWin.close(_dialog);
+									}
+							); 
+						});
+					}
+				});
+				
+				
+				
+				
+							
+				
+			},
+			callFuc : function(){
+				
+			},
+			//关闭弹出框
+			close : function(_this){
+					$(_this.id).remove();	
+					//关闭对外接口
+					_this.hideback.apply(_this);
+					//判断是否关闭背景
+					if($(".pop").length==0){
+						$("#popbg").hide();	
+					}
+			},
+			
+	}
+	
+	
+	
+	
 	function init(){
-		
 	}
 $(document).ready(init());
 

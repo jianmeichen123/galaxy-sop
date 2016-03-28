@@ -9,6 +9,20 @@ var searchPanel = {
 			
 			$("#file_repository_search_form").find(".datepicker").val("");
 			
+			//注册发送邮件按钮
+			$("#file-show-mail-btn").click(function(){
+				var rows = $("#"+fileGrid.domid).bootstrapTable('getSelections');
+				if(rows.length==0)
+				{
+					layer.msg('请选择档案。');
+					return;
+				}
+				var data = {
+						_rows : rows
+				}
+				mailWin.init(data);
+			});
+			
 		},
 		initDataCallBack : function(data){
 			var _dom;
@@ -39,10 +53,10 @@ var fileGrid = {
 	domid : undefined,
 	progress : undefined,
 	init : 	function(data){
-		searchPanel.initData();
 		 fileGrid.domid = data._domid;
 		 fileGrid.projectId = data._projectId;
 		 fileGrid.progress = (data._progress.split("_"))[1];
+		 searchPanel.initData();
 		 $('#' + data._domid).bootstrapTable({
 			url : platformUrl.searchSopFileList, // 请求后台的URL（*）
 			queryParamsType : 'size|page', // undefined

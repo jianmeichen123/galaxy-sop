@@ -8,6 +8,19 @@ var searchPanel = {
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,searchPanel.initDataCallBack);
 			//所属事业线
 			sendGetRequest(platformUrl.getDepartMentDict+"/department",null,searchPanel.initDataCallBack);
+			//注册发送邮件按钮
+			$("#show-mail-btn").click(function(){
+				var rows = $("#fileGrid").bootstrapTable('getSelections');
+				if(rows.length==0)
+				{
+					layer.msg('请选择档案。');
+					return;
+				}
+				var data = {
+						_rows : rows
+				}
+				mailWin.init(data);
+			});
 		},
 		initDataCallBack : function(data){
 			var _dom;
@@ -226,11 +239,6 @@ function init(){
 	createMenus(14);
 	searchPanel.initData();
 	fileGrid.init();
-	
-	
-	
-	
-	
 	
 }
 
