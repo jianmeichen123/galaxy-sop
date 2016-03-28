@@ -621,7 +621,7 @@
 					condition.fileWorktype = fileWorktype;
 					condition.voucherType = voucherType;
 					return condition;
-				}，null);
+				},null);
 			}
 		});
 		return false;
