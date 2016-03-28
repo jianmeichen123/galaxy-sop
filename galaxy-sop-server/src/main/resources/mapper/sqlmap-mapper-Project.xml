@@ -81,7 +81,7 @@
 				</if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
-				<if test="nameLike != null">and (project_name like CONCAT("%",#{nameLike},"%") or project_code like CONCAT("%",#{nameLike},"%"))</if>
+				<if test="nameLike != null">and (project_name like CONCAT("%",#{nameLike},"%") or create_uname like CONCAT("%",#{nameLike},"%"))</if>
 				<!--根据计划额度查询  -->
 				<if test="rComplany != null"> 
 					<if test="aComplany != null">
