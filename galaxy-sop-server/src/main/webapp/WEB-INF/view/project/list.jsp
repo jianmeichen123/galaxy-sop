@@ -662,7 +662,7 @@
 								if(uploader.files.length >= 1){
 									uploader.splice(0, uploader.files.length-1)
 								}
-								$.each(files, function() {
+								$.each(files, function(i,o) {
 									$("#file_obj").val(this.name);
 									var arr = new Array();
 									arr = this.name.split(".");
@@ -902,7 +902,7 @@
 					function(data){
 						
 						_tbody.empty();
-						$.each(data.entityList,function(){
+						$.each(data.entityList,function(i,o){
 							
 								var $tr=$('<tr></tr>');
 								
