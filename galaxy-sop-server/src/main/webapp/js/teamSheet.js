@@ -328,7 +328,7 @@
 							var $tr=$("<tr></tr>");
 							$tr.append("<td>"+ i +"</td>");
 							$tr.append("<td>"+ this.fWorktype +"</td>");
-							$tr.append("<td>"+ this.fileLength +"</td>");
+							$tr.append("<td>"+ getFileSize(this.fileLength) +"</td>");
 							$(_dialog.id).find("#attach-table tbody").append($tr);
 							ids.push(this.id);
 							i++;
@@ -339,6 +339,7 @@
 							{
 								return;
 							}
+							$(this).addClass('disabled');
 						 	var $form = $(_dialog.id).find("#mail-form");
 							var data = JSON.parse($form .serializeObject());
 							data['templateIds']=ids;
@@ -347,8 +348,16 @@
 									url,
 									data,
 									function(data){
-										layer.msg("发送邮件成功.");
-										mailWin.close(_dialog);
+										if(data.status=="OK")
+										{
+											layer.msg("发送邮件成功.");
+											mailWin.close(_dialog);
+										}
+										else
+										{
+											layer.msg("发送邮件失败.");
+											$(_dialog.id).find("#send-mail-btn").removeClass('disabled');
+										}
 									}
 							); 
 						});

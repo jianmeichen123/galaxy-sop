@@ -143,7 +143,7 @@
                   <tr>
                       <th>序号</th>
                       <th>档案名称</th>
-                      <th>档案大小/m </th>
+                      <th>档案大小 </th>
                   </tr>
               </thead>                                                                                                                     
               <tbody>
@@ -161,8 +161,7 @@
 </div>
 <!-- Mail dialog end -->
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
-<script type="text/javascript" src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
@@ -190,7 +189,7 @@ function loadTempList()
 				$("#template-table tbody").empty();
 				var editableTypes = data.userData.editableTypes;
 				$.each(data.entityList,function(){
-					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-file-length="'+this.fileLength+'"></tr>');
+					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-worktype-desc="'+this.workTypeDesc+'" data-file-length="'+this.fileLength+'"></tr>');
 					$tr.append('<td><input type="checkbox" name="document" /></td>') ;
 					$tr.append('<td>'+getVal(this.workTypeDesc,"-")+'</td>') ;
 					$tr.append('<td>'+getVal(this.departmentDesc,"-")+'</td>') ;
@@ -418,8 +417,8 @@ function showMailPopup()
 				var $row = $(this).closest("tr");
 				var $tr=$("<tr></tr>");
 				$tr.append("<td>"+ i +"</td>");
-				$tr.append("<td>"+ $row.data('file-name') +"</td>");
-				$tr.append("<td>"+ $row.data('file-length') +"</td>");
+				$tr.append("<td>"+ $row.data('worktype-desc') +"</td>");
+				$tr.append("<td>"+ getFileSize($row.data('file-length')) +"</td>");
 				$(_dialog.id).find("#attach-table tbody").append($tr);
 				ids.push($row.data('id'));
 			});
@@ -428,6 +427,7 @@ function showMailPopup()
 				{
 					return;
 				}
+				$(this).addClass('disabled');
 			 	var $form = $(_dialog.id).find("#mail-form");
 				var data = JSON.parse($form .serializeObject());
 				data['templateIds']=ids;
@@ -436,7 +436,16 @@ function showMailPopup()
 						url,
 						data,
 						function(data){
-							layer.msg("发送邮件成功.");
+							if(data.status=="OK")
+							{
+								layer.msg("发送邮件成功.");
+								$(_dialog.id).find("[data-close='close']").click();
+							}
+							else
+							{
+								layer.msg("发送邮件失败.");
+								$(_dialog.id).find("#send-mail-btn").removeClass('disabled');
+							}
 						}
 				); 
 			});

@@ -169,7 +169,15 @@ function init(type){
 	}
 }
 function initUpload(_dialog,type){
-	var validator = $(_dialog.id).find('form').fxValidate({errorElement:'div'});
+	var opts = {
+			rules : {
+				fileSource:{
+					required:true
+				}
+				
+			}
+	};
+	var validator = $(_dialog.id).find('form').fxValidate(opts);
 	var url = platformUrl.stageChange;
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',

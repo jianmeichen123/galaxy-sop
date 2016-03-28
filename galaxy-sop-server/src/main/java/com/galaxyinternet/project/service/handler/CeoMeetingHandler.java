@@ -11,11 +11,13 @@ import com.galaxyinternet.common.ViewQuery;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
+import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
+import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 
@@ -40,6 +42,8 @@ public class CeoMeetingHandler implements Handler {
 	private SopFileDao sopFileDao;
 	@Autowired
 	private MeetingRecordDao meetingRecordDao;
+	@Autowired
+	private MeetingSchedulingDao meetingSchedulingDao;
 
 	@Override
 	@Transactional
@@ -72,13 +76,24 @@ public class CeoMeetingHandler implements Handler {
 		mr.setMeetingNotes(q.getContent());
 		mr.setCreatedTime((new Date()).getTime());
 		meetingRecordDao.insert(mr);
+		
+		//修改立项会排期记录:过会次数和状态
+		MeetingScheduling m = new MeetingScheduling();
+		m.setProjectId(q.getPid());
+		m.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
+		MeetingScheduling tm = meetingSchedulingDao.selectOne(m);
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			Project p = new Project();
 			p.setId(q.getPid());
 			p.setProjectStatus(DictEnum.meetingResult.否决.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
+			tm.setStatus(DictEnum.meetingResult.否决.getCode());
 		}
+		tm.setMeetingDate(new Date());
+		tm.setMeetingCount(tm.getMeetingCount() + 1);
+		tm.setUpdatedTime((new Date()).getTime());
+		meetingSchedulingDao.updateBySelective(tm);
 		return new SopResult(Status.OK,null,"添加CEO评审记录成功!",UrlNumber.three);
 	}
 	

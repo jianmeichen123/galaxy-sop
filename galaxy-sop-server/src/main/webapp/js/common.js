@@ -581,9 +581,9 @@ function getInterViewCondition(hasProid,projectId,
 		viewNotesId){
 	var	condition = {};
 	
-	/*if(!beforeSubmit()){
+	if(!beforeSubmit()){
 		return false;
-	}*/
+	}
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);
 	}else{
@@ -613,14 +613,14 @@ function getInterViewCondition(hasProid,projectId,
 		layer.msg("对象不能为空");
 		return false;
 	}else{
-		if(getLength(viewTarget) > 50){
-			layer.msg("对象长度最大50字节");
+		if(getLength(viewTarget) > 100){
+			layer.msg("对象长度最大100字节");
 			return false;
 		}
 	}
 	if(viewNotes != null && viewNotes.length > 0){
-		if(viewTarget.length > 3000){
-			layer.msg("访谈记录长度最大3000字符");
+		if(viewTarget.length > 9000){
+			layer.msg("访谈记录长度最大9000字符");
 			return false;
 		}
 	}
@@ -663,9 +663,9 @@ function getMeetCondition(hasProid,projectId,
 		){
 	var	condition = {};
 	
-	/*if(!beforeSubmit()){
+	if(!beforeSubmit()){
 		return false;
-	}*/
+	}
 	
 	if(hasProid == "y" ){
 		var projectId = $.trim(projectId);
@@ -709,8 +709,8 @@ function getMeetCondition(hasProid,projectId,
 	}
 	
 	if(meetingNotes != null && meetingNotes.length > 0){
-		if(meetingNotes.length > 3000){
-			layer.msg("会议记录长度最大3000字符");
+		if(meetingNotes.length > 9000){
+			layer.msg("会议记录长度最大9000字节");
 			return false;
 		}
 	}
@@ -860,3 +860,14 @@ function getNowDay(fg){
 	return clock;
 }
 
+function getFileSize(size)
+{
+	if(size>1000000)
+	{
+		return size/1000000 + 'M';
+	}
+	else 
+	{
+		return size/1000 + 'K';
+	}
+}

@@ -28,7 +28,7 @@
     width: 55%;
 }
 
-.graphbox{
+/* .graphbox{
 border:1px solid #e7e7e7;
 padding:10px;
 width:250px;
@@ -54,7 +54,7 @@ display:none;
 	display:block;
 	}
 
-.graph .blue{background-color:#3399CC;}
+.graph .blue{background-color:#3399CC;} */
 
 </style>
 </head>

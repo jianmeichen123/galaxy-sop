@@ -119,7 +119,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		f.setId(null);
 		
 		//投后运营
-		f.setFileValid(1);
+		/*f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.公司资料.getCode());
 		sopFileDao.insert(f);
@@ -133,7 +133,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		f.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
 		sopFileDao.insert(f);
-		f.setId(null);
+		f.setId(null);*/
 		
 		if(project.getProjectType() != null && 
 				DictEnum.projectType.外部投资.getCode().equals(project.getProjectType())){
