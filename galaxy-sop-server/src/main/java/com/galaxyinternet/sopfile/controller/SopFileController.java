@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,7 @@ import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
@@ -55,7 +57,9 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
@@ -592,6 +596,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		InputStream fis = null;
 		OutputStream out = null;
 		String type = request.getParameter("type");
+		File tempDir = null;
+		File tempFile = null;
 		try {
 			String fileName = null;
 			String fileSuffix = null;
@@ -623,16 +629,16 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			}
 //			String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
 			String path = tempfilePath;
-			File temp = new File(path);
-			File temp1 = new File(path,fileName);
-			if (!temp.exists()) {
-				temp.mkdirs();
+			tempDir = new File(path);
+			tempFile = new File(path,fileName);
+			if (!tempDir.exists()) {
+				tempDir.mkdirs();
 			}
-			temp1.createNewFile();
+			tempFile.createNewFile();
 			if(fileSize.longValue() > OSSConstant.DOWNLOAD_PART_SIZE){
-				OSSHelper.downloadSupportBreakpoint(temp1.getAbsolutePath(),BucketName.DEV.getName(), key);
+				OSSHelper.downloadSupportBreakpoint(tempFile.getAbsolutePath(),BucketName.DEV.getName(), key);
 			}else{
-				DownloadFileResult result = OSSHelper.simpleDownloadByOSS(temp1, key);
+				DownloadFileResult result = OSSHelper.simpleDownloadByOSS(tempFile, key);
 				System.err.println(GSONUtil.toJson(result));
 			}		
 			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
@@ -644,9 +650,9 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/x-download");
 			response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-			response.setHeader("Content-Length", "" + temp1.length());
+			response.setHeader("Content-Length", "" + tempFile.length());
 			out = new BufferedOutputStream(response.getOutputStream());
-			fis = new BufferedInputStream(new FileInputStream(temp1.getPath()));
+			fis = new BufferedInputStream(new FileInputStream(tempFile.getPath()));
 
 
 			byte[] buffer = new byte[1024 * 2];
@@ -662,6 +668,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		finally
 		{
+			tempFile.delete();
 			try {
 				if(fis != null)
 				{
@@ -1175,18 +1182,28 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			
 			List<SopFile> list = sopFileService.queryList(bo);
 			
-			StringBuffer content = new StringBuffer();
-			content.append(mailInfo.getContent());
-			content.append("<br/>");
-			content.append("邮件附件:<br/>");
+			User curUser = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			String content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_FILESHARE_CONTENT);
+			String userName = "大家好";
+			String curTime = DateUtil.convertDateToString(new Date());
+			
+			String toAddress = mailInfo.getToAddress();
+			String[] to = toAddress.split(";");
+			if(to != null && to.length==1)
+			{
+				int atIndex = toAddress.lastIndexOf("@");
+				userName = toAddress.substring(0, atIndex);
+			}
 			String endpoint = getCurrEndpoint(request);
 			String linkTemplate = "<a href=\"%s\">%s</a><br/>";
+			String fileLinks = "";
 			for(SopFile sopFile : list)
 			{
 				String fileName = sopFile.getfWorktype();
 				String href = endpoint+"galaxy/openEntry/download/file/"+sopFile.getId();
-				content.append(String.format(linkTemplate, href,fileName));
+				fileLinks += String.format(linkTemplate, href,fileName);
 			}
+			content = PlaceholderConfigurer.formatText(content, userName, curUser.getRealName(), curTime, list.size(), fileLinks);
 			boolean success = SimpleMailSender.sendHtmlMail(mailInfo.getToAddress(),  mailInfo.getTitle(),content.toString());
 			
 			if(success)

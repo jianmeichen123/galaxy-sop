@@ -135,7 +135,7 @@
                 </form>
               </table>
               <div class="btnbox">
-                <a href="javascript:add();" class="pubbtn bluebtn">保存</a>
+                <a href="javascript:;" onclick="add();" class="pubbtn bluebtn">保存</a>
               </div>
           </div>
           <!-- 第2部分 -->

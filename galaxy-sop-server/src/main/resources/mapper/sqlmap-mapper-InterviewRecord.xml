@@ -148,6 +148,9 @@
 			order by ir.view_date
 			 <if test="direction == 'desc'"> desc </if>
 			 <if test="direction == 'asc'"> asc </if>
+			 ,ir.created_time 
+			 <if test="direction == 'desc'"> desc </if>
+			 <if test="direction == 'asc'"> asc </if>
 		</if>
 		<if test="direction == null">
 			order by ir.view_date desc,ir.created_time desc

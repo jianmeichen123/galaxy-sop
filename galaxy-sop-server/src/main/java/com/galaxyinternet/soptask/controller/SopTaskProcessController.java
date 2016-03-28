@@ -158,6 +158,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				OSSHelper.simpleUploadByOSS(temp,key);
 				
 				bo.setFileKey(key);
+				bo.setFileValid(0);
 				bo.setFileLength(length);
 				bo.setFileName(prefix);
 				bo.setFileSuffix(suffix.replaceAll("\\.", ""));

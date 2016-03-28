@@ -453,24 +453,24 @@
 									if(this.fileKey == null){	
 										$tr.append('<td></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+')" class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
 										$tr.append('<td></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 									}
 								}else if(this.fileWorktype == 'fileWorktype:7'){
 									
 									if(this.fileKey == null){	
 										$tr.append('<td></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
 										$tr.append('<td></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\');" class="blue">查看</a></td>'); 	
 									}
 								}
 								_tbody.append($tr);

@@ -381,4 +381,34 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		return diffHour;
 	}
 	
+	@Transactional
+	@Override
+	public void submitTask(SopTask task) throws Exception {
+		task = sopTaskDao.selectById(task.getId());
+		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		sopTaskDao.updateById(task);
+		
+		if(task.getTaskFlag() != null){
+			SopFile file = new SopFile();
+			file.setProjectId(task.getProjectId());
+			if(task.getTaskFlag().intValue() == 2){
+				file.setFileWorktype(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());
+			}else if(task.getTaskFlag().intValue() == 3){
+				file.setFileWorktype(DictEnum.fileWorktype.法务尽职调查报告.getCode());
+			}else if(task.getTaskFlag().intValue() == 4){
+				file.setFileWorktype(DictEnum.fileWorktype.财务尽职调查报告.getCode());
+			}else if(task.getTaskFlag().intValue() == 8){
+				file.setFileWorktype(DictEnum.fileWorktype.资金拨付凭证.getCode());
+			}else if(task.getTaskFlag().intValue() == 9){
+				file.setFileWorktype(DictEnum.fileWorktype.工商转让凭证.getCode());
+			}
+			SopFile f = sopFileDao.selectOne(file);
+			f.setFileValid(1);
+			sopFileDao.updateById(f);
+		}
+		
+		
+		
+	}
+	
 }

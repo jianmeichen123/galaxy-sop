@@ -79,7 +79,7 @@ $(function(){
 	$("#complete-task-btn").click(function(){
 		//更新task为完成状态
 		sendPostRequestByJsonObj(
-			platformUrl.updateTaskStatus,
+			platformUrl.submitTask,
 			{
 				id:"${taskId}",
 				taskStatus:"taskStatus:3"

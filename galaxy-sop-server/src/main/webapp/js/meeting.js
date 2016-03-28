@@ -108,8 +108,6 @@ function saveMeetCallBack(data){
 }
 
 
-
-
 //plupload上传对象初始化,   绑定保存
 function initMeetUpload() {
 	// 定义 上传插件 方法 、  plupload 上传对象初始化
@@ -121,9 +119,7 @@ function initMeetUpload() {
 		multi_selection:false,
 		filters : {
 			max_file_size : '25mb',
-			mime_types: [
-			    {title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r"}
-			]
+			mime_types: paramsFilter(1)
 		},
 
 		init: {

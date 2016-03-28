@@ -16,7 +16,7 @@
     }
 	
 %>
-<link rel="shortcut icon" href="img/favicon.ico" />
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/img/favicon.ico" />
 <div class="header clearfix">
  <div class="warning" id="warning"><i></i>您的浏览器版本过低，繁星系统不提供对IE10以下浏览器的支持，快使用速度更快，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
 	<a href="javascript:;" class="logo null">繁星</a>
@@ -50,7 +50,7 @@
     <div class="usermsg rit clearfix">
         <span class="ico name">您好，<%=realName%></span>
         <b class="line null">分割线</b>
-        <a href="javascript:logout()" class="loginout">退出</a>
+        <a href="javascript:;" onclick="logout()" class="loginout">退出</a>
     </div>
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>

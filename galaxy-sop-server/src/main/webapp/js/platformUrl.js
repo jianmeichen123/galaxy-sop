@@ -2,8 +2,8 @@ var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
-var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
-//var sopContentUrl = "http://127.0.0.1:8888/sop";
+//var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
+var sopContentUrl = "http://127.0.0.1:8888/galaxy-sop-server";
 //var sopContentUrl = "http://127.0.0.1:8080/";
 
 var platformUrl = {
@@ -231,6 +231,10 @@ var platformUrl = {
 	 * 更新任务状态
 	 */
 	updateTaskStatus: sopContentUrl + "/galaxy/soptask/updateTaskStatus",
+	/**
+	 * 人法财提交完成
+	 */
+	submitTask: sopContentUrl + "/galaxy/soptask/submitTask",
 	/**
 	 * 项目阶段过程的记录保存
 	 */

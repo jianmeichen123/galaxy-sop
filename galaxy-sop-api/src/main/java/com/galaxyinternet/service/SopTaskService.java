@@ -17,6 +17,11 @@ import com.galaxyinternet.model.soptask.SopTask;
 public interface SopTaskService extends BaseService<SopTask> {
 	
 	/**
+	 * 提交完成文件上传任务
+	 */
+	public void submitTask(SopTask task) throws Exception;
+	
+	/**
 	 * 完善简历待办任务的生成
 	 */
 	public void toSureMsgForPerson(Long pid, List<PersonPool> list) throws Exception;

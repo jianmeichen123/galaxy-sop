@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ import com.galaxyinternet.bo.template.SopTemplateBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -41,6 +43,8 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
@@ -267,19 +271,34 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			bo.setIds(mailInfo.getTemplateIds());
 			
 			List<SopTemplate> list = templateService.queryList(bo);
+			if(list == null || list.size()==0)
+			{
+				throw new Exception("未找到文件。");
+			}
 			
-			StringBuffer content = new StringBuffer();
-			content.append(mailInfo.getContent());
-			content.append("<br/>");
-			content.append("邮件附件:<br/>");
+			User curUser = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			String content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_FILESHARE_CONTENT);
+			String userName = "大家好";
+			String curTime = DateUtil.convertDateToString(new Date());
+			
+			String toAddress = mailInfo.getToAddress();
+			String[] to = toAddress.split(";");
+			
+			if(to != null && to.length==1)
+			{
+				int atIndex = toAddress.lastIndexOf("@");
+				userName = toAddress.substring(0, atIndex);
+			}
 			String endpoint = getCurrEndpoint(request);
 			String linkTemplate = "<a href=\"%s\">%s</a><br/>";
+			String fileLinks = "";
 			for(SopTemplate template : list)
 			{
-				String fileName = template.getFileName();
+				String fileName = template.getWorkTypeDesc();
 				String href = endpoint+"galaxy/openEntry/download/template/"+template.getId();
-				content.append(String.format(linkTemplate, href,fileName));
+				fileLinks += String.format(linkTemplate, href,fileName);
 			}
+			content = PlaceholderConfigurer.formatText(content, userName, curUser.getRealName(), curTime, list.size(),fileLinks);
 			boolean success = SimpleMailSender.sendHtmlMail(mailInfo.getToAddress(),  mailInfo.getTitle(),content.toString());
 			
 			if(success)

@@ -27,6 +27,35 @@
 .tab-pane table th:nth-child(3) {
     width: 55%;
 }
+
+.graphbox{
+border:1px solid #e7e7e7;
+padding:10px;
+width:250px;
+background-color:#f8f8f8;
+margin:5px 0;
+display:none;
+}
+.graph{
+	position:relative;
+	background-color:#F0EFEF;
+	border:1px solid #cccccc;
+	padding:2px;
+	font-size:13px;
+	font-weight:700;
+	}
+.graph  .blue{
+	position:relative;
+	text-align:left;
+	color:#ffffff;
+	height:18px;
+	line-height:18px;
+	font-family:Arial;
+	display:block;
+	}
+
+.graph .blue{background-color:#3399CC;}
+
 </style>
 </head>
 
