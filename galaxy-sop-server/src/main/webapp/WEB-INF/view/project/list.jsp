@@ -621,7 +621,7 @@
 					condition.fileWorktype = fileWorktype;
 					condition.voucherType = voucherType;
 					return condition;
-				});
+				}，null);
 			}
 		});
 		return false;
@@ -838,7 +838,7 @@
 					condition.fileType = fileType;
 					condition.fileWorktype = fileWorktype;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -1019,7 +1019,7 @@
 					condition.voucherType = voucherType;
 					condition.hasStockTransfer=hasStockTransfer;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -1089,7 +1089,7 @@
 					condition.voucherType = voucherType;
 					condition.hasStockTransfer=hasStockTransfer;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
