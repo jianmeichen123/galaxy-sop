@@ -59,9 +59,11 @@ function initViewUpload() {
 		multi_selection:false,
 		filters : {
 			max_file_size : '25mb',
-			mime_types: [
-			    {title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r"}
-			    ]
+			mime_types: paramsFilter(1)
+			/*mime_types: [
+			    {title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r"},
+			    {title : "audio files", extensions : "MP3,MP4,AVI,WAV,WMA,AAC,M4A,M4R"}
+			    ]*/
 		},
 
 		init: {
