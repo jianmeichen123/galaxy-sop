@@ -90,7 +90,7 @@
           <dl class="fmdl fmdll clearfix">
             <dt></dt>
             <dd>
-              <input type="text" id="searchProjectId" class="txt" placeholder="请输入项目名称或投资经理名称" />
+              <input type="text" id="searchProjectId" class="txt" placeholder="请输入项目名称或投资经理姓名" />
             </dd>
             <dd>
             <button type="button" class="bluebtn ico cx"   id="searchBtn">查询</button>
@@ -116,6 +116,7 @@
 
 
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
  <script src="<%=path %>/js/commWin.js" type="text/javascript"></script>
  <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script>
  <script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>

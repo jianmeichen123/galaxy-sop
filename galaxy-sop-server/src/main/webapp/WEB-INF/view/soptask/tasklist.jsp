@@ -35,7 +35,7 @@
           <div class="searchbox clearfix">
             <input type="hidden"  id="tipslink_val"/>
             <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
-            <input  name="nameLike" type="text" placeholder="请输入项目名称或投资经理名称" class="txt"/>
+            <input  name="nameLike" type="text" placeholder="请输入项目名称或投资经理姓名" class="txt"/>
             <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
 
           </div>

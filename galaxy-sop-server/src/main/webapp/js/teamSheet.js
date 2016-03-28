@@ -175,7 +175,7 @@
 								},
 								Error: function(up, err) {
 									$(_this.id).hideLoading();
-									alert("上传失败"+err);
+									layer.msg(err.message);
 //									document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 								}
 							}

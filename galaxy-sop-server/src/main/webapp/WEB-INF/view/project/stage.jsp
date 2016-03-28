@@ -371,8 +371,8 @@
 			<div class="block" data-tab="con" id="projectProgress_8_con">
 				<!--按钮-->
 				<div id="tzxy_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="downFile(7);" class="pubbtn fffbtn llpubbtn">下载投资协议模板</a>
-					<label id="stock_transfer_model"><input type="checkbox" value="1" onclick="selected(this);" id="stock_transfer">是否涉及股权转让</label>
+					<a href="javascript:;" onclick="downloadTemplate('fileWorktype:6');" class="pubbtn fffbtn llpubbtn">下载投资协议模板</a>
+					<label id="stock_transfer_model"><input type="checkbox" value="1" onclick="selected(this);" id="stock_transfer">涉及股权转让</label>
 				</div>
 				<div class="process clearfix">
 					<h2>投资协议盖章流程</h2>
