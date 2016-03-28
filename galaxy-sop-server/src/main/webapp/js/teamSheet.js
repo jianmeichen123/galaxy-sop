@@ -348,7 +348,7 @@
 									data,
 									function(data){
 										layer.msg("发送邮件成功.");
-										mainWin.close(_dialog);
+										mailWin.close(_dialog);
 									}
 							); 
 						});
