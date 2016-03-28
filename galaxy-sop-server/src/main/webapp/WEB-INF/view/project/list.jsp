@@ -965,6 +965,7 @@
 				$("#stock_transfer_model").remove();
 			}
 		}
+		 tiggerTable($("#projectProgress_7_table"),3);
 	}
 	 
 	/**
