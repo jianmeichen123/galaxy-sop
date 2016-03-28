@@ -447,7 +447,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /*页面框架---------------------*/
 .pagebox{ min-width:1280px; margin:0 auto; padding:0 0 10px}
 /*左侧导航*/
-.pagebox .lft{ float:left; width:9.375%; margin:0 20px 0 0; background:#d6d8e1;position: fixed;top: 60px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;}
+.pagebox .lft{ float:left; width:9.375%; background:#d6d8e1;position: fixed;top: 60px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;}
 .pagebox .lft li{ float:left; width:100%; height:40px;}
 .pagebox .lft li a,.pagebox .lft li div{ font-family: "微软雅黑";display:block; width:100%; height:40px; text-align:center; line-height:40px; font-size:14px; color:#6b799f;cursor: pointer;}
 .pagebox .lft .on a,
@@ -573,7 +573,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg .top table dl{padding-left:10px;overflow: hidden;}
 .pagebox .projectmsg .top table dl dt{float: left;font-size: 14px;color:#3e4351;width:88px;text-align: right;}
 .pagebox .projectmsg .top table dl dd{float: left;font-size: 12px;color:#525662;font-family: "宋体"}
-.pagebox .projectmsg .top table dl dd.tarea{float: left;text-align: left;width: 620px;line-height: 20px;padding:5px 0;cursor: pointer;}
+.pagebox .projectmsg .top table dl dd.tarea{float: left;text-align: left;width: 620px;line-height: 20px;padding:5px 0;cursor: pointer;min-height: 20px;}
 .pagebox .projectmsg .pjt_more{float:right;padding-right: 10px;color:#66b1f2;}
 .pagebox .projectmsg .btm{padding:45px 5px 5px;}
 .pagebox .projectmsg .btm table{border: 1px solid #e9ebf2;border-radius: 0;margin: 0 0 20px 0}
@@ -583,7 +583,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg .btm ul li a{width:138px;height:28px;border:1px solid #ccd2d7;border-radius: 5px;background-color: #fff;display: inline-block;text-align: center;line-height: 30px;margin-right: 10px;color: #4c97da;text-decoration: none;}
 .pagebox .projectmsg .xmms{color:#525662;text-decoration: none;font-family: "宋体";height: 20px;overflow: hidden;}
 /* tips框 */
-.pagebox .tips{padding: 10px;box-shadow: 2px 2px 2px #ccc;border:1px solid #e9ebf2;border-radius: 6px;width: 300px;font-size: 12px;display: none;position: absolute;background-color: #fff;line-height: 20px;}
+.pagebox .tips{padding: 10px;box-shadow: 2px 2px 2px #ccc;border:1px solid #e9ebf2;border-radius: 6px;width: 300px;font-size: 12px;display: none;position: absolute;background-color: #fff;line-height: 20px;z-index: 10;}
 .tips_f1,.tips_f2,.tips_f3{position: relative;cursor:pointer;}
 .tips1,.tips2,.tips3{z-index:9999;padding: 10px;box-shadow: 2px 2px 2px #ccc;border:1px solid #e9ebf2;border-radius: 6px;width: 300px;font-size: 12px;display: none;position: absolute;background-color: #fff !important;}
 /* 项目详细信息内容 */
@@ -866,7 +866,8 @@ dl dd .time1{display:inline-block !important;width: 100px !important;background:
 .loginpage .top .rit{ padding:0 0 0 26px; line-height:24px; height:24px; background-position:0 -268px; font-size:12px; color:#b3b8cb; margin:18px 0 0; font-family:"宋体"; float:right}
 .loginpage .min{ width:1280px; height:572px; padding:70px 0 0; margin:0 auto}
 .loginpage .pic{width: 759px;height: 448px;background: url(../img/loginbg.png) 0 0 no-repeat;float: left;-webkit-background-size: 93%;
-background-size: 93%;position: relative;z-index: 10;}
+background-size: 93%;position: relative;z-index: 10;position: relative;}
+.loginpage .pic a{color:#fff;text-decoration: underline;font-size: 14px;font-family:"微软雅黑";position: absolute;bottom: 120px;right: 170px;background: url(../img/help.png) 0 0 no-repeat;padding-left: 25px;text-shadow:0px 0px 4px #666;}
 .loginbox{ width:362px; float:right; margin:48px 100px 0 0;}
 .loginbox h2{ height:33px; background-position:0 0; margin:0 0 16px 17px}
 .loginbox .txt{ display:block; border:0; width:282px; height:46px; line-height:46px; font-size:14px; color:#666666; font-family:"宋体"; background-color:#edf0f4; border-radius:6px; padding:0 10px 0 36px; margin:0 0 10px 17px}
@@ -1117,6 +1118,9 @@ background-size: 93%;position: relative;z-index: 10;}
 /* 车辆限行 */
 em{font-style: normal;}
 .weather{margin-top: -10px !important;}
+/* 帮助说明页面 */
+.installation .cn1,.installation .cn2,.installation .cn3,.installation .cn4,.installation .cn5,.installation .cn6{width: 100%;}
+.installation .cn1 img,.installation .cn2 img,.installation .cn3 img,.installation .cn4 img,.installation .cn5 img,.installation .cn6 img{width:100%;}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}
@@ -1136,3 +1140,4 @@ dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../
 .percentTxt{width:30px !important;display: inline-block !important;}
 .no_content{font-size: 14px;color:#7a8798;margin: 60px 0 0 0;text-align: center;}
 #container_jdjy,#container_xmzzl{margin-bottom: 20px;}
+form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}

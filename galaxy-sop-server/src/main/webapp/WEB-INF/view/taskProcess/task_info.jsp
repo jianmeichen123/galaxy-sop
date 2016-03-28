@@ -10,14 +10,14 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
-<!--  <link href="<%=path %>/css/bootstrap.min-v3.3.5.css" type="text/css" rel="stylesheet"/>-->
-<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
-<script src="<%=path %>/js/bootstrap-v3.3.6.js" type="text/javascript"></script>
-<script src="<%=path %>/js/validate/jquery.validate.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/validate/messages_zh.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/validate/fx.validate.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 <script src="<%=path %>/js/my.js" type="text/javascript"></script>
 <script src="<%=path %>/js/my_ext.js" type="text/javascript"></script>
 </head>
