@@ -266,17 +266,25 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> queryAllProjects(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());		
 		try {
+			if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
+				project.setProjectStatus("meetingResult:3");
+				project.setProjectProgress(null);
+			}
 			if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){
 				/*Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
 				responseBody.setPageList(pageProject);
 				responseBody.setResult(new Result(Status.OK, ""));*/
-				if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
+
+			}else if (roleIdList.contains(UserConstant.HHR)){
+				/*if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
 					project.setProjectStatus("meetingResult:3");
 					project.setProjectProgress(null);
-				}
+				}*/
+				project.setProjectDepartid(user.getDepartmentId());
 			}
+
 			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));
