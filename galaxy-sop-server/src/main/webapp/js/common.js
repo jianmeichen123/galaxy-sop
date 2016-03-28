@@ -316,7 +316,12 @@ function attrFileType(fileType,file){
 		if(valueExt.indexOf(type) >= 0 ){
 			var myvalue=value.title;
 			//$("#"+fileType+" option[value='"+myvalue+"']").attr("selected",true);
-			$("#"+fileType).val(myvalue);
+			if(fileType instanceof jQuery){
+				fileType.val(myvalue);
+			}else{
+				$("#"+fileType).val(myvalue);
+			}
+			
 			break;
 			
 		}
