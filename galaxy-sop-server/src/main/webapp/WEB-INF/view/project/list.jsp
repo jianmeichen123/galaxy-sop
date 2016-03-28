@@ -324,7 +324,7 @@
 	/**
 	 * 上传接触访谈纪要弹出层
 	 */
-	function air(){
+	function air(indexNum){
 		
 		$("[data-id='popid1']").remove();
 		
@@ -374,7 +374,7 @@
 								"fileId" : fileId
 							};*/
 							return condition;
-						});
+						},indexNum);
 			}
 		});
 		return false;
@@ -445,7 +445,7 @@
 							condition.result = meetingResult;
 							condition.content = meetingNotes;
 							return condition;
-						});
+						},num);
 			}
 		});
 		return false;

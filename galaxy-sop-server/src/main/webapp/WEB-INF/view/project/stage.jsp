@@ -211,7 +211,7 @@
 			<div class="block" data-tab="con" id="projectProgress_1_con">
 				<!--按钮-->
 				<div id="options_point1" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="#" data-btn="interview" onclick="air();" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
+					<a href="#" data-btn="interview" onclick="air(1);" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
 					<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn">启动内部评审</a>
 				</div>
 				<div id="projectProgress_1_table_custom-toolbar">
