@@ -192,6 +192,7 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
    var message = "";
+   var result=false;
    var TOKEN ;
 	$(function(){
 		createMenus(4);
@@ -229,6 +230,16 @@
 	}
 	function add(){
 		if(beforeSubmit()){
+			var json = {};
+			var projectName = $("#projectName").val();
+			var projectCompanyCode = $("#projectCompanyCode").val();
+			json = {"projectName":projectName,"projectCompanyCode":projectCompanyCode};
+			sendPostRequestByJsonObj(platformUrl.checkProject,json,callbackcheckProject);
+			if(result){
+				$("#projectName").val("");
+				result=false;
+				return false;
+			}
 			$.ajax({
 				url : platformUrl.addProject,
 				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
@@ -256,6 +267,13 @@
 				}
 			}); 
 		}
+	}
+	function callbackcheckProject(data) {
+		if (data.count!=0) {
+			message = "存在重复项目名，请重新输入";
+			alert(message);
+			result=true;
+		} 
 	}
 </script>
 

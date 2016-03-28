@@ -1078,9 +1078,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if (!StringUtils.equals(projectCompanyCode,"")) {
 				for (Project project: projectList) {
 					
-					if (project.getProjectCompanyCode()!= null && StringUtils.equals(projectCompanyCode, project.getProjectCompanyCode())) {
+					//if (project.getProjectCompanyCode()!= null && StringUtils.equals(projectCompanyCode, project.getProjectCompanyCode())) {
 						count ++;
-					}
+					//}
 				}
 			}
 			Map<String, Integer> map = new HashMap<String, Integer>();
@@ -1088,11 +1088,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				//不存在重复
 				map.put("count", 0);
 				
-			} else if (count > 0) {
+		 //else if (count > 0) {
 				//重复且相同组织机构数为count
-				map.put("companyCode", count);
-				map.put("count", projectList.size());
-			} else {
+				//map.put("companyCode", count);
+				//map.put("count", projectList.size());
+			}else {
 				map.put("count", projectList.size());
 			}
 			return map;
