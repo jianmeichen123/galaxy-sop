@@ -769,7 +769,7 @@
 						 html += "</td><td>" + o.createDate + "</td>";
 						 html += "<td>财务部</td><td>"+o.fType+"</td>";
 					 }
-					 if(o.fileStatus == 'fileStatus:1'){
+					 if(o.fileStatus == 'fileStatus:1' || o.fileValid == '0'){
 						 html += "<td>缺失</td>";
 						 if(o.fileWorktype != 'fileWorktype:1'){
 							 html +='<td><a href="javascript:; " onclick="taskUrged('+o.id+');"class="blue">催办 </a></td>';

@@ -307,6 +307,28 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	
 	
 	/**
+	 * 人、财、法上传文件后"点击提交完成"
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@ResponseBody
+	@RequestMapping(value = "/submitTask", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopTask> submitTask(@RequestBody SopTask entity,HttpServletRequest request) {
+		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
+		if(entity.getId() == null){
+			responseBody.setResult(new Result(Status.ERROR,null,"缺失必须的参数!"));
+			return responseBody;
+		}
+		try {
+			sopTaskService.submitTask(entity);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null,"异常，请重试!"));
+			return responseBody;
+		}
+		return responseBody;
+	}
+	
+	
+	/**
 	 * 当前待办总数
 	 * @author zhaoying
 	 * @param sopTaskBo

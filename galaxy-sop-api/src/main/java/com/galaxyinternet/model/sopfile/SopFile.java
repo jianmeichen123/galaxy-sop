@@ -17,6 +17,11 @@ public class SopFile extends PagableEntity {
      * 项目ID
      */
     private Long projectId;
+    
+    /**
+     * 文档是否有效
+     */
+    private Integer fileValid;
 
     
     /**
@@ -203,7 +208,15 @@ public class SopFile extends PagableEntity {
         this.projectId = projectId;
     }
 
-    public String getProjectProgress() {
+    public Integer getFileValid() {
+		return fileValid;
+	}
+
+	public void setFileValid(Integer fileValid) {
+		this.fileValid = fileValid;
+	}
+
+	public String getProjectProgress() {
         return projectProgress;
     }
 
