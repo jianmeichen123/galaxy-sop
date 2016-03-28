@@ -116,6 +116,7 @@
 
 
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
  <script src="<%=path %>/js/commWin.js" type="text/javascript"></script>
  <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script>
  <script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>

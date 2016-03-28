@@ -12,6 +12,7 @@
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 </head>
 
 <body>

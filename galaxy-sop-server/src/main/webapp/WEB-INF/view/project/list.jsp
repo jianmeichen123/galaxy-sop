@@ -102,6 +102,7 @@
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/fx.upload.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/my_ext.js"></script>
@@ -1194,6 +1195,7 @@
 	function loadJs(){
 		$("#f").attr("href","<%=path %>/ueditor/themes/default/css/umeditor.css");
 		$("#a").attr("src","<%=path %>/js/plupload.full.min.js");
+		$("#a").attr("src","<%=path %>/js/plupload/zh_CN.js");
 		$("#b").attr("src","<%=path %>/ueditor/dialogs/map/map.js");
 		$("#c").attr("src","<%=path %>/ueditor/umeditor.config.js");
 		$("#d").attr("src","<%=path %>/ueditor/umeditor.min.js");
