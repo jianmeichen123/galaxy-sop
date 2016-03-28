@@ -14,6 +14,7 @@
 User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 String sessionId = "";
 String realName = "";
+Long departmentId=null;
 Long userId=null;
 Long roleId=null;
 if(null != user) {
@@ -25,6 +26,7 @@ if(null != user) {
 	   roleId = user.getRoleId();
     }
 	userId = user.getId();
+	departmentId = user.getDepartmentId();
 }
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
 %>
@@ -41,6 +43,7 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 	var sessionId = '<%=sessionId%>';
 	var realName = '<%=realName%>';
 	var userId = '<%=userId%>';
+	var departmentId='<%=departmentId%>';
 </script>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
