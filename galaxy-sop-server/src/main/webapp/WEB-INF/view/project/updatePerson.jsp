@@ -50,6 +50,6 @@
     </div>
     </form>
   </div>
-      <a href="javascript:updatePerson();" class="pubbtn bluebtn">保存</a>
+      <a href="javascript:;" onclick="updatePerson()" class="pubbtn bluebtn">保存</a>
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>

@@ -276,17 +276,31 @@ Date.prototype.format = function(fmt){
  * 注意：
  * 1.再引入plupload.full.min.js后，一定要在页面加载时就初始化调用该函数
  */
+//文档
+var fileType_1 = {title : "fileType:1", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBER"};
+//音频
+var fileType_2 = {title : "fileType:2", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,MP3,MP4,AVI,WAV,WMA,AAC,M4A,M4R"};
+//视频
+var fileType_3 = {title : "fileType:3", extensions : "avi,AVI"};
+//图片
+var fileType_4 = {title : "fileType:4", extensions : "bmp,jpg,gif,png,jpeg,BMP,JPG,GIF,PNG,JPEG"};
+//zip
+var fileType_5 = {title : "Zip files", extensions : "zip,rar,ZIP,RAR"};
 
-function paramsFilter(){
-	var filtersparams=[
-                        {title : "fileType:1", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers"},
-					    {title : "fileType:2", extensions : "mp3,mp4,wav,wma,aac,m4a,m4r"},
-					    {title : "fileType:3", extensions : "avi"},
-						{title : "fileType:4", extensions : "bmp,jpg,gif,png,jpeg"}
-						
-					];
+function paramsFilter(indexNum){
+	var filtersparams= new Array();
+	if(indexNum!=null){
+		//1\2\3\4\7  访谈、会议
+		if(indexNum == 1 || indexNum == '1' || indexNum == 2 || indexNum == '2' || indexNum == 3 || indexNum == '3' 
+			|| indexNum == 4 || indexNum == '4' || indexNum == 5 || indexNum == '7'){
+			filtersparams.push(fileType_2);
+		}
+	}else{
+		filtersparams= new Array(fileType_1,fileType_2,fileType_3,fileType_4);
+	}
 	return filtersparams;
 }
+
 /**
  * 
  * @param file-文件
@@ -295,7 +309,7 @@ function paramsFilter(){
 function attrFileType(fileType,file){
 	
 	var type=getFileExt(file.name);
-	var filtersparams=paramsFilter();
+	var filtersparams=paramsFilter(null);
 	for(var i=0;i<filtersparams.length;i++){
 		var value=filtersparams[i];
 		var valueExt=value.extensions;
@@ -333,7 +347,7 @@ function getFileExt(fileName)
 function getFileTypeByExt(ext)
 {
 	var type = "";
-	var filtersparams = paramsFilter();
+	var filtersparams = paramsFilter(null);
 	for(var i=0;i<filtersparams.length;i++)
 	{
 		var value = filtersparams[i];
@@ -356,7 +370,7 @@ function getFileTypeByName(fileName)
 	return type;
 }
 
-function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction) {
+function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction,indexNum) {
 	
 
 	
@@ -369,7 +383,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 		multi_selection:false,
 		filters : {
 			max_file_size : '10mb',
-			mime_types: paramsFilter()
+			mime_types: paramsFilter(indexNum)
 		},
 		init: {
 			//上传按钮点击事件 - 开始上传
@@ -576,25 +590,32 @@ function getInterViewCondition(hasProid,projectId,
 	var viewNotes = $.trim(um.getContent());
 	
 	if(projectId == null || projectId == ""){
-		alert("项目不能为空");
+		layer.msg("项目不能为空");
 		return false;
 	}
 	if(viewDateStr == null ||  viewDateStr == ""){
-		alert("日期不能为空");
+		layer.msg("访谈日期不能为空");
 		return false;
-	}
+	}else{
+		var clock = getNowDay("-");
+		if((new Date(viewDateStr)) > (new Date(clock))){
+			layer.msg("访谈日期不能超过今天");
+			return false;
+         }
+	 }
+	
 	if(viewTarget == null ||  viewTarget == ""){
-		alert("对象不能为空");
+		layer.msg("对象不能为空");
 		return false;
 	}else{
 		if(getLength(viewTarget) > 50){
-			alert("对象长度最大50字节");
+			layer.msg("对象长度最大50字节");
 			return false;
 		}
 	}
 	if(viewNotes != null && viewNotes.length > 0){
 		if(viewTarget.length > 3000){
-			alert("访谈记录长度最大3000字符");
+			layer.msg("访谈记录长度最大3000字符");
 			return false;
 		}
 	}
@@ -657,28 +678,34 @@ function getMeetCondition(hasProid,projectId,
 	var meetingNotes = $.trim(um.getContent());
 	
 	if(projectId == null || projectId == ""){
-		alert("项目不能为空");
+		layer.msg("项目不能为空");
 		return false;
 	}
 	
 	if(meetingDateStr == null ||  meetingDateStr == ""){
-		alert("日期不能为空");
+		layer.msg("会议日期不能为空");
 		return false;
-	}
+	}else{
+		var clock = getNowDay("-");
+		if((new Date(meetingDateStr)) > (new Date(clock))){
+			layer.msg("会议日期不能超过今天");
+			return false;
+         }
+	 }
 	
 	if(meetingType == null ||  meetingType == ""){
-		alert("类型不能为空");
+		layer.msg("类型不能为空");
 		return false;
 	}
 	
 	if(meetingResult == null ||  meetingResult == ""){
-		alert("结果不能为空");
+		layer.msg("结果不能为空");
 		return false;
 	}
 	
 	if(meetingNotes != null && meetingNotes.length > 0){
 		if(meetingNotes.length > 3000){
-			alert("会议记录长度最大3000字符");
+			layer.msg("会议记录长度最大3000字符");
 			return false;
 		}
 	}
@@ -815,5 +842,16 @@ function delHtmlTag(str)
 
 }
 
-
+function getNowDay(fg){
+	var now = new Date();
+	var year = now.getFullYear();       //年
+	var month = now.getMonth() + 1;     //月
+	var day = now.getDate();
+	var clock = year + fg;
+	if(month < 10) clock += "0";
+	clock += month + fg;
+	if(day < 10) clock += "0";
+	clock += day;
+	return clock;
+}
 

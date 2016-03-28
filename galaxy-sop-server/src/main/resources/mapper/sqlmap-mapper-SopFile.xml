@@ -4,6 +4,7 @@
 	<resultMap id="BaseResultMap" type="SopFilePO">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="project_id" jdbcType="BIGINT" property="projectId" />
+		<result column="file_valid" jdbcType="INTEGER" property="fileValid" />
 		<result column="project_progress" jdbcType="VARCHAR" property="projectProgress" />
 		<result column="file_worktype" jdbcType="VARCHAR" property="fileWorktype" />
 		<result column="career_line" jdbcType="BIGINT" property="careerLine" />
@@ -25,7 +26,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		id, project_id, project_progress, file_worktype, career_line,
+		id, project_id, file_valid, project_progress, file_worktype, career_line,
 		file_source, file_type,
 		remark, voucher_id,  file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
@@ -38,6 +39,7 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id,jdbcType=BIGINT}</if>
 				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="fileValid != null" >and file_valid = #{fileValid,jdbcType=INTEGER} </if>
 				<if test="projectProgress != null" >and project_progress = #{projectProgress,jdbcType=VARCHAR} </if>				
 				<choose>
 					<when test="fileWorktype != null" >
@@ -97,7 +99,12 @@
 					</trim> 
 					)
 				</if>
-				
+				<if test="ids != null"> 
+					and id in
+					<foreach collection="ids" item="idItem" index="index" open="(" close=")" separator=",">
+			            #{idItem}
+			        </foreach>
+				</if>
 							
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
@@ -126,6 +133,19 @@
 		</if>
 	</select>
 	
+	<!-- 查询 -->
+	<select id="selectByProjectId" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_file
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null" >project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="fileWorktype != null" > and file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if>
+			</trim>
+		</where>
+	</select>
+	
 	<!-- 查询总数 -->
 	<select id="selectCount" resultType="java.lang.Long"
 		parameterType="java.util.Map">
@@ -150,13 +170,13 @@
 	</delete>
 	
  	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="SopFilePO">
- 		insert into sop_file (id, project_id, project_progress,
+ 		insert into sop_file (id, project_id, file_valid, project_progress,
  		file_worktype, career_line, file_source,
  		file_type, remark, voucher_id, file_status,
  		file_uid, fil_uri, updated_time,
  		created_time, file_length, file_key,
  		bucket_name,file_name,file_suffix)
- 		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT},
+ 		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileValid,jdbcType=INTEGER},
  		#{projectProgress,jdbcType=VARCHAR},
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
  		#{fileType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{voucherId,jdbcType=BIGINT},
@@ -173,6 +193,7 @@
 		update sop_file
 		<set>
 			<if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
+			<if test="fileValid != null"> file_valid = #{fileValid,jdbcType=INTEGER}, </if>
 			<if test="projectProgress != null"> project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
 			<if test="fileWorktype != null"> file_worktype = #{fileWorktype,jdbcType=VARCHAR}, </if>
 			<if test="careerLine != null"> career_line = #{careerLine,jdbcType=BIGINT}, </if>
@@ -202,6 +223,7 @@
 		update sop_file
 		<set>
 			<if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
+			<if test="fileValid != null"> file_valid = #{fileValid,jdbcType=INTEGER}, </if>
 			<if test="projectProgress != null"> project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
 			<if test="fileWorktype != null"> file_worktype = #{fileWorktype,jdbcType=VARCHAR}, </if>
 			<if test="careerLine != null"> career_line = #{careerLine,jdbcType=BIGINT}, </if>
@@ -235,6 +257,7 @@
 		<where>
 			<trim prefixOverrides="and">
 				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="fileValid != null" >and file_valid = #{fileValid,jdbcType=INTEGER} </if>
 				<if test="projectProgress != null" > and project_progress = #{projectProgress} </if>
 				<if test="fileworktypeList != null"> 
 					and file_worktype in
@@ -254,6 +277,7 @@
 		<where>
 			<trim prefixOverrides="and">
 				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="fileValid != null" >and file_valid = #{fileValid,jdbcType=INTEGER} </if>
 				<if test="fileWorktype != null" > and  file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>

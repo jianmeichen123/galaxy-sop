@@ -76,16 +76,20 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		svf.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
 		Long fid = sopVoucherFileDao.insert(svf);
 		svf.setId(null);
+		f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
 		f.setVoucherId(fid);
 		sopFileDao.insert(f);
 		f.setId(null);
+		f.setVoucherId(null);
 		//尽调阶段
+		f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.业务尽职调查报告.getCode());
 		sopFileDao.insert(f);
 		f.setId(null);
+		f.setFileValid(0);
 		f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());
 		sopFileDao.insert(f);
@@ -95,43 +99,51 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		svf.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
 		fid = sopVoucherFileDao.insert(svf);
 		svf.setId(null);
+		f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
 		f.setVoucherId(fid);
 		sopFileDao.insert(f);
 		f.setId(null);
+		f.setVoucherId(null);
 		//股权交割
+		f.setFileValid(0);
 		f.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.工商转让凭证.getCode());
 		sopFileDao.insert(f);
 		f.setId(null);
+		f.setFileValid(0);
 		f.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.资金拨付凭证.getCode());
 		sopFileDao.insert(f);
 		f.setId(null);
 		
 		//投后运营
+		f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.公司资料.getCode());
 		sopFileDao.insert(f);
 		f.setId(null);
+		f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.财务预测报告.getCode());
 		sopFileDao.insert(f);
 		f.setId(null);
+		f.setFileValid(1);
 		f.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
 		f.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
 		sopFileDao.insert(f);
 		f.setId(null);
 		
-		
 		if(project.getProjectType() != null && 
 				DictEnum.projectType.外部投资.getCode().equals(project.getProjectType())){
 			//外部投资项目必须四个尽调、内部创建必须两个尽调
+			f.setFileValid(0);
 			f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 			f.setFileWorktype(DictEnum.fileWorktype.法务尽职调查报告.getCode());
 			sopFileDao.insert(f);
 			f.setId(null);
+			f.setFileValid(0);
 			f.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 			f.setFileWorktype(DictEnum.fileWorktype.财务尽职调查报告.getCode());
 			sopFileDao.insert(f);
@@ -141,6 +153,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			svf.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
 			fid = sopVoucherFileDao.insert(svf);
 			svf.setId(null);
+			f.setFileValid(1);
 			f.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 			f.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
 			f.setVoucherId(fid);

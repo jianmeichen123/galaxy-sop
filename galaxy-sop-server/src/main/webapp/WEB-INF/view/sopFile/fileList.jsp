@@ -21,7 +21,13 @@
 	<script src="<%=path%>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
     <script src="<%=path %>/js/init.js"></script>
 <%--     <script src="<%=path %>/js/jquery.showLoading.min.js"></script> --%>
-    
+    <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
+	<script type="text/javascript" src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
+	<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>  
+	<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 </head>
 
 <body>
@@ -34,18 +40,12 @@
  	<div class="ritmin">
     	<h2>档案管理</h2>
         <!--页眉-->
- <!--        <div class="top clearfix">
-        	按钮
+        <div class="top clearfix">
+        	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-            	<button type="button" class="btn btn-primary" id="uploadOpenBtn">
-            		<span class="glyphicon glyphicon-upload"></span>档案上传
-            	</button>
-            	<button type="button" class="btn btn-primary" id="openBtn">
-            		<span class="glyphicon glyphicon-upload"></span>档案更新
-            	</button>
-            	<a type="button" class="pubbtn bluebtn ico c3" id="emailBtn">发邮件给</a>
+                <a href="javascript:;" class="pubbtn bluebtn ico c3" id="show-mail-btn">发邮件给</a>
             </div>
-        </div> -->
+        </div>	
         <!-- 搜索条件 -->
         <div class="min_document clearfix"  id="custom-toolbar">
           <div class="top clearfix search_adjust searchall">
@@ -78,8 +78,8 @@
               </select>
             </dd>
           </dl>
-          <dl class="fmdl fml fmdll clearfix">
-            <dt>所属业务线：</dt>
+          <dl class="fmdl fml fmdll clearfix" id="srearch_careerline_div">
+            <dt>所属部门：</dt>
             <dd>
 			  <!--name="careerLine" -->
               <select id="searchCareerLine">
@@ -106,7 +106,7 @@
 
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="../sopFile/projectDialog.jsp" flush="true"></jsp:include>
-
+<jsp:include page="/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
 
 
 
@@ -125,7 +125,61 @@
 
 
 <script type="text/javascript">
-
+$(function(){
+	$("#show-mail-btn").click(function(){
+		var rows = $("#fileGrid").bootstrapTable('getSelections');
+		if(rows.length==0)
+		{
+			layer.msg('请选择档案。');
+			return;
+		}
+		$.popup({
+			txt:$("#mail-dialog").html(),
+			showback:function(){
+				var _dialog = this;
+				var opts = {
+						rules : {
+							toAddress:{
+								required:true,
+								emails:true
+							}
+							
+						}
+				};
+				var valdator = $(_dialog.id).find('form').fxValidate(opts);
+				var i =1;
+				var ids = new Array();
+				$.each(rows,function(){
+					var $tr=$("<tr></tr>");
+					$tr.append("<td>"+ i +"</td>");
+					$tr.append("<td>"+ this.fWorktype +"</td>");
+					$tr.append("<td>"+ this.fileLength +"</td>");
+					$(_dialog.id).find("#attach-table tbody").append($tr);
+					ids.push(this.id);
+					i++;
+				});
+				
+				$(_dialog.id).find("#send-mail-btn").click(function(){
+					if(!valdator.form())
+					{
+						return;
+					}
+				 	var $form = $(_dialog.id).find("#mail-form");
+					var data = JSON.parse($form .serializeObject());
+					data['templateIds']=ids;
+					var url = platformUrl.fileSendEmail;
+					sendPostRequestByJsonObj(
+							url,
+							data,
+							function(data){
+								layer.msg("发送邮件成功.");
+							}
+					); 
+				});
+			}
+		});
+	});
+});
 </script>
 </html>
 

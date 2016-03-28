@@ -5,7 +5,6 @@ var Constants = {
 var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
 //var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
 //var sopContentUrl = "http://127.0.0.1:8888/sop";
-//var sopContentUrl = "http://127.0.0.1:8080/";
 
 var platformUrl = {
 		
@@ -193,6 +192,10 @@ var platformUrl = {
 	 */
 	dictFindByParentCode : sopContentUrl + "/galaxy/sopFile/getDictByParent",
 	/**
+	 * 获取页面显示权限
+	 */
+	sopFileCheckShow : sopContentUrl + "/galaxy/sopFile/checkShow",
+	/**
 	 * 文档查询-无分页
 	 */
 	queryFile : sopContentUrl+"/galaxy/sopFile/query",
@@ -228,6 +231,10 @@ var platformUrl = {
 	 * 更新任务状态
 	 */
 	updateTaskStatus: sopContentUrl + "/galaxy/soptask/updateTaskStatus",
+	/**
+	 * 人法财提交完成
+	 */
+	submitTask: sopContentUrl + "/galaxy/soptask/submitTask",
 	/**
 	 * 项目阶段过程的记录保存
 	 */
@@ -359,7 +366,15 @@ var platformUrl = {
 	/**
 	 * Ajax判断项目名称，组织机构代码是否重复
 	 */
-	checkProject:sopContentUrl + "/galaxy/project/checkProject"
+	checkProject:sopContentUrl + "/galaxy/project/checkProject",
+	/**
+	 * 档案管理发送邮件窗口
+	 */
+	showFileMailDialog:sopContentUrl + "/galaxy/sopFile/showMailDialog",
+	/**
+	 * 档案管理发送邮
+	 */
+	fileSendEmail:sopContentUrl + "/galaxy/sopFile/sendMail"
 }
 
 /**

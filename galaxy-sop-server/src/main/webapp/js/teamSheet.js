@@ -54,7 +54,7 @@
 								dataGrid.load(_projectId);
 							},
 							_url : platformUrl.commonUploadFile,
-							_isProve : false
+							_isProve : "hide"
 						};
 //					win.initData();
 					win.init(_formdata);
@@ -104,10 +104,10 @@
 							filters : {
 								max_file_size : '25mb',
 								mime_types: [
-								    {title : "Zip files", extensions : "zip,rar"},
-									{title : "Image files", extensions : "bmp,jpg,jpeg,gif,png"},
-									{title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,flv"},
-									{title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers"}
+								    {title : "Zip files", extensions : "zip,rar,ZIP,RAR"},
+									{title : "Image files", extensions : "bmp,jpg,jpeg,gif,png,BMP,JPG,JPEG,GIF,PNG"},
+									{title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,flv,MP3,MP4,AVI,WAV,WMA,AAC,M4A,M4R,FLV"},
+									{title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBERS"}
 								]
 							},
 							init: {
@@ -238,8 +238,13 @@
 				}
 				//签署证明
 				if(typeof(_formdata._isProve) != "undefined"){
-					$isProve.attr("checked",_formdata._isProve); 
-					$isProve.attr("disabled","disabled")
+					if(_formdata._isProve == "hide"){
+						$(_this.id).find("#win_isProve_div").hide();
+					}else{
+						$isProve.attr("checked",_formdata._isProve); 
+						$isProve.attr("disabled","disabled")
+					}
+					
 				}	
 				
 			},

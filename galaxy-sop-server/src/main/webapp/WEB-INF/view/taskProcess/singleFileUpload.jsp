@@ -44,7 +44,7 @@
 	        <dd>
 	        	<select name="fileWorktype" disabled></select>
 	        </dd>
-	        <!-- <dd>
+	    <!--     <dd>
 	        	<label><input type="checkbox"/>签署凭证</label>
 	        </dd> -->
 	    </dl>
@@ -79,7 +79,7 @@ $(function(){
 	$("#complete-task-btn").click(function(){
 		//更新task为完成状态
 		sendPostRequestByJsonObj(
-			platformUrl.updateTaskStatus,
+			platformUrl.submitTask,
 			{
 				id:"${taskId}",
 				taskStatus:"taskStatus:3"

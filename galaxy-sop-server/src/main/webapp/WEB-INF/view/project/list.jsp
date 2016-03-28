@@ -304,7 +304,8 @@
 						$("#file_repository").css("display","block");
 						data = {
 								_domid : "file_repository_table",
-								_projectId : $("#project_id").val()
+								_projectId : $("#project_id").val(),
+								_progress : progress
 						}
 						fileGrid.init(data);
 					});				
@@ -324,7 +325,7 @@
 	/**
 	 * 上传接触访谈纪要弹出层
 	 */
-	function air(){
+	function air(indexNum){
 		
 		$("[data-id='popid1']").remove();
 		
@@ -374,7 +375,7 @@
 								"fileId" : fileId
 							};*/
 							return condition;
-						});
+						},indexNum);
 			}
 		});
 		return false;
@@ -445,7 +446,7 @@
 							condition.result = meetingResult;
 							condition.content = meetingNotes;
 							return condition;
-						});
+						},num);
 			}
 		});
 		return false;
@@ -621,7 +622,7 @@
 					condition.fileWorktype = fileWorktype;
 					condition.voucherType = voucherType;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -661,7 +662,7 @@
 								if(uploader.files.length >= 1){
 									uploader.splice(0, uploader.files.length-1)
 								}
-								$.each(files, function() {
+								$.each(files, function(i,o) {
 									$("#file_obj").val(this.name);
 									var arr = new Array();
 									arr = this.name.split(".");
@@ -669,7 +670,7 @@
 									if(arr){
 										type=arr[1];
 									}
-									var filtersparams=paramsFilter();
+									var filtersparams=paramsFilter(null);
 									for(var i=0;i<filtersparams.length;i++){
 										var value=filtersparams[i];
 										var valueExt=value.extensions;
@@ -768,7 +769,7 @@
 						 html += "</td><td>" + o.createDate + "</td>";
 						 html += "<td>财务部</td><td>"+o.fType+"</td>";
 					 }
-					 if(o.fileStatus == 'fileStatus:1'){
+					 if(o.fileStatus == 'fileStatus:1' || o.fileValid == '0'){
 						 html += "<td>缺失</td>";
 						 if(o.fileWorktype != 'fileWorktype:1'){
 							 html +='<td><a href="javascript:; " onclick="taskUrged('+o.id+');"class="blue">催办 </a></td>';
@@ -838,7 +839,7 @@
 					condition.fileType = fileType;
 					condition.fileWorktype = fileWorktype;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -901,7 +902,7 @@
 					function(data){
 						
 						_tbody.empty();
-						$.each(data.entityList,function(){
+						$.each(data.entityList,function(i,o){
 							
 								var $tr=$('<tr></tr>');
 								
@@ -923,26 +924,26 @@
 								$tr.append('<td>'+this.fileStatusDesc+'</td>') ;
 								if(this.fileWorktype == 'fileWorktype:6'){
 									if(this.fileKey == null){	
-										$tr.append('<td><a href="javascript:tzxyAlert(8,0);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
-										$tr.append('<td><a href="javascript:tzxyAlert(8,1);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,1);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 									}
 								}else if(this.fileWorktype == 'fileWorktype:7'){
 									
 									if(this.fileKey == null){	
-										$tr.append('<td><a href="javascript:gqzrAlert(8,0);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,0);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
-										$tr.append('<td><a href="javascript:gqzrAlert(8,1);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,1);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\');" class="blue">查看</a></td>'); 	
 									}
 								}
 								_tbody.append($tr);
@@ -1019,7 +1020,7 @@
 					condition.voucherType = voucherType;
 					condition.hasStockTransfer=hasStockTransfer;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -1089,7 +1090,7 @@
 					condition.voucherType = voucherType;
 					condition.hasStockTransfer=hasStockTransfer;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
