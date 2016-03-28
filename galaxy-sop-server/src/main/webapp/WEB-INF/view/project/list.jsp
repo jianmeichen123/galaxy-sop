@@ -505,7 +505,7 @@
 							for(var p in dataList){
 								var handlefile="";
 								if(!hasClosed){
-									handlefile='<a href="javascript:;" onclick="downFile(5);" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>';
+									handlefile='<a href="javascript:;" onclick="downloadTemplate(\'fileWorkType:5\');" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>';
 							        if (dataList[p].fileStatusDesc == "缺失") { 
 							        	handlefile +='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
 									}else{
@@ -1212,6 +1212,16 @@
 			pidParam = "&projectId="+alertid;
 		}
 		var url = platformUrl.tempDownload+"?id="+id+pidParam;
+		forwardWithHeader(url);
+	}
+	function downloadTemplate(fileWorktype)
+	{
+		var pidParam = "";
+		if(alertid>=0)
+		{
+			pidParam = "&projectId="+alertid;
+		}
+		var url = platformUrl.tempDownload+"?worktype="+fileWorktype+pidParam;
 		forwardWithHeader(url);
 	}
 	
