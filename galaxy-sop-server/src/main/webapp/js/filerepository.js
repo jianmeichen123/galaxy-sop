@@ -147,7 +147,7 @@ var fileGrid = {
         			_workType : row.fileWorktype,
         			_projectId : row.projectId,
         			_projectName : row.projectName,
-        			_isProve : hide(),
+        			_isProve : "hide",
     				callFuc : function(){
     					fileGrid.serarchData();
     				},
