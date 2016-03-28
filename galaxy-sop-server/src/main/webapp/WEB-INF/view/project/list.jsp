@@ -924,26 +924,26 @@
 								$tr.append('<td>'+this.fileStatusDesc+'</td>') ;
 								if(this.fileWorktype == 'fileWorktype:6'){
 									if(this.fileKey == null){	
-										$tr.append('<td><a href="javascript:tzxyAlert(8,0);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
-										$tr.append('<td><a href="javascript:tzxyAlert(8,1);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,1);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 									}
 								}else if(this.fileWorktype == 'fileWorktype:7'){
 									
 									if(this.fileKey == null){	
-										$tr.append('<td><a href="javascript:gqzrAlert(8,0);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,0);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
-										$tr.append('<td><a href="javascript:gqzrAlert(8,1);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,1);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\');" class="blue">查看</a></td>'); 	
 									}
 								}
 								_tbody.append($tr);

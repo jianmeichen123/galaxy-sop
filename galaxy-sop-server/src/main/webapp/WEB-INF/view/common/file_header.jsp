@@ -37,7 +37,7 @@
     <div class="usermsg rit clearfix">
         <span class="ico name">您好，<%=realName%></span>
         <b class="line null">分割线</b>
-        <a href="javascript:logout()" class="loginout">退出</a>
+        <a href="javascript:;" onclick="logout()" class="loginout">退出</a>
     </div>
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>

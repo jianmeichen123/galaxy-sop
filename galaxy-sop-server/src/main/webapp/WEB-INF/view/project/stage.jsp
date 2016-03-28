@@ -261,7 +261,7 @@
 				<!--按钮-->
 				<div id="options_point3" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" onclick="addMettingRecord(3,'meetingType:2')" class="pubbtn fffbtn lpubbtn">添加会议记录</a> 
-					<a href="javascript:toEstablishStage();" id="lxhpq" class="pubbtn fffbtn lpubbtn">立项会排期</a>
+					<a href="javascript:;" onclick="toEstablishStage()" id="lxhpq" class="pubbtn fffbtn lpubbtn">立项会排期</a>
 				</div>
 				
 				<div id="projectProgress_3_table_custom-toolbar">
@@ -343,8 +343,8 @@
 			<div class="block" data-tab="con" id="projectProgress_6_con">
 				<!--按钮-->
 				<div id="jzdc_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:uploadYwjd();"  class="pubbtn fffbtn llpubbtn">上传业务尽职调查报告</a>
-					<a href="javascript:inTjh();" class="pubbtn fffbtn lpubbtn">申请投决会排期</a>
+					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn">上传业务尽职调查报告</a>
+					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn">申请投决会排期</a>
 				</div>
 				<div class="process clearfix">
 					<h2>业务尽调报告审核流程</h2>
