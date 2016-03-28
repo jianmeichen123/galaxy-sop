@@ -293,16 +293,18 @@ table .width_gd{width:12%;}
 /*公用tips连接*/
 .tipslink{ height:20px; line-height:20px}
 .tipslink li{ float:left; margin:0 20px 0 0}
-/* .tipslink li.on a{font-weight: bold;} */
-.tipslink li a{ color:#3e4351; font-size:14px; font-family:"微软雅黑"}
+.tipslink li.on a{font-weight: bold;}
+.tipslink li a{ color:#3e4351; font-size:14px; font-family:"宋体"}
 .tipslink li a span{ color:#7a8798; font-size:12px}
 /*标签连接*/
 .tablink{ height:30px; line-height:30px}
 .tablink li{ float:left; padding:0 10px; margin:0 4px 0 0; background:#d6d8e1; height:30px; border-radius:4px 4px 0 0;cursor: pointer;}
-.tablink li a{ font-size:14px;color:#8f97b2;font-family:"微软雅黑"}
+.tablink li a{ font-size:14px;color:#8f97b2;font-family:"微软雅黑" !important;}
 .tablink li a:hover{ text-decoration:none}
 .tablink .on{ background:#FFF}
 .tablink .on a{ color:#5d678a}
+.tablink li.on a{font-weight: normal !important;}
+
 /*公用搜索*/
 .search{ float:right; width:300px; height:36px; background:#ffffff; border-radius:4px; padding:0 8px}
 .search .txt{ border:0; background-color:transparent; height:36px; line-height:36px; color:#666; font-size:16px; width:300px}
@@ -483,7 +485,9 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .rit_executive .tjh_block,.pagebox .min .tablist .r_executive .executive_last,.pagebox .min .tablist .l_executive .executive_last{height:234px;overflow: hidden;}
 /* 工作桌面添加静态预览标识 begin */
 .pagebox .min .tablist .r_executive .executive_last,.pagebox .min .tablist .Creative_library{position: relative;}
-.pagebox .min .tablist .r_executive .executive_last img,.pagebox .min .tablist .Creative_library img{position: absolute;top:50%;left: 50%;margin-left: -74px;margin-top:-60px;z-index: 1000;}
+.pagebox .min .tablist .r_executive .executive_last img,.pagebox .min .tablist .Creative_library img{position: absolute;top:50%;left: 50%;margin-left: -74px;margin-top:-60px;}
+.pagebox .min .tablist .r_executive .executive_last img{z-index: 1000;}
+.pagebox .min .tablist .Creative_library img{z-index: 10;}
 /* 项目运营添加静态预览标识 end */
 .pagebox .rit_executive .top{height:200px;overflow: hidden;}
 .pagebox .min .tablist .l_executive{width:49.6%; margin:-2px 2px 0 0}
@@ -797,9 +801,9 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 
 /* 投后静态预览 */
 .label_static{position: relative;}
-.label_static img{position: absolute;left: 50%;margin-left: -74px;top: 250px;z-index: 1000;}
+.label_static img{position: absolute;left: 50%;margin-left: -74px;top: 250px;z-index: 999;}
 .chartbox_bottom{position: relative;}
-.chartbox_bottom img{position: absolute;left: 50%;margin-left: -74px;top: 220px;z-index: 1000;}
+.chartbox_bottom img{position: absolute;left: 50%;margin-left: -74px;top: 220px;z-index: 999;}
 /* 加皇冠 */
 .tabtable_con table .no1{background:url(../img/hg1.png) center center no-repeat;z-index: -999;font-size: 0;}
 .tabtable_con table .no2{background:url(../img/hg2.png) center center no-repeat;z-index: -999;font-size: 0;}
@@ -1127,7 +1131,8 @@ dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../
 .search_adjust .fml dd{width:250px !important;}
 /**切断文字**/
 .text-overflow{width:400px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
+/**切断文字 end**/
 #template-table{border-radius: 6px;}
 .percentTxt{width:30px !important;display: inline-block !important;}
 .no_content{font-size: 14px;color:#7a8798;margin: 60px 0 0 0;text-align: center;}
-#container_jdjy{margin-bottom: 10px;}
+#container_jdjy,#container_xmzzl{margin-bottom: 20px;}
