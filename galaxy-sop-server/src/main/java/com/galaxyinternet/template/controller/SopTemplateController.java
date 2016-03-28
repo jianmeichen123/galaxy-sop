@@ -299,7 +299,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 				fileLinks += String.format(linkTemplate, href,fileName);
 			}
 			content = PlaceholderConfigurer.formatText(content, userName, curUser.getRealName(), curTime, list.size(),fileLinks);
-			boolean success = SimpleMailSender.sendHtmlMail(mailInfo.getToAddress(),  mailInfo.getTitle(),content.toString());
+			boolean success = SimpleMailSender.sendMultiMail(mailInfo.getToAddress(),  mailInfo.getTitle(),content.toString());
 			
 			if(success)
 			{

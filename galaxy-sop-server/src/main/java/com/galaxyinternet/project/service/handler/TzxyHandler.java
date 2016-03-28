@@ -129,6 +129,10 @@ public class TzxyHandler implements Handler {
 				r = new SopResult(Status.OK,null,"上传投资协议签署证明成功!",UrlNumber.twelve);
 			}
 		}else{
+			if(q.getHasStockTransfer() != null && q.getHasStockTransfer().intValue() == 1){
+				project.setStockTransfer(q.getHasStockTransfer().intValue());
+				projectDao.updateById(project);
+			}
 			//非签署证明
 			SopFile qf = new SopFile();
 			qf.setProjectId(q.getPid());
