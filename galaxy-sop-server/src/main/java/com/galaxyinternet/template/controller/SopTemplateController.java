@@ -277,7 +277,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			for(SopTemplate template : list)
 			{
 				String fileName = template.getFileName();
-				String href = endpoint+"openEntry/download/template/"+template.getId();
+				String href = endpoint+"galaxy/openEntry/download/template/"+template.getId();
 				content.append(String.format(linkTemplate, href,fileName));
 			}
 			boolean success = SimpleMailSender.sendHtmlMail(mailInfo.getToAddress(),  mailInfo.getTitle(),content.toString());

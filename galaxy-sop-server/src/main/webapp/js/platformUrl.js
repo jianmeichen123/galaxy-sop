@@ -362,7 +362,15 @@ var platformUrl = {
 	/**
 	 * Ajax判断项目名称，组织机构代码是否重复
 	 */
-	checkProject:sopContentUrl + "/galaxy/project/checkProject"
+	checkProject:sopContentUrl + "/galaxy/project/checkProject",
+	/**
+	 * 档案管理发送邮件窗口
+	 */
+	showFileMailDialog:sopContentUrl + "/galaxy/sopFile/showMailDialog",
+	/**
+	 * 档案管理发送邮
+	 */
+	fileSendEmail:sopContentUrl + "/galaxy/sopFile/sendMail"
 }
 
 /**
