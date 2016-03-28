@@ -407,6 +407,7 @@ function showMailPopup()
 			var _dialog = this;
 			var i=0;
 			var valdator = $(_dialog.id).find('form').fxValidate();
+			var ids = new Array();
 			$.each(flags,function(){
 				var flag = $(this);
 				i++;
@@ -416,7 +417,7 @@ function showMailPopup()
 				$tr.append("<td>"+ $row.data('file-name') +"</td>");
 				$tr.append("<td>"+ $row.data('file-length') +"</td>");
 				$(_dialog.id).find("#attach-table tbody").append($tr);
-				$(_dialog.id).find("#mail-form").prepend('<input type="hidden" name="templateIds" value="'+$row.data('id')+'">');
+				ids.push($row.data('id'));
 			});
 			$(_dialog.id).find("#send-mail-btn").click(function(){
 				if(!valdator.form())
@@ -425,6 +426,7 @@ function showMailPopup()
 				}
 			 	var $form = $(_dialog.id).find("#mail-form");
 				var data = JSON.parse($form .serializeObject());
+				data['templateIds']=ids;
 				var url = platformUrl.tempSendMail;
 				sendPostRequestByJsonObj(
 						url,

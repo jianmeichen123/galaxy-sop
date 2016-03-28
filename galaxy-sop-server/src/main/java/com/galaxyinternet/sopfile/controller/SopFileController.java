@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
@@ -54,6 +56,7 @@ import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.operationLog.UrlNumber;
@@ -61,6 +64,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.template.TemplateMailInfo;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
@@ -1122,5 +1126,83 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return resp;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/checkShow", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> checkShow(HttpServletRequest request,@RequestBody(required=false) SopFile query)
+	{
+		ResponseData<SopFile> resp = new ResponseData<SopFile>();
+		try {
+			Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			User user = (User) obj;
+			if(user == null){
+				resp.setResult(new Result(Status.ERROR, ERROR_NO_LOGIN));
+			}
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			boolean result = RoleUtils.isDAGLY(roleIdList);
+			if(result){
+				resp.setResult(new Result(Status.OK, ""));
+			}else{
+				resp.setResult(new Result(Status.ERROR, ""));
+			}
+			
+		} catch (Exception e) {
+			Object msg = "查询失败.";
+			resp.getResult().addError(msg);
+			logger.error(msg.toString(),e);
+		}
+		return resp;
+	}
+	@RequestMapping("/showMailDialog")
+	public ModelAndView showMailDialog()
+	{
+		ModelAndView mv = new ModelAndView("/sopFile/mailDialog");
+	
+		return mv;
+	}
+	
+	@RequestMapping("/sendMail")
+	@ResponseBody
+	public Result sendMail(HttpServletRequest request,@RequestBody TemplateMailInfo mailInfo)
+	{
+		Result rtn = new Result();
+		try 
+		{
+			SopFileBo bo = new SopFileBo();
+			if(mailInfo.getTemplateIds() != null && mailInfo.getTemplateIds().length>0)
+			{
+				bo.setIds(Arrays.asList(mailInfo.getTemplateIds()));
+			}
+			
+			List<SopFile> list = sopFileService.queryList(bo);
+			
+			StringBuffer content = new StringBuffer();
+			content.append(mailInfo.getContent());
+			content.append("<br/>");
+			content.append("邮件附件:<br/>");
+			String endpoint = getCurrEndpoint(request);
+			String linkTemplate = "<a href=\"%s\">%s</a><br/>";
+			for(SopFile sopFile : list)
+			{
+				String fileName = sopFile.getfWorktype();
+				String href = endpoint+"galaxy/openEntry/download/file/"+sopFile.getId();
+				content.append(String.format(linkTemplate, href,fileName));
+			}
+			boolean success = SimpleMailSender.sendHtmlMail(mailInfo.getToAddress(),  mailInfo.getTitle(),content.toString());
+			
+			if(success)
+			{
+				rtn.addOK("邮件发送成功.");
+			}
+			else
+			{
+				rtn.addError("邮件发送失败。");
+			}
+			
+		} catch (Exception e) {
+			logger.error("邮件发送失败。",e);
+			rtn.addError("邮件发送失败。");
+		}
+		return rtn;
+	}
 	
 }

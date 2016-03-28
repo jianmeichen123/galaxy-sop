@@ -277,16 +277,29 @@ Date.prototype.format = function(fmt){
  * 1.再引入plupload.full.min.js后，一定要在页面加载时就初始化调用该函数
  */
 
-function paramsFilter(){
-	var filtersparams=[
-                        {title : "fileType:1", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers"},
+function paramsFilter(indexNum){
+	var fileType_1 = {title : "fileType:1", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers"};
+	var fileType_2 = {title : "fileType:2", extensions : "mp3,mp4,wav,wma,aac,m4a,m4r"};
+	var fileType_3 = {title : "fileType:3", extensions : "avi"};
+	var fileType_4 = {title : "fileType:4", extensions : "bmp,jpg,gif,png,jpeg"};
+	var filtersparams= new Array();
+	if(indexNum!=null){
+		if(indexNum == 1 || indexNum == '1' || indexNum == 2 || indexNum == '2' || indexNum == 3 || indexNum == '3' 
+			|| indexNum == 4 || indexNum == '4' || indexNum == 5 || indexNum == '7'){
+			filtersparams.push(fileType_2);
+		}
+	}else{
+		filtersparams=[
+                       {title : "fileType:1", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers"},
 					    {title : "fileType:2", extensions : "mp3,mp4,wav,wma,aac,m4a,m4r"},
 					    {title : "fileType:3", extensions : "avi"},
 						{title : "fileType:4", extensions : "bmp,jpg,gif,png,jpeg"}
 						
 					];
+	}
 	return filtersparams;
 }
+
 /**
  * 
  * @param file-文件
@@ -356,7 +369,7 @@ function getFileTypeByName(fileName)
 	return type;
 }
 
-function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction) {
+function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction,indexNum) {
 	
 
 	
@@ -369,7 +382,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 		multi_selection:false,
 		filters : {
 			max_file_size : '10mb',
-			mime_types: paramsFilter()
+			mime_types: paramsFilter(indexNum)
 		},
 		init: {
 			//上传按钮点击事件 - 开始上传

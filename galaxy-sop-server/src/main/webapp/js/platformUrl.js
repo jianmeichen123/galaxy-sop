@@ -192,6 +192,10 @@ var platformUrl = {
 	 */
 	dictFindByParentCode : sopContentUrl + "/galaxy/sopFile/getDictByParent",
 	/**
+	 * 获取页面显示权限
+	 */
+	sopFileCheckShow : sopContentUrl + "/galaxy/sopFile/checkShow",
+	/**
 	 * 文档查询-无分页
 	 */
 	queryFile : sopContentUrl+"/galaxy/sopFile/query",
@@ -358,7 +362,15 @@ var platformUrl = {
 	/**
 	 * Ajax判断项目名称，组织机构代码是否重复
 	 */
-	checkProject:sopContentUrl + "/galaxy/project/checkProject"
+	checkProject:sopContentUrl + "/galaxy/project/checkProject",
+	/**
+	 * 档案管理发送邮件窗口
+	 */
+	showFileMailDialog:sopContentUrl + "/galaxy/sopFile/showMailDialog",
+	/**
+	 * 档案管理发送邮
+	 */
+	fileSendEmail:sopContentUrl + "/galaxy/sopFile/sendMail"
 }
 
 /**

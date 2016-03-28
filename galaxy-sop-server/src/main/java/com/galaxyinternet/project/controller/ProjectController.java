@@ -597,6 +597,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 项目阶段中的文档上传
 	 * 该项目对应的创建人操作
 	 * @author yangshuhua
+	 * voucherType
 	 */
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
 	@ResponseBody
@@ -647,7 +648,41 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, "该操作已过期!"));
 				return responseBody;
 			}
+			
+			if(p.getVoucherType()!=null && p.getVoucherType().intValue() == 1){
+				SopFile fileQuery = null;
+				if( p.getFileWorktype().equals(DictEnum.fileWorktype.投资意向书.getCode())){
+					//file表
+					fileQuery = new SopFile();
+					fileQuery.setProjectId(p.getPid());
+					fileQuery.setFileWorktype(DictEnum.fileWorktype.投资意向书.getCode());
+					fileQuery= sopFileService.queryOne(fileQuery);
+					if(fileQuery.getFileKey()==null||fileQuery.getBucketName()==null){
+						responseBody.setResult(new Result(Status.ERROR, null,"前置文件缺失!"));
+						return responseBody;
+					}
+				}else if( p.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
+					fileQuery = new SopFile();
+					fileQuery.setProjectId(p.getPid());
+					fileQuery.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
+					fileQuery= sopFileService.queryOne(fileQuery);
+					if(fileQuery.getFileKey()==null||fileQuery.getBucketName()==null){
+						responseBody.setResult(new Result(Status.ERROR,null, "前置文件缺失!"));
+						return responseBody;
+					}
+				}else if( p.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+					fileQuery = new SopFile();
+					fileQuery.setProjectId(p.getPid());
+					fileQuery.setFileWorktype(DictEnum.fileWorktype.股权转让协议.getCode());
+					fileQuery= sopFileService.queryOne(fileQuery);
+					if(fileQuery.getFileKey()==null||fileQuery.getBucketName()==null){
+						responseBody.setResult(new Result(Status.ERROR, null,"前置文件缺失!"));
+						return responseBody;
+					}
+				}
+			}
 		}
+		
 		User user = (User) getUserFromSession(request);
 		//项目创建者用户ID与当前登录人ID是否一样
 		if(user.getId().longValue() != project.getCreateUid().longValue()){

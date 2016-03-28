@@ -97,7 +97,12 @@
 					</trim> 
 					)
 				</if>
-				
+				<if test="ids != null"> 
+					and id in
+					<foreach collection="ids" item="idItem" index="index" open="(" close=")" separator=",">
+			            #{idItem}
+			        </foreach>
+				</if>
 							
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->

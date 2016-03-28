@@ -55,23 +55,49 @@
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
-
 var warn=document.getElementById('warning');
 var close=document.getElementById('close');
-var Sys = {};
-        var ua = navigator.userAgent.toLowerCase();
-        var s;
-        (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
-        (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
-        (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
-        (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
-        (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
-       var ie=Sys.ie;
-      /*  if (ie=='9.0'||ie=='8.0'||ie=='7.0'||ie=='6.0'){
-            window.location.href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie"; 
-           warn.style.display='block';
-        };*/
-        if (ie=='10.0'||ie=='11.0'||Sys.chrome||Sys.safari){
+    var userAgent = navigator.userAgent,   
+rMsie = /(msie\s|trident.*rv:)([\w.]+)/,   
+rFirefox = /(firefox)\/([\w.]+)/,   
+rOpera = /(opera).+version\/([\w.]+)/,   
+rChrome = /(chrome)\/([\w.]+)/,   
+rSafari = /version\/([\w.]+).*(safari)/;  
+var browser;  
+var version;  
+var ua = userAgent.toLowerCase();  
+function uaMatch(ua){  
+  var match = rMsie.exec(ua);  
+  if(match != null){  
+    return { browser : "IE", version : match[2] || "0" };  
+  }  
+  var match = rFirefox.exec(ua);  
+  if (match != null) {  
+    return { browser : match[1] || "", version : match[2] || "0" };  
+  }  
+  var match = rOpera.exec(ua);  
+  if (match != null) {  
+    return { browser : match[1] || "", version : match[2] || "0" };  
+  }  
+  var match = rChrome.exec(ua);  
+  if (match != null) {  
+    return { browser : match[1] || "", version : match[2] || "0" };  
+  }  
+  var match = rSafari.exec(ua);  
+  if (match != null) {  
+    return { browser : match[2] || "", version : match[1] || "0" };  
+  }  
+  if (match != null) {  
+    return { browser : "", version : "0" };  
+  }  
+}  
+var browserMatch = uaMatch(userAgent.toLowerCase());  
+if (browserMatch.browser){  
+  browser = browserMatch.browser;  
+  version = browserMatch.version;  
+}  
+        var ma=browser+version;
+        if (ma=='IE10.0'||ma=='IE11.0'||browser=='chrome'||browser=='safari'){
             warn.style.display='none';
         }
         else{

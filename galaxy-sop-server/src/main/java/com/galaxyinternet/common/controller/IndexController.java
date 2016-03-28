@@ -3,7 +3,10 @@ package com.galaxyinternet.common.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -15,21 +18,27 @@ import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
-import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.sopfile.controller.SopFileController;
+import com.galaxyinternet.template.controller.SopTemplateController;
 
 
 @Controller
 @RequestMapping("/galaxy")
 public class IndexController extends BaseControllerImpl<User, UserBo> {
-	
+	final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	@Autowired
 	private UserRoleService userRoleService;
 	
 	@Autowired
 	Cache cache;
+	@Autowired
+	private SopFileController fileController;
+	@Autowired
+	private SopTemplateController templateController;
 	
 	private String serverUrl;
 	
@@ -265,5 +274,23 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	@Value("${project.server.url}")
 	public void setServerUrl(String serverUrl) {
 		this.serverUrl = serverUrl;
+	}
+	@RequestMapping(value="/openEntry/download/{type}/{id}", method = RequestMethod.GET)
+	public void downloadEntry(@PathVariable String type, @PathVariable Long id, HttpServletRequest request, HttpServletResponse response)
+	{
+		if("file".equals(type))
+		{
+			fileController.download(id, request, response);
+		}
+		else if("template".equals(type))
+		{
+			SopTemplate query = new SopTemplate();
+			query.setId(id);
+			templateController.download(query, request, response);
+		}
+		else
+		{
+			logger.error("参数错误， type ="+type+", id="+id);
+		}
 	}
 }

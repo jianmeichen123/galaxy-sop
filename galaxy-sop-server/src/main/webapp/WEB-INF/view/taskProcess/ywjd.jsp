@@ -48,9 +48,9 @@
 	        <dd>
 	        	<select name="fileWorktype" disabled></select>
 	        </dd>
-	        <dd>
+	      <!--   <dd>
 	        	<label><input type="checkbox"/>签署凭证</label>
-	        </dd>
+	        </dd> -->
 	    </dl>
 	    <dl class="fmdl clearfix">
 	    	<dt>所属项目：</dt>

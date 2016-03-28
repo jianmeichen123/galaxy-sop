@@ -52,7 +52,7 @@
 	        	<select name="fileWorktype" disabled></select>
 	        </dd>
 	        <dd>
-	        	<label><input type="checkbox" name="voucherType" value="1"/>签署凭证</label>
+	        	<label id="tzxy_qszm"><input type="checkbox" id="voucherType" name="voucherType" value="1" disabled="disabled"/>签署凭证</label>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -153,6 +153,7 @@ function showUploadPopup(ele)
 	var row = $(ele).closest("tr");
 	var type = $(ele).data("type");
 	$.popup({
+		init:init(type),
 		txt:$("#upload-dialog").html(),
 		showback:function(){
 			var _this = this;
@@ -160,6 +161,13 @@ function showUploadPopup(ele)
 			initForm(_this,row.data("file-worktype"),type);
 		}
 	});
+}
+function init(type){
+	if(type == ''){
+        $("#tzxy_qszm").attr("style","visibility:hidden");
+	}else{
+		$("#tzxy_qszm").removeAttr("style");
+	}
 }
 function initUpload(_dialog,type){
 	var url = platformUrl.stageChange;
@@ -206,6 +214,9 @@ function initUpload(_dialog,type){
 				data['type'] = data['fileSource'];
 				data['fileWorktype']=$form.find("[name='fileWorktype']").val();
 				data['hasStockTransfer']=$("[name='hasStockTransfer']:checked").val();
+				if(type == 'voucher'){
+					data['voucherType']=$("[name='voucherType']:checked").val();
+				}
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {

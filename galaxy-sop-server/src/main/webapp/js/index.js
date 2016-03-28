@@ -101,7 +101,9 @@
 				 '<td colspan="7">'+'没有找到匹配的记录'+'</td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
-			$("#sopStak").parent().parent().siblings().children('.more').css("display","none");
+			}
+		if(list.length<3){
+			$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
 		}
 	}
 
@@ -131,6 +133,8 @@
 				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
+	   }
+		if(list.length<3){
 			$("#tbody").parent().parent().siblings().children('.more').css("display","none");
 		}
 	}
@@ -161,6 +165,8 @@
 				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
+			}
+		if(list.length<3){
 			$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
 		}
 	}
@@ -193,6 +199,9 @@
 				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
+			}
+		
+	if(list.length<3){
 			$("#tcbody").parent().parent().siblings().children('.more').css("display","none");
 		}
 	}
@@ -224,10 +233,13 @@
 				'<tr>'+
 				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
 				' </tr>'; 			
-			tbodyList.append(noData);
-			$("#votebody").parent().parent().siblings().children('.more').css("display","none");
+			tbodyList.append(noData);	
 		}
+		if(list.length<3){
+			$("#votebody").parent().parent().siblings().children('.more').css("display","none");
+         }
 	}
+	
 	
 	function getValue(str) {
 		if (typeof(str) == "undefined") { 

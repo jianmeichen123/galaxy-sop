@@ -304,7 +304,8 @@
 						$("#file_repository").css("display","block");
 						data = {
 								_domid : "file_repository_table",
-								_projectId : $("#project_id").val()
+								_projectId : $("#project_id").val(),
+								_progress : progress
 						}
 						fileGrid.init(data);
 					});				
@@ -324,7 +325,7 @@
 	/**
 	 * 上传接触访谈纪要弹出层
 	 */
-	function air(){
+	function air(indexNum){
 		
 		$("[data-id='popid1']").remove();
 		
@@ -374,7 +375,7 @@
 								"fileId" : fileId
 							};*/
 							return condition;
-						});
+						},indexNum);
 			}
 		});
 		return false;
@@ -445,7 +446,7 @@
 							condition.result = meetingResult;
 							condition.content = meetingNotes;
 							return condition;
-						});
+						},num);
 			}
 		});
 		return false;
@@ -621,7 +622,7 @@
 					condition.fileWorktype = fileWorktype;
 					condition.voucherType = voucherType;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -838,7 +839,7 @@
 					condition.fileType = fileType;
 					condition.fileWorktype = fileWorktype;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -1019,7 +1020,7 @@
 					condition.voucherType = voucherType;
 					condition.hasStockTransfer=hasStockTransfer;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -1089,7 +1090,7 @@
 					condition.voucherType = voucherType;
 					condition.hasStockTransfer=hasStockTransfer;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;

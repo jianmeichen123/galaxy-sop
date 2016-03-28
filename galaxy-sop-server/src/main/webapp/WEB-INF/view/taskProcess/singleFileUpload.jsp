@@ -44,7 +44,7 @@
 	        <dd>
 	        	<select name="fileWorktype" disabled></select>
 	        </dd>
-	        <!-- <dd>
+	    <!--     <dd>
 	        	<label><input type="checkbox"/>签署凭证</label>
 	        </dd> -->
 	    </dl>
