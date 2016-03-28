@@ -36,7 +36,7 @@
             </select>
          	
         </dd>
-        <dd>
+        <dd id="win_isProve_div">
         	<label><input type="checkbox" id="win_isProve"/>签署凭证</label>
         </dd>
     </dl>
