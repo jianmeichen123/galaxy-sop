@@ -138,13 +138,14 @@ $(function(){
 				var _dialog = this;
 				var valdator = $(_dialog.id).find('form').fxValidate();
 				var i =1;
+				var ids = new Array();
 				$.each(rows,function(){
 					var $tr=$("<tr></tr>");
 					$tr.append("<td>"+ i +"</td>");
 					$tr.append("<td>"+ this.fWorktype +"</td>");
 					$tr.append("<td>"+ this.fileLength +"</td>");
 					$(_dialog.id).find("#attach-table tbody").append($tr);
-					$(_dialog.id).find("#mail-form").prepend('<input type="hidden" name="templateIds" value="'+this.id+'">');
+					ids.push(this.id);
 					i++;
 				});
 				
@@ -155,6 +156,7 @@ $(function(){
 					}
 				 	var $form = $(_dialog.id).find("#mail-form");
 					var data = JSON.parse($form .serializeObject());
+					data['templateIds']=ids;
 					var url = platformUrl.fileSendEmail;
 					sendPostRequestByJsonObj(
 							url,
