@@ -339,6 +339,7 @@
 							{
 								return;
 							}
+							$(this).addClass('disabled');
 						 	var $form = $(_dialog.id).find("#mail-form");
 							var data = JSON.parse($form .serializeObject());
 							data['templateIds']=ids;

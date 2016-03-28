@@ -21,13 +21,12 @@
 	<script src="<%=path%>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
     <script src="<%=path %>/js/init.js"></script>
 <%--     <script src="<%=path %>/js/jquery.showLoading.min.js"></script> --%>
-    <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
-	<script type="text/javascript" src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-	<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
-	<script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
-	<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>  
-	<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 </head>
 
 <body>
