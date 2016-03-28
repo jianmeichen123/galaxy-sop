@@ -27,6 +27,7 @@
 	<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 	<script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 	<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>  
+	<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 </head>
 
 <body>
@@ -136,7 +137,16 @@ $(function(){
 			txt:$("#mail-dialog").html(),
 			showback:function(){
 				var _dialog = this;
-				var valdator = $(_dialog.id).find('form').fxValidate();
+				var opts = {
+						rules : {
+							toAddress:{
+								required:true,
+								emails:true
+							}
+							
+						}
+				};
+				var valdator = $(_dialog.id).find('form').fxValidate(opts);
 				var i =1;
 				var ids = new Array();
 				$.each(rows,function(){

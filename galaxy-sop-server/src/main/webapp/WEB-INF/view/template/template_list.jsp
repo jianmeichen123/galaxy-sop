@@ -129,16 +129,10 @@
     <dl class="fmdl clearfix">
         <dt>邮件标题：</dt>
         <dd class="clearfix">
-            <input type="text" name="title" class="txt" data-rule-required="true"/>
+            <input type="text" name="title" class="txt" data-rule-required="true" date-rule-emails="true"/>
         </dd>
         <dd>            
             <label class="red">&#42;必填</label>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-    	<dt>邮件正文：</dt>
-        <dd class="clearfix">
-        	<textarea name="content"></textarea>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
@@ -173,6 +167,7 @@
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 <script type="text/javascript">
 var uploader;
 $(function(){
@@ -406,7 +401,16 @@ function showMailPopup()
 		showback:function(){
 			var _dialog = this;
 			var i=0;
-			var valdator = $(_dialog.id).find('form').fxValidate();
+			var opts = {
+					rules : {
+						toAddress:{
+							required:true,
+							emails:true
+						}
+						
+					}
+			};
+			var valdator = $(_dialog.id).find('form').fxValidate(opts);
 			var ids = new Array();
 			$.each(flags,function(){
 				var flag = $(this);

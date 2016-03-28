@@ -28,12 +28,6 @@
         </dd>
     </dl>
     <dl class="fmdl clearfix">
-    	<dt>邮件正文：</dt>
-        <dd class="clearfix">
-        	<textarea name="content"></textarea>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
         <dt>邮件分类：</dt>
         <dd class="clearfix">
             <table width="100%" cellspacing="0" cellpadding="0" id="attach-table">
