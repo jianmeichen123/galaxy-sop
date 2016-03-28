@@ -54,7 +54,7 @@
 								dataGrid.load(_projectId);
 							},
 							_url : platformUrl.commonUploadFile,
-							_isProve : false
+							_isProve : "hide"
 						};
 //					win.initData();
 					win.init(_formdata);
@@ -238,8 +238,13 @@
 				}
 				//签署证明
 				if(typeof(_formdata._isProve) != "undefined"){
-					$isProve.attr("checked",_formdata._isProve); 
-					$isProve.attr("disabled","disabled")
+					if(_formdata._isProve == "hide"){
+						$(_this.id).find("#win_isProve_div").hide();
+					}else{
+						$isProve.attr("checked",_formdata._isProve); 
+						$isProve.attr("disabled","disabled")
+					}
+					
 				}	
 				
 			},
