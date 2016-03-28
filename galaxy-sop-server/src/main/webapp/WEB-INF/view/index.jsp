@@ -139,7 +139,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     </dd>
                 </dl>
                 <dl class="Creative_library">
-                    <img src="img/sy.png" alt="">
+                    <img src="<%=path%>/img/sy.png" alt="">
                 	<dt><h3 class="ico t2">创意库</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0">
