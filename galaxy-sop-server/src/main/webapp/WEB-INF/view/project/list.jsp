@@ -134,9 +134,9 @@
 	 */
 	function editor(value, row, index){
 		var id=row.id;
-		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>查看</a>";
+		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
 		if(row.projectStatus != 'meetingResult:3'){
-			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>修改</a>";
+			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>编辑项目</a>";
 		}
 		return options;
 	}
