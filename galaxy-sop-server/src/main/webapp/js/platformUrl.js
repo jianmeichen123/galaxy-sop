@@ -192,6 +192,10 @@ var platformUrl = {
 	 */
 	dictFindByParentCode : sopContentUrl + "/galaxy/sopFile/getDictByParent",
 	/**
+	 * 获取页面显示权限
+	 */
+	sopFileCheckShow : sopContentUrl + "/galaxy/sopFile/checkShow",
+	/**
 	 * 文档查询-无分页
 	 */
 	queryFile : sopContentUrl+"/galaxy/sopFile/query",

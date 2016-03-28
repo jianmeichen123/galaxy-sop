@@ -1122,5 +1122,32 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return resp;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/checkShow", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> checkShow(HttpServletRequest request,@RequestBody(required=false) SopFile query)
+	{
+		ResponseData<SopFile> resp = new ResponseData<SopFile>();
+		try {
+			Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			User user = (User) obj;
+			if(user == null){
+				resp.setResult(new Result(Status.ERROR, ERROR_NO_LOGIN));
+			}
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			boolean result = RoleUtils.isDAGLY(roleIdList);
+			if(result){
+				resp.setResult(new Result(Status.OK, ""));
+			}else{
+				resp.setResult(new Result(Status.ERROR, ""));
+			}
+			
+		} catch (Exception e) {
+			Object msg = "查询失败.";
+			resp.getResult().addError(msg);
+			logger.error(msg.toString(),e);
+		}
+		return resp;
+	}
+	
 	
 }

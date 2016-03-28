@@ -78,8 +78,8 @@
               </select>
             </dd>
           </dl>
-          <dl class="fmdl fml fmdll clearfix">
-            <dt>所属业务线：</dt>
+          <dl class="fmdl fml fmdll clearfix" id="srearch_careerline_div">
+            <dt>所属部门：</dt>
             <dd>
 			  <!--name="careerLine" -->
               <select id="searchCareerLine">

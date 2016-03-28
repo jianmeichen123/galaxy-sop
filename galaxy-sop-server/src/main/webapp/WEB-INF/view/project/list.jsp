@@ -304,7 +304,8 @@
 						$("#file_repository").css("display","block");
 						data = {
 								_domid : "file_repository_table",
-								_projectId : $("#project_id").val()
+								_projectId : $("#project_id").val(),
+								_progress : progress
 						}
 						fileGrid.init(data);
 					});				

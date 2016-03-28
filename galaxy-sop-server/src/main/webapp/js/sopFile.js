@@ -1,5 +1,7 @@
 var searchPanel = {
 		initData : function(){
+			
+			sendPostRequestByJsonObj(platformUrl.sopFileCheckShow,null,searchPanel.initCheckShow);
 			//档案类型
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,searchPanel.initDataCallBack);
 			//业务类型
@@ -21,6 +23,11 @@ var searchPanel = {
 				_dom = $("#searchCareerLine")
 			}
 			utils.each(data,_dom,"all");
+		},
+		initCheckShow : function(data){
+			if(data.result.status!='OK'){
+				$("#srearch_careerline_div").hide();
+			}
 		},
 		serarchData : function(){
 			
@@ -209,10 +216,11 @@ var utils = {
 		
 }
 function init(){
+	
+//	if(roleId == "")
 	createMenus(14);
 	searchPanel.initData();
 	fileGrid.init();
-	
 	
 	
 	
