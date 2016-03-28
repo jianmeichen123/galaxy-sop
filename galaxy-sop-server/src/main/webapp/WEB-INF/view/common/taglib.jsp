@@ -44,6 +44,7 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 	var realName = '<%=realName%>';
 	var userId = '<%=userId%>';
 	var departmentId='<%=departmentId%>';
+	var roleId = '<%=roleId%>';
 </script>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
