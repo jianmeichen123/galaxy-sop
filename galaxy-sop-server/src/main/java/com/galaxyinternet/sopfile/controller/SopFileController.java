@@ -592,6 +592,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		InputStream fis = null;
 		OutputStream out = null;
 		String type = request.getParameter("type");
+		File tempDir = null;
+		File tempFile = null;
 		try {
 			String fileName = null;
 			String fileSuffix = null;
@@ -623,16 +625,16 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			}
 //			String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
 			String path = tempfilePath;
-			File temp = new File(path);
-			File temp1 = new File(path,fileName);
-			if (!temp.exists()) {
-				temp.mkdirs();
+			tempDir = new File(path);
+			tempFile = new File(path,fileName);
+			if (!tempDir.exists()) {
+				tempDir.mkdirs();
 			}
-			temp1.createNewFile();
+			tempFile.createNewFile();
 			if(fileSize.longValue() > OSSConstant.DOWNLOAD_PART_SIZE){
-				OSSHelper.downloadSupportBreakpoint(temp1.getAbsolutePath(),BucketName.DEV.getName(), key);
+				OSSHelper.downloadSupportBreakpoint(tempFile.getAbsolutePath(),BucketName.DEV.getName(), key);
 			}else{
-				DownloadFileResult result = OSSHelper.simpleDownloadByOSS(temp1, key);
+				DownloadFileResult result = OSSHelper.simpleDownloadByOSS(tempFile, key);
 				System.err.println(GSONUtil.toJson(result));
 			}		
 			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
@@ -644,9 +646,9 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/x-download");
 			response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-			response.setHeader("Content-Length", "" + temp1.length());
+			response.setHeader("Content-Length", "" + tempFile.length());
 			out = new BufferedOutputStream(response.getOutputStream());
-			fis = new BufferedInputStream(new FileInputStream(temp1.getPath()));
+			fis = new BufferedInputStream(new FileInputStream(tempFile.getPath()));
 
 
 			byte[] buffer = new byte[1024 * 2];
@@ -662,6 +664,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		finally
 		{
+			tempFile.delete();
 			try {
 				if(fis != null)
 				{
