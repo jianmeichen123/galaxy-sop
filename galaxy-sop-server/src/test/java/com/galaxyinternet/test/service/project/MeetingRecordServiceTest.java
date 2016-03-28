@@ -22,10 +22,10 @@ public class MeetingRecordServiceTest {
 	@Test
 	public void testProjectSchedule()throws Exception{
 //		Project mrobj = getMeetingRecord();
-		meetingRecordService.projectSchedule(mrobj);
+	//	meetingRecordService.projectSchedule(mrobj);
 	}
 	
-	private MeetingRecord getMeetingRecord(){
+//	private MeetingRecord getMeetingRecord(){
 //		Project mr = new Project();
 //		mr.setId(3948683620254368L);
 //		mr(123456867L);
@@ -36,7 +36,7 @@ public class MeetingRecordServiceTest {
 //		//mr.setMeetingNotes(meetingNotes);
 //		mr.setCreatedTime(1459151188338L);
 //		return mr;
-	}
+//	}
 	
 
 }
