@@ -670,7 +670,7 @@
 									if(arr){
 										type=arr[1];
 									}
-									var filtersparams=paramsFilter();
+									var filtersparams=paramsFilter(null);
 									for(var i=0;i<filtersparams.length;i++){
 										var value=filtersparams[i];
 										var valueExt=value.extensions;
