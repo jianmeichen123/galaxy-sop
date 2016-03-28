@@ -436,8 +436,16 @@ function showMailPopup()
 						url,
 						data,
 						function(data){
-							layer.msg("发送邮件成功.");
-							$(_dialog.id).find("[data-close='close']").click();
+							if(data.status=="OK")
+							{
+								layer.msg("发送邮件成功.");
+								$(_dialog.id).find("[data-close='close']").click();
+							}
+							else
+							{
+								layer.msg("发送邮件失败.");
+								$(_dialog.id).find("#send-mail-btn").removeClass('disabled');
+							}
 						}
 				); 
 			});
