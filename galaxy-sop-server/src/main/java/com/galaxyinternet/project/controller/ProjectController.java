@@ -31,6 +31,7 @@ import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
@@ -46,6 +47,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.common.Config;
@@ -126,7 +128,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> addProject(@RequestBody Project project, HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		if(project == null || project.getProjectName() == null || "".equals(project.getProjectName().trim())
-				|| project.getProjectType() == null || "".equals(project.getProjectType().trim())){
+				|| project.getProjectType() == null || "".equals(project.getProjectType().trim())
+				|| project.getCreateDate() == null || "".equals(project.getCreateDate().trim())){
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
@@ -143,10 +146,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		project.setProjectCode(String.valueOf(code));
-		if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
-				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
-			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+		if(project.getProjectValuations() == null){
+			if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
+					&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
+				project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+			}
 		}
+		
 		project.setStockTransfer(0);
 		project.setCreateUid(user.getId());
 		project.setCreateUname(user.getRealName());
@@ -155,8 +161,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		//获取当前登录人的部门信息
 		Long did = user.getDepartmentId();
 		project.setProjectDepartid(did);
-		project.setCreatedTime((new Date()).getTime());
 		try {
+			project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 			long id = projectService.newProject(project);
 			if(id > 0){
 				responseBody.setResult(new Result(Status.OK,"项目添加成功!"));
@@ -183,10 +189,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 			return responseBody;
 		}
+		
+		//执行转换
+		project.getProjectContribution();
+		project.getProjectValuations();
+		project.getCurrencyUnit();
+		project.getProjectShareRatio();
+		
 		User user = (User) getUserFromSession(request);
-		if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
-				&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
-			project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+		if(project.getProjectValuations() == null){
+			if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
+					&& project.getProjectContribution() != null && project.getProjectContribution() > 0){
+				project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+			}
 		}
 		
 		Project p = projectService.queryById(project.getId());
@@ -486,16 +501,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		
 		try {
-			//long did = user.getDepartmentId();
 			Config config = configService.createCode();
 			NumberFormat nf = NumberFormat.getInstance();
 			nf.setGroupingUsed(false);
 			nf.setMaximumIntegerDigits(6);
 			nf.setMinimumIntegerDigits(6);
-			String code = "10" + nf.format(Integer.parseInt(config.getValue()));
-			request.getSession().setAttribute(Constants.SESSION_PROJECT_CODE, code);
-			config.setPcode(code);
-			responseBody.setEntity(config);
+			Long did = user.getDepartmentId();
+			if(did != null){
+				int code = EnumUtil.getCodeByCareerline(did.longValue());
+				String projectCode = String.valueOf(code) + nf.format(Integer.parseInt(config.getValue()));
+				request.getSession().setAttribute(Constants.SESSION_PROJECT_CODE, projectCode);
+				config.setPcode(projectCode);
+				responseBody.setEntity(config);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

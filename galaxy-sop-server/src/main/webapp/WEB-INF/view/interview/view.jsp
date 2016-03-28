@@ -66,7 +66,7 @@
             <dl class="fmdl fmdll clearfix">
               <dt></dt>
               <dd>
-                <input type="text" class="txt s_txt" placeholder="请输入项目名称或编号" id = "proNameCode" name="proNameCode" />
+                <input type="text" class="txt s_txt" placeholder="请输入项目名称或项目编码" id = "proNameCode" name="proNameCode" />
               </dd>
               
               <dd>
@@ -109,6 +109,7 @@
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <!-- file -->
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <!-- time -->
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>

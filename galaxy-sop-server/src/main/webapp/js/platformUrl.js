@@ -345,6 +345,12 @@ var platformUrl = {
 	 */
 	personHr: sopContentUrl+"/galaxy/hrjl/resumetcc",
 	/**
+	 * 跳到完善简历之项目成员里的个人简历(弹出)
+	 */
+	
+	personHHr: sopContentUrl+"/galaxy/hrjl/genresumetcc",
+	
+	/**
 	 * 催办
 	 */
 	taskUrged:sopContentUrl + "/galaxy/taskprocess/taskUrged",

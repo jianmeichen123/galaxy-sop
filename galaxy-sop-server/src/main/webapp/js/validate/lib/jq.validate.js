@@ -40,7 +40,8 @@ $(function(){
 			CHINESE : "^([\u4E00-\uFA29]|[\uE7C7-\uE7F3])*$",
 			URL : "^http[s]?://[\\w\\.\\-]+$",
 			LIMIT_11_NUMBER : "^(([0-9]{1,11})|([0-9]{1,11}\.[0-9]{1,2}))$",
-			LIMIT_2_INTEGER : "^[0-9]{1,2}$"
+			LIMIT_2_INTEGER : "^[0-9]{1,2}$",
+			CODE : "^[A-Za-z0-9\-]+$"
 		};
 		var flag=false;
 		if(para.rule=='OTHER') {//自定义的验证规则匹配

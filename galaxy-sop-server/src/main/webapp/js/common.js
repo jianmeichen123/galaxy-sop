@@ -293,13 +293,8 @@ function paramsFilter(){
  * @param fileType-存储类型id
  */
 function attrFileType(fileType,file){
-	var type=file.name;
-	var arr = new Array();
-	arr = type.split(".");
-	var type="";
-	if(arr){
-		type=arr[1];
-	}
+	
+	var type=getFileExt(file.name);
 	var filtersparams=paramsFilter();
 	for(var i=0;i<filtersparams.length;i++){
 		var value=filtersparams[i];
@@ -308,6 +303,7 @@ function attrFileType(fileType,file){
 			var myvalue=value.title;
 			//$("#"+fileType+" option[value='"+myvalue+"']").attr("selected",true);
 			$("#"+fileType).val(myvalue);
+			break;
 			
 		}
 	}

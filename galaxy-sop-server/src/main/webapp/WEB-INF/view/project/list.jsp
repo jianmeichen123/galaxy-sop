@@ -74,7 +74,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" name="nameLike" placeholder="请输入项目名称或编号" />
+						<input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称或项目编码" />
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
@@ -102,6 +102,7 @@
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/fx.upload.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/my_ext.js"></script>
@@ -505,7 +506,7 @@
 							for(var p in dataList){
 								var handlefile="";
 								if(!hasClosed){
-									handlefile='<a href="javascript:;" onclick="downFile(5);" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>';
+									handlefile='<a href="javascript:;" onclick="downloadTemplate(\'fileWorkType:5\');" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>';
 							        if (dataList[p].fileStatusDesc == "缺失") { 
 							        	handlefile +='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
 									}else{
@@ -1194,6 +1195,7 @@
 	function loadJs(){
 		$("#f").attr("href","<%=path %>/ueditor/themes/default/css/umeditor.css");
 		$("#a").attr("src","<%=path %>/js/plupload.full.min.js");
+		$("#a").attr("src","<%=path %>/js/plupload/zh_CN.js");
 		$("#b").attr("src","<%=path %>/ueditor/dialogs/map/map.js");
 		$("#c").attr("src","<%=path %>/ueditor/umeditor.config.js");
 		$("#d").attr("src","<%=path %>/ueditor/umeditor.min.js");
@@ -1212,6 +1214,16 @@
 			pidParam = "&projectId="+alertid;
 		}
 		var url = platformUrl.tempDownload+"?id="+id+pidParam;
+		forwardWithHeader(url);
+	}
+	function downloadTemplate(fileWorktype)
+	{
+		var pidParam = "";
+		if(alertid>=0)
+		{
+			pidParam = "&projectId="+alertid;
+		}
+		var url = platformUrl.tempDownload+"?worktype="+fileWorktype+pidParam;
 		forwardWithHeader(url);
 	}
 	

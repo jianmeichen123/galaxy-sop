@@ -76,6 +76,13 @@ public class HumanResourseController extends BaseControllerImpl<PersonPool, Pers
 		return "/resumetc/resumetc";
 	}
 
+	@RequestMapping(value="/genresumetcc", method = RequestMethod.GET)
+	public String resumetccr(HttpServletRequest request){
+		
+		request.setAttribute("personId", request.getParameter("personId"));
+		
+		return "/resumetc/resumetcc";
+	}
 	/**
 	 * 回显数据
 	 * @param personPool

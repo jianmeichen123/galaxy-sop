@@ -46,7 +46,7 @@
 	    <dl class="fmdl clearfix">
 	        <dt>访谈纪要:</dt>
 	        <dd>
-	        	  <div type="text/plain" id="viewNotes" style="width:100%;height:150px;max-height:150px;overflow:auto;">
+	        	  <div type="text/plain" id="viewNotes" style="width:100%;max-width:99%; height:150px;max-height:150px;overflow:auto;">
 	        	  </div>
 			</dd>
         </dl>

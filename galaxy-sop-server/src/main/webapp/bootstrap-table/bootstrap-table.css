@@ -144,12 +144,11 @@
     text-align: center;
 }
 
-.fixed-table-pagination div.pagination,
 .fixed-table-pagination .pagination-detail {
     margin-top: 10px;
     margin-bottom: 10px;
 }
-
+.fixed-table-pagination div.pagination{margin:10px 5px;}
 .fixed-table-pagination div.pagination .pagination {
     margin: 0;
 }
@@ -161,7 +160,8 @@
 
 .fixed-table-pagination .pagination-info {
     line-height: 34px;
-    margin-right: 5px;
+    margin:0 5px;
+
 }
 
 .fixed-table-pagination .btn-group {
@@ -195,8 +195,6 @@
     font-weight: normal;
     line-height: 1.428571429;
 }
-
-.fixed-table-toolbar .bars,
 .fixed-table-toolbar .search,
 .fixed-table-toolbar .columns {
     position: relative;
@@ -204,7 +202,7 @@
     margin-bottom: 10px;
     line-height: 34px;
 }
-.fixed-table-toolbar .bars{width: 100%;}
+.fixed-table-toolbar .bars{width: 100%;position: relative;}
 .fixed-table-pagination li.disabled a {
     pointer-events: none;
     cursor: default;

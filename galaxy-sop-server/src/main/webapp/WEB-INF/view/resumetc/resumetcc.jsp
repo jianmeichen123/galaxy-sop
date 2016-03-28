@@ -13,7 +13,7 @@
 <div class="resumetc" >
           <!-- 个人简历 -->
           <div class="tabtable resume">
-          <form action="" id="up_person_form" method="post">
+          <form action="" id="up_person_form"   method="post">
           <input hidden="hidden" id="personId" value="${personId}">
           <!-- tab标签 -->
             <ul class="tablink">
@@ -24,65 +24,65 @@
             </ul>
             <!-- tab内容 -->
             <div class="tabtable_con "  data-tab="con"  model="personPool" multi="false">
-              <div class="tabtable_con1">
+              <div class="tabtable_con1" style="border:0;pointer-events: none;">
                  <h2>核心成员基本资料</h2>
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>团队角色：</th>
-                    <td data-by="id"><input name="teamRole" id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="身团队角色只能包含数字、字母、汉字 长度限制50"></td>
+                    <td data-by="id"><input name="teamRole"  id="teamRole" type="text" value=""   valType="NUM_CHAR_CH" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="身团队角色只能包含数字、字母、汉字 长度限制50"></td>
                   </tr>
                   <tr>
                     <th>姓名：</th>
-                    <td><input name="personName" id="personName" type="text" value=""  valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="姓名格式错误 长度限制50"></td>
+                    <td><input name="personName"  id="personName" type="text" value=""  valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="姓名格式错误 长度限制50"></td>
                   </tr>
                   <tr>
                     <th>成员关系：</th>
-                    <td><input name="memberRelation"  id="memberRelation" type="text" value="" valType="MEMBERSHIP" msg="成员关系只能包含汉字，长度20"></td>
+                    <td><input name="memberRelation"  id="memberRelation" type="text" value="" valType="MEMBERSHIP" msg="成员关系只能包含汉字，长度20“.”"></td>
                   </tr>
                 </table>
               </div>
-              <div class="tabtable_con1">
+              <div class="tabtable_con1" style="border:0;pointer-events: none;" >
                 <h2>个人资料</h2>
                 <table width="100%" cellspacing="0" cellpadding="0">
-                  <tr>
+                   <tr style="border:0; pointer-events: none;">
                     <th>性别：</th>
                     <td>
-                      	<label><input id="personSex0" name="personSex" type="radio" value="0" >男</label>
-            			<label><input id="personSex1" name="personSex" type="radio" value="1" >女</label>
+                      	<label><input type="radio" id="personSex0" name="personSex"  value="0" >男</label>
+            			<label><input type="radio" id="personSex1" name="personSex"  value="1" >女</label>
                     </td>
-                  </tr>
+                  </tr> 
                 <tr>
                     <th>出生日期：</th>
-                     <td><input  type="text"  name="personBirthdayStr" id="personBirthdayStr" value="" class="datepicker"/> </td>
+                     <td><input  type="text"  name="personBirthdayStr"  id="personBirthdayStr" value="" class="datepicker"/> </td>
                   </tr>  
                   <tr>
                     <th>身份证号码：</th>
-                    <td><input name="personIdcard" id="personIdcard" type="text" value="" class="txt" placeholder="身份证号码" valType="IDENTITY" msg="身份证号码格式不正确"></td>
+                    <td><input name="personIdcard" id="personIdcard"  type="text" value="" class="txt" placeholder="身份证号码" valType="IDENTITY" msg="身份证号码格式不正确"></td>
                   </tr>
                   <tr>
                     <th>电话：</th>
-                    <td><input name="personTelephone" id="personTelephone" type="text" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="手机格式不正确" ></td>
+                    <td><input name="personTelephone" id="personTelephone"  type="text" value="" class="txt" placeholder="电话号码" valType="MOBILE" msg="手机格式不正确" ></td>
                   </tr>
                   <tr>
                     <th>邮箱：</th>
-                    <td><input name="personEmail" id="personEmail" type="text" value="" class="txt" placeholder="邮箱" valType="MAIL" msg="电子邮箱格式不正确" ></td>
+                    <td><input name="personEmail" id="personEmail"  type="text" value="" class="txt" placeholder="邮箱" valType="MAIL" msg="电子邮箱格式不正确" ></td>
                   </tr>
                 </table>
               </div>
-              <div class="tabtable_con1">
+              <div class="tabtable_con1" style="border:0;pointer-events: none;">
                 <h2>个人能力</h2>
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>性格：</th>
-                    <td><input name="personCharacter" id="personCharacter" type="text" value="" valType="GENERAL" msg="性格文本限制长度500"></td>
+                    <td><input name="personCharacter" id="personCharacter"  type="text" value="" valType="GENERAL" msg="性格文本限制长度500"></td>
                   </tr>
-                   <tr>
+                  <tr>
                     <th>优势：</th>
-                    <td><input name="personGoodness" id="personGoodness" type="text" value="" valType="GENERAL" msg="优势限制长度500"></td>
+                    <td><input name="personGoodness" id="personGoodness"  type="text" value="" valType="GENERAL" msg="劣势限制长度500"></td>
                   </tr>
                   <tr>
                     <th>劣势：</th>
-                    <td><input name="personGoodness" id="personGoodness" type="text" value="" valType="GENERAL" msg="劣势限制长度500"></td>
+                    <td><input name="personDisparity" id="personDisparity"  type="text" value="" valType="GENERAL" msg="劣势限制长度500"></td>
                   </tr>
                   <tr>
                     <th>沟通能力：</th>
@@ -90,11 +90,11 @@
                   </tr>
                   <tr>
                     <th>团队协作能力：</th>
-                    <td><input name="teamAbility" id="teamAbility" type="text" value=""  valType="GENERAL" msg="沟通能力限制长度500"></td>
+                    <td><input name="teamAbility" id="teamAbility"  type="text" value=""  valType="GENERAL" msg="沟通能力限制长度500"></td>
                   </tr>
                   <tr>
                     <th>核心竞争力（业务相关能力）：</th>
-                    <td><input name="businessStrength" id="businessStrength" type="text" value=""  valType="GENERAL" msg="沟通能力限制长度500"> </td>
+                    <td><input name="businessStrength" id="businessStrength"  type="text" value=""  valType="GENERAL" msg="沟通能力限制长度500"> </td>
                   </tr>
                 </table>
               </div>
@@ -103,33 +103,33 @@
 
             <!-- tab内容 -->
             <div class="tabtable_con"  data-tab="con" model="personLearn" multi="true">
-              <div class="tabtable_con1">
+              <div class="tabtable_con1" style="border:0;pointer-events: none;">
                 <h2>学习经历</h2>
-                <input type="button" class="add bluebtn" value="+">
+                <input type="button" style="border:0;pointer-events: none;" class="add bluebtn" value="+">
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>学历：</th>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包字母、汉字 长度50"></td>
-                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含字母、汉字 长度50"></td>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含数字母、汉字 长度50"></td>
+                    <td data-by="id"><input name ="degree" id="degree"  type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包字母、汉字 长度50"></td>
+                   	<td data-by="id"><input name ="degree" id="degree"  type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含字母、汉字 长度50"></td>
+                    <td data-by="id"><input name ="degree" id="degree"  type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含数字母、汉字 长度50"></td>
                   </tr>
                   <tr>
                     <th>学校：</th>
-                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
-                  	<td><input name="school" id="school" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
-                    <td><input name="school" id="school" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school"  type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
+                  	<td><input name="school" id="school"  type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
+                    <td><input name="school" id="school"  type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
                   </tr>
                   <tr>
                     <th>专业：</th>
-                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="专业只能包含字母、汉字 长度50"></td>
-                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="专业只能包含字母、汉字 长度50"></td>
-                    <td><input name="major"id="major" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="专业只能包含字母、汉字 长度50"></td> 
+                    <td><input name="major"id="major"  type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="专业只能包含字母、汉字 长度50"></td>
+                    <td><input name="major"id="major"  type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="专业只能包含字母、汉字 长度50"></td>
+                    <td><input name="major"id="major"  type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="专业只能包含字母、汉字 长度50"></td> 
                   </tr>                  
                   <tr>
                     <th>学历性质：</th>
-                    <td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 长度限制50"></td>
-                	<td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 长度限制50"></td>
-                    <td><input name="educationType" id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 长度限制50"></td>
+                    <td><input name="educationType"  id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 长度限制50"></td>
+                	<td><input name="educationType"  id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 长度限制50"></td>
+                    <td><input name="educationType"  id="educationType" type="text" value="" valType="CHAR_CH_SYB"  msg="学历性质只能包含字母、汉字 长度限制50"></td>
                   </tr>                  
    				 <tr>
                     <th>毕业年份：</th>
@@ -139,20 +139,20 @@
                   </tr>             
                   <tr>
                     <th>毕业证书/学历证书的证书编号：</th>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号格式错误 长度限制18"></td>
-                   	<td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号格式错误 长度限制18"></td>
-                    <td><input name="certificateNumber" id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号格式错误 长度限制18"></td>
+                    <td><input name="certificateNumber"  id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号格式错误 长度限制18"></td>
+                   	<td><input name="certificateNumber"  id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号格式错误 长度限制18"></td>
+                    <td><input name="certificateNumber"  id="certificateNumber" type="text" value="" valType="CERTIFICATE" msg="证书编号格式错误 长度限制18"></td>
                   </tr>
                 </table>
               </div>
-              <div class="tabtable_con1">
+              <div class="tabtable_con1" style="border:0;pointer-events: none;">
                 <h2>教育背调联系人</h2>               
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>老师姓名：</th>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名格式错误 长度限制50"></td>
-                   	<td><input name="teacherName" id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名格式错误 长度限制50"></td>
-                    <td><input name="teacherName" id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名格式错误 长度限制50"></td> 
+                    <td><input name="teacherName"  id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名格式错误 长度限制50"></td>
+                   	<td><input name="teacherName"  id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名格式错误 长度限制50"></td>
+                    <td><input name="teacherName"  id="teacherName" type="text" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="老师姓名格式错误 长度限制50"></td> 
                   </tr>
                   <tr>
                     <th>部门：</th>
@@ -183,13 +183,13 @@
             </div>
             <!-- tab内容 -->
             <div class="tabtable_con"  data-tab="con" model="personWork" multi="true" >
-              <div class="tabtable_con1">
+              <div class="tabtable_con1" style="border:0;pointer-events: none;">
                 <h2>工作记录</h2>
                 <input type="button" class="add bluebtn" value="+">
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>公司名称：</th>
-                    <td data-by="id" ><input type="text" name="companyName" id="companyName" value="" valType="COMPANYNAME" msg="公司名称格式错误"> </td>
+                    <td data-by="id" ><input type="text"  name="companyName" id="companyName" value="" valType="COMPANYNAME" msg="公司名称格式错误"> </td>
                   </tr>
                   <tr>
                     <th>部门：</th>
@@ -213,7 +213,7 @@
                   </tr>
                 <tr>
                     <th>入职时间：</th>
-                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value="" valType="DATE"  class="datepicker"  msg="入职时间格式错误"></td>
+                    <td><input type="text" name="beginWorkStr" id="beginWorkStr" value="" valType="DATE"  class="datepicker"  msg="<font color=red>*</fon入职时间格式错误"></td>
                   </tr>
                   <tr>
                     <th>离职原因：</th>
@@ -257,7 +257,7 @@
             </div>
             <!-- tab内容 -->
             <div class="tabtable_con"  data-tab="con" model="personInvest" multi="false">
-              <div class="tabtable_con1">
+              <div class="tabtable_con1" style="border:0;pointer-events: none;">
                 <h2>投资方信息（天使轮）</h2>
                    <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
@@ -278,7 +278,7 @@
                   </tr>
                 </table>
               </div>
-              <div class="tabtable_con1">
+              <div class="tabtable_con1" style="border:0;pointer-events: none;">
                 <h2>投资方信息（Pre A轮）</h2>
  				<table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
@@ -300,14 +300,14 @@
                 </table>
               </div>
             </div>
-            <dl class="fmdl clearfix">
+            <dl class="fmdl clearfix" style="border:0;pointer-events: none;" >
                 <dt>是否有劳动纠纷：</dt>
                 <dd>
                   <label for=""><input type="radio" name="laborDispute" value="1"/>是</label>
                   <label for=""><input type="radio" name="laborDispute"  value="0"/>否</label>
                 </dd>                
               </dl>
-              <div class="tabtable_con1 tabtable_con2">
+              <div class="tabtable_con1 tabtable_con2" style="border:0;pointer-events: none;">
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>能力匹配：</th>
@@ -330,10 +330,10 @@
                 </table>
               </div>
               </form>
-              <div class="btnbox">
+<!--               <div class="btnbox">
                 <a href="javascript:;"  class="pubbtn bluebtn">保存</a>
                 <a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
-              </div>
+              </div> -->
 
           </div>
 </div>
