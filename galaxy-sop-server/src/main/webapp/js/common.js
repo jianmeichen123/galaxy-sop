@@ -618,6 +618,14 @@ function getInterViewCondition(hasProid,projectId,
 			return false;
 		}
 	}
+	
+	if(viewTarget != null &&  viewTarget != ""){
+		if(getLength(viewTarget) > 100){
+			layer.msg("对象长度最大100字节");
+			return false;
+		}
+	}
+	
 	if(viewNotes != null && viewNotes.length > 0){
 		if(viewTarget.length > 9000){
 			layer.msg("访谈记录长度最大9000字符");
