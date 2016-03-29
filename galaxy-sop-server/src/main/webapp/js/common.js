@@ -391,7 +391,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 		multipart:true,
 		multi_selection:false,
 		filters : {
-			max_file_size : '10mb',
+			max_file_size : '25mb',
 			mime_types: paramsFilter(indexNum)
 		},
 		init: {
