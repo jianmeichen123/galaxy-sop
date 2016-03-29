@@ -414,12 +414,12 @@
 	 * 上传会议记录
 	 */
 	 function addMettingRecord(num,meetingType){
-		$("[data-id='popid1']").remove();
-		 
-		loadJs();
-		var _url='<%=path %>/galaxy/mr';
-		$.getHtml({
-			url:_url,//模版请求地址
+			$("[data-id='popid1']").remove();
+			var pid=$("#project_id").val();
+			loadJs();
+			var _url='<%=path %>/galaxy/mr/';
+			$.getHtml({
+			url:_url+pid,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
 				$(".meetingtc").tabchange();
