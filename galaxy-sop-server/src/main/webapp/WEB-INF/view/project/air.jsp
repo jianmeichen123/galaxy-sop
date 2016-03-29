@@ -43,13 +43,13 @@
         </dl>
     </div>
     <dl class="fmdl clearfix">
-        <dt>会议纪要：</dt>
+        <dt>访谈纪要：</dt>
         <dd>
             <div type="text/plain" id="viewNotes" style="width:100%;height:100px;" valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>会议纪要不能超过9000字符"></div>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
-        <dt>会议录音：</dt>
+        <dt>访谈录音：</dt>
         <div class="fmload clearfix">
             <dd>
 	        	<input type="text" name="fileName" id="file_object" class="txt" readonly="readonly"/>
