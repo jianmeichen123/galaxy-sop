@@ -304,6 +304,7 @@ $(function(){
 });
 //通用ajax数据回调
 function ajaxCallback(obj,callback){
+	console.log(obj);
 	$.ajax({
 		url:obj.url,
 		dataType:obj.dataType||'json',
@@ -340,14 +341,7 @@ var chartOptions={
     title: {
         text: ''
     },
-    plotOptions: {
-        column: {
-            //pointWidth: 20,
-            dataLabels:{
-                        enabled:false, 
-                    }
-        },
-    },
+    
     credits: {
         enabled:false
     },
