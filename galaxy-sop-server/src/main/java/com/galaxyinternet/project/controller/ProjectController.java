@@ -681,6 +681,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 				return responseBody;
 			}
+			//已有通过的会议，不能再添加会议纪要
+			MeetingRecord mrQuery = new MeetingRecord();
+			mrQuery.setProjectId(p.getPid());
+			mrQuery.setMeetingType(p.getMeetingType());
+			mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+			Long mrCount = meetingRecordService.queryCount(mrQuery);
+			if(mrCount != null && mrCount.longValue() > 0L)
+			{
+				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
+				return responseBody;
+			}
+			
 		}
 		Project project = projectService.queryById(p.getPid());
 		if(project == null){
