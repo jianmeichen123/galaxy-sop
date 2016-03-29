@@ -778,7 +778,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public ResponseData<SopFile> proFileInfo(HttpServletRequest request,@PathVariable("pid") Long pid,@PathVariable("progress") String progress) {
 		
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		dasdasdawsefsefgwer
 		List<String> fileworktypeList = new ArrayList<String>();
 		String proProgress="projectProgress:"+progress;
 		
@@ -786,7 +785,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		
-		if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && roleIdList.contains(UserConstant.TZJL)){  
+		if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && (roleIdList.contains(UserConstant.TZJL)||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ))){  
 			fileworktypeList.add(DictEnum.fileWorktype.投资意向书.getCode());   
 		}else if(proProgress.equals(DictEnum.projectProgress.尽职调查.getCode())){
 			//人事|投资经理
