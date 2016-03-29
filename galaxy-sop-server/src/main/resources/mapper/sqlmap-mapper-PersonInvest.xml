@@ -13,13 +13,15 @@
     <result column="acompany_name" property="acompanyName" jdbcType="VARCHAR" />
     <result column="ainvestment_amount" property="ainvestmentAmount" jdbcType="DECIMAL" />
     <result column="ashare_ratio" property="ashareRatio" jdbcType="DECIMAL" />
+    <result column="aproject_director" property="aprojectDirector" jdbcType="VARCHAR" />
+    <result column="aemceed_position" property="aemceedPosition" jdbcType="VARCHAR" />
     <result column="atelephone" property="atelephone" jdbcType="VARCHAR" />
     <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-			id,person_id,icompany_name,investment_amount,share_ratio,project_director,emceed_position,telephone,acompany_name,ainvestment_amount,ashare_ratio,atelephone,updated_time,created_time                                         
+			id,person_id,icompany_name,investment_amount,share_ratio,project_director,emceed_position,telephone,acompany_name,ainvestment_amount,ashare_ratio,aproject_director,aemceed_position,atelephone,updated_time,created_time                                         
   </sql>
 
   <sql id="Base_Where_Clause">
@@ -36,6 +38,8 @@
 			  <if test="acompanyName != null" > and acompany_name = #{acompanyName,jdbcType=VARCHAR} </if>
 			  <if test="ainvestmentAmount != null" > and ainvestment_amount = #{ainvestmentAmount,jdbcType=DECIMAL} </if>
 			  <if test="ashareRatio != null" > and ashare_ratio = #{ashareRatio,jdbcType=DECIMAL} </if>
+			  <if test="aprojectDirector != null" > and aproject_director = #{aprojectDirector,jdbcType=VARCHAR} </if>
+			  <if test="aemceedPosition != null" > and aemceed_position = #{aemceedPosition,jdbcType=VARCHAR} </if>
 			  <if test="atelephone != null" > and atelephone = #{atelephone,jdbcType=VARCHAR} </if>
 			  <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 			  <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
@@ -71,11 +75,11 @@
   	<insert id="insert" parameterType="com.galaxyinternet.model.hr.PersonInvest" keyProperty="id" useGeneratedKeys="true">
 
 	    <![CDATA[
-	     insert into sop_person_invest_experience (id,person_id,icompany_name,investment_amount,share_ratio,project_director,emceed_position,telephone,acompany_name,ainvestment_amount,ashare_ratio,atelephone,updated_time,created_time)
+	     insert into sop_person_invest_experience (id,person_id,icompany_name,investment_amount,share_ratio,project_director,emceed_position,telephone,acompany_name,ainvestment_amount,ashare_ratio,aproject_director,aemceed_position,atelephone,updated_time,created_time)
 	    values (#{id,jdbcType=BIGINT}, #{personId,jdbcType=BIGINT}, #{icompanyName,jdbcType=VARCHAR}, 
 	      #{investmentAmount,jdbcType=DECIMAL}, #{shareRatio,jdbcType=DECIMAL},
 	      #{projectDirector,jdbcType=VARCHAR}, #{emceedPosition,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR},#{acompanyName,jdbcType=VARCHAR}, 	 
-	      #{ainvestmentAmount,jdbcType=DECIMAL},#{ashareRatio,jdbcType=DECIMAL},#{atelephone,jdbcType=VARCHAR},
+	      #{ainvestmentAmount,jdbcType=DECIMAL},#{ashareRatio,jdbcType=DECIMAL},#{aprojectDirector,jdbcType=VARCHAR}, #{aemceedPosition,jdbcType=VARCHAR},#{atelephone,jdbcType=VARCHAR},
 	      #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT})
 	    ]]>
     </insert>
@@ -94,6 +98,8 @@
 			  <if test="acompanyName != null" > acompany_name = #{acompanyName,jdbcType=VARCHAR}, </if>
 			  <if test="ainvestmentAmount != null" > ainvestment_amount = #{ainvestmentAmount,jdbcType=DECIMAL}, </if>
 			  <if test="ashareRatio != null" >  ashare_ratio = #{ashareRatio,jdbcType=DECIMAL}, </if>
+			  <if test="aprojectDirector != null" >  aproject_director = #{aprojectDirector,jdbcType=VARCHAR}, </if>
+			  <if test="aemceedPosition != null" >  aemceed_position = #{aemceedPosition,jdbcType=VARCHAR}, </if>
 			  <if test="atelephone != null" > atelephone = #{atelephone,jdbcType=VARCHAR}, </if>
 			  <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			  <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
@@ -120,6 +126,8 @@
 			  <if test="acompanyName != null" > acompany_name = #{acompanyName,jdbcType=VARCHAR}, </if>
 			  <if test="ainvestmentAmount != null" > ainvestment_amount = #{ainvestmentAmount,jdbcType=DECIMAL}, </if>
 			  <if test="ashareRatio != null" >  ashare_ratio = #{ashareRatio,jdbcType=DECIMAL}, </if>
+			  <if test="aprojectDirector != null" >  aproject_director = #{aprojectDirector,jdbcType=VARCHAR}, </if>
+			  <if test="aemceedPosition != null" >  aemceed_position = #{aemceedPosition,jdbcType=VARCHAR}, </if>
 			  <if test="atelephone != null" >  atelephone = #{atelephone,jdbcType=VARCHAR}, </if>
 			  <if test="updatedTime != null" >  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			  <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
