@@ -166,6 +166,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			long id = projectService.newProject(project);
 			if(id > 0){
 				responseBody.setResult(new Result(Status.OK,"项目添加成功!"));
+				responseBody.setId(id);
 				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 			}
 		} catch (Exception e) {
@@ -285,7 +286,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.setProjectDepartid(user.getDepartmentId());
 			}
 
+			
 			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
+			String hhrname="";
+			for(int i=0;i<pageProject.getContent().size();i++){
+	    			Project p=pageProject.getContent().get(i);
+					Department Department=new Department();
+					Department.setId(p.getProjectDepartid());
+					Department queryOne = departmentService.queryOne(Department);
+					hhrname=getHHRNname(project);
+					project.setHhrName(hhrname);
+					if(queryOne!=null){
+						p.setProjectCareerline(queryOne.getName());
+					}else{
+						p.setProjectCareerline("");
+					}
+			   }
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
@@ -299,22 +315,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 
 	
-	/**
-	 * 获取项目列表(投资经理)
-	 * @param
-	 * @return
-	 */
+/*
 	@ResponseBody
 	@RequestMapping(value = "/spl", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		project.setCreateUid(user.getId());
-/*		project.setrComplany("11");
+		project.setrComplany("11");
 		project.setbComplany(1000d);
 		project.setaComplany(100d);
 		project.setCascOrDes("created_time");
-		project.setAscOrDes("asc");*/
+		project.setAscOrDes("asc");
 		try {		
 			Page<Project>  pageProject=null;
 			if(project.getAscOrDes()!=null&&project.getCascOrDes()!=null){	
@@ -328,6 +340,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}													
 			}else{
 				pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));				
+				if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
+					project.setProjectStatus("meetingResult:3");
+					project.setProjectProgress(null);
+				}
 			}
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -340,7 +356,36 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
-	
+	*/
+	/**
+	 * 获取项目列表(投资经理)
+	 * @param
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/spl", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
+		project.setCreateUid(user.getId());
+		try {	
+			if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
+				project.setProjectStatus("meetingResult:3");
+				project.setProjectProgress(null);
+			}
+			Page<Project>  pageProject =  projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));				
+
+			responseBody.setPageList(pageProject);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
+		return responseBody;
+	}
 	/**
 	 * 添加团队成员
 	 * @author yangshuhua
@@ -636,6 +681,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
 				return responseBody;
 			}
+			//已有通过的会议，不能再添加会议纪要
+			MeetingRecord mrQuery = new MeetingRecord();
+			mrQuery.setProjectId(p.getPid());
+			mrQuery.setMeetingType(p.getMeetingType());
+			mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+			Long mrCount = meetingRecordService.queryCount(mrQuery);
+			if(mrCount != null && mrCount.longValue() > 0L)
+			{
+				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
+				return responseBody;
+			}
+			
 		}
 		Project project = projectService.queryById(p.getPid());
 		if(project == null){

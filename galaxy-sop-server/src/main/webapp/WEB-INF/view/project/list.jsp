@@ -75,7 +75,8 @@
 	                  <option value="projectProgress:7">投资决策会</option>
 	                  <option value="projectProgress:8">投资协议</option>
 	                  <option value="projectProgress:9">股权交割</option>
-	                  <!-- <option value="projectProgress:10">投后运营</option> -->
+	                  <option value="projectProgress:10">投后运营</option> 
+	                  <option value="guanbi">已关闭的项目</option>
 	                </select>
 	              </dd>
 	            </dl>
