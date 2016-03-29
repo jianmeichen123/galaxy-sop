@@ -275,7 +275,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					if(user.getDepartmentId()!=null && user.getDepartmentId().longValue() == adepart.getId().longValue()){
 						nohas = false;
 						adepart.setRemark("selected"); //标记选中
-						break;
 					}
 				}
 				if(nohas){
