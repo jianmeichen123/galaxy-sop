@@ -148,7 +148,10 @@ var platformUrl = {
 	 * tab -> 投决会： 
 	 */
 	tab_tjhtc : sopContentUrl + "/galaxy/project/tjhtc",
-	
+	/**
+	 * 修改:"是否涉及股权转让"状态
+	 */
+	storeUrl : sopContentUrl + "/galaxy/project/store/",
 	/**
 	 * 获取登录人的项目（会议类型、访谈阶段）：
 	 */

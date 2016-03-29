@@ -961,15 +961,11 @@
 								//涉及股权转让
 								if(st == 1){
 									$("#stock_transfer").attr("checked","checked");
-									$("#stock_transfer").attr("disabled","true");
-								}else{
-									
+									if((this.fileWorktype == 'fileWorktype:6' && this.fileKey != null) || (this.fileWorktype == 'fileWorktype:7' && this.fileKey != null)){
+										$("#stock_transfer").attr("disabled","true");
+									}
 								}
-							
-							
 						});
-						
-						
 					}
 			);	
 			if(projectType == 'projectType:2'){
@@ -1042,11 +1038,21 @@
 	 * "是否涉及股权转让"按钮点击事件
 	 */
 	function selected(obj){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null && pid != undefined){
+			sendGetRequest(
+					platformUrl.storeUrl + pid,
+					null,
+					function(data){
+					});
+		}
+		
 		if(obj.checked){
 			$("#gwxt_tr").css("display","table-row");
 		}else{
 			$("#gwxt_tr").css("display","none");
 		}
+		
 	}
 	 /**
 	  * 股权转让协议弹出层

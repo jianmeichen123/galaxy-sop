@@ -12,8 +12,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -756,7 +754,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, "该操作已过期!"));
 				return responseBody;
 			}
-			
+			/**
+			 * 上传签署凭证时要对相对应的文档是否已上传进行校验
+			 */
 			if(p.getVoucherType()!=null && p.getVoucherType().intValue() == 1){
 				SopFile fileQuery = null;
 				if( p.getFileWorktype().equals(DictEnum.fileWorktype.投资意向书.getCode())){
@@ -857,6 +857,34 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 	
+	
+	/**
+	 * 是否涉及"股权转让"点击事件
+	 */
+	@ResponseBody
+	@RequestMapping(value="/store/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> store(HttpServletRequest request,@PathVariable("pid") Long pid) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		if(pid == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
+			return responseBody;
+		}
+		Project project = projectService.queryById(pid);
+		if(project == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "未找到指定的项目!"));
+			return responseBody;
+		}
+		
+		int r = (project.getStockTransfer() == null || project.getStockTransfer().intValue() == 0) ? 1 : 0;
+		if(logger.isInfoEnabled()){
+			logger.info("old stockTransfer:" + project.getStockTransfer() + ", new stockTransfer:" + r);
+		}
+		project.setStockTransfer(r);
+		projectService.updateById(project);
+		responseBody.setEntity(project);
+		responseBody.setResult(new Result(Status.OK, null, ""));
+		return responseBody;
+	}
 	
 	/**
 	 * 接触访谈阶段: 启动内部评审
@@ -994,6 +1022,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		//验证文档是否齐全
 		SopFile file = new SopFile();
 		file.setProjectId(pid);
+		file.setFileValid(1);
 		file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 		List<SopFile> files = sopFileService.queryList(file);
 		for(SopFile f : files){
