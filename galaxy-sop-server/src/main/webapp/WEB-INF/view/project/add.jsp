@@ -135,7 +135,9 @@
                 </form>
               </table>
               <div class="btnbox">
-                <a href="javascript:;" onclick="add();" class="pubbtn bluebtn">保存</a>
+                <a href="javascript:;" onclick="add('save');" class="bluebtn pubbtn">保存</a>
+                <a href="javascript:;" onclick="add('saveandupdate');" class="pubbtn bluebtn">保存并编辑</a>
+                 
               </div>
           </div>
           <!-- 第2部分 -->
@@ -228,7 +230,7 @@
 		}
 		return null;
 	}
-	function add(){
+	function add(obj){
 		if(beforeSubmit()){
 			var json = {};
 			var projectName = $("#projectName").val();
@@ -263,7 +265,13 @@
 					layer.msg("操作失败");
 				},
 				success : function(data) {
-					forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+					if(obj=="save"){
+						forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+					}
+					if(obj=="saveandupdate"){
+						forwardWithHeader(sopContentUrl + "/galaxy/upp/"+data.id);
+					}
+					
 				}
 			}); 
 		}

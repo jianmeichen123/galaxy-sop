@@ -166,6 +166,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			long id = projectService.newProject(project);
 			if(id > 0){
 				responseBody.setResult(new Result(Status.OK,"项目添加成功!"));
+				responseBody.setId(id);
 				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 			}
 		} catch (Exception e) {
