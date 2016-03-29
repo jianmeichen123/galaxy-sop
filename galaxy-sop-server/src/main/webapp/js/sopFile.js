@@ -160,10 +160,17 @@ var fileGrid = {
 	},
 	operateEvents : {
 		'click .filedownloadlink': function (e, value, row, index) {
+			data = {
+					fileKey : row.fileKey,
+					fileName : row.fileName + "." + row.fileSuffix
+			};
+//			window.location = ossClient.signatureUrl(data)
 			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
         },
         'click .fileupdatelink' : function(e, value, row, index){
         	formData = {
+        			_fileType : row.fileType,
+        			_fileTypeAuto : true,
         			_fileSource : row.fileSource,
         			_workType : row.fileWorktype,
         			_projectId : row.projectId,

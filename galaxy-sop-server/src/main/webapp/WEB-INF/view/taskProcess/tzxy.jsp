@@ -45,13 +45,13 @@
 	    <dl class="fmdl clearfix">
 	    	<dt>存储类型：</dt>
 	        <dd>
-	        	<select name="fileType"></select>
+	        	<select name="fileType" class="disabled"></select>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
 	    	<dt>业务分类：</dt>
 	        <dd>
-	        	<select name="fileWorktype" disabled></select>
+	        	<select name="fileWorktype" class="disabled"></select>
 	        </dd>
 	        <dd>
 	        	<label id="tzxy_qszm"><input type="checkbox" id="voucherType" name="voucherType" value="1" disabled="disabled"/>签署凭证</label>
@@ -218,7 +218,7 @@ function initUpload(_dialog,type){
 		url : url+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
 		filters : {
-			max_file_size : '30mb'
+			max_file_size : '25mb'
 		},
 
 		init: {
