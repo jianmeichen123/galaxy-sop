@@ -257,6 +257,49 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	
 	
+	/**获取所有事业线
+	 * 判断选中登录人事业线
+	 */	
+	@ResponseBody
+	@RequestMapping(value = "/queryCheckLine", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Department> queryCheckLine(HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		ResponseData<Department> responseBody = new ResponseData<Department>();
+		try {
+			Department syxType = new Department();
+			syxType.setType(1);
+			List<Department> syxList = departmentService.queryList(syxType);//获取所有事业线
+			//判断用户所在事业线，在   syxlist 中选中
+			if(syxList != null && !syxList.isEmpty()){
+				boolean nohas = true;
+				for(Department adepart : syxList){
+					adepart.setRemark(null);
+					if(user.getDepartmentId()!=null && user.getDepartmentId().longValue() == adepart.getId().longValue()){
+						nohas = false;
+						adepart.setRemark("checked"); //标记选中
+						break;
+					}
+				}
+				if(nohas){
+					responseBody.setResult(new Result(Status.ERROR,null, "用户所在部门不是事业线！"));
+					logger.equals("用户所在部门不是事业线"+GSONUtil.toJson(user));
+					return responseBody;
+				}
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,null, "查询部门数据为空！"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setEntityList(syxList);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "查询事业线失败"));
+			if(logger.isErrorEnabled()){
+				logger.error("queryCheckLine 查询事业线失败 ",e);
+			}
+		}
+		return responseBody;
+	}
+	
 	/**
 	 * 获取项目列表(高管)
 	 * @param

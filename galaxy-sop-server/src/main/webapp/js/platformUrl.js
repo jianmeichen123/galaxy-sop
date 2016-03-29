@@ -37,6 +37,10 @@ var platformUrl = {
 	 */
 	closeProject : sopContentUrl + "/galaxy/project/breakpro/",
 	/**
+	 * 获取事业部——高管查询select
+	 */
+	queryCheckLine : sopContentUrl + "/galaxy/project/queryCheckLine/",
+	/**
 	 * 获取项目详情
 	 */
 	detailProject : sopContentUrl + "/galaxy/project/sp/",

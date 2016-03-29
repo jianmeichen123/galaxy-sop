@@ -30,6 +30,15 @@
 		<div class="min_document clearfix" id="custom-toolbar">
 			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fml fmdll clearfix">
+	              <dt>投资事业线：</dt>
+	              <dd>
+	                <select name="projectDepartid">
+	                  <option value="">全部</option>
+	                </select>
+	              </dd>
+	            </dl>
+	            
+				<dl class="fmdl fml fmdll clearfix">
 	              <dt>项目类别：</dt>
 	              <dd>
 	                <select name="projectType">
@@ -107,9 +116,27 @@
 <script type="text/javascript" src="<%=path %>/js/manager/js/filerepository.js"></script>
 
 <script type="text/javascript">
-	$(function(){
-		createMenus(4);
-	});
+$(function(){
+	createMenus(4);
+	sendGetRequest(platformUrl.queryCheckLine,null,setCheckLine);
+});
+
+
+//设置事业线下拉框
+function setCheckLine(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		layer.msg(data.result.message);
+		return;
+	}
+	var _this = $("select[name='projectDepartid']");
+	var entityList = data.entityList;
+	_this.empty();
+	_this.append("<option value=''>全部</option>");
+	for(var i=0;i<data.entityList.length;i++){
+		_this.append("<option value='"+data.entityList[i].id+"' "+data.entityList[i].remark+">"+data.entityList[i].name+"</option>");
+    } 
+}
 	/**
 	 * 分页数据生成操作内容
 	 */
