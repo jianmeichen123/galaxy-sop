@@ -10,7 +10,8 @@
 <!-- time -->
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
+
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
@@ -22,7 +23,7 @@
             	<dt>项目 :</dt>
                 <dd>
                 	<select id="projectId" name="projectId"  
-                	valType="required" msg="<font color=red>*</font>项目不能为空" >
+                	valType="required" msg="<font color=red>*</font>项目不能为空">
                     </select>
                	 <!-- <input type="text" placeholder="请输入关键字查找" class="txt"/> -->
                 </dd>
@@ -85,5 +86,6 @@
 
  <script type="text/javascript">
 		UM.getEditor('meetingNotes');
+		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd"));
 </script>
 

@@ -275,7 +275,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					if(user.getDepartmentId()!=null && user.getDepartmentId().longValue() == adepart.getId().longValue()){
 						nohas = false;
 						adepart.setRemark("selected"); //标记选中
-						break;
 					}
 				}
 				if(nohas){
@@ -323,13 +322,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.OK, ""));*/
 
 			}
-			if (roleIdList.contains(UserConstant.HHR)){
-				/*if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
+			/*if (roleIdList.contains(UserConstant.HHR)){
+				if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
 					project.setProjectStatus("meetingResult:3");
 					project.setProjectProgress(null);
-				}*/
+				}
 				project.setProjectDepartid(user.getDepartmentId());
-			}
+			}*/
 
 			
 			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
@@ -744,6 +743,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, "未找到相应的项目信息!"));
 			return responseBody;
 		}
+
+
 		//投资意向书、尽职调查及投资协议的文档上传、更新操作只能在当前阶段才能进行
 		if(p.getStage().equals(DictEnum.projectProgress.投资意向书.getCode()) || p.getStage().equals(DictEnum.projectProgress.尽职调查.getCode())
 				|| p.getStage().equals(DictEnum.projectProgress.投资协议.getCode())){
@@ -757,6 +758,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(in < pin){
 				responseBody.setResult(new Result(Status.ERROR, "该操作已过期!"));
 				return responseBody;
+			}
+			//股权转让文档前置验证
+			if( p.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+				if(project.getProjectType().equals(DictEnum.projectType.内部创建.getClass())){
+					responseBody.setResult(new Result(Status.ERROR, null,"内部创建项目不需要股权转让协议!"));
+					return responseBody;
+				}else if(project.getStockTransfer()==null || project.getStockTransfer()==0){
+					responseBody.setResult(new Result(Status.ERROR, null,"项目未选择涉及股权转让!"));
+					return responseBody;
+				}
 			}
 			/**
 			 * 上传签署凭证时要对相对应的文档是否已上传进行校验

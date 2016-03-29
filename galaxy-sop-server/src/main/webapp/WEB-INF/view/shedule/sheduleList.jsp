@@ -86,12 +86,12 @@
       
         <div id="editShedule" class="bottom_r2 bottom_r"  data-tab='con'> 
            <form action="" id="shedule_form" method="post">    
-            <input type="hidden" id="id" name="id" value="<%=id%>"/>
+            <input type="hidden" id="id" name="id" value=""/>
             <h2>添加日程安排</h2>
             <dl class="fmdl clearfix">
                 <dt>处理日期：</dt>
                 <dd class="clearfix">
-                    <input type="text" id="itemDate" class="datepicker time" name="itemDateStr" readonly value="<%=timestr %>" valType="required" msg="<font color=red>*</font>处理日期不能为空"/>
+                    <input type="text" id="itemDate" class="datepicker time" name="itemDateStr" readonly value="" valType="required" msg="<font color=red>*</font>处理日期不能为空"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -111,7 +111,7 @@
             <dl class="fmdl clearfix">
                 <dt>事项内容：</dt>
                 <dd>
-                    <textarea id="content" name="content" valType="OTHER" regString="^.{1,200}$" msg="<font color=red>*</font>事件内容不能超过200字符"><%=contentstr %></textarea>
+                    <textarea id="content" name="content" valType="OTHER" regString="^.{1,200}$" msg="<font color=red>*</font>事件内容不能超过200字符"></textarea>
                 </dd>
             </dl>
             <div class="btnbox">
@@ -127,7 +127,7 @@
 
 
 
-    if('<%=timestr%>' !=''){
+<%-- if('<%=timestr%>' !=''){
     	 $("#itemDate").val('<%=timestr%>');
      }
     
@@ -146,7 +146,7 @@
      }
      if(itemOrder == '1'){
     	 $("#itemOrder1").attr("checked","checked");
-     }
+     } --%>
     //保存日程
     function saveShedule(){
     	if(beforeSubmit()){
