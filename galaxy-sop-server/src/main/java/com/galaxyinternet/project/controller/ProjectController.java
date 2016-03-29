@@ -321,7 +321,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setPageList(pageProject);
 				responseBody.setResult(new Result(Status.OK, ""));*/
 
-			}else if (roleIdList.contains(UserConstant.HHR)){
+			}
+			if (roleIdList.contains(UserConstant.HHR)){
 				/*if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
 					project.setProjectStatus("meetingResult:3");
 					project.setProjectProgress(null);
