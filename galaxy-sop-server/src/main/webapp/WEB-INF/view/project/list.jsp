@@ -764,22 +764,22 @@
 					 if(o.fileWorktype == 'fileWorktype:1'){
 						 html += "<td>业务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>"+o.careerLineName+"</td><td>"+o.fType+"</td>";
+						 html += "<td>"+o.careerLineName+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:2'){
 						 html += "<td>人事尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>人事部</td><td>"+o.fType+"</td>";
+						 html += "<td>人事部</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:3'){
 						 html += "<td>法务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>法务部</td><td>"+o.fType+"</td>";
+						 html += "<td>法务部</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:4'){
 						 html += "<td>财务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>财务部</td><td>"+o.fType+"</td>";
+						 html += "<td>财务部</td>";
 					 }
 					 if(o.fileStatus == 'fileStatus:1' || o.fileValid == '0'){
-						 html += "<td>缺失</td>";
+						 html += "<td>未知</td><td>缺失</td>";
 						 if(o.fileWorktype != 'fileWorktype:1'){
 							 html +='<td><a href="javascript:; " onclick="taskUrged('+o.id+');"class="blue">催办 </a></td>';
 
@@ -791,6 +791,7 @@
 						 if(o.fileWorktype == 'fileWorktype:1'){
 							 $("#jzdc_options a:eq(0)").text('更新业务尽职调查报告')
 						 }
+						 html += "<td>"+o.fType+"</td>";
 						 html += "<td>已上传</td>";
 						 html += "<td></td>";
 						 html += "<td><a href='javascript:filedown("+o.id+");'>查看</a></td>";
@@ -1132,22 +1133,30 @@
 							             '<tbody>';
 										for(var p in dataList){
 													var typehtml = "";
-													if (typeof(dataList[p].fType) == "undefined") { 
+													if (typeof(dataList[p].fType) == "undefined" || dataList[p].fileValid == '0') { 
 														typehtml ='<td></td>';
 													}else{
 														typehtml = '<td>'+dataList[p].fType+'</td>';
 													}
 													
+													var updateHtml = "";
+													if(dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0'){
+														updateHtml = "<td></td>";
+													}else{
+														updateHtml = '<td>'+getVal(dataList[p].updatedDate,'')+'</td>';
+													}
+													
+													
 													var handlehtml = "";
-													if (dataList[p].fileStatusDesc == "缺失" && !hasClosed) { 
+													if ((dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0') && !hasClosed) { 
 														handlehtml ='<td><a href="javascript:; " onclick="taskUrged('+dataList[p].id+');"class="blue">催办</a></td>';
 													}else{
 														handlehtml = '<td></td>';
 													}
 													
 													var endhtml ="";
-													if (dataList[p].fileStatusDesc == "缺失") { 
-														endhtml ='<td>'+dataList[p].fileStatusDesc+'</td>';
+													if (dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0') { 
+														endhtml ='<td>缺失</td>';
 													}else{
 														endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
 													}
@@ -1162,9 +1171,7 @@
 													htmlstart +='<tr>'+
 													'<td>'+dataList[p].fWorktype+'</td>'+
 													'<td>'+dataList[p].createDate+'</td>'+
-													typehtml+
-													'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'+
-													handlehtml+   
+													typehtml+updateHtml+handlehtml+   
 													endhtml+   
 													'</tr>';   
 										}
