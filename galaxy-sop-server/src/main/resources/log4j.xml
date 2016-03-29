@@ -16,20 +16,20 @@
 
 	<appender name="logfile" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="encoding" value="UTF-8" />
-		<param name="File" value="${log4j.path}/galaxyPlatform/normal.log" />
+		<param name="File" value="${log4j.path}/galaxySop/applicationLog.log" />
 		<param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%p %d{yyyyMMddHHmmss} %c %t %m%n" />
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
 			<param name="LevelMax" value="error"></param>
-			<param name="LevelMin" value="info"></param>
+			<param name="LevelMin" value="warn"></param>
 			<param name="AcceptOnMatch" value="true" />
 		</filter>
 	</appender>
 
 	<root>
-		<level value="info" />
+		<level value="warn" />
 		<appender-ref ref="logconsole" />
 		<appender-ref ref="logfile" />
 	</root>
