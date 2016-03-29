@@ -271,10 +271,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(syxList != null && !syxList.isEmpty()){
 				boolean nohas = true;
 				for(Department adepart : syxList){
-					adepart.setRemark(null);
+					adepart.setRemark("");
 					if(user.getDepartmentId()!=null && user.getDepartmentId().longValue() == adepart.getId().longValue()){
 						nohas = false;
-						adepart.setRemark("checked"); //标记选中
+						adepart.setRemark("selected"); //标记选中
 						break;
 					}
 				}
@@ -297,6 +297,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	
 	
 	
 	
