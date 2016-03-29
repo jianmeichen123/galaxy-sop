@@ -252,18 +252,28 @@
 							}else if(indexNum == '2'){
 							    $("#projectProgress_2_con").css("display","block");
 								tiggerTable($("#projectProgress_2_table"),3);
+								if(index != '2'){
+									$("#options_point2").remove();
+								}
 							}else if(indexNum == '3'){
 								if(parseInt(indexNum) < parseInt(pNum)){
 									$("#lxhpq").remove();
 								}
 								$("#projectProgress_3_con").css("display","block");
 								tiggerTable($("#projectProgress_3_table"),3);
+								if(index != '3'){
+								 $("#options_point3").remove();
+								}
+								
 							} else if(indexNum == '4'){
 								$("#projectProgress_4_con").css("display","block");
 								if(parseInt(indexNum) < parseInt(pNum)){
 									$("#reset_btn").css("display","none");
 								}
 							    tiggerTable($("#projectProgress_4_table"),3);
+							    if(index != '4'){
+							     $("#options_point4").remove();
+							    }
 							} else if(indexNum == '5'){
 								$("#projectProgress_7_con").css("display","none");
 								$("#projectProgress_5").addClass("on");
@@ -287,6 +297,9 @@
 									$("#inSure_btn").css("display","none");
 								}
 								 tiggerTable($("#projectProgress_7_table"),3);
+								 if(index != '7'){
+								  $("#options_point7").remove();
+								 }
 							}else if(indexNum == '8'){
 								$("#projectProgress_7_con").css("display","none");
 								$("#projectProgress_8_con").css("display","block");
