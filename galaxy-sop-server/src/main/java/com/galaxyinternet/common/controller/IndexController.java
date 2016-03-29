@@ -19,8 +19,10 @@ import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 import com.galaxyinternet.template.controller.SopTemplateController;
@@ -39,6 +41,8 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	private SopFileController fileController;
 	@Autowired
 	private SopTemplateController templateController;
+	@Autowired
+	private ProjectService projectService;
 	
 	private String serverUrl;
 	
@@ -181,8 +185,13 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 * 跳转到LPHtc
 	 * @return
 	 */
-	@RequestMapping(value = "/mr", method = RequestMethod.GET)
-	public String lphtc(HttpServletRequest request) {
+	@RequestMapping(value = "/mr/{pid}", method = RequestMethod.GET)
+	public String lphtc(HttpServletRequest request,@PathVariable Long pid) {
+		Project pr=projectService.queryById(pid);
+		if(pr!=null){
+			String time=pr.getCreateDate();
+			request.setAttribute("timeStr", time);
+		}
 		return "project/mr";
 	}
 	
