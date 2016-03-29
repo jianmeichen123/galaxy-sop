@@ -449,7 +449,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					alert("error "+response.result.message);
+					layer.msg(response.result.message);
 					return false;
 				}
 				
