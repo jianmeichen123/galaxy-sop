@@ -323,13 +323,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.OK, ""));*/
 
 			}
-			if (roleIdList.contains(UserConstant.HHR)){
-				/*if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
+			/*if (roleIdList.contains(UserConstant.HHR)){
+				if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
 					project.setProjectStatus("meetingResult:3");
 					project.setProjectProgress(null);
-				}*/
+				}
 				project.setProjectDepartid(user.getDepartmentId());
-			}
+			}*/
 
 			
 			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
