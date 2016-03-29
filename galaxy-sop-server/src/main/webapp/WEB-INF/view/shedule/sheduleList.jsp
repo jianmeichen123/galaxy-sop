@@ -162,17 +162,17 @@
     	$("#content").val('');
     	$("#id").val('');
     	$("#id").remove();
-    	uncheckAll('itemType');
-    	uncheckAll('itemOrder');
+    	uncheckAll('itemType','1');
+    	uncheckAll('itemOrder','1');
     }
     //取消选中  
-    function uncheckAll(type)   
+    function uncheckAll(type,value)   
     {   
     var code_Values = document.all[type];   
 	    if(code_Values.length){   
 		    for(var i=0;i<code_Values.length;i++)   
 		    {   
-			    if(code_Values[i].value == '1'){
+			    if(code_Values[i].value == value){
 			    	 code_Values[i].checked = false;   
 			    }else{
 			    	code_Values[i].checked = true;   
@@ -206,16 +206,16 @@
     	$("#id").val(data.entity.id);
     	
     	if(itemType == '0'){
-   	    	$("#itemType0").attr("checked","checked");
+    		uncheckAll('itemType','1');
    	    }
    	    if(itemType == '1'){
-   	    	$("#itemType1").attr("checked","checked");
+   	    	uncheckAll('itemType','0');
    	    }
    	    if(itemOrder == '0'){
-   	    	$("#itemOrder0").attr("checked","checked");
+   	    	uncheckAll('itemOrder','1');
    	    }
    	    if(itemOrder == '1'){
-   	    	$("#itemOrder1").attr("checked","checked");
+   	    	uncheckAll('itemOrder','0');
    	    }
     	
     }
