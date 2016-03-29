@@ -304,12 +304,12 @@
                   </tr>
                    <tr>
                     <th>项目负责人：</th>
-                    <td><input type="text" name="projectDirector" id="projectDirector"  value=""></td>
+                    <td><input type="text" name="aprojectDirector" id="aprojectDirector"  value=""></td>
                   </tr>
                  
                   <tr>
                     <th>职位：</th>
-                    <td><input type="text" name="emceedPosition" id="emceedPosition"  value=""></td>
+                    <td><input type="text" name="aemceedPosition" id="aemceedPosition"  value=""></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>

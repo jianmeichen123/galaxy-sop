@@ -87,6 +87,10 @@ $(function(){
 		forwardWithHeader(platformUrl.tempDownload+"?worktype=${fileWorktype}&projectId=${projectId}");
 	});
 });
+function projectLoaded(project)
+{
+	
+}
 function loadRows()
 {
 	var url = platformUrl.queryFile;

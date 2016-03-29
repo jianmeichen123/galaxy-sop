@@ -118,10 +118,10 @@
 <script type="text/javascript">
 $(function(){
 	createMenus(2);
-	getProjectInfo();
+	getProjectInfo(projectLoaded);
 });
 
-function getProjectInfo()
+function getProjectInfo(projectLoaded)
 {
 	var url = platformUrl.detailProject+"/${projectId}";
 	sendGetRequest(
@@ -158,6 +158,9 @@ function getProjectInfo()
 				}
 			});
 			$(".projectmsg h2").text(project.projectName);
+			if($.isFunction(projectLoaded)){
+				projectLoaded.apply(project);
+			}
 		}
 	);
 }
