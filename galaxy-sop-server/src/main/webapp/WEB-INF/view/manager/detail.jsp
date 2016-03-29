@@ -292,7 +292,7 @@
                         align: 'center',
                         valign: 'middle',
                         formatter:function(value,row,index){ 
-                        	if (row.gender == true) {
+                        	if (row.personSex == 0) {
                     			return "男";
                     		} else {
                     			return "女";
