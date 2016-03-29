@@ -238,9 +238,10 @@
 			json = {"projectName":projectName,"projectCompanyCode":projectCompanyCode};
 			sendPostRequestByJsonObj(platformUrl.checkProject,json,callbackcheckProject);
 			if(result){
+				layer.msg(message);
 				$("#projectName").val("");
 				result=false;
-				return false;
+			return false;
 			}
 			$.ajax({
 				url : platformUrl.addProject,
@@ -278,8 +279,7 @@
 	}
 	function callbackcheckProject(data) {
 		if (data.count!=0) {
-			message = "存在重复项目名，请重新输入";
-			alert(message);
+		   message = "存在重复项目名，请重新输入";
 			result=true;
 		} 
 	}

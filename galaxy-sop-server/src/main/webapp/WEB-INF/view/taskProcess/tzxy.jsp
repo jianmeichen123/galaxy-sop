@@ -3,7 +3,9 @@
 	String path = request.getContextPath(); 
 %>
 <div class="btm">
-	<input type="checkbox" name="hasStockTransfer" value="1" onclick="selected(this);" id="stock_transfer">是否涉及股权转让
+	<div id="stock_transfer_model">
+		
+	</div>
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
