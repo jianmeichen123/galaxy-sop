@@ -367,7 +367,8 @@
 								return false;
 							}
 							if(viewTarget == null ||  viewTarget == ""){
-								alert("对象不能为空");
+							$("#viewTarget").focus();
+							//alert("访谈对象不能为空");
 								return false;
 							}
 							condition.pid = pid;
