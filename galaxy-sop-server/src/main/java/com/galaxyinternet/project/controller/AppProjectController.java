@@ -1,5 +1,6 @@
 package com.galaxyinternet.project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +26,10 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserRoleService;
 /**
@@ -40,6 +43,8 @@ public class AppProjectController extends BaseControllerImpl<Project, ProjectBo>
 	
 	final Logger logger = LoggerFactory.getLogger(AppProjectController.class);
 	
+	@Autowired
+	private DepartmentService departmentService;
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
@@ -64,14 +69,15 @@ public class AppProjectController extends BaseControllerImpl<Project, ProjectBo>
 			ResponseData<Project> responseBody = new ResponseData<Project>();
 			User user = (User) getUserFromSession(request);
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){				
-			}else if (roleIdList.contains(UserConstant.HHR)){
+			if (roleIdList.contains(UserConstant.HHR)){
 				project.setProjectDepartid(user.getDepartmentId());
-			}else{
+			}
+			if(!roleIdList.contains(UserConstant.DSZ) && !roleIdList.contains(UserConstant.CEO)&&!roleIdList.contains(UserConstant.HHR)){
 				project.setCreateUid(user.getId());
-			}			
-			try {		
-				Page<Project>  pageProject=null;
+			}
+				
+			try {						
+				Page<Project>  pageProject = null;
 				if(project.getAscOrDes()!=null&&project.getCascOrDes()!=null){	
 					if(project.getAscOrDes().equals("desc")){
 						Sort sort = new Sort(Direction.DESC,project.getCascOrDes());
@@ -82,7 +88,24 @@ public class AppProjectController extends BaseControllerImpl<Project, ProjectBo>
 					}													
 				}else{
 					pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));				
-				}
+				}	    	
+			    if(pageProject.getContent().isEmpty())	{
+			    	List<Project> p=new ArrayList<Project>();
+			    	pageProject.setContent(p);
+			    	pageProject.setTotal((long)0);
+			   }else{
+				   for(int i=0;i<pageProject.getContent().size();i++){
+		    			Project p=pageProject.getContent().get(i);
+						Department Department=new Department();
+						Department.setId(p.getProjectDepartid());
+						Department queryOne = departmentService.queryOne(Department);
+						if(queryOne!=null){
+							p.setProjectCareerline(queryOne.getName());
+						}else{
+							p.setProjectCareerline("");
+						}
+				   }
+			  }
 				responseBody.setPageList(pageProject);
 				responseBody.setResult(new Result(Status.OK, ""));
 				return responseBody;

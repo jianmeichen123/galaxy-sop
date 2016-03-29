@@ -54,7 +54,7 @@
 								dataGrid.load(_projectId);
 							},
 							_url : platformUrl.commonUploadFile,
-							_isProve : false
+							_isProve : "hide"
 						};
 //					win.initData();
 					win.init(_formdata);
@@ -104,10 +104,10 @@
 							filters : {
 								max_file_size : '25mb',
 								mime_types: [
-								    {title : "Zip files", extensions : "zip,rar"},
-									{title : "Image files", extensions : "bmp,jpg,jpeg,gif,png"},
-									{title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,flv"},
-									{title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers"}
+								    {title : "Zip files", extensions : "zip,rar,ZIP,RAR"},
+									{title : "Image files", extensions : "bmp,jpg,jpeg,gif,png,BMP,JPG,JPEG,GIF,PNG"},
+									{title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r,flv,MP3,MP4,AVI,WAV,WMA,AAC,M4A,M4R,FLV"},
+									{title : "doc files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt,pages,key,numbers,DOC,DOCX,PPT,PPTX,PPS,XLS,XLSX,PDF,TXT,PAGES,KEY,NUMBERS"}
 								]
 							},
 							init: {
@@ -120,6 +120,8 @@
 									})
 								},
 								FilesAdded: function(up, files) {
+									var $fileType = $(_this.id).find("#win_fileType");
+									
 									//解决多次文件选择后，文件都存入upload
 									if(uploader.files.length >= 2){
 										uploader.splice(0, uploader.files.length-1)
@@ -127,7 +129,11 @@
 									plupload.each(files, function(file) {
 //										document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 										$(_this.id).find("#win_fileTxt").val(file.name);
+										attrFileType($fileType, file);
 									});
+									
+									
+									
 								},
 								UploadProgress: function(up, file) {
 								},
@@ -238,8 +244,13 @@
 				}
 				//签署证明
 				if(typeof(_formdata._isProve) != "undefined"){
-					$isProve.attr("checked",_formdata._isProve); 
-					$isProve.attr("disabled","disabled")
+					if(_formdata._isProve == "hide"){
+						$(_this.id).find("#win_isProve_div").hide();
+					}else{
+						$isProve.attr("checked",_formdata._isProve); 
+						$isProve.attr("disabled","disabled")
+					}
+					
 				}	
 				
 			},
@@ -293,8 +304,92 @@
 	};
 	
 	
+	var mailWin = {
+			init : function(data){
+				var rows = data._rows
+				mailWin.callFuc = data._callFuc;
+				$.popup({
+					txt:$("#mail-dialog").html(),
+					showback:function(){
+						var _dialog = this;
+						var opts = {
+								rules : {
+									toAddress:{
+										required:true,
+										emails:true
+									}
+									
+								}
+						};
+						var valdator = $(_dialog.id).find('form').fxValidate(opts);
+						var i =1;
+						var ids = new Array();
+						$.each(rows,function(){
+							var $tr=$("<tr></tr>");
+							$tr.append("<td>"+ i +"</td>");
+							$tr.append("<td>"+ this.fWorktype +"</td>");
+							$tr.append("<td>"+ getFileSize(this.fileLength) +"</td>");
+							$(_dialog.id).find("#attach-table tbody").append($tr);
+							ids.push(this.id);
+							i++;
+						});
+						
+						$(_dialog.id).find("#send-mail-btn").click(function(){
+							if(!valdator.form())
+							{
+								return;
+							}
+							$(this).addClass('disabled');
+						 	var $form = $(_dialog.id).find("#mail-form");
+							var data = JSON.parse($form .serializeObject());
+							data['templateIds']=ids;
+							var url = platformUrl.fileSendEmail;
+							sendPostRequestByJsonObj(
+									url,
+									data,
+									function(data){
+										if(data.status=="OK")
+										{
+											layer.msg("发送邮件成功.");
+											mailWin.close(_dialog);
+										}
+										else
+										{
+											layer.msg("发送邮件失败.");
+											$(_dialog.id).find("#send-mail-btn").removeClass('disabled');
+										}
+									}
+							); 
+						});
+					}
+				});
+				
+				
+				
+				
+							
+				
+			},
+			callFuc : function(){
+				
+			},
+			//关闭弹出框
+			close : function(_this){
+					$(_this.id).remove();	
+					//关闭对外接口
+					_this.hideback.apply(_this);
+					//判断是否关闭背景
+					if($(".pop").length==0){
+						$("#popbg").hide();	
+					}
+			},
+			
+	}
+	
+	
+	
+	
 	function init(){
-		
 	}
 $(document).ready(init());
 

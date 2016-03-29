@@ -200,7 +200,7 @@
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
 <!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a>--> 
-					<a href="javascript:;" class="pubbtn fffbtn">发送选中</a> 
+					<a href="javascript:;" class="pubbtn fffbtn" id="file-show-mail-btn">发送选中</a> 
 				</div>
 
 				<!--表格内容-->
@@ -211,7 +211,7 @@
 			<div class="block" data-tab="con" id="projectProgress_1_con">
 				<!--按钮-->
 				<div id="options_point1" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="#" data-btn="interview" onclick="air();" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
+					<a href="#" data-btn="interview" onclick="air(1);" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
 					<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn">启动内部评审</a>
 				</div>
 				<div id="projectProgress_1_table_custom-toolbar">
@@ -248,7 +248,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -261,7 +261,7 @@
 				<!--按钮-->
 				<div id="options_point3" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" onclick="addMettingRecord(3,'meetingType:2')" class="pubbtn fffbtn lpubbtn">添加会议记录</a> 
-					<a href="javascript:toEstablishStage();" id="lxhpq" class="pubbtn fffbtn lpubbtn">立项会排期</a>
+					<a href="javascript:;" onclick="toEstablishStage()" id="lxhpq" class="pubbtn fffbtn lpubbtn">立项会排期</a>
 				</div>
 				
 				<div id="projectProgress_3_table_custom-toolbar">
@@ -275,7 +275,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -303,7 +303,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -330,7 +330,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -343,8 +343,8 @@
 			<div class="block" data-tab="con" id="projectProgress_6_con">
 				<!--按钮-->
 				<div id="jzdc_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:uploadYwjd();"  class="pubbtn fffbtn llpubbtn">上传业务尽职调查报告</a>
-					<a href="javascript:inTjh();" class="pubbtn fffbtn lpubbtn">申请投决会排期</a>
+					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn">上传业务尽职调查报告</a>
+					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn">申请投决会排期</a>
 				</div>
 				<div class="process clearfix">
 					<h2>业务尽调报告审核流程</h2>

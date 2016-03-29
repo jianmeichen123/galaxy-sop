@@ -16,7 +16,7 @@
     }
 	
 %>
-<link rel="shortcut icon" href="img/favicon.ico" />
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/img/favicon.ico" />
 <div class="header clearfix">
  <div class="warning" id="warning"><i></i>您的浏览器版本过低，繁星系统不提供对IE10以下浏览器的支持，快使用速度更快，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
 	<a href="javascript:;" class="logo null">繁星</a>
@@ -50,28 +50,54 @@
     <div class="usermsg rit clearfix">
         <span class="ico name">您好，<%=realName%></span>
         <b class="line null">分割线</b>
-        <a href="javascript:logout()" class="loginout">退出</a>
+        <a href="javascript:;" onclick="logout()" class="loginout">退出</a>
     </div>
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
-
 var warn=document.getElementById('warning');
 var close=document.getElementById('close');
-var Sys = {};
-        var ua = navigator.userAgent.toLowerCase();
-        var s;
-        (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
-        (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
-        (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
-        (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
-        (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
-       var ie=Sys.ie;
-      /*  if (ie=='9.0'||ie=='8.0'||ie=='7.0'||ie=='6.0'){
-            window.location.href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie"; 
-           warn.style.display='block';
-        };*/
-        if (ie=='10.0'||ie=='11.0'||Sys.chrome||Sys.safari){
+    var userAgent = navigator.userAgent,   
+rMsie = /(msie\s|trident.*rv:)([\w.]+)/,   
+rFirefox = /(firefox)\/([\w.]+)/,   
+rOpera = /(opera).+version\/([\w.]+)/,   
+rChrome = /(chrome)\/([\w.]+)/,   
+rSafari = /version\/([\w.]+).*(safari)/;  
+var browser;  
+var version;  
+var ua = userAgent.toLowerCase();  
+function uaMatch(ua){  
+  var match = rMsie.exec(ua);  
+  if(match != null){  
+    return { browser : "IE", version : match[2] || "0" };  
+  }  
+  var match = rFirefox.exec(ua);  
+  if (match != null) {  
+    return { browser : match[1] || "", version : match[2] || "0" };  
+  }  
+  var match = rOpera.exec(ua);  
+  if (match != null) {  
+    return { browser : match[1] || "", version : match[2] || "0" };  
+  }  
+  var match = rChrome.exec(ua);  
+  if (match != null) {  
+    return { browser : match[1] || "", version : match[2] || "0" };  
+  }  
+  var match = rSafari.exec(ua);  
+  if (match != null) {  
+    return { browser : match[2] || "", version : match[1] || "0" };  
+  }  
+  if (match != null) {  
+    return { browser : "", version : "0" };  
+  }  
+}  
+var browserMatch = uaMatch(userAgent.toLowerCase());  
+if (browserMatch.browser){  
+  browser = browserMatch.browser;  
+  version = browserMatch.version;  
+}  
+        var ma=browser+version;
+        if (ma=='IE10.0'||ma=='IE11.0'||browser=='chrome'||browser=='safari'){
             warn.style.display='none';
         }
         else{

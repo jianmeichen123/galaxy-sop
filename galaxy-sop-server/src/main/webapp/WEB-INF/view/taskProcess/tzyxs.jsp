@@ -48,7 +48,7 @@
 	        	<select name="fileWorktype" disabled></select>
 	        </dd>
 	        <dd>
-	        	<label><input type="checkbox" name="voucherType" value="1"/>签署凭证</label>
+	        	<label id="tzyxs_qszm"><input type="checkbox" id="voucherType" name="voucherType" value="1" disabled="disabled"/>签署凭证</label>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -87,6 +87,10 @@ $(function(){
 		forwardWithHeader(platformUrl.tempDownload+"?worktype=${fileWorktype}&projectId=${projectId}");
 	});
 });
+function projectLoaded(project)
+{
+	
+}
 function loadRows()
 {
 	var url = platformUrl.queryFile;
@@ -152,6 +156,7 @@ function loadRelatedData()
 function showUploadPopup(type)
 {
 	$.popup({
+		init:init(type),
 		txt:$("#upload-dialog").html(),
 		showback:function(){
 			var _this = this;
@@ -160,8 +165,23 @@ function showUploadPopup(type)
 		}
 	});
 }
+function init(type){
+	if(type != 'voucher'){
+        $("#tzyxs_qszm").attr("style","visibility:hidden");
+	}else{
+		$("#tzyxs_qszm").removeAttr("style");
+	}
+}
 function initUpload(_dialog,type){
-	var validator = $(_dialog.id).find('form').fxValidate({errorElement:'div'});
+	var opts = {
+			rules : {
+				fileSource:{
+					required:true
+				}
+				
+			}
+	};
+	var validator = $(_dialog.id).find('form').fxValidate(opts);
 	var url = platformUrl.stageChange;
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
@@ -208,6 +228,9 @@ function initUpload(_dialog,type){
 				var data = JSON.parse($form.serializeObject());
 				data['type']=data['fileSource'];
 				data['fileWorktype']='fileWorktype:5';
+				if(type == 'voucher'){
+					data['voucherType']=$("[name='voucherType']:checked").val();
+				}
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {

@@ -86,12 +86,12 @@
       
         <div id="editShedule" class="bottom_r2 bottom_r"  data-tab='con'> 
            <form action="" id="shedule_form" method="post">    
-            <input type="hidden" id="id" name="id" value="<%=id%>"/>
             <h2>添加日程安排</h2>
+            <input type="hidden" id="id" name="id" value=""/>
             <dl class="fmdl clearfix">
                 <dt>处理日期：</dt>
                 <dd class="clearfix">
-                    <input type="text" id="itemDate" class="datepicker time" name="itemDateStr" readonly value="<%=timestr %>" valType="required" msg="<font color=red>*</font>处理日期不能为空"/>
+                    <input type="text" id="itemDate" class="datepicker time" name="itemDateStr" readonly value="" valType="required" msg="<font color=red>*</font>处理日期不能为空"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -111,7 +111,7 @@
             <dl class="fmdl clearfix">
                 <dt>事项内容：</dt>
                 <dd>
-                    <textarea id="content" name="content" valType="OTHER" regString="^.{1,200}$" msg="<font color=red>*</font>事件内容不能超过200字符"><%=contentstr %></textarea>
+                    <textarea id="content" name="content" valType="OTHER" regString="^.{1,200}$" msg="<font color=red>*</font>事件内容不能超过200字符"></textarea>
                 </dd>
             </dl>
             <div class="btnbox">
@@ -124,8 +124,8 @@
     </div>
 </div>
     <script type="text/javascript">
-    
-     if('<%=timestr%>' !=''){
+
+<%-- if('<%=timestr%>' !=''){
     	 $("#itemDate").val('<%=timestr%>');
      }
     
@@ -144,7 +144,7 @@
      }
      if(itemOrder == '1'){
     	 $("#itemOrder1").attr("checked","checked");
-     }
+     } --%>
     //保存日程
     function saveShedule(){
     	if(beforeSubmit()){
@@ -162,8 +162,26 @@
     	$("#content").val('');
     	$("#id").val('');
     	$("#id").remove();
-    	$("#itemType0").attr("checked","checked");
-    	$("#itemOrder0").attr("checked","checked");
+    	uncheckAll('itemType','1');
+    	uncheckAll('itemOrder','1');
+    }
+    //取消选中  
+    function uncheckAll(type,value)   
+    {   
+    var code_Values = document.all[type];   
+	    if(code_Values.length){   
+		    for(var i=0;i<code_Values.length;i++)   
+		    {   
+			    if(code_Values[i].value == value){
+			    	 code_Values[i].checked = false;   
+			    }else{
+			    	code_Values[i].checked = true;   
+			    }
+		   
+		    }   
+	    }else{   
+	        code_Values.checked = false;   
+	    }   
     }
     //获取单日程信息
     function getShedule(id){
@@ -188,22 +206,23 @@
     	$("#id").val(data.entity.id);
     	
     	if(itemType == '0'){
-   	    	$("#itemType0").attr("checked","checked");
+    		uncheckAll('itemType','1');
    	    }
    	    if(itemType == '1'){
-   	    	$("#itemType1").attr("checked","checked");
+   	    	uncheckAll('itemType','0');
    	    }
    	    if(itemOrder == '0'){
-   	    	$("#itemOrder0").attr("checked","checked");
+   	    	uncheckAll('itemOrder','1');
    	    }
    	    if(itemOrder == '1'){
-   	    	$("#itemOrder1").attr("checked","checked");
+   	    	uncheckAll('itemOrder','0');
    	    }
     	
     }
     //删除日程
     function deleteShedule(){
     	var id=$("#id").val();
+    	alert(id)
     	sendGetRequest(platformUrl.deleteShedule+id,'',sheduleCallBack);
     }
     //新建|修改|删除回调函数

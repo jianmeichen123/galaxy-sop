@@ -34,7 +34,7 @@
       <dd><textarea name="remark" valType="requiredDiv" regString="^.{0,2000}$" msg="<font color=red>*</font>不能超过2000字符">${share.remark }</textarea></dd>
     </dl>
   </div>
-      <a href="javascript:updateStock();" class="pubbtn bluebtn">保存</a>
+      <a href="javascript:;" onclick="updateStock()" class="pubbtn bluebtn">保存</a>
   </form>
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>

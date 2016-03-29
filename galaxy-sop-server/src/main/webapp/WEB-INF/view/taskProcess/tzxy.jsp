@@ -3,7 +3,9 @@
 	String path = request.getContextPath(); 
 %>
 <div class="btm">
-	<input type="checkbox" name="hasStockTransfer" value="1">是否涉及股权转让
+	<div id="stock_transfer_model">
+		
+	</div>
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
@@ -52,7 +54,7 @@
 	        	<select name="fileWorktype" disabled></select>
 	        </dd>
 	        <dd>
-	        	<label><input type="checkbox" name="voucherType" value="1"/>签署凭证</label>
+	        	<label id="tzxy_qszm"><input type="checkbox" id="voucherType" name="voucherType" value="1" disabled="disabled"/>签署凭证</label>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
@@ -78,7 +80,6 @@
 </div>
 <script type="text/javascript">
 $(function(){
-	loadRows();
 	loadRelatedData();
 	
 	if("${taskFlag}" == 7)
@@ -86,6 +87,37 @@ $(function(){
 		$("[name='hasStockTransfer']").attr('checked',true).attr('disabled',true);
 	}
 });
+var stockTransfer = 0;
+function projectLoaded(project)
+{
+	
+	loadRows();
+	
+	
+}
+
+/**
+ * "是否涉及股权转让"按钮点击事件
+ */
+function selected(obj){
+	var pid = "${projectId}";
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(platformUrl.storeUrl + pid,
+				null,
+				function(data){
+					stockTransfer = data.entity.stockTransfer;
+				});
+	}
+	
+	if(stockTransfer == 1){
+		$("#stock_transfer").attr("checked","checked");
+		$("tr[data-file-worktype='fileWorktype:7']").css("display","table-row");
+	}else{
+		$("tr[data-file-worktype='fileWorktype:7']").css("display","none");
+	}
+	
+}
+
 function loadRows()
 {
 	var url = platformUrl.queryFile;
@@ -98,7 +130,7 @@ function loadRows()
 			url,
 			data,
 			function(data){
-				
+				var hidden = false;
 				$.each(data.entityList,function(){
 					var $tr = $('<tr data-id="'+this.id+'" data-voucher-id="'+this.voucherId+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
 					$tr.append('<td>'+(isBlank(this.fWorktype) ? "" : this.fWorktype) +'</td>');
@@ -120,7 +152,16 @@ function loadRows()
 						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="voucher">查看</a></td>');
 					}	
 					$("#hrjzdc-table tbody").append($tr);
+					if((this.fileWorktype == 'fileWorktype:6' && this.fileKey != null) || (this.fileWorktype == 'fileWorktype:7' && this.fileKey != null)){
+						$("#stock_transfer").attr("disabled","true");
+					}
 				});
+				
+				if(stockTransfer == 1){
+					$("#stock_transfer").attr("checked","checked");
+				}else{
+					$("tr[data-file-worktype='fileWorktype:7']").css("display","none");
+				}
 			}
 	);
 }
@@ -153,6 +194,7 @@ function showUploadPopup(ele)
 	var row = $(ele).closest("tr");
 	var type = $(ele).data("type");
 	$.popup({
+		init:init(type),
 		txt:$("#upload-dialog").html(),
 		showback:function(){
 			var _this = this;
@@ -160,6 +202,13 @@ function showUploadPopup(ele)
 			initForm(_this,row.data("file-worktype"),type);
 		}
 	});
+}
+function init(type){
+	if(type == ''){
+        $("#tzxy_qszm").attr("style","visibility:hidden");
+	}else{
+		$("#tzxy_qszm").removeAttr("style");
+	}
 }
 function initUpload(_dialog,type){
 	var url = platformUrl.stageChange;
@@ -206,6 +255,9 @@ function initUpload(_dialog,type){
 				data['type'] = data['fileSource'];
 				data['fileWorktype']=$form.find("[name='fileWorktype']").val();
 				data['hasStockTransfer']=$("[name='hasStockTransfer']:checked").val();
+				if(type == 'voucher'){
+					data['voucherType']=$("[name='voucherType']:checked").val();
+				}
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {

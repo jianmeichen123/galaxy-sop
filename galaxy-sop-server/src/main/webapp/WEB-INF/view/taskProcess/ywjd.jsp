@@ -48,9 +48,9 @@
 	        <dd>
 	        	<select name="fileWorktype" disabled></select>
 	        </dd>
-	        <dd>
+	      <!--   <dd>
 	        	<label><input type="checkbox"/>签署凭证</label>
-	        </dd>
+	        </dd> -->
 	    </dl>
 	    <dl class="fmdl clearfix">
 	    	<dt>所属项目：</dt>
@@ -97,6 +97,10 @@ $(function(){
 		);
 	});
 });
+function projectLoaded(project)
+{
+	
+}
 function loadRows()
 {
 	var url = platformUrl.queryFile;
@@ -117,7 +121,7 @@ function loadRows()
 					$tr.append('<td>'+((isBlank(this.fileUName)) ? "" : this.fileUName) +'</td>');
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
-					$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\">催办</a>" : "")+'</td>');
+					$tr.append('<td>'+("fileWorktype:1" != this.fileWorktype && isBlank(this.fileName) ? "<a href=\"javascript:;\" onclick=\"taskUrged("+this.id+");\">催办</a>" : "")+'</td>');
 					if(isBlank(this.fileName)){
 						$tr.append('<td></td>');
 						if(hasEmpty == false)
@@ -284,5 +288,18 @@ function downloadFile(ele)
 	var row = $(ele).closest("tr");
 	var fileId = row.data("id");
 	forwardWithHeader(platformUrl.downLoadFile+"/"+fileId);
+}
+function taskUrged(id) {
+	var json= {"id":id};
+	sendGetRequest(
+			platformUrl.taskUrged, 
+			json, 
+			function(data){
+				if (data.result.status!="OK") {
+					layer.msg("催办失败");
+				} else {
+					layer.msg(data.result.message);
+				}
+			});
 }
 </script>

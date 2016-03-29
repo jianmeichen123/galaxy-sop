@@ -1,17 +1,25 @@
 package com.galaxyinternet.sopfile.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +37,7 @@ import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.file.BucketName;
+import com.galaxyinternet.framework.core.file.DownloadFileResult;
 import com.galaxyinternet.framework.core.file.FileResult;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
@@ -38,8 +47,10 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.oss.GlobalCode;
 import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -465,14 +476,64 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	
 	
 	
+//	/**
+//	 * 文档上传
+//	 * @param request 转为 MultipartFile，获取key=file
+//	 * @param fileKey 调用OSSHelper生成的key
+//	 * @param bucketName  默认传入 BucketName.DEV.getName()
+//	 * @return MultipartFile null=上传失败
+//	 */	
+//	public Map<String,Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception {
+//		Map<String,Object> retMap = new HashMap<String,Object>();
+//		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
+//		MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
+//		
+////		String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
+//		String path = tempfilePath;
+//		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
+//		
+//		Map<String,String> nameMap = transFileNames(fileName);
+//		File tempFile = new File(path, nameMap.get("fileName"));
+//		if (!tempFile.exists()) {
+//			tempFile.mkdirs();
+//		}
+//		multipartFile.transferTo(tempFile); // 存储临时文件
+//		
+//		//begin 上传到aliyun
+//		long asize = multipartFile.getSize(); 
+//		if(bucketName == null){
+//			bucketName = BucketName.DEV.getName();
+//		}
+//		if(asize>OSSConstant.UPLOAD_PART_SIZE){//大文件线程池上传
+//			int result = OSSHelper.uploadSupportBreakpoint(tempFile,fileKey); // 上传至阿里云
+//			if(result == GlobalCode.ERROR){
+//				return null;
+//			}
+//		}else{
+//			UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);  //上传至阿里云
+//			
+//			//若文件上传成功
+//			if(upResult.getResult().getStatus()==null || upResult.getResult().getStatus().equals(Status.ERROR)){
+//				return null;
+//			}
+//		}
+//		retMap.put("nameMap", nameMap);
+//		retMap.put("file", tempFile);
+//
+//		return retMap;
+//	}
+	
+	
+	
 	/**
 	 * 文档上传
 	 * @param request 转为 MultipartFile，获取key=file
 	 * @param fileKey 调用OSSHelper生成的key
 	 * @param bucketName  默认传入 BucketName.DEV.getName()
 	 * @return MultipartFile null=上传失败
+	 * @throws IOException 
 	 */	
-	public Map<String,Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception {
+	public Map<String,Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws IOException{
 		Map<String,Object> retMap = new HashMap<String,Object>();
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
 		MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
@@ -483,36 +544,138 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		Map<String,String> nameMap = transFileNames(fileName);
 		File tempFile = new File(path, nameMap.get("fileName"));
+		UploadFileResult upResult = null;
 		if (!tempFile.exists()) {
 			tempFile.mkdirs();
 		}
-		multipartFile.transferTo(tempFile); // 存储临时文件
+		try {
+			multipartFile.transferTo(tempFile);
+			//begin 上传到aliyun
+			long asize = multipartFile.getSize(); 
+			if(bucketName == null){
+				bucketName = BucketName.DEV.getName();
+			}
+			if(asize>OSSConstant.UPLOAD_PART_SIZE){//大文件线程池上传
+				int result = OSSHelper.uploadSupportBreakpoint(tempFile,fileKey); // 上传至阿里云
+				if(result == GlobalCode.ERROR){
+					return null;
+				}
+			}else{
+				upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);  //上传至阿里云
+				//若文件上传成功
+				if(upResult.getResult().getStatus()==null || upResult.getResult().getStatus().equals(Status.ERROR)){
+					return null;
+				}
+			}
+			retMap.put("nameMap", nameMap);
+			retMap.put("file", tempFile);
+			retMap.put("upResult", upResult);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new IOException(e);
+		}finally{
+			tempFile.delete();
+		}
 		
-		//begin 上传到aliyun
-		long asize = multipartFile.getSize(); 
-//		long bsize = tempFile.length();
-		if(bucketName == null){
-			bucketName = BucketName.DEV.getName();
-		}
-		if(asize>OSSConstant.UPLOAD_PART_SIZE){//大文件线程池上传
-			int result = OSSHelper.uploadSupportBreakpoint(tempFile, bucketName, fileKey); // 上传至阿里云
-			if(result == GlobalCode.ERROR){
-				return null;
-			}
-		}else{
-			UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile, bucketName, fileKey);  //上传至阿里云
-			
-			//若文件上传成功
-			if(upResult.getResult().getStatus()==null || upResult.getResult().getStatus().equals(Status.ERROR)){
-				return null;
-			}
-		}
-		retMap.put("nameMap", nameMap);
-		retMap.put("file", tempFile);
+		
 
 		return retMap;
 	}
 	
+	
+	
+	
+	
+	
+	/**
+	 * 文件下载接口
+	 * 
+	 * @param request
+	 * @param response
+	 * @param tempfilePath
+	 *            临时存储路径
+	 * @param downloadEntity
+	 *            下载实体类
+	 * @throws Exception
+	 */
+	public void download(HttpServletRequest request,
+			HttpServletResponse response, String tempfilePath,
+			SopDownLoad downloadEntity) throws Exception{
+
+		InputStream fis = null;
+		OutputStream out = null;
+		File tempDir = new File(tempfilePath);
+		File tempFile = new File(tempfilePath, downloadEntity.getFileName());
+		if (!tempDir.exists()) {
+			tempDir.mkdirs();
+		}
+		try{
+			tempFile.createNewFile();
+			if (downloadEntity.getFileSize().longValue() > OSSConstant.DOWNLOAD_PART_SIZE) {
+				OSSHelper.downloadSupportBreakpoint(tempFile.getAbsolutePath(),
+						downloadEntity.getFileKey());
+			} else {
+				DownloadFileResult result = OSSHelper.simpleDownloadByOSS(tempFile,
+						downloadEntity.getFileKey());
+				System.err.println(GSONUtil.toJson(result));
+			}
+			boolean ie10 = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+					.indexOf("MSIE") > 0;
+			boolean ie11p = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+					.indexOf("RV:11") > 0
+					&& request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+							.indexOf("LIKE GECKO") > 0;
+			boolean iedge = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+					.indexOf("EDGE") > 0;
+			boolean ie = ie10 || ie11p || iedge;
+			if (ie) {
+				try {
+					downloadEntity
+							.setFileName(URLEncoder.encode(
+									downloadEntity.getFileName(), "UTF-8")
+									+ URLEncoder.encode(downloadEntity.getFileSuffix(),
+											"UTF-8"));
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				downloadEntity.setFileName(new String(
+						(downloadEntity.getFileName() + downloadEntity
+								.getFileSuffix()).getBytes("UTF-8"), "ISO8859-1"));
+			}
+			response.reset();
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("application/x-download");
+			response.setHeader("Content-Disposition", "attachment;filename="
+					+ downloadEntity.getFileName());
+			response.setHeader("Content-Length", "" + tempFile.length());
+			out = new BufferedOutputStream(response.getOutputStream());
+			fis = new BufferedInputStream(new FileInputStream(tempFile.getPath()));
+			byte[] buffer = new byte[1024 * 2];
+			int count = 0;
+			while ((count = fis.read(buffer)) != -1) {
+				out.write(buffer);
+			}
+			response.flushBuffer();
+		}catch(Exception e){
+			throw new Exception(e);
+		}finally{
+			try {
+				if(fis != null)
+				{
+					fis.close();
+				}
+				if(out != null)
+				{
+					out.close();
+				}
+				tempFile.delete();
+			} catch (IOException e) {
+				logger.error("下载失败.",e);
+			}
+		}	
+	}
 	
 	
 	

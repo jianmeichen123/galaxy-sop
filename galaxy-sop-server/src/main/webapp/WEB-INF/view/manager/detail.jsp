@@ -106,7 +106,7 @@
             </dl>
           </div>
           <!-- 第3部分 -->
-          <div class="block block2">
+          <div class="block block2 shadow">
             <dl>
               <dt>商业模式</dt>
               <dd class="edit">
@@ -121,7 +121,7 @@
             </dl>
           </div>
           <!-- 第4部分 -->
-          <div class="block block2">
+          <div class="block block2 shadow">
             <dl>
               <dt>公司定位</dt>
               <dd class="edit">
@@ -136,7 +136,7 @@
             </dl>
           </div>
           <!-- 第5部分 -->
-          <div class="block block2">
+          <div class="block block2 shadow">
             <dl>
               <dt>用户分析</dt>
               <dd class="edit">
@@ -166,7 +166,7 @@
             </dl>
           </div>
           <!-- 第7部分 -->
-          <div class="block block2 clearfix">
+          <div class="block block2 shadow clearfix">
             <dl>
               <dt>团队成员</dt>
               <dd class="full_w describe clearfix">
@@ -184,7 +184,7 @@
             </dl>
           </div> 
           <!-- 第8部分  -->      
-          <div class="block block2">
+          <div class="block block2 shadow">
             <dl>
               <dt>股权结构</dt>
               <dd class="full_w describe clearfix">

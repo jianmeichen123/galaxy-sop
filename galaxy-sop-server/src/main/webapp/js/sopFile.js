@@ -1,11 +1,26 @@
 var searchPanel = {
 		initData : function(){
+			
+			sendPostRequestByJsonObj(platformUrl.sopFileCheckShow,null,searchPanel.initCheckShow);
 			//档案类型
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,searchPanel.initDataCallBack);
 			//业务类型
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,searchPanel.initDataCallBack);
 			//所属事业线
 			sendGetRequest(platformUrl.getDepartMentDict+"/department",null,searchPanel.initDataCallBack);
+			//注册发送邮件按钮
+			$("#show-mail-btn").click(function(){
+				var rows = $("#fileGrid").bootstrapTable('getSelections');
+				if(rows.length==0)
+				{
+					layer.msg('请选择档案。');
+					return;
+				}
+				var data = {
+						_rows : rows
+				}
+				mailWin.init(data);
+			});
 		},
 		initDataCallBack : function(data){
 			var _dom;
@@ -21,6 +36,11 @@ var searchPanel = {
 				_dom = $("#searchCareerLine")
 			}
 			utils.each(data,_dom,"all");
+		},
+		initCheckShow : function(data){
+			if(data.result.status!='OK'){
+				$("#srearch_careerline_div").hide();
+			}
 		},
 		serarchData : function(){
 			
@@ -59,7 +79,12 @@ var fileGrid = {
 		      uniqueId: "id",           //每一行的唯一标识，一般为主键列
 		      cardView: false,          //是否显示详细视图
 		      detailView: false,          //是否显示父子表
-		      columns: [{
+		      columns: [
+				{
+					field : 'checkbox',
+					checkbox : "true",
+					title : ''
+				},{
 		        field: 'id',
 		        title: '序号'
 		      }, {
@@ -143,7 +168,7 @@ var fileGrid = {
         			_workType : row.fileWorktype,
         			_projectId : row.projectId,
         			_projectName : row.projectName,
-        			_isProve : undefined,
+        			_isProve : "hide",
     				callFuc : function(){
     					searchPanel.serarchData();
     				},
@@ -209,15 +234,11 @@ var utils = {
 		
 }
 function init(){
+	
+//	if(roleId == "")
 	createMenus(14);
 	searchPanel.initData();
 	fileGrid.init();
-	
-	
-	
-	
-	
-	
 	
 }
 

@@ -17,8 +17,16 @@
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 
 <!-- 校验 -->
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
+
+	<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 
 </head>
 
@@ -67,7 +75,8 @@
 	                  <option value="projectProgress:7">投资决策会</option>
 	                  <option value="projectProgress:8">投资协议</option>
 	                  <option value="projectProgress:9">股权交割</option>
-	                  <!-- <option value="projectProgress:10">投后运营</option> -->
+	                  <option value="projectProgress:10">投后运营</option> 
+	                  <option value="guanbi">已关闭的项目</option>
 	                </select>
 	              </dd>
 	            </dl>
@@ -100,6 +109,7 @@
     </div>
 </div>
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
+<jsp:include page="/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
@@ -109,7 +119,7 @@
 <script src="<%=path %>/js/my.js"></script>
 <!-- 分页二css+四js -->
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
-<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
@@ -134,9 +144,9 @@
 	 */
 	function editor(value, row, index){
 		var id=row.id;
-		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>查看</a>";
+		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
 		if(row.projectStatus != 'meetingResult:3'){
-			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>修改</a>";
+			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>编辑项目</a>";
 		}
 		return options;
 	}
@@ -242,18 +252,28 @@
 							}else if(indexNum == '2'){
 							    $("#projectProgress_2_con").css("display","block");
 								tiggerTable($("#projectProgress_2_table"),3);
+								if(index != '2'){
+									$("#options_point2").remove();
+								}
 							}else if(indexNum == '3'){
 								if(parseInt(indexNum) < parseInt(pNum)){
 									$("#lxhpq").remove();
 								}
 								$("#projectProgress_3_con").css("display","block");
 								tiggerTable($("#projectProgress_3_table"),3);
+								if(index != '3'){
+								 $("#options_point3").remove();
+								}
+								
 							} else if(indexNum == '4'){
 								$("#projectProgress_4_con").css("display","block");
 								if(parseInt(indexNum) < parseInt(pNum)){
 									$("#reset_btn").css("display","none");
 								}
 							    tiggerTable($("#projectProgress_4_table"),3);
+							    if(index != '4'){
+							     $("#options_point4").remove();
+							    }
 							} else if(indexNum == '5'){
 								$("#projectProgress_7_con").css("display","none");
 								$("#projectProgress_5").addClass("on");
@@ -277,6 +297,9 @@
 									$("#inSure_btn").css("display","none");
 								}
 								 tiggerTable($("#projectProgress_7_table"),3);
+								 if(index != '7'){
+								  $("#options_point7").remove();
+								 }
 							}else if(indexNum == '8'){
 								$("#projectProgress_7_con").css("display","none");
 								$("#projectProgress_8_con").css("display","block");
@@ -304,7 +327,8 @@
 						$("#file_repository").css("display","block");
 						data = {
 								_domid : "file_repository_table",
-								_projectId : $("#project_id").val()
+								_projectId : $("#project_id").val(),
+								_progress : progress
 						}
 						fileGrid.init(data);
 					});				
@@ -324,7 +348,7 @@
 	/**
 	 * 上传接触访谈纪要弹出层
 	 */
-	function air(){
+	function air(indexNum){
 		
 		$("[data-id='popid1']").remove();
 		
@@ -356,7 +380,8 @@
 								return false;
 							}
 							if(viewTarget == null ||  viewTarget == ""){
-								alert("对象不能为空");
+							$("#viewTarget").focus();
+							//alert("访谈对象不能为空");
 								return false;
 							}
 							condition.pid = pid;
@@ -374,7 +399,7 @@
 								"fileId" : fileId
 							};*/
 							return condition;
-						});
+						},indexNum);
 			}
 		});
 		return false;
@@ -403,12 +428,12 @@
 	 * 上传会议记录
 	 */
 	 function addMettingRecord(num,meetingType){
-		$("[data-id='popid1']").remove();
-		 
-		loadJs();
-		var _url='<%=path %>/galaxy/mr';
-		$.getHtml({
-			url:_url,//模版请求地址
+			$("[data-id='popid1']").remove();
+			var pid=$("#project_id").val();
+			loadJs();
+			var _url='<%=path %>/galaxy/mr/';
+			$.getHtml({
+			url:_url+pid,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
 				$(".meetingtc").tabchange();
@@ -445,7 +470,7 @@
 							condition.result = meetingResult;
 							condition.content = meetingNotes;
 							return condition;
-						});
+						},num);
 			}
 		});
 		return false;
@@ -621,7 +646,7 @@
 					condition.fileWorktype = fileWorktype;
 					condition.voucherType = voucherType;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -661,7 +686,7 @@
 								if(uploader.files.length >= 1){
 									uploader.splice(0, uploader.files.length-1)
 								}
-								$.each(files, function() {
+								$.each(files, function(i,o) {
 									$("#file_obj").val(this.name);
 									var arr = new Array();
 									arr = this.name.split(".");
@@ -669,7 +694,7 @@
 									if(arr){
 										type=arr[1];
 									}
-									var filtersparams=paramsFilter();
+									var filtersparams=paramsFilter(null);
 									for(var i=0;i<filtersparams.length;i++){
 										var value=filtersparams[i];
 										var valueExt=value.extensions;
@@ -754,22 +779,22 @@
 					 if(o.fileWorktype == 'fileWorktype:1'){
 						 html += "<td>业务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>"+o.careerLineName+"</td><td>"+o.fType+"</td>";
+						 html += "<td>"+o.careerLineName+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:2'){
 						 html += "<td>人事尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>人事部</td><td>"+o.fType+"</td>";
+						 html += "<td>人事部</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:3'){
 						 html += "<td>法务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>法务部</td><td>"+o.fType+"</td>";
+						 html += "<td>法务部</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:4'){
 						 html += "<td>财务尽职调查报告";
 						 html += "</td><td>" + o.createDate + "</td>";
-						 html += "<td>财务部</td><td>"+o.fType+"</td>";
+						 html += "<td>财务部</td>";
 					 }
-					 if(o.fileStatus == 'fileStatus:1'){
-						 html += "<td>缺失</td>";
+					 if(o.fileStatus == 'fileStatus:1' || o.fileValid == '0'){
+						 html += "<td>未知</td><td>缺失</td>";
 						 if(o.fileWorktype != 'fileWorktype:1'){
 							 html +='<td><a href="javascript:; " onclick="taskUrged('+o.id+');"class="blue">催办 </a></td>';
 
@@ -781,9 +806,10 @@
 						 if(o.fileWorktype == 'fileWorktype:1'){
 							 $("#jzdc_options a:eq(0)").text('更新业务尽职调查报告')
 						 }
+						 html += "<td>"+o.fType+"</td>";
 						 html += "<td>已上传</td>";
 						 html += "<td></td>";
-						 html += "<td><a href='javascript:filedown("+o.id+");'>查看</a></td>";
+						 html += "<td><a href='javascript:filedown("+o.id+");'  class='blue'>查看</a></td>";
 					 }else if(o.fileStatus == 'fileStatus:3'){
 						 html += "<td>已签署</td>";
 						 html += "<td></td>";
@@ -838,7 +864,7 @@
 					condition.fileType = fileType;
 					condition.fileWorktype = fileWorktype;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -901,7 +927,7 @@
 					function(data){
 						
 						_tbody.empty();
-						$.each(data.entityList,function(){
+						$.each(data.entityList,function(i,o){
 							
 								var $tr=$('<tr></tr>');
 								
@@ -923,47 +949,44 @@
 								$tr.append('<td>'+this.fileStatusDesc+'</td>') ;
 								if(this.fileWorktype == 'fileWorktype:6'){
 									if(this.fileKey == null){	
-										$tr.append('<td><a href="javascript:tzxyAlert(8,0);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
-										$tr.append('<td><a href="javascript:tzxyAlert(8,1);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,1);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 									}
 								}else if(this.fileWorktype == 'fileWorktype:7'){
 									
 									if(this.fileKey == null){	
-										$tr.append('<td><a href="javascript:gqzrAlert(8,0);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,0);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
-										$tr.append('<td><a href="javascript:gqzrAlert(8,1);" class="blue">上传</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,1);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\');" class="blue">查看</a></td>'); 	
 									}
 								}
 								_tbody.append($tr);
 								//涉及股权转让
 								if(st == 1){
 									$("#stock_transfer").attr("checked","checked");
-									$("#stock_transfer").attr("disabled","true");
-								}else{
-									
+									if((this.fileWorktype == 'fileWorktype:6' && this.fileKey != null) || (this.fileWorktype == 'fileWorktype:7' && this.fileKey != null)){
+										$("#stock_transfer").attr("disabled","true");
+									}
 								}
-							
-							
 						});
-						
-						
 					}
 			);	
 			if(projectType == 'projectType:2'){
 				$("#stock_transfer_model").remove();
 			}
 		}
+		 tiggerTable($("#projectProgress_7_table"),3);
 	}
 	 
 	/**
@@ -1019,7 +1042,7 @@
 					condition.voucherType = voucherType;
 					condition.hasStockTransfer=hasStockTransfer;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -1029,11 +1052,21 @@
 	 * "是否涉及股权转让"按钮点击事件
 	 */
 	function selected(obj){
+		var pid = $("#project_id").val();
+		if(pid != '' && pid != null && pid != undefined){
+			sendGetRequest(
+					platformUrl.storeUrl + pid,
+					null,
+					function(data){
+					});
+		}
+		
 		if(obj.checked){
 			$("#gwxt_tr").css("display","table-row");
 		}else{
 			$("#gwxt_tr").css("display","none");
 		}
+		
 	}
 	 /**
 	  * 股权转让协议弹出层
@@ -1089,7 +1122,7 @@
 					condition.voucherType = voucherType;
 					condition.hasStockTransfer=hasStockTransfer;
 					return condition;
-				});
+				},null);
 			}
 		});
 		return false;
@@ -1121,22 +1154,30 @@
 							             '<tbody>';
 										for(var p in dataList){
 													var typehtml = "";
-													if (typeof(dataList[p].fType) == "undefined") { 
+													if (typeof(dataList[p].fType) == "undefined" || dataList[p].fileValid == '0') { 
 														typehtml ='<td></td>';
 													}else{
 														typehtml = '<td>'+dataList[p].fType+'</td>';
 													}
 													
+													var updateHtml = "";
+													if(dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0'){
+														updateHtml = "<td></td>";
+													}else{
+														updateHtml = '<td>'+getVal(dataList[p].updatedDate,'')+'</td>';
+													}
+													
+													
 													var handlehtml = "";
-													if (dataList[p].fileStatusDesc == "缺失" && !hasClosed) { 
+													if ((dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0') && !hasClosed) { 
 														handlehtml ='<td><a href="javascript:; " onclick="taskUrged('+dataList[p].id+');"class="blue">催办</a></td>';
 													}else{
 														handlehtml = '<td></td>';
 													}
 													
 													var endhtml ="";
-													if (dataList[p].fileStatusDesc == "缺失") { 
-														endhtml ='<td>'+dataList[p].fileStatusDesc+'</td>';
+													if (dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0') { 
+														endhtml ='<td>缺失</td>';
 													}else{
 														endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
 													}
@@ -1151,9 +1192,7 @@
 													htmlstart +='<tr>'+
 													'<td>'+dataList[p].fWorktype+'</td>'+
 													'<td>'+dataList[p].createDate+'</td>'+
-													typehtml+
-													'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'+
-													handlehtml+   
+													typehtml+updateHtml+handlehtml+   
 													endhtml+   
 													'</tr>';   
 										}

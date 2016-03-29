@@ -99,7 +99,7 @@
                 </tbody>
               </table>
               <div class="btnbox">
-                <a href="javascript:update();" class="pubbtn bluebtn">保存</a><!-- <a href="javascript:;" class="pubbtn fffbtn"data-close="close">关闭项目</a> -->
+                <a href="javascript:;" onclick="update()" class="pubbtn bluebtn">保存</a><!-- <a href="javascript:;" class="pubbtn fffbtn"data-close="close">关闭项目</a> -->
               </div>
           </div>
           </form>

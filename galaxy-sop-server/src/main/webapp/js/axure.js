@@ -66,7 +66,7 @@
 		popEve.prototype = {
 			init:function(){
 				var _this = this;
-					_this.insertbg().inserttxt().postionEve().mousedrag().closepop();
+					_this.insertbg().inserttxt().postionEve().closepop();
 
 			},
 			//背景插入
@@ -157,6 +157,7 @@
 						$(_this.id).remove();
 						//关闭对外接口
 						_this.hideback.apply(_this);
+						$('.tip-yellowsimple').hide();
 						//判断是否关闭背景
 						if($(".pop").length==0){
 							$("#popbg").hide();

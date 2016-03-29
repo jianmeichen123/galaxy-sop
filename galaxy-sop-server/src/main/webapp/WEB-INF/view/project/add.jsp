@@ -135,7 +135,9 @@
                 </form>
               </table>
               <div class="btnbox">
-                <a href="javascript:add();" class="pubbtn bluebtn">保存</a>
+                <a href="javascript:;" onclick="add('save');" class="bluebtn pubbtn">保存</a>
+                <a href="javascript:;" onclick="add('saveandupdate');" class="pubbtn bluebtn">保存并编辑</a>
+                 
               </div>
           </div>
           <!-- 第2部分 -->
@@ -192,6 +194,7 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
    var message = "";
+   var result=false;
    var TOKEN ;
 	$(function(){
 		createMenus(4);
@@ -227,8 +230,19 @@
 		}
 		return null;
 	}
-	function add(){
+	function add(obj){
 		if(beforeSubmit()){
+			var json = {};
+			var projectName = $("#projectName").val();
+			var projectCompanyCode = $("#projectCompanyCode").val();
+			json = {"projectName":projectName,"projectCompanyCode":projectCompanyCode};
+			sendPostRequestByJsonObj(platformUrl.checkProject,json,callbackcheckProject);
+			if(result){
+				layer.msg(message);
+				$("#projectName").val("");
+				result=false;
+			return false;
+			}
 			$.ajax({
 				url : platformUrl.addProject,
 				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
@@ -252,10 +266,22 @@
 					layer.msg("操作失败");
 				},
 				success : function(data) {
-					forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+					if(obj=="save"){
+						forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+					}
+					if(obj=="saveandupdate"){
+						forwardWithHeader(sopContentUrl + "/galaxy/upp/"+data.id);
+					}
+					
 				}
 			}); 
 		}
+	}
+	function callbackcheckProject(data) {
+		if (data.count!=0) {
+		   message = "存在重复项目名，请重新输入";
+			result=true;
+		} 
 	}
 </script>
 

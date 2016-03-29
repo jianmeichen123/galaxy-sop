@@ -8,6 +8,7 @@ public interface SopConstant {
 	public static final Pattern _meeting_result_pattern_ = Pattern.compile("^meetingResult:[0-9]");
 	public static final Pattern _file_type_pattern_ = Pattern.compile("^fileType:[0-9]");
 	public static final Pattern _file_worktype_pattern_ = Pattern.compile("^fileWorktype:[0-9]");
+	public static final Pattern _task_status_pattern_ = Pattern.compile("^taskStatus:[0-9]");
 	//部门ID
 	public static final long DEPARTMENT_RS_ID = 23L;
 	public static final long DEPARTMENT_CW_ID = 21L;

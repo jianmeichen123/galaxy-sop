@@ -6,17 +6,33 @@ $.fn.fxValidate = function(options){
 			errorElement : 'p',
 	        focusInvalid : false, 
 	        success : function(label,element) { 
-	        	$(element).closest('dd').tooltip('destroy');
+	        	var target = $(element).closest('dd')[0];
+	        	$(target).poshytip('hide');
+        		$(target).poshytip('destory');
 	        },   
 	        errorPlacement : function(error, element) { 
 	        	var target = $(element).closest('dd')[0];
-	            $(target).tooltip({
-	            	title:error,
-	            	trigger:'manual',
-	            	placement:'right',
-	            	html:true
-	            });
-	            $(target).tooltip('show');
+	        	if(!error.is(':empty'))
+        		{
+	        		$(target).poshytip('hide');
+	        		$(target).poshytip('destory');
+	        		$(target).poshytip({
+	    				className: 'tip-yellowsimple',
+	    				content: error,
+	    				showOn: 'none',
+	    				alignTo: 'target',
+	    				alignX: 'right',
+	    				alignY: 'center',
+	    				offsetX: 5,
+	    				offsetY: 10
+	    			});
+	        		$(target).poshytip('show');
+        		}
+	        	else
+        		{
+	        		$(target).poshytip('hide');
+	        		$(target).poshytip('destory');
+        		}
 	        }
 	};
 	options = $.extend(defaultOption,options);

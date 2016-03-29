@@ -21,14 +21,23 @@ public class PersonInvest extends BaseEntity {
 		private Double ainvestmentAmount;//a轮投资金额
 		private Double ashareRatio;//a轮股权占比
 		private String atelephone;//a轮联系方式
+		private String aprojectDirector;//a轮项目负责人;
+		private String aemceedPosition;//a轮担任职位
 		
+
 		
-		
-		
-		
-		
-		
-		
+		public String getAprojectDirector() {
+			return aprojectDirector;
+		}
+		public void setAprojectDirector(String aprojectDirector) {
+			this.aprojectDirector = aprojectDirector;
+		}
+		public String getAemceedPosition() {
+			return aemceedPosition;
+		}
+		public void setAemceedPosition(String aemceedPosition) {
+			this.aemceedPosition = aemceedPosition;
+		}
 		public Long getId() {
 			return id;
 		}

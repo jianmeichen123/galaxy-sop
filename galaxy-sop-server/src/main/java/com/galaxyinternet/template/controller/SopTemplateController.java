@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +35,7 @@ import com.galaxyinternet.bo.template.SopTemplateBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -41,14 +44,18 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.role.Role;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.template.TemplateMailInfo;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTemplateService;
 import com.galaxyinternet.service.UserService;
 @Controller
@@ -61,7 +68,19 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	private UserService userService;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private SopFileService sopFileService;
 	
+	private String tempfilePath;
+	
+	
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
 	@Override
 	protected BaseService<SopTemplate> getBaseService() {
 		return this.templateService;
@@ -181,6 +200,10 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 		
 		return resp;
 	}
+
+	
+	
+	
 	@RequestMapping("/download")
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.LOG)
 	public void download(SopTemplate query, HttpServletRequest request, HttpServletResponse response)
@@ -199,30 +222,19 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			int dotPos = fileName.lastIndexOf(".");
 			String prefix = fileName.substring(0, dotPos);
 			String suffix = fileName.substring(dotPos);
-			File temp = File.createTempFile(prefix, suffix);
+//			File temp = File.createTempFile(prefix, suffix);
 			
-			OSSHelper.simpleDownloadByOSS(temp, template.getFileKey());
-			String dlName = fileName;
+
 			
-			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
-				dlName = URLEncoder.encode(fileName, "UTF-8");  
-			} else {  
-				dlName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");  
-			} 
+			SopDownLoad downloadEntity = new SopDownLoad();
+			downloadEntity.setFileName(prefix);
+			downloadEntity.setFileSuffix(suffix);
+			downloadEntity.setFileSize(template.getFileLength());
+			downloadEntity.setFileKey(template.getFileKey());
 			
-			response.reset();
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("application/x-download");
-			response.setHeader("Content-Disposition", "attachment;filename=" + dlName);
-			response.setHeader("Content-Length", "" + temp.length());
-			out = new BufferedOutputStream(response.getOutputStream());
-			fis = new BufferedInputStream(new FileInputStream(temp.getPath()));
-			byte[] buffer = new byte[fis.available()];
-			fis.read(buffer);
-			out.write(buffer);
-			out.flush();
-			response.flushBuffer();
+			sopFileService.download(request, response, tempfilePath, downloadEntity);
 			
+						
 			String worktype = template.getWorktype();
 			String projectId = request.getParameter("projectId");
 			if(projectId != null && worktype!= null && worktype.indexOf(":")>-1)
@@ -242,20 +254,11 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 		}
 		finally
 		{
-			try {
-				if(fis != null)
-				{
-					fis.close();
-				}
-				if(out != null)
-				{
-					out.close();
-				}
-			} catch (IOException e) {
-				logger.error("下载失败.",e);
-			}
 		}
-	}
+	}	
+	
+	
+	
 	@RequestMapping("/sendMail")
 	@ResponseBody
 	public Result sendMail(HttpServletRequest request,@RequestBody TemplateMailInfo mailInfo)
@@ -267,20 +270,35 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			bo.setIds(mailInfo.getTemplateIds());
 			
 			List<SopTemplate> list = templateService.queryList(bo);
+			if(list == null || list.size()==0)
+			{
+				throw new Exception("未找到文件。");
+			}
 			
-			StringBuffer content = new StringBuffer();
-			content.append(mailInfo.getContent());
-			content.append("<br/>");
-			content.append("邮件附件:<br/>");
+			User curUser = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			String content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_FILESHARE_CONTENT);
+			String userName = "大家好：";
+			String curTime = DateUtil.convertDateToString(new Date());
+			
+			String toAddress = mailInfo.getToAddress();
+			String[] to = toAddress.split(";");
+			
+			if(to != null && to.length==1)
+			{
+				int atIndex = toAddress.lastIndexOf("@");
+				userName = toAddress.substring(0, atIndex)+":<br>您好!";
+			}
 			String endpoint = getCurrEndpoint(request);
 			String linkTemplate = "<a href=\"%s\">%s</a><br/>";
+			String fileLinks = "";
 			for(SopTemplate template : list)
 			{
-				String fileName = template.getFileName();
-				String href = endpoint+"openEntry/download/template/"+template.getId();
-				content.append(String.format(linkTemplate, href,fileName));
+				String fileName = template.getWorkTypeDesc();
+				String href = endpoint+"galaxy/openEntry/download/template/"+template.getId();
+				fileLinks += String.format(linkTemplate, href,fileName);
 			}
-			boolean success = SimpleMailSender.sendHtmlMail(mailInfo.getToAddress(),  mailInfo.getTitle(),content.toString());
+			content = PlaceholderConfigurer.formatText(content, userName, curUser.getRealName(), curTime, list.size(),fileLinks);
+			boolean success = SimpleMailSender.sendMultiMail(mailInfo.getToAddress(),  "繁星 - 模板分享",content.toString());
 			
 			if(success)
 			{

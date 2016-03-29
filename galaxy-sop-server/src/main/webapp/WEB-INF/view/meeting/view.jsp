@@ -9,16 +9,14 @@
 <title>繁星</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-
 <!-- bootstrap-table -->
 <link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-
-<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
-
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+
+<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 
 </head>
 
@@ -96,7 +94,7 @@
 						 <th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
 						<!-- <th data-field="hygk" data-align="center">会议概况</th> -->
 						<th data-align="center"  data-formatter="meetProInfoFormat" >项目信息</th>  
-						<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>  <!-- data-formatter="subLengthFormat" -->
+						<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>  <!-- data-formatter="subLengthFormat" -->
 					</tr>
 				</thead>
 			</table>

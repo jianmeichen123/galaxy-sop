@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
@@ -38,6 +41,7 @@ import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
@@ -53,14 +57,19 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
+import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.template.TemplateMailInfo;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
@@ -82,6 +91,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private static final String ERR_UPLOAD_ALCLOUD = "上传云端时失败";
 	private static final String ERR_UPLOAD_DAO = "上传数据时失败";
 	private static final String ERR_UPLOAD_IO = "上传数据流错误";
+	private static final String USER_AGENT = "User-Agent";
 	
 	@Autowired
 	private SopFileService sopFileService;
@@ -582,17 +592,13 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return resp;
 	}
 	
+	
 	@RequestMapping("/downloadFile/{id}")
 	public void download(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
 	{
-		InputStream fis = null;
-		OutputStream out = null;
 		String type = request.getParameter("type");
 		try {
-			String fileName = null;
-			String fileSuffix = null;
-			Long fileSize = null;
-			String key = null;
+			SopDownLoad downloadEntity = new SopDownLoad();
 			if("voucher".equals(type))
 			{
 				SopVoucherFile file = sopVoucherFileService.queryById(id);
@@ -600,10 +606,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				{
 					throw new Exception();
 				}
-				fileName = file.getFileName();
-				fileSuffix = file.getFileSuffix();
-				key = file.getFileKey();
-				fileSize = file.getFileLength();
+				downloadEntity.setFileName(file.getFileName());
+				downloadEntity.setFileSuffix("." + file.getFileSuffix());
+				downloadEntity.setFileSize(file.getFileLength());
+				downloadEntity.setFileKey(file.getFileKey());
 			}
 			else
 			{
@@ -611,65 +617,15 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				if(file == null)
 				{
 					throw new Exception();
-				}
-				fileName = file.getFileName();
-				fileSuffix = "." + file.getFileSuffix();
-				key = file.getFileKey();
-				fileSize = file.getFileLength();
+				}	
+				downloadEntity.setFileName(file.getFileName());
+				downloadEntity.setFileSuffix("." + file.getFileSuffix());
+				downloadEntity.setFileSize(file.getFileLength());
+				downloadEntity.setFileKey(file.getFileKey());
 			}
-//			String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
-			String path = tempfilePath;
-			File temp = new File(path);
-			File temp1 = new File(path,fileName);
-			if (!temp.exists()) {
-				temp.mkdirs();
-			}
-			temp1.createNewFile();
-			if(fileSize.longValue() > OSSConstant.DOWNLOAD_PART_SIZE){
-				OSSHelper.downloadSupportBreakpoint(temp1.getAbsolutePath(),BucketName.DEV.getName(), key);
-			}else{
-				DownloadFileResult result = OSSHelper.simpleDownloadByOSS(temp1, key);
-				System.err.println(GSONUtil.toJson(result));
-			}		
-			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
-				fileName = URLEncoder.encode(fileName, "UTF-8") + URLEncoder.encode(fileSuffix, "UTF-8");  
-			} else {  
-				fileName = new String((fileName + fileSuffix).getBytes("UTF-8"), "ISO8859-1");  
-			} 
-			response.reset();
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("application/x-download");
-			response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-			response.setHeader("Content-Length", "" + temp1.length());
-			out = new BufferedOutputStream(response.getOutputStream());
-			fis = new BufferedInputStream(new FileInputStream(temp1.getPath()));
-
-
-			byte[] buffer = new byte[1024 * 2];
-			int count = 0;
-			while ((count = fis.read(buffer)) != -1) {
-			out.write(buffer);
-//			out.flush();
-			}	
-	
-			response.flushBuffer();
+			sopFileService.download(request, response, tempfilePath, downloadEntity);
 		} catch (Exception e) {
 			logger.error("下载失败.",e);
-		}
-		finally
-		{
-			try {
-				if(fis != null)
-				{
-					fis.close();
-				}
-				if(out != null)
-				{
-					out.close();
-				}
-			} catch (IOException e) {
-				logger.error("下载失败.",e);
-			}
 		}
 	}
 	
@@ -1122,5 +1078,93 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return resp;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/checkShow", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> checkShow(HttpServletRequest request,@RequestBody(required=false) SopFile query)
+	{
+		ResponseData<SopFile> resp = new ResponseData<SopFile>();
+		try {
+			Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			User user = (User) obj;
+			if(user == null){
+				resp.setResult(new Result(Status.ERROR, ERROR_NO_LOGIN));
+			}
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			boolean result = RoleUtils.isDAGLY(roleIdList);
+			if(result){
+				resp.setResult(new Result(Status.OK, ""));
+			}else{
+				resp.setResult(new Result(Status.ERROR, ""));
+			}
+			
+		} catch (Exception e) {
+			Object msg = "查询失败.";
+			resp.getResult().addError(msg);
+			logger.error(msg.toString(),e);
+		}
+		return resp;
+	}
+	@RequestMapping("/showMailDialog")
+	public ModelAndView showMailDialog()
+	{
+		ModelAndView mv = new ModelAndView("/sopFile/mailDialog");
+	
+		return mv;
+	}
+	
+	@RequestMapping("/sendMail")
+	@ResponseBody
+	public Result sendMail(HttpServletRequest request,@RequestBody TemplateMailInfo mailInfo)
+	{
+		Result rtn = new Result();
+		try 
+		{
+			SopFileBo bo = new SopFileBo();
+			if(mailInfo.getTemplateIds() != null && mailInfo.getTemplateIds().length>0)
+			{
+				bo.setIds(Arrays.asList(mailInfo.getTemplateIds()));
+			}
+			
+			List<SopFile> list = sopFileService.queryList(bo);
+			
+			User curUser = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			String content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_FILESHARE_CONTENT);
+			String userName = "大家好：";
+			String curTime = DateUtil.convertDateToString(new Date());
+			
+			String toAddress = mailInfo.getToAddress();
+			String[] to = toAddress.split(";");
+			if(to != null && to.length==1)
+			{
+				int atIndex = toAddress.lastIndexOf("@");
+				userName = toAddress.substring(0, atIndex)+":<br>您好!";
+			}
+			String endpoint = getCurrEndpoint(request);
+			String linkTemplate = "<a href=\"%s\">%s</a><br/>";
+			String fileLinks = "";
+			for(SopFile sopFile : list)
+			{
+				String fileName = sopFile.getfWorktype();
+				String href = endpoint+"galaxy/openEntry/download/file/"+sopFile.getId();
+				fileLinks += String.format(linkTemplate, href,fileName);
+			}
+			content = PlaceholderConfigurer.formatText(content, userName, curUser.getRealName(), curTime, list.size(), fileLinks);
+			boolean success = SimpleMailSender.sendMultiMail(mailInfo.getToAddress(),  "繁星 - 档案分享",content.toString());
+			
+			if(success)
+			{
+				rtn.addOK("邮件发送成功.");
+			}
+			else
+			{
+				rtn.addError("邮件发送失败。");
+			}
+			
+		} catch (Exception e) {
+			logger.error("邮件发送失败。",e);
+			rtn.addError("邮件发送失败。");
+		}
+		return rtn;
+	}
 	
 }

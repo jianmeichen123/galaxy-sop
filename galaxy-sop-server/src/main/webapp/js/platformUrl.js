@@ -38,6 +38,10 @@ var platformUrl = {
 	 */
 	closeProject : sopContentUrl + "/galaxy/project/breakpro/",
 	/**
+	 * 获取事业部——高管查询select
+	 */
+	queryCheckLine : sopContentUrl + "/galaxy/project/queryCheckLine/",
+	/**
 	 * 获取项目详情
 	 */
 	detailProject : sopContentUrl + "/galaxy/project/sp/",
@@ -145,7 +149,10 @@ var platformUrl = {
 	 * tab -> 投决会： 
 	 */
 	tab_tjhtc : sopContentUrl + "/galaxy/project/tjhtc",
-	
+	/**
+	 * 修改:"是否涉及股权转让"状态
+	 */
+	storeUrl : sopContentUrl + "/galaxy/project/store/",
 	/**
 	 * 获取登录人的项目（会议类型、访谈阶段）：
 	 */
@@ -193,6 +200,10 @@ var platformUrl = {
 	 */
 	dictFindByParentCode : sopContentUrl + "/galaxy/sopFile/getDictByParent",
 	/**
+	 * 获取页面显示权限
+	 */
+	sopFileCheckShow : sopContentUrl + "/galaxy/sopFile/checkShow",
+	/**
 	 * 文档查询-无分页
 	 */
 	queryFile : sopContentUrl+"/galaxy/sopFile/query",
@@ -228,6 +239,10 @@ var platformUrl = {
 	 * 更新任务状态
 	 */
 	updateTaskStatus: sopContentUrl + "/galaxy/soptask/updateTaskStatus",
+	/**
+	 * 人法财提交完成
+	 */
+	submitTask: sopContentUrl + "/galaxy/soptask/submitTask",
 	/**
 	 * 项目阶段过程的记录保存
 	 */
@@ -359,7 +374,15 @@ var platformUrl = {
 	/**
 	 * Ajax判断项目名称，组织机构代码是否重复
 	 */
-	checkProject:sopContentUrl + "/galaxy/project/checkProject"
+	checkProject:sopContentUrl + "/galaxy/project/checkProject",
+	/**
+	 * 档案管理发送邮件窗口
+	 */
+	showFileMailDialog:sopContentUrl + "/galaxy/sopFile/showMailDialog",
+	/**
+	 * 档案管理发送邮
+	 */
+	fileSendEmail:sopContentUrl + "/galaxy/sopFile/sendMail"
 }
 
 /**

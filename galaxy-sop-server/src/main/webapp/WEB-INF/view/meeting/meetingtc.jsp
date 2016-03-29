@@ -2,6 +2,19 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<!-- 富文本编辑器 -->
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+<!-- time -->
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
+
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 <div class="meetingtc">
 	<div class="top clearfix">
@@ -10,7 +23,7 @@
             	<dt>项目 :</dt>
                 <dd>
                 	<select id="projectId" name="projectId"  
-                	valType="required" msg="<font color=red>*</font>项目不能为空" >
+                	valType="required" msg="<font color=red>*</font>项目不能为空">
                     </select>
                	 <!-- <input type="text" placeholder="请输入关键字查找" class="txt"/> -->
                 </dd>
@@ -45,10 +58,11 @@
         </dl>
     </div>
     
-    <dl class="fmdl clearfix">
+    <dl class="fmdl clearfix">  <!-- class="um_width" -->
        <dt>会议纪要:</dt>
        <dd>
-       	  <div type="text/plain" id="meetingNotes" class="um_width" style="width:100%;height:200px;max-height:200px;overflow:auto;" >
+       	  <div type="text/plain" id="meetingNotes"  style="width:100%;height:150px;max-height:150px;overflow:auto;" 
+       	 	 valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>访谈纪要不能超过9000字节" >
        	  </div>
 		</dd>
       </dl>
@@ -65,22 +79,13 @@
     		</dd>
         </div>
     </dl>
-    <div class="btnbox"><!--  saveMeet() -->
+    <div class="btnbox">
     	<a href="javascript:;" class="pubbtn bluebtn" id="savemeet">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
 
-
-<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
-<script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
-<!-- time -->
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-
  <script type="text/javascript">
 		UM.getEditor('meetingNotes');
+		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd"));
 </script>
 

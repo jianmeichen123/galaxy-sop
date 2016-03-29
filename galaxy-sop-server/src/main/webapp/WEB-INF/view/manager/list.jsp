@@ -15,7 +15,31 @@
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 
 </head>
-
+<script>
+//设置事业线下拉框
+function setCheckLine(data){
+	
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		//layer.msg(data.result.message);
+		_this.empty();
+		_this.append("<option value='0000'></option>");
+		return;
+	}else{
+		if(data.result.message == 'notg'){
+			$("#ishas").remove();
+		}else{
+			var _this = $("select[name='projectDepartid']");
+			var entityList = data.entityList;
+			_this.empty();
+			_this.append("<option value=''>全部</option>");
+			for(var i=0;i<data.entityList.length;i++){
+				_this.append("<option value='"+data.entityList[i].id+"' "+data.entityList[i].remark+">"+data.entityList[i].name+"</option>");
+		    } 
+		}
+	}
+}
+</script>
 <body>
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
@@ -29,6 +53,15 @@
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
 			<div class="bottom searchall clearfix search_adjust">
+				<dl class="fmdl fml fmdll clearfix" id="ishas">
+	              <dt>投资事业线：</dt>
+	              <dd>
+	                <select name="projectDepartid"> 
+	                  <option value="">全部</option>
+	                </select>
+	              </dd>
+	            </dl>
+	            
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>项目类别：</dt>
 	              <dd>
@@ -61,7 +94,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" id="nameLike" name="nameLike" placeholder="请输入项目名称或项目编码" />
+						<input type="text" class="txt" id="nameCodeLike" name="nameCodeLike" placeholder="请输入项目名称或项目编码" />
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
@@ -69,16 +102,26 @@
 				</dl>
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+			sendGetRequest(platformUrl.queryCheckLine,null,setCheckLine);
+		</script>
+		
 		<div class="tab-pane active" id="view">	
 			<table id="data-table" data-url="project/queryAllProjects" data-height="555" 
 				data-page-list="[10,20,30]" data-toolbar="#custom-toolbar">
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
+				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 			        	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
+			        	<th data-field="hhrName" data-align="center" class="data-input">合伙人</th>
 			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
+			        	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
 			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
+			        	<th data-field="projectContribution" data-align="center" class="data-input">投资金额（万）</th>
 			        	<th data-field="createDate" data-align="center" class="data-input">创建日期</th>
+			        	<th data-field="updateDate" data-align="center" class="data-input">最后修改时间</th>
 			        	<th data-align="center" class="col-md-2" data-formatter="editor">操作</th>
  					</tr>	
  				</thead>
@@ -105,6 +148,7 @@
 	$(function(){
 		createMenus(4);
 	});
+	
 	/**
 	 * 分页数据生成操作内容
 	 */
@@ -453,24 +497,24 @@
 									if(this.fileKey == null){	
 										$tr.append('<td></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+')" class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
 										$tr.append('<td></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 									}
 								}else if(this.fileWorktype == 'fileWorktype:7'){
 									
 									if(this.fileKey == null){	
 										$tr.append('<td></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.id+'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
 										$tr.append('<td></td>');
 									}else{
-										$tr.append('<td><a href="javascript:filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\');" class="blue">查看</a></td>'); 	
 									}
 								}
 								_tbody.append($tr);

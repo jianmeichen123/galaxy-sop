@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -62,5 +64,16 @@ public interface SopFileService extends BaseService<SopFile> {
 	 * @return MultipartFile null=上传失败
 	 */	
 	public Map<String, Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception;
+	
+	
+	/**
+	 * 文件下载接口
+	 * @param request
+	 * @param response
+	 * @param tempfilePath 临时存储路径
+	 * @param downloadEntity 下载实体类
+	 * @throws Exception
+	 */
+	public void download(HttpServletRequest request,HttpServletResponse response,String tempfilePath,SopDownLoad downloadEntity) throws Exception;
 	
 }

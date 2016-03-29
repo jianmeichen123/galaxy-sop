@@ -48,6 +48,7 @@ public class Project extends PagableEntity {
     private String nameCodeLike;
     //详情数据转换
   	private String createDate;
+  	private String updateDate;
   	private String type;
   	private String progress;
     private  String  hhrName;
@@ -312,7 +313,16 @@ public class Project extends PagableEntity {
     		this.createDate = DateUtil.longToString(createdTime);
     	}
     }
-
+    
+    public String getUpdateDate() {
+		return updateDate;
+	}
+    public void setUpdatedTime(Long updatedTime) {
+    	this.updatedTime = updatedTime;
+    	if(updatedTime != null){
+    		this.updateDate = DateUtil.longToString(updatedTime);
+    	}
+    }
 	public String getProgress() {
 		return progress;
 	}
@@ -322,11 +332,11 @@ public class Project extends PagableEntity {
 	}
 
 	public String getNameCodeLike() {
-		return nameCodeLike;
+		return  nameCodeLike == null ? null : nameCodeLike.trim();
 	}
 
 	public void setNameCodeLike(String nameCodeLike) {
-		this.nameCodeLike = nameCodeLike;
+		this.nameCodeLike = nameCodeLike == null ? null : nameCodeLike.trim();
 	}
 	
 	private Long count;

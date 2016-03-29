@@ -112,33 +112,12 @@
 <div class="emailtc" >
     <h2>模板管理-邮件分享</h2>
     <dl class="fmdl clearfix">
-        <dt>发件人：</dt>
-        <dd class="clearfix">
-            <input type="text" name="fromAddress" value="${sessionScope.galax_session_user.email }" class="txt"/>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
         <dt>收件人：</dt>
         <dd class="clearfix">
             <input type="text" name="toAddress" class="txt" data-rule-required="true"/>
         </dd>
         <dd>            
             <label class="red">&#42;必填</label>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-        <dt>邮件标题：</dt>
-        <dd class="clearfix">
-            <input type="text" name="title" class="txt" data-rule-required="true"/>
-        </dd>
-        <dd>            
-            <label class="red">&#42;必填</label>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-    	<dt>邮件正文：</dt>
-        <dd class="clearfix">
-        	<textarea name="content"></textarea>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
@@ -149,7 +128,7 @@
                   <tr>
                       <th>序号</th>
                       <th>档案名称</th>
-                      <th>档案大小/m </th>
+                      <th>档案大小 </th>
                   </tr>
               </thead>                                                                                                                     
               <tbody>
@@ -167,12 +146,12 @@
 </div>
 <!-- Mail dialog end -->
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
-<script type="text/javascript" src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 <script type="text/javascript">
 var uploader;
 $(function(){
@@ -195,7 +174,7 @@ function loadTempList()
 				$("#template-table tbody").empty();
 				var editableTypes = data.userData.editableTypes;
 				$.each(data.entityList,function(){
-					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-file-length="'+this.fileLength+'"></tr>');
+					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-worktype-desc="'+this.workTypeDesc+'" data-file-length="'+this.fileLength+'"></tr>');
 					$tr.append('<td><input type="checkbox" name="document" /></td>') ;
 					$tr.append('<td>'+getVal(this.workTypeDesc,"-")+'</td>') ;
 					$tr.append('<td>'+getVal(this.departmentDesc,"-")+'</td>') ;
@@ -406,31 +385,52 @@ function showMailPopup()
 		showback:function(){
 			var _dialog = this;
 			var i=0;
-			var valdator = $(_dialog.id).find('form').fxValidate();
+			var opts = {
+					rules : {
+						toAddress:{
+							required:true,
+							emails:true
+						}
+						
+					}
+			};
+			var valdator = $(_dialog.id).find('form').fxValidate(opts);
+			var ids = new Array();
 			$.each(flags,function(){
 				var flag = $(this);
 				i++;
 				var $row = $(this).closest("tr");
 				var $tr=$("<tr></tr>");
 				$tr.append("<td>"+ i +"</td>");
-				$tr.append("<td>"+ $row.data('file-name') +"</td>");
-				$tr.append("<td>"+ $row.data('file-length') +"</td>");
+				$tr.append("<td>"+ $row.data('worktype-desc') +"</td>");
+				$tr.append("<td>"+ getFileSize($row.data('file-length')) +"</td>");
 				$(_dialog.id).find("#attach-table tbody").append($tr);
-				$(_dialog.id).find("#mail-form").prepend('<input type="hidden" name="templateIds" value="'+$row.data('id')+'">');
+				ids.push($row.data('id'));
 			});
 			$(_dialog.id).find("#send-mail-btn").click(function(){
 				if(!valdator.form())
 				{
 					return;
 				}
+				$(this).addClass('disabled');
 			 	var $form = $(_dialog.id).find("#mail-form");
 				var data = JSON.parse($form .serializeObject());
+				data['templateIds']=ids;
 				var url = platformUrl.tempSendMail;
 				sendPostRequestByJsonObj(
 						url,
 						data,
 						function(data){
-							layer.msg("发送邮件成功.");
+							if(data.status=="OK")
+							{
+								layer.msg("发送邮件成功.");
+								$(_dialog.id).find("[data-close='close']").click();
+							}
+							else
+							{
+								layer.msg("发送邮件失败.");
+								$(_dialog.id).find("#send-mail-btn").removeClass('disabled');
+							}
 						}
 				); 
 			});

@@ -189,18 +189,20 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                             </tbody>
                         </table>
                     </dd>
-                    <dd class="clearfix">
+                <!--     <dd class="clearfix">
                     	<a href="javascript:;" class="more null">more</a>
                     </dd>
+                     -->
                 </dl>
                 <dl>
                 	<dt><h3 class="ico t3">数据报表</h3></dt>
                     <dd class="zzbox">
                     	<div id="histogram" class="histogram"></div>
                     </dd>
-                    <dd class="clearfix">
+                  <!--    <dd class="clearfix">
                     	<a href="<%=reportEndpoint %>/galaxy/report/dataBriefing" class="more null">more</a>
                     </dd>
+                    -->
                 </dl>
             </div>
             <!--右侧列表-->
@@ -233,7 +235,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                         </table>
                     </dd>
                     <dd class="clearfix">
-                    	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null">more</a>
+                    	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
                 <dl  class="tool_radius">
@@ -277,6 +279,7 @@ $(function(){
 	function load_data_chart(){
 		var obj ={url:Constants.reportEndpointURL+"/galaxy/report/projectprogress"};
 		obj.contentType="application/json";
+		obj.data={"userid":"${galax_session_user.id}"};
 		ajaxCallback(obj,function(data){
 			console.log(data);
 			var result = data.result;
@@ -346,8 +349,9 @@ var chartOptions={
     xAxis: {
         //categories: ['朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
     	labels: {
-            rotation: -45,
+            //rotation: -45,
             align: 'right',
+            staggerLines:2,
             style: {
                 fontSize: '13px',
                 fontFamily: 'Verdana, sans-serif'

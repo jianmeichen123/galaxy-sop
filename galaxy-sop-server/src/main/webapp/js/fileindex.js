@@ -26,6 +26,13 @@ var fileGrid = {
 			uniqueId : "id", // 每一行的唯一标识，一般为主键列
 			cardView : false, // 是否显示详细视图
 			detailView : false, // 是否显示父子表
+			onLoadSuccess : function(data){
+				var obj=this;
+				var result=data;
+				if(result.pageList.total<3){
+					$("#file_gird_more").hide();
+				}
+			},
 			columns : [{
 				field : 'id',
 				title : '序号',

@@ -9,6 +9,27 @@ var searchPanel = {
 			
 			$("#file_repository_search_form").find(".datepicker").val("");
 			
+			//注册发送邮件按钮
+			$("#file-show-mail-btn").click(function(){
+				var rows = $("#"+fileGrid.domid).bootstrapTable('getSelections');
+				if(rows.length==0)
+				{
+					layer.msg('请选择档案。');
+					return;
+				}
+				for(var i=0;i<rows.length;i++){
+					if(!rows[i].fileKey){
+						layer.msg("发送邮件中含有缺失档案！");
+						return;
+					}
+				}
+
+				var data = {
+						_rows : rows
+				}
+				mailWin.init(data);
+			});
+			
 		},
 		initDataCallBack : function(data){
 			var _dom;
@@ -37,10 +58,12 @@ var searchPanel = {
 var fileGrid = {
 	projectId : undefined,
 	domid : undefined,
+	progress : undefined,
 	init : 	function(data){
-		searchPanel.initData();
 		 fileGrid.domid = data._domid;
 		 fileGrid.projectId = data._projectId;
+		 fileGrid.progress = (data._progress.split("_"))[1];
+		 searchPanel.initData();
 		 $('#' + data._domid).bootstrapTable({
 			url : platformUrl.searchSopFileList, // 请求后台的URL（*）
 			queryParamsType : 'size|page', // undefined
@@ -108,20 +131,30 @@ var fileGrid = {
 		  
 	},
 	updateFormatter : function(value,row,index){
-		return [
-	            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
-	            '更新',
-	            '</a>  '
-	        ].join('');
+		var tempPro;
+		if(typeof(row.projectProgress) != "undefined"){
+			tempPro = (row.projectProgress.split(":"))[1];
+		}else{
+			return '';
+		}
+		
+		if(tempPro <= fileGrid.progress && row.isEdit == "true"){
+			return [
+		            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
+		            '更新',
+		            '</a>  '
+		        ].join('');
+		}
+		return '';
+		
 	},
 	updateEvents : {
 		'click .fileupdatelink' : function(e, value, row, index){
-//        	alert(11);
         	formData = {
         			_workType : row.fileWorktype,
         			_projectId : row.projectId,
         			_projectName : row.projectName,
-        			_isProve : undefined,
+        			_isProve : "hide",
     				callFuc : function(){
     					fileGrid.serarchData();
     				},
@@ -134,7 +167,7 @@ var fileGrid = {
 		if(row.fileKey){
 			return [
 			          '<a class="filedownloadlink blue"  href="javascript:void(0)">',
-			          row.fileName,
+			          '查看',
 			          '</a>  '
 			       ].join('');
 		}
