@@ -16,8 +16,7 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
@@ -65,4 +64,5 @@
 </div>
 <script type="text/javascript">
 	UM.getEditor('viewNotes');
+	$("#viewDate").val(new Date().format("yyyy-MM-dd"));
 </script>

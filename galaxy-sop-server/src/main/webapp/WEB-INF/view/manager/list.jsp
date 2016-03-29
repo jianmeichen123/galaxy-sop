@@ -15,7 +15,23 @@
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 
 </head>
-
+<script>
+//设置事业线下拉框
+function setCheckLine(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		layer.msg(data.result.message);
+		return;
+	}
+	var _this = $("select[name='projectDepartid']");
+	var entityList = data.entityList;
+	_this.empty();
+	_this.append("<option value=''>全部</option>");
+	for(var i=0;i<data.entityList.length;i++){
+		_this.append("<option value='"+data.entityList[i].id+"' "+data.entityList[i].remark+">"+data.entityList[i].name+"</option>");
+    } 
+}
+</script>
 <body>
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
@@ -32,7 +48,7 @@
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>投资事业线：</dt>
 	              <dd>
-	                <select name="projectDepartid">
+	                <select name="projectDepartid"> 
 	                  <option value="">全部</option>
 	                </select>
 	              </dd>
@@ -78,6 +94,11 @@
 				</dl>
 			</div>
 		</div>
+		
+		<script type="text/javascript">
+			sendGetRequest(platformUrl.queryCheckLine,null,setCheckLine);
+		</script>
+		
 		<div class="tab-pane active" id="view">	
 			<table id="data-table" data-url="project/queryAllProjects" data-height="555" 
 				data-page-list="[10,20,30]" data-toolbar="#custom-toolbar">
@@ -116,27 +137,10 @@
 <script type="text/javascript" src="<%=path %>/js/manager/js/filerepository.js"></script>
 
 <script type="text/javascript">
-$(function(){
-	createMenus(4);
-	sendGetRequest(platformUrl.queryCheckLine,null,setCheckLine);
-});
-
-
-//设置事业线下拉框
-function setCheckLine(data){
-	var result = data.result.status;
-	if(result == "ERROR"){ //OK, ERROR
-		layer.msg(data.result.message);
-		return;
-	}
-	var _this = $("select[name='projectDepartid']");
-	var entityList = data.entityList;
-	_this.empty();
-	_this.append("<option value=''>全部</option>");
-	for(var i=0;i<data.entityList.length;i++){
-		_this.append("<option value='"+data.entityList[i].id+"' "+data.entityList[i].remark+">"+data.entityList[i].name+"</option>");
-    } 
-}
+	$(function(){
+		createMenus(4);
+	});
+	
 	/**
 	 * 分页数据生成操作内容
 	 */
