@@ -476,14 +476,64 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	
 	
 	
+//	/**
+//	 * 文档上传
+//	 * @param request 转为 MultipartFile，获取key=file
+//	 * @param fileKey 调用OSSHelper生成的key
+//	 * @param bucketName  默认传入 BucketName.DEV.getName()
+//	 * @return MultipartFile null=上传失败
+//	 */	
+//	public Map<String,Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception {
+//		Map<String,Object> retMap = new HashMap<String,Object>();
+//		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
+//		MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
+//		
+////		String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
+//		String path = tempfilePath;
+//		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
+//		
+//		Map<String,String> nameMap = transFileNames(fileName);
+//		File tempFile = new File(path, nameMap.get("fileName"));
+//		if (!tempFile.exists()) {
+//			tempFile.mkdirs();
+//		}
+//		multipartFile.transferTo(tempFile); // 存储临时文件
+//		
+//		//begin 上传到aliyun
+//		long asize = multipartFile.getSize(); 
+//		if(bucketName == null){
+//			bucketName = BucketName.DEV.getName();
+//		}
+//		if(asize>OSSConstant.UPLOAD_PART_SIZE){//大文件线程池上传
+//			int result = OSSHelper.uploadSupportBreakpoint(tempFile,fileKey); // 上传至阿里云
+//			if(result == GlobalCode.ERROR){
+//				return null;
+//			}
+//		}else{
+//			UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);  //上传至阿里云
+//			
+//			//若文件上传成功
+//			if(upResult.getResult().getStatus()==null || upResult.getResult().getStatus().equals(Status.ERROR)){
+//				return null;
+//			}
+//		}
+//		retMap.put("nameMap", nameMap);
+//		retMap.put("file", tempFile);
+//
+//		return retMap;
+//	}
+	
+	
+	
 	/**
 	 * 文档上传
 	 * @param request 转为 MultipartFile，获取key=file
 	 * @param fileKey 调用OSSHelper生成的key
 	 * @param bucketName  默认传入 BucketName.DEV.getName()
 	 * @return MultipartFile null=上传失败
+	 * @throws IOException 
 	 */	
-	public Map<String,Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception {
+	public Map<String,Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws IOException{
 		Map<String,Object> retMap = new HashMap<String,Object>();
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
 		MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
@@ -494,34 +544,48 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		Map<String,String> nameMap = transFileNames(fileName);
 		File tempFile = new File(path, nameMap.get("fileName"));
+		UploadFileResult upResult = null;
 		if (!tempFile.exists()) {
 			tempFile.mkdirs();
 		}
-		multipartFile.transferTo(tempFile); // 存储临时文件
+		try {
+			multipartFile.transferTo(tempFile);
+			//begin 上传到aliyun
+			long asize = multipartFile.getSize(); 
+			if(bucketName == null){
+				bucketName = BucketName.DEV.getName();
+			}
+			if(asize>OSSConstant.UPLOAD_PART_SIZE){//大文件线程池上传
+				int result = OSSHelper.uploadSupportBreakpoint(tempFile,fileKey); // 上传至阿里云
+				if(result == GlobalCode.ERROR){
+					return null;
+				}
+			}else{
+				upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);  //上传至阿里云
+				//若文件上传成功
+				if(upResult.getResult().getStatus()==null || upResult.getResult().getStatus().equals(Status.ERROR)){
+					return null;
+				}
+			}
+			retMap.put("nameMap", nameMap);
+			retMap.put("file", tempFile);
+			retMap.put("upResult", upResult);
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new IOException(e);
+		}finally{
+			tempFile.delete();
+		}
 		
-		//begin 上传到aliyun
-		long asize = multipartFile.getSize(); 
-		if(bucketName == null){
-			bucketName = BucketName.DEV.getName();
-		}
-		if(asize>OSSConstant.UPLOAD_PART_SIZE){//大文件线程池上传
-			int result = OSSHelper.uploadSupportBreakpoint(tempFile,fileKey); // 上传至阿里云
-			if(result == GlobalCode.ERROR){
-				return null;
-			}
-		}else{
-			UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);  //上传至阿里云
-			
-			//若文件上传成功
-			if(upResult.getResult().getStatus()==null || upResult.getResult().getStatus().equals(Status.ERROR)){
-				return null;
-			}
-		}
-		retMap.put("nameMap", nameMap);
-		retMap.put("file", tempFile);
+		
 
 		return retMap;
 	}
+	
+	
+	
+	
+	
 	
 	/**
 	 * 文件下载接口
