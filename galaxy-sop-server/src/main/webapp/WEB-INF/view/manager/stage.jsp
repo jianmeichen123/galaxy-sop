@@ -233,7 +233,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -254,7 +254,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -276,7 +276,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -297,7 +297,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>

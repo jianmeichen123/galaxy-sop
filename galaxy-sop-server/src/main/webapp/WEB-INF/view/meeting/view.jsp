@@ -94,7 +94,7 @@
 						 <th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
 						<!-- <th data-field="hygk" data-align="center">会议概况</th> -->
 						<th data-align="center"  data-formatter="meetProInfoFormat" >项目信息</th>  
-						<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议记要</th>  <!-- data-formatter="subLengthFormat" -->
+						<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>  <!-- data-formatter="subLengthFormat" -->
 					</tr>
 				</thead>
 			</table>
