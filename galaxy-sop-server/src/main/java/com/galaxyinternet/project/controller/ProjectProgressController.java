@@ -482,6 +482,17 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
 		}
+		//已有通过的会议，不能再添加会议纪要
+		MeetingRecord mrQuery = new MeetingRecord();
+		mrQuery.setProjectId(Long.parseLong(projectId));
+		mrQuery.setMeetingType(meetingType);
+		mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+		Long mrCount = meetingRecordService.queryCount(mrQuery);
+		if(mrCount != null && mrCount.longValue() > 0L)
+		{
+			responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
+			return responseBody;
+		}
 		
 		try {
 			String prograss = "";
@@ -603,6 +614,18 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				|| meetingRecord.getMeetingType() == null 
 				|| meetingRecord.getMeetingResult() == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
+			return responseBody;
+		}
+		
+		//已有通过的会议，不能再添加会议纪要
+		MeetingRecord mrQuery = new MeetingRecord();
+		mrQuery.setProjectId(meetingRecord.getProjectId());
+		mrQuery.setMeetingType(meetingRecord.getMeetingType());
+		mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+		Long mrCount = meetingRecordService.queryCount(mrQuery);
+		if(mrCount != null && mrCount.longValue() > 0L)
+		{
+			responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
 			return responseBody;
 		}
 		
