@@ -269,23 +269,25 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			List<Department> syxList = departmentService.queryList(syxType);//获取所有事业线
 			//判断用户所在事业线，在   syxlist 中选中
 			if(syxList != null && !syxList.isEmpty()){
-				boolean nohas = true;
+				//boolean nohas = true;
 				for(Department adepart : syxList){
 					adepart.setRemark("");
 					if(user.getDepartmentId()!=null && user.getDepartmentId().longValue() == adepart.getId().longValue()){
-						nohas = false;
+						//nohas = false;
 						adepart.setRemark("selected"); //标记选中
 					}
 				}
-				if(nohas){
+				/*if(nohas){
 					responseBody.setResult(new Result(Status.ERROR,null, "用户所在部门不是事业线！"));
 					logger.error("用户所在部门不是事业线"+GSONUtil.toJson(user));
 					return responseBody;
-				}
+				}*/
 			}else{
 				responseBody.setResult(new Result(Status.ERROR,null, "查询部门数据为空！"));
 				return responseBody;
 			}
+			
+			
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(syxList);
 		} catch (Exception e) {
