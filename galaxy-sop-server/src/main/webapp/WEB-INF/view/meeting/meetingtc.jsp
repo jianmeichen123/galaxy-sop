@@ -23,7 +23,7 @@
             	<dt>项目 :</dt>
                 <dd>
                 	<select id="projectId" name="projectId"  
-                	valType="required" msg="<font color=red>*</font>项目不能为空" onchange="turnType(this.value);">
+                	valType="required" msg="<font color=red>*</font>项目不能为空">
                     </select>
                	 <!-- <input type="text" placeholder="请输入关键字查找" class="txt"/> -->
                 </dd>
