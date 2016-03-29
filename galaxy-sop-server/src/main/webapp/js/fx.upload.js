@@ -9,13 +9,8 @@ $.extend({
 						multipart:true,
 						multi_selection:false,
 						filters : {
-							max_file_size : '30mb',
-							mime_types: [
-							    {title : "YP files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r"},
-								{title : "Image files", extensions : "bmp,gif,jpg,jpeg,png"},
-								{title : "Zip files", extensions : "zip,rar"},
-								{title : "document files", extensions : "doc,docx,ppt,pptx,pps,xls,xlsx,pdf,txt"}
-							]
+							max_file_size : '25mb',
+							mime_types: paramsFilter(null)
 						}
 					}
 				}

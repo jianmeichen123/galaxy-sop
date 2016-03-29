@@ -186,7 +186,7 @@ function initUpload(_dialog){
 		url : platformUrl.stageChange,
 		multi_selection:false,
 		filters : {
-			max_file_size : '30mb'
+			max_file_size : '25mb'
 		},
 
 		init: {
