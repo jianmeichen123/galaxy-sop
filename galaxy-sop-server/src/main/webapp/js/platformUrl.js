@@ -3,7 +3,6 @@ var Constants = {
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"]
 }
 var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
-//var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
 //var sopContentUrl = "http://127.0.0.1:8888/sop";
 
 var platformUrl = {
@@ -36,6 +35,10 @@ var platformUrl = {
 	 * 关闭项目
 	 */
 	closeProject : sopContentUrl + "/galaxy/project/breakpro/",
+	/**
+	 * 获取事业部——高管查询select
+	 */
+	queryCheckLine : sopContentUrl + "/galaxy/project/queryCheckLine/",
 	/**
 	 * 获取项目详情
 	 */
@@ -144,7 +147,10 @@ var platformUrl = {
 	 * tab -> 投决会： 
 	 */
 	tab_tjhtc : sopContentUrl + "/galaxy/project/tjhtc",
-	
+	/**
+	 * 修改:"是否涉及股权转让"状态
+	 */
+	storeUrl : sopContentUrl + "/galaxy/project/store/",
 	/**
 	 * 获取登录人的项目（会议类型、访谈阶段）：
 	 */

@@ -69,12 +69,13 @@ public class AppProjectController extends BaseControllerImpl<Project, ProjectBo>
 			ResponseData<Project> responseBody = new ResponseData<Project>();
 			User user = (User) getUserFromSession(request);
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){				
-			}else if (roleIdList.contains(UserConstant.HHR)){
+			if (roleIdList.contains(UserConstant.HHR)){
 				project.setProjectDepartid(user.getDepartmentId());
-			}else{
+			}
+			if(!roleIdList.contains(UserConstant.DSZ) && !roleIdList.contains(UserConstant.CEO)&&!roleIdList.contains(UserConstant.HHR)){
 				project.setCreateUid(user.getId());
-			}			
+			}
+				
 			try {						
 				Page<Project>  pageProject = null;
 				if(project.getAscOrDes()!=null&&project.getCascOrDes()!=null){	

@@ -30,14 +30,29 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 
 	@Override
 	public Project selectTotalSummary(ProjectBo query) {
-		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectOne(getSqlName("selectTotalSummary"),query);
 	}
 
 	@Override
 	public List<Project> selectStageSummary(ProjectBo query) {
-		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(getSqlName("selectStageSummary"),query);
+	}
+
+	@Override
+	public long insertProject(Project project) {
+		Assert.notNull(project);
+		try {
+			/*ID id = entity.getId();
+			if (null == id) {
+				if (StringUtils.isBlank(stringId)) {
+					entity.setId((ID) generateId());
+				}
+			}*/
+			sqlSessionTemplate.insert(getSqlName(SqlId.SQL_INSERT), project);
+			return project.getId();
+		} catch (Exception e) {
+			throw new DaoException(String.format("添加对象出错！语句：%s", getSqlName(SqlId.SQL_INSERT)), e);
+		}
 	}
 
 

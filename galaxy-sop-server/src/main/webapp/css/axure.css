@@ -234,7 +234,7 @@ table .width_gd{width:12%;}
 }
 .dropdown-menu {
    position: absolute;
-  top: 100%;
+  bottom: 100%;
   left: 0;
   z-index: 1000;
   display: none;
@@ -600,8 +600,8 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg_d .block1 table dl dt{float: left;font-size: 14px;color:#3e4351;width: 100px;text-align: right;margin-right: 10px;}
 .pagebox .projectmsg_d .block1 table dl dd .transferSharesTxt{width:30px;}
 .pagebox .projectmsg_d .block1 table dl dd{float: left;font-size: 12px;color:#525662;}
-.pagebox .projectmsg_d .block1 .btnbox{ width:80px;margin:10px auto 0;}
-.pagebox .projectmsg_d .block1 .btnbox .pubbtn{ width:80px;margin:0 20px 0 0; display:inline-block; *display:inline; zoom:1;}
+.pagebox .projectmsg_d .block1 .btnbox{ width:300px;margin:10px auto 0;}
+.pagebox .projectmsg_d .block1 .btnbox .pubbtn{ width:auto;padding:0 25px;margin:0 20px 0 0; display:inline-block; *display:inline; zoom:1;}
 .pagebox .projectmsg_d .shadow{box-shadow: 5px 5px 1px #dcdfe7;}
 .block2 dl dt{font-size: 16px;color:#6b799f;height: 40px;line-height: 40px;}
 .block dl{position: relative;padding:0 10px;}
@@ -828,7 +828,7 @@ right: 200px;}
 .chartbox_bottom .tabtable .tabtable_top a{float: right;}
 .chartbox_bottom ul li{color:#5D678A;}
 .chartbox_bottom ul .on{ background:#edeff5; }
-.mask{position: absolute;width:100%;height: 100%;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
+.mask{position: absolute;width:99%;height: 100%;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
 .mask1{position: absolute;width:100%;height: 100px;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
 dl dd .time1{display:inline-block !important;width: 100px !important;background:url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
 
@@ -883,10 +883,10 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .loginpage .btm a{ color:#FFF; font-size:14px; font-family:"宋体"; margin:0 10px 0 0}
 .login_bg{width:100%;height:174px;background: url(../img/login_bg.png) 0 bottom no-repeat;position: fixed;bottom: 34px;}
 /*弹出层-------华丽分割线---------部分*/
-#popbg{ position:fixed; _position:absolute; left:0; top:0; background:#000;filter:Alpha(opacity=0);opacity: 0;  z-index:99; width:100%; height:100%}
+#popbg{ position:fixed; _position:absolute; left:0; top:0; background:#000;filter:Alpha(opacity=0);opacity: 0;  z-index:999; width:100%; height:100%}
 #popbg iframe{filter:alpha(opacity=0);opacity: 0; width:100%; height:100%}
-.pop{ position:fixed; _position:absolute; left:0; top:0; z-index:100;filter:Alpha(opacity=0);opacity: 0; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
-.popzx{ z-index:999}
+.pop{ position:fixed; _position:absolute; left:0; top:0; z-index:1000;filter:Alpha(opacity=0);opacity: 0; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
+.popzx{ z-index:9999}
 .pop .close{ position:absolute; right:-14px; top:-14px; width:26px; height:26px; background:url(../img/tcclose.png) no-repeat; z-index:10;opacity: 1;}
 .pop .poptxt{ position:relative; padding:10px}
 /*请稍候*/
@@ -1052,7 +1052,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /* 团队绩效弹窗 */
 .jxkh_ljwcstc{width: 500px;}
 /* 个人简历弹窗 */
-.resumetc{position: relative;top:0px;height: 480px;overflow: scroll;}
+.resumetc{position: relative;top:0px;height: 430px;overflow: scroll;}
 .resumetc .tabtable{width:500px;padding: 10px; }
 .resumetc .resume .tablink .on{background-color: #f1f2f5;}
 .resumetc .tabtable .tabtable_con{display:none;padding: 10px;height:auto;background-color: #f1f2f5;}
@@ -1089,10 +1089,10 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .schedule1tc .bottom .bottom_l dl .nav_list{border-bottom:1px solid #e9ebf2;height: 34px;background-color: #f1f2f5;line-height: 34px;padding-left:5px;color:#5d678a;cursor: pointer;}
 .schedule1tc .bottom .bottom_l dl  .tips{display: none;}
 .schedule1tc .bottom .bottom_l dl  .tips .nav{cursor: pointer;}
-.schedule1tc .bottom .bottom_l dl  .tips .nav dt span{width:100px;display:inline-block;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;}
+.schedule1tc .bottom .bottom_l dl  .tips .nav dt span{width:90px;display:inline-block;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;}
 .schedule1tc .bottom .bottom_l dl .on{display: block;}
 .schedule1tc .bottom .bottom_l dl dd{font-size: 12px;font-family: "宋体"}
-.schedule1tc .bottom .bottom_l dl dd dl{border-bottom:1px solid #e9ebf2;padding: 5px;border-right:1px solid #e9ebf2;background: #edeff5;}
+.schedule1tc .bottom .bottom_l dl dd dl{border-bottom:1px solid #e9ebf2;padding: 5px;border-right:1px solid #e9ebf2;background:#fbfcfd;}
 .schedule1tc .bottom .bottom_l .tips .on{background-color: #f0f0f0; }
 .schedule1tc .bottom .bottom_l dl dd dl dt{font-size: 12px;font-family: "宋体";margin-bottom: 5px;}
 .schedule1tc .bottom .bottom_r{float: left;width: 400px;height: 300px;border:1px solid #e9ebf2;padding:5px;}

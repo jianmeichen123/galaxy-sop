@@ -16,8 +16,7 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
@@ -43,13 +42,13 @@
         </dl>
     </div>
     <dl class="fmdl clearfix">
-        <dt>会议纪要：</dt>
+        <dt>访谈日志：</dt>
         <dd>
             <div type="text/plain" id="viewNotes" style="width:100%;height:100px;" valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>会议纪要不能超过9000字符"></div>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
-        <dt>会议录音：</dt>
+        <dt>访谈录音：</dt>
         <div class="fmload clearfix">
             <dd>
 	        	<input type="text" name="fileName" id="file_object" class="txt" readonly="readonly"/>
@@ -65,4 +64,5 @@
 </div>
 <script type="text/javascript">
 	UM.getEditor('viewNotes');
+	$("#viewDate").val(new Date().format("yyyy-MM-dd"));
 </script>

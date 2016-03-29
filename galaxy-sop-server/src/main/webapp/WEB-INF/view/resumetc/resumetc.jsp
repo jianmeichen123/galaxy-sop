@@ -212,7 +212,7 @@
                     <td><input type="text" name="workEmolument" id="workEmolument" value="" valType="ONLYINT" msg="薪酬水平只能是正整数"></td>
                   </tr>
                 <tr>
-                    <th>入职时间：</th>
+                    <th>离职时间：</th>
                     <td><input type="text" name="beginWorkStr" id="beginWorkStr" value="" valType="DATE"  class="datepicker"  msg="入职时间格式错误"></td>
                   </tr>
                   <tr>
@@ -268,10 +268,21 @@
                     <th>投资金额：</th>
                     <td><input type="text" name="investmentAmount" id="investmentAmount"  value="" valType="MONEY" msg="投资金额格式方式错误包含数字  万后小数点2位 "></td>
                   </tr>
-                  <tr>
+                  <tr>                  
                     <th>股权占比（%）：</th>
                     <td><input type="text" name="shareRatio" id="shareRatio"  value="" valType="RATIO" msg="股权占比格式方式错误 股权占比值必须 在0-100之间"></td>
                   </tr>
+                  <tr>
+                    <th>项目负责人：</th>
+                     
+                    <td><input type="text" name="projectDirector" id="projectDirector"  value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="项目负责人姓名格式错误"></td>
+                  </tr>
+                 
+                  <tr>
+                    <th>职位：</th>
+                    <td><input type="text" name="emceedPosition" id="emceedPosition"  value="" valType="CHAR_CH" msg="职位格式错误"></td>
+                  </tr>
+                  
                   <tr>
                     <th>联系方式：</th>
                     <td><input type="text" name="telephone" id="telephone"  value="" valType="MOBILE" msg="联系方式错误"></td>
@@ -292,6 +303,15 @@
                   <tr>
                     <th>股权占比（%）：</th>
                     <td><input type="text" name="ashareRatio" id="ashareRatio"  value=""  valType="RATIO" msg="股权占比格式方式错误 股权占比值必须在0-100之间"></td>
+                  </tr>
+                  <tr>
+                    <th>项目负责人：</th>
+                    <td><input type="text" name="aprojectDirector" id="aprojectDirector"  value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="项目负责人姓名格式错误"></td>
+                  </tr>
+                 
+                  <tr>
+                    <th>职位：</th>
+                    <td><input type="text" name="aemceedPosition" id="aemceedPosition"  value="" valType="CHAR_CH" msg="职位格式错误"></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>
