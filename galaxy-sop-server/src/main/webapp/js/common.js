@@ -450,6 +450,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
 					layer.msg(response.result.message);
+					$("div[data-id='popid1']").remove();
 					return false;
 				}
 				
