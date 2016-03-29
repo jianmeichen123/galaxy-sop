@@ -86,8 +86,8 @@
       
         <div id="editShedule" class="bottom_r2 bottom_r"  data-tab='con'> 
            <form action="" id="shedule_form" method="post">    
-            <input type="hidden" id="id" name="id" value=""/>
             <h2>添加日程安排</h2>
+            <input type="hidden" id="id" name="id" value=""/>
             <dl class="fmdl clearfix">
                 <dt>处理日期：</dt>
                 <dd class="clearfix">
@@ -124,8 +124,6 @@
     </div>
 </div>
     <script type="text/javascript">
-
-
 
 <%-- if('<%=timestr%>' !=''){
     	 $("#itemDate").val('<%=timestr%>');
@@ -164,8 +162,26 @@
     	$("#content").val('');
     	$("#id").val('');
     	$("#id").remove();
-    	$("#itemType0").attr("checked","checked");
-    	$("#itemOrder0").attr("checked","checked");
+    	uncheckAll('itemType');
+    	uncheckAll('itemOrder');
+    }
+    //取消选中  
+    function uncheckAll(type)   
+    {   
+    var code_Values = document.all[type];   
+	    if(code_Values.length){   
+		    for(var i=0;i<code_Values.length;i++)   
+		    {   
+			    if(code_Values[i].value == '1'){
+			    	 code_Values[i].checked = false;   
+			    }else{
+			    	code_Values[i].checked = true;   
+			    }
+		   
+		    }   
+	    }else{   
+	        code_Values.checked = false;   
+	    }   
     }
     //获取单日程信息
     function getShedule(id){
@@ -206,6 +222,7 @@
     //删除日程
     function deleteShedule(){
     	var id=$("#id").val();
+    	alert(id)
     	sendGetRequest(platformUrl.deleteShedule+id,'',sheduleCallBack);
     }
     //新建|修改|删除回调函数
@@ -228,7 +245,6 @@
         $(".bottom_l .nav_list").click(function(event) {
             $(this).siblings().stop().slideToggle().parent().siblings().children('dd').slideUp();
         });
-        newShedule();
     });
    
 
