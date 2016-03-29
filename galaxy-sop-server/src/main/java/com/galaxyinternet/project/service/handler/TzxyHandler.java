@@ -123,6 +123,23 @@ public class TzxyHandler implements Handler {
 				task.setCreatedTime(System.currentTimeMillis());
 				sopTaskDao.insert(task);
 			}
+			
+			
+			SopTask task = new SopTask();
+			//条件
+			task.setProjectId(q.getPid());
+			task.setTaskType(DictEnum.taskType.协同办公.getCode());
+			if(q.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
+				task.setTaskFlag(SopConstant.TASK_FLAG_TZXY);
+			}else{
+				task.setTaskFlag(SopConstant.TASK_FLAG_GQZR);
+			}
+			//修改
+			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+			task.setUpdatedTime((new Date()).getTime());
+			sopTaskDao.updateTask(task);
+			
+			
 			if(q.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
 				r = new SopResult(Status.OK,null,"上传股权转让协议签署证明成功!",UrlNumber.eleven);
 			}else{
@@ -152,21 +169,11 @@ public class TzxyHandler implements Handler {
 			f.setFileSuffix(q.getSuffix());
 			sopFileDao.updateById(f);
 			
-			SopTask task = new SopTask();
-			//条件
-			task.setProjectId(q.getPid());
-			task.setTaskType(DictEnum.taskType.协同办公.getCode());
 			if(q.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
-				task.setTaskFlag(SopConstant.TASK_FLAG_TZXY);
 				r = new SopResult(Status.OK,null,"上传投资协议成功!",UrlNumber.nine);
 			}else{
-				task.setTaskFlag(SopConstant.TASK_FLAG_GQZR);
 				r = new SopResult(Status.OK,null,"上传股权转让协议成功!",UrlNumber.ten);
 			}
-			//修改
-			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
-			task.setUpdatedTime((new Date()).getTime());
-			sopTaskDao.updateTask(task);
 		}
 		return r;
 	}
