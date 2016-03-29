@@ -322,11 +322,11 @@ public class Project extends PagableEntity {
 	}
 
 	public String getNameCodeLike() {
-		return nameCodeLike;
+		return  nameCodeLike == null ? null : nameCodeLike.trim();
 	}
 
 	public void setNameCodeLike(String nameCodeLike) {
-		this.nameCodeLike = nameCodeLike;
+		this.nameCodeLike = nameCodeLike == null ? null : nameCodeLike.trim();
 	}
 	
 	private Long count;
