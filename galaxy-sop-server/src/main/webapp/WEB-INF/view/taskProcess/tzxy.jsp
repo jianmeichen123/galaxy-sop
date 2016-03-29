@@ -3,7 +3,7 @@
 	String path = request.getContextPath(); 
 %>
 <div class="btm">
-	<input type="checkbox" name="hasStockTransfer" value="1">是否涉及股权转让
+	<input type="checkbox" name="hasStockTransfer" value="1" onclick="selected(this);" id="stock_transfer">是否涉及股权转让
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
@@ -78,7 +78,6 @@
 </div>
 <script type="text/javascript">
 $(function(){
-	loadRows();
 	loadRelatedData();
 	
 	if("${taskFlag}" == 7)
@@ -86,10 +85,37 @@ $(function(){
 		$("[name='hasStockTransfer']").attr('checked',true).attr('disabled',true);
 	}
 });
+var stockTransfer = 0;
 function projectLoaded(project)
 {
 	
+	loadRows();
+	
+	
 }
+
+/**
+ * "是否涉及股权转让"按钮点击事件
+ */
+function selected(obj){
+	var pid = "${projectId}";
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(platformUrl.storeUrl + pid,
+				null,
+				function(data){
+					stockTransfer = data.entity.stockTransfer;
+				});
+	}
+	
+	if(stockTransfer == 1){
+		$("#stock_transfer").attr("checked","checked");
+		$("tr[data-file-worktype='fileWorktype:7']").css("display","table-row");
+	}else{
+		$("tr[data-file-worktype='fileWorktype:7']").css("display","none");
+	}
+	
+}
+
 function loadRows()
 {
 	var url = platformUrl.queryFile;
@@ -102,7 +128,7 @@ function loadRows()
 			url,
 			data,
 			function(data){
-				
+				var hidden = false;
 				$.each(data.entityList,function(){
 					var $tr = $('<tr data-id="'+this.id+'" data-voucher-id="'+this.voucherId+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
 					$tr.append('<td>'+(isBlank(this.fWorktype) ? "" : this.fWorktype) +'</td>');
@@ -124,7 +150,16 @@ function loadRows()
 						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="voucher">查看</a></td>');
 					}	
 					$("#hrjzdc-table tbody").append($tr);
+					if((this.fileWorktype == 'fileWorktype:6' && this.fileKey != null) || (this.fileWorktype == 'fileWorktype:7' && this.fileKey != null)){
+						$("#stock_transfer").attr("disabled","true");
+					}
 				});
+				
+				if(stockTransfer == 1){
+					$("#stock_transfer").attr("checked","checked");
+				}else{
+					$("tr[data-file-worktype='fileWorktype:7']").css("display","none");
+				}
 			}
 	);
 }
