@@ -82,7 +82,7 @@
                   </tr>
                   <tr>
                     <th>劣势：</th>
-                    <td><input name="personGoodness" id="personGoodness" type="text" value="" valType="GENERAL" msg="劣势限制长度500"></td>
+                    <td><input name="personDisparity" id="personDisparity" type="text" value="" valType="GENERAL" msg="劣势限制长度500"></td>
                   </tr>
                   <tr>
                     <th>沟通能力：</th>
@@ -275,12 +275,12 @@
                   <tr>
                     <th>项目负责人：</th>
                      
-                    <td><input type="text" name="projectDirector" id="projectDirector"  value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="项目负责人姓名格式错误"></td>
+                    <td><input type="text" name="projectDirector" id="projectDirector"   value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="项目负责人姓名格式错误"></td>
                   </tr>
                  
                   <tr>
                     <th>职位：</th>
-                    <td><input type="text" name="emceedPosition" id="emceedPosition"  value="" valType="CHAR_CH" msg="职位格式错误"></td>
+                    <td><input type="text" name="emceedPosition" id="emceedPosition"  value=""  valType="CHAR_CH" msg="职位格式错误"></td>
                   </tr>
                   
                   <tr>
@@ -306,12 +306,12 @@
                   </tr>
                   <tr>
                     <th>项目负责人：</th>
-                    <td><input type="text" name="aprojectDirector" id="aprojectDirector"  value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="项目负责人姓名格式错误"></td>
+                    <td><input type="text" name="aprojectDirector" id="aprojectDirector" value="" valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="项目负责人姓名格式错误"></td>
                   </tr>
                  
                   <tr>
                     <th>职位：</th>
-                    <td><input type="text" name="aemceedPosition" id="aemceedPosition"  value="" valType="CHAR_CH" msg="职位格式错误"></td>
+                    <td><input type="text" name="aemceedPosition" id="aemceedPosition"   value="" valType="CHAR_CH" msg="职位格式错误"></td>
                   </tr>
                   <tr>
                     <th>联系方式：</th>

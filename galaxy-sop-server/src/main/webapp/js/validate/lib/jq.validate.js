@@ -117,7 +117,7 @@ function validateBefore() {
 	}
 	
 }
-
+var result=false;
 //submit之前对所有表单进行验证
 function beforeSubmit() {
 	var flag=true;
@@ -130,8 +130,21 @@ function beforeSubmit() {
 			//显示tips			
 			$(n).poshytip('show');
 			flag=false;
-			}
-		}else if($(n).attr("valType")=='requiredDiv'){
+		}
+		//if(n.id=="projectName"){
+		//	var obj=$(n).id;
+		//	var json = {};
+		//	json = {"projectName":$(n).val()};
+		//	sendPostRequestByJsonObj(platformUrl.checkProject,json,callbackcheckProject);
+		//	if(result){
+		//		//$("#projectName").removeAttr("msg");
+		//		$("#projectName").attr("msg","<font color=red>*</font>存在重复项目名，请重新输入");
+		//		$(n).poshytip('show');
+		//		flag=false;
+		//	}
+			
+	//	}
+	}else if($(n).attr("valType")=='requiredDiv'){
 			if($(n).text()!='') {
 					if(!($(n).text()!=''&&$.Validator.match({data:$(n).text(), rule:'OTHER', regString:$(n).attr('regString')}))) {
 					//显示tips			
@@ -179,3 +192,4 @@ Validators.prototype.subByJs=function(e) {
 		//todo
 	}
 }
+
