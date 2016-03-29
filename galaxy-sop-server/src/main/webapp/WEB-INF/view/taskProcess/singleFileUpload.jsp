@@ -97,6 +97,10 @@ $(function(){
 		);
 	});
 });
+function projectLoaded(project)
+{
+	
+}
 function loadRows()
 {
 	var url = platformUrl.queryFile;

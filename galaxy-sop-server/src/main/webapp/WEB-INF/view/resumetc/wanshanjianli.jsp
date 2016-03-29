@@ -60,7 +60,10 @@ $(function(){
 		);
 	});
 });
-
+function projectLoaded(project)
+{
+	
+}
 function ProjectRenyuan() {		
 	var jsonData={"projectId":"${projectId}","tid":"${taskId}"}; 
 	sendPostRequestByJsonObj(platformUrl.toWanshan,jsonData, SopTaskRenyuan);

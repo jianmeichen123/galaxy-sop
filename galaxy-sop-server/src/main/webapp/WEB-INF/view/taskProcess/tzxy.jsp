@@ -86,6 +86,10 @@ $(function(){
 		$("[name='hasStockTransfer']").attr('checked',true).attr('disabled',true);
 	}
 });
+function projectLoaded(project)
+{
+	
+}
 function loadRows()
 {
 	var url = platformUrl.queryFile;
