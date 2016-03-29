@@ -264,32 +264,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		ResponseData<Department> responseBody = new ResponseData<Department>();
 		try {
-			Department syxType = new Department();
-			syxType.setType(1);
-			List<Department> syxList = departmentService.queryList(syxType);//获取所有事业线
-			//判断用户所在事业线，在   syxlist 中选中
-			if(syxList != null && !syxList.isEmpty()){
-				//boolean nohas = true;
-				for(Department adepart : syxList){
-					adepart.setRemark("");
-					if(user.getDepartmentId()!=null && user.getDepartmentId().longValue() == adepart.getId().longValue()){
-						//nohas = false;
-						adepart.setRemark("selected"); //标记选中
-					}
-				}
-				/*if(nohas){
-					responseBody.setResult(new Result(Status.ERROR,null, "用户所在部门不是事业线！"));
-					logger.error("用户所在部门不是事业线"+GSONUtil.toJson(user));
-					return responseBody;
-				}*/
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			List<Department> syxList = null;
+			if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){
+				Department syxType = new Department();
+				syxType.setType(1);
+				syxList = departmentService.queryList(syxType);//获取所有事业线
+				
+				responseBody.setResult(new Result(Status.OK, null,""));
+				responseBody.setEntityList(syxList);
 			}else{
-				responseBody.setResult(new Result(Status.ERROR,null, "查询部门数据为空！"));
-				return responseBody;
+				responseBody.setResult(new Result(Status.OK, null,"notg"));
 			}
-			
-			
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setEntityList(syxList);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "查询事业线失败"));
 			if(logger.isErrorEnabled()){

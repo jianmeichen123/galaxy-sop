@@ -134,6 +134,7 @@ function getProjectInfo(projectLoaded)
 				return;
 			}
 			var project = data.entity;
+			stockTransfer = project.stockTransfer;
 			$("#project-summary dd")
 			.each(function(){
 				var self = $(this);

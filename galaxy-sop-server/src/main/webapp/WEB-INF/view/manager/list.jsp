@@ -18,20 +18,26 @@
 <script>
 //设置事业线下拉框
 function setCheckLine(data){
-	var _this = $("select[name='projectDepartid']");
+	
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
 		//layer.msg(data.result.message);
 		_this.empty();
 		_this.append("<option value='0000'></option>");
 		return;
+	}else{
+		if(data.result.message == 'notg'){
+			$("#ishas").remove();
+		}else{
+			var _this = $("select[name='projectDepartid']");
+			var entityList = data.entityList;
+			_this.empty();
+			_this.append("<option value=''>全部</option>");
+			for(var i=0;i<data.entityList.length;i++){
+				_this.append("<option value='"+data.entityList[i].id+"' "+data.entityList[i].remark+">"+data.entityList[i].name+"</option>");
+		    } 
+		}
 	}
-	var entityList = data.entityList;
-	_this.empty();
-	_this.append("<option value=''>全部</option>");
-	for(var i=0;i<data.entityList.length;i++){
-		_this.append("<option value='"+data.entityList[i].id+"' "+data.entityList[i].remark+">"+data.entityList[i].name+"</option>");
-    } 
 }
 </script>
 <body>
@@ -47,7 +53,7 @@ function setCheckLine(data){
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
 			<div class="bottom searchall clearfix search_adjust">
-				<dl class="fmdl fml fmdll clearfix">
+				<dl class="fmdl fml fmdll clearfix" id="ishas">
 	              <dt>投资事业线：</dt>
 	              <dd>
 	                <select name="projectDepartid"> 
