@@ -218,7 +218,7 @@ function initUpload(_dialog,type){
 		url : url+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
 		filters : {
-			max_file_size : '30mb'
+			max_file_size : '25mb'
 		},
 
 		init: {

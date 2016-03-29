@@ -189,7 +189,7 @@ function initUpload(_dialog,type){
 		url : url,
 		multi_selection:false,
 		filters : {
-			max_file_size : '30mb'
+			max_file_size : '25mb'
 		},
 
 		init: {

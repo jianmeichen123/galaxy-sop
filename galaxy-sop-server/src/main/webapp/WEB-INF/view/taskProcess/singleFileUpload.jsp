@@ -181,7 +181,7 @@ function initUpload(_dialog){
 		url : platformUrl.uploadFile2Task+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
 		filters : {
-			max_file_size : '30mb'
+			max_file_size : '25mb'
 		},
 
 		init: {
