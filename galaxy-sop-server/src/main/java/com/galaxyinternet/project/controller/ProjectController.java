@@ -337,8 +337,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					Department Department=new Department();
 					Department.setId(p.getProjectDepartid());
 					Department queryOne = departmentService.queryOne(Department);
-					hhrname=getHHRNname(project);
-					project.setHhrName(hhrname);
+					hhrname=getHHRNname(p);
+					p.setHhrName(hhrname);
 					if(queryOne!=null){
 						p.setProjectCareerline(queryOne.getName());
 					}else{
