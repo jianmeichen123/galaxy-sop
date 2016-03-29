@@ -20,6 +20,10 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 		cache : false,
 		contentType : "application/json; charset=UTF-8",
 		beforeSend : function(xhr) {
+			/**清楚浏览器缓存**/
+			xhr.setRequestHeader("If-Modified-Since","0"); 
+			xhr.setRequestHeader("Cache-Control","no-cache");
+
 			if (sessionId) {
 				xhr.setRequestHeader("sessionId", sessionId);
 			}
@@ -394,28 +398,31 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 			//上传按钮点击事件 - 开始上传
 			PostInit: function(up) {
 				$("#" + submitBtnId).click(function(){
-					var file = $("#" + fileInputId).val();
-					var param = paramsFunction();
-					console.log(param);
-					console.log(up.files.length);
-					if(up.files.length == 0){
-						sendPostRequestByJsonObj(platformUrl.stageChange,param,function(data){
-							var result = data.result.status;
-							if(result == "OK"){
-								layer.msg(data.result.message);
-								$("#powindow,#popbg").remove();
-								info(pid);
-							}else{
-								layer.msg(data.result.message);
-							}
-							
-							//contentType:"multipart/form-data"
-						});
-					}else{
-						up.settings.multipart_params = param;
-						uploader.start();
+					/**添加验证**/
+					if(beforeSubmit()){
+						var file = $("#" + fileInputId).val();
+						var param = paramsFunction();
+						console.log(param);
+						console.log(up.files.length);
+						if(up.files.length == 0){
+							sendPostRequestByJsonObj(platformUrl.stageChange,param,function(data){
+								var result = data.result.status;
+								if(result == "OK"){
+									layer.msg(data.result.message);
+									$("#powindow,#popbg").remove();
+									info(pid);
+								}else{
+									layer.msg(data.result.message);
+								}
+								
+								//contentType:"multipart/form-data"
+							});
+						}else{
+							up.settings.multipart_params = param;
+							uploader.start();
+						}
+						return false;
 					}
-					return false;
 				});
 			},
 			//添加上传文件后，把文件名 赋值 给 input
@@ -462,6 +469,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 			},
 			BeforeUpload:function(up){
 				//表单函数提交
+				
 				//alert(JSON.stringify(getSaveCondition()));
 			},
 			Error: function(up, err) {
