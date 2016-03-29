@@ -280,7 +280,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 				if(nohas){
 					responseBody.setResult(new Result(Status.ERROR,null, "用户所在部门不是事业线！"));
-					logger.equals("用户所在部门不是事业线"+GSONUtil.toJson(user));
+					logger.error("用户所在部门不是事业线"+GSONUtil.toJson(user));
 					return responseBody;
 				}
 			}else{
@@ -297,6 +297,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+	
+	
 	
 	/**
 	 * 获取项目列表(高管)
