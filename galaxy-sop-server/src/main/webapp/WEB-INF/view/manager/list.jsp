@@ -52,7 +52,7 @@ function setCheckLine(data){
     	<input type="hidden" id="project_id" value=""/>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
-			<div class="bottom searchall clearfix search_adjust">
+			<div class="bottom searchall clearfix search_adjust1">
 				<dl class="fmdl fml fmdll clearfix" id="ishas">
 	              <dt>投资事业线：</dt>
 	              <dd>
