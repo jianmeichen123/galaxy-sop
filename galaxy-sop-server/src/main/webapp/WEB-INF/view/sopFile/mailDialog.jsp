@@ -4,24 +4,9 @@
 <div class="emailtc" >
     <h2>档案管理-邮件分享</h2>
     <dl class="fmdl clearfix">
-        <dt>发件人：</dt>
-        <dd class="clearfix">
-            <input type="text" name="fromAddress" value="${sessionScope.galax_session_user.email }" class="txt"/>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
         <dt>收件人：</dt>
         <dd class="clearfix">
             <input type="text" name="toAddress" class="txt" data-rule-required="true"/>
-        </dd>
-        <dd>            
-            <label class="red">&#42;必填</label>
-        </dd>
-    </dl>
-    <dl class="fmdl clearfix">
-        <dt>邮件标题：</dt>
-        <dd class="clearfix">
-            <input type="text" name="title" class="txt" data-rule-required="true"/>
         </dd>
         <dd>            
             <label class="red">&#42;必填</label>

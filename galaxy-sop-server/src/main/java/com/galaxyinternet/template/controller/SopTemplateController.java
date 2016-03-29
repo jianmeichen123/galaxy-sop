@@ -277,7 +277,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			
 			User curUser = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			String content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_FILESHARE_CONTENT);
-			String userName = "大家好";
+			String userName = "大家好：";
 			String curTime = DateUtil.convertDateToString(new Date());
 			
 			String toAddress = mailInfo.getToAddress();
@@ -286,7 +286,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			if(to != null && to.length==1)
 			{
 				int atIndex = toAddress.lastIndexOf("@");
-				userName = toAddress.substring(0, atIndex);
+				userName = toAddress.substring(0, atIndex)+":<br>您好!";
 			}
 			String endpoint = getCurrEndpoint(request);
 			String linkTemplate = "<a href=\"%s\">%s</a><br/>";
@@ -298,7 +298,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 				fileLinks += String.format(linkTemplate, href,fileName);
 			}
 			content = PlaceholderConfigurer.formatText(content, userName, curUser.getRealName(), curTime, list.size(),fileLinks);
-			boolean success = SimpleMailSender.sendMultiMail(mailInfo.getToAddress(),  mailInfo.getTitle(),content.toString());
+			boolean success = SimpleMailSender.sendMultiMail(mailInfo.getToAddress(),  "繁星 - 模板分享",content.toString());
 			
 			if(success)
 			{
