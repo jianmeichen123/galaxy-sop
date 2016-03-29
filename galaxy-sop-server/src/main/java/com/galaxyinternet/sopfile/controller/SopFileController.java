@@ -65,6 +65,7 @@ import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -90,6 +91,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private static final String ERR_UPLOAD_ALCLOUD = "上传云端时失败";
 	private static final String ERR_UPLOAD_DAO = "上传数据时失败";
 	private static final String ERR_UPLOAD_IO = "上传数据流错误";
+	private static final String USER_AGENT = "User-Agent";
 	
 	@Autowired
 	private SopFileService sopFileService;
@@ -590,19 +592,13 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return resp;
 	}
 	
+	
 	@RequestMapping("/downloadFile/{id}")
 	public void download(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
 	{
-		InputStream fis = null;
-		OutputStream out = null;
 		String type = request.getParameter("type");
-		File tempDir = null;
-		File tempFile = null;
 		try {
-			String fileName = null;
-			String fileSuffix = null;
-			Long fileSize = null;
-			String key = null;
+			SopDownLoad downloadEntity = new SopDownLoad();
 			if("voucher".equals(type))
 			{
 				SopVoucherFile file = sopVoucherFileService.queryById(id);
@@ -610,10 +606,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				{
 					throw new Exception();
 				}
-				fileName = file.getFileName();
-				fileSuffix = file.getFileSuffix();
-				key = file.getFileKey();
-				fileSize = file.getFileLength();
+				downloadEntity.setFileName(file.getFileName());
+				downloadEntity.setFileSuffix("." + file.getFileSuffix());
+				downloadEntity.setFileSize(file.getFileLength());
+				downloadEntity.setFileKey(file.getFileKey());
 			}
 			else
 			{
@@ -621,66 +617,15 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				if(file == null)
 				{
 					throw new Exception();
-				}
-				fileName = file.getFileName();
-				fileSuffix = "." + file.getFileSuffix();
-				key = file.getFileKey();
-				fileSize = file.getFileLength();
+				}	
+				downloadEntity.setFileName(file.getFileName());
+				downloadEntity.setFileSuffix("." + file.getFileSuffix());
+				downloadEntity.setFileSize(file.getFileLength());
+				downloadEntity.setFileKey(file.getFileKey());
 			}
-//			String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
-			String path = tempfilePath;
-			tempDir = new File(path);
-			tempFile = new File(path,fileName);
-			if (!tempDir.exists()) {
-				tempDir.mkdirs();
-			}
-			tempFile.createNewFile();
-			if(fileSize.longValue() > OSSConstant.DOWNLOAD_PART_SIZE){
-				OSSHelper.downloadSupportBreakpoint(tempFile.getAbsolutePath(),BucketName.DEV.getName(), key);
-			}else{
-				DownloadFileResult result = OSSHelper.simpleDownloadByOSS(tempFile, key);
-				System.err.println(GSONUtil.toJson(result));
-			}		
-			if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
-				fileName = URLEncoder.encode(fileName, "UTF-8") + URLEncoder.encode(fileSuffix, "UTF-8");  
-			} else {  
-				fileName = new String((fileName + fileSuffix).getBytes("UTF-8"), "ISO8859-1");  
-			} 
-			response.reset();
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("application/x-download");
-			response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-			response.setHeader("Content-Length", "" + tempFile.length());
-			out = new BufferedOutputStream(response.getOutputStream());
-			fis = new BufferedInputStream(new FileInputStream(tempFile.getPath()));
-
-
-			byte[] buffer = new byte[1024 * 2];
-			int count = 0;
-			while ((count = fis.read(buffer)) != -1) {
-			out.write(buffer);
-//			out.flush();
-			}	
-	
-			response.flushBuffer();
+			sopFileService.download(request, response, tempfilePath, downloadEntity);
 		} catch (Exception e) {
 			logger.error("下载失败.",e);
-		}
-		finally
-		{
-			tempFile.delete();
-			try {
-				if(fis != null)
-				{
-					fis.close();
-				}
-				if(out != null)
-				{
-					out.close();
-				}
-			} catch (IOException e) {
-				logger.error("下载失败.",e);
-			}
 		}
 	}
 	
