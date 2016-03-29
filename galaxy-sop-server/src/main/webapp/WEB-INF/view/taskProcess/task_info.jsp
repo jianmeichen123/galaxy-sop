@@ -135,6 +135,10 @@ function getProjectInfo(projectLoaded)
 			}
 			var project = data.entity;
 			stockTransfer = project.stockTransfer;
+			if(project.projectType == 'projectType:1'){
+				var checkboxHtml = '<input type="checkbox" name="hasStockTransfer" value="1" onclick="selected(this);" id="stock_transfer">是否涉及股权转让';
+				$("#stock_transfer_model").html(checkboxHtml);
+			}
 			$("#project-summary dd")
 			.each(function(){
 				var self = $(this);
