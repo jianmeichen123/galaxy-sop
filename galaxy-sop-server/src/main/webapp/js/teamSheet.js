@@ -47,6 +47,7 @@
 				$("[data-tid='"+_item.id+"'][data-act='uploadFileBtn']").click(function(){
 					//上传插件参数
 					var _formdata = {
+							_fileType : "auto",
 							_fileSource : _item.fileSource,
 							_workType : _item.fileWorktype,
 							_projectId : _item.projectId,
@@ -129,7 +130,10 @@
 									plupload.each(files, function(file) {
 //										document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 										$(_this.id).find("#win_fileTxt").val(file.name);
-										attrFileType($fileType, file);
+										if(_formdata._fileTypeAuto){
+											attrFileType($fileType, file);
+										}
+										
 									});
 									
 									

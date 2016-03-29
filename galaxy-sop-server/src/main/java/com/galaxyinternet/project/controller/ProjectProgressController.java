@@ -415,10 +415,17 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		ResponseData<InterviewRecordBo> responseBody = new ResponseData<InterviewRecordBo>();
 		
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		try {
-			query.setUid(user.getId());
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+				return responseBody;
+			}
+			//query.setUid(user.getId());
 			
 			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPageList(query,  new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()) );
 			responseBody.setPageList(pageList);
@@ -696,10 +703,17 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		ResponseData<MeetingRecordBo> responseBody = new ResponseData<MeetingRecordBo>();
 		
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		
 		
 		try {
-			query.setUid(user.getId());
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+				return responseBody;
+			}
+			//query.setUid(user.getId());
 			
 			Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPageList(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
 			responseBody.setPageList(pageList);
@@ -778,7 +792,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public ResponseData<SopFile> proFileInfo(HttpServletRequest request,@PathVariable("pid") Long pid,@PathVariable("progress") String progress) {
 		
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		
 		List<String> fileworktypeList = new ArrayList<String>();
 		String proProgress="projectProgress:"+progress;
 		
@@ -786,7 +799,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		
-		if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && roleIdList.contains(UserConstant.TZJL)){  
+		if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && (roleIdList.contains(UserConstant.TZJL)||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ))){  
 			fileworktypeList.add(DictEnum.fileWorktype.投资意向书.getCode());   
 		}else if(proProgress.equals(DictEnum.projectProgress.尽职调查.getCode())){
 			//人事|投资经理
@@ -967,7 +980,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "upProjectFile-task faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "上传失败"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);
@@ -1013,7 +1026,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			task.setAssignUid(user.getId());
 			task = sopTaskService.queryOne(task);
 			if(task.getTaskStatus()==null || !task.getTaskStatus().equals(DictEnum.taskStatus.已完成.getCode())){
-				responseBody.setResult(new Result(Status.ERROR,null, "Front task is not complete"));
+				responseBody.setResult(new Result(Status.ERROR,null, "任务检索失败"));
 				return responseBody;
 			}
 			
@@ -1027,7 +1040,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, null,"upTermSheet faild"));
+			responseBody.setResult(new Result(Status.ERROR, null,"上传失败"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);
@@ -1075,7 +1088,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			task.setTaskStatusList(sl);
 			List<SopTask> tlist = sopTaskService.selectForTaskOverList(task);
 			if(tlist!=null && tlist.size()>0){
-				responseBody.setResult(new Result(Status.ERROR,null, "task is not over"));
+				responseBody.setResult(new Result(Status.ERROR,null, "有未完成任务"));
 				return responseBody;
 			}
 			
@@ -1084,7 +1097,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "applyDecision faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "申请失败"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);
@@ -1133,7 +1146,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			task.setTaskStatusList(sl);
 			List<SopTask> tlist = sopTaskService.selectForTaskOverList(task);
 			if(tlist!=null && tlist.size()>0){
-				responseBody.setResult(new Result(Status.ERROR,null, "task is not over"));
+				responseBody.setResult(new Result(Status.ERROR,null, "有未完成任务"));
 				return responseBody;
 			}
 			
@@ -1143,7 +1156,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "upTermSheet faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "上传失败"));
 			
 			if(logger.isErrorEnabled()){
 				logger.error("update project faild ",e);
@@ -1199,7 +1212,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setEntityList(perProList);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "queryPerPro faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "获取登录人项目失败"));
 			if(logger.isErrorEnabled()){
 				logger.error("queryPerPro faild ",e);
 			}
@@ -1245,7 +1258,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "queryPerProPage faild"));
+			responseBody.setResult(new Result(Status.ERROR,null, "获取登录人项目失败"));
 			if(logger.isErrorEnabled()){
 				logger.error("queryPerPro faild ",e);
 			}

@@ -151,6 +151,9 @@ var fileGrid = {
 	updateEvents : {
 		'click .fileupdatelink' : function(e, value, row, index){
         	formData = {
+        			_fileSource : row.fileSource,
+        			_fileType : row.fileType,
+        			_fileTypeAuto : true,
         			_workType : row.fileWorktype,
         			_projectId : row.projectId,
         			_projectName : row.projectName,

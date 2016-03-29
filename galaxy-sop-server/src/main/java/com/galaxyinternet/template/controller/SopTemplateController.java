@@ -105,23 +105,23 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 				String editableTypes = "";
 				if(UserConstant.TZJL == role.getId())
 				{
-					typesStr = "fileWorktype:1,fileWorktype:2,fileWorktype:3,fileWorktype:4,fileWorktype:5,fileWorktype:6,fileWorktype:7";
-					editableTypes = "fileWorktype:1";
+					typesStr = "fileWorktype:1,fileWorktype:2,fileWorktype:3,fileWorktype:4,fileWorktype:5,fileWorktype:6,fileWorktype:7,fileWorktype:13,fileWorktype:14,fileWorktype:15,fileWorktype:16";
+					editableTypes = "fileWorktype:1,fileWorktype:13";
 				}
 				else if(UserConstant.HRJL == role.getId() || UserConstant.HRZJ == role.getId() )
 				{
-					typesStr = "fileWorktype:2";
-					editableTypes = "fileWorktype:2";
+					typesStr = "fileWorktype:2,fileWorktype:14";
+					editableTypes = "fileWorktype:2,fileWorktype:14";
 				}
 				else if(UserConstant.CWJL == role.getId() || UserConstant.CWZJ == role.getId() )
 				{
-					typesStr = "fileWorktype:4";
-					editableTypes = "fileWorktype:4";
+					typesStr = "fileWorktype:4,fileWorktype:16";
+					editableTypes = "fileWorktype:4,fileWorktype:16";
 				}
 				else if(UserConstant.FWJL == role.getId() || UserConstant.FWZJ == role.getId() )
 				{
-					typesStr = "fileWorktype:3,fileWorktype:5,fileWorktype:6,fileWorktype:7";
-					editableTypes = "fileWorktype:3,fileWorktype:5,fileWorktype:6,fileWorktype:7";
+					typesStr = "fileWorktype:3,fileWorktype:5,fileWorktype:6,fileWorktype:7,fileWorktype:15";
+					editableTypes = "fileWorktype:3,fileWorktype:5,fileWorktype:6,fileWorktype:7,fileWorktype:15";
 				}
 				
 				if(typesStr != null && typesStr.length()>0)

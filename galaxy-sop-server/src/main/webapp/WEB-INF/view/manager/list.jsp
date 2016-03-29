@@ -52,7 +52,7 @@ function setCheckLine(data){
     	<input type="hidden" id="project_id" value=""/>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
-			<div class="bottom searchall clearfix search_adjust">
+			<div class="bottom searchall clearfix search_adjust1">
 				<dl class="fmdl fml fmdll clearfix" id="ishas">
 	              <dt>投资事业线：</dt>
 	              <dd>
@@ -86,8 +86,8 @@ function setCheckLine(data){
 	                  <option value="projectProgress:7">投资决策会</option>
 	                  <option value="projectProgress:8">投资协议</option>
 	                  <option value="projectProgress:9">股权交割</option>
-	                  <option value="guanbi">已关闭的项目</option>
-	                  <!-- <option value="projectProgress:10">投后运营</option> -->
+	                  <option value="projectProgress:10">投后运营</option>
+	                  <option value="guanbi">已关闭的项目</option>	                  
 	                </select>
 	              </dd>
 	            </dl>
