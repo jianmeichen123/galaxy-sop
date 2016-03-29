@@ -65,7 +65,6 @@
 						        <th data-field="taskStatus" data-align="center" class="col-md-2" >任务状态</th>
 						        <th data-field="projectName" data-align="center" class="col-md-2" >所属项目</th>
 						        <th data-field="createUname" data-align="center" class="col-md-2" >投资经理</th>
-						        <th data-align="center" data-field="remark" class="col-md-2" >备注</th>
 								<th data-align="center" class="col-md-2" data-field="caozuohtml" >操作</th>
    						 	</tr>	
    						 	</thead>

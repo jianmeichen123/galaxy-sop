@@ -57,6 +57,7 @@ import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.project.service.HandlerManager;
@@ -70,6 +71,7 @@ import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
+import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 
@@ -97,6 +99,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private InterviewRecordService interviewRecordService;
 	@Autowired
 	private SopFileService sopFileService;
+	@Autowired
+	private SopVoucherFileService sopVoucherFileService;
 	@Autowired
 	private MeetingSchedulingService meetingSchedulingService;
 	@Autowired
@@ -782,6 +786,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					fileQuery= sopFileService.queryOne(fileQuery);
 					if(fileQuery.getFileKey()==null||fileQuery.getBucketName()==null){
 						responseBody.setResult(new Result(Status.ERROR, null,"前置文件缺失!"));
+						return responseBody;
+					}
+					
+					//验证投资协议签署证明是否已上传
+					SopFile fq = new SopFile();
+					fq.setProjectId(p.getPid());
+					fq.setFileWorktype(DictEnum.fileWorktype.投资协议.getCode());
+					fq= sopFileService.queryOne(fq);
+					Long voucherId = fq.getVoucherId();
+					if(voucherId == null){
+						responseBody.setResult(new Result(Status.ERROR, null,"数据异常!"));
+						return responseBody;
+					}
+					SopVoucherFile f = sopVoucherFileService.queryById(voucherId);
+					if(f.getFileKey()==null||f.getBucketName()==null){
+						responseBody.setResult(new Result(Status.ERROR, null,"缺失投资协议签署证明!"));
 						return responseBody;
 					}
 				}
