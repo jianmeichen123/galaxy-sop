@@ -18,12 +18,14 @@
 <script>
 //设置事业线下拉框
 function setCheckLine(data){
+	var _this = $("select[name='projectDepartid']");
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		layer.msg(data.result.message);
+		//layer.msg(data.result.message);
+		_this.empty();
+		_this.append("<option value='0000'></option>");
 		return;
 	}
-	var _this = $("select[name='projectDepartid']");
 	var entityList = data.entityList;
 	_this.empty();
 	_this.append("<option value=''>全部</option>");
