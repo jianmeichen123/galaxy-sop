@@ -23,13 +23,13 @@
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
 			<param name="LevelMax" value="error"></param>
-			<param name="LevelMin" value="warn"></param>
+			<param name="LevelMin" value="info"></param>
 			<param name="AcceptOnMatch" value="true" />
 		</filter>
 	</appender>
 
 	<root>
-		<level value="warn" />
+		<level value="info" />
 		<appender-ref ref="logconsole" />
 		<appender-ref ref="logfile" />
 	</root>
