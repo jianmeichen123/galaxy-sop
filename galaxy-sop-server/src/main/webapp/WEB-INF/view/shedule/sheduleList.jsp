@@ -124,8 +124,10 @@
     </div>
 </div>
     <script type="text/javascript">
-    
-     if('<%=timestr%>' !=''){
+
+
+
+    if('<%=timestr%>' !=''){
     	 $("#itemDate").val('<%=timestr%>');
      }
     
@@ -226,6 +228,7 @@
         $(".bottom_l .nav_list").click(function(event) {
             $(this).siblings().stop().slideToggle().parent().siblings().children('dd').slideUp();
         });
+        newShedule();
     });
    
 
