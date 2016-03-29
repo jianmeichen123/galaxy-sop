@@ -36,13 +36,13 @@
 	    <dl class="fmdl clearfix">
 	    	<dt>存储类型：</dt>
 	        <dd>
-	        	<select name="fileType"></select>
+	        	<select name="fileType" class="disabled"></select>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
 	    	<dt>业务分类：</dt>
 	        <dd>
-	        	<select name="fileWorktype" disabled></select>
+	        	<select name="fileWorktype" class="disabled"></select>
 	        </dd>
 	    <!--     <dd>
 	        	<label><input type="checkbox"/>签署凭证</label>
