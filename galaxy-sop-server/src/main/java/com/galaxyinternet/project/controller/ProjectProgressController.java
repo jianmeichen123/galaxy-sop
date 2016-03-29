@@ -778,7 +778,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public ResponseData<SopFile> proFileInfo(HttpServletRequest request,@PathVariable("pid") Long pid,@PathVariable("progress") String progress) {
 		
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		
+		dasdasdawsefsefgwer
 		List<String> fileworktypeList = new ArrayList<String>();
 		String proProgress="projectProgress:"+progress;
 		
