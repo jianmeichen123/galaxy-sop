@@ -68,8 +68,9 @@ public class SopTemplateServiceImpl extends BaseServiceImpl<SopTemplate>implemen
 	
 	private Object getCacheData(String key, DataNotExistHandler handler)
 	{
-		
-		Object data = cache.get(key);
+		//不使用缓存
+		//Object data = cache.get(key);
+		Object data = handler.handle();
 		if(data == null)
 		{
 			data = handler.handle();
