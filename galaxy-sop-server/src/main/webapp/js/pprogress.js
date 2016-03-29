@@ -108,7 +108,7 @@
 										multipart:true,
 										multi_selection:false,
 										filters : {
-											max_file_size : '10mb',
+											max_file_size : '25mb',
 											mime_types: [
 												{title : "Image files", extensions : "jpg,gif,png"},
 												{title : "Zip files", extensions : "zip,rar"},

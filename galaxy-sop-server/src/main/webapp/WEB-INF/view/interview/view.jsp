@@ -92,6 +92,8 @@ display:none;
               </dd>
             </dl>
             
+            <!--  <input type="hidden" name="direction" value="asc"  /> desc   asc  -->
+            
             <dl class="fmdl fmdll clearfix">
               <dt></dt>
               <dd>
@@ -113,9 +115,9 @@ display:none;
 	          		data-toolbar="#custom-toolbar" data-page-list="[10,20,30]"
 					data-id-field="lottoId" data-show-refresh="true">
 				<colgroup >
-					<col style="width:200px;"> <!-- 名称 -->
-					<col style="width:200px;"> <!-- 名称 -->
-					<col style="width:500px;">  <!-- 状态 -->
+					<col style="width:30%;"> <!-- 名称 -->
+					<col style="width:20%;"> <!-- 名称 -->
+					<col style="width:50%;">  <!-- 状态 -->
 				</colgroup>
 				<thead>
 					<tr>
