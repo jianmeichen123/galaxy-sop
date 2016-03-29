@@ -809,7 +809,7 @@
 						 html += "<td>"+o.fType+"</td>";
 						 html += "<td>已上传</td>";
 						 html += "<td></td>";
-						 html += "<td><a href='javascript:filedown("+o.id+");'>查看</a></td>";
+						 html += "<td><a href='javascript:filedown("+o.id+");'  class='blue'>查看</a></td>";
 					 }else if(o.fileStatus == 'fileStatus:3'){
 						 html += "<td>已签署</td>";
 						 html += "<td></td>";
