@@ -348,8 +348,9 @@ var chartOptions={
     xAxis: {
         //categories: ['朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
     	labels: {
-            rotation: -45,
+            //rotation: -45,
             align: 'right',
+            staggerLines:2,
             style: {
                 fontSize: '13px',
                 fontFamily: 'Verdana, sans-serif'
