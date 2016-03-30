@@ -129,6 +129,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> addProject(@RequestBody Project project, HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
+		String projectCompanyCode = "";
 		if(project == null || project.getProjectName() == null || "".equals(project.getProjectName().trim())
 				|| project.getProjectType() == null || "".equals(project.getProjectType().trim())
 				|| project.getCreateDate() == null || "".equals(project.getCreateDate().trim())){
@@ -140,6 +141,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, null, "项目编码丢失!"));
 			return responseBody;
 		}
+		Project obj=new Project();
+		obj.setProjectName(project.getProjectName());
+		List<Project> projectList = projectService.queryList(obj);
+		Integer count = 0 ;
+			for (Project p: projectList) {
+						count ++;
+				}
+		if(count>0){
+			responseBody.setResult(new Result(Status.ERROR, null, "用户名重复!"));
+			return responseBody;
+		}
 		User user = (User) getUserFromSession(request);
 		//判断当前用户是否为投资经理
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
@@ -147,6 +159,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, null, "没有权限添加项目!"));
 			return responseBody;
 		}
+		
 		project.setProjectCode(String.valueOf(code));
 		if(project.getProjectValuations() == null){
 			if(project.getProjectShareRatio() != null && project.getProjectShareRatio() > 0 
@@ -1234,14 +1247,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			List<Project> projectList = projectService.queryList(query);
 			Integer count = 0 ;
-			if (!StringUtils.equals(projectCompanyCode,"")) {
+		//	if (!StringUtils.equals(projectCompanyCode,"")) {
 				for (Project project: projectList) {
 					
 					//if (project.getProjectCompanyCode()!= null && StringUtils.equals(projectCompanyCode, project.getProjectCompanyCode())) {
 						count ++;
 					//}
 				}
-			}
+			//}
 			Map<String, Integer> map = new HashMap<String, Integer>();
 			if (projectList.size() < 1) {
 				//不存在重复

@@ -1141,7 +1141,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .schedule1tc .bottom .bottom_l dl  .tips .nav dt span{width:90px;display:inline-block;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;}
 .schedule1tc .bottom .bottom_l dl .on{display: block;}
 .schedule1tc .bottom .bottom_l dl dd{font-size: 12px;font-family: "宋体"}
-.schedule1tc .bottom .bottom_l dl dd dl{border-bottom:1px solid #e9ebf2;padding: 5px 5px 5px 16px;border-right:1px solid #e9ebf2;}
+.schedule1tc .bottom .bottom_l dl dd dl{border-bottom:1px solid #e9ebf2;padding: 5px 5px 5px 16px;}
 .schedule1tc .bottom .bottom_l .tips .on{background: #d1e9ff url(../img/dian.png) 4px 10px no-repeat; }
 .schedule1tc .bottom .bottom_l dl dd dl dt{font-size: 12px;font-family: "宋体";margin-bottom: 5px;}
 .schedule1tc .bottom .bottom_r{float: left;width: 400px;height: 300px;border:1px solid #e9ebf2;padding:5px;}

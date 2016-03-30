@@ -78,6 +78,7 @@ function saveMeet(){
 	var	condition = getMeetCondition(null,"projectId", "meetingDateStr", 
 			null,"meetingTypeTc", "meetingResult","meetingNotes");
 	if(condition == false || condition == "false"){
+		$("#savemeet").removeClass("disabled");
 		return;
 	}
 	sendPostRequestByJsonObj(platformUrl.saveMeet,condition,saveMeetCallBack);
@@ -90,6 +91,7 @@ function saveMeetCallBack(data){
 	
 	if(result == "ERROR"){ //OK, ERROR
 		//alert(data.result.message);
+		$("#savemeet").removeClass("disabled");
 		layer.msg(data.result.message);
 		return;
 	}
@@ -124,8 +126,18 @@ function initMeetUpload() {
 
 		init: {
 			//上传按钮点击事件 - 开始上传
-			PostInit: function() {
+			PostInit: function(up) {
 				$("#savemeet").click(function(){
+					$("#savemeet").addClass("disabled");
+					var res = getMeetCondition(null,"projectId", "meetingDateStr", 
+							null,"meetingTypeTc", "meetingResult","meetingNotes");
+					if(res == false || res == "false"){
+						$("#savemeet").removeClass("disabled");
+						up.stop();
+						return;
+					}
+					up.settings.multipart_params = res;
+					
 					var file = $("#fileName").val();
 					if(file.length > 0){
 						meetuploader.start();
@@ -157,11 +169,10 @@ function initMeetUpload() {
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					//alert(response.result.message);
+					$("#savemeet").removeClass("disabled");
 					layer.msg(response.result.message);
 					return;
 				}
-				//alert("保存成功");
 				layer.msg("保存成功", {
 					time : 500
 				});
@@ -175,18 +186,8 @@ function initMeetUpload() {
 				//location.reload(true);
 			},
 			BeforeUpload:function(up){
-				//表单函数提交
-				//alert(JSON.stringify(getMeetCondition()));
-				var res = getMeetCondition(null,"projectId", "meetingDateStr", 
-						null,"meetingTypeTc", "meetingResult","meetingNotes");
-				if(res == false || res == "false"){
-					up.stop();
-					return;
-				}
-				up.settings.multipart_params = res;
 			},
 			Error: function(up, err) {
-				//alert("错误"+err);
 				layer.msg(err.message);
 				//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			}

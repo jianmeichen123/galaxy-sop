@@ -54,6 +54,11 @@
               </dd>
             </dl>
             
+            <input type="hidden" name="uid" id="uid" value="" />
+            <script>
+            	$("#uid").val(userId);
+            </script>
+            
             <dl class="fmdl fmmr fmdll clearfix">
               <dt>会议日期：</dt>
               <dd>
