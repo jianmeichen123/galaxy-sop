@@ -148,6 +148,4 @@ public class SopTaskBo extends  SopTask{
 		this.hours = hours;
 	}
 	
-	
-	
 }

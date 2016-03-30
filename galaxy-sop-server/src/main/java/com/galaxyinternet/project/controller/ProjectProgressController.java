@@ -1346,12 +1346,4 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
         return null;
         
     }
-	
-	
-	
-	
-	
-	
-	
-	
 }
