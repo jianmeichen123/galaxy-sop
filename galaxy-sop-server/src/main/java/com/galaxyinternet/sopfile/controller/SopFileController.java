@@ -1,13 +1,7 @@
 package com.galaxyinternet.sopfile.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -30,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -45,8 +40,6 @@ import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
-import com.galaxyinternet.framework.core.file.BucketName;
-import com.galaxyinternet.framework.core.file.DownloadFileResult;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
@@ -54,11 +47,9 @@ import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.department.Department;
@@ -893,7 +884,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		//文档类型校验
 		//文档来源校验		
-		File file = null;
+		MultipartFile file = null;
 		try{
 			// 文件上传
 			// 文件唯一key
@@ -906,7 +897,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			//4业务控制 --若文件上传成功-判断是否为签署
 			if(map!=null){
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
-				file = (File) map.get("file");
+				file = (MultipartFile) map.get("file");
 				//判断是否为签署凭证
 				if("on".equals(isProve)){
 					//为签署凭证
@@ -920,7 +911,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					//fileKey
 					sopVoucherFile.setFileKey(fileKey);
 					//文件大小
-					sopVoucherFile.setFileLength(file.length());
+					sopVoucherFile.setFileLength(file.getSize());
 					
 //					if(fileStr.length > 0){
 //						//文件名称
@@ -984,7 +975,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					//fileKey
 					sopFile.setFileKey(fileKey);
 					//文件大小
-					sopFile.setFileLength(file.length());
+					sopFile.setFileLength(file.getSize());
 							
 					sopFile.setFileName(nameMap.get("fileName"));
 					sopFile.setFileSuffix(nameMap.get("fileSuffix"));	
@@ -1017,9 +1008,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
 		}finally{
-			if(file!=null){
-				file.delete();
-			}	
 		}
 		
 		return responseBody;

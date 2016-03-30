@@ -568,7 +568,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				}
 			}
 			retMap.put("nameMap", nameMap);
-			retMap.put("file", tempFile);
+			retMap.put("file", multipartFile);
 			retMap.put("upResult", upResult);
 		}catch (IOException e) {
 			// TODO Auto-generated catch block

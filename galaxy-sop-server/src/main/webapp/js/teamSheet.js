@@ -55,7 +55,8 @@
 								dataGrid.load(_projectId);
 							},
 							_url : platformUrl.commonUploadFile,
-							_isProve : "hide"
+							_isProve : "hide",
+							_remark : "hide"
 						};
 //					win.initData();
 					win.init(_formdata);
@@ -210,6 +211,7 @@
 				var $searchProjectBtn = $(_this.id).find("#win_searchProjectBtn");
 				
 				var $isProve = $(_this.id).find("#win_isProve");
+				var $remark = $(_this.id).find("#win_FILELIST"); 
 				
 
 				
@@ -226,12 +228,14 @@
 				//文档分类
 				if(_formdata._fileType){
 					$fileType.val(_formdata._fileType);
-					$fileType.attr("disabled","disabled");	
+					$fileType.attr("disabled","disabled");
+					$fileType.attr("class","disabled");
 				}
 				//业务分类
 				if(_formdata._workType){
 					$fileWorkType.val(_formdata._workType);
-					$fileWorkType.attr("disabled","disabled");		
+					$fileWorkType.attr("disabled","disabled");	
+					$fileWorkType.attr("class","disabled");
 				}
 				//项目
 				if(_formdata._projectId){
@@ -240,6 +244,7 @@
 					$sopProjectId.val(_formdata._projectName);
 					$sopProjectId.attr("disabled","disabled");
 					$searchProjectBtn.attr("disabled","disabled");
+					
 					
 				}else{
 					$searchProjectBtn.click(function(){
@@ -252,10 +257,20 @@
 						$(_this.id).find("#win_isProve_div").hide();
 					}else{
 						$isProve.attr("checked",_formdata._isProve); 
-						$isProve.attr("disabled","disabled")
+						$isProve.attr("disabled","disabled");
+						
 					}
 					
-				}	
+				}
+				if(typeof(_formdata._remark) != "undefined"){
+					if(_formdata._remark == "hide"){
+						$remark.hide();
+					}else{
+						$remark.val(_formdata._remark);
+					}
+					
+				}
+					
 				
 			},
 			initData : function(){
