@@ -92,7 +92,7 @@
 	      #{workDepart,jdbcType=VARCHAR}, #{workPosition,jdbcType=VARCHAR},
 	      #{workContent,jdbcType=VARCHAR}, #{workEffect,jdbcType=VARCHAR}, #{workEmolument,jdbcType=DECIMAL}, 
 	      #{beginWork,jdbcType=TIMESTAMP}, #{overWork,jdbcType=TIMESTAMP}, 
-	      #{leaveReason,jdbcType=VARCHAR}, #{leaderName,jdbcType=VARCHAR}, #{leaderPosition,jdbcType=VARCHAR}, #{leaderPhone,jdbcType=VARCHAR}, #{leaderRelationship,jdbcType=VARCHAR}, 
+	      #{leaveReason,jdbcType=VARCHAR}, #{leaderName,jdbcType=VARCHAR}, #{leaderPosition,jdbcType=VARCHAR}, #{leaderRelationship,jdbcType=VARCHAR}, #{leaderPhone,jdbcType=VARCHAR}, 
 	      #{colleagueName,jdbcType=VARCHAR},  #{colleagueRelationship,jdbcType=VARCHAR},
 	      #{colleaguePosition,jdbcType=VARCHAR}, #{colleaguePhone,jdbcType=VARCHAR},  
 	      #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT})
