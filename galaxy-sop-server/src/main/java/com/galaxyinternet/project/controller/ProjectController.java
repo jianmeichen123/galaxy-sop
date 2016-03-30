@@ -132,19 +132,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if(project == null || project.getProjectName() == null || "".equals(project.getProjectName().trim())
 				|| project.getProjectType() == null || "".equals(project.getProjectType().trim())
 				|| project.getCreateDate() == null || "".equals(project.getCreateDate().trim())){
-			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
 		Object code = request.getSession().getAttribute(Constants.SESSION_PROJECT_CODE);
 		if(code == null){
-			responseBody.setResult(new Result(Status.ERROR, "项目编码丢失!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "项目编码丢失!"));
 			return responseBody;
 		}
 		User user = (User) getUserFromSession(request);
 		//判断当前用户是否为投资经理
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		if(!roleIdList.contains(UserConstant.HHR) && !roleIdList.contains(UserConstant.TZJL)){
-			responseBody.setResult(new Result(Status.ERROR, "没有权限添加项目!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "没有权限添加项目!"));
 			return responseBody;
 		}
 		project.setProjectCode(String.valueOf(code));
@@ -167,7 +167,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 			long id = projectService.newProject(project);
 			if(id > 0){
-				responseBody.setResult(new Result(Status.OK,"项目添加成功!"));
+				responseBody.setResult(new Result(Status.OK, null, "项目添加成功!"));
 				responseBody.setId(id);
 				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 			}
@@ -189,7 +189,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> resetProject(@RequestBody Project project, HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		if(project == null || project.getId() == null){
-			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
 		
@@ -209,18 +209,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		
 		Project p = projectService.queryById(project.getId());
 		if(p == null){
-			responseBody.setResult(new Result(Status.ERROR, "未找到相应的项目信息!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "未找到相应的项目信息!"));
 			return responseBody;
 		}
 		//项目创建者用户ID与当前登录人ID是否一样
 		if(user.getId().longValue() != p.getCreateUid().longValue()){
-			responseBody.setResult(new Result(Status.ERROR, "没有权限修改该项目!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "没有权限修改该项目!"));
 			return responseBody;
 		}
 		project.setUpdatedTime(System.currentTimeMillis());
 		int num = projectService.updateById(project);
 		if(num > 0){
-			responseBody.setResult(new Result(Status.OK,"项目修改成功!"));
+			responseBody.setResult(new Result(Status.OK, null, "项目修改成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
 		}
 		return responseBody;
@@ -250,7 +250,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			project.setHhrName(hhrname);
 	    }
 	    if(project == null){
-			responseBody.setResult(new Result(Status.ERROR, "未查找到指定项目信息!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "未查找到指定项目信息!"));
 			return responseBody;
 		}
 		responseBody.setEntity(project);
@@ -336,7 +336,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
 		} catch (PlatformException e) {
-			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			responseBody.setResult(new Result(Status.ERROR, null, "queryUserList faild"));
 			if (logger.isErrorEnabled()) {
 				logger.error("queryUserList ", e);
 			}
@@ -409,7 +409,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
 		} catch (PlatformException e) {
-			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			responseBody.setResult(new Result(Status.ERROR, null, "queryUserList faild"));
 			if (logger.isErrorEnabled()) {
 				logger.error("queryUserList ", e);
 			}
@@ -428,21 +428,21 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if(pool.getProjectId() == null || pool.getProjectId() <= 0
 				|| pool.getPersonName() == null || pool.getPersonSex() == null
 				|| pool.getPersonAge() == null || pool.getPersonDuties() == null){
-			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
 		User user = (User) getUserFromSession(request);
 		Project p = projectService.queryById(pool.getProjectId());
 		//项目创建者用户ID与当前登录人ID是否一样
 		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
-			responseBody.setResult(new Result(Status.ERROR, "没有权限为该项目添加团队成员!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "没有权限为该项目添加团队成员!"));
 			return responseBody;
 		}
 		try {
 			pool.setCreatedTime(System.currentTimeMillis());
 			Long id = personPoolService.addProjectPerson(pool);
 			if(id > 0){
-				responseBody.setResult(new Result(Status.OK,"团队成员添加成功!"));
+				responseBody.setResult(new Result(Status.OK, null, "团队成员添加成功!"));
 				responseBody.setEntity(pool);
 				ControllerUtils.setRequestParamsForMessageTip(request, p.getProjectName(), p.getId());
 			}
@@ -462,20 +462,20 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<PersonPoolBo> resetProjectPerson(@RequestBody PersonPoolBo pool, HttpServletRequest request) {
 		ResponseData<PersonPoolBo> responseBody = new ResponseData<PersonPoolBo>();
 		if(pool == null || pool.getId() == null || pool.getProjectId() == null){
-			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
 		User user = (User) getUserFromSession(request);
 		Project p = projectService.queryById(pool.getProjectId());
 		//项目创建者用户ID与当前登录人ID是否一样
 		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
-			responseBody.setResult(new Result(Status.ERROR, "没有权限修改该项目的团队成员信息!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "没有权限修改该项目的团队成员信息!"));
 			return responseBody;
 		}
 		
 		int num = personPoolService.updateById(pool);
 		if(num > 0){
-			responseBody.setResult(new Result(Status.OK,"团队成员信息修改成功!"));
+			responseBody.setResult(new Result(Status.OK, null, "团队成员信息修改成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request, p.getProjectName(), p.getId());
 		}
 		return responseBody;
@@ -491,14 +491,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<PersonPoolBo> deleteProjectPerson(@PathVariable("id") Long id,@PathVariable("projectId") Long projectId, HttpServletRequest request) {
 		ResponseData<PersonPoolBo> responseBody = new ResponseData<PersonPoolBo>();
 		if(projectId == null){
-			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
 		User user = (User) getUserFromSession(request);
 		Project p = projectService.queryById(projectId);
 		//项目创建者用户ID与当前登录人ID是否一样
 		if(p != null && user.getId().doubleValue() != p.getCreateUid().doubleValue()){
-			responseBody.setResult(new Result(Status.ERROR, "没有权限删除该项目的团队成员!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "没有权限删除该项目的团队成员!"));
 			return responseBody;
 		}
 		ProjectPerson pp=new ProjectPerson();
@@ -509,7 +509,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		int mump = personPoolService.deleteById(id);
 		
 		if(num > 0 && mump > 0){
-			responseBody.setResult(new Result(Status.OK,"团队成员删除成功!"));
+			responseBody.setResult(new Result(Status.OK, null, "团队成员删除成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request, p.getProjectName(), p.getId());
 		}
 		return responseBody;
@@ -530,7 +530,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
 		} catch (PlatformException e) {
-			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			responseBody.setResult(new Result(Status.ERROR, null, "queryUserList faild"));
 			if (logger.isErrorEnabled()) {
 				logger.error("queryUserList ", e);
 			}
@@ -579,7 +579,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		if(!roleIdList.contains(UserConstant.HHR) && !roleIdList.contains(UserConstant.TZJL)){
-			responseBody.setResult(new Result(Status.ERROR, "没有权限!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "没有权限!"));
 			return responseBody;
 		}
 		
@@ -620,7 +620,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<ProjectBo> responseBody = new ResponseData<ProjectBo>();
 		Project project = projectService.queryById(Long.parseLong(pid));
 		if(project == null){
-			responseBody.setResult(new Result(Status.ERROR, "未查找到指定项目信息!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "未查找到指定项目信息!"));
 			return responseBody;
 		}
 		//项目合伙人
@@ -698,7 +698,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if(p.getPid() == null || p.getStage() == null 
 				|| !SopConstant._progress_pattern_.matcher(p.getStage()).matches()
 				|| p.getParseDate() == null){
-			responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
 		//如果是内评会、CEO评审会、立项会、投决会,则会议类型和会议结论不能缺少
@@ -708,7 +708,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				|| p.getStage().equals(DictEnum.projectProgress.投资决策会.getCode())){
 			if(p.getMeetingType() == null || !SopConstant._meeting_type_pattern_.matcher(p.getMeetingType()).matches()
 					|| p.getResult() == null || !SopConstant._meeting_result_pattern_.matcher(p.getResult()).matches()){
-				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+				responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 				return responseBody;
 			}
 			//已有通过的会议，不能再添加会议纪要
@@ -719,14 +719,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			Long mrCount = meetingRecordService.queryCount(mrQuery);
 			if(mrCount != null && mrCount.longValue() > 0L)
 			{
-				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
+				responseBody.setResult(new Result(Status.ERROR, null ,"已有通过的会议，不能再添加会议纪要!"));
 				return responseBody;
 			}
 			
 		}
 		Project project = projectService.queryById(p.getPid());
 		if(project == null){
-			responseBody.setResult(new Result(Status.ERROR, "未找到相应的项目信息!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "未找到相应的项目信息!"));
 			return responseBody;
 		}
 
@@ -736,13 +736,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				|| p.getStage().equals(DictEnum.projectProgress.投资协议.getCode())){
 			if(p.getType() == null || p.getFileType() == null || !SopConstant._file_type_pattern_.matcher(p.getFileType()).matches()
 					|| p.getFileWorktype() == null || !SopConstant._file_worktype_pattern_.matcher(p.getFileWorktype()).matches()){
-				responseBody.setResult(new Result(Status.ERROR, "必要的参数丢失!"));
+				responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 				return responseBody;
 			}
 			int in = Integer.parseInt(p.getStage().substring(p.getStage().length()-1));
 			int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
 			if(in < pin){
-				responseBody.setResult(new Result(Status.ERROR, "该操作已过期!"));
+				responseBody.setResult(new Result(Status.ERROR, null, "该操作已过期!"));
 				return responseBody;
 			}
 			//股权转让文档前置验证
@@ -811,7 +811,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		//项目创建者用户ID与当前登录人ID是否一样
 		if(user.getId().longValue() != project.getCreateUid().longValue()){
-			responseBody.setResult(new Result(Status.ERROR, "没有权限修改该项目!"));
+			responseBody.setResult(new Result(Status.ERROR, null, "没有权限修改该项目!"));
 			return responseBody;
 		}
 		p.setCreatedUid(user.getId());
@@ -1113,14 +1113,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	public Result validate(String progress, Project project, User user){
 		if(project == null){
-			return new Result(Status.ERROR, "未找到相应的项目信息!");
+			return new Result(Status.ERROR, null, "未找到相应的项目信息!");
 		}
 		if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())){
-			return new Result(Status.ERROR, "项目已关闭!");
+			return new Result(Status.ERROR, null, "项目已关闭!");
 		}
 		
 		if(user.getId().longValue() != project.getCreateUid().longValue()){
-			return new Result(Status.ERROR, "没有权限修改该项目!");
+			return new Result(Status.ERROR, null, "没有权限修改该项目!");
 		}
 		int in = Integer.parseInt(progress.substring(progress.length()-1)) ;
 		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
