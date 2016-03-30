@@ -50,26 +50,32 @@ function setViewProSelect(data){
 
 //plupload上传对象初始化,   绑定保存
 function initViewUpload() {
-	// 定义 上传插件 方法 、  plupload 上传对象初始化
 	var viewuploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
-		browse_button : $("#file-select-btn")[0], // you can pass in id...
+		browse_button : $("#file-select-btn")[0], 
 		url : platformUrl.saveViewFile,
 		multipart:true,
 		multi_selection:false,
 		filters : {
 			max_file_size : '25mb',
 			mime_types: paramsFilter(1)
-			/*mime_types: [
-			    {title : "audio files", extensions : "mp3,mp4,avi,wav,wma,aac,m4a,m4r"},
-			    {title : "audio files", extensions : "MP3,MP4,AVI,WAV,WMA,AAC,M4A,M4R"}
-			    ]*/
 		},
 
 		init: {
 			//上传按钮点击事件 - 开始上传
-			PostInit: function() {
+			PostInit: function(up) {
 				$("#saveInterView").click(function(){
+					$("#saveInterView").addClass("disabled");
+					//表单函数提交
+					//alert(JSON.stringify(getSaveCondition()));
+					var res = getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
+					if(res == false || res == "false"){
+						up.stop();
+						$("#saveInterView").removeClass("disabled");
+						return;
+					}
+					up.settings.multipart_params = res;
+					
 					var file = $("#fileName").val();
 					if(file.length > 0){
 						viewuploader.start();
@@ -103,11 +109,10 @@ function initViewUpload() {
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					//alert(response.result.message);
+					$("#saveInterView").removeClass("disabled");
 					layer.msg(response.result.message);
 					return false;
 				}
-				//alert("保存成功");
 				layer.msg("保存成功", {
 					time : 500
 				});
@@ -121,17 +126,8 @@ function initViewUpload() {
 				//location.reload(true);
 			},
 			BeforeUpload:function(up){
-				//表单函数提交
-				//alert(JSON.stringify(getSaveCondition()));
-				var res = getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
-				if(res == false || res == "false"){
-					up.stop();
-					return;
-				}
-				up.settings.multipart_params = res;
 			},
 			Error: function(up, err) {
-				//alert(err.message);
 				layer.msg(err.message);
 				//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			}
@@ -158,7 +154,7 @@ function saveCallBack(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
-		//alert(data.result.message);
+		$("#saveInterView").removeClass("disabled");
 		layer.msg(data.result.message);
 		return;
 	}
