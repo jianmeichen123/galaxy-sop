@@ -427,7 +427,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 				return responseBody;
 			}
-			//query.setUid(user.getId());
+			query.setUid(user.getId());
 			
 			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPageList(query,  new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()) );
 			responseBody.setPageList(pageList);
@@ -716,7 +716,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 				return responseBody;
 			}
-			//query.setUid(user.getId());
+			query.setUid(user.getId());
 			
 			Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPageList(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
 			responseBody.setPageList(pageList);

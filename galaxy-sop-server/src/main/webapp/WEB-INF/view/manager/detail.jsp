@@ -58,7 +58,7 @@
                   <tr><td><dl><dt>计划额度：</dt>
                           <dd><dd id="project_contribution"></dd></dd>
                         </dl></td>
-                      <td><dl><dt>初始估值：</dt><dd id="project_valuations"></dd></dl></td>
+                      <td><dl><dt>估值：</dt><dd id="project_valuations"></dd></dl></td>
                   </tr>
                   <tr>
                       <td><dl><dt>出让股份：</dt>
@@ -158,7 +158,7 @@
 			      <script type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="analysis_show">11111</dd>
+			  <dd class="describe" id="analysis_show"></dd>
               <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
