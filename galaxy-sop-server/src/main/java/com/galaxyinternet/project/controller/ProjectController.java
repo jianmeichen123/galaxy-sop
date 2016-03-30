@@ -1042,6 +1042,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		file.setFileValid(1);
 		file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 		List<SopFile> files = sopFileService.queryList(file);
+		if(files == null || files.size() < 4){
+			responseBody.setResult(new Result(Status.ERROR,null, "文档不齐全，不能申请投决会!"));
+			return responseBody;
+		}
 		for(SopFile f : files){
 			if(f.getFileKey() == null || "".equals(f.getFileKey().trim())){
 				responseBody.setResult(new Result(Status.ERROR,null, "文档不齐全，不能申请投决会!"));
