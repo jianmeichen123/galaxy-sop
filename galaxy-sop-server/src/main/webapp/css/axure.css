@@ -215,10 +215,10 @@ table .width_gd{width:12%;}
 .dropup .caret {
   content: "";
 }
-.open > .dropdown-menu {
+.open > .dropdown-menu1 {
   display: block;
 }
-.dropdown-menu > li > a {
+.dropdown-menu1 > li > a {
   display: block;
   padding: 3px 20px;
   clear: both;
@@ -233,7 +233,29 @@ table .width_gd{width:12%;}
   border-color: #adadad;
 }
 .dropdown-menu {
-   position: absolute;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #eee;
+  -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.dropdown-menu1 {
+  position: absolute;
   bottom: 100%;
   left: 0;
   z-index: 1000;
@@ -253,6 +275,33 @@ table .width_gd{width:12%;}
   border-radius: 4px;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
           box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+}
+.dropdown-menu1 > li > a:hover,
+.dropdown-menu1 > li > a:focus {
+  color: #262626;
+  text-decoration: none;
+  background-color: #f5f5f5;
+}
+.dropdown-menu1 > .active > a,
+.dropdown-menu1 > .active > a:hover,
+.dropdown-menu1 > .active > a:focus {
+  color: #fff;
+  text-decoration: none;
+  background-color: #66b1f2;
+  outline: 0;
+}
+.dropdown-menu1 > .disabled > a,
+.dropdown-menu1 > .disabled > a:hover,
+.dropdown-menu1 > .disabled > a:focus {
+  color: #777;
+}
+.dropdown-menu1 > .disabled > a:hover,
+.dropdown-menu1 > .disabled > a:focus {
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
@@ -1035,7 +1084,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .myprojecttc .tabtable .tabtable_con_close dl{border-bottom:1px solid #edeff5;overflow: hidden; }
 .myprojecttc .block dl .fctbox .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
 .myprojecttc .block dl .fctbox .f2{background-position: 0 -18px;}
-.myprojecttc .block{background-color: #fff;overflow: hidden;height: auto;display: none;height:300px;overflow-y: scroll;}
+.myprojecttc .block{background-color: #fff;overflow: hidden;height: auto;display: none;overflow-y: scroll;}
 .myprojecttc .show{display: block;}
 .myprojecttc .fmdl .txt{display: inline-block;width: 80px;padding: 0 5px;}
 .myprojecttc .block{border-top-left-radius: 0;border-top-right-radius: 0;}
