@@ -78,7 +78,7 @@ function saveMeet(){
 	var	condition = getMeetCondition(null,"projectId", "meetingDateStr", 
 			null,"meetingTypeTc", "meetingResult","meetingNotes");
 	if(condition == false || condition == "false"){
-		$("#saveInterView").removeClass("disabled");
+		$("#savemeet").removeClass("disabled");
 		return;
 	}
 	sendPostRequestByJsonObj(platformUrl.saveMeet,condition,saveMeetCallBack);
@@ -132,8 +132,8 @@ function initMeetUpload() {
 					var res = getMeetCondition(null,"projectId", "meetingDateStr", 
 							null,"meetingTypeTc", "meetingResult","meetingNotes");
 					if(res == false || res == "false"){
-						up.stop();
 						$("#savemeet").removeClass("disabled");
+						up.stop();
 						return;
 					}
 					up.settings.multipart_params = res;
