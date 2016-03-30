@@ -279,7 +279,7 @@ $(function(){
 	function load_data_chart(){
 		var obj ={url:Constants.reportEndpointURL+"/galaxy/report/projectprogress"};
 		obj.contentType="application/json";
-		obj.data={"userid":"${galax_session_user.id}"};
+		obj.data={"userid":"${galax_session_user.id}","sdate":"-1","edate":"-1"};
 		ajaxCallback(obj,function(data){
 			console.log(data);
 			var result = data.result;
