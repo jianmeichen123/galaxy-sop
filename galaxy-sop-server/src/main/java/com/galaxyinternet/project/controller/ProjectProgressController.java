@@ -212,7 +212,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			if(map!=null){
 				@SuppressWarnings("unchecked")
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
-				File file = (File) map.get("file");
+				MultipartFile file = (MultipartFile) map.get("file");
 				String fileName = "";
 				if(fname!=null && fname.trim().length()>0){
 					fileName = fname;
@@ -229,7 +229,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				sopFile.setProjectProgress(project.getProjectProgress());
 				sopFile.setBucketName(bucketName); 
 				sopFile.setFileKey(fileKey);  
-				sopFile.setFileLength(file.length());  //文件大小
+				sopFile.setFileLength(file.getSize());  //文件大小
 				sopFile.setFileName(fileName);
 				sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 				sopFile.setFileUid(user.getId());	 //上传人
@@ -548,7 +548,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			if(map!=null){
 				@SuppressWarnings("unchecked")
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
-				File file = (File) map.get("file");
+				MultipartFile file = (MultipartFile) map.get("file");
 				String fileName = "";
 				if(fname!=null && fname.trim().length()>0){
 					fileName = fname;
@@ -565,7 +565,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				sopFile.setProjectProgress(project.getProjectProgress());
 				sopFile.setBucketName(bucketName); 
 				sopFile.setFileKey(fileKey);  
-				sopFile.setFileLength(file.length());  //文件大小
+				sopFile.setFileLength(file.getSize());  //文件大小
 				sopFile.setFileName(fileName);
 				sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 				sopFile.setFileUid(user.getId());	 //上传人
