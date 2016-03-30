@@ -102,7 +102,7 @@
                       <td>
                         <dl>
                           <dt>出让股份：</dt>
-                          <dd><input type="text" id="formatShareRatio" name="formatShareRatio" value="" class="transferSharesTxt" isNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间数字"><span>&nbsp;%</span></dd>
+                          <dd><input type="text" id="formatShareRatio" name="formatShareRatio" value="" class="transferSharesTxt" isNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间整数"><span>&nbsp;%</span></dd>
                         </dl>
                       </td>
                       <td>
