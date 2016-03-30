@@ -96,8 +96,8 @@ function setCheckLine(data){
 					<dd>
 						<input type="text" class="txt" id="nameCodeLike" name="nameCodeLike" placeholder="请输入项目名称或项目编码" />
 					</dd>
-					<dd>
-						<button type="submit" class="bluebtn ico cx" name="querySearch">搜索</button>
+					<dd style="float:right">
+						<button type="submit" class="bluebtn ico cx" name="querySearch" style="margin:0">搜索</button>
 					</dd>
 				</dl>
 			</div>
