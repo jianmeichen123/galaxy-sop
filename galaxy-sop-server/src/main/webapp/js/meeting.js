@@ -78,6 +78,7 @@ function saveMeet(){
 	var	condition = getMeetCondition(null,"projectId", "meetingDateStr", 
 			null,"meetingTypeTc", "meetingResult","meetingNotes");
 	if(condition == false || condition == "false"){
+		$("#saveInterView").removeClass("disabled");
 		return;
 	}
 	sendPostRequestByJsonObj(platformUrl.saveMeet,condition,saveMeetCallBack);

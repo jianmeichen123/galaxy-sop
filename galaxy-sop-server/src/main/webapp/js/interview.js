@@ -143,6 +143,7 @@ function initViewUpload() {
 function saveInterView(){
 	var	condition =  getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
 	if(condition == false || condition == "false"){
+		$("#saveInterView").removeClass("disabled");
 		return;
 	}
 	sendPostRequestByJsonObj(platformUrl.saveView,condition,saveCallBack);
