@@ -69,12 +69,12 @@ function leicj(){
 */
 
     //鼠标滑上显示提示框
-    $('.tarea').hover(function(){
-      if($(this).text().length>0){
-        $('.tips').show();
+   $('.tarea').hover(function(){
+      if($(this).text()==''){
+        $('.tips').hide();
       }
       else{
-        $('.tips').hide();
+        $('.tips').show();
       }
     });
   $('.tarea').mousemove(function(e){
