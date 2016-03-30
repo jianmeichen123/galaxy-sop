@@ -69,6 +69,10 @@ public class AppProjectController extends BaseControllerImpl<Project, ProjectBo>
 			ResponseData<Project> responseBody = new ResponseData<Project>();
 			User user = (User) getUserFromSession(request);
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
+				project.setProjectStatus("meetingResult:3");
+				project.setProjectProgress(null);
+			}
 			if (roleIdList.contains(UserConstant.HHR)){
 				project.setProjectDepartid(user.getDepartmentId());
 			}

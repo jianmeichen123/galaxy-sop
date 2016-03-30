@@ -341,14 +341,6 @@ var chartOptions={
     title: {
         text: ''
     },
-    plotOptions: {
-        column: {
-            //pointWidth: 20,
-            dataLabels:{
-                        enabled:false, 
-                    }
-        },
-    },
     credits: {
         enabled:false
     },
@@ -357,8 +349,6 @@ var chartOptions={
     },
     xAxis: {
         //categories: ['朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
-        lineColor:'#edeff5',
-        lineWidth:1,
         tickWidth:0,
     	labels: {
             //rotation: -45,
@@ -371,8 +361,6 @@ var chartOptions={
         }
     },
     yAxis: {
-    	gridLineColor:'#f6f7fa',
-    	gridLineWidth:1,
         min: 0,
         title: {
             text:''
