@@ -76,13 +76,13 @@
     <dl class="fmdl clearfix">
     	<dt>存储类型：</dt>
         <dd>
-        	<select name="docType"></select>
+        	<select name="docType" class="disabled"></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
     	<dt>业务分类：</dt>
         <dd>
-        	<select name="worktype" disabled></select>
+        	<select name="worktype" class="disabled"></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
@@ -92,8 +92,9 @@
         </dd>
     </dl>
     <div class="fmdl clearfix">
+    	<dt>选择档案：</dt>
     	<dd>
-        <input type="text" name="fileName" class="txt" onchange="selectFile(this)"/>
+        <input type="text" name="fileName" class="txt disabled" onchange="selectFile(this)" />
     	</dd>
     	<dd>
         <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>

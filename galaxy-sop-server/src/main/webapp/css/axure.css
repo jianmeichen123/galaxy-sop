@@ -1040,7 +1040,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /* 添加人员弹窗 */
 .userinfrotc .userinfro{width:540px;border: 1px solid #e9ebf2;margin-bottom: 20px;}
 .userinfrotc .userinfro dl{border-bottom: 1px solid #e9ebf2; height: auto;line-height: 28px;height: 28px;}
-.userinfrotc .userinfro dl dt{width: 125px;padding-right:10px;text-align: right;float: left;color: #414652;background-color: #f9fafc;font-weight: normal;line-height: 27px;font-family: '微软雅黑';}
+.userinfrotc .userinfro dl dt{width: 125px;padding-right:10px;text-align: right;float: left;color: #414652;background-color: #f9fafc;font-weight: normal;line-height: 27px;font-family: '微软雅黑';font-size:14px;}
 .userinfrotc .userinfro dl dd{width:405px;float: left; font-size: 12px;color:#535762;}
 .userinfrotc .userinfro  .role label{margin-right: 20px;width:155px;display: inline-block;font-weight: normal;}
 .userinfrotc .userinfro  dl label{margin-right: 20px;font-weight: normal;}
@@ -1084,7 +1084,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .myprojecttc .tabtable .tabtable_con_close dl{border-bottom:1px solid #edeff5;overflow: hidden; }
 .myprojecttc .block dl .fctbox .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
 .myprojecttc .block dl .fctbox .f2{background-position: 0 -18px;}
-.myprojecttc .block{background-color: #fff;overflow: hidden;height: auto;display: none;overflow-y: scroll;}
+.myprojecttc .block{background-color: #fff;overflow: hidden;height: auto;display: none;overflow-y: scroll;max-height: 300px;}
 .myprojecttc .show{display: block;}
 .myprojecttc .fmdl .txt{display: inline-block;width: 80px;padding: 0 5px;}
 .myprojecttc .block{border-top-left-radius: 0;border-top-right-radius: 0;}
