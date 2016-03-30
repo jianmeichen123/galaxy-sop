@@ -58,7 +58,7 @@
                   <tr><td><dl><dt>计划额度：</dt>
                           <dd><dd id="project_contribution"></dd></dd>
                         </dl></td>
-                      <td><dl><dt>初始估值：</dt><dd id="project_valuations"></dd></dl></td>
+                      <td><dl><dt>估值：</dt><dd id="project_valuations"></dd></dl></td>
                   </tr>
                   <tr>
                       <td><dl><dt>出让股份：</dt>

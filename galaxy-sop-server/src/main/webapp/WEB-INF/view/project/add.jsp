@@ -90,9 +90,9 @@
                       </td>                      
                       <td>
                         <dl>
-                          <dt>初始估值：</dt>
+                          <dt>估值：</dt>
                           <dd>
-                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="初始估值" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
+                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="估值" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
                           </dd>
                         </dl>
                       </td>
