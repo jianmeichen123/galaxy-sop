@@ -62,9 +62,6 @@
 	        </dd>
 	        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a></dd>
 	    </dl> 
-	     <div class="fmarea">
-	    	<textarea name="remark"></textarea>
-	    </div> 
 	    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn";>上传保存</a>
 	</form>
 	</div>
@@ -114,7 +111,7 @@ function loadRows()
 			data,
 			function(data){
 				$.each(data.entityList,function(){
-					var $tr = $('<tr data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'"></tr>');
+					var $tr = $('<tr data-id="'+this.id+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'"></tr>');
 					$tr.append('<td>'+(isBlank(this.createdTime) ? "" : Number(this.createdTime).toDate().format("yyyy/MM/dd")) +'</td>');
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
 					$tr.append('<td>'+(isBlank(this.updatedTime) ? "" : Number(this.updatedTime).toDate().format("yyyy/MM/dd"))+'</td>');
@@ -244,14 +241,12 @@ function initForm(_dialog)
 	var fileName = $row.data('file-name');
 	var fileSource = $row.data('file-source');
 	var worktype = $row.data('file-worktype');
-	var remark = $row.data('remark');
 	
 	$(_dialog.id).find("[name='id']").val($row.data('id'));
 	$(_dialog.id).find("[name='fileSource'][value='"+fileSource+"']").attr('checked',true);
 	$(_dialog.id).find("[name='fileWorktype']").val(worktype);
 	$(_dialog.id).find("[name='fileType']").val(fileType);
 	//$(_dialog.id).find("[name='fileName']").val(isBlank(fileName) ? "" : fileName);
-	$(_dialog.id).find("[name='remark']").val(isBlank(remark) ? "" : remark);
 	$(_dialog.id).find("[name='projectName']").val($("#project-summary #projectName").text());
 }
 function downloadFile(ele)
