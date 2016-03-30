@@ -131,7 +131,7 @@ $(function(){
 	$('#data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
-		pageList : [5, 10, 20 ],
+		pageList : [10, 20, 30 ],
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
