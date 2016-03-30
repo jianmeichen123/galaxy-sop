@@ -235,6 +235,8 @@
     	$("#powindow").remove();
     	$("#popbg").remove();
     	loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
+    	<%request.removeAttribute("sheduleList");%>
+    	//shecudle();
     	//shecudle();
     	layer.msg("操作成功!");
     }
