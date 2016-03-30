@@ -58,7 +58,7 @@
 						   <thead>
 						    <tr>
 						        <th data-field="orderRemark" data-align="center" class="data-input">优先级</th>
-						        <th data-field="hours" data-align="center" class="data-input">剩余时间(小时)</th>
+						        <th data-field="hours" data-align="center" class="data-input">剩余时间(H)</th>
 						        <th data-field="taskDeadlineformat" data-align="center" class="col-md-1 status ">提交日期</th>
 						        <th data-field="taskType" data-align="center" >任务类型</th>
 						        <th data-field="taskName" data-align="center" width="200px" >任务名称</th>
@@ -84,6 +84,20 @@
 <script src="<%=request.getContextPath() %>/js/init.js"></script>	
 
 <script type="text/javascript">
+    var flag="${flagUrl}";
+    var num=0;
+    if(flag=="jl"){
+    	num=10;
+    }
+    if(flag=="pz"){
+    	num=11;
+    }
+    if(flag=="gq"){
+    	num=12;
+    }
+    if(flag=="jz"){
+    	num=9;
+    }
 	$(function(){
 		var flag="${flagUrl}";
 		var num=2;

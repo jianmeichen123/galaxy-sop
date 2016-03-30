@@ -32,6 +32,7 @@ import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
@@ -47,6 +48,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
@@ -165,7 +167,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addFileInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addFileInterview(HttpServletRequest request,HttpServletResponse response ) {
@@ -210,7 +212,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			if(map!=null){
 				@SuppressWarnings("unchecked")
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
-				File file = (File) map.get("file");
+				MultipartFile file = (MultipartFile) map.get("file");
 				String fileName = "";
 				if(fname!=null && fname.trim().length()>0){
 					fileName = fname;
@@ -227,7 +229,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				sopFile.setProjectProgress(project.getProjectProgress());
 				sopFile.setBucketName(bucketName); 
 				sopFile.setFileKey(fileKey);  
-				sopFile.setFileLength(file.length());  //文件大小
+				sopFile.setFileLength(file.getSize());  //文件大小
 				sopFile.setFileName(fileName);
 				sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 				sopFile.setFileUid(user.getId());	 //上传人
@@ -264,7 +266,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * 			produces="application/text;charset=utf-8"
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecordBo interviewRecord ,HttpServletRequest request ) {
@@ -470,7 +472,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addfilemeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addFileMeet(HttpServletRequest request,HttpServletResponse response  ) {
@@ -503,21 +505,20 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		try {
 			String prograss = "";
+			UrlNumber uNum = null;
 			if(meetingType.equals(DictEnum.meetingType.内评会.getCode())){       //字典  会议类型   内评会
 				prograss = DictEnum.projectProgress.内部评审.getCode();                                 	//字典  项目进度  内部评审
-				
+				uNum = UrlNumber.one;
 			}else if(meetingType.equals(DictEnum.meetingType.CEO评审.getCode())){ //字典  会议类型   CEO评审
 				prograss = DictEnum.projectProgress.CEO评审.getCode(); 								//字典   项目进度  CEO评审
-				
+				uNum = UrlNumber.two;
 			}else if(meetingType.equals(DictEnum.meetingType.立项会.getCode())){	//字典  会议类型   立项会
 				prograss = DictEnum.projectProgress.立项会.getCode(); 										//字典   项目进度    立项会
-				
+				uNum = UrlNumber.three;
 			}else if(meetingType.equals(DictEnum.meetingType.投决会.getCode())){	//字典  会议类型   投决会
 				prograss = DictEnum.projectProgress.投资决策会.getCode(); 									//字典   项目进度     投资决策会
-			}/*else{
-				responseBody.setResult(new Result(Status.ERROR,null, "会议类型无法识别"));
-				return responseBody;
-			}*/
+				uNum = UrlNumber.four;
+			}
 			
 			//project id 验证
 			Project project = new Project();
@@ -547,7 +548,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			if(map!=null){
 				@SuppressWarnings("unchecked")
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
-				File file = (File) map.get("file");
+				MultipartFile file = (MultipartFile) map.get("file");
 				String fileName = "";
 				if(fname!=null && fname.trim().length()>0){
 					fileName = fname;
@@ -564,7 +565,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				sopFile.setProjectProgress(project.getProjectProgress());
 				sopFile.setBucketName(bucketName); 
 				sopFile.setFileKey(fileKey);  
-				sopFile.setFileLength(file.length());  //文件大小
+				sopFile.setFileLength(file.getSize());  //文件大小
 				sopFile.setFileName(fileName);
 				sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 				sopFile.setFileUid(user.getId());	 //上传人
@@ -586,7 +587,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setId(id);
 				responseBody.setResult(new Result(Status.OK, ""));
 				
-				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),uNum);
 			}else{
 				responseBody.setResult(new Result(Status.ERROR,null, "上传失败"));
 				return responseBody;
@@ -608,7 +609,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addmeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecord meetingRecord ) {
@@ -637,17 +638,19 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 		
 		String prograss = "";
+		UrlNumber uNum = null;
 		if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       //字典  会议类型   内评会
 			prograss = DictEnum.projectProgress.内部评审.getCode();                                 	//字典  项目进度  内部评审
-			
+			uNum = UrlNumber.one;
 		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ //字典  会议类型   CEO评审
 			prograss = DictEnum.projectProgress.CEO评审.getCode(); 								//字典   项目进度  CEO评审
-			
+			uNum = UrlNumber.two;
 		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	//字典  会议类型   立项会
 			prograss = DictEnum.projectProgress.立项会.getCode(); 										//字典   项目进度    立项会
-			
+			uNum = UrlNumber.three;
 		}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	//字典  会议类型   投决会
 			prograss = DictEnum.projectProgress.投资决策会.getCode(); 									//字典   项目进度     投资决策会
+			uNum = UrlNumber.four;
 		}/*else{
 			responseBody.setResult(new Result(Status.ERROR,null, "会议类型无法识别"));
 			return responseBody;
@@ -678,7 +681,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, ""));
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),uNum);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "会议添加失败"));
 			
@@ -1343,12 +1346,4 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
         return null;
         
     }
-	
-	
-	
-	
-	
-	
-	
-	
 }

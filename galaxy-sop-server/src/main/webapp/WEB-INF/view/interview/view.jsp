@@ -110,21 +110,21 @@ display:none;
         
         
           <div class="tab-pane active" id="view">		
-			<table  id="data-table" data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
+			<table style="table-layout:fixed"  id="data-table" data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
 	          		data-side-pagination="server" data-pagination="true" 
 	          		data-toolbar="#custom-toolbar" data-page-list="[10,20,30]"
 					data-id-field="lottoId" data-show-refresh="true">
 				<colgroup >
-					<col style="width:30%;"> <!-- 名称 -->
 					<col style="width:20%;"> <!-- 名称 -->
+					<col style="width:30%;"> <!-- 名称 -->
 					<col style="width:50%;">  <!-- 状态 -->
 				</colgroup>
 				<thead>
 					<tr>
 						<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="proName" data-align="center">所属项目</th>  
-						<th data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
+						<th  data-field="proName" data-align="center">所属项目</th>  
+						<th  data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
 					</tr>
 				</thead>
 			</table>
@@ -167,6 +167,10 @@ $(function(){
 	});
 	
 });
+var table = document.getElementById("data-table");//获取第一个表格  
+
+var child = table.getElementsByTagName("tr")[2];
+child.style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;";
 </script>
 </body>
 

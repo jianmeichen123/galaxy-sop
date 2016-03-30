@@ -54,6 +54,7 @@ $(function(){
 		if(query_by == "all"){
 			tipslink.removeAttr("name");
 			tipslink.removeAttr("value");
+			tipslink.attr("class","on");
 		}else{
 			tipslink.attr("name",query_by);
 			tipslink.attr("value",query_val)
