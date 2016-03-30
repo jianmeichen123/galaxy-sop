@@ -8,12 +8,13 @@
 	<div class="pjt_introduct clearfix">
 		<div class="clearfix">
 			<h3 id="project_name"></h3>
-			<dl class="update">
+			<!-- <dl class="update">
 				<dt>最新内容更新</dt>
 				<dd  id="pj-title-updated-time">
 					<span>&#40;</span>2016-01-26<span>&#41;</span>
 				</dd>
 			</dl>
+			 -->
 		</div>
 
 		<!-- <ul class="pjt_brf clearfix">
