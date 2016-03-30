@@ -56,7 +56,7 @@
 	    <dl class="fmdl clearfix">
 	        <dt>访谈日志:</dt>
 	        <dd>
-	        	  <div type="text/plain" id="viewNotes" style="width:100%; height:150px;max-height:150px;overflow:auto;"
+	        	  <div type="text/plain" id="viewNotes" style="width:100%; height:150px;"
 	        	  valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>访谈纪要不能超过9000字节" >
 	        	  </div>
 			</dd>

@@ -442,7 +442,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			return new Result(Status.ERROR,null,"aliyun add file failed");
 		}
 		Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
-		File file = (File) map.get("file");		
+		MultipartFile file = (MultipartFile) map.get("file");		
 //		if(fileNameStr.length == 2){
 //			queryfile.setFileName(fileNameStr[0]);  //文件名称 temp.getName()  upload4196736950003923576secondarytile.png
 //			queryfile.setFileSuffix(fileNameStr[1]);
@@ -452,7 +452,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		queryfile.setFileName(nameMap.get("fileName"));
 		queryfile.setFileSuffix(nameMap.get("fileSuffix"));				
-		queryfile.setFileLength(file.length());  //文件大小
+		queryfile.setFileLength(file.getSize());  //文件大小
 		queryfile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
 		sopFileDao.updateById(queryfile);
 		//update end

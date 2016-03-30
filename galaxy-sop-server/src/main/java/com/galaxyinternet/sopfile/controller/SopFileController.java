@@ -163,7 +163,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			//若文件上传成功
 			if(map != null){
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
-				File tempFile = (File) map.get("file");
+				MultipartFile tempFile = (MultipartFile) map.get("file");
 				
 				
 				sopFile = new SopFile();
@@ -175,7 +175,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				//fileKey
 				sopFile.setFileKey(fileKey);
 				//文件大小
-				sopFile.setFileLength(tempFile.length());
+				sopFile.setFileLength(tempFile.getSize());
 											
 				sopFile.setFileName(nameMap.get("fileName"));
 				sopFile.setFileSuffix(nameMap.get("fileSuffix"));	
@@ -271,7 +271,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			//若文件上传成功
 			if(map != null){
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
-				File tempFile = (File) map.get("file");
+				MultipartFile tempFile = (MultipartFile) map.get("file");
 				
 				//project id 验证
 				Project project = new Project();
@@ -287,7 +287,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				bo.setFileWorktype(sopf.getFileWorktype());
 				bo.setFileType(sopf.getFileType());
 				bo.setFileKey(fileKey);
-				bo.setFileLength(tempFile.length());
+				bo.setFileLength(tempFile.getSize());
 				
 				
 		
@@ -730,7 +730,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			//若文件上传成功
 			if(map != null){
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
-				File tempFile = (File) map.get("file");
+				MultipartFile tempFile = (MultipartFile) map.get("file");
 				
 				SopFile sopFile = new SopFile();
 				sopFile.setProjectId(Long.parseLong(projectId));
@@ -741,7 +741,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				//fileKey
 				sopFile.setFileKey(fileKey);
 				//文件大小
-				sopFile.setFileLength(tempFile.length());
+				sopFile.setFileLength(tempFile.getSize());
 									
 				sopFile.setFileName(nameMap.get("fileName"));
 				sopFile.setFileSuffix(nameMap.get("fileSuffix"));	

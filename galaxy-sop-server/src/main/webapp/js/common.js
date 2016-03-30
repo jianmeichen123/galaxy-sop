@@ -628,15 +628,8 @@ function getInterViewCondition(hasProid,projectId,
 		}
 	}
 	
-	if(viewTarget != null &&  viewTarget != ""){
-		if(getLength(viewTarget) > 100){
-			layer.msg("对象长度最大100字节");
-			return false;
-		}
-	}
-	
 	if(viewNotes != null && viewNotes.length > 0){
-		if(viewTarget.length > 9000){
+		if(getLength(viewNotes) > 9000){
 			layer.msg("访谈记录长度最大9000字符");
 			return false;
 		}
@@ -726,7 +719,7 @@ function getMeetCondition(hasProid,projectId,
 	}
 	
 	if(meetingNotes != null && meetingNotes.length > 0){
-		if(meetingNotes.length > 9000){
+		if(getLength(meetingNotes) > 9000){
 			layer.msg("会议记录长度最大9000字节");
 			return false;
 		}
@@ -796,7 +789,7 @@ function formatLog(value,row,index){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
 		if(len>100){
-			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
+			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
 			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
 			
 			return rc;
