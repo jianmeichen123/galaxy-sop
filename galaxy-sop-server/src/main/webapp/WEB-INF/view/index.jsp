@@ -353,7 +353,7 @@ var chartOptions={
     	labels: {
             //rotation: -45,
             align: 'right',
-            staggerLines:1,
+            staggerLines:2,
             style: {
                 fontSize: '13px',
                 fontFamily: 'Verdana, sans-serif'
