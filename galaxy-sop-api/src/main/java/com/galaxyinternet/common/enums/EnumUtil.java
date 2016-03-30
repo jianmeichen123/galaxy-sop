@@ -10,23 +10,23 @@ public class EnumUtil {
 			return CodeEnum.bigdata.getCode();
 		}else if(id == CodeEnum.internetEducation.getId()){
 			return CodeEnum.internetEducation.getCode();
-/*		}else if(id == CodeEnum.internetSteel.getId()){
-			return CodeEnum.internetSteel.getCode();*/
+		}else if(id == CodeEnum.internetSteel.getId()){
+			return CodeEnum.internetSteel.getCode();
 		}else if(id == CodeEnum.socialMedia.getId()){
 			return CodeEnum.socialMedia.getCode();
 		}else if(id == CodeEnum.internetAgriculture.getId()){
 			return CodeEnum.internetAgriculture.getCode();
-/*		}else if(id == CodeEnum.internetChemical.getId()){
-			return CodeEnum.internetChemical.getCode();*/
+		}else if(id == CodeEnum.internetChemical.getId()){
+			return CodeEnum.internetChemical.getCode();
 		}else if(id == CodeEnum.internetDigital.getId()){
 			return CodeEnum.internetDigital.getCode();
 		}else if(id == CodeEnum.internetCatering.getId()){
 			return CodeEnum.internetCatering.getCode();
-		/*}else if(id == CodeEnum.internetClothing.getId()){
+		}else if(id == CodeEnum.internetClothing.getId()){
 			return CodeEnum.internetClothing.getCode();
 		}else if(id == CodeEnum.internetLand.getId()){
 			return CodeEnum.internetLand.getCode();
-		}else if(id == CodeEnum.intelligentDevices.getId()){
+		/*}else if(id == CodeEnum.intelligentDevices.getId()){
 			return CodeEnum.intelligentDevices.getCode();*/
 		}else if(id == CodeEnum.internetFinance.getId()){
 			return CodeEnum.internetFinance.getCode();

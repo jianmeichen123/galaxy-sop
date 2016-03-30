@@ -99,9 +99,6 @@
         <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>
     	</dd>
     </div>
-    <div class="fmarea">
-    	<textarea name="remark"></textarea>
-    </div>
 </form>
     <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
 </div>
@@ -174,7 +171,7 @@ function loadTempList()
 				$("#template-table tbody").empty();
 				var editableTypes = data.userData.editableTypes;
 				$.each(data.entityList,function(){
-					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-remark="'+this.remark+'" data-worktype="'+this.worktype+'" data-worktype-desc="'+this.workTypeDesc+'" data-file-length="'+this.fileLength+'"></tr>');
+					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-worktype="'+this.worktype+'" data-worktype-desc="'+this.workTypeDesc+'" data-file-length="'+this.fileLength+'"></tr>');
 					$tr.append('<td><input type="checkbox" name="document" /></td>') ;
 					$tr.append('<td>'+getVal(this.workTypeDesc,"-")+'</td>') ;
 					$tr.append('<td>'+getVal(this.departmentDesc,"-")+'</td>') ;

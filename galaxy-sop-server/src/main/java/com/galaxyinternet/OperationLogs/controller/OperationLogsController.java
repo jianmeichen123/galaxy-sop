@@ -1,6 +1,7 @@
 package com.galaxyinternet.OperationLogs.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -118,10 +119,16 @@ public class OperationLogsController extends BaseControllerImpl<OperationLogs, O
 					Project pro = new Project();
 					pro.setCreateUid(user.getId());
 					List<Project> perProList = projectService.queryList(pro); //登陆人的所有项目
-					if(perProList!=null){
+					List<Long> proidList = new ArrayList<Long>();
+					if(perProList!=null && !perProList.isEmpty()){
 						for(Project ap : perProList){
-							query.setProjectId(ap.getId());
+							proidList.add(ap.getId());
 						}
+						query.setProjectIdList(proidList);
+					}else{
+						responseBody.setPageList(null);
+						responseBody.setResult(new Result(Status.OK, ""));
+						return responseBody;
 					}
 				}else{
 					responseBody.setResult(new Result(Status.ERROR, null,"无权限查看日志"));
@@ -142,7 +149,7 @@ public class OperationLogsController extends BaseControllerImpl<OperationLogs, O
 			responseBody.setResult(new Result(Status.ERROR, null,"查询日志失败"));
 			if(logger.isErrorEnabled()){
 				logger.error("查询日志失败  ",e);
-			}
+			} 
 		}
 		return responseBody;
 	}
