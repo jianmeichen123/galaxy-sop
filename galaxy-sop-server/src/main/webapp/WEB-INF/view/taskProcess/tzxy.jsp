@@ -267,7 +267,7 @@ function initUpload(_dialog,type){
 				}
 				else
 				{
-					layer.msg(data.result.errorCode);
+					layer.msg(data.result.message);
 				}
 			}
 		}
