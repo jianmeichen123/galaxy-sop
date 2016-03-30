@@ -242,7 +242,7 @@
 				$("#projectName").val("");
 				result=false;
 			return false;
-			}
+		}
 			$.ajax({
 				url : platformUrl.addProject,
 				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
@@ -266,13 +266,16 @@
 					layer.msg("操作失败");
 				},
 				success : function(data) {
-					if(obj=="save"){
-						forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+					if(data.result.status=="ERROR"){
+						layer.msg("用户名重复，请重新输入");
+					}else{
+						if(obj=="save"){
+							forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+						}
+						if(obj=="saveandupdate"){
+							forwardWithHeader(sopContentUrl + "/galaxy/upp/"+data.id);
+						}
 					}
-					if(obj=="saveandupdate"){
-						forwardWithHeader(sopContentUrl + "/galaxy/upp/"+data.id);
-					}
-					
 				}
 			}); 
 		}
