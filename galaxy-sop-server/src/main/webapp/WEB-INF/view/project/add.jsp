@@ -90,9 +90,9 @@
                       </td>                      
                       <td>
                         <dl>
-                          <dt>初始估值：</dt>
+                          <dt>估值：</dt>
                           <dd>
-                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="初始估值" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
+                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="估值" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
                           </dd>
                         </dl>
                       </td>
@@ -197,7 +197,7 @@
    var result=false;
    var TOKEN ;
 	$(function(){
-		createMenus(4);
+		createMenus(5);
 		//获取TOKEN 用于验证表单提交
 		sendPostRequest(platformUrl.getToken,callback);
 		sendGetRequest(platformUrl.getProjectCode, {}, function(data){
@@ -242,7 +242,7 @@
 				$("#projectName").val("");
 				result=false;
 			return false;
-			}
+		}
 			$.ajax({
 				url : platformUrl.addProject,
 				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
@@ -266,13 +266,16 @@
 					layer.msg("操作失败");
 				},
 				success : function(data) {
-					if(obj=="save"){
-						forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+					if(data.result.status=="ERROR"){
+						layer.msg("用户名重复，请重新输入");
+					}else{
+						if(obj=="save"){
+							forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+						}
+						if(obj=="saveandupdate"){
+							forwardWithHeader(sopContentUrl + "/galaxy/upp/"+data.id);
+						}
 					}
-					if(obj=="saveandupdate"){
-						forwardWithHeader(sopContentUrl + "/galaxy/upp/"+data.id);
-					}
-					
 				}
 			}); 
 		}

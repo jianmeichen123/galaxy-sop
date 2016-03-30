@@ -63,8 +63,8 @@
                   <tr><td><dl><dt>计划额度：</dt>
                           <dd><input id="project_contribution" name="formatContribution" type="text" value="" placeholder="计划额度" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/></dd>
                         </dl></td>
-                      <td><dl><dt>初始估值：</dt><dd>
-                      <input type="text" id="project_valuations" name="formatValuations" value="" placeholder="初始估值" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
+                      <td><dl><dt>估值：</dt><dd>
+                      <input type="text" id="project_valuations" name="formatValuations" value="" placeholder="估值" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
                       </dd></dl></td>
                   </tr>
                   <tr>
