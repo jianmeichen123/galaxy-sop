@@ -154,7 +154,7 @@ function setCheckLine(data){
 	 */
 	function editor(value, row, index){
 		var id=row.id;
-		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>查看</a>";
+		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
 		return options;
 	}
 	
