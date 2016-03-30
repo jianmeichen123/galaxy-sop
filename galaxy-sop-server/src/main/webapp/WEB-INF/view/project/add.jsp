@@ -197,7 +197,7 @@
    var result=false;
    var TOKEN ;
 	$(function(){
-		createMenus(4);
+		createMenus(5);
 		//获取TOKEN 用于验证表单提交
 		sendPostRequest(platformUrl.getToken,callback);
 		sendGetRequest(platformUrl.getProjectCode, {}, function(data){
