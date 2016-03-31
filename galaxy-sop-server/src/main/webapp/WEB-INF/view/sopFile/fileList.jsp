@@ -47,7 +47,7 @@
         </div>	
         <!-- 搜索条件 -->
         <div class="min_document clearfix"  id="custom-toolbar">
-          <div class="top clearfix search_adjust searchall">
+          <div class="top clearfix search_adjust1 searchall">
             <dl class="fmdl fml  fmdll clearfix">
               <dt >&nbsp;&nbsp;&nbsp;档案来源：</dt>
               <dd class="clearfix">
@@ -65,9 +65,7 @@
                 	<option>全部</option>
               	</select>
             </dd>
-          </dl>          
-        </div>
-        <div class="bottom searchall search_adjust clearfix">
+          </dl> 
           <dl class="fmdl fml fmdll clearfix">
             <dt>业务分类：</dt>
             <dd>
@@ -94,7 +92,7 @@
             <dd>
             <button type="button" class="bluebtn ico cx"   id="searchBtn">查询</button>
             </dd>
-          </dl>
+          </dl>         
         </div>
         </div>
        <div class="tab-pane active" id="view">		

@@ -294,7 +294,7 @@ function resemetValidate(input){
 		flag = /[\u4e00-\u9fa5a-zA-Z\d]{1,50}/.test(value);
 		break;
 	case "IDENTITY":
-		flag = /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/.test(value);
+		flag = /^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|x|X)$/.test(value);
 		break;
 	case "CHAR_CH":
 		flag =  value.length < 100;

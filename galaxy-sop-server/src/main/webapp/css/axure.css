@@ -496,7 +496,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /*页面框架---------------------*/
 .pagebox{ min-width:1280px; margin:0 auto; padding:0 0 10px}
 /*左侧导航*/
-.pagebox .lft{ float:left; width:9.375%; background:#d6d8e1;position: fixed;top: 60px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;}
+.pagebox .lft{ float:left; width:9.375%; background:#d6d8e1;position: fixed;top: 60px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 9;}
 .pagebox .lft li{ float:left; width:100%; height:40px;}
 .pagebox .lft li a,.pagebox .lft li div{ font-family: "微软雅黑";display:block; width:100%; height:40px; text-align:center; line-height:40px; font-size:14px; color:#6b799f;cursor: pointer;}
 .pagebox .lft .on a,
