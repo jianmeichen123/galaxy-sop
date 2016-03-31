@@ -59,7 +59,7 @@
                         <dl>
                           <dt>创建时间：</dt>
                           <dd>
-                          	<input type="text" class="datepicker time" name="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
+                          	<input type="text" class="datepicker-text time" name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
                           </dd>
                         </dl>
                       </td>
@@ -197,6 +197,7 @@
    var result=false;
    var TOKEN ;
 	$(function(){
+		$("#createDate").val(new Date().format("yyyy-MM-dd"));
 		createMenus(5);
 		//获取TOKEN 用于验证表单提交
 		sendPostRequest(platformUrl.getToken,callback);

@@ -243,6 +243,9 @@ function initUpload(_dialog,type){
 				{
 					layer.msg("上传失败.");
 				}
+			},
+			Error: function(up, err) {
+				layer.msg(err.message);
 			}
 		}
 	});
