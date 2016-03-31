@@ -122,7 +122,7 @@ function setCheckLine(data){
 			        	<th data-field="projectContribution" data-align="center" class="data-input">投资金额（万）</th>
 			        	<th data-field="createDate" data-align="center" class="data-input">创建日期</th>
 			        	<th data-field="updateDate" data-align="center" class="data-input">最后修改时间</th>
-			        	<th data-align="center" class="col-md-2" data-formatter="editor">操作</th>
+			        	<th data-align="center" class="col-md-2" data-formatter="editor">查看</th>
  					</tr>	
  				</thead>
 			</table>
