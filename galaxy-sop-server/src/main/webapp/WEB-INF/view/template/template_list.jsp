@@ -126,7 +126,7 @@
                   <tr>
                       <th>序号</th>
                       <th>档案名称</th>
-                      <th>档案大小 </th>
+                 <!--       <th>档案大小 </th>-->
                   </tr>
               </thead>                                                                                                                     
               <tbody>
@@ -401,7 +401,7 @@ function showMailPopup()
 				var $tr=$("<tr></tr>");
 				$tr.append("<td>"+ i +"</td>");
 				$tr.append("<td>"+ $row.data('worktype-desc') +"</td>");
-				$tr.append("<td>"+ getFileSize($row.data('file-length')) +"</td>");
+			//	$tr.append("<td>"+ getFileSize($row.data('file-length')) +"</td>");
 				$(_dialog.id).find("#attach-table tbody").append($tr);
 				ids.push($row.data('id'));
 			});

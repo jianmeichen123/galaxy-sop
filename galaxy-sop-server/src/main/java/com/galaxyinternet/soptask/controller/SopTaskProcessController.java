@@ -153,7 +153,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				String prefix = fileName.substring(0, dotPos);
 				String suffix = fileName.substring(dotPos);
 				File temp = File.createTempFile(key, suffix);
-				Long length = temp.length();
+				Long length = file.getSize();
 				file.transferTo(temp);
 				OSSHelper.simpleUploadByOSS(temp,key);
 				
