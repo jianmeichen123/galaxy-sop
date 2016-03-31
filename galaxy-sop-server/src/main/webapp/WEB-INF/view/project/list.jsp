@@ -1212,8 +1212,8 @@
 		var targetStr = row.viewTarget;
 		var subStr = "";
 		var targerHtml="";
-		if(getLength(targetStr)>10){
-			subStr = targetStr.substring(0,10)+"...";
+		if(targetStr.length>6){
+			subStr = targetStr.substring(0,6)+"...";
 			targerHtml = "</br>访谈对象：<span title="+targetStr+">"+subStr+"</span>";
 		}else{
 			targerHtml = "</br>访谈对象："+targetStr;
