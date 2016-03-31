@@ -224,6 +224,7 @@ function initUpload(_dialog,type){
 				var $form =$(_dialog.id).find("form")
 				var data = JSON.parse($form.serializeObject());
 				data['type']=data['fileSource'];
+				data['fileType']=$(_dialog.id).find("[name='fileType']").val();
 				data['fileWorktype']='fileWorktype:5';
 				if(type == 'voucher'){
 					data['voucherType']=$("[name='voucherType']:checked").val();

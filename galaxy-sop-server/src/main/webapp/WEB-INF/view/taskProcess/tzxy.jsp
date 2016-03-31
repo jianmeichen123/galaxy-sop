@@ -250,6 +250,7 @@ function initUpload(_dialog,type){
 				var $form =$(_dialog.id).find("form");
 				var data = JSON.parse($form.serializeObject());
 				data['type'] = data['fileSource'];
+				data['fileType']=$(_dialog.id).find("[name='fileType']").val();
 				data['fileWorktype']=$form.find("[name='fileWorktype']").val();
 				data['hasStockTransfer']=$("[name='hasStockTransfer']:checked").val();
 				if(type == 'voucher'){
