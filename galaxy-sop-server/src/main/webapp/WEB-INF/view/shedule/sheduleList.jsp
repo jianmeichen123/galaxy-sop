@@ -239,7 +239,9 @@
     //删除日程
     function deleteShedule(){
     	var id=$("#id").val();
-    	sendGetRequest(platformUrl.deleteShedule+id,'',sheduleCallBack);
+    	if(id){
+    		sendGetRequest(platformUrl.deleteShedule+id,'',sheduleCallBack);
+    	}
     }
     //新建|修改|删除回调函数
     function sheduleCallBack(data){
