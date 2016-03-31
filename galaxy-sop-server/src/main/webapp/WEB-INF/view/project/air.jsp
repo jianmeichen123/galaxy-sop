@@ -37,7 +37,7 @@
     	<dl class="fmdl fml clearfix">
             <dt>访谈对象：</dt>
             <dd class="clearfix">
-                <input type="text" id="viewTarget" name="viewTarget" placeholder="访谈对象" class="txt" valType="required" msg="<font color=red>*</font>访谈对象不能为空"/>
+                <input type="text" id="viewTarget" name="viewTarget" regString="^.{1,50}$" placeholder="访谈对象" class="txt" valType="OTHER" msg="<font color=red>*</font>访谈对象不能为空且不能超过50字符"/>
             </dd>
         </dl>
     </div>

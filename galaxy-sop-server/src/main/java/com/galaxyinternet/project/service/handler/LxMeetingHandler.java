@@ -118,7 +118,7 @@ public class LxMeetingHandler implements Handler {
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
 		}
 		if(in == pin){
-			tm.setMeetingDate(new Date());
+			tm.setMeetingDate(q.getParseDate() == null ? new Date() : q.getParseDate());
 			tm.setMeetingCount(tm.getMeetingCount() + 1);
 			tm.setUpdatedTime((new Date()).getTime());
 			meetingSchedulingDao.updateBySelective(tm);

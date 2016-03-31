@@ -61,9 +61,14 @@
     <dl class="fmdl clearfix">  <!-- class="um_width" -->
        <dt>会议纪要:</dt>
        <dd>
+       	  <%-- <div type="text/plain" id="meetingNotes"  style="width:100%;height:150px;max-height:150px;overflow:auto;" 
+       	 	 valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>会议纪要不能超过9000字节" >
+       	  </div> --%>
+       	  
        	  <div type="text/plain" id="meetingNotes"  style="width:100%;height:150px;max-height:150px;overflow:auto;" 
-       	 	 valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>访谈纪要不能超过9000字节" >
+       	 	 valType="MAXBYTE" regString="9000" msg="<font color=red>*</font>会议纪要不能超过9000字节" >
        	  </div>
+       	  
 		</dd>
       </dl>
         

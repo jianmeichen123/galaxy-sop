@@ -338,6 +338,7 @@ function savecbf(data){
 	if(data.result.status == "OK"){
 		layer.msg("成功");
 		$("a[data-close='close']").trigger("click");
+		location.reload();
 	}else{
 		layer.msg(data.result.message);
 	}
