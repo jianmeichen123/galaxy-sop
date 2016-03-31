@@ -46,8 +46,19 @@ $(function(){
 		var flag=false;
 		if(para.rule=='OTHER') {//自定义的验证规则匹配
 			flag=new RegExp(para.regString).test(para.data);
-		}
-		else {
+		}else if(para.rule=='MAXBYTE'){
+				var len = 0;
+				for (var i = 0; i < para.data.length; i++) {
+					if (para.data.charCodeAt(i) >= 0x4e00 && para.data.charCodeAt(i) <= 0x9fa5){ 
+						len += 2;
+					}else {
+						len++;
+					}
+				}
+				if(len<parseInt(para.regString)){
+					flag = true;
+				}
+		}else {
 			if(para.rule in defaultVal) {//默认的验证规则匹配
 			flag=new RegExp(defaultVal[para.rule]).test(para.data);
 			}
@@ -77,7 +88,6 @@ function validateBefore() {
 	var msg=$(this).attr('msg');
 	//自定义的验证字符串
 	var regString;
-	
 	if(valType=='OTHER') {//如果类型是自定义，则获取自定义的验证字符串
 		regString=$(this).attr('regString');
 		flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType'), regString:$(this).attr('regString')});
@@ -93,6 +103,18 @@ function validateBefore() {
 				flag=false;
 			    }
 		   }
+		}
+		else if($(n).attr("valType")=='MAXBYTE') {//对自定义的文本框进行验证
+			if($.trim($(n).html())!='') {
+				if (!($(n).html()!=''&&$.Validator.match({
+					data : $.trim($(n).html()),
+					rule : $(this).attr('valType'),
+					regString : $(this).attr('regString')
+				}))) {
+					$(n).poshytip('show');
+					flag = false;
+				}
+			}
 		}
 		else {//已定义规则的判断
 			if($(this).attr("isNULL") =='yes'){//可以为空
@@ -157,6 +179,18 @@ function beforeSubmit() {
 			if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType'), regString:$(this).attr('regString')}))) {
 				$(n).poshytip('show');
 				flag=false;
+			}
+		}
+		else if($(n).attr("valType")=='MAXBYTE') {//对自定义的文本框进行验证
+			if($.trim($(n).html())!='') {
+				if (!($(n).html()!=''&&$.Validator.match({
+					data : $.trim($(n).html()),
+					rule : $(this).attr('valType'),
+					regString : $(this).attr('regString')
+				}))) {
+					$(n).poshytip('show');
+					flag = false;
+				}
 			}
 		}
 		else {//对使用已定义规则的文本框进行验证	
