@@ -31,6 +31,7 @@ import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.sopfile.SopVoucherFileBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.utils.StrUtils;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
@@ -630,13 +631,10 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			boolean ie = ie10 || ie11p || iedge;
 			if (ie) {
 				try {
-					downloadEntity
-							.setFileName(URLEncoder.encode(
-									downloadEntity.getFileName(), "UTF-8")
-									+ URLEncoder.encode(downloadEntity.getFileSuffix(),
-											"UTF-8"));
+					String filename = downloadEntity.getFileName()+downloadEntity.getFileSuffix();
+					filename = new String(StrUtils.encodString(filename).getBytes("UTF-8"), "ISO8859-1"); 
+					downloadEntity.setFileName(filename);
 				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			} else {
