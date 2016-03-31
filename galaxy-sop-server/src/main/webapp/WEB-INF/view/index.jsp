@@ -138,7 +138,18 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
                     </dd>
                 </dl>
-                <dl class="Creative_library">
+              
+                <dl>
+                	<dt><h3 class="ico t3">数据报表</h3></dt>
+                    <dd class="zzbox">
+                    	<div id="histogram" class="histogram"></div>
+                    </dd>
+                  <!--    <dd class="clearfix">
+                    	<a href="<%=reportEndpoint %>/galaxy/report/dataBriefing" class="more null">more</a>
+                    </dd>
+                    -->
+                </dl>
+                  <dl class="Creative_library">
                     <img src="<%=path%>/img/sy.png" alt="">
                 	<dt><h3 class="ico t2">创意库</h3></dt>
                     <dd>
@@ -193,16 +204,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a href="javascript:;" class="more null">more</a>
                     </dd>
                      -->
-                </dl>
-                <dl>
-                	<dt><h3 class="ico t3">数据报表</h3></dt>
-                    <dd class="zzbox">
-                    	<div id="histogram" class="histogram"></div>
-                    </dd>
-                  <!--    <dd class="clearfix">
-                    	<a href="<%=reportEndpoint %>/galaxy/report/dataBriefing" class="more null">more</a>
-                    </dd>
-                    -->
                 </dl>
             </div>
             <!--右侧列表-->
