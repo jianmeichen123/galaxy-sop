@@ -833,11 +833,11 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 		}else if(proProgress.equals(DictEnum.projectProgress.股权交割.getCode())){
 			//财务|投资经理
-			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) || roleIdList.contains(UserConstant.CWZJ)){
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) || roleIdList.contains(UserConstant.CWZJ)||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ)){
 			       fileworktypeList.add(DictEnum.fileWorktype.资金拨付凭证.getCode());   
 			}
 			//法务|投资经理
-			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.FWZJ)){
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.FWZJ)||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ)){
 			       fileworktypeList.add(DictEnum.fileWorktype.工商转让凭证.getCode());  
 			}
 		}else{
