@@ -532,6 +532,7 @@ function filedown(fileid , filekey, type){
 		{
 			typeparam = "&type="+type;
 		}
+		layer.msg('正在下载，请稍后...',{time:2000});
 		window.location.href=url+"?sid="+sessionId+"&guid="+userId+typeparam;
 	} catch (e) {
 		console.log(e);

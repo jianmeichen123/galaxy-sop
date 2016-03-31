@@ -76,13 +76,13 @@
     <dl class="fmdl clearfix">
     	<dt>存储类型：</dt>
         <dd>
-        	<select name="docType" class="disabled" disabled="false"></select>
+        	<select name="docType" class="disabled" ></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
     	<dt>业务分类：</dt>
         <dd>
-        	<select name="worktype" class="disabled" disabled="false"></select>
+        	<select name="worktype" class="disabled" ></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
