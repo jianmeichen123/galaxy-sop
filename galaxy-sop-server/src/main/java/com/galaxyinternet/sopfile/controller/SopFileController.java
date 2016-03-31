@@ -2,6 +2,7 @@ package com.galaxyinternet.sopfile.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -28,6 +29,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.common.utils.BinaryUtil;
+import com.aliyun.oss.model.MatchMode;
+import com.aliyun.oss.model.PolicyConditions;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -1154,5 +1159,62 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		return rtn;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getPolicy/{filename}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Dict> getPolicy(@PathVariable String filename,
+			HttpServletRequest request) {
+		ResponseData<Dict> responseBody = new ResponseData<Dict>();
+		Result result = new Result();
+		Map<String, Object> respMap = null;
+		String endPoint = "oss-cn-hangzhou.aliyuncs.com";
+		String accessKeyId = "3Yvy23QypBtVsJhz";
+		String bucket = "galaxydev-xhhl-fx";
+		String dir = "leung";
+		String host = "http://" + bucket + "." + endPoint;
+		long expireTime = 30;
+		long expireEndTime = System.currentTimeMillis() + expireTime * 1000;
+		Date expiration = new Date(expireEndTime);
+		PolicyConditions policyConds = new PolicyConditions();
+		policyConds.addConditionItem(
+				PolicyConditions.COND_CONTENT_LENGTH_RANGE, 0, 1048576000);
+//		policyConds.addConditionItem(MatchMode.StartWith,
+//				PolicyConditions.COND_KEY, dir);
+
+		try {
+			OSSClient client = OSSFactory.getClientInstance();
+			String postPolicy = client.generatePostPolicy(expiration,
+					policyConds);
+			byte[] binaryData;
+			binaryData = postPolicy.getBytes("utf-8");
+			String encodedPolicy = BinaryUtil.toBase64String(binaryData);
+			String postSignature = client.calculatePostSignature(postPolicy);
+			respMap = new HashMap<String, Object>();
+//			respMap.put("uploadMode", "oss");
+			respMap.put("uploadMode", "local");
+			respMap.put("accessid", accessKeyId);
+			respMap.put("policy", encodedPolicy);
+			respMap.put("signature", postSignature);
+			// respMap.put("expire", formatISO8601Date(expiration));
+			respMap.put("dir", dir);
+			respMap.put("fileName", filename);
+			respMap.put("fileKey", String.valueOf(IdGenerator.generateId(OSSHelper.class)));
+			respMap.put("host", host);
+			respMap.put("expire", String.valueOf(expireEndTime / 1000));
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (Exception e) {
+			result.setMessage("系统错误");
+			result.addError("系统错误");
+			logger.error("根据parentId查找数据字典错误", e);
+		}
+		result.setStatus(Status.OK);
+		responseBody.setUserData(respMap);
+		responseBody.setResult(result);
+		return responseBody;
+	}
+	
+	
 	
 }
