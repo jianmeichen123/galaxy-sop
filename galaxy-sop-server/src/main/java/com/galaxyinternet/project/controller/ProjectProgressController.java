@@ -808,23 +808,28 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		User user =(User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		
-		if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && (roleIdList.contains(UserConstant.TZJL)||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ))){  
+		if(proProgress.equals(DictEnum.projectProgress.投资意向书.getCode()) && (roleIdList.contains(UserConstant.TZJL)
+				||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ))){  
 			fileworktypeList.add(DictEnum.fileWorktype.投资意向书.getCode());   
 		}else if(proProgress.equals(DictEnum.projectProgress.尽职调查.getCode())){
 			//人事|投资经理
-			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HRJL) || roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.HRZJ)){
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HRJL) || roleIdList.contains(UserConstant.HHR) || roleIdList.contains(UserConstant.HRZJ)
+					||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ)){
 			         fileworktypeList.add(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());  
 			}
 			//财务|投资经理
-			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) || roleIdList.contains(UserConstant.CWZJ)){
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) || roleIdList.contains(UserConstant.CWZJ)
+					||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ)){
 			        fileworktypeList.add(DictEnum.fileWorktype.财务尽职调查报告.getCode());
 			}
 			//法务|投资经理
-			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.FWZJ)){
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.FWZJ)
+					||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ)){
 			        fileworktypeList.add(DictEnum.fileWorktype.法务尽职调查报告.getCode());
 			}
 			//投资经理
-			if(roleIdList.contains(UserConstant.TZJL)){
+			if(roleIdList.contains(UserConstant.TZJL)
+					||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ)){
 			        fileworktypeList.add(DictEnum.fileWorktype.业务尽职调查报告.getCode());
 			}
 		}else if(proProgress.equals(DictEnum.projectProgress.投资协议.getCode())){  
@@ -833,11 +838,13 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			
 		}else if(proProgress.equals(DictEnum.projectProgress.股权交割.getCode())){
 			//财务|投资经理
-			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) || roleIdList.contains(UserConstant.CWZJ)||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ)){
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.CWJL) || roleIdList.contains(UserConstant.CWZJ)
+					||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ)){
 			       fileworktypeList.add(DictEnum.fileWorktype.资金拨付凭证.getCode());   
 			}
 			//法务|投资经理
-			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.FWZJ)||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ)){
+			if(roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.FWZJ)
+					||roleIdList.contains(UserConstant.HHR)||roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.DSZ)){
 			       fileworktypeList.add(DictEnum.fileWorktype.工商转让凭证.getCode());  
 			}
 		}else{
