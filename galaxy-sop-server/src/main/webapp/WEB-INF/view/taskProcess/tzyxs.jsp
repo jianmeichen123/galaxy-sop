@@ -39,13 +39,13 @@
 	    <dl class="fmdl clearfix">
 	    	<dt>存储类型：</dt>
 	        <dd>
-	        	<select name="fileType" data-rule-required="true" class="disabled" disabled="false"></select>
+	        	<select name="fileType" data-rule-required="true" class="disabled" ></select>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
 	    	<dt>业务分类：</dt>
 	        <dd>
-	        	<select name="fileWorktype" class="disabled" disabled="false"></select>
+	        	<select name="fileWorktype" class="disabled" ></select>
 	        </dd>
 	        <dd>
 	        	<label id="tzyxs_qszm"><input type="checkbox" id="voucherType" name="voucherType" value="1" disabled="disabled"/>签署凭证</label>
@@ -224,6 +224,7 @@ function initUpload(_dialog,type){
 				var $form =$(_dialog.id).find("form")
 				var data = JSON.parse($form.serializeObject());
 				data['type']=data['fileSource'];
+				data['fileType']=$(_dialog.id).find("[name='fileType']").val();
 				data['fileWorktype']='fileWorktype:5';
 				if(type == 'voucher'){
 					data['voucherType']=$("[name='voucherType']:checked").val();
