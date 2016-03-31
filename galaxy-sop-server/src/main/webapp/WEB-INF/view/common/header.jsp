@@ -16,6 +16,10 @@
     }
 	
 %>
+<div class="erwm">
+    <span data-btn="close_erwm">关闭</span>
+    <a href="<%=path %>/html/installReadme.html" target="_blank">点击查看安装说明</a>
+</div>
 <div class="header clearfix">
  <div class="warning" id="warning"><i></i>您的浏览器版本过低，繁星系统不提供对IE10以下浏览器的支持，快使用速度更快，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
 	<a href="javascript:;" class="logo null">繁星</a>
@@ -137,4 +141,9 @@ if (browserMatch.browser){
 			}
 		}); 
 } 
+ 
+ /*关闭二维码*/
+ $("[data-btn='close_erwm']").on("click",function(){
+     $('.erwm').hide();
+ })
 </script>
