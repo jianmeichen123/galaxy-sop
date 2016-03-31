@@ -233,6 +233,7 @@ function initUpload(_dialog){
 				var data = JSON.parse($form.serializeObject());
 				data['type'] = data['fileSource'];
 				data['fileWorktype']='fileWorktype:1';
+				data['fileType']=$(_dialog.id).find("[name='fileType']").val();
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {
