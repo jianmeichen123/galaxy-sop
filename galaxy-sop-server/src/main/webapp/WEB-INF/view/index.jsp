@@ -353,7 +353,7 @@ var chartOptions={
         tickWidth:0,
     	labels: {
             //rotation: -45,
-            align: 'right',
+            //align: 'right',
             staggerLines:2,
             style: {
                 fontSize: '13px',
