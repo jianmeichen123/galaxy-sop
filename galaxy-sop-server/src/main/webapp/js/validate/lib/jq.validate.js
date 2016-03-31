@@ -104,14 +104,14 @@ function validateBefore() {
 			    }
 		   }
 		}
-		else if($(n).attr("valType")=='MAXBYTE') {//对自定义的文本框进行验证
-			if($.trim($(n).html())!='') {
-				if (!($(n).html()!=''&&$.Validator.match({
+		else if($(this).attr("valType")=='MAXBYTE') {//对自定义的文本框进行验证
+			if($.trim($(this).html())!='') {
+				if (!($(this).html()!=''&&$.Validator.match({
 					data : $.trim($(n).html()),
 					rule : $(this).attr('valType'),
 					regString : $(this).attr('regString')
 				}))) {
-					$(n).poshytip('show');
+					$(this).poshytip('show');
 					flag = false;
 				}
 			}
