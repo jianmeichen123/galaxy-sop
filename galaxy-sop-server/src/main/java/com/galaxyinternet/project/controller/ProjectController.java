@@ -880,7 +880,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("操作失败",e);
+				responseBody.getResult().addError("操作失败!");
 			}
 		}
 		
