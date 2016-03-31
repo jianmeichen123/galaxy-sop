@@ -36,13 +36,13 @@
 	    <dl class="fmdl clearfix">
 	    	<dt>存储类型：</dt>
 	        <dd>
-	        	<select name="fileType" class="disabled" disabled="false"></select>
+	        	<select name="fileType" class="disabled" ></select>
 	        </dd>
 	    </dl>
 	    <dl class="fmdl clearfix">
 	    	<dt>业务分类：</dt>
 	        <dd>
-	        	<select name="fileWorktype" class="disabled" disabled="false"></select>
+	        	<select name="fileWorktype" class="disabled" ></select>
 	        </dd>
 	    <!--     <dd>
 	        	<label><input type="checkbox"/>签署凭证</label>
@@ -212,6 +212,7 @@ function initUpload(_dialog){
 			BeforeUpload:function(up){
 				var $form =$(_dialog.id).find("form")
 				var data = JSON.parse($form.serializeObject());
+				data['fileType']=$(_dialog.id).find("[name='fileType']").val();
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {
