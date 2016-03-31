@@ -270,6 +270,9 @@ function initUpload(_dialog,type){
 				{
 					layer.msg(data.result.message);
 				}
+			},
+			Error: function(up, err) {
+				layer.msg(err.message);
 			}
 		}
 	});
