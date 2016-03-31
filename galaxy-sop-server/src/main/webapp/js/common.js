@@ -535,7 +535,7 @@ function filedown(fileid , filekey, type){
 		window.location.href=url+"?sid="+sessionId+"&guid="+userId+typeparam;
 	} catch (e) {
 		console.log(e);
-		alert("下载失败");
+		layer.msg("下载失败");
 	}
 }
 
@@ -602,6 +602,7 @@ function getInterViewCondition(hasProid,projectId,
 	var viewTarget = $.trim($("#"+viewTargetId).val());
 	var um = UM.getEditor(viewNotesId);
 	var viewNotes = $.trim(um.getContent());
+	//var notes = $("#"+viewNotesId).text();
 	
 	if(projectId == null || projectId == ""){
 		layer.msg("项目不能为空");
@@ -742,9 +743,20 @@ function intervierInfoFormat(value, row, index){
 	if( row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
+	
+	var targetStr = row.viewTarget;
+	var subStr = "";
+	var targerHtml="";
+	if(getLength(targetStr)>10){
+		subStr = targetStr.substring(0,10)+"...";
+		targerHtml = "</br>访谈对象：<span title="+targetStr+">"+subStr+"</span>";
+	}else{
+		targerHtml = "</br>访谈对象："+targetStr;
+	}
+	
 	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
 				"访谈日期："+row.viewDateStr+
-				"</br>访谈对象："+row.viewTarget+
+				targerHtml+
 				"</br>访谈录音："+fileinfo+
 			"</div>" ;
 	return rc;

@@ -1208,9 +1208,20 @@
 		if( row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
 			fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 		}
+		
+		var targetStr = row.viewTarget;
+		var subStr = "";
+		var targerHtml="";
+		if(getLength(targetStr)>10){
+			subStr = targetStr.substring(0,10)+"...";
+			targerHtml = "</br>访谈对象：<span title="+targetStr+">"+subStr+"</span>";
+		}else{
+			targerHtml = "</br>访谈对象："+targetStr;
+		}
+		
 		rc = "<div style=\"text-align:left;margin-left:20%;\">"+
 					"访谈日期："+row.viewDateStr+
-					"</br>访谈对象："+row.viewTarget+
+					targerHtml+
 					"</br>访谈录音："+fileinfo+
 				"</div>" ;
 		return rc;
