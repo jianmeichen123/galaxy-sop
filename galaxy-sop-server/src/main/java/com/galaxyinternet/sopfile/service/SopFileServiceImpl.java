@@ -544,7 +544,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
 		
 		Map<String,String> nameMap = transFileNames(fileName);
-		File tempFile = new File(path, nameMap.get("fileName"));
+		File tempFile = new File(path, fileKey + "_" +nameMap.get("fileName"));
 		UploadFileResult upResult = null;
 		if (!tempFile.exists()) {
 			tempFile.mkdirs();
@@ -575,14 +575,12 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			// TODO Auto-generated catch block
 			throw new IOException(e);
 		}finally{
-			tempFile.delete();
+//			tempFile.delete();
 		}
-		
-		
-
 		return retMap;
 	}
 	
+
 	
 	
 	
@@ -605,12 +603,15 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 
 		InputStream fis = null;
 		OutputStream out = null;
+		
+				
 		File tempDir = new File(tempfilePath);
-		File tempFile = new File(tempfilePath, downloadEntity.getFileName());
+		File tempFile = new File(tempfilePath, downloadEntity.getFileKey() + "_" +downloadEntity.getFileName());
+		
 		if (!tempDir.exists()) {
 			tempDir.mkdirs();
 		}
-		try{
+		if(!tempFile.exists() || !tempFile.isFile()){
 			tempFile.createNewFile();
 			if (downloadEntity.getFileSize().longValue() > OSSConstant.DOWNLOAD_PART_SIZE) {
 				OSSHelper.downloadSupportBreakpoint(tempFile.getAbsolutePath(),
@@ -619,7 +620,9 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				DownloadFileResult result = OSSHelper.simpleDownloadByOSS(tempFile,
 						downloadEntity.getFileKey());
 				System.err.println(GSONUtil.toJson(result));
-			}
+			}	
+		}
+		try{	
 			boolean ie10 = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
 					.indexOf("MSIE") > 0;
 			boolean ie11p = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
@@ -638,9 +641,9 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 					e.printStackTrace();
 				}
 			} else {
-				downloadEntity.setFileName(new String(
-						(downloadEntity.getFileName() + downloadEntity
-								.getFileSuffix()).getBytes("UTF-8"), "ISO8859-1"));
+				downloadEntity.setFileName(new String((downloadEntity
+						.getFileName() + downloadEntity.getFileSuffix())
+						.getBytes("UTF-8"), "ISO8859-1"));
 			}
 			response.reset();
 			response.setCharacterEncoding("UTF-8");
@@ -668,7 +671,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				{
 					out.close();
 				}
-				tempFile.delete();
+//				tempFile.delete();
 			} catch (IOException e) {
 				logger.error("下载失败.",e);
 			}
