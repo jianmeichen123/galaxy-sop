@@ -549,8 +549,9 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .min .tablist dt .t12{ background-position:0 -261px}
 .pagebox .min .tablist .l_executive .l_previewTop{width:286px;margin:15px auto 10px;font-size: 14px;color:#656974;}
 .pagebox .min .tablist .l_executive .l_previewTop span{margin:0 3px;}
-.pagebox .min .tablist .l_executive .l_previewTop span a{font-size: 18px;font-family: "微软雅黑";color:#f65177;margin:0 2px;}
-.pagebox .min .tablist .l_executive .l_previewBottom{font-size: 14px;color:#656974;width:80%;margin:0 auto;}
+/* .pagebox .min .tablist .l_executive .l_previewTop span a{font-size: 18px;font-family: "微软雅黑";color:#f65177;margin:0 2px;}
+ */
+.pagebox .min .tablist .l_executive .l_previewBottom{font-size: 14px;color:#656974;width:80%;margin:35px auto;}
 .pagebox .min .tablist .l_executive .l_previewBottom .l_previewBottom_b{width:48%;height: 63px;background-color: #f5f6f8;margin:0 1%;float: left;text-align: center;color:#3e4351;padding:18px 0;}
 .pagebox .min .tablist .l_executive .l_previewBottom .l_previewBottom_b span,.pagebox .min .tablist .l_executive .l_previewBottom .l_previewBottom_b a{display: block;}
 .pagebox .min .tablist .l_executive .l_previewBottom .l_previewBottom_b a{font-size: 42px;color: #75b5e7;font-family: "微软雅黑";}
@@ -931,6 +932,11 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .loginpage .btm{ text-align:center; line-height:34px; background:#acc0d1; height:34px;position: fixed;bottom: 0;width: 100%;}
 .loginpage .btm a{ color:#FFF; font-size:14px; font-family:"宋体"; margin:0 10px 0 0}
 .login_bg{width:100%;height:174px;background: url(../img/login_bg.png) 0 bottom no-repeat;position: fixed;bottom: 34px;}
+/* 登陆+二维码 */
+.log_r_ul{ height:20px; overflow:hidden; line-height:20px;}
+.log_r_ul li{ float:left;}
+.log_r_ul_p{ margin-left:10px; margin-right:5px; overflow:hidden; text-decoration:underline; color:#b3b8cb}
+.log_code{ position:absolute; top:48px; right:160px; display:none;}
 /*弹出层-------华丽分割线---------部分*/
 #popbg{ position:fixed; _position:absolute; left:0; top:0; background:#000;filter:Alpha(opacity=0);opacity: 0;  z-index:999; width:100%; height:100%}
 #popbg iframe{filter:alpha(opacity=0);opacity: 0; width:100%; height:100%}
@@ -1170,6 +1176,10 @@ em{font-style: normal;}
 /* 帮助说明页面 */
 .installation .cn1,.installation .cn2,.installation .cn3,.installation .cn4,.installation .cn5,.installation .cn6{width: 100%;}
 .installation .cn1 img,.installation .cn2 img,.installation .cn3 img,.installation .cn4 img,.installation .cn5 img,.installation .cn6 img{width:100%;}
+/* 添加二维码 */
+.erwm{width: 100px;height: 130px;background: url(../img/erwm.gif) 0 0 no-repeat;position: fixed;box-shadow: 0px 0px 5px #bdc3d2;bottom: 100px;z-index: 10;left: 9.375%;margin-left: -100px;}
+.erwm span{width:18px;height:18px;font-size: 0;display: inline-block;float: right;cursor: pointer;}
+.erwm a{width:100%;text-align: center;height:20px;position: absolute;bottom: 0;text-decoration: underline;font-size: 0;color: #7f8ba3;}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}
