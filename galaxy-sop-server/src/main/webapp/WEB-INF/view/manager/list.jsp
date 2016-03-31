@@ -595,8 +595,7 @@ function setCheckLine(data){
 													'<td>'+dataList[p].fWorktype+'</td>'+
 													'<td>'+dataList[p].createDate+'</td>'+
 													typehtml+
-													'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'+
-													handlehtml+   
+													'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'+  
 													endhtml+   
 													'</tr>';   
 										}

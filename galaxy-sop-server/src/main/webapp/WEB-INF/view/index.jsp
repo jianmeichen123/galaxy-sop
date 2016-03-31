@@ -368,7 +368,8 @@ var chartOptions={
         }
     },
     legend: {
-        enabled: false
+        enabled: false,
+        x:5,
     },
     tooltip: {
     	/*useHTML: true,
@@ -381,7 +382,7 @@ var chartOptions={
         name: '项目数',
         //data: [8,5,4,3,3,2,2,2,2],
         dataLabels: {
-            enabled: true,
+            enabled: false,
             rotation: 0,
             color: '#FFFFFF',
             align: 'center',
