@@ -91,7 +91,7 @@
             <dl class="fmdl clearfix">
                 <dt>处理日期：</dt>
                 <dd class="clearfix">
-                    <input type="text" id="itemDate" class="datepicker time" name="itemDateStr" readonly value="" valType="required" msg="<font color=red>*</font>处理日期不能为空"/>
+                    <input type="text" id="itemDate" class="datepicker txt time" name="itemDateStr" readonly value="" valType="required" msg="<font color=red>*</font>处理日期不能为空"/>
                 </dd>
             </dl>
             <dl class="fmdl clearfix">
@@ -115,8 +115,16 @@
                 </dd>
             </dl>
             <div class="btnbox">
-                <a href="javascript:;" class="pubbtn bluebtn" onclick="saveShedule()">保存</a>
-                <a href="javascript:;" class="pubbtn fffbtn"data-close="close">关闭</a>
+                <div id="addShow">
+	                <a href="javascript:;" class="pubbtn bluebtn" onclick="saveShedule()">保存</a>
+	                <a href="javascript:;" class="pubbtn fffbtn"data-close="close">关闭</a>
+                </div>
+                <div id="updateShow">
+	                <a href="javascript:;" class="pubbtn bluebtn" onclick="saveShedule()">保存</a>
+	                <a href="javascript:;" class="pubbtn fffbtn" onclick="deleteShedule()">删除</a>
+	                <a href="javascript:;" class="pubbtn fffbtn"data-close="close">关闭</a>
+                </div>
+              
 
             </div>
             </form>
@@ -124,6 +132,10 @@
     </div>
 </div>
     <script type="text/javascript">
+    $(function(){
+        $("#updateShow").css("display","none");
+        $("#addShow").css("display","block");
+    });
 
 <%-- if('<%=timestr%>' !=''){
     	 $("#itemDate").val('<%=timestr%>');
@@ -157,6 +169,8 @@
     }
     //新建日程
     function newShedule(){
+    	$("#updateShow").css("display","none");
+    	$("#addShow").css("display","block");
     	var time=currentTime();
     	$("#itemDate").val(time);
     	$("#content").val('');
@@ -217,13 +231,17 @@
    	    if(itemOrder == '1'){
    	    	uncheckAll('itemOrder','0');
    	    }
+   	    
+   		$("#updateShow").css("display","block");
+    	$("#addShow").css("display","none");
     	
     }
     //删除日程
     function deleteShedule(){
     	var id=$("#id").val();
-    	alert(id)
-    	sendGetRequest(platformUrl.deleteShedule+id,'',sheduleCallBack);
+    	if(id){
+    		sendGetRequest(platformUrl.deleteShedule+id,'',sheduleCallBack);
+    	}
     }
     //新建|修改|删除回调函数
     function sheduleCallBack(data){

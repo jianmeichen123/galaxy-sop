@@ -49,12 +49,12 @@ $(function(){
 			},
 			function(data){
 				if(data.result.status=="OK"){
-					alert("提交成功。");
+					layer.msg("提交成功");
 					forwardWithHeader(platformUrl.showTask);
 				}
 				else
 				{
-					alert("提交失败。");
+					layer.msg("操作失败");
 				}
 			}
 		);

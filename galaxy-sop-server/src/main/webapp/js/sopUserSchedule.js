@@ -26,13 +26,8 @@ function loadAjaxSopUserSchedule(url){
 			 var dataList=json.pageList.content;
 			 $("#top").html("");
 			 var htmlstart="";
-			 if (dataList.length==0) {
-					var tbodyList = $("#top"); 
-					var noData =
-				
-						 '<a >'+'没有找到匹配的记录'+'</a>';
-								
-					tbodyList.append(noData);
+			   if (dataList.length==0) {
+				    htmlstart+="<div style=\"font-size:12px;font-family:'宋体';text-align:center;color:#7a8798;hight:50px;line-height:50px\">无日程安排</div>";
 			   }
 				if(dataList.length<3){
 					$("#top").siblings().children('.more').css("display","none");
