@@ -1177,9 +1177,10 @@ em{font-style: normal;}
 .installation .cn1,.installation .cn2,.installation .cn3,.installation .cn4,.installation .cn5,.installation .cn6{width: 100%;}
 .installation .cn1 img,.installation .cn2 img,.installation .cn3 img,.installation .cn4 img,.installation .cn5 img,.installation .cn6 img{width:100%;}
 /* 添加二维码 */
-.erwm{width: 100px;height: 130px;background: url(../img/erwm.gif) 0 0 no-repeat;position: fixed;box-shadow: 0px 0px 5px #bdc3d2;bottom: 100px;z-index: 10;left: 9.375%;margin-left: -100px;}
+.erwm{width: 9.375%;height: 193px;background: url(../img/erwm.gif) 0 0 no-repeat;position: fixed;top: 70%;z-index: 10;left:0;-webkit-background-size: 100%;
+background-size: 100%;}
 .erwm span{width:18px;height:18px;font-size: 0;display: inline-block;float: right;cursor: pointer;}
-.erwm a{width:100%;text-align: center;height:20px;position: absolute;bottom: 0;text-decoration: underline;font-size: 0;color: #7f8ba3;}
+.erwm a{width:100%;text-align: center;height:120px;position: absolute;bottom: 0;text-decoration: underline;font-size: 0;color: #7f8ba3;}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}

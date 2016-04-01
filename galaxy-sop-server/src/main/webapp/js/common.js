@@ -894,3 +894,11 @@ function getFileSize(size)
 		return size/1000 + 'K';
 	}
 }
+//批量截取 td内字符长度
+function cutStr(len,target){
+    var obj=$('.'+target);
+        for (i=0;i<obj.length;i++){
+                //obj[i].innerHTML=obj[i].innerHTML.substring(0,len)+'…';
+                    	obj[i].innerHTML=obj[i].innerHTML.substring(0,len);
+         }
+         }

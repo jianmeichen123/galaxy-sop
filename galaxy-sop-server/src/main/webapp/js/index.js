@@ -118,7 +118,7 @@
 				 i=i+1;
 				 var tr='<tr>'+
 				 '<td>'+i+'</td>'+
-				 '<td>'+ getValue(temp.projectName)+'</td>'+
+				 '<td class="cutstr">'+ getValue(temp.projectName)+'</td>'+
 				 '<td>'+ getDateValue(temp.meetingDate)+'</td>'+
 				 '<td>'+getIntegerValue(temp.meetingCount)+'</td>'+
 				' </tr>'; 
@@ -136,8 +136,8 @@
 	   }
 		if(list.length<3){
 			$("#tbody").parent().parent().siblings().children('.more').css("display","none");
-		}
-	}
+		};
+cutStr(5,'cutstr');}
 
 	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
@@ -150,7 +150,7 @@
 				 i=i+1;
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td>'+ getValue(templ.projectName)+'</td>'+
+					 '<td class="cutstr">'+ getValue(templ.projectName)+'</td>'+
 					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
 					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
 					' </tr>'; 
@@ -168,8 +168,8 @@
 			}
 		if(list.length<3){
 			$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
-		}
-	}
+		};
+cutStr(5,'cutstr');	}
 	function moreProjectMeetingCallback(data) {
 		var list = data.entityList;
 		if(list != "" || list != undefined || list != null){
