@@ -70,6 +70,14 @@ public class TzyxsHandler implements Handler {
 			fv.setFileName(q.getFileName());
 			fv.setFileSuffix(q.getSuffix());
 			sopVoucherFileDao.updateById(fv);
+			
+			SopFile file = new SopFile();
+			file.setProjectId(q.getPid());
+			file.setProjectProgress(q.getStage());
+			file.setFileWorktype(q.getFileWorktype());
+			SopFile f = sopFileDao.selectOne(file);
+			f.setFileStatus(DictEnum.fileStatus.已签署.getCode());
+			sopFileDao.updateById(f);
 			//修改项目阶段
 			project.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 			project.setUpdatedTime((new Date()).getTime());
