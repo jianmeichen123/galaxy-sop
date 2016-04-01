@@ -52,7 +52,7 @@ public class TzyxsHandler implements Handler {
 	public SopResult handler(ViewQuery query, Project project) throws Exception {
 		ProjectQuery q = (ProjectQuery) query;
 		if(q.getVoucherType() != null && q.getVoucherType().intValue() == 1){
-			//签署证明
+			//保存签署证明记录信息
 			SopVoucherFile qvf = new SopVoucherFile();
 			qvf.setProjectId(q.getPid());
 			qvf.setProjectProgress(q.getStage());
@@ -70,6 +70,14 @@ public class TzyxsHandler implements Handler {
 			fv.setFileName(q.getFileName());
 			fv.setFileSuffix(q.getSuffix());
 			sopVoucherFileDao.updateById(fv);
+			//将file表记录状态修改为"已签署"
+			SopFile file = new SopFile();
+			file.setProjectId(q.getPid());
+			file.setProjectProgress(q.getStage());
+			file.setFileWorktype(q.getFileWorktype());
+			SopFile f = sopFileDao.selectOne(file);
+			f.setFileStatus(DictEnum.fileStatus.已签署.getCode());
+			sopFileDao.updateById(f);
 			//修改项目阶段
 			project.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
 			project.setUpdatedTime((new Date()).getTime());

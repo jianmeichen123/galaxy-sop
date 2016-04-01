@@ -54,7 +54,7 @@ public class TzxyHandler implements Handler {
 		ProjectQuery q = (ProjectQuery) query;
 		SopResult r = null;
 		if(q.getVoucherType() != null && q.getVoucherType().intValue() == 1){
-			//签署证明
+			//保存签署证明记录数据
 			SopVoucherFile qvf = new SopVoucherFile();
 			qvf.setProjectId(q.getPid());
 			qvf.setProjectProgress(q.getStage());
@@ -72,9 +72,21 @@ public class TzxyHandler implements Handler {
 			fv.setFileName(q.getFileName());
 			fv.setFileSuffix(q.getSuffix());
 			sopVoucherFileDao.updateById(fv);
+			
+			SopFile file = new SopFile();
+			file.setProjectId(q.getPid());
+			file.setProjectProgress(q.getStage());
+			file.setFileWorktype(q.getFileWorktype());
+			SopFile f = sopFileDao.selectOne(file);
+			f.setFileStatus(DictEnum.fileStatus.已签署.getCode());
+			sopFileDao.updateById(f);
+			
 			/**
 			 * 如果内部创建，只有投资协议
 			 * 如果是外部投资，投资协议必须，股权转让非必须[根据其在上传投资协议签署证明时是否勾选"涉及股权转让"来判断]
+			 * 
+			 * 前一个判断是可以将项目状态切换为股权交割
+			 * 后一个判断是需要上传股权转让协议
 			 */
 			if(project.getProjectType().equals(DictEnum.projectType.内部创建.getCode())
 					|| (project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())
