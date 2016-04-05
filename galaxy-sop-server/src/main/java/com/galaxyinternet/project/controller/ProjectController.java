@@ -760,7 +760,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			//股权转让文档前置验证
 			if( p.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
-				if(project.getProjectType().equals(DictEnum.projectType.内部创建.getClass())){
+				if(project != null && project.getProjectType() != null && project.getProjectType().equals(DictEnum.projectType.内部创建.getCode())){
 					responseBody.setResult(new Result(Status.ERROR, null,"内部创建项目不需要股权转让协议!"));
 					return responseBody;
 				}else if(project.getStockTransfer()==null || project.getStockTransfer()==0){
@@ -1200,8 +1200,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData resp = new ResponseData();
 		try {
 			String userId = getUserId(request);
-			if(StringUtils.isNotEmpty(userId));
-			Map<String, Object> summary = projectService.getSummary(Long.valueOf(userId));
+			Map<String, Object> summary = null;
+			if(StringUtils.isNotEmpty(userId))
+			{
+				summary = projectService.getSummary(Long.valueOf(userId));
+			}
 			resp.setUserData(summary);
 		} catch (Exception e) {
 			logger.error("获取数据快览失败",e);
