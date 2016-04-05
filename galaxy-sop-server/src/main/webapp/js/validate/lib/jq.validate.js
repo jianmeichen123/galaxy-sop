@@ -107,7 +107,7 @@ function validateBefore() {
 		else if($(this).attr("valType")=='MAXBYTE') {//对自定义的文本框进行验证
 			if($.trim($(this).html())!='') {
 				if (!($(this).html()!=''&&$.Validator.match({
-					data : $.trim($(n).html()),
+					data : $.trim($(this).html()),
 					rule : $(this).attr('valType'),
 					regString : $(this).attr('regString')
 				}))) {
