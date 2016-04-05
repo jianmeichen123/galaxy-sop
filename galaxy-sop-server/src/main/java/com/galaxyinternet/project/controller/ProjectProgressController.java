@@ -2,15 +2,11 @@ package com.galaxyinternet.project.controller;
 
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -1288,75 +1284,5 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	
 	
-	/**
-	 * app
-	 * 下载文件 
-	 * @param service
-	 */
-	@RequestMapping("/downloadAppFile/{id}")
-    public ResponseData<SopFile> download(@PathVariable("id") Long id,HttpServletRequest request,HttpServletResponse response) throws IOException { 
-    	InputStream inputStream = null;
-    	ServletOutputStream out = null;
-    	
-        SopFile queryfile = sopFileService.queryById(id);
-		if(queryfile == null){
-			return null;
-		}
-		
-		String key = queryfile.getFileKey();
-		long fSize = queryfile.getFileLength();
-		
-		String downFileName = queryfile.getFileName()+ "." + queryfile.getFileSuffix();
-		String path = request.getSession().getServletContext().getRealPath("upload") + File.separator + downFileName;  
-		
-        // File tempfile=new File(path);  
-        // OSSHelper.simpleDownloadByOSS(temp, key);
-
-        
-		String fileName= "";
-		if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {  
-			fileName = URLEncoder.encode(downFileName, "UTF-8");  
-		} else {  
-			fileName = new String((downFileName).getBytes("UTF-8"), "ISO8859-1");  
-		} 
-		response.reset();
-		response.setCharacterEncoding("utf-8");  
-        response.setContentType("application/x-download");    
-        response.setHeader("Accept-Ranges", "bytes");    
-        response.setHeader("Content-Length", String.valueOf(fSize));    
-        response.setHeader("Content-Disposition", "attachment;fileName=" + fileName); 
-        
-        //inputStream = new FileInputStream(file);
-        long pos = 0;
-        String range = null;
-        if(null != request.getHeader("Range")){
-        	response.setStatus(HttpServletResponse.SC_PARTIAL_CONTENT);
-        	range = request.getHeader("Range").trim();
-        }
-        
-        try{
-        	String temp = range.substring(range.indexOf("=")+1,range.indexOf("-"));
-        	pos = Long.parseLong(temp);
-        }catch(Exception e){
-        	pos = 0;
-        }
-        
-        try{
-        	out = response.getOutputStream();
-	        String contentRange = new StringBuffer("bytes").append(pos).append("-").append(fSize-1).append("/").append(fSize).toString();
-	        response.setHeader("Content-Range", contentRange);
-	        inputStream.skip(pos);
-	        
-        	byte[] buffer = new byte[1024*10];  
-            int length = 0;    
-            while ((length = inputStream.read(buffer, 0, buffer.length)) != -1) {    
-                out.write(buffer, 0, length);  
-            }
-        }catch(Exception e){
-        	System.out.println("ODEX软件下载异常："+e);
-        }
-        
-        return null;
-        
-    }
+	
 }

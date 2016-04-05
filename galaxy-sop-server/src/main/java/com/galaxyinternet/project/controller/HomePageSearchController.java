@@ -313,14 +313,17 @@ public class HomePageSearchController
 		// request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 			Sort sort = null;
+			Page<MeetingScheduling> pageList = null;
 			if(meeting != null && meeting.getSortName() != null) {
 				if (meeting.getSortDirection().equals("0")) {
 					sort = new Sort(Direction.ASC,meeting.getSortName());
 				} else {
 					sort = new Sort(Direction.DESC,meeting.getSortName());
 				}
+			
+				pageList = meetingSchedulingService.queryMeetingPageList(meeting,
+					new PageRequest(meeting.getPageNum()==null?0:meeting.getPageNum(), meeting.getPageSize()==null?10:meeting.getPageSize(),sort));
 			}
-			Page<MeetingScheduling> pageList = meetingSchedulingService.queryMeetingPageList(meeting,new PageRequest(meeting.getPageNum(), meeting.getPageSize(),sort));
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
