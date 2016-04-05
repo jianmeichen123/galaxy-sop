@@ -92,24 +92,26 @@ public class AppProjectController extends BaseControllerImpl<Project, ProjectBo>
 					}													
 				}else{
 					pageProject= projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));				
-				}	    	
-			    if(pageProject.getContent().isEmpty())	{
-			    	List<Project> p=new ArrayList<Project>();
-			    	pageProject.setContent(p);
-			    	pageProject.setTotal((long)0);
-			   }else{
-				   for(int i=0;i<pageProject.getContent().size();i++){
-		    			Project p=pageProject.getContent().get(i);
-						Department Department=new Department();
-						Department.setId(p.getProjectDepartid());
-						Department queryOne = departmentService.queryOne(Department);
-						if(queryOne!=null){
-							p.setProjectCareerline(queryOne.getName());
-						}else{
-							p.setProjectCareerline("");
-						}
-				   }
-			  }
+				}	
+				if(pageProject!=null){
+				    if(pageProject.getContent().isEmpty())	{
+				    	List<Project> p=new ArrayList<Project>();
+				    	pageProject.setContent(p);
+				    	pageProject.setTotal((long)0);
+				   }else{
+					   for(int i=0;i<pageProject.getContent().size();i++){
+			    			Project p=pageProject.getContent().get(i);
+							Department Department=new Department();
+							Department.setId(p.getProjectDepartid());
+							Department queryOne = departmentService.queryOne(Department);
+							if(queryOne!=null){
+								p.setProjectCareerline(queryOne.getName());
+							}else{
+								p.setProjectCareerline("");
+							}
+					   }
+				  }
+				}
 				responseBody.setPageList(pageProject);
 				responseBody.setResult(new Result(Status.OK, ""));
 				return responseBody;
