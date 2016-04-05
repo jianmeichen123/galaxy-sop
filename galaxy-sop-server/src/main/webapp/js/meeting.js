@@ -78,7 +78,7 @@ function saveMeet(){
 	var	condition = getMeetCondition(null,"projectId", "meetingDateStr", 
 			null,"meetingTypeTc", "meetingResult","meetingNotes");
 	if(condition == false || condition == "false"){
-		$("#savemeet").removeClass("disabled");
+		//$("#savemeet").removeClass("disabled");
 		return;
 	}
 	sendPostRequestByJsonObj(platformUrl.saveMeet,condition,saveMeetCallBack);
@@ -91,7 +91,7 @@ function saveMeetCallBack(data){
 	
 	if(result == "ERROR"){ //OK, ERROR
 		//alert(data.result.message);
-		$("#savemeet").removeClass("disabled");
+		//$("#savemeet").removeClass("disabled");
 		layer.msg(data.result.message);
 		return;
 	}
@@ -128,11 +128,11 @@ function initMeetUpload() {
 			//上传按钮点击事件 - 开始上传
 			PostInit: function(up) {
 				$("#savemeet").click(function(){
-					$("#savemeet").addClass("disabled");
+					//$("#savemeet").addClass("disabled");
 					var res = getMeetCondition(null,"projectId", "meetingDateStr", 
 							null,"meetingTypeTc", "meetingResult","meetingNotes");
 					if(res == false || res == "false"){
-						$("#savemeet").removeClass("disabled");
+						//$("#savemeet").removeClass("disabled");
 						up.stop();
 						return;
 					}
@@ -169,7 +169,7 @@ function initMeetUpload() {
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					$("#savemeet").removeClass("disabled");
+					//$("#savemeet").removeClass("disabled");
 					layer.msg(response.result.message);
 					return;
 				}

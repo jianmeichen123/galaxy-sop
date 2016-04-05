@@ -65,13 +65,13 @@ function initViewUpload() {
 			//上传按钮点击事件 - 开始上传
 			PostInit: function(up) {
 				$("#saveInterView").click(function(){
-					$("#saveInterView").addClass("disabled");
+					//$("#saveInterView").addClass("disabled");
 					//表单函数提交
 					//alert(JSON.stringify(getSaveCondition()));
 					var res = getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
 					if(res == false || res == "false"){
 						up.stop();
-						$("#saveInterView").removeClass("disabled");
+						//$("#saveInterView").removeClass("disabled");
 						return;
 					}
 					up.settings.multipart_params = res;
@@ -109,7 +109,7 @@ function initViewUpload() {
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					$("#saveInterView").removeClass("disabled");
+					//$("#saveInterView").removeClass("disabled");
 					layer.msg(response.result.message);
 					return false;
 				}
@@ -143,7 +143,7 @@ function initViewUpload() {
 function saveInterView(){
 	var	condition =  getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
 	if(condition == false || condition == "false"){
-		$("#saveInterView").removeClass("disabled");
+		//$("#saveInterView").removeClass("disabled");
 		return;
 	}
 	sendPostRequestByJsonObj(platformUrl.saveView,condition,saveCallBack);
@@ -155,7 +155,7 @@ function saveCallBack(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
-		$("#saveInterView").removeClass("disabled");
+		//$("#saveInterView").removeClass("disabled");
 		layer.msg(data.result.message);
 		return;
 	}
