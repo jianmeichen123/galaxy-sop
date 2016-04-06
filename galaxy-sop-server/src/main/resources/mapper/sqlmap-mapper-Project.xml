@@ -79,31 +79,63 @@
 						#{item}
 					</foreach>
 				</if>
-									<!-- 模糊查询 -->
+				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
-				<if test="keyword != null and  flagkeyword=='concatcode' ">
-					and (project_name like CONCAT("%",#{keyword},"%")
-					<if test="escapeChar ">
-						escape '/'
-					</if>
-					or create_uname like CONCAT("%",#{keyword},"%")
-					<if test="escapeChar ">
-						escape '/'
-					</if>
-					)
-				</if>
-				<if test="keyword != null and flagkeyword==null">
-					and (project_name like CONCAT("%",#{keyword},"%")
-					<if test="escapeChar ">
-						escape '/'
-					</if>
-					or project_code like CONCAT("%",#{keyword},"%")
-					<if test="escapeChar ">
-						escape '/'
-					</if>
-					)
-				</if>
+<!-- 				<if test="keyword != null and  flagkeyword=='concatcode' "> -->
+<!-- 					and (project_name like CONCAT("%",#{keyword},"%") -->
+<!-- 					<if test="escapeChar "> -->
+<!-- 						escape '/' -->
+<!-- 					</if> -->
+<!-- 					or create_uname like CONCAT("%",#{keyword},"%") -->
+<!-- 					<if test="escapeChar "> -->
+<!-- 						escape '/' -->
+<!-- 					</if> -->
+<!-- 					) -->
+<!-- 				</if> -->
+<!-- 				<if test="keyword != null and flagkeyword==null"> -->
+<!-- 					and (project_name like CONCAT("%",#{keyword},"%") -->
+<!-- 					<if test="escapeChar "> -->
+<!-- 						escape '/' -->
+<!-- 					</if> -->
+<!-- 					or project_code like CONCAT("%",#{keyword},"%") -->
+<!-- 					<if test="escapeChar "> -->
+<!-- 						escape '/' -->
+<!-- 					</if> -->
+<!-- 					) -->
+<!-- 				</if> -->
 				
+				<if test="keyword != null">
+					<choose>
+						<when test="flagkeyword=='concatcode'" >
+							and (project_name like CONCAT("%",#{keyword},"%")
+							<if test="escapeChar ">
+								escape '/'
+							</if>
+							or create_uname like CONCAT("%",#{keyword},"%")
+							<if test="escapeChar ">
+								escape '/'
+							</if>
+							)
+						</when>
+						<when test="flagkeyword==null">
+							and (project_name like CONCAT("%",#{keyword},"%")
+							<if test="escapeChar ">
+								escape '/'
+							</if>
+							or project_code like CONCAT("%",#{keyword},"%")
+							<if test="escapeChar ">
+								escape '/'
+							</if>
+							)
+						</when>
+						<when test="flagkeyword=='onlyName'">
+							and project_name like CONCAT("%",#{keyword},"%")
+							<if test="escapeChar ">
+								escape '/'
+							</if>
+						</when>
+					</choose>
+				</if>
 				<!--根据计划额度查询  -->
 				<if test="rComplany != null"> 
 					<if test="aComplany != null">

@@ -60,10 +60,9 @@ public interface SopFileService extends BaseService<SopFile> {
 	 * 		仅上传到aliyun
 	 * @param request 转为 MultipartFile，获取key=file
 	 * @param fileKey 调用OSSHelper生成的key
-	 * @param bucketName  默认传入 BucketName.DEV.getName()
 	 * @return MultipartFile null=上传失败
 	 */	
-	public Map<String, Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception;
+	public Map<String, Object> aLiColoudUpload(HttpServletRequest request, String fileKey) throws Exception;
 	
 	
 	/**

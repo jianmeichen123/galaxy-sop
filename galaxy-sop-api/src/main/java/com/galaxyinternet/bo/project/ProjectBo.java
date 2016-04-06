@@ -19,7 +19,6 @@ public class ProjectBo extends Project {
 	
 	private String meetingType;
 	
-	private String nameOnlyLike;//指针对projectName进行模糊查询
 	
 	private Long createDateFrom;
 	private Long createDateThrough;
@@ -33,10 +32,6 @@ public class ProjectBo extends Project {
 	private String cascOrDes;//升降序的字段
 	
 	private String ascOrDes;//加入的是升降序  desc asc
-	
-	private String flagkeyword;
-	
-	
 	
 	
 	public String getrComplany() {
@@ -134,14 +129,6 @@ public class ProjectBo extends Project {
 	public void setMeetingType(String meetingType) {
 		this.meetingType = meetingType;
 	}
-
-	public String getNameOnlyLike() {
-		return nameOnlyLike == null ? null : nameOnlyLike.trim();
-	}
-
-	public void setNameOnlyLike(String nameOnlyLike) {
-		this.nameOnlyLike = nameOnlyLike == null ? null : nameOnlyLike.trim();
-	}
 	
 	public String getResultCloseFilter() {
 		return resultCloseFilter;
@@ -151,16 +138,6 @@ public class ProjectBo extends Project {
 		this.resultCloseFilter = resultCloseFilter;
 	}
 
-	public String getFlagkeyword() {
-		return flagkeyword;
-	}
-
-	public void setFlagkeyword(String flagkeyword) {
-		this.flagkeyword = flagkeyword;
-	}
-
-
-	
 	
   
 }
