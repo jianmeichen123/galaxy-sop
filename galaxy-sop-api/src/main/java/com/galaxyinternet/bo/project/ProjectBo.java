@@ -34,7 +34,7 @@ public class ProjectBo extends Project {
 	
 	private String ascOrDes;//加入的是升降序  desc asc
 	
-	private String concatcode;
+	private String flagkeyword;
 	
 	
 	
@@ -151,15 +151,15 @@ public class ProjectBo extends Project {
 		this.resultCloseFilter = resultCloseFilter;
 	}
 
-	public String getConcatcode() {
-		return concatcode;
+	public String getFlagkeyword() {
+		return flagkeyword;
 	}
 
-	public void setConcatcode(String concatcode) {
-		this.concatcode = concatcode;
+	public void setFlagkeyword(String flagkeyword) {
+		this.flagkeyword = flagkeyword;
 	}
-	
-	
+
+
 	
 	
   
