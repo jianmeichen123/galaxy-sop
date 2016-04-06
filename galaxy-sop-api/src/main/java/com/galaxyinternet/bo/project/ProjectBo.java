@@ -19,7 +19,6 @@ public class ProjectBo extends Project {
 	
 	private String meetingType;
 	
-	private String nameOnlyLike;//指针对projectName进行模糊查询
 	
 	private Long createDateFrom;
 	private Long createDateThrough;
@@ -129,14 +128,6 @@ public class ProjectBo extends Project {
 
 	public void setMeetingType(String meetingType) {
 		this.meetingType = meetingType;
-	}
-
-	public String getNameOnlyLike() {
-		return nameOnlyLike == null ? null : nameOnlyLike.trim();
-	}
-
-	public void setNameOnlyLike(String nameOnlyLike) {
-		this.nameOnlyLike = nameOnlyLike == null ? null : nameOnlyLike.trim();
 	}
 	
 	public String getResultCloseFilter() {

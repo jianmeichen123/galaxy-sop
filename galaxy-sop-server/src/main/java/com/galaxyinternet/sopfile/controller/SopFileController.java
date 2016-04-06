@@ -1,6 +1,5 @@
 package com.galaxyinternet.sopfile.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.utils.BinaryUtil;
-import com.aliyun.oss.model.MatchMode;
 import com.aliyun.oss.model.PolicyConditions;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
@@ -76,6 +75,7 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.FileUtils;
 import com.galaxyinternet.utils.RoleUtils;
 
 @Controller
@@ -161,8 +161,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		//文件唯一key
 		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 		try{
-			Map<String,Object> map = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
-			
+			Map<String,Object> map = sopFileService.aLiColoudUpload(multipartRequest, fileKey);
 //			File tempfile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
 			
 			//若文件上传成功
@@ -231,12 +230,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	@ResponseBody
 	@RequestMapping(value="/commonUpload",method=RequestMethod.POST)
 	public Result uploadCommonFile(HttpServletRequest request,HttpServletResponse response){
-		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 		Result result = new Result();
 		Object obj = request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		User user = (User) obj;
 		if(obj == null){
-			responseBody.setResult(new Result(Status.ERROR, ERROR_NO_LOGIN));
+			return new Result(Status.ERROR, ERROR_NO_LOGIN);
 		}
 		//获取参数
 		String fileSource = request.getParameter("fileSource");
@@ -271,7 +269,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				result.addError("未上传投资意向书!");
 			}		
 //			File tempFile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
-			Map<String,Object> map = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
+			Map<String,Object> map = sopFileService.aLiColoudUpload(multipartRequest, fileKey);
 			
 			//若文件上传成功
 			if(map != null){
@@ -422,91 +420,111 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
 		}
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj.getId());
-		if("dialog".equals(sopFile.getPageType())){
-			sopFile.setFileWorktypeNullFilter("true");
-		}else{
-			//角色判断(人事)
-			if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
-				sopFile.setFileUid(obj.getId());
-			//财务
-			}else if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-				sopFile.setFileUid(obj.getId());
-			//法务	
-			}else if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
-				sopFile.setFileUid(obj.getId());
-			//投资经理
-			}else if(roleIdList.contains(UserConstant.TZJL)){
-				Project project = new Project();
-				project.setCreateUid(obj.getId());	
-				List<Project> projectList = proJectService.queryList(project); 
-				List<Long> projectIdList = new ArrayList<Long>();
-				for(Project temp : projectList){
-					projectIdList.add(temp.getId());
-				}
-				sopFile.setProjectIdList(projectIdList);
-			//档案管理员	
-			}else if(roleIdList.contains(UserConstant.DAGLY)){
-			
-			//其他人怎么办
-			}else{
-				
-			}
-			sopFile.setFileWorktypeNullFilter("true");
-			sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());	
-			//模糊搜索
-			if(sopFile.getProjectName()!=null && !sopFile.getProjectName().isEmpty()){
-				
-				ProjectBo project = new ProjectBo();
-				project.setNameOnlyLike(sopFile.getProjectName());
-				List<Project> projectList = projectService.queryList(project);
-				
-				User user = new User();
-				user.setRealName(sopFile.getProjectName());
-				List<User> userList = userService.queryList(user);
-				if((projectList==null || projectList.size()<=0) && (userList==null || userList.size()<=0)){
-					Page<SopFile> pageSopFile = new Page<SopFile>(new ArrayList<SopFile>(), new PageRequest(sopFile.getPageNum(), sopFile.getPageSize()), 0l);
-					responseBody.setPageList(pageSopFile);
-					responseBody.setResult(new Result(Status.OK, ""));
-					return responseBody;
-				}	
-				if(projectList!=null && projectList.size()>0){
-					List<Long> projectIdList = new ArrayList<Long>();
-					for(Project tempPro : projectList){
-						projectIdList.add(tempPro.getId());
-					}
-					sopFile.setProjectLikeIdList(projectIdList);
-				}
-				if(userList!=null && userList.size()>0){
-					List<Long> fileUidList = new ArrayList<Long>();
-					for(User tempUser : userList){
-						fileUidList.add(tempUser.getId());
-					}
-					sopFile.setFileULikeidList(fileUidList);		
-				}
-				
-						
-			}
-		}
-		
 		try {
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj
+					.getId());
+			if ("dialog".equals(sopFile.getPageType())) {
+				sopFile.setFileWorktypeNullFilter("true");
+			} else {
+				// 角色判断(人事)
+				if (roleIdList.contains(UserConstant.HRZJ)
+						|| roleIdList.contains(UserConstant.HRJL)) {
+					sopFile.setFileUid(obj.getId());
+					// 财务
+				} else if (roleIdList.contains(UserConstant.FWZJ)
+						|| roleIdList.contains(UserConstant.FWJL)) {
+					sopFile.setFileUid(obj.getId());
+					// 法务
+				} else if (roleIdList.contains(UserConstant.CWZJ)
+						|| roleIdList.contains(UserConstant.CWJL)) {
+					sopFile.setFileUid(obj.getId());
+					// 投资经理
+				} else if (roleIdList.contains(UserConstant.TZJL)) {
+					Project project = new Project();
+					project.setCreateUid(obj.getId());
+					List<Project> projectList = proJectService
+							.queryList(project);
+					List<Long> projectIdList = new ArrayList<Long>();
+					for (Project temp : projectList) {
+						projectIdList.add(temp.getId());
+					}
+					sopFile.setProjectIdList(projectIdList);
+					// 档案管理员
+				} else if (roleIdList.contains(UserConstant.DAGLY)) {
+
+					// 其他人怎么办
+				} else {
+
+				}
+				sopFile.setFileWorktypeNullFilter("true");
+				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				// 模糊搜索
+				if (sopFile.getKeyword() != null
+						&& !sopFile.getKeyword().isEmpty()) {
+					ProjectBo project = new ProjectBo();
+					project.setKeyword(sopFile.getKeyword());
+					project.setFlagkeyword("onlyName");
+					List<Project> projectList = projectService
+							.queryList(project);
+					User user = new User();
+					user.setKeyword(sopFile.getKeyword());
+					user.setFlagkeyword("onlyName");
+					// user.setRealName(sopFile.getKeyword());
+					List<User> userList = userService.queryList(user);
+					if ((projectList == null || projectList.size() <= 0)
+							&& (userList == null || userList.size() <= 0)) {
+						Page<SopFile> pageSopFile = new Page<SopFile>(
+								new ArrayList<SopFile>(), new PageRequest(
+										sopFile.getPageNum(),
+										sopFile.getPageSize()), 0l);
+						responseBody.setPageList(pageSopFile);
+						responseBody.setResult(new Result(Status.OK, ""));
+						return responseBody;
+					}
+					if (projectList != null && projectList.size() > 0) {
+						List<Long> projectIdList = new ArrayList<Long>();
+						for (Project tempPro : projectList) {
+							projectIdList.add(tempPro.getId());
+						}
+						sopFile.setProjectLikeIdList(projectIdList);
+					}
+					if (userList != null && userList.size() > 0) {
+						List<Long> fileUidList = new ArrayList<Long>();
+						for (User tempUser : userList) {
+							fileUidList.add(tempUser.getId());
+						}
+						sopFile.setFileULikeidList(fileUidList);
+					}
+
+				}
+			}
+
 			PageRequest pageRequest = null;
 			if ("index".equals(sopFile.getPageType())) {
-				//起始页从0开始
-				pageRequest = new PageRequest(0,3,Direction.DESC, "updated_time");
-			}else{
-				pageRequest = new PageRequest(sopFile.getPageNum(), sopFile.getPageSize());
+				// 起始页从0开始
+				pageRequest = new PageRequest(0, 3, Direction.DESC,
+						"updated_time");
+			} else {
+				pageRequest = new PageRequest(sopFile.getPageNum(),
+						sopFile.getPageSize());
 			}
-			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,pageRequest);
-			//操作权限判断
-			for(SopFile temp : pageSopFile.getContent()){
-				String isEdit = RoleUtils.getWorkTypeEdit(roleIdList, temp.getFileWorktype());
-				temp.setIsEdit(isEdit);			
+			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,
+					pageRequest);
+			// 操作权限判断
+			for (SopFile temp : pageSopFile.getContent()) {
+				String isEdit = RoleUtils.getWorkTypeEdit(roleIdList,
+						temp.getFileWorktype());
+				temp.setIsEdit(isEdit);
 			}
 			responseBody.setPageList(pageSopFile);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
 		} catch (DaoException e) {
+			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		} catch (RuntimeException e){
 			responseBody.setResult(new Result(Status.ERROR, "queryUserList faild"));
 			if (logger.isErrorEnabled()) {
 				logger.error("queryUserList ", e);
@@ -731,7 +749,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 		try{
 //			File tempFile = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
-			Map<String,Object> map = sopFileService.aLiColoudUpload(multipartRequest, fileKey, null);
+			Map<String,Object> map = sopFileService.aLiColoudUpload(multipartRequest, fileKey);
 			//若文件上传成功
 			if(map != null){
 				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
@@ -834,6 +852,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		User user = (User) obj;
 		if(obj == null){
 			responseBody.setResult(new Result(Status.ERROR, ERROR_NO_LOGIN));
+			return responseBody;
 		}
 		String proProgress = "";
 		Integer taskFlag = null;
@@ -893,113 +912,115 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		try{
 			// 文件上传
 			// 文件唯一key
-			String fileKey = String
-					.valueOf(IdGenerator.generateId(OSSHelper.class));
+			String fileKey = null;
 			//3 上传阿里云
-//			file = sopFileService.aLiColoudUpload(request,fileKey,null);
-			Map<String,Object> map = sopFileService.aLiColoudUpload(request,fileKey,null);
 			
-			//4业务控制 --若文件上传成功-判断是否为签署
-			if(map!=null){
-				Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
-				file = (MultipartFile) map.get("file");
-				//判断是否为签署凭证
-				if("on".equals(isProve)){
-					//为签署凭证
-					//初始化签署凭证文件表
-					SopVoucherFile sopVoucherFile = new SopVoucherFile();
-					sopVoucherFile.setProjectId(Long.parseLong(projectId));
-					sopVoucherFile.setFileWorktype(workType);
-					sopVoucherFile = sopVoucherFileService.queryOne(sopVoucherFile);
-					//bucketName
-					sopVoucherFile.setBucketName(OSSFactory.getDefaultBucketName());
-					//fileKey
-					sopVoucherFile.setFileKey(fileKey);
-					//文件大小
-					sopVoucherFile.setFileLength(file.getSize());
-					
-//					if(fileStr.length > 0){
-//						//文件名称
-//						sopVoucherFile.setFileName(fileStr[0]);
-//						//文件后缀
-//						sopVoucherFile.setFileSuffix(fileStr[1]);
-//					}else{
-//						sopVoucherFile.setFileName(file.getOriginalFilename());
-//					}	
-					
-					sopVoucherFile.setFileName(nameMap.get("fileName"));
-					sopVoucherFile.setFileSuffix(nameMap.get("fileSuffix"));	
-					
-					//上传人
-					sopVoucherFile.setFileUid(user.getId());		
-					//存储类型
-					sopVoucherFile.setFileType(fileType);
-					//档案来源
-					sopVoucherFile.setFileSource(fileSource);
-					//档案摘要
-					sopVoucherFile.setRemark(remark);
-					//档案状态
-					sopVoucherFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());		
-					//初始化任务表
-					SopTask task = new SopTask();
-					task.setProjectId(Long.valueOf(projectId));
-					task.setTaskFlag(taskFlag);
-					task.setAssignUid(user.getId());
-					task = sopTaskService.queryOne(task);
-					//校验task任务信息
-					if(task==null){
-						responseBody.setResult(new Result(Status.ERROR, null,"任务检索为空"));
-						return responseBody;
-					}
-					//初始化任务信息
-					Project project = new Project();
-					project = projectService.queryById(Long.valueOf(projectId));
-					//校验项目信息
-					if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.内部创建.getCode()) && workType.equals(DictEnum.fileWorktype.股权转让协议.getCode())){
-						responseBody.setResult(new Result(Status.ERROR,null, "该项目不需要股权转让协议"));
-						return responseBody;
-					}		
-					String err = errMessage(project,user,proProgress);
-					if(err!=null && err.length()>0){
-						responseBody.setResult(new Result(Status.ERROR,null, err));
-						return responseBody;
-					}
-					//签署凭证上传业务逻辑处理
-					sopFileService.updateProve(sopVoucherFile,task,project,user.getId(),user.getDepartmentId());
-					//此处结束
-									
-				}else{
-					//非签署凭证
-					//初始化sopFile对象
-					SopFile sopFile = new SopFile();
-					sopFile.setProjectId(Long.parseLong(projectId));
-					sopFile.setFileWorktype(workType);
-					sopFile = sopFileService.selectByProjectAndFileWorkType(sopFile);
-					//bucketName
-					sopFile.setBucketName(OSSFactory.getDefaultBucketName());
-					//fileKey
-					sopFile.setFileKey(fileKey);
-					//文件大小
-					sopFile.setFileLength(file.getSize());
-							
-					sopFile.setFileName(nameMap.get("fileName"));
-					sopFile.setFileSuffix(nameMap.get("fileSuffix"));	
-
-					//上传人
-					sopFile.setFileUid(user.getId());		
-					//存储类型
-					sopFile.setFileType(fileType);
-					//档案来源
-					sopFile.setFileSource(fileSource);
-					//档案摘要
-					sopFile.setRemark(remark);
-					//档案状态
-					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());		
-					//调用非签署凭证业务方法
-					sopFileService.updateByIdSelective(sopFile);
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
+			file = multipartRequest.getFile("file"); // 获取multipartFile文件
+			Map<String, String> nameMap = FileUtils.transFileNames(file.getOriginalFilename());
+			
+			//判断是否为签署凭证
+			if("on".equals(isProve)){
+				//为签署凭证
+				//初始化签署凭证文件表
+				SopVoucherFile sopVoucherFile = new SopVoucherFile();
+				sopVoucherFile.setProjectId(Long.parseLong(projectId));
+				sopVoucherFile.setFileWorktype(workType);
+				sopVoucherFile = sopVoucherFileService.queryOne(sopVoucherFile);
+				//bucketName
+				sopVoucherFile.setBucketName(OSSFactory.getDefaultBucketName());
+				//fileKey
+				if(StringUtils.isBlank(sopVoucherFile.getFileKey())){
+					sopVoucherFile.setFileKey(String
+							.valueOf(IdGenerator.generateId(OSSHelper.class)));
+				}
+				fileKey = sopVoucherFile.getFileKey();
+				//文件大小
+				sopVoucherFile.setFileLength(file.getSize());			
+				sopVoucherFile.setFileName(nameMap.get("fileName"));
+				sopVoucherFile.setFileSuffix(nameMap.get("fileSuffix"));	
+				
+				//上传人
+				sopVoucherFile.setFileUid(user.getId());		
+				//存储类型
+				sopVoucherFile.setFileType(fileType);
+				//档案来源
+				sopVoucherFile.setFileSource(fileSource);
+				//档案摘要
+				sopVoucherFile.setRemark(remark);
+				//档案状态
+				sopVoucherFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());		
+				//初始化任务表
+				SopTask task = new SopTask();
+				task.setProjectId(Long.valueOf(projectId));
+				task.setTaskFlag(taskFlag);
+				task.setAssignUid(user.getId());
+				task = sopTaskService.queryOne(task);
+				//校验task任务信息
+				if(task==null){
+					responseBody.setResult(new Result(Status.ERROR, null,"任务检索为空"));
+					return responseBody;
+				}
+				//初始化任务信息
+				Project project = new Project();
+				project = projectService.queryById(Long.valueOf(projectId));
+				//校验项目信息
+				if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.内部创建.getCode()) && workType.equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+					responseBody.setResult(new Result(Status.ERROR,null, "该项目不需要股权转让协议"));
+					return responseBody;
 				}		
+				String err = errMessage(project,user,proProgress);
+				if(err!=null && err.length()>0){
+					responseBody.setResult(new Result(Status.ERROR,null, err));
+					return responseBody;
+				}
+				//签署凭证上传业务逻辑处理
+				sopFileService.updateProve(sopVoucherFile,task,project,user.getId(),user.getDepartmentId());
+				//此处结束
+								
 			}else{
+				//非签署凭证
+				//初始化sopFile对象
+				SopFile sopFile = new SopFile();
+				sopFile.setProjectId(Long.parseLong(projectId));
+				sopFile.setFileWorktype(workType);
+				sopFile = sopFileService.selectByProjectAndFileWorkType(sopFile);
+				//bucketName
+				sopFile.setBucketName(OSSFactory.getDefaultBucketName());
+				//fileKey
+				if(StringUtils.isBlank(sopFile.getFileKey())){
+					sopFile.setFileKey(String
+							.valueOf(IdGenerator.generateId(OSSHelper.class)));
+				}
+				fileKey = sopFile.getFileKey();
+				//文件大小
+				sopFile.setFileLength(file.getSize());
+						
+				sopFile.setFileName(nameMap.get("fileName"));
+				sopFile.setFileSuffix(nameMap.get("fileSuffix"));	
+
+				//上传人
+				sopFile.setFileUid(user.getId());		
+				//存储类型
+				sopFile.setFileType(fileType);
+				//档案来源
+				sopFile.setFileSource(fileSource);
+				//档案摘要
+				sopFile.setRemark(remark);
+				//档案状态
+				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());		
+				//调用非签署凭证业务方法
+				sopFileService.updateByIdSelective(sopFile);
+			}
+			
+			Map<String, Object> map = sopFileService.aLiColoudUpload(request,
+					fileKey);
+
+			// 4业务控制 --若文件上传成功-判断是否为签署
+		
+			if(map==null){
 				responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_ALCLOUD));
+				return responseBody;
 			}
 			responseBody.setResult(new Result(Status.OK, null));
 			if(num!=null){
@@ -1081,6 +1102,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			User user = (User) obj;
 			if(user == null){
 				resp.setResult(new Result(Status.ERROR, ERROR_NO_LOGIN));
+				return resp;
 			}
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			boolean result = RoleUtils.isDAGLY(roleIdList);
@@ -1190,8 +1212,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			String encodedPolicy = BinaryUtil.toBase64String(binaryData);
 			String postSignature = client.calculatePostSignature(postPolicy);
 			respMap = new HashMap<String, Object>();
-//			respMap.put("uploadMode", "oss");
-			respMap.put("uploadMode", "local");
+			respMap.put("uploadMode", "oss");
+//			respMap.put("uploadMode", "local");
 			respMap.put("accessid", accessKeyId);
 			respMap.put("policy", encodedPolicy);
 			respMap.put("signature", postSignature);

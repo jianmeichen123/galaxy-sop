@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.sopfile.SopVoucherFileBo;
 import com.galaxyinternet.common.constants.SopConstant;
@@ -60,6 +60,7 @@ import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
+import com.galaxyinternet.utils.FileUtils;
 
 @Service("com.galaxyinternet.service.SopFileService")
 public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
@@ -120,33 +121,86 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	public Page<SopFile> queryPageList(SopFile query, Pageable pageable) {
 		// TODO Auto-generated method stub
 		Page<SopFile> pageEntity = super.queryPageList(query,pageable);
+		List<Department> departmentList = getDepartMent();
+		List<User> userList = getUser(pageEntity.getContent());
+		List<Project> projectList = getProject(pageEntity.getContent());
 		//获取Project名称
 		for(SopFile sopFile : pageEntity.getContent()){
 			
 			if(sopFile.getProjectId()!=null){
-				Project project = projectDao.selectById(sopFile.getProjectId());
-				//当为空时证明关联数据已被删除
-				if(project!=null){
-					sopFile.setProjectName(project.getProjectName());
+//				Project project = projectDao.selectById(sopFile.getProjectId());
+				for(Project project : projectList){
+					if(sopFile.getProjectId().equals(project.getId())){
+						sopFile.setProjectName(project.getProjectName());
+						break;
+					}
 				}
+				//当为空时证明关联数据已被删除
+//				if(project!=null){
+//					sopFile.setProjectName(project.getProjectName());
+//				}
 			}
 			
 			if(sopFile.getCareerLine()!=null){
-				Department department = departmentService.queryById(sopFile.getCareerLine());
-				if(department!=null){
-					sopFile.setCareerLineName(department.getName());
+//				Department department = departmentService.queryById(sopFile.getCareerLine());
+				for(Department department : departmentList){
+					if(sopFile.getCareerLine().equals(department.getId())){
+						sopFile.setCareerLineName(department.getName());
+						break;
+					}
 				}
-				
+//				if(department!=null){
+//					sopFile.setCareerLineName(department.getName());
+//				}				
 			}
 			if(sopFile.getFileUid()!=null){
-				User user = userService.queryById(sopFile.getFileUid());
-				if(user!=null){
-					sopFile.setFileUName(user.getRealName());
+//				User user = userService.queryById(sopFile.getFileUid());
+				for(User user : userList){
+					if(sopFile.getFileUid().equals(user.getId())){
+						sopFile.setFileUName(user.getRealName());
+						break;
+					}
 				}
+//				if(user!=null){
+//					sopFile.setFileUName(user.getRealName());
+//				}
 			}
 		}
 		return pageEntity;
 	}
+	
+	private List<Department> getDepartMent(){
+		return departmentService.queryAll();
+	}
+	
+	private List<User> getUser(List<SopFile> sopFileList){
+		User user = new User();
+		List<Long> ids = new ArrayList<Long>();	
+		for(SopFile sopFile : sopFileList){
+			if(sopFile.getFileUid()!=null){
+				ids.add(sopFile.getFileUid());
+			}	
+		}
+		user.setIds(ids);
+		return userService.queryList(user);
+	}
+	
+	private List<Project> getProject(List<SopFile> sopFileList){
+		ProjectBo project = new ProjectBo();
+		List<String> ids = new ArrayList<String>();
+		for(SopFile sopFile : sopFileList){
+			if(sopFile.getProjectId()!=null){
+				ids.add(sopFile.getProjectId().toString());
+			}	
+		}
+		project.setIds(ids);
+		return projectDao.selectList(project);
+//		project.set
+	}
+	
+
+	
+	
 
 
 
@@ -400,7 +454,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	private boolean searchIsAllHasCompleted(SopTaskBo sopTaskBo){
 		List<SopTask> sopTaskList = sopTaskDao.selectForTaskByFlag(sopTaskBo);
 		for(SopTask sopTask : sopTaskList){	
-			if(sopTask.getTaskStatus().equals(DictEnum.taskStatus.已完成)){
+			if(sopTask.getTaskStatus().equals(DictEnum.taskStatus.已完成.getCode())){
 				continue;
 			}else{
 				return false;
@@ -438,7 +492,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		//调用 上传 接口
 //		File file = aLiColoudUpload(request,key,null);
-		Map<String,Object> map = aLiColoudUpload(request, key, null);
+		Map<String,Object> map = aLiColoudUpload(request, key);
 		if(map==null){
 			return new Result(Status.ERROR,null,"aliyun add file failed");
 		}
@@ -459,82 +513,16 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		//update end
 		
 		return new Result(Status.OK,"");
-	}
-		
-
-	private Map<String, String> transFileNames(String fileName) {
-		Map<String, String> retMap = new HashMap<String, String>();
-		int dotPos = fileName.lastIndexOf(".");
-		if(dotPos == -1){
-			retMap.put("fileName", fileName);
-			retMap.put("fileSuffix", "");
-		}else{
-			retMap.put("fileName", fileName.substring(0, dotPos));
-			retMap.put("fileSuffix", fileName.substring(dotPos+1));
-		}
-		return retMap;
-	}
-	
-	
-	
-//	/**
-//	 * 文档上传
-//	 * @param request 转为 MultipartFile，获取key=file
-//	 * @param fileKey 调用OSSHelper生成的key
-//	 * @param bucketName  默认传入 BucketName.DEV.getName()
-//	 * @return MultipartFile null=上传失败
-//	 */	
-//	public Map<String,Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws Exception {
-//		Map<String,Object> retMap = new HashMap<String,Object>();
-//		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
-//		MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
-//		
-////		String path = request.getSession().getServletContext().getRealPath("upload");// 获取临时存储路径
-//		String path = tempfilePath;
-//		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
-//		
-//		Map<String,String> nameMap = transFileNames(fileName);
-//		File tempFile = new File(path, nameMap.get("fileName"));
-//		if (!tempFile.exists()) {
-//			tempFile.mkdirs();
-//		}
-//		multipartFile.transferTo(tempFile); // 存储临时文件
-//		
-//		//begin 上传到aliyun
-//		long asize = multipartFile.getSize(); 
-//		if(bucketName == null){
-//			bucketName = BucketName.DEV.getName();
-//		}
-//		if(asize>OSSConstant.UPLOAD_PART_SIZE){//大文件线程池上传
-//			int result = OSSHelper.uploadSupportBreakpoint(tempFile,fileKey); // 上传至阿里云
-//			if(result == GlobalCode.ERROR){
-//				return null;
-//			}
-//		}else{
-//			UploadFileResult upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);  //上传至阿里云
-//			
-//			//若文件上传成功
-//			if(upResult.getResult().getStatus()==null || upResult.getResult().getStatus().equals(Status.ERROR)){
-//				return null;
-//			}
-//		}
-//		retMap.put("nameMap", nameMap);
-//		retMap.put("file", tempFile);
-//
-//		return retMap;
-//	}
-	
-	
+	}	
 	
 	/**
 	 * 文档上传
 	 * @param request 转为 MultipartFile，获取key=file
 	 * @param fileKey 调用OSSHelper生成的key
-	 * @param bucketName  默认传入 BucketName.DEV.getName()
 	 * @return MultipartFile null=上传失败
 	 * @throws IOException 
 	 */	
-	public Map<String,Object> aLiColoudUpload(HttpServletRequest request, String fileKey,String bucketName) throws IOException{
+	public Map<String,Object> aLiColoudUpload(HttpServletRequest request, String fileKey) throws IOException{
 		Map<String,Object> retMap = new HashMap<String,Object>();
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
 		MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
@@ -543,7 +531,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		String path = tempfilePath;
 		String fileName = multipartFile.getOriginalFilename();// 获取文件名称
 		
-		Map<String,String> nameMap = transFileNames(fileName);
+		Map<String,String> nameMap = FileUtils.transFileNames(fileName);
 		File tempFile = new File(path, fileKey + "_" +nameMap.get("fileName"));
 		UploadFileResult upResult = null;
 		if (!tempFile.exists()) {
@@ -553,9 +541,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			multipartFile.transferTo(tempFile);
 			//begin 上传到aliyun
 			long asize = multipartFile.getSize(); 
-			if(bucketName == null){
-				bucketName = BucketName.DEV.getName();
-			}
 			if(asize>OSSConstant.UPLOAD_PART_SIZE){//大文件线程池上传
 				int result = OSSHelper.uploadSupportBreakpoint(tempFile,fileKey); // 上传至阿里云
 				if(result == GlobalCode.ERROR){

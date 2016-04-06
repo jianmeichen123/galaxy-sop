@@ -42,6 +42,7 @@ import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
@@ -216,10 +217,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}else if(!ServletFileUpload.isMultipartContent(request)){
 				id = interviewRecordService.insert(interviewRecord);
 			}else if(ServletFileUpload.isMultipartContent(request)){
-				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				String bucketName = BucketName.DEV.getName();
-				
-				Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey, bucketName);//上传aliyun接口
+				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));				
+				Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);//上传aliyun接口
 				//上传成功后
 				if(map!=null){
 					@SuppressWarnings("unchecked")
@@ -239,7 +238,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					SopFile sopFile = new SopFile();
 					sopFile.setProjectId(project.getId());
 					sopFile.setProjectProgress(project.getProjectProgress());
-					sopFile.setBucketName(bucketName); 
+					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
 					sopFile.setFileKey(fileKey);  
 					sopFile.setFileLength(file.getSize());  //文件大小
 					sopFile.setFileName(fileName);
@@ -482,8 +481,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}else if(ServletFileUpload.isMultipartContent(request)){
 				//调接口上传
 				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				String bucketName = BucketName.DEV.getName();
-				Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey, bucketName);
+				Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);
 				
 				//上传成功后
 				if(map!=null){
@@ -504,7 +502,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					SopFile sopFile = new SopFile();
 					sopFile.setProjectId(project.getId());
 					sopFile.setProjectProgress(project.getProjectProgress());
-					sopFile.setBucketName(bucketName); 
+					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
 					sopFile.setFileKey(fileKey);  
 					sopFile.setFileLength(file.getSize());  //文件大小
 					sopFile.setFileName(fileName);
