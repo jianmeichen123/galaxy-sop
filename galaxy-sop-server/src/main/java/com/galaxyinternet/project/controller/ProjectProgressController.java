@@ -351,9 +351,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	@ResponseBody
 	@RequestMapping(value = "/queryInterview", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecordBo> queryInterview(HttpServletRequest request,@RequestBody InterviewRecordBo query ) {
-		
 		ResponseData<InterviewRecordBo> responseBody = new ResponseData<InterviewRecordBo>();
-		
 		
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
@@ -369,9 +367,10 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}*/
 			//query.setUid(user.getId());
 			
-			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPageList(query,  new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()) );
+			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPage(query,  new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()) );
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
+			
 			return responseBody;
 			
 		} catch (Exception e) {
@@ -567,7 +566,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}*/
 			//query.setUid(user.getId());
 			
-			Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPageList(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
+			Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPage(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;

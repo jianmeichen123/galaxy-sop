@@ -1,12 +1,17 @@
 package com.galaxyinternet.project.service;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -18,6 +23,7 @@ import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
@@ -237,6 +243,69 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	}
 	
 	
+	
+	// 项目tab查询     projectId
+	// 列表查询， uid;  project_name\project_code ~ keyword  ||  startTime;  endTime; 
+	@Override
+	public Page<MeetingRecordBo> queryMeetPage(MeetingRecordBo query, Pageable pageable) {
+		Page<MeetingRecordBo> meetPage = null;
+		List<MeetingRecordBo> meetBoList = null;
+		List<MeetingRecord> meetList = null;
+		Long total = null;
+		Map<Long,String> proIdNameMap = new HashMap<Long,String>();
+		
+		if(query.getProjectId()!=null){   // 项目tab查询
+			meetList = meetingRecordDao.selectList(query, pageable);
+			total = meetingRecordDao.selectCount(query);
+		}else{    //列表查询_个人创建
+			Project  proQ = new Project();
+			proQ.setCreateUid(query.getUid());
+			proQ.setKeyword(query.getKeyword());
+			List<Project> proList = projectDao.selectList(proQ);
+			
+			//获取 projectId List
+			if(proList!=null&&!proList.isEmpty()){
+				List<Long> proIdList = new ArrayList<Long>();
+				for(Project apro : proList){
+					proIdList.add(apro.getId());
+					proIdNameMap.put(apro.getId(), apro.getProjectName());
+				}
+				//查询列表  
+				query.setProIdList(proIdList);
+				meetList = meetingRecordDao.selectList(query, pageable);
+				total = meetingRecordDao.selectCount(query);
+			}
+		}
+		    
+		if(meetList!=null&&!meetList.isEmpty()){
+			meetBoList = new ArrayList<MeetingRecordBo>();
+			for(MeetingRecord ib : meetList){
+				MeetingRecordBo bo = new MeetingRecordBo();
+				bo.setProjectId(ib.getProjectId());
+				bo.setProName(proIdNameMap.get(ib.getProjectId()));
+				bo.setMeetingDateStr(ib.getMeetingDateStr());
+				bo.setMeetingType(ib.getMeetingType());
+				bo.setMeetingTypeStr(ib.getMeetingTypeStr());
+				bo.setMeetingResult(ib.getMeetingResult());
+				bo.setMeetingResultStr(ib.getMeetingResultStr());
+				bo.setMeetingNotes(ib.getMeetingNotes());
+				if(ib.getFileId()!=null){
+					SopFile file  = sopFileDao.selectById(ib.getFileId());
+					if(file!=null){
+						bo.setFileId(ib.getFileId());
+						bo.setFname(file.getFileName());
+						bo.setFkey(file.getFileKey());
+					}
+				}
+				meetBoList.add(bo);
+			}
+			meetPage = new Page<MeetingRecordBo>(meetBoList, pageable, total);
+		}
+		
+		return meetPage;
+	}
+	
+		
 	/**
 	 * 投资意向书阶段，    上传  投资意向书-签署证明；
 	 * 				更新项目阶段；  --》  尽职调查

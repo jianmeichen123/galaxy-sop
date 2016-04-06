@@ -5,11 +5,9 @@ import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.Assert;
 
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.dao.project.InterviewRecordDao;
-import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
