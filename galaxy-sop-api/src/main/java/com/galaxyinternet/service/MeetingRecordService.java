@@ -17,17 +17,8 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	Long insertMeet(MeetingRecord meetingRecord, Project project, SopFile sopFile, boolean equalNowPrograss);
 	
 	public Page<MeetingRecordBo> queryMeetPageList(MeetingRecordBo query, Pageable pageable);
-	
-	public void projectSchedule(Project project);
 
-	public void upTermSheetSign(Project project,Long userid,Long departid);
+	public void upTermSheetSign(Project project, Long id, Long departmentId);
 	
-	public void decisionSchedule(Project project);
-	
-	public void upInvestmentSign(Project project);
-
-	
-
-
 
 }

@@ -93,9 +93,4 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 
 
 	
-	
-	
-	
-	
-	
 }

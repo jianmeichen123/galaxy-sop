@@ -17,26 +17,14 @@ function queryViewPerPro(){
 
 //设置项目下拉框
 function setViewProSelect(data){
-	
 	var result = data.result.status;
-	
 	if(result == "ERROR"){ //OK, ERROR
-		/*layer.msg(data.result.message, {
-			time : 800
-		}, function() {
-			removePop1();
-		});
-		
-		alert(data.result.message);
-		removePop1();*/
 		layer.msg(data.result.message);
 		removePop1();
 		return;
 	}
-	
 	var entityList = data.entityList;
 	if(entityList.length == 0 ){
-		//alert("无相关项目可添加记录");
 		layer.msg("无相关项目可添加记录");
 		removePop1();
 		return;
@@ -65,77 +53,91 @@ function initViewUpload() {
 			//上传按钮点击事件 - 开始上传
 			PostInit: function(up) {
 				$("#saveInterView").click(function(){
-					//$("#saveInterView").addClass("disabled");
-					//表单函数提交
-					//alert(JSON.stringify(getSaveCondition()));
+					$("#saveInterView").addClass("disabled");
 					var res = getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
 					if(res == false || res == "false"){
 						up.stop();
-						//$("#saveInterView").removeClass("disabled");
+						$("#saveInterView").removeClass("disabled");
 						return;
 					}
-					up.settings.multipart_params = res;
 					
 					var file = $("#fileName").val();
 					if(file.length > 0){
+						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{
-						saveInterView();
+						sendPostRequestByJsonObj(platformUrl.saveViewFile,res,function(data){
+							var result = data.result.status;
+							if(result == "ERROR"){ //OK, ERROR
+								$("#saveInterView").removeClass("disabled");
+								layer.msg(data.result.message);
+								return;
+							}else{
+								layer.msg("保存成功", {time : 500});
+								var _this = $("#data-table");
+								if(_this == null || _this.length == 0 || _this == undefined){
+									removePop1();
+								}else{
+									$("#data-table").bootstrapTable('refresh');
+									removePop1();
+								}
+							}
+						});
 					}
-					//传到后台的参数
-					//viewuploader.multipart_params = { id : "12345" };
 					return false;
 				});
 			},
 			
-			//添加上传文件后，把文件名 赋值 给 input
 			FilesAdded: function(up, files) {
 				if(viewuploader.files.length >= 2){
 					viewuploader.splice(0, viewuploader.files.length-1)
 				}
 				plupload.each(files, function(file) {
-					//document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
 					$("#fileName").val(file.name);
 				});
 			},
 			
-			//上传进度
 			UploadProgress: function(up, file) { 
-				
 			},
 			
-			//文件上传后， 返回值  赋值,  再ajax 保存入库
-			FileUploaded: function(up, files, rtn) {
+			FileUploaded: function(up, files, rtn) {  //上传回调
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					//$("#saveInterView").removeClass("disabled");
+					$("#saveInterView").removeClass("disabled");
+					$("#fileName").val("");
+					viewuploader.splice(0, meetuploader.files.length)
 					layer.msg(response.result.message);
 					return false;
-				}
-				layer.msg("保存成功", {
-					time : 500
-				});
-				var _this = $("#data-table");
-				if(_this == null || _this.length == 0 || _this == undefined){
-					removePop1();
 				}else{
-					$("#data-table").bootstrapTable('refresh');
-					removePop1();
+					layer.msg("保存成功", {time : 500});
+					var _this = $("#data-table");
+					if(_this == null || _this.length == 0 || _this == undefined){
+						removePop1();
+					}else{
+						$("#data-table").bootstrapTable('refresh');
+						removePop1();
+					}
 				}
-				//location.reload(true);
 			},
+			
 			BeforeUpload:function(up){
 			},
+			
 			Error: function(up, err) {
+				$("#saveInterView").removeClass("disabled");
 				layer.msg(err.message);
-				//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			}
 		}
 	});
 
 	viewuploader.init();
 }
+
+
+
+
+
 
 
 
@@ -159,7 +161,6 @@ function saveCallBack(data){
 		layer.msg(data.result.message);
 		return;
 	}
-	//alert("保存成功");
 	layer.msg("保存成功", {
 		time : 500
 	});

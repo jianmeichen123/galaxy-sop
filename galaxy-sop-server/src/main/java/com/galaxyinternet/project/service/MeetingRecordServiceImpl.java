@@ -158,18 +158,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			task.setProjectId(pid);                     //项目id
 			task.setDepartmentId(udepartid);  	//任务分派到: 投资经理
 			task.setTaskName("上传投资意向书");          //任务名称：    上传投资意向书
-			//0 完善简历、
-			//1 投资意向书、
-			//2 人事尽职调查报告、
-			//3 法务尽职调查报告、
-			//4 财务尽调报告、
-			//5 业务尽调报告、
-			//6 投资协议、
-			//7 股权转让协议、
-			//8 资金拨付凭证、
-			//9 工商变更登记凭证
-			task.setTaskFlag(1);
-			
+			task.setTaskFlag(1);  //0 完善简历、 1 投资意向书、 2 人事尽职调查报告、 3 法务尽职调查报告、 4 财务尽调报告、
+									//5 业务尽调报告、 6 投资协议、 7 股权转让协议、 8 资金拨付凭证、 9 工商变更登记凭证
 			task.setAssignUid(userid);             //任务认领人id 
 			task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());		//任务状态: 2:待完工
 			task.setTaskType(DictEnum.taskType.协同办公.getCode());			//任务类型    协同
@@ -198,45 +188,26 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			
 			//投资协议  任务生成
 			SopTask task1 = new SopTask();
-			task1.setProjectId(pid);                     //项目id
+			task1.setProjectId(pid);                     
 			task1.setDepartmentId(udepartid);  		   //任务分派到: 投资经理
 			task1.setTaskName("上传投资协议");          //任务名称：   上传投资协议
-			//0 完善简历、
-			//1 投资意向书、
-			//2 人事尽职调查报告、
-			//3 法务尽职调查报告、
-			//4 财务尽调报告、
-			//5 业务尽调报告、
-			//6 投资协议、
-			//7 股权转让协议、
-			//8 资金拨付凭证、
-			//9 工商变更登记凭证
-			task1.setTaskFlag(6);
-			task1.setAssignUid(userid);             //任务认领人id 
-			task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				//任务状态: 2:待完工
-			task1.setTaskType(DictEnum.taskType.协同办公.getCode());				//任务类型    协同
+			task1.setTaskFlag(6);   //0 完善简历、 1 投资意向书、 2 人事尽职调查报告、 3 法务尽职调查报告、 4 财务尽调报告、
+									//5 业务尽调报告、 6 投资协议、 7 股权转让协议、 8 资金拨付凭证、 9 工商变更登记凭证
+			task1.setAssignUid(userid);             
+			task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				
+			task1.setTaskType(DictEnum.taskType.协同办公.getCode());				
 			sopTaskDao.insert(task1);
 			
 			/*if(pro.getProjectType().equals(DictEnum.projectType.外部项目.getCode())){
 				//股权转让协议  任务生成
 				SopTask task2 = new SopTask();
-				task2.setProjectId(pid);                    //项目id
+				task2.setProjectId(pid);                   
 				task2.setDepartmentId(udepartid);  		//任务分派到: 投资经理
 				task2.setTaskName("上传股权转让协议");       //任务名称：  上传股权转让协议
-				//0 完善简历、
-				//1 投资意向书、
-				//2 人事尽职调查报告、
-				//3 法务尽职调查报告、
-				//4 财务尽调报告、
-				//5 业务尽调报告、
-				//6 投资协议、
-				//7 股权转让协议、
-				//8 资金拨付凭证、
-				//9 工商变更登记凭证
 				task2.setTaskFlag(7);
-				task2.setAssignUid(userid);            //任务认领人id 
-				task2.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				//任务状态: 2:待完工
-				task2.setTaskType(DictEnum.taskType.协同办公.getCode());					//任务类型    协同
+				task2.setAssignUid(userid);           
+				task2.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				
+				task2.setTaskType(DictEnum.taskType.协同办公.getCode());				
 				sopTaskDao.insert(task2);
 			}*/
 		}
@@ -250,50 +221,20 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	@Override
 	public Page<MeetingRecordBo> queryMeetPageList(MeetingRecordBo query, Pageable pageable) {
 		Page<MeetingRecordBo> mpage = meetingRecordDao.selectMeetPageList(query, pageable);
-		
 		List<MeetingRecordBo> contentList = mpage.getContent();
-		
 		if(contentList!=null){
 			for(MeetingRecordBo ib : contentList){
-				//String fileInfo = "";
 				if(ib.getFileId()!=null){
 					SopFile file = sopFileDao.selectById(ib.getFileId());
 					if(file!=null){
 						ib.setFname(file.getFileName());
 						ib.setFkey(file.getFileKey());
-						//fileInfo = "<a href=\"javascript:filedown("+ib.getFileId()+","+file.getFileKey()+");\" key=\""+ file.getFileKey()+"\">"+file.getFileName()+"</a>";
 					}
 				}
-				//ib.setHygk("<div style=\"text-align:left;margin-left:20%;\">会议日期："+ib.getMeetingDateStr()+"</br>会议结论："+ib.getMeetingResultStr()+"</br>会议录音："+fileInfo+"</div>");
-				//ib.setProInfo(ib.getProName()+"</br>"+ib.getMeetingTypeStr());
 			}
 		}
 		return mpage;
 	}
-	
-	
-	
-	/**
-	 * 立项会排期，    修改项目进度、状态
-	 * 				新建 立项会 排期
-	 * @param   project 
-	 * @return
-	 */
-	@Override
-	@Transactional
-	public void projectSchedule(Project project){
-		project.setProjectProgress(DictEnum.projectProgress.立项会.getCode());
-		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
-		projectDao.updateById(project);
-		
-		MeetingScheduling ms = new MeetingScheduling();
-		ms.setProjectId(project.getId());
-		ms.setMeetingType(DictEnum.meetingType.立项会.getCode());
-		ms.setMeetingCount(0);
-		meetingSchedulingDao.insert(ms);
-		
-	}
-	
 	
 	
 	/**
@@ -315,16 +256,6 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		task1.setProjectId(project.getId());         //项目id
 		task1.setDepartmentId(departid);  		 //任务分派到: 投资经理
 		task1.setTaskName("上传业务尽职调查报告");    //任务名称：  上传股权转让协议
-		//0 完善简历、
-		//1 投资意向书、
-		//2 人事尽职调查报告、
-		//3 法务尽职调查报告、
-		//4 财务尽调报告、
-		//5 业务尽调报告、
-		//6 投资协议、
-		//7 股权转让协议、
-		//8 资金拨付凭证、
-		//9 工商变更登记凭证
 		task1.setTaskFlag(5);
 		task1.setAssignUid(userid);             //任务认领人id 
 		task1.setTaskStatus(DictEnum.taskStatus.待完工.getCode());				 //任务状态: 2:待完工
@@ -336,21 +267,10 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		task2.setProjectId(project.getId());         //项目id
 		task2.setDepartmentId(SopConstant.DEPARTMENT_RS_ID);  		 //任务分派到: 投资经理
 		task2.setTaskName("上传人事尽职调查报告");        //任务名称：  上传股权转让协议
-		//0 完善简历、
-		//1 投资意向书、
-		//2 人事尽职调查报告、
-		//3 法务尽职调查报告、
-		//4 财务尽调报告、
-		//5 业务尽调报告、
-		//6 投资协议、
-		//7 股权转让协议、
-		//8 资金拨付凭证、
-		//9 工商变更登记凭证
 		task2.setTaskFlag(2);
 		task2.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
 		task2.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
 		sopTaskDao.insert(task2);
-		
 		
 		if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())){
 			//财务dd  任务生成
@@ -358,16 +278,6 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			task3.setProjectId(project.getId());         //项目id
 			task3.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);  		 //任务分派到: 投资经理
 			task3.setTaskName("上传财务尽职调查报告");     //任务名称：  上传股权转让协议
-			//0 完善简历、
-			//1 投资意向书、
-			//2 人事尽职调查报告、
-			//3 法务尽职调查报告、
-			//4 财务尽调报告、
-			//5 业务尽调报告、
-			//6 投资协议、
-			//7 股权转让协议、
-			//8 资金拨付凭证、
-			//9 工商变更登记凭证
 			task3.setTaskFlag(4);
 			task3.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
 			task3.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
@@ -378,105 +288,12 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			task4.setProjectId(project.getId());         //项目id
 			task4.setDepartmentId(SopConstant.DEPARTMENT_FW_ID);  		 //任务分派到: 投资经理
 			task4.setTaskName("上传法务尽职调查报告");        //任务名称：  上传股权转让协议
-			//0 完善简历、
-			//1 投资意向书、
-			//2 人事尽职调查报告、
-			//3 法务尽职调查报告、
-			//4 财务尽调报告、
-			//5 业务尽调报告、
-			//6 投资协议、
-			//7 股权转让协议、
-			//8 资金拨付凭证、
-			//9 工商变更登记凭证
 			task4.setTaskFlag(3);
 			task4.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待完工
 			task4.setTaskType(DictEnum.taskType.协同办公.getCode());				 //任务类型    协同
 			sopTaskDao.insert(task4);
 		}
 	}
-	
-	
-	/**
-	 * 尽职调查              申请  投决会 排期，    
-	 * 				修改项目进度、状态；
-	 * 				新建 投决会 排期；
-	 * @param   project 
-	 * @return
-	 */
-	@Override
-	@Transactional
-	public void decisionSchedule(Project project){
-		project.setProjectProgress(DictEnum.projectProgress.投资决策会.getCode());
-		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
-		projectDao.updateById(project);
-		
-		MeetingScheduling ms = new MeetingScheduling();
-		ms.setProjectId(project.getId());
-		ms.setMeetingType(DictEnum.meetingType.投决会.getCode());
-		//ms.setStatus("新进");
-		ms.setMeetingCount(0);
-		meetingSchedulingDao.insert(ms);
-		
-	}
-	
-	
-	
-	/**
-	 * 投资协议阶段，    上传  投资协议-签署证明；
-	 * 				更新项目阶段；
-	 * 				生成任务;
-	 * @param   project 
-	 * @return
-	 */
-	@Override
-	@Transactional
-	public void upInvestmentSign(Project project){
-		project.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
-		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
-		projectDao.updateById(project);
-		
-		//财务  任务生成
-		SopTask task3 = new SopTask();
-		task3.setProjectId(project.getId());         //项目id
-		task3.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);  		 //任务分派到: 投资经理
-		task3.setTaskName("上传资金拨付凭证");        //任务名称：  上传资金拨付凭证
-		//0 完善简历、
-		//1 投资意向书、
-		//2 人事尽职调查报告、
-		//3 法务尽职调查报告、
-		//4 财务尽调报告、
-		//5 业务尽调报告、
-		//6 投资协议、
-		//7 股权转让协议、
-		//8 资金拨付凭证、
-		//9 工商变更登记凭证
-		task3.setTaskFlag(8);
-		task3.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待认领
-		task3.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
-		sopTaskDao.insert(task3);
-		
-		//法务  任务生成
-		SopTask task4 = new SopTask();
-		task4.setProjectId(project.getId());         //项目id
-		task4.setDepartmentId(SopConstant.DEPARTMENT_FW_ID); 		 //任务分派到: 投资经理
-		task4.setTaskName("上传工商变更登记凭证");        //任务名称：  上传工商变更登记凭证
-		//0 完善简历、
-		//1 投资意向书、
-		//2 人事尽职调查报告、
-		//3 法务尽职调查报告、
-		//4 财务尽调报告、
-		//5 业务尽调报告、
-		//6 投资协议、
-		//7 股权转让协议、
-		//8 资金拨付凭证、
-		//9 工商变更登记凭证
-		task4.setTaskFlag(9);
-		task4.setTaskStatus(DictEnum.taskStatus.待认领.getCode());				 //任务状态: 2:待认领
-		task4.setTaskType(DictEnum.taskType.协同办公.getCode());					 //任务类型    协同
-		sopTaskDao.insert(task4);
-		
-	}
-	
 	
 	
 	

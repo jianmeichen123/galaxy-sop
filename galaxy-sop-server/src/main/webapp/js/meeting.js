@@ -25,7 +25,6 @@ function setMeetProSelect(data){
 	var result = data.result.status;
 	
 	if(result == "ERROR"){ //OK, ERROR
-		//alert(data.result.message);
 		layer.msg(data.result.message);
 		$(".pop").remove();
 		$("#popbg").remove();	
@@ -34,7 +33,6 @@ function setMeetProSelect(data){
 	
 	var entityList = data.entityList;
 	if(entityList.length == 0 ){
-		//alert("无相关项目可添加记录");
 		layer.msg("无相关项目可添加记录");
 		$(".pop").remove();
 		$("#popbg").remove();	
@@ -73,42 +71,6 @@ function setMeetTypes(data){
 
 
 
-//保存记录
-function saveMeet(){
-	var	condition = getMeetCondition(null,"projectId", "meetingDateStr", 
-			null,"meetingTypeTc", "meetingResult","meetingNotes");
-	if(condition == false || condition == "false"){
-		//$("#savemeet").removeClass("disabled");
-		return;
-	}
-	sendPostRequestByJsonObj(platformUrl.saveMeet,condition,saveMeetCallBack);
-}
-
-
-//保存成功回调
-function saveMeetCallBack(data){
-	var result = data.result.status;
-	
-	if(result == "ERROR"){ //OK, ERROR
-		//alert(data.result.message);
-		//$("#savemeet").removeClass("disabled");
-		layer.msg(data.result.message);
-		return;
-	}
-	//alert("保存成功");
-	layer.msg("保存成功", {
-		time : 500
-	});
-	var _this = $("#data-table");
-	if(_this == null || _this.length == 0 || _this == undefined){
-		removePop1();
-	}else{
-		$("#data-table").bootstrapTable('refresh');
-		removePop1();
-	}
-	//location.reload(true);
-}
-
 
 //plupload上传对象初始化,   绑定保存
 function initMeetUpload() {
@@ -128,68 +90,79 @@ function initMeetUpload() {
 			//上传按钮点击事件 - 开始上传
 			PostInit: function(up) {
 				$("#savemeet").click(function(){
-					//$("#savemeet").addClass("disabled");
-					var res = getMeetCondition(null,"projectId", "meetingDateStr", 
-							null,"meetingTypeTc", "meetingResult","meetingNotes");
+					$("#savemeet").addClass("disabled");
+					var res = getMeetCondition(null,"projectId", "meetingDateStr", null,"meetingTypeTc", "meetingResult","meetingNotes");
 					if(res == false || res == "false"){
-						//$("#savemeet").removeClass("disabled");
 						up.stop();
+						$("#savemeet").removeClass("disabled");
 						return;
 					}
-					up.settings.multipart_params = res;
 					
-					var file = $("#fileName").val();
+					var file = $("#fileName").val(); //up.files.length
 					if(file.length > 0){
+						up.settings.multipart_params = res;
 						meetuploader.start();
 					}else{
-						saveMeet();
+						sendPostRequestByJsonObj(platformUrl.saveMeetFile,res,function(data){
+							var result = data.result.status;
+							if(result == "ERROR"){ //OK, ERROR
+								$("#savemeet").removeClass("disabled");
+								layer.msg(data.result.message);
+								return;
+							}else{
+								layer.msg("保存成功", {time : 500});
+								var _this = $("#data-table");
+								if(_this == null || _this.length == 0 || _this == undefined){
+									removePop1();
+								}else{
+									$("#data-table").bootstrapTable('refresh');
+									removePop1();
+								}
+							}
+						});
 					}
 					return false;
 				});
 			},
 			
-			//添加上传文件后，把文件名 赋值 给 input
 			FilesAdded: function(up, files) {
-				//解决多次文件选择后，文件都存入upload
 				if(meetuploader.files.length >= 2){
-					meetuploader.splice(0, meetuploader.files.length-1)
+					meetuploader.splice(0, meetuploader.files.length-1)  //解决多次文件选择后，文件都存入upload
 				}
 				plupload.each(files, function(file) {
-					/*document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';*/
 					$("#fileName").val(file.name);
 				});
 			},
 			
-			//上传进度
 			UploadProgress: function(up, file) {
 			},
 			
-			//文件上传后， 返回值  赋值,  再ajax 保存入库
-			FileUploaded: function(up, files, rtn) {
+			
+			FileUploaded: function(up, files, rtn) {  //文件上传后回掉
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
-					//$("#savemeet").removeClass("disabled");
+					$("#savemeet").removeClass("disabled");
+					$("#fileName").val("");
+					meetuploader.splice(0, meetuploader.files.length)
 					layer.msg(response.result.message);
 					return;
-				}
-				layer.msg("保存成功", {
-					time : 500
-				});
-				var _this = $("#data-table");
-				if(_this == null || _this.length == 0 || _this == undefined){
-					removePop1();
 				}else{
-					$("#data-table").bootstrapTable('refresh');
-					removePop1();
+					layer.msg("保存成功", {time : 500});
+					var _this = $("#data-table");
+					if(_this == null || _this.length == 0 || _this == undefined){
+						removePop1();
+					}else{
+						$("#data-table").bootstrapTable('refresh');
+						removePop1();
+					}
 				}
-				//location.reload(true);
 			},
 			BeforeUpload:function(up){
 			},
 			Error: function(up, err) {
+				$("#savemeet").removeClass("disabled");
 				layer.msg(err.message);
-				//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
 			}
 		}
 	});
@@ -199,5 +172,37 @@ function initMeetUpload() {
 
 
 
+
+
+
+//保存记录
+function saveMeet(){
+	var	condition = getMeetCondition(null,"projectId", "meetingDateStr", 
+			null,"meetingTypeTc", "meetingResult","meetingNotes");
+	if(condition == false || condition == "false"){
+		//$("#savemeet").removeClass("disabled");
+		return;
+	}
+	sendPostRequestByJsonObj(platformUrl.saveMeet,condition,saveMeetCallBack);
+}
+
+//保存成功回调
+function saveMeetCallBack(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		$("#savemeet").removeClass("disabled");
+		layer.msg(data.result.message);
+		return;
+	}
+	layer.msg("保存成功", {time : 500});
+	var _this = $("#data-table");
+	if(_this == null || _this.length == 0 || _this == undefined){
+		removePop1();
+	}else{
+		$("#data-table").bootstrapTable('refresh');
+		removePop1();
+	}
+	//location.reload(true);
+}
 
 
