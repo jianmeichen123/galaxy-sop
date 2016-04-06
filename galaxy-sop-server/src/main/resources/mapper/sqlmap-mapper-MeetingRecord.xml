@@ -23,23 +23,27 @@
 		<where>
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
-			 
-			  <if test="fileId != null" >and file_id = #{fileId,jdbcType=BIGINT} </if>
-		      <if test="meetingDate != null" >and meeting_date = #{meetingDate,jdbcType=TIMESTAMP} </if>
-		      <if test="meetingType != null" >and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
-		      <if test="meetingResult != null" >and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
-		      <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
-		      <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			  
-			   <if test="startTime != null"> <![CDATA[  and meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
-			   <if test="endTime != null"> <![CDATA[ and meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
-			   <if test="proIdList != null">
+			  <if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+			  
+			  <if test="proIdList != null">
 					and project_id in
 					<foreach collection="proIdList" index="item" item="item" open="(" separator="," close=")" >
 						#{item}
 					</foreach>
 			   </if>
-			   <if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+			  <if test="fileId != null" >and file_id = #{fileId,jdbcType=BIGINT} </if>
+			  
+		      <if test="meetingDate != null" >and meeting_date = #{meetingDate,jdbcType=TIMESTAMP} </if>
+		      <if test="startTime != null"> <![CDATA[  and meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			   <if test="endTime != null"> <![CDATA[ and meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			   
+			   <if test="meetingType != null" >and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+			   
+		      <if test="meetingResult != null" >and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+		      <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
+		      <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
+			  
 		  </trim>
 		</where>
 		<!-- <if test="sorting != null">order by ${sorting}</if> -->
