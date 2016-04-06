@@ -34,10 +34,6 @@ public class ProjectBo extends Project {
 	
 	private String ascOrDes;//加入的是升降序  desc asc
 	
-	private String flagkeyword;
-	
-	
-	
 	
 	public String getrComplany() {
 		return rComplany;
@@ -151,16 +147,6 @@ public class ProjectBo extends Project {
 		this.resultCloseFilter = resultCloseFilter;
 	}
 
-	public String getFlagkeyword() {
-		return flagkeyword;
-	}
-
-	public void setFlagkeyword(String flagkeyword) {
-		this.flagkeyword = flagkeyword;
-	}
-
-
-	
 	
   
 }
