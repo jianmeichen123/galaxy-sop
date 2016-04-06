@@ -91,7 +91,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	// 如果查询条件部位空的时候，现根据项目名称或者投资经理去查询该项目的任务列表
 		if (sopTaskBo.getKeyword() != null && !"".equals(sopTaskBo.getKeyword())) {
 			projectBo.setKeyword(sopTaskBo.getKeyword());
-			projectBo.setConcatcode("concatcode");
+			projectBo.setFlagkeyword("concatcode");
 			// 查询该项目投资经理或者项目名称查询相应的项目
 			projectList = projectDao.selectProjectByMap(projectBo);
 			if(!projectList.isEmpty()){
