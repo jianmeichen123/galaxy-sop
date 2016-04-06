@@ -45,8 +45,8 @@
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
 			  <if test="projectName != null" > and project_name = #{projectName,jdbcType=VARCHAR} </if>
-			  <if test="nameCodeLike != null and nameCodeLike !=''" > and (project_name like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%") or project_code like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%")) </if>
-			  <if test="nameOnlyLike != null and nameOnlyLike !=''" > and project_name like concat("%",#{nameOnlyLike,jdbcType=VARCHAR},"%") </if>
+			 <!--   <if test="nameCodeLike != null and nameCodeLike !=''" > and (project_name like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%") or project_code like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%")) </if>-->
+			 <!--  <if test="nameOnlyLike != null and nameOnlyLike !=''" > and project_name like concat("%",#{nameOnlyLike,jdbcType=VARCHAR},"%") </if> -->
 		      <if test="projectCode != null" > and project_code = #{projectCode,jdbcType=VARCHAR} </if>
 		      <if test="projectType != null" > and project_type = #{projectType,jdbcType=VARCHAR} </if>
 		      <if test="stockTransfer != null" > and stock_transfer = #{stockTransfer,jdbcType=INTEGER} </if>
@@ -79,9 +79,31 @@
 						#{item}
 					</foreach>
 				</if>
-				<!-- 模糊查询 -->
+									<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
-				<if test="nameLike != null">and (project_name like CONCAT("%",#{nameLike},"%") or create_uname like CONCAT("%",#{nameLike},"%"))</if>
+				<if test="keyword != null and  flagkeyword=='concatcode' ">
+					and (project_name like CONCAT("%",#{keyword},"%")
+					<if test="escapeChar ">
+						escape '/'
+					</if>
+					or create_uname like CONCAT("%",#{keyword},"%")
+					<if test="escapeChar ">
+						escape '/'
+					</if>
+					)
+				</if>
+				<if test="keyword != null and flagkeyword==null">
+					and (project_name like CONCAT("%",#{keyword},"%")
+					<if test="escapeChar ">
+						escape '/'
+					</if>
+					or project_code like CONCAT("%",#{keyword},"%")
+					<if test="escapeChar ">
+						escape '/'
+					</if>
+					)
+				</if>
+				
 				<!--根据计划额度查询  -->
 				<if test="rComplany != null"> 
 					<if test="aComplany != null">
@@ -91,6 +113,7 @@
 						and project_contribution  &lt; #{bComplany,jdbcType=DECIMAL} 
 					</if>								 												
 				</if>
+				
 				<!-- 过滤已关闭项目 -->
 				<if test="resultCloseFilter != null">
 					AND project_status !=  #{resultCloseFilter,jdbcType=VARCHAR}

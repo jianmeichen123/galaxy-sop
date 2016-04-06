@@ -89,8 +89,9 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		List<Project> projectList = new ArrayList<Project>();
 		Page<SopTask> selectListSopTask =new Page<>(null, pageable, null);
 	// 如果查询条件部位空的时候，现根据项目名称或者投资经理去查询该项目的任务列表
-		if (sopTaskBo.getNameLike() != null && !"".equals(sopTaskBo.getNameLike())) {
-			projectBo.setNameLike(sopTaskBo.getNameLike());
+		if (sopTaskBo.getKeyword() != null && !"".equals(sopTaskBo.getKeyword())) {
+			projectBo.setKeyword(sopTaskBo.getKeyword());
+			projectBo.setConcatcode("concatcode");
 			// 查询该项目投资经理或者项目名称查询相应的项目
 			projectList = projectDao.selectProjectByMap(projectBo);
 			if(!projectList.isEmpty()){
