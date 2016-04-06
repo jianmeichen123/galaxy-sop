@@ -73,7 +73,7 @@
             <dl class="fmdl fmdll clearfix">
               <dt></dt>
               <dd>
-                <input type="text" class="txt s_txt" placeholder="请输入项目名称或项目编码"  id="proNameCode" name="proNameCode"/>
+                <input type="text" class="txt s_txt" placeholder="请输入项目名称或项目编码"  id="keyword" name="keyword" maxlength="100"/>  <!-- proNameCode -->
               </dd>
               <dd>
                <a href="javascript:;" class="bluebtn ico cx" action="querySearch">查询</a>

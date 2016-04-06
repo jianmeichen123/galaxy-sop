@@ -1,32 +1,26 @@
 package com.galaxyinternet.project.service;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.bo.project.InterviewRecordBo;
-import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.InterviewRecordDao;
+import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.exception.BusinessException;
-import com.galaxyinternet.framework.core.file.OSSHelper;
-import com.galaxyinternet.framework.core.file.UploadFileResult;
-import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
-import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.project.InterviewRecord;
-import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.service.InterviewRecordService;
-import com.galaxyinternet.service.MeetingRecordService;
 
 
 @Service("com.galaxyinternet.service.InterviewRecordService")
@@ -37,6 +31,10 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	
 	@Autowired
 	private SopFileDao sopFileDao;
+	
+	
+	@Autowired
+	private ProjectDao projectDao;
 	
 	
 	@Override
@@ -90,6 +88,64 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		return viewPage;
 	}
 
+	
+	// 项目tab查询     projectId
+	// 列表查询， uid;  project_name\project_code ~ keyword  ||  startTime;  endTime; 
+	@Override
+	public Page<InterviewRecordBo> queryInterviewPage(InterviewRecordBo query, Pageable pageable) {
+		Page<InterviewRecordBo> viewPage = null;
+		List<InterviewRecordBo> viewBoList = null;
+		List<InterviewRecord> viewList = null;
+		Long total = null;
+		Map<Long,String> proIdNameMap = new HashMap<Long,String>();
+		
+		if(query.getProjectId()!=null){   // 项目tab查询
+			viewList = interviewRecordDao.selectList(query, pageable);
+			total = interviewRecordDao.selectCount(query);
+		}else{    //列表查询_个人创建
+			Project  proQ = new Project();
+			proQ.setCreateUid(query.getUid());
+			proQ.setKeyword(query.getKeyword());
+			List<Project> proList = projectDao.selectList(proQ);
+			
+			//获取 projectId List
+			if(proList!=null&&!proList.isEmpty()){
+				List<Long> proIdList = new ArrayList<Long>();
+				for(Project apro : proList){
+					proIdList.add(apro.getId());
+					proIdNameMap.put(apro.getId(), apro.getProjectName());
+				}
+				//查询列表  
+				query.setProIdList(proIdList);
+				viewList = interviewRecordDao.selectList(query, pageable);
+				total = interviewRecordDao.selectCount(query);
+			}
+		}
+		
+		if(viewList!=null&&!viewList.isEmpty()){
+			viewBoList = new ArrayList<InterviewRecordBo>();
+			for(InterviewRecord ib : viewList){
+				InterviewRecordBo bo = new InterviewRecordBo();
+				bo.setProjectId(ib.getProjectId());
+				bo.setProName(proIdNameMap.get(ib.getProjectId()));
+				bo.setViewDateStr(ib.getViewDateStr());
+				bo.setViewTarget(ib.getViewTarget());
+				bo.setViewNotes(ib.getViewNotes());
+				if(ib.getFileId()!=null){
+					SopFile file  = sopFileDao.selectById(ib.getFileId());
+					if(file!=null){
+						bo.setFileId(ib.getFileId());
+						bo.setFname(file.getFileName());
+						bo.setFkey(file.getFileKey());
+					}
+				}
+				viewBoList.add(bo);
+			}
+			viewPage = new Page<InterviewRecordBo>(viewBoList, pageable, total);
+		}
+		
+		return viewPage;
+	}
 
 
 	
