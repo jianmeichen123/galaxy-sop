@@ -142,6 +142,8 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				viewBoList.add(bo);
 			}
 			viewPage = new Page<InterviewRecordBo>(viewBoList, pageable, total);
+		}else{
+			viewPage = new Page<InterviewRecordBo>(new ArrayList<InterviewRecordBo>() , pageable, 0l);
 		}
 		
 		return viewPage;

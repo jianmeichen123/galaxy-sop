@@ -300,6 +300,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				meetBoList.add(bo);
 			}
 			meetPage = new Page<MeetingRecordBo>(meetBoList, pageable, total);
+		}else{
+			meetPage = new Page<MeetingRecordBo>(new ArrayList<MeetingRecordBo>(), pageable, 0l);
 		}
 		
 		return meetPage;
