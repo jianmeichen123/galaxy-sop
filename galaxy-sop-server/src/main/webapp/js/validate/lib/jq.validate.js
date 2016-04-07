@@ -185,8 +185,8 @@ function beforeSubmit() {
 			if($.trim($(n).html())!='') {
 				if (!($(n).html()!=''&&$.Validator.match({
 					data : $.trim($(n).html()),
-					rule : $(this).attr('valType'),
-					regString : $(this).attr('regString')
+					rule : $(n).attr('valType'),
+					regString : $(n).attr('regString')
 				}))) {
 					$(n).poshytip('show');
 					flag = false;
