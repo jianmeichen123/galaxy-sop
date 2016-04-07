@@ -141,10 +141,10 @@ $(function(){
 	});
 	
 });
-var table = document.getElementById("data-table");//获取第一个表格  
+/* var table = document.getElementById("data-table");//获取第一个表格  
 
 var child = table.getElementsByTagName("tr")[2];
-child.style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;";
+child.style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"; */
 </script>
 </body>
 
