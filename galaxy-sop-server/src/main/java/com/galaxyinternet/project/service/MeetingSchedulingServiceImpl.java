@@ -1,7 +1,10 @@
 package com.galaxyinternet.project.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -53,6 +56,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 			 }
 			 
 		 }
+		 projectIdList = removeDuplicateWithOrder(projectIdList);
 		 List<Project> projectList = projectService.queryListById(projectIdList);
 		 List<Department> depList = deptService.queryAll();
 		
@@ -81,6 +85,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 				 }
 				 
 			 }
+		 projectIdList = removeDuplicateWithOrder(projectIdList);
 		 List<Project> projectList = projectService.queryListById(projectIdList);
 		 List<Department> depList = deptService.queryAll();
 		 for (MeetingSchedulingBo meeting : meetingList) {
@@ -125,17 +130,21 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 		
 		 List<Project> projectList = new ArrayList<Project>();
 		 List<Department> depList = deptService.queryAll();
-		 Page<MeetingScheduling> page = meetingSchedulingDao.selectPageList(query, pageable);
-		 List<MeetingScheduling> content = page.getContent();
+		 Page<MeetingScheduling> page = null;
+		 List<MeetingScheduling> content = null;
 		 if (query.getFilterName() == null) {
 			 List <Long> projectIdList = new ArrayList<Long> ();
+			 page = meetingSchedulingDao.selectPageList(query, pageable);
+			 content = page.getContent();
 			 for (MeetingScheduling meeting:content ) {
 				 if (meeting.getProjectId() != null) {
 					 projectIdList.add(meeting.getProjectId());
 				 }
 				 
 			 }
+			 projectIdList = removeDuplicateWithOrder(projectIdList);
 			 projectList = projectService.queryListById(projectIdList);
+			 
 		 } else if (query.getFilterName().equals("deptId")) {
 			 Project project = new Project();
 			 project.setDeptIdList(query.getDeptIdList());
@@ -149,7 +158,8 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 				 projectIdList.add(temp.getId());
 			 }
 			 query.setProjectIdList(projectIdList);
-			 
+			 page = meetingSchedulingDao.selectPageList(query, pageable);
+			 content = page.getContent();
 		 } 
 		  
 		 
@@ -188,4 +198,17 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 		 
 		 return deptName;
 	}
+	//去重
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	private   List<Long> removeDuplicateWithOrder(List<Long> list) { 
+        Set set = new HashSet(); 
+        List<Long> newList = new ArrayList<Long>(); 
+        for (Iterator iter = list.iterator(); iter.hasNext();) { 
+            Long element = (Long) iter.next(); 
+            if (set.add(element)) 
+                newList.add(element); 
+        } 
+        return newList; 
+    }
+	
 }
