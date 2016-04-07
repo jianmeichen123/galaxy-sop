@@ -332,4 +332,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return summary;
 	}
 
+	@Override
+	public List<Project> queryListById(List<Long> idList) {
+		return projectDao.selectListById(idList);
+	}
+
 }
