@@ -363,4 +363,13 @@
 		group by project_progress
 	</select>
 	
+	<select id="selectListById" resultMap="BaseResultMap" >
+		select id,project_name from sop_project
+		    where project_departId in
+					<foreach collection="list" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+	</select>
+	
 </mapper>
