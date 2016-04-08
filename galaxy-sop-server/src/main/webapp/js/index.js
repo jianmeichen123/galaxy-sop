@@ -50,6 +50,16 @@
 				var tr = " <tr><td>"+(index+1)+"</td><td>"+longTimeFormatChines(item.createdTime)+"</td> <td>"+item.operator+"</td><td>"+item.content+"</td></tr>"
 				news_table.append(tr);
 			})
+			if (content.length==0) {
+				var noData =
+					'<tr>'+
+					 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+					' </tr>'; 			
+				news_table.append(noData);
+		   }
+			if(content.length<3){
+				news_table.parent().parent().siblings().children('.more').css("display","none");
+			};
 		}
 	}
 	
