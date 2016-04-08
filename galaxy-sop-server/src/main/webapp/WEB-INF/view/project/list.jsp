@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
@@ -944,14 +945,18 @@
 									$tr.append('<td>'+this.updatedDate+'</td>') ;
 								}else{
 									$tr.append('<td>未知</td>');
-									$tr.append('<td></td>') ;
+									$tr.append('<td>无</td>') ;
 								}	
-								$tr.append('<td>'+this.fileStatusDesc+'</td>') ;
+								$tr.append('<td>'+this.fileStatusDesc+'</td>');
 								if(this.fileWorktype == 'fileWorktype:6'){
+									var e6 ="downloadTemplate('"+this.fileWorktype+"');";
+									$tr.append('<td><a class="blue" href="javascript:void(0);" onclick="'+e6+'">下载</a></td>');
 									if(this.fileKey == null){	
 										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">上传</a></td>');
+										$tr.append('<td>无</td>');
 									}else{
-										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>');	
 									}
 									if(this.voucherFileKey == null){	
 										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,1);" class="blue">上传</a></td>');
@@ -959,10 +964,13 @@
 										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 									}
 								}else if(this.fileWorktype == 'fileWorktype:7'){
-									
+									var e7 ="downloadTemplate('"+this.fileWorktype+"');";
+									$tr.append('<td><a class="blue" href="javascript:void(0);" onclick="'+e7+'">下载</a></td>');
 									if(this.fileKey == null){	
 										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,0);" class="blue">上传</a></td>');
+										$tr.append('<td>无</td>');
 									}else{
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
 										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	
