@@ -4,7 +4,7 @@ var Constants = {
 }
 var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
 //var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
-//var sopContentUrl = "http://127.0.0.1:8082/";
+//var sopContentUrl = "http://127.0.0.1:8888/sop/";
 //var sopContentUrl = "http://fx.galaxyinternet.com/sop";
 
 var platformUrl = {
@@ -382,7 +382,23 @@ var platformUrl = {
 	/**
 	 * 档案管理发送邮
 	 */
-	fileSendEmail:sopContentUrl + "/galaxy/sopFile/sendMail"
+	fileSendEmail:sopContentUrl + "/galaxy/sopFile/sendMail",
+	
+	/**
+	 * 排期池中是否存在
+	 */
+	checkHasPool:sopContentUrl + "/galaxy/project/checkHasPool",
+	/**
+	 * 是否存在通过的会议
+	 */
+	checkPassMeet:sopContentUrl + "/galaxy/project/checkPassMeet",
+	
+	/**
+	 * 是否存在通过的会议
+	 */
+	checkCanUse:sopContentUrl + "/galaxy/project/checkCanUse"
+	
+	
 }
 
 /**

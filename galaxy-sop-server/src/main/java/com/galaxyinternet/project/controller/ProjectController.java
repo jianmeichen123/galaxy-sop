@@ -1285,6 +1285,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		public ResponseData<MeetingRecord> checkCanUse(HttpServletRequest request, Integer index,Long projectId,String projectType) {
 			ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
 			try{
+				if(index == null || projectId ==null ){
+					responseBody.setResult(new Result(Status.ERROR,null, "入参失败"));
+					return responseBody;
+				}
 				if(index == 1){   //访谈纪要判断
 					InterviewRecord view = new InterviewRecord();
 					view.setProjectId(projectId);
@@ -1322,6 +1326,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						responseBody.setResult(new Result(Status.OK,null,false)); 
 					}			
 				}else if(index == 6){  //尽调阶段，文档齐全后， 申请投决会排期按钮 可用
+					if(projectType == null){
+						responseBody.setResult(new Result(Status.ERROR,null, "入参失败"));
+						return responseBody;
+					}
 					//验证文档是否齐全
 					SopFile file = new SopFile();
 					file.setProjectId(projectId);
