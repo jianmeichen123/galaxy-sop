@@ -154,13 +154,16 @@
 	
 	//全局变量
 	var hasClosed=false;
-	/**
+	var canUseBut = false;
+	
+	/*
 	 * 查看项目阶段详情的弹出层
 	 */
 	 var alertid="";
 		function info(id){
 			alertid=id;
 		var _url='<%=path%>/galaxy/ips';
+		
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
@@ -187,6 +190,10 @@
 					var progress = data.entity.projectProgress;
 					progress = progress.replace(":","_");
 					var index = progress.substr(progress.length-1,1);
+
+					if(index == 1 || index == 3 || index == 4 || index == 6 || index == 7 ){
+						checkCanUse(index,data.entity.id,data.entity.projectType);
+					}
 					
 					for(var i = 1; i<10; i++){
 						if(i > index){
@@ -196,6 +203,9 @@
 						if(i == 1){
 							if(hasClosed){
 								$("#options_point1").remove();
+							}
+							if(!canUseBut){
+								$("#qdnbps").remove();
 							}
 							tiggerTable($("#" + progress + "_table"),3);
 						}
@@ -208,10 +218,16 @@
 							if(hasClosed){
 								$("#options_point3").remove();
 							}
+							if(!canUseBut){
+								$("#lxhpq").remove();
+							}
 						}
 						if(i == 4){
 							if(hasClosed){
 								$("#options_point4").remove();
+							}
+							if(!canUseBut){
+								$("#reset_btn").remove();
 							}
 						}
 						if(i == 5){
@@ -221,11 +237,17 @@
 							if(hasClosed){
 								$("#jzdc_options").remove();
 							}
+							if(!canUseBut){
+								$("#tjhsqBut").remove();
+							}
 							jzdc();
 						}
 						if(i == 7){
 							if(hasClosed){
 								$("#options_point7").remove();
+							}
+							if(!canUseBut){
+								$("#inSure_btn").remove();
 							}
 						}
 						if(i == 8){
@@ -238,14 +260,13 @@
 							gqjg();
 						}
 						
-						
 						//为Tab添加点击事件，用于重新刷新
 						$("#projectProgress_" + i).on("click",function(){
 							var id = $(this).attr("id");
 							var indexNum = id.substr(id.length-1,1);
 							console.log("indexNum:"+indexNum);
 							if(indexNum == '1'){
-								if(parseInt(indexNum) < parseInt(pNum)){
+								if(parseInt(indexNum) < parseInt(pNum) || !canUseBut){
 									$("#qdnbps").remove();
 								}
 							    $("#projectProgress_1_con").css("display","block");
@@ -257,7 +278,7 @@
 									$("#options_point2").remove();
 								}
 							}else if(indexNum == '3'){
-								if(parseInt(indexNum) < parseInt(pNum)){
+								if(parseInt(indexNum) < parseInt(pNum) || !canUseBut){
 									$("#lxhpq").remove();
 								}
 								$("#projectProgress_3_con").css("display","block");
@@ -268,7 +289,7 @@
 								
 							} else if(indexNum == '4'){
 								$("#projectProgress_4_con").css("display","block");
-								if(parseInt(indexNum) < parseInt(pNum)){
+								if(parseInt(indexNum) < parseInt(pNum) || !canUseBut){
 									$("#reset_btn").css("display","none");
 								}
 							    tiggerTable($("#projectProgress_4_table"),3);
@@ -288,13 +309,16 @@
 								$("#projectProgress_5_con").css("display","none");
 								 $("#projectProgress_6_con").css("display","block");
 								 tiggerTable($("#projectProgress_6_table"),3);
+								 
 								 if(parseInt(indexNum) < parseInt(pNum)){
 									 $("#jzdc_options").remove();
-								 }
+								 }else if(!canUseBut){
+									$("#tjhsqBut").remove();
+								}
 							}else if(indexNum == '7'){
 								$("#projectProgress_6_con").css("display","none");
 								$("#projectProgress_7_con").css("display","block");
-								if(parseInt(indexNum) < parseInt(pNum)){
+								if(parseInt(indexNum) < parseInt(pNum) || !canUseBut){
 									$("#inSure_btn").css("display","none");
 								}
 								 tiggerTable($("#projectProgress_7_table"),3);
@@ -337,15 +361,33 @@
 					$("#" + progress + "_con").css("display","block");
 					
 					
-					
-					
-					
-					
 				},null);
 			}
 		});
 		return false;
 	}
+		
+	function checkCanUse(index,projectId,projectType){
+		var condition = {};
+		condition["index"] = index ;
+		condition["projectId"] = projectId ;
+		condition["projectType"] = projectType;
+		
+		sendGetRequest(platformUrl.checkCanUse,condition,function(data){
+			var result = data.result.status;
+			if(result == "OK"){ //OK, ERROR
+				canUseBut = data.result.message;
+				if(canUseBut == true || canUseBut == "true"){
+					canUseBut == true;
+				}else{
+					canUseBut == false;
+				}
+				return;
+			}
+		});
+	}
+	
+		
 	/**
 	 * 上传接触访谈纪要弹出层
 	 */

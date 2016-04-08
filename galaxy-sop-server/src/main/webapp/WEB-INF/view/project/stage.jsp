@@ -344,7 +344,7 @@
 				<!--按钮-->
 				<div id="jzdc_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn">上传业务尽职调查报告</a>
-					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn">申请投决会排期</a>
+					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn" id="tjhsqBut">申请投决会排期</a>
 				</div>
 				<div class="process clearfix">
 					<h2>业务尽调报告审核流程</h2>
