@@ -1,33 +1,35 @@
 $(function(){
 	//拦截form,在form提交前进行验证
     $('form').bind('submit',beforeSubmit);
-	
 	//为带有valType属性的元素初始化提示信息并注册onblur事件
 	$.each($("[valType]"),function(i, n) {
 		$(n).poshytip({
-				className: 'tip-yellowsimple',
-				content: $(n).attr('msg'),
-				showOn: 'none',
-				alignTo: 'target',
-				alignX: 'right',
-				alignY: 'center',
-				offsetX: 5,
-				offsetY: 10
-			});
+			className: 'tip-yellowsimple',
+			content: $(n).attr('msg'),
+			showOn: 'none',
+			alignTo: 'target',
+			alignX: 'right',
+			alignY: 'center',
+			offsetX: 5,
+			offsetY: 10
+		});
 		$(n).bind('blur',validateBefore);
 	});
 	
-	//定义一个验证器
+	//定义一个验证器对象
 	$.Validator=function(para) {
-		
-	
 	}
-
 	$.Validator.ajaxValidate=function() {
 		beforeSubmit();
 	}
 	
-	//验证的方法
+	/**
+	 * 执行正则匹配
+	 * para为一个对象参数{data[被验证的值]\rule[验证的类型]\regString[验证的格式]}
+	 * rule="OTHER":表示自定义正则格式,regString为正则表达式
+	 * rule="MAXBYTE":regString为允许的最大字节数,data的字节数是否超过regString
+	 * 其他情况regString无效，使用默认defaultVal的正则规则,比如：rule="NUMBER\TEL\..."
+	 */
 	$.Validator.match=function(para) {
 		//定义默认的验证规则
 		var defaultVal = {
@@ -47,38 +49,42 @@ $(function(){
 		if(para.rule=='OTHER') {//自定义的验证规则匹配
 			flag=new RegExp(para.regString).test(para.data);
 		}else if(para.rule=='MAXBYTE'){
-				var len = 0;
-				for (var i = 0; i < para.data.length; i++) {
-					if (para.data.charCodeAt(i) >= 0x4e00 && para.data.charCodeAt(i) <= 0x9fa5){ 
-						len += 2;
-					}else {
-						len++;
-					}
+			var len = 0;
+			for (var i = 0; i < para.data.length; i++) {
+				if (para.data.charCodeAt(i) >= 0x4e00 && para.data.charCodeAt(i) <= 0x9fa5){ 
+					len += 2;
+				}else {
+					len++;
 				}
-				if(len<parseInt(para.regString)){
-					flag = true;
-				}
+			}
+			if(len<parseInt(para.regString)){
+				flag = true;
+			}
 		}else {
 			if(para.rule in defaultVal) {//默认的验证规则匹配
-			flag=new RegExp(defaultVal[para.rule]).test(para.data);
+				flag=new RegExp(defaultVal[para.rule]).test(para.data);
 			}
 		}
-		
 		return flag;
 	}
-
-	
-	
 	//为jquery扩展一个doValidate方法，对所有带有valType的元素进行表单验证，可用于ajax提交前自动对表单进行验证
 	$.extend({
 		doValidate: function() {
 			return $.Validator.ajaxValidate();
 		}
 	});
+});
 
-   });
-
-//输入框焦点离开后对文本框的内容进行格式验证
+/**
+ * 输入框焦点离开后对文本框的内容进行格式验证
+ * 所有表单元素可允许设置的属性详解如下{
+ * 	   valType:验证类型
+ *     regString:
+ *     msg:验证不通过时的提示信息
+ *     allowNULL:允许为空且不为空时再对输入值进行验证
+ * }
+ * textarea都是可以为空的，且当不为空时才去验证
+ */
 function validateBefore() {
 	//验证通过标识
 	var flag=true;
@@ -88,124 +94,97 @@ function validateBefore() {
 	var msg=$(this).attr('msg');
 	//自定义的验证字符串
 	var regString;
-	if(valType=='OTHER') {//如果类型是自定义，则获取自定义的验证字符串
-		regString=$(this).attr('regString');
-		flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType'), regString:$(this).attr('regString')});
-	}
-	else {//如果类型不是自定义，则匹配默认的验证规则进行验证
-		if($(this).attr('valType')=='required') {//不能为空的判断
-			if($(this).val()=='') {
-				flag=false;
-			}
-		}else if($(this).attr('valType')=='requiredDiv'){
-			if($(this).text()!='') {
-				if(!($(this).text()!=''&&$.Validator.match({data:$(this).text(), rule:'OTHER', regString:$(this).attr('regString')}))) {
-				flag=false;
-			    }
-		   }
+	if(valType=='required') {//不能为空的判断
+		if($(this).val()=='') {
+			flag=false;
 		}
-		else if($(this).attr("valType")=='MAXBYTE') {//对自定义的文本框进行验证
-			if($.trim($(this).html())!='') {
-				if (!($(this).html()!=''&&$.Validator.match({
-					data : $.trim($(this).html()),
-					rule : $(this).attr('valType'),
-					regString : $(this).attr('regString')
-				}))) {
-					$(this).poshytip('show');
-					flag = false;
-				}
+	} else if(valType=='requiredDiv'){
+		console.log("validate textarea:" + $(this));
+		if($(this).text()!='') {
+			if(!($(this).text()!=''&&$.Validator.match({data:$(this).text(), rule:'OTHER', regString:$(this).attr('regString')}))) {
+				flag=false;
+		    }
+	   }
+	} else if(valType=='MAXBYTE') {
+		if($.trim($(this).html())!='') {
+			if (!($(this).html()!=''&&$.Validator.match({
+				data : $.trim($(n).html()),
+				rule : $(this).attr('valType'),
+				regString : $(this).attr('regString')
+			}))) {
+				$(this).poshytip('show');
+				flag = false;
 			}
 		}
-		else {//已定义规则的判断
-			if($(this).attr("isNULL") =='yes'){//可以为空
-				if($(this).val()!=''){
-					if(!$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')})) {
-						flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')});
-					}
-				}
-				
-			}else{
+	} else{
+		if($(this).attr("allowNULL") =='yes' && $(this).val() == ''){
+			//允许为空且未输入值,放行
+		}else{
+			if(valType=='OTHER'){//如果类型是自定义，则获取自定义的验证字符串
+				regString=$(this).attr('regString');
+				flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:valType, regString:$(this).attr('regString')});
+			} else {
 				if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')}))) {
 					flag=$(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')});
 				}
 			}
 		}
-	}
+	}  
 	//先清除原来的tips
 	$(this).poshytip('hide');
 	//如果验证没有通过，显示tips
 	if(!flag) {
-			$(this).poshytip('show');
+		$(this).poshytip('show');
 	}
 	
 }
-var result=false;
+
 //submit之前对所有表单进行验证
 function beforeSubmit() {
 	var flag=true;
-	//alert($("[valType]").length);
 	 $.each($("[valType]"),function(i, n) {
 		 //清除可能已有的提示信息
 		 $(n).poshytip('hide');
 		 if($(n).attr("valType")=='required') {//对不能为空的文本框进行验证
 			if($(n).val()=='') {
-			//显示tips			
-			$(n).poshytip('show');
-			flag=false;
-		}
-		//if(n.id=="projectName"){
-		//	var obj=$(n).id;
-		//	var json = {};
-		//	json = {"projectName":$(n).val()};
-		//	sendPostRequestByJsonObj(platformUrl.checkProject,json,callbackcheckProject);
-		//	if(result){
-		//		//$("#projectName").removeAttr("msg");
-		//		$("#projectName").attr("msg","<font color=red>*</font>存在重复项目名，请重新输入");
-		//		$(n).poshytip('show');
-		//		flag=false;
-		//	}
-			
-	//	}
-	}else if($(n).attr("valType")=='requiredDiv'){
-			if($(n).text()!='') {
-					if(!($(n).text()!=''&&$.Validator.match({data:$(n).text(), rule:'OTHER', regString:$(n).attr('regString')}))) {
+				//显示tips			
+				$(n).poshytip('show');
+				flag=false;
+			}
+		 } else if($(n).attr("valType")=='requiredDiv'){//html元素的文本值是否为空
+			 console.log("validate textarea:" + $(this));
+			 if($(n).text()!='') {
+				if(!($(n).text()!=''&&$.Validator.match({data:$(n).text(), rule:'OTHER', regString:$(n).attr('regString')}))) {
 					//显示tips			
 					$(n).poshytip('show');
 					flag=false;
 				}
-			}
-		}
-		else if($(n).attr("valType")=='OTHER') {//对自定义的文本框进行验证
-			if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType'), regString:$(this).attr('regString')}))) {
-				$(n).poshytip('show');
-				flag=false;
-			}
-		}
-		else if($(n).attr("valType")=='MAXBYTE') {//对自定义的文本框进行验证
+			 }
+		} else if($(n).attr("valType")=='MAXBYTE') {//对自定义的文本框进行验证
 			if($.trim($(n).html())!='') {
 				if (!($(n).html()!=''&&$.Validator.match({
 					data : $.trim($(n).html()),
-					rule : $(n).attr('valType'),
-					regString : $(n).attr('regString')
+					rule : $(this).attr('valType'),
+					regString : $(this).attr('regString')
 				}))) {
 					$(n).poshytip('show');
 					flag = false;
 				}
 			}
-		}
-		else {//对使用已定义规则的文本框进行验证	
-			if($(n).attr("isNULL") =='yes'){//可以为空
-				if($(this).val()!=''){
-					if(!$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')})) {
+		} else{
+			if($(this).attr("allowNULL") =='yes' && $(this).val() == ''){
+				//允许为空且未输入值,放行
+			}else{
+				 if($(n).attr("valType")=='OTHER') {//对自定义的文本框进行验证
+					if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType'), regString:$(this).attr('regString')}))) {
 						$(n).poshytip('show');
 						flag=false;
 					}
-				}
-				
-			}else{
-				if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')}))) {
-					$(n).poshytip('show');
-					flag=false;
+				} else {//对使用已定义规则的文本框进行验证	
+					if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')}))) {
+						$(n).poshytip('show');
+						flag=false;
+					}
 				}
 			}
 		}
@@ -214,16 +193,11 @@ function beforeSubmit() {
 }
 
 
-//下面是测试代码，不属于验证器的功能代码之内
-//用原型的方式来模拟js的类
-function Validators() {
-
-}
-
-Validators.prototype.subByJs=function(e) {
-	if($.doValidate()) {
-		alert('验证通过');
-		//todo
-	}
-}
-
+/**
+ * 1.不能为空
+ * <input id="email" name="email" type="text" valType="required"/>
+ * 2.
+ * <textarea rows="3" cols="20" valType="requiredDiv" msg="<font color=red>*</font>0-100间整数"></textarea>
+ * 3.可以为空，但一单输入值就需要进行验证，这里设置自定义验证
+ * <input id="email" name="email" type="text" allowNULL="yes" valType="OTHER" regString="^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$" msg="<font color=red>*</font>0-100间整数"/>
+ */
