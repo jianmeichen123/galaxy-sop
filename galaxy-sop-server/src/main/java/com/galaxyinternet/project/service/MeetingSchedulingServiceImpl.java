@@ -56,8 +56,13 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 			 }
 			 
 		 }
-		 projectIdList = removeDuplicateWithOrder(projectIdList);
-		 List<Project> projectList = projectService.queryListById(projectIdList);
+		 List<Project> projectList = null;
+		 
+		 if (projectIdList.size() > 0) {
+			 projectIdList = removeDuplicateWithOrder(projectIdList);
+			 projectList = projectService.queryListById(projectIdList);
+		 }
+				
 		 List<Department> depList = deptService.queryAll();
 		
 		 for (MeetingSchedulingBo meeting : meetingList) {
@@ -85,8 +90,12 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 				 }
 				 
 			 }
-		 projectIdList = removeDuplicateWithOrder(projectIdList);
-		 List<Project> projectList = projectService.queryListById(projectIdList);
+		List<Project> projectList = null;
+			 
+			 if (projectIdList.size() > 0) {
+				 projectIdList = removeDuplicateWithOrder(projectIdList);
+				 projectList = projectService.queryListById(projectIdList);
+			 }
 		 List<Department> depList = deptService.queryAll();
 		 for (MeetingSchedulingBo meeting : meetingList) {
 			 for (Project project :projectList)   {
@@ -128,7 +137,7 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 	@Override
 	public Page<MeetingScheduling> queryMeetingPageList(MeetingScheduling query, Pageable pageable) {
 		
-		 List<Project> projectList = new ArrayList<Project>();
+		 List<Project> projectList = null;
 		 List<Department> depList = deptService.queryAll();
 		 Page<MeetingScheduling> page = null;
 		 List<MeetingScheduling> content = null;
@@ -142,8 +151,11 @@ public class MeetingSchedulingServiceImpl extends BaseServiceImpl<MeetingSchedul
 				 }
 				 
 			 }
-			 projectIdList = removeDuplicateWithOrder(projectIdList);
-			 projectList = projectService.queryListById(projectIdList);
+			 
+			 if (projectIdList.size() > 0) {
+				 projectIdList = removeDuplicateWithOrder(projectIdList);
+				 projectList = projectService.queryListById(projectIdList);
+			 }
 			 
 		 } else if (query.getFilterName().equals("deptId")) {
 			 Project project = new Project();
