@@ -61,15 +61,15 @@
                       <td><dl><dt>项目类型：</dt><dd id="projectType"></dd></dl></td>
                   </tr>
                   <tr><td><dl><dt>计划额度：</dt>
-                          <dd><input id="project_contribution" name="formatContribution" type="text" value="" placeholder="计划额度" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/></dd>
+                          <dd><input id="project_contribution" name="formatContribution" type="text" value="" placeholder="计划额度" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/></dd>
                         </dl></td>
                       <td><dl><dt>估值：</dt><dd>
-                      <input type="text" id="project_valuations" name="formatValuations" value="" placeholder="估值" isNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
+                      <input type="text" id="project_valuations" name="formatValuations" value="" placeholder="估值" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
                       </dd></dl></td>
                   </tr>
                   <tr>
                       <td><dl><dt>出让股份：</dt>
-                          <dd><input type="text" id="project_share_ratio" name="formatShareRatio" value="" class="transferSharesTxt" isNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间整数"><span>&nbsp;%</span></dd>
+                          <dd><input type="text" id="project_share_ratio" name="formatShareRatio" value="" class="transferSharesTxt" allowNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间整数"><span>&nbsp;%</span></dd>
                         </dl></td>
                       <td>
                         <dl>
@@ -92,7 +92,7 @@
                       <td>
                         <dl>
                           <dt>组织机构代码：</dt>
-                          <dd><input type="text" value="" class="zzjg_txt" name="projectCompanyCode" id="project_company_code" placeholder="组织机构代码" isNULL="yes" valType="CODE" msg='<font color=red>*</font>由字母或数字或"-"组成'/></dd>
+                          <dd><input type="text" value="" class="zzjg_txt" name="projectCompanyCode" id="project_company_code" placeholder="组织机构代码" allowNULL="yes" valType="CODE" msg='<font color=red>*</font>由字母或数字或"-"组成'/></dd>
                         </dl>
                       </td>
                   </tr>                  
