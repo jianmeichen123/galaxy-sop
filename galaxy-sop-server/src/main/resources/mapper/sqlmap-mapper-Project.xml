@@ -344,7 +344,7 @@
 	</select>
 	
 	<select id="selectListById" resultMap="BaseResultMap" >
-		select id,project_name from sop_project
+		select id,project_name,project_departId,project_careerline from sop_project
 		    where id in
 					<foreach collection="list" index="item" item="item" open="("
 						separator="," close=")">
