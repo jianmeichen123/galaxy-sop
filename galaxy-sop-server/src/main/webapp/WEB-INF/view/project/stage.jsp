@@ -372,9 +372,9 @@
 				<!--按钮-->
 				<div id="tzxy_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 				<div id="stock_transfer_model">
-					<input type="checkbox" id="cbtest" class="input_checkbox" onclick="selected(this);" id="stock_transfer">
-				    <label for="cbtest" class="check-box"></label> 
-					<label for="cbtest" class="check-tit">涉及股权转让</label>
+					<input type="checkbox" checked="checked" class="input_checkbox" onclick="selected(this);" id="stock_transfer">
+				    <label for="stock_transfer" class="check-box"></label> 
+					<label for="stock_transfer" class="check-tit">涉及股权转让</label>
 				</div>
 				</div>
 				<div class="process clearfix">
