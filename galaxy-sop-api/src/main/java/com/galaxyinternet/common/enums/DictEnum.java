@@ -511,7 +511,55 @@ public enum DictEnum {
 		}
 	}
 	
-	
+	public enum TemplateType
+	{
+		TZYXS("投资意向书"			,"templateType:1"),
+		TZXY("投资协议"			,"templateType:2"),
+		YWJD("业务尽职调查清单"		,"templateType:3"),
+		RSJD("人力资源尽职调查清单"		,"templateType:4"),
+		FWJD("法务尽职调查清单"		,"templateType:5"),
+		CWJD("财务尽职调查清单"		,"templateType:6"),
+		GQZR("股权转让协议"			,"templateType:7");
+		private String name;
+		private String code;
+		
+		private TemplateType(String name, String code)
+		{
+			this.name = name;
+			this.code = code;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getCode() {
+			return code;
+		}
+
+		public void setCode(String code) {
+			this.code = code;
+		}
+		
+		public static String getNameByCode(String code) {
+			if (code != null && !code.trim().equals("")) 
+			{
+				TemplateType[] values = TemplateType.values();
+				for (int i = 0; i < values.length; i++) 
+				{
+					if (code.equals(values[i].getCode())) 
+					{
+						return values[i].getName();
+					}
+				}
+			}
+			return null;
+		}
+	}
 
 
 }

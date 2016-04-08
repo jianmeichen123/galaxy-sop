@@ -37,7 +37,7 @@ public class SopTemplate extends BaseEntity {
 		this.worktype = worktype;
 		if(worktype != null)
 		{
-			workTypeDesc = DictEnum.fileWorktype.getNameByCode(worktype);
+			workTypeDesc = DictEnum.TemplateType.getNameByCode(worktype);
 		}
 	}
 	public String getWorkTypeDesc() {
