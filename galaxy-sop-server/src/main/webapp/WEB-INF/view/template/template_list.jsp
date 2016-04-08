@@ -218,7 +218,7 @@ function loadRelatedData()
 				$.each(data.fileType,function(){
 					$("#upload-form [name='docType']").append("<option value='"+this.code+"'>"+this.name+"</option>")
 				});
-				$.each(data.fileWorktype,function(){
+				$.each(data.templateType,function(){
 					$("#upload-form [name='worktype']").append("<option value='"+this.code+"'>"+this.name+"</option>")
 				});
 				$.each(data.department,function(){
@@ -325,7 +325,8 @@ function initUpload(_dialog)
 				});
 				$.each(files, function() {
 					$(_dialog.id).find("input[name='fileName']").val(this.name);
-					
+					var fileType = getFileTypeByName(this.name);
+					$(_dialog.id).find("[name='docType']").val(fileType);
 				});
 			},
 			
