@@ -371,8 +371,11 @@
 			<div class="block" data-tab="con" id="projectProgress_8_con">
 				<!--按钮-->
 				<div id="tzxy_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="downloadTemplate('templateType:2');" class="pubbtn fffbtn llpubbtn">下载投资协议模板</a>
-					<label id="stock_transfer_model"><input type="checkbox" value="1" onclick="selected(this);" id="stock_transfer">涉及股权转让</label>
+				<div id="stock_transfer_model">
+					<input type="checkbox" id="cbtest" class="input_checkbox" onclick="selected(this);" id="stock_transfer">
+				    <label for="cbtest" class="check-box"></label> 
+					<label for="cbtest" class="check-tit">涉及股权转让</label>
+				</div>
 				</div>
 				<div class="process clearfix">
 					<h2>投资协议盖章流程</h2>
@@ -380,14 +383,16 @@
 				</div>
 
 				<!--表格内容-->
-				<table class="fixed_width" width="100%" cellspacing="0" cellpadding="0" id="teamSeheetDataGrid">
+				<table width="100%" cellspacing="0" cellpadding="0" id="teamSeheetDataGrid">
 					<thead>
 						<tr>
 							<th>业务分类</th>
 							<th>存储类型</th>
 							<th>更新日期</th>
 							<th>档案状态</th>
-							<th>上传/查看附件</th>
+							<th>模板下载</th>
+							<th>上传附件</th>
+							<th>查看附件</th>
 							<th>签署凭证</th>
 						</tr>
 					</thead>
