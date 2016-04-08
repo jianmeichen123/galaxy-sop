@@ -118,7 +118,7 @@
 				 i=i+1;
 				 var tr='<tr>'+
 				 '<td>'+i+'</td>'+
-				 '<td class="cutstr">'+ getValue(temp.projectName)+'</td>'+
+				 '<td class="cutstr" title="'+ getValue(temp.projectName)+'">'+ getValue(temp.projectName)+'</td>'+
 				 '<td>'+ getDateValue(temp.meetingDate)+'</td>'+
 				 '<td>'+getIntegerValue(temp.meetingCount)+'</td>'+
 				' </tr>'; 
@@ -150,7 +150,7 @@ cutStr(5,'cutstr');}
 				 i=i+1;
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td class="cutstr">'+ getValue(templ.projectName)+'</td>'+
+					 '<td class="cutstr" title="'+ getValue(templ.projectName)+'">'+ getValue(templ.projectName)+'</td>'+
 					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
 					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
 					' </tr>'; 
