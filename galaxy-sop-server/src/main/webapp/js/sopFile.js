@@ -195,7 +195,7 @@ var fileGrid = {
 		var careerLine = utils.confident($("#searchCareerLine").val(),"all");
 		params.fileType = fileType;
 		params.fileSource = fileSource;
-		params.projectName = projectName;
+		params.keyword = projectName;
 		params.fileWorktype = fileWorktype;
 		params.careerLine = careerLine;
 //		$('#fileGrid').bootstrapTable('refresh',parameters);	
