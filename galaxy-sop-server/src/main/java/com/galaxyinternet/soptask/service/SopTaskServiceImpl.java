@@ -220,7 +220,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			}
 			sopTaskBo.setId(sopTasknew.getId());
 			String longToString = DateUtil.longToString(sopTasknew.getCreatedTime());
-		    int diffHour=dateAdd(sopTasknew.getCreatedTime());
+		    String diffHour=dateAdd(sopTasknew.getCreatedTime());
 			sopTaskBo.setHours(diffHour);
 			sopTaskBo.setTaskDeadlineformat(longToString);//
 			sopTaskBo.setTaskName(sopTasknew.getTaskName()==null?"":sopTasknew.getTaskName());
@@ -363,10 +363,12 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		return taskFlag;
 	}
-	public int dateAdd(Long date){
+	public String dateAdd(Long date){
 		Date convertStringToDate;
 		String convertDateToString="";
 		int diffHour=0;
+		String result="";
+		String hours="";
 		try {
 			Date nowTime = new Date(date);
 			SimpleDateFormat sdFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -375,11 +377,18 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			Date addDate = DateUtil.addDate(convertStringToDate,3);
 			convertDateToString = DateUtil.convertDateToStringForChina(addDate);
 			diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.getCurrentDateTime());
+			result=Integer.toString(diffHour);
+			if(diffHour<0){	
+				hours=result.replace("-", "超时")+"(h)";
+			}else{
+				hours=result;
+			}
+			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
-		return diffHour;
+		return hours;
 	}
 	
 	@Transactional
