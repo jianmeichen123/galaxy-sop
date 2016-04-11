@@ -1,9 +1,12 @@
 package com.galaxyinternet.project.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +22,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.PWDUtils;
 import com.galaxyinternet.model.project.MeetingScheduling;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.MeetingSchedulingService;
+import com.galaxyinternet.service.UserService;
 
 /**
  * 首页查询相关
@@ -41,6 +48,8 @@ public class HomePageSearchController
 			.getLogger(HomePageSearchController.class);
 
 
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private MeetingSchedulingService meetingSchedulingService;
 	@Autowired
@@ -340,6 +349,55 @@ public class HomePageSearchController
 		return responseBody;
 	}
 	
+	
+	/**
+	 * ajax校验密码是否正确
+	 * @author zhaoying
+	 * @param query
+	 * @return
+	 */
+	@RequestMapping(value = "checkPwd")
+	@ResponseBody
+	public Map<String, Object> checkPwd(String password,HttpServletRequest request) {
+		// 当前登录人
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		Map<String, Object> map = new HashMap<String, Object>();
+        boolean flag = false;
+		if (password != null && user != null && user.getPassword() != null) {
+			password = PWDUtils.genernateNewPassword(password);
+
+			if (StringUtils.equals(password, user.getPassword())) {
+				flag = true;
+			} 
+		}
+		map.put("flag", flag);
+		return map;
+	}
+	
+	/**
+	 * 用户修改密码
+	 * @author zhaoying
+	 * @param user
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updatePwd", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<User> updatePwd(@RequestBody User user) {
+		
+		ResponseData<User> responseBody = new ResponseData<User>();
+		try {
+			userService.updatePwd(user);
+			responseBody.setResult(new Result(Status.OK, null, "密码已修改!"));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"密码修改失败!"));
+			if (logger.isErrorEnabled()) {
+				logger.error("updatePwd ", e);
+			}
+		}
+		
+		return responseBody;
+	}
+
 	/**
 	 * 到立项会排期,投诀会
 	 * @return

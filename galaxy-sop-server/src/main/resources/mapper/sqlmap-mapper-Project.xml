@@ -302,9 +302,7 @@
 		      <if test="projectProgress != null" >  project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
 		      <if test="projectStatus != null" >  project_status = #{projectStatus,jdbcType=VARCHAR}, </if>
 		      <if test="updatedTime != null" >  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
-		      <!--
 		      <if test="createdTime != null" >  created_time = #{createdTime,jdbcType=BIGINT}, </if>
-		      -->
 		      <if test="projectDescribe != null" >  project_describe = #{projectDescribe,jdbcType=LONGVARCHAR}, </if>
 		      <if test="projectBusinessModel != null" >  project_business_model = #{projectBusinessModel,jdbcType=LONGVARCHAR}, </if>
 		      <if test="companyLocation != null" >  company_location = #{companyLocation,jdbcType=LONGVARCHAR}, </if>

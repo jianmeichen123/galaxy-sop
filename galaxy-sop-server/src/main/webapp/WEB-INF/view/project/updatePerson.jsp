@@ -16,7 +16,7 @@
       </dl>
        <dl class="fmdl">
         <dt>年龄：</dt>
-        <dd><input type="text" id="personAge" name="personAge" value="${person.personAge }" class="txt" placeholder="年龄" allowNULL="yes" valType="NUMBER" msg="<font color=red>*</font>年龄只能是数字"/></dd>
+        <dd><input type="text" id="personAge" name="formatAgeStr" value="${person.personAge }" class="txt" placeholder="年龄" allowNULL="yes" valType="NUMBER" msg="<font color=red>*</font>年龄只能是数字"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>电话号码：</dt>
@@ -24,7 +24,7 @@
       </dl> 
       <dl class="fmdl">
         <dt>最高学历：</dt>
-        <dd><input type="text" id="highestDegree" name="highestDegree" value="${person.highestDegree }" class="txt" placeholder="最高学历" allowNULL="yes" valType="required" msg="<font color=red>*</font>最高学历不能为空"/></dd>
+        <dd><input type="text" id="highestDegree" name="highestDegree" value="${person.highestDegree }" class="txt" placeholder="最高学历" allowNULL="yes" msg="<font color=red>*</font>最高学历不能为空"/></dd>
       </dl>
     </div>
     <div class="right">
@@ -37,7 +37,7 @@
       </dl>  
       <dl class="fmdl">
         <dt>工龄：</dt>
-        <dd><input type="text" id="workTime" name="workTime" value="${person.workTime }" class="txt" placeholder="工龄" allowNULL="yes" valType="NUMBER" msg="<font color=red>*</font>工龄只能是数字"/></dd>
+        <dd><input type="text" id="workTime" name="formatWorkTime" value="${person.workTime }" class="txt" placeholder="工龄" allowNULL="yes" valType="NUMBER" msg="<font color=red>*</font>工龄只能是数字"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>身份证号码：</dt>
@@ -45,7 +45,7 @@
       </dl>
       <dl class="fmdl">
         <dt>职位：</dt>
-        <dd><input type="text" id="personDuties" name="personDuties" value="${person.personDuties }" class="txt" placeholder="职位" allowNULL="yes" valType="required" msg="<font color=red>*</font>职位不能为空"/></dd>
+        <dd><input type="text" id="personDuties" name="personDuties" value="${person.personDuties }" class="txt" placeholder="职位" allowNULL="yes" msg="<font color=red>*</font>职位不能为空"/></dd>
       </dl>
     </div>
     </form>

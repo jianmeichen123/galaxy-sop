@@ -494,7 +494,7 @@
 	}
 	//点击查看详情
 	if(_name=="describe"){
-		_parent.siblings("."+_name).show();
+		_parent.siblings("."+_name).show();		
 		$self.hide();
 		$self.siblings().hide();
 		$self.siblings("[data-btn='hide']").show();
@@ -512,7 +512,7 @@
  	function getTabPersonforP(){
  		var $table = $('#tablePerson');
  	    $table.bootstrapTable({
- 	    url: sopContentUrl + "/galaxy/project/queryProjectPerson", 
+ 	    url: Constants.sopEndpointURL + "/galaxy/project/queryProjectPerson", 
  	    dataType: "json",
  	    pagination: true, //分页
  	    search: false, //显示搜索框
@@ -577,7 +577,7 @@
  	function getTabShareforP(){
  	var $table = $('#table');
      $table.bootstrapTable({
-     url: sopContentUrl + "/galaxy/projectShares/selectProjectShares", 
+     url: Constants.sopEndpointURL + "/galaxy/projectShares/selectProjectShares", 
      dataType: "json",
      pagination: true, //分页
      search: false, //显示搜索框
@@ -633,12 +633,12 @@
  	 * 加载项目详情数据
  	 */
  	sendGetRequest(platformUrl.detailProject + alertid, {}, function(data){
- 		$("#prodescribe_show").html(data.entity.projectDescribe);
- 		$("#business_model_show").html(data.entity.projectBusinessModel);
- 		$("#projectDesc_show").html(data.entity.userPortrait);
- 		$("#location_show").html(data.entity.companyLocation);
- 		$("#portrait_show").html(data.entity.userPortrait);
- 		$("#analysis_show").html(data.entity.prospectAnalysis);
+ 		$("#prodescribe_show").html(data.entity.projectDescribe==null?"暂无项目概述":data.entity.projectDescribe);
+ 		$("#business_model_show").html(data.entity.projectBusinessModel==null?"暂无商业模式":data.entity.projectBusinessModel);
+ 		$("#projectDesc_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
+ 		$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
+ 		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
+ 		$("#analysis_show").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
  		
  		
  		

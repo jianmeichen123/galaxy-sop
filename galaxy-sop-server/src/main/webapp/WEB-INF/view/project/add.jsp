@@ -271,10 +271,10 @@
 						layer.msg("用户名重复，请重新输入");
 					}else{
 						if(obj=="save"){
-							forwardWithHeader(sopContentUrl + "/galaxy/mpl");
+							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
 						}
 						if(obj=="saveandupdate"){
-							forwardWithHeader(sopContentUrl + "/galaxy/upp/"+data.id);
+							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/upp/"+data.id);
 						}
 					}
 				}

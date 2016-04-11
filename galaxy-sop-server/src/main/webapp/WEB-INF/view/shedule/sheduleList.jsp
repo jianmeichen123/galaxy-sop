@@ -86,7 +86,7 @@
       
         <div id="editShedule" class="bottom_r2 bottom_r"  data-tab='con'> 
            <form action="" id="shedule_form" method="post">    
-            <h2>添加日程安排</h2>
+            <h2> <span id="changeSpan">添加日程安排</span></h2>
             <input type="hidden" id="id" name="id" value=""/>
             <dl class="fmdl clearfix">
                 <dt>处理日期：</dt>
@@ -169,10 +169,10 @@
     }
     //新建日程
     function newShedule(){
+    	$("#changeSpan").html("添加日程安排");
     	$("#updateShow").css("display","none");
     	$("#addShow").css("display","block");
-    	var time=currentTime();
-    	$("#itemDate").val(time);
+    	$("#itemDate").val(new Date().format("yyyy-MM-dd"));
     	$("#content").val('');
     	$("#id").val('');
     	$("#id").remove();
@@ -231,7 +231,7 @@
    	    if(itemOrder == '1'){
    	    	uncheckAll('itemOrder','0');
    	    }
-   	    
+   	    $("#changeSpan").html("修改日程安排");
    		$("#updateShow").css("display","block");
     	$("#addShow").css("display","none");
     	
@@ -272,14 +272,6 @@
            $(this).addClass('on').siblings().removeClass('on');
            $(".bottom_r .block").show().siblings().hide();
    });
-   
-   function currentTime(){
-	   var myDate = new Date();
-	   var year=myDate.getFullYear();        //获取当前年份(2位)
-	   var month=myDate.getMonth()+1;       //获取当前月份(0-11,0代表1月)
-	   var day=myDate.getDate();  
-	   return year+"-"+month+"-"+day;
-   }
 
     </script>
 

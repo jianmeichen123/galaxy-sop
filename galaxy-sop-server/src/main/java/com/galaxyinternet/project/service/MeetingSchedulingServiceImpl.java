@@ -150,7 +150,7 @@ public class MeetingSchedulingServiceImpl
 		List<Project> projectList = null;
 		List<Department> depList = deptService.queryAll();
 		Page<MeetingScheduling> page = null;
-		List<MeetingScheduling> content = null;
+		List<MeetingScheduling> content = new ArrayList<MeetingScheduling>();
 		if (query.getFilterName() == null) {
 			List<Long> projectIdList = new ArrayList<Long>();
 			page = meetingSchedulingDao.selectPageList(query, pageable);
@@ -204,7 +204,10 @@ public class MeetingSchedulingServiceImpl
 			}
 			setDefaultValue(meeting);
 		}
-		page.setContent(content);
+		if (page != null) {
+			page.setContent(content);
+		}
+		
 		return page;
 	}
 

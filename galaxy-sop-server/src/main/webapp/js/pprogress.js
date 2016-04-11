@@ -1,6 +1,6 @@
 	function projectProgress9(id){
 		$.ajax({
-			url : sopContentUrl + '/galaxy/project/progress/proFileInfo/'+id+'/9',
+			url : Constants.sopEndpointURL + '/galaxy/project/progress/proFileInfo/'+id+'/9',
 			data : null,
 			async : false,
 			type : 'GET',
@@ -65,10 +65,10 @@
 	function init(id,type,flag){
 		var urls ='';
 		if(type == '1'){
-			urls = sopContentUrl + '/galaxy/sopFile/projectFileUpload/';
+			urls = Constants.sopEndpointURL + '/galaxy/sopFile/projectFileUpload/';
 		}
 		if(type == '2'){
-			urls = sopContentUrl + '/galaxy/sopFile/commonUpload/';
+			urls = Constants.sopEndpointURL + '/galaxy/sopFile/commonUpload/';
 		}
 		var utils = {
 				path : $("#pathInput").val(),

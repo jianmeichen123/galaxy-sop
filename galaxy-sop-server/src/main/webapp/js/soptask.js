@@ -10,7 +10,7 @@ $(function(){
 		var obj=this;
 		var taskId=obj.childNodes[1].value;;
 		var projectid=obj.childNodes[2].value;;
-	    var  _url=sopContentUrl+"/galaxy/soptask/goClaimtcPage?id="+taskId+"&sid="+sessionId+"&guid="+userId;
+	    var  _url=Constants.sopEndpointURL+"/galaxy/soptask/goClaimtcPage?id="+taskId+"&sid="+sessionId+"&guid="+userId;
 	  // 	var _url = forwardWithHeader(claimUrl);
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -18,8 +18,8 @@ $(function(){
 			okback:function(){
 			//	var taskid=getTaskId();
 				$(".btnbox").on("click", "#dotask", function() {	
-				//	var endUrl=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId+"&sid="+sessionId+"&guid="+userId;
-					var endUrl=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId;
+				//	var endUrl=Constants.sopEndpointURL+"/galaxy/soptask/doTask?taskId="+taskId+"&sid="+sessionId+"&guid="+userId;
+					var endUrl=Constants.sopEndpointURL+"/galaxy/soptask/doTask?taskId="+taskId;
 					forwardWithHeader(endUrl);
 	            });
 				//单击按钮刷新页列表里面的内容
@@ -34,7 +34,7 @@ $(function(){
 	$("table").on("click", "#doclaim", function() {
 		var task=this;
 		var taskId=task.childNodes[1].value;
-		var url=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId;
+		var url=Constants.sopEndpointURL+"/galaxy/soptask/doTask?taskId="+taskId;
 	    forwardWithHeader(url);
 	//	this.href=endUrl;
 	});

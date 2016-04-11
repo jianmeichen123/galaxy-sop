@@ -160,16 +160,19 @@ var fileGrid = {
 	},
 	operateEvents : {
 		'click .filedownloadlink': function (e, value, row, index) {
+			//"3959118243299382"
 			data = {
 					fileKey : row.fileKey,
 					fileName : row.fileName + "." + row.fileSuffix
 			};
-//			window.location = ossClient.signatureUrl(data)
+			
 			layer.msg('正在下载，请稍后...',{time:2000});
-			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
+			window.location = ossClient.signatureUrl(data);
+//			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
         },
         'click .fileupdatelink' : function(e, value, row, index){
         	formData = {
+        			_fileKey : row.fileKey,
         			_fileType : row.fileType,
         			_fileTypeAuto : true,
         			_fileSource : row.fileSource,
@@ -181,7 +184,22 @@ var fileGrid = {
     				callFuc : function(){
     					searchPanel.serarchData();
     				},
-    				_url : platformUrl.commonUploadFile
+    				_localUrl : platformUrl.commonUploadFile,
+    				_ossUrl : platformUrl.fileCallBack,
+    				_getOssFormParam : function(dom,fileKey,file){
+    					return {
+								"fileSource" : dom.find("input[name='win_fileSource']:checked").val(),
+								"fileType" : dom.find("#win_fileType").val(),
+								"fileWorktype" : dom.find("#win_fileWorkType").val(),
+								"projectId" : dom.find("#win_sopProjectId").data("tid"),
+								"isProve" : dom.find("#win_isProve").attr("checked"),
+								"remark" : dom.find("#win_FILELIST").val(),
+								"fileKey" : fileKey,
+								"fileName" : file.name,
+								"fileLength" : file.size
+						};
+    				}
+    				
     		};
     		win.init(formData);
         }
@@ -248,6 +266,7 @@ function init(){
 	createMenus(14);
 	searchPanel.initData();
 	fileGrid.init();
+	
 	
 }
 

@@ -12,13 +12,13 @@
 	<!-- jsp文件头和头部 -->
 	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <%-- 	<link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
-	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+	<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <%-- 	<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css"> --%>
 
 	
 	<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
-	<script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
-	<script src="<%=path%>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+	<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
     <script src="<%=path %>/js/init.js"></script>
 <%--     <script src="<%=path %>/js/jquery.showLoading.min.js"></script> --%>
     <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
@@ -27,6 +27,8 @@
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
+<script src="<%=path %>/js/alioss/aliyun-oss-sdk.min.js"></script>
+<script src="<%=path %>/js/alioss/alioss_init.js"></script>
 </head>
 
 <body>
@@ -115,7 +117,7 @@
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
  <script src="<%=path %>/js/commWin.js" type="text/javascript"></script>
- <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script>
+ <script src="<%=path %>/js/teamSheetNew.js" type="text/javascript"></script>
  <script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
  
 	

@@ -119,10 +119,10 @@
 <script src="<%=path %>/js/my_ext.js"></script>
 <script src="<%=path %>/js/my.js"></script>
 <!-- 分页二css+四js -->
-<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
 
 <!-- 富文本编辑器 -->
@@ -567,7 +567,7 @@
 			  *  生成尽职调查报告列表
 			  */
 			 sendGetRequest(
-					 sopContentUrl + '/galaxy/project/progress/proFileInfo/'+pid+'/5',
+					 Constants.sopEndpointURL + '/galaxy/project/progress/proFileInfo/'+pid+'/5',
 					 null, function(data){
 						 var json = eval(data);
 						 var dataList=json.entityList;
@@ -813,7 +813,7 @@
 			  *  生成尽职调查报告列表
 			  */
 			 sendGetRequest(
-					 sopContentUrl + '/galaxy/project/progress/proFileInfo/'+pid+'/6', 
+					 Constants.sopEndpointURL + '/galaxy/project/progress/proFileInfo/'+pid+'/6', 
 					 null, function(data){
 				 var html = "";
 				 $.each(data.entityList, function(i,o){
