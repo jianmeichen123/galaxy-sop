@@ -494,7 +494,7 @@
 	}
 	//点击查看详情
 	if(_name=="describe"){
-		_parent.siblings("."+_name).show();
+		_parent.siblings("."+_name).show();		
 		$self.hide();
 		$self.siblings().hide();
 		$self.siblings("[data-btn='hide']").show();
@@ -633,12 +633,12 @@
  	 * 加载项目详情数据
  	 */
  	sendGetRequest(platformUrl.detailProject + alertid, {}, function(data){
- 		$("#prodescribe_show").html(data.entity.projectDescribe);
- 		$("#business_model_show").html(data.entity.projectBusinessModel);
- 		$("#projectDesc_show").html(data.entity.userPortrait);
- 		$("#location_show").html(data.entity.companyLocation);
- 		$("#portrait_show").html(data.entity.userPortrait);
- 		$("#analysis_show").html(data.entity.prospectAnalysis);
+ 		$("#prodescribe_show").html(data.entity.projectDescribe==null?"暂无项目概述":data.entity.projectDescribe);
+ 		$("#business_model_show").html(data.entity.projectBusinessModel==null?"暂无商业模式":data.entity.projectBusinessModel);
+ 		$("#projectDesc_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
+ 		$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
+ 		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
+ 		$("#analysis_show").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
  		
  		
  		
