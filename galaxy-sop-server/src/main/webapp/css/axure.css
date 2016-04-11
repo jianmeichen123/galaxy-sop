@@ -496,7 +496,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /*页面框架---------------------*/
 .pagebox{ min-width:1280px; margin:0 auto; padding:0 0 10px}
 /*左侧导航*/
-.pagebox .lft{ float:left; width:135px; background:#d6d8e1;position: fixed;top: 60px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;}
+.pagebox .lft{ float:left; width:9.375%; background:#d6d8e1;position: fixed;top: 60px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;}
 .pagebox .lft li{ float:left; width:100%; height:40px;}
 .pagebox .lft li a,.pagebox .lft li div{ font-family: "微软雅黑";display:block; width:100%; height:40px; text-align:center; line-height:40px; font-size:14px; color:#6b799f;cursor: pointer;}
 .pagebox .lft .on a,
@@ -507,7 +507,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .lft li .hide{background-position:-11px -39px; width:10px; height: 9px;}
 .pagebox .lft li ul{width: 100%;margin: 0 auto;background-color: #cbcdd5;display: none;overflow: hidden;} 
 /*中部内容*/
-.pagebox .min{ float:left; width:71.25%;padding: 10px 0 0 0;margin:70px 0 0 155px;}
+.pagebox .min{ float:left; width:71.25%;padding: 10px 0 0 0;margin:70px 0 0 10.505%;}
 .pagebox .min h2{ padding:0 0 0 10px; line-height:48px; height:49px; font-size:18px; font-weight:normal; color:#808e9b}
 .pagebox .min .tablist{ border-radius:6px; overflow:hidden}
 .pagebox .min .tablist .l{ float:left; width:59%; margin:-2px 2px 0 0}
@@ -572,7 +572,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .min .tablist .zzbox{ padding:10px 10px 10px 40px}
 .pagebox .min .tablist .histogram{ height:126px}
 /*右侧内容*/
-.pagebox .rit{ float:right; width:16%;margin-top: 80px;}
+.pagebox .rit{ float:right; width:17.8125%;margin-top: 80px;}
 .pagebox .rit .ico{ background-image:url(../img/ritico.png)}
 .pagebox .rit .morebox{ overflow:hidden; padding:0px 15px}
 .pagebox .rit .morebox .more{ float:right}
@@ -1080,7 +1080,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .myprojecttc .tabtable .tabtable_con_close .fmmm dt{width: auto;}
 .myprojecttc .tabtable .searchbox{margin:10px 10px 0;}
 .myprojecttc .tabtable .btnbox_m{margin:10px 0 6px 20px;width:100%;}
-.myprojecttc .tabtable .tabtable_con .block table{border:0;padding:0 10px;}
+.myprojecttc .tabtable .tabtable_con .block table{border:0;padding:10px 0;}
 .myprojecttc .tabtable .tabtable_con .block table th{background-color: #f9fafc;}
 .myprojecttc .process{width: 100%;overflow: hidden;margin:0 0 20px 0;}
 .myprojecttc .process h2{margin:0 0 0 20px;color:#6b799f;}
@@ -1177,7 +1177,7 @@ em{font-style: normal;}
 .installation .cn1,.installation .cn2,.installation .cn3,.installation .cn4,.installation .cn5,.installation .cn6{width: 100%;}
 .installation .cn1 img,.installation .cn2 img,.installation .cn3 img,.installation .cn4 img,.installation .cn5 img,.installation .cn6 img{width:100%;}
 /* 添加二维码 */
-.erwm{width: 135px;height: 192px;background: url(../img/erwm.gif) 0 0 no-repeat;position: fixed;bottom: 20px;z-index: 13;left:0;-webkit-background-size: 100%;
+.erwm{width: 9.375%;height: 192px;background: url(../img/erwm.gif) 0 0 no-repeat;position: fixed;bottom: 20px;z-index: 13;left:0;-webkit-background-size: 100%;
 background-size: 100%;}
 .erwm span{width:18px;height:18px;font-size: 0;display: inline-block;float: right;cursor: pointer;}
 .erwm a{width:100%;text-align: center;height:120px;position: absolute;bottom: 0;text-decoration: underline;font-size: 0;color: #7f8ba3;}
