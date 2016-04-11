@@ -24,7 +24,7 @@
       </dl> 
       <dl class="fmdl">
         <dt>最高学历：</dt>
-        <dd><input type="text" id="highestDegree" name="highestDegree" value="${person.highestDegree }" class="txt" placeholder="最高学历" allowNULL="yes" valType="required" msg="<font color=red>*</font>最高学历不能为空"/></dd>
+        <dd><input type="text" id="highestDegree" name="highestDegree" value="${person.highestDegree }" class="txt" placeholder="最高学历" allowNULL="yes" msg="<font color=red>*</font>最高学历不能为空"/></dd>
       </dl>
     </div>
     <div class="right">
@@ -45,7 +45,7 @@
       </dl>
       <dl class="fmdl">
         <dt>职位：</dt>
-        <dd><input type="text" id="personDuties" name="personDuties" value="${person.personDuties }" class="txt" placeholder="职位" allowNULL="yes" valType="required" msg="<font color=red>*</font>职位不能为空"/></dd>
+        <dd><input type="text" id="personDuties" name="personDuties" value="${person.personDuties }" class="txt" placeholder="职位" allowNULL="yes" msg="<font color=red>*</font>职位不能为空"/></dd>
       </dl>
     </div>
     </form>
