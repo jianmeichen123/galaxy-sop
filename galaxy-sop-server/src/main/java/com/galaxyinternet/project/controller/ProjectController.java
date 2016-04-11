@@ -52,6 +52,7 @@ import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.project.FormatData;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
@@ -257,16 +258,20 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
 		String hhrname="";
-	    if(project!=null){
-	    	Department Department=new Department();//
-			Department.setId(project.getProjectDepartid());
-		    Department queryOne = departmentService.queryOne(Department);
-		    if(queryOne!=null){
-		    	project.setProjectCareerline(queryOne.getName());
+		 if(project!=null){
+		    	Department Department=new Department();//
+				Department.setId(project.getProjectDepartid());
+			    Department queryOne = departmentService.queryOne(Department);
+			    if(queryOne!=null){
+			    	project.setProjectCareerline(queryOne.getName());
+			    }
+			    if(null!=queryOne.getManagerId()&&!"".equals(queryOne.getManagerId())){
+			    	User queryById = userService.queryById(queryOne.getManagerId());
+				    if(queryById!=null){
+				    	project.setHhrName(queryById.getRealName());
+				    }
+			    }
 		    }
-			hhrname=getHHRNname(project);
-			project.setHhrName(hhrname);
-	    }
 	    if(project == null){
 			responseBody.setResult(new Result(Status.ERROR, null, "未查找到指定项目信息!"));
 			return responseBody;
@@ -336,22 +341,56 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
-			String hhrname="";
-			for(int i=0;i<pageProject.getContent().size();i++){
-	    			Project p=pageProject.getContent().get(i);
-					Department Department=new Department();
-					Department.setId(p.getProjectDepartid());
-					Department queryOne = departmentService.queryOne(Department);
-					hhrname=getHHRNname(p);
-					p.setHhrName(hhrname);
-					if(queryOne!=null){
-						p.setProjectCareerline(queryOne.getName());
-					}else{
-						p.setProjectCareerline("");
+			FormatData format = new FormatData();
+			Map<String, Object> projectmap = new HashMap<String, Object>();
+			if(!pageProject.getContent().isEmpty()){
+			    format=setFormatData(pageProject.getContent());
+			    projectmap=format.getMap();
+			    if(null!=format.getIds()&&!"".equals(format.getIds())){
+			    	List<Department> queryListdepById = departmentService.queryListById(format.getIds());
+			    	List<String> ids = new ArrayList<String>();
+			    	Map<String, Object> depmap = new HashMap<String, Object>();	
+			    	if(!queryListdepById.isEmpty()){
+			    		depmap=setFormatdepeentDate(queryListdepById).getMap();
+			    			for (Department depentment : queryListdepById) {
+							if(null!=depentment.getManagerId()&&!"".equals(depentment.getManagerId())){
+								ids.add(depentment.getManagerId().toString());
+							}	
+						}
+			    	}
+			    	FormatData usermapForat= new FormatData();
+			    	Map<String, Object> usermap=new HashMap<String, Object>();
+					if(!ids.isEmpty()){
+						List<User> queryListByDepId = userService.queryListById(ids);
+						if(!queryListByDepId.isEmpty()){
+						    usermapForat = setFormatUserDate(queryListByDepId);
+						    usermap = usermapForat.getMap();		
+						}	
 					}
-			   }
+					if(usermap!=null||depmap!=null){
+				    	for (Project proje : pageProject.getContent()) {
+				    		String depid = proje.getProjectDepartid().toString();
+				    		if(usermap!=null){
+							  User u = (User) usermap.get(depid);
+							  proje.setHhrName(u == null ? "" : u.getRealName());
+							}
+				    		if(depmap!=null){
+				    			Department dep=(Department)depmap.get(depid);
+				    			proje.setProjectCareerline(dep==null?"":dep.getName());
+				    		}
+							
+						}
+					}
+					usermap.clear();
+					usermap = null;
+					depmap.clear();
+					depmap=null;
+			    }
+			}		
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));
+			long endTime = System.currentTimeMillis();
+		//	System.out.println("111111程序运行时间："+(endTime-startTime)+"ms");
 			return responseBody;
 		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "queryUserList faild"));
@@ -1468,7 +1507,59 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			
 			return responseBody;
 		}
+		/*
+		 * 将项目的list封装成一个FormatData对象
+		 * @param plist
+		 * @return
+		 */
+		public FormatData setFormatData(List<Project> plist){
+			FormatData formatData=new FormatData();
+			Map<String, Object> projectmap=new HashMap<String, Object>();
+			List<String> ids=new ArrayList<String>();
+			
+			for(Project p: plist){
+				projectmap.put(p.getProjectDepartid().toString(), p);	
+				ids.add(p.getProjectDepartid().toString());
+			}
+			formatData.setIds(ids);
+			formatData.setMap(projectmap);
+			return formatData;
+		}
 		
+		/**
+		 * 将项目的list封装成一个FormatData对象
+		 * @param plist
+		 * @return
+		 */
+		public FormatData setFormatUserDate(List<User> userList){
+			FormatData formatData=new FormatData();
+			Map<String, Object> usermap=new HashMap<String, Object>();
+			for(User user: userList){
+				usermap.put(user.getDepartmentId().toString(), user);	
+			}
+			formatData.setMap(usermap);
+			return formatData;
+		}
+		
+		/**
+		 * 将项目的list封装成一个FormatData对象
+		 * @param plist
+		 * @return
+		 */
+		public FormatData setFormatdepeentDate(List<Department> depList){
+			FormatData formatData=new FormatData();
+			List<String> ids=new ArrayList<String>();
+			Map<String, Object> usermap=new HashMap<String, Object>();
+			for(Department dep: depList){
+				usermap.put(dep.getId().toString(), dep);
+				if(null!=dep.getManagerId()&&!"".equals(dep.getManagerId())){
+					ids.add(dep.getManagerId().toString());
+				}
+			}
+			formatData.setIds(ids);
+			formatData.setMap(usermap);
+			return formatData;
+		}
 		
 		
 }
