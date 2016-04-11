@@ -152,7 +152,7 @@ var fileGrid = {
 		'click .fileupdatelink' : function(e, value, row, index){
 //			alert(row.id);
         	formData = {
-        			_id : row.id
+        			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
         			_fileType : row.fileType,
         			_fileTypeAuto : true,
@@ -164,7 +164,7 @@ var fileGrid = {
     				callFuc : function(){
     					fileGrid.serarchData();
     				},
-    				_url : platformUrl.commonUploadFile
+    				_localUrl : platformUrl.commonUploadFile
     		};
     		win.init(formData);
         }

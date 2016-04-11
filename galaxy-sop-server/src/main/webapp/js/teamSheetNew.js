@@ -89,13 +89,9 @@
 	};
 	
 	var win = {
-			id : undefined,
+			fileKey : undefined,
 			init : function(_formdata){
-				if(typeof(_formdata._id)=='undefined'){
-					layer.msg("参数_id为必传参数");
-					return;
-				}
-				win.id = _formdata._id;
+				win.fileKey = _formdata._fileKey;
 				win.initData();
 				win.callFuc = _formdata.callFuc;
 				$.popup({
@@ -108,7 +104,7 @@
 						var uploader = new plupload.Uploader({
 							runtimes : 'html5,flash,silverlight,html4',
 							browse_button : $(_this.id).find("#win_selectBtn")[0], // you can pass in id...
-							url : _formdata._url,
+							url : platformUrl.commonUploadFile,
 							multipart:true,
 							multi_selection:false,
 							filters : {
@@ -144,7 +140,10 @@
 										}
 										
 									});
-									sendGetRequest(platformUrl.getPolicy+"/"+win.id,null,win.getPolicyCallBack);
+									if(!win.fileKey){
+										win.fileKey = "";
+									}
+									sendGetRequest(platformUrl.getPolicy+"/"+win.fileKey,null,win.getPolicyCallBack);
 								
 								},
 								UploadProgress: function(up, file) {
@@ -166,21 +165,28 @@
 											}
 										}else{
 //											layer.msg("上传成功");
-											
-											var form = {
-													"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
-													"fileType" : $(_this.id).find("#win_fileType").val(),
-													"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
-													"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
-													"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
-													"remark" : $(_this.id).find("#win_FILELIST").val(),
-													"fileKey" : win.ossObject.fileKey,
-													"fileName" : file.name,
-													"fileLength" : file.size
-											};
+											var form;
+											if(!_formdata._ossUrl){
+												_formdata._ossUrl = platformUrl.fileCallBack;
+											}
+											if(!_formdata._getOssFormParam){
+												form = {
+														"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
+														"fileType" : $(_this.id).find("#win_fileType").val(),
+														"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
+														"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
+														"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
+														"remark" : $(_this.id).find("#win_FILELIST").val(),
+														"fileKey" : win.ossObject.fileKey,
+														"fileName" : file.name,
+														"fileLength" : file.size
+												};
+											}else{
+												form = _formdata._getOssFormParam($(_this.id),win.ossObject.fileKey,file);
+											}
 											
 											sendPostRequestByJsonObj(
-													platformUrl.fileCallBack,
+													_formdata._ossUrl,
 													form,
 													function(data){
 														if(data.result.status=="OK")
@@ -228,14 +234,23 @@
 //										} ;
 										up.settings.url = win.ossObject.host;
 									}else{
-										var form = {
-												"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
-												"fileType" : $(_this.id).find("#win_fileType").val(),
-												"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
-												"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
-												"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
-												"remark" : $(_this.id).find("#win_FILELIST").val()
-										};
+										var form;
+										if(!_formdata._localUrl){
+											_formdata._localUrl = platformUrl.commonUploadFile;
+										}
+										if(!_formdata._getLocalFormParam){
+											form = {
+													"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
+													"fileType" : $(_this.id).find("#win_fileType").val(),
+													"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
+													"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
+													"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
+													"remark" : $(_this.id).find("#win_FILELIST").val()
+											};
+										}else{
+											form = _formdata._getLocalFormParam($(_this.id));
+										}
+										up.settings.url = _formdata._localUrl;
 									}
 									up.settings.multipart_params = form;
 									
@@ -275,9 +290,9 @@
 
 				
 				//项目文本域(此处先写ID)
-				$sopProjectId.val(_formdata._projectId);
+//				$sopProjectId.val(_formdata._projectId);
 				//项目ID隐藏域
-				$sopProjectId.val(_formdata._projectId);
+//				$sopProjectId.val(_formdata._projectId);
 				
 				
 				//文档来源
