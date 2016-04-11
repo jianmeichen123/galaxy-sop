@@ -35,6 +35,7 @@
 				<value>galaxy.project.platform.endpoint</value>
 				<value>galaxy.project.report.endpoint</value>
 				<value>galaxy.project.sop.endpoint</value>
+				<value>galaxy.project.file.upload.mode</value>
 			</list>
 		</constructor-arg>
 		<constructor-arg index="2" ref="cache" />
