@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.OperationMessageBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -37,6 +38,8 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	@Autowired
 	private OperationMessageService operationMessageService;
 	
+	@Autowired
+	Cache cache;
 	
 	@Override
 	protected BaseService<OperationMessage> getBaseService() {
@@ -59,6 +62,8 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			if(operationMessageBo.getModule()!=null&&operationMessageBo.getModule() != PlatformConst.MODULE_BROADCAST_MESSAGE.intValue()){
 				User user = (User) getUserFromSession(request);
 				operationMessageBo.setOperatorId(user.getId());
+			}else{
+				cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request),System.currentTimeMillis());
 			}
 			Page<OperationMessage> operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
 			responseBody.setPageList(operationMessage);
@@ -78,7 +83,11 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 		Result result = new Result();
 		try {
 			OperationMessageBo operationMessageBo = new OperationMessageBo();
-			operationMessageBo.setCreatedTimeStart(DateUtil.getCurrentDate().getTime());
+			Long lastTime = (Long) cache.get(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request));
+			if(lastTime == null){
+				lastTime= DateUtil.getCurrentDate().getTime();
+			}
+			operationMessageBo.setCreatedTimeStart(lastTime);
 			User user = (User) getUserFromSession(request);
 			operationMessageBo.setOperatorId(user.getId());
 			operationMessageBo.setModule(PlatformConst.MODULE_BROADCAST_MESSAGE);

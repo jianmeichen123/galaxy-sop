@@ -19,11 +19,11 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <!-- 表格插件 -->
-<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <jsp:include page="./common/taglib.jsp" flush="true"></jsp:include>
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
-<script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path%>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path%>/js/sopUserSchedule.js" type="text/javascript"></script>
 <script src="<%=path%>/js/fileindex.js" type="text/javascript"></script>
 <script src="<%=path%>/js/index.js" type="text/javascript"></script>

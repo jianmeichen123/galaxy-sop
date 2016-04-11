@@ -79,9 +79,6 @@ public class PersonPool extends PagableEntity{
     }
 
     public Integer getPersonSex() {
-    	if(this.formatAgeStr != null && !"".equals(this.formatAgeStr.trim())){
-			this.personSex = Integer.parseInt(this.formatAgeStr.trim());
-		}
         return personSex;
     }
 
@@ -90,6 +87,9 @@ public class PersonPool extends PagableEntity{
     }
 
     public Integer getPersonAge() {
+    	if(this.formatAgeStr != null && !"".equals(this.formatAgeStr.trim())){
+			this.personAge = Integer.parseInt(this.formatAgeStr.trim());
+		}
 		return personAge;
 	}
 

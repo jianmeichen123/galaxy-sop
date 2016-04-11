@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<title>繁星</title>
 	<script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+	<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 	<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
 	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
@@ -205,8 +205,8 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=path %>/js/init.js"></script>
 <!-- bootstrap-table -->
-<script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
 <script>
 

@@ -51,6 +51,7 @@ import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
@@ -1110,21 +1111,19 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/getPolicy/{idStr}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Dict> getPolicy(@PathVariable String idStr,
+	@RequestMapping(value = "/getPolicy/{fileKey}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Dict> getPolicy(@PathVariable String fileKey,
 			HttpServletRequest request) {
 		ResponseData<Dict> responseBody = new ResponseData<Dict>();
 		Result result = new Result();
-		long id = Long.parseLong(idStr);
-		SopFile sopFile = sopFileService.queryById(id);
-		String fileKey = StringUtils.isBlank(sopFile.getFileKey()) ? String.valueOf(IdGenerator.generateId(OSSHelper.class)) : sopFile.getFileKey(); 
-		Map<String, Object> respMap = null;
+		fileKey = StringUtils.isBlank(fileKey) ? String.valueOf(IdGenerator.generateId(OSSHelper.class)) : fileKey; 
+		Map<String, Object> respMap = new HashMap<String, Object>();
 		String endPoint = OSSFactory.ENDPOINT;
 		String accessKeyId = OSSFactory.ACCESS_KEY_ID;
 		String bucket = OSSFactory.getDefaultBucketName();
 //		String dir = "leung";
 		String host = "http://" + bucket + "." + endPoint;
-		long expireTime = 30;
+		long expireTime = OSSConstant.OSS_UPLOAD_FILE_EXPIRE_TIME;
 		long expireEndTime = System.currentTimeMillis() + expireTime * 1000;
 		Date expiration = new Date(expireEndTime);
 		PolicyConditions policyConds = new PolicyConditions();
@@ -1141,9 +1140,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			binaryData = postPolicy.getBytes("utf-8");
 			String encodedPolicy = BinaryUtil.toBase64String(binaryData);
 			String postSignature = client.calculatePostSignature(postPolicy);
-			respMap = new HashMap<String, Object>();
-			respMap.put("uploadMode", "oss");
-//			respMap.put("uploadMode", "local");
+			respMap.put("uploadMode", OSSFactory.UPLOAD_MODE);
 			respMap.put("accessid", accessKeyId);
 			respMap.put("policy", encodedPolicy);
 			respMap.put("signature", postSignature);
