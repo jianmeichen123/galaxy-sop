@@ -147,9 +147,10 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 			}
 			if(file != null)
 			{
+				SopFile po = sopFileService.queryById(bo.getId());
 				String fileName = file.getOriginalFilename();
 				int dotPos = fileName.lastIndexOf(".");
-				String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				String key = po != null && po.getFileKey() != null ? po.getFileKey() : String.valueOf(IdGenerator.generateId(OSSHelper.class));
 				String prefix = fileName.substring(0, dotPos);
 				String suffix = fileName.substring(dotPos);
 				File temp = File.createTempFile(key, suffix);
@@ -196,7 +197,8 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 			{
 				String fileName = file.getOriginalFilename();
 				int dotPos = fileName.lastIndexOf(".");
-				String key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				SopVoucherFile po = sopVoucherFileService.queryById(bo.getId());
+				String key = po != null && po.getFileKey() != null ? po.getFileKey() : String.valueOf(IdGenerator.generateId(OSSHelper.class));
 				String ext = fileName.substring(dotPos);
 				File temp = File.createTempFile(key, ext);
 				Long length = temp.length();
