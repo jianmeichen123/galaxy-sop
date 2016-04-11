@@ -567,7 +567,7 @@
 			  *  生成尽职调查报告列表
 			  */
 			 sendGetRequest(
-					 sopContentUrl + '/galaxy/project/progress/proFileInfo/'+pid+'/5',
+					 Constants.sopEndpointURL + '/galaxy/project/progress/proFileInfo/'+pid+'/5',
 					 null, function(data){
 						 var json = eval(data);
 						 var dataList=json.entityList;
@@ -813,7 +813,7 @@
 			  *  生成尽职调查报告列表
 			  */
 			 sendGetRequest(
-					 sopContentUrl + '/galaxy/project/progress/proFileInfo/'+pid+'/6', 
+					 Constants.sopEndpointURL + '/galaxy/project/progress/proFileInfo/'+pid+'/6', 
 					 null, function(data){
 				 var html = "";
 				 $.each(data.entityList, function(i,o){

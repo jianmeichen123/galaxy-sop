@@ -392,7 +392,7 @@ function closeback(data){
     
     function toSureMsg(){
     	sendGetRequest(
-				 sopContentUrl + '/galaxy/soptask/toSureMsg/'+pid, 
+    			Constants.sopEndpointURL + '/galaxy/soptask/toSureMsg/'+pid, 
 				 null, function(data){
 					 layer.msg(data.result.message);
 				 });

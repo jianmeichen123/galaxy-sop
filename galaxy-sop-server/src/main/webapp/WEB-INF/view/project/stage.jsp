@@ -512,7 +512,7 @@
  	function getTabPersonforP(){
  		var $table = $('#tablePerson');
  	    $table.bootstrapTable({
- 	    url: sopContentUrl + "/galaxy/project/queryProjectPerson", 
+ 	    url: Constants.sopEndpointURL + "/galaxy/project/queryProjectPerson", 
  	    dataType: "json",
  	    pagination: true, //分页
  	    search: false, //显示搜索框
@@ -577,7 +577,7 @@
  	function getTabShareforP(){
  	var $table = $('#table');
      $table.bootstrapTable({
-     url: sopContentUrl + "/galaxy/projectShares/selectProjectShares", 
+     url: Constants.sopEndpointURL + "/galaxy/projectShares/selectProjectShares", 
      dataType: "json",
      pagination: true, //分页
      search: false, //显示搜索框
