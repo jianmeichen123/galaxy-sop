@@ -18,7 +18,7 @@ public class StrUtils {
 				try {
 					b = Character.toString(c).getBytes("utf-8");
 				} catch (Exception ex) {
-					new Exception("encodString 将文件名中的汉字转为UTF8编码的串时错误，输入的字符串为：" + c);
+					//new Exception("encodString 将文件名中的汉字转为UTF8编码的串时错误，输入的字符串为：" + c);
 					b = new byte[0];
 				}
 				for (int j = 0; j < b.length; j++) {

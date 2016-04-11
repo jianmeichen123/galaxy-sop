@@ -81,7 +81,7 @@ $(function(){
 		showUploadPopup("voucher");
 	});
 	$("#download-template-btn").click(function(){
-		forwardWithHeader(platformUrl.tempDownload+"?worktype=${fileWorktype}&projectId=${projectId}");
+		forwardWithHeader(platformUrl.tempDownload+"?worktype=templateType:1&projectId=${projectId}");
 	});
 });
 function projectLoaded(project)

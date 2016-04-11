@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
@@ -83,7 +84,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称或项目编码" />
+						<input type="text" class="txt" name="keyword" placeholder="请输入项目名称或项目编码" />
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
@@ -153,13 +154,16 @@
 	
 	//全局变量
 	var hasClosed=false;
-	/**
+	var canUseBut = false;
+	
+	/*
 	 * 查看项目阶段详情的弹出层
 	 */
 	 var alertid="";
 		function info(id){
 			alertid=id;
 		var _url='<%=path%>/galaxy/ips';
+		
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
@@ -186,6 +190,10 @@
 					var progress = data.entity.projectProgress;
 					progress = progress.replace(":","_");
 					var index = progress.substr(progress.length-1,1);
+
+					if(index == 1 || index == 3 || index == 4 || index == 6 || index == 7 ){
+						checkCanUse(index,data.entity.id,data.entity.projectType);
+					}
 					
 					for(var i = 1; i<10; i++){
 						if(i > index){
@@ -195,6 +203,9 @@
 						if(i == 1){
 							if(hasClosed){
 								$("#options_point1").remove();
+							}
+							if(!canUseBut){
+								$("#qdnbps").remove();
 							}
 							tiggerTable($("#" + progress + "_table"),3);
 						}
@@ -207,10 +218,16 @@
 							if(hasClosed){
 								$("#options_point3").remove();
 							}
+							if(!canUseBut){
+								$("#lxhpq").remove();
+							}
 						}
 						if(i == 4){
 							if(hasClosed){
 								$("#options_point4").remove();
+							}
+							if(!canUseBut){
+								$("#reset_btn").remove();
 							}
 						}
 						if(i == 5){
@@ -220,11 +237,17 @@
 							if(hasClosed){
 								$("#jzdc_options").remove();
 							}
+							if(!canUseBut){
+								$("#tjhsqBut").remove();
+							}
 							jzdc();
 						}
 						if(i == 7){
 							if(hasClosed){
 								$("#options_point7").remove();
+							}
+							if(!canUseBut){
+								$("#inSure_btn").remove();
 							}
 						}
 						if(i == 8){
@@ -237,14 +260,13 @@
 							gqjg();
 						}
 						
-						
 						//为Tab添加点击事件，用于重新刷新
 						$("#projectProgress_" + i).on("click",function(){
 							var id = $(this).attr("id");
 							var indexNum = id.substr(id.length-1,1);
 							console.log("indexNum:"+indexNum);
 							if(indexNum == '1'){
-								if(parseInt(indexNum) < parseInt(pNum)){
+								if(parseInt(indexNum) < parseInt(pNum) || !canUseBut){
 									$("#qdnbps").remove();
 								}
 							    $("#projectProgress_1_con").css("display","block");
@@ -256,7 +278,7 @@
 									$("#options_point2").remove();
 								}
 							}else if(indexNum == '3'){
-								if(parseInt(indexNum) < parseInt(pNum)){
+								if(parseInt(indexNum) < parseInt(pNum) || !canUseBut){
 									$("#lxhpq").remove();
 								}
 								$("#projectProgress_3_con").css("display","block");
@@ -267,7 +289,7 @@
 								
 							} else if(indexNum == '4'){
 								$("#projectProgress_4_con").css("display","block");
-								if(parseInt(indexNum) < parseInt(pNum)){
+								if(parseInt(indexNum) < parseInt(pNum) || !canUseBut){
 									$("#reset_btn").css("display","none");
 								}
 							    tiggerTable($("#projectProgress_4_table"),3);
@@ -287,13 +309,16 @@
 								$("#projectProgress_5_con").css("display","none");
 								 $("#projectProgress_6_con").css("display","block");
 								 tiggerTable($("#projectProgress_6_table"),3);
+								 
 								 if(parseInt(indexNum) < parseInt(pNum)){
 									 $("#jzdc_options").remove();
-								 }
+								 }else if(!canUseBut){
+									$("#tjhsqBut").remove();
+								}
 							}else if(indexNum == '7'){
 								$("#projectProgress_6_con").css("display","none");
 								$("#projectProgress_7_con").css("display","block");
-								if(parseInt(indexNum) < parseInt(pNum)){
+								if(parseInt(indexNum) < parseInt(pNum) || !canUseBut){
 									$("#inSure_btn").css("display","none");
 								}
 								 tiggerTable($("#projectProgress_7_table"),3);
@@ -336,15 +361,33 @@
 					$("#" + progress + "_con").css("display","block");
 					
 					
-					
-					
-					
-					
 				},null);
 			}
 		});
 		return false;
 	}
+		
+	function checkCanUse(index,projectId,projectType){
+		var condition = {};
+		condition["index"] = index ;
+		condition["projectId"] = projectId ;
+		condition["projectType"] = projectType;
+		
+		sendGetRequest(platformUrl.checkCanUse,condition,function(data){
+			var result = data.result.status;
+			if(result == "OK"){ //OK, ERROR
+				canUseBut = data.result.message;
+				if(canUseBut == true || canUseBut == "true"){
+					canUseBut == true;
+				}else{
+					canUseBut == false;
+				}
+				return;
+			}
+		});
+	}
+	
+		
 	/**
 	 * 上传接触访谈纪要弹出层
 	 */
@@ -524,14 +567,14 @@
 			  *  生成尽职调查报告列表
 			  */
 			 sendGetRequest(
-					 sopContentUrl + '/galaxy/project/progress/proFileInfo/'+pid+'/5',
+					 Constants.sopEndpointURL + '/galaxy/project/progress/proFileInfo/'+pid+'/5',
 					 null, function(data){
 						 var json = eval(data);
 						 var dataList=json.entityList;
 							for(var p in dataList){
 								var handlefile="";
 								if(!hasClosed){
-									handlefile='<a href="javascript:;" onclick="downloadTemplate(\'fileWorkType:5\');" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>';
+									handlefile='<a href="javascript:;" onclick="downloadTemplate(\'templateType:1\');" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>';
 							        if (dataList[p].fileStatusDesc == "缺失") { 
 							        	handlefile +='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
 									}else{
@@ -770,7 +813,7 @@
 			  *  生成尽职调查报告列表
 			  */
 			 sendGetRequest(
-					 sopContentUrl + '/galaxy/project/progress/proFileInfo/'+pid+'/6', 
+					 Constants.sopEndpointURL + '/galaxy/project/progress/proFileInfo/'+pid+'/6', 
 					 null, function(data){
 				 var html = "";
 				 $.each(data.entityList, function(i,o){
@@ -944,14 +987,18 @@
 									$tr.append('<td>'+this.updatedDate+'</td>') ;
 								}else{
 									$tr.append('<td>未知</td>');
-									$tr.append('<td></td>') ;
+									$tr.append('<td>无</td>') ;
 								}	
-								$tr.append('<td>'+this.fileStatusDesc+'</td>') ;
+								$tr.append('<td>'+this.fileStatusDesc+'</td>');
 								if(this.fileWorktype == 'fileWorktype:6'){
+									var e6 ="downloadTemplate('"+this.fileWorktype+"');";
+									$tr.append('<td><a class="blue" href="javascript:void(0);" onclick="'+e6+'">下载</a></td>');
 									if(this.fileKey == null){	
 										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">上传</a></td>');
+										$tr.append('<td>无</td>');
 									}else{
-										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>'); 	
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>');	
 									}
 									if(this.voucherFileKey == null){	
 										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,1);" class="blue">上传</a></td>');
@@ -959,10 +1006,13 @@
 										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 									}
 								}else if(this.fileWorktype == 'fileWorktype:7'){
-									
+									var e7 ="downloadTemplate('"+this.fileWorktype+"');";
+									$tr.append('<td><a class="blue" href="javascript:void(0);" onclick="'+e7+'">下载</a></td>');
 									if(this.fileKey == null){	
 										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,0);" class="blue">上传</a></td>');
+										$tr.append('<td>无</td>');
 									}else{
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
 										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 									}
 									if(this.voucherFileKey == null){	

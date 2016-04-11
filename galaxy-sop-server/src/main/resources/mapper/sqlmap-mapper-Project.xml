@@ -44,26 +44,32 @@
 		<where>
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
-			  <if test="projectName != null" > and project_name = #{projectName,jdbcType=VARCHAR} </if>
-			  <if test="nameCodeLike != null and nameCodeLike !=''" > and (project_name like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%") or project_code like concat("%",#{nameCodeLike,jdbcType=VARCHAR},"%")) </if>
-			  <if test="nameOnlyLike != null and nameOnlyLike !=''" > and project_name like concat("%",#{nameOnlyLike,jdbcType=VARCHAR},"%") </if>
-		      <if test="projectCode != null" > and project_code = #{projectCode,jdbcType=VARCHAR} </if>
-		      <if test="projectType != null" > and project_type = #{projectType,jdbcType=VARCHAR} </if>
-		      <if test="stockTransfer != null" > and stock_transfer = #{stockTransfer,jdbcType=INTEGER} </if>
-		      <if test="projectCareerline != null" > and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
+			   <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
+			    <if test="projectProgress != null" > and project_progress = #{projectProgress,jdbcType=VARCHAR} </if>
+			   <if test="projectType != null" > and project_type = #{projectType,jdbcType=VARCHAR} </if>
+			  
+		      
 		      <if test="projectDepartid != null" > and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
+			  <if test="deptIdList != null">
+					AND project_departId IN
+					<foreach collection="deptIdList" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			  </if>
+		      
+		      <if test="stockTransfer != null" > and stock_transfer = #{stockTransfer,jdbcType=INTEGER} </if>
+		      
 		      <if test="projectValuations != null" > and project_valuations = #{projectValuations,jdbcType=DECIMAL} </if>
 		      <if test="projectContribution != null" >  and project_contribution = #{projectContribution,jdbcType=DECIMAL} </if>
 		      <if test="currencyUnit != null" > and currency_unit = #{currencyUnit,jdbcType=INTEGER} </if>
 		      <if test="projectShareRatio != null" > and project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL} </if>
-		      
+		      <if test="projectCareerline != null" > and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
 		      <if test="projectCompany != null" > and project_company = #{projectCompany,jdbcType=VARCHAR} </if>
 		      <if test="projectCompanyCode != null" > and project_company_code = #{projectCompanyCode,jdbcType=VARCHAR} </if>
 		      
-		      <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
-		      <if test="createUname != null" > and create_uname = #{createUname,jdbcType=VARCHAR} </if>
 		      <if test="createUposition != null" > and create_uposition = #{createUposition,jdbcType=VARCHAR} </if>
-		      <if test="projectProgress != null" > and project_progress = #{projectProgress,jdbcType=VARCHAR} </if>
+		     
 		      <if test="projectStatus != null" > and project_status = #{projectStatus,jdbcType=VARCHAR} </if>
 		      <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 		      <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
@@ -72,16 +78,44 @@
 		      <if test="companyLocation != null" > and company_location = #{companyLocation,jdbcType=LONGVARCHAR} </if>
 		      <if test="userPortrait != null" > and user_portrait = #{userPortrait,jdbcType=LONGVARCHAR} </if>
 		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
-				<if test="deptIdList != null">
-					AND project_departId IN
-					<foreach collection="deptIdList" index="item" item="item" open="("
-						separator="," close=")">
-						#{item}
-					</foreach>
-				</if>
+				
+				
+			  <if test="projectName != null" > and project_name = #{projectName,jdbcType=VARCHAR} </if>
+			  <if test="createUname != null" > and create_uname = #{createUname,jdbcType=VARCHAR} </if>
+		      <if test="projectCode != null" > and project_code = #{projectCode,jdbcType=VARCHAR} </if>
 				<!-- 模糊查询 -->
-				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
-				<if test="nameLike != null">and (project_name like CONCAT("%",#{nameLike},"%") or create_uname like CONCAT("%",#{nameLike},"%"))</if>
+				<if test="keyword != null">
+					<choose>
+						<when test="flagkeyword=='concatcode'" >
+							and (project_name like CONCAT("%",#{keyword},"%")
+							<if test="escapeChar ">
+								escape '/'
+							</if>
+							or create_uname like CONCAT("%",#{keyword},"%")
+							<if test="escapeChar ">
+								escape '/'
+							</if>
+							)
+						</when>
+						<when test="flagkeyword==null">
+							and (project_name like CONCAT("%",#{keyword},"%")
+							<if test="escapeChar ">
+								escape '/'
+							</if>
+							or project_code like CONCAT("%",#{keyword},"%")
+							<if test="escapeChar ">
+								escape '/'
+							</if>
+							)
+						</when>
+						<when test="flagkeyword=='onlyName'">
+							and project_name like CONCAT("%",#{keyword},"%")
+							<if test="escapeChar ">
+								escape '/'
+							</if>
+						</when>
+					</choose>
+				</if>
 				<!--根据计划额度查询  -->
 				<if test="rComplany != null"> 
 					<if test="aComplany != null">
@@ -91,6 +125,7 @@
 						and project_contribution  &lt; #{bComplany,jdbcType=DECIMAL} 
 					</if>								 												
 				</if>
+				
 				<!-- 过滤已关闭项目 -->
 				<if test="resultCloseFilter != null">
 					AND project_status !=  #{resultCloseFilter,jdbcType=VARCHAR}
@@ -306,6 +341,15 @@
 			  <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
 		</where>
 		group by project_progress
+	</select>
+	
+	<select id="selectListById" resultMap="BaseResultMap" >
+		select id,project_name,project_departId,project_careerline,create_uname from sop_project
+		    where id in
+					<foreach collection="list" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
 	</select>
 	
 </mapper>

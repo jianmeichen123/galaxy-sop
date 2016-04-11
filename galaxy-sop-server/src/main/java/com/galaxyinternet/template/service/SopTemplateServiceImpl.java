@@ -54,6 +54,14 @@ public class SopTemplateServiceImpl extends BaseServiceImpl<SopTemplate>implemen
 			}
 		});
 		dataMap.put(key, data);
+		key = "templateType";
+		data = getCacheData(key,new DataNotExistHandler(){
+			@Override
+			public Object handle() {
+				return dictService.selectByParentCode("templateType");
+			}
+		});
+		dataMap.put(key, data);
 		
 		key = "department";
 		data = getCacheData(key,new DataNotExistHandler(){

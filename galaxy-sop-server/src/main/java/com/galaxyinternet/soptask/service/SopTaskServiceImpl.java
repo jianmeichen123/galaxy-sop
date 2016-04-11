@@ -89,8 +89,9 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		List<Project> projectList = new ArrayList<Project>();
 		Page<SopTask> selectListSopTask =new Page<>(null, pageable, null);
 	// 如果查询条件部位空的时候，现根据项目名称或者投资经理去查询该项目的任务列表
-		if (sopTaskBo.getNameLike() != null && !"".equals(sopTaskBo.getNameLike())) {
-			projectBo.setNameLike(sopTaskBo.getNameLike());
+		if (sopTaskBo.getKeyword() != null && !"".equals(sopTaskBo.getKeyword())) {
+			projectBo.setKeyword(sopTaskBo.getKeyword());
+			projectBo.setFlagkeyword("concatcode");
 			// 查询该项目投资经理或者项目名称查询相应的项目
 			projectList = projectDao.selectProjectByMap(projectBo);
 			if(!projectList.isEmpty()){
@@ -219,7 +220,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			}
 			sopTaskBo.setId(sopTasknew.getId());
 			String longToString = DateUtil.longToString(sopTasknew.getCreatedTime());
-		    int diffHour=dateAdd(sopTasknew.getCreatedTime());
+		    String diffHour=dateAdd(sopTasknew.getCreatedTime());
 			sopTaskBo.setHours(diffHour);
 			sopTaskBo.setTaskDeadlineformat(longToString);//
 			sopTaskBo.setTaskName(sopTasknew.getTaskName()==null?"":sopTasknew.getTaskName());
@@ -362,10 +363,12 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		return taskFlag;
 	}
-	public int dateAdd(Long date){
+	public String dateAdd(Long date){
 		Date convertStringToDate;
 		String convertDateToString="";
 		int diffHour=0;
+		String result="";
+		String hours="";
 		try {
 			Date nowTime = new Date(date);
 			SimpleDateFormat sdFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -374,11 +377,18 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			Date addDate = DateUtil.addDate(convertStringToDate,3);
 			convertDateToString = DateUtil.convertDateToStringForChina(addDate);
 			diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.getCurrentDateTime());
+			result=Integer.toString(diffHour);
+			if(diffHour<0){	
+				hours=result.replace("-", "超时")+"(h)";
+			}else{
+				hours=result;
+			}
+			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
-		return diffHour;
+		return hours;
 	}
 	
 	@Transactional

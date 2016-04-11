@@ -1,6 +1,7 @@
 package com.galaxyinternet.project.controller;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -439,8 +440,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<PersonPoolBo> addProjectPerson(@RequestBody PersonPoolBo pool, HttpServletRequest request) {
 		ResponseData<PersonPoolBo> responseBody = new ResponseData<PersonPoolBo>();
 		if(pool.getProjectId() == null || pool.getProjectId() <= 0
-				|| pool.getPersonName() == null || pool.getPersonSex() == null
-				|| pool.getPersonAge() == null || pool.getPersonDuties() == null){
+				|| pool.getPersonName() == null || pool.getPersonTelephone() == null){
 			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
@@ -760,7 +760,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			//股权转让文档前置验证
 			if( p.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
-				if(project.getProjectType().equals(DictEnum.projectType.内部创建.getClass())){
+				if(project != null && project.getProjectType() != null && project.getProjectType().equals(DictEnum.projectType.内部创建.getCode())){
 					responseBody.setResult(new Result(Status.ERROR, null,"内部创建项目不需要股权转让协议!"));
 					return responseBody;
 				}else if(project.getStockTransfer()==null || project.getStockTransfer()==0){
@@ -1200,8 +1200,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData resp = new ResponseData();
 		try {
 			String userId = getUserId(request);
-			if(StringUtils.isNotEmpty(userId));
-			Map<String, Object> summary = projectService.getSummary(Long.valueOf(userId));
+			Map<String, Object> summary = null;
+			if(StringUtils.isNotEmpty(userId))
+			{
+				summary = projectService.getSummary(Long.valueOf(userId));
+			}
 			resp.setUserData(summary);
 		} catch (Exception e) {
 			logger.error("获取数据快览失败",e);
@@ -1270,4 +1273,198 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			return map;
 		}
+		
+		
+		
+		/**
+		 * 验证sop流程中按钮是否可用
+		 */
+		@RequestMapping(value = "/checkCanUse", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		@ResponseBody
+		public ResponseData<MeetingRecord> checkCanUse(HttpServletRequest request, Integer index,Long projectId,String projectType) {
+			ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
+			try{
+				if(index == null || projectId ==null ){
+					responseBody.setResult(new Result(Status.ERROR,null, "入参失败"));
+					return responseBody;
+				}
+				if(index == 1){   //访谈纪要判断
+					InterviewRecord view = new InterviewRecord();
+					view.setProjectId(projectId);
+					List<InterviewRecord> viewList = interviewRecordService.queryList(view);
+					if(viewList == null || viewList.isEmpty()){
+						responseBody.setResult(new Result(Status.OK,null,false)); //无记录 false：启动内部评审按钮不可用 
+					}else{
+						responseBody.setResult(new Result(Status.OK,null,true));
+					}
+					
+				}else if(index == 3){  //CEO评审，会议通过，可以 启用 申请立项会排期按钮
+					
+					MeetingRecord meet = new MeetingRecord();
+					meet.setProjectId(projectId);
+					meet.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
+					meet.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+					
+					List<MeetingRecord> meetList  = meetingRecordService.queryList(meet);
+					
+					if(meetList==null || meetList.isEmpty()){
+						responseBody.setResult(new Result(Status.OK,null,false)); //没有通过的会议
+					}else{
+						responseBody.setResult(new Result(Status.OK,null,true)); 
+					}			
+					
+				}else if(index == 4){  //立项会阶段，在排期池中时， 申请立项会排期按钮 不可用
+					MeetingScheduling meetSchedu = new MeetingScheduling();
+					meetSchedu.setProjectId(projectId);
+					meetSchedu.setMeetingType(DictEnum.meetingType.立项会.getCode());
+					meetSchedu.setStatus(DictEnum.meetingResult.待定.getCode());
+					List<MeetingScheduling> meetScheduList  = meetingSchedulingService.queryList(meetSchedu);
+					if(meetScheduList==null || meetScheduList.isEmpty()){
+						responseBody.setResult(new Result(Status.OK,null,true)); //池中没有记录
+					}else{
+						responseBody.setResult(new Result(Status.OK,null,false)); 
+					}			
+				}else if(index == 6){  //尽调阶段，文档齐全后， 申请投决会排期按钮 可用
+					if(projectType == null){
+						responseBody.setResult(new Result(Status.ERROR,null, "入参失败"));
+						return responseBody;
+					}
+					//验证文档是否齐全
+					SopFile file = new SopFile();
+					file.setProjectId(projectId);
+					file.setFileValid(1);
+					file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+					List<SopFile> files = sopFileService.queryList(file);
+					
+					boolean allHas = true;
+					if(files != null &&( (projectType.equals(DictEnum.projectType.外部投资.getCode()) && files.size() == 4) || (projectType.equals(DictEnum.projectType.内部创建.getCode()) && files.size() == 2))){
+						for(SopFile f : files){
+							if(f.getFileKey() == null || "".equals(f.getFileKey().trim())){
+								allHas = false;
+								break;
+							}
+						}
+					}else{
+						allHas = false;
+					}
+					responseBody.setResult(new Result(Status.OK,null,allHas)); 
+					
+				}else if(index == 7){ //投决会阶段，在排期池中时， 申请投决会排期按钮 不可用
+					MeetingScheduling meetSchedu = new MeetingScheduling();
+					meetSchedu.setProjectId(projectId);
+					meetSchedu.setMeetingType(DictEnum.meetingType.投决会.getCode());
+					meetSchedu.setStatus(DictEnum.meetingResult.待定.getCode());
+					List<MeetingScheduling> meetScheduList  = meetingSchedulingService.queryList(meetSchedu);
+					if(meetScheduList==null || meetScheduList.isEmpty()){
+						responseBody.setResult(new Result(Status.OK,null,true)); //池中没有记录
+					}else{
+						responseBody.setResult(new Result(Status.OK,null,false)); 
+					}			
+				}
+				
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "验证失败"));
+				if(logger.isErrorEnabled()){
+					logger.error("checkCanUse 验证失败",e);
+				}
+			}
+			
+			return responseBody;
+		}
+		
+		
+		
+		 /**
+		 * 排期池中是否存在
+		 * 状态为待定
+		 * 
+		CEO评审("CEO评审","meetingType:2"),
+		立项会("立项会","meetingType:3"),
+		投决会("投决会","meetingType:4");
+		
+		 */
+		@RequestMapping(value = "checkHasPool")
+		@ResponseBody
+		public ResponseData<MeetingScheduling> checkHasPool(@RequestBody MeetingScheduling  query) {
+			ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
+			List<MeetingScheduling> list = new ArrayList<MeetingScheduling>();
+			try {
+				if(query.getProjectId()==null || query.getMeetingType()==null){
+					responseBody.setResult(new Result(Status.ERROR,null, "参数缺失"));
+					return responseBody;
+				}
+				query.setStatus(DictEnum.meetingResult.待定.getCode());
+				
+				list = meetingSchedulingService.queryList(query);
+				if(list!=null&&!list.isEmpty()){
+					if(list.size()==1){
+						responseBody.setResult(new Result(Status.OK, ""));
+						responseBody.setId(list.get(0).getId());
+					}else{
+						responseBody.setResult(new Result(Status.ERROR,null, "数据返回错误"));
+						logger.error("checkHasPool 数据返回错误,应返回一条数据  "+GSONUtil.toJson(list));
+					}
+				}else{
+					responseBody.setResult(new Result(Status.OK, ""));
+				}			
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));
+				if(logger.isErrorEnabled()){
+					logger.error("checkHasPool 查询失败",e);
+				}
+			}
+			
+			return responseBody;
+		}
+		
+		
+		
+		
+		 /**
+		 * 排期池中是否存在
+		 * 状态为待定
+		 * 
+		CEO评审("CEO评审","meetingType:2"),
+		立项会("立项会","meetingType:3"),
+		投决会("投决会","meetingType:4");
+		
+		 */
+		@RequestMapping(value = "checkPassMeet")
+		@ResponseBody
+		public ResponseData<MeetingRecord> checkPassMeet(@RequestBody MeetingRecord  query) {
+			ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
+			List<MeetingRecord> list = new ArrayList<MeetingRecord>();
+			try {
+				if(query.getProjectId()==null || query.getMeetingType()==null){
+					responseBody.setResult(new Result(Status.ERROR,null, "参数缺失"));
+					return responseBody;
+				}
+				query.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+				
+				list = meetingRecordService.queryList(query);
+				
+				
+				if(list!=null&&!list.isEmpty()){
+					if(list.size()==1){
+						responseBody.setResult(new Result(Status.OK, ""));
+						responseBody.setId(list.get(0).getId());
+					}else{
+						responseBody.setResult(new Result(Status.ERROR,null, "数据返回错误"));
+						logger.error("checkPassMeet 数据返回错误,应返回一条数据  "+GSONUtil.toJson(list));
+					}
+				}else{
+					responseBody.setResult(new Result(Status.OK, ""));
+				}			
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));
+				if(logger.isErrorEnabled()){
+					logger.error("checkPassMeet 查询失败",e);
+				}
+			}
+			
+			return responseBody;
+		}
+		
+		
+		
 }

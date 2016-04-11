@@ -1,13 +1,9 @@
 package com.galaxyinternet.template.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,7 +29,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.bo.template.SopTemplateBo;
 import com.galaxyinternet.common.annotation.LogType;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -103,31 +101,37 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 				List<String>  types = null;
 				String typesStr = "";
 				String editableTypes = "";
+				SopTemplateBo query = new SopTemplateBo();
 				if(UserConstant.TZJL == role.getId())
 				{
-					typesStr = "fileWorktype:1,fileWorktype:2,fileWorktype:3,fileWorktype:4,fileWorktype:5,fileWorktype:6,fileWorktype:7,fileWorktype:13,fileWorktype:14,fileWorktype:15,fileWorktype:16";
-					editableTypes = "fileWorktype:1,fileWorktype:13";
+					List<Long> departmentIdList = new ArrayList<Long>();
+					typesStr = "templateType:1,templateType:2,templateType:3,templateType:4,templateType:5,templateType:6,templateType:7";
+					editableTypes = "templateType:3";
+					departmentIdList.add(user.getDepartmentId());
+					departmentIdList.add(SopConstant.DEPARTMENT_RS_ID);
+					departmentIdList.add(SopConstant.DEPARTMENT_FW_ID);
+					departmentIdList.add(SopConstant.DEPARTMENT_CW_ID);
+					query.setDepartmentIds(departmentIdList.toArray(new Long[departmentIdList.size()]));
 				}
 				else if(UserConstant.HRJL == role.getId() || UserConstant.HRZJ == role.getId() )
 				{
-					typesStr = "fileWorktype:2,fileWorktype:14";
-					editableTypes = "fileWorktype:2,fileWorktype:14";
+					typesStr = DictEnum.TemplateType.RSJD.getCode();
+					editableTypes = typesStr;
 				}
 				else if(UserConstant.CWJL == role.getId() || UserConstant.CWZJ == role.getId() )
 				{
-					typesStr = "fileWorktype:4,fileWorktype:16";
-					editableTypes = "fileWorktype:4,fileWorktype:16";
+					typesStr = DictEnum.TemplateType.CWJD.getCode();
+					editableTypes = typesStr;
 				}
 				else if(UserConstant.FWJL == role.getId() || UserConstant.FWZJ == role.getId() )
 				{
-					typesStr = "fileWorktype:3,fileWorktype:5,fileWorktype:6,fileWorktype:7,fileWorktype:15";
-					editableTypes = "fileWorktype:3,fileWorktype:5,fileWorktype:6,fileWorktype:7,fileWorktype:15";
+					typesStr = DictEnum.TemplateType.FWJD.getCode()+","+DictEnum.TemplateType.TZXY.getCode()+","+DictEnum.TemplateType.TZYXS.getCode()+","+DictEnum.TemplateType.GQZR.getCode();
+					editableTypes = typesStr;
 				}
 				
 				if(typesStr != null && typesStr.length()>0)
 				{
 					types = Arrays.asList(typesStr.split(","));
-					SopTemplateBo query = new SopTemplateBo();
 					query.setFileWorktypes(types);
 					List<SopTemplate> list = templateService.queryList(query);
 					rtn.setEntityList(list);

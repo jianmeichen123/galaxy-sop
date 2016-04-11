@@ -72,7 +72,7 @@
             <dl class="fmdl fmdll clearfix">
               <dt></dt>
               <dd>
-                <input type="text" class="txt s_txt" placeholder="请输入项目名称或项目编码" id = "proNameCode" name="proNameCode" />
+                <input type="text" class="txt s_txt" placeholder="请输入项目名称或项目编码" id = "keyword" name="keyword" />   <!-- proNameCode -->
               </dd>
               
               <dd>
@@ -141,10 +141,10 @@ $(function(){
 	});
 	
 });
-var table = document.getElementById("data-table");//获取第一个表格  
+/* var table = document.getElementById("data-table");//获取第一个表格  
 
 var child = table.getElementsByTagName("tr")[2];
-child.style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;";
+child.style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"; */
 </script>
 </body>
 

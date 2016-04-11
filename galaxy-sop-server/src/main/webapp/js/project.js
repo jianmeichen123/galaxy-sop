@@ -257,7 +257,7 @@ function savePersonCallBack(data){
 	}
 	//alert("操作成功!");
 	$("#popbg,#powindow").remove();
-	//window.location.reload(sopContentUrl + "/galaxy/upp");
+	//window.location.reload(Constants.sopEndpointURL + "/galaxy/upp");
 	getTabPerson();
 }
 
@@ -270,7 +270,7 @@ function saveProjectCallBack(data){
 	}
 	//alert("操作成功!");
 	$("#powindow,#popbg").remove();
-	//window.location.reload(sopContentUrl + "/galaxy/upp");
+	//window.location.reload(Constants.sopEndpointURL + "/galaxy/upp");
 	getTabShare();
 }
 
@@ -286,7 +286,7 @@ function deleteProjectCallBack(data){
 		return;
 	}
 	//alert("删除成功!");
-	window.location.reload(sopContentUrl + "/galaxy/upp");
+	window.location.reload(Constants.sopEndpointURL + "/galaxy/upp");
 }
 
 /**

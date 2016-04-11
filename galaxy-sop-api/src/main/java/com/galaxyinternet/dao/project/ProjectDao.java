@@ -20,4 +20,7 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 	public List<Project> selectStageSummary(ProjectBo query);
 	
 	public long insertProject(Project project);
+	
+	
+	public List<Project> selectListById(List<Long> idList);
 }

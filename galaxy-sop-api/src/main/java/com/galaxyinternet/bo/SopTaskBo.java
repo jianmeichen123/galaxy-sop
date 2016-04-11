@@ -17,9 +17,10 @@ public class SopTaskBo extends  SopTask{
 	private String nameLike;
 	private String statusFlag;
 	private String caozuohtml;
-	private Integer hours;
+	private String hours;
 	private String orderRemark;
 	private String flagUrl;
+	private String concatcode;
 	public String getCreateUname() {
 		return createUname;
 	}
@@ -91,30 +92,6 @@ public class SopTaskBo extends  SopTask{
 	public void setCaozuohtml(String caozuohtml) {
 		this.caozuohtml = caozuohtml;
 	}
-	
-	protected Integer pageSize;
-	protected Integer pageNum;
-
-	@Override
-	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	@Override
-	public Integer getPageSize() {
-		return this.pageSize;
-	}
-
-	@Override
-	public void setPageNum(Integer pageNum) {
-		this.pageNum = pageNum;
-
-	}
-
-	@Override
-	public Integer getPageNum() {
-		return this.pageNum;
-	}
 
 	public String getOrderRemark() {
 		return orderRemark;
@@ -140,12 +117,14 @@ public class SopTaskBo extends  SopTask{
 		this.flagUrl = flagUrl;
 	}
 
-	public Integer getHours() {
+	public String getHours() {
 		return hours;
 	}
 
-	public void setHours(Integer hours) {
+	public void setHours(String hours) {
 		this.hours = hours;
 	}
+
+	
 	
 }

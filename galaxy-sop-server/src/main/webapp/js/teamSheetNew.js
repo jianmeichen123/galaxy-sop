@@ -47,7 +47,7 @@
 				$("[data-tid='"+_item.id+"'][data-act='uploadFileBtn']").click(function(){
 					//上传插件参数
 					var _formdata = {
-							_id : item.id,
+							id : _item.id,
 							_fileType : "auto",
 							_fileSource : _item.fileSource,
 							_workType : _item.fileWorktype,
@@ -67,7 +67,7 @@
 //					alert("上传签署协议");
 					//上传插件参数
 					var _formdata = {
-							_id : item.id,
+							_id : _item.id,
 							_workType : _item.fileWorktype,
 							_projectId : _item.projectId,
 							_isProve : true,
@@ -91,6 +91,11 @@
 	var win = {
 			id : undefined,
 			init : function(_formdata){
+				if(typeof(_formdata._id)=='undefined'){
+					layer.msg("参数_id为必传参数");
+					return;
+				}
+				win.id = _formdata._id;
 				win.initData();
 				win.callFuc = _formdata.callFuc;
 				$.popup({
@@ -139,27 +144,59 @@
 										}
 										
 									});
-									
-									
-									
+									sendGetRequest(platformUrl.getPolicy+"/"+win.id,null,win.getPolicyCallBack);
+								
 								},
 								UploadProgress: function(up, file) {
 								},
 								FileUploaded:function(up,file,result){
 									$(_this.id).hideLoading();
 									if(result.status==200){
-										var _restmp = $.parseJSON(result.response);
-										var _projectId = _restmp.message;
-										if(_restmp.result.status == "OK"){
-											layer.msg("上传成功");
-											win.close(_this);
-											win.callFuc();
-											dataGrid.load(_projectId);
+										if(win.ossObject.uploadMode!="oss"){
+											var _restmp = $.parseJSON(result.response);
+											var _projectId = _restmp.message;
+											if(_restmp.result.status == "OK"){
+												layer.msg("上传成功");
+												win.close(_this);
+												win.callFuc();
+												dataGrid.load(_projectId);
+											}else{
+												layer.msg(_restmp.result.errorCode);
+//												alert(_restmp.result.errorCode);
+											}
 										}else{
-											layer.msg(_restmp.result.errorCode);
-//											alert(_restmp.result.errorCode);
-										}
-										
+//											layer.msg("上传成功");
+											
+											var form = {
+													"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
+													"fileType" : $(_this.id).find("#win_fileType").val(),
+													"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
+													"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
+													"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
+													"remark" : $(_this.id).find("#win_FILELIST").val(),
+													"fileKey" : win.ossObject.fileKey,
+													"fileName" : file.name,
+													"fileLength" : file.size
+											};
+											
+											sendPostRequestByJsonObj(
+													platformUrl.fileCallBack,
+													form,
+													function(data){
+														if(data.result.status=="OK")
+														{
+															layer.msg("上传成功");
+															win.close(_this);
+															win.callFuc();
+															dataGrid.load(_projectId);
+														}
+														else
+														{
+															layer.msg("上传失败");
+														}
+													}
+											); 
+										}	
 									}else{
 										layer.msg("上传失败");
 //										alert("上传失败");
@@ -167,25 +204,44 @@
 								},
 								BeforeUpload:function(up){
 //									alert($(_this.id).find("#isProve").is(":checked"));
-									
-									var form = {
-											"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
-											"fileType" : $(_this.id).find("#win_fileType").val(),
-											"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
-											"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
-											"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
-											"remark" : $(_this.id).find("#win_FILELIST").val(),
-											"progress" : _formdata._progress
-									};
-									
 									$(_this.id).showLoading(
 											 {
 											    'addClass': 'loading-indicator'						
 											 });
-									
-		
-//									up.settings.headers = from 
+									if(win.ossObject.uploadMode=="oss"){
+										var form = {
+										        'Filename': up.files[0].name,
+										        'key' : win.ossObject.fileKey,
+										        'policy': win.ossObject.policy,
+										        'OSSAccessKeyId': win.ossObject.accessid,
+										        'success_action_status' : '200', //让服务端返回200,不然，默认会返回204
+										        'signature': win.ossObject.signature,
+										        "Content-Disposition" : "attachment;filename="+up.files[0].name,
+										        "Content-Length" : up.files[0].size
+//										        "callback" = 'http://10.9.15.134:8888/sop/galaxy/sopfile/'
+										    };
+//										up.settings.headers = {
+//												"Content-Length" : up.files[0].size,
+//												"Content-Disposition" : "attachment;filename="+up.files[0].name,
+//												"Authorization" : win.ossObject.signature
+//												
+//										} ;
+										up.settings.url = win.ossObject.host;
+									}else{
+										var form = {
+												"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
+												"fileType" : $(_this.id).find("#win_fileType").val(),
+												"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
+												"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
+												"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
+												"remark" : $(_this.id).find("#win_FILELIST").val()
+										};
+									}
 									up.settings.multipart_params = form;
+									
+									
+//									
+									
 								},
 								Error: function(up, err) {
 									$(_this.id).hideLoading();
@@ -294,6 +350,10 @@
 				}
 				win.utils.each(data,_dom,null);
 				},
+			ossObject : undefined,	
+			getPolicyCallBack : function(data){
+				win.ossObject = data.userData;
+			},
 			utils : {
 				each : function(_data,_dom,type){
 					_dom.empty();
@@ -350,7 +410,7 @@
 							var $tr=$("<tr></tr>");
 							$tr.append("<td>"+ i +"</td>");
 							$tr.append("<td>"+ this.fWorktype +"</td>");
-						//	$tr.append("<td>"+ getFileSize(this.fileLength) +"</td>");
+							$tr.append("<td>"+ getFileSize(this.fileLength) +"</td>");
 							$(_dialog.id).find("#attach-table tbody").append($tr);
 							ids.push(this.id);
 							i++;

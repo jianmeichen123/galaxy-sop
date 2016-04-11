@@ -47,7 +47,13 @@
 					<foreach collection="fileWorktypes" item="item" open="("  separator="," close=")">
 					#{item}
 					</foreach>
-				</if>		
+				</if>	
+				<if test="departmentIds != null">
+					and department_id in 
+					<foreach collection="departmentIds" item="item" open="("  separator="," close=")">
+					#{item}
+					</foreach>
+				</if>	
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>

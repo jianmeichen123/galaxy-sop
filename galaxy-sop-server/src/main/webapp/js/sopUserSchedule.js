@@ -31,6 +31,8 @@ function loadAjaxSopUserSchedule(url){
 			   }
 				if(dataList.length<3){
 					$("#top").siblings().children('.more').css("display","none");
+				}else{
+					$("#top").siblings().children('.more').css("display","block");
 				}
 			 for(var p in dataList){
 				 htmlstart +="<a href=\"javascript:;\" class=\"link\"><b class=\"b1 null\">点</b>"+dataList[p].timeTask+"</a>";

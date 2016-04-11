@@ -1,5 +1,7 @@
 package com.galaxyinternet.bo.project;
 
+import java.util.List;
+
 import com.galaxyinternet.model.project.MeetingRecord;
 
 public class MeetingRecordBo  extends MeetingRecord{
@@ -13,6 +15,7 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private String endTime;
 	private String proNameCode;
 	private int inpro; //是否项目内查看 1：是
+	private List<Long> proIdList;
 	
 	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
@@ -87,6 +90,12 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setFkey(String fkey) {
 		this.fkey = fkey;
+	}
+	public List<Long> getProIdList() {
+		return proIdList;
+	}
+	public void setProIdList(List<Long> proIdList) {
+		this.proIdList = proIdList;
 	}
 	
 }

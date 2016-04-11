@@ -37,8 +37,28 @@ public class PersonPool extends PagableEntity{
     
     //添加的 时间字段
     private String personBirthdayStr;
+    private String formatAgeStr;
+    private String formatWorkTime;
     
-
+    
+    
+    
+    
+	public String getFormatWorkTime() {
+		return formatWorkTime;
+	}
+	public void setFormatWorkTime(String formatWorkTime) {
+		this.formatWorkTime = formatWorkTime;
+	}
+	
+	public String getFormatAgeStr() {
+		return formatAgeStr;
+	}
+	public void setFormatAgeStr(String formatAgeStr) {
+		this.formatAgeStr = formatAgeStr;
+	}
+	
+	
 	public String getPersonBirthdayStr() {
 		return personBirthdayStr;
 	}
@@ -59,6 +79,9 @@ public class PersonPool extends PagableEntity{
     }
 
     public Integer getPersonSex() {
+    	if(this.formatAgeStr != null && !"".equals(this.formatAgeStr.trim())){
+			this.personSex = Integer.parseInt(this.formatAgeStr.trim());
+		}
         return personSex;
     }
 
@@ -83,6 +106,9 @@ public class PersonPool extends PagableEntity{
 	}
 
 	public Integer getWorkTime() {
+		if(this.formatWorkTime != null && !"".equals(this.formatWorkTime.trim())){
+			this.workTime = Integer.parseInt(this.formatWorkTime.trim());
+		}
 		return workTime;
 	}
 

@@ -26,14 +26,35 @@
 				<if test="viewTarget != null" > and view_target = #{viewTarget,jdbcType=VARCHAR} </if>
 				<if test="viewNotes != null" > and view_notes = #{viewNotes,jdbcType=VARCHAR} </if>
 				<if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
-				<!-- 模糊查询 -->
-				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
+				
+				<if test="proIdList != null">
+					and project_id in
+					<foreach collection="proIdList" index="item" item="item" open="(" separator="," close=")" >
+						#{item}
+					</foreach>
+				</if>
+				<if test="startTime != null"> <![CDATA[  and view_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and view_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+				
 			</trim>
 		</where>
-		<if test="sorting != null">order by ${sorting}</if>
+		<!-- <if test="sorting != null">order by ${sorting}</if> -->
+		<if test="direction != null">
+			order by view_date
+			 <if test="direction == 'desc'"> desc </if>
+			 <if test="direction == 'asc'"> asc </if>
+			 ,created_time 
+			 <if test="direction == 'desc'"> desc </if>
+			 <if test="direction == 'asc'"> asc </if>
+		</if>
+		<if test="direction == null">
+			order by view_date desc,created_time desc
+		</if>
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
+		
+		
 	</sql>
 	
 	<!-- 查询总数 -->
@@ -140,10 +161,12 @@
 			<if test="projectId != null"> and p.id = #{projectId,jdbcType=BIGINT} </if>
 			<if test="startTime != null"> <![CDATA[  and ir.view_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 			<if test="endTime != null"> <![CDATA[ and ir.view_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
-			<if test="proNameCode != null">
-				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
+			<if test="keyword != null">
+				and (
+					p.project_name like CONCAT("%",#{keyword},"%")  <if test="escapeChar ">  escape '/'  </if>
+					or p.project_code like CONCAT("%",#{keyword},"%") <if test="escapeChar ">  escape '/'  </if>
+				)
 			</if>
-			<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 		<if test="direction != null">
 			order by ir.view_date
 			 <if test="direction == 'desc'"> desc </if>
@@ -172,8 +195,11 @@
 			<if test="projectId != null"> and p.id = #{projectId,jdbcType=BIGINT} </if>
 			<if test="startTime != null"> <![CDATA[  and ir.view_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 			<if test="endTime != null"> <![CDATA[ and ir.view_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
-			<if test="proNameCode != null">
-				and (p.project_name like '%${proNameCode}%' or p.project_code like '%${proNameCode}%')
+			<if test="keyword != null">
+				and (
+					p.project_name like CONCAT("%",#{keyword},"%")  <if test="escapeChar ">  escape '/'  </if>
+					or p.project_code like CONCAT("%",#{keyword},"%") <if test="escapeChar ">  escape '/'  </if>
+				)
 			</if>
 		) a
 	</select>

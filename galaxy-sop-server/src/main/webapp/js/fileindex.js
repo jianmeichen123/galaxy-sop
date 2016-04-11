@@ -29,7 +29,7 @@ var fileGrid = {
 			onLoadSuccess : function(data){
 				var obj=this;
 				var result=data;
-				if(result.pageList.total<3){
+				if(typeof(result.pageList.total)=='undefined' || result.pageList.total<3){
 					$("#file_gird_more").hide();
 				}
 			},

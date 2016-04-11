@@ -25,7 +25,7 @@
 
 	// 所有立项排期
 	function moreProjectMeeting() {
-		sendGetRequest(sopContentUrl+"/galaxy/home/moreProjectMeeting", null, moreProjectMeetingCallback);
+		sendGetRequest(Constants.sopEndpointURL+"/galaxy/home/moreProjectMeeting", null, moreProjectMeetingCallback);
 	}
 
 
@@ -50,6 +50,16 @@
 				var tr = " <tr><td>"+(index+1)+"</td><td>"+longTimeFormatChines(item.createdTime)+"</td> <td>"+item.operator+"</td><td>"+item.content+"</td></tr>"
 				news_table.append(tr);
 			})
+			if (content.length==0) {
+				var noData =
+					'<tr>'+
+					 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+					' </tr>'; 			
+				news_table.append(noData);
+		   }
+			if(content.length<3){
+				news_table.parent().parent().siblings().children('.more').css("display","none");
+			};
 		}
 	}
 	
@@ -118,7 +128,7 @@
 				 i=i+1;
 				 var tr='<tr>'+
 				 '<td>'+i+'</td>'+
-				 '<td class="cutstr">'+ getValue(temp.projectName)+'</td>'+
+				 '<td class="cutstr" title="'+ getValue(temp.projectName)+'">'+ getValue(temp.projectName)+'</td>'+
 				 '<td>'+ getDateValue(temp.meetingDate)+'</td>'+
 				 '<td>'+getIntegerValue(temp.meetingCount)+'</td>'+
 				' </tr>'; 
@@ -141,7 +151,7 @@ cutStr(5,'cutstr');}
 
 	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
-		if(list != "" || list != undefined || list != null){
+		if(list != "" || typeof(list) != 'undefined' || list != null){
 			var tbodyList = $("#tlbody"); 
 			tbodyList.empty();
 			var i=0;
@@ -150,25 +160,26 @@ cutStr(5,'cutstr');}
 				 i=i+1;
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td class="cutstr">'+ getValue(templ.projectName)+'</td>'+
+					 '<td class="cutstr" title="'+ getValue(templ.projectName)+'">'+ getValue(templ.projectName)+'</td>'+
 					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
 					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
+			if (list.length==0) {
+				var tbodyList = $("#tlbody"); 
+				var noData =
+					'<tr>'+
+					 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+					' </tr>'; 			
+				tbodyList.append(noData);
+				}
+			if(list.length<3){
+				$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
+			};
 			
 		}
-		if (list.length==0) {
-			var tbodyList = $("#tlbody"); 
-			var noData =
-				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
-				' </tr>'; 			
-			tbodyList.append(noData);
-			}
-		if(list.length<3){
-			$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
-		};
+		
 cutStr(5,'cutstr');	}
 	function moreProjectMeetingCallback(data) {
 		var list = data.entityList;
@@ -332,7 +343,7 @@ $(function(){
 	$("tbody").on("click", "#doclaim", function() {
 		var task=this;
 		var taskId=task.childNodes[1].value;
-		var url=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId;
+		var url=Constants.sopEndpointURL+"/galaxy/soptask/doTask?taskId="+taskId;
 	    forwardWithHeader(url);
 //		this.href=endUrl;
 	});
@@ -341,7 +352,7 @@ $(function(){
 		var obj=this;
 		var taskId=obj.childNodes[1].value;;
 		var projectid=obj.childNodes[2].value;;
-	    var  _url=sopContentUrl+"/galaxy/soptask/goClaimtcPage?id="+taskId+"&sid="+sessionId+"&guid="+userId;
+	    var  _url=Constants.sopEndpointURL+"/galaxy/soptask/goClaimtcPage?id="+taskId+"&sid="+sessionId+"&guid="+userId;
 	  // 	var _url = forwardWithHeader(claimUrl);
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -349,8 +360,8 @@ $(function(){
 			okback:function(){
 			//	var taskid=getTaskId();
 				$(".btnbox").on("click", "#dotask", function() {	
-				//	var endUrl=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId+"&sid="+sessionId+"&guid="+userId;
-					var endUrl=sopContentUrl+"/galaxy/soptask/doTask?taskId="+taskId;
+				//	var endUrl=Constants.sopEndpointURL+"/galaxy/soptask/doTask?taskId="+taskId+"&sid="+sessionId+"&guid="+userId;
+					var endUrl=Constants.sopEndpointURL+"/galaxy/soptask/doTask?taskId="+taskId;
 					forwardWithHeader(endUrl);
 	            });
 				//单击按钮刷新页列表里面的内容

@@ -1,4 +1,4 @@
-var startPath = sopContentUrl;
+var startPath = Constants.sopEndpointURL;
 $(function(){
  	sendGetRequest(platformUrl.toaddPersonHr+$("#personId").val(), null, wanshancbf);
  	$("body").delegate(".datepicker", "focusin", function(){
