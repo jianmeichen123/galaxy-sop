@@ -3,6 +3,8 @@ package com.galaxyinternet.model.sopfile;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
@@ -145,9 +147,17 @@ public class SopFile extends PagableEntity {
   	 */
   	private String pageType;
   	private String fileWorktypeNullFilter;
-
   	
+  	private MultipartFile multipartFile;
 
+  
+	public MultipartFile getMultipartFile() {
+		return multipartFile;
+	}
+
+	public void setMultipartFile(MultipartFile multipartFile) {
+		this.multipartFile = multipartFile;
+	}
 
 	public String getUpdatedDate() {
 		return updatedDate;

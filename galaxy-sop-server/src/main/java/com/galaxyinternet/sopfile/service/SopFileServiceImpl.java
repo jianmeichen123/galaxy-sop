@@ -182,7 +182,10 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			}	
 		}
 		user.setIds(ids);
-		return userService.queryList(user);
+		if(sopFileList.size()!=0){
+			return userService.queryList(user);
+		}
+		return null;
 	}
 	
 	private List<Project> getProject(List<SopFile> sopFileList){
@@ -194,8 +197,10 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			}	
 		}
 		project.setIds(ids);
-		return projectDao.selectList(project);
-//		project.set
+		if(sopFileList.size()!=0){
+			return projectDao.selectList(project);
+		}
+		return null;
 	}
 	
 

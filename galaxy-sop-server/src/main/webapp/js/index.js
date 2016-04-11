@@ -151,7 +151,7 @@ cutStr(5,'cutstr');}
 
 	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
-		if(list != "" || list != undefined || list != null){
+		if(list != "" || typeof(list) != 'undefined' || list != null){
 			var tbodyList = $("#tlbody"); 
 			tbodyList.empty();
 			var i=0;
@@ -166,19 +166,20 @@ cutStr(5,'cutstr');}
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
+			if (list.length==0) {
+				var tbodyList = $("#tlbody"); 
+				var noData =
+					'<tr>'+
+					 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+					' </tr>'; 			
+				tbodyList.append(noData);
+				}
+			if(list.length<3){
+				$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
+			};
 			
 		}
-		if (list.length==0) {
-			var tbodyList = $("#tlbody"); 
-			var noData =
-				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
-				' </tr>'; 			
-			tbodyList.append(noData);
-			}
-		if(list.length<3){
-			$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
-		};
+		
 cutStr(5,'cutstr');	}
 	function moreProjectMeetingCallback(data) {
 		var list = data.entityList;

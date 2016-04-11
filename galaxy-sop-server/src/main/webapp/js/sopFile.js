@@ -160,16 +160,19 @@ var fileGrid = {
 	},
 	operateEvents : {
 		'click .filedownloadlink': function (e, value, row, index) {
+			//"3959118243299382"
 			data = {
 					fileKey : row.fileKey,
 					fileName : row.fileName + "." + row.fileSuffix
 			};
-//			window.location = ossClient.signatureUrl(data)
+			
 			layer.msg('正在下载，请稍后...',{time:2000});
-			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
+			window.location = ossClient.signatureUrl(data);
+//			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
         },
         'click .fileupdatelink' : function(e, value, row, index){
         	formData = {
+        			_id : row.id,
         			_fileType : row.fileType,
         			_fileTypeAuto : true,
         			_fileSource : row.fileSource,
@@ -248,6 +251,7 @@ function init(){
 	createMenus(14);
 	searchPanel.initData();
 	fileGrid.init();
+	
 	
 }
 

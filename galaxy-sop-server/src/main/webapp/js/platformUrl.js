@@ -5,6 +5,12 @@ var Constants = {
 	fileUploadMode : endpointObj["galaxy.project.file.upload.mode"]
 }
 
+//var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
+//var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
+//var sopContentUrl = "http://fx.galaxyinternet.com/sop";
+var sopContentUrl = "http://127.0.0.1:8888/sop";
+
+
 var platformUrl = {
 		
 	/**
@@ -380,8 +386,7 @@ var platformUrl = {
 	/**
 	 * 档案管理发送邮
 	 */
-	fileSendEmail:Constants.sopEndpointURL + "/galaxy/sopFile/sendMail",
-	
+	fileSendEmail:sopContentUrl + "/galaxy/sopFile/sendMail",
 	/**
 	 * 排期池中是否存在
 	 */
@@ -390,13 +395,19 @@ var platformUrl = {
 	 * 是否存在通过的会议
 	 */
 	checkPassMeet:Constants.sopEndpointURL + "/galaxy/project/checkPassMeet",
-	
 	/**
 	 * 是否存在通过的会议
 	 */
-	checkCanUse:Constants.sopEndpointURL + "/galaxy/project/checkCanUse"
-	
-	
+
+	checkCanUse:sopContentUrl + "/galaxy/project/checkCanUse",
+	/**
+	 * 获取阿里云签名
+	 */
+	getPolicy : sopContentUrl + "/galaxy/sopFile/getPolicy",
+	/**
+	 * 阿里云直连回掉
+	 */
+	fileCallBack : sopContentUrl + "/galaxy/sopFile/fileCallBack"
 }
 
 /**
