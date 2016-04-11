@@ -2022,7 +2022,7 @@
                 paginationHeight = getRealHeight(this.$pagination),
                 height = this.options.height - toolbarHeight - paginationHeight;
 
-            this.$tableContainer.css('height', height + 'px');
+            //this.$tableContainer.css('height', height + 'px');
         }
 
         if (this.options.cardView) {
