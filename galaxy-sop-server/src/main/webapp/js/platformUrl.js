@@ -2,14 +2,7 @@ var Constants = {
 	platformEndpointURL : endpointObj["galaxy.project.platform.endpoint"],
 	reportEndpointURL : endpointObj["galaxy.project.report.endpoint"],
 	sopEndpointURL : endpointObj["galaxy.project.sop.endpoint"],
-	fileUploadMode : endpointObj["galaxy.project.file.upload.mode"]
 }
-
-//var sopContentUrl = "http://fx.dev.galaxyinternet.com/sop";
-//var sopContentUrl = "http://fx.qa.galaxyinternet.com/sop";
-//var sopContentUrl = "http://fx.galaxyinternet.com/sop";
-var sopContentUrl = "http://127.0.0.1:8888/sop";
-
 
 var platformUrl = {
 		
