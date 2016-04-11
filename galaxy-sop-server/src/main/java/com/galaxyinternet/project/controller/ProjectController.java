@@ -1,6 +1,7 @@
 package com.galaxyinternet.project.controller;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -196,11 +197,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 修改项目信息接口
 	 * @author yangshuhua
 	 * @return
+	 * @throws ParseException 
 	 */
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/up", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> resetProject(@RequestBody Project project, HttpServletRequest request) {
+	public ResponseData<Project> resetProject(@RequestBody Project project, HttpServletRequest request) throws ParseException {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		if(project == null || project.getId() == null){
 			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
@@ -232,6 +234,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		project.setUpdatedTime(System.currentTimeMillis());
+		project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
+		
 		int num = projectService.updateById(project);
 		if(num > 0){
 			responseBody.setResult(new Result(Status.OK, null, "项目修改成功!"));

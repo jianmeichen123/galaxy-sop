@@ -319,5 +319,5 @@ $(function(){
 	   // setDate:"Today"
 	    //endDate: '+3d'
 	});
-	$('.datepicker-text').datepicker("setDate",dateadd);
+	//$('.datepicker-text').datepicker("setDate",dateadd);
 });

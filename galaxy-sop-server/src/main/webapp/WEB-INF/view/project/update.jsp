@@ -20,12 +20,18 @@
     <script type="text/javascript" src="<%=path %>/js/project.js"></script>
 
     <script src="<%=path %>/js/init.js"></script>
-    
+
     <!-- 表单验证 -->
 	<script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 	<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 	<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
     <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
+    
+   <!-- 日历插件 -->
+	<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 </head>
 
 <body>
@@ -54,7 +60,11 @@
              <tbody>
                   <tr>
                       <td><dl><dt>项目编码：</dt><dd id="project_code"></dd></dl></td>
-                      <td><dl><dt>创建时间：</dt><dd id="create_date"></dd></dl></td>
+                      <td><dl><dt>创建时间：</dt>
+                      <dd>
+                      <input type="text" class="datepicker-text time" name="createDate" id="create_date" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
+                      </dd>
+                      </dl></td>
                   </tr>
                   <tr>
                       <td><dl><dt>项目名称：</dt><dd id="projectName"></dd></dl></td>
