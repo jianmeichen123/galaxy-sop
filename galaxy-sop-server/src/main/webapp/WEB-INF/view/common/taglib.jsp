@@ -9,7 +9,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql"%>
 <%@ page import="com.galaxyinternet.model.user.User"%>
 <%@ page import="com.galaxyinternet.framework.core.constants.Constants"%>
-<c:set var="ctx" value="${pageContext.request.contextPath}" />
 <%
 User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 String sessionId = "";
