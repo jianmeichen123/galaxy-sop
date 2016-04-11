@@ -95,7 +95,7 @@
 				<project.server.url>http://127.0.0.1:9999/platform/</project.server.url>
 				<galaxy.project.platform.endpoint>http://127.0.0.1:9999/platform/</galaxy.project.platform.endpoint>		
 				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
-				<galaxy.project.sop.endpoint>http://fx.dev.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
+				<galaxy.project.sop.endpoint>http://127.0.0.1:8888/sop/</galaxy.project.sop.endpoint>
 			</properties>
 		</profile>
 		<profile>
