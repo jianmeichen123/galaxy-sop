@@ -95,6 +95,7 @@
 				<project.server.url>http://127.0.0.1:9999/platform/</project.server.url>
 				<galaxy.project.platform.endpoint>http://127.0.0.1:9999/platform/</galaxy.project.platform.endpoint>		
 				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
+				<galaxy.project.sop.endpoint>http://fx.dev.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 			</properties>
 		</profile>
 		<profile>
@@ -121,7 +122,7 @@
 				<project.server.url>http://fx.dev.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.dev.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>		
 				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
-
+				<galaxy.project.sop.endpoint>http://fx.dev.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 				<!-- memcached <memcached.list_1.ip>192.168.101.22</memcached.list_1.ip> 
 					<memcached.list_1.port>11211</memcached.list_1.port> <memcached.object_1.ip>192.168.101.22</memcached.object_1.ip> 
 					<memcached.object_1.port>11211</memcached.object_1.port> <mongodb.dbname>community</mongodb.dbname> 
@@ -160,6 +161,7 @@
 				<project.server.url>http://fx.qa.galaxyinternet.com/</project.server.url>
 				<galaxy.project.platform.endpoint>http://fx.qa.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
 				<galaxy.project.report.endpoint>http://fx.qa.galaxyinternet.com/report/</galaxy.project.report.endpoint>
+				<galaxy.project.sop.endpoint>http://fx.qa.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 			</properties>
 		</profile>
 		<profile>
@@ -209,6 +211,7 @@
 				<project.home.page.url>http://127.0.0.1:8888/galaxy-sop-server</project.home.page.url>
 				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.platform.endpoint>http://127.0.0.1:8080/galaxy-platform-server</galaxy.project.platform.endpoint>
+				<galaxy.project.sop.endpoint>http://127.0.0.1:8888/galaxy-sop-server</galaxy.project.sop.endpoint>
 			</properties>
 		</profile>
 	</profiles>
