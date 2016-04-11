@@ -13,7 +13,7 @@
       </dl>
        <dl class="fmdl">
         <dt>年龄：</dt>
-        <dd><input type="text" id="personAge" name="personAge" value="" class="txt" placeholder="年龄" allowNULL="yes" valType="NUMBER" msg="<font color=red>*</font>年龄只能是数字"/></dd>
+        <dd><input type="text" id="personAge" name="formatAgeStr" value="" class="txt" placeholder="年龄" allowNULL="yes" valType="NUMBER" msg="<font color=red>*</font>年龄只能是数字"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>手机号码：</dt>
@@ -34,7 +34,7 @@
       </dl>  
       <dl class="fmdl">
         <dt>工龄：</dt>
-        <dd><input type="text" id="workTime" name="workTime" value="" class="txt" placeholder="工龄" allowNULL="yes" valType="NUMBER" msg="<font color=red>*</font>工龄只能是数字"/></dd>
+        <dd><input type="text" id="workTime" name="formatWorkTime" value="" class="txt" placeholder="工龄" allowNULL="yes" valType="NUMBER" msg="<font color=red>*</font>工龄只能是数字"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>身份证号码：</dt>

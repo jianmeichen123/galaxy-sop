@@ -440,8 +440,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<PersonPoolBo> addProjectPerson(@RequestBody PersonPoolBo pool, HttpServletRequest request) {
 		ResponseData<PersonPoolBo> responseBody = new ResponseData<PersonPoolBo>();
 		if(pool.getProjectId() == null || pool.getProjectId() <= 0
-				|| pool.getPersonName() == null || pool.getPersonSex() == null
-				|| pool.getPersonAge() == null || pool.getPersonDuties() == null){
+				|| pool.getPersonName() == null || pool.getPersonTelephone() == null){
 			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
