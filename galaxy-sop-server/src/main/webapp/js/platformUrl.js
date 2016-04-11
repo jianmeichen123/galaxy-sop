@@ -379,7 +379,7 @@ var platformUrl = {
 	/**
 	 * 档案管理发送邮
 	 */
-	fileSendEmail:sopContentUrl + "/galaxy/sopFile/sendMail",
+	fileSendEmail:Constants.sopEndpointURL + "/galaxy/sopFile/sendMail",
 	/**
 	 * 排期池中是否存在
 	 */
@@ -392,15 +392,15 @@ var platformUrl = {
 	 * 是否存在通过的会议
 	 */
 
-	checkCanUse:sopContentUrl + "/galaxy/project/checkCanUse",
+	checkCanUse:Constants.sopEndpointURL + "/galaxy/project/checkCanUse",
 	/**
 	 * 获取阿里云签名
 	 */
-	getPolicy : sopContentUrl + "/galaxy/sopFile/getPolicy",
+	getPolicy : Constants.sopEndpointURL + "/galaxy/sopFile/getPolicy",
 	/**
 	 * 阿里云直连回掉
 	 */
-	fileCallBack : sopContentUrl + "/galaxy/sopFile/fileCallBack"
+	fileCallBack : Constants.sopEndpointURL + "/galaxy/sopFile/fileCallBack"
 }
 
 /**
