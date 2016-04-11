@@ -10,7 +10,7 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- bootstrap-table -->
-<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <!-- 富文本编辑器 -->
@@ -114,8 +114,8 @@
 
 <!-- bootstrap-table  -->
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<script src="<%=path%>/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <!-- upload -->
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>

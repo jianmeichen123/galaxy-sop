@@ -119,10 +119,10 @@
 <script src="<%=path %>/js/my_ext.js"></script>
 <script src="<%=path %>/js/my.js"></script>
 <!-- 分页二css+四js -->
-<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
 
 <!-- 富文本编辑器 -->

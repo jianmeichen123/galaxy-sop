@@ -8,7 +8,7 @@
 	<meta charset="utf-8">
 	<title>繁星</title>
 	<script src="<%=request.getContextPath() %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
-	<link rel="stylesheet" href="<%=path %>/bootstrap-table/bootstrap-table.css"  type="text/css">
+	<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <%-- 	<link rel="stylesheet" href="<%=path %>/css/bootstrap.min-v3.3.5.css"  type="text/css">
  --%>	<!-- 校验样式 -->
 <%--     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/reset.css" /> --%>
@@ -354,8 +354,8 @@
 <script src="<%=path %>/js/init.js"></script>
 <!-- bootstrap-table -->
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<script src="<%=path %>/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path %>/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
 	<!-- 富文本编辑器 -->
 	  <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
