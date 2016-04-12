@@ -57,6 +57,16 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 		return "operationMessage/index";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/clear", method = RequestMethod.GET)
+	public String clear(HttpServletRequest request) {
+		User user = (User) getUserFromSession(request);
+		if(user != null){
+			cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+user.getId(),System.currentTimeMillis());
+		}
+		return "ok";
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping(value = "/queryList", produces = MediaType.APPLICATION_JSON_VALUE)
