@@ -9,6 +9,8 @@ public class MeetingRecordBo  extends MeetingRecord{
 
 	private String proName; //项目名称 - 会议记录
 	private String fkey;
+	private String bucketName;
+	private Long fileLength;
 	
 	private Long uid; //项目创建人
 	private String startTime;
@@ -96,6 +98,18 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setProIdList(List<Long> proIdList) {
 		this.proIdList = proIdList;
+	}
+	public String getBucketName() {
+		return bucketName;
+	}
+	public void setBucketName(String bucketName) {
+		this.bucketName = bucketName;
+	}
+	public Long getFileLength() {
+		return fileLength;
+	}
+	public void setFileLength(Long fileLength) {
+		this.fileLength = fileLength;
 	}
 	
 }
