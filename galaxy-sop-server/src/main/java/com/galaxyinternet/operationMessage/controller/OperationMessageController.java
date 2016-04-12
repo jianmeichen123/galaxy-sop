@@ -48,7 +48,8 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index() {
+	public String index(HttpServletRequest request) {
+		cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request),System.currentTimeMillis());
 		return "operationMessage/index";
 	}
 	
