@@ -67,11 +67,6 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			if(operationMessageBo.getModule()!=null&&operationMessageBo.getModule() != PlatformConst.MODULE_BROADCAST_MESSAGE.intValue()){
 				User user = (User) getUserFromSession(request);
 				operationMessageBo.setOperatorId(user.getId());
-			}else{
-				if(operationMessageBo.getPageNum()!=null&&operationMessageBo.getPageNum() == 0){
-					long time = System.currentTimeMillis();
-					cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request),time);
-				}
 			}
 			Page<OperationMessage> operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
 			responseBody.setPageList(operationMessage);
