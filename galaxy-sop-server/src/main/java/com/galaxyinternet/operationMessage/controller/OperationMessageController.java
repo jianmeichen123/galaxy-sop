@@ -64,7 +64,9 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 				User user = (User) getUserFromSession(request);
 				operationMessageBo.setOperatorId(user.getId());
 			}else{
-				cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request),System.currentTimeMillis());
+				if(operationMessageBo.getPageNum()!=null&&operationMessageBo.getPageNum() == 0){
+					cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request),System.currentTimeMillis());
+				}
 			}
 			Page<OperationMessage> operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
 			responseBody.setPageList(operationMessage);
@@ -83,7 +85,7 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 		ResponseData<OperationMessageBo> responseBody = new ResponseData<OperationMessageBo>();
 		Result result = new Result();
 		try {
-			OperationMessageBo operationMessageBo = new OperationMessageBo();
+ 			OperationMessageBo operationMessageBo = new OperationMessageBo();
 			Long lastTime = (Long) cache.get(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request));
 			if(lastTime == null){
 				lastTime= DateUtil.getCurrentDate().getTime();
