@@ -92,6 +92,7 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			operationMessageBo.setOperatorId(user.getId());
 			operationMessageBo.setModule(PlatformConst.MODULE_BROADCAST_MESSAGE);
 			Long count = operationMessageService.selectCount(operationMessageBo);
+			//cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request),System.currentTimeMillis());
 			operationMessageBo.setCount(count);
 			operationMessageBo.setOperatorId(null);
 			responseBody.setEntity(operationMessageBo);

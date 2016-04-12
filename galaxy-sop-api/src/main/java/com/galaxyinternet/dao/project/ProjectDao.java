@@ -23,4 +23,6 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 	
 	
 	public List<Project> selectListById(List<Long> idList);
+	
+	public List<Long> queryProjectByUserId(Project project);
 }
