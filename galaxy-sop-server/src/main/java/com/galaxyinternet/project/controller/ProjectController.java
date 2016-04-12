@@ -235,7 +235,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		project.setUpdatedTime(System.currentTimeMillis());
-		project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
+		project.setCreatedTime(DateUtil.convertStringToDate(p.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 		
 		int num = projectService.updateById(project);
 		if(num > 0){
