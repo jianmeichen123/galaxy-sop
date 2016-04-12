@@ -140,9 +140,11 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	/**
 	 * 到我的项目页面
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/mpl", method = RequestMethod.GET)
-	public String myproject() {
+	public String myproject(){
+		
 		return "project/list";
 	}
 	/**
