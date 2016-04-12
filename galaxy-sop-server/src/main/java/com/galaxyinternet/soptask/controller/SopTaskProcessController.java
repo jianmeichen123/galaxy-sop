@@ -27,7 +27,6 @@ import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.id.IdGenerator;
-import com.galaxyinternet.framework.core.model.BaseUser;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -63,10 +62,6 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	private UserService userService;
 	@Autowired
 	private UserRoleService userRoleService;
-	@Autowired
-	private DepartmentService departmentService;
-	
-	
 
 
 	@Override
