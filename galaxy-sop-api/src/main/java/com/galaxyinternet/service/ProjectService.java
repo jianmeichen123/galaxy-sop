@@ -26,5 +26,6 @@ public interface ProjectService extends BaseService<Project> {
 	public Map<String, Object> getSummary(Long userId) throws Exception;
 	
 	public List<Project> queryListById(List<Long> idList);
+	
 
 }

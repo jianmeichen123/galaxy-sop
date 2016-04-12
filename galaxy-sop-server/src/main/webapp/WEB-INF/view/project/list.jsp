@@ -40,7 +40,7 @@
 	<!--右中部内容-->
  	<div class="ritmin">
     	<h2>我的项目</h2>
-    	<input type="hidden" id="project_id" value=""/>
+    	 <input type="hidden" id="project_id" value=""/>
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
@@ -49,8 +49,15 @@
                 <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
             </div>
         </div>
+         <!--tips连接-->
+          <ul class="tipslink tablink">
+
+                <li class="on"><a href="javascript:;" query-by="proType" query-val="1" >我的项目<span><!-- (10) --></span></a></li>
+                <li><a href="javascript:;"  query-by="proType" query-val="2">事业线项目<span><!-- (4) --></span></a></li>
+          </ul>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
+		     <input type="hidden"  id="tipslink_val" name="proType" value="1" />
 			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>项目类别：</dt>
@@ -112,6 +119,7 @@
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<script src="<%=request.getContextPath() %>/js/operationMessage.js" type="text/javascript"></script>
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/fx.upload.js" type="text/javascript"></script>
