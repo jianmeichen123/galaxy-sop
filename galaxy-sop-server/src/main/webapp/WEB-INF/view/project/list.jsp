@@ -1,7 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <% 
 	String path = request.getContextPath(); 
-    List<Long> ids=request.getAttribute("proids");
 %>
 <!doctype html>
 <html>
