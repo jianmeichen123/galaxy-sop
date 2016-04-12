@@ -1,8 +1,6 @@
 package com.galaxyinternet.template.controller;
 
 import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -212,8 +210,6 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.LOG)
 	public void download(SopTemplate query, HttpServletRequest request, HttpServletResponse response)
 	{
-		InputStream fis = null;
-		OutputStream out = null;
 		try {
 			List<SopTemplate> list = templateService.queryList(query);
 			if(list == null || list.size() == 0)
