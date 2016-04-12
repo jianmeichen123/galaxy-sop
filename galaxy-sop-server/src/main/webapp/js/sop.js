@@ -849,15 +849,27 @@ function tzxy(st,projectType){
 								}else{
 									$tr.append('<td></td>');
 								}
-								if(this.fileKey == null){	
-									$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">上传</a></td>');
+								if(this.fileKey == null){
+									if(canToOption){
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">上传</a></td>');
+									}else{
+										$tr.append('<td></td>');
+									}
 									$tr.append('<td>无</td>');
 								}else{
-									$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
+									if(canToOption){
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
+									}else{
+										$tr.append('<td></td>');
+									}
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>');	
 								}
-								if(this.voucherFileKey == null){	
-									$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,1);" class="blue">上传</a></td>');
+								if(this.voucherFileKey == null){
+									if(canToOption){
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,1);" class="blue">上传</a></td>');
+									}else{
+										$tr.append('<td></td>');
+									}
 								}else{
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 								}
@@ -869,14 +881,26 @@ function tzxy(st,projectType){
 									$tr.append('<td></td>');
 								}
 								if(this.fileKey == null){	
-									$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,0);" class="blue">上传</a></td>');
+									if(canToOption){
+										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,0);" class="blue">上传</a></td>');
+									}else{
+										$tr.append('<td></td>');
+									}
 									$tr.append('<td>无</td>');
 								}else{
-									$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
+									if(canToOption){
+										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
+									}else{
+										$tr.append('<td></td>');
+									}
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 								}
 								if(this.voucherFileKey == null){	
-									$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,1);" class="blue">上传</a></td>');
+									if(canToOption){
+										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,1);" class="blue">上传</a></td>');
+									}else{
+										$tr.append('<td></td>');
+									}
 								}else{
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\');" class="blue">查看</a></td>'); 	
 								}
@@ -1051,65 +1075,56 @@ function gqjg(){
 					var json = eval(data);
 					 var dataList=json.entityList;
 					 var htmlstart='<table width=\"100%" cellspacing="0" cellpadding="0" >'+
-						             '<thead>'+
-						                '<tr>'+
-						                 '<th>业务分类</th>'+
-						                 '<th>创建日期</th>'+
-						                 '<th>存储类型</th>'+
-						                 '<th>更新日期</th>'+
-						                 '<th>催办</th>'+
-						                 '<th>查看附件</th>'+
-						                 '</tr>'+
-						            '</thead>'+                                                                                                                                   
-						             '<tbody>';
-									for(var p in dataList){
-												var typehtml = "";
-												if (typeof(dataList[p].fType) == "undefined" || dataList[p].fileValid == '0') { 
-													typehtml ='<td></td>';
-												}else{
-													typehtml = '<td>'+dataList[p].fType+'</td>';
-												}
-												
-												var updateHtml = "";
-												if(dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0'){
-													updateHtml = "<td></td>";
-												}else{
-													updateHtml = '<td>'+getVal(dataList[p].updatedDate,'')+'</td>';
-												}
-												
-												
-												var handlehtml = "";
-												if ((dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0') && !hasClosed) { 
-													handlehtml ='<td><a href="javascript:; " onclick="taskUrged('+dataList[p].id+');"class="blue">催办</a></td>';
-												}else{
-													handlehtml = '<td></td>';
-												}
-												
-												var endhtml ="";
-												if (dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0') { 
-													endhtml ='<td>缺失</td>';
-												}else{
-													endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
-												}
-												
-												var updatedDate ="";
-												if (dataList[p].updatedDate == null || dataList[p].updatedDate == "") { 
-													updatedDate =dataList[p].createDate;
-												}else{
-													updatedDate = dataList[p].updatedData;
-												}
-												
-												htmlstart +='<tr>'+
-												'<td>'+dataList[p].fWorktype+'</td>'+
-												'<td>'+dataList[p].createDate+'</td>'+
-												typehtml+updateHtml+handlehtml+   
-												endhtml+   
-												'</tr>';   
-									}
-						var htmlend= '</tbody></table>';
-						$("#projectProgress_9_con").html(htmlstart+htmlend);
-				}
-		);	
+						 '<thead>'+'<tr>'+'<th>业务分类</th>'+'<th>创建日期</th>'+'<th>存储类型</th>'+
+						 '<th>更新日期</th>'+'<th>催办</th>'+'<th>查看附件</th>'+'</tr>'+'</thead>'+'<tbody>';
+					 
+					 for(var p in dataList){
+						var typehtml = "";
+						if (typeof(dataList[p].fType) == "undefined" || dataList[p].fileValid == '0') { 
+							typehtml ='<td></td>';
+						}else{
+							typehtml = '<td>'+dataList[p].fType+'</td>';
+						}
+						
+						var updateHtml = "";
+						if(dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0'){
+							updateHtml = "<td></td>";
+						}else{
+							updateHtml = '<td>'+getVal(dataList[p].updatedDate,'')+'</td>';
+						}
+						
+						
+						var handlehtml = "";
+						if ((dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0') && !hasClosed && canToOption) { 
+							handlehtml ='<td><a href="javascript:; " onclick="taskUrged('+dataList[p].id+');"class="blue">催办</a></td>';
+						}else{
+							handlehtml = '<td></td>';
+						}
+						
+						var endhtml ="";
+						if (dataList[p].fileStatusDesc == "缺失" || dataList[p].fileValid == '0') { 
+							endhtml ='<td>缺失</td>';
+						}else{
+							endhtml = '<td><a href="javascript:; " onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
+						}
+						
+						var updatedDate ="";
+						if (dataList[p].updatedDate == null || dataList[p].updatedDate == "") { 
+							updatedDate =dataList[p].createDate;
+						}else{
+							updatedDate = dataList[p].updatedData;
+						}
+						
+						htmlstart +='<tr>'+
+						'<td>'+dataList[p].fWorktype+'</td>'+
+						'<td>'+dataList[p].createDate+'</td>'+
+						typehtml+updateHtml+handlehtml+   
+						endhtml+   
+						'</tr>';   
+					 }
+					 var htmlend= '</tbody></table>';
+					 $("#projectProgress_9_con").html(htmlstart+htmlend);
+				});	
 	}
 }
 /**
