@@ -51,20 +51,20 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	public String index(HttpServletRequest request) {
 		User user = (User) getUserFromSession(request);
 		if(user != null){
-			
 			cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+user.getId(),System.currentTimeMillis());
 		}
 		return "operationMessage/index";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/clear", method = RequestMethod.GET)
+	@RequestMapping(value = "/clear", method = RequestMethod.POST)
 	public String clear(HttpServletRequest request) {
-		User user = (User) getUserFromSession(request);
-		if(user != null){
-			cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+user.getId(),System.currentTimeMillis());
+		String userId = getUserId(request);
+		if(userId != null){
+			cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+userId,System.currentTimeMillis());
+			return "ok";
 		}
-		return "ok";
+		return "error";
 	}
 	
 	
@@ -105,7 +105,6 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			operationMessageBo.setOperatorId(user.getId());
 			operationMessageBo.setModule(PlatformConst.MODULE_BROADCAST_MESSAGE);
 			Long count = operationMessageService.selectCount(operationMessageBo);
-			//cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request),System.currentTimeMillis());
 			operationMessageBo.setCount(count);
 			operationMessageBo.setOperatorId(null);
 			responseBody.setEntity(operationMessageBo);
