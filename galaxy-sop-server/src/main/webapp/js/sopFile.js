@@ -167,8 +167,8 @@ var fileGrid = {
 			};
 			
 			layer.msg('正在下载，请稍后...',{time:2000});
-			window.location = ossClient.signatureUrl(data);
-//			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
+//			window.location = ossClient.signatureUrl(data);
+			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
         },
         'click .fileupdatelink' : function(e, value, row, index){
         	formData = {
