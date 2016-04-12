@@ -182,7 +182,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			}	
 		}
 		user.setIds(ids);
-		if(sopFileList.size()!=0){
+		if(ids.size() > 0){
 			return userService.queryList(user);
 		}
 		return null;
@@ -197,7 +197,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			}	
 		}
 		project.setIds(ids);
-		if(sopFileList.size()!=0){
+		if(ids.size() > 0){
 			return projectDao.selectList(project);
 		}
 		return null;
