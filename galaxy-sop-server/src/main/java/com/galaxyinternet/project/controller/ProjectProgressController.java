@@ -50,12 +50,14 @@ import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
+import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
+import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
@@ -77,6 +79,9 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	@Autowired
 	private InterviewRecordService interviewRecordService;
+	
+	@Autowired
+	private MeetingSchedulingService meetingSchedulingService;
 	
 	@Autowired
 	private  SopFileService sopFileService;
@@ -439,6 +444,19 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			return responseBody;
 		}
 		
+		//排期池校验
+		if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
+			MeetingScheduling ms = new MeetingScheduling();
+			ms.setProjectId(meetingRecord.getProjectId());
+			ms.setMeetingType(meetingRecord.getMeetingType());
+			ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
+			if(mslist==null || mslist.isEmpty()){
+				responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
+				return responseBody;
+			}
+		}
+			
 		try {
 			String prograss = "";
 			UrlNumber uNum = null;

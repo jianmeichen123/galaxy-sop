@@ -296,7 +296,7 @@ function paramsFilter(indexNum){
 	if(indexNum!=null){
 		//1\2\3\4\7  访谈、会议
 		if(indexNum == 1 || indexNum == '1' || indexNum == 2 || indexNum == '2' || indexNum == 3 || indexNum == '3' 
-			|| indexNum == 4 || indexNum == '4' || indexNum == 5 || indexNum == '7'){
+			|| indexNum == 4 || indexNum == '4' || indexNum == 7 || indexNum == '7'){
 			filtersparams.push(fileType_2);
 		}
 	}else{
@@ -686,7 +686,7 @@ function getMeetCondition(hasProid,projectId,
 	}
 	var meetingDateStr = $.trim($("#"+meetDateId).val());
 	if(hasMeetType == "y" ){
-		var meetingType = $.trim(meetTypeId);
+		var meetingType = $.trim(meetTypeName);
 	}else{
 		var meetingType = $.trim($('input:radio[name="'+meetTypeName+'"]:checked').val());
 	}

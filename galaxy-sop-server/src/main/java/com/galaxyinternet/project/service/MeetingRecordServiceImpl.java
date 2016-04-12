@@ -132,7 +132,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		ms.setMeetingType(meetingRecord.getMeetingType());
 		
 		if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
-			ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			//ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			ms.setStatus(DictEnum.meetingResult.通过.getCode());
 		}else if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())) {
 			ms.setStatus(DictEnum.meetingResult.否决.getCode());
 		}if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())) {
