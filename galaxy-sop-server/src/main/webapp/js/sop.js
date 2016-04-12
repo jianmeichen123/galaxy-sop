@@ -1,6 +1,7 @@
 //全局变量
 var hasClosed=false;
 var canUseBut = false;
+var canToOption = false;
 /*
  * 查看项目阶段详情的弹出层
  */
@@ -30,6 +31,12 @@ function info(id){
 				$("#project_name").text(data.entity.projectName);
 				$("input[name='projectId']").val(data.entity.id);
 				$("#project_id").val(id);
+				//是否允许当前人进行SOP流转操作
+				if(parseInt(data.entity.createUid) == parseInt(userId)){
+					canToOption = true;
+				}else{
+					canToOption = false;
+				}
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = data.entity.projectProgress;
 				progress = progress.replace(":","_");
@@ -215,8 +222,10 @@ function info(id){
 				});				
 				$("#" + progress).addClass("on");
 				$("#" + progress + "_con").css("display","block");
-				
-				
+				//是否允许当前人进行SOP流转操作
+				if(!canToOption){
+					$(".option_item_mark").remove();
+				}
 			},null);
 		}
 	});
@@ -230,7 +239,6 @@ function checkCanUse(index,projectId,projectType){
 	condition["index"] = index ;
 	condition["projectId"] = projectId ;
 	condition["projectType"] = projectType;
-	
 	sendGetRequest(platformUrl.checkCanUse,condition,function(data){
 		var result = data.result.status;
 		if(result == "OK"){ //OK, ERROR
@@ -250,11 +258,8 @@ function checkCanUse(index,projectId,projectType){
  * 上传接触访谈纪要弹出层
  */
 function air(indexNum){
-	
 	$("[data-id='popid1']").remove();
-	
 	loadJs();
-	
 	var _url=Constants.sopEndpointURL + '/galaxy/air';
 	$.getHtml({
 		url:_url,//模版请求地址
@@ -282,7 +287,6 @@ function air(indexNum){
 						}
 						if(viewTarget == null ||  viewTarget == ""){
 						$("#viewTarget").focus();
-						//alert("访谈对象不能为空");
 							return false;
 						}
 						condition.pid = pid;
@@ -424,14 +428,13 @@ function tzyxs(flag){
 		 /**
 		  *  生成尽职调查报告列表
 		  */
-		 sendGetRequest(
-				 Constants.sopEndpointURL + '/galaxy/project/progress/proFileInfo/'+pid+'/5',
+		 sendGetRequest(Constants.sopEndpointURL + '/galaxy/project/progress/proFileInfo/'+pid+'/5',
 				 null, function(data){
 					 var json = eval(data);
 					 var dataList=json.entityList;
 						for(var p in dataList){
 							var handlefile="";
-							if(!hasClosed){
+							if(!hasClosed && canToOption){
 								handlefile='<a href="javascript:;" onclick="downloadTemplate(\'templateType:1\');" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>';
 						        if (dataList[p].fileStatusDesc == "缺失") { 
 						        	handlefile +='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
@@ -442,46 +445,38 @@ function tzyxs(flag){
 							}
 							
 					        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">'+
-					        handlefile+'</div>'+
+					        	handlefile+'</div>'+
 						        '<div class="process clearfix">'+
 						        '<h2>投资意向书盖章流程</h2>'+
 						        '<img src="'+Constants.sopEndpointURL+'/img/process.png" alt="">'+
 						        '</div>';
 						        
-							 var htmlstart=htmlhead+'<table width=\"100%" cellspacing="0" cellpadding="0" >'+
-								             '<thead>'+
-								                '<tr>'+
-								                 '<th>业务分类</th>'+
-								                 '<th>创建日期</th>'+
-								                 '<th>存储类型</th>'+
-								                 '<th>更新日期</th>'+
-								                 '<th>档案状态</th>'+
-								                 '<th>查看附件</th>'+
-								                 '</tr>'+
-								            '</thead>'+                                                                                                                                   
-								             '<tbody>';
-									var typehtml = "";
-									if (typeof(dataList[p].fType) == "undefined") { 
-										typehtml ='<td>未知</td>';
-									}else{
-										typehtml = '<td>'+dataList[p].fType+'</td>';
-									}
-									
-									var endhtml ="";
-									if (dataList[p].fileStatusDesc == "缺失") { 
-										endhtml ='<td>缺失</td>';
-									}else{
-										endhtml = '<td><a href="javascript:;" onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
-									}
-									
-									htmlstart +='<tr>'+
-									'<td>'+dataList[p].fWorktype+'</td>'+
-									'<td>'+dataList[p].createDate+'</td>'+
-									typehtml
-									+'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'
-									+'<td>'+dataList[p].fileStatusDesc+'</td>'+
-									endhtml+
-									'</tr>';   
+						    var htmlstart=htmlhead+'<table width=\"100%" cellspacing="0" cellpadding="0" >'+
+					             '<thead>'+ '<tr>'+ '<th>业务分类</th>'+ '<th>创建日期</th>'+
+					             '<th>存储类型</th>'+ '<th>更新日期</th>'+ '<th>档案状态</th>'+
+					             '<th>查看附件</th>'+ '</tr>'+ '</thead>'+ '<tbody>';
+							var typehtml = "";
+							if (typeof(dataList[p].fType) == "undefined") { 
+								typehtml ='<td>未知</td>';
+							}else{
+								typehtml = '<td>'+dataList[p].fType+'</td>';
+							}
+							
+							var endhtml ="";
+							if (dataList[p].fileStatusDesc == "缺失") { 
+								endhtml ='<td>缺失</td>';
+							}else{
+								endhtml = '<td><a href="javascript:;" onclick="filedown('+dataList[p].id+');" class="blue">查看</a></td>';
+							}
+							
+							htmlstart +='<tr>'+
+							'<td>'+dataList[p].fWorktype+'</td>'+
+							'<td>'+dataList[p].createDate+'</td>'+
+							typehtml
+							+'<td>'+getVal(dataList[p].updatedDate,'')+'</td>'
+							+'<td>'+dataList[p].fileStatusDesc+'</td>'+
+							endhtml+
+							'</tr>';   
 									
 						}
 						var htmlend= '</tbody></table>';
@@ -696,9 +691,8 @@ function updateTzyxs(fileSource){
 				 }
 				 if(o.fileStatus == 'fileStatus:1' || o.fileValid == '0'){
 					 html += "<td>未知</td><td>缺失</td>";
-					 if(o.fileWorktype != 'fileWorktype:1'){
+					 if(o.fileWorktype != 'fileWorktype:1' && canToOption){
 						 html +='<td><a href="javascript:; " onclick="taskUrged('+o.id+');"class="blue">催办 </a></td>';
-
 					 }else{
 						 html += "<td></td>";
 					 }
@@ -849,8 +843,12 @@ function tzxy(st,projectType){
 							}	
 							$tr.append('<td>'+this.fileStatusDesc+'</td>');
 							if(this.fileWorktype == 'fileWorktype:6'){
-								var e6 ="downloadTemplate('templateType:2');";
-								$tr.append('<td><a class="blue" href="javascript:void(0);" onclick="'+e6+'">下载</a></td>');
+								if(canToOption){
+									var e6 ="downloadTemplate('templateType:2');";
+									$tr.append('<td><a class="blue" href="javascript:void(0);" onclick="'+e6+'">下载</a></td>');
+								}else{
+									$tr.append('<td></td>');
+								}
 								if(this.fileKey == null){	
 									$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">上传</a></td>');
 									$tr.append('<td>无</td>');
@@ -864,8 +862,12 @@ function tzxy(st,projectType){
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 								}
 							}else if(this.fileWorktype == 'fileWorktype:7'){
-								var e7 ="downloadTemplate('templateType:7');";
-								$tr.append('<td><a class="blue" href="javascript:void(0);" onclick="'+e7+'">下载</a></td>');
+								if(canToOption){
+									var e7 ="downloadTemplate('templateType:7');";
+									$tr.append('<td><a class="blue" href="javascript:void(0);" onclick="'+e7+'">下载</a></td>');
+								}else{
+									$tr.append('<td></td>');
+								}
 								if(this.fileKey == null){	
 									$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,0);" class="blue">上传</a></td>');
 									$tr.append('<td>无</td>');
