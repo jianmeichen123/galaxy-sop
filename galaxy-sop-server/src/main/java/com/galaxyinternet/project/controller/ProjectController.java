@@ -1298,27 +1298,26 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		@RequestMapping(value = "checkProject")
 		@ResponseBody
 		public Map<String, Integer>  checkProject(@RequestBody Project  query) {
-			String projectCompanyCode = "";
+			//String projectCompanyCode = "";
 			if (query != null && query.getProjectCompanyCode()!= null) {
-				projectCompanyCode = query.getProjectCompanyCode();
+				//projectCompanyCode = query.getProjectCompanyCode();
 				query.setProjectCompanyCode(null);
 			}
 			List<Project> projectList = projectService.queryList(query);
-			Integer count = 0 ;
-		//	if (!StringUtils.equals(projectCompanyCode,"")) {
-				for (Project project: projectList) {
+			//Integer count = 0 ;
+			//	if (!StringUtils.equals(projectCompanyCode,"")) {
+				//for (Project project: projectList) {
 					
 					//if (project.getProjectCompanyCode()!= null && StringUtils.equals(projectCompanyCode, project.getProjectCompanyCode())) {
-						count ++;
+						//count ++;
 					//}
-				}
+				//}
 			//}
 			Map<String, Integer> map = new HashMap<String, Integer>();
-			if (projectList.size() < 1) {
+			if (null == projectList || projectList.size() < 1) {
 				//不存在重复
 				map.put("count", 0);
-				
-		 //else if (count > 0) {
+				//else if (count > 0) {
 				//重复且相同组织机构数为count
 				//map.put("companyCode", count);
 				//map.put("count", projectList.size());
@@ -1327,7 +1326,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			return map;
 		}
-		
 		
 		
 		/**
