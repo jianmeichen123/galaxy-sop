@@ -117,7 +117,7 @@
     </div>
 </div>
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
-<jsp:include page="/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
+<jsp:include page="<%=path %>/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=request.getContextPath() %>/js/operationMessage.js" type="text/javascript"></script>
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
