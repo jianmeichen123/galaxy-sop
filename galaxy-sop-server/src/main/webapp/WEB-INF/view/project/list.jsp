@@ -999,7 +999,7 @@
 								}	
 								$tr.append('<td>'+this.fileStatusDesc+'</td>');
 								if(this.fileWorktype == 'fileWorktype:6'){
-									var e6 ="downloadTemplate('"+this.fileWorktype+"');";
+									var e6 ="downloadTemplate('templateType:2');";
 									$tr.append('<td><a class="blue" href="javascript:void(0);" onclick="'+e6+'">下载</a></td>');
 									if(this.fileKey == null){	
 										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">上传</a></td>');
@@ -1014,7 +1014,7 @@
 										$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 									}
 								}else if(this.fileWorktype == 'fileWorktype:7'){
-									var e7 ="downloadTemplate('"+this.fileWorktype+"');";
+									var e7 ="downloadTemplate('templateType:7');";
 									$tr.append('<td><a class="blue" href="javascript:void(0);" onclick="'+e7+'">下载</a></td>');
 									if(this.fileKey == null){	
 										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,0);" class="blue">上传</a></td>');
@@ -1324,14 +1324,14 @@
 		var url = platformUrl.tempDownload+"?id="+id+pidParam;
 		forwardWithHeader(url);
 	}
-	function downloadTemplate(fileWorktype)
+	function downloadTemplate(templateType)
 	{
 		var pidParam = "";
 		if(alertid>=0)
 		{
 			pidParam = "&projectId="+alertid;
 		}
-		var url = platformUrl.tempDownload+"?worktype="+fileWorktype+pidParam;
+		var url = platformUrl.tempDownload+"?worktype="+templateType+pidParam;
 		forwardWithHeader(url);
 	}
 	
