@@ -140,9 +140,15 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	/**
 	 * 到我的项目页面
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/mpl", method = RequestMethod.GET)
-	public String myproject() {
+	public String myproject(HttpServletRequest request) throws Exception {
+		User user = (User) getUserFromSession(request);
+		Project pro=new Project();
+		pro.setCreateUid(user.getId());
+		List<Long> proIdList=projectService.queryProjectByUserId(pro);
+		request.setAttribute("proids", proIdList);
 		return "project/list";
 	}
 	/**

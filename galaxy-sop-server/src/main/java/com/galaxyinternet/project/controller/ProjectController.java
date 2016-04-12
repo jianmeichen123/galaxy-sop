@@ -454,12 +454,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
-		project.setCreateUid(user.getId());
+		
 		try {	
 			if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
 				project.setProjectStatus("meetingResult:3");
 				project.setProjectProgress(null);
 			}
+			if(project.getProType() != null && "2".equals(project.getProType())){
+				project.setProjectDepartid(user.getDepartmentId());
+			}else{
+				project.setCreateUid(user.getId());
+			}
+			
 			Page<Project>  pageProject =  projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));				
 
 			responseBody.setPageList(pageProject);
