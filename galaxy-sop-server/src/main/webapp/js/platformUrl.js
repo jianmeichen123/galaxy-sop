@@ -400,7 +400,11 @@ var platformUrl = {
 	/**
 	 * 阿里云直连回掉
 	 */
-	fileCallBack : Constants.sopEndpointURL + "/galaxy/sopFile/fileCallBack"
+	fileCallBack : Constants.sopEndpointURL + "/galaxy/sopFile/fileCallBack",
+	/**
+	 * 项目详情
+	 */
+	projectDetail : Constants.sopEndpointURL + "/galaxy/detail/"
 }
 
 /**
