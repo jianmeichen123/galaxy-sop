@@ -300,7 +300,8 @@ function initUpload(_dialog)
 		url : platformUrl.tempUpload+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
 		filters : {
-			max_file_size : '25mb'
+			max_file_size : '25mb',
+			mime_types: paramsFilter()
 		},
 
 		init: {
@@ -346,6 +347,9 @@ function initUpload(_dialog)
 							loadTempList();
 						}
 				);
+			},
+			Error: function(up, err) {
+				layer.msg("上传失败:"+err.message);
 			}
 		}
 	});
