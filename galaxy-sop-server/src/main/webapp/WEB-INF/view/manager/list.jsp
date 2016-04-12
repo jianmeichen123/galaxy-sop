@@ -113,8 +113,8 @@ function setCheckLine(data){
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>				    	
-			        	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>			        	
-			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
+			        	<th data-field="projectName" data-align="center" class="data-input" data-formatter="projectNameFormatter">项目名称</th>			        	
+			        	<th data-field="progress" data-align="center" class="data-input" data-formatter="progressFormatter">项目进度</th>
 			        	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 			        	<th data-field="hhrName" data-align="center" class="data-input">合伙人</th>
 			        	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
@@ -122,7 +122,6 @@ function setCheckLine(data){
 			        	<th data-field="projectContribution" data-align="center" class="data-input">投资金额（万）</th>
 			        	<th data-field="createDate" data-align="center" class="data-input">创建日期</th>
 			        	<th data-field="updateDate" data-align="center" class="data-input">最后修改时间</th>
-			        	<th data-align="center" class="col-md-2" data-formatter="editor">查看</th>
  					</tr>	
  				</thead>
 			</table>
@@ -156,6 +155,18 @@ function setCheckLine(data){
 		var id=row.id;
 		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
 		return options;
+	}
+	function projectNameFormatter(val,row,index)
+	{
+		return '<a href="#" class="blue" onclick="showProjectDetail(\'' + row.id + '\')">'+val+'</a>';
+	}
+	function progressFormatter(val,row,index)
+	{
+		return '<a href="#" class="blue" onclick="info(\'' + row.id + '\')">'+val+'</a>'
+	}
+	function showProjectDetail(projectId)
+	{
+		window.location.href = platformUrl.projectDetail+projectId;
 	}
 	
 	//全局变量
