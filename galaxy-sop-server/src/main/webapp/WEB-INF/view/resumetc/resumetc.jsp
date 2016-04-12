@@ -37,7 +37,15 @@
                   </tr>
                   <tr>
                     <th>成员关系：</th>
-                    <td><input name="memberRelation"  id="memberRelation" type="text" value="" valType="MEMBERSHIP" msg="成员关系只能包含汉字，长度20"></td>
+                 		 <td><input name="memberRelation"  id="memberRelation" type="text" value="" valType="MEMBERSHIP" msg="成员关系只能包含汉字，长度20"></td>  
+<!--                   	 <td>
+	                   <select id="memberRelation" name="memberRelation">	                   		               
+		                  <option value="">无</option>
+		                  <option value="上级" >上级</option>
+		                  <option value="同事" >同事</option>
+		                  <option value="下级" >下级</option>              
+		                </select>			                      	                  	 
+                  	 </td> -->
                   </tr>
                 </table>
               </div>
@@ -106,13 +114,43 @@
               <div class="tabtable_con1">
                 <h2>学习经历</h2>
                 <input type="button" class="add bluebtn" value="+">
-                <table width="100%" cellspacing="0" cellpadding="0">
-                  <tr>
+              <table width="100%" cellspacing="0" cellpadding="0">
+               <tr>
                     <th>学历：</th>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包字母、汉字 长度50"></td>
+                	<!-- <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包字母、汉字 长度50"></td>
                    	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含字母、汉字 长度50"></td>
-                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含数字母、汉字 长度50"></td>
-                  </tr>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含数字母、汉字 长度50"></td>  -->
+                 	<td data-by="id">                 	    	                   
+                 		<select id="de0" name="de" onchange="setValue(this)">		               		                		                  
+		                  <option value="学历" >学历</option>
+		                  <option value="高中" >高中</option>
+		                  <option value="本科" >本科</option>		                  
+		                  <option value="研究生" >研究生</option>
+		                  <option value="博士生" >博士生</option>			                    		                              
+		                </select>
+		                <input name ="degree" id="degree" hidden="hidden" value="" >
+		         	</td>
+		         	<td data-by="id">		         			                   
+                 		<select id="de1" name="de" onchange="setValue1(this)">
+		                  <option value="学历" >学历</option>
+		                  <option value="高中" >高中</option>
+		                  <option value="本科" >本科</option>		                  
+		                  <option value="研究生" >研究生</option>
+		                  <option value="博士生" >博士生</option>		                                
+		                </select>
+		                <input name ="degree" id="degree1" hidden="hidden" value="" >
+		         	</td>
+		         	<td data-by="id">		         			                   
+                 		<select id="de2" name="de" onchange="setValue2(this)">
+		                  <option value="学历" >学历</option>
+		                  <option value="高中" >高中</option>
+		                  <option value="本科" >本科</option>		                  
+		                  <option value="研究生" >研究生</option>
+		                  <option value="博士生" >博士生</option>	                                
+		                </select>
+		                <input name ="degree" id="degree2" hidden="hidden" value="" > 
+		         	</td> 
+              </tr> 
                   <tr>
                     <th>学校：</th>
                     <td><input name="school" id="school" type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
@@ -163,8 +201,8 @@
                   <tr>
                     <th>老师座机：</th>
                     <td><input name="teacherPhone" id="teacherPhone" type="text" value="" valType="TEL"  msg="老师座机错误" ></td>
-                    <td><input name="teacherPhone" id="teacherPhone" type="text" value="" alType="TEL"  msg="老师座机错误"></td>
-                    <td><input name="teacherPhone" id="teacherPhone" type="text" value="" alType="TEL"  msg="老师座机错误"></td>
+                    <td><input name="teacherPhone" id="teacherPhone" type="text" value="" valType="TEL"  msg="老师座机错误"></td>
+                    <td><input name="teacherPhone" id="teacherPhone" type="text" value="" valType="TEL"  msg="老师座机错误"></td>
                   </tr>
                   <tr>
                     <th>同学姓名：</th>
@@ -185,7 +223,7 @@
             <div class="tabtable_con"  data-tab="con" model="personWork" multi="true" >
               <div class="tabtable_con1">
                 <h2>工作记录</h2>
-                <input type="button" class="add bluebtn" value="+">
+                <input type="button" class="addd bluebtn" value="+">
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>公司名称：</th>

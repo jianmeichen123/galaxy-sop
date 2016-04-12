@@ -83,8 +83,8 @@ function SopTaskRenyuan(data){
 			 var tr='<tr>'+
 				 '<td>'+ temp.personName+'</td>'+
 				 '<td>'+ getValue(temp.personSex)+'</td>'+
-				 '<td>'+ temp.personAge+'</td>'+
-				 '<td>'+ temp.personDuties+'</td>'+
+				 '<td>'+ geta(temp.personAge)+'</td>'+
+				 '<td>'+ geta(temp.personDuties)+'</td>'+
 				 '<td>'+ temp.personTelephone+'</td>'+
 				 '<td>'+"<a href='javascript:;' onclick='tiaozhuan(" + personId + ");' DATA-btn='resume' >完善简历</a>"+'</td>'+
 				' </tr>'; 				
@@ -98,7 +98,19 @@ function SopTaskRenyuan(data){
 			return "女";
 		}
 	}
-	
+	function geta(str) {
+		if (typeof(str) == "undefined") { 
+			 return "-";
+		}  else {
+			return str;
+		}
+	}
+/* 	function get(str) {
+		if(str=='undefined'||str== undefined){
+			return  "";
+		}
+	}
+	 */
 }
  function tiaozhuan(personId){
 	

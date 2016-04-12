@@ -362,6 +362,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/star-rating.min.js'></script>
-<script src="<%=path %>/js/resumetc.js" type="text/javascript"></script>
+<script src="<%=path %>/js/resumetcc.js" type="text/javascript"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
            

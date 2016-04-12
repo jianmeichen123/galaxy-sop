@@ -51,15 +51,7 @@ function wanshancbf(data){
 			model_personPool.find("td[data-by]").attr("data-val",personPool["id"]);
 			
  			$("input:radio[name='personSex'][value='"+personPool['personSex']+"']").attr("checked","checked"); 
-			$("input:radio[name='laborDispute'][value='"+personPool['laborDispute']+"']").attr("checked","checked") ; 	
-/*			成员关系的下拉框不需要
- * 			var obj=$("#memberRelation option");
-			for(var i=0;i<obj.length;i++){
-				alert(obj[i].value+"----"+personPool['memberRelation']);
-				if(obj[i].value==personPool['memberRelation']){
-					obj[i].selected='selected' ;
-				}
-			}*/
+			$("input:radio[name='laborDispute'][value='"+personPool['laborDispute']+"']").attr("checked","checked") ; 
 			$("#endComment").val(personPool['endComment']);
 			$("#levelStar").raty({
 				starOn:startPath+"/star/img/star-on.png",
@@ -82,15 +74,7 @@ function wanshancbf(data){
 				var input = $($(tr_item).find("input[name]")[i]);
 				input.val(personLearn[input.attr("name")]);
 			});
-			$(td_personLearn[i]).attr("data-val",personLearn["id"]);			
-			/*alert(ma);*/			
-			var dege = personLearn['degree'];
-			var objg=$("#de"+i+" option");			
-			for(var j=0;j<objg.length;j++){				
-				if(objg[j].value==dege){
-					objg[j].selected='selected' ;
-				}
-			}
+			$(td_personLearn[i]).attr("data-val",personLearn["id"]);
 			
 			if(personLearns.length > td_personLearn.length){
 				appendTd(model_personLearn);				
@@ -108,7 +92,7 @@ function wanshancbf(data){
 			});
 -			$(td_personWork[i]).attr("data-val",personWork["id"]);
 			if(personWorks.length > td_personWork.length){
-				appendTd1(model_personWork);				
+				appendTd(model_personWork);				
 			}
 			td_personWork = model_personWork.find("td[data-by]");
 		}
@@ -122,74 +106,7 @@ $("div[model]").on("click",".add",function(){
 	}
 	appendTd(model)
 });
-$("div[model]").on("click",".addd",function(){
-	var model = $(this).parent().parent();
-	if(model.find("td[data-by]").length > 3){
-		layer.msg("不能再添加了！");
-		return;
-	}
-	appendTd1(model)
-});
 function appendTd(model){
-	model.find("tr").each(function(index,tr){
-		var select = $($(tr).find("select")[0]);
-		/*var did = select.attr("id");*/
-		var namee = "degree";
-		var idd = "de3";
-		var iddd="degree3"
-		var ename = "de4";
-		var ese = "setValue3(this)";
-		var option = $($(select).find("option"));
-		for(var i = 0 ;i < option.length ;i++){
-			if(str=='undefined'||str== undefined){
-				str = "";
-			}
-			var value = $(option[i]).attr("value");
-			var str = str +"<option value='"+value+"' >"+value+"</option>";
-		}
-		
-		var input =  $($(tr).find("input")[1]);
-		var hidden = input.attr("hidden");
-		var name = input.attr("name");
-		var type = input.attr("type");
-		var class_name = input.attr("class");
-		var valType = input.attr("valType");
-		var msg = input.attr("msg");
-		var regString = input.attr("regString");
-		var textsIn = input.attr("textsIn");
-		if(textsIn=='undefined'||textsIn== undefined){
-			textsIn = "";
-		}
-		if(str=='undefined'||str== undefined){
-			str = "";
-		}
-		if(hidden=='undefined'||hidden== undefined){
-			hidden = "";
-		}
-		if(msg=='undefined'||msg== undefined){
-			msg = "";
-		}
-		if(valType=='undefined'||valType== undefined){
-			valType = "";
-		}
-		if(regString=='undefined'||regString== undefined){
-			regString = "";
-		}
-		if(index == 0 ){
-			$(tr).append("<td data-by='id'><select id='"+idd+"' name='"+ename+"' onchange='"+ese+"'>"+str+"</select><input name ='"+namee+"' id='"+iddd+"' hidden='"+hidden+"' type='"+type+"'></td>");
-		}else if(input.index == 1 )
-			{
-				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
-			}else{
-				if(class_name == "datepicker"){
-					$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
-				}else{
-					$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
-				}
-			}
-		});
-}
-function appendTd1(model){
 	model.find("tr").each(function(index,tr){
 		var input =  $($(tr).find("input")[0]);
 		var name = input.attr("name");
@@ -229,41 +146,7 @@ function prependTd(model,model_data){
 		tr.prepend("<td>"+td.innerHTML+"</td>");
 	});
 }
-function setValue(obj) {
-    
-	 var ar = obj.value;	  
-	var text = document.getElementById("degree");
-	text.value = ar;
-		
-}
-function setValue1(obj) {
-    
-	 var ar = obj.value;
-	 /* alert(ar);*/
-	var text = document.getElementById("degree1");
-	text.value = ar;
-		
-	/*alert($("#degree1").val());*/
-}
-function setValue2(obj) {
-    
-	 var ar = obj.value;
-	  /*alert(ar);*/
-	var text = document.getElementById("degree2");
-	text.value = ar;
-		
-	/*alert($("#degree2").val());*/
-}
-function setValue3(obj) {
-    
-	 var ar = obj.value;
-	 /* alert(ar);*/
-	var text = document.getElementById("degree3");
-	text.value = ar;
-		
-	/*alert($("#degree3").val());*/
-}
-$(".btnbox").on("click",".bluebtn",function(){	
+$(".btnbox").on("click",".bluebtn",function(){
 	var models = $("div[model]");
 	var data = {};
 	var flag = true;
@@ -276,12 +159,11 @@ $(".btnbox").on("click",".bluebtn",function(){
 		if(multi == true || multi =="true"){
 			model = new Array();
 			var len = it.find("tr").eq(0).find("input[name]").length;
-			/*var lenn = it.find("tr").eq(0).find("select[name]").length;*/			
 			for(var i = 0 ;i <len;i++){
 				var son_model = {};
 				it.find("tr").each(function(m,tr_item){
 					var input = $(tr_item).find("input[name][type!=hidden]")[i];
-					var val = $(input).val().trim();		
+					var val = $(input).val().trim();
 					if(val != ''){
 						son_model[$(input).attr("name")] = val;
 						if(!resemetValidate($(input))){
@@ -326,16 +208,14 @@ $(".btnbox").on("click",".bluebtn",function(){
 	data['personPool']['personSex'] = $("input[name='personSex']:checked").val();
 	data['personPool']['laborDispute'] = $("input[name='laborDispute']:checked").val();
 	data['personPool']['endComment'] = $("#endComment").val();
-	//var v=$();
-	/*data['personPool']['memberRelation'] = $("#memberRelation option:selected").val();*/
-   //拿到选中项的值
-	/*alert($("#memberRelation option:selected").val())*/
+
 	if($("#levelStar").find("input[name='score']").val() != ''){
 		data['personPool']['levelStar'] = $("#levelStar").find("input[name='score']").val();
 	}
 	if($("#abilityStar").find("input[name='score']").val() != ''){
 		data['personPool']['abilityStar'] = $("#abilityStar").find("input[name='score']").val();
 	}
+	
 	var flag = 0;
 	var json = {};
 	json['personId'] = $("#personId").val();
@@ -363,21 +243,16 @@ $(".btnbox").on("click",".bluebtn",function(){
 	if(arry_personWork.length >0){
 		json['personWork'] = arry_personWork ;
 	}
-
 	
 	var arry_personLearn = new Array()
 	for(var x in data['personLearn']){
-		/*data['personLearn']['degree'] = $("#degree option:selected").val()*/
 		flag = 0;
-		
 		for(var y in data['personLearn'][x]){
-			
 			if(y !='id'){
 				flag ++;
 			}
 		}
 		if(flag > 0){
-
 			arry_personLearn.push(data['personLearn'][x]);
 		}
 	}
