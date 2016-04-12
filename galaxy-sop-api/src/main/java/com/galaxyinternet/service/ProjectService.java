@@ -27,6 +27,5 @@ public interface ProjectService extends BaseService<Project> {
 	
 	public List<Project> queryListById(List<Long> idList);
 	
-	public List<Long> queryProjectByUserId(Project project) throws Exception;
 
 }

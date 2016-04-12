@@ -337,10 +337,5 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return projectDao.selectListById(idList);
 	}
 
-	@Override
-	public List<Long> queryProjectByUserId(Project project) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
