@@ -779,6 +779,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				return responseBody;
 			}
 			
+			//排期池校验
+			if(p.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || p.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
+				MeetingScheduling ms = new MeetingScheduling();
+				ms.setProjectId(p.getPid());
+				ms.setMeetingType(p.getMeetingType());
+				ms.setStatus(DictEnum.meetingResult.待定.getCode());
+				List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
+				if(mslist==null || mslist.isEmpty()){
+					responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
+					return responseBody;
+				}
+			}
+			
 		}
 		Project project = projectService.queryById(p.getPid());
 		if(project == null){
