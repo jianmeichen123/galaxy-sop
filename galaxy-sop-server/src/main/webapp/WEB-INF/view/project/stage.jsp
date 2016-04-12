@@ -211,8 +211,8 @@
 			<div class="block" data-tab="con" id="projectProgress_1_con">
 				<!--按钮-->
 				<div id="options_point1" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="#" data-btn="interview" onclick="air(1);" class="pubbtn fffbtn lpubbtn">添加访谈记录</a>
-					<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn">启动内部评审</a>
+					<a href="#" data-btn="interview" onclick="air(1);" class="pubbtn fffbtn lpubbtn option_item_mark">添加访谈记录</a>
+					<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark">启动内部评审</a>
 				</div>
 				<div id="projectProgress_1_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
@@ -235,7 +235,7 @@
 
 				<!--按钮-->
 				<div id="options_point2" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="addMettingRecord(2,'meetingType:1')" data-btn="interview" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
+					<a href="javascript:;" onclick="addMettingRecord(2,'meetingType:1')" data-btn="interview" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
 				</div>
 				<div id="projectProgress_2_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
@@ -260,8 +260,8 @@
 			<div class="block" data-tab="con" id="projectProgress_3_con">
 				<!--按钮-->
 				<div id="options_point3" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="addMettingRecord(3,'meetingType:2')" class="pubbtn fffbtn lpubbtn">添加会议记录</a> 
-					<a href="javascript:;" onclick="toEstablishStage()" id="lxhpq" class="pubbtn fffbtn lpubbtn">立项会排期</a>
+					<a href="javascript:;" onclick="addMettingRecord(3,'meetingType:2')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a> 
+					<a href="javascript:;" onclick="toEstablishStage()" id="lxhpq" class="pubbtn fffbtn lpubbtn option_item_mark">立项会排期</a>
 				</div>
 				
 				<div id="projectProgress_3_table_custom-toolbar">
@@ -288,8 +288,8 @@
 			<div class="block" data-tab="con" id="projectProgress_4_con">
 				<!--按钮-->
 				<div id="options_point4" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a id="add_lxhmeet" href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn">添加会议记录</a>
-					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn">立项会排期</a>
+					<a id="add_lxhmeet" href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
+					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark">立项会排期</a>
 				</div>
 
 				<div id="projectProgress_4_table_custom-toolbar">
@@ -315,8 +315,8 @@
 			<div class="block" data-tab="con" id="projectProgress_7_con">
 				<!--按钮-->
 				<div id="options_point7" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a id="add_tjhmeet" href="javascript:;" onclick="addMettingRecord(7,'meetingType:4')"  class="pubbtn fffbtn lpubbtn">添加会议记录</a>
-					<a id="inSure_btn" href="javascript:;" onclick="inSureMeetingPool()"  class="pubbtn fffbtn lpubbtn">投决会排期</a>
+					<a id="add_tjhmeet" href="javascript:;" onclick="addMettingRecord(7,'meetingType:4')"  class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
+					<a id="inSure_btn" href="javascript:;" onclick="inSureMeetingPool()"  class="pubbtn fffbtn lpubbtn option_item_mark">投决会排期</a>
 				</div>
 
 				<div id="projectProgress_7_table_custom-toolbar">
@@ -343,8 +343,8 @@
 			<div class="block" data-tab="con" id="projectProgress_6_con">
 				<!--按钮-->
 				<div id="jzdc_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn">上传业务尽职调查报告</a>
-					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn" id="tjhsqBut">申请投决会排期</a>
+					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn option_item_mark">上传业务尽职调查报告</a>
+					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn option_item_mark" id="tjhsqBut">申请投决会排期</a>
 				</div>
 				<div class="process clearfix">
 					<h2>业务尽调报告审核流程</h2>
@@ -371,7 +371,7 @@
 			<div class="block" data-tab="con" id="projectProgress_8_con">
 				<!--按钮-->
 				<div id="tzxy_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-				<div id="stock_transfer_model">
+				<div id="stock_transfer_model" class="option_item_mark">
 					<input type="checkbox" value="1" class="input_checkbox" onclick="selected(this);" id="stock_transfer">
 				    <label for="stock_transfer" class="check-box"></label> 
 					<label for="stock_transfer" class="check-tit">涉及股权转让</label>
