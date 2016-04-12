@@ -126,6 +126,7 @@ function initViewUpload() {
 			
 			Error: function(up, err) {
 				$("#saveInterView").removeClass("disabled");
+				$("#fileName").val("");
 				layer.msg(err.message);
 			}
 		}

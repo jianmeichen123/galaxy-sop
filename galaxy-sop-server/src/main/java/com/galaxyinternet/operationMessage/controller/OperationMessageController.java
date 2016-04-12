@@ -49,7 +49,11 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request) {
-		cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request),System.currentTimeMillis());
+		User user = (User) getUserFromSession(request);
+		if(user != null){
+			
+			cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+user.getId(),System.currentTimeMillis());
+		}
 		return "operationMessage/index";
 	}
 	
@@ -65,7 +69,8 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 				operationMessageBo.setOperatorId(user.getId());
 			}else{
 				if(operationMessageBo.getPageNum()!=null&&operationMessageBo.getPageNum() == 0){
-					cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request),System.currentTimeMillis());
+					long time = System.currentTimeMillis();
+					cache.set(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request),time);
 				}
 			}
 			Page<OperationMessage> operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
