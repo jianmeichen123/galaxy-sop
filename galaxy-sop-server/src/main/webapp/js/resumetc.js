@@ -231,39 +231,37 @@ function prependTd(model,model_data){
 }
 function setValue(obj) {
     
-	 var ar = obj.value;
-	  alert(ar);
+	 var ar = obj.value;	  
 	var text = document.getElementById("degree");
 	text.value = ar;
 		
- alert($("#degree").val());
 }
 function setValue1(obj) {
     
 	 var ar = obj.value;
-	  alert(ar);
+	 /* alert(ar);*/
 	var text = document.getElementById("degree1");
 	text.value = ar;
 		
-	alert($("#degree1").val());
+	/*alert($("#degree1").val());*/
 }
 function setValue2(obj) {
     
 	 var ar = obj.value;
-	  alert(ar);
+	  /*alert(ar);*/
 	var text = document.getElementById("degree2");
 	text.value = ar;
 		
-	alert($("#degree2").val());
+	/*alert($("#degree2").val());*/
 }
 function setValue3(obj) {
     
 	 var ar = obj.value;
-	  alert(ar);
+	 /* alert(ar);*/
 	var text = document.getElementById("degree3");
 	text.value = ar;
 		
-	alert($("#degree3").val());
+	/*alert($("#degree3").val());*/
 }
 $(".btnbox").on("click",".bluebtn",function(){	
 	var models = $("div[model]");
