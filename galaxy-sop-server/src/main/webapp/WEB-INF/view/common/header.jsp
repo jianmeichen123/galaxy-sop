@@ -12,6 +12,7 @@
  //   HttpSession session=request.getSession(); 
     if(null != user && null != user.getRealName()){
     	realName=user.getRealName();
+    	request.getSession().setAttribute("realName", realName);
     //	session.setAttribute("realName", realName);
     }
      
