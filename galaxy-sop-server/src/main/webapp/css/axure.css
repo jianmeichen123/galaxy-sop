@@ -879,7 +879,7 @@ right: 200px;}
 .chartbox_bottom ul li{color:#5D678A;}
 .chartbox_bottom ul .on{ background:#edeff5; }
 .mask{position: absolute;width:99%;height: 100%;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
-.mask1{position: absolute;width:100%;height: 100px;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
+.mask1{position: absolute;width:99%;height: 100px;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
 dl dd .time1{display:inline-block !important;width: 100px !important;background:url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
 
  /*管理员 数据字典*/
@@ -1210,12 +1210,14 @@ background-size: 100%;}
 .register_all_one{ color:#74767f;}
 .register_all_two{ color:#525662;}
 .register_all_input{ width:90px; line-height:30px; height:30px; font-size:14px; border-radius:5px; text-decoration:none;text-align:center; color:#4a97da; border:1px solid #ccd2d7; margin-left:auto; margin-right:auto; display:block; margin-top:10px;}
+.register_all_input:hover,.change_cancel:hover{text-decoration:none; background-color: #66b1f2;color:#fff;border: 1px solid #66b1f2;}
+.change_affirm:hover{background-color: #85c1f5;}
 .register_all a:hover{text-decoration:none; }
 .change_all{ width:400px; position:relative; margin-top:45px;}
 .change_all ul li{ line-height:30px; height:30px; margin-bottom:15px;}
 .change_all_l{ width:100px; float:left; text-align:right;}
 .change_all_r{ width:300px; float:right;}
-.change_all_r input{ width:260px; line-height:30px; border:1px solid #ccd2d7; border-radius:5px; font-size:12px;}
+.change_all_r input{ width:255px; line-height:30px; height:30px;border:1px solid #ccd2d7; border-radius:5px; font-size:12px;padding-left: 5px;}
 .change_all ul .change_all_tit{ margin-top:-10px; height:20px; line-height:20px; color:#b8bec6}
 .change_all_tit .change_all_r span{ display:block; float:left; width:40px; margin-right:10px; font-size:12px; text-align:center; line-height:20px; height:20px; background-color:#d4d6dd; color:#fff;}
 .change_affirm{ height:30px; line-height:30px; width:85px; text-align:center; background-color:#66b1f2; color:#fff; float:left; margin-right:20px; border-radius:5px; cursor:pointer;}
