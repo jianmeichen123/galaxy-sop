@@ -52,7 +52,7 @@
          <!--tips连接-->
           <ul class="tipslink tablink">
                 <li class="on"><a href="javascript:;" query-by="proType" query-val="1" >我的项目<span></span></a></li>
-                <!-- <li><a href="javascript:;"  query-by="proType" query-val="2">事业线项目<span></span></a></li> -->
+                <li><a href="javascript:;"  query-by="proType" query-val="2">事业线项目<span></span></a></li>
           </ul>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
