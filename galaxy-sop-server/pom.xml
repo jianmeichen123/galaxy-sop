@@ -124,7 +124,6 @@
 				<galaxy.project.platform.endpoint>http://fx.dev.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>		
 				<galaxy.project.report.endpoint>http://fx.dev.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://fx.dev.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
-				<galaxy.project.file.upload.mode>oss</galaxy.project.file.upload.mode>
 				<!-- memcached <memcached.list_1.ip>192.168.101.22</memcached.list_1.ip> 
 					<memcached.list_1.port>11211</memcached.list_1.port> <memcached.object_1.ip>192.168.101.22</memcached.object_1.ip> 
 					<memcached.object_1.port>11211</memcached.object_1.port> <mongodb.dbname>community</mongodb.dbname> 
@@ -164,7 +163,6 @@
 				<galaxy.project.platform.endpoint>http://fx.qa.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
 				<galaxy.project.report.endpoint>http://fx.qa.galaxyinternet.com/report/</galaxy.project.report.endpoint>
 				<galaxy.project.sop.endpoint>http://fx.qa.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
-				<galaxy.project.file.upload.mode>oss</galaxy.project.file.upload.mode>
 			</properties>
 		</profile>
 		<profile>
