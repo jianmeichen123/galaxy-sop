@@ -49,11 +49,11 @@
                 <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
             </div>
         </div>
-         <!--tips连接-->
+         <!--tips连接
           <ul class="tipslink tablink">
                 <li class="on"><a href="javascript:;" query-by="proType" query-val="1" >我的项目<span></span></a></li>
                 <li><a href="javascript:;"  query-by="proType" query-val="2">事业线项目<span></span></a></li>
-          </ul>
+          </ul>-->
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
 		     <input type="hidden"  id="tipslink_val" name="proType" value="1" />
