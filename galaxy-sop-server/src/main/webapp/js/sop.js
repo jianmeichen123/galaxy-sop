@@ -75,6 +75,8 @@ function info(id){
 						}
 						if(!canUseBut){
 							$("#lxhpq").remove();
+						}else{
+							$("#add_ceomeet").remove();
 						}
 					}
 					if(i == 4){
@@ -143,9 +145,10 @@ function info(id){
 							$("#projectProgress_3_con").css("display","block");
 							tiggerTable($("#projectProgress_3_table"),3);
 							if(index != '3'){
-							 $("#options_point3").remove();
+								$("#options_point3").remove();
+							}else if(canUseBut){
+								$("#add_ceomeet").remove();
 							}
-							
 						} else if(indexNum == '4'){
 							$("#projectProgress_4_con").css("display","block");
 							if(parseInt(indexNum) < parseInt(index) || !canUseBut){
@@ -153,7 +156,7 @@ function info(id){
 							}
 						    tiggerTable($("#projectProgress_4_table"),3);
 						    if(index != '4'){
-						     $("#options_point4").remove();
+						    	$("#options_point4").remove();
 						    }else if(canUseBut){
 						    	$("#add_lxhmeet").remove();
 						    }
