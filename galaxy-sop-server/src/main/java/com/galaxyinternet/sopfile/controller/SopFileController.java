@@ -1120,7 +1120,9 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		Map<String, Object> respMap = new HashMap<String, Object>();
 		String endPoint = OSSFactory.ENDPOINT;
 		String accessKeyId = OSSFactory.ACCESS_KEY_ID;
+		String accessKeyScret = OSSFactory.accessKeySecret;
 		String bucket = OSSFactory.getDefaultBucketName();
+		String region = OSSFactory.OSS_SERVICE_ENDPOINT_PREFIX;
 //		String dir = "leung";
 		String host = "http://" + bucket + "." + endPoint;
 		long expireTime = OSSConstant.OSS_UPLOAD_FILE_EXPIRE_TIME;
@@ -1142,6 +1144,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			String postSignature = client.calculatePostSignature(postPolicy);
 			respMap.put("uploadMode", OSSFactory.UPLOAD_MODE);
 			respMap.put("accessid", accessKeyId);
+			respMap.put("accesskeysecret", accessKeyScret);
 			respMap.put("policy", encodedPolicy);
 			respMap.put("signature", postSignature);
 			// respMap.put("expire", formatISO8601Date(expiration));
@@ -1149,6 +1152,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 //			respMap.put("fileName", filename);
 			respMap.put("fileKey", fileKey);
 			respMap.put("host", host);
+			respMap.put("region", region);
+			respMap.put("bucket", bucket);
 			respMap.put("expire", String.valueOf(expireEndTime / 1000));
 		} catch (UnsupportedEncodingException e1) {
 			// TODO Auto-generated catch block
