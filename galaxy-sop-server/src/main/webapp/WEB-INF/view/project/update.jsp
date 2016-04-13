@@ -61,8 +61,10 @@
                   <tr>
                       <td><dl><dt>项目编码：</dt><dd id="project_code"></dd></dl></td>
                       <td><dl><dt>创建时间：</dt>
-                      <dd>
+                     <%--  <dd>
                       <input type="text" class="datepicker-text time" name="createDate" id="create_date" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
+                      </dd> --%>
+                      <dd id="create_date">
                       </dd>
                       </dl></td>
                   </tr>
