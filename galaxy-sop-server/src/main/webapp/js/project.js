@@ -70,8 +70,8 @@ $(function(){
 	sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 		$("#project_name").text(data.entity.projectName);
 		$("#project_code").text(data.entity.projectCode);
-		//$("#create_date").text(data.entity.createDate);
-		$("#create_date").val(data.entity.createDate);
+		$("#create_date").text(data.entity.createDate);
+		//$("#create_date").val(data.entity.createDate);
 		$("#projectName").text(data.entity.projectName);
 		$("#projectType").text(data.entity.type);
 		$("#project_contribution").val(data.entity.projectContribution);
