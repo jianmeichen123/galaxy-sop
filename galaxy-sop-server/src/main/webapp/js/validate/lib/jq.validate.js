@@ -108,7 +108,7 @@ function validateBefore() {
 	} else if(valType=='MAXBYTE') {
 		if($.trim($(this).html())!='') {
 			if (!($(this).html()!=''&&$.Validator.match({
-				data : $.trim($(n).html()),
+				data : $.trim($(this).html()),
 				rule : $(this).attr('valType'),
 				regString : $(this).attr('regString')
 			}))) {
@@ -164,8 +164,8 @@ function beforeSubmit() {
 			if($.trim($(n).html())!='') {
 				if (!($(n).html()!=''&&$.Validator.match({
 					data : $.trim($(n).html()),
-					rule : $(this).attr('valType'),
-					regString : $(this).attr('regString')
+					rule : $(n).attr('valType'),
+					regString : $(n).attr('regString')
 				}))) {
 					$(n).poshytip('show');
 					flag = false;
