@@ -27,8 +27,6 @@
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
-<script src="<%=path %>/js/alioss/aliyun-oss-sdk.min.js"></script>
-<script src="<%=path %>/js/alioss/alioss_init.js"></script>
 </head>
 
 <body>

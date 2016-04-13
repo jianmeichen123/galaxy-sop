@@ -158,7 +158,7 @@
 												layer.msg("上传成功");
 												win.close(_this);
 												win.callFuc();
-												dataGrid.load(_projectId);
+//												dataGrid.load(_projectId);
 											}else{
 												layer.msg(_restmp.result.errorCode);
 //												alert(_restmp.result.errorCode);
@@ -194,7 +194,7 @@
 															layer.msg("上传成功");
 															win.close(_this);
 															win.callFuc();
-															dataGrid.load(_projectId);
+//															dataGrid.load(_projectId);
 														}
 														else
 														{

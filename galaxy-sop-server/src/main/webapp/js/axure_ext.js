@@ -282,7 +282,39 @@ $(function(){
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				initViewUpload();
+//				initViewUpload();
+				
+				data = {
+						chooseBtn : "file-select-btn",
+						uploadBtn : "saveInterView",
+						fileShowText : "fileName",
+						localUrl : platformUrl.saveViewFile,
+						getLocalFormParam : function(up,file,fileKey){
+							var res = getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
+							if(res == false || res == "false"){
+								up.stop();
+								$("#saveInterView").removeClass("disabled");
+								return;
+							}
+							res["fname"] = file.name;
+							res["fileLength"] = file.size;
+							res["fkey"] = fileKey
+							return res;
+						}
+						
+						
+				}
+				
+				 //data.uploadBtn
+				  //data.fileShowText
+				  //data.ossUrl,
+				  //data.getOssFormParam,
+				  //data.localUrl,
+				  //data.getLocalFormParam
+				
+				ossClient.uploadInit(data)
+				
+				
 				queryViewPerPro();
 				$('.edui-container').show();
 			}//模版反回成功执行	
