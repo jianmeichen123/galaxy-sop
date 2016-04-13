@@ -166,6 +166,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addFileInterview", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -229,16 +230,16 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);//上传aliyun接口
 				//上传成功后
 				if(map!=null){
-					@SuppressWarnings("unchecked")
-					Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
+					Map<String,String> nameMap = null;
 					MultipartFile file = (MultipartFile) map.get("file");
 					String fileName = "";
 					if(interviewRecord.getFname()!=null && interviewRecord.getFname().trim().length()>0){
 						fileName = interviewRecord.getFname().trim();
+						nameMap = transFileNames(fileName);
 					}else{
-						fileName = nameMap.get("fileName");
+						nameMap = (Map<String, String>) map.get("nameMap");
 					}
-					if(fileName == null || fileName.trim().length()==0){
+					if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
 						responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
 						return responseBody;
 					}//end get file name 
@@ -249,7 +250,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
 					sopFile.setFileKey(fileKey);  
 					sopFile.setFileLength(file.getSize());  //文件大小
-					sopFile.setFileName(fileName);
+					sopFile.setFileName(nameMap.get("fileName"));
 					sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 					sopFile.setFileUid(user.getId());	 //上传人
 					sopFile.setCareerLine(user.getDepartmentId());
@@ -418,6 +419,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addfilemeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -534,17 +536,17 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				
 				//上传成功后
 				if(map!=null){
-					@SuppressWarnings("unchecked")
-					Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
+					Map<String,String> nameMap = null;
 					MultipartFile file = (MultipartFile) map.get("file");
 					String fileName = "";
 					if(meetingRecord.getFname()!=null && meetingRecord.getFname().trim().length()>0){
-						fileName = meetingRecord.getFname();
+						fileName = meetingRecord.getFname().trim();
+						nameMap = transFileNames(fileName);
 					}else{
-						fileName = nameMap.get("fileName"); // secondarytile.png  全名
+						nameMap = (Map<String, String>) map.get("nameMap");
 					}
-					if(fileName == null || fileName.trim().length()==0){
-						responseBody.setResult(new Result(Status.ERROR,null, "获取文件名失败"));
+					if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
+						responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
 						return responseBody;
 					}//end get file name 
 					
@@ -554,7 +556,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
 					sopFile.setFileKey(fileKey);  
 					sopFile.setFileLength(file.getSize());  //文件大小
-					sopFile.setFileName(fileName);
+					sopFile.setFileName(nameMap.get("fileName"));
 					sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 					sopFile.setFileUid(user.getId());	 //上传人
 					sopFile.setCareerLine(user.getDepartmentId());
