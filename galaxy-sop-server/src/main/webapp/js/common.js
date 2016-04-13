@@ -538,7 +538,7 @@ var thisPassword = "";
 	 sendGetRequest(platformUrl.checkPwd, null, getPwdCallback);
  }
 function getPwdCallback(data) {
-	thisPassword = data;
+	thisPassword = data.password;
 }
 
 

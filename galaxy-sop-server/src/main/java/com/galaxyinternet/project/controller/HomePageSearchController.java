@@ -1,6 +1,8 @@
 package com.galaxyinternet.project.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -353,16 +355,18 @@ public class HomePageSearchController
 	 * @param query
 	 * @return
 	 */
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@RequestMapping(value = "checkPwd")
 	@ResponseBody
-	public String checkPwd(HttpServletRequest request) {
+	public Map checkPwd(HttpServletRequest request) {
 		// 当前登录人
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		String password = "";
+		Map map = new HashMap();
 		if ( user != null && user.getPassword() != null) {
-			password =PWDUtils.decodePasswordByBase64(user.getPassword());
+			String password =PWDUtils.decodePasswordByBase64(user.getPassword());
+			map.put("password", password);
 		}
-		return password;
+		return map;
 	}
 	
 	/**
