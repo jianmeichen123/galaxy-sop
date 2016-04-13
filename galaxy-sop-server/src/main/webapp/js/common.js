@@ -515,7 +515,65 @@ function fillHeaderdata() {
 
 	}, 300000);*/
 }
-
+function doUpdatePwd(){
+	var strm;  //新密码
+	var original_password =123456; //原始密码
+	var original_password_input;
+	var reg_pass=/^(?=.*?[a-zA-Z]{2})(?=.*?[0-6])[!"#$%&'()*+,\-./:;<=>?@\[\\\]^_`{|}~A-Za-z0-9]{8,100}$/;    
+	 //必须包含字母和数字，还可以有特殊字符（!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~） 但不能有空格
+	
+	$('#original_password').bind({
+		focus:function(){},
+		blur:function(){
+			original_password_input = $('#original_password').val();
+			checkPwd(original_password_input);
+			
+		}
+	});
+	$('#newpassword').bind({
+		focus:function(){},
+		blur:function(){
+			strm = $('#newpassword').val();
+			if (!strm.match(reg_pass) && strm!=""){
+				$('#password_hint').addClass('red_hint');
+				$('#newpassword').addClass('red_input');
+				$('#password_two').removeClass('password_two');
+				$('#password_one').removeClass('password_one');
+				$('#password_three').removeClass('password_three');
+				return;
+			}else{
+				$('#password_hint').removeClass('red_hint');
+				$('#newpassword').removeClass('red_input');
+				$('#password_one').addClass('password_one');
+				if(12< strm.length){
+					$('#password_two').removeClass('password_two');
+					$('#password_one').removeClass('password_one');
+					$('#password_three').removeClass('password_three');
+					$('#password_two').addClass('password_two');
+				}if( 18<strm.length){
+					$('#password_two').removeClass('password_two');
+					$('#password_one').removeClass('password_one');
+					$('#password_three').removeClass('password_three');
+					$('#password_three').addClass('password_three');
+				}
+			}
+		}
+	});
+	//密码是否一致
+	$('#oldpassword').bind({
+		focus:function(){},
+		blur:function(){
+			oldpassword = $('#oldpassword').val();
+			if(oldpassword !== strm){
+				$('.oldpassword_hint').show();
+				$('#oldpassword').addClass('red_input');
+			}else{
+				$('.oldpassword_hint').hide();
+				$('#oldpassword').removeClass('red_input');
+			}
+		}
+	});
+}
 function updatePwd() {
 	var password = $('#newpassword').val();
 	var data = {};
@@ -533,12 +591,23 @@ function updatePwdCallback(data) {
 		layer.msg("密码修改失败!");
 	}
 }
-var thisPassword = "";
- function getPwd() {
+var flag = false;
+ function checkPwd(password) {
+	 var json = {};
+	 
+	 json["password"]=password;
 	 sendGetRequest(platformUrl.checkPwd, null, getPwdCallback);
  }
 function getPwdCallback(data) {
-	thisPassword = data.password;
+	flag = data.flag;
+	var original_password_input;
+	if(flag == false){
+		
+		$('.original_password_hint').show();
+		return;
+	}else{
+		$('.original_password_hint').hide();
+	}
 }
 
 

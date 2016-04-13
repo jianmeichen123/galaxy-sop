@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -355,17 +356,21 @@ public class HomePageSearchController
 	 * @param query
 	 * @return
 	 */
-	@SuppressWarnings({"rawtypes", "unchecked"})
 	@RequestMapping(value = "checkPwd")
 	@ResponseBody
-	public Map checkPwd(HttpServletRequest request) {
+	public Map<String, Object> checkPwd(String password,HttpServletRequest request) {
 		// 当前登录人
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		Map map = new HashMap();
-		if ( user != null && user.getPassword() != null) {
-			String password =PWDUtils.decodePasswordByBase64(user.getPassword());
-			map.put("password", password);
+		Map<String, Object> map = new HashMap<String, Object>();
+        boolean flag = false;
+		if (password != null && user != null && user.getPassword() != null) {
+			password = PWDUtils.genernateNewPassword(password);
+
+			if (StringUtils.equals(password, user.getPassword())) {
+				flag = true;
+			} 
 		}
+		map.put("flag", flag);
 		return map;
 	}
 	
