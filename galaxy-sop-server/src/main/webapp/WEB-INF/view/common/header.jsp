@@ -6,6 +6,8 @@
 	String path = request.getContextPath(); 
     User user = (User)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
     String realName="";
+    String deptName = "";
+    String roleName = "";
     Long roleId=null;
     if(null != user && null != user.getRealName()){
     	realName=user.getRealName();
@@ -14,6 +16,13 @@
     if(null != user.getRoleId()){
 	   roleId = user.getRoleId();
     }
+    
+    if(null != user && null != user.getDepartmentName()){
+    	deptName = user.getDepartmentName();
+     }
+    if(null != user && null != user.getRole()){
+    	roleName = user.getRole();
+     }
 	
 %>
 <div class="erwm">
