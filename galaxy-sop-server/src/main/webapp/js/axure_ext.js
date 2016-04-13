@@ -361,7 +361,7 @@ $(function(){
 			data:"",//传递参数
 			okback:function(){
 				var Request = new Object(); 
-				Request = GetRequest();
+				Request = GetRequest(_url);
 				alert(Request)
 				$('.register_all_two1').html(Request("realName"));
 				$('.register_all_two2').html(Request("deptName"));
