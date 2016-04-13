@@ -386,7 +386,7 @@ $(function(){
 });
 function GetRequest(url) { 
 	var theRequest = new Object(); 
-	if (url.indexof("?") != -1) { 
+	if (url.indexOf("?") != -1) { 
 	var str = url.substr(1); 
 	strs = str.split("&"); 
 	for(var i = 0; i < strs.length; i ++) { 
