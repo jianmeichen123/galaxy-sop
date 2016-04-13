@@ -9,8 +9,10 @@
     String deptName = "";
     String roleName = "";
     Long roleId=null;
+    HttpSession session=request.getSession(); 
     if(null != user && null != user.getRealName()){
     	realName=user.getRealName();
+    	session.setAttribute("realName", realName);
     }
      
     if(null != user.getRoleId()){
@@ -19,11 +21,16 @@
     
     if(null != user && null != user.getDepartmentName()){
     	deptName = user.getDepartmentName();
+    	 session.setAttribute("deptName", deptName);
      }
     if(null != user && null != user.getRole()){
     	roleName = user.getRole();
+    	   session.setAttribute("roleName", roleName);
      }
-	
+    
+    
+   
+ 
 %>
 <div class="erwm">
     <span data-btn="close_erwm">关闭</span>
