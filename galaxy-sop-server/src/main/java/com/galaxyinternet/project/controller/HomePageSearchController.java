@@ -1,12 +1,9 @@
 package com.galaxyinternet.project.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -358,20 +355,14 @@ public class HomePageSearchController
 	 */
 	@RequestMapping(value = "checkPwd")
 	@ResponseBody
-	public Map<String, Object> checkPwd(String password,HttpServletRequest request) {
+	public String checkPwd(HttpServletRequest request) {
 		// 当前登录人
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		Map<String, Object> map = new HashMap<String, Object>();
-        boolean flag = false;
-		if (password != null && user != null && user.getPassword() != null) {
-			password = PWDUtils.genernateNewPassword(password);
-
-			if (StringUtils.equals(password, user.getPassword())) {
-				flag = true;
-			} 
+		String password = "";
+		if ( user != null && user.getPassword() != null) {
+			password =PWDUtils.decodePasswordByBase64(user.getPassword());
 		}
-		map.put("flag", flag);
-		return map;
+		return password;
 	}
 	
 	/**
