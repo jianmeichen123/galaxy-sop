@@ -533,8 +533,13 @@ function updatePwdCallback(data) {
 		layer.msg("密码修改失败!");
 	}
 }
-
-
+var thisPassword = "";
+ function getPwd() {
+	 sendGetRequest(platformUrl.checkPwd, null, getPwdCallback);
+ }
+function getPwdCallback(data) {
+	thisPassword = data;
+}
 
 
 //附件点击下载
