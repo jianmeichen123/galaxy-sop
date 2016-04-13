@@ -362,6 +362,7 @@ $(function(){
 			okback:function(){
 				var Request = new Object(); 
 				Request = GetRequest();
+				alert(Request)
 				$('.register_all_two1').html(Request("realName"));
 				$('.register_all_two2').html(Request("deptName"));
 				$('.register_all_two3').html(Request("roleName"));
