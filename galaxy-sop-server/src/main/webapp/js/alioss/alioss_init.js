@@ -8,6 +8,7 @@
 		  getOssFormParam : undefined,
 		  localUrl : undefined,
 		  getLocalFormParam : undefined,
+		  successCallBack : undefined,
 		  signatureUrl : function(data){			  
 			  var objectKey = data.fileKey;
 		      console.log(data.fileKey + ' => ' + data.fileName);
@@ -47,6 +48,7 @@
 			  sendGetRequest(platformUrl.getPolicy+"/"+undefined,null,ossClient.downloadInitCallBack); 
 		  },
 		  downloadInitCallBack : function(data){
+			  ossClient.uploadObject = data.userData;
 			  ossClient.client = new OSS({
 				    region: data.userData.region,
 				    accessKeyId: data.userData.accessid,
@@ -78,6 +80,12 @@
 				if(result.status==200){
 					if(ossClient.uploadObject.uploadMode!="oss"){
 						//定制本地上传结束后返回事件
+						if(ossClient.successCallBack){
+							ossClient.successCallBack(up,file,result);
+						}else{
+							layer.msg("上传成功");
+						}
+						
 					}else{
 						var form;
 						if(!ossClient.ossUrl){
@@ -96,8 +104,11 @@
 								function(data){
 									if(data.result.status=="OK")
 									{
-										layer.msg("上传成功");
-										//上传成功后事件
+										if(ossClient.successCallBack){
+											ossClient.successCallBack(up,file,result);
+										}else{
+											layer.msg("上传成功");
+										}
 									}
 									else
 									{
@@ -133,7 +144,7 @@
 					}else{
 						var form;
 						if(!ossClient.localUrl){
-							_formdata._localUrl = platformUrl.commonUploadFile;
+							ossClient.localUrl = platformUrl.commonUploadFile;
 						}
 						if(!ossClient.getLocalFormParam){
 							form = {
