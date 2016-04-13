@@ -32,7 +32,7 @@ input.disabled{background-color: #000;}
 .red{ color:#ff0000}
 .org{ color:#ffa200}
 .gray{ color:#c2c9cf}
-.blue{ color:#438ee1}
+.blue{ color:#62abe6}
 .orange{color:#ff955b;}
 .grey{color: #536379}
 .green{color: #009966;}
@@ -436,13 +436,13 @@ table .width_gd{width:12%;}
 ::-webkit-scrollbar-thumb{background:#61aae6; border-radius:6px}
 /* ::selection{background-color: transparent;} */
 /*头部------------------------*/
-.header{ width:100%;min-width: 1260px; height:60px; background:#63abe7; margin:0 auto;position: fixed; top:0; z-index: 1000;}
-.header .rit{float:right !important; margin:20px 0 0 0;line-height: 18px;}
+.header{ width:100%;min-width: 1260px; height:50px; background:#539be2; margin:0 auto;position: fixed; top:0; z-index: 1000;}
+.header .rit{float:right !important; margin:16px 0 0 0;line-height: 18px;}
 .header .ico{ background-image:url(../img/headico.png);}
-.header .logo{ float:left; width:171px; height:49px; margin:5px 0 0 25px; background:url(../img/logo.png) no-repeat}
-.header .min{ float:left; padding:20px 0 0;line-height:20px; font-size:12px; font-family:"宋体";}
+.header .logo{ float:left; width:171px; height:49px; margin:0 0 0 25px; background:url(../img/logo.png) no-repeat}
+.header .min{ float:left; padding:16px 0 0;line-height:20px; font-size:12px; font-family:"宋体";}
 .header .min a{ font-family:"宋体"; font-size:12px}
-.header .light_blue{color: #cae2f7;background: url(../img/email.png) 0 4px no-repeat;padding: 0 0 0 20px;}
+.header .light_blue{background: url(../img/email.png) 0 4px no-repeat;padding: 0 0 0 20px;}
 .warning{font-size:12px;font-family:"宋体";width: 100%;height: 20px;line-height: 20px;background-color: #edeff5;color:#2d3342;text-align: center;position: absolute;display: none;}
 .warning i{background: url(../img/jt.png) 0 0 no-repeat;width:14px;height:14px;display: inline-block;-webkit-background-size: cover;
 background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
@@ -496,18 +496,18 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /*页面框架---------------------*/
 .pagebox{ min-width:1260px; margin:0 auto; padding:0 0 10px}
 /*左侧导航*/
-.pagebox .lft{ float:left; width:9.375%; background:#d6d8e1;position: fixed;top: 60px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;}
+.pagebox .lft{ float:left; width:9.375%; background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;}
 .pagebox .lft li{ float:left; width:100%; height:40px;}
-.pagebox .lft li a,.pagebox .lft li div{ font-family: "微软雅黑";display:block; width:100%; height:40px; text-align:center; line-height:40px; font-size:14px; color:#6b799f;cursor: pointer;}
+.pagebox .lft li a,.pagebox .lft li div{ font-family: "微软雅黑";display:block; width:100%; height:40px; text-align:center; line-height:40px; font-size:12px; color:#b6bac6;cursor: pointer;}
 .pagebox .lft .on a,
-.pagebox .lft li a:hover{ text-decoration:none; color:#ffffff; background:#99c0e4}
-.pagebox .lft li ul li a{font-family: "微软雅黑";display:block; width:100%; height:40px; text-align:center; line-height:40px; font-size:12px; color:#6b799f}
+.pagebox .lft li a:hover{ text-decoration:none; color:#529be2; background:#1f232f;}
+.pagebox .lft li ul li a{font-family: "微软雅黑";display:block; width:100%; height:40px; text-align:center; line-height:40px; font-size:12px; color:#b6bac6}
 .pagebox .lft li div{position: relative;}
 .pagebox .lft li div i{position: absolute;width:10px; height: 9px; background: url(../img/select-arr-default.gif) no-repeat -11px -10px; top:15px; left: 15%;}
 .pagebox .lft li .hide{background-position:-11px -39px; width:10px; height: 9px;}
-.pagebox .lft li ul{width: 100%;margin: 0 auto;background-color: #cbcdd5;display: none;overflow: hidden;} 
+.pagebox .lft li ul{width: 100%;margin: 0 auto;background-color: #434650;display: none;overflow: hidden;} 
 /*中部内容*/
-.pagebox .min{ float:left; width:71.25%;padding: 10px 0 0 0;margin:70px 0 0 10.505%;}
+.pagebox .min{ float:left; width:71.25%;margin:70px 0 0 10.505%;}
 .pagebox .min h2{ padding:0 0 0 10px; line-height:48px; height:49px; font-size:18px; font-weight:normal; color:#808e9b}
 .pagebox .min .tablist{ border-radius:6px; overflow:hidden}
 .pagebox .min .tablist .l{ float:left; width:59%; margin:-2px 2px 0 0}
@@ -519,7 +519,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .min .tablist .ico{ background-image:url(../img/tabico.png)}
 .pagebox .min .tablist dl{ width:100%; margin:2px 0 0; background:#FFF;}
 .pagebox .min .tablist dt{ height:22px; background:#f9fafc; padding:6px 0 6px 14px}
-.pagebox .min .tablist dt h3{ font-weight:normal; height:23px; font-size:14px; line-height:22px; color:#6b799f; padding:0 0 0 24px}
+.pagebox .min .tablist dt h3{ font-weight:normal; height:23px; font-size:14px; line-height:22px; color:#273238; padding:0 0 0 24px}
 .pagebox .min .tablist dt .t1{ background-position:0 2px}
 .pagebox .min .tablist dt .t2{ background-position:0 -25px}
 .pagebox .min .tablist dt .t3{ background-position:0 -52px}
@@ -572,7 +572,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .min .tablist .zzbox{ padding:10px 10px 10px 40px}
 .pagebox .min .tablist .histogram{ height:126px}
 /*右侧内容*/
-.pagebox .rit{ float:right; width:17.8125%;margin-top: 80px;}
+.pagebox .rit{ float:right; width:17.8125%;margin-top: 70px;}
 .pagebox .rit .ico{ background-image:url(../img/ritico.png)}
 .pagebox .rit .morebox{ overflow:hidden; padding:0px 15px}
 .pagebox .rit .morebox .more{ float:right}
@@ -590,7 +590,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .rit .top .link .b3{ background:#cc89ff}
 /*列表*/
 .pagebox .rit dl{ border-top:2px solid #e9ebf2; background:#FFF}
-.pagebox .rit dt{ line-height:34px; height:34px; padding:0 0 0 18px; font-size:14px; color:#6b799f; background:#f9fafc}
+.pagebox .rit dt{ line-height:34px; height:34px; padding:0 0 0 18px; font-size:14px; color:#1f232f; background:#f9fafc}
 .pagebox .rit dd{ padding:0 10px 7px}
 .pagebox .rit dd .more{ float:right}
 /*右中部分*/
@@ -918,45 +918,25 @@ dl dd .time1{display:inline-block !important;width: 100px !important;background:
 .loginpage .pic{width: 759px;height: 448px;background: url(../img/loginbg.png) 0 0 no-repeat;float: left;-webkit-background-size: 93%;
 background-size: 93%;position: relative;z-index: 10;position: relative;}
 .loginpage .pic a{color:#fff;text-decoration: underline;font-size: 14px;font-family:"微软雅黑";position: absolute;bottom: 120px;right: 170px;background: url(../img/help.png) 0 0 no-repeat;padding-left: 25px;text-shadow:0px 0px 4px #666;}
-.loginpage .loginbox{ width:362px; float:right; margin:48px 100px 0 0;}
-.loginpage .loginbox h2{ height:33px; background-position:0 0; margin:0 0 16px 17px}
-.loginpage .loginbox .txt{ display:block; border:0; width:282px; height:46px; line-height:46px; font-size:14px; color:#666666; font-family:"宋体"; background-color:#edf0f4; border-radius:6px; padding:0 10px 0 36px; margin:0 0 10px 17px}
-.loginpage .loginbox .uname{ background-position:10px -160px}
-.loginpage .loginbox .uword{ background-position:10px -216px}
-.loginpage .loginbox  label{ display:block; line-height:30px; padding:0 0 0 20px; margin:0 0 5px 17px; font-size:14px; color:#999999; font-family:"宋体"; position:relative}
-.loginpage .loginbox  label input{ position:absolute; left:0; top:9px; *top:4px;}
-.loginpage .loginbox .login{ width:362px; height:80px; margin:0 0 10px; background-position:0 -70px}
-.loginpage .loginbox .login:hover{background-position:0 -295px}
-.loginpage .loginbox .tips{ margin:0 0 0 17px; line-height:18px; padding:0 0 0 20px; background-position:0 -43px; font-size:12px; font-family:"宋体"; color:#797979}
-.loginpage .loginbox .tips a{margin-left: 18px;}
-.btm{ text-align:center; line-height:34px; background:#acc0d1; height:34px;position: fixed;bottom: 0;width: 100%;}
-.btm a{ color:#FFF; font-size:14px; font-family:"宋体"; margin:0 10px 0 0}
+.loginbox{ width:362px; float:right; margin:48px 100px 0 0;}
+.loginbox h2{ height:33px; background-position:0 0; margin:0 0 16px 17px}
+.loginbox .txt{ display:block; border:0; width:282px; height:46px; line-height:46px; font-size:14px; color:#666666; font-family:"宋体"; background-color:#edf0f4; border-radius:6px; padding:0 10px 0 36px; margin:0 0 10px 17px}
+.loginbox .uname{ background-position:10px -160px}
+.loginbox .uword{ background-position:10px -216px}
+.loginbox  label{ display:block; line-height:30px; padding:0 0 0 20px; margin:0 0 5px 17px; font-size:14px; color:#999999; font-family:"宋体"; position:relative}
+.loginbox  label input{ position:absolute; left:0; top:9px; *top:4px;}
+.loginbox .login{ width:362px; height:80px; margin:0 0 10px; background-position:0 -70px}
+.loginbox .login:hover{background-position:0 -295px}
+.loginbox .tips{ margin:0 0 0 17px; line-height:18px; padding:0 0 0 20px; background-position:0 -43px; font-size:12px; font-family:"宋体"; color:#797979}
+.loginbox .tips a{margin-left: 18px;}
+.loginpage .btm{ text-align:center; line-height:34px; background:#acc0d1; height:34px;position: fixed;bottom: 0;width: 100%;}
+.loginpage .btm a{ color:#FFF; font-size:14px; font-family:"宋体"; margin:0 10px 0 0}
 .login_bg{width:100%;height:174px;background: url(../img/login_bg.png) 0 bottom no-repeat;position: fixed;bottom: 34px;}
 /* 登陆+二维码 */
 .log_r_ul{ height:20px; overflow:hidden; line-height:20px;}
 .log_r_ul li{ float:left;}
 .log_r_ul_p{ margin-left:10px; margin-right:5px; overflow:hidden; text-decoration:underline; color:#b3b8cb}
 .log_code{ position:absolute; top:48px; right:160px; display:none;}
-/* 登陆最新版 */
-.loginpage_new{padding-top: 60px;overflow: hidden;}
-.loginpage_new .top{ height:60px; background:#ffffff;width:1100px;margin: 0 auto;padding: 0 0 0 100px;}
-.loginpage_new .logo{ width:171px; height:49px; float:left; background:url(../img/logoico.png) no-repeat; margin:8px 0 0}
-.loginpage_new .loginbox_top .rit{ padding:0 0 0 26px; line-height:24px; height:24px; background-position:0 -268px; font-size:12px; color:#b3b8cb; margin:16px 10px 0 0; font-family:"宋体"; float:right}
-.loginpage_new .ico{ background-image:url(../img/login.png)}
-.loginpage_new .min{position: relative;width: 1200px;margin: 0 auto;height: 387px;}
-.loginpage_new img{position: absolute;left: 50%;margin-left: -960px;}
-.loginpage_new .loginbox{width:362px;height:395px; background-color: #fff;border:1px solid #c7d3e0;position: relative;float: right;border-radius: 6px;margin:-38px 83px 0 0;}
-.loginpage_new .loginbox .loginbox_top{ height:52px; border-bottom:1px solid #c7d3e0;background-color: #f9fbfe;margin-bottom: 30px;}
-.loginpage_new .loginbox .loginbox_top h2{font-size: 18px;font-family: '微软雅黑';font-weight: normal;color:#272b38;line-height: 52px;float: left;padding-left: 28px;}
-.loginpage_new .loginbox .txt{ display:block; border:0; width:264px; height:46px; line-height:46px; font-size:14px; color:#666666; font-family:"宋体"; border-radius:6px; padding:0 10px 0 36px; margin:0 auto 10px;border:1px solid #dadada;}
-.loginpage_new .loginbox .uname{ background-position:10px -160px}
-.loginpage_new .loginbox .uword{ background-position:10px -216px}
-.loginpage_new .loginbox .login{ width:362px; height:80px; margin:0 0 10px; background-position:0 -70px}
-.loginpage_new .loginbox .login:hover{background-position:0 -295px}
-.loginpage_new .loginbox .tips{ margin:80px 0 0 17px; line-height:18px; padding:0 0 0 20px; background-position:0 -43px; font-size:12px; font-family:"宋体"; color:#797979}
-.loginpage_new .loginbox .tips a{margin-left: 18px;}
-.loginpage_new .loginbox .login{width: 310px;margin: 0 auto;background-color: #539be2;display: block;height: 46px;border-radius: 6px;text-align: center;color: #fff;font-size: 18px;font-family: '微软雅黑';line-height: 46px;margin-top:30px;}
-.loginpage_new .loginbox .login:hover{text-decoration: none;background-color: #85c1f5;}
 /*弹出层-------华丽分割线---------部分*/
 #popbg{ position:fixed; _position:absolute; left:0; top:0; background:#000;filter:Alpha(opacity=0);opacity: 0;  z-index:999; width:100%; height:100%}
 #popbg iframe{filter:alpha(opacity=0);opacity: 0; width:100%; height:100%}
@@ -1098,7 +1078,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .myprojecttc .pjt_introduct .b4{ background:#66b1f2;}
 .myprojecttc .tabtable .tabtable_con_close .fmmm{border-bottom: 0;margin:0;}
 .myprojecttc .tabtable .tabtable_con_close .fmmm dt{width: auto;}
-/* .myprojecttc .tabtable .searchbox{margin:10px 10px 0;}*/
+/* .myprojecttc .tabtable .searchbox{margin:10px 10px 0;} */
 .myprojecttc .tabtable .btnbox_m{margin:10px 0 6px 20px;width:100%;}
 .myprojecttc .tabtable .tabtable_con .block table{border:0;padding:10px 0;}
 .myprojecttc .tabtable .tabtable_con .block table th{background-color: #f9fafc;}
@@ -1201,29 +1181,6 @@ em{font-style: normal;}
 background-size: 100%;}
 .erwm span{width:18px;height:18px;font-size: 0;display: inline-block;float: right;cursor: pointer;}
 .erwm a{width:100%;text-align: center;height:120px;position: absolute;bottom: 0;text-decoration: underline;font-size: 0;color: #7f8ba3;}
-/*登录信息与密码*/
-.title_bj{ width:100%; background-color:#f9fafc; height:40px; line-height:40px; text-align:center; position:absolute; top:0; left:0;}
-.register_all{ width:500px; position:relative; margin-top:45px;}
-.register_all ul li{ width:50%; float:left; line-height:40px; height:40px; }
-.register_all_one{ color:#74767f;}
-.register_all_two{ color:#525662;}
-.register_all_input{ width:90px; line-height:30px; height:30px; font-size:14px; border-radius:5px; text-decoration:none;text-align:center; color:#4a97da; border:1px solid #ccd2d7; margin-left:auto; margin-right:auto; display:block; margin-top:10px;}
-.register_all a:hover{text-decoration:none; }
-.change_all{ width:400px; position:relative; margin-top:45px;}
-.change_all ul li{ line-height:30px; height:30px; margin-bottom:15px;}
-.change_all_l{ width:100px; float:left; text-align:right;}
-.change_all_r{ width:300px; float:right;}
-.change_all_r input{ width:260px; line-height:30px; border:1px solid #ccd2d7; border-radius:5px; font-size:12px;}
-.change_all ul .change_all_tit{ margin-top:-10px; height:20px; line-height:20px; color:#b8bec6}
-.change_all_tit .change_all_r span{ display:block; float:left; width:40px; margin-right:10px; font-size:12px; text-align:center; line-height:20px; height:20px; background-color:#d4d6dd; color:#fff;}
-.change_affirm{ height:30px; line-height:30px; width:85px; text-align:center; background-color:#66b1f2; color:#fff; float:left; margin-right:20px; border-radius:5px; cursor:pointer;}
-.change_cancel{ height:30px; line-height:30px; width:85px; text-align:center; border:1px solid #ccd2d7; color:#66b1f2; float:left; margin-right:20px; border-radius:5px; cursor:pointer;}
-.change_all_tit .change_all_r .password_one{ background-color:#f65177;}
-.change_all_tit .change_all_r .password_two{ background-color:#ff825b;}
-.change_all_tit .change_all_r .password_three{ background-color:#4db94a;}
-.change_all ul .change_all_tit .red_hint{ color:#f65177;}
-.change_all_r .red_input{ border:1px solid #f65177;}
-.oldpassword_hint{ display:none}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}
@@ -1237,7 +1194,6 @@ dl dt,dl label{font-weight: normal !important;}
 dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
 .search_adjust .fml dd{width:250px !important;}
 .search_adjust1 .fml dd{width:180px !important;}
-.search_adjust2 .fml dd{width:160px !important;}
 /**切断文字**/
 .text-overflow{width:400px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
 /**切断文字 end**/
