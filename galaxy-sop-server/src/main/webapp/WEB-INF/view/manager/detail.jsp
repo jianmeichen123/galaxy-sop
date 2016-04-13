@@ -366,7 +366,7 @@
                         valign: 'middle'
                     },
                     {
-                        title: '占比',
+                        title: '占比(%)',
                           field: 'sharesRatio',
                           align: 'center',
                           valign: 'middle'
