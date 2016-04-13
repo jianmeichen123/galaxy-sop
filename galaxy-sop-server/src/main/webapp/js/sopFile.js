@@ -184,6 +184,7 @@ var fileGrid = {
     				callFuc : function(){
     					searchPanel.serarchData();
     				},
+    				_url : platformUrl.commonUploadFile, //此处兼容teamsheet中老插件
     				_localUrl : platformUrl.commonUploadFile,
     				_ossUrl : platformUrl.fileCallBack,
     				_getOssFormParam : function(dom,fileKey,file){

@@ -164,6 +164,7 @@ var fileGrid = {
     				callFuc : function(){
     					fileGrid.serarchData();
     				},
+    				_url : platformUrl.commonUploadFile, //兼容老板插件
     				_localUrl : platformUrl.commonUploadFile
     		};
     		win.init(formData);

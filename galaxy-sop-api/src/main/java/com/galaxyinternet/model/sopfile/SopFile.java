@@ -136,6 +136,7 @@ public class SopFile extends PagableEntity {
   	private List<Long> projectIdList;
   	private List<Long> projectLikeIdList;
   	private List<Long> fileULikeidList;
+  	private List<String> fileStatusList;
   	
   	private String startTime;
   	private String endTime;
@@ -497,6 +498,14 @@ public class SopFile extends PagableEntity {
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public List<String> getFileStatusList() {
+		return fileStatusList;
+	}
+
+	public void setFileStatusList(List<String> fileStatusList) {
+		this.fileStatusList = fileStatusList;
 	}
 
 

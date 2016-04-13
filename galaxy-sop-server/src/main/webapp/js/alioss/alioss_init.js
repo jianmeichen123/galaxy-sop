@@ -17,19 +17,20 @@ var ossClient = {
 
 	successCallBack : undefined,
 
-	signatureUrl : function(data) {
-		var objectKey = data.fileKey;
-		console.log(data.fileKey + ' => ' + data.fileName);
-		var result = ossClient.client.signatureUrl(objectKey, {
-			expires : 3600,
-			response : {
-				'content-disposition' : 'attachment; filename="' + data.fileName + '"'
-			}
-		});
-
-		console.log(result);
-		return result;
-	},
+	signatureUrl : function(data){			  
+		  var objectKey = data.fileKey;
+	      console.log(data.fileKey + ' => ' + data.fileName);
+	      //需先判断浏览器类型,对data.fileName进行编码
+	      var result = ossClient.client.signatureUrl(objectKey, {
+	    	  expires: 3600,
+	    	  response: {
+	    	    'content-disposition' : 'attachment; filename="' + data.fileName + '"'
+	    	  }
+	      });
+	      
+	      console.log(result);
+	      return result;
+	  },
 	
 	uploadInit : function(data) {
 		// data.fileKey
@@ -137,7 +138,9 @@ var ossClient = {
 					} else {
 						ossClient.noFileOper(formParams);
 					}
-				} else {
+				
+				}
+			} else {
 					if (ossClient.uploadObject.uploadMode == "oss") {
 						up.settings.url = ossClient.uploadObject.host;
 					} else {
@@ -146,7 +149,6 @@ var ossClient = {
 					up.settings.multipart_params = formParams;
 					ossClient.uploader.start();
 					return false;
-				}
 			}
 		})
 	},
@@ -257,7 +259,7 @@ var ossClient = {
 	}
 }
 
-
+/*
 var ossClient = {
 	client : undefined,
 	chooseBtn : "chooseBtn",
@@ -475,4 +477,4 @@ var ossClient = {
 				});
 		ossClient.uploader.init();
 	}
-}
+}*/

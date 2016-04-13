@@ -469,7 +469,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					
 				}
 				sopFile.setFileWorktypeNullFilter("true");
-				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+//				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				List<String> fileStatusList = new ArrayList<String>();
+				fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
+				fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+				sopFile.setFileStatusList(fileStatusList);
 				// 模糊搜索
 				if (sopFile.getKeyword() != null
 						&& !sopFile.getKeyword().isEmpty()) {
@@ -948,9 +952,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 			// 上传人
 			sopFile.setFileUid(user.getId());
-			// 档案状态
-			sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-			
+			if(sopFile.getFileStatus()==null || DictEnum.fileStatus.缺失.getCode().equals(sopFile.getFileStatus())){
+				// 档案状态
+				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+			}		
 			// 调用非签署凭证业务方法
 			sopFileService.updateByIdSelective(sopFile);
 			responseBody.setResult(new Result(Status.OK, null));

@@ -68,6 +68,12 @@
 				<if test="bucketName != null" > and bucket_name = #{bucketName,jdbcType=VARCHAR} </if>
 				<if test="fileName != null" > and file_name = #{fileName,jdbcType=VARCHAR} </if>
 				<if test="fileSuffix != null" > and file_suffix = #{fileSuffix,jdbcType=VARCHAR} </if>
+				<if test="fileStatusList != null">
+					and file_status in 
+					<foreach collection="fileStatusList" item="fs" index="index" open="(" close=")" separator=",">
+			            #{fs}
+			        </foreach>
+				</if>
 				<if test="fileworktypeList != null"> 
 					and file_worktype in
 					<foreach collection="fileworktypeList" item="fileworktypeList" index="index" open="(" close=")" separator=",">
