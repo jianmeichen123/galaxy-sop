@@ -129,23 +129,11 @@ var platformUrl = {
 	 */
 	tab_lphtc : Constants.sopEndpointURL + "/galaxy/project/lphtc",
 	
-	/**
-	 * tab -> ceo评审：  
-	 */
-	tab_ceotc : Constants.sopEndpointURL + "/galaxy/project/ceopstc",
 	
 	/**
 	 * tab -> 立项会 申请排期： 
 	 */
 	tab_lxhpq : Constants.sopEndpointURL + "/galaxy/project/progress/proSchedule",
-	/**
-	 * tab -> 立项会： 
-	 */
-	tab_lxhtc : Constants.sopEndpointURL + "/galaxy/project/lxhtc",
-	/**
-	 * tab -> 投决会： 
-	 */
-	tab_tjhtc : Constants.sopEndpointURL + "/galaxy/project/tjhtc",
 	/**
 	 * 修改:"是否涉及股权转让"状态
 	 */
@@ -400,7 +388,11 @@ var platformUrl = {
 	/**
 	 * 阿里云直连回掉
 	 */
-	fileCallBack : Constants.sopEndpointURL + "/galaxy/sopFile/fileCallBack"
+	fileCallBack : Constants.sopEndpointURL + "/galaxy/sopFile/fileCallBack",
+	/**
+	 * 项目详情
+	 */
+	projectDetail : Constants.sopEndpointURL + "/galaxy/detail/"
 }
 
 /**

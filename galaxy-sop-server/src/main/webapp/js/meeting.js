@@ -162,6 +162,7 @@ function initMeetUpload() {
 			},
 			Error: function(up, err) {
 				$("#savemeet").removeClass("disabled");
+				$("#fileName").val("");
 				layer.msg(err.message);
 			}
 		}

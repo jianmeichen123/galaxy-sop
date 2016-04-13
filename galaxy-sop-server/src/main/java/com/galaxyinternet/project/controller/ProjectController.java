@@ -132,7 +132,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> addProject(@RequestBody Project project, HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
-		String projectCompanyCode = "";
 		if(project == null || project.getProjectName() == null || "".equals(project.getProjectName().trim())
 				|| project.getProjectType() == null || "".equals(project.getProjectType().trim())
 				|| project.getCreateDate() == null || "".equals(project.getCreateDate().trim())){
@@ -147,11 +146,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		Project obj=new Project();
 		obj.setProjectName(project.getProjectName());
 		List<Project> projectList = projectService.queryList(obj);
-		Integer count = 0 ;
-			for (Project p: projectList) {
-						count ++;
-				}
-		if(count>0){
+		/*Integer count = 0 ;
+		for (Project p: projectList) {
+			count ++;
+		}
+		if(count>0){*/
+		if (null != projectList && projectList.size() > 0) {
 			responseBody.setResult(new Result(Status.ERROR, null, "用户名重复!"));
 			return responseBody;
 		}
@@ -235,7 +235,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		project.setUpdatedTime(System.currentTimeMillis());
-		project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
+		project.setCreatedTime(DateUtil.convertStringToDate(p.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 		
 		int num = projectService.updateById(project);
 		if(num > 0){
@@ -257,22 +257,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> selectProject(@PathVariable("pid") String pid, HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
-		String hhrname="";
-		 if(project!=null){
-		    	Department Department=new Department();//
-				Department.setId(project.getProjectDepartid());
-			    Department queryOne = departmentService.queryOne(Department);
-			    if(queryOne!=null){
-			    	project.setProjectCareerline(queryOne.getName());
-			    }
-			    if(null!=queryOne.getManagerId()&&!"".equals(queryOne.getManagerId())){
-			    	User queryById = userService.queryById(queryOne.getManagerId());
-				    if(queryById!=null){
-				    	project.setHhrName(queryById.getRealName());
-				    }
-			    }
-		    }
-	    if(project == null){
+		if (project != null) {
+			Department Department = new Department();//
+			Department.setId(project.getProjectDepartid());
+			Department queryOne = departmentService.queryOne(Department);
+			Long deptId = null;
+			if (queryOne != null) {
+				project.setProjectCareerline(queryOne.getName());
+				deptId = queryOne.getManagerId();
+				if (null != deptId && deptId.longValue() > 0L) {
+					User queryById = userService.queryById(queryOne.getManagerId());
+					if (queryById != null) {
+						project.setHhrName(queryById.getRealName());
+					}
+				}
+			}
+		} else {
 			responseBody.setResult(new Result(Status.ERROR, null, "未查找到指定项目信息!"));
 			return responseBody;
 		}
@@ -326,71 +326,77 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-		if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
+		if (project.getProjectProgress() != null && project.getProjectProgress().equals("guanbi")) {
 			project.setProjectStatus("meetingResult:3");
 			project.setProjectProgress(null);
 		}
 		try {
-			if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){
-				/*Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
-				responseBody.setPageList(pageProject);
-				responseBody.setResult(new Result(Status.OK, ""));*/
+			if (roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)) {
+				/*
+				 * Page<Project> pageProject =
+				 * projectService.queryPageList(project,new
+				 * PageRequest(project.getPageNum(), project.getPageSize()));
+				 * responseBody.setPageList(pageProject);
+				 * responseBody.setResult(new Result(Status.OK, ""));
+				 */
 			}
-			if (roleIdList.contains(UserConstant.HHR)){
+			if (roleIdList.contains(UserConstant.HHR)) {
 				project.setProjectDepartid(user.getDepartmentId());
 			}
-			
-			Page<Project> pageProject = projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));
+
+			Page<Project> pageProject = projectService.queryPageList(project,
+					new PageRequest(project.getPageNum(), project.getPageSize()));
 			FormatData format = new FormatData();
-			Map<String, Object> projectmap = new HashMap<String, Object>();
-			if(!pageProject.getContent().isEmpty()){
-			    format=setFormatData(pageProject.getContent());
-			    projectmap=format.getMap();
-			    if(null!=format.getIds()&&!"".equals(format.getIds())){
-			    	List<Department> queryListdepById = departmentService.queryListById(format.getIds());
-			    	List<String> ids = new ArrayList<String>();
-			    	Map<String, Object> depmap = new HashMap<String, Object>();	
-			    	if(!queryListdepById.isEmpty()){
-			    		depmap=setFormatdepeentDate(queryListdepById).getMap();
-			    			for (Department depentment : queryListdepById) {
-							if(null!=depentment.getManagerId()&&!"".equals(depentment.getManagerId())){
-								ids.add(depentment.getManagerId().toString());
-							}	
-						}
-			    	}
-			    	FormatData usermapForat= new FormatData();
-			    	Map<String, Object> usermap=new HashMap<String, Object>();
-					if(!ids.isEmpty()){
-						List<User> queryListByDepId = userService.queryListById(ids);
-						if(!queryListByDepId.isEmpty()){
-						    usermapForat = setFormatUserDate(queryListByDepId);
-						    usermap = usermapForat.getMap();		
-						}	
-					}
-					if(usermap!=null||depmap!=null){
-				    	for (Project proje : pageProject.getContent()) {
-				    		String depid = proje.getProjectDepartid().toString();
-				    		if(usermap!=null){
-							  User u = (User) usermap.get(depid);
-							  proje.setHhrName(u == null ? "" : u.getRealName());
+			if (!pageProject.getContent().isEmpty()) {
+				format = setFormatData(pageProject.getContent());
+				if (null != format.getIds() && format.getIds().size() > 0) {
+					List<Department> queryListdepById = departmentService.queryListById(format.getIds());
+					List<String> ids = new ArrayList<String>();
+					Map<String, Object> depmap = new HashMap<String, Object>();
+					if (!queryListdepById.isEmpty()) {
+						depmap = setFormatdepeentDate(queryListdepById).getMap();
+						Long deptId = null;
+						for (Department depentment : queryListdepById) {
+							deptId = depentment.getManagerId();
+							if (null != deptId && deptId.longValue() > 0L) {
+								ids.add(String.valueOf(deptId));
 							}
-				    		if(depmap!=null){
-				    			Department dep=(Department)depmap.get(depid);
-				    			proje.setProjectCareerline(dep==null?"":dep.getName());
-				    		}
-							
 						}
 					}
-					usermap.clear();
-					usermap = null;
-					depmap.clear();
-					depmap=null;
-			    }
-			}		
+					FormatData usermapForat = new FormatData();
+					Map<String, Object> usermap = new HashMap<String, Object>();
+					if (!ids.isEmpty()) {
+						List<User> queryListByDepId = userService.queryListById(ids);
+						if (!queryListByDepId.isEmpty()) {
+							usermapForat = setFormatUserDate(queryListByDepId);
+							usermap = usermapForat.getMap();
+						}
+					}
+					if (usermap != null || depmap != null) {
+						for (Project proje : pageProject.getContent()) {
+							String depid = proje.getProjectDepartid().toString();
+							if (usermap != null) {
+								User u = (User) usermap.get(depid);
+								proje.setHhrName(u == null ? "" : u.getRealName());
+							}
+							if (depmap != null) {
+								Department dep = (Department) depmap.get(depid);
+								proje.setProjectCareerline(dep == null ? "" : dep.getName());
+							}
+						}
+					}
+					if (null != usermap) {
+						usermap.clear();
+						usermap = null;
+					}
+					if (null != depmap) {
+						depmap.clear();
+						depmap = null;
+					}
+				}
+			}
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));
-			long endTime = System.currentTimeMillis();
-		//	System.out.println("111111程序运行时间："+(endTime-startTime)+"ms");
 			return responseBody;
 		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "queryUserList faild"));
@@ -400,7 +406,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
-
 	
 /*
 	@ResponseBody
@@ -454,12 +459,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> searchProjectList(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
-		project.setCreateUid(user.getId());
+		
 		try {	
 			if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
 				project.setProjectStatus("meetingResult:3");
 				project.setProjectProgress(null);
 			}
+			if(project.getProType() != null && "2".equals(project.getProType())){
+				project.setProjectDepartid(user.getDepartmentId());
+			}else{
+				project.setCreateUid(user.getId());
+			}
+			
 			Page<Project>  pageProject =  projectService.queryPageList(project,new PageRequest(project.getPageNum(), project.getPageSize()));				
 
 			responseBody.setPageList(pageProject);
@@ -777,6 +788,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			{
 				responseBody.setResult(new Result(Status.ERROR, null ,"已有通过的会议，不能再添加会议纪要!"));
 				return responseBody;
+			}
+			
+			//排期池校验
+			if(p.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || p.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
+				MeetingScheduling ms = new MeetingScheduling();
+				ms.setProjectId(p.getPid());
+				ms.setMeetingType(p.getMeetingType());
+				ms.setStatus(DictEnum.meetingResult.待定.getCode());
+				List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
+				if(mslist==null || mslist.isEmpty()){
+					responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
+					return responseBody;
+				}
 			}
 			
 		}
@@ -1287,27 +1311,26 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		@RequestMapping(value = "checkProject")
 		@ResponseBody
 		public Map<String, Integer>  checkProject(@RequestBody Project  query) {
-			String projectCompanyCode = "";
+			//String projectCompanyCode = "";
 			if (query != null && query.getProjectCompanyCode()!= null) {
-				projectCompanyCode = query.getProjectCompanyCode();
+				//projectCompanyCode = query.getProjectCompanyCode();
 				query.setProjectCompanyCode(null);
 			}
 			List<Project> projectList = projectService.queryList(query);
-			Integer count = 0 ;
-		//	if (!StringUtils.equals(projectCompanyCode,"")) {
-				for (Project project: projectList) {
+			//Integer count = 0 ;
+			//	if (!StringUtils.equals(projectCompanyCode,"")) {
+				//for (Project project: projectList) {
 					
 					//if (project.getProjectCompanyCode()!= null && StringUtils.equals(projectCompanyCode, project.getProjectCompanyCode())) {
-						count ++;
+						//count ++;
 					//}
-				}
+				//}
 			//}
 			Map<String, Integer> map = new HashMap<String, Integer>();
-			if (projectList.size() < 1) {
+			if (null == projectList || projectList.size() < 1) {
 				//不存在重复
 				map.put("count", 0);
-				
-		 //else if (count > 0) {
+				//else if (count > 0) {
 				//重复且相同组织机构数为count
 				//map.put("companyCode", count);
 				//map.put("count", projectList.size());
@@ -1316,7 +1339,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			return map;
 		}
-		
 		
 		
 		/**
@@ -1546,20 +1568,20 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		 * @param plist
 		 * @return
 		 */
-		public FormatData setFormatdepeentDate(List<Department> depList){
-			FormatData formatData=new FormatData();
-			List<String> ids=new ArrayList<String>();
-			Map<String, Object> usermap=new HashMap<String, Object>();
-			for(Department dep: depList){
-				usermap.put(dep.getId().toString(), dep);
-				if(null!=dep.getManagerId()&&!"".equals(dep.getManagerId())){
-					ids.add(dep.getManagerId().toString());
-				}
+	public FormatData setFormatdepeentDate(List<Department> depList) {
+		FormatData formatData = new FormatData();
+		List<String> ids = new ArrayList<String>();
+		Map<String, Object> usermap = new HashMap<String, Object>();
+		Long deptId = null;
+		for (Department dep : depList) {
+			usermap.put(String.valueOf(dep.getId()), dep);
+			deptId = dep.getManagerId();
+			if (null != deptId && deptId.longValue() > 0L) {
+				ids.add(String.valueOf(deptId));
 			}
-			formatData.setIds(ids);
-			formatData.setMap(usermap);
-			return formatData;
 		}
-		
-		
+		formatData.setIds(ids);
+		formatData.setMap(usermap);
+		return formatData;
+	}
 }

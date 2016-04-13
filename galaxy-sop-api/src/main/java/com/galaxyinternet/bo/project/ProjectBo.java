@@ -33,7 +33,19 @@ public class ProjectBo extends Project {
 	
 	private String ascOrDes;//加入的是升降序  desc asc
 	
+	private String proType;//我的项目|所属事业线项目;1:我的项目;2:事业线项目
 	
+	
+	
+	
+	public String getProType() {
+		return proType;
+	}
+
+	public void setProType(String proType) {
+		this.proType = proType;
+	}
+
 	public String getrComplany() {
 		return rComplany;
 	}

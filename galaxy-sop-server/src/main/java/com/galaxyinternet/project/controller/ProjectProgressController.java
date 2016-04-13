@@ -50,12 +50,14 @@ import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
+import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
+import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
@@ -77,6 +79,9 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	@Autowired
 	private InterviewRecordService interviewRecordService;
+	
+	@Autowired
+	private MeetingSchedulingService meetingSchedulingService;
 	
 	@Autowired
 	private  SopFileService sopFileService;
@@ -161,6 +166,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addFileInterview", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -191,11 +197,14 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			//保存
 			Long id = null;
 			if(interviewRecord.getFkey()!=null){
-				if(interviewRecord.getBucketName()==null || interviewRecord.getFileLength()==null||interviewRecord.getFname()==null){
+				if(interviewRecord.getFileLength()==null||interviewRecord.getFname()==null){
 					responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
 					return responseBody;
 				}
-				
+				if(interviewRecord.getBucketName()==null){
+					interviewRecord.setBucketName(OSSFactory.getDefaultBucketName());
+				}		
+						
 				Map<String,String> nameMap = transFileNames(interviewRecord.getFname());
 				SopFile sopFile = new SopFile();
 				sopFile.setBucketName(interviewRecord.getBucketName());
@@ -221,16 +230,16 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);//上传aliyun接口
 				//上传成功后
 				if(map!=null){
-					@SuppressWarnings("unchecked")
-					Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
+					Map<String,String> nameMap = null;
 					MultipartFile file = (MultipartFile) map.get("file");
 					String fileName = "";
 					if(interviewRecord.getFname()!=null && interviewRecord.getFname().trim().length()>0){
 						fileName = interviewRecord.getFname().trim();
+						nameMap = transFileNames(fileName);
 					}else{
-						fileName = nameMap.get("fileName");
+						nameMap = (Map<String, String>) map.get("nameMap");
 					}
-					if(fileName == null || fileName.trim().length()==0){
+					if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
 						responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
 						return responseBody;
 					}//end get file name 
@@ -241,7 +250,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
 					sopFile.setFileKey(fileKey);  
 					sopFile.setFileLength(file.getSize());  //文件大小
-					sopFile.setFileName(fileName);
+					sopFile.setFileName(nameMap.get("fileName"));
 					sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 					sopFile.setFileUid(user.getId());	 //上传人
 					sopFile.setCareerLine(user.getDepartmentId());
@@ -410,15 +419,16 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addfilemeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingRecord> addFileMeet(MeetingRecord meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
+	public ResponseData<MeetingRecord> addFileMeet(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
 		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if(meetingRecord.getProjectId() == null){
 			String json = JSONUtils.getBodyString(request);
-			meetingRecord = GSONUtil.fromJson(json, MeetingRecord.class);
+			meetingRecord = GSONUtil.fromJson(json, MeetingRecordBo.class);
 		}
 		if(meetingRecord.getProjectId() == null 
 				|| meetingRecord.getMeetingDate() == null 
@@ -439,6 +449,19 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			return responseBody;
 		}
 		
+		//排期池校验
+		if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
+			MeetingScheduling ms = new MeetingScheduling();
+			ms.setProjectId(meetingRecord.getProjectId());
+			ms.setMeetingType(meetingRecord.getMeetingType());
+			ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
+			if(mslist==null || mslist.isEmpty()){
+				responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
+				return responseBody;
+			}
+		}
+			
 		try {
 			String prograss = "";
 			UrlNumber uNum = null;
@@ -473,7 +496,35 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			if(projectPro > operationPro){
 				equalNowPrograss = false;
 			}
-			if(!ServletFileUpload.isMultipartContent(request)){
+			
+			if(meetingRecord.getFkey()!=null){
+				if( meetingRecord.getFileLength()==null||meetingRecord.getFname()==null){
+					responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
+					return responseBody;
+				}
+				if(meetingRecord.getBucketName()==null){
+					meetingRecord.setBucketName(OSSFactory.getDefaultBucketName());
+				}		
+						
+				Map<String,String> nameMap = transFileNames(meetingRecord.getFname());
+				SopFile sopFile = new SopFile();
+				sopFile.setBucketName(meetingRecord.getBucketName());
+				sopFile.setFileKey(meetingRecord.getFkey());
+				sopFile.setFileLength(meetingRecord.getFileLength());
+				sopFile.setFileName(nameMap.get("fileName"));
+				sopFile.setFileSuffix(nameMap.get("fileSuffix"));
+				
+				sopFile.setProjectId(project.getId());
+				sopFile.setProjectProgress(project.getProjectProgress());
+				sopFile.setFileUid(user.getId());	 //上传人
+				sopFile.setCareerLine(user.getDepartmentId());
+				sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
+				sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
+				//sopFile.setFileWorktype(fileWorkType);    //业务分类
+				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+				
+				id = meetingRecordService.insertMeet(meetingRecord,project,sopFile,equalNowPrograss);
+			}else if(!ServletFileUpload.isMultipartContent(request)){
 				SopFile file = new SopFile();
 				file.setCareerLine(user.getDepartmentId());
 				file.setFileUid(user.getId());
@@ -485,17 +536,17 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				
 				//上传成功后
 				if(map!=null){
-					@SuppressWarnings("unchecked")
-					Map<String,String> nameMap = (Map<String, String>) map.get("nameMap");
+					Map<String,String> nameMap = null;
 					MultipartFile file = (MultipartFile) map.get("file");
 					String fileName = "";
 					if(meetingRecord.getFname()!=null && meetingRecord.getFname().trim().length()>0){
-						fileName = meetingRecord.getFname();
+						fileName = meetingRecord.getFname().trim();
+						nameMap = transFileNames(fileName);
 					}else{
-						fileName = nameMap.get("fileName"); // secondarytile.png  全名
+						nameMap = (Map<String, String>) map.get("nameMap");
 					}
-					if(fileName == null || fileName.trim().length()==0){
-						responseBody.setResult(new Result(Status.ERROR,null, "获取文件名失败"));
+					if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
+						responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
 						return responseBody;
 					}//end get file name 
 					
@@ -505,7 +556,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
 					sopFile.setFileKey(fileKey);  
 					sopFile.setFileLength(file.getSize());  //文件大小
-					sopFile.setFileName(fileName);
+					sopFile.setFileName(nameMap.get("fileName"));
 					sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 					sopFile.setFileUid(user.getId());	 //上传人
 					sopFile.setCareerLine(user.getDepartmentId());

@@ -350,4 +350,12 @@
 					</foreach>
 	</select>
 	
+	<!-- 查询 项目id根据用户id-->
+	<select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		 id 
+		from sop_project
+		<include refid="Base_Where_Clause" />
+	</select>
+	
 </mapper>

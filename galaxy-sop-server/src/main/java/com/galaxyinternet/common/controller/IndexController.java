@@ -140,9 +140,11 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	/**
 	 * 到我的项目页面
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/mpl", method = RequestMethod.GET)
-	public String myproject() {
+	public String myproject(){
+		
 		return "project/list";
 	}
 	/**
@@ -151,7 +153,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value = "/ips", method = RequestMethod.GET)
 	public String inProjectStage() {
-		return "project/stage";
+		return "project/sop";
 	}
 	/**
 	 * 到添加访谈记录弹出层
@@ -159,7 +161,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value = "/air", method = RequestMethod.GET)
 	public String addInterviewRecord() {
-		return "project/air";
+		return "project/sop/air";
 	}
 	
 	/**
@@ -170,14 +172,6 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	public String tip(HttpServletRequest request, @PathVariable("type") int type) {
 		request.setAttribute("tipType", type);
 		return "common/tip";
-	}
-	/**
-	 * 到添加投决会弹出层
-	 * @return
-	 */
-	@RequestMapping(value = "/voto", method = RequestMethod.GET)
-	public String addmeetingRecord() {
-		return "project/voto";
 	}
 	
 	
@@ -192,35 +186,10 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 			String time=pr.getCreateDate();
 			request.setAttribute("timeStr", time);
 		}
-		return "project/mr";
+		return "project/sop/mr";
 	}
 	
-	/**
-	 * 跳转到ceopstc
-	 * @return
-	 */
-	@RequestMapping(value = "/ceopstc", method = RequestMethod.GET)
-	public String ceopstc(HttpServletRequest request) {
-		return "project/CEOPStc";
-	}
 	
-	/**
-	 * 跳转到LxHtc
-	 * @return
-	 */
-	@RequestMapping(value = "/lxhtc", method = RequestMethod.GET)
-	public String lxhtc() {
-		return "project/LXHtc";
-	}
-	
-	/**
-	 * 跳转到TJHtc
-	 * @return
-	 */
-	@RequestMapping(value = "/tjhtc", method = RequestMethod.GET)
-	public String tjhtc() {
-		return "project/TJHtc";
-	}
 	/**
 	 * 弹出上传业务尽职调查报告
 	 * @return
@@ -236,7 +205,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value = "/tzyx", method = RequestMethod.GET)
 	public String tzyx() {
-		return "project/progress/tzyxs";
+		return "project/sop/tzyxs";
 	}
 	/**
 	 * 弹出投资意向书弹出层
@@ -244,7 +213,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value = "/jzdc", method = RequestMethod.GET)
 	public String jzdc() {
-		return "project/progress/jzdc";
+		return "project/sop/jzdc";
 	}
 	/**
 	 * 弹出投资协议阶段的所有弹出框
@@ -252,7 +221,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value = "/tzxy", method = RequestMethod.GET)
 	public String tzxy() {
-		return "project/progress/tzxy";
+		return "project/sop/tzxy";
 	}
 	/**
 	 * 弹出股权转让协议的所有弹出框
@@ -260,7 +229,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value = "/gqzr", method = RequestMethod.GET)
 	public String gqzr() {
-		return "project/progress/gqzr";
+		return "project/sop/gqzr";
 	}
 
 	/**
