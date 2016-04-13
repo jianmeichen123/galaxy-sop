@@ -122,7 +122,7 @@
                     <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含数字母、汉字 长度50"></td>  -->
                  	<td data-by="id">                 	    	                   
                  		<select id="de0" name="de" onchange="setValue(this)">		               		                		                  
-		                  <option value="学历" >学历</option>
+		                  <option value="" >学历</option>
 		                  <option value="高中" >高中</option>
 		                  <option value="本科" >本科</option>		                  
 		                  <option value="研究生" >研究生</option>
@@ -132,7 +132,7 @@
 		         	</td>
 		         	<td data-by="id">		         			                   
                  		<select id="de1" name="de" onchange="setValue1(this)">
-		                  <option value="学历" >学历</option>
+		                  <option value="" >学历</option>
 		                  <option value="高中" >高中</option>
 		                  <option value="本科" >本科</option>		                  
 		                  <option value="研究生" >研究生</option>
@@ -142,7 +142,7 @@
 		         	</td>
 		         	<td data-by="id">		         			                   
                  		<select id="de2" name="de" onchange="setValue2(this)">
-		                  <option value="学历" >学历</option>
+		                  <option value="" >学历</option>
 		                  <option value="高中" >高中</option>
 		                  <option value="本科" >本科</option>		                  
 		                  <option value="研究生" >研究生</option>
