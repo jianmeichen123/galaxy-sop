@@ -260,7 +260,7 @@
 			<div class="block" data-tab="con" id="projectProgress_3_con">
 				<!--按钮-->
 				<div id="options_point3" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="addMettingRecord(3,'meetingType:2')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a> 
+					<a id="add_ceomeet" href="javascript:;" onclick="addMettingRecord(3,'meetingType:2')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a> 
 					<a href="javascript:;" onclick="toEstablishStage()" id="lxhpq" class="pubbtn fffbtn lpubbtn option_item_mark">立项会排期</a>
 				</div>
 				
