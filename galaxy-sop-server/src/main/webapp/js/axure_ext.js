@@ -360,6 +360,11 @@ $(function(){
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
+				var Request = new Object(); 
+				Request = GetRequest();
+				$('.register_all_two1').html(Request("realName"));
+				$('.register_all_two2').html(Request("deptName"));
+				$('.register_all_two3').html(Request("roleName"));
 				$("[data-btn='change_password']").on("click",function(){
 					$('#powindow').remove();
 					var $self = $(this);
@@ -378,4 +383,14 @@ $(function(){
 		return false;
 	});
 });
-
+function GetRequest(url) { 
+	var theRequest = new Object(); 
+	if (url.indexOf("?") != -1) { 
+	var str = url.substr(1); 
+	strs = str.split("&"); 
+	for(var i = 0; i < strs.length; i ++) { 
+	theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]); 
+	} 
+	} 
+	return theRequest; 
+	} 
