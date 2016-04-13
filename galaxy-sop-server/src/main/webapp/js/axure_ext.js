@@ -383,5 +383,31 @@ $(function(){
 		});
 		return false;
 	});	
+	
+	//修改密码验证弹窗
+	$("[data-btn='login_infor']").on("click",function(){
+		var $self = $(this);
+		var _url = $self.attr("href");
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$("[data-btn='change_password']").on("click",function(){
+					$('#powindow').remove();
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){
+							$(this).change_password();
+						}//模版反回成功执行	
+					});
+					return false;
+				});	
+			}//模版反回成功执行	
+		});
+		return false;
+	});
 });
 

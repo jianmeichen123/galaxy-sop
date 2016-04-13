@@ -457,7 +457,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .header .usermsg a{ color:#FFF; float:left}
 .header .usermsg span,
 .header .usermsg b{ float:left}
-.header .usermsg .name{ padding:0 0 0 20px;  margin:0 12px 0 0;height: 18px;background-position: 0 0px;}
+.header .usermsg .name{ padding:0 15px 0 20px;  margin:0 5px 0 0;height: 18px;background-position: 0 0px;background: url(../img/xiala.png) right 3px no-repeat;cursor: pointer;}
 .header .usermsg .line{ border-left:1px solid #97c7ee; height:11px; margin:2px 10px 0 0; width:0}
 .header .usermsg .loginout{ margin:0 30px 0 0}
 .header .usermsg .work{ margin:0 30px 0 0}
@@ -630,7 +630,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg .btm thead{background-color: #f9fafc;}
 .pagebox .projectmsg .btm table td a{color: #66b1f2;}
 .pagebox .projectmsg .btm ul li{float: left;}
-.pagebox .projectmsg .btm ul li a{width:138px;height:28px;border:1px solid #ccd2d7;border-radius: 5px;background-color: #fff;display: inline-block;text-align: center;line-height: 30px;margin-right: 10px;color: #4c97da;text-decoration: none;}
+.pagebox .projectmsg .btm ul li a{/* width:138px; */padding:0 15px;height:28px;border:1px solid #ccd2d7;border-radius: 5px;background-color: #fff;display: inline-block;text-align: center;line-height: 30px;margin-right: 10px;color: #4c97da;text-decoration: none;}
 .pagebox .projectmsg .xmms{color:#525662;text-decoration: none;font-family: "宋体";height: 20px;overflow: hidden;}
 /* tips框 */
 .pagebox .tips{padding: 10px;box-shadow: 2px 2px 2px #ccc;border:1px solid #e9ebf2;border-radius: 6px;width: 300px;font-size: 12px;display: none;position: absolute;background-color: #fff;line-height: 20px;z-index: 10;}
@@ -957,6 +957,9 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .loginpage_new .loginbox .tips a{margin-left: 18px;}
 .loginpage_new .loginbox .login{width: 310px;margin: 0 auto;background-color: #539be2;display: block;height: 46px;border-radius: 6px;text-align: center;color: #fff;font-size: 18px;font-family: '微软雅黑';line-height: 46px;margin-top:30px;}
 .loginpage_new .loginbox .login:hover{text-decoration: none;background-color: #85c1f5;}
+.loginpage_new .btm{ text-align:center; line-height:34px; background:#acc0d1; height:34px;position: fixed;bottom: 0;width: 100%;}
+.loginpage_new .btm a{ color:#FFF; font-size:14px; font-family:"宋体"; margin:0 10px 0 0}
+
 /*弹出层-------华丽分割线---------部分*/
 #popbg{ position:fixed; _position:absolute; left:0; top:0; background:#000;filter:Alpha(opacity=0);opacity: 0;  z-index:999; width:100%; height:100%}
 #popbg iframe{filter:alpha(opacity=0);opacity: 0; width:100%; height:100%}
@@ -1147,8 +1150,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .resumetc textarea{width:310px;font-size: 12px;line-height: 20px;height:50px;border:1px solid #dadfe3;border-radius:4px;margin:3px 0 0 2px;}
 .resumetc .tabtable label{font-size: 12px;position: relative;margin:0 10px 0 0;padding:0 0 0 20px;line-height: 30px;}
 .resumetc .tabtable label input[type="radio"]{position: absolute;top: 0px;left:5px;}
-.resumetc .tabtable .add{width:20px;height:20px;border:0;border-radius: 50%;position: absolute;top:6px;right:8px;color: #fff;font-size: 20px;line-height: 20px;font-weight: bold;}
-
+.resumetc .tabtable .add,.resumetc .tabtable .addd{width:20px;height:20px;border:0;border-radius: 50%;position: absolute;top:6px;right:8px;color: #fff;font-size: 20px;line-height: 20px;font-weight: bold;}
 /* 搜索弹层 */
 /* 添加日程新的弹窗 */
 .schedule1tc{background-color: #fff;padding: 10px;position: relative;height:400px;}
@@ -1223,7 +1225,7 @@ background-size: 100%;}
 .change_all_tit .change_all_r .password_three{ background-color:#4db94a;}
 .change_all ul .change_all_tit .red_hint{ color:#f65177;}
 .change_all_r .red_input{ border:1px solid #f65177;}
-.oldpassword_hint{ display:none}
+.oldpassword_hint ,.original_password_hint{ display:none}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}

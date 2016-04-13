@@ -516,9 +516,23 @@ function fillHeaderdata() {
 	}, 300000);*/
 }
 
+function updatePwd() {
+	var password = $('#newpassword').val();
+	var data = {};
+	data["id"] = userId;
+	data["password"] = password;
+	sendPostRequestByJsonObj(platformUrl.updatePwd, data, updatePwdCallback);
 
+}
 
-
+function updatePwdCallback(data) {
+	if(data.result.status == "OK") {
+		layer.msg("密码已修改!");
+		window.location.reload();
+	} else {
+		layer.msg("密码修改失败!");
+	}
+}
 
 
 

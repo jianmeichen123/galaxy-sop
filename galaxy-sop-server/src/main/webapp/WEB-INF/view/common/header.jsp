@@ -49,11 +49,12 @@
             </span>              
         </div>
     </div>
-     <!-- 头部右边 -->
+    
+    <!-- 头部右边 -->
     <div class="usermsg rit clearfix">
-        <span class="ico name">您好，<%=realName%></span>
+        <span class="ico name"  href="<%=path %>/html/register.html" data-btn="login_infor">早上好，闫皓</span>
         <b class="line null">分割线</b>
-        <a href="javascript:;" onclick="logout()" class="loginout">退出</a>
+        <a href="javascript:;" class="loginout">退出</a>
     </div>
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
