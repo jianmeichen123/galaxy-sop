@@ -360,12 +360,12 @@ $(function(){
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				var test = getQueryString(_url,realName);
-				alert(test)
-				$('.register_all_two1').html(realName);
-				$('.register_all_two2').html(deptName);
-				$('.register_all_two3').html(roleName);
-				$("#hid").href=getUrl();
+				var test = getQueryString(_url,"realName");
+				
+				$('.register_all_two1').html(getQueryString(_url,"realName"));
+				$('.register_all_two2').html(getQueryString(_url,"deptName"));
+				$('.register_all_two3').html(getQueryString(_url,"roleName"));
+				$("#hid").href=getUrl(_url);
 				
 				$("[data-btn='change_password']").on("click",function(){
 					$('#powindow').remove();
@@ -396,8 +396,8 @@ function getQueryString(url,name){
 
 }
 
-function getUrl() {
-	var location = (window.location+'').split('/'); 
+function getUrl(_url) {
+	var location = (_url+'').split('/'); 
 	var basePath = location[0]+'//'+location[2]+'/'+location[3]; 
 	var url = basePath + '/html/change_password.html'; 
 	return url;
