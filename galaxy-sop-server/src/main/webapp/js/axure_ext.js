@@ -375,7 +375,7 @@ $(function(){
 						url:_url,//模版请求地址
 						data:"",//传递参数
 						okback:function(){
-							$(this).change_password();
+							//$(this).change_password();
 						}//模版反回成功执行	
 					});
 					return false;
