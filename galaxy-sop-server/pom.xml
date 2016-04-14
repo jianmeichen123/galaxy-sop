@@ -237,6 +237,10 @@
 					<artifactId>jedis</artifactId>
 					<groupId>redis.clients</groupId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.data</groupId>
+					<artifactId>spring-data-commons</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 
@@ -403,15 +407,11 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
-			<version>1.8.1.RELEASE</version>
+			<version>1.9.1.RELEASE</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
 					<artifactId>spring-expression</artifactId>
-				</exclusion>
-				<exclusion>
-					<artifactId>spring-context</artifactId>
-					<groupId>org.springframework</groupId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -419,7 +419,7 @@
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
-			<version>2.12.2</version>
+			<version>3.2.2</version>
 		</dependency>
 		<!-- mongodb end -->
 		<!-- dubbo 服务注册方式 start -->
