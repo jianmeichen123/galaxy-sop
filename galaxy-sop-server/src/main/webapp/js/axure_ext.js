@@ -362,7 +362,7 @@ $(function(){
 			okback:function(){
 				var test = getQueryString(_url,"realName");
 				
-				$('.register_all_two1').html(getQueryString(_url,"realName"));
+				$('.register_all_two1').html(getQueryString(realName);
 				$('.register_all_two2').html(getQueryString(_url,"deptName"));
 				$('.register_all_two3').html(getQueryString(_url,"roleName"));
 				$("#hid").href=getUrl(_url);
