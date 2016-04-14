@@ -11,12 +11,17 @@
       </ul>  
     </div>
   </div>
-  	<a href="http://fx.dev.galaxyinternet.com/sop/html/change_password.html" data-btn="change_password" class="register_all_input">修改密码</a>
+  	<a href="getUrl();" data-btn="change_password" class="register_all_input">修改密码</a>
 </div>
 <script type="text/javascript">
 
-
-/* function   request(paramName)
+function getUrl() {
+	var location = (window.location+'').split('/'); 
+	var basePath = location[0]+'//'+location[2]+'/'+location[3]; 
+	var url = basePath + '/html/change_password.html'; 
+	return url;
+}
+function   request(paramName)
 {
 	//获取URL的字符串
 	var sSource=String(window.document.location);
@@ -67,5 +72,5 @@
 		}   
 	}
 	return   sReturn; 
-}  */
+}  
 </script>
