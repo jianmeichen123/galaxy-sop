@@ -362,9 +362,11 @@ $(function(){
 			okback:function(){
 				var test = getQueryString(_url,realName);
 				alert(test)
-				$('.register_all_two1').html(getQueryString(_url,realName));
-				$('.register_all_two2').html(getQueryString(_url,deptName));
-				$('.register_all_two3').html(getQueryString(_url,deptName));
+				$('.register_all_two1').html(realName);
+				$('.register_all_two2').html(deptName);
+				$('.register_all_two3').html(roleName);
+				$("#hid").href=getUrl();
+				
 				$("[data-btn='change_password']").on("click",function(){
 					$('#powindow').remove();
 					var $self = $(this);
@@ -392,6 +394,13 @@ function getQueryString(url,name){
 
      if(r!=null)return  unescape(r[2]); return null;
 
+}
+
+function getUrl() {
+	var location = (window.location+'').split('/'); 
+	var basePath = location[0]+'//'+location[2]+'/'+location[3]; 
+	var url = basePath + '/html/change_password.html'; 
+	return url;
 }
 function GetRequest(url) { 
 	var theRequest = new Object(); 
