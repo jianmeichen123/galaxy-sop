@@ -392,7 +392,15 @@ var platformUrl = {
 	/**
 	 * 项目详情
 	 */
-	projectDetail : Constants.sopEndpointURL + "/galaxy/detail/"
+	projectDetail : Constants.sopEndpointURL + "/galaxy/detail/",
+	/**
+	 * 查询密码
+	 */
+	checkPwd : Constants.sopEndpointURL + "/galaxy/home/checkPwd",
+	/**
+	 * 修改密码
+	 */
+	updatePwd : Constants.sopEndpointURL + "/galaxy/home/updatePwd"
 }
 
 /**

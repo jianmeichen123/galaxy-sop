@@ -242,11 +242,11 @@
 			$("#currencyUnit").text(currencyUnit);
 			$("#project_company").text(data.entity.projectCompany);
 			$("#project_company_code").text(data.entity.projectCompanyCode);
-			$("#describe_show").html(data.entity.projectDescribe);
-			$("#model_show").html(data.entity.projectBusinessModel);
-			$("#portrait_show").html(data.entity.userPortrait);
-			$("#location_show").html(data.entity.companyLocation);
-			$("#analysis_show ").html(data.entity.prospectAnalysis);
+			$("#describe_show").html(data.entity.projectDescribe==null?"暂无项目概述":data.entity.projectDescribe);
+			$("#model_show").html(data.entity.projectBusinessModel==null?"暂无商业模式":data.entity.projectBusinessModel);
+			$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
+			$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
+			$("#analysis_show ").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
 			var um = UM.getEditor('describe_editor');
 			um.setContent(data.entity.projectDescribe);
 			var um = UM.getEditor('business_model_editor');
@@ -366,7 +366,7 @@
                         valign: 'middle'
                     },
                     {
-                        title: '占比',
+                        title: '占比(%)',
                           field: 'sharesRatio',
                           align: 'center',
                           valign: 'middle'

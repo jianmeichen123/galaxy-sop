@@ -517,12 +517,6 @@ function fillHeaderdata() {
 }
 
 
-
-
-
-
-
-
 //附件点击下载
 function filedown(fileid , filekey, type){
 	try {

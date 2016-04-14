@@ -138,11 +138,12 @@ function appendTd(model){
 		var idd = "de3";
 		var iddd="degree3"
 		var ename = "de4";
+		var valuee = "学历"
 		var ese = "setValue3(this)";
 		var option = $($(select).find("option"));
-		for(var i = 0 ;i < option.length ;i++){
+		for(var i = 1 ;i < option.length ;i++){
 			if(str=='undefined'||str== undefined){
-				str = "";
+				str ="<option value='' >"+valuee+"</option>";
 			}
 			var value = $(option[i]).attr("value");
 			var str = str +"<option value='"+value+"' >"+value+"</option>";

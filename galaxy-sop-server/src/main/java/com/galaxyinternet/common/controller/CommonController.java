@@ -76,7 +76,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		//通用Tab
 		tabs.add(new Menus(1L, 0, "工作桌面", u + "galaxy/index?" + params));
 		tabs.add(new Menus(2L, 0, "待办任务", u + "galaxy/soptask?" + params));
-		tabs.add(new Menus(3L, 0, "消息提醒", u + "galaxy/operationMessage/index?" + params));
+		//tabs.add(new Menus(3L, 0, "消息提醒", u + "galaxy/operationMessage/index?" + params));
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		
 		if(roleIdList.contains(UserConstant.TZJL)){
@@ -124,7 +124,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(1L) || roleIdList.contains(2L)){
 			tabs.clear();
 			tabs.add(new Menus(1L, 0, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
-			tabs.add(new Menus(3L, 0, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
+			//tabs.add(new Menus(3L, 0, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
 			tabs.add(new Menus(4L, 0, "项目查询", serverUrl +"sop/galaxy/cpl?" + params));
 			tabs.add(new Menus(5L, 0, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
 			tabs.add(new Menus(6L, 0, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));

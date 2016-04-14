@@ -47,6 +47,8 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 	var roleId = '<%=roleId%>';
 </script>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/js/alioss/aliyun-oss-sdk.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/alioss/alioss_init.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/platformUrl.js" type="text/javascript"></script>

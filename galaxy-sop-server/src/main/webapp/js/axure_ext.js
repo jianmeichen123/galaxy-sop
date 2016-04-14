@@ -351,5 +351,65 @@ $(function(){
 		});
 		return false;
 	});	
+	
+	//修改密码验证弹窗
+	$("[data-btn='login_infor']").on("click",function(){
+		var $self = $(this);
+		var _url = $self.attr("href");
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				var test = getQueryString(_url,"realName");
+				
+				$('.register_all_two1').html(getQueryString(_url,"realName"));
+				$('.register_all_two2').html(getQueryString(_url,"deptName"));
+				$('.register_all_two3').html(getQueryString(_url,"roleName"));
+				//$("#hid").href=getUrl(_url);
+				
+				$("[data-btn='change_password']").on("click",function(){
+					$('#powindow').remove();
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){
+							$(this).change_password();
+						}//模版反回成功执行	
+					});
+					return false;
+				});	
+			}//模版反回成功执行	
+		});
+		return false;
+	});
 });
 
+function getQueryString(url,name){
+
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+
+     var r = url.substr(1).match(reg);
+
+     if(r!=null)return  unescape(r[2]); return null;
+
+}
+
+function getUrl(_url) {
+	var location = (_url+'').split('/'); 
+	var basePath = location[0]+'//'+location[2]+'/'+location[3]; 
+	var url = basePath + '/html/change_password.html'; 
+	return url;
+}
+function GetRequest(url) { 
+	var theRequest = new Object(); 
+	if (url.indexOf("?") != -1) { 
+	var str = url.substr(1); 
+	strs = str.split("&"); 
+	for(var i = 0; i < strs.length; i ++) { 
+	theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]); 
+	} 
+	} 
+	return theRequest; 
+	} 

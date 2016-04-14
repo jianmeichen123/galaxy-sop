@@ -1,0 +1,76 @@
+<div class="addmentc">
+	<div class="title_bj">登录信息</div>
+  <div class="form clearfix">
+    
+    <div class="register_all">
+      <ul>
+        <li><span class="register_all_one">登录名称：</span><span class="register_all_two1"></span></li>
+        <li><span class="register_all_one">账户状态：</span><span class="register_all_two">正常</span></li>
+        <li><span class="register_all_one">所属部门：</span><span class="register_all_two2"></span></li>
+        <li><span class="register_all_one">职能角色：</span><span class="register_all_two3"></span></li>
+      </ul>  
+    </div>
+  </div>
+  	<a href="/sop/html/change_password.html" id='hid' data-btn="change_password" class="register_all_input">修改密码</a>
+</div>
+<script type="text/javascript">
+
+function getUrl() {
+	var location = (window.location+'').split('/'); 
+	var basePath = location[0]+'//'+location[2]+'/'+location[3]; 
+	var url = basePath + '/html/change_password.html'; 
+	return url;
+}
+function   request(paramName)
+{
+	//获取URL的字符串
+	var sSource=String(window.document.location);
+	alert(sSource);
+	var sName= paramName;  
+	var sReturn="";   
+	var sQUS="?";   
+	var sAMP="&";   
+	var sEQ="=";   
+	var iPos;
+
+	//获取sSource中的"?"，无则返回 -1
+	iPos=sSource.indexOf(sQUS);
+	if(iPos==-1) 
+		return; 
+	
+	//汲取参数，从iPos位置到sSource.length-iPos的位置，
+	//若iPos = -1，则：从-1 到 sSource.length+1
+	var strQuery=sSource.substr(iPos,sSource.length-iPos); 
+
+	// alert(strQuery); 
+	//先全部转换为小写
+	var   strLCQuery = strQuery.toLowerCase();   
+	var   strLCName  = sName.toLowerCase(); 
+
+	//从子字符串strLCQuery中查找“?”、参数名，以及“=”，即“?参数名=”
+	iPos   = strLCQuery.indexOf(sQUS + strLCName + sEQ);
+	//alert(iPos);
+	//如果不存在
+	if(iPos == -1)   
+	{   
+		//继续查找可能的后一个参数，即带“&参数名=”
+		iPos = strLCQuery.indexOf(sAMP + strLCName + sEQ);   
+	}
+
+	//判断是否存在参数
+	if(iPos != -1)
+	{    
+		sReturn = strQuery.substr(iPos + sName.length + 2,strQuery.length-(iPos + sName.length + 2));   
+		var iPosAMP = sReturn.indexOf(sAMP);   
+		if (iPosAMP == -1)
+		{
+			return   sReturn;   
+		}
+		else
+		{   
+			sReturn = sReturn.substr(0,iPosAMP);   
+		}   
+	}
+	return   sReturn; 
+}  
+</script>

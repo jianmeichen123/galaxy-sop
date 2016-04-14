@@ -547,12 +547,14 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			//begin 上传到aliyun
 			long asize = multipartFile.getSize(); 
 			if(asize>OSSConstant.UPLOAD_PART_SIZE){//大文件线程池上传
-				int result = OSSHelper.uploadSupportBreakpoint(tempFile,fileKey); // 上传至阿里云
+//				int result = OSSHelper.uploadSupportBreakpoint(tempFile,fileKey); // 上传至阿里云
+				int result = OSSHelper.uploadSupportBreakpoint(fileName, tempFile, fileKey);
 				if(result == GlobalCode.ERROR){
 					return null;
 				}
 			}else{
-				upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);  //上传至阿里云
+//				upResult = OSSHelper.simpleUploadByOSS(tempFile,fileKey);  //上传至阿里云
+				upResult = OSSHelper.simpleUploadByOSS(tempFile, fileKey, OSSHelper.setRequestHeader(fileName, multipartFile.getSize())); //上传至阿里云
 				//若文件上传成功
 				if(upResult.getResult().getStatus()==null || upResult.getResult().getStatus().equals(Status.ERROR)){
 					return null;
@@ -613,28 +615,31 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			}	
 		}
 		try{	
-			boolean ie10 = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
-					.indexOf("MSIE") > 0;
-			boolean ie11p = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
-					.indexOf("RV:11") > 0
-					&& request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
-							.indexOf("LIKE GECKO") > 0;
-			boolean iedge = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
-					.indexOf("EDGE") > 0;
-			boolean ie = ie10 || ie11p || iedge;
-			if (ie) {
-				try {
-					String filename = downloadEntity.getFileName()+downloadEntity.getFileSuffix();
-					filename = new String(StrUtils.encodString(filename).getBytes("UTF-8"), "ISO8859-1"); 
-					downloadEntity.setFileName(filename);
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-			} else {
-				downloadEntity.setFileName(new String((downloadEntity
-						.getFileName() + downloadEntity.getFileSuffix())
-						.getBytes("UTF-8"), "ISO8859-1"));
-			}
+//			boolean ie10 = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+//					.indexOf("MSIE") > 0;
+//			boolean ie11p = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+//					.indexOf("RV:11") > 0
+//					&& request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+//							.indexOf("LIKE GECKO") > 0;
+//			boolean iedge = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+//					.indexOf("EDGE") > 0;
+//			boolean ie = ie10 || ie11p || iedge;
+//			if (ie) {
+//				try {
+//					String filename = downloadEntity.getFileName()+downloadEntity.getFileSuffix();
+//					filename = new String(StrUtils.encodString(filename).getBytes("UTF-8"), "ISO8859-1"); 
+//					downloadEntity.setFileName(filename);
+//				} catch (UnsupportedEncodingException e) {
+//					e.printStackTrace();
+//				}
+//			} else {
+//				downloadEntity.setFileName(new String((downloadEntity
+//						.getFileName() + downloadEntity.getFileSuffix())
+//						.getBytes("UTF-8"), "ISO8859-1"));
+//			}
+			
+			String fileName = getFileNameByBrowser(request, downloadEntity.getFileName()+downloadEntity.getFileSuffix());
+			downloadEntity.setFileName(fileName);
 			response.reset();
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/x-download");
@@ -666,6 +671,26 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				logger.error("下载失败.",e);
 			}
 		}	
+	}
+	
+	private String getFileNameByBrowser(HttpServletRequest request,String fileName) throws UnsupportedEncodingException{
+		boolean ie10 = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+				.indexOf("MSIE") > 0;
+		boolean ie11p = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+				.indexOf("RV:11") > 0
+				&& request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+						.indexOf("LIKE GECKO") > 0;
+		boolean iedge = request.getHeader(SopDownLoad.USER_AGENT).toUpperCase()
+				.indexOf("EDGE") > 0;
+		boolean ie = ie10 || ie11p || iedge;
+		if (ie) {
+			fileName = new String(StrUtils.encodString(fileName).getBytes("UTF-8"), "ISO8859-1");
+
+		} else {
+			fileName = new String(fileName.getBytes("UTF-8"), "ISO8859-1");
+
+		}
+		return fileName;
 	}
 	
 	

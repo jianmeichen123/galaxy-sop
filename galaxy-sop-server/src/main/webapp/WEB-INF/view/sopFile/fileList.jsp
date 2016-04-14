@@ -27,8 +27,6 @@
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
-<script src="<%=path %>/js/alioss/aliyun-oss-sdk.min.js"></script>
-<script src="<%=path %>/js/alioss/alioss_init.js"></script>
 </head>
 
 <body>
@@ -117,7 +115,8 @@
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
  <script src="<%=path %>/js/commWin.js" type="text/javascript"></script>
- <script src="<%=path %>/js/teamSheetNew.js" type="text/javascript"></script>
+<%--  <script src="<%=path %>/js/teamSheetNew.js" type="text/javascript"></script> --%>
+ <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script>
  <script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
  
 	
