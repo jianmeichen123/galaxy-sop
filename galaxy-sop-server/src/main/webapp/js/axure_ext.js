@@ -354,6 +354,7 @@ $(function(){
 	
 	//修改密码验证弹窗
 	$("[data-btn='login_infor']").on("click",function(){
+		$('.pop').remove();
 		var $self = $(this);
 		var _url = $self.attr("href");
 		$.getHtml({
@@ -368,7 +369,7 @@ $(function(){
 				//$("#hid").href=getUrl(_url);
 				
 				$("[data-btn='change_password']").on("click",function(){
-					$('#powindow').remove();
+					$('.pop').remove();
 					var $self = $(this);
 					var _url = $self.attr("href");
 					$.getHtml({
