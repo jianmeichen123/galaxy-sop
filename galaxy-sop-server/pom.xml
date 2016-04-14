@@ -222,8 +222,6 @@
 			<groupId>com.galaxyinternet</groupId>
 			<artifactId>galaxy-sop-api</artifactId>
 			<version>${project.version}</version>
-			<!-- <exclusions> <exclusion> <artifactId>commons-collections</artifactId> 
-				<groupId>commons-collections</groupId> </exclusion> </exclusions> -->
 			<exclusions>
 				<exclusion>
 					<artifactId>spring-context</artifactId>
