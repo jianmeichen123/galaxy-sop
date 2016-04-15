@@ -344,21 +344,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	public int closeProject(Project project) {
 		int updateById = projectDao.updateById(project);
-		int reslut=0;
-		boolean flag=false;
-		if(updateById==1){
+		if(updateById > 0){
 			SopTask sopTask=new SopTask();
 			sopTask.setProjectId(project.getId());
 			sopTask.setTaskStatus("taskStatus3");
-			int delete = sopTaskService.delete(sopTask);
-			if(delete>1){
-				flag=true;
-			}
+			sopTaskService.delete(sopTask);
 		}
-		if(updateById==1&&flag==true){
-			reslut=1;
-		}
-		return reslut;
+		return updateById;
 	}
 
 
