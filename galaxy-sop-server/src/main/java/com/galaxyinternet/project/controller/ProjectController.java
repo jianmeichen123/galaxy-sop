@@ -1242,7 +1242,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			project.setProjectStatus(DictEnum.meetingResult.否决.getCode());
-			int id = projectService.updateById(project);
+			int id = projectService.closeProject(project);
 			if(id!=1){
 				responseBody.setResult(new Result(Status.ERROR,null, "更新失败"));
 				return responseBody;

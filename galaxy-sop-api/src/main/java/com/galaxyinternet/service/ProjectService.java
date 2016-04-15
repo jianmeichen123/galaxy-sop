@@ -27,5 +27,7 @@ public interface ProjectService extends BaseService<Project> {
 	
 	public List<Project> queryListById(List<Long> idList);
 	
+	public int closeProject(Project project);
+	
 
 }
