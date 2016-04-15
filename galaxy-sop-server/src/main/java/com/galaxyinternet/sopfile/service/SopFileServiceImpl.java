@@ -177,7 +177,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		User user = new User();
 		List<Long> ids = new ArrayList<Long>();	
 		for(SopFile sopFile : sopFileList){
-			if(sopFile.getFileUid()!=null){
+			if(sopFile.getFileUid()!=null && !ids.contains(sopFile.getFileUid())){
 				ids.add(sopFile.getFileUid());
 			}	
 		}
@@ -192,7 +192,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		ProjectBo project = new ProjectBo();
 		List<String> ids = new ArrayList<String>();
 		for(SopFile sopFile : sopFileList){
-			if(sopFile.getProjectId()!=null){
+			if(sopFile.getProjectId()!=null && !ids.contains(sopFile.getProjectId().toString())){
 				ids.add(sopFile.getProjectId().toString());
 			}	
 		}

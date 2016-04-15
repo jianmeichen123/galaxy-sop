@@ -147,7 +147,9 @@ function getProjectInfo(projectLoaded)
 					var id = self.attr('id');
 					if(id=='projectDescribe'){
 						var desc = project[id];
-						if(desc && getLength(desc)>100)
+						var text1=delHtmlTag(desc);
+					//	alert(text1.length)
+						if(desc && text1.length>100)
 						{
 							self.html(desc.substring(0,100)+'...');
 						}
@@ -168,6 +170,14 @@ function getProjectInfo(projectLoaded)
 			}
 		}
 	);
+}
+function delHtmlTag(str)
+{
+	if(str){
+		return str.replace(/<[^>]+>/g,"");//去掉所有的html标记
+	}
+
+
 }
 
 </script>
