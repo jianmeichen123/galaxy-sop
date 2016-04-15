@@ -171,7 +171,7 @@ var fileGrid = {
         }
 	},
 	downloadFomatter : function(value, row, index){
-		if(row.fileKey && row.fileValid == 1){
+		if(row.fileKey){
 			return [
 			          '<a class="filedownloadlink blue"  href="javascript:void(0)">',
 			          '查看',
