@@ -225,6 +225,9 @@ public class SopFile extends PagableEntity {
 
 	public void setFileValid(Integer fileValid) {
 		this.fileValid = fileValid;
+		if(fileValid.intValue() == 0){
+			this.fileStatus = DictEnum.fileStatus.缺失.getCode();
+		}
 	}
 
 	public String getProjectProgress() {
@@ -317,7 +320,11 @@ public class SopFile extends PagableEntity {
         this.fileStatus = fileStatus;
         if(fileStatus != null)
         {
-        	fileStatusDesc = DictEnum.fileStatus.getNameByCode(fileStatus);
+        	if(fileValid.intValue() == 0){
+        		this.fileStatus = DictEnum.fileStatus.缺失.getCode();
+        	}else{
+        		fileStatusDesc = DictEnum.fileStatus.getNameByCode(this.fileStatus);
+        	}
         }
     }
 
@@ -401,8 +408,6 @@ public class SopFile extends PagableEntity {
 		this.projectName = projectName == null ? null : projectName.trim();
 	}
 
-
-
 	public String getFileUName() {
 		return fileUName;
 	}
@@ -418,7 +423,6 @@ public class SopFile extends PagableEntity {
 	public void setCareerLineName(String careerLineName) {
 		this.careerLineName = careerLineName;
 	}
-
 
 	public String getVoucherFileKey() {
 		return voucherFileKey;
@@ -507,12 +511,4 @@ public class SopFile extends PagableEntity {
 	public void setFileStatusList(List<String> fileStatusList) {
 		this.fileStatusList = fileStatusList;
 	}
-
-
-
-
-
-
-    
-
 }
