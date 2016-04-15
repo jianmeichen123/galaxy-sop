@@ -147,7 +147,9 @@ function getProjectInfo(projectLoaded)
 					var id = self.attr('id');
 					if(id=='projectDescribe'){
 						var desc = project[id];
-						if(desc && getLength(desc)>100)
+						var text1=self.html(desc).text();
+					//	alert(text1.length);//getLength(desc)
+						if(desc && text1.length>100)
 						{
 							self.html(desc.substring(0,100)+'...');
 						}
