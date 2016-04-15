@@ -263,7 +263,13 @@
 	<!-- 删除 -->
 	<delete id="delete" parameterType="java.util.Map">
 		delete from sop_task
-		<include refid="Base_Where_Clause" />
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="taskStatus != null and taskStatus!='' "> and task_status!='taskStatus:3'</if>
+				<!-- 模糊查询 -->		
+			</trim>
+		</where>
 	</delete>
 	<!-- 根据ID删除 -->
 	<delete id="deleteById" parameterType="SopTaskPO">

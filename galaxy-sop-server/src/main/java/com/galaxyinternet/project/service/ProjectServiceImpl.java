@@ -28,9 +28,11 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
+import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 
@@ -50,6 +52,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private UserService userService;
 	@Autowired
 	private UserRoleService userRoleService;
+	@Autowired
+	private SopTaskService sopTaskService;
 	
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
@@ -335,6 +339,26 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	@Override
 	public List<Project> queryListById(List<Long> idList) {
 		return projectDao.selectListById(idList);
+	}
+	@Transactional
+	@Override
+	public int closeProject(Project project) {
+		int updateById = projectDao.updateById(project);
+		int reslut=0;
+		boolean flag=false;
+		if(updateById==1){
+			SopTask sopTask=new SopTask();
+			sopTask.setProjectId(project.getId());
+			sopTask.setTaskStatus("taskStatus3");
+			int delete = sopTaskService.delete(sopTask);
+			if(delete>1){
+				flag=true;
+			}
+		}
+		if(updateById==1&&flag==true){
+			reslut=1;
+		}
+		return reslut;
 	}
 
 
