@@ -320,7 +320,7 @@ public class SopFile extends PagableEntity {
         this.fileStatus = fileStatus;
         if(fileStatus != null)
         {
-        	if(fileValid.intValue() == 0){
+        	if(fileValid != null && fileValid.intValue() == 0){
         		this.fileStatus = DictEnum.fileStatus.缺失.getCode();
         	}else{
         		fileStatusDesc = DictEnum.fileStatus.getNameByCode(this.fileStatus);
