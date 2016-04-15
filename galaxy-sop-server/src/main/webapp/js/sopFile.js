@@ -132,7 +132,7 @@ var fileGrid = {
 	},
 	operateFormatter : function(value, row, index){
 		
-		if(row.fileKey && row.isEdit == "true" && row.fileValid == 1){
+		if(row.fileKey && row.isEdit == "true"){
 			return [
 			        '<a class="fileupdatelink blue"  href="javascript:void(0)">',
 			        '更新',
@@ -141,13 +141,13 @@ var fileGrid = {
 		            '下载',
 		            '</a>  '
 		        ].join('');
-		}else if(!row.fileKey && row.isEdit == "true" && row.fileValid == 1){
+		}else if(!row.fileKey && row.isEdit == "true"){
 			return [
 		            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
 		            '更新',
 		            '</a>  '
 		        ].join('');
-		}else if(row.fileKey && row.isEdit == "false" && row.fileValid == 1){
+		}else if(row.fileKey && row.isEdit == "false"){
 			return [
 			        '<a class="filedownloadlink blue"  href="javascript:void(0)">',
 			        '下载',
