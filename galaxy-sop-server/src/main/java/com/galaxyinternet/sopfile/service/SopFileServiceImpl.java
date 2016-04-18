@@ -19,9 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -62,7 +61,7 @@ import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 import com.galaxyinternet.utils.FileUtils;
 
-@Component("com.galaxyinternet.service.SopFileService")
+@Service("com.galaxyinternet.service.SopFileService")
 public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		SopFileService {
 	
@@ -86,15 +85,15 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		return this.sopFileDao;
 	}
 	
-	private String tempfilePath;// = "/data/apps/osstemp/";
+	private String tempfilePath = "/data/apps/osstemp/";
 	
 	public String getTempfilePath() {
 		return tempfilePath;
 	}
 
-	@Value("${sop.oss.tempfile.path}")
+	//@Value("${sop.oss.tempfile.path}")
 	public void setTempfilePath(String tempfilePath) {
-		System.err.println("tempFilePath==>>" + this.tempfilePath);
+		//System.err.println("tempFilePath==>>" + this.tempfilePath);
 		this.tempfilePath = tempfilePath;
 	}
 	
