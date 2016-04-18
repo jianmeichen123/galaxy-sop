@@ -3,17 +3,21 @@
 	String path = request.getContextPath(); 
 %>
 <div class="btm">
-	<div id="stock_transfer_model">
-		
+	<div id="tzxy_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
+		<div id="stock_transfer_model" class="option_item_mark">
+			
+		</div>
 	</div>
 	<table width="100%" cellspacing="0" cellpadding="0" id="hrjzdc-table">
 		<thead>
 			<tr>
-				<th>业务类型</th>
+				<th>业务分类</th>
 				<th>存储类型</th>
 				<th>更新日期</th>
 				<th>档案状态</th>
-				<th>上传/查看附件</th>
+				<th>模板下载</th>
+				<th>上传附件</th>
+				<th>查看附件</th>
 				<th>签署凭证</th>
 			</tr>
 		</thead>
@@ -130,17 +134,38 @@ function loadRows()
 				var hidden = false;
 				$.each(data.entityList,function(){
 					var $tr = $('<tr data-id="'+this.id+'" data-voucher-id="'+this.voucherId+'" data-file-source="'+this.fileSource+'" data-file-type="'+this.fileType+'" data-file-worktype="'+this.fileWorktype+'" data-file-name="'+this.fileName+'"></tr>');
+					//业务分类
 					$tr.append('<td>'+(isBlank(this.fWorktype) ? "" : this.fWorktype) +'</td>');
+					//存储类型
 					$tr.append('<td>'+(isBlank(this.fType) ? "" : this.fType)+'</td>');
+					//更新日期
 					$tr.append('<td>'+(isBlank(this.updatedTime) ? "" : Number(this.updatedTime).toDate().format("yyyy/MM/dd"))+'</td>');
+					//档案状态
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
+					//模板下载
+					var tempType = 'templateType:2';
+					if(this.fileWorktype == 'fileWorktype:6')
+					{
+						tempType = 'templateType:7';
+					}
+					$tr.append('<td><a href="javascript:;" onclick="downloadTemplate(\''+tempType+'\');" data-type="">下载</a></td>');
+					//上传附件
 					if(isBlank(this.fileName)){
 						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-type="">上传</a></td>');
 					}
 					else
 					{
-						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="">查看</a></td>');
+						$tr.append('<td><a href="javascript:;" onclick="showUploadPopup(this);" data-type="">更新</a></td>');
 					}
+					//查看附件
+					if(isBlank(this.fileName)){
+						$tr.append('<td>无</td>');
+					}
+					else
+					{
+						$tr.append('<td><a href="#" onclick="downloadFile(this);" data-type="">查看</a></td>');
+					}
+					//签署凭证
 					if(isBlank(this.voucherFileName)){
 						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-type="voucher">上传</a></td>');
 					}
@@ -313,5 +338,11 @@ function downloadFile(ele)
 		fileId = row.data("voucher-id")
 	}
 	forwardWithHeader(platformUrl.downLoadFile+"/"+fileId+"?type="+type);
+}
+function downloadTemplate(templateType)
+{
+	var url = platformUrl.tempDownload+"?worktype="+templateType+"&projectId=${projectId}";
+	console.log(url);
+	forwardWithHeader(url);
 }
 </script>

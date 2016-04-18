@@ -9,6 +9,8 @@
 <title>繁星</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
@@ -136,7 +138,7 @@ function getProjectInfo(projectLoaded)
 			var project = data.entity;
 			stockTransfer = project.stockTransfer;
 			if(project.projectType == 'projectType:1'){
-				var checkboxHtml = '<input type="checkbox" name="hasStockTransfer" value="1" onclick="selected(this);" id="stock_transfer">是否涉及股权转让';
+				var checkboxHtml = '<input type="checkbox" value="1" class="input_checkbox" onclick="selected(this);" id="stock_transfer"><label for="stock_transfer" class="check-box"></label> <label for="stock_transfer" class="check-tit">涉及股权转让</label>';
 				$("#stock_transfer_model").html(checkboxHtml);
 			}
 			$("#project-summary dd")
