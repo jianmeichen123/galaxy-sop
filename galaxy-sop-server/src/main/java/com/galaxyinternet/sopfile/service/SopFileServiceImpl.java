@@ -19,8 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -37,7 +38,6 @@ import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.file.BucketName;
 import com.galaxyinternet.framework.core.file.DownloadFileResult;
 import com.galaxyinternet.framework.core.file.FileResult;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -62,7 +62,7 @@ import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 import com.galaxyinternet.utils.FileUtils;
 
-@Service("com.galaxyinternet.service.SopFileService")
+@Component("com.galaxyinternet.service.SopFileService")
 public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		SopFileService {
 	
@@ -83,21 +83,20 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	
 	@Override
 	protected BaseDao<SopFile, Long> getBaseDao() {
-		// TODO Auto-generated method stub
 		return this.sopFileDao;
 	}
 	
-	private String tempfilePath = "/data/apps/osstemp/";
+	private String tempfilePath;// = "/data/apps/osstemp/";
 	
 	public String getTempfilePath() {
 		return tempfilePath;
 	}
 
-	//@Value("${sop.oss.tempfile.path}")
+	@Value("${sop.oss.tempfile.path}")
 	public void setTempfilePath(String tempfilePath) {
+		System.err.println("tempFilePath==>>" + this.tempfilePath);
 		this.tempfilePath = tempfilePath;
 	}
-
 	
 	
 	@Override
@@ -114,6 +113,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		return sopFileDao.queryByProjectAndFileWorkType(sf);
 	}
 
+	
 
 	/**
 	 * 分页查询获取project名称
