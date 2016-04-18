@@ -168,7 +168,7 @@ function getProjectInfo(projectLoaded)
 			});
 			$(".projectmsg h2").text(project.projectName);
 			if($.isFunction(projectLoaded)){
-				projectLoaded.apply(project);
+				projectLoaded(project);
 			}
 		}
 	);
