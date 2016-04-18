@@ -144,7 +144,7 @@ function loadRows()
 					$tr.append('<td>'+this.fileStatusDesc+'</td>');
 					//模板下载
 					var tempType = 'templateType:2';
-					if(this.fileWorktype == 'fileWorktype:6')
+					if(this.fileWorktype == 'fileWorktype:7')
 					{
 						tempType = 'templateType:7';
 					}
