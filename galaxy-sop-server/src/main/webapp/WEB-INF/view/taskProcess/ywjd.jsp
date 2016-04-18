@@ -85,10 +85,12 @@ $(function(){
 				if(data.result.status == "OK")
 				{
 					layer.msg("申请成功.");
+					$("#apply-decision-btn").addClass('disabled');
+					$("#show-upload-btn").addClass('disabled');
 				}
 				else
 				{
-					layer.msg("申请失败.");
+					layer.msg(data.result.message);
 				}
 			}
 		);
@@ -96,7 +98,12 @@ $(function(){
 });
 function projectLoaded(project)
 {
-	
+	console.log(project.projectProgress);
+	if(project.projectProgress != 'projectProgress:6')
+	{
+		$("#show-upload-btn").addClass('disabled');
+		$("#apply-decision-btn").addClass('disabled');
+	}
 }
 function loadRows()
 {
