@@ -1654,7 +1654,7 @@
     	toolbar.find("input[name][type!='radio']").each(function(){
     		var input = $(this);
     		var name = input.attr("name");
-    		var val = input.val().trim();
+    		var val = $.trim(input.val());
     		if(val!=''){
     			query[name]=val;
     		}
