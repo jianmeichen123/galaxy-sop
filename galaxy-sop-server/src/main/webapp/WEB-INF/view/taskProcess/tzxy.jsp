@@ -277,7 +277,7 @@ function initUpload(_dialog,type){
 				data['type'] = data['fileSource'];
 				data['fileType']=$(_dialog.id).find("[name='fileType']").val();
 				data['fileWorktype']=$form.find("[name='fileWorktype']").val();
-				data['hasStockTransfer']=$("[name='hasStockTransfer']:checked").val();
+				data['hasStockTransfer']=$("#stock_transfer:checked").val();
 				if(type == 'voucher'){
 					data['voucherType']=$("[name='voucherType']:checked").val();
 				}
