@@ -660,6 +660,87 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	}
 	
 	/***
+	 * 档案上传通用
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/commonUploadFile",method=RequestMethod.POST)
+	public ResponseData<SopFile> commonUploadFile(HttpServletRequest request){
+		SopFile form = new SopFile();
+		form.setFileSource(request.getParameter("fileSource"));
+		form.setFileType(request.getParameter("fileType"));
+		form.setFileWorktype(request.getParameter("fileWorktype"));
+		form.setFileSource(request.getParameter("fileSource"));
+		form.setRemark(request.getParameter("remark"));
+		
+		String projectId = request.getParameter("projectId");
+			
+		//校验
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		// 业务分类校验 并 初始化任务名称及项目阶段
+		String proProgress = "";
+		Integer taskFlag = null;
+		UrlNumber num = null;
+		responseBody = validateUploadForm(responseBody, user,
+				Long.parseLong(projectId), form.getFileWorktype(), proProgress, num,
+				taskFlag);
+		if (responseBody.getResult().getErrorCode() != null) {
+			return responseBody;
+		}
+		form.setProjectId(Long.parseLong(projectId));
+		Map<String, Object> tempMap = responseBody.getUserData();
+		proProgress = (String) tempMap.get("progress");
+		taskFlag = (Integer) tempMap.get("taskFlag");
+		num = (UrlNumber) tempMap.get("num");
+		
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
+		MultipartFile file = multipartRequest.getFile("file"); // 获取multipartFile文件
+		form.setFileName(file.getOriginalFilename());
+		form.setFileLength(file.getSize());
+			
+		SopFile sopFile = sopFileService.selectByProjectAndFileWorkType(form);
+		sopFile.setProjectId(form.getProjectId());
+		sopFile.setFileWorktype(form.getFileWorktype());
+		sopFile.setFileName(form.getFileName());
+		sopFile.setFileLength(form.getFileLength());
+		sopFile.setFileType(form.getFileType());
+		sopFile.setFileSource(form.getFileSource());
+		sopFile.setRemark(form.getRemark());
+		sopFile.setBucketName(OSSFactory.getDefaultBucketName());
+		if(StringUtils.isBlank(sopFile.getFileKey())){
+			sopFile.setFileKey(String
+					.valueOf(IdGenerator.generateId(OSSHelper.class)));
+		}		
+		try{
+			//阿里云上传
+			Map<String, Object> map = sopFileService.aLiColoudUpload(request,
+					sopFile.getFileKey());
+			if(map==null){
+				responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_ALCLOUD));
+				return responseBody;
+			}
+			//上传业务updateFile
+			responseBody = updateFile(multipartRequest, responseBody, user, sopFile, num);
+			if(num!=null){
+				String projectName = proJectService.queryById(sopFile.getProjectId()).getProjectName();
+				ControllerUtils.setRequestParamsForMessageTip(request, projectName, sopFile.getProjectId(),num);
+			}
+		}catch(DaoException e){
+			responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_DAO));
+		}catch(IOException e){
+			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
+		}catch(Exception e){
+			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
+		}finally{
+		}
+		
+		return responseBody;
+	}
+	
+	/***
 	 * 
 	 * @param request
 	 * @param response
