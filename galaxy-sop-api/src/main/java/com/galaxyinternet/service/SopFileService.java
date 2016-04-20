@@ -54,6 +54,13 @@ public interface SopFileService extends BaseService<SopFile> {
 	 * */
 	public Result updateFile(HttpServletRequest request, Long fid) throws Exception;
 	
+	/**
+	 * 文档更新:
+	 @param sopFile
+	 @return boolean true:成功 false 失败
+	 * */
+	public boolean updateFile(SopFile sopFile) throws Exception;
+	
 	
 	/**
 	 * 单纯文档上传

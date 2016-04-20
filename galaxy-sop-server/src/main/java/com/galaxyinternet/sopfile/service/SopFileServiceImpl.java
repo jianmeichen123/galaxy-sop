@@ -60,7 +60,7 @@ import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 import com.galaxyinternet.utils.FileUtils;
-
+import com.galaxyinternet.utils.WorktypeTask;
 @Service("com.galaxyinternet.service.SopFileService")
 public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		SopFileService {
@@ -518,6 +518,37 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		return new Result(Status.OK,"");
 	}	
+	
+	@Transactional
+	public boolean updateFile(SopFile sopFile) throws Exception{
+		//更新
+		int ret = getBaseDao().updateByIdSelective(sopFile);
+		if(ret > 0){
+			SopTask sopTask = new SopTask();
+			sopTask.setProjectId(sopFile.getProjectId());
+			int pos = sopFile.getFileWorktype().lastIndexOf(":");
+			int worktype = Integer.parseInt(sopFile.getFileWorktype().substring(pos+1));
+//			int taskFlag = FileUtils.getTaskByWorktype(worktype);
+			WorktypeTask worktypeTask = FileUtils.getWorktypeEntityByTask(worktype);
+			if(worktypeTask!=null){
+				sopTask.setTaskFlag(worktypeTask.getTaskFlag());
+				sopTask = sopTaskDao.selectOne(sopTask);
+				if(sopTask!=null){
+					if(!worktypeTask.isHasProve()){
+						if(sopTask.getTaskStatus().equals(DictEnum.taskStatus.待认领.getCode()) || 
+								sopTask.getTaskStatus().equals(DictEnum.taskStatus.待完工.getCode())){
+							sopTask.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+							ret = sopTaskDao.updateById(sopTask);
+						}
+					}		
+				}	
+			}	
+		}
+		
+		
+		return ret > 0 ;
+		
+	}
 	
 	/**
 	 * 文档上传

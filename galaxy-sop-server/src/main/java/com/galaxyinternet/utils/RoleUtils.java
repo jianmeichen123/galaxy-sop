@@ -19,6 +19,7 @@ public class RoleUtils {
 	
 	private static List<RoleWorkTypeRule> roleRuleList;
 	
+	
 
 	
 	static{
@@ -118,7 +119,9 @@ public class RoleUtils {
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.商业计划.getCode(), "true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.财务预测报告.getCode(), "true"));	
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.财务预测报告.getCode(), "true"));
+		
+		
 	}
 	
 	/**
