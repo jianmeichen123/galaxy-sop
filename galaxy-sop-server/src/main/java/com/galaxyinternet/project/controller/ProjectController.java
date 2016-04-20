@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -116,6 +117,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 	
+	private String tempfilePath;
+	
+	
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
+
 	@Override
 	protected BaseService<Project> getBaseService() {
 		return this.projectService;
@@ -737,11 +749,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	
 	
-	/**
-	 * 项目阶段中的文档上传
-	 * 协同部门的人员操作
-	 * @author yangshuhua
-	 */
 	
 	/**
 	 * 项目阶段中的文档上传
@@ -754,6 +761,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> stageChange(ProjectQuery p, HttpServletRequest request) {
 		ResponseData<ProjectQuery> responseBody = new ResponseData<ProjectQuery>();
+		//解析文件上传的非file表单值
 		if(p.getPid() == null){
 			String json = JSONUtils.getBodyString(request);
 			p = GSONUtil.fromJson(json, ProjectQuery.class);
@@ -811,7 +819,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 
 
-		//投资意向书、尽职调查及投资协议的文档上传、更新操作只能在当前阶段才能进行
+		//投资意向书、尽职调查及投资协议的文档上传只能在当前阶段才能进行
 		if(p.getStage().equals(DictEnum.projectProgress.投资意向书.getCode()) || p.getStage().equals(DictEnum.projectProgress.尽职调查.getCode())
 				|| p.getStage().equals(DictEnum.projectProgress.投资协议.getCode())){
 			if(p.getType() == null || p.getFileType() == null || !SopConstant._file_type_pattern_.matcher(p.getFileType()).matches()
@@ -825,7 +833,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "该操作已过期!"));
 				return responseBody;
 			}
-			//股权转让文档前置验证
+			//如果是内部创建/未勾选"涉及股权转让"没有股权转让文档
 			if( p.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
 				if(project != null && project.getProjectType() != null && project.getProjectType().equals(DictEnum.projectType.内部创建.getCode())){
 					responseBody.setResult(new Result(Status.ERROR, null,"内部创建项目不需要股权转让协议!"));
@@ -898,58 +906,46 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		p.setDepartmentId(user.getDepartmentId());
 		/**
 		 * 2.文件上传
+		 * 这里都是上传，无更新，所以每次都生成一个新的fileKey
 		 */
-		UploadFileResult result = null;
-		String fileKey = null;
-		MultipartFile file = null;
+		String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+		UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
+			
+		//验证是否文件是必须的
+		if(!p.getStage().equals(DictEnum.projectProgress.接触访谈.getCode())
+				&& !p.getStage().equals(DictEnum.projectProgress.内部评审.getCode()) 
+				&& !p.getStage().equals(DictEnum.projectProgress.CEO评审.getCode())
+				&& !p.getStage().equals(DictEnum.projectProgress.立项会.getCode())
+				&& !p.getStage().equals(DictEnum.projectProgress.投资决策会.getCode())){
+			if(result == null || !result.getResult().getStatus().equals(Result.Status.OK)){
+				responseBody.setResult(new Result(Status.ERROR, null,"缺失相应文档!"));
+				return responseBody;
+			}
+		}
+		
+		/**
+		 * 3.处理业务
+		 */
 		try {
-			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-			file = multipartRequest.getFile("file");
-			fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-			result = OSSHelper.simpleUploadByOSS(file.getInputStream(),fileKey);
+			if(result != null && result.getResult().getStatus().equals(Result.Status.OK)){
+				p.setFileName(result.getFileName());
+				p.setSuffix(result.getFileSuffix());
+				p.setBucketName(result.getBucketName());
+				p.setFileKey(fileKey);
+				p.setFileSize(result.getContentLength());
+			}
+			if(handlerManager.getStageHandlers().containsKey(p.getStage())){
+				Handler handler = handlerManager.getStageHandlers().get(p.getStage());
+				SopResult r = handler.handler(p, project);
+				if(r != null && r.getStatus().equals(Result.Status.OK)){
+					responseBody.setResult(r);
+					//记录操作日志
+					ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), r.getNumber());
+				}
+			}
 		} catch (Exception e) {
-			if(logger.isInfoEnabled()){
-				logger.info("right:no file.");
-			}
-		}finally{
-			
-			//验证是否文件是必须的
-			if(!p.getStage().equals(DictEnum.projectProgress.接触访谈.getCode())
-					&& !p.getStage().equals(DictEnum.projectProgress.内部评审.getCode()) 
-					&& !p.getStage().equals(DictEnum.projectProgress.CEO评审.getCode())
-					&& !p.getStage().equals(DictEnum.projectProgress.立项会.getCode())
-					&& !p.getStage().equals(DictEnum.projectProgress.投资决策会.getCode())){
-				if(result == null || !result.getResult().getStatus().equals(Result.Status.OK)){
-					responseBody.setResult(new Result(Status.ERROR, null,"缺失相应文档!"));
-					return responseBody;
-				}
-			}
-			
-			/**
-			 * 3.处理业务
-			 */
-			try {
-				if(file != null && result != null && result.getResult().getStatus().equals(Result.Status.OK)){
-					String fileOriginalName = file.getOriginalFilename();
-					p.setFileName(fileOriginalName.substring(0, fileOriginalName.lastIndexOf(".")));
-					p.setSuffix(fileOriginalName.substring(fileOriginalName.lastIndexOf(".") + 1));
-					p.setBucketName(result.getBucketName());
-					p.setFileKey(fileKey);
-					p.setFileSize(file.getSize());
-				}
-				if(handlerManager.getStageHandlers().containsKey(p.getStage())){
-					Handler handler = handlerManager.getStageHandlers().get(p.getStage());
-					SopResult r = handler.handler(p, project);
-					if(r != null && r.getStatus().equals(Result.Status.OK)){
-						responseBody.setResult(r);
-						//记录操作日志
-						ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), r.getNumber());
-					}
-				}
-			} catch (Exception e) {
-				logger.error("操作失败",e);
-				responseBody.getResult().addError("操作失败!");
-			}
+			logger.error("操作失败",e);
+			responseBody.getResult().addError("操作失败!");
 		}
 		
 		return responseBody;

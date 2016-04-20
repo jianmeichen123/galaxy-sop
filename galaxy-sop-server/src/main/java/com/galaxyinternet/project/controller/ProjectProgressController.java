@@ -13,6 +13,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
@@ -30,12 +29,11 @@ import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
-import com.galaxyinternet.framework.core.file.BucketName;
 import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -97,6 +95,16 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return this.projectService;
 	}
 	
+	private String tempfilePath;
+	
+	
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
 	
 	public String errMessage(Project project,User user,String prograss){
 		if(project == null){
@@ -166,7 +174,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addFileInterview", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -226,18 +233,20 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}else if(!ServletFileUpload.isMultipartContent(request)){
 				id = interviewRecordService.insert(interviewRecord);
 			}else if(ServletFileUpload.isMultipartContent(request)){
-				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));				
-				Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);//上传aliyun接口
+				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
+			//	Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);//上传aliyun接口
 				//上传成功后
-				if(map!=null){
-					Map<String,String> nameMap = null;
-					MultipartFile file = (MultipartFile) map.get("file");
+				if(result!=null){
+					Map<String,String> nameMap = new HashMap<String,String>();
+				//	MultipartFile file = (MultipartFile) map.get("file");
 					String fileName = "";
 					if(interviewRecord.getFname()!=null && interviewRecord.getFname().trim().length()>0){
 						fileName = interviewRecord.getFname().trim();
 						nameMap = transFileNames(fileName);
 					}else{
-						nameMap = (Map<String, String>) map.get("nameMap");
+						 nameMap.put("fileName",result.getFileName());
+						 nameMap.put("fileSuffix", result.getFileSuffix());
 					}
 					if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
 						responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
@@ -249,7 +258,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					sopFile.setProjectProgress(project.getProjectProgress());
 					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
 					sopFile.setFileKey(fileKey);  
-					sopFile.setFileLength(file.getSize());  //文件大小
+					sopFile.setFileLength(result.getContentLength());  //文件大小
 					sopFile.setFileName(nameMap.get("fileName"));
 					sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 					sopFile.setFileUid(user.getId());	 //上传人
@@ -419,7 +428,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 	@ResponseBody
 	@RequestMapping(value = "/addfilemeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -532,18 +540,20 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}else if(ServletFileUpload.isMultipartContent(request)){
 				//调接口上传
 				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);
-				
+				//Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);
+				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
 				//上传成功后
-				if(map!=null){
-					Map<String,String> nameMap = null;
-					MultipartFile file = (MultipartFile) map.get("file");
+				if(result!=null){
+					Map<String,String> nameMap = new HashMap<String,String>();
+					//MultipartFile file = (MultipartFile) map.get("file");
 					String fileName = "";
 					if(meetingRecord.getFname()!=null && meetingRecord.getFname().trim().length()>0){
 						fileName = meetingRecord.getFname().trim();
 						nameMap = transFileNames(fileName);
 					}else{
-						nameMap = (Map<String, String>) map.get("nameMap");
+						//nameMap = (Map<String, String>) map.get("nameMap");
+					    nameMap.put("fileName",result.getFileName());
+					    nameMap.put("fileSuffix", result.getFileSuffix());
 					}
 					if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
 						responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
@@ -555,7 +565,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					sopFile.setProjectProgress(project.getProjectProgress());
 					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
 					sopFile.setFileKey(fileKey);  
-					sopFile.setFileLength(file.getSize());  //文件大小
+					//sopFile.setFileLength(file.getSize());  //文件大小
+					sopFile.setFileLength(result.getContentLength());  //文件大小
 					sopFile.setFileName(nameMap.get("fileName"));
 					sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 					sopFile.setFileUid(user.getId());	 //上传人

@@ -24,21 +24,11 @@
 
 	<!-- Configures the @Controller programming model -->
 	<bean
-		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
 		<property name="messageConverters">
 			<list>
-				<bean
-					class="org.springframework.http.converter.StringHttpMessageConverter">
-					<property name="supportedMediaTypes">
-						<list>
-							<value>application/json;charset=UTF-8</value>
-							<value>text/javascript;charset=UTF-8</value>
-							<value>text/plain;charset=UTF-8</value>
-							<value>text/html;charset=UTF-8</value>
-						</list>
-					</property>
-					<property name="writeAcceptCharset" value="false" />
-				</bean>
+				<ref bean="gsonHttpMessageConverter"/>
+				<ref bean="stringHttpMessageConverter"/>
 			</list>
 		</property>
 	</bean>
@@ -87,5 +77,31 @@
 		</mvc:interceptor>
 		
 	</mvc:interceptors>
-
+	<bean id="gsonHttpMessageConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+				<value>text/javascript;charset=UTF-8</value>
+				<value>text/plain;charset=UTF-8</value>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+		<property name="writeAcceptCharset" value="false" />
+	</bean>
+	<bean id="byteArrayMessageConverter" class="org.springframework.http.converter.ByteArrayHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
 </beans>

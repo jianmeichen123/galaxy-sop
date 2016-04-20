@@ -461,8 +461,8 @@
 			var nowDate  = new Date(),
 				nyr = nowDate.getFullYear()+"年"+(nowDate.getMonth()+1)+"月"+nowDate.getDate()+"日&nbsp;"+week(nowDate.getDay()),
 				sfm = checkTime(nowDate.getHours())+":"+checkTime(nowDate.getMinutes())+":"+checkTime(nowDate.getSeconds());
-			_time.html(sfm);
-			_date.html(nyr);
+			_time.attr("text",sfm);
+			_date.attr("text",nyr);
 			window.setTimeout(getdate,500);
 		}
 		getdate();

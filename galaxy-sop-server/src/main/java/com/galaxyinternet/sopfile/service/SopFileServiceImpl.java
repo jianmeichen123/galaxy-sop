@@ -37,7 +37,6 @@ import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.file.BucketName;
 import com.galaxyinternet.framework.core.file.DownloadFileResult;
 import com.galaxyinternet.framework.core.file.FileResult;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -83,7 +82,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	
 	@Override
 	protected BaseDao<SopFile, Long> getBaseDao() {
-		// TODO Auto-generated method stub
 		return this.sopFileDao;
 	}
 	
@@ -95,9 +93,9 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 
 	//@Value("${sop.oss.tempfile.path}")
 	public void setTempfilePath(String tempfilePath) {
+		//System.err.println("tempFilePath==>>" + this.tempfilePath);
 		this.tempfilePath = tempfilePath;
 	}
-
 	
 	
 	@Override
@@ -114,6 +112,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		return sopFileDao.queryByProjectAndFileWorkType(sf);
 	}
 
+	
 
 	/**
 	 * 分页查询获取project名称
