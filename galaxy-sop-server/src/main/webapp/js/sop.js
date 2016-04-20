@@ -258,7 +258,7 @@ function checkCanUse(index,projectId,projectType){
 
 	
 /**
- * 上传接触访谈纪要弹出层
+ * 添加接触访谈纪要弹出层
  */
 function air(indexNum){
 	$("[data-id='popid1']").remove();
