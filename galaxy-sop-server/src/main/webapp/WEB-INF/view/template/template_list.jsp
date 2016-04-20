@@ -260,7 +260,7 @@ function handleUpload()
 				initUpload(_dialog);
 				var row = $("tr[data-id='"+id+"']")[0];
 				var $form = $(_dialog.id).find("#upload-form");
-				setForm($form,row.dataset);
+				setForm($form,$(row).data());
 			}
 		});
 	});
@@ -295,7 +295,7 @@ function selectFile(ele)
 function initUpload(_dialog)
 {
 	var uploader = new plupload.Uploader({
-		runtimes : 'html5,flash,silverlight,html4',
+		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
 		url : platformUrl.tempUpload+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,

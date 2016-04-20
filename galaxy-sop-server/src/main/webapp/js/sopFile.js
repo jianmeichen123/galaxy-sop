@@ -208,7 +208,7 @@ var fileGrid = {
 	queryParams : function(params){
 		var fileSource = utils.confident($("input[name='source']:checked").val(),"all");
 		var fileType = utils.confident($("#searchFileType").val(),"all");
-		var projectName = $("#searchProjectId").val().trim();
+		var projectName = $.trim($("#searchProjectId").val());
 		if(projectName=="") projectName=undefined;
 		var fileWorktype = utils.confident($("#searchFileWorktype").val(),"all");
 		var careerLine = utils.confident($("#searchCareerLine").val(),"all");
