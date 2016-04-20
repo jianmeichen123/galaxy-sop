@@ -443,7 +443,7 @@ function tzyxs(flag){
 						        	handlefile +='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
 								}else{
 									var fileSource =  dataList[p].fileSource;
-									handlefile += '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateTzyxs('+fileSource+')">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
+									handlefile += '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateSopFile('+'\''+dataList[p].projectProgress+'\','+fileSource+',\''+dataList[p].fileWorktype+'\',\''+dataList[p].fileType+'\','+dataList[p].id+","+0+')">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
 								}
 							}
 							
@@ -550,21 +550,49 @@ function tzyxs(flag){
 	});
 	return false;
 }
-function updateTzyxs(fileSource){
+/**
+ * 更新文件：投资意向书、业务尽职调查、投资协议
+ * @param stage  项目阶段
+ * @param fileSource 文件来源：内部|外部
+ * @param fileWorkType 业务分类
+ * @param fileType 档案类型：文档|图片...
+ * @param id 文件id:sopfile主键
+ * @param voucher 是否有签署证明显示 0:无;1:有
+ */
+function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 	$("[data-id='popid1']").remove();
-	 loadJs();
+	loadJs();
+	//投资意向书页面
 	var _url=Constants.sopEndpointURL + '/galaxy/tzyx';
+	//弹出尽职调查页面
+	if(stage == "projectProgress:6"){
+		_url=Constants.sopEndpointURL + '/galaxy/jzdc';
+	}
+	//投资协议页面
+	if(stage == "projectProgress:8"){
+		_url=Constants.sopEndpointURL + '/galaxy/tzxy';
+	}
+	//股权转让协议页面
+	if(fileWorkType == "fileWorktype:7"){
+	    _url=Constants.sopEndpointURL + '/galaxy/gqzr';
+	}
 	$.getHtml({
 		url:_url,
 		okback:function(){
-			$("#voucherDiv").css("display","none");
+			if(voucher == 1){
+				$("#voucherType").attr("disabled",true);
+				$("#voucherType").attr("checked","checked");
+			}else{
+				$("#voucherDiv").css("display","none");
+			}
 			$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
-							
+			$("#fileType").val(fileType);
+			$("#fileWorkType").val(fileWorkType);
 
 			var uploader = $.fxUpload({
 				props:{
 					browse_button:'select_file_btn',
-					url:platformUrl.stageChange,
+					url:platformUrl.updateFile,
 					init:{
 						PostInit: function(up) {
 							$("#save_file_btn").click(function(){
@@ -625,14 +653,21 @@ function updateTzyxs(fileSource){
 								up.stop();
 								return;
 							}
-							var voucherType = $("input[id='voucherType']:checked").val();
+							if(voucher == 1){
+								var voucherType = $("input[id='voucherType']:checked").val();
+								condition.voucherType = voucherType;
+							}
+							//投资协议阶段所用
+							if(stage == "projectProgress:8"){
+								var hasStockTransfer = $("input[id='stock_transfer']:checked").val();
+								condition.hasStockTransfer=hasStockTransfer;
+							}
 							condition.pid = pid;
-							condition.stage = "projectProgress:5";
+							condition.stage = stage;
 							condition.type = type;
 							condition.fileType = fileType;
 							condition.fileWorktype = fileWorktype;
-							condition.voucherType = voucherType;
-							
+							condition.id = id;
 							up.settings.multipart_params=condition;
 						},
 						FileUploaded: function(up, files, rtn) {
@@ -702,7 +737,8 @@ function updateTzyxs(fileSource){
 					 html += "<td>无</td>";
 				 }else if(o.fileStatus == 'fileStatus:2'){
 					 if(o.fileWorktype == 'fileWorktype:1'){
-						 $("#jzdc_options a:eq(0)").text('更新业务尽职调查报告')
+						 $("#jzdc_options a:eq(0)").text('更新业务尽职调查报告');
+						 $("#jzdc_options a:eq(0)").attr("onclick","updateSopFile('"+o.projectProgress+"',"+o.fileSource+",'"+o.fileWorktype+"','"+o.fileType+"',"+o.id+","+0+")");
 					 }
 					 html += "<td>"+o.fType+"</td>";
 					 html += "<td>已上传</td>";
@@ -861,7 +897,7 @@ function tzxy(st,projectType){
 									$tr.append('<td>无</td>');
 								}else{
 									if(canToOption){
-										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="updateSopFile('+'\''+this.projectProgress+'\','+this.fileSource+',\''+this.fileWorktype+'\',\''+this.fileType+'\','+this.id+","+0+')" class="blue">更新</a></td>');
 									}else{
 										$tr.append('<td></td>');
 									}
@@ -892,7 +928,7 @@ function tzxy(st,projectType){
 									$tr.append('<td>无</td>');
 								}else{
 									if(canToOption){
-										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="updateSopFile('+'\''+this.projectProgress+'\','+this.fileSource+',\''+this.fileWorktype+'\',\''+this.fileType+'\','+this.id+","+0+')" class="blue">更新</a></td>');
 									}else{
 										$tr.append('<td></td>');
 									}
@@ -944,7 +980,7 @@ function tzxy(st,projectType){
 				$("#voucherType").attr("disabled",true);
 				$("#voucherType").attr("checked","checked");
 			}else{
-				$("#tzyxDiv").css("display","none");
+				$("#voucherDiv").css("display","none");
 			}
 			toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
 					function getSaveCondition(){
@@ -1023,7 +1059,7 @@ function selected(obj){
 				$("#voucherType").attr("disabled",true);
 				$("#voucherType").attr("checked","checked");
 			}else{
-				$("#gqzrDiv").css("display","none");
+				$("#voucherDiv").css("display","none");
 				
 			}
 			toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",

@@ -1580,4 +1580,60 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		formatData.setMap(usermap);
 		return formatData;
 	}
+	
+	/***
+	 * 更新文件：1.投资意向书;2.更新尽职调查;3.更新投资协议|股权转让...
+	 * @param p
+	 * @param request
+	 * @return
+	 */
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.ALL)
+	@ResponseBody
+	@RequestMapping(value = "/updateCommonFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectQuery> updateCommonFile(ProjectQuery p, HttpServletRequest request) {
+		ResponseData<ProjectQuery> responseBody = new ResponseData<ProjectQuery>();
+		//参数校验
+		if(p.getPid() == null || p.getStage() == null 
+				|| !SopConstant._progress_pattern_.matcher(p.getStage()).matches()
+				|| p.getParseDate() == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
+			return responseBody;
+		}
+		SopFile sopFile = null;
+		String fileKey = null;
+		try{
+			if(p.getId() != null){
+				sopFile = sopFileService.queryById(p.getId());
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, null, "所存在的更新文件丢失!"));
+			}
+			if(sopFile.getFileKey() == null ){
+				fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+			}else{
+				fileKey = sopFile.getFileKey();
+			}
+			//更新文件服务器信息
+			UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
+			if(result == null || !result.getResult().getStatus().equals(Result.Status.OK)){
+				responseBody.setResult(new Result(Status.ERROR, null,"缺失相应文档!"));
+				return responseBody;
+			}
+			//更新文件数据表信息
+			sopFile.setFileSource(String.valueOf(p.getType()));
+			sopFile.setFileType(p.getFileType());
+			sopFile.setFileWorktype(p.getFileWorktype());
+			sopFile.setFileName(result.getFileName());
+			sopFile.setFileSuffix(result.getFileSuffix());
+			sopFile.setBucketName(result.getBucketName());
+			sopFile.setFileKey(fileKey);
+			sopFile.setFileLength(result.getContentLength());
+			sopFileService.updateById(sopFile);
+			responseBody.setResult(new Result(Status.OK, null ,"更新文件成功!"));
+		}catch(Exception e){
+			responseBody.getResult().addError("更新失败");
+			logger.error("更新失败",e);
+		}
+		
+		return responseBody;
+	}
 }
