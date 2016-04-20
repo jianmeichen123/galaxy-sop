@@ -391,7 +391,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 	
 	//上传对象初始化
 	var uploader = new plupload.Uploader({
-		runtimes : 'html5,flash,silverlight,html4',
+		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : $("#" + selectBtnId)[0], // you can pass in id...
 		url : fileurl,
 		multipart:true,
