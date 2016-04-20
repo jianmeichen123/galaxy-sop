@@ -719,6 +719,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .ritmin .top .btnbox_f .c3{background-position: 15px -60px;padding: 0 2px 0 32px;}
 .ritmin .min_document{ width:100%; background-color: #d6d8e1; border-radius: 5px; padding: 10px 0 0;margin:0 0 10px}
 .ritmin .min_document .top,.ritmin .min_document .bottom{ margin:0 15px 8px;}
+.ritmin .min_document .top{_height:50px;}
 .ritmin .min_document .top .searchall{ float:right; margin:0}
 .ritmin .min_document .top .fmdl{ margin:0}
 .ritmin .fmdll{ margin:0; float:left}
@@ -965,7 +966,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 #popbg iframe{filter:alpha(opacity=0);opacity: 0; width:100%; height:100%}
 .pop{ position:fixed; _position:absolute; left:0; top:0; z-index:1000;filter:Alpha(opacity=0);opacity: 0; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
 .popzx{ z-index:9999}
-.pop .close{ position:absolute; right:-14px; top:-14px; width:26px; height:26px; background:url(../img/tcclose.png) no-repeat; z-index:10;opacity: 1;}
+.pop .close{ position:absolute; right:0; top:0; width:26px; height:26px; background:url(../img/tcclose.png) no-repeat; z-index:10;opacity: 1;}
 .pop .poptxt{ position:relative; padding:10px}
 /*请稍候*/
 .pop .popwait{ line-height:100px; font-size:20px; color:#999; text-align:center}
@@ -1242,6 +1243,8 @@ dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../
 .search_adjust .fml dd{width:250px !important;}
 .search_adjust1 .fml dd{width:180px !important;}
 .search_adjust2 .fml dd{width:160px !important;}
+/*ie8select文字垂直居中*/
+select{padding: 6px 0;}
 /**切断文字**/
 .text-overflow{width:400px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
 /**切断文字 end**/
