@@ -643,7 +643,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg_d .block1{padding:6px 0 20px;}
 .pagebox .projectmsg_d .block1 table{border-bottom: 0;}
 .pagebox .projectmsg_d .block1 table td{padding:0 0 0 3%;width:47%;font-family: "微软雅黑";border:0;}
-.pagebox .projectmsg_d .block1 table td input[type="text"]{width:266px;height:28px;border:1px solid #ccd2d7; border-radius: 5px;font-size: 12px;padding-left: 8px;}
+.pagebox .projectmsg_d .block1 table td input[type="text"]{width:266px;height:28px;border:1px solid #ccd2d7; border-radius: 5px;font-size: 12px;padding-left: 8px;line-height: 28px;}
 .pagebox .projectmsg_d .block1 table td label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; color:#525662; font-family:"宋体"; position:relative}
 .pagebox .projectmsg_d .block1 table td label input[type="radio"]{ position:absolute; left:0; top:9px; *top:4px}
 .pagebox .projectmsg_d .block1 table dl{padding-left:10px;overflow: hidden;}
@@ -1155,7 +1155,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /* 添加日程新的弹窗 */
 .schedule1tc{background-color: #fff;padding: 10px;position: relative;height:400px;}
 .schedule1tc .addbtn{float: left;}
-.schedule1tc .top{width: 100%;margin-bottom: 10px;}
+.schedule1tc .top{width: 570px;margin-bottom: 10px;}
 .schedule1tc .searchall{float: right;}
 .schedule1tc .searchall .searchbtn,.schedule1tc .searchall .txt{float: left;}
 .schedule1tc .searchall .txt{width: 150px;height: 28px;border:1px solid #e9ebf2;border-radius: 6px;padding: 0 0 0 5px;}
@@ -1231,7 +1231,7 @@ background-size: 100%;}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}
-.table{border-radius: 6px !important;}
+.table{border-radius: 6px !important; float: left;}
 .news_ritmin .table{border-top-left-radius: 0px;}
 .news_table{border-radius: 0 !important;}
 .news_top{margin:0 !important;}
