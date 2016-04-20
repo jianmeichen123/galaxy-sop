@@ -330,23 +330,22 @@ function initUpload(_dialog)
 					$(_dialog.id).find("[name='docType']").val(fileType);
 				});
 			},
-			
-			FileUploaded: function(up, files, rtn) {
-				var result = $.parseJSON(rtn.response);
-				$(_dialog.id).find("input[name='fileKey']").val(result.fileKey);
-				$(_dialog.id).find("input[name='fileLength']").val(result.fileLength);
+			BeforeUpload : function(up,file){
 				$form = $(_dialog.id).find("#upload-form");
-				var data = JSON.parse($form .serializeObject());
-				var url = platformUrl.tempSave
-				sendPostRequestByJsonObj(
-						url,
-						data,
-						function(data){
-							layer.msg("上传成功.");
-							$(_dialog.id).find("[data-close='close']").click();
-							loadTempList();
-						}
-				);
+				up.settings.multipart_params =  JSON.parse($form .serializeObject());
+			},
+			FileUploaded: function(up, files, rtn) {
+				var data = $.parseJSON(rtn.response);
+				if(data.result.status == 'OK')
+				{
+					layer.msg("上传成功.");
+					$(_dialog.id).find("[data-close='close']").click();
+					loadTempList();
+				}
+				else
+				{
+					layer.msg(data.result.message);
+				}
 			},
 			Error: function(up, err) {
 				layer.msg("上传失败:"+err.message);
