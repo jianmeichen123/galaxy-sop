@@ -29,6 +29,7 @@
 			<list>
 				<ref bean="gsonHttpMessageConverter"/>
 				<ref bean="stringHttpMessageConverter"/>
+				<ref bean="byteArrayMessageConverter"/>
 			</list>
 		</property>
 	</bean>
@@ -80,18 +81,18 @@
 	<bean id="gsonHttpMessageConverter" class="org.springframework.http.converter.json.GsonHttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
-				<value>application/json;charset=UTF-8</value>
 				<value>text/html;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
 			</list>
 		</property>
 	</bean>
 	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
+				<value>text/html;charset=UTF-8</value>
 				<value>application/json;charset=UTF-8</value>
 				<value>text/javascript;charset=UTF-8</value>
 				<value>text/plain;charset=UTF-8</value>
-				<value>text/html;charset=UTF-8</value>
 			</list>
 		</property>
 		<property name="writeAcceptCharset" value="false" />
