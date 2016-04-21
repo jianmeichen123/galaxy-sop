@@ -654,21 +654,29 @@ function setCheckLine(data){
 		var url = platformUrl.tempDownload+"?id="+id+pidParam;
 		forwardWithHeader(url);
 	}
-	$(function(){
-		$("#keyword").focus(function(){
-			   var txt=$(this).val();
-			   if(txt=="请输入项目名或投资经理名"){
-			    $(this).val("");
-			   }
-			  });
-		  $("#keyword").blur(function(){
-			   var txt=$(this).val();
-			   if(txt==""){
-			    $(this).val("请输入项目名或投资经理名");
-			   }
-			  });
+	$(document).ready(function(){
+		 //focusblur
+		     jQuery.focusblur = function(focusid) {
+		 var focusblurid = $(focusid);
+		 var defval = focusblurid.val();
+		         focusblurid.focus(function(){
+		 var thisval = $(this).val();
+		 if(thisval==defval){
+		                 $(this).val("");
+		             }
+		         });
+		         focusblurid.blur(function(){
+		 var thisval = $(this).val();
+		 if(thisval==""){
+		                 $(this).val(defval);
 
-	});
+		             }
+		         });
+		         
+		     };
+		     $.focusblur("#keyword");
+		 });
+
 	
 	
 </script>
