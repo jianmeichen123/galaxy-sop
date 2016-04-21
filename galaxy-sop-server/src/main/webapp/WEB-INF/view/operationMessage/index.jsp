@@ -37,7 +37,7 @@
         	<!--搜索-->
           <div class="searchbox clearfix">
             <input type="hidden"  id="tipslink_val" name="module" value="1" />
-            <input id="messagekey" name="keyword" type="text" class="txt" value="请输入项目名称"/>
+            <input name="keyword" type="text" class="txt" placeholder="请输入项目名称"/>
             <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
 
           </div>
@@ -90,27 +90,6 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(3);
-		 //focusblur
-	     jQuery.focusblur = function(focusid) {
-		 var focusblurid = $(focusid);
-		 var defval = focusblurid.val();
-		         focusblurid.focus(function(){
-		 var thisval = $(this).val();
-		 if(thisval==defval){
-		                 $(this).val("");
-		             }
-		         });
-		         focusblurid.blur(function(){
-		 var thisval = $(this).val();
-		 if(thisval==""){
-		                 $(this).val(defval);
-	
-		             }
-		         });
-		         
-		     };
-		     $.focusblur("#messagekey");
-
 	});
 	
 </script>

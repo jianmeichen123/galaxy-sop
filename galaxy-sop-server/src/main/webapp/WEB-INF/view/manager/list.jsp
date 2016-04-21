@@ -94,7 +94,7 @@ function setCheckLine(data){
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" id="keyword" name="keyword" value="请输入项目名称或项目编码"/>
+						<input type="text" class="txt" id="keyword" name="keyword" placeholder="请输入项目名称或项目编码"/>
 					</dd>
 					<dd style="float:right">
 						<button type="submit" class="bluebtn ico cx" name="querySearch" style="margin:0">搜索</button>
@@ -654,29 +654,6 @@ function setCheckLine(data){
 		var url = platformUrl.tempDownload+"?id="+id+pidParam;
 		forwardWithHeader(url);
 	}
-	$(document).ready(function(){
-		 //focusblur
-		     jQuery.focusblur = function(focusid) {
-		 var focusblurid = $(focusid);
-		 var defval = focusblurid.val();
-		         focusblurid.focus(function(){
-		 var thisval = $(this).val();
-		 if(thisval==defval){
-		                 $(this).val("");
-		             }
-		         });
-		         focusblurid.blur(function(){
-		 var thisval = $(this).val();
-		 if(thisval==""){
-		                 $(this).val(defval);
-
-		             }
-		         });
-		         
-		     };
-		     $.focusblur("#keyword");
-		 });
-
 	
 	
 </script>
