@@ -1244,6 +1244,7 @@ dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../
 .search_adjust .fml dd{width:250px !important;}
 .search_adjust1 .fml dd{width:180px !important;}
 .search_adjust2 .fml dd{width:160px !important;}
+.block dl dd p{word-break:break-all;}
 /*ie8select文字垂直居中*/
 select{padding: 6px 0 !important;}
 /**切断文字**/
