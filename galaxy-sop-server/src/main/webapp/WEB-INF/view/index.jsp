@@ -30,6 +30,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <link href="<%=path %>/css/calendar.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="<%=path %>/js/calendarnew.js"></script>
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
+<script src="<%=path %>/js/time.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -265,7 +266,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-	$(function(){		
+	$(function(){	
+		$(".pagebox .rit .top .tody").today();
 		top5ProjectMeeting();
 		ProjectVoteWill();
 		selectSopTask();
