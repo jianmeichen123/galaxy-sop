@@ -205,6 +205,7 @@ function setCheckLine(data){
 						if(i > index){
 							//当前阶段之后的tab变为不可用
 							$("#projectProgress_" + i).addClass("disabled");
+							$("#projectProgress_" + i).attr("disabled","disabled");
 						}
 						if(i == 1){
 							if(hasClosed){
