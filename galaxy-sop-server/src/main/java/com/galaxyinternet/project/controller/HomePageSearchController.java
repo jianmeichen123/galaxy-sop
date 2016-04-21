@@ -361,6 +361,11 @@ public class HomePageSearchController
 	public Map<String, Object> checkPwd(String password,HttpServletRequest request) {
 		// 当前登录人
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user != null && user.getId()!= null) {
+			//读取数据库
+			user = userService.queryById(user.getId());
+		}
+		
 		Map<String, Object> map = new HashMap<String, Object>();
         boolean flag = false;
 		if (password != null && user != null && user.getPassword() != null) {
