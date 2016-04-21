@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.galaxyinternet</groupId>
 		<artifactId>galaxy-sop</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.2_Q_2-SNAPSHOT</version>
 	</parent>
 	<artifactId>galaxy-sop-server</artifactId>
 	<packaging>war</packaging>
@@ -13,6 +13,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.2.1.RELEASE</spring.version>
+		<dependency.project>1.0.2.Q-SNAPSHOT</dependency.project>
 	</properties>
 
 	<repositories>
@@ -199,7 +200,7 @@
 		<dependency>
 			<groupId>com.galaxyinternet</groupId>
 			<artifactId>galaxy-platform-api</artifactId>
-			<version>${project.version}</version>
+			<version>${dependency.project}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>galaxy-common</artifactId>
@@ -210,7 +211,7 @@
 		<dependency>
 			<groupId>com.galaxyinternet</groupId>
 			<artifactId>galaxy-cache</artifactId>
-			<version>${project.version}</version>
+			<version>${dependency.project}</version>
 			<exclusions>
 				<exclusion>
 					<artifactId>spring-web</artifactId>
