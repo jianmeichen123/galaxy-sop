@@ -34,6 +34,7 @@
  
 %>
 <div class="erwm">
+    <img src="<%=path %>/img/erwm.gif" alt="" style="width:100%;">
     <span data-btn="close_erwm">关闭</span>
     <a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">点击查看安装说明</a>
 </div>
