@@ -19,7 +19,6 @@ var ossClient = {
 
 	signatureUrl : function(data){			  
 		  var objectKey = data.fileKey;
-	      console.log(data.fileKey + ' => ' + data.fileName);
 	      //需先判断浏览器类型,对data.fileName进行编码
 	      var result = ossClient.client.signatureUrl(objectKey, {
 	    	  expires: 3600,
@@ -28,7 +27,6 @@ var ossClient = {
 	    	  }
 	      });
 	      
-	      console.log(result);
 	      return result;
 	  },
 	
@@ -273,7 +271,6 @@ var ossClient = {
 	successCallBack : undefined,
 	signatureUrl : function(data) {
 		var objectKey = data.fileKey;
-		console.log(data.fileKey + ' => ' + data.fileName);
 		var result = ossClient.client.signatureUrl(objectKey, {
 			expires : 3600,
 			response : {
@@ -282,7 +279,6 @@ var ossClient = {
 			}
 		});
 
-		console.log(result);
 		return result;
 	},
 	uploadInit : function(data) {
