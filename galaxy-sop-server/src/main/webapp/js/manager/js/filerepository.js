@@ -42,7 +42,7 @@ var fileGrid = {
 		 fileGrid.domid = data._domid;
 		 fileGrid.projectId = data._projectId;
 		 $('#' + data._domid).bootstrapTable({
-			url : platformUrl.searchSopFileList, // 请求后台的URL（*）
+			url : platformUrl.searchSopFileList, // 请求后台的URL（*） +='?'+(new Date()).valueOf()
 			queryParamsType : 'size|page', // undefined
 			showRefresh : false,
 			search : false,
@@ -92,7 +92,10 @@ var fileGrid = {
 			} ]
 		});
 		 // 初始化查询按钮
-		 $("#file_repository_btn").click(fileGrid.serarchData);
+		 $("#file_repository_btn").click(function(){
+			 $("#file_repository_table").empty();
+			 fileGrid.serarchData;
+		 });
 
 		  
 	},
