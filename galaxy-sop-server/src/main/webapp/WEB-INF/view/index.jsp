@@ -283,7 +283,6 @@ $(function(){
 		obj.contentType="application/json";
 		obj.data={"userid":"${galax_session_user.id}","sdate":"-1","edate":"-1"};
 		ajaxCallback(obj,function(data){
-			console.log(data);
 			var result = data.result;
 			var mapList = data.mapList;
 			if(result.status=='ERROR'){
@@ -298,15 +297,12 @@ $(function(){
 			}
 			chartOptions.series[0].data = re;
 			chartOptions.xAxis.categories = categories;
-			console.log(re);
-			console.log(categories);
 			var chart = new Highcharts.Chart(chartOptions);
 		});
 	}
 });
 //通用ajax数据回调
 function ajaxCallback(obj,callback){
-	console.log(obj);
 	$.ajax({
 		url:obj.url,
 		dataType:obj.dataType||'json',

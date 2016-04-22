@@ -137,8 +137,8 @@ table .width_gd{width:12%;}
   height: 0;
   margin:-2px 2px 0 2px;
   vertical-align: middle;
-  border-top: 4px dashed;
-  border-top: 4px solid \9;
+  border-top: 4px dashed !important;
+  border-top: 4px solid \9 !important;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }

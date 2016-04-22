@@ -39,7 +39,6 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 <script type="text/javascript">
 	var contextEndPoint = '<%=endpoint%>';
 	endpointObj = JSON.parse(contextEndPoint);
-	console.log(endpointObj);
 	var sessionId = '<%=sessionId%>';
 	var realName = '<%=realName%>';
 	var userId = '<%=userId%>';
