@@ -140,14 +140,14 @@ var fileGrid = {
 		params.fileType = utils.confident(form.search_fileType,"all");
 		params.fileWorktype = utils.confident(form.search_fileWorktype,"all");
 		params.fileStatus = utils.confident(form.search_fileStatus,"all");
-		var startTime = (new Date(ReplaceAll(form.file_startDate,'-','/'))).getTime();		
+		var startTime = (new Date(ReplaceAll(form.file_startDate,'-','/'))).getTime();
 		var endTime = (new Date(ReplaceAll(form.file_endDate,'-','/'))).getTime()+86400;
 		if(startTime && endTime && startTime > endTime){
 			layer.msg("开始时间不能大于结束时间");
 			return false;
-		}
+			}
 		params.startTime = startTime;
-		params.endTime = endTime
+		params.endTime = endTime;
 		params.pageType = "dialog";
 		params.projectId = fileGrid.projectId;
 		return params;
