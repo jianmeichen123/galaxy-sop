@@ -92,7 +92,11 @@ var fileGrid = {
 			} ]
 		});
 		 // 初始化查询按钮
-		 $("#file_repository_btn").click(fileGrid.serarchData);
+		// $("#file_repository_btn").click(fileGrid.serarchData);
+		 $("#file_repository_btn").click(function(){
+			 $("#file_repository_table").html('');
+			 fileGrid.serarchData;
+		 });
 
 		  
 	},
