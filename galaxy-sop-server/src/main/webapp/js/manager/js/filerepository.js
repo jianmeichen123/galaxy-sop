@@ -42,7 +42,7 @@ var fileGrid = {
 		 fileGrid.domid = data._domid;
 		 fileGrid.projectId = data._projectId;
 		 $('#' + data._domid).bootstrapTable({
-			url : platformUrl.searchSopFileList+='?'+(new Date()).valueOf(), // 请求后台的URL（*）
+			url : platformUrl.searchSopFileList, // 请求后台的URL（*）
 			queryParamsType : 'size|page', // undefined
 			showRefresh : false,
 			search : false,
