@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -66,11 +67,12 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				final Map<String, Object> map = (Map<String, Object>) request
 						.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
 				if (null != map && !map.isEmpty()) {
-					String uniqueKey = getUniqueKey(request, map);
+					String uniqueKey = getUniqueKey(request, map,logger);
 					final OperationType type = OperationType.getObject(uniqueKey);
 					final OperationLogType operLogType = OperationLogType.getObject(uniqueKey);
 					if (null != type || null != operLogType) {
 						final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+						final RecordType recordType = logger.recordType(); 
 						GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 							@Override
 							public void run() {
@@ -79,9 +81,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 									insertMessageTip(populateOperationMessage(type, user, request, map));
 								} else if (logType == LogType.ALL) {
 									insertMessageTip(populateOperationMessage(type, user, request, map));
-									insertOperationLog(populateOperationLog(operLogType, user, request, map));
+									insertOperationLog(populateOperationLog(operLogType, user, request, map,recordType));
 								} else if (logType == LogType.LOG) {
-									insertOperationLog(populateOperationLog(operLogType, user, request, map));
+									insertOperationLog(populateOperationLog(operLogType, user, request, map,recordType));
 								}
 							}
 						});
@@ -116,18 +118,21 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		}
 	}
 
-	private String getUniqueKey(HttpServletRequest request, Map<String, Object> map) {
-		String uniqueKey = request.getRequestURL().toString();
-		if (null != map && !map.isEmpty()) {
-			if (map.containsKey(PlatformConst.REQUEST_SCOPE_URL_NUMBER)) {
-				uniqueKey = uniqueKey + "/" + map.get(PlatformConst.REQUEST_SCOPE_URL_NUMBER);
+	private String getUniqueKey(HttpServletRequest request, Map<String, Object> map,Logger logger) {
+		String uniqueKey = logger.unique();
+		if(StringUtils.isBlank(uniqueKey)){
+			uniqueKey = request.getRequestURL().toString();
+			if (null != map && !map.isEmpty()) {
+				if (map.containsKey(PlatformConst.REQUEST_SCOPE_URL_NUMBER)) {
+					uniqueKey = uniqueKey + "/" + map.get(PlatformConst.REQUEST_SCOPE_URL_NUMBER);
+				}
 			}
 		}
 		return uniqueKey;
 	}
 
 	private OperationLogs populateOperationLog(OperationLogType type, User user, HttpServletRequest request,
-			Map<String, Object> map) {
+			Map<String, Object> map,RecordType recordType) {
 		OperationLogs entity = new OperationLogs();
 		entity.setOperationContent(type.getContent());
 		entity.setOperationType(type.getType());
@@ -138,6 +143,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		entity.setSopstage(type.getSopstage());
 		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
 		entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
+		entity.setType(recordType.getType());
 		return entity;
 	}
 

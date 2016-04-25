@@ -28,7 +28,11 @@ public class OperationLogs extends BaseEntity{
     private String operationContentStr;
     
     private String sopstage;
-
+    
+    /**
+     * 0项目 1创意
+     */
+    private byte type;
 
     public Long getUid() {
         return uid;
@@ -134,13 +138,21 @@ public class OperationLogs extends BaseEntity{
 		this.sopstage = sopstage;
 	}
 
+	public byte getType() {
+		return type;
+	}
+
+	public void setType(byte type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		return "OperationLogs [uid=" + uid + ", uname=" + uname + ", userRoleid=" + userRoleid + ", userRole="
 				+ userRole + ", userDepartid=" + userDepartid + ", departName=" + departName + ", operationType="
 				+ operationType + ", operationTypeStr=" + operationTypeStr + ", projectId=" + projectId
 				+ ", projectName=" + projectName + ", operationContent=" + operationContent + ", operationContentStr="
-				+ operationContentStr + ", sopstage=" + sopstage + "]";
+				+ operationContentStr + ", sopstage=" + sopstage + ", type=" + type + ", id=" + id + ", createdTime="
+				+ createdTime + "]";
 	}
-	
 }

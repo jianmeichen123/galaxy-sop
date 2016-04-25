@@ -17,4 +17,16 @@ public @interface Logger {
 	 * @return 记录sop操作日志的范围，默认生成“消息提醒”中的日志
 	 */
 	LogType writeOperationScope() default LogType.MESSAGE;
+
+	/**
+	 * @Description:请求的唯一标识;默认空字符串，根据请求地址判断。如果非空即根据该值判断
+	 *
+	 */
+	String unique() default "";
+
+	/**
+	 * @Description:数据库存储的每条记录的类型：用于区分是创意还是项目.默认是项目
+	 *
+	 */
+	RecordType recordType() default RecordType.PROJECT;
 }
