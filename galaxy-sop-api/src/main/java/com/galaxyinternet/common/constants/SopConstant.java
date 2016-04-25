@@ -55,4 +55,7 @@ public interface SopConstant {
 	//紧急任务
 	static final Integer TASK_URGENT_STATUS =1;
 	
+	
+	public static final String CONFIG_KEY_IDEA_CODE = "idea_code";
+	
 }
