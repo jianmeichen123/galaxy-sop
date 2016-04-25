@@ -231,6 +231,7 @@
 		}
 		return null;
 	}
+	var b = new Base64();
 	function add(obj){
 		if(beforeSubmit()){
 			var json = {};
@@ -242,15 +243,15 @@
 				layer.msg(message);
 				$("#projectName").val("");
 				result=false;
-			return false;
-		}
+				return false;
+			}
 			$.ajax({
 				url : platformUrl.addProject,
-				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
+				data : b.encode(JSON.stringify(JSON.parse($("#add_form").serializeObject()))),
 				async : false,
 				type : 'POST',
 				contentType : "application/json; charset=UTF-8",
-				dataType : "json",
+				dataType : "text",
 				cache : false,
 				beforeSend : function(xhr) {
 					if (TOKEN) {
@@ -267,8 +268,9 @@
 					layer.msg("操作失败");
 				},
 				success : function(data) {
+					data = JSON.parse(b.decode(data));
 					if(data.result.status=="ERROR"){
-						layer.msg("用户名重复，请重新输入");
+						layer.msg("项目名重复，请重新输入");
 					}else{
 						if(obj=="save"){
 							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
