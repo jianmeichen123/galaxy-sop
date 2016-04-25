@@ -1,16 +1,51 @@
+var b = new Base64();
 /**
- * 发送post请求
- * 
- * 
- * @param reqUrl
- *            请求地址
- * @param jsonObj
- *            请求json对象
- *@param sessionId
- *            请求头中需携带的sessionid
- * @param callbackFun
- *            处理成功后的回调方法
+ * 加密Ajax请求
+ * jsonStr:json字符串
+ * jsonObj:json对象
  */
+function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun) {
+	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun);
+}
+function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun) {
+	$.ajax({
+		url : reqUrl,
+		type : "POST",
+		data : b.encode(JSON.stringify(jsonObj)),
+		dataType : "text",
+		cache : false,
+		contentType : "application/json; charset=UTF-8",
+		beforeSend : function(xhr) {
+			/**清楚浏览器缓存**/
+			xhr.setRequestHeader("If-Modified-Since","0"); 
+			xhr.setRequestHeader("Cache-Control","no-cache");
+
+			if (sessionId) {
+				xhr.setRequestHeader("sessionId", sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId", userId);
+			}
+		},
+		async : false,
+		error : function(request) {},
+		success : function(data) {
+			data = JSON.parse(b.decode(data));
+			if (callbackFun) {
+				callbackFun(data);
+			}
+		}
+	});
+}
+
+/**
+ * 非加密Ajax请求
+ * jsonStr:json字符串
+ * jsonObj:json对象
+ */
+function sendPostRequestByJsonStr(reqUrl, jsonStr, callbackFun) {
+	sendPostRequestByJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun);
+}
 function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 	$.ajax({
 		url : reqUrl,
@@ -32,9 +67,7 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 			}
 		},
 		async : false,
-		error : function(request) {
-			//alert("connetion error");
-		},
+		error : function(request) {},
 		success : function(data) {
 			if(data){
 				var type =typeof(data);
@@ -44,9 +77,41 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 					}
 				}
 			}
-			/*if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
-				location.href = platformUrl.toLoginPage;
-			}*/
+			if (callbackFun) {
+				callbackFun(data);
+			}
+		}
+	});
+}
+
+
+/**
+ * 加密Ajax请求
+ * jsonObj:json对象
+ */
+function sendGetRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
+	$.ajax({
+		url : reqUrl,
+		type : "GET",
+		data : b.encode(JSON.stringify(jsonObj)),
+		dataType : "text",
+		cache : false,
+		contentType : "application/json; charset=UTF-8",
+		beforeSend : function(xhr) {
+			/**清楚浏览器缓存**/
+			xhr.setRequestHeader("If-Modified-Since","0"); 
+			xhr.setRequestHeader("Cache-Control","no-cache");
+			if (sessionId) {
+				xhr.setRequestHeader("sessionId", sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId", userId);
+			}
+		},
+		async : false,
+		error : function(request) {},
+		success : function(data) {
+			data = JSON.parse(b.decode(data));
 			if (callbackFun) {
 				callbackFun(data);
 			}
@@ -55,32 +120,8 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 }
 
 /**
- * 发送post请求
- * 
- * @param reqUrl
- *            请求地址
- * @param jsonStr
- *            请求json字符串
- * @param sessionId
- *            请求头中需携带的sessionid
- * @param callbackFun
- *            处理成功后的回调方法
- */
-function sendPostRequestByJsonStr(reqUrl, jsonStr, callbackFun) {
-	sendPostRequestByJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun);
-}
-
-/**
- * 发送get请求
- * 
- * @param reqUrl
- *            请求地址
- * @param jsonObj
- *            请求json对象
- * @param sessionId
- *            请求头中需携带的sessionid
- * @param callbackFun
- *            处理成功后的回调方法
+ * 非加密Ajax请求
+ * jsonObj:json对象
  */
 function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 	$.ajax({
@@ -102,9 +143,7 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 			}
 		},
 		async : false,
-		error : function(request) {
-			//alert("connetion error");
-		},
+		error : function(request) {},
 		success : function(data) {
 			if(data){
 				var type =typeof(data);
@@ -114,9 +153,6 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 					}
 				}
 			}
-			/*if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
-				location.href = platformUrl.toLoginPage;
-			}*/
 			if (callbackFun) {
 				callbackFun(data);
 			}
