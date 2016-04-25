@@ -7,6 +7,7 @@ package com.galaxyinternet.model.operationLog;
  */
 public enum OperationLogType {
 
+	/*项目操作日志的配置-------------------开始-----------------------------------------------------------*/
 	//接触访谈阶段
 	//添加访谈的弹出框中点击‘保存’
 	ADD_INTERVIEW("/galaxy/project/stageChange/"+UrlNumber.one, OperType.ADD.getOperationType(), "访谈记录",SopStage.TOUCH_INTERVIEW.getStageName()), 
@@ -96,7 +97,15 @@ public enum OperationLogType {
 	
 	//更新投资意向书 1
 	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName());
+	/*项目操作日志的配置------------------------------------结束----------------------------------------------------------*/
+	
+	
+	//------------------------------------------------忧愁的分割线-----------------------------------------------------//
+	
+	/*创意操作日志的配置-------------------开始---------------------------------------------------------------------------*/
 
+	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/
+		
 	private OperationLogType(String uniqueKey, String type, String content, String sopstage) {
 		this.uniqueKey = uniqueKey;
 		this.type = type;
