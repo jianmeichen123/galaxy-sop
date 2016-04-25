@@ -354,7 +354,8 @@ function setCheckLine(data){
 					 null, function(data){
 						 var json = eval(data);
 						 var dataList=json.entityList;
-							for(var p in dataList){
+							for(var ii = 0 ; ii < dataList.length ; ii++){
+							    var p = ii ;	
 								
 						        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix"></div>'+
 							        '<div class="process clearfix">'+
@@ -572,7 +573,8 @@ function setCheckLine(data){
 							                 '</tr>'+
 							            '</thead>'+                                                                                                                                   
 							             '<tbody>';
-										for(var p in dataList){
+							         	for(var ii = 0 ; ii < dataList.length ; ii++){
+										    var p = ii ;	
 													var typehtml = "";
 													if (typeof(dataList[p].fType) == "undefined") { 
 														typehtml ='<td></td>';
