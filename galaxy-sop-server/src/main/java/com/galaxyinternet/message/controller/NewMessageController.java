@@ -22,7 +22,6 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.service.MeetingSchedulingService;
-import com.galaxyinternet.service.UserRoleService;
 
 /**
  * 首页查询相关
@@ -35,9 +34,6 @@ public class NewMessageController
 
 	final Logger logger = LoggerFactory
 			.getLogger(NewMessageController.class);
-
-	@Autowired
-	private UserRoleService userRoleService;
 
 	@Autowired
 	private MeetingSchedulingService meetingSchedulingService;

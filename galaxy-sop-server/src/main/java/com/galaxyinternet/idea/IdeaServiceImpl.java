@@ -86,7 +86,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		return page;
 	}
 	
-	private String getDesc(Collection items, String propCodeName, String propDescName, Object val)
+	private String getDesc(Collection<?> items, String propCodeName, String propDescName, Object val)
 	{
 		String result = null;
 		if(items != null && items.size() > 0 && val != null)

@@ -1,7 +1,5 @@
 package com.galaxyinternet.model.message;
 
-import java.util.Date;
-
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 

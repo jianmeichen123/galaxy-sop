@@ -72,7 +72,7 @@ public class ProjectServiceTest
 		pro.setCreateUname("123");
 		pro.setCreateUposition("123");
 		pro.setCurrencyUnit(1);
-		List list = new ArrayList();
+		List<Long> list = new ArrayList<Long>();
 		list.add(new Long(1));
 		pro.setDeptIdList(list);
 		pro.setDirection("xx");

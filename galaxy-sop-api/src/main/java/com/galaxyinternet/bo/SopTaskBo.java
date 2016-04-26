@@ -125,6 +125,11 @@ public class SopTaskBo extends  SopTask{
 		this.hours = hours;
 	}
 
-	
-	
+	public String getConcatcode() {
+		return concatcode;
+	}
+
+	public void setConcatcode(String concatcode) {
+		this.concatcode = concatcode;
+	}
 }
