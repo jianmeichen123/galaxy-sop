@@ -49,6 +49,18 @@
 				</if>
 				<if test="createdTimeFrom != null"> and created_time <![CDATA[>=]]> #{createdTimeFrom,jdbcType=BIGINT}</if>
 				<if test="createdTimeThrough != null"> and created_time <![CDATA[<=]]> #{createdTimeThrough,jdbcType=BIGINT}</if>
+				<if test="keyword != null">
+					and (
+			 			idea_name  LIKE replace('%${keyword}%',' ','') 
+			 		<if test="escapeChar ">
+			 		  	escape '/' 
+			 		</if>
+			 		or idea_code LIKE replace('%${keyword}%',' ','') 
+			 		<if test="escapeChar ">
+			 		  	escape '/' 
+			 		</if>
+			 		)
+				</if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>

@@ -51,7 +51,10 @@ public class IdeaServiceTest
 	@Test
 	public void testSelect()
 	{
-		Page<Idea> page = ideaService.queryPageList(new Idea(), new PageRequest(0,10));
+		Idea query = new Idea();
+		query.setKeyword("1");
+		query.setIdeaProgress("ideaProgress:1");
+		Page<Idea> page = ideaService.queryPageList(query, new PageRequest(0,10));
 		Assert.isTrue(page != null && page.getContent() != null && page.getContent().size()>0);
 	}
 
