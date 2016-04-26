@@ -22,7 +22,7 @@
 		<result column="bucket_name" jdbcType="VARCHAR" property="bucketName" />
 		<result column="file_name" jdbcType="VARCHAR" property="fileName" />
 		<result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
-		
+		<result column="record_type" jdbcType="TINYINT" property="recordType" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
@@ -30,7 +30,7 @@
 		file_source, file_type,
 		remark, voucher_id,  file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
-		file_key, bucket_name,file_name,file_suffix
+		file_key, bucket_name,file_name,file_suffix,record_type
 	</sql>
 	
 	
@@ -111,7 +111,7 @@
 			            #{idItem}
 			        </foreach>
 				</if>
-							
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>			
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>
@@ -148,6 +148,7 @@
 			<trim prefixOverrides="and">
 				<if test="projectId != null" >project_id = #{projectId,jdbcType=BIGINT} </if>
 				<if test="fileWorktype != null" > and file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if>
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
 			</trim>
 		</where>
 	</select>
@@ -181,7 +182,7 @@
  		file_type, remark, voucher_id, file_status,
  		file_uid, fil_uri, updated_time,
  		created_time, file_length, file_key,
- 		bucket_name,file_name,file_suffix)
+ 		bucket_name,file_name,file_suffix,record_type)
  		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileValid,jdbcType=INTEGER},
  		#{projectProgress,jdbcType=VARCHAR},
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
@@ -192,7 +193,8 @@
  		#{fileKey,jdbcType=VARCHAR},
  		#{bucketName,jdbcType=VARCHAR},
  		#{fileName,jdbcType=VARCHAR},
- 		#{fileSuffix,jdbcType=VARCHAR})
+ 		#{fileSuffix,jdbcType=VARCHAR},
+ 		#{recordType,jdbcType=TINYINT})
  	</insert>
 	
 	<update id="updateByIdSelective" parameterType="SopFilePO">
@@ -222,6 +224,7 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
 			</trim>
 		</where>
 	</update>
@@ -247,6 +250,7 @@
 			<if test="bucketName != null"> bucket_name = #{bucketName,jdbcType=VARCHAR}, </if>
 			<if test="fileName != null"> file_name = #{fileName,jdbcType=VARCHAR}, </if>
 			<if test="fileSuffix != null"> file_suffix = #{fileSuffix,jdbcType=VARCHAR}, </if>
+			<if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
@@ -271,6 +275,7 @@
 			            #{fileworktypeList}
 			        </foreach>
 				</if>
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
 			</trim>
 		</where>
 	</select>
@@ -285,6 +290,7 @@
 				<if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
 				<if test="fileValid != null" >and file_valid = #{fileValid,jdbcType=INTEGER} </if>
 				<if test="fileWorktype != null" > and  file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if>
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
 			</trim>
 		</where>
 	</select>

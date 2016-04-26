@@ -6,10 +6,10 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.common.PagableRecordEntity;
 
-public class SopFile extends PagableEntity {
+public class SopFile extends PagableRecordEntity {
     /**
 	 * 
 	 */
