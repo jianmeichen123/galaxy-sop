@@ -36,10 +36,39 @@ public class MeetingScheduling extends PagableEntity {
     private String createUname;
     private String meetingDateStr; 
     
+    //排期开始时间
+    private Date scheduleStarttime;
     
-    
-    
-  	public String getMeetingDateStr() {
+    //排期结束时间
+    private Date scheduleEndtime;
+    //排期状态
+    private String scheduleStatus;
+
+	public Date getScheduleStarttime() {
+		return scheduleStarttime;
+	}
+
+	public void setScheduleStarttime(Date scheduleStarttime) {
+		this.scheduleStarttime = scheduleStarttime;
+	}
+
+	public Date getScheduleEndtime() {
+		return scheduleEndtime;
+	}
+
+	public void setScheduleEndtime(Date scheduleEndtime) {
+		this.scheduleEndtime = scheduleEndtime;
+	}
+
+	public String getScheduleStatus() {
+		return scheduleStatus;
+	}
+
+	public void setScheduleStatus(String scheduleStatus) {
+		this.scheduleStatus = scheduleStatus;
+	}
+
+	public String getMeetingDateStr() {
 		return meetingDateStr;
 	}
 

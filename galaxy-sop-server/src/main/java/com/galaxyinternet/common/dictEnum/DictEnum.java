@@ -14,7 +14,9 @@ public enum DictEnum {
 	
 	档案状态("档案状态","fileStatus"),
 	档案业务分类("档案业务分类","fileWorktype"),
-	档案存储类型("档案存储类型","fileType");
+	档案存储类型("档案存储类型","fileType"),
+	//排期状态
+	scheduleStatusa("排期状态","scheduleStatus");
 	
 	private String name;
 
@@ -459,7 +461,47 @@ public enum DictEnum {
 	        return null;
 	    }
 	}
-	
+	//排期状态(秘书)
+	public enum scheduleStatus {
+		daipaiqi("待排期","scheduleStatus:1"),
+		yipaiqi("已排期","scheduleStatus:2"),
+		yitongguo("已通过","scheduleStatus:3");		
+		private String name;
+
+		private String code;
+
+		private scheduleStatus(String name, String code) {
+			this.name = name;
+			this.code = code;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getCode() {
+			return code;
+		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(String code) {
+	        
+	        if (code != null && !code.trim().equals("")) {
+	            
+	        	scheduleStatus[] values = scheduleStatus.values();
+	            for (int i = 0;i < values.length;i++) {
+	                if (code.equals(values[i].getCode())) {
+	                    return values[i].getName();
+	                }                
+	            }
+	        }
+	        return null;
+	    }
+	}
 	
 
 
