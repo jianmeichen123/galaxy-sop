@@ -12,11 +12,12 @@
     <result column="meeting_notes" property="meetingNotes" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
     <result column="record_type" jdbcType="TINYINT" property="recordType" />
+    <result column="participant" jdbcType="VARCHAR" property="participant" />
   </resultMap>
   
   
   <sql id="Base_Column_List" >
-    id, project_id, file_id, meeting_date, meeting_type, meeting_result, meeting_notes, created_time,record_type
+    id, project_id, file_id, meeting_date, meeting_type, meeting_result, meeting_notes, created_time,record_type,participant
   </sql>
   
   
@@ -79,10 +80,10 @@
 	    <![CDATA[
 	    insert into sop_meeting_record (id, project_id, file_id, 
 	      meeting_date, meeting_type, meeting_result, 
-	      meeting_notes, created_time,record_type)
+	      meeting_notes, created_time,record_type,participant)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, 
 	      #{meetingDate,jdbcType=TIMESTAMP}, #{meetingType,jdbcType=VARCHAR}, #{meetingResult,jdbcType=VARCHAR}, 
-	      #{meetingNotes,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT})
+	      #{meetingNotes,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT}, #{participant,jdbcType=VARCHAR})
 	    ]]>
     </insert>
     
@@ -124,6 +125,7 @@
 		    <if test="meetingNotes != null" > meeting_notes = #{meetingNotes,jdbcType=VARCHAR}, </if>
 		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		    <if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
+		    <if test="participant != null" > meeting_result = #{participant,jdbcType=VARCHAR}, </if>
 		</set>
 		where id = #{id}
 	</update>

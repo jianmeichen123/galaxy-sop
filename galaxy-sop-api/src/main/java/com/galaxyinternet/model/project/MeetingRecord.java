@@ -27,7 +27,17 @@ public class MeetingRecord  extends RecordEntity{
 
     private String fname;
     
-    public Long getProjectId() {
+    private String participant;
+    
+    public String getParticipant() {
+		return participant;
+	}
+
+	public void setParticipant(String participant) {
+		this.participant = participant;
+	}
+
+	public Long getProjectId() {
         return projectId;
     }
 

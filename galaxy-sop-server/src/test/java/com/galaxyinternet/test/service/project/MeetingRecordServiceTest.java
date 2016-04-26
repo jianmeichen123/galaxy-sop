@@ -52,6 +52,7 @@ public class MeetingRecordServiceTest {
 		entity.setMeetingType("ideaMeetingType:1");
 		entity.setMeetingResult(DictEnum.meetingResult.通过.getCode());
 		entity.setCreatedTime(new Date().getTime());
+		entity.setParticipant("参会人1,参会人2");
 		meetingRecordService.insert(entity);
 		Assert.notNull(entity.getId());
 	}
