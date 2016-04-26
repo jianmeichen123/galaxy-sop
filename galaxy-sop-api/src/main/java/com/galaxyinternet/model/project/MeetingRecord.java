@@ -3,11 +3,11 @@ package com.galaxyinternet.model.project;
 import java.text.ParseException;
 import java.util.Date;
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.common.RecordEntity;
 
 
-public class MeetingRecord  extends BaseEntity{
+public class MeetingRecord  extends RecordEntity{
 	private static final long serialVersionUID = 1L;
 
 	 private Long projectId;

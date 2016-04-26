@@ -11,11 +11,12 @@
     <result column="meeting_result" property="meetingResult" jdbcType="VARCHAR" />
     <result column="meeting_notes" property="meetingNotes" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+    <result column="record_type" jdbcType="TINYINT" property="recordType" />
   </resultMap>
   
   
   <sql id="Base_Column_List" >
-    id, project_id, file_id, meeting_date, meeting_type, meeting_result, meeting_notes, created_time
+    id, project_id, file_id, meeting_date, meeting_type, meeting_result, meeting_notes, created_time,record_type
   </sql>
   
   
@@ -43,7 +44,7 @@
 		      <if test="meetingResult != null" >and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
 		      <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
 		      <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
-			  
+			  <if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
 		  </trim>
 		</where>
 		<!-- <if test="sorting != null">order by ${sorting}</if> -->
@@ -78,10 +79,10 @@
 	    <![CDATA[
 	    insert into sop_meeting_record (id, project_id, file_id, 
 	      meeting_date, meeting_type, meeting_result, 
-	      meeting_notes, created_time)
+	      meeting_notes, created_time,record_type)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, 
 	      #{meetingDate,jdbcType=TIMESTAMP}, #{meetingType,jdbcType=VARCHAR}, #{meetingResult,jdbcType=VARCHAR}, 
-	      #{meetingNotes,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT})
+	      #{meetingNotes,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT})
 	    ]]>
     </insert>
     
@@ -107,6 +108,7 @@
 		        <if test="meetingResult != null" >and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
 		        <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
 		        <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
+		        <if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
 			</trim>
 		</where>
 	</update>
@@ -120,7 +122,8 @@
 		    <if test="meetingType != null" > meeting_type = #{meetingType,jdbcType=VARCHAR}, </if>
 		    <if test="meetingResult != null" > meeting_result = #{meetingResult,jdbcType=VARCHAR}, </if>
 		    <if test="meetingNotes != null" > meeting_notes = #{meetingNotes,jdbcType=VARCHAR}, </if>
-		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>
+		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
+		    <if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -170,6 +173,7 @@
 				 or p.project_code like CONCAT("%",#{keyword},"%") <if test="escapeChar ">  escape '/'  </if>
 				)
 			</if>
+			<if test="recordType != null"> and sm.record_type = #{recordType,jdbcType=TINYINT} </if>	
 			<!-- 模糊查询  like '%${params.param}%' -->
 			<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 		order by sm.meeting_date desc,sm.created_time desc
@@ -197,6 +201,7 @@
 					or p.project_code like CONCAT("%",#{keyword},"%") <if test="escapeChar ">  escape '/'  </if>
 				)
 			</if>
+			<if test="recordType != null"> and sm.record_type = #{recordType,jdbcType=TINYINT} </if>	
 		) a
 	</select>
   
