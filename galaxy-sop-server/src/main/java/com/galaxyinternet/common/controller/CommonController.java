@@ -17,13 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.UserBo;
-import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Header;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.Menus;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.UserRoleService;
