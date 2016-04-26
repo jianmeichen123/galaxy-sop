@@ -132,6 +132,14 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 					.addNode(new Menus(9L, 1, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params))
 					.addNode(new Menus(10L, 1, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params)));
 		}
+		//董事长秘书      CEO秘书
+		if(roleIdList.contains(UserConstant.DMS) ||roleIdList.contains(UserConstant.CEOMS)){
+			tabs.clear();
+			tabs.add(new Menus(1L, 0, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
+			tabs.add(new Menus(18L, 0, "立项会排期池", serverUrl + "" + params));
+			tabs.add(new Menus(19L, 0, "投决会排期池", serverUrl + "" + params));
+			tabs.add(new Menus(20L, 0, "CEO评审会排期池", serverUrl + "" + params));								
+		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;
 	}
