@@ -508,11 +508,7 @@ public class SopFile extends PagableRecordEntity {
 		this.fileStatusList = fileStatusList;
 	}
 
-
-
-
-
-
-    
-
+	public String getfSource() {
+		return fSource;
+	}
 }

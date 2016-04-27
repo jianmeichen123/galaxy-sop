@@ -1,6 +1,5 @@
 package com.galaxyinternet.model.project;
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class ProjectShares extends PagableEntity {

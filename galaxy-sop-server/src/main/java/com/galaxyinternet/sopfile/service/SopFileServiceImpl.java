@@ -679,8 +679,8 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			out = new BufferedOutputStream(response.getOutputStream());
 			fis = new BufferedInputStream(new FileInputStream(tempFile.getPath()));
 			byte[] buffer = new byte[1024 * 2];
-			int count = 0;
-			while ((count = fis.read(buffer)) != -1) {
+			
+			while (fis.read(buffer) != -1) {
 				out.write(buffer);
 			}
 			response.flushBuffer();
