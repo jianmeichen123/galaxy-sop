@@ -45,7 +45,6 @@ function info(id){
 				if(index == 1 || index == 3 || index == 4 || index == 6 || index == 7 ){
 					checkCanUse(index,data.entity.id,data.entity.projectType);
 				}
-				alert(index);
 				for(var i = 1; i<11; i++){
 					//当前阶段之后的tab变为不可用
 					if(i > index){
@@ -125,7 +124,6 @@ function info(id){
 					$("#projectProgress_" + i).on("click",function(){
 						var id = $(this).attr("id");
 						var indexNum = id.substr(id.length-1,1);
-						console.log("indexNum:"+indexNum);
 						if(indexNum == '1'){
 							if(parseInt(indexNum) < parseInt(index) || !canUseBut){
 								$("#qdnbps").remove();
@@ -688,7 +686,6 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 					}
 				}
 			});
-			console.log(uploader);
 		}
 		
 	});
@@ -708,7 +705,6 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 				 null, function(data){
 			 var html = "";
 			 $.each(data.entityList, function(i,o){
-				 console.log(o);
 				 html += "<tr>";
 				 if(o.fileWorktype == 'fileWorktype:1'){
 					 html += "<td>业务尽职调查报告";

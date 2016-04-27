@@ -256,7 +256,6 @@ function setCheckLine(data){
 						$("#projectProgress_" + i).on("click",function(){
 							var id = $(this).attr("id");
 							var indexNum = id.substr(id.length-1,1);
-							console.log("indexNum:"+indexNum);
 							if(indexNum == '1'){
 								if(parseInt(indexNum) < parseInt(pNum)){
 									$("#qdnbps").remove();
@@ -422,7 +421,6 @@ function setCheckLine(data){
 					 null, function(data){
 				 var html = "";
 				 $.each(data.entityList, function(i,o){
-					 console.log(o);
 					 html += "<tr>";
 					 if(o.fileWorktype == 'fileWorktype:1'){
 						 html += "<td>业务尽职调查报告";

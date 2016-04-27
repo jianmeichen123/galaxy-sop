@@ -342,7 +342,6 @@ function downloadFile(ele)
 function downloadTemplate(templateType)
 {
 	var url = platformUrl.tempDownload+"?worktype="+templateType+"&projectId=${projectId}";
-	console.log(url);
 	forwardWithHeader(url);
 }
 </script>

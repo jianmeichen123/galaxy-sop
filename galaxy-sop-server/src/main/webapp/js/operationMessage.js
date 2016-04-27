@@ -10,8 +10,6 @@ $(function(){
 			$(".searchbox input").val('');
 		}else{
 			$(".searchbox").each(function(index,item){
-				console.log(index);
-				console.log(item);
 			});
 		}
 */

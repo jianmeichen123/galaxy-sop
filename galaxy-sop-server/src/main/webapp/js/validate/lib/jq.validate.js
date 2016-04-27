@@ -99,7 +99,6 @@ function validateBefore() {
 			flag=false;
 		}
 	} else if(valType=='requiredDiv'){
-		console.log("validate textarea:" + $(this));
 		if($(this).text()!='') {
 			if(!($(this).text()!=''&&$.Validator.match({data:$(this).text(), rule:'OTHER', regString:$(this).attr('regString')}))) {
 				flag=false;
@@ -152,7 +151,6 @@ function beforeSubmit() {
 				flag=false;
 			}
 		 } else if($(n).attr("valType")=='requiredDiv'){//html元素的文本值是否为空
-			 console.log("validate textarea:" + $(this));
 			 if($(n).text()!='') {
 				if(!($(n).text()!=''&&$.Validator.match({data:$(n).text(), rule:'OTHER', regString:$(n).attr('regString')}))) {
 					//显示tips			

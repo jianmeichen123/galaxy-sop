@@ -444,8 +444,6 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 					if(beforeSubmit()){
 						var file = $("#" + fileInputId).val();
 						var param = paramsFunction();
-						console.log(param);
-						console.log(up.files.length);
 						if(up.files.length == 0){
 							sendPostRequestByJsonObj(platformUrl.stageChange,param,function(data){
 								var result = data.result.status;
@@ -572,7 +570,6 @@ function filedown(fileid , filekey, type){
 		layer.msg('正在下载，请稍后...',{time:2000});
 		window.location.href=url+"?sid="+sessionId+"&guid="+userId+typeparam;
 	} catch (e) {
-		console.log(e);
 		layer.msg("下载失败");
 	}
 }

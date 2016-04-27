@@ -98,7 +98,6 @@ $(function(){
 });
 function projectLoaded(project)
 {
-	console.log(project.projectProgress);
 	if(project.projectProgress != 'projectProgress:6')
 	{
 		$("#show-upload-btn").addClass('disabled');
