@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -122,51 +123,76 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		Page<SopFile> pageEntity = super.queryPageList(query,pageable);
 		List<Department> departmentList = getDepartMent();
 		List<User> userList = getUser(pageEntity.getContent());
+		
 		List<Project> projectList = getProject(pageEntity.getContent());
+		List<SopFile> result=new ArrayList<SopFile>();
+		List<SopFile> sopFileList=new ArrayList<SopFile>();
+		Map<String,SopVoucherFile> map=new HashMap<String,SopVoucherFile>();
+		if(null!=pageEntity.getContent()&&!"".equals(pageEntity.getContent())){
+			sopFileList=pageEntity.getContent();
+		    map=getVoucherId(sopFileList);
+		}
 		//获取Project名称
-		for(SopFile sopFile : pageEntity.getContent()){
+		Iterator<SopFile> it = sopFileList.iterator();
+		while (it.hasNext()) {
+			boolean flag=false;
+			SopFile sopFile = it.next();
 			
-			if(sopFile.getProjectId()!=null){
-//				Project project = projectDao.selectById(sopFile.getProjectId());
-				for(Project project : projectList){
-					if(sopFile.getProjectId().equals(project.getId())){
-						sopFile.setProjectName(project.getProjectName());
-						break;
+			if (sopFile.getProjectId() != null) {
+				for (Project project : projectList) {
+					if (sopFile.getProjectId().equals(project.getId())) {
+						int p1 = Integer.parseInt(sopFile.getProjectProgress().split(":")[1]);
+						int p2 = Integer.parseInt(project.getProjectProgress().split(":")[1]);
+						if (p1 <=p2) {
+							flag=true;
+							sopFile.setProjectName(project.getProjectName());
+							break;
+						}
+							
+			
 					}
 				}
-				//当为空时证明关联数据已被删除
-//				if(project!=null){
-//					sopFile.setProjectName(project.getProjectName());
-//				}
-			}
-			
-			if(sopFile.getCareerLine()!=null){
-//				Department department = departmentService.queryById(sopFile.getCareerLine());
-				for(Department department : departmentList){
-					if(sopFile.getCareerLine().equals(department.getId())){
+		}
+		if(flag==true){
+			if (sopFile.getCareerLine() != null) {
+			for (Department department : departmentList) {
+					if (sopFile.getCareerLine().equals(department.getId())) {
 						sopFile.setCareerLineName(department.getName());
 						break;
 					}
 				}
-//				if(department!=null){
-//					sopFile.setCareerLineName(department.getName());
-//				}				
 			}
-			if(sopFile.getFileUid()!=null){
-//				User user = userService.queryById(sopFile.getFileUid());
-				for(User user : userList){
-					if(sopFile.getFileUid().equals(user.getId())){
+			if (sopFile.getFileUid() != null) {
+		    	for (User user : userList) {
+					if (sopFile.getFileUid().equals(user.getId())) {
 						sopFile.setFileUName(user.getRealName());
 						break;
 					}
 				}
-//				if(user!=null){
-//					sopFile.setFileUName(user.getRealName());
-//				}
+	
+			}	
+		      SopVoucherFile svf = map.get(sopFile.getVoucherId()==null?"":sopFile.getVoucherId().toString());
+				if (null != svf && !"".equals(svf)) {
+					sopFile.setVoucherFileName(svf.getFileName());
+					if(svf.getFileStatus().equals("fileStatus:1")){
+						sopFile.setVstatus("false");
+						sopFile.setVoucherFileKey(svf.getFileKey());
+					}
+					if(svf.getFileStatus().equals("fileStatus:3")){
+						sopFile.setVstatus("true");
+					}
+				} else {
+					sopFile.setVoucherFileName("");
+					sopFile.setVstatus("no");
+			}
+				
+				result.add(sopFile);
 			}
 		}
+		pageEntity.setContent(result);
 		return pageEntity;
 	}
+	
 	
 	private List<Department> getDepartMent(){
 		return departmentService.queryAll();
@@ -722,7 +748,23 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		}
 		return fileName;
 	}
-	
+	public Map<String,SopVoucherFile> getVoucherId(List<SopFile> sopFile){
+		Map<String,SopVoucherFile> map=new HashMap<String,SopVoucherFile>();
+		List<Long> ids=new ArrayList<Long>();
+		for (SopFile sopfile:sopFile) {
+				if(null!=sopfile.getVoucherId()&&!"".equals(sopfile.getVoucherId())){
+				ids.add(sopfile.getVoucherId());
+			}
+		}
+		List<SopVoucherFile> selectListById = voucherFileDao.selectListById(ids);
+		if(null!=selectListById&&!"".equals(selectListById)){
+			for(SopVoucherFile vfile:selectListById){
+				map.put(vfile.getId().toString(), vfile);
+			}
+		}
+		return map;
+		
+	}
 	
 	
 	

@@ -180,4 +180,14 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+	<select id="selectListById" resultMap="BaseResultMap" >
+         select
+	     <include refid="Base_Column_List" />
+	     from sop_voucher_file
+			  where id in
+			<foreach collection="list" index="item" item="item" open="("
+				separator="," close=")">
+						#{item}
+			</foreach>
+	</select>
 </mapper>

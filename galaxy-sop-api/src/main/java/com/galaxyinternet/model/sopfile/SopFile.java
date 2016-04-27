@@ -121,6 +121,8 @@ public class SopFile extends PagableRecordEntity {
   	
   	private String voucherFileKey;
   	
+  	private String Vstatus;
+  	
   	//枚举转换
   	private String fType = "";
   	private String fWorktype;
@@ -511,4 +513,14 @@ public class SopFile extends PagableRecordEntity {
 	public String getfSource() {
 		return fSource;
 	}
+
+	public String getVstatus() {
+		return Vstatus;
+	}
+
+	public void setVstatus(String vstatus) {
+		Vstatus = vstatus;
+	}
+	
+	
 }

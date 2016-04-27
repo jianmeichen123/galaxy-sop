@@ -106,6 +106,10 @@ var fileGrid = {
 		        field: 'fWorktype',
 		        title: '业务分类'
 		      }, {
+			    field: 'voucherFile',
+			    title: '签署凭证',
+			    formatter: fileGrid.operateVFormatter 	
+			  }, {
 		        field: 'updatedDate',
 		        title: '更新日期'
 		      }, {
@@ -220,9 +224,32 @@ var fileGrid = {
 //		$('#fileGrid').bootstrapTable('refresh',parameters);	
 		return params;
 	},
+	operateVFormatter : function(value, row, index){
+		
+		if(row.Vstatus=="false"){
+			return [
+				'<a class="fileupdatelink blue"  href="javascript:void(0)">',
+				'上传',
+				'</a>  '
+		        ].join('');
+		}
+		if(row.Vstatus=="true"){
+			return [
+				'<a class="fileupdatelink blue"  href="javascript:void(0)">'
+				 +row.voucherFileName+
+				'</a>  '
+		        ].join('');
+		}
+		if(row.Vstatus=="no"){
+			return [
+					'无'
+			        ].join('');
+		}
+	
+	},
 	downloadCallBackfunction : function(data){
 		alert(1)
-	}
+	},
 	
 };
 
