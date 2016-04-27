@@ -10,16 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.dao.idea.IdeaDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Idea;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.CollectionUtils;
 @Service
 public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService {
 
@@ -29,6 +33,8 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 	private UserService userService;
 	@Autowired
 	private DepartmentService departmentService;
+	@Autowired
+	private ProjectService projectService;
 	@Override
 	protected BaseDao<Idea, Long> getBaseDao() {
 		// TODO Auto-generated method stub
@@ -43,6 +49,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		{
 			List<Long> userIds = new ArrayList<Long>();
 			List<String> departmentIds = new ArrayList<String>();
+			List<String> projectIds = new ArrayList<String>();
 			for(Idea idea : list)
 			{
 				if(idea.getDepartmentId() != null && !departmentIds.contains(String.valueOf(idea.getDepartmentId())))
@@ -57,10 +64,15 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 				{
 					userIds.add(idea.getClaimantUid());
 				}
+				if(idea.getProjectId() != null && !projectIds.contains(String.valueOf(idea.getProjectId())))
+				{
+					projectIds.add(String.valueOf(idea.getProjectId()));
+				}
 			}
 			
 			List<User> users = null;
 			List<Department> departments = null;
+			List<Project> projects = null;
 			if(userIds.size() >0)
 			{
 				User userQuery = new User();
@@ -71,41 +83,25 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 			{
 				departments = departmentService.queryListById(departmentIds);
 			}
+			if(projectIds.size() > 0)
+			{
+				ProjectBo projectQuery = new ProjectBo();
+				projectQuery.setIds(projectIds);
+				projects = projectService.queryList(projectQuery);
+			}
 			
 			for(Idea idea : list)
 			{
-				String departmentDesc = getDesc(departments, "id", "name", idea.getDepartmentId());
-				String createdUname = getDesc(users, "id", "realName", idea.getCreatedUid());
-				String claimantUname = getDesc(users, "id", "realName", idea.getClaimantUid());
+				String departmentDesc = CollectionUtils.getItemProp(departments, "id", idea.getDepartmentId(), "name");
+				String createdUname = CollectionUtils.getItemProp(users, "id", idea.getCreatedUid(), "realName");
+				String claimantUname = CollectionUtils.getItemProp(users, "id", idea.getClaimantUid(), "realName");
+				String projectName = CollectionUtils.getItemProp(projects, "id", idea.getProjectId(), "projectName");
 				idea.setDepartmentDesc(departmentDesc);
 				idea.setCreatedUname(createdUname);
 				idea.setClaimantUname(claimantUname);
+				idea.setProjectName(projectName);
 			}
 		}
-		
 		return page;
 	}
-	
-	private String getDesc(Collection<?> items, String propCodeName, String propDescName, Object val)
-	{
-		String result = null;
-		if(items != null && items.size() > 0 && val != null)
-		{
-			for(Object item : items)
-			{
-				BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(item);
-				Object code = wrapper.getPropertyValue(propCodeName);
-				Object desc = wrapper.getPropertyValue(propDescName);
-				if(val.equals(code))
-				{
-					result = desc != null ? desc.toString() : null;
-					break;
-				}
-			}
-		}
-		
-		return result;
-	}
-
-	
 }

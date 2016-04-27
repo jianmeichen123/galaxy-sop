@@ -20,7 +20,7 @@ public class Idea extends PagableEntity
 	private String departmentDesc;
 	private String createdUname;
 	private String ideaProgressDesc;
-	private String peojectName;
+	private String projectName;
 	private String claimantUname;
 	public String getIdeaName() {
 		return ideaName;
@@ -100,11 +100,11 @@ public class Idea extends PagableEntity
 	public void setIdeaProgressDesc(String ideaProgressDesc) {
 		this.ideaProgressDesc = ideaProgressDesc;
 	}
-	public String getPeojectName() {
-		return peojectName;
+	public String getProjectName() {
+		return projectName;
 	}
-	public void setPeojectName(String peojectName) {
-		this.peojectName = peojectName;
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
 	}
 	public String getClaimantUname() {
 		return claimantUname;
