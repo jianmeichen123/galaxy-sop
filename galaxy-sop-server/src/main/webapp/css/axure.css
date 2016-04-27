@@ -347,7 +347,7 @@ table .width_gd{width:12%;}
 .tipslink li a span{ color:#536379; font-size:12px}
 /*标签连接*/
 .tablink{ height:30px; line-height:30px}
-.tablink li{ float:left; padding:0 10px; margin:0 4px 0 0; background:#d6d8e1; height:30px; border-radius:4px 4px 0 0;cursor: pointer;}
+.tablink li{ float:left; padding:0 7px; margin:0 4px 0 0; background:#d6d8e1; height:30px; border-radius:4px 4px 0 0;cursor: pointer;}
 .tablink li a{ font-size:14px;color:#8f97b2;font-family:"微软雅黑" !important;}
 .tablink li a:hover{ text-decoration:none}
 .tablink .on{ background:#FFF}
@@ -1118,7 +1118,8 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .myprojecttc .block{background-color: #fff;overflow: hidden;height: auto;display: none;overflow-y: scroll;max-height: 300px;}
 .myprojecttc .show{display: block;}
 .myprojecttc .fmdl .txt{display: inline-block;width: 80px;padding: 0 5px;}
-.myprojecttc .block{border-top-left-radius: 0;border-top-right-radius: 0;padding:10px;}
+.myprojecttc .block{border-top-left-radius: 0;border-top-right-radius: 0;padding:10px;min-height:100px;}
+.myprojecttc .block p{width:100%;text-align:center;font-size:14px;height:100px;line-height:100px;color:#8f97b2;}
 .myprojecttc .block .searchbox{position: relative;}
 .myprojecttc .block .default,.myprojecttc .block .searchbox_hidden{width: 80%;}
 .myprojecttc .block .searchbox .show_more{position: absolute;bottom:10px;right: 100px;font-size: 12px;text-decoration: none;}

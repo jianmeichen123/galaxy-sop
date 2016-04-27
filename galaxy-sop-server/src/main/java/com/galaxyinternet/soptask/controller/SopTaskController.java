@@ -248,27 +248,25 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 * @serialData 2016-02-26
 	 * @param pageable
 	 * @return
-	 *@PathVariable("taskId") String taskId
+	 * @PathVariable("taskId") String taskId
 	 */
 	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/updateTaskStatus", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTask> updateTaskStatus( @RequestBody SopTask entity,HttpServletRequest request) {
 		//当前登录人
-				User user = (User) request.getSession().getAttribute(
-						Constants.SESSION_USER_KEY);
-				entity.setAssignUid(user.getId());
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		entity.setAssignUid(user.getId());
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
 		Result result = new Result();
 		try {
 		    sopTaskService.updateById(entity);
-		     result.setStatus(Status.OK);
-		     SopTask po = sopTaskService.queryById(entity.getId());
-		     if(po != null && po.getProjectId() != null)
-		     {
-		    	 Project project = projectService.queryById(po.getProjectId());
-		    	 ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
-		     }
+		    result.setStatus(Status.OK);
+		    SopTask po = sopTaskService.queryById(entity.getId());
+		    if(po != null && po.getProjectId() != null){
+		    	Project project = projectService.queryById(po.getProjectId());
+		    	ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+		    }
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
 		} catch (Exception e) {

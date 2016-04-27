@@ -39,6 +39,7 @@
 			<li data-tab="nav" id="projectProgress_7"><a href="javascript:;">投决会</a></li>
 			<li data-tab="nav" id="projectProgress_8"><a href="javascript:;">投资协议</a></li>
 			<li data-tab="nav" id="projectProgress_9"><a href="javascript:;">股权交割</a></li>
+			<li data-tab="nav" id="projectProgress_10"><a href="javascript:;">投后运营</a></li>
 			<li data-tab="nav" id="projectProgress"><a href="javascript:;">操作日志</a></li>
 		</ul>
 		<!-- tab内容 -->
@@ -402,47 +403,11 @@
 			</div>
 			<!-- 股权交割信息  -->
 			<div class="block" data-tab="con" id="projectProgress_9_con">
-				<!--表格内容
-				<table width="100%" cellspacing="0" cellpadding="0">
-					<thead>
-						<tr>
-							<th>业务分类</th>
-							<th>创建日期</th>
-							<th>存储类型</th>
-							<th>更新日期</th>
-							<th>催办</th>
-							<th>查看附件</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>资金拨付凭证</td>
-							<td></td>
-							<td>文档</td>
-							<td></td>
-							<td><a href="javascript:; " class="blue">催办</a></td>
-							<td><a href="javascript:; " class="blue"></a></td>
-						</tr>
-						<tr>
-							<td>资金拨付凭证</td>
-							<td></td>
-							<td>文档</td>
-							<td></td>
-							<td><a href="javascript:; " class="blue">催办</a></td>
-							<td><a href="javascript:; " class="blue"></a></td>
-						</tr>
-						<tr>
-							<td>资金拨付凭证</td>
-							<td></td>
-							<td>文档</td>
-							<td></td>
-							<td><a href="javascript:; " class="blue">催办</a></td>
-							<td><a href="javascript:; " class="blue"></a></td>
-						</tr>
-					</tbody>
-				</table>-->
 			</div>
-			
+			<!-- 投后运营  -->
+			<div class="block" data-tab="con" id="projectProgress_10_con">
+				<p>暂无内容</p>
+			</div>
 			<!-- 操作日志  -->
 			<div class="block" data-tab="con" id="projectProgress_con">
 				<div id="pro_message_custom-toolbar">

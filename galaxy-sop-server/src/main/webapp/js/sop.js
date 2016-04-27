@@ -40,13 +40,13 @@ function info(id){
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = data.entity.projectProgress;
 				progress = progress.replace(":","_");
-				var index = progress.substr(progress.length-1,1);
+				var index = progress.substr("projectProgress_".length);
 
 				if(index == 1 || index == 3 || index == 4 || index == 6 || index == 7 ){
 					checkCanUse(index,data.entity.id,data.entity.projectType);
 				}
-				
-				for(var i = 1; i<10; i++){
+				alert(index);
+				for(var i = 1; i<11; i++){
 					//当前阶段之后的tab变为不可用
 					if(i > index){
 						$("#projectProgress_" + i).addClass("disabled");

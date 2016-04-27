@@ -397,7 +397,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		task = sopTaskDao.selectById(task.getId());
 		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
 		sopTaskDao.updateById(task);
-		
+		SopTask t = null;
 		if(task.getTaskFlag() != null){
 			SopFile file = new SopFile();
 			file.setProjectId(task.getProjectId());
@@ -409,16 +409,29 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				file.setFileWorktype(DictEnum.fileWorktype.财务尽职调查报告.getCode());
 			}else if(task.getTaskFlag().intValue() == 8){
 				file.setFileWorktype(DictEnum.fileWorktype.资金拨付凭证.getCode());
+				t = new SopTask();
+				t.setProjectId(task.getProjectId());
+				t.setTaskFlag(9);
 			}else if(task.getTaskFlag().intValue() == 9){
 				file.setFileWorktype(DictEnum.fileWorktype.工商转让凭证.getCode());
+				t = new SopTask();
+				t.setProjectId(task.getProjectId());
+				t.setTaskFlag(8);
 			}
 			SopFile f = sopFileDao.selectOne(file);
 			f.setFileValid(1);
 			sopFileDao.updateById(f);
+			if(t != null){
+				t.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+				SopTask ut = sopTaskDao.selectOne(t);
+		    	if(ut != null){
+		    		Project project = new Project();
+		    		project.setId(task.getProjectId());
+		    		project.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+		    		projectDao.updateById(project);
+		    	}
+			}
 		}
-		
-		
-		
 	}
 	
 }
