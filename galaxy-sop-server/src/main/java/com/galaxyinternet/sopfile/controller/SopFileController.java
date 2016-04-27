@@ -325,7 +325,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				pageRequest = new PageRequest(sopFile.getPageNum(),
 						sopFile.getPageSize());
 			}
-			sopFile.setFileValid(1);
+		//	sopFile.setFileValid(1);
 			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,
 					pageRequest);
 			// 操作权限判断
