@@ -94,7 +94,7 @@ function setCheckLine(data){
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" id="keyword" name="keyword" placeholder="请输入项目名称或项目编码" />
+						<input type="text" class="txt" id="keyword" name="keyword" placeholder="请输入项目名称或项目编码"/>
 					</dd>
 					<dd style="float:right">
 						<button type="submit" class="bluebtn ico cx" name="querySearch" style="margin:0">搜索</button>
@@ -205,6 +205,7 @@ function setCheckLine(data){
 						if(i > index){
 							//当前阶段之后的tab变为不可用
 							$("#projectProgress_" + i).addClass("disabled");
+							$("#projectProgress_" + i).attr("disabled","disabled");
 						}
 						if(i == 1){
 							if(hasClosed){
@@ -355,7 +356,7 @@ function setCheckLine(data){
 						 var dataList=json.entityList;
 							for(var ii = 0 ; ii < dataList.length ; ii++){
 							    var p = ii ;	
-                                var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix"></div>'+
+						        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix"></div>'+
 							        '<div class="process clearfix">'+
 							        '<h2>投资意向书盖章流程</h2>'+
 							        '<img src="<%=path%>/img/process.png" alt="">'+
@@ -571,9 +572,9 @@ function setCheckLine(data){
 							                 '</tr>'+
 							            '</thead>'+                                                                                                                                   
 							             '<tbody>';
-							         	for(var ii = 0;ii < dataList.length ; ii++ ){
-							                        var p = ii ;
-                                                	var typehtml = "";
+							         	for(var ii = 0 ; ii < dataList.length ; ii++){
+										    var p = ii ;	
+													var typehtml = "";
 													if (typeof(dataList[p].fType) == "undefined") { 
 														typehtml ='<td></td>';
 													}else{

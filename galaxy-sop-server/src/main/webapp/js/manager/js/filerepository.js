@@ -42,7 +42,7 @@ var fileGrid = {
 		 fileGrid.domid = data._domid;
 		 fileGrid.projectId = data._projectId;
 		 $('#' + data._domid).bootstrapTable({
-			url : platformUrl.searchSopFileList, // 请求后台的URL（*）
+			url : platformUrl.searchSopFileList, // 请求后台的URL（*） +='?'+(new Date()).valueOf()
 			queryParamsType : 'size|page', // undefined
 			showRefresh : false,
 			search : false,
@@ -93,12 +93,6 @@ var fileGrid = {
 		});
 		 // 初始化查询按钮
 		 $("#file_repository_btn").click(fileGrid.serarchData);
-		//// $("#file_repository_btn").click(function(){
-		//	 $("#file_repository_table").html('');
-		//	 fileGrid.serarchData;
-		 //});
-
-		  
 	},
 	updateFormatter : function(value,row,index){
 		return [
@@ -150,9 +144,9 @@ var fileGrid = {
 		if(startTime > endTime){
 			layer.msg("开始时间不能大于结束时间");
 			return false;
-		}
+			}
 		params.startTime = startTime;
-		params.endTime = endTime
+		params.endTime = endTime;
 		params.pageType = "dialog";
 		params.projectId = fileGrid.projectId;
 		return params;
@@ -163,24 +157,12 @@ var fileGrid = {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function ReplaceAll(str, sptr, sptr1){
+	while (str.indexOf(sptr) >= 0){
+	   str = str.replace(sptr, sptr1);
+	}
+	return str;
+}
 
 var utils = {
 		path : $("#pathInput").val(),

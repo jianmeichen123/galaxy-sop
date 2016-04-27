@@ -48,11 +48,41 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 </script>
 <script src="<%=request.getContextPath() %>/js/base64.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/alioss/aliyun-oss-sdk.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/alioss/alioss_init.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/js/alioss/aliyun-oss-sdk.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/alioss/alioss_init.js"></script> --%>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/platformUrl.js" type="text/javascript"></script>
+<script>
+checkVersion()
+function getInternetExplorerVersion(){
+	var rv = -1; 
+	if (navigator.appName == 'Microsoft Internet Explorer'){
+		var ua = navigator.userAgent;
+		var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+		if (re.exec(ua) != null)
+			rv = parseFloat( RegExp.$1 );
+	}
+	return rv;
+}
+
+function checkVersion(){
+	var msg =Constants.sopEndpointURL;
+	var ver = getInternetExplorerVersion();
+	if ( ver> -1 ) {
+		if ( ver <= 8.0 ){
+		}else{
+			document.write("<script src=\""+msg+"/js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
+			document.write("<script src=\""+msg+"/js/alioss/alioss_init.js\">"+"</scr"+"ipt>");			
+		}
+	}else{
+		document.write("<script src=\""+msg+"/js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
+		document.write("<script src=\""+msg+"/js/alioss/alioss_init.js\">"+"</scr"+"ipt>");
+	}
+
+}
+</script>
+
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/layer/layer.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/my.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/my_ext.js"></script>
