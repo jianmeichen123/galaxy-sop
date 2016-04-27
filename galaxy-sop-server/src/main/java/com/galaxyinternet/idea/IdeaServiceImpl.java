@@ -1,24 +1,28 @@
 package com.galaxyinternet.idea;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.PropertyAccessorFactory;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.dao.idea.IdeaDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.ProjectService;
@@ -35,6 +39,8 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 	private DepartmentService departmentService;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private ConfigService configService;
 	@Override
 	protected BaseDao<Idea, Long> getBaseDao() {
 		// TODO Auto-generated method stub
@@ -104,4 +110,56 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		}
 		return page;
 	}
+	@Override
+	public void createProject(Long id, String projectName) throws BusinessException
+	{
+		Idea idea = queryById(id);
+		if(idea == null)
+		{
+			throw new BusinessException("数据错误。");
+		}
+		
+		
+		ProjectBo projectQuery = new ProjectBo();
+		projectQuery.setProjectName(projectName);
+		List<Project> projectList = projectService.queryList(projectQuery);
+		if(projectList != null && projectList.size() > 0)
+		{
+			throw new BusinessException("项目名已存在。");
+		}
+		User user = userService.queryById(idea.getClaimantUid());
+		Project project = new Project();
+		project.setProjectName(projectName);
+		project.setCreatedTime(new Date().getTime());
+		project.setCreateUid(idea.getClaimantUid());
+		if(user != null)
+		{
+			project.setCreateUname(user.getRealName());
+		}
+		project.setProjectDepartid(idea.getDepartmentId());
+		project.setStockTransfer(0);
+		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
+		project.setProjectType(DictEnum.projectType.内部创建.getCode());
+		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
+		try 
+		{
+			String projectCode = generateProjectCode(project.getProjectDepartid());
+			project.setProjectCode(projectCode);
+			projectService.newProject(project);
+			idea.setProjectId(project.getId());
+			updateById(idea);
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+		
+	}
+	
+	private String generateProjectCode(Long depId) throws Exception
+	{
+		Config config = configService.createCode();
+		String prefix = String.valueOf(EnumUtil.getCodeByCareerline(depId.longValue()));
+		return prefix+StringUtils.leftPad(config.getValue(), 6, '0');
+	}
+	
+	
 }

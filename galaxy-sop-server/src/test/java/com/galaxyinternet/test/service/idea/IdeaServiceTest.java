@@ -57,5 +57,14 @@ public class IdeaServiceTest
 		Page<Idea> page = ideaService.queryPageList(query, new PageRequest(0,10));
 		Assert.isTrue(page != null && page.getContent() != null && page.getContent().size()>0);
 	}
+	@Test
+	public void testCreateProject()
+	{
+		Long id = 1L;
+		ideaService.createProject(id, "创意生成项目");
+		Idea idea = ideaService.queryById(1L);
+		Assert.notNull(idea.getProjectId());
+		
+	}
 
 }
