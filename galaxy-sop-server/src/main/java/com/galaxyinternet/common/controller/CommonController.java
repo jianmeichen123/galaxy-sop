@@ -135,7 +135,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		//董事长秘书      CEO秘书
 		if(roleIdList.contains(UserConstant.DMS) ||roleIdList.contains(UserConstant.CEOMS)){
 			tabs.clear();
-			tabs.add(new Menus(1L, 0, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
+			tabs.add(new Menus(1L, 0, "工作桌面", u + "galaxy/index?" + params));
 			tabs.add(new Menus(18L, 0, "立项会排期池", serverUrl + "" + params));
 			tabs.add(new Menus(19L, 0, "投决会排期池", serverUrl + "" + params));
 			tabs.add(new Menus(20L, 0, "CEO评审会排期池", serverUrl + "" + params));								
