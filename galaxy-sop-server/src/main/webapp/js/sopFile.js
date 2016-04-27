@@ -135,11 +135,19 @@ var fileGrid = {
 		  
 	},
 	operateFormatter : function(value, row, index){
+		var uploadOpt;
+		if(row.fileKey){
+			uploadOpt = "更新";
+		}else{
+			
+			uploadOpt = "上传";
+		}
 		
 		if(row.fileKey && row.isEdit == "true"){
+			
 			return [
 			        '<a class="fileupdatelink blue"  href="javascript:void(0)">',
-			        '更新',
+			        uploadOpt,
 			        '</a>  ',
 		            '<a class="filedownloadlink blue"  href="javascript:void(0)">',
 		            '下载',
@@ -148,7 +156,7 @@ var fileGrid = {
 		}else if(!row.fileKey && row.isEdit == "true"){
 			return [
 		            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
-		            '更新',
+		            uploadOpt,
 		            '</a>  '
 		        ].join('');
 		}else if(row.fileKey && row.isEdit == "false"){

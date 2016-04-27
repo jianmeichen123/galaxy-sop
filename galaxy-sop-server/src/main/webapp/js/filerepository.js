@@ -141,6 +141,12 @@ var fileGrid = {
 		}else{
 			return '';
 		}
+		var uploadOpt;
+		if(row.fileKey){
+			uploadOpt = "更新";
+		}else{
+			uploadOpt = "上传";
+		}
 		
 		if(tempPro <= fileGrid.progress && row.isEdit == "true"){
 			return [

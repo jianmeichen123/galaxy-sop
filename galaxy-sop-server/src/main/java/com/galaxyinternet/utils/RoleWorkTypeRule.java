@@ -1,14 +1,29 @@
 package com.galaxyinternet.utils;
 
 public class RoleWorkTypeRule {
+	/**
+	 * 角色ID
+	 */
 	private long roleId;
+	/**
+	 * 业务分类
+	 */
 	private String workType;
+	/**
+	 * 该角色对该业务分类是否可编辑
+	 */
 	private String isEdit;
+	/**
+	 * 该角色对该业务分类是否可编辑
+	 */
+	private String isShow;
 
-	public RoleWorkTypeRule(long roleId, String workType, String isEdit) {
+	public RoleWorkTypeRule(long roleId, String workType, String isEdit,String isShow) {
 		this.roleId = roleId;
 		this.workType = workType;
 		this.isEdit = isEdit;
+		this.isShow = isShow;
+		
 	}
 
 	public long getRoleId() {
@@ -34,5 +49,15 @@ public class RoleWorkTypeRule {
 	public void setIsEdit(String isEdit) {
 		this.isEdit = isEdit;
 	}
+
+	public String getIsShow() {
+		return isShow;
+	}
+
+	public void setIsShow(String isShow) {
+		this.isShow = isShow;
+	}
+	
+	
 
 }

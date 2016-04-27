@@ -216,6 +216,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	@ResponseBody
 	@RequestMapping(value = "/searchSopFileList", method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopFile> searchSopFileList(HttpServletRequest request, @RequestBody SopFile sopFile) {
+		
+	
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 		User obj = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if (obj == null) {
@@ -225,6 +227,14 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		try {
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj
 					.getId());
+			//获取可显示的业务分类
+//			List<RoleWorkTypeRule> tempRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
+//			List<String> fileworktypeList = new ArrayList<String>();
+//			for(RoleWorkTypeRule tempRule : tempRuleList){
+//				fileworktypeList.add(tempRule.getWorkType());
+//			}
+//			sopFile.setFileworktypeList(fileworktypeList);
+			
 			if ("dialog".equals(sopFile.getPageType())) {
 				sopFile.setFileWorktypeNullFilter("true");
 			} else {

@@ -139,6 +139,7 @@ public class SopFile extends PagableRecordEntity {
   	private List<Long> projectLikeIdList;
   	private List<Long> fileULikeidList;
   	private List<String> fileStatusList;
+  	private List<String> fileworktypeList;
   	
   	private String startTime;
   	private String endTime;
@@ -521,6 +522,15 @@ public class SopFile extends PagableRecordEntity {
 	public void setVstatus(String vstatus) {
 		Vstatus = vstatus;
 	}
+
+	public List<String> getFileworktypeList() {
+		return fileworktypeList;
+	}
+
+	public void setFileworktypeList(List<String> fileworktypeList) {
+		this.fileworktypeList = fileworktypeList;
+	}
+
 	
 	
 }
