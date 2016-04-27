@@ -41,8 +41,23 @@ public class MeetingScheduling extends PagableEntity {
     
     //排期结束时间
     private Date scheduleEndtime;
-    //排期状态
+    //排期状态   
     private String scheduleStatus;
+    
+    //申请时间(申请立项会时间)
+    private  Date meetTime;
+    
+    //项目代码
+    private String projectCode;
+    
+    
+	public String getProjectCode() {
+		return projectCode;
+	}
+
+	public void setProjectCode(String projectCode) {
+		this.projectCode = projectCode;
+	}
 
 	public Date getScheduleStarttime() {
 		return scheduleStarttime;
@@ -187,5 +202,15 @@ public class MeetingScheduling extends PagableEntity {
 	public void setProjectIdList(List<Long> projectIdList) {
 		this.projectIdList = projectIdList;
 	}
+
+	public Date getMeetTime() {
+		return meetTime;
+	}
+
+	public void setMeetTime(Date meetTime) {
+		this.meetTime = meetTime;
+	}
+	
+	
 	
 }
