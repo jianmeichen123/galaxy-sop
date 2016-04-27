@@ -151,7 +151,7 @@ var fileGrid = {
 		if(tempPro <= fileGrid.progress && row.isEdit == "true"){
 			return [
 		            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
-		            '更新',
+		            uploadOpt,
 		            '</a>  '
 		        ].join('');
 		}
