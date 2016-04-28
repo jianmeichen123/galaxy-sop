@@ -162,6 +162,7 @@ var fileGrid = {
 		
 	},
 	updateEvents : {
+		//更新文档
 		'click .fileupdatelink' : function(e, value, row, index){
         	formData = {
         			_fileKey : row.fileKey,
@@ -181,6 +182,7 @@ var fileGrid = {
     		};
     		win.init(formData);
         },
+        //上传文档
         'click .fileuploadlink' : function(e, value, row, index){
         	formData = {
         			_fileKey : row.fileKey,
@@ -210,21 +212,45 @@ var fileGrid = {
     				}
     		};
     		win.init(formData);
+        },
+        //上传签署凭证文档
+        'click .voucherfileuploadlink' : function(e, value, row, index){
+        	formData = {
+        			_fileKey : row.fileKey,
+        			_fileSource : row.fileSource,
+        			_fileType : "fileType:1",
+        			_fileTypeAuto : true,
+        			_workType : row.fileWorktype,
+        			_projectId : row.projectId,
+        			_projectName : row.projectName,
+        			_isProve : true,
+        			_remark : "hide",
+    				callFuc : function(){
+    					fileGrid.serarchData();
+    				},
+    				_url : platformUrl.stageChange, //兼容老板插件
+    				_localUrl : platformUrl.stageChange,
+    				_getLocalFormParam : function(dom){
+    					//本地上传回掉参数获取事件, 通过dom.find(“”)获取表单数据 jquery 语法
+    					var form = {
+    							"pid" : dom.find("#win_sopProjectId").data("tid"),
+    							"stage":row.projectProgress,
+    							"type":dom.find("input[name='win_fileSource']:checked").val(),
+    							"fileType":dom.find("#win_fileType").val(),
+    							"fileWorktype":dom.find("#win_fileWorkType").val(),
+    							"voucherType" : $("input[id='win_isProve']:checked").val()
+    					}
+    					return form;
+    				}
+    		};
+    		win.init(formData);
         }
 	},
 	operateVFormatter : function(value, row, index){
-		var uploadOpt,uploadClass;
-		if(row.fileKey){
-			uploadOpt = "更新";
-			uploadClass = "fileupdatelink";
-		}else{
-			uploadOpt = "上传";
-			uploadClass = "fileuploadlink";
-		}
 		if(row.Vstatus=="false"){
 			return [
-				'<a class="' + uploadClass + ' blue"  href="javascript:void(0)">',
-				uploadOpt,
+				'<a class="voucherfileuploadlink blue"  href="javascript:void(0)">',
+				'上传',
 				'</a>  '
 		        ].join('');
 		}

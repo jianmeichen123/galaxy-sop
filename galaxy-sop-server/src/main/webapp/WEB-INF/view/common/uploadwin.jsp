@@ -37,7 +37,7 @@
          	
         </dd>
         <dd id="win_isProve_div">
-        	<label><input type="checkbox" id="win_isProve"/>签署凭证</label>
+        	<label><input type="checkbox" value="1" id="win_isProve"/>签署凭证</label>
         </dd>
     </dl>
     <dl class="fmdl clearfix">

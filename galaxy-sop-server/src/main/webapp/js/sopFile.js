@@ -1,6 +1,5 @@
 var searchPanel = {
 		initData : function(){
-			
 			sendPostRequestByJsonObj(platformUrl.sopFileCheckShow,null,searchPanel.initCheckShow);
 			//档案类型
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,searchPanel.initDataCallBack);
@@ -43,7 +42,6 @@ var searchPanel = {
 			}
 		},
 		serarchData : function(){
-			
 			$('#fileGrid').bootstrapTable('refresh',fileGrid.queryParams);	 
 		 }
 };
@@ -51,11 +49,6 @@ var searchPanel = {
 var fileGrid = {
 	init : 	function(){
 		
-//		$("html").showLoading(
-//				 {
-//				    'addClass': 'loading-indicator'
-//								
-//		});
 		$('#fileGrid').bootstrapTable({
 		      url : platformUrl.searchSopFileList,     //请求后台的URL（*）
 		      queryParamsType: 'size|page', // undefined
@@ -108,6 +101,7 @@ var fileGrid = {
 		      }, {
 			    field: 'voucherFile',
 			    title: '签署凭证',
+			    events : fileGrid.updateEvents,
 			    formatter: fileGrid.operateVFormatter 	
 			  }, {
 		        field: 'updatedDate',
@@ -139,7 +133,6 @@ var fileGrid = {
 		if(row.fileKey){
 			uploadOpt = "更新";
 		}else{
-			
 			uploadOpt = "上传";
 		}
 		
@@ -172,47 +165,94 @@ var fileGrid = {
 	},
 	operateEvents : {
 		'click .filedownloadlink': function (e, value, row, index) {
-			//"3959118243299382"
 			data = {
 					fileKey : row.fileKey,
 					fileName : row.fileName + "." + row.fileSuffix
 			};
 			
 			layer.msg('正在下载，请稍后...',{time:2000});
-//			window.location = ossClient.signatureUrl(data);
 			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
         },
-        'click .fileupdatelink' : function(e, value, row, index){
+        //更新文档
+		'click .fileupdatelink' : function(e, value, row, index){
         	formData = {
         			_fileKey : row.fileKey,
-        			_fileType : row.fileType,
-        			_fileTypeAuto : true,
         			_fileSource : row.fileSource,
+        			_fileType : "fileType:1",
+        			_fileTypeAuto : true,
         			_workType : row.fileWorktype,
         			_projectId : row.projectId,
         			_projectName : row.projectName,
         			_isProve : "hide",
         			_remark : "hide",
     				callFuc : function(){
-    					searchPanel.serarchData();
+    					fileGrid.serarchData();
     				},
-    				_url : platformUrl.commonUploadFile, //此处兼容teamsheet中老插件
-    				_localUrl : platformUrl.commonUploadFile,
-    				_ossUrl : platformUrl.fileCallBack,
-    				_getOssFormParam : function(dom,fileKey,file){
-    					return {
-								"fileSource" : dom.find("input[name='win_fileSource']:checked").val(),
-								"fileType" : dom.find("#win_fileType").val(),
-								"fileWorktype" : dom.find("#win_fileWorkType").val(),
-								"projectId" : dom.find("#win_sopProjectId").data("tid"),
-								"isProve" : dom.find("#win_isProve").attr("checked"),
-								"remark" : dom.find("#win_FILELIST").val(),
-								"fileKey" : fileKey,
-								"fileName" : file.name,
-								"fileLength" : file.size
-						};
+    				_url : platformUrl.commonUploadFile, //兼容老板插件
+    				_localUrl : platformUrl.commonUploadFile
+    		};
+    		win.init(formData);
+        },
+        //上传文档
+        'click .fileuploadlink' : function(e, value, row, index){
+        	formData = {
+        			_fileKey : row.fileKey,
+        			_fileSource : row.fileSource,
+        			_fileType : "fileType:1",
+        			_fileTypeAuto : true,
+        			_workType : row.fileWorktype,
+        			_projectId : row.projectId,
+        			_projectName : row.projectName,
+        			_isProve : "hide",
+        			_remark : "hide",
+    				callFuc : function(){
+    					fileGrid.serarchData();
+    				},
+    				_url : platformUrl.stageChange, //兼容老板插件
+    				_localUrl : platformUrl.stageChange,
+    				_getLocalFormParam : function(dom){
+    					//本地上传回掉参数获取事件, 通过dom.find(“”)获取表单数据 jquery 语法
+    					var form = {
+    							"pid" : dom.find("#win_sopProjectId").data("tid"),
+    							"stage":row.projectProgress,
+    							"type":dom.find("input[name='win_fileSource']:checked").val(),
+    							"fileType":dom.find("#win_fileType").val(),
+    							"fileWorktype":dom.find("#win_fileWorkType").val()
+    					}
+    					return form;
     				}
-    				
+    		};
+    		win.init(formData);
+        },
+        //上传签署凭证文档
+        'click .voucherfileuploadlink' : function(e, value, row, index){
+        	formData = {
+        			_fileKey : row.fileKey,
+        			_fileSource : row.fileSource,
+        			_fileType : "fileType:1",
+        			_fileTypeAuto : true,
+        			_workType : row.fileWorktype,
+        			_projectId : row.projectId,
+        			_projectName : row.projectName,
+        			_isProve : true,
+        			_remark : "hide",
+    				callFuc : function(){
+    					fileGrid.serarchData();
+    				},
+    				_url : platformUrl.stageChange, //兼容老板插件
+    				_localUrl : platformUrl.stageChange,
+    				_getLocalFormParam : function(dom){
+    					//本地上传回掉参数获取事件, 通过dom.find(“”)获取表单数据 jquery 语法
+    					var form = {
+    							"pid" : dom.find("#win_sopProjectId").data("tid"),
+    							"stage":row.projectProgress,
+    							"type":dom.find("input[name='win_fileSource']:checked").val(),
+    							"fileType":dom.find("#win_fileType").val(),
+    							"fileWorktype":dom.find("#win_fileWorkType").val(),
+    							"voucherType" : $("input[id='win_isProve']:checked").val()
+    					}
+    					return form;
+    				}
     		};
     		win.init(formData);
         }
@@ -243,9 +283,7 @@ var fileGrid = {
 		}
 		if(row.Vstatus=="true"){
 			return [
-				'<a class="fileupdatelink blue"  href="javascript:void(0)">'
-				 +row.voucherFileName+
-				'</a>  '
+				'<a class="fileupdatelink blue"  href="javascript:void(0)">查看</a>  '
 		        ].join('');
 		}
 		if(row.Vstatus=="no"){
