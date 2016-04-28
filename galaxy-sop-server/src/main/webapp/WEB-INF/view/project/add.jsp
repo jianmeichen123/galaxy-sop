@@ -250,7 +250,7 @@
 				data : b.encode(JSON.stringify(JSON.parse($("#add_form").serializeObject()))),
 				async : false,
 				type : 'POST',
-				contentType : "application/json; charset=UTF-8",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 				dataType : "text",
 				cache : false,
 				beforeSend : function(xhr) {
