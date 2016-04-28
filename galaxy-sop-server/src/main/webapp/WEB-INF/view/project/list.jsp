@@ -34,7 +34,6 @@
 <body>
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
@@ -141,7 +140,7 @@
 
 
 
-<script type="text/javascript" src="<%=path %>/js/teamSheet.js"></script>
+<script type="text/javascript" src="<%=path %>/js/teamSheetNew.js"></script>
 <script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
 
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
