@@ -1,4 +1,4 @@
-var searchPanel = {
+var searchPanel = {   
 		initData : function(){
 			sendPostRequestByJsonObj(platformUrl.sopFileCheckShow,null,searchPanel.initCheckShow);
 			//档案类型
@@ -186,7 +186,7 @@ var fileGrid = {
         			_isProve : "hide",
         			_remark : "hide",
     				callFuc : function(){
-    					fileGrid.serarchData();
+    					searchPanel.serarchData();
     				},
     				_url : platformUrl.commonUploadFile, //兼容老板插件
     				_localUrl : platformUrl.commonUploadFile
