@@ -8,7 +8,6 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private static final long serialVersionUID = 1L;
 
 	private String proName; //项目名称 - 会议记录
-	private String fkey;
 	private String bucketName;
 	private Long fileLength;
 	
@@ -86,12 +85,6 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
-	}
-	public String getFkey() {
-		return fkey;
-	}
-	public void setFkey(String fkey) {
-		this.fkey = fkey;
 	}
 	public List<Long> getProIdList() {
 		return proIdList;
