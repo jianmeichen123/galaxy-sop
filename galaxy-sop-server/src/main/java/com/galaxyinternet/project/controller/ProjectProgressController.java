@@ -611,8 +611,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		ResponseData<MeetingRecordBo> responseBody = new ResponseData<MeetingRecordBo>();
 		
-		
-		
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
@@ -621,7 +619,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 				return responseBody;
 			}
-			/*if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
+			/*if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)
+					&&query.getProjectId()==null&&query.getUid()==null){
 				query.setUid(user.getId());
 			}*/
 			//query.setUid(user.getId());
@@ -641,6 +640,44 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		return responseBody;
 	}
+	
+	
+	/**
+	 * 会议详情;  
+	 * @param  mid 会议id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/detailMeet/{mid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingRecord> detailMeet(HttpServletRequest request,@PathVariable("mid") Long mid) {
+		
+		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
+		try {
+			MeetingRecord meetRecord = meetingRecordService.queryById(mid);
+			if(meetRecord == null ||meetRecord.getId()==null){
+				responseBody.setResult(new Result(Status.ERROR, null, "会议id错误"));
+				return responseBody;
+			}else if(meetRecord.getFileId()!=null){
+				SopFile file  = sopFileService.queryById(meetRecord.getFileId());
+				if(file!=null){
+					meetRecord.setFname(file.getFileName());
+					meetRecord.setFkey(file.getFileKey());
+				}
+			}
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setEntity(meetRecord);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "查询会议详情失败"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("detailMeet 查询会议详情失败",e);
+			}
+		}
+		
+		return responseBody;
+	}
+	
+	
 	
 
 	

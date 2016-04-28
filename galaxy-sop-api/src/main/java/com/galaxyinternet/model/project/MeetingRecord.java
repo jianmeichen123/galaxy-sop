@@ -13,6 +13,7 @@ public class MeetingRecord  extends RecordEntity{
 	 private Long projectId;
 
     private Long fileId;
+	private String fkey;
 
     private Date meetingDate;
     private String meetingDateStr;
@@ -208,6 +209,14 @@ public class MeetingRecord  extends RecordEntity{
 
 	public void setFname(String fname) {
 		this.fname = fname;
+	}
+
+	public String getFkey() {
+		return fkey;
+	}
+
+	public void setFkey(String fkey) {
+		this.fkey = fkey;
 	}
 
 	

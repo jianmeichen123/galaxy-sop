@@ -279,6 +279,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			meetBoList = new ArrayList<MeetingRecordBo>();
 			for(MeetingRecord ib : meetList){
 				MeetingRecordBo bo = new MeetingRecordBo();
+				bo.setId(ib.getId());
 				bo.setProjectId(ib.getProjectId());
 				bo.setProName(proIdNameMap.get(ib.getProjectId()));
 				bo.setMeetingDateStr(ib.getMeetingDateStr());
