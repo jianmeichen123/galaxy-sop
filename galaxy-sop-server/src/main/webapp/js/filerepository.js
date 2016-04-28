@@ -106,6 +106,7 @@ var fileGrid = {
 			}, {
 			    field: 'voucherFile',
 			    title: '签署凭证',
+			    events : fileGrid.updateEvents,
 			    formatter: fileGrid.operateVFormatter 	
 			  }, {
 				field : 'updatedDate',
@@ -141,16 +142,18 @@ var fileGrid = {
 		}else{
 			return '';
 		}
-		var uploadOpt;
+		var uploadOpt,uploadClass;
 		if(row.fileKey){
 			uploadOpt = "更新";
+			uploadClass = "fileupdatelink";
 		}else{
 			uploadOpt = "上传";
+			uploadClass = "fileuploadlink";
 		}
 		
 		if(tempPro <= fileGrid.progress && row.isEdit == "true"){
 			return [
-		            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
+		            '<a class= "' + uploadClass +' blue"  href="javascript:void(0)">',
 		            uploadOpt,
 		            '</a>  '
 		        ].join('');
@@ -160,11 +163,10 @@ var fileGrid = {
 	},
 	updateEvents : {
 		'click .fileupdatelink' : function(e, value, row, index){
-//			alert(row.id);
         	formData = {
         			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
-        			_fileType : row.fileType,
+        			_fileType : "fileType:1",
         			_fileTypeAuto : true,
         			_workType : row.fileWorktype,
         			_projectId : row.projectId,
@@ -178,22 +180,57 @@ var fileGrid = {
     				_localUrl : platformUrl.commonUploadFile
     		};
     		win.init(formData);
+        },
+        'click .fileuploadlink' : function(e, value, row, index){
+        	formData = {
+        			_fileKey : row.fileKey,
+        			_fileSource : row.fileSource,
+        			_fileType : "fileType:1",
+        			_fileTypeAuto : true,
+        			_workType : row.fileWorktype,
+        			_projectId : row.projectId,
+        			_projectName : row.projectName,
+        			_isProve : "hide",
+        			_remark : "hide",
+    				callFuc : function(){
+    					fileGrid.serarchData();
+    				},
+    				_url : platformUrl.stageChange, //兼容老板插件
+    				_localUrl : platformUrl.stageChange,
+    				_getLocalFormParam : function(dom){
+    					//本地上传回掉参数获取事件, 通过dom.find(“”)获取表单数据 jquery 语法
+    					var form = {
+    							"pid" : dom.find("#win_sopProjectId").data("tid"),
+    							"stage":row.projectProgress,
+    							"type":dom.find("input[name='win_fileSource']:checked").val(),
+    							"fileType":dom.find("#win_fileType").val(),
+    							"fileWorktype":dom.find("#win_fileWorkType").val()
+    					}
+    					return form;
+    				}
+    		};
+    		win.init(formData);
         }
 	},
 	operateVFormatter : function(value, row, index){
-		
+		var uploadOpt,uploadClass;
+		if(row.fileKey){
+			uploadOpt = "更新";
+			uploadClass = "fileupdatelink";
+		}else{
+			uploadOpt = "上传";
+			uploadClass = "fileuploadlink";
+		}
 		if(row.Vstatus=="false"){
 			return [
-				'<a class="fileupdatelink blue"  href="javascript:void(0)">',
-				'上传',
+				'<a class="' + uploadClass + ' blue"  href="javascript:void(0)">',
+				uploadOpt,
 				'</a>  '
 		        ].join('');
 		}
 		if(row.Vstatus=="true"){
 			return [
-				'<a class="fileupdatelink blue"  href="javascript:void(0)">'
-				 +row.voucherFileName+
-				'</a>  '
+				'<a class="fileupdatelink blue"  href="javascript:void(0)">查看</a>  '
 		        ].join('');
 		}
 		if(row.Vstatus=="no"){
