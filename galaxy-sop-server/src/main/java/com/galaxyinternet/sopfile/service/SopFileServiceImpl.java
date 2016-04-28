@@ -767,10 +767,12 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				ids.add(sopfile.getVoucherId());
 			}
 		}
-		List<SopVoucherFile> selectListById = voucherFileDao.selectListById(ids);
-		if(null!=selectListById&&!"".equals(selectListById)){
-			for(SopVoucherFile vfile:selectListById){
-				map.put(vfile.getId().toString(), vfile);
+		if(!ids.isEmpty()){
+		    List<SopVoucherFile> selectListById = voucherFileDao.selectListById(ids);
+			if(null!=selectListById&&!"".equals(selectListById)){
+				for(SopVoucherFile vfile:selectListById){
+					map.put(vfile.getId().toString(), vfile);
+				}
 			}
 		}
 		return map;
