@@ -72,12 +72,12 @@ function checkVersion(){
 	if ( ver> -1 ) {
 		if ( ver <= 8.0 ){
 		}else{
-			document.write("<script src=\""+msg+"/js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
-			document.write("<script src=\""+msg+"/js/alioss/alioss_init.js\">"+"</scr"+"ipt>");			
+			document.write("<script src=\""+msg+"js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
+			document.write("<script src=\""+msg+"js/alioss/alioss_init.js\">"+"</scr"+"ipt>");			
 		}
 	}else{
-		document.write("<script src=\""+msg+"/js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
-		document.write("<script src=\""+msg+"/js/alioss/alioss_init.js\">"+"</scr"+"ipt>");
+		document.write("<script src=\""+msg+"js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
+		document.write("<script src=\""+msg+"js/alioss/alioss_init.js\">"+"</scr"+"ipt>");
 	}
 
 }

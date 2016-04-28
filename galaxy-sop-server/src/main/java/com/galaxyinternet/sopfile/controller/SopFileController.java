@@ -797,6 +797,9 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			HttpServletRequest request) {
 		ResponseData<Dict> responseBody = new ResponseData<Dict>();
 		Result result = new Result();
+		if("null".equals(fileKey)){
+			fileKey = "";
+		}
 		fileKey = StringUtils.isBlank(fileKey) ? String.valueOf(IdGenerator.generateId(OSSHelper.class)) : fileKey; 
 		Map<String, Object> respMap = new HashMap<String, Object>();
 		String endPoint = OSSFactory.ENDPOINT;
