@@ -147,8 +147,13 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 						int p1 = Integer.parseInt(sopFile.getProjectProgress().split(":")[1]);
 						int p2 = Integer.parseInt(project.getProjectProgress().split(":")[1]);
 						if (p1 <=p2) {
-							if(!sopFile.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode()) 
-									&& project.getStockTransfer().intValue() != 1){
+							if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+								if(project.getStockTransfer().intValue() == 1){
+									flag=true;
+									sopFile.setProjectName(project.getProjectName());
+									break;
+								}
+							}else{
 								flag=true;
 								sopFile.setProjectName(project.getProjectName());
 								break;
