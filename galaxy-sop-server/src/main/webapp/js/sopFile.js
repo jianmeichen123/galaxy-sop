@@ -101,7 +101,7 @@ var fileGrid = {
 		      }, {
 			    field: 'voucherFile',
 			    title: '签署凭证',
-			    events : fileGrid.updateEvents,
+			    events : fileGrid.operateEvents,
 			    formatter: fileGrid.operateVFormatter 	
 			  }, {
 		        field: 'updatedDate',
