@@ -276,9 +276,7 @@ var fileGrid = {
 		
 		if(row.Vstatus=="false"){
 			return [
-				'<a class="voucherfileuploadlink blue"  href="javascript:void(0)">',
-				'上传',
-				'</a>  '
+				'<a class="voucherfileuploadlink blue"  href="javascript:void(0)">上传</a>'
 		        ].join('');
 		}
 		if(row.Vstatus=="true"){
