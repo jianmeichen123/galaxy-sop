@@ -120,20 +120,20 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 */
 	public Page<SopFile> queryPageList(SopFile query, Pageable pageable) {
 		// TODO Auto-generated method stub
-		Page<SopFile> pageEntity = super.queryPageList(query,pageable);
+		//Page<SopFile> pageEntity = super.queryPageList(query,pageable);
+		Page<SopFile> pageEntity = new Page<SopFile>(null, pageable, null);
+		List<SopFile> fileList = sopFileDao.selectList(query);
 		List<Department> departmentList = getDepartMent();
-		List<User> userList = getUser(pageEntity.getContent());
-		
-		List<Project> projectList = getProject(pageEntity.getContent());
+		List<User> userList = getUser(fileList);
+		List<Project> projectList = getProject(fileList);
 		List<SopFile> result=new ArrayList<SopFile>();
-		List<SopFile> sopFileList=new ArrayList<SopFile>();
 		Map<String,SopVoucherFile> map=new HashMap<String,SopVoucherFile>();
-		if(null!=pageEntity.getContent()&&!"".equals(pageEntity.getContent())){
-			sopFileList=pageEntity.getContent();
-		    map=getVoucherId(sopFileList);
+		if(fileList != null && !fileList.isEmpty()){
+			map=getVoucherId(fileList);
 		}
+		
 		//获取Project名称
-		Iterator<SopFile> it = sopFileList.iterator();
+		Iterator<SopFile> it = fileList.iterator();
 		while (it.hasNext()) {
 			boolean flag=false;
 			SopFile sopFile = it.next();
@@ -200,8 +200,10 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				result.add(sopFile);
 			}
 		}
-		pageEntity.setContent(result);
 		pageEntity.setTotal(new Long(result.size()));
+		List<SopFile> sl = new ArrayList<SopFile>();
+		sl.addAll(result.subList(pageable.getPageNumber()*pageable.getPageSize(), (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize()) > result.size() ? result.size() : (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize())));
+		pageEntity.setContent(sl);
 		return pageEntity;
 	}
 	
