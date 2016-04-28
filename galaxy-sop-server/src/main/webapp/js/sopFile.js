@@ -206,7 +206,7 @@ var fileGrid = {
         			_isProve : "hide",
         			_remark : "hide",
     				callFuc : function(){
-    					fileGrid.serarchData();
+    					searchPanel.serarchData();
     				},
     				_url : platformUrl.stageChange, //兼容老板插件
     				_localUrl : platformUrl.stageChange,
@@ -237,7 +237,7 @@ var fileGrid = {
         			_isProve : true,
         			_remark : "hide",
     				callFuc : function(){
-    					fileGrid.serarchData();
+    					searchPanel.serarchData();
     				},
     				_url : platformUrl.stageChange, //兼容老板插件
     				_localUrl : platformUrl.stageChange,
