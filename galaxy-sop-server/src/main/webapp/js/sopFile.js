@@ -276,7 +276,7 @@ var fileGrid = {
 		
 		if(row.Vstatus=="false"){
 			return [
-				'<a class="fileupdatelink blue"  href="javascript:void(0)">',
+				'<a class="voucherfileuploadlink blue"  href="javascript:void(0)">',
 				'上传',
 				'</a>  '
 		        ].join('');
