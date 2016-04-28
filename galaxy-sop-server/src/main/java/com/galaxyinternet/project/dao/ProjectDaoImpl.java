@@ -57,7 +57,7 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 
 	@Override
 	public List<Project> selectListById(List<Long> idList) {
-		return sqlSessionTemplate.selectList("selectListById",idList);
+		return sqlSessionTemplate.selectList(getSqlName("selectListById"),idList);
 	}
 
 	@Override
