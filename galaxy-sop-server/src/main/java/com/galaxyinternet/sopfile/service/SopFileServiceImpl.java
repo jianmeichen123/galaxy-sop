@@ -201,6 +201,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			}
 		}
 		pageEntity.setContent(result);
+		pageEntity.setTotal(new Long(result.size()));
 		return pageEntity;
 	}
 	

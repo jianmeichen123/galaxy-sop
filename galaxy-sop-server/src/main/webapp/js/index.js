@@ -67,7 +67,7 @@
 		//组装数据
 		
 		var list =  data.pageList.content;
-		if(list != "" || list != undefined || list != null){
+		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#sopStak"); 
 			var i=0;
 			var taskOrder = {
@@ -101,26 +101,23 @@
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
-			
-		}
-		
-		if (list.length==0) {
+			if(list.length<3){
+				$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
+			}
+		}else{
 			var tbodyList = $("#sopStak"); 
 			var noData =
 				'<tr>'+
 				 '<td colspan="7">'+'没有找到匹配的记录'+'</td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
-			}
-		if(list.length<3){
-			$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
-		}
+		}	
 	}
 
 	function ProjectVoteWillCallback(data){
 		//根据id判断类型（组装json数据）
 		var list = data.entityList;
-		if(list != "" || list != undefined || list != null){
+		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#tbody"); 
 			var i=0;
 			$(list).each(function(){
@@ -135,23 +132,23 @@
 			 tbodyList.append(tr);
 			  });
 			
-		}
-		if (list.length==0) {
+			if(list.length<3){
+				$("#tbody").parent().parent().siblings().children('.more').css("display","none");
+			};
+			cutStr(5,'cutstr');
+		}else{
 			var tbodyList = $("#tbody"); 
 			var noData =
 				'<tr>'+
 				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
-	   }
-		if(list.length<3){
-			$("#tbody").parent().parent().siblings().children('.more').css("display","none");
-		};
-cutStr(5,'cutstr');}
+		}
+		}
 
 	function top5ProjectMeetingCallback(data) {
 		var list = data.entityList;
-		if(list != "" || typeof(list) != 'undefined' || list != null){
+		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#tlbody"); 
 			tbodyList.empty();
 			var i=0;
@@ -166,24 +163,23 @@ cutStr(5,'cutstr');}
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
-			if (list.length==0) {
-				var tbodyList = $("#tlbody"); 
-				var noData =
-					'<tr>'+
-					 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
-					' </tr>'; 			
-				tbodyList.append(noData);
-				}
 			if(list.length<3){
 				$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
 			};
 			
+		}else{
+			var tbodyList = $("#tlbody"); 
+			var noData =
+				'<tr>'+
+				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				' </tr>'; 			
+			tbodyList.append(noData);
 		}
 		
 cutStr(5,'cutstr');	}
 	function moreProjectMeetingCallback(data) {
 		var list = data.entityList;
-		if(list != "" || list != undefined || list != null){
+		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#tcbody"); 
 			tbodyList.empty();
 			var i=0;
@@ -201,24 +197,21 @@ cutStr(5,'cutstr');	}
 				' </tr>'; 
 			    tbodyList.append(tr);
 			  });
-			
-		}
-		if (list.length==0) {
+			if(list.length<3){
+				$("#tcbody").parent().parent().siblings().children('.more').css("display","none");
+			}
+		}else{
 			var tbodyList = $("#tcbody"); 
 			var noData =
 				'<tr>'+
 				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
-			}
-		
-	if(list.length<3){
-			$("#tcbody").parent().parent().siblings().children('.more').css("display","none");
 		}
 	}
 	function moreVotebodyMeetingCallback(data) {
 		var list = data.entityList;
-		if(list != "" || list != undefined || list != null){
+		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#votebody"); 
 			tbodyList.empty();
 			var i=0;
@@ -236,9 +229,10 @@ cutStr(5,'cutstr');	}
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
-			
-		}
-		if (list.length==0) {
+			if(list.length<3){
+				$("#votebody").parent().parent().siblings().children('.more').css("display","none");
+	         }
+		}else{
 			var tbodyList = $("#votebody"); 
 			var noData =
 				'<tr>'+
@@ -246,11 +240,8 @@ cutStr(5,'cutstr');	}
 				' </tr>'; 			
 			tbodyList.append(noData);	
 		}
-		if(list.length<3){
-			$("#votebody").parent().parent().siblings().children('.more').css("display","none");
-         }
+		
 	}
-	
 	
 	function getValue(str) {
 		if (typeof(str) == "undefined") { 
