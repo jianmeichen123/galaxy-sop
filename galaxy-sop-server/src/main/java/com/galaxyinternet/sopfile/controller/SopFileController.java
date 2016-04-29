@@ -279,7 +279,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					
 					// 档案管理员
 				} else if (roleIdList.contains(UserConstant.DAGLY)) {
-
+					List<String> fileStatusList = new ArrayList<String>();
+					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
+					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+					sopFile.setFileStatusList(fileStatusList);
+					sopFile.setFileValid(1);
 					// 其他人怎么办
 				} else {
 					
