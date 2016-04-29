@@ -135,6 +135,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			Project project = projectService.queryById(queryById.getProjectId());
 			sopTask.setAssignUid(user.getId());
 			sopTask.setTaskFlag(queryById.getTaskFlag());
+			sopTask.setProjectId(queryById.getProjectId());
 			 sopTaskService.updateById(sopTask);
 			 request.setAttribute("taskid", id);	
 			 ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
