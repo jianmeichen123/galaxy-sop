@@ -4,6 +4,7 @@
 	<resultMap id="BaseResultMap" type="SopFilePO">
 		<id column="id" jdbcType="BIGINT" property="id" />
 		<result column="project_id" jdbcType="BIGINT" property="projectId" />
+		<result column="belong_uid" jdbcType="BIGINT" property="belongUid" />
 		<result column="file_valid" jdbcType="INTEGER" property="fileValid" />
 		<result column="project_progress" jdbcType="VARCHAR" property="projectProgress" />
 		<result column="file_worktype" jdbcType="VARCHAR" property="fileWorktype" />
@@ -26,7 +27,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		id, project_id, file_valid, project_progress, file_worktype, career_line,
+		id, project_id, belong_uid, file_valid, project_progress, file_worktype, career_line,
 		file_source, file_type,
 		remark, voucher_id,  file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
@@ -39,6 +40,7 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id,jdbcType=BIGINT}</if>
 				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
+				<if test="belongUid != null" >and belong_uid = #{belongUid,jdbcType=BIGINT} </if>
 				<if test="fileValid != null" >and file_valid = #{fileValid,jdbcType=INTEGER} </if>
 				<if test="projectProgress != null" >and project_progress = #{projectProgress,jdbcType=VARCHAR} </if>				
 				<choose>
@@ -177,13 +179,13 @@
 	</delete>
 	
  	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="SopFilePO">
- 		insert into sop_file (id, project_id, file_valid, project_progress,
+ 		insert into sop_file (id, project_id, belong_uid, file_valid, project_progress,
  		file_worktype, career_line, file_source,
  		file_type, remark, voucher_id, file_status,
  		file_uid, fil_uri, updated_time,
  		created_time, file_length, file_key,
  		bucket_name,file_name,file_suffix,record_type)
- 		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileValid,jdbcType=INTEGER},
+ 		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{belongUid,jdbcType=BIGINT}, #{fileValid,jdbcType=INTEGER},
  		#{projectProgress,jdbcType=VARCHAR},
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
  		#{fileType,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{voucherId,jdbcType=BIGINT},
@@ -201,6 +203,7 @@
 		update sop_file
 		<set>
 			<if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
+			<if test="belongUid != null"> belong_uid = #{belongUid,jdbcType=BIGINT}, </if>
 			<if test="fileValid != null"> file_valid = #{fileValid,jdbcType=INTEGER}, </if>
 			<if test="projectProgress != null"> project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
 			<if test="fileWorktype != null"> file_worktype = #{fileWorktype,jdbcType=VARCHAR}, </if>
@@ -232,6 +235,7 @@
 		update sop_file
 		<set>
 			<if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
+			<if test="belongUid != null"> belong_uid = #{belongUid,jdbcType=BIGINT}, </if>
 			<if test="fileValid != null"> file_valid = #{fileValid,jdbcType=INTEGER}, </if>
 			<if test="projectProgress != null"> project_progress = #{projectProgress,jdbcType=VARCHAR}, </if>
 			<if test="fileWorktype != null"> file_worktype = #{fileWorktype,jdbcType=VARCHAR}, </if>

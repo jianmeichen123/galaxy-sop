@@ -21,6 +21,11 @@ public class SopFile extends PagableRecordEntity {
     private Long projectId;
     
     /**
+     * 上传所属人
+     */
+    private Long belongUid;
+    
+    /**
      * 文档是否有效
      */
     private Integer fileValid;
@@ -222,7 +227,15 @@ public class SopFile extends PagableRecordEntity {
         this.projectId = projectId;
     }
 
-    public Integer getFileValid() {
+    public Long getBelongUid() {
+		return belongUid;
+	}
+
+	public void setBelongUid(Long belongUid) {
+		this.belongUid = belongUid;
+	}
+
+	public Integer getFileValid() {
 		return fileValid;
 	}
 
