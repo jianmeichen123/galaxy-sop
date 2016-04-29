@@ -150,6 +150,7 @@ public class SopFile extends PagableRecordEntity {
   	private String endTime;
   	
   	private String isEdit;
+  	private String isChangeTask;
   	
   	/**
   	 *  请求页面
@@ -498,6 +499,15 @@ public class SopFile extends PagableRecordEntity {
 
 	public void setIsEdit(String isEdit) {
 		this.isEdit = isEdit;
+	}
+	
+
+	public String getIsChangeTask() {
+		return isChangeTask;
+	}
+
+	public void setIsChangeTask(String isChangeTask) {
+		this.isChangeTask = isChangeTask;
 	}
 
 	public String getStartTime() {

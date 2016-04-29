@@ -132,29 +132,32 @@ var fileGrid = {
 		var uploadOpt;
 		if(row.fileKey){
 			uploadOpt = "更新";
+			uploadClass = "fileupdatelink";
+			
 		}else{
 			uploadOpt = "上传";
+			uploadClass = "fileuploadlink"
 		}
 		
 		if(row.fileKey && row.isEdit == "true"){
 			
 			return [
-			        '<a class="fileupdatelink blue"  href="javascript:void(0)">',
+			        '<a class="' + uploadClass + ' blue"  href="javascript:void(0)">',
 			        uploadOpt,
 			        '</a>  ',
-		            '<a class="filedownloadlink blue"  href="javascript:void(0)">',
+		            '<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">',
 		            '下载',
 		            '</a>  '
 		        ].join('');
 		}else if(!row.fileKey && row.isEdit == "true"){
 			return [
-		            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
+		            '<a class="' + uploadClass + ' blue"  href="javascript:void(0)">',
 		            uploadOpt,
 		            '</a>  '
 		        ].join('');
 		}else if(row.fileKey && row.isEdit == "false"){
 			return [
-			        '<a class="filedownloadlink blue"  href="javascript:void(0)">',
+			        '<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">',
 			        '下载',
 			        '</a>  '
 		        ].join('');
@@ -171,7 +174,15 @@ var fileGrid = {
 			};
 			
 			layer.msg('正在下载，请稍后...',{time:2000});
-			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
+			var keyvalue;
+			if(e.target.id=="sopfile"){
+				keyvalue=row.id;
+			}else if(e.target.id=="vsopfile"){
+				keyvalue=row.voucherId; 	
+			}else{
+				keyvalue="";
+			}
+			window.location.href=platformUrl.downLoadFile+'/'+keyvalue ;
         },
         //更新文档
 		'click .fileupdatelink' : function(e, value, row, index){
@@ -193,8 +204,28 @@ var fileGrid = {
     		};
     		win.init(formData);
         },
+        
         //上传文档
         'click .fileuploadlink' : function(e, value, row, index){
+        	var uploadUrl = undefined;
+        	var uploadFormFuc = undefined;
+        	if(row.isChangeTask == "true"){
+        		uploadUrl = platformUrl.stageChange;
+        		uploadFormFuc = function(dom){
+					//本地上传回掉参数获取事件, 通过dom.find(“”)获取表单数据 jquery 语法
+					var form = {
+							"pid" : dom.find("#win_sopProjectId").data("tid"),
+							"stage":row.projectProgress,
+							"type":dom.find("input[name='win_fileSource']:checked").val(),
+							"fileType":dom.find("#win_fileType").val(),
+							"fileWorktype":dom.find("#win_fileWorkType").val()
+					}
+					return form;
+				}
+        	}else{
+        		uploadUrl = platformUrl.commonUploadFile;
+        	}
+                
         	formData = {
         			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
@@ -209,18 +240,8 @@ var fileGrid = {
     					searchPanel.serarchData();
     				},
     				_url : platformUrl.stageChange, //兼容老板插件
-    				_localUrl : platformUrl.stageChange,
-    				_getLocalFormParam : function(dom){
-    					//本地上传回掉参数获取事件, 通过dom.find(“”)获取表单数据 jquery 语法
-    					var form = {
-    							"pid" : dom.find("#win_sopProjectId").data("tid"),
-    							"stage":row.projectProgress,
-    							"type":dom.find("input[name='win_fileSource']:checked").val(),
-    							"fileType":dom.find("#win_fileType").val(),
-    							"fileWorktype":dom.find("#win_fileWorkType").val()
-    					}
-    					return form;
-    				}
+    				_localUrl : uploadUrl,
+    				_getLocalFormParam : uploadFormFuc
     		};
     		win.init(formData);
         },
@@ -287,7 +308,7 @@ var fileGrid = {
 		}
 		if(row.Vstatus=="true"){
 			return [
-				'<a class="fileupdatelink blue"  href="javascript:void(0)">查看</a>  '
+				'<a class="filedownloadlink blue" id="vsopfile" href="javascript:void(0)">查看</a>  '
 		        ].join('');
 		}
 		if(row.Vstatus=="no"){

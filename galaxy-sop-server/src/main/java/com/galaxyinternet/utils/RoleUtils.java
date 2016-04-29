@@ -43,113 +43,113 @@ public class RoleUtils {
 	static{
 		roleRuleList = new ArrayList<RoleWorkTypeRule>();
 		//档案管理员
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.投资意向书.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.投资协议.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.股权转让协议.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.资金拨付凭证.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.商业计划.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.财务预测报告.getCode(), "true","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.投资意向书.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.投资协议.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.股权转让协议.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.资金拨付凭证.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.商业计划.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.财务预测报告.getCode(), "true","true","false"));
 		//HR总监
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.投资意向书.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.投资协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.商业计划.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.投资意向书.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.投资协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.商业计划.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false","false"));
 		//HR经理
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.投资意向书.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.投资协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.商业计划.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.投资意向书.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.投资协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.商业计划.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRJL, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false","false"));
 		//法务总监
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.投资意向书.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.投资协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.商业计划.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.投资意向书.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.投资协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.商业计划.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false","false"));
 		//法务经理
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.投资意向书.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.投资协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.商业计划.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.投资意向书.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.投资协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.商业计划.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false","false"));
 		//财务总监
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.投资意向书.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.投资协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.资金拨付凭证.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.商业计划.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.投资意向书.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.投资协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.资金拨付凭证.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.商业计划.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWZJ, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false","false"));
 		//财务经理
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.投资意向书.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.投资协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.资金拨付凭证.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.商业计划.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "true","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.投资意向书.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.投资协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.资金拨付凭证.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.商业计划.getCode(), "false","false","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.CWJL, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false","false"));
 		//合伙人
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.投资意向书.getCode(), "true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.投资协议.getCode(), "true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.股权转让协议.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.商业计划.getCode(), "true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.财务预测报告.getCode(), "true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "true","true","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.投资意向书.getCode(), "true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.投资协议.getCode(), "true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.股权转让协议.getCode(), "true","true","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.商业计划.getCode(), "true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HHR, DictEnum.fileWorktype.财务预测报告.getCode(), "true","false","true"));
 		//投资经理
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.投资意向书.getCode(), "true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.投资协议.getCode(), "true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.股权转让协议.getCode(), "true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.商业计划.getCode(), "true","true"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.财务预测报告.getCode(), "true","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "false","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "false","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "false","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.投资意向书.getCode(), "true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.投资协议.getCode(), "true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.股权转让协议.getCode(), "true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "false","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.商业计划.getCode(), "true","true","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.TZJL, DictEnum.fileWorktype.财务预测报告.getCode(), "true","true","true"));
 		
 		
 	}
@@ -308,6 +308,17 @@ public class RoleUtils {
 			if(roleList!=null && roleList.size() > 0 && !StringUtils.isBlank(workType)){
 				if(roleList.contains(roleRule.getRoleId()) && workType.equals(roleRule.getWorkType())){
 					return roleRule.getIsEdit();
+				}
+			}	
+		}
+		return "false";
+	}
+	
+	public static String getWorktypeChangeTask(List<Long> roleList,String workType){
+		for(RoleWorkTypeRule roleRule : roleRuleList){
+			if(roleList!=null && roleList.size() > 0 && !StringUtils.isBlank(workType)){
+				if(roleList.contains(roleRule.getRoleId()) && workType.equals(roleRule.getWorkType())){
+					return roleRule.getIsChangeTask();
 				}
 			}	
 		}

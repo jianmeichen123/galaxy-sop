@@ -343,11 +343,13 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		//	sopFile.setFileValid(1);
 			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,
 					pageRequest);
-			// 操作权限判断
+			// 操作权限判断 && 上传文件任务权限判断
 			for (SopFile temp : pageSopFile.getContent()) {
 				String isEdit = RoleUtils.getWorkTypeEdit(roleIdList,
 						temp.getFileWorktype());
+				String isChangeTask = RoleUtils.getWorktypeChangeTask(roleIdList,temp.getFileWorktype());
 				temp.setIsEdit(isEdit);
+				temp.setIsChangeTask(isChangeTask);
 			}
 			responseBody.setPageList(pageSopFile);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -502,7 +504,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		Integer taskFlag = null;
 		UrlNumber num = null;
 		responseBody = validateUploadForm(responseBody, user,
-				Long.parseLong(projectId), form.getFileWorktype(), proProgress, num,
+				projectId, form.getFileWorktype(), proProgress, num,
 				taskFlag);
 		if (responseBody.getResult().getErrorCode() != null) {
 			return responseBody;
@@ -573,7 +575,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		String proProgress = "";
 		Integer taskFlag = null;
 		UrlNumber num = null;
-		responseBody = validateUploadForm(responseBody,user, form.getProjectId(), form.getFileWorktype(), proProgress, num, taskFlag);
+		responseBody = validateUploadForm(responseBody,user, form.getProjectId()==null ? "" : form.getProjectId().toString(), form.getFileWorktype(), proProgress, num, taskFlag);
 		if(responseBody.getResult().getErrorCode()!=null){
 			return responseBody;
 		}
@@ -861,12 +863,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	
 	
 	
-	private ResponseData<SopFile> validateUploadForm(ResponseData<SopFile> responseBody,User user,Long projectId,String fileWorktype,String proProgress,UrlNumber num,Integer taskFlag){
+	private ResponseData<SopFile> validateUploadForm(ResponseData<SopFile> responseBody,User user,String projectId,String fileWorktype,String proProgress,UrlNumber num,Integer taskFlag){
 		if(user == null){
 			responseBody.setResult(new Result(Status.ERROR, ERROR_NO_LOGIN));
 			return responseBody;
 		}
-		if(projectId==null){
+		if(StringUtils.isBlank(projectId)){
 			responseBody.setResult(new Result(Status.ERROR,null, "项目不能为空"));
 			return responseBody;
 		}
