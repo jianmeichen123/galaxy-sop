@@ -352,8 +352,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				String isEdit = RoleUtils.getWorkTypeEdit(roleIdList,
 						temp.getFileWorktype());
 				String isChangeTask = RoleUtils.getWorktypeChangeTask(roleIdList,temp.getFileWorktype());
+				String isProveEdit = RoleUtils.getWorktypeProveEdit(roleIdList,temp.getFileWorktype());
+				
 				temp.setIsEdit(isEdit);
 				temp.setIsChangeTask(isChangeTask);
+				temp.setIsProveEdit(isProveEdit);
 			}
 			responseBody.setPageList(pageSopFile);
 			responseBody.setResult(new Result(Status.OK, ""));

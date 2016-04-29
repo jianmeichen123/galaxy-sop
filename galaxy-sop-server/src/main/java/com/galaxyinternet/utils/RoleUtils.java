@@ -43,17 +43,17 @@ public class RoleUtils {
 	static{
 		roleRuleList = new ArrayList<RoleWorkTypeRule>();
 		//档案管理员
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "true","true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "true","true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "true","true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "true","true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.投资意向书.getCode(), "true","true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.投资协议.getCode(), "true","true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.股权转让协议.getCode(), "true","true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.资金拨付凭证.getCode(), "true","true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.商业计划.getCode(), "true","true","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.财务预测报告.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.法务尽职调查报告.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.财务尽职调查报告.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.投资意向书.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.投资协议.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.股权转让协议.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.资金拨付凭证.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.商业计划.getCode(), "true","true","false","true"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.DAGLY, DictEnum.fileWorktype.财务预测报告.getCode(), "true","true","false","true"));
 		//HR总监
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.业务尽职调查报告.getCode(), "false","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.HRZJ, DictEnum.fileWorktype.人力资源尽职调查报告.getCode(), "true","true","false"));
@@ -319,6 +319,17 @@ public class RoleUtils {
 			if(roleList!=null && roleList.size() > 0 && !StringUtils.isBlank(workType)){
 				if(roleList.contains(roleRule.getRoleId()) && workType.equals(roleRule.getWorkType())){
 					return roleRule.getIsChangeTask();
+				}
+			}	
+		}
+		return "false";
+	}
+	
+	public static String getWorktypeProveEdit(List<Long> roleList,String workType){
+		for(RoleWorkTypeRule roleRule : roleRuleList){
+			if(roleList!=null && roleList.size() > 0 && !StringUtils.isBlank(workType)){
+				if(roleList.contains(roleRule.getRoleId()) && workType.equals(roleRule.getWorkType())){
+					return roleRule.getIsProveEdit();
 				}
 			}	
 		}
