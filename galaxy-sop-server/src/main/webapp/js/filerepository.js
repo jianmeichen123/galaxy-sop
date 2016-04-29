@@ -257,11 +257,15 @@ var fileGrid = {
 	},
 	operateVFormatter : function(value, row, index){
 		if(row.Vstatus=="false"){
-			return [
-				'<a class="voucherfileuploadlink blue"  href="javascript:void(0)">',
-				'上传',
-				'</a>  '
-		        ].join('');
+			if(row.fileKey){
+				return [
+						'<a class="voucherfileuploadlink blue"  href="javascript:void(0)">上传</a>'
+				        ].join('');
+			}else{
+				return [
+						'暂不能操作'
+				        ].join('');
+			}
 		}
 		if(row.Vstatus=="true"){
 			return [
