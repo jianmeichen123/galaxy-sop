@@ -294,7 +294,6 @@ var fileGrid = {
 		return params;
 	},
 	operateVFormatter : function(value, row, index){
-		
 		if(row.Vstatus=="false"){
 			if(row.fileKey){
 				return [
@@ -307,9 +306,16 @@ var fileGrid = {
 			}
 		}
 		if(row.Vstatus=="true"){
-			return [
-				'<a class="filedownloadlink blue" id="vsopfile" href="javascript:void(0)">查看</a>  '
-		        ].join('');
+			if(row.isProveEdit=="true"){
+				return [
+						'<a class="filedownloadlink blue" id="vsopfile" href="javascript:void(0)">查看</a>',
+						'<a class="fileupdatelink blue" id="vsopfile" href="javascript:void(0)">更新</a>'
+				        ].join('');
+			}else{
+				return [
+						'<a class="filedownloadlink blue" id="vsopfile" href="javascript:void(0)">查看</a>',
+				        ].join('');
+			}
 		}
 		if(row.Vstatus=="no"){
 			return [
