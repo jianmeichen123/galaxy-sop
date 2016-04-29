@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +34,7 @@ import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 
 @Service("com.galaxyinternet.service.SopTaskService")
@@ -50,6 +50,8 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	private SopFileDao sopFileDao;
 	@Autowired
 	private PersonPoolDao personPoolDao;
+	@Autowired
+	private SopFileService sopFileService;
 
 	@Override
 	protected BaseDao<SopTask, Long> getBaseDao() {
@@ -277,6 +279,57 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		if (!StringEx.isNullOrEmpty(entity.getTaskStatus()) && entity.getTaskStatus().equals("2")) {
 			entity.setTaskStatus("3");
+		}
+	//	String viewName = "";
+	//	String btnTxt = "";
+		String fileWorktype = "";
+	    boolean flag=true;
+		switch(entity.getTaskFlag())
+		{
+			case 0: //完善简历
+				break;
+			case 1 : //表示投资意向书
+				fileWorktype = "fileWorktype:5";
+				break;
+			case 2 : //人事尽职调查报告
+			//	btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:2";
+				break;
+			case 3 : //法务尽职调查报告
+				//btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:3";
+				break;
+			case 4 : //财务尽调报告
+			//	btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:4";
+				break;
+			case 5 : //业务尽调报告	
+				fileWorktype = "fileWorktype:1";
+				break;
+			case 6 : //投资协议
+				fileWorktype = "fileWorktype:6";
+				break;
+			case 7 : //股权转让协议
+				fileWorktype = "fileWorktype:7";
+				break;
+			case 8 : //资金拨付凭证
+				//btnTxt = "上传资金拨付凭证";
+				fileWorktype = "fileWorktype:9";
+				break;
+			case 9 : //工商变更登记凭证
+			//	btnTxt = "上传工商变更登记凭证";
+				fileWorktype = "fileWorktype:8";
+				break;
+			default :
+				flag=false;
+				//logger.error("Error taskFlag "+ entity.getTaskFlag());
+		}
+		SopFile sopfile=new SopFile();
+		if(flag==true &&!"".equals(fileWorktype)){
+			sopfile.setProjectId(entity.getProjectId());
+			sopfile.setBelongUid(entity.getAssignUid());
+			sopfile.setFileWorktype(fileWorktype);	
+			sopFileService.updateByIdSelective(sopfile);
 		}
 		int result = sopTaskDao.updateById(entity);
 		if(result<=0){

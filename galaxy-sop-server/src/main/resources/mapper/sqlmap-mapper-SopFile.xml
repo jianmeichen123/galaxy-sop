@@ -227,7 +227,8 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null" >and project_id = #{projectId,jdbcType=BIGINT} </if>
-				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
+				<if test="fileWorktype != null"> and file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if>		
 			</trim>
 		</where>
 	</update>
