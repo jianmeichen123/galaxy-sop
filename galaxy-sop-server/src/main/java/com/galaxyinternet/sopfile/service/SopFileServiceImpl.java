@@ -137,10 +137,10 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		while (it.hasNext()) {
 			boolean flag=false;
 			SopFile sopFile = it.next();
-			if(sopFile.getFileValid().intValue() == 0){
+			/*if(sopFile.getFileValid().intValue() == 0){
 				sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
 				sopFile.setFileKey(null);	
-			}
+			}*/
 			if (sopFile.getProjectId() != null) {
 				for (Project project : projectList) {
 					if (sopFile.getProjectId().equals(project.getId())) {
