@@ -70,6 +70,7 @@ import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
+import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
@@ -106,6 +107,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private ProjectService projectService;
 	@Autowired
 	private SopVoucherFileService sopVoucherFileService;
+	@Autowired
+	private SopTaskService sopTaskService;
 	
 	private String tempfilePath;
 	
@@ -241,15 +244,17 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				// 角色判断(人事)
 				if (roleIdList.contains(UserConstant.HRZJ)
 						|| roleIdList.contains(UserConstant.HRJL)) {
-					sopFile.setFileUid(obj.getId());
+					sopFile.setBelongUid(obj.getId());
+
+					
 					// 财务
 				} else if (roleIdList.contains(UserConstant.FWZJ)
 						|| roleIdList.contains(UserConstant.FWJL)) {
-					sopFile.setFileUid(obj.getId());
+					sopFile.setBelongUid(obj.getId());
 					// 法务
 				} else if (roleIdList.contains(UserConstant.CWZJ)
 						|| roleIdList.contains(UserConstant.CWJL)) {
-					sopFile.setFileUid(obj.getId());
+					sopFile.setBelongUid(obj.getId());
 					// 投资经理
 				} else if (roleIdList.contains(UserConstant.TZJL)) {
 					Project project = new Project();
