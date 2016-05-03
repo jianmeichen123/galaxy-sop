@@ -88,11 +88,13 @@
                   </tr>                  
                 </tbody>
               </table>
-          </div>
-          
-          <div class="btnbox">   <!-- onclick="history.go(-1);location.reload()" -->
+              
+              <div class="btnbox">   <!-- onclick="history.go(-1);location.reload()" -->
                 <a href="javascript:;" onclick="history.go(-1);" class="bluebtn pubbtn">返回</a>
           </div>
+          </div>
+          
+          
           </form>
           <!-- 第2部分 -->
           <div class="block block2 shadow">
