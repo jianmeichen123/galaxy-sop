@@ -36,6 +36,82 @@ function setViewProSelect(data){
 }
 
 
+
+
+function initViewAliOss(){
+	data = {
+		mustHasFile : false,
+		chooseBtn : "file-select-btn",
+		uploadBtn : "saveInterView",
+		fileShowText : "fileName",
+		mimeTypes : paramsFilter(1),
+		localUrl : platformUrl.saveViewFile,   //ossUrl
+		ossUrl : platformUrl.saveViewFile,
+		noFileOper : function(jsonObj){
+			sendPostRequestByJsonObj(platformUrl.saveViewFile,jsonObj,function(data){
+				var result = data.result.status;
+				if(result == "ERROR"){ //OK, ERROR
+					$("#saveInterView").removeClass("disabled");
+					layer.msg(data.result.message);
+					return;
+				}else{
+					layer.msg("保存成功", {time : 500});
+					var _this = $("#data-table");
+					if(_this == null || _this.length == 0 || _this == undefined){
+						removePop1();
+					}else{
+						$("#data-table").bootstrapTable('refresh');
+						removePop1();
+					}
+				}
+			});
+		},
+		validateForm : function(){ return getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");  },
+		getLocalFormParam : function(up,file,fileKey){
+			var res = getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
+			if(res == false || res == "false"){
+				$("#saveInterView").removeClass("disabled");
+				return false;
+			}
+			return res;
+		},
+		getOssFormParam : function(up,file,fileKey){ //文件上传后，获取参数
+			var res = getInterViewCondition(null,"projectId", "viewDate", "viewTarget", "viewNotes");
+			if(res == false || res == "false"){
+				$("#saveInterView").removeClass("disabled");
+				return false;
+			}
+			res["fname"] = file.name;
+			res["fileLength"] = file.size;
+			res["fkey"] = fileKey
+			return res;
+		},
+		successCallBack:function(up, file, result){
+			var response = $.parseJSON(result.response);
+			var rs = response.result.status;
+			if(rs == "ERROR"){ //OK, ERROR
+				$("#saveInterView").removeClass("disabled");
+				$("#fileName").val("");
+				viewuploader.splice(0, meetuploader.files.length)
+				layer.msg(response.result.message);
+				return false;
+			}else{
+				layer.msg("保存成功", {time : 500});
+				var _this = $("#data-table");
+				if(_this == null || _this.length == 0 || _this == undefined){
+					removePop1();
+				}else{
+					$("#data-table").bootstrapTable('refresh');
+					removePop1();
+				}
+			}
+		}
+	}
+	ossClient.uploadInit(data)
+}
+
+
+
 //plupload上传对象初始化,   绑定保存
 function initViewUpload() {
 	var viewuploader = new plupload.Uploader({
