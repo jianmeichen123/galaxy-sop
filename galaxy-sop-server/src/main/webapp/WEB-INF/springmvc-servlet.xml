@@ -38,7 +38,14 @@
 	<context:component-scan base-package="com.galaxyinternet.*">
 	</context:component-scan>
 	<!-- springmvc的关键配置 -->
-	<mvc:annotation-driven />
+	<!-- springmvc的关键配置 -->
+	<mvc:annotation-driven>
+		<mvc:message-converters>
+			<ref bean="gsonHttpMessageConverter"/>
+				<ref bean="stringHttpMessageConverter"/>
+				<ref bean="byteArrayMessageConverter"/>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 	<!-- 这个default-servlet-handler 可以使用DispatcherServlet的url-pattern 是/*, 如果springmvc找不到handler来处理请求, 
 		会自动放过,让serlvet container处理 -->
 
@@ -87,6 +94,7 @@
 		</property>
 	</bean>
 	<bean id="stringHttpMessageConverter" class="org.springframework.http.converter.StringHttpMessageConverter">
+		<constructor-arg value="UTF-8" />
 		<property name="supportedMediaTypes">
 			<list>
 				<value>text/html;charset=UTF-8</value>
