@@ -35,9 +35,7 @@
 	</bean>
 
 	<!-- 定义扫描Controller的base-package -->
-	<context:component-scan base-package="com.galaxyinternet.*">
-	</context:component-scan>
-	<!-- springmvc的关键配置 -->
+	<context:component-scan base-package="com.galaxyinternet.*"></context:component-scan>
 	<!-- springmvc的关键配置 -->
 	<mvc:annotation-driven>
 		<mvc:message-converters>
@@ -46,9 +44,9 @@
 			<ref bean="byteArrayMessageConverter" />
 		</mvc:message-converters>
 	</mvc:annotation-driven>
+	
 	<!-- 这个default-servlet-handler 可以使用DispatcherServlet的url-pattern 是/*, 如果springmvc找不到handler来处理请求, 
 		会自动放过,让serlvet container处理 -->
-
 	<mvc:default-servlet-handler />
 	<!-- 这个tag是方便匹配请求跟view, 这个view一般是静态的 -->
 	<mvc:view-controller path="/about" view-name="about" />
