@@ -21,6 +21,9 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
 	
+	private String direction;// asc,desc
+	private String property;// 排序的字段名称
+	
 	public String getProName() {
 		return proName;
 	}
@@ -103,6 +106,36 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setFileLength(Long fileLength) {
 		this.fileLength = fileLength;
+	}
+	public String getDirection() {
+		return direction;
+	}
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	public String getProperty() {
+		if(property!=null){
+			if(property.equals("meetingDate")){
+				property = "meeting_date";
+			}else if(property.equals("meetingType")){
+				property = "meeting_type";
+			}else if(property.equals("meetingResult")){
+				property = "meeting_result";
+			}
+		}
+		return property;
+	}
+	public void setProperty(String property) {
+		if(property!=null){
+			if(property.equals("meetingDate")){
+				property = "meeting_date";
+			}else if(property.equals("meetingType")){
+				property = "meeting_type";
+			}else if(property.equals("meetingResult")){
+				property = "meeting_result";
+			}
+		}
+		this.property = property==null?null:property.trim();
 	}
 	
 }
