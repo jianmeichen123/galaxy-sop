@@ -421,7 +421,7 @@ function getFileTypeByName(fileName)
 	return type;
 }
 
-function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction,indexNum) {
+function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction,indexNum,success) {
 	
 
 	
@@ -448,6 +448,10 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 							sendPostRequestByJsonObj(platformUrl.stageChange,param,function(data){
 								var result = data.result.status;
 								if(result == "OK"){
+									if($.isFunction(success))
+									{
+										success.call();
+									}
 									layer.msg(data.result.message);
 									$("#powindow,#popbg").remove();
 									info(pid);
@@ -493,7 +497,10 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 					$("div[data-id='popid1']").remove();
 					return false;
 				}
-				
+				if($.isFunction(success))
+				{
+					success.call();
+				}
 				layer.msg(response.result.message);
 				$("#powindow,#popbg").remove();
 				info(pid);

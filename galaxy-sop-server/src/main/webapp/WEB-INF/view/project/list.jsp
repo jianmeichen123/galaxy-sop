@@ -158,6 +158,11 @@
 		}
 		return options;
 	}
+	
+	function refreshProjectList()
+	{
+		$("#data-table").bootstrapTable('refresh');
+	}
 </script>
 
 </html>

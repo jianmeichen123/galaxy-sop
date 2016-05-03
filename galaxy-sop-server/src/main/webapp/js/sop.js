@@ -320,6 +320,10 @@ function startReview(){
 		sendGetRequest(platformUrl.startReview + pid, {}, function(data){
 			var result = data.result.status;
 			if(result == "OK"){
+				if($.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
 				layer.msg("启动内部评审成功!");
 				$("#powindow,#popbg").remove();
 				info(pid);
@@ -376,7 +380,16 @@ function startReview(){
 						condition.result = meetingResult;
 						condition.content = meetingNotes;
 						return condition;
-					},num);
+					},
+					num,
+					function(){
+						var meetingResult = $.trim($("input:radio[name='meetingResult']:checked").val());
+						if('meetingResult:1' == meetingResult && $.isFunction(refreshProjectList))
+						{
+							refreshProjectList.call();
+						}
+					}
+			);
 		}
 	});
 	return false;
@@ -391,6 +404,10 @@ function toEstablishStage(){
 		sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
 			var result = data.result.status;
 			if(result == "OK"){ 
+				if($.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
 				layer.msg("申请立项会成功!");
 				$("#powindow,#popbg").remove();
 				info(pid);
@@ -543,7 +560,13 @@ function tzyxs(flag){
 				condition.fileWorktype = fileWorktype;
 				condition.voucherType = voucherType;
 				return condition;
-			},null);
+			},
+			null,
+			function(){
+				if(i == 1 && $.isFunction(refreshProjectList)){
+					refreshProjectList.call();
+				}
+			});
 		}
 	});
 	return false;
@@ -811,6 +834,10 @@ function inTjh(){
 				function(data){
 					var result = data.result.status;
 					if(result == "OK"){ 
+						if($.isFunction(refreshProjectList))
+						{
+							refreshProjectList.call();
+						}
 						layer.msg("申请成功!");
 						$("#powindow,#popbg").remove();
 						info(pid);
@@ -1011,7 +1038,14 @@ function tzxy(st,projectType){
 				condition.voucherType = voucherType;
 				condition.hasStockTransfer=hasStockTransfer;
 				return condition;
-			},null);
+			},
+			null,
+			function(){
+				if(i==1 && $.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
+			});
 		}
 	});
 	return false;
@@ -1091,7 +1125,14 @@ function selected(obj){
 				condition.voucherType = voucherType;
 				condition.hasStockTransfer=hasStockTransfer;
 				return condition;
-			},null);
+			},
+			null,
+			function(){
+				if(i==1 && $.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
+			});
 		}
 	});
 	return false;
