@@ -109,7 +109,7 @@
                         <dl>
                           <dt>单位（万）：</dt>
                           <dd>
-                            <label><input name="formatUnit" type="radio" value="0"/>人民币</label>
+                            <label><input name="formatUnit" type="radio" value="0" checked/>人民币</label>
                             <label><input name="formatUnit" type="radio" value="1" />美元</label>
                             <label><input name="formatUnit" type="radio" value="2" />英镑</label>
                             <label><input name="formatUnit" type="radio" value="3" />欧元</label>
