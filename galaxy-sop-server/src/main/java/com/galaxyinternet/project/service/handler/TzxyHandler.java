@@ -147,8 +147,10 @@ public class TzxyHandler implements Handler {
 				task.setTaskFlag(SopConstant.TASK_FLAG_GQZR);
 			}
 			//修改
+			Date time=new Date();
 			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
-			task.setUpdatedTime((new Date()).getTime());
+			task.setUpdatedTime(time.getTime());
+			task.setTaskDeadline(time);
 			sopTaskDao.updateTask(task);
 			
 			

@@ -222,7 +222,8 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			}
 			sopTaskBo.setId(sopTasknew.getId());
 			String longToString = DateUtil.longToString(sopTasknew.getCreatedTime());
-		    String diffHour=dateAdd(sopTasknew.getCreatedTime());
+			String diffHour="";
+			diffHour=dateAdd(sopTasknew.getCreatedTime(),sopTasknew.getTaskDeadline());
 			sopTaskBo.setHours(diffHour);
 			sopTaskBo.setTaskDeadlineformat(longToString);//
 			sopTaskBo.setTaskName(sopTasknew.getTaskName()==null?"":sopTasknew.getTaskName());
@@ -416,7 +417,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		return taskFlag;
 	}
-	public String dateAdd(Long date){
+	public String dateAdd(Long date,Date endTime){
 		Date convertStringToDate;
 		String convertDateToString="";
 		int diffHour=0;
@@ -429,7 +430,11 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		    convertStringToDate = DateUtil.convertStringToDate(retStrFormatNowDate,"yyyy-MM-dd HH:mm:ss");
 			Date addDate = DateUtil.addDate(convertStringToDate,3);
 			convertDateToString = DateUtil.convertDateToStringForChina(addDate);
-			diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.getCurrentDateTime());
+            if(null!=endTime&&!"".equals(endTime)){
+        		diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.convertDateToStringForChina(endTime));
+            }else{
+            	diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.getCurrentDateTime());			
+			}
 			result=Integer.toString(diffHour);
 			if(diffHour<0){	
 				hours=result.replace("-", "超时")+"(h)";
@@ -449,6 +454,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	public void submitTask(SopTask task) throws Exception {
 		task = sopTaskDao.selectById(task.getId());
 		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		task.setTaskDeadline(new Date());
 		sopTaskDao.updateById(task);
 		SopTask t = null;
 		if(task.getTaskFlag() != null){

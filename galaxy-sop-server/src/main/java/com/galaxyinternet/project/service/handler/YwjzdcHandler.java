@@ -67,8 +67,10 @@ public class YwjzdcHandler implements Handler {
 		task.setTaskType(DictEnum.taskType.协同办公.getCode());
 		task.setTaskFlag(SopConstant.TASK_FLAG_YWJD);
 		//修改
+		Date time = new Date();
 		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
-		task.setUpdatedTime((new Date()).getTime());
+		task.setUpdatedTime(time.getTime());
+		task.setTaskDeadline(time);
 		sopTaskDao.updateTask(task);
 		
 		return new SopResult(Status.OK,null,"上传业务尽职调查报告成功!",UrlNumber.seven);

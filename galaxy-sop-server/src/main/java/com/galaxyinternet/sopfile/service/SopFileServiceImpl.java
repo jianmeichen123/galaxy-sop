@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -307,6 +308,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		voucherFileDao.updateById(sopVoucherFile);
 		//修改任务状态完成
 		sopTask.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		sopTask.setTaskDeadline(new Date());
 		sopTaskDao.updateById(sopTask);
 		SopTaskBo sopTaskBo = new SopTaskBo();
 		sopTaskBo.setProjectId(sopTask.getProjectId());
