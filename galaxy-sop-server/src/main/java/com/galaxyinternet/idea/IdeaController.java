@@ -1,13 +1,10 @@
 package com.galaxyinternet.idea;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,14 +21,12 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.UserRoleService;
-import com.galaxyinternet.service.UserService;
 @Controller
 @RequestMapping("/galaxy/idea")
 public class IdeaController extends BaseControllerImpl<Idea, Idea> {
@@ -42,8 +37,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	private UserRoleService userRoleService;
 	@Autowired
 	private DepartmentService departmentService;
-	@Autowired
-	private UserService userService;
 	@Override
 	protected BaseService<Idea> getBaseService() {
 		return this.ideaService;
@@ -57,65 +50,23 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	}
 	@ResponseBody
 	@RequestMapping("/search")
-	public ResponseData<Idea> search(@RequestBody Idea query, HttpServletRequest request)
+	public ResponseData<Idea> search(@RequestBody Idea idea, HttpServletRequest request)
 	{
 		ResponseData<Idea> resp = new ResponseData<Idea>();
 		
 		try {
 			PageRequest pageable = new PageRequest();
-			Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
-			Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 10;
+			Integer pageNum = idea.getPageNum() != null ? idea.getPageNum() : 0;
+			Integer pageSize = idea.getPageSize() != null ? idea.getPageSize() : 10;
 			pageable.setPage(pageNum);
 			pageable.setSize(pageSize);
-			//提出人
-			if(StringUtils.isNotEmpty(query.getCreatedUname()))
-			{
-				User userQuery = new User();
-				userQuery.setRealName(query.getCreatedUname());
-				List<User> users = userService.queryList(userQuery);
-				if(users == null || users.size() == 0)
-				{
-					return resp;
-				}
-				
-				List<Long> userIds = new ArrayList<Long>();
-				for(User user : users)
-				{
-					userIds.add(user.getId());
-				}
-				query.setCreatedUids(userIds);
-			}
-			//提出时间
-			if(StringUtils.isNotEmpty(query.getCreatedDate()))
-			{
-				
-				Date createdDate = DateUtil.convertStringToDate(query.getCreatedDate());
-				query.setCreatedTimeFrom(DateUtil.getSearchFromDate(createdDate).getTime());
-				query.setCreatedTimeThrough(DateUtil.getSearchToDate(createdDate).getTime());
-			
-			}
-			//角色 - 投资经理、合伙人查看本事业线创意
-			User user = (User)getUserFromSession(request);
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			if(roleIdList != null && roleIdList.size()>0 && (roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HHR)))
-			{
-				query.setDepartmentId(user.getDepartmentId());
-			}
-			
-			Page<Idea> page = ideaService.queryPageList(query, pageable);
+			Page<Idea> page = ideaService.queryPageList(idea, pageable);
 			resp.setPageList(page);
 		} catch (Exception e) {
 			resp.getResult().addError("查询创意出错");
 			logger.error("查询创意出错", e);
 		}
 		return resp;
-	}
-	
-	@RequestMapping("/ideaProjectList")
-	public String ideaProjectList(String ideaProgress, HttpSession session)
-	{
-		session.setAttribute("ideaProgress", ideaProgress);
-		return "/idea/idea_project_list";
 	}
 	@ResponseBody
 	@RequestMapping("/getDepartment")
@@ -198,5 +149,39 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		return responseBody;
 	}
+	/**
+	 * 根据创意id获取创意相关信息
+	 * @param idea
+	 * @author jianmeichen
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/claimIdea")
+	public ResponseData<Idea> claimIdea(@RequestBody Idea idea,HttpServletRequest request)
+	{
+		ResponseData<Idea> responseBody = new ResponseData<Idea>();
+		if(idea.getId() == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
+			return responseBody;
+		}
+		User user = (User)getUserFromSession(request);
+		if(null!=user){
+			idea.setClaimantUid(user.getId());
+		}
+		try {
+			int queryById = ideaService.updateById(idea);
+			if(queryById<=0){
+				responseBody.setResult(new Result(Status.ERROR, null, "认领创意失败!"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK,null,"认领创意成功！"));
+		} catch (Exception e) {
+			responseBody.getResult().addError("认领创意失败!");
+			logger.error("认领创意失败!",e);
+		}
+		return responseBody;
+	}
+	
 	
 }
