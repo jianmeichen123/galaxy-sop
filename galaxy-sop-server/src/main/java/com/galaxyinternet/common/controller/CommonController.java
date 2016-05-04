@@ -136,9 +136,9 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		if(roleIdList.contains(UserConstant.DMS) ||roleIdList.contains(UserConstant.CEOMS)){
 			tabs.clear();
 			tabs.add(new Menus(1L, 0, "工作桌面", u + "galaxy/index?" + params));
-			tabs.add(new Menus(18L, 0, "立项会排期池", serverUrl + "" + params));
-			tabs.add(new Menus(19L, 0, "投决会排期池", serverUrl + "" + params));
-			tabs.add(new Menus(20L, 0, "CEO评审会排期池", serverUrl + "" + params));								
+			tabs.add(new Menus(18L, 0, "立项会排期池", u + "galaxy/lxh?" + params));
+			tabs.add(new Menus(19L, 0, "投决会排期池", u + "galaxy/tjh?" + params));
+			tabs.add(new Menus(20L, 0, "CEO评审会排期池", u + "galaxy/psh?" + params));								
 		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;

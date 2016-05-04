@@ -240,6 +240,32 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 		return "/resumetc/resumetc";
 	}
 	
+	
+	/**
+	 * 到立项会排期列表
+	 * @return
+	 */
+	@RequestMapping(value = "/lxh", method = RequestMethod.GET)
+	public String lxh() {
+		return "shedule/lxh";
+	}
+	/**
+	 * 到投决会排期列表
+	 * @return
+	 */
+	@RequestMapping(value = "/tjh", method = RequestMethod.GET)
+	public String tjh() {
+		return "shedule/tjh";
+	}
+	/**
+	 * 到CEO评审会排期列表
+	 * @return
+	 */
+	@RequestMapping(value = "/psh", method = RequestMethod.GET)
+	public String psh() {
+		return "shedule/psh";
+	}
+	
 	@Override
 	protected BaseService<User> getBaseService() {
 		return null;

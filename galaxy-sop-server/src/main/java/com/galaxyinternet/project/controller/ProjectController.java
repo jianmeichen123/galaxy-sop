@@ -1667,4 +1667,28 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		responseBody.setResult(result);
 		return responseBody;
 	}
+	
+	
+	/**
+	 * 排期池列表查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryScheduling", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingScheduling> searchSchedulingList(HttpServletRequest request, @RequestBody MeetingScheduling query) {
+		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
+		User user = (User) getUserFromSession(request);
+		
+		try {	
+			Page<MeetingScheduling> schedulingPageList = meetingSchedulingService.queryPageList(query, new PageRequest(query.getPageNum(), query.getPageSize()));
+			responseBody.setPageList(schedulingPageList);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, null, "queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
+		return responseBody;
+	}
 }
