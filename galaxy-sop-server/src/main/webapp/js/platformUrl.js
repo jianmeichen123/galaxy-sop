@@ -412,7 +412,11 @@ var platformUrl = {
 	/**
 	 * 获取创意的事业线信息
 	 */
-	getDegreeByParent : Constants.sopEndpointURL + "/galaxy/idea/getDepartment"
+	getIdeaDepartment : Constants.sopEndpointURL + "/galaxy/idea/getDepartment",
+	/**
+	 * 获取创意-立项会、投决会
+	 */
+	ideaProjectList : Constants.sopEndpointURL + "/galaxy/idea/ideaProjectList"
 }
 
 /**

@@ -137,47 +137,23 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
+<script src="<%=path %>/js/idea-common.js"></script>
 <script type="text/javascript">
 	createMenus(21);
+	getDepartment();
 	
-	function dateFormatter(val,row,index)
-	{
-		if(!isNaN(val))
+	$("#custom-toolbar [name='ideaProgress']").change(function(){
+		var val = $(this).val();
+		if(val == 'ideaProgress:6' || val == 'ideaProgress:7')
 		{
-			return Number(val).toDate().format("yyyy-MM-dd");
-		}
-		return val;
-	}
-	function progressFormatter(val,row,index)
-	{
-		if(val != null)
-		{
-			return $('[name="ideaProgress"] option[value="'+val+'"]').text();
-		}
-	}
-	
-	function refreshIdeaList()
-	{
-		$("#data-table").bootstrapTable('refresh');
-	}
-	sendGetRequest(
-			platformUrl.getDegreeByParent,
-			null,
-			function(data){
-				if(data.result.status = 'OK')
-				{
-					var $depField = $("#custom-toolbar [name='departmentId']");
-					$depField.empty();
-					if(data.entityList.length >1)
-					{
-						$depField.append('<option value="">全部</option>');
-					}
-					$.each(data.entityList,function(){
-						$depField.append('<option value="'+this.id+'">'+this.name+'</option>');
-					})
+			$.getHtml({
+				url:platformUrl.ideaProjectList,
+				okback:function(){
+					
 				}
-			}
-	);
+			});
+		}
+	});
 </script>
 
 </html>
