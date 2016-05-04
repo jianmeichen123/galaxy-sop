@@ -140,12 +140,13 @@
 <script src="<%=path %>/js/idea-common.js"></script>
 <script type="text/javascript">
 	createMenus(21);
-	getDepartment();
+	getDepartment($("#custom-toolbar [name='departmentId']"));
 	
 	$("#custom-toolbar [name='ideaProgress']").change(function(){
 		var val = $(this).val();
 		if(val == 'ideaProgress:6' || val == 'ideaProgress:7')
 		{
+			$(this).val("");
 			$.getHtml({
 				url:platformUrl.ideaProjectList,
 				okback:function(){

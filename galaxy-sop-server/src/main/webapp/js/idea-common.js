@@ -18,7 +18,7 @@ function dateFormatter(val,row,index)
 	{
 		$("#data-table").bootstrapTable('refresh');
 	}
-	function getDepartment()
+	function getDepartment($depField)
 	{
 		sendGetRequest(
 				platformUrl.getIdeaDepartment,
@@ -26,7 +26,6 @@ function dateFormatter(val,row,index)
 				function(data){
 					if(data.result.status = 'OK')
 					{
-						var $depField = $("#custom-toolbar [name='departmentId']");
 						$depField.empty();
 						if(data.entityList.length >1)
 						{
