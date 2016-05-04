@@ -79,8 +79,7 @@ $(function(){
 			platformUrl.submitTask,
 			{
 				id:"${taskId}",
-				taskStatus:"taskStatus:3",
-				taskFlag:"${taskFlag}"
+				taskStatus:"taskStatus:3"
 			},
 			function(data){
 				if(data.result.status=="OK"){

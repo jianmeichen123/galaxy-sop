@@ -18,6 +18,8 @@ import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Idea;
@@ -96,4 +98,56 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		return resp;
 	}
+	/**
+	 * 根据创意id获取创意相关信息
+	 * @author jianmeichen
+	 * @serialData 2016-05-04
+	 * @param idea
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getIdea")
+	public ResponseData<Idea> getIdea(@RequestBody Idea idea,HttpServletRequest request)
+	{
+		ResponseData<Idea> responseBody = new ResponseData<Idea>();
+		if(idea.getId() == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
+			return responseBody;
+		}
+		try {
+			Idea queryById = ideaService.queryById(idea.getId());
+			responseBody.setEntity(queryById);
+			responseBody.setResult(new Result(Status.OK,null,"查询数据成功"));
+		} catch (Exception e) {
+			responseBody.getResult().addError("查询创意信息失败");
+			logger.error("查询创意信息失败",e);
+		}
+		return responseBody;
+	}
+	/**
+	 * 根据创意id获取创意相关信息
+	 * @param idea
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateIdea")
+	public ResponseData<Idea> updateIdea(@RequestBody Idea idea,HttpServletRequest request)
+	{
+		ResponseData<Idea> responseBody = new ResponseData<Idea>();
+		try {
+			int queryById = ideaService.updateById(idea);
+			if(queryById<=0){
+				responseBody.setResult(new Result(Status.ERROR, null, "编辑创意信息失败!"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK,null,"更新创意成功！"));
+		} catch (Exception e) {
+			responseBody.getResult().addError("编辑创意信息失败");
+			logger.error("编辑创意信息失败",e);
+		}
+		return responseBody;
+	}
+	
 }
