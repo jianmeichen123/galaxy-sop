@@ -405,6 +405,10 @@ var platformUrl = {
 	 * 更新文件
 	 */
 	updateFile: Constants.sopEndpointURL + "/galaxy/project/updateCommonFile",
+	/**
+	 * 获取学历信息
+	 */
+	getDegreeByParent : Constants.sopEndpointURL + "/galaxy/project/getDegreeByParent"
 }
 
 /**

@@ -441,15 +441,28 @@ function closeback(data){
 	    
 	    //添加团队成员
 	    function addPerson(){
-			$.getHtml({
+	    	sendGetRequest(platformUrl.getDegreeByParent + "/" + "null",null,addPersonCallBack);
+			return false;
+	   }
+	   function addPersonCallBack(data){
+		   $.getHtml({
 				url:platformUrl.addPersonView,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
-					
+					var _dom =  $("#highestDegree");
+				    _dom.empty();
+					_dom.append("<option value='all'>请选择</option>");
+					$.each(data.entityList,function(){
+						if(this.code){
+							_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
+						}else{
+							_dom.append("<option value='"+this.id+"'>"+this.name+"</option>");
+						}
+						
+					});	
 				}//模版反回成功执行	
 					
-			});
-			return false;
+			});     
 	   }
 	    
 	   //添加股权结构
@@ -459,6 +472,11 @@ function closeback(data){
 				data:"",//传递参数
 				okback:function(){
 					
+					
+					
+					
+					
+					
 				}//模版反回成功执行	
 					
 			});
@@ -467,15 +485,32 @@ function closeback(data){
 	    
 	   
 	function updatePer(id){
-		var _url = platformUrl.updatePerView+id;
+	
+		sendGetRequest(platformUrl.getDegreeByParent+"/"+id,null,updatePerCallBack);
+		return false;
+	}
+	
+	function updatePerCallBack(data){
+		var _url = platformUrl.updatePerView+data.result.message;
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
+				
+				var _dom =  $("#highestDegree");
+			    _dom.empty();
+				_dom.append("<option value='all'>请选择</option>");
+				$.each(data.entityList,function(){
+					if(_dom.data("value")==this.code){
+						_dom.append("<option value='"+this.code+"' selected=true >"+this.name+"</option>");
+					}else{
+						_dom.append("<option value='"+this.id+"'>"+this.name+"</option>");
+					}
+					
+				});	
 			
 			}//模版反回成功执行	
 		});
-		return false;
 	}
 	getTabPerson();
 	getTabShare();

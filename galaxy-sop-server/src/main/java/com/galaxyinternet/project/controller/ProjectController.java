@@ -51,6 +51,7 @@ import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.FormatData;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
@@ -1632,6 +1633,38 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			logger.error("更新失败",e);
 		}
 		
+		return responseBody;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/getDegreeByParent/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Dict> getDictByParent( @PathVariable String id,HttpServletRequest request) {
+		ResponseData<Dict> responseBody = new ResponseData<Dict>();
+		List<Dict> dicts = new ArrayList<Dict>();
+		Dict dict = null;
+		Result result = new Result();
+		try {
+			for(DictEnum.degree degree : DictEnum.degree.values()){
+				dict = new Dict();
+				dict.setCode(degree.getCode());
+				dict.setName(degree.getName());
+				dicts.add(dict);
+			}
+		}catch(PlatformException e){
+			result.setErrorCode(e.getCode()+"");
+			result.setMessage(e.getMessage());
+		}catch(Exception e){
+			result.setMessage("系统错误");
+			result.addError("系统错误");
+			logger.error("根据parentId查找数据字典错误",e);
+		}
+		if(!("null").equals(id)){
+			result.setMessage(id);
+		}
+	    result.setStatus(Status.OK);
+	    responseBody.setEntityList(dicts);
+		responseBody.setResult(result);
 		return responseBody;
 	}
 }
