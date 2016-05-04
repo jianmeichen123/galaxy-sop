@@ -408,7 +408,11 @@ var platformUrl = {
 	/**
 	 * 获取学历信息
 	 */
-	getDegreeByParent : Constants.sopEndpointURL + "/galaxy/project/getDegreeByParent"
+	getDegreeByParent : Constants.sopEndpointURL + "/galaxy/project/getDegreeByParent",
+	/**
+	 * 获取创意的事业线信息
+	 */
+	getDegreeByParent : Constants.sopEndpointURL + "/galaxy/idea/getDepartment"
 }
 
 /**

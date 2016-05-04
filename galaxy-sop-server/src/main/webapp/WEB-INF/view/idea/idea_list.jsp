@@ -160,6 +160,24 @@
 	{
 		$("#data-table").bootstrapTable('refresh');
 	}
+	sendGetRequest(
+			platformUrl.getDegreeByParent,
+			null,
+			function(data){
+				if(data.result.status = 'OK')
+				{
+					var $depField = $("#custom-toolbar [name='departmentId']");
+					$depField.empty();
+					if(data.entityList.length >1)
+					{
+						$depField.append('<option value=""></option>');
+					}
+					$.each(data.entityList,function(){
+						$depField.append('<option value="'+this.id+'">'+this.name+'</option>');
+					})
+				}
+			}
+	);
 </script>
 
 </html>
