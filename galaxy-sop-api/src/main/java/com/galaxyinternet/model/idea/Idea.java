@@ -1,5 +1,7 @@
 package com.galaxyinternet.model.idea;
 
+import java.util.List;
+
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class Idea extends PagableEntity 
@@ -22,6 +24,10 @@ public class Idea extends PagableEntity
 	private String ideaProgressDesc;
 	private String projectName;
 	private String claimantUname;
+	private List<Long> createdUids;
+	private String createdDate;
+	private Long createdTimeFrom;
+	private Long createdTimeThrough;
 	public String getIdeaName() {
 		return ideaName;
 	}
@@ -111,6 +117,30 @@ public class Idea extends PagableEntity
 	}
 	public void setClaimantUname(String claimantUname) {
 		this.claimantUname = claimantUname;
+	}
+	public List<Long> getCreatedUids() {
+		return createdUids;
+	}
+	public void setCreatedUids(List<Long> createdUids) {
+		this.createdUids = createdUids;
+	}
+	public String getCreatedDate() {
+		return createdDate;
+	}
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
+	}
+	public Long getCreatedTimeFrom() {
+		return createdTimeFrom;
+	}
+	public void setCreatedTimeFrom(Long createdTimeFrom) {
+		this.createdTimeFrom = createdTimeFrom;
+	}
+	public Long getCreatedTimeThrough() {
+		return createdTimeThrough;
+	}
+	public void setCreatedTimeThrough(Long createdTimeThrough) {
+		this.createdTimeThrough = createdTimeThrough;
 	}
 	
 	

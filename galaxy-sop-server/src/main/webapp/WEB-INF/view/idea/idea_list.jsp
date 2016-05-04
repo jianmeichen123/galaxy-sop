@@ -28,6 +28,8 @@
 
 
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 
 </head>
 
@@ -38,8 +40,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>全部创意/h2>
-    	 <input type="hidden" id="project_id" value=""/>
+    	<h2>全部创意</h2>
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
@@ -49,7 +50,6 @@
         </div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
-		     <input type="hidden"  id="tipslink_val" name="proType" value="1" />
 			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fmdll clearfix">
 					<dt>关键字：</dt>
@@ -79,9 +79,21 @@
 	                  <option value="ideaProgress:7">投决会</option>
 	                </select>
 	              </dd>
-	              <dd>
+	            </dl>
+	            <dl class="fmdl fml fmdll clearfix">
+	            	<dt>提出人：</dt>
+	            	<dd>
+	            	<input type="text" class="txt" name="createdUname" size="8"/>
+	            	</dd>
+	            </dl>
+	            <dl class="fmdl fml fmdll clearfix">
+	            	<dt>提出时间：</dt>
+	            	<dd>
+	            	<input type="text" class="datepicker txt time" readonly id="createdDate" name="createdDate"  style="height:23px;"/>
+	            	</dd>
+	            	<dd>
 						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
-				  </dd>
+				    </dd>
 	            </dl>
 				
 			</div>
@@ -95,9 +107,9 @@
 			        	<th data-field="ideaName" data-align="center" class="data-input">创意名称</th>
 			        	<th data-field="departmentDesc" data-align="center" class="data-input">所属事业线</th>
 			        	<th data-field="createdUname" data-align="center" class="data-input">提出人</th>
-			        	<th data-field="createdTime" data-align="center" class="data-input">提出时间</th>
-			        	<th data-field="updatedTime" data-align="center" class="data-input">最后编辑时间</th>
-			        	<th data-field="ideaProgressDesc" data-align="center" class="data-input">进度</th>
+			        	<th data-field="createdTime" data-align="center" class="data-input" data-formatter="dateFormatter">提出时间</th>
+			        	<th data-field="updatedTime" data-align="center" class="data-input" data-formatter="dateFormatter">最后编辑时间</th>
+			        	<th data-field="ideaProgress" data-align="center" class="data-input" data-formatter="progressFormatter">进度</th>
  					</tr>	
  				</thead>
 			</table>
@@ -120,21 +132,31 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
 
+<!-- time -->
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+
 <script type="text/javascript">
-	createMenus(5);
-	/**
-	 * 分页数据生成操作内容
-	 */
-	function editor(value, row, index){
-		var id=row.id;
-		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
-		if(row.projectStatus != 'meetingResult:3' && parseInt(row.createUid) == parseInt(userId)){
-			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>编辑项目</a>";
+	createMenus(21);
+	
+	function dateFormatter(val,row,index)
+	{
+		if(!isNaN(val))
+		{
+			return Number(val).toDate().format("yyyy-MM-dd");
 		}
-		return options;
+		return val;
+	}
+	function progressFormatter(val,row,index)
+	{
+		if(val != null)
+		{
+			return $('[name="ideaProgress"] option[value="'+val+'"]').text();
+		}
 	}
 	
-	function refreshProjectList()
+	function refreshIdeaList()
 	{
 		$("#data-table").bootstrapTable('refresh');
 	}

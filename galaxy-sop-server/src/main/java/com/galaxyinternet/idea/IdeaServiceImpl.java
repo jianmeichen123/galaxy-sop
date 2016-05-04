@@ -1,5 +1,6 @@
 package com.galaxyinternet.idea;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Idea;
@@ -47,9 +49,39 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		return ideaDao;
 	}
 	@Override
-	public Page<Idea> queryPageList(Idea query, Pageable pageable) {
+	public Page<Idea> queryPageList(Idea query, Pageable pageable) 
+	{
 		// TODO Auto-generated method stub
-		Page<Idea> page = super.queryPageList(query, pageable);
+		Page<Idea> page = new Page<Idea>(null,null,null);
+		if(StringUtils.isNotEmpty(query.getCreatedUname()))
+		{
+			User userQuery = new User();
+			userQuery.setRealName(query.getCreatedUname());
+			List<User> users = userService.queryList(userQuery);
+			if(users == null || users.size() == 0)
+			{
+				return page;
+			}
+			
+			List<Long> userIds = new ArrayList<Long>();
+			for(User user : users)
+			{
+				userIds.add(user.getId());
+			}
+			query.setCreatedUids(userIds);
+		}
+		if(StringUtils.isNotEmpty(query.getCreatedDate()))
+		{
+			try {
+				Date createdDate = DateUtil.convertStringToDate(query.getCreatedDate());
+				query.setCreatedTimeFrom(DateUtil.getSearchFromDate(createdDate).getTime());
+				query.setCreatedTimeThrough(DateUtil.getSearchToDate(createdDate).getTime());
+			} catch (ParseException e) {
+				throw new RuntimeException("时间格式错误："+query.getCreatedDate(),e);
+			}
+		}
+		
+		page = super.queryPageList(query, pageable);
 		List<Idea> list = page.getContent();
 		if(list != null && list.size() > 0)
 		{
