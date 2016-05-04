@@ -232,7 +232,10 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	
 	
 	
-private String tempfilePath;
+	
+	
+	
+	private String tempfilePath;
 	
 	
 	public String getTempfilePath() {
@@ -439,12 +442,21 @@ private String tempfilePath;
 				responseBody.setResult(new Result(Status.ERROR,null, "传入信息不全"));
 				return responseBody;
 			}
-			ideafile.setRecordType(RecordType.IDEAS.getType());
 			
-			ideafile.setFileUid(user.getId());
-			ideafile.setFileUName(user.getRealName());
-			ideafile.setCareerLine(user.getDepartmentId());
-			ideafile.setCareerLineName(user.getDepartmentName());
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+				return responseBody;
+			}
+			if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
+				ideafile.setFileUid(user.getId());
+				ideafile.setFileUName(user.getRealName());
+				ideafile.setCareerLine(user.getDepartmentId());
+				ideafile.setCareerLineName(user.getDepartmentName());
+			}
+			
+			ideafile.setRecordType(RecordType.IDEAS.getType());
 			
 			Page<SopFile> pageList = sopFileService.queryFileList(ideafile, 
 					new PageRequest(ideafile.getPageNum()==null?0:ideafile.getPageNum(), ideafile.getPageSize()==null?10:ideafile.getPageSize(),Direction.DESC,"updated_time"));
@@ -477,45 +489,55 @@ private String tempfilePath;
 	
 	
 	
-	
 	//=======================     启动创建立项会    ===============================//
-	
-	
 	/**
-	 * 根据创意id获取创意相关信息
-	 * @param idea
-	 * @author jianmeichen
-	 * @param request
+	 * 更新创意阶段
+	 * @param  ideaid 创意id
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/claimIdea")
-	public ResponseData<Idea> claimIdea(@RequestBody Idea idea,HttpServletRequest request)
-	{
+	@RequestMapping(value = "/ideaStartMeet/{ideaid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Idea> ideaStartMeet(HttpServletRequest request,@PathVariable("ideaid") Long ideaid) {
+		
 		ResponseData<Idea> responseBody = new ResponseData<Idea>();
-		if(idea.getId() == null){
-			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
-			return responseBody;
-		}
-		User user = (User)getUserFromSession(request);
-		if(null!=user){
-			idea.setClaimantUid(user.getId());
-		}
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		
 		try {
-			int queryById = ideaService.updateById(idea);
-			if(queryById<=0){
-				responseBody.setResult(new Result(Status.ERROR, null, "认领创意失败!"));
+			Idea idea = ideaService.queryById(ideaid);
+			
+			Result err = errMessage(idea,user,null);   //仅创建人可启动
+			if(err!=null && err.getStatus()!=null){
+				responseBody.setResult(err);
 				return responseBody;
 			}
-			responseBody.setResult(new Result(Status.OK,null,"认领创意成功！"));
+			
+			if(idea.getIdeaProgress()==null||!idea.getIdeaProgress().equals(DictEnum.IdeaProgress.CYDY.getCode())){
+				responseBody.setResult(new Result(Status.ERROR, null, "操作不允许"));
+				return responseBody;
+			}else{
+				//调研阶段  SopFile中是否有可行性报告
+				SopFile file = new SopFile();
+				file.setProjectId(ideaid);
+				file.setProjectProgress(idea.getIdeaProgress());
+				file.setRecordType(RecordType.IDEAS.getType());
+				List<SopFile> ideaFileList = sopFileService.queryList(file);
+				if(ideaFileList==null || ideaFileList.isEmpty()){
+					responseBody.setResult(new Result(Status.ERROR, null, "请完善可行性报告"));
+					return responseBody;
+				}else{
+					idea.setIdeaProgress(DictEnum.IdeaProgress.CYLXH.getCode());
+					ideaService.updateById(idea);
+				}
+			}
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setEntity(idea);
 		} catch (Exception e) {
-			responseBody.getResult().addError("认领创意失败!");
-			logger.error("认领创意失败!",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "启动创建立项会失败"));
+			logger.error("ideaStartMeet 启动创建立项会失败",e);
 		}
+		
 		return responseBody;
 	}
-	
-	
 	
 	
 	
