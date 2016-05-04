@@ -6,7 +6,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.data.domain.Pageable;
+
 import com.galaxyinternet.bo.sopfile.SopFileBo;
+import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
@@ -80,5 +83,11 @@ public interface SopFileService extends BaseService<SopFile> {
 	 * @throws Exception
 	 */
 	public void download(HttpServletRequest request,HttpServletResponse response,String tempfilePath,SopDownLoad downloadEntity) throws Exception;
+	
+	
+	/**
+	 * 文件查询
+	 */
+	public Page<SopFile> queryFileList(SopFile query, Pageable pageable);
 	
 }

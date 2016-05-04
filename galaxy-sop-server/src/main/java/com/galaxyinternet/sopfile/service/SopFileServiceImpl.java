@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.sopfile.SopVoucherFileBo;
@@ -51,6 +52,7 @@ import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -58,6 +60,7 @@ import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
@@ -787,4 +790,67 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	
 	
 
+	/*@Autowired
+	private DictService dictService;*/
+	
+	/**
+	 * @param query   projectid : cyid,  RecordType:1   fileuid : 登陆人id
+	 */
+	@Override
+	public Page<SopFile> queryFileList(SopFile query, Pageable pageable) {
+		Page<SopFile> filePage = null;
+		List<SopFile> fileList = null;
+		Long total = null;
+		Map<Long,String> uIdNameMap = new HashMap<Long,String>();
+		Map<Long,String> departIdNameMap = new HashMap<Long,String>();
+		
+		//查询所有file记录
+		fileList = sopFileDao.selectList(query, pageable);
+		total = sopFileDao.selectCount(query);
+		
+		if(fileList!=null && fileList.size()>0){
+			if(query.getFileUid()!=null){  //个人下的文档
+				uIdNameMap.put(query.getFileUid(), query.getFileUName()); //uid-uname
+				departIdNameMap.put(query.getCareerLine(), query.getCareerLineName()); //departid-departname
+			}else{
+				//uid-uname
+				User user = new User();
+				List<Long> uids = new ArrayList<Long>();	
+				for(SopFile sopFile : fileList){
+					if(sopFile.getFileUid()!=null && !uids.contains(sopFile.getFileUid())){
+						uids.add(sopFile.getFileUid());
+					}	
+				}
+				user.setIds(uids);
+				List<User> userList = userService.queryList(user);
+				if(userList!=null && !userList.isEmpty()){
+					for(User au : userList){
+						uIdNameMap.put(au.getId(), au.getRealName());
+					}
+				}
+				
+				//departid-departname
+				List<Department> allDepartMent = departmentService.queryAll();
+				if(allDepartMent!=null){
+					for(Department ad : allDepartMent){
+						departIdNameMap.put(ad.getId(), ad.getName());
+					}
+				}
+			}
+			for(SopFile afile:fileList){
+				afile.setFileUName(uIdNameMap.get(afile.getFileUid()));
+				afile.setCareerLineName(departIdNameMap.get(afile.getCareerLine()));
+				
+			}
+			
+			filePage = new Page<SopFile>(fileList, pageable, total);
+		}else{
+			filePage = new Page<SopFile>(new ArrayList<SopFile>() , pageable, 0l);
+		}
+		
+		return filePage;
+	}
+	
+	
+	
 }
