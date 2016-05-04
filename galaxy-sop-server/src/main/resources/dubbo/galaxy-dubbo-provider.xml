@@ -40,4 +40,6 @@
  	<!-- 
     <dubbo:service interface="com.galaxyinternet.service.UserService" ref="com.galaxyinternet.service.UserService" version="1.0.0"/>
  	-->
+ 	  <dubbo:service interface="com.galaxyinternet.service.ProjectService" ref="com.galaxyinternet.service.ProjectService" version="1.0.0"/>
+ 	
 </beans>
