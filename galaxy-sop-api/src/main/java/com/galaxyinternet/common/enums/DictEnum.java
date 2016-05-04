@@ -594,6 +594,48 @@ public enum DictEnum {
 		}
 	}
 	
+	
+	
+	public enum IdeaProgress {
+
+		CYCJ("创意已创建/待认领","ideaProgress:1"),
+		CYDY("调研","ideaProgress:2"),
+		CYLXH("创建立项会","ideaProgress:3"),
+		CYXM("创建项目","ideaProgress:4");
+
+		private String name;
+		private String code;
+
+		private IdeaProgress(String name, String code) {
+			this.name = name;
+			this.code = code;
+		}
+
+		public String getCode() {
+			return code;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public static String getName(String code) {
+			IdeaProgress[] ideaP = IdeaProgress.values();
+			String name = "";
+			for (IdeaProgress aidea : ideaP) {
+				if (code == aidea.getCode()) {
+					name = aidea.getName();
+					break;
+				}
+			}
+			return name;
+		}
+	}
+	
+	
+	
+	
+	
 	// 档案来源
 		public enum degree {
 			高中("高中", "1"), 大专("大专", "2"),本科("本科", "3"),硕士("硕士", "4"),MBA("MBA", "5"),博士("博士", "6"),其他("其他", "7");
