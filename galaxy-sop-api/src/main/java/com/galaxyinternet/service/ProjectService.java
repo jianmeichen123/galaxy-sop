@@ -29,5 +29,10 @@ public interface ProjectService extends BaseService<Project> {
 	
 	public int closeProject(Project project);
 	
+	/**
+	 * 为项目补全档案
+	 */
+	public long perfectFilesForProject(Project project) throws Exception;
+	
 
 }
