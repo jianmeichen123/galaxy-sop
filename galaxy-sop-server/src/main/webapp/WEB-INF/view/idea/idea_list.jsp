@@ -170,7 +170,7 @@
 					$depField.empty();
 					if(data.entityList.length >1)
 					{
-						$depField.append('<option value=""></option>');
+						$depField.append('<option value="">全部</option>');
 					}
 					$.each(data.entityList,function(){
 						$depField.append('<option value="'+this.id+'">'+this.name+'</option>');
