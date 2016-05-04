@@ -45,7 +45,8 @@ $(function(){
 			platformUrl.updateTaskStatus,
 			{
 				id:"${taskId}",
-				taskStatus:"taskStatus:3"
+				taskStatus:"taskStatus:3",
+				taskFlag:"${taskFlag}"
 			},
 			function(data){
 				if(data.result.status=="OK"){

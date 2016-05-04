@@ -36,11 +36,14 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
+import com.galaxyinternet.service.SopVoucherFileService;
 
 @Controller
 @RequestMapping("/galaxy/soptask")
@@ -61,6 +64,12 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	
 	@Autowired
 	SopTaskProcessController taskProcessController;
+	
+	@Autowired
+	private SopFileService sopFileService;
+	
+	@Autowired
+	private SopVoucherFileService sopVoucherFileSerce;
 
 	@Override
 	protected BaseService<SopTask> getBaseService() {
@@ -314,9 +323,69 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	@RequestMapping(value = "/submitTask", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTask> submitTask(@RequestBody SopTask entity,HttpServletRequest request) {
 		ResponseData<SopTask> responseBody = new ResponseData<SopTask>();
+		SopFile sipFile =new SopFile();
 		if(entity.getId() == null){
 			responseBody.setResult(new Result(Status.ERROR,null,"缺失必须的参数!"));
 			return responseBody;
+		}
+		SopTask soptask=sopTaskService.queryById(entity.getId());
+		if(null==soptask){
+			responseBody.setResult(new Result(Status.ERROR,null,"找不到该任务!"));
+			return responseBody;
+		}
+		boolean flag=true;
+		String fileWorktype = "";
+		switch(soptask.getTaskFlag())
+		{
+			case 0: //完善简历
+				break;
+			case 1 : //表示投资意向书
+				fileWorktype = "fileWorktype:5";
+				break;
+			case 2 : //人事尽职调查报告
+			//	btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:2";
+				break;
+			case 3 : //法务尽职调查报告
+				//btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:3";
+				break;
+			case 4 : //财务尽调报告
+			//	btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:4";
+				break;
+			case 5 : //业务尽调报告	
+				fileWorktype = "fileWorktype:1";
+				break;
+			case 6 : //投资协议
+				fileWorktype = "fileWorktype:6";
+				break;
+			case 7 : //股权转让协议
+				fileWorktype = "fileWorktype:7";
+				break;
+			case 8 : //资金拨付凭证
+				//btnTxt = "上传资金拨付凭证";
+				fileWorktype = "fileWorktype:9";
+				break;
+			case 9 : //工商变更登记凭证
+			//	btnTxt = "上传工商变更登记凭证";
+				fileWorktype = "fileWorktype:8";
+				break;
+			default :
+				flag=false;
+		}
+		sipFile.setProjectId(soptask.getProjectId());
+		sipFile.setFileWorktype(fileWorktype);
+		SopFile queryOne = sopFileService.queryOne(sipFile);
+		if(null!=queryOne){
+			if(queryOne.getFileStatus().equals("fileStatus:1")){
+				responseBody.setResult(new Result(Status.ERROR,null,"文件未上传，任务提交失败!"));
+				return responseBody;
+			}
+		  if(queryOne.getFileStatus().equals("fileStatus:2")&&null!=queryOne.getVoucherId()){
+				responseBody.setResult(new Result(Status.ERROR,null,"签署证明未上传，任务提交失败"));
+		        return responseBody;
+		     }
 		}
 		try {
 			sopTaskService.submitTask(entity);
@@ -391,5 +460,4 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	
 		return map;
 	}
-	
 }
