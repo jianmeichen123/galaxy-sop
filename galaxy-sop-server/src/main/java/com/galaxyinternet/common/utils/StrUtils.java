@@ -1,5 +1,7 @@
 package com.galaxyinternet.common.utils;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public class StrUtils {
 
@@ -30,6 +32,25 @@ public class StrUtils {
 			}
 		}
 		return sb.toString();
+	}
+	
+	
+
+	
+	/**
+	 * 文件名、后缀分离
+	 */
+	public static Map<String, String> transFileNames(String fileName) {
+		Map<String, String> retMap = new HashMap<String, String>();
+		int dotPos = fileName.lastIndexOf(".");
+		if(dotPos == -1){
+			retMap.put("fileName", fileName);
+			retMap.put("fileSuffix", "");
+		}else{
+			retMap.put("fileName", fileName.substring(0, dotPos));
+			retMap.put("fileSuffix", fileName.substring(dotPos+1));
+		}
+		return retMap;
 	}
 	
 

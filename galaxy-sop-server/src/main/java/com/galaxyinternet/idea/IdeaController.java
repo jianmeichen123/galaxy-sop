@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.RecordType;
+import com.galaxyinternet.common.utils.StrUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -66,12 +67,55 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	@Autowired
 	private  SopFileService sopFileService;
 	
-	
 	@Override
 	protected BaseService<Idea> getBaseService() {
 		return this.ideaService;
 	}
 
+	private String tempfilePath;
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
+	
+	
+	/**
+	 * 验证提取，
+	 */
+	public Result errMessage(Idea idea,User user,String ideaPrograss){
+		if(idea == null){
+			return new Result(Status.ERROR, null, "创意检索为空!");
+		}
+
+		if(user != null){  //认领人Id 和 登陆用户id
+			if(idea.getClaimantUid()==null || user.getId().longValue()!=idea.getClaimantUid().longValue()){ 
+				return new Result(Status.ERROR, null, "没有权限!");
+			}
+		}
+		
+		if(ideaPrograss != null){
+			if(idea.getIdeaProgress()!=null){
+				try {
+					int operationPro = Integer.parseInt(ideaPrograss.substring(ideaPrograss.length()-1)) ;
+					int ideaPro = Integer.parseInt(idea.getIdeaProgress().substring(idea.getIdeaProgress().length()-1)) ;
+					if(ideaPro < operationPro){
+						return new Result(Status.ERROR, "501", "操作违规!");
+					}
+				} catch (Exception e) {
+					return new Result(Status.ERROR, null, "信息不和规范");
+				}
+			}else{
+				return new Result(Status.ERROR, null, "创意阶段出错");
+			}
+		}
+		return null;
+	}
+	
+	
+	
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String list()
@@ -236,77 +280,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	private String tempfilePath;
-	
-	
-	public String getTempfilePath() {
-		return tempfilePath;
-	}
-	@Value("${sop.oss.tempfile.path}")
-	public void setTempfilePath(String tempfilePath) {
-		this.tempfilePath = tempfilePath;
-	}
-	
-	
-	
-	public Result errMessage(Idea idea,User user,String ideaPrograss){
-		if(idea == null){
-			return new Result(Status.ERROR, null, "创意检索为空!");
-			
-		}
-
-		if(user != null){  //认领人Id 和 登陆用户id
-			if(idea.getClaimantUid()==null || user.getId().longValue()!=idea.getClaimantUid().longValue()){ 
-				return new Result(Status.ERROR, null, "没有权限!");
-			}
-		}
-		
-		if(ideaPrograss != null){
-			if(idea.getIdeaProgress()!=null){
-				try {
-					int operationPro = Integer.parseInt(ideaPrograss.substring(ideaPrograss.length()-1)) ;
-					int ideaPro = Integer.parseInt(idea.getIdeaProgress().substring(idea.getIdeaProgress().length()-1)) ;
-					if(ideaPro < operationPro){
-						return new Result(Status.ERROR, "501", "操作违规!");
-					}
-				} catch (Exception e) {
-					return new Result(Status.ERROR, null, "信息不和规范");
-				}
-			}else{
-				return new Result(Status.ERROR, null, "创意阶段出错");
-			}
-		}
-		
-		return null;
-	}
-	
-	private Map<String, String> transFileNames(String fileName) {
-		Map<String, String> retMap = new HashMap<String, String>();
-		int dotPos = fileName.lastIndexOf(".");
-		if(dotPos == -1){
-			retMap.put("fileName", fileName);
-			retMap.put("fileSuffix", "");
-		}else{
-			retMap.put("fileName", fileName.substring(0, dotPos));
-			retMap.put("fileSuffix", fileName.substring(dotPos+1));
-		}
-		return retMap;
-	}
-	
-	
-	
-	
 	//=======================   上传可行性报告      ===============================//
+	//=======================    更新可行性报告     ===============================//
 	/**
 	 * 上传可行性报告
 	 * @param   ideafile recordType:1 创意    <br/>
@@ -324,7 +299,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		
+		SopFile editFile = null;
 		if(ideafile.getProjectId() == null){
 			String json = JSONUtils.getBodyString(request);
 			ideafile = GSONUtil.fromJson(json, SopFile.class);
@@ -347,8 +322,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			}
 			if(ideafile.getIsEdit()!=null && ideafile.getIsEdit().equals("edit")){  //更新验证
 				if(ideafile.getId()!=null){
-					SopFile sopfile = sopFileService.queryById(ideafile.getId());
-					if(sopfile == null || sopfile.getId()==null){
+					editFile = sopFileService.queryById(ideafile.getId());
+					if(editFile == null || editFile.getId()==null){
 						responseBody.setResult(new Result(Status.ERROR,null, "传入信息错误"));
 						return responseBody;
 					}
@@ -362,7 +337,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			Long id = null;
 			Map<String,String> nameMap = null;
 			if(ideafile.getFileKey()!=null){  //前端已完成上传
-				if(ideafile.getFileLength()==null||ideafile.getFileName()==null){ //FileName.txt
+				if(ideafile.getFileLength()==null||ideafile.getFileName()==null||ideafile.getFileName().trim().length()==0){ //FileName.txt
 					responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
 					return responseBody;
 				}
@@ -370,26 +345,26 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					ideafile.setBucketName(OSSFactory.getDefaultBucketName());
 				}
 				
-				nameMap = transFileNames(ideafile.getFileName());
+				nameMap = StrUtils.transFileNames(ideafile.getFileName().trim());
 				
 			}else if(ServletFileUpload.isMultipartContent(request)){   // 后台上传
-				
-				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				String fileKey = null;
+				if(editFile != null && editFile.getFileKey()!=null){
+					fileKey = editFile.getFileKey();
+				}else{
+					fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				}
 				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
 				
 				//上传成功后
 				if(result!=null && result.getResult().getStatus()!=null && result.getResult().getStatus().equals(Status.OK)){
 					nameMap = new HashMap<String,String>();
 					if(ideafile.getFileName()!=null && ideafile.getFileName().trim().length()>0){
-						nameMap = transFileNames(ideafile.getFileName().trim());
+						nameMap = StrUtils.transFileNames(ideafile.getFileName().trim());
 					}else{
 						 nameMap.put("fileName",result.getFileName());
 						 nameMap.put("fileSuffix", result.getFileSuffix());
 					}
-					if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
-						responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
-						return responseBody;
-					}//end get file name 
 					
 					ideafile.setBucketName(result.getBucketName()==null?OSSFactory.getDefaultBucketName():result.getBucketName()); 
 					ideafile.setFileKey(fileKey);  
@@ -415,6 +390,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					responseBody.setResult(new Result(Status.ERROR,null, "更新失败"));
 					return responseBody;
 				}
+				id = ideafile.getId();
 			}else{
 				id = sopFileService.insert(ideafile);
 			}
@@ -428,11 +404,9 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		return responseBody;
 	}
-	//=======================    更新可行性报告     ===============================//
 	
 	
 	//=======================     创意调研阶段文档列表    ===============================//
-	
 	/**
 	 * 创意调研阶段文档列表   单个创意下
 	 * @param   ideafile <br/>
@@ -489,17 +463,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	
 	
 	
-	
-	
-	
-	
-	//=======================    放弃    ===============================//
-	
-	
-	
-	
-	
-	
 	//=======================     启动创建立项会    ===============================//
 	/**
 	 * 更新创意阶段
@@ -549,6 +512,13 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		
 		return responseBody;
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
