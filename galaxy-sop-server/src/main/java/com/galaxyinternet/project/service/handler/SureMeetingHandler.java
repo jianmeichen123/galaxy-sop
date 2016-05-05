@@ -113,6 +113,7 @@ public class SureMeetingHandler implements Handler {
 			task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
 			task.setCreatedTime(System.currentTimeMillis());
 			sopTaskDao.insert(task);
+			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		}
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			p.setProjectStatus(DictEnum.meetingResult.否决.getCode());
