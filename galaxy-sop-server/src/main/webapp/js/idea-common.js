@@ -20,10 +20,96 @@
 	
 	function showIdeaDetail(ideaId)
 	{
+		var $self = $(this);
+		var _url = platformUrl.ideaGoStage+"?id="+ideaId;
 		$.getHtml({
-			url:platformUrl.ideaGoStage,
-			data:{id:ideaId}
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$("[data-btn='meeting']").on("click",function(){
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+				$("[data-btn='abandon']").on("click",function(){
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+				$("[data-btn='edit_name']").on("click",function(){
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+				$("[data-btn='edit']").on("click",function(){
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+				$("[data-btn='claim']").on("click",function(){
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+				$(".creativetc .tabtable").tabchange2();
+				$('#project_name').click(function(){
+					$('.block').css({
+						display: 'none',
+					});;
+					$(".aa").show();
+					$('.tablink li').eq(0).addClass('on').siblings().removeClass('on');
+				});
+				$('#project_name').click(function(){
+					$(".tabtable_con .block").eq(0).show().siblings().hide();
+					$('.tablink li').eq(0).addClass('on').siblings().removeClass('on');
+				});
+				$("[data-btn='create']").on("click",function(){
+					$(".tabtable_con .block").eq(3).show().siblings().hide();
+					$('.tablink li').eq(3).addClass('on').siblings().removeClass('on');
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+			}//模版反回成功执行	
 		});
+		return false;
+
 	}
 	function refreshIdeaList()
 	{

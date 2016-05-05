@@ -93,6 +93,7 @@ public class SureMeetingHandler implements Handler {
 		
 		int in = Integer.parseInt(DictEnum.projectProgress.投资决策会.getCode().substring(DictEnum.projectProgress.投资决策会.getCode().length()-1));
 		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
+			
 		if(q.getResult().equals(DictEnum.meetingResult.通过.getCode()) && (in == pin)){
 			p.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 			p.setUpdatedTime((new Date()).getTime());
@@ -112,6 +113,7 @@ public class SureMeetingHandler implements Handler {
 			task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
 			task.setCreatedTime(System.currentTimeMillis());
 			sopTaskDao.insert(task);
+			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		}
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			p.setProjectStatus(DictEnum.meetingResult.否决.getCode());

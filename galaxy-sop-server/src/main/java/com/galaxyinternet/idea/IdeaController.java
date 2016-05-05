@@ -300,16 +300,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/getIdea")
-	public ResponseData<Idea> getIdea(@RequestBody Idea idea,HttpServletRequest request)
+	@RequestMapping("/getIdea/{id}")
+	public ResponseData<Idea> getIdea( @PathVariable Long id,HttpServletRequest request)
 	{
 		ResponseData<Idea> responseBody = new ResponseData<Idea>();
-		if(idea.getId() == null){
+		if(id == null){
 			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
 			return responseBody;
 		}
 		try {
-			Idea queryById = ideaService.queryById(idea.getId());
+			Idea queryById = ideaService.queryById(id);
 			responseBody.setEntity(queryById);
 			responseBody.setResult(new Result(Status.OK,null,"查询数据成功"));
 		} catch (Exception e) {

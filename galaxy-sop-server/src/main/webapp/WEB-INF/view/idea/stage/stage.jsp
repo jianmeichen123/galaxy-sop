@@ -18,16 +18,16 @@
           <div class="tabtable">
           <!-- tab标签 -->
             <ul class="tablink">
-                <li data-tab="nav"><a href="javascript:;">基本信息</a></li>
-                <li data-tab="nav"><a href="javascript:;">调研</a></li>
-                <li data-tab="nav"><a href="javascript:;">创建立项会</a></li>           
-                <li data-tab="nav"><a href="javascript:;">创建项目</a></li>           
-                <li data-tab="nav"><a href="javascript:;">变更动态</a></li>           
+                <li data-tab="nav">基本信息</li>
+                <li data-tab="nav">调研</li>
+                <li data-tab="nav">创建立项会</li>           
+                <li data-tab="nav">创建项目</li>           
+                <li data-tab="nav">变更动态</li>           
             </ul>
             <!-- tab内容 -->
             <div class="tabtable_con tabtable_con_close">
             <!-- 创意基本信息 -->
-              <div class="block block_t show aa"  data-tab="con">
+              <div class="block block_t show aa"  data-tab="con" id="ideaDetail">
                   <div class="btnbox_f1 btnbox_m clearfix">
                     <button class="pubbtn fffbtn" href="tchtml/creative_claimtc.html" data-btn="claim">认领</button>
                     <button class="pubbtn fffbtn" href="tchtml/creative_edit.html" data-btn="edit">编辑</button>
@@ -35,35 +35,35 @@
                   <div class="top clearfix">
                     <dl>
                       <dt>创意编号：</dt>
-                      <dd>CY0001</dd>
+                      <dd id="ideaCode"></dd>
                     </dl>
                     <dl>
                       <dt>创意名称：</dt>
-                      <dd>食乐淘</dd>
+                      <dd id="ideaName">食乐淘</dd>
                     </dl>
                     <dl>
                       <dt>创意来源：</dt>
-                      <dd></dd>
+                      <dd id="ideaSource"></dd>
                     </dl>
                     <dl>
                       <dt>提出人：</dt>
-                      <dd>投资经理</dd>
+                      <dd id="createPerson">投资经理</dd>
                     </dl>
                     <dl>
                       <dt>所属事业线：</dt>
-                      <dd>O2O</dd>
+                      <dd id="departmentLine">O2O</dd>
                     </dl>
                   </div>
                   <div class="mid clearfix">
                     <dl>
                       <dt>提出时间：</dt>
-                      <dd>2016-05-04</dd>
+                      <dd id="createTime">2016-05-04</dd>
                     </dl>
                   </div>
                   <div class="bottom clearfix">
                     <dl>
                       <dt>创建阐述：</dt>
-                      <dd>阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容阐述内容</dd>
+                      <dd id="ideaDesc"></dd>
                     </dl>
                   </div>
               </div>
@@ -98,7 +98,7 @@
               <div class="block block_t" data-tab="con">
                 <!--按钮-->
                 <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-                    <button class="pubbtn fffbtn lpubbtn" href="tchtml/creative_meetingtc.html" data-btn="meeting">添加会员纪要</button>
+                    <button class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/ideaGoMeeting" data-btn="meeting">添加会员纪要</button>
                     <button class="pubbtn fffbtn lpubbtn" href="tchtml/creative_e_n.html" data-btn="create">创建成项目</button>
                     <button class="pubbtn fffbtn" href="tchtml/creative_abandontc.html" data-btn="abandon">放弃</button>
                 </div>
@@ -188,7 +188,40 @@
                   </table>
               </div>            
               </div>              
-
-
-            </div>
-          </div>    
+           </div>
+          </div>  
+      <script type="text/javascript">
+		$(function(){
+			getProjectInfo();
+		});
+            
+       function getProjectInfo()
+        {
+	     var url = platformUrl.detailIdea+"/${id}";
+	    sendGetRequest(
+		url,
+		{"id":"${id}"},
+		function(data){
+			if(data.result.status == "Error")
+			{
+				alert(data.result.message );
+				return;
+			}
+			var idea = data.entity;
+			stockTransfer = idea.stockTransfer;
+			
+			$("#ideaDetail dd")
+			.each(function(){
+				var self = $(this);
+				if(self.attr('id') != 'undefined')
+				{
+					var id = self.attr('id');
+			
+						self.text(idea[id]);
+				}
+				
+			});
+		}
+	);
+}
+</script>

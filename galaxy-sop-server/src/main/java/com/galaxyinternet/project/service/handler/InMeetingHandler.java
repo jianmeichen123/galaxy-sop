@@ -90,6 +90,7 @@ public class InMeetingHandler implements Handler {
 			ms.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 			ms.setMeetingCount(0);
 			ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 			ms.setCreatedTime((new Date()).getTime());
 			meetingSchedulingDao.insert(ms);
 		}

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.idea.Abandoned">
+	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.idea.Abandoned">
+		<id column="id" 					property="id"				jdbcType="BIGINT"  />
+		<result column="ab_username" 			property="abUsername" 		jdbcType="VARCHAR" 	/>
+		<result column="ab_userid" 		property="abUserid"  	  jdbcType="BIGINT"	/>
+		<result column="ab_datetime" 		property="abDatetime" 		jdbcType="TIMESTAMP" />
+		<result column="idea_id" 		property="ideaId" 		jdbcType="BIGINT" />
+		<result column="ab_reason" 		property="abReason" 		jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id,
+		ab_username,
+		ab_userid,
+		ab_datetime,
+		idea_id,
+		ab_reason
+	</sql>
+	
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="abUsername != null" > and ab_username = #{abUsername,jdbcType=VARCHAR} </if>
+				<if test="abUserid != null" > and ab_userid = #{abUserid,jdbcType=BIGINT} </if>
+				<if test="abDatetime != null" > and ab_datetime = #{abDatetime,jdbcType=TIMESTAMP} </if>
+				<if test="ideaId != null" > and idea_id = #{ideaId,jdbcType=BIGINT} </if>
+				<if test="abReason != null" > and ab_reason = #{abReason,jdbcType=VARCHAR} </if>
+			
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	<!-- 根据ID查询-->
+	<select id="selectById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from sop_abandoned
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_abandoned 
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(id) from sop_abandoned
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_abandoned
+		<include refid="Base_Where_Clause" />
+	</delete>
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_abandoned
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	
+ 	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.idea.Idea">
+ 		insert into sop_abandoned 
+ 		(
+	 				id,
+			ab_username,
+			ab_userid,
+			ab_datetime,
+			idea_id,
+			ab_reason
+ 		)
+ 		values 
+ 		(
+ 			#{id,jdbcType=BIGINT}, 
+ 			#{abUsername,jdbcType=VARCHAR},
+ 			#{abUserid,jdbcType=BIGINT},
+ 			#{abDatetime,jdbcType=TIMESTAMP},
+ 			#{ideaId,jdbcType=BIGINT},
+ 			#{abReason,jdbcType=VARCHAR}	
+ 		)
+ 	</insert>
+	
+	
+	<update id="updateById" parameterType="SopTemplatePO">
+		update sop_abandoned
+		<set>
+			<if test="abUsername != null"> ab_username = #{abUsername,jdbcType=VARCHAR}, </if>
+			<if test="abUserid != null"> ab_userid = #{abUserid,jdbcType=BIGINT}, </if>
+			<if test="abDatetime != null"> ab_datetime = #{abDatetime,TIMESTAMP=BIGINT}, </if>
+			<if test="ideaId != null"> idea_id = #{ideaId,jdbcType=BIGINT}, </if>
+			<if test="abReason != null"> ab_reason = #{abReason,jdbcType=VARCHAR} </if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+</mapper>

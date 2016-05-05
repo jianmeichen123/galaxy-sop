@@ -82,7 +82,10 @@ public class CeoMeetingHandler implements Handler {
 		m.setProjectId(q.getPid());
 		m.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 		MeetingScheduling tm = meetingSchedulingDao.selectOne(m);
+		
+		//添加会议记录时一直是待定状态
 		tm.setStatus(DictEnum.meetingResult.通过.getCode());
+		
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			Project p = new Project();
 			p.setId(q.getPid());
@@ -90,6 +93,7 @@ public class CeoMeetingHandler implements Handler {
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
+			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
 		}
 		tm.setMeetingDate(new Date());
 		tm.setMeetingCount(tm.getMeetingCount() + 1);

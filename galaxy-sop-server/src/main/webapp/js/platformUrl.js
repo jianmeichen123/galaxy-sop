@@ -424,8 +424,9 @@ var platformUrl = {
 	/**
 	 * 创意详细
 	 */
-	ideaGoMeeting : Constants.sopEndpointURL + "/galaxy/idea/goIdeaMeeting"
+	ideaGoMeeting : Constants.sopEndpointURL + "/galaxy/idea/goIdeaMeeting",
 	
+	detailIdea:Constants.sopEndpointURL + "/galaxy/idea/getIdea"
 }
 
 /**
