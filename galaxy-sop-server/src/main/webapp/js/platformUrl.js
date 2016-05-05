@@ -349,7 +349,7 @@ var platformUrl = {
 	 */
 	
 	personHHr: Constants.sopEndpointURL+"/galaxy/hrjl/genresumetcc",
-	
+	inCeoMeetingPool : Constants.sopEndpointURL+"/galaxy/project/incm/",
 	/**
 	 * 催办
 	 */
