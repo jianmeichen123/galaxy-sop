@@ -171,6 +171,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		return resp;
 	}
 	/**
+	 * 弹出页面
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@RequestMapping(value = "/goIdeaStagePage",method = RequestMethod.GET)
+	public String goClaimtcPage(HttpServletRequest request) {
+       String id = request.getParameter("id");
+	   request.setAttribute("id", id);
+		return "idea/stage/stage";
+	}
+	/**
 	 * 根据创意id获取创意相关信息
 	 * @author jianmeichen
 	 * @serialData 2016-05-04
