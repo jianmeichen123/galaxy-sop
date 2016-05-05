@@ -229,6 +229,43 @@ public enum DictEnum {
 	        }
 	        return null;
 	    }
+	}
+	
+	//会议状态
+	public enum meetingSheduleResult {
+		待排期("待排期",0),
+		已排期("已排期",1),
+		已通过("已通过",2),
+		已否决("已否决",3);
+		private String name;
+		private int code;
+		private meetingSheduleResult(String name, int code) {
+			this.name = name;
+			this.code = code;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public int getCode() {
+			return code;
+		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(int code) {
+	        meetingSheduleResult[] values = meetingSheduleResult.values();
+            for (int i = 0;i < values.length;i++) {
+                if (code == values[i].getCode()) {
+                    return values[i].getName();
+                }                
+            }
+	        return null;
+	    }
 	}		
 	
 	//任务类型

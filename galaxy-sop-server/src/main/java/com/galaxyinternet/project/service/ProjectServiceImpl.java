@@ -177,6 +177,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setMeetingType(DictEnum.meetingType.立项会.getCode());
 		ms.setMeetingCount(0);
 		ms.setStatus(DictEnum.meetingResult.待定.getCode());
+		ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 		ms.setCreatedTime((new Date()).getTime());
 		meetingSchedulingDao.insert(ms);
 		
@@ -186,6 +187,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		m.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 		m.setStatus(DictEnum.meetingResult.通过.getCode());
 		m.setUpdatedTime((new Date()).getTime());
+		m.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		meetingSchedulingDao.updateBySelective(m);
 	}
 
@@ -198,6 +200,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setMeetingType(DictEnum.meetingType.投决会.getCode());
 		ms.setMeetingCount(0);
 		ms.setStatus(DictEnum.meetingResult.待定.getCode());
+		ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 		ms.setCreatedTime((new Date()).getTime());
 		meetingSchedulingDao.insert(ms);
 	}
