@@ -393,6 +393,7 @@ $(function(){
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
+				alert("11111111");
 				$("[data-btn='meeting']").on("click",function(){
 					var $self = $(this);
 					var _url = $self.attr("href");
@@ -448,7 +449,7 @@ $(function(){
 					});
 					return false;
 				});
-				$(".creativetc .tabtable").tabchange();
+				$(".creativetc .tabtable").tabchange2();
 				$('#project_name').click(function(){
 					$('.block').css({
 						display: 'none',
