@@ -6,7 +6,7 @@
 
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="idea-project-table-toolbar">
-			<input type="hidden" name="ideaProgress" value="ideaProgress:6">
+			<input type="hidden" name="ideaProgress" value="ideaProgress:1">
 			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fmdll clearfix">
 					<dt>关键字：</dt>
@@ -39,7 +39,7 @@
 				<thead>
 				    <tr>
 				    	<th data-field="ideaCode" data-align="center" class="data-input">创意编码</th>
-			        	<th data-field="ideaName" data-align="center" class="data-input">创意名称</th>
+			        	<th data-field="ideaName" data-align="center" class="data-input" data-formatter="ideaNameLinkFormatter">创意名称</th>
 			        	<th data-field="projectName" data-align="center" class="data-input">关联项目</th>
 			        	<th data-field="departmentDesc" data-align="center" class="data-input">所属事业线</th>
 			        	<th data-field="ideaProgress" data-align="center" class="data-input" data-formatter="progressFormatter">进度</th>
