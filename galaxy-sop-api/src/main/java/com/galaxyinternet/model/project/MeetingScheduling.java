@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.project;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,10 @@ public class MeetingScheduling extends PagableEntity {
     private String status;
 
     private String remark;
+    private Integer scheduleStatus;
+    private Timestamp applyTime;
+    private Timestamp reserveTime;
+    private Timestamp lastTime;
     //排序字段名称
     private String sortName;
     //排序方式
@@ -28,7 +33,7 @@ public class MeetingScheduling extends PagableEntity {
     
     private  List<Long> deptIdList;
     private List<Long> projectIdList;
-  //项目名称
+    //项目名称
   	private String projectName;
   	//投资事业线
   	private String projectCareerline;
@@ -36,19 +41,15 @@ public class MeetingScheduling extends PagableEntity {
     private String createUname;
     private String meetingDateStr; 
     
-    //排期开始时间
-    private Date scheduleStarttime;
-    
-    //排期结束时间
-    private Date scheduleEndtime;
-    //排期状态   
-    private String scheduleStatus;
     
     //申请时间(申请立项会时间)
     private  Date meetTime;
     
     //项目代码
     private String projectCode;
+    
+    //权限部分
+    private byte isEdit;
     
     
 	public String getProjectCode() {
@@ -57,30 +58,6 @@ public class MeetingScheduling extends PagableEntity {
 
 	public void setProjectCode(String projectCode) {
 		this.projectCode = projectCode;
-	}
-
-	public Date getScheduleStarttime() {
-		return scheduleStarttime;
-	}
-
-	public void setScheduleStarttime(Date scheduleStarttime) {
-		this.scheduleStarttime = scheduleStarttime;
-	}
-
-	public Date getScheduleEndtime() {
-		return scheduleEndtime;
-	}
-
-	public void setScheduleEndtime(Date scheduleEndtime) {
-		this.scheduleEndtime = scheduleEndtime;
-	}
-
-	public String getScheduleStatus() {
-		return scheduleStatus;
-	}
-
-	public void setScheduleStatus(String scheduleStatus) {
-		this.scheduleStatus = scheduleStatus;
 	}
 
 	public String getMeetingDateStr() {
@@ -163,6 +140,38 @@ public class MeetingScheduling extends PagableEntity {
         this.remark = remark == null ? null : remark.trim();
     }
 
+	public Integer getScheduleStatus() {
+		return scheduleStatus;
+	}
+
+	public void setScheduleStatus(Integer scheduleStatus) {
+		this.scheduleStatus = scheduleStatus;
+	}
+
+	public Timestamp getApplyTime() {
+		return applyTime;
+	}
+
+	public void setApplyTime(Timestamp applyTime) {
+		this.applyTime = applyTime;
+	}
+
+	public Timestamp getReserveTime() {
+		return reserveTime;
+	}
+
+	public void setReserveTime(Timestamp reserveTime) {
+		this.reserveTime = reserveTime;
+	}
+
+	public Timestamp getLastTime() {
+		return lastTime;
+	}
+
+	public void setLastTime(Timestamp lastTime) {
+		this.lastTime = lastTime;
+	}
+
 	public String getSortName() {
 		return sortName;
 	}
@@ -210,7 +219,10 @@ public class MeetingScheduling extends PagableEntity {
 	public void setMeetTime(Date meetTime) {
 		this.meetTime = meetTime;
 	}
-	
-	
-	
+	public byte getIsEdit() {
+		return isEdit;
+	}
+	public void setIsEdit(byte isEdit) {
+		this.isEdit = isEdit;
+	}
 }

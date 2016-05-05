@@ -82,6 +82,7 @@ public class CeoMeetingHandler implements Handler {
 		m.setProjectId(q.getPid());
 		m.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 		MeetingScheduling tm = meetingSchedulingDao.selectOne(m);
+		tm.setStatus(DictEnum.meetingResult.通过.getCode());
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			Project p = new Project();
 			p.setId(q.getPid());

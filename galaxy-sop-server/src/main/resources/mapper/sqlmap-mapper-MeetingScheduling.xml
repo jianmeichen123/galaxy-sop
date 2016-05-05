@@ -9,17 +9,19 @@
 	    <result column="meeting_count" property="meetingCount" jdbcType="INTEGER" />
 	    <result column="meeting_date" property="meetingDate" jdbcType="TIMESTAMP" />
 	    <result column="status" property="status" jdbcType="VARCHAR" />
-	    <result column="schedule_starttime" property="scheduleStarttime" jdbcType="TIMESTAMP" />
-	    <result column="schedule_endtime" property="scheduleEndtime" jdbcType="TIMESTAMP" />
-	    <result column="schedule_status" property="scheduleStatus" jdbcType="VARCHAR" />
 	    <result column="remark" property="remark" jdbcType="VARCHAR" />
+	    <result column="schedule_status" property="scheduleStatus"/>
+	    <result column="apply_time" property="applyTime"/>
+	    <result column="reserve_time" property="reserveTime"/>
+	    <result column="last_time" property="lastTime"/>
 	    <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
 	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
 	    
 	</resultMap>
 	
   <sql id="Base_Column_List" >
-    id, project_id, meeting_type, meeting_count, meeting_date, status,schedule_starttime,schedule_endtime,schedule_status, remark, updated_time, 
+    id, project_id, meeting_type, meeting_count, meeting_date, status, remark, schedule_status,
+    apply_time,reserve_time, last_time, updated_time, 
     created_time
   </sql>
   
@@ -32,10 +34,8 @@
 				<if test="meetingCount != null" >and meeting_count = #{meetingCount,jdbcType=INTEGER} </if>
 				<if test="meetingDate != null" >and meeting_date = #{meetingDate,jdbcType=TIMESTAMP} </if>
 				<if test="status != null" >and status = #{status,jdbcType=VARCHAR} </if>
-				<if test="scheduleStarttime != null" >and schedule_starttime = #{scheduleStarttime,jdbcType=TIMESTAMP} </if>
-				<if test="scheduleEndtime != null" >and schedule_endtime = #{scheduleEndtime,jdbcType=TIMESTAMP} </if>
-				<if test="scheduleStatus != null" >and schedule_status = #{scheduleStatus,jdbcType=VARCHAR} </if>
 				<if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
+				<if test="scheduleStatus != null" >and schedule_status = #{scheduleStatus} </if>
 				<if test="updatedTime != null" >and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 				<if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 				<if test="projectIdList != null">
@@ -95,12 +95,13 @@
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.MeetingScheduling" >
 	    <![CDATA[
 		insert into sop_meeting_scheduling (id, project_id, meeting_type, 
-	      meeting_count, meeting_date, status, schedule_starttime,schedule_endtime,schedule_status,
-	      remark, updated_time, created_time
+	      meeting_count, meeting_date, status, 
+	      remark, schedule_status,
+    	  apply_time, reserve_time, last_time, updated_time, created_time
 	      )
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{meetingType,jdbcType=VARCHAR}, 
 	      #{meetingCount,jdbcType=INTEGER}, #{meetingDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
-	      #{scheduleStarttime,jdbcType=TIMESTAMP},#{scheduleEndtime,jdbcType=TIMESTAMP},#{scheduleStatus,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}
+	      #{remark,jdbcType=VARCHAR}, #{scheduleStatus}, #{applyTime}, #{reserveTime}, #{lastTime}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}
 	      )
 	    ]]>
     </insert>
@@ -114,10 +115,11 @@
 			<if test="meetingCount != null" > meeting_count = #{meetingCount,jdbcType=INTEGER}, </if>
 			<if test="meetingDate != null" > meeting_date = #{meetingDate,jdbcType=TIMESTAMP}, </if>
 			<if test="status != null" > status = #{status,jdbcType=VARCHAR}, </if>
-			<if test="scheduleStarttime != null" > schedule_starttime = #{scheduleStarttime,jdbcType=TIMESTAMP}, </if>
-			<if test="scheduleEndtime != null" > schedule_endtime = #{scheduleEndtime,jdbcType=TIMESTAMP}, </if>
-			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus,jdbcType=VARCHAR}, </if>
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
+			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
+			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
+			<if test="reserveTime != null" > reserve_time = #{reserveTime}, </if>
+			<if test="lastTime != null" > last_time = #{lastTime}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		</set>
@@ -129,9 +131,6 @@
 				<if test="meetingCount != null" >and meeting_count = #{meetingCount,jdbcType=INTEGER} </if>
 				<if test="meetingDate != null" >and meeting_date = #{meetingDate,jdbcType=TIMESTAMP} </if>
 				<if test="status != null" >and status = #{status,jdbcType=VARCHAR} </if>
-			    <if test="scheduleStarttime != null" >and schedule_starttime = #{scheduleStarttime,jdbcType=TIMESTAMP} </if>
-				<if test="scheduleEndtime != null" >and schedule_endtime = #{scheduleEndtime,jdbcType=TIMESTAMP} </if>
-				<if test="scheduleStatus != null" >and schedule_status = #{scheduleStatus,jdbcType=VARCHAR} </if>
 				<if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
 				<if test="updatedTime != null" >and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 				<if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
@@ -169,6 +168,10 @@
 			<if test="scheduleEndtime != null" > schedule_endtime = #{scheduleEndtime,jdbcType=TIMESTAMP}, </if>
 			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus,jdbcType=VARCHAR}, </if>
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
+			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
+			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
+			<if test="reserveTime != null" > reserve_time = #{reserveTime}, </if>
+			<if test="lastTime != null" > last_time = #{lastTime}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		</set>

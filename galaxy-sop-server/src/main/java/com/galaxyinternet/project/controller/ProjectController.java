@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -1019,6 +1020,45 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	
 	/**
+	 * CEO评审阶段申请CEO评审排期
+	 * @author yangshuhua
+	 */
+	@ResponseBody
+	@RequestMapping(value="/incm/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> inCeoMeetingPool(HttpServletRequest request,@PathVariable("pid") Long pid) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
+		Project project = projectService.queryById(pid);
+		Result result = validate(DictEnum.projectProgress.CEO评审.getCode(), project, user);
+		if(!result.getStatus().equals(Status.OK)){
+			responseBody.setResult(result);
+			return responseBody;
+		}
+		try {
+			MeetingScheduling m = new MeetingScheduling();
+			m.setProjectId(project.getId());
+			m.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
+			MeetingScheduling tm = meetingSchedulingService.queryOne(m);
+			if(!tm.getStatus().equals(DictEnum.meetingResult.待定.getCode())){
+				tm.setStatus(DictEnum.meetingResult.待定.getCode());
+				tm.setUpdatedTime((new Date()).getTime());
+				meetingSchedulingService.updateById(tm);
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setId(project.getId());
+			}else{
+				responseBody.setResult(new Result(Status.ERROR,null,"项目不能重复申请CEO评审排期!"));
+			}
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "异常，申请CEO评审排期失败!"));
+			if(logger.isErrorEnabled()){
+				logger.error("update project faild ",e);
+			}
+		}
+		return responseBody;
+	}
+	
+	
+	/**
 	 * CEO评审阶段申请立项会排期
 	 * @author yangshuhua
 	 */
@@ -1671,16 +1711,72 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	/**
 	 * 排期池列表查询
+	 * @param type -- 1表示立项会、2表示投决会、3表示CEO内评会
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/queryScheduling", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingScheduling> searchSchedulingList(HttpServletRequest request, @RequestBody MeetingScheduling query) {
+	@RequestMapping(value = "/queryScheduling/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingScheduling> searchSchedulingList(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody MeetingScheduling query) {
 		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
-		User user = (User) getUserFromSession(request);
-		
+		if(query.getMeetingType() == null 
+				|| !SopConstant._meeting_type_pattern_.matcher(query.getMeetingType()).matches()){
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
+			return responseBody;
+		}
 		try {	
-			Page<MeetingScheduling> schedulingPageList = meetingSchedulingService.queryPageList(query, new PageRequest(query.getPageNum(), query.getPageSize()));
-			responseBody.setPageList(schedulingPageList);
+			byte isEdit = 0;
+			User user = (User) getUserFromSession(request);
+			
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(roleIdList.contains(UserConstant.DMS)){
+				if(type.intValue() == 1 || type.intValue() == 2){
+					isEdit = 1;
+				}else{
+					isEdit = 2;
+				}
+			}else if(roleIdList.contains(UserConstant.CEOMS)){
+				if(type.intValue() == 3){
+					isEdit = 1;
+				}else{
+					isEdit = 2;
+				}
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, null, "不可见!"));
+				return responseBody;
+			}
+			/**
+			 * 默认查询待排期的，可通过条件查询搜索其他
+			 */
+			if(query.getScheduleStatus() == null){
+				query.setScheduleStatus(0);
+			}
+			List<MeetingScheduling> schedulingList = meetingSchedulingService.queryList(query);
+			List<String> ids = new ArrayList<String>();
+			for(MeetingScheduling ms : schedulingList){
+				ms.setIsEdit(isEdit);
+				ids.add(String.valueOf(ms.getProjectId()));
+			}
+			ProjectBo pb = new ProjectBo();
+			pb.setIds(ids);
+			List<Project> projectList = projectService.queryList(pb);
+			for(MeetingScheduling ms : schedulingList){
+				for(Project p : projectList){
+					if(ms.getProjectId().longValue() == p.getId().longValue()){
+						ms.setProjectCode(p.getProjectCode());
+						ms.setProjectName(p.getProjectName());
+						ms.setProjectCareerline(p.getProjectCareerline());
+						ms.setCreateUname(p.getCreateUname());
+					}
+				}
+			}
+			PageRequest pageable = new PageRequest(0, 10, Direction.DESC,"apply_time");
+			Page<MeetingScheduling> pageEntity = new Page<MeetingScheduling>(null,pageable , null);
+			pageEntity.setTotal(new Long(schedulingList.size()));
+			List<MeetingScheduling> sl = new ArrayList<MeetingScheduling>();
+			sl.addAll(schedulingList.subList(
+					pageable.getPageNumber()*pageable.getPageSize(), 
+					(pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize()) > schedulingList.size() ? schedulingList.size() : (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize())));
+			pageEntity.setContent(sl);
+			responseBody.setPageList(pageEntity);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
 		} catch (PlatformException e) {
