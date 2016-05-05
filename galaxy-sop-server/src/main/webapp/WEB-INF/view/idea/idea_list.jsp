@@ -151,6 +151,7 @@
 			$(this).val("");
 			$.getHtml({
 				url:platformUrl.ideaProjectList,
+				data:{ideaProgress:val},
 				okback:function(){
 					
 				}
