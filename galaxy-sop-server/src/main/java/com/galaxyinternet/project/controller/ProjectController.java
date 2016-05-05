@@ -1728,12 +1728,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/queryScheduling/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> searchSchedulingList(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody MeetingScheduling query) {
 		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
-		if(query.getMeetingType() == null 
-				|| !SopConstant._meeting_type_pattern_.matcher(query.getMeetingType()).matches()){
-			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
-			return responseBody;
-		}
 		try {	
+			if(type.intValue() == 1){
+				query.setMeetingType(DictEnum.meetingType.立项会.getCode());
+			}else if(type.intValue() == 2){
+				query.setMeetingType(DictEnum.meetingType.投决会.getCode());
+			}else{
+				query.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
+			}
 			byte isEdit = 0;
 			User user = (User) getUserFromSession(request);
 			
