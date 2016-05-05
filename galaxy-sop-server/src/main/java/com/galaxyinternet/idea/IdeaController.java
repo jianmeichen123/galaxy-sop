@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
@@ -235,7 +234,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	}
 	
 	@RequestMapping("/ideaProjectList")
-	public ModelAndView ideaProjectList(String ideaProgress, HttpSession session)
+	public ModelAndView ideaProjectList(String ideaProgress)
 	{
 		ModelAndView mv = new ModelAndView("/idea/idea_project_list");
 		mv.addObject("ideaProgress", ideaProgress);

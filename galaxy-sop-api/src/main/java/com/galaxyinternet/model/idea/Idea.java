@@ -15,6 +15,7 @@ public class Idea extends PagableEntity
 	private Long updatedUid;
 	private String ideaProgress;
 	private String ideaDesc;
+	private String ideaDescHtml;
 	private String ideaSource;
 	private Long projectId;
 	private Long claimantUid;
@@ -164,6 +165,10 @@ public class Idea extends PagableEntity
 	public void setProjectProgressDesc(String projectProgressDesc) {
 		this.projectProgressDesc = projectProgressDesc;
 	}
-	
-	
+	public String getIdeaDescHtml() {
+		return ideaDescHtml;
+	}
+	public void setIdeaDescHtml(String ideaDescHtml) {
+		this.ideaDescHtml = ideaDescHtml;
+	}
 }

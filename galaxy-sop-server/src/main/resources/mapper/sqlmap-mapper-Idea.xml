@@ -12,6 +12,7 @@
 		<result column="updated_time" 		property="updatedTime" 		jdbcType="BIGINT" />
 		<result column="idea_progress"  	property="ideaProgress" 	jdbcType="VARCHAR"/>
 		<result column="idea_desc" 			property="ideaDesc" 		jdbcType="VARCHAR" />
+		<result column="idea_desc_html" 	property="ideaDescHtml" 	jdbcType="VARCHAR" />
 		<result column="idea_source" 		property="ideaSource" 		jdbcType="VARCHAR" />
 		<result column="project_id" 		property="projectId" 		jdbcType="BIGINT" />
 		<result column="claimant_uid" 		property="claimantUid" 		jdbcType="BIGINT" />
@@ -28,6 +29,7 @@
 		updated_time,
 		idea_progress,
 		idea_desc,
+		idea_desc_html,
 		idea_source,
 		project_id,
 		claimant_uid
@@ -121,7 +123,8 @@
 			updated_time,
 			idea_progress,
 			idea_desc,
-			idea_source,
+			idea_desc_html,
+			idea_desc_text,
 			project_id,
 			claimant_uid
  		)
@@ -136,6 +139,8 @@
  			#{updatedUid,jdbcType=BIGINT},
  			#{updatedTime,jdbcType=BIGINT},
  			#{ideaProgress,jdbcType=VARCHAR},
+ 			#{ideaDesc,jdbcType=VARCHAR},
+ 			#{ideaDescHtml,jdbcType=VARCHAR},
  			#{ideaDesc,jdbcType=VARCHAR},
  			#{ideaSource,jdbcType=VARCHAR},
  			#{projectId,jdbcType=BIGINT},
@@ -154,6 +159,7 @@
 			<if test="updatedTime != null"> updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="ideaProgress != null"> idea_progress = #{ideaProgress,jdbcType=VARCHAR}, </if>
 			<if test="ideaDesc != null"> idea_desc = #{ideaDesc,jdbcType=VARCHAR}, </if>
+			<if test="ideaDescHtml != null"> idea_desc_html = #{ideaDescHtml,jdbcType=VARCHAR}, </if>
 			<if test="ideaSource != null"> idea_source = #{ideaSource,jdbcType=VARCHAR}, </if>
 			<if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT}, </if>
 			<if test="claimantUid != null"> claimant_uid = #{claimantUid,jdbcType=BIGINT}</if>

@@ -6,6 +6,14 @@
 		}
 		return val;
 	}
+	function datetimeFormatter(val,row,index)
+	{
+		if(!isNaN(val))
+		{
+			return Number(val).toDate().format("yyyy-MM-dd HH:mm:ss");
+		}
+		return val;
+	}
 	function progressFormatter(val,row,index)
 	{
 		if(val != null)
