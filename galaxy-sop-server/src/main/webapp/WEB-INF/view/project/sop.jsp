@@ -28,19 +28,19 @@
 	<div class="tabtable">
 		<!-- tab标签 -->
 		<ul class="tablink">
-			<li data-tab="nav"><a href="javascript:;">基本信息</a></li>
-			<li data-tab="nav" id="fileRepository"><a href="javascript:;">档案库</a></li>
-			<li data-tab="nav" id="projectProgress_1"><a href="javascript:;">接触访谈</a></li>
-			<li data-tab="nav" id="projectProgress_2"><a href="javascript:;">内部评审</a></li>
-			<li data-tab="nav" id="projectProgress_3"><a href="javascript:;">CEO评审</a></li>
-			<li data-tab="nav" id="projectProgress_4"><a href="javascript:;">立项会</a></li>
-			<li data-tab="nav" id="projectProgress_5"><a href="javascript:;">投资意向书</a></li>
-			<li data-tab="nav" id="projectProgress_6"><a href="javascript:;">尽职调查</a></li>
-			<li data-tab="nav" id="projectProgress_7"><a href="javascript:;">投决会</a></li>
-			<li data-tab="nav" id="projectProgress_8"><a href="javascript:;">投资协议</a></li>
-			<li data-tab="nav" id="projectProgress_9"><a href="javascript:;">股权交割</a></li>
-			<li data-tab="nav" id="projectProgress_10"><a href="javascript:;">投后运营</a></li>
-			<li data-tab="nav" id="projectProgress"><a href="javascript:;">操作日志</a></li>
+			<li data-tab="nav">基本信息</li>
+			<li data-tab="nav" id="fileRepository">档案库</li>
+			<li data-tab="nav" id="projectProgress_1">接触访谈</li>
+			<li data-tab="nav" id="projectProgress_2">内部评审</li>
+			<li data-tab="nav" id="projectProgress_3">CEO评审</li>
+			<li data-tab="nav" id="projectProgress_4">立项会</li>
+			<li data-tab="nav" id="projectProgress_5">投资意向书</li>
+			<li data-tab="nav" id="projectProgress_6">尽职调查</li>
+			<li data-tab="nav" id="projectProgress_7">投决会</li>
+			<li data-tab="nav" id="projectProgress_8">投资协议</li>
+			<li data-tab="nav" id="projectProgress_9">股权交割</li>
+			<li data-tab="nav" id="projectProgress_10">投后运营</li>
+			<li data-tab="nav" id="projectProgress">操作日志</li>
 		</ul>
 		<!-- tab内容 -->
 			<!-- tab内容 -->

@@ -50,6 +50,7 @@ function info(id){
 					//当前阶段之后的tab变为不可用
 					if(i > index){
 						$("#projectProgress_" + i).addClass("disabled");
+						$("#projectProgress_" + i).attr("disabled","disabled");
 					}
 					/**
 					 * sop弹框在被弹出后，对当前Tab进行控制
