@@ -42,7 +42,7 @@
 			        	<th data-field="ideaName" data-align="center" class="data-input" data-formatter="ideaNameLinkFormatter">创意名称</th>
 			        	<th data-field="projectName" data-align="center" class="data-input">关联项目</th>
 			        	<th data-field="departmentDesc" data-align="center" class="data-input">所属事业线</th>
-			        	<th data-field="ideaProgress" data-align="center" class="data-input" data-formatter="progressFormatter">进度</th>
+			        	<th data-field="projectProgressDesc" data-align="center" class="data-input">进度</th>
 			        	<th data-field="hhrName" data-align="center" class="data-input">合伙人</th>
 			        	<th data-field="claimantUname" data-align="center" class="data-input">投资经理</th>
 			        	<th data-field="createdTime" data-align="center" class="data-input" data-formatter="dateFormatter">提出时间</th>

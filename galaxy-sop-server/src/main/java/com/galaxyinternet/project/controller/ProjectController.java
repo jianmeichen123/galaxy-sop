@@ -1399,20 +1399,31 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					}
 					
 				}else if(index == 3){  //CEO评审，会议通过，可以 启用 申请立项会排期按钮
+					Result result = new Result(Status.OK,null,null);
+					MeetingScheduling meetSchedu = new MeetingScheduling();
+					meetSchedu.setProjectId(projectId);
+					meetSchedu.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
+					meetSchedu.setStatus(DictEnum.meetingResult.待定.getCode());
+					List<MeetingScheduling> meetScheduList  = meetingSchedulingService.queryList(meetSchedu);
+					if(meetScheduList == null || meetScheduList.isEmpty()){
+						result.setErrorCode("100");
+					}else{
+						result.setErrorCode("101");
+					}
+					
 					
 					MeetingRecord meet = new MeetingRecord();
 					meet.setProjectId(projectId);
 					meet.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 					meet.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-					
 					List<MeetingRecord> meetList  = meetingRecordService.queryList(meet);
-					
 					if(meetList==null || meetList.isEmpty()){
-						responseBody.setResult(new Result(Status.OK,null,false)); //没有通过的会议
+						result.setMessage(false);
 					}else{
-						responseBody.setResult(new Result(Status.OK,null,true)); 
+						result.setMessage(true);
 					}			
-					
+					responseBody.setResult(result);
+					return responseBody;
 				}else if(index == 4){  //立项会阶段，在排期池中时， 申请立项会排期按钮 不可用
 					MeetingScheduling meetSchedu = new MeetingScheduling();
 					meetSchedu.setProjectId(projectId);

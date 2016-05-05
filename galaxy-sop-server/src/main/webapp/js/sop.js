@@ -2,6 +2,7 @@
 var hasClosed=false;
 var canUseBut = false;
 var canToOption = false;
+var code = "0";
 /*
  * 查看项目阶段详情的弹出层
  */
@@ -74,8 +75,14 @@ function info(id){
 						}
 						if(!canUseBut){
 							$("#lxhpq").remove();
+							if(code == '100'){
+								$("#add_ceomeet").remove();
+							}else if(code == '101'){
+								$("#applyCeoMeeting").remove();
+							}
 						}else{
 							$("#add_ceomeet").remove();
+							$("#applyCeoMeeting").remove();
 						}
 					}
 					if(i == 4){
@@ -244,6 +251,7 @@ function checkCanUse(index,projectId,projectType){
 		var result = data.result.status;
 		if(result == "OK"){ //OK, ERROR
 			canUseBut = data.result.message;
+			code = data.result.errorCode;
 			if(canUseBut == true || canUseBut == "true"){
 				canUseBut == true;
 			}else{
@@ -252,6 +260,29 @@ function checkCanUse(index,projectId,projectType){
 			return;
 		}
 	});
+}
+
+/**
+ * 申请CEO评审排期
+ */
+function applyCeoMeeting(){
+	var pid = $("#project_id").val();
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(platformUrl.inCeoMeetingPool + pid, {}, function(data){
+			var result = data.result.status;
+			if(result == "OK"){ 
+				if($.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
+				layer.msg("申请CEO评审会成功!");
+				$("#powindow,#popbg").remove();
+				info(pid);
+			}else{
+				layer.msg(data.result.message);
+			}
+		});
+	}
 }
 
 	
