@@ -58,4 +58,19 @@ public interface SopConstant {
 	
 	public static final String CONFIG_KEY_IDEA_CODE = "idea_code";
 	
+	/**创意阶段 - 待认领**/
+	public static final String IDEA_PROGRESS_DRL 			= "ideaProgress:1";
+	/**创意阶段 - 调研**/
+	public static final String IDEA_PROGRESS_DY 			= "ideaProgress:2";
+	/**创意阶段 - 创建立项会**/
+	public static final String IDEA_PROGRESS_CJLXH 			= "ideaProgress:3";
+	/**创意阶段 - 搁置**/
+	public static final String IDEA_PROGRESS_GZ				= "ideaProgress:4";
+	/**创意阶段 - 创建项目**/
+	public static final String IDEA_PROGRESS_CJXM 			= "ideaProgress:5";
+	/**创意阶段 - 项目立项会**/
+	public static final String IDEA_PROGRESS_LXH 			= "ideaProgress:6";
+	/**创意阶段 - 项目投决会**/
+	public static final String IDEA_PROGRESS_TJH 			= "ideaProgress:7";
+	
 }

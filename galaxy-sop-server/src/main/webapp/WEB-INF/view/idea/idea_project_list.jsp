@@ -2,10 +2,11 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-	<div style=" width:1200px">
+	<div style=" width:1200px" class="ritmin">
 
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="idea-project-table-toolbar">
+			<input type="hidden" name="ideaProgress" value="ideaProgress:5">
 			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fmdll clearfix">
 					<dt>关键字：</dt>
@@ -27,7 +28,7 @@
 	            		<input type="text" class="datepicker txt time" readonly id="createdDate" name="createdDate"  style="height:23px;"/>
 	            	</dd>
 	            	<dd>
-						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
+						<button type="submit" class="bluebtn cx" action="querySearch">搜索</button>
 	            	</dd>
 	            </dl>
 			</div>

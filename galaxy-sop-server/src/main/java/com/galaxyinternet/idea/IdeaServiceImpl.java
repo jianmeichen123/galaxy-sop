@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.dao.idea.IdeaDao;
@@ -143,6 +144,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		}
 		User user = userService.queryById(idea.getClaimantUid());
 		Project project = new Project();
+		project.setIdeaId(id);
 		project.setProjectName(projectName);
 		project.setCreatedTime(new Date().getTime());
 		project.setCreateUid(idea.getClaimantUid());
@@ -161,6 +163,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 			project.setProjectCode(projectCode);
 			projectService.newProject(project);
 			idea.setProjectId(project.getId());
+			idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJXM);
 			updateById(idea);
 		} catch (Exception e) {
 			throw new BusinessException(e);
