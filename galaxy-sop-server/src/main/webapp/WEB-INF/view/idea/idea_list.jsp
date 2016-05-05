@@ -32,7 +32,7 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 
 </head>
-
+ <a  data-btn="creative">创意弹窗</a>
 <body>
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
@@ -46,6 +46,7 @@
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
                 <a href="<%=path %>/galaxy/idea/add" class="pubbtn bluebtn ico c4">添加创意</a>
+                <a href="<%=path %>/galaxy/idea/goIdeaStagePage" class="pubbtn bluebtn ico c4" data-btn="creative">弹出框</a>
             </div>
         </div>
         <!-- 搜索条件 -->
@@ -122,7 +123,8 @@
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/fx.upload.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
+<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
+<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=path %>/js/my_ext.js"></script>
 <script src="<%=path %>/js/my.js"></script>
 <!-- 分页二css+四js -->
@@ -155,6 +157,7 @@
 			});
 		}
 	});
+	
 </script>
 
 </html>

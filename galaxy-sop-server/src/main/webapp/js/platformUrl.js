@@ -416,7 +416,11 @@ var platformUrl = {
 	/**
 	 * 获取创意-立项会、投决会
 	 */
-	ideaProjectList : Constants.sopEndpointURL + "/galaxy/idea/ideaProjectList"
+	ideaProjectList : Constants.sopEndpointURL + "/galaxy/idea/ideaProjectList",
+	/**
+	 * 获取创意-立项会、投决会
+	 */
+	ideaGoStage : Constants.sopEndpointURL + "/galaxy/idea/goIdeaStagePage"
 }
 
 /**
