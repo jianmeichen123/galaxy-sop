@@ -30,6 +30,7 @@ public class Idea extends PagableEntity
 	private Long createdTimeThrough;
 	private String hhrName;
 	private List<Long> ids;
+	private String projectProgressDesc;
 	
 	public String getIdeaName() {
 		return ideaName;
@@ -156,6 +157,12 @@ public class Idea extends PagableEntity
 	}
 	public void setIds(List<Long> ids) {
 		this.ids = ids;
+	}
+	public String getProjectProgressDesc() {
+		return projectProgressDesc;
+	}
+	public void setProjectProgressDesc(String projectProgressDesc) {
+		this.projectProgressDesc = projectProgressDesc;
 	}
 	
 	

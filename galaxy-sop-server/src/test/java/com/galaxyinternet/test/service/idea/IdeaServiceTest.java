@@ -1,6 +1,7 @@
 package com.galaxyinternet.test.service.idea;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,15 +29,15 @@ public class IdeaServiceTest
 	@Autowired
 	private IdeaService ideaService;
 	@Test
-	@Rollback(true)
+	@Rollback
 	public void addTest() throws Exception
 	{
 		Config config = configService.getByKey(SopConstant.CONFIG_KEY_IDEA_CODE, true);
 		Idea vo = new Idea();
-		vo.setIdeaName("创意042501");
+		vo.setIdeaName("创意050501");
 		vo.setIdeaCode(config.getValue());
-		vo.setDepartmentId(CodeEnum.o2oDS.getId());
-		vo.setCreatedUid(111L);
+		vo.setDepartmentId(CodeEnum.artificialIntelligence.getId());
+		vo.setCreatedUid(3L);
 		vo.setCreatedTime(new Date().getTime());
 		vo.setUpdatedUid(112L);
 		vo.setUpdatedTime(new Date().getTime());
@@ -44,7 +45,7 @@ public class IdeaServiceTest
 		vo.setIdeaDesc("描述1");
 		vo.setIdeaSource("来源1");
 		vo.setProjectId(1L);
-		vo.setClaimantUid(113L);
+		vo.setClaimantUid(4L);
 		ideaService.insert(vo);
 		Assert.notNull(vo.getId());
 	}
@@ -60,11 +61,24 @@ public class IdeaServiceTest
 	@Test
 	public void testCreateProject()
 	{
-		Long id = 1L;
+		Long id = 2L;
 		ideaService.createProject(id, "创意生成项目");
-		Idea idea = ideaService.queryById(1L);
+		Idea idea = ideaService.queryById(id);
 		Assert.notNull(idea.getProjectId());
 		
+	}
+	@Test
+	public void testUpdate()
+	{
+		List<Idea> list = ideaService.queryAll();
+		Assert.notEmpty(list);
+		Idea idea = list.iterator().next();
+		try {
+			ideaService.updateById(idea);
+			Assert.isTrue(true);
+		} catch (Exception e) {
+			Assert.isTrue(false,e.getMessage());
+		}
 	}
 
 }

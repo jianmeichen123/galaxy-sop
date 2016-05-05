@@ -114,13 +114,16 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 				String departmentDesc = depart != null ? depart.getName() : "";
 				String createdUname = CollectionUtils.getItemProp(users, "id", idea.getCreatedUid(), "realName");
 				String claimantUname = CollectionUtils.getItemProp(users, "id", idea.getClaimantUid(), "realName");
-				String projectName = CollectionUtils.getItemProp(projects, "id", idea.getProjectId(), "projectName");
+				Project project = CollectionUtils.getItem(projects, "id", idea.getProjectId());
+				String projectName = project != null ? project.getProjectName() : "";
+				String projectProgressDesc = project != null ? project.getProgress() : "";
 				String hhrName = CollectionUtils.getItemProp(users, "id", depart.getManagerId(), "realName");
 				idea.setDepartmentDesc(departmentDesc);
 				idea.setCreatedUname(createdUname);
 				idea.setClaimantUname(claimantUname);
 				idea.setProjectName(projectName);
 				idea.setHhrName(hhrName);
+				idea.setProjectProgressDesc(projectProgressDesc);
 			}
 		}
 		return page;
