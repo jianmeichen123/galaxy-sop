@@ -33,9 +33,10 @@
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>排期状态：</dt>
 	              <dd>
-	              	<input type="checkbox" value="1">待排期
+	              	<input type="checkbox" value="0">待排期
 	              	<input type="checkbox" value="1">已排期
-	              	<input type="checkbox" value="1">已通过
+	              	<input type="checkbox" value="2">已通过
+	              	<input type="checkbox" value="3">已否决
 	              </dd>
 	            </dl>
 	            <dl class="fmdl fml fmdll clearfix">
@@ -62,8 +63,16 @@
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				    	<th data-field="projectId" data-align="center" class="data-input">项目ID</th>
-			        	<th data-align="center" class="col-md-2" data-formatter="editor">操作</th>
+				    	<th data-align="center" class="data-input" data-formatter="indexFormatter">#</th>
+				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
+				    	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
+				    	<th data-align="center" class="data-input" data-formatter="statusFormatter">排期状态</th>
+				    	<th data-field="lastTime" data-align="center" class="data-input">上次过会时间</th>
+				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
+				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
+				    	<th data-field="projectId" data-align="center" class="data-input">过会率</th>
+				    	<th data-field="applyTime" data-align="center" class="data-input">申请时间</th>
+				    	<th data-field="projectId" data-align="center" class="data-input">排期时间</th>
  					</tr>	
  				</thead>
 			</table>
@@ -79,18 +88,23 @@
 
 <script type="text/javascript">
 	createMenus(18);
-	function editor(value, row, index){
-		var id=row.id;
-		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
-		if(row.projectStatus != 'meetingResult:3' && parseInt(row.createUid) == parseInt(userId)){
-			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>编辑项目</a>";
+	function indexFormatter(value, row, index){
+		return index + 1;
+	}
+	function statusFormatter(value, row, index){
+		var status = "待排期";
+		if(value == 1){
+			status = "已排期";
+		}else if(value == 2){
+			status = "已通过";
+		}else if(value == 3){
+			status = "已否决";
 		}
-		return options;
+		return status;
 	}
 	sendGetRequest(platformUrl.getDepartMentDict+"/department",null,function(data){
 		var $optionArray = [];
 		var ii = 0;
-		console.log(data);
 		$.each(data.entityList,function(i,current){
 			if(current.type == 1){
 				$optionArray[ii] = '<option value="'+current.id+'">'+current.name+'</option>';
