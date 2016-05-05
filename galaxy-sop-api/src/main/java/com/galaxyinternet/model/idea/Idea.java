@@ -29,6 +29,8 @@ public class Idea extends PagableEntity
 	private Long createdTimeFrom;
 	private Long createdTimeThrough;
 	private String hhrName;
+	private List<Long> ids;
+	
 	public String getIdeaName() {
 		return ideaName;
 	}
@@ -148,6 +150,12 @@ public class Idea extends PagableEntity
 	}
 	public void setHhrName(String hhrName) {
 		this.hhrName = hhrName;
+	}
+	public List<Long> getIds() {
+		return ids;
+	}
+	public void setIds(List<Long> ids) {
+		this.ids = ids;
 	}
 	
 	

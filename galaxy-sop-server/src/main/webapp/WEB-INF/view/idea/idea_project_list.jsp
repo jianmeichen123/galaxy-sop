@@ -6,7 +6,7 @@
 
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="idea-project-table-toolbar">
-			<input type="hidden" name="ideaProgress" value="ideaProgress:5">
+			<input type="hidden" name="ideaProgress" value="ideaProgress:6">
 			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fmdll clearfix">
 					<dt>关键字：</dt>
