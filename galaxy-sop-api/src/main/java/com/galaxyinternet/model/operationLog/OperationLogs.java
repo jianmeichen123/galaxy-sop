@@ -1,8 +1,8 @@
 package com.galaxyinternet.model.operationLog;
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.model.common.RecordEntity;
 
-public class OperationLogs extends BaseEntity{
+public class OperationLogs extends RecordEntity{
 	private static final long serialVersionUID = 1L;
 	
     private Long uid;
@@ -31,9 +31,9 @@ public class OperationLogs extends BaseEntity{
     
     /**
      * 0项目 1创意
-     */
+    
     private byte type;
-
+ */
     public Long getUid() {
         return uid;
     }
@@ -138,13 +138,7 @@ public class OperationLogs extends BaseEntity{
 		this.sopstage = sopstage;
 	}
 
-	public byte getType() {
-		return type;
-	}
-
-	public void setType(byte type) {
-		this.type = type;
-	}
+	
 
 	@Override
 	public String toString() {
@@ -152,7 +146,7 @@ public class OperationLogs extends BaseEntity{
 				+ userRole + ", userDepartid=" + userDepartid + ", departName=" + departName + ", operationType="
 				+ operationType + ", operationTypeStr=" + operationTypeStr + ", projectId=" + projectId
 				+ ", projectName=" + projectName + ", operationContent=" + operationContent + ", operationContentStr="
-				+ operationContentStr + ", sopstage=" + sopstage + ", type=" + type + ", id=" + id + ", createdTime="
+				+ operationContentStr + ", sopstage=" + sopstage + ", type=" + recordType + ", id=" + id + ", createdTime="
 				+ createdTime + "]";
 	}
 }
