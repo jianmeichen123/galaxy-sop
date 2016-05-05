@@ -1768,6 +1768,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				ms.setIsEdit(isEdit);
 				ids.add(String.valueOf(ms.getProjectId()));
 			}
+			/**
+			 * 查询出所有的事业线
+			 */
+			Department d = new Department();
+			d.setType(1);
+			List<Department> careerlineList = departmentService.queryList(d);
+			Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
+			for(Department department : careerlineList){
+				careerlineMap.put(department.getId(), department);
+			}
+			/**
+			 * 查询出相关的所有项目
+			 */
 			ProjectBo pb = new ProjectBo();
 			pb.setIds(ids);
 			List<Project> projectList = projectService.queryList(pb);
@@ -1776,7 +1789,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					if(ms.getProjectId().longValue() == p.getId().longValue()){
 						ms.setProjectCode(p.getProjectCode());
 						ms.setProjectName(p.getProjectName());
-						ms.setProjectCareerline(p.getProjectCareerline());
+						ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
 						ms.setCreateUname(p.getCreateUname());
 					}
 				}

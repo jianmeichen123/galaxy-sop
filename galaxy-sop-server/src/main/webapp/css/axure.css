@@ -645,6 +645,15 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg_d .block1 table{border-bottom: 0;}
 .pagebox .projectmsg_d .block1 table td{padding:0 0 0 3%;width:47%;font-family: "微软雅黑";border:0;}
 .pagebox .projectmsg_d .block1 table td input[type="text"]{width:266px;height:28px;border:1px solid #ccd2d7; border-radius: 5px;font-size: 12px;padding-left: 8px;line-height: 28px;}
+.time-input{
+    width: 266px;
+    height: 28px;
+    border: 1px solid #ccd2d7;
+    border-radius: 5px;
+    font-size: 12px;
+    padding-left: 8px;
+    line-height: 28px;
+}
 .pagebox .projectmsg_d .block1 table td label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; color:#525662; font-family:"宋体"; position:relative}
 .pagebox .projectmsg_d .block1 table td label input[type="radio"]{ position:absolute; left:0; top:9px; *top:4px}
 .pagebox .projectmsg_d .block1 table dl{padding-left:10px;overflow: hidden;}
@@ -1285,7 +1294,7 @@ dl dt,dl label{font-weight: normal !important;}
 .news_top select{float:right;width:100px;height:30px;border: 1px solid #fff;border-radius:4px;margin-right: 20px;}
 .block_pad{padding-top: 10px;}
 .form label{width:auto;}
-dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
+.time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
 .search_adjust .fml dd{width:250px !important;}
 .search_adjust1 .fml dd{width:180px !important;}
 .search_adjust2 .fml dd{width:160px !important;}

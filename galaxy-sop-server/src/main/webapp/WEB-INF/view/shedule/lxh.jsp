@@ -72,7 +72,7 @@
 				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
 				    	<th data-field="projectId" data-align="center" class="data-input">过会率</th>
 				    	<th data-field="applyTime" data-align="center" class="data-input">申请时间</th>
-				    	<th data-field="projectId" data-align="center" class="data-input">排期时间</th>
+				    	<th data-align="center" class="data-input" data-formatter="dataFormatter">排期时间</th>
  					</tr>	
  				</thead>
 			</table>
@@ -102,6 +102,9 @@
 		}
 		return status;
 	}
+	function dataFormatter(value, row, index){
+		return '<input type="text" class="datepicker-text time time-input" name="" id="" readonly value=""/>';
+	}
 	sendGetRequest(platformUrl.getDepartMentDict+"/department",null,function(data){
 		var $optionArray = [];
 		var ii = 0;
@@ -115,5 +118,4 @@
 		$optionHtml.insertAfter($('option[value="all"]'));
 	});
 </script>
-
 </html>
