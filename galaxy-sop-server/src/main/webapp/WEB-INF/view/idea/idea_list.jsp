@@ -123,8 +123,6 @@
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/fx.upload.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
-<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=path %>/js/my_ext.js"></script>
 <script src="<%=path %>/js/my.js"></script>
 <!-- 分页二css+四js -->
