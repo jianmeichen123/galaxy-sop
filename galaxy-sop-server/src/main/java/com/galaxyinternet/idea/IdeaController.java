@@ -1,6 +1,7 @@
 package com.galaxyinternet.idea;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.RecordType;
@@ -45,10 +49,12 @@ import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Idea;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
@@ -66,7 +72,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	private UserService userService;
 	@Autowired
 	private  SopFileService sopFileService;
-	
+	@Autowired
+	private ProjectService projectService;
 	@Override
 	protected BaseService<Idea> getBaseService() {
 		return this.ideaService;
@@ -169,6 +176,55 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				query.setDepartmentId(user.getDepartmentId());
 			}
 			
+			//立项会、投决会阶段查询
+			List<String> projectProgressList = null;
+			if(SopConstant.IDEA_PROGRESS_LXH.equals(query.getIdeaProgress()))
+			{
+				projectProgressList = Arrays.asList(
+													DictEnum.projectProgress.立项会.getCode(),
+													DictEnum.projectProgress.投资意向书.getCode(),
+													DictEnum.projectProgress.尽职调查.getCode()
+													);
+			}
+			else if(SopConstant.IDEA_PROGRESS_TJH.equals(query.getIdeaProgress()))
+			{
+				projectProgressList = Arrays.asList(
+													DictEnum.projectProgress.投资决策会.getCode(),
+													DictEnum.projectProgress.投资协议.getCode(),
+													DictEnum.projectProgress.股权交割.getCode(),
+													DictEnum.projectProgress.投后运营.getCode()
+													);
+}
+			if(projectProgressList != null)
+			{
+				query.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJXM);
+				ProjectBo projQuery = new ProjectBo();
+				projQuery.setFromIdea(true);
+				projQuery.setProjectProgressList(projectProgressList);
+				if(query.getDepartmentId() != null)
+				{
+					projQuery.setProjectDepartid(query.getDepartmentId());
+				}
+				List<Project> projects = projectService.queryList(projQuery);
+				if(projects == null || projects.size() == 0)
+				{
+					return resp;
+				}
+				
+				List<Long> ideaIds = new ArrayList<Long>();
+				for(Project project : projects)
+				{
+					if(project.getIdeaId() != null && !ideaIds.contains(project.getIdeaId()))
+					{
+						ideaIds.add(project.getIdeaId());
+					}
+				}
+				if(ideaIds == null || ideaIds.size() == 0)
+				{
+					return resp;
+				}
+				query.setIds(ideaIds);
+			}
 			Page<Idea> page = ideaService.queryPageList(query, pageable);
 			resp.setPageList(page);
 		} catch (Exception e) {
@@ -179,10 +235,11 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	}
 	
 	@RequestMapping("/ideaProjectList")
-	public String ideaProjectList(String ideaProgress, HttpSession session)
+	public ModelAndView ideaProjectList(String ideaProgress, HttpSession session)
 	{
-		session.setAttribute("ideaProgress", ideaProgress);
-		return "/idea/idea_project_list";
+		ModelAndView mv = new ModelAndView("/idea/idea_project_list");
+		mv.addObject("ideaProgress", ideaProgress);
+		return mv;
 	}
 	@ResponseBody
 	@RequestMapping("/getDepartment")

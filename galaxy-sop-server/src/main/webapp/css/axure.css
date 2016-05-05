@@ -1014,7 +1014,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /*发送邮件弹窗*/
 .emailtc{ width:580px;}
 .emailtc dl{ margin-bottom: 6px;}
-.emailtc h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
+.emailtc h2,.creative_edit h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 .emailtc .fmdl dt{width:100px;text-align: right;}
 .emailtc .fmdl dd .txt{ width:300px}
 .emailtc .fmdl dd textarea{ height:150px; width:360px}
@@ -1091,7 +1091,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /* 我的项目页面弹窗 */
 .myprojecttc{padding:0 20px 20px;width:960px;}
 .myprojecttc .pjt_introduct{color:#535762;font-size: 12px;font-family: "宋体";margin: 0 0 20px 0;}
-.myprojecttc .pjt_introduct h3{color: #6b799f;font-weight: normal;font-size: 22px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left;}
+.myprojecttc .pjt_introduct h3{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left;}
 .myprojecttc .pjt_introduct .update{float: left;height: 24px;padding:6px 0 0;line-height: 24px;margin:0 0 0 10px;}
 .myprojecttc .pjt_introduct .update dt,.ritmin .pjt_introduct .update dd,.ritmin .pjt_introduct dl dt,.ritmin .pjt_introduct dl dt{float: left;}
 .myprojecttc .pjt_introduct .pjt_brf{margin:15px 0 0 0;}
@@ -1195,6 +1195,50 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 #upload-form{width:500px;}
 #upload-form h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 #upload-form .fmdl{margin:0 0 10px;}
+/*创意库弹层*/
+.creativetc{padding:0 20px 20px;width:670px;}
+.creativetc .pjt_introduct{color:#535762;font-size: 12px;font-family: "宋体";margin: 0 0 20px 0;}
+.creativetc .pjt_introduct h3{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left;}
+.creativetc .pjt_introduct .pjt_brf{margin:15px 0 0 0;}
+.creativetc .pjt_introduct .pjt_brf li{float: left;margin:0 20px 0 0;line-height: 20px;}
+.creativetc .tablink li{min-width:55px;text-align: center;}
+.creativetc .tablink .on,.creativetc .block{background-color: #f1f2f5;}
+.creativetc .block{border-top-left-radius:0; }
+.creativetc .block dl{margin-top: 5px;}
+.creativetc .block .top dl,.creativetc .block dt,.creativetc .block  dd{float: left;}
+.creativetc .block dt,.creativetc .block dd{line-height: 30px;}
+.creativetc .block .top dl{width:30%;height:30px;}
+.creativetc .block dt{width:86px;color:#3e4351;text-align: right;}
+.creativetc .block .bottom dd{width:530px;float: left;}
+.creativetc .block button{margin:10px 0 0 15px;cursor: pointer;}
+.creativetc .block_t{padding: 10px;}
+.creativetc .btnbox_f1 button{display: inline-block;margin:0 0 10px 5px;}
+.creativetc .td1{width:27%;padding-left:3%;}
+.creativetc .td2{width:70%;}
+.creativetc th{background-color: #f9fafc;}
+.abandon dt,.abandon dd{float: left;}
+.abandon dd textarea{width:265px;margin:0 0 10px 10px;height: 100px;padding: 5px;}
+/*编辑项目名称*/
+.edit_nametc{width:300px;}
+.edit_nametc .top .fmdl{margin: 0 0 8px 0;overflow: hidden;}
+.edit_nametc .top dl dt,.searchtc .top dl dd{float: left;}
+.edit_nametc .top dl dt{text-align: right;}
+.edit_nametc .top dd input{width:178px;font-size: 12px;}
+.edit_nametc .btnbox{width:190px;margin: 10px auto;}
+.edit_nametc .pubbtn{display: inline-block;margin:0 5px;}
+/*编辑项目基本信息*/
+.creative_edit1 .left,.creative_edit .right{width:350px;}
+.creative_edit1 textarea{width:500px;height:100px !important;line-height: 22px;padding: 5px;}
+.creative_edit1 .btnbox{width:190px;margin: 10px auto;}
+.creative_edit1 .pubbtn{display: inline-block;margin:0 5px;}
+
+/* 编辑创意基本信息 */
+.creative_edit dt{width:90px;text-align:right;}
+.creative_edit dd input{width:200px !important;}
+.creative_edit .box{width:190px;margin:0 auto;}
+.creative_edit .box a{display:inline-block;}
+.creative_edit .fmdl textarea{width:520px ;height:100px ;}
+
 /* 车辆限行 */
 em{font-style: normal;}
 .weather{margin-top: -10px !important;}
@@ -1256,4 +1300,3 @@ select{padding: 6px 0 !important;}
 .no_content{font-size: 14px;color:#536379;margin: 60px 0 0 0;text-align: center;}
 #container_jdjy,#container_xmzzl{margin-bottom: 20px;}
 form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
-.txt_select{ width:160px}

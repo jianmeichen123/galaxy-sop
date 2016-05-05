@@ -1,4 +1,4 @@
-function dateFormatter(val,row,index)
+	function dateFormatter(val,row,index)
 	{
 		if(!isNaN(val))
 		{
@@ -13,7 +13,18 @@ function dateFormatter(val,row,index)
 			return $('[name="ideaProgress"] option[value="'+val+'"]').text();
 		}
 	}
+	function ideaNameLinkFormatter(val,row,index)
+	{
+		return '<a href="#" class="blue" onclick="showIdeaDetail(\'' + row.id + '\')">'+val+'</a>';
+	}
 	
+	function showIdeaDetail(ideaId)
+	{
+		$.getHtml({
+			url:platformUrl.ideaGoStage,
+			data:{id:ideaId}
+		});
+	}
 	function refreshIdeaList()
 	{
 		$("#data-table").bootstrapTable('refresh');
