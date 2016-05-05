@@ -262,7 +262,8 @@
 				<!--按钮-->
 				<div id="options_point3" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a id="add_ceomeet" href="javascript:;" onclick="addMettingRecord(3,'meetingType:2')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a> 
-					<a href="javascript:;" onclick="toEstablishStage()" id="lxhpq" class="pubbtn fffbtn lpubbtn option_item_mark">立项会排期</a>
+					<a href="javascript:;" onclick="toEstablishStage()" id="lxhpq" class="pubbtn fffbtn lpubbtn option_item_mark">申请立项会排期</a>
+					<a id="applyCeoMeeting" href="javascript:;" onclick="applyCeoMeeting()" class="pubbtn fffbtn lpubbtn option_item_mark">申请CEO评审排期</a>
 				</div>
 				
 				<div id="projectProgress_3_table_custom-toolbar">

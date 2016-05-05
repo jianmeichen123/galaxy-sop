@@ -164,9 +164,6 @@
 			<if test="meetingCount != null" > meeting_count = #{meetingCount,jdbcType=INTEGER}, </if>
 			<if test="meetingDate != null" > meeting_date = #{meetingDate,jdbcType=TIMESTAMP}, </if>
 			<if test="status != null" > status = #{status,jdbcType=VARCHAR}, </if>
-			<if test="scheduleStarttime != null" > schedule_starttime = #{scheduleStarttime,jdbcType=TIMESTAMP}, </if>
-			<if test="scheduleEndtime != null" > schedule_endtime = #{scheduleEndtime,jdbcType=TIMESTAMP}, </if>
-			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus,jdbcType=VARCHAR}, </if>
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
 			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
