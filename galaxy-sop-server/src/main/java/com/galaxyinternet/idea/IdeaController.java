@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
@@ -234,10 +235,11 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	}
 	
 	@RequestMapping("/ideaProjectList")
-	public String ideaProjectList(String ideaProgress, HttpSession session)
+	public ModelAndView ideaProjectList(String ideaProgress, HttpSession session)
 	{
-		session.setAttribute("ideaProgress", ideaProgress);
-		return "/idea/idea_project_list";
+		ModelAndView mv = new ModelAndView("/idea/idea_project_list");
+		mv.addObject("ideaProgress", ideaProgress);
+		return mv;
 	}
 	@ResponseBody
 	@RequestMapping("/getDepartment")
