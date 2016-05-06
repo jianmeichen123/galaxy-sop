@@ -7,6 +7,9 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
+<!-- 日期插件 -->
+<link href="<%=path %>/bootstrap-datetimepicker/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="<%=path %>/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
@@ -59,7 +62,7 @@
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="project/queryScheduling/1" data-height="555" 
+			<table id="table" data-url="project/queryScheduling/1" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
@@ -67,11 +70,11 @@
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
 				    	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
 				    	<th data-align="center" class="data-input" data-formatter="statusFormatter">排期状态</th>
-				    	<th data-field="lastTime" data-align="center" class="data-input">上次过会时间</th>
+				    	<th data-align="center" class="data-input" data-formatter="meetingDateFormatter">上次过会时间</th>
 				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
 				    	<th data-field="projectId" data-align="center" class="data-input">过会率</th>
-				    	<th data-field="applyTime" data-align="center" class="data-input">申请时间</th>
+				    	<th data-align="center" class="data-input" data-formatter="applyTimeFormatter">申请时间</th>
 				    	<th data-align="center" class="data-input" data-formatter="dataFormatter">排期时间</th>
  					</tr>	
  				</thead>
@@ -85,7 +88,10 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
-
+<!-- 日期插件 -->
+<script type="text/javascript" src="<%=path %>/bootstrap-datetimepicker/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
 	createMenus(18);
 	function indexFormatter(value, row, index){
@@ -102,9 +108,51 @@
 		}
 		return status;
 	}
-	function dataFormatter(value, row, index){
-		return '<input type="text" class="datepicker-text time time-input" name="" id="" readonly value=""/>';
+	function meetingDateFormatter(value, row, index){
+		if(row.meetingDate){
+			return row.meetingDateStr;
+		}else{
+			return "还未过会";
+		}
 	}
+	function applyTimeFormatter(value, row, index){
+		var applyTime = row.applyTime;
+		if(applyTime){
+			
+		}else{
+			
+		}
+	}
+	function dataFormatter(value, row, index){
+		if(row.isEdit == '1'){
+			return timeHtml = '<input size="16" type="text" readonly class="form_datetime">';
+		}else{
+			return timeHtml = '<input size="16" type="text" readonly class="form_datetime">';
+		}
+	}
+	tiggerTable1($("#table"),10,function(){
+		$('.form_datetime').datetimepicker({
+			/**
+			 * 指定日期的格式
+			 * 注意：该插件自己定义了一套，整个过程均使用这一套
+			 * yyyy-mm-dd
+			 * yyyy-mm-dd hh:ii:ss
+			 * yyyy-mm-ddThh:ii:ssZ
+			 * MM -- 五月/六月/...
+			 */
+			format: 'yyyy-mm-dd hh:ii:ss',
+			language: "zh-CN",
+			startView: 2,
+			minView: 0,
+			maxView: 4,
+			todayBtn:'linked',
+			autoclose: true
+		}).on('changeDate', function(ev){
+			//当日期被改变时被触发
+			console.log(ev.date.valueOf());
+		});
+	});
+	
 	sendGetRequest(platformUrl.getDepartMentDict+"/department",null,function(data){
 		var $optionArray = [];
 		var ii = 0;

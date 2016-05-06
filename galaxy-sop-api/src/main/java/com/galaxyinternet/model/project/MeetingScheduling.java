@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class MeetingScheduling extends PagableEntity {
 	private static final long serialVersionUID = 1L;
@@ -122,6 +123,9 @@ public class MeetingScheduling extends PagableEntity {
 
     public void setMeetingDate(Date meetingDate) {
         this.meetingDate = meetingDate;
+        if(meetingDate != null){
+        	meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
+        }
     }
     
     public String getStatus() {

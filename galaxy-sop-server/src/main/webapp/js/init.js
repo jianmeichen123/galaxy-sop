@@ -13,6 +13,8 @@ $(function () {
 		method : 'post',
 		pagination: true,
         search: false,
+        onLoadSuccess: function (data) {
+        }
 	});
 });
 
@@ -24,7 +26,19 @@ function tiggerTable(e,pageSize){
 		sidePagination: 'server',
 		method : 'post',
 		pagination: true,
+        search: false
+	});
+}
+function tiggerTable1(e,pageSize,onLoadSuccess){
+	e.bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		pageSize:pageSize,
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
         search: false,
+        onLoadSuccess: onLoadSuccess
 	});
 }
 
