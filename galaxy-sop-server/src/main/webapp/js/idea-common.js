@@ -128,6 +128,10 @@
 				
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = ideaInfo.ideaProgress;
+				if('ideaProgress:4' != progress)
+				{
+					$("[data-btn='history']").hide();
+				}
 				progress = progress.replace(":","_");
 				var index = progress.substr("ideaProgress_".length);
 				
