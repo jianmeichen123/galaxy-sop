@@ -20,7 +20,6 @@
   <sql id="Base_Where_Clause">
 		<where>
 			<trim prefixOverrides="and">
-			  <if test="id != null"> and id =#{id}</if>
 			  <if test="uid != null" > and uid = #{uid} </if>
 			  <if test="rateType != null" > and rate_type = #{rateType} </if>
 			</trim>
