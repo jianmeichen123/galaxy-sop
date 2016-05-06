@@ -648,11 +648,22 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		if(responseBody !=null){
 			return responseBody;
 		}
+		if(idea == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
+			return responseBody;
+		}
 		responseBody = new ResponseData<Idea>();
+		
 		try{
-			idea.setCreatedTime(System.currentTimeMillis());
-			idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJXM);
-			ideaService.insert(idea);
+	
+			if(idea.getId()==null){
+				ideaService.updateById(idea);
+			}else{
+				idea.setCreatedTime(System.currentTimeMillis());
+				idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJXM);
+				ideaService.insert(idea);
+			}
+					
 		}catch(DaoException e){
 			responseBody.setResult(new Result(Status.ERROR,"创意添加出错,请联系管理员!"));
 			return responseBody;

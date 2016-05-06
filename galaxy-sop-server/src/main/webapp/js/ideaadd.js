@@ -36,10 +36,12 @@
 			fillData : function(_this,_formdata){
 				console.log("渲染页面数据");
 				var $ideaCode = $(_this.id).find("#win_idea_code");
+				var $ideaName = $(_this.id).find("#win_idea_name");
 				var $departmentId = $(_this.id).find("#win_idea_department");
 				var $createUid = $(_this.id).find("#win_idea_create_id");
 				var $createUname = $(_this.id).find("#win_idea_create_name");
 				var $createDate = $(_this.id).find("#win_idea_create_Date");
+				var $ideaSource = $(_this.id).find("#win_idea_source");
 				
 				//创意编码
 				if(_formdata._ideaCode){
@@ -56,6 +58,12 @@
 //					$createUname.attr("disabled","disabled");
 					
 				}
+				
+				//创意名称
+				if(_formdata._ideaName && _formdata._ideaName){
+					$ideaName.val(_formdata._ideaName);
+				}
+				
 				//提出时间
 				if(_formdata._createDate){
 					$createDate.val(_formdata._createDate);
@@ -69,6 +77,13 @@
 //					$departmentId.attr("disabled","disabled");
 					$departmentId.attr("class","disabled");
 				}
+				
+				//创意来源
+				if(_formdata._ideaSource && _formdata._ideaSource){
+					$ideaSource.val(_formdata._ideaSource);
+				}
+				
+				
 				
 
 
@@ -143,12 +158,32 @@
 					layer.msg(data.result.errorCode);
 				}
 				
+			},
+			getdetailIdeaInfoCallBack : function(data){
+				if(data.result.status=="OK"){
+					formdata = {
+							_ideaCode : data.entity.ideaCode,
+							_ideaName : data.entity.ideaName,
+							_createdUid : data.entity.createdUid,
+							_createdUname : data.entity.createdUname,
+							_departmentId : data.entity.departmentId,
+							_createDate : data.entity.createDate,
+							_ideaSource : data.entity.ideaSource,
+							_callFuc : function(){}
+					}
+					ideaAddDialog.init(formdata);
+				}else{
+					layer.msg(data.result.errorCode);
+				}
 			}
 	}
 	
 	function init(){
 		$("#addBtn").click(function(){
 			sendGetRequest(platformUrl.getAddIdeaInfo,null,initCallBack.getAddIdeaInfoCallBack);
+		});
+		$("#editBtn").click(function(){
+			sendGetRequest(platformUrl.detailIdea,null,initCallBack.getdetailIdeaInfoCallBack);
 		});
 	}
 	
