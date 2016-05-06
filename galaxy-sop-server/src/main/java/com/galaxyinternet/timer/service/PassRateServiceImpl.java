@@ -26,6 +26,6 @@ public class PassRateServiceImpl extends BaseServiceImpl<PassRate> implements Pa
 	@Override
 	public List<PassRate> queryListById(List<String> idList) {
 		// TODO Auto-generated method stub
-		return null;
+		return passRateDao.selectListById(idList);
 	}
 }

@@ -1819,7 +1819,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			//获取投资经理的过会率
 			List<PassRate> prateList = passRateService.queryListById(uids);
 			Map<Long, PassRate> passRateMap = new HashMap<Long, PassRate>();
-			if(prateList != null){
+			if(prateList.size() > 0){
 				for(PassRate pr:prateList){
 					passRateMap.put(pr.getUid(), pr);
 				}

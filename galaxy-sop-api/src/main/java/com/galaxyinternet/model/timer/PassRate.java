@@ -1,5 +1,7 @@
 package com.galaxyinternet.model.timer;
 
+import java.util.List;
+
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class PassRate extends PagableEntity{
@@ -10,7 +12,15 @@ public class PassRate extends PagableEntity{
 	private Double rate;
 	private Integer rateType;
 	
+	private List<String> uids;
 	
+	
+	public List<String> getUids() {
+		return uids;
+	}
+	public void setUids(List<String> uids) {
+		this.uids = uids;
+	}
 	public Integer getRateType() {
 		return rateType;
 	}
