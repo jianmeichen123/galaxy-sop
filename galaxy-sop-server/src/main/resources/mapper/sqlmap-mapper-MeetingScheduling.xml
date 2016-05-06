@@ -147,6 +147,7 @@
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
+			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -188,6 +189,7 @@
 			<if test="status != null" > status = #{status,jdbcType=VARCHAR}, </if>
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">

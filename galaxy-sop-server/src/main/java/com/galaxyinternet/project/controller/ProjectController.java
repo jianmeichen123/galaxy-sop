@@ -1,5 +1,6 @@
 package com.galaxyinternet.project.controller;
 
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -1042,6 +1043,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(!tm.getStatus().equals(DictEnum.meetingResult.待定.getCode())){
 				tm.setStatus(DictEnum.meetingResult.待定.getCode());
 				tm.setUpdatedTime((new Date()).getTime());
+				tm.setApplyTime(new Timestamp(new Date().getTime()));
 				meetingSchedulingService.updateById(tm);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
@@ -1121,6 +1123,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(!tm.getStatus().equals(DictEnum.meetingResult.待定.getCode())){
 				tm.setStatus(DictEnum.meetingResult.待定.getCode());
 				tm.setUpdatedTime((new Date()).getTime());
+				tm.setApplyTime(new Timestamp(new Date().getTime()));
 				meetingSchedulingService.updateById(tm);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
@@ -1207,6 +1210,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(!tm.getStatus().equals(DictEnum.meetingResult.待定.getCode())){
 				tm.setStatus(DictEnum.meetingResult.待定.getCode());
 				tm.setUpdatedTime((new Date()).getTime());
+				tm.setApplyTime(new Timestamp(new Date().getTime()));
 				meetingSchedulingService.updateById(tm);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());

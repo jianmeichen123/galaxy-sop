@@ -2,6 +2,7 @@ package com.galaxyinternet.project.service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -178,6 +179,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setMeetingCount(0);
 		ms.setStatus(DictEnum.meetingResult.待定.getCode());
 		ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+		ms.setApplyTime(new Timestamp(new Date().getTime()));
 		ms.setCreatedTime((new Date()).getTime());
 		meetingSchedulingDao.insert(ms);
 		
@@ -202,6 +204,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setStatus(DictEnum.meetingResult.待定.getCode());
 		ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 		ms.setCreatedTime((new Date()).getTime());
+		ms.setApplyTime(new Timestamp(new Date().getTime()));
 		meetingSchedulingDao.insert(ms);
 	}
 
