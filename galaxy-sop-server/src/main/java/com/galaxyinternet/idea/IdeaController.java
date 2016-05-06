@@ -368,237 +368,243 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	
 	
 	//=======================   上传可行性报告      ===============================//
-	//=======================    更新可行性报告     ===============================//
-	/**
-	 * 上传可行性报告
-	 * @param   ideafile recordType:1 创意    <br/>
-	 * 					 projectId   创意Id  <br/>
-	 * 					 projectProgress  <br/>
-	 * 								CYCJ("创意已创建/待认领","ideaProgress:1"),  <br/>
-									CYDY("调研","ideaProgress:2"),   <br/>
-									CYLXH("创建立项会","ideaProgress:3"),  <br/>
-									CYXM("创建项目","ideaProgress:4");  <br/>
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/ideaUpReport", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopFile> ideaUpReport(SopFile ideafile,HttpServletRequest request,HttpServletResponse response ) {
-		
-		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		SopFile editFile = null;
-		if(ideafile.getProjectId() == null){
-			String json = JSONUtils.getBodyString(request);
-			ideafile = GSONUtil.fromJson(json, SopFile.class);
-		}
-		
-		//前端必传项  CYid CYprograss fileType
-		if(ideafile == null || ideafile.getProjectId() == null  || ideafile.getProjectProgress() == null || ideafile.getFileType()==null){
-			responseBody.setResult(new Result(Status.ERROR,null, "传入信息不全"));
-			return responseBody;
-		}
-		
-		try {
-			//Idea  验证
-			Idea idea = new Idea();
-			idea = ideaService.queryById(ideafile.getProjectId());
-			Result err = errMessage(idea,user,ideafile.getProjectProgress());   //字典  项目进度  接触访谈  DictEnum.projectProgress.接触访谈.getCode()
-			if(err!=null && err.getStatus()!=null){
-				responseBody.setResult(err);
-				return responseBody;
-			}
-			if(ideafile.getIsEdit()!=null && ideafile.getIsEdit().equals("edit")){  //更新验证
-				if(ideafile.getId()!=null){
-					editFile = sopFileService.queryById(ideafile.getId());
-					if(editFile == null || editFile.getId()==null){
-						responseBody.setResult(new Result(Status.ERROR,null, "传入信息错误"));
-						return responseBody;
-					}
-				}else{
-					responseBody.setResult(new Result(Status.ERROR,null, "传入信息不全"));
-					return responseBody;
-				}
-			}
+		//=======================    更新可行性报告     ===============================//
+		/**
+		 * 上传可行性报告
+		 * @param   ideafile recordType:1 创意    <br/>
+		 * 					 projectId   创意Id  <br/>
+		 * 					 projectProgress  <br/>
+		 * 								CYCJ("创意已创建/待认领","ideaProgress:1"),  <br/>
+										CYDY("调研","ideaProgress:2"),   <br/>
+										CYLXH("创建立项会","ideaProgress:3"),  <br/>
+										CYXM("创建项目","ideaProgress:4");  <br/>
+		 * @return
+		 */
+		@ResponseBody
+		@RequestMapping(value = "/ideaUpReport", produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseData<SopFile> ideaUpReport(SopFile ideafile,HttpServletRequest request,HttpServletResponse response ) {
 			
-			//保存
-			Long id = null;
-			Map<String,String> nameMap = null;
-			if(ideafile.getFileKey()!=null){  //前端已完成上传
-				if(ideafile.getFileLength()==null||ideafile.getFileName()==null||ideafile.getFileName().trim().length()==0){ //FileName.txt
-					responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
-					return responseBody;
-				}
-				if(ideafile.getBucketName()==null){
-					ideafile.setBucketName(OSSFactory.getDefaultBucketName());
-				}
-				
-				nameMap = StrUtils.transFileNames(ideafile.getFileName().trim());
-				
-			}else if(ServletFileUpload.isMultipartContent(request)){   // 后台上传
-				String fileKey = null;
-				if(editFile != null && editFile.getFileKey()!=null){
-					fileKey = editFile.getFileKey();
-				}else{
-					fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				}
-				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
-				
-				//上传成功后
-				if(result!=null && result.getResult().getStatus()!=null && result.getResult().getStatus().equals(Status.OK)){
-					nameMap = new HashMap<String,String>();
-					if(ideafile.getFileName()!=null && ideafile.getFileName().trim().length()>0){
-						nameMap = StrUtils.transFileNames(ideafile.getFileName().trim());
-					}else{
-						 nameMap.put("fileName",result.getFileName());
-						 nameMap.put("fileSuffix", result.getFileSuffix());
-					}
-					
-					ideafile.setBucketName(result.getBucketName()==null?OSSFactory.getDefaultBucketName():result.getBucketName()); 
-					ideafile.setFileKey(fileKey);  
-					ideafile.setFileLength(result.getContentLength());  
-				}else{
-					responseBody.setResult(new Result(Status.ERROR,null, "文件上传失败"));
-					return responseBody;
-				}
-			}
-			
-			ideafile.setRecordType(RecordType.IDEAS.getType());
-			ideafile.setFileName(nameMap.get("fileName"));
-			ideafile.setFileSuffix(nameMap.get("fileSuffix"));
-			ideafile.setFileUid(user.getId());	
-			ideafile.setCareerLine(user.getDepartmentId());
-			ideafile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
-			//sopFile.setFileWorktype(fileWorkType);    //业务分类
-			ideafile.setFileStatus(DictEnum.fileStatus.已上传.getCode()); 
-			
-			if(ideafile.getIsEdit()!=null && ideafile.getIsEdit().equals("edit")){
-				int ud =  sopFileService.updateById(ideafile);
-				if(ud == 0){
-					responseBody.setResult(new Result(Status.ERROR,null, "更新失败"));
-					return responseBody;
-				}
-				id = ideafile.getId();
-			}else{
-				id = sopFileService.insert(ideafile);
-			}
-			
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(id);
-			
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "文件上传失败"));
-			logger.error("ideaUpReport 文件上传失败",e);
-		}
-		return responseBody;
-	}
-	
-	
-	//=======================     创意调研阶段文档列表    ===============================//
-	/**
-	 * 创意调研阶段文档列表   单个创意下
-	 * @param   ideafile <br/>
-	 * 				projectId : 创意id 
-	 * 				
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/queryIdeaDyList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopFile> queryIdeaDyList(HttpServletRequest request,@RequestBody SopFile ideafile ) {
-		
-		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		
-		try {
+			ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			SopFile editFile = null;
+			if(ideafile.getProjectId() == null){
+				String json = JSONUtils.getBodyString(request);
+				ideafile = GSONUtil.fromJson(json, SopFile.class);
+			}
 			
-			if(ideafile==null || ideafile.getProjectId()==null || ideafile.getProjectProgress()==null){
+			//前端必传项  CYid CYprograss fileType
+			if(ideafile == null || ideafile.getProjectId() == null  || ideafile.getProjectProgress() == null || ideafile.getFileType()==null){
 				responseBody.setResult(new Result(Status.ERROR,null, "传入信息不全"));
 				return responseBody;
 			}
 			
-			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
-				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
-				return responseBody;
-			}
-			if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
-				ideafile.setFileUid(user.getId());
-				ideafile.setFileUName(user.getRealName());
+			try {
+				//Idea  验证
+				Idea idea = new Idea();
+				idea = ideaService.queryById(ideafile.getProjectId());
+				Result err = errMessage(idea,user,ideafile.getProjectProgress());   //字典  项目进度  接触访谈  DictEnum.projectProgress.接触访谈.getCode()
+				if(err!=null && err.getStatus()!=null){
+					responseBody.setResult(err);
+					return responseBody;
+				}
+				if(ideafile.getIsEdit()!=null && ideafile.getIsEdit().equals("edit")){  //更新验证
+					if(ideafile.getId()!=null){
+						editFile = sopFileService.queryById(ideafile.getId());
+						if(editFile == null || editFile.getId()==null){
+							responseBody.setResult(new Result(Status.ERROR,null, "传入信息错误"));
+							return responseBody;
+						}
+					}else{
+						responseBody.setResult(new Result(Status.ERROR,null, "传入信息不全"));
+						return responseBody;
+					}
+				}
+				
+				//保存
+				Long id = null;
+				Map<String,String> nameMap = null;
+				if(ideafile.getFileKey()!=null){  //前端已完成上传
+					if(ideafile.getFileLength()==null||ideafile.getFileName()==null||ideafile.getFileName().trim().length()==0){ //FileName.txt
+						responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
+						return responseBody;
+					}
+					if(ideafile.getBucketName()==null){
+						ideafile.setBucketName(OSSFactory.getDefaultBucketName());
+					}
+					
+					nameMap = StrUtils.transFileNames(ideafile.getFileName().trim());
+					
+				}else if(ServletFileUpload.isMultipartContent(request)){   // 后台上传
+					String fileKey = null;
+					if(editFile != null && editFile.getFileKey()!=null){
+						fileKey = editFile.getFileKey();
+					}else{
+						fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+					}
+					UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
+					
+					//上传成功后
+					if(result!=null && result.getResult().getStatus()!=null && result.getResult().getStatus().equals(Status.OK)){
+						nameMap = new HashMap<String,String>();
+						if(ideafile.getFileName()!=null && ideafile.getFileName().trim().length()>0){
+							nameMap = StrUtils.transFileNames(ideafile.getFileName().trim());
+						}else{
+							 nameMap.put("fileName",result.getFileName());
+							 nameMap.put("fileSuffix", result.getFileSuffix());
+						}
+						
+						ideafile.setBucketName(result.getBucketName()==null?OSSFactory.getDefaultBucketName():result.getBucketName()); 
+						ideafile.setFileKey(fileKey);  
+						ideafile.setFileLength(result.getContentLength());  
+					}else{
+						responseBody.setResult(new Result(Status.ERROR,null, "文件上传失败"));
+						return responseBody;
+					}
+				}else{
+					responseBody.setResult(new Result(Status.ERROR,null, "文件缺失"));
+					return responseBody;
+				}
+				
+				ideafile.setRecordType(RecordType.IDEAS.getType());
+				ideafile.setFileName(nameMap.get("fileName"));
+				ideafile.setFileSuffix(nameMap.get("fileSuffix"));
+				ideafile.setFileUid(user.getId());	
 				ideafile.setCareerLine(user.getDepartmentId());
-				ideafile.setCareerLineName(user.getDepartmentName());
+				ideafile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
+				//sopFile.setFileWorktype(fileWorkType);    //业务分类
+				ideafile.setFileStatus(DictEnum.fileStatus.已上传.getCode()); 
+				
+				if(ideafile.getIsEdit()!=null && ideafile.getIsEdit().equals("edit")){
+					int ud =  sopFileService.updateById(ideafile);
+					if(ud == 0){
+						responseBody.setResult(new Result(Status.ERROR,null, "更新失败"));
+						return responseBody;
+					}
+					id = ideafile.getId();
+				}else{
+					id = sopFileService.insert(ideafile);
+				}
+				
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setId(id);
+				
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "文件上传失败"));
+				logger.error("ideaUpReport 文件上传失败",e);
 			}
+			return responseBody;
+		}
+		
+		
+		//=======================     创意调研阶段文档列表    ===============================//
+		/**
+		 * 创意调研阶段文档列表   单个创意下
+		 * @param   ideafile <br/>
+		 * 				projectId : 创意id 
+		 * 				
+		 * @return
+		 */
+		@ResponseBody
+		@RequestMapping(value = "/queryIdeaDyList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseData<SopFile> queryIdeaDyList(HttpServletRequest request,@RequestBody SopFile ideafile ) {
 			
-			ideafile.setRecordType(RecordType.IDEAS.getType());
+			ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
 			
-			Page<SopFile> pageList = sopFileService.queryFileList(ideafile, 
-					new PageRequest(ideafile.getPageNum()==null?0:ideafile.getPageNum(), ideafile.getPageSize()==null?10:ideafile.getPageSize(),Direction.DESC,"updated_time"));
-			
-			responseBody.setPageList(pageList);
-			responseBody.setResult(new Result(Status.OK, ""));
+			try {
+				User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+				
+				if(ideafile==null || ideafile.getProjectId()==null ){
+					responseBody.setResult(new Result(Status.ERROR,null, "传入信息不全"));
+					return responseBody;
+				}
+				if(ideafile.getProjectProgress()==null){
+					ideafile.setProjectProgress(DictEnum.IdeaProgress.CYDY.getCode());
+				}
+				
+				List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+				if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+						&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+					responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+					return responseBody;
+				}
+				if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
+					ideafile.setFileUid(user.getId());
+					ideafile.setFileUName(user.getRealName());
+					ideafile.setCareerLine(user.getDepartmentId());
+					ideafile.setCareerLineName(user.getDepartmentName());
+				}
+				
+				ideafile.setRecordType(RecordType.IDEAS.getType());
+				
+				Page<SopFile> pageList = sopFileService.queryFileList(ideafile, 
+						new PageRequest(ideafile.getPageNum()==null?0:ideafile.getPageNum(), ideafile.getPageSize()==null?10:ideafile.getPageSize(),Direction.DESC,"updated_time"));
+				
+				responseBody.setPageList(pageList);
+				responseBody.setResult(new Result(Status.OK, ""));
+				
+				return responseBody;
+				
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
+				
+				logger.error("queryIdeaDyList 查询失败",e);
+			}
 			
 			return responseBody;
-			
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
-			
-			logger.error("queryIdeaDyList 查询失败",e);
 		}
 		
-		return responseBody;
-	}
-	
-	
-	
-	
-	//=======================     启动创建立项会    ===============================//
-	/**
-	 * 更新创意阶段
-	 * @param  ideaid 创意id
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/ideaStartMeet/{ideaid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Idea> ideaStartMeet(HttpServletRequest request,@PathVariable("ideaid") Long ideaid) {
 		
-		ResponseData<Idea> responseBody = new ResponseData<Idea>();
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
-		try {
-			Idea idea = ideaService.queryById(ideaid);
+		
+		//=======================     启动创建立项会    ===============================//
+		/**
+		 * 更新创意阶段
+		 * @param  ideaid 创意id
+		 * @return
+		 */
+		@ResponseBody
+		@RequestMapping(value = "/ideaStartMeet/{ideaid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseData<Idea> ideaStartMeet(HttpServletRequest request,@PathVariable("ideaid") Long ideaid) {
 			
-			Result err = errMessage(idea,user,null);   //仅创建人可启动
-			if(err!=null && err.getStatus()!=null){
-				responseBody.setResult(err);
-				return responseBody;
-			}
+			ResponseData<Idea> responseBody = new ResponseData<Idea>();
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
-			if(idea.getIdeaProgress()==null||!idea.getIdeaProgress().equals(DictEnum.IdeaProgress.CYDY.getCode())){
-				responseBody.setResult(new Result(Status.ERROR, null, "操作不允许"));
-				return responseBody;
-			}else{
-				//调研阶段  SopFile中是否有可行性报告
-				SopFile file = new SopFile();
-				file.setProjectId(ideaid);
-				file.setProjectProgress(idea.getIdeaProgress());
-				file.setRecordType(RecordType.IDEAS.getType());
-				List<SopFile> ideaFileList = sopFileService.queryList(file);
-				if(ideaFileList==null || ideaFileList.isEmpty()){
-					responseBody.setResult(new Result(Status.ERROR, null, "请完善可行性报告"));
+			try {
+				Idea idea = ideaService.queryById(ideaid);
+				
+				Result err = errMessage(idea,user,null);   //仅创建人可启动
+				if(err!=null && err.getStatus()!=null){
+					responseBody.setResult(err);
+					return responseBody;
+				}
+				
+				if(idea.getIdeaProgress()==null||!idea.getIdeaProgress().equals(DictEnum.IdeaProgress.CYDY.getCode())){
+					responseBody.setResult(new Result(Status.ERROR, null, "操作不允许"));
 					return responseBody;
 				}else{
-					idea.setIdeaProgress(DictEnum.IdeaProgress.CYLXH.getCode());
-					ideaService.updateById(idea);
+					//调研阶段  SopFile中是否有可行性报告
+					SopFile file = new SopFile();
+					file.setProjectId(ideaid);
+					file.setProjectProgress(idea.getIdeaProgress());
+					file.setRecordType(RecordType.IDEAS.getType());
+					List<SopFile> ideaFileList = sopFileService.queryList(file);
+					if(ideaFileList==null || ideaFileList.isEmpty()){
+						responseBody.setResult(new Result(Status.ERROR, null, "请完善可行性报告"));
+						return responseBody;
+					}else{
+						idea.setIdeaProgress(DictEnum.IdeaProgress.CYLXH.getCode());
+						ideaService.updateById(idea);
+					}
 				}
+				responseBody.setResult(new Result(Status.OK, ""));
+				responseBody.setEntity(idea);
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "启动创建立项会失败"));
+				logger.error("ideaStartMeet 启动创建立项会失败",e);
 			}
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setEntity(idea);
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "启动创建立项会失败"));
-			logger.error("ideaStartMeet 启动创建立项会失败",e);
+			
+			return responseBody;
 		}
-		
-		return responseBody;
-	}
 	
 	
 	@ResponseBody

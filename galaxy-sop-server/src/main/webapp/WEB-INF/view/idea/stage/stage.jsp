@@ -18,11 +18,11 @@
           <div class="tabtable">
           <!-- tab标签 -->
             <ul class="tablink">
-                <li data-tab="nav">基本信息</li>
-                <li data-tab="nav">调研</li>
-                <li data-tab="nav">创建立项会</li>           
-                <li data-tab="nav">创建项目</li>           
-                <li data-tab="nav">变更动态</li>           
+                <li data-tab="nav" id="ideaProgress_1">基本信息</li>
+                <li data-tab="nav" id="ideaProgress_2">调研</li>
+                <li data-tab="nav" id="ideaProgress_3">创建立项会</li>           
+                <li data-tab="nav" id="ideaProgress_5">创建项目</li>           
+                <li data-tab="nav" id="ideaOperateLog">变更动态</li>           
             </ul>
             <!-- tab内容 -->
             <div class="tabtable_con tabtable_con_close">
@@ -69,31 +69,40 @@
               </div>
 
               <!-- 调研 -->
-              <div class="block block_t" data-tab="con">
-              <!--表格内容-->
-                <table width="100%" cellspacing="0" cellpadding="0" >
-                    <thead>
-                        <tr>
-                            <th>上传者</th>
-                            <th>存档类型</th>
-                            <th>创意状态</th>
-                            <th>所属事业线</th>
-                            <th>更新时间</th>
-                            <th>附件查看</th>
-                        </tr>
-                    </thead>                                                                                                                                    
-                    <tbody>
-                        <tr>
-                            <td>王晓宇</td>
-                            <td>文档</td>
-                            <td>调研</td>
-                            <td>互联网钢铁</td>
-                            <td>2016-04-02  16:30:21</td>
-                            <td><a href="javascript:; " class="blue">可行性报告.doc</a></td>   
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+              <!-- 调研   idea-->
+			<div class="block block_t" data-tab="con" id="ideaProgress_2_con">
+				<!--按钮-->
+				<div id="options_point2" class="btnbox_f btnbox_f1 btnbox_m clearfix">
+					<a href="javascript:;" id="add_ceomeet"  onclick="upreport('u','ideaPrograss:2','${id}')" class="pubbtn fffbtn lpubbtn option_item_mark">上传可行性报告</a> 
+					<a href="javascript:;" id="lxhpq" onclick="stratLxh()"  class="pubbtn fffbtn lpubbtn option_item_mark">启动创建立项会</a>
+					<a href="javascript:;" id="applyCeoMeeting" onclick="ideaReload()" class="pubbtn fffbtn lpubbtn option_item_mark">放弃</a>
+				</div>
+				
+				<div id="ideaProgress_2_params">
+					<input type="hidden" name="projectId" data-id="ideaId" value="${id}">
+					<input type="hidden" name=ProjectProgress value="ideaProgress:2">
+				</div>
+				<!--表格内容-->
+				<table id="ideaProgress_2_table" data-id-field="id"
+					data-url="<%=path%>/galaxy/idea/queryIdeaDyList"  data-page-list="[3,5,10]"
+					data-toolbar="#ideaProgress_2_params">
+					<thead>
+						<tr>
+							<th data-field="fileUName" data-align="center" >上传者</th>
+							<th data-field="fWorktype" data-align="center" >存档类型</th>
+							<th data-field="projectProgress" data-align="center" data-formatter="progressFormatter">创意状态</th>
+							<th data-field="careerLineName" data-align="center" >所属事业线</th>
+							<th data-field="updatedDate" data-align="center" >更新时间</th>
+							<th data-align="center" data-formatter="ideaOperateFormat">操作</th>
+							<th data-align="center" data-formatter="ideaFileDownFormat">附件查看</th>
+						</tr>
+					</thead>
+				</table>
+				
+			</div>
+			
+			
+			
 		<!-- 创建立项会 -->
               <div class="block block_t" data-tab="con">
                 <!--按钮-->
@@ -191,7 +200,7 @@
            </div>
           </div>  
       <script type="text/javascript">
-		$(function(){
+		/* $(function(){
 			getProjectInfo();
 		});
             
@@ -228,5 +237,5 @@
 			});
 		}
 	);
-}
+} */
 </script>

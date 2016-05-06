@@ -121,6 +121,47 @@
     </div>
 </div>
 
+
+<!--file--id  upload dialog start -->
+<div id="upload-dialog" class="archivestc" style="display: none;">
+	<form id="upload-form">
+		<input type="hidden" name="id"> 
+		<input type="hidden" name="isEdit"> 
+		<input type="hidden" name="projectId">
+		<input type="hidden" name="projectProgress">
+
+		<h2></h2>
+
+		<div class="fmdl clearfix">
+			<dt>可行性研究报告：</dt>
+			<dd>
+				<input type="text" name="fileName" class="txt disabled" />
+			</dd>
+			<dd>
+				<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>
+			</dd>
+		</div>
+
+		<dl class="fmdl clearfix">
+			<dt>报告类型：</dt>
+			<dd>
+				<select id="fileType" name="fileType" disabled="disabled">
+					<option value="">全部</option>
+					<option value="fileType:1">文档</option>
+					<option value="fileType:2">音频文件</option>
+					<option value="fileType:3">视频文件</option>
+					<option value="fileType:4">图片</option>
+				</select>
+			</dd>
+		</dl>
+	</form>
+	
+	<a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">提交</a>
+	<a href="javascript:;" class="pubbtn bluebtn" data-close="close" id="upload-close">取消</a>
+</div>
+<!-- upload dialog end -->
+
+
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <jsp:include page="../idea/addDialog.jsp"></jsp:include>
 <script src="<%=request.getContextPath() %>/js/operationMessage.js" type="text/javascript"></script>
