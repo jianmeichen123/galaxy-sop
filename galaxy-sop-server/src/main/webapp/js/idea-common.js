@@ -75,7 +75,7 @@
 				alert(data.result.message );
 				return;
 			}
-			var idea = data.entity;
+			idea = data.entity;
 			stockTransfer = idea.stockTransfer;
 			
 			$("#ideaDetail dd")
