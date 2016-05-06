@@ -31,6 +31,7 @@
                   <div class="btnbox_f1 btnbox_m clearfix">
                     <button class="pubbtn fffbtn" href="tchtml/creative_claimtc.html" data-btn="claim">认领</button>
                     <button class="pubbtn fffbtn" href="tchtml/creative_edit.html" data-btn="edit">编辑</button>
+                    <button class="pubbtn fffbtn" href="<%=path %>/galaxy/idea/showHistory?id=${id}" data-btn="history">历史信息</button>
                   </div>
                   <div class="top clearfix">
                     <dl>
