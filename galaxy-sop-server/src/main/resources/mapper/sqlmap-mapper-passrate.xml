@@ -12,7 +12,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, uid, rate, updated_time, created_time,rate_type
+    id, uid, rate, rate_type, updated_time, created_time
   </sql>
   
   
@@ -52,7 +52,7 @@
 	    <![CDATA[
 	     insert into sop_pass_rate (id, uid, rate, rate_type,
 	      updated_time, created_time)
-	    values (#{id}, #{uid}, #{rate}, #{rateType}
+	    values (#{id}, #{uid}, #{rate}, #{rateType},
 	      #{updatedTime}, #{createdTime})
 	    ]]>
     </insert>
@@ -69,6 +69,7 @@
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
 			  <if test="uid != null" > and uid = #{uid} </if>
+			  <if test="rateType != null" > and rate_type = #{rateType} </if>
 			</trim>
 		</where>
 	</update>
