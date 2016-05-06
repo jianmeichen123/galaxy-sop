@@ -2,14 +2,14 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<div style=" width:1200px" class="ritmin">
+<div style="width:800px; " class="ritmin">
 	<div class="clearfix">
 	  <h3>调研</h3>       
 	</div>
 	<div id="research-history-params">
 		<input type="hidden" name="projectId" value="${id}">
 	</div>
-	<table id="research-history" data-id-field="id" data-url="<%=path%>/galaxy/idea/queryIdeaDyList" data-toolbar="#research-history-params">
+	<table id="research-history" class="history-table" data-id-field="id" data-url="<%=path%>/galaxy/idea/queryIdeaDyList" data-toolbar="#research-history-params" data-page-size="3">
 		<thead>
 			<tr>
 				<th data-field="fileUName" data-align="center" >上传者</th>
@@ -24,30 +24,61 @@
 	<div class="clearfix">
 	  <h3>创建立项会</h3>       
 	</div>
-	<table width="100%" cellspacing="0" cellpadding="0" class='table_l'>
-	    <thead>
-	        <tr>
-	            <th>会议概况</th>
-	            <th>会议纪要</th>
-	        </tr>
-	    </thead>                                                                                                                                    
-	    <tbody>
-	        <tr>
-	            <td class="td1">会议时间:<span>2016-04-02</span><br/>会议结论:<span>2016-04-02</span><br/>会议录音:<a href="javascript:;" class="blue">录音.mp3</a></td>
-	            <td class="td2">头脑风暴法（Brainstorming）是最为人所熟悉的创意思维策略，该方法是由美国人奥斯本（Osborn）早于1937年所倡导，此法强调集体思考的方法，着重互相激发思考，鼓励参加者于指定时间内，构想出大量的意念，并从中引发新颖的构思。</td>
-	        </tr>
-	
-	    </tbody>
+	<div id="cjlxh-history-params">
+		<input type="hidden" name="projectId" value="${id}">
+		<input type="hidden" name="recordType" value="1">
+	</div>
+	<table id="cjlxh-history" class="history-table" data-id-field="id" data-url="<%=path%>/galaxy/project/progress/queryMeet" data-toolbar="#cjlxh-history-params" data-page-size="1">
+		<colgroup >
+			<col style="width:30%;"> <!-- 名称 -->
+			<col style="width:70%;">  <!-- 状态 -->
+		</colgroup>
+		<thead>
+			<tr>
+				<th data-field="meetInfo" data-align="center" data-formatter="meetInfoFormatter">会议概况</th>
+				<th data-field="meetingNotes" data-align="center" data-formatter="meetNoteFormatter">会议纪要</th>
+			</tr>
+		</thead>
 	</table>
 </div>
 <script>
-$("#research-history").bootstrapTable({
+$(".history-table").bootstrapTable({
 	queryParamsType: 'size|page', // undefined
-	pageSize:3,
 	showRefresh : false ,
 	sidePagination: 'server',
 	method : 'post',
 	pagination: true,
     search: false
 });
+function meetInfoFormatter(val,row,index)
+{
+	var fileinfo = "";
+	var rc = "";
+	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
+		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+	}
+	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+				"参会人："+(row.participant ? row.participant : '')+
+				"</br>会议日期："+row.meetingDateStr+
+				"</br>会议结论："+row.meetingResultStr+
+				"</br>会议录音："+fileinfo+
+			"</div>" ;
+	return rc;
+}
+function meetNoteFormatter(value,row,index){
+	var len = getLength($.trim(value));
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>100){
+			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
+			
+			return rc;
+		}else{
+			return strlog;
+		}
+	}
+
+}
 </script>
