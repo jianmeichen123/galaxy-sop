@@ -1,6 +1,7 @@
 package com.galaxyinternet.idea;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -47,11 +48,32 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		// TODO Auto-generated method stub
 		return ideaDao;
 	}
+	
+	@Override
+	public List<Idea> queryList(Idea query) {
+		List<Idea> list = super.queryList(query);
+		queryReleated(list);
+		return list;
+	}
 	@Override
 	public Page<Idea> queryPageList(Idea query, Pageable pageable) 
 	{
 		Page<Idea> page = super.queryPageList(query, pageable);
 		List<Idea> list = page.getContent();
+		queryReleated(list);
+		return page;
+	}
+	
+	@Override
+	public Idea queryById(Long id) {
+		Idea idea = super.queryById(id);
+		List<Idea> list = Arrays.asList(idea);
+		queryReleated(list);
+		return idea;
+	}
+
+	private void queryReleated(List<Idea> list) 
+	{
 		if(list != null && list.size() > 0)
 		{
 			List<Long> userIds = new ArrayList<Long>();
@@ -126,7 +148,6 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 				idea.setProjectProgressDesc(projectProgressDesc);
 			}
 		}
-		return page;
 	}
 	@Override
 	public void createProject(Long id, String projectName) throws BusinessException

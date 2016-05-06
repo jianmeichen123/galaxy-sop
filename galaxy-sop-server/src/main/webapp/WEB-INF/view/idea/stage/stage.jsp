@@ -47,17 +47,17 @@
                     </dl>
                     <dl>
                       <dt>提出人：</dt>
-                      <dd id="createPerson">投资经理</dd>
+                      <dd id="createdUname">投资经理</dd>
                     </dl>
                     <dl>
                       <dt>所属事业线：</dt>
-                      <dd id="departmentLine">O2O</dd>
+                      <dd id="departmentDesc">O2O</dd>
                     </dl>
                   </div>
                   <div class="mid clearfix">
                     <dl>
                       <dt>提出时间：</dt>
-                      <dd id="createTime">2016-05-04</dd>
+                      <dd id="createdTime" data-formatter="dateFormatter">2016-05-04</dd>
                     </dl>
                   </div>
                   <div class="bottom clearfix">
@@ -216,8 +216,13 @@
 				if(self.attr('id') != 'undefined')
 				{
 					var id = self.attr('id');
-			
-						self.text(idea[id]);
+					var formatter = self.data('formatter');
+					var text = idea[id]
+					if($.isFunction(window[formatter]))
+					{
+						text = window[formatter].call(text);
+					}
+					self.text(text);
 				}
 				
 			});
