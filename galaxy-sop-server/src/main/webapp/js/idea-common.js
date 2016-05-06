@@ -191,6 +191,15 @@
 			});
 			return false;
 		});
+		//基本信息 -->历史信息
+		$("[data-btn='history']").on("click",function(){
+			var $self = $(this);
+			var _url = $self.attr("href");
+			$.getHtml({
+				url:_url//模版反回成功执行	
+			});
+			return false;
+		});
 		//基本信息 -->认领
 		$("[data-btn='claim']").on("click",function(){
 			var $self = $(this);

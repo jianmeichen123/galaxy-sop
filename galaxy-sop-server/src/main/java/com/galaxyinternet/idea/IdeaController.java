@@ -659,8 +659,14 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		responseBody.setResult(new Result(Status.OK,"添加成功"));
 		return responseBody;
 	}
-	
-	
+	@RequestMapping("/showHistory")
+	public ModelAndView showHistory(Long id)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/idea/stage/history");
+		mv.addObject("id", id);
+		return mv;
+	}
 	
 	
 	
