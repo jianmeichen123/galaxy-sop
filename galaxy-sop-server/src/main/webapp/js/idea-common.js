@@ -6,14 +6,6 @@
 		}
 		return val;
 	}
-	function datetimeFormatter(val,row,index)
-	{
-		if(!isNaN(val))
-		{
-			return Number(val).toDate().format("yyyy-MM-dd HH:mm:ss");
-		}
-		return val;
-	}
 	function datetimeFormatter2(val,row,index)
 	{	
 		if(row.updatedTime != null){
@@ -24,6 +16,14 @@
 			if(!isNaN(row.createdTime)){
 				return Number(row.createdTime).toDate().format("yyyy-MM-dd hh:mm:ss");
 			}
+		}
+		return val;
+	}
+	function datetimeFormatter(val,row,index)
+	{
+		if(!isNaN(val))
+		{
+			return Number(val).toDate().format("yyyy-MM-dd HH:mm:ss");
 		}
 		return val;
 	}
@@ -64,20 +64,8 @@
 				}
 		);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//基本信息  -- 数据展示
-	function getProjectInfo(id) {
+	function getIdeaInfo(id) {
 		var idea = null;
 			
 		var url = platformUrl.detailIdea + "/"+id;
@@ -90,7 +78,7 @@
 			}
 			idea = data.entity;
 			stockTransfer = idea.stockTransfer;
-			
+			$("#IdeaId").val(idea.id);
 			$("#ideaDetail dd")
 			.each(function(){
 				var self = $(this);
@@ -136,7 +124,7 @@
 				$(".creativetc .tabtable").tabchange2();
 				
 				//基本信息  -- 数据展示  index =1
-				var ideaInfo = getProjectInfo(ideaId);
+				var ideaInfo = getIdeaInfo(ideaId);
 				
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = ideaInfo.ideaProgress;
@@ -195,11 +183,13 @@
 		//基本信息 -->编辑
 		$("[data-btn='edit']").on("click",function(){
 			var $self = $(this);
+			var $subling=$self.next().val();
 			var _url = $self.attr("href");
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
-				okback:function(){							
+				okback:function(){	
+					getIdeaInfoEdit($subling,"edit")
 				}//模版反回成功执行	
 			});
 			return false;
@@ -411,103 +401,51 @@
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	/*function showIdeaDetail(ideaId)
-	{
-		var $self = $(this);
-		var _url = platformUrl.ideaGoStage+"?id="+ideaId;
-		$.getHtml({
-			url:_url,//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-				$("[data-btn='meeting']").on("click",function(){
-					var $self = $(this);
-					var _url = $self.attr("href");
-					$.getHtml({
-						url:_url,//模版请求地址
-						data:"",//传递参数
-						okback:function(){							
-						}//模版反回成功执行	
-					});
-					return false;
-				});
-				$("[data-btn='abandon']").on("click",function(){
-					var $self = $(this);
-					var _url = $self.attr("href");
-					$.getHtml({
-						url:_url,//模版请求地址
-						data:"",//传递参数
-						okback:function(){							
-						}//模版反回成功执行	
-					});
-					return false;
-				});
-				$("[data-btn='edit_name']").on("click",function(){
-					var $self = $(this);
-					var _url = $self.attr("href");
-					$.getHtml({
-						url:_url,//模版请求地址
-						data:"",//传递参数
-						okback:function(){							
-						}//模版反回成功执行	
-					});
-					return false;
-				});
-				$("[data-btn='edit']").on("click",function(){
-					var $self = $(this);
-					var _url = $self.attr("href");
-					$.getHtml({
-						url:_url,//模版请求地址
-						data:"",//传递参数
-						okback:function(){							
-						}//模版反回成功执行	
-					});
-					return false;
-				});
-				$("[data-btn='claim']").on("click",function(){
-					var $self = $(this);
-					var _url = $self.attr("href");
-					$.getHtml({
-						url:_url,//模版请求地址
-						data:"",//传递参数
-						okback:function(){							
-						}//模版反回成功执行	
-					});
-					return false;
-				});
-				$(".creativetc .tabtable").tabchange2();
-				$('#project_name').click(function(){
-					$('.block').css({
-						display: 'none',
-					});;
-					$(".aa").show();
-					$('.tablink li').eq(0).addClass('on').siblings().removeClass('on');
-				});
-				$('#project_name').click(function(){
-					$(".tabtable_con .block").eq(0).show().siblings().hide();
-					$('.tablink li').eq(0).addClass('on').siblings().removeClass('on');
-				});
-				$("[data-btn='create']").on("click",function(){
-					$(".tabtable_con .block").eq(3).show().siblings().hide();
-					$('.tablink li').eq(3).addClass('on').siblings().removeClass('on');
-					var $self = $(this);
-					var _url = $self.attr("href");
-					$.getHtml({
-						url:_url,//模版请求地址
-						data:"",//传递参数
-						okback:function(){							
-						}//模版反回成功执行	
-					});
-					return false;
-				});
-			}//模版反回成功执行	
+	/**
+	 * 
+	 * 查询创意详情set值
+	 * @param id
+	 */
+  function getIdeaInfoEdit(id,flag)
+  {
+   var url = platformUrl.detailIdea+"/"+id;
+    sendGetRequest(
+	url,
+	{"id":"${id}"},
+	function(data){
+		if(data.result.status == "Error")
+		{
+			alert(data.result.message );
+			return;
+		}
+		var idea = data.entity;
+		stockTransfer = idea.stockTransfer;
+		var um = UM.getEditor('edit_idea_desc');
+	    getDepartment($("#department"));
+		um.setContent(idea.ideaDesc);
+	     $("#ideaId").val(idea.id);
+		$("#ideaEdit dd").each(function(){
+		  var self =$(this).children();
+		if(self.attr('id') != 'undefined')
+			{
+			var formatter = self.data('formatter');
+				var id = self.attr('id');
+				var text = idea[id];
+			   if(id=="department"){
+				   if(self.children().val()==idea.departmentId){
+					   self.children().attr("selected","selected");
+				   }
+				  }else if($.isFunction(window[formatter]))
+				{
+					text = window[formatter].call(window,text);
+					self.val(text);
+				}else{
+				    self.val(text);
+				}
+				
+			}
+			
 		});
-		return false;
-
-	}*/
+	}
+);
+}

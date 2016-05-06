@@ -7,10 +7,12 @@
     <result column="rate" property="rate"/>
     <result column="updated_time" property="updatedTime"/>
     <result column="created_time" property="createdTime"/>
+    <result column="rate_type" property="rateType"/>
+    
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, uid, rate, updated_time, created_time
+    id, uid, rate, updated_time, created_time,rate_type
   </sql>
   
   
@@ -20,6 +22,7 @@
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
 			  <if test="uid != null" > and uid = #{uid} </if>
+			  <if test="rateType != null" > and rate_type = #{rateType} </if>
 			</trim>
 		</where>
 	</sql>
@@ -47,9 +50,9 @@
 	
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.timer.PassRate" >
 	    <![CDATA[
-	     insert into sop_pass_rate (id, uid, rate, 
+	     insert into sop_pass_rate (id, uid, rate, rate_type,
 	      updated_time, created_time)
-	    values (#{id}, #{uid}, #{rate}, 
+	    values (#{id}, #{uid}, #{rate}, #{rateType}
 	      #{updatedTime}, #{createdTime})
 	    ]]>
     </insert>
@@ -79,6 +82,18 @@
 		</set>
 		where id = #{id}
 	</update>
+	
+	<!-- 根据idslist查询过汇率集合 -->
+	<select id="selectListById" resultMap="BaseResultMap" >
+	   select
+		<include refid="Base_Column_List" />
+		 from sop_pass_rate
+		    where uid in
+					<foreach collection="list" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+	</select>
     
     <!-- 删除 -->
 	<delete id="delete" parameterType="java.util.Map">

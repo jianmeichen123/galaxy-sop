@@ -70,7 +70,7 @@ function checkVersion(){
 	var msg =Constants.sopEndpointURL;
 	var ver = getInternetExplorerVersion();
 	if ( ver> -1 ) {
-		if ( ver <= 8.0 ){
+		if ( ver <= 10.0 ){
 		}else{
 			document.write("<script src=\""+msg+"js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
 			document.write("<script src=\""+msg+"js/alioss/alioss_init.js\">"+"</scr"+"ipt>");			

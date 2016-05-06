@@ -62,7 +62,7 @@
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="project/queryScheduling/1" data-height="555" 
+			<table id="data-table" data-url="project/queryScheduling/2" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>

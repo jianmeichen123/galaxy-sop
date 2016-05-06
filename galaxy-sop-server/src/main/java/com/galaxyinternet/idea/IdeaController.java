@@ -627,7 +627,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			Config config = configService.getByKey(SopConstant.CONFIG_KEY_IDEA_CODE, true);
 			idea.setIdeaCode(config.getValue());
 			
-			if(!RoleUtils.isCEO(roleIdList) && !RoleUtils.isDSZ(roleIdList) && !RoleUtils.isHHR(roleIdList)){
+			if(!RoleUtils.isCEO(roleIdList) && !RoleUtils.isDSZ(roleIdList)){
 				idea.setDepartmentId(user.getDepartmentId());
 			}
 			
@@ -651,6 +651,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		responseBody = new ResponseData<Idea>();
 		try{
 			idea.setCreatedTime(System.currentTimeMillis());
+			idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJXM);
 			ideaService.insert(idea);
 		}catch(DaoException e){
 			responseBody.setResult(new Result(Status.ERROR,"创意添加出错,请联系管理员!"));

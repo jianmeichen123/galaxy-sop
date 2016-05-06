@@ -8,7 +8,15 @@ public class PassRate extends PagableEntity{
 	
 	private Long uid;
 	private Double rate;
+	private Integer rateType;
 	
+	
+	public Integer getRateType() {
+		return rateType;
+	}
+	public void setRateType(Integer rateType) {
+		this.rateType = rateType;
+	}
 	public Long getUid() {
 		return uid;
 	}

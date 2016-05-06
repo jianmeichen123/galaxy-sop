@@ -73,7 +73,7 @@
 				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormatter">上次过会时间</th>
 				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
-				    	<th data-field="projectId" data-align="center" class="data-input">过会率</th>
+				    	<th data-field="meetingRate" data-align="center" class="data-input">过会率</th>
 				    	<th data-field="applyTimeStr" data-align="center" class="data-input">申请时间</th>
 				    	<th data-align="center" class="data-input" data-formatter="dataFormatter">排期时间</th>
  					</tr>	
