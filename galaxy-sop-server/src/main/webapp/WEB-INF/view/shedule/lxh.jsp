@@ -74,7 +74,7 @@
 				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
 				    	<th data-field="projectId" data-align="center" class="data-input">过会率</th>
-				    	<th data-align="center" class="data-input" data-formatter="applyTimeFormatter">申请时间</th>
+				    	<th data-field="applyTimeStr" data-align="center" class="data-input">申请时间</th>
 				    	<th data-align="center" class="data-input" data-formatter="dataFormatter">排期时间</th>
  					</tr>	
  				</thead>
@@ -115,19 +115,15 @@
 			return "还未过会";
 		}
 	}
-	function applyTimeFormatter(value, row, index){
-		var applyTime = row.applyTime;
-		if(applyTime){
-			
-		}else{
-			
-		}
-	}
 	function dataFormatter(value, row, index){
 		if(row.isEdit == '1'){
-			return timeHtml = '<input size="16" type="text" readonly class="form_datetime">';
+			if(row.reserveTime){
+				return timeHtml = '<input size="16" value="'+row.reserveTimeStr+'" type="text" readonly class="form_datetime">';
+			}else{
+				return timeHtml = '<input size="16" type="text" readonly class="form_datetime">';
+			}
 		}else{
-			return timeHtml = '<input size="16" type="text" readonly class="form_datetime">';
+			return timeHtml = row.reserveTimeStr;
 		}
 	}
 	tiggerTable1($("#table"),10,function(){

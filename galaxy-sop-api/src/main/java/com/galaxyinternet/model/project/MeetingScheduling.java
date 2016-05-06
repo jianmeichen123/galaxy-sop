@@ -41,6 +41,8 @@ public class MeetingScheduling extends PagableEntity {
   	//投资经理
     private String createUname;
     private String meetingDateStr; 
+    private String applyTimeStr;
+    private String reserveTimeStr;
     
     
     //申请时间(申请立项会时间)
@@ -67,6 +69,22 @@ public class MeetingScheduling extends PagableEntity {
 
 	public void setMeetingDateStr(String meetingDateStr) {
 		this.meetingDateStr = meetingDateStr;
+	}
+
+	public String getApplyTimeStr() {
+		return applyTimeStr;
+	}
+
+	public void setApplyTimeStr(String applyTimeStr) {
+		this.applyTimeStr = applyTimeStr;
+	}
+
+	public String getReserveTimeStr() {
+		return reserveTimeStr;
+	}
+
+	public void setReserveTimeStr(String reserveTimeStr) {
+		this.reserveTimeStr = reserveTimeStr;
 	}
 
 	public String getProjectCareerline() {
@@ -158,6 +176,9 @@ public class MeetingScheduling extends PagableEntity {
 
 	public void setApplyTime(Timestamp applyTime) {
 		this.applyTime = applyTime;
+		if(applyTime != null){
+			applyTimeStr = DateUtil.convertDateToStringForChina(applyTime);
+        }
 	}
 
 	public Timestamp getReserveTime() {
@@ -166,6 +187,9 @@ public class MeetingScheduling extends PagableEntity {
 
 	public void setReserveTime(Timestamp reserveTime) {
 		this.reserveTime = reserveTime;
+		if(reserveTime != null){
+			reserveTimeStr = DateUtil.convertDateToStringForChina(reserveTime);
+        }
 	}
 
 	public Timestamp getLastTime() {
