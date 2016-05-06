@@ -299,6 +299,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		return "idea/stage/meeting";
 	}
 	/**
+	 * 跳转修改页面
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@RequestMapping(value = "/goIdeaEdit",method = RequestMethod.GET)
+	public String goIdeaEdit(HttpServletRequest request) {
+       String id = request.getParameter("id");
+	   request.setAttribute("id",id);
+		return "idea/stage/edit";
+	}
+	/**
 	 * 根据创意id获取创意相关信息
 	 * @author jianmeichen
 	 * @serialData 2016-05-04
