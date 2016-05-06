@@ -3,21 +3,11 @@ package com.galaxyinternet.common.init;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.stereotype.Component;
-
 import com.galaxyinternet.timer.AutoThreadManager;
 import com.galaxyinternet.timer.test.TimerEntrance;
 
-@Component
-public class InitServlet implements InitializingBean {
-
-  private static final long serialVersionUID = 1L;
-  
-
-  @Override
-  public void afterPropertiesSet() throws Exception {
+public class InitServlet{
+  public void init() throws Exception {
 	  InputStream is = null;
 		try {
 			//读取定时线程的配置文件

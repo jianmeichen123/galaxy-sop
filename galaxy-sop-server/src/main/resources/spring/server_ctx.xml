@@ -39,4 +39,7 @@
 		</constructor-arg>
 		<constructor-arg index="2" ref="cache" />
 	</bean>
+	<bean id="com.galaxyinternet.common.init.InitServlet" class="com.galaxyinternet.common.init.InitServlet" init-method="init">
+	</bean>
+	
 </beans>
