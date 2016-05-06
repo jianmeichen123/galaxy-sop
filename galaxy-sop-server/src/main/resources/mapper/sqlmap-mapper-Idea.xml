@@ -141,7 +141,6 @@
  			#{ideaProgress,jdbcType=VARCHAR},
  			#{ideaDesc,jdbcType=VARCHAR},
  			#{ideaDescHtml,jdbcType=VARCHAR},
- 			#{ideaDesc,jdbcType=VARCHAR},
  			#{ideaSource,jdbcType=VARCHAR},
  			#{projectId,jdbcType=BIGINT},
  			#{claimantUid,jdbcType=BIGINT}
