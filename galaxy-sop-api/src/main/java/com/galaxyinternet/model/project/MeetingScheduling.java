@@ -58,6 +58,9 @@ public class MeetingScheduling extends PagableEntity {
     private byte isEdit;
     
     
+    private Double meetingRate;
+    
+    
 	public String getProjectCode() {
 		return projectCode;
 	}
@@ -263,6 +266,14 @@ public class MeetingScheduling extends PagableEntity {
 
 	public void setCareline(Integer careline) {
 		this.careline = careline;
+	}
+
+	public Double getMeetingRate() {
+		return meetingRate;
+	}
+
+	public void setMeetingRate(Double meetingRate) {
+		this.meetingRate = meetingRate;
 	}
 	
 	

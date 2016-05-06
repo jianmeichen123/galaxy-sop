@@ -63,6 +63,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
+import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.project.service.HandlerManager;
@@ -72,6 +73,7 @@ import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
+import com.galaxyinternet.service.PassRateService;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
@@ -113,7 +115,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@Autowired
 	private DepartmentService departmentService;
-	
+	@Autowired
+	private PassRateService passRateService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -1801,14 +1804,25 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 				d.setType(1);
 			}
-			
-			
 			/**
 			 * 查询出相关的所有项目
 			 */
 			ProjectBo pb = new ProjectBo();
 			pb.setIds(ids);
 			List<Project> projectList = projectService.queryList(pb);
+			
+			//组装项目的投资经理uid
+			List<String> uids = new ArrayList<String>();
+			for(Project pr:projectList){
+				uids.add(String.valueOf(pr.getCreateUid()));
+			}
+			//获取投资经理的过会率
+			List<PassRate> prateList = passRateService.queryListById(uids);
+			Map<Long, PassRate> passRateMap = new HashMap<Long, PassRate>();
+			for(PassRate pr:prateList){
+				passRateMap.put(pr.getUid(), pr);
+			}
+			//组装数据
 			List<MeetingScheduling> schedulingFormList = new ArrayList<MeetingScheduling>();
 			for(MeetingScheduling ms : schedulingList){
 				for(Project p : projectList){
@@ -1824,6 +1838,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						if(careerlineMap.get(p.getProjectDepartid()) == null){
 							schedulingFormList.add(ms);
 						}else{
+							ms.setMeetingRate(passRateMap.get(p.getCreateUid()).getRate());
 							ms.setProjectCode(p.getProjectCode());
 							ms.setProjectName(p.getProjectName());
 							ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());

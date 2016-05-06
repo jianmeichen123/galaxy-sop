@@ -1,5 +1,7 @@
 package com.galaxyinternet.timer.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,11 @@ public class PassRateServiceImpl extends BaseServiceImpl<PassRate> implements Pa
 	@Override
 	protected BaseDao<PassRate, Long> getBaseDao() {
 		return this.passRateDao;
+	}
+
+	@Override
+	public List<PassRate> queryListById(List<String> idList) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
