@@ -133,7 +133,7 @@
 		<h2></h2>
 
 		<div class="fmdl clearfix">
-			<dt>可行性研究报告：</dt>
+			<dt>可行性报告：</dt>
 			<dd>
 				<input type="text" name="fileName" class="txt disabled" />
 			</dd>

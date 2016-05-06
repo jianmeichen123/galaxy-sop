@@ -142,8 +142,7 @@
 				for(var i = 1; i<6; i++){
 					//当前阶段之后的tab变为不可用
 					if(i > index){
-						$("#ideaProgress" + i).addClass("disabled");
-						$("#ideaProgress" + i).attr("disabled","disabled");
+						$("#ideaProgress_" + i).addClass("disabled");
 					}
 					
 					//为Tab添加点击事件，用于重新刷新
@@ -170,8 +169,8 @@
 				}	
 				
 				//默认打开当前阶段 
-				$("#" + progress).addClass("on");
-				$("#" + progress + "_con").css("display","block");
+				//$("#" + progress).addClass("on");
+				//$("#" + progress + "_con").css("display","block");
 				
 			}//end okback 模版反回成功执行	
 		});
@@ -298,37 +297,21 @@
 	
 	
 	///======= 调研     =====  ///
-	function ideaOperateFormat(val,row,index)
-	{
+	function ideaOperateFormat(val,row,index){
 		if(row.fileKey){
 			return "<a  href=\"#\" onclick=\"showUploadPopup(\'e\'"+",\'"+row.projectProgress+"\',\'"+row.id+"\');\" class=\"blue\" >更新</a>" ;
 		}
 		return "-";
 	}
 	
-	function ideaFileDownFormat(val,row,index)
-	{
+	function ideaFileDownFormat(val,row,index){
 		if(row.fileKey){
 			return "<a href=\"#\"  onclick=\"filedown("+row.id+","+row.fileKey+");\" class=\"blue\" >"+row.fileName+"</a>" ;
 		}
 		return "-";
 	}
 	
-	function upreport(mark,prograss,fileid){
-		
-		var projectId = $("#ideaProgress_2_con").find("[data-id='ideaId']").val();
-		alert(projectId);
-		
-		if(mark == 'u'){
-			$("#upload-dialog").find("input[name='projectId']").val(projectId);
-			$("#upload-dialog").find("input[name='projectProgress']").val(prograss);
-		}else if(mark == 'e'){
-			$("#upload-dialog").find("input[name='id']").val(fileid);
-			$("#upload-dialog").find("input[name='isEdit']").val("edit");
-			$("#upload-dialog").find("input[name='projectId']").val(projectId);
-			$("#upload-dialog").find("input[name='projectProgress']").val(prograss);
-		}
-	}
+	
 	
 	
 	// mark :u/上传  e/更新    prograss：ideaProgress:2 projectId:ideaid  fileid:
@@ -337,12 +320,27 @@
 			txt:$("#upload-dialog").html(),
 			showback:function(){
 				var _this = this;
-				upreport(mark,prograss,fileid);
-				initIdeaUpload(_this);
+				if(upreport(_this,mark,prograss,fileid)){
+					initIdeaUpload(_this);
+				}
 			}
 		});
 	}
 	
+	function upreport(_dialog,mark,prograss,fileid){
+		var projectId = $("#ideaProgress_2_con").find("[data-id='ideaId']").val();
+		$(_dialog.id).find("input[name='projectId']").val(projectId);
+		$(_dialog.id).find("input[name='projectProgress']").val(prograss);
+		if(mark == 'e'){
+			$(_dialog.id).find("input[name='id']").val(fileid);
+			$(_dialog.id).find("input[name='isEdit']").val("edit");
+		}
+		return true;
+	}
+	
+	function getContion(){
+		
+	}
 	
 	function initIdeaUpload(_dialog){
 		var ideaUploader = new plupload.Uploader({
@@ -352,7 +350,7 @@
 			multi_selection:false,
 			filters : {
 				max_file_size : '25mb',
-				mime_types: paramsFilter()
+				mime_types: paramsFilter(null)
 			},
 
 			init: {
@@ -361,15 +359,16 @@
 						if(ideaUploader.files.length==0){
 							layer.msg("请选择文件.");
 							return;
+						}else{
+							ideaUploader.start();
 						}
-						ideaUploader.start();
 						return false;
 					});
 				},
 
 				FilesAdded: function(up, files) {
 					if(ideaUploader.files.length >= 1){
-						ideaUploader.splice(0, ideaUploader.files.length-1)
+						ideaUploader.splice(0, ideaUploader.files.length-1);
 					} 
 					$.each(files, function() {
 						$(_dialog.id).find("input[name='fileName']").val(this.name);
@@ -388,10 +387,12 @@
 					{
 						layer.msg("上传成功.");
 						$(_dialog.id).find("[data-close='close']").click();
-						$("#data-table").bootstrapTable('refresh');
+						$("#ideaProgress_2_table").bootstrapTable('refresh');
 					}
 					else
-					{
+					{	
+						ideaUploader.splice(0, ideaUploader.files.length);
+						$(_dialog.id).find("input[name='fileName']").val("");
 						layer.msg(data.result.message);
 					}
 				},
@@ -402,6 +403,24 @@
 		});
 
 		ideaUploader.init();
+		
+	}
+	
+	
+	function stratLxh(ideaId){
+		var url = platformUrl.ideaStartMeet + "/"+ideaId;
+		sendGetRequest(url, null, function(data){
+			if(data.result.status == "ERROR"){
+				layer.msg(data.result.message );
+				return;
+			}else if(data.result.status == "OK"){
+				idea = data.entity;
+				$("#data_table").bootstrapTable('refresh');
+				$("#powindow,#popbg").remove();
+				showIdeaDetail(ideaId);
+			}
+			
+		});
 		
 	}
 	

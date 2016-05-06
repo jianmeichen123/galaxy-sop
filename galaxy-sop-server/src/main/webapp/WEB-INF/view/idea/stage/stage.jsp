@@ -70,13 +70,12 @@
                   </div>
               </div>
 
-              <!-- 调研 -->
-              <!-- 调研   idea-->
+               <!-- 调研   idea-->
 			<div class="block block_t" data-tab="con" id="ideaProgress_2_con">
 				<!--按钮-->
 				<div id="options_point2" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" id="cy_up_report"  onclick="showUploadPopup('u','ideaProgress:2','')" class="pubbtn fffbtn lpubbtn option_item_mark">上传可行性报告</a> 
-					<a href="javascript:;" id="cy_start_lxh" onclick="stratLxh()"  class="pubbtn fffbtn lpubbtn option_item_mark">启动创建立项会</a>
+					<a href="javascript:;" id="cy_start_lxh" onclick="stratLxh('${id}')"  class="pubbtn fffbtn lpubbtn option_item_mark">启动创建立项会</a>
 					<a href="javascript:;" id="cy_low" onclick="ideaReload()" class="pubbtn fffbtn lpubbtn option_item_mark">放弃</a>
 				</div>
 				
