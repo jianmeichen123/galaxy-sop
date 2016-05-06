@@ -14,6 +14,19 @@
 		}
 		return val;
 	}
+	function datetimeFormatter2(val,row,index)
+	{	
+		if(row.updatedTime != null){
+			if(!isNaN(row.updatedTime)){
+				return Number(row.updatedTime).toDate().format("yyyy-MM-dd hh:mm:ss");
+			}
+		}else if(row.createdTime != null){
+			if(!isNaN(row.createdTime)){
+				return Number(row.createdTime).toDate().format("yyyy-MM-dd hh:mm:ss");
+			}
+		}
+		return val;
+	}
 	function progressFormatter(val,row,index)
 	{
 		if(val != null)
@@ -285,7 +298,7 @@
 	function ideaOperateFormat(val,row,index)
 	{
 		if(row.fileKey){
-			return "<a  href=\"#\" onclick=\"upreport(\"e\"+","+\""+row.projectPrograss+","+row.id+");\" class=\"blue\" >更新</a>" ;
+			return "<a  href=\"#\" onclick=\"showUploadPopup(\'e\'"+",\'"+row.projectProgress+"\',\'"+row.id+"\');\" class=\"blue\" >更新</a>" ;
 		}
 		return "-";
 	}
@@ -298,23 +311,30 @@
 		return "-";
 	}
 	
-	function upreport(mark,prograss,id){
+	function upreport(mark,prograss,fileid){
+		
+		var projectId = $("#ideaProgress_2_con").find("[data-id='ideaId']").val();
+		alert(projectId);
+		
 		if(mark == 'u'){
-			$("#upload-dialog").find("input[name='projectId']").val("${id}");
+			$("#upload-dialog").find("input[name='projectId']").val(projectId);
 			$("#upload-dialog").find("input[name='projectProgress']").val(prograss);
 		}else if(mark == 'e'){
-			$("#upload-dialog").find("input[name='id']").val(id);
+			$("#upload-dialog").find("input[name='id']").val(fileid);
 			$("#upload-dialog").find("input[name='isEdit']").val("edit");
-			$("#upload-dialog").find("input[name='projectId']").val("${id}");
+			$("#upload-dialog").find("input[name='projectId']").val(projectId);
 			$("#upload-dialog").find("input[name='projectProgress']").val(prograss);
 		}
 	}
 	
-	function showUploadPopup(){
+	
+	// mark :u/上传  e/更新    prograss：ideaProgress:2 projectId:ideaid  fileid:
+	function showUploadPopup(mark,prograss,fileid){
 		$.popup({
 			txt:$("#upload-dialog").html(),
 			showback:function(){
 				var _this = this;
+				upreport(mark,prograss,fileid);
 				initIdeaUpload(_this);
 			}
 		});
@@ -325,7 +345,7 @@
 		var ideaUploader = new plupload.Uploader({
 			runtimes : 'html5,html4,flash,silverlight',
 			browse_button : $(_dialog.id).find("#file-select-btn")[0], 
-			url : "<%=path %>/galaxy/idea/ideaUpReport"+"?sid="+sessionId+"&guid="+userId,
+			url : platformUrl.ideaUpReport,
 			multi_selection:false,
 			filters : {
 				max_file_size : '25mb',

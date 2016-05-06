@@ -73,14 +73,14 @@
 			<div class="block block_t" data-tab="con" id="ideaProgress_2_con">
 				<!--按钮-->
 				<div id="options_point2" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" id="add_ceomeet"  onclick="upreport('u','ideaPrograss:2','${id}')" class="pubbtn fffbtn lpubbtn option_item_mark">上传可行性报告</a> 
-					<a href="javascript:;" id="lxhpq" onclick="stratLxh()"  class="pubbtn fffbtn lpubbtn option_item_mark">启动创建立项会</a>
-					<a href="javascript:;" id="applyCeoMeeting" onclick="ideaReload()" class="pubbtn fffbtn lpubbtn option_item_mark">放弃</a>
+					<a href="javascript:;" id="cy_up_report"  onclick="showUploadPopup('u','ideaProgress:2','')" class="pubbtn fffbtn lpubbtn option_item_mark">上传可行性报告</a> 
+					<a href="javascript:;" id="cy_start_lxh" onclick="stratLxh()"  class="pubbtn fffbtn lpubbtn option_item_mark">启动创建立项会</a>
+					<a href="javascript:;" id="cy_low" onclick="ideaReload()" class="pubbtn fffbtn lpubbtn option_item_mark">放弃</a>
 				</div>
 				
 				<div id="ideaProgress_2_params">
 					<input type="hidden" name="projectId" data-id="ideaId" value="${id}">
-					<input type="hidden" name=ProjectProgress value="ideaProgress:2">
+					<input type="hidden" name="projectProgress" value="ideaProgress:2">
 				</div>
 				<!--表格内容-->
 				<table id="ideaProgress_2_table" data-id-field="id"
@@ -89,10 +89,10 @@
 					<thead>
 						<tr>
 							<th data-field="fileUName" data-align="center" >上传者</th>
-							<th data-field="fWorktype" data-align="center" >存档类型</th>
+							<th data-field="fType" data-align="center" >存档类型</th>
 							<th data-field="projectProgress" data-align="center" data-formatter="progressFormatter">创意状态</th>
 							<th data-field="careerLineName" data-align="center" >所属事业线</th>
-							<th data-field="updatedDate" data-align="center" >更新时间</th>
+							<th data-field="updatedDate" data-align="center"  data-formatter="datetimeFormatter2">更新时间</th>
 							<th data-align="center" data-formatter="ideaOperateFormat">操作</th>
 							<th data-align="center" data-formatter="ideaFileDownFormat">附件查看</th>
 						</tr>

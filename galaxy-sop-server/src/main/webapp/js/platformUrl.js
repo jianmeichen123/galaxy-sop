@@ -434,7 +434,13 @@ var platformUrl = {
 	/**
 	 * 添加创意
 	 */
-	addIdea : Constants.sopEndpointURL + "/galaxy/idea/addIdea"
+	addIdea : Constants.sopEndpointURL + "/galaxy/idea/addIdea",
+	
+	
+	/**
+	 * 创意 报告上传更新
+	*/
+	ideaUpReport: Constants.sopEndpointURL+ "/galaxy/idea/ideaUpReport",
 }
 
 /**
