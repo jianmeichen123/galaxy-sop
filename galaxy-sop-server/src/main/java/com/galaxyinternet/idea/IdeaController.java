@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,7 @@ import com.galaxyinternet.common.enums.DictEnum.RecordType;
 import com.galaxyinternet.common.utils.StrUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
@@ -46,17 +49,20 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
+import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.RoleUtils;
 @Controller
 @RequestMapping("/galaxy/idea")
 public class IdeaController extends BaseControllerImpl<Idea, Idea> {
@@ -73,6 +79,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	private  SopFileService sopFileService;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private ConfigService configService;
 	@Override
 	protected BaseService<Idea> getBaseService() {
 		return this.ideaService;
@@ -577,6 +585,60 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			logger.error("ideaStartMeet 启动创建立项会失败",e);
 		}
 		
+		return responseBody;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/getAddIdeaInfo",method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Idea> getAddIdeaInfo(HttpServletRequest request,HttpServletResponse response){
+		ResponseData<Idea> responseBody = new ResponseData<Idea>();
+		try {
+			//获取session
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			if (user == null) {
+				responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+				return responseBody;
+			}
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+					.getId());
+			Idea idea = new Idea();
+			idea.setCreatedUid(user.getId());
+			idea.setCreatedUname(user.getRealName());
+			idea.setCreatedTime(System.currentTimeMillis());
+			Config config = configService.getByKey(SopConstant.CONFIG_KEY_IDEA_CODE, true);
+			idea.setIdeaCode(config.getValue());
+			
+			if(!RoleUtils.isCEO(roleIdList) && !RoleUtils.isDSZ(roleIdList) && !RoleUtils.isHHR(roleIdList)){
+				idea.setDepartmentId(user.getDepartmentId());
+			}
+			
+			responseBody.setEntity(idea);
+			responseBody.setResult(new Result(Status.OK,""));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			responseBody.setResult(new Result(Status.ERROR,"添加创意失败"));
+		}
+		return responseBody;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/addIdea",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Idea> addIdea(@RequestBody @Valid Idea idea,BindingResult result){
+		ResponseData<Idea> responseBody = getErrorResponse(idea);
+		if(responseBody !=null){
+			return responseBody;
+		}
+		responseBody = new ResponseData<Idea>();
+		try{
+			idea.setCreatedTime(System.currentTimeMillis());
+			ideaService.insert(idea);
+		}catch(DaoException e){
+			responseBody.setResult(new Result(Status.ERROR,"创意添加出错,请联系管理员!"));
+			return responseBody;
+		}
+		responseBody.setResult(new Result(Status.OK,"添加成功"));
 		return responseBody;
 	}
 	

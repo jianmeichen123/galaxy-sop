@@ -27,6 +27,7 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 
+
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
@@ -45,8 +46,9 @@
         <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="<%=path %>/galaxy/idea/add" class="pubbtn bluebtn ico c4">添加创意</a>
-                <a href="<%=path %>/galaxy/idea/goIdeaStagePage" class="pubbtn bluebtn ico c4" data-btn="creative">弹出框</a>
+<%--             href="<%=path %>/galaxy/idea/add" --%>
+                <a id="addBtn" href="javascript:;" class="pubbtn bluebtn ico c4">添加创意</a>
+
             </div>
         </div>
         <!-- 搜索条件 -->
@@ -119,6 +121,7 @@
 </div>
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<jsp:include page="../idea/addDialog.jsp"></jsp:include>
 <script src="<%=request.getContextPath() %>/js/operationMessage.js" type="text/javascript"></script>
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
@@ -138,6 +141,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
 <script src="<%=path %>/js/idea-common.js"></script>
+<script type="text/javascript" src='<%=request.getContextPath() %>/js/ideaadd.js'></script>
 <script type="text/javascript">
 	createMenus(21);
 	getDepartment($("#custom-toolbar [name='departmentId']"));
@@ -158,5 +162,6 @@
 	});
 	
 </script>
+
 
 </html>

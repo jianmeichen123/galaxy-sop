@@ -2,13 +2,15 @@ package com.galaxyinternet.model.idea;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.NotEmpty;
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class Idea extends PagableEntity 
 {
 	private static final long serialVersionUID = 1L;
-	
 	private String ideaName;
+	@NotEmpty(message="创意名称不能为空")
 	private String ideaCode;
 	private Long departmentId;
 	private Long createdUid;
@@ -18,8 +20,7 @@ public class Idea extends PagableEntity
 	private String ideaDescHtml;
 	private String ideaSource;
 	private Long projectId;
-	private Long claimantUid;
-	
+	private Long claimantUid;	
 	private String departmentDesc;
 	private String createdUname;
 	private String ideaProgressDesc;
@@ -32,6 +33,9 @@ public class Idea extends PagableEntity
 	private String hhrName;
 	private List<Long> ids;
 	private String projectProgressDesc;
+
+		
+	private String createDate;
 	
 	public String getIdeaName() {
 		return ideaName;
@@ -171,4 +175,21 @@ public class Idea extends PagableEntity
 	public void setIdeaDescHtml(String ideaDescHtml) {
 		this.ideaDescHtml = ideaDescHtml;
 	}
+	@Override
+	public void setCreatedTime(Long createdTime) {
+		// TODO Auto-generated method stub
+		super.setCreatedTime(createdTime);
+		if (createdTime != null) {
+			this.createDate = DateUtil.longToString(createdTime);
+		}
+	}
+	public String getCreateDate() {
+		return createDate;
+	}
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+	
+	
+	
 }

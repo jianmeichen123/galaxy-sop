@@ -426,7 +426,15 @@ var platformUrl = {
 	 */
 	ideaGoMeeting : Constants.sopEndpointURL + "/galaxy/idea/goIdeaMeeting",
 	
-	detailIdea:Constants.sopEndpointURL + "/galaxy/idea/getIdea"
+	detailIdea:Constants.sopEndpointURL + "/galaxy/idea/getIdea",
+	/**
+	 * 获取创意添加编码等信息
+	 */
+	getAddIdeaInfo : Constants.sopEndpointURL + "/galaxy/idea/getAddIdeaInfo",
+	/**
+	 * 添加创意
+	 */
+	addIdea : Constants.sopEndpointURL + "/galaxy/idea/addIdea"
 }
 
 /**

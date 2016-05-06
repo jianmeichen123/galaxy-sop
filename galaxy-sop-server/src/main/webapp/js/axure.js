@@ -154,9 +154,9 @@
 			closepop:function(){
 				var _this = this;
 				$(_this.id).on("click","[data-close='close']",function(){
-						$(_this.id).remove();
 						//关闭对外接口
 						_this.hideback.apply(_this);
+						$(_this.id).remove();
 						$('.tip-yellowsimple').hide();
 						//判断是否关闭背景
 						if($(".pop").length==0){

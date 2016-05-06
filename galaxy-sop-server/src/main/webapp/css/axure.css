@@ -1042,7 +1042,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .addtc .btnbox .pubbtn{ margin:0 10px; display:inline-block; *display:inline; zoom:1;}
 /*发送邮件弹窗*/
 .emailtc{ width:580px;}
-.emailtc h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
+.emailtc h2,.meetingtc h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 .emailtc .fmdl dt{width:100px;text-align: right;}
 .emailtc .fmdl dd .txt{ width:300px}
 .emailtc .fmdl dd textarea{ height:150px; width:360px;line-height: 20px;}
@@ -1204,6 +1204,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 #upload-form{width:500px;}
 #upload-form h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 #upload-form .fmdl{margin:0 0 10px;}
+
 /*创意库弹层*/
 .creativetc{padding:0 20px 20px;width:670px;}
 .creativetc .pjt_introduct{color:#535762;font-size: 12px;font-family: "宋体";margin: 0 0 20px 0;}
@@ -1244,6 +1245,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /* 编辑创意基本信息 */
 .creative_edit dt{width:90px;text-align:right;}
 .creative_edit dd input{width:200px !important;}
+.creative_edit dd select{width:210px !important;}
 .creative_edit .box{width:190px;margin:0 auto;}
 .creative_edit .box a{display:inline-block;}
 .creative_edit .fmdl textarea{width:520px ;height:100px ;}

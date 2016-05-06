@@ -124,7 +124,7 @@
 			idea_progress,
 			idea_desc,
 			idea_desc_html,
-			idea_desc_text,
+			idea_source,
 			project_id,
 			claimant_uid
  		)
