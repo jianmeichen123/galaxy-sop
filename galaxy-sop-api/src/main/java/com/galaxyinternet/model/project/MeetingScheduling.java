@@ -44,6 +44,9 @@ public class MeetingScheduling extends PagableEntity {
     private String applyTimeStr;
     private String reserveTimeStr;
     
+    //投资事业线部门id
+    private Integer careline;
+    
     
     //申请时间(申请立项会时间)
     private  Date meetTime;
@@ -253,4 +256,14 @@ public class MeetingScheduling extends PagableEntity {
 	public void setIsEdit(byte isEdit) {
 		this.isEdit = isEdit;
 	}
+
+	public Integer getCareline() {
+		return careline;
+	}
+
+	public void setCareline(Integer careline) {
+		this.careline = careline;
+	}
+	
+	
 }

@@ -1731,7 +1731,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@ResponseBody
 	@RequestMapping(value = "/queryScheduling/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> searchSchedulingList(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody MeetingScheduling query) {
+		
 		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
+		PageRequest pageable = new PageRequest(0, 10, Direction.DESC,"apply_time");
+		Page<MeetingScheduling> pageEntity = new Page<MeetingScheduling>(null,pageable , null);
+		List<MeetingScheduling> sl = new ArrayList<MeetingScheduling>();
+		
 		try {	
 			if(type.intValue() == 1){
 				query.setMeetingType(DictEnum.meetingType.立项会.getCode());
@@ -1766,42 +1771,71 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(query.getScheduleStatus() == null){
 				query.setScheduleStatus(0);
 			}
+			
 			List<MeetingScheduling> schedulingList = meetingSchedulingService.queryList(query);
+			if(schedulingList.size() == 0 ){
+				pageEntity.setTotal(new Long(0));
+				pageEntity.setContent(sl);
+				responseBody.setPageList(pageEntity);
+				responseBody.setResult(new Result(Status.OK, ""));
+				return responseBody;
+			}
 			List<String> ids = new ArrayList<String>();
 			for(MeetingScheduling ms : schedulingList){
 				ms.setIsEdit(isEdit);
 				ids.add(String.valueOf(ms.getProjectId()));
 			}
+			
 			/**
 			 * 查询出所有的事业线
 			 */
-			Department d = new Department();
-			d.setType(1);
-			List<Department> careerlineList = departmentService.queryList(d);
 			Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
-			for(Department department : careerlineList){
-				careerlineMap.put(department.getId(), department);
+			Department d = new Department();
+			if(query.getCareline() != null){
+				Department de=departmentService.queryById(new Long(query.getCareline()));
+				careerlineMap.put(de.getId(), de);
+			}else{
+				List<Department> careerlineList = departmentService.queryList(d);
+				for(Department department : careerlineList){
+					careerlineMap.put(department.getId(), department);
+				}
+				d.setType(1);
 			}
+			
+			
 			/**
 			 * 查询出相关的所有项目
 			 */
 			ProjectBo pb = new ProjectBo();
 			pb.setIds(ids);
 			List<Project> projectList = projectService.queryList(pb);
+			List<MeetingScheduling> schedulingFormList = new ArrayList<MeetingScheduling>();
 			for(MeetingScheduling ms : schedulingList){
 				for(Project p : projectList){
 					if(ms.getProjectId().longValue() == p.getId().longValue()){
-						ms.setProjectCode(p.getProjectCode());
-						ms.setProjectName(p.getProjectName());
-						ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
-						ms.setCreateUname(p.getCreateUname());
+						//项目名称和项目编号不一致的
+						if(!StringUtils.isEmpty(query.getKeyword())){
+							if(!(p.getProjectName().toLowerCase().contains(query.getKeyword().toLowerCase().trim()) 
+									|| p.getProjectCode().toLowerCase().contains(query.getKeyword().toLowerCase().trim()))){
+								schedulingFormList.add(ms);
+							}
+						}
+						//投资事业线不一致的
+						if(careerlineMap.get(p.getProjectDepartid()) == null){
+							schedulingFormList.add(ms);
+						}else{
+							ms.setProjectCode(p.getProjectCode());
+							ms.setProjectName(p.getProjectName());
+							ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
+							ms.setCreateUname(p.getCreateUname());
+						}
 					}
+					
 				}
 			}
-			PageRequest pageable = new PageRequest(0, 10, Direction.DESC,"apply_time");
-			Page<MeetingScheduling> pageEntity = new Page<MeetingScheduling>(null,pageable , null);
+			//进行移除不符合规则的排期
+			schedulingList.removeAll(schedulingFormList);
 			pageEntity.setTotal(new Long(schedulingList.size()));
-			List<MeetingScheduling> sl = new ArrayList<MeetingScheduling>();
 			sl.addAll(schedulingList.subList(
 					pageable.getPageNumber()*pageable.getPageSize(), 
 					(pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize()) > schedulingList.size() ? schedulingList.size() : (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize())));

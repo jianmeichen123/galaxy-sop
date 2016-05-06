@@ -36,17 +36,17 @@
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>排期状态：</dt>
 	              <dd>
-	              	<input type="checkbox" value="0">待排期
-	              	<input type="checkbox" value="1">已排期
-	              	<input type="checkbox" value="2">已通过
-	              	<input type="checkbox" value="3">已否决
+	              	<input type="radio" name="scheduleStatus" value="0" checked>待排期
+	              	<input type="radio" name="scheduleStatus" value="1">已排期
+	              	<input type="radio" name="scheduleStatus" value="2">已通过
+	              	<input type="radio" name="scheduleStatus" value="3">已否决
 	              </dd>
 	            </dl>
 	            <dl class="fmdl fml fmdll clearfix">
 	              <dt>所属事业线：</dt>
 	              <dd>
 	                <select name="careline">
-	                  <option value="all">全部</option>
+	                  <option value="">全部</option>
 	                </select>
 	              </dd>
 	            </dl>
@@ -62,15 +62,15 @@
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">	
-			<table id="table" data-url="project/queryScheduling/1" data-height="555" 
+			<table id="data-table" data-url="project/queryScheduling/1" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
 				    	<th data-align="center" class="data-input" data-formatter="indexFormatter">#</th>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
 				    	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
-				    	<th data-align="center" class="data-input" data-formatter="statusFormatter">排期状态</th>
-				    	<th data-align="center" class="data-input" data-formatter="meetingDateFormatter">上次过会时间</th>
+				    	<th data-field="scheduleStatus" data-align="center" class="data-input" data-formatter="statusFormatter">排期状态</th>
+				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormatter">上次过会时间</th>
 				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
 				    	<th data-field="projectId" data-align="center" class="data-input">过会率</th>
@@ -126,7 +126,7 @@
 			return timeHtml = row.reserveTimeStr;
 		}
 	}
-	tiggerTable1($("#table"),10,function(){
+	tiggerTable1($("#data-table"),10,function(){
 		$('.form_datetime').datetimepicker({
 			/**
 			 * 指定日期的格式
@@ -159,7 +159,7 @@
 			}
 		});
 		var $optionHtml = $($optionArray.join(''));
-		$optionHtml.insertAfter($('option[value="all"]'));
+		$optionHtml.insertAfter($('option[value=""]'));
 	});
 </script>
 </html>
