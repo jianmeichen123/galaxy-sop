@@ -94,9 +94,9 @@ public class TotalPassRate extends AutoThread{
 					}
 				}
 				System.out.println("tTotal:"+tTotal+", tNum:"+tNum+", lTotal:"+lTotal+", lNum:"+lNum+", cTotal:"+cTotal+", cNum:"+cNum);
-				double tRate = tNum/tTotal;
-				double lRate = lNum/lTotal;
-				double cRate = cNum/cTotal;
+				double tRate = (float) tNum*100/tTotal;
+				double lRate = (float) lNum*100/lTotal;
+				double cRate = (float) cNum*100/cTotal;
 				PassRate pr = new PassRate();
 				pr.setUid(u.getId());
 				pr.setRateType(1);
@@ -107,12 +107,17 @@ public class TotalPassRate extends AutoThread{
 					pr.setUpdatedTime(new Date().getTime());
 					passRateService.updateById(pr);
 				}else{
+					pr.setId(null);
 					pr.setRate(tRate);
 					pr.setCreatedTime(new Date().getTime());
 					passRateService.insert(pr);
 				}
 				
 				pr.setRateType(0);
+				pr.setRate(null);
+				pr.setId(null);
+				pr.setUpdatedTime(null);
+				pr.setCreatedTime(null);
 				List<PassRate> lList = passRateService.queryList(pr);
 				if(lList != null && !lList.isEmpty()){
 					pr = lList.get(0);
@@ -120,12 +125,17 @@ public class TotalPassRate extends AutoThread{
 					pr.setUpdatedTime(new Date().getTime());
 					passRateService.updateById(pr);
 				}else{
+					pr.setId(null);
 					pr.setRate(lRate);
 					pr.setCreatedTime(new Date().getTime());
 					passRateService.insert(pr);
 				}
 				
 				pr.setRateType(2);
+				pr.setRate(null);
+				pr.setId(null);
+				pr.setUpdatedTime(null);
+				pr.setCreatedTime(null);
 				List<PassRate> cList = passRateService.queryList(pr);
 				if(cList != null && !cList.isEmpty()){
 					pr = cList.get(0);
@@ -133,11 +143,17 @@ public class TotalPassRate extends AutoThread{
 					pr.setUpdatedTime(new Date().getTime());
 					passRateService.updateById(pr);
 				}else{
+					pr.setId(null);
 					pr.setRate(cRate);
 					pr.setCreatedTime(new Date().getTime());
 					passRateService.insert(pr);
 				}
 			}
 		}
+	}
+	
+	
+	public static void main(String[] args) {
+		System.out.println((float) 1/3);
 	}
 }
