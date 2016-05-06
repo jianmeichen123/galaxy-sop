@@ -64,18 +64,6 @@
 				}
 		);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//基本信息  -- 数据展示
 	function getIdeaInfo(id) {
 		var idea = null;
@@ -433,7 +421,7 @@
 		var idea = data.entity;
 		stockTransfer = idea.stockTransfer;
 		var um = UM.getEditor('edit_idea_desc');
-	    getDepartment($("#department"),idea.departmentId);
+	    getDepartment($("#department"));
 		um.setContent(idea.ideaDesc);
 	     $("#ideaId").val(idea.id);
 		$("#ideaEdit dd").each(function(){
@@ -443,7 +431,11 @@
 			var formatter = self.data('formatter');
 				var id = self.attr('id');
 				var text = idea[id];
-		      if($.isFunction(window[formatter]))
+			   if(id=="department"){
+				   if(self.children().val()==idea.departmentId){
+					   self.children().attr("selected","selected");
+				   }
+				  }else if($.isFunction(window[formatter]))
 				{
 					text = window[formatter].call(window,text);
 					self.val(text);

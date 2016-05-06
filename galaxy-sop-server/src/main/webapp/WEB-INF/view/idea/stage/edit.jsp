@@ -56,5 +56,4 @@
 <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
    <script type="text/javascript">
 	UM.getEditor('edit_idea_desc');
-
   </script>
