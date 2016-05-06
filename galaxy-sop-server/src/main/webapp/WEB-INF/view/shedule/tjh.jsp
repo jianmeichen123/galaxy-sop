@@ -73,7 +73,7 @@
 				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormatter">上次过会时间</th>
 				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
-				    	<th data-field="projectId" data-align="center" class="data-input">过会率</th>
+				    	<th data-field="meetingRate" data-align="center" class="data-input" data-formatter="rateFormatter">过会率</th>
 				    	<th data-field="applyTimeStr" data-align="center" class="data-input">申请时间</th>
 				    	<th data-align="center" class="data-input" data-formatter="dataFormatter">排期时间</th>
  					</tr>	
@@ -107,6 +107,13 @@
 			status = "已否决";
 		}
 		return status;
+	}
+	function rateFormatter(value,row,index){
+		if(value == 0){
+			return "还未过会";
+		}else{
+			return row.meetingRate;
+		}
 	}
 	function meetingDateFormatter(value, row, index){
 		if(row.meetingDate){
