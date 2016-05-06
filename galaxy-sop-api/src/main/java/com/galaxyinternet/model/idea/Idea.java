@@ -28,6 +28,8 @@ public class Idea extends PagableEntity
 	private String claimantUname;
 	private List<Long> createdUids;
 	private String createdDate;
+	private String createdDateFrom;
+	private String createdDateThrough;
 	private Long createdTimeFrom;
 	private Long createdTimeThrough;
 	private String hhrName;
@@ -188,6 +190,18 @@ public class Idea extends PagableEntity
 	}
 	public void setCreateDate(String createDate) {
 		this.createDate = createDate;
+	}
+	public String getCreatedDateFrom() {
+		return createdDateFrom;
+	}
+	public void setCreatedDateFrom(String createdDateFrom) {
+		this.createdDateFrom = createdDateFrom;
+	}
+	public String getCreatedDateThrough() {
+		return createdDateThrough;
+	}
+	public void setCreatedDateThrough(String createdDateThrough) {
+		this.createdDateThrough = createdDateThrough;
 	}
 	
 	

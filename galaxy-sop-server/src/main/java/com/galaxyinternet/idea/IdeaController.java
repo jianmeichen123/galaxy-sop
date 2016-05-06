@@ -167,13 +167,15 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				query.setCreatedUids(userIds);
 			}
 			//提出时间
-			if(StringUtils.isNotEmpty(query.getCreatedDate()))
+			if(query.getCreatedDateFrom() != null)
 			{
-				
-				Date createdDate = DateUtil.convertStringToDate(query.getCreatedDate());
-				query.setCreatedTimeFrom(DateUtil.getSearchFromDate(createdDate).getTime());
-				query.setCreatedTimeThrough(DateUtil.getSearchToDate(createdDate).getTime());
-			
+				Date date = DateUtil.convertStringToDate(query.getCreatedDateFrom());
+				query.setCreatedTimeFrom(DateUtil.getSearchFromDate(date).getTime());
+			}
+			if(query.getCreatedDateThrough() != null)
+			{
+				Date date = DateUtil.convertStringToDate(query.getCreatedDateThrough());
+				query.setCreatedTimeThrough(DateUtil.getSearchToDate(date).getTime());
 			}
 			//角色 - 投资经理、合伙人查看本事业线创意
 			User user = (User)getUserFromSession(request);

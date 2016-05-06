@@ -92,7 +92,8 @@
 	            <dl class="fmdl fml fmdll clearfix">
 	            	<dt>提出时间：</dt>
 	            	<dd>
-	            	<input type="text" class="datepicker txt time" readonly id="createdDate" name="createdDate"  style="height:23px;"/>
+	            		<input type="text" class="ideadatepicker txt time" name="createdDateFrom"  style="height:23px;"/>至
+	            		<input type="text" class="ideadatepicker txt time" name="createdDateThrough"  style="height:23px;"/>
 	            	</dd>
 	            	<dd>
 						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
@@ -143,6 +144,18 @@
 <script src="<%=path %>/js/idea-common.js"></script>
 <script type="text/javascript" src='<%=request.getContextPath() %>/js/ideaadd.js'></script>
 <script type="text/javascript">
+	$('.ideadatepicker').datepicker({
+		format: 'yyyy-mm-dd',
+	    language: "zh-CN",
+	    autoclose: true,
+	    todayHighlight: false,
+	    clearBtn:true,
+	    today: "Today",
+	    todayBtn:'linked',
+	    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+	    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+	    forceParse:true
+	});	
 	createMenus(21);
 	getDepartment($("#custom-toolbar [name='departmentId']"));
 	
