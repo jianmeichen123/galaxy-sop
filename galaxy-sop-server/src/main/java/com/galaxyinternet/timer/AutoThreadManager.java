@@ -24,7 +24,7 @@ public class AutoThreadManager extends Thread {
 	public static final String _unit_month_ = "month";
 	public static final String _unit_day_ = "day";
 	
-	public static final long WAIT_TIME = 15 * 1000;
+	public static final long WAIT_TIME = 5 * 1000;
 	public static final long MAX_DELAY = 10 * 1000;
 	public static long TIME_OUT = 5 * 60 * 1000;
 
@@ -69,7 +69,7 @@ public class AutoThreadManager extends Thread {
 						if(unit.trim().equals(_unit_month_)){
 							/**
 							 * <task unit="month" points="05-03,07-12" class="xxx.XXX" id="" description=""/>
-							 * 表示每个月的设定的指定点触发执行定时程序
+							 * 表示每个月的设定的指定时间点触发执行定时程序
 							 */
 							for (int j = 0; j < pointArray.length; j++) {
 								if (pointArray[j].trim().length() > 0) {
