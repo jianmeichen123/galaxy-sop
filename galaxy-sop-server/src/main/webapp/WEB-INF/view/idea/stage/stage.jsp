@@ -57,7 +57,7 @@
                   <div class="mid clearfix">
                     <dl>
                       <dt>提出时间：</dt>
-                      <dd id="createdTime" data-formatter="dateFormatter">2016-05-04</dd>
+                      <dd id="createdTime" data-formatter="dateFormatter">2016-05-08</dd>
                     </dl>
                   </div>
                   <div class="bottom clearfix">
@@ -220,7 +220,7 @@
 					var text = idea[id]
 					if($.isFunction(window[formatter]))
 					{
-						text = window[formatter].call(text);
+						text = window[formatter].call(window,text);
 					}
 					self.text(text);
 				}
