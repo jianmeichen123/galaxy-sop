@@ -99,7 +99,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	/**
 	 * 验证提取，
 	 */
-	public Result errMessage(Idea idea,User user,String ideaPrograss){
+	public Result errMessage(Idea idea,User user,String ideaProgress){
 		if(idea == null){
 			return new Result(Status.ERROR, null, "创意检索为空!");
 		}
@@ -110,10 +110,10 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			}
 		}
 		
-		if(ideaPrograss != null){
+		if(ideaProgress != null){
 			if(idea.getIdeaProgress()!=null){
 				try {
-					int operationPro = Integer.parseInt(ideaPrograss.substring(ideaPrograss.length()-1)) ;
+					int operationPro = Integer.parseInt(ideaProgress.substring(ideaProgress.length()-1)) ;
 					int ideaPro = Integer.parseInt(idea.getIdeaProgress().substring(idea.getIdeaProgress().length()-1)) ;
 					if(ideaPro < operationPro){
 						return new Result(Status.ERROR, "501", "操作违规!");
@@ -392,7 +392,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				ideafile = GSONUtil.fromJson(json, SopFile.class);
 			}
 			
-			//前端必传项  CYid CYprograss fileType
+			//前端必传项  CYid CYprogress fileType
 			if(ideafile == null || ideafile.getProjectId() == null  || ideafile.getProjectProgress() == null || ideafile.getFileType()==null){
 				responseBody.setResult(new Result(Status.ERROR,null, "传入信息不全"));
 				return responseBody;
@@ -659,8 +659,14 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		responseBody.setResult(new Result(Status.OK,"添加成功"));
 		return responseBody;
 	}
-	
-	
+	@RequestMapping("/showHistory")
+	public ModelAndView showHistory(Long id)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/idea/stage/history");
+		mv.addObject("id", id);
+		return mv;
+	}
 	
 	
 	
