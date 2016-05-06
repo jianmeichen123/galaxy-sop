@@ -1819,9 +1819,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			//获取投资经理的过会率
 			List<PassRate> prateList = passRateService.queryListById(uids);
 			Map<Long, PassRate> passRateMap = new HashMap<Long, PassRate>();
-			for(PassRate pr:prateList){
-				passRateMap.put(pr.getUid(), pr);
+			if(prateList != null){
+				for(PassRate pr:prateList){
+					passRateMap.put(pr.getUid(), pr);
+				}
 			}
+			
 			//组装数据
 			List<MeetingScheduling> schedulingFormList = new ArrayList<MeetingScheduling>();
 			for(MeetingScheduling ms : schedulingList){
@@ -1838,7 +1841,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						if(careerlineMap.get(p.getProjectDepartid()) == null){
 							schedulingFormList.add(ms);
 						}else{
-							ms.setMeetingRate(passRateMap.get(p.getCreateUid()).getRate());
+							if(passRateMap.isEmpty()){
+								ms.setMeetingRate(new Double(0));
+							}else{
+								ms.setMeetingRate(passRateMap.get(p.getCreateUid()).getRate());
+							}
 							ms.setProjectCode(p.getProjectCode());
 							ms.setProjectName(p.getProjectName());
 							ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
