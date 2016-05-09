@@ -720,12 +720,21 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		return resp;
 	}
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping("/showProject")
+	public ModelAndView showProject(Long ideaId)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/idea/stage/project_list");
+		mv.addObject("ideaId", ideaId);
+		return mv;
+	}
+	@RequestMapping("/showEditProjectDialog")
+	public ModelAndView showEditProjectDialog(Long ideaId)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/idea/stage/edit_project");
+		mv.addObject("ideaId", ideaId);
+		return mv;
+	}
 	
 }

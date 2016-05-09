@@ -119,6 +119,7 @@
 	var ideaInfo;
 	function showIdeaDetail(ideaId)
 	{
+		var layerIndex = layer.load(2);
 		var _url = platformUrl.ideaGoStage+"?id="+ideaId;
 		$.getHtml({
 			url:_url,//模版请求地址
@@ -129,7 +130,7 @@
 				
 				//基本信息  -- 数据展示  index =1
 				ideaInfo = getIdeaInfo(ideaId);
-				
+				$(".idea-title").text(ideaInfo.ideaName);
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = ideaInfo.ideaProgress;
 				if('ideaProgress:4' != progress)
@@ -179,8 +180,9 @@
 				$("#editBtn").click(function(){
 					sendGetRequest(platformUrl.detailIdea+"/"+id,null,initCallBack.getdetailIdeaInfoCallBack);
 				});
-				
+				layer.close(layerIndex);
 			}//end okback 模版反回成功执行	
+			
 		});
 		return false;
 
