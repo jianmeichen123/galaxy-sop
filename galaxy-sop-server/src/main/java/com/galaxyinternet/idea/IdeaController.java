@@ -27,11 +27,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.RecordType;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.common.utils.StrUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -53,12 +56,14 @@ import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Idea;
+import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
+import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
@@ -81,6 +86,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
+	private MeetingRecordService meetingRecordService;
+	@Autowired
 	private ConfigService configService;
 	@Override
 	protected BaseService<Idea> getBaseService() {
@@ -100,17 +107,20 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	/**
 	 * 验证提取，
 	 */
-	public Result errMessage(Idea idea,User user,String ideaProgress){
+	public Result errMessage(Idea idea,User ClaimantUser,User CreateUser,String ideaProgress){
 		if(idea == null){
 			return new Result(Status.ERROR, null, "创意检索为空!");
 		}
-
-		if(user != null){  //认领人Id 和 登陆用户id
-			if(idea.getClaimantUid()==null || user.getId().longValue()!=idea.getClaimantUid().longValue()){ 
+		if(ClaimantUser != null){  // 登陆用户id 和  认领人Id 
+			if(idea.getClaimantUid()==null || ClaimantUser.getId().longValue()!=idea.getClaimantUid().longValue()){ 
 				return new Result(Status.ERROR, null, "没有权限!");
 			}
 		}
-		
+		if(CreateUser != null){    // 登陆用户id 和   创建人Id 
+			if(idea.getClaimantUid()==null || CreateUser.getId().longValue()!=idea.getCreatedUid().longValue()){ 
+				return new Result(Status.ERROR, null, "没有权限!");
+			}
+		}
 		if(ideaProgress != null){
 			if(idea.getIdeaProgress()!=null){
 				try {
@@ -128,8 +138,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		return null;
 	}
-	
-	
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
@@ -419,7 +427,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					//Idea  验证
 					Idea idea = new Idea();
 					idea = ideaService.queryById(ideafile.getProjectId());
-					Result err = errMessage(idea,user,ideafile.getProjectProgress());   //字典  项目进度  接触访谈  DictEnum.projectProgress.接触访谈.getCode()
+					Result err = errMessage(idea,user,null,ideafile.getProjectProgress());   //字典  项目进度  接触访谈  DictEnum.projectProgress.接触访谈.getCode()
 					if(err!=null && err.getStatus()!=null){
 						responseBody.setResult(err);
 						return responseBody;
@@ -589,7 +597,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				try {
 					Idea idea = ideaService.queryById(ideaid);
 					
-					Result err = errMessage(idea,user,null);   //仅创建人可启动
+					Result err = errMessage(idea,user,null,null);   //仅创建人可启动
 					if(err!=null && err.getStatus()!=null){
 						responseBody.setResult(err);
 						return responseBody;
@@ -774,4 +782,185 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		return resp;
 	}
 	
+	
+	
+	
+	
+	
+	//=======================   添加 会议记录        ===============================//
+	
+		//会议记录弹窗
+		@RequestMapping(value = "/addCyMeetRecordTc", method = RequestMethod.GET)
+		public String addCyMeetRecordTc()
+		{
+			return "idea/stage/meeting";
+		}
+		
+		
+		//添加 会议记录   meettype：meetingType:3 立项会  创意recordType 
+		@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+		@ResponseBody
+		@RequestMapping(value = "/saveCyMeetRecord", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseData<MeetingRecord> saveCyMeetRecord(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
+			ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			//数据处理
+			if(!ServletFileUpload.isMultipartContent(request) && meetingRecord.getProjectId() == null){
+				String json = JSONUtils.getBodyString(request);
+				meetingRecord = GSONUtil.fromJson(json, MeetingRecordBo.class);
+			}
+			meetingRecord.setRecordType(RecordType.IDEAS.getType());
+			
+			
+			//前端传值
+			if(meetingRecord == null || meetingRecord.getProjectId() == null 
+					|| meetingRecord.getMeetingDate() == null 
+					|| meetingRecord.getMeetingType() == null 
+					|| meetingRecord.getMeetingResult() == null ){
+				responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
+				return responseBody;
+			}
+			
+			//已有通过的会议，不能再添加会议纪要
+			MeetingRecord mrQuery = new MeetingRecord();
+			mrQuery.setProjectId(meetingRecord.getProjectId());
+			mrQuery.setMeetingType(meetingRecord.getMeetingType());
+			mrQuery.setRecordType(RecordType.IDEAS.getType());
+			mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+			Long mrCount = meetingRecordService.queryCount(mrQuery);
+			if(mrCount != null && mrCount.longValue() > 0L){
+				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
+				return responseBody;
+			}
+				
+			try {
+				//Idea  验证
+				Idea idea = new Idea();
+				idea = ideaService.queryById(meetingRecord.getProjectId());
+				Result err = errMessage(idea,user,null,"ideaProgress:3");  
+				if(err!=null && err.getStatus()!=null){
+					responseBody.setResult(err);
+					return responseBody;
+				}
+				
+				//保存
+				SopFile sopFile = null;
+				if(meetingRecord.getFkey()!=null){
+					if( meetingRecord.getFileLength()==null||meetingRecord.getFname()==null){
+						responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
+						return responseBody;
+					}
+					if(meetingRecord.getBucketName()==null){
+						meetingRecord.setBucketName(OSSFactory.getDefaultBucketName());
+					}		
+							
+					Map<String,String> nameMap = StrUtils.transFileNames(meetingRecord.getFname());
+					sopFile = new SopFile();
+					sopFile.setBucketName(meetingRecord.getBucketName());
+					sopFile.setFileKey(meetingRecord.getFkey());
+					sopFile.setFileLength(meetingRecord.getFileLength());
+					sopFile.setFileName(nameMap.get("fileName"));
+					sopFile.setFileSuffix(nameMap.get("fileSuffix"));
+					
+					sopFile.setRecordType(RecordType.IDEAS.getType());
+					sopFile.setProjectId(idea.getId());
+					sopFile.setProjectProgress(idea.getIdeaProgress());
+					sopFile.setFileUid(user.getId());	 //上传人
+					sopFile.setCareerLine(user.getDepartmentId());
+					sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
+					sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
+					//sopFile.setFileWorktype(fileWorkType);    //业务分类
+					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+				}else if(!ServletFileUpload.isMultipartContent(request)){
+					sopFile = new SopFile();
+					sopFile.setCareerLine(user.getDepartmentId());
+					sopFile.setFileUid(user.getId());
+				}else if(ServletFileUpload.isMultipartContent(request)){
+					//调接口上传
+					String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+					//Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);
+					UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
+					//上传成功后
+					if(result!=null){
+						Map<String,String> nameMap = new HashMap<String,String>();
+						String fileName = "";
+						if(meetingRecord.getFname()!=null && meetingRecord.getFname().trim().length()>0){
+							fileName = meetingRecord.getFname().trim();
+							nameMap = StrUtils.transFileNames(fileName);
+						}else{
+						    nameMap.put("fileName",result.getFileName());
+						    nameMap.put("fileSuffix", result.getFileSuffix());
+						}
+						
+						sopFile = new SopFile();
+						sopFile.setBucketName(result.getBucketName()==null?OSSFactory.getDefaultBucketName():result.getBucketName()); 
+						sopFile.setFileKey(fileKey);  
+						sopFile.setFileLength(result.getContentLength());  //文件大小
+						sopFile.setFileName(nameMap.get("fileName"));
+						sopFile.setFileSuffix(nameMap.get("fileSuffix"));
+						
+						sopFile.setRecordType(RecordType.IDEAS.getType());
+						sopFile.setProjectId(idea.getId());
+						sopFile.setProjectProgress(idea.getIdeaProgress());
+						sopFile.setFileUid(user.getId());	 //上传人
+						sopFile.setCareerLine(user.getDepartmentId());
+						sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
+						sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
+						//sopFile.setFileWorktype(fileWorkType);    //业务分类
+						sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
+						
+					}else{
+						responseBody.setResult(new Result(Status.ERROR,null, "上传失败"));
+						return responseBody;
+					}
+				}
+				
+				Long id = meetingRecordService.addCyMeetRecord(meetingRecord,sopFile);
+				responseBody.setId(id);
+				responseBody.setResult(new Result(Status.OK, ""));
+				
+				ControllerUtils.setRequestParamsForMessageTip(request, idea.getProjectName(), idea.getId());
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "创意会议添加失败"));
+				logger.error("saveCyMeetRecord 创意会议添加失败 ",e);
+			}
+			return responseBody;
+		}
+		
+		
+
+		@ResponseBody
+		@RequestMapping(value = "/queryCyMeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseData<MeetingRecordBo> queryMeet(HttpServletRequest request,@RequestBody MeetingRecordBo query ) {
+			
+			ResponseData<MeetingRecordBo> responseBody = new ResponseData<MeetingRecordBo>();
+			
+			try {
+				User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+				List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+				if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+						&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+					responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+					return responseBody;
+				}
+				/*if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)
+						&&query.getProjectId()==null&&query.getUid()==null){
+					query.setUid(user.getId());
+				}*/
+				//query.setUid(user.getId());
+				
+				Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPage(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
+				responseBody.setPageList(pageList);
+				responseBody.setResult(new Result(Status.OK, ""));
+				return responseBody;
+				
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR, null,"查询失败"));
+				logger.error("queryInterviewPageList ",e);
+			}
+			
+			return responseBody;
+		}
+		
 }

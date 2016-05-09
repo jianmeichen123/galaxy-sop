@@ -369,4 +369,19 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	
 	
 	
+	/**
+	 * 创意添加会议记录
+	 */
+	@Override
+	@Transactional
+	public Long addCyMeetRecord(MeetingRecord meetingRecord,SopFile sopFile) {
+		Long fid = null;
+		if(sopFile.getFileKey()!=null){
+			fid = sopFileDao.insert(sopFile);
+		}
+		meetingRecord.setFileId(fid);
+		Long id = getBaseDao().insert(meetingRecord);
+		return id;
+	}
+	
 }

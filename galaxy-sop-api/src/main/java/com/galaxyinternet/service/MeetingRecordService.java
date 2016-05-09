@@ -20,6 +20,8 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	public void upTermSheetSign(Project project, Long id, Long departmentId);
 
 	public Page<MeetingRecordBo> queryMeetPage(MeetingRecordBo query, Pageable pageable);
+
+	Long addCyMeetRecord(MeetingRecord meetingRecord, SopFile sopFile);
 	
 
 }
