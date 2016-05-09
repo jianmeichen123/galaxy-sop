@@ -76,25 +76,25 @@
     <dl class="fmdl clearfix">
     	<dt>存储类型：</dt>
         <dd>
-        	<select name="docType" class="disabled" ></select>
+        	<select name="docType" class="disabled" disabled="disabled"></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
     	<dt>业务分类：</dt>
         <dd>
-        	<select name="worktype" class="disabled" ></select>
+        	<select name="worktype" class="disabled" disabled="disabled"></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
     	<dt>所属部门：</dt>
         <dd>
-        	<select name="departmentId" disabled></select>
+        	<select name="departmentId" disabled="disabled"></select>
         </dd>
     </dl>
     <div class="fmdl clearfix">
     	<dt>选择档案：</dt>
     	<dd>
-        <input type="text" name="fileName" class="txt disabled" onchange="selectFile(this)" />
+        <input type="text" name="fileName" class="txt disabled" onchange="selectFile(this)" disabled="disabled"/>
     	</dd>
     	<dd>
         <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>
@@ -159,6 +159,7 @@ $(function(){
 	$("#show-mail-btn").click(function(){
 		showMailPopup();
 	});
+	$("#upload-form .disabled").attr('disabled','disabled');
 });
 /**
  * 加载模板列表
@@ -332,7 +333,9 @@ function initUpload(_dialog)
 			},
 			BeforeUpload : function(up,file){
 				$form = $(_dialog.id).find("#upload-form");
+				$form.find('.disabled').removeAttr('disabled');
 				up.settings.multipart_params =  JSON.parse($form .serializeObject());
+				$form.find('.disabled').attr('disabled','disabled');
 			},
 			FileUploaded: function(up, files, rtn) {
 				var data = $.parseJSON(rtn.response);
