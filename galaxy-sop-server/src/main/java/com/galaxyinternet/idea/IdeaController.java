@@ -729,10 +729,10 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		return mv;
 	}
 	@RequestMapping("/showEditProjectDialog")
-	public ModeAndView showEditProjectDialog(Long ideaId)
+	public ModelAndView showEditProjectDialog(Long ideaId)
 	{
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/idea/stage/project_list");
+		mv.setViewName("/idea/stage/edit_project");
 		mv.addObject("ideaId", ideaId);
 		return mv;
 	}

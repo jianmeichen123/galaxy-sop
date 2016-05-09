@@ -4,7 +4,7 @@
 %>
  <!--按钮-->
 <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-    <button class="pubbtn fffbtn lpubbtn" href="tchtml/creative_e_n.html" data-btn="edit_name">编辑项目名称</button>
+    <button class="pubbtn fffbtn lpubbtn" href="idea/showEditProjectDialog" data-btn="edit_name">编辑项目名称</button>
 </div>
 
 <!--表格内容-->
