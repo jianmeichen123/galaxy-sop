@@ -78,7 +78,8 @@
 			}
 			idea = data.entity;
 			stockTransfer = idea.stockTransfer;
-			if(null!=idea.claimantUid&&""!=idea.claimantUid){
+			var progress = idea.ideaProgress;
+			if('ideaProgress:1' != progress && 'ideaProgress:4'!= progress){
 				$("[data-btn='claim']").hide();
 			}
 			$("#IdeaId").val(idea.id);
@@ -238,11 +239,19 @@
 		//放弃btn
 		$("[data-btn='abandon']").on("click",function(){
 			var $self = $(this);
-			var _url = $self.attr("href");
+			var id=$self.attr("value");
+			var _url = platformUrl.GiveUpIdea;
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
-				okback:function(){							
+				okback:function(){		
+					$("[data-btn='saveReason']").on("click",function(){
+						var abReason=$("#givUpReason").text();
+						if(id != ''){
+							sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" :id,"abReason":abReason,"ideaProgress":"ideaProgress:4"}, function(){								
+							});
+						}
+					});
 				}//模版反回成功执行	
 			});
 			return false;
@@ -609,7 +618,7 @@
   }
   function claimFun(id){
 	  if(id != ''){
-			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" : pid}, function(){
+			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" :id,"ideaProgress":"ideaProgress:2"}, function(){
 				
 			});
 		}
