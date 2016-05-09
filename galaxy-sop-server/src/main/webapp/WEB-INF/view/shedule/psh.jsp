@@ -31,7 +31,7 @@
     	<input type="hidden" id="project_id" value=""/>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
-		     <input type="hidden"  id="tipslink_val" name="proType" value="3" />
+		     <input type="hidden"  id="tipslink_val" name="proType" value="2" />
 			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>排期状态：</dt>
@@ -62,7 +62,7 @@
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="project/queryScheduling/3" data-height="555" 
+			<table id="data-table" data-url="project/queryScheduling/2" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>

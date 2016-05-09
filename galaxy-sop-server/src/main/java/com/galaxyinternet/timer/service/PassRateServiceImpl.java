@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.dao.timer.PassRateDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
@@ -24,8 +25,8 @@ public class PassRateServiceImpl extends BaseServiceImpl<PassRate> implements Pa
 	}
 
 	@Override
-	public List<PassRate> queryListById(List<String> idList) {
+	public List<PassRate> queryListById(PassRateBo bo) {
 		// TODO Auto-generated method stub
-		return passRateDao.selectListById(idList);
+		return passRateDao.selectListById(bo);
 	}
 }

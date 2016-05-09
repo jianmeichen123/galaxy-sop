@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.SopResult;
@@ -1741,9 +1742,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		List<MeetingScheduling> sl = new ArrayList<MeetingScheduling>();
 		
 		try {	
-			if(type.intValue() == 1){
+			if(type.intValue() == 0){
 				query.setMeetingType(DictEnum.meetingType.立项会.getCode());
-			}else if(type.intValue() == 2){
+			}else if(type.intValue() == 1){
 				query.setMeetingType(DictEnum.meetingType.投决会.getCode());
 			}else{
 				query.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
@@ -1753,13 +1754,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			if(roleIdList.contains(UserConstant.DMS)){
-				if(type.intValue() == 1 || type.intValue() == 2){
+				if(type.intValue() == 0 || type.intValue() == 1){
 					isEdit = 1;
 				}else{
 					isEdit = 2;
 				}
 			}else if(roleIdList.contains(UserConstant.CEOMS)){
-				if(type.intValue() == 3){
+				if(type.intValue() == 2){
 					isEdit = 1;
 				}else{
 					isEdit = 2;
@@ -1817,7 +1818,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				uids.add(String.valueOf(pr.getCreateUid()));
 			}
 			//获取投资经理的过会率
-			List<PassRate> prateList = passRateService.queryListById(uids);
+			PassRateBo borate=new PassRateBo();
+			borate.setUids(uids);
+			borate.setRateType(type.intValue());
+			List<PassRate> prateList = passRateService.queryListById(borate);
 			Map<Long, PassRate> passRateMap = new HashMap<Long, PassRate>();
 			if(prateList.size() > 0){
 				for(PassRate pr:prateList){
