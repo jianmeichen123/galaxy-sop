@@ -46,6 +46,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	
 	private String serverUrl;
 	
+	
 	/**
 	 * 避免url后边附带sessionId，第一次将user放入session后，通过重定向抹去后边参数
 	 * @return
@@ -246,7 +247,8 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 * @return
 	 */
 	@RequestMapping(value = "/lxh", method = RequestMethod.GET)
-	public String lxh() {
+	public String lxh(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("pageType", 0);
 		return "shedule/lxh";
 	}
 	/**
@@ -254,16 +256,18 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 * @return
 	 */
 	@RequestMapping(value = "/tjh", method = RequestMethod.GET)
-	public String tjh() {
-		return "shedule/tjh";
+	public String tjh(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("pageType", 1);
+		return "shedule/lxh";
 	}
 	/**
 	 * 到CEO评审会排期列表
 	 * @return
 	 */
 	@RequestMapping(value = "/psh", method = RequestMethod.GET)
-	public String psh() {
-		return "shedule/psh";
+	public String psh(HttpServletRequest request, HttpServletResponse response) {
+		request.setAttribute("pageType", 2);
+		return "shedule/lxh";
 	}
 	
 	@Override
@@ -297,4 +301,6 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 			logger.error("参数错误， type ="+type+", id="+id);
 		}
 	}
+
+	
 }

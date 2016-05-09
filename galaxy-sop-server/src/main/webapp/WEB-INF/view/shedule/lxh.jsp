@@ -18,6 +18,7 @@
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 </head>
 
 <body>
@@ -27,7 +28,11 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>立项会排期</h2>
+    	<h2>
+    	<c:if test="${pageType eq 0}">立项会排期</c:if>
+    	<c:if test="${pageType eq 1}">投决会排期</c:if>
+    	<c:if test="${pageType eq 2}">CEO评审会排期</c:if>
+    	</h2>
     	<input type="hidden" id="project_id" value=""/>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
@@ -57,16 +62,17 @@
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
+						<button type="button" class="bluebtn ico cx" onclick="confirmSubmit();">操作</button>
 					</dd>
 				</dl>
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="project/queryScheduling/0" data-height="555" 
+			<table id="data-table" data-url="project/queryScheduling/${pageType}" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				    	<th data-align="center" class="data-input" data-formatter="indexFormatter">#</th>
+				        <th  data-field="id" data-align="center" class="data-input" data-formatter="indexFormatter">#</th>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
 				    	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
 				    	<th data-field="scheduleStatus" data-align="center" class="data-input" data-formatter="statusFormatter">排期状态</th>
@@ -93,7 +99,16 @@
 <script type="text/javascript" src="<%=path %>/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
-	createMenus(18);
+    var menu='${pageType}';
+    if(menu == '0'){
+    	createMenus(18);
+    }
+    if(menu == '1'){
+    	createMenus(19);
+    }
+    if(menu == '2'){
+    	createMenus(20);
+    }
 	function indexFormatter(value, row, index){
 		return index + 1;
 	}
@@ -126,9 +141,9 @@
 	function dataFormatter(value, row, index){
 		if(row.isEdit == '1'){
 			if(row.reserveTime){
-				return timeHtml = '<input size="16" value="'+row.reserveTimeStr+'" type="text" readonly class="form_datetime">';
+				return timeHtml = '<input size="16" name="reserveTime" value="'+row.reserveTimeStr+'" type="text" readonly class="form_datetime">';
 			}else{
-				return timeHtml = '<input size="16" type="text" readonly class="form_datetime">';
+				return timeHtml = '<input size="16" name="reserveTime" type="text" readonly class="form_datetime">';
 			}
 		}else{
 			return timeHtml = row.reserveTimeStr;
@@ -144,7 +159,7 @@
 			 * yyyy-mm-ddThh:ii:ssZ
 			 * MM -- 五月/六月/...
 			 */
-			format: 'yyyy-mm-dd hh:ii:ss',
+			format: 'yyyy-mm-dd hh:ii',
 			language: "zh-CN",
 			startView: 2,
 			minView: 0,
@@ -169,5 +184,62 @@
 		var $optionHtml = $($optionArray.join(''));
 		$optionHtml.insertAfter($('option[value=""]'));
 	});
+	
+	function confirmSubmit(){
+		var columnValue = document.getElementsByName("reserveTime");
+		var obj = [];
+	    for(var i=0;i<columnValue.length;i++){
+	        if(columnValue[i].value != ''){
+	        	var p = columnValue[i].parentNode.parentNode.cells[1].innerText;
+	        	var PassRate = {};
+	        	PassRate.projectId = p;
+	        	PassRate.reserveTimeStr = columnValue[i].value;
+	        	obj.push(PassRate);
+	        }
+	    }
+	    alert(obj+"");
+	    test(platformUrl.reserveTime+"/0", obj, null);
+	   
+	    
+	}
+	function test(reqUrl, jsonObj, callbackFun) {
+		$.ajax({
+			url : reqUrl,
+			type : "POST",
+			data : jsonObj,
+			dataType : "json",
+			cache : false,
+			contentType : "application/json; charset=UTF-8",
+			beforeSend : function(xhr) {
+				/**清楚浏览器缓存**/
+				xhr.setRequestHeader("If-Modified-Since","0"); 
+				xhr.setRequestHeader("Cache-Control","no-cache");
+
+				if (sessionId) {
+					xhr.setRequestHeader("sessionId", sessionId);
+				}
+				if(userId){
+					xhr.setRequestHeader("guserId", userId);
+				}
+			},
+			async : false,
+			error : function(request) {},
+			success : function(data) {
+				if(data){
+					var type =typeof(data);
+					if(type=='string'){
+						if(data.indexOf("<!DOCTYPE html>")){
+							location.href = platformUrl.toLoginPage;
+						}
+					}
+				}
+				if (callbackFun) {
+					callbackFun(data);
+				}
+			}
+		});
+	}
+	
+	
 </script>
 </html>

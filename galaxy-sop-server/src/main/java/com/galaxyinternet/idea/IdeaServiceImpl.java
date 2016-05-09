@@ -9,11 +9,14 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.galaxyinternet.bo.IdeaBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.enums.EnumUtil;
+import com.galaxyinternet.dao.idea.AbandonedDao;
 import com.galaxyinternet.dao.idea.IdeaDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
@@ -21,6 +24,7 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.idea.Abandoned;
 import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
@@ -43,6 +47,8 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 	private ProjectService projectService;
 	@Autowired
 	private ConfigService configService;
+	@Autowired
+	private AbandonedDao abandonedDao;
 	@Override
 	protected BaseDao<Idea, Long> getBaseDao() {
 		// TODO Auto-generated method stub
@@ -204,6 +210,33 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		Config config = configService.createCode();
 		String prefix = String.valueOf(EnumUtil.getCodeByCareerline(depId.longValue()));
 		return prefix+StringUtils.leftPad(config.getValue(), 6, '0');
+	}
+	
+	@Override
+	@Transactional
+	public int updateById(IdeaBo idea){
+		int result=0;
+		try 
+		{
+			result=ideaDao.updateById(idea);
+			if(idea.getIdeaProgress().equals("ideaProgress:4")&&result>=1){
+				Abandoned abandoned=new Abandoned();
+				User user = userService.queryById(idea.getClaimantUid());
+				abandoned.setAbUserid(user!=null?user.getId():0);
+				abandoned.setAbUsername(user!=null?user.getRealName():"");
+				abandoned.setId(idea.getId());
+				abandoned.setAbReason(idea.getAbReason());
+				abandoned.setAbDateTime(new Date());
+				Long insert = abandonedDao.insert(abandoned);
+				if(insert<=0){
+					result=0;
+				}
+			}
+		} catch (Exception e) {
+			throw new BusinessException(e);
+		}
+	   return result;
+		
 	}
 	
 	

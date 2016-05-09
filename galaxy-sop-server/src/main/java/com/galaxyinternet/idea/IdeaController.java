@@ -680,22 +680,24 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			return responseBody;
 		}
 		responseBody = new ResponseData<Idea>();
-		
+		String operatorStr = "";
 		try{
-	
-			if(null!=idea.getId()||!"".equals(idea.getId())){
+			if(idea.getId()!=0){
 				ideaService.updateById(idea);
+				operatorStr = "修改";
 			}else{
+				idea.setId(null);
 				idea.setCreatedTime(System.currentTimeMillis());
 				idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJXM);
 				ideaService.insert(idea);
+				operatorStr = "添加";
 			}
 					
 		}catch(DaoException e){
 			responseBody.setResult(new Result(Status.ERROR,"创意添加出错,请联系管理员!"));
 			return responseBody;
 		}
-		responseBody.setResult(new Result(Status.OK,"添加成功"));
+		responseBody.setResult(new Result(Status.OK,operatorStr + "成功"));
 		return responseBody;
 	}
 	@RequestMapping("/showHistory")

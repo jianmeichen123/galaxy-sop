@@ -1753,7 +1753,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			User user = (User) getUserFromSession(request);
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			
 			if(roleIdList.contains(UserConstant.DMS)){
+				
 				if(type.intValue() == 0 || type.intValue() == 1){
 					isEdit = 1;
 				}else{
@@ -1769,6 +1771,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "不可见!"));
 				return responseBody;
 			}
+			
+			
 			/**
 			 * 默认查询待排期的，可通过条件查询搜索其他
 			 */
@@ -1786,7 +1790,20 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			List<String> ids = new ArrayList<String>();
 			for(MeetingScheduling ms : schedulingList){
-				ms.setIsEdit(isEdit);
+				
+				byte Edit = 1;
+				Integer sheduleStatus = ms.getScheduleStatus();
+				if(sheduleStatus == 2 || sheduleStatus == 3 ){
+					Edit = 0;
+				}
+                if(ms.getApplyTime() != null){
+					long time=System.currentTimeMillis();
+					long appTime = ms.getApplyTime().getTime();
+					if((time > appTime) && sheduleStatus == 1){
+						Edit = 0;
+					}
+				}
+				ms.setIsEdit(Edit);
 				ids.add(String.valueOf(ms.getProjectId()));
 			}
 			
@@ -1875,6 +1892,25 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				logger.error("queryUserList ", e);
 			}
 		}
+		return responseBody;
+	}
+	
+	/**
+	 * 更新排期池时间/updateReserveTime
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/updateReserveTime/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingScheduling> updateReserveTime(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody MeetingScheduling query) {
+		
+		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
+		
+		if(query != null){
+			return responseBody;
+		}
+		System.out.println(query);
+	
+		
+		
 		return responseBody;
 	}
 }
