@@ -81,6 +81,7 @@
 			var progress = idea.ideaProgress;
 			if('ideaProgress:1' != progress && 'ideaProgress:4'!= progress){
 				$("[data-btn='claim']").hide();
+				$("[data-btn='edith']").hide();
 			}
 			$("#IdeaId").val(idea.id);
 			$("#ideaDetail dd")
@@ -247,9 +248,17 @@
 				okback:function(){		
 					//$("[data-btn='saveReason']").on("click",function(){
 					$("#saveReason").on("click",function(){
-						var abReason=$("#givUpReason").value;
+						var abReason=$("#givUpReason").val();
 						if(id != ''){
-							sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" :id,"abReason":abReason,"ideaProgress":"ideaProgress:4"}, function(){								
+							sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" :id,"abReason":abReason,"ideaProgress":"ideaProgress:4"}, function(data){
+								if(data.result.status == 'OK')
+								{
+									layer.msg("放弃成功！");
+									$(".abandon").find("[data-close='close']").click();
+								}else{
+									layer.msg(data.result.errorCode);
+								}
+								
 							});
 						}
 					});
@@ -619,7 +628,16 @@
   }
   function claimFun(id){
 	  if(id != ''){
-			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" :id,"ideaProgress":"ideaProgress:2"}, function(){
+			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" :id,"ideaProgress":"ideaProgress:2"}, function(data){
+				
+				if(data.result.status == 'OK')
+				{
+					//layer.msg("认领成功！");
+					setTimeout("$('.claimtc').find('[data-close='close']').click();",2000);  
+					
+				}else{
+					layer.msg(data.result.errorCode);
+				}
 				
 			});
 		}
