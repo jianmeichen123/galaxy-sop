@@ -460,7 +460,11 @@ var platformUrl = {
 	/**
 	 * 创意 编辑项目名称
 	*/
-	ideaEditProjectName: Constants.sopEndpointURL+ "/galaxy/idea/editProjectName"
+	ideaEditProjectName: Constants.sopEndpointURL+ "/galaxy/idea/editProjectName",
+	/**
+	 * 创意 放弃创意
+	*/
+	GiveUpIdea:Constants.sopEndpointURL+ "/galaxy/idea/goGiveUpPage"
 }
 
 /**

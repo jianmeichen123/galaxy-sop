@@ -245,8 +245,9 @@
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){		
-					$("[data-btn='saveReason']").on("click",function(){
-						var abReason=$("#givUpReason").text();
+					//$("[data-btn='saveReason']").on("click",function(){
+					$("#saveReason").on("click",function(){
+						var abReason=$("#givUpReason").value;
 						if(id != ''){
 							sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" :id,"abReason":abReason,"ideaProgress":"ideaProgress:4"}, function(){								
 							});

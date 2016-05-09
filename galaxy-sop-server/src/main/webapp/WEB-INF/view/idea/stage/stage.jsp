@@ -76,7 +76,7 @@
 				<div id="options_point2" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a href="javascript:;" id="cy_up_report"  onclick="showUploadPopup('u','ideaProgress:2','')" class="pubbtn fffbtn lpubbtn option_item_mark">上传可行性报告</a> 
 					<a href="javascript:;" id="cy_start_lxh" onclick="stratLxh('${id}')"  class="pubbtn fffbtn lpubbtn option_item_mark">启动创建立项会</a>
-					<a href="javascript:;" id="cy_low" onclick="ideaReload()" class="pubbtn fffbtn lpubbtn option_item_mark">放弃</a>
+					<a href="javascript:;" id="cy_low"  value="${id}" data-btn="abandon" class="pubbtn fffbtn lpubbtn option_item_mark">放弃</a>
 				</div>
 				
 				<div id="ideaProgress_2_params">
@@ -110,7 +110,7 @@
                 <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
                     <button data-btn="meeting" id="add_cy_meet"  class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/addCyMeetRecordTc" >添加会员纪要</button>
                     <button class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/showCreateProjectDialog" data-btn="create">创建成项目</button>
-                    <button class="pubbtn fffbtn" href="tchtml/creative_abandontc.html" data-btn="abandon">放弃</button>
+                   <button class="pubbtn fffbtn" data-btn="abandon" value="${id}">放弃</button>
                 </div>
 
 				<div id="ideaProgress_3_params">

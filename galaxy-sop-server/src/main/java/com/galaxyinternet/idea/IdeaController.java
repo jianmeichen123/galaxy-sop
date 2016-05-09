@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.galaxyinternet.bo.IdeaBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.annotation.LogType;
@@ -309,6 +310,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	   request.setAttribute("id", id);
 		return "idea/stage/meeting";
 	}
+	   /**
+	 * 弹出页面---放弃创意
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@RequestMapping(value = "/goGiveUpPage",method = RequestMethod.GET)
+	public String goGiveUpPage(HttpServletRequest request) {
+    String id = request.getParameter("id");
+	   request.setAttribute("id", id);
+		return "idea/stage/abandont";
+	} 
 	/**
 	 * 弹出页面---
 	 */
@@ -364,7 +375,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	 */
 	@ResponseBody
 	@RequestMapping("/updateIdea")
-	public ResponseData<Idea> updateIdea(@RequestBody Idea idea,HttpServletRequest request)
+	public ResponseData<Idea> updateIdea(@RequestBody IdeaBo idea,HttpServletRequest request)
 	{
 		ResponseData<Idea> responseBody = new ResponseData<Idea>();
 		if(idea.getId()==null){

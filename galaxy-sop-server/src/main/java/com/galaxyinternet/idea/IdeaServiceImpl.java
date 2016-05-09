@@ -224,9 +224,9 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 				User user = userService.queryById(idea.getClaimantUid());
 				abandoned.setAbUserid(user!=null?user.getId():0);
 				abandoned.setAbUsername(user!=null?user.getRealName():"");
-				abandoned.setId(idea.getId());
+				abandoned.setIdeaId(idea.getId());
 				abandoned.setAbReason(idea.getAbReason());
-				abandoned.setAbDateTime(new Date());
+				abandoned.setAbDatetime(new Date());
 				Long insert = abandonedDao.insert(abandoned);
 				if(insert<=0){
 					result=0;

@@ -29,7 +29,7 @@ public class Abandoned extends PagableEntity {
 	 /**
 	  *  放弃时间
 	  */
-	private Date abDateTime;
+	private Date abDatetime;
 	
 	private String abReason;
 	
@@ -58,11 +58,12 @@ public class Abandoned extends PagableEntity {
 	public void setAbUserid(Long abUserid) {
 		this.abUserid = abUserid;
 	}
-	public Date getAbDateTime() {
-		return abDateTime;
+	
+	public Date getAbDatetime() {
+		return abDatetime;
 	}
-	public void setAbDateTime(Date abDateTime) {
-		this.abDateTime = abDateTime;
+	public void setAbDatetime(Date abDatetime) {
+		this.abDatetime = abDatetime;
 	}
 	public String getAbReason() {
 		return abReason;
