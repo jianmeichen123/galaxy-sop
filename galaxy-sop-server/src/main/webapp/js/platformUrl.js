@@ -450,6 +450,10 @@ var platformUrl = {
 	 * 创意 生成项目
 	*/
 	idea2Project: Constants.sopEndpointURL+ "/galaxy/idea/createProject",
+	/**
+	 * 创意 创意认领创意
+	*/
+	ideaUpdateIdea:Constants.sopEndpointURL+ "/galaxy/idea/updateIdea",
 	
 }
 
