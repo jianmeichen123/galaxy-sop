@@ -1,4 +1,5 @@
-	var ideaAddDialog = {
+var um;	
+var ideaAddDialog = {
 			fileKey : undefined,
 			init : function(_formdata){
 				ideaAddDialog.initData();
@@ -9,31 +10,94 @@
 						//alert("弹出层初始化");
 						var _this = this;
 						$("#addDialog").find(".meetingtc").remove();
-						ideaAddDialog.fillData(_this,_formdata);
-						initDialogVal();
-						//保存事件绑定
-						$(_this.id).find("#win_uploadBtn").click(ideaAddDialog.save);
+						initDialogVal();	
+						var operator = {
+								save : function(){
+									if(beforeSubmit()){
+										var form = $("#idea_form").serializeObject();
+										form = jQuery.parseJSON(form);
+//										var um = UM.getEditor('win_idea_desc');
+										form.ideaDesc = delHtmlTag(um.getContent());
+										if(form.id==""){
+											form.id = 0;
+										}
+										$(".pop").showLoading(
+												 {
+												    'addClass': 'loading-indicator'						
+												 });
+										sendPostRequestByJsonObj(platformUrl.addIdea,form,operator.saveCallBackFuc);
+
+									}
+									
+								},
+								saveCallBackFuc(data){
+									if(data.result.status=="OK"){
+										layer.msg(data.result.errorCode);
+										refreshIdeaList();
+									}else{
+										layer.msg(data.result.errorCode);
+									}
+									$(".pop").hideLoading();
+									operator.close(_this);
+//									console.log(data);
+								},
+								//关闭弹出框
+								close : function(_this){
+										//关闭对外接口
+										_this.hideback.apply(_this);
+										$(_this.id).remove();
+										$('.tip-yellowsimple').hide();
+										//判断是否关闭背景
+										if($(".pop").length==0){
+											$("#popbg").hide();	
+										}
+								}
+						};
+						
+						$(_this.id).find("#win_uploadBtn").click(operator.save);
 						//关闭事件绑定
 						$(_this.id).find("#win_cancelBtn").click(function(){
-							//将弹框隐藏
-							$("#addDialog").html($(_this.id).children(".poptxt").html());
-							$(_this.id).remove();	
-							//判断是否关闭背景
-							if($(".pop").length==0){
-								$("#popbg").hide();	
-								$('.tip-yellowsimple').hide();	//表单验证提示关闭
-							}
-					});
-						UM.getEditor('win_idea_desc');
+							operator.close(_this);
+						});
+						um = UM.getEditor('win_idea_desc');
+						um.ready(function() {
+						    //设置编辑器的内容
+//							um.setContent(_formdata._ideaDescHtml);
+						    //获取html内容，返回: <p>hello</p>
+//						    var html = ue.getContent();
+//						    //获取纯文本内容，返回: hello
+//						    var txt = ue.getContentTxt();
+							ideaAddDialog.fillData(_this,_formdata,um);
+							//保存事件绑定
+							
+						});
+//						um.destroy(function(){
+//							console.log("销毁富文本");
+//						});
+						
+						
+						
+						
+						
+						
 					},
 					hideback:function(t){
 						var _this = this;
+						var win_idea_desc = $(_this.id).find("#win_idea_desc")[0];
 						$("#addDialog").html($(_this.id).children(".poptxt").html());
+						$("#addDialog").find(".edui-container").remove();
+						$("#addDialog").find(".eduidd").append(win_idea_desc);
+						$("#addDialog").find("#win_idea_desc").removeAttr("class");	
+						$("#addDialog").find("#win_idea_desc").removeAttr("contenteditable");
+						$("#addDialog").find("#win_idea_desc").css("width","100%");
+						$("#addDialog").find("#umeditor_textarea_ideaDescHtml").remove();
+						um.destroy();
+						$(_this.id).find("#win_idea_desc").remove();
 					}
 					
 				});
 			},
-			fillData : function(_this,_formdata){
+			fillData : function(_this,_formdata,_um){
 				console.log("渲染页面数据");
 				var $id = $(_this.id).find("#win_idea_id");
 				var $ideaCode = $(_this.id).find("#win_idea_code");
@@ -89,8 +153,10 @@
 				}
 				
 				if(_formdata._ideaDescHtml){
-					var um = UM.getEditor('win_idea_desc');
-					um.setContent(_formdata._ideaDescHtml);
+//					var um = UM.getEditor('win_idea_desc');
+					_um.setContent(_formdata._ideaDescHtml);	
+				}else{
+					_um.setContent("");
 				}
 				
 				
@@ -108,30 +174,6 @@
 				},
 			callFuc : function(){
 				
-			},
-			//关闭弹出框
-			close : function(_this){
-					//关闭对外接口
-					_this.hideback.apply(_this);
-					$(_this.id).remove();
-					//判断是否关闭背景
-					if($(".pop").length==0){
-						$("#popbg").hide();	
-					}
-			},
-			save : function(){
-				if(beforeSubmit()){
-					var form = $("#idea_form").serializeObject();
-					form = jQuery.parseJSON(form);
-					var um = UM.getEditor('win_idea_desc');
-					form.ideaDesc = delHtmlTag(um.getContent());
-					sendPostRequestByJsonObj(platformUrl.addIdea,form,ideaAddDialog.saveCallBackFuc);
-
-				}
-				
-			},
-			saveCallBackFuc(data){
-				console.log(data);
 			}
 	};
 	
@@ -172,7 +214,7 @@
 			getdetailIdeaInfoCallBack : function(data){
 				if(data.result.status=="OK"){
 					formdata = {
-							       _id:data.entity.id==null?"underfind":data.entity.id,
+							_id:data.entity.id==null?"underfind":data.entity.id,
 							_ideaCode : data.entity.ideaCode,
 							_ideaName : data.entity.ideaName,
 							_createdUid : data.entity.createdUid,
@@ -180,7 +222,7 @@
 							_departmentId : data.entity.departmentId,
 							_createDate : data.entity.createDate,
 							_ideaSource : data.entity.ideaSource,
-							_ideaDescHtml : data.entity.ideaDesc,
+							_ideaDescHtml : data.entity.ideaDescHtml,
 							_callFuc : function(){}
 					}
 					ideaAddDialog.init(formdata);
