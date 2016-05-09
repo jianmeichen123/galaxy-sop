@@ -113,6 +113,7 @@
 */
 	//stage 弹出
 	//
+	var ideaInfo;
 	function showIdeaDetail(ideaId)
 	{
 		var _url = platformUrl.ideaGoStage+"?id="+ideaId;
@@ -124,7 +125,7 @@
 				$(".creativetc .tabtable").tabchange2();
 				
 				//基本信息  -- 数据展示  index =1
-				var ideaInfo = getIdeaInfo(ideaId);
+				ideaInfo = getIdeaInfo(ideaId);
 				
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = ideaInfo.ideaProgress;
@@ -263,7 +264,7 @@
 			var _url = $self.attr("href");
 			$.getHtml({
 				url:_url,//模版请求地址
-				data:"",//传递参数
+				data:{ieadId:ideaInfo.id},//传递参数
 				okback:function(){							
 				}//模版反回成功执行	
 			});

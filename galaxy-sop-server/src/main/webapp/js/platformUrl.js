@@ -446,6 +446,11 @@ var platformUrl = {
 	*/
 	ideaStartMeet: Constants.sopEndpointURL+ "/galaxy/idea/ideaStartMeet",
 	
+	/**
+	 * 创意 生成项目
+	*/
+	idea2Project: Constants.sopEndpointURL+ "/galaxy/idea/createProject",
+	
 }
 
 /**

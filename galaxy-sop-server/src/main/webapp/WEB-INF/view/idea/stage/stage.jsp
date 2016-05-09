@@ -109,7 +109,7 @@
                 <!--按钮-->
                 <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
                     <button class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/ideaGoMeeting" data-btn="meeting">添加会员纪要</button>
-                    <button class="pubbtn fffbtn lpubbtn" href="tchtml/creative_e_n.html" data-btn="create">创建成项目</button>
+                    <button class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/showCreateProjectDialog" data-btn="create">创建成项目</button>
                     <button class="pubbtn fffbtn" href="tchtml/creative_abandontc.html" data-btn="abandon">放弃</button>
                 </div>
 

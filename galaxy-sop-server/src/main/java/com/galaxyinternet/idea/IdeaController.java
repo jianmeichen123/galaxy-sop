@@ -35,6 +35,7 @@ import com.galaxyinternet.common.enums.DictEnum.RecordType;
 import com.galaxyinternet.common.utils.StrUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
@@ -679,6 +680,27 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		mv.setViewName("/idea/stage/history");
 		mv.addObject("id", id);
 		return mv;
+	}
+	@RequestMapping("/showCreateProjectDialog")
+	public ModelAndView showCreateProjectDialog(Long ideaId)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/idea/stage/create_project");
+		mv.addObject("ideaId", ideaId);
+		return mv;
+	}
+	@RequestMapping("/createProject")
+	public ResponseData<Idea> createProject(Long ideaId, String projectName)
+	{
+		ResponseData<Idea> resp = new ResponseData<Idea>();
+		try {
+			ideaService.createProject(ideaId, projectName);
+		} catch (BusinessException e) 
+		{
+			resp.getResult().addError(e.getMessage());
+			logger.error("创建项目失败 ID:"+ideaId+" , Project Name:"+projectName, e);
+		}
+		return resp;
 	}
 	
 	
