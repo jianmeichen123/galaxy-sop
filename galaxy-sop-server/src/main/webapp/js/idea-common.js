@@ -78,6 +78,9 @@
 			}
 			idea = data.entity;
 			stockTransfer = idea.stockTransfer;
+			if(null!=idea.claimantUid&&""!=idea.claimantUid){
+				$("[data-btn='claim']").hide();
+			}
 			$("#IdeaId").val(idea.id);
 			$("#ideaDetail dd")
 			.each(function(){
@@ -504,7 +507,9 @@
   }
   function claimFun(id){
 	  if(id != ''){
-			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" : pid}, function(){});
+			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" : pid}, function(){
+				
+			});
 		}
 
   }

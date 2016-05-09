@@ -359,7 +359,14 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	public ResponseData<Idea> updateIdea(@RequestBody Idea idea,HttpServletRequest request)
 	{
 		ResponseData<Idea> responseBody = new ResponseData<Idea>();
+		if(idea.getId()==null){
+			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
+			return responseBody;
+		}
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
+			idea.setClaimantUid(user.getId());
+			idea.setClaimantUname(user.getRealName());
 			int queryById = ideaService.updateById(idea);
 			if(queryById<=0){
 				responseBody.setResult(new Result(Status.ERROR, null, "编辑创意信息失败!"));
