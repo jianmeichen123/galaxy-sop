@@ -23,7 +23,8 @@ public class MeetingScheduling extends PagableEntity {
     private String remark;
     private Integer scheduleStatus;
     private Timestamp applyTime;
-    private Timestamp reserveTime;
+    private Timestamp reserveTimeStart;
+    private Timestamp reserveTimeEnd;
     private Timestamp lastTime;
     //排序字段名称
     private String sortName;
@@ -42,8 +43,9 @@ public class MeetingScheduling extends PagableEntity {
     private String createUname;
     private String meetingDateStr; 
     private String applyTimeStr;
-    private String reserveTimeStr;
     
+    private String reserveTimeStartStr;
+    private String reserveTimeEndStr;
     //投资事业线部门id
     private Integer careline;
     
@@ -61,6 +63,38 @@ public class MeetingScheduling extends PagableEntity {
     private Double meetingRate;
     
     
+ 
+	public void setReserveTimeStart(Timestamp reserveTimeStart) {
+		this.reserveTimeStart = reserveTimeStart;
+	}
+
+	public Timestamp getReserveTimeEnd() {
+		return reserveTimeEnd;
+	}
+
+	public void setReserveTimeEnd(Timestamp reserveTimeEnd) {
+		this.reserveTimeEnd = reserveTimeEnd;
+		if(reserveTimeEnd != null){
+			reserveTimeStartStr = DateUtil.convertDateToStringForChina(reserveTimeEnd);
+        }
+	}
+
+	public String getReserveTimeStartStr() {
+		return reserveTimeStartStr;
+	}
+
+	public void setReserveTimeStartStr(String reserveTimeStartStr) {
+		this.reserveTimeStartStr = reserveTimeStartStr;
+	}
+
+	public String getReserveTimeEndStr() {
+		return reserveTimeEndStr;
+	}
+
+	public void setReserveTimeEndStr(String reserveTimeEndStr) {
+		this.reserveTimeEndStr = reserveTimeEndStr;
+	}
+
 	public String getProjectCode() {
 		return projectCode;
 	}
@@ -85,13 +119,6 @@ public class MeetingScheduling extends PagableEntity {
 		this.applyTimeStr = applyTimeStr;
 	}
 
-	public String getReserveTimeStr() {
-		return reserveTimeStr;
-	}
-
-	public void setReserveTimeStr(String reserveTimeStr) {
-		this.reserveTimeStr = reserveTimeStr;
-	}
 
 	public String getProjectCareerline() {
   		return projectCareerline;
@@ -187,16 +214,18 @@ public class MeetingScheduling extends PagableEntity {
         }
 	}
 
-	public Timestamp getReserveTime() {
-		return reserveTime;
+	public Timestamp getReserveTimeStart() {
+		return reserveTimeStart;
 	}
 
-	public void setReserveTime(Timestamp reserveTime) {
-		this.reserveTime = reserveTime;
-		if(reserveTime != null){
-			reserveTimeStr = DateUtil.convertDateToStringForChina(reserveTime);
+	public void setReserveStartTime(Timestamp reserveStartTime) {
+		this.reserveTimeStart = reserveStartTime;
+		if(reserveStartTime != null){
+			reserveTimeStartStr = DateUtil.convertDateToStringForChina(reserveTimeStart);
         }
 	}
+	
+	
 
 	public Timestamp getLastTime() {
 		return lastTime;

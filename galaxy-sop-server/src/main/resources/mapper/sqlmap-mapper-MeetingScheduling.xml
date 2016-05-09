@@ -12,7 +12,8 @@
 	    <result column="remark" property="remark" jdbcType="VARCHAR" />
 	    <result column="schedule_status" property="scheduleStatus"/>
 	    <result column="apply_time" property="applyTime"/>
-	    <result column="reserve_time" property="reserveTime"/>
+	    <result column="reserve_time_start" property="reserveTimeStart"/>
+	    <result column="reserve_time_end" property="reserveTimeEnd"/>
 	    <result column="last_time" property="lastTime"/>
 	    <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
 	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
@@ -21,7 +22,7 @@
 	
   <sql id="Base_Column_List" >
     id, project_id, meeting_type, meeting_count, meeting_date, status, remark, schedule_status,
-    apply_time,reserve_time, last_time, updated_time, 
+    apply_time,reserve_time_start, reserve_time_end,last_time, updated_time, 
     created_time
   </sql>
   
@@ -97,11 +98,11 @@
 		insert into sop_meeting_scheduling (id, project_id, meeting_type, 
 	      meeting_count, meeting_date, status, 
 	      remark, schedule_status,
-    	  apply_time, reserve_time, last_time, updated_time, created_time
+    	  apply_time, reserve_time_start, reserve_time_end,last_time, updated_time, created_time
 	      )
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{meetingType,jdbcType=VARCHAR}, 
 	      #{meetingCount,jdbcType=INTEGER}, #{meetingDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
-	      #{remark,jdbcType=VARCHAR}, #{scheduleStatus}, #{applyTime}, #{reserveTime}, #{lastTime}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}
+	      #{remark,jdbcType=VARCHAR}, #{scheduleStatus}, #{applyTime}, #{reserveTimeStart}, #{reserveTimeEnd},#{lastTime}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}
 	      )
 	    ]]>
     </insert>
@@ -118,7 +119,8 @@
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
 			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
-			<if test="reserveTime != null" > reserve_time = #{reserveTime}, </if>
+			<if test="reserveTimeStart != null" > reserve_time_start = #{reserveTimeStart}, </if>
+			<if test="reserveTimeEnd != null" > reserve_time_end = #{reserveTimeEnd}, </if>
 			<if test="lastTime != null" > last_time = #{lastTime}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
@@ -169,7 +171,9 @@
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
 			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
-			<if test="reserveTime != null" > reserve_time = #{reserveTime}, </if>
+			<if test="reserveTimeStart != null" > reserve_time_start = #{reserveTimeStart}, </if>
+			<if test="reserveTimeEnd != null" > reserve_time_end = #{reserveTimeEnd}, </if>
+			
 			<if test="lastTime != null" > last_time = #{lastTime}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
