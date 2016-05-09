@@ -147,6 +147,9 @@
 				<if test="fromIdea == true">
 					and idea_id is not null
 				</if>
+				<if test="ideaId != null">
+					and idea_id = #{ideaId}
+				</if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>

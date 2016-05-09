@@ -8,7 +8,7 @@
           <!-- 创意动态 -->
           <div class="pjt_introduct clearfix">
             <div class="clearfix">
-              <h3>食乐淘</h3>       
+              <h3 class="idea-title">食乐淘</h3>       
             </div>
             <ul class="pjt_brf clearfix">
               <li>最新变更动态<span>2016年04月10日</span>&nbsp;<span>张志成</span>&nbsp;创意名称由<span>食品</span>变更为<span>食乐淘</span>。</li>
@@ -132,36 +132,10 @@
               </div>
 		<!-- 创建项目 -->
               <div class="block block_t" data-tab="con">
-                <!--按钮-->
-                <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-                    <button class="pubbtn fffbtn lpubbtn" href="tchtml/creative_e_n.html" data-btn="edit_name">编辑项目名称</button>
-                </div>
-
-              <!--表格内容-->
-                <table width="100%" cellspacing="0" cellpadding="0">
-                      <thead>
-                          <tr>
-                              <th>创意编码</th>
-                              <th>创意名称</th>
-                              <th>关联项目</th>
-                              <th>投资事业线</th>
-                              <th>项目进度</th>
-                              <th>合伙人</th>
-                          </tr>
-                      </thead>                                                                                                                                    
-                      <tbody>
-                          <tr>
-                              <td>10000002</td>
-                              <td><a href="javascript:;" class="blue" id="project_name">食乐淘</a></td>
-                              <td><a href="javascript:;" class="blue">食乐淘</a></td>
-                              <td>O2O</td>
-                              <td>接触访谈</td>
-                              <td>关屿</td>
-                          </tr>
-                 
-                      </tbody>
-                  </table>
-              </div>
+              	<jsp:include page="/galaxy/idea/showProject">
+              		<jsp:param value="${id }" name="ideaId"/>
+              	</jsp:include>
+              </div> 
               		<!-- 变更动态 -->
               <div class="block block_t" data-tab="con">
               <!--表格内容-->
