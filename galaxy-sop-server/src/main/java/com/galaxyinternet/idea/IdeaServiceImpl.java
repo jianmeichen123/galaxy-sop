@@ -157,6 +157,10 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		{
 			throw new BusinessException("数据错误。");
 		}
+		if(idea.getProjectId() != null)
+		{
+			throw new BusinessException("不能重复创建项目。");
+		}
 		
 		
 		ProjectBo projectQuery = new ProjectBo();

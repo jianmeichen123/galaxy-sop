@@ -261,8 +261,6 @@
 		});
 		//创建立项会 --> 创建项目
 		$("[data-btn='create']").on("click",function(){
-			$(".tabtable_con .block").eq(3).show().siblings().hide();
-			$('.tablink li').eq(3).addClass('on').siblings().removeClass('on');
 			var $self = $(this);
 			var _url = $self.attr("href");
 			$.getHtml({

@@ -706,6 +706,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		mv.addObject("ideaId", ideaId);
 		return mv;
 	}
+	@ResponseBody
 	@RequestMapping("/createProject")
 	public ResponseData<Idea> createProject(Long ideaId, String projectName)
 	{
