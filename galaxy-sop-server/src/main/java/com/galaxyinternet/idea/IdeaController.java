@@ -707,7 +707,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			}else{
 				idea.setId(null);
 				idea.setCreatedTime(System.currentTimeMillis());
-				idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJXM);
+				idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_DRL);
 				ideaService.insert(idea);
 				operatorStr = "添加";
 			}
