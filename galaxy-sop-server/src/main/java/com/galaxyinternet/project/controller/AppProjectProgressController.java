@@ -204,7 +204,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					
 				}
 				// 投资协议
-				if (i == 8) {
+				else if (i == 8) {
 
 					// 项目阶段
 					appProgress.setProjectProgress(DictEnum.projectProgress.getNameByCode("projectProgress:8"));
@@ -286,7 +286,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 				}
 
 				// 投资决策会
-				if (i == 7) {
+				else if (i == 7) {
 					appProgress.setProjectProgress(DictEnum.projectProgress.getNameByCode("projectProgress:7"));
 					meetingRecord.setMeetingType("meetingType:4");
 					meetingRecord.setProjectId(Long.parseLong(pid));
@@ -306,7 +306,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					
 				}
 				// 尽职调查
-				if (i == 6) {
+				else 	if (i == 6) {
 					// 项目阶段
 					appProgress.setProjectProgress(DictEnum.projectProgress.getNameByCode("projectProgress:6"));
 					// 业务类型
@@ -451,7 +451,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 
 				}
 				// 投资意向书
-				if (i == 5) {
+				else if (i == 5) {
 					// 项目阶段
 					appProgress.setProjectProgress(DictEnum.projectProgress.getNameByCode("projectProgress:5"));
 					// 业务类型
@@ -499,7 +499,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					appProgresslist.add(appProgress);
 				}
 				// 立项会
-				if (i == 4) {
+				else if (i == 4) {
 					appProgress.setProjectProgress(DictEnum.projectProgress.getNameByCode("projectProgress:4"));
 					meetingRecord.setMeetingType("meetingType:3");
 					meetingRecord.setProjectId(Long.parseLong(pid));
@@ -519,7 +519,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					System.out.println("立项会");
 				}
 				// CEO评审
-				if (i == 3) {
+				else if (i == 3) {
 					appProgress.setProjectProgress(DictEnum.projectProgress.getNameByCode("projectProgress:3"));
 					meetingRecord.setMeetingType("meetingType:2");
 					meetingRecord.setProjectId(Long.parseLong(pid));
@@ -539,7 +539,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					System.out.println("CEO评审");
 				}
 				// 内部评审
-				if (i == 2) {
+				else if (i == 2) {
 					appProgress.setProjectProgress(DictEnum.projectProgress.getNameByCode("projectProgress:2"));
 					meetingRecord.setMeetingType("meetingType:1");
 					meetingRecord.setProjectId(Long.parseLong(pid));
@@ -559,7 +559,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					System.out.println("内部评审");
 				}
 				// 访谈记录
-				if (i == 1) {
+				else if (i == 1) {
 					appProgress.setProjectProgress(DictEnum.projectProgress.getNameByCode("projectProgress:1"));
 					interviewRecord.setProjectId(Long.parseLong(pid));
 					List<InterviewRecord> listSop = interviewRecordService.queryList(interviewRecord);
