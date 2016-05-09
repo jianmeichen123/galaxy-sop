@@ -35,6 +35,7 @@
 			},
 			fillData : function(_this,_formdata){
 				console.log("渲染页面数据");
+				var $id = $(_this.id).find("#win_idea_id");
 				var $ideaCode = $(_this.id).find("#win_idea_code");
 				var $ideaName = $(_this.id).find("#win_idea_name");
 				var $departmentId = $(_this.id).find("#win_idea_department");
@@ -42,6 +43,10 @@
 				var $createUname = $(_this.id).find("#win_idea_create_name");
 				var $createDate = $(_this.id).find("#win_idea_create_Date");
 				var $ideaSource = $(_this.id).find("#win_idea_source");
+				//创意id
+				if(_formdata._id){
+					$id.val(_formdata._id);
+				}
 				
 				//创意编码
 				if(_formdata._ideaCode){
@@ -167,6 +172,7 @@
 			getdetailIdeaInfoCallBack : function(data){
 				if(data.result.status=="OK"){
 					formdata = {
+							       _id:data.entity.id==null?"underfind":data.entity.id,
 							_ideaCode : data.entity.ideaCode,
 							_ideaName : data.entity.ideaName,
 							_createdUid : data.entity.createdUid,

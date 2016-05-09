@@ -14,6 +14,7 @@
 	<form id="idea_form">
 	<h2>添加创意</h2>
 	<div class="clearfix">
+	<input type="hidden" id="win_idea_id" name="id" class="txt"/>
 			<dl class="fmdl clearfix fl">
     			<dt>创意编号：</dt>
         		<dd class="clearfix">
