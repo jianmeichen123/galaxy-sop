@@ -3,6 +3,7 @@
 	String path = request.getContextPath(); 
 %>
 <div class="addmentc creative_edit1" id="ideaEdit">
+<form id="update_form_basic" >
   <div class="form clearfix" >
     <div class="left">
       <dl class="fmdl fml">
@@ -22,7 +23,7 @@
     <div class="right">
       <dl class="fmdl">
         <dt><b class="red">*</b>&nbsp;创意名称：</dt>
-        <dd><input type="text" id="ideaName" value="" class="txt"/></dd>
+        <dd><input type="text" id="ideaName" name="ideaName" value="" class="txt"/></dd>
       </dl>  
       <dl class="fmdl">
         <dt>所属事业线：</dt>
@@ -30,11 +31,12 @@
           <select id="department">
             <option>合伙人姓名</option>
           </select>
+          <input type="hidden" id="depid">
         </dd>
       </dl>
        <dl class="fmdl">
         <dt>创意来源：</dt>
-        <dd><input type="text" id="ideaSource" value="" class="txt"/></dd>
+        <dd><input type="text" id="ideaSource" name="ideaSource" value="" class="txt"/></dd>
       </dl>
     </div>
   </div>
@@ -47,9 +49,10 @@
       </dd>
     </dl>
     <div class="btnbox">
-      <a href="javascript:;" class="pubbtn bluebtn" >确定</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
+      <a href="javascript:;" class="pubbtn bluebtn" onclick="update()" >确定</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
   </div>
+  </form>
   <!-- 富文本编辑器 -->
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>

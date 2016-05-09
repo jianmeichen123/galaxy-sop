@@ -657,7 +657,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		
 		try{
 	
-			if(idea.getId()==null){
+			if(null!=idea.getId()||!"".equals(idea.getId())){
 				ideaService.updateById(idea);
 			}else{
 				idea.setCreatedTime(System.currentTimeMillis());

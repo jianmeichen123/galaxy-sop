@@ -171,6 +171,10 @@
 				//默认打开当前阶段 
 				//$("#" + progress).addClass("on");
 				//$("#" + progress + "_con").css("display","block");
+				var id=$("#IdeaId").val();
+				$("#editBtn").click(function(){
+					sendGetRequest(platformUrl.detailIdea+"/"+id,null,initCallBack.getdetailIdeaInfoCallBack);
+				});
 				
 			}//end okback 模版反回成功执行	
 		});
@@ -457,6 +461,7 @@
 			   if(id=="department"){
 				   if(self.children().val()==idea.departmentId){
 					   self.children().attr("selected","selected");
+					   $("#depid").val(idea.departmentId);
 				   }
 				  }else if($.isFunction(window[formatter]))
 				{
@@ -472,3 +477,24 @@
 	}
 );
 }
+  
+  /**
+   * 更新项目信息
+   */
+  function update(){
+	  var um = UM.getEditor('edit_idea_desc');
+		var ideaDesc = um.getContent();
+	  var date={
+			"id": $("#ideaId").val(),
+			"ideaName":$("#ideaName").val(),
+			"ideaDesc":ideaDesc,
+			"ideaDescHtml":ideaDesc,
+			"ideaSource":$("#ideaSource").val(),
+			"departmentId":$("#depid").val()
+	  };
+		if(pid != '' && companyLocation != ''){
+			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" : pid, "companyLocation" : companyLocation}, saveSuccess());
+		}
+
+  	
+  }
