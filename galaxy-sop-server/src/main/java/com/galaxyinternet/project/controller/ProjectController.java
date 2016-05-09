@@ -1791,16 +1791,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			List<String> ids = new ArrayList<String>();
 			for(MeetingScheduling ms : schedulingList){
 				
-				byte Edit = 0;
+				byte Edit = 1;
 				Integer sheduleStatus = ms.getScheduleStatus();
-				if(sheduleStatus == 0){
-					Edit = 1;
+				if(sheduleStatus == 2 || sheduleStatus == 3 ){
+					Edit = 0;
 				}
                 if(ms.getApplyTime() != null){
 					long time=System.currentTimeMillis();
 					long appTime = ms.getApplyTime().getTime();
-					if((time < appTime) && sheduleStatus == 1){
-						Edit = 1;
+					if((time > appTime) && sheduleStatus == 1){
+						Edit = 0;
 					}
 				}
 				ms.setIsEdit(Edit);
