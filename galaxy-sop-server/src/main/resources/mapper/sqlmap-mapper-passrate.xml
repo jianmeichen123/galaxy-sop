@@ -84,15 +84,21 @@
 	</update>
 	
 	<!-- 根据idslist查询过汇率集合 -->
-	<select id="selectListById" resultMap="BaseResultMap" >
+	<select id="selectListById" resultMap="BaseResultMap" parameterType="com.galaxyinternet.bo.PassRateBo">
 	   select
 		<include refid="Base_Column_List" />
 		 from sop_pass_rate
-		    where uid in
-					<foreach collection="list" index="item" item="item" open="("
-						separator="," close=")">
-						#{item}
-					</foreach>
+		<where>
+			<trim prefixOverrides="and">
+				<if test="rateType != null"> and rate_type =#{rateType}</if>
+				<if test="uids != null"> 
+					and uid in
+					<foreach collection="uids" item="uid" index="index" open="(" close=")" separator=",">
+			            #{uid}
+			        </foreach>
+				</if>
+			</trim>
+		</where>
 	</select>
     
     <!-- 删除 -->
