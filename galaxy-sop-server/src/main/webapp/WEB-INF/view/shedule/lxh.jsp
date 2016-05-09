@@ -33,7 +33,7 @@
     	<c:if test="${pageType eq 1}">投决会排期</c:if>
     	<c:if test="${pageType eq 2}">CEO评审会排期</c:if>
     	</h2>
-    	<input type="hidden" id="project_id" value=""/>
+    	<input type="hidden" id="project_id" value="1"/>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
 		     <input type="hidden"  id="tipslink_val" name="proType" value="0" />
@@ -72,7 +72,7 @@
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				        <th  data-field="id" data-align="center" class="data-input" data-formatter="indexFormatter">#</th>
+				        <th data-align="center" class="data-input" data-formatter="indexFormatter">#</th>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
 				    	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
 				    	<th data-field="scheduleStatus" data-align="center" class="data-input" data-formatter="statusFormatter">排期状态</th>
@@ -100,17 +100,23 @@
 <script type="text/javascript" src="<%=path %>/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript">
     var menu='${pageType}';
+    var meetingType="";
     if(menu == '0'){
     	createMenus(18);
+    	meetingType="meetingType:3";
     }
     if(menu == '1'){
+    	meetingType="meetingType:4";
     	createMenus(19);
     }
     if(menu == '2'){
     	createMenus(20);
+    	meetingType="meetingType:2";
     }
 	function indexFormatter(value, row, index){
-		return index + 1;
+		var str = index+1;
+		 str+="<input type=\"hidden\" name=\"id\" value=\""+row.id+"\">";
+		return str;
 	}
 	function statusFormatter(value, row, index){
 		var status = "待排期";
@@ -159,7 +165,7 @@
 			 * yyyy-mm-ddThh:ii:ssZ
 			 * MM -- 五月/六月/...
 			 */
-			format: 'yyyy-mm-dd hh:ii',
+			format: 'yyyy-mm-dd hh:ii:ss',
 			language: "zh-CN",
 			startView: 2,
 			minView: 0,
@@ -190,56 +196,20 @@
 		var obj = [];
 	    for(var i=0;i<columnValue.length;i++){
 	        if(columnValue[i].value != ''){
-	        	var p = columnValue[i].parentNode.parentNode.cells[1].innerText;
+	        	var p = columnValue[i].parentNode.parentNode.cells[0].innerHTML;
+	        	var arr= p.substring(p.indexOf("value="),p.indexOf("type=")).replace(/\"/g, "").replace("=","").replace("value","");
 	        	var PassRate = {};
-	        	PassRate.projectId = p;
-	        	PassRate.reserveTimeStr = columnValue[i].value;
+	        	PassRate.id = parseInt(arr);
+	        	PassRate.reserveTimeStartStr = columnValue[i].value;
+	        	PassRate.scheduleStatus =1;
+	        	PassRate.meetingType = meetingType;
 	        	obj.push(PassRate);
 	        }
 	    }
-	    alert(obj+"");
-	    test(platformUrl.reserveTime+"/0", obj, null);
+	    sendPostRequestByJsonObj(platformUrl.reserveTime+"/0", obj, null);
 	   
 	    
 	}
-	function test(reqUrl, jsonObj, callbackFun) {
-		$.ajax({
-			url : reqUrl,
-			type : "POST",
-			data : jsonObj,
-			dataType : "json",
-			cache : false,
-			contentType : "application/json; charset=UTF-8",
-			beforeSend : function(xhr) {
-				/**清楚浏览器缓存**/
-				xhr.setRequestHeader("If-Modified-Since","0"); 
-				xhr.setRequestHeader("Cache-Control","no-cache");
-
-				if (sessionId) {
-					xhr.setRequestHeader("sessionId", sessionId);
-				}
-				if(userId){
-					xhr.setRequestHeader("guserId", userId);
-				}
-			},
-			async : false,
-			error : function(request) {},
-			success : function(data) {
-				if(data){
-					var type =typeof(data);
-					if(type=='string'){
-						if(data.indexOf("<!DOCTYPE html>")){
-							location.href = platformUrl.toLoginPage;
-						}
-					}
-				}
-				if (callbackFun) {
-					callbackFun(data);
-				}
-			}
-		});
-	}
-	
 	
 </script>
 </html>

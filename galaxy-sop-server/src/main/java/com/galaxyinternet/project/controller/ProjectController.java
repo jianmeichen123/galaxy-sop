@@ -1900,17 +1900,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTime/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingScheduling> updateReserveTime(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody MeetingScheduling query) {
+	public ResponseData<MeetingScheduling> updateReserveTime(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody List<MeetingScheduling> query) {
 		
 		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
-		
-		if(query != null){
+		if(query == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "无操作数据"));
 			return responseBody;
 		}
-		System.out.println(query);
-	
-		
-		
+		try{
+			meetingSchedulingService.updateInBatch(query);
+		}catch(Exception e){
+			responseBody.setResult(new Result(Status.ERROR, null, "更新失败"));
+		}
 		return responseBody;
 	}
 }
