@@ -96,13 +96,25 @@ public enum OperationLogType {
 
 	
 	//更新投资意向书 1
-	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName());
+	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
 	/*项目操作日志的配置------------------------------------结束----------------------------------------------------------*/
 	
 	
 	//------------------------------------------------忧愁的分割线-----------------------------------------------------//
 	
+	
 	/*创意操作日志的配置-------------------开始---------------------------------------------------------------------------*/
+	
+	//添加可信性报告
+	CY_ADD_REPORT("/galaxy/idea/ideaUpReport/"+UrlNumber.one, OperType.ADD.getOperationType() , "可行性报告",SopStage.CY_DY.getStageName()),
+	//更新
+	CY_UPDATE_REPORT("/galaxy/idea/ideaUpReport/"+UrlNumber.two, OperType.UPDATE.getOperationType() , "可行性报告",SopStage.CY_DY.getStageName()),
+	//启动立项会
+	CY_START_LXH("/galaxy/idea/ideaStartMeet", OperType.SUBMIT.getOperationType() , "启动立项会",SopStage.CY_DY.getStageName()),
+	
+	
+	//添加会议记录
+	CY_ADD_MEET("/galaxy/idea/saveCyMeetRecord", OperType.ADD.getOperationType() , "会议记录",SopStage.CY_LXH.getStageName());
 
 	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/
 		

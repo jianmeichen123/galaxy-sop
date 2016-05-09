@@ -280,9 +280,7 @@ $(function(){
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
-			okback:function(xhr){
-				xhr.setRequestHeader("If-Modified-Since","0"); 
-				xhr.setRequestHeader("Cache-Control","no-cache");
+			okback:function(){
 				initViewUpload();
 				queryViewPerPro();
 				$('.edui-container').show();
