@@ -286,7 +286,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	 */
 	@com.galaxyinternet.common.annotation.Logger
 	@RequestMapping(value = "/goIdeaStagePage",method = RequestMethod.GET)
-	public String goClaimtcPage(HttpServletRequest request) {
+	public String goIdeaStagePage(HttpServletRequest request) {
        String id = request.getParameter("id");
 	   request.setAttribute("id", id);
 		return "idea/stage/stage";
@@ -300,6 +300,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
        String id = request.getParameter("id");
 	   request.setAttribute("id", id);
 		return "idea/stage/meeting";
+	}
+	/**
+	 * 弹出页面---
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
+	public String goClaimtcPage(HttpServletRequest request) {
+       String id = request.getParameter("id");
+	   request.setAttribute("id", id);
+		return "idea/stage/claimtc";
 	}
 	/**
 	 * 跳转修改页面
