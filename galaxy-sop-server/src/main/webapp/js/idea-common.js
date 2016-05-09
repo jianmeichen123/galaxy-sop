@@ -174,7 +174,10 @@
 						}
 					});
 				}	
-				
+				$("#ideaOperateLog").on("click",function(){
+					tiggerTable($("#ideaProgress_log_table"),3);
+					//$("#projectProgress_table").bootstrapTable("refresh");
+				});
 				//默认打开当前阶段 
 				//$("#" + progress).addClass("on");
 				//$("#" + progress + "_con").css("display","block");

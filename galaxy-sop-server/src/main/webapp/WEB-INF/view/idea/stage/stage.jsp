@@ -137,41 +137,27 @@
               		<jsp:param value="${id }" name="ideaId"/>
               	</jsp:include>
               </div> 
-              		<!-- 变更动态 -->
-              <div class="block block_t" data-tab="con">
-              <!--表格内容-->
-                <table width="100%" cellspacing="0" cellpadding="0">
-                      <thead>
-                          <tr>
-                              <th>操作时间</th>
-                              <th>操作人</th>
-                              <th>变更动态</th>
-                              <th>进度</th>
-                          </tr>
-                      </thead>                                                                                                                                    
-                      <tbody>
-                          <tr>
-                              <td>2016-03-22 16:20:34</td>
-                              <td>徐茂栋</td>
-                              <td>添加</td>
-                              <td>待认领</td>
-                          </tr>
-                          <tr>
-                              <td>2016-03-22 16:20:34</td>
-                              <td>投资经理甲</td>
-                              <td>认领</td>
-                              <td>调研</td>
-                          </tr>
-                          <tr>
-                              <td>2016-03-22 16:20:34</td>
-                              <td>投资经理甲</td>
-                              <td>上传</td>
-                              <td>创建立项会</td>
-                          </tr>
-                 
-                      </tbody>
-                  </table>
-              </div>            
+              		 <!-- 变更动态 -->
+			<div class="block block_t" data-tab="con" id="ideaProgress_log_con">
+				<div id="ideaProgress_log_params">
+					<input type="hidden" name="projectId" value="${id}">
+					<input type="hidden" name="recordType" value="1">
+				</div>
+				<table id="ideaProgress_log_table"
+					data-url="<%=path%>/galaxy/operatlog/query"
+					data-page-list="[3,5,10]" data-toolbar="#ideaProgress_log_params">
+					<thead>
+						<tr>
+							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
+							<th data-field="uname" data-align="center" >操作者</th>
+							<th data-field="operationType" data-align="center">动作</th>
+							<th data-field="operationContent" data-align="center">对象</th>
+							<th data-field="projectName" data-align="center" >创意</th>
+							<th data-field="sopstage" data-align="center" >业务</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
               </div>              
            </div>
           </div>  
