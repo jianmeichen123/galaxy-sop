@@ -104,32 +104,33 @@
 			
 			
 			
-		<!-- 创建立项会 -->
-              <div class="block block_t" data-tab="con">
+		<!-- 创建立项会  ideaProgress:3 -->
+              <div class="block block_t" data-tab="con"  id="ideaProgress_3_con">
                 <!--按钮-->
                 <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-                    <button class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/ideaGoMeeting" data-btn="meeting">添加会员纪要</button>
+                    <button data-btn="meeting" id="add_cy_meet"  class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/addCyMeetRecordTc" >添加会员纪要</button>
                     <button class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/showCreateProjectDialog" data-btn="create">创建成项目</button>
                     <button class="pubbtn fffbtn" href="tchtml/creative_abandontc.html" data-btn="abandon">放弃</button>
                 </div>
 
-              <!--表格内容-->
-                <table width="100%" cellspacing="0" cellpadding="0" class='table_l'>
-                      <thead>
-                          <tr>
-                              <th>会议概况</th>
-                              <th>会议纪要</th>
-                          </tr>
-                      </thead>                                                                                                                                    
-                      <tbody>
-                          <tr>
-                              <td class="td1">会议时间:<span>2016-04-02</span><br/>会议结论:<span>2016-04-02</span><br/>会议录音:<a href="javascript:;" class="blue">录音.mp3</a></td>
-                              <td class="td2">头脑风暴法（Brainstorming）是最为人所熟悉的创意思维策略，该方法是由美国人奥斯本（Osborn）早于1937年所倡导，此法强调集体思考的方法，着重互相激发思考，鼓励参加者于指定时间内，构想出大量的意念，并从中引发新颖的构思。</td>
-                          </tr>
-                 
-                      </tbody>
-                  </table>
-              </div>
+				<div id="ideaProgress_3_params">
+					<input type="hidden" name="projectId" value="${id}">
+					<input type="hidden" name="meetingType" value="meetingType:3">
+					<input type="hidden" name="recordType" value="1">
+				</div>
+				<!--表格内容-->
+				<table id="ideaProgress_3_table"  data-id-field="id"
+					data-url="<%=path%>/galaxy/idea/queryCyMeet"  data-page-list="[2,5,10]"
+					data-toolbar="#ideaProgress_3_params">
+					<thead>
+						<tr>
+							<th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+				
 		<!-- 创建项目 -->
               <div class="block block_t" data-tab="con">
               	<jsp:include page="/galaxy/idea/showProject">

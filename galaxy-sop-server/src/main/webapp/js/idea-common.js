@@ -162,7 +162,7 @@
 							tiggerTable($("#ideaProgress_2_table"),3);
 							break;
 						case '3':
-							
+							tiggerTable($("#ideaProgress_3_table"),2);
 							break;
 						case '5':
 							
@@ -256,7 +256,8 @@
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
-				okback:function(){							
+				okback:function(){	
+					initCyMeetUpload();
 				}//模版反回成功执行	
 			});
 			return false;
@@ -349,10 +350,8 @@
 		return true;
 	}
 	
-	function getContion(){
-		
-	}
 	
+	//popup 弹窗 加载
 	function initIdeaUpload(_dialog){
 		var ideaUploader = new plupload.Uploader({
 			runtimes : 'html5,html4,flash,silverlight',
@@ -417,7 +416,7 @@
 		
 	}
 	
-	
+	//启动立项会
 	function stratLxh(ideaId){
 		var url = platformUrl.ideaStartMeet + "/"+ideaId;
 		sendGetRequest(url, null, function(data){
@@ -433,6 +432,109 @@
 			
 		});
 		
+	}
+	
+	
+	//gethtml 弹窗 加载
+	function initCyMeetUpload(){
+		//----- begin init  plupload 
+		var meetuploader = new plupload.Uploader({
+			runtimes : 'html5,flash,silverlight,html4',
+			browse_button : $("#cyfile-select-btn")[0], // you can pass in id...
+			url : platformUrl.saveCyMeetRecord,
+			multipart:true,
+			multi_selection:false,
+			filters : {
+				max_file_size : '25mb',
+				mime_types: paramsFilter(1)
+			},
+
+			init: {
+				//上传按钮点击事件 - 开始上传
+				PostInit: function(up) {
+					$("#savemeet").click(function(){
+						$("#savemeet").addClass("disabled");
+						//var res = getMeetCondition(null,"projectId", "meetingDateStr", null,"meetingTypeTc", "meetingResult","meetingNotes");
+						var res = getMeetCondition("y",$("[data-id='ideaNowId']").val(), "meetingDateStr", "y","meetingType:3", "meetingResult","meetingNotes");
+						if(res == false || res == "false"){
+							up.stop();
+							$("#savemeet").removeClass("disabled");
+							return;
+						}
+						
+						//var file = $("#fileName").val(); //up.files.length
+						var file = up.files; //
+						if(file.length > 0){
+							up.settings.multipart_params = res;
+							meetuploader.start();
+						}else{
+							sendPostRequestByJsonObj(platformUrl.saveCyMeetRecord,res,function(data){
+								var result = data.result.status;
+								if(result == "ERROR"){ //OK, ERROR
+									$("#savemeet").removeClass("disabled");
+									layer.msg(data.result.message);
+									return;
+								}else{
+									layer.msg("保存成功", {time : 500});
+									var _this = $("#ideaProgress_3_table");
+									if(_this == null || _this.length == 0 || _this == undefined){
+										removePop1();
+									}else{
+										$("#ideaProgress_3_table").bootstrapTable('refresh');
+										$("#cyMeetTcC").click();
+										//removePop2();
+									}
+								}
+							});
+						}
+						return false;
+					});
+				},
+				
+				FilesAdded: function(up, files) {
+					if(meetuploader.files.length >= 2){
+						meetuploader.splice(0, meetuploader.files.length-1)  //解决多次文件选择后，文件都存入upload
+					}
+					plupload.each(files, function(file) {
+						$("#fileName").val(file.name);
+					});
+				},
+				
+				UploadProgress: function(up, file) {
+				},
+				
+				FileUploaded: function(up, files, rtn) {  //文件上传后回掉
+					var response = $.parseJSON(rtn.response);
+					var rs = response.result.status;
+					if(rs == "ERROR"){ //OK, ERROR
+						$("#savemeet").removeClass("disabled");
+						$("#fileName").val("");
+						meetuploader.splice(0, meetuploader.files.length)
+						layer.msg(response.result.message);
+						return;
+					}else{
+						layer.msg("保存成功", {time : 500});
+						var _this = $("#ideaProgress_3_table");
+						if(_this == null || _this.length == 0 || _this == undefined){
+							removePop1();
+						}else{
+							$("#ideaProgress_3_table").bootstrapTable('refresh');
+							$("#cyMeetTcC").click();
+							//removePop2();
+						}
+					}
+				},
+				BeforeUpload:function(up){
+				},
+				Error: function(up, err) {
+					$("#savemeet").removeClass("disabled");
+					$("#fileName").val("");
+					layer.msg(err.message);
+				}
+			}
+		});
+		meetuploader.init();
+		//----- end init upload
 	}
 	
 	/**

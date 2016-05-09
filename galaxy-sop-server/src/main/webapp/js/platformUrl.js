@@ -445,7 +445,10 @@ var platformUrl = {
 	 * 创意 启动创建立项会
 	*/
 	ideaStartMeet: Constants.sopEndpointURL+ "/galaxy/idea/ideaStartMeet",
-	
+	/**
+	 * 创意 添加立项会
+	*/
+	saveCyMeetRecord: Constants.sopEndpointURL+ "/galaxy/idea/saveCyMeetRecord",
 	/**
 	 * 创意 生成项目
 	*/
