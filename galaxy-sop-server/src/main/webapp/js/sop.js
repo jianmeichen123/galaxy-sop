@@ -482,7 +482,8 @@ function tzyxs(flag){
 				 null, function(data){
 					 var json = eval(data);
 					 var dataList=json.entityList;
-						for(var p in dataList){
+					 for(var ii = 0 ; ii < dataList.length ; ii++){
+						    var p = ii ;	
 							var handlefile="";
 							if(!hasClosed && canToOption){
 								handlefile='<a href="javascript:;" onclick="downloadTemplate(\'templateType:1\');" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>';
@@ -1186,7 +1187,8 @@ function gqjg(){
 						 '<thead>'+'<tr>'+'<th>业务分类</th>'+'<th>创建日期</th>'+'<th>存储类型</th>'+
 						 '<th>更新日期</th>'+'<th>催办</th>'+'<th>查看附件</th>'+'</tr>'+'</thead>'+'<tbody>';
 					 
-					 for(var p in dataList){
+					 for(var ii = 0 ; ii < dataList.length ; ii++){
+						    var p = ii ;	
 						var typehtml = "";
 						if (typeof(dataList[p].fType) == "undefined" || dataList[p].fileValid == '0') { 
 							typehtml ='<td></td>';

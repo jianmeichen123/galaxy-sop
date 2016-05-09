@@ -79,8 +79,13 @@
 				}
 				
 				//创意来源
-				if(_formdata._ideaSource && _formdata._ideaSource){
+				if(_formdata._ideaSource){
 					$ideaSource.val(_formdata._ideaSource);
+				}
+				
+				if(_formdata._ideaDescHtml){
+					var um = UM.getEditor('win_idea_desc');
+					um.setContent(_formdata._ideaDescHtml);
 				}
 				
 				
@@ -169,6 +174,7 @@
 							_departmentId : data.entity.departmentId,
 							_createDate : data.entity.createDate,
 							_ideaSource : data.entity.ideaSource,
+							_ideaDescHtml : data.entity.ideaDesc,
 							_callFuc : function(){}
 					}
 					ideaAddDialog.init(formdata);
@@ -181,9 +187,6 @@
 	function init(){
 		$("#addBtn").click(function(){
 			sendGetRequest(platformUrl.getAddIdeaInfo,null,initCallBack.getAddIdeaInfoCallBack);
-		});
-		$("#editBtn").click(function(){
-			sendGetRequest(platformUrl.detailIdea,null,initCallBack.getdetailIdeaInfoCallBack);
 		});
 	}
 	
