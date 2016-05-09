@@ -35,7 +35,6 @@ $(function(){
 	    search: false,
 	});
 });
-
 </script>
 <!--
 

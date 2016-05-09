@@ -295,8 +295,8 @@
 	<update id="updateById" parameterType="com.galaxyinternet.model.project.Project">
 		update sop_project
 		<set>
-			  <!-- 
 			  <if test="projectName != null" >  project_name = #{projectName,jdbcType=VARCHAR}, </if>
+			  <!-- 
 		      <if test="projectCode != null" >  project_code = #{projectCode,jdbcType=VARCHAR}, </if>
 		      <if test="projectType != null" >  project_type = #{projectType,jdbcType=VARCHAR}, </if>
 		       -->

@@ -713,6 +713,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		ResponseData<Idea> resp = new ResponseData<Idea>();
 		try {
 			ideaService.createProject(ideaId, projectName);
+			Idea idea = ideaService.queryById(ideaId);
+			resp.setEntity(idea);
 		} catch (BusinessException e) 
 		{
 			resp.getResult().addError(e.getMessage());
@@ -735,6 +737,41 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		mv.setViewName("/idea/stage/edit_project");
 		mv.addObject("ideaId", ideaId);
 		return mv;
+	}
+	@ResponseBody
+	@RequestMapping("/editProjectName")
+	public ResponseData<Idea> editProjectName(Long ideaId, String projectName)
+	{
+		ResponseData<Idea> resp = new ResponseData<Idea>();
+		try {
+			if(StringUtils.isBlank(projectName))
+			{
+				throw new Exception("请填写新项目名称.");
+			}
+			Idea idea = ideaService.queryById(ideaId);
+			if(idea == null || idea.getProjectId() == null)
+			{
+				throw new Exception("数据错误.");
+			}
+			Project project = projectService.queryById(idea.getProjectId());
+			if(project == null )
+			{
+				throw new Exception("数据错误.");
+			}
+			if(projectName != null && projectName.equals(project.getProjectName()))
+			{
+				throw new Exception("新项目名称与旧项目名称相同.");
+			}
+			project.setProjectName(projectName);
+			projectService.updateById(project);
+			idea = ideaService.queryById(ideaId);
+			resp.setEntity(idea);
+		} catch (Exception e) {
+			resp.getResult().addError(e.getMessage());
+			logger.error("编辑项目名称失败。 Idea Id: "+ideaId+", Project Name: "+projectName, e);
+		}
+		
+		return resp;
 	}
 	
 }

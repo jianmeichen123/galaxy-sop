@@ -45,6 +45,10 @@ function createProject()
 					$('.tablink li').eq(3).addClass('on').siblings().removeClass('on');
 					$dialog.find("#cancel-btn").click();
 					refreshIdeaList();
+					//reload idea info
+					ideaInfo=data.entity;
+					//refresh project list
+					$('#project-table').bootstrapTable('refresh');
 					layer.msg('创建项目成功');
 				}
 				else 
