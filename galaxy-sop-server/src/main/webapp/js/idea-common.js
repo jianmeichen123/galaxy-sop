@@ -263,9 +263,11 @@
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
-					claimFun(id);
-					 $(this).parent("#powindow").hide();
-				     getIdeaInfo(id);
+					 claimFun(id);
+				     $(".claimtc_close").on("click",function(){
+					     $(this).parent("#powindow").hide();
+					     getIdeaInfo(id);
+					})
 				
 				}//模版反回成功执行	
 			});
