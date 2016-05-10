@@ -102,6 +102,9 @@
 				
 			</div>
 		</div>
+		
+		<input type="hidden" data-id="ideaNowId" value="" />
+		
 		<div class="tab-pane active" id="view">	
 			<table id="data-table" data-url="idea/search" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
@@ -119,6 +122,7 @@
 			</table>
            </div>
     </div>
+    
 </div>
 
 

@@ -133,6 +133,11 @@
 				//基本信息  -- 数据展示  index =1
 				ideaInfo = getIdeaInfo(ideaId);
 				$(".idea-title").text(ideaInfo.ideaName);
+				
+				//=====
+				$("[data-id='ideaNowId']").val(ideaId);
+				//====
+				
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = ideaInfo.ideaProgress;
 				if('ideaProgress:4' != progress)
@@ -307,7 +312,6 @@
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
-					initDialogVal("win_meetingtc");
 					initCyMeetUpload();
 				}//模版反回成功执行	
 			});
