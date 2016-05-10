@@ -266,9 +266,7 @@
 					claimFun(id);
 					 $(this).parent("#powindow").hide();
 				     getIdeaInfo(id);
-				}
-			})
-					
+				
 				}//模版反回成功执行	
 			});
 			return false;
@@ -674,7 +672,10 @@
 				
 				if(data.result.status == 'OK')
 				{
-					}else{
+					//layer.msg("认领成功！");
+					//setTimeout("$('.claimtc').find('[data-close='close']').click();",2000);  
+					
+				}else{
 					layer.msg(data.result.errorCode);
 				}
 				
