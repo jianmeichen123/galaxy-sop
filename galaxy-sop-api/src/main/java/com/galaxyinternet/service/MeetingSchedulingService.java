@@ -43,5 +43,11 @@ public interface MeetingSchedulingService extends BaseService<MeetingScheduling>
 	
 	
 	int updateBySelective(MeetingScheduling ms);
+	/**
+	 * 批量更新操作更改status
+	 * @param entityList
+	 */
+	public void updateBatch(List<MeetingScheduling> entityList);
+	
 	
 }

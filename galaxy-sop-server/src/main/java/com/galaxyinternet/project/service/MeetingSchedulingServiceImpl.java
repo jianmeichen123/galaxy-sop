@@ -60,6 +60,7 @@ public class MeetingSchedulingServiceImpl
 		List<Long> projectIdList = new ArrayList<Long>();
 		for (MeetingSchedulingBo meeting : meetingList) {
 			if (meeting.getProjectId() != null) {
+				
 				projectIdList.add(meeting.getProjectId());
 			}
 
@@ -313,5 +314,16 @@ public class MeetingSchedulingServiceImpl
 		}
 		return newList;
 	}
+
+	/**
+	 * 批量更新
+	 */
+	@Override
+	public void updateBatch(List<MeetingScheduling> entityList) {
+		
+		 meetingSchedulingDao.updateBatch(entityList);
+		
+	}
+
 
 }
