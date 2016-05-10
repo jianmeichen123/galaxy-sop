@@ -409,7 +409,7 @@ table .width_gd{width:12%;}
 .fmarea{display:block; border:1px solid #dadfe3; background:#ffffff;  border-radius:4px; padding:3px; margin:0 0 15px}
 .fmarea textarea{ height:150px; width:100%; border:0;line-height:22px; font-size:12px; color:#525662; font-family:"宋体";}
 /*日历*/
-.calendar{ display:none; width:200px; border:1px solid #999; background:#FFFFFF; padding:5px 5px 0; text-align:center; position:fixed; position:absolute; z-index:50}
+/*.calendar{ display:none; width:200px; border:1px solid #999; background:#FFFFFF; padding:5px 5px 0; text-align:center; position:fixed; position:absolute; z-index:50}
 .calendar dt{ height:30px; width:200px; margin:0 auto 5px; background:#e9ebf2; line-height:30px; color:#333; position:relative}
 .calendar dt strong{ font-size:14px}
 .calendar dt .btn{ position:absolute; top:4px; display:block; width:20px; height:20px; text-align:center; line-height:16px; background-color:#66b1f2; color:#FFF; border-radius:10px}
@@ -422,7 +422,7 @@ table .width_gd{width:12%;}
 .calendar dd li a{ display:block; width:20px; height:20px; line-height:20px; border:1px solid #CCC; background:#FFF; font-size:12px; color:#666}
 .calendar dd li a:hover{ background:#66b1f2; color:#fff; text-decoration:none}
 .calendar dd .on a,
-.calendar dd .on a:hover{ border-color:#FFF;background:#FFF; color:#F33}
+.calendar dd .on a:hover{ border-color:#FFF;background:#FFF; color:#F33}*/
 /*星期*/
 .calendar .week li{ width:26px; height:20px}
 .calendar .week li a,

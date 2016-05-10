@@ -7,18 +7,27 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
-<!-- 日期插件 -->
-<link href="<%=path %>/bootstrap-datetimepicker/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="<%=path %>/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+<!-- 日期插件 -->
+
+<link rel="stylesheet" type="text/css" media="all" href="<%=path %>/plugins/daterangepicker/daterangepicker.css" />
+
 <!-- jsp文件头和头部 -->
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<style type="text/css">
+.demo { position: relative; }
+.demo i {
+	position: absolute; bottom: 10px; right: 24px; top: auto; cursor: pointer;
+}
+.daterangepicker .calendar{
+	max-width: none;
+}
+</style>
 </head>
 
 <body>
@@ -95,9 +104,9 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
 <!-- 日期插件 -->
-<script type="text/javascript" src="<%=path %>/bootstrap-datetimepicker/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="<%=path %>/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="<%=path %>/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=path %>/plugins/daterangepicker/moment.js"></script>
+<script type="text/javascript" src="<%=path %>/plugins/daterangepicker/daterangepicker.js"></script>
 <script type="text/javascript">
     var menu='${pageType}';
     var meetingType="";
@@ -156,25 +165,64 @@
 		}
 	}
 	tiggerTable1($("#data-table"),10,function(){
-		$('.form_datetime').datetimepicker({
-			/**
-			 * 指定日期的格式
-			 * 注意：该插件自己定义了一套，整个过程均使用这一套
-			 * yyyy-mm-dd
-			 * yyyy-mm-dd hh:ii:ss
-			 * yyyy-mm-ddThh:ii:ssZ
-			 * MM -- 五月/六月/...
-			 */
-			format: 'yyyy-mm-dd hh:ii:ss',
-			language: "zh-CN",
-			startView: 2,
-			minView: 0,
-			maxView: 4,
-			todayBtn:'linked',
-			autoclose: true
-		}).on('changeDate', function(ev){
-			//当日期被改变时被触发
-			console.log(ev.date.valueOf());
+		var options = {
+			"singleDatePicker": false,
+			"showDropdowns": true,
+			"showWeekNumbers": true,
+			"showISOWeekNumbers": true,
+			"timePicker": true,
+			"timePicker24Hour": true,
+			"timePickerIncrement": 5,
+			"timePickerSeconds": false,
+			"locale": {
+				"format": "YYYY-MM-DD HH:mm",
+				"separator": " - ",
+				"applyLabel": "确定",
+				"cancelLabel": "取消",
+				"fromLabel": "From",
+				"toLabel": "To",
+				"customRangeLabel": "自定义",
+				"daysOfWeek": [
+					"周日",
+					"周一",
+					"周二",
+					"周三",
+					"周四",
+					"周五",
+					"周六"
+				],
+				"monthNames": [
+					"一月",
+					"二月",
+					"三月",
+					"四月",
+					"五月",
+					"六月",
+					"七月",
+					"八月",
+					"九月",
+					"十月",
+					"十一月",
+					"十二月"
+				],
+				"firstDay": 1
+			},
+			"autoUpdateInput": true,
+			"startDate": "05/03/2016",
+			"endDate": "05/09/2016",
+			"minDate": "01/01/2016",
+			"maxDate": "09/09/2016",
+			"opens": "left",
+			"drops": "down",
+			"buttonClasses": "btn btn-sm",
+			"applyClass": "btn-success",
+			"cancelClass": "btn-default"
+	    };
+        $('.form_datetime').daterangepicker(options, function(start, end, label) { 
+			console.log('New date range selected: ' 
+				+ start.format('YYYY-MM-DD') + ' to ' 
+				+ end.format('YYYY-MM-DD') 
+				+ ' (predefined range: ' + label + ')'); 
 		});
 	});
 	
