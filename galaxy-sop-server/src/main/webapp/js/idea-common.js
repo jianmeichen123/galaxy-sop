@@ -673,10 +673,7 @@
 				
 				if(data.result.status == 'OK')
 				{
-					//layer.msg("认领成功！");
-					setTimeout("$('.claimtc').find('[data-close='close']').click();",2000);  
-					
-				}else{
+					}else{
 					layer.msg(data.result.errorCode);
 				}
 				
