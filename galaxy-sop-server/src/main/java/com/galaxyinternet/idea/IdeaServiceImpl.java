@@ -18,6 +18,7 @@ import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.dao.idea.AbandonedDao;
 import com.galaxyinternet.dao.idea.IdeaDao;
+import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.model.Page;
@@ -27,6 +28,7 @@ import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Abandoned;
 import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
@@ -49,6 +51,9 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 	private ConfigService configService;
 	@Autowired
 	private AbandonedDao abandonedDao;
+	@Autowired
+	private SopFileDao sopFileDao;
+	
 	@Override
 	protected BaseDao<Idea, Long> getBaseDao() {
 		// TODO Auto-generated method stub
@@ -228,9 +233,17 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 				abandoned.setAbReason(idea.getAbReason());
 				abandoned.setAbDatetime(new Date());
 				Long insert = abandonedDao.insert(abandoned);
-				if(insert<=0){
-					result=0;
+				SopFile sopFile=new SopFile();
+				SopFile queryByIdea = sopFileDao.queryByProjectAndFileWorkType(sopFile);
+				int res=0;
+				if(null!=queryByIdea){
+					queryByIdea.setFileValid(0);
+				   res=sopFileDao.updateById(queryByIdea);
+					
 				}
+					if(insert<=0&&res<=0){
+						result=0;
+					}
 			}
 		} catch (Exception e) {
 			throw new BusinessException(e);
