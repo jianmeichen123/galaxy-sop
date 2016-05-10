@@ -81,6 +81,8 @@
 			var progress = idea.ideaProgress;
 			if('ideaProgress:1' != progress && 'ideaProgress:4'!= progress){
 				$("[data-btn='claim']").hide();
+			}
+			if(idea.createBySelf!="self" && progress.split(":")[1]<5){
 				$("[data-btn='edith']").hide();
 			}
 			$("#IdeaId").val(idea.id);

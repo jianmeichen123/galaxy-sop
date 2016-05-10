@@ -35,6 +35,7 @@ public class Idea extends PagableEntity
 	private String hhrName;
 	private List<Long> ids;
 	private String projectProgressDesc;
+	private String createBySelf;
 
 		
 	private String createDate;
@@ -202,6 +203,12 @@ public class Idea extends PagableEntity
 	}
 	public void setCreatedDateThrough(String createdDateThrough) {
 		this.createdDateThrough = createdDateThrough;
+	}
+	public String getCreateBySelf() {
+		return createBySelf;
+	}
+	public void setCreateBySelf(String createBySelf) {
+		this.createBySelf = createBySelf;
 	}
 	
 	

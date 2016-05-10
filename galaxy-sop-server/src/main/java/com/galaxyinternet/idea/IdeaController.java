@@ -353,6 +353,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	@RequestMapping("/getIdea/{id}")
 	public ResponseData<Idea> getIdea( @PathVariable Long id,HttpServletRequest request)
 	{
+		User user = (User)getUserFromSession(request);
 		ResponseData<Idea> responseBody = new ResponseData<Idea>();
 		if(id == null){
 			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
@@ -360,6 +361,11 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		try {
 			Idea queryById = ideaService.queryById(id);
+			if(queryById.getCreatedUid().equals(user.getId())){
+				queryById.setCreateBySelf("self");
+			}else{
+				queryById.setCreateBySelf("other");
+			}
 			responseBody.setEntity(queryById);
 			responseBody.setResult(new Result(Status.OK,null,"查询数据成功"));
 		} catch (Exception e) {
