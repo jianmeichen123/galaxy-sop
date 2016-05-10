@@ -177,7 +177,7 @@ var ideaAddDialog = {
 				$(_this.id).find("#win_idea_source").val("");
 				
 				
-			}
+			},
 			initData : function(){
 				//所属事业线
 				sendGetRequest(platformUrl.getDepartMentDict+"/department",null,ideaAddDialog.initDataCallBack);
