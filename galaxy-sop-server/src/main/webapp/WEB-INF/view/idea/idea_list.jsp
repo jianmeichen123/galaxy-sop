@@ -149,7 +149,7 @@
 		<dl class="fmdl clearfix">
 			<dt>报告类型：</dt>
 			<dd>
-				<select id="fileType" name="fileType" disabled="disabled">
+				<select id="fileType" name="fileType" disabled="disabled" class="disabled">
 					<option value="">全部</option>
 					<option value="fileType:1">文档</option>
 					<option value="fileType:2">音频文件</option>
