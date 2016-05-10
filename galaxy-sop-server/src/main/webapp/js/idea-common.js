@@ -82,7 +82,8 @@
 			if('ideaProgress:1' != progress && 'ideaProgress:4'!= progress){
 				$("[data-btn='claim']").hide();
 			}
-			if(idea.createBySelf!="self" && progress.split(":")[1]<5){
+			var index=progress.substr("ideaProgress:".length);
+			if(idea.createBySelf!="self" || index>4){
 				$("[data-btn='edith']").hide();
 			}
 			$("#IdeaId").val(idea.id);
