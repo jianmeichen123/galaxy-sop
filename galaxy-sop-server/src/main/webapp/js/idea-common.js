@@ -159,11 +159,24 @@
 						case '1':
 							
 							break;
-						case '2' : 
-							tiggerTable($("#ideaProgress_2_table"),3);
+						case '2' :
+							var clickN = $("#ideaProgress_2").data("clickn");
+							if(clickN != '0'){
+								$("#ideaProgress_2_table").bootstrapTable('refresh');
+							}else{
+								tiggerTable($("#ideaProgress_2_table"),3);
+								$("#ideaProgress_2").data("clickn","n");
+							}
+							//tiggerTable($("#ideaProgress_2_table"),3);
 							break;
 						case '3':
-							tiggerTable($("#ideaProgress_3_table"),2);
+							var clickN = $("#ideaProgress_3").data("clickn");
+							if(clickN != '0'){
+								$("#ideaProgress_3_table").bootstrapTable('refresh');
+							}else{
+								tiggerTable($("#ideaProgress_3_table"),2);
+								$("#ideaProgress_3").data("clickn","n");
+							}
 							break;
 						case '5':
 							
@@ -174,9 +187,17 @@
 					});
 				}	
 				$("#ideaOperateLog").on("click",function(){
-					tiggerTable($("#ideaProgress_log_table"),3);
+					var clickN = $("#ideaOperateLog").data("clickn");
+					if(clickN != '0'){
+						$("#ideaProgress_log_table").bootstrapTable('refresh');
+					}else{
+						tiggerTable($("#ideaProgress_log_table"),2);
+						$("#ideaOperateLog").data("clickn","n");
+					}
+					//tiggerTable($("#ideaProgress_log_table"),3);
 					//$("#projectProgress_table").bootstrapTable("refresh");
 				});
+				
 				//默认打开当前阶段 
 				//$("#" + progress).addClass("on");
 				//$("#" + progress + "_con").css("display","block");
@@ -262,14 +283,15 @@
 		});
 		
 		
-		//创建立项会  --> 添加会员纪要
+		//创建立项会  --> 添加会议纪要
 		$("[data-btn='meeting']").on("click",function(){
 			var $self = $(this);
 			var _url = $self.attr("href");
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
-				okback:function(){	
+				okback:function(){
+					initDialogVal("win_meetingtc");
 					initCyMeetUpload();
 				}//模版反回成功执行	
 			});
