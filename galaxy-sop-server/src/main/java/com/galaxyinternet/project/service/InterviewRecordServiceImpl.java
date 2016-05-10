@@ -126,6 +126,7 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 			viewBoList = new ArrayList<InterviewRecordBo>();
 			for(InterviewRecord ib : viewList){
 				InterviewRecordBo bo = new InterviewRecordBo();
+				bo.setId(ib.getId());
 				bo.setProjectId(ib.getProjectId());
 				bo.setProName(proIdNameMap.get(ib.getProjectId()));
 				bo.setViewDateStr(ib.getViewDateStr());
