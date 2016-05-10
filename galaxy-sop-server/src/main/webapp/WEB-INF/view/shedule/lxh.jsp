@@ -111,7 +111,7 @@
 <!-- 日期插件 -->
 <script type="text/javascript" src="<%=path %>/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path %>/plugins/daterangepicker/moment.js"></script>
-<script type="text/javascript" src="<%=path %>/plugins/daterangepicker/daterangepicker.js"></script>
+<script type="text/javascript" src="<%=path %>/plugins/daterangepicker/daterangepicker-customer.js"></script>
 <script type="text/javascript">
     var menu='${pageType}';
     var meetingType="";
