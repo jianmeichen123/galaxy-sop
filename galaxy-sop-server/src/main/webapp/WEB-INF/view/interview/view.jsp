@@ -88,7 +88,7 @@
 			<table style="table-layout:fixed"  id="data-table" data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
 	          		data-side-pagination="server" data-pagination="true" 
 	          		data-toolbar="#custom-toolbar" data-page-list="[10,20,30]"
-					data-id-field="lottoId" data-show-refresh="true">
+					data-id-field="id" data-unique-id="id" data-show-refresh="true">
 				<colgroup >
 					<col style="width:20%;"> <!-- 名称 -->
 					<col style="width:30%;"> <!-- 名称 -->
@@ -98,7 +98,7 @@
 					<tr>
 						<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<th  data-field="proName" data-align="center">所属项目</th>  
-						<th  data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
+						<th  data-field="viewNotes" data-align="center" data-formatter="interviewFormatLog">访谈日志</th>
 					</tr>
 				</thead>
 			</table>
@@ -128,7 +128,6 @@
 <script type="text/javascript">
 $(function(){
 	createMenus(6);
-	
 	$('#data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
@@ -137,14 +136,79 @@ $(function(){
 		sidePagination: 'server',
 		method : 'post',
 		pagination: true,
+		clickToSelect: true,
         search: false,
+       /*  onLoadSuccess: function (data) {
+        	$(".option_item_mark").click(function(){
+        		interviewSelectRow = $('#data-table').bootstrapTable('getSelections');
+        		showviewdetail(interviewSelectRow);
+        		//console.log($(this).data());
+        	});
+        } */
 	});
 	
+	
 });
-/* var table = document.getElementById("data-table");//获取第一个表格  
 
-var child = table.getElementsByTagName("tr")[2];
-child.style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"; */
+var interviewSelectRow = null;
+function interviewFormatLog(value,row,index){
+	var len = getLength($.trim(value));
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>100){
+			var subValue = $.trim(value).substring(100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
+			/*var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';*/
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" >"+
+						subValue+
+						"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showviewdetail("+row.id+")\" >...更多<a>"+    
+					'</div>';
+			return rc;
+		}else{
+			return strlog;
+		}
+	}
+}
+
+
+
+function showviewdetail(selectRowId){
+	interviewSelectRow = $('#data-table').bootstrapTable('getRowByUniqueId', selectRowId);
+	
+	var _url = "<%=path %>/galaxy/project/progress/interViewAdd";
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			//initViewUpload();
+			queryViewPerPro();
+			$('.edui-container').show();
+			initTcVal();
+		}//模版反回成功执行	
+	});
+	return false;
+}
+
+function initTcVal(){
+	$("#projectId").val(interviewSelectRow.projectId).attr("disabled","desabled");
+	$("#viewDate").val(interviewSelectRow.viewDateStr).attr("disabled","desabled");
+	$("#viewTarget").val(interviewSelectRow.viewTarget).attr("readonly","readonly");
+	interviewEditor.setContent(interviewSelectRow.viewNotes); 
+	
+	var fileinfo = "";
+	if(interviewSelectRow.fname!=null && interviewSelectRow.fname!=undefined && interviewSelectRow.fname!="undefined" ){
+		fileinfo = "<a href=\"javascript:;\" onclick=\"filedown("+interviewSelectRow.fileId+","+interviewSelectRow.fkey+");\" class=\"blue\" >"+interviewSelectRow.fname+"</a>"
+	}
+	$("#fileNotBeUse").html("");
+	$("#fileNotBeUse").html("访谈录音："+fileinfo);
+	
+	$("#btnNotBeUse").html("");
+	$("#btnNotBeUse").html("<a href=\"javascript:;\" class=\"pubbtn fffbtn\" data-close=\"close\">关闭</a>");
+	
+}
+
+
+
 </script>
 </body>
 
