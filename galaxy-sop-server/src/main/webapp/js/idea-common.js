@@ -264,6 +264,9 @@
 				data:"",//传递参数
 				okback:function(){
 					claimFun(id);
+					 $(this).parent("#powindow").hide();
+				     getIdeaInfo(id);
+				})
 					
 				}//模版反回成功执行	
 			});
@@ -291,6 +294,8 @@
 								{
 									layer.msg("放弃成功！");
 									$(".abandon").find("[data-close='close']").click();
+									$(".creativetc").find("[data-close='close']").click();
+							
 								}else{
 									layer.msg(data.result.errorCode);
 								}
@@ -668,10 +673,7 @@
 				
 				if(data.result.status == 'OK')
 				{
-					//layer.msg("认领成功！");
-					setTimeout("$('.claimtc').find('[data-close='close']').click();",2000);  
-					
-				}else{
+					}else{
 					layer.msg(data.result.errorCode);
 				}
 				

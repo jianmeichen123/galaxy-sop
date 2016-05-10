@@ -31,11 +31,25 @@
 	http://code.alibabatech.com/schema/dubbo
     http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
 	
-	
 	<dubbo:monitor protocol="registry" />
     <dubbo:application name="${dubbo.application.name}" />
     <dubbo:registry address="${dubbo.registry.address}" protocol="${dubbo.protocol.name}"/>
     <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
     <dubbo:consumer timeout="10000" check="false" />
- 	<dubbo:service interface="com.galaxyinternet.service.ProjectService" ref="com.galaxyinternet.service.ProjectService"  version="1.0.0" />
+    
+    <!-- 数据迁移的临时服务，迁移完成后应该注释掉 -->
+    <!-- 添加项目及项目文档记录 -->
+ 	<dubbo:service interface="com.galaxyinternet.service.ProjectService" ref="com.galaxyinternet.service.ProjectService" version="1.0.0">
+ 	  	<dubbo:method name="perfectFilesForProject" timeout="3000" retries="2" />
+		<dubbo:method name="newProject" timeout="6000" retries="2" />
+ 	</dubbo:service>
+ 	<!-- 添加会议记录 -->
+ 	<dubbo:service interface="com.galaxyinternet.service.InterviewRecordService" ref="com.galaxyinternet.service.InterviewRecordService"  version="1.0.0" >
+		<dubbo:method name="insert" timeout="3000" retries="2" />
+	</dubbo:service>
+	<!-- 添加团队成员 -->
+ 	<dubbo:service interface="com.galaxyinternet.service.PersonPoolService" ref="com.galaxyinternet.service.PersonPoolService"  version="1.0.0" >
+		<dubbo:method name="addProjectPerson" timeout="3000" retries="2" />
+	</dubbo:service>
+ 	
 </beans>
