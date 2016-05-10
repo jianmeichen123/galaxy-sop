@@ -34,8 +34,10 @@ import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
+import com.galaxyinternet.service.UserService;
 
 @Service("com.galaxyinternet.service.SopTaskService")
 public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopTaskService {
@@ -52,6 +54,17 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	private PersonPoolDao personPoolDao;
 	@Autowired
 	private SopFileService sopFileService;
+	@Autowired
+	private UserService userService;
+
+	
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	@Override
 	protected BaseDao<SopTask, Long> getBaseDao() {
@@ -263,7 +276,16 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
 			sopTaskBo.setRemark(sopTasknew.getRemark()==null?"":sopTasknew.getRemark());
+			List<String> qlist = new ArrayList<String>();
+			qlist.add(sopTasknew.getAssignUid().toString());
+			//===========================================
+			List<User> userList = userService.queryListById(qlist);
+			if(userList!=null && userList.size()>0){			
+				sopTaskBo.setAssignUidName(userList.get(0).getRealName());			
+			}
+			sopTaskBo.setAssignUid(sopTasknew.getAssignUid());
 			SopTaskBoList.add(sopTaskBo);
+			//===========================================
 		}
 		sopTaskPage.setContent(SopTaskBoList);
 		sopTaskPage.setPageable(sopTaskData.getPageable());
