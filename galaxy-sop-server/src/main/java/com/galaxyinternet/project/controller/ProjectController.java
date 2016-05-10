@@ -1805,10 +1805,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				if(sheduleStatus == 2 || sheduleStatus == 3 ){
 					Edit = 0;
 				}
-                if(ms.getApplyTime() != null){
+                if(ms.getReserveTimeStart() != null){
 					long time=System.currentTimeMillis();
-					long appTime = ms.getApplyTime().getTime();
-					if((time > appTime) && sheduleStatus == 1){
+					long startTime = ms.getReserveTimeStart().getTime();
+					if((time > startTime) && sheduleStatus == 1){
 						Edit = 0;
 					}
 				}

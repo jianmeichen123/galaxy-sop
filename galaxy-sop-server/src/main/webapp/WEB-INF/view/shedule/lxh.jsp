@@ -249,6 +249,8 @@
 	        	var PassRate = {};
 	        	PassRate.id = parseInt(arr);
 	        	PassRate.reserveTimeStartStr = columnValue[i].value;
+	        	PassRate.reserveTimeStart = columnValue[i].value;
+	        	PassRate.reserveTimeEnd = "2016-05-11 05:25:24";
 	        	PassRate.scheduleStatus =1;
 	        	PassRate.meetingType = meetingType;
 	        	obj.push(PassRate);
