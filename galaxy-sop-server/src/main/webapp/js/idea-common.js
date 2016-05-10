@@ -143,7 +143,6 @@
 				var progress = ideaInfo.ideaProgress;
 				progress = progress.replace(":","_");
 				var index = progress.substr("ideaProgress_".length);
-				
 				//按钮 bind 弹窗
 				bindTcEvents(index);
 				cyToProShow();
@@ -188,7 +187,12 @@
 							break;
 						}
 					});
-				}	
+				}
+				//显示当前阶段
+				if(index == '2' || index == '3' || index== '5')
+				{
+					$("#" + progress ).click();
+				}
 				$("#ideaOperateLog").on("click",function(){
 					var clickN = $("#ideaOperateLog").data("clickn");
 					if(clickN != '0'){
@@ -700,4 +704,5 @@
 	  {
 		  $("[data-btn='history']").hide();
 	  }
+	  
   }	 
