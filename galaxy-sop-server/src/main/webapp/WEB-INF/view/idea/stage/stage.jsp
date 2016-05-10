@@ -29,7 +29,7 @@
             <!-- 创意基本信息 -->
               <div class="block block_t show aa"  data-tab="con" id="ideaDetail">
                   <div class="btnbox_f1 btnbox_m clearfix">
-                    <button class="pubbtn id="claimt" fffbtn" href="<%=path %>/galaxy/idea/goClaimtcPage" data-btn="claim">认领</button>
+                    <button class="pubbtn fffbtn" id="claimt" href="<%=path %>/galaxy/idea/goClaimtcPage" data-btn="claim">认领</button>
                     <button class="pubbtn fffbtn" id="editBtn" data-btn='edith' >编辑</button>
                     <input type="hidden" id="IdeaId">
                     <button class="pubbtn fffbtn" href="<%=path %>/galaxy/idea/showHistory?id=${id}" data-btn="history">历史信息</button>
