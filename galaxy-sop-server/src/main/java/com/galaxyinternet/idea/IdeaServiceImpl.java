@@ -234,16 +234,22 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 				abandoned.setAbDatetime(new Date());
 				Long insert = abandonedDao.insert(abandoned);
 				SopFile sopFile=new SopFile();
+				sopFile.setProjectId(idea.getId());
+				sopFile.setRecordType((byte)1);
 				SopFile queryByIdea = sopFileDao.queryByProjectAndFileWorkType(sopFile);
 				int res=0;
 				if(null!=queryByIdea){
 					queryByIdea.setFileValid(0);
 				   res=sopFileDao.updateById(queryByIdea);
-					
-				}
-					if(insert<=0&&res<=0){
+				   if(insert<=0&&res<=0){
 						result=0;
 					}
+				}else{
+					if(insert<=0){
+						result=0;
+					}
+				}
+				
 			}
 		} catch (Exception e) {
 			throw new BusinessException(e);
