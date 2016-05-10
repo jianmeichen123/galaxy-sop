@@ -133,17 +133,14 @@
 				//基本信息  -- 数据展示  index =1
 				ideaInfo = getIdeaInfo(ideaId);
 				$(".idea-title").text(ideaInfo.ideaName);
-				
+				//控制按钮显示、隐藏、可用。禁用等
+				ideaLoaded(ideaInfo);
 				//=====
 				$("[data-id='ideaNowId']").val(ideaId);
 				//====
 				
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = ideaInfo.ideaProgress;
-				if('ideaProgress:4' != progress)
-				{
-					$("[data-btn='history']").hide();
-				}
 				progress = progress.replace(":","_");
 				var index = progress.substr("ideaProgress_".length);
 				
@@ -152,8 +149,8 @@
 				cyToProShow();
 				
 				for(var i = 1; i<6; i++){
-					//当前阶段之后的tab变为不可用
-					if(i > index){
+					//当前阶段之后的tab变为不可用;搁置时，与待认领相同；
+					if(i > index || (i>1 && index==4)){
 						$("#ideaProgress_" + i).addClass("disabled");
 					}
 					
@@ -685,4 +682,21 @@
 		}
 
   }
- 
+  /**
+   * Idea信息加载后处理相关内容
+   * @param idea
+   */
+  function ideaLoaded(idea)
+  {
+	  //创建项目后 隐藏放弃按钮
+	  if(idea.ideaProgress == 'ideaProgress:5')
+	  {
+		  $('[data-btn="abandon"]').hide();
+		  $('[data-btn="create"]').hide();
+	  }
+	  //放弃时才显示历史信息按钮
+	  if( idea.ideaProgress != 'ideaProgress:4')
+	  {
+		  $("[data-btn='history']").hide();
+	  }
+  }	 
