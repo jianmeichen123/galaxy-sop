@@ -22,7 +22,6 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.project.AppProgress;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
@@ -99,10 +98,8 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 		String a[] = projectProgress.split(":");
 		String num = a[1];
 		try {
-			int n = Integer.parseInt(num);
-			/* Map<String, Object> map = new HashMap<String, Object>(); */
+			int n = Integer.parseInt(num);		
 			List<AppProgress> appProgresslist =  new ArrayList<AppProgress>();
-
 			// 获取上传的签署证明 5.投资意向书 6.投资协议 7.股权转让协议
 			SopVoucherFile sopVoucherFile = null;
 			// sopfile
@@ -124,6 +121,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 				sopFile = new SopFile();
 				sopVoucherFile = new SopVoucherFile();
 				appProgress = new AppProgress();
+				
 				// 股权交割
 				if (i == 9) {
 					// 项目阶段
@@ -132,20 +130,21 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					sopFile.setProjectProgress("projectProgress:9");
 					sopFile.setProjectId(Long.parseLong(pid));
 					List<SopFile> listSop = sopFileService.queryList(sopFile);
+					AppSopFile asfile9 = null;
 					if (!listSop.isEmpty()) {
 						for (SopFile sop : listSop) {
-							/*System.out.println(sop.getFileWorktype());*/
+							asfile9 = new AppSopFile();
 							if (sop.getFileWorktype().equals(DictEnum.fileWorktype.资金拨付凭证.getCode())) {
-									appSopFile.setFileYwCode(sop.getFileWorktype());
-									appSopFile.setFileWorktype(sop.getfWorktype());
+								asfile9.setFileYwCode(sop.getFileWorktype());
+								asfile9.setFileWorktype(sop.getfWorktype());
 									if(sop.getFileName()!=null||sop.getFileSuffix()!=null){
 										String fn = sop.getFileName();
 										String fs = sop.getFileSuffix();
 										String fileName = fn + "." + fs;
-										appSopFile.setFileName(fileName);
+										asfile9.setFileName(fileName);
 									}
-									appSopFile.setFileDsCode(sop.getFileStatus());									
-									appSopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
+									asfile9.setFileDsCode(sop.getFileStatus());									
+									asfile9.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
 									Long ti = null;
 									if (sop.getUpdatedTime() != null) {
 										ti = sop.getUpdatedTime();
@@ -153,29 +152,30 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										ti = sop.getCreatedTime();
 									}
 									if (ti != null) {
-										appSopFile.setFileTime(DateUtil.longString(ti));
+										//asfile9.setFileTime(DateUtil.longString(ti));
+										asfile9.setFileTime(ti.toString());
 									}
-									appSopFile.setFileKey(sop.getFileKey());
+									asfile9.setFileKey(sop.getFileKey());
 									Long uid = sop.getFileUid();
 									if(uid!=null){
 										User user = userService.queryById(uid);
-										appSopFile.setName(user.getRealName());
+										asfile9.setName(user.getRealName());
 									}								
-									System.out.println("资金拨付凭证");
-									appS.add(appSopFile);
+									//System.out.println("资金拨付凭证");
+									appS.add(asfile9);
 
 							} 
-							if (sop.getFileWorktype().equals(DictEnum.fileWorktype.工商转让凭证.getCode())) {
-									appSopFile.setFileYwCode(sop.getFileWorktype());
-									appSopFile.setFileWorktype(sop.getfWorktype());
+							else if (sop.getFileWorktype().equals(DictEnum.fileWorktype.工商转让凭证.getCode())) {
+								asfile9.setFileYwCode(sop.getFileWorktype());
+								asfile9.setFileWorktype(sop.getfWorktype());
 									if(sop.getFileName()!=null||sop.getFileSuffix()!=null){
 										String fn = sop.getFileName();
 										String fs = sop.getFileSuffix();
 										String fileName = fn + "." + fs;
-										appSopFile.setFileName(fileName);
+										asfile9.setFileName(fileName);
 									}
-									appSopFile.setFileDsCode(sop.getFileStatus());									
-									appSopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
+									asfile9.setFileDsCode(sop.getFileStatus());									
+									asfile9.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
 									
 									Long ti = null;
 									if (sop.getUpdatedTime() != null) {
@@ -184,16 +184,17 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										ti = sop.getCreatedTime();
 									}
 									if (ti != null) {
-										appSopFile.setFileTime(DateUtil.longString(ti));
+										//asfile9.setFileTime(DateUtil.longString(ti));
+										asfile9.setFileTime(ti.toString());
 									}
-									appSopFile.setFileKey(sop.getFileKey());
+									asfile9.setFileKey(sop.getFileKey());
 									Long uid = sop.getFileUid();
 									if(uid!=null){
 										User user = userService.queryById(uid);
-										appSopFile.setName(user.getRealName());
+										asfile9.setName(user.getRealName());
 									}
-									appS.add(appSopFile);
-									System.out.println("工商转让凭证");
+									appS.add(asfile9);
+									//System.out.println("工商转让凭证");
 								
 							} 
 						}
@@ -212,21 +213,22 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					sopVoucherFile.setProjectProgress("projectProgress:8");
 					sopVoucherFile.setProjectId(Long.parseLong(pid));
 					List<SopVoucherFile> listSop = sopVoucherFileService.queryList(sopVoucherFile);
+					AppSopFile asfile8 = null;
 					if (!listSop.isEmpty()) {
 						for (SopVoucherFile sop : listSop) {
-							/*System.out.println(sop.getFileWorktype());*/
+							asfile8 = new AppSopFile();
 							if (sop.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())) {	
-									appSopFile.setFileYwCode(sop.getFileWorktype());
-									appSopFile.setFileWorktype(DictEnum.fileWorktype.getNameByCode(sop.getFileWorktype()));
+								asfile8.setFileYwCode(sop.getFileWorktype());
+								asfile8.setFileWorktype(DictEnum.fileWorktype.getNameByCode(sop.getFileWorktype()));
 									
 									if(sop.getFileName()!=null||sop.getFileSuffix()!=null){
 										String fn = sop.getFileName();
 										String fs = sop.getFileSuffix();
 										String fileName = fn + "." + fs;
-										appSopFile.setFileName(fileName);
+										asfile8.setFileName(fileName);
 									}
-									appSopFile.setFileDsCode(sop.getFileStatus());									
-									appSopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
+									asfile8.setFileDsCode(sop.getFileStatus());									
+									asfile8.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
 									Long ti = null;
 									if (sop.getUpdatedTime() != null) {
 										ti = sop.getUpdatedTime();
@@ -234,30 +236,31 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										ti = sop.getCreatedTime();
 									}
 									if (ti != null) {
-										appSopFile.setFileTime(DateUtil.longString(ti));
+										//asfile8.setFileTime(DateUtil.longString(ti));
+										asfile8.setFileTime(ti.toString());
 									}
-									appSopFile.setFileKey(sop.getFileKey());
+									asfile8.setFileKey(sop.getFileKey());
 									Long uid = sop.getFileUid();
 									if(uid!=null){
 										User user = userService.queryById(uid);
-										appSopFile.setName(user.getRealName());
+										asfile8.setName(user.getRealName());
 									}
-									appS.add(appSopFile);
-									System.out.println("投资协议");
-									System.out.println(appSopFile.getFileWorktype());
+									appS.add(asfile8);
+								//	System.out.println("投资协议");
+								//	System.out.println(appSopFile.getFileWorktype());
 
 							} 
-							if (sop.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())) {
-									appSopFile.setFileYwCode(sop.getFileWorktype());
-									appSopFile.setFileWorktype(DictEnum.fileWorktype.getNameByCode(sop.getFileWorktype()));
+							else if (sop.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())) {
+								asfile8.setFileYwCode(sop.getFileWorktype());
+								asfile8.setFileWorktype(DictEnum.fileWorktype.getNameByCode(sop.getFileWorktype()));
 									if(sop.getFileName()!=null||sop.getFileSuffix()!=null){
 										String fn = sop.getFileName();
 										String fs = sop.getFileSuffix();
 										String fileName = fn + "." + fs;
-										appSopFile.setFileName(fileName);
+										asfile8.setFileName(fileName);
 									}
-									appSopFile.setFileDsCode(sop.getFileStatus());									
-									appSopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
+									asfile8.setFileDsCode(sop.getFileStatus());									
+									asfile8.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
 									Long ti = null;
 									if (sop.getUpdatedTime() != null) {
 										ti = sop.getUpdatedTime();
@@ -265,17 +268,18 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										ti = sop.getCreatedTime();
 									}
 									if (ti != null) {
-										appSopFile.setFileTime(DateUtil.longString(ti));
+										//asfile8.setFileTime(DateUtil.longString(ti));
+										asfile8.setFileTime(ti.toString());
 									}
-									appSopFile.setFileKey(sop.getFileKey());
+									asfile8.setFileKey(sop.getFileKey());
 									Long uid = sop.getFileUid();
 									if(uid!=null){
 										User user = userService.queryById(uid);
-										appSopFile.setName(user.getRealName());
+										asfile8.setName(user.getRealName());
 									}
-									appS.add(appSopFile);
-									System.out.println("股权转让协议");
-									System.out.println(appSopFile.getFileWorktype());
+									appS.add(asfile8);
+									//System.out.println("股权转让协议");
+									//.out.println(appSopFile.getFileWorktype());
 							
 							} 
 						}
@@ -302,7 +306,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					}
 					/* System.out.println("22222222222222222"); */
 					appProgresslist.add(appProgress);
-					System.out.println("投资决策会");
+					//System.out.println("投资决策会");
 					
 				}
 				// 尽职调查
@@ -313,20 +317,22 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					sopFile.setProjectProgress("projectProgress:6");
 					sopFile.setProjectId(Long.parseLong(pid));
 					List<SopFile> listSop = sopFileService.queryList(sopFile);
+					AppSopFile _tsopFile = null;
 					if (!listSop.isEmpty()) {
 						for (SopFile sop : listSop) {
 							/* System.out.println(sop.getFileWorktype()); */
+							_tsopFile = new AppSopFile();
 							if (sop.getFileWorktype().equals(DictEnum.fileWorktype.业务尽职调查报告.getCode())) {
-									appSopFile.setFileYwCode(sop.getFileWorktype());
-									appSopFile.setFileWorktype(sop.getfWorktype());
+								_tsopFile.setFileYwCode(sop.getFileWorktype());
+								_tsopFile.setFileWorktype(sop.getfWorktype());
 									if(sop.getFileName()!=null||sop.getFileSuffix()!=null){
 										String fn = sop.getFileName();
 										String fs = sop.getFileSuffix();
 										String fileName = fn + "." + fs;
-										appSopFile.setFileName(fileName);
+										_tsopFile.setFileName(fileName);
 									}
-									appSopFile.setFileDsCode(sop.getFileStatus());									
-									appSopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
+									_tsopFile.setFileDsCode(sop.getFileStatus());									
+									_tsopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
 									Long ti = null;
 									if (sop.getUpdatedTime() != null) {
 										ti = sop.getUpdatedTime();
@@ -334,30 +340,31 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										ti = sop.getCreatedTime();
 									}
 									if (ti != null) {
-										appSopFile.setFileTime(DateUtil.longString(ti));
+										//_tsopFile.setFileTime(DateUtil.longString(ti));
+										_tsopFile.setFileTime(ti.toString());
 									}
-									appSopFile.setFileKey(sop.getFileKey());
+									_tsopFile.setFileKey(sop.getFileKey());
 									Long uid = sop.getFileUid();
 									if(uid!=null){
 										User user = userService.queryById(uid);
-										appSopFile.setName(user.getRealName());
+										_tsopFile.setName(user.getRealName());
 									}
-									appS.add(appSopFile);
-									System.out.println("业务尽职调查报告");
-									System.out.println(appSopFile.getFileWorktype());																	
+									appS.add(_tsopFile);
+									//System.out.println("业务尽职调查报告");
+									//System.out.println(appSopFile.getFileWorktype());																	
 							} 
 							/* System.out.println(sop.getFileWorktype()); */
-							if (sop.getFileWorktype().equals(DictEnum.fileWorktype.人力资源尽职调查报告.getCode())) {
-									appSopFile.setFileYwCode(sop.getFileWorktype());
-									appSopFile.setFileWorktype(sop.getfWorktype());
+							else if (sop.getFileWorktype().equals(DictEnum.fileWorktype.人力资源尽职调查报告.getCode())) {
+								_tsopFile.setFileYwCode(sop.getFileWorktype());
+								_tsopFile.setFileWorktype(sop.getfWorktype());
 									if(sop.getFileName()!=null||sop.getFileSuffix()!=null){
 										String fn = sop.getFileName();
 										String fs = sop.getFileSuffix();
 										String fileName = fn + "." + fs;
-										appSopFile.setFileName(fileName);
+										_tsopFile.setFileName(fileName);
 									}
-									appSopFile.setFileDsCode(sop.getFileStatus());									
-									appSopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
+									_tsopFile.setFileDsCode(sop.getFileStatus());									
+									_tsopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
 									Long ti = null;
 									if (sop.getUpdatedTime() != null) {
 										ti = sop.getUpdatedTime();
@@ -365,30 +372,31 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										ti = sop.getCreatedTime();
 									}
 									if (ti != null) {
-										appSopFile.setFileTime(DateUtil.longString(ti));
+										//_tsopFile.setFileTime(DateUtil.longString(ti));
+										_tsopFile.setFileTime(ti.toString());
 									}
 									appSopFile.setFileKey(sop.getFileKey());
 									Long uid = sop.getFileUid();
 									if(uid!=null){
 										User user = userService.queryById(uid);
-										appSopFile.setName(user.getRealName());
+										_tsopFile.setName(user.getRealName());
 									}
-									appS.add(appSopFile);
-									System.out.println("人力资源尽职调查报告");
-									System.out.println(appSopFile.getFileWorktype());								
+									appS.add(_tsopFile);
+								//	System.out.println("人力资源尽职调查报告");
+									//System.out.println(appSopFile.getFileWorktype());								
 							}
 							/* System.out.println(sop.getFileWorktype()); */
-							if (sop.getFileWorktype().equals(DictEnum.fileWorktype.法务尽职调查报告.getCode())) {
-									appSopFile.setFileYwCode(sop.getFileWorktype());
-									appSopFile.setFileWorktype(sop.getfWorktype());
+							else if (sop.getFileWorktype().equals(DictEnum.fileWorktype.法务尽职调查报告.getCode())) {
+								_tsopFile.setFileYwCode(sop.getFileWorktype());
+								_tsopFile.setFileWorktype(sop.getfWorktype());
 									if(sop.getFileName()!=null||sop.getFileSuffix()!=null){
 										String fn = sop.getFileName();
 										String fs = sop.getFileSuffix();
 										String fileName = fn + "." + fs;
-										appSopFile.setFileName(fileName);
+										_tsopFile.setFileName(fileName);
 									}
-									appSopFile.setFileDsCode(sop.getFileStatus());									
-									appSopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
+									_tsopFile.setFileDsCode(sop.getFileStatus());									
+									_tsopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
 									Long ti = null;
 									if (sop.getUpdatedTime() != null) {
 										ti = sop.getUpdatedTime();
@@ -396,32 +404,33 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										ti = sop.getCreatedTime();
 									}
 									if (ti != null) {
-										appSopFile.setFileTime(DateUtil.longString(ti));
+										//_tsopFile.setFileTime(DateUtil.longString(ti));
+										_tsopFile.setFileTime(ti.toString());
 									}
-									appSopFile.setFileKey(sop.getFileKey());
+									_tsopFile.setFileKey(sop.getFileKey());
 									Long uid = sop.getFileUid();
 									if(uid!=null){
 										User user = userService.queryById(uid);
-										appSopFile.setName(user.getRealName());
+										_tsopFile.setName(user.getRealName());
 									}
-									appS.add(appSopFile);
-									System.out.println("法务尽职调查报告");
-									System.out.println(appSopFile.getFileWorktype());
+									appS.add(_tsopFile);
+									//System.out.println("法务尽职调查报告");
+									//System.out.println(appSopFile.getFileWorktype());
 								
 							} 
 
 							/* System.out.println(sop.getFileWorktype()); */
-							if (sop.getFileWorktype().equals(DictEnum.fileWorktype.财务尽职调查报告.getCode())) {	
-									appSopFile.setFileYwCode(sop.getFileWorktype());
-									appSopFile.setFileWorktype(sop.getfWorktype());
+							else if (sop.getFileWorktype().equals(DictEnum.fileWorktype.财务尽职调查报告.getCode())) {	
+								_tsopFile.setFileYwCode(sop.getFileWorktype());
+								_tsopFile.setFileWorktype(sop.getfWorktype());
 									if(sop.getFileName()!=null||sop.getFileSuffix()!=null){
 										String fn = sop.getFileName();
 										String fs = sop.getFileSuffix();
 										String fileName = fn + "." + fs;
-										appSopFile.setFileName(fileName);
+										_tsopFile.setFileName(fileName);
 									}
 									appSopFile.setFileDsCode(sop.getFileStatus());									
-									appSopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
+									_tsopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
 									Long ti = null;
 									if (sop.getUpdatedTime() != null) {
 										ti = sop.getUpdatedTime();
@@ -429,17 +438,18 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										ti = sop.getCreatedTime();
 									}
 									if (ti != null) {
-										appSopFile.setFileTime(DateUtil.longString(ti));
+										//_tsopFile.setFileTime(DateUtil.longString(ti));
+										_tsopFile.setFileTime(ti.toString());
 									}
-									appSopFile.setFileKey(sop.getFileKey());
+									_tsopFile.setFileKey(sop.getFileKey());
 									Long uid = sop.getFileUid();
 									if(uid!=null){
 										User user = userService.queryById(uid);
-										appSopFile.setName(user.getRealName());
+										_tsopFile.setName(user.getRealName());
 									}
-									appS.add(appSopFile);
-									System.out.println("财务尽职调查报告");
-									System.out.println(appSopFile.getFileWorktype());
+									appS.add(_tsopFile);
+								//	System.out.println("财务尽职调查报告");
+								//.out.println(appSopFile.getFileWorktype());
 								
 							} 
 
@@ -447,7 +457,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					}
 					appProgress.setAppSopFile(appS);
 					appProgresslist.add(appProgress);
-					System.out.println(appProgresslist.get(0));
+					//System.out.println(appProgresslist.get(0));
 
 				}
 				// 投资意向书
@@ -458,20 +468,22 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					sopVoucherFile.setProjectProgress("projectProgress:5");
 					sopVoucherFile.setProjectId(Long.parseLong(pid));
 					List<SopVoucherFile> listSop = sopVoucherFileService.queryList(sopVoucherFile);
+					AppSopFile asfile5 = null; 
 					if (!listSop.isEmpty()) {
 						for (SopVoucherFile sop : listSop) {
-							System.out.println(sop.getFileWorktype());
+							asfile5 = new AppSopFile();
+							//System.out.println(sop.getFileWorktype());
 							if (sop.getFileWorktype().equals(DictEnum.fileWorktype.投资意向书.getCode())) {
-									appSopFile.setFileYwCode(sop.getFileWorktype());
-									appSopFile.setFileWorktype(DictEnum.fileWorktype.getNameByCode(sop.getFileWorktype()));
+								asfile5.setFileYwCode(sop.getFileWorktype());
+								asfile5.setFileWorktype(DictEnum.fileWorktype.getNameByCode(sop.getFileWorktype()));
 									if(sop.getFileName()!=null||sop.getFileSuffix()!=null){
 										String fn = sop.getFileName();
 										String fs = sop.getFileSuffix();
 										String fileName = fn + "." + fs;
-										appSopFile.setFileName(fileName);
+										asfile5.setFileName(fileName);
 									}
-									appSopFile.setFileDsCode(sop.getFileStatus());									
-									appSopFile.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
+									asfile5.setFileDsCode(sop.getFileStatus());									
+									asfile5.setFileDs(DictEnum.fileStatus.getNameByCode(sop.getFileStatus()));
 									Long ti = null;
 									if (sop.getUpdatedTime() != null) {
 										ti = sop.getUpdatedTime();
@@ -479,17 +491,18 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										ti = sop.getCreatedTime();
 									}
 									if (ti != null) {
-										appSopFile.setFileTime(DateUtil.longString(ti));
+										//asfile5.setFileTime(DateUtil.longString(ti));
+										asfile5.setFileTime(ti.toString());
 									}
-									appSopFile.setFileKey(sop.getFileKey());
+									asfile5.setFileKey(sop.getFileKey());
 									Long uid = sop.getFileUid();
 									if(uid!=null){
 										User user = userService.queryById(uid);
-										appSopFile.setName(user.getRealName());
+										asfile5.setName(user.getRealName());
 									}
-									appS.add(appSopFile);
-									System.out.println("投资意向书");
-									System.out.println(appSopFile.getFileWorktype());
+									appS.add(asfile5);
+									//System.out.println("投资意向书");
+									//System.out.println(appSopFile.getFileWorktype());
 								
 							}
 
@@ -505,7 +518,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					meetingRecord.setProjectId(Long.parseLong(pid));
 					// 默认的是倒序排新添加的在最上面
 					List<MeetingRecord> listSop = meetingRecordService.queryList(meetingRecord);
-					if (!listSop.isEmpty()) {
+					if (listSop!=null && listSop.size()>0) {
 						MeetingRecord me = listSop.get(0);
 						/*appProgress.setMeetTime(DateUtil.convertDateToStringForChina(me.getMeetingDate()));*/
 						appProgress.setMeetTime(me.getMeetingDateStr());
@@ -516,7 +529,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					}
 					/* System.out.println("22222222222222222"); */
 					appProgresslist.add(appProgress);
-					System.out.println("立项会");
+					//System.out.println("立项会");
 				}
 				// CEO评审
 				else if (i == 3) {
@@ -536,7 +549,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					}
 					/* System.out.println("22222222222222222"); */
 					appProgresslist.add(appProgress);
-					System.out.println("CEO评审");
+					//System.out.println("CEO评审");
 				}
 				// 内部评审
 				else if (i == 2) {
@@ -556,7 +569,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					}
 					/* System.out.println("22222222222222222"); */
 					appProgresslist.add(appProgress);
-					System.out.println("内部评审");
+					//System.out.println("内部评审");
 				}
 				// 访谈记录
 				else if (i == 1) {
@@ -573,7 +586,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 						
 					}
 					appProgresslist.add(appProgress);
-					System.out.println("访谈记录");
+					//System.out.println("访谈记录");
 				}
 /*				System.out.println("11111111111111111111111");
 				System.out.println(appProgresslist.get(0));*/
