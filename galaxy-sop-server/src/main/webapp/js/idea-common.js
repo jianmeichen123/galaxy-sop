@@ -266,7 +266,8 @@
 					claimFun(id);
 					 $(this).parent("#powindow").hide();
 				     getIdeaInfo(id);
-				})
+				}
+			})
 					
 				}//模版反回成功执行	
 			});
