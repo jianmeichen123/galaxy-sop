@@ -20,5 +20,10 @@ public interface MeetingSchedulingDao extends BaseDao<MeetingScheduling, Long> {
 	List<MeetingSchedulingBo> selectProjectMeetingByType(String type);
 	
 	int updateBySelective(MeetingScheduling ms);
+	/**
+	 * 批量更新
+	 * @param entityList
+	 */
+	void updateBatch(List<MeetingScheduling> entityList);
 
 }

@@ -464,7 +464,11 @@ var platformUrl = {
 	/**
 	 * 创意 放弃创意
 	*/
-	GiveUpIdea:Constants.sopEndpointURL+ "/galaxy/idea/goGiveUpPage"
+	GiveUpIdea:Constants.sopEndpointURL+ "/galaxy/idea/goGiveUpPage",
+	/**
+	 * 更新排期池时间
+	 */
+	reserveTime: Constants.sopEndpointURL+ "/galaxy/project/updateReserveTime"
 }
 
 /**

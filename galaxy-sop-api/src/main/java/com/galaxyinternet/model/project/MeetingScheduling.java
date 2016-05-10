@@ -1,6 +1,7 @@
 package com.galaxyinternet.model.project;
 
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
@@ -62,11 +63,7 @@ public class MeetingScheduling extends PagableEntity {
     
     private Double meetingRate;
     
-    
- 
-	public void setReserveTimeStart(Timestamp reserveTimeStart) {
-		this.reserveTimeStart = reserveTimeStart;
-	}
+   
 
 	public Timestamp getReserveTimeEnd() {
 		return reserveTimeEnd;
@@ -74,17 +71,20 @@ public class MeetingScheduling extends PagableEntity {
 
 	public void setReserveTimeEnd(Timestamp reserveTimeEnd) {
 		this.reserveTimeEnd = reserveTimeEnd;
-		if(reserveTimeEnd != null){
-			reserveTimeStartStr = DateUtil.convertDateToStringForChina(reserveTimeEnd);
-        }
 	}
 
-	public String getReserveTimeStartStr() {
+	public String getReserveTimeStartStr() throws ParseException {
+		if(reserveTimeStartStr != null){
+    		this.reserveTimeStart = (Timestamp) DateUtil.convertStringtoD(reserveTimeStartStr);
+    	}
 		return reserveTimeStartStr;
 	}
 
-	public void setReserveTimeStartStr(String reserveTimeStartStr) {
+	public void setReserveTimeStartStr(String reserveTimeStartStr) throws ParseException {
 		this.reserveTimeStartStr = reserveTimeStartStr;
+		if(reserveTimeStartStr != null){
+    		this.reserveTimeStart = (Timestamp) DateUtil.convertStringtoD(reserveTimeStartStr);
+    	}
 	}
 
 	public String getReserveTimeEndStr() {
@@ -215,10 +215,17 @@ public class MeetingScheduling extends PagableEntity {
 	}
 
 	public Timestamp getReserveTimeStart() {
+		if(this.reserveTimeStartStr != null){
+			try {
+				this.reserveTimeStart = (Timestamp) DateUtil.convertStringtoD(reserveTimeStartStr);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 		return reserveTimeStart;
 	}
 
-	public void setReserveStartTime(Timestamp reserveStartTime) {
+	public void setReserveTimeStart(Timestamp reserveStartTime) {
 		this.reserveTimeStart = reserveStartTime;
 		if(reserveStartTime != null){
 			reserveTimeStartStr = DateUtil.convertDateToStringForChina(reserveTimeStart);

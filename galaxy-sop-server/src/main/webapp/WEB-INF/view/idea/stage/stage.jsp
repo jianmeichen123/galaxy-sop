@@ -18,11 +18,11 @@
           <div class="tabtable">
           <!-- tab标签 -->
             <ul class="tablink">
-                <li data-tab="nav" id="ideaProgress_1">基本信息</li>
-                <li data-tab="nav" id="ideaProgress_2">调研</li>
-                <li data-tab="nav" id="ideaProgress_3">创建立项会</li>           
-                <li data-tab="nav" id="ideaProgress_5">创建项目</li>           
-                <li data-tab="nav" id="ideaOperateLog">变更动态</li>           
+                <li data-tab="nav" id="ideaProgress_1" data-clickn="0">基本信息</li>
+                <li data-tab="nav" id="ideaProgress_2" data-clickn="0">调研</li>
+                <li data-tab="nav" id="ideaProgress_3" data-clickn="0">创建立项会</li>           
+                <li data-tab="nav" id="ideaProgress_5" data-clickn="0">创建项目</li>           
+                <li data-tab="nav" id="ideaOperateLog" data-clickn="0">变更动态</li>           
             </ul>
             <!-- tab内容 -->
             <div class="tabtable_con tabtable_con_close">

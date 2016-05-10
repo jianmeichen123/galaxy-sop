@@ -1273,7 +1273,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			//project id 验证
 			Project project = new Project();
 			project = projectService.queryById(pid);
-			
+			//项目关闭将会议记录修改为否决项目
+			MeetingScheduling me = new MeetingScheduling();
+			me.setProjectId(pid);
+			List<MeetingScheduling> meetingList = meetingSchedulingService.queryList(me);
+			if(!meetingList.isEmpty()){
+				for(MeetingScheduling meet:meetingList){
+					meet.setStatus(DictEnum.meetingResult.否决.getCode());					
+				}
+			}
+			meetingSchedulingService.updateBatch(meetingList);
 			if(project == null || project.getCreateUid()==null){
 				responseBody.setResult(new Result(Status.ERROR,null, "项目检索不到"));
 				return responseBody;
@@ -1900,17 +1909,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTime/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingScheduling> updateReserveTime(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody MeetingScheduling query) {
+	public ResponseData<MeetingScheduling> updateReserveTime(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody List<MeetingScheduling> query) {
 		
 		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
-		
-		if(query != null){
+		if(query == null){
+			responseBody.setResult(new Result(Status.ERROR, null, "无操作数据"));
 			return responseBody;
 		}
-		System.out.println(query);
-	
-		
-		
+		try{
+			meetingSchedulingService.updateInBatch(query);
+		}catch(Exception e){
+			responseBody.setResult(new Result(Status.ERROR, null, "更新失败"));
+		}
 		return responseBody;
 	}
 }

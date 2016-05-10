@@ -24,7 +24,8 @@
 		    <dl class="fmdl clearfix fl">
 		    	<dt>创意名称：</dt>
 		        <dd class="clearfix">
-		        	<input type="text" id="win_idea_name" valType="required" msg="<font color=red>*</font>创意名称不能为空" name="ideaName" class="txt"/>
+<%-- 		        	<input type="text" id="win_idea_name" valType="required" msg="<font color=red>*</font>创意名称不能为空" name="ideaName" class="txt"/> --%>
+						<input type="text" id="win_idea_name" msg="<font color=red>*</font>创意名称不能为空" name="ideaName" class="txt"/>
 		        </dd>
 		    </dl>
 		    <dl class="fmdl clearfix fl">
