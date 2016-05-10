@@ -1908,8 +1908,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 更新排期池时间/updateReserveTime
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/updateReserveTime/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingScheduling> updateReserveTime(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody List<MeetingScheduling> query) {
+	@RequestMapping(value = "/updateReserveTime", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingScheduling> updateReserveTime(HttpServletRequest request,@RequestBody List<MeetingScheduling> query) {
 		
 		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
 		if(query == null){

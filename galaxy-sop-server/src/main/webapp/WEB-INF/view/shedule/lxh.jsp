@@ -248,18 +248,27 @@
 	        	var arr= p.substring(p.indexOf("value="),p.indexOf("type=")).replace(/\"/g, "").replace("=","").replace("value","");
 	        	var PassRate = {};
 	        	PassRate.id = parseInt(arr);
-	        	PassRate.reserveTimeStartStr = columnValue[i].value;
-	        	PassRate.reserveTimeStart = columnValue[i].value;
-	        	PassRate.reserveTimeEnd = "2016-05-11 05:25:24";
+	        	if(columnValue[i].value != ''){
+	        		var str=columnValue[i].value.split(" - ");
+	        		PassRate.reserveTimeStart = str[0]+":00";
+		        	PassRate.reserveTimeEnd = str[1]+":00";
+	        	}
 	        	PassRate.scheduleStatus =1;
 	        	PassRate.meetingType = meetingType;
 	        	obj.push(PassRate);
 	        }
 	    }
-	    sendPostRequestByJsonObj(platformUrl.reserveTime+"/0", obj, null);
-	   
+	    sendPostRequestByJsonObj(platformUrl.reserveTime, obj,updateCallBack);
 	    
 	}
-	
+	//保存成功回调
+	function updateCallBack(data){
+		var result = data.result.status;
+		if(result == "ERROR"){ //OK, ERROR
+			alert("fail");
+			return;
+		}
+	    alert("success");
+	}
 </script>
 </html>
