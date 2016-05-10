@@ -371,7 +371,10 @@ function init(){
 	createMenus(14);
 	searchPanel.initData();
 	fileGrid.init();
-	ossClient.downLoadInit();
+	if(ossClient){
+		ossClient.downLoadInit();
+	}
+	
 	
 	
 }
