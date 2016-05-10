@@ -10,6 +10,7 @@ var ideaAddDialog = {
 						//alert("弹出层初始化");
 						var _this = this;
 						$("#addDialog").find(".meetingtc").remove();
+						$(_this.id).find("#win_idea_name").attr("valType");
 						initDialogVal();	
 						var operator = {
 								save : function(){
@@ -91,6 +92,7 @@ var ideaAddDialog = {
 						$("#addDialog").find("#win_idea_desc").removeAttr("contenteditable");
 						$("#addDialog").find("#win_idea_desc").css("width","100%");
 						$("#addDialog").find("#umeditor_textarea_ideaDescHtml").remove();
+						$("#addDialog").find("#win_idea_name").removeAttr("valType");
 						um.destroy();
 						$(_this.id).find("#win_idea_desc").remove();
 					}
