@@ -23,7 +23,7 @@
 	{
 		if(!isNaN(val))
 		{
-			return Number(val).toDate().format("yyyy-MM-dd HH:mm:ss");
+			return Number(val).toDate().format("yyyy-MM-dd hh:mm:ss");
 		}
 		return val;
 	}
@@ -213,7 +213,14 @@
 		return false;
 
 	}
-	
+	/**
+	 * 刷新创意阶段弹窗
+	 */
+	function refreshStageDialog(ideaId)
+	{
+		$("#powindow,#popbg").remove();
+		showIdeaDetail(ideaId);
+	}
 	
 	//各阶段按钮绑定事件、弹窗
 	//由项目当前阶段显示隐藏按钮
