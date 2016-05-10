@@ -17,6 +17,13 @@
 var $dialog ;
 $(function(){
 	$dialog = $("#create-project-dialog");
+	var errorMsg = "${errorMsg}";
+	if(errorMsg.length>0)
+	{
+		$dialog.hide();
+		$dialog.find("#cancel-btn").click();
+		layer.msg(errorMsg);
+	}
 	$dialog.find("[name='projectName']").val(ideaInfo.ideaName);
 	$dialog.find("#create-project-btn").click(function(){
 		createProject();

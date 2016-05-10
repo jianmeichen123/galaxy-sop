@@ -37,6 +37,9 @@
             	valType="required" msg="<font color=red>*</font>访谈日期不能为空"  />
             </dd>
         </dl>
+		<script type="text/javascript">
+			$("#viewDate").val(new Date().format("yyyy-MM-dd"));
+		</script>
     </div>
     <div class="min clearfix">
     	<dl class="fmdl fml clearfix">
@@ -66,31 +69,27 @@
 			</dd>
         </dl>
             
-    <dl class="fmdl clearfix">
+    <dl class="fmdl clearfix" id="fileNotBeUse">
         <dt>访谈录音：</dt>
-            <div class="fmload clearfix">
-            <dd>
-	        	<input type="text" name="fileName" id="fileName" class="txt" readonly="readonly" />
-	        </dd>
-	        <dd>
-	        	<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn" >上传录音</a>
-    		</dd>
+            <div class="fmload clearfix"  >
+	            <dd>
+		        	<input type="text" name="fileName" id="fileName" class="txt" readonly="readonly" />
+		        </dd>
+		        <dd>
+		        	<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn" >上传录音</a>
+	    		</dd>
             </div>
     </dl>
-	<!-- <div class="graphbox" style="display: none;" id="ft_prograss">
-		<div class="graph">
-			<span class="blue" style="width: 0%;" id="prograss_1">0%</span>
-		</div>
-	</div> -->
 
-	<div class="btnbox"> <!-- saveInterView() -->
-    	<a href="javascript:;" id="saveInterView" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
+	<div class="btnbox" id="btnNotBeUse"> 
+    	<a href="javascript:;" id="saveInterView" class="pubbtn bluebtn">保存</a>
+    	<a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
     </div>
+    
 </div>
 
 
  <script type="text/javascript">
-		UM.getEditor('viewNotes');
-		$("#viewDate").val(new Date().format("yyyy-MM-dd"));
+	var interviewEditor = UM.getEditor('viewNotes');
 </script>
-    
+

@@ -353,6 +353,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	@RequestMapping("/getIdea/{id}")
 	public ResponseData<Idea> getIdea( @PathVariable Long id,HttpServletRequest request)
 	{
+		User user = (User)getUserFromSession(request);
 		ResponseData<Idea> responseBody = new ResponseData<Idea>();
 		if(id == null){
 			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
@@ -360,6 +361,11 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		try {
 			Idea queryById = ideaService.queryById(id);
+			if(queryById.getCreatedUid().equals(user.getId())){
+				queryById.setCreateBySelf("self");
+			}else{
+				queryById.setCreateBySelf("other");
+			}
 			responseBody.setEntity(queryById);
 			responseBody.setResult(new Result(Status.OK,null,"查询数据成功"));
 		} catch (Exception e) {
@@ -504,6 +510,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 						responseBody.setResult(new Result(Status.ERROR,null, "文件缺失"));
 						return responseBody;
 					}
+					
+					ideafile.setFileValid(1);
 					
 					ideafile.setRecordType(RecordType.IDEAS.getType());
 					ideafile.setFileName(nameMap.get("fileName"));
@@ -733,6 +741,17 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/idea/stage/create_project");
 		mv.addObject("ideaId", ideaId);
+		
+		MeetingRecord meetQuery = new MeetingRecord();
+		meetQuery.setProjectId(ideaId);
+		meetQuery.setRecordType(DictEnum.RecordType.IDEAS.getType());
+		meetQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+		Long count = meetingRecordService.queryCount(meetQuery);
+		if(count == null || count.intValue() == 0)
+		{
+			mv.addObject("errorMsg", "立项会未通过，不能创建项目.");
+		}
+		
 		return mv;
 	}
 	@ResponseBody
@@ -741,6 +760,15 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	{
 		ResponseData<Idea> resp = new ResponseData<Idea>();
 		try {
+			MeetingRecord meetQuery = new MeetingRecord();
+			meetQuery.setProjectId(ideaId);
+			meetQuery.setRecordType(DictEnum.RecordType.IDEAS.getType());
+			meetQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+			Long count = meetingRecordService.queryCount(meetQuery);
+			if(count == null || count.intValue() == 0)
+			{
+				throw new BusinessException("立项会未通过，不能创建项目。");
+			}
 			ideaService.createProject(ideaId, projectName);
 			Idea idea = ideaService.queryById(ideaId);
 			resp.setEntity(idea);

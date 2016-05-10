@@ -81,6 +81,9 @@
 			var progress = idea.ideaProgress;
 			if('ideaProgress:1' != progress && 'ideaProgress:4'!= progress){
 				$("[data-btn='claim']").hide();
+			}
+			var index=progress.substr("ideaProgress:".length);
+			if(idea.createBySelf!="self" || index>4){
 				$("[data-btn='edith']").hide();
 			}
 			$("#IdeaId").val(idea.id);
@@ -143,7 +146,6 @@
 				var progress = ideaInfo.ideaProgress;
 				progress = progress.replace(":","_");
 				var index = progress.substr("ideaProgress_".length);
-				
 				//按钮 bind 弹窗
 				bindTcEvents(index);
 				cyToProShow();
@@ -188,7 +190,12 @@
 							break;
 						}
 					});
-				}	
+				}
+				//显示当前阶段
+				if(index == '2' || index == '3' || index== '5')
+				{
+					$("#" + progress ).click();
+				}
 				$("#ideaOperateLog").on("click",function(){
 					var clickN = $("#ideaOperateLog").data("clickn");
 					if(clickN != '0'){
@@ -327,7 +334,7 @@
 			var _url = $self.attr("href");
 			$.getHtml({
 				url:_url,//模版请求地址
-				data:{ieadId:ideaInfo.id},//传递参数
+				data:{ideaId:ideaInfo.id},//传递参数
 				okback:function(){							
 				}//模版反回成功执行	
 			});
@@ -700,4 +707,5 @@
 	  {
 		  $("[data-btn='history']").hide();
 	  }
+	  
   }	 

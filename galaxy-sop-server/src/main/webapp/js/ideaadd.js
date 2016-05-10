@@ -10,7 +10,7 @@ var ideaAddDialog = {
 						//alert("弹出层初始化");
 						var _this = this;
 						$("#addDialog").find(".meetingtc").remove();
-						$(_this.id).find("#win_idea_name").attr("valType");
+						$(_this.id).find("#win_idea_name").attr("valType",'required');
 						initDialogVal();	
 						var operator = {
 								save : function(){
