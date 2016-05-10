@@ -511,6 +511,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 						return responseBody;
 					}
 					
+					ideafile.setFileValid(1);
+					
 					ideafile.setRecordType(RecordType.IDEAS.getType());
 					ideafile.setFileName(nameMap.get("fileName"));
 					ideafile.setFileSuffix(nameMap.get("fileSuffix"));
