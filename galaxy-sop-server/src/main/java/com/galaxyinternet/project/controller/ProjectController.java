@@ -37,6 +37,7 @@ import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -52,6 +53,8 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
+import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
+import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
@@ -64,6 +67,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
+import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
@@ -1916,12 +1920,64 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		try{
-			meetingSchedulingService.updateInBatch(query);
+			for(MeetingScheduling ms:query){
+				MeetingScheduling oldMs=meetingSchedulingService.queryById(ms.getId());
+				if(oldMs.getReserveTimeStart().getTime() != ms.getReserveTimeStart().getTime() 
+						|| oldMs.getReserveTimeEnd().getTime() !=ms.getReserveTimeEnd().getTime()){
+					
+					String mestr="";
+					if(DictEnum.meetingType.投决会.getCode().equals(ms.getMeetingType())){
+						mestr=DictEnum.meetingType.投决会.getName();
+					}
+					if(DictEnum.meetingType.立项会.getCode().equals(ms.getMeetingType())){
+						mestr=DictEnum.meetingType.立项会.getName();
+					}
+					if(DictEnum.meetingType.CEO评审.getCode().equals(ms.getMeetingType())){
+						mestr=DictEnum.meetingType.CEO评审.getName();
+					}
+					String messageInfo=mestr+"排期时间为";
+					if(oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() != null){
+						messageInfo=mestr+"排期时间变更为";
+					}
+					if(oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() == null){
+						messageInfo=mestr+"排期时间已取消";
+					}
+					Project pj=projectService.queryById(oldMs.getProjectId());
+					User user=userService.queryById(pj.getCreateUid());
+					meetingSchedulingService.updateByIdSelective(ms);
+					sendMailToTZJL(request,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
+				}
+				
+			}
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
 			return responseBody;
 		}
 		responseBody.setResult(new Result(Status.OK, null, "更新成功!"));
 		return responseBody;
+	}
+	/***
+	 * 发送邮件
+	 */
+	public String sendMailToTZJL(HttpServletRequest request,String toAddress,String tzjlName,String projectinfo,String messageInfo,Timestamp meetingTimestart,Timestamp meetingTimeend) {
+		String toAddress1="yaxinliu@galaxyinternet.com";
+		String content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_PQC_CONTENT);
+		String[] to = toAddress1.split(";");
+		if(to != null && to.length==1)
+		{
+			int atIndex = toAddress1.lastIndexOf("@");
+			tzjlName = toAddress1.substring(0, atIndex)+":<br>您好!";
+		}
+		content = PlaceholderConfigurer.formatText(content,tzjlName,projectinfo,messageInfo,meetingTimestart, meetingTimeend);
+		boolean success = SimpleMailSender.sendMultiMail(toAddress1,  "会议排期通知",content.toString());
+		
+		if(success)
+		{
+			return "success";
+		}
+		else
+		{
+			return "fail";
+		}
 	}
 }

@@ -161,9 +161,9 @@
 	function dataFormatter(value, row, index){
 		if(row.isEdit == '1'){
 			if(row.reserveTime){
-				return timeHtml = '<input size="16" name="reserveTime" value="'+row.reserveTimeStartStr+'-'+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime">';
+				return timeHtml = '<input id="test" size="40" name="reserveTime" value="'+row.reserveTimeStartStr+'-'+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime">';
 			}else{
-				return timeHtml = '<input size="16" name="reserveTime" type="text" readonly class="form_datetime">';
+				return timeHtml = '<input id="test" size="40" name="reserveTime" type="text" readonly class="form_datetime">';
 			}
 		}else{
 			return timeHtml = row.reserveTimeStartStr+'-'+row.reserveTimeEndStr;
@@ -213,10 +213,10 @@
 				"firstDay": 1
 			},
 			"autoUpdateInput": true,
-			"startDate": "05/03/2016",
-			"endDate": "05/09/2016",
-			"minDate": "01/01/2016",
-			"maxDate": "09/09/2016",
+			"startDate": "2016-05-06",
+			"endDate": "2016-05-06",
+			"minDate": "2016-01-01",
+			"maxDate": "2016-09-09",
 			"opens": "left",
 			"drops": "down",
 			"buttonClasses": "btn btn-sm",
@@ -225,10 +225,14 @@
 	    };
         $('.form_datetime').daterangepicker(options, function(start, end, label) { 
 			console.log('New date range selected: ' 
-				+ start.format('YYYY-MM-DD') + ' to ' 
-				+ end.format('YYYY-MM-DD') 
+				+ start.format('YYYY-MM-DD HH:mm') + ' - ' 
+				+ end.format('HH:mm') 
 				+ ' (predefined range: ' + label + ')'); 
 		});
+      $('#test').on('apply.daterangepicker',function(ev, picker) {
+          $('#test').val(picker.startDate.format('YYYY-MM-DD HH:mm') + ' - ' + picker.endDate.format('HH:mm') );
+
+      });
 	});
 	
 	sendGetRequest(platformUrl.getDepartMentDict+"/department",null,function(data){
@@ -256,7 +260,8 @@
 	        	if(columnValue[i].value != ''){
 	        		var str=columnValue[i].value.split(" - ");
 	        		PassRate.reserveTimeStart = str[0]+":00";
-		        	PassRate.reserveTimeEnd = str[1]+":00";
+	        		var my=str[0].split(" ");
+		        	PassRate.reserveTimeEnd =my[0]+" "+str[1]+":00";
 	        	}
 	        	PassRate.scheduleStatus =1;
 	        	PassRate.meetingType = meetingType;
