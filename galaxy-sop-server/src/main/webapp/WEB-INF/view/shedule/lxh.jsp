@@ -71,7 +71,12 @@
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
-						<button type="button" class="bluebtn ico cx" onclick="confirmSubmit();">操作</button>
+					</dd>
+					
+				</dl>
+				<dl>
+				    <dd>
+				       <button type="button" class="bluebtn ico cx" onclick="confirmSubmit();">操作</button>
 					</dd>
 				</dl>
 			</div>
@@ -156,12 +161,12 @@
 	function dataFormatter(value, row, index){
 		if(row.isEdit == '1'){
 			if(row.reserveTime){
-				return timeHtml = '<input size="16" name="reserveTime" value="'+row.reserveTimeStr+'" type="text" readonly class="form_datetime">';
+				return timeHtml = '<input size="16" name="reserveTime" value="'+row.reserveTimeStartStr+'-'+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime">';
 			}else{
 				return timeHtml = '<input size="16" name="reserveTime" type="text" readonly class="form_datetime">';
 			}
 		}else{
-			return timeHtml = row.reserveTimeStr;
+			return timeHtml = row.reserveTimeStartStr+'-'+row.reserveTimeEndStr;
 		}
 	}
 	tiggerTable1($("#data-table"),10,function(){
@@ -265,10 +270,10 @@
 	function updateCallBack(data){
 		var result = data.result.status;
 		if(result == "ERROR"){ //OK, ERROR
-			alert("fail");
+			layer.msg(data.result.message);
 			return;
 		}
-	    alert("success");
+	    layer.msg(data.result.message);
 	}
 </script>
 </html>
