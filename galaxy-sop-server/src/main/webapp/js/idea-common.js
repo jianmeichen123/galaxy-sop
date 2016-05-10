@@ -331,7 +331,7 @@
 			var _url = $self.attr("href");
 			$.getHtml({
 				url:_url,//模版请求地址
-				data:{ieadId:ideaInfo.id},//传递参数
+				data:{ideaId:ideaInfo.id},//传递参数
 				okback:function(){							
 				}//模版反回成功执行	
 			});
