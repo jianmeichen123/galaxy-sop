@@ -262,8 +262,8 @@
 				okback:function(){
 					 claimFun(id);
 				     $(".claimtc_close").on("click",function(){
-					     $(this).parent("#powindow").hide();
-					     getIdeaInfo(id);
+				    	 refreshIdeaList();
+				    	 refreshStageDialog(id);
 					})
 				
 				}//模版反回成功执行	
@@ -293,6 +293,7 @@
 									layer.msg("放弃成功！");
 									$(".abandon").find("[data-close='close']").click();
 									$(".creativetc").find("[data-close='close']").click();
+									refreshIdeaList();
 							
 								}else{
 									layer.msg(data.result.errorCode);
