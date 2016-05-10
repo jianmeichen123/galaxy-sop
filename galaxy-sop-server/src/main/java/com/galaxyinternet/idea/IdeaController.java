@@ -982,6 +982,5 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			}
 			
 			return responseBody;
-		}
-		
+		}	
 }

@@ -52,11 +52,11 @@ function editProjectName()
 				if(data.result.status=='OK')
 				{
 					$dialog.find("#cancel-btn").click();
+					layer.msg('编辑项目名称成功');
 					//reload idea info
-					ideaInfo=data.entity;
+					refreshStageDialog(ideaInfo.id);
 					//refresh project list
 					$('#project-table').bootstrapTable('refresh');
-					layer.msg('编辑项目名称成功');
 				}
 				else 
 				{

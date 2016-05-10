@@ -41,15 +41,10 @@ function createProject()
 			function(data){
 				if(data.result.status=='OK')
 				{
-					$(".tabtable_con .block").eq(3).show().siblings().hide();
-					$('.tablink li').eq(3).addClass('on').siblings().removeClass('on');
 					$dialog.find("#cancel-btn").click();
 					refreshIdeaList();
-					//reload idea info
-					ideaInfo=data.entity;
-					//refresh project list
-					$('#project-table').bootstrapTable('refresh');
 					layer.msg('创建项目成功');
+					refreshStageDialog(ideaInfo.id);
 				}
 				else 
 				{

@@ -84,6 +84,7 @@ var ideaAddDialog = {
 					},
 					hideback:function(t){
 						var _this = this;
+						ideaAddDialog.resetData(_this);
 						var win_idea_desc = $(_this.id).find("#win_idea_desc")[0];
 						$("#addDialog").html($(_this.id).children(".poptxt").html());
 						$("#addDialog").find(".edui-container").remove();
@@ -165,6 +166,17 @@ var ideaAddDialog = {
 				
 
 
+			},
+			resetData : function(_this){	
+				$(_this.id).find("#win_idea_id").val("");
+				$(_this.id).find("#win_idea_code").val("");
+				$(_this.id).find("#win_idea_create_id").val("");
+				$(_this.id).find("#win_idea_create_name").val("");
+				$(_this.id).find("#win_idea_department").val("");
+				$(_this.id).find("#win_idea_create_Date").val("");
+				$(_this.id).find("#win_idea_source").val("");
+				
+				
 			},
 			initData : function(){
 				//所属事业线

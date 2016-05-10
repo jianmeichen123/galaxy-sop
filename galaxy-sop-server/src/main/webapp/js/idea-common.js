@@ -23,7 +23,7 @@
 	{
 		if(!isNaN(val))
 		{
-			return Number(val).toDate().format("yyyy-MM-dd HH:mm:ss");
+			return Number(val).toDate().format("yyyy-MM-dd hh:mm:ss");
 		}
 		return val;
 	}
@@ -133,6 +133,11 @@
 				//基本信息  -- 数据展示  index =1
 				ideaInfo = getIdeaInfo(ideaId);
 				$(".idea-title").text(ideaInfo.ideaName);
+				
+				//=====
+				$("[data-id='ideaNowId']").val(ideaId);
+				//====
+				
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = ideaInfo.ideaProgress;
 				if('ideaProgress:4' != progress)
@@ -213,7 +218,14 @@
 		return false;
 
 	}
-	
+	/**
+	 * 刷新创意阶段弹窗
+	 */
+	function refreshStageDialog(ideaId)
+	{
+		$("#powindow,#popbg").remove();
+		showIdeaDetail(ideaId);
+	}
 	
 	//各阶段按钮绑定事件、弹窗
 	//由项目当前阶段显示隐藏按钮
@@ -300,7 +312,6 @@
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
-					initDialogVal("win_meetingtc");
 					initCyMeetUpload();
 				}//模版反回成功执行	
 			});
