@@ -264,6 +264,9 @@
 				data:"",//传递参数
 				okback:function(){
 					claimFun(id);
+					 $(this).parent("#powindow").hide();
+				     getIdeaInfo(id);
+				})
 					
 				}//模版反回成功执行	
 			});
@@ -291,6 +294,8 @@
 								{
 									layer.msg("放弃成功！");
 									$(".abandon").find("[data-close='close']").click();
+									$(".creativetc").find("[data-close='close']").click();
+							
 								}else{
 									layer.msg(data.result.errorCode);
 								}
