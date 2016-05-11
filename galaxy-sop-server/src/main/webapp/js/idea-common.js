@@ -775,8 +775,10 @@ function ideaLoaded(idea, index) {
 	//==== end index = 3   
 
 	// begin index = 5   创建项目
-	if (index == 5 && userId == idea.claimantUid) {
-		$("[data-btn='edit_name']").remove();
+	if (index == 5 ) {
+		if(userId != idea.claimantUid){
+			$("[data-btn='edit_name']").remove();
+		}
 	} else {
 		$("[data-btn='edit_name']").remove();
 	}
