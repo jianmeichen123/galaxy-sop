@@ -18,7 +18,7 @@
 	</table>
 	<ul>
 		<li><a href="javascript:;" id="show-upload-btn">${btnTxt }</a></li>
-		<li><a href="javascript:;" id="complete-task-btn" class="disabled">提交完成</a></li>
+		<li><a href="javascript:;" id="complete-task-btn" disabled="disabled" class="disabled">提交完成</a></li>
 	</ul>
 </div>
 <!-- 弹出页面 -->
@@ -221,6 +221,7 @@ function initUpload(_dialog){
 				if(data.status == "OK")
 				{
 					layer.msg("上传成功.");
+					$("#complete-task-btn").removeAttr("disabled");
 					$(_dialog.id).find("[data-close='close']").click();
 					loadRows();
 				}
