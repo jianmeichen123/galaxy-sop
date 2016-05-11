@@ -303,10 +303,12 @@
                         align: 'center',
                         valign: 'middle',
                         formatter:function(value,row,index){ 
-                        	if (row.personSex == 0) {
+                         	if (row.personSex == 0) {
                     			return "男";
-                    		} else {
+                    		}else if (row.personSex == 1) {
                     			return "女";
+                    		}else {
+                    			return "-";
                     		}
                         }
 	                    },
