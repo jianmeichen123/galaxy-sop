@@ -16,8 +16,10 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.enums.EnumUtil;
+import com.galaxyinternet.common.enums.DictEnum.RecordType;
 import com.galaxyinternet.dao.idea.AbandonedDao;
 import com.galaxyinternet.dao.idea.IdeaDao;
+import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
@@ -27,6 +29,7 @@ import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Abandoned;
 import com.galaxyinternet.model.idea.Idea;
+import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
@@ -51,6 +54,8 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 	private ConfigService configService;
 	@Autowired
 	private AbandonedDao abandonedDao;
+	@Autowired
+	private MeetingRecordDao meetingRecordDao;
 	@Autowired
 	private SopFileDao sopFileDao;
 	
@@ -257,6 +262,17 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 					}
 				}
 				
+				MeetingRecord meet = new MeetingRecord();
+				meet.setProjectId(idea.getId());
+				meet.setRecordType(RecordType.IDEAS.getType());
+				meet.setMeetValid((byte)1);
+				List<MeetingRecord> meetList  = meetingRecordDao.selectList(meet);
+				if(meetList!=null && !meetList.isEmpty()){
+					for(MeetingRecord ameet :  meetList){
+						ameet.setMeetValid((byte)0);
+						meetingRecordDao.updateById(ameet);
+					}
+				}
 			}
 		} catch (Exception e) {
 			throw new BusinessException(e);
