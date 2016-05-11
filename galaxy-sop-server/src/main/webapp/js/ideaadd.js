@@ -111,7 +111,7 @@ var ideaAddDialog = {
 				var $createDate = $(_this.id).find("#win_idea_create_Date");
 				var $ideaSource = $(_this.id).find("#win_idea_source");
 				//创意id
-				if(_formdata._id){
+				if(._id){
 					$id.val(_formdata._id);
 				}
 				
@@ -145,9 +145,11 @@ var ideaAddDialog = {
 				//所属事业线
 				if(_formdata._departmentId){
 					$departmentId.val(_formdata._departmentId);
-					$departmentId.attr("readonly","readonly");
-//					$departmentId.attr("disabled","disabled");
-					$departmentId.attr("class","disabled");
+					if(_formdata._departmentEditable=='false'){
+						$departmentId.attr("readonly","readonly");
+						$departmentId.attr("class","disabled");
+					}
+					
 				}
 				
 				//创意来源
@@ -195,7 +197,7 @@ var ideaAddDialog = {
 			each : function(_data,_dom,type){
 				_dom.empty();
 				if(type=="all"){
-					_dom.append("<option value='all'>--请选择--</option>");
+					_dom.append("<option value=''>--请选择--</option>");
 				}
 				$.each(_data.entityList,function(){
 					if(this.code){
@@ -217,6 +219,7 @@ var ideaAddDialog = {
 							_createdUname : data.entity.createdUname,
 							_departmentId : data.entity.departmentId,
 							_createDate : data.entity.createDate,
+							_departmentEditable : data.entity.departmentEditable
 							_callFuc : function(){}
 					}
 					ideaAddDialog.init(formdata);
@@ -234,6 +237,7 @@ var ideaAddDialog = {
 							_createdUid : data.entity.createdUid,
 							_createdUname : data.entity.createdUname,
 							_departmentId : data.entity.departmentId,
+							_departmentEditable : data.entity.departmentEditable
 							_createDate : data.entity.createDate,
 							_ideaSource : data.entity.ideaSource,
 							_ideaDescHtml : data.entity.ideaDescHtml,

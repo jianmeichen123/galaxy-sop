@@ -10,6 +10,8 @@ public enum SopStage {
 	//创意
 	CY_INFO("创意提出"),
 	CY_DY("调研"),
+	CY_DRL("待认领"),
+	CY_GZ("搁置"),
 	CY_LXH("创建立项会"),
 	CY_PRO("创建项目"),
 	//项目

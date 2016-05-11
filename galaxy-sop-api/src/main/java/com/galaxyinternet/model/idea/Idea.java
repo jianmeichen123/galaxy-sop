@@ -12,6 +12,7 @@ public class Idea extends PagableEntity
 	private String ideaName;
 	@NotEmpty(message="创意名称不能为空")
 	private String ideaCode;
+	@NotEmpty(message="请选择所属事业线")
 	private Long departmentId;
 	private Long createdUid;
 	private Long updatedUid;
@@ -37,6 +38,19 @@ public class Idea extends PagableEntity
 	private String projectProgressDesc;
 	private String createBySelf;
 
+	
+	
+	
+	
+	
+	
+	
+	private String departmentEditable;
+	
+	
+	
+	
+	
 		
 	private String createDate;
 	
@@ -209,6 +223,12 @@ public class Idea extends PagableEntity
 	}
 	public void setCreateBySelf(String createBySelf) {
 		this.createBySelf = createBySelf;
+	}
+	public String getDepartmentEditable() {
+		return departmentEditable;
+	}
+	public void setDepartmentEditable(String departmentEditable) {
+		this.departmentEditable = departmentEditable;
 	}
 	
 	

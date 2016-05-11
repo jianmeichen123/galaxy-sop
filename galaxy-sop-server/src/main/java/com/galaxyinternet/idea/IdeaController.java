@@ -105,6 +105,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		this.tempfilePath = tempfilePath;
 	}
 	
+	private static final String IDEA_CODE_PREFIX = "CY";
 	
 	/**
 	 * 验证提取，
@@ -366,6 +367,14 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			}else{
 				queryById.setCreateBySelf("other");
 			}
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(!RoleUtils.isCEO(roleIdList) && !RoleUtils.isDSZ(roleIdList)){
+				queryById.setDepartmentEditable("false");
+			}else{
+				//为高管时所属事业线可编辑
+				queryById.setDepartmentEditable("true");;
+			}
+			
 			responseBody.setEntity(queryById);
 			responseBody.setResult(new Result(Status.OK,null,"查询数据成功"));
 		} catch (Exception e) {
@@ -680,11 +689,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			idea.setCreatedUname(user.getRealName());
 			idea.setCreatedTime(System.currentTimeMillis());
 			Config config = configService.getByKey(SopConstant.CONFIG_KEY_IDEA_CODE, true);
-			idea.setIdeaCode(config.getValue());
+			idea.setIdeaCode(IDEA_CODE_PREFIX + config.getValue());
 			
 			if(!RoleUtils.isCEO(roleIdList) && !RoleUtils.isDSZ(roleIdList)){
 				idea.setDepartmentId(user.getDepartmentId());
+				idea.setDepartmentEditable("false");
+			}else{
+				//为高管时所属事业线可编辑
+				idea.setDepartmentEditable("true");;
 			}
+			
 			
 			responseBody.setEntity(idea);
 			responseBody.setResult(new Result(Status.OK,""));
@@ -695,10 +709,10 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		return responseBody;
 	}
 	
-	
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	@ResponseBody
 	@RequestMapping(value="/addIdea",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Idea> addIdea(@RequestBody @Valid Idea idea,BindingResult result){
+	public ResponseData<Idea> addIdea(HttpServletRequest request,@RequestBody @Valid Idea idea,BindingResult result){
 		ResponseData<Idea> responseBody = getErrorResponse(idea);
 		if(responseBody !=null){
 			return responseBody;
@@ -709,18 +723,33 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		responseBody = new ResponseData<Idea>();
 		String operatorStr = "";
+		UrlNumber uNum = null;
 		try{
 			if(idea.getId()!=0){
+				Idea tempIdea = ideaService.queryById(idea.getId());
 				ideaService.updateById(idea);
+				if(DictEnum.IdeaProgress.CYCJ.getCode().equals(tempIdea.getIdeaProgress())){
+					uNum = UrlNumber.two;
+				}else if(DictEnum.IdeaProgress.CYDY.getCode().equals(tempIdea.getIdeaProgress())){
+					uNum = UrlNumber.three;
+				}else if(DictEnum.IdeaProgress.CYLXH.getCode().equals(tempIdea.getIdeaProgress())){
+					uNum = UrlNumber.four;
+				}else if(DictEnum.IdeaProgress.CYLGZ.getCode().equals(tempIdea.getIdeaProgress())){
+					uNum = UrlNumber.five;
+				}
 				operatorStr = "修改";
+				
+				
 			}else{
 				idea.setId(null);
 				idea.setCreatedTime(System.currentTimeMillis());
 				idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_DRL);
 				ideaService.insert(idea);
 				operatorStr = "添加";
+				uNum = UrlNumber.one;
+				
 			}
-					
+			ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId(),uNum);
 		}catch(DaoException e){
 			responseBody.setResult(new Result(Status.ERROR,"创意添加出错,请联系管理员!"));
 			return responseBody;
