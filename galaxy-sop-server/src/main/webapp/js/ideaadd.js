@@ -146,9 +146,11 @@ var ideaAddDialog = {
 				//所属事业线
 				if(_formdata._departmentId){
 					$departmentId.val(_formdata._departmentId);
-					$departmentId.attr("readonly","readonly");
-//					$departmentId.attr("disabled","disabled");
-					$departmentId.attr("class","disabled");
+					if(_formdata._departmentEditable=='false'){
+						$departmentId.attr("readonly","readonly");
+						$departmentId.attr("class","disabled");
+					}
+					
 				}
 				
 				//创意来源
@@ -196,7 +198,7 @@ var ideaAddDialog = {
 			each : function(_data,_dom,type){
 				_dom.empty();
 				if(type=="all"){
-					_dom.append("<option value='all'>--请选择--</option>");
+					_dom.append("<option value=''>--请选择--</option>");
 				}
 				$.each(_data.entityList,function(){
 					if(this.code){
