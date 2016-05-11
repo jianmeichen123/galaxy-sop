@@ -39,10 +39,10 @@ function createProject()
 		return;
 	}
 	var data = {
-		ideaId : ideaInfo.id,
+		id : ideaInfo.id,
 		projectName : projectName
 	};
-	sendGetRequest(
+	sendPostRequestByJsonObj(
 			platformUrl.idea2Project,
 			data,
 			function(data){

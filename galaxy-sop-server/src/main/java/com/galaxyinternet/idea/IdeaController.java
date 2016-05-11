@@ -758,8 +758,11 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	}
 	@ResponseBody
 	@RequestMapping("/createProject")
-	public ResponseData<Idea> createProject(Long ideaId, String projectName)
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	public ResponseData<Idea> createProject(@RequestBody Idea ideaBo, HttpServletRequest request)
 	{
+		Long ideaId = ideaBo.getId();
+		String projectName = ideaBo.getProjectName();
 		ResponseData<Idea> resp = new ResponseData<Idea>();
 		try {
 			MeetingRecord meetQuery = new MeetingRecord();
@@ -774,6 +777,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			ideaService.createProject(ideaId, projectName);
 			Idea idea = ideaService.queryById(ideaId);
 			resp.setEntity(idea);
+			ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), ideaId);
 		} catch (BusinessException e) 
 		{
 			resp.getResult().addError(e.getMessage());
@@ -799,8 +803,11 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	}
 	@ResponseBody
 	@RequestMapping("/editProjectName")
-	public ResponseData<Idea> editProjectName(Long ideaId, String projectName)
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	public ResponseData<Idea> editProjectName(@RequestBody Idea ideaBo, HttpServletRequest request)
 	{
+		Long ideaId = ideaBo.getId();
+		String projectName = ideaBo.getProjectName();
 		ResponseData<Idea> resp = new ResponseData<Idea>();
 		try {
 			if(StringUtils.isBlank(projectName))
@@ -825,6 +832,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			projectService.updateById(project);
 			idea = ideaService.queryById(ideaId);
 			resp.setEntity(idea);
+			ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), ideaId);
 		} catch (Exception e) {
 			resp.getResult().addError(e.getMessage());
 			logger.error("编辑项目名称失败。 Idea Id: "+ideaId+", Project Name: "+projectName, e);
