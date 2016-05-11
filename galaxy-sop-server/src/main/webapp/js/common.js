@@ -720,22 +720,28 @@ function getMeetCondition(hasProid,projectId,
 		return false;
 	}
 	
+	var projectIdVal = null;
 	if(hasProid == "y" ){
-		var projectId = $.trim(projectId);
+		projectIdVal = $.trim(projectId);
 	}else{
-		var projectId = $("#"+projectId).val();
+		projectIdVal = $("#"+projectId).val();
 	}
+	
 	var meetingDateStr = $.trim($("#"+meetDateId).val());
+	
+	var meetingTypeVal = null;
 	if(hasMeetType == "y" ){
-		var meetingType = $.trim(meetTypeName);
+		meetingTypeVal = $.trim(meetTypeName);
 	}else{
-		var meetingType = $.trim($('input:radio[name="'+meetTypeName+'"]:checked').val());
+		meetingTypeVal = $.trim($('input:radio[name="'+meetTypeName+'"]:checked').val());
 	}
+	
 	var meetingResult = $.trim($('input:radio[name="'+meetResultName+'"]:checked').val());
+	
 	var um = UM.getEditor(meetNotesId);
 	var meetingNotes = $.trim(um.getContent());
 	
-	if(projectId == null || projectId == ""){
+	if(projectIdVal == null || projectIdVal == ""){
 		layer.msg("项目不能为空");
 		return false;
 	}
@@ -751,7 +757,7 @@ function getMeetCondition(hasProid,projectId,
          }
 	 }
 	
-	if(meetingType == null ||  meetingType == ""){
+	if(meetingTypeVal == null ||  meetingTypeVal == ""){
 		layer.msg("类型不能为空");
 		return false;
 	}
@@ -768,9 +774,9 @@ function getMeetCondition(hasProid,projectId,
 		}
 	}
 	
-	condition.projectId = projectId;
+	condition.projectId = projectIdVal;
 	condition.meetingDateStr = meetingDateStr;
-	condition.meetingType = meetingType;
+	condition.meetingType = meetingTypeVal;
 	condition.meetingResult = meetingResult;
 	condition.meetingNotes = meetingNotes;
 	return condition;
@@ -836,7 +842,7 @@ function sublengthFormat(value,row,index){
 	}
 }
 
-//interview
+//富文本截取        //======= 废弃   ====//
 function formatLog(value,row,index){
 	var len = getLength($.trim(value));
 	if(value != ''){
@@ -845,13 +851,11 @@ function formatLog(value,row,index){
 		if(len>100){
 			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
 			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
-			
 			return rc;
 		}else{
 			return strlog;
 		}
 	}
-
 }
 
 //meet table format

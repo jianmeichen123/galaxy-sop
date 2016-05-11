@@ -450,6 +450,11 @@ var platformUrl = {
 	*/
 	saveCyMeetRecord: Constants.sopEndpointURL+ "/galaxy/idea/saveCyMeetRecord",
 	/**
+	 * 创意 立项会通过查询
+	*/
+	ideaCheckPassMeet: Constants.sopEndpointURL+ "/galaxy/idea/ideaCheckPassMeet",
+	
+	/**
 	 * 创意 生成项目
 	*/
 	idea2Project: Constants.sopEndpointURL+ "/galaxy/idea/createProject",
