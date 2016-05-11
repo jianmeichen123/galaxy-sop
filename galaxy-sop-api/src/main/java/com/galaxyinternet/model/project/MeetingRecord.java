@@ -30,7 +30,7 @@ public class MeetingRecord  extends RecordEntity{
     
     private String participant;
     
-    private byte meetValid;
+    private Byte meetValid;
     
     
     public String getParticipant() {
@@ -222,13 +222,15 @@ public class MeetingRecord  extends RecordEntity{
 		this.fkey = fkey;
 	}
 
-	public byte getMeetValid() {
+	public Byte getMeetValid() {
 		return meetValid;
 	}
 
-	public void setMeetValid(byte meetValid) {
+	public void setMeetValid(Byte meetValid) {
 		this.meetValid = meetValid;
 	}
+
+
 
 	
 
