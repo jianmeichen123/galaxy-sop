@@ -6,11 +6,11 @@
   <div class="top clearfix">
       <dl class="fmdl fml">
         <dt>旧项目名称：</dt>
-        <dd><input type="text" value="项目11" class="txt" name="originProjectName" disabled/></dd>
+        <dd><input type="text" class="txt" name="originProjectName" disabled/></dd>
       </dl>
        <dl class="fmdl">
         <dt>新项目名称：</dt>
-        <dd><input type="text" value="项目11" class="txt" name="projectName"/></dd>
+        <dd><input type="text" class="txt" name="projectName"/></dd>
       </dl> 
   </div>
     <div class="btnbox">
@@ -42,10 +42,11 @@ function editProjectName()
 		return;
 	}
 	var data = {
-		ideaId : ideaInfo.id,
+		id : ideaInfo.id,
 		projectName : projectName
 	};
-	sendGetRequest(
+	console.log(data);
+	sendPostRequestByJsonObj(
 			platformUrl.ideaEditProjectName,
 			data,
 			function(data){
