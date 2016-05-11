@@ -265,7 +265,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 				MeetingRecord meet = new MeetingRecord();
 				meet.setProjectId(idea.getId());
 				meet.setRecordType(RecordType.IDEAS.getType());
-				meet.setMeetValid((byte)1);
+				meet.setMeetValid((byte)0);
 				List<MeetingRecord> meetList  = meetingRecordDao.selectList(meet);
 				if(meetList!=null && !meetList.isEmpty()){
 					for(MeetingRecord ameet :  meetList){
