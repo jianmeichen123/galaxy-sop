@@ -45,7 +45,6 @@ function editProjectName()
 		id : ideaInfo.id,
 		projectName : projectName
 	};
-	console.log(data);
 	sendPostRequestByJsonObj(
 			platformUrl.ideaEditProjectName,
 			data,
