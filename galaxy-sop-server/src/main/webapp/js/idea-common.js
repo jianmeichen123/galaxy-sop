@@ -780,21 +780,26 @@ function ideaLoaded(idea, index) {
 	
 	//====  index = 3   创建立项会
 	if (index == 3) {
-		sendGetRequest(platformUrl.ideaCheckPassMeet + "/" + ideaInfo.id, null,
-				function(data) {
-					if (data.result.status == "ERROR") {
-						layer.msg(data.result.message);
-						return;
-					} else if (data.result.status == "OK") {
-						var num = data.result.message;
-						if (num == '0') {
-							$("[data-btn='create']").hide(); //创建成项目
-						} else {
-							$("[data-btn='meeting']").hide(); //添加会议
+		if(roleId != 4){
+			$("#options_point3").remove();
+		}else{
+			sendGetRequest(platformUrl.ideaCheckPassMeet + "/" + ideaInfo.id, null,
+					function(data) {
+						if (data.result.status == "ERROR") {
+							layer.msg(data.result.message);
+							return;
+						} else if (data.result.status == "OK") {
+							var num = data.result.message;
+							if (num == '0') {
+								$("[data-btn='create']").hide(); //创建成项目
+							} else {
+								$("[data-btn='meeting']").hide(); //添加会议
+							}
 						}
-					}
 
-				});
+					});
+		}
+		
 	} else {
 		$("#options_point3").remove();
 	}
@@ -802,7 +807,9 @@ function ideaLoaded(idea, index) {
 
 	// begin index = 5   创建项目
 	if (index == 5 ) {
-		if(userId != idea.claimantUid){
+		if(roleId != 4){
+			$("[data-btn='edit_name']").remove();
+		}else if(userId != idea.claimantUid){
 			$("[data-btn='edit_name']").remove();
 		}
 	} else {
