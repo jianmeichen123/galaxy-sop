@@ -236,12 +236,19 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 				SopFile sopFile=new SopFile();
 				sopFile.setProjectId(idea.getId());
 				sopFile.setRecordType((byte)1);
-				SopFile queryByIdea = sopFileDao.queryByProjectAndFileWorkType(sopFile);
+				List<SopFile> queryByIdea = sopFileDao.selectList(sopFile);
 				int res=0;
-				if(null!=queryByIdea){
-					queryByIdea.setFileValid(0);
-				   res=sopFileDao.updateById(queryByIdea);
-				   if(insert<=0&&res<=0){
+				if(!queryByIdea.isEmpty()){
+					boolean flagr=true;
+					for(SopFile  s:queryByIdea){
+						s.setFileValid(0);
+						res=sopFileDao.updateById(s);
+						if(res<=0){
+							flagr=false;
+							break;
+						}
+					}
+				   if(insert<=0||flagr==false){
 						result=0;
 					}
 				}else{

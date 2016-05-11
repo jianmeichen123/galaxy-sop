@@ -277,9 +277,13 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			}
 			sopTaskBo.setRemark(sopTasknew.getRemark()==null?"":sopTasknew.getRemark());
 			List<String> qlist = new ArrayList<String>();
-			qlist.add(sopTasknew.getAssignUid().toString());
+			List<User> userList=new ArrayList<User>();
+			if(null!=sopTasknew.getAssignUid()&&!"".equals(sopTasknew.getAssignUid())){
+				qlist.add(sopTasknew.getAssignUid().toString());
+				userList = userService.queryListById(qlist);
+			}
 			//===========================================
-			List<User> userList = userService.queryListById(qlist);
+			
 			if(userList!=null && userList.size()>0){			
 				sopTaskBo.setAssignUidName(userList.get(0).getRealName());			
 			}
