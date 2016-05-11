@@ -116,9 +116,9 @@ public enum OperationLogType {
 	//添加会议记录
 	CY_ADD_MEET("/galaxy/idea/saveCyMeetRecord", OperType.ADD.getOperationType() , "会议记录",SopStage.CY_LXH.getStageName()),
 	//创建项目
-	CY_ADD_PRO("/galaxy/idea/createProject", OperType.ADD.getOperationType() , "创建项目",SopStage.CY_PRO.getStageName()),
+	CY_ADD_PRO("/galaxy/idea/createProject", OperType.ADD.getOperationType() , "项目",SopStage.CY_PRO.getStageName()),
 	//编辑项目名称
-	CY_EDIT_PRO("/galaxy/idea/editProjectName", OperType.UPDATE.getOperationType() , "编辑项目名称",SopStage.CY_PRO.getStageName());
+	CY_EDIT_PRO("/galaxy/idea/editProjectName", OperType.UPDATE.getOperationType() , "项目",SopStage.CY_PRO.getStageName());
 
 	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/
 		
