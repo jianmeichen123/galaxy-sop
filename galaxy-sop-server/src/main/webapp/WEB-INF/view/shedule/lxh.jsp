@@ -105,6 +105,7 @@
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <!-- 分页二css+四js -->
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/plugins/daterangepicker/css/font-awesome.min.css"  type="text/css">
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
@@ -160,15 +161,18 @@
 	}
 	function dataFormatter(value, row, index){
 		if(row.isEdit == '1'){
-			if(row.reserveTime){
-				return timeHtml = '<input id="test" size="40" name="reserveTime" value="'+row.reserveTimeStartStr+'-'+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime">';
+			if(row.reserveTimeStartStr){
+				return timeHtml = '<input id="test'+index+'" size="40" name="reserveTime" value="'+row.reserveTimeStartStr+' - '+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime time"/>'+"<a href=\"javascript:cleard('test"+index+"');\"><i class=\"fa fa-close\"></i></a>";
 			}else{
-				return timeHtml = '<input id="test" size="40" name="reserveTime" type="text" readonly class="form_datetime">';
+			    
+				return timeHtml = '<input id="test'+index+'" size="40" name="reserveTime" type="text" value=""  class="form_datetime time">'+"<a href=\"javascript:cleard('test"+index+"');\"><i class=\"fa fa-close\"></i></a>";
+			    
 			}
 		}else{
-			return timeHtml = row.reserveTimeStartStr+'-'+row.reserveTimeEndStr;
+			return timeHtml = row.reserveTimeStartStr+' - '+row.reserveTimeEndStr;
 		}
 	}
+	
 	tiggerTable1($("#data-table"),10,function(){
 		var options = {
 			"singleDatePicker": false,
@@ -212,11 +216,11 @@
 				],
 				"firstDay": 1
 			},
-			"autoUpdateInput": true,
-			"startDate": "2016-05-06",
-			"endDate": "2016-05-06",
-			"minDate": "2016-01-01",
-			"maxDate": "2016-09-09",
+			"autoUpdateInput": false,
+			"startDate": true,
+			"endDate": true,
+			"minDate": 0,
+			"maxDate": 0,
 			"opens": "left",
 			"drops": "down",
 			"buttonClasses": "btn btn-sm",
@@ -228,12 +232,17 @@
 				+ start.format('YYYY-MM-DD HH:mm') + ' - ' 
 				+ end.format('HH:mm') 
 				+ ' (predefined range: ' + label + ')'); 
+			
 		});
-      $('#test').on('apply.daterangepicker',function(ev, picker) {
-          $('#test').val(picker.startDate.format('YYYY-MM-DD HH:mm') + ' - ' + picker.endDate.format('HH:mm') );
+      $('.form_datetime').on('apply.daterangepicker',function(ev, picker) {
+          $(this).val(picker.startDate.format('YYYY-MM-DD HH:mm') + ' - ' + picker.endDate.format('YYYY-MM-DD HH:mm') );
 
       });
 	});
+	
+	function cleard(id){
+	  $("#"+id).val("");
+	}
 	
 	sendGetRequest(platformUrl.getDepartMentDict+"/department",null,function(data){
 		var $optionArray = [];
@@ -252,21 +261,24 @@
 		var columnValue = document.getElementsByName("reserveTime");
 		var obj = [];
 	    for(var i=0;i<columnValue.length;i++){
+	        var p = columnValue[i].parentNode.parentNode.cells[0].innerHTML;
+	        var arr= p.substring(p.indexOf("value="),p.indexOf("type=")).replace(/\"/g, "").replace("=","").replace("value","");
+	        var PassRate = {};
+	            PassRate.id = parseInt(arr);
 	        if(columnValue[i].value != ''){
-	        	var p = columnValue[i].parentNode.parentNode.cells[0].innerHTML;
-	        	var arr= p.substring(p.indexOf("value="),p.indexOf("type=")).replace(/\"/g, "").replace("=","").replace("value","");
-	        	var PassRate = {};
-	        	PassRate.id = parseInt(arr);
 	        	if(columnValue[i].value != ''){
 	        		var str=columnValue[i].value.split(" - ");
 	        		PassRate.reserveTimeStart = str[0]+":00";
-	        		var my=str[0].split(" ");
-		        	PassRate.reserveTimeEnd =my[0]+" "+str[1]+":00";
+		        	PassRate.reserveTimeEnd =str[1]+":00";
 	        	}
-	        	PassRate.scheduleStatus =1;
-	        	PassRate.meetingType = meetingType;
-	        	obj.push(PassRate);
+	        	
+	        }else{
+	            PassRate.reserveTimeStart = null;
+		        PassRate.reserveTimeEnd = null;
 	        }
+	        PassRate.scheduleStatus =1;
+	        PassRate.meetingType = meetingType;
+	        obj.push(PassRate);
 	    }
 	    sendPostRequestByJsonObj(platformUrl.reserveTime, obj,updateCallBack);
 	    
@@ -279,6 +291,7 @@
 			return;
 		}
 	    layer.msg(data.result.message);
+	    window.location.reload();
 	}
 </script>
 </html>
