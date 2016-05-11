@@ -585,6 +585,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					}
 					
 					ideafile.setRecordType(RecordType.IDEAS.getType());
+					ideafile.setFileValid(1);
 					
 					Page<SopFile> pageList = sopFileService.queryFileList(ideafile, 
 							new PageRequest(ideafile.getPageNum()==null?0:ideafile.getPageNum(), ideafile.getPageSize()==null?10:ideafile.getPageSize(),Direction.DESC,"updated_time"));
@@ -638,6 +639,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 						file.setProjectId(ideaid);
 						file.setProjectProgress(idea.getIdeaProgress());
 						file.setRecordType(RecordType.IDEAS.getType());
+						file.setFileValid(1);
 						List<SopFile> ideaFileList = sopFileService.queryList(file);
 						if(ideaFileList==null || ideaFileList.isEmpty()){
 							responseBody.setResult(new Result(Status.ERROR, null, "请完善可行性报告"));
@@ -1061,6 +1063,54 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		
 		
+		//=======================     check history button can use    ===============================//
+		/**
+		 * 高管可以随变看，然后就是这个创意属于哪条事业线，所属事业线合伙人，投资经理可以看
+		 * @param  ideaid 创意id
+		 * @return
+		 */
+		@ResponseBody
+		@RequestMapping(value = "/ideaCheckHistory/{ideaid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseData<Idea> ideaCheckHistory(HttpServletRequest request,@PathVariable("ideaid") Long ideaid) {
+			
+			ResponseData<Idea> responseBody = new ResponseData<Idea>();
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			Result result = new Result(Status.OK,null,null);
+			try {
+				
+				
+				//Idea  验证
+				Idea idea = ideaService.queryById(ideaid);
+				if(idea == null || idea.getDepartmentId()==null){
+					responseBody.setResult(new Result(Status.ERROR,null, "创意信息错误"));
+					return responseBody;
+				}else {
+					List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+					if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+							&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+						return responseBody;
+					}
+					
+					if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) ){
+						result.setMessage("y");
+					}else if((roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HHR) ) 
+							&& user.getDepartmentId().longValue() == idea.getDepartmentId().longValue()){
+							result.setMessage("y");
+					}else{
+						result.setMessage("n");
+					}
+				}
+				
+				responseBody.setResult(result);
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "获取创意信息失败"));
+				logger.error("ideaCheckHistory 失败",e);
+			}
+			
+			return responseBody;
+		}
 		
 		
 		

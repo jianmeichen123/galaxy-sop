@@ -453,6 +453,10 @@ var platformUrl = {
 	 * 创意 立项会通过查询
 	*/
 	ideaCheckPassMeet: Constants.sopEndpointURL+ "/galaxy/idea/ideaCheckPassMeet",
+	/**
+	 * 创意 历史记录权限检测
+	*/
+	ideaCheckHistory: Constants.sopEndpointURL+ "/galaxy/idea/ideaCheckHistory",
 	
 	/**
 	 * 创意 生成项目

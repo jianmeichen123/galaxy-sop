@@ -78,14 +78,14 @@
 			}
 			idea = data.entity;
 			stockTransfer = idea.stockTransfer;
-			var progress = idea.ideaProgress;
+			/*var progress = idea.ideaProgress;
 			if('ideaProgress:1' != progress && 'ideaProgress:4'!= progress){
 				$("[data-btn='claim']").hide();
 			}
 			var index=progress.substr("ideaProgress:".length);
 			if(idea.createBySelf!="self" || index>4){
 				$("[data-btn='edith']").hide();
-			}
+			}*/
 			$("#IdeaId").val(idea.id);
 			$("#ideaDetail dd")
 			.each(function(){
@@ -693,58 +693,96 @@
 		}
 
   }
-  /**
-   * Idea信息加载后处理相关内容
-   * @param idea
-   */
-  function ideaLoaded(idea,index)
-  {
-	  //创建项目后 隐藏放弃按钮
-	  if(idea.ideaProgress == 'ideaProgress:5')
-	  {
-		  $('[data-btn="abandon"]').hide();
-		  $('[data-btn="create"]').hide();
-	  }
-	  //放弃时才显示历史信息按钮
-	  if( idea.ideaProgress != 'ideaProgress:4')
-	  {
-		  $("[data-btn='history']").hide();
-	  }
-	  
-	  
+  
 
-	   //====  index = 2   //调研
-		if(index != 2){
+  /**
+ * Idea信息加载后处理相关内容
+ * @param idea
+ */
+function ideaLoaded(idea, index) {
+
+	//==== begin  index = 1\4       创意刚创建 \搁置
+	if (index == 1) {
+		$("[data-btn='history']").hide(); //历史信息
+		if (idea.createdUid == userId) {
+			if (roleId != 4) {
+				$("[data-btn='claim']").hide(); //认领
+			}
+		}
+	} else if (index == 4) { //index = 4   搁置
+		if (idea.createdUid == userId) {
+			if (roleId != 4) {
+				$("[data-btn='claim']").hide(); //认领
+			}
+		}
+		
+		sendGetRequest(platformUrl.ideaCheckHistory + "/" + idea.id, null,
+				function(data) {
+					if (data.result.status == "ERROR") {
+						layer.msg(data.result.message);
+						return;
+					} else if (data.result.status == "OK") {
+						var canuse = data.result.message;
+						if (canuse == 'n') {
+							$("[data-btn='history']").hide(); //历史信息
+						}
+					}
+				});
+	} else {
+		$("[data-btn='claim']").hide(); //认领
+		$("[data-btn='history']").hide(); //历史信息
+	}
+
+	if (idea.createdUid != userId || index > 4) {
+		$("[data-btn='edith']").hide(); //编辑
+	}
+	//==== end index = 1 \ 4   
+
+	
+	//====  index = 2   调研
+	if (index == 2) {
+		if (roleId != 4) {
 			$("#options_point2").remove();
 			$('#data-table').bootstrapTable('hideColumn', 'operateFile');
 		}
-		//==== end index = 2   //调研
-		
-	  
-		//====  index = 3   创建立项会
-	  if(index != 3){
-			$("#options_point3").remove();
-		}else if(index == 3){
-			sendGetRequest(platformUrl.ideaCheckPassMeet+"/"+ideaInfo.id, null, function(data){
-				if(data.result.status == "ERROR"){
-					layer.msg(data.result.message );
-					return;
-				}else if(data.result.status == "OK"){
-					var num = data.result.message;
-					if(num == '0'){
-						$("[data-btn='create']").remove();
-					}else{
-						$("[data-btn='meeting']").remove();
+	} else {
+		$("#options_point2").remove();
+		$('#data-table').bootstrapTable('hideColumn', 'operateFile');
+	}
+	//==== end index = 2    调研
+
+	
+	//====  index = 3   创建立项会
+	if (index == 3) {
+		sendGetRequest(platformUrl.ideaCheckPassMeet + "/" + ideaInfo.id, null,
+				function(data) {
+					if (data.result.status == "ERROR") {
+						layer.msg(data.result.message);
+						return;
+					} else if (data.result.status == "OK") {
+						var num = data.result.message;
+						if (num == '0') {
+							$("[data-btn='create']").remove(); //创建成项目
+						} else {
+							$("[data-btn='meeting']").remove(); //添加会议
+						}
 					}
-				}
-				
-			});
-		}
-	  
+
+				});
+	} else {
+		$("#options_point3").remove();
+	}
 	//==== end index = 3   
-	  
-	  
-	  
-	  
-	  
-  }	 
+
+	// begin index = 5   创建项目
+	if (index == 5 && userId == idea.claimantUid) {
+		$("[data-btn='edit_name']").remove();
+	} else {
+		$("[data-btn='edit_name']").remove();
+	}
+	// end index = 5   
+
+}	 
+  
+  
+  
