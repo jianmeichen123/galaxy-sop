@@ -577,12 +577,12 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 						return responseBody;
 					}
-					if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
+					/*if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
 						ideafile.setFileUid(user.getId());
 						ideafile.setFileUName(user.getRealName());
 						ideafile.setCareerLine(user.getDepartmentId());
 						ideafile.setCareerLineName(user.getDepartmentName());
-					}
+					}*/
 					
 					ideafile.setRecordType(RecordType.IDEAS.getType());
 					
