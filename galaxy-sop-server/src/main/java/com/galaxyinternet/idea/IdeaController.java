@@ -870,7 +870,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				meetingRecord = GSONUtil.fromJson(json, MeetingRecordBo.class);
 			}
 			meetingRecord.setRecordType(RecordType.IDEAS.getType());
-			meetingRecord.setMeetValid((byte)1);
+			//meetingRecord.setMeetValid((byte)0);
 			
 			//前端传值
 			if(meetingRecord == null || meetingRecord.getProjectId() == null 
@@ -1009,7 +1009,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				}*/
 				//query.setUid(user.getId());
 				
-				query.setMeetValid((byte) 1);
+				//query.setMeetValid((byte) 0);
 				Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPage(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
 				responseBody.setPageList(pageList);
 				responseBody.setResult(new Result(Status.OK, ""));

@@ -269,7 +269,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 				List<MeetingRecord> meetList  = meetingRecordDao.selectList(meet);
 				if(meetList!=null && !meetList.isEmpty()){
 					for(MeetingRecord ameet :  meetList){
-						ameet.setMeetValid((byte)0);
+						ameet.setMeetValid((byte)1);
 						meetingRecordDao.updateById(ameet);
 					}
 				}
