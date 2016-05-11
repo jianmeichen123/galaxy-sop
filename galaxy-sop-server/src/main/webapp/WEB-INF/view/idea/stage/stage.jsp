@@ -94,7 +94,7 @@
 							<th data-field="projectProgress" data-align="center" data-formatter="progressFormatter">创意状态</th>
 							<th data-field="careerLineName" data-align="center" >所属事业线</th>
 							<th data-field="updatedDate" data-align="center"  data-formatter="datetimeFormatter2">更新时间</th>
-							<th data-align="center" data-formatter="ideaOperateFormat">操作</th>
+							<th data-field="operateFile" data-align="center" data-formatter="ideaOperateFormat">操作</th>
 							<th data-align="center" data-formatter="ideaFileDownFormat">附件查看</th>
 						</tr>
 					</thead>
@@ -107,7 +107,7 @@
 		<!-- 创建立项会  ideaProgress:3 -->
               <div class="block block_t" data-tab="con"  id="ideaProgress_3_con">
                 <!--按钮-->
-                <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
+                <div id="options_point3" class="btnbox_f btnbox_f1 btnbox_m clearfix">
                     <button data-btn="meeting" id="add_cy_meet"  class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/addCyMeetRecordTc" >添加会员纪要</button>
                     <button class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/showCreateProjectDialog" data-btn="create">创建成项目</button>
                    <button class="pubbtn fffbtn" data-btn="abandon" value="${id}">放弃</button>

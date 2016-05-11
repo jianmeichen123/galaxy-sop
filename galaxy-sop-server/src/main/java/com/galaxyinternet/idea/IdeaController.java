@@ -1011,4 +1011,57 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			
 			return responseBody;
 		}	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//=======================     check has pass meet    ===============================//
+		/**
+		 * check has pass meet
+		 * @param  ideaid 创意id
+		 * @return
+		 */
+		@ResponseBody
+		@RequestMapping(value = "/ideaCheckPassMeet/{ideaid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseData<Idea> ideaCheckPassMeet(HttpServletRequest request,@PathVariable("ideaid") Long ideaid) {
+			
+			ResponseData<Idea> responseBody = new ResponseData<Idea>();
+			//User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			Result result = new Result(Status.OK,null,null);
+			try {
+				
+				MeetingRecord meet = new MeetingRecord();
+				meet.setProjectId(ideaid);
+				meet.setMeetingType(DictEnum.meetingType.立项会.getCode());
+				meet.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+				meet.setRecordType(RecordType.IDEAS.getType());
+				List<MeetingRecord> meetList  = meetingRecordService.queryList(meet);
+				if(meetList==null || meetList.isEmpty()){
+					result.setMessage("0");
+				}else{
+					result.setMessage(""+meetList.size());
+				}			
+				responseBody.setResult(result);
+				
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));
+				logger.error("ideaCheckPassMeet 失败",e);
+			}
+			
+			return responseBody;
+		}
+		
+		
+		
+		
+		
 }

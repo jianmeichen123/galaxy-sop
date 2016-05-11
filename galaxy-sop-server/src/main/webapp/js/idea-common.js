@@ -136,8 +136,6 @@
 				//基本信息  -- 数据展示  index =1
 				ideaInfo = getIdeaInfo(ideaId);
 				$(".idea-title").text(ideaInfo.ideaName);
-				//控制按钮显示、隐藏、可用。禁用等
-				ideaLoaded(ideaInfo);
 				//=====
 				$("[data-id='ideaNowId']").val(ideaId);
 				//====
@@ -145,18 +143,20 @@
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = ideaInfo.ideaProgress;
 				progress = progress.replace(":","_");
-				var index = progress.substr("ideaProgress_".length);
-				//按钮 bind 弹窗
-				bindTcEvents(index);
-				cyToProShow();
+				var index = Number(progress.substr("ideaProgress_".length));
 				
+				
+				bindTcEvents(index);  //按钮 bind 弹窗
+				cyToProShow();
+				ideaLoaded(ideaInfo,index);   //控制按钮显示、隐藏、可用。禁用等
+				
+				// == begin  tab 选项卡绑定 click 事件    用于重新刷新
 				for(var i = 1; i<6; i++){
-					//当前阶段之后的tab变为不可用;搁置时，与待认领相同；
-					if(i > index || (i>1 && index==4)){
+					
+					if(i > index || (i>1 && index==4)){      //当前阶段之后的tab变为不可用;搁置时，与待认领相同；
 						$("#ideaProgress_" + i).addClass("disabled");
 					}
 					
-					//为Tab添加点击事件，用于重新刷新
 					$("#ideaProgress_" + i).on("click",function(){
 						var id = $(this).attr("id");
 						var indexNum = id.substr(id.length-1,1);
@@ -191,11 +191,6 @@
 						}
 					});
 				}
-				//显示当前阶段
-				if(index == '2' || index == '3' || index== '5')
-				{
-					$("#" + progress ).click();
-				}
 				$("#ideaOperateLog").on("click",function(){
 					var clickN = $("#ideaOperateLog").data("clickn");
 					if(clickN != '0'){
@@ -204,24 +199,30 @@
 						tiggerTable($("#ideaProgress_log_table"),2);
 						$("#ideaOperateLog").data("clickn","n");
 					}
-					//tiggerTable($("#ideaProgress_log_table"),3);
-					//$("#projectProgress_table").bootstrapTable("refresh");
 				});
+				// == end tab 选项卡绑定  click 事件
 				
-				//默认打开当前阶段 
-				//$("#" + progress).addClass("on");
-				//$("#" + progress + "_con").css("display","block");
+				//显示当前阶段
+				if(index == '2' || index == '3' || index== '5')
+				{
+					$("#" + progress ).click();
+				}
+				
 				var id=$("#IdeaId").val();
 				$("#editBtn").click(function(){
 					sendGetRequest(platformUrl.detailIdea+"/"+id,null,initCallBack.getdetailIdeaInfoCallBack);
 				});
+				
 				layer.close(layerIndex);
+				
 			}//end okback 模版反回成功执行	
 			
 		});
 		return false;
 
 	}
+	
+	
 	/**
 	 * 刷新创意阶段弹窗
 	 */
@@ -231,8 +232,10 @@
 		showIdeaDetail(ideaId);
 	}
 	
-	//各阶段按钮绑定事件、弹窗
-	//由项目当前阶段显示隐藏按钮
+	/**
+	 * 各阶段按钮绑定事件、弹窗
+	 * 由项目当前阶段显示隐藏按钮
+	 */	
 	function bindTcEvents(index){
 		
 		//基本信息 -->编辑
@@ -279,7 +282,6 @@
 		});
 		
 		
-		//调研
 		
 		//放弃btn
 		$("[data-btn='abandon']").on("click",function(){
@@ -315,6 +317,7 @@
 		});
 		
 		
+		
 		//创建立项会  --> 添加会议纪要
 		$("[data-btn='meeting']").on("click",function(){
 			var $self = $(this);
@@ -342,6 +345,7 @@
 		});
 		
 		
+		
 		//创建项目 -->编辑项目名称
 		$("[data-btn='edit_name']").on("click",function(){
 			var $self = $(this);
@@ -356,6 +360,7 @@
 		});
 		
 	}
+	
 	
 	//创建项目  阶段，点击项目列表 - <a>项目名称</a> 弹出事件
 	function cyToProShow(){
@@ -388,9 +393,6 @@
 		}
 		return "-";
 	}
-	
-	
-	
 	
 	// mark :u/上传  e/更新    prograss：ideaProgress:2 projectId:ideaid  fileid:
 	function showUploadPopup(mark,prograss,fileid){
@@ -603,6 +605,7 @@
 		//----- end init upload
 	}
 	
+	
 	/**
 	 * 
 	 * 查询创意详情set值
@@ -694,7 +697,7 @@
    * Idea信息加载后处理相关内容
    * @param idea
    */
-  function ideaLoaded(idea)
+  function ideaLoaded(idea,index)
   {
 	  //创建项目后 隐藏放弃按钮
 	  if(idea.ideaProgress == 'ideaProgress:5')
@@ -707,5 +710,41 @@
 	  {
 		  $("[data-btn='history']").hide();
 	  }
+	  
+	  
+
+	   //====  index = 2   //调研
+		if(index != 2){
+			$("#options_point2").remove();
+			$('#data-table').bootstrapTable('hideColumn', 'operateFile');
+		}
+		//==== end index = 2   //调研
+		
+	  
+		//====  index = 3   创建立项会
+	  if(index != 3){
+			$("#options_point3").remove();
+		}else if(index == 3){
+			sendGetRequest(platformUrl.ideaCheckPassMeet+"/"+ideaInfo.id, null, function(data){
+				if(data.result.status == "ERROR"){
+					layer.msg(data.result.message );
+					return;
+				}else if(data.result.status == "OK"){
+					var num = data.result.message;
+					if(num == '0'){
+						$("[data-btn='create']").remove();
+					}else{
+						$("[data-btn='meeting']").remove();
+					}
+				}
+				
+			});
+		}
+	  
+	//==== end index = 3   
+	  
+	  
+	  
+	  
 	  
   }	 
