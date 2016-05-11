@@ -30,6 +30,9 @@ public class MeetingRecord  extends RecordEntity{
     
     private String participant;
     
+    private byte meetValid;
+    
+    
     public String getParticipant() {
 		return participant;
 	}
@@ -217,6 +220,14 @@ public class MeetingRecord  extends RecordEntity{
 
 	public void setFkey(String fkey) {
 		this.fkey = fkey;
+	}
+
+	public byte getMeetValid() {
+		return meetValid;
+	}
+
+	public void setMeetValid(byte meetValid) {
+		this.meetValid = meetValid;
 	}
 
 	

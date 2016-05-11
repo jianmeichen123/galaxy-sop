@@ -1009,6 +1009,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				}*/
 				//query.setUid(user.getId());
 				
+				query.setMeetValid((byte) 1);
 				Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPage(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
 				responseBody.setPageList(pageList);
 				responseBody.setResult(new Result(Status.OK, ""));
@@ -1032,6 +1033,39 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		
 		
 		
+		//=======================     check has report file    ===============================//
+		/**
+		 * check has pass meet
+		 * @param  ideaid 创意id
+		 * @return
+		 */
+		@ResponseBody
+		@RequestMapping(value = "/ideaCheckHassReport/{ideaid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseData<Idea> ideaCheckHassReport(HttpServletRequest request,@PathVariable("ideaid") Long ideaid) {
+			
+			ResponseData<Idea> responseBody = new ResponseData<Idea>();
+			//User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			Result result = new Result(Status.OK,null,null);
+			try {
+				//调研阶段  SopFile中是否有可行性报告
+				SopFile file = new SopFile();
+				file.setProjectId(ideaid);
+				file.setRecordType(RecordType.IDEAS.getType());
+				file.setFileValid(1);
+				List<SopFile> ideaFileList = sopFileService.queryList(file);
+				if(ideaFileList==null || ideaFileList.isEmpty()){
+					result.setMessage("not");
+				}else{
+					result.setMessage("has");
+				}
+				responseBody.setResult(result);
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));
+				logger.error("ideaCheckHassReport 失败",e);
+			}
+			return responseBody;
+		}
 		
 		//=======================     check has pass meet    ===============================//
 		/**
