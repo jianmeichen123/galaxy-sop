@@ -47,7 +47,7 @@
 		      <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
 		      <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			  <if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
-			  <if test="meetValid != null"> and meet_valid = #{recordType,jdbcType=TINYINT} </if>	
+			  <if test="meetValid != null"> and meet_valid = #{meetValid,jdbcType=TINYINT} </if>	
 		  </trim>
 		</where>
 		<!-- <if test="sorting != null">order by ${sorting}</if> -->
@@ -119,7 +119,7 @@
 		        <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
 		        <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 		        <if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
-		        <if test="meetValid != null"> and meet_valid = #{recordType,jdbcType=TINYINT} </if>
+		        <if test="meetValid != null"> and meet_valid = #{meetValid,jdbcType=TINYINT} </if>
 			</trim>
 		</where>
 	</update>

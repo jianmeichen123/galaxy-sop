@@ -82,6 +82,7 @@
 				<div id="ideaProgress_2_params">
 					<input type="hidden" name="projectId" data-id="ideaId" value="${id}">
 					<input type="hidden" name="projectProgress" value="ideaProgress:2">
+					<input type="hidden" name="fileValid" value="1">
 				</div>
 				<!--表格内容-->
 				<table id="ideaProgress_2_table" data-id-field="id"
@@ -117,6 +118,7 @@
 					<input type="hidden" name="projectId" value="${id}">
 					<input type="hidden" name="meetingType" value="meetingType:3">
 					<input type="hidden" name="recordType" value="1">
+					<input type="hidden" name="meetValid" value="0">
 				</div>
 				<!--表格内容-->
 				<table id="ideaProgress_3_table"  data-id-field="id"

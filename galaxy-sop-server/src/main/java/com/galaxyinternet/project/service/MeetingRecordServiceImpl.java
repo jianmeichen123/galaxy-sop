@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.galaxyinternet.bo.IdeaBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -21,11 +22,14 @@ import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.MeetingRecordService;
 
 
@@ -44,6 +48,9 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	@Autowired
 	private MeetingSchedulingDao meetingSchedulingDao;
 	
+	
+	@Autowired
+	private IdeaService ideaService;
 	
 	@Override
 	protected BaseDao<MeetingRecord, Long> getBaseDao() {
@@ -381,6 +388,13 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		}
 		meetingRecord.setFileId(fid);
 		Long id = getBaseDao().insert(meetingRecord);
+		
+		if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
+			Idea idea = new Idea();
+			idea.setId(meetingRecord.getProjectId());
+			idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_GZ);
+			ideaService.updateById(idea);
+		}
 		return id;
 	}
 	

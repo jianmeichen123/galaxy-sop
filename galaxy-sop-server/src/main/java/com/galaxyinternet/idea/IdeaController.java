@@ -585,7 +585,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					}
 					
 					ideafile.setRecordType(RecordType.IDEAS.getType());
-					ideafile.setFileValid(1);
 					
 					Page<SopFile> pageList = sopFileService.queryFileList(ideafile, 
 							new PageRequest(ideafile.getPageNum()==null?0:ideafile.getPageNum(), ideafile.getPageSize()==null?10:ideafile.getPageSize(),Direction.DESC,"updated_time"));
