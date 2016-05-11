@@ -638,7 +638,8 @@ public enum DictEnum {
 		CYCJ("创意已创建/待认领","ideaProgress:1"),
 		CYDY("调研","ideaProgress:2"),
 		CYLXH("创建立项会","ideaProgress:3"),
-		CYXM("创建项目","ideaProgress:4");
+		CYLGZ("搁置","ideaProgress:4"),
+		CYXM("创建项目","ideaProgress:5");
 
 		private String name;
 		private String code;

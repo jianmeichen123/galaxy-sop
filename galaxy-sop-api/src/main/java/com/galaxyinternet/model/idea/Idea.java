@@ -37,6 +37,19 @@ public class Idea extends PagableEntity
 	private String projectProgressDesc;
 	private String createBySelf;
 
+	
+	
+	
+	
+	
+	
+	
+	private String departmentEditable;
+	
+	
+	
+	
+	
 		
 	private String createDate;
 	
@@ -209,6 +222,12 @@ public class Idea extends PagableEntity
 	}
 	public void setCreateBySelf(String createBySelf) {
 		this.createBySelf = createBySelf;
+	}
+	public String getDepartmentEditable() {
+		return departmentEditable;
+	}
+	public void setDepartmentEditable(String departmentEditable) {
+		this.departmentEditable = departmentEditable;
 	}
 	
 	
