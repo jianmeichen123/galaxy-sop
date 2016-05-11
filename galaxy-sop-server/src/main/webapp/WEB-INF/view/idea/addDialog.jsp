@@ -39,7 +39,7 @@
 		    	<dt>所属事业线：</dt>
 		        <dd>
 <!-- 		        	<input type="text" id="win_idea_department" data-tid="" name="departmentId"  class="txt"/>        	 -->
-						<select id="win_idea_department" name="departmentId">
+						<select id="win_idea_department" name="departmentId" msg="<font color=red>*</font>请选择所属事业线">
             				<option>sadasd</option>
             			</select>
 		        </dd>

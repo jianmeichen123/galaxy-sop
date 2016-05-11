@@ -11,6 +11,7 @@ var ideaAddDialog = {
 						var _this = this;
 						$("#addDialog").find(".meetingtc").remove();
 						$(_this.id).find("#win_idea_name").attr("valType",'required');
+						$(_this.id).find("#win_idea_department").attr("valType",'required');
 						initDialogVal();	
 						var operator = {
 								save : function(){
@@ -217,6 +218,7 @@ var ideaAddDialog = {
 							_createdUname : data.entity.createdUname,
 							_departmentId : data.entity.departmentId,
 							_createDate : data.entity.createDate,
+							_departmentEditable : data.entity.departmentEditable,
 							_callFuc : function(){}
 					}
 					ideaAddDialog.init(formdata);
@@ -234,6 +236,7 @@ var ideaAddDialog = {
 							_createdUid : data.entity.createdUid,
 							_createdUname : data.entity.createdUname,
 							_departmentId : data.entity.departmentId,
+							_departmentEditable : data.entity.departmentEditable,
 							_createDate : data.entity.createDate,
 							_ideaSource : data.entity.ideaSource,
 							_ideaDescHtml : data.entity.ideaDescHtml,

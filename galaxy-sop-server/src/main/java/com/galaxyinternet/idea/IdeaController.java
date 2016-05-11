@@ -703,11 +703,11 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		if(responseBody !=null){
 			return responseBody;
 		}
-		if(idea == null){
-			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
+		responseBody = new ResponseData<Idea>();
+		if(idea.getDepartmentId() == null || idea.getDepartmentId().equals("")){
+			responseBody.setResult(new Result(Status.ERROR,"请选择所属事业线"));
 			return responseBody;
 		}
-		responseBody = new ResponseData<Idea>();
 		String operatorStr = "";
 		try{
 			if(idea.getId()!=0){
