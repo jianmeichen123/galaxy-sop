@@ -870,7 +870,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				meetingRecord = GSONUtil.fromJson(json, MeetingRecordBo.class);
 			}
 			meetingRecord.setRecordType(RecordType.IDEAS.getType());
-			
+			meetingRecord.setMeetValid((byte)1);
 			
 			//前端传值
 			if(meetingRecord == null || meetingRecord.getProjectId() == null 
