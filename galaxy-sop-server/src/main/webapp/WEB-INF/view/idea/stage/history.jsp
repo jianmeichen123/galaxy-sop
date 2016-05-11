@@ -26,9 +26,11 @@
 	</div>
 	<div id="cjlxh-history-params">
 		<input type="hidden" name="projectId" value="${id}">
-		<input type="hidden" name="recordType" value="1">
+					<input type="hidden" name="meetingType" value="meetingType:3">
+					<input type="hidden" name="recordType" value="1">
+					<input type="hidden" name="meetValid" value="1">
 	</div>
-	<table id="cjlxh-history" class="history-table" data-id-field="id" data-url="<%=path%>/galaxy/project/progress/queryMeet" data-toolbar="#cjlxh-history-params" data-page-size="1">
+	<table id="cjlxh-history" class="history-table" data-id-field="id" data-url="<%=path%>/galaxy/idea/queryCyMeet" data-toolbar="#cjlxh-history-params" data-page-size="1">
 		<colgroup >
 			<col style="width:30%;"> <!-- 名称 -->
 			<col style="width:70%;">  <!-- 状态 -->
@@ -58,8 +60,7 @@ function meetInfoFormatter(val,row,index)
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
 	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
-				"参会人："+(row.participant ? row.participant : '')+
-				"</br>会议日期："+row.meetingDateStr+
+				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+row.meetingResultStr+
 				"</br>会议录音："+fileinfo+
 			"</div>" ;

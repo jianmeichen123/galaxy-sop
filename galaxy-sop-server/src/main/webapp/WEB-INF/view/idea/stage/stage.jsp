@@ -109,7 +109,7 @@
               <div class="block block_t" data-tab="con"  id="ideaProgress_3_con">
                 <!--按钮-->
                 <div id="options_point3" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-                    <button data-btn="meeting" id="add_cy_meet"  class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/addCyMeetRecordTc" >添加会员纪要</button>
+                    <button data-btn="meeting" id="add_cy_meet"  class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/addCyMeetRecordTc" >添加会议纪要</button>
                     <button class="pubbtn fffbtn lpubbtn" href="<%=path %>/galaxy/idea/showCreateProjectDialog" data-btn="create">创建成项目</button>
                    <button class="pubbtn fffbtn" data-btn="abandon" value="${id}">放弃</button>
                 </div>
