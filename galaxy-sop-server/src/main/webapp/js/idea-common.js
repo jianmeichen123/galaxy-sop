@@ -108,17 +108,6 @@
 	}
 	
 	
-	/*	*//**创意阶段 - 待认领**//*
-	public static final String IDEA_PROGRESS_DRL 			= "ideaProgress:1";
-	*//**创意阶段 - 调研**//*
-	public static final String IDEA_PROGRESS_DY 			= "ideaProgress:2";
-	*//**创意阶段 - 创建立项会**//*
-	public static final String IDEA_PROGRESS_CJLXH 			= "ideaProgress:3";
-	*//**创意阶段 - 搁置**//*
-	public static final String IDEA_PROGRESS_GZ				= "ideaProgress:4";
-	*//**创意阶段 - 创建项目**//*
-	public static final String IDEA_PROGRESS_CJXM 			= "ideaProgress:5";
-*/
 	//stage 弹出
 	//
 	var ideaInfo;
@@ -169,7 +158,8 @@
 							if(clickN != '0'){
 								$("#ideaProgress_2_table").bootstrapTable('refresh');
 							}else{
-								tiggerTable($("#ideaProgress_2_table"),3);
+								//tiggerTable($("#ideaProgress_2_table"),3);
+								init_ideaProgress_2_table(index);
 								$("#ideaProgress_2").data("clickn","n");
 							}
 							//tiggerTable($("#ideaProgress_2_table"),3);
@@ -220,6 +210,28 @@
 		});
 		return false;
 
+	}
+	
+	// 调研   $('#ideaProgress_2_table') 表格动态加载初始化
+	function init_ideaProgress_2_table(index){
+		$('#ideaProgress_2_table').bootstrapTable({
+			queryParamsType: 'size|page',
+			pageSize:3,
+			showRefresh : false ,
+			sidePagination: 'server',
+			method : 'post',
+			pagination: true,
+	        search: false,
+	        onLoadSuccess: function (data) {
+	        	if (index == 2) {
+	        		if (ideaInfo.claimantUid != userId) {
+	        			$('#ideaProgress_2_table').bootstrapTable('hideColumn', 'operateFile');
+	        		}
+	        	} else {
+	        		$('#ideaProgress_2_table').bootstrapTable('hideColumn', 'operateFile');
+	        	}
+	        }
+		});
 	}
 	
 	
@@ -721,17 +733,17 @@ function ideaLoaded(idea, index) {
 	//==== begin  index = 1\4       创意刚创建 \搁置
 	if (index == 1) {
 		$("[data-btn='history']").hide(); //历史信息
-		if (idea.createdUid == userId) {
+		//if (idea.createdUid == userId) {   //任何角色都可以认领
 			if (roleId != 4) {
 				$("[data-btn='claim']").hide(); //认领
 			}
-		}
+		//}
 	} else if (index == 4) { //index = 4   搁置
-		if (idea.createdUid == userId) {
+		//if (idea.createdUid == userId) {
 			if (roleId != 4) {
 				$("[data-btn='claim']").hide(); //认领
 			}
-		}
+		//}
 		
 		sendGetRequest(platformUrl.ideaCheckHistory + "/" + idea.id, null,
 				function(data) {
@@ -757,54 +769,44 @@ function ideaLoaded(idea, index) {
 
 	
 	//====  index = 2   调研
-	if (index == 2) {
-		if (roleId != 4) {
-			$("#options_point2").remove();
-			$('#data-table').bootstrapTable('hideColumn', 'operateFile');
-		}else{
-			sendGetRequest(platformUrl.ideaCheckHassReport + "/" + ideaInfo.id, null,
-					function(data) {
-						if (data.result.status == "ERROR") {
-							layer.msg(data.result.message);
-							return;
-						} else if (data.result.status == "OK") {
-							var num = data.result.message;
-							if (num == 'not') {
-								$("#cy_start_lxh").hide(); //启动创建立项会
-							}
+	if (index == 2 && ideaInfo.claimantUid == userId) {
+		sendGetRequest(platformUrl.ideaCheckHassReport + "/" + ideaInfo.id, null,
+				function(data) {
+					if (data.result.status == "ERROR") {
+						layer.msg(data.result.message);
+						return;
+					} else if (data.result.status == "OK") {
+						var num = data.result.message;
+						if (num == 'not') {
+							$("#cy_start_lxh").hide(); //启动创建立项会
 						}
-					});
-		}
+					}
+				});
 		
 		
 	} else {
 		$("#options_point2").remove();
-		$('#data-table').bootstrapTable('hideColumn', 'operateFile');
 	}
 	//==== end index = 2    调研
 
 	
 	//====  index = 3   创建立项会
-	if (index == 3) {
-		if(roleId != 4){
-			$("#options_point3").remove();
-		}else{
-			sendGetRequest(platformUrl.ideaCheckPassMeet + "/" + ideaInfo.id, null,
-					function(data) {
-						if (data.result.status == "ERROR") {
-							layer.msg(data.result.message);
-							return;
-						} else if (data.result.status == "OK") {
-							var num = data.result.message;
-							if (num == '0') {
-								$("[data-btn='create']").hide(); //创建成项目
-							} else {
-								$("[data-btn='meeting']").hide(); //添加会议
-							}
+	if (index == 3  && ideaInfo.claimantUid == userId) {
+		sendGetRequest(platformUrl.ideaCheckPassMeet + "/" + ideaInfo.id, null,
+				function(data) {
+					if (data.result.status == "ERROR") {
+						layer.msg(data.result.message);
+						return;
+					} else if (data.result.status == "OK") {
+						var num = data.result.message;
+						if (num == '0') {
+							$("[data-btn='create']").hide(); //创建成项目
+						} else {
+							$("[data-btn='meeting']").hide(); //添加会议
 						}
+					}
 
-					});
-		}
+				});
 		
 	} else {
 		$("#options_point3").remove();
@@ -812,10 +814,8 @@ function ideaLoaded(idea, index) {
 	//==== end index = 3   
 
 	// begin index = 5   创建项目
-	if (index == 5 ) {
-		if(roleId != 4){
-			$("[data-btn='edit_name']").remove();
-		}else if(userId != idea.claimantUid){
+	if (index == 5) {
+		if(userId != idea.claimantUid){
 			$("[data-btn='edit_name']").remove();
 		}
 	} else {

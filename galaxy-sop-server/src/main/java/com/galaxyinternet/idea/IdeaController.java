@@ -109,8 +109,13 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	
 	/**
 	 * 验证提取，
+	 * @param  idea           数据库数据
+	 * @param  ClaimantUser   认领人验证
+	 * @param  CreateUser     创建人验证
+	 * @param  ideaProgressEquals     当前阶段验证
+	 * @param  ideaProgress           后面阶段 可以操作 之前阶段
 	 */
-	public Result errMessage(Idea idea,User ClaimantUser,User CreateUser,String ideaProgress){
+	public Result errMessage(Idea idea,User ClaimantUser,User CreateUser,String ideaProgressEquals,String ideaProgress){
 		if(idea == null){
 			return new Result(Status.ERROR, null, "创意检索为空!");
 		}
@@ -124,7 +129,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				return new Result(Status.ERROR, null, "没有权限!");
 			}
 		}
-		if(ideaProgress != null){
+		if(ideaProgressEquals != null){  //仅当前阶段能用
+			if(idea.getIdeaProgress()!=null){
+				if(!ideaProgressEquals.equals(idea.getIdeaProgress())){
+					return new Result(Status.ERROR, "501", "操作违规!");
+				}
+			}else{
+				return new Result(Status.ERROR, null, "创意阶段出错");
+			}
+		}
+		if(ideaProgress != null){   //之后阶段 能操作 之前阶段
 			if(idea.getIdeaProgress()!=null){
 				try {
 					int operationPro = Integer.parseInt(ideaProgress.substring(ideaProgress.length()-1)) ;
@@ -455,7 +469,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					//Idea  验证
 					Idea idea = new Idea();
 					idea = ideaService.queryById(ideafile.getProjectId());
-					Result err = errMessage(idea,user,null,ideafile.getProjectProgress());   //字典  项目进度  接触访谈  DictEnum.projectProgress.接触访谈.getCode()
+					//Result err = errMessage(idea,user,null,ideafile.getProjectProgress(),null);   
+					Result err = errMessage(idea,user,null,DictEnum.IdeaProgress.CYDY.getCode(),null);   //仅创建人、当前阶段
 					if(err!=null && err.getStatus()!=null){
 						responseBody.setResult(err);
 						return responseBody;
@@ -586,12 +601,12 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 						return responseBody;
 					}
-					if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
+					/*if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
 						ideafile.setFileUid(user.getId());
 						ideafile.setFileUName(user.getRealName());
 						ideafile.setCareerLine(user.getDepartmentId());
 						ideafile.setCareerLineName(user.getDepartmentName());
-					}
+					}*/
 					
 					ideafile.setRecordType(RecordType.IDEAS.getType());
 					
@@ -632,32 +647,27 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				try {
 					Idea idea = ideaService.queryById(ideaid);
 					
-					Result err = errMessage(idea,user,null,null);   //仅创建人可启动
+					Result err = errMessage(idea,user,null,DictEnum.IdeaProgress.CYDY.getCode(),null);   //仅创建人、当前阶段
 					if(err!=null && err.getStatus()!=null){
 						responseBody.setResult(err);
 						return responseBody;
 					}
 					
-					if(idea.getIdeaProgress()==null||!idea.getIdeaProgress().equals(DictEnum.IdeaProgress.CYDY.getCode())){
-						responseBody.setResult(new Result(Status.ERROR, null, "操作不允许"));
+					//调研阶段  SopFile中是否有可行性报告
+					SopFile file = new SopFile();
+					file.setProjectId(ideaid);
+					file.setProjectProgress(idea.getIdeaProgress());
+					file.setRecordType(RecordType.IDEAS.getType());
+					file.setFileValid(1);
+					List<SopFile> ideaFileList = sopFileService.queryList(file);
+					if(ideaFileList==null || ideaFileList.isEmpty()){
+						responseBody.setResult(new Result(Status.ERROR, null, "请完善可行性报告"));
 						return responseBody;
 					}else{
-						//调研阶段  SopFile中是否有可行性报告
-						SopFile file = new SopFile();
-						file.setProjectId(ideaid);
-						file.setProjectProgress(idea.getIdeaProgress());
-						file.setRecordType(RecordType.IDEAS.getType());
-						file.setFileValid(1);
-						List<SopFile> ideaFileList = sopFileService.queryList(file);
-						if(ideaFileList==null || ideaFileList.isEmpty()){
-							responseBody.setResult(new Result(Status.ERROR, null, "请完善可行性报告"));
-							return responseBody;
-						}else{
-							//idea.setIdeaProgress(DictEnum.IdeaProgress.CYLXH.getCode());
-							idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJLXH);
-							
-							ideaService.updateById(idea);
-						}
+						//idea.setIdeaProgress(DictEnum.IdeaProgress.CYLXH.getCode());
+						idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJLXH);
+						
+						ideaService.updateById(idea);
 					}
 					responseBody.setResult(new Result(Status.OK, ""));
 					responseBody.setEntity(idea);
@@ -925,7 +935,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				//Idea  验证
 				Idea idea = new Idea();
 				idea = ideaService.queryById(meetingRecord.getProjectId());
-				Result err = errMessage(idea,user,null,"ideaProgress:3");  
+				//Result err = errMessage(idea,user,null,"ideaProgress:3"); 
+				Result err = errMessage(idea,user,null,DictEnum.IdeaProgress.CYLXH.getCode(),null);   //仅创建人、当前阶段
 				if(err!=null && err.getStatus()!=null){
 					responseBody.setResult(err);
 					return responseBody;
