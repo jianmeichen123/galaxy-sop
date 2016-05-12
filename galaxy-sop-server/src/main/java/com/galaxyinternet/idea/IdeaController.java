@@ -56,12 +56,14 @@ import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.idea.Abandoned;
 import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.AbandonedService;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
@@ -91,6 +93,9 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	private MeetingRecordService meetingRecordService;
 	@Autowired
 	private ConfigService configService;
+	@Autowired
+	private AbandonedService abandonedService;
+	
 	@Override
 	protected BaseService<Idea> getBaseService() {
 		return this.ideaService;
@@ -374,6 +379,15 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
 			return responseBody;
 		}
+		Map<String,Object> map=new HashMap<String,Object>();
+		Abandoned abandoned=new Abandoned();
+		abandoned.setIdeaId(id);
+		List<Abandoned> queryList=new ArrayList<Abandoned>();
+		queryList= abandonedService.queryList(abandoned);
+		if(!queryList.isEmpty()&&queryList.size()>0){
+			map.put("giveup", queryList);
+			responseBody.setUserData(map);
+		}
 		try {
 			Idea queryById = ideaService.queryById(id);
 			if(queryById.getCreatedUid().equals(user.getId())){
@@ -381,6 +395,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			}else{
 				queryById.setCreateBySelf("other");
 			}
+			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			if(!RoleUtils.isCEO(roleIdList) && !RoleUtils.isDSZ(roleIdList)){
 				queryById.setDepartmentEditable("false");
@@ -388,7 +403,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				//为高管时所属事业线可编辑
 				queryById.setDepartmentEditable("true");;
 			}
-			
 			responseBody.setEntity(queryById);
 			responseBody.setResult(new Result(Status.OK,null,"查询数据成功"));
 		} catch (Exception e) {
@@ -397,6 +411,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		return responseBody;
 	}
+
 	/**
 	 * 根据创意id获取创意相关信息
 	 * @param idea

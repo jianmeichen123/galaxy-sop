@@ -62,7 +62,7 @@
                       <dd id="createdTime" data-formatter="dateFormatter">2016-05-08</dd>
                     </dl>
                   </div>
-                  <div class="bottom clearfix">
+                  <div class="bottom clearfix" id="append">
                     <dl>
                       <dt>创建阐述：</dt>
                       <dd id="ideaDesc"></dd>
