@@ -27,12 +27,8 @@ public class MeetingScheduling extends PagableEntity {
     private Integer scheduleStatus;
     private Timestamp applyTime;
     
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private Timestamp reserveTimeStart
-    ;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Timestamp reserveTimeStart;
     private Timestamp reserveTimeEnd;
-    
     private Timestamp lastTime;
     //排序字段名称
     private String sortName;
@@ -71,7 +67,7 @@ public class MeetingScheduling extends PagableEntity {
     private Double meetingRate;
     
    
-
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Timestamp getReserveTimeEnd() {
 		return reserveTimeEnd;
 	}
@@ -217,7 +213,8 @@ public class MeetingScheduling extends PagableEntity {
 			applyTimeStr = DateUtil.convertDateToStringForChina(applyTime);
         }
 	}
-
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	public Timestamp getReserveTimeStart() {
 		return reserveTimeStart;
 	}
