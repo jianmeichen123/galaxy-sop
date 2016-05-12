@@ -1267,7 +1267,30 @@
 			 * 故该句话的意思是获取所处日历单元格的日期
 			 */
             var date = cal.hasClass('left') ? this.leftCalendar.calendar[row][col] : this.rightCalendar.calendar[row][col];
-
+			
+			
+			if (this.timePicker) {
+				var hour = parseInt(this.container.find('.left .hourselect').val(), 10);
+				if (!this.timePicker24Hour) {
+					var ampm = this.container.find('.left .ampmselect').val();
+					if (ampm === 'PM' && hour < 12)
+						hour += 12;
+					if (ampm === 'AM' && hour === 12)
+						hour = 0;
+				}
+				var minute = parseInt(this.container.find('.left .minuteselect').val(), 10);
+				var second = this.timePickerSeconds ? parseInt(this.container.find('.left .secondselect').val(), 10) : 0;
+				date = date.clone().hour(hour).minute(minute).second(second);
+			}
+			var position = cal.hasClass('left') ? 'left' : 'right';
+			if(position == 'left'){
+				//开始日历插件
+				this.setStartDate(date.clone());
+			}else{
+				//结束日历插件
+				this.setEndDate(date.clone());
+			}
+			
             //
             // this function needs to do a few things:
             // * alternate between selecting a start and end date for the range,
@@ -1276,48 +1299,48 @@
             // * if single date picker mode, and time picker isn't enabled, apply the selection immediately
             //
 			//如果点击日期小于原有的开始日期
-            if (date.isBefore(this.startDate, 'day')) {
+            //if (date.isBefore(this.startDate, 'day')) {
 				//把点击的日期加上时分秒
-                if (this.timePicker) {
-                    var hour = parseInt(this.container.find('.left .hourselect').val(), 10);
-                    if (!this.timePicker24Hour) {
-                        var ampm = this.container.find('.left .ampmselect').val();
-                        if (ampm === 'PM' && hour < 12)
-                            hour += 12;
-                        if (ampm === 'AM' && hour === 12)
-                            hour = 0;
-                    }
-                    var minute = parseInt(this.container.find('.left .minuteselect').val(), 10);
-                    var second = this.timePickerSeconds ? parseInt(this.container.find('.left .secondselect').val(), 10) : 0;
-                    date = date.clone().hour(hour).minute(minute).second(second);
-                }
+                //if (this.timePicker) {
+                    //var hour = parseInt(this.container.find('.left .hourselect').val(), 10);
+                    //if (!this.timePicker24Hour) {
+                        //var ampm = this.container.find('.left .ampmselect').val();
+                        //if (ampm === 'PM' && hour < 12)
+                            //hour += 12;
+                        //if (ampm === 'AM' && hour === 12)
+                            //hour = 0;
+                    //}
+                    //var minute = parseInt(this.container.find('.left .minuteselect').val(), 10);
+                    //var second = this.timePickerSeconds ? parseInt(this.container.find('.left .secondselect').val(), 10) : 0;
+                    //date = date.clone().hour(hour).minute(minute).second(second);
+                //}
                 //this.endDate = null;
-                this.setStartDate(date.clone());
+                //this.setStartDate(date.clone());
             //} 
 			//else if (!this.endDate && date.isBefore(this.startDate)) {
                 //special case: clicking the same date for start/end, 
                 //but the time of the end date is before the start date
               //  this.setEndDate(this.startDate.clone());
-            } else {
-                if (this.timePicker) {
-                    var hour = parseInt(this.container.find('.right .hourselect').val(), 10);
-                    if (!this.timePicker24Hour) {
-                        var ampm = this.container.find('.right .ampmselect').val();
-                        if (ampm === 'PM' && hour < 12)
-                            hour += 12;
-                        if (ampm === 'AM' && hour === 12)
-                            hour = 0;
-                    }
-                    var minute = parseInt(this.container.find('.right .minuteselect').val(), 10);
-                    var second = this.timePickerSeconds ? parseInt(this.container.find('.right .secondselect').val(), 10) : 0;
-                    date = date.clone().hour(hour).minute(minute).second(second);
-                }
-                this.setEndDate(date.clone());
-                if (this.autoApply) {
-                  this.calculateChosenLabel();
-                  this.clickApply();
-                }
-            }
+            //} else {
+                //if (this.timePicker) {
+                    //var hour = parseInt(this.container.find('.right .hourselect').val(), 10);
+                    //if (!this.timePicker24Hour) {
+                        //var ampm = this.container.find('.right .ampmselect').val();
+                        //if (ampm === 'PM' && hour < 12)
+                            //hour += 12;
+                        //if (ampm === 'AM' && hour === 12)
+                            //hour = 0;
+                    //}
+                    //var minute = parseInt(this.container.find('.right .minuteselect').val(), 10);
+                    //var second = this.timePickerSeconds ? parseInt(this.container.find('.right .secondselect').val(), 10) : 0;
+                    //date = date.clone().hour(hour).minute(minute).second(second);
+                //}
+                //this.setEndDate(date.clone());
+                //if (this.autoApply) {
+                  //this.calculateChosenLabel();
+                  //this.clickApply();
+                //}
+            //}
 
             if (this.singleDatePicker) {
 				console.log(this.startDate + "--" + this.endDate);

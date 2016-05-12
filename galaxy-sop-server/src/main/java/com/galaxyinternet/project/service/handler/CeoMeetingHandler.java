@@ -96,6 +96,9 @@ public class CeoMeetingHandler implements Handler {
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
 			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
 		}
+		if(q.getResult().equals(DictEnum.meetingResult.通过)){
+			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
+		}
 		tm.setMeetingDate(new Date());
 		tm.setMeetingCount(tm.getMeetingCount() + 1);
 		tm.setUpdatedTime((new Date()).getTime());

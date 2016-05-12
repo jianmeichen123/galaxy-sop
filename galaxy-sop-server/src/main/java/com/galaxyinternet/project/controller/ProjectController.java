@@ -1784,16 +1784,56 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "不可见!"));
 				return responseBody;
 			}
-			
-			
 			/**
 			 * 默认查询待排期的，可通过条件查询搜索其他
 			 */
 			if(query.getScheduleStatus() == null){
 				query.setScheduleStatus(0);
 			}
+			/**
+			 * 查询出所有的事业线
+			 */
+			List<Long> depids=new ArrayList<Long>();
+			Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
+			Department d = new Department();
+			if(query.getCareline() != null){
+				Department de=departmentService.queryById(new Long(query.getCareline()));
+				careerlineMap.put(de.getId(), de);
+				depids.add(de.getId());
+			}else{
+				List<Department> careerlineList = departmentService.queryList(d);
+				for(Department department : careerlineList){
+					careerlineMap.put(department.getId(), department);
+					depids.add(department.getId());
+				}
+				d.setType(1);
+			}
+			/**
+			 * 查询出相关的所有项目
+			 */
+			List<Project> projectCommonList = new ArrayList<Project>();
+			List<MeetingScheduling> schedulingList = new ArrayList<MeetingScheduling>();
+			ProjectBo mpb = new ProjectBo();
+			if(query.getKeyword() != null){
+				mpb.setKeyword(query.getKeyword());
+			}
+			mpb.setDeptIdList(depids);
+			projectCommonList=projectService.queryList(mpb);
+			/**
+			 * 根据相关项目查找排期池数据
+			 */
+			List<Long> pids=new ArrayList<Long>();
+			if(projectCommonList != null && projectCommonList.size() > 0){
+				for(Project pr:projectCommonList){
+					pids.add(pr.getId());
+				}
+				query.setProjectIdList(pids);
+				schedulingList=meetingSchedulingService.queryList(query);
+			}
 			
-			List<MeetingScheduling> schedulingList = meetingSchedulingService.queryList(query);
+			/***
+			 * 若无数据则返回
+			 */
 			if(schedulingList.size() == 0 ){
 				pageEntity.setTotal(new Long(0));
 				pageEntity.setContent(sl);
@@ -1803,7 +1843,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			List<String> ids = new ArrayList<String>();
 			for(MeetingScheduling ms : schedulingList){
-				
 				byte Edit = 1;
 				Integer sheduleStatus = ms.getScheduleStatus();
 				if(sheduleStatus == 2 || sheduleStatus == 3 ){
@@ -1820,21 +1859,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				ids.add(String.valueOf(ms.getProjectId()));
 			}
 			
-			/**
-			 * 查询出所有的事业线
-			 */
-			Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
-			Department d = new Department();
-			if(query.getCareline() != null){
-				Department de=departmentService.queryById(new Long(query.getCareline()));
-				careerlineMap.put(de.getId(), de);
-			}else{
-				List<Department> careerlineList = departmentService.queryList(d);
-				for(Department department : careerlineList){
-					careerlineMap.put(department.getId(), department);
-				}
-				d.setType(1);
-			}
 			/**
 			 * 查询出相关的所有项目
 			 */
@@ -1858,39 +1882,23 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					passRateMap.put(pr.getUid(), pr);
 				}
 			}
-			
 			//组装数据
-			List<MeetingScheduling> schedulingFormList = new ArrayList<MeetingScheduling>();
 			for(MeetingScheduling ms : schedulingList){
 				for(Project p : projectList){
 					if(ms.getProjectId().longValue() == p.getId().longValue()){
-						//项目名称和项目编号不一致的
-						if(!StringUtils.isEmpty(query.getKeyword())){
-							if(!(p.getProjectName().toLowerCase().contains(query.getKeyword().toLowerCase().trim()) 
-									|| p.getProjectCode().toLowerCase().contains(query.getKeyword().toLowerCase().trim()))){
-								schedulingFormList.add(ms);
-							}
-						}
-						//投资事业线不一致的
-						if(careerlineMap.get(p.getProjectDepartid()) == null){
-							schedulingFormList.add(ms);
+						if(passRateMap.isEmpty()){
+							ms.setMeetingRate(new Double(0));
 						}else{
-							if(passRateMap.isEmpty()){
-								ms.setMeetingRate(new Double(0));
-							}else{
-								ms.setMeetingRate(passRateMap.get(p.getCreateUid()).getRate());
-							}
-							ms.setProjectCode(p.getProjectCode());
-							ms.setProjectName(p.getProjectName());
-							ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
-							ms.setCreateUname(p.getCreateUname());
+							ms.setMeetingRate(passRateMap.get(p.getCreateUid()).getRate());
 						}
+						ms.setProjectCode(p.getProjectCode());
+						ms.setProjectName(p.getProjectName());
+						ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
+						ms.setCreateUname(p.getCreateUname());
 					}
 					
 				}
 			}
-			//进行移除不符合规则的排期
-			schedulingList.removeAll(schedulingFormList);
 			pageEntity.setTotal(new Long(schedulingList.size()));
 			sl.addAll(schedulingList.subList(
 					pageable.getPageNumber()*pageable.getPageSize(), 
@@ -1922,35 +1930,53 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try{
 			for(MeetingScheduling ms:query){
 				MeetingScheduling oldMs=meetingSchedulingService.queryById(ms.getId());
-				if(oldMs.getReserveTimeStart().getTime() != ms.getReserveTimeStart().getTime() 
-						|| oldMs.getReserveTimeEnd().getTime() !=ms.getReserveTimeEnd().getTime()){
+				String mestr="";
+				if(DictEnum.meetingType.投决会.getCode().equals(ms.getMeetingType())){
+					mestr=DictEnum.meetingType.投决会.getName();
+				}
+				if(DictEnum.meetingType.立项会.getCode().equals(ms.getMeetingType())){
+					mestr=DictEnum.meetingType.立项会.getName();
+				}
+				if(DictEnum.meetingType.CEO评审.getCode().equals(ms.getMeetingType())){
+					mestr=DictEnum.meetingType.CEO评审.getName();
+				}
+				String messageInfo=mestr+"排期时间为";
+				if(oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() != null){
+					messageInfo=mestr+"排期时间变更为";
+				}
+				if(oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() == null){
+					messageInfo=mestr+"排期时间已取消";
+				}
+				Project pj=projectService.queryById(oldMs.getProjectId());
+				User user=userService.queryById(pj.getCreateUid());
+				//如果是更新或取消排期时间
+				if(oldMs.getReserveTimeStart() != null && oldMs.getReserveTimeEnd() !=null){
+					//取消排期时间
+					if(ms.getReserveTimeStart() == null && ms.getReserveTimeEnd() == null){
+						ms.setScheduleStatus(0);
+						meetingSchedulingService.updateByIdSelective(ms);
+						sendMailToTZJL(request,0,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,null,null);
+					}else{
+						//更新会议时间
+						if(oldMs.getReserveTimeStart().getTime() != ms.getReserveTimeStart().getTime() 
+								|| oldMs.getReserveTimeEnd().getTime() !=ms.getReserveTimeEnd().getTime()){
+							meetingSchedulingService.updateByIdSelective(ms);
+							sendMailToTZJL(request,1,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
+						}
+					}
+				}else{
+					//新安排会议时间
+					if(ms.getReserveTimeStart() !=null && ms.getReserveTimeEnd() != null){
+						meetingSchedulingService.updateByIdSelective(ms);
+						sendMailToTZJL(request,1,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
+					}
 					
-					String mestr="";
-					if(DictEnum.meetingType.投决会.getCode().equals(ms.getMeetingType())){
-						mestr=DictEnum.meetingType.投决会.getName();
-					}
-					if(DictEnum.meetingType.立项会.getCode().equals(ms.getMeetingType())){
-						mestr=DictEnum.meetingType.立项会.getName();
-					}
-					if(DictEnum.meetingType.CEO评审.getCode().equals(ms.getMeetingType())){
-						mestr=DictEnum.meetingType.CEO评审.getName();
-					}
-					String messageInfo=mestr+"排期时间为";
-					if(oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() != null){
-						messageInfo=mestr+"排期时间变更为";
-					}
-					if(oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() == null){
-						messageInfo=mestr+"排期时间已取消";
-					}
-					Project pj=projectService.queryById(oldMs.getProjectId());
-					User user=userService.queryById(pj.getCreateUid());
-					meetingSchedulingService.updateByIdSelective(ms);
-					sendMailToTZJL(request,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
 				}
 				
 			}
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
+			e.printStackTrace();
 			return responseBody;
 		}
 		responseBody.setResult(new Result(Status.OK, null, "更新成功!"));
@@ -1959,7 +1985,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/***
 	 * 发送邮件
 	 */
-	public String sendMailToTZJL(HttpServletRequest request,String toAddress,String tzjlName,String projectinfo,String messageInfo,Timestamp meetingTimestart,Timestamp meetingTimeend) {
+	public String sendMailToTZJL(HttpServletRequest request,Integer type,String toAddress,String tzjlName,String projectinfo,String messageInfo,Timestamp meetingTimestart,Timestamp meetingTimeend) {
 		String toAddress1="yaxinliu@galaxyinternet.com";
 		String content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_PQC_CONTENT);
 		String[] to = toAddress1.split(";");
@@ -1968,7 +1994,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			int atIndex = toAddress1.lastIndexOf("@");
 			tzjlName = toAddress1.substring(0, atIndex)+":<br>您好!";
 		}
-		content = PlaceholderConfigurer.formatText(content,tzjlName,projectinfo,messageInfo,meetingTimestart, meetingTimeend);
+		if(type == 0){
+			content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_PQC_CONTENT_CANCLE);
+			content = PlaceholderConfigurer.formatText(content,tzjlName,projectinfo,messageInfo);
+		}else{
+			content = PlaceholderConfigurer.formatText(content,tzjlName,projectinfo,messageInfo,meetingTimestart, meetingTimeend);
+		}
 		boolean success = SimpleMailSender.sendMultiMail(toAddress1,  "会议排期通知",content.toString());
 		
 		if(success)
