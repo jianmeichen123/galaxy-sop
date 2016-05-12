@@ -266,6 +266,9 @@
 	        		var str=datevalue.split(" - ");
 	        		PassRate.reserveTimeStartStr =str[0]+":00";
 		        	PassRate.reserveTimeEndStr =str[1]+":00";
+		        	//PassRate.reserveTimeStartStr =new Date().format("yyyy-MM-dd hh:mm:ss");
+		        	//PassRate.reserveTimeEndStr =new Date().format("yyyy-MM-dd hh:mm:ss");
+		        	
 	        }else{
 	            PassRate.reserveTimeStartStr = null;
 		        PassRate.reserveTimeEndStr = null;

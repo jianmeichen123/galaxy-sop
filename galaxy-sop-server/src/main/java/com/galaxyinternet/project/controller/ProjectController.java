@@ -1993,7 +1993,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/***
 	 * 发送邮件
 	 */
-	public String sendMailToTZJL(HttpServletRequest request,Integer type,String toAddress,String tzjlName,String projectinfo,String messageInfo,Timestamp meetingTimestart,Timestamp meetingTimeend) {
+	public String sendMailToTZJL(HttpServletRequest request,Integer type,String toAddress,String tzjlName,String projectinfo,String messageInfo,Date meetingTimestart,Date meetingTimeend) {
 		String toAddress1="yaxinliu@galaxyinternet.com";
 		String content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_PQC_CONTENT);
 		String[] to = toAddress1.split(";");
