@@ -1951,7 +1951,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 				Project pj=projectService.queryById(oldMs.getProjectId());
 				User user=userService.queryById(pj.getCreateUid());
-//				//如果是更新或取消排期时间
+				//如果是更新或取消排期时间
 				if(oldMs.getReserveTimeStart() != null && oldMs.getReserveTimeEnd() !=null){
 					//取消排期时间
 					if(ms.getReserveTimeStart() == null && ms.getReserveTimeEnd() == null){

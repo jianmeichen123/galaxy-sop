@@ -67,11 +67,14 @@ public class MeetingScheduling extends PagableEntity {
 
 	public Timestamp getReserveTimeEnd() {
 		if (StringUtils.isNotBlank(this.reserveTimeEndStr)) {
-			Date tmp;
+			Date tmp = null;
+			Timestamp timestmp = null;
 			try {
 				tmp = DateUtil
 						.convertStringToDateTimeForChina(this.reserveTimeEndStr);
-				return new Timestamp(tmp.getTime());
+				timestmp = new Timestamp(tmp.getTime());
+				this.setReserveTimeEnd(timestmp);
+				return timestmp;
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -224,10 +227,13 @@ public class MeetingScheduling extends PagableEntity {
 	public Timestamp getReserveTimeStart() {
 		if (StringUtils.isNotBlank(this.reserveTimeStartStr)) {
 			Date tmp = null;
+			Timestamp timestmp = null;
 			try {
 				tmp = DateUtil
 						.convertStringToDateTimeForChina(this.reserveTimeStartStr);
-				return new Timestamp(tmp.getTime());
+				timestmp = new Timestamp(tmp.getTime());
+				this.setReserveTimeStart(timestmp);
+				return timestmp;
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
