@@ -1922,30 +1922,47 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try{
 			for(MeetingScheduling ms:query){
 				MeetingScheduling oldMs=meetingSchedulingService.queryById(ms.getId());
-				if(oldMs.getReserveTimeStart().getTime() != ms.getReserveTimeStart().getTime() 
-						|| oldMs.getReserveTimeEnd().getTime() !=ms.getReserveTimeEnd().getTime()){
+				String mestr="";
+				if(DictEnum.meetingType.投决会.getCode().equals(ms.getMeetingType())){
+					mestr=DictEnum.meetingType.投决会.getName();
+				}
+				if(DictEnum.meetingType.立项会.getCode().equals(ms.getMeetingType())){
+					mestr=DictEnum.meetingType.立项会.getName();
+				}
+				if(DictEnum.meetingType.CEO评审.getCode().equals(ms.getMeetingType())){
+					mestr=DictEnum.meetingType.CEO评审.getName();
+				}
+				String messageInfo=mestr+"排期时间为";
+				if(oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() != null){
+					messageInfo=mestr+"排期时间变更为";
+				}
+				if(oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() == null){
+					messageInfo=mestr+"排期时间已取消";
+				}
+				Project pj=projectService.queryById(oldMs.getProjectId());
+				User user=userService.queryById(pj.getCreateUid());
+				//如果是更新或取消排期时间
+				if(oldMs.getReserveTimeStart() != null && oldMs.getReserveTimeEnd() !=null){
+					//取消排期时间
+					if(ms.getReserveTimeStart() == null && ms.getReserveTimeEnd() == null){
+						ms.setScheduleStatus(0);
+						meetingSchedulingService.updateByIdSelective(ms);
+						sendMailToTZJL(request,0,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,null,null);
+					}else{
+						//更新会议时间
+						if(oldMs.getReserveTimeStart().getTime() != ms.getReserveTimeStart().getTime() 
+								|| oldMs.getReserveTimeEnd().getTime() !=ms.getReserveTimeEnd().getTime()){
+							meetingSchedulingService.updateByIdSelective(ms);
+							sendMailToTZJL(request,1,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
+						}
+					}
+				}else{
+					//新安排会议时间
+					if(ms.getReserveTimeStart() !=null && ms.getReserveTimeEnd() != null){
+						meetingSchedulingService.updateByIdSelective(ms);
+						sendMailToTZJL(request,1,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
+					}
 					
-					String mestr="";
-					if(DictEnum.meetingType.投决会.getCode().equals(ms.getMeetingType())){
-						mestr=DictEnum.meetingType.投决会.getName();
-					}
-					if(DictEnum.meetingType.立项会.getCode().equals(ms.getMeetingType())){
-						mestr=DictEnum.meetingType.立项会.getName();
-					}
-					if(DictEnum.meetingType.CEO评审.getCode().equals(ms.getMeetingType())){
-						mestr=DictEnum.meetingType.CEO评审.getName();
-					}
-					String messageInfo=mestr+"排期时间为";
-					if(oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() != null){
-						messageInfo=mestr+"排期时间变更为";
-					}
-					if(oldMs.getReserveTimeStart() != null && ms.getReserveTimeStart() == null){
-						messageInfo=mestr+"排期时间已取消";
-					}
-					Project pj=projectService.queryById(oldMs.getProjectId());
-					User user=userService.queryById(pj.getCreateUid());
-					meetingSchedulingService.updateByIdSelective(ms);
-					sendMailToTZJL(request,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
 				}
 				
 			}
@@ -1959,7 +1976,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/***
 	 * 发送邮件
 	 */
-	public String sendMailToTZJL(HttpServletRequest request,String toAddress,String tzjlName,String projectinfo,String messageInfo,Timestamp meetingTimestart,Timestamp meetingTimeend) {
+	public String sendMailToTZJL(HttpServletRequest request,Integer type,String toAddress,String tzjlName,String projectinfo,String messageInfo,Timestamp meetingTimestart,Timestamp meetingTimeend) {
 		String toAddress1="yaxinliu@galaxyinternet.com";
 		String content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_PQC_CONTENT);
 		String[] to = toAddress1.split(";");
@@ -1968,7 +1985,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			int atIndex = toAddress1.lastIndexOf("@");
 			tzjlName = toAddress1.substring(0, atIndex)+":<br>您好!";
 		}
-		content = PlaceholderConfigurer.formatText(content,tzjlName,projectinfo,messageInfo,meetingTimestart, meetingTimeend);
+		if(type == 0){
+			content = MailTemplateUtils.getContentByTemplate(Constants.MAIL_PQC_CONTENT_CANCLE);
+			content = PlaceholderConfigurer.formatText(content,tzjlName,projectinfo,messageInfo);
+		}else{
+			content = PlaceholderConfigurer.formatText(content,tzjlName,projectinfo,messageInfo,meetingTimestart, meetingTimeend);
+		}
 		boolean success = SimpleMailSender.sendMultiMail(toAddress1,  "会议排期通知",content.toString());
 		
 		if(success)
