@@ -86,7 +86,7 @@
 
 	</mvc:interceptors>
 	<bean id="gsonHttpMessageConverter"
-		class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+		class="com.galaxyinternet.common.converter.CustomGsonHttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
 				<value>text/html;charset=UTF-8</value>
