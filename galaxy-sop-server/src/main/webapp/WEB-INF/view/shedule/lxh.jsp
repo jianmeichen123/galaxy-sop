@@ -256,25 +256,16 @@
 	
 	function confirmSubmit(){
 		var columnValue = $("input[name='reserveTime']");
+		var obj = [];
 		$.each(columnValue, function(i,current){
 			var pid = $(this).attr('data-pid');
-			alert(pid);
-		});
-		return;
-		var obj = [];
-	    for(var i=0;i<columnValue.length;i++){
-	        var p = columnValue[i].attr('data-pid');
-	        
-	        alert(arr);
-	        var PassRate = {};
-	            PassRate.id = parseInt(arr);
-	        if(columnValue[i].value != ''){
-	        	if(columnValue[i].value != ''){
-	        		var str=columnValue[i].value.split(" - ");
+			var datevalue=$(this).val();
+			var PassRate = {};
+	             PassRate.id = parseInt(pid);
+	        if(datevalue != ''){
+	        		var str=datevalue.split(" - ");
 	        		PassRate.reserveTimeStart = str[0]+":00";
 		        	PassRate.reserveTimeEnd =str[1]+":00";
-	        	}
-	        	
 	        }else{
 	            PassRate.reserveTimeStart = null;
 		        PassRate.reserveTimeEnd = null;
@@ -282,7 +273,7 @@
 	        PassRate.scheduleStatus =1;
 	        PassRate.meetingType = meetingType;
 	        obj.push(PassRate);
-	    }
+		});
 	    sendPostRequestByJsonObj(platformUrl.reserveTime, obj,updateCallBack);
 	    
 	}
