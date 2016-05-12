@@ -388,14 +388,14 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		}
 		meetingRecord.setFileId(fid);
 		
-		if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
+		/*if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
 			Idea idea = new Idea();
 			idea.setId(meetingRecord.getProjectId());
 			idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_GZ);
 			ideaService.updateById(idea);
 			
 			meetingRecord.setMeetValid((byte)1);
-		}
+		}*/
 		
 		Long id = getBaseDao().insert(meetingRecord);
 		return id;

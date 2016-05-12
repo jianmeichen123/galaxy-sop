@@ -747,7 +747,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			return responseBody;
 		}
 		responseBody = new ResponseData<Idea>();
-		if(idea.getDepartmentId() == null || idea.getDepartmentId().equals("")){
+		if(idea.getDepartmentId() == null || idea.getDepartmentId().toString().equals("")){
 			responseBody.setResult(new Result(Status.ERROR,"请选择所属事业线"));
 			return responseBody;
 		}
@@ -926,8 +926,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				String json = JSONUtils.getBodyString(request);
 				meetingRecord = GSONUtil.fromJson(json, MeetingRecordBo.class);
 			}
-			meetingRecord.setRecordType(RecordType.IDEAS.getType());
-			//meetingRecord.setMeetValid((byte)0);
 			
 			//前端传值
 			if(meetingRecord == null || meetingRecord.getProjectId() == null 
@@ -937,6 +935,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 				return responseBody;
 			}
+			meetingRecord.setRecordType(RecordType.IDEAS.getType());
+			//meetingRecord.setMeetValid((byte)0);
 			
 			//已有通过的会议，不能再添加会议纪要
 			MeetingRecord mrQuery = new MeetingRecord();

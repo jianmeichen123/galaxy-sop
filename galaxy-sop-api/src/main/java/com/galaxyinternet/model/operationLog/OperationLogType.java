@@ -106,9 +106,9 @@ public enum OperationLogType {
 	/*创意操作日志的配置-------------------开始---------------------------------------------------------------------------*/
 	
 	//添加可信性报告
-	CY_ADD_REPORT("/galaxy/idea/ideaUpReport/"+UrlNumber.one, OperType.ADD.getOperationType() , "可行性报告",SopStage.CY_DY.getStageName()),
+	CY_ADD_REPORT("/galaxy/idea/ideaUpReport/"+UrlNumber.two, OperType.ADD.getOperationType() , "可行性报告",SopStage.CY_DY.getStageName()),
 	//更新
-	CY_UPDATE_REPORT("/galaxy/idea/ideaUpReport/"+UrlNumber.two, OperType.UPDATE.getOperationType() , "可行性报告",SopStage.CY_DY.getStageName()),
+	CY_UPDATE_REPORT("/galaxy/idea/ideaUpReport/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "可行性报告",SopStage.CY_DY.getStageName()),
 	//启动立项会
 	CY_START_LXH("/galaxy/idea/ideaStartMeet", OperType.SUBMIT.getOperationType() , "启动立项会",SopStage.CY_DY.getStageName()),
 	
