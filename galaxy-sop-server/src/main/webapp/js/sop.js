@@ -764,19 +764,19 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 				 html += "<tr>";
 				 if(o.fileWorktype == 'fileWorktype:1'){
 					 html += "<td>业务尽职调查报告";
-					 html += "</td><td>" + o.createDate + "</td>";
+					 html += "</td><td>" +getVal(o.updatedDate,o.createDate)+ "</td>";
 					 html += "<td>"+o.careerLineName+"</td>";
 				 }else if(o.fileWorktype == 'fileWorktype:2'){
 					 html += "<td>人事尽职调查报告";
-					 html += "</td><td>" + o.createDate + "</td>";
+					 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 					 html += "<td>人事部</td>";
 				 }else if(o.fileWorktype == 'fileWorktype:3'){
 					 html += "<td>法务尽职调查报告";
-					 html += "</td><td>" + o.createDate + "</td>";
+					 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 					 html += "<td>法务部</td>";
 				 }else if(o.fileWorktype == 'fileWorktype:4'){
 					 html += "<td>财务尽职调查报告";
-					 html += "</td><td>" + o.createDate + "</td>";
+					 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 					 html += "<td>财务部</td>";
 				 }
 				 if(o.fileStatus == 'fileStatus:1' || o.fileValid == '0'){
