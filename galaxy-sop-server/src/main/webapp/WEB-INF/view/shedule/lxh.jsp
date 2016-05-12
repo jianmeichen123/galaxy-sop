@@ -130,7 +130,6 @@
     }
 	function indexFormatter(value, row, index){
 		var str = index+1;
-		 str+="<input type=\"hidden\" name=\"id\" value=\""+row.id+"\">";
 		return str;
 	}
 	function statusFormatter(value, row, index){
@@ -162,11 +161,9 @@
 	function dataFormatter(value, row, index){
 		if(row.isEdit == '1'){
 			if(row.reserveTimeStartStr){
-				return timeHtml = '<input id="test'+index+'" size="40" name="reserveTime" value="'+row.reserveTimeStartStr+' - '+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime "/>'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
+				return timeHtml = '<input id="test'+index+'" data-pid="'+row.id+'" size="40" name="reserveTime" value="'+row.reserveTimeStartStr+' - '+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime "/>'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
 			}else{
-			    
-				return timeHtml = '<input id="test'+index+'" size="40" name="reserveTime" type="text" value=""  class="form_datetime ">'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
-			    
+				return timeHtml = '<input id="test'+index+'" data-pid="'+row.id+'" size="40" name="reserveTime" type="text" value=""  class="form_datetime ">'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
 			}
 		}else{
 			return timeHtml = row.reserveTimeStartStr+' - '+row.reserveTimeEndStr;
@@ -258,11 +255,17 @@
 	});
 	
 	function confirmSubmit(){
-		var columnValue = document.getElementsByName("reserveTime");
+		var columnValue = $("input[name='reserveTime']");
+		$.each(columnValue, function(i,current){
+			var pid = $(this).attr('data-pid');
+			alert(pid);
+		});
+		return;
 		var obj = [];
 	    for(var i=0;i<columnValue.length;i++){
-	        var p = columnValue[i].parentNode.parentNode.cells[0].innerHTML;
-	        var arr= p.substring(p.indexOf("value="),p.indexOf("type=")).replace(/\"/g, "").replace("=","").replace("value","");
+	        var p = columnValue[i].attr('data-pid');
+	        
+	        alert(arr);
 	        var PassRate = {};
 	            PassRate.id = parseInt(arr);
 	        if(columnValue[i].value != ''){
