@@ -163,7 +163,9 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		List<Department> departDicts = null;
 		Result result = new Result();
 		try {
-			departDicts = departMentService.queryAll();	
+			Department query = new Department();
+			query.setType(1);
+			departDicts = departMentService.queryList(query);	
 		}catch(PlatformException e){
 			result.setErrorCode(e.getCode()+"");
 			result.setMessage(e.getMessage());
