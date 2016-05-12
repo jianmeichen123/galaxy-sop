@@ -264,8 +264,8 @@
 	             PassRate.id = parseInt(pid);
 	        if(datevalue != ''){
 	        		var str=datevalue.split(" - ");
-	        		PassRate.reserveTimeStart =str[0]+":00";
-		        	PassRate.reserveTimeEnd =str[1]+":00";
+	        		PassRate.reserveTimeStartStr =str[0]+":00";
+		        	PassRate.reserveTimeEndStr =str[1]+":00";
 		        	//PassRate.reserveTimeStartStr =new Date().format("yyyy-MM-dd hh:mm:ss");
 		        	//PassRate.reserveTimeEndStr =new Date().format("yyyy-MM-dd hh:mm:ss");
 		        	
