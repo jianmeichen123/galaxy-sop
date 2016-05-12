@@ -146,7 +146,7 @@ var ideaAddDialog = {
 				//所属事业线
 				if(_formdata._departmentId){
 					$departmentId.val(_formdata._departmentId);
-					if(_formdata._departmentEditable=='false' || _formdata._ideaideaProgress!="ideaProgress:1"){
+					if(_formdata._departmentEditable=='false' || _formdata._ideaideaProgress!="ideaProgress:1"||_formdata._ideaideaProgress!="ideaProgress:4"){
 						$departmentId.attr("readonly","readonly");
 						$departmentId.attr("class","disabled");
 					}
