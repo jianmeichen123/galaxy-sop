@@ -162,10 +162,10 @@
 	function dataFormatter(value, row, index){
 		if(row.isEdit == '1'){
 			if(row.reserveTimeStartStr){
-				return timeHtml = '<input id="test'+index+'" size="40" name="reserveTime" value="'+row.reserveTimeStartStr+' - '+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime time"/>'+"<a href=\"javascript:cleard('test"+index+"');\"><i class=\"fa fa-close\"></i></a>";
+				return timeHtml = '<input id="test'+index+'" size="40" name="reserveTime" value="'+row.reserveTimeStartStr+' - '+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime "/>'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
 			}else{
 			    
-				return timeHtml = '<input id="test'+index+'" size="40" name="reserveTime" type="text" value=""  class="form_datetime time">'+"<a href=\"javascript:cleard('test"+index+"');\"><i class=\"fa fa-close\"></i></a>";
+				return timeHtml = '<input id="test'+index+'" size="40" name="reserveTime" type="text" value=""  class="form_datetime ">'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
 			    
 			}
 		}else{
