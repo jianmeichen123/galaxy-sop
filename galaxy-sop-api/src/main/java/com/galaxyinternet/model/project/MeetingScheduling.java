@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
@@ -24,8 +26,13 @@ public class MeetingScheduling extends PagableEntity {
     private String remark;
     private Integer scheduleStatus;
     private Timestamp applyTime;
-    private Timestamp reserveTimeStart;
+    
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Timestamp reserveTimeStart
+    ;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Timestamp reserveTimeEnd;
+    
     private Timestamp lastTime;
     //排序字段名称
     private String sortName;
