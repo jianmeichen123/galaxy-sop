@@ -1784,16 +1784,56 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "不可见!"));
 				return responseBody;
 			}
-			
-			
 			/**
 			 * 默认查询待排期的，可通过条件查询搜索其他
 			 */
 			if(query.getScheduleStatus() == null){
 				query.setScheduleStatus(0);
 			}
+			/**
+			 * 查询出所有的事业线
+			 */
+			List<Long> depids=new ArrayList<Long>();
+			Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
+			Department d = new Department();
+			if(query.getCareline() != null){
+				Department de=departmentService.queryById(new Long(query.getCareline()));
+				careerlineMap.put(de.getId(), de);
+				depids.add(de.getId());
+			}else{
+				List<Department> careerlineList = departmentService.queryList(d);
+				for(Department department : careerlineList){
+					careerlineMap.put(department.getId(), department);
+					depids.add(department.getId());
+				}
+				d.setType(1);
+			}
+			/**
+			 * 查询出相关的所有项目
+			 */
+			List<Project> projectCommonList = new ArrayList<Project>();
+			List<MeetingScheduling> schedulingList = new ArrayList<MeetingScheduling>();
+			ProjectBo mpb = new ProjectBo();
+			if(query.getKeyword() != null){
+				mpb.setKeyword(query.getKeyword());
+			}
+			mpb.setDeptIdList(depids);
+			projectCommonList=projectService.queryList(mpb);
+			/**
+			 * 根据相关项目查找排期池数据
+			 */
+			List<Long> pids=new ArrayList<Long>();
+			if(projectCommonList != null && projectCommonList.size() > 0){
+				for(Project pr:projectCommonList){
+					pids.add(pr.getId());
+				}
+				query.setProjectIdList(pids);
+				schedulingList=meetingSchedulingService.queryList(query);
+			}
 			
-			List<MeetingScheduling> schedulingList = meetingSchedulingService.queryList(query);
+			/***
+			 * 若无数据则返回
+			 */
 			if(schedulingList.size() == 0 ){
 				pageEntity.setTotal(new Long(0));
 				pageEntity.setContent(sl);
@@ -1803,7 +1843,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			List<String> ids = new ArrayList<String>();
 			for(MeetingScheduling ms : schedulingList){
-				
 				byte Edit = 1;
 				Integer sheduleStatus = ms.getScheduleStatus();
 				if(sheduleStatus == 2 || sheduleStatus == 3 ){
@@ -1820,21 +1859,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				ids.add(String.valueOf(ms.getProjectId()));
 			}
 			
-			/**
-			 * 查询出所有的事业线
-			 */
-			Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
-			Department d = new Department();
-			if(query.getCareline() != null){
-				Department de=departmentService.queryById(new Long(query.getCareline()));
-				careerlineMap.put(de.getId(), de);
-			}else{
-				List<Department> careerlineList = departmentService.queryList(d);
-				for(Department department : careerlineList){
-					careerlineMap.put(department.getId(), department);
-				}
-				d.setType(1);
-			}
 			/**
 			 * 查询出相关的所有项目
 			 */
@@ -1858,39 +1882,23 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					passRateMap.put(pr.getUid(), pr);
 				}
 			}
-			
 			//组装数据
-			List<MeetingScheduling> schedulingFormList = new ArrayList<MeetingScheduling>();
 			for(MeetingScheduling ms : schedulingList){
 				for(Project p : projectList){
 					if(ms.getProjectId().longValue() == p.getId().longValue()){
-						//项目名称和项目编号不一致的
-						if(!StringUtils.isEmpty(query.getKeyword())){
-							if(!(p.getProjectName().toLowerCase().contains(query.getKeyword().toLowerCase().trim()) 
-									|| p.getProjectCode().toLowerCase().contains(query.getKeyword().toLowerCase().trim()))){
-								schedulingFormList.add(ms);
-							}
-						}
-						//投资事业线不一致的
-						if(careerlineMap.get(p.getProjectDepartid()) == null){
-							schedulingFormList.add(ms);
+						if(passRateMap.isEmpty()){
+							ms.setMeetingRate(new Double(0));
 						}else{
-							if(passRateMap.isEmpty()){
-								ms.setMeetingRate(new Double(0));
-							}else{
-								ms.setMeetingRate(passRateMap.get(p.getCreateUid()).getRate());
-							}
-							ms.setProjectCode(p.getProjectCode());
-							ms.setProjectName(p.getProjectName());
-							ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
-							ms.setCreateUname(p.getCreateUname());
+							ms.setMeetingRate(passRateMap.get(p.getCreateUid()).getRate());
 						}
+						ms.setProjectCode(p.getProjectCode());
+						ms.setProjectName(p.getProjectName());
+						ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
+						ms.setCreateUname(p.getCreateUname());
 					}
 					
 				}
 			}
-			//进行移除不符合规则的排期
-			schedulingList.removeAll(schedulingFormList);
 			pageEntity.setTotal(new Long(schedulingList.size()));
 			sl.addAll(schedulingList.subList(
 					pageable.getPageNumber()*pageable.getPageSize(), 
@@ -1968,6 +1976,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		}catch(Exception e){
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
+			e.printStackTrace();
 			return responseBody;
 		}
 		responseBody.setResult(new Result(Status.OK, null, "更新成功!"));

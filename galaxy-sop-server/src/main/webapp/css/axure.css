@@ -105,10 +105,10 @@ table .width_gd{width:12%;}
   background-color: #eee;
   border-color: #ccc;
 }
-.btn > .caret,
+/*.btn > .caret,
   .dropup > .btn > .caret {
     border-top-color: #000 !important;
-  }
+  }*/
 .btn-group{
  position: relative; 
   display: inline-block;
@@ -137,8 +137,8 @@ table .width_gd{width:12%;}
   height: 0;
   margin:-2px 2px 0 2px;
   vertical-align: middle;
-  border-top: 4px dashed !important;
-  border-top: 4px solid \9 !important;
+  /*border-top: 4px dashed !important;*/
+  /*border-top: 4px solid \9 !important;*/
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -347,7 +347,7 @@ table .width_gd{width:12%;}
 .tipslink li a span{ color:#536379; font-size:12px}
 /*标签连接*/
 .tablink{ height:30px; line-height:30px}
-.tablink li{ float:left; padding:0 7px; margin:0 4px 0 0; background:#d6d8e1; height:30px; border-radius:4px 4px 0 0;cursor: pointer;}
+.tablink li{ float:left; padding:0 7px; margin:0 4px 0 0; background:#d6d8e1;color:#8f97b2; height:30px; border-radius:4px 4px 0 0;cursor: pointer;}
 .tablink li a{ font-size:14px;color:#8f97b2;font-family:"微软雅黑" !important;}
 .tablink li a:hover{ text-decoration:none}
 .tablink .on{ background:#FFF}
@@ -645,15 +645,6 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg_d .block1 table{border-bottom: 0;}
 .pagebox .projectmsg_d .block1 table td{padding:0 0 0 3%;width:47%;font-family: "微软雅黑";border:0;}
 .pagebox .projectmsg_d .block1 table td input[type="text"]{width:266px;height:28px;border:1px solid #ccd2d7; border-radius: 5px;font-size: 12px;padding-left: 8px;line-height: 28px;}
-.time-input{
-    width: 266px;
-    height: 28px;
-    border: 1px solid #ccd2d7;
-    border-radius: 5px;
-    font-size: 12px;
-    padding-left: 8px;
-    line-height: 28px;
-}
 .pagebox .projectmsg_d .block1 table td label{ float:left; line-height:30px; margin:0 10px 0 0; padding:0 0 0 20px; color:#525662; font-family:"宋体"; position:relative}
 .pagebox .projectmsg_d .block1 table td label input[type="radio"]{ position:absolute; left:0; top:9px; *top:4px}
 .pagebox .projectmsg_d .block1 table dl{padding-left:10px;overflow: hidden;}
@@ -1023,7 +1014,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /*发送邮件弹窗*/
 .emailtc{ width:580px;}
 .emailtc dl{ margin-bottom: 6px;}
-.emailtc h2,.creative_edit h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
+.emailtc h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 .emailtc .fmdl dt{width:100px;text-align: right;}
 .emailtc .fmdl dd .txt{ width:300px}
 .emailtc .fmdl dd textarea{ height:150px; width:360px}
@@ -1042,7 +1033,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .addtc .btnbox .pubbtn{ margin:0 10px; display:inline-block; *display:inline; zoom:1;}
 /*发送邮件弹窗*/
 .emailtc{ width:580px;}
-.emailtc h2,.meetingtc h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
+.emailtc h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 .emailtc .fmdl dt{width:100px;text-align: right;}
 .emailtc .fmdl dd .txt{ width:300px}
 .emailtc .fmdl dd textarea{ height:150px; width:360px;line-height: 20px;}
@@ -1204,7 +1195,6 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 #upload-form{width:500px;}
 #upload-form h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 #upload-form .fmdl{margin:0 0 10px;}
-
 /*创意库弹层*/
 .creativetc{padding:0 20px 20px;width:670px;}
 .creativetc .pjt_introduct{color:#535762;font-size: 12px;font-family: "宋体";margin: 0 0 20px 0;}
@@ -1216,8 +1206,8 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .creativetc .block{border-top-left-radius:0; }
 .creativetc .block dl{margin-top: 5px;}
 .creativetc .block .top dl,.creativetc .block dt,.creativetc .block  dd{float: left;}
-.creativetc .block dt,.creativetc .block dd{line-height: 30px;}
-.creativetc .block .top dl{width:30%;height:30px;}
+.creativetc .block dt,.creativetc .block dd{line-height: 28px;}
+.creativetc .block .top dl{width:30%;height:28px;}
 .creativetc .block dt{width:86px;color:#3e4351;text-align: right;}
 .creativetc .block .bottom dd{width:530px;float: left;}
 .creativetc .block button{margin:10px 0 0 15px;cursor: pointer;}
@@ -1228,6 +1218,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .creativetc th{background-color: #f9fafc;}
 .abandon dt,.abandon dd{float: left;}
 .abandon dd textarea{width:265px;margin:0 0 10px 10px;height: 100px;padding: 5px;}
+.creativetc .give_up dt,.creativetc .give_up dd{color:#ff0000;}
 /*编辑项目名称*/
 .edit_nametc{width:300px;}
 .edit_nametc .top .fmdl{margin: 0 0 8px 0;overflow: hidden;}
@@ -1245,7 +1236,6 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /* 编辑创意基本信息 */
 .creative_edit dt{width:90px;text-align:right;}
 .creative_edit dd input{width:200px !important;}
-.creative_edit dd select{width:210px !important;}
 .creative_edit .box{width:190px;margin:0 auto;}
 .creative_edit .box a{display:inline-block;}
 .creative_edit .fmdl textarea{width:520px ;height:100px ;}
@@ -1286,6 +1276,24 @@ background-size: 100%;}
 .change_all ul .change_all_tit .red_hint{ color:#f65177;}
 .change_all_r .red_input{ border:1px solid #f65177;}
 .oldpassword_hint ,.original_password_hint{ display:none}
+/*秘书样式*/
+.time-input{
+    width: 266px;
+    height: 28px;
+    border: 1px solid #ccd2d7;
+    border-radius: 5px;
+    font-size: 12px;
+    padding-left: 8px;
+    line-height: 28px;
+}
+/*日程插件样式*/
+ #calendar {width:100%;margin: 0 auto;}
+.calendar_box{width: 255px;padding: 10px;height: auto;background-color: #fff; position: absolute;  z-index: 1000; left:50%;  margin-left: -178px; padding:10px;display: none;box-shadow: 2px 2px 2px #ccc;border: 1px solid #ccc;border-radius: 5px;}
+.calendar_box dl dt,.calendar_box dl dd{float: left;}
+.calendar_box dl{height:30px;line-height: 30px;color:#3e4351;}
+.calendar_box dl dt{font-size: 14px;font-family: "微软雅黑";}
+.calendar_box dl dd{font-size: 12px;font-family: "宋体";}
+.calendar_box .closed{position: absolute;top: -10px;right: -10px;width: 26px;height:26px;background: url(../img/tcclose.png) 0 0 no-repeat;font-size: 0;cursor: pointer;}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}
@@ -1296,6 +1304,7 @@ dl dt,dl label{font-weight: normal !important;}
 .news_top select{float:right;width:100px;height:30px;border: 1px solid #fff;border-radius:4px;margin-right: 20px;}
 .block_pad{padding-top: 10px;}
 .form label{width:auto;}
+/*dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}*/
 .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
 .search_adjust .fml dd{width:250px !important;}
 .search_adjust1 .fml dd{width:180px !important;}
@@ -1311,3 +1320,14 @@ select{padding: 6px 0 !important;}
 .no_content{font-size: 14px;color:#536379;margin: 60px 0 0 0;text-align: center;}
 #container_jdjy,#container_xmzzl{margin-bottom: 20px;}
 form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
+
+/*繁星V2.2*/
+.form_datetime{
+  width: 238px;
+  height: 22px;
+  border: 1px solid #ccd2d7;
+  /* border-radius: 4px; */
+  background: #fff url(../img/btnico2.png) right -154px no-repeat !important;
+  font-size: 12px;
+  padding-left: 5px;
+}
