@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 
 public class ControllerUtils {
@@ -30,6 +31,15 @@ public class ControllerUtils {
 	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId,UrlNumber number) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, projectId);
+		params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
+		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
+	}
+	
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, User user, String projectName, Long projectId,UrlNumber number) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);
+		params.put(PlatformConst.REQUEST_SCOPE_USER, user);
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, projectId);
 		params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);

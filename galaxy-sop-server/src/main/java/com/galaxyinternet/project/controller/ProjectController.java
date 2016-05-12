@@ -58,6 +58,7 @@ import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.FormatData;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
@@ -1919,6 +1920,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/**
 	 * 更新排期池时间/updateReserveTime
 	 */
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.MESSAGE)
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTime", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> updateReserveTime(HttpServletRequest request,@RequestBody List<MeetingScheduling> query) {
@@ -1955,12 +1957,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					if(ms.getReserveTimeStart() == null && ms.getReserveTimeEnd() == null){
 						ms.setScheduleStatus(0);
 						meetingSchedulingService.updateByIdSelective(ms);
+						ControllerUtils.setRequestParamsForMessageTip(request, user, 
+								pj.getProjectName(), pj.getId(), UrlNumber.three);
 						sendMailToTZJL(request,0,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,null,null);
 					}else{
 						//更新会议时间
 						if(oldMs.getReserveTimeStart().getTime() != ms.getReserveTimeStart().getTime() 
 								|| oldMs.getReserveTimeEnd().getTime() !=ms.getReserveTimeEnd().getTime()){
 							meetingSchedulingService.updateByIdSelective(ms);
+							ControllerUtils.setRequestParamsForMessageTip(request, user, 
+									pj.getProjectName(), pj.getId(), UrlNumber.two);
 							sendMailToTZJL(request,1,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
 						}
 					}
@@ -1968,6 +1974,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					//新安排会议时间
 					if(ms.getReserveTimeStart() !=null && ms.getReserveTimeEnd() != null){
 						meetingSchedulingService.updateByIdSelective(ms);
+						ControllerUtils.setRequestParamsForMessageTip(request, user, 
+								pj.getProjectName(), pj.getId(), UrlNumber.one);
 						sendMailToTZJL(request,1,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
 					}
 					
