@@ -828,18 +828,18 @@ function ideaLoaded(idea, index) {
 function setGiveUpInfo(abandoned){
 	 var str="";
 	 
-	  if(abandoned.giveup.length>0){
+	  if(typeof(abandoned.giveup) != "undefined"&&abandoned.giveup.length>0){
 		 $.each(abandoned.giveup, function (i, value) {
 			 var addiv='<div class="give_up clearfix">'+
-			  '<div class="top clearfix"> <dl><dt>放弃人：</dt> <dd>'+value.abUsername+'</dd> <dl>'+
-			  '<dt>放弃时间：</dt> <dd>'+value.abDatetime+'</dd></dl></div>'+
+			  '<div class="top clearfix"> <dl><dt>放弃人：</dt> <dd>'+value.abUsername+'</dd></dl>'+
+			  '<dt>放弃时间：</dt> <dd>'+value.abDatetimeToString+'</dd></dl></div>'+
 			  '<div class="bottom clearfix"><dl><dt>放弃原因：</dt><dd>'+value.abReason+'</dd></dl></div>'+
 			  '</div>';
 			   str=str+addiv;
          });
-		 $("#append").append(str);
+		 $("#ideaDetail").append(str);
 	  }
-	 
+	 }
 	        
        
   

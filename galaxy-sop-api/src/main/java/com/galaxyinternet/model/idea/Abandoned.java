@@ -33,6 +33,8 @@ public class Abandoned extends PagableEntity {
 	
 	private String abReason;
 	
+	private String abDatetimeToString;
+	
 	public Long getId() {
 		return id;
 	}
@@ -70,6 +72,12 @@ public class Abandoned extends PagableEntity {
 	}
 	public void setAbReason(String abReason) {
 		this.abReason = abReason;
+	}
+	public String getAbDatetimeToString() {
+		return abDatetimeToString;
+	}
+	public void setAbDatetimeToString(String abDatetimeToString) {
+		this.abDatetimeToString = abDatetimeToString;
 	}
 	
 	

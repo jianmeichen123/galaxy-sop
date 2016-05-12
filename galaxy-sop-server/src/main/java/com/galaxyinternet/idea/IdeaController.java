@@ -385,6 +385,10 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		List<Abandoned> queryList=new ArrayList<Abandoned>();
 		queryList= abandonedService.queryList(abandoned);
 		if(!queryList.isEmpty()&&queryList.size()>0){
+			for(Abandoned ab:queryList){
+				String convertDateToString = DateUtil.convertDateToStringForChina(ab.getAbDatetime());
+				ab.setAbDatetimeToString(convertDateToString);
+			}
 			map.put("giveup", queryList);
 			responseBody.setUserData(map);
 		}
