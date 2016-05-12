@@ -146,7 +146,7 @@ var ideaAddDialog = {
 				//所属事业线
 				if(_formdata._departmentId){
 					$departmentId.val(_formdata._departmentId);
-					if(_formdata._departmentEditable=='false'){
+					if(_formdata._departmentEditable=='false' || _formdata._ideaideaProgress!="ideaProgress:1"){
 						$departmentId.attr("readonly","readonly");
 						$departmentId.attr("class","disabled");
 					}
@@ -242,6 +242,7 @@ var ideaAddDialog = {
 							_createDate : data.entity.createDate,
 							_ideaSource : data.entity.ideaSource,
 							_ideaDescHtml : data.entity.ideaDescHtml,
+							_ideaideaProgress:data.entity.ideaProgress,
 							_callFuc : function(){}
 					}
 					ideaAddDialog.init(formdata);
