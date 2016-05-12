@@ -1951,35 +1951,35 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 				Project pj=projectService.queryById(oldMs.getProjectId());
 				User user=userService.queryById(pj.getCreateUid());
-				//如果是更新或取消排期时间
-				if(oldMs.getReserveTimeStart() != null && oldMs.getReserveTimeEnd() !=null){
-					//取消排期时间
-					if(ms.getReserveTimeStart() == null && ms.getReserveTimeEnd() == null){
-						ms.setScheduleStatus(0);
-						meetingSchedulingService.updateByIdSelective(ms);
-						ControllerUtils.setRequestParamsForMessageTip(request, user, 
-								pj.getProjectName(), pj.getId(), UrlNumber.three);
-						sendMailToTZJL(request,0,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,null,null);
-					}else{
-						//更新会议时间
-						if(oldMs.getReserveTimeStart().getTime() != ms.getReserveTimeStart().getTime() 
-								|| oldMs.getReserveTimeEnd().getTime() !=ms.getReserveTimeEnd().getTime()){
-							meetingSchedulingService.updateByIdSelective(ms);
-							ControllerUtils.setRequestParamsForMessageTip(request, user, 
-									pj.getProjectName(), pj.getId(), UrlNumber.two);
-							sendMailToTZJL(request,1,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
-						}
-					}
-				}else{
-					//新安排会议时间
-					if(ms.getReserveTimeStart() !=null && ms.getReserveTimeEnd() != null){
-						meetingSchedulingService.updateByIdSelective(ms);
-						ControllerUtils.setRequestParamsForMessageTip(request, user, 
-								pj.getProjectName(), pj.getId(), UrlNumber.one);
-						sendMailToTZJL(request,1,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
-					}
-					
-				}
+//				//如果是更新或取消排期时间
+//				if(oldMs.getReserveTimeStart() != null && oldMs.getReserveTimeEnd() !=null){
+//					//取消排期时间
+//					if(ms.getReserveTimeStart() == null && ms.getReserveTimeEnd() == null){
+//						ms.setScheduleStatus(0);
+//						meetingSchedulingService.updateByIdSelective(ms);
+//						ControllerUtils.setRequestParamsForMessageTip(request, user, 
+//								pj.getProjectName(), pj.getId(), UrlNumber.three);
+//						sendMailToTZJL(request,0,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,null,null);
+//					}else{
+//						//更新会议时间
+//						if(oldMs.getReserveTimeStart().getTime() != ms.getReserveTimeStart().getTime() 
+//								|| oldMs.getReserveTimeEnd().getTime() !=ms.getReserveTimeEnd().getTime()){
+//							meetingSchedulingService.updateByIdSelective(ms);
+//							ControllerUtils.setRequestParamsForMessageTip(request, user, 
+//									pj.getProjectName(), pj.getId(), UrlNumber.two);
+//							sendMailToTZJL(request,1,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
+//						}
+//					}
+//				}else{
+//					//新安排会议时间
+//					if(ms.getReserveTimeStart() !=null && ms.getReserveTimeEnd() != null){
+//						meetingSchedulingService.updateByIdSelective(ms);
+//						ControllerUtils.setRequestParamsForMessageTip(request, user, 
+//								pj.getProjectName(), pj.getId(), UrlNumber.one);
+//						sendMailToTZJL(request,1,user.getEmail(),user.getRealName(),pj.getProjectCode()+pj.getProjectName(),messageInfo,ms.getReserveTimeStart(),ms.getReserveTimeEnd());
+//					}
+//					
+//				}
 				
 			}
 		}catch(Exception e){

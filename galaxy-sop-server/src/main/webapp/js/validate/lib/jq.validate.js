@@ -207,6 +207,22 @@ function initDialogVal(){
 	});
 }
 
+function initDialogValstr(id){
+	$.each($("#"+id).find("[valType]"),function(i, n) {
+		$(n).poshytip({
+			className: 'tip-yellowsimple',
+			content: $(n).attr('msg'),
+			showOn: 'none',
+			alignTo: 'target',
+			alignX: 'right',
+			alignY: 'center',
+			offsetX: 5,
+			offsetY: 10
+		});
+		$(n).bind('blur',validateBefore);
+	});
+}
+
 
 /**
  * 1.不能为空

@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
@@ -24,9 +26,11 @@ public class MeetingScheduling extends PagableEntity {
     private String remark;
     private Integer scheduleStatus;
     private Timestamp applyTime;
+    private Timestamp lastTime;
+    
     private Timestamp reserveTimeStart;
     private Timestamp reserveTimeEnd;
-    private Timestamp lastTime;
+    
     //排序字段名称
     private String sortName;
     //排序方式
@@ -80,8 +84,17 @@ public class MeetingScheduling extends PagableEntity {
 		return reserveTimeStartStr;
 	}
 
-	public void setReserveTimeStartStr(String reserveTimeStartStr) throws ParseException {
+	public void setReserveTimeStartStr(String reserveTimeStartStr) {
 		this.reserveTimeStartStr = reserveTimeStartStr;
+		if(StringUtils.isNotBlank(this.reserveTimeStartStr)){
+			Date tmp = null;
+			try {
+				tmp = DateUtil.convertStringToDateTimeForChina(this.reserveTimeStartStr);
+				this.setReserveTimeStart(new Timestamp(tmp.getTime()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public String getReserveTimeEndStr() {
@@ -90,6 +103,15 @@ public class MeetingScheduling extends PagableEntity {
 
 	public void setReserveTimeEndStr(String reserveTimeEndStr) {
 		this.reserveTimeEndStr = reserveTimeEndStr;
+		if(StringUtils.isNotBlank(this.reserveTimeEndStr)){
+			Date tmp;
+			try {
+				tmp = DateUtil.convertStringToDateTimeForChina(this.reserveTimeEndStr);
+				this.setReserveTimeStart(new Timestamp(tmp.getTime()));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public String getProjectCode() {
