@@ -718,7 +718,13 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			idea.setCreatedUname(user.getRealName());
 			idea.setCreatedTime(System.currentTimeMillis());
 			Config config = configService.getByKey(SopConstant.CONFIG_KEY_IDEA_CODE, true);
-			idea.setIdeaCode(IDEA_CODE_PREFIX + config.getValue());
+			int codeLength = config.getValue().length();
+			String newCode = "";
+			for(int i = 0;i<6-codeLength;i++){
+				newCode += "0";
+			}
+			newCode += config.getValue();
+			idea.setIdeaCode(IDEA_CODE_PREFIX + newCode);
 			
 			if(!RoleUtils.isCEO(roleIdList) && !RoleUtils.isDSZ(roleIdList)){
 				idea.setDepartmentId(user.getDepartmentId());
