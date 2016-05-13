@@ -19,6 +19,8 @@ import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.template.SopTemplate;
@@ -148,7 +150,9 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	public String myproject(HttpServletRequest request){
 		String id = request.getParameter("projectId");
 		if(StringUtils.isNotBlank(id)){
+			Project project = projectService.queryById(Long.parseLong(id));
 			request.setAttribute("pid", id);
+			request.setAttribute("pname", project.getProjectName());
 		}
 		return "project/list";
 	}
