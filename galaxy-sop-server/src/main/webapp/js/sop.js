@@ -1347,3 +1347,20 @@ function showLogdetail(selectRowId){
 });
 	return false;
 }
+function interviewsave(){  
+		var um = UM.getEditor('viewNotes');
+	var log = um.getContent();
+	var pid=$("#vid").val();
+	if(pid != '' && log != ''){
+		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
+			if (data.result.status=="OK") {
+				layer.msg("保存成功");
+				$(".meetingtc").find("[data-close='close']").click();
+				$("#projectProgress_1_table").bootstrapTable('refresh');
+			} else {
+				layer.msg(data.result.message);
+			}
+			
+		});
+	}
+}

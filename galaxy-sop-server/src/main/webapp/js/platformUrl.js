@@ -493,7 +493,7 @@ var platformUrl = {
 	/**
 	 * 更新排期池时间
 	 */
-	updateInterview: Constants.sopEndpointURL+ "/galaxy/project/updateInterview",
+	updateInterview: Constants.sopEndpointURL+ "/galaxy/project/progress/updateInterview",
 	
 }
 

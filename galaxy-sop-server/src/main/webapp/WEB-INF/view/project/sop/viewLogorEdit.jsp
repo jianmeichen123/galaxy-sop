@@ -61,20 +61,10 @@
         </div>
     </dl> -->
     <div class="btnbox">
-    	<a href="javascript:;" id="save_interview" class="pubbtn bluebtn">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
+    	<a href="javascript:;" id="interviewsave" class="pubbtn bluebtn" onclick="interviewsave()">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
 <script type="text/javascript">
 	UM.getEditor('viewNotes');
-	$(function(){
-	       $("#save_interview")click(function(){
-	   		var um = UM.getEditor('viewNotes');
-			var log = um.getContent();
-			var pid=$("#vid").val();
-			
-			if(pid != '' && log != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "viewNotes" : log}, saveSuccess());
-			}
-		});
-	});
+	$("#viewDate").val(new Date().format("yyyy-MM-dd"));
 </script>

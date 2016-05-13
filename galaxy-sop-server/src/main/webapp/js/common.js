@@ -852,7 +852,7 @@ function formatLog(value,row,index){
 			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
 			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+
 			subValue+
-			"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >更多<a>"+    
+			"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
 		'</div>';
 			return rc;
 		}else{

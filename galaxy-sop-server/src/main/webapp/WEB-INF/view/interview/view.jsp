@@ -98,7 +98,7 @@
 					<tr>
 						<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<th  data-field="proName" data-align="center">所属项目</th>  
-						<th  data-field="viewNotes" data-align="center" data-formatter="interviewFormatLog">访谈日志</th>
+						<th  data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
 					</tr>
 				</thead>
 			</table>
@@ -119,6 +119,12 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<!-- 富文本编辑器 -->
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
 
 <!-- clude -->
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
@@ -161,7 +167,7 @@ function interviewFormatLog(value,row,index){
 			/*var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';*/
 			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" >"+
 						subValue+
-						"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showviewdetail("+row.id+")\" >...更多<a>"+    
+						"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showviewdetail("+row.id+")\" >详情<a>"+    
 					'</div>';
 			return rc;
 		}else{
@@ -169,47 +175,42 @@ function interviewFormatLog(value,row,index){
 		}
 	}
 }
-
-
-
-function showviewdetail(selectRowId){
-	interviewSelectRow = $('#data-table').bootstrapTable('getRowByUniqueId', selectRowId);
-	
-	var _url = "<%=path %>/galaxy/project/progress/interViewAdd";
+function showLogdetail(selectRowId){
+	var interviewSelectRow = $('#data-table').bootstrapTable('getRowByUniqueId', selectRowId);
+	var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			//initViewUpload();
-			queryViewPerPro();
-			$('.edui-container').show();
-			initTcVal();
-		}//模版反回成功执行	
-	});
+		var um=UM.getEditor('viewNotes');
+		um.setContent(interviewSelectRow.viewNotes);
+		$("#vid").val(selectRowId);
+	}//模版反回成功执行	
+});
 	return false;
 }
-
-function initTcVal(){
-	$("#projectId").val(interviewSelectRow.projectId).attr("disabled","desabled");
-	$("#viewDate").val(interviewSelectRow.viewDateStr).attr("disabled","desabled");
-	$("#viewTarget").val(interviewSelectRow.viewTarget).attr("readonly","readonly");
-	interviewEditor.setContent(interviewSelectRow.viewNotes); 
-	
-	var fileinfo = "";
-	if(interviewSelectRow.fname!=null && interviewSelectRow.fname!=undefined && interviewSelectRow.fname!="undefined" ){
-		fileinfo = "<a href=\"javascript:;\" onclick=\"filedown("+interviewSelectRow.fileId+","+interviewSelectRow.fkey+");\" class=\"blue\" >"+interviewSelectRow.fname+"</a>"
+function interviewsave(){  
+		var um = UM.getEditor('viewNotes');
+	var log = um.getContent();
+	var pid=$("#vid").val();
+	if(pid != '' && log != ''){
+		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
+			if (data.result.status=="OK") {
+				layer.msg("保存成功");
+				$(".meetingtc").find("[data-close='close']").click();
+				$("#data-table").bootstrapTable('refresh');
+			} else {
+				layer.msg(data.result.message);
+			}
+			
+		});
 	}
-	$("#fileNotBeUse").html("");
-	$("#fileNotBeUse").html("访谈录音："+fileinfo);
-	
-	$("#btnNotBeUse").html("");
-	$("#btnNotBeUse").html("<a href=\"javascript:;\" class=\"pubbtn fffbtn\" data-close=\"close\">关闭</a>");
-	
 }
 
 
 
 </script>
+
 </body>
 
 </html>
