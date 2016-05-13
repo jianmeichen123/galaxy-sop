@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,16 +35,29 @@ import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
+import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.AppSopFile;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.AppProjectMeetingService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
-
+import com.galaxyinternet.service.SopFileService;
+/**
+ * App端会议添加<br>
+ * 含添加文字，和录音两种
+ * @author LZJ
+ * @ClassName  : AppProjectMeetingController
+ * @Version  版本   1.0
+ * @ModifiedBy LZJ  
+ * @Copyright  Galaxyinternet  
+ * @date  2016年5月13日 下午1:39:57
+ */
 @Controller
 @RequestMapping("/galaxy/projectmeeting/approgress")
 public class AppProjectMeetingController extends BaseControllerImpl<Project, ProjectBo>{
@@ -61,6 +75,9 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
+	
+	@Autowired
+	private AppProjectMeetingService appPmService;
 	
 	private String tempfilePath;
 
@@ -111,8 +128,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 			{
 				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
 				return responseBody;
-			}
-			
+			}			
 			//排期池校验
 			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
 				MeetingScheduling ms = new MeetingScheduling();
@@ -124,8 +140,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 					responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
 					return responseBody;
 				}
-			}
-				
+			}			
 			try {
 				String prograss = "";
 				UrlNumber uNum = null;
@@ -141,8 +156,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 				}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
 					prograss = DictEnum.projectProgress.投资决策会.getCode(); 								
 					uNum = UrlNumber.four;
-				}
-				
+				}				
 				//project id 验证
 				Project project = new Project();
 				project = projectService.queryById(meetingRecord.getProjectId());
@@ -150,8 +164,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 				if(err!=null && err.length()>0){
 					responseBody.setResult(new Result(Status.ERROR,null, err));
 					return responseBody;
-				}
-				
+				}			
 				//保存
 				Long id = null;
 				boolean equalNowPrograss = true; //判断当前阶段、之后阶段
@@ -159,8 +172,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 				int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ; //项目阶段
 				if(projectPro > operationPro){
 					equalNowPrograss = false;
-				}
-				
+				}				
 				if(meetingRecord.getFkey()!=null){
 					if( meetingRecord.getFileLength()==null||meetingRecord.getFname()==null){
 						responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
@@ -185,8 +197,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 					sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
 					sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
 					//sopFile.setFileWorktype(fileWorkType);    //业务分类
-					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
-					
+					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态					
 					id = meetingRecordService.insertMeet(meetingRecord,project,sopFile,equalNowPrograss);
 				}else if(!ServletFileUpload.isMultipartContent(request)){
 					SopFile file = new SopFile();
@@ -194,58 +205,8 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 					file.setFileUid(user.getId());
 					id = meetingRecordService.insertMeet(meetingRecord,project,file,equalNowPrograss);
 				}
-				
-				/*
-				else if(ServletFileUpload.isMultipartContent(request)){
-					//调接口上传
-					String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-					//Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);
-					UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
-					//上传成功后
-					if(result!=null){
-						Map<String,String> nameMap = new HashMap<String,String>();
-						//MultipartFile file = (MultipartFile) map.get("file");
-						String fileName = "";
-						if(meetingRecord.getFname()!=null && meetingRecord.getFname().trim().length()>0){
-							fileName = meetingRecord.getFname().trim();
-							nameMap = transFileNames(fileName);
-						}else{
-							//nameMap = (Map<String, String>) map.get("nameMap");
-						    nameMap.put("fileName",result.getFileName());
-						    nameMap.put("fileSuffix", result.getFileSuffix());
-						}
-						if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
-							responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
-							return responseBody;
-						}//end get file name 
-						
-						SopFile sopFile = new SopFile();
-						sopFile.setProjectId(project.getId());
-						sopFile.setProjectProgress(project.getProjectProgress());
-						sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
-						sopFile.setFileKey(fileKey);  
-						//sopFile.setFileLength(file.getSize());  //文件大小
-						sopFile.setFileLength(result.getContentLength());  //文件大小
-						sopFile.setFileName(nameMap.get("fileName"));
-						sopFile.setFileSuffix(nameMap.get("fileSuffix"));
-						sopFile.setFileUid(user.getId());	 //上传人
-						sopFile.setCareerLine(user.getDepartmentId());
-						sopFile.setFileType(DictEnum.fileType.音频文件.getCode());   //存储类型
-						sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
-						//sopFile.setFileWorktype(fileWorkType);    //业务分类
-						sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
-						
-						id = meetingRecordService.insertMeet(meetingRecord,project,sopFile,equalNowPrograss);
-					}else{
-						responseBody.setResult(new Result(Status.ERROR,null, "上传失败"));
-						return responseBody;
-					}
-				}
-				*/
-				
 				responseBody.setId(id);
-				responseBody.setResult(new Result(Status.OK, ""));
-				//ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),uNum);
+				responseBody.setResult(new Result(Status.OK, ""));			
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR,null, "会议添加失败"));
 				if(logger.isErrorEnabled()){
@@ -256,6 +217,53 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 		}
 		
 		
+		
+		/**
+		 * App端接口--添加会议（有录音文件）
+		 *  测试调用URL/galaxy/projectmeeting/approgress/addAudioFile
+		 * @param sopFile
+		 * @param request
+		 * @return
+		 */
+		@ResponseBody
+		@RequestMapping(value="/addAudioFile" , method=RequestMethod.POST , produces=MediaType.APPLICATION_JSON_VALUE)
+		public ResponseData<AppSopFile> addAppAudioFile(@RequestBody AppSopFile sopFile, HttpServletRequest request){
+			ResponseData<AppSopFile> responseBody = new ResponseData<AppSopFile>();			
+			try {
+				
+				if(sopFile == null ){				
+					responseBody.setResult(new Result(Status.ERROR, null, "请完善附件信息"));
+					return responseBody;
+				}
+				//会议ID验证
+				if(sopFile!=null && (sopFile.getMeetingId()==null||sopFile.getMeetingId()==0)){
+					responseBody.setResult(new Result(Status.ERROR, null, "会议ID缺失"));
+					return responseBody;
+				}
+				//会议验证
+				MeetingRecord meeting = meetingRecordService.queryById(sopFile.getMeetingId());
+				if(meeting == null || meeting.getId() == null){			
+					responseBody.setResult(new Result(Status.ERROR, null, "会议记录为空"));
+					return responseBody;
+				}
+				//project id 验证
+				Project project = projectService.queryById(sopFile.getProjectId());
+				if(project == null || project.getId() == null){
+					responseBody.setResult(new Result(Status.ERROR, null, "关联所属项目记录为空"));
+					return responseBody;
+				}
+				
+				User user  = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+				Project  p1 = projectService.queryById(sopFile.getProjectId());
+				
+				appPmService.addToAudioFileByMeeting(p1, user.getDepartmentId(), user.getId(), sopFile);
+				responseBody.setResult(new Result(Status.OK,null, "录音添加成功"));
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "录音追加失败"));
+				logger.error("App端录音追加失败",e);
+			}
+			return responseBody;
+		}
 		
 		/**
 		 * App端接口--添加会议（有录音文件）
