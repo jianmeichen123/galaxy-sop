@@ -79,6 +79,14 @@ var platformUrl = {
 	 * 修改团队成员
 	 */
 	updatePerson : Constants.sopEndpointURL + "/galaxy/project/upp",
+	/**
+	 * Ceo评审排期top5
+	 */
+	top5CeoPsMeeting: Constants.sopEndpointURL + "/galaxy/home/top5CeoPsMeeting",
+	/**
+	 * Ceo评审排期所有
+	 */
+	moreProjectCeoPsWill: Constants.sopEndpointURL + "/galaxy/home/moreCeoPsMeeting",
 	
 	/**
 	 * 立项排期所有
@@ -481,7 +489,12 @@ var platformUrl = {
 	/**
 	 * 更新排期池时间
 	 */
-	reserveTime: Constants.sopEndpointURL+ "/galaxy/project/updateReserveTime"
+	reserveTime: Constants.sopEndpointURL+ "/galaxy/project/updateReserveTime",
+	/**
+	 * 更新排期池时间
+	 */
+	updateInterview: Constants.sopEndpointURL+ "/galaxy/project/updateInterview",
+	
 }
 
 /**

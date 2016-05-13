@@ -258,6 +258,19 @@ $(function(){
 		});
 		return false;
 	});
+	//ceo秘书排期弹窗
+	$("[data-btn='ceops']").on("click",function(){
+		var $self = $(this);
+		var _url = $self.attr("href");
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				showList2();
+				}//模版反回成功执行	
+		});
+		return false;
+	});
 	//新增会议弹窗
 	$("[data-btn='meeting']").on("click",function(){
 		var $self = $(this);

@@ -36,11 +36,21 @@
 	}
 	function ideaNameLinkFormatter(val,row,index)
 	{
-		return '<a href="#" class="blue" onclick="showIdeaDetail(\'' + row.id + '\')">'+val+'</a>';
+		return '<a href="#" class="blue" onclick="infoIdea(\'' + row.id + '\',\''+  row.ideaName + '\')">'+val+'</a>';
 	}
 	function proNameLinkFormatter(val,row,index)
 	{
-		return '<a href="#" class="blue" onclick="info(\'' + row.projectId + '\')">'+val+'</a>';
+		return '<a href="#" class="blue" onclick="infoPro(\'' + row.projectId + '\')">'+val+'</a>';
+	}
+	
+	function infoIdea(ideaid,ideaName){
+		$("#powindow,#popbg").remove();
+		$("#custom-toolbar [name='keyword']").val(ideaName);
+		$("#data-table").bootstrapTable('refresh');
+		showIdeaDetail(ideaid);
+	}
+	function infoPro(pid){
+		window.location.href=$("#menus").find("[data-menueid='5']").attr("href")+"&projectId="+pid;
 	}
 	
 	function refreshIdeaList()

@@ -15,17 +15,31 @@
 
 	// top5立项排期
 	function top5ProjectMeeting() {
+		
 		sendGetRequest(platformUrl.top5ProjectMeeting, null, top5ProjectMeetingCallback);
 	}
 
 	//top5投决排期
 	function ProjectVoteWill() {
+		
 		sendGetRequest(platformUrl.ProjectVoteWill, null, ProjectVoteWillCallback);
 	}
 
 	// 所有立项排期
 	function moreProjectMeeting() {
 		sendGetRequest(Constants.sopEndpointURL+"/galaxy/home/moreProjectMeeting", null, moreProjectMeetingCallback);
+	}
+
+
+	// top5ceo评审
+	function top5CeoPsMeeting() {
+		sendGetRequest(platformUrl.top5CeoPsMeeting, null, top5CeoPsMeetingCallback);
+	}
+
+	//所有CEO评审
+	function moreProjectCeoPsWill() {
+		sendGetRequest(platformUrl.moreProjectCeoPsWill, null, moreCeoPsbodyMeetingCallback);
+		
 	}
 
 
@@ -41,6 +55,63 @@
 		sendPostRequestByJsonObj(platformUrl.soptaskshouye,jsonData, SopTaskCallback);
 	}
 
+	function top5CeoPsMeetingCallback(data) {
+		
+		var list = data.entityList;
+		if(list != "" || list != undefined || list != null){
+			var tbodyList = $("#ceopsbodytop"); 
+			tbodyList.empty();
+			var i=0;
+			$(list).each(function(){
+				 var templ = $(this)[0];
+				 i=i+1;
+				 var tr='<tr>'+
+					 '<td>'+i+'</td>'+
+					 '<td class="cutstr" title="'+getValue((templ.projectName))+'">'+ getValue((templ.projectName))+'</td>'+
+					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
+					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
+					' </tr>'; 
+				 tbodyList.append(tr);
+			  });
+			
+		}		
+		if (list.length==0) {
+			
+			var tbodyList = $("#ceopsbodytop"); 
+			var noData =
+				'<tr>'+
+				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				' </tr>'; 			
+			tbodyList.append(noData);
+	   }
+		if(list.length<3){
+			$("#ceopsbodytop").parent().parent().siblings().children('.more').css("display","none");
+		}
+	}
+	
+	function moreCeoPsbodyMeetingCallback(data) {
+		var list = data.entityList;
+		if(list != "" || list != undefined || list != null){
+			var tbodyList = $("#ceopsbody"); 
+			tbodyList.empty();
+			var i=0;
+			$(list).each(function(){
+				 var templ = $(this)[0];
+				 i=i+1;
+				 var tr='<tr>'+
+					 '<td>'+i+'</td>'+
+					 '<td>'+ getValue(templ.projectName)+'</td>'+
+					 //'<td>'+ getStatusValue(templ.status)+'</td>'+
+					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
+					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
+					 '<td>'+getValue(templ.projectCareerline)+'</td>'+
+					 '<td>'+getValue(templ.createUname)+'</td>'+
+					 '<td>'+getValue(templ.remark)+'</td>'+
+					' </tr>'; 
+				 tbodyList.append(tr);
+			  });
+		}
+	}
 	function top5MessageCallback(data){
 		if(data.result.status == "OK"){
 			var news_table =  $(".r_news table tbody");
@@ -133,6 +204,7 @@
 			  });
 			
 			if(list.length<3){
+				
 				$("#tbody").parent().parent().siblings().children('.more').css("display","none");
 			};
 			cutStr(5,'cutstr');
@@ -311,6 +383,9 @@ function showList() {
 }
 function showList1() {
 	moreProjectVoteWill();
+}
+function showList2() {
+	moreProjectCeoPsWill();
 }
 /*//紧急任务
 function totalUrgent() {
