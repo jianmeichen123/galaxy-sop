@@ -6,15 +6,19 @@
 
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="idea-project-table-toolbar">
+		
 			<input type="hidden" name="ideaProgress" value="${ideaProgress}">
+			
 			<div class="bottom searchall clearfix search_adjust">
+			
 				<dl class="fmdl fmdll clearfix">
 					<dt>关键字：</dt>
 					<dd>
 						<input type="text" class="txt" name="keyword" placeholder="创意名称或编码" />
 					</dd>
 				</dl>
-				<dl class="fmdl fml fmdll clearfix">
+				
+				<dl class="fmdl fmdll clearfix">
 	              <dt>所属事业线：</dt>
 	              <dd>
 	                <select name="departmentId">
@@ -22,16 +26,18 @@
 	                </select>
 	              </dd>
 	            </dl>
-	            <dl class="fmdl fml fmdll clearfix">
+	            
+	            <dl class="fmdl fmdll clearfix">
 	            	<dt>提出时间：</dt>
 	            	<dd>
 	            		<input type="text" class="ideadatepicker txt time" name="createdDateFrom"  style="height:23px;"/>至
 	            		<input type="text" class="ideadatepicker txt time" name="createdDateThrough"  style="height:23px;"/>
 	            	</dd>
-	            	<dd>
-						<button type="submit" class="bluebtn cx" action="querySearch">搜索</button>
-	            	</dd>
 	            </dl>
+	            <span class="fmdl fmdll clearfix">
+	            	<button type="submit" class="bluebtn cx" action="querySearch">搜索</button>
+	            </span>
+	            
 			</div>
 		</div>
 		
