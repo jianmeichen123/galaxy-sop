@@ -25,6 +25,24 @@ public class AppSopFile extends SopFile {
 	//业务类型的code
 	private String fileYwCode;
 	
+	//关联会议Id
+	private Long meetingId;
+	
+	
+	
+	
+	
+	
+	public Long getMeetingId() {
+		return meetingId;
+	}
+
+
+	public void setMeetingId(Long meetingId) {
+		this.meetingId = meetingId;
+	}
+
+
 	public String getFileYwCode() {
 		return fileYwCode;
 	}
