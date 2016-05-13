@@ -230,7 +230,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a href="<%=path %>/galaxy/operationMessage/index" class="more null">more</a>
                     </dd>
                 </dl>
-                <dl>
+                
+                <dl id="dan_k">
                 	<dt><h3 class="ico t5">档案库</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0" id="file_gird_index">
@@ -241,6 +242,29 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
+               
+                 <dl id="ceo_p">
+				<dt><h3 class="ico t5">CEO评审排期</h3></dt>
+				<dd>
+					<table id="ceopsMeeting" width="100%" cellspacing="0"
+						cellpadding="0" class="index">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>项目名称</th>
+								<th>上次过会时间</th>
+								<th>过会次数</th>
+							</tr>
+						</thead>
+						<tbody id="ceopsbodytop">
+						</tbody>
+					</table>
+				</dd>
+				<dd class="clearfix">
+					<!-- <a href="javascript:;" class="more null">more</a> -->
+					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
+				</dd>
+			</dl> 
                 <dl  class="tool_radius">
                 	<dt><h3 class="ico t6">常用工具</h3></dt>
                     <dd class="tool">
@@ -274,6 +298,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		selectSopTask();
 		createMenus(1);
 		top5Message();
+		ceopaiqi();
+		top5CeoPsMeeting();
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 	});
 </script>
@@ -398,6 +424,16 @@ var chartOptions={
         }
     }]
 };
+function ceopaiqi(){
+	if(roleId!='19'){
+		$("#ceo_p").css("display","none");
+	}else{
+		$("#dan_k").css("display","none");	
+	}
+
+}
+
+
 </script>
 </html>
 
