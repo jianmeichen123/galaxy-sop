@@ -95,6 +95,7 @@ var ideaAddDialog = {
 						$("#addDialog").find("#win_idea_desc").css("width","100%");
 						$("#addDialog").find("#umeditor_textarea_ideaDescHtml").remove();
 						$("#addDialog").find("#win_idea_name").removeAttr("valType");
+						$("#addDialog").find("#win_idea_department").removeAttr("valType");
 						um.destroy();
 						$(_this.id).find("#win_idea_desc").remove();
 					}

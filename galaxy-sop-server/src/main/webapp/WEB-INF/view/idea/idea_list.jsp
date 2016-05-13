@@ -191,6 +191,12 @@
 
 <script src="<%=path %>/js/idea-common.js"></script>
 <script type="text/javascript" src='<%=request.getContextPath() %>/js/ideaadd.js'></script>
+
+
+<script src="<%=path %>/js/sop.js"></script>
+<script type="text/javascript" src="<%=path %>/js/teamSheetNew.js"></script>
+<script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
+
 <script type="text/javascript">
 	$('.ideadatepicker').datepicker({
 		format: 'yyyy-mm-dd',
