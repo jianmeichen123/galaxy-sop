@@ -34,6 +34,8 @@
 	            </dl>
 			</div>
 		</div>
+		
+		
 		<div class="tab-pane active" id="view">	
 			<table id="idea-project-table" data-url="idea/search" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#idea-project-table-toolbar" data-show-refresh="true">

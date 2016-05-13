@@ -163,6 +163,14 @@
 	{
 		$("#data-table").bootstrapTable('refresh');
 	}
+	
+	$(function(){
+		var pid = "${pid}";
+		if(!(!pid)){
+			info(pid);
+		}
+		
+	});
 </script>
 
 </html>

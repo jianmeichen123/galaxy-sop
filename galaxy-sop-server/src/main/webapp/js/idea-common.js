@@ -40,7 +40,11 @@
 	}
 	function proNameLinkFormatter(val,row,index)
 	{
-		return '<a href="#" class="blue" onclick="info(\'' + row.projectId + '\')">'+val+'</a>';
+		return '<a href="#" class="blue" onclick="infoPro(\'' + row.projectId + '\')">'+val+'</a>';
+	}
+	
+	function infoPro(pid){
+		window.location.href=$("#menus").find("[data-menueid='5']").attr("href")+"&projectId="+pid;
 	}
 	
 	function refreshIdeaList()
