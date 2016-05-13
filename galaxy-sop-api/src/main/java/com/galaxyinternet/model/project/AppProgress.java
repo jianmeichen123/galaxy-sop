@@ -128,14 +128,28 @@ public class AppProgress extends PagableRecordEntity {
 
 
 	/**
-     * 项目进程
+     * 项目进程编码
      * 1、接触访谈; 2、内部评审;3、立项会; 4、投资意向书; 5、尽职调查;6、投资决策会;7、投资协议; 8、投后运营
      */
     private String projectProgress;
+    
+    /**
+     * 项目进程名称
+     */
+    private String projectProgressName ;
 
 
     
-    //详情数据转换
+    public String getProjectProgressName() {
+		return projectProgressName;
+	}
+
+	public void setProjectProgressName(String projectProgressName) {
+		this.projectProgressName = projectProgressName;
+	}
+
+
+	//详情数据转换
     //数据库转换
   	private String fileUName;
   	private String projectName;
@@ -387,8 +401,5 @@ public class AppProgress extends PagableRecordEntity {
 	public void setVstatus(String vstatus) {
 		Vstatus = vstatus;
 	}
-
-	
-	
 	
 }
