@@ -168,6 +168,15 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	
 	/**
+	 * 添加页面
+	 */
+	@RequestMapping(value = "/interViewLog", method = RequestMethod.GET)
+	public String interViewLog() {
+		return "project/sop/viewLogorEdit";
+	}
+	
+	
+	/**
 	 * 接触访谈阶段: 附件添加 -访谈添加
 	 * @param   interviewRecord 
 	 * 			produces="application/text;charset=utf-8"
@@ -353,6 +362,31 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}
 		}
 		
+		return responseBody;
+	}
+	/**
+	 * OSS访谈录音追加
+	 * @param   interviewRecord 
+	 * 			produces="application/text;charset=utf-8"
+	 * @param viewid 访谈id
+	 * @return responseBody.setId(id) fileId
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@ResponseBody
+	@RequestMapping(value = "/updateInterview", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> updateInterview(@RequestBody InterviewRecord interviewRecord, HttpServletRequest request ) {
+			ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		try {
+			interviewRecordService.updateById(interviewRecord);
+		    responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(interviewRecord.getId());
+			} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "修改日志失败"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("updateInterview修改日志失败",e);
+			}
+		}
 		return responseBody;
 	}
 	

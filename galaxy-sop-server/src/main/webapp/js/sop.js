@@ -1333,3 +1333,17 @@ function downloadTemplate(templateType)
 	var url = platformUrl.tempDownload+"?worktype="+templateType+pidParam;
 	forwardWithHeader(url);
 }
+function showLogdetail(selectRowId){
+	var interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
+	var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+		var um=UM.getEditor('viewNotes');
+		um.setContent(interviewSelectRow.viewNotes);
+		$("#vid").val(selectRowId);
+	}//模版反回成功执行	
+});
+	return false;
+}

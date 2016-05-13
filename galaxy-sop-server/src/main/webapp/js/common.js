@@ -850,7 +850,10 @@ function formatLog(value,row,index){
 		var strrrr=strlog;
 		if(len>100){
 			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
-			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+
+			subValue+
+			"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >更多<a>"+    
+		'</div>';
 			return rc;
 		}else{
 			return strlog;
@@ -965,4 +968,22 @@ if (!Array.prototype.indexOf){
     }
     return -1;
   };
+}
+
+function initTcVal(){
+	$("#projectId").val(interviewSelectRow.projectId).attr("disabled","desabled");
+	$("#viewDate").val(interviewSelectRow.viewDateStr).attr("disabled","desabled");
+	$("#viewTarget").val(interviewSelectRow.viewTarget).attr("readonly","readonly");
+	interviewEditor.setContent(interviewSelectRow.viewNotes); 
+	
+	var fileinfo = "";
+	if(interviewSelectRow.fname!=null && interviewSelectRow.fname!=undefined && interviewSelectRow.fname!="undefined" ){
+		fileinfo = "<a href=\"javascript:;\" onclick=\"filedown("+interviewSelectRow.fileId+","+interviewSelectRow.fkey+");\" class=\"blue\" >"+interviewSelectRow.fname+"</a>"
+	}
+	$("#fileNotBeUse").html("");
+	$("#fileNotBeUse").html("访谈录音："+fileinfo);
+	
+	$("#btnNotBeUse").html("");
+	$("#btnNotBeUse").html("<a href=\"javascript:;\" class=\"pubbtn fffbtn\" data-close=\"close\">关闭</a>");
+	
 }

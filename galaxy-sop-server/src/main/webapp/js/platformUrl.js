@@ -489,7 +489,12 @@ var platformUrl = {
 	/**
 	 * 更新排期池时间
 	 */
-	reserveTime: Constants.sopEndpointURL+ "/galaxy/project/updateReserveTime"
+	reserveTime: Constants.sopEndpointURL+ "/galaxy/project/updateReserveTime",
+	/**
+	 * 更新排期池时间
+	 */
+	updateInterview: Constants.sopEndpointURL+ "/galaxy/project/updateInterview",
+	
 }
 
 /**
