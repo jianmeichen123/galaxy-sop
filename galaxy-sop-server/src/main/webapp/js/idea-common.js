@@ -38,7 +38,10 @@
 	{
 		return '<a href="#" class="blue" onclick="showIdeaDetail(\'' + row.id + '\')">'+val+'</a>';
 	}
-	
+	function proNameLinkFormatter(val,row,index)
+	{
+		return '<a href="#" class="blue" onclick="info(\'' + row.projectId + '\')">'+val+'</a>';
+	}
 	
 	function refreshIdeaList()
 	{
