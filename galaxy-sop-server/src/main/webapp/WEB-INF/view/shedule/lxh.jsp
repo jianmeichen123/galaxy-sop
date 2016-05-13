@@ -264,8 +264,12 @@
 	             PassRate.id = parseInt(pid);
 	        if(datevalue != ''){
 	        		var str=datevalue.split(" - ");
-	        		PassRate.reserveTimeStartStr =str[0]+":00";
-		        	PassRate.reserveTimeEndStr =str[1]+":00";
+	        		//PassRate.reserveTimeStart =str[0]+":00";
+		        	//PassRate.reserveTimeEnd =str[1]+":00";
+		        	  PassRate.reserveTimeStart =new Date(str[0]+":00").parseJSON().toJSONString();
+		        	  PassRate.reserveTimeEnd =new Date(str[1]+":00").parseJSON().toJSONString();
+		        	new Date().parseJSON().toJSONString()
+		        	new Date().parseJSON().toJSONString()
 		        	//PassRate.reserveTimeStartStr =new Date().format("yyyy-MM-dd hh:mm:ss");
 		        	//PassRate.reserveTimeEndStr =new Date().format("yyyy-MM-dd hh:mm:ss");
 		        	
