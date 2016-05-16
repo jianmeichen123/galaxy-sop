@@ -227,9 +227,11 @@
 			$(list).each(function(){
 				 var templ = $(this)[0];
 				 i=i+1;
+				 
+				 
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td class="cutstr" title="'+ getValue(templ.projectName)+'">'+ getValue(templ.projectName)+'</td>'+
+					 '<td class="cutstr" title="'+ getValue(templ.projectName)+'">'+ '<a class="blue" href="javascript:void(0)" onclick="info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>'+
 					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
 					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
 					' </tr>'; 
@@ -247,8 +249,8 @@
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}
-		
-cutStr(5,'cutstr');	}
+cutStr(5,'cutstr');
+	}
 	function moreProjectMeetingCallback(data) {
 		var list = data.entityList;
 		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){

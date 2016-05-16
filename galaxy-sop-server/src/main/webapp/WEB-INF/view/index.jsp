@@ -283,12 +283,21 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 </div>
 
 <jsp:include page="./common/footer.jsp" flush="true"></jsp:include>
+<jsp:include page="./common/uploadwin.jsp" flush="true"></jsp:include>
+<jsp:include page="/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
+
+
 <!-- file -->
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path %>/js/init.js"></script>
+<script src="<%=path %>/js/sop.js" type="text/javascript"></script>
 <!-- clude -->
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
+
+
+
 
 <script type="text/javascript">
 	$(function(){	

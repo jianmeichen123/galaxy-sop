@@ -9,8 +9,9 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 public class Idea extends PagableEntity 
 {
 	private static final long serialVersionUID = 1L;
-	private String ideaName;
 	@NotEmpty(message="创意名称不能为空")
+	private String ideaName;
+	@NotEmpty(message="创意编码不能为空")
 	private String ideaCode;
 	private Long departmentId;
 	private Long createdUid;
