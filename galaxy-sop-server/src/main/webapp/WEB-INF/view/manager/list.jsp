@@ -147,6 +147,7 @@ function setCheckLine(data){
 	$(function(){
 		createMenus(4);
 	});
+	var uid='${galax_session_user.id }';
 	
 	/**
 	 * 分页数据生成操作内容
