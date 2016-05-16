@@ -175,10 +175,19 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		
 		try {
 			PageRequest pageable = new PageRequest();
-			Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
-			Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 10;
-			pageable.setPage(pageNum);
-			pageable.setSize(pageSize);
+			if(StringUtils.isNotBlank(query.getIsforindex())&&query.getIsforindex().equals("isfor")){
+				Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
+				Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 3;
+				pageable = new PageRequest(pageNum, pageSize,Direction.DESC,"created_time");
+				
+				//query.setIdeaProgress(DictEnum.IdeaProgress.CYCJ.getCode());
+			}else{
+				Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
+				Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 10;
+				pageable.setPage(pageNum);
+				pageable.setSize(pageSize);
+			}
+			
 			//提出人
 			if(StringUtils.isNotEmpty(query.getCreatedUname()))
 			{
@@ -273,6 +282,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		return resp;
 	}
+	
 	
 	@RequestMapping("/ideaProjectList")
 	public ModelAndView ideaProjectList(String ideaProgress)

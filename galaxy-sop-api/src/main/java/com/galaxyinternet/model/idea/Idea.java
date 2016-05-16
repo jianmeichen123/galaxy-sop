@@ -43,7 +43,7 @@ public class Idea extends PagableEntity
 	
 	
 	
-	
+	private String isforindex;
 	
 	private String departmentEditable;
 	
@@ -229,6 +229,12 @@ public class Idea extends PagableEntity
 	}
 	public void setDepartmentEditable(String departmentEditable) {
 		this.departmentEditable = departmentEditable;
+	}
+	public String getIsforindex() {
+		return isforindex;
+	}
+	public void setIsforindex(String isforindex) {
+		this.isforindex = isforindex;
 	}
 	
 	

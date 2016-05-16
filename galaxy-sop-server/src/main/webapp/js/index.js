@@ -448,3 +448,64 @@ $(function(){
 		
 });
 
+
+
+
+//主页创意
+function selectCyIndex(){ 
+	var jsonData={"pageNum":0,"pageSize":3,"isforindex":"isfor"}; 
+	sendPostRequestByJsonObj(platformUrl.sopcyshouye,jsonData, cyIndexCallback);
+}
+function cyIndexCallback(data){
+	//组装数据
+	var tbodyList = $("#cy_index");
+	
+	var list =  data.pageList.content;
+	if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
+      var ideaProgress = {
+			"ideaProgress:1":"待认领",
+			"ideaProgress:2":"调研",
+			"ideaProgress:3":"创建立项会",
+			"ideaProgress:4":"搁置",
+			"ideaProgress:5":"创建项目"
+		};
+      
+      
+		$.each(list, function(i, temp){
+			
+			var ideaProgressDesc = "";
+			if (temp.ideaProgress in ideaProgress) {
+				if (temp.ideaProgress == "ideaProgress:1" || temp.ideaProgress == "ideaProgress:4" ) {
+					ideaProgressDesc = '<font class="blue">' + ideaProgress[temp.ideaProgress] + '</fonr>';
+				} else {
+					ideaProgressDesc = ideaProgress[temp.ideaProgress];
+				}
+			}
+			 
+			  var tr='<tr>'+
+				 '<td>'+ temp.ideaCode+'</td>'+
+				 '<td>'+ temp.ideaName+'</td>'+
+				 '<td>'+ temp.departmentDesc+'</td>'+
+				 '<td>'+ Number(temp.createdTime).toDate().format("yyyy-MM-dd")+'</td>'+
+				 '<td>'+ Number(temp.updatedTime).toDate().format("yyyy-MM-dd")+'</td>'+
+				 '<td>'+ temp.createdUname+'</td>'+
+				 '<td>'+ ideaProgressDesc+'</td>'+
+				' </tr>'; 
+			 tbodyList.append(tr);
+		  });
+		
+		if(list.length<3){
+			$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
+		}
+	}else{
+		var noData =
+			'<tr>'+
+			'<td colspan="7">'+'没有找到匹配的记录'+'</td>'+
+			' </tr>'; 			
+		tbodyList.append(noData);
+	}	
+}
+function toCyPage(){
+	window.location.href=$("#menus").find("[data-menueid='21']").attr("href");
+}
+

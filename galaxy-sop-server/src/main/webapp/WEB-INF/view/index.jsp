@@ -151,25 +151,30 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     </dd>
                     -->
                 </dl>
-                  <dl class="Creative_library">
-                    <img src="<%=path%>/img/sy.png" alt="">
-                	<dt><h3 class="ico t2">创意库</h3></dt>
-                    <dd>
-                    	<table width="100%" cellspacing="0"  cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>创意编号</th>
-                                    <th>创意名称</th>
-                                    <th>所属行业</th>
-                                    <th>级别</th>
-                                    <th>创建时间</th>
-                                    <th>最后编辑时间</th>
-                                    <th>创建人</th>
-                                    <th>状态</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
+                
+                 <dl class="Creative_library">
+						<!-- <img src="<%=path%>/img/sy.png" alt=""> -->
+						
+						<dt>
+							<h3 class="ico t2">创意库</h3>
+						</dt>
+						
+						<dd>
+							<table width="100%" cellspacing="0" cellpadding="0">
+								<thead>
+									<tr>
+										<th>创意编号</th>
+										<th>创意名称</th>
+										<th>所属行业</th>
+										<th>创建时间</th>
+										<th>最后编辑时间</th>
+										<th>创建人</th>
+										<th>状态</th>
+									</tr>
+								</thead>
+
+								<tbody id="cy_index">
+									<!--  <tr>
                                     <td>cy001</td>
                                     <td>美好生活</td>
                                     <td>o2o电商</td>
@@ -178,35 +183,19 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                                     <td>2016-1-21</td>
                                     <td>徐茂栋</td>
                                     <td><span class="blue">待认领</span></td>
-                                </tr>
-                                <tr>
-                                    <td>cy001</td>
-                                    <td>美好生活</td>
-                                    <td>o2o电商</td>
-                                    <td>高</td>
-                                    <td>2016-1-29</td>
-                                    <td>2016-1-21</td>
-                                    <td>徐茂栋</td>
-                                    <td><span class="blue">待认领</span></td>
-                                </tr>
-                                <tr>
-                                    <td>cy001</td>
-                                    <td>美好生活</td>
-                                    <td>o2o电商</td>
-                                    <td>高</td>
-                                    <td>2016-1-29</td>
-                                    <td>2016-1-21</td>
-                                    <td>徐茂栋</td>
-                                    <td><span class="blue">待认领</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </dd>
-                <!--     <dd class="clearfix">
-                    	<a href="javascript:;" class="more null">more</a>
-                    </dd>
-                     -->
-                </dl>
+                                </tr> -->
+								</tbody>
+							</table>
+						</dd>
+
+						<dd class="clearfix">
+							<a href="javascript:;" onclick="toCyPage()" class="more null">more</a>
+							<!--  <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
+						</dd>
+
+					</dl>
+
+
             </div>
             <!--右侧列表-->
             <div class="r">
@@ -305,6 +294,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		top5ProjectMeeting();
 		ProjectVoteWill();
 		selectSopTask();
+		selectCyIndex();
 		createMenus(1);
 		top5Message();
 		ceopaiqi();

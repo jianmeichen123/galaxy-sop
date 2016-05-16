@@ -495,6 +495,11 @@ var platformUrl = {
 	 */
 	updateInterview: Constants.sopEndpointURL+ "/galaxy/project/progress/updateInterview",
 	
+	/**
+	 * 创意 列表
+	 */		
+	sopcyshouye: Constants.sopEndpointURL+"/galaxy/idea/search",
+	
 }
 
 /**
