@@ -128,6 +128,44 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return null;
 	}
 	
+	
+	
+	/**
+	 * 添加页面
+	 */
+	@RequestMapping(value = "/interViewLog", method = RequestMethod.GET)
+	public String interViewLog() {
+		return "project/sop/viewLogorEdit";
+	}
+
+	
+	/**
+	 * OSS访谈录音追加
+	 * @param   interviewRecord 
+	 * 			produces="application/text;charset=utf-8"
+	 * @param viewid 访谈id
+	 * @return responseBody.setId(id) fileId
+	 */
+	@com.galaxyinternet.common.annotation.Logger
+	@ResponseBody
+	@RequestMapping(value = "/updateInterview", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> updateInterview(@RequestBody InterviewRecord interviewRecord, HttpServletRequest request ) {
+			ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		try {
+			interviewRecordService.updateById(interviewRecord);
+		    responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(interviewRecord.getId());
+			} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "修改日志失败"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("updateInterview修改日志失败",e);
+			}
+		}
+		return responseBody;
+	}
+
+	
 	private Map<String, String> transFileNames(String fileName) {
 		Map<String, String> retMap = new HashMap<String, String>();
 		int dotPos = fileName.lastIndexOf(".");
@@ -193,6 +231,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
+			interviewRecord.setCreatedId(user.getId());
 			
 			//保存
 			Long id = null;
@@ -855,6 +894,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
 				return responseBody;
 			}
+			interviewRecord.setCreatedId(user.getId());
 			//project id 验证
 			Project project = new Project();
 			project = projectService.queryById(interviewRecord.getProjectId());

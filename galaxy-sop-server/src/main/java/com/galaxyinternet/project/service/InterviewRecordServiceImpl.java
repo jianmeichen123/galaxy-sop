@@ -131,6 +131,8 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 				bo.setViewDateStr(ib.getViewDateStr());
 				bo.setViewTarget(ib.getViewTarget());
 				bo.setViewNotes(ib.getViewNotes());
+				bo.setId(ib.getId());
+				bo.setCreatedId(ib.getCreatedId());
 				if(ib.getFileId()!=null){
 					SopFile file  = sopFileDao.selectById(ib.getFileId());
 					if(file!=null){

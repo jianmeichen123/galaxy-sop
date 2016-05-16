@@ -140,14 +140,18 @@ function setCheckLine(data){
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
-
+<!-- 富文本编辑器 -->
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script type="text/javascript" src="<%=path %>/js/manager/js/filerepository.js"></script>
 
 <script type="text/javascript">
 	$(function(){
 		createMenus(4);
 	});
-	
+	var uid='${galax_session_user.id}';
 	/**
 	 * 分页数据生成操作内容
 	 */

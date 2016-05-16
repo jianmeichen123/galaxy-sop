@@ -775,8 +775,27 @@ function meetInfoFormat(value, row, index){
 			"</div>" ;
 	return rc;
 }
-
-
+//富文本截取        //======= 废弃   ====//
+function formatInterview(value,row,index){
+	var len = getLength($.trim(value));
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>100){
+			// title='"+strrrr+"'
+			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\">"+
+			subValue+
+			"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >...详情<a>"+    
+		'</div>';
+			return rc;
+		}else if(len==0){
+			return "<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >编辑<a>"
+     	}else {
+			return strlog+"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+		}
+	}
+} 
 //interview
 function sublengthFormat(value,row,index){
 	//统一去掉说有标签

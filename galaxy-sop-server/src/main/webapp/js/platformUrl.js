@@ -400,7 +400,8 @@ var platformUrl = {
 	/**
 	 * 修改密码
 	 */
-	updatePwd : Constants.sopEndpointURL + "/galaxy/home/updatePwd"
+	updatePwd : Constants.sopEndpointURL + "/galaxy/home/updatePwd",
+	updateInterview: Constants.sopEndpointURL+ "/galaxy/project/progress/updateInterview"
 }
 
 /**

@@ -148,6 +148,7 @@
 
 <script type="text/javascript">
 	createMenus(5);
+	var uid='${galax_session_user.id }';
 	/**
 	 * 分页数据生成操作内容
 	 */

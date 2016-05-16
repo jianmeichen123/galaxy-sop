@@ -219,12 +219,15 @@
 				</div>
 				<table id="projectProgress_1_table"
 					data-url="<%=path%>/galaxy/project/progress/queryInterview"
-					data-page-list="[10,20,30]" data-toolbar="#projectProgress_1_table_custom-toolbar">
+					data-page-list="[10,20,30]"
+					data-id-field="id" data-unique-id="id"
+					data-side-pagination="server" data-pagination="true"
+					 data-toolbar="#projectProgress_1_table_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="formatInterview">访谈日志</th>
 						</tr>
 					</thead>
 				</table>

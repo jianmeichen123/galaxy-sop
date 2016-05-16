@@ -1223,3 +1223,39 @@ function downloadTemplate(templateType)
 	var url = platformUrl.tempDownload+"?worktype="+templateType+pidParam;
 	forwardWithHeader(url);
 }
+function showLogdetail(selectRowId){
+	var interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
+	var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+		var um=UM.getEditor('viewNotes');
+		um.setContent(interviewSelectRow.viewNotes);
+		//alert(uid+"----"+interviewSelectRow.createdId);
+		$("#vid").val(selectRowId);
+		if(uid!=interviewSelectRow.createdId){
+			$("#interviewsave").hide();
+		}
+		
+	}//模版反回成功执行	
+});
+	return false;
+}
+function interviewsave(){  
+		var um = UM.getEditor('viewNotes');
+	var log = um.getContent();
+	var pid=$("#vid").val();
+	if(pid != '' && log != ''){
+		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
+			if (data.result.status=="OK") {
+				layer.msg("保存成功");
+				$(".meetingtc").find("[data-close='close']").click();
+				$("#projectProgress_1_table").bootstrapTable('refresh');
+			} else {
+				layer.msg(data.result.message);
+			}
+			
+		});
+	}
+}
