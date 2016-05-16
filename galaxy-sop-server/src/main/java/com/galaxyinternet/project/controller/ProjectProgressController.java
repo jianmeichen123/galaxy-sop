@@ -889,7 +889,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		Long viewId;
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			System.err.println("uid:" + user.getId());
 			if(interviewRecord == null || interviewRecord.getProjectId() == null || interviewRecord.getViewDate() == null || interviewRecord.getViewTarget() == null ){
 				responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
 				return responseBody;
