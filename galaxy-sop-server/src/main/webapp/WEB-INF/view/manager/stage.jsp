@@ -209,7 +209,10 @@
 				</div>
 				<table id="projectProgress_1_table"
 					data-url="<%=path%>/galaxy/project/progress/queryInterview"
-					data-page-list="[10,20,30]" data-toolbar="#projectProgress_1_table_custom-toolbar">
+					data-page-list="[10,20,30]"
+					data-id-field="id" data-unique-id="id" 
+					data-side-pagination="server"
+					 data-toolbar="#projectProgress_1_table_custom-toolbar" data-show-refresh="true" > 
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
