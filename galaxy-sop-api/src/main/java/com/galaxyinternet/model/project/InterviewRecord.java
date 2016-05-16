@@ -23,7 +23,7 @@ public class InterviewRecord extends BaseEntity{
 
     private String fname;
     
-    private Long createId;
+    private Long createdId;
     
     public Long getProjectId() {
         return projectId;
@@ -119,13 +119,14 @@ public class InterviewRecord extends BaseEntity{
 		this.fname = fname;
 	}
 
-	public Long getCreateId() {
-		return createId;
+	public Long getCreatedId() {
+		return createdId;
 	}
 
-	public void setCreateId(Long createId) {
-		this.createId = createId;
+	public void setCreatedId(Long createdId) {
+		this.createdId = createdId;
 	}
+
 	
 	
 	
