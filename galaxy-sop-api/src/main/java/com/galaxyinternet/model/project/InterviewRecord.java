@@ -20,10 +20,13 @@ public class InterviewRecord extends BaseEntity{
     private String viewTarget;
 
     private String viewNotes;
-
+    private String viewNotesText;
+    
     private String fname;
     
     private Long createdId;
+    
+    
     
     public Long getProjectId() {
         return projectId;
@@ -125,6 +128,14 @@ public class InterviewRecord extends BaseEntity{
 
 	public void setCreatedId(Long createdId) {
 		this.createdId = createdId;
+	}
+
+	public String getViewNotesText() {
+		return viewNotesText;
+	}
+
+	public void setViewNotesText(String viewNotesText) {
+		this.viewNotesText = viewNotesText;
 	}
 
 	

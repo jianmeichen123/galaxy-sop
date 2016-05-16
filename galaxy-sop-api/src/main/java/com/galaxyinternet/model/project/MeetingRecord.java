@@ -25,6 +25,8 @@ public class MeetingRecord  extends RecordEntity{
     private String meetingResultStr;
 
     private String meetingNotes;
+    
+    private String meetingNotesText;
 
     private String fname;
     
@@ -230,7 +232,15 @@ public class MeetingRecord  extends RecordEntity{
 		this.meetValid = meetValid;
 	}
 
+	public String getMeetingNotesText() {
+		return meetingNotesText;
+	}
 
+	public void setMeetingNotesText(String meetingNotesText) {
+		this.meetingNotesText = meetingNotesText;
+	}
+
+    
 
 	
 
