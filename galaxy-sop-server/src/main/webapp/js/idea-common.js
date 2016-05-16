@@ -36,6 +36,10 @@
 	}
 	function ideaNameLinkFormatter(val,row,index)
 	{
+		return '<a href="#" class="blue" onclick="showIdeaDetail(\'' + row.id + '\')">'+val+'</a>';
+	}
+	function ideaNameLinkFormatter2(val,row,index)
+	{
 		return '<a href="#" class="blue" onclick="infoIdea(\'' + row.id + '\',\''+  row.ideaName + '\')">'+val+'</a>';
 	}
 	function proNameLinkFormatter(val,row,index)
@@ -123,7 +127,6 @@
 	
 	
 	//stage 弹出
-	//
 	var ideaInfo;
 	function showIdeaDetail(ideaId)
 	{
@@ -133,78 +136,22 @@
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
-				
 				$(".creativetc .tabtable").tabchange2();
 				
 				//基本信息  -- 数据展示  index =1
 				ideaInfo = getIdeaInfo(ideaId);
 				$(".idea-title").text(ideaInfo.ideaName);
-				//=====
 				$("[data-id='ideaNowId']").val(ideaId);
-				//====
 				
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = ideaInfo.ideaProgress;
 				progress = progress.replace(":","_");
 				var index = Number(progress.substr("ideaProgress_".length));
 				
-				
+				bindTabClickEvents(index);  // tab 选项卡绑定 click 事件    用于重新刷新
+				ideaLoaded(ideaInfo,index); // 控制按钮显示、隐藏、可用。禁用等
 				bindTcEvents(index);  //按钮 bind 弹窗
-				cyToProShow();
-				ideaLoaded(ideaInfo,index);   //控制按钮显示、隐藏、可用。禁用等
-				
-				// == begin  tab 选项卡绑定 click 事件    用于重新刷新
-				for(var i = 1; i<6; i++){
-					
-					if(i > index || (i>1 && index==4)){      //当前阶段之后的tab变为不可用;搁置时，与待认领相同；
-						$("#ideaProgress_" + i).addClass("disabled");
-					}
-					
-					$("#ideaProgress_" + i).on("click",function(){
-						var id = $(this).attr("id");
-						var indexNum = id.substr(id.length-1,1);
-						switch(indexNum){
-						case '1':
-							
-							break;
-						case '2' :
-							var clickN = $("#ideaProgress_2").data("clickn");
-							if(clickN != '0'){
-								$("#ideaProgress_2_table").bootstrapTable('refresh');
-							}else{
-								//tiggerTable($("#ideaProgress_2_table"),3);
-								init_ideaProgress_2_table(index);
-								$("#ideaProgress_2").data("clickn","n");
-							}
-							//tiggerTable($("#ideaProgress_2_table"),3);
-							break;
-						case '3':
-							var clickN = $("#ideaProgress_3").data("clickn");
-							if(clickN != '0'){
-								$("#ideaProgress_3_table").bootstrapTable('refresh');
-							}else{
-								tiggerTable($("#ideaProgress_3_table"),2);
-								$("#ideaProgress_3").data("clickn","n");
-							}
-							break;
-						case '5':
-							
-							break;
-						default :
-							break;
-						}
-					});
-				}
-				$("#ideaOperateLog").on("click",function(){
-					var clickN = $("#ideaOperateLog").data("clickn");
-					if(clickN != '0'){
-						$("#ideaProgress_log_table").bootstrapTable('refresh');
-					}else{
-						tiggerTable($("#ideaProgress_log_table"),2);
-						$("#ideaOperateLog").data("clickn","n");
-					}
-				});
-				// == end tab 选项卡绑定  click 事件
+				//cyToProShow();  //创建项目  阶段，点击项目列表 - <a>项目名称</a> 弹出事件
 				
 				//显示当前阶段
 				if(index == '2' || index == '3' || index== '5')
@@ -256,6 +203,63 @@
 	{
 		$("#powindow,#popbg").remove();
 		showIdeaDetail(ideaId);
+	}
+	
+	
+	// tab 选项卡绑定 click 事件    用于重新刷新
+	function bindTabClickEvents(index){
+		// == begin  tab 选项卡绑定 click 事件    用于重新刷新
+		for(var i = 1; i<6; i++){
+			
+			if(i > index || (i>1 && index==4)){      //当前阶段之后的tab变为不可用;搁置时，与待认领相同；
+				$("#ideaProgress_" + i).addClass("disabled");
+			}
+			
+			$("#ideaProgress_" + i).on("click",function(){
+				var id = $(this).attr("id");
+				var indexNum = id.substr(id.length-1,1);
+				switch(indexNum){
+				case '1':
+					
+					break;
+				case '2' :
+					var clickN = $("#ideaProgress_2").data("clickn");
+					if(clickN != '0'){
+						$("#ideaProgress_2_table").bootstrapTable('refresh');
+					}else{
+						//tiggerTable($("#ideaProgress_2_table"),3);
+						init_ideaProgress_2_table(index);
+						$("#ideaProgress_2").data("clickn","n");
+					}
+					//tiggerTable($("#ideaProgress_2_table"),3);
+					break;
+				case '3':
+					var clickN = $("#ideaProgress_3").data("clickn");
+					if(clickN != '0'){
+						$("#ideaProgress_3_table").bootstrapTable('refresh');
+					}else{
+						tiggerTable($("#ideaProgress_3_table"),2);
+						$("#ideaProgress_3").data("clickn","n");
+					}
+					break;
+				case '5':
+					
+					break;
+				default :
+					break;
+				}
+			});
+		}
+		$("#ideaOperateLog").on("click",function(){
+			var clickN = $("#ideaOperateLog").data("clickn");
+			if(clickN != '0'){
+				$("#ideaProgress_log_table").bootstrapTable('refresh');
+			}else{
+				tiggerTable($("#ideaProgress_log_table"),2);
+				$("#ideaOperateLog").data("clickn","n");
+			}
+		});
+		// == end tab 选项卡绑定  click 事件
 	}
 	
 	/**
