@@ -60,8 +60,8 @@
     		</dd>
         </div>
     </dl> -->
-    <div class="btnbox save_log">
-    	<a href="javascript:;" id="interviewsave" class="pubbtn bluebtn" onclick="interviewsave()">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
+    <div id="interviewsave" class="btnbox save_log">
+    	<a href="javascript:;"  class="pubbtn bluebtn" onclick="interviewsave()">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
 <script type="text/javascript">
