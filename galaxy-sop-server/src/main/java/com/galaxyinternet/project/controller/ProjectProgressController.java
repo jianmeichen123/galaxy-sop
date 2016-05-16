@@ -199,7 +199,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
 			return responseBody;
 		}
-		
+		interviewRecord.setCreatedId(user.getId());
 		try {
 			//project  验证
 			Project project = new Project();
@@ -237,7 +237,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
 				//sopFile.setFileWorktype(fileWorkType);    //业务分类
 				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
-				
 				id = interviewRecordService.insertInterview(interviewRecord,sopFile);
 			}else if(!ServletFileUpload.isMultipartContent(request)){
 				id = interviewRecordService.insert(interviewRecord);
@@ -946,7 +945,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
-			
+			interviewRecord.setCreatedId(user.getId());
 			//验证是否附件已上传
 			if(interviewRecord.getFkey()!=null){
 				if(interviewRecord.getBucketName()==null || interviewRecord.getFileLength()==null||interviewRecord.getFname()==null){

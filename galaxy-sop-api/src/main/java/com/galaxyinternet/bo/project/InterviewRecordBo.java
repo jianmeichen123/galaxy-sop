@@ -6,8 +6,12 @@ import com.galaxyinternet.model.project.InterviewRecord;
 
 public class InterviewRecordBo extends InterviewRecord{
 
-	private static final long serialVersionUID = 1L;
+
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String proName;
 	private String fkey;
 	private String bucketName;

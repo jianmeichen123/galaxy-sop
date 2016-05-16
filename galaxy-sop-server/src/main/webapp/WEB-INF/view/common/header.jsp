@@ -8,10 +8,12 @@
     String realName="";
     String deptName = "";
     String roleName = "";
+    Long userId=null;
     Long roleId=null;
  //   HttpSession session=request.getSession(); 
     if(null != user && null != user.getRealName()){
     	realName=user.getRealName();
+    	userId=user.getId();
     	request.getSession().setAttribute("realName", realName);
     //	session.setAttribute("realName", realName);
     }
