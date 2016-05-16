@@ -262,6 +262,21 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		if(query.getProjectId()!=null){   // 项目tab查询
 			meetList = meetingRecordDao.selectList(query, pageable);
 			total = meetingRecordDao.selectCount(query);
+			
+			//配合APP端新增获取相关字段
+			Project  proQ = new Project();
+			proQ.setCreateUid(query.getUid());
+			proQ.setKeyword(query.getKeyword());
+			List<Project> proList = projectDao.selectList(proQ);
+			
+			//获取 projectId List
+			if(proList!=null&&!proList.isEmpty()){
+				List<Long> proIdList = new ArrayList<Long>();
+				for(Project apro : proList){
+					proIdList.add(apro.getId());
+					proIdNameMap.put(apro.getId(), apro.getProjectName());
+				}
+			}
 		}else{    //列表查询_个人创建
 			Project  proQ = new Project();
 			proQ.setCreateUid(query.getUid());
