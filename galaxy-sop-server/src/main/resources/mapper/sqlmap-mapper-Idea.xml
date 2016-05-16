@@ -42,6 +42,7 @@
 				<if test="departmentId != null" > and department_id = #{departmentId,jdbcType=BIGINT} </if>
 				<if test="ideaProgress != null" > and idea_progress = #{ideaProgress,jdbcType=VARCHAR} </if>
 				<if test="createdUid != null" > and created_uid = #{createdUid,jdbcType=BIGINT} </if>
+				<if test="claimantUid != null" > and claimant_uid = #{claimantUid,jdbcType=BIGINT} </if>
 				<if test="createdUids != null">
 					and created_uid in 
 					<foreach collection="createdUids" index="item" item="item" open="(" separator="," close=")">
