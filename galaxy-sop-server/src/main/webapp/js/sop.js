@@ -1342,7 +1342,12 @@ function showLogdetail(selectRowId){
 		okback:function(){
 		var um=UM.getEditor('viewNotes');
 		um.setContent(interviewSelectRow.viewNotes);
+		//alert(uid+"----"+interviewSelectRow.createdId);
 		$("#vid").val(selectRowId);
+		if(uid!=interviewSelectRow.createdId){
+			$("#interviewsave").hide();
+		}
+		
 	}//模版反回成功执行	
 });
 	return false;

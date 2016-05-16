@@ -10,6 +10,8 @@ import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.model.project.MeetingScheduling;
 
 
@@ -69,7 +71,17 @@ public class MeetingSchedulingDaoImpl extends BaseDaoImpl<MeetingScheduling, Lon
 			this.updateBySelective(entity);
 		}
 	}
-	
+	@Override
+	public Page<MeetingScheduling> getMeetingList(MeetingScheduling bo,PageRequest page) {
+		// TODO Auto-generated method stub
+		try {
+			List<MeetingScheduling> list=sqlSessionTemplate.selectList(getSqlName("select"), getParams(bo, page));
+			return new  Page<MeetingScheduling>(list, page, this.selectCount(bo));
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询对象出错！语句：%s", getSqlName("selectTotal")), e);
+		}
+	}
+
 	
 	
 }

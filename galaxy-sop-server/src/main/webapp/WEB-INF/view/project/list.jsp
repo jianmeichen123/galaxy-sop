@@ -40,6 +40,8 @@
  	<div class="ritmin">
     	<h2>我的项目</h2>
     	 <input type="hidden" id="project_id" value=""/>
+    	 <input type="hidden" id="uid" value=""/>
+    	 
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
@@ -150,6 +152,7 @@
 	/**
 	 * 分页数据生成操作内容
 	 */
+	var uid='${galax_session_user.id }';
 	function editor(value, row, index){
 		var id=row.id;
 		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
@@ -168,8 +171,7 @@
 		var pid = "${pid}";
 		if(!(!pid)){
 			info(pid);
-		}
-		
+		}	
 	});
 </script>
 

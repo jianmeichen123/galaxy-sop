@@ -99,6 +99,7 @@
 						<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<th  data-field="proName" data-align="center">所属项目</th>  
 						<th  data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
+						<!-- <th  data-field="createdId" data-align="center"></th> -->
 					</tr>
 				</thead>
 			</table>
@@ -184,6 +185,12 @@ function showLogdetail(selectRowId){
 		okback:function(){
 		var um=UM.getEditor('viewNotes');
 		um.setContent(interviewSelectRow.viewNotes);
+		var uid='<%=userId%>';
+	//	alert(uid+"----"+interviewSelectRow.createdId);
+		if(uid!=interviewSelectRow.createdId){
+			$("#interviewsave").hide();
+		}
+		//$("#interviewsave").hide();
 		$("#vid").val(selectRowId);
 	}//模版反回成功执行	
 });
@@ -206,9 +213,6 @@ function interviewsave(){
 		});
 	}
 }
-
-
-
 </script>
 
 </body>
