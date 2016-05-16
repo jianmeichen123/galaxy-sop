@@ -57,7 +57,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt>关键字：</dt>
 					<dd>
-						<input type="text" class="txt" name="keyword" placeholder="创意名称或编码" />
+						<input type="text" class="txt" name="keyword" placeholder="创意名称或编码" value="${name}" />
 					</dd>
 				</dl>
 				<dl class="fmdl fml fmdll clearfix">
@@ -221,6 +221,13 @@
 					
 				}
 			});
+		}
+	});
+	
+	$(function(){
+		var indextoid = "${indextoid}";
+		if(!(!indextoid)){
+			showIdeaDetail(indextoid);
 		}
 	});
 	

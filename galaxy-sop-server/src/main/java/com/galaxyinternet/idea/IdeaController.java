@@ -163,8 +163,14 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String list()
+	public String list(HttpServletRequest request)
 	{
+		String id = request.getParameter("indextoid");
+		if(StringUtils.isNotBlank(id)){
+			Idea idea = ideaService.queryById(Long.parseLong(id));
+			request.setAttribute("indextoid", id);
+			request.setAttribute("name", idea.getIdeaName());
+		}
 		return "idea/idea_list";
 	}
 	@ResponseBody

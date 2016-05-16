@@ -476,23 +476,23 @@ function cyIndexCallback(data){
 			var ideaProgressDesc = "";
 			if (temp.ideaProgress in ideaProgress) {
 				if (temp.ideaProgress == "ideaProgress:1" || temp.ideaProgress == "ideaProgress:4" ) {
-					ideaProgressDesc = '<font class="blue">' + ideaProgress[temp.ideaProgress] + '</fonr>';
+					ideaProgressDesc = "<a href=\'javascript:;\' class=\'blue\' onclick=\'toCyOper("+temp.id+")\' >" + ideaProgress[temp.ideaProgress] + '</a>';
 				} else {
 					ideaProgressDesc = ideaProgress[temp.ideaProgress];
 				}
 			}
 			 
-			  var tr='<tr>'+
-				 '<td>'+ temp.ideaCode+'</td>'+
-				 '<td>'+ temp.ideaName+'</td>'+
-				 '<td>'+ temp.departmentDesc+'</td>'+
-				 '<td>'+ (!(temp.createdTime)?'-': Number(temp.createdTime).toDate().format("yyyy-MM-dd"))+'</td>'+
-				 '<td>'+ (!(temp.updatedTime)?'-': Number(temp.updatedTime).toDate().format("yyyy-MM-dd"))+'</td>'+
-				 '<td>'+ temp.createdUname+'</td>'+
-				 '<td>'+ ideaProgressDesc+'</td>'+
-				' </tr>'; 
-			 tbodyList.append(tr);
-		  });
+			var tr='<tr>'+
+				'<td>'+ temp.ideaCode+'</td>'+
+				'<td>'+ temp.ideaName+'</td>'+
+				'<td>'+ temp.departmentDesc+'</td>'+
+				'<td>'+ (!(temp.createdTime)?'-': Number(temp.createdTime).toDate().format("yyyy-MM-dd"))+'</td>'+
+				'<td>'+ (!(temp.updatedTime)?'-': Number(temp.updatedTime).toDate().format("yyyy-MM-dd"))+'</td>'+
+				'<td>'+ temp.createdUname+'</td>'+
+				'<td>'+ ideaProgressDesc+'</td>'+
+				'</tr>'; 
+			tbodyList.append(tr);
+		});
 		
 		if(list.length<3){
 			$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
@@ -507,5 +507,9 @@ function cyIndexCallback(data){
 }
 function toCyPage(){
 	window.location.href=$("#menus").find("[data-menueid='21']").attr("href");
+}
+
+function toCyOper(ideaid){
+	window.location.href=$("#menus").find("[data-menueid='21']").attr("href")+"&indextoid="+ideaid;
 }
 
