@@ -499,7 +499,7 @@ function tzyxs(flag){
 					        	handlefile+'</div>'+
 						        '<div class="process clearfix">'+
 						        '<h2>投资意向书盖章流程</h2>'+
-						        '<img src="'+Constants.sopEndpointURL+'/img/process.png" alt="">'+
+						        '<img src="'+Constants.sopEndpointURL+'img/process.png" alt="">'+
 						        '</div>';
 						        
 						    var htmlstart=htmlhead+'<table width=\"100%" cellspacing="0" cellpadding="0" >'+

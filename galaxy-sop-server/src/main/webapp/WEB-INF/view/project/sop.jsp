@@ -2,6 +2,9 @@
 <%
 	String path = request.getContextPath();
 %>
+<style>
+.bars{display:none;}
+</style>
 <div class="myprojecttc">
 	<a href="javascript:;" data-close="close" class="close null">关闭</a>
 	<!-- 项目介绍 -->
@@ -228,7 +231,7 @@
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="formatInterview">访谈日志</th>
 						</tr>
 					</thead>
 				</table>

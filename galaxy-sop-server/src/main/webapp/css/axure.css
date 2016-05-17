@@ -1313,7 +1313,7 @@ dl dt,dl label{font-weight: normal !important;}
 /*ie8select文字垂直居中*/
 select{padding: 6px 0 !important;}
 /**切断文字**/
-.text-overflow{width:400px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
+.text-overflow{width:420px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
 /**切断文字 end**/
 #template-table{border-radius: 6px;}
 .percentTxt{width:30px !important;display: inline-block !important;}
@@ -1330,4 +1330,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
   background: #fff url(../img/btnico2.png) right -154px no-repeat !important;
   font-size: 12px;
   padding-left: 5px;
+}
+.save_log{
+	width:210px;
+	margin:0 auto !important;
 }
