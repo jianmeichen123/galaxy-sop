@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.model.project.MeetingScheduling;
 
 public interface MeetingSchedulingDao extends BaseDao<MeetingScheduling, Long> {
@@ -25,5 +27,7 @@ public interface MeetingSchedulingDao extends BaseDao<MeetingScheduling, Long> {
 	 * @param entityList
 	 */
 	void updateBatch(List<MeetingScheduling> entityList);
+	
+	public Page<MeetingScheduling> getMeetingList(MeetingScheduling bo,PageRequest page);
 
 }

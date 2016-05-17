@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.MeetingScheduling;
 
@@ -49,5 +50,6 @@ public interface MeetingSchedulingService extends BaseService<MeetingScheduling>
 	 */
 	public void updateBatch(List<MeetingScheduling> entityList);
 	
+	public Page<MeetingScheduling> getMeetingList(MeetingScheduling query,PageRequest pageRequest);
 	
 }

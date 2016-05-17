@@ -48,7 +48,7 @@
 				<thead>
 				    <tr>
 				    	<th data-field="ideaCode" data-align="center" class="data-input">创意编码</th>
-			        	<th data-field="ideaName" data-align="center" class="data-input" data-formatter="ideaNameLinkFormatter">创意名称</th>
+			        	<th data-field="ideaName" data-align="center" class="data-input" data-formatter="ideaNameLinkFormatter2">创意名称</th>
 			        	<th data-field="projectName" data-align="center" class="data-input" data-formatter="proNameLinkFormatter">关联项目</th>
 			        	<th data-field="departmentDesc" data-align="center" class="data-input">所属事业线</th>
 			        	<th data-field="projectProgressDesc" data-align="center" class="data-input">进度</th>

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.PassRateBo;
+import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.SopResult;
@@ -1748,13 +1749,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/queryScheduling/{type}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingScheduling> searchSchedulingList(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody MeetingScheduling query) {
+	public ResponseData<MeetingScheduling> searchSchedulingList(HttpServletRequest request, @PathVariable("type") Integer type, @RequestBody MeetingSchedulingBo query) {
 		
 		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
 		PageRequest pageable = new PageRequest(0, 10, Direction.DESC,"apply_time");
 		Page<MeetingScheduling> pageEntity = new Page<MeetingScheduling>(null,pageable , null);
 		List<MeetingScheduling> sl = new ArrayList<MeetingScheduling>();
-		
+		pageEntity.setTotal(new Long(0));
+		pageEntity.setContent(sl);
+		responseBody.setPageList(pageEntity);
+		responseBody.setResult(new Result(Status.OK, ""));
 		try {	
 			if(type.intValue() == 0){
 				query.setMeetingType(DictEnum.meetingType.立项会.getCode());
@@ -1814,6 +1818,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			 */
 			List<Project> projectCommonList = new ArrayList<Project>();
 			List<MeetingScheduling> schedulingList = new ArrayList<MeetingScheduling>();
+			Page<MeetingScheduling> pageList = null; 
 			ProjectBo mpb = new ProjectBo();
 			if(query.getKeyword() != null){
 				mpb.setKeyword(query.getKeyword());
@@ -1829,19 +1834,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					pids.add(pr.getId());
 				}
 				query.setProjectIdList(pids);
-				schedulingList=meetingSchedulingService.queryList(query);
+				pageList=meetingSchedulingService.getMeetingList(query, new PageRequest(query.getPageNum(), query.getPageSize()));
+				schedulingList = pageList.getContent();
+			}else{
+				return responseBody;
 			}
-			
 			/***
 			 * 若无数据则返回
 			 */
 			if(schedulingList.size() == 0 ){
-				pageEntity.setTotal(new Long(0));
-				pageEntity.setContent(sl);
-				responseBody.setPageList(pageEntity);
-				responseBody.setResult(new Result(Status.OK, ""));
 				return responseBody;
 			}
+			
 			List<String> ids = new ArrayList<String>();
 			for(MeetingScheduling ms : schedulingList){
 				byte Edit = 1;
@@ -1900,11 +1904,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					
 				}
 			}
-			pageEntity.setTotal(new Long(schedulingList.size()));
-			sl.addAll(schedulingList.subList(
-					pageable.getPageNumber()*pageable.getPageSize(), 
-					(pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize()) > schedulingList.size() ? schedulingList.size() : (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize())));
-			pageEntity.setContent(sl);
+			pageEntity.setTotal(pageList.getTotal());
+			pageEntity.setContent(pageList.getContent());
 			responseBody.setPageList(pageEntity);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;
