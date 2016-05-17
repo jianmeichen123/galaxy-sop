@@ -26,7 +26,6 @@ import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
-import com.galaxyinternet.model.sopfile.AppSopFile;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.MeetingRecordService;
@@ -119,7 +118,7 @@ public class AppIdeaProgressController extends BaseControllerImpl<Idea, Idea> {
 				
 				if(i==5){//创建项目的阶段
 					appIdea.setIdeaProgresss(DictEnum.IdeaProgress.getName("ideaProgress:5"));
-					appIdea.setIpCode(DictEnum.IdeaProgress.CYXM.getCode());;
+					appIdea.setIpCode(DictEnum.IdeaProgress.CYXM.getCode());
 					if(idea.getProjectId()!=null){
 						Project p = projectService.queryById(idea.getProjectId());						
 						appIdea.setProjectName(p.getProjectName()); //项目名称
@@ -140,7 +139,7 @@ public class AppIdeaProgressController extends BaseControllerImpl<Idea, Idea> {
 				}
 				if(i==3){//创建立项会的阶段   PROJECT((byte) 0, "项目"), IDEAS((byte) 1, "创意");
 					appIdea.setIdeaProgresss(DictEnum.IdeaProgress.getName("ideaProgress:3"));
-					appIdea.setIpCode(DictEnum.IdeaProgress.CYLXH.getCode());;
+					appIdea.setIpCode(DictEnum.IdeaProgress.CYLXH.getCode());
 					meetingRecord.setRecordType(DictEnum.RecordType.IDEAS.getType());
 					meetingRecord.setMeetValid((byte)0);
 					meetingRecord.setProjectId(id);
