@@ -485,9 +485,9 @@ function cyIndexCallback(data){
 			var tr='<tr>'+
 				'<td>'+ temp.ideaCode+'</td>'+
 				'<td>'+ temp.ideaName+'</td>'+
-				'<td>'+ temp.departmentDesc+'</td>'+
-				'<td>'+ (!(temp.createdTime)?'-': Number(temp.createdTime).toDate().format("yyyy-MM-dd"))+'</td>'+
-				'<td>'+ (!(temp.updatedTime)?'-': Number(temp.updatedTime).toDate().format("yyyy-MM-dd"))+'</td>'+
+				'<td>'+ temp.departmentDesc+'</td>'+ 
+				'<td>'+ ((isNaN(temp.createdTime))?'-': Number(temp.createdTime).toDate().format("yyyy-MM-dd"))+'</td>'+
+				'<td>'+ ((isNaN(temp.updatedTime))?'-': Number(temp.updatedTime).toDate().format("yyyy-MM-dd"))+'</td>'+
 				'<td>'+ temp.createdUname+'</td>'+
 				'<td>'+ ideaProgressDesc+'</td>'+
 				'</tr>'; 
