@@ -790,7 +790,7 @@ function formatInterview(value,row,index){
 		'</div>';
 			return rc;
 		}else if(len==0){
-			return "<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >编辑<a>"
+			return "<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
      	}else {
 			return strlog+"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
 		}
