@@ -168,6 +168,8 @@ public class MeetingScheduling extends PagableEntity {
 
 	public void setMeetingType(String meetingType) {
 		this.meetingType = meetingType == null ? null : meetingType.trim();
+    	
+		
 	}
 
 	public Integer getMeetingCount() {

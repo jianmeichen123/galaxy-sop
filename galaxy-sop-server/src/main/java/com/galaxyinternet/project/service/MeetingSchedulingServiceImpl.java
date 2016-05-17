@@ -14,6 +14,7 @@ import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
@@ -323,6 +324,13 @@ public class MeetingSchedulingServiceImpl
 		
 		 meetingSchedulingDao.updateBatch(entityList);
 		
+	}
+	
+	@Override
+	public Page<MeetingScheduling> getMeetingList(MeetingScheduling bo,PageRequest page) {
+		// TODO Auto-generated method stub
+		Page<MeetingScheduling> list=meetingSchedulingDao.getMeetingList(bo,page);
+		return list;
 	}
 
 

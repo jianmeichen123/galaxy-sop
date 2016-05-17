@@ -1,9 +1,12 @@
 package com.galaxyinternet.project.service;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
@@ -13,7 +16,6 @@ import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.AppSopFile;
 import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.AppProjectMeetingService;
 
 @Service("com.galaxyinternet.service.AppProjectMeetingService")
@@ -27,6 +29,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 	
 	@Transactional
 	public void addToAudioFileByMeeting(Project p1, Long careerLine ,Long fileUid ,AppSopFile sopFile)throws Exception{
+		long nowTime = System.currentTimeMillis();
 		SopFile  sfEntity = new SopFile();
 		sfEntity.setProjectId(p1.getId());
 		sfEntity.setProjectProgress(p1.getProjectProgress());
@@ -36,7 +39,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 		sfEntity.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 //		sfEntity.setFileUid(user.getId());
 		sfEntity.setFileUid(fileUid);
-		sfEntity.setCreatedTime(System.currentTimeMillis());
+		sfEntity.setCreatedTime(nowTime);
 		
 		sfEntity.setFileLength(sopFile.getFileLength());//文件长度
 		sfEntity.setFileKey(sopFile.getFileKey());//阿里云key
@@ -50,14 +53,15 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 		SopFile query = new SopFile();
 		query.setProjectId(p1.getId());
 		query.setProjectProgress(p1.getProjectProgress());
-		query.setFileType(DictEnum.fileType.音频文件.getCode());	
+//		query.setFileType(DictEnum.fileType.音频文件.getCode());	
+		query.setFileKey(sopFile.getFileKey());
 		List<SopFile> list =sopFileDao.selectList(query);
-		Long sopfileId = null;
+		SopFile _sf = new SopFile();
 		if(list!=null && list.size()>0){
-			SopFile sf = list.get(0);
-			sopfileId = sf.getId();
-		}			
-		mrEntity.setFileId(sopfileId);
+			 _sf = list.get(0);
+		}
+	
+		mrEntity.setFileId(_sf.getId());
 		meetingRecordDao.updateById(mrEntity);
 	}
 
