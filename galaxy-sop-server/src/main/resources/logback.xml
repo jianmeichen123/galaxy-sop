@@ -26,7 +26,7 @@
 			<maxFileSize>300MB</maxFileSize>
 		</triggeringPolicy>
 		<encoder>
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{36} - %msg%n
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-4relative [%thread] [%file:%line] %-5level %logger{36} - %msg%n
 			</pattern>
 		</encoder>
 	</appender>
