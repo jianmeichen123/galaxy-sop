@@ -777,22 +777,23 @@ function meetInfoFormat(value, row, index){
 }
 //富文本截取        //======= 废弃   ====//
 function formatInterview(value,row,index){
-	var len = getLength($.trim(value));
+	var str=delHtmlTag($.trim(value))
+	var len = getLength(str);
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
 		if(len>100){
 			// title='"+strrrr+"'
-			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
+			var subValue =str; 
 			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\">"+
 			subValue+
-			"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >...详情<a>"+    
+			"<a href=\"javascript:;\" class=\"option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >...详情<a>"+    
 		'</div>';
 			return rc;
 		}else if(len==0){
-			return "<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
+			return "<a href=\"javascript:;\" class=\"option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
      	}else {
-			return strlog+"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+			return strlog+"<a href=\"javascript:;\" class=\"option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
 		}
 	}
 } 
