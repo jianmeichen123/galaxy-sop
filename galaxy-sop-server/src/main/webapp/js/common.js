@@ -862,23 +862,27 @@ function formatLog(value,row,index){
 
 //富文本截取        //======= 废弃   ====//
 function formatInterview(value,row,index){
-	var len = getLength($.trim(value));
+	var str=delHtmlTag($.trim(value))
+	var len=0;
+	if(str!="" && typeof(str)!="undefined"){
+		len = getLength(str);
+	}
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
 		if(len>100){
 			// title='"+strrrr+"'
-			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
-			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\">"+
+			var subValue =str.substring(0,100); 
+			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow\">"+
 			subValue+
-			"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >...详情<a>"+    
+			"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >...详情<a>"+    
 		'</div>';
 			return rc;
-		}else if(len==0){
-			return "<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >编辑<a>"
-     	}else {
-			return strlog+"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+		}else {
+			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
 		}
+	}else{
+		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
 	}
 }
 
