@@ -1891,10 +1891,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			for(MeetingScheduling ms : schedulingList){
 				for(Project p : projectList){
 					if(ms.getProjectId().longValue() == p.getId().longValue()){
-						if(passRateMap.isEmpty()){
-							ms.setMeetingRate(new Double(0));
-						}else{
+						if(passRateMap.get(p.getCreateUid()) != null){
 							ms.setMeetingRate(passRateMap.get(p.getCreateUid()).getRate());
+						}else{
+							ms.setMeetingRate(new Double(0));
 						}
 						ms.setProjectCode(p.getProjectCode());
 						ms.setProjectName(p.getProjectName());
