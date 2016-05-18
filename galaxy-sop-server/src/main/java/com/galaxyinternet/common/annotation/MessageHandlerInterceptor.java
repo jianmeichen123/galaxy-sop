@@ -29,42 +29,26 @@ import com.galaxyinternet.service.ProgressLogService;
  * @description 消息提醒拦截器
  * @author keifer
  * @used 1.在你的controller中的方法中加入注解,如<br/>
+ *       @Logger(writeOperationScope=LogType.MESSAGE)，表示记录"消息提醒"功能产生的日志,默认值。
+ *       如果是此操作该属性可以不写<br/>
  *       <br>
- * @Logger(writeOperationScope=LogType.MESSAGE)，表示记录"消息提醒"功能产生的日志, 默认值。
- *                                                                 如果是此操作该属性可以不写
- *                                                                 <br/>
- *                                                                 <br>
- * @Logger(writeOperationScope=LogType.LOG)，表示记录sop中"日志操作"功能产生的日志<br/>
- * 																	<br>
- * @Logger(writeOperationScope=LogType.ALL)，表示记录上面2则功能产生的日志<br/>
- * 																<br>
- * @Logger(writeOperationScope=LogType.LOG,unique= "request_unique_key",
- *                                                 recordType=RecordType.IDEAS)，
- *                                                 表示记录创意中操作日志；unique指定请求的唯一标识值
- *                                                 ， 只要能唯一区分请求即可， 是自定义的值。 默认为空，
- *                                                 表示根据请求地址作为唯一性处理 。
- *                                                 recordType指定记录的类型是项目还是创意
- *                                                 ，默认是项目， 可以省略。
- * 
- *                                                 </br>
- *                                                 <br>
- *                                                 2. 在方法处理前或后 ，
- *                                                 在reqeust中设置操作的项目名称 。例如：
- *                                                 ControllerUtils.
- *                                                 setRequestParamsForMessageTip
- *                                                 (request , "星河互联创业项目" ,68)
- *                                                 <br/>
- *                                                 注意： 如果url里处理多个业务逻辑 ，分别需 要记录，
- *                                                 在枚举类的url后面加上UrlNumber中的数字 ,
- *                                                 UrlNumber .one. name()如。
- *                                                 ControllerUtils.
- *                                                 setRequestParamsForMessageTip
- *                                                 (request , "星河互联创业项目" ,68,
- *                                                 UrlNumber .one)即可。 <br/>
- *                                                 <br>
- *                                                 3. 需要在springmvc配置文件中添加如下配置
- *                                                 <br/>
- *                                                 {@code
+ *       @Logger(writeOperationScope=LogType.LOG)，表示记录sop中"日志操作"功能产生的日志<br/>
+ *       <br>
+ *       @Logger(writeOperationScope=LogType.ALL)，表示记录上面2则功能产生的日志<br/>
+ *       <br>
+ *       @Logger(writeOperationScope=LogType.LOG,unique="request_unique_key",
+ *       recordType=RecordType.IDEAS)，表示记录创意中操作日志；unique指定请求的唯一标识值，只要能唯一区分请求即可，
+ *       是自定义的值。默认为空，表示根据请求地址作为唯一性处理。recordType指定记录的类型是项目还是创意，默认是项目，可以省略。
+ *       <br>
+ *       2.在方法处理前或后，在reqeust中设置操作的项目名称。例如：ControllerUtils.
+ *       setRequestParamsForMessageTip(request,"星河互联创业项目",68) <br/>
+ *       注意：如果url里处理多个业务逻辑，分别需
+ *       要记录，在枚举类的url后面加上UrlNumber中的数字,UrlNumber.one.name()如。ControllerUtils.
+ *       setRequestParamsForMessageTip(request,"星河互联创业项目",68,UrlNumber.one)即可。
+ *       <br/>
+ *       <br>
+ *       3.需要在springmvc配置文件中添加如下配置 <br/>
+ *       {@code
  * <mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
