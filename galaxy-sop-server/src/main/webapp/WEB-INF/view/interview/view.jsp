@@ -27,7 +27,7 @@
 .tab-pane table th:nth-child(3) {
     width: 55%;
 }
-.table td:nth-child(3){text-align:left;}
+.tab-pane table td:nth-child(3){text-align:left;}
 </style>
 </head>
 
