@@ -914,7 +914,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			idea = ideaService.queryById(ideaId);
 			resp.setEntity(idea);
 			final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			ControllerUtils.setRequestIdeaParamsForMessageTip(request, user, idea.getIdeaName(), ideaId, "创意名称由"+originProjectName +"变更为"+projectName, UrlNumber.one);
+			ControllerUtils.setRequestIdeaParamsForMessageTip(request, user, idea.getIdeaName(), ideaId, "项目名称由"+originProjectName +"变更为"+projectName, UrlNumber.one);
 		} catch (Exception e) {
 			resp.getResult().addError(e.getMessage());
 			logger.error("编辑项目名称失败。 Idea Id: "+ideaId+", Project Name: "+projectName, e);
