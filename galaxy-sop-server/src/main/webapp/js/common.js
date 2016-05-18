@@ -787,17 +787,17 @@ function formatInterview(value,row,index){
 		var strrrr=strlog;
 		if(len>100){
 			// title='"+strrrr+"'
-			var subValue =str; 
+			var subValue =str.substring(0,100); 
 			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\">"+
 			subValue+
-			"<a href=\"javascript:;\" class=\"option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >...详情<a>"+    
+			"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >...详情<a>"+    
 		'</div>';
 			return rc;
 		}else {
-			return strlog+"<a href=\"javascript:;\" class=\"option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
 		}
 	}else{
-		return "<a href=\"javascript:;\" class=\"option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
+		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
 	}
 } 
 //interview
