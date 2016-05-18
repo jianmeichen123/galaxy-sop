@@ -1248,7 +1248,7 @@ dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../
 /*ie8select文字垂直居中*/
 select{padding: 6px 0 !important;}
 /**切断文字**/
-.text-overflow{width:420px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
+.text-overflow{width:420px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;}
 /**切断文字 end**/
 #template-table{border-radius: 6px;}
 .percentTxt{width:30px !important;display: inline-block !important;}
