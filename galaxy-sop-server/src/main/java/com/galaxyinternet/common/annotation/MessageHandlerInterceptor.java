@@ -14,6 +14,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.model.common.ProgressLog;
 import com.galaxyinternet.model.operationLog.OperationLogType;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
@@ -22,34 +23,48 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationLogsService;
 import com.galaxyinternet.service.OperationMessageService;
+import com.galaxyinternet.service.ProgressLogService;
 
 /**
  * @description 消息提醒拦截器
  * @author keifer
  * @used 1.在你的controller中的方法中加入注解,如<br/>
  *       <br>
- *       @Logger(writeOperationScope=LogType.MESSAGE)，表示记录"消息提醒"功能产生的日志,默认值。
- *       如果是此操作该属性可以不写<br/>
- *       <br>
- *       @Logger(writeOperationScope=LogType.LOG)，表示记录sop中"日志操作"功能产生的日志<br/>
- *       <br>
- *       @Logger(writeOperationScope=LogType.ALL)，表示记录上面2则功能产生的日志<br/>
- *       <br>
- *       @Logger(writeOperationScope=LogType.LOG,unique="request_unique_key",
- *       recordType=RecordType.IDEAS)，表示记录创意中操作日志；unique指定请求的唯一标识值，只要能唯一区分请求即可，
- *       是自定义的值。默认为空，表示根据请求地址作为唯一性处理。recordType指定记录的类型是项目还是创意，默认是项目，可以省略。
- *       
- *       </br>
- *       <br>
- *       2.在方法处理前或后，在reqeust中设置操作的项目名称。例如：ControllerUtils.
- *       setRequestParamsForMessageTip(request,"星河互联创业项目",68) <br/>
- *       注意：如果url里处理多个业务逻辑，分别需
- *       要记录，在枚举类的url后面加上UrlNumber中的数字,UrlNumber.one.name()如。ControllerUtils.
- *       setRequestParamsForMessageTip(request,"星河互联创业项目",68,UrlNumber.one)即可。
- *       <br/>
- *       <br>
- *       3.需要在springmvc配置文件中添加如下配置 <br/>
- *       {@code
+ * @Logger(writeOperationScope=LogType.MESSAGE)，表示记录"消息提醒"功能产生的日志, 默认值。
+ *                                                                 如果是此操作该属性可以不写
+ *                                                                 <br/>
+ *                                                                 <br>
+ * @Logger(writeOperationScope=LogType.LOG)，表示记录sop中"日志操作"功能产生的日志<br/>
+ * 																	<br>
+ * @Logger(writeOperationScope=LogType.ALL)，表示记录上面2则功能产生的日志<br/>
+ * 																<br>
+ * @Logger(writeOperationScope=LogType.LOG,unique= "request_unique_key",
+ *                                                 recordType=RecordType.IDEAS)，
+ *                                                 表示记录创意中操作日志；unique指定请求的唯一标识值
+ *                                                 ， 只要能唯一区分请求即可， 是自定义的值。 默认为空，
+ *                                                 表示根据请求地址作为唯一性处理 。
+ *                                                 recordType指定记录的类型是项目还是创意
+ *                                                 ，默认是项目， 可以省略。
+ * 
+ *                                                 </br>
+ *                                                 <br>
+ *                                                 2. 在方法处理前或后 ，
+ *                                                 在reqeust中设置操作的项目名称 。例如：
+ *                                                 ControllerUtils.
+ *                                                 setRequestParamsForMessageTip
+ *                                                 (request , "星河互联创业项目" ,68)
+ *                                                 <br/>
+ *                                                 注意： 如果url里处理多个业务逻辑 ，分别需 要记录，
+ *                                                 在枚举类的url后面加上UrlNumber中的数字 ,
+ *                                                 UrlNumber .one. name()如。
+ *                                                 ControllerUtils.
+ *                                                 setRequestParamsForMessageTip
+ *                                                 (request , "星河互联创业项目" ,68,
+ *                                                 UrlNumber .one)即可。 <br/>
+ *                                                 <br>
+ *                                                 3. 需要在springmvc配置文件中添加如下配置
+ *                                                 <br/>
+ *                                                 {@code
  * <mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
@@ -66,6 +81,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	OperationMessageService operationMessageService;
 	@Autowired
 	OperationLogsService operationLogsService;
+	
+	@Autowired
+	ProgressLogService ideaNewsService;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -79,23 +97,28 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				final Map<String, Object> map = (Map<String, Object>) request
 						.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
 				if (null != map && !map.isEmpty()) {
-					String uniqueKey = getUniqueKey(request, map,logger);
+					String uniqueKey = getUniqueKey(request, map, logger);
 					final OperationType type = OperationType.getObject(uniqueKey);
 					final OperationLogType operLogType = OperationLogType.getObject(uniqueKey);
 					if (null != type || null != operLogType) {
 						final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-						final RecordType recordType = logger.recordType(); 
+						final RecordType recordType = logger.recordType();
 						GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 							@Override
 							public void run() {
 								LogType logType = logger.writeOperationScope();
 								if (logType == LogType.MESSAGE) {
-									insertMessageTip(populateOperationMessage(type, user, request, map));
+									insertMessageTip(populateOperationMessage(type, user, map));
 								} else if (logType == LogType.ALL) {
-									insertMessageTip(populateOperationMessage(type, user, request, map));
-									insertOperationLog(populateOperationLog(operLogType, user, request, map,recordType));
+									insertMessageTip(populateOperationMessage(type, user, map));
+									insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
+									insertIdeaNews(populateProgressLog(operLogType, user, map,recordType));
 								} else if (logType == LogType.LOG) {
-									insertOperationLog(populateOperationLog(operLogType, user, request, map,recordType));
+									insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
+								} else if (logType == LogType.IDEANEWS) {
+									insertIdeaNews(populateProgressLog(operLogType, user, map,recordType));
+								} else if (logType == LogType.PROJECTNEWS) {
+									// 这里用于扩展
 								}
 							}
 						});
@@ -117,6 +140,14 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			loger.error("产生提醒消息异常，请求数据：" + message, e1);
 		}
 	}
+	//添加创意动态
+	private void insertIdeaNews(ProgressLog message) {
+		try {
+			ideaNewsService.insert(message);
+		} catch (Exception e1) {
+			loger.error("产生提醒消息异常，请求数据：" + message, e1);
+		}
+	}
 
 	/**
 	 * 
@@ -130,9 +161,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		}
 	}
 
-	private String getUniqueKey(HttpServletRequest request, Map<String, Object> map,Logger logger) {
+	private String getUniqueKey(HttpServletRequest request, Map<String, Object> map, Logger logger) {
 		String uniqueKey = logger.unique();
-		if(StringUtils.isBlank(uniqueKey)){
+		if (StringUtils.isBlank(uniqueKey)) {
 			uniqueKey = request.getRequestURL().toString();
 			if (null != map && !map.isEmpty()) {
 				if (map.containsKey(PlatformConst.REQUEST_SCOPE_URL_NUMBER)) {
@@ -143,8 +174,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		return uniqueKey;
 	}
 
-	private OperationLogs populateOperationLog(OperationLogType type, User user, HttpServletRequest request,
-			Map<String, Object> map,RecordType recordType) {
+	private OperationLogs populateOperationLog(OperationLogType type, User user, Map<String, Object> map,
+			RecordType recordType) {
 		OperationLogs entity = new OperationLogs();
 		entity.setOperationContent(type.getContent());
 		entity.setOperationType(type.getType());
@@ -159,8 +190,24 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		return entity;
 	}
 
-	private OperationMessage populateOperationMessage(OperationType type, User user, HttpServletRequest request,
-			Map<String, Object> map) {
+	// 创意动态
+	private ProgressLog populateProgressLog(OperationLogType type, User user, Map<String, Object> map,
+			RecordType recordType) {
+		ProgressLog entity = new ProgressLog();
+		entity.setOperationContent(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_IDEA_CONTENT)));
+		entity.setOperationType(type.getType());
+		entity.setUid(user.getId());
+		entity.setUname(user.getRealName());
+		entity.setDepartName(user.getDepartmentName());
+		entity.setUserDepartid(user.getDepartmentId());
+		entity.setSopstage(type.getSopstage());
+		entity.setRelatedName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_IDEA_NAME)));
+		entity.setRelatedId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_IDEA_ID))));
+		entity.setRecordType(recordType.getType());
+		return entity;
+	}
+
+	private OperationMessage populateOperationMessage(OperationType type, User user, Map<String, Object> map) {
 		OperationMessage entity = new OperationMessage();
 		entity.setContent(type.getContent());
 		entity.setDepartment(user.getDepartmentName());
@@ -168,14 +215,14 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		entity.setOperator(user.getRealName());
 		Object o = map.get(PlatformConst.REQUEST_SCOPE_USER);
 		User u = null;
-		if(o != null){
+		if (o != null) {
 			u = (User) o;
-		}else{
+		} else {
 			u = user;
 		}
 		entity.setBelongUid(u.getId());
 		entity.setBelongUname(u.getRealName());
-		
+
 		entity.setRole(user.getRole());
 		entity.setType(type.getType());
 		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));

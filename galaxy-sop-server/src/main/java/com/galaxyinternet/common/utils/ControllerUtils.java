@@ -44,4 +44,14 @@ public class ControllerUtils {
 		params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
+	
+	public static void setRequestIdeaParamsForMessageTip(HttpServletRequest request, User user, String ideaName, Long ideaId,String content,UrlNumber number) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(PlatformConst.REQUEST_SCOPE_IDEA_NAME, ideaName);
+		params.put(PlatformConst.REQUEST_SCOPE_USER, user);
+		params.put(PlatformConst.REQUEST_SCOPE_IDEA_ID, ideaId);
+		params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
+		params.put(PlatformConst.REQUEST_SCOPE_IDEA_CONTENT, content);
+		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
+	}
 }
