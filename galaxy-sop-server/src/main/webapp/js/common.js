@@ -778,7 +778,10 @@ function meetInfoFormat(value, row, index){
 //富文本截取        //======= 废弃   ====//
 function formatInterview(value,row,index){
 	var str=delHtmlTag($.trim(value))
-	var len = getLength(str);
+	var len=0;
+	if(str!=""){
+		len = getLength(str);
+	}
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
@@ -790,11 +793,11 @@ function formatInterview(value,row,index){
 			"<a href=\"javascript:;\" class=\"option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >...详情<a>"+    
 		'</div>';
 			return rc;
-		}else if(len==0){
-			return "<a href=\"javascript:;\" class=\"option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
-     	}else {
+		}else {
 			return strlog+"<a href=\"javascript:;\" class=\"option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
 		}
+	}else{
+		return "<a href=\"javascript:;\" class=\"option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
 	}
 } 
 //interview
