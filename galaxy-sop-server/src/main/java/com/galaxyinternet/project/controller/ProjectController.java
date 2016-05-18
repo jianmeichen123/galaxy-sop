@@ -1764,7 +1764,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				query.setMeetingType(DictEnum.meetingType.立项会.getCode());
 			}else if(type.intValue() == 1){
 				query.setMeetingType(DictEnum.meetingType.投决会.getCode());
-			}else{
+			}else if(type.intValue() == 2){
 				query.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 			}
 			byte isEdit = 0;
