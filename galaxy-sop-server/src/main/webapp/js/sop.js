@@ -1246,7 +1246,7 @@ function interviewsave(){
 		var um = UM.getEditor('viewNotes');
 	var log = um.getContent();
 	var pid=$("#vid").val();
-	if(pid != '' && log != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
 			if (data.result.status=="OK") {
 				layer.msg("保存成功");
