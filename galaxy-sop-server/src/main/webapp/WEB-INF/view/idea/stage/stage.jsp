@@ -11,7 +11,7 @@
               <h3 class="idea-title">食乐淘</h3>       
             </div>
             <ul class="pjt_brf clearfix">
-              <li>最新变更动态<span>2016年04月10日</span>&nbsp;<span>张志成</span>&nbsp;创意名称由<span>食品</span>变更为<span>食乐淘</span>。</li>
+              <li>最新变更动态<span id="idea-progress-log"></span>。</li>
             </ul>
           </div>
 

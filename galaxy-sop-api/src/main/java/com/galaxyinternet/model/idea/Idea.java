@@ -46,12 +46,14 @@ public class Idea extends PagableEntity
 	private String isforindex;
 	
 	private String departmentEditable;
+	private String latestLog;
 	
-	
-	
-	
-	
-		
+	public String getLatestLog() {
+		return latestLog;
+	}
+	public void setLatestLog(String latestLog) {
+		this.latestLog = latestLog;
+	}
 	private String createDate;
 	
 	public String getIdeaName() {

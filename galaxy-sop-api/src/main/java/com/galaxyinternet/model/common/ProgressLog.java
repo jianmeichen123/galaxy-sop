@@ -1,6 +1,6 @@
 package com.galaxyinternet.model.common;
 
-public class ProgressLog extends RecordEntity {
+public class ProgressLog extends PagableRecordEntity {
 	private static final long serialVersionUID = 1L;
 
 	private Long uid;

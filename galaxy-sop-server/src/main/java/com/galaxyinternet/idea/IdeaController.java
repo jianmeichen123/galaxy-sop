@@ -837,7 +837,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	}
 	@ResponseBody
 	@RequestMapping("/createProject")
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	public ResponseData<Idea> createProject(@RequestBody Idea ideaBo, HttpServletRequest request)
 	{
 		Long ideaId = ideaBo.getId();
@@ -856,7 +856,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			ideaService.createProject(ideaId, projectName);
 			Idea idea = ideaService.queryById(ideaId);
 			resp.setEntity(idea);
-			ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), ideaId);
+			final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			ControllerUtils.setRequestIdeaParamsForMessageTip(request, user, idea.getIdeaName(), ideaId, "创建项目"+projectName, UrlNumber.one);
 		} catch (BusinessException e) 
 		{
 			resp.getResult().addError(e.getMessage());
@@ -882,7 +883,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	}
 	@ResponseBody
 	@RequestMapping("/editProjectName")
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	public ResponseData<Idea> editProjectName(@RequestBody Idea ideaBo, HttpServletRequest request)
 	{
 		Long ideaId = ideaBo.getId();
@@ -907,11 +908,13 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			{
 				throw new Exception("新项目名称与旧项目名称相同.");
 			}
+			String originProjectName = project.getProjectName();
 			project.setProjectName(projectName);
 			projectService.updateById(project);
 			idea = ideaService.queryById(ideaId);
 			resp.setEntity(idea);
-			ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), ideaId);
+			final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			ControllerUtils.setRequestIdeaParamsForMessageTip(request, user, idea.getIdeaName(), ideaId, "创意名称由"+originProjectName +"变更为"+projectName, UrlNumber.one);
 		} catch (Exception e) {
 			resp.getResult().addError(e.getMessage());
 			logger.error("编辑项目名称失败。 Idea Id: "+ideaId+", Project Name: "+projectName, e);

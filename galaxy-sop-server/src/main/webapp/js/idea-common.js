@@ -142,7 +142,7 @@
 				ideaInfo = getIdeaInfo(ideaId);
 				$(".idea-title").text(ideaInfo.ideaName);
 				$("[data-id='ideaNowId']").val(ideaId);
-				
+				$("#idea-progress-log").text(ideaInfo.latestLog);
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = ideaInfo.ideaProgress;
 				progress = progress.replace(":","_");

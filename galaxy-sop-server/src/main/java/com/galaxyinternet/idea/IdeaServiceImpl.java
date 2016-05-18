@@ -15,8 +15,8 @@ import com.galaxyinternet.bo.IdeaBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictEnum;
-import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.enums.DictEnum.RecordType;
+import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.dao.idea.AbandonedDao;
 import com.galaxyinternet.dao.idea.IdeaDao;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
@@ -24,8 +24,11 @@ import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.BusinessException;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.common.Config;
+import com.galaxyinternet.model.common.ProgressLog;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.idea.Abandoned;
 import com.galaxyinternet.model.idea.Idea;
@@ -36,6 +39,7 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
+import com.galaxyinternet.service.ProgressLogService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.CollectionUtils;
@@ -58,6 +62,9 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 	private MeetingRecordDao meetingRecordDao;
 	@Autowired
 	private SopFileDao sopFileDao;
+	@Autowired
+	private ProgressLogService progressLogService;
+	
 	
 	@Override
 	protected BaseDao<Idea, Long> getBaseDao() {
@@ -85,6 +92,16 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		Idea idea = super.queryById(id);
 		List<Idea> list = Arrays.asList(idea);
 		queryReleated(list);
+		ProgressLog query = new ProgressLog();
+		query.setRecordType(RecordType.IDEAS.getType());
+		query.setRelatedId(idea.getId());
+		List<ProgressLog> result = progressLogService.queryList(query, new PageRequest(0,1));
+		if(result != null && result.size()>0)
+		{
+			ProgressLog log = result.iterator().next();
+			String msg = DateUtil.longToString(log.getCreatedTime())+" "+log.getUname()+" "+log.getOperationContent();
+			idea.setLatestLog(msg);
+		}
 		return idea;
 	}
 

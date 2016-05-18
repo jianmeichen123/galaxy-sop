@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.galaxyinternet.model.operationLog.OperationLogs" >
+<mapper namespace="com.galaxyinternet.model.common.ProgressLog" >
 
-  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.operationLog.OperationLogs" >
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.common.ProgressLog" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="uid" property="uid" jdbcType="BIGINT" />
     <result column="uname" property="uname" jdbcType="VARCHAR" />
@@ -82,7 +82,7 @@
 		from sop_progress_logs where id = #{id}
 	</select>
 	
-  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.operationLog.OperationLogs" >
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.common.ProgressLog" >
 	    <![CDATA[
 		    insert into sop_progress_logs (id, uid, uname, 
 		      user_roleId, user_role, user_departId, 
@@ -100,7 +100,7 @@
     
     
     <!-- 更新 -->
-	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.operationLog.OperationLogs">
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.common.ProgressLog">
 		update sop_progress_logs
 		<set>
 		  <if test="uid != null" >uid = #{uid,jdbcType=BIGINT}, </if>
@@ -136,7 +136,7 @@
 	</update>
 	
     <!-- 通过ID更新 -->
-	<update id="updateById" parameterType="com.galaxyinternet.model.operationLog.OperationLogs">
+	<update id="updateById" parameterType="com.galaxyinternet.model.common.ProgressLog">
 		update sop_progress_logs
 		<set>
 		  <if test="uid != null" >uid = #{uid,jdbcType=BIGINT}, </if>
