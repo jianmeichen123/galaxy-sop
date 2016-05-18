@@ -779,7 +779,7 @@ function meetInfoFormat(value, row, index){
 function formatInterview(value,row,index){
 	var str=delHtmlTag($.trim(value))
 	var len=0;
-	if(str!=""){
+	if(str!="" && typeof(str)!="undefined"){
 		len = getLength(str);
 	}
 	if(value != ''){
