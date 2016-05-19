@@ -104,13 +104,11 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 		@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
 		@ResponseBody
 		@RequestMapping(value = "/addfilemeetByNofile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseData<MeetingRecord> addIosFileMeetByNoFile(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
+		public ResponseData<MeetingRecord> addIosFileMeetByNoFile(@RequestBody MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
+			
 			ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			if(meetingRecord.getProjectId() == null){
-				String json = JSONUtils.getBodyString(request);
-				meetingRecord = GSONUtil.fromJson(json, MeetingRecordBo.class);
-			}
+			
 			if(meetingRecord.getProjectId() == null 
 					|| meetingRecord.getMeetingDate() == null 
 					|| meetingRecord.getMeetingType() == null 
