@@ -101,6 +101,44 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>tomcat</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- 数据库连接地址和数据库名 -->
+				<jdbc.url>
+					jdbc:mysql://10.9.11.232:3306/fx_db?createDatabaseIfNotExist=true&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8
+				</jdbc.url>
+				<jdbc.username>fxuser</jdbc.username>
+				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
+				<!-- 本地项目地址 -->
+				<log4j.path>d:/logs/</log4j.path>
+				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
+				<!-- dubbo -->
+				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
+				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
+				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
+				<dubbo.protocol.port>8082</dubbo.protocol.port>
+
+				<project.server.url>http://127.0.0.1:8777/galaxy-report-server</project.server.url>
+				<galaxy.project.platform.endpoint>http://127.0.0.1:8080/galaxy-platform-server</galaxy.project.platform.endpoint>
+				<galaxy.project.report.endpoint>http://127.0.0.1:8777/galaxy-report-server</galaxy.project.report.endpoint>
+				<galaxy.project.sop.endpoint>http://127.0.0.1:8888/galaxy-sop-server</galaxy.project.sop.endpoint>
+				<!-- memcached <memcached.list_1.ip>192.168.101.22</memcached.list_1.ip> 
+					<memcached.list_1.port>11211</memcached.list_1.port> <memcached.object_1.ip>192.168.101.22</memcached.object_1.ip> 
+					<memcached.object_1.port>11211</memcached.object_1.port> <mongodb.dbname>community</mongodb.dbname> 
+					<mongodb.address>192.168.101.131:27017</mongodb.address> -->
+
+				<!-- redis集群配置 -->
+				<!-- <redis1.url>101.200.78.14:6379</redis1.url> <redis2.url>101.200.78.14:6379</redis2.url> 
+					<redis.master>galaxymaster</redis.master> -->
+
+				<!-- <redis.url>101.200.78.14</redis.url> <redis.port>6379</redis.port> -->
+
+			</properties>
+		</profile>
+		<profile>
 			<id>dev</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
