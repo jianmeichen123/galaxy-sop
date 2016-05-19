@@ -15,7 +15,13 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-
+<style>
+.tab-pane table th:nth-child(3) {
+    width: 55%;
+}
+.tab-pane table td:nth-child(3){text-align:left !important;}
+.table td{line-height:22px;}
+</style>
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 
 </head>

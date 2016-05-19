@@ -1147,7 +1147,7 @@ function ftcolumnFormat(value, row, index){
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
 	
-	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
 				"访谈日期："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
@@ -1163,7 +1163,7 @@ function metcolumnFormat(value, row, index){
 	if(row.fileId != null && row.fileId != undefined && row.fileId != "undefined"){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
-	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
 				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+row.meetingResultStr+
 				"</br>会议录音："+fileinfo+

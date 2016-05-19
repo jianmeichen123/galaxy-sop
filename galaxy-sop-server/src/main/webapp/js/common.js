@@ -752,7 +752,7 @@ function intervierInfoFormat(value, row, index){
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
 	
-	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
 				"访谈日期："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
@@ -768,7 +768,7 @@ function meetInfoFormat(value, row, index){
 	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
-	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
 				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+row.meetingResultStr+
 				"</br>会议录音："+fileinfo+
@@ -785,12 +785,37 @@ function formatInterview(value,row,index){
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
-		if(len>100){
+		if(len>200){
 			// title='"+strrrr+"'
-			var subValue =str.substring(0,100); 
+			var subValue =str.substring(0,200); 
+			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+			subValue+
+			"...<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
+		'</div>';
+			return rc;
+		}else {
+			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+		}
+	}else{
+		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
+	}
+} 
+
+function formatInterview_sop(value,row,index){
+	var str=delHtmlTag($.trim(value))
+	var len=0;
+	if(str!="" && typeof(str)!="undefined"){
+		len = getLength(str);
+	}
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>200){
+			// title='"+strrrr+"'
+			var subValue =str.substring(0,200); 
 			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow\">"+
 			subValue+
-			"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >...详情<a>"+    
+			"...<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
 		'</div>';
 			return rc;
 		}else {

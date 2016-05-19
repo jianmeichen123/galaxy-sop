@@ -28,6 +28,7 @@
     width: 55%;
 }
 .tab-pane table td:nth-child(3){text-align:left !important;}
+.table td{line-height:22px;}
 </style>
 </head>
 
