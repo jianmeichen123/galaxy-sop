@@ -10,7 +10,7 @@
     border-collapse: collapse !important;
     border-radius: 1px;
 }
-.dropup .caret{content:'';border-top:0px none;border-bottom:4px dashed;}
+.dropup .caret{content:'';border-top:0px none;}
 .bootstrap-table .table,
 .bootstrap-table .table > tbody > tr > th,
 .bootstrap-table .table > tfoot > tr > th,

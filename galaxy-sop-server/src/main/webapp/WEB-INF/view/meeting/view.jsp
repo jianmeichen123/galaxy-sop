@@ -17,6 +17,13 @@
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
+<style>
+.tab-pane table th:nth-child(3) {
+    width: 55%;
+}
+.tab-pane table td:nth-child(3){text-align:left !important;}
+.table td{line-height:22px;}
+</style>
 
 </head>
 
@@ -159,7 +166,7 @@ function meetFormatLog(value,row,index){
 			/*var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';*/
 			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" >"+
 						subValue+
-						"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showMeetDetail("+row.id+")\" >...更多<a>"+    
+						"..."+"<a href=\"javascript:;\" class=\"blue  option_item_mark\"  onclick=\"showMeetDetail("+row.id+")\" >更多<a>"+    
 					'</div>';
 			return rc;
 		}else{
