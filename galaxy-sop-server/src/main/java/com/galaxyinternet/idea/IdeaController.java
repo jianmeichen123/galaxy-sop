@@ -768,10 +768,21 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		if(responseBody !=null){
 			return responseBody;
 		}
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+				.getId());
 		responseBody = new ResponseData<Idea>();
 		if(idea.getDepartmentId() == null || idea.getDepartmentId().toString().equals("")){
-			responseBody.setResult(new Result(Status.ERROR,"请选择所属事业线"));
-			return responseBody;
+			if(RoleUtils.isGaoGuan(roleIdList)){
+				responseBody.setResult(new Result(Status.ERROR,"请选择所属事业线"));
+				return responseBody;
+			}else{
+				idea.setDepartmentId(user.getDepartmentId());
+			}
 		}
 		String operatorStr = "";
 		UrlNumber uNum = null;

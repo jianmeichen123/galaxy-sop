@@ -176,6 +176,13 @@ public class RoleUtils {
 		}
 		return false;
 	}
+	
+	public static boolean isGaoGuan(List<Long> roleList){
+		if(roleList.contains(UserConstant.CEO) || roleList.contains(UserConstant.DSZ)){
+			return true;
+		}
+		return false;
+	}
 	/**
 	 * 判断是否为合伙人
 	 * @param roleList
