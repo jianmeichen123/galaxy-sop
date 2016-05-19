@@ -785,9 +785,9 @@ function formatInterview(value,row,index){
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
-		if(len>150){
+		if(len>120){
 			// title='"+strrrr+"'
-			var subValue =str.substring(0,150); 
+			var subValue =str.substring(0,120); 
 			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
 			subValue+
 			"...<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
@@ -810,9 +810,9 @@ function formatInterview_sop(value,row,index){
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
-		if(len>150){
+		if(len>120){
 			// title='"+strrrr+"'
-			var subValue =str.substring(0,150); 
+			var subValue =str.substring(0,120); 
 			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow\">"+
 			subValue+
 			"...<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
