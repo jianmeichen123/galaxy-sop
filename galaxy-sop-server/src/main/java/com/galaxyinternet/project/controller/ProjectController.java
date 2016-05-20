@@ -835,7 +835,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 
 	 * @author yangshuhua voucherType
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/stageChange", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> stageChange(ProjectQuery p,
