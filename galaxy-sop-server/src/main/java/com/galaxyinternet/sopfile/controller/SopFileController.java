@@ -528,20 +528,32 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		MultipartFile file = multipartRequest.getFile("file"); // 获取multipartFile文件
 		form.setFileName(file.getOriginalFilename());
 		form.setFileLength(file.getSize());
-			
-		SopFile sopFile = sopFileService.selectByProjectAndFileWorkType(form);
-		sopFile.setProjectId(form.getProjectId());
-		sopFile.setFileWorktype(form.getFileWorktype());
-		sopFile.setFileName(form.getFileName());
-		sopFile.setFileLength(form.getFileLength());
-		sopFile.setFileType(form.getFileType());
-		sopFile.setFileSource(form.getFileSource());
-		sopFile.setRemark(form.getRemark());
-		sopFile.setBucketName(OSSFactory.getDefaultBucketName());
-		if(StringUtils.isBlank(sopFile.getFileKey())){
-			sopFile.setFileKey(String
-					.valueOf(IdGenerator.generateId(OSSHelper.class)));
-		}		
+		SopFile sopFile = null;
+		if(form.getFileWorktype().equals(DictEnum.fileWorktype.商业计划.getCode())){
+			form.setBucketName(OSSFactory.getDefaultBucketName());
+			form.setFileKey(String
+						.valueOf(IdGenerator.generateId(OSSHelper.class)));
+			form.setRecordType((byte)1);
+			Project tempPro = projectService.queryById(form.getProjectId());
+			form.setProjectProgress(tempPro.getProjectProgress());
+			form.setCareerLine(user.getDepartmentId());
+			sopFile = form;
+		}else{
+			sopFile = sopFileService.selectByProjectAndFileWorkType(form);
+			sopFile.setProjectId(form.getProjectId());
+			sopFile.setFileWorktype(form.getFileWorktype());
+			sopFile.setFileName(form.getFileName());
+			sopFile.setFileLength(form.getFileLength());
+			sopFile.setFileType(form.getFileType());
+			sopFile.setFileSource(form.getFileSource());
+			sopFile.setRemark(form.getRemark());
+			sopFile.setBucketName(OSSFactory.getDefaultBucketName());
+			if(StringUtils.isBlank(sopFile.getFileKey())){
+				sopFile.setFileKey(String
+						.valueOf(IdGenerator.generateId(OSSHelper.class)));
+			}
+		}
+				
 		try{
 			//阿里云上传
 			Map<String, Object> map = sopFileService.aLiColoudUpload(request,
@@ -644,19 +656,25 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			if(sopFile.getFileStatus()==null || DictEnum.fileStatus.缺失.getCode().equals(sopFile.getFileStatus())){
 				// 档案状态
 				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-			}		
-			// 调用非签署凭证业务方法
-			if(sopFileService.updateFile(sopFile)){
 				responseBody.setResult(new Result(Status.OK, null));
-				if (num != null) {
-					String projectName = proJectService.queryById(
-							sopFile.getProjectId()).getProjectName();
-					ControllerUtils.setRequestParamsForMessageTip(request,
-							projectName, sopFile.getProjectId(), num);
-				}
+			}
+			if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.商业计划.getCode())){
+				sopFileService.insert(sopFile);
 			}else{
-				responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_DAO));
-			}		
+				// 调用非签署凭证业务方法
+				if(sopFileService.updateFile(sopFile)){
+					responseBody.setResult(new Result(Status.OK, null));
+					if (num != null) {
+						String projectName = proJectService.queryById(
+								sopFile.getProjectId()).getProjectName();
+						ControllerUtils.setRequestParamsForMessageTip(request,
+								projectName, sopFile.getProjectId(), num);
+					}
+				}else{
+					responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_DAO));
+				}		
+			}
+					
 		} catch (DaoException e) {
 			responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_DAO));
 			return responseBody;
@@ -911,6 +929,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			}else if(fileWorktype.equals(DictEnum.fileWorktype.资金拨付凭证.getCode())){
 				proProgress = DictEnum.projectProgress.股权交割.getCode() ;
 				taskFlag = 8;	
+			}else if(fileWorktype.equals(DictEnum.fileWorktype.商业计划.getCode())){
 			}else{
 				responseBody.setResult(new Result(Status.ERROR, "文件业务类型不能识别"));
 				return responseBody;

@@ -183,7 +183,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addFileInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addFileInterview(InterviewRecordBo interviewRecord,HttpServletRequest request,HttpServletResponse response ) {
@@ -461,7 +461,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addfilemeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addFileMeet(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
@@ -923,7 +923,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * 			produces="application/text;charset=utf-8"
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecordBo interviewRecord ,HttpServletRequest request ) {
@@ -1001,7 +1001,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addmeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecord meetingRecord ) {

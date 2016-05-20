@@ -1123,7 +1123,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 
 	 * @author yangshuhua
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/startReview/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> startReview(HttpServletRequest request,
@@ -1217,7 +1217,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 
 	 * @author yangshuhua
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/ges/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> ges(HttpServletRequest request,
@@ -1307,7 +1307,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 
 	 * @author yangshuhua
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/smp/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> sureMeetingPool(HttpServletRequest request,
@@ -1847,7 +1847,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @param request
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/updateCommonFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> updateCommonFile(ProjectQuery p,

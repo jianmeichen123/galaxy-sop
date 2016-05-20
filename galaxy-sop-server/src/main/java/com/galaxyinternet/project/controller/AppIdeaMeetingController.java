@@ -137,7 +137,7 @@ public class AppIdeaMeetingController extends BaseControllerImpl<Idea, Idea>{
 		 * @param response
 		 * @return
 		 */
-		@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+		@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 		@ResponseBody
 		@RequestMapping(value = "/filemeetByNofile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseData<MeetingRecord> addIosFileMeetByNoFile(@RequestBody MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
