@@ -13,7 +13,7 @@
 		<thead>
 			<tr>
 				<th data-field="fileUName" data-align="center" >上传者</th>
-				<th data-field="fWorktype" data-align="center" >存档类型</th>
+				<th data-field="fType" data-align="center" >存档类型</th>
 				<th data-field="projectProgress" data-align="center" data-formatter="progressFormatter">创意状态</th>
 				<th data-field="careerLineName" data-align="center" >所属事业线</th>
 				<th data-field="updatedDate" data-align="center" >更新时间</th>
