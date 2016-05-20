@@ -25,8 +25,7 @@ public class AppOperationLogsBo extends OperationLogs{
 	private List<Long> projectIdList;	//项目ID列表
 	private Integer offset=0; //记录起始记录索引，默认值0
 	private Integer limit;//获取记录的数量
-	
-	
+
 	public Integer getPageNum() {
 		return pageNum;
 	}
@@ -57,9 +56,5 @@ public class AppOperationLogsBo extends OperationLogs{
 	public void setLimit(Integer limit) {
 		this.limit = limit;
 	}
-	
-	
-	
-	
 
 }

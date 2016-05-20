@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -84,11 +83,11 @@ public class AppOperationLogsController extends BaseControllerImpl<OperationLogs
 				logger.error("[异常]接口调用，传参项目id缺失...");
 				return responseBody;
 			}
-			OperationLogs query = new OperationLogs();					
-			List<Long> list = appQuery.getProjectIdList();
-			query.setProjectId(list.get(0));
+//			OperationLogs query = new OperationLogs();
+//			List<Long> list = appQuery.getProjectIdList();
+//			query.setProjectId(list.get(0).);
 
-			Page<OperationLogs> pageList = operationLogsService.queryPageList(query,new PageRequest(appQuery.getPageNum(),appQuery.getPageSize()));
+			Page<OperationLogs> pageList = operationLogsService.queryPageList(appQuery,new PageRequest(appQuery.getPageNum(),appQuery.getPageSize()));
 			responseBody.setPageList(pageList);
 			responseBody.setResult(new Result(Status.OK, ""));
 			
