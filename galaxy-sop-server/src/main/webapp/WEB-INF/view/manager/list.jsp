@@ -63,7 +63,7 @@ function setCheckLine(data){
 	            </dl>
 	            
 				<dl class="fmdl fml fmdll clearfix">
-	              <dt>项目类别：</dt>
+	              <dt>项目类型：</dt>
 	              <dd>
 	                <select name="projectType">
 	                  <option value="">全部</option>

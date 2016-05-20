@@ -848,7 +848,7 @@ function formatLog(value,row,index){
 		var strrrr=strlog;
 		if(len>100){
 			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
-			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;padding:10px 0;\" class=\"text-overflow1\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
 			
 			return rc;
 		}else{
