@@ -7,7 +7,7 @@
     width: 50%;
 }
 #projectProgress_1_table td,#projectProgress_2_table td,#projectProgress_3_table td,#projectProgress_4_table td,#projectProgress_7_table td{line-height:22px;text-align:left !important;}
-#projectProgress_1_table th{ width: 50%;}
+#projectProgress_1_table th,#projectProgress_2_table th,#projectProgress_3_table th,#projectProgress_4_table th,#projectProgress_7_table th{ width: 50%;}
 </style>
 
 <div class="myprojecttc">
