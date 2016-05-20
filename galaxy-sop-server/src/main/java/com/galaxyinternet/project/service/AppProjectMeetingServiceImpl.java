@@ -89,7 +89,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 		
 		MeetingRecord mrEntity = new MeetingRecord();
 		mrEntity.setId(sopFile.getMeetingId());//会议Id
-		
+		mrEntity.setRecordType(DictEnum.RecordType.IDEAS.getType());
 		SopFile query = new SopFile();
 		query.setProjectId(idea.getId());
 		query.setProjectProgress(idea.getIdeaProgress());
