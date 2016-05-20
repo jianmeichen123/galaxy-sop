@@ -481,7 +481,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 											CYXM("创建项目","ideaProgress:4");  <br/>
 			 * @return
 			 */
-			@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+			@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 			@ResponseBody
 			@RequestMapping(value = "/ideaUpReport", produces = MediaType.APPLICATION_JSON_VALUE)
 			public ResponseData<SopFile> ideaUpReport(SopFile ideafile,HttpServletRequest request,HttpServletResponse response ) {
@@ -671,7 +671,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			 * @param  ideaid 创意id
 			 * @return
 			 */
-			@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+			@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 			@ResponseBody
 			@RequestMapping(value = "/ideaStartMeet/{ideaid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 			public ResponseData<Idea> ideaStartMeet(HttpServletRequest request,@PathVariable("ideaid") Long ideaid) {
@@ -760,7 +760,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		return responseBody;
 	}
 	
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	@ResponseBody
 	@RequestMapping(value="/addIdea",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Idea> addIdea(HttpServletRequest request,@RequestBody @Valid Idea idea,BindingResult result){
@@ -848,7 +848,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	}
 	@ResponseBody
 	@RequestMapping("/createProject")
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	public ResponseData<Idea> createProject(@RequestBody Idea ideaBo, HttpServletRequest request)
 	{
 		Long ideaId = ideaBo.getId();
@@ -894,7 +894,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	}
 	@ResponseBody
 	@RequestMapping("/editProjectName")
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	public ResponseData<Idea> editProjectName(@RequestBody Idea ideaBo, HttpServletRequest request)
 	{
 		Long ideaId = ideaBo.getId();
@@ -950,7 +950,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		
 		
 		//添加 会议记录   meettype：meetingType:3 立项会  创意recordType 
-		@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+		@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 		@ResponseBody
 		@RequestMapping(value = "/saveCyMeetRecord", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseData<MeetingRecord> saveCyMeetRecord(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {

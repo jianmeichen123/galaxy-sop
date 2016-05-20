@@ -196,7 +196,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	}
 	
 	@RequestMapping("/download")
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.LOG)
+	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
 	public void download(SopTemplate query, HttpServletRequest request, HttpServletResponse response)
 	{
 		try {

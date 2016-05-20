@@ -9,6 +9,4 @@ public enum LogType {
 	IDEANEWS(),
 	// 项目动态
 	PROJECTNEWS(),
-	// 记录所有操作(上面的所有操作)
-	ALL();
 }

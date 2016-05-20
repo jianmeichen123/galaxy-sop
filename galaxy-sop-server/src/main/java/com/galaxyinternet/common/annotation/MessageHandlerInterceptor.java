@@ -65,21 +65,19 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	OperationMessageService operationMessageService;
 	@Autowired
 	OperationLogsService operationLogsService;
-	
+
 	@Autowired
 	ProgressLogService ideaNewsService;
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void afterCompletion(final HttpServletRequest request, HttpServletResponse response, Object handler,
-			Exception ex) throws Exception {
+	public void afterCompletion(final HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 		if (handler instanceof HandlerMethod) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
 			Method method = handlerMethod.getMethod();
 			final Logger logger = method.getAnnotation(Logger.class);
 			if (logger != null) {
-				final Map<String, Object> map = (Map<String, Object>) request
-						.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
+				final Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
 				if (null != map && !map.isEmpty()) {
 					String uniqueKey = getUniqueKey(request, map, logger);
 					final OperationType type = OperationType.getObject(uniqueKey);
@@ -90,19 +88,17 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 						GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 							@Override
 							public void run() {
-								LogType logType = logger.writeOperationScope();
-								if (logType == LogType.MESSAGE) {
-									insertMessageTip(populateOperationMessage(type, user, map));
-								} else if (logType == LogType.ALL) {
-									insertMessageTip(populateOperationMessage(type, user, map));
-									insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
-									insertIdeaNews(populateProgressLog(operLogType, user, map,recordType));
-								} else if (logType == LogType.LOG) {
-									insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
-								} else if (logType == LogType.IDEANEWS) {
-									insertIdeaNews(populateProgressLog(operLogType, user, map,recordType));
-								} else if (logType == LogType.PROJECTNEWS) {
-									// 这里用于扩展
+								LogType[] logTypes = logger.operationScope();
+								for (LogType ltype : logTypes) {
+									if (ltype == LogType.MESSAGE) {
+										insertMessageTip(populateOperationMessage(type, user, map));
+									} else if (ltype == LogType.LOG) {
+										insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
+									} else if (ltype == LogType.IDEANEWS) {
+										insertIdeaNews(populateProgressLog(operLogType, user, map, recordType));
+									} else if (ltype == LogType.PROJECTNEWS) {
+										// 这里用于扩展
+									}
 								}
 							}
 						});
@@ -124,7 +120,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			loger.error("产生提醒消息异常，请求数据：" + message, e1);
 		}
 	}
-	//添加创意动态
+
+	// 添加创意动态
 	private void insertIdeaNews(ProgressLog message) {
 		try {
 			ideaNewsService.insert(message);
@@ -158,8 +155,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		return uniqueKey;
 	}
 
-	private OperationLogs populateOperationLog(OperationLogType type, User user, Map<String, Object> map,
-			RecordType recordType) {
+	private OperationLogs populateOperationLog(OperationLogType type, User user, Map<String, Object> map, RecordType recordType) {
 		OperationLogs entity = new OperationLogs();
 		entity.setOperationContent(type.getContent());
 		entity.setOperationType(type.getType());
@@ -175,8 +171,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	}
 
 	// 创意动态
-	private ProgressLog populateProgressLog(OperationLogType type, User user, Map<String, Object> map,
-			RecordType recordType) {
+	private ProgressLog populateProgressLog(OperationLogType type, User user, Map<String, Object> map, RecordType recordType) {
 		ProgressLog entity = new ProgressLog();
 		entity.setOperationContent(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_IDEA_CONTENT)));
 		entity.setOperationType(type.getType());

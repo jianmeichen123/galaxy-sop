@@ -150,7 +150,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @return
 	 */
 	@Token
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.MESSAGE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
 	@RequestMapping(value = "/ap", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> addProject(@RequestBody Project project,
@@ -2130,7 +2130,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/**
 	 * 更新排期池时间/updateReserveTime
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.MESSAGE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTime", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> updateReserveTime(
@@ -2231,7 +2231,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/**
 	 * 更新排期池时间/updateReserveTime-客户端用
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.MESSAGE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTimeByApp", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> updateReserveTimeByApp(
