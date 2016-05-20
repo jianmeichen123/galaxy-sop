@@ -8,5 +8,5 @@ public enum LogType {
 	// 创意动态
 	IDEANEWS(),
 	// 项目动态
-	PROJECTNEWS(),
+	PROJECTNEWS()
 }
