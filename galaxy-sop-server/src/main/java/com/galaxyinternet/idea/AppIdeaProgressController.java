@@ -21,6 +21,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.common.ProgressLog;
 import com.galaxyinternet.model.idea.AppIdea;
 import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.operationLog.OperationLogs;
@@ -29,7 +30,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.MeetingRecordService;
-import com.galaxyinternet.service.OperationLogsService;
+import com.galaxyinternet.service.ProgressLogService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 
@@ -53,7 +54,7 @@ public class AppIdeaProgressController extends BaseControllerImpl<Idea, Idea> {
 	private ConfigService configService;*/
 
 	@Autowired
-	private OperationLogsService operationLogsService;
+	private ProgressLogService progressLogService;
 	@Override
 	protected BaseService<Idea> getBaseService() {
 		return this.ideaService;
@@ -103,7 +104,7 @@ public class AppIdeaProgressController extends BaseControllerImpl<Idea, Idea> {
 			AppSopFile appSopFile = null;
 			// 上传list给到类中
 			List<AppSopFile> appS = null;*/
-			OperationLogs operationLogs = null;
+			ProgressLog progressLog = null;
 			// 会议记录的类
 			MeetingRecord meetingRecord = null;
 			AppIdea appIdea = null;
@@ -111,7 +112,7 @@ public class AppIdeaProgressController extends BaseControllerImpl<Idea, Idea> {
 				
 				meetingRecord = new MeetingRecord();
 				
-				operationLogs=new OperationLogs();
+				progressLog=new ProgressLog();
 				sopFile = new SopFile();
 				
 				appIdea = new AppIdea();
@@ -124,11 +125,12 @@ public class AppIdeaProgressController extends BaseControllerImpl<Idea, Idea> {
 						appIdea.setProjectName(p.getProjectName()); //项目名称
 						appIdea.setProjectProgress(p.getProgress());//项目阶段
 						appIdea.setProjectCode(p.getProjectProgress());//项目阶段的code
-						operationLogs.setRecordType((byte)0);
-						operationLogs.setProjectId(idea.getProjectId());
-						List<OperationLogs> listSop = operationLogsService.queryList(operationLogs);
+						appIdea.setProjectId(idea.getProjectId().toString());
+						progressLog.setRecordType(DictEnum.RecordType.IDEAS.getType());
+						progressLog.setRelatedId(id);
+						List<ProgressLog> listSop = progressLogService.queryList(progressLog);
 						if (listSop!=null && listSop.size()>0) {
-							OperationLogs ot = listSop.get(0);
+							ProgressLog ot = listSop.get(0);
 							appIdea.setProjectDtName(ot.getUname());
 							appIdea.setdTime(ot.getCreatedTime().toString());
 							appIdea.setDtcaoZuo(ot.getOperationType());

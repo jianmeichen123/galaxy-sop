@@ -25,6 +25,7 @@ public class AppIdea extends PagableEntity
 	private String personName; //上传人
 	private String fileTime;//文件上传时间
 	private String fileKey;//文件key
+	private String projectId;//项目id
 	
 	
 	
@@ -131,6 +132,12 @@ public class AppIdea extends PagableEntity
 	}
 	public void setDtcaoZuo(String dtcaoZuo) {
 		this.dtcaoZuo = dtcaoZuo;
+	}
+	public String getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(String projectId) {
+		this.projectId = projectId;
 	}
 	
 	
