@@ -8,8 +8,6 @@
     width: 50%;
 }
 #projectProgress_1_table td,#projectProgress_2_table td,#projectProgress_3_table td,#projectProgress_4_table td,#projectProgress_7_table td{line-height:22px;text-align:left !important;}
-#wid{width:420px;}
-th[data-field="viewNotes"]{width:420px;}
 </style>
 <div class="myprojecttc">
 	<a href="javascript:;" data-close="close" class="close null">关闭</a>
@@ -236,7 +234,7 @@ th[data-field="viewNotes"]{width:420px;}
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-id="wid" data-align="center" data-formatter="formatInterview_sop" style="width:420px;">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="formatInterview_sop">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
