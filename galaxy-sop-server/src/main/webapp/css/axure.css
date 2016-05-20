@@ -1248,10 +1248,15 @@ dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../
 /*ie8select文字垂直居中*/
 select{padding: 6px 0 !important;}
 /**切断文字**/
-.text-overflow{width:400px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;margin:0 auto;}
+.text-overflow{width:420px;padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;}
+.text-overflow1{padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;}
 /**切断文字 end**/
 #template-table{border-radius: 6px;}
 .percentTxt{width:30px !important;display: inline-block !important;}
 .no_content{font-size: 14px;color:#536379;margin: 60px 0 0 0;text-align: center;}
 #container_jdjy,#container_xmzzl{margin-bottom: 20px;}
 form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
+.save_log{
+	width:210px;
+	margin:0 auto !important;
+}

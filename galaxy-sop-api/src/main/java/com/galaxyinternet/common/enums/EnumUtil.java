@@ -40,6 +40,8 @@ public class EnumUtil {
 			return CodeEnum.internetTourism.getCode();
 		}else if(id == CodeEnum.artificialIntelligence.getId()){
 			return CodeEnum.artificialIntelligence.getCode();
+		}else if(id == CodeEnum.enterpriseService.getId()){
+			return CodeEnum.enterpriseService.getCode();
 		}else{
 			return 99;
 		}

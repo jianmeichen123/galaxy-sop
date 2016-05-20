@@ -59,7 +59,7 @@
 		     <input type="hidden"  id="tipslink_val" name="proType" value="1" />
 			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fml fmdll clearfix">
-	              <dt>项目类别：</dt>
+	              <dt>项目类型：</dt>
 	              <dd>
 	                <select name="projectType">
 	                  <option value="">全部</option>
@@ -148,6 +148,7 @@
 
 <script type="text/javascript">
 	createMenus(5);
+	var uid='${galax_session_user.id }';
 	/**
 	 * 分页数据生成操作内容
 	 */
