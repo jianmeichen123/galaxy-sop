@@ -1,6 +1,8 @@
 package com.galaxyinternet.utils;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.PropertyAccessorFactory;
@@ -39,6 +41,15 @@ public class CollectionUtils {
 					return (T) targetVal;
 				}
 			}
+		}
+		return null;
+	}
+	
+	public static List<String> string2List(String src, String delimiter)
+	{
+		if(src != null && delimiter != null)
+		{
+			return Arrays.asList(src.split(delimiter));
 		}
 		return null;
 	}

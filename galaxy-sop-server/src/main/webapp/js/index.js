@@ -495,9 +495,10 @@ function cyIndexCallback(data){
 		});
 		
 		if(list.length<3){
-			$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
+			$("#cy_index").parent().parent().siblings().children('.more').css("display","none");	
 		}
 	}else{
+		$("#cy_index").parent().parent().siblings().children('.more').css("display","none");
 		var noData =
 			'<tr>'+
 			'<td colspan="7">'+'没有找到匹配的记录'+'</td>'+

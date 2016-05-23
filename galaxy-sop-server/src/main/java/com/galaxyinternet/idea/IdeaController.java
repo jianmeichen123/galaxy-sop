@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -178,7 +179,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	public ResponseData<Idea> search(@RequestBody Idea query, HttpServletRequest request)
 	{
 		ResponseData<Idea> resp = new ResponseData<Idea>();
-		
 		try {
 			PageRequest pageable = new PageRequest();
 			if(StringUtils.isNotBlank(query.getIsforindex())&&query.getIsforindex().equals("isfor")){
@@ -190,8 +190,14 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			}else{
 				Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
 				Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 10;
-				pageable.setPage(pageNum);
-				pageable.setSize(pageSize);
+				if(StringUtils.isNotEmpty(query.getProperty()))
+				{
+					pageable = new PageRequest(pageNum,pageSize, new Sort(query.getProperty()));
+				}
+				else
+				{
+					pageable = new PageRequest(pageNum,pageSize);
+				}
 			}
 			
 			//提出人
@@ -223,9 +229,18 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				Date date = DateUtil.convertStringToDate(query.getCreatedDateThrough());
 				query.setCreatedTimeThrough(DateUtil.getSearchToDate(date).getTime());
 			}
-			//角色 - 投资经理、合伙人查看本事业线创意
+			
+			
 			User user = (User)getUserFromSession(request);
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			//无权限查看，返回null
+			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+				resp.setPageList(new Page<Idea>(new ArrayList<Idea>() , pageable, 0l));
+				return resp;
+			}
+			
+			//角色 - 投资经理、合伙人查看本事业线创意
 			if(roleIdList != null && roleIdList.size()>0 && (roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HHR)))
 			{
 				query.setDepartmentId(user.getDepartmentId());
