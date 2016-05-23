@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.cache.Cache;
@@ -120,6 +121,14 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	@RequestMapping(value = "/sop", method = RequestMethod.GET)
 	public String sop() {
 		return "manager/stage";
+	}
+	@RequestMapping(value = "/sop2/{projectId}", method = RequestMethod.GET)
+	public ModelAndView sop2(@PathVariable("projectId") Long projectId) 
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("manager/stage2");
+		mv.addObject("projectId", projectId);
+		return mv;
 	}
 	
 	/**
