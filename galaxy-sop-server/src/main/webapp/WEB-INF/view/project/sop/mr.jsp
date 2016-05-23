@@ -14,11 +14,20 @@
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 
 
-<!-- 日历插件 -->
+<!-- 日历插件
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
+ -->
+<!-- 日历插件 for hour-->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script>
+
 
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
@@ -39,7 +48,7 @@
             <dt>会议召开日期：</dt>
             <dd>
                 <input name="projectTime" id="projectTime" type="hidden" value="${timeStr }"/>
-            	<input class="datepicker txt time" style="height:24px;" type="text" id="meeting_date" readonly value="" />
+            	<input class="datetimepickerHour txt time" style="height:24px;" type="text" id="meeting_date" readonly value="" />
             </dd>
         </dl>
     </div>
@@ -92,5 +101,5 @@
 </div>
 <script type="text/javascript">
 		UM.getEditor('meeting_notes');
-		$("#meeting_date").val(new Date().format("yyyy-MM-dd"));
+		$("#meeting_date").val(new Date().format("yyyy-MM-dd hh:mm"));
 </script>
