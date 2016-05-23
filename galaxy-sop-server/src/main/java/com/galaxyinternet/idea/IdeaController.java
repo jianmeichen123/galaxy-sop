@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.IdeaBo;
-import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.annotation.LogType;
@@ -190,8 +190,14 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			}else{
 				Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
 				Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 10;
-				pageable.setPage(pageNum);
-				pageable.setSize(pageSize);
+				if(StringUtils.isNotEmpty(query.getProperty()))
+				{
+					pageable = new PageRequest(pageNum,pageSize, new Sort(query.getProperty()));
+				}
+				else
+				{
+					pageable = new PageRequest(pageNum,pageSize);
+				}
 			}
 			
 			//提出人

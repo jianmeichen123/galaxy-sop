@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.idea;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -47,6 +48,11 @@ public class Idea extends PagableEntity
 	
 	private String departmentEditable;
 	private String latestLog;
+	/**
+	 * 查询多个状态,逗号分隔。<br>
+	 * e.g. ideaProgress:1,ideaProgress:2
+	 */
+	private String ideaProgressStr;
 	
 	public String getLatestLog() {
 		return latestLog;
@@ -238,7 +244,11 @@ public class Idea extends PagableEntity
 	public void setIsforindex(String isforindex) {
 		this.isforindex = isforindex;
 	}
-	
-	
-	
+	public String getIdeaProgressStr() {
+		return ideaProgressStr;
+	}
+	public void setIdeaProgressStr(String ideaProgressStr) {
+		this.ideaProgressStr = ideaProgressStr;
+	}
+
 }

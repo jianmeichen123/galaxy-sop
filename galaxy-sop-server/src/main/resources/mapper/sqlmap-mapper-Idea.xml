@@ -69,6 +69,12 @@
 			 		</if>
 			 		)
 				</if>
+				<if test="ideaProgressStr != null">
+					and idea_progress in 
+					<foreach collection='@com.galaxyinternet.utils.CollectionUtils@string2List(ideaProgressStr,",")' index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
