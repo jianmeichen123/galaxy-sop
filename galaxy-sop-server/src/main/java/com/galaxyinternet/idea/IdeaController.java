@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.IdeaBo;
+import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.annotation.LogType;
@@ -178,7 +179,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	public ResponseData<Idea> search(@RequestBody Idea query, HttpServletRequest request)
 	{
 		ResponseData<Idea> resp = new ResponseData<Idea>();
-		
 		try {
 			PageRequest pageable = new PageRequest();
 			if(StringUtils.isNotBlank(query.getIsforindex())&&query.getIsforindex().equals("isfor")){
@@ -223,9 +223,18 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				Date date = DateUtil.convertStringToDate(query.getCreatedDateThrough());
 				query.setCreatedTimeThrough(DateUtil.getSearchToDate(date).getTime());
 			}
-			//角色 - 投资经理、合伙人查看本事业线创意
+			
+			
 			User user = (User)getUserFromSession(request);
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			//无权限查看，返回null
+			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+				resp.setPageList(new Page<Idea>(new ArrayList<Idea>() , pageable, 0l));
+				return resp;
+			}
+			
+			//角色 - 投资经理、合伙人查看本事业线创意
 			if(roleIdList != null && roleIdList.size()>0 && (roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HHR)))
 			{
 				query.setDepartmentId(user.getDepartmentId());
