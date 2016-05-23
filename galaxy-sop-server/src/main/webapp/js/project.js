@@ -77,8 +77,17 @@ $(function(){
 		$("#project_contribution").val(data.entity.projectContribution);
 		$("#project_valuations").val(data.entity.projectValuations);
 		$("#project_share_ratio").val(data.entity.projectShareRatio);
-		var redioId = "#currencyUnit" + data.entity.currencyUnit;
+		
+		var currencyUnit = data.entity.currencyUnit;
+		var redioId = "";
+		if(currencyUnit==null||typeof(currencyUnit) == 'undefined'||isNaN(currencyUnit)){
+			redioId = "#currencyUnit";
+		}else{
+			$("#currencyUnitBlock").css("display","none").remove();
+			redioId = "#currencyUnit"+currencyUnit;
+		}
 		$(redioId).attr("checked","checked");
+		
 		$("#project_company").val(data.entity.projectCompany);
 		$("#project_company_code").val(data.entity.projectCompanyCode);
 		
