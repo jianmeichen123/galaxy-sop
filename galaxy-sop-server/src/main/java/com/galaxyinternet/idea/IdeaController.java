@@ -63,6 +63,7 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.AbandonedService;
 import com.galaxyinternet.service.ConfigService;
@@ -482,7 +483,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 
 	
 	
-	
 	//=======================   上传可行性报告      ===============================//
 			//=======================    更新可行性报告     ===============================//
 			/**
@@ -536,6 +536,17 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 							}
 						}else{
 							responseBody.setResult(new Result(Status.ERROR,null, "传入信息不全"));
+							return responseBody;
+						}
+					}else{
+						//新增    只能有1条记录    SopFile中是否有可行性报告
+						SopFile file = new SopFile();
+						file.setProjectId(ideafile.getProjectId());
+						file.setRecordType(RecordType.IDEAS.getType());
+						file.setFileValid(1);
+						List<SopFile> ideaFileList = sopFileService.queryList(file);
+						if(ideaFileList!=null && !ideaFileList.isEmpty()){
+							responseBody.setResult(new Result(Status.ERROR,null, "可行性报告已存在"));
 							return responseBody;
 						}
 					}
@@ -774,7 +785,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		return responseBody;
 	}
-	
+
 	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	@ResponseBody
 	@RequestMapping(value="/addIdea",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)

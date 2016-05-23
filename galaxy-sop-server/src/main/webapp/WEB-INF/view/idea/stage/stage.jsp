@@ -86,7 +86,7 @@
 				</div>
 				<!--表格内容-->
 				<table id="ideaProgress_2_table" data-id-field="id"
-					data-url="<%=path%>/galaxy/idea/queryIdeaDyList"  data-page-list="[3,5,10]"
+					data-url="<%=path%>/galaxy/idea/queryIdeaDyList"  
 					data-toolbar="#ideaProgress_2_params">
 					<thead>
 						<tr>
