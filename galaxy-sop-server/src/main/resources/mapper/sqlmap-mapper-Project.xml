@@ -152,7 +152,8 @@
 				</if>
 			</trim>
 		</where>
-		<if test="sorting != null">order by ${sorting}</if>
+		<!-- <if test="sorting != null">order by ${sorting}</if> -->
+		ORDER BY CASE WHEN IFNULL(updated_time,'')='' THEN created_time ELSE updated_time END DESC, created_time DESC
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>

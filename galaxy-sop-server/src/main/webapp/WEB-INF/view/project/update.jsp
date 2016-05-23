@@ -86,6 +86,7 @@
                       <td>
                         <dl>
                           <dt>单位（万）：</dt>                          <dd>
+                          	<label id="currencyUnitBlock"><input id="currencyUnit" name="formatUnit" type="radio" value="" />请选择</label>
                             <label><input id="currencyUnit0" name="formatUnit" type="radio" value="0" />人民币</label>
                             <label><input id="currencyUnit1" name="formatUnit" type="radio" value="1" />美元</label>
                             <label><input id="currencyUnit2" name="formatUnit" type="radio" value="2" />英镑</label>

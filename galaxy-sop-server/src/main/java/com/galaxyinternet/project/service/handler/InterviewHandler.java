@@ -65,6 +65,7 @@ public class InterviewHandler implements Handler {
 		ir.setViewDate(q.getParseDate() == null ? new Date() : q.getParseDate());
 		ir.setViewTarget(q.getTarget());
 		ir.setViewNotes(q.getContent());
+		ir.setCreatedId(project.getCreateUid());
 		ir.setCreatedTime((new Date()).getTime());
 		interviewRecordService.insert(ir);
 		return new SopResult(Status.OK,null,"添加访谈纪要成功!",UrlNumber.one);
