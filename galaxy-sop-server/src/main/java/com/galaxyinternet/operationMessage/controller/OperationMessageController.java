@@ -76,7 +76,7 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 		try {
 			if(operationMessageBo.getModule()!=null&&operationMessageBo.getModule() != PlatformConst.MODULE_BROADCAST_MESSAGE.intValue()){
 				User user = (User) getUserFromSession(request);
-				operationMessageBo.setOperatorId(user.getId());
+				operationMessageBo.setBelongUid(user.getId());
 			}
 			Page<OperationMessage> operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
 			responseBody.setPageList(operationMessage);

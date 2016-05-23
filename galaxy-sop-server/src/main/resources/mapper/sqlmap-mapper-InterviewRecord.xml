@@ -9,11 +9,13 @@
     <result column="view_date" property="viewDate" jdbcType="TIMESTAMP" />
     <result column="view_target" property="viewTarget" jdbcType="VARCHAR" />
     <result column="view_notes" property="viewNotes" jdbcType="VARCHAR" />
+    <result column="view_notes_text" property="viewNotesText" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+    <result column="created_id" property="createdId" jdbcType="BIGINT" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, project_id,file_id, view_date, view_target, view_notes, created_time
+    id, project_id,file_id, view_date, view_target, view_notes, view_notes_text,created_time,created_id
   </sql>
   
   <sql id="Base_Where_Clause">
@@ -25,7 +27,10 @@
 				<if test="viewDate != null" > and view_date = #{viewDate,jdbcType=TIMESTAMP} </if>
 				<if test="viewTarget != null" > and view_target = #{viewTarget,jdbcType=VARCHAR} </if>
 				<if test="viewNotes != null" > and view_notes = #{viewNotes,jdbcType=VARCHAR} </if>
+				<if test="viewNotesText != null" > and view_notes_text = #{viewNotesText,jdbcType=VARCHAR} </if>
+				
 				<if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				<if test="createdId != null" > and created_id = #{createdId,jdbcType=BIGINT} </if>
 				
 				<if test="proIdList != null">
 					and project_id in
@@ -81,10 +86,10 @@
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.InterviewRecord" >
 	    <![CDATA[
 		insert into sop_interview_record (id, project_id, file_id,view_date, 
-		  view_target, view_notes, created_time
+		  view_target, view_notes,view_notes_text, created_time,created_id
       	)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, #{viewDate,jdbcType=TIMESTAMP}, 
-	      #{viewTarget,jdbcType=VARCHAR}, #{viewNotes,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT}
+	      #{viewTarget,jdbcType=VARCHAR}, #{viewNotes,jdbcType=VARCHAR}, #{viewNotesText,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT},#{createdId,jdbcType=BIGINT}
 		)
 	    ]]>
     </insert>
@@ -98,7 +103,9 @@
 	      <if test="viewDate != null" > view_date = #{viewDate,jdbcType=TIMESTAMP}, </if>
 	      <if test="viewTarget != null" > view_target = #{viewTarget,jdbcType=VARCHAR}, </if>
 	      <if test="viewNotes != null" > view_notes = #{viewNotes,jdbcType=VARCHAR}, </if>
+	      <if test="viewNotesText != null" > view_notes_text = #{viewNotesText,jdbcType=VARCHAR}, </if>
 	      <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
+	       <if test="createdId != null" > created_id = #{createdId,jdbcType=BIGINT}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -108,7 +115,9 @@
 	      		<if test="viewDate != null" >and view_date = #{viewDate,jdbcType=TIMESTAMP} </if>
 	      		<if test="viewTarget != null" > and view_target = #{viewTarget,jdbcType=VARCHAR} </if>
 	      		<if test="viewNotes != null" > and view_notes = #{viewNotes,jdbcType=VARCHAR} </if>
+	      		<if test="viewNotesText != null" > and view_notes_text = #{viewNotesText,jdbcType=VARCHAR} </if>
 	      		<if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
+	      	    <if test="createdId != null" > and created_id = #{createdId,jdbcType=BIGINT} </if>
 			</trim>
 		</where>
 	</update>
@@ -121,7 +130,9 @@
 	      <if test="viewDate != null" > view_date = #{viewDate,jdbcType=TIMESTAMP}, </if>
 	      <if test="viewTarget != null" > view_target = #{viewTarget,jdbcType=VARCHAR}, </if>
 	      <if test="viewNotes != null" > view_notes = #{viewNotes,jdbcType=VARCHAR}, </if>
+	       <if test="viewNotesText != null" > view_notes_text = #{viewNotesText,jdbcType=VARCHAR}, </if>
 	      <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
+	      <if test="createdId != null" > created_id= #{createdId,jdbcType=BIGINT}, </if>
 		</set>
 		where id = #{id}
 	</update>
@@ -147,14 +158,16 @@
 	    <result column="view_date" property="viewDate" jdbcType="TIMESTAMP" />
 	    <result column="view_target" property="viewTarget" jdbcType="VARCHAR" />
 	    <result column="view_notes" property="viewNotes" jdbcType="VARCHAR" />
+	    <result column="view_notes_text" property="viewNotesText" jdbcType="VARCHAR" />
 	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+	    <result column="created_id" property="createdId" jdbcType="BIGINT" />
 	</resultMap>
   
 	<!-- 查询 -->
 	<select id="selectInterviewPage" resultMap="PageResultMap" parameterType="java.util.Map">
 		select
 			ir.id, ir.project_id, p.project_name, ir.file_id, ir.view_date, ir.view_target, 
-			ir.view_notes, ir.created_time
+			ir.view_notes,ir.view_notes_text, ir.created_time
 		from sop_interview_record ir , sop_project p 
 		where ir.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
@@ -188,7 +201,7 @@
 	  select count(*) from (
 		select
 			ir.id, ir.project_id, p.project_name, ir.file_id, ir.view_date, ir.view_target, 
-			ir.view_notes, ir.created_time
+			ir.view_notes, ir.view_notes_text, ir.created_time
 		from sop_interview_record ir , sop_project p 
 		where ir.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>

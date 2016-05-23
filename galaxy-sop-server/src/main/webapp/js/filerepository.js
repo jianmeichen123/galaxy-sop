@@ -104,6 +104,11 @@ var fileGrid = {
 				field : 'fWorktype',
 				title : '业务分类'
 			}, {
+			    field: 'voucherFile',
+			    title: '签署凭证',
+			    events : fileGrid.updateEvents,
+			    formatter: fileGrid.operateVFormatter 	
+			  }, {
 				field : 'updatedDate',
 				title : '更新日期'
 			}, {
@@ -137,11 +142,19 @@ var fileGrid = {
 		}else{
 			return '';
 		}
+		var uploadOpt,uploadClass;
+		if(row.fileKey){
+			uploadOpt = "更新";
+			uploadClass = "fileupdatelink";
+		}else{
+			uploadOpt = "上传";
+			uploadClass = "fileuploadlink";
+		}
 		
 		if(tempPro <= fileGrid.progress && row.isEdit == "true"){
 			return [
-		            '<a class="fileupdatelink blue"  href="javascript:void(0)">',
-		            '更新',
+		            '<a class= "' + uploadClass +' blue"  href="javascript:void(0)">',
+		            uploadOpt,
 		            '</a>  '
 		        ].join('');
 		}
@@ -149,12 +162,12 @@ var fileGrid = {
 		
 	},
 	updateEvents : {
+		//更新文档
 		'click .fileupdatelink' : function(e, value, row, index){
-//			alert(row.id);
         	formData = {
         			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
-        			_fileType : row.fileType,
+        			_fileType : "fileType:1",
         			_fileTypeAuto : true,
         			_workType : row.fileWorktype,
         			_projectId : row.projectId,
@@ -168,12 +181,108 @@ var fileGrid = {
     				_localUrl : platformUrl.commonUploadFile
     		};
     		win.init(formData);
+        },
+        //上传文档
+        'click .fileuploadlink' : function(e, value, row, index){
+        	var uploadUrl = undefined;
+        	var uploadFormFuc = undefined;
+        	if(row.isChangeTask == "true"){
+        		uploadUrl = platformUrl.stageChange;
+        		uploadFormFuc = function(dom){
+					//本地上传回掉参数获取事件, 通过dom.find(“”)获取表单数据 jquery 语法
+					var form = {
+							"pid" : dom.find("#win_sopProjectId").data("tid"),
+							"stage":row.projectProgress,
+							"type":dom.find("input[name='win_fileSource']:checked").val(),
+							"fileType":dom.find("#win_fileType").val(),
+							"fileWorktype":dom.find("#win_fileWorkType").val()
+					}
+					return form;
+				}
+        	}else{
+        		uploadUrl = platformUrl.commonUploadFile;
+        	}
+        	
+        	formData = {
+        			_fileKey : row.fileKey,
+        			_fileSource : row.fileSource,
+        			_fileType : "fileType:1",
+        			_fileTypeAuto : true,
+        			_workType : row.fileWorktype,
+        			_projectId : row.projectId,
+        			_projectName : row.projectName,
+        			_isProve : "hide",
+        			_remark : "hide",
+    				callFuc : function(){
+    					fileGrid.serarchData();
+    				},
+    				_url : platformUrl.stageChange, //兼容老板插件
+    				_localUrl : uploadUrl,
+    				_getLocalFormParam : uploadFormFuc
+    		};
+    		win.init(formData);
+        },
+        //上传签署凭证文档
+        'click .voucherfileuploadlink' : function(e, value, row, index){
+        	formData = {
+        			_fileKey : row.fileKey,
+        			_fileSource : row.fileSource,
+        			_fileType : "fileType:1",
+        			_fileTypeAuto : true,
+        			_workType : row.fileWorktype,
+        			_projectId : row.projectId,
+        			_projectName : row.projectName,
+        			_isProve : true,
+        			_remark : "hide",
+    				callFuc : function(){
+    					fileGrid.serarchData();
+    				},
+    				_url : platformUrl.stageChange, //兼容老板插件
+    				_localUrl : platformUrl.stageChange,
+    				_getLocalFormParam : function(dom){
+    					//本地上传回掉参数获取事件, 通过dom.find(“”)获取表单数据 jquery 语法
+    					var form = {
+    							"pid" : dom.find("#win_sopProjectId").data("tid"),
+    							"stage":row.projectProgress,
+    							"type":dom.find("input[name='win_fileSource']:checked").val(),
+    							"fileType":dom.find("#win_fileType").val(),
+    							"fileWorktype":dom.find("#win_fileWorkType").val(),
+    							"voucherType" : $("input[id='win_isProve']:checked").val()
+    					}
+    					return form;
+    				}
+    		};
+    		win.init(formData);
         }
+	},
+	operateVFormatter : function(value, row, index){
+		if(row.Vstatus=="false"){
+			if(row.fileKey){
+				return [
+						'<a class="voucherfileuploadlink blue"  href="javascript:void(0)">上传</a>'
+				        ].join('');
+			}else{
+				return [
+						'暂不能操作'
+				        ].join('');
+			}
+		}
+		if(row.Vstatus=="true"){
+			return [
+				'<a class="filedownloadlink blue" id="vsopfile"  href="javascript:void(0)">查看</a>  '
+		        ].join('');
+		}
+		if(row.Vstatus=="no"){
+			return [
+					'无'
+			        ].join('');
+		}
+	
 	},
 	downloadFomatter : function(value, row, index){
 		if(row.fileKey){
 			return [
-			          '<a class="filedownloadlink blue"  href="javascript:void(0)">',
+			          '<a class="filedownloadlink blue" id ="sopfile"  href="javascript:void(0)">',
 			          '查看',
 			          '</a>  '
 			       ].join('');
@@ -182,7 +291,21 @@ var fileGrid = {
 	},
 	downloadEvents : {
 		'click .filedownloadlink': function (e, value, row, index) {
-			window.location.href=platformUrl.downLoadFile+'/'+ row.id;
+//			data = {
+//					fileKey : row.fileKey,
+//					fileName : row.fileName + "." + row.fileSuffix
+//			};
+			
+			layer.msg('正在下载，请稍后...',{time:2000});
+			var keyvalue;
+			if(e.target.id=="sopfile"){
+				keyvalue=row.id;
+			}else if(e.target.id=="vsopfile"){
+				keyvalue=row.voucherId; 	
+			}else{
+				keyvalue="";
+			}
+			window.location.href=platformUrl.downLoadFile+'/'+keyvalue ;
         }
 	},
 	queryParams : function(params){
@@ -192,8 +315,8 @@ var fileGrid = {
 		params.fileType = utils.confident(form.search_fileType,"all");
 		params.fileWorktype = utils.confident(form.search_fileWorktype,"all");
 		params.fileStatus = utils.confident(form.search_fileStatus,"all");
-		var startTime = (new Date(form.file_startDate)).getTime();
-		var endTime = (new Date(form.file_endDate)).getTime(); 
+		var startTime = (new Date(form.file_startDate+' 00:00:00')).getTime();		
+		var endTime = (new Date(form.file_endDate+' 23:59:59')).getTime(); 		
 		if(startTime > endTime){
 			layer.msg("开始时间不能大于结束时间");
 			return false;

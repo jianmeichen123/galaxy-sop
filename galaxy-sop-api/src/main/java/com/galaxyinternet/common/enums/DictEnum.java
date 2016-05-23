@@ -1,5 +1,8 @@
 package com.galaxyinternet.common.enums;
 
+import java.util.Map;
+
+
 public enum DictEnum {
 	
 	项目类型("项目类型","projectType"),
@@ -15,7 +18,8 @@ public enum DictEnum {
 	档案状态("档案状态","fileStatus"),
 	档案业务分类("档案业务分类","fileWorktype"),
 	档案存储类型("档案存储类型","fileType"),
-	档案来源("档案来源","fileSource");
+	档案来源("档案来源","fileSource"),
+	学历("学历","degree");
 	private String name;
 
 	private String code;
@@ -223,6 +227,43 @@ public enum DictEnum {
 	                }                
 	            }
 	        }
+	        return null;
+	    }
+	}
+	
+	//会议状态
+	public enum meetingSheduleResult {
+		待排期("待排期",0),
+		已排期("已排期",1),
+		已通过("已通过",2),
+		已否决("已否决",3);
+		private String name;
+		private int code;
+		private meetingSheduleResult(String name, int code) {
+			this.name = name;
+			this.code = code;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public int getCode() {
+			return code;
+		}
+		
+		/**
+	     * 根据code get name
+	     * @param reslut
+	     * @return
+	     */
+	    public static String getNameByCode(int code) {
+	        meetingSheduleResult[] values = meetingSheduleResult.values();
+            for (int i = 0;i < values.length;i++) {
+                if (code == values[i].getCode()) {
+                    return values[i].getName();
+                }                
+            }
 	        return null;
 	    }
 	}		
@@ -557,6 +598,122 @@ public enum DictEnum {
 		}
 	}
 
+	public enum RecordType {
 
+		PROJECT((byte) 0, "项目"), IDEAS((byte) 1, "创意");
+
+		private byte type;
+		private String name;
+
+		private RecordType(byte type, String name) {
+			this.type = type;
+			this.name = name;
+		}
+
+		public byte getType() {
+			return type;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public static String getName(byte type) {
+			RecordType[] rtypes = RecordType.values();
+			String result = "";
+			for (RecordType rtype : rtypes) {
+				if (type == rtype.getType()) {
+					result = rtype.getName();
+					break;
+				}
+			}
+			return result;
+		}
+	}
+	
+	
+	
+	public enum IdeaProgress {
+
+		CYCJ("创意已创建/待认领","ideaProgress:1"),
+		CYDY("调研","ideaProgress:2"),
+		CYLXH("创建立项会","ideaProgress:3"),
+		CYLGZ("搁置","ideaProgress:4"),
+		CYXM("创建项目","ideaProgress:5");
+
+		private String name;
+		private String code;
+
+		private IdeaProgress(String name, String code) {
+			this.name = name;
+			this.code = code;
+		}
+
+		public String getCode() {
+			return code;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public static String getName(String code) {
+			IdeaProgress[] ideaP = IdeaProgress.values();
+			String name = "";
+			for (IdeaProgress aidea : ideaP) {
+				if (code == aidea.getCode()) {
+					name = aidea.getName();
+					break;
+				}
+			}
+			return name;
+		}
+	}
+	
+	
+	
+	
+	
+	// 档案来源
+		public enum degree {
+			高中("高中", "1"), 大专("大专", "2"),本科("本科", "3"),硕士("硕士", "4"),MBA("MBA", "5"),博士("博士", "6"),其他("其他", "7");
+			private String name;
+			private String code;
+
+			private degree(String name, String code) {
+				this.name = name;
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public String getCode() {
+				return code;
+			}
+
+			/**
+			 * 根据code get name
+			 * 
+			 * @param reslut
+			 * @return
+			 */
+			public static String getNameByCode(String code) {
+
+				if (code != null && !code.trim().equals("")) {
+
+					fileSource[] values = fileSource.values();
+					for (int i = 0; i < values.length; i++) {
+						if (code.equals(values[i].getCode())) {
+							return values[i].getName();
+						}
+					}
+				}
+				return null;
+			}
+			
+			
+		}
 }
 

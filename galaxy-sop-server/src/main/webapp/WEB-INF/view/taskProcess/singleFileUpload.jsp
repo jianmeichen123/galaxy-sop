@@ -18,7 +18,7 @@
 	</table>
 	<ul>
 		<li><a href="javascript:;" id="show-upload-btn">${btnTxt }</a></li>
-		<li><a href="javascript:;" id="complete-task-btn" class="disabled">提交完成</a></li>
+		<li><a href="javascript:;" id="complete-task-btn" disabled="disabled" class="disabled">提交完成</a></li>
 	</ul>
 </div>
 <!-- 弹出页面 -->
@@ -173,7 +173,7 @@ function showUploadPopup()
 function initUpload(_dialog){
 	
 	var uploader = new plupload.Uploader({
-		runtimes : 'html5,flash,silverlight,html4',
+		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
 		url : platformUrl.uploadFile2Task+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
@@ -221,6 +221,7 @@ function initUpload(_dialog){
 				if(data.status == "OK")
 				{
 					layer.msg("上传成功.");
+					$("#complete-task-btn").removeAttr("disabled");
 					$(_dialog.id).find("[data-close='close']").click();
 					loadRows();
 				}

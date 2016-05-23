@@ -14,7 +14,7 @@
           <!-- 个人简历 -->
           <div class="tabtable resume">
           <form action="" id="up_person_form" method="post">
-          <input hidden="hidden" id="personId" value="${personId}">
+          <input hidden="hidden" id="personId" value="${personId}" class="none">
           <!-- tab标签 -->
             <ul class="tablink">
                 <li data-tab="nav"><a href="javascript:;">个人信息</a></li>
@@ -122,33 +122,42 @@
                     <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含数字母、汉字 长度50"></td>  -->
                  	<td data-by="id">                 	    	                   
                  		<select id="de0" name="de" onchange="setValue(this)">		               		                		                  
-		                  <option value="" >学历</option>
-		                  <option value="高中" >高中</option>
-		                  <option value="本科" >本科</option>		                  
-		                  <option value="研究生" >研究生</option>
-		                  <option value="博士生" >博士生</option>			                    		                              
+		                  <option value="1" >请选择</option>
+		                  <option value="其他" >其他</option>
+		                  <option value="高中" >高中</option>		                  
+		                  <option value="大专" >大专</option>
+		                  <option value="本科" >本科</option>
+		                  <option value="硕士" >硕士</option>
+		                  <option value="MBA" >MBA</option>
+		                  <option value="博士" >博士</option>			                    		                              
 		                </select>
-		                <input name ="degree" id="degree" hidden="hidden" value="" >
+		                <input name ="degree" id="degree" hidden="hidden" value="" class="none" >
 		         	</td>
 		         	<td data-by="id">		         			                   
                  		<select id="de1" name="de" onchange="setValue1(this)">
-		                  <option value="" >学历</option>
-		                  <option value="高中" >高中</option>
-		                  <option value="本科" >本科</option>		                  
-		                  <option value="研究生" >研究生</option>
-		                  <option value="博士生" >博士生</option>		                                
+		                  <option value="1" >请选择</option>
+		                  <option value="其他" >其他</option>
+		                  <option value="高中" >高中</option>		                  
+		                  <option value="大专" >大专</option>
+		                  <option value="本科" >本科</option>
+		                  <option value="硕士" >硕士</option>
+		                  <option value="MBA" >MBA</option>
+		                  <option value="博士" >博士</option>		                                
 		                </select>
-		                <input name ="degree" id="degree1" hidden="hidden" value="" >
+		                <input name ="degree" id="degree1" hidden="hidden" value="" class="none" >
 		         	</td>
 		         	<td data-by="id">		         			                   
                  		<select id="de2" name="de" onchange="setValue2(this)">
-		                  <option value="" >学历</option>
-		                  <option value="高中" >高中</option>
-		                  <option value="本科" >本科</option>		                  
-		                  <option value="研究生" >研究生</option>
-		                  <option value="博士生" >博士生</option>	                                
+		                  <option value="1" >请选择</option>
+		                  <option value="其他" >其他</option>
+		                  <option value="高中" >高中</option>		                  
+		                  <option value="大专" >大专</option>
+		                  <option value="本科" >本科</option>
+		                  <option value="硕士" >硕士</option>
+		                  <option value="MBA" >MBA</option>
+		                  <option value="博士" >博士</option>	                               
 		                </select>
-		                <input name ="degree" id="degree2" hidden="hidden" value="" > 
+		                <input name ="degree" id="degree2" hidden="hidden" value="" class="none" > 
 		         	</td> 
               </tr> 
                   <tr>
@@ -223,59 +232,81 @@
             <div class="tabtable_con"  data-tab="con" model="personWork" multi="true" >
               <div class="tabtable_con1">
                 <h2>工作记录</h2>
-                <input type="button" class="addd bluebtn" value="+">
+                <input type="button"  class="addd bluebtn" value="+">
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>公司名称：</th>
                     <td data-by="id" ><input type="text" name="companyName" id="companyName" value="" valType="COMPANYNAME" msg="公司名称格式错误"> </td>
+              
                   </tr>
                   <tr>
                     <th>部门：</th>
                     <td><input type="text" name="workDepart" id="workDepart" value="" valType="CHAR_CH" msg="部门名称格式错误"></td>
+                  	
                   </tr>
                   <tr>
                     <th>职位：</th>
                     <td><input type="text" name="workPosition" id="workPosition" value="" valType="CHAR_CH" msg="职位名称格式错误"></td>
+                  	
                   </tr>
                   <tr>
                     <th>工作内容：</th>
                     <td><input type="text" name="workContent" id="workContent" value="" valType="CHAR_CH" msg="工作内容格式错误"></td>
+                 	
                   </tr>
                   <tr>
                     <th>工作业绩：</th>
                     <td><input type="text" name="workEffect" id="workEffect" value="" valType="CHAR_CH" msg="工作业绩名称格式错误"></td>
+                  	
                   </tr>
                   <tr>
                     <th>薪酬水平（元/月）：</th>
                     <td><input type="text" name="workEmolument" id="workEmolument" value="" valType="ONLYINT" msg="薪酬水平只能是正整数"></td>
+                  
                   </tr>
                 <tr>
                     <th>离职时间：</th>
                     <td><input type="text" name="beginWorkStr" id="beginWorkStr" value="" valType="DATE"  class="datepicker"  msg="入职时间格式错误"></td>
+                  
                   </tr>
                   <tr>
                     <th>离职原因：</th>
                     <td><input type="text" name="leaveReason" id="leaveReason" value="" valType="CHAR_CH" msg="离职原因格式错误"></td>
+                  	
                   </tr>
                   <tr>
                     <th>上级姓名：</th>
                     <td><input type="text" name="leaderName" id="leaderName" value="" valType="NAME" msg="上级姓名格式错误"></td>
+                  	
                   </tr>
                   <tr>
                     <th>职位：</th>
                     <td><input type="text" name="leaderPosition" id="leaderPosition" value="" valType="CHAR_CH" msg="职位格式错误"></td>
+                  	
                   </tr>
                   <tr>
                     <th>工作关系（如直接上下级）：</th>
-                    <td><input type="text" name="leaderRelationship" id="leaderRelationship" value="" valType="MEMBERSHIP" msg="工作关系格式错误"></td>
+                    <!--  <td><input type="text" name="leaderRelationship" id="leaderRelationship" value="" valType="MEMBERSHIP" msg="工作关系格式错误"></td>  -->
+                  	<td>		         			                   
+	                 		<select id="le1" name="le" onchange="setValue4(this)">
+			                  <option value="" >请选择</option>
+			                  <option value="上级" >上级</option>
+			                  <option value="下级" >下级</option>		                  
+			                  <option value="同级" >同级</option>		                              
+			                </select>
+		                <input name ="leaderRelationship" id="leaderRelationship"  hidden="hidden" value="" class="none"> 
+		         	</td> 
+
                   </tr>
                   <tr>
                     <th>联系方式：</th>
                     <td><input type="text" name="leaderPhone" id="leaderPhone" value="" valType="MOBILE" msg="联系方式格式错误"></td>
+                
                   </tr>
                   <tr>
                     <th>同事姓名：</th>
                     <td><input type="text" name="colleagueName" id="colleagueName" value="" valType="NAME" msg="同事姓名格式错误"></td>
+                 	
                   </tr>
 <!--                   <tr>
                     <th>职位：</th>
@@ -288,6 +319,7 @@
                   <tr>
                     <th>座机：</th>
                     <td><input type="text" name="colleaguePhone" id="colleaguePhone" value="" valType="TEL" msg="座机格式错误"></td>
+                  
                   </tr>
                 </table>
               </div>

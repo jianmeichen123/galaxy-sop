@@ -8,7 +8,6 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private static final long serialVersionUID = 1L;
 
 	private String proName; //项目名称 - 会议记录
-	private String fkey;
 	private String bucketName;
 	private Long fileLength;
 	
@@ -21,6 +20,9 @@ public class MeetingRecordBo  extends MeetingRecord{
 	
 	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
+	
+	private String direction;// asc,desc
+	private String property;// 排序的字段名称
 	
 	public String getProName() {
 		return proName;
@@ -87,12 +89,6 @@ public class MeetingRecordBo  extends MeetingRecord{
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
-	public String getFkey() {
-		return fkey;
-	}
-	public void setFkey(String fkey) {
-		this.fkey = fkey;
-	}
 	public List<Long> getProIdList() {
 		return proIdList;
 	}
@@ -110,6 +106,36 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setFileLength(Long fileLength) {
 		this.fileLength = fileLength;
+	}
+	public String getDirection() {
+		return direction;
+	}
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
+	public String getProperty() {
+		if(property!=null){
+			if(property.equals("meetingDate")){
+				property = "meeting_date";
+			}else if(property.equals("meetingType")){
+				property = "meeting_type";
+			}else if(property.equals("meetingResult")){
+				property = "meeting_result";
+			}
+		}
+		return property;
+	}
+	public void setProperty(String property) {
+		if(property!=null){
+			if(property.equals("meetingDate")){
+				property = "meeting_date";
+			}else if(property.equals("meetingType")){
+				property = "meeting_type";
+			}else if(property.equals("meetingResult")){
+				property = "meeting_result";
+			}
+		}
+		this.property = property==null?null:property.trim();
 	}
 	
 }

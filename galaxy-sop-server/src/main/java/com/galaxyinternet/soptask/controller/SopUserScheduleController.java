@@ -5,7 +5,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,17 +21,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.SheduleCommon;
 import com.galaxyinternet.bo.SopUserScheduleBo;
-import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.exception.PlatformException;
-import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.soptask.SopUserSchedule;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SopUserScheduleService;
@@ -131,7 +127,6 @@ public class SopUserScheduleController extends
 			@PathVariable Long id, HttpServletRequest request) throws ParseException {
 
 		ResponseData<SopUserScheduleBo> responseBody = new ResponseData<SopUserScheduleBo>();
-		User user = (User) getUserFromSession(request);
 		try{
 			SopUserScheduleBo sop= (SopUserScheduleBo) sopUserScheduleService.queryById(id);
 			String str[] = sop.getItemDate().toString().split(" ");

@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +34,10 @@ import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
+import com.galaxyinternet.service.UserService;
 
 @Service("com.galaxyinternet.service.SopTaskService")
 public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopTaskService {
@@ -50,6 +52,19 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	private SopFileDao sopFileDao;
 	@Autowired
 	private PersonPoolDao personPoolDao;
+	@Autowired
+	private SopFileService sopFileService;
+	@Autowired
+	private UserService userService;
+
+	
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
 
 	@Override
 	protected BaseDao<SopTask, Long> getBaseDao() {
@@ -220,7 +235,8 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			}
 			sopTaskBo.setId(sopTasknew.getId());
 			String longToString = DateUtil.longToString(sopTasknew.getCreatedTime());
-		    String diffHour=dateAdd(sopTasknew.getCreatedTime());
+			String diffHour="";
+			diffHour=dateAdd(sopTasknew.getCreatedTime(),sopTasknew.getTaskDeadline());
 			sopTaskBo.setHours(diffHour);
 			sopTaskBo.setTaskDeadlineformat(longToString);//
 			sopTaskBo.setTaskName(sopTasknew.getTaskName()==null?"":sopTasknew.getTaskName());
@@ -260,7 +276,20 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
 			sopTaskBo.setRemark(sopTasknew.getRemark()==null?"":sopTasknew.getRemark());
+			List<String> qlist = new ArrayList<String>();
+			List<User> userList=new ArrayList<User>();
+			if(null!=sopTasknew.getAssignUid()&&!"".equals(sopTasknew.getAssignUid())){
+				qlist.add(sopTasknew.getAssignUid().toString());
+				userList = userService.queryListById(qlist);
+			}
+			//===========================================
+			
+			if(userList!=null && userList.size()>0){			
+				sopTaskBo.setAssignUidName(userList.get(0).getRealName());			
+			}
+			sopTaskBo.setAssignUid(sopTasknew.getAssignUid());
 			SopTaskBoList.add(sopTaskBo);
+			//===========================================
 		}
 		sopTaskPage.setContent(SopTaskBoList);
 		sopTaskPage.setPageable(sopTaskData.getPageable());
@@ -277,6 +306,57 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		if (!StringEx.isNullOrEmpty(entity.getTaskStatus()) && entity.getTaskStatus().equals("2")) {
 			entity.setTaskStatus("3");
+		}
+	//	String viewName = "";
+	//	String btnTxt = "";
+		String fileWorktype = "";
+	    boolean flag=true;
+		switch(entity.getTaskFlag())
+		{
+			case 0: //完善简历
+				break;
+			case 1 : //表示投资意向书
+				fileWorktype = "fileWorktype:5";
+				break;
+			case 2 : //人事尽职调查报告
+			//	btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:2";
+				break;
+			case 3 : //法务尽职调查报告
+				//btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:3";
+				break;
+			case 4 : //财务尽调报告
+			//	btnTxt = "上传尽调报告";
+				fileWorktype = "fileWorktype:4";
+				break;
+			case 5 : //业务尽调报告	
+				fileWorktype = "fileWorktype:1";
+				break;
+			case 6 : //投资协议
+				fileWorktype = "fileWorktype:6";
+				break;
+			case 7 : //股权转让协议
+				fileWorktype = "fileWorktype:7";
+				break;
+			case 8 : //资金拨付凭证
+				//btnTxt = "上传资金拨付凭证";
+				fileWorktype = "fileWorktype:9";
+				break;
+			case 9 : //工商变更登记凭证
+			//	btnTxt = "上传工商变更登记凭证";
+				fileWorktype = "fileWorktype:8";
+				break;
+			default :
+				flag=false;
+				//logger.error("Error taskFlag "+ entity.getTaskFlag());
+		}
+		SopFile sopfile=new SopFile();
+		if(flag==true &&!"".equals(fileWorktype)){
+			sopfile.setProjectId(entity.getProjectId());
+			sopfile.setBelongUid(entity.getAssignUid());
+			sopfile.setFileWorktype(fileWorktype);	
+			sopFileService.updateByIdSelective(sopfile);
 		}
 		int result = sopTaskDao.updateById(entity);
 		if(result<=0){
@@ -363,7 +443,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 		return taskFlag;
 	}
-	public String dateAdd(Long date){
+	public String dateAdd(Long date,Date endTime){
 		Date convertStringToDate;
 		String convertDateToString="";
 		int diffHour=0;
@@ -376,7 +456,11 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		    convertStringToDate = DateUtil.convertStringToDate(retStrFormatNowDate,"yyyy-MM-dd HH:mm:ss");
 			Date addDate = DateUtil.addDate(convertStringToDate,3);
 			convertDateToString = DateUtil.convertDateToStringForChina(addDate);
-			diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.getCurrentDateTime());
+            if(null!=endTime&&!"".equals(endTime)){
+        		diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.convertDateToStringForChina(endTime));
+            }else{
+            	diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.getCurrentDateTime());			
+			}
 			result=Integer.toString(diffHour);
 			if(diffHour<0){	
 				hours=result.replace("-", "超时")+"(h)";
@@ -396,8 +480,9 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	public void submitTask(SopTask task) throws Exception {
 		task = sopTaskDao.selectById(task.getId());
 		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		task.setTaskDeadline(new Date());
 		sopTaskDao.updateById(task);
-		
+		SopTask t = null;
 		if(task.getTaskFlag() != null){
 			SopFile file = new SopFile();
 			file.setProjectId(task.getProjectId());
@@ -409,16 +494,29 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				file.setFileWorktype(DictEnum.fileWorktype.财务尽职调查报告.getCode());
 			}else if(task.getTaskFlag().intValue() == 8){
 				file.setFileWorktype(DictEnum.fileWorktype.资金拨付凭证.getCode());
+				t = new SopTask();
+				t.setProjectId(task.getProjectId());
+				t.setTaskFlag(9);
 			}else if(task.getTaskFlag().intValue() == 9){
 				file.setFileWorktype(DictEnum.fileWorktype.工商转让凭证.getCode());
+				t = new SopTask();
+				t.setProjectId(task.getProjectId());
+				t.setTaskFlag(8);
 			}
 			SopFile f = sopFileDao.selectOne(file);
 			f.setFileValid(1);
 			sopFileDao.updateById(f);
+			if(t != null){
+				t.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+				SopTask ut = sopTaskDao.selectOne(t);
+		    	if(ut != null){
+		    		Project project = new Project();
+		    		project.setId(task.getProjectId());
+		    		project.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+		    		projectDao.updateById(project);
+		    	}
+			}
 		}
-		
-		
-		
 	}
 	
 }

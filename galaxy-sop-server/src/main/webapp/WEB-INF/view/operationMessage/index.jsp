@@ -11,6 +11,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+
 <title>繁星</title>
 
 
@@ -36,7 +37,7 @@
         	<!--搜索-->
           <div class="searchbox clearfix">
             <input type="hidden"  id="tipslink_val" name="module" value="1" />
-            <input  name="keyword" type="text" placeholder="请输入项目名称" class="txt"/>
+            <input name="keyword" type="text" class="txt" placeholder="请输入项目名称"/>
             <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
 
           </div>
@@ -89,7 +90,7 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(3);
-		
 	});
+	
 </script>
 </html>

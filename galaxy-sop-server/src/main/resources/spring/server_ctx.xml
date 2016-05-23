@@ -21,7 +21,7 @@
 	<import resource="conf_main/main_ctx.xml" />
 	<import resource="conf_service/service_ctx.xml" />
 	<!-- <import resource="classpath*:mongodb/galaxy-mongo-config.xml" /> -->
-	<import resource="classpath*:dubbo/galaxy-dubbo-provider.xml" />
+	<import resource="classpath*:dubbo/sop-dubbo-provider.xml" />
 	<import resource="classpath*:galaxy-dubbo-consumer.xml" />
 	<import resource="classpath*:applicationContext-cache.xml" />
 	<!-- <import resource="classpath*:redis/galaxy-redis-config.xml" /> -->
@@ -39,4 +39,21 @@
 		</constructor-arg>
 		<constructor-arg index="2" ref="cache" />
 	</bean>
+	
+	<bean id="com.galaxyinternet.timer.init.InitContainer" 
+		class="com.galaxyinternet.timer.init.InitContainer" 
+		init-method="init"></bean>
+		
+	<bean id="com.galaxyinternet.timer.beans.SpringContextManager" 
+		class="com.galaxyinternet.timer.beans.SpringContextManager"
+		scope="singleton"/>
+	
+	
+	<bean id="testTask" class="com.galaxyinternet.scheduling.TestTask"/>
+	
+	<bean id="galaxyTaskScheduler" class="com.galaxyinternet.scheduling.GalaxyTaskScheduler"/>
+	<task:scheduled-tasks scheduler="galaxyTaskScheduler">
+		<task:scheduled ref="testTask" method="execute" cron="*/5 * * * * MON-FRI"/>
+		<task:scheduled ref="testAnnotaionTask" method="execute" cron="*/5 * * * * MON-FRI"/>
+	</task:scheduled-tasks>
 </beans>

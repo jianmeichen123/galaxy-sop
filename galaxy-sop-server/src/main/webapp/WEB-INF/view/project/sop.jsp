@@ -2,6 +2,13 @@
 <%
 	String path = request.getContextPath();
 %>
+<style>
+.bars{display:none;}
+#projectProgress_1_table th:nth-child(1),#projectProgress_2_table th:nth-child(1),#projectProgress_3_table th:nth-child(1),#projectProgress_4_table th:nth-child(1),#projectProgress_7_table th:nth-child(1) {
+    width: 50%;
+}
+#projectProgress_1_table td,#projectProgress_2_table td,#projectProgress_3_table td,#projectProgress_4_table td,#projectProgress_7_table td{line-height:22px;text-align:left !important;}
+</style>
 <div class="myprojecttc">
 	<a href="javascript:;" data-close="close" class="close null">关闭</a>
 	<!-- 项目介绍 -->
@@ -28,18 +35,19 @@
 	<div class="tabtable">
 		<!-- tab标签 -->
 		<ul class="tablink">
-			<li data-tab="nav"><a href="javascript:;">基本信息</a></li>
-			<li data-tab="nav" id="fileRepository"><a href="javascript:;">档案库</a></li>
-			<li data-tab="nav" id="projectProgress_1"><a href="javascript:;">接触访谈</a></li>
-			<li data-tab="nav" id="projectProgress_2"><a href="javascript:;">内部评审</a></li>
-			<li data-tab="nav" id="projectProgress_3"><a href="javascript:;">CEO评审</a></li>
-			<li data-tab="nav" id="projectProgress_4"><a href="javascript:;">立项会</a></li>
-			<li data-tab="nav" id="projectProgress_5"><a href="javascript:;">投资意向书</a></li>
-			<li data-tab="nav" id="projectProgress_6"><a href="javascript:;">尽职调查</a></li>
-			<li data-tab="nav" id="projectProgress_7"><a href="javascript:;">投决会</a></li>
-			<li data-tab="nav" id="projectProgress_8"><a href="javascript:;">投资协议</a></li>
-			<li data-tab="nav" id="projectProgress_9"><a href="javascript:;">股权交割</a></li>
-			<li data-tab="nav" id="projectProgress"><a href="javascript:;">操作日志</a></li>
+			<li data-tab="nav">基本信息</li>
+			<li data-tab="nav" id="fileRepository">档案库</li>
+			<li data-tab="nav" id="projectProgress_1">接触访谈</li>
+			<li data-tab="nav" id="projectProgress_2">内部评审</li>
+			<li data-tab="nav" id="projectProgress_3">CEO评审</li>
+			<li data-tab="nav" id="projectProgress_4">立项会</li>
+			<li data-tab="nav" id="projectProgress_5">投资意向书</li>
+			<li data-tab="nav" id="projectProgress_6">尽职调查</li>
+			<li data-tab="nav" id="projectProgress_7">投决会</li>
+			<li data-tab="nav" id="projectProgress_8">投资协议</li>
+			<li data-tab="nav" id="projectProgress_9">股权交割</li>
+			<li data-tab="nav" id="projectProgress_10">投后运营</li>
+			<li data-tab="nav" id="projectProgress">操作日志</li>
 		</ul>
 		<!-- tab内容 -->
 			<!-- tab内容 -->
@@ -219,12 +227,15 @@
 				</div>
 				<table id="projectProgress_1_table"
 					data-url="<%=path%>/galaxy/project/progress/queryInterview"
-					data-page-list="[10,20,30]" data-toolbar="#projectProgress_1_table_custom-toolbar">
+					data-page-list="[10,20,30]"
+					data-id-field="id" data-unique-id="id"
+					data-side-pagination="server" data-pagination="true"
+					 data-toolbar="#projectProgress_1_table_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="formatInterview_sop">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
@@ -261,7 +272,8 @@
 				<!--按钮-->
 				<div id="options_point3" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a id="add_ceomeet" href="javascript:;" onclick="addMettingRecord(3,'meetingType:2')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a> 
-					<a href="javascript:;" onclick="toEstablishStage()" id="lxhpq" class="pubbtn fffbtn lpubbtn option_item_mark">立项会排期</a>
+					<a href="javascript:;" onclick="toEstablishStage()" id="lxhpq" class="pubbtn fffbtn lpubbtn option_item_mark">申请立项会排期</a>
+					<a id="applyCeoMeeting" href="javascript:;" onclick="applyCeoMeeting()" class="pubbtn fffbtn lpubbtn option_item_mark">申请CEO评审排期</a>
 				</div>
 				
 				<div id="projectProgress_3_table_custom-toolbar">
@@ -402,47 +414,11 @@
 			</div>
 			<!-- 股权交割信息  -->
 			<div class="block" data-tab="con" id="projectProgress_9_con">
-				<!--表格内容
-				<table width="100%" cellspacing="0" cellpadding="0">
-					<thead>
-						<tr>
-							<th>业务分类</th>
-							<th>创建日期</th>
-							<th>存储类型</th>
-							<th>更新日期</th>
-							<th>催办</th>
-							<th>查看附件</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>资金拨付凭证</td>
-							<td></td>
-							<td>文档</td>
-							<td></td>
-							<td><a href="javascript:; " class="blue">催办</a></td>
-							<td><a href="javascript:; " class="blue"></a></td>
-						</tr>
-						<tr>
-							<td>资金拨付凭证</td>
-							<td></td>
-							<td>文档</td>
-							<td></td>
-							<td><a href="javascript:; " class="blue">催办</a></td>
-							<td><a href="javascript:; " class="blue"></a></td>
-						</tr>
-						<tr>
-							<td>资金拨付凭证</td>
-							<td></td>
-							<td>文档</td>
-							<td></td>
-							<td><a href="javascript:; " class="blue">催办</a></td>
-							<td><a href="javascript:; " class="blue"></a></td>
-						</tr>
-					</tbody>
-				</table>-->
 			</div>
-			
+			<!-- 投后运营  -->
+			<div class="block" data-tab="con" id="projectProgress_10_con">
+				<p>暂无内容</p>
+			</div>
 			<!-- 操作日志  -->
 			<div class="block" data-tab="con" id="projectProgress_con">
 				<div id="pro_message_custom-toolbar">

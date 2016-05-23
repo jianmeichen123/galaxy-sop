@@ -11,8 +11,6 @@ import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
-import com.galaxyinternet.framework.core.model.Page;
-import com.galaxyinternet.framework.core.query.Query;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.model.project.Project;
 
@@ -59,7 +57,7 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 
 	@Override
 	public List<Project> selectListById(List<Long> idList) {
-		return sqlSessionTemplate.selectList("selectListById",idList);
+		return sqlSessionTemplate.selectList(getSqlName("selectListById"),idList);
 	}
 
 	@Override

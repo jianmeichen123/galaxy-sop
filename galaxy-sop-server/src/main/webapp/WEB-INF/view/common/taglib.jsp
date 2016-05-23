@@ -31,98 +31,58 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 %>
 
 <!-- 这里写js和css文件---------start -->
+<script src="<%=request.getContextPath() %>/js/fx_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-1.12.2.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-validate.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/json2.js" type="text/javascript"></script>
 <!-- end -->
 
 <script type="text/javascript">
-	var console = console || {
-	    log : function(){
-	        return false;
-	    }
-	}
 	var contextEndPoint = '<%=endpoint%>';
 	endpointObj = JSON.parse(contextEndPoint);
-	console.log(endpointObj);
 	var sessionId = '<%=sessionId%>';
 	var realName = '<%=realName%>';
 	var userId = '<%=userId%>';
 	var departmentId='<%=departmentId%>';
 	var roleId = '<%=roleId%>';
-	
-	if ( !Array.prototype.forEach ) {
-
-		  Array.prototype.forEach = function forEach( callback, thisArg ) {
-
-		    var T, k;
-
-		    if ( this == null ) {
-		      throw new TypeError( "this is null or not defined" );
-		    }
-		    var O = Object(this);
-		    var len = O.length >>> 0; 
-		    if ( typeof callback !== "function" ) {
-		      throw new TypeError( callback + " is not a function" );
-		    }
-		    if ( arguments.length > 1 ) {
-		      T = thisArg;
-		    }
-		    k = 0;
-
-		    while( k < len ) {
-
-		      var kValue;
-		      if ( k in O ) {
-
-		        kValue = O[ k ];
-		        callback.call( T, kValue, k, O );
-		      }
-		      k++;
-		    }
-		  };
-		}
-	
-	if (!Object.keys) {
-		  Object.keys = (function () {
-		    var hasOwnProperty = Object.prototype.hasOwnProperty,
-		        hasDontEnumBug = !({toString: null}).propertyIsEnumerable('toString'),
-		        dontEnums = [
-		          'toString',
-		          'toLocaleString',
-		          'valueOf',
-		          'hasOwnProperty',
-		          'isPrototypeOf',
-		          'propertyIsEnumerable',
-		          'constructor'
-		        ],
-		        dontEnumsLength = dontEnums.length;
-
-		    return function (obj) {
-		      if (typeof obj !== 'object' && typeof obj !== 'function' || obj === null) throw new TypeError('Object.keys called on non-object');
-
-		      var result = [];
-
-		      for (var prop in obj) {
-		        if (hasOwnProperty.call(obj, prop)) result.push(prop);
-		      }
-
-		      if (hasDontEnumBug) {
-		        for (var i=0; i < dontEnumsLength; i++) {
-		          if (hasOwnProperty.call(obj, dontEnums[i])) result.push(dontEnums[i]);
-		        }
-		      }
-		      return result;
-		    }
-		  })()
-		};
 </script>
+<script src="<%=request.getContextPath() %>/js/base64.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/alioss/aliyun-oss-sdk.min.js"></script>
-<script src="<%=request.getContextPath() %>/js/alioss/alioss_init.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/js/alioss/aliyun-oss-sdk.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/alioss/alioss_init.js"></script> --%>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/platformUrl.js" type="text/javascript"></script>
+<script>
+checkVersion()
+function getInternetExplorerVersion(){
+	var rv = -1; 
+	if (navigator.appName == 'Microsoft Internet Explorer'){
+		var ua = navigator.userAgent;
+		var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+		if (re.exec(ua) != null)
+			rv = parseFloat( RegExp.$1 );
+	}
+	return rv;
+}
+
+function checkVersion(){
+	var msg =Constants.sopEndpointURL;
+	var ver = getInternetExplorerVersion();
+	if ( ver> -1 ) {
+		if ( ver <= 10.0 ){
+		}else{
+			document.write("<script src=\""+msg+"js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
+			document.write("<script src=\""+msg+"js/alioss/alioss_init.js\">"+"</scr"+"ipt>");			
+		}
+	}else{
+		document.write("<script src=\""+msg+"js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
+		document.write("<script src=\""+msg+"js/alioss/alioss_init.js\">"+"</scr"+"ipt>");
+	}
+
+}
+</script>
+
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/layer/layer.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/my.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/my_ext.js"></script>

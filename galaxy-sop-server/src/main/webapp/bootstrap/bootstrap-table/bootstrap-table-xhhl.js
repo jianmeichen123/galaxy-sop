@@ -1702,8 +1702,8 @@
         if (this.options.queryParamsType === 'limit') {
             params = {
                 search: params.searchText,
-                sort: params.sortName,
-                order: params.sortOrder
+                property: params.sortName,
+                direction: params.sortOrder
             };
             if (this.options.pagination) {
                 params.limit = this.options.pageSize === this.options.formatAllRows() ?
@@ -1716,8 +1716,8 @@
         if (this.options.queryParamsType === 'size|page') {
             params = {
                 search: params.searchText,
-                sort: params.sortName,
-                order: params.sortOrder
+                property: params.sortName,
+                direction: params.sortOrder
             };
             if (this.options.pagination) {
             	params.pageSize = this.options.pageSize;
@@ -2559,3 +2559,24 @@
     });
 
 }(jQuery);
+
+if (!Array.prototype.indexOf)
+{
+  Array.prototype.indexOf = function(elt /*, from*/)
+  {
+    var len = this.length >>> 0;
+    var from = Number(arguments[1]) || 0;
+    from = (from < 0)
+         ? Math.ceil(from)
+         : Math.floor(from);
+    if (from < 0)
+      from += len;
+    for (; from < len; from++)
+    {
+      if (from in this &&
+          this[from] === elt)
+        return from;
+    }
+    return -1;
+  };
+}

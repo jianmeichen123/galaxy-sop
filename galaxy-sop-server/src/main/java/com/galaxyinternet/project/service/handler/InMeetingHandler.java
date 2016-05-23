@@ -1,5 +1,6 @@
 package com.galaxyinternet.project.service.handler;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,7 +91,9 @@ public class InMeetingHandler implements Handler {
 			ms.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 			ms.setMeetingCount(0);
 			ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 			ms.setCreatedTime((new Date()).getTime());
+			ms.setApplyTime(new Timestamp(new Date().getTime()));
 			meetingSchedulingDao.insert(ms);
 		}
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){

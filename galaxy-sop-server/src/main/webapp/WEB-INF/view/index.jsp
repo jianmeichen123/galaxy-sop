@@ -11,6 +11,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <html>
 <head>
 <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>繁星</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
@@ -30,6 +31,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <link href="<%=path %>/css/calendar.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="<%=path %>/js/calendarnew.js"></script>
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
+<script src="<%=path %>/js/time.js" type="text/javascript"></script>
 </head>
 
 <body>
@@ -149,25 +151,30 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     </dd>
                     -->
                 </dl>
-                  <dl class="Creative_library">
-                    <img src="<%=path%>/img/sy.png" alt="">
-                	<dt><h3 class="ico t2">创意库</h3></dt>
-                    <dd>
-                    	<table width="100%" cellspacing="0"  cellpadding="0">
-                            <thead>
-                                <tr>
-                                    <th>创意编号</th>
-                                    <th>创意名称</th>
-                                    <th>所属行业</th>
-                                    <th>级别</th>
-                                    <th>创建时间</th>
-                                    <th>最后编辑时间</th>
-                                    <th>创建人</th>
-                                    <th>状态</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
+                
+                 <dl class="Creative_library">
+						<!-- <img src="<%=path%>/img/sy.png" alt=""> -->
+						
+						<dt>
+							<h3 class="ico t2">创意库</h3>
+						</dt>
+						
+						<dd>
+							<table width="100%" cellspacing="0" cellpadding="0">
+								<thead>
+									<tr>
+										<th>创意编号</th>
+										<th>创意名称</th>
+										<th>所属行业</th>
+										<th>创建时间</th>
+										<th>最后编辑时间</th>
+										<th>创建人</th>
+										<th>状态</th>
+									</tr>
+								</thead>
+
+								<tbody id="cy_index">
+									<!--  <tr>
                                     <td>cy001</td>
                                     <td>美好生活</td>
                                     <td>o2o电商</td>
@@ -176,35 +183,19 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                                     <td>2016-1-21</td>
                                     <td>徐茂栋</td>
                                     <td><span class="blue">待认领</span></td>
-                                </tr>
-                                <tr>
-                                    <td>cy001</td>
-                                    <td>美好生活</td>
-                                    <td>o2o电商</td>
-                                    <td>高</td>
-                                    <td>2016-1-29</td>
-                                    <td>2016-1-21</td>
-                                    <td>徐茂栋</td>
-                                    <td><span class="blue">待认领</span></td>
-                                </tr>
-                                <tr>
-                                    <td>cy001</td>
-                                    <td>美好生活</td>
-                                    <td>o2o电商</td>
-                                    <td>高</td>
-                                    <td>2016-1-29</td>
-                                    <td>2016-1-21</td>
-                                    <td>徐茂栋</td>
-                                    <td><span class="blue">待认领</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </dd>
-                <!--     <dd class="clearfix">
-                    	<a href="javascript:;" class="more null">more</a>
-                    </dd>
-                     -->
-                </dl>
+                                </tr> -->
+								</tbody>
+							</table>
+						</dd>
+
+						<dd class="clearfix">
+							<a href="javascript:;" onclick="toCyPage()" class="more null">more</a>
+							<!--  <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
+						</dd>
+
+					</dl>
+
+
             </div>
             <!--右侧列表-->
             <div class="r">
@@ -228,7 +219,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a href="<%=path %>/galaxy/operationMessage/index" class="more null">more</a>
                     </dd>
                 </dl>
-                <dl>
+                
+                <dl id="dan_k">
                 	<dt><h3 class="ico t5">档案库</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0" id="file_gird_index">
@@ -239,6 +231,29 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
+               
+                 <dl id="ceo_p">
+				<dt><h3 class="ico t5">CEO评审排期</h3></dt>
+				<dd>
+					<table id="ceopsMeeting" width="100%" cellspacing="0"
+						cellpadding="0" class="index">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>项目名称</th>
+								<th>上次过会时间</th>
+								<th>过会次数</th>
+							</tr>
+						</thead>
+						<tbody id="ceopsbodytop">
+						</tbody>
+					</table>
+				</dd>
+				<dd class="clearfix">
+					<!-- <a href="javascript:;" class="more null">more</a> -->
+					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
+				</dd>
+			</dl> 
                 <dl  class="tool_radius">
                 	<dt><h3 class="ico t6">常用工具</h3></dt>
                     <dd class="tool">
@@ -257,20 +272,33 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 </div>
 
 <jsp:include page="./common/footer.jsp" flush="true"></jsp:include>
+<jsp:include page="./common/uploadwin.jsp" flush="true"></jsp:include>
+<jsp:include page="/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
+
+
 <!-- file -->
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path %>/js/init.js"></script>
+<script src="<%=path %>/js/sop.js" type="text/javascript"></script>
 <!-- clude -->
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 
+
+
+
 <script type="text/javascript">
-	$(function(){		
+	$(function(){	
+		$(".pagebox .rit .top .tody").today();
 		top5ProjectMeeting();
 		ProjectVoteWill();
 		selectSopTask();
+		selectCyIndex();
 		createMenus(1);
 		top5Message();
+		ceopaiqi();
+		top5CeoPsMeeting();
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 	});
 </script>
@@ -282,7 +310,6 @@ $(function(){
 		obj.contentType="application/json";
 		obj.data={"userid":"${galax_session_user.id}","sdate":"-1","edate":"-1"};
 		ajaxCallback(obj,function(data){
-			console.log(data);
 			var result = data.result;
 			var mapList = data.mapList;
 			if(result.status=='ERROR'){
@@ -297,15 +324,12 @@ $(function(){
 			}
 			chartOptions.series[0].data = re;
 			chartOptions.xAxis.categories = categories;
-			console.log(re);
-			console.log(categories);
 			var chart = new Highcharts.Chart(chartOptions);
 		});
 	}
 });
 //通用ajax数据回调
 function ajaxCallback(obj,callback){
-	console.log(obj);
 	$.ajax({
 		url:obj.url,
 		dataType:obj.dataType||'json',
@@ -399,6 +423,16 @@ var chartOptions={
         }
     }]
 };
+function ceopaiqi(){
+	if(roleId!='19'){
+		$("#ceo_p").css("display","none");
+	}else{
+		$("#dan_k").css("display","none");	
+	}
+
+}
+
+
 </script>
 </html>
 

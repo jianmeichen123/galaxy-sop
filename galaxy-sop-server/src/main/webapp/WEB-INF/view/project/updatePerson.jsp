@@ -24,7 +24,7 @@
       </dl> 
       <dl class="fmdl">
         <dt>最高学历：</dt>
-        <dd><input type="text" id="highestDegree" name="highestDegree" value="${person.highestDegree }" class="txt" placeholder="最高学历" allowNULL="yes" msg="<font color=red>*</font>最高学历不能为空"/></dd>
+        <dd><select type="text" id="highestDegree" name="highestDegree" data-value="${person.highestDegree }" class="txt_select"  allowNULL="yes" msg="<font color=red>*</font>最高学历不能为空"></select></dd>
       </dl>
     </div>
     <div class="right">

@@ -1,16 +1,51 @@
+var b = new Base64();
 /**
- * 发送post请求
- * 
- * 
- * @param reqUrl
- *            请求地址
- * @param jsonObj
- *            请求json对象
- *@param sessionId
- *            请求头中需携带的sessionid
- * @param callbackFun
- *            处理成功后的回调方法
+ * 加密Ajax请求
+ * jsonStr:json字符串
+ * jsonObj:json对象
  */
+function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun) {
+	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun);
+}
+function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun) {
+	$.ajax({
+		url : reqUrl,
+		type : "POST",
+		data : b.encode(JSON.stringify(jsonObj)),
+		dataType : "text",
+		cache : false,
+		contentType : "application/json; charset=UTF-8",
+		beforeSend : function(xhr) {
+			/**清楚浏览器缓存**/
+			xhr.setRequestHeader("If-Modified-Since","0"); 
+			xhr.setRequestHeader("Cache-Control","no-cache");
+
+			if (sessionId) {
+				xhr.setRequestHeader("sessionId", sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId", userId);
+			}
+		},
+		async : false,
+		error : function(request) {},
+		success : function(data) {
+			data = JSON.parse(b.decode(data));
+			if (callbackFun) {
+				callbackFun(data);
+			}
+		}
+	});
+}
+
+/**
+ * 非加密Ajax请求
+ * jsonStr:json字符串
+ * jsonObj:json对象
+ */
+function sendPostRequestByJsonStr(reqUrl, jsonStr, callbackFun) {
+	sendPostRequestByJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun);
+}
 function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 	$.ajax({
 		url : reqUrl,
@@ -32,9 +67,7 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 			}
 		},
 		async : false,
-		error : function(request) {
-			//alert("connetion error");
-		},
+		error : function(request) {},
 		success : function(data) {
 			if(data){
 				var type =typeof(data);
@@ -44,9 +77,41 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 					}
 				}
 			}
-			/*if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
-				location.href = platformUrl.toLoginPage;
-			}*/
+			if (callbackFun) {
+				callbackFun(data);
+			}
+		}
+	});
+}
+
+
+/**
+ * 加密Ajax请求
+ * jsonObj:json对象
+ */
+function sendGetRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
+	$.ajax({
+		url : reqUrl,
+		type : "GET",
+		data : b.encode(JSON.stringify(jsonObj)),
+		dataType : "text",
+		cache : false,
+		contentType : "application/json; charset=UTF-8",
+		beforeSend : function(xhr) {
+			/**清楚浏览器缓存**/
+			xhr.setRequestHeader("If-Modified-Since","0"); 
+			xhr.setRequestHeader("Cache-Control","no-cache");
+			if (sessionId) {
+				xhr.setRequestHeader("sessionId", sessionId);
+			}
+			if(userId){
+				xhr.setRequestHeader("guserId", userId);
+			}
+		},
+		async : false,
+		error : function(request) {},
+		success : function(data) {
+			data = JSON.parse(b.decode(data));
 			if (callbackFun) {
 				callbackFun(data);
 			}
@@ -55,32 +120,8 @@ function sendPostRequestByJsonObj(reqUrl, jsonObj, callbackFun) {
 }
 
 /**
- * 发送post请求
- * 
- * @param reqUrl
- *            请求地址
- * @param jsonStr
- *            请求json字符串
- * @param sessionId
- *            请求头中需携带的sessionid
- * @param callbackFun
- *            处理成功后的回调方法
- */
-function sendPostRequestByJsonStr(reqUrl, jsonStr, callbackFun) {
-	sendPostRequestByJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun);
-}
-
-/**
- * 发送get请求
- * 
- * @param reqUrl
- *            请求地址
- * @param jsonObj
- *            请求json对象
- * @param sessionId
- *            请求头中需携带的sessionid
- * @param callbackFun
- *            处理成功后的回调方法
+ * 非加密Ajax请求
+ * jsonObj:json对象
  */
 function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 	$.ajax({
@@ -102,9 +143,7 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 			}
 		},
 		async : false,
-		error : function(request) {
-			//alert("connetion error");
-		},
+		error : function(request) {},
 		success : function(data) {
 			if(data){
 				var type =typeof(data);
@@ -114,9 +153,6 @@ function sendGetRequest(reqUrl, jsonObj, callbackFun) {
 					}
 				}
 			}
-			/*if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
-				location.href = platformUrl.toLoginPage;
-			}*/
 			if (callbackFun) {
 				callbackFun(data);
 			}
@@ -141,9 +177,9 @@ function sendPostRequest(reqUrl, callbackFun) {
 		cache : false,
 		contentType : "application/json; charset=UTF-8",
 		beforeSend : function(xhr) {
-			/**清楚浏览器缓存**/
-			xhr.setRequestHeader("If-Modified-Since","0"); 
-			xhr.setRequestHeader("Cache-Control","no-cache");
+		/**清楚浏览器缓存**/
+	    xhr.setRequestHeader("If-Modified-Since","0"); 
+	    xhr.setRequestHeader("Cache-Control","no-cache");
 			if (sessionId) {
 				xhr.setRequestHeader("sessionId", sessionId);
 			}
@@ -385,13 +421,13 @@ function getFileTypeByName(fileName)
 	return type;
 }
 
-function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction,indexNum) {
+function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction,indexNum,success) {
 	
 
 	
 	//上传对象初始化
 	var uploader = new plupload.Uploader({
-		runtimes : 'html5,flash,silverlight,html4',
+		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : $("#" + selectBtnId)[0], // you can pass in id...
 		url : fileurl,
 		multipart:true,
@@ -408,12 +444,14 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 					if(beforeSubmit()){
 						var file = $("#" + fileInputId).val();
 						var param = paramsFunction();
-						console.log(param);
-						console.log(up.files.length);
 						if(up.files.length == 0){
 							sendPostRequestByJsonObj(platformUrl.stageChange,param,function(data){
 								var result = data.result.status;
 								if(result == "OK"){
+									if($.isFunction(success))
+									{
+										success.call();
+									}
 									layer.msg(data.result.message);
 									$("#powindow,#popbg").remove();
 									info(pid);
@@ -459,7 +497,10 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 					$("div[data-id='popid1']").remove();
 					return false;
 				}
-				
+				if($.isFunction(success))
+				{
+					success.call();
+				}
 				layer.msg(response.result.message);
 				$("#powindow,#popbg").remove();
 				info(pid);
@@ -488,6 +529,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 	});
 	uploader.init();
 }
+window.setInterval("totalUrgent(),totalMission()",15000000); 
 //紧急任务
 function totalUrgent() {
 	sendGetRequest(platformUrl.totalUrgent, null, totalUrgentCallback);
@@ -535,7 +577,6 @@ function filedown(fileid , filekey, type){
 		layer.msg('正在下载，请稍后...',{time:2000});
 		window.location.href=url+"?sid="+sessionId+"&guid="+userId+typeparam;
 	} catch (e) {
-		console.log(e);
 		layer.msg("下载失败");
 	}
 }
@@ -679,22 +720,28 @@ function getMeetCondition(hasProid,projectId,
 		return false;
 	}
 	
+	var projectIdVal = null;
 	if(hasProid == "y" ){
-		var projectId = $.trim(projectId);
+		projectIdVal = $.trim(projectId);
 	}else{
-		var projectId = $("#"+projectId).val();
+		projectIdVal = $("#"+projectId).val();
 	}
+	
 	var meetingDateStr = $.trim($("#"+meetDateId).val());
+	
+	var meetingTypeVal = null;
 	if(hasMeetType == "y" ){
-		var meetingType = $.trim(meetTypeName);
+		meetingTypeVal = $.trim(meetTypeName);
 	}else{
-		var meetingType = $.trim($('input:radio[name="'+meetTypeName+'"]:checked').val());
+		meetingTypeVal = $.trim($('input:radio[name="'+meetTypeName+'"]:checked').val());
 	}
+	
 	var meetingResult = $.trim($('input:radio[name="'+meetResultName+'"]:checked').val());
+	
 	var um = UM.getEditor(meetNotesId);
 	var meetingNotes = $.trim(um.getContent());
 	
-	if(projectId == null || projectId == ""){
+	if(projectIdVal == null || projectIdVal == ""){
 		layer.msg("项目不能为空");
 		return false;
 	}
@@ -710,7 +757,7 @@ function getMeetCondition(hasProid,projectId,
          }
 	 }
 	
-	if(meetingType == null ||  meetingType == ""){
+	if(meetingTypeVal == null ||  meetingTypeVal == ""){
 		layer.msg("类型不能为空");
 		return false;
 	}
@@ -727,9 +774,9 @@ function getMeetCondition(hasProid,projectId,
 		}
 	}
 	
-	condition.projectId = projectId;
+	condition.projectId = projectIdVal;
 	condition.meetingDateStr = meetingDateStr;
-	condition.meetingType = meetingType;
+	condition.meetingType = meetingTypeVal;
 	condition.meetingResult = meetingResult;
 	condition.meetingNotes = meetingNotes;
 	return condition;
@@ -755,7 +802,7 @@ function intervierInfoFormat(value, row, index){
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
 	
-	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
 				"访谈日期："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
@@ -771,7 +818,7 @@ function meetInfoFormat(value, row, index){
 	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
-	rc = "<div style=\"text-align:left;margin-left:20%;\">"+
+	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
 				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+row.meetingResultStr+
 				"</br>会议录音："+fileinfo+
@@ -794,7 +841,6 @@ function sublengthFormat(value,row,index){
 		return delhtmlValue;
 	}
 }
-
 //interview
 function formatLog(value,row,index){
 	var len = getLength($.trim(value));
@@ -803,7 +849,7 @@ function formatLog(value,row,index){
 		var strrrr=strlog;
 		if(len>100){
 			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
-			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;padding:10px 0;\" class=\"text-overflow1\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
 			
 			return rc;
 		}else{
@@ -811,6 +857,58 @@ function formatLog(value,row,index){
 		}
 	}
 
+}
+
+
+//富文本截取        //======= 废弃   ====//
+function formatInterview(value,row,index){
+	var str=delHtmlTag($.trim(value))
+	var len=0;
+	if(str!="" && typeof(str)!="undefined"){
+		len = getLength(str);
+	}
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>200){
+			// title='"+strrrr+"'
+			var subValue =str.substring(0,200); 
+			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+			subValue+
+			"..."+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
+		'</div>';
+			return rc;
+		}else {
+			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+		}
+	}else{
+		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
+	}
+}
+
+function formatInterview_sop(value,row,index){
+	var str=delHtmlTag($.trim(value))
+	var len=0;
+	if(str!="" && typeof(str)!="undefined"){
+		len = getLength(str);
+	}
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>200){
+			// title='"+strrrr+"'
+			var subValue =str.substring(0,200); 
+			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow\">"+
+			subValue+
+			"..."+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
+		'</div>';
+			return rc;
+		}else {
+			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+		}
+	}else{
+		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
+	}
 }
 
 //meet table format
@@ -904,20 +1002,38 @@ function cutStr(len,target){
 }
 
 if (!Array.prototype.indexOf){
-	Array.prototype.indexOf = function(elt /*, from*/){
-var len = this.length >>> 0;
-var from = Number(arguments[1]) || 0;
-from = (from < 0)
-     ? Math.ceil(from)
-     : Math.floor(from);
-if (from < 0)
-  from += len;
-for (; from < len; from++)
-{
-  if (from in this &&
-      this[from] === elt)
-    return from;
+		Array.prototype.indexOf = function(elt /*, from*/){
+    var len = this.length >>> 0;
+    var from = Number(arguments[1]) || 0;
+    from = (from < 0)
+         ? Math.ceil(from)
+         : Math.floor(from);
+    if (from < 0)
+      from += len;
+    for (; from < len; from++)
+    {
+      if (from in this &&
+          this[from] === elt)
+        return from;
+    }
+    return -1;
+  };
 }
-return -1;
-};
+
+function initTcVal(){
+	$("#projectId").val(interviewSelectRow.projectId).attr("disabled","desabled");
+	$("#viewDate").val(interviewSelectRow.viewDateStr).attr("disabled","desabled");
+	$("#viewTarget").val(interviewSelectRow.viewTarget).attr("readonly","readonly");
+	interviewEditor.setContent(interviewSelectRow.viewNotes); 
+	
+	var fileinfo = "";
+	if(interviewSelectRow.fname!=null && interviewSelectRow.fname!=undefined && interviewSelectRow.fname!="undefined" ){
+		fileinfo = "<a href=\"javascript:;\" onclick=\"filedown("+interviewSelectRow.fileId+","+interviewSelectRow.fkey+");\" class=\"blue\" >"+interviewSelectRow.fname+"</a>"
+	}
+	$("#fileNotBeUse").html("");
+	$("#fileNotBeUse").html("访谈录音："+fileinfo);
+	
+	$("#btnNotBeUse").html("");
+	$("#btnNotBeUse").html("<a href=\"javascript:;\" class=\"pubbtn fffbtn\" data-close=\"close\">关闭</a>");
+	
 }

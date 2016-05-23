@@ -27,6 +27,8 @@
 .tab-pane table th:nth-child(3) {
     width: 55%;
 }
+.tab-pane table td:nth-child(3){text-align:left !important;}
+.table td{line-height:22px;}
 </style>
 </head>
 
@@ -88,7 +90,7 @@
 			<table style="table-layout:fixed"  id="data-table" data-url="<%=path %>/galaxy/project/progress/queryInterview" data-method="post" 
 	          		data-side-pagination="server" data-pagination="true" 
 	          		data-toolbar="#custom-toolbar" data-page-list="[10,20,30]"
-					data-id-field="lottoId" data-show-refresh="true">
+					data-id-field="id" data-unique-id="id" data-show-refresh="true">
 				<colgroup >
 					<col style="width:20%;"> <!-- 名称 -->
 					<col style="width:30%;"> <!-- 名称 -->
@@ -98,7 +100,8 @@
 					<tr>
 						<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<th  data-field="proName" data-align="center">所属项目</th>  
-						<th  data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
+						<th  data-field="viewNotes" data-align="center" data-formatter="formatInterview">访谈日志</th>
+						<!-- <th  data-field="createdId" data-align="center"></th> -->
 					</tr>
 				</thead>
 			</table>
@@ -119,6 +122,12 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<!-- 富文本编辑器 -->
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
 
 <!-- clude -->
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
@@ -128,7 +137,6 @@
 <script type="text/javascript">
 $(function(){
 	createMenus(6);
-	
 	$('#data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
@@ -137,15 +145,78 @@ $(function(){
 		sidePagination: 'server',
 		method : 'post',
 		pagination: true,
+		clickToSelect: true,
         search: false,
+       /*  onLoadSuccess: function (data) {
+        	$(".option_item_mark").click(function(){
+        		interviewSelectRow = $('#data-table').bootstrapTable('getSelections');
+        		showviewdetail(interviewSelectRow);
+        		//console.log($(this).data());
+        	});
+        } */
 	});
 	
+	
 });
-/* var table = document.getElementById("data-table");//获取第一个表格  
 
-var child = table.getElementsByTagName("tr")[2];
-child.style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"; */
+var interviewSelectRow = null;
+function interviewFormatLog(value,row,index){
+	var len = getLength($.trim(value));
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>100){
+			var subValue = $.trim(value).substring(100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
+			/*var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';*/
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" >"+
+						subValue+
+						"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showviewdetail("+row.id+")\" >详情<a>"+    
+					'</div>';
+			return rc;
+		}else{
+			return strlog;
+		}
+	}
+}
+function showLogdetail(selectRowId){
+	var interviewSelectRow = $('#data-table').bootstrapTable('getRowByUniqueId', selectRowId);
+	var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+		var um=UM.getEditor('viewNotes');
+		um.setContent(interviewSelectRow.viewNotes);
+		var uid='<%=userId%>';
+	//	alert(uid+"----"+interviewSelectRow.createdId);
+		if(uid!=interviewSelectRow.createdId){
+			$("#interviewsave").hide();
+		}
+		//$("#interviewsave").hide();
+		$("#vid").val(selectRowId);
+	}//模版反回成功执行	
+});
+	return false;
+}
+function interviewsave(){  
+		var um = UM.getEditor('viewNotes');
+	var log = um.getContent();
+	var pid=$("#vid").val();
+	if(pid != ''){
+		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
+			if (data.result.status=="OK") {
+				layer.msg("保存成功");
+				$(".meetingtc").find("[data-close='close']").click();
+				$("#data-table").bootstrapTable('refresh');
+			} else {
+				layer.msg(data.result.message);
+			}
+			
+		});
+	}
+}
 </script>
+
 </body>
 
 </html>

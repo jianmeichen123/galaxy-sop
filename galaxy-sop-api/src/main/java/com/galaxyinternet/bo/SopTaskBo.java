@@ -21,6 +21,17 @@ public class SopTaskBo extends  SopTask{
 	private String orderRemark;
 	private String flagUrl;
 	private String concatcode;
+	private String assignUidName; //认领人的名字(配合APP端)
+	
+	
+	public String getAssignUidName() {
+		return assignUidName;
+	}
+
+	public void setAssignUidName(String assignUidName) {
+		this.assignUidName = assignUidName;
+	}
+
 	public String getCreateUname() {
 		return createUname;
 	}
@@ -125,6 +136,11 @@ public class SopTaskBo extends  SopTask{
 		this.hours = hours;
 	}
 
-	
-	
+	public String getConcatcode() {
+		return concatcode;
+	}
+
+	public void setConcatcode(String concatcode) {
+		this.concatcode = concatcode;
+	}
 }

@@ -2,6 +2,15 @@
 <%
 	String path = request.getContextPath();
 %>
+<style>
+#projectProgress_1_table th:nth-child(1),#projectProgress_2_table th:nth-child(1),#projectProgress_3_table th:nth-child(1),#projectProgress_4_table th:nth-child(1),#projectProgress_7_table th:nth-child(1) {
+    width: 50%;
+}
+#projectProgress_1_table td,#projectProgress_2_table td,#projectProgress_3_table td,#projectProgress_4_table td,#projectProgress_7_table td{line-height:22px;text-align:left !important;}
+#projectProgress_1_table th,#projectProgress_2_table th,#projectProgress_3_table th,#projectProgress_4_table th,#projectProgress_7_table th{
+    width: 50%;
+}
+</style>
 <div class="myprojecttc">
 	<a href="javascript:;" data-close="close" class="close null">关闭</a>
 	<!-- 项目介绍 -->
@@ -209,12 +218,15 @@
 				</div>
 				<table id="projectProgress_1_table"
 					data-url="<%=path%>/galaxy/project/progress/queryInterview"
-					data-page-list="[10,20,30]" data-toolbar="#projectProgress_1_table_custom-toolbar">
+					data-page-list="[10,20,30]"
+					data-id-field="id" data-unique-id="id" 
+					data-side-pagination="server"
+					 data-toolbar="#projectProgress_1_table_custom-toolbar" data-show-refresh="true" > 
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center" data-formatter="formatLog">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="formatInterview_sop">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
@@ -485,11 +497,13 @@
                          align: 'center',
                          valign: 'middle',
                          formatter:function(value,row,index){ 
-                         	if (row.personSex == 0) {
-                     			return "男";
-                     		} else {
-                     			return "女";
-                     		}
+                          	if (row.personSex == 0) {
+                    			return "男";
+                    		}else if (row.personSex == 1) {
+                    			return "女";
+                    		}else {
+                    			return "-";
+                    		}
                          }
  	                    },
  	                    {
@@ -602,4 +616,40 @@
  			return result;
  		}
 	}
+ 	function showLogdetail(selectRowId){
+ 		var interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
+ 		var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
+ 		$.getHtml({
+ 			url:_url,//模版请求地址
+ 			data:"",//传递参数
+ 			okback:function(){
+ 			var um=UM.getEditor('viewNotes');
+ 			um.setContent(interviewSelectRow.viewNotes);
+ 			//alert(uid+"----"+interviewSelectRow.createdId);
+ 			$("#vid").val(selectRowId);
+ 			if(uid!=interviewSelectRow.createdId){
+ 				$("#interviewsave").hide();
+ 			}
+ 			
+ 		}//模版反回成功执行	
+ 	});
+ 		return false;
+ 	}
+ 	function interviewsave(){  
+ 			var um = UM.getEditor('viewNotes');
+ 		var log = um.getContent();
+ 		var pid=$("#vid").val();
+ 		if(pid != '' && log != ''){
+ 			sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
+ 				if (data.result.status=="OK") {
+ 					layer.msg("保存成功");
+ 					$(".meetingtc").find("[data-close='close']").click();
+ 					$("#projectProgress_1_table").bootstrapTable('refresh');
+ 				} else {
+ 					layer.msg(data.result.message);
+ 				}
+ 				
+ 			});
+ 		}
+ 	}
 </script>

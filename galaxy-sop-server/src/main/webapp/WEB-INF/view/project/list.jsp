@@ -34,13 +34,14 @@
 <body>
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
     	<h2>我的项目</h2>
     	 <input type="hidden" id="project_id" value=""/>
+    	 <input type="hidden" id="uid" value=""/>
+    	 
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
@@ -59,7 +60,7 @@
 		     <input type="hidden"  id="tipslink_val" name="proType" value="1" />
 			<div class="bottom searchall clearfix search_adjust">
 				<dl class="fmdl fml fmdll clearfix">
-	              <dt>项目类别：</dt>
+	              <dt>项目类型：</dt>
 	              <dd>
 	                <select name="projectType">
 	                  <option value="">全部</option>
@@ -90,7 +91,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" name="keyword" placeholder="请输入项目名称或项目编码" />
+						<input type="text" class="txt" name="keyword" placeholder="请输入项目名称或项目编码" value="${pname }" />
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
@@ -141,7 +142,7 @@
 
 
 
-<script type="text/javascript" src="<%=path %>/js/teamSheet.js"></script>
+<script type="text/javascript" src="<%=path %>/js/teamSheetNew.js"></script>
 <script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
 
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
@@ -151,6 +152,7 @@
 	/**
 	 * 分页数据生成操作内容
 	 */
+	var uid='${galax_session_user.id }';
 	function editor(value, row, index){
 		var id=row.id;
 		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
@@ -159,6 +161,18 @@
 		}
 		return options;
 	}
+	
+	function refreshProjectList()
+	{
+		$("#data-table").bootstrapTable('refresh');
+	}
+	
+	$(function(){
+		var pid = "${pid}";
+		if(!(!pid)){
+			info(pid);
+		}	
+	});
 </script>
 
 </html>

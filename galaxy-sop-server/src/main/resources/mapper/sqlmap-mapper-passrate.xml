@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.timer.PassRate" >
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.timer.PassRate" >
+    <id column="id" property="id"/>
+    <result column="uid" property="uid"/>
+    <result column="rate" property="rate"/>
+    <result column="updated_time" property="updatedTime"/>
+    <result column="created_time" property="createdTime"/>
+    <result column="rate_type" property="rateType"/>
+    
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, uid, rate, rate_type, updated_time, created_time
+  </sql>
+  
+  
+  
+  <sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+			  <if test="uid != null" > and uid = #{uid} </if>
+			  <if test="rateType != null" > and rate_type = #{rateType} </if>
+			</trim>
+		</where>
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from sop_pass_rate
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_pass_rate
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_pass_rate where id = #{id}
+	</select>
+	
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.timer.PassRate" >
+	    <![CDATA[
+	     insert into sop_pass_rate (id, uid, rate, rate_type,
+	      updated_time, created_time)
+	    values (#{id}, #{uid}, #{rate}, #{rateType},
+	      #{updatedTime}, #{createdTime})
+	    ]]>
+    </insert>
+    
+    <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.timer.PassRate">
+		update sop_pass_rate
+		<set>
+			<if test="uid != null" >  uid = #{uid}, </if>
+		      <if test="rate != null" >  rate = #{rate}, </if>
+		      <if test="updatedTime != null" >  updated_time = #{updatedTime} </if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+			  <if test="id != null"> and id =#{id}</if>
+			  <if test="uid != null" > and uid = #{uid} </if>
+			  <if test="rateType != null" > and rate_type = #{rateType} </if>
+			</trim>
+		</where>
+	</update>
+    <!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.timer.PassRate">
+		update sop_pass_rate
+		<set>
+			<if test="uid != null" >  uid = #{uid}, </if>
+		      <if test="rate != null" >  rate = #{rate}, </if>
+		      <if test="updatedTime != null" >  updated_time = #{updatedTime} </if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据idslist查询过汇率集合 -->
+	<select id="selectListById" resultMap="BaseResultMap" parameterType="com.galaxyinternet.bo.PassRateBo">
+	   select
+		<include refid="Base_Column_List" />
+		 from sop_pass_rate
+		<where>
+			<trim prefixOverrides="and">
+				<if test="rateType != null"> and rate_type =#{rateType}</if>
+				<if test="uids != null"> 
+					and uid in
+					<foreach collection="uids" item="uid" index="index" open="(" close=")" separator=",">
+			            #{uid}
+			        </foreach>
+				</if>
+			</trim>
+		</where>
+	</select>
+    
+    <!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_pass_rate
+		<include refid="Base_Where_Clause" />
+	</delete>
+     <!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_pass_rate where id = #{id}
+	</delete>
+	
+	
+</mapper>

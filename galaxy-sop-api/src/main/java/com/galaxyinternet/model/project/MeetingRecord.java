@@ -3,16 +3,17 @@ package com.galaxyinternet.model.project;
 import java.text.ParseException;
 import java.util.Date;
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.common.RecordEntity;
 
 
-public class MeetingRecord  extends BaseEntity{
+public class MeetingRecord  extends RecordEntity{
 	private static final long serialVersionUID = 1L;
 
 	 private Long projectId;
 
     private Long fileId;
+	private String fkey;
 
     private Date meetingDate;
     private String meetingDateStr;
@@ -24,10 +25,25 @@ public class MeetingRecord  extends BaseEntity{
     private String meetingResultStr;
 
     private String meetingNotes;
+    
+    private String meetingNotesText;
 
     private String fname;
     
-    public Long getProjectId() {
+    private String participant;
+    
+    private byte meetValid;
+    
+    
+    public String getParticipant() {
+		return participant;
+	}
+
+	public void setParticipant(String participant) {
+		this.participant = participant;
+	}
+
+	public Long getProjectId() {
         return projectId;
     }
 
@@ -199,6 +215,32 @@ public class MeetingRecord  extends BaseEntity{
 	public void setFname(String fname) {
 		this.fname = fname;
 	}
+
+	public String getFkey() {
+		return fkey;
+	}
+
+	public void setFkey(String fkey) {
+		this.fkey = fkey;
+	}
+
+	public byte getMeetValid() {
+		return meetValid;
+	}
+
+	public void setMeetValid(byte meetValid) {
+		this.meetValid = meetValid;
+	}
+
+	public String getMeetingNotesText() {
+		return meetingNotesText;
+	}
+
+	public void setMeetingNotesText(String meetingNotesText) {
+		this.meetingNotesText = meetingNotesText;
+	}
+
+    
 
 	
 

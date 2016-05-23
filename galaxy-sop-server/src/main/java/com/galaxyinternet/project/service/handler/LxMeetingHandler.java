@@ -1,5 +1,6 @@
 package com.galaxyinternet.project.service.handler;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +89,7 @@ public class LxMeetingHandler implements Handler {
 		m.setProjectId(q.getPid());
 		m.setMeetingType(DictEnum.meetingType.立项会.getCode());
 		MeetingScheduling tm = meetingSchedulingDao.selectOne(m);
-		tm.setStatus(DictEnum.meetingResult.通过.getCode());
+        tm.setStatus(DictEnum.meetingResult.通过.getCode());
 		/**
 		 * 项目的当前状态为立项会阶段，添加通过的会议记录才回去修改项目阶段到投资意向书
 		 * 否则仅仅保存会议记录，不做项目阶段跳转
@@ -110,12 +111,14 @@ public class LxMeetingHandler implements Handler {
 			task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
 			task.setCreatedTime(System.currentTimeMillis());
 			sopTaskDao.insert(task);
+			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		}
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			p.setProjectStatus(DictEnum.meetingResult.否决.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
+			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
 		}
 		if(in == pin){
 			tm.setMeetingDate(q.getParseDate() == null ? new Date() : q.getParseDate());

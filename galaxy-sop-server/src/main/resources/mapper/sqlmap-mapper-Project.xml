@@ -29,13 +29,14 @@
     <result column="user_portrait" property="userPortrait" jdbcType="LONGVARCHAR" />
     <result column="prospect_analysis" property="prospectAnalysis" jdbcType="LONGVARCHAR" />
     <result column="count" property="count" jdbcType="BIGINT" />
+    <result column="idea_id" property="ideaId" jdbcType="BIGINT" />
   </resultMap>
   
   <sql id="Base_Column_List" >
     id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId, 
     project_valuations, project_contribution, currency_unit, project_share_ratio, project_company, project_company_code, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
-    project_describe, project_business_model, company_location, user_portrait, prospect_analysis
+    project_describe, project_business_model, company_location, user_portrait, prospect_analysis,idea_id
   </sql>
   
   
@@ -137,6 +138,18 @@
 	                          #{item}
                     </foreach>
 				</if>
+				<if test="projectProgressList != null">
+					AND project_progress IN
+					<foreach collection="projectProgressList" index="item" item="item" open="(" separator="," close=")">
+	                          #{item}
+                    </foreach>
+				</if>
+				<if test="fromIdea == true">
+					and idea_id is not null
+				</if>
+				<if test="ideaId != null">
+					and idea_id = #{ideaId}
+				</if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -176,7 +189,7 @@
 	      project_status, updated_time, created_time, 
 	      project_describe, project_business_model, 
 	      company_location, user_portrait, 
-	      prospect_analysis)
+	      prospect_analysis,idea_id)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, 
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{projectContribution,jdbcType=DECIMAL}, 
@@ -185,7 +198,7 @@
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
 	      #{companyLocation,jdbcType=LONGVARCHAR}, #{userPortrait,jdbcType=LONGVARCHAR}, 
-	      #{prospectAnalysis,jdbcType=LONGVARCHAR})
+	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT})
 	    ]]>
     </insert>
     
@@ -199,7 +212,7 @@
 	      project_status, updated_time, created_time, 
 	      project_describe, project_business_model, 
 	      company_location, user_portrait, 
-	      prospect_analysis)
+	      prospect_analysis,idea_id)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, 
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{projectContribution,jdbcType=DECIMAL}, 
@@ -208,7 +221,7 @@
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
 	      #{companyLocation,jdbcType=LONGVARCHAR}, #{userPortrait,jdbcType=LONGVARCHAR}, 
-	      #{prospectAnalysis,jdbcType=LONGVARCHAR})
+	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT})
 	    ]]>
     </insert>
     
@@ -282,8 +295,8 @@
 	<update id="updateById" parameterType="com.galaxyinternet.model.project.Project">
 		update sop_project
 		<set>
-			  <!-- 
 			  <if test="projectName != null" >  project_name = #{projectName,jdbcType=VARCHAR}, </if>
+			  <!-- 
 		      <if test="projectCode != null" >  project_code = #{projectCode,jdbcType=VARCHAR}, </if>
 		      <if test="projectType != null" >  project_type = #{projectType,jdbcType=VARCHAR}, </if>
 		       -->
@@ -357,5 +370,4 @@
 		from sop_project
 		<include refid="Base_Where_Clause" />
 	</select>
-	
 </mapper>

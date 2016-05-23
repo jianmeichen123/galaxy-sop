@@ -14,6 +14,7 @@ import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
@@ -38,6 +39,10 @@ public class MeetingSchedulingServiceImpl
 
 	@Autowired
 	private DepartmentService deptService;
+	
+	@Autowired	
+/*	private MeetingRecordService meetingRecordService;*/
+	
 	@Override
 	protected BaseDao<MeetingScheduling, Long> getBaseDao() {
 		return this.meetingSchedulingDao;
@@ -56,6 +61,7 @@ public class MeetingSchedulingServiceImpl
 		List<Long> projectIdList = new ArrayList<Long>();
 		for (MeetingSchedulingBo meeting : meetingList) {
 			if (meeting.getProjectId() != null) {
+				
 				projectIdList.add(meeting.getProjectId());
 			}
 
@@ -211,6 +217,77 @@ public class MeetingSchedulingServiceImpl
 		return page;
 	}
 
+	//秘书用排期池   
+	@Override
+	public Page<MeetingScheduling> queryMeetPageList(MeetingSchedulingBo query,
+			Pageable pageable) {
+		List<Project> projectList = null;
+		List<Department> depList = deptService.queryAll();
+		Page<MeetingScheduling> page = null;
+		List<MeetingScheduling> content = new ArrayList<MeetingScheduling>();
+		if (query.getFilterName() == null) {
+			List<Long> projectIdList = new ArrayList<Long>();
+			page = meetingSchedulingDao.selectPageList(query, pageable);
+			content = page.getContent();
+			for (MeetingScheduling meeting : content) {
+				if (meeting.getProjectId() != null) {
+					projectIdList.add(meeting.getProjectId());
+				}
+			}
+
+			if (projectIdList.size() > 0) {
+				projectIdList = removeDuplicateWithOrder(projectIdList);
+				projectList = projectService.queryListById(projectIdList);
+			}
+
+		} else if (query.getFilterName().equals("deptId")) {
+			Project project = new Project();
+			project.setDeptIdList(query.getDeptIdList());
+			projectList = projectService.queryList(project);
+			List<Long> projectIdList = new ArrayList<Long>();
+			if (projectList.size() == 0) {
+				Page<MeetingScheduling> page1 = new Page<MeetingScheduling>(
+						null, pageable, (long) 0);
+				return page1;
+			}
+			for (Project temp : projectList) {
+				projectIdList.add(temp.getId());
+			}
+			query.setProjectIdList(projectIdList);
+			page = meetingSchedulingDao.selectPageList(query, pageable);
+			content = page.getContent();
+		}
+
+		for (MeetingScheduling meeting : content) {
+			for (Project project : projectList) {
+				if ((meeting.getProjectId() != null) && (meeting.getProjectId()
+						.longValue() == project.getId().longValue())) {
+					meeting.setProjectName(project.getProjectName());
+					String deptName = findDeptName(project.getProjectDepartid(),
+							depList);
+					meeting.setProjectCareerline(deptName);
+					meeting.setCreateUname(project.getCreateUname());
+					//添加项目编码
+					meeting.setProjectCode(project.getProjectCode());
+					if (meeting.getMeetingDate() != null) {
+						String meetingDateStr = DateUtil
+								.convertDateToString(meeting.getMeetingDate());
+						meeting.setMeetingDateStr(meetingDateStr);
+					}
+				}
+			}
+			setDefaultValue(meeting);
+		}
+		if (page != null) {
+			page.setContent(content);
+		}
+		
+		return page;
+	}
+
+	
+	
+	
 	@Override
 	public int updateBySelective(MeetingScheduling ms) {
 		return meetingSchedulingDao.updateBySelective(ms);
@@ -238,5 +315,23 @@ public class MeetingSchedulingServiceImpl
 		}
 		return newList;
 	}
+
+	/**
+	 * 批量更新
+	 */
+	@Override
+	public void updateBatch(List<MeetingScheduling> entityList) {
+		
+		 meetingSchedulingDao.updateBatch(entityList);
+		
+	}
+	
+	@Override
+	public Page<MeetingScheduling> getMeetingList(MeetingScheduling bo,PageRequest page) {
+		// TODO Auto-generated method stub
+		Page<MeetingScheduling> list=meetingSchedulingDao.getMeetingList(bo,page);
+		return list;
+	}
+
 
 }

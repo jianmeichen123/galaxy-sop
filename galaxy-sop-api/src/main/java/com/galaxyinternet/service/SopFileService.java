@@ -1,13 +1,15 @@
 package com.galaxyinternet.service;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.data.domain.Pageable;
+
 import com.galaxyinternet.bo.sopfile.SopFileBo;
+import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
@@ -54,6 +56,13 @@ public interface SopFileService extends BaseService<SopFile> {
 	 * */
 	public Result updateFile(HttpServletRequest request, Long fid) throws Exception;
 	
+	/**
+	 * 文档更新:
+	 @param sopFile
+	 @return boolean true:成功 false 失败
+	 * */
+	public boolean updateFile(SopFile sopFile) throws Exception;
+	
 	
 	/**
 	 * 单纯文档上传
@@ -74,5 +83,11 @@ public interface SopFileService extends BaseService<SopFile> {
 	 * @throws Exception
 	 */
 	public void download(HttpServletRequest request,HttpServletResponse response,String tempfilePath,SopDownLoad downloadEntity) throws Exception;
+	
+	
+	/**
+	 * 文件查询
+	 */
+	public Page<SopFile> queryFileList(SopFile query, Pageable pageable);
 	
 }

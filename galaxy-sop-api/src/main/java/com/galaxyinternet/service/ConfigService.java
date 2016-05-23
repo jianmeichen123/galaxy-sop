@@ -13,4 +13,6 @@ public interface ConfigService extends BaseService<Config> {
 	 */
 	public Config createCode() throws Exception;
 	
+	public Config getByKey(String key, boolean createIfNotExist) throws Exception;
+	
 }

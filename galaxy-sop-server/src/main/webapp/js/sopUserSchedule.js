@@ -34,9 +34,12 @@ function loadAjaxSopUserSchedule(url){
 				}else{
 					$("#top").siblings().children('.more').css("display","block");
 				}
-			 for(var p in dataList){
-				 htmlstart +="<a href=\"javascript:;\" class=\"link\"><b class=\"b1 null\">点</b>"+dataList[p].timeTask+"</a>";
-			 }
+				if (dataList.length!=0){
+					 for(var ii = 0 ; ii < dataList.length ; ii++){
+						 htmlstart +="<a href=\"javascript:;\" class=\"link\"><b class=\"b1 null\">点</b>"+dataList[ii].timeTask+"</a>";
+					 }					
+				}
+
 			 $("#top").html(htmlstart);
 		}
 	});

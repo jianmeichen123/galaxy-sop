@@ -8,10 +8,12 @@
     String realName="";
     String deptName = "";
     String roleName = "";
+    Long userId=null;
     Long roleId=null;
  //   HttpSession session=request.getSession(); 
     if(null != user && null != user.getRealName()){
     	realName=user.getRealName();
+    	userId=user.getId();
     	request.getSession().setAttribute("realName", realName);
     //	session.setAttribute("realName", realName);
     }
@@ -34,11 +36,12 @@
  
 %>
 <div class="erwm">
+    <img src="<%=path %>/img/erwm.gif" alt="" style="width:100%;">
     <span data-btn="close_erwm">关闭</span>
     <a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">点击查看安装说明</a>
 </div>
 <div class="header clearfix">
- <div class="warning" id="warning"><i></i>您的浏览器版本过低，繁星系统不提供对IE10以下浏览器的支持，快使用速度更快，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
+ <div class="warning" id="warning"><i></i>建议使用IE10以上浏览器，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
 	<a href="javascript:;" class="logo null">繁星</a>
     <!--头部中间-->
     <div class="min clearfix">

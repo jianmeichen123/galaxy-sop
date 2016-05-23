@@ -63,7 +63,7 @@ function setCheckLine(data){
 	            </dl>
 	            
 				<dl class="fmdl fml fmdll clearfix">
-	              <dt>项目类别：</dt>
+	              <dt>项目类型：</dt>
 	              <dd>
 	                <select name="projectType">
 	                  <option value="">全部</option>
@@ -94,7 +94,7 @@ function setCheckLine(data){
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" id="keyword" name="keyword" placeholder="请输入项目名称或项目编码" />
+						<input type="text" class="txt" id="keyword" name="keyword" placeholder="请输入项目名称或项目编码"/>
 					</dd>
 					<dd style="float:right">
 						<button type="submit" class="bluebtn ico cx" name="querySearch" style="margin:0">搜索</button>
@@ -142,11 +142,18 @@ function setCheckLine(data){
 <script src="<%=path %>/js/init.js"></script>
 
 <script type="text/javascript" src="<%=path %>/js/manager/js/filerepository.js"></script>
+<!-- 富文本编辑器 -->
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
 
 <script type="text/javascript">
 	$(function(){
 		createMenus(4);
 	});
+	var uid='${galax_session_user.id }';
 	
 	/**
 	 * 分页数据生成操作内容
@@ -205,6 +212,7 @@ function setCheckLine(data){
 						if(i > index){
 							//当前阶段之后的tab变为不可用
 							$("#projectProgress_" + i).addClass("disabled");
+							$("#projectProgress_" + i).attr("disabled","disabled");
 						}
 						if(i == 1){
 							if(hasClosed){
@@ -256,7 +264,6 @@ function setCheckLine(data){
 						$("#projectProgress_" + i).on("click",function(){
 							var id = $(this).attr("id");
 							var indexNum = id.substr(id.length-1,1);
-							console.log("indexNum:"+indexNum);
 							if(indexNum == '1'){
 								if(parseInt(indexNum) < parseInt(pNum)){
 									$("#qdnbps").remove();
@@ -356,7 +363,6 @@ function setCheckLine(data){
 						 var dataList=json.entityList;
 							for(var ii = 0 ; ii < dataList.length ; ii++){
 							    var p = ii ;	
-								
 						        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix"></div>'+
 							        '<div class="process clearfix">'+
 							        '<h2>投资意向书盖章流程</h2>'+
@@ -423,23 +429,22 @@ function setCheckLine(data){
 					 null, function(data){
 				 var html = "";
 				 $.each(data.entityList, function(i,o){
-					 console.log(o);
 					 html += "<tr>";
 					 if(o.fileWorktype == 'fileWorktype:1'){
 						 html += "<td>业务尽职调查报告";
-						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 						 html += "<td>"+o.careerLineName+"</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:2'){
 						 html += "<td>人事尽职调查报告";
-						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 						 html += "<td>人事部</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:3'){
 						 html += "<td>法务尽职调查报告";
-						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 						 html += "<td>法务部</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:4'){
 						 html += "<td>财务尽职调查报告";
-						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 						 html += "<td>财务部</td><td>"+o.fType+"</td>";
 					 }
 					 if(o.fileStatus == 'fileStatus:1'){

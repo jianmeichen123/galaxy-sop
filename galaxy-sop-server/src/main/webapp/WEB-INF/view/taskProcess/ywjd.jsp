@@ -98,7 +98,6 @@ $(function(){
 });
 function projectLoaded(project)
 {
-	console.log(project.projectProgress);
 	if(project.projectProgress != 'projectProgress:6')
 	{
 		$("#show-upload-btn").addClass('disabled');
@@ -185,7 +184,7 @@ function showUploadPopup()
 function initUpload(_dialog){
 	
 	var uploader = new plupload.Uploader({
-		runtimes : 'html5,flash,silverlight,html4',
+		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
 		url : platformUrl.stageChange,
 		multi_selection:false,

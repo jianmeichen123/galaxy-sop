@@ -7,6 +7,7 @@ package com.galaxyinternet.model.operationLog;
  */
 public enum OperationLogType {
 
+	/*项目操作日志的配置-------------------开始-----------------------------------------------------------*/
 	//接触访谈阶段
 	//添加访谈的弹出框中点击‘保存’
 	ADD_INTERVIEW("/galaxy/project/stageChange/"+UrlNumber.one, OperType.ADD.getOperationType(), "访谈记录",SopStage.TOUCH_INTERVIEW.getStageName()), 
@@ -95,8 +96,32 @@ public enum OperationLogType {
 
 	
 	//更新投资意向书 1
-	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName());
+	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
+	/*项目操作日志的配置------------------------------------结束----------------------------------------------------------*/
+	
+	
+	//------------------------------------------------忧愁的分割线-----------------------------------------------------//
+	
+	
+	/*创意操作日志的配置-------------------开始---------------------------------------------------------------------------*/
+	
+	//添加可信性报告
+	CY_ADD_REPORT("/galaxy/idea/ideaUpReport/"+UrlNumber.two, OperType.ADD.getOperationType() , "可行性报告",SopStage.CY_DY.getStageName()),
+	//更新
+	CY_UPDATE_REPORT("/galaxy/idea/ideaUpReport/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "可行性报告",SopStage.CY_DY.getStageName()),
+	//启动立项会
+	CY_START_LXH("/galaxy/idea/ideaStartMeet", OperType.SUBMIT.getOperationType() , "启动立项会",SopStage.CY_DY.getStageName()),
+	
+	
+	//添加会议记录
+	CY_ADD_MEET("/galaxy/idea/saveCyMeetRecord", OperType.ADD.getOperationType() , "会议记录",SopStage.CY_LXH.getStageName()),
+	//创建项目
+	CY_ADD_PRO("/galaxy/idea/createProject", OperType.ADD.getOperationType() , "项目",SopStage.CY_PRO.getStageName()),
+	//编辑项目名称
+	CY_EDIT_PRO("/galaxy/idea/editProjectName", OperType.UPDATE.getOperationType() , "项目",SopStage.CY_PRO.getStageName());
 
+	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/
+		
 	private OperationLogType(String uniqueKey, String type, String content, String sopstage) {
 		this.uniqueKey = uniqueKey;
 		this.type = type;

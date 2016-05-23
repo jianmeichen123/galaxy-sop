@@ -72,7 +72,7 @@
 		</dd>
       </dl>
         
-    <dl class="fmdl clearfix">
+    <dl class="fmdl clearfix" id="fileNotBeUse">
         <dt>会议录音：</dt>
         
         <div class="fmload clearfix">
@@ -84,13 +84,13 @@
     		</dd>
         </div>
     </dl>
-    <div class="btnbox">
+    <div class="btnbox" id="btnNotBeUse">
     	<a href="javascript:;" class="pubbtn bluebtn" id="savemeet">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
 
  <script type="text/javascript">
-		UM.getEditor('meetingNotes');
+	var meetEditor = UM.getEditor('meetingNotes');
 		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd"));
 </script>
 
