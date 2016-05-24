@@ -65,12 +65,12 @@
               </dd>
             </dl>
             
-            <!--  <input type="hidden" name="direction" value="asc"  /> desc   asc  -->
+            <!--  <input type="hidden" name="direction" value="asc"  /> desc   asc
             
             <input type="hidden" name="uid" id="uid" value="" />
             <script>
             	$("#uid").val(userId);
-            </script>
+            </script>  -->
             <dl class="fmdl fmdll clearfix">
               <dt></dt>
               <dd>

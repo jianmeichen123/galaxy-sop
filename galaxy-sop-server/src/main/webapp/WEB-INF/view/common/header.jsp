@@ -75,23 +75,6 @@
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
-$(function(){
-	sendPostRequest(platformUrl.authmenu, function(data){
-		console.log(data);
-		var str=data.userData.authority;
-		if(str.indexOf("MessageDivShow") ==-1){
-			//$(".usermsg").hide();
-			$("#messages").hide();
-		} 
-		if(str.indexOf("TaskDivShow")==-1){
-			$("#daiban").hide();
-			
-			
-		}
-		
-	});
-});
-
  fillHeaderdata();
  sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
  function remindcbf(data){

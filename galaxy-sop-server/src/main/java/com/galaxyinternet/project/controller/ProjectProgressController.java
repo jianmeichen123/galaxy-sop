@@ -394,7 +394,9 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	/**
 	 * 访谈查询,
-	 * 			查询个人项目下的访谈记录  
+	 * 			投资经理： 查询个人项目下		的访谈记录  
+	 * 			合伙人：	    查询个人事业线下	的访谈记录  
+	 * 			高管： 	    查询所有			的访谈记录  
 	 * @param   interviewRecord 
 	 * @return
 	 */
@@ -407,15 +409,40 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)){  //无限制，根据传参查询
+				//query.setUid(null);
+			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门
+				query.setDepartId(user.getDepartmentId());
+			}else if(roleIdList.contains(UserConstant.TZJL)){  //固定为其创建
+				query.setUid(user.getId());
+			}else{
 				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 				return responseBody;
 			}
-			/*if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
-				query.setUid(user.getId());
-			}*/
-			//query.setUid(user.getId());
+
+			if(query.getProjectId()!=null){
+				List<Project> proList = null;
+				boolean checked = false;
+				if(roleIdList.contains(UserConstant.HHR)){   //部门下项目校验
+					Project  proQ = new Project();
+					proQ.setId(query.getProjectId());
+					proQ.setProjectDepartid(user.getDepartmentId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}else if(roleIdList.contains(UserConstant.TZJL)){  //个人下项目校验
+					Project  proQ = new Project();
+					proQ.setCreateUid(user.getId());
+					proQ.setId(query.getProjectId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}
+				if(checked){
+					if(proList==null || proList.isEmpty()){
+						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+						return responseBody;
+					}
+				}
+			}
 			
 			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPage(query,  new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()) );
 			responseBody.setPageList(pageList);
@@ -646,17 +673,43 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			//角色校验
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)){  //无限制，根据传参查询
+				//query.setUid(null);
+			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门
+				query.setDepartId(user.getDepartmentId());
+			}else if(roleIdList.contains(UserConstant.TZJL)){  //固定为其创建
+				query.setUid(user.getId());
+			}else{
 				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 				return responseBody;
 			}
-			/*if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)
-					&&query.getProjectId()==null&&query.getUid()==null){
-				query.setUid(user.getId());
-			}*/
-			//query.setUid(user.getId());
+			
+			if(query.getProjectId()!=null){
+				List<Project> proList = null;
+				boolean checked = false;
+				if(roleIdList.contains(UserConstant.HHR)){   //部门下项目校验
+					Project  proQ = new Project();
+					proQ.setId(query.getProjectId());
+					proQ.setProjectDepartid(user.getDepartmentId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}else if(roleIdList.contains(UserConstant.TZJL)){  //个人下项目校验
+					Project  proQ = new Project();
+					proQ.setCreateUid(user.getId());
+					proQ.setId(query.getProjectId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}
+				if(checked){
+					if(proList==null || proList.isEmpty()){
+						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+						return responseBody;
+					}
+				}
+			}
 			
 			Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPage(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
 			responseBody.setPageList(pageList);

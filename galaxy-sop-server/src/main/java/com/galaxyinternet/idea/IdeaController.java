@@ -200,6 +200,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					pageable = new PageRequest(pageNum,pageSize);
 				}
 			}
+			resp.setPageList(new Page<Idea>(new ArrayList<Idea>() , pageable, 0l));
 			
 			//提出人
 			if(StringUtils.isNotEmpty(query.getCreatedUname()))
