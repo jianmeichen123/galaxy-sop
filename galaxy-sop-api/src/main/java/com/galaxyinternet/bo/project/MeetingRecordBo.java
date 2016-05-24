@@ -24,6 +24,8 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private String direction;// asc,desc
 	private String property;// 排序的字段名称
 	
+	private Long departId; //部门id
+	
 	public String getProName() {
 		return proName;
 	}
@@ -137,5 +139,13 @@ public class MeetingRecordBo  extends MeetingRecord{
 		}
 		this.property = property==null?null:property.trim();
 	}
+	
+	public Long getDepartId() {
+		return departId;
+	}
+	public void setDepartId(Long departId) {
+		this.departId = departId;
+	}
+	
 	
 }
