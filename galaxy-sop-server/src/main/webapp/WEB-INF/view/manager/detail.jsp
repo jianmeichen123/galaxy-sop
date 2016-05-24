@@ -334,7 +334,27 @@
 	                      title: '最高学历',
 	                        field: 'highestDegree',
 	                        align: 'center',
-	                        valign: 'middle'
+	                        valign: 'middle',
+	                        formatter:function(value,row,index){ 
+	                         	if (row.highestDegree == 1) {
+	                    			return "高中";
+	                    		}else if (row.highestDegree == 2) {
+	                    			return "大专";
+	                    		}else if (row.highestDegree == 3) {
+	                    			return "本科";
+	                    		}else if (row.highestDegree == 4) {
+	                    			return "硕士";
+	                    		}else if (row.highestDegree == 5) {
+	                    			return "MBA";
+	                    		}else if (row.highestDegree == 6) {
+	                    			return "博士";
+	                    		}else if (row.highestDegree == 7) {
+	                    			return "其他";
+	                    		}
+	                    		else {
+	                    			return "-";
+	                    		}
+	                        }
 	                  },
 	                  {
 	                      title: '工作年限',

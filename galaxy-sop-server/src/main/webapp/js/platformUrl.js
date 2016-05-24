@@ -502,7 +502,7 @@ var platformUrl = {
 	/**
 	 * 创意 列表
 	 */		
-	authmenu: Constants.sopEndpointURL+"/galaxy/project/getRoleList",
+	authmenu: Constants.sopEndpointURL+"/galaxy/common/pullAuthority",
 	
 }
 

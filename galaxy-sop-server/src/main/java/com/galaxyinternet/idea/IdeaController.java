@@ -200,6 +200,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					pageable = new PageRequest(pageNum,pageSize);
 				}
 			}
+			resp.setPageList(new Page<Idea>(new ArrayList<Idea>() , pageable, 0l));
 			
 			//提出人
 			if(StringUtils.isNotEmpty(query.getCreatedUname()))
@@ -842,6 +843,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			responseBody.setResult(new Result(Status.ERROR,"创意添加出错,请联系管理员!"));
 			return responseBody;
 		}
+		responseBody.setId(idea.getId());
 		responseBody.setResult(new Result(Status.OK,operatorStr + "成功"));
 		return responseBody;
 	}
