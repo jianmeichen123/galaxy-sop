@@ -75,7 +75,7 @@
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
-$(function(){
+/* $(function(){
 	sendPostRequest(platformUrl.authmenu, function(data){
 		console.log(data);
 		var str=data.userData.authority;
@@ -90,7 +90,7 @@ $(function(){
 		}
 		
 	});
-});
+}); */
  fillHeaderdata();
  sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
  function remindcbf(data){
