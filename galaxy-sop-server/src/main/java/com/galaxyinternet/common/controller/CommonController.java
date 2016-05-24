@@ -40,6 +40,26 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	
 	private String serverUrl;
 	
+	/**
+	 * 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/pullAuthority", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Menus> pullAuthority(HttpServletRequest request){
+		ResponseData<Menus> responseBody = new ResponseData<Menus>();
+		
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		String authorityStr = "";
+		if(!roleIdList.contains(17L)){
+			authorityStr += "MessageDivShow,";
+			if(!(roleIdList.contains(UserConstant.HHR) && roleIdList.contains(1L) && roleIdList.contains(2L))){
+				authorityStr += "TaskDivShow,";
+			}
+		}
+		responseBody.put("authority", authorityStr);
+		return responseBody;
+	}
 	
 	/**
 	 * 动态生成左边菜单项列表

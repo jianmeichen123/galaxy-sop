@@ -46,17 +46,13 @@
     <!--头部中间-->
     <div class="min clearfix">
         <!--用户信息-->
-        <c:if test="<%=roleId !=17 %>">
-        <div class="usermsg clearfix">
+        <div class="usermsg clearfix"  id="messages">
             <span class="light_blue">当前您有：</span>
-             <c:if test="<%=roleId !=1 && roleId !=2 && roleId !=3  %>">
-                   <a href="<%=path %>/galaxy/soptask" class="work">待办任务<em class="totalUrgent"></em></a>
-            </c:if>
+            <a href="<%=path %>/galaxy/soptask" class="work" id="daiban">待办任务<em class="totalUrgent"></em></a>
             <!-- <a href="<%=path %>/galaxy/soptask" class="work">紧急任务<em class="bubble"></em></a> -->
             <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">0</em></a> 
         </div>    	
         <!--当日信息-->
-        </c:if>
     	<div class="todaymsg clearfix">
         	<span class="weather"><iframe allowtransparency="true" frameborder="0" width="220" height="36" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=1&v=0&d=3&bd=0&k=000000&f=004080&q=1&e=1&a=1&c=54511&w=180&h=36&align=center"></iframe></span>
             <span>
@@ -79,6 +75,22 @@
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
+$(function(){
+	sendPostRequest(platformUrl.authmenu, function(data){
+		console.log(data);
+		var str=data.userData.authority;
+		if(str.indexOf("MessageDivShow") ==-1){
+			//$(".usermsg").hide();
+			$("#messages").hide();
+		} 
+		if(str.indexOf("TaskDivShow")==-1){
+			$("#daiban").hide();
+			
+			
+		}
+		
+	});
+});
 
  fillHeaderdata();
  sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
@@ -117,4 +129,5 @@
  $("[data-btn='close_erwm']").on("click",function(){
      $('.erwm').hide();
  })
+ 
 </script>
