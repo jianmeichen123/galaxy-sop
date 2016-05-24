@@ -152,16 +152,25 @@ public class MeetingSchedulingServiceImpl
 	@Override
 	public Page<MeetingScheduling> queryMeetingPageList(MeetingScheduling query,
 			Pageable pageable) {
-
-		List<Project> projectList = null;
+		
+		//增加获取用户所在部门排期表
+		Project entity = new Project();
+		entity.setProjectDepartid(query.getCareline().longValue());
+		List<Project> projectList = projectService.queryList(entity);
+		
+		if (projectList.size() == 0) {
+			Page<MeetingScheduling> page1 = new Page<MeetingScheduling>(
+					null, pageable, (long) 0);
+			return page1;
+		}
 		List<Department> depList = deptService.queryAll();
 		Page<MeetingScheduling> page = null;
 		List<MeetingScheduling> content = new ArrayList<MeetingScheduling>();
 		if (query.getFilterName() == null) {
-			List<Long> projectIdList = new ArrayList<Long>();
+			//List<Long> projectIdList = new ArrayList<Long>();
 			page = meetingSchedulingDao.selectPageList(query, pageable);
 			content = page.getContent();
-			for (MeetingScheduling meeting : content) {
+			/*for (MeetingScheduling meeting : content) {
 				if (meeting.getProjectId() != null) {
 					projectIdList.add(meeting.getProjectId());
 				}
@@ -171,7 +180,8 @@ public class MeetingSchedulingServiceImpl
 			if (projectIdList.size() > 0) {
 				projectIdList = removeDuplicateWithOrder(projectIdList);
 				projectList = projectService.queryListById(projectIdList);
-			}
+				
+			}*/
 
 		} else if (query.getFilterName().equals("deptId")) {
 			Project project = new Project();
@@ -261,7 +271,7 @@ public class MeetingSchedulingServiceImpl
 		for (MeetingScheduling meeting : content) {
 			for (Project project : projectList) {
 				if ((meeting.getProjectId() != null) && (meeting.getProjectId()
-						.longValue() == project.getId().longValue())) {
+						.longValue() == project.getId().longValue()) ) {
 					meeting.setProjectName(project.getProjectName());
 					String deptName = findDeptName(project.getProjectDepartid(),
 							depList);

@@ -299,7 +299,7 @@ public class HomePageSearchController
 	
 	/**
 	 * 供app使用的立项排期,投诀排期
-	 * 用户id,类型必填
+	 * 用户id,类型必填,careline事业线Id
 	 * @author zhaoying
 	 * @param request
 	 * @param query
@@ -419,7 +419,7 @@ public class HomePageSearchController
 	
 	
 	/**
-	 * 董事长秘书和ceo秘书 立项会排期池     meetingType:3 
+	 * 董事长秘书和ceo秘书 立项会排期池     meetingType:3  
 	 * 
 	 */
 	@ResponseBody
