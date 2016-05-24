@@ -85,11 +85,11 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 					if (null != type || null != operLogType) {
 						final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 						final RecordType recordType = logger.recordType();
+						final LogType[] logTypes = logger.operationScope();
 						GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 							@Override
 							public void run() {
-								LogType[] logTypes = logger.operationScope();
-								for (LogType ltype : logTypes) {
+								for (final LogType ltype : logTypes) {
 									if (ltype == LogType.MESSAGE) {
 										insertMessageTip(populateOperationMessage(type, user, map));
 									} else if (ltype == LogType.LOG) {
