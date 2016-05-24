@@ -13,5 +13,10 @@ public class TestAnnotaionTask extends BaseGalaxyTask {
 		logger.debug("TestAnnotaionTask executed.");
 
 	}
+	@Override
+	public boolean isDisabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
 }
