@@ -659,6 +659,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .block dl dd{color:#525662;font-family: "宋体";font-size: 12px}
 .block dl dd.describe,
 .block dl dd.edit{line-height: 22px;padding: 0 0 10px; display:none}
+.block dl dd.pro_block{display:block}
 .pagebox .projectmsg_d .block dl dd img{margin: 0 0 10px 0;}
 .pagebox .projectmsg_d .block dl dd img.star{margin: 0 auto;}
 /*编辑盒子*/
