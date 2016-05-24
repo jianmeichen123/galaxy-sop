@@ -255,8 +255,14 @@ function appendTd1(model){
 
 			$(tr).append("<td><select id='"+idd+"' name='"+namee+"' onchange='"+ese+"'>"+str+"</select><input name ='"+name+"' hidden='"+hidden+"' id='"+id+"' class='"+class_name+"' ></td>");
 		}
-		else{
+		else{			
+			if(class_name == "datepicker"){
+			
+				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' class='"+class_name+"' type='"+type+"' name='"+name+"' /></td>");
+		
+			}else{
 				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
+			}
 		}				
 	});
 
