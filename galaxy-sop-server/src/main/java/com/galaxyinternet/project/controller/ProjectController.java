@@ -2359,4 +2359,24 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return "fail";
 		}
 	}
+	
+	/***
+	 * 返回角色列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getRoleList")
+	public List<Long> getRoleList(HttpServletRequest request){
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = null;
+		if(user != null){
+			try{
+				roleIdList = userRoleService.selectRoleIdByUserId(user
+						.getId());
+			}catch(Exception e){
+				logger.error("获取角色列表失败!", e);
+			}
+		}
+		return roleIdList;
+	}
+	
 }

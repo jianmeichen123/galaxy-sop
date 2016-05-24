@@ -529,7 +529,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 	});
 	uploader.init();
 }
-window.setInterval("totalUrgent(),totalMission()",15000000); 
+window.setInterval("totalUrgent(),totalMission()",10000); 
 //紧急任务
 function totalUrgent() {
 	sendGetRequest(platformUrl.totalUrgent, null, totalUrgentCallback);
@@ -555,7 +555,7 @@ function totalMissionCallback(data) {
 }
 
 function fillHeaderdata() {
-	//totalUrgent();
+	    totalUrgent();
 	    totalMission();
 	/*setInterval(function() {
 		totalUrgent();

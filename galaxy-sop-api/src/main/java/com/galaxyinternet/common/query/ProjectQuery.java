@@ -126,7 +126,7 @@ public class ProjectQuery extends ViewQuery{
 	public Date getParseDate() {
 		if(this.createDate != null){
 			try {
-				return DateUtil.convertStringToDate(this.createDate, "yyyy-MM-dd");
+				return DateUtil.convertStringToDate(this.createDate, "yyyy-MM-dd hh:mm");
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}

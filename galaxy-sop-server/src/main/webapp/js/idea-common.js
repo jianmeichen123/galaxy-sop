@@ -173,7 +173,7 @@
 
 	}
 	
-	// 调研   $('#ideaProgress_2_table') 表格动态加载初始化
+	// 调研   $('#ideaProgress_2_table') 表格动态加载初始化   pagination: true,
 	function init_ideaProgress_2_table(index){
 		$('#ideaProgress_2_table').bootstrapTable({
 			queryParamsType: 'size|page',
@@ -181,7 +181,7 @@
 			showRefresh : false ,
 			sidePagination: 'server',
 			method : 'post',
-			pagination: true,
+			pagination: false,
 	        search: false,
 	        onLoadSuccess: function (data) {
 	        	if (index == 2) {
@@ -496,6 +496,7 @@
 						layer.msg("上传成功.");
 						$(_dialog.id).find("[data-close='close']").click();
 						$("#cy_start_lxh").show(); //启动创建立项会
+						$("#cy_up_report").remove(); //上传文档
 						$("#ideaProgress_2_table").bootstrapTable('refresh');
 					}
 					else
@@ -799,6 +800,8 @@ function ideaLoaded(idea, index) {
 						var num = data.result.message;
 						if (num == 'not') {
 							$("#cy_start_lxh").hide(); //启动创建立项会
+						}else{
+							$("#cy_up_report").remove(); //上传文档
 						}
 					}
 				});
