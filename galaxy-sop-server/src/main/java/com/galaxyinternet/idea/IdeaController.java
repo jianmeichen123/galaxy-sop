@@ -890,6 +890,19 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			{
 				throw new BusinessException("立项会未通过，不能创建项目。");
 			}
+			
+			Project obj = new Project();
+			obj.setProjectName(projectName);
+			List<Project> projectList = projectService.queryList(obj);
+			/*
+			 * Integer count = 0 ; for (Project p: projectList) { count ++; }
+			 * if(count>0){
+			 */
+			if (null != projectList && projectList.size() > 0) {
+				resp.setResult(new Result(Status.ERROR, null, "和已有项目名称重复!"));
+				return resp;
+			}
+			
 			ideaService.createProject(ideaId, projectName);
 			Idea idea = ideaService.queryById(ideaId);
 			resp.setEntity(idea);
@@ -945,6 +958,19 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			{
 				throw new Exception("新项目名称与旧项目名称相同.");
 			}
+			
+			Project obj = new Project();
+			obj.setProjectName(projectName);
+			List<Project> projectList = projectService.queryList(obj);
+			/*
+			 * Integer count = 0 ; for (Project p: projectList) { count ++; }
+			 * if(count>0){
+			 */
+			if (null != projectList && projectList.size() > 0) {
+				resp.setResult(new Result(Status.ERROR, null, "和已有项目名称重复!"));
+				return resp;
+			}
+			
 			String originProjectName = project.getProjectName();
 			project.setProjectName(projectName);
 			projectService.updateById(project);
