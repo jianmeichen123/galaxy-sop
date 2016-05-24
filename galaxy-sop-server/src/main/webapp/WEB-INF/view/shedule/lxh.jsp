@@ -166,7 +166,12 @@
 				return timeHtml = '<input id="test'+index+'" data-pid="'+row.id+'" size="40" name="reserveTime" type="text" value=""  class="form_datetime ">'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
 			}
 		}else{
-			return timeHtml = row.reserveTimeStartStr+' - '+row.reserveTimeEndStr;
+			if(typeof(row.reserveTimeStartStr) == "undefined"){
+				return timeHtml  = '未进行排期';
+			}else{
+				return timeHtml = row.reserveTimeStartStr+' - '+row.reserveTimeEndStr;
+			}
+			
 		}
 	}
 	
