@@ -277,9 +277,10 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 					proIdNameMap.put(apro.getId(), apro.getProjectName());
 				}
 			}
-		}else{    //列表查询_个人创建
+		}else{    //列表查询_个人创建/部门
 			Project  proQ = new Project();
 			proQ.setCreateUid(query.getUid());
+			proQ.setProjectDepartid(query.getDepartId());
 			proQ.setKeyword(query.getKeyword());
 			List<Project> proList = projectDao.selectList(proQ);
 			
