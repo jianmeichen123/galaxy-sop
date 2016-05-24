@@ -103,15 +103,61 @@ $(function(){
 		$("#analysis_show ").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
 		
 		var um = UM.getEditor('describe_editor');
-		um.setContent(data.entity.projectDescribe);
+		if(data.entity.projectDescribe){
+			um.setContent(data.entity.projectDescribe);
+		}else{
+			um.setContent("");
+		}
+		
 		var um = UM.getEditor('business_model_editor');
-		um.setContent(data.entity.projectBusinessModel);
+		if(data.entity.projectBusinessModel){
+			um.setContent(data.entity.projectBusinessModel);
+		}else{
+			um.setContent("");
+		}
 		var um = UM.getEditor('location_editor');
-		um.setContent(data.entity.companyLocation);
+		if(data.entity.companyLocation){
+			um.setContent(data.entity.companyLocation);
+		}else{
+			um.setContent("");
+		}
+		
 		var um = UM.getEditor('portrait_editor');
-		um.setContent(data.entity.userPortrait);
+		if(data.entity.userPortrait){
+			um.setContent(data.entity.userPortrait);
+		}else{
+			um.setContent("");
+		}
 		var um = UM.getEditor('analysis_editor');
-		um.setContent(data.entity.prospectAnalysis);
+		if(data.entity.prospectAnalysis){
+			um.setContent(data.entity.prospectAnalysis);
+		}else{
+			um.setContent("");
+		}
+		
+		
+		sendGetRequest(platformUrl.getBusinessPlanFile+"/"+pid,null,function(data){
+			var uploadOperator;
+			var html;
+			if(data.result.status=="OK"){
+				//为空时候显示
+				if(data.result.errorCode=="null"){
+					uploadOperator = "上传";
+					html = "<a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>";
+				}else{
+					//不为空时候显示
+					uploadOperator = "更新";
+					html = "<a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>" +
+						   "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+				}
+				$("#business_plan_dd").html(html);
+			}else{
+				
+			}
+		})
+		
+		
+		
 	});
 	/**
 	 * 计算初始估值

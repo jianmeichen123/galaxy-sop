@@ -499,10 +499,19 @@ var platformUrl = {
 	 * 创意 列表
 	 */		
 	sopcyshouye: Constants.sopEndpointURL+"/galaxy/idea/search",
+
 	/**
 	 * 创意 列表
 	 */		
 	authmenu: Constants.sopEndpointURL+"/galaxy/common/pullAuthority",
+	/**
+	 * 判断角色
+	 */		
+	judgeRole : Constants.sopEndpointURL+"/galaxy/common/judgeRole",
+	/**
+	 * 获取商业计划
+	 */	
+	getBusinessPlanFile : Constants.sopEndpointURL + "/galaxy/sopFile/getBusinessPlanFile"
 	
 }
 
