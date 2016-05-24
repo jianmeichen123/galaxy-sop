@@ -2363,6 +2363,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/***
 	 * 返回角色列表
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getRoleList")
 	public List<Long> getRoleList(HttpServletRequest request){
 		User user = (User) getUserFromSession(request);

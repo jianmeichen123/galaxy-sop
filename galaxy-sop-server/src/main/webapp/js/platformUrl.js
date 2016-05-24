@@ -499,6 +499,10 @@ var platformUrl = {
 	 * 创意 列表
 	 */		
 	sopcyshouye: Constants.sopEndpointURL+"/galaxy/idea/search",
+	/**
+	 * 创意 列表
+	 */		
+	authmenu: Constants.sopEndpointURL+"/galaxy/project/getRoleList",
 	
 }
 
