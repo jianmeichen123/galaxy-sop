@@ -189,7 +189,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	private OperationMessage populateOperationMessage(OperationType type, User user, Map<String, Object> map) {
 		OperationMessage entity = new OperationMessage();
 		entity.setContent(type.getContent());
-		if("lijunyang".equals(user.getRealName())){
+		if("lijunyang".equals(user.getNickName())){
 			entity.setDepartment("产品研发部");
 			entity.setRole("SVP");
 		}else{
