@@ -105,7 +105,7 @@
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
-			        	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
+			        	<th data-field="projectName" data-align="center" class="data-input" data-formatter="projectInfo">项目名称</th>
 			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
 			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
 			        	<th data-field="createDate" data-align="center" class="data-input">创建日期</th>
@@ -160,6 +160,16 @@
 			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>编辑项目</a>";
 		}
 		return options;
+	}
+	
+	function projectInfo(value,row,index){
+		var id=row.id;
+		var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")'>"+row.projectName+"</a>";
+		return options;
+	}
+	
+	function proInfo(id){
+		forwardWithHeader(platformUrl.projectDetail + id);
 	}
 	
 	function refreshProjectList()
