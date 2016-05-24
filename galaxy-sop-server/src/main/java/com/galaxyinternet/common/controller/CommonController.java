@@ -57,7 +57,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				authorityStr += "TaskDivShow,";
 			}
 		}
-		responseBody.put("authority", authorityStr);
+		responseBody.putAttachmentItem("authority", authorityStr);
 		return responseBody;
 	}
 	
