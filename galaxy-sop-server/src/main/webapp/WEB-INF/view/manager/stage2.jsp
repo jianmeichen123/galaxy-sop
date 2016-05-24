@@ -389,6 +389,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script>
 $(function(){
 	initData("${projectId}");
@@ -756,7 +757,7 @@ $(function(){
 				$("#file_repository").css("display","block");
 				data = {
 						_domid : "file_repository_table",
-						_projectId : $("#project_id").val()
+						_projectId : "${projectId}"
 				}
 				fileGrid.init(data);
 			});				

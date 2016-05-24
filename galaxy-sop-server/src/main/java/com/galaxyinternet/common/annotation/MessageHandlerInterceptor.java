@@ -85,11 +85,11 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 					if (null != type || null != operLogType) {
 						final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 						final RecordType recordType = logger.recordType();
+						final LogType[] logTypes = logger.operationScope();
 						GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 							@Override
 							public void run() {
-								LogType[] logTypes = logger.operationScope();
-								for (LogType ltype : logTypes) {
+								for (final LogType ltype : logTypes) {
 									if (ltype == LogType.MESSAGE) {
 										insertMessageTip(populateOperationMessage(type, user, map));
 									} else if (ltype == LogType.LOG) {
@@ -189,7 +189,13 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	private OperationMessage populateOperationMessage(OperationType type, User user, Map<String, Object> map) {
 		OperationMessage entity = new OperationMessage();
 		entity.setContent(type.getContent());
-		entity.setDepartment(user.getDepartmentName());
+		if("lijunyang".equals(user.getEmail())){
+			entity.setDepartment("产品研发部");
+			entity.setRole("SVP");
+		}else{
+			entity.setDepartment(user.getDepartmentName());
+			entity.setRole(user.getRole());
+		}
 		entity.setOperatorId(user.getId());
 		entity.setOperator(user.getRealName());
 		Object o = map.get(PlatformConst.REQUEST_SCOPE_USER);
@@ -201,8 +207,6 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		}
 		entity.setBelongUid(u.getId());
 		entity.setBelongUname(u.getRealName());
-
-		entity.setRole(user.getRole());
 		entity.setType(type.getType());
 		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
 		entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
