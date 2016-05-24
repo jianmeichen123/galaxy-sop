@@ -102,9 +102,10 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		if(query.getProjectId()!=null){   // 项目tab查询
 			viewList = interviewRecordDao.selectList(query, pageable);
 			total = interviewRecordDao.selectCount(query);
-		}else{    //列表查询_个人创建
+		}else{    //列表查询_个人创建/部门
 			Project  proQ = new Project();
 			proQ.setCreateUid(query.getUid());
+			proQ.setProjectDepartid(query.getDepartId());
 			proQ.setKeyword(query.getKeyword());
 			List<Project> proList = projectDao.selectList(proQ);
 			
@@ -115,7 +116,7 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 					proIdList.add(apro.getId());
 					proIdNameMap.put(apro.getId(), apro.getProjectName());
 				}
-				//查询列表  
+				//查询访谈列表  
 				query.setProIdList(proIdList);
 				viewList = interviewRecordDao.selectList(query, pageable);
 				total = interviewRecordDao.selectCount(query);

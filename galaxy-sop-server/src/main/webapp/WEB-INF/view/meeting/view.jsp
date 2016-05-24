@@ -61,10 +61,10 @@
               </dd>
             </dl>
             
-            <input type="hidden" name="uid" id="uid" value="" />
+           <!--  <input type="hidden" name="uid" id="uid" value="" />
             <script>
             	$("#uid").val(userId);
-            </script>
+            </script> -->
             
             <dl class="fmdl fmmr fmdll clearfix">
               <dt>会议日期：</dt>
