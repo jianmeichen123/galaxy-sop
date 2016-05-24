@@ -842,6 +842,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			responseBody.setResult(new Result(Status.ERROR,"创意添加出错,请联系管理员!"));
 			return responseBody;
 		}
+		responseBody.setId(idea.getId());
 		responseBody.setResult(new Result(Status.OK,operatorStr + "成功"));
 		return responseBody;
 	}
