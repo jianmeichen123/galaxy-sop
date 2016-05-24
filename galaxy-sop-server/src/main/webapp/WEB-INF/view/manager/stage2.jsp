@@ -381,10 +381,10 @@
 		</div>
 	</div>
 </div>
-<script src="<%=request.getContextPath() %>/js/base64.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/init.js" type="text/javascript"></script>
-
+<script src="<%=path %>/js/base64.js" type="text/javascript"></script>
+<script src="<%=path %>/js/common.js" type="text/javascript"></script>
+<script src="<%=path %>/js/init.js" type="text/javascript"></script>
+<script src="<%=path %>/js/manager/js/filerepository.js"></script>
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
@@ -606,7 +606,7 @@ $(function(){
  	
  	function initData(id)
  	{
-		$(".myprojecttc .tabtable").tabchange();
+		$(".myprojecttc .tabtable").tabchange5();
 		$('.searchbox').toggleshow();
 		leicj();
 		/**
@@ -836,7 +836,7 @@ $(function(){
 	  */
 	 function jzdc(){
 		 
-		 var pid = $("#project_id").val();
+		 var pid = "${projectId}";
 		 if(pid != '' && pid != null){
 			 /**
 			  *  生成尽职调查报告列表
@@ -896,7 +896,7 @@ $(function(){
 	 */
 	function tzxy(st,projectType){
 		//0:首次展示 1：点击触发刷新
-		var pid = $("#project_id").val();
+		var pid = "${projectId}";
 		if(pid != '' && pid != null){
 			var _table = $("#teamSeheetDataGrid");
 			var _tbody = _table.find("tbody");
@@ -977,7 +977,7 @@ $(function(){
 	  * 动态生成股权交割的HTML
 	  */
 	function gqjg(){
-		var pid = $("#project_id").val();
+		var pid = "${projectId}";
 		if(pid != '' && pid != null){
 			sendGetRequest(
 					platformUrl.getFileList + pid + "/9",
