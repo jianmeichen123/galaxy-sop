@@ -496,6 +496,7 @@
 						layer.msg("上传成功.");
 						$(_dialog.id).find("[data-close='close']").click();
 						$("#cy_start_lxh").show(); //启动创建立项会
+						$("#cy_up_report").remove(); //上传文档
 						$("#ideaProgress_2_table").bootstrapTable('refresh');
 					}
 					else
@@ -800,7 +801,7 @@ function ideaLoaded(idea, index) {
 						if (num == 'not') {
 							$("#cy_start_lxh").hide(); //启动创建立项会
 						}else{
-							$("#cy_up_report").hide(); //启动创建立项会
+							$("#cy_up_report").remove(); //上传文档
 						}
 					}
 				});
