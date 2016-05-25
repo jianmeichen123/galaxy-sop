@@ -661,7 +661,7 @@
 	 * 查询创意详情set值
 	 * @param id
 	 */
-  function getIdeaInfoEdit(id,flag)
+  /*function getIdeaInfoEdit(id,flag)
   {
    var url = platformUrl.detailIdea+"/"+id;
     sendGetRequest(
@@ -704,11 +704,12 @@
 		});
 	}
 );
-}
+}*/
   
   /**
    * 更新项目信息
    */
+/*  
   function update(){
 	  var um = UM.getEditor('edit_idea_desc');
 		var ideaDesc = um.getContent();
@@ -725,7 +726,7 @@
 		}
 
   	
-  }
+  }*/
   function claimFun(id){
 	  if(id != ''){
 			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" :id,"ideaProgress":"ideaProgress:2"}, function(data){
