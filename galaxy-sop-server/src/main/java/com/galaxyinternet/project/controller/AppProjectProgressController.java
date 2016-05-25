@@ -515,7 +515,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										if (ti != null) {										
 											_tsopFile.setFileTime(ti.toString());
 										}
-										appSopFile.setFileKey(sop.getFileKey());
+										_tsopFile.setFileKey(sop.getFileKey());
 										Long uid = sop.getFileUid();
 										if(uid!=null){
 											User user = userService.queryById(uid);
@@ -578,7 +578,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										if (ti != null) {											
 											_tsopFile.setFileTime(ti.toString());
 										}
-										appSopFile.setFileKey(sop.getFileKey());
+										_tsopFile.setFileKey(sop.getFileKey());
 										Long uid = sop.getFileUid();
 										if(uid!=null){
 											User user = userService.queryById(uid);
