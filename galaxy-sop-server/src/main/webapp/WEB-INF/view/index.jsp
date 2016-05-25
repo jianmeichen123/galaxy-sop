@@ -445,7 +445,7 @@ var chartOptions={
     }]
 };
 function ceopaiqi(){
-	if(roleId!='19'){
+	if(roleId!='19'&&roleId!='18'){
 		$("#ceo_p").css("display","none");
 	}else{
 		$("#dan_k").css("display","none");	
