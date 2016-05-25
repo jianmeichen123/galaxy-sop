@@ -65,9 +65,9 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 		meetingRecordDao.updateById(mrEntity);
 	}
 
-
+	@Transactional
 	@Override
-	public void addIdeaFileByMeeting(Idea idea, Long careerLine, Long fileUid, AppSopFile sopFile) throws Exception {
+	public void addIdeaFileByMeeting(MeetingRecord meetingRecord , Idea idea, Long careerLine, Long fileUid, AppSopFile sopFile) throws Exception {
 		long nowTime = System.currentTimeMillis();
 		SopFile  sfEntity = new SopFile();
 		sfEntity.setProjectId(idea.getId());
@@ -101,7 +101,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 		if(list!=null && list.size()>0){
 			 _sf = list.get(0);
 		}
-	
+	    mrEntity.setMeetingDate(meetingRecord.getMeetingDate());
 		mrEntity.setFileId(_sf.getId());
 		meetingRecordDao.updateById(mrEntity);
 	}

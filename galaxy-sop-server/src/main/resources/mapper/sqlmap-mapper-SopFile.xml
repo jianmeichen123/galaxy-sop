@@ -49,7 +49,7 @@
 					</when>
 					<otherwise>
 						<if test="fileWorktypeNullFilter != null" >
-							and file_worktype is not null
+							and file_worktype is not null and file_worktype != 'fileWorktype:12'
 						</if>
 					</otherwise>
 				</choose>  				
