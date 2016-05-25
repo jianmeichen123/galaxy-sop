@@ -276,11 +276,32 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <jsp:include page="/galaxy/sopFile/showMailDialog" flush="true"></jsp:include>
 
 
+
 <!-- file -->
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
-<script src="<%=path %>/js/init.js"></script>
-<script src="<%=path %>/js/sop.js" type="text/javascript"></script>
+<%-- <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script> --%>
+<%-- <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script> --%>
+<%-- <script src="<%=path %>/js/init.js"></script> --%>
+<%-- <script src="<%=path %>/js/sop.js" type="text/javascript"></script> --%>
+
+
+<!-- 项目流程弹窗引用 -->
+<!-- 富文本编辑器 -->
+<script id="d" type="text/javascript" charset="utf-8" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/umeditor.min.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/umeditor.config.js"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/dialogs/map/map.js"></script>
+<script id="e" type="text/javascript" src="<%=map.get("galaxy.project.sop.endpoint") %>ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="<%=map.get("galaxy.project.sop.endpoint") %>js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=map.get("galaxy.project.sop.endpoint") %>js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=map.get("galaxy.project.sop.endpoint") %>js/init.js"></script>
+<script src="<%=map.get("galaxy.project.sop.endpoint") %>js/base64.js" type="text/javascript"></script>
+<script src="<%=map.get("galaxy.project.sop.endpoint") %>js/common.js" type="text/javascript"></script>
+<script type="text/javascript" src="<%=map.get("galaxy.project.sop.endpoint") %>js/teamSheetNew.js"></script>
+<script type="text/javascript" src="<%=map.get("galaxy.project.sop.endpoint") %>js/filerepository.js"></script>
+<script src="<%=map.get("galaxy.project.sop.endpoint") %>js/sop.js" type="text/javascript"></script>
+
+
+
+
 <!-- clude -->
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
@@ -424,7 +445,7 @@ var chartOptions={
     }]
 };
 function ceopaiqi(){
-	if(roleId!='19'){
+	if(roleId!='19'&&roleId!='18'){
 		$("#ceo_p").css("display","none");
 	}else{
 		$("#dan_k").css("display","none");	
@@ -434,5 +455,6 @@ function ceopaiqi(){
 
 
 </script>
+<%-- <jsp:include page="./common/sop.jsp" flush="true"></jsp:include> --%>
 </html>
 

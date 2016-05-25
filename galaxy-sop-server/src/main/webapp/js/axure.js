@@ -279,7 +279,8 @@
 				opts.onchangeSuccess.apply(this,[obj.num]);
 			});
         });
-	};	$.fn.tabchange = function(options){
+	};	
+	$.fn.tabchange5 = function(options){
 		if($(this).length==0) return false;
 		var opts = $.extend({
 			//defaultnum:0,
@@ -325,7 +326,7 @@
 				opts.onchangeSuccess.apply(this,[obj.num]);
 			});
         });
-	};
+	};	
 	$.fn.tabchange2 = function(options){
 		if($(this).length==0) return false;
 		var opts = $.extend({
@@ -417,7 +418,7 @@
 				obj.seton();
 			});
         });
-	};
+	};	
 
 	//柱状图
 	$.fn.histogram = function(){

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Header;
 import com.galaxyinternet.framework.core.model.ResponseData;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.Menus;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.utils.RoleUtils;
 
 @Controller
 @RequestMapping("/galaxy/common")
@@ -39,6 +46,8 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	com.galaxyinternet.framework.cache.Cache cache;
 	
 	private String serverUrl;
+	@Autowired
+	private ProjectService projectService;
 	
 	/**
 	 * 动态生成左边菜单项列表
@@ -158,5 +167,57 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	public void setServerUrl(String serverUrl) {
 		this.serverUrl = serverUrl;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/judgeRole/{projectId}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<User> judgeRole(HttpServletRequest request,@PathVariable String projectId){
+		ResponseData<User> responseBody = new ResponseData<User>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		if(StringUtils.isBlank(projectId)){
+			responseBody.setResult(new Result(Status.ERROR,"传入的projectId为空"));
+		}
+		try {
+			Result result = null;
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+					.getId());
+			Project query = new Project();
+			//1为高管
+			if(RoleUtils.isGaoGuan(roleIdList)){
+				result = new Result(Status.OK,"");
+				result.setMessage("show");
+				responseBody.setResult(result);	
+				return responseBody;
+			}else if(RoleUtils.isTZJL(roleIdList)){
+				//当为投资经理时候本人
+				query.setId(Long.parseLong(projectId));
+				query.setCreateUid(user.getId());
+			}else if(RoleUtils.isHHR(roleIdList)){
+				//当为合伙人时本事业线下
+				query.setId(Long.parseLong(projectId));
+				query.setProjectDepartid(user.getDepartmentId());
+			}
+			Project project = projectService.queryOne(query);
+			result = new Result(Status.OK,"");
+			if(project!=null){
+				result.setMessage("show");
+			}else{
+				result.setMessage("hide");
+			}
+			responseBody.setResult(result);	
+			responseBody.setResult(result);
+		} catch (DaoException e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR,"系统异常"));
+		}
+		return responseBody;
+		
+	}
+	
+	
+	
 
 }

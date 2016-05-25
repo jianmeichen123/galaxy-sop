@@ -104,11 +104,11 @@
               	  <script type="text/plain" id="describe_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="describe_show"></dd>
-              <dd class="fctbox">
+			  <dd class="describe pro_block" id="describe_show"></dd>
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div>
           <!-- 第3部分 -->
@@ -119,11 +119,11 @@
               	  <script type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
 				  </script>
 		      </dd>
-		      <dd class="describe" id="model_show"></dd>
-              <dd class="fctbox">
+		      <dd class="describe pro_block" id="model_show"></dd>
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div>
           <!-- 第4部分 -->
@@ -134,11 +134,11 @@
 			      <script type="text/plain" id="location_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="location_show"></dd>
-              <dd class="fctbox">
+			  <dd class="describe pro_block" id="location_show"></dd>
+             <!--  <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div>
           <!-- 第5部分 -->
@@ -149,11 +149,11 @@
 			  	  <script type="text/plain" id="portrait_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			   <dd class="describe" id="portrait_show"></dd>
-              <dd class="fctbox">
+			   <dd class="describe pro_block" id="portrait_show"></dd>
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div>
           <!-- 第6部分 -->
@@ -164,18 +164,18 @@
 			      <script type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="analysis_show"></dd>
-              <dd class="fctbox">
+			  <dd class="describe pro_block" id="analysis_show"></dd>
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div>
           <!-- 第7部分 -->
           <div class="block block2 shadow clearfix">
             <dl>
               <dt>团队成员</dt>
-              <dd class="full_w describe clearfix">
+              <dd class="full_w describe clearfix pro_block">
                 <div class="clearfix"></div>
                 <div class="tab-pane active" id="view">	
 	               	<table id="tablePerson"  data-height="555" 
@@ -184,16 +184,16 @@
 				</div>
 				
               </dd>
-              <dd class="fctbox">
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a><a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div> 
           <!-- 第8部分  -->      
           <div class="block block2 shadow">
             <dl>
               <dt>股权结构</dt>
-              <dd class="full_w describe clearfix">
+              <dd class="full_w describe clearfix pro_block">
                 <div class="clearfix"></div>
                   <div class="tab-pane active" id="pView">	
 	               <table id="table" data-height="555" data-method="post"
@@ -201,9 +201,9 @@
 					</table>
 				</div>
               </dd>
-              <dd class="fctbox">
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a><a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div> 
     </div>

@@ -533,7 +533,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			form.setBucketName(OSSFactory.getDefaultBucketName());
 			form.setFileKey(String
 						.valueOf(IdGenerator.generateId(OSSHelper.class)));
-			form.setRecordType((byte)1);
+			form.setRecordType((byte)0);
 			Project tempPro = projectService.queryById(form.getProjectId());
 			form.setProjectProgress(tempPro.getProjectProgress());
 			form.setCareerLine(user.getDepartmentId());
@@ -960,4 +960,35 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 //		}
 		return responseBody;
 	}
+	@ResponseBody
+	@RequestMapping(value = "/getBusinessPlanFile/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> getBusinessPlanFile(HttpServletRequest request,@PathVariable String projectId){
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		SopFile query = new SopFile();
+		if(StringUtils.isBlank(projectId)){
+			responseBody.setResult(new Result(Status.ERROR,"传入的projectId为空"));
+			return responseBody;
+		}
+		try {
+			query.setProjectId(Long.parseLong(projectId));
+			query.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
+			PageRequest pageRequest = new PageRequest(0, 3, Direction.DESC,
+					"created_time");
+			Page<SopFile> sopFilePage = sopFileService.queryFileList(query, pageRequest);
+			if(sopFilePage.getContent().size()<=0){
+				responseBody.setResult(new Result(Status.OK,"null"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK,""));
+			responseBody.setEntity(sopFilePage.getContent().get(0));
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR,"系统出现异常"));
+		}
+		return responseBody;
+		
+	}
+	
+	
+	
 }

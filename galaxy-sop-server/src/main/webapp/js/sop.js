@@ -7,239 +7,255 @@ var code = "0";
  * 查看项目阶段详情的弹出层
  */
 var alertid="";
+var projectId;
 function info(id){
-	alertid=id;
-	var _url=Constants.sopEndpointURL + '/galaxy/ips';
-	$.getHtml({
-		url:_url,//模版请求地址
-		data:"",//传递参数
-		okback:function(){
-			$(".myprojecttc .tabtable").tabchange();
-			$('.searchbox').toggleshow();
-			leicj();
-			/**
-			 * 加载项目详情数据
-			 */
-			sendGetRequest(platformUrl.detailProject + id, {}, function(data){
-				hasClosed = (data.entity.projectStatus == 'meetingResult:3');
-				var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');
-				//项目的最新动态
-				if(data.entity.hasOwnProperty('updatedTime')){
-					updatedTime = Number(data.entity.updatedTime).toDate().format('yyyy-MM-dd');
-				}
-				$("#pj-title-updated-time").html('<span>&#40;</span>'+updatedTime+'<span>&#41;</span>');
-				//设置全局参数
-				$("#project_name").text(data.entity.projectName);
-				$("input[name='projectId']").val(data.entity.id);
-				$("#project_id").val(id);
-				//是否允许当前人进行SOP流转操作
-				if(parseInt(data.entity.createUid) == parseInt(userId)){
-					canToOption = true;
-				}else{
-					canToOption = false;
-				}
-				//解析元素id和项目阶段值，以便之后做控制
-				var progress = data.entity.projectProgress;
-				progress = progress.replace(":","_");
-				var index = progress.substr("projectProgress_".length);
+	projectId = id;
+	sendGetRequest(platformUrl.judgeRole + "/" + projectId, null,function(data){
+		if(data.result.status!="OK"){
+			return false;
+		}
+		var _url;
+		if(data.result.message=="show"){
+			_url= Constants.sopEndpointURL + '/galaxy/ips';
+		}else{
+			return false;
+		}
+		alertid=id;
+		
+		
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$(".myprojecttc .tabtable").tabchange5();
+				$('.searchbox').toggleshow();
+				leicj();
+				/**
+				 * 加载项目详情数据
+				 */
+				sendGetRequest(platformUrl.detailProject + id, {}, function(data){
+					hasClosed = (data.entity.projectStatus == 'meetingResult:3');
+					var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');
+					//项目的最新动态
+					if(data.entity.hasOwnProperty('updatedTime')){
+						updatedTime = Number(data.entity.updatedTime).toDate().format('yyyy-MM-dd');
+					}
+					$("#pj-title-updated-time").html('<span>&#40;</span>'+updatedTime+'<span>&#41;</span>');
+					//设置全局参数
+					$("#project_name").text(data.entity.projectName);
+					$("input[name='projectId']").val(data.entity.id);
+					$("#project_id").val(id);
+					//是否允许当前人进行SOP流转操作
+					if(parseInt(data.entity.createUid) == parseInt(userId)){
+						canToOption = true;
+					}else{
+						canToOption = false;
+					}
+					//解析元素id和项目阶段值，以便之后做控制
+					var progress = data.entity.projectProgress;
+					progress = progress.replace(":","_");
+					var index = progress.substr("projectProgress_".length);
 
-				if(index == 1 || index == 3 || index == 4 || index == 6 || index == 7 ){
-					checkCanUse(index,data.entity.id,data.entity.projectType);
-				}
-				for(var i = 1; i<11; i++){
-					//当前阶段之后的tab变为不可用
-					if(i > index){
-						$("#projectProgress_" + i).addClass("disabled");
-						$("#projectProgress_" + i).attr("disabled","disabled");
+					if(index == 1 || index == 3 || index == 4 || index == 6 || index == 7 ){
+						checkCanUse(index,data.entity.id,data.entity.projectType);
 					}
-					/**
-					 * sop弹框在被弹出后，对当前Tab进行控制
-					 */
-					if(i == 1){
-						if(hasClosed){
-							$("#options_point1").remove();
+					for(var i = 1; i<11; i++){
+						//当前阶段之后的tab变为不可用
+						if(i > index){
+							$("#projectProgress_" + i).addClass("disabled");
+							$("#projectProgress_" + i).attr("disabled","disabled");
 						}
-						if(!canUseBut){
-							$("#qdnbps").remove();
-						}
-						//加载访谈接触记录的分页数据
-						tiggerTable($("#" + progress + "_table"),3);
-					}
-					if(i == 2){
-						if(hasClosed){
-							$("#options_point2").remove();
-						}
-					}
-					if(i == 3){
-						if(hasClosed){
-							$("#options_point3").remove();
-						}
-						if(!canUseBut){
-							$("#lxhpq").remove();
-							if(code == '100'){
-								$("#add_ceomeet").remove();
-							}else if(code == '101'){
-								$("#applyCeoMeeting").remove();
+						/**
+						 * sop弹框在被弹出后，对当前Tab进行控制
+						 */
+						if(i == 1){
+							if(hasClosed){
+								$("#options_point1").remove();
 							}
-						}else{
-							$("#add_ceomeet").remove();
-							$("#applyCeoMeeting").remove();
-						}
-					}
-					if(i == 4){
-						if(hasClosed){
-							$("#options_point4").remove();
-						}
-						if(!canUseBut){
-							$("#reset_btn").remove();
-						}else{
-							$("#add_lxhmeet").remove();
-						}
-					}
-					if(i == 5){
-						tzyxs(0);
-					}
-					if(i == 6){
-						if(hasClosed){
-							$("#jzdc_options").remove();
-						}
-						if(!canUseBut){
-							$("#tjhsqBut").remove();
-						}
-						jzdc();
-					}
-					if(i == 7){
-						if(hasClosed){
-							$("#options_point7").remove();
-						}
-						if(!canUseBut){
-							$("#inSure_btn").remove();
-						}else{
-							$("#add_tjhmeet").remove();
-						}
-					}
-					if(i == 8){
-						if(hasClosed){
-							$("#tzxy_options").remove();
-						}
-						tzxy(data.entity.stockTransfer,data.entity.projectType);
-					}
-					if(i == 9){
-						gqjg();
-					}
-					
-					//为Tab添加点击事件，用于重新刷新
-					$("#projectProgress_" + i).on("click",function(){
-						var id = $(this).attr("id");
-						var indexNum = id.substr(id.length-1,1);
-						if(indexNum == '1'){
-							if(parseInt(indexNum) < parseInt(index) || !canUseBut){
+							if(!canUseBut){
 								$("#qdnbps").remove();
 							}
-						    $("#projectProgress_1_con").css("display","block");
-							tiggerTable($("#projectProgress_1_table"),3);
-						}else if(indexNum == '2'){
-						    $("#projectProgress_2_con").css("display","block");
-							tiggerTable($("#projectProgress_2_table"),3);
-							if(index != '2'){
+							//加载访谈接触记录的分页数据
+							tiggerTable($("#" + progress + "_table"),3);
+						}
+						if(i == 2){
+							if(hasClosed){
 								$("#options_point2").remove();
 							}
-						}else if(indexNum == '3'){
-							if(parseInt(indexNum) < parseInt(index) || !canUseBut){
-								$("#lxhpq").remove();
-							}
-							$("#projectProgress_3_con").css("display","block");
-							tiggerTable($("#projectProgress_3_table"),3);
-							if(index != '3'){
+						}
+						if(i == 3){
+							if(hasClosed){
 								$("#options_point3").remove();
-							}else if(canUseBut){
-								$("#add_ceomeet").remove();
 							}
-						} else if(indexNum == '4'){
-							$("#projectProgress_4_con").css("display","block");
-							if(parseInt(indexNum) < parseInt(index) || !canUseBut){
-								$("#reset_btn").css("display","none");
-							}
-						    tiggerTable($("#projectProgress_4_table"),3);
-						    if(index != '4'){
-						    	$("#options_point4").remove();
-						    }else if(canUseBut){
-						    	$("#add_lxhmeet").remove();
-						    }
-						} else if(indexNum == '5'){
-							$("#projectProgress_7_con").css("display","none");
-							$("#projectProgress_5").addClass("on");
-							$("#projectProgress_5_con").css("display","block");
-							if(parseInt(indexNum) < parseInt(index)){
-								tzyxs(1);
+							if(!canUseBut){
+								$("#lxhpq").remove();
+								if(code == '100'){
+									$("#add_ceomeet").remove();
+								}else if(code == '101'){
+									$("#applyCeoMeeting").remove();
+								}
 							}else{
-								tzyxs(0);
+								$("#add_ceomeet").remove();
+								$("#applyCeoMeeting").remove();
 							}
-						}else if(indexNum == '6'){
-							$("#projectProgress_5_con").css("display","none");
-							 $("#projectProgress_6_con").css("display","block");
-							 tiggerTable($("#projectProgress_6_table"),3);
-							 
-							 if(parseInt(indexNum) < parseInt(index)){
-								 $("#jzdc_options").remove();
-							 }else if(!canUseBut){
+						}
+						if(i == 4){
+							if(hasClosed){
+								$("#options_point4").remove();
+							}
+							if(!canUseBut){
+								$("#reset_btn").remove();
+							}else{
+								$("#add_lxhmeet").remove();
+							}
+						}
+						if(i == 5){
+							tzyxs(0);
+						}
+						if(i == 6){
+							if(hasClosed){
+								$("#jzdc_options").remove();
+							}
+							if(!canUseBut){
 								$("#tjhsqBut").remove();
 							}
-						}else if(indexNum == '7'){
-							$("#projectProgress_6_con").css("display","none");
-							$("#projectProgress_7_con").css("display","block");
-							if(parseInt(indexNum) < parseInt(index) || !canUseBut){
-								$("#inSure_btn").css("display","none");
+							jzdc();
+						}
+						if(i == 7){
+							if(hasClosed){
+								$("#options_point7").remove();
 							}
-							 tiggerTable($("#projectProgress_7_table"),3);
-							 if(index != '7'){
-							  $("#options_point7").remove();
-							 }else if(canUseBut){
-								 $("#add_tjhmeet").remove();
-							 }
-						}else if(indexNum == '8'){
-							$("#projectProgress_7_con").css("display","none");
-							$("#projectProgress_8_con").css("display","block");
-							
-							 if(parseInt(indexNum) < parseInt(index)){
-								 $("#tzxy_options").remove();
-							 }
-							 tzxy(data.entity.stockTransfer,data.entity.projectType);
-						}else if(indexNum == '9'){
-							$("#projectProgress_8_con").css("display","none");
-							$("#projectProgress_9").addClass("on");
-							$("#projectProgress_9_con").css("display","block");
+							if(!canUseBut){
+								$("#inSure_btn").remove();
+							}else{
+								$("#add_tjhmeet").remove();
+							}
+						}
+						if(i == 8){
+							if(hasClosed){
+								$("#tzxy_options").remove();
+							}
+							tzxy(data.entity.stockTransfer,data.entity.projectType);
+						}
+						if(i == 9){
 							gqjg();
 						}
-					});
-				}
-				$("#projectProgress").on("click",function(){
-					$("#progress").addClass("on");
-					$("#projectProgress_con").css("display","block");
-					tiggerTable($("#projectProgress_table"),5);
-					//$("#projectProgress_table").bootstrapTable("refresh");
-				});
-				$("#fileRepository").on("click",function(){
-					$("#fileRepository").addClass("on");
-					$("#file_repository").css("display","block");
-					data = {
-							_domid : "file_repository_table",
-							_projectId : $("#project_id").val(),
-							_progress : progress
+						
+						//为Tab添加点击事件，用于重新刷新
+						$("#projectProgress_" + i).on("click",function(){
+							var id = $(this).attr("id");
+							var indexNum = id.substr(id.length-1,1);
+							if(indexNum == '1'){
+								if(parseInt(indexNum) < parseInt(index) || !canUseBut){
+									$("#qdnbps").remove();
+								}
+							    $("#projectProgress_1_con").css("display","block");
+								tiggerTable($("#projectProgress_1_table"),3);
+							}else if(indexNum == '2'){
+							    $("#projectProgress_2_con").css("display","block");
+								tiggerTable($("#projectProgress_2_table"),3);
+								if(index != '2'){
+									$("#options_point2").remove();
+								}
+							}else if(indexNum == '3'){
+								if(parseInt(indexNum) < parseInt(index) || !canUseBut){
+									$("#lxhpq").remove();
+								}
+								$("#projectProgress_3_con").css("display","block");
+								tiggerTable($("#projectProgress_3_table"),3);
+								if(index != '3'){
+									$("#options_point3").remove();
+								}else if(canUseBut){
+									$("#add_ceomeet").remove();
+								}
+							} else if(indexNum == '4'){
+								$("#projectProgress_4_con").css("display","block");
+								if(parseInt(indexNum) < parseInt(index) || !canUseBut){
+									$("#reset_btn").css("display","none");
+								}
+							    tiggerTable($("#projectProgress_4_table"),3);
+							    if(index != '4'){
+							    	$("#options_point4").remove();
+							    }else if(canUseBut){
+							    	$("#add_lxhmeet").remove();
+							    }
+							} else if(indexNum == '5'){
+								$("#projectProgress_7_con").css("display","none");
+								$("#projectProgress_5").addClass("on");
+								$("#projectProgress_5_con").css("display","block");
+								if(parseInt(indexNum) < parseInt(index)){
+									tzyxs(1);
+								}else{
+									tzyxs(0);
+								}
+							}else if(indexNum == '6'){
+								$("#projectProgress_5_con").css("display","none");
+								 $("#projectProgress_6_con").css("display","block");
+								 tiggerTable($("#projectProgress_6_table"),3);
+								 
+								 if(parseInt(indexNum) < parseInt(index)){
+									 $("#jzdc_options").remove();
+								 }else if(!canUseBut){
+									$("#tjhsqBut").remove();
+								}
+							}else if(indexNum == '7'){
+								$("#projectProgress_6_con").css("display","none");
+								$("#projectProgress_7_con").css("display","block");
+								if(parseInt(indexNum) < parseInt(index) || !canUseBut){
+									$("#inSure_btn").css("display","none");
+								}
+								 tiggerTable($("#projectProgress_7_table"),3);
+								 if(index != '7'){
+								  $("#options_point7").remove();
+								 }else if(canUseBut){
+									 $("#add_tjhmeet").remove();
+								 }
+							}else if(indexNum == '8'){
+								$("#projectProgress_7_con").css("display","none");
+								$("#projectProgress_8_con").css("display","block");
+								
+								 if(parseInt(indexNum) < parseInt(index)){
+									 $("#tzxy_options").remove();
+								 }
+								 tzxy(data.entity.stockTransfer,data.entity.projectType);
+							}else if(indexNum == '9'){
+								$("#projectProgress_8_con").css("display","none");
+								$("#projectProgress_9").addClass("on");
+								$("#projectProgress_9_con").css("display","block");
+								gqjg();
+							}
+						});
 					}
-					fileGrid.init(data);
-				});				
-				$("#" + progress).addClass("on");
-				$("#" + progress + "_con").css("display","block");
-				//是否允许当前人进行SOP流转操作
-				if(!canToOption){
-					$(".option_item_mark").remove();
-				}
-			},null);
-		}
+					$("#projectProgress").on("click",function(){
+						$("#progress").addClass("on");
+						$("#projectProgress_con").css("display","block");
+						tiggerTable($("#projectProgress_table"),5);
+						//$("#projectProgress_table").bootstrapTable("refresh");
+					});
+					$("#fileRepository").on("click",function(){
+						$("#fileRepository").addClass("on");
+						$("#file_repository").css("display","block");
+						data = {
+								_domid : "file_repository_table",
+								_projectId : projectId,
+								_progress : progress
+						}
+						fileGrid.init(data);
+					});				
+					$("#" + progress).addClass("on");
+					$("#" + progress + "_con").css("display","block");
+					//是否允许当前人进行SOP流转操作
+					if(!canToOption){
+						$(".option_item_mark").remove();
+					}
+				},null);
+			}
+		});
+		return false;
+	
 	});
-	return false;
 }
+function infoCallBack(data){}
 /**
  * 会议相关Tab页面按钮是否可用
  */
@@ -267,7 +283,7 @@ function checkCanUse(index,projectId,projectType){
  * 申请CEO评审排期
  */
 function applyCeoMeeting(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.inCeoMeetingPool + pid, {}, function(data){
 			var result = data.result.status;
@@ -302,10 +318,10 @@ function air(indexNum){
 			$('.searchbox').toggleshow();
 			leicj();
 			//初始化文件上传
-			toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_btn","file_object","save_interview","",
+			toinitUpload(platformUrl.stageChange, projectId,"select_btn","file_object","save_interview","",
 					function getSaveCondition(){
 						var	condition = {};
-						var pid = $("#project_id").val();
+						var pid = projectId;
 						var viewDateStr = $("#viewDate").val();
 						var viewTarget = $.trim($("#viewTarget").val());
 						var um = UM.getEditor('viewNotes');
@@ -347,7 +363,7 @@ function air(indexNum){
  * 启动内部评审
  */
 function startReview(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.startReview + pid, {}, function(data){
 			var result = data.result.status;
@@ -371,7 +387,7 @@ function startReview(){
  */
  function addMettingRecord(num,meetingType){
 		$("[data-id='popid1']").remove();
-		var pid=$("#project_id").val();
+		var pid=projectId;
 		loadJs();
 		var _url=Constants.sopEndpointURL + '/galaxy/mr/';
 		$.getHtml({
@@ -381,10 +397,10 @@ function startReview(){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj(meetingType);
-			toinitUpload(platformUrl.stageChange,$("#project_id").val(), "meeting_select_btn","meeting_file_object","save_meeting","",
+			toinitUpload(platformUrl.stageChange,projectId, "meeting_select_btn","meeting_file_object","save_meeting","",
 					function getSaveCondition(){
 						var	condition = {};
-						var pid = $("#project_id").val();
+						var pid = projectId;
 						var meetingDateStr = $.trim($("#meeting_date").val());
 						var meetingResult = $.trim($("input:radio[name='meetingResult']:checked").val());
 						var um = UM.getEditor("meeting_notes");
@@ -431,7 +447,7 @@ function startReview(){
   * CEO评审阶段申请立项会排期
   */
 function toEstablishStage(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
 			var result = data.result.status;
@@ -454,7 +470,7 @@ function toEstablishStage(){
   * 立项会阶段申请立项会排期
   */
 function toLxmeetingPool(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.inLxmeetingPool + pid, {}, function(data){
 			var result = data.result.status;
@@ -473,7 +489,7 @@ function toLxmeetingPool(){
   * 动态生成投资意向书阶段HTML
   */
 function tzyxs(flag){
-	 var pid = $("#project_id").val();
+	 var pid = projectId;
 	 if(pid != '' && pid != null){
 		 /**
 		  *  生成尽职调查报告列表
@@ -562,10 +578,10 @@ function tzyxs(flag){
 				$("#voucherDiv").css("display","none");
 				
 			}
-			toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn","fileType",
+			toinitUpload(platformUrl.stageChange, projectId,"select_file_btn","file_obj","save_file_btn","fileType",
 					function getSaveCondition(){
 				var	condition = {};
-				var pid = $("#project_id").val();
+				var pid = projectId;
 				if(pid == null || pid == ""){
 					alert("项目不能为空");
 					return;
@@ -688,7 +704,7 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 						},
 						BeforeUpload:function(up){
 							var condition = {};
-							var pid = $("#project_id").val();
+							var pid = projectId;
 							var type = $("input[name='fileSource']:checked").val();
 							if(type == null || type == ""){
 								layer.msg("档案来源不能为空");
@@ -730,7 +746,7 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 							if(data.result.status == "OK")
 							{
 								layer.msg(data.result.message);
-								var pid = $("#project_id").val()
+								var pid = projectId
 								$("#powindow,#popbg").remove();
 								info(pid);
 							}
@@ -751,7 +767,7 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
   */
  function jzdc(){
 	 
-	 var pid = $("#project_id").val();
+	 var pid = projectId;
 	 if(pid != '' && pid != null){
 		 /**
 		  *  生成尽职调查报告列表
@@ -821,10 +837,10 @@ function uploadYwjd(){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
-			toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
+			toinitUpload(platformUrl.stageChange,projectId, "select_file_btn","file_obj","save_file_btn","fileType",
 					function getSaveCondition(){
 				var	condition = {};
-				var pid = $("#project_id").val();
+				var pid = projectId;
 				if(pid == null || pid == ""){
 					alert("项目不能为空");
 					return;
@@ -859,7 +875,7 @@ function uploadYwjd(){
  * 尽职调查--点击申请投决会按钮
  */
 function inTjh(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(
 				platformUrl.inTjh + pid,
@@ -884,7 +900,7 @@ function inTjh(){
  * 投决会--点击申请投决会按钮
  */
 function inSureMeetingPool(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(
 				platformUrl.inSureMeetingPool + pid,
@@ -906,7 +922,7 @@ function inSureMeetingPool(){
  */
 function tzxy(st,projectType){
 	//0:首次展示 1：点击触发刷新
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null){
 		var _table = $("#teamSeheetDataGrid");
 		var _tbody = _table.find("tbody");
@@ -1038,10 +1054,10 @@ function tzxy(st,projectType){
 			}else{
 				$("#voucherDiv").css("display","none");
 			}
-			toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
+			toinitUpload(platformUrl.stageChange,projectId, "select_file_btn","file_obj","save_file_btn","fileType",
 					function getSaveCondition(){
 				var	condition = {};
-				var pid = $("#project_id").val();
+				var pid = projectId;
 				if(pid == null || pid == ""){
 					alert("项目不能为空");
 					return;
@@ -1088,7 +1104,7 @@ function tzxy(st,projectType){
  * "是否涉及股权转让"按钮点击事件
  */
 function selected(obj){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(
 				platformUrl.storeUrl + pid,
@@ -1125,10 +1141,10 @@ function selected(obj){
 				$("#voucherDiv").css("display","none");
 				
 			}
-			toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
+			toinitUpload(platformUrl.stageChange,projectId, "select_file_btn","file_obj","save_file_btn","fileType",
 					function getSaveCondition(){
 				var	condition = {};
-				var pid = $("#project_id").val();
+				var pid = projectId;
 				if(pid == null || pid == ""){
 					alert("项目不能为空");
 					return;
@@ -1175,7 +1191,7 @@ function selected(obj){
   * 动态生成股权交割的HTML
   */
 function gqjg(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null){
 		sendGetRequest(
 				platformUrl.getFileList + pid + "/9",
