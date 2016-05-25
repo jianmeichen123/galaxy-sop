@@ -187,7 +187,7 @@ public class MeetingSchedulingServiceImpl
 			}
 		}
 		
-		if (query.getFilterName().equals("deptId")) {
+		if (query != null &&query.getFilterName()!=null && query.getFilterName().equals("deptId")) {
 			Project project = new Project();
 			project.setDeptIdList(query.getDeptIdList());
 			projectList = projectService.queryList(project);
