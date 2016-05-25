@@ -1,6 +1,5 @@
 package com.galaxyinternet.project.service.handler;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +97,11 @@ public class CeoMeetingHandler implements Handler {
 		}
 		if(q.getResult().equals(DictEnum.meetingResult.通过)){
 			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
+		}
+		if((q.getResult().equals(DictEnum.meetingResult.待定))){
+			tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+			tm.setReserveTimeStart(null);
+			tm.setReserveTimeEnd(null);
 		}
 		tm.setMeetingDate(new Date());
 		tm.setMeetingCount(tm.getMeetingCount() + 1);

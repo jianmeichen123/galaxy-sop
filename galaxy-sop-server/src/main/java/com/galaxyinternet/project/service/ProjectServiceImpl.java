@@ -179,6 +179,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setMeetingCount(0);
 		ms.setStatus(DictEnum.meetingResult.待定.getCode());
 		ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+		ms.setReserveTimeStart(null);
+		ms.setReserveTimeEnd(null);
 		ms.setApplyTime(new Timestamp(new Date().getTime()));
 		ms.setCreatedTime((new Date()).getTime());
 		meetingSchedulingDao.insert(ms);
@@ -203,6 +205,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setMeetingCount(0);
 		ms.setStatus(DictEnum.meetingResult.待定.getCode());
 		ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+		ms.setReserveTimeStart(null);
+		ms.setReserveTimeEnd(null);
 		ms.setCreatedTime((new Date()).getTime());
 		ms.setApplyTime(new Timestamp(new Date().getTime()));
 		meetingSchedulingDao.insert(ms);
