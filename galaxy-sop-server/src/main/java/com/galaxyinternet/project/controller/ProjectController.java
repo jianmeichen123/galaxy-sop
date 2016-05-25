@@ -513,7 +513,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			@RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
-
+		
 		try {
 			if (project.getProjectProgress() != null
 					&& project.getProjectProgress().equals("guanbi")) {
@@ -531,7 +531,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					.queryPageList(
 							project,
 							new PageRequest(project.getPageNum(), project
-									.getPageSize()));
+									.getPageSize(),Direction.DESC,
+									"created_time"));
 
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));

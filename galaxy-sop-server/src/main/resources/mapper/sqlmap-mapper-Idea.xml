@@ -75,6 +75,7 @@
 						#{item}
 					</foreach>
 				</if>
+				<if test="relatedUid != null" > and (created_uid = #{relatedUid,jdbcType=BIGINT} or claimant_uid = #{relatedUid,jdbcType=BIGINT}) </if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
