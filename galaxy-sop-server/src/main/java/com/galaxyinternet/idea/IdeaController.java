@@ -443,7 +443,44 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	 * @return
 	 */
 	@ResponseBody
+	@RequestMapping("/giveUp")
+	//@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.IDEANEWS},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	public ResponseData<Idea> giveUp(@RequestBody IdeaBo idea,HttpServletRequest request)
+	{
+		ResponseData<Idea> responseBody = new ResponseData<Idea>();
+		if(idea.getId()==null){
+			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
+			return responseBody;
+		}
+	//	UrlNumber urlNum=null;
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try {
+			idea.setClaimantUid(user.getId());
+			idea.setClaimantUname(user.getRealName());
+			int queryById = ideaService.updateById(idea);
+		 //   urlNum=UrlNumber.one;
+			if(queryById<=0){
+				responseBody.setResult(new Result(Status.ERROR, null, "编辑创意状态失败!"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK,null,"更新创意成功！"));
+	//		ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"认领创意成功",urlNum);
+			
+		} catch (Exception e) {
+			responseBody.getResult().addError("编辑创意信息失败");
+			logger.error("编辑创意信息失败",e);
+		}
+		return responseBody;
+	}
+	/**
+	 * 根据创意id获取创意相关信息
+	 * @param idea
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
 	@RequestMapping("/updateIdea")
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.IDEANEWS},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	public ResponseData<Idea> updateIdea(@RequestBody IdeaBo idea,HttpServletRequest request)
 	{
 		ResponseData<Idea> responseBody = new ResponseData<Idea>();
@@ -451,16 +488,20 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
 			return responseBody;
 		}
+		UrlNumber urlNum=null;
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 			idea.setClaimantUid(user.getId());
 			idea.setClaimantUname(user.getRealName());
 			int queryById = ideaService.updateById(idea);
+		    urlNum=UrlNumber.one;
 			if(queryById<=0){
-				responseBody.setResult(new Result(Status.ERROR, null, "编辑创意信息失败!"));
+				responseBody.setResult(new Result(Status.ERROR, null, "编辑创意状态失败!"));
 				return responseBody;
 			}
 			responseBody.setResult(new Result(Status.OK,null,"更新创意成功！"));
+			ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"认领创意成功",urlNum);
+			
 		} catch (Exception e) {
 			responseBody.getResult().addError("编辑创意信息失败");
 			logger.error("编辑创意信息失败",e);
