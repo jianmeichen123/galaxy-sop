@@ -35,8 +35,9 @@ var ideaAddDialog = {
 								saveCallBackFuc(data){
 									if(data.result.status=="OK"){
 										layer.msg(data.result.errorCode);
-										if(data.id==null||typeof(data.id)=="undefind"){
-										getIdeaInfo(data.id);}
+										if(data.id!=null&&typeof(data.id)!="undefind"){
+										getIdeaInfo(data.id);
+										}
 										refreshIdeaList();
 									}else{
 										layer.msg(data.result.errorCode);
