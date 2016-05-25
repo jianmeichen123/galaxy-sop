@@ -152,10 +152,10 @@
 						<tr>
 							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
 							<th data-field="uname" data-align="center" >操作者</th>
-							<th data-field="operationType" data-align="center">动作</th>
+							<th data-field="operationType" data-align="center">变更动态</th>
 							<th data-field="operationContent" data-align="center">对象</th>
-							<th data-field="projectName" data-align="center" >创意</th>
-							<th data-field="sopstage" data-align="center" >业务</th>
+							<!--  <th data-field="projectName" data-align="center" >创意</th>-->
+							<th data-field="sopstage" data-align="center" >进度</th>
 						</tr>
 					</thead>
 				</table>
