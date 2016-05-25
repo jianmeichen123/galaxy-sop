@@ -53,6 +53,10 @@ public class Idea extends PagableEntity
 	 * e.g. ideaProgress:1,ideaProgress:2
 	 */
 	private String ideaProgressStr;
+	/**
+	 * 创建人或认领人-投资经理已认领、待认领查询使用
+	 */
+	private Long relatedUid;
 	
 	public String getLatestLog() {
 		return latestLog;
@@ -249,6 +253,12 @@ public class Idea extends PagableEntity
 	}
 	public void setIdeaProgressStr(String ideaProgressStr) {
 		this.ideaProgressStr = ideaProgressStr;
+	}
+	public Long getRelatedUid() {
+		return relatedUid;
+	}
+	public void setRelatedUid(Long relatedUid) {
+		this.relatedUid = relatedUid;
 	}
 
 }
