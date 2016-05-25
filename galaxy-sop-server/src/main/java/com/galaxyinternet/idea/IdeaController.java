@@ -347,7 +347,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	/**
 	 * 弹出页面
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@RequestMapping(value = "/goIdeaStagePage",method = RequestMethod.GET)
 	public String goIdeaStagePage(HttpServletRequest request) {
        String id = request.getParameter("id");
@@ -367,7 +366,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	   /**
 	 * 弹出页面---放弃创意
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@RequestMapping(value = "/goGiveUpPage",method = RequestMethod.GET)
 	public String goGiveUpPage(HttpServletRequest request) {
     String id = request.getParameter("id");
@@ -377,22 +375,11 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	/**
 	 * 弹出页面---
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
 	public String goClaimtcPage(HttpServletRequest request) {
        String id = request.getParameter("id");
 	   request.setAttribute("id", id);
 		return "idea/stage/claimtc";
-	}
-	/**
-	 * 跳转修改页面
-	 */
-	@com.galaxyinternet.common.annotation.Logger
-	@RequestMapping(value = "/goIdeaEdit",method = RequestMethod.GET)
-	public String goIdeaEdit(HttpServletRequest request) {
-       String id = request.getParameter("id");
-	   request.setAttribute("id",id);
-		return "idea/stage/edit";
 	}
 	/**
 	 * 根据创意id获取创意相关信息
