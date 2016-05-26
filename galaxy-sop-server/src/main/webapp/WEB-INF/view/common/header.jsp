@@ -75,8 +75,12 @@
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
- fillHeaderdata();
- sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
+reloadMessage();
+fillHeaderdata();
+window.setInterval("reloadMessage(),fillHeaderdata()",10000); 
+ function reloadMessage(){
+ 	sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
+ }
  function remindcbf(data){
 	if(data.result.status == "OK"){
 		 $(".work em[action='remind']").html(data.entity.count);
