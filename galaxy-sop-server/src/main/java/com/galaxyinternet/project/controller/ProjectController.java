@@ -513,7 +513,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			@RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
+		Direction direction = Direction.DESC;
+		String property = "created_time";
 		
+		if(!StringUtils.isEmpty(project.getProperty())){
+			if("desc".equals(project.getDirection())){
+				direction = Direction.DESC;
+			}else{
+				direction = Direction.ASC;
+			}
+			property = project.getProperty();
+		}
 		try {
 			if (project.getProjectProgress() != null
 					&& project.getProjectProgress().equals("guanbi")) {
@@ -531,8 +541,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					.queryPageList(
 							project,
 							new PageRequest(project.getPageNum(), project
-									.getPageSize(),Direction.DESC,
-									"created_time"));
+									.getPageSize(),direction,
+									property));
 
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -1951,8 +1961,23 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			@RequestBody MeetingSchedulingBo query) {
 
 		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
-		PageRequest pageable = new PageRequest(0, 10, Direction.DESC,
-				"apply_time");
+		Direction direction = Direction.ASC;
+		String property = "apply_time";
+		
+		if(!StringUtils.isEmpty(query.getProperty())){
+			if("desc".equals(query.getDirection())){
+				direction = Direction.DESC;
+			}else{
+				direction = Direction.ASC;
+			}
+			if("meetingDate".equals(query.getProperty())){
+				property = "meeting_date";
+			}else if("reserveTimeStart".equals(query.getProperty())){
+				property = "reserve_time_start";
+			}
+		}
+		PageRequest pageable = new PageRequest(0, 10, direction,
+				property);
 		Page<MeetingScheduling> pageEntity = new Page<MeetingScheduling>(null,
 				pageable, null);
 		List<MeetingScheduling> sl = new ArrayList<MeetingScheduling>();
@@ -2041,8 +2066,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				pageList = meetingSchedulingService
 						.getMeetingList(
 								query,
-								new PageRequest(query.getPageNum(), query
-										.getPageSize()));
+								new PageRequest(query.getPageNum(), query.getPageSize(),direction,
+										property));
 				schedulingList = pageList.getContent();
 			} else {
 				return responseBody;
@@ -2090,6 +2115,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			borate.setRateType(type.intValue());
 			List<PassRate> prateList = passRateService.queryListById(borate);
 			Map<Long, PassRate> passRateMap = new HashMap<Long, PassRate>();
+			
 			if (prateList.size() > 0) {
 				for (PassRate pr : prateList) {
 					passRateMap.put(pr.getUid(), pr);
@@ -2114,6 +2140,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 				}
 			}
+			 
 			pageEntity.setTotal(pageList.getTotal());
 			pageEntity.setContent(pageList.getContent());
 			responseBody.setPageList(pageEntity);
@@ -2128,6 +2155,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
+
 
 	/**
 	 * 更新排期池时间/updateReserveTime
