@@ -2372,13 +2372,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String sendMailToTZJL(HttpServletRequest request, Integer type,
 			String toAddress, String tzjlName, String projectinfo,
 			String messageInfo, Date meetingTimestart, Date meetingTimeend) {
-		String toAddress1 = "yaxinliu@galaxyinternet.com";
+		toAddress =toAddress+"@galaxyinternet.com";
 		String content = MailTemplateUtils
 				.getContentByTemplate(Constants.MAIL_PQC_CONTENT);
-		String[] to = toAddress1.split(";");
+		String[] to = toAddress.split(";");
 		if (to != null && to.length == 1) {
-			int atIndex = toAddress1.lastIndexOf("@");
-			tzjlName = toAddress1.substring(0, atIndex) + ":<br>您好!";
+			int atIndex = toAddress.lastIndexOf("@");
+			tzjlName = toAddress.substring(0, atIndex) + ":<br>您好!";
 		}
 		if (type == 0) {
 			content = MailTemplateUtils
@@ -2389,7 +2389,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			content = PlaceholderConfigurer.formatText(content, tzjlName,
 					projectinfo, messageInfo, meetingTimestart, meetingTimeend);
 		}
-		boolean success = SimpleMailSender.sendMultiMail(toAddress1, "会议排期通知",
+		boolean success = SimpleMailSender.sendMultiMail(toAddress, "会议排期通知",
 				content.toString());
 
 		if (success) {

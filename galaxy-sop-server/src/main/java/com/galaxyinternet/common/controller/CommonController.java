@@ -199,6 +199,12 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				//当为合伙人时本事业线下
 				query.setId(Long.parseLong(projectId));
 				query.setProjectDepartid(user.getDepartmentId());
+			}else if(RoleUtils.isHRJL(roleIdList) || RoleUtils.isHRZJ(roleIdList) || RoleUtils.isCWJL(roleIdList) || RoleUtils.isCWZJ(roleIdList)|| RoleUtils.isFWJL(roleIdList)||RoleUtils.isFWZJ(roleIdList)){
+				//当为人财法不显示
+				result = new Result(Status.OK,"");
+				result.setMessage("hide");
+				responseBody.setResult(result);	
+				return responseBody;
 			}
 			Project project = projectService.queryOne(query);
 			result = new Result(Status.OK,"");
