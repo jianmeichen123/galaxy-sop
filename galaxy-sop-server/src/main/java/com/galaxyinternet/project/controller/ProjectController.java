@@ -515,14 +515,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		Direction direction = Direction.DESC;
 		String property = "created_time";
-		
 		if(!StringUtils.isEmpty(project.getProperty())){
 			if("desc".equals(project.getDirection())){
 				direction = Direction.DESC;
 			}else{
 				direction = Direction.ASC;
 			}
-			property = project.getProperty();
 		}
 		try {
 			if (project.getProjectProgress() != null
