@@ -764,7 +764,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					responseBody.setResult(new Result(Status.OK, ""));
 					responseBody.setEntity(idea);
 					//ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
-					ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"上传可行性报告",null);
+					ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"启动创建立项会",null);
 				} catch (Exception e) {
 					responseBody.setResult(new Result(Status.ERROR,null, "启动创建立项会失败"));
 					logger.error("ideaStartMeet 启动创建立项会失败",e);
