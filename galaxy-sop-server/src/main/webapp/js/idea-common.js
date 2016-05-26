@@ -635,11 +635,12 @@
 						if(res.meetingResult == "meetingResult:1"){
 							$("[data-btn='meeting']").remove(); //添加会议
 							$("[data-btn='create']").show(); //创建成项目
+						}else if(res.meetingResult == "meetingResult:3"){
+							$("[data-btn='meeting']").remove(); //添加会议
+							$("[data-btn='create']").remove(); //创建成项目
+							//removePop1();
+							//refreshIdeaList();
 						}
-						/*else if(res.meetingResult == "meetingResult:3"){
-							removePop1();
-							refreshIdeaList();
-						}*/
 					}
 				},
 				BeforeUpload:function(up){
@@ -822,11 +823,15 @@ function ideaLoaded(idea, index) {
 						layer.msg(data.result.message);
 						return;
 					} else if (data.result.status == "OK") {
-						var num = data.result.message;
-						if (num == '0') {
+						var message = data.result.message;
+						if (message == 'pass') {
+							$("[data-btn='meeting']").remove(); //添加会议
+							
+						} else if(message == 'veto'){
+							$("[data-btn='meeting']").remove(); //添加会议
+							$("[data-btn='create']").remove(); //创建成项目
+						}else{
 							$("[data-btn='create']").hide(); //创建成项目
-						} else {
-							$("[data-btn='meeting']").hide(); //添加会议
 						}
 					}
 

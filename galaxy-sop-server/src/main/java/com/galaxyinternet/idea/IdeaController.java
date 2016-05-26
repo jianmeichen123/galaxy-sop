@@ -1059,15 +1059,21 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			meetingRecord.setRecordType(RecordType.IDEAS.getType());
 			//meetingRecord.setMeetValid((byte)0);
 			
-			//已有通过的会议，不能再添加会议纪要
+			//已有 通过/否决 的会议，不能再添加会议纪要
 			MeetingRecord mrQuery = new MeetingRecord();
 			mrQuery.setProjectId(meetingRecord.getProjectId());
-			mrQuery.setMeetingType(meetingRecord.getMeetingType());
+			//mrQuery.setMeetingType(meetingRecord.getMeetingType());
 			mrQuery.setRecordType(RecordType.IDEAS.getType());
 			mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
 			Long mrCount = meetingRecordService.queryCount(mrQuery);
 			if(mrCount != null && mrCount.longValue() > 0L){
 				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
+				return responseBody;
+			}
+			mrQuery.setMeetingResult(DictEnum.meetingResult.否决.getCode());
+			mrCount = meetingRecordService.queryCount(mrQuery);
+			if(mrCount != null && mrCount.longValue() > 0L){
+				responseBody.setResult(new Result(Status.ERROR, "","会议被否决，不能再添加会议纪要!"));
 				return responseBody;
 			}
 				
@@ -1247,7 +1253,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			return responseBody;
 		}
 		
-		//=======================     check has pass meet    ===============================//
+		//=======================     check has pass / veto meet    ===============================//
 		/**
 		 * check has pass meet
 		 * @param  ideaid 创意id
@@ -1268,13 +1274,20 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				meet.setMeetingType(DictEnum.meetingType.立项会.getCode());
 				meet.setMeetingResult(DictEnum.meetingResult.通过.getCode());
 				meet.setRecordType(RecordType.IDEAS.getType());
-				List<MeetingRecord> meetList  = meetingRecordService.queryList(meet);
-				if(meetList==null || meetList.isEmpty()){
-					result.setMessage("0");
-				}else{
-					result.setMessage(""+meetList.size());
-				}			
-				responseBody.setResult(result);
+				Long countN   = meetingRecordService.queryCount(meet);
+				if(countN!=null && countN.longValue()>0){
+					result.setMessage("pass");
+					responseBody.setResult(result);
+					return responseBody;
+				}		
+				
+				meet.setMeetingResult(DictEnum.meetingResult.否决.getCode());
+				countN = meetingRecordService.queryCount(meet);
+				if(countN!=null && countN.longValue()>0){
+					result.setMessage("vote");
+					responseBody.setResult(result);
+					return responseBody;
+				}	
 				
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));
