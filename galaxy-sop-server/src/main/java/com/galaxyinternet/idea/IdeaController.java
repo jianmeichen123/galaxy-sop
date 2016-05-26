@@ -193,7 +193,12 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 10;
 				if(StringUtils.isNotEmpty(query.getProperty()))
 				{
-					pageable = new PageRequest(pageNum,pageSize, new Sort(query.getProperty()));
+					Direction direction = Direction.ASC;
+					if(StringUtils.isNotEmpty(query.getDirection()))
+					{
+						direction = Direction.fromString(query.getDirection());
+					}
+					pageable = new PageRequest(pageNum,pageSize, new Sort(direction,query.getProperty()));
 				}
 				else
 				{
