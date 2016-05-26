@@ -1458,6 +1458,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if (!meetingList.isEmpty()) {
 				for (MeetingScheduling meet : meetingList) {
 					meet.setStatus(DictEnum.meetingResult.否决.getCode());
+					meet.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
 				}
 			}
 			meetingSchedulingService.updateBatch(meetingList);
