@@ -477,7 +477,7 @@ var platformUrl = {
 	/**
 	 * 创意 创意认领创意
 	*/
-	ideaUpdateIdea:Constants.sopEndpointURL+ "/galaxy/idea/updateIdea",
+	ideaUpdateIdea:Constants.sopEndpointURL+ "/galaxy/idea/giveUp",
 	/**
 	 * 创意 编辑项目名称
 	*/
@@ -499,10 +499,19 @@ var platformUrl = {
 	 * 创意 列表
 	 */		
 	sopcyshouye: Constants.sopEndpointURL+"/galaxy/idea/search",
+
 	/**
 	 * 创意 列表
 	 */		
 	authmenu: Constants.sopEndpointURL+"/galaxy/common/pullAuthority",
+	/**
+	 * 判断角色
+	 */		
+	judgeRole : Constants.sopEndpointURL+"/galaxy/common/judgeRole",
+	/**
+	 * 获取商业计划
+	 */	
+	getBusinessPlanFile : Constants.sopEndpointURL + "/galaxy/sopFile/getBusinessPlanFile"
 	
 }
 

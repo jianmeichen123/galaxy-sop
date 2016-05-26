@@ -259,7 +259,7 @@ public class AppIdeaMeetingController extends BaseControllerImpl<Idea, Idea>{
 				
 				User user  = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 				Idea idea = ideaService.queryById(sopFile.getProjectId());
-				appPmService.addIdeaFileByMeeting(idea, user.getDepartmentId(), user.getId(), sopFile);
+				appPmService.addIdeaFileByMeeting(meeting , idea, user.getDepartmentId(), user.getId(), sopFile);
 				
 				responseBody.setResult(new Result(Status.OK,null, "录音添加成功"));
 			} catch (Exception e) {

@@ -100,6 +100,8 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		Map<Long,String> proIdNameMap = new HashMap<Long,String>();
 		
 		if(query.getProjectId()!=null){   // 项目tab查询
+			Project po = projectDao.selectById(query.getProjectId());
+			proIdNameMap.put(query.getProjectId(), po.getProjectName());
 			viewList = interviewRecordDao.selectList(query, pageable);
 			total = interviewRecordDao.selectCount(query);
 		}else{    //列表查询_个人创建/部门

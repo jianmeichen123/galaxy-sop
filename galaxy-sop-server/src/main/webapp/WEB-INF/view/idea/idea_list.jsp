@@ -63,7 +63,7 @@
 				<dl class="fmdl fml fmdll clearfix">
 	              <dt>所属事业线：</dt>
 	              <dd>
-	                <select name="departmentId">
+	                <select name="departmentId" >
 	                  <option value="">全部</option>
 	                </select>
 	              </dd>
@@ -228,6 +228,12 @@
 		var indextoid = "${indextoid}";
 		if(!(!indextoid)){
 			showIdeaDetail(indextoid);
+		}
+		var options=$("[name='departmentId'] option");
+		var len=options.length;
+		if(len<=2){
+		
+			$("[name='departmentId']").attr("disabled","true");
 		}
 	});
 	

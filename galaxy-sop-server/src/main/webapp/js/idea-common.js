@@ -635,11 +635,12 @@
 						if(res.meetingResult == "meetingResult:1"){
 							$("[data-btn='meeting']").remove(); //添加会议
 							$("[data-btn='create']").show(); //创建成项目
+						}else if(res.meetingResult == "meetingResult:3"){
+							$("[data-btn='meeting']").remove(); //添加会议
+							$("[data-btn='create']").remove(); //创建成项目
+							//removePop1();
+							//refreshIdeaList();
 						}
-						/*else if(res.meetingResult == "meetingResult:3"){
-							removePop1();
-							refreshIdeaList();
-						}*/
 					}
 				},
 				BeforeUpload:function(up){
@@ -661,7 +662,7 @@
 	 * 查询创意详情set值
 	 * @param id
 	 */
-  function getIdeaInfoEdit(id,flag)
+  /*function getIdeaInfoEdit(id,flag)
   {
    var url = platformUrl.detailIdea+"/"+id;
     sendGetRequest(
@@ -704,11 +705,12 @@
 		});
 	}
 );
-}
+}*/
   
   /**
    * 更新项目信息
    */
+/*  
   function update(){
 	  var um = UM.getEditor('edit_idea_desc');
 		var ideaDesc = um.getContent();
@@ -725,7 +727,7 @@
 		}
 
   	
-  }
+  }*/
   function claimFun(id){
 	  if(id != ''){
 			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" :id,"ideaProgress":"ideaProgress:2"}, function(data){
@@ -821,11 +823,15 @@ function ideaLoaded(idea, index) {
 						layer.msg(data.result.message);
 						return;
 					} else if (data.result.status == "OK") {
-						var num = data.result.message;
-						if (num == '0') {
+						var message = data.result.message;
+						if (message == 'pass') {
+							$("[data-btn='meeting']").remove(); //添加会议
+							
+						} else if(message == 'veto'){
+							$("[data-btn='meeting']").remove(); //添加会议
+							$("[data-btn='create']").remove(); //创建成项目
+						}else{
 							$("[data-btn='create']").hide(); //创建成项目
-						} else {
-							$("[data-btn='meeting']").hide(); //添加会议
 						}
 					}
 

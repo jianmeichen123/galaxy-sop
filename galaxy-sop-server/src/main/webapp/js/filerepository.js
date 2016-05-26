@@ -214,7 +214,9 @@ var fileGrid = {
         			_isProve : "hide",
         			_remark : "hide",
     				callFuc : function(){
-    					fileGrid.serarchData();
+//    					fileGrid.serarchData();
+    					$("#powindow,#popbg").remove();
+    					info(row.projectId);
     				},
     				_url : platformUrl.stageChange, //兼容老板插件
     				_localUrl : uploadUrl,
@@ -235,7 +237,9 @@ var fileGrid = {
         			_isProve : true,
         			_remark : "hide",
     				callFuc : function(){
-    					fileGrid.serarchData();
+//    					fileGrid.serarchData();
+    					$("#powindow,#popbg").remove();
+    					info(row.projectId);
     				},
     				_url : platformUrl.stageChange, //兼容老板插件
     				_localUrl : platformUrl.stageChange,

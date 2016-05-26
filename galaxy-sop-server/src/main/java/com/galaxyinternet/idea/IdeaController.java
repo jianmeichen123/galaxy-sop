@@ -193,7 +193,12 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 10;
 				if(StringUtils.isNotEmpty(query.getProperty()))
 				{
-					pageable = new PageRequest(pageNum,pageSize, new Sort(query.getProperty()));
+					Direction direction = Direction.ASC;
+					if(StringUtils.isNotEmpty(query.getDirection()))
+					{
+						direction = Direction.fromString(query.getDirection());
+					}
+					pageable = new PageRequest(pageNum,pageSize, new Sort(direction,query.getProperty()));
 				}
 				else
 				{
@@ -347,7 +352,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	/**
 	 * 弹出页面
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@RequestMapping(value = "/goIdeaStagePage",method = RequestMethod.GET)
 	public String goIdeaStagePage(HttpServletRequest request) {
        String id = request.getParameter("id");
@@ -367,7 +371,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	   /**
 	 * 弹出页面---放弃创意
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@RequestMapping(value = "/goGiveUpPage",method = RequestMethod.GET)
 	public String goGiveUpPage(HttpServletRequest request) {
     String id = request.getParameter("id");
@@ -377,22 +380,11 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	/**
 	 * 弹出页面---
 	 */
-	@com.galaxyinternet.common.annotation.Logger
 	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
 	public String goClaimtcPage(HttpServletRequest request) {
        String id = request.getParameter("id");
 	   request.setAttribute("id", id);
 		return "idea/stage/claimtc";
-	}
-	/**
-	 * 跳转修改页面
-	 */
-	@com.galaxyinternet.common.annotation.Logger
-	@RequestMapping(value = "/goIdeaEdit",method = RequestMethod.GET)
-	public String goIdeaEdit(HttpServletRequest request) {
-       String id = request.getParameter("id");
-	   request.setAttribute("id",id);
-		return "idea/stage/edit";
 	}
 	/**
 	 * 根据创意id获取创意相关信息
@@ -456,7 +448,44 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	 * @return
 	 */
 	@ResponseBody
+	@RequestMapping("/giveUp")
+	//@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.IDEANEWS},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	public ResponseData<Idea> giveUp(@RequestBody IdeaBo idea,HttpServletRequest request)
+	{
+		ResponseData<Idea> responseBody = new ResponseData<Idea>();
+		if(idea.getId()==null){
+			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
+			return responseBody;
+		}
+	//	UrlNumber urlNum=null;
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try {
+			idea.setClaimantUid(user.getId());
+			idea.setClaimantUname(user.getRealName());
+			int queryById = ideaService.updateById(idea);
+		 //   urlNum=UrlNumber.one;
+			if(queryById<=0){
+				responseBody.setResult(new Result(Status.ERROR, null, "编辑创意状态失败!"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK,null,"更新创意成功！"));
+	//		ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"认领创意成功",urlNum);
+			
+		} catch (Exception e) {
+			responseBody.getResult().addError("编辑创意信息失败");
+			logger.error("编辑创意信息失败",e);
+		}
+		return responseBody;
+	}
+	/**
+	 * 根据创意id获取创意相关信息
+	 * @param idea
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
 	@RequestMapping("/updateIdea")
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.IDEANEWS},recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	public ResponseData<Idea> updateIdea(@RequestBody IdeaBo idea,HttpServletRequest request)
 	{
 		ResponseData<Idea> responseBody = new ResponseData<Idea>();
@@ -464,16 +493,20 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
 			return responseBody;
 		}
+		UrlNumber urlNum=null;
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 			idea.setClaimantUid(user.getId());
 			idea.setClaimantUname(user.getRealName());
 			int queryById = ideaService.updateById(idea);
+		    urlNum=UrlNumber.one;
 			if(queryById<=0){
-				responseBody.setResult(new Result(Status.ERROR, null, "编辑创意信息失败!"));
+				responseBody.setResult(new Result(Status.ERROR, null, "编辑创意状态失败!"));
 				return responseBody;
 			}
 			responseBody.setResult(new Result(Status.OK,null,"更新创意成功！"));
+			ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"认领创意成功",urlNum);
+			
 		} catch (Exception e) {
 			responseBody.getResult().addError("编辑创意信息失败");
 			logger.error("编辑创意信息失败",e);
@@ -497,7 +530,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 											CYXM("创建项目","ideaProgress:4");  <br/>
 			 * @return
 			 */
-			@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+			@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 			@ResponseBody
 			@RequestMapping(value = "/ideaUpReport", produces = MediaType.APPLICATION_JSON_VALUE)
 			public ResponseData<SopFile> ideaUpReport(SopFile ideafile,HttpServletRequest request,HttpServletResponse response ) {
@@ -616,14 +649,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 							return responseBody;
 						}
 						id = ideafile.getId();
+						ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"更新可行性报告",uNum);
 					}else{
 						uNum = UrlNumber.two;
 						id = sopFileService.insert(ideafile);
+						ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"上传可行性报告",uNum);
 					}
 					
 					responseBody.setResult(new Result(Status.OK, ""));
 					responseBody.setId(id);
-					ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId(),uNum);
+					//ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId(),uNum);
 				} catch (Exception e) {
 					responseBody.setResult(new Result(Status.ERROR,null, "文件上传失败"));
 					logger.error("ideaUpReport 文件上传失败",e);
@@ -698,7 +733,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			 * @param  ideaid 创意id
 			 * @return
 			 */
-			@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+			@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 			@ResponseBody
 			@RequestMapping(value = "/ideaStartMeet/{ideaid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 			public ResponseData<Idea> ideaStartMeet(HttpServletRequest request,@PathVariable("ideaid") Long ideaid) {
@@ -733,7 +768,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					}
 					responseBody.setResult(new Result(Status.OK, ""));
 					responseBody.setEntity(idea);
-					ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
+					//ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
+					ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"启动创建立项会",null);
 				} catch (Exception e) {
 					responseBody.setResult(new Result(Status.ERROR,null, "启动创建立项会失败"));
 					logger.error("ideaStartMeet 启动创建立项会失败",e);
@@ -787,7 +823,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		return responseBody;
 	}
 
-	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 	@ResponseBody
 	@RequestMapping(value="/addIdea",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Idea> addIdea(HttpServletRequest request,@RequestBody @Valid Idea idea,BindingResult result){
@@ -813,6 +849,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		String operatorStr = "";
 		UrlNumber uNum = null;
+		String content = "";
 		try{
 			if(idea.getId()!=0){
 				Idea tempIdea = ideaService.queryById(idea.getId());
@@ -827,7 +864,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					uNum = UrlNumber.five;
 				}
 				operatorStr = "修改";
-				
+				content = "修改创意";
 				
 			}else{
 				idea.setId(null);
@@ -836,9 +873,10 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				ideaService.insert(idea);
 				operatorStr = "添加";
 				uNum = UrlNumber.one;
-				
+				content = "添加创意";
 			}
-			ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId(),uNum);
+			
+			ControllerUtils.setRequestIdeaParamsForMessageTip(request, user, idea.getIdeaName(), idea.getId(), content + idea.getIdeaName(), uNum);
 		}catch(DaoException e){
 			responseBody.setResult(new Result(Status.ERROR,"创意添加出错,请联系管理员!"));
 			return responseBody;
@@ -1004,7 +1042,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		
 		
 		//添加 会议记录   meettype：meetingType:3 立项会  创意recordType 
-		@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+		@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 		@ResponseBody
 		@RequestMapping(value = "/saveCyMeetRecord", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseData<MeetingRecord> saveCyMeetRecord(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
@@ -1028,15 +1066,21 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			meetingRecord.setRecordType(RecordType.IDEAS.getType());
 			//meetingRecord.setMeetValid((byte)0);
 			
-			//已有通过的会议，不能再添加会议纪要
+			//已有 通过/否决 的会议，不能再添加会议纪要
 			MeetingRecord mrQuery = new MeetingRecord();
 			mrQuery.setProjectId(meetingRecord.getProjectId());
-			mrQuery.setMeetingType(meetingRecord.getMeetingType());
+			//mrQuery.setMeetingType(meetingRecord.getMeetingType());
 			mrQuery.setRecordType(RecordType.IDEAS.getType());
 			mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
 			Long mrCount = meetingRecordService.queryCount(mrQuery);
 			if(mrCount != null && mrCount.longValue() > 0L){
 				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
+				return responseBody;
+			}
+			mrQuery.setMeetingResult(DictEnum.meetingResult.否决.getCode());
+			mrCount = meetingRecordService.queryCount(mrQuery);
+			if(mrCount != null && mrCount.longValue() > 0L){
+				responseBody.setResult(new Result(Status.ERROR, "","会议被否决，不能再添加会议纪要!"));
 				return responseBody;
 			}
 				
@@ -1127,7 +1171,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				responseBody.setId(id);
 				responseBody.setResult(new Result(Status.OK, ""));
 				
-				ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
+				//ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
+				ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"添加会议记录",null);
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR,null, "创意会议添加失败"));
 				logger.error("saveCyMeetRecord 创意会议添加失败 ",e);
@@ -1215,7 +1260,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			return responseBody;
 		}
 		
-		//=======================     check has pass meet    ===============================//
+		//=======================     check has pass / veto meet    ===============================//
 		/**
 		 * check has pass meet
 		 * @param  ideaid 创意id
@@ -1236,13 +1281,20 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				meet.setMeetingType(DictEnum.meetingType.立项会.getCode());
 				meet.setMeetingResult(DictEnum.meetingResult.通过.getCode());
 				meet.setRecordType(RecordType.IDEAS.getType());
-				List<MeetingRecord> meetList  = meetingRecordService.queryList(meet);
-				if(meetList==null || meetList.isEmpty()){
-					result.setMessage("0");
-				}else{
-					result.setMessage(""+meetList.size());
-				}			
-				responseBody.setResult(result);
+				Long countN   = meetingRecordService.queryCount(meet);
+				if(countN!=null && countN.longValue()>0){
+					result.setMessage("pass");
+					responseBody.setResult(result);
+					return responseBody;
+				}		
+				
+				meet.setMeetingResult(DictEnum.meetingResult.否决.getCode());
+				countN = meetingRecordService.queryCount(meet);
+				if(countN!=null && countN.longValue()>0){
+					result.setMessage("vote");
+					responseBody.setResult(result);
+					return responseBody;
+				}	
 				
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));

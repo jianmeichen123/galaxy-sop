@@ -76,7 +76,7 @@
 				</dl>
 				<dl>
 				    <dd>
-				       <button type="button" class="bluebtn ico cx" onclick="confirmSubmit();">操作</button>
+				       <button id="pqcSubmit" type="button" class="bluebtn ico cx" onclick="confirmSubmit();">排期</button>
 					</dd>
 				</dl>
 			</div>
@@ -90,12 +90,12 @@
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
 				    	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
 				    	<th data-field="scheduleStatus" data-align="center" class="data-input" data-formatter="statusFormatter">排期状态</th>
-				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormatter">上次过会时间</th>
+				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormatter" data-sortable="true" data-sortorder="desc">上次过会时间</th>
 				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
-				    	<th data-field="meetingRate" data-align="center" class="data-input" data-formatter="rateFormatter">过会率</th>
-				    	<th data-field="applyTimeStr" data-align="center" class="data-input">申请时间</th>
-				    	<th data-align="center" class="data-input" data-formatter="dataFormatter">排期时间</th>
+				    	<th data-field="meetingRate" data-align="center" class="data-input" data-formatter="rateFormatter" data-sortable="true" data-sortOrder="desc">过会率</th>
+				    	<th data-field="applyTimeStr" data-align="center" class="data-input" data-sortable="true" data-sorter="apply_time" data-sortOrder="asc">申请时间</th>
+				    	<th data-field="reserveTimeStart" data-align="center" class="data-input" data-formatter="dataFormatter" data-sortable="true" data-sortorder="desc">排期时间</th>
  					</tr>	
  				</thead>
 			</table>
@@ -114,6 +114,9 @@
 <script type="text/javascript" src="<%=path %>/plugins/daterangepicker/moment.js"></script>
 <script type="text/javascript" src="<%=path %>/plugins/daterangepicker/daterangepicker-customer.js"></script>
 <script type="text/javascript">
+    var flag =true;
+    var roleIdList = '${roleIdList}';
+    
     var menu='${pageType}';
     var meetingType="";
     if(menu == '0'){
@@ -125,8 +128,13 @@
     	createMenus(19);
     }
     if(menu == '2'){
+    	if(roleIdList.indexOf("18") > 0){
+        	$("#pqcSubmit").attr("style","display:none");
+        	flag =false;
+        }
     	createMenus(20);
     	meetingType="meetingType:2";
+    	
     }
 	function indexFormatter(value, row, index){
 		var str = index+1;
@@ -159,20 +167,24 @@
 		}
 	}
 	function dataFormatter(value, row, index){
-		if(row.isEdit == '1'){
-			if(row.reserveTimeStartStr){
-				return timeHtml = '<input id="test'+index+'" data-pid="'+row.id+'" size="40" name="reserveTime" value="'+row.reserveTimeStartStr+' - '+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime "/>'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
+		if(flag){
+			if(row.isEdit == '1'){
+				if(row.reserveTimeStartStr){
+					return timeHtml = '<input id="test'+index+'" data-pid="'+row.id+'" size="40" name="reserveTime" value="'+row.reserveTimeStartStr+' - '+row.reserveTimeEndStr+'" type="text" readonly class="form_datetime "/>'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
+				}else{
+					return timeHtml = '<input id="test'+index+'" data-pid="'+row.id+'" size="40" name="reserveTime" type="text" value=""  class="form_datetime ">'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
+				}
 			}else{
-				return timeHtml = '<input id="test'+index+'" data-pid="'+row.id+'" size="40" name="reserveTime" type="text" value=""  class="form_datetime ">'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
+				if(typeof(row.reserveTimeStartStr) == "undefined"){
+					return timeHtml  = '未进行排期';
+				}else{
+					return timeHtml = row.reserveTimeStartStr+' - '+row.reserveTimeEndStr;
+				}
 			}
 		}else{
-			if(typeof(row.reserveTimeStartStr) == "undefined"){
-				return timeHtml  = '未进行排期';
-			}else{
-				return timeHtml = row.reserveTimeStartStr+' - '+row.reserveTimeEndStr;
-			}
-			
+			return timeHtml  = '未进行排期';
 		}
+		
 	}
 	
 	tiggerTable1($("#data-table"),10,function(){

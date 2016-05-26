@@ -196,7 +196,7 @@
 				 i=i+1;
 				 var tr='<tr>'+
 				 '<td>'+i+'</td>'+
-				 '<td class="cutstr" title="'+ getValue(temp.projectName)+'">'+ getValue(temp.projectName)+'</td>'+
+				 '<td title="'+ getValue(temp.projectName)+'">' + '<a class="cutstr blue" href="javascript:void(0)" onclick="info(' + temp.projectId + ')">'+ getValue(temp.projectName)+ '</a>' + '</td>'+
 				 '<td>'+ getDateValue(temp.meetingDate)+'</td>'+
 				 '<td>'+getIntegerValue(temp.meetingCount)+'</td>'+
 				' </tr>'; 
@@ -231,7 +231,7 @@
 				 
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td class="cutstr" title="'+ getValue(templ.projectName)+'">'+ '<a class="blue" href="javascript:void(0)" onclick="info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>'+
+					 '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>'+
 					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
 					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
 					' </tr>'; 
@@ -444,7 +444,7 @@ $(function(){
 	var data = {
 			_domid : "file_gird_index"
 	}
-	fileGrid.init(data);
+	fileGridIndex.init(data);
 		
 });
 

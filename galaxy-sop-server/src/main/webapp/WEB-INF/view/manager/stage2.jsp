@@ -34,6 +34,7 @@
 			<li data-tab="nav" id="projectProgress_7"><a href="javascript:;">投决会</a></li>
 			<li data-tab="nav" id="projectProgress_8"><a href="javascript:;">投资协议</a></li>
 			<li data-tab="nav" id="projectProgress_9"><a href="javascript:;">股权交割</a></li>
+			<li data-tab="nav" id="projectProgress_10" class="disabled" disable="disabled" ><a href="javascript:;">投后运营<a/></li>
 			<li data-tab="nav" id="projectProgress"><a href="javascript:;">操作日志</a></li>
 		</ul>
 		<!-- tab内容 -->
@@ -353,7 +354,10 @@
 			<!-- 股权交割信息  -->
 			<div class="block" data-tab="con" id="projectProgress_9_con">
 			</div>
-			
+				<!-- 投后运营  -->
+			<div class="block" data-tab="con" id="projectProgress_10_con">
+				<p>暂无内容</p>
+			</div>
 			<!-- 操作日志  -->
 			<div class="block" data-tab="con" id="projectProgress_con">
 				<div id="pro_message_custom-toolbar">
@@ -390,6 +394,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script>
 $(function(){
 	initData("${projectId}");

@@ -32,7 +32,7 @@ public class MeetingRecord  extends RecordEntity{
     
     private String participant;
     
-    private byte meetValid;
+    private byte meetValid; //0表示有效，1表示无效
     
     
     public String getParticipant() {

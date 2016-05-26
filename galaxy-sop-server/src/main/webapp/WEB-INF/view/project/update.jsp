@@ -116,6 +116,20 @@
               </div>
           </div>
           </form>
+          
+          
+          
+          <!-- 商业计划  -->      
+          <div class="block block2 shadow">
+            <dl>
+              <dt>商业计划</dt>
+               <dd id="business_plan_dd" class="fctbox">
+<!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
+<!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
+              </dd>
+            </dl>
+          </div> 
+          
           <!-- 第2部分 -->
           <div class="block block2 shadow">
             <dl>
@@ -364,6 +378,7 @@
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
 <script src="<%=path %>/js/init.js"></script>
 <!-- bootstrap-table -->
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
@@ -726,8 +741,38 @@ function closeback(data){
 		
 	}
 	
+	function uploadBusinessPlan(){
+		var projectId = $("#pid").val();
+		var projectName = $("#projectName").html();
+		formData = {
+    			_fileType : "fileType:1",
+    			_fileTypeAuto : true,
+    			_workType : "fileWorktype:12",
+    			_projectId : projectId,
+    			_projectName : projectName,
+    			_isProve : "hide",
+    			_remark : "hide",
+				callFuc : function(){
+					console.log("刷新商业计划模块");
+					window.location.reload(Constants.sopEndpointURL + "/galaxy/upp/" + $("#pid").val());
+				},
+				_url : platformUrl.commonUploadFile, //兼容老板插件
+				_localUrl : platformUrl.commonUploadFile
+		};
+		win.init(formData);
+		
+	}
+	
+	function downloadBusinessPlan(id){
+		window.location.href=platformUrl.downLoadFile+'/'+id ;
+	}
+	
+	
 </script>	   
 <%-- <script src="<%=request.getContextPath() %>/js/axure_ext.js"></script> --%>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script type="text/javascript" src="<%=path %>/js/teamSheetNew.js"></script>
 
 
 </html>
