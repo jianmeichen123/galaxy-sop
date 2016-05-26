@@ -372,6 +372,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			@RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
+		
+		Direction direction = Direction.DESC;
+		String property = "created_time";
+		if(!StringUtils.isEmpty(project.getProperty())){
+			if("desc".equals(project.getDirection())){
+				direction = Direction.DESC;
+			}else{
+				direction = Direction.ASC;
+			}
+		}
+		
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 				.getId());
 		if (project.getProjectProgress() != null
@@ -398,7 +409,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					.queryPageList(
 							project,
 							new PageRequest(project.getPageNum(), project
-									.getPageSize()));
+									.getPageSize(),direction,property));
 			FormatData format = new FormatData();
 			if (!pageProject.getContent().isEmpty()) {
 				format = setFormatData(pageProject.getContent());
