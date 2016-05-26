@@ -113,6 +113,7 @@
               </table>
               <div class="btnbox">
                 <a href="javascript:;" onclick="update()" class="pubbtn bluebtn">保存</a><!-- <a href="javascript:;" class="pubbtn fffbtn"data-close="close">关闭项目</a> -->
+                 <a href="javascript:;" onclick="history.go(-1);" class="bluebtn pubbtn">返回</a>
               </div>
           </div>
           </form>
