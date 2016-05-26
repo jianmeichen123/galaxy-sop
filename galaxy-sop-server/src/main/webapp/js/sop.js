@@ -18,6 +18,7 @@ function info(id){
 		if(data.result.message=="show"){
 			_url= Constants.sopEndpointURL + '/galaxy/ips';
 		}else{
+			layer.msg('无权查看该项目信息。');
 			return false;
 		}
 		alertid=id;
