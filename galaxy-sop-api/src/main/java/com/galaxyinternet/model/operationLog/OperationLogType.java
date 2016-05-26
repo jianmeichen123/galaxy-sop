@@ -119,8 +119,21 @@ public enum OperationLogType {
 	CY_ADD_PRO("/galaxy/idea/createProject", OperType.ADD.getOperationType() , "项目",SopStage.CY_PRO.getStageName()),
 	//编辑项目名称
 	CY_EDIT_PRO("/galaxy/idea/editProjectName", OperType.UPDATE.getOperationType() , "项目",SopStage.CY_PRO.getStageName()),
+
 	//认领创意
-	CY_CLAIMT_IDEA("/galaxy/idea/updateIdea", OperType.UPDATE.getOperationType() , "创意",SopStage.CY_PRO.getStageName());
+	CY_CLAIMT_IDEA("/galaxy/idea/updateIdea", OperType.UPDATE.getOperationType() , "创意",SopStage.CY_PRO.getStageName()),	
+	//添加创意
+	CY_ADD_IDEA("/galaxy/idea/addIdea/"+UrlNumber.one, OperType.ADD.getOperationType() , "创意",SopStage.CY_INFO.getStageName()),
+	//待认领阶段编辑创意
+	CY_EDIT_DYL_IDEA("/galaxy/idea/addIdea/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_DRL.getStageName()),
+	//调研阶段编辑创意
+	CY_EDIT_DY_IDEA("/galaxy/idea/addIdea/"+UrlNumber.three, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_DY.getStageName()),
+	//创建立项会阶段编辑创意
+	CY_EDIT_LXH_IDEA("/galaxy/idea/addIdea/"+UrlNumber.four, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_LXH.getStageName()),
+	//搁置阶段编辑创意
+	CY_EDIT_GZ_IDEA("/galaxy/idea/addIdea/"+UrlNumber.five, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_GZ.getStageName());
+	
+
 
 	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/
 		
