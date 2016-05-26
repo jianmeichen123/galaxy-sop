@@ -525,7 +525,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 											CYXM("创建项目","ideaProgress:4");  <br/>
 			 * @return
 			 */
-			@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+			@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 			@ResponseBody
 			@RequestMapping(value = "/ideaUpReport", produces = MediaType.APPLICATION_JSON_VALUE)
 			public ResponseData<SopFile> ideaUpReport(SopFile ideafile,HttpServletRequest request,HttpServletResponse response ) {
@@ -644,14 +644,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 							return responseBody;
 						}
 						id = ideafile.getId();
+						ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"更新可行性报告",uNum);
 					}else{
 						uNum = UrlNumber.two;
 						id = sopFileService.insert(ideafile);
+						ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"上传可行性报告",uNum);
 					}
 					
 					responseBody.setResult(new Result(Status.OK, ""));
 					responseBody.setId(id);
-					ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId(),uNum);
+					//ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId(),uNum);
 				} catch (Exception e) {
 					responseBody.setResult(new Result(Status.ERROR,null, "文件上传失败"));
 					logger.error("ideaUpReport 文件上传失败",e);
@@ -726,7 +728,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			 * @param  ideaid 创意id
 			 * @return
 			 */
-			@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+			@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 			@ResponseBody
 			@RequestMapping(value = "/ideaStartMeet/{ideaid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 			public ResponseData<Idea> ideaStartMeet(HttpServletRequest request,@PathVariable("ideaid") Long ideaid) {
@@ -761,7 +763,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					}
 					responseBody.setResult(new Result(Status.OK, ""));
 					responseBody.setEntity(idea);
-					ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
+					//ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
+					ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"上传可行性报告",null);
 				} catch (Exception e) {
 					responseBody.setResult(new Result(Status.ERROR,null, "启动创建立项会失败"));
 					logger.error("ideaStartMeet 启动创建立项会失败",e);
@@ -1032,7 +1035,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		
 		
 		//添加 会议记录   meettype：meetingType:3 立项会  创意recordType 
-		@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
+		@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.IDEANEWS,recordType=com.galaxyinternet.common.annotation.RecordType.IDEAS)
 		@ResponseBody
 		@RequestMapping(value = "/saveCyMeetRecord", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseData<MeetingRecord> saveCyMeetRecord(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
@@ -1155,7 +1158,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				responseBody.setId(id);
 				responseBody.setResult(new Result(Status.OK, ""));
 				
-				ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
+				//ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
+				ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"添加会议记录",null);
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR,null, "创意会议添加失败"));
 				logger.error("saveCyMeetRecord 创意会议添加失败 ",e);
