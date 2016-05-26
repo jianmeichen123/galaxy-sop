@@ -769,7 +769,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					responseBody.setResult(new Result(Status.OK, ""));
 					responseBody.setEntity(idea);
 					//ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
-					ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"启动创建立项会",null);
+					ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"启动创建立项会",UrlNumber.one);
 				} catch (Exception e) {
 					responseBody.setResult(new Result(Status.ERROR,null, "启动创建立项会失败"));
 					logger.error("ideaStartMeet 启动创建立项会失败",e);
@@ -1172,7 +1172,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				responseBody.setResult(new Result(Status.OK, ""));
 				
 				//ControllerUtils.setRequestParamsForMessageTip(request, idea.getIdeaName(), idea.getId());
-				ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"添加会议记录",null);
+				ControllerUtils.setRequestIdeaParamsForMessageTip(request, user,idea.getIdeaName(), idea.getId(),"添加会议记录",UrlNumber.one);
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR,null, "创意会议添加失败"));
 				logger.error("saveCyMeetRecord 创意会议添加失败 ",e);
