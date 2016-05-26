@@ -267,6 +267,10 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value = "/lxh", method = RequestMethod.GET)
 	public String lxh(HttpServletRequest request, HttpServletResponse response) {
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+				.getId());
+		request.setAttribute("roleIdList", roleIdList);
 		request.setAttribute("pageType", 0);
 		return "shedule/lxh";
 	}
@@ -276,6 +280,10 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value = "/tjh", method = RequestMethod.GET)
 	public String tjh(HttpServletRequest request, HttpServletResponse response) {
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+				.getId());
+		request.setAttribute("roleIdList", roleIdList);
 		request.setAttribute("pageType", 1);
 		return "shedule/lxh";
 	}
@@ -285,6 +293,10 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value = "/psh", method = RequestMethod.GET)
 	public String psh(HttpServletRequest request, HttpServletResponse response) {
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+				.getId());
+		request.setAttribute("roleIdList", roleIdList);
 		request.setAttribute("pageType", 2);
 		return "shedule/lxh";
 	}

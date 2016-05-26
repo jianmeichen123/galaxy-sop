@@ -12,6 +12,8 @@ public enum SopStage {
 	CY_DY("调研"),
 	CY_LXH("创建立项会"),
 	CY_PRO("创建项目"),
+	CY_DRL("待认领"),
+	CY_GZ("搁置"),
 	//项目
 	TOUCH_INTERVIEW("接触访谈"),
 	INNER_REVIEW_SCHEDULE("内部评审"),
