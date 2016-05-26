@@ -1282,7 +1282,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				meet.setMeetingResult(DictEnum.meetingResult.通过.getCode());
 				meet.setRecordType(RecordType.IDEAS.getType());
 				Long countN   = meetingRecordService.queryCount(meet);
-				if(countN!=null && countN.longValue()>0){
+				if(countN!=null && countN.longValue()>0l){
 					result.setMessage("pass");
 					responseBody.setResult(result);
 					return responseBody;
@@ -1290,7 +1290,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 				
 				meet.setMeetingResult(DictEnum.meetingResult.否决.getCode());
 				countN = meetingRecordService.queryCount(meet);
-				if(countN!=null && countN.longValue()>0){
+				if(countN!=null && countN.longValue()>0l){
 					result.setMessage("vote");
 					responseBody.setResult(result);
 					return responseBody;
