@@ -262,7 +262,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a href="javascript:;" class="light_gray"><b class="b1 ico null">ico</b>通讯录</a>
                         <a href="javascript:;" class="light_gray"><b class="b2 ico null">ico</b>估值计算</a>
                         <a href="javascript:;" class="light_gray"><b class="b5 ico null">ico</b>发邮件</a>
-                        <a href="javascript:;" class="add ico">&nbsp;</a>
+                        <a href='javascript:void(0);' onfocus="this.blur();" style="text-decoration:none;cursor:default;"></a>
+                       <!--  <a href="javascript:;" class="add ico">&nbsp;</a> -->
                     </dd>
                 </dl>
             </div>
