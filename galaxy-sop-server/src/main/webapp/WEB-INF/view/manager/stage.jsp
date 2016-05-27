@@ -49,7 +49,7 @@
 			<li data-tab="nav" id="projectProgress_7"><a href="javascript:;">投决会</a></li>
 			<li data-tab="nav" id="projectProgress_8"><a href="javascript:;">投资协议</a></li>
 			<li data-tab="nav" id="projectProgress_9"><a href="javascript:;">股权交割</a></li>
-			<li data-tab="nav" id="projectProgress_10" class="disabled" disable="disabled" ><a href="javascript:;">投后运营<a/></li>
+			<li data-tab="nav" id="projectProgress_10" ><a href="javascript:;">投后运营<a/></li>
 			<li data-tab="nav" id="projectProgress"><a href="javascript:;">操作日志</a></li>
 		</ul>
 		<!-- tab内容 -->
