@@ -102,14 +102,14 @@ public class InterviewRecord extends BaseEntity{
     
     public String getViewDateStr() {
     	if(viewDateStr==null && viewDate!=null){
-			viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
+			viewDateStr = DateUtil.convertDateToString(viewDate);
 		}
 		return viewDateStr;
 	}
 
 	public void setViewDateStr(String viewDateStr){
 		if(viewDateStr==null && viewDate!=null){
-			viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
+			viewDateStr = DateUtil.convertDateToString(viewDate);
 		}
 		this.viewDateStr = viewDateStr;
 	}

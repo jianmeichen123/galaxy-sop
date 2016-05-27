@@ -73,7 +73,7 @@ public class MeetingRecord  extends RecordEntity{
 			}
 		}else{
 			if(meetingDateStr==null && meetingDate!=null){
-				meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
+				meetingDateStr = DateUtil.convertDateToString(meetingDate);
 			}
 		}
         return meetingDate;
