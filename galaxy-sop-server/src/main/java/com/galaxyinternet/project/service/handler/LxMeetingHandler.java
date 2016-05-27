@@ -113,7 +113,7 @@ public class LxMeetingHandler implements Handler {
 			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		}
 		
-		if((q.getResult().equals(DictEnum.meetingResult.待定))){
+		if((q.getResult().equals(DictEnum.meetingResult.待定.getCode()))){
 			tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 			tm.setReserveTimeStart(null);
 			tm.setReserveTimeEnd(null);
