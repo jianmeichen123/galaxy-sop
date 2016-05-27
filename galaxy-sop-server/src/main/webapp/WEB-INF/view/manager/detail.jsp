@@ -96,6 +96,18 @@
           
           
           </form>
+          
+          <!-- 商业计划  -->      
+          <div class="block block2 shadow">
+            <dl>
+              <dt>商业计划</dt>
+               <dd id="business_plan_dd" class="fctbox">
+<!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
+<!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
+              </dd>
+            </dl>
+          </div> 
+          
           <!-- 第2部分 -->
           <div class="block block2 shadow">
             <dl>
@@ -254,18 +266,70 @@
 			$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
 			$("#analysis_show ").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
 			var um = UM.getEditor('describe_editor');
-			um.setContent(data.entity.projectDescribe);
+			if(data.entity.projectDescribe){
+				um.setContent(data.entity.projectDescribe);
+			}else{
+				um.setContent("");
+			}
 			var um = UM.getEditor('business_model_editor');
-			um.setContent(data.entity.projectBusinessModel);
+			if(data.entity.projectBusinessModel){
+				um.setContent(data.entity.projectBusinessModel);
+			}else{
+				um.setContent("");
+			}
 			var um = UM.getEditor('location_editor');
-			um.setContent(data.entity.companyLocation);
+			if(data.entity.companyLocation){
+				um.setContent(data.entity.companyLocation);
+			}else{
+				um.setContent("");
+			}
+			
+			
+			
 			var um = UM.getEditor('portrait_editor');
-			um.setContent(data.entity.userPortrait);
+			if(data.entity.userPortrait){
+				um.setContent(data.entity.userPortrait);
+			}else{
+				um.setContent("");
+			}
+			
 			var um = UM.getEditor('analysis_editor');
-			um.setContent(data.entity.prospectAnalysis);
+			if(data.entity.prospectAnalysis){
+				um.setContent(data.entity.prospectAnalysis);
+			}else{
+				um.setContent("");
+			}
+			
+			
+			
+			sendGetRequest(platformUrl.getBusinessPlanFile+"/"+pid,null,function(data){
+				var uploadOperator;
+				var html;
+				if(data.result.status=="OK"){
+					//为空时候显示
+					if(data.result.errorCode=="null"){				
+						html = "";
+					}else{
+						html =  "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+					}
+					$("#business_plan_dd").html(html);
+				}else{
+					
+				}
+			});
+			
+			
+			
+			
 		});
 	});
 
+	
+	
+	function downloadBusinessPlan(id){
+		window.location.href=platformUrl.downLoadFile+'/'+id ;
+	}
+	
     var pid='${requestScope.pid}';
 	function formatGender(index, row) {
 		if (row.gender == true) {

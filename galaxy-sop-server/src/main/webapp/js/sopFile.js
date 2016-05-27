@@ -4,7 +4,7 @@ var searchPanel = {
 			//档案类型
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileType",null,searchPanel.initDataCallBack);
 			//业务类型
-			sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorkType",null,searchPanel.initDataCallBack);
+			sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorktype",null,searchPanel.initDataCallBack);
 			//所属事业线
 			sendGetRequest(platformUrl.getDepartMentDict+"/department",null,searchPanel.initDataCallBack);
 			//注册发送邮件按钮
@@ -28,7 +28,7 @@ var searchPanel = {
 			case "fileType" : 
 				_dom = $("#searchFileType");
 				break;
-			case "fileWorkType":
+			case "fileWorktype":
 				_dom = $("#searchFileWorktype");
 				break;
 			default :
