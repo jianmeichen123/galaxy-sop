@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +36,6 @@ import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.framework.core.utils.JSONUtils;
-import com.galaxyinternet.model.dict.Dict;
-import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
@@ -47,7 +46,6 @@ import com.galaxyinternet.service.AppProjectMeetingService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.SopFileService;
 /**
  * App端会议添加<br>
  * 含添加文字，和录音两种
@@ -62,20 +60,15 @@ import com.galaxyinternet.service.SopFileService;
 @RequestMapping("/galaxy/projectmeeting/approgress")
 public class AppProjectMeetingController extends BaseControllerImpl<Project, ProjectBo>{
 
-	final Logger logger = LoggerFactory.getLogger(AppProjectMeetingController.class);
-		
+	final Logger logger = LoggerFactory.getLogger(AppProjectMeetingController.class);		
 	@Autowired
-	private ProjectService projectService;
-	
+	private ProjectService projectService;	
 	@Autowired
-	private MeetingRecordService meetingRecordService;
-	
+	private MeetingRecordService meetingRecordService;	
 	@Autowired
 	private MeetingSchedulingService meetingSchedulingService;
-	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
-	
 	@Autowired
 	private AppProjectMeetingService appPmService;
 	
@@ -108,15 +101,15 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 			
 			ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-			
+			//参数是否空值检查
 			if(meetingRecord.getProjectId() == null 
 					|| meetingRecord.getMeetingDate() == null 
-					|| meetingRecord.getMeetingType() == null 
-					|| meetingRecord.getMeetingResult() == null ){
-				responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
+					|| StringUtils.isBlank(meetingRecord.getMeetingType())
+					|| StringUtils.isBlank(meetingRecord.getMeetingResult())) {
+				responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息，参数值不完整或缺失"));
 				return responseBody;
 			}
-			//已有通过的会议，不能再添加会议纪要
+			//检查当前会议类型是否存在"已有通过的会议"，若有，则不能再添加会议纪要
 			MeetingRecord mrQuery = new MeetingRecord();
 			mrQuery.setProjectId(meetingRecord.getProjectId());
 			mrQuery.setMeetingType(meetingRecord.getMeetingType());
@@ -127,8 +120,12 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
 				return responseBody;
 			}			
-			//排期池校验
-			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
+			//检查立项会、投决会、CEO评审是否存在待排期记录
+			String currMeetingType = meetingRecord.getMeetingType().trim();
+		if (currMeetingType.equals(DictEnum.meetingType.立项会.getCode())
+				|| currMeetingType.equals(DictEnum.meetingType.投决会.getCode())
+				|| currMeetingType.equals(DictEnum.meetingType.CEO评审.getCode())) {
+				
 				MeetingScheduling ms = new MeetingScheduling();
 				ms.setProjectId(meetingRecord.getProjectId());
 				ms.setMeetingType(meetingRecord.getMeetingType());
@@ -141,21 +138,21 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 			}			
 			try {
 				String prograss = "";
-				UrlNumber uNum = null;
+//				UrlNumber uNum = null;
 				if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       
 					prograss = DictEnum.projectProgress.内部评审.getCode();                                 	
-					uNum = UrlNumber.one;
+//					uNum = UrlNumber.one;
 				}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ 
 					prograss = DictEnum.projectProgress.CEO评审.getCode(); 								
-					uNum = UrlNumber.two;
+//					uNum = UrlNumber.two;
 				}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	
 					prograss = DictEnum.projectProgress.立项会.getCode(); 										
-					uNum = UrlNumber.three;
+//					uNum = UrlNumber.three;
 				}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
 					prograss = DictEnum.projectProgress.投资决策会.getCode(); 								
-					uNum = UrlNumber.four;
+//					uNum = UrlNumber.four;
 				}				
-				//project id 验证
+				//检查project id 及Project 是否为空
 				Project project = new Project();
 				project = projectService.queryById(meetingRecord.getProjectId());
 				String err = errMessage(project,user,prograss);
@@ -165,12 +162,12 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 				}			
 				//保存
 				Long id = null;
-				boolean equalNowPrograss = true; //判断当前阶段、之后阶段
-				int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;//会议对应的阶段
-				int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ; //项目阶段
-				if(projectPro > operationPro){
-					equalNowPrograss = false;
-				}				
+//				boolean equalNowPrograss = true; //判断当前阶段、之后阶段
+//				int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;//会议对应的阶段
+//				int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ; //项目阶段
+//				if(projectPro > operationPro){
+//					equalNowPrograss = false;
+//				}				
 				if(meetingRecord.getFkey()!=null){
 					if( meetingRecord.getFileLength()==null||meetingRecord.getFname()==null){
 						responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
@@ -196,12 +193,14 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 					sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
 					//sopFile.setFileWorktype(fileWorkType);    //业务分类
 					sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态					
-					id = meetingRecordService.insertMeet(meetingRecord,project,sopFile,equalNowPrograss);
+//					id = meetingRecordService.insertMeet(meetingRecord,project,sopFile,equalNowPrograss);
+					id = appPmService.addingMeeting(meetingRecord, project, sopFile);
 				}else if(!ServletFileUpload.isMultipartContent(request)){
 					SopFile file = new SopFile();
 					file.setCareerLine(user.getDepartmentId());
 					file.setFileUid(user.getId());
-					id = meetingRecordService.insertMeet(meetingRecord,project,file,equalNowPrograss);
+//					id = meetingRecordService.insertMeet(meetingRecord,project,file,equalNowPrograss);
+					id = appPmService.addingMeeting(meetingRecord, project, file);
 				}
 				responseBody.setId(id);
 				responseBody.setResult(new Result(Status.OK, ""));			
@@ -212,8 +211,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 				}
 			}
 			return responseBody;
-		}
-		
+		}	
 		
 		
 		/**
@@ -314,19 +312,19 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 				
 			try {
 				String prograss = "";
-				UrlNumber uNum = null;
+//				UrlNumber uNum = null;
 				if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       
 					prograss = DictEnum.projectProgress.内部评审.getCode();                                 	
-					uNum = UrlNumber.one;
+//					uNum = UrlNumber.one;
 				}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ 
 					prograss = DictEnum.projectProgress.CEO评审.getCode(); 								
-					uNum = UrlNumber.two;
+//					uNum = UrlNumber.two;
 				}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	
 					prograss = DictEnum.projectProgress.立项会.getCode(); 										
-					uNum = UrlNumber.three;
+//					uNum = UrlNumber.three;
 				}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
 					prograss = DictEnum.projectProgress.投资决策会.getCode(); 								
-					uNum = UrlNumber.four;
+//					uNum = UrlNumber.four;
 				}
 				
 				//project id 验证
