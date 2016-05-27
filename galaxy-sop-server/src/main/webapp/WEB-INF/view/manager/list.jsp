@@ -208,7 +208,7 @@ function setCheckLine(data){
 					progress = progress.replace(":","_");
 					var index = progress.substr(progress.length-1,1);
 					
-					for(var i = 1; i<10; i++){
+					for(var i = 1; i<11; i++){
 						if(i > index){
 							//当前阶段之后的tab变为不可用
 							$("#projectProgress_" + i).addClass("disabled");
