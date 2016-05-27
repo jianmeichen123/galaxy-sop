@@ -43,7 +43,7 @@ input.disabled{background-color: #000;}
 /*公用表格*/
 table{ background:#ffffff;}
 table th{ text-align:center; color:#2d3342; font-weight:normal; font-size:12px; line-height:38px;border-bottom: 1px solid #edeff5;}
-table td{ height:30px;line-height:30px; text-align:center; font-size:12px; color:#536379; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
+table td{ height:30px;line-height:30px; text-align:center; font-size:12px; color:#999; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
 .fixed_width td{width:16%;}
 table td a{ font-size:12px; margin:0 2px; color:#536379; font-family:"宋体";margin:0 4px;}
 table .on td{ background:#f8f8fb}
@@ -729,6 +729,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .ritmin .min_document .fml dd{ width:312px;}
 .ritmin .min_document .fml .right{float: right;}
 .ritmin .min_document .bottom  dl dd .txt{ font-size:12px;border:1px solid #ccd2d7; color:#2d3342; height:28px; line-height:28px; padding:0 0 0 8px; border-radius:4px; background:#FFF; width:205px;}
+.ritmin .min_document .bottom  dl dd .txt_new{ font-size:12px;border:1px solid #ccd2d7; color:#2d3342; height:28px; line-height:28px; padding:0 0 0 8px; border-radius:4px; background:#FFF; width:85px;}
 .ritmin .min_document .bottom .searchbtn{ margin: 0 15px 0 0;background-image:none;}
 /* 我的项目 */
 .ritmin .top .btnbox_f .c4{background-position: 10px -120px;padding: 0 5px 0 20px;}
@@ -1306,7 +1307,7 @@ dl dt,dl label{font-weight: normal !important;}
 .block_pad{padding-top: 10px;}
 .form label{width:auto;}
 /*dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}*/
-.time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
+.time{display:inline-block;width: 130px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 105px -146px !important;}
 .search_adjust .fml dd{width:250px !important;}
 .search_adjust1 .fml dd{width:180px !important;}
 .search_adjust2 .fml dd{width:160px !important;}
