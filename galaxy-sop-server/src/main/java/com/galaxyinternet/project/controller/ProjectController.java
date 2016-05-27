@@ -382,7 +382,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}else{
 				direction = Direction.ASC;
 			}
-		}else{
 			property = "created_time";
 		}
 		
@@ -535,9 +534,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}else{
 				direction = Direction.ASC;
 			}
-		}else{
 			property = "created_time";
 		}
+		
 		try {
 			if (project.getProjectProgress() != null
 					&& project.getProjectProgress().equals("guanbi")) {

@@ -99,7 +99,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     </tbody>
                 </table>
             </dd>
-            <dd class="clearfix">
+            <dd class="clearfix none">
                 <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
 <!--                 <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
             </dd>
@@ -137,7 +137,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                         </table>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
+                    	<a href="<%=path %>/galaxy/soptask" class="more null none">more</a>
                     </dd>
                 </dl>
               
@@ -189,7 +189,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						</dd>
 
 						<dd class="clearfix">
-							<a href="javascript:;" onclick="toCyPage()" class="more null">more</a>
+							<a href="javascript:;" onclick="toCyPage()" class="more null none">more</a>
 							<!--  <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
 						</dd>
 
