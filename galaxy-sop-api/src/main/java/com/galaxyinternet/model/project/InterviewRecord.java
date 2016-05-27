@@ -57,7 +57,7 @@ public class InterviewRecord extends BaseEntity{
 			}
 		}else{
 			if(viewDateStr==null && viewDate!=null){
-				viewDateStr = DateUtil.convertDateToString(viewDate);
+				viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
 			}
 		}
         return viewDate;
