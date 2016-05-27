@@ -59,41 +59,33 @@ public class MeetingRecord  extends RecordEntity{
 		this.fileId = fileId;
 	}
 
-	public Date getMeetingDate() {
-		if(meetingDate==null && meetingDateStr!=null && meetingDateStr.trim().length() == 10 ){
+	public Date getMeetingDate() { //2016-05-27 16:00:00   19
+		if(meetingDate==null && meetingDateStr!=null){
+			meetingDateStr = dateStrformat(meetingDateStr);
 			try {
-				if( meetingDateStr.indexOf("/") != -1){
-					meetingDate = DateUtil.convertStringToDate(this.meetingDateStr.replaceAll("/", "-"));
-	    		}else{
-	    			meetingDate = DateUtil.convertStringToDate(this.meetingDateStr);
-	    		}
-				
+	    		meetingDate = DateUtil.convertStringtoD(meetingDateStr);
 			} catch (ParseException e) {
 				meetingDate = null;
 			}
 		}else{
 			if(meetingDateStr==null && meetingDate!=null){
-				meetingDateStr = DateUtil.convertDateToString(meetingDate);
+				meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
 			}
 		}
         return meetingDate;
     }
 	
     public void setMeetingDate(Date meetingDate) {
-    	if(meetingDate==null && meetingDateStr!=null && meetingDateStr.trim().length() == 10 ){
+    	if(meetingDate==null && meetingDateStr!=null){
+    		meetingDateStr = dateStrformat(meetingDateStr);
 			try {
-				if( meetingDateStr.indexOf("/") != -1){
-					meetingDate = DateUtil.convertStringToDate(this.meetingDateStr.replaceAll("/", "-"));
-	    		}else{
-	    			meetingDate = DateUtil.convertStringToDate(this.meetingDateStr);
-	    		}
-				
+	    		meetingDate = DateUtil.convertStringtoD(this.meetingDateStr);
 			} catch (ParseException e) {
 				meetingDate = null;
 			}
 		}else{
 			if(meetingDateStr==null && meetingDate!=null){
-				meetingDateStr = DateUtil.convertDateToString(meetingDate);
+				meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
 			}
 		}
         this.meetingDate = meetingDate;
@@ -147,26 +139,24 @@ public class MeetingRecord  extends RecordEntity{
     
 	public String getMeetingDateStr() {
 		if(meetingDateStr==null && meetingDate!=null){
-			meetingDateStr = DateUtil.convertDateToString(meetingDate);
+			meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
 		}
 		return meetingDateStr;
 	}
 
-	public void setMeetingDateStr(String meetingDateStr) {
-		if(meetingDate==null && meetingDateStr!=null && meetingDateStr.trim().length() == 10 ){
+	
+	
+	public void setMeetingDateStr(String meetingDateStr) { ////2016-05-27 16:00:00   19
+		if(meetingDate==null && meetingDateStr!=null ){
+			meetingDateStr = dateStrformat(meetingDateStr.trim());
 			try {
-				if( meetingDateStr.indexOf("/") != -1){
-					meetingDate = DateUtil.convertStringToDate(meetingDateStr.replaceAll("/", "-"));
-	    		}else{
-	    			meetingDate = DateUtil.convertStringToDate(meetingDateStr);
-	    		}
-				
+	    		meetingDate = DateUtil.convertStringtoD(meetingDateStr);
 			} catch (ParseException e) {
 				meetingDate = null;
 			}
 		}else{
 			if(meetingDateStr==null && meetingDate!=null){
-				meetingDateStr = DateUtil.convertDateToString(meetingDate);
+				meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
 			}
 		}
 		this.meetingDateStr = meetingDateStr;
@@ -241,7 +231,36 @@ public class MeetingRecord  extends RecordEntity{
 	}
 
     
+	
+	
+	
 
+	public static String dateStrformat(String dateStr){  //2016-05-27 16:00:00   19
+		int len = dateStr.length();
+		if( dateStr.indexOf("/") != -1){
+			dateStr = dateStr.replaceAll("/", "-");
+		}
+	//	String format = "yyyy-MM-dd HH:mm:ss";
+		switch (len) {
+		/*case 8:
+			if(dateStr.indexOf("-")==-1 || dateStr.indexOf("/")==-1 ){
+				format = "yyyyMMdd";
+			}
+			break;*/
+		case 10:
+			dateStr = dateStr + " 00:00:00";
+			break;
+		case 13:
+			dateStr = dateStr + ":00:00";
+			break;
+		case 16:
+			dateStr = dateStr + ":00";
+			break;
+		default:
+			break;
+		}
+		return dateStr;
+	}
 	
 
 }
