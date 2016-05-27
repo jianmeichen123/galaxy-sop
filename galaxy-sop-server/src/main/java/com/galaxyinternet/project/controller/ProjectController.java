@@ -211,6 +211,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		// 获取当前登录人的部门信息
 		Long did = user.getDepartmentId();
 		project.setProjectDepartid(did);
+		project.setUpdatedTime(new Date().getTime());
 		try {
 			project.setCreatedTime(DateUtil.convertStringToDate(
 					project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
