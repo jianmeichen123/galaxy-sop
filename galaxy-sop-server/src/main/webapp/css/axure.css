@@ -142,7 +142,7 @@ table .width_gd{width:12%;}
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
-.pagination-detail{margin:10px 0 0;font-size: 12px;font-family: '宋体';color:#8a97b9;}
+.pagination-detail{font-size: 12px;font-family: '宋体';color:#8a97b9;}
 .pagination {
   display: inline-block;
   padding-left: 0;
@@ -561,7 +561,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .min .tablist .tool{ text-align:center; padding:17px 0 1px; height:175px;border-bottom-right-radius: 6px;}
 .pagebox .min .tablist .tool_radius{border-bottom-right-radius: 6px;}
 .pagebox .min .tablist .tool .ico{ background-image:url(../img/toolico.png)}
-.pagebox .min .tablist .tool a{ position:relative; display:inline-block; *display:inline; zoom:1; width:60px; height:20px; padding:44px 0 0; margin:0 20px 25px; font-size:12px; color:#536379; text-align:center; line-height:20px}
+.pagebox .min .tablist .tool a{ position:relative; display:inline-block; *display:inline; zoom:1; width:60px; height:20px; padding:44px 0 0; margin:0 20px 25px; font-size:12px; color:#536379; text-align:left; line-height:20px}
 .pagebox .min .tablist .tool a b{ position:absolute; left:50%; top:0}
 .pagebox .min .tablist .tool a .b1{ width:39px; height:39px; margin:0 0 0 -20px; background-position:0 0}
 .pagebox .min .tablist .tool a .b2{ width:32px; height:40px; margin:0 0 0 -16px; background-position:0 -49px}
@@ -600,13 +600,14 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .ritmin .breadcrumb{height: 48px;line-height: 44px;font-size:14px; font-weight:normal;}
 .pagebox .ritmin .breadcrumb li{float: left;color:#808e9b; }
 .pagebox .ritmin .breadcrumb li.bottom_align{padding-top:4px; }
-.pagebox .ritmin .breadcrumb li a{color:#808e9b; }
+.pagebox .ritmin .breadcrumb li a{color:#808e9b; text-decoration:none;cursor:default;}
 .pagebox .ritmin .breadcrumb li .bcfirst{font-size:18px;line-height:48px; height:49px;}
 .pagebox .ritmin .breadcrumb li .active{color:#61aae6}
 .pagebox .ritmin .top .tipslink{ float:left; margin:8px 0 0}
 /* .pagebox .ritmin table{ border-radius:6px; margin:0 0 10px}
  */.pagebox .ritmin .tabtable{ margin:0 0 10px}
 .pagebox .ritmin .tabtable table{ border-radius:0 10px 10px 10px; margin:0}
+#upload-btn{ margin-left:80px;}
 /* 首页 */
 .rit .tjh_block{height: 232px;border-bottom-right-radius: 6px;border-bottom-left-radius: 6px;}
 /* 待办任务 */
@@ -717,7 +718,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .ritmin .top .btnbox_f .c1{background-position: 15px 0;padding: 0 0 0 22px;}
 .ritmin .top .btnbox_f .c2{background-position: 15px -30px;padding: 0 0 0 22px;}
 .ritmin .top .btnbox_f .c3{background-position: 15px -60px;padding: 0 2px 0 32px;}
-.ritmin .min_document{ width:100%; background-color: #d6d8e1; border-radius: 5px; padding: 10px 0 0;margin:0 0 10px}
+.ritmin .min_document{ width:100%; background-color: #d6d8e1; border-radius: 5px; padding: 10px 0 0;}
 .ritmin .min_document .top,.ritmin .min_document .bottom{ margin:0 15px 8px;}
 .ritmin .min_document .top{_height:50px;}
 .ritmin .min_document .top .searchall{ float:right; margin:0}
@@ -1306,7 +1307,7 @@ dl dt,dl label{font-weight: normal !important;}
 .block_pad{padding-top: 10px;}
 .form label{width:auto;}
 /*dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}*/
-.time{display:inline-block;width: 130px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 105px -146px !important;}
+.time{display:inline-block;width: 130px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 105px -150px !important;}
 .search_adjust .fml dd{width:250px !important;}
 .search_adjust1 .fml dd{width:180px !important;}
 .search_adjust2 .fml dd{width:160px !important;}
