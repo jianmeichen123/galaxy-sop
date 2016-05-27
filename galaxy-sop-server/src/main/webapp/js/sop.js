@@ -9,7 +9,7 @@ var code = "0";
 var alertid="";
 var projectId;
 function info(id){
-//	projectId = id;
+	projectId = id;
 	var _url = Constants.sopEndpointURL + '/galaxy/ips';
 	alertid=id;
 	
