@@ -90,7 +90,7 @@
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
 				    	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
 				    	<th data-field="scheduleStatus" data-align="center" class="data-input" data-formatter="statusFormatter">排期状态</th>
-				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormatter" data-sortable="true" data-sortorder="desc">上次过会时间</th>
+				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormat" data-sortable="true" data-sortorder="desc">上次过会时间</th>
 				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
 				    	<th data-field="meetingRate" data-align="center" class="data-input" data-formatter="rateFormatter" data-sortable="true" data-sortOrder="desc">过会率</th>
@@ -165,6 +165,10 @@
 		}else{
 			return "还未过会";
 		}
+	}
+	
+	function meetingDateFormat(value){
+		return value==null||value==''||value=='-'||value==undefined ? ' ' : new Date(value).format("yyyy-MM-dd"); 
 	}
 	
 	function rateFormatter(value,row,index){

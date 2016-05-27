@@ -375,13 +375,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		User user = (User) getUserFromSession(request);
 		
 		Direction direction = Direction.DESC;
-		String property = "created_time";
+		String property = "updated_time";
 		if(!StringUtils.isEmpty(project.getProperty())){
 			if("desc".equals(project.getDirection())){
 				direction = Direction.DESC;
 			}else{
 				direction = Direction.ASC;
 			}
+		}else{
+			property = "created_time";
 		}
 		
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
@@ -526,13 +528,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		Direction direction = Direction.DESC;
-		String property = "created_time";
+		String property = "updated_time";
 		if(!StringUtils.isEmpty(project.getProperty())){
 			if("desc".equals(project.getDirection())){
 				direction = Direction.DESC;
 			}else{
 				direction = Direction.ASC;
 			}
+		}else{
+			property = "created_time";
 		}
 		try {
 			if (project.getProjectProgress() != null
