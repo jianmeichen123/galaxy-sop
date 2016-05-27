@@ -57,7 +57,7 @@ public class InterviewRecord extends BaseEntity{
 			}
 		}else{
 			if(viewDateStr==null && viewDate!=null){
-				viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
+				viewDateStr = DateUtil.convertDateToString(viewDate);
 			}
 		}
         return viewDate;
@@ -102,14 +102,14 @@ public class InterviewRecord extends BaseEntity{
     
     public String getViewDateStr() {
     	if(viewDateStr==null && viewDate!=null){
-			viewDateStr = DateUtil.convertDateToString(viewDate);
+			viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
 		}
 		return viewDateStr;
 	}
 
 	public void setViewDateStr(String viewDateStr){
 		if(viewDateStr==null && viewDate!=null){
-			viewDateStr = DateUtil.convertDateToString(viewDate);
+			viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
 		}
 		this.viewDateStr = viewDateStr;
 	}
