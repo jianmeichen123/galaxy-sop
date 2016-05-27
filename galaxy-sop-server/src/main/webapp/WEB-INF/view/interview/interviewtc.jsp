@@ -41,7 +41,7 @@
         <dl class="fmdl clearfix"> 
             <dt>访谈日期：</dt>
             <dd>
-            	<input type="text" class="datetimepickerHour txt time" readonly  id="viewDate" name ="viewDate" style="height:23px;"  
+            	<input type="text" class="datetimepickerHour txt time" readonly  id="viewDate" name ="viewDate" style="height:23px;width:150px;"  
             	valType="required" msg="<font color=red>*</font>访谈日期不能为空"  />
             </dd>
         </dl>

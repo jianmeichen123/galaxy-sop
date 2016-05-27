@@ -645,16 +645,17 @@ function getInterViewCondition(hasProid,projectId,
 		layer.msg("项目不能为空");
 		return false;
 	}
-	if(viewDateStr == null ||  viewDateStr == ""){
+	/*if(viewDateStr == null ||  viewDateStr == ""){
 		layer.msg("访谈日期不能为空");
 		return false;
-	}else{
+	}
+	else{
 		var clock = getNowDay("-");
 		if((new Date(viewDateStr)) > (new Date(clock))){
 			layer.msg("访谈日期不能超过今天");
 			return false;
          }
-	 }
+	 }*/
 	
 	if(viewTarget == null ||  viewTarget == ""){
 		layer.msg("对象不能为空");
@@ -741,7 +742,7 @@ function getMeetCondition(hasProid,projectId,
 		return false;
 	}
 	
-	if(meetingDateStr == null ||  meetingDateStr == ""){
+	/*if(meetingDateStr == null ||  meetingDateStr == ""){
 		layer.msg("会议日期不能为空");
 		return false;
 	}else{
@@ -750,7 +751,7 @@ function getMeetCondition(hasProid,projectId,
 			layer.msg("会议日期不能超过今天");
 			return false;
          }
-	 }
+	 }*/
 	
 	if(meetingTypeVal == null ||  meetingTypeVal == ""){
 		layer.msg("类型不能为空");
