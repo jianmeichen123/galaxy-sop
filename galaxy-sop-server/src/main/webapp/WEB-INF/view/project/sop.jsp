@@ -55,6 +55,13 @@
 			<!-- 项目基本信息 -->
 			<div class="block block2 show" data-tab="con">
 				<dl>
+              		<dt>商业计划</dt>
+               		<dd id="business_plan_dd" class="fctbox">
+<!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
+<!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
+              		</dd>
+            	</dl>
+				<dl>
 					<dt>项目概述</dt>
 					<dd class="describe" id="prodescribe_show"></dd>
 					<dd class="fctbox">
@@ -638,9 +645,29 @@
  		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
  		$("#analysis_show").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
  		
+ 		sendGetRequest(platformUrl.getBusinessPlanFile+"/"+alertid,null,function(data){
+			var uploadOperator;
+			var html;
+			if(data.result.status=="OK"){
+				//为空时候显示
+				if(data.result.errorCode=="null"){				
+					html = "";
+				}else{
+					html =  "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+				}
+				$("#business_plan_dd").html(html);
+			}else{
+				
+			}
+		});
+ 		
+ 		
  		
  		
  	});
+ 	function downloadBusinessPlan(id){
+		window.location.href=platformUrl.downLoadFile+'/'+id ;
+	}
  	function replaceStr(str){
  		if(str){
  			var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
