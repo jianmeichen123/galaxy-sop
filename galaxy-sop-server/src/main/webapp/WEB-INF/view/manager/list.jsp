@@ -120,7 +120,7 @@ function setCheckLine(data){
 			        	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
 			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
 			        	<th data-field="projectContribution" data-align="center" class="data-input">投资金额（万）</th>
-			        	<th data-field="createDate" data-align="center" class="data-input">创建日期</th>
+			        	<th data-field="createDate" data-align="center" class="data-input" data-sortable="true">创建日期</th>
 			        	<th data-field="updateDate" data-align="center" class="data-input">最后修改时间</th>
  					</tr>	
  				</thead>
@@ -208,7 +208,7 @@ function setCheckLine(data){
 					progress = progress.replace(":","_");
 					var index = progress.substr(progress.length-1,1);
 					
-					for(var i = 1; i<10; i++){
+					for(var i = 1; i<11; i++){
 						if(i > index){
 							//当前阶段之后的tab变为不可用
 							$("#projectProgress_" + i).addClass("disabled");

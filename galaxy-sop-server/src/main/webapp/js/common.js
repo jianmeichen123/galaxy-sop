@@ -529,7 +529,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 	});
 	uploader.init();
 }
-window.setInterval("totalUrgent(),totalMission()",10000); 
+
 //紧急任务
 function totalUrgent() {
 	sendGetRequest(platformUrl.totalUrgent, null, totalUrgentCallback);
@@ -542,7 +542,7 @@ function totalUrgentCallback(data) {
 	var total = 0 ;
 	if (data.total != null) {
 		total =data.total;
-	}
+	}	
 	$('.bubble').html(total);
 }
 
@@ -555,13 +555,8 @@ function totalMissionCallback(data) {
 }
 
 function fillHeaderdata() {
-	    totalUrgent();
+	   // totalUrgent();
 	    totalMission();
-	/*setInterval(function() {
-		totalUrgent();
-	    totalMission();
-
-	}, 300000);*/
 }
 
 

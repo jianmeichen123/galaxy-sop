@@ -120,10 +120,18 @@
     var menu='${pageType}';
     var meetingType="";
     if(menu == '0'){
+    	if(roleIdList.indexOf("19") > 0){
+        	$("#pqcSubmit").attr("style","display:none");
+        	flag =false;
+        }
     	createMenus(18);
     	meetingType="meetingType:3";
     }
     if(menu == '1'){
+    	if(roleIdList.indexOf("19") > 0){
+        	$("#pqcSubmit").attr("style","display:none");
+        	flag =false;
+        }
     	meetingType="meetingType:4";
     	createMenus(19);
     }

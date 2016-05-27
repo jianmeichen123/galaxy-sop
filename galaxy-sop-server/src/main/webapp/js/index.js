@@ -186,6 +186,7 @@
 	}
 
 	function ProjectVoteWillCallback(data){
+		
 		//根据id判断类型（组装json数据）
 		var list = data.entityList;
 		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
@@ -193,14 +194,27 @@
 			var i=0;
 			$(list).each(function(){
 				 var temp = $(this)[0];
-				 i=i+1;
-				 var tr='<tr>'+
-				 '<td>'+i+'</td>'+
-				 '<td title="'+ getValue(temp.projectName)+'">' + '<a class="cutstr blue" href="javascript:void(0)" onclick="info(' + temp.projectId + ')">'+ getValue(temp.projectName)+ '</a>' + '</td>'+
-				 '<td>'+ getDateValue(temp.meetingDate)+'</td>'+
-				 '<td>'+getIntegerValue(temp.meetingCount)+'</td>'+
-				' </tr>'; 
-			 tbodyList.append(tr);
+				 
+				 	var _td;
+					sendGetRequest(platformUrl.judgeRole + "/" + temp.projectId, null,function(data){
+						if(data.result.status!="OK"){
+							return false;
+						}
+						if(data.result.message=="show"){
+							_td = '<td title="'+ getValue(temp.projectName)+'">' + '<a class="cutstr blue" href="javascript:void(0)" onclick="info(' + temp.projectId + ')">'+ getValue(temp.projectName)+ '</a>' + '</td>';
+						}else{
+							_td = '<td class="cutstr" title="'+ getValue(temp.projectName)+'">' + getValue(temp.projectName) + '</td>';
+						}
+						
+						 i=i+1;
+						 var tr='<tr>'+
+						 '<td>'+i+'</td>'+
+						 _td + 
+						 '<td>'+ getDateValue(temp.meetingDate)+'</td>'+
+						 '<td>'+getIntegerValue(temp.meetingCount)+'</td>'+
+						' </tr>'; 
+						 tbodyList.append(tr);
+					});
 			  });
 			
 			if(list.length<3){
@@ -216,9 +230,19 @@
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}
+		
+	
+		
+		
+		
 		}
 
 	function top5ProjectMeetingCallback(data) {
+		
+		
+		
+		
+		
 		var list = data.entityList;
 		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#tlbody"); 
@@ -228,14 +252,26 @@
 				 var templ = $(this)[0];
 				 i=i+1;
 				 
-				 
-				 var tr='<tr>'+
-					 '<td>'+i+'</td>'+
-					 '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>'+
-					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
-					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
-					' </tr>'; 
-				 tbodyList.append(tr);
+				 var _td;
+					sendGetRequest(platformUrl.judgeRole + "/" + templ.projectId, null,function(data){
+						if(data.result.status!="OK"){
+							return false;
+						}
+						if(data.result.message=="show"){
+							_td = '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>';
+						}else{
+							_td = '<td  title="'+ getValue(templ.projectName)+'">'+ getValue(templ.projectName) +'</td>';
+						}
+						
+						var tr='<tr>'+
+						 '<td>'+i+'</td>'+
+						 _td +
+						 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
+						 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
+						' </tr>'; 
+					 tbodyList.append(tr);
+						
+					});
 			  });
 			if(list.length<3){
 				$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
