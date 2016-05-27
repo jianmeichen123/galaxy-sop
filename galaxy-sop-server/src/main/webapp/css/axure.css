@@ -582,7 +582,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .rit .top_rit_executive{padding:0;}
 .pagebox .rit .top .sj{ width:22px; height:18px; position:absolute; right:0; top:0}
 .pagebox .rit .top .tody{ margin:0 0 24px 18px; padding:0 0 0 74px; height:56px; background-position:0 -30px}
-.pagebox .rit .top .tody .time{ line-height:36px; font-size:24px; color:#60aae6}
+.pagebox .rit .top .tody .time{ line-height:36px; font-size:24px; color:#60aae6; background-position: 105px 150px !important;}
 .pagebox .rit .top .tody .date{ line-height:20px; font-size:12px; color:#c9cbcf; font-family:"宋体"}
 .pagebox .rit .top .link{ line-height:20px; display:block; margin:0 14px 5px; position:relative; padding:0 0 0 16px; font-size:12px; color:#aaaaaa; font-family:"宋体";overflow: hidden;white-space: nowrap;text-overflow: ellipsis}
 .pagebox .rit .top .link b{ position:absolute; width:8px; height:8px; border-radius:8px; left:0; top:50%; margin:-4px 0 0}
