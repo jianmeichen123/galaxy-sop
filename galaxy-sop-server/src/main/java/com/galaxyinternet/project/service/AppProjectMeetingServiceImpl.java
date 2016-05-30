@@ -52,7 +52,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 		}
 		/* 保存会议的信息至数据库 */
 		meetingRecord.setFileId(fid);
-		meetingRecordDao.insert(meetingRecord);
+		Long meetingId = meetingRecordDao.insert(meetingRecord);
 		
 		String currProjectProgress = project.getProjectProgress().trim(); //当前项目阶段
 		String currMeetingType = meetingRecord.getMeetingType().trim(); //当前会议类型
@@ -263,7 +263,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 				meetingSchedulingDao.updateBySelective(queryScheduling); 
 		    }
 		}
-		return Long.valueOf(project.getId());
+		return meetingId;
 	}
 
 	@Transactional
