@@ -145,6 +145,10 @@
 				<table id="ideaProgress_3_table"  data-id-field="id"
 					data-url="<%=path%>/galaxy/idea/queryCyMeet"  data-page-list="[2,5,10]"
 					data-toolbar="#ideaProgress_3_params">
+					<colgroup >
+						<col style="width:35%;" /> 
+						<col style="width:65%;" /> 
+					</colgroup>
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
@@ -172,10 +176,11 @@
 					data-page-list="[3,5,10]" data-toolbar="#ideaProgress_log_params">
 					<thead>
 						<tr>
-							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
-							<th data-field="uname" data-align="center" >操作者</th>
-							<th data-field="operationType" data-align="center">变更动态</th>
-							<th data-field="operationContent" data-align="center">对象</th>
+							<th data-field="createdTime" data-align="center" data-formatter="datetimeFormatter">操作时间</th>
+							<th data-field="uname" data-align="center" >操作人</th>
+							<th data-field="operationContent" data-align="center">变更动态</th>
+							<!-- <th data-field="operationType" data-align="center">变更动态</th>
+							<th data-field="operationContent" data-align="center">对象</th> -->
 							<!--  <th data-field="projectName" data-align="center" >创意</th>-->
 							<th data-field="sopstage" data-align="center" >进度</th>
 						</tr>

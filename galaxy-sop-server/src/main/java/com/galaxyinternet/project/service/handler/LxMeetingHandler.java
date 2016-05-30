@@ -115,8 +115,10 @@ public class LxMeetingHandler implements Handler {
 		
 		if((q.getResult().equals(DictEnum.meetingResult.待定.getCode()))){
 			tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
-			tm.setReserveTimeStart(null);
+			tm.setReserveTimeStartStr(null);
+			tm.setReserveTimeEndStr(null);
 			tm.setReserveTimeEnd(null);
+			tm.setReserveTimeStart(null);
 		}
 		
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
@@ -130,7 +132,7 @@ public class LxMeetingHandler implements Handler {
 			tm.setMeetingDate(q.getParseDate() == null ? new Date() : q.getParseDate());
 			tm.setMeetingCount(tm.getMeetingCount() + 1);
 			tm.setUpdatedTime((new Date()).getTime());
-			meetingSchedulingDao.updateBySelective(tm);
+			meetingSchedulingDao.updateById(tm);
 		}
 		return new SopResult(Status.OK,null,"添加立项会议记录要成功!",UrlNumber.four);
 	}
