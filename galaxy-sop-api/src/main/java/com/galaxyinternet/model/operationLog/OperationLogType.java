@@ -121,7 +121,7 @@ public enum OperationLogType {
 	CY_EDIT_PRO("/galaxy/idea/editProjectName", OperType.UPDATE.getOperationType() , "项目",SopStage.CY_PRO.getStageName()),
 
 	//认领创意
-	CY_CLAIMT_IDEA("/galaxy/idea/updateIdea", OperType.UPDATE.getOperationType() , "创意",SopStage.CY_DRL.getStageName()),	
+	CY_CLAIMT_IDEA("/galaxy/idea/updateIdea", OperType.UPDATE.getOperationType() , "创意",SopStage.CY_DY.getStageName()),	
 	//添加创意
 	CY_ADD_IDEA("/galaxy/idea/addIdea/"+UrlNumber.one, OperType.ADD.getOperationType() , "创意",SopStage.CY_INFO.getStageName()),
 	//待认领阶段编辑创意
