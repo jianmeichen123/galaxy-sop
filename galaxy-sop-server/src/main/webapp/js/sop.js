@@ -1268,7 +1268,7 @@ function ftcolumnFormat(value, row, index){
 	}
 	
 	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
-				"访谈日期："+row.viewDateStr+
+				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
 			"</div>" ;

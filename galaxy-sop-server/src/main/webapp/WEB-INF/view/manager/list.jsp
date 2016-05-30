@@ -630,7 +630,7 @@ function setCheckLine(data){
 			fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 		}
 		rc = "<div style=\"text-align:left;margin-left:20%;\">"+
-					"访谈日期："+row.viewDateStr+
+					"访谈时间："+row.viewDateStr+
 					"</br>访谈对象："+row.viewTarget+
 					"</br>访谈录音："+fileinfo+
 				"</div>" ;
