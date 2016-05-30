@@ -178,7 +178,7 @@ var fileGrid = {
 			if(e.target.id=="sopfile"){
 				keyvalue=row.id;
 			}else if(e.target.id=="vsopfile"){
-				keyvalue=row.voucherId; 	
+				keyvalue=row.voucherId + "?type=voucher"; 	
 			}else{
 				keyvalue="";
 			}

@@ -106,7 +106,7 @@ var fileGrid = {
 			}, {
 			    field: 'voucherFile',
 			    title: '签署凭证',
-			    events : fileGrid.updateEvents,
+			    events : fileGrid.operatorVEvents,
 			    formatter: fileGrid.operateVFormatter 	
 			  }, {
 				field : 'updatedDate',
@@ -223,8 +223,10 @@ var fileGrid = {
     				_getLocalFormParam : uploadFormFuc
     		};
     		win.init(formData);
-        },
-        //上传签署凭证文档
+        }
+	},
+	operatorVEvents : {
+		//上传签署凭证文档
         'click .voucherfileuploadlink' : function(e, value, row, index){
         	formData = {
         			_fileKey : row.fileKey,
@@ -257,6 +259,23 @@ var fileGrid = {
     				}
     		};
     		win.init(formData);
+        },
+        'click .filedownloadlink': function (e, value, row, index) {
+//			data = {
+//					fileKey : row.fileKey,
+//					fileName : row.fileName + "." + row.fileSuffix
+//			};
+			
+			layer.msg('正在下载，请稍后...',{time:2000});
+			var keyvalue;
+			if(e.target.id=="sopfile"){
+				keyvalue=row.id;
+			}else if(e.target.id=="vsopfile"){
+				keyvalue=row.voucherId + "?type=voucher"; 	
+			}else{
+				keyvalue="";
+			}
+			window.location.href=platformUrl.downLoadFile+'/'+keyvalue ;
         }
 	},
 	operateVFormatter : function(value, row, index){
