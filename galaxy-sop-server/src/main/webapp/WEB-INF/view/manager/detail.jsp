@@ -351,6 +351,7 @@
 		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
 		var newBox = document.createElement("span");  
 		var btn = document.createElement("a");  
+		var scrollTop=$(document).scrollTop();
 		newBox.innerHTML = text.substring(0,300);  
 		btn.innerHTML = text.length >300 ? "查看详情" : "";  
 		btn.href = "#"; 
@@ -359,9 +360,10 @@
 		if (btn.innerHTML == "查看详情"){  
 		btn.innerHTML = "收起"; 
 		newBox.innerHTML = text;  
+		$(document).scrollTop()=scrollTop;
 		}else{  
 		btn.innerHTML = "查看详情";  
-		newBox.innerHTML = text.substring(0,300);  
+		newBox.innerHTML = text.substring(0,300)+"...";  
 		}  
 		}  
 		box.innerHTML = "";  
@@ -424,7 +426,7 @@
 		btn.onclick = function(){  
 		if (btn.innerHTML == "查看详情"){  
 		btn.innerHTML = "收起"; 
-		newBox.innerHTML = text;  
+		newBox.innerHTML = text; 
 		}else{  
 		btn.innerHTML = "查看详情";  
 		newBox.innerHTML = text.substring(0,300);  
