@@ -479,6 +479,11 @@ var platformUrl = {
 	*/
 	ideaUpdateIdea:Constants.sopEndpointURL+ "/galaxy/idea/giveUp",
 	/**
+	 * 创意 创意认领创意
+	*/
+	ideaClimat:Constants.sopEndpointURL+ "/galaxy/idea/updateIdea",
+	
+	/**
 	 * 创意 编辑项目名称
 	*/
 	ideaEditProjectName: Constants.sopEndpointURL+ "/galaxy/idea/editProjectName",

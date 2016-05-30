@@ -731,7 +731,7 @@
   }*/
   function claimFun(id){
 	  if(id != ''){
-			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" :id,"ideaProgress":"ideaProgress:2"}, function(data){
+			sendPostRequestByJsonObj(platformUrl.ideaClimat, {"id" :id,"ideaProgress":"ideaProgress:2"}, function(data){
 				
 				if(data.result.status == 'OK')
 				{
