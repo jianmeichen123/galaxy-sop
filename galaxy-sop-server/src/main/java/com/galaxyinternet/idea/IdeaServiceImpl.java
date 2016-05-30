@@ -209,6 +209,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		project.setProjectName(projectName);
 		project.setCreatedTime(new Date().getTime());
 		project.setCreateUid(idea.getClaimantUid());
+		project.setCurrencyUnit(0);
 		if(user != null)
 		{
 			project.setCreateUname(user.getRealName());
