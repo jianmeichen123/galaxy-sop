@@ -119,8 +119,10 @@ public class SureMeetingHandler implements Handler {
 		
 		if((q.getResult().equals(DictEnum.meetingResult.待定.getCode()))){
 			tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
-			tm.setReserveTimeStart(null);
+			tm.setReserveTimeStartStr(null);
+			tm.setReserveTimeEndStr(null);
 			tm.setReserveTimeEnd(null);
+			tm.setReserveTimeStart(null);
 		}
 		
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){

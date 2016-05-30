@@ -100,13 +100,15 @@ public class CeoMeetingHandler implements Handler {
 		}
 		if((q.getResult().equals(DictEnum.meetingResult.待定.getCode()))){
 			tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
-			tm.setReserveTimeStart(null);
+			tm.setReserveTimeStartStr(null);
+			tm.setReserveTimeEndStr(null);
 			tm.setReserveTimeEnd(null);
+			tm.setReserveTimeStart(null);
 		}
 		tm.setMeetingDate(new Date());
 		tm.setMeetingCount(tm.getMeetingCount() + 1);
 		tm.setUpdatedTime((new Date()).getTime());
-		meetingSchedulingDao.updateBySelective(tm);
+		meetingSchedulingDao.updateById(tm);
 		return new SopResult(Status.OK,null,"添加CEO评审记录成功!",UrlNumber.three);
 	}
 	
