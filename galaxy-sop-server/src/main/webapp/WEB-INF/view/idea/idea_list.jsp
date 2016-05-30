@@ -41,7 +41,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>全部创意</h2>
+    	<h2 style="margin-top:-20px;">全部创意</h2>
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
