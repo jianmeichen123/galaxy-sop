@@ -144,7 +144,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 <dl>
                 	<dt><h3 class="ico t3">数据报表</h3></dt>
                     <dd class="zzbox">
-                    	<div id="histogram" class="histogram"></div>
+                    	<div id="histogram" class="histogram" style="height:160px"></div>
                     </dd>
                   <!--    <dd class="clearfix">
                     	<a href="<%=reportEndpoint %>/galaxy/report/dataBriefing" class="more null">more</a>
@@ -397,12 +397,13 @@ var chartOptions={
         //categories: ['朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
         tickWidth:0,
     	labels: {
-            //rotation: -45,
+            rotation:-45,
             //align: 'right',
-            staggerLines:2,
+            //staggerLines:2,
             style: {
-                fontSize: '13px',
+                fontSize: '12px',
                 fontFamily: 'Verdana, sans-serif'
+                //writingMode:'tb-rl'   //文字竖排样式,
             },
         }
     },
