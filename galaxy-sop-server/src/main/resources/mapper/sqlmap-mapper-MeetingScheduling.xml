@@ -171,8 +171,8 @@
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
 			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
-			<if test="reserveTimeStart != null" > reserve_time_start = #{reserveTimeStart}, </if>
-			<if test="reserveTimeEnd != null" > reserve_time_end = #{reserveTimeEnd}, </if>
+			reserve_time_start = #{reserveTimeStart},
+			reserve_time_end = #{reserveTimeEnd},
 			
 			<if test="lastTime != null" > last_time = #{lastTime}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
