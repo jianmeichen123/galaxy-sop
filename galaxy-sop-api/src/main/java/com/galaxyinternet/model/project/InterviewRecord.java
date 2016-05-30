@@ -44,44 +44,40 @@ public class InterviewRecord extends BaseEntity{
 		this.fileId = fileId;
 	}
 
-	public Date getViewDate() {
-		if(viewDate==null && viewDateStr!=null && viewDateStr.trim().length() == 10 ){
+	
+	
+	public Date getViewDate() { //2016-05-27 16:00:00   19
+		if(viewDate==null && viewDateStr!=null){
+			viewDateStr = dateStrformat(viewDateStr);
 			try {
-				if( viewDateStr.indexOf("/") != -1){
-					viewDate = DateUtil.convertStringToDate(this.viewDateStr.replaceAll("/", "-"));
-	    		}else{
-	    			viewDate = DateUtil.convertStringToDate(this.viewDateStr);
-	    		}
+				viewDate = DateUtil.convertStringtoD(viewDateStr);
 			} catch (ParseException e) {
 				viewDate = null;
 			}
 		}else{
 			if(viewDateStr==null && viewDate!=null){
-				viewDateStr = DateUtil.convertDateToString(viewDate);
+				viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
 			}
 		}
         return viewDate;
     }
-
+	
     public void setViewDate(Date viewDate) {
-    	if(viewDate==null && viewDateStr!=null && viewDateStr.trim().length() == 10 ){
+    	if(viewDate==null && viewDateStr!=null){
+    		viewDateStr = dateStrformat(viewDateStr);
 			try {
-				if( viewDateStr.indexOf("/") != -1){
-					viewDate = DateUtil.convertStringToDate(viewDateStr.replaceAll("/", "-"));
-	    		}else{
-	    			viewDate = DateUtil.convertStringToDate(viewDateStr);
-	    		}
+				viewDate = DateUtil.convertStringtoD(this.viewDateStr);
 			} catch (ParseException e) {
 				viewDate = null;
 			}
 		}else{
 			if(viewDateStr==null && viewDate!=null){
-				viewDateStr = DateUtil.convertDateToString(viewDate);
+				viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
 			}
 		}
-
         this.viewDate = viewDate;
     }
+    
 
     public String getViewTarget() {
         return viewTarget;
@@ -100,16 +96,17 @@ public class InterviewRecord extends BaseEntity{
     }
 
     
+    
     public String getViewDateStr() {
     	if(viewDateStr==null && viewDate!=null){
-			viewDateStr = DateUtil.convertDateToString(viewDate);
+			viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
 		}
 		return viewDateStr;
 	}
 
 	public void setViewDateStr(String viewDateStr){
 		if(viewDateStr==null && viewDate!=null){
-			viewDateStr = DateUtil.convertDateToString(viewDate);
+			viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
 		}
 		this.viewDateStr = viewDateStr;
 	}
@@ -138,7 +135,32 @@ public class InterviewRecord extends BaseEntity{
 		this.viewNotesText = viewNotesText;
 	}
 
-	
+	public static String dateStrformat(String dateStr){  //2016-05-27 16:00:00   19
+		int len = dateStr.length();
+		if( dateStr.indexOf("/") != -1){
+			dateStr = dateStr.replaceAll("/", "-");
+		}
+	//	String format = "yyyy-MM-dd HH:mm:ss";
+		switch (len) {
+		/*case 8:
+			if(dateStr.indexOf("-")==-1 || dateStr.indexOf("/")==-1 ){
+				format = "yyyyMMdd";
+			}
+			break;*/
+		case 10:
+			dateStr = dateStr + " 00:00:00";
+			break;
+		case 13:
+			dateStr = dateStr + ":00:00";
+			break;
+		case 16:
+			dateStr = dateStr + ":00";
+			break;
+		default:
+			break;
+		}
+		return dateStr;
+	}
 	
 	
 }
