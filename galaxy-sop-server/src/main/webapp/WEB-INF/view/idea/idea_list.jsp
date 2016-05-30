@@ -134,10 +134,9 @@
 		<input type="hidden" name="projectId">
 		<input type="hidden" name="projectProgress">
 
-		<h2></h2>
 
 		<div class="fmdl clearfix">
-			<dt>可行性报告：</dt>
+			<dt style="width:84px;text-align:right;">可行性报告：</dt>
 			<dd>
 				<input type="text" name="fileName" class="txt disabled" />
 			</dd>
@@ -147,7 +146,7 @@
 		</div>
 
 		<dl class="fmdl clearfix">
-			<dt>报告类型：</dt>
+			<dt style="width:84px;text-align:right;">报告类型：</dt>
 			<dd>
 				<select id="fileType" name="fileType" disabled="disabled" class="disabled">
 					<option value="">全部</option>
