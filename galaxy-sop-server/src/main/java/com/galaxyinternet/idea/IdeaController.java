@@ -349,6 +349,12 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		return resp;
 	}
+	
+	@RequestMapping(value = "/editnotes",method = RequestMethod.GET)
+	public String editnotes(HttpServletRequest request)
+	{
+		return "idea/stage/notesEdit";
+	}
 	/**
 	 * 弹出页面
 	 */

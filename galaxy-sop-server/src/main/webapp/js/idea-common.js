@@ -525,7 +525,7 @@
 				return;
 			}else if(data.result.status == "OK"){
 				idea = data.entity;
-				$("#data_table").bootstrapTable('refresh');
+				$("#data-table").bootstrapTable('refresh');
 				$("#powindow,#popbg").remove();
 				showIdeaDetail(ideaId);
 			}
@@ -872,4 +872,61 @@ function setGiveUpInfo(abandoned){
        
   
   
-  
+function formatMeetNote(value,row,index){
+	var str=delHtmlTag($.trim(value))
+	var len=0;
+	if(str!="" && typeof(str)!="undefined"){
+		len = getLength(str);
+	}
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>200){
+			var subValue =str.substring(0,200); 
+			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow\">"+
+			subValue+
+			"..."+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail(\'"+row.id+"\',\'"+row.uid+"\',\'"+value +"\')\" >详情<a>"+    
+		'</div>';
+			return rc;
+		}else {
+			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail(\'"+row.id+"\',\'"+row.uid+"\',\'"+value +"\')\" >详情<a>";
+		}
+	}else{
+		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail(\'"+row.id+"\',\'"+row.uid+"\',\'"+value +"\')\" >详情<a>"
+	}
+}
+
+function showLogdetail(id,createdId,notes){
+	var _url = Constants.sopEndpointURL+"/galaxy/idea/editnotes";
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			var um=UM.getEditor('notes');
+			um.setContent(notes);
+			if(userId!=createdId){
+				$("#savenotes").hide();
+			}
+			$("#notesid").val(id);
+		}//模版反回成功执行	
+	});
+	return false;
+}
+
+function savenotes(){  
+	var um = UM.getEditor('notes');
+	var notes = um.getContent();
+	var pid=$("#notesid").val();
+	if(pid != ''){
+		sendPostRequestByJsonObj(platformUrl.updateMeet, {"id" : pid, "meetingNotes" : notes}, function(data){
+			if (data.result.status=="OK") {
+				layer.msg("保存成功");
+				$(".meetingtc").find("[data-close='close']").click();
+				$("#ideaProgress_3_table").bootstrapTable('refresh');
+			} else {
+				layer.msg(data.result.message);
+			}
+			
+		});
+	}
+}

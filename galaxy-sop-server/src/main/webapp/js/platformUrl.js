@@ -509,6 +509,8 @@ var platformUrl = {
 	 * 创意 列表
 	 */		
 	authmenu: Constants.sopEndpointURL+"/galaxy/common/pullAuthority",
+	
+	updateMeet: Constants.sopEndpointURL+"/galaxy/project/progress/updatemeet",
 	/**
 	 * 判断角色
 	 */		
