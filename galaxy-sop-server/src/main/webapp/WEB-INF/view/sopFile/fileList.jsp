@@ -46,7 +46,7 @@
             </div>
         </div>	
         <!-- 搜索条件 -->
-        <div class="min_document clearfix"  id="custom-toolbar">
+        <div class="min_document clearfix min_document_da"  id="custom-toolbar">
           <div class="top clearfix search_adjust1 searchall">
             <dl class="fmdl fml  fmdll clearfix">
               <dt >&nbsp;&nbsp;&nbsp;档案来源：</dt>
