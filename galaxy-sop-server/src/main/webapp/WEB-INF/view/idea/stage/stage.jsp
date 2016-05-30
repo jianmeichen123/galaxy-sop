@@ -2,7 +2,28 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+
+<!-- 富文本编辑器 -->
+<link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script>
+	$("#f").attr("href",Constants.sopEndpointURL + "/ueditor/themes/default/css/umeditor.css");
+	$("#a").attr("src",Constants.sopEndpointURL + "/js/plupload.full.min.js");
+	$("#a").attr("src",Constants.sopEndpointURL + "/js/plupload/zh_CN.js");
+	$("#b").attr("src",Constants.sopEndpointURL + "/ueditor/dialogs/map/map.js");
+	$("#c").attr("src",Constants.sopEndpointURL + "/ueditor/umeditor.config.js");
+	$("#d").attr("src",Constants.sopEndpointURL + "/ueditor/umeditor.min.js");
+	$("#e").attr("src",Constants.sopEndpointURL + "/ueditor/lang/zh-cn/zh-cn.js");
+</script>
+
 <div class="creativetc" >
   <a href="javascript:;" data-close="close" class="close null">关闭</a>
           <!-- 创意动态 -->
@@ -128,6 +149,7 @@
 						<tr>
 							<th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
 							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<!-- <th data-field="meetingNotes" data-align="center" data-formatter="formatMeetNote">会议纪要</th>  --> 
 						</tr>
 					</thead>
 				</table>
@@ -163,43 +185,11 @@
               </div>              
            </div>
           </div>  
-      <script type="text/javascript">
-		/* $(function(){
-			getProjectInfo();
-		});
-            
-       function getProjectInfo()
-        {
-	     var url = platformUrl.detailIdea+"/${id}";
-	    sendGetRequest(
-		url,
-		{"id":"${id}"},
-		function(data){
-			if(data.result.status == "Error")
-			{
-				alert(data.result.message );
-				return;
-			}
-			var idea = data.entity;
-			stockTransfer = idea.stockTransfer;
-			
-			$("#ideaDetail dd")
-			.each(function(){
-				var self = $(this);
-				if(self.attr('id') != 'undefined')
-				{
-					var id = self.attr('id');
-					var formatter = self.data('formatter');
-					var text = idea[id]
-					if($.isFunction(window[formatter]))
-					{
-						text = window[formatter].call(window,text);
-					}
-					self.text(text);
-				}
-				
-			});
-		}
-	);
+<script type="text/javascript">
+/* $(function(){
+	getProjectInfo();
+});
+          
 } */
+
 </script>
