@@ -2,9 +2,9 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<div style="width:800px; " class="ritmin">
+<div class="ritmin create_historytc">
 	<div class="clearfix">
-	  <h3>调研</h3>       
+	  <h3 class="idea-title">调研</h3>       
 	</div>
 	<div id="research-history-params">
 		<input type="hidden" name="projectId" value="${id}">
@@ -22,7 +22,7 @@
 		</thead>
 	</table>
 	<div class="clearfix">
-	  <h3>创建立项会</h3>       
+	  <h3 class="idea-title idea-title-create">创建立项会</h3>       
 	</div>
 	<div id="cjlxh-history-params">
 		<input type="hidden" name="projectId" value="${id}">
