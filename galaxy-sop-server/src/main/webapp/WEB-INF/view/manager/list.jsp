@@ -206,7 +206,8 @@ function setCheckLine(data){
 					$("#project_id").val(id);
 					var progress = data.entity.projectProgress;
 					progress = progress.replace(":","_");
-					var index = progress.substr(progress.length-1,1);
+					//var index = progress.substr(progress.length-1,1);
+					var index = progress.substr("projectProgress_".length);
 					
 					for(var i = 1; i<11; i++){
 						if(i > index){
