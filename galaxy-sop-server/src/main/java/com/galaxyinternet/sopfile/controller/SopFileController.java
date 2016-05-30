@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -136,6 +137,16 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		Result result = new Result();
 		try {
 			dicts = dictService.selectByParentCode(parentCode);	
+			if(("fileWorktype").equals(parentCode)){
+				Iterator<Dict> iter = dicts.iterator();
+				while(iter.hasNext()){
+					Dict dict = iter.next();
+					if(DictEnum.fileWorktype.商业计划.getCode().equals(dict.getCode())){
+						iter.remove();
+					}
+				}
+				
+			}
 		}catch(PlatformException e){
 			result.setErrorCode(e.getCode()+"");
 			result.setMessage(e.getMessage());

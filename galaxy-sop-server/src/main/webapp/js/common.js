@@ -529,7 +529,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 	});
 	uploader.init();
 }
-window.setInterval("totalUrgent(),totalMission()",10000); 
+
 //紧急任务
 function totalUrgent() {
 	sendGetRequest(platformUrl.totalUrgent, null, totalUrgentCallback);
@@ -542,7 +542,7 @@ function totalUrgentCallback(data) {
 	var total = 0 ;
 	if (data.total != null) {
 		total =data.total;
-	}
+	}	
 	$('.bubble').html(total);
 }
 
@@ -555,13 +555,8 @@ function totalMissionCallback(data) {
 }
 
 function fillHeaderdata() {
-	    totalUrgent();
+	   // totalUrgent();
 	    totalMission();
-	/*setInterval(function() {
-		totalUrgent();
-	    totalMission();
-
-	}, 300000);*/
 }
 
 
@@ -650,16 +645,17 @@ function getInterViewCondition(hasProid,projectId,
 		layer.msg("项目不能为空");
 		return false;
 	}
-	if(viewDateStr == null ||  viewDateStr == ""){
+	/*if(viewDateStr == null ||  viewDateStr == ""){
 		layer.msg("访谈日期不能为空");
 		return false;
-	}else{
+	}
+	else{
 		var clock = getNowDay("-");
 		if((new Date(viewDateStr)) > (new Date(clock))){
 			layer.msg("访谈日期不能超过今天");
 			return false;
          }
-	 }
+	 }*/
 	
 	if(viewTarget == null ||  viewTarget == ""){
 		layer.msg("对象不能为空");
@@ -746,7 +742,7 @@ function getMeetCondition(hasProid,projectId,
 		return false;
 	}
 	
-	if(meetingDateStr == null ||  meetingDateStr == ""){
+	/*if(meetingDateStr == null ||  meetingDateStr == ""){
 		layer.msg("会议日期不能为空");
 		return false;
 	}else{
@@ -755,7 +751,7 @@ function getMeetCondition(hasProid,projectId,
 			layer.msg("会议日期不能超过今天");
 			return false;
          }
-	 }
+	 }*/
 	
 	if(meetingTypeVal == null ||  meetingTypeVal == ""){
 		layer.msg("类型不能为空");
@@ -803,7 +799,7 @@ function intervierInfoFormat(value, row, index){
 	}
 	
 	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
-				"访谈日期："+row.viewDateStr+
+				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
 			"</div>" ;

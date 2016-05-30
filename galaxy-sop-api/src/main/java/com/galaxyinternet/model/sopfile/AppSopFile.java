@@ -28,9 +28,8 @@ public class AppSopFile extends SopFile {
 	//关联会议Id
 	private Long meetingId;
 	
-	
-	
-	
+	//新增是否是签署类型的文件 ，0：档案文件 ;  1: 签署证明
+	private Integer signFlag = 0;
 	
 	
 	public Long getMeetingId() {
@@ -103,6 +102,16 @@ public class AppSopFile extends SopFile {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public Integer getSignFlag() {
+		return signFlag;
+	}
+
+
+	public void setSignFlag(Integer signFlag) {
+		this.signFlag = signFlag;
 	}
 	
 }

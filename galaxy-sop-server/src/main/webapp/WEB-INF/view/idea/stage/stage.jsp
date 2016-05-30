@@ -142,11 +142,11 @@
               		 <!-- 变更动态 -->
 			<div class="block block_t" data-tab="con" id="ideaProgress_log_con">
 				<div id="ideaProgress_log_params">
-					<input type="hidden" name="projectId" value="${id}">
+					<input type="hidden" name="relatedId" value="${id}">
 					<input type="hidden" name="recordType" value="1">
 				</div>
 				<table id="ideaProgress_log_table"
-					data-url="<%=path%>/galaxy/operatlog/query"
+					data-url="<%=path%>/galaxy/operatlog/queryIdeaProgressLog"
 					data-page-list="[3,5,10]" data-toolbar="#ideaProgress_log_params">
 					<thead>
 						<tr>

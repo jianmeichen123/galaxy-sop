@@ -55,6 +55,13 @@
 			<!-- 项目基本信息 -->
 			<div class="block block2 show" data-tab="con">
 				<dl>
+              		<dt>商业计划</dt>
+               		<dd id="business_plan_dd" class="fctbox">
+<!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
+<!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
+              		</dd>
+            	</dl>
+				<dl>
 					<dt>项目概述</dt>
 					<dd class="describe" id="prodescribe_show"></dd>
 					<dd class="fctbox">
@@ -456,35 +463,121 @@
 	//盒子展开隐藏
 	getTabPersonforP();
 	 getTabShareforP();
-     $(".fctbox a").on("click",function(){
-	var $self = $(this),
-		_name = $self.attr("data-btn"),
-		_parent = $self.parent();
-	//点击收起
-	if(_name=="hide"){
-		//关闭展开层
-		_parent.siblings("dd").hide();
-		$self.hide();
-		$self.siblings().hide();
-		$self.siblings("[data-btn='describe']").show();	
-	}
-	//点击查看详情
-	if(_name=="describe"){
-		_parent.siblings("."+_name).show();		
-		$self.hide();
-		$self.siblings().hide();
-		$self.siblings("[data-btn='hide']").show();
-	}
-	//点击取消保存
-	if(_name=="reset"){
-		_parent.siblings("dd").hide();
-		$self.hide();
-		$self.siblings().hide();
-		$self.siblings("[data-btn='describe'],[data-btn='edit']").show();	
-	}
-	return false;
-});
-
+	 prodescribe_show();
+	 	business_model_show();
+	 	location_show();
+	 	portrait_show();
+	 	analysis_show();
+	 	function prodescribe_show(){
+			var box = document.getElementById("prodescribe_show");  
+			var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+			var newBox = document.createElement("span");  
+			var btn = document.createElement("a");  
+			newBox.innerHTML = text.substring(0,200);  
+			btn.innerHTML = text.length >200 ? "查看详情" : "";  
+			btn.href = "#"; 
+			btn.className="see_detail blue" ;
+			btn.onclick = function(){  
+			if (btn.innerHTML == "查看详情"){  
+			btn.innerHTML = "收起"; 
+			newBox.innerHTML = text;  
+			}else{  
+			btn.innerHTML = "查看详情";  
+			newBox.innerHTML = text.substring(0,200);  
+			}  
+			}  
+			box.innerHTML = "";  
+			box.appendChild(newBox);  
+			box.appendChild(btn);  		
+		}
+		function business_model_show(){
+			var box = document.getElementById("business_model_show");  
+			var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+			var newBox = document.createElement("span");  
+			var btn = document.createElement("a");  
+			newBox.innerHTML = text.substring(0,200);  
+			btn.innerHTML = text.length >200 ? "查看详情" : "";  
+			btn.href = "#"; 
+			btn.className="see_detail blue" ;
+			btn.onclick = function(){  
+			if (btn.innerHTML == "查看详情"){  
+			btn.innerHTML = "收起"; 
+			newBox.innerHTML = text;  
+			}else{  
+			btn.innerHTML = "查看详情";  
+			newBox.innerHTML = text.substring(0,200);  
+			}  
+			}  
+			box.innerHTML = "";  
+			box.appendChild(newBox);  
+			box.appendChild(btn);  		
+		}
+		function portrait_show(){
+			var box = document.getElementById("portrait_show");  
+			var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+			var newBox = document.createElement("span");  
+			var btn = document.createElement("a");  
+			newBox.innerHTML = text.substring(0,200);  
+			btn.innerHTML = text.length >200 ? "查看详情" : "";  
+			btn.href = "#"; 
+			btn.className="see_detail blue" ;
+			btn.onclick = function(){  
+			if (btn.innerHTML == "查看详情"){  
+			btn.innerHTML = "收起"; 
+			newBox.innerHTML = text;  
+			}else{  
+			btn.innerHTML = "查看详情";  
+			newBox.innerHTML = text.substring(0,200);  
+			}  
+			}  
+			box.innerHTML = "";  
+			box.appendChild(newBox);  
+			box.appendChild(btn);  		
+		}
+		function location_show(){
+			var box = document.getElementById("location_show");  
+			var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+			var newBox = document.createElement("span");  
+			var btn = document.createElement("a");  
+			newBox.innerHTML = text.substring(0,200);  
+			btn.innerHTML = text.length >200 ? "查看详情" : "";  
+			btn.href = "#"; 
+			btn.className="see_detail blue" ;
+			btn.onclick = function(){  
+			if (btn.innerHTML == "查看详情"){  
+			btn.innerHTML = "收起"; 
+			newBox.innerHTML = text;  
+			}else{  
+			btn.innerHTML = "查看详情";  
+			newBox.innerHTML = text.substring(0,200);  
+			}  
+			}  
+			box.innerHTML = "";  
+			box.appendChild(newBox);  
+			box.appendChild(btn);  		
+		}
+		function analysis_show(){
+			var box = document.getElementById("analysis_show");  
+			var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+			var newBox = document.createElement("span");  
+			var btn = document.createElement("a");  
+			newBox.innerHTML = text.substring(0,200);  
+			btn.innerHTML = text.length >200 ? "查看详情" : "";  
+			btn.href = "#"; 
+			btn.className="see_detail blue" ;
+			btn.onclick = function(){  
+			if (btn.innerHTML == "查看详情"){  
+			btn.innerHTML = "收起"; 
+			newBox.innerHTML = text;  
+			}else{  
+			btn.innerHTML = "查看详情";  
+			newBox.innerHTML = text.substring(0,200);  
+			}  
+			}  
+			box.innerHTML = "";  
+			box.appendChild(newBox);  
+			box.appendChild(btn);  		
+		} 
  	function getTabPersonforP(){
  		var $table = $('#tablePerson');
  	    $table.bootstrapTable({
@@ -638,9 +731,29 @@
  		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
  		$("#analysis_show").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
  		
+ 		sendGetRequest(platformUrl.getBusinessPlanFile+"/"+alertid,null,function(data){
+			var uploadOperator;
+			var html;
+			if(data.result.status=="OK"){
+				//为空时候显示
+				if(data.result.errorCode=="null"){				
+					html = "";
+				}else{
+					html =  "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+				}
+				$("#business_plan_dd").html(html);
+			}else{
+				
+			}
+		});
+ 		
+ 		
  		
  		
  	});
+ 	function downloadBusinessPlan(id){
+		window.location.href=platformUrl.downLoadFile+'/'+id ;
+	}
  	function replaceStr(str){
  		if(str){
  			var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");

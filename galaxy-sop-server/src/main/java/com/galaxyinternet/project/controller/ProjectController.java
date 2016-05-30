@@ -211,6 +211,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		// 获取当前登录人的部门信息
 		Long did = user.getDepartmentId();
 		project.setProjectDepartid(did);
+		project.setUpdatedTime(new Date().getTime());
 		try {
 			project.setCreatedTime(DateUtil.convertStringToDate(
 					project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
@@ -372,6 +373,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			@RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
+		
+		Direction direction = Direction.DESC;
+		String property = "updated_time";
+		if(!StringUtils.isEmpty(project.getProperty())){
+			if("desc".equals(project.getDirection())){
+				direction = Direction.DESC;
+			}else{
+				direction = Direction.ASC;
+			}
+			property = "created_time";
+		}
+		
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 				.getId());
 		if (project.getProjectProgress() != null
@@ -398,7 +411,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					.queryPageList(
 							project,
 							new PageRequest(project.getPageNum(), project
-									.getPageSize()));
+									.getPageSize(),direction,property));
 			FormatData format = new FormatData();
 			if (!pageProject.getContent().isEmpty()) {
 				format = setFormatData(pageProject.getContent());
@@ -514,14 +527,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		Direction direction = Direction.DESC;
-		String property = "created_time";
+		String property = "updated_time";
 		if(!StringUtils.isEmpty(project.getProperty())){
 			if("desc".equals(project.getDirection())){
 				direction = Direction.DESC;
 			}else{
 				direction = Direction.ASC;
 			}
+			property = "created_time";
 		}
+		
 		try {
 			if (project.getProjectProgress() != null
 					&& project.getProjectProgress().equals("guanbi")) {
@@ -2361,13 +2376,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String sendMailToTZJL(HttpServletRequest request, Integer type,
 			String toAddress, String tzjlName, String projectinfo,
 			String messageInfo, Date meetingTimestart, Date meetingTimeend) {
-		String toAddress1 = "yaxinliu@galaxyinternet.com";
+		toAddress =toAddress+"@galaxyinternet.com";
 		String content = MailTemplateUtils
 				.getContentByTemplate(Constants.MAIL_PQC_CONTENT);
-		String[] to = toAddress1.split(";");
+		String[] to = toAddress.split(";");
 		if (to != null && to.length == 1) {
-			int atIndex = toAddress1.lastIndexOf("@");
-			tzjlName = toAddress1.substring(0, atIndex) + ":<br>您好!";
+			int atIndex = toAddress.lastIndexOf("@");
+			tzjlName = toAddress.substring(0, atIndex) + ":<br>您好!";
 		}
 		if (type == 0) {
 			content = MailTemplateUtils
@@ -2378,7 +2393,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			content = PlaceholderConfigurer.formatText(content, tzjlName,
 					projectinfo, messageInfo, meetingTimestart, meetingTimeend);
 		}
-		boolean success = SimpleMailSender.sendMultiMail(toAddress1, "会议排期通知",
+		boolean success = SimpleMailSender.sendMultiMail(toAddress, "会议排期通知",
 				content.toString());
 
 		if (success) {

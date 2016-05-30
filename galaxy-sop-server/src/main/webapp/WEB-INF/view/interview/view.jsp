@@ -56,7 +56,7 @@
           <div class="bottom searchall clearfix">
           
             <dl class="fmdl fmmr fmdll clearfix">
-              <dt>访谈日期：</dt>
+              <dt>访谈时间：</dt>
               <dd>
               	<!-- <input class="form-control" type="date" id = "startTime" name="startTime"  /> -->
                 <input type="text" class="datepicker txt time" readonly id="startTime" name="startTime" style="height:23px;"/>

@@ -94,6 +94,7 @@ public class TzyxsHandler implements Handler {
 			task.setUpdatedTime(time.getTime());
 			task.setTaskDeadline(time);
 			sopTaskDao.updateTask(task);
+			task.setTaskDeadline(null);
 			
 			//待办任务
 			task.setTaskOrder(SopConstant.NORMAL_STATUS);

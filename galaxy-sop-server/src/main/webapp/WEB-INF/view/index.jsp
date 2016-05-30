@@ -99,7 +99,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     </tbody>
                 </table>
             </dd>
-            <dd class="clearfix">
+            <dd class="clearfix none">
                 <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
 <!--                 <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
             </dd>
@@ -137,7 +137,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                         </table>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
+                    	<a href="<%=path %>/galaxy/soptask" class="more null none">more</a>
                     </dd>
                 </dl>
               
@@ -189,7 +189,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						</dd>
 
 						<dd class="clearfix">
-							<a href="javascript:;" onclick="toCyPage()" class="more null">more</a>
+							<a href="javascript:;" onclick="toCyPage()" class="more null none">more</a>
 							<!--  <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
 						</dd>
 
@@ -262,7 +262,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a href="javascript:;" class="light_gray"><b class="b1 ico null">ico</b>通讯录</a>
                         <a href="javascript:;" class="light_gray"><b class="b2 ico null">ico</b>估值计算</a>
                         <a href="javascript:;" class="light_gray"><b class="b5 ico null">ico</b>发邮件</a>
-                        <a href="javascript:;" class="add ico">&nbsp;</a>
+                        <a href='javascript:void(0);' onfocus="this.blur();" style="text-decoration:none;cursor:default;"></a>
+                       <!--  <a href="javascript:;" class="add ico">&nbsp;</a> -->
                     </dd>
                 </dl>
             </div>

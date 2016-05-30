@@ -34,7 +34,7 @@
 			<li data-tab="nav" id="projectProgress_7"><a href="javascript:;">投决会</a></li>
 			<li data-tab="nav" id="projectProgress_8"><a href="javascript:;">投资协议</a></li>
 			<li data-tab="nav" id="projectProgress_9"><a href="javascript:;">股权交割</a></li>
-			<li data-tab="nav" id="projectProgress_10" class="disabled" disable="disabled" ><a href="javascript:;">投后运营<a/></li>
+			<li data-tab="nav" id="projectProgress_10"><a href="javascript:;">投后运营<a/></li>
 			<li data-tab="nav" id="projectProgress"><a href="javascript:;">操作日志</a></li>
 		</ul>
 		<!-- tab内容 -->
@@ -42,6 +42,13 @@
 		<div class="tabtable_con tabtable_con_close">
 			<!-- 项目基本信息 -->
 			<div class="block block2 show" data-tab="con">
+				<dl>
+              		<dt>商业计划</dt>
+               		<dd id="business_plan_dd" class="fctbox">
+<!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
+<!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
+              		</dd>
+            	</dl>
 				<dl>
 					<dt>项目概述</dt>
 					<dd class="describe" id="prodescribe_show"></dd>
@@ -584,9 +591,28 @@ $(function(){
  		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
  		$("#analysis_show").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
  		
+ 		sendGetRequest(platformUrl.getBusinessPlanFile+"/"+"${projectId}",null,function(data){
+			var uploadOperator;
+			var html;
+			if(data.result.status=="OK"){
+				//为空时候显示
+				if(data.result.errorCode=="null"){				
+					html = "";
+				}else{
+					html =  "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+				}
+				$("#business_plan_dd").html(html);
+			}else{
+				
+			}
+		});
+ 		
  		
  		
  	});
+ 	function downloadBusinessPlan(id){
+		window.location.href=platformUrl.downLoadFile+'/'+id ;
+	}
  	function replaceStr(str){
  		if(str){
  			var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
@@ -1073,7 +1099,7 @@ $(function(){
 			fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 		}
 		rc = "<div style=\"text-align:left;margin-left:20%;\">"+
-					"访谈日期："+row.viewDateStr+
+					"访谈时间："+row.viewDateStr+
 					"</br>访谈对象："+row.viewTarget+
 					"</br>访谈录音："+fileinfo+
 				"</div>" ;

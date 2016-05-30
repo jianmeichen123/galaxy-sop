@@ -49,8 +49,49 @@ public class AppProgress extends PagableRecordEntity {
      * 会议类型
      */
     private String meetCode;
+    /**
+     * 会议结果
+     * @return
+     */
+    private String MeetingResultStr;
+    /**
+     * 项目进程编码
+     * 1、接触访谈; 2、内部评审;3、立项会; 4、投资意向书; 5、尽职调查;6、投资决策会;7、投资协议; 8、投后运营
+     */
+    private String projectProgress;    
+    /**
+     * 项目进程名称
+     */
+    private String projectProgressName ;
     
-    
+  	private String fWorktype;
+  	private String progress;
+  	private String fileStatusDesc;
+  	private String updatedDate;
+  	private String createDate;
+  	private String fSource;
+  	private Map<String,String> params;
+  	private String voucherFileName;
+  	
+   //详情数据转换
+    //数据库转换
+  	private String fileUName;
+  	private String projectName;
+  	private String careerLineName;
+  	
+  	private String voucherFileKey;
+  	
+  	private String Vstatus;
+  	  	
+	//上传文件list集合
+  	private List<AppSopFile> appSopFile;
+  	
+  	/** 新增App上传文件信息的DTO对象  */
+  	private List<AppFileDTO> appFileDtoList;
+  	/** 排期结果  */
+  	private Integer schedulingFlag  ;
+  	
+  	
     public String getMeetCode() {
 		return meetCode;
 	}
@@ -59,13 +100,6 @@ public class AppProgress extends PagableRecordEntity {
 		this.meetCode = meetCode;
 	}
 
-
-	/**
-     * 会议结果
-     * @return
-     */
-    private String MeetingResultStr;
-    
     public String getMeetingResultStr() {
 		return MeetingResultStr;
 	}
@@ -107,9 +141,6 @@ public class AppProgress extends PagableRecordEntity {
 		this.meetResult = meetResult;
 	}
 
-
-
-
 	public String getMeetNotes() {
 		return meetNotes;
 	}
@@ -126,20 +157,6 @@ public class AppProgress extends PagableRecordEntity {
 		this.meetTime = meetTime;
 	}
 
-
-	/**
-     * 项目进程编码
-     * 1、接触访谈; 2、内部评审;3、立项会; 4、投资意向书; 5、尽职调查;6、投资决策会;7、投资协议; 8、投后运营
-     */
-    private String projectProgress;
-    
-    /**
-     * 项目进程名称
-     */
-    private String projectProgressName ;
-
-
-    
     public String getProjectProgressName() {
 		return projectProgressName;
 	}
@@ -149,35 +166,11 @@ public class AppProgress extends PagableRecordEntity {
 	}
 
 
-	//详情数据转换
-    //数据库转换
-  	private String fileUName;
-  	private String projectName;
-  	private String careerLineName;
+	
   	
-  	private String voucherFileKey;
-  	
-  	private String Vstatus;
-  	
-  	//枚举转换
-  	/*private String fType = "";*/
-  	private String fWorktype;
-  	private String progress;
-  	private String fileStatusDesc;
-  	private String updatedDate;
-  	private String createDate;
-  	private String fSource;
-  	private Map<String,String> params;
-  	private String voucherFileName;
-  	
+  
 
-  	
-  	//上传文件list集合
-  	private List<AppSopFile> appSopFile;
-  	
-  	
-  	
-  	public List<AppSopFile> getAppSopFile() {
+	public List<AppSopFile> getAppSopFile() {
 		return appSopFile;
 	}
 
@@ -344,9 +337,6 @@ public class AppProgress extends PagableRecordEntity {
 		this.fileWorktypeNullFilter = fileWorktypeNullFilter;
 	}
 
-	
-
-	
 	public String getIsEdit() {
 		return isEdit;
 	}
@@ -355,7 +345,6 @@ public class AppProgress extends PagableRecordEntity {
 		this.isEdit = isEdit;
 	}
 	
-
 	public String getIsChangeTask() {
 		return isChangeTask;
 	}
@@ -363,7 +352,6 @@ public class AppProgress extends PagableRecordEntity {
 	public void setIsChangeTask(String isChangeTask) {
 		this.isChangeTask = isChangeTask;
 	}
-
 	
 	public String getIsProveEdit() {
 		return isProveEdit;
@@ -389,7 +377,6 @@ public class AppProgress extends PagableRecordEntity {
 		this.endTime = endTime;
 	}
 
-
 	public String getfSource() {
 		return fSource;
 	}
@@ -400,6 +387,22 @@ public class AppProgress extends PagableRecordEntity {
 
 	public void setVstatus(String vstatus) {
 		Vstatus = vstatus;
+	}
+
+	public List<AppFileDTO> getAppFileDtoList() {
+		return appFileDtoList;
+	}
+
+	public void setAppFileDtoList(List<AppFileDTO> appFileDtoList) {
+		this.appFileDtoList = appFileDtoList;
+	}
+
+	public Integer getSchedulingFlag() {
+		return schedulingFlag;
+	}
+
+	public void setSchedulingFlag(Integer schedulingFlag) {
+		this.schedulingFlag = schedulingFlag;
 	}
 	
 }

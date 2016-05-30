@@ -142,6 +142,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			ms.setStatus(DictEnum.meetingResult.否决.getCode());
 		}if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())) {
 			ms.setStatus(DictEnum.meetingResult.通过.getCode());
+			// 更新排期变已通过，无需选择排期
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		}
 		
 		meetingSchedulingDao.updateCountBySelective(ms);
