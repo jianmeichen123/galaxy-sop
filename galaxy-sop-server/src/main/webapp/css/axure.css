@@ -137,8 +137,8 @@ table .width_gd{width:12%;}
   height: 0;
   margin:-2px 2px 0 2px;
   vertical-align: middle;
-  /*border-top: 4px dashed !important;*/
-  /*border-top: 4px solid \9 !important;*/
+ border-bottom: 4px dashed !important;
+ border-bottom: 4px solid \9 !important;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -561,7 +561,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .min .tablist .tool{ text-align:center; padding:17px 0 1px; height:175px;border-bottom-right-radius: 6px;}
 .pagebox .min .tablist .tool_radius{border-bottom-right-radius: 6px;}
 .pagebox .min .tablist .tool .ico{ background-image:url(../img/toolico.png)}
-.pagebox .min .tablist .tool a{ position:relative; display:inline-block; *display:inline; zoom:1; width:60px; height:20px; padding:44px 0 0; margin:0 20px 25px; font-size:12px; color:#536379; text-align:left; line-height:20px}
+.pagebox .min .tablist .tool a{ position:relative; display:inline-block; *display:inline; zoom:1; width:60px; height:20px; padding:44px 0 0; margin:0 20px 25px; font-size:12px; color:#536379; text-align:center; line-height:20px}
 .pagebox .min .tablist .tool a b{ position:absolute; left:50%; top:0}
 .pagebox .min .tablist .tool a .b1{ width:39px; height:39px; margin:0 0 0 -20px; background-position:0 0}
 .pagebox .min .tablist .tool a .b2{ width:32px; height:40px; margin:0 0 0 -16px; background-position:0 -49px}
@@ -1198,9 +1198,10 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 #upload-form h2{font-size: 20px;color:#6b799f;text-align: center;font-weight: normal;margin:0 0 20px 0;}
 #upload-form .fmdl{margin:0 0 10px;}
 /*创意库弹层*/
-.creativetc{padding:0 20px 20px;width:670px;}
+.creativetc{padding:0 20px 20px;width:800px;}
+.creativetc .tabtable_con{height:300px;overflow:auto;}
 .creativetc .pjt_introduct{color:#535762;font-size: 12px;font-family: "宋体";margin: 0 0 20px 0;}
-.creativetc .pjt_introduct h3{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left;}
+.creativetc .pjt_introduct h3,.create_historytc .idea-title{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left;}
 .creativetc .pjt_introduct .pjt_brf{margin:15px 0 0 0;}
 .creativetc .pjt_introduct .pjt_brf li{float: left;margin:0 20px 0 0;line-height: 20px;}
 .creativetc .tablink li{min-width:55px;text-align: center;}
@@ -1211,7 +1212,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .creativetc .block dt,.creativetc .block dd{line-height: 28px;}
 .creativetc .block .top dl{width:30%;height:28px;}
 .creativetc .block dt{width:86px;color:#3e4351;text-align: right;}
-.creativetc .block .bottom dd{width:530px;float: left;}
+.creativetc .block .bottom dd{width:660px;float: left;}
 .creativetc .block button{margin:10px 0 0 15px;cursor: pointer;}
 .creativetc .block_t{padding: 10px;}
 .creativetc .btnbox_f1 button{display: inline-block;margin:0 0 10px 5px;}
@@ -1221,6 +1222,9 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .abandon dt,.abandon dd{float: left;}
 .abandon dd textarea{width:265px;margin:0 0 10px 10px;height: 100px;padding: 5px;}
 .creativetc .give_up dt,.creativetc .give_up dd{color:#ff0000;}
+.create_historytc .bars{display:none;}
+.create_historytc .idea-title-create{margin-top:10px;}
+.create_historytc{width:800px;height:350px;overflow:auto;}
 /*编辑项目名称*/
 .edit_nametc{width:300px;}
 .edit_nametc .top .fmdl{margin: 0 0 8px 0;overflow: hidden;}

@@ -64,42 +64,42 @@
 				<dl>
 					<dt>项目概述</dt>
 					<dd class="describe" id="prodescribe_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;"  data-btn="hide" style="display:none" class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<dl>
 					<dt>商业模式</dt>
 					<dd class="describe" id="business_model_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>公司定位</dt>
 					<dd class="describe" id="location_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>用户分析</dt>
 					<dd class="describe" id="portrait_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>竞情分析</dt>
 					<dd class="describe" id="analysis_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<!-- 
 				<dl>
@@ -124,11 +124,11 @@
 						</div>
 
 					</dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;" data-btn="hide" style="display: none"
 							class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				
 				<dl>
@@ -141,11 +141,11 @@
 							</table>
 						</div>
 					</dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;" data-btn="hide" style="display: none"
 							class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<!-- 
 				<dl class="no_border">

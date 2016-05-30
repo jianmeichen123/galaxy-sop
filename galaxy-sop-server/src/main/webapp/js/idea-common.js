@@ -860,7 +860,7 @@ function setGiveUpInfo(abandoned){
 		 $.each(abandoned.giveup, function (i, value) {
 			 var addiv='<div class="give_up clearfix">'+
 			  '<div class="top clearfix"> <dl><dt>放弃人：</dt> <dd>'+value.abUsername+'</dd></dl>'+
-			  '<dt>放弃时间：</dt> <dd>'+value.abDatetimeToString+'</dd></dl></div>'+
+			  '<dl><dt>放弃时间：</dt> <dd>'+value.abDatetimeToString+'</dd></dl></div>'+
 			  '<div class="bottom clearfix"><dl><dt>放弃原因：</dt><dd>'+value.abReason+'</dd></dl></div>'+
 			  '</div>';
 			   str=str+addiv;
