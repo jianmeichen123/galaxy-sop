@@ -119,6 +119,10 @@
 					}
 					self.text(text);
 				}
+			if(self.attr('id') == 'ideaSource')
+				{
+				self.attr("title",text);
+				}
 				
 			});
 		});
