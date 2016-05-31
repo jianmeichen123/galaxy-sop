@@ -142,6 +142,17 @@ table .width_gd{width:12%;}
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
+.caret1 {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin:-2px 2px 0 2px;
+  vertical-align: middle;
+ border-top: 4px dashed !important;
+ border-top: 4px solid \9 !important;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
 .pagination-detail{font-size: 12px;font-family: '宋体';color:#8a97b9;}
 .pagination {
   display: inline-block;
