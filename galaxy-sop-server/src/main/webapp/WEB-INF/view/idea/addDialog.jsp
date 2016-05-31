@@ -12,7 +12,7 @@
 <div id="addDialog"  style="display: none;">
 	<div class="meetingtc creative_edit" >
 	<form id="idea_form">
-	<h2>添加创意</h2>
+	<!-- <h2>添加创意</h2> -->
 	<div class="clearfix">
 	<input type="hidden" id="win_idea_id" name="id" class="txt"/>
 			<dl class="fmdl clearfix fl">
