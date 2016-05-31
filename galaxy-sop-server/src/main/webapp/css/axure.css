@@ -43,7 +43,7 @@ input.disabled{background-color: #000;}
 /*公用表格*/
 table{ background:#ffffff;}
 table th{ text-align:center; color:#2d3342; font-weight:normal; font-size:12px; line-height:38px;border-bottom: 1px solid #edeff5;}
-table td{ height:30px;line-height:30px; text-align:center; font-size:12px; color:#999; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
+table td{ height:30px;line-height:30px; text-align:center; font-size:12px; color:#536379; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
 .fixed_width td{width:16%;}
 table td a{ font-size:12px; margin:0 2px; color:#536379; font-family:"宋体";margin:0 4px;}
 table .on td{ background:#f8f8fb}
@@ -139,6 +139,17 @@ table .width_gd{width:12%;}
   vertical-align: middle;
  border-bottom: 4px dashed !important;
  border-bottom: 4px solid \9 !important;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+.caret1 {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin:-2px 2px 0 2px;
+  vertical-align: middle;
+ border-top: 4px dashed !important;
+ border-top: 4px solid \9 !important;
   border-right: 4px solid transparent;
   border-left: 4px solid transparent;
 }
@@ -993,7 +1004,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .scheduletc .btnbox{}
 .scheduletc .btnbox .pubbtn{ margin:0 20px 0 0; display:inline-block; *display:inline; zoom:1;}
 /*立项弹窗*/
-.projecttc{ width:540px; height:320px; overflow-y:auto}
+.projecttc{ width:700px; height:320px; overflow-y:auto}
 .xmstjtc,.ghltjtc,.tjltjtc{ width:900px; height:400px; overflow-y:auto}
 /*新增会议*/
 .meetingtc{ width:680px}
@@ -1334,7 +1345,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 
 /*繁星V2.2*/
 .form_datetime{
-  width: 238px;
+  width: 276px;
   height: 22px;
   border: 1px solid #ccd2d7;
   /* border-radius: 4px; */
