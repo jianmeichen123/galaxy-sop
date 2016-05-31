@@ -260,7 +260,7 @@
 						if(data.result.message=="show"){
 							_td = '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>';
 						}else{
-							_td = '<td  title="'+ getValue(templ.projectName)+'">'+ getValue(templ.projectName) +'</td>';
+							_td = '<td  title="'+ getValue(templ.projectName)+'" class="cutstr">'+ getValue(templ.projectName) +'</td>';
 						}
 						
 						var tr='<tr>'+
