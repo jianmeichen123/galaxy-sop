@@ -194,7 +194,11 @@
 				}
 			}
 		}else{
-			return timeHtml  = '未进行排期';
+			if(typeof(row.reserveTimeStartStr) == "undefined"){
+				return timeHtml  = '未进行排期';
+			}else{
+				return timeHtml = row.reserveTimeStartStr+' - '+row.reserveTimeEndStr;
+			}
 		}
 		
 	}
