@@ -90,6 +90,8 @@
 .edui-btn-toolbar .edui-btn.edui-disabled{
     opacity: 0.3;
     filter: alpha(opacity = 30);
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);
+
 }
 .edui-btn-toolbar .edui-btn .edui-icon-source {
     background-position:-260px -0px;
