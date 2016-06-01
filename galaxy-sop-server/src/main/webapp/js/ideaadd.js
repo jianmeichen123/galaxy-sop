@@ -44,7 +44,6 @@ var ideaAddDialog = {
 									}
 									$(".pop").hideLoading();
 									operator.close(_this);
-//									console.log(data);
 								},
 								//关闭弹出框
 								close : function(_this){
@@ -76,9 +75,7 @@ var ideaAddDialog = {
 							//保存事件绑定
 							
 						});
-//						um.destroy(function(){
-//							console.log("销毁富文本");
-//						});
+
 						
 						
 						
@@ -106,7 +103,6 @@ var ideaAddDialog = {
 				});
 			},
 			fillData : function(_this,_formdata,_um){
-				console.log("渲染页面数据");
 				var $id = $(_this.id).find("#win_idea_id");
 				var $ideaCode = $(_this.id).find("#win_idea_code");
 				var $ideaName = $(_this.id).find("#win_idea_name");

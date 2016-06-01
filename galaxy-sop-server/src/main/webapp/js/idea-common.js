@@ -38,9 +38,10 @@ function dateFormatter(val,row,index)
 	}
 	function ideaNameLinkFormatter(val,row,index)
 	{
-		return '<a href="#" class="blue cutstr" onclick="showIdeaDetail(\'' + row.id + '\')" title="'+val+'">'+val+'</a>';
+		var text=val.substring(0,12);
+		return '<a href="#" class="blue" onclick="showIdeaDetail(\'' + row.id + '\')" title="'+val+'">'+text+'</a>';
 	}
-	cutStr(5,'cutstr');
+
 	function ideaNameLinkFormatter2(val,row,index)
 	{
 		return '<a href="#" class="blue" onclick="infoIdea(\'' + row.id + '\',\''+  row.ideaName + '\')">'+val+'</a>';
@@ -171,6 +172,9 @@ function dateFormatter(val,row,index)
 				
 				var id=$("#IdeaId").val();
 				$("#editBtn").click(function(){
+					$(".creativetc").remove();
+					$(".close").remove();
+					$("#powindow").remove();
 					sendGetRequest(platformUrl.detailIdea+"/"+id,null,initCallBack.getdetailIdeaInfoCallBack);
 				});
 				
@@ -430,11 +434,11 @@ function dateFormatter(val,row,index)
 	
 	function ideaFileDownFormat(val,row,index){
 		if(row.fileKey){
-			return "<a href=\"#\"  onclick=\"filedown("+row.id+","+row.fileKey+");\" class=\"blue\" >"+row.fileName+"</a>" ;
+			var text=row.fileName.substring(0,8);
+			return "<a href=\"#\"  onclick=\"filedown("+row.id+","+row.fileKey+");\" class=\"blue\" title=\'"+row.fileName+"\'>"+text+"</a>" ;
 		}
 		return "-";
 	}
-	
 	// mark :u/上传  e/更新    prograss：ideaProgress:2 projectId:ideaid  fileid:
 	function showUploadPopup(mark,prograss,fileid){
 		$.popup({
