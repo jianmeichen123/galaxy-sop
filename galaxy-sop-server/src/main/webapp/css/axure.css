@@ -1330,7 +1330,7 @@ dl dt,dl label{font-weight: normal !important;}
 .block_pad{padding-top: 10px;}
 .form label{width:auto;}
 /*dl dd .time{display:inline-block;width: 100px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}*/
-.time{display:inline-block;width: 130px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 105px -150px !important;}
+.time{display:inline-block;width: 130px !important;background:#fff url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 113px -150px !important;}
 .search_adjust .fml dd{width:250px !important;}
 .search_adjust1 .fml dd{width:180px !important;}
 .search_adjust2 .fml dd{width:160px !important;}
@@ -1362,7 +1362,4 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 	margin:0 auto !important;
 }
 /* 创意库列表页 */
-.idea_list_table{
-	table-layout:fixed;
-}
-.idea_list_table td{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;} 
+.idea_list_searchall .fmdll{margin-right:40px;}
