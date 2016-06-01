@@ -172,6 +172,9 @@ function dateFormatter(val,row,index)
 				
 				var id=$("#IdeaId").val();
 				$("#editBtn").click(function(){
+					$(".creativetc").remove();
+					$(".close").remove();
+					$("#powindow").remove();
 					sendGetRequest(platformUrl.detailIdea+"/"+id,null,initCallBack.getdetailIdeaInfoCallBack);
 				});
 				
