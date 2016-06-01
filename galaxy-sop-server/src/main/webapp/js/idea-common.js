@@ -1,4 +1,6 @@
-	function dateFormatter(val,row,index)
+
+
+function dateFormatter(val,row,index)
 	{
 		if(!isNaN(val))
 		{
@@ -36,8 +38,9 @@
 	}
 	function ideaNameLinkFormatter(val,row,index)
 	{
-		return '<a href="#" class="blue" onclick="showIdeaDetail(\'' + row.id + '\')">'+val+'</a>';
+		return '<a href="#" class="blue cutstr" onclick="showIdeaDetail(\'' + row.id + '\')" title="'+val+'">'+val+'</a>';
 	}
+	cutStr(5,'cutstr');
 	function ideaNameLinkFormatter2(val,row,index)
 	{
 		return '<a href="#" class="blue" onclick="infoIdea(\'' + row.id + '\',\''+  row.ideaName + '\')">'+val+'</a>';
@@ -46,7 +49,6 @@
 	{
 		return '<a href="#" class="blue" onclick="infoPro(\'' + row.projectId + '\')">'+val+'</a>';
 	}
-	
 	function infoIdea(ideaid,ideaName){
 		$("#powindow,#popbg").remove();
 		$("#custom-toolbar [name='keyword']").val(ideaName);
@@ -221,6 +223,7 @@
 			
 			if(i > index || (i>1 && index==4)){      //当前阶段之后的tab变为不可用;搁置时，与待认领相同；
 				$("#ideaProgress_" + i).addClass("disabled");
+				$("#ideaProgress_" + i).attr("disabled",'disabled');
 			}
 			
 			$("#ideaProgress_" + i).on("click",function(){
