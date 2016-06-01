@@ -125,8 +125,6 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.clear();
 			tabs.add(new Menus(15L, 0, "用户管理", serverUrl + "platform/galaxy/user?" + params));
 			tabs.add(new Menus(16L, 0, "数据字典", serverUrl + "platform/galaxy/dict/index?" + params));
-			tabs.add(new Menus(30L, 0, "系统管理", "javascript:void(0);")
-					.addNode(new Menus(31L, 1, "用户管理", serverUrl +"platform/galaxy/user/userManager?" + params)));
 		}
 		
 		//高管
