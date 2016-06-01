@@ -363,14 +363,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		return responseBody;
 	}
-	/**
-	 * OSS访谈录音追加
-	 * @param   interviewRecord 
-	 * 			produces="application/text;charset=utf-8"
-	 * @param viewid 访谈id
-	 * @return responseBody.setId(id) fileId
-	 */
-	@com.galaxyinternet.common.annotation.Logger
+
+
 	@ResponseBody
 	@RequestMapping(value = "/updateInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopFile> updateInterview(@RequestBody InterviewRecord interviewRecord, HttpServletRequest request ) {
@@ -657,7 +651,26 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "/updatemeet", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> updatemeet(@RequestBody MeetingRecord meetingRecord, HttpServletRequest request ) {
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		try {
+			if(meetingRecord.getId()==null){
+				responseBody.setResult(new Result(Status.ERROR,null, "主键缺失"));
+				return responseBody;
+			}
+			//RecordType { PROJECT((byte) 0, "项目"), IDEAS((byte) 1, "创意");
+			meetingRecord.setRecordType((byte) (1));
+			meetingRecordService.updateById(meetingRecord);
+		    responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(meetingRecord.getId());
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "修改日志失败"));
+			logger.error("updateInterview修改日志失败",e);
+		}
+		return responseBody;
+	}
 	
 	/**
 	 * 内部评审、 CEO评审 、 立项会、投决会  阶段

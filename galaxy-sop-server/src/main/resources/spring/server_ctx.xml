@@ -49,7 +49,7 @@
 		scope="singleton"/>
 	
 	
-	<bean id="testTask" class="com.galaxyinternet.scheduling.TestTask" p:disabled="true"/>
+	<bean id="testTask" class="com.galaxyinternet.scheduling.TestTask" p:disabled="false"/>
 	
 	<bean id="galaxyTaskScheduler" class="com.galaxyinternet.scheduling.GalaxyTaskScheduler"/>
 	<task:scheduled-tasks scheduler="galaxyTaskScheduler">

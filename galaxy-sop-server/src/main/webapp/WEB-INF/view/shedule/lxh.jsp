@@ -90,12 +90,12 @@
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
 				    	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
 				    	<th data-field="scheduleStatus" data-align="center" class="data-input" data-formatter="statusFormatter">排期状态</th>
-				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormat" data-sortable="true" data-sortorder="desc">上次过会时间</th>
+				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormat" data-sortable="true" data-sortorder="desc">上次过会时间<span class="caret1"></span></th>
 				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
 				    	<th data-field="meetingRate" data-align="center" class="data-input" data-formatter="rateFormatter" data-sortable="true" data-sortOrder="desc">过会率</th>
-				    	<th data-field="applyTimeStr" data-align="center" class="data-input" data-sortable="true" data-sorter="apply_time" data-sortOrder="asc">申请时间</th>
-				    	<th data-field="reserveTimeStart" data-align="center" class="data-input" data-formatter="dataFormatter" data-sortable="true" data-sortorder="desc">排期时间</th>
+				    	<th data-field="applyTimeStr" data-align="center" class="data-input" data-sortable="true" data-sorter="apply_time" data-sortOrder="asc">申请时间<span class="caret1"></span></th>
+				    	<th data-field="reserveTimeStart" data-align="center" class="data-input" data-formatter="dataFormatter" data-sortable="true" data-sortorder="desc">排期时间<span class="caret1"></span></th>
  					</tr>	
  				</thead>
 			</table>
@@ -194,7 +194,11 @@
 				}
 			}
 		}else{
-			return timeHtml  = '未进行排期';
+			if(typeof(row.reserveTimeStartStr) == "undefined"){
+				return timeHtml  = '未进行排期';
+			}else{
+				return timeHtml = row.reserveTimeStartStr+' - '+row.reserveTimeEndStr;
+			}
 		}
 		
 	}

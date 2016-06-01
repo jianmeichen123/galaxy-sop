@@ -64,42 +64,42 @@
 				<dl>
 					<dt>项目概述</dt>
 					<dd class="describe" id="prodescribe_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;"  data-btn="hide" style="display:none" class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<dl>
 					<dt>商业模式</dt>
 					<dd class="describe" id="business_model_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>公司定位</dt>
 					<dd class="describe" id="location_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>用户分析</dt>
 					<dd class="describe" id="portrait_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>竞情分析</dt>
 					<dd class="describe" id="analysis_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<!-- 
 				<dl>
@@ -124,11 +124,11 @@
 						</div>
 
 					</dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;" data-btn="hide" style="display: none"
 							class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				
 				<dl>
@@ -141,11 +141,11 @@
 							</table>
 						</div>
 					</dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;" data-btn="hide" style="display: none"
 							class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<!-- 
 				<dl class="no_border">
@@ -463,121 +463,7 @@
 	//盒子展开隐藏
 	getTabPersonforP();
 	 getTabShareforP();
-	 prodescribe_show();
-	 	business_model_show();
-	 	location_show();
-	 	portrait_show();
-	 	analysis_show();
-	 	function prodescribe_show(){
-			var box = document.getElementById("prodescribe_show");  
-			var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
-			var newBox = document.createElement("span");  
-			var btn = document.createElement("a");  
-			newBox.innerHTML = text.substring(0,200);  
-			btn.innerHTML = text.length >200 ? "查看详情" : "";  
-			btn.href = "#"; 
-			btn.className="see_detail blue" ;
-			btn.onclick = function(){  
-			if (btn.innerHTML == "查看详情"){  
-			btn.innerHTML = "收起"; 
-			newBox.innerHTML = text;  
-			}else{  
-			btn.innerHTML = "查看详情";  
-			newBox.innerHTML = text.substring(0,200);  
-			}  
-			}  
-			box.innerHTML = "";  
-			box.appendChild(newBox);  
-			box.appendChild(btn);  		
-		}
-		function business_model_show(){
-			var box = document.getElementById("business_model_show");  
-			var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
-			var newBox = document.createElement("span");  
-			var btn = document.createElement("a");  
-			newBox.innerHTML = text.substring(0,200);  
-			btn.innerHTML = text.length >200 ? "查看详情" : "";  
-			btn.href = "#"; 
-			btn.className="see_detail blue" ;
-			btn.onclick = function(){  
-			if (btn.innerHTML == "查看详情"){  
-			btn.innerHTML = "收起"; 
-			newBox.innerHTML = text;  
-			}else{  
-			btn.innerHTML = "查看详情";  
-			newBox.innerHTML = text.substring(0,200);  
-			}  
-			}  
-			box.innerHTML = "";  
-			box.appendChild(newBox);  
-			box.appendChild(btn);  		
-		}
-		function portrait_show(){
-			var box = document.getElementById("portrait_show");  
-			var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
-			var newBox = document.createElement("span");  
-			var btn = document.createElement("a");  
-			newBox.innerHTML = text.substring(0,200);  
-			btn.innerHTML = text.length >200 ? "查看详情" : "";  
-			btn.href = "#"; 
-			btn.className="see_detail blue" ;
-			btn.onclick = function(){  
-			if (btn.innerHTML == "查看详情"){  
-			btn.innerHTML = "收起"; 
-			newBox.innerHTML = text;  
-			}else{  
-			btn.innerHTML = "查看详情";  
-			newBox.innerHTML = text.substring(0,200);  
-			}  
-			}  
-			box.innerHTML = "";  
-			box.appendChild(newBox);  
-			box.appendChild(btn);  		
-		}
-		function location_show(){
-			var box = document.getElementById("location_show");  
-			var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
-			var newBox = document.createElement("span");  
-			var btn = document.createElement("a");  
-			newBox.innerHTML = text.substring(0,200);  
-			btn.innerHTML = text.length >200 ? "查看详情" : "";  
-			btn.href = "#"; 
-			btn.className="see_detail blue" ;
-			btn.onclick = function(){  
-			if (btn.innerHTML == "查看详情"){  
-			btn.innerHTML = "收起"; 
-			newBox.innerHTML = text;  
-			}else{  
-			btn.innerHTML = "查看详情";  
-			newBox.innerHTML = text.substring(0,200);  
-			}  
-			}  
-			box.innerHTML = "";  
-			box.appendChild(newBox);  
-			box.appendChild(btn);  		
-		}
-		function analysis_show(){
-			var box = document.getElementById("analysis_show");  
-			var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
-			var newBox = document.createElement("span");  
-			var btn = document.createElement("a");  
-			newBox.innerHTML = text.substring(0,200);  
-			btn.innerHTML = text.length >200 ? "查看详情" : "";  
-			btn.href = "#"; 
-			btn.className="see_detail blue" ;
-			btn.onclick = function(){  
-			if (btn.innerHTML == "查看详情"){  
-			btn.innerHTML = "收起"; 
-			newBox.innerHTML = text;  
-			}else{  
-			btn.innerHTML = "查看详情";  
-			newBox.innerHTML = text.substring(0,200);  
-			}  
-			}  
-			box.innerHTML = "";  
-			box.appendChild(newBox);  
-			box.appendChild(btn);  		
-		} 
+	 	
  	function getTabPersonforP(){
  		var $table = $('#tablePerson');
  	    $table.bootstrapTable({
@@ -751,6 +637,121 @@
  		
  		
  	});
+	 prodescribe_show();
+	 	business_model_show();
+	 	location_show();
+	 	portrait_show();
+	 	analysis_show();
+ 	function prodescribe_show(){
+		var box = document.getElementById("prodescribe_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function business_model_show(){
+		var box = document.getElementById("business_model_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function portrait_show(){
+		var box = document.getElementById("portrait_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function location_show(){
+		var box = document.getElementById("location_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function analysis_show(){
+		var box = document.getElementById("analysis_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	} 
  	function downloadBusinessPlan(id){
 		window.location.href=platformUrl.downLoadFile+'/'+id ;
 	}

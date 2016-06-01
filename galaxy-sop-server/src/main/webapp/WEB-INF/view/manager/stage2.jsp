@@ -2,7 +2,7 @@
 <%
 	String path = request.getContextPath();
 %>
-
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <style>
 #projectProgress_1_table th:nth-child(1),#projectProgress_2_table th:nth-child(1),#projectProgress_3_table th:nth-child(1),#projectProgress_4_table th:nth-child(1),#projectProgress_7_table th:nth-child(1) {
     width: 50%;
@@ -18,6 +18,7 @@
 	<div class="pjt_introduct clearfix">
 		<div class="clearfix">
 			<h3 id="project_name"></h3>
+		</div>	
 	</div>
 
 	<div class="tabtable">
@@ -52,42 +53,42 @@
 				<dl>
 					<dt>项目概述</dt>
 					<dd class="describe" id="prodescribe_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;"  data-btn="hide" style="display:none" class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<dl>
 					<dt>商业模式</dt>
 					<dd class="describe" id="business_model_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>公司定位</dt>
 					<dd class="describe" id="location_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>用户分析</dt>
 					<dd class="describe" id="portrait_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>竞情分析</dt>
 					<dd class="describe" id="analysis_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<!-- 
 				<dl>
@@ -112,11 +113,11 @@
 						</div>
 
 					</dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;" data-btn="hide" style="display: none"
 							class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				
 				<dl>
@@ -129,11 +130,11 @@
 							</table>
 						</div>
 					</dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;" data-btn="hide" style="display: none"
 							class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<!-- 
 				<dl class="no_border">
@@ -409,34 +410,6 @@ $(function(){
 	//盒子展开隐藏
 	getTabPersonforP();
 	 getTabShareforP();
-     $(".fctbox a").on("click",function(){
-	var $self = $(this),
-		_name = $self.attr("data-btn"),
-		_parent = $self.parent();
-	//点击收起
-	if(_name=="hide"){
-		//关闭展开层
-		_parent.siblings("dd").hide();
-		$self.hide();
-		$self.siblings().hide();
-		$self.siblings("[data-btn='describe']").show();	
-	}
-	//点击查看详情
-	if(_name=="describe"){
-		_parent.siblings("."+_name).show();
-		$self.hide();
-		$self.siblings().hide();
-		$self.siblings("[data-btn='hide']").show();
-	}
-	//点击取消保存
-	if(_name=="reset"){
-		_parent.siblings("dd").hide();
-		$self.hide();
-		$self.siblings().hide();
-		$self.siblings("[data-btn='describe'],[data-btn='edit']").show();	
-	}
-	return false;
-});
 
  	function getTabPersonforP(){
  		var $table = $('#tablePerson');
@@ -610,6 +583,121 @@ $(function(){
  		
  		
  	});
+ 	 prodescribe_show();
+	 	business_model_show();
+	 	location_show();
+	 	portrait_show();
+	 	analysis_show();
+	function prodescribe_show(){
+		var box = document.getElementById("prodescribe_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function business_model_show(){
+		var box = document.getElementById("business_model_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function portrait_show(){
+		var box = document.getElementById("portrait_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function location_show(){
+		var box = document.getElementById("location_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function analysis_show(){
+		var box = document.getElementById("analysis_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	} 
  	function downloadBusinessPlan(id){
 		window.location.href=platformUrl.downLoadFile+'/'+id ;
 	}
@@ -1092,6 +1180,7 @@ $(function(){
 			);	
 		}
 	}
+	
 	function ftcolumnFormat(value, row, index){
 		var fileinfo = "" ;
 		var rc = "";

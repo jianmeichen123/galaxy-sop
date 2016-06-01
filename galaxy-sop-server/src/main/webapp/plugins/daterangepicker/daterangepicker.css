@@ -57,13 +57,14 @@
       border-bottom: initial;
       border-top: 6px solid #fff; }
   .daterangepicker.dropdown-menu {
-    max-width: none;
+   width: 744px;
     z-index: 3001; }
   .daterangepicker.single .ranges, .daterangepicker.single .calendar {
     float: none; }
   .daterangepicker.show-calendar .calendar {
     display: block; }
   .daterangepicker .calendar {
+  	float:left;
     display: none;
     max-width: 270px;
     margin: 4px; }

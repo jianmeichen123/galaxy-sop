@@ -1,4 +1,6 @@
-	function dateFormatter(val,row,index)
+
+
+function dateFormatter(val,row,index)
 	{
 		if(!isNaN(val))
 		{
@@ -36,8 +38,9 @@
 	}
 	function ideaNameLinkFormatter(val,row,index)
 	{
-		return '<a href="#" class="blue" onclick="showIdeaDetail(\'' + row.id + '\')">'+val+'</a>';
+		return '<a href="#" class="blue cutstr" onclick="showIdeaDetail(\'' + row.id + '\')" title="'+val+'">'+val+'</a>';
 	}
+	cutStr(5,'cutstr');
 	function ideaNameLinkFormatter2(val,row,index)
 	{
 		return '<a href="#" class="blue" onclick="infoIdea(\'' + row.id + '\',\''+  row.ideaName + '\')">'+val+'</a>';
@@ -46,7 +49,6 @@
 	{
 		return '<a href="#" class="blue" onclick="infoPro(\'' + row.projectId + '\')">'+val+'</a>';
 	}
-	
 	function infoIdea(ideaid,ideaName){
 		$("#powindow,#popbg").remove();
 		$("#custom-toolbar [name='keyword']").val(ideaName);
@@ -119,6 +121,14 @@
 					}
 					self.text(text);
 				}
+			if(self.attr('id') == 'ideaSource')
+				{
+				self.attr("title",text);
+				}
+			if(self.attr('id') == 'ideaName')
+			{
+			self.attr("title",text);
+			}
 				
 			});
 		});
@@ -213,6 +223,7 @@
 			
 			if(i > index || (i>1 && index==4)){      //当前阶段之后的tab变为不可用;搁置时，与待认领相同；
 				$("#ideaProgress_" + i).addClass("disabled");
+				$("#ideaProgress_" + i).attr("disabled",'disabled');
 			}
 			
 			$("#ideaProgress_" + i).on("click",function(){
@@ -525,7 +536,7 @@
 				return;
 			}else if(data.result.status == "OK"){
 				idea = data.entity;
-				$("#data_table").bootstrapTable('refresh');
+				$("#data-table").bootstrapTable('refresh');
 				$("#powindow,#popbg").remove();
 				showIdeaDetail(ideaId);
 			}
@@ -860,7 +871,7 @@ function setGiveUpInfo(abandoned){
 		 $.each(abandoned.giveup, function (i, value) {
 			 var addiv='<div class="give_up clearfix">'+
 			  '<div class="top clearfix"> <dl><dt>放弃人：</dt> <dd>'+value.abUsername+'</dd></dl>'+
-			  '<dt>放弃时间：</dt> <dd>'+value.abDatetimeToString+'</dd></dl></div>'+
+			  '<dl><dt>放弃时间：</dt> <dd>'+value.abDatetimeToString+'</dd></dl></div>'+
 			  '<div class="bottom clearfix"><dl><dt>放弃原因：</dt><dd>'+value.abReason+'</dd></dl></div>'+
 			  '</div>';
 			   str=str+addiv;
@@ -872,4 +883,61 @@ function setGiveUpInfo(abandoned){
        
   
   
-  
+function formatMeetNote(value,row,index){
+	var str=delHtmlTag($.trim(value))
+	var len=0;
+	if(str!="" && typeof(str)!="undefined"){
+		len = getLength(str);
+	}
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>200){
+			var subValue =str.substring(0,200); 
+			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow\">"+
+			subValue+
+			"..."+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail(\'"+row.id+"\',\'"+row.uid+"\',\'"+value +"\')\" >详情<a>"+    
+		'</div>';
+			return rc;
+		}else {
+			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail(\'"+row.id+"\',\'"+row.uid+"\',\'"+value +"\')\" >详情<a>";
+		}
+	}else{
+		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail(\'"+row.id+"\',\'"+row.uid+"\',\'"+value +"\')\" >详情<a>"
+	}
+}
+
+function showLogdetail(id,createdId,notes){
+	var _url = Constants.sopEndpointURL+"/galaxy/idea/editnotes";
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			var um=UM.getEditor('notes');
+			um.setContent(notes);
+			if(userId!=createdId){
+				$("#savenotes").hide();
+			}
+			$("#notesid").val(id);
+		}//模版反回成功执行	
+	});
+	return false;
+}
+
+function savenotes(){  
+	var um = UM.getEditor('notes');
+	var notes = um.getContent();
+	var pid=$("#notesid").val();
+	if(pid != ''){
+		sendPostRequestByJsonObj(platformUrl.updateMeet, {"id" : pid, "meetingNotes" : notes}, function(data){
+			if (data.result.status=="OK") {
+				layer.msg("保存成功");
+				$(".meetingtc").find("[data-close='close']").click();
+				$("#ideaProgress_3_table").bootstrapTable('refresh');
+			} else {
+				layer.msg(data.result.message);
+			}
+			
+		});
+	}
+}

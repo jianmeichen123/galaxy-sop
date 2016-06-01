@@ -2,7 +2,28 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+
+<!-- 富文本编辑器 -->
+<link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script>
+	$("#f").attr("href",Constants.sopEndpointURL + "/ueditor/themes/default/css/umeditor.css");
+	$("#a").attr("src",Constants.sopEndpointURL + "/js/plupload.full.min.js");
+	$("#a").attr("src",Constants.sopEndpointURL + "/js/plupload/zh_CN.js");
+	$("#b").attr("src",Constants.sopEndpointURL + "/ueditor/dialogs/map/map.js");
+	$("#c").attr("src",Constants.sopEndpointURL + "/ueditor/umeditor.config.js");
+	$("#d").attr("src",Constants.sopEndpointURL + "/ueditor/umeditor.min.js");
+	$("#e").attr("src",Constants.sopEndpointURL + "/ueditor/lang/zh-cn/zh-cn.js");
+</script>
+
 <div class="creativetc" >
   <a href="javascript:;" data-close="close" class="close null">关闭</a>
           <!-- 创意动态 -->
@@ -37,34 +58,34 @@
                   <div class="top clearfix">
                     <dl>
                       <dt>创意编号：</dt>
-                      <dd id="ideaCode"></dd>
+                      <dd id="ideaCode" class="dw"></dd>
                     </dl>
                     <dl>
                       <dt>创意名称：</dt>
-                      <dd id="ideaName">食乐淘</dd>
+                      <dd id="ideaName" class="dw">食乐淘</dd>
                     </dl>
                     <dl>
                       <dt>创意来源：</dt>
-                      <dd id="ideaSource"></dd>
+                      <dd id="ideaSource" class="dw"></dd>
                     </dl>
                     <dl>
                       <dt>提出人：</dt>
-                      <dd id="createdUname">投资经理</dd>
+                      <dd id="createdUname" class="dw">投资经理</dd>
                     </dl>
                     <dl>
                       <dt>所属事业线：</dt>
-                      <dd id="departmentDesc">O2O</dd>
+                      <dd id="departmentDesc" class="dw">O2O</dd>
                     </dl>
                   </div>
                   <div class="mid clearfix">
                     <dl>
                       <dt>提出时间：</dt>
-                      <dd id="createdTime" data-formatter="dateFormatter">2016-05-08</dd>
+                      <dd id="createdTime" data-formatter="dateFormatter" class="dw">2016-05-08</dd>
                     </dl>
                   </div>
                   <div class="bottom clearfix" id="append">
                     <dl>
-                      <dt>创建阐述：</dt>
+                      <dt>创意简述：</dt>
                       <dd id="ideaDesc"></dd>
                     </dl>
                   </div>
@@ -124,10 +145,15 @@
 				<table id="ideaProgress_3_table"  data-id-field="id"
 					data-url="<%=path%>/galaxy/idea/queryCyMeet"  data-page-list="[2,5,10]"
 					data-toolbar="#ideaProgress_3_params">
+					<colgroup >
+						<col style="width:35%;" /> 
+						<col style="width:65%;" /> 
+					</colgroup>
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
 							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<!-- <th data-field="meetingNotes" data-align="center" data-formatter="formatMeetNote">会议纪要</th>  --> 
 						</tr>
 					</thead>
 				</table>
@@ -150,10 +176,11 @@
 					data-page-list="[3,5,10]" data-toolbar="#ideaProgress_log_params">
 					<thead>
 						<tr>
-							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
-							<th data-field="uname" data-align="center" >操作者</th>
-							<th data-field="operationType" data-align="center">变更动态</th>
-							<th data-field="operationContent" data-align="center">对象</th>
+							<th data-field="createdTime" data-align="center" data-formatter="datetimeFormatter">操作时间</th>
+							<th data-field="uname" data-align="center" >操作人</th>
+							<th data-field="operationContent" data-align="center">变更动态</th>
+							<!-- <th data-field="operationType" data-align="center">变更动态</th>
+							<th data-field="operationContent" data-align="center">对象</th> -->
 							<!--  <th data-field="projectName" data-align="center" >创意</th>-->
 							<th data-field="sopstage" data-align="center" >进度</th>
 						</tr>
@@ -163,43 +190,11 @@
               </div>              
            </div>
           </div>  
-      <script type="text/javascript">
-		/* $(function(){
-			getProjectInfo();
-		});
-            
-       function getProjectInfo()
-        {
-	     var url = platformUrl.detailIdea+"/${id}";
-	    sendGetRequest(
-		url,
-		{"id":"${id}"},
-		function(data){
-			if(data.result.status == "Error")
-			{
-				alert(data.result.message );
-				return;
-			}
-			var idea = data.entity;
-			stockTransfer = idea.stockTransfer;
-			
-			$("#ideaDetail dd")
-			.each(function(){
-				var self = $(this);
-				if(self.attr('id') != 'undefined')
-				{
-					var id = self.attr('id');
-					var formatter = self.data('formatter');
-					var text = idea[id]
-					if($.isFunction(window[formatter]))
-					{
-						text = window[formatter].call(window,text);
-					}
-					self.text(text);
-				}
-				
-			});
-		}
-	);
+<script type="text/javascript">
+/* $(function(){
+	getProjectInfo();
+});
+          
 } */
+
 </script>

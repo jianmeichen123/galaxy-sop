@@ -260,6 +260,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		List<MeetingRecord> meetList = null;
 		Long total = null;
 		Map<Long,String> proIdNameMap = new HashMap<Long,String>();
+		Map<Long,Long> proIdUidMap = new HashMap<Long,Long>();
 		
 		if(query.getProjectId()!=null){   // 项目tab查询
 			meetList = meetingRecordDao.selectList(query, pageable);
@@ -267,6 +268,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			
 			//配合APP端新增获取相关字段
 			Project  proQ = new Project();
+			proQ.setId(query.getProjectId());
 			proQ.setCreateUid(query.getUid());
 			proQ.setKeyword(query.getKeyword());
 			List<Project> proList = projectDao.selectList(proQ);
@@ -277,6 +279,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				for(Project apro : proList){
 					proIdList.add(apro.getId());
 					proIdNameMap.put(apro.getId(), apro.getProjectName());
+					proIdUidMap.put(apro.getId(), apro.getCreateUid());
 				}
 			}
 		}else{    //列表查询_个人创建/部门
@@ -292,6 +295,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				for(Project apro : proList){
 					proIdList.add(apro.getId());
 					proIdNameMap.put(apro.getId(), apro.getProjectName());
+					proIdUidMap.put(apro.getId(), apro.getCreateUid());
 				}
 				//查询列表  
 				query.setProIdList(proIdList);
@@ -313,6 +317,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				bo.setMeetingResult(ib.getMeetingResult());
 				bo.setMeetingResultStr(ib.getMeetingResultStr());
 				bo.setMeetingNotes(ib.getMeetingNotes());
+				bo.setUid(proIdUidMap.get(ib.getProjectId()));
 				if(ib.getFileId()!=null){
 					SopFile file  = sopFileDao.selectById(ib.getFileId());
 					if(file!=null){

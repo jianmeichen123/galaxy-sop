@@ -41,7 +41,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>全部创意</h2>
+    	<h2 style="margin-top:-20px;">全部创意</h2>
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
@@ -106,7 +106,7 @@
 		<input type="hidden" data-id="ideaNowId" value="" />
 		
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="idea/search" data-height="555" 
+			<table id="data-table" data-url="idea/search" data-height="555" class="idea_list_table"
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
@@ -235,6 +235,7 @@
 			$("[name='departmentId']").attr("disabled","true");
 		}
 	});
+	cutStr(5,'cutstr');
 	
 </script>
 

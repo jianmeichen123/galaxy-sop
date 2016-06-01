@@ -2184,11 +2184,20 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, null, "无操作数据!"));
 			return responseBody;
 		}
+		StringBuffer proNameList=new StringBuffer();
 		try {
 			for (MeetingScheduling ms : query) {
+				String mestr = "";
 				MeetingScheduling oldMs = meetingSchedulingService.queryById(ms
 						.getId());
-				String mestr = "";
+				Project pj = projectService.queryById(oldMs.getProjectId());
+				User user = userService.queryById(pj.getCreateUid());
+				//验证已经已通过|已否决的会议不能进行排期
+				if(2 == oldMs.getScheduleStatus() || 3 == oldMs.getScheduleStatus()){
+					proNameList.append(pj.getProjectName());
+					proNameList.append(" ");
+					continue;
+				}
 				if (DictEnum.meetingType.投决会.getCode().equals(
 						ms.getMeetingType())) {
 					mestr = DictEnum.meetingType.投决会.getName();
@@ -2210,8 +2219,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						&& ms.getReserveTimeStart() == null) {
 					messageInfo = mestr + "排期时间已取消";
 				}
-				Project pj = projectService.queryById(oldMs.getProjectId());
-				User user = userService.queryById(pj.getCreateUid());
 				// 如果是更新或取消排期时间
 				if (oldMs.getReserveTimeStart() != null
 						&& oldMs.getReserveTimeEnd() != null) {
@@ -2268,6 +2275,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 		responseBody.setResult(new Result(Status.OK, null, "更新成功!"));
+		if(proNameList.length() > 0){
+			responseBody.setResult(new Result(Status.OK, null, proNameList.toString()+" 项目已经通过,不能进行排期!"));
+		}
 		return responseBody;
 	}
 

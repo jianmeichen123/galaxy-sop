@@ -3,14 +3,43 @@
 	String path = request.getContextPath(); 
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-<!-- 富文本编辑器 -->
+<!-- 富文本编辑器
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
-<!-- time -->
+ -->
+
+<!-- 富文本编辑器 -->
+<link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
+<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
+<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
+<script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<script>
+	$("#f").attr("href",Constants.sopEndpointURL + "/ueditor/themes/default/css/umeditor.css");
+	$("#a").attr("src",Constants.sopEndpointURL + "/js/plupload.full.min.js");
+	$("#a").attr("src",Constants.sopEndpointURL + "/js/plupload/zh_CN.js");
+	$("#b").attr("src",Constants.sopEndpointURL + "/ueditor/dialogs/map/map.js");
+	$("#c").attr("src",Constants.sopEndpointURL + "/ueditor/umeditor.config.js");
+	$("#d").attr("src",Constants.sopEndpointURL + "/ueditor/umeditor.min.js");
+	$("#e").attr("src",Constants.sopEndpointURL + "/ueditor/lang/zh-cn/zh-cn.js");
+</script>
+
+<!-- time
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
+ -->
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script>
 
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
@@ -24,7 +53,7 @@
             <dt>参会时间：</dt>
             <dd>
                 <!-- <input type="text" class="txt time"> -->
-                <input type="text" class="datepicker txt time" readonly  id="meetingDateStr" name = "meetingDateStr"  style="height:23px;"
+                <input type="text" class="datetimepickerHour txt time" readonly  id="meetingDateStr" name = "meetingDateStr"  style="height:23px;"
             	valType="required" msg="<font color=red>*</font>会议日期不能为空"  />
            
             </dd>
@@ -73,5 +102,6 @@
 
 <script type="text/javascript">
 		UM.getEditor('meetingNotes');
-		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd"));
+		//$("#meetingDateStr").val(new Date().format("yyyy-MM-dd"));
+		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd hh:mm"));
 </script>

@@ -1,5 +1,6 @@
 package com.galaxyinternet.project.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,10 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.project.AppCounts;
 import com.galaxyinternet.model.project.AppFileDTO;
 import com.galaxyinternet.model.project.AppProgress;
 import com.galaxyinternet.model.project.InterviewRecord;
@@ -38,6 +43,7 @@ import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopVoucherFileService;
+import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 
 @Controller
@@ -55,6 +61,8 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 	@Autowired
 	private MeetingRecordService meetingRecordService;
 
+	@Autowired
+	private UserRoleService userRoleService;
 	@Autowired
 	private InterviewRecordService interviewRecordService;
 
@@ -871,7 +879,94 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 			responseBody.setResult(new Result(Status.ERROR, null, "appProgreess faild"));
 		}
 		return responseBody;
+		
+		
+		
 
 	}
+	/**
+	   * 供app端查询数据快览
+	   * 
+	   */
+	   	@ResponseBody
+		@RequestMapping(value = "/appCounts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	   	public ResponseData<AppCounts> searchAppProjectList(HttpServletRequest request) {
+			ResponseData<AppCounts> responseBody = new ResponseData<AppCounts>();
+			User user = (User) getUserFromSession(request);
+			// 判断当前用户是否为投资经理
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+					.getId());
+			if (!roleIdList.contains(UserConstant.HHR)
+					&& !roleIdList.contains(UserConstant.CEO)
+					&&!roleIdList.contains(UserConstant.DSZ)) {
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查询!"));
+				return responseBody;
+			}
+			try {
+				
+				if(roleIdList.contains(UserConstant.HHR)){
+					AppCounts appCounts=new AppCounts();
+					
+					if(user.getDepartmentId()!=null){	
+						Project project = new Project();
+						project.setProjectDepartid(user.getDepartmentId());
+						Long it=projectService.queryCount(project);
+						appCounts.setProjectCounts(it.intValue());
+						List<Project> listp=projectService.queryList(project);
+						String st="0.00";
+						double d=(Double.parseDouble(st));
+						for(Project pro :listp){
+							if(pro.getProjectValuations()!=null){
+								d=d+pro.getProjectValuations();
+							}
+						}	
+						DecimalFormat df = new DecimalFormat("#.00");					
+						appCounts.setProjectValuations(df.format(d));					
+					}
+					Project project1 = new Project();
+					project1.setProjectDepartid(user.getDepartmentId());
+					project1.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+					Long it=projectService.queryCount(project1);
+					appCounts.setJzproject(it.intValue());
+					
+					Project project2 = new Project();
+					project2.setProjectDepartid(user.getDepartmentId());
+					project2.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+					Long it1=projectService.queryCount(project2);
+					appCounts.setThproject(it1.intValue());					
+					responseBody.setResult(new Result(Status.OK, ""));
+					responseBody.setEntity(appCounts);
+					return responseBody;		
+				}else{		
+						AppCounts appCounts=new AppCounts();
+						Long it=projectService.queryCount();
+						appCounts.setProjectCounts(it.intValue());
+						List<Project> listp=projectService.queryAll();
+						String st="0.00";
+						double d=(Double.parseDouble(st));
+						for(Project pro :listp){
+							if(pro.getProjectValuations()!=null){
+								d=d+pro.getProjectValuations();
+							}
+						}	
+						DecimalFormat df = new DecimalFormat("#.00");					
+						appCounts.setProjectValuations(df.format(d));					
+						Project project1 = new Project();					
+						project1.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+						Long it1=projectService.queryCount(project1);
+						appCounts.setJzproject(it1.intValue());					
+						Project project2 = new Project();					
+						project2.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+						Long it2=projectService.queryCount(project2);
+						appCounts.setThproject(it2.intValue());					
+						responseBody.setResult(new Result(Status.OK, ""));
+						responseBody.setEntity(appCounts);
+						return responseBody;					
+				}	
+			} catch (PlatformException e) {
+				
+				return responseBody;
+			}
+	   	}
 
 }
