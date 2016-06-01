@@ -123,6 +123,10 @@
 				{
 				self.attr("title",text);
 				}
+			if(self.attr('id') == 'ideaName')
+			{
+			self.attr("title",text);
+			}
 				
 			});
 		});
