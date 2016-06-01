@@ -161,7 +161,7 @@
 	
 	<div >
 	<span style=" float:left; margin-right:25px;"><a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">提交</a></span>
-	<span style=" float:left"><a href="javascript:;" class="pubbtn bluebtn" data-close="close" id="upload-close">取消</a></span>
+	<span style=" float:left"><a href="javascript:;" class="pubbtn fffbtn" data-close="close" id="upload-close">取消</a></span>
 	<div  style=" width:100%; height:20px; overflow:hidden">&nbsp;</div>
 	</div>
 </div>
