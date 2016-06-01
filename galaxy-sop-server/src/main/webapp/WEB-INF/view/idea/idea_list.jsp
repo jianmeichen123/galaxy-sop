@@ -53,7 +53,7 @@
         </div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
-			<div class="bottom searchall clearfix search_adjust">
+			<div class="bottom searchall clearfix search_adjust idea_list_searchall">
 				<dl class="fmdl fmdll clearfix">
 					<dt>关键字：</dt>
 					<dd>
@@ -82,10 +82,9 @@
 	                  <option value="ideaProgress:7">投决会</option>
 	                </select>
 	              </dd>
-	            </dl>
-				
+	            </dl>				
 			</div>
-			<div class="bottom searchall clearfix search_adjust">
+			<div class="bottom searchall clearfix search_adjust idea_list_searchall">
 	            <dl class="fmdl fmdll clearfix">
 	            	<dt>提出人：</dt>
 	            	<dd>
@@ -95,7 +94,7 @@
 	            <dl class="fmdl fmdll clearfix">
 	            	<dt>　提出时间：</dt>
 	            	<dd>
-	            		<input type="text" class="ideadatepicker txt time" name="createdDateFrom"  style="height:23px;"/>至
+	            		<input type="text" class="ideadatepicker txt time" name="createdDateFrom"  style="height:23px;"/>&nbsp;&nbsp;至&nbsp;&nbsp;
 	            		<input type="text" class="ideadatepicker txt time" name="createdDateThrough"  style="height:23px;"/>
 	            	</dd>
 	            </dl>
