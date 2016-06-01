@@ -235,8 +235,8 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					list.add(appfileDto);
 					
 					AppFileDTO gqzr_appfileDto = new AppFileDTO();
-					gqzr_appfileDto.setFileTypeCode(DictEnum.fileWorktype.股权转让协议.getCode());
-					gqzr_appfileDto.setFileTypeName(DictEnum.fileWorktype.股权转让协议.getName());
+					gqzr_appfileDto.setFileTypeCode(DictEnum.fileWorktype.工商转让凭证.getCode());
+					gqzr_appfileDto.setFileTypeName(DictEnum.fileWorktype.工商转让凭证.getName());
 					gqzr_appfileDto.setAppSopFile(gsbgdjFileList);		
 					list.add(gqzr_appfileDto);
 					
@@ -295,6 +295,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 									User user = userService.queryById(uid);
 									$asfile.setName(user.getRealName()); //上传人/起草者 的姓名
 								}
+								$asfile.setFileValid(sfile.getFileValid());
 								$asfile.setId(sfile.getId()); //文件ID
 								$asfile.setSignFlag(0); //档案文件
 								tzxyAppSopFileList.add($asfile);					
@@ -326,6 +327,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										User user = userService.queryById(uid);
 										$asfile.setName(user.getRealName()); //档案阿里云存储Key
 									}
+									$asfile.setFileValid(sfile.getFileValid());
 									$asfile.setId(sfile.getId());  //文件ID
 									$asfile.setSignFlag(0); //档案文件
 									gqzrxyAppSopFileList.add($asfile);
@@ -367,7 +369,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 									if(uid!=null){
 										User user = userService.queryById(uid);
 										asfile8.setName(user.getRealName());
-									}
+									}									
 									asfile8.setId(sop.getId()); //→签署档案表的ID主键	
 									asfile8.setSignFlag(1); //档案文件
 									tzxyAppSopFileList.add(asfile8);
@@ -763,7 +765,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 									if(uid!=null){
 										User user = userService.queryById(uid);
 										asfile5.setName(user.getRealName());
-									}		
+									}								
 									asfile5.setId(sop.getId()); //→文件(档案)表的ID主键
 //									appS.add(asfile5);
 									tzyxsFileList.add(asfile5);
