@@ -29,5 +29,12 @@ public interface MeetingSchedulingDao extends BaseDao<MeetingScheduling, Long> {
 	void updateBatch(List<MeetingScheduling> entityList);
 	
 	public Page<MeetingScheduling> getMeetingList(MeetingScheduling bo,PageRequest page);
+	
+	 /***
+     * 根据id查询排期集合
+     * @param ids
+     * @return
+     */
+    public List<MeetingScheduling> getMeetingListByIds(MeetingScheduling bo);
 
 }

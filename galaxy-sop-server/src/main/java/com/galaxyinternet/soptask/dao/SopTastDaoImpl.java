@@ -73,4 +73,13 @@ public class SopTastDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTask
 	public int updateTask(SopTask task) {
 		return this.sqlSessionTemplate.update(getSqlName("updateTask"), task);
 	}
+	
+	@Override
+	public List<SopTask> getSopTaskByProjectId(SopTaskBo query) {
+		try {
+			return sqlSessionTemplate.selectList(getSqlName("selectTaskByProjectId"), query);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询对象列表出错！语句：%s", getSqlName("selectTaskByProjectId")), e);
+		}
+	}
 }

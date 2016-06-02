@@ -217,6 +217,25 @@
 	<delete id="deleteById" parameterType="com.galaxyinternet.model.project.MeetingScheduling">
 		delete from sop_meeting_scheduling where id = #{id}
 	</delete>
+	
+	<!-- 根据projectId会议 -->
+	<select id="selectMeetingSchedulingId" resultMap="BaseResultMap" parameterType="com.galaxyinternet.model.project.MeetingScheduling">
+		select
+		<include refid="Base_Column_List" />
+		from sop_meeting_scheduling
+		<where>
+			<trim prefixOverrides="and">
+				<if test="ids != null">
+					AND id IN
+					<foreach collection="ids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+			</trim>
+		</where>
+	</select>
+	
   
   
 </mapper>

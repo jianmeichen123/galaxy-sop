@@ -341,4 +341,22 @@
 		           task_order > 0
 	</select>
 	
+	<!-- 根据projectId任务 -->
+	<select id="selectTaskByProjectId" resultMap="BaseResultMap" parameterType="com.galaxyinternet.bo.SopTaskBo">
+		select
+		<include refid="Base_Column_List" />
+		from sop_task
+		<where>
+			<trim prefixOverrides="and">
+				<if test="ids != null">
+					AND project_id IN
+					<foreach collection="projectIds" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+			</trim>
+		</where>
+	</select>
+	
 </mapper>
