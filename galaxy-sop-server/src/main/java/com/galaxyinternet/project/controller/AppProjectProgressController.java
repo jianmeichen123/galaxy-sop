@@ -402,19 +402,23 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 							} 
 						}
 					}
-					List<AppFileDTO> list = new ArrayList<AppFileDTO>();					
-					AppFileDTO appfiledto = new AppFileDTO();
-					appfiledto.setFileTypeCode(DictEnum.fileWorktype.投资协议.getCode());
-					appfiledto.setFileTypeName(DictEnum.fileWorktype.投资协议.getName());
-					appfiledto.setAppSopFile(tzxyAppSopFileList);				
-					list.add(appfiledto);
+					List<AppFileDTO> list = new ArrayList<AppFileDTO>();
 					
-					AppFileDTO gq_appfileDto = new AppFileDTO();
-					gq_appfileDto.setFileTypeCode(DictEnum.fileWorktype.股权转让协议.getCode());
-					gq_appfileDto.setFileTypeName(DictEnum.fileWorktype.股权转让协议.getName());
-					gq_appfileDto.setAppSopFile(gqzrxyAppSopFileList);					
-					list.add(gq_appfileDto);
-										
+					if(tzxyAppSopFileList.size()>0){
+						AppFileDTO appfiledto = new AppFileDTO();
+						appfiledto.setFileTypeCode(DictEnum.fileWorktype.投资协议.getCode());
+						appfiledto.setFileTypeName(DictEnum.fileWorktype.投资协议.getName());
+						appfiledto.setAppSopFile(tzxyAppSopFileList);			
+						list.add(appfiledto);
+					}
+					
+					if(gqzrxyAppSopFileList.size()>0){
+						AppFileDTO gq_appfileDto = new AppFileDTO();
+						gq_appfileDto.setFileTypeCode(DictEnum.fileWorktype.股权转让协议.getCode());
+						gq_appfileDto.setFileTypeName(DictEnum.fileWorktype.股权转让协议.getName());
+						gq_appfileDto.setAppSopFile(gqzrxyAppSopFileList);					
+						list.add(gq_appfileDto);
+					}															
 					appProgress.setAppFileDtoList(list);
 					appProgresslist.add(appProgress);
 					
