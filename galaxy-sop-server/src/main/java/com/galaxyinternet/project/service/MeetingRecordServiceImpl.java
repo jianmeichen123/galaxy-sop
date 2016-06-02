@@ -1,6 +1,8 @@
 package com.galaxyinternet.project.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,14 +69,17 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		}
 		meetingRecord.setFileId(fid);
 		Long id = getBaseDao().insert(meetingRecord);
+		
 		// 会议结论： 待定(默认)、 否决、 通过
 		// 会议类型 2:内评会、3：CEO评审、 4:立项会、 7投决会、
+		// 操作项目、排期池
 		if(equalNowPrograss){
 			if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())) {
 				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
 					lph(meetingRecord.getProjectId(), meetingRecord.getMeetingResult());
 				}
 			} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())) {
+				pqcUpdate(meetingRecord);
 				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
 					ceops(meetingRecord.getProjectId(), meetingRecord.getMeetingResult());
 				}
@@ -108,6 +113,15 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			pro.setProjectProgress(DictEnum.projectProgress.CEO评审.getCode());
 			pro.setProjectStatus(DictEnum.meetingResult.待定.getCode()); 
 			projectDao.updateById(pro);
+			
+			MeetingScheduling ms = new MeetingScheduling();
+			ms.setProjectId(pro.getId());
+			ms.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
+			ms.setMeetingCount(0);
+			ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+			ms.setApplyTime(new Timestamp(new Date().getTime()));
+			meetingSchedulingDao.insert(ms);
 		}
 	}
 	
@@ -122,8 +136,19 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			projectDao.updateById(pro);
 			
 		}else if(meetingResult.equals(DictEnum.meetingResult.通过.getCode()) ){ //update 项目状态
-			pro.setProjectStatus(DictEnum.meetingResult.通过.getCode()); 
+			//pro.setProjectStatus(DictEnum.meetingResult.通过.getCode()); 
+			pro.setProjectProgress(DictEnum.projectProgress.立项会.getCode());
+			pro.setProjectStatus(DictEnum.meetingResult.待定.getCode()); 
 			projectDao.updateById(pro);
+			
+			MeetingScheduling ms = new MeetingScheduling();
+			ms.setProjectId(pro.getId());
+			ms.setMeetingType(DictEnum.meetingType.立项会.getCode());
+			ms.setMeetingCount(0);
+			ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+			ms.setApplyTime(new Timestamp(new Date().getTime()));
+			meetingSchedulingDao.insert(ms);
 		}
 	}
 	
