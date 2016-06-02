@@ -32,10 +32,11 @@
 	<!--右中部内容-->
  	<div class="ritmin">
     <!-- 面包屑 -->
-    <ul class="breadcrumb">
+    <h2>待办任务</h2>
+   <!--  <ul class="breadcrumb">
       <li><a href="javascript:;" class="bcfirst">待办任务</a></li>
-      <!-- <li class="bottom_align"><a href="javascript:;" class="active">上传文档</a></li> -->
-    </ul>
+      <li class="bottom_align"><a href="javascript:;" class="active">上传文档</a></li>
+    </ul> -->
       <div class="clearfix"></div>
         <!--项目基本信息内容-->
         <div class="projectmsg clearfix">
