@@ -267,7 +267,7 @@ function dateFormatter(val,row,index)
 			if(clickN != '0'){
 				$("#ideaProgress_log_table").bootstrapTable('refresh');
 			}else{
-				tiggerTable($("#ideaProgress_log_table"),2);
+				tiggerTable($("#ideaProgress_log_table"),8);
 				$("#ideaOperateLog").data("clickn","n");
 			}
 		});
