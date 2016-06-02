@@ -151,7 +151,7 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
+							<th data-align="center" data-formatter="meetInfoFormat" data-width="50%">会议概况</th>
 							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 							<!-- <th data-field="meetingNotes" data-align="center" data-formatter="formatMeetNote">会议纪要</th>  --> 
 						</tr>

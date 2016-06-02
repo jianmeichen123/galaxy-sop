@@ -839,14 +839,17 @@ function sublengthFormat(value,row,index){
 }
 //interview
 function formatLog(value,row,index){
-	var len = getLength($.trim(value));
+	var subValue = value.trim().replace(/<[^>]+>/g,"");
+	    len=subValue.length;
+	/*alert(subValue)
+	alert(value)
+	alert(len);*/
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
-		if(len>100){
-			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
-			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;padding:10px 0;\" class=\"text-overflow1\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
-			
+		if(len>80){
+			var subValue1 = subValue.substring(0,80);
+			var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+strrrr+"'>"+subValue1+'...'+'</div>';
 			return rc;
 		}else{
 			return strlog;
