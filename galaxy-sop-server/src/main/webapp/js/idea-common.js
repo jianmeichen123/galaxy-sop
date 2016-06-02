@@ -54,7 +54,7 @@
 		showIdeaDetail(ideaid);
 	}
 	function infoPro(pid){
-		window.location.href=$("#menus").find("[data-menueid='5']").attr("href")+"&projectId="+pid;
+		window.location.href=platformUrl.projectDetail+pid;
 	}
 	
 	function refreshIdeaList()
