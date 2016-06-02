@@ -491,7 +491,7 @@ function tzyxs(flag){
 		 sendGetRequest(Constants.sopEndpointURL + '/galaxy/project/progress/proFileInfo/'+pid+'/5',
 				 null, function(data){
 					 var json = eval(data);
-					 var dataList=json.entityList;
+					 var dataList=json.pageList;
 					 for(var ii = 0 ; ii < dataList.length ; ii++){
 						    var p = ii ;	
 							var handlefile="";
