@@ -32,7 +32,7 @@
               <h3 class="idea-title">食乐淘</h3>       
             </div>
             <ul class="pjt_brf clearfix">
-              <li>最新变更动态<span id="idea-progress-log"></span>。</li>
+              <li>最新变更动态<span id="idea-progress-log"></span></li>
             </ul>
           </div>
 
@@ -173,7 +173,7 @@
 				</div>
 				<table id="ideaProgress_log_table"
 					data-url="<%=path%>/galaxy/operatlog/queryIdeaProgressLog"
-					data-page-list="[3,5,10]" data-toolbar="#ideaProgress_log_params">
+					data-page-list="[8,15,30]" data-toolbar="#ideaProgress_log_params">
 					<thead>
 						<tr>
 							<th data-field="createdTime" data-align="center" data-formatter="datetimeFormatter">操作时间</th>

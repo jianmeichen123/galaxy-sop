@@ -57,7 +57,7 @@ function dateFormatter(val,row,index)
 		showIdeaDetail(ideaid);
 	}
 	function infoPro(pid){
-		window.location.href=$("#menus").find("[data-menueid='5']").attr("href")+"&projectId="+pid;
+		window.location.href=platformUrl.projectDetail+pid;
 	}
 	
 	function refreshIdeaList()
@@ -267,7 +267,7 @@ function dateFormatter(val,row,index)
 			if(clickN != '0'){
 				$("#ideaProgress_log_table").bootstrapTable('refresh');
 			}else{
-				tiggerTable($("#ideaProgress_log_table"),2);
+				tiggerTable($("#ideaProgress_log_table"),8);
 				$("#ideaOperateLog").data("clickn","n");
 			}
 		});

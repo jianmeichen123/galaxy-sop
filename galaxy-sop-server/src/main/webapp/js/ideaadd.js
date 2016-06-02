@@ -3,7 +3,7 @@ var ideaAddDialog = {
 			fileKey : undefined,
 			init : function(_formdata){
 				ideaAddDialog.initData();
-				ideaAddDialog.callFuc = _formdata.callFuc;
+				ideaAddDialog.callFuc = _formdata._callFuc;
 				$.popup({
 					txt : $("#addDialog").html(),
 					showback:function(){
@@ -46,7 +46,8 @@ var ideaAddDialog = {
 //									$(".creativetc").remove();
 //									$(".close").remove();
 									operator.close(_this);
-									$(".creativetc").find("[data-close='close']").click();
+									ideaAddDialog.callFuc();
+									
 								},
 								//关闭弹出框
 								close : function(_this){
@@ -246,7 +247,10 @@ var ideaAddDialog = {
 							_ideaSource : data.entity.ideaSource,
 							_ideaDescHtml : data.entity.ideaDescHtml,
 							_ideaideaProgress:data.entity.ideaProgress,
-							_callFuc : function(){}
+							_callFuc : function(){
+								$(".creativetc").find("[data-close='close']").click();
+								showIdeaDetail(data.entity.id);
+							}
 					}
 					ideaAddDialog.init(formdata);
 				}else{
