@@ -73,7 +73,7 @@
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
-			
+			cutStr(10,'cutstr');
 		}		
 		if (list.length==0) {
 			
@@ -84,6 +84,7 @@
 				' </tr>'; 			
 			tbodyList.append(noData);
 	   }
+		
 		if(list.length<3){
 			$("#ceopsbodytop").parent().parent().siblings().children('.more').css("display","none");
 		}
@@ -520,7 +521,7 @@ function cyIndexCallback(data){
 			 
 			var tr='<tr>'+
 				'<td>'+ temp.ideaCode+'</td>'+
-				'<td>'+ temp.ideaName+'</td>'+
+				'<td class="cutstr" title="'+ temp.ideaName+'">'+ temp.ideaName+'</td>'+
 				'<td>'+ temp.departmentDesc+'</td>'+ 
 				'<td>'+ ((isNaN(temp.createdTime))?'-': Number(temp.createdTime).toDate().format("yyyy-MM-dd"))+'</td>'+
 				'<td>'+ ((isNaN(temp.updatedTime))?'-': Number(temp.updatedTime).toDate().format("yyyy-MM-dd"))+'</td>'+
@@ -529,7 +530,7 @@ function cyIndexCallback(data){
 				'</tr>'; 
 			tbodyList.append(tr);
 		});
-		
+		cutStr(10,'cutstr');
 		if(list.length<3){
 			$("#cy_index").parent().parent().siblings().children('.more').css("display","none");	
 		}
