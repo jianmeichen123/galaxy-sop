@@ -307,8 +307,9 @@ function dateFormatter(val,row,index)
 		$("[data-btn='claim']").on("click",function(){
 			var $self = $(this);
 			var id=$self.next().next().val();
-			var _url = $self.attr("href");
-			$.getHtml({
+		//	var _url = $self.attr("href");
+			 claimFun(id);
+			/*$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
@@ -319,8 +320,8 @@ function dateFormatter(val,row,index)
 					})
 				
 				}//模版反回成功执行	
-			});
-			return false;
+			});*/
+			//return false;
 		});
 		
 		
@@ -668,87 +669,16 @@ function dateFormatter(val,row,index)
 		meetuploader.init();
 		//----- end init upload
 	}
-	
-	
-	/**
-	 * 
-	 * 查询创意详情set值
-	 * @param id
-	 */
-  /*function getIdeaInfoEdit(id,flag)
-  {
-   var url = platformUrl.detailIdea+"/"+id;
-    sendGetRequest(
-	url,
-	{"id":"${id}"},
-	function(data){
-		if(data.result.status == "Error")
-		{
-			alert(data.result.message );
-			return;
-		}
-		var idea = data.entity;
-		stockTransfer = idea.stockTransfer;
-		var um = UM.getEditor('edit_idea_desc');
-	    getDepartment($("#department"));
-		um.setContent(idea.ideaDesc);
-	     $("#ideaId").val(idea.id);
-		$("#ideaEdit dd").each(function(){
-		  var self =$(this).children();
-		if(self.attr('id') != 'undefined')
-			{
-			var formatter = self.data('formatter');
-				var id = self.attr('id');
-				var text = idea[id];
-			   if(id=="department"){
-				   if(self.children().val()==idea.departmentId){
-					   self.children().attr("selected","selected");
-					   $("#depid").val(idea.departmentId);
-				   }
-				  }else if($.isFunction(window[formatter]))
-				{
-					text = window[formatter].call(window,text);
-					self.val(text);
-				}else{
-				    self.val(text);
-				}
-				
-			}
-			
-		});
-	}
-);
-}*/
-  
-  /**
-   * 更新项目信息
-   */
-/*  
-  function update(){
-	  var um = UM.getEditor('edit_idea_desc');
-		var ideaDesc = um.getContent();
-	  var date={
-			"id": $("#ideaId").val(),
-			"ideaName":$("#ideaName").val(),
-			"ideaDesc":ideaDesc,
-			"ideaDescHtml":ideaDesc,
-			"ideaSource":$("#ideaSource").val(),
-			"departmentId":$("#depid").val()
-	  };
-		if(pid != '' && companyLocation != ''){
-			sendPostRequestByJsonObj(platformUrl.ideaUpdateIdea, {"id" : pid, "companyLocation" : companyLocation}, saveSuccess());
-		}
-
-  	
-  }*/
   function claimFun(id){
 	  if(id != ''){
 			sendPostRequestByJsonObj(platformUrl.ideaClimat, {"id" :id,"ideaProgress":"ideaProgress:2"}, function(data){
 				
 				if(data.result.status == 'OK')
 				{
-					//layer.msg("认领成功！");
-					//setTimeout("$('.claimtc').find('[data-close='close']').click();",2000);  
+					layer.msg("认领成功！");
+					 refreshIdeaList();
+			    	 refreshStageDialog(id);
+				//setTimeout("$('.claimtc').find('[data-close='close']').click();",2000);  
 					
 				}else{
 					layer.msg(data.result.errorCode);
