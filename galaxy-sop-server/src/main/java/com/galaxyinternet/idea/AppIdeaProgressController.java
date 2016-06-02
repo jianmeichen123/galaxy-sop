@@ -147,12 +147,33 @@ public class AppIdeaProgressController extends BaseControllerImpl<Idea, Idea> {
 					meetingRecord.setProjectId(id);
 					List<MeetingRecord> listSop = meetingRecordService.queryList(meetingRecord);
 					if (listSop!=null && listSop.size()>0) {
-						MeetingRecord me = listSop.get(0);
-						appIdea.setMeetTime(me.getMeetingDateStr());	//会议时间					
-						appIdea.setMeetCode(me.getMeetingResult());		//会议结果类型
-						appIdea.setMeetResult(me.getMeetingResultStr()); //会议结果
-						appIdea.setMeetNote(me.getMeetingNotes());		//会议纪要	
-						appIdea.setId(me.getId()); //会议ID
+						for(MeetingRecord met:listSop){
+							if(met.getMeetingResult().contains(DictEnum.meetingResult.否决.getCode())){
+								appIdea.setMeetTime(met.getMeetingDateStr());	//会议时间					
+								appIdea.setMeetCode(met.getMeetingResult());		//会议结果类型
+								appIdea.setMeetResult(met.getMeetingResultStr()); //会议结果
+								appIdea.setMeetNote(met.getMeetingNotes());		//会议纪要	
+								appIdea.setId(met.getId()); //会议ID
+								break;
+							}else if(met.getMeetingResult().contains(DictEnum.meetingResult.通过.getCode())){
+								appIdea.setMeetTime(met.getMeetingDateStr());	//会议时间					
+								appIdea.setMeetCode(met.getMeetingResult());		//会议结果类型
+								appIdea.setMeetResult(met.getMeetingResultStr()); //会议结果
+								appIdea.setMeetNote(met.getMeetingNotes());		//会议纪要	
+								appIdea.setId(met.getId()); //会议ID
+								break;
+							}
+						}
+						 if(appIdea.getId()==null){
+							MeetingRecord me = listSop.get(0);
+							appIdea.setMeetTime(me.getMeetingDateStr());	//会议时间					
+							appIdea.setMeetCode(me.getMeetingResult());		//会议结果类型
+							appIdea.setMeetResult(me.getMeetingResultStr()); //会议结果
+							appIdea.setMeetNote(me.getMeetingNotes());		//会议纪要	
+							appIdea.setId(me.getId()); //会议ID
+							
+						}
+		
 					}			
 					appIdealist.add(appIdea);						
 				}
