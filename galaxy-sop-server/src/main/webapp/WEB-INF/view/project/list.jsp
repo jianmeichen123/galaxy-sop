@@ -108,7 +108,7 @@
 			        	<th data-field="projectName" data-align="center" class="data-input" data-formatter="projectInfo">项目名称</th>
 			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
 			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
-			        	<th data-field="createDate" data-align="center" class="data-input" data-sortable="true">创建日期</th>
+			        	<th data-field="createDate" data-align="center" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
 			        	<th data-align="center" class="col-md-2" data-formatter="editor">操作</th>
  					</tr>	
  				</thead>
