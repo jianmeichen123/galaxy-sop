@@ -164,7 +164,7 @@ function meetFormatLog(value,row,index){
 		if(len>20){
 			var subValue = $.trim(value).substring(20).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
 			/*var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';*/
-			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" >"+
+			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\" >"+
 						subValue+
 						"..."+"<a href=\"javascript:;\" class=\"blue  option_item_mark\"  onclick=\"showMeetDetail("+row.id+")\" >更多<a>"+    
 					'</div>';
