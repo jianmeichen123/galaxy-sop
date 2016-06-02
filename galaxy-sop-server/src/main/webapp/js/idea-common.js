@@ -1,4 +1,6 @@
-	function dateFormatter(val,row,index)
+
+
+function dateFormatter(val,row,index)
 	{
 		if(!isNaN(val))
 		{
@@ -36,8 +38,10 @@
 	}
 	function ideaNameLinkFormatter(val,row,index)
 	{
-		return '<a href="#" class="blue" onclick="showIdeaDetail(\'' + row.id + '\')">'+val+'</a>';
+		var text=val.substring(0,12);
+		return '<a href="#" class="blue" onclick="showIdeaDetail(\'' + row.id + '\')" title="'+val+'">'+text+'</a>';
 	}
+
 	function ideaNameLinkFormatter2(val,row,index)
 	{
 		return '<a href="#" class="blue" onclick="infoIdea(\'' + row.id + '\',\''+  row.ideaName + '\')">'+val+'</a>';
@@ -46,7 +50,6 @@
 	{
 		return '<a href="#" class="blue" onclick="infoPro(\'' + row.projectId + '\')">'+val+'</a>';
 	}
-	
 	function infoIdea(ideaid,ideaName){
 		$("#powindow,#popbg").remove();
 		$("#custom-toolbar [name='keyword']").val(ideaName);
@@ -119,6 +122,14 @@
 					}
 					self.text(text);
 				}
+			if(self.attr('id') == 'ideaSource')
+				{
+				self.attr("title",text);
+				}
+			if(self.attr('id') == 'ideaName')
+			{
+			self.attr("title",text);
+			}
 				
 			});
 		});
@@ -213,6 +224,7 @@
 			
 			if(i > index || (i>1 && index==4)){      //当前阶段之后的tab变为不可用;搁置时，与待认领相同；
 				$("#ideaProgress_" + i).addClass("disabled");
+				$("#ideaProgress_" + i).attr("disabled",'disabled');
 			}
 			
 			$("#ideaProgress_" + i).on("click",function(){
@@ -255,7 +267,7 @@
 			if(clickN != '0'){
 				$("#ideaProgress_log_table").bootstrapTable('refresh');
 			}else{
-				tiggerTable($("#ideaProgress_log_table"),2);
+				tiggerTable($("#ideaProgress_log_table"),8);
 				$("#ideaOperateLog").data("clickn","n");
 			}
 		});
@@ -419,11 +431,11 @@
 	
 	function ideaFileDownFormat(val,row,index){
 		if(row.fileKey){
-			return "<a href=\"#\"  onclick=\"filedown("+row.id+","+row.fileKey+");\" class=\"blue\" >"+row.fileName+"</a>" ;
+			var text=row.fileName.substring(0,8);
+			return "<a href=\"#\"  onclick=\"filedown("+row.id+","+row.fileKey+");\" class=\"blue\" title=\'"+row.fileName+"\'>"+text+"</a>" ;
 		}
 		return "-";
 	}
-	
 	// mark :u/上传  e/更新    prograss：ideaProgress:2 projectId:ideaid  fileid:
 	function showUploadPopup(mark,prograss,fileid){
 		$.popup({

@@ -20,10 +20,12 @@ $(function(){
 		$("[data-btn='edit']").show();
 		$("[data-btn='reset']").hide();
 		$("[data-btn='submit']").hide();
-		window.location.reload();
-		
-		
+		window.location.reload();		
 	}
+	$("[data-btn='reset']").click(function(){
+		window.location.reload();
+	})
+
 	/**
 	 * 保存商业模式
 	 */
@@ -102,37 +104,47 @@ $(function(){
 		$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
 		$("#analysis_show ").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
 		
-		var um = UM.getEditor('describe_editor');
+		//var um = UM.getEditor('describe_editor');
 		if(data.entity.projectDescribe){
-			um.setContent(data.entity.projectDescribe);
+			//var um = UM.getEditor('describe_editor');
+			$("#describe_editor").html(data.entity.projectDescribe)
+			//um.setContent(data.entity.projectDescribe);
 		}else{
-			um.setContent("");
+			$("#describe_editor").html('');
 		}
 		
-		var um = UM.getEditor('business_model_editor');
+		//var um = UM.getEditor('business_model_editor');
 		if(data.entity.projectBusinessModel){
-			um.setContent(data.entity.projectBusinessModel);
+			$("#business_model_editor").html(data.entity.projectBusinessModel)
+			//um.setContent(data.entity.projectBusinessModel);
 		}else{
-			um.setContent("");
+			$("#business_model_editor").html('')
+			//um.setContent("");
 		}
-		var um = UM.getEditor('location_editor');
+		//var um = UM.getEditor('location_editor');
 		if(data.entity.companyLocation){
-			um.setContent(data.entity.companyLocation);
+			$("#location_editor").html(data.entity.companyLocation)
+			//um.setContent(data.entity.companyLocation);
 		}else{
-			um.setContent("");
+			$("#location_editor").html('')
+			//um.setContent("");
 		}
 		
-		var um = UM.getEditor('portrait_editor');
+		//var um = UM.getEditor('portrait_editor');
 		if(data.entity.userPortrait){
-			um.setContent(data.entity.userPortrait);
+			$("#portrait_editor").html(data.entity.userPortrait)
+			//um.setContent(data.entity.userPortrait);
 		}else{
-			um.setContent("");
+			$("#portrait_editor").html('')
+			//um.setContent("");
 		}
-		var um = UM.getEditor('analysis_editor');
+		//var um = UM.getEditor('analysis_editor');
 		if(data.entity.prospectAnalysis){
-			um.setContent(data.entity.prospectAnalysis);
+			$("#analysis_editor").html(data.entity.prospectAnalysis)
+			//um.setContent(data.entity.prospectAnalysis);
 		}else{
-			um.setContent("");
+			$("#analysis_editor").html('')
+			//um.setContent("");
 		}
 		
 		
@@ -140,14 +152,15 @@ $(function(){
 			var uploadOperator;
 			var html;
 			if(data.result.status=="OK"){
+				console.log(data);
 				//为空时候显示
 				if(data.result.errorCode=="null"){
 					uploadOperator = "上传";
-					html = "<a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>";
+					html = "<span class='content'>状态：未上传</span><span class='content'>更新时间：无</span><a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>";
 				}else{
 					//不为空时候显示
 					uploadOperator = "更新";
-					html = "<a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>" +
+					html = "<span class='content'>状态：已上传</span><span class='content'>更新时间："+data.entity.createDate+"</span><a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>" +
 						   "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
 				}
 				$("#business_plan_dd").html(html);

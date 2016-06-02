@@ -9,5 +9,5 @@ import com.galaxyinternet.model.idea.Abandoned;
 public class AbandonedDaoImpl extends BaseDaoImpl<Abandoned, Long>implements AbandonedDao {
 
 	
-
+ 
 }

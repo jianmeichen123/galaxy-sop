@@ -139,7 +139,7 @@ var fileGrid = {
 			uploadClass = "fileuploadlink"
 		}
 		
-		if(row.fileKey && row.isEdit == "true"){
+		if(row.fileKey && row.fileValid==1 && row.isEdit == "true"){
 			
 			return [
 			        '<a class="' + uploadClass + ' blue"  href="javascript:void(0)">',
@@ -155,7 +155,7 @@ var fileGrid = {
 		            uploadOpt,
 		            '</a>  '
 		        ].join('');
-		}else if(row.fileKey && row.isEdit == "false"){
+		}else if(row.fileKey && row.fileValid==1  && row.isEdit == "false"){
 			return [
 			        '<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">',
 			        '下载',

@@ -32,7 +32,7 @@
               <h3 class="idea-title">食乐淘</h3>       
             </div>
             <ul class="pjt_brf clearfix">
-              <li>最新变更动态<span id="idea-progress-log"></span>。</li>
+              <li>最新变更动态<span id="idea-progress-log"></span></li>
             </ul>
           </div>
 
@@ -58,29 +58,29 @@
                   <div class="top clearfix">
                     <dl>
                       <dt>创意编号：</dt>
-                      <dd id="ideaCode"></dd>
+                      <dd id="ideaCode" class="dw"></dd>
                     </dl>
                     <dl>
                       <dt>创意名称：</dt>
-                      <dd id="ideaName">食乐淘</dd>
+                      <dd id="ideaName" class="dw">食乐淘</dd>
                     </dl>
                     <dl>
                       <dt>创意来源：</dt>
-                      <dd id="ideaSource"></dd>
+                      <dd id="ideaSource" class="dw"></dd>
                     </dl>
                     <dl>
                       <dt>提出人：</dt>
-                      <dd id="createdUname">投资经理</dd>
+                      <dd id="createdUname" class="dw">投资经理</dd>
                     </dl>
                     <dl>
                       <dt>所属事业线：</dt>
-                      <dd id="departmentDesc">O2O</dd>
+                      <dd id="departmentDesc" class="dw">O2O</dd>
                     </dl>
                   </div>
                   <div class="mid clearfix">
                     <dl>
                       <dt>提出时间：</dt>
-                      <dd id="createdTime" data-formatter="dateFormatter">2016-05-08</dd>
+                      <dd id="createdTime" data-formatter="dateFormatter" class="dw">2016-05-08</dd>
                     </dl>
                   </div>
                   <div class="bottom clearfix" id="append">
@@ -151,7 +151,7 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
+							<th data-align="center" data-formatter="meetInfoFormat" data-width="50%">会议概况</th>
 							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 							<!-- <th data-field="meetingNotes" data-align="center" data-formatter="formatMeetNote">会议纪要</th>  --> 
 						</tr>
@@ -173,7 +173,7 @@
 				</div>
 				<table id="ideaProgress_log_table"
 					data-url="<%=path%>/galaxy/operatlog/queryIdeaProgressLog"
-					data-page-list="[3,5,10]" data-toolbar="#ideaProgress_log_params">
+					data-page-list="[8,15,30]" data-toolbar="#ideaProgress_log_params">
 					<thead>
 						<tr>
 							<th data-field="createdTime" data-align="center" data-formatter="datetimeFormatter">操作时间</th>

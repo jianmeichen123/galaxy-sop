@@ -53,7 +53,7 @@
         </div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
-			<div class="bottom searchall clearfix search_adjust">
+			<div class="bottom searchall clearfix search_adjust idea_list_searchall">
 				<dl class="fmdl fmdll clearfix">
 					<dt>关键字：</dt>
 					<dd>
@@ -82,10 +82,9 @@
 	                  <option value="ideaProgress:7">投决会</option>
 	                </select>
 	              </dd>
-	            </dl>
-				
+	            </dl>				
 			</div>
-			<div class="bottom searchall clearfix search_adjust">
+			<div class="bottom searchall clearfix search_adjust idea_list_searchall">
 	            <dl class="fmdl fmdll clearfix">
 	            	<dt>提出人：</dt>
 	            	<dd>
@@ -95,18 +94,19 @@
 	            <dl class="fmdl fmdll clearfix">
 	            	<dt>　提出时间：</dt>
 	            	<dd>
-	            		<input type="text" class="ideadatepicker txt time" name="createdDateFrom"  style="height:23px;"/>至
+	            		<input type="text" class="ideadatepicker txt time" name="createdDateFrom"  style="height:23px;"/>&nbsp;&nbsp;至&nbsp;&nbsp;
 	            		<input type="text" class="ideadatepicker txt time" name="createdDateThrough"  style="height:23px;"/>
 	            	</dd>
 	            </dl>
-				<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
+	            <dl class="fmdl fmdll clearfix" style="width:150px;"><button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button></dl>
+				
 			</div>
 		</div>
 		
 		<input type="hidden" data-id="ideaNowId" value="" />
 		
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="idea/search" data-height="555" 
+			<table id="data-table" data-url="idea/search" data-height="555" class="idea_list_table"
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
@@ -161,7 +161,7 @@
 	
 	<div >
 	<span style=" float:left; margin-right:25px;"><a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">提交</a></span>
-	<span style=" float:left"><a href="javascript:;" class="pubbtn bluebtn" data-close="close" id="upload-close">取消</a></span>
+	<span style=" float:left"><a href="javascript:;" class="pubbtn fffbtn" data-close="close" id="upload-close">取消</a></span>
 	<div  style=" width:100%; height:20px; overflow:hidden">&nbsp;</div>
 	</div>
 </div>
@@ -233,8 +233,10 @@
 		if(len<=2){
 		
 			$("[name='departmentId']").attr("disabled","true");
+			$("[name='departmentId']").attr("class","disabled");
 		}
 	});
+	cutStr(5,'cutstr');
 	
 </script>
 

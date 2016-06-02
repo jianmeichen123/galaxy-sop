@@ -206,15 +206,14 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				responseBody.setResult(result);	
 				return responseBody;
 			}
-			Project project = projectService.queryOne(query);
+			List<Project> project = projectService.queryList(query);
 			result = new Result(Status.OK,"");
-			if(project!=null){
-				result.setMessage("show");
-			}else{
+			if(project.isEmpty()){
 				result.setMessage("hide");
+			}else{
+				result.setMessage("show");
 			}
 			responseBody.setResult(result);	
-			responseBody.setResult(result);
 		} catch (DaoException e) {
 			// TODO: handle exception
 			responseBody.setResult(new Result(Status.ERROR,"系统异常"));

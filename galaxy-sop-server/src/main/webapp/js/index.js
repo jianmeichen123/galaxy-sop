@@ -73,7 +73,7 @@
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
-			
+			cutStr(10,'cutstr');
 		}		
 		if (list.length==0) {
 			
@@ -84,6 +84,7 @@
 				' </tr>'; 			
 			tbodyList.append(noData);
 	   }
+		
 		if(list.length<3){
 			$("#ceopsbodytop").parent().parent().siblings().children('.more').css("display","none");
 		}
@@ -189,6 +190,10 @@
 		
 		//根据id判断类型（组装json数据）
 		var list = data.entityList;
+		if(list.length<3){
+			
+			$("#tbody").parent().parent().siblings().children('.more').css("display","none");
+		};
 		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#tbody"); 
 			var i=0;
@@ -216,11 +221,6 @@
 						 tbodyList.append(tr);
 					});
 			  });
-			
-			if(list.length<3){
-				
-				$("#tbody").parent().parent().siblings().children('.more').css("display","none");
-			};
 			cutStr(5,'cutstr');
 		}else{
 			var tbodyList = $("#tbody"); 
@@ -237,13 +237,11 @@
 		
 		}
 
-	function top5ProjectMeetingCallback(data) {
-		
-		
-		
-		
-		
+	function top5ProjectMeetingCallback(data) {			
 		var list = data.entityList;
+		if(list.length<3){
+			$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
+		};
 		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#tlbody"); 
 			tbodyList.empty();
@@ -260,7 +258,7 @@
 						if(data.result.message=="show"){
 							_td = '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>';
 						}else{
-							_td = '<td  title="'+ getValue(templ.projectName)+'">'+ getValue(templ.projectName) +'</td>';
+							_td = '<td  title="'+ getValue(templ.projectName)+'" class="cutstr">'+ getValue(templ.projectName) +'</td>';
 						}
 						
 						var tr='<tr>'+
@@ -272,11 +270,7 @@
 					 tbodyList.append(tr);
 						
 					});
-			  });
-			if(list.length<3){
-				$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
-			};
-			
+			  });			
 		}else{
 			var tbodyList = $("#tlbody"); 
 			var noData =
@@ -520,7 +514,7 @@ function cyIndexCallback(data){
 			 
 			var tr='<tr>'+
 				'<td>'+ temp.ideaCode+'</td>'+
-				'<td>'+ temp.ideaName+'</td>'+
+				'<td class="cutstr" title="'+ temp.ideaName+'">'+ temp.ideaName+'</td>'+
 				'<td>'+ temp.departmentDesc+'</td>'+ 
 				'<td>'+ ((isNaN(temp.createdTime))?'-': Number(temp.createdTime).toDate().format("yyyy-MM-dd"))+'</td>'+
 				'<td>'+ ((isNaN(temp.updatedTime))?'-': Number(temp.updatedTime).toDate().format("yyyy-MM-dd"))+'</td>'+
@@ -529,7 +523,7 @@ function cyIndexCallback(data){
 				'</tr>'; 
 			tbodyList.append(tr);
 		});
-		
+		cutStr(10,'cutstr');
 		if(list.length<3){
 			$("#cy_index").parent().parent().siblings().children('.more').css("display","none");	
 		}

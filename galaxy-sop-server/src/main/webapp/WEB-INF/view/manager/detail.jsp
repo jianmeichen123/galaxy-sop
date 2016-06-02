@@ -20,7 +20,12 @@
     <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
     <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script src="<%=path %>/js/init.js"></script>
-
+	<style type="text/css">
+		.content{
+			float: left;
+			padding:0 10px;
+		}
+	</style>
 </head>
 
 <body>
@@ -100,7 +105,7 @@
           <!-- 商业计划  -->      
           <div class="block block2 shadow">
             <dl>
-              <dt>商业计划</dt>
+              <dt>商业计划书</dt>
                <dd id="business_plan_dd" class="fctbox">
 <!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
 <!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
@@ -313,9 +318,9 @@
 				if(data.result.status=="OK"){
 					//为空时候显示
 					if(data.result.errorCode=="null"){				
-						html = "";
+						html = "<span class='content'>状态：未上传</span><span class='content'>更新时间：无</span>";
 					}else{
-						html =  "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+						html =  "<span class='content'>状态：已上传</span><span class='content'>更新时间："+data.entity.createDate+"</span><a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
 					}
 					$("#business_plan_dd").html(html);
 				}else{

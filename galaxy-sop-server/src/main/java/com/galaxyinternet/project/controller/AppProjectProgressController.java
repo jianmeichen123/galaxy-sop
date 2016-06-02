@@ -1,10 +1,12 @@
 package com.galaxyinternet.project.controller;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.project.AppCounts;
 import com.galaxyinternet.model.project.AppFileDTO;
 import com.galaxyinternet.model.project.AppProgress;
 import com.galaxyinternet.model.project.InterviewRecord;
@@ -38,6 +43,7 @@ import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopVoucherFileService;
+import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 
 @Controller
@@ -55,6 +61,8 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 	@Autowired
 	private MeetingRecordService meetingRecordService;
 
+	@Autowired
+	private UserRoleService userRoleService;
 	@Autowired
 	private InterviewRecordService interviewRecordService;
 
@@ -119,13 +127,10 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 			InterviewRecord interviewRecord = null;
 			// 业务类型的类
 			AppSopFile appSopFile = null;
-			// 上传list给到类中
-//			List<AppSopFile> appS = null;
 			// 会议记录的类
 			MeetingRecord meetingRecord = null;
 			AppProgress appProgress = null;
 			for (int i = n; i > 0; i--) {				
-//				appS = new ArrayList<AppSopFile>();
 				meetingRecord = new MeetingRecord();
 				appSopFile = new AppSopFile();
 				interviewRecord = new InterviewRecord();
@@ -144,7 +149,8 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					List<String> fileworkTypeList = new ArrayList<String>();
 					fileworkTypeList.add(DictEnum.fileWorktype.工商转让凭证.getCode());
 					fileworkTypeList.add(DictEnum.fileWorktype.资金拨付凭证.getCode());
-					sopFile.setFileworktypeList(fileworkTypeList);					
+					sopFile.setFileworktypeList(fileworkTypeList);	
+					sopFile.setFileValid(1); //生效文件
 					List<SopFile> listSop = sopFileService.queryList(sopFile);
 					
 					List<AppSopFile> zjbfFileList = new ArrayList<AppSopFile>();
@@ -217,8 +223,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 							} 
 						}
 
-					}
-//					appProgress.setAppSopFile(appS);					
+					}				
 					List<AppFileDTO> list = new ArrayList<AppFileDTO>();
 					AppFileDTO appfileDto = new AppFileDTO();
 					appfileDto.setFileTypeCode(DictEnum.fileWorktype.资金拨付凭证.getCode());
@@ -227,14 +232,13 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					list.add(appfileDto);
 					
 					AppFileDTO gqzr_appfileDto = new AppFileDTO();
-					gqzr_appfileDto.setFileTypeCode(DictEnum.fileWorktype.股权转让协议.getCode());
-					gqzr_appfileDto.setFileTypeName(DictEnum.fileWorktype.股权转让协议.getName());
+					gqzr_appfileDto.setFileTypeCode(DictEnum.fileWorktype.工商转让凭证.getCode());
+					gqzr_appfileDto.setFileTypeName(DictEnum.fileWorktype.工商转让凭证.getName());
 					gqzr_appfileDto.setAppSopFile(gsbgdjFileList);		
 					list.add(gqzr_appfileDto);
 					
 					appProgress.setAppFileDtoList(list);					
-					appProgresslist.add(appProgress);
-					
+					appProgresslist.add(appProgress);					
 				}
 				// 投资协议
 				else if (i == 8) {
@@ -253,6 +257,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					fileworkTypeList.add(DictEnum.fileWorktype.投资协议.getCode());
 					fileworkTypeList.add(DictEnum.fileWorktype.股权转让协议.getCode());
 					query_sopfile.setFileworktypeList(fileworkTypeList);
+					query_sopfile.setFileValid(1); //生效文件
 					
 					AppSopFile $asfile = null;
 					List<SopFile> sfList = sopFileService.queryList(query_sopfile);
@@ -287,6 +292,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 									User user = userService.queryById(uid);
 									$asfile.setName(user.getRealName()); //上传人/起草者 的姓名
 								}
+								$asfile.setFileValid(sfile.getFileValid());
 								$asfile.setId(sfile.getId()); //文件ID
 								$asfile.setSignFlag(0); //档案文件
 								tzxyAppSopFileList.add($asfile);					
@@ -318,13 +324,13 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										User user = userService.queryById(uid);
 										$asfile.setName(user.getRealName()); //档案阿里云存储Key
 									}
+									$asfile.setFileValid(sfile.getFileValid());
 									$asfile.setId(sfile.getId());  //文件ID
 									$asfile.setSignFlag(0); //档案文件
 									gqzrxyAppSopFileList.add($asfile);
 							} 					    	
 					    }	
-					}				
-					
+					}					
 					//据流程阶段编码、项目ID查询签署文件信息SopVouchFile
 					sopVoucherFile.setProjectProgress("projectProgress:8");
 					sopVoucherFile.setProjectId(Long.parseLong(pid));
@@ -359,7 +365,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 									if(uid!=null){
 										User user = userService.queryById(uid);
 										asfile8.setName(user.getRealName());
-									}
+									}									
 									asfile8.setId(sop.getId()); //→签署档案表的ID主键	
 									asfile8.setSignFlag(1); //档案文件
 									tzxyAppSopFileList.add(asfile8);
@@ -396,11 +402,6 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 							} 
 						}
 					}
-//					List<AppSopFile> rList = new ArrayList<AppSopFile>();				
-//					rList.addAll(tzxyAppSopFileList);
-//					rList.addAll(gqzrxyAppSopFileList);
-//					appProgress.setAppSopFile(rList);
-					
 					List<AppFileDTO> list = new ArrayList<AppFileDTO>();					
 					AppFileDTO appfiledto = new AppFileDTO();
 					appfiledto.setFileTypeCode(DictEnum.fileWorktype.投资协议.getCode());
@@ -427,8 +428,23 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					meetingRecord.setProjectId(Long.parseLong(pid));
 					// 默认的是倒序排新添加的在最上面
 					List<MeetingRecord> listSop = meetingRecordService.queryList(meetingRecord);
-					if (listSop!=null && listSop.size()>0) {
-						MeetingRecord me = listSop.get(0);
+					
+					List<MeetingRecord> filterList = new ArrayList<MeetingRecord>();			
+					for(MeetingRecord mr : listSop){
+						if(StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
+							filterList.clear();
+							filterList.add(mr);
+							break;
+						}else if (StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
+							filterList.clear();
+							filterList.add(mr);
+							break;
+						}else if (StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())){
+							filterList.add(mr);	
+						}					
+					}
+					if( filterList.size()>0 ){										
+						MeetingRecord me = filterList.get(0);
 						appProgress.setMeetTime(me.getMeetingDateStr());
 						appProgress.setMeetNotes(me.getMeetingNotes());
 						appProgress.setMeetResult(me.getMeetingResult());
@@ -466,6 +482,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					fileworkTypeList.add(DictEnum.fileWorktype.法务尽职调查报告.getCode());
 					fileworkTypeList.add(DictEnum.fileWorktype.财务尽职调查报告.getCode());
 					sopFile.setFileworktypeList(fileworkTypeList);
+					sopFile.setFileValid(1); //生效文件
 					List<SopFile> listSop = sopFileService.queryList(sopFile);
 					
 					AppSopFile _tsopFile = null;
@@ -502,7 +519,6 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										}
 										_tsopFile.setFileValid(sop.getFileValid()); //→文件(档案)待办任务提交，档案生效（是否显示催办）1是生效，0是
 										_tsopFile.setId(sop.getId());////→文件(档案)表的ID主键
-//										appS.add(_tsopFile);	
 										ywFileList.add(_tsopFile);
 								}												
 								else if (sop.getFileWorktype().equals(DictEnum.fileWorktype.法务尽职调查报告.getCode())) {
@@ -532,8 +548,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 											_tsopFile.setName(user.getRealName());
 										}
 										_tsopFile.setFileValid(sop.getFileValid());//→文件(档案)待办任务提交，档案生效（是否显示催办）1是生效，0是
-										_tsopFile.setId(sop.getId());//→文件(档案)表的ID主键
-//										appS.add(_tsopFile);		
+										_tsopFile.setId(sop.getId());//→文件(档案)表的ID主键	
 										fwjFileList.add(_tsopFile);
 								} 
 						
@@ -564,8 +579,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 											_tsopFile.setName(user.getRealName());
 										}
 										_tsopFile.setFileValid(sop.getFileValid());//→文件(档案)待办任务提交，档案生效（是否显示催办）1是生效，0是
-										_tsopFile.setId(sop.getId());////→文件(档案)表的ID主键
-//										appS.add(_tsopFile);
+										_tsopFile.setId(sop.getId()); //→文件(档案)表的ID主键
 										cwFileList.add(_tsopFile);
 								}
 								else if (sop.getFileWorktype().equals(DictEnum.fileWorktype.人力资源尽职调查报告.getCode())) {
@@ -596,7 +610,6 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										}
 										_tsopFile.setFileValid(sop.getFileValid());//→文件(档案)待办任务提交，档案生效（是否显示催办）1是生效，0是
 										_tsopFile.setId(sop.getId());////→文件(档案)表的ID主键
-//										appS.add(_tsopFile);	
 										rsFileList.add(_tsopFile);
 								}							
 							}
@@ -630,7 +643,6 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 										}
 										_tsopFile.setFileValid(sop.getFileValid()); //→文件(档案)待办任务提交，档案生效（是否显示催办）1是生效，0是
 										_tsopFile.setId(sop.getId());////→文件(档案)表的ID主键
-//										appS.add(_tsopFile);		
 										ywFileList.add(_tsopFile);
 								}							
 								else if (sop.getFileWorktype().equals(DictEnum.fileWorktype.人力资源尽职调查报告.getCode())) {
@@ -660,8 +672,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 											_tsopFile.setName(user.getRealName());
 										}
 										_tsopFile.setFileValid(sop.getFileValid());//→文件(档案)待办任务提交，档案生效（是否显示催办）1是生效，0是
-										_tsopFile.setId(sop.getId());////→文件(档案)表的ID主键
-//										appS.add(_tsopFile);			
+										_tsopFile.setId(sop.getId());////→文件(档案)表的ID主键	
 										rsFileList.add(_tsopFile);
 								}
 							}	
@@ -711,9 +722,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 						
 						appProgress.setAppFileDtoList(list);
 						appProgresslist.add(appProgress);	
-					}					
-//					appProgress.setAppSopFile(appS);
-//					appProgresslist.add(appProgress);				
+					}	
 				}
 				// 投资意向书
 				else if (i == 5) {
@@ -755,9 +764,8 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 									if(uid!=null){
 										User user = userService.queryById(uid);
 										asfile5.setName(user.getRealName());
-									}		
+									}								
 									asfile5.setId(sop.getId()); //→文件(档案)表的ID主键
-//									appS.add(asfile5);
 									tzyxsFileList.add(asfile5);
 							}
 						}
@@ -768,8 +776,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					appfileDto.setFileTypeName(DictEnum.fileWorktype.投资意向书.getName());
 					appfileDto.setAppSopFile(tzyxsFileList);		
 					list.add(appfileDto);
-					
-//					appProgress.setAppSopFile(appS);
+
 					appProgress.setAppFileDtoList(list);
 					appProgresslist.add(appProgress);
 				}
@@ -780,10 +787,25 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					//据会议类型、项目ID查询会议信息
 					meetingRecord.setMeetingType("meetingType:3");
 					meetingRecord.setProjectId(Long.parseLong(pid));
-					// 默认的是倒序排新添加的在最上面
+					// 默认的是倒序排添加的最上面
 					List<MeetingRecord> listSop = meetingRecordService.queryList(meetingRecord);
-					if (listSop!=null && listSop.size()>0) {
-						MeetingRecord me = listSop.get(0);				
+					
+					List<MeetingRecord> filterList = new ArrayList<MeetingRecord>();				
+					for(MeetingRecord mr : listSop){
+						if(StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
+							filterList.clear();
+							filterList.add(mr);
+							break;
+						}else if (StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
+							filterList.clear();
+							filterList.add(mr);
+							break;
+						}else if (StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())){
+							filterList.add(mr);	
+						}					
+					}
+					if( filterList.size()>0 ){ //处理待定 、通过或否决
+						MeetingRecord me = filterList.get(0);				
 						appProgress.setMeetTime(me.getMeetingDateStr());
 						appProgress.setMeetNotes(me.getMeetingNotes());
 						appProgress.setMeetResult(me.getMeetingResult());
@@ -798,7 +820,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 						if(mslist!=null && mslist.size()>0){
 							appProgress.setSchedulingFlag(mslist.get(0).getScheduleStatus());//默认0表示待排期，1表示已排期，2表示已通过，3表示已否决
 						}
-					}				
+					}
 					appProgresslist.add(appProgress);			
 				}
 				// CEO评审
@@ -810,8 +832,23 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					meetingRecord.setProjectId(Long.parseLong(pid));
 					// 默认的是倒序排新添加的在最上面
 					List<MeetingRecord> listSop = meetingRecordService.queryList(meetingRecord);
-					if (listSop!=null && listSop.size()>0) {
-						MeetingRecord me = listSop.get(0);						
+					
+					List<MeetingRecord> filterList = new ArrayList<MeetingRecord>();				
+					for(MeetingRecord mr : listSop){
+						if(StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
+							filterList.clear();
+							filterList.add(mr);
+							break;
+						}else if (StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
+							filterList.clear();
+							filterList.add(mr);
+							break;
+						}else if (StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())){
+							filterList.add(mr);	
+						}					
+					}
+					if( filterList.size()>0 ){					
+						MeetingRecord me = filterList.get(0);						
 						appProgress.setMeetTime(me.getMeetingDateStr());
 						appProgress.setMeetNotes(me.getMeetingNotes());
 						appProgress.setMeetResult(me.getMeetingResult());
@@ -826,8 +863,7 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 						if(mslist!=null && mslist.size()>0){
 							appProgress.setSchedulingFlag(mslist.get(0).getScheduleStatus());//默认0表示待排期，1表示已排期，2表示已通过，3表示已否决
 						}
-					}
-					
+					}				
 					appProgresslist.add(appProgress);
 				}
 				// 内部评审
@@ -839,8 +875,23 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 					meetingRecord.setProjectId(Long.parseLong(pid));
 					// 默认的是倒序排新添加的在最上面
 					List<MeetingRecord> listSop = meetingRecordService.queryList(meetingRecord);
-					if (listSop!=null && listSop.size()>0) {
-						MeetingRecord me = listSop.get(0);					
+					
+					List<MeetingRecord> filterList = new ArrayList<MeetingRecord>();				
+					for(MeetingRecord mr : listSop){
+						if(StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
+							filterList.clear();
+							filterList.add(mr);
+							break;
+						}else if (StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
+							filterList.clear();
+							filterList.add(mr);
+							break;
+						}else if (StringUtils.isNotBlank(mr.getMeetingResult()) && mr.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())){
+							filterList.add(mr);	
+						}					
+					}
+					if( filterList.size()>0 ){									
+						MeetingRecord me = filterList.get(0);					
 						appProgress.setMeetTime(me.getMeetingDateStr());
 						appProgress.setMeetNotes(me.getMeetingNotes());
 						appProgress.setMeetResult(me.getMeetingResult());
@@ -871,7 +922,91 @@ public class AppProjectProgressController extends BaseControllerImpl<Project, Pr
 			responseBody.setResult(new Result(Status.ERROR, null, "appProgreess faild"));
 		}
 		return responseBody;
-
 	}
+
+	/**
+	   * 供app端查询数据快览
+	   * 
+	   */
+	   	@ResponseBody
+		@RequestMapping(value = "/appCounts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	   	public ResponseData<AppCounts> searchAppProjectList(HttpServletRequest request) {
+			ResponseData<AppCounts> responseBody = new ResponseData<AppCounts>();
+			User user = (User) getUserFromSession(request);
+			// 判断当前用户是否为投资经理
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+					.getId());
+			if (!roleIdList.contains(UserConstant.HHR)
+					&& !roleIdList.contains(UserConstant.CEO)
+					&&!roleIdList.contains(UserConstant.DSZ)) {
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查询!"));
+				return responseBody;
+			}
+			try {
+				
+				if(roleIdList.contains(UserConstant.HHR)){
+					AppCounts appCounts=new AppCounts();
+					
+					if(user.getDepartmentId()!=null){	
+						Project project = new Project();
+						project.setProjectDepartid(user.getDepartmentId());
+						Long it=projectService.queryCount(project);
+						appCounts.setProjectCounts(it.intValue());
+						List<Project> listp=projectService.queryList(project);
+						String st="0.00";
+						double d=(Double.parseDouble(st));
+						for(Project pro :listp){
+							if(pro.getProjectValuations()!=null){
+								d=d+pro.getProjectValuations();
+							}
+						}	
+						DecimalFormat df = new DecimalFormat("#.00");					
+						appCounts.setProjectValuations(df.format(d));					
+					}
+					Project project1 = new Project();
+					project1.setProjectDepartid(user.getDepartmentId());
+					project1.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+					Long it=projectService.queryCount(project1);
+					appCounts.setJzproject(it.intValue());
+					
+					Project project2 = new Project();
+					project2.setProjectDepartid(user.getDepartmentId());
+					project2.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+					Long it1=projectService.queryCount(project2);
+					appCounts.setThproject(it1.intValue());					
+					responseBody.setResult(new Result(Status.OK, ""));
+					responseBody.setEntity(appCounts);
+					return responseBody;		
+				}else{		
+						AppCounts appCounts=new AppCounts();
+						Long it=projectService.queryCount();
+						appCounts.setProjectCounts(it.intValue());
+						List<Project> listp=projectService.queryAll();
+						String st="0.00";
+						double d=(Double.parseDouble(st));
+						for(Project pro :listp){
+							if(pro.getProjectValuations()!=null){
+								d=d+pro.getProjectValuations();
+							}
+						}	
+						DecimalFormat df = new DecimalFormat("#.00");					
+						appCounts.setProjectValuations(df.format(d));					
+						Project project1 = new Project();					
+						project1.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+						Long it1=projectService.queryCount(project1);
+						appCounts.setJzproject(it1.intValue());					
+						Project project2 = new Project();					
+						project2.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+						Long it2=projectService.queryCount(project2);
+						appCounts.setThproject(it2.intValue());					
+						responseBody.setResult(new Result(Status.OK, ""));
+						responseBody.setEntity(appCounts);
+						return responseBody;					
+				}	
+			} catch (PlatformException e) {
+				
+				return responseBody;
+			}
+	   	}
 
 }

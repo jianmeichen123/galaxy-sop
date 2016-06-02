@@ -3,7 +3,7 @@ var ideaAddDialog = {
 			fileKey : undefined,
 			init : function(_formdata){
 				ideaAddDialog.initData();
-				ideaAddDialog.callFuc = _formdata.callFuc;
+				ideaAddDialog.callFuc = _formdata._callFuc;
 				$.popup({
 					txt : $("#addDialog").html(),
 					showback:function(){
@@ -32,19 +32,22 @@ var ideaAddDialog = {
 									}
 									
 								},
-								saveCallBackFuc(data){
+								saveCallBackFuc : function(data){
 									if(data.result.status=="OK"){
 										layer.msg(data.result.errorCode);
 										if(data.id!=null&&typeof(data.id)!="undefind"){
-										getIdeaInfo(data.id);
+											getIdeaInfo(data.id);
 										}
 										refreshIdeaList();
 									}else{
 										layer.msg(data.result.errorCode);
 									}
 									$(".pop").hideLoading();
+//									$(".creativetc").remove();
+//									$(".close").remove();
 									operator.close(_this);
-//									console.log(data);
+									ideaAddDialog.callFuc();
+									
 								},
 								//关闭弹出框
 								close : function(_this){
@@ -76,9 +79,7 @@ var ideaAddDialog = {
 							//保存事件绑定
 							
 						});
-//						um.destroy(function(){
-//							console.log("销毁富文本");
-//						});
+
 						
 						
 						
@@ -106,7 +107,6 @@ var ideaAddDialog = {
 				});
 			},
 			fillData : function(_this,_formdata,_um){
-				console.log("渲染页面数据");
 				var $id = $(_this.id).find("#win_idea_id");
 				var $ideaCode = $(_this.id).find("#win_idea_code");
 				var $ideaName = $(_this.id).find("#win_idea_name");
@@ -247,7 +247,10 @@ var ideaAddDialog = {
 							_ideaSource : data.entity.ideaSource,
 							_ideaDescHtml : data.entity.ideaDescHtml,
 							_ideaideaProgress:data.entity.ideaProgress,
-							_callFuc : function(){}
+							_callFuc : function(){
+								$(".creativetc").find("[data-close='close']").click();
+								showIdeaDetail(data.entity.id);
+							}
 					}
 					ideaAddDialog.init(formdata);
 				}else{
