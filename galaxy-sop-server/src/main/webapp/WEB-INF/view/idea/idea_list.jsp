@@ -232,6 +232,7 @@
 		if(len<=2){
 		
 			$("[name='departmentId']").attr("disabled","true");
+			$("[name='departmentId']").attr("class","disabled");
 		}
 	});
 	cutStr(5,'cutstr');
