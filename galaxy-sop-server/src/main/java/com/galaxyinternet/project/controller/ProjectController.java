@@ -2207,12 +2207,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
     		responseBody.setResult(new Result(Status.ERROR, null, "无要操作的排期!"));
     	}else{
     		for(MeetingScheduling meeting:mslist){
+    			ids.add(meeting.getProjectId());
+    			msmap.put(meeting.getId(), meeting);
     			//如果是投决会阶段-则对人|财|法的进行发送邮件，即查找认领人的id
     			if (DictEnum.meetingType.投决会.getCode().equals(
     					meeting.getMeetingType())) {
-    				SopTaskBo taskBo = new SopTaskBo();
-    		    	taskBo.setProjectIds(ids);
-    		    	List<SopTask> taskList = sopTaskService.getSopTaskByProjectId(taskBo);
+    				SopTask soptask = new SopTask();
+    				soptask.setProjectId(meeting.getProjectId());
+    		    	List<SopTask> taskList = sopTaskService.queryList(soptask);
     		    	if(!taskList.isEmpty()){
     		    		List<String> users = new ArrayList<String>();
     		    		for(SopTask task:taskList){
@@ -2224,8 +2226,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
     		    	}
     				
     			}
-    			ids.add(meeting.getProjectId());
-    			msmap.put(meeting.getId(), meeting);
     		
     		}
     	}
