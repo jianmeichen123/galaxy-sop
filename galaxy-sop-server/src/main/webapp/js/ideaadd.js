@@ -36,14 +36,17 @@ var ideaAddDialog = {
 									if(data.result.status=="OK"){
 										layer.msg(data.result.errorCode);
 										if(data.id!=null&&typeof(data.id)!="undefind"){
-										getIdeaInfo(data.id);
+											getIdeaInfo(data.id);
 										}
 										refreshIdeaList();
 									}else{
 										layer.msg(data.result.errorCode);
 									}
 									$(".pop").hideLoading();
+//									$(".creativetc").remove();
+//									$(".close").remove();
 									operator.close(_this);
+									$(".creativetc").find("[data-close='close']").click();
 								},
 								//关闭弹出框
 								close : function(_this){

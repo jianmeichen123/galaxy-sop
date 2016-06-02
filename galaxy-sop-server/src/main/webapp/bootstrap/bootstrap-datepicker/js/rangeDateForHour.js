@@ -51,7 +51,7 @@ function GetDateStr(AddDayCount)
 	var d = dd.getDate();
 	return y+"-"+m+"-"+d;
 }
-var dateLimit = GetDateStr(0);
+var dateLimit = GetDateStr(1);
 var nowTemp = new Date();
 var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
 var weekLimitnow = GetDateStr(-(nowTemp.getDay())+7);

@@ -130,6 +130,8 @@ public enum OperationLogType {
 	CY_EDIT_DY_IDEA("/galaxy/idea/addIdea/"+UrlNumber.three, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_DY.getStageName()),
 	//创建立项会阶段编辑创意
 	CY_EDIT_LXH_IDEA("/galaxy/idea/addIdea/"+UrlNumber.four, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_LXH.getStageName()),
+	//放弃创意
+	CY_EDIT_FQ_IDEA("/galaxy/idea/giveUp", OperType.UPDATE.getOperationType(), "创意",SopStage.CY_INFO.getStageName()),
 	//搁置阶段编辑创意
 	CY_EDIT_GZ_IDEA("/galaxy/idea/addIdea/"+UrlNumber.five, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_GZ.getStageName());
 	

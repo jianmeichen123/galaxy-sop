@@ -98,7 +98,8 @@
 	            		<input type="text" class="ideadatepicker txt time" name="createdDateThrough"  style="height:23px;"/>
 	            	</dd>
 	            </dl>
-				<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
+	            <dl class="fmdl fmdll clearfix" style="width:150px;"><button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button></dl>
+				
 			</div>
 		</div>
 		
@@ -232,6 +233,7 @@
 		if(len<=2){
 		
 			$("[name='departmentId']").attr("disabled","true");
+			$("[name='departmentId']").attr("class","disabled");
 		}
 	});
 	cutStr(5,'cutstr');

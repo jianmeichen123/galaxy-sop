@@ -839,14 +839,17 @@ function sublengthFormat(value,row,index){
 }
 //interview
 function formatLog(value,row,index){
-	var len = getLength($.trim(value));
+	var subValue = value.trim().replace(/<[^>]+>/g,"");
+	    len=subValue.length;
+	/*alert(subValue)
+	alert(value)
+	alert(len);*/
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
-		if(len>100){
-			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
-			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;padding:10px 0;\" class=\"text-overflow1\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
-			
+		if(len>80){
+			var subValue1 = subValue.substring(0,80);
+			var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+strrrr+"'>"+subValue1+'...'+'</div>';
 			return rc;
 		}else{
 			return strlog;
@@ -866,9 +869,9 @@ function formatInterview(value,row,index){
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
-		if(len>200){
+		if(len>120){
 			// title='"+strrrr+"'
-			var subValue =str.substring(0,200); 
+			var subValue =str.substring(0,120); 
 			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
 			subValue+
 			"..."+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
@@ -891,9 +894,9 @@ function formatInterview_sop(value,row,index){
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
-		if(len>200){
+		if(len>100){
 			// title='"+strrrr+"'
-			var subValue =str.substring(0,200); 
+			var subValue =str.substring(0,100); 
 			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow\">"+
 			subValue+
 			"..."+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    

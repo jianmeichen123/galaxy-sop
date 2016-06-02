@@ -32,6 +32,12 @@
 	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 	<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+	<style type="text/css">
+		.content{
+			float: left;
+			padding:0 10px;
+		}
+	</style>
 </head>
 
 <body>
@@ -123,7 +129,7 @@
           <!-- 商业计划  -->      
           <div class="block block2 shadow">
             <dl>
-              <dt>商业计划</dt>
+              <dt>商业计划书</dt>
                <dd id="business_plan_dd" class="fctbox">
 <!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
 <!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
@@ -226,7 +232,7 @@
             <dl>
               <dt>团队成员</dt>
               <dd class="full_w describe clearfix">
-              	<div class="btnbox_f">
+              	<div class="btnbox_f" style="margin-bottom:10px;">
                   <a href="javascript:;" class="ico b1 fffbtn" onclick="addPerson();">添加</a>
                   <a href="javascript:;" class="ico b2 fffbtn" onclick="toSureMsg();">完善简历</a>
                   <!--  
