@@ -190,6 +190,10 @@
 		
 		//根据id判断类型（组装json数据）
 		var list = data.entityList;
+		if(list.length<3){
+			
+			$("#tbody").parent().parent().siblings().children('.more').css("display","none");
+		};
 		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#tbody"); 
 			var i=0;
@@ -217,11 +221,6 @@
 						 tbodyList.append(tr);
 					});
 			  });
-			
-			if(list.length<3){
-				
-				$("#tbody").parent().parent().siblings().children('.more').css("display","none");
-			};
 			cutStr(5,'cutstr');
 		}else{
 			var tbodyList = $("#tbody"); 
@@ -238,13 +237,11 @@
 		
 		}
 
-	function top5ProjectMeetingCallback(data) {
-		
-		
-		
-		
-		
+	function top5ProjectMeetingCallback(data) {			
 		var list = data.entityList;
+		if(list.length<3){
+			$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
+		};
 		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#tlbody"); 
 			tbodyList.empty();
@@ -273,11 +270,7 @@
 					 tbodyList.append(tr);
 						
 					});
-			  });
-			if(list.length<3){
-				$("#tlbody").parent().parent().siblings().children('.more').css("display","none");
-			};
-			
+			  });			
 		}else{
 			var tbodyList = $("#tlbody"); 
 			var noData =
