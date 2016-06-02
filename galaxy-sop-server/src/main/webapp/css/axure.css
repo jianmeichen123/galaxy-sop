@@ -382,7 +382,7 @@ table .width_gd{width:12%;}
 .searchall .searchbtn{ float:left; margin:0 0 0 -30px}
 .searchall .cx,.searchall .tj{margin-left: 25px;}
 /*公用按钮*/
-.pubbtn{ display:block; width:80px; height:28px; border:1px solid #FFF; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:6px;}
+.pubbtn{ display:block; width:80px; height:28px; border:1px solid #FFF; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;}
 .lpubbtn{width: 115px;}
 .llpubbtn{width: 140px;}
 .pubbtn:hover{ text-decoration:none}
@@ -667,7 +667,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg_d .shadow{box-shadow: 5px 5px 1px #dcdfe7;}
 .block2 dl dt{font-size: 16px;color:#6b799f;height: 40px;line-height: 40px;}
 .block dl{position: relative;padding:0 10px;}
-.block dl dd{color:#525662;font-family: "宋体";font-size: 12px;word-break: break-all;}
+.block dl dd{color:#536379;font-family: "宋体";font-size: 12px;word-break: break-all;}
 .block dl dd.describe,.block dl dd.edit{line-height: 22px;padding: 0 0 10px; display:none}
 .block dl dd.pro_block{display:block}
 .pagebox .projectmsg_d .block dl dd img{margin: 0 0 10px 0;}
@@ -1363,3 +1363,4 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 }
 /* 创意库列表页 */
 .idea_list_searchall .fmdll{margin-right:40px;}
+#ideaProgress_3_table td{text-align:left !important;}
