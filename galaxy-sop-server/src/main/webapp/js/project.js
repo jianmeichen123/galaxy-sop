@@ -152,14 +152,15 @@ $(function(){
 			var uploadOperator;
 			var html;
 			if(data.result.status=="OK"){
+				console.log(data);
 				//为空时候显示
 				if(data.result.errorCode=="null"){
 					uploadOperator = "上传";
-					html = "<a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>";
+					html = "<span class='content'>状态：未上传</span><span class='content'>更新时间：无</span><a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>";
 				}else{
 					//不为空时候显示
 					uploadOperator = "更新";
-					html = "<a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>" +
+					html = "<span class='content'>状态：已上传</span><span class='content'>更新时间："+data.entity.createDate+"</span><a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>" +
 						   "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
 				}
 				$("#business_plan_dd").html(html);

@@ -32,6 +32,12 @@
 	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 	<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+	<style type="text/css">
+		.content{
+			float: left;
+			padding:0 10px;
+		}
+	</style>
 </head>
 
 <body>
@@ -123,7 +129,7 @@
           <!-- 商业计划  -->      
           <div class="block block2 shadow">
             <dl>
-              <dt>商业计划</dt>
+              <dt>商业计划书</dt>
                <dd id="business_plan_dd" class="fctbox">
 <!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
 <!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
