@@ -232,7 +232,7 @@
             <dl>
               <dt>团队成员</dt>
               <dd class="full_w describe clearfix">
-              	<div class="btnbox_f">
+              	<div class="btnbox_f" style="margin-bottom:10px;">
                   <a href="javascript:;" class="ico b1 fffbtn" onclick="addPerson();">添加</a>
                   <a href="javascript:;" class="ico b2 fffbtn" onclick="toSureMsg();">完善简历</a>
                   <!--  
