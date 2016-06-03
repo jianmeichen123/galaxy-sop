@@ -70,6 +70,13 @@
        <url-pattern>/*</url-pattern>
    </filter-mapping>
 	
+	
+	<servlet>
+        <servlet-name>initMethodCall</servlet-name>
+        <servlet-class>com.galaxyinternet.common.InitMethodCall</servlet-class>
+        <load-on-startup>100</load-on-startup>
+    </servlet>
+	
 	<error-page>
 		<error-code>400</error-code>
 		<location>/WEB-INF/view/errors/400.jsp</location>
