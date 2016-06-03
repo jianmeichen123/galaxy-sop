@@ -517,7 +517,7 @@ function resemetValidate(input){
 		flag = /0\d{2,3}-\d{5,9}|0\d{2,3}-\d{5,9}/.test(value);
 		break;			
 	case "MOBILE":
-		flag = /(^1[3|5|8][0-9]{9}$)/.test(value);
+		flag = /^1[0-9]{10}$/.test(value);
 		break;	
 	case "MAIL":
 		flag = /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/.test(value);
