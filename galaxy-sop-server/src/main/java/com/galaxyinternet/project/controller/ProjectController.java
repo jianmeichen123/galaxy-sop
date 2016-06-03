@@ -2343,16 +2343,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	public void sendTaskProjectEmail(HttpServletRequest request,Project pj,String messageInfo,List<User> userlist,Timestamp reserveTimeStart,Timestamp reserveTimeEnd,Integer type,UrlNumber number){
 		if(!userlist.isEmpty()){
+			String address = "";
 			for(User user: userlist){
-				sendMailToTZJL(request, type, user.getEmail(),
-						user.getRealName(),
-						pj.getProjectCode(),pj.getProjectName(),
-						messageInfo, reserveTimeStart,
-						reserveTimeEnd);
 				ControllerUtils.setRequestParamsForMessageTip(request,
 						user, pj.getProjectName(), pj.getId(),
 						number);
+				address+=";"+user.getEmail()+"@galaxyinternet.com";
 			}
+			sendMailToTZJL(request, type, address,
+					"",
+					pj.getProjectCode(),pj.getProjectName(),
+					messageInfo, reserveTimeStart,
+					reserveTimeEnd);
 		}
 	}
 	
@@ -2469,7 +2471,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if(meetingTimeend != null){
 			endtime = DateUtil.convertDateToStringForChina(meetingTimeend);
 		}
-		toAddress =toAddress+"@galaxyinternet.com";
+		//toAddress =toAddress+"@galaxyinternet.com";
 		String content = MailTemplateUtils
 				.getContentByTemplate(Constants.MAIL_PQC_CONTENT);
 		String[] to = toAddress.split(";");
@@ -2477,6 +2479,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			int atIndex = toAddress.lastIndexOf("@");
 			tzjlName = toAddress.substring(0, atIndex) + ":<br>您好!";
 		}
+		tzjlName = "您好!";
 		if (type == 0) {
 			content = MailTemplateUtils
 					.getContentByTemplate(Constants.MAIL_PQC_CONTENT_CANCLE);

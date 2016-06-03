@@ -1,4 +1,3 @@
-var b = new Base64();
 /**
  * 加密Ajax请求
  * jsonStr:json字符串
