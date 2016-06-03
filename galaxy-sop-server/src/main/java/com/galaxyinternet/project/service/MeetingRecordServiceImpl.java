@@ -152,7 +152,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		}
 	}
 	
-	//会议排期池 修改
+	//ceo lxh tjh 会议排期池 修改
 	@Transactional
 	public void pqcUpdate(MeetingRecord meetingRecord){
 		MeetingScheduling ms = new MeetingScheduling();
@@ -163,11 +163,12 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
 			//ms.setStatus(DictEnum.meetingResult.待定.getCode());
 			ms.setStatus(DictEnum.meetingResult.通过.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 		}else if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())) {
 			ms.setStatus(DictEnum.meetingResult.否决.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
 		}if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())) {
 			ms.setStatus(DictEnum.meetingResult.通过.getCode());
-			// 更新排期变已通过，无需选择排期
 			ms.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		}
 		
