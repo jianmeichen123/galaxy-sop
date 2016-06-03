@@ -76,7 +76,15 @@
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
 reloadMessage();
-fillHeaderdata();
+
+if(roleId=='1'||roleId=='2'||roleId=='3'){
+	
+	$("#daiban").remove();
+}else{
+	
+	fillHeaderdata();
+}
+
 window.setInterval("reloadMessage(),fillHeaderdata()",10000); 
  function reloadMessage(){
  	sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
@@ -111,7 +119,11 @@ window.setInterval("reloadMessage(),fillHeaderdata()",10000);
 			}
 		}); 
 } 
- 
+/*  function panhhr(){
+		if(roleId=='1'&&roleId!=='2'&&roleId=='3'){
+			$("#daiban").remove();
+		}
+	} */
  /*关闭二维码*/
  $("[data-btn='close_erwm']").on("click",function(){
      $('.erwm').hide();
