@@ -74,6 +74,10 @@
 		      <if test="projectStatus != null" > and project_status = #{projectStatus,jdbcType=VARCHAR} </if>
 		      <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 		      <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>
+		      
+		      <if test="startTime != null"> <![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
+			  <if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
+		      
 		      <if test="projectDescribe != null" > and project_describe = #{projectDescribe,jdbcType=LONGVARCHAR} </if>
 		      <if test="projectBusinessModel != null" > and project_business_model = #{projectBusinessModel,jdbcType=LONGVARCHAR} </if>
 		      <if test="companyLocation != null" > and company_location = #{companyLocation,jdbcType=LONGVARCHAR} </if>
