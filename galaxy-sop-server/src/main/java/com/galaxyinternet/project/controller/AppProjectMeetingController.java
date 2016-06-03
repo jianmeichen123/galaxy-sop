@@ -129,7 +129,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 				MeetingScheduling ms = new MeetingScheduling();
 				ms.setProjectId(meetingRecord.getProjectId());
 				ms.setMeetingType(meetingRecord.getMeetingType());
-				ms.setStatus(DictEnum.meetingResult.待定.getCode());
+				ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 				List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
 				if(mslist==null || mslist.isEmpty()){
 					responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
@@ -161,13 +161,7 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 					return responseBody;
 				}			
 				//保存
-				Long id = null;
-//				boolean equalNowPrograss = true; //判断当前阶段、之后阶段
-//				int operationPro = Integer.parseInt(prograss.substring(prograss.length()-1)) ;//会议对应的阶段
-//				int projectPro = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ; //项目阶段
-//				if(projectPro > operationPro){
-//					equalNowPrograss = false;
-//				}				
+				Long id = null;			
 				if(meetingRecord.getFkey()!=null){
 					if( meetingRecord.getFileLength()==null||meetingRecord.getFname()==null){
 						responseBody.setResult(new Result(Status.ERROR,null, "请完善附件信息"));
