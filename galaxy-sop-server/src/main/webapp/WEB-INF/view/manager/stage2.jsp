@@ -48,7 +48,7 @@
 			<!-- 项目基本信息 -->
 			<div class="block block2 show" data-tab="con">
 				<dl>
-              		<dt>商业计划</dt>
+              		<dt>商业计划书</dt>
                		<dd id="business_plan_dd" class="fctbox">
 <!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
 <!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
@@ -408,6 +408,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script>
+var uid='${galax_session_user.id }';
 $(function(){
 	initData("${projectId}");
 });
