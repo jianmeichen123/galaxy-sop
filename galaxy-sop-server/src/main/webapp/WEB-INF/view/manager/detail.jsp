@@ -232,7 +232,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
 <script>
-
+var d_scrollTop=0;
 	$(function(){
 		createMenus(4);
 		/**
@@ -352,6 +352,7 @@
 	getTabPerson();
 	getTabShare();
 	function describe_show(){
+		//d_scrollTop();
 		var box = document.getElementById("describe_show");  
 		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
 		var newBox = document.createElement("span");  
@@ -362,16 +363,26 @@
 		btn.className="see_detail blue" ;
 		btn.onclick = function(){  
 		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop();
+			
 		btn.innerHTML = "收起"; 
 		newBox.innerHTML = text;  
 		}else{  
-		btn.innerHTML = "查看详情";  
+		btn.innerHTML = "查看详情"; 
+		AAAscrollTop();
 		newBox.innerHTML = text.substring(0,300)+"...";  
 		}  
 		}  
 		box.innerHTML = "";  
 		box.appendChild(newBox);  
-		box.appendChild(btn);  		
+		box.appendChild(btn);
+		
+		
+		
+	}
+	function AAAscrollTop(){
+		d_scrollTop=$(document).scrollTop();
+		$("html,body").animate({scrollTop:d_scrollTop},10);
 	}
 	function model_show(){
 		var box = document.getElementById("model_show");  
@@ -384,10 +395,12 @@
 		btn.className="see_detail blue" ;
 		btn.onclick = function(){  
 		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop();
 		btn.innerHTML = "收起"; 
 		newBox.innerHTML = text;  
 		}else{  
-		btn.innerHTML = "查看详情";  
+		btn.innerHTML = "查看详情"; 
+		AAAscrollTop();
 		newBox.innerHTML = text.substring(0,300);  
 		}  
 		}  
@@ -406,10 +419,12 @@
 		btn.className="see_detail blue" ;
 		btn.onclick = function(){  
 		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop()
 		btn.innerHTML = "收起"; 
 		newBox.innerHTML = text;  
 		}else{  
 		btn.innerHTML = "查看详情";  
+		AAAscrollTop();
 		newBox.innerHTML = text.substring(0,300);  
 		}  
 		}  
@@ -428,10 +443,12 @@
 		btn.className="see_detail blue" ;
 		btn.onclick = function(){  
 		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop();
 		btn.innerHTML = "收起"; 
 		newBox.innerHTML = text; 
 		}else{  
 		btn.innerHTML = "查看详情";  
+		AAAscrollTop();
 		newBox.innerHTML = text.substring(0,300);  
 		}  
 		}  
@@ -450,10 +467,12 @@
 		btn.className="see_detail blue" ;
 		btn.onclick = function(){  
 		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop()
 		btn.innerHTML = "收起"; 
 		newBox.innerHTML = text;  
 		}else{  
 		btn.innerHTML = "查看详情";  
+		AAAscrollTop()
 		newBox.innerHTML = text.substring(0,300);  
 		}  
 		}  

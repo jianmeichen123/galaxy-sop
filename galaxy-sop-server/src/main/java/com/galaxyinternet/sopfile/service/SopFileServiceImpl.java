@@ -145,14 +145,19 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
 				sopFile.setFileKey(null);	
 			}*/
-			if (DictEnum.fileStatus.已上传.getCode().equals(sopFile.getFileStatus())) {
+			//对于自己所上传的文档，可查看其状态，并标识装填已上传
+			if(query.getBelongUid()==null){
+				if (DictEnum.fileStatus.已上传.getCode().equals(sopFile.getFileStatus())) {
 
-				
-				if (sopFile.getFileValid() != null && sopFile.getFileValid().intValue() == 0) {
-					sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
+					
+					if (sopFile.getFileValid() != null && sopFile.getFileValid().intValue() == 0) {
+						sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
+					}
 				}
-
-			}	
+			}else{
+				sopFile.setFileValid(1);
+			}
+				
 			if (sopFile.getProjectId() != null) {
 				for (Project project : projectList) {
 					if (sopFile.getProjectId().equals(project.getId())) {
