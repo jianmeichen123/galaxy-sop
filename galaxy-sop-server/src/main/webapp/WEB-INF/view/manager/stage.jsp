@@ -10,6 +10,11 @@
 #projectProgress_1_table th,#projectProgress_2_table th,#projectProgress_3_table th,#projectProgress_4_table th,#projectProgress_7_table th{
     width: 50%;
 }
+
+.content{
+			float: left;
+			padding:0 10px;
+		}
 </style>
 <div class="myprojecttc">
 	<a href="javascript:;" data-close="close" class="close null">关闭</a>
@@ -57,6 +62,13 @@
 		<div class="tabtable_con tabtable_con_close">
 			<!-- 项目基本信息 -->
 			<div class="block block2 show" data-tab="con">
+				<dl>
+              		<dt>商业计划</dt>
+               		<dd id="business_plan_dd" class="fctbox">
+<!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
+<!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
+              		</dd>
+            	</dl>
 				<dl>
 					<dt>项目概述</dt>
 					<dd class="describe" id="prodescribe_show"></dd>
@@ -632,6 +644,22 @@
  		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
  		$("#analysis_show").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
  		
+ 		sendGetRequest(platformUrl.getBusinessPlanFile+"/"+alertid,null,function(data){
+			var uploadOperator;
+			var html;
+			if(data.result.status=="OK"){
+				//为空时候显示
+				if(data.result.errorCode=="null"){				
+					html = "<span class='content'>状态：未上传</span><span class='content'>更新时间：无</span>";
+				}else{
+					html =  "<span class='content'>状态：已上传</span><span class='content'>更新时间："+data.entity.createDate+"</span>" + 
+						"<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+				}
+				$("#business_plan_dd").html(html);
+			}else{
+				
+			}
+		});
  		
  		
  	});
