@@ -519,4 +519,10 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		}
 	}
 	
+	@Override
+	public List<SopTask> getSopTaskByProjectId(SopTaskBo query) {
+		// TODO Auto-generated method stub
+		return sopTaskDao.getSopTaskByProjectId(query);
+	}
+	
 }

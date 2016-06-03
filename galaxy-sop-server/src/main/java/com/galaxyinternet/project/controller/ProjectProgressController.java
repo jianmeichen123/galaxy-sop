@@ -29,6 +29,7 @@ import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum.RecordType;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -499,8 +500,23 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
 		}
-		//已有通过的会议，不能再添加会议纪要
+		
 		MeetingRecord mrQuery = new MeetingRecord();
+		
+		//时间判断：在  待定会议日期   之前的时间段   不能添加 通过/否决的 会议记录
+		/*if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())|| meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
+			mrQuery.setProjectId(meetingRecord.getProjectId());
+			mrQuery.setMeetingResult(DictEnum.meetingResult.待定.getCode());
+			List<MeetingRecord> checMeetList = meetingRecordService.queryList(mrQuery);//sqlMapper默认按时间倒叙
+			if(checMeetList != null && !checMeetList.isEmpty()){
+				if(meetingRecord.getMeetingDate().compareTo(checMeetList.get(0).getMeetingDate())<0){
+					responseBody.setResult(new Result(Status.ERROR,null, ""+meetingRecord.getMeetingDateStr()+" 之后存在会议记录"));
+					return responseBody;
+				}
+			}
+		}*/
+		//已有通过的会议，不能再添加会议纪要
+		mrQuery = new MeetingRecord();
 		mrQuery.setProjectId(meetingRecord.getProjectId());
 		mrQuery.setMeetingType(meetingRecord.getMeetingType());
 		mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
@@ -512,7 +528,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 		
 		//排期池校验
-		if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
+		if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
 			MeetingScheduling ms = new MeetingScheduling();
 			ms.setProjectId(meetingRecord.getProjectId());
 			ms.setMeetingType(meetingRecord.getMeetingType());
