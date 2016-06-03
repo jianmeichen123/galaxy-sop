@@ -205,6 +205,12 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				result.setMessage("hide");
 				responseBody.setResult(result);	
 				return responseBody;
+			}else if(RoleUtils.isMs(roleIdList)){
+				//秘书不显示
+				result = new Result(Status.OK,"");
+				result.setMessage("hide");
+				responseBody.setResult(result);	
+				return responseBody;
 			}
 			List<Project> project = projectService.queryList(query);
 			result = new Result(Status.OK,"");

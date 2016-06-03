@@ -64,6 +64,8 @@ public class MeetingScheduling extends PagableEntity {
 	private byte isEdit;
 
 	private Double meetingRate;
+	
+	private List<Long> ids;//排期id集合
 
 	public Timestamp getReserveTimeEnd() {
 		if (StringUtils.isNotBlank(this.reserveTimeEndStr)) {
@@ -331,4 +333,12 @@ public class MeetingScheduling extends PagableEntity {
 		this.meetingRate = meetingRate;
 	}
 
+	public List<Long> getIds() {
+		return ids;
+	}
+
+	public void setIds(List<Long> ids) {
+		this.ids = ids;
+	}
+    
 }

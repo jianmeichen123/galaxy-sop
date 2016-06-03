@@ -183,6 +183,18 @@ public class RoleUtils {
 		}
 		return false;
 	}
+	
+	/**
+	 * 判断是否为梅西
+	 * @param roleList
+	 * @return
+	 */
+	public static boolean isMs(List<Long> roleList){
+		if(roleList.contains(UserConstant.CEOMS)){
+			return true;
+		}
+		return false;
+	}
 	/**
 	 * 判断是否为合伙人
 	 * @param roleList
