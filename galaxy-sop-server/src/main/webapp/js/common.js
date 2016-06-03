@@ -826,7 +826,7 @@ function meetInfoFormat(value, row, index){
 //interview
 function sublengthFormat(value,row,index){
 	//统一去掉说有标签
-	var delhtmlValue = $.trim(delHtmlTag(value));
+	var delhtmlValue = $.trim((value));
 	var len = getLength($.trim(delhtmlValue));
 	if(len>100){
 		var subValue = delhtmlValue.substring(0,100);
@@ -837,10 +837,14 @@ function sublengthFormat(value,row,index){
 		return delhtmlValue;
 	}
 }
-//interview
+//interviewdelHtmlTag
 function formatLog(value,row,index){
-	var subValue = value.trim().replace(/<[^>]+>/g,"");
-	    len=subValue.length;
+	var subValue="";
+	if(null!=value&&value!=""){
+		subValue = delHtmlTag(value);
+	}
+	
+	 var  len=subValue.length;
 	/*alert(subValue)
 	alert(value)
 	alert(len);*/
