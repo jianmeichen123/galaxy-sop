@@ -89,6 +89,7 @@ public class LxMeetingHandler implements Handler {
 		m.setMeetingType(DictEnum.meetingType.立项会.getCode());
 		MeetingScheduling tm = meetingSchedulingDao.selectOne(m);
         tm.setStatus(DictEnum.meetingResult.通过.getCode());
+        tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		/**
 		 * 项目的当前状态为立项会阶段，添加通过的会议记录才回去修改项目阶段到投资意向书
 		 * 否则仅仅保存会议记录，不做项目阶段跳转
@@ -110,11 +111,9 @@ public class LxMeetingHandler implements Handler {
 			task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
 			task.setCreatedTime(System.currentTimeMillis());
 			sopTaskDao.insert(task);
-			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		}
 		
 		if((q.getResult().equals(DictEnum.meetingResult.待定.getCode()))){
-			tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 			tm.setReserveTimeStartStr(null);
 			tm.setReserveTimeEndStr(null);
 			tm.setReserveTimeEnd(null);

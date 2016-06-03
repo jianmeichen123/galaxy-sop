@@ -157,15 +157,16 @@ $(function(){
 
 var meetSelectRow = null;
 function meetFormatLog(value,row,index){
-	var len = getLength($.trim(value));
+	var len = getLength($.trim(value).replace(/<[^>]+>/g, ""));
+	    subValue=value.replace(/<[^>]+>/g, "");
 	if(value != ''){
 		var strlog=delHtmlTag(value);
 		var strrrr=strlog;
-		if(len>20){
-			var subValue = $.trim(value).substring(20).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
+		if(len>120){
+			var subValue1 = value.replace(/<[^>]+>/g, "").substring(0,120);
 			/*var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';*/
 			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\" >"+
-						subValue+
+						subValue1+
 						"..."+"<a href=\"javascript:;\" class=\"blue  option_item_mark\"  onclick=\"showMeetDetail("+row.id+")\" >更多<a>"+    
 					'</div>';
 			return rc;

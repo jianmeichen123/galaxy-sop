@@ -85,6 +85,7 @@ public class CeoMeetingHandler implements Handler {
 		
 		//添加会议记录时一直是待定状态
 		tm.setStatus(DictEnum.meetingResult.通过.getCode());
+		tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			Project p = new Project();
@@ -95,11 +96,8 @@ public class CeoMeetingHandler implements Handler {
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
 			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
 		}
-		if(q.getResult().equals(DictEnum.meetingResult.通过.getCode())){
-			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
-		}
+		
 		if((q.getResult().equals(DictEnum.meetingResult.待定.getCode()))){
-			tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 			tm.setReserveTimeStartStr(null);
 			tm.setReserveTimeEndStr(null);
 			tm.setReserveTimeEnd(null);
