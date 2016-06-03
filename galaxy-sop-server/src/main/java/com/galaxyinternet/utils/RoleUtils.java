@@ -190,7 +190,7 @@ public class RoleUtils {
 	 * @return
 	 */
 	public static boolean isMs(List<Long> roleList){
-		if(roleList.contains(UserConstant.CEOMS)){
+		if(roleList.contains(UserConstant.CEOMS) || roleList.contains(UserConstant.DMS)){
 			return true;
 		}
 		return false;
