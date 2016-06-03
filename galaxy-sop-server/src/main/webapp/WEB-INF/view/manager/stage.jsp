@@ -820,4 +820,9 @@
  			});
  		}
  	}
+ 	
+ 	function downloadBusinessPlan(id){
+		window.location.href=platformUrl.downLoadFile+'/'+id ;
+	}
+ 	
 </script>
