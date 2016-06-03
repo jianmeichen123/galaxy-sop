@@ -839,8 +839,12 @@ function sublengthFormat(value,row,index){
 }
 //interviewdelHtmlTag
 function formatLog(value,row,index){
-	var subValue = delHtmlTag(value);
-	    len=subValue.length;
+	var subValue="";
+	if(null!=value&&value!=""){
+		subValue = delHtmlTag(value);
+	}
+	
+	 var  len=subValue.length;
 	/*alert(subValue)
 	alert(value)
 	alert(len);*/
