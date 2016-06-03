@@ -1,8 +1,8 @@
 
-var fileGrid = {
+var fileGridIndex = {
 	domid : undefined,
 	init : 	function(data){
-		 fileGrid.domid = data._domid;
+		fileGridIndex.domid = data._domid;
 		 $('#' + data._domid).bootstrapTable({
 			url : platformUrl.searchSopFileList, // 请求后台的URL（*）
 			queryParamsType : 'size|page', // undefined
@@ -15,7 +15,7 @@ var fileGrid = {
 			pagination : false, // 是否显示分页（*）
 			sortable : false, // 是否启用排序
 			sortOrder : "asc", // 排序方式
-			queryParams : fileGrid.queryParams,// 传递参数（*）
+			queryParams : fileGridIndex.queryParams,// 传递参数（*）
 			sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）
 			pageNumber : 1, // 初始化加载第一页，默认第一页
 			pageSize : 10, // 每页的记录行数（*）
@@ -36,13 +36,15 @@ var fileGrid = {
 			columns : [{
 				field : 'id',
 				title : '序号',
-				formatter : fileGrid.rowFormatter
+				formatter : fileGridIndex.rowFormatter
 			}, {
 				field : 'fWorktype',
-				title : '文档名称'
+				title : '文档名称',
+				formatter:fileGridIndex.Doctype
 			},{
 		        field: 'projectName',
-		        title: '所属项目'
+		        title: '所属项目',
+		        formatter:fileGridIndex.projectName
 		    },{
 				field : 'fType',
 				title : '文档类型'
@@ -52,6 +54,30 @@ var fileGrid = {
 
 		  
 	},
+	projectName :function(value,row,index){
+		var str=row.projectName;
+		if(str.length>10){
+			subStr = str.substring(0,10);
+			var str = "<span title='"+str+"'>"+subStr+"</span>";
+			return str;
+		}
+		else{
+			var str = "<span title='"+str+"'>"+str+"</span>";
+			return str;
+		}
+	},
+	Doctype :function(value,row,index){
+		var str=row.fWorktype;
+		if(str.length>5){
+			subStr = str.substring(0,5);
+			var str = "<span title='"+str+"'>"+subStr+"</span>";
+			return str;
+		}
+		else{
+			var str = "<span title='"+str+"'>"+str+"</span>";
+			return str;
+		}
+	},
 	rowFormatter : function(value, row, index){
 		return [index+1].join('');
 	},
@@ -60,7 +86,7 @@ var fileGrid = {
 		return params;
 	},
 	serarchData : function(){
-		$('#'+fileGrid.domid).bootstrapTable('refresh',fileGrid.queryParams);
+		$('#'+fileGridIndex.domid).bootstrapTable('refresh',fileGridIndex.queryParams);
 	}
 };
 

@@ -32,6 +32,12 @@
 	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 	<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+	<style type="text/css">
+		.content{
+			float: left;
+			padding:0 10px;
+		}
+	</style>
 </head>
 
 <body>
@@ -76,7 +82,7 @@
                           <dd><input id="project_contribution" name="formatContribution" type="text" value="" placeholder="计划额度" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/></dd>
                         </dl></td>
                       <td><dl><dt>估值：</dt><dd>
-                      <input type="text" id="project_valuations" name="formatValuations" value="" placeholder="估值" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
+                      <input type="text" id="project_valuations" name="formatValuations" value="" placeholder="估值" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>估值金额不支持">
                       </dd></dl></td>
                   </tr>
                   <tr>
@@ -86,6 +92,7 @@
                       <td>
                         <dl>
                           <dt>单位（万）：</dt>                          <dd>
+                          	<label id="currencyUnitBlock"><input id="currencyUnit" name="formatUnit" type="radio" value="" />请选择</label>
                             <label><input id="currencyUnit0" name="formatUnit" type="radio" value="0" />人民币</label>
                             <label><input id="currencyUnit1" name="formatUnit" type="radio" value="1" />美元</label>
                             <label><input id="currencyUnit2" name="formatUnit" type="radio" value="2" />英镑</label>
@@ -112,9 +119,24 @@
               </table>
               <div class="btnbox">
                 <a href="javascript:;" onclick="update()" class="pubbtn bluebtn">保存</a><!-- <a href="javascript:;" class="pubbtn fffbtn"data-close="close">关闭项目</a> -->
+                 <a href="javascript:;" onclick="history.go(-1);" class="bluebtn pubbtn">返回</a>
               </div>
           </div>
           </form>
+          
+          
+          
+          <!-- 商业计划  -->      
+          <div class="block block2 shadow">
+            <dl>
+              <dt>商业计划书</dt>
+               <dd id="business_plan_dd" class="fctbox">
+<!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
+<!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
+              </dd>
+            </dl>
+          </div> 
+          
           <!-- 第2部分 -->
           <div class="block block2 shadow">
             <dl>
@@ -210,7 +232,7 @@
             <dl>
               <dt>团队成员</dt>
               <dd class="full_w describe clearfix">
-              	<div class="btnbox_f">
+              	<div class="btnbox_f" style="margin-bottom:10px;">
                   <a href="javascript:;" class="ico b1 fffbtn" onclick="addPerson();">添加</a>
                   <a href="javascript:;" class="ico b2 fffbtn" onclick="toSureMsg();">完善简历</a>
                   <!--  
@@ -363,6 +385,7 @@
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
 <script src="<%=path %>/js/init.js"></script>
 <!-- bootstrap-table -->
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
@@ -441,15 +464,28 @@ function closeback(data){
 	    
 	    //添加团队成员
 	    function addPerson(){
-			$.getHtml({
+	    	sendGetRequest(platformUrl.getDegreeByParent + "/" + "null",null,addPersonCallBack);
+			return false;
+	   }
+	   function addPersonCallBack(data){
+		   $.getHtml({
 				url:platformUrl.addPersonView,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
-					
+					var _dom =  $("#highestDegree");
+				    _dom.empty();
+					_dom.append("<option value='all'>请选择</option>");
+					$.each(data.entityList,function(){
+						if(this.code){
+							_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
+						}else{
+							_dom.append("<option value='"+this.id+"'>"+this.name+"</option>");
+						}
+						
+					});	
 				}//模版反回成功执行	
 					
-			});
-			return false;
+			});     
 	   }
 	    
 	   //添加股权结构
@@ -459,6 +495,11 @@ function closeback(data){
 				data:"",//传递参数
 				okback:function(){
 					
+					
+					
+					
+					
+					
 				}//模版反回成功执行	
 					
 			});
@@ -467,15 +508,32 @@ function closeback(data){
 	    
 	   
 	function updatePer(id){
-		var _url = platformUrl.updatePerView+id;
+	
+		sendGetRequest(platformUrl.getDegreeByParent+"/"+id,null,updatePerCallBack);
+		return false;
+	}
+	
+	function updatePerCallBack(data){
+		var _url = platformUrl.updatePerView+data.result.message;
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
 			okback:function(){
+				
+				var _dom =  $("#highestDegree");
+			    _dom.empty();
+				_dom.append("<option value='all'>请选择</option>");
+				$.each(data.entityList,function(){
+					if(_dom.data("value")==this.code){
+						_dom.append("<option value='"+this.code+"' selected=true >"+this.name+"</option>");
+					}else{
+						_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
+					}
+					
+				});	
 			
 			}//模版反回成功执行	
 		});
-		return false;
 	}
 	getTabPerson();
 	getTabShare();
@@ -537,7 +595,27 @@ function closeback(data){
 	                      title: '最高学历',
 	                        field: 'highestDegree',
 	                        align: 'center',
-	                        valign: 'middle'
+	                        valign: 'middle',
+	                        formatter:function(value,row,index){ 
+	                         	if (row.highestDegree == 1) {
+	                    			return "高中";
+	                    		}else if (row.highestDegree == 2) {
+	                    			return "大专";
+	                    		}else if (row.highestDegree == 3) {
+	                    			return "本科";
+	                    		}else if (row.highestDegree == 4) {
+	                    			return "硕士";
+	                    		}else if (row.highestDegree == 5) {
+	                    			return "MBA";
+	                    		}else if (row.highestDegree == 6) {
+	                    			return "博士";
+	                    		}else if (row.highestDegree == 7) {
+	                    			return "其他";
+	                    		}
+	                    		else {
+	                    			return "-";
+	                    		}
+	                        }
 	                  },
 	                  {
 	                      title: '工作年限',
@@ -670,8 +748,38 @@ function closeback(data){
 		
 	}
 	
+	function uploadBusinessPlan(){
+		var projectId = $("#pid").val();
+		var projectName = $("#projectName").html();
+		formData = {
+    			_fileType : "fileType:1",
+    			_fileTypeAuto : true,
+    			_workType : "fileWorktype:12",
+    			_projectId : projectId,
+    			_projectName : projectName,
+    			_isProve : "hide",
+    			_remark : "hide",
+				callFuc : function(){
+					console.log("刷新商业计划模块");
+					window.location.reload(Constants.sopEndpointURL + "/galaxy/upp/" + $("#pid").val());
+				},
+				_url : platformUrl.commonUploadFile, //兼容老板插件
+				_localUrl : platformUrl.commonUploadFile
+		};
+		win.init(formData);
+		
+	}
+	
+	function downloadBusinessPlan(id){
+		window.location.href=platformUrl.downLoadFile+'/'+id ;
+	}
+	
+	
 </script>	   
 <%-- <script src="<%=request.getContextPath() %>/js/axure_ext.js"></script> --%>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script type="text/javascript" src="<%=path %>/js/teamSheetNew.js"></script>
 
 
 </html>

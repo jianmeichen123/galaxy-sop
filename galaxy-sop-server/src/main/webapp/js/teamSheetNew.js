@@ -140,8 +140,8 @@
 										}
 										
 									});
-									if(!win.fileKey){
-										win.fileKey = "";
+									if(!win.fileKey || win.fileKey == ""){
+										win.fileKey = "null";
 									}
 									sendGetRequest(platformUrl.getPolicy+"/"+win.fileKey,null,win.getPolicyCallBack);
 								

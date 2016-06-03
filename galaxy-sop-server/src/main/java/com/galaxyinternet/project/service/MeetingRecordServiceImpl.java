@@ -1,5 +1,6 @@
 package com.galaxyinternet.project.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.galaxyinternet.bo.project.InterviewRecordBo;
+import com.galaxyinternet.bo.IdeaBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -23,12 +24,14 @@ import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
-import com.galaxyinternet.model.project.InterviewRecord;
+import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.MeetingRecordService;
 
 
@@ -48,6 +51,9 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	private MeetingSchedulingDao meetingSchedulingDao;
 	
 	
+	@Autowired
+	private IdeaService ideaService;
+	
 	@Override
 	protected BaseDao<MeetingRecord, Long> getBaseDao() {
 		return this.meetingRecordDao;
@@ -63,14 +69,17 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		}
 		meetingRecord.setFileId(fid);
 		Long id = getBaseDao().insert(meetingRecord);
+		
 		// 会议结论： 待定(默认)、 否决、 通过
 		// 会议类型 2:内评会、3：CEO评审、 4:立项会、 7投决会、
+		// 操作项目、排期池
 		if(equalNowPrograss){
 			if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())) {
 				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
 					lph(meetingRecord.getProjectId(), meetingRecord.getMeetingResult());
 				}
 			} else if (meetingRecord.getMeetingType() != null && meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())) {
+				pqcUpdate(meetingRecord);
 				if (meetingRecord.getMeetingResult() != null && !meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
 					ceops(meetingRecord.getProjectId(), meetingRecord.getMeetingResult());
 				}
@@ -104,6 +113,15 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			pro.setProjectProgress(DictEnum.projectProgress.CEO评审.getCode());
 			pro.setProjectStatus(DictEnum.meetingResult.待定.getCode()); 
 			projectDao.updateById(pro);
+			
+			MeetingScheduling ms = new MeetingScheduling();
+			ms.setProjectId(pro.getId());
+			ms.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
+			ms.setMeetingCount(0);
+			ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+			ms.setApplyTime(new Timestamp(new Date().getTime()));
+			meetingSchedulingDao.insert(ms);
 		}
 	}
 	
@@ -118,12 +136,23 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			projectDao.updateById(pro);
 			
 		}else if(meetingResult.equals(DictEnum.meetingResult.通过.getCode()) ){ //update 项目状态
-			pro.setProjectStatus(DictEnum.meetingResult.通过.getCode()); 
+			//pro.setProjectStatus(DictEnum.meetingResult.通过.getCode()); 
+			pro.setProjectProgress(DictEnum.projectProgress.立项会.getCode());
+			pro.setProjectStatus(DictEnum.meetingResult.待定.getCode()); 
 			projectDao.updateById(pro);
+			
+			MeetingScheduling ms = new MeetingScheduling();
+			ms.setProjectId(pro.getId());
+			ms.setMeetingType(DictEnum.meetingType.立项会.getCode());
+			ms.setMeetingCount(0);
+			ms.setStatus(DictEnum.meetingResult.待定.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+			ms.setApplyTime(new Timestamp(new Date().getTime()));
+			meetingSchedulingDao.insert(ms);
 		}
 	}
 	
-	//会议排期池 修改
+	//ceo lxh tjh 会议排期池 修改
 	@Transactional
 	public void pqcUpdate(MeetingRecord meetingRecord){
 		MeetingScheduling ms = new MeetingScheduling();
@@ -134,10 +163,13 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
 			//ms.setStatus(DictEnum.meetingResult.待定.getCode());
 			ms.setStatus(DictEnum.meetingResult.通过.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 		}else if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())) {
 			ms.setStatus(DictEnum.meetingResult.否决.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
 		}if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())) {
 			ms.setStatus(DictEnum.meetingResult.通过.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		}
 		
 		meetingSchedulingDao.updateCountBySelective(ms);
@@ -254,12 +286,15 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		List<MeetingRecord> meetList = null;
 		Long total = null;
 		Map<Long,String> proIdNameMap = new HashMap<Long,String>();
+		Map<Long,Long> proIdUidMap = new HashMap<Long,Long>();
 		
 		if(query.getProjectId()!=null){   // 项目tab查询
 			meetList = meetingRecordDao.selectList(query, pageable);
 			total = meetingRecordDao.selectCount(query);
-		}else{    //列表查询_个人创建
+			
+			//配合APP端新增获取相关字段
 			Project  proQ = new Project();
+			proQ.setId(query.getProjectId());
 			proQ.setCreateUid(query.getUid());
 			proQ.setKeyword(query.getKeyword());
 			List<Project> proList = projectDao.selectList(proQ);
@@ -270,6 +305,23 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				for(Project apro : proList){
 					proIdList.add(apro.getId());
 					proIdNameMap.put(apro.getId(), apro.getProjectName());
+					proIdUidMap.put(apro.getId(), apro.getCreateUid());
+				}
+			}
+		}else{    //列表查询_个人创建/部门
+			Project  proQ = new Project();
+			proQ.setCreateUid(query.getUid());
+			proQ.setProjectDepartid(query.getDepartId());
+			proQ.setKeyword(query.getKeyword());
+			List<Project> proList = projectDao.selectList(proQ);
+			
+			//获取 projectId List
+			if(proList!=null&&!proList.isEmpty()){
+				List<Long> proIdList = new ArrayList<Long>();
+				for(Project apro : proList){
+					proIdList.add(apro.getId());
+					proIdNameMap.put(apro.getId(), apro.getProjectName());
+					proIdUidMap.put(apro.getId(), apro.getCreateUid());
 				}
 				//查询列表  
 				query.setProIdList(proIdList);
@@ -282,6 +334,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			meetBoList = new ArrayList<MeetingRecordBo>();
 			for(MeetingRecord ib : meetList){
 				MeetingRecordBo bo = new MeetingRecordBo();
+				bo.setId(ib.getId());
 				bo.setProjectId(ib.getProjectId());
 				bo.setProName(proIdNameMap.get(ib.getProjectId()));
 				bo.setMeetingDateStr(ib.getMeetingDateStr());
@@ -290,6 +343,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				bo.setMeetingResult(ib.getMeetingResult());
 				bo.setMeetingResultStr(ib.getMeetingResultStr());
 				bo.setMeetingNotes(ib.getMeetingNotes());
+				bo.setUid(proIdUidMap.get(ib.getProjectId()));
 				if(ib.getFileId()!=null){
 					SopFile file  = sopFileDao.selectById(ib.getFileId());
 					if(file!=null){
@@ -370,5 +424,30 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	
 	
 	
+	
+	/**
+	 * 创意添加会议记录
+	 */
+	@Override
+	@Transactional
+	public Long addCyMeetRecord(MeetingRecord meetingRecord,SopFile sopFile) {
+		Long fid = null;
+		if(sopFile.getFileKey()!=null){
+			fid = sopFileDao.insert(sopFile);
+		}
+		meetingRecord.setFileId(fid);
+		
+		/*if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
+			Idea idea = new Idea();
+			idea.setId(meetingRecord.getProjectId());
+			idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_GZ);
+			ideaService.updateById(idea);
+			
+			meetingRecord.setMeetValid((byte)1);
+		}*/
+		
+		Long id = getBaseDao().insert(meetingRecord);
+		return id;
+	}
 	
 }

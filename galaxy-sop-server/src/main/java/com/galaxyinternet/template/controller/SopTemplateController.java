@@ -1,6 +1,5 @@
 package com.galaxyinternet.template.controller;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -21,9 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.bo.template.SopTemplateBo;
 import com.galaxyinternet.common.annotation.LogType;
@@ -35,6 +32,7 @@ import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
@@ -154,34 +152,7 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	}
 	@RequestMapping("/upload")
 	@ResponseBody
-	public Map<String,Object> upload(@RequestParam MultipartFile file)
-	{
-		Map<String,Object> rtn = new HashMap<String,Object> ();
-		rtn.put("fileKey", "");
-		rtn.put("fileLength", "0");
-		String key = null;
-		 try {
-			if(file != null)
-			 {
-				String fileName = file.getOriginalFilename();
-				int dotPos = fileName.lastIndexOf(".");
-				key = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				String ext = fileName.substring(dotPos);
-				File temp = File.createTempFile(key, ext);
-				file.transferTo(temp);
-				OSSHelper.simpleUploadByOSS(temp,key);
-				rtn.put("fileKey", key);
-				rtn.put("fileLength", temp.length());
-			 }
-		} catch (Exception e) {
-			Object msg = "上传失败！";
-			logger.error(msg.toString(),e);
-		}
-		return rtn;
-	}
-	@RequestMapping("/save")
-	@ResponseBody
-	public ResponseData<SopTemplate> save(@RequestBody SopTemplate template,HttpSession session)
+	public ResponseData<SopTemplate> upload(HttpServletRequest request, SopTemplate template,HttpSession session )
 	{
 		ResponseData<SopTemplate> resp = new ResponseData<SopTemplate>();
 		Object obj = session.getAttribute(Constants.SESSION_USER_KEY);
@@ -191,23 +162,41 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 			return resp;
 		}
 		try {
-			template.setUpdateUid(((User)obj).getId());
-			template.setUpdateUname(((User)obj).getRealName());
-			templateService.updateById(template);
+			SopTemplate po = null;
+			String fileKey = null;
+			if(template.getId() != null)
+			{
+				po = templateService.queryById(template.getId());
+				fileKey = po.getFileKey();
+			}
+			else
+			{
+				po = template;
+			}
+			if(fileKey == null)
+			{
+				fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+			}
+			UploadFileResult ut = uploadFileToOSS(request, fileKey, tempfilePath);
+			resp.setResult(ut.getResult());
+			if(ut.getResult() != null && Result.Status.OK == ut.getResult().getStatus())
+			{
+				po.setFileName(template.getFileName());
+				po.setFileKey(fileKey);
+				po.setFileLength(ut.getContentLength());
+				po.setUpdateUid(((User)obj).getId());
+				po.setUpdateUname(((User)obj).getRealName());
+				templateService.updateById(po);
+			}
 		} catch (Exception e) {
-			Object msg = "保存失败";
-			logger.error(msg.toString(),e);
-			resp.getResult().addError(msg);
+			resp.getResult().addError("上传失败");
+			logger.error("上传失败",e);
 		}
-		
 		return resp;
 	}
-
-	
-	
 	
 	@RequestMapping("/download")
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope=LogType.LOG)
+	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
 	public void download(SopTemplate query, HttpServletRequest request, HttpServletResponse response)
 	{
 		try {

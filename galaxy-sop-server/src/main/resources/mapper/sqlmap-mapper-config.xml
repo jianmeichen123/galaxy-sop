@@ -48,7 +48,7 @@
 		from sop_config where id = #{id}
 	</select>
 	
-  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.Project" >
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.common.Config" >
 	    <![CDATA[
 	     insert into sop_config (id, config_key, config_value, 
 	      updated_time, created_time)
@@ -58,7 +58,7 @@
     </insert>
     
     <!-- 更新 -->
-	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.project.Project">
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.common.Config">
 		update sop_config
 		<set>
 			<if test="key != null" >  config_key = #{key,jdbcType=VARCHAR}, </if>
@@ -72,7 +72,7 @@
 		</where>
 	</update>
     <!-- 通过ID更新 -->
-	<update id="updateById" parameterType="com.galaxyinternet.model.project.Project">
+	<update id="updateById" parameterType="com.galaxyinternet.model.common.Config">
 		update sop_config
 		<set>
 			<if test="key != null" >  config_key = #{key,jdbcType=VARCHAR}, </if>

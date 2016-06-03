@@ -89,9 +89,12 @@ public class TzyxsHandler implements Handler {
 			task.setTaskType(DictEnum.taskType.协同办公.getCode());
 			task.setTaskFlag(SopConstant.TASK_FLAG_SCTZYXS);
 			//修改
+			Date time=new Date();
 			task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
-			task.setUpdatedTime((new Date()).getTime());
+			task.setUpdatedTime(time.getTime());
+			task.setTaskDeadline(time);
 			sopTaskDao.updateTask(task);
+			task.setTaskDeadline(null);
 			
 			//待办任务
 			task.setTaskOrder(SopConstant.NORMAL_STATUS);

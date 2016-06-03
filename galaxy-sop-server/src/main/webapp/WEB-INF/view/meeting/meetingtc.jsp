@@ -7,10 +7,19 @@
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
-<!-- time -->
+<!-- time 
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
+-->
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script>
+
 
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
@@ -33,7 +42,7 @@
         <dl class="fmdl clearfix">
             <dt>会议召开日期：</dt>  <!-- class="form-control"  -->
             <dd>
-            	<input type="text" class="datepicker txt time" readonly  id="meetingDateStr" name = "meetingDateStr"  style="height:23px;"
+            	<input type="text" class="datetimepickerHour txt time" readonly  id="meetingDateStr" name = "meetingDateStr"  style="height:23px;width:150px;"
             	valType="required" msg="<font color=red>*</font>会议日期不能为空"  />
             </dd>
         </dl>
@@ -72,7 +81,7 @@
 		</dd>
       </dl>
         
-    <dl class="fmdl clearfix">
+    <dl class="fmdl clearfix" id="fileNotBeUse">
         <dt>会议录音：</dt>
         
         <div class="fmload clearfix">
@@ -84,13 +93,13 @@
     		</dd>
         </div>
     </dl>
-    <div class="btnbox">
+    <div class="btnbox" id="btnNotBeUse">
     	<a href="javascript:;" class="pubbtn bluebtn" id="savemeet">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
 
  <script type="text/javascript">
-		UM.getEditor('meetingNotes');
-		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd"));
+	var meetEditor = UM.getEditor('meetingNotes');
+		$("#meetingDateStr").val(new Date().format("yyyy-MM-dd hh:mm"));
 </script>
 

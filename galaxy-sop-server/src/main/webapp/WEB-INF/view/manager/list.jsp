@@ -120,7 +120,7 @@ function setCheckLine(data){
 			        	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
 			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
 			        	<th data-field="projectContribution" data-align="center" class="data-input">投资金额（万）</th>
-			        	<th data-field="createDate" data-align="center" class="data-input">创建日期</th>
+			        	<th data-field="createDate" data-align="center" class="data-input" data-sortable="true">创建日期</th>
 			        	<th data-field="updateDate" data-align="center" class="data-input">最后修改时间</th>
  					</tr>	
  				</thead>
@@ -140,18 +140,21 @@ function setCheckLine(data){
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/init.js"></script>
+
+<script type="text/javascript" src="<%=path %>/js/manager/js/filerepository.js"></script>
 <!-- 富文本编辑器 -->
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript" src="<%=path %>/js/manager/js/filerepository.js"></script>
+
 
 <script type="text/javascript">
 	$(function(){
 		createMenus(4);
 	});
-	var uid='${galax_session_user.id}';
+	var uid='${galax_session_user.id }';
+	
 	/**
 	 * 分页数据生成操作内容
 	 */
@@ -203,9 +206,10 @@ function setCheckLine(data){
 					$("#project_id").val(id);
 					var progress = data.entity.projectProgress;
 					progress = progress.replace(":","_");
-					var index = progress.substr(progress.length-1,1);
+					//var index = progress.substr(progress.length-1,1);
+					var index = progress.substr("projectProgress_".length);
 					
-					for(var i = 1; i<10; i++){
+					for(var i = 1; i<11; i++){
 						if(i > index){
 							//当前阶段之后的tab变为不可用
 							$("#projectProgress_" + i).addClass("disabled");
@@ -360,7 +364,6 @@ function setCheckLine(data){
 						 var dataList=json.entityList;
 							for(var ii = 0 ; ii < dataList.length ; ii++){
 							    var p = ii ;	
-								
 						        var htmlhead = '<div id="tzyxs_options" class="btnbox_f btnbox_f1 btnbox_m clearfix"></div>'+
 							        '<div class="process clearfix">'+
 							        '<h2>投资意向书盖章流程</h2>'+
@@ -430,19 +433,19 @@ function setCheckLine(data){
 					 html += "<tr>";
 					 if(o.fileWorktype == 'fileWorktype:1'){
 						 html += "<td>业务尽职调查报告";
-						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 						 html += "<td>"+o.careerLineName+"</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:2'){
 						 html += "<td>人事尽职调查报告";
-						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 						 html += "<td>人事部</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:3'){
 						 html += "<td>法务尽职调查报告";
-						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 						 html += "<td>法务部</td><td>"+o.fType+"</td>";
 					 }else if(o.fileWorktype == 'fileWorktype:4'){
 						 html += "<td>财务尽职调查报告";
-						 html += "</td><td>" + o.createDate + "</td>";
+						 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 						 html += "<td>财务部</td><td>"+o.fType+"</td>";
 					 }
 					 if(o.fileStatus == 'fileStatus:1'){
@@ -628,7 +631,7 @@ function setCheckLine(data){
 			fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 		}
 		rc = "<div style=\"text-align:left;margin-left:20%;\">"+
-					"访谈日期："+row.viewDateStr+
+					"访谈时间："+row.viewDateStr+
 					"</br>访谈对象："+row.viewTarget+
 					"</br>访谈录音："+fileinfo+
 				"</div>" ;

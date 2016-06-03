@@ -12,11 +12,17 @@
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 
+
+
 <!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDate.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script>
+
+
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
@@ -24,12 +30,12 @@
 
 <!-- 添加访谈记录弹出层 -->
 <div class="meetingtc">
-	<div class="top clearfix">
+	<div claiss="top clearfix">
         <dl class="fmdl clearfix">
-            <dt>访谈日期：</dt>
+            <dt>访谈时间：</dt>
             <dd>
             	<%-- <input class="form-control" type="date" id="viewDate" name="viewDate" valType="required" msg="<font color=red>*</font>创建时间不能为空"/> --%>
-                <input type="text" class="datepicker txt time" id="viewDate" name="viewDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
+                <input type="text" class="datetimepickerHour txt time" id="viewDate" name="viewDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
             </dd>
         </dl>
     </div>
@@ -64,5 +70,5 @@
 </div>
 <script type="text/javascript">
 	UM.getEditor('viewNotes');
-	$("#viewDate").val(new Date().format("yyyy-MM-dd"));
+	$("#viewDate").val(new Date().format("yyyy-MM-dd hh:mm"));
 </script>

@@ -8,8 +8,8 @@
     String realName="";
     String deptName = "";
     String roleName = "";
-    Long roleId=null;
     Long userId=null;
+    Long roleId=null;
  //   HttpSession session=request.getSession(); 
     if(null != user && null != user.getRealName()){
     	realName=user.getRealName();
@@ -46,17 +46,13 @@
     <!--头部中间-->
     <div class="min clearfix">
         <!--用户信息-->
-        <c:if test="<%=roleId !=17 %>">
-        <div class="usermsg clearfix">
+        <div class="usermsg clearfix"  id="messages">
             <span class="light_blue">当前您有：</span>
-             <c:if test="<%=roleId !=1 && roleId !=2 && roleId !=3  %>">
-                   <a href="<%=path %>/galaxy/soptask" class="work">待办任务<em class="totalUrgent"></em></a>
-            </c:if>
+            <a href="<%=path %>/galaxy/soptask" class="work" id="daiban">待办任务<em class="totalUrgent"></em></a>
             <!-- <a href="<%=path %>/galaxy/soptask" class="work">紧急任务<em class="bubble"></em></a> -->
             <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">0</em></a> 
         </div>    	
         <!--当日信息-->
-        </c:if>
     	<div class="todaymsg clearfix">
         	<span class="weather"><iframe allowtransparency="true" frameborder="0" width="220" height="36" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=3&z=2&t=1&v=0&d=3&bd=0&k=000000&f=004080&q=1&e=1&a=1&c=54511&w=180&h=36&align=center"></iframe></span>
             <span>
@@ -79,59 +75,20 @@
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
-var warn=document.getElementById('warning');
-var close=document.getElementById('close');
-    var userAgent = navigator.userAgent,   
-rMsie = /(msie\s|trident.*rv:)([\w.]+)/,   
-rFirefox = /(firefox)\/([\w.]+)/,   
-rOpera = /(opera).+version\/([\w.]+)/,   
-rChrome = /(chrome)\/([\w.]+)/,   
-rSafari = /version\/([\w.]+).*(safari)/;  
-var browser;  
-var version;  
-var ua = userAgent.toLowerCase();  
-function uaMatch(ua){  
-  var match = rMsie.exec(ua);  
-  if(match != null){  
-    return { browser : "IE", version : match[2] || "0" };  
-  }  
-  var match = rFirefox.exec(ua);  
-  if (match != null) {  
-    return { browser : match[1] || "", version : match[2] || "0" };  
-  }  
-  var match = rOpera.exec(ua);  
-  if (match != null) {  
-    return { browser : match[1] || "", version : match[2] || "0" };  
-  }  
-  var match = rChrome.exec(ua);  
-  if (match != null) {  
-    return { browser : match[1] || "", version : match[2] || "0" };  
-  }  
-  var match = rSafari.exec(ua);  
-  if (match != null) {  
-    return { browser : match[2] || "", version : match[1] || "0" };  
-  }  
-  if (match != null) {  
-    return { browser : "", version : "0" };  
-  }  
-}  
-var browserMatch = uaMatch(userAgent.toLowerCase());  
-if (browserMatch.browser){  
-  browser = browserMatch.browser;  
-  version = browserMatch.version;  
-}  
-        var ma=browser+version;
-        if (ma=='IE10.0'||ma=='IE11.0'||browser=='chrome'||browser=='safari'){
-            warn.style.display='none';
-        }
-        else{
-            warn.style.display='block';
-        }
-        function gb(){
-             warn.style.display='none';
-        }
- fillHeaderdata();
- sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
+reloadMessage();
+
+if(roleId=='1'||roleId=='2'||roleId=='3'){
+	
+	$("#daiban").remove();
+}else{
+	
+	fillHeaderdata();
+}
+
+window.setInterval("reloadMessage(),fillHeaderdata()",10000); 
+ function reloadMessage(){
+ 	sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
+ }
  function remindcbf(data){
 	if(data.result.status == "OK"){
 		 $(".work em[action='remind']").html(data.entity.count);
@@ -162,9 +119,14 @@ if (browserMatch.browser){
 			}
 		}); 
 } 
- 
+/*  function panhhr(){
+		if(roleId=='1'&&roleId!=='2'&&roleId=='3'){
+			$("#daiban").remove();
+		}
+	} */
  /*关闭二维码*/
  $("[data-btn='close_erwm']").on("click",function(){
      $('.erwm').hide();
  })
+ 
 </script>

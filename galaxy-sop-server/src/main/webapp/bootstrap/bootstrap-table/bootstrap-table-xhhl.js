@@ -1702,8 +1702,8 @@
         if (this.options.queryParamsType === 'limit') {
             params = {
                 search: params.searchText,
-                sort: params.sortName,
-                order: params.sortOrder
+                property: params.sortName,
+                direction: params.sortOrder
             };
             if (this.options.pagination) {
                 params.limit = this.options.pageSize === this.options.formatAllRows() ?
@@ -1716,8 +1716,8 @@
         if (this.options.queryParamsType === 'size|page') {
             params = {
                 search: params.searchText,
-                sort: params.sortName,
-                order: params.sortOrder
+                property: params.sortName,
+                direction: params.sortOrder
             };
             if (this.options.pagination) {
             	params.pageSize = this.options.pageSize;

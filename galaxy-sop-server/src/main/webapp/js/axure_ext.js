@@ -29,8 +29,7 @@ $(function(){
 	});
 	
 	//日程时间
-	$(".pagebox .rit .top .tody").today();
-	$(".projectmsg_d .block").today();
+	//$(".projectmsg_d .block").today();
 	//柱状图
 	$(".histogram").histogram();
 	//表格滑过
@@ -259,6 +258,19 @@ $(function(){
 		});
 		return false;
 	});
+	//ceo秘书排期弹窗
+	$("[data-btn='ceops']").on("click",function(){
+		var $self = $(this);
+		var _url = $self.attr("href");
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				showList2();
+				}//模版反回成功执行	
+		});
+		return false;
+	});
 	//新增会议弹窗
 	$("[data-btn='meeting']").on("click",function(){
 		var $self = $(this);
@@ -381,6 +393,99 @@ $(function(){
 					});
 					return false;
 				});	
+			}//模版反回成功执行	
+		});
+		return false;
+	});
+	
+	// 创意弹层
+	$("[data-btn='creative']").on("click",function(){ 
+		var $self = $(this);
+		var _url = $self.attr("href");
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(){
+				$("[data-btn='meeting']").on("click",function(){
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+				$("[data-btn='abandon']").on("click",function(){
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+				$("[data-btn='edit_name']").on("click",function(){
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+				$("[data-btn='edit']").on("click",function(){
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+				$("[data-btn='claim']").on("click",function(){
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
+				$(".creativetc .tabtable").tabchange2();
+				$('#project_name').click(function(){
+					$('.block').css({
+						display: 'none',
+					});;
+					$(".aa").show();
+					$('.tablink li').eq(0).addClass('on').siblings().removeClass('on');
+				});
+				$('#project_name').click(function(){
+					$(".tabtable_con .block").eq(0).show().siblings().hide();
+					$('.tablink li').eq(0).addClass('on').siblings().removeClass('on');
+				});
+				$("[data-btn='create']").on("click",function(){
+					$(".tabtable_con .block").eq(3).show().siblings().hide();
+					$('.tablink li').eq(3).addClass('on').siblings().removeClass('on');
+					var $self = $(this);
+					var _url = $self.attr("href");
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){							
+						}//模版反回成功执行	
+					});
+					return false;
+				});
 			}//模版反回成功执行	
 		});
 		return false;

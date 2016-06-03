@@ -92,7 +92,7 @@
                         <dl>
                           <dt>估值：</dt>
                           <dd>
-                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="估值" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
+                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="估值" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>估值金额不支持">
                           </dd>
                         </dl>
                       </td>
@@ -109,7 +109,7 @@
                         <dl>
                           <dt>单位（万）：</dt>
                           <dd>
-                            <label><input name="formatUnit" type="radio" value="0"/>人民币</label>
+                            <label><input name="formatUnit" type="radio" value="0" checked/>人民币</label>
                             <label><input name="formatUnit" type="radio" value="1" />美元</label>
                             <label><input name="formatUnit" type="radio" value="2" />英镑</label>
                             <label><input name="formatUnit" type="radio" value="3" />欧元</label>
@@ -231,6 +231,7 @@
 		}
 		return null;
 	}
+	var b = new Base64();
 	function add(obj){
 		if(beforeSubmit()){
 			var json = {};
@@ -242,15 +243,16 @@
 				layer.msg(message);
 				$("#projectName").val("");
 				result=false;
-			return false;
-		}
+				return false;
+			}
 			$.ajax({
 				url : platformUrl.addProject,
-				data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
+				data : b.encode(JSON.stringify(JSON.parse($("#add_form").serializeObject()))),
+			//  data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
 				async : false,
 				type : 'POST',
 				contentType : "application/json; charset=UTF-8",
-				dataType : "json",
+				dataType : "text",
 				cache : false,
 				beforeSend : function(xhr) {
 					if (TOKEN) {
@@ -267,8 +269,9 @@
 					layer.msg("操作失败");
 				},
 				success : function(data) {
+					data = JSON.parse(b.decode(data));
 					if(data.result.status=="ERROR"){
-						layer.msg("用户名重复，请重新输入");
+						layer.msg("项目名重复，请重新输入");
 					}else{
 						if(obj=="save"){
 							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");

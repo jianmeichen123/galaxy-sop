@@ -31,6 +31,7 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 %>
 
 <!-- 这里写js和css文件---------start -->
+<script src="<%=request.getContextPath() %>/js/fx_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-1.12.2.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-validate.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/json2.js" type="text/javascript"></script>
@@ -45,6 +46,7 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 	var departmentId='<%=departmentId%>';
 	var roleId = '<%=roleId%>';
 </script>
+<script src="<%=request.getContextPath() %>/js/base64.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
 <%-- <script src="<%=request.getContextPath() %>/js/alioss/aliyun-oss-sdk.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/alioss/alioss_init.js"></script> --%>
@@ -68,14 +70,14 @@ function checkVersion(){
 	var msg =Constants.sopEndpointURL;
 	var ver = getInternetExplorerVersion();
 	if ( ver> -1 ) {
-		if ( ver <= 8.0 ){
+		if ( ver <= 10.0 ){
 		}else{
-			document.write("<script src=\""+msg+"/js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
-			document.write("<script src=\""+msg+"/js/alioss/alioss_init.js\">"+"</scr"+"ipt>");			
+			document.write("<script src=\""+msg+"js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
+			document.write("<script src=\""+msg+"js/alioss/alioss_init.js\">"+"</scr"+"ipt>");			
 		}
 	}else{
-		document.write("<script src=\""+msg+"/js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
-		document.write("<script src=\""+msg+"/js/alioss/alioss_init.js\">"+"</scr"+"ipt>");
+		document.write("<script src=\""+msg+"js/alioss/aliyun-oss-sdk.min.js\">"+"</scr"+"ipt>");
+		document.write("<script src=\""+msg+"js/alioss/alioss_init.js\">"+"</scr"+"ipt>");
 	}
 
 }

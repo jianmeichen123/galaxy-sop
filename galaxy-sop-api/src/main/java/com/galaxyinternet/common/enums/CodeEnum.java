@@ -20,7 +20,9 @@ public enum CodeEnum {
 	internetMedical(9, "互联网医疗", 25), 
 	internetTourism(10, "互联网旅游", 26),
 	artificialIntelligence(13, "人工智能事业部", 27),
-	enterpriseService(28, "企业服务", 28);
+	enterpriseService(28, "企业服务", 28),
+	rongKuai(29, "融快事业部", 29);
+	
 	
 	private long id;
 	private String careerLine;

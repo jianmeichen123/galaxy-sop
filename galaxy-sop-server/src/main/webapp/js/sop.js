@@ -2,18 +2,23 @@
 var hasClosed=false;
 var canUseBut = false;
 var canToOption = false;
+var code = "0";
 /*
  * 查看项目阶段详情的弹出层
  */
 var alertid="";
+var projectId;
 function info(id){
+	projectId = id;
+	var _url = Constants.sopEndpointURL + '/galaxy/ips';
 	alertid=id;
-	var _url=Constants.sopEndpointURL + '/galaxy/ips';
+	
+	
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			$(".myprojecttc .tabtable").tabchange();
+			$(".myprojecttc .tabtable").tabchange5();
 			$('.searchbox').toggleshow();
 			leicj();
 			/**
@@ -40,16 +45,16 @@ function info(id){
 				//解析元素id和项目阶段值，以便之后做控制
 				var progress = data.entity.projectProgress;
 				progress = progress.replace(":","_");
-				var index = progress.substr(progress.length-1,1);
+				var index = progress.substr("projectProgress_".length);
 
 				if(index == 1 || index == 3 || index == 4 || index == 6 || index == 7 ){
 					checkCanUse(index,data.entity.id,data.entity.projectType);
 				}
-				
-				for(var i = 1; i<10; i++){
+				for(var i = 1; i<11; i++){
 					//当前阶段之后的tab变为不可用
 					if(i > index){
 						$("#projectProgress_" + i).addClass("disabled");
+						$("#projectProgress_" + i).attr("disabled","disabled");
 					}
 					/**
 					 * sop弹框在被弹出后，对当前Tab进行控制
@@ -75,8 +80,14 @@ function info(id){
 						}
 						if(!canUseBut){
 							$("#lxhpq").remove();
+							if(code == '100'){
+								$("#add_ceomeet").remove();
+							}else if(code == '101'){
+								$("#applyCeoMeeting").remove();
+							}
 						}else{
 							$("#add_ceomeet").remove();
+							$("#applyCeoMeeting").remove();
 						}
 					}
 					if(i == 4){
@@ -217,7 +228,7 @@ function info(id){
 					$("#file_repository").css("display","block");
 					data = {
 							_domid : "file_repository_table",
-							_projectId : $("#project_id").val(),
+							_projectId : projectId,
 							_progress : progress
 					}
 					fileGrid.init(data);
@@ -232,7 +243,13 @@ function info(id){
 		}
 	});
 	return false;
+
+
+	
+	
+	
 }
+function infoCallBack(data){}
 /**
  * 会议相关Tab页面按钮是否可用
  */
@@ -245,6 +262,7 @@ function checkCanUse(index,projectId,projectType){
 		var result = data.result.status;
 		if(result == "OK"){ //OK, ERROR
 			canUseBut = data.result.message;
+			code = data.result.errorCode;
 			if(canUseBut == true || canUseBut == "true"){
 				canUseBut == true;
 			}else{
@@ -255,9 +273,32 @@ function checkCanUse(index,projectId,projectType){
 	});
 }
 
+/**
+ * 申请CEO评审排期
+ */
+function applyCeoMeeting(){
+	var pid = projectId;
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(platformUrl.inCeoMeetingPool + pid, {}, function(data){
+			var result = data.result.status;
+			if(result == "OK"){ 
+				if($.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
+				layer.msg("申请CEO评审会成功!");
+				$("#powindow,#popbg").remove();
+				info(pid);
+			}else{
+				layer.msg(data.result.message);
+			}
+		});
+	}
+}
+
 	
 /**
- * 上传接触访谈纪要弹出层
+ * 添加接触访谈纪要弹出层
  */
 function air(indexNum){
 	$("[data-id='popid1']").remove();
@@ -271,10 +312,10 @@ function air(indexNum){
 			$('.searchbox').toggleshow();
 			leicj();
 			//初始化文件上传
-			toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_btn","file_object","save_interview","",
+			toinitUpload(platformUrl.stageChange, projectId,"select_btn","file_object","save_interview","",
 					function getSaveCondition(){
 						var	condition = {};
-						var pid = $("#project_id").val();
+						var pid = projectId;
 						var viewDateStr = $("#viewDate").val();
 						var viewTarget = $.trim($("#viewTarget").val());
 						var um = UM.getEditor('viewNotes');
@@ -316,11 +357,15 @@ function air(indexNum){
  * 启动内部评审
  */
 function startReview(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.startReview + pid, {}, function(data){
 			var result = data.result.status;
 			if(result == "OK"){
+				if($.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
 				layer.msg("启动内部评审成功!");
 				$("#powindow,#popbg").remove();
 				info(pid);
@@ -336,7 +381,7 @@ function startReview(){
  */
  function addMettingRecord(num,meetingType){
 		$("[data-id='popid1']").remove();
-		var pid=$("#project_id").val();
+		var pid=projectId;
 		loadJs();
 		var _url=Constants.sopEndpointURL + '/galaxy/mr/';
 		$.getHtml({
@@ -346,10 +391,10 @@ function startReview(){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj(meetingType);
-			toinitUpload(platformUrl.stageChange,$("#project_id").val(), "meeting_select_btn","meeting_file_object","save_meeting","",
+			toinitUpload(platformUrl.stageChange,projectId, "meeting_select_btn","meeting_file_object","save_meeting","",
 					function getSaveCondition(){
 						var	condition = {};
-						var pid = $("#project_id").val();
+						var pid = projectId;
 						var meetingDateStr = $.trim($("#meeting_date").val());
 						var meetingResult = $.trim($("input:radio[name='meetingResult']:checked").val());
 						var um = UM.getEditor("meeting_notes");
@@ -377,7 +422,16 @@ function startReview(){
 						condition.result = meetingResult;
 						condition.content = meetingNotes;
 						return condition;
-					},num);
+					},
+					num,
+					function(){
+						var meetingResult = $.trim($("input:radio[name='meetingResult']:checked").val());
+						if('meetingResult:1' == meetingResult && $.isFunction(refreshProjectList))
+						{
+							refreshProjectList.call();
+						}
+					}
+			);
 		}
 	});
 	return false;
@@ -387,11 +441,15 @@ function startReview(){
   * CEO评审阶段申请立项会排期
   */
 function toEstablishStage(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
 			var result = data.result.status;
 			if(result == "OK"){ 
+				if($.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
 				layer.msg("申请立项会成功!");
 				$("#powindow,#popbg").remove();
 				info(pid);
@@ -406,7 +464,7 @@ function toEstablishStage(){
   * 立项会阶段申请立项会排期
   */
 function toLxmeetingPool(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.inLxmeetingPool + pid, {}, function(data){
 			var result = data.result.status;
@@ -425,7 +483,7 @@ function toLxmeetingPool(){
   * 动态生成投资意向书阶段HTML
   */
 function tzyxs(flag){
-	 var pid = $("#project_id").val();
+	 var pid = projectId;
 	 if(pid != '' && pid != null){
 		 /**
 		  *  生成尽职调查报告列表
@@ -434,7 +492,8 @@ function tzyxs(flag){
 				 null, function(data){
 					 var json = eval(data);
 					 var dataList=json.entityList;
-						for(var p in dataList){
+					 for(var ii = 0 ; ii < dataList.length ; ii++){
+						    var p = ii ;	
 							var handlefile="";
 							if(!hasClosed && canToOption){
 								handlefile='<a href="javascript:;" onclick="downloadTemplate(\'templateType:1\');" class="pubbtn fffbtn llpubbtn">下载投资意向书模板</a>';
@@ -442,7 +501,7 @@ function tzyxs(flag){
 						        	handlefile +='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
 								}else{
 									var fileSource =  dataList[p].fileSource;
-									handlefile += '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateTzyxs('+fileSource+')">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
+									handlefile += '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateSopFile('+'\''+dataList[p].projectProgress+'\','+fileSource+',\''+dataList[p].fileWorktype+'\',\''+dataList[p].fileType+'\','+dataList[p].id+","+0+')">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
 								}
 							}
 							
@@ -450,7 +509,7 @@ function tzyxs(flag){
 					        	handlefile+'</div>'+
 						        '<div class="process clearfix">'+
 						        '<h2>投资意向书盖章流程</h2>'+
-						        '<img src="'+Constants.sopEndpointURL+'/img/process.png" alt="">'+
+						        '<img src="'+Constants.sopEndpointURL+'img/process.png" alt="">'+
 						        '</div>';
 						        
 						    var htmlstart=htmlhead+'<table width=\"100%" cellspacing="0" cellpadding="0" >'+
@@ -513,10 +572,10 @@ function tzyxs(flag){
 				$("#voucherDiv").css("display","none");
 				
 			}
-			toinitUpload(platformUrl.stageChange, $("#project_id").val(),"select_file_btn","file_obj","save_file_btn","fileType",
+			toinitUpload(platformUrl.stageChange, projectId,"select_file_btn","file_obj","save_file_btn","fileType",
 					function getSaveCondition(){
 				var	condition = {};
-				var pid = $("#project_id").val();
+				var pid = projectId;
 				if(pid == null || pid == ""){
 					alert("项目不能为空");
 					return;
@@ -544,26 +603,60 @@ function tzyxs(flag){
 				condition.fileWorktype = fileWorktype;
 				condition.voucherType = voucherType;
 				return condition;
-			},null);
+			},
+			null,
+			function(){
+				if(i == 1 && $.isFunction(refreshProjectList)){
+					refreshProjectList.call();
+				}
+			});
 		}
 	});
 	return false;
 }
-function updateTzyxs(fileSource){
+/**
+ * 更新文件：投资意向书、业务尽职调查、投资协议
+ * @param stage  项目阶段
+ * @param fileSource 文件来源：内部|外部
+ * @param fileWorkType 业务分类
+ * @param fileType 档案类型：文档|图片...
+ * @param id 文件id:sopfile主键
+ * @param voucher 是否有签署证明显示 0:无;1:有
+ */
+function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 	$("[data-id='popid1']").remove();
-	 loadJs();
+	loadJs();
+	//投资意向书页面
 	var _url=Constants.sopEndpointURL + '/galaxy/tzyx';
+	//弹出尽职调查页面
+	if(stage == "projectProgress:6"){
+		_url=Constants.sopEndpointURL + '/galaxy/jzdc';
+	}
+	//投资协议页面
+	if(stage == "projectProgress:8"){
+		_url=Constants.sopEndpointURL + '/galaxy/tzxy';
+	}
+	//股权转让协议页面
+	if(fileWorkType == "fileWorktype:7"){
+	    _url=Constants.sopEndpointURL + '/galaxy/gqzr';
+	}
 	$.getHtml({
 		url:_url,
 		okback:function(){
-			$("#voucherDiv").css("display","none");
+			if(voucher == 1){
+				$("#voucherType").attr("disabled",true);
+				$("#voucherType").attr("checked","checked");
+			}else{
+				$("#voucherDiv").css("display","none");
+			}
 			$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
-							
+			$("#fileType").val(fileType);
+			$("#fileWorkType").val(fileWorkType);
 
 			var uploader = $.fxUpload({
 				props:{
 					browse_button:'select_file_btn',
-					url:platformUrl.stageChange,
+					url:platformUrl.updateFile,
 					init:{
 						PostInit: function(up) {
 							$("#save_file_btn").click(function(){
@@ -605,7 +698,7 @@ function updateTzyxs(fileSource){
 						},
 						BeforeUpload:function(up){
 							var condition = {};
-							var pid = $("#project_id").val();
+							var pid = projectId;
 							var type = $("input[name='fileSource']:checked").val();
 							if(type == null || type == ""){
 								layer.msg("档案来源不能为空");
@@ -624,14 +717,21 @@ function updateTzyxs(fileSource){
 								up.stop();
 								return;
 							}
-							var voucherType = $("input[id='voucherType']:checked").val();
+							if(voucher == 1){
+								var voucherType = $("input[id='voucherType']:checked").val();
+								condition.voucherType = voucherType;
+							}
+							//投资协议阶段所用
+							if(stage == "projectProgress:8"){
+								var hasStockTransfer = $("input[id='stock_transfer']:checked").val();
+								condition.hasStockTransfer=hasStockTransfer;
+							}
 							condition.pid = pid;
-							condition.stage = "projectProgress:5";
+							condition.stage = stage;
 							condition.type = type;
 							condition.fileType = fileType;
 							condition.fileWorktype = fileWorktype;
-							condition.voucherType = voucherType;
-							
+							condition.id = id;
 							up.settings.multipart_params=condition;
 						},
 						FileUploaded: function(up, files, rtn) {
@@ -640,7 +740,7 @@ function updateTzyxs(fileSource){
 							if(data.result.status == "OK")
 							{
 								layer.msg(data.result.message);
-								var pid = $("#project_id").val()
+								var pid = projectId
 								$("#powindow,#popbg").remove();
 								info(pid);
 							}
@@ -661,7 +761,7 @@ function updateTzyxs(fileSource){
   */
  function jzdc(){
 	 
-	 var pid = $("#project_id").val();
+	 var pid = projectId;
 	 if(pid != '' && pid != null){
 		 /**
 		  *  生成尽职调查报告列表
@@ -674,19 +774,19 @@ function updateTzyxs(fileSource){
 				 html += "<tr>";
 				 if(o.fileWorktype == 'fileWorktype:1'){
 					 html += "<td>业务尽职调查报告";
-					 html += "</td><td>" + o.createDate + "</td>";
+					 html += "</td><td>" +getVal(o.updatedDate,o.createDate)+ "</td>";
 					 html += "<td>"+o.careerLineName+"</td>";
 				 }else if(o.fileWorktype == 'fileWorktype:2'){
 					 html += "<td>人事尽职调查报告";
-					 html += "</td><td>" + o.createDate + "</td>";
+					 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 					 html += "<td>人事部</td>";
 				 }else if(o.fileWorktype == 'fileWorktype:3'){
 					 html += "<td>法务尽职调查报告";
-					 html += "</td><td>" + o.createDate + "</td>";
+					 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 					 html += "<td>法务部</td>";
 				 }else if(o.fileWorktype == 'fileWorktype:4'){
 					 html += "<td>财务尽职调查报告";
-					 html += "</td><td>" + o.createDate + "</td>";
+					 html += "</td><td>" + getVal(o.updatedDate,o.createDate) + "</td>";
 					 html += "<td>财务部</td>";
 				 }
 				 if(o.fileStatus == 'fileStatus:1' || o.fileValid == '0'){
@@ -699,7 +799,8 @@ function updateTzyxs(fileSource){
 					 html += "<td>无</td>";
 				 }else if(o.fileStatus == 'fileStatus:2'){
 					 if(o.fileWorktype == 'fileWorktype:1'){
-						 $("#jzdc_options a:eq(0)").text('更新业务尽职调查报告')
+						 $("#jzdc_options a:eq(0)").text('更新业务尽职调查报告');
+						 $("#jzdc_options a:eq(0)").attr("onclick","updateSopFile('"+o.projectProgress+"',"+o.fileSource+",'"+o.fileWorktype+"','"+o.fileType+"',"+o.id+","+0+")");
 					 }
 					 html += "<td>"+o.fType+"</td>";
 					 html += "<td>已上传</td>";
@@ -730,10 +831,10 @@ function uploadYwjd(){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
-			toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
+			toinitUpload(platformUrl.stageChange,projectId, "select_file_btn","file_obj","save_file_btn","fileType",
 					function getSaveCondition(){
 				var	condition = {};
-				var pid = $("#project_id").val();
+				var pid = projectId;
 				if(pid == null || pid == ""){
 					alert("项目不能为空");
 					return;
@@ -768,7 +869,7 @@ function uploadYwjd(){
  * 尽职调查--点击申请投决会按钮
  */
 function inTjh(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(
 				platformUrl.inTjh + pid,
@@ -776,6 +877,10 @@ function inTjh(){
 				function(data){
 					var result = data.result.status;
 					if(result == "OK"){ 
+						if($.isFunction(refreshProjectList))
+						{
+							refreshProjectList.call();
+						}
 						layer.msg("申请成功!");
 						$("#powindow,#popbg").remove();
 						info(pid);
@@ -789,7 +894,7 @@ function inTjh(){
  * 投决会--点击申请投决会按钮
  */
 function inSureMeetingPool(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(
 				platformUrl.inSureMeetingPool + pid,
@@ -811,7 +916,7 @@ function inSureMeetingPool(){
  */
 function tzxy(st,projectType){
 	//0:首次展示 1：点击触发刷新
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null){
 		var _table = $("#teamSeheetDataGrid");
 		var _tbody = _table.find("tbody");
@@ -858,7 +963,7 @@ function tzxy(st,projectType){
 									$tr.append('<td>无</td>');
 								}else{
 									if(canToOption){
-										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="updateSopFile('+'\''+this.projectProgress+'\','+this.fileSource+',\''+this.fileWorktype+'\',\''+this.fileType+'\','+this.id+","+0+')" class="blue">更新</a></td>');
 									}else{
 										$tr.append('<td></td>');
 									}
@@ -889,7 +994,7 @@ function tzxy(st,projectType){
 									$tr.append('<td>无</td>');
 								}else{
 									if(canToOption){
-										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,0);" class="blue">更新</a></td>');
+										$tr.append('<td><a href="javascript:;" onclick="updateSopFile('+'\''+this.projectProgress+'\','+this.fileSource+',\''+this.fileWorktype+'\',\''+this.fileType+'\','+this.id+","+0+')" class="blue">更新</a></td>');
 									}else{
 										$tr.append('<td></td>');
 									}
@@ -941,12 +1046,12 @@ function tzxy(st,projectType){
 				$("#voucherType").attr("disabled",true);
 				$("#voucherType").attr("checked","checked");
 			}else{
-				$("#tzyxDiv").css("display","none");
+				$("#voucherDiv").css("display","none");
 			}
-			toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
+			toinitUpload(platformUrl.stageChange,projectId, "select_file_btn","file_obj","save_file_btn","fileType",
 					function getSaveCondition(){
 				var	condition = {};
-				var pid = $("#project_id").val();
+				var pid = projectId;
 				if(pid == null || pid == ""){
 					alert("项目不能为空");
 					return;
@@ -976,7 +1081,14 @@ function tzxy(st,projectType){
 				condition.voucherType = voucherType;
 				condition.hasStockTransfer=hasStockTransfer;
 				return condition;
-			},null);
+			},
+			null,
+			function(){
+				if(i==1 && $.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
+			});
 		}
 	});
 	return false;
@@ -986,7 +1098,7 @@ function tzxy(st,projectType){
  * "是否涉及股权转让"按钮点击事件
  */
 function selected(obj){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(
 				platformUrl.storeUrl + pid,
@@ -1020,13 +1132,13 @@ function selected(obj){
 				$("#voucherType").attr("disabled",true);
 				$("#voucherType").attr("checked","checked");
 			}else{
-				$("#gqzrDiv").css("display","none");
+				$("#voucherDiv").css("display","none");
 				
 			}
-			toinitUpload(platformUrl.stageChange,$("#project_id").val(), "select_file_btn","file_obj","save_file_btn","fileType",
+			toinitUpload(platformUrl.stageChange,projectId, "select_file_btn","file_obj","save_file_btn","fileType",
 					function getSaveCondition(){
 				var	condition = {};
-				var pid = $("#project_id").val();
+				var pid = projectId;
 				if(pid == null || pid == ""){
 					alert("项目不能为空");
 					return;
@@ -1056,7 +1168,14 @@ function selected(obj){
 				condition.voucherType = voucherType;
 				condition.hasStockTransfer=hasStockTransfer;
 				return condition;
-			},null);
+			},
+			null,
+			function(){
+				if(i==1 && $.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
+			});
 		}
 	});
 	return false;
@@ -1066,7 +1185,7 @@ function selected(obj){
   * 动态生成股权交割的HTML
   */
 function gqjg(){
-	var pid = $("#project_id").val();
+	var pid = projectId;
 	if(pid != '' && pid != null){
 		sendGetRequest(
 				platformUrl.getFileList + pid + "/9",
@@ -1078,7 +1197,8 @@ function gqjg(){
 						 '<thead>'+'<tr>'+'<th>业务分类</th>'+'<th>创建日期</th>'+'<th>存储类型</th>'+
 						 '<th>更新日期</th>'+'<th>催办</th>'+'<th>查看附件</th>'+'</tr>'+'</thead>'+'<tbody>';
 					 
-					 for(var p in dataList){
+					 for(var ii = 0 ; ii < dataList.length ; ii++){
+						    var p = ii ;	
 						var typehtml = "";
 						if (typeof(dataList[p].fType) == "undefined" || dataList[p].fileValid == '0') { 
 							typehtml ='<td></td>';
@@ -1148,7 +1268,7 @@ function ftcolumnFormat(value, row, index){
 	}
 	
 	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
-				"访谈日期："+row.viewDateStr+
+				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
 			"</div>" ;
@@ -1246,7 +1366,7 @@ function interviewsave(){
 		var um = UM.getEditor('viewNotes');
 	var log = um.getContent();
 	var pid=$("#vid").val();
-	if(pid != ''){
+	if(pid != '' && log != ''){
 		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
 			if (data.result.status=="OK") {
 				layer.msg("保存成功");

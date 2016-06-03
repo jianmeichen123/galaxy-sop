@@ -27,7 +27,7 @@
 	<div class="top clearfix">
         <dl class="fmdl clearfix">
         <input type="hidden" id="vid">
-            <!-- <dt>访谈日期：</dt> -->
+            <!-- <dt>访谈时间：</dt> -->
             <dd>
             	<%-- <input class="form-control" type="date" id="viewDate" name="viewDate" valType="required" msg="<font color=red>*</font>创建时间不能为空"/> --%>
                 <input type="text" class="datepicker txt time" id="viewDate" name="viewDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空" style=
@@ -60,8 +60,8 @@
     		</dd>
         </div>
     </dl> -->
-    <div id="interviewsave" class="btnbox save_log">
-    	<a href="javascript:;"  class="pubbtn bluebtn" onclick="interviewsave()">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
+    <div class="btnbox save_log">
+    	<a href="javascript:;" id="interviewsave" class="pubbtn bluebtn" onclick="interviewsave()">保存</a><a href="javascript:;" class="pubbtn fffbtn"data-close="close">取消</a>
     </div>
 </div>
 <script type="text/javascript">

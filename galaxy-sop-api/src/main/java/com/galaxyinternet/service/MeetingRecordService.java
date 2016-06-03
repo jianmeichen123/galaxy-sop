@@ -1,9 +1,7 @@
 package com.galaxyinternet.service;
 
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.BaseService;
@@ -22,6 +20,8 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	public void upTermSheetSign(Project project, Long id, Long departmentId);
 
 	public Page<MeetingRecordBo> queryMeetPage(MeetingRecordBo query, Pageable pageable);
+
+	Long addCyMeetRecord(MeetingRecord meetingRecord, SopFile sopFile);
 	
 
 }

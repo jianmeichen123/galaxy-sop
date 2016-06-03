@@ -2,6 +2,7 @@ package com.galaxyinternet.project.service;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -177,6 +178,12 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setMeetingType(DictEnum.meetingType.立项会.getCode());
 		ms.setMeetingCount(0);
 		ms.setStatus(DictEnum.meetingResult.待定.getCode());
+		ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+		ms.setReserveTimeStartStr(null);
+		ms.setReserveTimeEndStr(null);
+		ms.setReserveTimeEnd(null);
+		ms.setReserveTimeStart(null);
+		ms.setApplyTime(new Timestamp(new Date().getTime()));
 		ms.setCreatedTime((new Date()).getTime());
 		meetingSchedulingDao.insert(ms);
 		
@@ -186,6 +193,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		m.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 		m.setStatus(DictEnum.meetingResult.通过.getCode());
 		m.setUpdatedTime((new Date()).getTime());
+		m.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		meetingSchedulingDao.updateBySelective(m);
 	}
 
@@ -198,7 +206,13 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		ms.setMeetingType(DictEnum.meetingType.投决会.getCode());
 		ms.setMeetingCount(0);
 		ms.setStatus(DictEnum.meetingResult.待定.getCode());
+		ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+		ms.setReserveTimeStartStr(null);
+		ms.setReserveTimeEndStr(null);
+		ms.setReserveTimeEnd(null);
+		ms.setReserveTimeStart(null);
 		ms.setCreatedTime((new Date()).getTime());
+		ms.setApplyTime(new Timestamp(new Date().getTime()));
 		meetingSchedulingDao.insert(ms);
 	}
 
@@ -468,5 +482,5 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return id;
 	}
 
-
+	
 }

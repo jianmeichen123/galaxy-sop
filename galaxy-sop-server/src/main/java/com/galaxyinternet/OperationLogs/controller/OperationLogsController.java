@@ -26,10 +26,12 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.bo.OperationLogsBo;
+import com.galaxyinternet.model.common.ProgressLog;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.OperationLogsService;
+import com.galaxyinternet.service.ProgressLogService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserRoleService;
 
@@ -41,6 +43,8 @@ public class OperationLogsController extends BaseControllerImpl<OperationLogs, O
 	
 	@Autowired
 	private OperationLogsService operationLogsService;
+	@Autowired
+	private ProgressLogService progressLogService;
 	
 	@Autowired
 	private ProjectService projectService;
@@ -90,6 +94,37 @@ public class OperationLogsController extends BaseControllerImpl<OperationLogs, O
 		return responseBody;
 	}
 	
+	/**
+	 * 根据项目id查询该项目下操作日志
+	 * @param    
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/queryIdeaProgressLog", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProgressLog> queryIdeaProgressLog(HttpServletRequest request,@RequestBody ProgressLog query ) {
+		
+		ResponseData<ProgressLog> responseBody = new ResponseData<ProgressLog>();
+		
+		try {
+			if(query.getRelatedId() == null){   //传入project，仅查询该项目日志
+				responseBody.setResult(new Result(Status.ERROR, null,"创意id为空"));
+				logger.error("创意id为空 ");
+				return responseBody;
+			}
+			Page<ProgressLog> pageList = progressLogService.queryPageList(query,new PageRequest(query.getPageNum(),query.getPageSize()));
+			responseBody.setPageList(pageList);
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"查询日志失败"));
+			if(logger.isErrorEnabled()){
+				logger.error("查询日志失败  ",e);
+			}
+			return responseBody;
+		}
+		
+		return responseBody;
+	}
 	
 	
 	/**

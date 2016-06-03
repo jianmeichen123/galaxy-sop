@@ -106,7 +106,16 @@ function wanshancbf(data){
 				var input = $($(tr_item).find("input[name]")[i]);
 				input.val(personWork[input.attr("name")]);
 			});
--			$(td_personWork[i]).attr("data-val",personWork["id"]);
+			$(td_personWork[i]).attr("data-val",personWork["id"]);
+				var dege = personWork['leaderRelationship'];
+				f=i+1;
+				
+				var objg=$("#le"+f+" option");			
+				for(var j=0;j<objg.length;j++){				
+					if(objg[j].value==dege){
+						objg[j].selected='selected' ;
+					}
+				}
 			if(personWorks.length > td_personWork.length){
 				appendTd1(model_personWork);				
 			}
@@ -138,9 +147,10 @@ function appendTd(model){
 		var idd = "de3";
 		var iddd="degree3"
 		var ename = "de4";
-		var valuee = "学历"
+		var valuee = "请选择"
 		var ese = "setValue3(this)";
 		var option = $($(select).find("option"));
+		var classs = "none";
 		for(var i = 1 ;i < option.length ;i++){
 			if(str=='undefined'||str== undefined){
 				str ="<option value='' >"+valuee+"</option>";
@@ -176,30 +186,52 @@ function appendTd(model){
 		if(regString=='undefined'||regString== undefined){
 			regString = "";
 		}
+
 		if(index == 0 ){
-			$(tr).append("<td data-by='id'><select id='"+idd+"' name='"+ename+"' onchange='"+ese+"'>"+str+"</select><input name ='"+namee+"' id='"+iddd+"' hidden='"+hidden+"' type='"+type+"'></td>");
-		}else if(input.index == 1 )
-			{
-				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
-			}else{
+			$(tr).append("<td data-by='id'><select id='"+idd+"' name='"+ename+"' onchange='"+ese+"'>"+str+"</select><input name ='"+namee+"' id='"+iddd+"' hidden='"+hidden+"' class='"+classs+"'></td>");
+		}else{
 				if(class_name == "datepicker"){
-					$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
+					$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' class='"+class_name+"' type='"+type+"' name='"+name+"' /></td>");
 				}else{
 					$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
 				}
 			}
 		});
 }
+
 function appendTd1(model){
 	model.find("tr").each(function(index,tr){
-		var input =  $($(tr).find("input")[0]);
-		var name = input.attr("name");
+		if(index==10){
+			var k = model.find("td[data-by]").length;			
+		}				
+		var input = $($(tr).find("input")[0]);
+		var name = input.attr("name");		
 		var type = input.attr("type");
 		var class_name = input.attr("class");
 		var valType = input.attr("valType");
 		var msg = input.attr("msg");
 		var regString = input.attr("regString");
 		var textsIn = input.attr("textsIn");
+		var hidden = input.attr("hidden");
+		
+		//工作关系下拉框
+		var idd = "le"+k;
+		var select = $($(tr).find("select")[0]);		
+		var namee = select.attr("name");		
+		var valuee = "请选择";
+		f=4+k;
+		var ese ="setValue"+f+"(this)"/* select.attr("onchange");*/
+		var option = $($(select).find("option"));
+		var id = "leaderRelationship"+k;
+		
+		for(var i = 1 ;i < option.length ;i++){
+			if(str=='undefined'||str== undefined){
+				str ="<option value='' >"+valuee+"</option>";
+			}
+			var value = $(option[i]).attr("value");
+			var str = str +"<option value='"+value+"' >"+value+"</option>";
+		}
+		
 		if(textsIn=='undefined'||textsIn== undefined){
 			textsIn = "";
 		}
@@ -212,16 +244,28 @@ function appendTd1(model){
 		if(regString=='undefined'||regString== undefined){
 			regString = "";
 		}
+		if(regString=='undefined'||regString== undefined){
+			regString = "";
+		}
+
 		if(index == 0 ){
-			$(tr).append("<td data-by='id'><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
-		}else{
+			$(tr).append("<td data-by='id'><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"' /></td>");
+		}else if(index == 10 )
+		{
+
+			$(tr).append("<td><select id='"+idd+"' name='"+namee+"' onchange='"+ese+"'>"+str+"</select><input name ='"+name+"' hidden='"+hidden+"' id='"+id+"' class='"+class_name+"' ></td>");
+		}
+		else{			
 			if(class_name == "datepicker"){
-				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' class='"+class_name+"' type='"+type+"' name='"+name+"'/></td>");
+			
+				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' class='"+class_name+"' type='"+type+"' name='"+name+"' /></td>");
+		
 			}else{
 				$(tr).append("<td><input textsIn='"+textsIn+"' regString='"+regString+"' msg='"+msg+"' valType='"+valType+"' type='"+type+"' name='"+name+"'/></td>");
 			}
-		}
+		}				
 	});
+
 }
 function prependTd(model,model_data){
 	model.find("tr[type!=hidden]").each(function(index,item){
@@ -239,11 +283,16 @@ function setValue(obj) {
 }
 function setValue1(obj) {
     
+/*	 var ar = obj.value;
+	  alert(ar);
+	var text = document.getElementById("degree1"); $("input[name='degree']");
+	text.value = ar;
+		*/
 	 var ar = obj.value;
-	 /* alert(ar);*/
+	 /* alert("ar:"+ar);*/
 	var text = document.getElementById("degree1");
 	text.value = ar;
-		
+	/*alert("1:"+text.value);*/
 	/*alert($("#degree1").val());*/
 }
 function setValue2(obj) {
@@ -263,6 +312,42 @@ function setValue3(obj) {
 	text.value = ar;
 		
 	/*alert($("#degree3").val());*/
+}
+function setValue4(obj) {
+    
+	 var ar = obj.value;
+	 
+	var text =document.getElementById("leaderRelationship");
+	text.value = ar;
+	
+		
+}
+function setValue6(obj) {
+    
+	 var ar = obj.value;
+	  
+	var text =document.getElementById("leaderRelationship2");
+	text.value = ar;
+
+		
+}
+function setValue7(obj) {
+    
+	 var ar = obj.value;
+	 
+	var text =document.getElementById("leaderRelationship3");
+	text.value = ar;
+	
+		
+}
+function setValue8(obj) {
+    
+	 var ar = obj.value;
+	 
+	var text =document.getElementById("leaderRelationship4");
+	text.value = ar;
+	
+		
 }
 $(".btnbox").on("click",".bluebtn",function(){	
 	var models = $("div[model]");

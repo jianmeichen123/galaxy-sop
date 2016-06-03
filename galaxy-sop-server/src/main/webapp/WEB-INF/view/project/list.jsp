@@ -34,13 +34,14 @@
 <body>
 
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
-
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
     	<h2>我的项目</h2>
     	 <input type="hidden" id="project_id" value=""/>
+    	 <input type="hidden" id="uid" value=""/>
+    	 
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
@@ -90,7 +91,7 @@
 				<dl class="fmdl fmdll clearfix">
 					<dt></dt>
 					<dd>
-						<input type="text" class="txt" name="keyword" placeholder="请输入项目名称或项目编码" />
+						<input type="text" class="txt" name="keyword" placeholder="请输入项目名称或项目编码" value="${pname }" />
 					</dd>
 					<dd>
 						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
@@ -104,10 +105,10 @@
 				<thead>
 				    <tr>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
-			        	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
+			        	<th data-field="projectName" data-align="center" class="data-input" data-formatter="projectInfo">项目名称</th>
 			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
 			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
-			        	<th data-field="createDate" data-align="center" class="data-input">创建日期</th>
+			        	<th data-field="createDate" data-align="center" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
 			        	<th data-align="center" class="col-md-2" data-formatter="editor">操作</th>
  					</tr>	
  				</thead>
@@ -141,17 +142,17 @@
 
 
 
-<script type="text/javascript" src="<%=path %>/js/teamSheet.js"></script>
+<script type="text/javascript" src="<%=path %>/js/teamSheetNew.js"></script>
 <script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
 
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
 
 <script type="text/javascript">
 	createMenus(5);
-	var uid='${galax_session_user.id }';
 	/**
 	 * 分页数据生成操作内容
 	 */
+	var uid='${galax_session_user.id }';
 	function editor(value, row, index){
 		var id=row.id;
 		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
@@ -160,6 +161,28 @@
 		}
 		return options;
 	}
+	
+	function projectInfo(value,row,index){
+		var id=row.id;
+		var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")'>"+row.projectName+"</a>";
+		return options;
+	}
+	
+	function proInfo(id){
+		forwardWithHeader(platformUrl.projectDetail + id);
+	}
+	
+	function refreshProjectList()
+	{
+		$("#data-table").bootstrapTable('refresh');
+	}
+	
+	$(function(){
+		var pid = "${pid}";
+		if(!(!pid)){
+			info(pid);
+		}	
+	});
 </script>
 
 </html>

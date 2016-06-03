@@ -3,7 +3,7 @@ $.extend({
 			var defaults = {
 					beforeInit:function(){},
 					props :{
-						runtimes : 'html5,flash,silverlight,html4',
+						runtimes : 'html5,html4,flash,silverlight',
 						browse_button : '', 
 						url : '',
 						multipart:true,

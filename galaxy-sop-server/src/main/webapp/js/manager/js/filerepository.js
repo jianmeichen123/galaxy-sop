@@ -93,7 +93,6 @@ var fileGrid = {
 		});
 		 // 初始化查询按钮
 		 $("#file_repository_btn").click(fileGrid.serarchData);
-	  
 	},
 	updateFormatter : function(value,row,index){
 		return [
@@ -140,9 +139,9 @@ var fileGrid = {
 		params.fileType = utils.confident(form.search_fileType,"all");
 		params.fileWorktype = utils.confident(form.search_fileWorktype,"all");
 		params.fileStatus = utils.confident(form.search_fileStatus,"all");
-		var startTime = (new Date(ReplaceAll(form.file_startDate,'-','/'))).getTime();
-		var endTime = (new Date(ReplaceAll(form.file_endDate,'-','/'))).getTime()+86400;
-		if(startTime && endTime && startTime > endTime){
+		var startTime = (new Date(form.file_startDate+' 00:00:00')).getTime();		
+		var endTime = (new Date(form.file_endDate+' 23:59:59')).getTime();
+		if(startTime > endTime){
 			layer.msg("开始时间不能大于结束时间");
 			return false;
 			}
@@ -156,6 +155,7 @@ var fileGrid = {
 		$('#'+fileGrid.domid).bootstrapTable('refresh',fileGrid.queryParams);
 	}
 };
+
 
 function ReplaceAll(str, sptr, sptr1){
 	while (str.indexOf(sptr) >= 0){

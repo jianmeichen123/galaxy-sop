@@ -88,7 +88,8 @@ public class LxMeetingHandler implements Handler {
 		m.setProjectId(q.getPid());
 		m.setMeetingType(DictEnum.meetingType.立项会.getCode());
 		MeetingScheduling tm = meetingSchedulingDao.selectOne(m);
-		tm.setStatus(DictEnum.meetingResult.通过.getCode());
+        tm.setStatus(DictEnum.meetingResult.通过.getCode());
+        tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		/**
 		 * 项目的当前状态为立项会阶段，添加通过的会议记录才回去修改项目阶段到投资意向书
 		 * 否则仅仅保存会议记录，不做项目阶段跳转
@@ -111,17 +112,26 @@ public class LxMeetingHandler implements Handler {
 			task.setCreatedTime(System.currentTimeMillis());
 			sopTaskDao.insert(task);
 		}
+		
+		if((q.getResult().equals(DictEnum.meetingResult.待定.getCode()))){
+			tm.setReserveTimeStartStr(null);
+			tm.setReserveTimeEndStr(null);
+			tm.setReserveTimeEnd(null);
+			tm.setReserveTimeStart(null);
+		}
+		
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			p.setProjectStatus(DictEnum.meetingResult.否决.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
+			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
 		}
 		if(in == pin){
 			tm.setMeetingDate(q.getParseDate() == null ? new Date() : q.getParseDate());
 			tm.setMeetingCount(tm.getMeetingCount() + 1);
 			tm.setUpdatedTime((new Date()).getTime());
-			meetingSchedulingDao.updateBySelective(tm);
+			meetingSchedulingDao.updateById(tm);
 		}
 		return new SopResult(Status.OK,null,"添加立项会议记录要成功!",UrlNumber.four);
 	}

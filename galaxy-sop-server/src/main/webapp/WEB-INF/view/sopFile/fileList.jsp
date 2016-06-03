@@ -46,7 +46,7 @@
             </div>
         </div>	
         <!-- 搜索条件 -->
-        <div class="min_document clearfix"  id="custom-toolbar">
+        <div class="min_document clearfix min_document_da"  id="custom-toolbar">
           <div class="top clearfix search_adjust1 searchall">
             <dl class="fmdl fml  fmdll clearfix">
               <dt >&nbsp;&nbsp;&nbsp;档案来源：</dt>
@@ -115,8 +115,8 @@
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
  <script src="<%=path %>/js/commWin.js" type="text/javascript"></script>
-<%--  <script src="<%=path %>/js/teamSheetNew.js" type="text/javascript"></script> --%>
- <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script>
+ <script src="<%=path %>/js/teamSheetNew.js" type="text/javascript"></script>
+<%--  <script src="<%=path %>/js/teamSheet.js" type="text/javascript"></script> --%>
  <script src="<%=path %>/js/sopFile.js" type="text/javascript"></script>
  
 	

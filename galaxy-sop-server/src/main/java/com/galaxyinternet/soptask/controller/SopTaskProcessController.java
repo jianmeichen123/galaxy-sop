@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
@@ -39,7 +41,6 @@ import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
-import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
@@ -148,25 +149,25 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				String key = po != null && po.getFileKey() != null ? po.getFileKey() : String.valueOf(IdGenerator.generateId(OSSHelper.class));
 				String prefix = fileName.substring(0, dotPos);
 				String suffix = fileName.substring(dotPos);
-				File temp = File.createTempFile(key, suffix);
-				Long length = file.getSize();
-				file.transferTo(temp);
-				OSSHelper.simpleUploadByOSS(temp,key);
 				
-				bo.setFileKey(key);
-				bo.setFileValid(0);
-				bo.setFileLength(length);
-				bo.setFileName(prefix);
-				bo.setFileSuffix(suffix.replaceAll("\\.", ""));
-				bo.setUpdatedTime(System.currentTimeMillis());
-				bo.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-				if(user != null)
+				UploadFileResult ur = uploadFileToOSS(request, key, tempfilePath);
+				result = ur.getResult();
+				if(ur.getResult() != null && Result.Status.OK.equals(ur.getResult().getStatus()))
 				{
-					bo.setFileUid(user.getId());
+					bo.setFileKey(key);
+					bo.setFileValid(0);
+					bo.setFileLength(ur.getContentLength());
+					bo.setFileName(prefix);
+					bo.setFileSuffix(suffix.replaceAll("\\.", ""));
+					bo.setUpdatedTime(System.currentTimeMillis());
+					bo.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+					if(user != null)
+					{
+						bo.setFileUid(user.getId());
+					}
+					sopFileService.updateById(bo);
 				}
 			}
-			sopFileService.updateById(bo);
-			result.setStatus(Status.OK);
 			
 		} catch (Exception e) {
 			Object msg = "上传失败";
@@ -315,5 +316,14 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 		}
 		
 		return resp;
+	}
+	
+	private String tempfilePath;
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
 	}
 }

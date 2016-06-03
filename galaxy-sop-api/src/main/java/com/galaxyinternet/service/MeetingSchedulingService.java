@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.galaxyinternet.bo.project.MeetingSchedulingBo;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.MeetingScheduling;
 
@@ -34,6 +35,28 @@ public interface MeetingSchedulingService extends BaseService<MeetingScheduling>
 	 */
 	Page<MeetingScheduling> queryMeetingPageList(MeetingScheduling query, Pageable pageable);
 	
-	int updateBySelective(MeetingScheduling ms);
+	/**
+	 * 秘书排期池
+	 * @param ms
+	 * @return
+	 */
+	public Page<MeetingScheduling> queryMeetPageList(MeetingSchedulingBo query,Pageable pageable);
 	
+	
+	int updateBySelective(MeetingScheduling ms);
+	/**
+	 * 批量更新操作更改status
+	 * @param entityList
+	 */
+	public void updateBatch(List<MeetingScheduling> entityList);
+	
+	public Page<MeetingScheduling> getMeetingList(MeetingScheduling query,PageRequest pageRequest);
+	
+    /***
+     * 根据id查询排期集合
+     * @param ids
+     * @return
+     */
+    public List<MeetingScheduling> getMeetingListByIds(MeetingScheduling bo);
+
 }

@@ -10,12 +10,19 @@
 	    <result column="meeting_date" property="meetingDate" jdbcType="TIMESTAMP" />
 	    <result column="status" property="status" jdbcType="VARCHAR" />
 	    <result column="remark" property="remark" jdbcType="VARCHAR" />
+	    <result column="schedule_status" property="scheduleStatus"/>
+	    <result column="apply_time" property="applyTime"/>
+	    <result column="reserve_time_start" property="reserveTimeStart"/>
+	    <result column="reserve_time_end" property="reserveTimeEnd"/>
+	    <result column="last_time" property="lastTime"/>
 	    <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
 	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+	    
 	</resultMap>
 	
   <sql id="Base_Column_List" >
-    id, project_id, meeting_type, meeting_count, meeting_date, status, remark, updated_time, 
+    id, project_id, meeting_type, meeting_count, meeting_date, status, remark, schedule_status,
+    apply_time,reserve_time_start, reserve_time_end,last_time, updated_time, 
     created_time
   </sql>
   
@@ -29,6 +36,7 @@
 				<if test="meetingDate != null" >and meeting_date = #{meetingDate,jdbcType=TIMESTAMP} </if>
 				<if test="status != null" >and status = #{status,jdbcType=VARCHAR} </if>
 				<if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
+				<if test="scheduleStatus != null" >and schedule_status = #{scheduleStatus} </if>
 				<if test="updatedTime != null" >and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 				<if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 				<if test="projectIdList != null">
@@ -89,11 +97,12 @@
 	    <![CDATA[
 		insert into sop_meeting_scheduling (id, project_id, meeting_type, 
 	      meeting_count, meeting_date, status, 
-	      remark, updated_time, created_time
+	      remark, schedule_status,
+    	  apply_time, reserve_time_start, reserve_time_end,last_time, updated_time, created_time
 	      )
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{meetingType,jdbcType=VARCHAR}, 
 	      #{meetingCount,jdbcType=INTEGER}, #{meetingDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
-	      #{remark,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}
+	      #{remark,jdbcType=VARCHAR}, #{scheduleStatus}, #{applyTime}, #{reserveTimeStart}, #{reserveTimeEnd},#{lastTime}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}
 	      )
 	    ]]>
     </insert>
@@ -108,6 +117,11 @@
 			<if test="meetingDate != null" > meeting_date = #{meetingDate,jdbcType=TIMESTAMP}, </if>
 			<if test="status != null" > status = #{status,jdbcType=VARCHAR}, </if>
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
+			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
+			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
+			reserve_time_start = #{reserveTimeStart},
+			reserve_time_end = #{reserveTimeEnd},
+			<if test="lastTime != null" > last_time = #{lastTime}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		</set>
@@ -120,7 +134,7 @@
 				<if test="meetingDate != null" >and meeting_date = #{meetingDate,jdbcType=TIMESTAMP} </if>
 				<if test="status != null" >and status = #{status,jdbcType=VARCHAR} </if>
 				<if test="remark != null" >and remark = #{remark,jdbcType=VARCHAR} </if>
-				<if test="updatedTime != null" >and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+				<!-- <if test="updatedTime != null" >and updated_time = #{updatedTime,jdbcType=BIGINT} </if> -->
 				<if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			</trim>
 		</where>
@@ -134,6 +148,8 @@
 			<if test="status != null" > status = #{status,jdbcType=VARCHAR}, </if>
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
+			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -153,6 +169,12 @@
 			<if test="meetingDate != null" > meeting_date = #{meetingDate,jdbcType=TIMESTAMP}, </if>
 			<if test="status != null" > status = #{status,jdbcType=VARCHAR}, </if>
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
+			<if test="scheduleStatus != null" > schedule_status = #{scheduleStatus}, </if>
+			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
+			 reserve_time_start = #{reserveTimeStart}, 
+			 reserve_time_end = #{reserveTimeEnd},
+			
+			<if test="lastTime != null" > last_time = #{lastTime}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 			<if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		</set>
@@ -171,6 +193,7 @@
 			<if test="status != null" > status = #{status,jdbcType=VARCHAR}, </if>
 			<if test="remark != null" > remark = #{remark,jdbcType=VARCHAR}, </if>
 			<if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+			<if test="applyTime != null" > apply_time = #{applyTime}, </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -194,6 +217,25 @@
 	<delete id="deleteById" parameterType="com.galaxyinternet.model.project.MeetingScheduling">
 		delete from sop_meeting_scheduling where id = #{id}
 	</delete>
+	
+	<!-- 根据projectId会议 -->
+	<select id="selectMeetingSchedulingId" resultMap="BaseResultMap" parameterType="com.galaxyinternet.model.project.MeetingScheduling">
+		select
+		<include refid="Base_Column_List" />
+		from sop_meeting_scheduling
+		<where>
+			<trim prefixOverrides="and">
+				<if test="ids != null">
+					AND id IN
+					<foreach collection="ids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+			</trim>
+		</where>
+	</select>
+	
   
   
 </mapper>

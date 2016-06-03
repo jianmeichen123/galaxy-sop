@@ -3,16 +3,17 @@ package com.galaxyinternet.model.project;
 import java.text.ParseException;
 import java.util.Date;
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.common.RecordEntity;
 
 
-public class MeetingRecord  extends BaseEntity{
+public class MeetingRecord  extends RecordEntity{
 	private static final long serialVersionUID = 1L;
 
 	 private Long projectId;
 
     private Long fileId;
+	private String fkey;
 
     private Date meetingDate;
     private String meetingDateStr;
@@ -24,10 +25,25 @@ public class MeetingRecord  extends BaseEntity{
     private String meetingResultStr;
 
     private String meetingNotes;
+    
+    private String meetingNotesText;
 
     private String fname;
     
-    public Long getProjectId() {
+    private String participant;
+    
+    private byte meetValid; //0表示有效，1表示无效
+    
+    
+    public String getParticipant() {
+		return participant;
+	}
+
+	public void setParticipant(String participant) {
+		this.participant = participant;
+	}
+
+	public Long getProjectId() {
         return projectId;
     }
 
@@ -43,41 +59,33 @@ public class MeetingRecord  extends BaseEntity{
 		this.fileId = fileId;
 	}
 
-	public Date getMeetingDate() {
-		if(meetingDate==null && meetingDateStr!=null && meetingDateStr.trim().length() == 10 ){
+	public Date getMeetingDate() { //2016-05-27 16:00:00   19
+		if(meetingDate==null && meetingDateStr!=null){
+			meetingDateStr = dateStrformat(meetingDateStr);
 			try {
-				if( meetingDateStr.indexOf("/") != -1){
-					meetingDate = DateUtil.convertStringToDate(this.meetingDateStr.replaceAll("/", "-"));
-	    		}else{
-	    			meetingDate = DateUtil.convertStringToDate(this.meetingDateStr);
-	    		}
-				
+	    		meetingDate = DateUtil.convertStringtoD(meetingDateStr);
 			} catch (ParseException e) {
 				meetingDate = null;
 			}
 		}else{
 			if(meetingDateStr==null && meetingDate!=null){
-				meetingDateStr = DateUtil.convertDateToString(meetingDate);
+				meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
 			}
 		}
         return meetingDate;
     }
 	
     public void setMeetingDate(Date meetingDate) {
-    	if(meetingDate==null && meetingDateStr!=null && meetingDateStr.trim().length() == 10 ){
+    	if(meetingDate==null && meetingDateStr!=null){
+    		meetingDateStr = dateStrformat(meetingDateStr);
 			try {
-				if( meetingDateStr.indexOf("/") != -1){
-					meetingDate = DateUtil.convertStringToDate(this.meetingDateStr.replaceAll("/", "-"));
-	    		}else{
-	    			meetingDate = DateUtil.convertStringToDate(this.meetingDateStr);
-	    		}
-				
+	    		meetingDate = DateUtil.convertStringtoD(this.meetingDateStr);
 			} catch (ParseException e) {
 				meetingDate = null;
 			}
 		}else{
 			if(meetingDateStr==null && meetingDate!=null){
-				meetingDateStr = DateUtil.convertDateToString(meetingDate);
+				meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
 			}
 		}
         this.meetingDate = meetingDate;
@@ -131,26 +139,24 @@ public class MeetingRecord  extends BaseEntity{
     
 	public String getMeetingDateStr() {
 		if(meetingDateStr==null && meetingDate!=null){
-			meetingDateStr = DateUtil.convertDateToString(meetingDate);
+			meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
 		}
 		return meetingDateStr;
 	}
 
-	public void setMeetingDateStr(String meetingDateStr) {
-		if(meetingDate==null && meetingDateStr!=null && meetingDateStr.trim().length() == 10 ){
+	
+	
+	public void setMeetingDateStr(String meetingDateStr) { ////2016-05-27 16:00:00   19
+		if(meetingDate==null && meetingDateStr!=null ){
+			meetingDateStr = dateStrformat(meetingDateStr.trim());
 			try {
-				if( meetingDateStr.indexOf("/") != -1){
-					meetingDate = DateUtil.convertStringToDate(meetingDateStr.replaceAll("/", "-"));
-	    		}else{
-	    			meetingDate = DateUtil.convertStringToDate(meetingDateStr);
-	    		}
-				
+	    		meetingDate = DateUtil.convertStringtoD(meetingDateStr);
 			} catch (ParseException e) {
 				meetingDate = null;
 			}
 		}else{
 			if(meetingDateStr==null && meetingDate!=null){
-				meetingDateStr = DateUtil.convertDateToString(meetingDate);
+				meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
 			}
 		}
 		this.meetingDateStr = meetingDateStr;
@@ -200,6 +206,61 @@ public class MeetingRecord  extends BaseEntity{
 		this.fname = fname;
 	}
 
+	public String getFkey() {
+		return fkey;
+	}
+
+	public void setFkey(String fkey) {
+		this.fkey = fkey;
+	}
+
+	public byte getMeetValid() {
+		return meetValid;
+	}
+
+	public void setMeetValid(byte meetValid) {
+		this.meetValid = meetValid;
+	}
+
+	public String getMeetingNotesText() {
+		return meetingNotesText;
+	}
+
+	public void setMeetingNotesText(String meetingNotesText) {
+		this.meetingNotesText = meetingNotesText;
+	}
+
+    
+	
+	
+	
+
+	public static String dateStrformat(String dateStr){  //2016-05-27 16:00:00   19
+		int len = dateStr.length();
+		if( dateStr.indexOf("/") != -1){
+			dateStr = dateStr.replaceAll("/", "-");
+		}
+	//	String format = "yyyy-MM-dd HH:mm:ss";
+		switch (len) {
+		/*case 8:
+			if(dateStr.indexOf("-")==-1 || dateStr.indexOf("/")==-1 ){
+				format = "yyyyMMdd";
+			}
+			break;*/
+		case 10:
+			dateStr = dateStr + " 00:00:00";
+			break;
+		case 13:
+			dateStr = dateStr + ":00:00";
+			break;
+		case 16:
+			dateStr = dateStr + ":00";
+			break;
+		default:
+			break;
+		}
+		return dateStr;
+	}
 	
 
 }

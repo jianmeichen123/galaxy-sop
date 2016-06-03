@@ -55,7 +55,13 @@ public class Project extends PagableEntity {
     
     //in查询
     private List<Long> deptIdList;
+    
+    private Long ideaId;
 
+    
+	private Long startTime; 
+	private Long endTime;
+	
     public Long getId() {
         return id;
     }
@@ -364,6 +370,30 @@ public class Project extends PagableEntity {
 
 	public void setDeptIdList(List<Long> deptIdList) {
 		this.deptIdList = deptIdList;
+	}
+
+	public Long getIdeaId() {
+		return ideaId;
+	}
+
+	public void setIdeaId(Long ideaId) {
+		this.ideaId = ideaId;
+	}
+
+	public Long getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Long startTime) {
+		this.startTime = startTime;
+	}
+
+	public Long getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Long endTime) {
+		this.endTime = endTime;
 	}
 
 	

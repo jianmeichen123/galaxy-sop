@@ -20,10 +20,12 @@ $(function(){
 		$("[data-btn='edit']").show();
 		$("[data-btn='reset']").hide();
 		$("[data-btn='submit']").hide();
-		window.location.reload();
-		
-		
+		window.location.reload();		
 	}
+	$("[data-btn='reset']").click(function(){
+		window.location.reload();
+	})
+
 	/**
 	 * 保存商业模式
 	 */
@@ -77,8 +79,17 @@ $(function(){
 		$("#project_contribution").val(data.entity.projectContribution);
 		$("#project_valuations").val(data.entity.projectValuations);
 		$("#project_share_ratio").val(data.entity.projectShareRatio);
-		var redioId = "#currencyUnit" + data.entity.currencyUnit;
+		
+		var currencyUnit = data.entity.currencyUnit;
+		var redioId = "";
+		if(currencyUnit==null||typeof(currencyUnit) == 'undefined'||isNaN(currencyUnit)){
+			redioId = "#currencyUnit";
+		}else{
+			$("#currencyUnitBlock").css("display","none").remove();
+			redioId = "#currencyUnit"+currencyUnit;
+		}
 		$(redioId).attr("checked","checked");
+		
 		$("#project_company").val(data.entity.projectCompany);
 		$("#project_company_code").val(data.entity.projectCompanyCode);
 		
@@ -93,16 +104,73 @@ $(function(){
 		$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
 		$("#analysis_show ").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
 		
-		var um = UM.getEditor('describe_editor');
-		um.setContent(data.entity.projectDescribe);
-		var um = UM.getEditor('business_model_editor');
-		um.setContent(data.entity.projectBusinessModel);
-		var um = UM.getEditor('location_editor');
-		um.setContent(data.entity.companyLocation);
-		var um = UM.getEditor('portrait_editor');
-		um.setContent(data.entity.userPortrait);
-		var um = UM.getEditor('analysis_editor');
-		um.setContent(data.entity.prospectAnalysis);
+		//var um = UM.getEditor('describe_editor');
+		if(data.entity.projectDescribe){
+			//var um = UM.getEditor('describe_editor');
+			$("#describe_editor").html(data.entity.projectDescribe)
+			//um.setContent(data.entity.projectDescribe);
+		}else{
+			$("#describe_editor").html('');
+		}
+		
+		//var um = UM.getEditor('business_model_editor');
+		if(data.entity.projectBusinessModel){
+			$("#business_model_editor").html(data.entity.projectBusinessModel)
+			//um.setContent(data.entity.projectBusinessModel);
+		}else{
+			$("#business_model_editor").html('')
+			//um.setContent("");
+		}
+		//var um = UM.getEditor('location_editor');
+		if(data.entity.companyLocation){
+			$("#location_editor").html(data.entity.companyLocation)
+			//um.setContent(data.entity.companyLocation);
+		}else{
+			$("#location_editor").html('')
+			//um.setContent("");
+		}
+		
+		//var um = UM.getEditor('portrait_editor');
+		if(data.entity.userPortrait){
+			$("#portrait_editor").html(data.entity.userPortrait)
+			//um.setContent(data.entity.userPortrait);
+		}else{
+			$("#portrait_editor").html('')
+			//um.setContent("");
+		}
+		//var um = UM.getEditor('analysis_editor');
+		if(data.entity.prospectAnalysis){
+			$("#analysis_editor").html(data.entity.prospectAnalysis)
+			//um.setContent(data.entity.prospectAnalysis);
+		}else{
+			$("#analysis_editor").html('')
+			//um.setContent("");
+		}
+		
+		
+		sendGetRequest(platformUrl.getBusinessPlanFile+"/"+pid,null,function(data){
+			var uploadOperator;
+			var html;
+			if(data.result.status=="OK"){
+				console.log(data);
+				//为空时候显示
+				if(data.result.errorCode=="null"){
+					uploadOperator = "上传";
+					html = "<span class='content'>状态：未上传</span><span class='content'>更新时间：无</span><a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>";
+				}else{
+					//不为空时候显示
+					uploadOperator = "更新";
+					html = "<span class='content'>状态：已上传</span><span class='content'>更新时间："+data.entity.createDate+"</span><a href='javascript:;' class='ico f1' data-btn='upload' onclick='uploadBusinessPlan()' >"+ uploadOperator  +"</a>" +
+						   "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+				}
+				$("#business_plan_dd").html(html);
+			}else{
+				
+			}
+		});
+		
+		
+		
 	});
 	/**
 	 * 计算初始估值

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.common.ProgressLog" >
+
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.common.ProgressLog" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="uid" property="uid" jdbcType="BIGINT" />
+    <result column="uname" property="uname" jdbcType="VARCHAR" />
+    <result column="user_roleId" property="userRoleid" jdbcType="BIGINT" />
+    <result column="user_role" property="userRole" jdbcType="VARCHAR" />
+    <result column="user_departId" property="userDepartid" jdbcType="BIGINT" />
+    <result column="depart_name" property="departName" jdbcType="VARCHAR" />
+    <result column="operation_type" property="operationType" jdbcType="VARCHAR" />
+    <result column="related_id" property="relatedId" jdbcType="BIGINT" />
+    <result column="related_name" property="relatedName" jdbcType="VARCHAR" />
+    <result column="sop_stage" property="sopstage" jdbcType="VARCHAR" />
+    <result column="operation_content" property="operationContent" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+    <result column="record_type"  property="recordType" jdbcType="TINYINT" />
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+    id, uid, uname, user_roleId, user_role, user_departId, depart_name, operation_type, 
+    related_id, related_name,sop_stage, operation_content, created_time,record_type
+  </sql>
+  
+  
+  <sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				  <if test="id != null" >id = #{id,jdbcType=BIGINT}  </if>
+				  <if test="uid != null" >and uid = #{uid,jdbcType=BIGINT} </if>
+				  <if test="uname != null" >and uname = #{uname,jdbcType=VARCHAR} </if>
+				  <if test="userRoleid != null" >and user_roleId = #{userRoleid,jdbcType=BIGINT} </if>
+				  <if test="userRole != null" >and user_role = #{userRole,jdbcType=VARCHAR} </if>
+				  <if test="userDepartid != null" >and user_departId = #{userDepartid,jdbcType=BIGINT} </if>
+				  <if test="departName != null" >and depart_name = #{departName,jdbcType=VARCHAR} </if>
+				  <if test="operationType != null" >and operation_type = #{operationType,jdbcType=VARCHAR} </if>
+				  <if test="relatedId != null" >and related_id = #{relatedId,jdbcType=BIGINT} </if>
+				  <if test="relatedName != null" >and related_name = #{relatedName,jdbcType=VARCHAR} </if>
+				   <if test="sopstage != null" >and sop_stage = #{sopstage,jdbcType=VARCHAR} </if>
+				  <if test="operationContent != null" >and operation_content = #{operationContent,jdbcType=VARCHAR} </if>
+				  <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				<if test="relatedIdList != null">
+					AND related_id IN
+					<foreach collection="relatedIdList" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
+				<!-- 模糊查询 -->
+				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
+			</trim>
+		</where>
+		order by created_time desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from sop_progress_logs
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_progress_logs
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_progress_logs where id = #{id}
+	</select>
+	
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.common.ProgressLog" >
+	    <![CDATA[
+		    insert into sop_progress_logs (id, uid, uname, 
+		      user_roleId, user_role, user_departId, 
+		      depart_name, operation_type, related_id, 
+		      related_name, sop_stage, operation_content, created_time,record_type
+		      )
+		    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{uname,jdbcType=VARCHAR}, 
+		      #{userRoleid,jdbcType=BIGINT}, #{userRole,jdbcType=VARCHAR}, #{userDepartid,jdbcType=BIGINT}, 
+		      #{departName,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR}, #{relatedId,jdbcType=BIGINT}, 
+		      #{relatedName,jdbcType=VARCHAR}, #{sopstage,jdbcType=VARCHAR},#{operationContent,jdbcType=VARCHAR}, 
+		      #{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT}
+		      )
+	    ]]>
+    </insert>
+    
+    
+    <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.common.ProgressLog">
+		update sop_progress_logs
+		<set>
+		  <if test="uid != null" >uid = #{uid,jdbcType=BIGINT}, </if>
+		  <if test="uname != null" >uname = #{uname,jdbcType=VARCHAR}, </if>
+		  <if test="userRoleid != null" >user_roleId = #{userRoleid,jdbcType=BIGINT}, </if>
+		  <if test="userRole != null" >user_role = #{userRole,jdbcType=VARCHAR}, </if>
+		  <if test="userDepartid != null" >user_departId = #{userDepartid,jdbcType=BIGINT}, </if>
+		  <if test="departName != null" >depart_name = #{departName,jdbcType=VARCHAR}, </if>
+		  <if test="operationType != null" >operation_type = #{operationType,jdbcType=VARCHAR}, </if>
+		  <if test="relatedId != null" >related_id = #{relatedId,jdbcType=BIGINT}, </if>
+		  <if test="relatedName != null" >related_name = #{relatedName,jdbcType=VARCHAR}, </if>
+		  <if test="sopstage != null" >sop_stage = #{sopstage,jdbcType=VARCHAR}, </if>
+		  <if test="operationContent != null" >operation_content = #{operationContent,jdbcType=VARCHAR} </if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				   <if test="id != null" >and id = #{id,jdbcType=BIGINT}  </if>
+				  <if test="uid != null" >and uid = #{uid,jdbcType=BIGINT} </if>
+				  <if test="uname != null" >and uname = #{uname,jdbcType=VARCHAR} </if>
+				  <if test="userRoleid != null" >and user_roleId = #{userRoleid,jdbcType=BIGINT} </if>
+				  <if test="userRole != null" >and user_role = #{userRole,jdbcType=VARCHAR} </if>
+				  <if test="userDepartid != null" >and user_departId = #{userDepartid,jdbcType=BIGINT} </if>
+				  <if test="departName != null" >and depart_name = #{departName,jdbcType=VARCHAR} </if>
+				  <if test="operationType != null" >and operation_type = #{operationType,jdbcType=VARCHAR} </if>
+				  <if test="relatedId != null" >and related_id = #{relatedId,jdbcType=BIGINT} </if>
+				  <if test="relatedName != null" >and related_name = #{relatedName,jdbcType=VARCHAR} </if>
+				  <if test="sopstage != null" >and sop_stage = #{sopstage,jdbcType=VARCHAR} </if>
+				  <if test="operationContent != null" >and operation_content = #{operationContent,jdbcType=VARCHAR} </if>
+				  <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				  <if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
+			</trim>
+		</where>
+	</update>
+	
+    <!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.common.ProgressLog">
+		update sop_progress_logs
+		<set>
+		  <if test="uid != null" >uid = #{uid,jdbcType=BIGINT}, </if>
+		  <if test="uname != null" >uname = #{uname,jdbcType=VARCHAR}, </if>
+		  <if test="userRoleid != null" >user_roleId = #{userRoleid,jdbcType=BIGINT}, </if>
+		  <if test="userRole != null" >user_role = #{userRole,jdbcType=VARCHAR}, </if>
+		  <if test="userDepartid != null" >user_departId = #{userDepartid,jdbcType=BIGINT}, </if>
+		  <if test="departName != null" >depart_name = #{departName,jdbcType=VARCHAR}, </if>
+		  <if test="operationType != null" >operation_type = #{operationType,jdbcType=VARCHAR}, </if>
+		  <if test="relatedId != null" >related_id = #{relatedId,jdbcType=BIGINT}, </if>
+		  <if test="relatedName != null" >related_name = #{relatedName,jdbcType=VARCHAR}, </if>
+		  <if test="sopstage != null" >sop_stage = #{sopstage,jdbcType=VARCHAR}, </if>
+		  <if test="operationContent != null" >operation_content = #{operationContent,jdbcType=VARCHAR}, </if>
+		  <if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
+		</set>
+		where id = #{id}
+	</update>
+    
+    <!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_progress_logs
+		<include refid="Base_Where_Clause" />
+	</delete>
+     <!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_progress_logs where id = #{id}
+	</delete>
+  
+  
+  
+</mapper>

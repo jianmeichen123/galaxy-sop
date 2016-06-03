@@ -6,8 +6,12 @@ import com.galaxyinternet.model.project.InterviewRecord;
 
 public class InterviewRecordBo extends InterviewRecord{
 
-	private static final long serialVersionUID = 1L;
+
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String proName;
 	private String fkey;
 	private String bucketName;
@@ -25,6 +29,8 @@ public class InterviewRecordBo extends InterviewRecord{
 	private String direction;// asc,desc
 	private String property;// 排序的字段名称
 
+	private Long departId; //部门id
+	
 	public Integer getPageNum() {
 		if(pageNum == null){
 			pageNum = 0;
@@ -141,6 +147,12 @@ public class InterviewRecordBo extends InterviewRecord{
 	}
 	public void setProIdList(List<Long> proIdList) {
 		this.proIdList = proIdList;
+	}
+	public Long getDepartId() {
+		return departId;
+	}
+	public void setDepartId(Long departId) {
+		this.departId = departId;
 	}
 
 

@@ -100,11 +100,14 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 		Map<Long,String> proIdNameMap = new HashMap<Long,String>();
 		
 		if(query.getProjectId()!=null){   // 项目tab查询
+			Project po = projectDao.selectById(query.getProjectId());
+			proIdNameMap.put(query.getProjectId(), po.getProjectName());
 			viewList = interviewRecordDao.selectList(query, pageable);
 			total = interviewRecordDao.selectCount(query);
-		}else{    //列表查询_个人创建
+		}else{    //列表查询_个人创建/部门
 			Project  proQ = new Project();
 			proQ.setCreateUid(query.getUid());
+			proQ.setProjectDepartid(query.getDepartId());
 			proQ.setKeyword(query.getKeyword());
 			List<Project> proList = projectDao.selectList(proQ);
 			
@@ -115,7 +118,7 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 					proIdList.add(apro.getId());
 					proIdNameMap.put(apro.getId(), apro.getProjectName());
 				}
-				//查询列表  
+				//查询访谈列表  
 				query.setProIdList(proIdList);
 				viewList = interviewRecordDao.selectList(query, pageable);
 				total = interviewRecordDao.selectCount(query);
@@ -126,12 +129,12 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 			viewBoList = new ArrayList<InterviewRecordBo>();
 			for(InterviewRecord ib : viewList){
 				InterviewRecordBo bo = new InterviewRecordBo();
+				bo.setId(ib.getId());
 				bo.setProjectId(ib.getProjectId());
 				bo.setProName(proIdNameMap.get(ib.getProjectId()));
 				bo.setViewDateStr(ib.getViewDateStr());
 				bo.setViewTarget(ib.getViewTarget());
 				bo.setViewNotes(ib.getViewNotes());
-				bo.setId(ib.getId());
 				bo.setCreatedId(ib.getCreatedId());
 				if(ib.getFileId()!=null){
 					SopFile file  = sopFileDao.selectById(ib.getFileId());

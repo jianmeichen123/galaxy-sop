@@ -7,6 +7,7 @@ package com.galaxyinternet.model.operationLog;
  */
 public enum OperationLogType {
 
+	/*项目操作日志的配置-------------------开始-----------------------------------------------------------*/
 	//接触访谈阶段
 	//添加访谈的弹出框中点击‘保存’
 	ADD_INTERVIEW("/galaxy/project/stageChange/"+UrlNumber.one, OperType.ADD.getOperationType(), "访谈记录",SopStage.TOUCH_INTERVIEW.getStageName()), 
@@ -82,9 +83,9 @@ public enum OperationLogType {
 	//股权转让协议签署凭证更新
 	UPDATE_EQUITY_TRANSFER_AGREEMENT_SIGNED_CERTIFICATE("", OperType.UPDATE.getOperationType(), "股权转让协议签署凭证",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	//投资协议签署凭证上传
-	UPLOAD_EQUITY_INVESTMENT_SIGNED_CERTIFICATE("/galaxy/project/stageChange/"+UrlNumber.twelve, OperType.UPLOAD.getOperationType(), "股权转让协议签署凭证",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	UPLOAD_EQUITY_INVESTMENT_SIGNED_CERTIFICATE("/galaxy/project/stageChange/"+UrlNumber.twelve, OperType.UPLOAD.getOperationType(), "投资协议签署凭证",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	//投资协议签署凭证更新
-	UPDATE_EQUITY_INVESTMENT_SIGNED_CERTIFICATE("", OperType.UPDATE.getOperationType(), "股权转让协议签署凭证",SopStage.INVESTMENT_AGREEMENT.getStageName()),
+	UPDATE_EQUITY_INVESTMENT_SIGNED_CERTIFICATE("", OperType.UPDATE.getOperationType(), "投资协议签署凭证",SopStage.INVESTMENT_AGREEMENT.getStageName()),
 	
 	//股权交割阶段
 	//点击资金拨付凭证催办列里的“催办”
@@ -95,8 +96,49 @@ public enum OperationLogType {
 
 	
 	//更新投资意向书 1
-	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName());
+	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
+	/*项目操作日志的配置------------------------------------结束----------------------------------------------------------*/
+	
+	
+	//------------------------------------------------忧愁的分割线-----------------------------------------------------//
+	
+	
+	/*创意操作日志的配置-------------------开始---------------------------------------------------------------------------*/
+	
+	//添加可信性报告
+	CY_ADD_REPORT("/galaxy/idea/ideaUpReport/"+UrlNumber.two, OperType.ADD.getOperationType() , "可行性报告",SopStage.CY_DY.getStageName()),
+	//更新
+	CY_UPDATE_REPORT("/galaxy/idea/ideaUpReport/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "可行性报告",SopStage.CY_DY.getStageName()),
+	//启动立项会
+	CY_START_LXH("/galaxy/idea/ideaStartMeet", OperType.SUBMIT.getOperationType() , "启动立项会",SopStage.CY_DY.getStageName()),
+	
+	
+	//添加会议记录
+	CY_ADD_MEET("/galaxy/idea/saveCyMeetRecord", OperType.ADD.getOperationType() , "会议记录",SopStage.CY_LXH.getStageName()),
+	//创建项目
+	CY_ADD_PRO("/galaxy/idea/createProject", OperType.ADD.getOperationType() , "项目",SopStage.CY_PRO.getStageName()),
+	//编辑项目名称
+	CY_EDIT_PRO("/galaxy/idea/editProjectName", OperType.UPDATE.getOperationType() , "项目",SopStage.CY_PRO.getStageName()),
 
+	//认领创意
+	CY_CLAIMT_IDEA("/galaxy/idea/updateIdea", OperType.UPDATE.getOperationType() , "创意",SopStage.CY_DY.getStageName()),	
+	//添加创意
+	CY_ADD_IDEA("/galaxy/idea/addIdea/"+UrlNumber.one, OperType.ADD.getOperationType() , "创意",SopStage.CY_INFO.getStageName()),
+	//待认领阶段编辑创意
+	CY_EDIT_DYL_IDEA("/galaxy/idea/addIdea/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_DRL.getStageName()),
+	//调研阶段编辑创意
+	CY_EDIT_DY_IDEA("/galaxy/idea/addIdea/"+UrlNumber.three, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_DY.getStageName()),
+	//创建立项会阶段编辑创意
+	CY_EDIT_LXH_IDEA("/galaxy/idea/addIdea/"+UrlNumber.four, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_LXH.getStageName()),
+	//放弃创意
+	CY_EDIT_FQ_IDEA("/galaxy/idea/giveUp", OperType.UPDATE.getOperationType(), "创意",SopStage.CY_INFO.getStageName()),
+	//搁置阶段编辑创意
+	CY_EDIT_GZ_IDEA("/galaxy/idea/addIdea/"+UrlNumber.five, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_GZ.getStageName());
+	
+
+
+	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/
+		
 	private OperationLogType(String uniqueKey, String type, String content, String sopstage) {
 		this.uniqueKey = uniqueKey;
 		this.type = type;

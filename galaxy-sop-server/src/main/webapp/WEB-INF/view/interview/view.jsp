@@ -56,7 +56,7 @@
           <div class="bottom searchall clearfix">
           
             <dl class="fmdl fmmr fmdll clearfix">
-              <dt>访谈日期：</dt>
+              <dt>访谈时间：</dt>
               <dd>
               	<!-- <input class="form-control" type="date" id = "startTime" name="startTime"  /> -->
                 <input type="text" class="datepicker txt time" readonly id="startTime" name="startTime" style="height:23px;"/>
@@ -65,12 +65,12 @@
               </dd>
             </dl>
             
-            <!--  <input type="hidden" name="direction" value="asc"  /> desc   asc  -->
+            <!--  <input type="hidden" name="direction" value="asc"  /> desc   asc
             
             <input type="hidden" name="uid" id="uid" value="" />
             <script>
             	$("#uid").val(userId);
-            </script>
+            </script>  -->
             <dl class="fmdl fmdll clearfix">
               <dt></dt>
               <dd>
@@ -91,7 +91,6 @@
 	          		data-side-pagination="server" data-pagination="true" 
 	          		data-toolbar="#custom-toolbar" data-page-list="[10,20,30]"
 					data-id-field="id" data-unique-id="id" data-show-refresh="true">
-
 				<colgroup >
 					<col style="width:20%;"> <!-- 名称 -->
 					<col style="width:30%;"> <!-- 名称 -->
@@ -102,6 +101,7 @@
 						<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<th  data-field="proName" data-align="center">所属项目</th>  
 						<th  data-field="viewNotes" data-align="center" data-formatter="formatInterview">访谈日志</th>
+						<!-- <th  data-field="createdId" data-align="center"></th> -->
 					</tr>
 				</thead>
 			</table>
@@ -128,6 +128,7 @@
 <script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 
+
 <!-- clude -->
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 
@@ -136,7 +137,6 @@
 <script type="text/javascript">
 $(function(){
 	createMenus(6);
-	
 	$('#data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
@@ -145,10 +145,39 @@ $(function(){
 		sidePagination: 'server',
 		method : 'post',
 		pagination: true,
+		clickToSelect: true,
         search: false,
+       /*  onLoadSuccess: function (data) {
+        	$(".option_item_mark").click(function(){
+        		interviewSelectRow = $('#data-table').bootstrapTable('getSelections');
+        		showviewdetail(interviewSelectRow);
+        		//console.log($(this).data());
+        	});
+        } */
 	});
 	
+	
 });
+
+var interviewSelectRow = null;
+function interviewFormatLog(value,row,index){
+	var len = getLength($.trim(value));
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>100){
+			var subValue = $.trim(value).substring(100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
+			/*var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';*/
+			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" >"+
+						subValue+
+						"<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"showviewdetail("+row.id+")\" >详情<a>"+    
+					'</div>';
+			return rc;
+		}else{
+			return strlog;
+		}
+	}
+}
 function showLogdetail(selectRowId){
 	var interviewSelectRow = $('#data-table').bootstrapTable('getRowByUniqueId', selectRowId);
 	var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
@@ -186,12 +215,8 @@ function interviewsave(){
 		});
 	}
 }
-
-/* var table = document.getElementById("data-table");//获取第一个表格  
-
-var child = table.getElementsByTagName("tr")[2];
-child.style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;"; */
 </script>
+
 </body>
 
 </html>

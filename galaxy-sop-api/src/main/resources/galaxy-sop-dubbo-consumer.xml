@@ -31,5 +31,12 @@
 	http://code.alibabatech.com/schema/dubbo
     http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
     
-	<dubbo:reference id="com.galaxyinternet.service.ProjectService" interface="com.galaxyinternet.service.ProjectService"  version="1.0.0" />
+    <!-- 数据迁移的临时服务，迁移完成后应该注释掉 -->
+	<dubbo:reference id="com.galaxyinternet.service.ProjectService" interface="com.galaxyinternet.service.ProjectService"  version="1.0.0" >
+	</dubbo:reference>
+	<dubbo:reference id="com.galaxyinternet.service.InterviewRecordService" interface="com.galaxyinternet.service.InterviewRecordService"  version="1.0.0" >
+	</dubbo:reference>
+	<!-- 添加团队成员 -->
+ 	<dubbo:reference id="com.galaxyinternet.service.PersonPoolService" interface="com.galaxyinternet.service.PersonPoolService"  version="1.0.0" >
+	</dubbo:reference>
 </beans>

@@ -35,6 +35,10 @@ public class ProjectBo extends Project {
 	
 	private String proType;//我的项目|所属事业线项目;1:我的项目;2:事业线项目
 	
+	private List<String> projectProgressList;
+	
+	private boolean fromIdea;
+	
 	
 	
 	
@@ -150,6 +154,19 @@ public class ProjectBo extends Project {
 		this.resultCloseFilter = resultCloseFilter;
 	}
 
-	
-  
+	public List<String> getProjectProgressList() {
+		return projectProgressList;
+	}
+
+	public void setProjectProgressList(List<String> projectProgressList) {
+		this.projectProgressList = projectProgressList;
+	}
+
+	public boolean isFromIdea() {
+		return fromIdea;
+	}
+
+	public void setFromIdea(boolean fromIdea) {
+		this.fromIdea = fromIdea;
+	}
 }

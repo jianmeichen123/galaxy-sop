@@ -2,7 +2,6 @@ package com.galaxyinternet.model.project;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class FormatData {
 	

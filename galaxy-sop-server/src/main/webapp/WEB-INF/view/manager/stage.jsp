@@ -7,9 +7,15 @@
     width: 50%;
 }
 #projectProgress_1_table td,#projectProgress_2_table td,#projectProgress_3_table td,#projectProgress_4_table td,#projectProgress_7_table td{line-height:22px;text-align:left !important;}
-#projectProgress_1_table th,#projectProgress_2_table th,#projectProgress_3_table th,#projectProgress_4_table th,#projectProgress_7_table th{ width: 50%;}
-</style>
+#projectProgress_1_table th,#projectProgress_2_table th,#projectProgress_3_table th,#projectProgress_4_table th,#projectProgress_7_table th{
+    width: 50%;
+}
 
+.content{
+			float: left;
+			padding:0 10px;
+		}
+</style>
 <div class="myprojecttc">
 	<a href="javascript:;" data-close="close" class="close null">关闭</a>
 	<!-- 项目介绍 -->
@@ -37,18 +43,19 @@
 	<div class="tabtable">
 		<!-- tab标签 -->
 		<ul class="tablink">
-			<li data-tab="nav"><a href="javascript:;">基本信息</a></li>
-			<li data-tab="nav" id="fileRepository"><a href="javascript:;">档案库</a></li>
-			<li data-tab="nav" id="projectProgress_1"><a href="javascript:;">接触访谈</a></li>
-			<li data-tab="nav" id="projectProgress_2"><a href="javascript:;">内部评审</a></li>
-			<li data-tab="nav" id="projectProgress_3"><a href="javascript:;">CEO评审</a></li>
-			<li data-tab="nav" id="projectProgress_4"><a href="javascript:;">立项会</a></li>
-			<li data-tab="nav" id="projectProgress_5"><a href="javascript:;">投资意向书</a></li>
-			<li data-tab="nav" id="projectProgress_6"><a href="javascript:;">尽职调查</a></li>
-			<li data-tab="nav" id="projectProgress_7"><a href="javascript:;">投决会</a></li>
-			<li data-tab="nav" id="projectProgress_8"><a href="javascript:;">投资协议</a></li>
-			<li data-tab="nav" id="projectProgress_9"><a href="javascript:;">股权交割</a></li>
-			<li data-tab="nav" id="projectProgress"><a href="javascript:;">操作日志</a></li>
+			<li data-tab="nav">基本信息</li>
+			<li data-tab="nav" id="fileRepository">档案库</li>
+			<li data-tab="nav" id="projectProgress_1">接触访谈</li>
+			<li data-tab="nav" id="projectProgress_2">内部评审</li>
+			<li data-tab="nav" id="projectProgress_3">CEO评审</li>
+			<li data-tab="nav" id="projectProgress_4">立项会</li>
+			<li data-tab="nav" id="projectProgress_5">投资意向书</li>
+			<li data-tab="nav" id="projectProgress_6">尽职调查</li>
+			<li data-tab="nav" id="projectProgress_7">投决会</li>
+			<li data-tab="nav" id="projectProgress_8">投资协议</li>
+			<li data-tab="nav" id="projectProgress_9">股权交割</li>
+			<li data-tab="nav" id="projectProgress_10" >投后运营</li>
+			<li data-tab="nav" id="projectProgress">操作日志</li>
 		</ul>
 		<!-- tab内容 -->
 			<!-- tab内容 -->
@@ -56,44 +63,51 @@
 			<!-- 项目基本信息 -->
 			<div class="block block2 show" data-tab="con">
 				<dl>
+              		<dt>商业计划</dt>
+               		<dd id="business_plan_dd" class="fctbox">
+<!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
+<!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
+              		</dd>
+            	</dl>
+				<dl>
 					<dt>项目概述</dt>
 					<dd class="describe" id="prodescribe_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;"  data-btn="hide" style="display:none" class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<dl>
 					<dt>商业模式</dt>
 					<dd class="describe" id="business_model_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>公司定位</dt>
 					<dd class="describe" id="location_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>用户分析</dt>
 					<dd class="describe" id="portrait_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 					<dl>
 					<dt>竞情分析</dt>
 					<dd class="describe" id="analysis_show"></dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 							<a href="javascript:;"  data-btn="hide" style="display:none"  class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<!-- 
 				<dl>
@@ -118,11 +132,11 @@
 						</div>
 
 					</dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;" data-btn="hide" style="display: none"
 							class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				
 				<dl>
@@ -135,11 +149,11 @@
 							</table>
 						</div>
 					</dd>
-					<dd class="fctbox">
+					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
 						<a href="javascript:;" data-btn="hide" style="display: none"
 							class="ico f3">收起</a>
-					</dd>
+					</dd> -->
 				</dl>
 				<!-- 
 				<dl class="no_border">
@@ -220,12 +234,12 @@
 					data-page-list="[10,20,30]"
 					data-id-field="id" data-unique-id="id" 
 					data-side-pagination="server"
-					 data-toolbar="#projectProgress_1_table_custom-toolbar" data-show-refresh="true" >
+					 data-toolbar="#projectProgress_1_table_custom-toolbar" data-show-refresh="true" > 
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th  data-field="viewNotes" data-align="center" data-formatter="formatInterview_sop" >访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="formatInterview_sop">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
@@ -406,6 +420,10 @@
 					</tbody>
 				</table>-->
 			</div>
+				<!-- 投后运营  -->
+			<div class="block" data-tab="con" id="projectProgress_10_con">
+				<p>暂无内容</p>
+			</div>
 			
 			<!-- 操作日志  -->
 			<div class="block" data-tab="con" id="projectProgress_con">
@@ -496,11 +514,13 @@
                          align: 'center',
                          valign: 'middle',
                          formatter:function(value,row,index){ 
-                         	if (row.personSex == 0) {
-                     			return "男";
-                     		} else {
-                     			return "女";
-                     		}
+                          	if (row.personSex == 0) {
+                    			return "男";
+                    		}else if (row.personSex == 1) {
+                    			return "女";
+                    		}else {
+                    			return "-";
+                    		}
                          }
  	                    },
  	                    {
@@ -525,7 +545,27 @@
  	                      title: '最高学历',
  	                        field: 'highestDegree',
  	                        align: 'center',
- 	                        valign: 'middle'
+ 	                        valign: 'middle',
+ 	                       formatter:function(value,row,index){ 
+	                         	if (row.highestDegree == 1) {
+	                    			return "高中";
+	                    		}else if (row.highestDegree == 2) {
+	                    			return "大专";
+	                    		}else if (row.highestDegree == 3) {
+	                    			return "本科";
+	                    		}else if (row.highestDegree == 4) {
+	                    			return "硕士";
+	                    		}else if (row.highestDegree == 5) {
+	                    			return "MBA";
+	                    		}else if (row.highestDegree == 6) {
+	                    			return "博士";
+	                    		}else if (row.highestDegree == 7) {
+	                    			return "其他";
+	                    		}
+	                    		else {
+	                    			return "-";
+	                    		}
+	                        }
  	                  },
  	                  {
  	                      title: '工作年限',
@@ -604,16 +644,146 @@
  		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
  		$("#analysis_show").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
  		
+ 		sendGetRequest(platformUrl.getBusinessPlanFile+"/"+alertid,null,function(data){
+			var uploadOperator;
+			var html;
+			if(data.result.status=="OK"){
+				//为空时候显示
+				if(data.result.errorCode=="null"){				
+					html = "<span class='content'>状态：未上传</span><span class='content'>更新时间：无</span>";
+				}else{
+					html =  "<span class='content'>状态：已上传</span><span class='content'>更新时间："+data.entity.createDate+"</span>" + 
+						"<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+				}
+				$("#business_plan_dd").html(html);
+			}else{
+				
+			}
+		});
  		
  		
  	});
+ 	prodescribe_show();
+ 	business_model_show();
+ 	location_show();
+ 	portrait_show();
+ 	analysis_show();
+ 	function prodescribe_show(){
+		var box = document.getElementById("prodescribe_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function business_model_show(){
+		var box = document.getElementById("business_model_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function portrait_show(){
+		var box = document.getElementById("portrait_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function location_show(){
+		var box = document.getElementById("location_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function analysis_show(){
+		var box = document.getElementById("analysis_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,200);  
+		btn.innerHTML = text.length >200 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		newBox.innerHTML = text.substring(0,200);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	} 
  	function replaceStr(str){
  		if(str){
  			var result=str.replace(/&nbsp;/g,"").replace("<p>","").replace("</p>","");
  			return result;
  		}
 	}
- 	
  	function showLogdetail(selectRowId){
  		var interviewSelectRow = $('#projectProgress_1_table').bootstrapTable('getRowByUniqueId', selectRowId);
  		var _url = Constants.sopEndpointURL+"/galaxy/project/progress/interViewLog";
@@ -650,5 +820,4 @@
  			});
  		}
  	}
-
 </script>

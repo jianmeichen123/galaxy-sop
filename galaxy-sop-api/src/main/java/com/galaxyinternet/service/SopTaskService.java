@@ -77,7 +77,12 @@ public interface SopTaskService extends BaseService<SopTask> {
 	 */
 	public SopTask getByFileInfo(Long id);
 	
-	
+	/**
+	 * 根据项目id查询任务
+	 * @param query
+	 * @return
+	 */
+	public List<SopTask> getSopTaskByProjectId(SopTaskBo query);
 	
 }
 

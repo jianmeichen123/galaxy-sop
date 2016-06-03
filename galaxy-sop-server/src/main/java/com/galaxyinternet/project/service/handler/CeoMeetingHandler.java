@@ -82,6 +82,11 @@ public class CeoMeetingHandler implements Handler {
 		m.setProjectId(q.getPid());
 		m.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
 		MeetingScheduling tm = meetingSchedulingDao.selectOne(m);
+		
+		//添加会议记录时一直是待定状态
+		tm.setStatus(DictEnum.meetingResult.通过.getCode());
+		tm.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
+		
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			Project p = new Project();
 			p.setId(q.getPid());
@@ -89,11 +94,19 @@ public class CeoMeetingHandler implements Handler {
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
+			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
+		}
+		
+		if((q.getResult().equals(DictEnum.meetingResult.待定.getCode()))){
+			tm.setReserveTimeStartStr(null);
+			tm.setReserveTimeEndStr(null);
+			tm.setReserveTimeEnd(null);
+			tm.setReserveTimeStart(null);
 		}
 		tm.setMeetingDate(new Date());
 		tm.setMeetingCount(tm.getMeetingCount() + 1);
 		tm.setUpdatedTime((new Date()).getTime());
-		meetingSchedulingDao.updateBySelective(tm);
+		meetingSchedulingDao.updateById(tm);
 		return new SopResult(Status.OK,null,"添加CEO评审记录成功!",UrlNumber.three);
 	}
 	

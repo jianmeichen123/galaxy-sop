@@ -13,6 +13,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
@@ -30,12 +29,12 @@ import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.common.query.ProjectQuery;
+import com.galaxyinternet.common.enums.DictEnum.RecordType;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
-import com.galaxyinternet.framework.core.file.BucketName;
 import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -97,6 +96,16 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return this.projectService;
 	}
 	
+	private String tempfilePath;
+	
+	
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
 	
 	public String errMessage(Project project,User user,String prograss){
 		if(project == null){
@@ -127,44 +136,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		return null;
 	}
-	
-	
-	
-	/**
-	 * 添加页面
-	 */
-	@RequestMapping(value = "/interViewLog", method = RequestMethod.GET)
-	public String interViewLog() {
-		return "project/sop/viewLogorEdit";
-	}
-
-	
-	/**
-	 * OSS访谈录音追加
-	 * @param   interviewRecord 
-	 * 			produces="application/text;charset=utf-8"
-	 * @param viewid 访谈id
-	 * @return responseBody.setId(id) fileId
-	 */
-	@com.galaxyinternet.common.annotation.Logger
-	@ResponseBody
-	@RequestMapping(value = "/updateInterview", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopFile> updateInterview(@RequestBody InterviewRecord interviewRecord, HttpServletRequest request ) {
-			ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		try {
-			interviewRecordService.updateById(interviewRecord);
-		    responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(interviewRecord.getId());
-			} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "修改日志失败"));
-			
-			if(logger.isErrorEnabled()){
-				logger.error("updateInterview修改日志失败",e);
-			}
-		}
-		return responseBody;
-	}
-
 	
 	private Map<String, String> transFileNames(String fileName) {
 		Map<String, String> retMap = new HashMap<String, String>();
@@ -198,14 +169,22 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	
 	
 	/**
+	 * 添加页面
+	 */
+	@RequestMapping(value = "/interViewLog", method = RequestMethod.GET)
+	public String interViewLog() {
+		return "project/sop/viewLogorEdit";
+	}
+	
+	
+	/**
 	 * 接触访谈阶段: 附件添加 -访谈添加
 	 * @param   interviewRecord 
 	 * 			produces="application/text;charset=utf-8"
 	 * @RequestBody InterviewRecord interviewRecord ,
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addFileInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addFileInterview(InterviewRecordBo interviewRecord,HttpServletRequest request,HttpServletResponse response ) {
@@ -221,7 +200,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
 			return responseBody;
 		}
-		
+		interviewRecord.setCreatedId(user.getId());
 		try {
 			//project  验证
 			Project project = new Project();
@@ -231,7 +210,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
-			interviewRecord.setCreatedId(user.getId());
 			
 			//保存
 			Long id = null;
@@ -260,23 +238,24 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				sopFile.setFileSource(DictEnum.fileSource.内部.getCode());  //档案来源
 				//sopFile.setFileWorktype(fileWorkType);    //业务分类
 				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());  //档案状态
-				
 				id = interviewRecordService.insertInterview(interviewRecord,sopFile);
 			}else if(!ServletFileUpload.isMultipartContent(request)){
 				id = interviewRecordService.insert(interviewRecord);
 			}else if(ServletFileUpload.isMultipartContent(request)){
-				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));				
-				Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);//上传aliyun接口
+				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
+			//	Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);//上传aliyun接口
 				//上传成功后
-				if(map!=null){
-					Map<String,String> nameMap = null;
-					MultipartFile file = (MultipartFile) map.get("file");
+				if(result!=null){
+					Map<String,String> nameMap = new HashMap<String,String>();
+				//	MultipartFile file = (MultipartFile) map.get("file");
 					String fileName = "";
 					if(interviewRecord.getFname()!=null && interviewRecord.getFname().trim().length()>0){
 						fileName = interviewRecord.getFname().trim();
 						nameMap = transFileNames(fileName);
 					}else{
-						nameMap = (Map<String, String>) map.get("nameMap");
+						 nameMap.put("fileName",result.getFileName());
+						 nameMap.put("fileSuffix", result.getFileSuffix());
 					}
 					if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
 						responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
@@ -288,7 +267,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					sopFile.setProjectProgress(project.getProjectProgress());
 					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
 					sopFile.setFileKey(fileKey);  
-					sopFile.setFileLength(file.getSize());  //文件大小
+					sopFile.setFileLength(result.getContentLength());  //文件大小
 					sopFile.setFileName(nameMap.get("fileName"));
 					sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 					sopFile.setFileUid(user.getId());	 //上传人
@@ -385,13 +364,34 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		return responseBody;
 	}
+
+
+	@ResponseBody
+	@RequestMapping(value = "/updateInterview", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> updateInterview(@RequestBody InterviewRecord interviewRecord, HttpServletRequest request ) {
+			ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		try {
+			interviewRecordService.updateById(interviewRecord);
+		    responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(interviewRecord.getId());
+			} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "修改日志失败"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("updateInterview修改日志失败",e);
+			}
+		}
+		return responseBody;
+	}
 	
 	
 	
 	
 	/**
 	 * 访谈查询,
-	 * 			查询个人项目下的访谈记录  
+	 * 			投资经理： 查询个人项目下		的访谈记录  
+	 * 			合伙人：	    查询个人事业线下	的访谈记录  
+	 * 			高管： 	    查询所有			的访谈记录  
 	 * @param   interviewRecord 
 	 * @return
 	 */
@@ -404,15 +404,40 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)){  //无限制，根据传参查询
+				//query.setUid(null);
+			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门
+				query.setDepartId(user.getDepartmentId());
+			}else if(roleIdList.contains(UserConstant.TZJL)){  //固定为其创建
+				query.setUid(user.getId());
+			}else{
 				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 				return responseBody;
 			}
-			/*if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
-				query.setUid(user.getId());
-			}*/
-			//query.setUid(user.getId());
+
+			if(query.getProjectId()!=null){
+				List<Project> proList = null;
+				boolean checked = false;
+				if(roleIdList.contains(UserConstant.HHR)){   //部门下项目校验
+					Project  proQ = new Project();
+					proQ.setId(query.getProjectId());
+					proQ.setProjectDepartid(user.getDepartmentId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}else if(roleIdList.contains(UserConstant.TZJL)){  //个人下项目校验
+					Project  proQ = new Project();
+					proQ.setCreateUid(user.getId());
+					proQ.setId(query.getProjectId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}
+				if(checked){
+					if(proList==null || proList.isEmpty()){
+						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+						return responseBody;
+					}
+				}
+			}
 			
 			Page<InterviewRecordBo> pageList = interviewRecordService.queryInterviewPage(query,  new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()) );
 			responseBody.setPageList(pageList);
@@ -458,8 +483,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addfilemeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addFileMeet(MeetingRecordBo meetingRecord,HttpServletRequest request,HttpServletResponse response  ) {
@@ -476,8 +500,23 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善会议信息"));
 			return responseBody;
 		}
-		//已有通过的会议，不能再添加会议纪要
+		
 		MeetingRecord mrQuery = new MeetingRecord();
+		
+		//时间判断：在  待定会议日期   之前的时间段   不能添加 通过/否决的 会议记录
+		/*if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())|| meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())){
+			mrQuery.setProjectId(meetingRecord.getProjectId());
+			mrQuery.setMeetingResult(DictEnum.meetingResult.待定.getCode());
+			List<MeetingRecord> checMeetList = meetingRecordService.queryList(mrQuery);//sqlMapper默认按时间倒叙
+			if(checMeetList != null && !checMeetList.isEmpty()){
+				if(meetingRecord.getMeetingDate().compareTo(checMeetList.get(0).getMeetingDate())<0){
+					responseBody.setResult(new Result(Status.ERROR,null, ""+meetingRecord.getMeetingDateStr()+" 之后存在会议记录"));
+					return responseBody;
+				}
+			}
+		}*/
+		//已有通过的会议，不能再添加会议纪要
+		mrQuery = new MeetingRecord();
 		mrQuery.setProjectId(meetingRecord.getProjectId());
 		mrQuery.setMeetingType(meetingRecord.getMeetingType());
 		mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
@@ -489,7 +528,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		}
 		
 		//排期池校验
-		if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
+		if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
 			MeetingScheduling ms = new MeetingScheduling();
 			ms.setProjectId(meetingRecord.getProjectId());
 			ms.setMeetingType(meetingRecord.getMeetingType());
@@ -571,18 +610,20 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}else if(ServletFileUpload.isMultipartContent(request)){
 				//调接口上传
 				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
-				Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);
-				
+				//Map<String,Object> map = sopFileService.aLiColoudUpload(request, fileKey);
+				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
 				//上传成功后
-				if(map!=null){
-					Map<String,String> nameMap = null;
-					MultipartFile file = (MultipartFile) map.get("file");
+				if(result!=null){
+					Map<String,String> nameMap = new HashMap<String,String>();
+					//MultipartFile file = (MultipartFile) map.get("file");
 					String fileName = "";
 					if(meetingRecord.getFname()!=null && meetingRecord.getFname().trim().length()>0){
 						fileName = meetingRecord.getFname().trim();
 						nameMap = transFileNames(fileName);
 					}else{
-						nameMap = (Map<String, String>) map.get("nameMap");
+						//nameMap = (Map<String, String>) map.get("nameMap");
+					    nameMap.put("fileName",result.getFileName());
+					    nameMap.put("fileSuffix", result.getFileSuffix());
 					}
 					if(nameMap.get("fileName") == null || nameMap.get("fileName").trim().length()==0){
 						responseBody.setResult(new Result(Status.ERROR,null, "文件名获取失败"));
@@ -594,7 +635,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					sopFile.setProjectProgress(project.getProjectProgress());
 					sopFile.setBucketName(OSSFactory.getDefaultBucketName()); 
 					sopFile.setFileKey(fileKey);  
-					sopFile.setFileLength(file.getSize());  //文件大小
+					//sopFile.setFileLength(file.getSize());  //文件大小
+					sopFile.setFileLength(result.getContentLength());  //文件大小
 					sopFile.setFileName(nameMap.get("fileName"));
 					sopFile.setFileSuffix(nameMap.get("fileSuffix"));
 					sopFile.setFileUid(user.getId());	 //上传人
@@ -625,7 +667,26 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	}
 	
 	
-	
+	@ResponseBody
+	@RequestMapping(value = "/updatemeet", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> updatemeet(@RequestBody MeetingRecord meetingRecord, HttpServletRequest request ) {
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		try {
+			if(meetingRecord.getId()==null){
+				responseBody.setResult(new Result(Status.ERROR,null, "主键缺失"));
+				return responseBody;
+			}
+			//RecordType { PROJECT((byte) 0, "项目"), IDEAS((byte) 1, "创意");
+			meetingRecord.setRecordType((byte) (1));
+			meetingRecordService.updateById(meetingRecord);
+		    responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(meetingRecord.getId());
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "修改日志失败"));
+			logger.error("updateInterview修改日志失败",e);
+		}
+		return responseBody;
+	}
 	
 	/**
 	 * 内部评审、 CEO评审 、 立项会、投决会  阶段
@@ -639,20 +700,45 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		ResponseData<MeetingRecordBo> responseBody = new ResponseData<MeetingRecordBo>();
 		
-		
-		
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
+			//角色校验
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+			if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)){  //无限制，根据传参查询
+				//query.setUid(null);
+			}else if(roleIdList.contains(UserConstant.HHR)){   //固定为其部门
+				query.setDepartId(user.getDepartmentId());
+			}else if(roleIdList.contains(UserConstant.TZJL)){  //固定为其创建
+				query.setUid(user.getId());
+			}else{
 				responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
 				return responseBody;
 			}
-			/*if(roleIdList.contains(UserConstant.TZJL)&&!roleIdList.contains(UserConstant.HHR)){
-				query.setUid(user.getId());
-			}*/
-			//query.setUid(user.getId());
+			
+			if(query.getProjectId()!=null){
+				List<Project> proList = null;
+				boolean checked = false;
+				if(roleIdList.contains(UserConstant.HHR)){   //部门下项目校验
+					Project  proQ = new Project();
+					proQ.setId(query.getProjectId());
+					proQ.setProjectDepartid(user.getDepartmentId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}else if(roleIdList.contains(UserConstant.TZJL)){  //个人下项目校验
+					Project  proQ = new Project();
+					proQ.setCreateUid(user.getId());
+					proQ.setId(query.getProjectId());
+					proList = projectService.queryList(proQ);
+					checked = true;
+				}
+				if(checked){
+					if(proList==null || proList.isEmpty()){
+						responseBody.setResult(new Result(Status.ERROR, null, "没有权限查看!"));
+						return responseBody;
+					}
+				}
+			}
 			
 			Page<MeetingRecordBo> pageList = meetingRecordService.queryMeetPage(query, new PageRequest(query.getPageNum()==null?0:query.getPageNum(), query.getPageSize()==null?10:query.getPageSize()));
 			responseBody.setPageList(pageList);
@@ -669,6 +755,44 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		
 		return responseBody;
 	}
+	
+	
+	/**
+	 * 会议详情;  
+	 * @param  mid 会议id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/detailMeet/{mid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingRecord> detailMeet(HttpServletRequest request,@PathVariable("mid") Long mid) {
+		
+		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
+		try {
+			MeetingRecord meetRecord = meetingRecordService.queryById(mid);
+			if(meetRecord == null ||meetRecord.getId()==null){
+				responseBody.setResult(new Result(Status.ERROR, null, "会议id错误"));
+				return responseBody;
+			}else if(meetRecord.getFileId()!=null){
+				SopFile file  = sopFileService.queryById(meetRecord.getFileId());
+				if(file!=null){
+					meetRecord.setFname(file.getFileName());
+					meetRecord.setFkey(file.getFileKey());
+				}
+			}
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setEntity(meetRecord);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "查询会议详情失败"));
+			
+			if(logger.isErrorEnabled()){
+				logger.error("detailMeet 查询会议详情失败",e);
+			}
+		}
+		
+		return responseBody;
+	}
+	
+	
 	
 
 	
@@ -881,7 +1005,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * 			produces="application/text;charset=utf-8"
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addInterview", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<InterviewRecord> addInterview(@RequestBody InterviewRecordBo interviewRecord ,HttpServletRequest request ) {
@@ -889,11 +1013,11 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		Long viewId;
 		try {
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			
 			if(interviewRecord == null || interviewRecord.getProjectId() == null || interviewRecord.getViewDate() == null || interviewRecord.getViewTarget() == null ){
 				responseBody.setResult(new Result(Status.ERROR,null, "请完善访谈信息"));
 				return responseBody;
 			}
-			interviewRecord.setCreatedId(user.getId());
 			//project id 验证
 			Project project = new Project();
 			project = projectService.queryById(interviewRecord.getProjectId());
@@ -903,7 +1027,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
-			
+			interviewRecord.setCreatedId(user.getId());
 			//验证是否附件已上传
 			if(interviewRecord.getFkey()!=null){
 				if(interviewRecord.getBucketName()==null || interviewRecord.getFileLength()==null||interviewRecord.getFname()==null){
@@ -959,7 +1083,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	 * @param   interviewRecord 
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(writeOperationScope = LogType.ALL)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addmeet", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingRecord> addmeet(HttpServletRequest request,@RequestBody MeetingRecord meetingRecord ) {

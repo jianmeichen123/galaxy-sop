@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.template.SopTemplate;
@@ -45,6 +49,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	private ProjectService projectService;
 	
 	private String serverUrl;
+	
 	
 	/**
 	 * 避免url后边附带sessionId，第一次将user放入session后，通过重定向抹去后边参数
@@ -117,6 +122,14 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	public String sop() {
 		return "manager/stage";
 	}
+	@RequestMapping(value = "/sop2/{projectId}", method = RequestMethod.GET)
+	public ModelAndView sop2(@PathVariable("projectId") Long projectId) 
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("manager/stage2");
+		mv.addObject("projectId", projectId);
+		return mv;
+	}
 	
 	/**
 	 * 高管查看项目详情
@@ -143,10 +156,17 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/mpl", method = RequestMethod.GET)
-	public String myproject(){
-		
+	public String myproject(HttpServletRequest request){
+		String id = request.getParameter("projectId");
+		if(StringUtils.isNotBlank(id)){
+			Project project = projectService.queryById(Long.parseLong(id));
+			request.setAttribute("pid", id);
+			request.setAttribute("pname", project.getProjectName());
+		}
 		return "project/list";
 	}
+	
+	
 	/**
 	 * 到我的项目页面
 	 * @return
@@ -240,6 +260,47 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 		return "/resumetc/resumetc";
 	}
 	
+	
+	/**
+	 * 到立项会排期列表
+	 * @return
+	 */
+	@RequestMapping(value = "/lxh", method = RequestMethod.GET)
+	public String lxh(HttpServletRequest request, HttpServletResponse response) {
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+				.getId());
+		request.setAttribute("roleIdList", roleIdList);
+		request.setAttribute("pageType", 0);
+		return "shedule/lxh";
+	}
+	/**
+	 * 到投决会排期列表
+	 * @return
+	 */
+	@RequestMapping(value = "/tjh", method = RequestMethod.GET)
+	public String tjh(HttpServletRequest request, HttpServletResponse response) {
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+				.getId());
+		request.setAttribute("roleIdList", roleIdList);
+		request.setAttribute("pageType", 1);
+		return "shedule/lxh";
+	}
+	/**
+	 * 到CEO评审会排期列表
+	 * @return
+	 */
+	@RequestMapping(value = "/psh", method = RequestMethod.GET)
+	public String psh(HttpServletRequest request, HttpServletResponse response) {
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+				.getId());
+		request.setAttribute("roleIdList", roleIdList);
+		request.setAttribute("pageType", 2);
+		return "shedule/lxh";
+	}
+	
 	@Override
 	protected BaseService<User> getBaseService() {
 		return null;
@@ -271,4 +332,6 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 			logger.error("参数错误， type ="+type+", id="+id);
 		}
 	}
+
+	
 }

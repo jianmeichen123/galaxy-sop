@@ -85,10 +85,12 @@ $(function(){
 				if(data.result.status == "OK")
 				{
 					layer.msg("申请成功.");
+					$("#apply-decision-btn").addClass('disabled');
+					$("#show-upload-btn").addClass('disabled');
 				}
 				else
 				{
-					layer.msg("申请失败.");
+					layer.msg(data.result.message);
 				}
 			}
 		);
@@ -96,7 +98,11 @@ $(function(){
 });
 function projectLoaded(project)
 {
-	
+	if(project.projectProgress != 'projectProgress:6')
+	{
+		$("#show-upload-btn").addClass('disabled');
+		$("#apply-decision-btn").addClass('disabled');
+	}
 }
 function loadRows()
 {
@@ -178,7 +184,7 @@ function showUploadPopup()
 function initUpload(_dialog){
 	
 	var uploader = new plupload.Uploader({
-		runtimes : 'html5,flash,silverlight,html4',
+		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
 		url : platformUrl.stageChange,
 		multi_selection:false,

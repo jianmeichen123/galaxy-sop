@@ -15,6 +15,8 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+
+<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <style>
 .tab-pane table th:nth-child(3) {
     width: 55%;
@@ -22,7 +24,6 @@
 .tab-pane table td:nth-child(3){text-align:left !important;}
 .table td{line-height:22px;}
 </style>
-<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 
 </head>
 
@@ -60,10 +61,10 @@
               </dd>
             </dl>
             
-            <input type="hidden" name="uid" id="uid" value="" />
+           <!--  <input type="hidden" name="uid" id="uid" value="" />
             <script>
             	$("#uid").val(userId);
-            </script>
+            </script> -->
             
             <dl class="fmdl fmmr fmdll clearfix">
               <dt>会议日期：</dt>
@@ -93,7 +94,7 @@
 			<table id="data-table" data-url="<%=path %>/galaxy/project/progress/queryMeet"
 				data-method="post" data-side-pagination="server"
 				data-pagination="true" data-toolbar="#custom-toolbar"
-				data-page-list="[10,20,30]" data-id-field="lottoId"
+				data-page-list="[10,20,30]" data-id-field="id" data-unique-id="id"
 				data-show-refresh="false">
 				<colgroup >
 					<col style="width:30%;"> <!-- 名称 -->
@@ -105,7 +106,7 @@
 						 <th data-align="center" data-formatter="meetInfoFormat">会议概况</th>
 						<!-- <th data-field="hygk" data-align="center">会议概况</th> -->
 						<th data-align="center"  data-formatter="meetProInfoFormat" >项目信息</th>  
-						<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>  <!-- data-formatter="subLengthFormat" -->
+						<th data-field="meetingNotes" data-align="center" data-formatter="meetFormatLog">会议纪要</th>  <!-- data-formatter="subLengthFormat" -->
 					</tr>
 				</thead>
 			</table>
@@ -147,10 +148,74 @@ $(function(){
 		sidePagination: 'server',
 		method : 'post',
 		pagination: true,
+		clickToSelect: true,
         search: false,
 	});
 	
 });
+
+
+var meetSelectRow = null;
+function meetFormatLog(value,row,index){
+	var len = getLength($.trim(value).replace(/<[^>]+>/g, ""));
+	    subValue=value.replace(/<[^>]+>/g, "");
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>120){
+			var subValue1 = value.replace(/<[^>]+>/g, "").substring(0,120);
+			/*var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';*/
+			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\" >"+
+						subValue1+
+						"..."+"<a href=\"javascript:;\" class=\"blue  option_item_mark\"  onclick=\"showMeetDetail("+row.id+")\" >更多<a>"+    
+					'</div>';
+			return rc;
+		}else{
+			return strlog;
+		}
+	}
+}
+
+
+
+function showMeetDetail(selectRowId){
+	meetSelectRow = $('#data-table').bootstrapTable('getRowByUniqueId', selectRowId);
+	
+	var _url = "<%=path %>/galaxy/project/progress/meetAddView";
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			queryMeetPerPro();
+			$('.edui-container').show();
+			initMeetTcVal();
+		}//模版反回成功执行	
+	});
+	return false;
+}
+
+function initMeetTcVal(){
+	$("#projectId").val(meetSelectRow.projectId).attr("disabled","desabled");
+	$("#meetingDateStr").val(meetSelectRow.meetingDateStr).attr("disabled","desabled");
+	
+	$("input[name='meetingTypeTc'][value='"+meetSelectRow.meetingType+"']").attr("checked",'checked');
+	$("input[name='meetingTypeTc']").attr("disabled","desabled");
+	$("input[name='meetingResult'][value='"+meetSelectRow.meetingResult+"']").attr("checked",'checked').attr("readonly","readonly");
+	$("input[name='meetingResult']").attr("disabled","desabled");
+	
+	meetEditor.setContent(meetSelectRow.meetingNotes); 
+	
+	var fileinfo = "";
+	if(meetSelectRow.fname!=null && meetSelectRow.fname!=undefined && meetSelectRow.fname!="undefined" ){
+		fileinfo = "<a href=\"javascript:;\" onclick=\"filedown("+meetSelectRow.fileId+","+meetSelectRow.fkey+");\" class=\"blue\" >"+meetSelectRow.fname+"</a>"
+	}
+	$("#fileNotBeUse").html("");
+	$("#fileNotBeUse").html("会议录音："+fileinfo);
+	
+	$("#btnNotBeUse").html("");
+	$("#btnNotBeUse").html("<a href=\"javascript:;\" class=\"pubbtn fffbtn\" data-close=\"close\">关闭</a>");
+	
+}
 </script>
 
 </body>

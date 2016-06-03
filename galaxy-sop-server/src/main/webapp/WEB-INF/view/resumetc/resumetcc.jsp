@@ -14,7 +14,7 @@
           <!-- 个人简历 -->
           <div class="tabtable resume">
           <form action="" id="up_person_form"   method="post">
-          <input hidden="hidden" id="personId" value="${personId}">
+          <input hidden="hidden" id="personId" value="${personId}" class="none">
           <!-- tab标签 -->
             <ul class="tablink">
                 <li data-tab="nav"><a href="javascript:;">个人信息</a></li>
@@ -105,14 +105,15 @@
             <div class="tabtable_con"  data-tab="con" model="personLearn" multi="true">
               <div class="tabtable_con1" style="border:0;pointer-events: none;">
                 <h2>学习经历</h2>
-                <input type="button" style="border:0;pointer-events: none;" class="add bluebtn" value="+">
+                <!-- <input type="button" style="border:0;pointer-events: none;" class="add bluebtn" value="+"> -->
                 <table width="100%" cellspacing="0" cellpadding="0">
-                  <tr>
+                 <tr>
                     <th>学历：</th>
-                    <td data-by="id"><input name ="degree" id="degree"  type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包字母、汉字 长度50"></td>
-                   	<td data-by="id"><input name ="degree" id="degree"  type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含字母、汉字 长度50"></td>
-                    <td data-by="id"><input name ="degree" id="degree"  type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含数字母、汉字 长度50"></td>
-                  </tr>
+                 	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包字母、汉字 长度50"></td>
+                   	<td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含字母、汉字 长度50"></td>
+                    <td data-by="id"><input name ="degree" id="degree" type="text" value=""  valType="CHAR_CH_SYB" regString="^[A-Za-z0-9\u4e00-\u9fa5]+$" msg="学历只能包含数字母、汉字 长度50"></td>   
+                  	
+              </tr> 
                   <tr>
                     <th>学校：</th>
                     <td><input name="school" id="school"  type="text" value="" valType="CHAR_CH_SYB" regString="^[A-Za-z\u4e00-\u9fa5]+$" msg="学校只能包含字母、汉字"></td>
@@ -185,7 +186,7 @@
             <div class="tabtable_con"  data-tab="con" model="personWork" multi="true" >
               <div class="tabtable_con1" style="border:0;pointer-events: none;">
                 <h2>工作记录</h2>
-                <input type="button" class="add bluebtn" value="+">
+               <!--  <input type="button" class="add bluebtn" value="+"> -->
                 <table width="100%" cellspacing="0" cellpadding="0">
                   <tr>
                     <th>公司名称：</th>

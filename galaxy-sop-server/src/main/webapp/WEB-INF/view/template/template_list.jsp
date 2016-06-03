@@ -76,25 +76,25 @@
     <dl class="fmdl clearfix">
     	<dt>存储类型：</dt>
         <dd>
-        	<select name="docType" class="disabled" ></select>
+        	<select name="docType" class="disabled" disabled="disabled"></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
     	<dt>业务分类：</dt>
         <dd>
-        	<select name="worktype" class="disabled" ></select>
+        	<select name="worktype" class="disabled" disabled="disabled"></select>
         </dd>
     </dl>
     <dl class="fmdl clearfix">
     	<dt>所属部门：</dt>
         <dd>
-        	<select name="departmentId" disabled></select>
+        	<select name="departmentId" disabled="disabled"></select>
         </dd>
     </dl>
     <div class="fmdl clearfix">
     	<dt>选择档案：</dt>
     	<dd>
-        <input type="text" name="fileName" class="txt disabled" onchange="selectFile(this)" />
+        <input type="text" name="fileName" class="txt disabled" onchange="selectFile(this)" disabled="disabled"/>
     	</dd>
     	<dd>
         <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>
@@ -159,6 +159,7 @@ $(function(){
 	$("#show-mail-btn").click(function(){
 		showMailPopup();
 	});
+	$("#upload-form .disabled").attr('disabled','disabled');
 });
 /**
  * 加载模板列表
@@ -260,7 +261,7 @@ function handleUpload()
 				initUpload(_dialog);
 				var row = $("tr[data-id='"+id+"']")[0];
 				var $form = $(_dialog.id).find("#upload-form");
-				setForm($form,row.dataset);
+				setForm($form,$(row).data());
 			}
 		});
 	});
@@ -295,7 +296,7 @@ function selectFile(ele)
 function initUpload(_dialog)
 {
 	var uploader = new plupload.Uploader({
-		runtimes : 'html5,flash,silverlight,html4',
+		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
 		url : platformUrl.tempUpload+"?sid="+sessionId+"&guid="+userId,
 		multi_selection:false,
@@ -330,23 +331,24 @@ function initUpload(_dialog)
 					$(_dialog.id).find("[name='docType']").val(fileType);
 				});
 			},
-			
-			FileUploaded: function(up, files, rtn) {
-				var result = $.parseJSON(rtn.response);
-				$(_dialog.id).find("input[name='fileKey']").val(result.fileKey);
-				$(_dialog.id).find("input[name='fileLength']").val(result.fileLength);
+			BeforeUpload : function(up,file){
 				$form = $(_dialog.id).find("#upload-form");
-				var data = JSON.parse($form .serializeObject());
-				var url = platformUrl.tempSave
-				sendPostRequestByJsonObj(
-						url,
-						data,
-						function(data){
-							layer.msg("上传成功.");
-							$(_dialog.id).find("[data-close='close']").click();
-							loadTempList();
-						}
-				);
+				$form.find('.disabled').removeAttr('disabled');
+				up.settings.multipart_params =  JSON.parse($form .serializeObject());
+				$form.find('.disabled').attr('disabled','disabled');
+			},
+			FileUploaded: function(up, files, rtn) {
+				var data = $.parseJSON(rtn.response);
+				if(data.result.status == 'OK')
+				{
+					layer.msg("上传成功.");
+					$(_dialog.id).find("[data-close='close']").click();
+					loadTempList();
+				}
+				else
+				{
+					layer.msg(data.result.message);
+				}
 			},
 			Error: function(up, err) {
 				layer.msg("上传失败:"+err.message);

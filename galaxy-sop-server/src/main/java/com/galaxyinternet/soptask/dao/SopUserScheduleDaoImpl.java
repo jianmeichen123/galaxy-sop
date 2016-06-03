@@ -15,7 +15,6 @@ import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
-import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.soptask.SopUserSchedule;
 
 @Repository("sopUserScheduleDao")

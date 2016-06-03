@@ -1,6 +1,4 @@
 package com.galaxyinternet.project.controller;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -15,24 +13,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.galaxyinternet.bo.project.PersonPoolBo;
 import com.galaxyinternet.bo.project.ProjectSharesBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.framework.core.constants.Constants;
-import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectShares;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.ProjectSharesService;
-import com.galaxyinternet.service.UserRoleService;
 
 @Controller
 @RequestMapping("/galaxy/projectShares")
@@ -45,9 +39,7 @@ public class ProjectSharesController extends BaseControllerImpl<ProjectShares, P
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
-	
-	@Autowired
-	private UserRoleService userRoleService;
+
 	@Autowired
 	private ProjectService projectService;
 	

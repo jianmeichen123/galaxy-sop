@@ -9,7 +9,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.sopfile.SopVoucherFileBo;
@@ -37,7 +40,6 @@ import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
-import com.galaxyinternet.framework.core.file.BucketName;
 import com.galaxyinternet.framework.core.file.DownloadFileResult;
 import com.galaxyinternet.framework.core.file.FileResult;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -50,6 +52,7 @@ import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -57,11 +60,12 @@ import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 import com.galaxyinternet.utils.FileUtils;
-
+import com.galaxyinternet.utils.WorktypeTask;
 @Service("com.galaxyinternet.service.SopFileService")
 public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		SopFileService {
@@ -83,7 +87,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	
 	@Override
 	protected BaseDao<SopFile, Long> getBaseDao() {
-		// TODO Auto-generated method stub
 		return this.sopFileDao;
 	}
 	
@@ -95,9 +98,9 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 
 	//@Value("${sop.oss.tempfile.path}")
 	public void setTempfilePath(String tempfilePath) {
+		//System.err.println("tempFilePath==>>" + this.tempfilePath);
 		this.tempfilePath = tempfilePath;
 	}
-
 	
 	
 	@Override
@@ -114,60 +117,113 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		return sopFileDao.queryByProjectAndFileWorkType(sf);
 	}
 
+	
 
 	/**
 	 * 分页查询获取project名称
 	 */
 	public Page<SopFile> queryPageList(SopFile query, Pageable pageable) {
 		// TODO Auto-generated method stub
-		Page<SopFile> pageEntity = super.queryPageList(query,pageable);
+		//Page<SopFile> pageEntity = super.queryPageList(query,pageable);
+		Page<SopFile> pageEntity = new Page<SopFile>(null, pageable, null);
+		List<SopFile> fileList = sopFileDao.selectList(query);
 		List<Department> departmentList = getDepartMent();
-		List<User> userList = getUser(pageEntity.getContent());
-		List<Project> projectList = getProject(pageEntity.getContent());
+		List<User> userList = getUser(fileList);
+		List<Project> projectList = getProject(fileList);
+		List<SopFile> result=new ArrayList<SopFile>();
+		Map<String,SopVoucherFile> map=new HashMap<String,SopVoucherFile>();
+		if(fileList != null && !fileList.isEmpty()){
+			map=getVoucherId(fileList);
+		}
+		
 		//获取Project名称
-		for(SopFile sopFile : pageEntity.getContent()){
-			
-			if(sopFile.getProjectId()!=null){
-//				Project project = projectDao.selectById(sopFile.getProjectId());
-				for(Project project : projectList){
-					if(sopFile.getProjectId().equals(project.getId())){
-						sopFile.setProjectName(project.getProjectName());
-						break;
+		Iterator<SopFile> it = fileList.iterator();
+		while (it.hasNext()) {
+			boolean flag=false;
+			SopFile sopFile = it.next();
+			/*if(sopFile.getFileValid().intValue() == 0){
+				sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
+				sopFile.setFileKey(null);	
+			}*/
+			//对于自己所上传的文档，可查看其状态，并标识装填已上传
+			if(query.getBelongUid()==null){
+				if (DictEnum.fileStatus.已上传.getCode().equals(sopFile.getFileStatus())) {
+
+					
+					if (sopFile.getFileValid() != null && sopFile.getFileValid().intValue() == 0) {
+						sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
 					}
 				}
-				//当为空时证明关联数据已被删除
-//				if(project!=null){
-//					sopFile.setProjectName(project.getProjectName());
-//				}
+			}else{
+				sopFile.setFileValid(1);
 			}
+				
+			if (sopFile.getProjectId() != null) {
+				for (Project project : projectList) {
+					if (sopFile.getProjectId().equals(project.getId())) {
+						int p1 = Integer.parseInt(sopFile.getProjectProgress().split(":")[1]);
+						int p2 = Integer.parseInt(project.getProjectProgress().split(":")[1]);
+						if (p1 <=p2) {
+							if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+								if(project.getStockTransfer().intValue() == 1){
+									flag=true;
+									sopFile.setProjectName(project.getProjectName());
+									break;
+								}
+							}else{
+								flag=true;
+								sopFile.setProjectName(project.getProjectName());
+								break;
+							}
+						}
+							
 			
-			if(sopFile.getCareerLine()!=null){
-//				Department department = departmentService.queryById(sopFile.getCareerLine());
-				for(Department department : departmentList){
-					if(sopFile.getCareerLine().equals(department.getId())){
+					}
+				}
+		}
+		if(flag==true){
+			if (sopFile.getCareerLine() != null) {
+			for (Department department : departmentList) {
+					if (sopFile.getCareerLine().equals(department.getId())) {
 						sopFile.setCareerLineName(department.getName());
 						break;
 					}
 				}
-//				if(department!=null){
-//					sopFile.setCareerLineName(department.getName());
-//				}				
 			}
-			if(sopFile.getFileUid()!=null){
-//				User user = userService.queryById(sopFile.getFileUid());
-				for(User user : userList){
-					if(sopFile.getFileUid().equals(user.getId())){
+			if (sopFile.getFileUid() != null) {
+		    	for (User user : userList) {
+					if (sopFile.getFileUid().equals(user.getId())) {
 						sopFile.setFileUName(user.getRealName());
 						break;
 					}
 				}
-//				if(user!=null){
-//					sopFile.setFileUName(user.getRealName());
-//				}
+	
+			}	
+		      SopVoucherFile svf = map.get(sopFile.getVoucherId()==null?"":sopFile.getVoucherId().toString());
+				if (null != svf && !"".equals(svf)) {
+					sopFile.setVoucherFileName(svf.getFileName());
+					if(svf.getFileStatus().equals("fileStatus:1")){
+						sopFile.setVstatus("false");
+						sopFile.setVoucherFileKey(svf.getFileKey());
+					}
+					if(svf.getFileStatus().equals("fileStatus:3")){
+						sopFile.setVstatus("true");
+					}
+				} else {
+					sopFile.setVoucherFileName("");
+					sopFile.setVstatus("no");
+			}
+				
+				result.add(sopFile);
 			}
 		}
+		pageEntity.setTotal(new Long(result.size()));
+		List<SopFile> sl = new ArrayList<SopFile>();
+		sl.addAll(result.subList(pageable.getPageNumber()*pageable.getPageSize(), (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize()) > result.size() ? result.size() : (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize())));
+		pageEntity.setContent(sl);
 		return pageEntity;
 	}
+	
 	
 	private List<Department> getDepartMent(){
 		return departmentService.queryAll();
@@ -268,6 +324,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		voucherFileDao.updateById(sopVoucherFile);
 		//修改任务状态完成
 		sopTask.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		sopTask.setTaskDeadline(new Date());
 		sopTaskDao.updateById(sopTask);
 		SopTaskBo sopTaskBo = new SopTaskBo();
 		sopTaskBo.setProjectId(sopTask.getProjectId());
@@ -520,6 +577,37 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		return new Result(Status.OK,"");
 	}	
 	
+	@Transactional
+	public boolean updateFile(SopFile sopFile) throws Exception{
+		//更新
+		int ret = getBaseDao().updateByIdSelective(sopFile);
+//		if(ret > 0){
+//			SopTask sopTask = new SopTask();
+//			sopTask.setProjectId(sopFile.getProjectId());
+//			int pos = sopFile.getFileWorktype().lastIndexOf(":");
+//			int worktype = Integer.parseInt(sopFile.getFileWorktype().substring(pos+1));
+////			int taskFlag = FileUtils.getTaskByWorktype(worktype);
+//			WorktypeTask worktypeTask = FileUtils.getWorktypeEntityByTask(worktype);
+//			if(worktypeTask!=null){
+//				sopTask.setTaskFlag(worktypeTask.getTaskFlag());
+//				sopTask = sopTaskDao.selectOne(sopTask);
+//				if(sopTask!=null){
+//					if(!worktypeTask.isHasProve()){
+//						if(sopTask.getTaskStatus().equals(DictEnum.taskStatus.待认领.getCode()) || 
+//								sopTask.getTaskStatus().equals(DictEnum.taskStatus.待完工.getCode())){
+//							sopTask.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+//							ret = sopTaskDao.updateById(sopTask);
+//						}
+//					}		
+//				}	
+//			}	
+//		}
+		
+		
+		return ret > 0 ;
+		
+	}
+	
 	/**
 	 * 文档上传
 	 * @param request 转为 MultipartFile，获取key=file
@@ -649,8 +737,8 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			out = new BufferedOutputStream(response.getOutputStream());
 			fis = new BufferedInputStream(new FileInputStream(tempFile.getPath()));
 			byte[] buffer = new byte[1024 * 2];
-			int count = 0;
-			while ((count = fis.read(buffer)) != -1) {
+			
+			while (fis.read(buffer) != -1) {
 				out.write(buffer);
 			}
 			response.flushBuffer();
@@ -692,9 +780,90 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		}
 		return fileName;
 	}
-	
+	public Map<String,SopVoucherFile> getVoucherId(List<SopFile> sopFile){
+		Map<String,SopVoucherFile> map=new HashMap<String,SopVoucherFile>();
+		List<Long> ids=new ArrayList<Long>();
+		for (SopFile sopfile:sopFile) {
+				if(null!=sopfile.getVoucherId()&&!"".equals(sopfile.getVoucherId())){
+				ids.add(sopfile.getVoucherId());
+			}
+		}
+		if(!ids.isEmpty()){
+		    List<SopVoucherFile> selectListById = voucherFileDao.selectListById(ids);
+			if(null!=selectListById&&!"".equals(selectListById)){
+				for(SopVoucherFile vfile:selectListById){
+					map.put(vfile.getId().toString(), vfile);
+				}
+			}
+		}
+		return map;
+		
+	}
 	
 	
 	
 
+	/*@Autowired
+	private DictService dictService;*/
+	
+	/**
+	 * @param query   projectid : cyid,  RecordType:1   fileuid : 登陆人id
+	 */
+	@Override
+	public Page<SopFile> queryFileList(SopFile query, Pageable pageable) {
+		Page<SopFile> filePage = null;
+		List<SopFile> fileList = null;
+		Long total = null;
+		Map<Long,String> uIdNameMap = new HashMap<Long,String>();
+		Map<Long,String> departIdNameMap = new HashMap<Long,String>();
+		
+		//查询所有file记录
+		fileList = sopFileDao.selectList(query, pageable);
+		total = sopFileDao.selectCount(query);
+		
+		if(fileList!=null && fileList.size()>0){
+			if(query.getFileUid()!=null){  //个人下的文档
+				uIdNameMap.put(query.getFileUid(), query.getFileUName()); //uid-uname
+				departIdNameMap.put(query.getCareerLine(), query.getCareerLineName()); //departid-departname
+			}else{
+				//uid-uname
+				User user = new User();
+				List<Long> uids = new ArrayList<Long>();	
+				for(SopFile sopFile : fileList){
+					if(sopFile.getFileUid()!=null && !uids.contains(sopFile.getFileUid())){
+						uids.add(sopFile.getFileUid());
+					}	
+				}
+				user.setIds(uids);
+				List<User> userList = userService.queryList(user);
+				if(userList!=null && !userList.isEmpty()){
+					for(User au : userList){
+						uIdNameMap.put(au.getId(), au.getRealName());
+					}
+				}
+				
+				//departid-departname
+				List<Department> allDepartMent = departmentService.queryAll();
+				if(allDepartMent!=null){
+					for(Department ad : allDepartMent){
+						departIdNameMap.put(ad.getId(), ad.getName());
+					}
+				}
+			}
+			for(SopFile afile:fileList){
+				afile.setFileUName(uIdNameMap.get(afile.getFileUid()));
+				afile.setCareerLineName(departIdNameMap.get(afile.getCareerLine()));
+				
+			}
+			
+			filePage = new Page<SopFile>(fileList, pageable, total);
+		}else{
+			filePage = new Page<SopFile>(new ArrayList<SopFile>() , pageable, 0l);
+		}
+		
+		return filePage;
+	}
+	
+	
+	
 }

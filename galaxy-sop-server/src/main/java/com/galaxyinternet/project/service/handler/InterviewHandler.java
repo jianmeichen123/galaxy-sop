@@ -64,8 +64,8 @@ public class InterviewHandler implements Handler {
 		ir.setFileId(fid);
 		ir.setViewDate(q.getParseDate() == null ? new Date() : q.getParseDate());
 		ir.setViewTarget(q.getTarget());
-		ir.setCreatedId(q.getCreatedUid());
 		ir.setViewNotes(q.getContent());
+		ir.setCreatedId(project.getCreateUid());
 		ir.setCreatedTime((new Date()).getTime());
 		interviewRecordService.insert(ir);
 		return new SopResult(Status.OK,null,"添加访谈纪要成功!",UrlNumber.one);

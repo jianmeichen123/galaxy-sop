@@ -1,7 +1,5 @@
 package com.galaxyinternet.bo;
 
-import java.util.Date;
-
 import com.galaxyinternet.model.soptask.SopUserSchedule;
 
 public class SopUserScheduleBo extends SopUserSchedule{

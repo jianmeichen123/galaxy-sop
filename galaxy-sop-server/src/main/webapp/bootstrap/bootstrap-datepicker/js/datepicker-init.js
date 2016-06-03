@@ -191,7 +191,7 @@ $(function(){
 			var date_start = ws.format("yyyy-MM-dd");
 			var date_end = we.format("yyyy-MM-dd");
 			//var date = new Date(time).format("yyyy-MM-dd");
-				}
+		}
 	});
 	//默认周起始日期为周一，选中当周所有日期
 	$("#change_week").click(function(){

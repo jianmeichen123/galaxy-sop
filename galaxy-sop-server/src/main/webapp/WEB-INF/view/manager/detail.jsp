@@ -20,7 +20,12 @@
     <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
     <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
     <script src="<%=path %>/js/init.js"></script>
-
+	<style type="text/css">
+		.content{
+			float: left;
+			padding:0 10px;
+		}
+	</style>
 </head>
 
 <body>
@@ -88,8 +93,26 @@
                   </tr>                  
                 </tbody>
               </table>
+              
+              <div class="btnbox">   <!-- onclick="history.go(-1);location.reload()" -->
+                <a href="javascript:;" onclick="history.go(-1);" class="bluebtn pubbtn">返回</a>
           </div>
+          </div>
+          
+          
           </form>
+          
+          <!-- 商业计划  -->      
+          <div class="block block2 shadow">
+            <dl>
+              <dt>商业计划书</dt>
+               <dd id="business_plan_dd" class="fctbox">
+<!--                 <a href="javascript:;" class="ico f1" data-btn="upload" onclick="uploadBusinessPlan()" >更新</a> -->
+<!--                 <a href="javascript:;" class="ico f1" data-btn="download" onclick="downloadBusinessPlan()" >下载</a> -->
+              </dd>
+            </dl>
+          </div> 
+          
           <!-- 第2部分 -->
           <div class="block block2 shadow">
             <dl>
@@ -98,11 +121,11 @@
               	  <script type="text/plain" id="describe_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="describe_show"></dd>
-              <dd class="fctbox">
+			  <dd class="describe pro_block" id="describe_show"></dd>
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div>
           <!-- 第3部分 -->
@@ -113,11 +136,11 @@
               	  <script type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
 				  </script>
 		      </dd>
-		      <dd class="describe" id="model_show"></dd>
-              <dd class="fctbox">
+		      <dd class="describe pro_block" id="model_show"></dd>
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div>
           <!-- 第4部分 -->
@@ -128,11 +151,11 @@
 			      <script type="text/plain" id="location_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="location_show"></dd>
-              <dd class="fctbox">
+			  <dd class="describe pro_block" id="location_show"></dd>
+             <!--  <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div>
           <!-- 第5部分 -->
@@ -143,11 +166,11 @@
 			  	  <script type="text/plain" id="portrait_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			   <dd class="describe" id="portrait_show"></dd>
-              <dd class="fctbox">
+			   <dd class="describe pro_block" id="portrait_show"></dd>
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div>
           <!-- 第6部分 -->
@@ -158,18 +181,18 @@
 			      <script type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
-			  <dd class="describe" id="analysis_show"></dd>
-              <dd class="fctbox">
+			  <dd class="describe pro_block" id="analysis_show"></dd>
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div>
           <!-- 第7部分 -->
           <div class="block block2 shadow clearfix">
             <dl>
               <dt>团队成员</dt>
-              <dd class="full_w describe clearfix">
+              <dd class="full_w describe clearfix pro_block">
                 <div class="clearfix"></div>
                 <div class="tab-pane active" id="view">	
 	               	<table id="tablePerson"  data-height="555" 
@@ -178,16 +201,16 @@
 				</div>
 				
               </dd>
-              <dd class="fctbox">
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a><a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div> 
           <!-- 第8部分  -->      
           <div class="block block2 shadow">
             <dl>
               <dt>股权结构</dt>
-              <dd class="full_w describe clearfix">
+              <dd class="full_w describe clearfix pro_block">
                 <div class="clearfix"></div>
                   <div class="tab-pane active" id="pView">	
 	               <table id="table" data-height="555" data-method="post"
@@ -195,9 +218,9 @@
 					</table>
 				</div>
               </dd>
-              <dd class="fctbox">
+              <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a><a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd>
+              </dd> -->
             </dl>
           </div> 
     </div>
@@ -209,7 +232,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/axure.js"></script>
 <script>
-
+var d_scrollTop=0;
 	$(function(){
 		createMenus(4);
 		/**
@@ -248,18 +271,75 @@
 			$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
 			$("#analysis_show ").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
 			var um = UM.getEditor('describe_editor');
-			um.setContent(data.entity.projectDescribe);
+			if(data.entity.projectDescribe){
+				um.setContent(data.entity.projectDescribe);
+				describe_show();
+			}else{
+				um.setContent("");
+			}
 			var um = UM.getEditor('business_model_editor');
-			um.setContent(data.entity.projectBusinessModel);
+			if(data.entity.projectBusinessModel){
+				um.setContent(data.entity.projectBusinessModel);
+				model_show();
+			}else{
+				um.setContent("");
+			}
 			var um = UM.getEditor('location_editor');
-			um.setContent(data.entity.companyLocation);
+			if(data.entity.companyLocation){
+				um.setContent(data.entity.companyLocation);
+				location_show();
+			}else{
+				um.setContent("");
+			}
+			
+			
+			
 			var um = UM.getEditor('portrait_editor');
-			um.setContent(data.entity.userPortrait);
+			if(data.entity.userPortrait){
+				um.setContent(data.entity.userPortrait);
+				portrait_show();
+			}else{
+				um.setContent("");
+			}
+			
 			var um = UM.getEditor('analysis_editor');
-			um.setContent(data.entity.prospectAnalysis);
+			if(data.entity.prospectAnalysis){
+				um.setContent(data.entity.prospectAnalysis);
+				analysis_show();
+			}else{
+				um.setContent("");
+			}
+			
+			
+			
+			sendGetRequest(platformUrl.getBusinessPlanFile+"/"+pid,null,function(data){
+				var uploadOperator;
+				var html;
+				if(data.result.status=="OK"){
+					//为空时候显示
+					if(data.result.errorCode=="null"){				
+						html = "<span class='content'>状态：未上传</span><span class='content'>更新时间：无</span>";
+					}else{
+						html =  "<span class='content'>状态：已上传</span><span class='content'>更新时间："+data.entity.createDate+"</span><a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+					}
+					$("#business_plan_dd").html(html);
+				}else{
+					
+				}
+			});
+			
+			
+			
+			
 		});
 	});
 
+	
+	
+	function downloadBusinessPlan(id){
+		window.location.href=platformUrl.downLoadFile+'/'+id ;
+	}
+	
     var pid='${requestScope.pid}';
 	function formatGender(index, row) {
 		if (row.gender == true) {
@@ -271,6 +351,135 @@
 	   
 	getTabPerson();
 	getTabShare();
+	function describe_show(){
+		//d_scrollTop();
+		var box = document.getElementById("describe_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,300);  
+		btn.innerHTML = text.length >300 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop();
+			
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情"; 
+		AAAscrollTop();
+		newBox.innerHTML = text.substring(0,300)+"...";  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);
+		
+		
+		
+	}
+	function AAAscrollTop(){
+		d_scrollTop=$(document).scrollTop();
+		$("html,body").animate({scrollTop:d_scrollTop},10);
+	}
+	function model_show(){
+		var box = document.getElementById("model_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,300);  
+		btn.innerHTML = text.length >300 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop();
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情"; 
+		AAAscrollTop();
+		newBox.innerHTML = text.substring(0,300);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function portrait_show(){
+		var box = document.getElementById("portrait_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,300);  
+		btn.innerHTML = text.length >300 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop()
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		AAAscrollTop();
+		newBox.innerHTML = text.substring(0,300);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function location_show(){
+		var box = document.getElementById("location_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,300);  
+		btn.innerHTML = text.length >300 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop();
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text; 
+		}else{  
+		btn.innerHTML = "查看详情";  
+		AAAscrollTop();
+		newBox.innerHTML = text.substring(0,300);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	function analysis_show(){
+		var box = document.getElementById("analysis_show");  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,300);  
+		btn.innerHTML = text.length >300 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop()
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情";  
+		AAAscrollTop()
+		newBox.innerHTML = text.substring(0,300);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
 	
 	function getTabPerson(){
 		var html='<table id="tablePerson"  data-height="555" data-method="post" data-show-refresh="true" ></table>';
@@ -297,10 +506,12 @@
                         align: 'center',
                         valign: 'middle',
                         formatter:function(value,row,index){ 
-                        	if (row.personSex == 0) {
+                         	if (row.personSex == 0) {
                     			return "男";
-                    		} else {
+                    		}else if (row.personSex == 1) {
                     			return "女";
+                    		}else {
+                    			return "-";
                     		}
                         }
 	                    },
@@ -326,7 +537,27 @@
 	                      title: '最高学历',
 	                        field: 'highestDegree',
 	                        align: 'center',
-	                        valign: 'middle'
+	                        valign: 'middle',
+	                        formatter:function(value,row,index){ 
+	                         	if (row.highestDegree == 1) {
+	                    			return "高中";
+	                    		}else if (row.highestDegree == 2) {
+	                    			return "大专";
+	                    		}else if (row.highestDegree == 3) {
+	                    			return "本科";
+	                    		}else if (row.highestDegree == 4) {
+	                    			return "硕士";
+	                    		}else if (row.highestDegree == 5) {
+	                    			return "MBA";
+	                    		}else if (row.highestDegree == 6) {
+	                    			return "博士";
+	                    		}else if (row.highestDegree == 7) {
+	                    			return "其他";
+	                    		}
+	                    		else {
+	                    			return "-";
+	                    		}
+	                        }
 	                  },
 	                  {
 	                      title: '工作年限',

@@ -29,6 +29,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.PWDUtils;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.user.User;
@@ -181,6 +182,11 @@ public class HomePageSearchController
 
 		return responseBody;
 	}
+	/**
+	 * 投决会排期more
+	 * @param request
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/moreProjectVoteWill",  produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingSchedulingBo> moreProjectVoteWill(
@@ -200,6 +206,7 @@ public class HomePageSearchController
 			List<MeetingSchedulingBo> list = meetingSchedulingService
 					.selectProjectMeetingByType(SopConstant.VOTE_MEETING);
 			responseBody.setResult(new Result(Status.OK, ""));
+			/*String code= DictEnum.scheduleStatus.daipaiqi.getCode();*/
 			responseBody.setEntityList(list);
 			return responseBody;
 
@@ -228,14 +235,6 @@ public class HomePageSearchController
 			HttpServletRequest request) {
 
 		ResponseData<MeetingSchedulingBo> responseBody = new ResponseData<MeetingSchedulingBo>();
-		/*Object obj = request.getSession()
-				.getAttribute(Constants.SESSION_USER_KEY);
-		if (obj == null) {
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}*/
-		// User user = (User)
-		// request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 
 			List<MeetingSchedulingBo> list = meetingSchedulingService
@@ -300,7 +299,7 @@ public class HomePageSearchController
 	
 	/**
 	 * 供app使用的立项排期,投诀排期
-	 * 用户id,类型必填
+	 * 用户id,类型必填,careline事业线Id
 	 * @author zhaoying
 	 * @param request
 	 * @param query
@@ -418,4 +417,46 @@ public class HomePageSearchController
 	}
 	
 	
+	
+	/**
+	 * 董事长秘书和ceo秘书 立项会排期池     meetingType:3  
+	 * 
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/lxmeetschedulie",  produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingScheduling> lxmeetschedulie(HttpServletRequest request,@RequestBody MeetingSchedulingBo schedule) {
+		ResponseData<MeetingScheduling> responseBody = new ResponseData<MeetingScheduling>();
+		/*schedule.setMeetingType("meetingType:3");*/
+		try {
+			Sort sort = null;
+			Page<MeetingScheduling> pageList = null;
+/*			需要默认排序
+ * 				if(schedule !=null && schedule.getSortName()==null&&schedule.getMeetTime()!=null){
+				sort = new Sort(Direction.ASC,DateUtil.convertDateToString(schedule.getMeetTime()));
+			}*/
+			if(schedule != null && schedule.getSortName() != null) {
+				if (schedule.getSortDirection().equals("0")) {
+					sort = new Sort(Direction.ASC,schedule.getSortName());
+				} else {
+					sort = new Sort(Direction.DESC,schedule.getSortName());
+				}
+				
+				pageList = meetingSchedulingService.queryMeetPageList(schedule,
+					new PageRequest(schedule.getPageNum()==null?0:schedule.getPageNum(), schedule.getPageSize()==null?10:schedule.getPageSize(),sort));
+			}
+			responseBody.setPageList(pageList);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, null,
+					"lxmeetschedulie faild"));
+
+			if (logger.isErrorEnabled()) {
+				logger.error("lxmeetschedulie ", e);
+			}
+		}
+
+		return responseBody;
+	}
 }

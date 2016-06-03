@@ -10,12 +10,16 @@
     <result column="meeting_type" property="meetingType" jdbcType="VARCHAR" />
     <result column="meeting_result" property="meetingResult" jdbcType="VARCHAR" />
     <result column="meeting_notes" property="meetingNotes" jdbcType="VARCHAR" />
+    <result column="meeting_notes_text" property="meetingNotesText" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+    <result column="record_type" jdbcType="TINYINT" property="recordType" />
+    <result column="participant" jdbcType="VARCHAR" property="participant" />
+    <result column="meet_valid" jdbcType="TINYINT" property="meetValid" />
   </resultMap>
   
   
   <sql id="Base_Column_List" >
-    id, project_id, file_id, meeting_date, meeting_type, meeting_result, meeting_notes, created_time
+    id, project_id, file_id, meeting_date, meeting_type, meeting_result, meeting_notes, meeting_notes_text,created_time,record_type,participant,meet_valid
   </sql>
   
   
@@ -42,12 +46,20 @@
 			   
 		      <if test="meetingResult != null" >and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
 		      <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
+		      <if test="meetingNotesText != null" >and meeting_notes_text = #{meetingNotesText,jdbcType=VARCHAR} </if>
 		      <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
-			  
+			  <if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
+			  <if test="meetValid != null"> and meet_valid = #{meetValid,jdbcType=TINYINT} </if>	
 		  </trim>
 		</where>
 		<!-- <if test="sorting != null">order by ${sorting}</if> -->
-		order by meeting_date desc,created_time desc
+		<if test="property != null">
+			order by ${property} <if test="direction != null">${direction}</if>
+			,created_time <if test="direction != null">${direction}</if>
+		</if>
+		<if test="property == null">
+			order by meeting_date desc,created_time desc
+		</if>
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
@@ -78,10 +90,11 @@
 	    <![CDATA[
 	    insert into sop_meeting_record (id, project_id, file_id, 
 	      meeting_date, meeting_type, meeting_result, 
-	      meeting_notes, created_time)
+	      meeting_notes, meeting_notes_text,created_time,record_type,participant,meet_valid)
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, 
 	      #{meetingDate,jdbcType=TIMESTAMP}, #{meetingType,jdbcType=VARCHAR}, #{meetingResult,jdbcType=VARCHAR}, 
-	      #{meetingNotes,jdbcType=VARCHAR}, #{createdTime,jdbcType=BIGINT})
+	      #{meetingNotes,jdbcType=VARCHAR}, #{meetingNotesText,jdbcType=VARCHAR},#{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT}, 
+	      #{participant,jdbcType=VARCHAR},#{meetValid,jdbcType=TINYINT})
 	    ]]>
     </insert>
     
@@ -95,7 +108,9 @@
 		    <if test="meetingType != null" > meeting_type = #{meetingType,jdbcType=VARCHAR}, </if>
 		    <if test="meetingResult != null" > meeting_result = #{meetingResult,jdbcType=VARCHAR}, </if>
 		    <if test="meetingNotes != null" > meeting_notes = #{meetingNotes,jdbcType=VARCHAR}, </if>
-		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>
+		    <if test="meetingNotesText != null" > meeting_notes_text = #{meetingNotesText,jdbcType=VARCHAR}, </if>
+		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
+		    <if test="meetValid != null">  meet_valid = #{meetValid,jdbcType=TINYINT} </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -106,7 +121,10 @@
 		        <if test="meetingType != null" >and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
 		        <if test="meetingResult != null" >and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
 		        <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
+		        <if test="meetingNotesText != null" >and meeting_notes_text = #{meetingNotesText,jdbcType=VARCHAR} </if>
 		        <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
+		        <if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
+		        
 			</trim>
 		</where>
 	</update>
@@ -120,7 +138,11 @@
 		    <if test="meetingType != null" > meeting_type = #{meetingType,jdbcType=VARCHAR}, </if>
 		    <if test="meetingResult != null" > meeting_result = #{meetingResult,jdbcType=VARCHAR}, </if>
 		    <if test="meetingNotes != null" > meeting_notes = #{meetingNotes,jdbcType=VARCHAR}, </if>
-		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>
+		    <if test="meetingNotesText != null" > meeting_notes_text = #{meetingNotesText,jdbcType=VARCHAR}, </if>
+		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
+		    <if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
+		    <if test="participant != null" > meeting_result = #{participant,jdbcType=VARCHAR}, </if>
+		    <if test="meetValid != null">  meet_valid = #{meetValid,jdbcType=TINYINT} </if>
 		</set>
 		where id = #{id}
 	</update>
@@ -148,6 +170,7 @@
 	    <result column="meeting_type" property="meetingType" jdbcType="VARCHAR" />
 	    <result column="meeting_result" property="meetingResult" jdbcType="VARCHAR" />
 	    <result column="meeting_notes" property="meetingNotes" jdbcType="VARCHAR" />
+	    <result column="meeting_notes_text" property="meetingNotesText" jdbcType="VARCHAR" />
 	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
 	</resultMap>
 	
@@ -156,7 +179,7 @@
 	<select id="selectMeetPage" resultMap="PageResultMap" parameterType="java.util.Map">
 		select
 			sm.id, sm.project_id, p.project_name, sm.file_id, sm.meeting_date, sm.meeting_type, 
-			sm.meeting_result, sm.meeting_notes, sm.created_time
+			sm.meeting_result, sm.meeting_notes,sm.meeting_notes_text, sm.created_time
 		from sop_meeting_record sm , sop_project p 
 		where sm.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
@@ -170,6 +193,7 @@
 				 or p.project_code like CONCAT("%",#{keyword},"%") <if test="escapeChar ">  escape '/'  </if>
 				)
 			</if>
+			<if test="recordType != null"> and sm.record_type = #{recordType,jdbcType=TINYINT} </if>	
 			<!-- 模糊查询  like '%${params.param}%' -->
 			<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 		order by sm.meeting_date desc,sm.created_time desc
@@ -183,7 +207,7 @@
 	  select count(*) from (
 	  	select
 			sm.id, sm.project_id, p.project_name, sm.file_id, sm.meeting_date, sm.meeting_type, 
-			sm.meeting_result, sm.meeting_notes, sm.created_time
+			sm.meeting_result, sm.meeting_notes, sm.meeting_notes_text,sm.created_time
 		from sop_meeting_record sm , sop_project p 
 		where sm.project_id = p.id
 			<if test="uid != null"> and p.create_uid = #{uid,jdbcType=BIGINT} </if>
@@ -197,6 +221,7 @@
 					or p.project_code like CONCAT("%",#{keyword},"%") <if test="escapeChar ">  escape '/'  </if>
 				)
 			</if>
+			<if test="recordType != null"> and sm.record_type = #{recordType,jdbcType=TINYINT} </if>	
 		) a
 	</select>
   

@@ -79,6 +79,14 @@ var platformUrl = {
 	 * 修改团队成员
 	 */
 	updatePerson : Constants.sopEndpointURL + "/galaxy/project/upp",
+	/**
+	 * Ceo评审排期top5
+	 */
+	top5CeoPsMeeting: Constants.sopEndpointURL + "/galaxy/home/top5CeoPsMeeting",
+	/**
+	 * Ceo评审排期所有
+	 */
+	moreProjectCeoPsWill: Constants.sopEndpointURL + "/galaxy/home/moreCeoPsMeeting",
 	
 	/**
 	 * 立项排期所有
@@ -349,7 +357,7 @@ var platformUrl = {
 	 */
 	
 	personHHr: Constants.sopEndpointURL+"/galaxy/hrjl/genresumetcc",
-	
+	inCeoMeetingPool : Constants.sopEndpointURL+"/galaxy/project/incm/",
 	/**
 	 * 催办
 	 */
@@ -401,7 +409,117 @@ var platformUrl = {
 	 * 修改密码
 	 */
 	updatePwd : Constants.sopEndpointURL + "/galaxy/home/updatePwd",
-	updateInterview: Constants.sopEndpointURL+ "/galaxy/project/progress/updateInterview"
+	/**
+	 * 更新文件
+	 */
+	updateFile: Constants.sopEndpointURL + "/galaxy/project/updateCommonFile",
+	/**
+	 * 获取学历信息
+	 */
+	getDegreeByParent : Constants.sopEndpointURL + "/galaxy/project/getDegreeByParent",
+	/**
+	 * 获取创意的事业线信息
+	 */
+	getIdeaDepartment : Constants.sopEndpointURL + "/galaxy/idea/getDepartment",
+	/**
+	 * 获取创意-立项会、投决会
+	 */
+	ideaProjectList : Constants.sopEndpointURL + "/galaxy/idea/ideaProjectList",
+	/**
+	 * 创意详细
+	 */
+	ideaGoStage : Constants.sopEndpointURL + "/galaxy/idea/goIdeaStagePage",
+	/**
+	 * 创意详细
+	 */
+	ideaGoMeeting : Constants.sopEndpointURL + "/galaxy/idea/goIdeaMeeting",
+	
+	detailIdea:Constants.sopEndpointURL + "/galaxy/idea/getIdea",
+	/**
+	 * 获取创意添加编码等信息
+	 */
+	getAddIdeaInfo : Constants.sopEndpointURL + "/galaxy/idea/getAddIdeaInfo",
+	/**
+	 * 添加创意
+	 */
+	addIdea : Constants.sopEndpointURL + "/galaxy/idea/addIdea",
+	
+	/**
+	 * 创意 报告上传更新
+	*/
+	ideaUpReport: Constants.sopEndpointURL+ "/galaxy/idea/ideaUpReport",
+	
+	/**
+	 * 创意 启动创建立项会
+	*/
+	ideaStartMeet: Constants.sopEndpointURL+ "/galaxy/idea/ideaStartMeet",
+	/**
+	 * 创意 添加立项会
+	*/
+	saveCyMeetRecord: Constants.sopEndpointURL+ "/galaxy/idea/saveCyMeetRecord",
+	/**
+	 * 创意 报告存在检测
+	*/
+	ideaCheckHassReport: Constants.sopEndpointURL+ "/galaxy/idea/ideaCheckHassReport",
+	/**
+	 * 创意 立项会通过查询
+	*/
+	ideaCheckPassMeet: Constants.sopEndpointURL+ "/galaxy/idea/ideaCheckPassMeet",
+	/**
+	 * 创意 历史记录权限检测
+	*/
+	ideaCheckHistory: Constants.sopEndpointURL+ "/galaxy/idea/ideaCheckHistory",
+	
+	/**
+	 * 创意 生成项目
+	*/
+	idea2Project: Constants.sopEndpointURL+ "/galaxy/idea/createProject",
+	/**
+	 * 创意 创意认领创意
+	*/
+	ideaUpdateIdea:Constants.sopEndpointURL+ "/galaxy/idea/giveUp",
+	/**
+	 * 创意 创意认领创意
+	*/
+	ideaClimat:Constants.sopEndpointURL+ "/galaxy/idea/updateIdea",
+	
+	/**
+	 * 创意 编辑项目名称
+	*/
+	ideaEditProjectName: Constants.sopEndpointURL+ "/galaxy/idea/editProjectName",
+	/**
+	 * 创意 放弃创意
+	*/
+	GiveUpIdea:Constants.sopEndpointURL+ "/galaxy/idea/goGiveUpPage",
+	/**
+	 * 更新排期池时间
+	 */
+	reserveTime: Constants.sopEndpointURL+ "/galaxy/project/updateReserveTime",
+	/**
+	 * 更新排期池时间
+	 */
+	updateInterview: Constants.sopEndpointURL+ "/galaxy/project/progress/updateInterview",
+	
+	/**
+	 * 创意 列表
+	 */		
+	sopcyshouye: Constants.sopEndpointURL+"/galaxy/idea/search",
+
+	/**
+	 * 创意 列表
+	 */		
+	authmenu: Constants.sopEndpointURL+"/galaxy/common/pullAuthority",
+	
+	updateMeet: Constants.sopEndpointURL+"/galaxy/project/progress/updatemeet",
+	/**
+	 * 判断角色
+	 */		
+	judgeRole : Constants.sopEndpointURL+"/galaxy/common/judgeRole",
+	/**
+	 * 获取商业计划
+	 */	
+	getBusinessPlanFile : Constants.sopEndpointURL + "/galaxy/sopFile/getBusinessPlanFile"
+	
 }
 
 /**

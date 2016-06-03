@@ -7,6 +7,14 @@ package com.galaxyinternet.model.operationLog;
  * @date 2016年3月16日
  */
 public enum SopStage {
+	//创意
+	CY_INFO("创意提出"),
+	CY_DY("调研"),
+	CY_LXH("创建立项会"),
+	CY_PRO("创建项目"),
+	CY_DRL("待认领"),
+	CY_GZ("搁置"),
+	//项目
 	TOUCH_INTERVIEW("接触访谈"),
 	INNER_REVIEW_SCHEDULE("内部评审"),
 	CEO_REVIEW_SCHEDULE("CEO评审"),

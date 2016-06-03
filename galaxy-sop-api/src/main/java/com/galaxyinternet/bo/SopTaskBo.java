@@ -10,6 +10,7 @@ public class SopTaskBo extends  SopTask{
 	private String createUname;// 业务对象中扩展的字段
 	private String projectName;//业务扩展字段---项目名称
 	private List<String>  ids;//业务扩展字段---项目ids
+	private List<Long> projectIds;
 	private String taskDeadlineformat;
 	private String caozuo;
 	private List<String> taskStatusList; //任务状态  完成、待完成
@@ -21,6 +22,17 @@ public class SopTaskBo extends  SopTask{
 	private String orderRemark;
 	private String flagUrl;
 	private String concatcode;
+	private String assignUidName; //认领人的名字(配合APP端)
+	
+	
+	public String getAssignUidName() {
+		return assignUidName;
+	}
+
+	public void setAssignUidName(String assignUidName) {
+		this.assignUidName = assignUidName;
+	}
+
 	public String getCreateUname() {
 		return createUname;
 	}
@@ -125,6 +137,21 @@ public class SopTaskBo extends  SopTask{
 		this.hours = hours;
 	}
 
+	public String getConcatcode() {
+		return concatcode;
+	}
+
+	public void setConcatcode(String concatcode) {
+		this.concatcode = concatcode;
+	}
+
+	public List<Long> getProjectIds() {
+		return projectIds;
+	}
+
+	public void setProjectIds(List<Long> projectIds) {
+		this.projectIds = projectIds;
+	}
 	
 	
 }

@@ -6,10 +6,10 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.common.PagableRecordEntity;
 
-public class SopFile extends PagableEntity {
+public class SopFile extends PagableRecordEntity {
     /**
 	 * 
 	 */
@@ -19,6 +19,11 @@ public class SopFile extends PagableEntity {
      * 项目ID
      */
     private Long projectId;
+    
+    /**
+     * 上传所属人
+     */
+    private Long belongUid;
     
     /**
      * 文档是否有效
@@ -121,6 +126,8 @@ public class SopFile extends PagableEntity {
   	
   	private String voucherFileKey;
   	
+  	private String Vstatus;
+  	
   	//枚举转换
   	private String fType = "";
   	private String fWorktype;
@@ -137,11 +144,14 @@ public class SopFile extends PagableEntity {
   	private List<Long> projectLikeIdList;
   	private List<Long> fileULikeidList;
   	private List<String> fileStatusList;
+  	private List<String> fileworktypeList;
   	
   	private String startTime;
   	private String endTime;
   	
   	private String isEdit;
+  	private String isChangeTask;
+  	private String isProveEdit;
   	
   	/**
   	 *  请求页面
@@ -219,7 +229,15 @@ public class SopFile extends PagableEntity {
         this.projectId = projectId;
     }
 
-    public Integer getFileValid() {
+    public Long getBelongUid() {
+		return belongUid;
+	}
+
+	public void setBelongUid(Long belongUid) {
+		this.belongUid = belongUid;
+	}
+
+	public Integer getFileValid() {
 		return fileValid;
 	}
 
@@ -483,6 +501,24 @@ public class SopFile extends PagableEntity {
 	public void setIsEdit(String isEdit) {
 		this.isEdit = isEdit;
 	}
+	
+
+	public String getIsChangeTask() {
+		return isChangeTask;
+	}
+
+	public void setIsChangeTask(String isChangeTask) {
+		this.isChangeTask = isChangeTask;
+	}
+
+	
+	public String getIsProveEdit() {
+		return isProveEdit;
+	}
+
+	public void setIsProveEdit(String isProveEdit) {
+		this.isProveEdit = isProveEdit;
+	}
 
 	public String getStartTime() {
 		return startTime;
@@ -508,11 +544,26 @@ public class SopFile extends PagableEntity {
 		this.fileStatusList = fileStatusList;
 	}
 
+	public String getfSource() {
+		return fSource;
+	}
 
+	public String getVstatus() {
+		return Vstatus;
+	}
 
+	public void setVstatus(String vstatus) {
+		Vstatus = vstatus;
+	}
 
+	public List<String> getFileworktypeList() {
+		return fileworktypeList;
+	}
 
+	public void setFileworktypeList(List<String> fileworktypeList) {
+		this.fileworktypeList = fileworktypeList;
+	}
 
-    
-
+	
+	
 }
