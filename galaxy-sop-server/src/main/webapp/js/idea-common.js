@@ -115,12 +115,18 @@ function dateFormatter(val,row,index)
 				{
 					var id = self.attr('id');
 					var formatter = self.data('formatter');
+					
 					var text = idea[id]
 					if($.isFunction(window[formatter]))
 					{
 						text = window[formatter].call(window,text);
 					}
-					self.text(text);
+					if(id=="ideaDesc"){
+						self.html(text);
+					}else{
+						self.text(text);
+					}
+					
 				}
 			if(self.attr('id') == 'ideaSource')
 				{
