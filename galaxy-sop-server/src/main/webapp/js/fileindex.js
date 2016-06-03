@@ -39,7 +39,8 @@ var fileGridIndex = {
 				formatter : fileGridIndex.rowFormatter
 			}, {
 				field : 'fWorktype',
-				title : '文档名称'
+				title : '文档名称',
+				formatter:fileGridIndex.Doctype
 			},{
 		        field: 'projectName',
 		        title: '所属项目'
@@ -51,6 +52,18 @@ var fileGridIndex = {
 
 
 		  
+	},
+	Doctype :function(value,row,index){
+		var str=row.fWorktype;
+		if(str.length>5){
+			subStr = str.substring(0,5);
+			var str = "<span title='"+str+"'>"+subStr+"</span>";
+			return str;
+		}
+		else{
+			var str = "<span title='"+str+"'>"+str+"</span>";
+			return str;
+		}
 	},
 	rowFormatter : function(value, row, index){
 		return [index+1].join('');
