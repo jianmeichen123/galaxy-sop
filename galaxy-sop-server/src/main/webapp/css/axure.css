@@ -1275,7 +1275,7 @@ em{font-style: normal;}
 .erwm{width: 9.375%;position: fixed;bottom: 20px;z-index: 13;left:0;-webkit-background-size: 100%;
 background-size: 100%;}
 .erwm span{width:18px;height:18px;font-size: 0;display: inline-block;cursor: pointer;position: absolute;top: 0;right: 0;background:url(../img/close.png);}
-.erwm a{width:100%;text-align: center;position: absolute;bottom: 5px;;text-decoration: underline;font-size:12px;color: #7f8ba3;}
+.erwm a{width:100%;text-align: center;position: absolute;bottom: 5px;;text-decoration: underline;font-size:12px;color: #438ee1;font-weight:bold;}
 /*登录信息与密码*/
 .title_bj{ width:100%; background-color:#f9fafc; height:40px; line-height:40px; text-align:center; position:absolute; top:0; left:0;}
 .register_all{ width:500px; position:relative; margin-top:45px;}
