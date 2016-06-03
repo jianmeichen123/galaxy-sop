@@ -2200,6 +2200,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
     	for(MeetingScheduling ms:query){
     		meetingids.add(ms.getId());
     	}
+    	//判断是否为投决会
+    	boolean flag = false;
     	Map<Long,List<String>> proMap= new HashMap<Long,List<String>>();
     	//要操作的排期
     	MeetingScheduling msche = new MeetingScheduling();
@@ -2215,9 +2217,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
     			//如果是投决会阶段-则对人|财|法的进行发送邮件，即查找认领人的id
     			if (DictEnum.meetingType.投决会.getCode().equals(
     					meeting.getMeetingType())) {
-    				SopTask soptask = new SopTask();
+    				flag = true;
+    				SopTaskBo soptask = new SopTaskBo();
     				soptask.setProjectId(meeting.getProjectId());
-    		    	List<SopTask> taskList = sopTaskService.queryList(soptask);
+    		    	List<SopTask> taskList = sopTaskService.selectForTaskOverList(soptask);
     		    	if(!taskList.isEmpty()){
     		    		List<String> users = new ArrayList<String>();
     		    		for(SopTask task:taskList){
@@ -2238,13 +2241,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if(projectList.isEmpty()){
 			responseBody.setResult(new Result(Status.ERROR, null, "无相关操作项目!"));
 		}else{
+			//对批量排期的会议项目进行组装
 			for(Project pr:projectList){
 				mapProject.put(pr.getId(), pr);
-				List<String> userlists = new ArrayList<String>();
-				if(!userlists.contains(String.valueOf(pr.getCreateUid()))){
-					userlists.add(String.valueOf(pr.getCreateUid()));
-    			}
-				proMap.put(pr.getId(), userlists);
+				if(!flag){
+					List<String> userlists = new ArrayList<String>();
+					if(!userlists.contains(String.valueOf(pr.getCreateUid()))){
+						userlists.add(String.valueOf(pr.getCreateUid()));
+	    			}
+					proMap.put(pr.getId(), userlists);
+				}
 			}
 		}
 		StringBuffer proNameList=new StringBuffer();
@@ -2391,7 +2397,26 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				messageInfo = mestr + "排期时间已取消";
 			}
 			Project pj = projectService.queryById(oldMs.getProjectId());
-			User user = userService.queryById(pj.getCreateUid());
+			List<String> users = new ArrayList<String>();
+			if (DictEnum.meetingType.投决会.getCode().equals(
+					query.getMeetingType())) {
+				SopTaskBo soptask = new SopTaskBo();
+				soptask.setProjectId(oldMs.getProjectId());
+		    	List<SopTask> taskList = sopTaskService.selectForTaskOverList(soptask);
+		    	if(!taskList.isEmpty()){
+		    		for(SopTask task:taskList){
+		    			if(!users.contains(String.valueOf(task.getAssignUid()))){
+		    				users.add(String.valueOf(task.getAssignUid()));
+		    			}
+		    		}
+		    	
+		    	}
+				
+			}else{
+				users.add(String.valueOf(pj.getCreateUid()));
+			}
+			//获取项目中的user
+			List<User> userlist = userService.queryListById(users);
 			// 如果是更新或取消排期时间
 			if (oldMs.getReserveTimeStart() != null
 					&& oldMs.getReserveTimeEnd() != null) {
@@ -2400,13 +2425,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						&& query.getReserveTimeEnd() == null) {
 					query.setScheduleStatus(0);
 					meetingSchedulingService.updateByIdSelective(query);
-					ControllerUtils.setRequestParamsForMessageTip(request,
-							user, pj.getProjectName(), pj.getId(),
-							UrlNumber.three);
-					sendMailToTZJL(request, 0, user.getEmail(),
-							user.getRealName(),
-							pj.getProjectCode(),pj.getProjectName(),
-							messageInfo, null, null);
+					sendTaskProjectEmail(request,pj,messageInfo,userlist,null,null,0,UrlNumber.three);
 				} else {
 					// 更新会议时间
 					if (oldMs.getReserveTimeStart().getTime() != query
@@ -2414,14 +2433,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							|| oldMs.getReserveTimeEnd().getTime() != query
 									.getReserveTimeEnd().getTime()) {
 						meetingSchedulingService.updateByIdSelective(query);
-						ControllerUtils.setRequestParamsForMessageTip(request,
-								user, pj.getProjectName(), pj.getId(),
-								UrlNumber.two);
-						sendMailToTZJL(request, 1, user.getEmail(),
-								user.getRealName(),
-								pj.getProjectCode(), pj.getProjectName(),
-								messageInfo, query.getReserveTimeStart(),
-								query.getReserveTimeEnd());
+						sendTaskProjectEmail(request,pj,messageInfo,userlist,query.getReserveTimeStart(),query.getReserveTimeEnd(),1,UrlNumber.two);
 					}
 				}
 			} else {
@@ -2429,14 +2441,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				if (query.getReserveTimeStart() != null
 						&& query.getReserveTimeEnd() != null) {
 					meetingSchedulingService.updateByIdSelective(query);
-					ControllerUtils.setRequestParamsForMessageTip(request,
-							user, pj.getProjectName(), pj.getId(),
-							UrlNumber.one);
-					sendMailToTZJL(request, 1, user.getEmail(),
-							user.getRealName(),
-							pj.getProjectCode(),pj.getProjectName(),
-							messageInfo, query.getReserveTimeStart(),
-							query.getReserveTimeEnd());
+					sendTaskProjectEmail(request,pj,messageInfo,userlist,query.getReserveTimeStart(),query.getReserveTimeEnd(),1,UrlNumber.one);
 				}
 
 			}
