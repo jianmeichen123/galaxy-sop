@@ -8,6 +8,10 @@
     width: 50%;
 }
 #projectProgress_1_table td,#projectProgress_2_table td,#projectProgress_3_table td,#projectProgress_4_table td,#projectProgress_7_table td{line-height:22px;text-align:left !important;}
+.content{
+			float: left;
+			padding:0 10px;
+		}
 </style>
 <div class="myprojecttc">
 	<a href="javascript:;" data-close="close" class="close null">关闭</a>
@@ -623,9 +627,10 @@
 			if(data.result.status=="OK"){
 				//为空时候显示
 				if(data.result.errorCode=="null"){				
-					html = "";
+					html = "<span class='content'>状态：未上传</span><span class='content'>更新时间：无</span>";
 				}else{
-					html =  "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+					html = "<span class='content'>状态：已上传</span><span class='content'>更新时间："+data.entity.createDate+"</span>" + 
+						"<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
 				}
 				$("#business_plan_dd").html(html);
 			}else{

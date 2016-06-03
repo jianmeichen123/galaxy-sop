@@ -100,7 +100,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 				querySchedu.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 				querySchedu.setReserveTimeStart(null);
 				querySchedu.setReserveTimeEnd(null);
-				querySchedu.setStatus(DictEnum.meetingResult.待定.getCode());
+				querySchedu.setStatus(DictEnum.meetingResult.通过.getCode());
 				
 				querySchedu.setMeetingDate(meetingRecord.getMeetingDate() == null ? new Date() : meetingRecord.getMeetingDate());
 				querySchedu.setMeetingCount(querySchedu.getMeetingCount() + 1);//过会次数据累加1
@@ -160,7 +160,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 			MeetingScheduling queryScheduling = meetingSchedulingDao.selectOne(scheduling);		
 					
 			if(currMeetingResult.equals(DictEnum.meetingResult.待定.getCode())){
-				queryScheduling.setStatus(DictEnum.meetingResult.待定.getCode());
+				queryScheduling.setStatus(DictEnum.meetingResult.通过.getCode());
 				queryScheduling.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 				queryScheduling.setReserveTimeStart(null);
 				queryScheduling.setReserveTimeEnd(null);
@@ -205,6 +205,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 				task.setCreatedTime(System.currentTimeMillis());
 				sopTaskDao.insert(task);
 				//更新项目的当前阶段的排期结果为"通过"以及过会次数据，变更时间
+				queryScheduling.setStatus(DictEnum.meetingResult.通过.getCode());
 				queryScheduling.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 				queryScheduling.setMeetingDate(meetingRecord.getMeetingDate() == null ? new Date() : meetingRecord.getMeetingDate());
 				queryScheduling.setMeetingCount(queryScheduling.getMeetingCount() + 1);
@@ -256,7 +257,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 		    	queryScheduling.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 		    	queryScheduling.setReserveTimeStart(null);
 		    	queryScheduling.setReserveTimeEnd(null);
-		    	queryScheduling.setStatus(DictEnum.meetingResult.待定.getCode());				
+		    	queryScheduling.setStatus(DictEnum.meetingResult.通过.getCode());				
 		    	queryScheduling.setMeetingDate(meetingRecord.getMeetingDate() == null ? new Date() : meetingRecord.getMeetingDate());
 		    	queryScheduling.setMeetingCount(queryScheduling.getMeetingCount() + 1);//过会次数据累加1
 		    	queryScheduling.setUpdatedTime((new Date()).getTime()); //变更操作时间

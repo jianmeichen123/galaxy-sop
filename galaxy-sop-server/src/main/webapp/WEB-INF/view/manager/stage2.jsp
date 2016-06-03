@@ -11,6 +11,10 @@
 #projectProgress_1_table th,#projectProgress_2_table th,#projectProgress_3_table th,#projectProgress_4_table th,#projectProgress_7_table th{
     width: 50%;
 }
+.content{
+			float: left;
+			padding:0 10px;
+		}
 </style>
 <div class="myprojecttc">
 	<a href="javascript:;" data-close="close" class="close null">关闭</a>
@@ -570,9 +574,10 @@ $(function(){
 			if(data.result.status=="OK"){
 				//为空时候显示
 				if(data.result.errorCode=="null"){				
-					html = "";
+					html = "<span class='content'>状态：未上传</span><span class='content'>更新时间：无</span>";
 				}else{
-					html =  "<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+					html =  "<span class='content'>状态：已上传</span><span class='content'>更新时间："+data.entity.createDate+"</span>" + 
+						"<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
 				}
 				$("#business_plan_dd").html(html);
 			}else{
@@ -769,7 +774,7 @@ $(function(){
 			progress = progress.replace(":","_");
 			var index = progress.substr(progress.length-1,1);
 			
-			for(var i = 1; i<10; i++){
+			for(var i = 1; i<11; i++){
 				if(i > index){
 					//当前阶段之后的tab变为不可用
 					$("#projectProgress_" + i).addClass("disabled");

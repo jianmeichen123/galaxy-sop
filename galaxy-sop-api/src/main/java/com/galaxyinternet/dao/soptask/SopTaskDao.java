@@ -32,4 +32,11 @@ public interface SopTaskDao extends BaseDao<SopTask, Long> {
 	
 	public int updateTask(SopTask task);
 	
+	/**
+	 * 根据项目id查询任务
+	 * @param query
+	 * @return
+	 */
+	public List<SopTask> getSopTaskByProjectId(SopTaskBo query);
+	
 }
