@@ -425,6 +425,14 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		try {
 			Idea queryById = ideaService.queryById(id);
+			if(queryById.getProjectId()!=null){
+				Project project = projectService.queryById(queryById.getProjectId().longValue());
+				queryById.setProjectName(project.getProjectName());
+			}
+			if(queryById.getClaimantUid()!=null){
+				User us = userService.queryById(queryById.getClaimantUid());
+				queryById.setClaimantUname(us.getRealName());
+			}
 			if(queryById.getCreatedUid().equals(user.getId())){
 				queryById.setCreateBySelf("self");
 			}else{
