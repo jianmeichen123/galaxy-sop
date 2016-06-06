@@ -716,11 +716,20 @@ function ideaLoaded(idea, index) {
 				$("[data-btn='claim']").hide(); //认领
 			}
 		//}
-		
+	} else {
+		$("[data-btn='claim']").hide(); //认领
+	}
+
+	if (idea.createdUid != userId || index > 4) {
+		$("[data-btn='edith']").hide(); //编辑
+	}
+	
+	if(index > 1){
 		sendGetRequest(platformUrl.ideaCheckHistory + "/" + idea.id, null,
 				function(data) {
 					if (data.result.status == "ERROR") {
 						layer.msg(data.result.message);
+						$("[data-btn='history']").hide();
 						return;
 					} else if (data.result.status == "OK") {
 						var canuse = data.result.message;
@@ -729,14 +738,8 @@ function ideaLoaded(idea, index) {
 						}
 					}
 				});
-	} else {
-		$("[data-btn='claim']").hide(); //认领
-		$("[data-btn='history']").hide(); //历史信息
 	}
-
-	if (idea.createdUid != userId || index > 4) {
-		$("[data-btn='edith']").hide(); //编辑
-	}
+	
 	//==== end index = 1 \ 4   
 
 	
