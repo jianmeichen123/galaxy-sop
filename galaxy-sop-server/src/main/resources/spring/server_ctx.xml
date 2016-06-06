@@ -40,11 +40,8 @@
 		<constructor-arg index="2" ref="cache" />
 	</bean>
 	
-	<bean id="com.galaxyinternet.timer.init.InitContainer" 
-		class="com.galaxyinternet.timer.init.InitContainer" 
-		init-method="init"></bean>
 		
-	<bean id="com.galaxyinternet.timer.beans.SpringContextManager" 
+	<bean id="com.galaxyinternet.common.utils.SpringContextManager" 
 		class="com.galaxyinternet.common.utils.SpringContextManager"
 		scope="singleton"/>
 	
