@@ -45,7 +45,7 @@
 		init-method="init"></bean>
 		
 	<bean id="com.galaxyinternet.timer.beans.SpringContextManager" 
-		class="com.galaxyinternet.timer.beans.SpringContextManager"
+		class="com.galaxyinternet.common.utils.SpringContextManager"
 		scope="singleton"/>
 	
 	
