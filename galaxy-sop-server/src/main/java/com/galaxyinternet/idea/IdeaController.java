@@ -1326,8 +1326,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			
 			Result result = new Result(Status.OK,null,null);
 			try {
-				
-				
 				//Idea  验证
 				Idea idea = ideaService.queryById(ideaid);
 				if(idea == null || idea.getDepartmentId()==null){
@@ -1341,11 +1339,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 						return responseBody;
 					}
 					
-					if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) ){
-						result.setMessage("y");
-					}else if((roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HHR) ) 
-							&& user.getDepartmentId().longValue() == idea.getDepartmentId().longValue()){
+					Abandoned abandoned = new Abandoned();
+					abandoned.setIdeaId(ideaid);
+					Long total = abandonedService.queryCount(abandoned);
+					if(total!=null && total.intValue() > 0){
+						if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) ){
 							result.setMessage("y");
+						}else if((roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HHR) ) 
+								&& user.getDepartmentId().longValue() == idea.getDepartmentId().longValue()){
+								result.setMessage("y");
+						}
 					}else{
 						result.setMessage("n");
 					}
