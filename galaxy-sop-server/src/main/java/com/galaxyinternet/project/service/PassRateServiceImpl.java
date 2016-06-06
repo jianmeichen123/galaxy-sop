@@ -1,4 +1,4 @@
-package com.galaxyinternet.timer.service;
+package com.galaxyinternet.project.service;
 
 import java.util.List;
 

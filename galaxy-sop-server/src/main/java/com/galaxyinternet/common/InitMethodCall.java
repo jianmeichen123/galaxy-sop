@@ -5,9 +5,8 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-
+import com.galaxyinternet.common.utils.SpringContextManager;
 import com.galaxyinternet.scheduling.MeetingPassStageTask;
-import com.galaxyinternet.timer.beans.SpringContextManager;
 
 
 public class InitMethodCall extends HttpServlet {

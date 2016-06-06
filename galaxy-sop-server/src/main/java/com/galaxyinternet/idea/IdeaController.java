@@ -425,6 +425,14 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		try {
 			Idea queryById = ideaService.queryById(id);
+			if(queryById.getProjectId()!=null){
+				Project project = projectService.queryById(queryById.getProjectId().longValue());
+				queryById.setProjectName(project.getProjectName());
+			}
+			if(queryById.getClaimantUid()!=null){
+				User us = userService.queryById(queryById.getClaimantUid());
+				queryById.setClaimantUname(us.getRealName());
+			}
 			if(queryById.getCreatedUid().equals(user.getId())){
 				queryById.setCreateBySelf("self");
 			}else{
@@ -466,8 +474,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		UrlNumber urlNum=null;
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
-			idea.setClaimantUid(user.getId());
-			idea.setClaimantUname(user.getRealName());
+		    idea.setGiveUpId(user.getId());
 			int queryById = ideaService.updateById(idea);
 		    urlNum=UrlNumber.one;
 			if(queryById<=0){
@@ -1326,8 +1333,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			
 			Result result = new Result(Status.OK,null,null);
 			try {
-				
-				
 				//Idea  验证
 				Idea idea = ideaService.queryById(ideaid);
 				if(idea == null || idea.getDepartmentId()==null){
@@ -1341,11 +1346,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 						return responseBody;
 					}
 					
-					if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) ){
-						result.setMessage("y");
-					}else if((roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HHR) ) 
-							&& user.getDepartmentId().longValue() == idea.getDepartmentId().longValue()){
+					Abandoned abandoned = new Abandoned();
+					abandoned.setIdeaId(ideaid);
+					Long total = abandonedService.queryCount(abandoned);
+					if(total!=null && total.intValue() > 0){
+						if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) ){
 							result.setMessage("y");
+						}else if((roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HHR) ) 
+								&& user.getDepartmentId().longValue() == idea.getDepartmentId().longValue()){
+								result.setMessage("y");
+						}
 					}else{
 						result.setMessage("n");
 					}
