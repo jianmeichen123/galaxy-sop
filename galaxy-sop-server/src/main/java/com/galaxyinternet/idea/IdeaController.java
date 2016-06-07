@@ -474,7 +474,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		UrlNumber urlNum=null;
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
-		    idea.setGiveUpId(user.getId());
+			idea.setGiveUpId(user.getId());
+			idea.setClaimantUid(null);
 			int queryById = ideaService.updateById(idea);
 		    urlNum=UrlNumber.one;
 			if(queryById<=0){
