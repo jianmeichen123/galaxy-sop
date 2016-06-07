@@ -149,6 +149,60 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	protected BaseService<Project> getBaseService() {
 		return this.projectService;
 	}
+	
+	
+	/**
+	 * 项目列表查询
+	 * @return 2016-06-21
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> searchProject(HttpServletRequest request, @RequestBody ProjectBo project) {
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) getUserFromSession(request);
+		Direction direction = Direction.DESC;
+		String property = "updated_time";
+		if(!StringUtils.isEmpty(project.getProperty())){
+			if("desc".equals(project.getDirection())){
+				direction = Direction.DESC;
+			}else{
+				direction = Direction.ASC;
+			}
+			property = "created_time";
+		}
+		
+		try {
+			if (project.getProjectProgress() != null
+					&& project.getProjectProgress().equals("guanbi")) {
+				project.setProjectStatus("meetingResult:3");
+				project.setProjectProgress(null);
+			}
+			if (project.getProType() != null
+					&& "2".equals(project.getProType())) {
+				project.setProjectDepartid(user.getDepartmentId());
+			} else {
+				project.setCreateUid(user.getId());
+			}
+
+			Page<Project> pageProject = projectService
+					.queryPageList(
+							project,
+							new PageRequest(project.getPageNum(), project
+									.getPageSize(),direction,
+									property));
+
+			responseBody.setPageList(pageProject);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, null,
+					"queryUserList faild"));
+			if (logger.isErrorEnabled()) {
+				logger.error("queryUserList ", e);
+			}
+		}
+		return responseBody;
+	}
 
 	/**
 	 * 新建项目接口
