@@ -9,7 +9,7 @@
     <result column="stock_transfer" property="stockTransfer" jdbcType="INTEGER" />
     <result column="project_careerline" property="projectCareerline" jdbcType="VARCHAR" />
     <result column="project_departId" property="projectDepartid" jdbcType="BIGINT" />    
-    <result column="Industry_own" property="IndustryOwn" jdbcType="BIGINT" />    
+    <result column="industry_own" property="industryOwn" jdbcType="BIGINT" />    
     <result column="project_valuations" property="projectValuations" jdbcType="DECIMAL" />    
     <result column="final_valuations" property="finalValuations" jdbcType="DECIMAL" />
     <result column="finance_status" property="financeStatus" jdbcType="VARCHAR" />    
@@ -39,7 +39,7 @@
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId,Industry_own, 
+    id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId,industry_own, 
     project_valuations, final_valuations, finance_status, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio, project_company, formation_date, project_company_code, company_legal, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
     project_describe, project_business_model, company_location, user_portrait, prospect_analysis, idea_id
@@ -64,7 +64,7 @@
 						#{item}
 					</foreach>
 			  </if>
-		      <if test="IndustryOwn != null" > and Industry_own = #{IndustryOwn,jdbcType=BIGINT} </if>
+		      <if test="industryOwn != null" > and industry_own = #{industryOwn,jdbcType=BIGINT} </if>
 		      <if test="stockTransfer != null" > and stock_transfer = #{stockTransfer,jdbcType=INTEGER} </if>
 		      
 		      <if test="projectValuations != null" > and project_valuations = #{projectValuations,jdbcType=DECIMAL} </if>
@@ -199,7 +199,7 @@
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.Project" >
 	    <![CDATA[
 	     insert into sop_project (id, project_name, project_code, 
-	      project_type, stock_transfer, project_careerline, project_departId, Industry_own, 
+	      project_type, stock_transfer, project_careerline, project_departId, industry_own, 
 	      project_valuations, final_valuations, finance_status, project_contribution, final_contribution, 
 	      currency_unit, project_share_ratio, final_share_ratio, project_company, formation_date, project_company_code, company_legal, create_uid, 
 	      create_uname, create_uposition, project_progress, 
@@ -207,7 +207,7 @@
 	      project_describe, project_business_model, 
 	      company_location, user_portrait, 
 	      prospect_analysis,idea_id)
-	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, #{IndustryOwn,jdbcType=BIGINT},
+	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, #{industryOwn,jdbcType=BIGINT},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
 	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{finalShareRatio,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{formationDate,jdbcType=BIGINT}, #{projectCompanyCode,jdbcType=VARCHAR}, #{companyLegal,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
@@ -222,7 +222,7 @@
     <insert id="insertProject" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.Project" >
 	    <![CDATA[
 	     insert into sop_project (id, project_name, project_code, 
-	      project_type, stock_transfer, project_careerline, project_departId, Industry_own,
+	      project_type, stock_transfer, project_careerline, project_departId, industry_own,
 	      project_valuations, final_valuations, finance_status, project_contribution, final_contribution,
 	      currency_unit, project_share_ratio, final_share_ratio, project_company, formation_date, project_company_code, company_legal, create_uid, 
 	      create_uname, create_uposition, project_progress, 
@@ -230,7 +230,7 @@
 	      project_describe, project_business_model, 
 	      company_location, user_portrait, 
 	      prospect_analysis,idea_id)
-	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, #{IndustryOwn,jdbcType=BIGINT},
+	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR}, #{industryOwn,jdbcType=BIGINT},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
 	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{finalShareRatio,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{formationDate,jdbcType=BIGINT}, #{projectCompanyCode,jdbcType=VARCHAR}, #{companyLegal,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
@@ -254,7 +254,7 @@
 		      <if test="stockTransfer != null" >  stock_transfer = #{stockTransfer,jdbcType=INTEGER}, </if>
 		      <if test="projectCareerline != null" > project_careerline = #{projectCareerline,jdbcType=VARCHAR}, </if>
 		      <if test="projectDepartid != null" >  project_departId = #{projectDepartid,jdbcType=BIGINT}, </if>
-		      <if test="IndustryOwn != null" > Industry_own = #{IndustryOwn,jdbcType=BIGINT}, </if>
+		      <if test="industryOwn != null" > industry_own = #{industryOwn,jdbcType=BIGINT}, </if>
 		      <if test="projectValuations != null" >   project_valuations = #{projectValuations,jdbcType=DECIMAL}, </if>
 		      <if test="finalValuations != null" > final_valuations = #{finalValuations,jdbcType=DECIMAL}, </if>
 		      <if test="financeStatus != null" > finance_status = #{financeStatus,jdbcType=VARCHAR}, </if>
@@ -290,7 +290,7 @@
 		      <if test="projectType != null" > and project_type = #{projectType,jdbcType=VARCHAR} </if>
 		      <if test="projectCareerline != null" > and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
 		      <if test="projectDepartid != null" > and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
-		      <if test="IndustryOwn != null" > and Industry_own = #{IndustryOwn,jdbcType=BIGINT} </if>
+		      <if test="industryOwn != null" > and industry_own = #{industryOwn,jdbcType=BIGINT} </if>
 		      <if test="projectValuations != null" > and project_valuations = #{projectValuations,jdbcType=DECIMAL} </if>
 		      <if test="finalValuations != null" > and final_valuations = #{finalValuations,jdbcType=DECIMAL} </if>
 		      <if test="financeStatus != null" > and finance_status = #{financeStatus,jdbcType=VARCHAR} </if>
@@ -334,7 +334,7 @@
 		      <if test="stockTransfer != null" >  stock_transfer = #{stockTransfer,jdbcType=INTEGER}, </if>
 		      <if test="projectCareerline != null" > project_careerline = #{projectCareerline,jdbcType=VARCHAR}, </if>
 		      <if test="projectDepartid != null" >  project_departId = #{projectDepartid,jdbcType=BIGINT}, </if>
-		      <if test="IndustryOwn != null" > Industry_own = #{IndustryOwn,jdbcType=BIGINT}, </if>
+		      <if test="industryOwn != null" > industry_own = #{industryOwn,jdbcType=BIGINT}, </if>
 		      <if test="projectValuations != null" >   project_valuations = #{projectValuations,jdbcType=DECIMAL}, </if>
 		      <if test="finalValuations != null" > final_valuations = #{finalValuations,jdbcType=DECIMAL}, </if>
 		      <if test="financeStatus != null" > finance_status = #{financeStatus,jdbcType=VARCHAR}, </if>
