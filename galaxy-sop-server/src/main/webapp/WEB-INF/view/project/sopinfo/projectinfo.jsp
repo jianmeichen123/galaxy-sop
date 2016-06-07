@@ -1,6 +1,8 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <% 
 	String path = request.getContextPath(); 
+	Long projectId = (Long)request.getAttribute("projectId");
+// 	System.out.println(projectId);
 %>
 
 <!doctype html>
@@ -436,9 +438,12 @@
     </div>
 </div>
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
-<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="js/axure.js" type="text/javascript"></script>
-<script src="js/axure_ext.js" type="text/javascript"></script>
+
+
+<script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
+<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
+
 <script>
 $(function(){
 	createMenus(4);
@@ -451,6 +456,8 @@ $(function(){
 		$('.bj_hui_on').hide();
 		$('.compile_on').hide();
 	})
+	var projectId = <%=projectId%>;
+// 	alert(projectId);
 
 </script>
 </html>
