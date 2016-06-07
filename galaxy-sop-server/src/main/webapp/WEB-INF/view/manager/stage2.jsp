@@ -55,7 +55,7 @@
               		</dd>
             	</dl>
 				<dl>
-					<dt>项目概述</dt>
+					<dt>项目描述</dt>
 					<dd class="describe" id="prodescribe_show"></dd>
 					<!-- <dd class="fctbox">
 						<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
@@ -63,7 +63,7 @@
 					</dd> -->
 				</dl>
 				<dl>
-					<dt>商业模式</dt>
+					<dt>产品服务</dt>
 					<dd class="describe" id="business_model_show"></dd>
 					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
@@ -79,7 +79,7 @@
 					</dd> -->
 				</dl>
 					<dl>
-					<dt>用户分析</dt>
+					<dt>用户画像</dt>
 					<dd class="describe" id="portrait_show"></dd>
 					<!-- <dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
@@ -96,7 +96,7 @@
 				</dl>
 				<!-- 
 				<dl>
-					<dt>项目概述</dt>
+					<dt>项目描述</dt>
 					<dd class="describe" id="projectDesc_show"></dd>
 					<dd class="fctbox">
 							<a href="javascript:;" class="ico1 f2" data-btn="describe">查看详情</a>
@@ -224,7 +224,7 @@
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center" data-formatter="formatInterview_sop">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="viewNotesFormat">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
@@ -410,7 +410,6 @@
 <script>
 var uid='${galax_session_user.id }';
 $(function(){
-// 	alert("init结束");
 	initData("${projectId}");
 });
 	//盒子展开隐藏
@@ -563,11 +562,11 @@ $(function(){
  	 * 加载项目详情数据
  	 */
  	sendGetRequest(platformUrl.detailProject + "${projectId}", {}, function(data){
- 		$("#prodescribe_show").html(data.entity.projectDescribe==null?"暂无项目概述":data.entity.projectDescribe);
- 		$("#business_model_show").html(data.entity.projectBusinessModel==null?"暂无商业模式":data.entity.projectBusinessModel);
- 		$("#projectDesc_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
+ 		$("#prodescribe_show").html(data.entity.projectDescribe==null?"暂无项目描述":data.entity.projectDescribe);
+ 		$("#business_model_show").html(data.entity.projectBusinessModel==null?"暂无产品服务":data.entity.projectBusinessModel);
+ 		$("#projectDesc_show").html(data.entity.userPortrait==null?"暂无用户画像":data.entity.userPortrait);
  		$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
- 		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
+ 		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户画像":data.entity.userPortrait);
  		$("#analysis_show").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
  		
  		sendGetRequest(platformUrl.getBusinessPlanFile+"/"+"${projectId}",null,function(data){

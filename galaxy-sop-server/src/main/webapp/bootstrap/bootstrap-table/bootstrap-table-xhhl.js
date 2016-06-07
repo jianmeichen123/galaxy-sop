@@ -1763,6 +1763,8 @@
     		},
             success: function (res) {
                 res = calculateObjectValue(that.options, that.options.responseHandler, [res], res);
+                var p=res.pageList.pageable.page;
+                var s=res.pageList.pageable.size;
                 that.load(res);
                 that.trigger('load-success', res);
             },

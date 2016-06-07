@@ -27,7 +27,7 @@ $(function(){
 	})
 
 	/**
-	 * 保存商业模式
+	 * 保存产品服务
 	 */
 	$("#save_business_model").click(function(){
 		var um = UM.getEditor('business_model_editor');
@@ -67,6 +67,36 @@ $(function(){
 		}
 	});
 	/**
+	 * 保存运营数据
+	 */
+	$("#save_operational_data").click(function(){
+		var um = UM.getEditor('operational_data_editor');
+		var operationalData = um.getContent();
+		if(pid != '' && operationalData != ''){
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "operationalData" : operationalData}, saveSuccess());
+		}
+	});
+	/**
+	 * 保存行业分析
+	 */
+	$("#save_industry_analysis").click(function(){
+		var um = UM.getEditor('industry_analysis_editor');
+		var industryAnalysis = um.getContent();
+		if(pid != '' && industryAnalysis != ''){
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "industryAnalysis" : industryAnalysis}, saveSuccess());
+		}
+	});
+	/**
+	 * 保存下一轮融资路径
+	 */
+	$("#save_next_financing_source").click(function(){
+		var um = UM.getEditor('next_financing_source_editor');
+		var nextFinancingSource = um.getContent();
+		if(pid != '' && nextFinancingSource != ''){
+			sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveSuccess());
+		}
+	});
+	/**
 	 * 加载项目详情数据
 	 */
 	sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
@@ -98,11 +128,30 @@ $(function(){
 		$("#portrait_show").text(replaceStr(data.entity.userPortrait));
 		$("#location_show").text(replaceStr(data.entity.companyLocation));竟情分析暂无公司定位
 		$("#analysis_show ").text(replaceStr(data.entity.prospectAnalysis));*/
-		$("#describe_show").html(data.entity.projectDescribe==null?"暂无项目概述":data.entity.projectDescribe);
-		$("#model_show").html(data.entity.projectBusinessModel==null?"暂无商业模式":data.entity.projectBusinessModel);
-		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
+		$("#describe_show").html(data.entity.projectDescribe==null?"暂无项目描述":data.entity.projectDescribe);
+		$("#model_show").html(data.entity.projectBusinessModel==null?"暂无产品服务":data.entity.projectBusinessModel);
+		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户画像":data.entity.userPortrait);
 		$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
 		$("#analysis_show ").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
+		$("#operational_data").html(data.entity.operationalData==null?"暂无运营数据":data.entity.operationalData);
+		$("#industry_analysis").html(data.entity.industryAnalysis==null?"暂无行业分析":data.entity.industryAnalysis);
+		$("#next_financing_source").html(data.entity.nextFinancingSource==null?"暂无下一轮融资路径":data.entity.nextFinancingSource);
+		
+		if(data.entity.operationalData){
+			$("#operational_data_editor").html(data.entity.operationalData);
+		}else{
+			$("#operational_data_editor").html('');
+		}
+		if(data.entity.industryAnalysis){
+			$("#industry_analysis_editor").html(data.entity.industryAnalysis);
+		}else{
+			$("#industry_analysis_editor").html('');
+		}
+		if(data.entity.nextFinancingSource){
+			$("#next_financing_source_editor").html(data.entity.nextFinancingSource);
+		}else{
+			$("#next_financing_source_editor").html('');
+		}
 		
 		//var um = UM.getEditor('describe_editor');
 		if(data.entity.projectDescribe){

@@ -1,6 +1,8 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <% 
 	String path = request.getContextPath(); 
+	Long projectId = (Long)request.getAttribute("projectId");
+// 	System.out.println(projectId);
 %>
 
 <!doctype html>
@@ -48,7 +50,7 @@
     	<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>Utter绝对潮流</div>
     	
     	<div class="new_tit_b">
-        	<span class="new_color size18">Utter绝对潮流</span><span class="new_color">ID987786600009</span>
+        	<span class="new_color size18" id="project_name_title"></span><span class="new_color" id="project_code">ID987786600009</span>
         	<span class="b_span"><a href="#">返回项目列表></a></span>
         </div>
         
@@ -76,24 +78,25 @@
 					</div>
 					
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+					 <input type="hidden" id="pid" name="id" value="${projectId}"/>
 						<tr>
 							<td><span class="new_color_gray">项目名称：</span>
-								<span class="new_color_black">Utter绝对潮流</span>
+								<span class="new_color_black" id="project_name"></span>
 							</td>
 							<td><span class="new_color_gray">创建时间：</span>
-								<span class="new_color_black">2016-01-25</span>
+								<span class="new_color_black" id="create_date"></span>
 							</td>
 						</tr>
 						
 						<tr>
-							<td><span class="new_color_gray">项目类型：</span><span class="new_color_black">外部投资</span></td>
-							<td><span class="new_color_gray">最后编辑：</span><span class="new_color_black">2016-01-25</span></td>
+							<td><span class="new_color_gray" >项目类型：</span><span class="new_color_black" id="projectType"></span></td>
+							<td><span class="new_color_gray">最后编辑：</span><span class="new_color_black" id="updateDate"></span></td>
 						</tr>
 						
 						<tr>
 							<td><span class="new_color_gray">行业归属：</span><span class="new_color_black">互联网旅游</span></td>
-							<td><span class="new_color_gray">投资经理：</span>
-								<span class="new_color_black">刘佳</span><span class="new_color_gray">（O2O及电商）</span></td>
+							<td><span class="new_color_gray" >投资经理：</span>
+								<span class="new_color_black" id="createUname">刘佳</span><span class="new_color_gray" id="projectCareerline">（O2O及电商）</span></td>
 						</tr>
 						
 						<tr>
@@ -109,11 +112,11 @@
 					</div>
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 						<tr>
-							<td><span class="new_color_gray">融资金额：</span><span class="new_color_black">600万人民币</span></td>
-							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black">600万人民</span></td>
+							<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span></td>
+							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span></td>
 						</tr>
 						<tr>
-							<td><span class="new_color_gray">出让股份：</span><span class="new_color_black">90%</span></td>
+							<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"></span></td>
 						</tr>
 					</table>
 					
@@ -137,11 +140,11 @@
 						<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
 					</div>
 					<ul class="new_ul_all">
-						<li><span>《XXXXXXXXXXXXXXXXX》</span></li>
-						<li><span class="new_color_gray">状态：</span><span class="new_color_black">已上传</span></li>
-						<li><span class="new_color_gray">更新时间：</span><span class="new_color_black">2016-01-26</span></li>
+						<li><span id="bpName">《XXXXXXXXXXXXXXXXX》</span></li>
+						<li><span class="new_color_gray">状态：</span><span class="new_color_black" id="is_upload"></span></li>
+						<li><span class="new_color_gray">更新时间：</span><span class="new_color_black" id="uploadtime"></span></li>
 						<li class="new_ul_right"><span class="new_fctbox"> <a href="javascript:;" class="ico f2" data-btn="describe">查看</a>
-								<a href="javascript:;" class="ico new1" data-btn="edit">更新</a>
+								<a href="javascript:;" class="ico new1" data-btn="edit" id="uploadOperator">更新</a>
 								<a href="javascript:;" class="ico new2" data-btn="describe">查看历史</a>
 						</span></li>
 					</ul>
@@ -149,37 +152,49 @@
 				<!--项目概述-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile new_bottom_color">
-						<span class="new_ico_project"></span> <span class="new_color size16">项目概述</span> <span class="new_fctbox">
+						<span class="new_ico_project"></span> <span class="new_color size16">项目概述</span> <span class="bj_ico" id="descript">暂无数据</span><span class="new_fctbox">
 							<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p>纯文本内容仅支持换行空格纯文本内容仅支持换行空格纯文本内容仅支持换行空格纯文本内容仅支持换行空格纯文本内容仅支持换行空格纯文容仅支持换行空格纯文本内容仅支持换行空格纯文本内容仅支持换行空格纯文本内容仅支持换行空格纯文本内容仅支持换行空格纯文本内容仅支持纯文本内容仅支持换行空格纯文本内容仅支持换行空格纯文本内容仅</p>
+						<p id="describe_editor"></p>
 					</div>
 				</div>
 				<!--公司定位-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
-						<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico">暂无数据</span>
+						<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" id="location">暂无数据</span>
 						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="location_editor"></p>
 					</div>
 				</div>
 				<!--用户画像-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
-						<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico">暂无数据</span>
+						<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
 						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="portrait_editor"></p>
 					</div>
 				</div>
 				<!--产品服务-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
-						<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico">暂无数据</span>
+						<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
 						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="business_model_editor"></p>
 					</div>
 				</div>
 
@@ -187,26 +202,38 @@
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
 						<span class="new_ico_run"></span> <span class="new_color size16">运营数据</span>
-						<span class="bj_ico">暂无数据</span> <span class="new_fctbox">
+						<span class="bj_ico" id="operational_data">暂无数据</span> <span class="new_fctbox">
 							<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="operational_data_editor"></p>
 					</div>
 				</div>
 				<!--行业分析-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
-						<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico">暂无数据</span>
+						<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
 						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="industry_analysis_editor"></p>
 					</div>
 				</div>
 				<!--竞情分析-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
 						<span class="new_ico_jq"></span> <span class="new_color size16">竞情分析</span>
-						<span class="bj_ico">暂无数据</span> <span class="new_fctbox">
+						<span class="bj_ico" id="analysis">暂无数据</span> <span class="new_fctbox">
 							<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="analysis_editor"></p>
 					</div>
 				</div>
 
@@ -214,9 +241,13 @@
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
 						<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span>
-						<span class="bj_ico">暂无数据</span> <span class="new_fctbox">
+						<span class="bj_ico" id="next_financing_source">暂无数据</span> <span class="new_fctbox">
 							<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="next_financing_source_editor"></p>
 					</div>
 				</div>
 				
@@ -244,12 +275,9 @@
 			<!-- 股权结构 -->
             <div  data-tab="con" >   
             	<div class="tabtable_con">
-                    <div class="new_r_compile">
-                        <span class="new_fctbox">
-                            <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-                          </span>
-                    </div>  
-                       	股权结构  
+                    <jsp:include page="/galaxy/project/tabShares">
+			        	<jsp:param value="<%=request.getAttribute(\"projectId\") %>" name="id"/>
+			        </jsp:include>
                 </div>                 
             </div>
             
@@ -438,12 +466,16 @@
         </table>
     </div>
 </div>
-
-<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="js/axure.js" type="text/javascript"></script>
-<script src="js/axure_ext.js" type="text/javascript"></script>
+<jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
+<script src="<%=path %>/js/projectDetail.js"></script>
+<script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
+<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
 <script>
-	$('[data-ｏｎ="compile"]').on('click',function(){
+$(function(){
+	createMenus(4);
+})
+	$('[data-on="compile"]').on('click',function(){
 		$('.bj_hui_on').show();
 		$('.compile_on').show();
 	})
@@ -451,6 +483,8 @@
 		$('.bj_hui_on').hide();
 		$('.compile_on').hide();
 	})
+	var projectId = <%=projectId%>;
+// 	alert(projectId);
 
 </script>
 </html>

@@ -637,7 +637,7 @@ function setCheckLine(data){
 				"</div>" ;
 		return rc;
 	}
-		
+	/* 	
 	function metcolumnFormat(value, row, index){
 		var fileinfo = "";
 		var rc = "";
@@ -650,7 +650,7 @@ function setCheckLine(data){
 					"</br>会议录音："+fileinfo+
 				"</div>" ;
 		return rc;
-	}
+	} */
 	
 	
 	function downFile(id){

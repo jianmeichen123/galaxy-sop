@@ -400,7 +400,7 @@ var platformUrl = {
 	/**
 	 * 项目详情
 	 */
-	projectDetail : Constants.sopEndpointURL + "/galaxy/detail/",
+	projectDetail : Constants.sopEndpointURL + "/galaxy/project/detail/",
 	/**
 	 * 查询密码
 	 */

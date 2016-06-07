@@ -92,7 +92,7 @@
                         <dl>
                           <dt>估值：</dt>
                           <dd>
-                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="估值" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>估值金额不支持">
+                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="估值" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
                           </dd>
                         </dl>
                       </td>
