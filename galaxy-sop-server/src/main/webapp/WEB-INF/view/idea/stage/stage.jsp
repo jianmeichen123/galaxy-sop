@@ -76,6 +76,11 @@
                       <dt>所属事业线：</dt>
                       <dd id="departmentDesc" class="dw">O2O</dd>
                     </dl>
+                  </dl>
+                     <dl id="claimantdis">
+                      <dt>认领人：</dt>
+                      <dd id="claimantUname" class="dw"  >O2O</dd>
+                    </dl> 
                   </div>
                   <div class="mid clearfix">
                     <dl>
