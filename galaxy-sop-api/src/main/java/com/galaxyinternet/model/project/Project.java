@@ -11,15 +11,12 @@ import com.galaxyinternet.framework.core.utils.NumberUtils;
 public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
-	 private String projectName;
-
+	private String projectName;
     private String projectCode;
-
+    private Long ideaId;
     private String projectType;
     private Integer stockTransfer;
-
     private String projectCareerline;
-
     private Long projectDepartid;
 
     private Double projectValuations;
@@ -56,7 +53,6 @@ public class Project extends PagableEntity {
     //in查询
     private List<Long> deptIdList;
     
-    private Long ideaId;
 
     
 	private Long startTime; 
