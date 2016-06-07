@@ -27,7 +27,7 @@ $(function(){
 	})
 
 	/**
-	 * 保存商业模式
+	 * 保存产品服务
 	 */
 	$("#save_business_model").click(function(){
 		var um = UM.getEditor('business_model_editor');
@@ -128,9 +128,9 @@ $(function(){
 		$("#portrait_show").text(replaceStr(data.entity.userPortrait));
 		$("#location_show").text(replaceStr(data.entity.companyLocation));竟情分析暂无公司定位
 		$("#analysis_show ").text(replaceStr(data.entity.prospectAnalysis));*/
-		$("#describe_show").html(data.entity.projectDescribe==null?"暂无项目概述":data.entity.projectDescribe);
-		$("#model_show").html(data.entity.projectBusinessModel==null?"暂无商业模式":data.entity.projectBusinessModel);
-		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
+		$("#describe_show").html(data.entity.projectDescribe==null?"暂无项目描述":data.entity.projectDescribe);
+		$("#model_show").html(data.entity.projectBusinessModel==null?"暂无产品服务":data.entity.projectBusinessModel);
+		$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户画像":data.entity.userPortrait);
 		$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
 		$("#analysis_show ").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
 		$("#operational_data").html(data.entity.operationalData==null?"暂无运营数据":data.entity.operationalData);
