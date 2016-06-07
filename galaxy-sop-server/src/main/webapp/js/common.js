@@ -821,8 +821,6 @@ function viewNotesFormat(value,row,index){
 	}
 	if(str!="" && typeof(str)!="undefined"){
 		len = getLength(str);
-	}else{
-		str = "-";
 	}
 	if(len>100){
 		var subValue =str.substring(0,100); 
@@ -849,8 +847,6 @@ function viewNotesFormat_noinfo(value,row,index){
 	}
 	if(str!="" && typeof(str)!="undefined"){
 		len = getLength(str);
-	}else{
-		str = "-";
 	}
 	if(len>100){
 		var subValue =str.substring(0,100); 
@@ -915,12 +911,10 @@ function formatLog(value,row,index){
 	}
 	if(str!="" && typeof(str)!="undefined"){
 		len = getLength(str); //str.length;
-	}else{
-		str = "-";
 	}
 	
-	if(len>100){
-		var subValue1 = str.substring(0,100);
+	if(len>80){
+		var subValue1 = str.substring(0,80);
 		var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+str+"'>" +
 					subValue1+'...' +
 				'</div>';
