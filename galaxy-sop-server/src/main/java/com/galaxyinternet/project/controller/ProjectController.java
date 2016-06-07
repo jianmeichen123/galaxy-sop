@@ -2605,4 +2605,28 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return mv;
 	}
 	
+	
+	/**
+	 * sop tab页面  访谈 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/proview/{pid}", method = RequestMethod.GET)
+	public String proView(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		Project proinfo = new Project();
+		proinfo = projectService.queryById(pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("pname", proinfo.getProjectName());
+		return "project/sopinfo/tab_interview";
+	}
+	/**
+	 * sop tab页面  会议 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/promeet/{pid}", method = RequestMethod.GET)
+	public String proMeet(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		Project proinfo = new Project();
+		proinfo = projectService.queryById(pid);
+		request.setAttribute("proinfo", GSONUtil.toJson(proinfo));
+		request.setAttribute("pid", pid);
+		request.setAttribute("pname", proinfo.getProjectName());
+		return "project/sopinfo/tab_meeting";
+	}
 }
