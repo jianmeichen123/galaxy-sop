@@ -48,7 +48,7 @@
     	<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>Utter绝对潮流</div>
     	
     	<div class="new_tit_b">
-        	<span class="new_color size18">Utter绝对潮流</span><span class="new_color">ID987786600009</span>
+        	<span class="new_color size18" id="project_name_title">Utter绝对潮流</span><span class="new_color">ID987786600009</span>
         	<span class="b_span"><a href="#">返回项目列表></a></span>
         </div>
         
@@ -76,12 +76,13 @@
 					</div>
 					
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+					 <input type="hidden" id="pid" name="id" value="${projectId}"/>
 						<tr>
 							<td><span class="new_color_gray">项目名称：</span>
-								<span class="new_color_black">Utter绝对潮流</span>
+								<span class="new_color_black" id="project_name">Utter绝对潮流</span>
 							</td>
 							<td><span class="new_color_gray">创建时间：</span>
-								<span class="new_color_black">2016-01-25</span>
+								<span class="new_color_black" id="create_date">2016-01-25</span>
 							</td>
 						</tr>
 						
@@ -436,9 +437,10 @@
     </div>
 </div>
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
-<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="js/axure.js" type="text/javascript"></script>
-<script src="js/axure_ext.js" type="text/javascript"></script>
+<script src="<%=path %>/js/projectDetail.js"></script>
+<script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/axure.js" type="text/javascript"></script>
+<script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
 <script>
 $(function(){
 	createMenus(4);
