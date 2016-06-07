@@ -18,30 +18,35 @@ public class Project extends PagableEntity {
     private Integer stockTransfer;
     private String projectCareerline;
     private Long projectDepartid;
-
     private Double projectValuations;
     private Double projectContribution;
     private Integer currencyUnit;
     private Double projectShareRatio;
+    private String projectCompany;
+    private String projectCompanyCode;
+    private Long createUid;
+    private String createUname;
+    private String createUposition;
+    private String projectProgress;
+    private String projectStatus;
+    private String projectDescribe;
+    private String projectBusinessModel;
+    private String companyLocation;
+    private String userPortrait;
+    private String prospectAnalysis;
+    //06-21版本更新字段
+  	private Long industryOwn;//行业归属
+  	private String financeStatus;//融资状态
+  	private Double finalValuations;//实际估值
+  	private Double finalContribution;//实际投资
+  	private Double finalShareRatio;//实际所占股份百分比
+  	private String companyLegal;//公司法人
+  	private Long formationDate;//公司成立时间
+  	//数据转换
     private String formatContribution;
     private String formatValuations;
     private String formatUnit;
     private String formatShareRatio;
-    
-    private String projectCompany;
-    
-    private String projectCompanyCode;
-
-    private Long createUid;
-
-    private String createUname;
-
-    private String createUposition;
-
-    private String projectProgress;
-
-    private String projectStatus;
-    
     private String nameCodeLike;
     //详情数据转换
   	private String createDate;
@@ -49,23 +54,11 @@ public class Project extends PagableEntity {
   	private String type;
   	private String progress;
     private  String  hhrName;
-    
     //in查询
     private List<Long> deptIdList;
-    
-
-    
 	private Long startTime; 
 	private Long endTime;
 	
-	//06-21版本更新字段
-	private Long IndustryOwn;//行业归属
-	private String financeStatus;//融资状态
-	private Double finalValuations;//实际估值
-	private Double finalContribution;//实际投资
-	private Double finalShareRatio;//实际所占股份百分比
-	private String companyLegal;//公司法人
-	private Long formationDate;//公司成立时间
     public Long getId() {
         return id;
     }
@@ -260,18 +253,6 @@ public class Project extends PagableEntity {
         this.projectStatus = projectStatus == null ? null : projectStatus.trim();
     }
 
-    
-    
-    private String projectDescribe;
-
-    private String projectBusinessModel;
-
-    private String companyLocation;
-
-    private String userPortrait;
-
-    private String prospectAnalysis;
-
     public String getProjectDescribe() {
         return projectDescribe;
     }
@@ -400,12 +381,13 @@ public class Project extends PagableEntity {
 		this.endTime = endTime;
 	}
 
+	
 	public Long getIndustryOwn() {
-		return IndustryOwn;
+		return industryOwn;
 	}
 
 	public void setIndustryOwn(Long industryOwn) {
-		IndustryOwn = industryOwn;
+		this.industryOwn = industryOwn;
 	}
 
 	public String getFinanceStatus() {
