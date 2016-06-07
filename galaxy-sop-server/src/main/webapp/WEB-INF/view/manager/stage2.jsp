@@ -405,11 +405,12 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<%-- <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script> --%>
+<%-- <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script> --%>
 <script>
 var uid='${galax_session_user.id }';
 $(function(){
+// 	alert("init结束");
 	initData("${projectId}");
 });
 	//盒子展开隐藏

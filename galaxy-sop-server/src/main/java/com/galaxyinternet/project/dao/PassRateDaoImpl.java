@@ -1,4 +1,4 @@
-package com.galaxyinternet.timer.dao;
+package com.galaxyinternet.project.dao;
 
 import java.util.List;
 
