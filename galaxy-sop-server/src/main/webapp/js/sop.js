@@ -1249,7 +1249,7 @@ function gqjg(){
 }
 /**
  * 格式化富文本保存的内容，以契合页面展示的要求
- */
+
 function ftcolumnFormat(value, row, index){
 	var fileinfo = "" ;
 	var rc = "";
@@ -1274,7 +1274,7 @@ function ftcolumnFormat(value, row, index){
 			"</div>" ;
 	return rc;
 }
-/**
+
  * 格式化富文本保存的内容，以契合页面展示的要求
 
 function metcolumnFormat(value, row, index){
