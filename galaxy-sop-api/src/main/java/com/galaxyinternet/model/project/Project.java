@@ -62,6 +62,14 @@ public class Project extends PagableEntity {
 	private Long startTime; 
 	private Long endTime;
 	
+	//06-21版本更新字段
+	private Long IndustryOwn;//行业归属
+	private String financeStatus;//融资状态
+	private Double finalValuations;//实际估值
+	private Double finalContribution;//实际投资
+	private Double finalShareRatio;//实际所占股份百分比
+	private String companyLegal;//公司法人
+	private Long formationDate;//公司成立时间
     public Long getId() {
         return id;
     }
@@ -394,6 +402,62 @@ public class Project extends PagableEntity {
 
 	public void setEndTime(Long endTime) {
 		this.endTime = endTime;
+	}
+
+	public Long getIndustryOwn() {
+		return IndustryOwn;
+	}
+
+	public void setIndustryOwn(Long industryOwn) {
+		IndustryOwn = industryOwn;
+	}
+
+	public String getFinanceStatus() {
+		return financeStatus;
+	}
+
+	public void setFinanceStatus(String financeStatus) {
+		this.financeStatus = financeStatus;
+	}
+
+	public Double getFinalValuations() {
+		return finalValuations;
+	}
+
+	public void setFinalValuations(Double finalValuations) {
+		this.finalValuations = finalValuations;
+	}
+
+	public Double getFinalContribution() {
+		return finalContribution;
+	}
+
+	public void setFinalContribution(Double finalContribution) {
+		this.finalContribution = finalContribution;
+	}
+
+	public Double getFinalShareRatio() {
+		return finalShareRatio;
+	}
+
+	public void setFinalShareRatio(Double finalShareRatio) {
+		this.finalShareRatio = finalShareRatio;
+	}
+
+	public String getCompanyLegal() {
+		return companyLegal;
+	}
+
+	public void setCompanyLegal(String companyLegal) {
+		this.companyLegal = companyLegal;
+	}
+
+	public Long getFormationDate() {
+		return formationDate;
+	}
+
+	public void setFormationDate(Long formationDate) {
+		this.formationDate = formationDate;
 	}
 
 	
