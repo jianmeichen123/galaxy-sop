@@ -227,6 +227,60 @@
               </dd>
             </dl>
           </div>
+          <!-- 第+部分 -->
+          <div class="block block2 shadow">
+            <dl>
+              <dt>运营数据</dt>
+              <dd class="edit">
+			      <div type="text/plain" id="operational_data_editor" class="um_width" style="width:100%;height:100px;">
+				  </div>
+			  </dd>
+			  <dd class="describe" id="operational_data"></dd>
+              <dd class="fctbox">
+                <a href="javascript:;" class="ico f1" data-btn="edit" onclick="editModelEditor('operational_data_editor')">编辑</a>
+                <a href="javascript:;" id="save_operational_data" class="ico f4" data-btn="submit">保存</a>
+                <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
+                <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
+                <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
+              </dd>
+            </dl>
+          </div>
+          <!-- 第+部分 -->
+          <div class="block block2 shadow">
+            <dl>
+              <dt>行业分析</dt>
+              <dd class="edit">
+			      <div type="text/plain" id="industry_analysis_editor" class="um_width" style="width:100%;height:100px;">
+				  </div>
+			  </dd>
+			  <dd class="describe" id="industry_analysis"></dd>
+              <dd class="fctbox">
+                <a href="javascript:;" class="ico f1" data-btn="edit" onclick="editModelEditor('industry_analysis_editor')">编辑</a>
+                <a href="javascript:;" id="save_industry_analysis" class="ico f4" data-btn="submit">保存</a>
+                <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
+                <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
+                <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
+              </dd>
+            </dl>
+          </div>
+          <!-- 第+部分 -->
+          <div class="block block2 shadow">
+            <dl>
+              <dt>下一轮融资路径</dt>
+              <dd class="edit">
+			      <div type="text/plain" id="next_financing_source_editor" class="um_width" style="width:100%;height:100px;">
+				  </div>
+			  </dd>
+			  <dd class="describe" id="next_financing_source"></dd>
+              <dd class="fctbox">
+                <a href="javascript:;" class="ico f1" data-btn="edit" onclick="editModelEditor('next_financing_source_editor')">编辑</a>
+                <a href="javascript:;" id="save_next_financing_source" class="ico f4" data-btn="submit">保存</a>
+                <a href="javascript:;" class="ico f5" data-btn="reset">取消保存</a>
+                <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
+                <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
+              </dd>
+            </dl>
+          </div>
           <!-- 第7部分 -->
           <div class="block block2 shadow clearfix">
             <dl>

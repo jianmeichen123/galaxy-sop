@@ -267,6 +267,9 @@ public class Project extends PagableEntity {
     private String userPortrait;
 
     private String prospectAnalysis;
+    private String nextFinancingSource;
+    private String industryAnalysis;
+    private String operationalData;
 
     public String getProjectDescribe() {
         return projectDescribe;
@@ -394,6 +397,30 @@ public class Project extends PagableEntity {
 
 	public void setEndTime(Long endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getNextFinancingSource() {
+		return nextFinancingSource;
+	}
+
+	public void setNextFinancingSource(String nextFinancingSource) {
+		this.nextFinancingSource = nextFinancingSource;
+	}
+
+	public String getIndustryAnalysis() {
+		return industryAnalysis;
+	}
+
+	public void setIndustryAnalysis(String industryAnalysis) {
+		this.industryAnalysis = industryAnalysis;
+	}
+
+	public String getOperationalData() {
+		return operationalData;
+	}
+
+	public void setOperationalData(String operationalData) {
+		this.operationalData = operationalData;
 	}
 
 	
