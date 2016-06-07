@@ -53,8 +53,6 @@
         </div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
-			<input type="hidden" name="property" value="created_time">
-			<input type="hidden" name="direction" value="DESC">
 			<div class="bottom searchall clearfix search_adjust idea_list_searchall">
 				<dl class="fmdl fmdll clearfix">
 					<dt>关键字：</dt>

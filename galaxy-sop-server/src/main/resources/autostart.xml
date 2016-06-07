@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autostart-tasks>
+	<!-- 
+    <task unit="day" points="16:14,16:15" class="com.galaxyinternet.timer.test.TimingThread" id="pass_rate" description="每个月初对每个投资经理进行过会率统计"/>
+	 -->
+	 <task unit="month" points="*" class="com.galaxyinternet.timer.tasks.TotalPassRate" id="pass_rate" description="每个月初对每个投资经理进行过会率统计"/>
+</autostart-tasks>

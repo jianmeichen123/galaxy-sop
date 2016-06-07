@@ -410,7 +410,6 @@
 <script>
 var uid='${galax_session_user.id }';
 $(function(){
-// 	alert("init结束");
 	initData("${projectId}");
 });
 	//盒子展开隐藏

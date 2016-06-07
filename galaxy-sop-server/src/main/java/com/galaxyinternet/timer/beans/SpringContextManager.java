@@ -1,4 +1,4 @@
-package com.galaxyinternet.common.utils;
+package com.galaxyinternet.timer.beans;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
