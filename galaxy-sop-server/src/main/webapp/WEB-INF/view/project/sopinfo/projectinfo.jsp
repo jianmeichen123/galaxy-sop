@@ -435,12 +435,15 @@
         </table>
     </div>
 </div>
-
+<jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
 <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="js/axure.js" type="text/javascript"></script>
 <script src="js/axure_ext.js" type="text/javascript"></script>
 <script>
-	$('[data-ｏｎ="compile"]').on('click',function(){
+$(function(){
+	createMenus(4);
+})
+	$('[data-on="compile"]').on('click',function(){
 		$('.bj_hui_on').show();
 		$('.compile_on').show();
 	})
