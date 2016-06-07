@@ -1276,7 +1276,7 @@ function ftcolumnFormat(value, row, index){
 }
 /**
  * 格式化富文本保存的内容，以契合页面展示的要求
- */	
+
 function metcolumnFormat(value, row, index){
 	var fileinfo = "";
 	var rc = "";
@@ -1290,7 +1290,7 @@ function metcolumnFormat(value, row, index){
 			"</div>" ;
 	return rc;
 }
-
+ */	
 /**
  * sop阶段中富文本弹出层的静态资源加载
  */

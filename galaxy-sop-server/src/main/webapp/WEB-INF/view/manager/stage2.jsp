@@ -224,7 +224,7 @@
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center" data-formatter="formatInterview_sop">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="viewNotesFormat">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
