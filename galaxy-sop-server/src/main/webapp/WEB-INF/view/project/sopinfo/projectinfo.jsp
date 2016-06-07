@@ -1,6 +1,8 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <% 
 	String path = request.getContextPath(); 
+	Long projectId = (Long)request.getAttribute("projectId");
+// 	System.out.println(projectId);
 %>
 
 <!doctype html>
@@ -453,6 +455,8 @@ $(function(){
 		$('.bj_hui_on').hide();
 		$('.compile_on').hide();
 	})
+	var projectId = <%=projectId%>;
+// 	alert(projectId);
 
 </script>
 </html>
