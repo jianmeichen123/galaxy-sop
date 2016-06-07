@@ -81,10 +81,10 @@
 					 <input type="hidden" id="pid" name="id" value="${projectId}"/>
 						<tr>
 							<td><span class="new_color_gray">项目名称：</span>
-								<span class="new_color_black" id="project_name">Utter绝对潮流</span>
+								<span class="new_color_black" id="project_name"></span>
 							</td>
 							<td><span class="new_color_gray">创建时间：</span>
-								<span class="new_color_black" id="create_date">2016-01-25</span>
+								<span class="new_color_black" id="create_date"></span>
 							</td>
 						</tr>
 						
@@ -164,7 +164,7 @@
 				<!--公司定位-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
-						<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico">暂无数据</span>
+						<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" id="location">暂无数据</span>
 						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
 					</div>
@@ -176,7 +176,7 @@
 				<!--用户画像-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
-						<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico">暂无数据</span>
+						<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
 						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
 					</div>
@@ -188,13 +188,13 @@
 				<!--产品服务-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
-						<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico">暂无数据</span>
+						<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
 						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="describe_editor"></p>
+						<p id="business_model_editor"></p>
 					</div>
 				</div>
 
@@ -202,32 +202,32 @@
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
 						<span class="new_ico_run"></span> <span class="new_color size16">运营数据</span>
-						<span class="bj_ico">暂无数据</span> <span class="new_fctbox">
+						<span class="bj_ico" id="operational_data">暂无数据</span> <span class="new_fctbox">
 							<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="describe_editor"></p>
+						<p id="operational_data_editor"></p>
 					</div>
 				</div>
 				<!--行业分析-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
-						<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico">暂无数据</span>
+						<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
 						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="describe_editor"></p>
+						<p id="industry_analysis_editor"></p>
 					</div>
 				</div>
 				<!--竞情分析-->
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
 						<span class="new_ico_jq"></span> <span class="new_color size16">竞情分析</span>
-						<span class="bj_ico">暂无数据</span> <span class="new_fctbox">
+						<span class="bj_ico" id="analysis">暂无数据</span> <span class="new_fctbox">
 							<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
 					</div>
@@ -241,13 +241,13 @@
 				<div class="tabtable_con_on">
 					<div class="new_r_compile ">
 						<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span>
-						<span class="bj_ico">暂无数据</span> <span class="new_fctbox">
+						<span class="bj_ico" id="next_financing_source">暂无数据</span> <span class="new_fctbox">
 							<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 						</span>
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="describe_editor"></p>
+						<p id="next_financing_source_editor"></p>
 					</div>
 				</div>
 				
