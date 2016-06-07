@@ -244,12 +244,9 @@
 			<!-- 股权结构 -->
             <div  data-tab="con" >   
             	<div class="tabtable_con">
-                    <div class="new_r_compile">
-                        <span class="new_fctbox">
-                            <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-                          </span>
-                    </div>  
-                       	股权结构  
+                    <jsp:include page="/galaxy/project/tabShares">
+			        	<jsp:param value="<%=request.getAttribute(\"projectId\") %>" name="id"/>
+			        </jsp:include>
                 </div>                 
             </div>
             

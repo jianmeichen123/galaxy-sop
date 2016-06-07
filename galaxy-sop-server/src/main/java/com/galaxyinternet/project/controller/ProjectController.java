@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
@@ -2521,6 +2522,33 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		}
 		return roleIdList;
+	}
+	/**
+	 * 项目详情页
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/detail/{id}")
+	public ModelAndView detail(@PathVariable("id") Long id)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/project/sopinfo/projectinfo");
+		mv.addObject("projectId", id);
+		return mv;
+	}
+	/**
+	 * 项目详情页-股权结构选项卡
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/tabShares")
+	public ModelAndView tabShares(Long id)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/project/sopinfo/tab_shares");
+		mv.addObject("projectId", id);
+		return mv;
 	}
 	
 }
