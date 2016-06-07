@@ -50,8 +50,10 @@
 	
 	<bean id="galaxyTaskScheduler" class="com.galaxyinternet.scheduling.GalaxyTaskScheduler"/>
 	<task:scheduled-tasks scheduler="galaxyTaskScheduler">
+		<!-- 
 		<task:scheduled ref="testTask" method="execute" cron="*/5 * * * * MON-FRI"/>
 		<task:scheduled ref="testAnnotaionTask" method="execute" cron="*/5 * * * * MON-FRI"/>
+		 -->
 		<task:scheduled ref="meetingPassStageTask" method="execute" cron="0 0 1,4,7 1 * ?"/>
 	</task:scheduled-tasks>  
 	<!--  0 0 1,4,7 1 * ?		
