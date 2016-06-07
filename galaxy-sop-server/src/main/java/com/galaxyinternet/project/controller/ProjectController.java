@@ -2348,12 +2348,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				ControllerUtils.setRequestParamsForMessageTip(request,
 						user, pj.getProjectName(), pj.getId(),
 						number);
-				if(StringUtils.isBlank(address)){
-					address+=user.getEmail()+"@galaxyinternet.com";
-				}else{
-					address+=";"+user.getEmail()+"@galaxyinternet.com";
-				}
-				
+				address+=";"+user.getEmail()+"@galaxyinternet.com";
 			}
 			sendMailToTZJL(request, type, address,
 					"",
