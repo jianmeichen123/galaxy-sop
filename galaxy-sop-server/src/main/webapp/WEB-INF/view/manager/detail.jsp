@@ -116,27 +116,12 @@
           <!-- 第2部分 -->
           <div class="block block2 shadow">
             <dl>
-              <dt>项目概述</dt>
+              <dt>项目描述</dt>
               <dd class="edit">
               	  <script type="text/plain" id="describe_editor" style="width:100%;height:100px;">
 				  </script>
 			  </dd>
 			  <dd class="describe pro_block" id="describe_show"></dd>
-              <!-- <dd class="fctbox">
-                <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
-                <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
-              </dd> -->
-            </dl>
-          </div>
-          <!-- 第3部分 -->
-          <div class="block block2 shadow">
-            <dl>
-              <dt>商业模式</dt>
-              <dd class="edit">
-              	  <script type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
-				  </script>
-		      </dd>
-		      <dd class="describe pro_block" id="model_show"></dd>
               <!-- <dd class="fctbox">
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
@@ -161,7 +146,7 @@
           <!-- 第5部分 -->
           <div class="block block2 shadow">
             <dl>
-              <dt>用户分析</dt>
+              <dt>用户画像</dt>
               <dd class="edit">
 			  	  <script type="text/plain" id="portrait_editor" style="width:100%;height:100px;">
 				  </script>
@@ -173,10 +158,47 @@
               </dd> -->
             </dl>
           </div>
+          <!-- 第3部分 -->
+          <div class="block block2 shadow">
+            <dl>
+              <dt>产品服务</dt>
+              <dd class="edit">
+              	  <script type="text/plain" id="business_model_editor" style="width:100%;height:100px;">
+				  </script>
+		      </dd>
+		      <dd class="describe pro_block" id="model_show"></dd>
+              <!-- <dd class="fctbox">
+                <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
+                <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
+              </dd> -->
+            </dl>
+          </div>
+          <!-- 第+部分 -->
+          <div class="block block2 shadow">
+            <dl>
+              <dt>运营数据</dt>
+              <dd class="edit">
+              	  <script type="text/plain" id="operational_data_editor" style="width:100%;height:100px;">
+				  </script>
+			  </dd>
+			  <dd class="describe pro_block" id="operational_data"></dd>
+            </dl>
+          </div>
+          <!-- 第+部分 -->
+          <div class="block block2 shadow">
+            <dl>
+              <dt>行业分析</dt>
+              <dd class="edit">
+              	  <script type="text/plain" id="industry_analysis_editor" style="width:100%;height:100px;">
+				  </script>
+			  </dd>
+			  <dd class="describe pro_block" id="industry_analysis"></dd>
+            </dl>
+          </div>
           <!-- 第6部分 -->
           <div class="block block2 shadow">
             <dl>
-              <dt>竞情分析</dt>
+              <dt>竞争分析</dt>
               <dd class="edit">
 			      <script type="text/plain" id="analysis_editor" style="width:100%;height:100px;">
 				  </script>
@@ -186,6 +208,18 @@
                 <a href="javascript:;" class="ico f2" data-btn="describe">查看详情</a>
                 <a href="javascript:;" data-btn="hide" class="ico f3">收起</a>
               </dd> -->
+            </dl>
+          </div>
+          
+          <!-- 第+部分 -->
+          <div class="block block2 shadow">
+            <dl>
+              <dt>下一轮融资路径</dt>
+              <dd class="edit">
+              	  <script type="text/plain" id="next_financing_source_editor" style="width:100%;height:100px;">
+				  </script>
+			  </dd>
+			  <dd class="describe pro_block" id="next_financing_source"></dd>
             </dl>
           </div>
           <!-- 第7部分 -->
@@ -265,11 +299,42 @@ var d_scrollTop=0;
 			$("#currencyUnit").text(currencyUnit);
 			$("#project_company").text(data.entity.projectCompany);
 			$("#project_company_code").text(data.entity.projectCompanyCode);
-			$("#describe_show").html(data.entity.projectDescribe==null?"暂无项目概述":data.entity.projectDescribe);
-			$("#model_show").html(data.entity.projectBusinessModel==null?"暂无商业模式":data.entity.projectBusinessModel);
-			$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户分析":data.entity.userPortrait);
+			$("#describe_show").html(data.entity.projectDescribe==null?"暂无项目描述":data.entity.projectDescribe);
+			$("#model_show").html(data.entity.projectBusinessModel==null?"暂无产品服务":data.entity.projectBusinessModel);
+			$("#portrait_show").html(data.entity.userPortrait==null?"暂无用户画像":data.entity.userPortrait);
 			$("#location_show").html(data.entity.companyLocation==null?"暂无公司定位":data.entity.companyLocation);
 			$("#analysis_show ").html(data.entity.prospectAnalysis==null?"暂无竞情分析":data.entity.prospectAnalysis);
+			$("#operational_data").html(data.entity.operationalData==null?"暂无运营数据":data.entity.operationalData);
+			$("#industry_analysis").html(data.entity.industryAnalysis==null?"暂无行业分析":data.entity.industryAnalysis);
+			$("#next_financing_source").html(data.entity.nextFinancingSource==null?"暂无下一轮融资路径":data.entity.nextFinancingSource);
+			
+			var um = UM.getEditor('operational_data_editor');
+			if(data.entity.operationalData){
+				um.setContent(data.entity.operationalData);
+				onOrHiddenMore("operational_data");
+			}else{
+				um.setContent("");
+			}
+			var um = UM.getEditor('industry_analysis_editor');
+			if(data.entity.industryAnalysis){
+				um.setContent(data.entity.industryAnalysis);
+				onOrHiddenMore("industry_analysis");
+			}else{
+				um.setContent("");
+			}
+			var um = UM.getEditor('next_financing_source_editor');
+			if(data.entity.nextFinancingSource){
+				um.setContent(data.entity.nextFinancingSource);
+				onOrHiddenMore("next_financing_source");
+			}else{
+				um.setContent("");
+			}
+			
+			if(data.entity.nextFinancingSource){
+				$("#next_financing_source_editor").html(data.entity.nextFinancingSource);
+			}else{
+				$("#next_financing_source_editor").html('');
+			}
 			var um = UM.getEditor('describe_editor');
 			if(data.entity.projectDescribe){
 				um.setContent(data.entity.projectDescribe);
@@ -384,6 +449,32 @@ var d_scrollTop=0;
 		d_scrollTop=$(document).scrollTop();
 		$("html,body").animate({scrollTop:d_scrollTop},10);
 	}
+	
+	function onOrHiddenMore(id){
+		var box = document.getElementById(id);  
+		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
+		var newBox = document.createElement("span");  
+		var btn = document.createElement("a");  
+		newBox.innerHTML = text.substring(0,300);  
+		btn.innerHTML = text.length >300 ? "查看详情" : "";  
+		btn.href = "#"; 
+		btn.className="see_detail blue" ;
+		btn.onclick = function(){  
+		if (btn.innerHTML == "查看详情"){  
+			AAAscrollTop();
+		btn.innerHTML = "收起"; 
+		newBox.innerHTML = text;  
+		}else{  
+		btn.innerHTML = "查看详情"; 
+		AAAscrollTop();
+		newBox.innerHTML = text.substring(0,300);  
+		}  
+		}  
+		box.innerHTML = "";  
+		box.appendChild(newBox);  
+		box.appendChild(btn);  		
+	}
+	
 	function model_show(){
 		var box = document.getElementById("model_show");  
 		var text = box.innerHTML.replace(/<[^>]+>/g,"");  //去掉所有的html标记
