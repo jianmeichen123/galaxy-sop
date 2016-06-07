@@ -926,7 +926,7 @@ function formatLog(value,row,index){
 				'</div>';
 		return rc;
 	}else{
-		return strlog;
+		return str;
 	}
 }
 
