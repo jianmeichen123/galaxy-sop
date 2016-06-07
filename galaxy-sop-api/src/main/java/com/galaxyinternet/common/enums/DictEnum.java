@@ -427,7 +427,7 @@ public enum DictEnum {
 		资金拨付凭证("资金拨付凭证","fileWorktype:9"),
 		公司资料("公司资料","fileWorktype:10"),
 		财务预测报告("财务预测报告","fileWorktype:11"),
-		商业计划("商业计划","fileWorktype:12");
+		商业计划("商业计划书","fileWorktype:12");
 		
 		private String name;
 
