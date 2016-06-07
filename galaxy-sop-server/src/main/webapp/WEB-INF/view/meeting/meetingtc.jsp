@@ -27,7 +27,7 @@
 
 <div class="meetingtc">
 	<div class="top clearfix">
-    	<div class="searchall clearfix">
+    	<div class="searchall clearfix" id="proselect">
             <dl>
             	<dt>项目 :</dt>
                 <dd>
