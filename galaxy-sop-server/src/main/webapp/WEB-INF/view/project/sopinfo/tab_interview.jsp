@@ -58,9 +58,9 @@
 				</ul>
 
 
-				<!-- 访谈记录 -->
+				<!-- 访谈记录
 				<div data-tab="con">
-
+-->
 					<div class="tabtable_con">
 
 						<!--按钮-->
@@ -96,7 +96,7 @@
 							<thead>
 								<tr>
 									<th data-field="viewinfo" data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
-									<th data-field="viewNotes" data-align="center" data-formatter="viewNotesFormat_noinfo">访谈记录</th>
+									<th data-field="viewNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo">访谈记录</th>
 									<th data-field="oper" data-align="center" data-formatter="viewOperFormat">操作</th>
 								</tr>
 							</thead>
@@ -104,13 +104,15 @@
 						
 					</div>
 
-				</div>
-				<!--tab end-->
+				<!--</div>
+				tab end-->
 				
 			</div>
 		</div>
 
-
+		<!--右边-->
+        <jsp:include page="./includeRight.jsp" flush="true"></jsp:include>
+        
     </div>
  
 </div>
@@ -140,7 +142,7 @@
 <script>
 
 	var proinfo = '${proinfo}';
-	proinfo = JSON.parse(proinfo);
+	//proinfo = JSON.parse(proinfo);
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var interviewSelectRow = null;

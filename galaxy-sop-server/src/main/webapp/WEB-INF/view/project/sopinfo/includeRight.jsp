@@ -19,6 +19,7 @@
         
         <!--右边-->
         <div class="new_right">
+        
         	<b class="sj_ico null">三角</b>
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
@@ -38,20 +39,25 @@
                  <span class="bluebtn new_btn" >项目流程</span>
             </div>
            
+           
+           <div> <br/> </div>
             
             <div class="correlation">相关操作</div>
             <div class="new_correlation_cen">
             	<span class="bluebtn new_btn" >否决项目</span>
             </div>
             
-            <div class="correlation">近期会议纪要
+            
+            <div> <br/> </div>
+            
+            <div class="correlation">
+            	近期会议纪要
 				<span class="more null new_righ" id="platform_jxkh_more" style="cursor: pointer;" href="#">more</span>
 			</div>
             <div class="new_correlation_cen">
             	<div class="new_b_bottom">
                 	<ul><li class="new_b_li_one">投资意向会</li><li  class="new_b_li_two"><span class="color_pass">通过</span></li><li  class="new_b_li_three">2016-1-25</li></ul>
                 	<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-                	
                 </div>
                 <div class="new_b_bottom">
                 	<ul><li class="new_b_li_one">投资意向会</li><li  class="new_b_li_two"><span class="color_undetermined">待定</span></li><li  class="new_b_li_three">2016-1-25</li></ul>
@@ -61,10 +67,10 @@
                 	<ul><li class="new_b_li_one">投资意向会</li><li  class="new_b_li_two"><span class="color_veto">否决</span></li><li  class="new_b_li_three">2016-1-25</li></ul>
                 	<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
                 </div>
-                
-                
-                
             </div>
+            
+            <div> <br/> </div>
+             
             <div class="correlation">近期访谈记录
 				<span class="more null new_righ" id="platform_jxkh_more" style="cursor: pointer;" href="#">more</span>
 			</div>
@@ -85,18 +91,10 @@
         <!--右边 end-->
    
    
-<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-<script src="js/axure.js" type="text/javascript"></script>
-<script src="js/axure_ext.js" type="text/javascript"></script>
+
 <script>
-	$('[data-on="compile"]').on('click',function(){
-		$('.bj_hui_on').show();
-		$('.compile_on').show();
-	})
-	$('[data-on="close"]').on('click',function(){
-		$('.bj_hui_on').hide();
-		$('.compile_on').hide();
-	})
+
+
 
 </script>
 </html>

@@ -59,9 +59,9 @@
             </ul>
 
             
-            
-             <!-- 会议纪要 -->
-            <div data-tab="con" >   
+             <!-- 会议纪要
+            <div data-tab="con" > 
+              -->
             	<div class="tabtable_con">
             	
                    <!--按钮-->
@@ -110,20 +110,21 @@
 							<tr>
 								<th data-field="meetinfo" data-align="center" data-formatter="metcolumnFormat">会议概况</th>
 								<th data-field="meetingTypeStr" data-align="center" >会议类型</th>
-								<th data-field="meetingNotes" data-align="center" data-formatter="viewNotesFormat_noinfo">会议纪要</th>
+								<th data-field="meetingNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo">会议纪要</th>
 								<th data-field="oper" data-align="center" data-formatter="meetOperFormat">操作</th>
 							</tr>
 						</thead>
 					</table>
 						
                 </div>                 
-            </div>
-            <!--tab end-->
+           <!-- </div>
+            tab end-->
             
           </div>
         </div>
         
-        
+        <!--右边-->
+        <jsp:include page="./includeRight.jsp" flush="true"></jsp:include>
        
     </div>
  
@@ -154,7 +155,7 @@
 <script>
 
 	var proinfo = '${proinfo}';
-	proinfo = JSON.parse(proinfo);
+	//proinfo = JSON.parse(proinfo);
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var selectRow = null;
