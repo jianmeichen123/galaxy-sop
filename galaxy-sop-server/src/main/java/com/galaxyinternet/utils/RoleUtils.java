@@ -86,7 +86,7 @@ public class RoleUtils {
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.投资意向书.getCode(), "false","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.投资协议.getCode(), "false","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.商业计划.getCode(), "false","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWZJ, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false","false"));
@@ -98,7 +98,7 @@ public class RoleUtils {
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.投资意向书.getCode(), "false","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.投资协议.getCode(), "false","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.股权转让协议.getCode(), "false","false","false"));
-		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","true","false"));
+		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.工商转让凭证.getCode(), "true","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.资金拨付凭证.getCode(), "false","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.商业计划.getCode(), "false","false","false"));
 		roleRuleList.add(new RoleWorkTypeRule(UserConstant.FWJL, DictEnum.fileWorktype.财务预测报告.getCode(), "false","false","false"));
@@ -365,14 +365,13 @@ public class RoleUtils {
 		List<RoleWorkTypeRule> retList = new ArrayList<RoleWorkTypeRule>();
 		if(roleList != null && roleList.size() > 0 && !StringUtils.isBlank(isShow)){
 			for(RoleWorkTypeRule roleRule : roleRuleList){
-				if(roleList.contains(roleRule.getRoleId()) && isShow.equals(roleRule.getIsShow())){
+				if(isShow.equals(roleRule.getIsShow())){
 					retList.add(roleRule);
-				}	
+				}
 			}
 		}
 		return retList;
 	}
-	
 	
 	
 	

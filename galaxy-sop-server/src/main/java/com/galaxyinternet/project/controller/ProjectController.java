@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.PassRateBo;
 import com.galaxyinternet.bo.SopTaskBo;
@@ -148,60 +147,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Override
 	protected BaseService<Project> getBaseService() {
 		return this.projectService;
-	}
-	
-	
-	/**
-	 * 项目列表查询
-	 * @return 2016-06-21
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> searchProject(HttpServletRequest request, @RequestBody ProjectBo project) {
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) getUserFromSession(request);
-		Direction direction = Direction.DESC;
-		String property = "updated_time";
-		if(!StringUtils.isEmpty(project.getProperty())){
-			if("desc".equals(project.getDirection())){
-				direction = Direction.DESC;
-			}else{
-				direction = Direction.ASC;
-			}
-			property = "created_time";
-		}
-		
-		try {
-			if (project.getProjectProgress() != null
-					&& project.getProjectProgress().equals("guanbi")) {
-				project.setProjectStatus("meetingResult:3");
-				project.setProjectProgress(null);
-			}
-			if (project.getProType() != null
-					&& "2".equals(project.getProType())) {
-				project.setProjectDepartid(user.getDepartmentId());
-			} else {
-				project.setCreateUid(user.getId());
-			}
-
-			Page<Project> pageProject = projectService
-					.queryPageList(
-							project,
-							new PageRequest(project.getPageNum(), project
-									.getPageSize(),direction,
-									property));
-
-			responseBody.setPageList(pageProject);
-			responseBody.setResult(new Result(Status.OK, ""));
-			return responseBody;
-		} catch (PlatformException e) {
-			responseBody.setResult(new Result(Status.ERROR, null,
-					"queryUserList faild"));
-			if (logger.isErrorEnabled()) {
-				logger.error("queryUserList ", e);
-			}
-		}
-		return responseBody;
 	}
 
 	/**
@@ -2577,56 +2522,5 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return roleIdList;
 	}
-	/**
-	 * 项目详情页
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/detail/{id}")
-	public ModelAndView detail(@PathVariable("id") Long id)
-	{
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/project/sopinfo/projectinfo");
-		mv.addObject("projectId", id);
-		return mv;
-	}
-	/**
-	 * 项目详情页-股权结构选项卡
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("/tabShares")
-	public ModelAndView tabShares(Long id)
-	{
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/project/sopinfo/tab_shares");
-		mv.addObject("projectId", id);
-		return mv;
-	}
 	
-	
-	/**
-	 * sop tab页面  访谈 详情    /galaxy/project/proview/
-	 */
-	@RequestMapping(value = "/proview/{pid}", method = RequestMethod.GET)
-	public String proView(@PathVariable("pid") Long pid, HttpServletRequest request) {
-		Project proinfo = new Project();
-		proinfo = projectService.queryById(pid);
-		request.setAttribute("pid", pid);
-		request.setAttribute("pname", proinfo.getProjectName());
-		return "project/sopinfo/tab_interview";
-	}
-	/**
-	 * sop tab页面  会议 详情    /galaxy/project/proview/
-	 */
-	@RequestMapping(value = "/promeet/{pid}", method = RequestMethod.GET)
-	public String proMeet(@PathVariable("pid") Long pid, HttpServletRequest request) {
-		Project proinfo = new Project();
-		proinfo = projectService.queryById(pid);
-		request.setAttribute("proinfo", GSONUtil.toJson(proinfo));
-		request.setAttribute("pid", pid);
-		request.setAttribute("pname", proinfo.getProjectName());
-		return "project/sopinfo/tab_meeting";
-	}
 }

@@ -92,7 +92,7 @@
                         <dl>
                           <dt>估值：</dt>
                           <dd>
-                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="估值" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
+                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="估值" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>估值金额不支持">
                           </dd>
                         </dl>
                       </td>
@@ -143,13 +143,13 @@
           <!-- 第2部分 -->
      <!--      <div class="block block2 shadow">
             <dl>
-              <dt>项目概述</dt>
+              <dt>项目描述</dt>
             </dl>
           </div>
           第3部分
           <div class="block block2">
             <dl>
-              <dt>商业模式</dt>
+              <dt>产品服务</dt>
             </dl>
           </div>
           第4部分
@@ -161,7 +161,7 @@
           第5部分
           <div class="block block2 shadow">
             <dl>
-              <dt>用户分析</dt>
+              <dt>用户画像</dt>
             </dl>
           </div>
           第6部分

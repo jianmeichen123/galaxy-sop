@@ -779,10 +779,7 @@ function getMeetCondition(hasProid,projectId,
 
 
 
-/**
- * sopinfo  访谈页面
- * 访谈概况 , 访谈对象-长度控制
- */
+//interview table format
 function intervierInfoFormat(value, row, index){
 	var fileinfo = "" ;
 	var rc = "";
@@ -793,14 +790,14 @@ function intervierInfoFormat(value, row, index){
 	var targetStr = row.viewTarget;
 	var subStr = "";
 	var targerHtml="";
-	if(targetStr.length>8){
-		subStr = targetStr.substring(0,8)+"...";
+	if(targetStr.length>6){
+		subStr = targetStr.substring(0,6)+"...";
 		targerHtml = "</br>访谈对象：<span title="+targetStr+">"+subStr+"</span>";
 	}else{
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
 	
-	rc = "<div style=\"text-align:left;margin-left:10%;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
 				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
@@ -809,129 +806,117 @@ function intervierInfoFormat(value, row, index){
 }
 
 
+//meet table format
+function meetInfoFormat(value, row, index){
+	var fileinfo = "";
+	var rc = "";
+	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
+		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+	}
+	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
+				"会议日期："+row.meetingDateStr+
+				"</br>会议结论："+row.meetingResultStr+
+				"</br>会议录音："+fileinfo+
+			"</div>" ;
+	return rc;
+}
 
-/**
- * 格式化富文本，记录中附加详情,不附加 title
- */	
-function viewNotesFormat(value,row,index){
-	var len=0;
-	var str= "";
-	if(!(!value)){
-		str=delHtmlTag($.trim(value))
-	}
-	if(str!="" && typeof(str)!="undefined"){
-		len = getLength(str);
-	}else{
-		str = "-";
-	}
+
+//interview
+function sublengthFormat(value,row,index){
+	//统一去掉说有标签
+	var delhtmlValue = $.trim((value));
+	var len = getLength($.trim(delhtmlValue));
 	if(len>100){
-		var subValue =str.substring(0,100); 
-		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
-					subValue+ "..."+
-					"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
-				'</div>';
+		var subValue = delhtmlValue.substring(0,100);
+		var rc = "<div id=\"log\"  class=\"text-overflow\" title='"+value+"'>"+subValue+'...'+'</div>';
+		
 		return rc;
-	}else {
-		return str+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+	}else{
+		return delhtmlValue;
+	}
+}
+//interviewdelHtmlTag
+function formatLog(value,row,index){
+	var subValue="";
+	if(null!=value&&value!=""){
+		subValue = delHtmlTag(value);
 	}
 	
+	 var  len=subValue.length;
+	/*alert(subValue)
+	alert(value)
+	alert(len);*/
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>80){
+			var subValue1 = subValue.substring(0,80);
+			var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+strrrr+"'>"+subValue1+'...'+'</div>';
+			return rc;
+		}else{
+			return strlog;
+		}
+	}
+
 }
 
 
-/**
- * 格式化富文本，记录中不附加详情,不附加 title
- */	
-function viewNotesFormat_noinfo(value,row,index){
+//富文本截取        //======= 废弃   ====//
+function formatInterview(value,row,index){
+	var str=delHtmlTag($.trim(value))
 	var len=0;
-	var str= "";
-	if(!(!value)){
-		str=delHtmlTag($.trim(value))
-	}
 	if(str!="" && typeof(str)!="undefined"){
 		len = getLength(str);
-	}else{
-		str = "-";
 	}
-	if(len>100){
-		var subValue =str.substring(0,100); 
-		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
-					subValue+ "..."+
-				'</div>';
-		return rc;
-	}else {
-		return str;
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>120){
+			// title='"+strrrr+"'
+			var subValue =str.substring(0,120); 
+			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+			subValue+
+			"..."+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
+		'</div>';
+			return rc;
+		}else {
+			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+		}
+	}else{
+		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
 	}
 }
 
-
-
+function formatInterview_sop(value,row,index){
+	var str=delHtmlTag($.trim(value))
+	var len=0;
+	if(str!="" && typeof(str)!="undefined"){
+		len = getLength(str);
+	}
+	if(value != ''){
+		var strlog=delHtmlTag(value);
+		var strrrr=strlog;
+		if(len>100){
+			// title='"+strrrr+"'
+			var subValue =str.substring(0,100); 
+			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow\">"+
+			subValue+
+			"..."+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
+		'</div>';
+			return rc;
+		}else {
+			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+		}
+	}else{
+		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
+	}
+}
 
 //meet table format
 function meetProInfoFormat(value, row, index){
 	return row.proName+"</br>"+row.meetingTypeStr;
 }
-
-/**
- * sopinfo  会议页面
- * 会议概况
- */
-function metcolumnFormat(value, row, index){
-	var fileinfo = "";
-	var rc = "";
-	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
-		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
-	}
-	rc = "<div style=\"text-align:left;margin-left:10%;padding:10px 0;\">"+
-				"会议日期："+row.meetingDateStr+
-				"</br>会议结论："+row.meetingResultStr+
-				"</br>会议录音："+fileinfo+
-			"</div>" ;
-	return rc;
-}
-
-/*function meetInfoFormat(value, row, index){
-	var fileinfo = "";
-	var rc = "";
-	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
-		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
-	}
-	rc = "<div style=\"text-align:left;margin-left:10%;padding:10px 0;\">"+
-				"会议日期："+row.meetingDateStr+
-				"</br>会议结论："+row.meetingResultStr+
-				"</br>会议录音："+fileinfo+
-			"</div>" ;
-	return rc;
-}*/
-
-/**
- * 会议记录 ，格式化富文本
- * 附加 title
- */	
-function formatLog(value,row,index){
-	var len=0;
-	var str= "";
-	if(!(!value)){
-		str=delHtmlTag($.trim(value))
-	}
-	if(str!="" && typeof(str)!="undefined"){
-		len = getLength(str); //str.length;
-	}else{
-		str = "-";
-	}
-	
-	if(len>100){
-		var subValue1 = str.substring(0,100);
-		var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+str+"'>" +
-					subValue1+'...' +
-				'</div>';
-		return rc;
-	}else{
-		return str;
-	}
-}
-
-
-
 
 
 //LONG time format
@@ -951,7 +936,18 @@ function getVal(val,defaultValIfNull)
 }
 
 
-
+function subLengthFormat(value, row, index){
+	var len = getLength($.trim(value));
+	var valuelog=replaceStr(row.viewNotes);
+	if(len>100){
+		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
+		//$(this).attr("title",value);
+		var str = "<div class=\"subLength text-overflow\" title='"+valuelog+"'>"+subValue+"..."+"</div>" ;
+		return str;
+	}else{
+		return valuelog;
+	}
+}
 
 function replaceStr(str){
 	if(str){

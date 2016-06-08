@@ -76,11 +76,6 @@
                       <dt>所属事业线：</dt>
                       <dd id="departmentDesc" class="dw">O2O</dd>
                     </dl>
-                  </dl>
-                     <dl id="claimantdis">
-                      <dt>认领人：</dt>
-                      <dd id="claimantUname" class="dw"  >O2O</dd>
-                    </dl> 
                   </div>
                   <div class="mid clearfix">
                     <dl>
@@ -156,7 +151,7 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="metcolumnFormat" data-width="50%">会议概况</th>
+							<th data-align="center" data-formatter="meetInfoFormat" data-width="50%">会议概况</th>
 							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
 							<!-- <th data-field="meetingNotes" data-align="center" data-formatter="formatMeetNote">会议纪要</th>  --> 
 						</tr>

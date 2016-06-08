@@ -77,7 +77,6 @@ import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.FileUtils;
 import com.galaxyinternet.utils.RoleUtils;
-import com.galaxyinternet.utils.RoleWorkTypeRule;
 
 @Controller
 @RequestMapping("/galaxy/sopFile")
@@ -255,57 +254,22 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			if ("dialog".equals(sopFile.getPageType())) {
 				sopFile.setFileWorktypeNullFilter("true");
 			} else {
-				
-				if (roleIdList.contains(UserConstant.HRZJ)) {
-					// 人事总监
-					List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
-					List<String> fileWorktypeList = new ArrayList<String>();
-					for(RoleWorkTypeRule roleWork : roleRuleList){
-						fileWorktypeList.add(roleWork.getWorkType());
-					}
-					sopFile.setFileworktypeList(fileWorktypeList);
-					List<String> fileStatusList = new ArrayList<String>();
-					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
-					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
-					sopFile.setFileStatusList(fileStatusList);
-					sopFile.setFileValid(1);
-				} else if(roleIdList.contains(UserConstant.HRJL)){
-					// 人事经理
+				// 角色判断(人事)
+				if (roleIdList.contains(UserConstant.HRZJ)
+						|| roleIdList.contains(UserConstant.HRJL)) {
 					sopFile.setBelongUid(obj.getId());
-				} else if (roleIdList.contains(UserConstant.FWZJ)) {
-					// 法务总监
-					List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
-					List<String> fileWorktypeList = new ArrayList<String>();
-					for(RoleWorkTypeRule roleWork : roleRuleList){
-						fileWorktypeList.add(roleWork.getWorkType());
-					}
-					sopFile.setFileworktypeList(fileWorktypeList);
-					List<String> fileStatusList = new ArrayList<String>();
-					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
-					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
-					sopFile.setFileStatusList(fileStatusList);
-					sopFile.setFileValid(1);
-				} else if(roleIdList.contains(UserConstant.FWJL)){
-					// 法务经理
+
+					
+					// 财务
+				} else if (roleIdList.contains(UserConstant.FWZJ)
+						|| roleIdList.contains(UserConstant.FWJL)) {
 					sopFile.setBelongUid(obj.getId());
-				} else if (roleIdList.contains(UserConstant.CWZJ)) {
-					// 财务总监
-					List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
-					List<String> fileWorktypeList = new ArrayList<String>();
-					for(RoleWorkTypeRule roleWork : roleRuleList){
-						fileWorktypeList.add(roleWork.getWorkType());
-					}
-					sopFile.setFileworktypeList(fileWorktypeList);
-					List<String> fileStatusList = new ArrayList<String>();
-					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
-					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
-					sopFile.setFileStatusList(fileStatusList);
-					sopFile.setFileValid(1);
-				} else if(roleIdList.contains(UserConstant.CWJL)){
-					// 财务经理
+					// 法务
+				} else if (roleIdList.contains(UserConstant.CWZJ)
+						|| roleIdList.contains(UserConstant.CWJL)) {
 					sopFile.setBelongUid(obj.getId());
-				} else if (roleIdList.contains(UserConstant.TZJL)) {
 					// 投资经理
+				} else if (roleIdList.contains(UserConstant.TZJL)) {
 					Project project = new Project();
 					project.setCreateUid(obj.getId());
 					List<Project> projectList = proJectService
@@ -325,16 +289,17 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 						responseBody.setResult(new Result(Status.OK, ""));
 						return responseBody;
 					}
-				} else if (roleIdList.contains(UserConstant.DAGLY)) {
+					
 					// 档案管理员
+				} else if (roleIdList.contains(UserConstant.DAGLY)) {
 					List<String> fileStatusList = new ArrayList<String>();
 					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
 					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
 					sopFile.setFileStatusList(fileStatusList);
 					sopFile.setFileValid(1);
-					
-				} else {
 					// 其他人怎么办
+				} else {
+					
 				}
 				sopFile.setFileWorktypeNullFilter("true");
 //				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
