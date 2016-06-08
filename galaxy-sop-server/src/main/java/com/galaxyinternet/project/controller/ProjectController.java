@@ -2696,8 +2696,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return data;
 	}
 	
+	
+	
 	/**
-	 * sop tab页面  访谈 详情    /galaxy/project/proview/
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
 	@RequestMapping(value = "/toprolog/{pid}", method = RequestMethod.GET)
 	public String toprolog(@PathVariable("pid") Long pid, HttpServletRequest request) {
@@ -2740,7 +2742,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@RequestMapping(value = "/getnearnotes/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<BaseEntity> getNearNotes(@PathVariable Long id, HttpServletRequest request) {
 		ResponseData<BaseEntity> responseBody = new ResponseData<BaseEntity>();
-		
 		try {
 			Project proinfo = new Project();
 			proinfo = projectService.queryById(id);
@@ -2774,12 +2775,104 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setUserData(listresult);
 			responseBody.setResult(new Result(Status.OK, null));
 		} catch (Exception e) {
-			logger.error("", e);
+			logger.error("getnearnotes 近期访谈、会议记录查询失败", e);
 			responseBody.setResult(new Result(Status.ERROR, null, "近期访谈、会议记录查询失败"));
 			return responseBody;
 		}
 		
 		return responseBody;
 	}
+	
+	/**
+	 * 初始化 项目会议tab的按钮， 明确会议添加、排期
+	 * @return map.add = y/n/k 
+	 * 				y:可添加会议
+	 * 				n:不可以添加，需要排期
+	 * 				k:不允许添加
+	 * 		  map.meettype = meetingType:2
+	 * 		  map.butname = '添加立项会会议记录' / '申请立项会排期'
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/initpromeetbut/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<BaseEntity> initProMeetBut(@PathVariable Long id, HttpServletRequest request) {
+		ResponseData<BaseEntity> responseBody = new ResponseData<BaseEntity>();
+		User user = (User) getUserFromSession(request);
+		
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+			Project proinfo = projectService.queryById(id);
+			if(proinfo ==null || proinfo.getId()==null ||proinfo.getProjectProgress()==null){
+				responseBody.setResult(new Result(Status.ERROR, null, "项目信息错误!"));
+				return responseBody;
+			}
+			//非项目创建者，or  项目已否决    不允许添加会议
+			if(user.getId()!=proinfo.getCreateUid() || proinfo.getProjectStatus().equals("meetingResult:3")){
+				resultMap.put("add", "k");
+				responseBody.setUserData(resultMap);
+				responseBody.setResult(new Result(Status.OK, null));
+				return responseBody;
+			}
+			
+			String add = null;
+			String meettype = null;
+			String butname = null;
+			
+			int indez = Integer.parseInt(proinfo.getProjectProgress().substring(proinfo.getProjectProgress().length()-1)) ;
+			
+			if(indez == 3 || indez == 4 || indez == 7){
+				
+			}
+			
+			if(indez == 2){   // 内部评审("内部评审","projectProgress:2"),
+				add = "y";
+				meettype = "meetingType:1";
+				butname = "添加内评会会议记录";
+			}else if(indez == 3){   // CEO评审("CEO评审","projectProgress:3"),
+				meettype = "meetingType:2";
+				butname = "CEO评审";
+			}else if(indez == 4){   //立项会("立项会","projectProgress:4"),
+				meettype = "meetingType:3";
+				butname = "立项会";
+			}else if(indez == 7){   // 投资决策会("投资决策会","projectProgress:7"),
+				meettype = "meetingType:4";
+				butname = "投决会";
+			}else{ 
+				add = "k";
+			}
+			
+			if(add == null && meettype !=null){
+				MeetingScheduling scheduling = new MeetingScheduling();
+				scheduling.setMeetingType(meettype);
+				scheduling.setProjectId(id);
+				scheduling = meetingSchedulingService.queryOne(scheduling);
+				if(scheduling == null || scheduling.getId()==null){
+					responseBody.setResult(new Result(Status.ERROR, null, "项目排期池信息错误!"));
+					return responseBody;
+				}
+				
+				if(scheduling.getScheduleStatus() == 0){ //0表示待排期,需要申请排期
+					add = "n";
+					butname = "申请"+butname+"排期";
+				}else if(scheduling.getScheduleStatus() == 1){ //1表示已排期,可以添加会议记录
+					add = "y";
+					butname = "添加"+butname+"会议记录";
+				}
+			}
+			
+			resultMap.put("add", add);
+			resultMap.put("meettype", meettype);
+			resultMap.put("butname", butname);
+
+			responseBody.setUserData(resultMap);
+			responseBody.setResult(new Result(Status.OK, null));
+		} catch (Exception e) {
+			logger.error("getnearnotes 近期访谈、会议记录查询失败", e);
+			responseBody.setResult(new Result(Status.ERROR, null, "近期访谈、会议记录查询失败"));
+			return responseBody;
+		}
+
+		return responseBody;
+	}
+	
 	
 }

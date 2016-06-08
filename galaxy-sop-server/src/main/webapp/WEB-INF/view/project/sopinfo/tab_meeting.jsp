@@ -67,7 +67,7 @@
                    <!--按钮-->
 					<div class="top clearfix">
 						<div class="btnbox_f btnbox_f1 clearfix">
-							<a href="#" onclick="toAddProMeet();"  class="pubbtn bluebtn ico c4 add_prj add_interview">添加会议纪要</a>
+							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut">添加会议纪要</a>
 						</div>
 					</div>
 
@@ -180,19 +180,55 @@ $(function(){
         search: false,
 	});
 	
-	$('[data-on="compile"]').on('click', function() {
-		$('.bj_hui_on').show();
-		$('.compile_on').show();
-	})
-	$('[data-on="close"]').on('click', function() {
-		$('.bj_hui_on').hide();
-		$('.compile_on').hide();
-	})
-	
+	//初始化按钮，是 添加会议，or 申请排期
+	button_init();
 });	
 	
 	
-	
+
+/**
+ * 初始化按钮，是 添加会议，or 申请排期
+ */
+function button_init(){
+	sendGetRequest(Constants.sopEndpointURL+"/galaxy/project/initpromeetbut/" + proid,null,button_init_callback);
+}
+function button_init_callback(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		$("#saveInterView").removeClass("disabled");
+		layer.msg(data.result.message);
+		return;
+	}else{
+		/* 
+		<a href="#" onclick="toAddProMeet();"  class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut">添加会议纪要</a>
+		map.add = y/n/k 
+		 * 				y:可添加会议
+		 * 				n:不可以添加，需要排期
+		 * 				k:不允许添加
+		 * 		  map.meettype = meetingType:2
+		 * 		  map.butname = '添加立项会会议记录' / '申请立项会排期'
+		  */
+		 
+		var add = data.userData.add;
+		var meettype = data.userData.meettype;
+		var butname = data.userData.butname;
+		if(add == 'y'){
+			$("#proMeetBut").text(butname);
+			$("#proMeetBut").data("type",meettype);
+		}else if(add == 'n'){
+			$("#proMeetBut").text(butname);
+			$("#proMeetBut").removeAttr("onclick");
+			$("#proMeetBut").on("click", function(){
+				toMeetPool(meettype);
+			});
+		}else if(add == 'k'){
+			$("#proMeetBut").remove();
+		}
+		
+	}
+}
+
+
 
 /**
  * 添加接触访谈纪要弹出层
@@ -203,6 +239,10 @@ function toAddProMeet(){
 		url:_url,
 		data:"",
 		okback:function(){
+			var type = $("#proMeetBut").data("type");
+			if(type){
+				$("input[name='meetingTypeTc'][value ='"+type+"']").attr("checked","checked").addClass("disabled");
+			}
 			$("#proselect").remove();
 			initMeetUpload();
 			//$('.edui-container').show();
@@ -210,9 +250,6 @@ function toAddProMeet(){
 	});
 	return false;
 }
-
-
-
 //plupload 上传对象初始化, 绑定保存saveMeetFile
 function initMeetUpload() {
 	// 定义 上传插件 方法 、  plupload 上传对象初始化
@@ -323,7 +360,7 @@ function initMeetUpload() {
 
 
 
-
+//查看 or 编辑 会议纪要
 function meetOperFormat(value,row,index){
 	var info = "<span  class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
@@ -372,6 +409,101 @@ function interviewsave(){
 
 
 	
+
+
+//会议排期
+function toMeetPool(meetType){
+	if(meetType == "meetingType:2"){
+		applyCeoMeeting();
+	}else if(meetType == "meetingType:3"){
+		toLxmeetingPool();
+	}else if(meetType == "meetingType:4"){
+		inSureMeetingPool();
+	}
+}
+ /**
+  * CEO评审阶段申请立项会排期
+  */
+function toEstablishStage(){
+	var pid = proid;
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
+			var result = data.result.status;
+			if(result == "OK"){ 
+				if($.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
+				layer.msg("申请立项会成功!");
+				$("#powindow,#popbg").remove();
+				info(pid);
+			}else{
+				layer.msg(data.result.message);
+			}
+		});
+	}
+}
+/**
+ * 申请CEO评审排期
+ */
+function applyCeoMeeting(){
+	var pid = proid;
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(platformUrl.inCeoMeetingPool + pid, {}, function(data){
+			var result = data.result.status;
+			if(result == "OK"){ 
+				if($.isFunction(refreshProjectList))
+				{
+					refreshProjectList.call();
+				}
+				layer.msg("申请CEO评审会成功!");
+				$("#powindow,#popbg").remove();
+				info(pid);
+			}else{
+				layer.msg(data.result.message);
+			}
+		});
+	}
+}
+/**
+ * 立项会阶段申请立项会排期
+ */
+function toLxmeetingPool(){
+	var pid = proid;
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(platformUrl.inLxmeetingPool + pid, {}, function(data){
+			var result = data.result.status;
+			if(result == "OK"){ 
+				layer.msg("申请立项会成功!");
+				$("#powindow,#popbg").remove();
+				info(pid);
+			}else{
+				layer.msg(data.result.message);
+			}
+		});
+	}
+}
+/**
+ * 投决会--点击申请投决会按钮
+ */
+function inSureMeetingPool(){
+	var pid = proid;
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(
+				platformUrl.inSureMeetingPool + pid,
+				null,
+				function(data){
+					var result = data.result.status;
+					if(result == "OK"){ 
+						layer.msg("申请成功!");
+						$("#powindow,#popbg").remove();
+						info(pid);
+					}else{
+						layer.msg(data.result.message);
+					}
+				});
+	}
+}
 
 
 	
