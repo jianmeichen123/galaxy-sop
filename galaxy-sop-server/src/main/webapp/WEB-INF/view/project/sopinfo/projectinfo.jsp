@@ -33,6 +33,48 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
+
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript">
+var projectInfo;
+$(function(){
+	createMenus(4);
+	var dtd = $.Deferred();
+	$.when(getProjectInfo(dtd))
+	.done(function(){
+		//initProjectData();
+	});
+});
+/**
+*项目信息
+*
+**/
+function getProjectInfo(dtd)
+{
+	var hasDtd = typeof(dtd) != 'undefined';
+	var url = platformUrl.detailProject+"${projectId}";
+	sendGetRequest(
+		url,
+		null,
+		function(data){
+			projectInfo = data.entity;
+			if(hasDtd)
+			{
+				dtd.resolve();
+			}
+		}
+	);
+	if(hasDtd)
+	{
+		return dtd.promise();
+	}
+}
+
+
+</script>
 </head>
 
 
@@ -62,8 +104,8 @@
                 <li data-tab="nav"><a href="javascript:;">基本信息</a></li>
                 <li data-tab="nav"><a href="javascript:;">团队成员</a></li>
                 <li data-tab="nav"><a href="javascript:;">股权结构</a></li>
-                <li data-tab="nav"><a href="javascript:;">访谈记录</a></li>
-                <li data-tab="nav"><a href="javascript:;">会议纪要</a></li>
+                <li data-tab="nav"><a href="javascript:;" onclick="toInterView('<%=projectId%>')">访谈记录</a></li>
+                <li data-tab="nav"><a href="javascript:;" onclick="toMeet('<%=projectId%>')">会议纪要</a></li>
                 <li data-tab="nav"><a href="javascript:;">项目文档</a></li>
                 <li data-tab="nav" class="no"><a href="javascript:;">操作日志</a></li>
             </ul>
@@ -139,10 +181,11 @@
 					<div class="new_r_compile new_bottom_color">
 						<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
 					</div>
-					<ul class="new_ul_all">
-						<li><span id="bpName">《XXXXXXXXXXXXXXXXX》</span></li>
-						<li><span class="new_color_gray">状态：</span><span class="new_color_black" id="is_upload"></span></li>
-						<li><span class="new_color_gray">更新时间：</span><span class="new_color_black" id="uploadtime"></span></li>
+					<ul class="new_ul_all" id='business_plan'>
+						<li><span>《XXXXXXXXXXXXXXXXX》</span></li>
+						<li><span class="new_color_gray">状态：</span><span class="new_color_black">已上传</span></li>
+						<li><span class="new_color_gray">更新时间：</span><span class="new_color_black">2016-01-26</span></li>
+
 						<li class="new_ul_right"><span class="new_fctbox"> <a href="javascript:;" class="ico f2" data-btn="describe">查看</a>
 								<a href="javascript:;" class="ico new1" data-btn="edit" id="uploadOperator">更新</a>
 								<a href="javascript:;" class="ico new2" data-btn="describe">查看历史</a>
@@ -339,72 +382,9 @@
         
         
         
-        <!--右边-->
-        <div class="new_right">
-        	<b class="sj_ico null">三角</b>
-        	<div class="new_right_flow">
-            	<div class="new_right_flow_line">
-                	<ul class="line_ul_p">
-                    	<li class="line_ul_li"><span class="one_dot"></span></li>
-                    	<li class="green_dot"><span class="gray_dot"></span>接触访谈</li>
-                        <li class="green_dot"><span class="gray_dot"></span>内部评审</li>
-                        <li class="green_dot"><span class="gray_dot"></span>CEO评审</li>
-                        <li class="green_dot"><span class="green_dot_on"></span><span class="gray_dot"></span>立项会</li>
-                        <li><span class="gray_dot"></span>投资意向书</li>
-                        <li><span class="gray_dot"></span>尽职调查</li>
-                        <li><span class="gray_dot"></span>投决会</li>
-                        <li><span class="gray_dot"></span>投资协议</li>
-                        <li><span class="gray_dot"></span>股权交割</li>
-                    </ul>
-                </div>
-                 <span class="bluebtn new_btn" >项目流程</span>
-            </div>
-           
-            
-            <div class="correlation">相关操作</div>
-            <div class="new_correlation_cen">
-            	<span class="bluebtn new_btn" >否决项目</span>
-            </div>
-            
-            <div class="correlation">近期会议纪要
-				<span class="more null new_righ" id="platform_jxkh_more" style="cursor: pointer;" href="#">more</span>
-			</div>
-            <div class="new_correlation_cen">
-            	<div class="new_b_bottom">
-                	<ul><li class="new_b_li_one">投资意向会</li><li  class="new_b_li_two"><span class="color_pass">通过</span></li><li  class="new_b_li_three">2016-1-25</li></ul>
-                	<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-                	
-                </div>
-                <div class="new_b_bottom">
-                	<ul><li class="new_b_li_one">投资意向会</li><li  class="new_b_li_two"><span class="color_undetermined">待定</span></li><li  class="new_b_li_three">2016-1-25</li></ul>
-                	<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-                </div>
-                <div class="new_b_bottom">
-                	<ul><li class="new_b_li_one">投资意向会</li><li  class="new_b_li_two"><span class="color_veto">否决</span></li><li  class="new_b_li_three">2016-1-25</li></ul>
-                	<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-                </div>
-                
-                
-                
-            </div>
-            <div class="correlation">近期访谈记录
-				<span class="more null new_righ" id="platform_jxkh_more" style="cursor: pointer;" href="#">more</span>
-			</div>
-            <div class="new_correlation_cen">
-            	<div class="new_b_bottom">
-                	<div class="div_ul"><span class="new_b_li_one">投资意向会</span><span  class="new_b_li_three pull-right">2016-1-25</span></div>
-                	<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-                </div>
-                
-                <div class="new_b_bottom">
-                	<div class="div_ul"><span class="new_b_li_one">投资意向会</span><span  class="new_b_li_three pull-right">2016-1-25</span></div>
-                	<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-                </div>
-            </div>
-            
-        </div>
+       <!--右边-->
+        <jsp:include page="./includeRight.jsp" flush="true"></jsp:include>
         
-        <!--右边 end-->
     </div>
  
 </div>
@@ -466,25 +446,38 @@
         </table>
     </div>
 </div>
+<jsp:include page="../../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
-<script src="<%=path %>/js/projectDetail.js"></script>
 <script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path %>/js/teamSheetNew.js"></script>
+<script src="<%=path %>/js/projectDetail.js"></script>
+<script src="<%=path %>/js/planbusiness.js"></script>
 <script>
+
+var projectId = <%=projectId%>;
+
 $(function(){
-	createMenus(4);
-})
+	createMenus(5);
+	
+	
 	$('[data-on="compile"]').on('click',function(){
 		$('.bj_hui_on').show();
 		$('.compile_on').show();
 	})
-	$('[data-ｏｎ="close"]').on('click',function(){
+	$('[data-on="close"]').on('click',function(){
 		$('.bj_hui_on').hide();
 		$('.compile_on').hide();
 	})
-	var projectId = <%=projectId%>;
-// 	alert(projectId);
+})
+
+
+	
+
+
 
 </script>
 </html>

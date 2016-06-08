@@ -92,30 +92,37 @@ $(function(){
 		}
 		
 		
-		sendGetRequest(platformUrl.getBusinessPlanFile+"/"+pid,null,function(data){
-			var uploadOperator;
-			var html;
-			if(data.result.status=="OK"){
-				console.log(data);
-				//为空时候显示
-				if(data.result.errorCode=="null"){
-					uploadOperator = "上传";
-					$("#uploadtime").text("无");
-					$("#is_upload").text("未上传");
-					$("#bpName").text("");
-					$("#uploadOperator").text(uploadOperator);
-				}else{
-					//不为空时候显示
-					uploadOperator = "更新";
-					$("#uploadtime").text(data.entity.createDate);
-					$("#is_upload").text("已上传");
-					$("#bpName").text("");
-					$("#uploadOperator").text(uploadOperator);
-				}
-			}else{
-				
-			}
-		});
+		var formdata = {
+				_projectId : projectId,
+				_projectName : data.entity.projectName,
+				_domId : 'business_plan'
+		}
+		initPage.init(formdata);
+		
+//		sendGetRequest(platformUrl.getBusinessPlanFile+"/"+pid,null,function(data){
+//			var uploadOperator;
+//			var html;
+//			if(data.result.status=="OK"){
+//				console.log(data);
+//				//为空时候显示
+//				if(data.result.errorCode=="null"){
+//					uploadOperator = "上传";
+//					$("#uploadtime").text("无");
+//					$("#is_upload").text("未上传");
+//					$("#bpName").text("");
+//					$("#uploadOperator").text(uploadOperator);
+//				}else{
+//					//不为空时候显示
+//					uploadOperator = "更新";
+//					$("#uploadtime").text(data.entity.createDate);
+//					$("#is_upload").text("已上传");
+//					$("#bpName").text("");
+//					$("#uploadOperator").text(uploadOperator);
+//				}
+//			}else{
+//				
+//			}
+//		});
 	});
 	/**
 	 * 计算初始估值

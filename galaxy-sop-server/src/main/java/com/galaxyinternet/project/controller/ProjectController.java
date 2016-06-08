@@ -160,47 +160,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> searchProject(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
-		Direction direction = Direction.DESC;
-		String property = "updated_time";
-		if(!StringUtils.isEmpty(project.getProperty())){
-			if("desc".equals(project.getDirection())){
-				direction = Direction.DESC;
-			}else{
-				direction = Direction.ASC;
-			}
-			property = "created_time";
-		}
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		
-		try {
-			if (project.getProjectProgress() != null
-					&& project.getProjectProgress().equals("guanbi")) {
-				project.setProjectStatus("meetingResult:3");
-				project.setProjectProgress(null);
-			}
-			if (project.getProType() != null
-					&& "2".equals(project.getProType())) {
-				project.setProjectDepartid(user.getDepartmentId());
-			} else {
-				project.setCreateUid(user.getId());
-			}
-
-			Page<Project> pageProject = projectService
-					.queryPageList(
-							project,
-							new PageRequest(project.getPageNum(), project
-									.getPageSize(),direction,
-									property));
-
-			responseBody.setPageList(pageProject);
-			responseBody.setResult(new Result(Status.OK, ""));
-			return responseBody;
-		} catch (PlatformException e) {
-			responseBody.setResult(new Result(Status.ERROR, null,
-					"queryUserList faild"));
-			if (logger.isErrorEnabled()) {
-				logger.error("queryUserList ", e);
-			}
-		}
+		Page<Project> pageProject = projectService.queryPageList(project,
+						new PageRequest(project.getPageNum(), 
+								project.getPageSize(), 
+								Direction.fromString(project.getDirection()), 
+								project.getProperty()));
+		responseBody.setPageList(pageProject);
+		responseBody.setResult(new Result(Status.OK, ""));
 		return responseBody;
 	}
 
@@ -2604,7 +2572,55 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		mv.addObject("projectId", id);
 		return mv;
 	}
-	
+	/**
+	 * 编辑法人信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/editCompanyInfo/{id}")
+	public ModelAndView editCompanyInfo(@PathVariable("id") Long id)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/project/sopinfo/tab_shares_company");
+		mv.addObject("projectId", id);
+		return mv;
+	}
+	@RequestMapping(value="/saveCompanyInfo", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseData<Project> saveCompanyInfo(@RequestBody Project project)
+	{
+		ResponseData<Project> data = new ResponseData<Project>();
+		try
+		{
+			if(project == null || project.getId() == null)
+			{
+				data.getResult().addError("数据错误.");
+				return data;
+			}
+			Project po = projectService.queryById(project.getId());
+			if(po == null)
+			{
+				data.getResult().addError("数据错误.");
+				return data;
+			}
+			projectService.updateById(project);
+			
+			po.setProjectCompany(project.getProjectCompany());
+			po.setProjectCompanyCode(project.getProjectCompanyCode());
+			po.setCompanyLegal(project.getCompanyLegal());
+			po.setFormationDate(project.getFormationDate());
+			data.setEntity(po);
+		}
+		catch (Exception e)
+		{
+			if(logger.isErrorEnabled())
+			{
+				logger.error("保存法人信息错误:"+project,e);
+			}
+			data.getResult().addError(e.getMessage());
+		}
+		return data;
+	}
 	
 	/**
 	 * sop tab页面  访谈 详情    /galaxy/project/proview/

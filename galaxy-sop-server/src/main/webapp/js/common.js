@@ -809,63 +809,6 @@ function intervierInfoFormat(value, row, index){
 }
 
 
-
-/**
- * 格式化富文本，记录中附加详情,不附加 title
- */	
-function viewNotesFormat(value,row,index){
-	var len=0;
-	var str= "";
-	if(!(!value)){
-		str=delHtmlTag($.trim(value))
-	}
-	if(str!="" && typeof(str)!="undefined"){
-		len = getLength(str);
-	}else{
-		str = "-";
-	}
-	if(len>100){
-		var subValue =str.substring(0,100); 
-		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
-					subValue+ "..."+
-					"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
-				'</div>';
-		return rc;
-	}else {
-		return str+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
-	}
-	
-}
-
-
-/**
- * 格式化富文本，记录中不附加详情,不附加 title
- */	
-function viewNotesFormat_noinfo(value,row,index){
-	var len=0;
-	var str= "";
-	if(!(!value)){
-		str=delHtmlTag($.trim(value))
-	}
-	if(str!="" && typeof(str)!="undefined"){
-		len = getLength(str);
-	}else{
-		str = "-";
-	}
-	if(len>100){
-		var subValue =str.substring(0,100); 
-		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
-					subValue+ "..."+
-				'</div>';
-		return rc;
-	}else {
-		return str;
-	}
-}
-
-
-
-
 //meet table format
 function meetProInfoFormat(value, row, index){
 	return row.proName+"</br>"+row.meetingTypeStr;
@@ -903,9 +846,98 @@ function metcolumnFormat(value, row, index){
 	return rc;
 }*/
 
+
 /**
- * 会议记录 ，格式化富文本
- * 附加 title
+ * 格式化富文本，记录中附加详情,不附加 title
+ */	
+function viewNotesFormat(value,row,index){
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		//len = getLength(str);
+		len = str.length;
+	}
+	if(len>120){
+		var subValue =str.substring(0,120); 
+		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+					subValue+ "..."+
+					"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
+				'</div>';
+		return rc;
+	}else {
+		return str+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+	}
+	
+}
+function tc_viewNotesFormat(value,row,index){
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		len = str.length;
+	}
+	if(len>90){
+		var subValue =str.substring(0,90); 
+		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+					subValue+ "..."+
+					"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
+				'</div>';
+		return rc;
+	}else {
+		return str+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
+	}
+	
+}
+
+/**
+ * 格式化富文本，记录中不附加详情,不附加 title
+ */	
+function viewNotesFormat_noinfo(value,row,index){
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		len = str.length;
+	}
+	if(len>120){
+		var subValue =str.substring(0,120); 
+		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+					subValue+ "..."+
+				'</div>';
+		return rc;
+	}else {
+		return str;
+	}
+}
+function tc_viewNotesFormat_noinfo(value,row,index){
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		len = str.length;
+	}
+	if(len>90){
+		var subValue =str.substring(0,90); 
+		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+					subValue+ "..."+
+				'</div>';
+		return rc;
+	}else {
+		return str;
+	}
+}
+
+/**
+ * 格式化富文本 只附加 title
  */	
 function formatLog(value,row,index){
 	var len=0;
@@ -914,13 +946,31 @@ function formatLog(value,row,index){
 		str=delHtmlTag($.trim(value))
 	}
 	if(str!="" && typeof(str)!="undefined"){
-		len = getLength(str); //str.length;
-	}else{
-		str = "-";
+		len = str.length;
 	}
 	
-	if(len>100){
-		var subValue1 = str.substring(0,100);
+	if(len>120){
+		var subValue1 = str.substring(0,120);
+		var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+str+"'>" +
+					subValue1+'...' +
+				'</div>';
+		return rc;
+	}else{
+		return str;
+	}
+}
+function tc_formatLog(value,row,index){
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		len = str.length;
+	}
+	
+	if(len>90){
+		var subValue1 = str.substring(0,90);
 		var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+str+"'>" +
 					subValue1+'...' +
 				'</div>';
