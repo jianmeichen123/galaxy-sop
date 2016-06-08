@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.galaxyinternet.bo.IdeaBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
-import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.RecordType;
 import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.dao.idea.AbandonedDao;
@@ -218,7 +218,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		project.setStockTransfer(0);
 		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
 		project.setProjectType(DictEnum.projectType.内部创建.getCode());
-		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
+		project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 		try 
 		{
 			String projectCode = generateProjectCode(project.getProjectDepartid());

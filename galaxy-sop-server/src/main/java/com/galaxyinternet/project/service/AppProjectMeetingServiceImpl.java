@@ -66,7 +66,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 			proEntiry.setId(project.getId());		
 			if(currMeetingResult.equals(DictEnum.meetingResult.否决.getCode()) ){
 				//更新项目状态为否决状态，更新变更时间
-				proEntiry.setProjectStatus(DictEnum.meetingResult.否决.getCode());
+				proEntiry.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 				proEntiry.setUpdatedTime((new Date()).getTime());
 				projectDao.updateById(proEntiry);			
 			}
@@ -110,7 +110,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 			}else if(currMeetingResult.equals(DictEnum.meetingResult.否决.getCode())){
 				Project proEntity = new Project();
 				proEntity.setId(project.getId());
-				proEntity.setProjectStatus(DictEnum.meetingResult.否决.getCode());
+				proEntity.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 				proEntity.setUpdatedTime((new Date()).getTime());
 				projectDao.updateById(proEntity);
 				
@@ -174,7 +174,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 				//关闭项目，更新项目状态信息
 				Project proEntity = new Project();
 				proEntity.setId(project.getId());
-				proEntity.setProjectStatus(DictEnum.meetingResult.否决.getCode());
+				proEntity.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 				proEntity.setUpdatedTime((new Date()).getTime());
 				projectDao.updateById(proEntity);
 				//更新该项目在当前阶段的排期结果状态“已否决”
@@ -240,7 +240,7 @@ public class AppProjectMeetingServiceImpl extends BaseServiceImpl<MeetingRecord>
 			}
 		    else if (currMeetingResult.equals(DictEnum.meetingResult.否决.getCode())){
 		    	//关闭项目，更新项目的状态为“已关闭”、变更操作时间
-		    	proEntity.setProjectStatus(DictEnum.meetingResult.否决.getCode());
+		    	proEntity.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 		    	proEntity.setUpdatedTime((new Date()).getTime());
 				projectDao.updateById(proEntity);
 				//更新该项目在当前阶段的排期结果状态“已否决”

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
@@ -70,7 +71,7 @@ public class AppProjectController extends BaseControllerImpl<Project, ProjectBo>
 			User user = (User) getUserFromSession(request);
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			if(project.getProjectProgress()!=null&&project.getProjectProgress().equals("guanbi")){
-				project.setProjectStatus("meetingResult:3");
+				project.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 				project.setProjectProgress(null);
 			}
 			if (roleIdList.contains(UserConstant.HHR)){
