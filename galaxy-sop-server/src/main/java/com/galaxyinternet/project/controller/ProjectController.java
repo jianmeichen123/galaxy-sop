@@ -47,6 +47,7 @@ import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.form.Token;
 import com.galaxyinternet.framework.core.id.IdGenerator;
+import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -2680,6 +2681,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return data;
 	}
 	
+
 	/**
 	 * sop tab页面  访谈 详情    /galaxy/project/proview/
 	 */
@@ -2688,6 +2690,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		Project proinfo = new Project();
 		proinfo = projectService.queryById(pid);
 		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", proinfo.getProjectProgress());
 		request.setAttribute("pname", proinfo.getProjectName());
 		return "project/sopinfo/tab_interview";
 	}
@@ -2700,7 +2703,57 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		proinfo = projectService.queryById(pid);
 		request.setAttribute("proinfo", GSONUtil.toJson(proinfo));
 		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", proinfo.getProjectProgress());
 		request.setAttribute("pname", proinfo.getProjectName());
 		return "project/sopinfo/tab_meeting";
 	}
+	/**
+	 * sop tab页面  近期访谈、会议记录查询    /galaxy/project/getnearnotes/
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getnearnotes/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<BaseEntity> getNearNotes(@PathVariable Long id, HttpServletRequest request) {
+		ResponseData<BaseEntity> responseBody = new ResponseData<BaseEntity>();
+		
+		try {
+			Project proinfo = new Project();
+			proinfo = projectService.queryById(id);
+			if(proinfo ==null || proinfo.getId()==null){
+				responseBody.setResult(new Result(Status.ERROR, null, "项目信息错误!"));
+				return responseBody;
+			}
+			
+			List<InterviewRecord> viewList = new ArrayList<InterviewRecord>();
+			List<MeetingRecord> meetList = new ArrayList<MeetingRecord>();
+			
+			PageRequest pageable = new PageRequest();
+			pageable = new PageRequest(0, 3);
+			
+			InterviewRecord viewQuery = new InterviewRecord();
+			viewQuery.setProjectId(id);;
+			
+			MeetingRecord meetQuery = new MeetingRecord();
+			meetQuery.setProjectId(id);
+			
+			viewList = interviewRecordService.queryList(viewQuery, pageable);
+			meetList = meetingRecordService.queryList(meetQuery, pageable);
+			
+			Map<String,Object> listresult = new HashMap<String,Object>();
+			if(viewList!=null && !viewList.isEmpty()){
+				listresult.put("viewList", viewList);
+			}
+			if(meetList!=null && !meetList.isEmpty()){
+				listresult.put("meetList", meetList);
+			}
+			responseBody.setUserData(listresult);
+			responseBody.setResult(new Result(Status.OK, null));
+		} catch (Exception e) {
+			logger.error("", e);
+			responseBody.setResult(new Result(Status.ERROR, null, "近期访谈、会议记录查询失败"));
+			return responseBody;
+		}
+		
+		return responseBody;
+	}
+	
 }
