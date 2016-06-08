@@ -139,10 +139,11 @@
 					<div class="new_r_compile new_bottom_color">
 						<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
 					</div>
-					<ul class="new_ul_all">
-						<li><span id="bpName">《XXXXXXXXXXXXXXXXX》</span></li>
-						<li><span class="new_color_gray">状态：</span><span class="new_color_black" id="is_upload"></span></li>
-						<li><span class="new_color_gray">更新时间：</span><span class="new_color_black" id="uploadtime"></span></li>
+					<ul class="new_ul_all" id='business_plan'>
+						<li><span>《XXXXXXXXXXXXXXXXX》</span></li>
+						<li><span class="new_color_gray">状态：</span><span class="new_color_black">已上传</span></li>
+						<li><span class="new_color_gray">更新时间：</span><span class="new_color_black">2016-01-26</span></li>
+
 						<li class="new_ul_right"><span class="new_fctbox"> <a href="javascript:;" class="ico f2" data-btn="describe">查看</a>
 								<a href="javascript:;" class="ico new1" data-btn="edit" id="uploadOperator">更新</a>
 								<a href="javascript:;" class="ico new2" data-btn="describe">查看历史</a>
@@ -403,11 +404,16 @@
         </table>
     </div>
 </div>
+<jsp:include page="../../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
-<script src="<%=path %>/js/projectDetail.js"></script>
 <script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path %>/js/teamSheetNew.js"></script>
+<script src="<%=path %>/js/projectDetail.js"></script>
+<script src="<%=path %>/js/planbusiness.js"></script>
 <script>
 
 var projectId = <%=projectId%>;
@@ -434,7 +440,6 @@ function toInterView(){
 function toMeet(){
 	window.location.href= Constants.sopEndpointURL + "/galaxy/project/promeet/" + projectId;
 }
-
 
 
 </script>
