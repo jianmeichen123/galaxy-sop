@@ -173,7 +173,7 @@
 	}
 	
 	function proInfo(id){
-		forwardWithHeader(platformUrl.projectDetail + id);
+		forwardWithHeader(platformUrl.projectDetail + "/" + id);
 	}
 	
 	function refreshProjectList()

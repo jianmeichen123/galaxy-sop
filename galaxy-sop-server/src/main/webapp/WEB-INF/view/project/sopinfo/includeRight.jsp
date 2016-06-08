@@ -94,6 +94,17 @@
 
 <script>
 
+function toInterView(id){
+	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/proview/" + id);
+}
+function toMeet(id){
+	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/promeet/" + id);
+}
+
+
+
+
+
 
 
 </script>

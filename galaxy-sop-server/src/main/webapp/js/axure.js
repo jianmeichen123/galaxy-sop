@@ -499,10 +499,7 @@
 		var opts = $.extend({
 			url:"",//模版请求地址
 			data:"",//传递参数
-			okback:function(){}//模版反回成功执行	
-		},options);
-		//拉取静态模版
-		$.popup({
+			okback:function(){},//模版反回成功执行	
 			showback:function(){
 				var _this = this;
 				$.ajax({
@@ -531,8 +528,10 @@
 						alert("网络错误")
 					}	
 				})
-			}	
-		});
+			}
+		},options);
+		//拉取静态模版
+		$.popup(opts);
 	};
 	/*
 		日期{

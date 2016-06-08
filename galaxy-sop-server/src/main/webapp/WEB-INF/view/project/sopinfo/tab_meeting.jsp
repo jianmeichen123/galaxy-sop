@@ -49,31 +49,31 @@
         	<div class="tabtable assessment label_static">
           	<!-- tab标签 -->
             <ul class="tablink">
-                <li data-tab="nav"><a href="javascript:;">基本信息</a></li>
-                <li data-tab="nav"><a href="javascript:;">团队成员</a></li>
-                <li data-tab="nav"><a href="javascript:;">股权结构</a></li>
-                <li data-tab="nav"><a href="javascript:;">访谈记录</a></li>
-                <li data-tab="nav" class="on"><a href="javascript:;">会议纪要</a></li>
-                <li data-tab="nav"><a href="javascript:;">项目文档</a></li>
-                <li data-tab="nav"><a href="javascript:;">操作日志</a></li>
+                <li><a href="javascript:;">基本信息</a></li>
+                <li><a href="javascript:;">团队成员</a></li>
+                <li><a href="javascript:;">股权结构</a></li>
+                <li><a href="javascript:;" onclick="toInterView('${pid}')">访谈记录</a></li>
+                <li class="on"><a href="javascript:;" onclick="toMeet('${pid}')">会议纪要</a></li>
+                <li><a href="javascript:;">项目文档</a></li>
+                <li><a href="javascript:;">操作日志</a></li>
             </ul>
 
             
              <!-- 会议纪要
             <div data-tab="con" > 
-              -->
-            	<div class="tabtable_con">
+               -->
+            	<div class="member interview">
             	
                    <!--按钮-->
-					<!-- <div class="top clearfix"> -->
-					<div class="new_r_compile">
+					<div class="top clearfix">
 						<div class="btnbox_f btnbox_f1 clearfix">
-							<a href="#" onclick="toAddProMeet();" class="pubbtn lpubbtn bluebtn ico c4">添加会议纪要</a>
+							<a href="#" onclick="toAddProMeet();"  class="pubbtn bluebtn ico c4 add_prj add_interview">添加会议纪要</a>
 						</div>
 					</div>
 
 					<!-- 会议信息 -->
-					<div id="custom-toolbar">
+					<div class="min_document clearfix" id="custom-toolbar">
+					<div class="bottom searchall clearfix">
 						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 						
 						<dl class="fmdl fmmr fmdll clearfix">
@@ -97,28 +97,28 @@
 								<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
 							</dd>
 							<dd>
-								<a href="javascript:;" class="bluebtn ico cx" action="querySearch">查询</a>
+								<a href="javascript:;" class="search_icon"action="querySearch">查询</a>
 							</dd>
 						</dl>
 					</div>
-					
+					</div>
 					<table id="data-table"
 						data-url="<%=path%>/galaxy/project/progress/queryMeet" 
 						data-id-field="id" 
 						data-toolbar="#custom-toolbar">
 						<thead>
 							<tr>
-								<th data-field="meetinfo" data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-								<th data-field="meetingTypeStr" data-align="center" >会议类型</th>
-								<th data-field="meetingNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo">会议纪要</th>
+								<th data-field="meetinfo" data-align="center" data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
+								<th data-field="meetingTypeStr" data-align="center" data-class="no1_2">会议类型</th>
+								<th data-field="meetingNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no3">会议纪要</th>
 								<th data-field="oper" data-align="center" data-formatter="meetOperFormat">操作</th>
 							</tr>
 						</thead>
 					</table>
 						
                 </div>                 
-           <!-- </div>
-            tab end-->
+           <!--  </div>
+           tab end-->
             
           </div>
         </div>
@@ -325,11 +325,11 @@ function initMeetUpload() {
 
 
 function meetOperFormat(value,row,index){
-	var info = "<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看<a>";
+	var info = "<span  class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
 	if(userId==row.uid){
-		edit = "   <a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑<a>";
+		edit = " <span  class=\"edit blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
 	}
 	return info + edit;
 }

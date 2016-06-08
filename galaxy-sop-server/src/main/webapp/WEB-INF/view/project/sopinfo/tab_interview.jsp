@@ -47,34 +47,34 @@
 		<div class="new_left">
 			<div class="tabtable assessment label_static">
 				<!-- tab标签 -->
-				<ul class="tablink">
-					<li data-tab="nav"><a href="javascript:;">基本信息</a></li>
-					<li data-tab="nav"><a href="javascript:;">团队成员</a></li>
-					<li data-tab="nav"><a href="javascript:;">股权结构</a></li>
-					<li data-tab="nav"  class="on"><a href="javascript:;">访谈记录</a></li>
-					<li data-tab="nav"><a href="javascript:;">会议纪要</a></li>
-					<li data-tab="nav"><a href="javascript:;">项目文档</a></li>
-					<li data-tab="nav"><a href="javascript:;">操作日志</a></li>
-				</ul>
+	            <ul class="tablink">
+	                <li><a href="javascript:;">基本信息</a></li>
+	                <li><a href="javascript:;">团队成员</a></li>
+	                <li><a href="javascript:;">股权结构</a></li>
+	                <li class="on"><a href="javascript:;" onclick="toInterView('${pid}')">访谈记录</a></li>
+	                <li><a href="javascript:;" onclick="toMeet('${pid}')">会议纪要</a></li>
+	                <li><a href="javascript:;">项目文档</a></li>
+	                <li><a href="javascript:;">操作日志</a></li>
+	            </ul>
 
 
 				<!-- 访谈记录
-				<div data-tab="con">
--->
-					<div class="tabtable_con">
+				<div data-tab="con" >
+  -->
+					<div class="member interview">
 
 						<!--按钮-->
-						<!-- <div class="top clearfix"> -->
-						<div class="new_r_compile">
+						<div class="top clearfix">
 							<div class="btnbox_f btnbox_f1 clearfix">
 								<!--  <a href="<%=path%>/galaxy/project/progress/interViewAdd" data-btn="interview" class="pubbtn lpubbtn bluebtn ico c4">添加访谈记录</a> 
 								<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark">启动内部评审</a> -->
-								<a href="#"  onclick="toAddProInterview();" class="pubbtn fffbtn lpubbtn option_item_mark">添加访谈记录</a>
+								<a href="#"  onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview">添加访谈记录</a>
 							</div>
 						</div>
 
 						<!-- 接触访谈信息 -->
-						<div id="projectProgress_1_table_custom-toolbar">
+						<div class="min_document clearfix" id="projectProgress_1_table_custom-toolbar" >
+						<div class="bottom searchall clearfix">
 							<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 							<dl class="fmdl fmmr fmdll clearfix">
 								<dt>访谈日期：</dt>
@@ -85,9 +85,10 @@
 									<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
 								</dd>
 								<dd>
-									<a href="javascript:;" class="bluebtn ico cx" action="querySearch">查询</a>
+									<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
 								</dd>
 							</dl>
+						</div>
 						</div>
 						<table id="projectProgress_1_table"
 							data-url="<%=path%>/galaxy/project/progress/queryInterview" 
@@ -95,8 +96,8 @@
 							data-toolbar="#projectProgress_1_table_custom-toolbar">
 							<thead>
 								<tr>
-									<th data-field="viewinfo" data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
-									<th data-field="viewNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo">访谈记录</th>
+									<th data-field="viewinfo" data-align="center" data-formatter="intervierInfoFormat" data-class="no1">访谈概况</th>
+									<th data-field="viewNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈记录</th>
 									<th data-field="oper" data-align="center" data-formatter="viewOperFormat">操作</th>
 								</tr>
 							</thead>
@@ -104,7 +105,7 @@
 						
 					</div>
 
-				<!--</div>
+				<!-- </div>
 				tab end-->
 				
 			</div>
@@ -308,12 +309,12 @@ function initViewUpload() {
 
 
 
-function viewOperFormat(value,row,index){
-	var info = "<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看<a>";
+function viewOperFormat(value,row,index){  
+	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
 	if(userId==row.createdId){
-		edit = "   <a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑<a>";
+		edit = " <span class=\"edit blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
 	}
 	return info + edit;
 }

@@ -2572,7 +2572,55 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		mv.addObject("projectId", id);
 		return mv;
 	}
-	
+	/**
+	 * 编辑法人信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/editCompanyInfo/{id}")
+	public ModelAndView editCompanyInfo(@PathVariable("id") Long id)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/project/sopinfo/tab_shares_company");
+		mv.addObject("projectId", id);
+		return mv;
+	}
+	@RequestMapping(value="/saveCompanyInfo", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public ResponseData<Project> saveCompanyInfo(@RequestBody Project project)
+	{
+		ResponseData<Project> data = new ResponseData<Project>();
+		try
+		{
+			if(project == null || project.getId() == null)
+			{
+				data.getResult().addError("数据错误.");
+				return data;
+			}
+			Project po = projectService.queryById(project.getId());
+			if(po == null)
+			{
+				data.getResult().addError("数据错误.");
+				return data;
+			}
+			projectService.updateById(project);
+			
+			po.setProjectCompany(project.getProjectCompany());
+			po.setProjectCompanyCode(project.getProjectCompanyCode());
+			po.setCompanyLegal(project.getCompanyLegal());
+			po.setFormationDate(project.getFormationDate());
+			data.setEntity(po);
+		}
+		catch (Exception e)
+		{
+			if(logger.isErrorEnabled())
+			{
+				logger.error("保存法人信息错误:"+project,e);
+			}
+			data.getResult().addError(e.getMessage());
+		}
+		return data;
+	}
 	
 	/**
 	 * sop tab页面  访谈 详情    /galaxy/project/proview/
