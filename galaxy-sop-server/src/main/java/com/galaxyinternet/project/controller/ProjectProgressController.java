@@ -677,7 +677,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				return responseBody;
 			}
 			//RecordType { PROJECT((byte) 0, "项目"), IDEAS((byte) 1, "创意");
-			meetingRecord.setRecordType((byte) (1));
+			//meetingRecord.setRecordType((byte) (1));
 			meetingRecordService.updateById(meetingRecord);
 		    responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(meetingRecord.getId());
