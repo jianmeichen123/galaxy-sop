@@ -317,11 +317,9 @@ function getProjectInfo(dtd)
 
 			<!-- 股权结构 -->
             <div  data-tab="con" >   
-            	<div class="tabtable_con">
-                    <jsp:include page="/galaxy/project/tabShares">
-			        	<jsp:param value="<%=request.getAttribute(\"projectId\") %>" name="id"/>
-			        </jsp:include>
-                </div>                 
+                <jsp:include page="/galaxy/project/tabShares">
+		        	<jsp:param value="<%=request.getAttribute(\"projectId\") %>" name="id"/>
+		        </jsp:include>
             </div>
             
             

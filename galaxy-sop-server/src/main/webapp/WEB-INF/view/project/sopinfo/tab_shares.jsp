@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <!--法人信息-->
 <div class="tabtable_con">
-	<div class="new_r_compile new_bottom_color">
+	<div class="new_r_compile">
 		<span class="new_ico_project"></span> <span class="new_color size16">法人信息</span>
 		<div class="new_r_compile">
 			<span class="new_fctbox"> 
@@ -35,8 +35,9 @@
 	<div class="new_r_compile new_bottom_color">
 		<span class="new_ico_industry"></span> <span class="new_color size16">股权结构</span>
 	</div>
-
-		<a href="javascript:;" onclick="addSharesView();" class="bluebtn new_btn">添加</a>
+	<div class="new_correlation_cen">
+		<a href="javascript:;" onclick="addSharesView();" class="bluebtn new_btn" style="margin:0px;">添加</a>
+	</div>
 	<div id="shares-custom-toolbar">
 		<input type="hidden" name="projectId" value="${projectId }">
 	</div>
@@ -56,9 +57,13 @@
 	</div>
 </div>
 <script type="text/javascript">
+var $sharesTable;
+$(function(){
+	
 	refreshCompanyInfo();
+});
 	//股权结构列表
-	$("#shares-table").bootstrapTable({
+	$sharesTable = $("#shares-table").bootstrapTable({
 		queryParamsType: 'size|page', 
 		pageSize:10,
 		url: platformUrl.projectSharesList,  
@@ -107,8 +112,11 @@
     	var _url = platformUrl.editStockView+id;
 		$.getHtml({
 			url:_url,
+			okback:function(){
+				$("#up_stock_form #projectId").val("${projectId}");
+			},
 			hideback:function(){
-				$("#shares-table").bootstrapTable('refresh');
+				$sharesTable.bootstrapTable('refresh');
 			}
 		});
 		return false;
@@ -127,7 +135,7 @@
 						if(data.result.status=="OK")
 						{
 							layer.msg('删除成功');
-							$("#shares-table").bootstrapTable('refresh');
+							$sharesTable.bootstrapTable('refresh');
 						}
 						else
 						{
@@ -144,36 +152,57 @@
 		$.getHtml({
 			url:platformUrl.addSharesView,
 			okback:function(){
-				$("#stock_form #projectId").val("${projectId}")
+				$("#stock_form #projectId").val("${projectId}");
 			},
 			hideback:function(){
-				$("#shares-table").bootstrapTable('refresh');
+				$sharesTable.bootstrapTable('refresh');
 			}
 		});
 		return false;
 	}
 	function updateStock()
 	{
-		savaStock();
+		if(beforeSubmit())
+		{
+			sendPostRequestByJsonObj(
+					platformUrl.updateStock, 
+				JSON.parse($("#up_stock_form").serializeObject()), 
+				function(data){
+					if(data.result.status=="OK")
+					{
+						layer.msg('保存成功');
+						console.log($(".pop .close")[0]);
+						$("[data-close='close']").click();
+						$("#shares-table").bootstrapTable('refresh');
+					}
+					else
+					{
+						layer.msg(data.result.message);
+					}
+				}
+			);
+		}
 	}
 	function savaStock(){
 		if(beforeSubmit())
 		{
-				sendPostRequestByJsonObj(
-					platformUrl.addStock, 
-					JSON.parse($("#stock_form").serializeObject()), 
-					function(data){
-						if(data.result.status=="OK")
-						{
-							layer.msg('保存成功');
-							$("#shares-table").bootstrapTable('refresh');
-						}
-						else
-						{
-							layer.msg(data.result.message);
-						}
+			sendPostRequestByJsonObj(
+				platformUrl.addStock, 
+				JSON.parse($("#stock_form").serializeObject()), 
+				function(data){
+					if(data.result.status=="OK")
+					{
+						layer.msg('保存成功');
+						console.log($(".pop .close")[0]);
+						$("[data-close='close']").click();
+						$("#shares-table").bootstrapTable('refresh');
 					}
-				);
+					else
+					{
+						layer.msg(data.result.message);
+					}
+				}
+			);
 		}
 	}
 	

@@ -4,8 +4,8 @@
 %>
 <form id="company-info-form">
 <input type="hidden" name="id" value="${projectId }">
-<div class="tabtable_con" style="width:600px;">
-	<div class="new_r_compile new_bottom_color">
+<div class="tabtable_con" style="width:650px;">
+	<div class="new_r_compile">
 		<span class="new_ico_project"></span> <span class="new_color size16">法人信息</span>
 		<div class="compile_on_center">
 	        <div class="compile_on_right">
@@ -91,7 +91,7 @@
 				{
 					layer.msg("保存成功!");
 					$(".pop .close").click();
-					top.refreshCompanyInfo();
+					refreshCompanyInfo();
 				}
 				else
 				{
