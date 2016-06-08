@@ -33,6 +33,48 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
+
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript">
+var projectInfo;
+$(function(){
+	createMenus(4);
+	var dtd = $.Deferred();
+	$.when(getProjectInfo(dtd))
+	.done(function(){
+		//initProjectData();
+	});
+});
+/**
+*项目信息
+*
+**/
+function getProjectInfo(dtd)
+{
+	var hasDtd = typeof(dtd) != 'undefined';
+	var url = platformUrl.detailProject+"${projectId}";
+	sendGetRequest(
+		url,
+		null,
+		function(data){
+			projectInfo = data.entity;
+			if(hasDtd)
+			{
+				dtd.resolve();
+			}
+		}
+	);
+	if(hasDtd)
+	{
+		return dtd.promise();
+	}
+}
+
+
+</script>
 </head>
 
 
