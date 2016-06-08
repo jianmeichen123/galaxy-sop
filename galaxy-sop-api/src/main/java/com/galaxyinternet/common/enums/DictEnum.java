@@ -773,5 +773,59 @@ public enum DictEnum {
 			
 			
 		}
+		
+		
+		
+		/**
+		 * 项目状态    跟进中等
+		 * @author gxc
+		 * @Version  2016年6月8日
+		 */
+		public enum projectStatus
+		{
+			GJZ("跟进中"	 ,   "projectStatus:0"),
+			THYY("投后运营" ,  "projectStatus:1"),
+			YFJ("已否决"		,"projectStatus:2"),
+			YTC("已退出"		,"projectStatus:3");
+			private String name;
+			private String code;
+			
+			private projectStatus(String name, String code)
+			{
+				this.name = name;
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public void setName(String name) {
+				this.name = name;
+			}
+
+			public String getCode() {
+				return code;
+			}
+
+			public void setCode(String code) {
+				this.code = code;
+			}
+			
+			public static String getNameByCode(String code) {
+				if (code != null && !code.trim().equals("")) 
+				{
+					projectStatus[] values = projectStatus.values();
+					for (int i = 0; i < values.length; i++) 
+					{
+						if (code.equals(values[i].getCode())) 
+						{
+							return values[i].getName();
+						}
+					}
+				}
+				return null;
+			}
+		}
 }
 
