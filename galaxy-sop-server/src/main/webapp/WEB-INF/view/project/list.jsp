@@ -194,7 +194,7 @@
 	}
 	
 	function proInfo(id){
-		forwardWithHeader(platformUrl.projectDetail + "/" + id);
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
 	}
 	
 	function refreshProjectList()
