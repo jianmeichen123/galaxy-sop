@@ -284,7 +284,10 @@
 		      <if test="projectBusinessModel != null" >  project_business_model = #{projectBusinessModel,jdbcType=LONGVARCHAR}, </if>
 		      <if test="companyLocation != null" >  company_location = #{companyLocation,jdbcType=LONGVARCHAR}, </if>
 		      <if test="userPortrait != null" >  user_portrait = #{userPortrait,jdbcType=LONGVARCHAR}, </if>
-		      <if test="prospectAnalysis != null" >  prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
+		      <if test="prospectAnalysis != null" >  prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR}, </if>
+		      <if test="nextFinancingSource != null" >  next_financing_source = #{nextFinancingSource,jdbcType=LONGVARCHAR}, </if>
+		      <if test="industryAnalysis != null" >  industry_analysis = #{industryAnalysis,jdbcType=LONGVARCHAR}, </if>
+		      <if test="operationalData != null" >  operational_data = #{operationalData,jdbcType=LONGVARCHAR} </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -362,7 +365,10 @@
 		      <if test="projectBusinessModel != null" >  project_business_model = #{projectBusinessModel,jdbcType=LONGVARCHAR}, </if>
 		      <if test="companyLocation != null" >  company_location = #{companyLocation,jdbcType=LONGVARCHAR}, </if>
 		      <if test="userPortrait != null" >  user_portrait = #{userPortrait,jdbcType=LONGVARCHAR}, </if>
-		      <if test="prospectAnalysis != null" >  prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
+		      <if test="prospectAnalysis != null" >  prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR}, </if>
+		      <if test="nextFinancingSource != null" >  next_financing_source = #{nextFinancingSource,jdbcType=LONGVARCHAR}, </if>
+		      <if test="industryAnalysis != null" >  industry_analysis = #{industryAnalysis,jdbcType=LONGVARCHAR}, </if>
+		      <if test="operationalData != null" >  operational_data = #{operationalData,jdbcType=LONGVARCHAR} </if>
 		</set>
 		where id = #{id}
 	</update>

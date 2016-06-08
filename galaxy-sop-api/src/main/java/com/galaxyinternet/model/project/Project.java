@@ -34,6 +34,9 @@ public class Project extends PagableEntity {
     private String companyLocation;
     private String userPortrait;
     private String prospectAnalysis;
+    private String nextFinancingSource;
+    private String industryAnalysis;
+    private String operationalData;
     //06-21版本更新字段
   	private Long industryOwn;//行业归属
   	private String financeStatus;//融资状态
@@ -467,10 +470,32 @@ public class Project extends PagableEntity {
 	public String getProjectStatusDs() {
 		return projectStatusDs;
 	}
-	//TODO
-
 	public String getFinanceStatusDs() {
 		return financeStatusDs;
+	}
+
+	public String getNextFinancingSource() {
+		return nextFinancingSource;
+	}
+
+	public void setNextFinancingSource(String nextFinancingSource) {
+		this.nextFinancingSource = nextFinancingSource;
+	}
+
+	public String getIndustryAnalysis() {
+		return industryAnalysis;
+	}
+
+	public void setIndustryAnalysis(String industryAnalysis) {
+		this.industryAnalysis = industryAnalysis;
+	}
+
+	public String getOperationalData() {
+		return operationalData;
+	}
+
+	public void setOperationalData(String operationalData) {
+		this.operationalData = operationalData;
 	}
 
 }
