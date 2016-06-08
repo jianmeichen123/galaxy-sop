@@ -102,7 +102,7 @@ function getProjectInfo(dtd)
           	<!-- tab标签 -->
             <ul class="tablink">
                 <li data-tab="nav"><a href="javascript:;">基本信息</a></li>
-                <li data-tab="nav"><a href="javascript:;">团队成员</a></li>
+                <li data-tab="nav"><a href="javascript:;" onClick="changeTab(Constants.sopEndpointURL+'/galaxy/personTab/','${projectId}')" >团队成员</a></li>
                 <li data-tab="nav"><a href="javascript:;">股权结构</a></li>
                 <li data-tab="nav"><a href="javascript:;" onclick="toInterView('<%=projectId%>')">访谈记录</a></li>
                 <li data-tab="nav"><a href="javascript:;" onclick="toMeet('<%=projectId%>')">会议纪要</a></li>
@@ -301,16 +301,8 @@ function getProjectInfo(dtd)
 					
 					
 			<!-- 团队成员 -->
-			<div data-tab="con">
-				<div class="tabtable_con">
-					<div class="new_r_compile">
-						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-						</span>
-					</div>
-					
-					团队成员
-
-				</div>
+			<div id="cur_tab" data-tab="con">
+				
 			</div>
 
 
@@ -454,6 +446,7 @@ function getProjectInfo(dtd)
 <script src="<%=path %>/js/teamSheetNew.js"></script>
 <script src="<%=path %>/js/projectDetail.js"></script>
 <script src="<%=path %>/js/planbusiness.js"></script>
+<script src="<%=path %>/js/person.js"></script>
 <script>
 
 var projectId = <%=projectId%>;

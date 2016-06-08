@@ -332,6 +332,14 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 			logger.error("参数错误， type ="+type+", id="+id);
 		}
 	}
+	
+	/**
+	 * 完善简历的弹出层
+	 */
+	@RequestMapping(value="/personTab/{id}", method = RequestMethod.GET)
+	public String personTab(@PathVariable Long id, HttpServletRequest request){
+		return "project/sopinfo/tab_person";
+	}
 
 	
 }

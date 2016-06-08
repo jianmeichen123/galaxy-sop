@@ -34,6 +34,9 @@
     <result column="company_location" property="companyLocation" jdbcType="LONGVARCHAR" />
     <result column="user_portrait" property="userPortrait" jdbcType="LONGVARCHAR" />
     <result column="prospect_analysis" property="prospectAnalysis" jdbcType="LONGVARCHAR" />
+    <result column="next_financing_source" property="nextFinancingSource" jdbcType="LONGVARCHAR" />
+    <result column="industry_analysis" property="industryAnalysis" jdbcType="LONGVARCHAR" />
+    <result column="operational_data" property="operationalData" jdbcType="LONGVARCHAR" />
     <result column="count" property="count" jdbcType="BIGINT" />
     <result column="idea_id" property="ideaId" jdbcType="BIGINT" />
   </resultMap>
@@ -42,7 +45,8 @@
     id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId,industry_own, 
     project_valuations, final_valuations, finance_status, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio, project_company, formation_date, project_company_code, company_legal, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
-    project_describe, project_business_model, company_location, user_portrait, prospect_analysis, idea_id
+    project_describe, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
+    industry_analysis,operational_data, idea_id
   </sql>
   
   
