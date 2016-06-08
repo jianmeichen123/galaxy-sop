@@ -2655,18 +2655,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return mv;
 	}
 	/**
-	 * 编辑法人信息
-	 * @param id
+	 * 保存公司法人信息
+	 * @param project
 	 * @return
 	 */
-	@RequestMapping("/editCompanyInfo/{id}")
-	public ModelAndView editCompanyInfo(@PathVariable("id") Long id)
-	{
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/project/sopinfo/tab_shares_company");
-		mv.addObject("projectId", id);
-		return mv;
-	}
 	@RequestMapping(value="/saveCompanyInfo", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public ResponseData<Project> saveCompanyInfo(@RequestBody Project project)
