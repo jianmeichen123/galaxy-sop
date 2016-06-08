@@ -140,13 +140,13 @@ function getProjectInfo(dtd)
 						<tr>
 							<td><span class="new_color_gray">行业归属：</span><span class="new_color_black">互联网旅游</span></td>
 							<td><span class="new_color_gray" >投资经理：</span>
-								<span class="new_color_black" name="createUname"></span><span class="new_color_gray" id="projectCareerline"></span></td>
+								<span class="new_color_black" id="createUname"></span><span class="new_color_gray" id="projectCareerline"></span></td>
 						</tr>
 						
 						<tr>
-							<td><span class="new_color_gray">融资状态：</span><span class="new_color_black">尚未获投</span></td>
+							<td><span class="new_color_gray">融资状态：</span><span class="new_color_black" id="financeStatusDs"></span></td>
 							<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
-								<span class="new_color_gray">（跟进中）</span><span class="new_bj "></span></td>
+								<span class="new_color_gray" id="projectStatusDs"></span><span class="new_bj "></span></td>
 						</tr>
 					</table>
 
@@ -187,8 +187,8 @@ function getProjectInfo(dtd)
         </div>  
         <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
             <tr>
-                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr" value="Utter绝对潮流" id="projectType_edit"></input></span></td>
-                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit">2016-01-25</span></td>
+                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  id="project_name_edit"></input></span></td>
+                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit"></span></td>
             </tr>
             <tr>
                 <td><span class="new_color_gray">项目类型：</span><span class="new_color_black" id="projectType_edit">外部投资</span></td>
@@ -196,11 +196,11 @@ function getProjectInfo(dtd)
             </tr>
             <tr>
                 <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr"><option>ddddd</option></select></span></td>
-                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="projectCareerline_edit">刘佳</span><span class="new_color_gray">（O2O及电商）</span></td>
+                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span class="new_color_gray" id="projectCareerline_edit"></span></td>
             </tr>
             <tr>
                 <td><span class="new_color_gray">融资状态：</span><span><input class="new_nputr" value="Utter绝对潮流"></input></span></td>
-                <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" >接触访谈</span><span class="new_color_gray">（跟进中）</span><span class="new_bj "></span></td>
+                <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span class="new_color_gray" id="projectStatusDs_edit"></span><span class="new_bj "></span></td>
             </tr>
         </table>  
         
@@ -211,11 +211,11 @@ function getProjectInfo(dtd)
         </div>  
         <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
             <tr>
-                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民币</span></td>
-                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民</span></td>
+                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="project_contribution_edit" />　万人民币</span></td>
+                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" id="project_valuations_edit" />　万人民</span></td>
             </tr>
             <tr>
-                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" />　90%</span></td>
+                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" id="project_share_ratio_edit" />　%</span></td>
             </tr>
         </table>
         <!--实际投资-->
@@ -260,7 +260,7 @@ function getProjectInfo(dtd)
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="describe_editor"></p>
+						<p id="describe_show"></p>
 					</div>
 				</div>
 				<!--公司定位-->
@@ -272,7 +272,7 @@ function getProjectInfo(dtd)
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="location_editor"></p>
+						<p id="location_show"></p>
 					</div>
 				</div>
 				<!--用户画像-->
@@ -284,7 +284,7 @@ function getProjectInfo(dtd)
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="portrait_editor"></p>
+						<p id="portrait_show"></p>
 					</div>
 				</div>
 				<!--产品服务-->
@@ -296,7 +296,7 @@ function getProjectInfo(dtd)
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="business_model_editor"></p>
+						<p id="business_model_show"></p>
 					</div>
 				</div>
 
@@ -310,7 +310,7 @@ function getProjectInfo(dtd)
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="operational_data_editor"></p>
+						<p id="operational_data_show"></p>
 					</div>
 				</div>
 				<!--行业分析-->
@@ -322,7 +322,7 @@ function getProjectInfo(dtd)
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="industry_analysis_editor"></p>
+						<p id="industry_analysis_show"></p>
 					</div>
 				</div>
 				<!--竞情分析-->
@@ -335,7 +335,7 @@ function getProjectInfo(dtd)
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="analysis_editor"></p>
+						<p id="analysis_show"></p>
 					</div>
 				</div>
 
@@ -349,7 +349,7 @@ function getProjectInfo(dtd)
 					</div>
 					<div class="new_ul_all">
 						<span class="ico_dot ico"></span>
-						<p id="next_financing_source_editor"></p>
+						<p id="next_financing_source_show"></p>
 					</div>
 				</div>
 				
