@@ -248,7 +248,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project.setCreateUid(user.getId());
 		project.setCreateUname(user.getRealName());
 		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
-		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
+		project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 		// 获取当前登录人的部门信息
 		Long did = user.getDepartmentId();
 		project.setProjectDepartid(did);
@@ -440,7 +440,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				.getId());
 		if (project.getProjectProgress() != null
 				&& project.getProjectProgress().equals("guanbi")) {
-			project.setProjectStatus("meetingResult:3");
+			project.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 			project.setProjectProgress(null);
 		}
 		try {
@@ -591,7 +591,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			if (project.getProjectProgress() != null
 					&& project.getProjectProgress().equals("guanbi")) {
-				project.setProjectStatus("meetingResult:3");
+				project.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 				project.setProjectProgress(null);
 			}
 			if (project.getProType() != null
@@ -1219,7 +1219,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			try {
 				project.setProjectProgress(DictEnum.projectProgress.内部评审
 						.getCode()); // 字典 项目进度 内部评审
-				project.setProjectStatus(DictEnum.meetingResult.待定.getCode()); // 字典
+				project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode()); // 字典
 																				// 项目状态
 																				// =
 																				// 会议结论
@@ -1551,7 +1551,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 			}
 
-			project.setProjectStatus(DictEnum.meetingResult.否决.getCode());
+			project.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 			int id = projectService.closeProject(project);
 			if (id != 1) {
 				responseBody.setResult(new Result(Status.ERROR, null, "更新失败"));

@@ -33,7 +33,7 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.sopfile.SopVoucherFileBo;
 import com.galaxyinternet.common.constants.SopConstant;
-import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.StrUtils;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
@@ -366,7 +366,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 */
 	private void upInvestmentSign(Project project){
 		project.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
-		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
+		project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 		projectDao.updateById(project);
 		
 		//财务  任务生成
@@ -420,7 +420,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 */
 	private void upTermSheetSign(Project project,Long userid,Long departid){
 		project.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
-		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
+		project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 		projectDao.updateById(project);
 		
 		//业务dd  任务生成

@@ -90,7 +90,7 @@ public class CeoMeetingHandler implements Handler {
 		if(q.getResult().equals(DictEnum.meetingResult.否决.getCode())){
 			Project p = new Project();
 			p.setId(q.getPid());
-			p.setProjectStatus(DictEnum.meetingResult.否决.getCode());
+			p.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
