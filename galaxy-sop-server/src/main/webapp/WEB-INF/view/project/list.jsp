@@ -106,7 +106,7 @@
 				    <tr>
 			        	<th data-field="projectName" data-align="left" class="data-input" data-formatter="projectInfo">项目名称</th>
 			        	<th data-field="type" data-align="left" class="data-input">项目类型</th>
-			        	<th data-field="progress" data-align="left" class="data-input">融资状态</th>
+			        	<th data-field="financeStatusStr" data-align="left" class="data-input">融资状态</th>
 			        	<th data-field="progress" data-align="left" class="data-input">项目进度</th>
 			        	<th data-field="progress" data-align="left" class="data-input">项目状态</th>
 			        	<th data-field="" data-align="left" class="data-input">事业部</th>

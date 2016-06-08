@@ -45,6 +45,8 @@ public class Project extends PagableEntity {
   	private Double finalShareRatio;//实际所占股份百分比
   	private String companyLegal;//公司法人
   	private Long formationDate;//公司成立时间
+  	//列表查询数据转换
+  	private String financeStatusStr;
   	//数据转换
     private String formatContribution;
     private String formatValuations;
@@ -498,4 +500,10 @@ public class Project extends PagableEntity {
 		this.operationalData = operationalData;
 	}
 
+	public String getFinanceStatusStr() {
+		if(financeStatus != null){
+			financeStatusStr = DictEnum.financeStatus.getNameByCode(financeStatus);
+		}
+		return financeStatusStr;
+	}
 }
