@@ -100,15 +100,19 @@
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="project/spl" data-height="555" 
+			<table id="data-table" data-url="project/search" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
 			        	<th data-field="projectName" data-align="center" class="data-input" data-formatter="projectInfo">项目名称</th>
-			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
 			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
+			        	<th data-field="progress" data-align="center" class="data-input">融资状态</th>
+			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
+			        	<th data-field="progress" data-align="center" class="data-input">项目状态</th>
+			        	<th data-field="" data-align="center" class="data-input">事业部</th>
+			        	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
 			        	<th data-field="createDate" data-align="center" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
+			        	<th data-field="updateDate" data-align="center" class="data-input" data-sortable="true">最后编辑时间<span class="caret1"></span></th>
 			        	<th data-align="center" class="col-md-2" data-formatter="editor">操作</th>
  					</tr>	
  				</thead>
