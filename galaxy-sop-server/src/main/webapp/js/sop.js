@@ -1354,7 +1354,7 @@ function showLogdetail(selectRowId){
 		um.setContent(interviewSelectRow.viewNotes);
 		//alert(uid+"----"+interviewSelectRow.createdId);
 		$("#vid").val(selectRowId);
-		if(uid!=interviewSelectRow.createdId){
+		if(typeof(variable) !== 'undefined' && uid!=interviewSelectRow.createdId){
 			$("#interviewsave").hide();
 		}
 		
