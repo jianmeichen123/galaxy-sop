@@ -37,7 +37,7 @@
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
- 	<div class="ritmin">
+ 	<div class="ritmin prj_all">
     	<h2>我的项目</h2>
     	 <input type="hidden" id="project_id" value=""/>
     	 <input type="hidden" id="uid" value=""/>
@@ -128,13 +128,13 @@
 			        	<th data-field="projectName" data-align="left" class="data-input" data-formatter="projectInfo">项目名称</th>
 			        	<th data-field="type" data-align="left" class="data-input">项目类型</th>
 			        	<th data-field="financeStatusDs" data-align="left" class="data-input">融资状态</th>
-			        	<th data-field="progress" data-align="left" class="data-input">项目进度</th>
+			        	<th data-field="progress" data-align="left" class="data-input" data-formatter="projectProgress">项目进度</th>
 			        	<th data-field="projectStatusDs" data-align="left" class="data-input">项目状态</th>
 			        	<th data-field="projectCareerline" data-align="left" class="data-input">事业部</th>
 			        	<th data-field="createUname" data-align="left" class="data-input">投资经理</th>
 			        	<th data-field="createDate" data-align="left" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
 			        	<th data-field="updateDate" data-align="left" class="data-input" data-sortable="true">最后编辑时间<span class="caret1"></span></th>
-			        	<th data-align="left" class="col-md-2" data-formatter="editor">操作</th>
+			        	<th data-align="left" class="col-md-2" data-formatter="editor" data-class="noborder">操作</th>
  					</tr>	
  				</thead>
 			</table>
@@ -180,9 +180,9 @@
 	var uid='${galax_session_user.id }';
 	function editor(value, row, index){
 		var id=row.id;
-		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
+		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'><span class=\"prc\">项目流程</span></a>";
 		if(row.projectStatus != 'meetingResult:3' && parseInt(row.createUid) == parseInt(userId)){
-			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>编辑项目</a>";
+			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'><span class=\'see\'>查看</span></a>";
 		}
 		return options;
 	}
@@ -191,6 +191,18 @@
 		var id=row.id;
 		var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")'>"+row.projectName+"</a>";
 		return options;
+	}
+	
+	function projectProgress(value,row,index){
+		var projectPro = row.projectProgress;
+		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
+		var proStatus = row.projectStatus;
+		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
+		if( pronum == 0){
+			return "<img src=\"<%=path%>/img/process/p"+num+".gif\" class=\"fl\">"+row.progress;
+		}else{
+			return "<img src=\"<%=path%>/img/process/pd"+num+".gif\" class=\"fl\">"+row.progress;
+		}
 	}
 	
 	function proInfo(id){
