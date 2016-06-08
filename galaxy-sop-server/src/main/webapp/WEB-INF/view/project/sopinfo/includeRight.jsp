@@ -110,8 +110,9 @@ function toMeet(id){
 function toDetail(id){
 	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/detail/" + id);
 }
-
-
+function toOperLog(id){
+	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/toprolog/" + id);
+}
 
 /**
  * 流程图 ，动态生成初始化
@@ -240,6 +241,7 @@ function closeback(data){
 		return;
 	}else{
 		layer.msg("该项目已关闭");
+		toDetail(proid);
 		//forwardWithHeader(platformUrl.mpl);
 	}
 }

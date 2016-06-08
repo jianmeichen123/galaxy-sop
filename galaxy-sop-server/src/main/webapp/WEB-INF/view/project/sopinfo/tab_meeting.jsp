@@ -23,7 +23,7 @@
 
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 </head>
-</head>
+
 
 
 <body>

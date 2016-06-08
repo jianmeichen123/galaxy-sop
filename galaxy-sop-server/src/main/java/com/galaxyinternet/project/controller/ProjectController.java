@@ -2689,7 +2689,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return data;
 	}
 	
-
+	/**
+	 * sop tab页面  访谈 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toprolog/{pid}", method = RequestMethod.GET)
+	public String toprolog(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		Project proinfo = new Project();
+		proinfo = projectService.queryById(pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", proinfo.getProjectProgress());
+		request.setAttribute("pname", proinfo.getProjectName());
+		return "project/sopinfo/tab_operLog";
+	}
 	/**
 	 * sop tab页面  访谈 详情    /galaxy/project/proview/
 	 */
