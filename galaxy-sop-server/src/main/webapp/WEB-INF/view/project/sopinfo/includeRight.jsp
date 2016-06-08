@@ -94,6 +94,17 @@
 
 <script>
 
+function toInterView(){
+	window.location.href= Constants.sopEndpointURL + "/galaxy/project/proview/" + projectId;
+}
+function toMeet(){
+	window.location.href= Constants.sopEndpointURL + "/galaxy/project/promeet/" + projectId;
+}
+
+
+
+
+
 
 
 </script>

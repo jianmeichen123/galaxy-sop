@@ -52,16 +52,16 @@
                 <li><a href="javascript:;">基本信息</a></li>
                 <li><a href="javascript:;">团队成员</a></li>
                 <li><a href="javascript:;">股权结构</a></li>
-                <li><a href="javascript:;">访谈记录</a></li>
-                <li class="on"><a href="javascript:;">会议纪要</a></li>
+                <li><a href="javascript:;" onclick="toInterView()">访谈记录</a></li>
+                <li class="on"><a href="javascript:;" onclick="toMeet()">会议纪要</a></li>
                 <li><a href="javascript:;">项目文档</a></li>
                 <li><a href="javascript:;">操作日志</a></li>
             </ul>
 
             
-             <!-- 会议纪要 -->
+             <!-- 会议纪要
             <div data-tab="con" > 
-              
+               -->
             	<div class="member interview">
             	
                    <!--按钮-->
@@ -117,8 +117,8 @@
 					</table>
 						
                 </div>                 
-           </div>
-            <!-- tab end-->
+           <!--  </div>
+           tab end-->
             
           </div>
         </div>
