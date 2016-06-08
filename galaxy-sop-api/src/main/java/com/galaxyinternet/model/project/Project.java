@@ -54,10 +54,19 @@ public class Project extends PagableEntity {
   	private String type;
   	private String progress;
     private  String  hhrName;
+    //行业归属数据转换
+    private String industryOwnDs;
+    //项目进度状态数据转换
+    private String projectStatusDs;
+    //融资状态的数据转换
+    private String financeStatusDs;
     //in查询
     private List<Long> deptIdList;
 	private Long startTime; 
 	private Long endTime;
+	
+	
+	
 	
     public Long getId() {
         return id;
@@ -246,11 +255,17 @@ public class Project extends PagableEntity {
     }
 
     public String getProjectStatus() {
+    	
         return projectStatus;
     }
 
     public void setProjectStatus(String projectStatus) {
+
         this.projectStatus = projectStatus == null ? null : projectStatus.trim();
+        if(projectStatus != null){
+			this.projectStatusDs = DictEnum.projectStatus.getNameByCode(projectStatus);
+		}
+
     }
 
     public String getProjectDescribe() {
@@ -395,7 +410,10 @@ public class Project extends PagableEntity {
 	}
 
 	public void setFinanceStatus(String financeStatus) {
-		this.financeStatus = financeStatus;
+		this.financeStatus = financeStatus == null ? null : financeStatus.trim();
+        if(financeStatus != null){
+			this.financeStatusDs = DictEnum.financeStatus.getNameByCode(financeStatus);
+		}
 	}
 
 	public Double getFinalValuations() {
@@ -438,6 +456,21 @@ public class Project extends PagableEntity {
 		this.formationDate = formationDate;
 	}
 
-	
-	
+	public String getIndustryOwnDs() {
+		return industryOwnDs;
+	}
+
+	public void setIndustryOwnDs(String industryOwnDs) {
+		this.industryOwnDs = industryOwnDs;
+	}
+
+	public String getProjectStatusDs() {
+		return projectStatusDs;
+	}
+	//TODO
+
+	public String getFinanceStatusDs() {
+		return financeStatusDs;
+	}
+
 }

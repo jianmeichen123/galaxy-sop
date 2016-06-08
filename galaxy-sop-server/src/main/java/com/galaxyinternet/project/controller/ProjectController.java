@@ -316,7 +316,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
-
+//TODO
 	/**
 	 * 查询指定的项目信息接口
 	 * 
@@ -346,6 +346,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					}
 				}
 			}
+			
+			if(project.getIndustryOwn()!=null){
+				Department Dt= new Department();
+				Dt.setId(project.getIndustryOwn());
+				Department queryTwo = departmentService.queryOne(Dt);
+				if (queryTwo != null) {
+					project.setIndustryOwnDs(queryTwo.getName());				
+				}
+			}						
+			
 		} else {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "未查找到指定项目信息!"));
@@ -1992,7 +2002,44 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		responseBody.setResult(result);
 		return responseBody;
 	}
-
+	//TODO
+	/**
+	 * 获取枚举里的融资状态列表
+	 * @param id
+	 * @param request
+	 * @return 2016/6/8
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getFinanceStatusByParent/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Dict> getFinanceStatusByParent(@PathVariable String id,
+			HttpServletRequest request) {
+		ResponseData<Dict> responseBody = new ResponseData<Dict>();
+		List<Dict> dicts = new ArrayList<Dict>();
+		Dict dict = null;
+		Result result = new Result();
+		try {
+			for (DictEnum.financeStatus financeStatus : DictEnum.financeStatus.values()) {
+				dict = new Dict();
+				dict.setCode(financeStatus.getCode());
+				dict.setName(financeStatus.getName());
+				dicts.add(dict);
+			}
+		} catch (PlatformException e) {
+			result.setErrorCode(e.getCode() + "");
+			result.setMessage(e.getMessage());
+		} catch (Exception e) {
+			result.setMessage("系统错误");
+			result.addError("系统错误");
+			logger.error("根据parentId查找数据字典错误", e);
+		}
+		if (!("null").equals(id)) {
+			result.setMessage(id);
+		}
+		result.setStatus(Status.OK);
+		responseBody.setEntityList(dicts);
+		responseBody.setResult(result);
+		return responseBody;
+	}
 	/**
 	 * 排期池列表查询
 	 * 
