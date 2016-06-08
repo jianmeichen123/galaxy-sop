@@ -2613,6 +2613,21 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return roleIdList;
 	}
 	/**
+	 * 项目信息页面
+	 * @param id 项目ID
+	 * @param index 选项卡序号：0-6
+	 * @return
+	 */
+	@RequestMapping("/showProject/{id}/{index}")
+	public ModelAndView projectDetail(@PathVariable("id") Long id, @PathVariable("index") Integer index)
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/project/sopinfo/main");
+		mv.addObject("projectId", id);
+		mv.addObject("index", index);
+		return mv;
+	}
+	/**
 	 * 项目详情页
 	 * 
 	 * @param id

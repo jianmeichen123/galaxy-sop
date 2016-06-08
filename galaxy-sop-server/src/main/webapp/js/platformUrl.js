@@ -520,10 +520,6 @@ var platformUrl = {
 	 */	
 	getBusinessPlanFile : Constants.sopEndpointURL + "/galaxy/sopFile/getBusinessPlanFile",
 	/**
-	 * 编辑公司法人信息
-	 */
-	editCompanyInfo : Constants.sopEndpointURL + "/galaxy/project/editCompanyInfo",
-	/**
 	 * 保存公司法人信息
 	 */
 	saveCompanyInfo : Constants.sopEndpointURL + "/galaxy/project/saveCompanyInfo"

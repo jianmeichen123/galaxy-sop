@@ -38,6 +38,7 @@
 
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/js/sopinfo.js"></script>
 <script type="text/javascript">
 var projectInfo;
 $(function(){
@@ -103,9 +104,9 @@ function getProjectInfo(dtd)
             <ul class="tablink">
                 <li class="on"><a href="javascript:;">基本信息</a></li>
                 <li><a href="javascript:;" onClick="changeTab(Constants.sopEndpointURL+'/galaxy/personTab/','${projectId}')" >团队成员</a></li>
-                <li><a href="javascript:;">股权结构</a></li>
-                <li><a href="javascript:;" onclick="toInterView('<%=projectId%>')">访谈记录</a></li>
-                <li><a href="javascript:;" onclick="toMeet('<%=projectId%>')">会议纪要</a></li>
+                <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${projectId},4)">会议纪要</a></li>
                 <li><a href="javascript:;">项目文档</a></li>
                 <li><a href="javascript:;">操作日志</a></li>
             </ul>
@@ -368,9 +369,6 @@ function getProjectInfo(dtd)
 
 			<!-- 股权结构 -->
             <div  data-tab="con" >   
-                <jsp:include page="/galaxy/project/tabShares">
-		        	<jsp:param value="<%=request.getAttribute(\"projectId\") %>" name="id"/>
-		        </jsp:include>
             </div>
             
             
