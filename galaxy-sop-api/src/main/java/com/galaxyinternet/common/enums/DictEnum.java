@@ -735,8 +735,8 @@ public enum DictEnum {
 			F轮上市前("F轮-上市前", "financeStatus:12"),
 			已上市("已上市", "financeStatus:13"),
 			新三板("新三板", "financeStatus:14"),
-			战略投资("战略投资", "15"),
-			已被收购("已被收购", "16");
+			战略投资("战略投资", "financeStatus:15"),
+			已被收购("已被收购", "financeStatus:16");
 			private String name;
 			private String code;
 
@@ -763,7 +763,7 @@ public enum DictEnum {
 
 				if (code != null && !code.trim().equals("")) {
 
-					fileSource[] values = fileSource.values();
+					financeStatus[] values = financeStatus.values();
 					for (int i = 0; i < values.length; i++) {
 						if (code.equals(values[i].getCode())) {
 							return values[i].getName();
