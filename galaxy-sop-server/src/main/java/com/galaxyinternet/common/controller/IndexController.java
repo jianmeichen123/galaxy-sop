@@ -338,6 +338,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value="/personTab/{id}", method = RequestMethod.GET)
 	public String personTab(@PathVariable Long id, HttpServletRequest request){
+		request.setAttribute("pid", id);
 		return "project/sopinfo/tab_person";
 	}
 

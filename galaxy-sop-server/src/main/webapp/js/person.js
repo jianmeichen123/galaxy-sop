@@ -27,4 +27,156 @@ function changeTab(url,data) {
 			alert("网络错误")
 		}	
 	})
-} 
+}
+
+function getTabPerson(){
+	var html='<table id="tablePerson"  data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" ></table>';
+	$("#view").html(html);
+	var $table = $('#tablePerson');
+    $table.bootstrapTable({
+    url: platformUrl.projectPersonList,
+    dataType: "json",
+    pagination: true, //分页
+    search: false, //显示搜索框
+    pageList: [10,20,30],
+    queryParamsType: 'size|page',
+    queryParams: function(params){params.projectId=id; return params;},
+    sidePagination: "server", //服务端处理分页
+          columns: [
+                  {
+                    title: '姓名',
+                      field: 'personName',
+                      align: 'center',
+                      valign: 'middle'
+                  },
+                  {
+                    title: '性别',
+                    field: 'personSex',
+                    align: 'center',
+                    valign: 'middle',
+                    formatter:function(value,row,index){ 
+                     	if (row.personSex == 0) {
+                			return "男";
+                		}else if (row.personSex == 1) {
+                			return "女";
+                		}else {
+                			return "-";
+                		}
+                    }
+                    },
+                    {
+                        title: '年龄',
+                          field: 'personAge',
+                          align: 'center',
+                          valign: 'middle'
+                     },
+                     {
+                          title: '当前职务',
+                            field: 'personDuties',
+                            align: 'center',
+                            valign: 'middle'
+                  },
+                  {
+                      title: '电话',
+                        field: 'personTelephone',
+                        align: 'center',
+                        valign: 'middle'
+                  },
+                  {
+                      title: '最高学历',
+                        field: 'highestDegree',
+                        align: 'center',
+                        valign: 'middle',
+                        formatter:function(value,row,index){ 
+                         	if (row.highestDegree == 1) {
+                    			return "高中";
+                    		}else if (row.highestDegree == 2) {
+                    			return "大专";
+                    		}else if (row.highestDegree == 3) {
+                    			return "本科";
+                    		}else if (row.highestDegree == 4) {
+                    			return "硕士";
+                    		}else if (row.highestDegree == 5) {
+                    			return "MBA";
+                    		}else if (row.highestDegree == 6) {
+                    			return "博士";
+                    		}else if (row.highestDegree == 7) {
+                    			return "其他";
+                    		}
+                    		else {
+                    			return "-";
+                    		}
+                        }
+                  },
+                  {
+                      title: '工作年限',
+                        field: 'workTime',
+                        align: 'center',
+                        valign: 'middle'
+                  },
+                  {
+                      title: '操作',
+                      field: 'id',
+                      align: 'center',
+                      formatter:function(value,row,index){  
+	                   var a = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="tiaozhuan(\''+ row.id + '\')" DATA-btn="resume" ><span class="edit">个人简历</span></a>';;
+	                   var e = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="updatePer(\''+ row.id + '\')"><span class="edit">编辑</span></a> ';  
+	                   var d = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="deletePer(\''+ row.id +'\')"><span class="del">删除</span></a> ';  
+                        return a+e+d;  
+                    } 
+                  }
+              ]
+      });
+      $table.bootstrapTable('refresh');
+	}
+
+
+/** 添加团队成员
+ */
+function savePerson(){
+if(beforeSubmit()){
+	var projectId = $("#pid").val();
+	if(projectId != ''){
+		$("#projectId").val(projectId);
+		sendPostRequestByJsonObj(platformUrl.addPerson, JSON.parse($("#person_form").serializeObject()), savePersonCallBack);
+	}
+}
+}
+//保存成功回调
+function savePersonCallBack(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		return;
+	}
+	$("#popbg,#powindow").remove();
+	var projectId = $("#pid").val();
+	getTabPerson(projectId);
+}
+
+/**
+ * 修改团队成员
+ */
+function updatePerson(){
+	if(beforeSubmit()){
+		var projectId = $("#pid").val();
+		if(projectId != ''){
+			$("#projectId").val(projectId);
+			sendPostRequestByJsonObj(platformUrl.updatePerson, JSON.parse($("#up_person_form").serializeObject()),savePersonCallBack);
+		}
+	}
+}
+/**
+ * 删除团队成员
+ * @param id
+ */
+function deletePer(id,url){
+	if(confirm("确定要删除该团队成员吗？")){
+		var projectId = $("#pid").val();
+		var url = platformUrl.deletePPerson+id+"/"+projectId;
+		if(projectId != ''){
+			$("#projectId").val(projectId);
+			sendGetRequest(url,'',savePersonCallBack);
+		}
+	}
+}
+
