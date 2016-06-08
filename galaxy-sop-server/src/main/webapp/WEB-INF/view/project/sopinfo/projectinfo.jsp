@@ -104,8 +104,8 @@ function getProjectInfo(dtd)
                 <li data-tab="nav"><a href="javascript:;">基本信息</a></li>
                 <li data-tab="nav"><a href="javascript:;">团队成员</a></li>
                 <li data-tab="nav"><a href="javascript:;">股权结构</a></li>
-                <li data-tab="nav"><a href="javascript:;" onclick="toInterView()">访谈记录</a></li>
-                <li data-tab="nav"><a href="javascript:;" onclick="toMeet()">会议纪要</a></li>
+                <li data-tab="nav"><a href="javascript:;" onclick="toInterView('<%=projectId%>')">访谈记录</a></li>
+                <li data-tab="nav"><a href="javascript:;" onclick="toMeet('<%=projectId%>')">会议纪要</a></li>
                 <li data-tab="nav"><a href="javascript:;">项目文档</a></li>
                 <li data-tab="nav" class="no"><a href="javascript:;">操作日志</a></li>
             </ul>

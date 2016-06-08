@@ -94,11 +94,11 @@
 
 <script>
 
-function toInterView(){
-	window.location.href= Constants.sopEndpointURL + "/galaxy/project/proview/" + projectId;
+function toInterView(id){
+	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/proview/" + id);
 }
-function toMeet(){
-	window.location.href= Constants.sopEndpointURL + "/galaxy/project/promeet/" + projectId;
+function toMeet(id){
+	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/promeet/" + id);
 }
 
 
