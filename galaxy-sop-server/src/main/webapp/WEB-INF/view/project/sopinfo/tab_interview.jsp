@@ -48,7 +48,7 @@
 			<div class="tabtable assessment label_static">
 				<!-- tab标签 -->
 	            <ul class="tablink">
-	                <li><a href="javascript:;">基本信息</a></li>
+	                <li><a href="javascript:;" onclick="toDetail('${pid}')">基本信息</a></li>
 	                <li><a href="javascript:;">团队成员</a></li>
 	                <li><a href="javascript:;">股权结构</a></li>
 	                <li class="on"><a href="javascript:;" onclick="toInterView('${pid}')">访谈记录</a></li>

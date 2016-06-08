@@ -16,6 +16,7 @@ $(function(){
 		$("#project_contribution").text(data.entity.projectContribution);
 		$("#project_valuations").text(data.entity.projectValuations);
 		$("#project_share_ratio").text(data.entity.projectShareRatio);
+		$("#projectProgress").text(data.entity.projectProgress);
 		
 		var currencyUnit = data.entity.currencyUnit;
 		var redioId = "";

@@ -100,6 +100,9 @@ function toInterView(id){
 function toMeet(id){
 	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/promeet/" + id);
 }
+function toDetail(id){
+	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/detail/" + id);
+}
 
 
 

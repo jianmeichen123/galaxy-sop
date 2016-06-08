@@ -140,12 +140,12 @@ function getProjectInfo(dtd)
 						<tr>
 							<td><span class="new_color_gray">行业归属：</span><span class="new_color_black">互联网旅游</span></td>
 							<td><span class="new_color_gray" >投资经理：</span>
-								<span class="new_color_black" id="createUname">刘佳</span><span class="new_color_gray" id="projectCareerline">（O2O及电商）</span></td>
+								<span class="new_color_black" name="createUname"></span><span class="new_color_gray" id="projectCareerline"></span></td>
 						</tr>
 						
 						<tr>
 							<td><span class="new_color_gray">融资状态：</span><span class="new_color_black">尚未获投</span></td>
-							<td><span class="new_color_gray">项目进度：</span><span class="new_color_black">接触访谈</span>
+							<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
 								<span class="new_color_gray">（跟进中）</span><span class="new_bj "></span></td>
 						</tr>
 					</table>
@@ -187,20 +187,20 @@ function getProjectInfo(dtd)
         </div>  
         <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
             <tr>
-                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr" value="Utter绝对潮流"></input></span></td>
-                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black">2016-01-25</span></td>
+                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr" value="Utter绝对潮流" id="projectType_edit"></input></span></td>
+                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit">2016-01-25</span></td>
             </tr>
             <tr>
-                <td><span class="new_color_gray">项目类型：</span><span class="new_color_black">外部投资</span></td>
-                <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black">2016-01-25</span></td>
+                <td><span class="new_color_gray">项目类型：</span><span class="new_color_black" id="projectType_edit">外部投资</span></td>
+                <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black" id="updateDate_edit">2016-01-25</span></td>
             </tr>
             <tr>
                 <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr"><option>ddddd</option></select></span></td>
-                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black">刘佳</span><span class="new_color_gray">（O2O及电商）</span></td>
+                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="projectCareerline_edit">刘佳</span><span class="new_color_gray">（O2O及电商）</span></td>
             </tr>
             <tr>
                 <td><span class="new_color_gray">融资状态：</span><span><input class="new_nputr" value="Utter绝对潮流"></input></span></td>
-                <td><span class="new_color_gray">项目进度：</span><span class="new_color_black">接触访谈</span><span class="new_color_gray">（跟进中）</span><span class="new_bj "></span></td>
+                <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" >接触访谈</span><span class="new_color_gray">（跟进中）</span><span class="new_bj "></span></td>
             </tr>
         </table>  
         
