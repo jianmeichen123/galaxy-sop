@@ -101,18 +101,20 @@ function getProjectInfo(dtd)
         	<div class="tabtable assessment label_static">
           	<!-- tab标签 -->
             <ul class="tablink">
-                <li data-tab="nav"><a href="javascript:;">基本信息</a></li>
-                <li data-tab="nav"><a href="javascript:;" onClick="changeTab(Constants.sopEndpointURL+'/galaxy/personTab/','${projectId}')" >团队成员</a></li>
-                <li data-tab="nav"><a href="javascript:;">股权结构</a></li>
-                <li data-tab="nav"><a href="javascript:;" onclick="toInterView('<%=projectId%>')">访谈记录</a></li>
-                <li data-tab="nav"><a href="javascript:;" onclick="toMeet('<%=projectId%>')">会议纪要</a></li>
-                <li data-tab="nav"><a href="javascript:;">项目文档</a></li>
-                <li data-tab="nav" class="no"><a href="javascript:;">操作日志</a></li>
+                <li class="on"><a href="javascript:;">基本信息</a></li>
+                <li><a href="javascript:;" onClick="changeTab(Constants.sopEndpointURL+'/galaxy/personTab/','${projectId}')" >团队成员</a></li>
+                <li><a href="javascript:;">股权结构</a></li>
+                <li><a href="javascript:;" onclick="toInterView('<%=projectId%>')">访谈记录</a></li>
+                <li><a href="javascript:;" onclick="toMeet('<%=projectId%>')">会议纪要</a></li>
+                <li><a href="javascript:;">项目文档</a></li>
+                <li><a href="javascript:;">操作日志</a></li>
             </ul>
 
             <!-- 基本信息 -->
-			<div data-tab="con">
-				<div class="tabtable_con">
+			<div>
+				<div class="tabtable_con tabtable_con_jbxx">
+				<!-- 默认展示 -->
+				<div class="compile_default">
 					<div class="new_r_compile">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-on="compile">编辑</a>
@@ -175,6 +177,63 @@ function getProjectInfo(dtd)
 							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black">90%</span></td>
 						</tr>
 					</table>
+					</div>
+					<!-- 编辑页面 -->
+					<div class="compile_on">
+	<div class="compile_on_center">
+        <div class="compile_on_right">
+            <span class="compile_on_right_b">保存</span>
+            <span class="compile_on_right_q" data-on="close">取消</span>
+        </div>  
+        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+            <tr>
+                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr" value="Utter绝对潮流"></input></span></td>
+                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black">2016-01-25</span></td>
+            </tr>
+            <tr>
+                <td><span class="new_color_gray">项目类型：</span><span class="new_color_black">外部投资</span></td>
+                <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black">2016-01-25</span></td>
+            </tr>
+            <tr>
+                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr"><option>ddddd</option></select></span></td>
+                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black">刘佳</span><span class="new_color_gray">（O2O及电商）</span></td>
+            </tr>
+            <tr>
+                <td><span class="new_color_gray">融资状态：</span><span><input class="new_nputr" value="Utter绝对潮流"></input></span></td>
+                <td><span class="new_color_gray">项目进度：</span><span class="new_color_black">接触访谈</span><span class="new_color_gray">（跟进中）</span><span class="new_bj "></span></td>
+            </tr>
+        </table>  
+        
+        <!--融资计划-->
+        <div class="new_r_compile new_bottom_color">
+            <span class="new_ico_financing"></span>
+            <span class="new_color size16">融资计划</span>
+        </div>  
+        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+            <tr>
+                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民币</span></td>
+                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民</span></td>
+            </tr>
+            <tr>
+                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" />　90%</span></td>
+            </tr>
+        </table>
+        <!--实际投资-->
+        <div class="new_r_compile new_bottom_color">
+            <span class="new_ico_practical"></span>
+            <span class="new_color size16">实际投资</span>
+        </div>  
+        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+            <tr>
+                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民币</span></td>
+                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民</span></td>
+            </tr>
+            <tr>
+                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" />　%</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
 				</div>
 				<!--商业计划书-->
 				<div class="tabtable_con_on">
@@ -380,62 +439,8 @@ function getProjectInfo(dtd)
 </div>
 
 <!--隐藏-->
-<div class="bj_hui_on none"></div>
-<div class="compile_on none">
-	<div class="compile_on_center">
-        <div class="compile_on_right">
-            <span class="compile_on_right_b">保存</span>
-            <span class="compile_on_right_q" data-ｏｎ="close">取消</span>
-        </div>  
-        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
-            <tr>
-                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr" value="Utter绝对潮流"></input></span></td>
-                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black">2016-01-25</span></td>
-            </tr>
-            <tr>
-                <td><span class="new_color_gray">项目类型：</span><span class="new_color_black">外部投资</span></td>
-                <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black">2016-01-25</span></td>
-            </tr>
-            <tr>
-                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr"><option>ddddd</option></select></span></td>
-                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black">刘佳</span><span class="new_color_gray">（O2O及电商）</span></td>
-            </tr>
-            <tr>
-                <td><span class="new_color_gray">融资状态：</span><span><input class="new_nputr" value="Utter绝对潮流"></input></span></td>
-                <td><span class="new_color_gray">项目进度：</span><span class="new_color_black">接触访谈</span><span class="new_color_gray">（跟进中）</span><span class="new_bj "></span></td>
-            </tr>
-        </table>  
-        
-        <!--融资计划-->
-        <div class="new_r_compile new_bottom_color">
-            <span class="new_ico_financing"></span>
-            <span class="new_color size16">融资计划</span>
-        </div>  
-        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
-            <tr>
-                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民币</span></td>
-                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民</span></td>
-            </tr>
-            <tr>
-                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" />　90%</span></td>
-            </tr>
-        </table>
-        <!--实际投资-->
-        <div class="new_r_compile new_bottom_color">
-            <span class="new_ico_practical"></span>
-            <span class="new_color size16">实际投资</span>
-        </div>  
-        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
-            <tr>
-                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民币</span></td>
-                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民</span></td>
-            </tr>
-            <tr>
-                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" />　%</span></td>
-            </tr>
-        </table>
-    </div>
-</div>
+<div class="bj_hui_on"></div>
+
 <jsp:include page="../../common/uploadwin.jsp" flush="true"></jsp:include>
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
 <script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
@@ -457,10 +462,12 @@ $(function(){
 	
 	$('[data-on="compile"]').on('click',function(){
 		$('.bj_hui_on').show();
+		$('.compile_default').hide();
 		$('.compile_on').show();
 	})
 	$('[data-on="close"]').on('click',function(){
 		$('.bj_hui_on').hide();
+		$('.compile_default').show();
 		$('.compile_on').hide();
 	})
 })
