@@ -20,7 +20,9 @@ public enum DictEnum {
 	档案存储类型("档案存储类型","fileType"),
 	档案来源("档案来源","fileSource"),
 	学历("学历","degree"),
-	融资状态("融资状态","financeStatus");
+	融资状态("融资状态","financeStatus"),
+	项目状态("项目状态","projectStatus");
+	
 	private String name;
 
 	private String code;
