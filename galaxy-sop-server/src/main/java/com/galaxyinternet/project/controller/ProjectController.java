@@ -161,12 +161,23 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-		
+		List<Department> departmentList = departmentService.queryAll();
 		Page<Project> pageProject = projectService.queryPageList(project,
 						new PageRequest(project.getPageNum(), 
 								project.getPageSize(), 
 								Direction.fromString(project.getDirection()), 
 								project.getProperty()));
+		List<Project> projectList = new ArrayList<Project>();
+		for(Project p : pageProject.getContent()){
+			projectList.add(p);
+			for(Department d : departmentList){
+				if(p.getProjectDepartid().longValue() == d.getId().longValue()){
+					p.setProjectCareerline(d.getName());
+					break;
+				}
+			}
+		}
+		pageProject.setContent(projectList);
 		responseBody.setPageList(pageProject);
 		responseBody.setResult(new Result(Status.OK, ""));
 		return responseBody;

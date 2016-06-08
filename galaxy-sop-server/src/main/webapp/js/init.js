@@ -11,6 +11,8 @@ $(function () {
 		url : post_url,
 		sidePagination: 'server',
 		method : 'post',
+		sortOrder : 'desc',
+		sortName : 'updated_time',
 		pagination: true,
         search: false,
         onLoadSuccess: function (data) {
