@@ -56,49 +56,70 @@
                 <li><a href="javascript:;"  query-by="proType" query-val="2">事业线项目<span></span></a></li>
           </ul>-->
         <!-- 搜索条件 -->
-		<div class="min_document clearfix" id="custom-toolbar">
-		     <input type="hidden"  id="tipslink_val" name="proType" value="1" />
-			<div class="bottom searchall clearfix search_adjust">
-				<dl class="fmdl fml fmdll clearfix">
-	              <dt>项目类型：</dt>
-	              <dd>
-	                <select name="projectType">
-	                  <option value="">全部</option>
-	                  <option value="projectType:1">外部投资</option>
-	                  <option value="projectType:2">内部创建</option>
-	                </select>
-	              </dd>
-	            </dl>
-	            <dl class="fmdl fml fmdll clearfix">
-	              <dt>项目进度：</dt>
-	              <dd>
-	                <select name="projectProgress">
-	                  <option value="">全部</option>
-	                  <option value="projectProgress:1">接触访谈</option>
-	                  <option value="projectProgress:2">内部评审</option>
-	                  <option value="projectProgress:3">CEO评审</option>
-	                  <option value="projectProgress:4">立项会</option>
-	                  <option value="projectProgress:5">投资意向书</option>
-	                  <option value="projectProgress:6">尽职调查</option>
-	                  <option value="projectProgress:7">投资决策会</option>
-	                  <option value="projectProgress:8">投资协议</option>
-	                  <option value="projectProgress:9">股权交割</option>
-	                  <option value="projectProgress:10">投后运营</option> 
-	                  <option value="guanbi">已关闭的项目</option>
-	                </select>
-	              </dd>
-	            </dl>
-				<dl class="fmdl fmdll clearfix">
-					<dt></dt>
-					<dd>
-						<input type="text" class="txt" name="keyword" placeholder="请输入项目名称或项目编码" value="${pname }" />
-					</dd>
-					<dd>
-						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
-					</dd>
-				</dl>
-			</div>
-		</div>
+		<div class="top clearfix" id="custom-toolbar">
+          <div class="searchall_prj clearfix">
+            <div class="searchall_top" data-btn="box">
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>项目类型：</dt>
+                  <dd>
+                    <select>
+                      <option>全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>融资状态：</dt>
+                  <dd>
+                    <select>
+                      <option>全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>项目进度：</dt>
+                  <dd>
+                    <select>
+                      <option>全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>项目状态：</dt>
+                  <dd>
+                    <select>
+                      <option>全部</option>
+                    </select>
+                  </dd>
+                </dl>
+            </div>
+            <div class="searchall_bottom clearfix">
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>事业部：</dt>
+                  <dd>
+                    <select>
+                      <option>全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>投资经理：</dt>
+                  <dd>
+                    <select>
+                      <option>全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                <input type="text" class="txt" placeholder="请输入项目名称或编号">
+                <div class="btn fr">
+                    <button class="bluebtn cx_prj">搜索</button>
+                    <button class="pubbtn bluebtn reset none">重置</button>
+                </div>
+            </div>
+            <div class="show_more">
+                <a href="#" class="blue open ico1 f4" data-btn="show" style="display: block;">展开</a> <a href="#" class="blue searchbox_hidden hide ico1 f3" data-btn="hide" style="display: none;">收起</a>
+            </div>
+          </div>
+        </div>
 		<div class="tab-pane active" id="view">	
 			<table id="data-table" data-url="project/search" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
@@ -109,7 +130,7 @@
 			        	<th data-field="financeStatusDs" data-align="left" class="data-input">融资状态</th>
 			        	<th data-field="progress" data-align="left" class="data-input">项目进度</th>
 			        	<th data-field="projectStatusDs" data-align="left" class="data-input">项目状态</th>
-			        	<th data-field="" data-align="left" class="data-input">事业部</th>
+			        	<th data-field="projectCareerline" data-align="left" class="data-input">事业部</th>
 			        	<th data-field="createUname" data-align="left" class="data-input">投资经理</th>
 			        	<th data-field="createDate" data-align="left" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
 			        	<th data-field="updateDate" data-align="left" class="data-input" data-sortable="true">最后编辑时间<span class="caret1"></span></th>

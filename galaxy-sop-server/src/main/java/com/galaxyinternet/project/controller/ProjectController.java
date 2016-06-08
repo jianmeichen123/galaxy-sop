@@ -161,6 +161,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		if(roleIdList.contains(UserConstant.TZJL)){
+			project.setCreateUid(user.getId());
+		}else if (roleIdList.contains(UserConstant.HHR)){
+			project.setProjectDepartid(user.getDepartmentId());
+		}else{
+			
+		}
 		List<Department> departmentList = departmentService.queryAll();
 		Page<Project> pageProject = projectService.queryPageList(project,
 						new PageRequest(project.getPageNum(), 
@@ -179,6 +186,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		pageProject.setContent(projectList);
 		responseBody.setPageList(pageProject);
+		responseBody.putAttachmentItem("user",user);
 		responseBody.setResult(new Result(Status.OK, ""));
 		return responseBody;
 	}
