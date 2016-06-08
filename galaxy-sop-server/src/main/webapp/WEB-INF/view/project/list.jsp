@@ -100,20 +100,20 @@
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="project/spl" data-height="555" 
+			<table id="data-table" data-url="project/search" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="projectName" data-align="center" class="data-input" data-formatter="projectInfo">项目名称</th>
-			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
-			        	<th data-field="progress" data-align="center" class="data-input">融资状态</th>
-			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
-			        	<th data-field="progress" data-align="center" class="data-input">项目状态</th>
-			        	<th data-field="" data-align="center" class="data-input">事业部</th>
-			        	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
-			        	<th data-field="createDate" data-align="center" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
-			        	<th data-field="updateDate" data-align="center" class="data-input" data-sortable="true">最后编辑时间<span class="caret1"></span></th>
-			        	<th data-align="center" class="col-md-2" data-formatter="editor">操作</th>
+			        	<th data-field="projectName" data-align="left" class="data-input" data-formatter="projectInfo">项目名称</th>
+			        	<th data-field="type" data-align="left" class="data-input">项目类型</th>
+			        	<th data-field="progress" data-align="left" class="data-input">融资状态</th>
+			        	<th data-field="progress" data-align="left" class="data-input">项目进度</th>
+			        	<th data-field="progress" data-align="left" class="data-input">项目状态</th>
+			        	<th data-field="" data-align="left" class="data-input">事业部</th>
+			        	<th data-field="createUname" data-align="left" class="data-input">投资经理</th>
+			        	<th data-field="createDate" data-align="left" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
+			        	<th data-field="updateDate" data-align="left" class="data-input" data-sortable="true">最后编辑时间<span class="caret1"></span></th>
+			        	<th data-align="left" class="col-md-2" data-formatter="editor">操作</th>
  					</tr>	
  				</thead>
 			</table>
@@ -135,7 +135,6 @@
 
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script src="<%=path %>/js/init.js"></script>
 
 <!-- 富文本编辑器 -->
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
@@ -186,6 +185,20 @@
 		if(!(!pid)){
 			info(pid);
 		}	
+		$('#data-table').bootstrapTable({
+			queryParamsType: 'size|page',
+			pageSize:10,
+			showRefresh : false ,
+			url : $("#data-table").attr("data-url"),
+			sidePagination: 'server',
+			method : 'post',
+			sortOrder : 'desc',
+			sortName : 'updated_time',
+			pagination: true,
+	        search: false,
+	        onLoadSuccess: function (data) {
+	        }
+		});
 	});
 </script>
 
