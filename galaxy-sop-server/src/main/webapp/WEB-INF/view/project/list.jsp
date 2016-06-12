@@ -97,7 +97,7 @@
                   <dt>事业部：</dt>
                   <dd>
                     <select name="projectDepartid">
-                      <option value="">全部</option>
+                      <option value="0">全部</option>
                     </select>
                   </dd>
                 </dl>
@@ -105,7 +105,7 @@
                   <dt>投资经理：</dt>
                   <dd>
                     <select name="createUid">
-                      <option value="">全部</option>
+                      <option value="0">全部</option>
                     </select>
                   </dd>
                 </dl>
@@ -249,16 +249,18 @@
 	 * 根据事业线查询相应的投资经理
 	 * @version 2016-06-21
 	 */
-    createUserOptions(platformUrl.getUserList+"0", "createUid");
+    createUserOptions(platformUrl.getUserList+"0", "createUid", 0);
 	$(function(){
 		$('select[name="projectDepartid"]').change(function(){
 			var did = $('select[name="projectDepartid"]').val();
-			console.log(did);
+			if(did == ''){
+				did = 0;
+			}
 			/**
 			 * 根据事业线查询相应的投资经理
 			 * @version 2016-06-21
 			 */
-		    createUserOptions(platformUrl.getUserList+did, "createUid");
+		    createUserOptions(platformUrl.getUserList+did, "createUid", 1);
 		});
 	});
 	

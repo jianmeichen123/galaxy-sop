@@ -1129,12 +1129,19 @@ function createCareelineOptions(url, name){
  * @param url   请求地址
  * @param name  select的name属性值
  */
-function createUserOptions(url, name){
+function createUserOptions(url, name, mark){
 	sendGetRequest(url, null, function(data){
 		var options = [];
+		if(mark == 1){
+			options.push('<option value="">全部</option>');
+		}
 		$.each(data.entityList, function(i, value){
 			options.push('<option value="'+value.id+'">'+value.realName+'</option>');
 		});
-		$('select[name="'+name+'"]').append(options.join(''));
+		if(mark == 1){
+			$('select[name="'+name+'"]').html(options.join(''));
+		}else{
+			$('select[name="'+name+'"]').append(options.join(''));
+		}
 	});
 }
