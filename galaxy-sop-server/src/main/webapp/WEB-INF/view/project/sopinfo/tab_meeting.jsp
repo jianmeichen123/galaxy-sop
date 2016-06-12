@@ -22,6 +22,7 @@
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
+<script src="<%=path %>/js/sopinfo.js"></script>
 </head>
 
 
@@ -51,7 +52,7 @@
             <ul class="tablink">
                 <li><a href="javascript:;" onclick="toDetail('${pid}')">基本信息</a></li>
                 <li><a href="javascript:;">团队成员</a></li>
-                <li><a href="javascript:;">股权结构</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="toInterView('${pid}')">访谈记录</a></li>
                 <li class="on"><a href="javascript:;" onclick="toMeet('${pid}')">会议纪要</a></li>
                 <li><a href="javascript:;">项目文档</a></li>
