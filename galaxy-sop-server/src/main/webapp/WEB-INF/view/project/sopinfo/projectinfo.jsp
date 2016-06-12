@@ -183,7 +183,7 @@ function getProjectInfo(dtd)
 					<div class="compile_on">
 	<div class="compile_on_center">
         <div class="compile_on_right">
-            <span class="compile_on_right_b">保存</span>
+            <span class="compile_on_right_b"  data-on="save">保存</span>
             <span class="compile_on_right_q" data-on="close">取消</span>
         </div>  
         <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
@@ -192,15 +192,15 @@ function getProjectInfo(dtd)
                 <td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit"></span></td>
             </tr>
             <tr>
-                <td><span class="new_color_gray">项目类型：</span><span class="new_color_black" id="projectType_edit">外部投资</span></td>
-                <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black" id="updateDate_edit">2016-01-25</span></td>
+                <td><span class="new_color_gray">项目类型：</span><span class="new_color_black" id="projectType_edit"></span></td>
+                <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black" id="updateDate_edit"></span></td>
             </tr>
             <tr>
-                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr"><option>ddddd</option></select></span></td>
+                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel"></select></span></td>
                 <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span class="new_color_gray" id="projectCareerline_edit"></span></td>
             </tr>
             <tr>
-                <td><span class="new_color_gray">融资状态：</span><span><input class="new_nputr" value="Utter绝对潮流"></input></span></td>
+                <td><span class="new_color_gray">融资状态：</span><span><select class="new_nputr" id="finance_status_sel"></select></span></td>
                 <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span class="new_color_gray" id="projectStatusDs_edit"></span><span class="new_bj "></span></td>
             </tr>
         </table>  
