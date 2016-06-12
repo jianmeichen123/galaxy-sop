@@ -26,9 +26,11 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.Menus;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.utils.RoleUtils;
@@ -48,6 +50,8 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	private String serverUrl;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private DictService dictService;
 	
 	/**
 	 * 动态生成左边菜单项列表
@@ -221,14 +225,27 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			}
 			responseBody.setResult(result);	
 		} catch (DaoException e) {
-			// TODO: handle exception
 			responseBody.setResult(new Result(Status.ERROR,"系统异常"));
 		}
 		return responseBody;
 		
 	}
 	
-	
+	/**
+	 * 查询数据字典的子集
+	 * @version 2016-06-21
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getDictionaryList/{parentCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Dict> getDictionaryList(@PathVariable("parentCode") String parentCode,HttpServletRequest request) {
+		ResponseData<Dict> responseBody = new ResponseData<Dict>();
+		Dict query = new Dict();
+		query.setParentCode(parentCode);
+		List<Dict> dictList = dictService.queryList(query);
+		responseBody.setEntityList(dictList);
+		responseBody.setResult(new Result(Status.OK, null, "获取字典项成功！"));
+		return responseBody;
+	}
 	
 
 }

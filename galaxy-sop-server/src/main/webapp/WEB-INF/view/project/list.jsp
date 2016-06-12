@@ -63,7 +63,7 @@
                   <dt>项目类型：</dt>
                   <dd>
                     <select>
-                      <option>全部</option>
+                      <option value="">全部</option>
                     </select>
                   </dd>
                 </dl>
@@ -71,7 +71,7 @@
                   <dt>融资状态：</dt>
                   <dd>
                     <select>
-                      <option>全部</option>
+                      <option value="">全部</option>
                     </select>
                   </dd>
                 </dl>
@@ -79,7 +79,7 @@
                   <dt>项目进度：</dt>
                   <dd>
                     <select>
-                      <option>全部</option>
+                      <option value="">全部</option>
                     </select>
                   </dd>
                 </dl>
@@ -87,7 +87,7 @@
                   <dt>项目状态：</dt>
                   <dd>
                     <select>
-                      <option>全部</option>
+                      <option value="">全部</option>
                     </select>
                   </dd>
                 </dl>
@@ -96,22 +96,23 @@
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>事业部：</dt>
                   <dd>
-                    <select>
-                      <option>全部</option>
+                    <select name="projectDepartid">
+                      <option value="">全部</option>
                     </select>
                   </dd>
                 </dl>
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>投资经理：</dt>
                   <dd>
-                    <select>
-                      <option>全部</option>
+                    <select name="createUid">
+                      <option value="">全部</option>
+                      <option value="1">全部111</option>
                     </select>
                   </dd>
                 </dl>
-                <input type="text" class="txt" placeholder="请输入项目名称或编号">
+                <input type="text" class="txt" name="keyword" placeholder="请输入项目名称或编号">
                 <div class="btn fr">
-                    <button class="bluebtn cx_prj">搜索</button>
+                    <button type="submit" class="bluebtn cx_prj" action="querySearch">搜索</button>
                     <button class="pubbtn bluebtn reset none">重置</button>
                 </div>
             </div>

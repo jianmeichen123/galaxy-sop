@@ -1,8 +1,5 @@
 package com.galaxyinternet.common.enums;
 
-import java.util.Map;
-
-
 public enum DictEnum {
 	
 	项目类型("项目类型","projectType"),
