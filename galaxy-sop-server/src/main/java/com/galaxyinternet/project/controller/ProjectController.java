@@ -2789,6 +2789,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 				y:可添加会议
 	 * 				n:不可以添加，需要排期
 	 * 				k:不允许添加
+	 * 				v:不可以添加，需要秘书排期操作
 	 * 		  map.meettype = meetingType:2
 	 * 		  map.butname = '添加立项会会议记录' / '申请立项会排期'
 	 */
@@ -2806,7 +2807,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				return responseBody;
 			}
 			//非项目创建者，or  项目已否决    不允许添加会议
-			if(user.getId().intValue()!=proinfo.getCreateUid().intValue() || proinfo.getProjectStatus().equals("meetingResult:3")){
+			/*GJZ("跟进中"	 ,   "projectStatus:0"),
+			THYY("投后运营" ,  "projectStatus:1"),
+			YFJ("已否决"		,"projectStatus:2"),
+			YTC("已退出"		,"projectStatus:3");*/
+			if(user.getId().intValue()!=proinfo.getCreateUid().intValue() || proinfo.getProjectStatus().equals("meetingResult:3") ||  
+					proinfo.getProjectStatus().equals("projectStatus:2") || proinfo.getProjectStatus().equals("projectStatus:3")){
 				resultMap.put("add", "k");
 				responseBody.setUserData(resultMap);
 				responseBody.setResult(new Result(Status.OK, null));
@@ -2869,14 +2875,21 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							responseBody.setResult(new Result(Status.ERROR, null, "项目排期池信息错误!"));
 							return responseBody;
 						}
-						
-						if(scheduling.getScheduleStatus() == 0){ //0表示待排期,需要申请排期
-							add = "n";
-							butname = "申请"+butname+"排期";
+						/*
+						`sop_meeting_scheduling`    0       2	
+												ms -1      	排期but-->0  ms-->1   
+						`sop_meeting_record`        待定   	待定
+						*/
+						if(scheduling.getScheduleStatus() == 0){ //0 等秘书排期操作
+							add = "v";
+							butname = "待秘书排期";
 						}else if(scheduling.getScheduleStatus() == 1){ //1表示已排期,可以添加会议记录
 							add = "y";
 							//butname = "添加"+butname+"会议记录";
 							butname = "添加会议记录";
+						}else if(scheduling.getScheduleStatus() == 2){ //1表示已排期,可以添加会议记录
+							add = "n";
+							butname = "申请"+butname+"排期";
 						}
 					}
 				}
