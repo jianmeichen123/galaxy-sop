@@ -103,7 +103,7 @@ public class CeoMeetingHandler implements Handler {
 			tm.setReserveTimeEnd(null);
 			tm.setReserveTimeStart(null);
 		}
-		tm.setMeetingDate(new Date());
+		tm.setMeetingDate(mr.getMeetingDate());
 		tm.setMeetingCount(tm.getMeetingCount() + 1);
 		tm.setUpdatedTime((new Date()).getTime());
 		meetingSchedulingDao.updateById(tm);
