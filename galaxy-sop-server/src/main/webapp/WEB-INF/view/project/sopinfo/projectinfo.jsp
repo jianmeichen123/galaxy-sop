@@ -141,7 +141,7 @@ function getProjectInfo(dtd)
 						</tr>
 						
 						<tr>
-							<td><span class="new_color_gray">行业归属：</span><span class="new_color_black">互联网旅游</span></td>
+							<td><span class="new_color_gray">行业归属：</span><span class="new_color_black" id="industryOwnDs"></span></td>
 							<td><span class="new_color_gray" >投资经理：</span>
 								<span class="new_color_black" id="createUname"></span><span class="new_color_gray" id="projectCareerline"></span></td>
 						</tr>

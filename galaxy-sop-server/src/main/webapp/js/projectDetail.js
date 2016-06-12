@@ -22,6 +22,8 @@ $(function(){
 		$("#finalValuations").text(data.entity.finalValuations);
 		$("#finalContribution").text(data.entity.finalContribution);
 		$("#finalShareRatio").text(data.entity.finalShareRatio);
+		$("#industryOwnDs").text(data.entity.industryOwnDs);
+		
 		
 		
 		
