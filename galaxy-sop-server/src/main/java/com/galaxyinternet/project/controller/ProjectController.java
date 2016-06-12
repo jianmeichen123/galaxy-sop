@@ -161,20 +161,26 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ResponseData<Project> searchProject(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-		if(roleIdList.contains(UserConstant.TZJL)){
-			project.setCreateUid(user.getId());
-		}else if (roleIdList.contains(UserConstant.HHR)){
-			project.setProjectDepartid(user.getDepartmentId());
-		}else{
-			
+		
+		//有搜索条件则不启动默认筛选
+		if(project.getCreateUid() == null && project.getProjectDepartid() == null){
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(roleIdList.contains(UserConstant.TZJL)){
+				project.setCreateUid(user.getId());
+			}else if (roleIdList.contains(UserConstant.HHR)){
+				project.setProjectDepartid(user.getDepartmentId());
+			}else{
+				
+			}
 		}
+		
 		List<Department> departmentList = departmentService.queryAll();
 		Page<Project> pageProject = projectService.queryPageList(project,
 						new PageRequest(project.getPageNum(), 
 								project.getPageSize(), 
 								Direction.fromString(project.getDirection()), 
 								project.getProperty()));
+		//封装事业线数据
 		List<Project> projectList = new ArrayList<Project>();
 		for(Project p : pageProject.getContent()){
 			projectList.add(p);

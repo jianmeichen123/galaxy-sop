@@ -274,7 +274,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	 * @version 2016-06-21
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getUserList{departmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getUserList/{departmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<User> getUserList(@PathVariable("departmentId") Long departmentId, HttpServletRequest request) {
 		ResponseData<User> responseBody = new ResponseData<User>();
 		User user = new User();
