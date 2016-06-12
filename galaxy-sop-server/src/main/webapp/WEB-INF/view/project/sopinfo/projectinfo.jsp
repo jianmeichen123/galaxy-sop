@@ -104,8 +104,8 @@ function getProjectInfo(dtd)
         	<div class="tabtable assessment label_static">
           	<!-- tab标签 -->
             <ul class="tablink">
-                <li class="on"><a href="javascript:;">基本信息</a></li>
-                <li><a href="javascript:;" onClick="changeTab(Constants.sopEndpointURL+'/galaxy/personTab/','${projectId}')" >团队成员</a></li>
+                <li class="on"><a href="javascript:;" onclick="showTabs(${projectId},0)">基本信息</a></li>
+                <li><a href="javascript:;" onClick="showTabs(${projectId},1)" >团队成员</a></li>
                 <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},4)">会议纪要</a></li>
@@ -141,7 +141,7 @@ function getProjectInfo(dtd)
 						</tr>
 						
 						<tr>
-							<td><span class="new_color_gray">行业归属：</span><span class="new_color_black">互联网旅游</span></td>
+							<td><span class="new_color_gray">行业归属：</span><span class="new_color_black" id="industryOwnDs"></span></td>
 							<td><span class="new_color_gray" >投资经理：</span>
 								<span class="new_color_black" id="createUname"></span><span class="new_color_gray" id="projectCareerline"></span></td>
 						</tr>
@@ -172,12 +172,13 @@ function getProjectInfo(dtd)
 						<span class="new_ico_practical"></span> <span class="new_color size16">实际投资</span>
 					</div>
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+				<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 						<tr>
-							<td><span class="new_color_gray">投资金额：</span><span class="new_color_black">600万人民币</span></td>
-							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black">600万人民</span></td>
+							<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution">万人民币</span></td>
+							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations">万人民</span></td>
 						</tr>
 						<tr>
-							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black">90%</span></td>
+							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio">%</span></td>
 						</tr>
 					</table>
 					</div>
@@ -198,7 +199,7 @@ function getProjectInfo(dtd)
                 <td><span class="new_color_gray">最后编辑：</span><span class="new_color_black" id="updateDate_edit"></span></td>
             </tr>
             <tr>
-                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel"></select></span></td>
+                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel" ></select></span></td>
                 <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span class="new_color_gray" id="projectCareerline_edit"></span></td>
             </tr>
             <tr>
@@ -228,13 +229,13 @@ function getProjectInfo(dtd)
         </div>  
         <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
             <tr>
-                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民币</span></td>
-                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" />　万人民</span></td>
+                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="finalContribution_edit"/>　万人民币</span></td>
+                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" id="finalValuations_edit"/>　万人民</span></td>
             </tr>
             <tr>
-                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" />　%</span></td>
-            </tr>
-        </table>
+                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" id="finalShareRatio_edit" />　%</span></td>
+     </tr>
+               </table>
     </div>
 </div>
 				</div>

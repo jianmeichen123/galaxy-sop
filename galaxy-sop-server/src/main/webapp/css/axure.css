@@ -1712,7 +1712,11 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     margin-top: 10px;
 }
 /*访谈表格*/
-.no1{width:30%;}
-.no2{width:50%;}
+.no1{width:35%;}
+.no2{width:45%;}
+
+.no1_1{width:25%;}
+.no1_2{width:15%;}
+.no1_3{width:40%;}
 /*左侧导航icon*/
 .nav_index{width:20px;height:20px;display:inline-block;background: url(../img/baricon.png) 0 0 no-repeat;margin-right: 8px;}

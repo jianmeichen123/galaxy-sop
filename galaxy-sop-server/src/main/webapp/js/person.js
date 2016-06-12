@@ -2,15 +2,16 @@
  * 可作为通用的tab切换
  * url:路径
  * data:项目id等参数
- */
+ *//*
 function changeTab(url,data) {
+	$("#tab2").attr("class","on");
     $.ajax({
 		type:"GET",
 		data:"",
 		dataType:"html",
 		url:url+data,
 		beforeSend : function(xhr) {
-			/**清楚浏览器缓存**/
+			*//**清楚浏览器缓存**//*
 			xhr.setRequestHeader("If-Modified-Since","0"); 
 			xhr.setRequestHeader("Cache-Control","no-cache");
 			if (sessionId) {
@@ -27,6 +28,18 @@ function changeTab(url,data) {
 			alert("网络错误")
 		}	
 	})
+}*/
+
+//个人简历
+function changeTab(url,data){
+	$.getHtml({
+		url: url+data, 
+		data:"",//传递参数
+		okback:function(){
+		
+		}//模版反回成功执行	
+	}); 
+	
 }
 
 function getTabPerson(){
@@ -40,7 +53,7 @@ function getTabPerson(){
     search: false, //显示搜索框
     pageList: [10,20,30],
     queryParamsType: 'size|page',
-    queryParams: function(params){params.projectId=id; return params;},
+    queryParams: function(params){params.projectId=projectId; return params;},
     sidePagination: "server", //服务端处理分页
           columns: [
                   {

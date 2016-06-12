@@ -19,6 +19,14 @@ $(function(){
 		$("#projectProgress").text(data.entity.progress);
 		$("#projectStatusDs").text(data.entity.projectStatusDs);
 		$("#financeStatusDs").text(data.entity.financeStatusDs);
+		$("#finalValuations").text(data.entity.finalValuations);
+		$("#finalContribution").text(data.entity.finalContribution);
+		$("#finalShareRatio").text(data.entity.finalShareRatio);
+		$("#industryOwnDs").text(data.entity.industryOwnDs);
+		
+		
+		
+		
 		//基本信息修改
 		$("#project_name_edit").val(data.entity.projectName);
 		$("#create_date_edit").text(data.entity.createDate);
@@ -32,6 +40,9 @@ $(function(){
 		$("#projectProgress_edit").text(data.entity.progress);
 		$("#projectStatusDs_edit").text(data.entity.projectStatusDs);
 		$("#financeStatusDs_edit").text(data.entity.financeStatusDs);
+		$("#finalValuations_edit").val(data.entity.finalValuations);
+		$("#finalContribution_edit").val(data.entity.finalContribution);
+		$("#finalShareRatio_edit").val(data.entity.finalShareRatio);
 		var p=data.entity.industryOwn;
 		var fs=data.entity.financeStatus;
 		//融资
@@ -131,21 +142,15 @@ $(function(){
 		}else{
 			$("#analysis_show").html('')
 		}
-		var formdata = {
-				_projectId : projectId,
-				_projectName : data.entity.projectName,
-				_domId : 'business_plan'
-		}
-		initPage.init(formdata);
 		});
 	/**
 	 * 计算初始估值
 	 */
 	$("#project_share_ratio_edit").blur(function(){
 		var valuations = calculationValuations();
-		$("#project_valuations_edit").text("");
+		$("#project_valuations_edit").val("");
 		if(valuations){
-			$("#project_valuations_edit").text(valuations);
+			$("#project_valuations_edit").val(valuations);
 		}
 	});
 	/**
@@ -156,9 +161,9 @@ $(function(){
 	 */
 	$("#project_contribution_edit").blur(function(){
 		var valuations = calculationValuations();
-		$("#project_valuations_edit").text("");
+		$("#project_valuations_edit").val("");
 		if(valuations){
-			$("#project_valuations_edit").text(valuations);
+			$("#project_valuations_edit").val(valuations);
 		}
 	});
 	/**
@@ -172,11 +177,78 @@ $(function(){
 		}
 		return null;
 	}
+	//实际值计算************************************************************
+	/**
+	 * 计算实际估值
+	 */
+	$("#finalShareRatio_edit").blur(function(){
+		var valuations = finalValuations();
+		$("finalValuations_edit").val("");
+		if(valuations){
+			$("#finalValuations_edit").val(valuations);
+		}
+	});
+	/**
+	 * 计算实际投资
+	 * project_contribution_edit
+	 * project_valuations_edit
+	 * project_share_ratio_edit
+	 */
+	$("#finalContribution_edit").blur(function(){
+		var valuations = finalValuations();
+		$("#finalValuations_edit").val("");
+		if(valuations){
+			$("#finalValuations_edit").val(valuations);
+		}
+	});
+	/**
+	 * 计算初始估值
+	 */
+	function finalValuations(){
+		var projectShareRatio = $("#finalShareRatio_edit").val();
+		var projectContribution = $("#finalContribution_edit").val();
+		if(projectShareRatio > 0 && projectContribution > 0){
+			return projectContribution * (100/projectShareRatio);
+		}
+		return null;
+	}
 	
 	$("[data-on='save']").click(function(){
+		var data=getUpdateData();
+	//	if(beforeSubmit()){
+			sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
+				layer.msg("修改项目基本信息项目成功!");
+				window.location.reload();
+			});
+	//	}
 		
-		$("#project_name_edit");
+		
+		
 	})
 	
-
+	
 });
+function getUpdateData(){
+	var id=$("#pid").val();
+	var pname=$("#project_name_edit").val();
+	var industry_own=$("#industry_own_sel").val();
+	var finance_status=$("#finance_status_sel").val();
+	var project_contribution=$("#project_contribution_edit").val();
+	var project_valuations=$("#project_valuations_edit").val();
+	var project_share_ratio=$("#project_share_ratio_edit").val();
+	var finalcontribution=$("#finalContribution_edit").val();
+	var finalvaluations=$("#finalValuations_edit").val();
+	var finalshare_ratio=$("#finalShareRatio_edit").val();
+	var formatData={"id":id,
+			       "projectName":pname,
+			        "industryOwn":industry_own,
+			        "financeStatus":finance_status,
+			       "projectValuations":project_valuations,
+			       "projectContribution" :project_contribution,
+			       "projectShareRatio":project_share_ratio,
+			       "finalValuations":finalvaluations,//实际估值
+                   "finalContribution":finalcontribution,//实际投资
+  	               "finalShareRatio":finalshare_ratio	//实际股权占比		
+	};
+	return formatData;
+}

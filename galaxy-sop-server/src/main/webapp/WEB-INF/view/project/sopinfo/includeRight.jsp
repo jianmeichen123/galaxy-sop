@@ -194,7 +194,7 @@ function formatNearNotes(data){
 			var subStr = "";
 			var targerHtml="";
 			if(target.length>8){
-				subStr = targetStr.substring(0,8)+"...";
+				subStr = target.substring(0,8)+"...";
 				targerHtml = "<span class=\"new_b_li_one\" title="+target+">"+subStr+"</span>";
 			}else{
 				targerHtml = "<span class=\"new_b_li_one\" >"+target+"</span>";

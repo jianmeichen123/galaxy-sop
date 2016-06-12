@@ -2806,7 +2806,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				return responseBody;
 			}
 			//非项目创建者，or  项目已否决    不允许添加会议
-			if(user.getId()!=proinfo.getCreateUid() || proinfo.getProjectStatus().equals("meetingResult:3")){
+			if(user.getId().intValue()!=proinfo.getCreateUid().intValue() || proinfo.getProjectStatus().equals("meetingResult:3")){
 				resultMap.put("add", "k");
 				responseBody.setUserData(resultMap);
 				responseBody.setResult(new Result(Status.OK, null));
@@ -2819,14 +2819,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			
 			int indez = Integer.parseInt(proinfo.getProjectProgress().substring(proinfo.getProjectProgress().length()-1)) ;
 			
-			if(indez == 3 || indez == 4 || indez == 7){
-				
-			}
-			
 			if(indez == 2){   // 内部评审("内部评审","projectProgress:2"),
-				add = "y";
 				meettype = "meetingType:1";
-				butname = "添加内评会会议记录";
+				butname = "内评会";
 			}else if(indez == 3){   // CEO评审("CEO评审","projectProgress:3"),
 				meettype = "meetingType:2";
 				butname = "CEO评审";
@@ -2839,23 +2834,51 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}else{ 
 				add = "k";
 			}
-			
+			/*
+					    会议通过                               待定 
+			内评会：     直接到下一个阶段          一直循环添加会议记录
+			ceo评审：  申请立项会排期  		申请ceo排期						
+			立项会：     直接到下一个阶段  	申请立项会排期	
+			投决会：     直接到下一个阶段  	申请投决会排期
+			*/
 			if(add == null && meettype !=null){
-				MeetingScheduling scheduling = new MeetingScheduling();
-				scheduling.setMeetingType(meettype);
-				scheduling.setProjectId(id);
-				scheduling = meetingSchedulingService.queryOne(scheduling);
-				if(scheduling == null || scheduling.getId()==null){
-					responseBody.setResult(new Result(Status.ERROR, null, "项目排期池信息错误!"));
-					return responseBody;
-				}
+				MeetingRecord mrQuery = new MeetingRecord();
+				mrQuery.setProjectId(id);
+				mrQuery.setMeetingType(meettype);
+				mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+				Long mrCount = meetingRecordService.queryCount(mrQuery);
 				
-				if(scheduling.getScheduleStatus() == 0){ //0表示待排期,需要申请排期
-					add = "n";
-					butname = "申请"+butname+"排期";
-				}else if(scheduling.getScheduleStatus() == 1){ //1表示已排期,可以添加会议记录
-					add = "y";
-					butname = "添加"+butname+"会议记录";
+				if(mrCount != null && mrCount.longValue() > 0L){  //有通过的会议，不能再添加
+					if(meettype.equals("meetingType:2")){
+						add = "n";
+						butname = "申请"+"立项会"+"排期";
+						meettype = "p_"+meettype;
+					}else{
+						add = "k";
+					}
+				}else{    //待定，会议排期池校验
+					if(meettype.equals("meetingType:1")){
+						add = "y";
+						butname = "添加会议记录";
+					}else{
+						MeetingScheduling scheduling = new MeetingScheduling();
+						scheduling.setMeetingType(meettype);
+						scheduling.setProjectId(id);
+						scheduling = meetingSchedulingService.queryOne(scheduling);
+						if(scheduling == null || scheduling.getId()==null){
+							responseBody.setResult(new Result(Status.ERROR, null, "项目排期池信息错误!"));
+							return responseBody;
+						}
+						
+						if(scheduling.getScheduleStatus() == 0){ //0表示待排期,需要申请排期
+							add = "n";
+							butname = "申请"+butname+"排期";
+						}else if(scheduling.getScheduleStatus() == 1){ //1表示已排期,可以添加会议记录
+							add = "y";
+							//butname = "添加"+butname+"会议记录";
+							butname = "添加会议记录";
+						}
+					}
 				}
 			}
 			
@@ -2866,8 +2889,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setUserData(resultMap);
 			responseBody.setResult(new Result(Status.OK, null));
 		} catch (Exception e) {
-			logger.error("getnearnotes 近期访谈、会议记录查询失败", e);
-			responseBody.setResult(new Result(Status.ERROR, null, "近期访谈、会议记录查询失败"));
+			logger.error("initProMeetBut 会议功能按钮初始化失败", e);
+			responseBody.setResult(new Result(Status.ERROR, null, "会议功能按钮初始化失败"));
 			return responseBody;
 		}
 

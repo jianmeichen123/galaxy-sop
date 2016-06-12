@@ -117,7 +117,7 @@ function getProjectInfo(dtd)
           	<!-- tab标签 -->
             <ul class="tablink">
                 <li><a href="javascript:;" onClick="showTabs(${projectId},0)">基本信息</a></li>
-                <li><a href="javascript:;" onClick="changeTab(Constants.sopEndpointURL+'/galaxy/personTab/','${projectId}')" >团队成员</a></li>
+                <li><a href="javascript:;" onClick="showTabs(${projectId},1)">团队成员</a></li>
                 <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},4)">会议纪要</a></li>

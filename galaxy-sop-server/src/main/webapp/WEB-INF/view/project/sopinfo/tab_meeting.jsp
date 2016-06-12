@@ -50,11 +50,11 @@
         	<div class="tabtable assessment label_static">
           	<!-- tab标签 -->
             <ul class="tablink">
-                <li><a href="javascript:;" onclick="toDetail('${pid}')">基本信息</a></li>
-                <li><a href="javascript:;">团队成员</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
-                <li><a href="javascript:;" onclick="toInterView('${pid}')">访谈记录</a></li>
-                <li class="on"><a href="javascript:;" onclick="toMeet('${pid}')">会议纪要</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',0)">基本信息</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',1)">团队成员</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',2)">股权结构</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',3)">访谈记录</a></li>
+                <li class="on"><a href="javascript:;" onclick="showTabs('${pid}',4)">会议纪要</a></li>
                 <li><a href="javascript:;">项目文档</a></li>
                 <li><a href="javascript:;">操作日志</a></li>
             </ul>
@@ -111,7 +111,7 @@
 							<tr>
 								<th data-field="meetinfo" data-align="center" data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
 								<th data-field="meetingTypeStr" data-align="center" data-class="no1_2">会议类型</th>
-								<th data-field="meetingNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no3">会议纪要</th>
+								<th data-field="meetingNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
 								<th data-field="oper" data-align="center" data-formatter="meetOperFormat">操作</th>
 							</tr>
 						</thead>
@@ -241,8 +241,15 @@ function toAddProMeet(){
 		data:"",
 		okback:function(){
 			var type = $("#proMeetBut").data("type");
-			if(type){
-				$("input[name='meetingTypeTc'][value ='"+type+"']").attr("checked","checked").addClass("disabled");
+			if(type){ //meetTypeRadio
+				$("input[name='meetingTypeTc'][value ='"+type+"']").attr("checked","checked");
+				$("input[name='meetingTypeTc']").attr("disabled","disabled").addClass("disabled");
+				
+				/* $("input[name='meetingTypeTc']").each(function(){
+					if(this.value != type){
+						this.parentNode.remove();
+					}
+				}); */
 			}
 			$("#proselect").remove();
 			initMeetUpload();
@@ -299,13 +306,14 @@ function initMeetUpload() {
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
-								var _this = $("#data-table");
+								window.location.reload();
+								/* var _this = $("#data-table");
 								if(_this == null || _this.length == 0 || _this == undefined){
 									removePop1();
 								}else{
 									$("#data-table").bootstrapTable('refresh');
 									removePop1();
-								}
+								} */
 							}
 						});
 					}
@@ -337,13 +345,14 @@ function initMeetUpload() {
 					return;
 				}else{
 					layer.msg("保存成功", {time : 500});
-					var _this = $("#data-table");
+					window.location.reload();
+					/* var _this = $("#data-table");
 					if(_this == null || _this.length == 0 || _this == undefined){
 						removePop1();
 					}else{
 						$("#data-table").bootstrapTable('refresh');
 						removePop1();
-					}
+					} */
 				}
 			},
 			BeforeUpload:function(up){
@@ -416,6 +425,8 @@ function interviewsave(){
 function toMeetPool(meetType){
 	if(meetType == "meetingType:2"){
 		applyCeoMeeting();
+	}else if(meetType == "p_meetingType:2"){
+		toEstablishStage();
 	}else if(meetType == "meetingType:3"){
 		toLxmeetingPool();
 	}else if(meetType == "meetingType:4"){
