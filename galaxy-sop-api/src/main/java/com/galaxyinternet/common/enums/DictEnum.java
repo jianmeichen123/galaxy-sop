@@ -233,6 +233,7 @@ public enum DictEnum {
 	
 	//会议状态
 	public enum meetingSheduleResult {
+		待申请排期("待排期",00),
 		待排期("待排期",0),
 		已排期("已排期",1),
 		已通过("已通过",2),
