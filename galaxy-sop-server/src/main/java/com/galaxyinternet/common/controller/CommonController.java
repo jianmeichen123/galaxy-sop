@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,13 +27,16 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.Menus;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.RoleUtils;
 
 @Controller
@@ -52,6 +56,10 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	private ProjectService projectService;
 	@Autowired
 	private DictService dictService;
+	@Autowired
+	private DepartmentService departmentService;
+	@Autowired
+	private UserService userService;
 	
 	/**
 	 * 动态生成左边菜单项列表
@@ -242,6 +250,56 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		List<Dict> dictList = dictService.selectByParentCode(parentCode);
 		responseBody.setEntityList(dictList);
 		responseBody.setResult(new Result(Status.OK, null, "获取字典项成功！"));
+		return responseBody;
+	}
+	
+	/**
+	 * 查询事业线
+	 * @version 2016-06-21
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getCareerlineList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Department> getCareerlineList(HttpServletRequest request) {
+		ResponseData<Department> responseBody = new ResponseData<Department>();
+		Department query = new Department();
+		query.setType(1);
+		List<Department> careerlineList = departmentService.queryList(query);
+		responseBody.setEntityList(careerlineList);
+		responseBody.setResult(new Result(Status.OK, null, "获取事业线成功！"));
+		return responseBody;
+	}
+	
+	/**
+	 * 根据事业线查询相应的投资经理
+	 * @version 2016-06-21
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getUserList{departmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<User> getUserList(@PathVariable("departmentId") Long departmentId, HttpServletRequest request) {
+		ResponseData<User> responseBody = new ResponseData<User>();
+		User user = new User();
+		List<Long> departmentIds = new ArrayList<Long>();
+		if(departmentId.longValue() == 0L){
+			Department query = new Department();
+			query.setType(1);
+			List<Department> careerlineList = departmentService.queryList(query);
+			for(Department d : careerlineList){
+				departmentIds.add(d.getId());
+			}
+		}else{
+			departmentIds.add(departmentId);
+		}
+		user.setDepartmentIds(departmentIds);
+		List<User> userList = userService.queryList(user);
+		List<User> responseUserList = new ArrayList<User>();
+		List<Long> uids = userRoleService.selectUserIdByRoleId(UserConstant.TZJL);
+		for(User u : userList){
+			if(uids.contains(u.getId())){
+				responseUserList.add(u);
+			}
+		}
+		responseBody.setEntityList(responseUserList);
+		responseBody.setResult(new Result(Status.OK, null, "获取投资经理成功！"));
 		return responseBody;
 	}
 	

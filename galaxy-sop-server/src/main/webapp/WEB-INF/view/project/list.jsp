@@ -106,7 +106,6 @@
                   <dd>
                     <select name="createUid">
                       <option value="">全部</option>
-                      <option value="1">全部111</option>
                     </select>
                   </dd>
                 </dl>
@@ -122,7 +121,7 @@
           </div>
         </div>
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="project/spl" data-height="555" 
+			<table id="data-table" data-url="project/search" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
@@ -241,6 +240,28 @@
 	 * @version 2016-06-21
 	 */
 	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus");
+	/**
+	 * 查询事业线
+	 * @version 2016-06-21
+	 */
+	createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");
+	/**
+	 * 根据事业线查询相应的投资经理
+	 * @version 2016-06-21
+	 */
+    createUserOptions(platformUrl.getUserList+"0", "createUid");
+	$(function(){
+		$('select[name="projectDepartid"]').change(function(){
+			var did = $('select[name="projectDepartid"]').val();
+			console.log(did);
+			/**
+			 * 根据事业线查询相应的投资经理
+			 * @version 2016-06-21
+			 */
+		    createUserOptions(platformUrl.getUserList+did, "createUid");
+		});
+	});
+	
 </script>
 
 </html>

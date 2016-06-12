@@ -546,7 +546,15 @@ var platformUrl = {
 	/**
 	 * 查询数据字典子项集合
 	 */
-	searchDictionaryChildrenItems : Constants.sopEndpointURL + "/galaxy/common/getDictionaryList/"
+	searchDictionaryChildrenItems : Constants.sopEndpointURL + "/galaxy/common/getDictionaryList/",
+	/**
+	 * 查询事业线
+	 */
+	getCareerlineList : Constants.sopEndpointURL + "/galaxy/common/getCareerlineList",
+	/**
+	 * 根据事业线查询相应的投资经理
+	 */
+	getUserList : Constants.sopEndpointURL + "/galaxy/common/getUserList"
 	
 }
 
