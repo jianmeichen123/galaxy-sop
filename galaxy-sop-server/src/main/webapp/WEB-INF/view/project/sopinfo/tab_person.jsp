@@ -41,7 +41,7 @@
     	<div class="new_tit_b">
         	<span class="new_color size18">Utter绝对潮流</span><span class="new_color">ID987786600009</span>
         	<span class="b_span"><a href="#">返回项目列表></a></span>
-        	<input type="hidden" id="pid" name="id" value="${projectId}"/>
+        	<input type="hidden" id="pid" name="id" value="${pid}"/>
         </div>
 
 
@@ -49,11 +49,11 @@
 			<div class="tabtable assessment label_static">
 				<!-- tab标签 -->
 	            <ul class="tablink">
-	                  <li><a href="javascript:;" onClick="showTabs(${projectId},0)">基本信息</a></li>
-		                <li class="on"><a href="javascript:;" onClick="showTabs(${projectId},1)" >团队成员</a></li>
-		                <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
-		                <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
-		                <li><a href="javascript:;" onclick="showTabs(${projectId},4)">会议纪要</a></li>
+	                  <li><a href="javascript:;" onClick="showTabs(${pid},0)">基本信息</a></li>
+		                <li class="on"><a href="javascript:;" onClick="showTabs(${pid},1)" >团队成员</a></li>
+		                <li><a href="javascript:;" onClick="showTabs(${pid},2)">股权结构</a></li>
+		                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
+		                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
 		                <li><a href="javascript:;">项目文档</a></li>
 		                <li><a href="javascript:;">操作日志</a></li>
 	            </ul>

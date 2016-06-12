@@ -235,10 +235,7 @@ function getProjectInfo(dtd)
             <tr>
                 <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" id="finalShareRatio_edit" />　%</span></td>
      </tr>
-            <tr>
-                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" />　%</span></td>
-            </tr>
-        </table>
+               </table>
     </div>
 </div>
 				</div>
