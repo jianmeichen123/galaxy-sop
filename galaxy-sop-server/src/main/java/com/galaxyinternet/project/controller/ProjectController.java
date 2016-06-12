@@ -2919,6 +2919,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return responseBody;
 	}
 
+	/**
+	 * sop tab页面  会议 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toFileList/{pid}", method = RequestMethod.GET)
+	public String toFileList(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		Project project = new Project();
+		project = projectService.queryById(pid);
+		request.setAttribute("proinfo", GSONUtil.toJson(project));
+		request.setAttribute("projectId", pid);
+		request.setAttribute("prograss", project.getProjectProgress());
+		request.setAttribute("projectName", project.getProjectName());
+		return "project/sopinfo/tab_filelist";
+	}
 	
 	
 }
