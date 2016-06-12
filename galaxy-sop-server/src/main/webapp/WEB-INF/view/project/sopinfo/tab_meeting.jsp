@@ -38,12 +38,7 @@
     <!--右中部内容-->
  	<div class="ritmin">
  	
-    	<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>Utter绝对潮流</div>
-    	
-    	<div class="new_tit_b">
-        	<span class="new_color size18">Utter绝对潮流</span><span class="new_color">ID987786600009</span>
-        	<span class="b_span"><a href="#">返回项目列表></a></span>
-        </div>
+    <jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
         
         
         <div class="new_left">
