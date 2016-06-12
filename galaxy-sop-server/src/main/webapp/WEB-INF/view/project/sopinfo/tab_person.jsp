@@ -98,7 +98,7 @@
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var interviewSelectRow = null;
-	var projectId ='${projectId}';
+	var projectId ='${pid}';
 
 $(function(){
 	createMenus(5);
