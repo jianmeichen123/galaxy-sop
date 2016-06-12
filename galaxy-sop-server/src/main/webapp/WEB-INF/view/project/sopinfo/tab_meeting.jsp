@@ -38,7 +38,7 @@
     <!--右中部内容-->
  	<div class="ritmin">
  	
-    <jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
+    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
         
         
         <div class="new_left">
@@ -51,7 +51,7 @@
                 <li><a href="javascript:;" onclick="showTabs('${pid}',3)">访谈记录</a></li>
                 <li class="on"><a href="javascript:;" onclick="showTabs('${pid}',4)">会议纪要</a></li>
                 <li><a href="javascript:;">项目文档</a></li>
-                <li><a href="javascript:;">操作日志</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
             </ul>
 
             
@@ -93,7 +93,7 @@
 								<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
 							</dd>
 							<dd>
-								<a href="javascript:;" class="search_icon"action="querySearch">查询</a>
+								<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
 							</dd>
 						</dl>
 					</div>
@@ -219,6 +219,9 @@ function button_init_callback(data){
 			});
 		}else if(add == 'k'){
 			$("#proMeetBut").remove();
+		}else if(add == 'v'){
+			$("#proMeetBut").removeAttr("onclick");
+			$("#proMeetBut").text(butname);
 		}
 		
 	}
@@ -236,7 +239,7 @@ function toAddProMeet(){
 		data:"",
 		okback:function(){
 			var type = $("#proMeetBut").data("type");
-			if(type){ //meetTypeRadio
+			if(type){ 
 				$("input[name='meetingTypeTc'][value ='"+type+"']").attr("checked","checked");
 				$("input[name='meetingTypeTc']").attr("disabled","disabled").addClass("disabled");
 				
@@ -293,7 +296,7 @@ function initMeetUpload() {
 						up.settings.multipart_params = res;
 						meetuploader.start();
 					}else{
-						sendPostRequestByJsonObj(platformUrl.saveMeetFile,res,function(data){
+						sendPostRequestByJsonObj(platformUrl.stageChange,res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
 								$("#savemeet").removeClass("disabled");
@@ -302,13 +305,6 @@ function initMeetUpload() {
 							}else{
 								layer.msg("保存成功", {time : 500});
 								window.location.reload();
-								/* var _this = $("#data-table");
-								if(_this == null || _this.length == 0 || _this == undefined){
-									removePop1();
-								}else{
-									$("#data-table").bootstrapTable('refresh');
-									removePop1();
-								} */
 							}
 						});
 					}
@@ -341,13 +337,6 @@ function initMeetUpload() {
 				}else{
 					layer.msg("保存成功", {time : 500});
 					window.location.reload();
-					/* var _this = $("#data-table");
-					if(_this == null || _this.length == 0 || _this == undefined){
-						removePop1();
-					}else{
-						$("#data-table").bootstrapTable('refresh');
-						removePop1();
-					} */
 				}
 			},
 			BeforeUpload:function(up){
@@ -418,14 +407,19 @@ function interviewsave(){
 
 //会议排期
 function toMeetPool(meetType){
+	var res = null;
 	if(meetType == "meetingType:2"){
-		applyCeoMeeting();
+		res = applyCeoMeeting();
 	}else if(meetType == "p_meetingType:2"){
-		toEstablishStage();
+		res = toEstablishStage();
 	}else if(meetType == "meetingType:3"){
-		toLxmeetingPool();
+		res = toLxmeetingPool();
 	}else if(meetType == "meetingType:4"){
-		inSureMeetingPool();
+		res = inSureMeetingPool();
+	}
+	if(res && res == true){
+		$("#proMeetBut").text(butname);
+		$("#proMeetBut").removeAttr("onclick");
 	}
 }
  /**
@@ -437,15 +431,11 @@ function toEstablishStage(){
 		sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
 			var result = data.result.status;
 			if(result == "OK"){ 
-				if($.isFunction(refreshProjectList))
-				{
-					refreshProjectList.call();
-				}
 				layer.msg("申请立项会成功!");
-				$("#powindow,#popbg").remove();
-				info(pid);
+				return true;
 			}else{
 				layer.msg(data.result.message);
+				return false;
 			}
 		});
 	}
@@ -459,15 +449,11 @@ function applyCeoMeeting(){
 		sendGetRequest(platformUrl.inCeoMeetingPool + pid, {}, function(data){
 			var result = data.result.status;
 			if(result == "OK"){ 
-				if($.isFunction(refreshProjectList))
-				{
-					refreshProjectList.call();
-				}
 				layer.msg("申请CEO评审会成功!");
-				$("#powindow,#popbg").remove();
-				info(pid);
+				return true;
 			}else{
 				layer.msg(data.result.message);
+				return false;
 			}
 		});
 	}
@@ -482,10 +468,10 @@ function toLxmeetingPool(){
 			var result = data.result.status;
 			if(result == "OK"){ 
 				layer.msg("申请立项会成功!");
-				$("#powindow,#popbg").remove();
-				info(pid);
+				return true;
 			}else{
 				layer.msg(data.result.message);
+				return false;
 			}
 		});
 	}
@@ -503,10 +489,10 @@ function inSureMeetingPool(){
 					var result = data.result.status;
 					if(result == "OK"){ 
 						layer.msg("申请成功!");
-						$("#powindow,#popbg").remove();
-						info(pid);
+						return true;
 					}else{
 						layer.msg(data.result.message);
+						return false;
 					}
 				});
 	}

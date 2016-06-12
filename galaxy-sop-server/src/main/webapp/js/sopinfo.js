@@ -19,6 +19,8 @@ function showTabs(id,index)
 		break;
 	case 5 :
 	case 6 :
+		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/toprolog/" + id);
+		break;
 	default : 
 		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/detail/" + id);
 	

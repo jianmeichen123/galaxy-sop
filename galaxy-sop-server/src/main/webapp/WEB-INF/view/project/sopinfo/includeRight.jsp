@@ -97,22 +97,7 @@ $(function(){
 	
 })
 
-/**
- * tab 跳转
- */
-function toInterView(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/proview/" + id);
-}
-function toMeet(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/promeet/" + id);
-}
 
-function toDetail(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/detail/" + id);
-}
-function toOperLog(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/toprolog/" + id);
-}
 
 /**
  * 流程图 ，动态生成初始化
@@ -153,11 +138,11 @@ function formatNearNotes(data){
 			
 			//会议结论 处理
 			var resultStr = "";
-			if(meetList[i].meetingResult = 'meetingResult:1'){ //通过
+			if(meetList[i].meetingResult == 'meetingResult:1'){ //通过
 				resultStr = "<span class='color_pass'>通过</span>";
-			}else if(meetList[i].meetingResult = 'meetingResult:2'){ //待定
+			}else if(meetList[i].meetingResult == 'meetingResult:2'){ //待定
 				resultStr = "<span class='color_undetermined'>待定</span>";
-			}else if(meetList[i].meetingResult = 'meetingResult:3'){ //否决
+			}else if(meetList[i].meetingResult == 'meetingResult:3'){ //否决
 				resultStr = "<span class='color_veto'>否决</span>";
 			}
 			
