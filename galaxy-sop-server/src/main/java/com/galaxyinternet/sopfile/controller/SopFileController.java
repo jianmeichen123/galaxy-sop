@@ -1006,6 +1006,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 //		}
 		return responseBody;
 	}
+	/**
+	 * 获取最新商业计划书
+	 * @param request
+	 * @param projectId
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/getBusinessPlanFile/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopFile> getBusinessPlanFile(HttpServletRequest request,@PathVariable String projectId){
@@ -1035,6 +1041,46 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		
 	}
 	
+	/**
+	 * 跳转商业计划书页面
+	 * 2016-06-08
+	 * @return
+	 */
+	@RequestMapping(value="/toBusinessPlanHistory")
+	public String toBusinessPlanHistory(){
+		return "sopFile/businessPlanFileDialog";
+	}
 	
-	
+	/**
+	 * 获取商业计划历史
+	 * @param request
+	 * @param sopFile
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/searchBusinessPlanHistory",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> searchBusinessPlanHistory(HttpServletRequest request, @RequestBody SopFile sopFile) {
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		if(sopFile.getProjectId() == null){
+			responseBody.setResult(new Result(Status.ERROR, "项目ID不能为空"));
+			return responseBody;
+		}
+		try {
+			sopFile.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
+			PageRequest pageRequest = new PageRequest(sopFile.getPageNum(),sopFile.getPageSize(), Direction.DESC,
+					"created_time");
+			Page<SopFile> sopFilePage = sopFileService.queryFileList(sopFile, pageRequest);
+			if(sopFilePage.getContent().size()<=0){
+				responseBody.setResult(new Result(Status.OK,"null"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK,""));
+			responseBody.setPageList(sopFilePage);
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR,"系统出现异常"));
+		}
+		
+		return responseBody;
+	}
 }

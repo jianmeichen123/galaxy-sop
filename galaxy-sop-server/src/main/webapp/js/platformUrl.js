@@ -400,7 +400,7 @@ var platformUrl = {
 	/**
 	 * 项目详情
 	 */
-	projectDetail : Constants.sopEndpointURL + "/galaxy/detail/",
+	projectDetail : Constants.sopEndpointURL + "/galaxy/project/detail/",
 	/**
 	 * 查询密码
 	 */
@@ -519,8 +519,10 @@ var platformUrl = {
 	 * 获取商业计划
 	 */	
 	getBusinessPlanFile : Constants.sopEndpointURL + "/galaxy/sopFile/getBusinessPlanFile",
+	
 	/**
-	 * 保存公司法人信息
+	 * 
+	 * 编辑公司法人信息
 	 */
 	saveCompanyInfo : Constants.sopEndpointURL + "/galaxy/project/saveCompanyInfo",
 	/**
@@ -528,6 +530,19 @@ var platformUrl = {
 	 */
 	getFinanceStatusByParent : Constants.sopEndpointURL + "/galaxy/project/getFinanceStatusByParent",
 	
+	/**
+	 * 保存公司法人信息
+	 * 
+	 */
+	saveCompanyInfo : Constants.sopEndpointURL + "/galaxy/project/saveCompanyInfo",
+	/**
+	 * 商业计划页面
+	 */	
+	toBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/toBusinessPlanHistory",
+	/**
+	 * 商业计划历史查询
+	 */	
+	searchBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/searchBusinessPlanHistory",
 	
 }
 
