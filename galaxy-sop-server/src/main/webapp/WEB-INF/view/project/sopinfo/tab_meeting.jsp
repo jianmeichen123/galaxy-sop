@@ -111,7 +111,7 @@
 							<tr>
 								<th data-field="meetinfo" data-align="center" data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
 								<th data-field="meetingTypeStr" data-align="center" data-class="no1_2">会议类型</th>
-								<th data-field="meetingNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no3">会议纪要</th>
+								<th data-field="meetingNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
 								<th data-field="oper" data-align="center" data-formatter="meetOperFormat">操作</th>
 							</tr>
 						</thead>
@@ -241,8 +241,15 @@ function toAddProMeet(){
 		data:"",
 		okback:function(){
 			var type = $("#proMeetBut").data("type");
-			if(type){
-				$("input[name='meetingTypeTc'][value ='"+type+"']").attr("checked","checked").addClass("disabled");
+			if(type){ //meetTypeRadio
+				$("input[name='meetingTypeTc'][value ='"+type+"']").attr("checked","checked");
+				$("input[name='meetingTypeTc']").attr("disabled","disabled").addClass("disabled");
+				
+				/* $("input[name='meetingTypeTc']").each(function(){
+					if(this.value != type){
+						this.parentNode.remove();
+					}
+				}); */
 			}
 			$("#proselect").remove();
 			initMeetUpload();
@@ -299,13 +306,14 @@ function initMeetUpload() {
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
-								var _this = $("#data-table");
+								window.location.reload();
+								/* var _this = $("#data-table");
 								if(_this == null || _this.length == 0 || _this == undefined){
 									removePop1();
 								}else{
 									$("#data-table").bootstrapTable('refresh');
 									removePop1();
-								}
+								} */
 							}
 						});
 					}
@@ -337,13 +345,14 @@ function initMeetUpload() {
 					return;
 				}else{
 					layer.msg("保存成功", {time : 500});
-					var _this = $("#data-table");
+					window.location.reload();
+					/* var _this = $("#data-table");
 					if(_this == null || _this.length == 0 || _this == undefined){
 						removePop1();
 					}else{
 						$("#data-table").bootstrapTable('refresh');
 						removePop1();
-					}
+					} */
 				}
 			},
 			BeforeUpload:function(up){
@@ -416,6 +425,8 @@ function interviewsave(){
 function toMeetPool(meetType){
 	if(meetType == "meetingType:2"){
 		applyCeoMeeting();
+	}else if(meetType == "p_meetingType:2"){
+		toEstablishStage();
 	}else if(meetType == "meetingType:3"){
 		toLxmeetingPool();
 	}else if(meetType == "meetingType:4"){
