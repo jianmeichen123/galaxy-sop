@@ -522,7 +522,12 @@ var platformUrl = {
 	/**
 	 * 保存公司法人信息
 	 */
-	saveCompanyInfo : Constants.sopEndpointURL + "/galaxy/project/saveCompanyInfo"
+	saveCompanyInfo : Constants.sopEndpointURL + "/galaxy/project/saveCompanyInfo",
+	/**
+	 * 融资状态
+	 */
+	getFinanceStatusByParent : Constants.sopEndpointURL + "/galaxy/project/getFinanceStatusByParent",
+	
 	
 }
 
