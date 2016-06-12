@@ -5,6 +5,17 @@ $(function(){
 	 */
 	sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 		
+		/**
+		 * 保存项目描述
+		 */
+		$("#save_describe").click(function(){
+			var um = UM.getEditor('describe_editor');
+			var projectDescribe = um.getContent();
+			if(pid != '' && projectDescribe != ''){
+				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess());
+			}
+		});
+		
 		$("#project_name_title").text(data.entity.projectName);
 		$("#project_name").text(data.entity.projectName);
 		$("#project_code").text(data.entity.projectCode);
@@ -13,15 +24,15 @@ $(function(){
 		$("#createUname").text(data.entity.createUname);
 		$("#projectCareerline").text(data.entity.projectCareerline);
 		$("#projectType").text(data.entity.type);
-		$("#project_contribution").text(data.entity.projectContribution);
-		$("#project_valuations").text(data.entity.projectValuations);
-		$("#project_share_ratio").text(data.entity.projectShareRatio);
+		$("#project_contribution").text(data.entity.projectContribution==0?"":data.entity.projectContribution);
+		$("#project_valuations").text(data.entity.projectValuations==0?"":data.entity.projectValuations);
+		$("#project_share_ratio").text(data.entity.projectShareRatio==0?"":data.entity.projectShareRatio);
 		$("#projectProgress").text(data.entity.progress);
 		$("#projectStatusDs").text(data.entity.projectStatusDs);
 		$("#financeStatusDs").text(data.entity.financeStatusDs);
-		$("#finalValuations").text(data.entity.finalValuations);
-		$("#finalContribution").text(data.entity.finalContribution);
-		$("#finalShareRatio").text(data.entity.finalShareRatio);
+		$("#finalValuations").text(data.entity.finalValuations==0?"":data.entity.finalValuations);
+		$("#finalContribution").text(data.entity.finalContribution==0?"":data.entity.finalContribution);
+		$("#finalShareRatio").text(data.entity.finalShareRatio==0?"":data.entity.finalShareRatio);
 		$("#industryOwnDs").text(data.entity.industryOwnDs);
 		
 		
@@ -34,15 +45,15 @@ $(function(){
 		$("#createUname_edit").text(data.entity.createUname);
 		$("#projectCareerline_edit").text(data.entity.projectCareerline);
 		$("#projectType_edit").text(data.entity.type);
-		$("#project_contribution_edit").val(data.entity.projectContribution);
-		$("#project_valuations_edit").val(data.entity.projectValuations);
-		$("#project_share_ratio_edit").val(data.entity.projectShareRatio);
+		$("#project_contribution_edit").val(data.entity.projectContribution==0?"":data.entity.projectContribution);
+		$("#project_valuations_edit").val(data.entity.projectValuations==0?"":data.entity.projectValuations);
+		$("#project_share_ratio_edit").val(data.entity.projectShareRatio==0?"":data.entity.projectShareRatio);
 		$("#projectProgress_edit").text(data.entity.progress);
 		$("#projectStatusDs_edit").text(data.entity.projectStatusDs);
 		$("#financeStatusDs_edit").text(data.entity.financeStatusDs);
-		$("#finalValuations_edit").val(data.entity.finalValuations);
-		$("#finalContribution_edit").val(data.entity.finalContribution);
-		$("#finalShareRatio_edit").val(data.entity.finalShareRatio);
+		$("#finalValuations_edit").val(data.entity.finalValuations==0?"":data.entity.finalValuations);
+		$("#finalContribution_edit").val(data.entity.finalContribution==0?"":data.entity.finalContribution);
+		$("#finalShareRatio_edit").val(data.entity.finalShareRatio==0?"":data.entity.finalShareRatio);
 		var p=data.entity.industryOwn;
 		var fs=data.entity.financeStatus;
 		//融资
@@ -108,10 +119,10 @@ $(function(){
 		}else{
 			$("#next_financing_source_show").html('');
 		}
-		
-		//var um = UM.getEditor('describe_editor');
 		if(data.entity.projectDescribe){
+			var um = UM.getEditor('describe_editor');
 			$("#describe_show").html(data.entity.projectDescribe);
+			um.setContent(data.entity.projectDescribe);
 			$("#descript").hide();
 			
 		}else{
@@ -221,9 +232,6 @@ $(function(){
 				window.location.reload();
 			});
 	//	}
-		
-		
-		
 	})
 	
 	
@@ -233,12 +241,12 @@ function getUpdateData(){
 	var pname=$("#project_name_edit").val();
 	var industry_own=$("#industry_own_sel").val();
 	var finance_status=$("#finance_status_sel").val();
-	var project_contribution=$("#project_contribution_edit").val();
-	var project_valuations=$("#project_valuations_edit").val();
-	var project_share_ratio=$("#project_share_ratio_edit").val();
-	var finalcontribution=$("#finalContribution_edit").val();
-	var finalvaluations=$("#finalValuations_edit").val();
-	var finalshare_ratio=$("#finalShareRatio_edit").val();
+	var project_contribution=$("#project_contribution_edit").val()==""?0:$("#project_contribution_edit").val();
+	var project_valuations=$("#project_valuations_edit").val()==""?0:$("#project_valuations_edit").val();
+	var project_share_ratio=$("#project_share_ratio_edit").val()==""?0:$("#project_share_ratio_edit").val();
+	var finalcontribution=$("#finalContribution_edit").val()==""?0:$("#finalContribution_edit").val();
+	var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val();
+	var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val();
 	var formatData={"id":id,
 			       "projectName":pname,
 			        "industryOwn":industry_own,
@@ -251,4 +259,9 @@ function getUpdateData(){
   	               "finalShareRatio":finalshare_ratio	//实际股权占比		
 	};
 	return formatData;
+}
+
+function saveSuccess(){
+	$(".project_on").css("display","none");
+	window.location.reload();
 }
