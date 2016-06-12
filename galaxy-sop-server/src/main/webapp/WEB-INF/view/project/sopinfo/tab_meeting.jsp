@@ -38,7 +38,7 @@
     <!--右中部内容-->
  	<div class="ritmin">
  	
-    	<<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
+    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
         
         
         <div class="new_left">
@@ -93,7 +93,7 @@
 								<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
 							</dd>
 							<dd>
-								<a href="javascript:;" class="search_icon"action="querySearch">查询</a>
+								<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
 							</dd>
 						</dl>
 					</div>
