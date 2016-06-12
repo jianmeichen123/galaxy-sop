@@ -20,6 +20,7 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
+<script src="<%=path %>/js/sopinfo.js"></script>
 </head>
 
 
@@ -42,13 +43,13 @@
         	<div class="tabtable assessment label_static">
           	<!-- tab标签 -->
             <ul class="tablink">
-                <li><a href="javascript:;" onclick="showTabs(${pid},0)">基本信息</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},1)">团队成员</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
+                 <li><a href="javascript:;" onclick="showTabs('${pid}',0)">基本信息</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',1)">团队成员</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',2)">股权结构</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',3)">访谈记录</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',4)">会议纪要</a></li>
                 <li><a href="javascript:;">项目文档</a></li>
-                <li class="on"><a href="javascript:;" onclick="toOperLog('${pid}')">操作日志</a></li>
+                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
             </ul>
 
             
@@ -61,7 +62,7 @@
 						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 					</div>
 					
-					<table id="projectProgress_table"
+					<table id="project_info_log"
 						data-url="<%=path%>/galaxy/operatlog/query"
 						data-page-list="[10,20,30]" data-toolbar="#custom-toolbar">
 						<thead>
@@ -118,7 +119,7 @@ $(function(){
 	
 	$("#projectId").val(proid);
 	
-	$('#data-table').bootstrapTable({
+	$('#project_info_log').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
 		pageList : [5, 10, 20 ],

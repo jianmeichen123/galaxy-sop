@@ -37,7 +37,7 @@
     <!--右中部内容-->
  	<div class="ritmin">
  	
-    <jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
+    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
 
 
 		<div class="new_left">
@@ -50,7 +50,7 @@
 	                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
 	                <li><a href="javascript:;">项目文档</a></li>
-	                <li><a href="javascript:;">操作日志</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
 	            </ul>
 
 

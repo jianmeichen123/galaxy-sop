@@ -104,7 +104,7 @@ function getProjectInfo(dtd)
                 <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},4)">会议纪要</a></li>
                 <li><a href="javascript:;">项目文档</a></li>
-                <li><a href="javascript:;">操作日志</a></li>
+                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
             </ul>
 
             <!-- 基本信息 -->

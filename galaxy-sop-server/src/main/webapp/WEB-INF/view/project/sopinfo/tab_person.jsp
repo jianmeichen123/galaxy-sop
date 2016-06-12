@@ -45,13 +45,13 @@
 			<div class="tabtable assessment label_static">
 				<!-- tab标签 -->
 	            <ul class="tablink">
-	                  <li><a href="javascript:;" onClick="showTabs(${pid},0)">基本信息</a></li>
-		                <li class="on"><a href="javascript:;" onClick="showTabs(${pid},1)" >团队成员</a></li>
-		                <li><a href="javascript:;" onClick="showTabs(${pid},2)">股权结构</a></li>
-		                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
-		                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
-		                <li><a href="javascript:;">项目文档</a></li>
-		                <li><a href="javascript:;">操作日志</a></li>
+	             	<li><a href="javascript:;" onclick="showTabs(${pid},0)">基本信息</a></li>
+	                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},1)">团队成员</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
+	                <li><a href="javascript:;">项目文档</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
 	            </ul>
 				<div class="member">
 				      <div class="top clearfix">

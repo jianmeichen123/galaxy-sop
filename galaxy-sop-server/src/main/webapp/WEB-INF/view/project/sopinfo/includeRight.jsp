@@ -97,22 +97,7 @@ $(function(){
 	
 })
 
-/**
- * tab 跳转
- */
-function toInterView(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/proview/" + id);
-}
-function toMeet(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/promeet/" + id);
-}
 
-function toDetail(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/detail/" + id);
-}
-function toOperLog(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/toprolog/" + id);
-}
 
 /**
  * 流程图 ，动态生成初始化
