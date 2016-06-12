@@ -62,7 +62,7 @@
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>项目类型：</dt>
                   <dd>
-                    <select>
+                    <select name="projectType">
                       <option value="">全部</option>
                     </select>
                   </dd>
@@ -70,7 +70,7 @@
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>融资状态：</dt>
                   <dd>
-                    <select>
+                    <select name="financeStatus">
                       <option value="">全部</option>
                     </select>
                   </dd>
@@ -78,7 +78,7 @@
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>项目进度：</dt>
                   <dd>
-                    <select>
+                    <select name="projectProgress">
                       <option value="">全部</option>
                     </select>
                   </dd>
@@ -86,7 +86,7 @@
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>项目状态：</dt>
                   <dd>
-                    <select>
+                    <select name="projectStatus">
                       <option value="">全部</option>
                     </select>
                   </dd>
@@ -221,6 +221,26 @@
 			info(pid);
 		}	
 	});
+	/**
+	 * 获取融资状态下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
+	/**
+	 * 获取项目类型下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectType","projectType");
+	/**
+	 * 获取项目进度下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress");
+	/**
+	 * 获取项目状态下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus");
 </script>
 
 </html>

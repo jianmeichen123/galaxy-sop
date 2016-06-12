@@ -239,9 +239,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/getDictionaryList/{parentCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Dict> getDictionaryList(@PathVariable("parentCode") String parentCode,HttpServletRequest request) {
 		ResponseData<Dict> responseBody = new ResponseData<Dict>();
-		Dict query = new Dict();
-		query.setParentCode(parentCode);
-		List<Dict> dictList = dictService.queryList(query);
+		List<Dict> dictList = dictService.selectByParentCode(parentCode);
 		responseBody.setEntityList(dictList);
 		responseBody.setResult(new Result(Status.OK, null, "获取字典项成功！"));
 		return responseBody;

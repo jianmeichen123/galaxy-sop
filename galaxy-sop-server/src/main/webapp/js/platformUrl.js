@@ -543,6 +543,10 @@ var platformUrl = {
 	 * 商业计划历史查询
 	 */	
 	searchBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/searchBusinessPlanHistory",
+	/**
+	 * 查询数据字典子项集合
+	 */
+	searchDictionaryChildrenItems : Constants.sopEndpointURL + "/galaxy/common/getDictionaryList/"
 	
 }
 

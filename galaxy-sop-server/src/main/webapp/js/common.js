@@ -1093,3 +1093,18 @@ function initTcVal(){
 	$("#btnNotBeUse").html("<a href=\"javascript:;\" class=\"pubbtn fffbtn\" data-close=\"close\">关闭</a>");
 	
 }
+
+/**
+ * 根据parentCode获取数据字典的子项集
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
+function createDictionaryOptions(url, name){
+	sendGetRequest(url,null, function(data){
+		var options = [];
+		$.each(data.entityList, function(i, value){
+			options.push('<option value="'+value.code+'">'+value.name+'</option>');
+		});
+		$('select[name="'+name+'"]').append(options.join(''));
+	});
+}
