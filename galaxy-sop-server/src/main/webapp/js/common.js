@@ -1118,7 +1118,7 @@ function createCareelineOptions(url, name){
 	sendGetRequest(url,null, function(data){
 		var options = [];
 		$.each(data.entityList, function(i, value){
-			options.push('<option value="'+value.id+'">'+value.name+'</option>');
+			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'selected="selected"' : '') +'>'+value.name+'</option>');
 		});
 		$('select[name="'+name+'"]').append(options.join(''));
 	});

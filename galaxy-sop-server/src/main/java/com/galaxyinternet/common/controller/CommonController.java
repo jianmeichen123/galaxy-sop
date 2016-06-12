@@ -261,9 +261,17 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/getCareerlineList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Department> getCareerlineList(HttpServletRequest request) {
 		ResponseData<Department> responseBody = new ResponseData<Department>();
+		User user = (User) getUserFromSession(request);
+		
 		Department query = new Department();
 		query.setType(1);
 		List<Department> careerlineList = departmentService.queryList(query);
+		for(Department department : careerlineList){
+			if(user.getDepartmentId().longValue() == department.getId().longValue()){
+				department.setCurrentUser(true);
+				break;
+			}
+		}
 		responseBody.setEntityList(careerlineList);
 		responseBody.setResult(new Result(Status.OK, null, "获取事业线成功！"));
 		return responseBody;
