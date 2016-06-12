@@ -3,7 +3,8 @@ function showTabs(id,index)
 	switch(index)
 	{
 	case 0 : 
-		
+		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/detail/" + id);
+		break;
 	case 1 :
 	case 2 :
 		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/showProject/" + id+"/2");
