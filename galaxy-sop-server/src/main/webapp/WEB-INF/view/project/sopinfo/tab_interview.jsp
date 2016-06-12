@@ -229,12 +229,16 @@ function initViewUpload() {
 						return;
 					}
 					res.stage = "projectProgress:1";
+					res.pid = proid;
+					res.createDate = res.viewDateStr;
+					res.content = res.viewNotes;
+					res.target = res.viewTarget;
 					//var file = $("#fileName").val();
 					if(up.files.length > 0){
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{
-						sendPostRequestByJsonObj(platformUrl.saveViewFile,res,function(data){
+						sendPostRequestByJsonObj(platformUrl.stageChange,res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
 								$("#save_interview").removeClass("disabled");

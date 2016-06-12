@@ -290,7 +290,10 @@ function initMeetUpload() {
 					}else if(res.meetingType == 'meetingType:4'){
 						res.stage = "projectProgress:7";
 					}
-					
+					res.pid = proid;
+					res.createDate = res.meetingDateStr;
+					res.result=res.meetingResult;
+					res.content = res.meetingNotes;
 					var file = $("#fileName").val(); //up.files.length
 					if(file.length > 0){
 						up.settings.multipart_params = res;
@@ -407,19 +410,20 @@ function interviewsave(){
 
 //会议排期
 function toMeetPool(meetType){
-	var res = null;
+	var returnKey = '';
 	if(meetType == "meetingType:2"){
-		res = applyCeoMeeting();
+		returnKey = applyCeoMeeting();
 	}else if(meetType == "p_meetingType:2"){
-		res = toEstablishStage();
+		returnKey = toEstablishStage();
 	}else if(meetType == "meetingType:3"){
-		res = toLxmeetingPool();
+		returnKey = toLxmeetingPool();
 	}else if(meetType == "meetingType:4"){
-		res = inSureMeetingPool();
+		returnKey = inSureMeetingPool();
 	}
-	if(res && res == true){
-		$("#proMeetBut").text(butname);
+	if(returnKey && returnKey == 'OK'){
+		$("#proMeetBut").text("待排期");
 		$("#proMeetBut").removeAttr("onclick");
+		$("#proMeetBut").off();
 	}
 }
  /**
@@ -427,75 +431,75 @@ function toMeetPool(meetType){
   */
 function toEstablishStage(){
 	var pid = proid;
+	var result = '';
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
-			var result = data.result.status;
+			result = data.result.status;
 			if(result == "OK"){ 
 				layer.msg("申请立项会成功!");
-				return true;
 			}else{
 				layer.msg(data.result.message);
-				return false;
 			}
 		});
 	}
+	return result;
 }
 /**
  * 申请CEO评审排期
  */
 function applyCeoMeeting(){
 	var pid = proid;
+	var result = '';
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.inCeoMeetingPool + pid, {}, function(data){
-			var result = data.result.status;
+			result = data.result.status;
 			if(result == "OK"){ 
 				layer.msg("申请CEO评审会成功!");
-				return true;
 			}else{
 				layer.msg(data.result.message);
-				return false;
 			}
 		});
 	}
+	return result;
 }
 /**
  * 立项会阶段申请立项会排期
  */
 function toLxmeetingPool(){
 	var pid = proid;
+	var result = '';
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.inLxmeetingPool + pid, {}, function(data){
-			var result = data.result.status;
+			result = data.result.status;
 			if(result == "OK"){ 
 				layer.msg("申请立项会成功!");
-				return true;
 			}else{
 				layer.msg(data.result.message);
-				return false;
 			}
 		});
 	}
+	return result;
 }
 /**
  * 投决会--点击申请投决会按钮
  */
 function inSureMeetingPool(){
 	var pid = proid;
+	var result = '';
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(
 				platformUrl.inSureMeetingPool + pid,
 				null,
 				function(data){
-					var result = data.result.status;
+					result = data.result.status;
 					if(result == "OK"){ 
 						layer.msg("申请成功!");
-						return true;
 					}else{
 						layer.msg(data.result.message);
-						return false;
 					}
 				});
 	}
+	return result;
 }
 
 

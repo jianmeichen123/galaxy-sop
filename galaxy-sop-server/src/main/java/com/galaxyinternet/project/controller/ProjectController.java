@@ -2891,7 +2891,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						*/
 						if(scheduling.getScheduleStatus() == 0){ //0 等秘书排期操作
 							add = "v";
-							butname = "待秘书排期";
+							butname = "待排期";
 						}else if(scheduling.getScheduleStatus() == 1){ //1表示已排期,可以添加会议记录
 							add = "y";
 							//butname = "添加"+butname+"会议记录";
