@@ -109,7 +109,7 @@
                     </select>
                   </dd>
                 </dl>
-                <input type="text" class="txt" name="keyword" placeholder="请输入项目名称或编号">
+                <input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称或编号">
                 <div class="btn fr">
                     <button type="submit" class="bluebtn cx_prj" action="querySearch">搜索</button>
                     <button class="pubbtn bluebtn reset none">重置</button>
@@ -132,8 +132,8 @@
 			        	<th data-field="projectStatusDs" data-align="left" class="data-input">项目状态</th>
 			        	<th data-field="projectCareerline" data-align="left" class="data-input">事业部</th>
 			        	<th data-field="createUname" data-align="left" class="data-input">投资经理</th>
-			        	<th data-field="createDate" data-align="left" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
-			        	<th data-field="updateDate" data-align="left" class="data-input" data-sortable="true">最后编辑时间<span class="caret1"></span></th>
+			        	<th data-field="created_time" data-formatter="createdFormat" data-align="left" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
+			        	<th data-field="updated_time" data-formatter="updateFormat" data-align="left" class="data-input" data-sortable="true">最后编辑时间<span class="caret1"></span></th>
 			        	<th data-align="left" class="col-md-2" data-formatter="editor" data-class="noborder">操作</th>
  					</tr>	
  				</thead>
@@ -263,7 +263,20 @@
 		    createUserOptions(platformUrl.getUserList+did, "createUid", 1);
 		});
 	});
-	
+	/**
+	 * 创建时间格式化
+	 * @version 2016-06-21
+	 */
+	function createdFormat(value,row,index){
+		return row.createDate;
+	}
+	/**
+	 * 更新时间格式化
+	 * @version 2016-06-21
+	 */
+	function updateFormat(value,row,index){
+		return row.updateDate;
+	}
 </script>
 
 </html>

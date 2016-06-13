@@ -285,6 +285,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/getUserList/{departmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<User> getUserList(@PathVariable("departmentId") Long departmentId, HttpServletRequest request) {
 		ResponseData<User> responseBody = new ResponseData<User>();
+		User currentUser = (User) getUserFromSession(request);
 		User user = new User();
 		List<Long> departmentIds = new ArrayList<Long>();
 		if(departmentId.longValue() == 0L){
@@ -303,6 +304,9 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		List<Long> uids = userRoleService.selectUserIdByRoleId(UserConstant.TZJL);
 		for(User u : userList){
 			if(uids.contains(u.getId())){
+				if(u.getId().intValue() == currentUser.getId().intValue()){
+					u.setCurrentUser(true);
+				}
 				responseUserList.add(u);
 			}
 		}

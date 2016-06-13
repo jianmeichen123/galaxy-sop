@@ -100,8 +100,17 @@
 		      <if test="companyLocation != null" > and company_location = #{companyLocation,jdbcType=LONGVARCHAR} </if>
 		      <if test="userPortrait != null" > and user_portrait = #{userPortrait,jdbcType=LONGVARCHAR} </if>
 		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
-				
-				
+			  <if test="nameCodeLike != null">
+			  	and (project_name like CONCAT("%",#{nameCodeLike},"%")
+				<if test="escapeChar ">
+					escape '/'
+				</if>
+				or project_code like CONCAT("%",#{nameCodeLike},"%")
+				<if test="escapeChar ">
+					escape '/'
+				</if>
+				)
+			  </if>
 			  <if test="projectName != null" > and project_name = #{projectName,jdbcType=VARCHAR} </if>
 			  <if test="createUname != null" > and create_uname = #{createUname,jdbcType=VARCHAR} </if>
 		      <if test="projectCode != null" > and project_code = #{projectCode,jdbcType=VARCHAR} </if>
