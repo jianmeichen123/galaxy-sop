@@ -107,17 +107,24 @@ function getProjectInfo(dtd)
           	<!-- tab标签 -->
             <ul class="tablink">
                 <li class="on"><a href="javascript:;" onclick="showTabs(${projectId},0)">基本信息</a></li>
-                
-                <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',projectId) }">
-                
+                <c:choose>
+                <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',projectId) }">
                 <li><a href="javascript:;" onClick="showTabs(${projectId},1)" >团队成员</a></li>
                 <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},4)">会议纪要</a></li>
 				<li><a href="javascript:;" onclick="showTabs(${projectId},5)">项目文档</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li> 
-                     
-                </c:if>
+                </c:when>
+                <c:otherwise>
+                <li><a href="javascript:;" onClick="showTabs(${projectId},1)" class="disabled">团队成员</a></li>
+                <li><a href="javascript:;" onClick="showTabs(${projectId},2)" class="disabled">股权结构</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${projectId},3)" class="disabled">访谈记录</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${projectId},4)" class="disabled">会议纪要</a></li>
+				<li><a href="javascript:;" onclick="showTabs(${projectId},5)" class="disabled">项目文档</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},6)" class="disabled">操作日志</a></li> 
+                </c:otherwise>
+                </c:choose>
             </ul>
 
             <!-- 基本信息 -->
