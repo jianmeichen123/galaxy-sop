@@ -77,9 +77,8 @@
 						<!--按钮-->
 						<div class="top clearfix">
 							<div class="btnbox_f btnbox_f1 clearfix">
-								<!--  <a href="<%=path%>/galaxy/project/progress/interViewAdd" data-btn="interview" class="pubbtn lpubbtn bluebtn ico c4">添加访谈记录</a> 
-								<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark">启动内部评审</a> -->
 								<a href="#"  onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview">添加访谈记录</a>
+								<a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a>
 							</div>
 						</div>
 
@@ -177,29 +176,38 @@ $(function(){
 		idField : "id",
 		clickToSelect: true,
         search: false,
-       /*  onLoadSuccess: function (data) {
-        	$(".option_item_mark").click(function(){
-        		interviewSelectRow = $('#data-table').bootstrapTable('getSelections');
-        		showviewdetail(interviewSelectRow);
-        		//console.log($(this).data());
-        	});
-        } */
 	});
 	
-	
-	$('[data-on="compile"]').on('click', function() {
-		$('.bj_hui_on').show();
-		$('.compile_on').show();
-	})
-	$('[data-on="close"]').on('click', function() {
-		$('.bj_hui_on').hide();
-		$('.compile_on').hide();
-	})
+	//check to show or not not show qdnbps button
+	if(index == 1){
+		checkToShowBut(); 
+	}else{
+		tohidebut();
+	}
 	
 });	
 	
-	
-	
+
+//检测是否显示启动内部评审按钮
+function checkToShowBut(){
+	if(viewList && viewList.length>0){
+		toshowbut();
+	}else{
+		tohidebut();
+	}
+}
+function toshowbut(){
+	$('#qdnbps').text("启动内部评审");
+	$('#qdnbps').on('click', function() {
+		startReview();
+	})	
+	$('#qdnbps').show();
+}
+function tohidebut(){
+	$('#qdnbps').hide();
+	$('#qdnbps').text("");
+	$('#qdnbps').off();
+}	
 
 /**
  * 添加接触访谈纪要弹出层
@@ -261,6 +269,10 @@ function initViewUpload() {
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
+								if(index == 1 && $("#qdnbps").css('display')=='none' ){
+									toshowbut();
+								}
+								toFormatNearNotes();
 								var _this = $("#projectProgress_1_table");
 								if(_this == null || _this.length == 0 || _this == undefined){
 									removePop1();
@@ -298,6 +310,10 @@ function initViewUpload() {
 					return false;
 				}else{
 					layer.msg("保存成功", {time : 500});
+					if(index == 1 && $("#qdnbps").css('display')=='none' ){
+						toshowbut();
+					}
+					toFormatNearNotes();
 					var _this = $("#projectProgress_1_table");
 					if(_this == null || _this.length == 0 || _this == undefined){
 						removePop1();
@@ -322,8 +338,9 @@ function initViewUpload() {
 	viewuploader.init();
 }
 
-
-
+/**
+ *  查看  or 编辑  
+ */
 function viewOperFormat(value,row,index){  
 	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
@@ -374,8 +391,24 @@ function interviewsave(){
 
 	
 
-
+/**
+ * 启动内部评审
+ */
+function startReview(){
+	if(proid != '' && proid != null && proid != undefined){
+		sendGetRequest(platformUrl.startReview + proid, {}, function(data){
+			var result = data.result.status;
+			if(result == "OK"){
+				layer.msg("启动内部评审成功!");
+				window.location.reload();
+			}else{
+				layer.msg(data.result.message);
+			}
+		});
+	}
+}
 	
 	
 </script>
 </html>
+

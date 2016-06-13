@@ -205,7 +205,6 @@ function button_init(){
 function button_init_callback(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		$("#saveInterView").removeClass("disabled");
 		layer.msg(data.result.message);
 		return;
 	}else{
