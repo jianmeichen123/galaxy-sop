@@ -112,7 +112,8 @@
                 <input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称或编号">
                 <div class="btn fr">
                     <button type="submit" class="bluebtn cx_prj" action="querySearch">搜索</button>
-                    <button class="pubbtn bluebtn reset none">重置</button>
+                    <input type="hidden" value="0" id="showResetBtn">
+                    <button class="pubbtn bluebtn reset none" id="resetBtn">重置</button>
                 </div>
             </div>
             <div class="show_more">
@@ -156,7 +157,6 @@
 
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script src="<%=path %>/js/init.js"></script>
 
 <!-- 富文本编辑器 -->
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
@@ -220,6 +220,14 @@
 			info(pid);
 		}	
 	});
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
@@ -251,17 +259,45 @@
 	 */
     createUserOptions(platformUrl.getUserList+"0", "createUid", 0);
 	$(function(){
+		/**
+		 * 初始化项目列表
+		 * @version 2016-06-21
+		 */
+		$('#data-table').bootstrapTable({
+			queryParamsType: 'size|page',
+			pageSize:10,
+			showRefresh : false ,
+			url : $('#data-table').attr("data-url"),
+			sidePagination: 'server',
+			method : 'post',
+			sortOrder : 'desc',
+			sortName : 'updated_time',
+			pagination: true,
+	        search: false,
+	        onLoadSuccess: function (data) {
+	        	if($("#showResetBtn").val() == '1'){
+	    			$("#resetBtn").removeClass("none");
+	    		}
+	        }
+		});
+		/**
+		 * 改变事业线时获取该事业线下的投资经理
+		 * @version 2016-06-21
+		 */
 		$('select[name="projectDepartid"]').change(function(){
 			var did = $('select[name="projectDepartid"]').val();
 			if(did == ''){
 				did = 0;
 			}
-			/**
-			 * 根据事业线查询相应的投资经理
-			 * @version 2016-06-21
-			 */
 		    createUserOptions(platformUrl.getUserList+did, "createUid", 1);
 		});
+		/**
+		 * 控制"重置"按钮
+		 */
+		$('button[action="querySearch"]').click(function(){
+			$("#showResetBtn").val(1);
+		});
+		
 	});
 	/**
 	 * 创建时间格式化
