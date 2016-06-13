@@ -3,52 +3,52 @@ $(function(){
    /**
 	 * 加载项目详情数据
 	 */
-	sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
-		$("#project_name_title").text(data.entity.projectName);
-		$("#project_name").text(data.entity.projectName);
-		$("#project_code").text(data.entity.projectCode);
-		$("#create_date").text(data.entity.createDate);
-		$("#updateDate").text(data.entity.updateDate);
-		$("#createUname").text(data.entity.createUname);
-		$("#projectCareerline").text(data.entity.projectCareerline);
-		$("#projectType").text(data.entity.type);
-		$("#project_contribution").text(data.entity.projectContribution==0?"":data.entity.projectContribution);
-		$("#project_valuations").text(data.entity.projectValuations==0?"":data.entity.projectValuations);
-		$("#project_share_ratio").text(data.entity.projectShareRatio==0?"":data.entity.projectShareRatio);
-		$("#projectProgress").text(data.entity.progress);
-		$("#projectStatusDs").text(data.entity.projectStatusDs);
-		$("#financeStatusDs").text(data.entity.financeStatusDs);
-		$("#finalValuations").text(data.entity.finalValuations==0?"":data.entity.finalValuations);
-		$("#finalContribution").text(data.entity.finalContribution==0?"":data.entity.finalContribution);
-		$("#finalShareRatio").text(data.entity.finalShareRatio==0?"":data.entity.finalShareRatio);
-		$("#industryOwnDs").text(data.entity.industryOwnDs);
+
+		$("#project_name_title").text(projectInfo.projectName);
+		$("#project_name").text(projectInfo.projectName);
+		$("#project_code").text(projectInfo.projectCode);
+		$("#create_date").text(projectInfo.createDate);
+		$("#updateDate").text(projectInfo.updateDate);
+		$("#createUname").text(projectInfo.createUname);
+		$("#projectCareerline").text(projectInfo.projectCareerline);
+		$("#projectType").text(projectInfo.type);
+		$("#project_contribution").text(projectInfo.projectContribution==0?"":projectInfo.projectContribution);
+		$("#project_valuations").text(projectInfo.projectValuations==0?"":projectInfo.projectValuations);
+		$("#project_share_ratio").text(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
+		$("#projectProgress").text(projectInfo.progress);
+		$("#projectStatusDs").text(projectInfo.projectStatusDs);
+		$("#financeStatusDs").text(projectInfo.financeStatusDs);
+		$("#finalValuations").text(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
+		$("#finalContribution").text(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
+		$("#finalShareRatio").text(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
+		$("#industryOwnDs").text(projectInfo.industryOwnDs);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
 		//基本信息修改
 		$("#editImg").html(ht);
-		$("#project_name_edit").val(data.entity.projectName);
-		$("#create_date_edit").text(data.entity.createDate);
-		$("#updateDate_edit").text(data.entity.updateDate);
-		$("#createUname_edit").text(data.entity.createUname);
-		$("#projectCareerline_edit").text(data.entity.projectCareerline);
-		$("#projectType_edit").text(data.entity.type);
-		$("#project_contribution_edit").val(data.entity.projectContribution==0?"":data.entity.projectContribution);
-		$("#project_valuations_edit").val(data.entity.projectValuations==0?"":data.entity.projectValuations);
-		$("#project_share_ratio_edit").val(data.entity.projectShareRatio==0?"":data.entity.projectShareRatio);
-		$("#projectProgress_edit").text(data.entity.progress);
-		$("#projectStatusDs_edit").text(data.entity.projectStatusDs);
-		$("#financeStatusDs_edit").text(data.entity.financeStatusDs);
-		$("#finalValuations_edit").val(data.entity.finalValuations==0?"":data.entity.finalValuations);
-		$("#finalContribution_edit").val(data.entity.finalContribution==0?"":data.entity.finalContribution);
-		$("#finalShareRatio_edit").val(data.entity.finalShareRatio==0?"":data.entity.finalShareRatio);
-		var p=data.entity.industryOwn;
-		var fs=data.entity.financeStatus;
+		$("#project_name_edit").val(projectInfo.projectName);
+		$("#create_date_edit").text(projectInfo.createDate);
+		$("#updateDate_edit").text(projectInfo.updateDate);
+		$("#createUname_edit").text(projectInfo.createUname);
+		$("#projectCareerline_edit").text(projectInfo.projectCareerline);
+		$("#projectType_edit").text(projectInfo.type);
+		$("#project_contribution_edit").val(projectInfo.projectContribution==0?"":projectInfo.projectContribution);
+		$("#project_valuations_edit").val(projectInfo.projectValuations==0?"":projectInfo.projectValuations);
+		$("#project_share_ratio_edit").val(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
+		$("#projectProgress_edit").text(projectInfo.progress);
+		$("#projectStatusDs_edit").text(projectInfo.projectStatusDs);
+		$("#financeStatusDs_edit").text(projectInfo.financeStatusDs);
+		$("#finalValuations_edit").val(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
+		$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
+		$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
+		var p=projectInfo.industryOwn;
+		var fs=projectInfo.financeStatus;
 		//融资
 		sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
 		sendGetRequest(platformUrl.getDepartMentDict+"/1",null,CallBackA);
-		function CallBackB(data){
+		function CallBackB(projectInfo){
 		    var _dom=$("#finance_status_sel");
-			 $.each(data.entityList,function(){
+			 $.each(projectInfo,function(){
 					if(this.code){
 						if(this.code==fs){
 							_dom.append("<option selected value='"+this.code+"'>"+this.name+"</option>");
@@ -62,9 +62,9 @@ $(function(){
 					
 				});
 		}
-		function CallBackA(data){
+		function CallBackA(projectInfo){
 		       var _dom=$("#industry_own_sel");
-				 $.each(data.entityList,function(){
+				 $.each(projectInfo,function(){
 						if(this.code){
 							_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
 						}else{
@@ -77,69 +77,69 @@ $(function(){
 						
 					});
 			}
-		if(data.entity.projectDescribe){
+		if(projectInfo.projectDescribe){
 			var um = UM.getEditor('describe_editor');
-			$("#describe_show").html(data.entity.projectDescribe);
-			um.setContent(data.entity.projectDescribe);
+			$("#describe_show").html(projectInfo.projectDescribe);
+			um.setContent(projectInfo.projectDescribe);
 			$("#descript").hide();
 			
 		}else{
 			$("#describe_show").html('');
 		}
-		if(data.entity.projectBusinessModel){
+		if(projectInfo.projectBusinessModel){
 			var um = UM.getEditor('business_editor');
-			um.setContent(data.entity.projectBusinessModel);
-			$("#business_model_show").html(data.entity.projectBusinessModel)
+			um.setContent(projectInfo.projectBusinessModel);
+			$("#business_model_show").html(projectInfo.projectBusinessModel)
 			$("#business_model").hide();
 			
 		}else{
 			$("#business_model_show").html('')
 		}
-		if(data.entity.companyLocation){
+		if(projectInfo.companyLocation){
 			var um = UM.getEditor('company_editor');
-			um.setContent(data.entity.companyLocation);
-			$("#location_show").html(data.entity.companyLocation)
+			um.setContent(projectInfo.companyLocation);
+			$("#location_show").html(projectInfo.companyLocation)
 			$("#location").hide();
 		}else{
 			$("#location_show").html('')
 		}
-		if(data.entity.userPortrait){
+		if(projectInfo.userPortrait){
 			var um = UM.getEditor('portrait_editor');
-			um.setContent(data.entity.userPortrait);
-			$("#portrait_show").html(data.entity.userPortrait);
+			um.setContent(projectInfo.userPortrait);
+			$("#portrait_show").html(projectInfo.userPortrait);
 			$("#portrait").hide();
 		}else{
 			$("#portrait_show").html('')
 		}
-		if(data.entity.prospectAnalysis){
+		if(projectInfo.prospectAnalysis){
 			var um = UM.getEditor('analysis_editor');
-			um.setContent(data.entity.prospectAnalysis);
-			$("#analysis_show").html(data.entity.prospectAnalysis)
+			um.setContent(projectInfo.prospectAnalysis);
+			$("#analysis_show").html(projectInfo.prospectAnalysis)
 			$("#analysis").hide();
 		}else{
 			$("#analysis_show").html('')
 		}
 
-		if(data.entity.operationalData){
+		if(projectInfo.operationalData){
 			var um = UM.getEditor('operation_editor');
-			um.setContent(data.entity.operationalData);
-			$("#operational_data_show").html(data.entity.operationalData);
+			um.setContent(projectInfo.operationalData);
+			$("#operational_data_show").html(projectInfo.operationalData);
 			$("#operational_data").hide();
 		}else{
 			$("#operational_data_show").html('');
 		}
-		if(data.entity.industryAnalysis){
+		if(projectInfo.industryAnalysis){
 			var um = UM.getEditor('industry_editor');
-			um.setContent(data.entity.industryAnalysis);
-			$("#industry_analysis_show").html(data.entity.industryAnalysis);
+			um.setContent(projectInfo.industryAnalysis);
+			$("#industry_analysis_show").html(projectInfo.industryAnalysis);
 			$("#industry_analysis").hide();
 		}else{
 			$("#industry_analysis_show").html('');
 		}
-		if(data.entity.nextFinancingSource){
+		if(projectInfo.nextFinancingSource){
 			var um = UM.getEditor('next_financing_editor');
-			um.setContent(data.entity.nextFinancingSource);
-			$("#next_financing_source_show").html(data.entity.nextFinancingSource);
+			um.setContent(projectInfo.nextFinancingSource);
+			$("#next_financing_source_show").html(projectInfo.nextFinancingSource);
 			$("#next_financing_source").hide();
 		}else{
 			$("#next_financing_source_show").html('');
@@ -150,15 +150,11 @@ $(function(){
 		 */
 		var data = {
 				_projectId : pid,
-				_projectName : data.entity.projectName,
+				_projectName : projectInfo.projectName,
 				_domId :　'business_plan'			
 		}
 		initPage.init(data);
-		
-		
-		
-		});
-	/**
+		/**
 	 * 计算初始估值
 	 */
 	$("#project_share_ratio_edit").blur(function(){
@@ -229,9 +225,9 @@ $(function(){
 	}
 
 	function projectProgress(data){
-		var projectPro = data.entity.projectProgress;
+		var projectPro = projectInfo.projectProgress;
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
-		var proStatus = data.entity.projectStatus;
+		var proStatus = projectInfo.projectStatus;
 		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
 		if( pronum != 2){
 			return "<img src='"+Constants.sopEndpointURL+"img/process/p"+num+".gif' >";

@@ -346,7 +346,7 @@ function getProjectInfo(dtd)
 				<div class='product_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
-						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-name='portrayal' data-on="data-open">编辑</a>
+						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
 						</span>
 					</div>
 					<div class="new_ul_all">
@@ -359,7 +359,7 @@ function getProjectInfo(dtd)
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_business">保存</span>
-                           <span class="compile_on_right_q" data-name='portrayal' data-on="close">取消</span>
+                           <span class="compile_on_right_q" data-name='product' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
