@@ -34,20 +34,13 @@ $(function(){
 		$("#finalContribution").text(data.entity.finalContribution==0?"":data.entity.finalContribution);
 		$("#finalShareRatio").text(data.entity.finalShareRatio==0?"":data.entity.finalShareRatio);
 		$("#industryOwnDs").text(data.entity.industryOwnDs);
-		
-		/**
-		 * 商业计划
-		 */
-		var data = {
-				_projectId : pid,
-				_projectName : data.entity.projectName,
-				_domId :　'business_plan'			
-		}
-		initPage.init(data);
-		
+		var ht=projectProgress(data)
+		$("#insertImg").html(ht);
+	
 		
 		
 		//基本信息修改
+		$("#editImg").html(ht);
 		$("#project_name_edit").val(data.entity.projectName);
 		$("#create_date_edit").text(data.entity.createDate);
 		$("#updateDate_edit").text(data.entity.updateDate);
@@ -100,16 +93,7 @@ $(function(){
 					});
 			}
 		
-		
-		var currencyUnit = data.entity.currencyUnit;
-		var redioId = "";
-		if(currencyUnit==null||typeof(currencyUnit) == 'undefined'||isNaN(currencyUnit)){
-			redioId = "#currencyUnit";
-		}else{
-			$("#currencyUnitBlock").css("display","none").remove();
-			redioId = "#currencyUnit"+currencyUnit;
-		}
-		$(redioId).attr("checked","checked");
+
 		if(data.entity.operationalData){
 			$("#operational_data_show").html(data.entity.operationalData);
 			$("#operational_data").hide();
@@ -162,6 +146,19 @@ $(function(){
 		}else{
 			$("#analysis_show").html('')
 		}
+
+		/**
+		 * 商业计划
+		 */
+		var data = {
+				_projectId : pid,
+				_projectName : data.entity.projectName,
+				_domId :　'business_plan'			
+		}
+		initPage.init(data);
+		
+		
+		
 		});
 	/**
 	 * 计算初始估值
@@ -242,8 +239,7 @@ $(function(){
 			});
 	//	}
 	})
-	
-	
+
 });
 function getUpdateData(){
 	var id=$("#pid").val();
@@ -273,4 +269,15 @@ function getUpdateData(){
 function saveSuccess(){
 	$(".project_on").css("display","none");
 	window.location.reload();
+}
+function projectProgress(data){
+	var projectPro = data.entity.projectProgress;
+	var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
+	var proStatus = data.entity.projectStatus;
+	var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
+	if( pronum != 2){
+		return "<img src='"+Constants.sopEndpointURL+"img/process/p"+num+".gif' >";
+	}else{
+		return "<img src='"+Constants.sopEndpointURL+"img/process/pd"+num+".gif'>";
+	}
 }

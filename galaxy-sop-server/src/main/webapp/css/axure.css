@@ -1368,6 +1368,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 
 
 /*改版信息*/
+.label_static1{position:relative;}
 .new_tit_a,.new_tit_b{ width:100%; overflow:hidden; margin-bottom:10px; color:#8895a2;}
 .new_tit_a a ,.new_tit_b a{ text-decoration:none; color:#60a1e3;}
 .new_tit_a a{font-family: "微软雅黑";line-height: 20px;}
@@ -1403,6 +1404,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_table tr{ margin-top:20px;}
 .new_table span{ float:left; margin-top:10px; display:block;}
 .new_table .new_bj{ background-image:url(../img/plan.png); width:65px; height:7px; display:block; margin-top:23px;}
+.new_table #insertImg{margin-top:23px; }
+.new_table #editImg{margin-top:23px; }
 .new_bj_p1{ background-position:0 0; background-repeat:no-repeat;}
 .new_r_compile{overflow:hidden; background-color:#fff; margin:15px 0;padding: 0 20px;}
 .new_r_compile span{ float:left;}

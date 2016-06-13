@@ -103,7 +103,7 @@ function getProjectInfo(dtd)
     	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
         
 	<div class="new_left">
-       	<div class="tabtable assessment label_static">
+       	<div class="tabtable assessment label_static1">
           	<!-- tab标签 -->
             <ul class="tablink">
                 <li class="on"><a href="javascript:;" onclick="showTabs(${projectId},0)">基本信息</a></li>
@@ -159,12 +159,13 @@ function getProjectInfo(dtd)
 								<span class="new_color_black" id="createUname"></span><span class="new_color_gray" id="projectCareerline"></span></td>
 						</tr>
 						
-						<tr>
+					<tr>
 							<td><span class="new_color_gray">融资状态：</span><span class="new_color_black" id="financeStatusDs"></span></td>
 							<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
 							<span>(</span>
-								<span class="new_color_gray" id="projectStatusDs"></span></span><span>)</span><span class="new_bj "></td>
+								<span class="new_color_gray" id="projectStatusDs"></span></span><span>)</span><span id="insertImg"></span></td>
 						</tr>
+					
 					</table>
 
 					<!--融资计划-->
@@ -216,9 +217,9 @@ function getProjectInfo(dtd)
 				                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span class="new_color_gray" id="projectCareerline_edit"></span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">融资状态：</span><span><select class="new_nputr" id="finance_status_sel"></select></span></td>
-				                <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span class="new_color_gray" id="projectStatusDs_edit"></span><span class="new_bj "></span></td>
-				            </tr>
+                                <td><span class="new_color_gray">融资状态：</span><span><select class="new_nputr" id="finance_status_sel"></select></span></td>
+                                 <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
+                            </tr>
 				        </table>  
 				        
 				        <!--融资计划-->
