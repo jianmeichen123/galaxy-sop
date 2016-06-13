@@ -99,6 +99,7 @@
 	var pname = '${pname}';
 	var interviewSelectRow = null;
 	var projectId ='${pid}';
+	var flag = '${flag}';
 
 $(function(){
 	createMenus(5);
@@ -161,7 +162,10 @@ function addPersonCallBack(data){
 
 	//个人简历
 	function tiaozhuan(id){
-		var url =platformUrl.personHHr
+		var url =platformUrl.personHHr;
+		if(flag == "true"){
+			url =platformUrl.personHr;
+		}
 		$.getHtml({
 			url: url+"?personId="+id, 
 			data:"",//传递参数

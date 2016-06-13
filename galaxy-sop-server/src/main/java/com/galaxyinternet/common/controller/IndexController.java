@@ -332,13 +332,22 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	}
 	
 	/**
-	 * 完善简历的弹出层
+	 * 团队成员的弹出层
 	 */
 	@RequestMapping(value="/personTab/{id}", method = RequestMethod.GET)
 	public String personTab(@PathVariable Long id, HttpServletRequest request){
+		
+		User user = (User) getUserFromSession(request);
+		boolean flag = false;
+		if(id != null){
+			Project pro = projectService.queryById(id);
+			if(pro.getCreateUid().longValue() == user.getId().longValue()){
+				flag = true;
+			}
+		}
+		request.setAttribute("flag", flag);
 		request.setAttribute("pid", id);
 		return "project/sopinfo/tab_person";
 	}
-
 	
 }
