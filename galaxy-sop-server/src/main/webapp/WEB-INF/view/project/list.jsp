@@ -122,7 +122,7 @@
           </div>
         </div>
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="project/search" data-height="555" 
+			<table id="project-table" data-url="project/search" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
@@ -157,6 +157,7 @@
 
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/js/init.js"></script>
 
 <!-- 富文本编辑器 -->
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
@@ -199,7 +200,7 @@
 	
 	function refreshProjectList()
 	{
-		$("#data-table").bootstrapTable('refresh');
+		$("#project-table").bootstrapTable('refresh');
 	}
 	
 	$(function(){
@@ -251,7 +252,7 @@
 		 * 初始化项目列表
 		 * @version 2016-06-21
 		 */
-		$('#data-table').bootstrapTable({
+		$('#project-table').bootstrapTable({
 			queryParamsType: 'size|page',
 			pageSize:10,
 			showRefresh : false ,
