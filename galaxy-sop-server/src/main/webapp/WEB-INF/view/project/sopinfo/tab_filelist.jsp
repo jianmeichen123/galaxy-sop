@@ -18,6 +18,8 @@
 
 <!-- bootstrap-table -->
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<!-- 日历插件 -->
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 <script src="<%=path %>/js/sopinfo.js"></script>
 </head>
