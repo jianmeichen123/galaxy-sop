@@ -257,7 +257,7 @@
 	 * 根据事业线查询相应的投资经理
 	 * @version 2016-06-21
 	 */
-    createUserOptions(platformUrl.getUserList+"0", "createUid", 0);
+    createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
 		/**
 		 * 初始化项目列表
@@ -286,9 +286,6 @@
 		 */
 		$('select[name="projectDepartid"]').change(function(){
 			var did = $('select[name="projectDepartid"]').val();
-			if(did == ''){
-				did = 0;
-			}
 		    createUserOptions(platformUrl.getUserList+did, "createUid", 1);
 		});
 		/**
