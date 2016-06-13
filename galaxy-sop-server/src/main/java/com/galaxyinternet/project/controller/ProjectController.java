@@ -2633,6 +2633,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/project/sopinfo/main");
 		mv.addObject("projectId", id);
+		mv.addObject("pid", id);
 		mv.addObject("index", index);
 		return mv;
 	}
@@ -2648,6 +2649,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/project/sopinfo/projectinfo");
 		mv.addObject("projectId", id);
+		mv.addObject("pid", id);
 		return mv;
 	}
 	/**
@@ -2928,6 +2930,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project = projectService.queryById(pid);
 		request.setAttribute("proinfo", GSONUtil.toJson(project));
 		request.setAttribute("projectId", pid);
+		request.setAttribute("pid", pid);
 		request.setAttribute("prograss", project.getProjectProgress());
 		request.setAttribute("projectName", project.getProjectName());
 		return "project/sopinfo/tab_filelist";

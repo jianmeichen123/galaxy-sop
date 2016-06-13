@@ -69,12 +69,9 @@
         
         <!--右边 end-->
    
-   
-
 <script>
-
-var proid = '${pid}';
-var prograss = '${prograss}';
+var proid = pid;
+var prograss = projectInfo.projectProgress;
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
@@ -226,7 +223,8 @@ function closeback(data){
 		return;
 	}else{
 		layer.msg("该项目已关闭");
-		toDetail(proid);
+		//toDetail(proid);
+		showTabs(proid,0)
 		//forwardWithHeader(platformUrl.mpl);
 	}
 }

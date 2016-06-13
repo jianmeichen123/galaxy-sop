@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!doctype html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,14 +15,18 @@
         	<span class="b_span"><a href="#">返回项目列表></a></span>
         </div>
 </body>
-</html>
+
 <script>
+var pid='${pid}';
+var projectInfo = '';
+
 $(function(){
-	var pid='${pid}';
+	
 	if(null==pid||typeof(pid)=="underfind"||pid==""){
 		pid='${projectId}';
 	}
 	sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
+		projectInfo = data.entity;
 		$("#project_name_title").text(data.entity.projectName);
 		$("#project_name_t").text(data.entity.projectName);
 		$("#project_code_t").text(data.entity.projectCode);
@@ -37,3 +41,6 @@ $(function(){
 })
 
 </script>
+
+</html>
+
