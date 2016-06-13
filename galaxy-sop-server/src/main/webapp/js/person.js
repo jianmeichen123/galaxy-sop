@@ -132,9 +132,9 @@ function getTabPerson(){
                       field: 'id',
                       align: 'center',
                       formatter:function(value,row,index){  
-	                   var a = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="tiaozhuan(\''+ row.id + '\')" DATA-btn="resume" ><span class="edit">个人简历</span></a>';;
-	                   var e = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="updatePer(\''+ row.id + '\')"><span class="edit">编辑</span></a> ';  
-	                   var d = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="deletePer(\''+ row.id +'\')"><span class="del">删除</span></a> ';  
+	                   var a = '<span class="resume" onclick="tiaozhuan(\''+ row.id + '\')">个人简历</span>';;
+	                   var e = '<span class="edit" onclick="updatePer(\''+ row.id + '\')">编辑</span>';  
+	                   var d = '<span class="del" onclick="deletePer(\''+ row.id +'\')">删除</span>';  
                         return a+e+d;  
                     } 
                   }
