@@ -1,21 +1,9 @@
 $(function(){
 	var pid = $("#pid").val();
-/**
+   /**
 	 * 加载项目详情数据
 	 */
-	sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
-		
-		/**
-		 * 保存项目描述
-		 */
-		$("#save_describe").click(function(){
-			var um = UM.getEditor('describe_editor');
-			var projectDescribe = um.getContent();
-			if(pid != '' && projectDescribe != ''){
-				sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess());
-			}
-		});
-		
+	sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
 		$("#project_name_title").text(data.entity.projectName);
 		$("#project_name").text(data.entity.projectName);
 		$("#project_code").text(data.entity.projectCode);
@@ -36,9 +24,6 @@ $(function(){
 		$("#industryOwnDs").text(data.entity.industryOwnDs);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
-	
-		
-		
 		//基本信息修改
 		$("#editImg").html(ht);
 		$("#project_name_edit").val(data.entity.projectName);
@@ -92,7 +77,44 @@ $(function(){
 						
 					});
 			}
-		
+		if(data.entity.projectDescribe){
+			var um = UM.getEditor('describe_editor');
+			$("#describe_show").html(data.entity.projectDescribe);
+			um.setContent(data.entity.projectDescribe);
+			$("#descript").hide();
+			
+		}else{
+			$("#describe_show").html('');
+		}
+		if(data.entity.projectBusinessModel){
+			$("#business_model_show").html(data.entity.projectBusinessModel)
+			$("#business_model").hide();
+			
+		}else{
+			$("#business_model_show").html('')
+		}
+		if(data.entity.companyLocation){
+			var um = UM.getEditor('company_editor');
+			um.setContent(data.entity.companyLocation);
+			$("#location_show").html(data.entity.companyLocation)
+			$("#location").hide();
+		}else{
+			$("#location_show").html('')
+		}
+		if(data.entity.userPortrait){
+			var um = UM.getEditor('portrait_editor');
+			um.setContent(data.entity.userPortrait);
+			$("#portrait_show").html(data.entity.userPortrait);
+			$("#portrait").hide();
+		}else{
+			$("#portrait_show").html('')
+		}
+		if(data.entity.prospectAnalysis){
+			$("#analysis_show").html(data.entity.prospectAnalysis)
+			$("#analysis").hide();
+		}else{
+			$("#analysis_show").html('')
+		}
 
 		if(data.entity.operationalData){
 			$("#operational_data_show").html(data.entity.operationalData);
@@ -111,40 +133,6 @@ $(function(){
 			$("#next_financing_source").hide();
 		}else{
 			$("#next_financing_source_show").html('');
-		}
-		if(data.entity.projectDescribe){
-			var um = UM.getEditor('describe_editor');
-			$("#describe_show").html(data.entity.projectDescribe);
-			um.setContent(data.entity.projectDescribe);
-			$("#descript").hide();
-			
-		}else{
-			$("#describe_show").html('');
-		}
-		if(data.entity.projectBusinessModel){
-			$("#business_model_show").html(data.entity.projectBusinessModel)
-			$("#business_model").hide();
-			
-		}else{
-			$("#business_model_show").html('')
-		}
-		if(data.entity.companyLocation){
-			$("#location_show").html(data.entity.companyLocation)
-			$("#location").hide();
-		}else{
-			$("#location_show").html('')
-		}
-		if(data.entity.userPortrait){
-			$("#portrait_show").html(data.entity.userPortrait)
-			$("#portrait").hide();
-		}else{
-			$("#portrait_show").html('')
-		}
-		if(data.entity.prospectAnalysis){
-			$("#analysis_show").html(data.entity.prospectAnalysis)
-			$("#analysis").hide();
-		}else{
-			$("#analysis_show").html('')
 		}
 
 		/**
@@ -229,7 +217,18 @@ $(function(){
 		}
 		return null;
 	}
-	
+
+	function projectProgress(data){
+		var projectPro = data.entity.projectProgress;
+		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
+		var proStatus = data.entity.projectStatus;
+		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
+		if( pronum != 2){
+			return "<img src='"+Constants.sopEndpointURL+"img/process/p"+num+".gif' >";
+		}else{
+			return "<img src='"+Constants.sopEndpointURL+"img/process/pd"+num+".gif'>";
+		}
+	}
 	$("[data-on='save']").click(function(){
 		var data=getUpdateData();
 	//	if(beforeSubmit()){
@@ -270,14 +269,88 @@ function saveSuccess(){
 	$(".project_on").css("display","none");
 	window.location.reload();
 }
-function projectProgress(data){
-	var projectPro = data.entity.projectProgress;
-	var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
-	var proStatus = data.entity.projectStatus;
-	var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
-	if( pronum != 2){
-		return "<img src='"+Constants.sopEndpointURL+"img/process/p"+num+".gif' >";
-	}else{
-		return "<img src='"+Constants.sopEndpointURL+"img/process/pd"+num+".gif'>";
+/**
+ * 保存项目描述
+ */
+$("#save_describe").click(function(){
+	var um = UM.getEditor('describe_editor');
+	var projectDescribe = um.getContent();
+	if(pid != '' && projectDescribe != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess());
 	}
-}
+});
+/**
+ * 保存项目描述
+ */
+$("#save_location").click(function(){
+	var um = UM.getEditor('company_editor');
+	var companyLocation = um.getContent();
+	if(pid != '' && companyLocation != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "companyLocation" : companyLocation}, saveSuccess());
+	}
+});
+/**
+ * 保存项目描述
+ */
+$("#save_portrait").click(function(){
+	var um = UM.getEditor('portrait_editor');
+	var userPortrait = um.getContent();
+	if(pid != '' && userPortrait != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
+	}
+});
+/**
+ * 保存项目描述
+ */
+$("#save_portrait").click(function(){
+	var um = UM.getEditor('portrait_editor');
+	var userPortrait = um.getContent();
+	if(pid != '' && userPortrait != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
+	}
+});
+
+/**
+ * 保存项目描述
+ */
+$("#save_portrait").click(function(){
+	var um = UM.getEditor('portrait_editor');
+	var userPortrait = um.getContent();
+	if(pid != '' && userPortrait != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
+	}
+});
+
+/**
+ * 保存项目描述
+ */
+$("#save_portrait").click(function(){
+	var um = UM.getEditor('portrait_editor');
+	var userPortrait = um.getContent();
+	if(pid != '' && userPortrait != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
+	}
+});
+
+/**
+ * 保存项目描述
+ */
+$("#save_portrait").click(function(){
+	var um = UM.getEditor('portrait_editor');
+	var userPortrait = um.getContent();
+	if(pid != '' && userPortrait != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
+	}
+});
+
+/**
+ * 保存项目描述
+ */
+$("#save_portrait").click(function(){
+	var um = UM.getEditor('portrait_editor');
+	var userPortrait = um.getContent();
+	if(pid != '' && userPortrait != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
+	}
+});
+
