@@ -457,7 +457,7 @@
 	</div>
 </div>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
-
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/init.js"></script>
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
