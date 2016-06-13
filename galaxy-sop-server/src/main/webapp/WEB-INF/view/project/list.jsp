@@ -38,7 +38,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin prj_all">
-    	<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>添加项目</div>
+    	<div class="new_tit_a"><a href="#">工作桌面</a>>创投项目</div>
     	 <input type="hidden" id="project_id" value=""/>
     	 <input type="hidden" id="uid" value=""/>
     	 
@@ -127,10 +127,10 @@
 				<thead>
 				    <tr>
 			        	<th data-field="projectName" data-align="left" class="data-input" data-formatter="projectInfo">项目名称</th>
-			        	<th data-field="type" data-align="left" class="data-input">项目类型</th>
-			        	<th data-field="financeStatusDs" data-align="left" class="data-input">融资状态</th>
-			        	<th data-field="progress" data-align="left" class="data-input" data-formatter="projectProgress">项目进度</th>
-			        	<th data-field="projectStatusDs" data-align="left" class="data-input">项目状态</th>
+			        	<th data-field="project_type" data-formatter="typeFormat" data-align="left" class="data-input" data-sortable="true">项目类型</th>
+			        	<th data-field="finance_status" data-formatter="financeStatusFormat" data-align="left" class="data-input" data-sortable="true">融资状态</th>
+			        	<th data-field="project_progress" data-formatter="projectProgress" data-align="left" class="data-input" data-sortable="true">项目进度</th>
+			        	<th data-field="project_status" data-formatter="projectStatusFormat" data-align="left" class="data-input" data-sortable="true">项目状态</th>
 			        	<th data-field="projectCareerline" data-align="left" class="data-input">事业部</th>
 			        	<th data-field="createUname" data-align="left" class="data-input">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat" data-align="left" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
@@ -191,18 +191,6 @@
 		var id=row.id;
 		var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")'>"+row.projectName+"</a>";
 		return options;
-	}
-	
-	function projectProgress(value,row,index){
-		var projectPro = row.projectProgress;
-		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
-		var proStatus = row.projectStatus;
-		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
-		if( pronum == 0){
-			return "<img src=\"<%=path%>/img/process/p"+num+".gif\" class=\"fl\">"+row.progress;
-		}else{
-			return "<img src=\"<%=path%>/img/process/pd"+num+".gif\" class=\"fl\">"+row.progress;
-		}
 	}
 	
 	function proInfo(id){
@@ -309,6 +297,42 @@
 	 */
 	function updateFormat(value,row,index){
 		return row.updateDate;
+	}
+	/**
+	 * 项目状态格式化
+	 * @version 2016-06-21
+	 */
+	function projectStatusFormat(value,row,index){
+		return row.projectStatusDs;
+	}
+	/**
+	 * 项目进度格式化
+	 * @version 2016-06-21
+	 */
+	 function projectProgress(value,row,index){
+		var projectPro = row.projectProgress;
+		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
+		var proStatus = row.projectStatus;
+		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
+		if( pronum == 0){
+			return "<img src=\"<%=path%>/img/process/p"+num+".gif\" class=\"fl\">"+row.progress;
+		}else{
+			return "<img src=\"<%=path%>/img/process/pd"+num+".gif\" class=\"fl\">"+row.progress;
+		}
+	}
+	/**
+	 * 融资状态格式化
+	 * @version 2016-06-21
+	 */
+	function financeStatusFormat(value,row,index){
+		return row.financeStatusDs;
+	}
+	/**
+	 * 项目类型格式化
+	 * @version 2016-06-21
+	 */
+	function typeFormat(value,row,index){
+		return row.type;
 	}
 </script>
 
