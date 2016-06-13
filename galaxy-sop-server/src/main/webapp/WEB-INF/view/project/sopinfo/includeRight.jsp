@@ -82,7 +82,7 @@ $(function(){
 	init_lct(); //流程图初始化
 	
 	//获取近期访谈、会议 记录
-	sendGetRequest(Constants.sopEndpointURL+"/galaxy/project/getnearnotes/" + proid, null, formatNearNotes);
+	toFormatNearNotes();
 	
 	//more 链接初始化
 	$("#meet_more").on("click", function(){
@@ -116,6 +116,10 @@ function init_lct(){
 /**
  * 格式化 近期 访谈 会议
  */
+ var viewList;
+function toFormatNearNotes(){
+	sendGetRequest(Constants.sopEndpointURL+"/galaxy/project/getnearnotes/" + proid, null, formatNearNotes);
+}
 function formatNearNotes(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
@@ -123,7 +127,7 @@ function formatNearNotes(data){
 		return;
 	}
 	
-	var viewList = data.userData.viewList;
+	viewList = data.userData.viewList;
 	var meetList = data.userData.meetList;
 	
 	if(meetList && meetList.length>0){

@@ -191,7 +191,11 @@ $(function(){
 	});
 	
 	//初始化按钮，是 添加会议，or 申请排期
-	button_init();
+	if(index == 2 || index == 3 || index == 4 || index == 7 ){
+		button_init();
+	}else{
+		$("#proMeetBut").remove();
+	}
 });	
 	
 	
@@ -205,7 +209,6 @@ function button_init(){
 function button_init_callback(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		$("#saveInterView").removeClass("disabled");
 		layer.msg(data.result.message);
 		return;
 	}else{

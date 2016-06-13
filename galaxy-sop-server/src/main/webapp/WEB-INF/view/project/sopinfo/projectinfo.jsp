@@ -309,7 +309,7 @@ function getProjectInfo(dtd)
 					<div id="company_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_b" id="save_location">保存</span>
                            <span class="compile_on_right_q" data-name='company' data-on="close">取消</span>
                        </div>  
                    </div>
@@ -330,10 +330,10 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='portrayal_on'>
-					<div id="portrayal_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="portrait_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_b" id="save_portrait">保存</span>
                            <span class="compile_on_right_q" data-name='portrayal' data-on="close">取消</span>
                        </div>  
                    </div>
