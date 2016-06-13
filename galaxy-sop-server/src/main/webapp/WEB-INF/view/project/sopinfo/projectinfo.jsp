@@ -116,10 +116,10 @@ function getProjectInfo(dtd)
             <!-- 基本信息 -->
 			<div class="tabtable_con tabtable_con_jbxx">
 				<!-- 默认展示 -->
-				<div class="compile_default">
+				<div class="basic_center">
 					<div class="new_r_compile">
 						<span class="new_fctbox"> 
-							<a href="javascript:;" class="ico f1" data-on="compile">编辑</a>
+							<a href="javascript:;" class="ico f1" data-name="basic" data-on="data-open">编辑</a>
 						</span>
 					</div>
 					
@@ -180,13 +180,13 @@ function getProjectInfo(dtd)
 							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio">%</span></td>
 						</tr>
 					</table>
-					</div>
-					<!-- 编辑页面 -->
-				<div class="compile_on">
+				</div>
+				<!-- 编辑页面 -->
+				<div class="basic_on">
 					<div class="compile_on_center">
 				        <div class="compile_on_right">
 				            <span class="compile_on_right_b"  data-on="save">保存</span>
-				            <span class="compile_on_right_q" data-on="close">取消</span>
+				            <span class="compile_on_right_q" data-name="basic" data-on="close">取消</span>
 				        </div>  
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
@@ -261,14 +261,14 @@ function getProjectInfo(dtd)
                         <div class="compile_on_center">
                            <div class="compile_on_right">
                                <span class="compile_on_right_b" id="save_describe">保存</span>
-                               <span class="compile_on_right_q" data-on="close">取消</span>
+                               <span class="compile_on_right_q" data-name="project" data-on="close">取消</span>
                            </div>  
                        </div>
-                   </div>
-                 	<div class="project_center">
+                 </div>
+                 <div class="project_center">
 					<div class="new_r_compile new_bottom_color">
 						<span class="new_ico_project"></span> <span class="new_color size16">项目概述</span> <span class="bj_ico" id="descript">暂无数据</span><span class="new_fctbox">
-							<a href="javascript:;" class="ico f1" data-on="project">编辑</a>
+							<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 						</span>
 					</div>
 					<div class="new_ul_all">
@@ -279,93 +279,180 @@ function getProjectInfo(dtd)
 			</div>
 			<!--公司定位-->
 			<div class="tabtable_con_on">
-				<div class="new_r_compile ">
-					<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" id="location">暂无数据</span>
-					<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-					</span>
+				<div class='company_center'>
+					<div class="new_r_compile ">
+						<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" id="location">暂无数据</span>
+						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
+						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="location_show"></p>
+					</div>
 				</div>
-				<div class="new_ul_all">
-					<span class="ico_dot ico"></span>
-					<p id="location_show"></p>
+				<div class='company_on'>
+					<div id="company_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_q" data-name='company' data-on="close">取消</span>
+                       </div>  
+                   </div>
 				</div>
+				
 			</div>
 			<!--用户画像-->
 			<div class="tabtable_con_on">
-				<div class="new_r_compile ">
-					<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
-					<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-					</span>
+				<div class='portrayal_center'>
+					<div class="new_r_compile ">
+						<span class="new_ico_firm"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
+						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
+						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="portrait_show"></p>
+					</div>
 				</div>
-				<div class="new_ul_all">
-					<span class="ico_dot ico"></span>
-					<p id="portrait_show"></p>
+				<div class='portrayal_on'>
+					<div id="portrayal_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_q" data-name='portrayal' data-on="close">取消</span>
+                       </div>  
+                   </div>
 				</div>
+				
 			</div>
+			
 			<!--产品服务-->
 			<div class="tabtable_con_on">
-				<div class="new_r_compile ">
-					<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
-					<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-					</span>
+				<div class='product_center'>
+					<div class="new_r_compile ">
+						<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
+						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-name='portrayal' data-on="data-open">编辑</a>
+						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="business_model_show"></p>
+					</div>
 				</div>
-				<div class="new_ul_all">
-					<span class="ico_dot ico"></span>
-					<p id="business_model_show"></p>
+				<div class='product_on'>
+					<div id="product_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_q" data-name='portrayal' data-on="close">取消</span>
+                       </div>  
+                   </div>
 				</div>
+				
 			</div>
 
 			<!--运营数据-->
 			<div class="tabtable_con_on">
-				<div class="new_r_compile ">
-					<span class="new_ico_run"></span> <span class="new_color size16">运营数据</span>
-					<span class="bj_ico" id="operational_data">暂无数据</span> <span class="new_fctbox">
-						<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-					</span>
+				<div class='operation_center'>
+					<div class="new_r_compile ">
+						<span class="new_ico_product"></span> <span class="new_color size16">运营数据</span> <span class="bj_ico" id="operational_data">暂无数据</span>
+						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-name='operation' data-on="data-open">编辑</a>
+						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="operational_data_show"></p>
+					</div>
 				</div>
-				<div class="new_ul_all">
-					<span class="ico_dot ico"></span>
-					<p id="operational_data_show"></p>
+				<div class='operation_on'>
+					<div id="operation_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_q" data-name='operation' data-on="close">取消</span>
+                       </div>  
+                   </div>
 				</div>
+				
 			</div>
+			
+			
 			<!--行业分析-->
 			<div class="tabtable_con_on">
-				<div class="new_r_compile ">
-					<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
-					<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-					</span>
+				<div class='industry_center'>
+					<div class="new_r_compile ">
+						<span class="new_ico_product"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
+						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
+						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="industry_analysis_show"></p>
+					</div>
 				</div>
-				<div class="new_ul_all">
-					<span class="ico_dot ico"></span>
-					<p id="industry_analysis_show"></p>
+				<div class='industry_on'>
+					<div id="industry_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_q" data-name='industry' data-on="close">取消</span>
+                       </div>  
+                   </div>
 				</div>
+				
 			</div>
+			
 			<!--竞情分析-->
 			<div class="tabtable_con_on">
-				<div class="new_r_compile ">
-					<span class="new_ico_jq"></span> <span class="new_color size16">竞情分析</span>
-					<span class="bj_ico" id="analysis">暂无数据</span> <span class="new_fctbox">
-						<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-					</span>
+				<div class='analysis_center'>
+					<div class="new_r_compile ">
+						<span class="new_ico_product"></span> <span class="new_color size16">竞情分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
+						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
+						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="analysis_show"></p>
+					</div>
 				</div>
-				<div class="new_ul_all">
-					<span class="ico_dot ico"></span>
-					<p id="analysis_show"></p>
+				<div class='analysis_on'>
+					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_q" data-name='analysis' data-on="close">取消</span>
+                       </div>  
+                   </div>
 				</div>
+				
 			</div>
+			
 
 			<!--下一轮融资路径-->
 			<div class="tabtable_con_on">
-				<div class="new_r_compile ">
-					<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span>
-					<span class="bj_ico" id="next_financing_source">暂无数据</span> <span class="new_fctbox">
-						<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
-					</span>
+				<div class='next_financing_center'>
+					<div class="new_r_compile ">
+						<span class="new_ico_product"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" id="next_financing_source">暂无数据</span>
+						<span class="new_fctbox"> <a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open">编辑</a>
+						</span>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="next_financing_source_show"></p>
+					</div>
 				</div>
-				<div class="new_ul_all">
-					<span class="ico_dot ico"></span>
-					<p id="next_financing_source_show"></p>
+				<div class='next_financing_on'>
+					<div id="next_financing_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_q" data-name='next_financing' data-on="close">取消</span>
+                       </div>  
+                   </div>
 				</div>
+				
 			</div>
+			
 			
 			
 		</div>
@@ -404,26 +491,28 @@ var projectId = <%=projectId%>;
 $(function(){
 	createMenus(5);
 	UM.getEditor('editor');
+	UM.getEditor('company_editor');
+	UM.getEditor('portrayal_editor');
+	UM.getEditor('operation_editor');
+	UM.getEditor('industry_editor');
+	UM.getEditor('analysis_editor');
+	UM.getEditor('next_financing_editor');
 	
 	
-	$('[data-on="compile"]').on('click',function(){
+	//统一显示
+	$('[data-on="data-open"]').on('click',function(){
+		var open=$(this).attr('data-name')
+		//alert(open)
+		$('.'+open+'_on').show();
+		$('.'+open+'_center').hide();
 		$('.bj_hui_on').show();
-		$('.compile_default').hide();
-		$('.compile_on').show();
 	})
-
-	//项目 
-	$('[data-on="project"]').on('click',function(){
-        $('.project_center').hide();
-		$('.bj_hui_on').show();
-		$('.project_on').show();
-	})
+	//统一关
 	$('[data-on="close"]').on('click',function(){
+		var close=$(this).attr('data-name')
+		$('.'+close+'_on').hide();
+		$('.'+close+'_center').show();
 		$('.bj_hui_on').hide();
-		$('.compile_on').hide();		
-		$('.project_on').hide();
-        $('.compile_default').show();
-        $('.project_center').show();
 	})
 	
 })
