@@ -87,6 +87,8 @@ $(function(){
 			$("#describe_show").html('');
 		}
 		if(data.entity.projectBusinessModel){
+			var um = UM.getEditor('business_editor');
+			um.setContent(data.entity.projectBusinessModel);
 			$("#business_model_show").html(data.entity.projectBusinessModel)
 			$("#business_model").hide();
 			
@@ -110,6 +112,8 @@ $(function(){
 			$("#portrait_show").html('')
 		}
 		if(data.entity.prospectAnalysis){
+			var um = UM.getEditor('analysis_editor');
+			um.setContent(data.entity.prospectAnalysis);
 			$("#analysis_show").html(data.entity.prospectAnalysis)
 			$("#analysis").hide();
 		}else{
@@ -117,18 +121,24 @@ $(function(){
 		}
 
 		if(data.entity.operationalData){
+			var um = UM.getEditor('operation_editor');
+			um.setContent(data.entity.operationalData);
 			$("#operational_data_show").html(data.entity.operationalData);
 			$("#operational_data").hide();
 		}else{
 			$("#operational_data_show").html('');
 		}
 		if(data.entity.industryAnalysis){
+			var um = UM.getEditor('industry_editor');
+			um.setContent(data.entity.industryAnalysis);
 			$("#industry_analysis_show").html(data.entity.industryAnalysis);
 			$("#industry_analysis").hide();
 		}else{
 			$("#industry_analysis_show").html('');
 		}
 		if(data.entity.nextFinancingSource){
+			var um = UM.getEditor('next_financing_editor');
+			um.setContent(data.entity.nextFinancingSource);
 			$("#next_financing_source_show").html(data.entity.nextFinancingSource);
 			$("#next_financing_source").hide();
 		}else{
@@ -302,55 +312,53 @@ $("#save_portrait").click(function(){
 /**
  * 保存项目描述
  */
-$("#save_portrait").click(function(){
-	var um = UM.getEditor('portrait_editor');
-	var userPortrait = um.getContent();
-	if(pid != '' && userPortrait != ''){
-		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
+$("#save_business").click(function(){
+	var um = UM.getEditor('business_editor');
+	var projectBusinessModel = um.getContent();
+	if(pid != '' && projectBusinessModel != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveSuccess());
+	}
+});
+/**
+ * 保存项目描述
+ */
+$("#save_operation").click(function(){
+	var um = UM.getEditor('operation_editor');
+	var operationalData = um.getContent();
+	if(pid != '' && operationalData != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "operationalData" : operationalData}, saveSuccess());
 	}
 });
 
 /**
  * 保存项目描述
  */
-$("#save_portrait").click(function(){
-	var um = UM.getEditor('portrait_editor');
-	var userPortrait = um.getContent();
-	if(pid != '' && userPortrait != ''){
-		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
+$("#save_industry").click(function(){
+	var um = UM.getEditor('industry_editor');
+	var industryAnalysis = um.getContent();
+	if(pid != '' && industryAnalysis != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "industryAnalysis" : industryAnalysis}, saveSuccess());
 	}
 });
 
 /**
  * 保存项目描述
  */
-$("#save_portrait").click(function(){
-	var um = UM.getEditor('portrait_editor');
-	var userPortrait = um.getContent();
-	if(pid != '' && userPortrait != ''){
-		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
+$("#save_analysis").click(function(){
+	var um = UM.getEditor('analysis_editor');
+	var prospectAnalysis = um.getContent();
+	if(pid != '' && prospectAnalysis != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "prospectAnalysis" : prospectAnalysis}, saveSuccess());
 	}
 });
-
 /**
  * 保存项目描述
  */
-$("#save_portrait").click(function(){
-	var um = UM.getEditor('portrait_editor');
-	var userPortrait = um.getContent();
-	if(pid != '' && userPortrait != ''){
-		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
-	}
-});
-
-/**
- * 保存项目描述
- */
-$("#save_portrait").click(function(){
-	var um = UM.getEditor('portrait_editor');
-	var userPortrait = um.getContent();
-	if(pid != '' && userPortrait != ''){
-		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
+$("#save_next_financing").click(function(){
+	var um = UM.getEditor('next_financing_editor');
+	var nextFinancingSource = um.getContent();
+	if(pid != '' && nextFinancingSource != ''){
+		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveSuccess());
 	}
 });
 

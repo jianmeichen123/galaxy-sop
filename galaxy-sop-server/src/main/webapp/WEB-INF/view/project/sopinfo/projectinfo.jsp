@@ -355,10 +355,10 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='product_on'>
-					<div id="product_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="business_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_b" id="save_business">保存</span>
                            <span class="compile_on_right_q" data-name='portrayal' data-on="close">取消</span>
                        </div>  
                    </div>
@@ -383,7 +383,7 @@ function getProjectInfo(dtd)
 					<div id="operation_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_b" id="save_operation">保存</span>
                            <span class="compile_on_right_q" data-name='operation' data-on="close">取消</span>
                        </div>  
                    </div>
@@ -409,7 +409,7 @@ function getProjectInfo(dtd)
 					<div id="industry_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_b" id="save_industry">保存</span>
                            <span class="compile_on_right_q" data-name='industry' data-on="close">取消</span>
                        </div>  
                    </div>
@@ -434,7 +434,7 @@ function getProjectInfo(dtd)
 					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_b" id="save_analysis">保存</span>
                            <span class="compile_on_right_q" data-name='analysis' data-on="close">取消</span>
                        </div>  
                    </div>
@@ -460,7 +460,7 @@ function getProjectInfo(dtd)
 					<div id="next_financing_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_describe">保存</span>
+                           <span class="compile_on_right_b" id="save_next_financing">保存</span>
                            <span class="compile_on_right_q" data-name='next_financing' data-on="close">取消</span>
                        </div>  
                    </div>
@@ -512,8 +512,6 @@ $(function(){
 	UM.getEditor('industry_editor');
 	UM.getEditor('analysis_editor');
 	UM.getEditor('next_financing_editor');
-	
-	
 	//统一显示
 	$('[data-on="data-open"]').on('click',function(){
 		var open=$(this).attr('data-name')
