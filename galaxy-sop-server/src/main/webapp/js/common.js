@@ -1103,7 +1103,7 @@ function createDictionaryOptions(url, name){
 	sendGetRequest(url,null, function(data){
 		var options = [];
 		$.each(data.entityList, function(i, value){
-			options.push('<option value="'+value.code+'">'+value.name+'</option>');
+			options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
 		});
 		$('select[name="'+name+'"]').append(options.join(''));
 	});
@@ -1118,9 +1118,10 @@ function createCareelineOptions(url, name){
 	sendGetRequest(url,null, function(data){
 		var options = [];
 		$.each(data.entityList, function(i, value){
-			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'selected="selected"' : '') +'>'+value.name+'</option>');
+			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'back="link"' : '') +'>'+value.name+'</option>');
 		});
 		$('select[name="'+name+'"]').append(options.join(''));
+		$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);
 	});
 }
 

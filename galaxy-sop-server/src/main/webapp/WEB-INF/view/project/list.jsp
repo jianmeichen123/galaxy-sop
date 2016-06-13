@@ -63,7 +63,7 @@
                   <dt>项目类型：</dt>
                   <dd>
                     <select name="projectType">
-                      <option value="">全部</option>
+                      <option index="-1" value="">全部</option>
                     </select>
                   </dd>
                 </dl>
@@ -71,7 +71,7 @@
                   <dt>融资状态：</dt>
                   <dd>
                     <select name="financeStatus">
-                      <option value="">全部</option>
+                      <option index="-1" value="">全部</option>
                     </select>
                   </dd>
                 </dl>
@@ -79,7 +79,7 @@
                   <dt>项目进度：</dt>
                   <dd>
                     <select name="projectProgress">
-                      <option value="">全部</option>
+                      <option index="-1" value="">全部</option>
                     </select>
                   </dd>
                 </dl>
@@ -87,7 +87,7 @@
                   <dt>项目状态：</dt>
                   <dd>
                     <select name="projectStatus">
-                      <option value="">全部</option>
+                      <option index="-1" value="">全部</option>
                     </select>
                   </dd>
                 </dl>
@@ -282,7 +282,27 @@
 		$('button[action="querySearch"]').click(function(){
 			$("#showResetBtn").val(1);
 		});
-		
+		/**
+		 * "重置"操作
+		 */
+		$("#resetBtn").click(function(){
+			//clean selected status
+			$("select[name='projectType']").find("option[index='-1']").removeAttr("selected");
+			$("select[name='financeStatus']").find("option[index='-1']").removeAttr("selected");
+			$("select[name='projectProgress']").find("option[index='-1']").removeAttr("selected");
+			$("select[name='projectStatus']").find("option[index='-1']").removeAttr("selected");
+			$("select[name='projectDepartid']").find('option[back="link"]').removeAttr("selected");
+			//set selected status
+			$("select[name='projectType']").find("option[index='-1']").attr("selected",true);
+			$("select[name='financeStatus']").find("option[index='-1']").attr("selected",true);
+			$("select[name='projectProgress']").find("option[index='-1']").attr("selected",true);
+			$("select[name='projectStatus']").find("option[index='-1']").attr("selected",true);
+			$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
+			var did = $("select[name='projectDepartid']").find('option[back="link"]').val();
+			createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+			$('input[name="nameCodeLike"]').val("");
+			$("#resetBtn").addClass("none");
+		});
 	});
 	/**
 	 * 创建时间格式化
