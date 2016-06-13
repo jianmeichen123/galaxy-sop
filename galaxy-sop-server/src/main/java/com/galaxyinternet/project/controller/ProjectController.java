@@ -154,7 +154,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	/**
 	 * 项目列表查询
-	 * @return 2016-06-21
+	 * @version 2016-06-21
+	 * @author yangshuhua
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -203,9 +204,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 	/**
 	 * 新建项目接口
-	 * 
+	 * @version 2016-06-21
 	 * @author yangshuhua
-	 * @return
 	 */
 	@Token
 	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
@@ -219,66 +219,64 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				|| project.getProjectType() == null
 				|| "".equals(project.getProjectType().trim())
 				|| project.getCreateDate() == null
-				|| "".equals(project.getCreateDate().trim())) {
+				|| "".equals(project.getCreateDate().trim())
+				|| project.getIndustryOwn() == null) {
 			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object code = request.getSession().getAttribute(
-				Constants.SESSION_PROJECT_CODE);
-		if (code == null) {
-			responseBody.setResult(new Result(Status.ERROR, null, "项目编码丢失!"));
-			return responseBody;
-		}
-		Project obj = new Project();
-		obj.setProjectName(project.getProjectName());
-		List<Project> projectList = projectService.queryList(obj);
-		/*
-		 * Integer count = 0 ; for (Project p: projectList) { count ++; }
-		 * if(count>0){
-		 */
-		if (null != projectList && projectList.size() > 0) {
-			responseBody.setResult(new Result(Status.ERROR, null, "用户名重复!"));
-			return responseBody;
-		}
-		User user = (User) getUserFromSession(request);
-		// 判断当前用户是否为投资经理
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-				.getId());
-		if (!roleIdList.contains(UserConstant.HHR)
-				&& !roleIdList.contains(UserConstant.TZJL)) {
-			responseBody.setResult(new Result(Status.ERROR, null, "没有权限添加项目!"));
-			return responseBody;
-		}
-
-		project.setProjectCode(String.valueOf(code));
-		if (project.getProjectValuations() == null) {
-			if (project.getProjectShareRatio() != null
-					&& project.getProjectShareRatio() > 0
-					&& project.getProjectContribution() != null
-					&& project.getProjectContribution() > 0) {
-				project.setProjectValuations(project.getProjectContribution()
-						* 100 / project.getProjectShareRatio());
-			}
-		}
-
-		project.setStockTransfer(0);
-		project.setCreateUid(user.getId());
-		project.setCreateUname(user.getRealName());
-		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
-		project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
-		// 获取当前登录人的部门信息
-		Long did = user.getDepartmentId();
-		project.setProjectDepartid(did);
-		project.setUpdatedTime(new Date().getTime());
 		try {
-			project.setCreatedTime(DateUtil.convertStringToDate(
-					project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
-			long id = projectService.newProject(project);
-			if (id > 0) {
-				responseBody.setResult(new Result(Status.OK, null, "项目添加成功!"));
-				responseBody.setId(id);
-				ControllerUtils.setRequestParamsForMessageTip(request,
-						project.getProjectName(), project.getId());
+			User user = (User) getUserFromSession(request);
+			// 判断当前用户是否为投资经理
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if (!roleIdList.contains(UserConstant.TZJL)) {
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限添加项目!"));
+				return responseBody;
+			}
+			//验证项目名是否重复
+			Project obj = new Project();
+			obj.setProjectName(project.getProjectName());
+			List<Project> projectList = projectService.queryList(obj);
+			if (null != projectList && projectList.size() > 0) {
+				responseBody.setResult(new Result(Status.ERROR, null, "项目名重复!"));
+				return responseBody;
+			}
+			//创建项目编码
+			Config config = configService.createCode();
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setGroupingUsed(false);
+			nf.setMaximumIntegerDigits(6);
+			nf.setMinimumIntegerDigits(6);
+			Long did = user.getDepartmentId();
+			if (did != null) {
+				int code = EnumUtil.getCodeByCareerline(did.longValue());
+				String projectCode = String.valueOf(code) + nf.format(Integer.parseInt(config.getValue()));
+				project.setProjectCode(String.valueOf(projectCode));
+				
+				if (project.getProjectValuations() == null) {
+					if (project.getProjectShareRatio() != null
+							&& project.getProjectShareRatio() > 0
+							&& project.getProjectContribution() != null
+							&& project.getProjectContribution() > 0) {
+						project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+					}
+				}
+				project.setCurrencyUnit(0);
+				//默认不涉及股权转让
+				project.setStockTransfer(0);
+				project.setCreateUid(user.getId());
+				project.setCreateUname(user.getRealName());
+				project.setProjectDepartid(did);
+				project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
+				project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
+				project.setUpdatedTime(new Date().getTime());
+				project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
+				long id = projectService.newProject(project);
+				if (id > 0) {
+					responseBody.setResult(new Result(Status.OK, null, "项目添加成功!"));
+					responseBody.setId(id);
+					ControllerUtils.setRequestParamsForMessageTip(request,
+							project.getProjectName(), project.getId());
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -811,47 +809,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if (logger.isErrorEnabled()) {
 				logger.error("queryUserList ", e);
 			}
-		}
-		return responseBody;
-	}
-
-	/**
-	 * 创建项目编码
-	 * 
-	 * @author yangshuhua
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/cpc", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Config> createProjectCode(HttpServletRequest request) {
-		ResponseData<Config> responseBody = new ResponseData<Config>();
-
-		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-				.getId());
-		if (!roleIdList.contains(UserConstant.HHR)
-				&& !roleIdList.contains(UserConstant.TZJL)) {
-			responseBody.setResult(new Result(Status.ERROR, null, "没有权限!"));
-			return responseBody;
-		}
-
-		try {
-			Config config = configService.createCode();
-			NumberFormat nf = NumberFormat.getInstance();
-			nf.setGroupingUsed(false);
-			nf.setMaximumIntegerDigits(6);
-			nf.setMinimumIntegerDigits(6);
-			Long did = user.getDepartmentId();
-			if (did != null) {
-				int code = EnumUtil.getCodeByCareerline(did.longValue());
-				String projectCode = String.valueOf(code)
-						+ nf.format(Integer.parseInt(config.getValue()));
-				request.getSession().setAttribute(
-						Constants.SESSION_PROJECT_CODE, projectCode);
-				config.setPcode(projectCode);
-				responseBody.setEntity(config);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return responseBody;
 	}
