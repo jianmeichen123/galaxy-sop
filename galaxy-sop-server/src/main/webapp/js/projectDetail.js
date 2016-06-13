@@ -35,6 +35,15 @@ $(function(){
 		$("#finalShareRatio").text(data.entity.finalShareRatio==0?"":data.entity.finalShareRatio);
 		$("#industryOwnDs").text(data.entity.industryOwnDs);
 		
+		/**
+		 * 商业计划
+		 */
+		var data = {
+				_projectId : pid,
+				_projectName : data.entity.projectName,
+				_domId :　'business_plan'			
+		}
+		initPage.init(data);
 		
 		
 		

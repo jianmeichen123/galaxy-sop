@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -99,7 +98,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		
 		if(roleIdList.contains(UserConstant.TZJL)){
 			//tabs.add(new Menus(4L, 0, "添加项目", u + "galaxy/app?" + params));
-			tabs.add(new Menus(5L, 0, "我的项目", u + "galaxy/mpl?" + params));
+			tabs.add(new Menus(5L, 0, "创投项目", u + "galaxy/mpl?" + params));
 			tabs.add(new Menus(21L, 0, "创意管理", u + "galaxy/idea?" + params));
 			tabs.add(new Menus(6L, 0, "访谈跟进", u + "galaxy/project/progress/interView?" + params));
 			tabs.add(new Menus(7L, 0, "会议纪要", u + "galaxy/project/progress/meetView?" + params));
@@ -144,7 +143,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.clear();
 			tabs.add(new Menus(1L, 0, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
 			//tabs.add(new Menus(3L, 0, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
-			tabs.add(new Menus(4L, 0, "项目查询", serverUrl +"sop/galaxy/cpl?" + params));
+			tabs.add(new Menus(4L, 0, "创投项目", serverUrl +"sop/galaxy/mpl?" + params));
 			tabs.add(new Menus(21L, 0, "创意管理", u + "galaxy/idea?" + params));
 			tabs.add(new Menus(5L, 0, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
 			tabs.add(new Menus(6L, 0, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
@@ -285,6 +284,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	@RequestMapping(value = "/getUserList/{departmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<User> getUserList(@PathVariable("departmentId") Long departmentId, HttpServletRequest request) {
 		ResponseData<User> responseBody = new ResponseData<User>();
+		User currentUser = (User) getUserFromSession(request);
 		User user = new User();
 		List<Long> departmentIds = new ArrayList<Long>();
 		if(departmentId.longValue() == 0L){
@@ -303,6 +303,9 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		List<Long> uids = userRoleService.selectUserIdByRoleId(UserConstant.TZJL);
 		for(User u : userList){
 			if(uids.contains(u.getId())){
+				if(u.getId().intValue() == currentUser.getId().intValue()){
+					u.setCurrentUser(true);
+				}
 				responseUserList.add(u);
 			}
 		}

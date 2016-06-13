@@ -159,7 +159,8 @@ if(beforeSubmit()){
 function savePersonCallBack(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		return;
+		layer.msg(data.result.message);
+		//return;
 	}
 	$("#popbg,#powindow").remove();
 	var projectId = $("#pid").val();

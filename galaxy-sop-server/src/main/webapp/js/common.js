@@ -1133,10 +1133,10 @@ function createUserOptions(url, name, mark){
 	sendGetRequest(url, null, function(data){
 		var options = [];
 		if(mark == 1){
-			options.push('<option value="">全部</option>');
+			options.push('<option value="0">全部</option>');
 		}
 		$.each(data.entityList, function(i, value){
-			options.push('<option value="'+value.id+'">'+value.realName+'</option>');
+			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'selected="selected"' : '')+'>'+value.realName+'</option>');
 		});
 		if(mark == 1){
 			$('select[name="'+name+'"]').html(options.join(''));
