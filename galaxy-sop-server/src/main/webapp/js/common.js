@@ -4,7 +4,6 @@
  * jsonObj:json对象
  */
 function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun, TOKEN) {
-	console.log(jsonStr);
 	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun, TOKEN);
 }
 function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun, TOKEN) {
