@@ -143,7 +143,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.clear();
 			tabs.add(new Menus(1L, 0, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
 			//tabs.add(new Menus(3L, 0, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
-			tabs.add(new Menus(4L, 0, "创投项目", serverUrl +"galaxy/mpl?" + params));
+			tabs.add(new Menus(4L, 0, "创投项目", serverUrl +"sop/galaxy/mpl?" + params));
 			tabs.add(new Menus(21L, 0, "创意管理", u + "galaxy/idea?" + params));
 			tabs.add(new Menus(5L, 0, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
 			tabs.add(new Menus(6L, 0, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
