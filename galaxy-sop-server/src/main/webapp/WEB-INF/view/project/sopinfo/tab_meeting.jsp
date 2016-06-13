@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -46,12 +48,24 @@
           	<!-- tab标签 -->
             <ul class="tablink">
                 <li><a href="javascript:;" onclick="showTabs('${pid}',0)">基本信息</a></li>
+                <c:choose>
+	            <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
                 <li><a href="javascript:;" onclick="showTabs('${pid}',1)">团队成员</a></li>
                 <li><a href="javascript:;" onclick="showTabs('${pid}',2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs('${pid}',3)">访谈记录</a></li>
                 <li class="on"><a href="javascript:;" onclick="showTabs('${pid}',4)">会议纪要</a></li>
                 <li><a href="javascript:;">项目文档</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
+                </c:when>
+                <c:otherwise>
+                <li><a href="javascript:;" class="disabled">团队成员</a></li>
+                <li><a href="javascript:;" class="disabled">股权结构</a></li>
+                <li><a href="javascript:;" class="disabled">访谈记录</a></li>
+                <li><a href="javascript:;" class="disabled">会议纪要</a></li>
+				<li><a href="javascript:;" class="disabled">项目文档</a></li>
+                <li><a href="javascript:;" class="disabled">操作日志</a></li> 
+                </c:otherwise>
+             	</c:choose>
             </ul>
 
             
@@ -59,7 +73,7 @@
             <div data-tab="con" > 
                -->
             	<div class="member interview">
-            	
+            	    <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
                    <!--按钮-->
 					<div class="top clearfix">
 						<div class="btnbox_f btnbox_f1 clearfix">
@@ -111,7 +125,7 @@
 							</tr>
 						</thead>
 					</table>
-						
+					</c:if>	
                 </div>                 
            <!--  </div>
            tab end-->
