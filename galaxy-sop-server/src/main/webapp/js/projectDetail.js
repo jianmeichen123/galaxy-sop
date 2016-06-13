@@ -17,7 +17,7 @@ $(function(){
 		$("#project_share_ratio").text(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
 		$("#projectProgress").text(projectInfo.progress);
 		$("#projectStatusDs").text(projectInfo.projectStatusDs);
-		$("#financeStatusDs").text(projectInfo.financeStatusDs);
+		$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
 		$("#finalValuations").text(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
 		$("#finalContribution").text(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
 		$("#finalShareRatio").text(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
@@ -46,9 +46,9 @@ $(function(){
 		//融资
 		sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
 		sendGetRequest(platformUrl.getDepartMentDict+"/1",null,CallBackA);
-		function CallBackB(projectInfo){
+		function CallBackB(data){
 		    var _dom=$("#finance_status_sel");
-			 $.each(projectInfo,function(){
+			 $.each(data.entityList,function(){
 					if(this.code){
 						if(this.code==fs){
 							_dom.append("<option selected value='"+this.code+"'>"+this.name+"</option>");
@@ -62,9 +62,9 @@ $(function(){
 					
 				});
 		}
-		function CallBackA(projectInfo){
+		function CallBackA(data){
 		       var _dom=$("#industry_own_sel");
-				 $.each(projectInfo,function(){
+				 $.each(data.entityList,function(){
 						if(this.code){
 							_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
 						}else{
