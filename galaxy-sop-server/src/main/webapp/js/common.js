@@ -3,10 +3,10 @@
  * jsonStr:json字符串
  * jsonObj:json对象
  */
-function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun) {
-	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun);
+function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun, TOKEN) {
+	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun, TOKEN);
 }
-function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun) {
+function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun, TOKEN) {
 	$.ajax({
 		url : reqUrl,
 		type : "POST",
@@ -24,6 +24,9 @@ function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun) {
 			}
 			if(userId){
 				xhr.setRequestHeader("guserId", userId);
+			}
+			if(TOKEN){
+				xhr.setRequestHeader("TOKEN", TOKEN);
 			}
 		},
 		async : false,
