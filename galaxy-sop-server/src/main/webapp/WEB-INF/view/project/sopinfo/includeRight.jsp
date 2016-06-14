@@ -44,8 +44,8 @@
            
            
             
-            <div class="correlation">相关操作</div>
-            <c:if test="${ projectInfo.projectStatus != 'projectStatus:2' and projectInfo.projectStatus != 'projectStatus:3' and fx:isCreatedByUser('project',projectId) }">
+            <div class="correlation">相关操作</div> 
+            <c:if test="${ projectInfo.projectStatus != 'meetingResult:3' and projectInfo.projectStatus != 'projectStatus:2' and projectInfo.projectStatus != 'projectStatus:3' and fx:isCreatedByUser('project',projectId) }">
             <div class="new_correlation_cen">
             	<span class="bluebtn new_btn" onclick="closePro()">否决项目</span>
             </div>

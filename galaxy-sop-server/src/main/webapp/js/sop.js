@@ -22,10 +22,10 @@ function info(id){
 			$('.searchbox').toggleshow();
 			leicj();
 			/**
-			 * 加载项目详情数据
+			 * 加载项目详情数据   meetingResult:3
 			 */
 			sendGetRequest(platformUrl.detailProject + id, {}, function(data){
-				hasClosed = (data.entity.projectStatus == 'projectStatus:2' || data.entity.projectStatus == 'projectStatus:3');
+				hasClosed = (data.entity.projectStatus == 'meetingResult:3' || data.entity.projectStatus == 'projectStatus:2' || data.entity.projectStatus == 'projectStatus:3');
 				var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');
 				//项目的最新动态
 				if(data.entity.hasOwnProperty('updatedTime')){

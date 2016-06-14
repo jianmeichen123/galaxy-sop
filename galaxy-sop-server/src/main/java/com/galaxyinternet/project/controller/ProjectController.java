@@ -1466,11 +1466,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public Result validate(String progress, Project project, User user) {
 		if (project == null) {
 			return new Result(Status.ERROR, null, "未找到相应的项目信息!");
-		}
-		if (project.getProjectStatus().equals("projectStatus:2") || project.getProjectStatus().equals("projectStatus:3")) {
+		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())||project.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){ //字典 项目状态 = 会议结论 关闭
 			return new Result(Status.ERROR, null, "项目已关闭!");
+		}else if(project.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){ //字典 项目状态 = 会议结论 关闭
+			return new Result(Status.ERROR, null, "项目已退出!");
 		}
-
 		if (user.getId().longValue() != project.getCreateUid().longValue()) {
 			return new Result(Status.ERROR, null, "没有权限修改该项目!");
 		}
@@ -2778,13 +2778,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "项目信息错误!"));
 				return responseBody;
 			}
+			
 			//非项目创建者，or  项目已否决    不允许添加会议
 			/*GJZ("跟进中"	 ,   "projectStatus:0"),
 			THYY("投后运营" ,  "projectStatus:1"),
 			YFJ("已否决"		,"projectStatus:2"),
 			YTC("已退出"		,"projectStatus:3");*/
 			if(user.getId().intValue()!=proinfo.getCreateUid().intValue() || proinfo.getProjectStatus().equals("meetingResult:3") ||  
-					proinfo.getProjectStatus().equals("projectStatus:2") || proinfo.getProjectStatus().equals("projectStatus:3")){
+					proinfo.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode()) || proinfo.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){
 				resultMap.put("add", "k");
 				responseBody.setUserData(resultMap);
 				responseBody.setResult(new Result(Status.OK, null));
