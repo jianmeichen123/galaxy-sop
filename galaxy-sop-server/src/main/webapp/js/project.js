@@ -101,6 +101,7 @@ $(function(){
 	 */
 	sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 		$("#project_name").text(data.entity.projectName);
+		$("#project_name_title").text(data.entity.projectName);
 		$("#project_code").text(data.entity.projectCode);
 		$("#create_date").text(data.entity.createDate);
 		//$("#create_date").val(data.entity.createDate);
