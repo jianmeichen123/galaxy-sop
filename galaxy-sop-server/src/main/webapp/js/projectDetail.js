@@ -3,6 +3,8 @@ $(function(){
    /**
 	 * 加载项目详情数据
 	 */
+	var projectPro = projectInfo.projectProgress;
+	var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 
 		$("#project_name_title").text(projectInfo.projectName);
 		$("#project_name").text(projectInfo.projectName);
@@ -12,15 +14,15 @@ $(function(){
 		$("#createUname").text(projectInfo.createUname);
 		$("#projectCareerline").text(projectInfo.projectCareerline);
 		$("#projectType").text(projectInfo.type);
-		$("#project_contribution").text(projectInfo.projectContribution==0?"":projectInfo.projectContribution);
-		$("#project_valuations").text(projectInfo.projectValuations==0?"":projectInfo.projectValuations);
-		$("#project_share_ratio").text(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
+		$("#project_contribution").text(projectInfo.projectContribution==0?"--":projectInfo.projectContribution);
+		$("#project_valuations").text(projectInfo.projectValuations==0?"--":projectInfo.projectValuations);
+		$("#project_share_ratio").text(projectInfo.projectShareRatio==0?"--":projectInfo.projectShareRatio);
 		$("#projectProgress").text(projectInfo.progress);
 		$("#projectStatusDs").text(projectInfo.projectStatusDs);
 		$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
-		$("#finalValuations").text(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
-		$("#finalContribution").text(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
-		$("#finalShareRatio").text(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
+		$("#finalValuations").text(projectInfo.finalValuations==0||num<=7?"--":projectInfo.finalValuations);
+		$("#finalContribution").text(projectInfo.finalContribution==0||num<=7?"--":projectInfo.finalContribution);
+		$("#finalShareRatio").text(projectInfo.finalShareRatio==0||num<=7?"--":projectInfo.finalShareRatio);
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
