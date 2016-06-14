@@ -1339,7 +1339,7 @@ dl dt,dl label{font-weight: normal !important;}
 select{padding: 6px 0 !important;}
 /**切断文字**/
 .text-overflow{width:420px;padding:5px 0;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;}
-.text-overflow1{padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;}
+.text-overflow1{padding:10px 0;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;}
 /**切断文字 end**/
 #template-table{border-radius: 6px;}
 .percentTxt{width:30px !important;display: inline-block !important;}
@@ -1665,7 +1665,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .interview .min_document{margin:0 30px;width:auto;position: relative;margin-top: 10px;margin-bottom: 20px}
 .interview .search_icon{font-size: 0;width:20px;height: 20px;background: url(../img/search1.png) 0 0 no-repeat;display: inline-block;position: absolute;top: 16px;}
 .interview table td{line-height: 22px;padding: 10px 0 10px 30px;}
-.interview table td span{font-size: 12px;width: 44px;padding-left: 26px;line-height: 20px;cursor: pointer;}
+.interview table td span{font-size: 12px;width: 44px;padding-left: 26px;line-height: 20px;cursor: pointer;text-align:left;}
 .interview table span.see{background-position: 0 -19px;}
 /*项目文档*/
 .email_btn{background:  url(../img/functionico.png) 10px -274px no-repeat;padding-left:28px;}
@@ -1717,8 +1717,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     margin-top: 10px;
 }
 /*访谈表格*/
-.no1{width:35%;}
-.no2{width:45%;}
+.no1{width:35%;padding-left:35px !important;}
+.no2{width:45%;padding-left:5px !important;}
 
 .no1_1{width:23%;}
 .no1_2{width:12%;}
