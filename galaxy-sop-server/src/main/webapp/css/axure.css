@@ -1380,7 +1380,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .size14{ font-size:14px}
 .new_tit_b span{ display:block; margin-right:10px; float:left; line-height:25px;}
 .new_tit_b .b_span{ float:right; margin-right:30%;}
-.new_left{ width:76%; float:left; }
+.new_left{ width:75%; float:left; }
 .tablink li {
     float: left;
     padding: 0 7px;
@@ -1488,7 +1488,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 }
 
 /*右边*/
-.new_right{ width:23%; float:right; background-color:#fff; margin-top:30px; position:relative;}
+.new_right{ width:24%; float:right; background-color:#fff; margin-top:30px; position:relative;}
 .sj_ico {
     background-image: url(../img/ritico.png);
 	background-repeat:no-repeat;
@@ -1514,7 +1514,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .line_ul_p li{
 	float:left;
 	width:14px;
-	margin-right:4.5%;
+	margin-right:3%;
   font-size: 12px;font-family: "宋体"
 }
 .line_ul_p span{
