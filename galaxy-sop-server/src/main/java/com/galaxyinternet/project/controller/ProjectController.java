@@ -270,7 +270,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 				project.setUpdatedTime(new Date().getTime());
 				project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
-				long id = projectService.newProject(project);
+				SopFile file = (SopFile) request.getSession().getAttribute("businessPlan");
+				long id = projectService.newProject(project, file);
 				if (id > 0) {
 					responseBody.setResult(new Result(Status.OK, null, "项目添加成功!"));
 					responseBody.setId(id);
