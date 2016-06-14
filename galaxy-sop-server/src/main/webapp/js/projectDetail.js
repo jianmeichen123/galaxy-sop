@@ -82,8 +82,10 @@ $(function(){
 			$("#describe_show").html(projectInfo.projectDescribe);
 			um.setContent(projectInfo.projectDescribe);
 			$("#descript").hide();
+			$('.describe_show').show();
 			
 		}else{
+			$('.describe_show').hide();
 			$("#describe_show").html('');
 		}
 		if(projectInfo.projectBusinessModel){
@@ -91,33 +93,41 @@ $(function(){
 			um.setContent(projectInfo.projectBusinessModel);
 			$("#business_model_show").html(projectInfo.projectBusinessModel)
 			$("#business_model").hide();
+			$('.business_model_show').show();
 			
 		}else{
 			$("#business_model_show").html('')
+			$('.business_model_show').hide();
 		}
 		if(projectInfo.companyLocation){
 			var um = UM.getEditor('company_editor');
 			um.setContent(projectInfo.companyLocation);
 			$("#location_show").html(projectInfo.companyLocation)
 			$("#location").hide();
+			$('.location_show').show();
 		}else{
 			$("#location_show").html('')
+			$('.location_show').hide();
 		}
 		if(projectInfo.userPortrait){
 			var um = UM.getEditor('portrait_editor');
 			um.setContent(projectInfo.userPortrait);
 			$("#portrait_show").html(projectInfo.userPortrait);
 			$("#portrait").hide();
+			$(".portrait_show").show();
 		}else{
 			$("#portrait_show").html('')
+			$(".portrait_show").hide();
 		}
 		if(projectInfo.prospectAnalysis){
 			var um = UM.getEditor('analysis_editor');
 			um.setContent(projectInfo.prospectAnalysis);
 			$("#analysis_show").html(projectInfo.prospectAnalysis)
 			$("#analysis").hide();
+			$(".analysis_show").show();
 		}else{
-			$("#analysis_show").html('')
+			$("#analysis_show").html('');
+			$(".analysis_show").hide();
 		}
 
 		if(projectInfo.operationalData){
@@ -125,24 +135,31 @@ $(function(){
 			um.setContent(projectInfo.operationalData);
 			$("#operational_data_show").html(projectInfo.operationalData);
 			$("#operational_data").hide();
+			$(".operational_data_show").show();
 		}else{
 			$("#operational_data_show").html('');
+			$(".operational_data_show").hide();
 		}
 		if(projectInfo.industryAnalysis){
 			var um = UM.getEditor('industry_editor');
 			um.setContent(projectInfo.industryAnalysis);
 			$("#industry_analysis_show").html(projectInfo.industryAnalysis);
 			$("#industry_analysis").hide();
+			$(".industry_analysis_show").show();
 		}else{
 			$("#industry_analysis_show").html('');
+			$(".industry_analysis_show").hide();
 		}
 		if(projectInfo.nextFinancingSource){
 			var um = UM.getEditor('next_financing_editor');
 			um.setContent(projectInfo.nextFinancingSource);
 			$("#next_financing_source_show").html(projectInfo.nextFinancingSource);
 			$("#next_financing_source").hide();
+			$(".next_financing_source_show").show();
+			
 		}else{
 			$("#next_financing_source_show").html('');
+			$(".next_financing_source_show").hide();
 		}
 
 		/**
