@@ -261,7 +261,7 @@ function getProjectInfo(dtd)
 				<div class="new_r_compile ">
 					<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
 				</div>
-				<ul class="new_ul_all new_bottom_color" id='business_plan'>
+				<ul class="new_ul_all new_top_color" id='business_plan'>
 					<li><span>《XXXXXXXXXXXXXXXXX》</span></li>
 					<li><span class="new_color_gray">状态：</span><span class="new_color_black">已上传</span></li>
 					<li><span class="new_color_gray">更新时间：</span><span class="new_color_black">2016-01-26</span></li>
@@ -292,7 +292,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all new_bottom_color describe_show">
+					<div class="new_ul_all new_top_color describe_show">
 						<span class="ico_dot ico"></span>
 						<p id="describe_show"></p>
 					</div>
@@ -309,7 +309,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all new_bottom_color location_show">
+					<div class="new_ul_all new_top_color location_show">
 						<span class="ico_dot ico"></span>
 						<p id="location_show"></p>
 					</div>
@@ -336,7 +336,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all new_bottom_color portrait_show">
+					<div class="new_ul_all new_top_color portrait_show">
 						<span class="ico_dot ico"></span>
 						<p id="portrait_show"></p>
 					</div>
@@ -365,7 +365,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all new_bottom_color business_model_show">
+					<div class="new_ul_all new_top_color business_model_show">
 						<span class="ico_dot ico"></span>
 						<p id="business_model_show"></p>
 					</div>
@@ -393,7 +393,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all new_bottom_color analysis_show">
+					<div class="new_ul_all new_top_color analysis_show">
 						<span class="ico_dot ico"></span>
 						<p id="analysis_show"></p>
 					</div>
@@ -421,7 +421,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all new_bottom_color operational_data_show">
+					<div class="new_ul_all new_top_color operational_data_show">
 						<span class="ico_dot ico"></span>
 						<p id="operational_data_show"></p>
 					</div>
@@ -450,7 +450,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all new_bottom_color industry_analysis_show">
+					<div class="new_ul_all new_top_color industry_analysis_show">
 						<span class="ico_dot ico"></span>
 						<p id="industry_analysis_show"></p>
 					</div>
@@ -481,7 +481,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all new_bottom_color next_financing_source_show">
+					<div class="new_ul_all new_top_color next_financing_source_show">
 						<span class="ico_dot ico"></span>
 						<p id="next_financing_source_show"></p>
 					</div>

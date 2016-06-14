@@ -1409,7 +1409,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_bj_p1{ background-position:0 0; background-repeat:no-repeat;}
 .new_r_compile{overflow:hidden; background-color:#fff; margin:15px 0;padding: 0 20px;}
 .new_r_compile span{ float:left;}
-.new_bottom_color{ border-top:1px solid #e6e8f1;padding:0 20px;padding-bottom: 10px;}
+.new_bottom_color{ border-bottom:1px solid #e6e8f1;padding:0 20px;padding-bottom: 10px;}
+.new_top_color{ border-top:1px solid #e6e8f1;padding:0 20px;padding-bottom: 10px;}
 .new_r_compile .new_fctbox{ display:block; float:right;}
 .new_fctbox .f1 {
     background-position: 0 0; float:left;
@@ -1475,7 +1476,6 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
   margin-top:15px;
 }
 .new_ul_all{
-	padding: 0 20px;
 	overflow:hidden;
 }
 .new_ul_all li{
