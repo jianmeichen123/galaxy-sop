@@ -161,6 +161,7 @@
 .fixed-table-pagination .pagination-info {
     line-height: 34px;
     margin-right: 5px;
+    margin-left:10px;
 }
 
 .fixed-table-pagination .btn-group {
