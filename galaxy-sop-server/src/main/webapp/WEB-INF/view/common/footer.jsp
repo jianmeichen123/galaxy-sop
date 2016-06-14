@@ -10,7 +10,7 @@ function createMenus(current){
 	   	 $.each(data.entityList, function(i,o){
 	   		 if(typeof(o.nodes) == "undefined"){
 	   			if(selected == o.id){
-		   			html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" >' + o.menuName + '</a></li>';
+		   			html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
 		   		}else{
 		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '">' + o.menuName + '</a></li>';
 		   		}
