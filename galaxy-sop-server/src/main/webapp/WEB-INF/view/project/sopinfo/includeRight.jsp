@@ -96,10 +96,10 @@ $(function(){
 	
 	//more 链接初始化
 	$("#meet_more").on("click", function(){
-		toMeet(proid);
+		showTabs(proid,4)
 	});
 	$("#view_more").on("click", function(){
-		toInterView(proid);
+		showTabs(proid,3)
 	});
 	
  	//无会议记录
