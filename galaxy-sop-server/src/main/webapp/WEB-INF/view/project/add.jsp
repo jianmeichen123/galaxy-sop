@@ -108,30 +108,16 @@
                         <span class="new_ico_book"></span>
                         <span class="new_color size16">商业计划书</span>
                     </div>  
-                    <!-- 上传附件后的样式 -->
-                    <table width="80%" cellspacing="0" cellpadding="0" class="basic_table">
-                    	<tr>
-                        	<th>更新日期</th><th>文件状态</th><th>查看附件</th>
-                        </tr>
-                        <tr>
-                            <td>2016-01-20</td><td>已上传</td><td><a href="#">商业计划书.doc</a></td>
-                            
-                        </tr>
+                    <!-- 商业计划书表格-->
+                    <table style="width:80%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
                     </table>
-                    <!-- 上传附件前的样式 -->
-                    <table width="80%" cellspacing="0" cellpadding="0" class="basic_table">
-                    	<tr>
-                        	<th>更新日期</th><th>文件状态</th><th>查看附件</th>
-                        </tr>
-                        <tr>
-                            <td>2016-01-20</td><td>已上传</td><td><a href="#" class="upload">上传附件</a></td>
-                            
-                        </tr>
-                    </table>
+                    
                     <div class="basic_input" onclick="add();">保存</div>
                 </div>
         </div>
-        <!--右边-->
+       
+    </div>
+     <!--右边-->
         <div class="basic_right">
         	<div class="tabtable_con_on">
             	<div class="new_bottom_color">
@@ -147,10 +133,17 @@
                 <p class="basic_p">不满足以上标准的项目数据，将会被系统删除。请尽快将项目信息补充完整，以达到项目数据的最低标准。</p>
             </div>
         </div>
-        <!--右边 end-->
-    </div> 
+        <!--右边 end--> 
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
+	<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/teamSheetNew.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness.js'></script>
 <script type="text/javascript">
 	/**
 	 * @version 2016-06-21
@@ -225,6 +218,8 @@
 			},TOKEN);
 		}
 	}
+	
+	
 </script>
 
 </html>

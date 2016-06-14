@@ -12,12 +12,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -548,7 +550,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		form.setFileWorktype(request.getParameter("fileWorktype"));
 		form.setFileSource(request.getParameter("fileSource"));
 		form.setRemark(request.getParameter("remark"));
-		
+
 		String projectId = request.getParameter("projectId");
 			
 		//校验
@@ -1085,4 +1087,85 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		
 		return responseBody;
 	}
+	
+	
+	/**
+	 * session中获取商业计划书
+	 * @param request
+	 * @param projectId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getBusinessPlanFileInSession", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> getBusinessPlanFileInSession(HttpServletRequest request){
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		try {
+			List<SopFile> fileList = new ArrayList<SopFile>();
+			SopFile sopFile = (SopFile)request.getSession().getAttribute("businessPlan");
+			if(sopFile!=null){
+				sopFile.setId(0L);
+				fileList.add(sopFile);
+			}else{
+				sopFile = new SopFile();
+				sopFile.setId(0L);
+				fileList.add(sopFile);
+			}
+			Pageable pageable = new PageRequest(1, 10);
+			Long total = 1L;
+			Page<SopFile> sopFilePage = new Page<SopFile>(fileList, pageable, total);
+			responseBody.setResult(new Result(Status.OK,""));
+			responseBody.setPageList(sopFilePage);
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR,"系统出现异常"));
+		}
+		return responseBody;
+	}
+	
+	/***
+	 * 商业计划上传到session中
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/uploadBpToSession",method=RequestMethod.POST)
+	public ResponseData<SopFile> uploadBpToSession(HttpServletRequest request){
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		//校验
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if(user==null){
+			responseBody.setResult(new Result(Status.ERROR, "未登录"));
+			return responseBody;
+		}
+		try {
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
+			MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
+			SopFile form = new SopFile();
+			form.setFileSource(request.getParameter("fileSource"));
+			form.setFileType(request.getParameter("fileType"));
+			form.setFileWorktype(request.getParameter("fileWorktype"));
+			form.setFileSource(request.getParameter("fileSource"));
+			form.setRemark(request.getParameter("remark"));			
+			form.setBucketName(OSSFactory.getDefaultBucketName());
+			form.setFileKey(String
+						.valueOf(IdGenerator.generateId(OSSHelper.class)));
+			Map<String, String> nameMap = FileUtils.transFileNames(multipartFile.getOriginalFilename());
+			form.setFileName(nameMap.get("fileName"));
+			form.setFileSuffix(nameMap.get("fileSuffix"));
+			form.setFileLength(multipartFile.getSize());
+			form.setRecordType((byte)0);
+			form.setCareerLine(user.getDepartmentId());
+			form.setCreatedTime(System.currentTimeMillis());
+			form.setMultipartFile(multipartFile);
+			request.getSession().setAttribute("businessPlan", form);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, "系统出现异常"));
+		}
+		return responseBody;
+	}
+	
+	
 }

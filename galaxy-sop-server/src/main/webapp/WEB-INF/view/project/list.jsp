@@ -14,6 +14,7 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
@@ -200,10 +201,13 @@
 	
 	function proInfo(id){
 		var options = $("#data-table").bootstrapTable('getOptions');
-		var tempPageSize = options.pageSize;
-		var tempPageNum = options.pageNumber;
-		var tempForm = jQuery.parseJSON($('#searchForm').serializeObject());
-	
+		var tempPageSize = options.pageSize ? options.pageSize : 10;
+		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
+		
+		var nameCodeLike = $("input[name='nameCodeLike']").val();
+		var projectDepartid = $("select[name='projectDepartid']").val();
+		var createUid = $("select[name='createUid']").val();
+		
 		
 		var formdata = {
 				_paramKey : 'projectList',
@@ -211,9 +215,9 @@
 				_param : {
 					pageNum : tempPageNum,
 	        		pageSize : tempPageSize,
-	        		nameCodeLike : tempForm.nameCodeLike,
-	        		createUid : tempForm.createUid,
-	        		projectDepartid : tempForm.projectDepartid
+	        		nameCodeLike : nameCodeLike,
+	        		createUid : createUid,
+	        		projectDepartid : projectDepartid
 				}
 		}
 		cookieOperator.forwardPushCookie(formdata);
@@ -288,7 +292,6 @@
 	        	var backSign = ${backSign}
 	        	
 	        	if(backSign){
-	        		alert(backSign);
 	        		var formdata = {
 		        			_paramKey : 'projectList'
 		        	}
@@ -302,7 +305,10 @@
 		        		var options = $("#data-table").bootstrapTable('getOptions');
 	 	        		options.pageNumber = tempParam.pageNum - 1;
 	 	        		console.log('options.pageNumber ='+options.pageNumber );
-//	 	        		options.pageSize = tempParam.pageSize;
+	 	        		//给搜索表单赋值
+	 	        		$("input[name='nameCodeLike']").val(tempParam.nameCodeLike ? tempParam.nameCodeLike : "");
+	 	       			$("select[name='projectDepartid']").val(tempParam.projectDepartid ? tempParam.projectDepartid : "0");
+	 	       			$("select[name='createUid']").val(tempParam.createUid ? tempParam.createUid : "0");
 		        	}
 	        	}
 	        	
