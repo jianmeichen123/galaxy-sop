@@ -803,7 +803,7 @@ function intervierInfoFormat(value, row, index){
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
 	
-	rc = "<div style=\"text-align:left;margin-left:10%;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
 				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
