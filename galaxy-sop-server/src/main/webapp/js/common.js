@@ -1149,3 +1149,59 @@ function createUserOptions(url, name, mark){
 		}
 	});
 }
+
+
+var cookieOperator = {
+		paramKey : 'parameter',
+		/*
+		 * 将信息保存到cookie然后提交
+		 * param : 
+		 * 		_paramKey : 参数键 (默认：parameter)
+		 * 		_url : url
+		 * 		_param : 参数值
+		 * 
+		 * */
+		forwardPushCookie : function(formdata){
+			var cookietime = new Date(); 
+			cookietime.setTime(cookietime.getTime() + (60 * 60 * 1000));//coockie保存一小时 
+			if(!formdata._param){
+				layer.msg('参数信息为空');
+				return;
+			}
+			var tempParamKey;
+			if(formdata._paramKey){
+				tempParamKey = formdata._paramKey;
+			}else{
+				tempParamKey = cookieOperator.paramKey;
+			}
+			$.cookie(tempParamKey, JSON.stringify(formdata._param),{expires:cookietime,path:Constants.sopEndpointURL}); 
+			forwardWithHeader(formdata._url);
+		},
+		/*
+		 * 将信息保存到cookie然后提交
+		 * param : 
+		 * 		_paramKey : 参数键 (默认：parameter)
+		 * */
+		pullCookie : function(formdata){
+			var tempParamKey;
+			if(formdata._paramKey){
+				tempParamKey = formdata._paramKey;
+			}else{
+				tempParamKey = cookieOperator.paramKey;
+			}
+			var retStr = $.cookie(tempParamKey);
+			if(retStr == '[object Object]'){
+				$.removeCookie(tempParamKey);
+				return;
+			}
+			if(retStr){
+				$.removeCookie(tempParamKey);
+				return jQuery.parseJSON(retStr);
+			}
+			return;
+			
+		}
+}
+
+
+

@@ -64,6 +64,7 @@
           </ul>-->
         <!-- 搜索条件 -->
 		<div class="top clearfix" id="custom-toolbar">
+		 <form id='searchForm'>
           <div class="searchall_prj clearfix">
             <div class="searchall_top" data-btn="box">
                 <dl class="fmdl fml fmdll clearfix">
@@ -127,6 +128,7 @@
                 <a href="#" class="blue open ico1 f4" data-btn="show" style="display: block;">展开</a> <a href="#" class="blue searchbox_hidden hide ico1 f3" data-btn="hide" style="display: none;">收起</a>
             </div>
           </div>
+          </form>
         </div>
 		<div class="tab-pane active" id="view">	
 			<table id="project-table" data-url="project/search" data-height="555" 
@@ -202,7 +204,24 @@
 	}
 	
 	function proInfo(id){
-		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
+		var options = $("#data-table").bootstrapTable('getOptions');
+		var tempPageSize = options.pageSize;
+		var tempPageNum = options.pageNumber;
+		var tempForm = jQuery.parseJSON($('#searchForm').serializeObject());
+	
+		
+		var formdata = {
+				_paramKey : 'projectList',
+				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
+				_param : {
+					pageNum : tempPageNum,
+	        		pageSize : tempPageSize,
+	        		nameCodeLike : tempForm.nameCodeLike,
+	        		createUid : tempForm.createUid,
+	        		projectDepartid : tempForm.projectDepartid
+				}
+		}
+		cookieOperator.forwardPushCookie(formdata);
 	}
 	
 	function refreshProjectList()
@@ -270,6 +289,30 @@
 			sortName : 'updated_time',
 			pagination: true,
 	        search: false,
+	        queryParams : function(param){
+	        	var backSign = ${backSign}
+	        	
+	        	if(backSign){
+	        		alert(backSign);
+	        		var formdata = {
+		        			_paramKey : 'projectList'
+		        	}
+		        	var tempParam = cookieOperator.pullCookie(formdata);
+		        	if(tempParam){
+		        		param.pageNum = tempParam.pageNum - 1;
+		        		param.pageSize = tempParam.pageSize;
+		        		param.nameCodeLike = tempParam.nameCodeLike;
+		        		param.createUid = tempParam.createUid;
+		        		param.projectDepartid = tempParam.projectDepartid;
+		        		var options = $("#data-table").bootstrapTable('getOptions');
+	 	        		options.pageNumber = tempParam.pageNum - 1;
+	 	        		console.log('options.pageNumber ='+options.pageNumber );
+//	 	        		options.pageSize = tempParam.pageSize;
+		        	}
+	        	}
+	        	
+	        	return param;
+	        },
 	        onLoadSuccess: function (data) {
 	        	if($("#showResetBtn").val() == '1'){
 	    			$("#resetBtn").removeClass("none");

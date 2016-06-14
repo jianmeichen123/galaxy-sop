@@ -873,7 +873,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					uNum = UrlNumber.three;
 				}else if(DictEnum.IdeaProgress.CYLXH.getCode().equals(tempIdea.getIdeaProgress())){
 					uNum = UrlNumber.four;
-				}else if(DictEnum.IdeaProgress.CYLGZ.getCode().equals(tempIdea.getIdeaProgress())){
+				}else{
 					uNum = UrlNumber.five;
 				}
 				operatorStr = "修改";

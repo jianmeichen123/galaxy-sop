@@ -156,10 +156,17 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	@RequestMapping(value = "/mpl", method = RequestMethod.GET)
 	public String myproject(HttpServletRequest request){
 		String id = request.getParameter("projectId");
+		//退回标记
+		String backSign = request.getParameter("backSign");
 		if(StringUtils.isNotBlank(id)){
 			Project project = projectService.queryById(Long.parseLong(id));
 			request.setAttribute("pid", id);
 			request.setAttribute("pname", project.getProjectName());
+		}
+		if(StringUtils.isNotBlank(backSign)){
+			request.setAttribute("backSign", backSign);
+		}else{
+			request.setAttribute("backSign", "false");
 		}
 		return "project/list";
 	}
