@@ -14,6 +14,8 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 
 <!-- bootstrap-table -->

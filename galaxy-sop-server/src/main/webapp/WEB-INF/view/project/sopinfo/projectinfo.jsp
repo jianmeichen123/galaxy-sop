@@ -487,12 +487,8 @@ function getProjectInfo(dtd)
 
 
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
-<script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure_ext.js" type="text/javascript"></script>
-<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
-<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/teamSheetNew.js"></script>
@@ -537,6 +533,6 @@ $(function(){
 
 
 </script>
+
 <jsp:include page="../../common/uploadwin.jsp" flush="true"></jsp:include>
 </html>
-

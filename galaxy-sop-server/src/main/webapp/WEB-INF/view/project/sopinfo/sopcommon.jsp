@@ -12,7 +12,7 @@
     	
     	<div class="new_tit_b">
         	<span class="new_color size18" id="project_name_t"></span><span class="new_color" id="project_code_t"></span>
-        	<span class="b_span"><a href="#">返回项目列表></a></span>
+        	<span class="b_span"><a href="javascript:;" onclick='backProjectList()'>返回项目列表></a></span>
         </div>
 </body>
 
@@ -35,11 +35,14 @@ $(function(){
    $("#workDesk").click(function(){
 	   var url=Constants.sopEndpointURL+"/galaxy/index";
 	   forwardWithHeader(url);
-	
    })
 
 })
 
+function backProjectList(){
+	var url = platformUrl.projectList+"?backSign=true";
+	forwardWithHeader(url);
+}
 </script>
 
 </html>

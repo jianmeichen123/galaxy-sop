@@ -200,7 +200,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	
 			}	
 		      SopVoucherFile svf = map.get(sopFile.getVoucherId()==null?"":sopFile.getVoucherId().toString());
-				if (null != svf && !"".equals(svf)) {
+				if (null != svf) {
 					sopFile.setVoucherFileName(svf.getFileName());
 					if(svf.getFileStatus().equals("fileStatus:1")){
 						sopFile.setVstatus("false");
@@ -784,13 +784,13 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		Map<String,SopVoucherFile> map=new HashMap<String,SopVoucherFile>();
 		List<Long> ids=new ArrayList<Long>();
 		for (SopFile sopfile:sopFile) {
-				if(null!=sopfile.getVoucherId()&&!"".equals(sopfile.getVoucherId())){
+				if(null!=sopfile.getVoucherId()){
 				ids.add(sopfile.getVoucherId());
 			}
 		}
 		if(!ids.isEmpty()){
 		    List<SopVoucherFile> selectListById = voucherFileDao.selectListById(ids);
-			if(null!=selectListById&&!"".equals(selectListById)){
+			if(null!=selectListById && selectListById.size() > 0){
 				for(SopVoucherFile vfile:selectListById){
 					map.put(vfile.getId().toString(), vfile);
 				}

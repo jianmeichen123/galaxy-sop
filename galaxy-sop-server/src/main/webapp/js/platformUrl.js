@@ -554,7 +554,11 @@ var platformUrl = {
 	/**
 	 * 根据事业线查询相应的投资经理
 	 */
-	getUserList : Constants.sopEndpointURL + "/galaxy/common/getUserList/"
+	getUserList : Constants.sopEndpointURL + "/galaxy/common/getUserList/",
+	/**
+	 * 项目列表页面
+	 */
+	projectList : Constants.sopEndpointURL + "galaxy/mpl"
 	
 }
 

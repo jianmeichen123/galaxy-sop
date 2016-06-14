@@ -9,6 +9,7 @@ var planGrid = {
 	domid : undefined,
 	init : 	function(data){
 		
+		
 		var gridFormatter = {
 				fileNameFormatter : function(value,row,index){
 					return row.fileName + "." + row.fileSuffix;
