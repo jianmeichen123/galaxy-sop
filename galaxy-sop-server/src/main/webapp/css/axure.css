@@ -1641,7 +1641,11 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .member table td .del{background:url(../img/btnico.png) 0 -61px no-repeat;margin-left: 15px;}
 .member table td .resume{background:url(../img/functionico.png) 0 -331px no-repeat;margin-right: 15px;}
 .member .bars{display:none;}
+.personName{padding-left:30px !important;}
+#tablePerson td{padding-left:35px !important;}
 /*股权结构*/
+.sharesType{padding-left:30px !important;}
+#shares-table td{padding-left:35px !important;}
 .stock{border-radius: 6px;}
 .title{height: 45px;line-height: 44px;border-bottom:1px solid #e6e8f1;padding:0 20px;position: relative;}
 .icon{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; width:20px; height:22px; display:block; float:left;margin: 11px 10px 0 0;}

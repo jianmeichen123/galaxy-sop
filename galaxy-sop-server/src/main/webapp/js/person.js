@@ -59,13 +59,14 @@ function getTabPerson(){
                   {
                     title: '姓名',
                       field: 'personName',
-                      align: 'center',
-                      valign: 'middle'
+                      align: 'left',
+                      valign: 'middle',
+                      class:'personName'
                   },
                   {
                     title: '性别',
                     field: 'personSex',
-                    align: 'center',
+                    align: 'left',
                     valign: 'middle',
                     formatter:function(value,row,index){ 
                      	if (row.personSex == 0) {
@@ -80,25 +81,25 @@ function getTabPerson(){
                     {
                         title: '年龄',
                           field: 'personAge',
-                          align: 'center',
+                          align: 'left',
                           valign: 'middle'
                      },
                      {
                           title: '当前职务',
                             field: 'personDuties',
-                            align: 'center',
+                            align: 'left',
                             valign: 'middle'
                   },
                   {
                       title: '电话',
                         field: 'personTelephone',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle'
                   },
                   {
                       title: '最高学历',
                         field: 'highestDegree',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
                         formatter:function(value,row,index){ 
                          	if (row.highestDegree == 1) {
@@ -124,13 +125,13 @@ function getTabPerson(){
                   {
                       title: '工作年限',
                         field: 'workTime',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle'
                   },
                   {
                       title: '操作',
                       field: 'id',
-                      align: 'center',
+                      align: 'left',
                       formatter:function(value,row,index){  
 	                   var a = '<span class="resume" onclick="tiaozhuan(\''+ row.id + '\')">个人简历</span>';;
 	                   var e = '<span class="edit" onclick="updatePer(\''+ row.id + '\')">编辑</span>';  
