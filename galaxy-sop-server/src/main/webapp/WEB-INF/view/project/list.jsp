@@ -64,7 +64,6 @@
           </ul>-->
         <!-- 搜索条件 -->
 		<div class="top clearfix" id="custom-toolbar">
-		 <form id='searchForm'>
           <div class="searchall_prj clearfix">
             <div class="searchall_top" data-btn="box">
                 <dl class="fmdl fml fmdll clearfix">
@@ -128,7 +127,6 @@
                 <a href="#" class="blue open ico1 f4" data-btn="show" style="display: block;">展开</a> <a href="#" class="blue searchbox_hidden hide ico1 f3" data-btn="hide" style="display: none;">收起</a>
             </div>
           </div>
-          </form>
         </div>
 		<div class="tab-pane active" id="view">	
 			<table id="project-table" data-url="project/search" data-height="555" 
@@ -191,9 +189,6 @@
 	function editor(value, row, index){
 		var id=row.id;
 		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'><span class=\"prc\">项目流程</span></a>";
-		if(row.projectStatus != 'meetingResult:3' && parseInt(row.createUid) == parseInt(userId)){
-			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'><span class=\'see\'>查看</span></a>";
-		}
 		return options;
 	}
 	
