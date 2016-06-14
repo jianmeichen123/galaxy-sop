@@ -798,7 +798,7 @@ function intervierInfoFormat(value, row, index){
 	var targerHtml="";
 	if(targetStr.length>8){
 		subStr = targetStr.substring(0,8)+"...";
-		targerHtml = "</br>访谈对象：<span title="+targetStr+">"+subStr+"</span>";
+		targerHtml = "</br>访谈对象：<label title="+targetStr+">"+subStr+"</label>";
 	}else{
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
