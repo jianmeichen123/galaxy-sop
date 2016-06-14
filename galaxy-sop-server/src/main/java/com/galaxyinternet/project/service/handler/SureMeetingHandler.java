@@ -129,6 +129,7 @@ public class SureMeetingHandler implements Handler {
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
 			tm.setStatus(DictEnum.meetingResult.否决.getCode());
+			tm.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
 		}
 		if(in == pin){
 			tm.setMeetingDate(q.getParseDate() == null ? new Date() : q.getParseDate());
