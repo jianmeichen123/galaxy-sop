@@ -249,7 +249,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 			result=ideaDao.updateById(idea);
 			if(idea.getIdeaProgress().equals("ideaProgress:4")&&result>=1){
 				Abandoned abandoned=new Abandoned();
-				User user = userService.queryById(idea.getClaimantUid());
+				User user = userService.queryById(idea.getGiveUpId());
 				abandoned.setAbUserid(user!=null?user.getId():0);
 				abandoned.setAbUsername(user!=null?user.getRealName():"");
 				abandoned.setIdeaId(idea.getId());
