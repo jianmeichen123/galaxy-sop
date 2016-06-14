@@ -374,7 +374,7 @@ public enum DictEnum {
 		资金拨付凭证("资金拨付凭证","fileWorktype:9"),
 		公司资料("公司资料","fileWorktype:10"),
 		财务预测报告("财务预测报告","fileWorktype:11"),
-		商业计划("商业计划","fileWorktype:12"),
+		商业计划("商业计划书","fileWorktype:12"),
 		业务尽职调查清单("业务尽职调查清单","fileWorktype:13"),
 		人力资源尽职调查清单("人力资源尽职调查清单","fileWorktype:14"),
 		法务尽职调查清单("法务尽职调查清单","fileWorktype:15"),
