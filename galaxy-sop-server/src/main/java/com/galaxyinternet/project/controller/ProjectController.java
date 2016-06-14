@@ -1923,11 +1923,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"所存在的更新文件丢失!"));
 			}
-			if (sopFile.getFileKey() == null) {
-				fileKey = String.valueOf(IdGenerator
-						.generateId(OSSHelper.class));
-			} else {
-				fileKey = sopFile.getFileKey();
+			if(sopFile != null){
+				if (sopFile.getFileKey() == null) {
+					fileKey = String.valueOf(IdGenerator
+							.generateId(OSSHelper.class));
+				} else {
+					fileKey = sopFile.getFileKey();
+				}
 			}
 			// 更新文件服务器信息
 			UploadFileResult result = uploadFileToOSS(request, fileKey,
@@ -2535,11 +2537,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		//toAddress =toAddress+"@galaxyinternet.com";
 		String content = MailTemplateUtils
 				.getContentByTemplate(Constants.MAIL_PQC_CONTENT);
-		String[] to = toAddress.split(";");
+		/*String[] to = toAddress.split(";");
 		if (to != null && to.length == 1) {
 			int atIndex = toAddress.lastIndexOf("@");
 			tzjlName = toAddress.substring(0, atIndex) + ":<br>您好!";
-		}
+		}*/
 		tzjlName = "您好!";
 		if (type == 0) {
 			content = MailTemplateUtils
