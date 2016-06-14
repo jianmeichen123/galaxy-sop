@@ -13,9 +13,13 @@ public class SpringContextManager implements ApplicationContextAware {
 	 * 实现ApplicationContextAware接口的回调方法，设置上下文环境
 	 */
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		SpringContextManager.applicationContext = applicationContext;
+		setApplicationContextValue(applicationContext);
 	}
 
+	public static void setApplicationContextValue(ApplicationContext applicationContext) {
+		SpringContextManager.applicationContext = applicationContext;
+	}
+	
 	public static ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}
