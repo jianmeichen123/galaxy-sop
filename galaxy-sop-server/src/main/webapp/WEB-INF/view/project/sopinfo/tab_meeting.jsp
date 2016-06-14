@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -22,8 +24,9 @@
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
+<script src="<%=path %>/js/sopinfo.js"></script>
 </head>
-</head>
+
 
 
 <body>
@@ -37,43 +40,50 @@
     <!--右中部内容-->
  	<div class="ritmin">
  	
-    	<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>Utter绝对潮流</div>
-    	
-    	<div class="new_tit_b">
-        	<span class="new_color size18">Utter绝对潮流</span><span class="new_color">ID987786600009</span>
-        	<span class="b_span"><a href="#">返回项目列表></a></span>
-        </div>
+    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
         
         
         <div class="new_left">
         	<div class="tabtable assessment label_static">
           	<!-- tab标签 -->
             <ul class="tablink">
-                <li data-tab="nav"><a href="javascript:;">基本信息</a></li>
-                <li data-tab="nav"><a href="javascript:;">团队成员</a></li>
-                <li data-tab="nav"><a href="javascript:;">股权结构</a></li>
-                <li data-tab="nav"><a href="javascript:;">访谈记录</a></li>
-                <li data-tab="nav" class="on"><a href="javascript:;">会议纪要</a></li>
-                <li data-tab="nav"><a href="javascript:;">项目文档</a></li>
-                <li data-tab="nav"><a href="javascript:;">操作日志</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',0)">基本信息</a></li>
+                <c:choose>
+	            <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
+                <li><a href="javascript:;" onclick="showTabs('${pid}',1)">团队成员</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',2)">股权结构</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',3)">访谈记录</a></li>
+                <li class="on"><a href="javascript:;" onclick="showTabs('${pid}',4)">会议纪要</a></li>
+                <li><a href="javascript:;">项目文档</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
+                </c:when>
+                <c:otherwise>
+                <li><a href="javascript:;" class="disabled">团队成员</a></li>
+                <li><a href="javascript:;" class="disabled">股权结构</a></li>
+                <li><a href="javascript:;" class="disabled">访谈记录</a></li>
+                <li><a href="javascript:;" class="disabled">会议纪要</a></li>
+				<li><a href="javascript:;" class="disabled">项目文档</a></li>
+                <li><a href="javascript:;" class="disabled">操作日志</a></li> 
+                </c:otherwise>
+             	</c:choose>
             </ul>
 
             
-            
-             <!-- 会议纪要 -->
-            <div data-tab="con" >   
-            	<div class="tabtable_con">
-            	
+             <!-- 会议纪要
+            <div data-tab="con" > 
+               -->
+            	<div class="member interview">
+            	    <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
                    <!--按钮-->
-					<!-- <div class="top clearfix"> -->
-					<div class="new_r_compile">
+					<div class="top clearfix">
 						<div class="btnbox_f btnbox_f1 clearfix">
-							<a href="#" onclick="toAddProMeet();" class="pubbtn lpubbtn bluebtn ico c4">添加会议纪要</a>
+							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut">添加会议纪要</a>
 						</div>
 					</div>
 
 					<!-- 会议信息 -->
-					<div id="custom-toolbar">
+					<div class="min_document clearfix" id="custom-toolbar">
+					<div class="bottom searchall clearfix">
 						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 						
 						<dl class="fmdl fmmr fmdll clearfix">
@@ -97,33 +107,34 @@
 								<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
 							</dd>
 							<dd>
-								<a href="javascript:;" class="bluebtn ico cx" action="querySearch">查询</a>
+								<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
 							</dd>
 						</dl>
 					</div>
-					
+					</div>
 					<table id="data-table"
 						data-url="<%=path%>/galaxy/project/progress/queryMeet" 
 						data-id-field="id" 
 						data-toolbar="#custom-toolbar">
 						<thead>
 							<tr>
-								<th data-field="meetinfo" data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-								<th data-field="meetingTypeStr" data-align="center" >会议类型</th>
-								<th data-field="meetingNotes" data-align="center" data-formatter="viewNotesFormat_noinfo">会议纪要</th>
+								<th data-field="meetinfo" data-align="center" data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
+								<th data-field="meetingTypeStr" data-align="center" data-class="no1_2">会议类型</th>
+								<th data-field="meetingNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
 								<th data-field="oper" data-align="center" data-formatter="meetOperFormat">操作</th>
 							</tr>
 						</thead>
 					</table>
-						
+					</c:if>	
                 </div>                 
-            </div>
-            <!--tab end-->
+           <!--  </div>
+           tab end-->
             
           </div>
         </div>
         
-        
+        <!--右边-->
+        <jsp:include page="./includeRight.jsp" flush="true"></jsp:include>
        
     </div>
  
@@ -154,7 +165,7 @@
 <script>
 
 	var proinfo = '${proinfo}';
-	proinfo = JSON.parse(proinfo);
+	//proinfo = JSON.parse(proinfo);
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var selectRow = null;
@@ -179,19 +190,61 @@ $(function(){
         search: false,
 	});
 	
-	$('[data-on="compile"]').on('click', function() {
-		$('.bj_hui_on').show();
-		$('.compile_on').show();
-	})
-	$('[data-on="close"]').on('click', function() {
-		$('.bj_hui_on').hide();
-		$('.compile_on').hide();
-	})
-	
+	//初始化按钮，是 添加会议，or 申请排期
+	if(index == 2 || index == 3 || index == 4 || index == 7 ){
+		button_init();
+	}else{
+		$("#proMeetBut").remove();
+	}
 });	
 	
 	
-	
+
+/**
+ * 初始化按钮，是 添加会议，or 申请排期
+ */
+function button_init(){
+	sendGetRequest(Constants.sopEndpointURL+"/galaxy/project/initpromeetbut/" + proid,null,button_init_callback);
+}
+function button_init_callback(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		layer.msg(data.result.message);
+		return;
+	}else{
+		/* 
+		<a href="#" onclick="toAddProMeet();"  class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut">添加会议纪要</a>
+		map.add = y/n/k 
+		 * 				y:可添加会议
+		 * 				n:不可以添加，需要排期
+		 * 				k:不允许添加
+		 * 		  map.meettype = meetingType:2
+		 * 		  map.butname = '添加立项会会议记录' / '申请立项会排期'
+		  */
+		 
+		var add = data.userData.add;
+		var meettype = data.userData.meettype;
+		var butname = data.userData.butname;
+		if(add == 'y'){
+			$("#proMeetBut").text(butname);
+			$("#proMeetBut").data("type",meettype);
+		}else if(add == 'n'){
+			$("#proMeetBut").text(butname);
+			$("#proMeetBut").removeAttr("onclick");
+			$("#proMeetBut").on("click", function(){
+				toMeetPool(meettype);
+			});
+		}else if(add == 'k'){
+			$("#proMeetBut").remove();
+		}else if(add == 'v'){
+			$("#proMeetBut").removeAttr("onclick");
+			$("#proMeetBut").text(butname);
+		}
+		
+	}
+}
+
+
 
 /**
  * 添加接触访谈纪要弹出层
@@ -202,6 +255,17 @@ function toAddProMeet(){
 		url:_url,
 		data:"",
 		okback:function(){
+			var type = $("#proMeetBut").data("type");
+			if(type){ 
+				$("input[name='meetingTypeTc'][value ='"+type+"']").attr("checked","checked");
+				$("input[name='meetingTypeTc']").attr("disabled","disabled").addClass("disabled");
+				
+				/* $("input[name='meetingTypeTc']").each(function(){
+					if(this.value != type){
+						this.parentNode.remove();
+					}
+				}); */
+			}
 			$("#proselect").remove();
 			initMeetUpload();
 			//$('.edui-container').show();
@@ -209,9 +273,6 @@ function toAddProMeet(){
 	});
 	return false;
 }
-
-
-
 //plupload 上传对象初始化, 绑定保存saveMeetFile
 function initMeetUpload() {
 	// 定义 上传插件 方法 、  plupload 上传对象初始化
@@ -246,13 +307,16 @@ function initMeetUpload() {
 					}else if(res.meetingType == 'meetingType:4'){
 						res.stage = "projectProgress:7";
 					}
-					
+					res.pid = proid;
+					res.createDate = res.meetingDateStr;
+					res.result=res.meetingResult;
+					res.content = res.meetingNotes;
 					var file = $("#fileName").val(); //up.files.length
 					if(file.length > 0){
 						up.settings.multipart_params = res;
 						meetuploader.start();
 					}else{
-						sendPostRequestByJsonObj(platformUrl.saveMeetFile,res,function(data){
+						sendPostRequestByJsonObj(platformUrl.stageChange,res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
 								$("#savemeet").removeClass("disabled");
@@ -260,13 +324,7 @@ function initMeetUpload() {
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
-								var _this = $("#data-table");
-								if(_this == null || _this.length == 0 || _this == undefined){
-									removePop1();
-								}else{
-									$("#data-table").bootstrapTable('refresh');
-									removePop1();
-								}
+								window.location.reload();
 							}
 						});
 					}
@@ -298,13 +356,7 @@ function initMeetUpload() {
 					return;
 				}else{
 					layer.msg("保存成功", {time : 500});
-					var _this = $("#data-table");
-					if(_this == null || _this.length == 0 || _this == undefined){
-						removePop1();
-					}else{
-						$("#data-table").bootstrapTable('refresh');
-						removePop1();
-					}
+					window.location.reload();
 				}
 			},
 			BeforeUpload:function(up){
@@ -322,13 +374,13 @@ function initMeetUpload() {
 
 
 
-
+//查看 or 编辑 会议纪要
 function meetOperFormat(value,row,index){
-	var info = "<a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看<a>";
+	var info = "<span  class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
 	if(userId==row.uid){
-		edit = "   <a href=\"javascript:;\" class=\"fffbtn  option_item_mark\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑<a>";
+		edit = " <span  class=\"edit blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
 	}
 	return info + edit;
 }
@@ -371,6 +423,101 @@ function interviewsave(){
 
 
 	
+
+
+//会议排期
+function toMeetPool(meetType){
+	var returnKey = '';
+	if(meetType == "meetingType:2"){
+		returnKey = applyCeoMeeting();
+	}else if(meetType == "p_meetingType:2"){
+		returnKey = toEstablishStage();
+	}else if(meetType == "meetingType:3"){
+		returnKey = toLxmeetingPool();
+	}else if(meetType == "meetingType:4"){
+		returnKey = inSureMeetingPool();
+	}
+	if(returnKey && returnKey == 'OK'){
+		$("#proMeetBut").text("待排期");
+		$("#proMeetBut").removeAttr("onclick");
+		$("#proMeetBut").off();
+	}
+}
+ /**
+  * CEO评审阶段申请立项会排期
+  */
+function toEstablishStage(){
+	var pid = proid;
+	var result = '';
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
+			result = data.result.status;
+			if(result == "OK"){ 
+				layer.msg("申请立项会成功!");
+			}else{
+				layer.msg(data.result.message);
+			}
+		});
+	}
+	return result;
+}
+/**
+ * 申请CEO评审排期
+ */
+function applyCeoMeeting(){
+	var pid = proid;
+	var result = '';
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(platformUrl.inCeoMeetingPool + pid, {}, function(data){
+			result = data.result.status;
+			if(result == "OK"){ 
+				layer.msg("申请CEO评审会成功!");
+			}else{
+				layer.msg(data.result.message);
+			}
+		});
+	}
+	return result;
+}
+/**
+ * 立项会阶段申请立项会排期
+ */
+function toLxmeetingPool(){
+	var pid = proid;
+	var result = '';
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(platformUrl.inLxmeetingPool + pid, {}, function(data){
+			result = data.result.status;
+			if(result == "OK"){ 
+				layer.msg("申请立项会成功!");
+			}else{
+				layer.msg(data.result.message);
+			}
+		});
+	}
+	return result;
+}
+/**
+ * 投决会--点击申请投决会按钮
+ */
+function inSureMeetingPool(){
+	var pid = proid;
+	var result = '';
+	if(pid != '' && pid != null && pid != undefined){
+		sendGetRequest(
+				platformUrl.inSureMeetingPool + pid,
+				null,
+				function(data){
+					result = data.result.status;
+					if(result == "OK"){ 
+						layer.msg("申请成功!");
+					}else{
+						layer.msg(data.result.message);
+					}
+				});
+	}
+	return result;
+}
 
 
 	

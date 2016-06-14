@@ -20,8 +20,6 @@ import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.template.SopTemplate;
@@ -332,6 +330,24 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 			logger.error("参数错误， type ="+type+", id="+id);
 		}
 	}
-
+	
+	/**
+	 * 团队成员的弹出层
+	 */
+	@RequestMapping(value="/personTab/{id}", method = RequestMethod.GET)
+	public String personTab(@PathVariable Long id, HttpServletRequest request){
+		
+		User user = (User) getUserFromSession(request);
+		boolean flag = false;
+		if(id != null){
+			Project pro = projectService.queryById(id);
+			if(pro.getCreateUid().longValue() == user.getId().longValue()){
+				flag = true;
+			}
+		}
+		request.setAttribute("flag", flag);
+		request.setAttribute("pid", id);
+		return "project/sopinfo/tab_person";
+	}
 	
 }

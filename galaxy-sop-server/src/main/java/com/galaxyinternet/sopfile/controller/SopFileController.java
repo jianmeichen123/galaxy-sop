@@ -77,6 +77,7 @@ import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.FileUtils;
 import com.galaxyinternet.utils.RoleUtils;
+import com.galaxyinternet.utils.RoleWorkTypeRule;
 
 @Controller
 @RequestMapping("/galaxy/sopFile")
@@ -254,22 +255,57 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			if ("dialog".equals(sopFile.getPageType())) {
 				sopFile.setFileWorktypeNullFilter("true");
 			} else {
-				// 角色判断(人事)
-				if (roleIdList.contains(UserConstant.HRZJ)
-						|| roleIdList.contains(UserConstant.HRJL)) {
+				
+				if (roleIdList.contains(UserConstant.HRZJ)) {
+					// 人事总监
+					List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
+					List<String> fileWorktypeList = new ArrayList<String>();
+					for(RoleWorkTypeRule roleWork : roleRuleList){
+						fileWorktypeList.add(roleWork.getWorkType());
+					}
+					sopFile.setFileworktypeList(fileWorktypeList);
+					List<String> fileStatusList = new ArrayList<String>();
+					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
+					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+					sopFile.setFileStatusList(fileStatusList);
+					sopFile.setFileValid(1);
+				} else if(roleIdList.contains(UserConstant.HRJL)){
+					// 人事经理
 					sopFile.setBelongUid(obj.getId());
-
-					
-					// 财务
-				} else if (roleIdList.contains(UserConstant.FWZJ)
-						|| roleIdList.contains(UserConstant.FWJL)) {
+				} else if (roleIdList.contains(UserConstant.FWZJ)) {
+					// 法务总监
+					List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
+					List<String> fileWorktypeList = new ArrayList<String>();
+					for(RoleWorkTypeRule roleWork : roleRuleList){
+						fileWorktypeList.add(roleWork.getWorkType());
+					}
+					sopFile.setFileworktypeList(fileWorktypeList);
+					List<String> fileStatusList = new ArrayList<String>();
+					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
+					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+					sopFile.setFileStatusList(fileStatusList);
+					sopFile.setFileValid(1);
+				} else if(roleIdList.contains(UserConstant.FWJL)){
+					// 法务经理
 					sopFile.setBelongUid(obj.getId());
-					// 法务
-				} else if (roleIdList.contains(UserConstant.CWZJ)
-						|| roleIdList.contains(UserConstant.CWJL)) {
+				} else if (roleIdList.contains(UserConstant.CWZJ)) {
+					// 财务总监
+					List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
+					List<String> fileWorktypeList = new ArrayList<String>();
+					for(RoleWorkTypeRule roleWork : roleRuleList){
+						fileWorktypeList.add(roleWork.getWorkType());
+					}
+					sopFile.setFileworktypeList(fileWorktypeList);
+					List<String> fileStatusList = new ArrayList<String>();
+					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
+					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+					sopFile.setFileStatusList(fileStatusList);
+					sopFile.setFileValid(1);
+				} else if(roleIdList.contains(UserConstant.CWJL)){
+					// 财务经理
 					sopFile.setBelongUid(obj.getId());
-					// 投资经理
 				} else if (roleIdList.contains(UserConstant.TZJL)) {
+					// 投资经理
 					Project project = new Project();
 					project.setCreateUid(obj.getId());
 					List<Project> projectList = proJectService
@@ -289,17 +325,16 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 						responseBody.setResult(new Result(Status.OK, ""));
 						return responseBody;
 					}
-					
-					// 档案管理员
 				} else if (roleIdList.contains(UserConstant.DAGLY)) {
+					// 档案管理员
 					List<String> fileStatusList = new ArrayList<String>();
 					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
 					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
 					sopFile.setFileStatusList(fileStatusList);
 					sopFile.setFileValid(1);
-					// 其他人怎么办
-				} else {
 					
+				} else {
+					// 其他人怎么办
 				}
 				sopFile.setFileWorktypeNullFilter("true");
 //				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
@@ -971,6 +1006,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 //		}
 		return responseBody;
 	}
+	/**
+	 * 获取最新商业计划书
+	 * @param request
+	 * @param projectId
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/getBusinessPlanFile/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopFile> getBusinessPlanFile(HttpServletRequest request,@PathVariable String projectId){
@@ -1000,6 +1041,46 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		
 	}
 	
+	/**
+	 * 跳转商业计划书页面
+	 * 2016-06-08
+	 * @return
+	 */
+	@RequestMapping(value="/toBusinessPlanHistory")
+	public String toBusinessPlanHistory(){
+		return "sopFile/businessPlanFileDialog";
+	}
 	
-	
+	/**
+	 * 获取商业计划历史
+	 * @param request
+	 * @param sopFile
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/searchBusinessPlanHistory",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> searchBusinessPlanHistory(HttpServletRequest request, @RequestBody SopFile sopFile) {
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		if(sopFile.getProjectId() == null){
+			responseBody.setResult(new Result(Status.ERROR, "项目ID不能为空"));
+			return responseBody;
+		}
+		try {
+			sopFile.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
+			PageRequest pageRequest = new PageRequest(sopFile.getPageNum(),sopFile.getPageSize(), Direction.DESC,
+					"created_time");
+			Page<SopFile> sopFilePage = sopFileService.queryFileList(sopFile, pageRequest);
+			if(sopFilePage.getContent().size()<=0){
+				responseBody.setResult(new Result(Status.OK,"null"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK,""));
+			responseBody.setPageList(sopFilePage);
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR,"系统出现异常"));
+		}
+		
+		return responseBody;
+	}
 }

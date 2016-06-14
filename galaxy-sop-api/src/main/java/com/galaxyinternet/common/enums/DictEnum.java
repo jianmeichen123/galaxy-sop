@@ -1,8 +1,5 @@
 package com.galaxyinternet.common.enums;
 
-import java.util.Map;
-
-
 public enum DictEnum {
 	
 	项目类型("项目类型","projectType"),
@@ -19,7 +16,10 @@ public enum DictEnum {
 	档案业务分类("档案业务分类","fileWorktype"),
 	档案存储类型("档案存储类型","fileType"),
 	档案来源("档案来源","fileSource"),
-	学历("学历","degree");
+	学历("学历","degree"),
+	融资状态("融资状态","financeStatus"),
+	项目状态("项目状态","projectStatus");
+	
 	private String name;
 
 	private String code;
@@ -233,6 +233,7 @@ public enum DictEnum {
 	
 	//会议状态
 	public enum meetingSheduleResult {
+		待申请排期("待排期",00),
 		待排期("待排期",0),
 		已排期("已排期",1),
 		已通过("已通过",2),
@@ -714,6 +715,117 @@ public enum DictEnum {
 			}
 			
 			
+		}
+		// 融资状态
+		public enum financeStatus {
+			尚未获投("尚未获投", "financeStatus:0"),
+			种子轮("种子轮", "financeStatus:1"),
+			天使轮("天使轮", "financeStatus:2"),
+			PreA轮("Pre-A轮", "financeStatus:3"),
+			A轮("A轮", "financeStatus:4"),
+			A2轮("A+轮", "financeStatus:5"),
+			PreB轮("Pre-B轮", "financeStatus:6"), 
+			B轮("B轮", "financeStatus:7"),
+			B2轮("B+轮", "financeStatus:8"),
+			C轮("C轮", "financeStatus:9"),
+			D轮("D轮", "financeStatus:10"),
+			E轮("E轮", "financeStatus:11"),
+			F轮上市前("F轮-上市前", "financeStatus:12"),
+			已上市("已上市", "financeStatus:13"),
+			新三板("新三板", "financeStatus:14"),
+			战略投资("战略投资", "financeStatus:15"),
+			已被收购("已被收购", "financeStatus:16");
+			private String name;
+			private String code;
+
+			private financeStatus(String name, String code) {
+				this.name = name;
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public String getCode() {
+				return code;
+			}
+
+			/**
+			 * 根据code get name
+			 * 
+			 * @param reslut
+			 * @return
+			 */
+			public static String getNameByCode(String code) {
+
+				if (code != null && !code.trim().equals("")) {
+
+					financeStatus[] values = financeStatus.values();
+					for (int i = 0; i < values.length; i++) {
+						if (code.equals(values[i].getCode())) {
+							return values[i].getName();
+						}
+					}
+				}
+				return null;
+			}
+			
+			
+		}
+		
+		
+		
+		/**
+		 * 项目状态    跟进中等
+		 * @author gxc
+		 * @Version  2016年6月8日
+		 */
+		public enum projectStatus
+		{
+			GJZ("跟进中"	 ,   "projectStatus:0"),
+			THYY("投后运营" ,  "projectStatus:1"),
+			YFJ("已否决"		,"projectStatus:2"),
+			YTC("已退出"		,"projectStatus:3");
+			private String name;
+			private String code;
+			
+			private projectStatus(String name, String code)
+			{
+				this.name = name;
+				this.code = code;
+			}
+
+			public String getName() {
+				return name;
+			}
+
+			public void setName(String name) {
+				this.name = name;
+			}
+
+			public String getCode() {
+				return code;
+			}
+
+			public void setCode(String code) {
+				this.code = code;
+			}
+			
+			public static String getNameByCode(String code) {
+				if (code != null && !code.trim().equals("")) 
+				{
+					projectStatus[] values = projectStatus.values();
+					for (int i = 0; i < values.length; i++) 
+					{
+						if (code.equals(values[i].getCode())) 
+						{
+							return values[i].getName();
+						}
+					}
+				}
+				return null;
+			}
 		}
 }
 

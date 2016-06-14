@@ -27,7 +27,7 @@
 
 <div class="meetingtc">
 	<div class="top clearfix">
-    	<div class="searchall clearfix">
+    	<div class="searchall clearfix" id="proselect">
             <dl>
             	<dt>项目 :</dt>
                 <dd>
@@ -50,7 +50,7 @@
     <div class="min clearfix">
     	<dl class="fmdl fml clearfix">
             <dt>会议类型：</dt>
-            <dd class="clearfix">
+            <dd class="clearfix" id="meetTypeRadio">
                 <label><input type="radio" name="meetingTypeTc" value="meetingType:1" checked="checked" />内评会</label>
                 <label><input type="radio" name="meetingTypeTc" value="meetingType:2"/>CEO评审</label>
                 <label><input type="radio" name="meetingTypeTc" value="meetingType:3"/>立项会</label>

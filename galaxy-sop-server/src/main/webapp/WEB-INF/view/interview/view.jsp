@@ -100,7 +100,7 @@
 					<tr>
 						<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<th  data-field="proName" data-align="center">所属项目</th>  
-						<th  data-field="viewNotes" data-align="center" data-formatter="formatInterview">访谈日志</th>
+						<th  data-field="viewNotes" data-align="center" data-formatter="viewNotesFormat">访谈日志</th>
 						<!-- <th  data-field="createdId" data-align="center"></th> -->
 					</tr>
 				</thead>

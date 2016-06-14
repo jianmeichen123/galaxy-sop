@@ -11,40 +11,45 @@ import com.galaxyinternet.framework.core.utils.NumberUtils;
 public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
-	 private String projectName;
-
+	private String projectName;
     private String projectCode;
-
+    private Long ideaId;
     private String projectType;
     private Integer stockTransfer;
-
     private String projectCareerline;
-
     private Long projectDepartid;
-
     private Double projectValuations;
     private Double projectContribution;
     private Integer currencyUnit;
     private Double projectShareRatio;
+    private String projectCompany;
+    private String projectCompanyCode;
+    private Long createUid;
+    private String createUname;
+    private String createUposition;
+    private String projectProgress;
+    private String projectStatus;
+    private String projectDescribe;
+    private String projectBusinessModel;
+    private String companyLocation;
+    private String userPortrait;
+    private String prospectAnalysis;
+    private String nextFinancingSource;
+    private String industryAnalysis;
+    private String operationalData;
+    //06-21版本更新字段
+  	private Long industryOwn;//行业归属
+  	private String financeStatus;//融资状态
+  	private Double finalValuations;//实际估值
+  	private Double finalContribution;//实际投资
+  	private Double finalShareRatio;//实际所占股份百分比
+  	private String companyLegal;//公司法人
+  	private Long formationDate;//公司成立时间
+  	//数据转换
     private String formatContribution;
     private String formatValuations;
     private String formatUnit;
     private String formatShareRatio;
-    
-    private String projectCompany;
-    
-    private String projectCompanyCode;
-
-    private Long createUid;
-
-    private String createUname;
-
-    private String createUposition;
-
-    private String projectProgress;
-
-    private String projectStatus;
-    
     private String nameCodeLike;
     //详情数据转换
   	private String createDate;
@@ -52,15 +57,19 @@ public class Project extends PagableEntity {
   	private String type;
   	private String progress;
     private  String  hhrName;
-    
+    //行业归属数据转换
+    private String industryOwnDs;
+    //项目进度状态数据转换
+    private String projectStatusDs;
+    //融资状态的数据转换
+    private String financeStatusDs;
     //in查询
     private List<Long> deptIdList;
-    
-    private Long ideaId;
-
-    
 	private Long startTime; 
 	private Long endTime;
+	
+	
+	
 	
     public Long getId() {
         return id;
@@ -249,27 +258,18 @@ public class Project extends PagableEntity {
     }
 
     public String getProjectStatus() {
+    	
         return projectStatus;
     }
 
     public void setProjectStatus(String projectStatus) {
+
         this.projectStatus = projectStatus == null ? null : projectStatus.trim();
+        if(projectStatus != null){
+			this.projectStatusDs = DictEnum.projectStatus.getNameByCode(projectStatus);
+		}
+
     }
-
-    
-    
-    private String projectDescribe;
-
-    private String projectBusinessModel;
-
-    private String companyLocation;
-
-    private String userPortrait;
-
-    private String prospectAnalysis;
-    private String nextFinancingSource;
-    private String industryAnalysis;
-    private String operationalData;
 
     public String getProjectDescribe() {
         return projectDescribe;
@@ -399,6 +399,83 @@ public class Project extends PagableEntity {
 		this.endTime = endTime;
 	}
 
+	
+	public Long getIndustryOwn() {
+		return industryOwn;
+	}
+
+	public void setIndustryOwn(Long industryOwn) {
+		this.industryOwn = industryOwn;
+	}
+
+	public String getFinanceStatus() {
+		return financeStatus;
+	}
+
+	public void setFinanceStatus(String financeStatus) {
+		this.financeStatus = financeStatus == null ? null: financeStatus.trim();
+        if(financeStatus != null){
+			this.financeStatusDs = DictEnum.financeStatus.getNameByCode(financeStatus);
+		}else{
+			this.financeStatusDs ="不明确";
+		}
+	}
+
+	public Double getFinalValuations() {
+		return finalValuations;
+	}
+
+	public void setFinalValuations(Double finalValuations) {
+		this.finalValuations = finalValuations;
+	}
+
+	public Double getFinalContribution() {
+		return finalContribution;
+	}
+
+	public void setFinalContribution(Double finalContribution) {
+		this.finalContribution = finalContribution;
+	}
+
+	public Double getFinalShareRatio() {
+		return finalShareRatio;
+	}
+
+	public void setFinalShareRatio(Double finalShareRatio) {
+		this.finalShareRatio = finalShareRatio;
+	}
+
+	public String getCompanyLegal() {
+		return companyLegal;
+	}
+
+	public void setCompanyLegal(String companyLegal) {
+		this.companyLegal = companyLegal;
+	}
+
+	public Long getFormationDate() {
+		return formationDate;
+	}
+
+	public void setFormationDate(Long formationDate) {
+		this.formationDate = formationDate;
+	}
+
+	public String getIndustryOwnDs() {
+		return industryOwnDs;
+	}
+
+	public void setIndustryOwnDs(String industryOwnDs) {
+		this.industryOwnDs = industryOwnDs;
+	}
+
+	public String getProjectStatusDs() {
+		return projectStatusDs;
+	}
+	public String getFinanceStatusDs() {
+		return financeStatusDs;
+	}
+
 	public String getNextFinancingSource() {
 		return nextFinancingSource;
 	}
@@ -423,6 +500,4 @@ public class Project extends PagableEntity {
 		this.operationalData = operationalData;
 	}
 
-	
-	
 }

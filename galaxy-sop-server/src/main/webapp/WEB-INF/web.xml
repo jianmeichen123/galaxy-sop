@@ -112,4 +112,10 @@
 		<filter-name>springSessionRepositoryFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping> -->
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://www.galaxyinternet.com/fx</taglib-uri>
+			<taglib-location>/WEB-INF/tld/fx-taglib.tld</taglib-location>
+		</taglib>
+	</jsp-config>
 </web-app>

@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -37,79 +39,110 @@
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
- 	<div class="ritmin">
-    	<h2>我的项目</h2>
+ 	<div class="ritmin prj_all">
+    	<div class="new_tit_a"><a href="#">工作桌面</a>>创投项目</div>
     	 <input type="hidden" id="project_id" value=""/>
     	 <input type="hidden" id="uid" value=""/>
-    	 
-        <!--页眉-->
-        <div class="top clearfix">
+    	 <c:choose>
+         <c:when test="${fx:hasRole(4)}">
+         <!--页眉-->
+         <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
                 <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4">添加项目</a>
                 <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
             </div>
-        </div>
+         </div>
+         </c:when>
+         <c:otherwise>
+         </c:otherwise>
+         </c:choose>
          <!--tips连接
           <ul class="tipslink tablink">
                 <li class="on"><a href="javascript:;" query-by="proType" query-val="1" >我的项目<span></span></a></li>
                 <li><a href="javascript:;"  query-by="proType" query-val="2">事业线项目<span></span></a></li>
           </ul>-->
         <!-- 搜索条件 -->
-		<div class="min_document clearfix" id="custom-toolbar">
-		     <input type="hidden"  id="tipslink_val" name="proType" value="1" />
-			<div class="bottom searchall clearfix search_adjust">
-				<dl class="fmdl fml fmdll clearfix">
-	              <dt>项目类型：</dt>
-	              <dd>
-	                <select name="projectType">
-	                  <option value="">全部</option>
-	                  <option value="projectType:1">外部投资</option>
-	                  <option value="projectType:2">内部创建</option>
-	                </select>
-	              </dd>
-	            </dl>
-	            <dl class="fmdl fml fmdll clearfix">
-	              <dt>项目进度：</dt>
-	              <dd>
-	                <select name="projectProgress">
-	                  <option value="">全部</option>
-	                  <option value="projectProgress:1">接触访谈</option>
-	                  <option value="projectProgress:2">内部评审</option>
-	                  <option value="projectProgress:3">CEO评审</option>
-	                  <option value="projectProgress:4">立项会</option>
-	                  <option value="projectProgress:5">投资意向书</option>
-	                  <option value="projectProgress:6">尽职调查</option>
-	                  <option value="projectProgress:7">投资决策会</option>
-	                  <option value="projectProgress:8">投资协议</option>
-	                  <option value="projectProgress:9">股权交割</option>
-	                  <option value="projectProgress:10">投后运营</option> 
-	                  <option value="guanbi">已关闭的项目</option>
-	                </select>
-	              </dd>
-	            </dl>
-				<dl class="fmdl fmdll clearfix">
-					<dt></dt>
-					<dd>
-						<input type="text" class="txt" name="keyword" placeholder="请输入项目名称或项目编码" value="${pname }" />
-					</dd>
-					<dd>
-						<button type="submit" class="bluebtn ico cx" action="querySearch">搜索</button>
-					</dd>
-				</dl>
-			</div>
-		</div>
+		<div class="top clearfix" id="custom-toolbar">
+          <div class="searchall_prj clearfix">
+            <div class="searchall_top" data-btn="box">
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>项目类型：</dt>
+                  <dd>
+                    <select name="projectType">
+                      <option index="-1" value="">全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>融资状态：</dt>
+                  <dd>
+                    <select name="financeStatus">
+                      <option index="-1" value="">全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>项目进度：</dt>
+                  <dd>
+                    <select name="projectProgress">
+                      <option index="-1" value="">全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>项目状态：</dt>
+                  <dd>
+                    <select name="projectStatus">
+                      <option index="-1" value="">全部</option>
+                    </select>
+                  </dd>
+                </dl>
+            </div>
+            <div class="searchall_bottom clearfix">
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>事业部：</dt>
+                  <dd>
+                    <select name="projectDepartid">
+                      <option value="0">全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                <dl class="fmdl fml fmdll clearfix">
+                  <dt>投资经理：</dt>
+                  <dd>
+                    <select name="createUid">
+                      <option value="0">全部</option>
+                    </select>
+                  </dd>
+                </dl>
+                <input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称或编号">
+                <div class="btn fr">
+                    <button type="submit" class="bluebtn cx_prj" action="querySearch">搜索</button>
+                    <input type="hidden" value="0" id="showResetBtn">
+                    <button class="pubbtn bluebtn reset none" id="resetBtn">重置</button>
+                </div>
+            </div>
+            <div class="show_more">
+                <a href="#" class="blue open ico1 f4" data-btn="show" style="display: block;">展开</a> <a href="#" class="blue searchbox_hidden hide ico1 f3" data-btn="hide" style="display: none;">收起</a>
+            </div>
+          </div>
+        </div>
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="project/spl" data-height="555" 
+			<table id="project-table" data-url="project/search" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
-			        	<th data-field="projectName" data-align="center" class="data-input" data-formatter="projectInfo">项目名称</th>
-			        	<th data-field="progress" data-align="center" class="data-input">项目进度</th>
-			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
-			        	<th data-field="createDate" data-align="center" class="data-input" data-sortable="true">创建日期<span class="caret1"></span></th>
-			        	<th data-align="center" class="col-md-2" data-formatter="editor">操作</th>
+			        	<th data-field="projectName" data-align="left" class="data-input" data-formatter="projectInfo">项目名称</th>
+			        	<th data-field="project_type" data-formatter="typeFormat" data-align="left" class="data-input sort" data-sortable="true">项目类型<span></span></th>
+			        	<th data-field="finance_status" data-formatter="financeStatusFormat" data-align="left" class="data-input sort" data-sortable="true">融资状态<span></span></th>
+			        	<th data-field="project_progress" data-formatter="projectProgress" data-align="left" class="data-input sort" data-sortable="true">项目进度<span></span></th>
+			        	<th data-field="project_status" data-formatter="projectStatusFormat" data-align="left" class="data-input sort" data-sortable="true">项目状态<span></span></th>
+			        	<th data-field="projectCareerline" data-align="left" class="data-input">事业部</th>
+			        	<th data-field="createUname" data-align="left" class="data-input">投资经理</th>
+			        	<th data-field="created_time" data-formatter="createdFormat" data-align="left" class="data-input sort" data-sortable="true">创建日期<span></span></th>
+			        	<th data-field="updated_time" data-formatter="updateFormat" data-align="left" class="data-input sort" data-sortable="true">最后编辑时间<span></span></th>
+			        	<th data-align="left" class="col-md-2" data-formatter="editor" data-class="noborder">操作</th>
  					</tr>	
  				</thead>
 			</table>
@@ -155,9 +188,9 @@
 	var uid='${galax_session_user.id }';
 	function editor(value, row, index){
 		var id=row.id;
-		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'>项目流程</a>";
+		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'><span class=\"prc\">项目流程</span></a>";
 		if(row.projectStatus != 'meetingResult:3' && parseInt(row.createUid) == parseInt(userId)){
-			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'>编辑项目</a>";
+			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'><span class=\'see\'>查看</span></a>";
 		}
 		return options;
 	}
@@ -169,12 +202,12 @@
 	}
 	
 	function proInfo(id){
-		forwardWithHeader(platformUrl.projectDetail + id);
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
 	}
 	
 	function refreshProjectList()
 	{
-		$("#data-table").bootstrapTable('refresh');
+		$("#project-table").bootstrapTable('refresh');
 	}
 	
 	$(function(){
@@ -183,6 +216,152 @@
 			info(pid);
 		}	
 	});
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 获取融资状态下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
+	/**
+	 * 获取项目类型下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectType","projectType");
+	/**
+	 * 获取项目进度下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectProgress","projectProgress");
+	/**
+	 * 获取项目状态下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"projectStatus","projectStatus");
+	/**
+	 * 查询事业线
+	 * @version 2016-06-21
+	 */
+	createCareelineOptions(platformUrl.getCareerlineList,"projectDepartid");
+	/**
+	 * 根据事业线查询相应的投资经理
+	 * @version 2016-06-21
+	 */
+    createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
+	$(function(){
+		/**
+		 * 初始化项目列表
+		 * @version 2016-06-21
+		 */
+		$('#project-table').bootstrapTable({
+			queryParamsType: 'size|page',
+			pageSize:10,
+			showRefresh : false ,
+			url : $('#data-table').attr("data-url"),
+			sidePagination: 'server',
+			method : 'post',
+			sortOrder : 'desc',
+			sortName : 'updated_time',
+			pagination: true,
+	        search: false,
+	        onLoadSuccess: function (data) {
+	        	if($("#showResetBtn").val() == '1'){
+	    			$("#resetBtn").removeClass("none");
+	    		}
+	        }
+		});
+		/**
+		 * 改变事业线时获取该事业线下的投资经理
+		 * @version 2016-06-21
+		 */
+		$('select[name="projectDepartid"]').change(function(){
+			var did = $('select[name="projectDepartid"]').val();
+		    createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+		});
+		/**
+		 * 控制"重置"按钮
+		 */
+		$('button[action="querySearch"]').click(function(){
+			$("#showResetBtn").val(1);
+		});
+		/**
+		 * "重置"操作
+		 */
+		$("#resetBtn").click(function(){
+			//clean selected status
+			$("select[name='projectType']").find("option[index='-1']").removeAttr("selected");
+			$("select[name='financeStatus']").find("option[index='-1']").removeAttr("selected");
+			$("select[name='projectProgress']").find("option[index='-1']").removeAttr("selected");
+			$("select[name='projectStatus']").find("option[index='-1']").removeAttr("selected");
+			$("select[name='projectDepartid']").find('option[back="link"]').removeAttr("selected");
+			//set selected status
+			$("select[name='projectType']").find("option[index='-1']").attr("selected",true);
+			$("select[name='financeStatus']").find("option[index='-1']").attr("selected",true);
+			$("select[name='projectProgress']").find("option[index='-1']").attr("selected",true);
+			$("select[name='projectStatus']").find("option[index='-1']").attr("selected",true);
+			$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
+			var did = $("select[name='projectDepartid']").find('option[back="link"]').val();
+			createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+			$('input[name="nameCodeLike"]').val("");
+			$("#resetBtn").addClass("none");
+		});
+	});
+	/**
+	 * 创建时间格式化
+	 * @version 2016-06-21
+	 */
+	function createdFormat(value,row,index){
+		return row.createDate;
+	}
+	/**
+	 * 更新时间格式化
+	 * @version 2016-06-21
+	 */
+	function updateFormat(value,row,index){
+		return row.updateDate;
+	}
+	/**
+	 * 项目状态格式化
+	 * @version 2016-06-21
+	 */
+	function projectStatusFormat(value,row,index){
+		return row.projectStatusDs;
+	}
+	/**
+	 * 项目进度格式化
+	 * @version 2016-06-21
+	 */
+	 function projectProgress(value,row,index){
+		var projectPro = row.projectProgress;
+		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
+		var proStatus = row.projectStatus;
+		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
+		if( pronum == 0){
+			return "<img src=\"<%=path%>/img/process/p"+num+".gif\" class=\"fl\">"+row.progress;
+		}else{
+			return "<img src=\"<%=path%>/img/process/pd"+num+".gif\" class=\"fl\">"+row.progress;
+		}
+	}
+	/**
+	 * 融资状态格式化
+	 * @version 2016-06-21
+	 */
+	function financeStatusFormat(value,row,index){
+		return row.financeStatusDs;
+	}
+	/**
+	 * 项目类型格式化
+	 * @version 2016-06-21
+	 */
+	function typeFormat(value,row,index){
+		return row.type;
+	}
 </script>
 
 </html>

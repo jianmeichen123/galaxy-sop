@@ -26,11 +26,16 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.Menus;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.RoleUtils;
 
 @Controller
@@ -48,6 +53,12 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	private String serverUrl;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private DictService dictService;
+	@Autowired
+	private DepartmentService departmentService;
+	@Autowired
+	private UserService userService;
 	
 	/**
 	 * 动态生成左边菜单项列表
@@ -87,7 +98,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		
 		if(roleIdList.contains(UserConstant.TZJL)){
 			//tabs.add(new Menus(4L, 0, "添加项目", u + "galaxy/app?" + params));
-			tabs.add(new Menus(5L, 0, "我的项目", u + "galaxy/mpl?" + params));
+			tabs.add(new Menus(5L, 0, "创投项目", u + "galaxy/mpl?" + params));
 			tabs.add(new Menus(21L, 0, "创意管理", u + "galaxy/idea?" + params));
 			tabs.add(new Menus(6L, 0, "访谈跟进", u + "galaxy/project/progress/interView?" + params));
 			tabs.add(new Menus(7L, 0, "会议纪要", u + "galaxy/project/progress/meetView?" + params));
@@ -132,7 +143,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.clear();
 			tabs.add(new Menus(1L, 0, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
 			//tabs.add(new Menus(3L, 0, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
-			tabs.add(new Menus(4L, 0, "项目查询", serverUrl +"sop/galaxy/cpl?" + params));
+			tabs.add(new Menus(4L, 0, "创投项目", serverUrl +"sop/galaxy/mpl?" + params));
 			tabs.add(new Menus(21L, 0, "创意管理", u + "galaxy/idea?" + params));
 			tabs.add(new Menus(5L, 0, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
 			tabs.add(new Menus(6L, 0, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
@@ -221,14 +232,87 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			}
 			responseBody.setResult(result);	
 		} catch (DaoException e) {
-			// TODO: handle exception
 			responseBody.setResult(new Result(Status.ERROR,"系统异常"));
 		}
 		return responseBody;
 		
 	}
 	
+	/**
+	 * 查询数据字典的子集
+	 * @version 2016-06-21
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getDictionaryList/{parentCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Dict> getDictionaryList(@PathVariable("parentCode") String parentCode,HttpServletRequest request) {
+		ResponseData<Dict> responseBody = new ResponseData<Dict>();
+		List<Dict> dictList = dictService.selectByParentCode(parentCode);
+		responseBody.setEntityList(dictList);
+		responseBody.setResult(new Result(Status.OK, null, "获取字典项成功！"));
+		return responseBody;
+	}
 	
+	/**
+	 * 查询事业线
+	 * @version 2016-06-21
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getCareerlineList", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Department> getCareerlineList(HttpServletRequest request) {
+		ResponseData<Department> responseBody = new ResponseData<Department>();
+		User user = (User) getUserFromSession(request);
+		
+		Department query = new Department();
+		query.setType(1);
+		List<Department> careerlineList = departmentService.queryList(query);
+		for(Department department : careerlineList){
+			if(user.getDepartmentId().longValue() == department.getId().longValue()){
+				department.setCurrentUser(true);
+				break;
+			}
+		}
+		responseBody.setEntityList(careerlineList);
+		responseBody.setResult(new Result(Status.OK, null, "获取事业线成功！"));
+		return responseBody;
+	}
+	
+	/**
+	 * 根据事业线查询相应的投资经理
+	 * @version 2016-06-21
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getUserList/{departmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<User> getUserList(@PathVariable("departmentId") Long departmentId, HttpServletRequest request) {
+		ResponseData<User> responseBody = new ResponseData<User>();
+		User currentUser = (User) getUserFromSession(request);
+		User user = new User();
+		List<Long> departmentIds = new ArrayList<Long>();
+		if(departmentId.longValue() == 0L){
+			Department query = new Department();
+			query.setType(1);
+			List<Department> careerlineList = departmentService.queryList(query);
+			for(Department d : careerlineList){
+				departmentIds.add(d.getId());
+			}
+		}else{
+			departmentIds.add(departmentId);
+		}
+		user.setDepartmentIds(departmentIds);
+		List<User> userList = userService.queryList(user);
+		List<User> responseUserList = new ArrayList<User>();
+		List<Long> uids = userRoleService.selectUserIdByRoleId(UserConstant.TZJL);
+		for(User u : userList){
+			if(uids.contains(u.getId())){
+				if(u.getId().intValue() == currentUser.getId().intValue()){
+					u.setCurrentUser(true);
+				}
+				responseUserList.add(u);
+			}
+		}
+		responseBody.setEntityList(responseUserList);
+		responseBody.setResult(new Result(Status.OK, null, "获取投资经理成功！"));
+		return responseBody;
+	}
 	
 
 }
