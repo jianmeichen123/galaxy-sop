@@ -45,7 +45,7 @@
            
             
             <div class="correlation">相关操作</div>
-            <c:if test="${fx:isCreatedByUser('project',projectId)}">
+            <c:if test="${ projectInfo.projectStatus != 'projectStatus:2' and projectInfo.projectStatus != 'projectStatus:3' and fx:isCreatedByUser('project',projectId) }">
             <div class="new_correlation_cen">
             	<span class="bluebtn new_btn" onclick="closePro()">否决项目</span>
             </div>
@@ -85,7 +85,7 @@ var prograss = projectInfo.projectProgress;
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
-var index = Number(prograss.substring(prograss.length-1,prograss.length));
+var index = Number(prograss.substring("projectProgress:".length,prograss.length));
 
 
 $(function(){
@@ -101,6 +101,7 @@ $(function(){
 	$("#view_more").on("click", function(){
 		toInterView(proid);
 	});
+	
  	//无会议记录
 	var len=$("#near_meet .new_b_bottom").length;
 	if(len==0){

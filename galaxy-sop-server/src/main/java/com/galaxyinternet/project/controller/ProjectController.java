@@ -1467,8 +1467,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if (project == null) {
 			return new Result(Status.ERROR, null, "未找到相应的项目信息!");
 		}
-		if (project.getProjectStatus().equals(
-				DictEnum.meetingResult.否决.getCode())) {
+		if (project.getProjectStatus().equals("projectStatus:2") || project.getProjectStatus().equals("projectStatus:3")) {
 			return new Result(Status.ERROR, null, "项目已关闭!");
 		}
 

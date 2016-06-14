@@ -110,7 +110,8 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 	public String errMessage(Project project,User user,String prograss){
 		if(project == null){
 			return "项目检索为空";
-		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())){ //字典 项目状态 = 会议结论 关闭
+		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())||project.getProjectStatus().equals("meetingResult:3") ||  
+				project.getProjectStatus().equals("projectStatus:2") || project.getProjectStatus().equals("projectStatus:3")){ //字典 项目状态 = 会议结论 关闭
 			return "项目已经关闭";
 		}
 		if(user != null){
