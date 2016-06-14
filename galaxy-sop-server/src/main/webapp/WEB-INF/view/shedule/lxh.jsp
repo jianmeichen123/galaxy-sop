@@ -88,7 +88,7 @@
 				    <tr>
 				        <th data-align="center" class="data-input" data-formatter="indexFormatter">#</th>
 				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>
-				    	<th data-field="projectName" data-align="center" class="data-input">项目名称</th>
+				    	<th data-field="projectName" data-align="center" class="data-input" data-formatter="projectNameFormatter">项目名称</th>
 				    	<th data-field="scheduleStatus" data-align="center" class="data-input" data-formatter="statusFormatter">排期状态</th>
 				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormat" data-sortable="true" data-sortorder="desc">上次过会时间<span class="caret1"></span></th>
 				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
@@ -147,6 +147,9 @@
 	function indexFormatter(value, row, index){
 		var str = index+1;
 		return str;
+	}
+	function projectNameFormatter(value, row, index){
+		return '<a href="#" class="blue" onclick="forwardWithHeader(\'' + platformUrl.projectDetail+row.projectId + '\')">'+row.projectName+'</a>';
 	}
 	function statusFormatter(value, row, index){
 		var status = "待排期";
