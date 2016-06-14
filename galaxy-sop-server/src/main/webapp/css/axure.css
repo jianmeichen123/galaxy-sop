@@ -1595,6 +1595,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .compile_on_right_q{ background-color:#fff; border:1px solid #ccd2d7; display:block; text-align:center; line-height:35px; height:35px;}
 .new_nputr{ line-height:20px; width:200px; line-height:20px; overflow:hidden;}
 .new_nputr_number{line-height:20px; width:90px; line-height:20px; overflow:hidden;}
+.no_con{height:105px;color:#aaa;font-size:12px;font-family:"宋体";background:url(../img/default.png) center 60px no-repeat;text-align:center;padding-top:120px;display:none;}
+.new_correlation_cen_con{height:225px;}
 /*全部项目*/
 .btnbox_f .add_prj{border:1px solid #539be2;}
 .searchall_prj{width:100%;padding:10px 0;background-color: #d6d8e1;border-radius: 4px;margin-top: 10px;position: relative;}
@@ -1637,7 +1639,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .member table{margin-bottom:20px !important;}
 .member table th,.member table td{text-align: left;padding-left: 30px;}
 .member table td .del{background:url(../img/btnico.png) 0 -61px no-repeat;margin-left: 15px;}
-.member table td .resume{background:url(../img/functionico.png) 0 -159px no-repeat;margin-right: 15px;}
+.member table td .resume{background:url(../img/functionico.png) 0 -331px no-repeat;margin-right: 15px;}
 .member .bars{display:none;}
 /*股权结构*/
 .stock{border-radius: 6px;}
