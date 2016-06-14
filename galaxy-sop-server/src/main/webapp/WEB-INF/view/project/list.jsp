@@ -133,16 +133,16 @@
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="projectName" data-align="left" class="data-input" data-formatter="projectInfo">项目名称</th>
-			        	<th data-field="project_type" data-formatter="typeFormat" data-align="left" class="data-input sort" data-sortable="true">项目类型<span></span></th>
-			        	<th data-field="finance_status" data-formatter="financeStatusFormat" data-align="left" class="data-input sort" data-sortable="true">融资状态<span></span></th>
-			        	<th data-field="project_progress" data-formatter="projectProgress" data-align="left" class="data-input sort" data-sortable="true">项目进度<span></span></th>
-			        	<th data-field="project_status" data-formatter="projectStatusFormat" data-align="left" class="data-input sort" data-sortable="true">项目状态<span></span></th>
-			        	<th data-field="projectCareerline" data-align="left" class="data-input">事业部</th>
-			        	<th data-field="createUname" data-align="left" class="data-input">投资经理</th>
-			        	<th data-field="created_time" data-formatter="createdFormat" data-align="left" class="data-input sort" data-sortable="true">创建日期<span></span></th>
-			        	<th data-field="updated_time" data-formatter="updateFormat" data-align="left" class="data-input sort" data-sortable="true">最后编辑时间<span></span></th>
-			        	<th data-align="left" class="col-md-2" data-formatter="editor" data-class="noborder">操作</th>
+			        	<th data-field="projectName" data-align="left" class="data-input" data-formatter="projectInfo" data-width="16%">项目名称</th>
+			        	<th data-field="project_type" data-formatter="typeFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">项目类型<span></span></th>
+			        	<th data-field="finance_status" data-formatter="financeStatusFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
+			        	<th data-field="project_progress" data-formatter="projectProgress" data-align="left" class="data-input sort" data-sortable="true" data-width="12%">项目进度<span></span></th>
+			        	<th data-field="project_status" data-formatter="projectStatusFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
+			        	<th data-field="projectCareerline" data-align="left" class="data-input" data-width="9%">事业部</th>
+			        	<th data-field="createUname" data-align="left" class="data-input" data-width="12%">投资经理</th>
+			        	<th data-field="created_time" data-formatter="createdFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
+			        	<th data-field="updated_time" data-formatter="updateFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">最后编辑时间<span></span></th>
+			        	<th data-align="left" class="col-md-2" data-formatter="editor" data-class="noborder" data-width="8%">操作</th>
  					</tr>	
  				</thead>
 			</table>
