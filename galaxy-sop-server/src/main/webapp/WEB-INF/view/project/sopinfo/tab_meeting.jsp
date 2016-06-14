@@ -191,8 +191,10 @@ $(function(){
 	});
 	
 	//初始化按钮，是 添加会议，or 申请排期
-	if(index == 2 || index == 3 || index == 4 || index == 7 ){
-		button_init();
+	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3'){
+		$("#proMeetBut").remove();
+	}else if(index == 2 || index == 3 || index == 4 || index == 7 ){
+		checkToShowBut(); 
 	}else{
 		$("#proMeetBut").remove();
 	}
