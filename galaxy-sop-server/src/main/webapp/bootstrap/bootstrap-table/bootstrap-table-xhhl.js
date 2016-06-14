@@ -1531,9 +1531,10 @@
         // show no records
         if (!html.length) {
             html.push('<tr class="no-records-found">',
-                sprintf('<td colspan="%s">%s</td>',
+                sprintf('<td colspan="%s" style="text-align:center;color:#aaa;">%s</td>',
                     this.$header.find('th').length, this.options.formatNoMatches()),
                 '</tr>');
+           /* html.push('<div class="no-records-found" style="width:150px;margin:0 auto;">没有找到匹配的记录</div>');*/
         }
 
         this.$body.html(html.join(''));
