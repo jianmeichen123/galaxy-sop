@@ -329,7 +329,7 @@ function getProjectInfo(dtd)
 			<div class="tabtable_con_on">
 				<div class='portrayal_center'>
 					<div class="new_r_compile ">
-						<span class="new_ico_firm"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
+						<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 						<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
@@ -352,6 +352,7 @@ function getProjectInfo(dtd)
 				</div>
 				
 			</div>
+			
 			
 			<!--产品服务-->
 			<div class="tabtable_con_on">
@@ -381,11 +382,39 @@ function getProjectInfo(dtd)
 				
 			</div>
 
+			<!--竞情分析-->
+			<div class="tabtable_con_on">
+				<div class='analysis_center'>
+					<div class="new_r_compile ">
+						<span class="new_ico_jq"></span> <span class="new_color size16">竞情分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
+						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<span class="new_fctbox"> 
+							<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
+						</span>
+						</c:if>
+					</div>
+					<div class="new_ul_all">
+						<span class="ico_dot ico"></span>
+						<p id="analysis_show"></p>
+					</div>
+				</div>
+				<div class='analysis_on'>
+					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="compile_on_right_b" id="save_analysis">保存</span>
+                           <span class="compile_on_right_q" data-name='analysis' data-on="close">取消</span>
+                       </div>  
+                   </div>
+				</div>
+				
+			</div>
+			
 			<!--运营数据-->
 			<div class="tabtable_con_on">
 				<div class='operation_center'>
 					<div class="new_r_compile ">
-						<span class="new_ico_product"></span> <span class="new_color size16">运营数据</span> <span class="bj_ico" id="operational_data">暂无数据</span>
+						<span class="new_ico_run"></span> <span class="new_color size16">运营数据</span> <span class="bj_ico" id="operational_data">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='operation' data-on="data-open">编辑</a>
@@ -414,7 +443,7 @@ function getProjectInfo(dtd)
 			<div class="tabtable_con_on">
 				<div class='industry_center'>
 					<div class="new_r_compile ">
-						<span class="new_ico_product"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
+						<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
@@ -438,40 +467,14 @@ function getProjectInfo(dtd)
 				
 			</div>
 			
-			<!--竞情分析-->
-			<div class="tabtable_con_on">
-				<div class='analysis_center'>
-					<div class="new_r_compile ">
-						<span class="new_ico_product"></span> <span class="new_color size16">竞情分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
-						<span class="new_fctbox"> 
-							<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
-						</span>
-						</c:if>
-					</div>
-					<div class="new_ul_all">
-						<span class="ico_dot ico"></span>
-						<p id="analysis_show"></p>
-					</div>
-				</div>
-				<div class='analysis_on'>
-					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
-                    <div class="compile_on_center">
-                       <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_analysis">保存</span>
-                           <span class="compile_on_right_q" data-name='analysis' data-on="close">取消</span>
-                       </div>  
-                   </div>
-				</div>
-				
-			</div>
+			
 			
 
 			<!--下一轮融资路径-->
 			<div class="tabtable_con_on">
 				<div class='next_financing_center'>
 					<div class="new_r_compile ">
-						<span class="new_ico_product"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" id="next_financing_source">暂无数据</span>
+						<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" id="next_financing_source">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 						<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open">编辑</a>
@@ -529,6 +532,7 @@ var projectId = <%=projectId%>;
 $(function(){
 	createMenus(5);
 	UM.getEditor('editor');
+	UM.getEditor('describe_editor');
 	UM.getEditor('company_editor');
 	UM.getEditor('portrayal_editor');
 	UM.getEditor('operation_editor');

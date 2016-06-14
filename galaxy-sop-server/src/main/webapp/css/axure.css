@@ -1427,17 +1427,23 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     background-position: 0 -177px;
     padding: 0 0 0 22px;
 }
-.new_ul_all .ico_dot{
-	 background-position: 5px -200px;
-    padding: 0 0 0 22px;
-	margin-top:7px;
-}
 .new_fctbox .ico {
     background: url(../img/functionico.png) no-repeat;
     height: 18px;
     line-height: 18px;
     float: left;
     margin-top: 3px;
+}
+.new_ul_all .ico {
+    background: url(../img/functionico.png) no-repeat;
+    height: 18px;
+    line-height: 18px;
+    float: left;
+}
+.new_ul_all .ico_dot{
+	 background-position: 5px -200px;
+    padding: 0 0 0 22px;
+	margin-top:9px;
 }
 /* .ico {
     background: url(../img/functionico.png) no-repeat;
@@ -1460,8 +1466,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_ico_product{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -127px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_jq{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -152px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_run{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -178px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
-.new_ico_nex{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -178px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
-.new_ico_industry{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -178px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_nex{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -159px -27px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_industry{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -129px -27px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .tabtable_con_on {
     background-color: #fff;
     overflow: hidden;
