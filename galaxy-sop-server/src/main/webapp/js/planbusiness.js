@@ -181,8 +181,13 @@ var initPage = {
 			dom.html(planNameHtml + planStatusHtml + planUpdateTimeHtml + operatorHtml);
 			if(data.result.status=="OK"){
 				//为空时候显示
-				if(data.result.errorCode=="null"){				
-					operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>上传</a>";
+				if(data.result.errorCode=="null"){	
+					console.log(isCreatedByUser);
+					console.log(isCreatedByUser == 'true');
+					if(isCreatedByUser == 'true')
+					{
+						operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>上传</a>";
+					}
 				}else{
 					
 					//文档名称
@@ -192,8 +197,11 @@ var initPage = {
 					//更新时间
 					dom.find("#plan_update_time").html(data.entity.createDate);
 					//操作类型
-					operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>更新</a>" +
-										 "<a href='javascript:;' class='ico f2' data-btn='describe' id='download_btn'>查看</a>" +
+					if(isCreatedByUser == 'true')
+					{
+						operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>更新</a>" ;
+					}
+					operatorDetailHtml += "<a href='javascript:;' class='ico f2' data-btn='describe' id='download_btn'>查看</a>" +
 										 "<a href='javascript:;' class='ico new2' data-btn='describe' id='show_history_btn'>查看历史</a>";
 				}
 			}
