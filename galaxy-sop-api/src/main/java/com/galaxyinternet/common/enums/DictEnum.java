@@ -662,7 +662,7 @@ public enum DictEnum {
 			IdeaProgress[] ideaP = IdeaProgress.values();
 			String name = "";
 			for (IdeaProgress aidea : ideaP) {
-				if (code == aidea.getCode()) {
+				if (code.equals(aidea.getCode())) {
 					name = aidea.getName();
 					break;
 				}
