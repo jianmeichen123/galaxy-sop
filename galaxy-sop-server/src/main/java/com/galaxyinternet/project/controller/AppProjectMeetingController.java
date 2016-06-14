@@ -438,9 +438,12 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 		public String errMessage(Project project,User user,String prograss){
 			if(project == null){
 				return "项目检索为空";
-			}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())){ //字典 项目状态 = 会议结论 关闭
+			}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())||project.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){ //字典 项目状态 = 会议结论 关闭
 				return "项目已经关闭";
+			}else if(project.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){ //字典 项目状态 = 会议结论 关闭
+				return "项目已退出";
 			}
+			
 			if(user != null){
 				if(project.getCreateUid()==null || user.getId().longValue()!=project.getCreateUid().longValue()){ 
 					return "不允许操作他人项目";

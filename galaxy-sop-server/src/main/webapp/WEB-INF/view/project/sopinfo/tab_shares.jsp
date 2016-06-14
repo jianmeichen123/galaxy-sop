@@ -62,12 +62,12 @@
   	<table id="shares-table" data-height="555" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true">
    	<thead>
 	    <tr>
-	    	<th data-field="sharesType" data-align="center" class="data-input">类型</th>
-        	<th data-field="sharesOwner" data-align="center" class="data-input">所有人</th>
-        	<th data-field="sharesRatio" data-align="center" class="data-input">占比</th>
-        	<th data-field="gainMode" data-align="center" class="data-input">获取方式</th>
-        	<th data-field="remark" data-align="center" class="data-input" >备注</th>
-        	<th data-align="center" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
+	    	<th data-field="sharesType" data-align="left" class="data-input sharesType">类型</th>
+        	<th data-field="sharesOwner" data-align="left" class="data-input">所有人</th>
+        	<th data-field="sharesRatio" data-align="left" class="data-input">占比</th>
+        	<th data-field="gainMode" data-align="left" class="data-input">获取方式</th>
+        	<th data-field="remark" data-align="left" class="data-input" >备注</th>
+        	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
 			</tr>	
 		</thead>
 	</table>

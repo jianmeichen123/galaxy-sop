@@ -54,7 +54,7 @@
                 <li><a href="javascript:;" onclick="showTabs('${pid}',2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs('${pid}',3)">访谈记录</a></li>
                 <li class="on"><a href="javascript:;" onclick="showTabs('${pid}',4)">会议纪要</a></li>
-                <li><a href="javascript:;">项目文档</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',5)">项目文档</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
                 </c:when>
                 <c:otherwise>
@@ -118,10 +118,10 @@
 						data-toolbar="#custom-toolbar">
 						<thead>
 							<tr>
-								<th data-field="meetinfo" data-align="center" data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
-								<th data-field="meetingTypeStr" data-align="center" data-class="no1_2">会议类型</th>
-								<th data-field="meetingNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
-								<th data-field="oper" data-align="center" data-formatter="meetOperFormat">操作</th>
+								<th data-field="meetinfo" data-align="left" data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
+								<th data-field="meetingTypeStr" data-align="left" data-class="no1_2">会议类型</th>
+								<th data-field="meetingNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
+								<th data-field="oper" data-align="left" data-formatter="meetOperFormat">操作</th>
 							</tr>
 						</thead>
 					</table>
@@ -191,8 +191,10 @@ $(function(){
 	});
 	
 	//初始化按钮，是 添加会议，or 申请排期
-	if(index == 2 || index == 3 || index == 4 || index == 7 ){
-		button_init();
+	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3'){
+		$("#proMeetBut").remove();
+	}else if(index == 2 || index == 3 || index == 4 || index == 7 ){
+		checkToShowBut(); 
 	}else{
 		$("#proMeetBut").remove();
 	}

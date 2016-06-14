@@ -159,7 +159,7 @@ function getProjectInfo(dtd)
 						<tr>
 							<td><span class="new_color_gray">行业归属：</span><span class="new_color_black" id="industryOwnDs"></span></td>
 							<td><span class="new_color_gray" >投资经理：</span>
-								<span class="new_color_black" id="createUname"></span><span class="new_color_gray" id="projectCareerline"></span></td>
+								<span class="new_color_black" id="createUname"></span><span>(</span><span class="new_color_gray" id="projectCareerline"></span><span>)</span></td>
 						</tr>
 						
 					<tr>
@@ -177,11 +177,11 @@ function getProjectInfo(dtd)
 					</div>
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 						<tr>
-							<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span></td>
-							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span></td>
+							<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span><span>&nbsp;万元人民币</span></td>
+							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span><span>&nbsp;万元人民币</span></td>
 						</tr>
 						<tr>
-							<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"></span></td>
+							<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"></span><span>&nbsp;%</span></td>
 						</tr>
 					</table>
 					
@@ -191,11 +191,11 @@ function getProjectInfo(dtd)
 					</div>
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 						<tr>
-							<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution">万人民币</span></td>
-							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations">万人民</span></td>
+							<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution"></span><span>&nbsp;万元人民币</span></td>
+							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations"></span><span>&nbsp;万元人民币</span></td>
 						</tr>
 						<tr>
-							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio">%</span></td>
+							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio"></span><span>&nbsp;%</span></td>
 						</tr>
 					</table>
 				</div>
@@ -232,11 +232,11 @@ function getProjectInfo(dtd)
 				        </div>  
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="project_contribution_edit" />　万人民币</span></td>
-				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" id="project_valuations_edit" />　万人民</span></td>
+				                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="project_contribution_edit" />　&nbsp;万元人民币</span></td>
+				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input readonly="readonly" class="new_nputr_number" id="project_valuations_edit" />&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" id="project_share_ratio_edit" />　%</span></td>
+				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" id="project_share_ratio_edit" />　&nbsp;%</span></td>
 				            </tr>
 				        </table>
 				        <!--实际投资-->
@@ -246,11 +246,11 @@ function getProjectInfo(dtd)
 				        </div>  
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="finalContribution_edit"/>　万人民币</span></td>
-				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" id="finalValuations_edit"/>　万人民</span></td>
+				                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="finalContribution_edit"/>&nbsp;　万元人民币</span></td>
+				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input readonly="readonly" class="new_nputr_number" id="finalValuations_edit"/>&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" id="finalShareRatio_edit" />　%</span></td>
+				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" id="finalShareRatio_edit" />&nbsp;　%</span></td>
 				     		</tr>
 				        </table>
 				    </div>
@@ -534,8 +534,9 @@ $(function(){
 	UM.getEditor('editor');
 	UM.getEditor('describe_editor');
 	UM.getEditor('company_editor');
-	UM.getEditor('portrayal_editor');
+	UM.getEditor('portrait_editor');
 	UM.getEditor('operation_editor');
+	UM.getEditor('business_editor');
 	UM.getEditor('industry_editor');
 	UM.getEditor('analysis_editor');
 	UM.getEditor('next_financing_editor');
