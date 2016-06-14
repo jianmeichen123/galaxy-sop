@@ -151,7 +151,7 @@ $(function(){
 		var data = {
 				_projectId : pid,
 				_projectName : projectInfo.projectName,
-				_domId :　'business_plan'			
+				_domId :'business_plan'			
 		}
 		initPage.init(data);
 		/**
@@ -281,7 +281,7 @@ function saveSuccess(){
 $("#save_describe").click(function(){
 	var um = UM.getEditor('describe_editor');
 	var projectDescribe = um.getContent();
-	if(pid != '' && projectDescribe != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess());
 	}
 });
@@ -291,7 +291,7 @@ $("#save_describe").click(function(){
 $("#save_location").click(function(){
 	var um = UM.getEditor('company_editor');
 	var companyLocation = um.getContent();
-	if(pid != '' && companyLocation != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "companyLocation" : companyLocation}, saveSuccess());
 	}
 });
@@ -301,7 +301,7 @@ $("#save_location").click(function(){
 $("#save_portrait").click(function(){
 	var um = UM.getEditor('portrait_editor');
 	var userPortrait = um.getContent();
-	if(pid != '' && userPortrait != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
 	}
 });
@@ -311,7 +311,7 @@ $("#save_portrait").click(function(){
 $("#save_business").click(function(){
 	var um = UM.getEditor('business_editor');
 	var projectBusinessModel = um.getContent();
-	if(pid != '' && projectBusinessModel != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveSuccess());
 	}
 });
@@ -321,7 +321,7 @@ $("#save_business").click(function(){
 $("#save_operation").click(function(){
 	var um = UM.getEditor('operation_editor');
 	var operationalData = um.getContent();
-	if(pid != '' && operationalData != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "operationalData" : operationalData}, saveSuccess());
 	}
 });
@@ -332,7 +332,7 @@ $("#save_operation").click(function(){
 $("#save_industry").click(function(){
 	var um = UM.getEditor('industry_editor');
 	var industryAnalysis = um.getContent();
-	if(pid != '' && industryAnalysis != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "industryAnalysis" : industryAnalysis}, saveSuccess());
 	}
 });
@@ -343,7 +343,7 @@ $("#save_industry").click(function(){
 $("#save_analysis").click(function(){
 	var um = UM.getEditor('analysis_editor');
 	var prospectAnalysis = um.getContent();
-	if(pid != '' && prospectAnalysis != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "prospectAnalysis" : prospectAnalysis}, saveSuccess());
 	}
 });
@@ -353,7 +353,7 @@ $("#save_analysis").click(function(){
 $("#save_next_financing").click(function(){
 	var um = UM.getEditor('next_financing_editor');
 	var nextFinancingSource = um.getContent();
-	if(pid != '' && nextFinancingSource != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveSuccess());
 	}
 });
