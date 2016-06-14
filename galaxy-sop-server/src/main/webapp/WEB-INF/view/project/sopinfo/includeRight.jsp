@@ -58,7 +58,10 @@
             	近期会议纪要
 				<span class="more null new_righ" id="meet_more" style="cursor: pointer;" >more</span>
 			</div>
-            <div class="new_correlation_cen" id="near_meet">
+            <div class="new_correlation_cen new_correlation_cen_con" id="near_meet">
+            <div class="no_con">
+            		暂无会议纪要
+            	</div>
             </div>
             
              
@@ -66,7 +69,10 @@
             <div class="correlation">近期访谈记录
 				<span class="more null new_righ" id="view_more" style="cursor: pointer;" >more</span>
 			</div>
-            <div class="new_correlation_cen" id="near_view">
+            <div class="new_correlation_cen new_correlation_cen_con" id="near_view">
+            	<div class="no_con">
+            		暂无访谈记录
+            	</div>
             </div>
             
         </div>
@@ -95,6 +101,16 @@ $(function(){
 	$("#view_more").on("click", function(){
 		toInterView(proid);
 	});
+ 	//无会议记录
+	var len=$("#near_meet .new_b_bottom").length;
+	if(len==0){
+		$("#near_meet .no_con").show();
+	}
+	//无访谈记录
+	var len=$("#near_view .new_b_bottom").length;
+	if(len==0){
+		$("#near_view .no_con").show();
+	}
 	
 })
 
@@ -170,7 +186,8 @@ function formatNearNotes(data){
 						"<p>"+notesStr+"</p>"+
 					"</div>";
 			
-	    	$("#near_meet").append(str);
+	    	$("#near_meet").append(str); 	
+	    	
 	    } 
 	}
 	
