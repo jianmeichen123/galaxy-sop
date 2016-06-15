@@ -117,13 +117,17 @@ $(function(){
 
 //more 链接控制
 function initMoreLine(){
-	$("#meet_more").on("click", function(){
-		showTabs(proid,4)
-	});
-	$("#view_more").on("click", function(){
-		showTabs(proid,3)
-	});
-	
+	if(admin == "true"){
+		$("#meet_more").on("click", function(){
+			showTabs(proid,4)
+		});
+		$("#view_more").on("click", function(){
+			showTabs(proid,3)
+		});
+	}else{
+		$("#meet_more").hide();
+		$("#view_more").hide();
+	}
 	/* if(projectInfo.projectStatus != 'meetingResult:3' && projectInfo.projectStatus != 'projectStatus:2' && projectInfo.projectStatus != 'projectStatus:3'){
 	} else{
 		$("#meet_more").attr("disabled","disabled").addClass("disabled");
