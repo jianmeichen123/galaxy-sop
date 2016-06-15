@@ -47,7 +47,7 @@
             <div class="correlation">相关操作</div> 
             <c:if test="${ projectInfo.projectStatus != 'projectStatus:2' and projectInfo.projectStatus != 'projectStatus:3' and fx:isCreatedByUser('project',projectId) }">
             <div class="new_correlation_cen">
-            	<span class="bluebtn new_btn" onclick="closePro()">否决项目</span>
+            	<span class="bluebtn new_btn" onclick="closePro()" id="fjxm_but">否决项目</span>
             </div>
             </c:if>
             
@@ -91,16 +91,15 @@ var index = Number(prograss.substring("projectProgress:".length,prograss.length)
 $(function(){
 	init_lct(); //流程图初始化
 	
+	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3'){
+		$("#fjxm_but").removeAttr("onclick").attr("disabled","disabled").addClass("disabled");
+	}
+		
 	//获取近期访谈、会议 记录
 	toFormatNearNotes();
 	
 	//more 链接初始化
-	$("#meet_more").on("click", function(){
-		showTabs(proid,4)
-	});
-	$("#view_more").on("click", function(){
-		showTabs(proid,3)
-	});
+	initMoreLine();
 	
  	//无会议记录
 	var len=$("#near_meet .new_b_bottom").length;
@@ -115,6 +114,21 @@ $(function(){
 	
 })
 
+//more 链接控制
+function initMoreLine(){
+	$("#meet_more").on("click", function(){
+		showTabs(proid,4)
+	});
+	$("#view_more").on("click", function(){
+		showTabs(proid,3)
+	});
+	
+	/* if(projectInfo.projectStatus != 'meetingResult:3' && projectInfo.projectStatus != 'projectStatus:2' && projectInfo.projectStatus != 'projectStatus:3'){
+	} else{
+		$("#meet_more").attr("disabled","disabled").addClass("disabled");
+		$("#view_more").attr("disabled","disabled").addClass("disabled");
+	} */
+}
 
 
 /**

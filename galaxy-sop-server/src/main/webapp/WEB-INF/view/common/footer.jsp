@@ -12,7 +12,7 @@ function createMenus(current){
 	   			if(selected == o.id){
 		   			html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
 		   		}else{
-		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '">' + o.menuName + '</a></li>';
+		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '"><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
 		   		}
 	   		 }else{
 	   			var innerHtml ="";
@@ -27,19 +27,19 @@ function createMenus(current){
 	   			 });
 	   			 
 	   			 if(isExend){
-	   				html += '<li><div><i class="hide"></i>'+o.menuName+'</div><ul style="display:block;">';
+	   				html += '<li class="toggle_li on"><a href="javascript:;"><span class="navbar nav'+o.navNum+'"></span>'+o.menuName+'</a><ul style="display:block;">';
 	   			 }else{
-	   				html += '<li><div><i></i>'+o.menuName+'</div><ul>';
+	   				html +='<li class="toggle_li"><a href="javascript:;"><span class="navbar nav'+o.navNum+'"></span>'+o.menuName+'</a><ul>';
 	   			 }
 	   			 html += innerHtml;
 	   			 html += '</ul></li>';
 	   		 }
 	   	 });
 	   	 $("#menus").html(html);
-	   	 $(".pagebox .lft div").click(function(event) {
-	   		 $(this).siblings().stop().slideToggle();
-	   		 $(this).children('i').toggleClass('hide');
-	   	 });
+	   	 //投后菜单显示隐藏    
+	     $(".pagebox .lft .toggle_li").click(function(event) {
+	           $(this).children('ul').stop().slideToggle();
+	         });
 	});
 }
 </script>
