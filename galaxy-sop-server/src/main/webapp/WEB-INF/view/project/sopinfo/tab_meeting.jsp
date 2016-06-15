@@ -76,8 +76,8 @@
             	    <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
                    <!--按钮-->
 					<div class="top clearfix">
-						<div class="btnbox_f btnbox_f1 clearfix">   <!-- pubbtn bluebtn ico c4 add_prj add_interview -->
-							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn fffbtn lpubbtn option_item_mark" id="proMeetBut" style="display: none;">添加会议纪要</a>
+						<div class="btnbox_f btnbox_f1 clearfix">   <!-- pubbtn bluebtn ico c4 add_prj add_interview  添加会议纪要-->
+							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn fffbtn lpubbtn option_item_mark" id="proMeetBut" style="display: none;"></a>
 						</div>
 					</div>
 
@@ -169,7 +169,7 @@
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var selectRow = null;
-	
+	var admin = "${fx:isCreatedByUser('project',pid) }";
 
 $(function(){
 	createMenus(5);
@@ -191,15 +191,14 @@ $(function(){
 	});
 	
 	//初始化按钮，是 添加会议，or 申请排期
-	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3'){
+	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin != "true"){
 		//$("#proMeetBut").remove();
 		$('#proMeetBut').removeAttr("onclick");
 	}else if(index == 2 || index == 3 || index == 4 || index == 7 ){
-		checkToShowBut(); 
 		$('#proMeetBut').show();
-	}else{
-		$('#proMeetBut').removeAttr("onclick");
+		button_init(); 
 	}
+	
 });	
 	
 	

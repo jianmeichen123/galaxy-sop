@@ -157,7 +157,7 @@
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var interviewSelectRow = null;
-	
+	var admin = "${fx:isCreatedByUser('project',pid) }";
 
 $(function(){
 	createMenus(5);
@@ -179,17 +179,15 @@ $(function(){
 	});
 	
 	//check to show or not not show qdnbps button
-	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || index != 1){
+	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
 		//$('#tjftjl').remove();
 		$('#tjftjl').removeAttr("onclick");
-	}else if(index == 1){
-		var admin = "${fx:isCreatedByUser('project',pid) }";
-		if(admin == "true"){
-			$('#tjftjl').show();
-			$('#tjftjl').text("添加访谈记录");
+	} else {
+		if(index == 1){
 			checkToShowBut();
 		}
-		 
+		$('#tjftjl').show();
+		$('#tjftjl').text("添加访谈记录");
 	}
 	
 });	
