@@ -220,7 +220,7 @@ function getProjectInfo(dtd)
 				            </tr>
 				            <tr>
 				                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel" ></select></span></td>
-				                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span class="new_color_gray" id="projectCareerline_edit"></span></td>
+				                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span>(</span><span class="new_color_gray" id="projectCareerline_edit"></span><span>)</span></td>
 				            </tr>
 				            <tr>
                                 <td><span class="new_color_gray">融资状态：</span><span><select class="new_nputr" id="finance_status_sel"></select></span></td>
