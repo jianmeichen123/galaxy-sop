@@ -1154,6 +1154,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			form.setFileName(nameMap.get("fileName"));
 			form.setFileSuffix(nameMap.get("fileSuffix"));
 			form.setFileLength(multipartFile.getSize());
+			form.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+			form.setFileUid(user.getId());
 			form.setRecordType((byte)0);
 			form.setCareerLine(user.getDepartmentId());
 			form.setCreatedTime(System.currentTimeMillis());

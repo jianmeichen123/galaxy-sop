@@ -89,7 +89,8 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 * @return
 	 */
 	@RequestMapping(value = "/app", method = RequestMethod.GET)
-	public String addProject() {
+	public String addProject(HttpServletRequest request) {
+		request.getSession().removeAttribute("businessPlan");
 		return "project/add";
 	}
 	

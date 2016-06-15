@@ -68,6 +68,7 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		//存商业计划书
 		if(file != null){
 			file.setProjectId(id);
+			file.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
 			sopFileDao.insert(file);
 		}
 		//通用属性
