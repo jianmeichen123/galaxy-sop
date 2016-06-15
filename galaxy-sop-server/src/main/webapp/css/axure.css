@@ -509,7 +509,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /*左侧导航*/
 .pagebox .lft{ float:left; width:9.375%; background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
 .pagebox .lft li{ float:left; width:100%; height:48px;}
-.pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "微软雅黑";display:block; width:80%;/* margin:0 auto; */ height:48px; text-align:right; line-height:48px; font-size:14px; color:#d8dce5;cursor: pointer;}
+.pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "微软雅黑";display:block; /* margin:0 auto; */ height:48px; text-align:left; line-height:48px; font-size:14px; color:#d8dce5;cursor: pointer;padding-left:45px;}
 .pagebox .lft .on a,
 .pagebox .lft li a:hover{ text-decoration:none; color:#6dafee;}
 .pagebox .lft li ul li a{font-family: "微软雅黑";display:block; width:100%; height:40px; text-align:center; line-height:40px; font-size:12px; color:#6b799f}
@@ -1749,7 +1749,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
   height: 290px;
 }
 /*左侧导航icon*/
-.navbar{width:20px;height:22px;position:absolute;background: url(../img/baricon.png) 0 0 no-repeat;top: 14px;left: 22%;}
+.navbar{width:20px;height:22px;position:absolute;background: url(../img/baricon.png) 0 0 no-repeat;top: 14px;left: 18px;}
 .nav1{background-position: 0 0;}
 .nav2{background-position: 0 -72px;}
 .nav3{background-position: 0 -144px;}
