@@ -551,6 +551,7 @@ $(function(){
 		$('.'+close+'_on').hide();
 		$('.'+close+'_center').show();
 		$('.bj_hui_on').hide();
+		$('.tip-yellowsimple').hide();
 	})
 	
 })
