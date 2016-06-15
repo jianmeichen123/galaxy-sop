@@ -46,10 +46,11 @@
             
             <div class="correlation">相关操作</div> 
             <c:if test="${ projectInfo.projectStatus != 'meetingResult:3' and projectInfo.projectStatus != 'projectStatus:2' and projectInfo.projectStatus != 'projectStatus:3' and fx:isCreatedByUser('project',projectId) }">
+            </c:if>
             <div class="new_correlation_cen">
             	<span class="bluebtn new_btn" onclick="closePro()" id="fjxm_but">否决项目</span>
             </div>
-            </c:if>
+            
             
             
             
@@ -86,12 +87,12 @@ if(!prograss){
 	prograss = 'projectProgress:0';
 }
 var index = Number(prograss.substring("projectProgress:".length,prograss.length));
-
+var admin = "${fx:isCreatedByUser('project',pid) }";
 
 $(function(){
 	init_lct(); //流程图初始化
 	
-	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3'){
+	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || admin!="true"){
 		$("#fjxm_but").removeAttr("onclick").attr("disabled","disabled").addClass("disabled");
 	}
 		
