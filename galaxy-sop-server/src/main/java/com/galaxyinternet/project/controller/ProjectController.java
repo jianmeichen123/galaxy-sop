@@ -76,6 +76,7 @@ import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.service.ConfigService;
@@ -363,8 +364,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		Project project = projectService.queryById(Long.parseLong(pid));
 		if (project != null) {
 			Department Department = new Department();//
-			Department.setId(project.getProjectDepartid());
-			Department queryOne = departmentService.queryOne(Department);
+			//Department.setId(project.getProjectDepartid());
+		Map<Long ,Department> map = (Map<Long ,Department>)cache.get(PlatformConst.REQUEST_DEPARTMENT);
+			Department queryOne =map.get(project.getProjectDepartid());
 			Long deptId = null;
 			if (queryOne != null) {
 				project.setProjectCareerline(queryOne.getName());
@@ -379,9 +381,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			if(project.getIndustryOwn()!=null){
-				Department Dt= new Department();
-				Dt.setId(project.getIndustryOwn());
-				Department queryTwo = departmentService.queryOne(Dt);
+			//	Department Dt= new Department();
+			//	Dt.setId(project.getIndustryOwn());
+				Department queryTwo = map.get(project.getIndustryOwn());
 				if (queryTwo != null) {
 					project.setIndustryOwnDs(queryTwo.getName());				
 				}
@@ -397,6 +399,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.getProjectName(), project.getId());
 		return responseBody;
 	}
+
 
 	/**
 	 * 获取所有事业线 判断选中登录人事业线

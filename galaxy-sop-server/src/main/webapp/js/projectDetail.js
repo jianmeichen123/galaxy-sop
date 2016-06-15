@@ -26,29 +26,34 @@ $(function(){
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
-		//基本信息修改
-		$("#editImg").html(ht);
-		$("#project_name_edit").val(projectInfo.projectName);
-		$("#create_date_edit").text(projectInfo.createDate);
-		$("#updateDate_edit").text(projectInfo.updateDate);
-		$("#createUname_edit").text(projectInfo.createUname);
-		$("#projectCareerline_edit").text(projectInfo.projectCareerline);
-		$("#projectType_edit").text(projectInfo.type);
-		$("#project_contribution_edit").val(projectInfo.projectContribution==0?"":projectInfo.projectContribution);
-		$("#project_valuations_edit").val(projectInfo.projectValuations==0?"":projectInfo.projectValuations);
-		$("#project_share_ratio_edit").val(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
-		$("#projectProgress_edit").text(projectInfo.progress);
-		$("#projectStatusDs_edit").text(projectInfo.projectStatusDs);
-		$("#financeStatusDs_edit").text(projectInfo.financeStatusDs);
-		$("#finalValuations_edit").val(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
-		$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
-		$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
-		var p=projectInfo.industryOwn;
-		var fs=projectInfo.financeStatus;
-		//融资
-		sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
-		sendGetRequest(platformUrl.getDepartMentDict+"/1",null,CallBackA);
-		function CallBackB(data){
+		var p;
+		var fs;
+		$("[data-on='data-open']").click(function (){
+			//基本信息修改
+			$("#editImg").html(ht);
+			$("#project_name_edit").val(projectInfo.projectName);
+			$("#create_date_edit").text(projectInfo.createDate);
+			$("#updateDate_edit").text(projectInfo.updateDate);
+			$("#createUname_edit").text(projectInfo.createUname);
+			$("#projectCareerline_edit").text(projectInfo.projectCareerline);
+			$("#projectType_edit").text(projectInfo.type);
+			$("#project_contribution_edit").val(projectInfo.projectContribution==0?"":projectInfo.projectContribution);
+			$("#project_valuations_edit").val(projectInfo.projectValuations==0?"":projectInfo.projectValuations);
+			$("#project_share_ratio_edit").val(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
+			$("#projectProgress_edit").text(projectInfo.progress);
+			$("#projectStatusDs_edit").text(projectInfo.projectStatusDs);
+			$("#financeStatusDs_edit").text(projectInfo.financeStatusDs);
+			$("#finalValuations_edit").val(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
+			$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
+			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
+			 p=projectInfo.industryOwn;
+		    fs=projectInfo.financeStatus;
+			//融资
+			sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
+			sendGetRequest(platformUrl.getDepartMentDict+"/1",null,CallBackA);
+		
+		})
+			function CallBackB(data){
 		    var _dom=$("#finance_status_sel");
 		    _dom.append("<option value=''>--不明确--</option>");
 			 $.each(data.entityList,function(){
