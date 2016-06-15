@@ -69,6 +69,7 @@
 	            </ul>
 	            <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
 				<div class="member">
+					<c:if test="${fx:isCreatedByUser('project',pid) }">
 				      <div class="top clearfix">
 				          <!--按钮-->
 				          <div class="btnbox_f btnbox_f1 clearfix">
@@ -76,6 +77,7 @@
 				              <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a>
 				          </div>
 				      </div>
+					</c:if>
 				              <!--表格内容-->
 				               <div class="tab-pane active" id="view">	
 				      <table id="tablePerson" width="100%" data-height="555" 
@@ -116,7 +118,7 @@
 	var interviewSelectRow = null;
 	var projectId ='${pid}';
 	var flag = '${flag}';
-
+	var isCreatedByUser = "${fx:isCreatedByUser('project',projectId) }";
 $(function(){
 	createMenus(5);
 	getTabPerson();

@@ -1,15 +1,19 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <!--法人信息-->
 <div class="legal">
 	<div class="show">
 		<div class="title">
 	        <span class="new_ico_legal icon"></span>
 	        <span class="new_color size16">法人信息</span>
+	        <c:if test="${fx:isCreatedByUser('project',pid) }">
 	        <div class="btn">
 	         	<span class="new_fctbox">
 	            	<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
 	         	</span>
 	        </div> 
+	        </c:if>
 	    </div>
 	    <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock table_default" id="company-info">
 	        <tr>
@@ -55,9 +59,11 @@
     </div> 
     <div class="top clearfix">
         <!--按钮-->
+        <c:if test="${fx:isCreatedByUser('project',pid) }">
           <div class="btnbox_f btnbox_f1 clearfix">
               <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addSharesView()">添加</a>
           </div>
+         </c:if>
       </div>	
   	<table id="shares-table" data-height="555" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true">
    	<thead>
@@ -67,7 +73,9 @@
         	<th data-field="sharesRatio" data-align="left" class="data-input">占比</th>
         	<th data-field="gainMode" data-align="left" class="data-input">获取方式</th>
         	<th data-field="remark" data-align="left" class="data-input" >备注</th>
+        	<c:if test="${fx:isCreatedByUser('project',pid) }">
         	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
+        	</c:if>
 			</tr>	
 		</thead>
 	</table>
