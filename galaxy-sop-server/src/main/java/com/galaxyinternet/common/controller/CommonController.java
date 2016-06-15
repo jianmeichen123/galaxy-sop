@@ -139,14 +139,14 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		//高管
 		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(1L) || roleIdList.contains(2L)){
 			tabs.clear();
-			tabs.add(new Menus(1L, 0, "工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
-			//tabs.add(new Menus(3L, 0, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
-			tabs.add(new Menus(4L, 0, "创投项目", serverUrl +"sop/galaxy/mpl?" + params));
-			tabs.add(new Menus(21L, 0, "创意管理", u + "galaxy/idea?" + params));
-			tabs.add(new Menus(5L, 0, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
-			tabs.add(new Menus(6L, 0, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
-			tabs.add(new Menus(7L, 0, "绩效考核", serverUrl +"report/galaxy/report/kpi?" + params));
-			tabs.add(new Menus(11L, 0, "投后运营", "javascript:void(0);")
+			tabs.add(new Menus(1L, 0, 1,"工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
+			//tabs.add(new Menus(3L, 0,8, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
+			tabs.add(new Menus(4L, 0, 3, "创投项目", serverUrl +"sop/galaxy/mpl?" + params));
+			tabs.add(new Menus(21L, 0, 10, "创意管理", u + "galaxy/idea?" + params));
+			tabs.add(new Menus(5L, 0, 11, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
+			tabs.add(new Menus(6L, 0, 12, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
+			tabs.add(new Menus(7L, 0, 13,"绩效考核", serverUrl +"report/galaxy/report/kpi?" + params));
+			tabs.add(new Menus(11L, 0,14, "投后运营", "javascript:void(0);")
 					.addNode(new Menus(8L, 1, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params))
 					.addNode(new Menus(9L, 1, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params))
 					.addNode(new Menus(10L, 1, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params)));
@@ -154,7 +154,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		//董事长秘书      CEO秘书
 		if(roleIdList.contains(UserConstant.DMS) ||roleIdList.contains(UserConstant.CEOMS)){
 			tabs.clear();
-			tabs.add(new Menus(1L, 0, "工作桌面", u + "galaxy/index?" + params));
+			tabs.add(new Menus(1L, 0, 1,"工作桌面", u + "galaxy/index?" + params));
 			tabs.add(new Menus(18L, 0, "立项会排期池", u + "galaxy/lxh?" + params));
 			tabs.add(new Menus(19L, 0, "投决会排期池", u + "galaxy/tjh?" + params));
 			tabs.add(new Menus(20L, 0, "CEO评审会排期池", u + "galaxy/psh?" + params));								
