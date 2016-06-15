@@ -181,9 +181,11 @@ var initPage = {
 			dom.html(planNameHtml + planStatusHtml + planUpdateTimeHtml + operatorHtml);
 			if(data.result.status=="OK"){
 				//为空时候显示
-				if(data.result.errorCode=="null"){	
-					console.log(isCreatedByUser);
-					console.log(isCreatedByUser == 'true');
+				if(data.result.errorCode=="null"){
+					//文档状态
+					dom.find("#plan_status").html("未上传");
+					//更新时间
+					dom.find("#plan_update_time").html("无");
 					if(isCreatedByUser == 'true')
 					{
 						operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>上传</a>";

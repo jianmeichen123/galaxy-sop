@@ -121,6 +121,10 @@
 									//上传按钮点击事件开始上传
 									$(_this.id).find("#win_uploadBtn").click(function(){
 										//alert("上传保存事件并关闭弹出框");
+										if(uploader.files.length < 1){
+											layer.msg("请选择文件");
+											return;
+										}
 										uploader.start();
 										return false;
 									})
