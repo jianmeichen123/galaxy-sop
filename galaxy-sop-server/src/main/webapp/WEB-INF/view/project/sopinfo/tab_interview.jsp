@@ -183,9 +183,13 @@ $(function(){
 		//$('#tjftjl').remove();
 		$('#tjftjl').removeAttr("onclick");
 	}else if(index == 1){
-		$('#tjftjl').show();
-		$('#tjftjl').text("添加访谈记录");
-		checkToShowBut(); 
+		var admin = "${fx:isCreatedByUser('project',pid) }";
+		if(admin == "true"){
+			$('#tjftjl').show();
+			$('#tjftjl').text("添加访谈记录");
+			checkToShowBut();
+		}
+		 
 	}
 	
 });	
