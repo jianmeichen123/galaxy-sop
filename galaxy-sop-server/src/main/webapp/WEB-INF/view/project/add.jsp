@@ -115,9 +115,7 @@
                     <div class="basic_input" onclick="add();">保存</div>
                 </div>
         </div>
-       
-    </div>
-     <!--右边-->
+       <!--右边-->
         <div class="basic_right">
         	<div class="tabtable_con_on">
             	<div class="new_bottom_color">
@@ -134,6 +132,8 @@
             </div>
         </div>
         <!--右边 end--> 
+    </div>
+     
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
