@@ -77,7 +77,8 @@
                    <!--按钮-->
 					<div class="top clearfix">
 						<div class="btnbox_f btnbox_f1 clearfix">   <!-- pubbtn bluebtn ico c4 add_prj add_interview  添加会议纪要-->
-							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn fffbtn lpubbtn option_item_mark" id="proMeetBut" style="display: none;"></a>
+							<!-- <a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn fffbtn lpubbtn option_item_mark" id="proMeetBut" style="display: none;"></a> -->
+							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" >添加会议纪要</a>
 						</div>
 					</div>
 
@@ -191,13 +192,13 @@ $(function(){
 	});
 	
 	//初始化按钮，是 添加会议，or 申请排期
-	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin != "true"){
+	/* if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin != "true"){
 		//$("#proMeetBut").remove();
 		$('#proMeetBut').removeAttr("onclick");
 	}else if(index == 2 || index == 3 || index == 4 || index == 7 ){
 		$('#proMeetBut').show();
 		button_init(); 
-	}
+	} */
 	
 });	
 	
