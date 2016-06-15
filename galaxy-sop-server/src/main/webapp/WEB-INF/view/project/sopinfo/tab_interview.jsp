@@ -78,7 +78,7 @@
 						<div class="top clearfix">
 							<div class="btnbox_f btnbox_f1 clearfix">
 								<a href="#"  id="tjftjl" onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview" style="display: none;"></a>
-								<a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a>
+								<!-- <a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a> -->
 							</div>
 						</div>
 
@@ -278,9 +278,9 @@ function initViewUpload() {
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
-								if(index == 1 && $("#qdnbps").css('display')=='none' ){
+								/* if(index == 1 && $("#qdnbps").css('display')=='none' ){
 									toshowbut();
-								}
+								} */
 								toFormatNearNotes();
 								var _this = $("#projectProgress_1_table");
 								if(_this == null || _this.length == 0 || _this == undefined){
@@ -319,9 +319,9 @@ function initViewUpload() {
 					return false;
 				}else{
 					layer.msg("保存成功", {time : 500});
-					if(index == 1 && $("#qdnbps").css('display')=='none' ){
+					/* if(index == 1 && $("#qdnbps").css('display')=='none' ){
 						toshowbut();
-					}
+					} */
 					toFormatNearNotes();
 					var _this = $("#projectProgress_1_table");
 					if(_this == null || _this.length == 0 || _this == undefined){
