@@ -193,11 +193,19 @@
 		return options;
 	}
 	
-	function projectInfo(value,row,index){
-		var id=row.id;
-		var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")'>"+row.projectName+"</a>";
-		return options;
-	}
+	 function projectInfo(value,row,index){
+		    var id=row.id;
+			var str=row.projectName;
+			if(str.length>12){
+				subStr = str.substring(0,12);
+				var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")' title='"+str+"'>"+subStr+"</a>";
+				return options;
+			}
+			else{
+				var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")' title='"+str+"'>"+str+"</a>";
+				return options;
+			}
+		}
 	
 	function proInfo(id){
 		var options = $("#data-table").bootstrapTable('getOptions');
