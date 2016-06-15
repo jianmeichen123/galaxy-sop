@@ -51,6 +51,8 @@ $(function(){
 			//融资
 			sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
 			sendGetRequest(platformUrl.getDepartMentDict+"/1",null,CallBackA);
+			
+			initDialogVal();
 		
 		})
 			function CallBackB(data){
