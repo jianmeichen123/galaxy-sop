@@ -218,7 +218,6 @@
 				</form>
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-<!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a>--> 
 					<a href="javascript:;" class="pubbtn fffbtn" id="file-show-mail-btn">发送选中</a> 
 				</div>
 
@@ -458,7 +457,7 @@
 	</div>
 </div>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
-
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/init.js"></script>
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>

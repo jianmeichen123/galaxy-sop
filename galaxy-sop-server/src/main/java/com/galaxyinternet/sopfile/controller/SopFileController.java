@@ -12,12 +12,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -36,7 +38,7 @@ import com.aliyun.oss.model.PolicyConditions;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.exception.PlatformException;
@@ -548,7 +550,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		form.setFileWorktype(request.getParameter("fileWorktype"));
 		form.setFileSource(request.getParameter("fileSource"));
 		form.setRemark(request.getParameter("remark"));
-		
+
 		String projectId = request.getParameter("projectId");
 			
 		//校验
@@ -748,8 +750,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	public String errMessage(Project project,User user,String prograss){
 		if(project == null){
 			return "项目检索为空";
-		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())){ //字典 项目状态 = 会议结论 关闭
+		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())||project.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){ //字典 项目状态 = 会议结论 关闭
 			return "项目已经关闭";
+		}else if(project.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){ //字典 项目状态 = 会议结论 关闭
+			return "项目已退出";
 		}
 		
 		if(user != null){
@@ -1006,6 +1010,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 //		}
 		return responseBody;
 	}
+	/**
+	 * 获取最新商业计划书
+	 * @param request
+	 * @param projectId
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/getBusinessPlanFile/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopFile> getBusinessPlanFile(HttpServletRequest request,@PathVariable String projectId){
@@ -1035,6 +1045,129 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		
 	}
 	
+	/**
+	 * 跳转商业计划书页面
+	 * 2016-06-08
+	 * @return
+	 */
+	@RequestMapping(value="/toBusinessPlanHistory")
+	public String toBusinessPlanHistory(){
+		return "sopFile/businessPlanFileDialog";
+	}
+	
+	/**
+	 * 获取商业计划历史
+	 * @param request
+	 * @param sopFile
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/searchBusinessPlanHistory",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> searchBusinessPlanHistory(HttpServletRequest request, @RequestBody SopFile sopFile) {
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		if(sopFile.getProjectId() == null){
+			responseBody.setResult(new Result(Status.ERROR, "项目ID不能为空"));
+			return responseBody;
+		}
+		try {
+			sopFile.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
+			PageRequest pageRequest = new PageRequest(sopFile.getPageNum(),sopFile.getPageSize(), Direction.DESC,
+					"created_time");
+			Page<SopFile> sopFilePage = sopFileService.queryFileList(sopFile, pageRequest);
+			if(sopFilePage.getContent().size()<=0){
+				responseBody.setResult(new Result(Status.OK,"null"));
+				return responseBody;
+			}
+			responseBody.setResult(new Result(Status.OK,""));
+			responseBody.setPageList(sopFilePage);
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR,"系统出现异常"));
+		}
+		
+		return responseBody;
+	}
+	
+	
+	/**
+	 * session中获取商业计划书
+	 * @param request
+	 * @param projectId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getBusinessPlanFileInSession", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopFile> getBusinessPlanFileInSession(HttpServletRequest request){
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		try {
+			List<SopFile> fileList = new ArrayList<SopFile>();
+			SopFile sopFile = (SopFile)request.getSession().getAttribute("businessPlan");
+			if(sopFile!=null){
+				sopFile.setId(0L);
+				fileList.add(sopFile);
+			}else{
+				sopFile = new SopFile();
+				sopFile.setId(0L);
+				fileList.add(sopFile);
+			}
+			Pageable pageable = new PageRequest(1, 10);
+			Long total = 1L;
+			Page<SopFile> sopFilePage = new Page<SopFile>(fileList, pageable, total);
+			responseBody.setResult(new Result(Status.OK,""));
+			responseBody.setPageList(sopFilePage);
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR,"系统出现异常"));
+		}
+		return responseBody;
+	}
+	
+	/***
+	 * 商业计划上传到session中
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/uploadBpToSession",method=RequestMethod.POST)
+	public ResponseData<SopFile> uploadBpToSession(HttpServletRequest request){
+		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+		//校验
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if(user==null){
+			responseBody.setResult(new Result(Status.ERROR, "未登录"));
+			return responseBody;
+		}
+		try {
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
+			MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
+			SopFile form = new SopFile();
+			form.setFileSource(request.getParameter("fileSource"));
+			form.setFileType(request.getParameter("fileType"));
+			form.setFileWorktype(request.getParameter("fileWorktype"));
+			form.setFileSource(request.getParameter("fileSource"));
+			form.setRemark(request.getParameter("remark"));			
+			form.setBucketName(OSSFactory.getDefaultBucketName());
+			form.setFileKey(String
+						.valueOf(IdGenerator.generateId(OSSHelper.class)));
+			Map<String, String> nameMap = FileUtils.transFileNames(multipartFile.getOriginalFilename());
+			form.setFileName(nameMap.get("fileName"));
+			form.setFileSuffix(nameMap.get("fileSuffix"));
+			form.setFileLength(multipartFile.getSize());
+			form.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+			form.setFileUid(user.getId());
+			form.setRecordType((byte)0);
+			form.setCareerLine(user.getDepartmentId());
+			form.setCreatedTime(System.currentTimeMillis());
+			form.setMultipartFile(multipartFile);
+			request.getSession().setAttribute("businessPlan", form);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, "系统出现异常"));
+		}
+		return responseBody;
+	}
 	
 	
 }

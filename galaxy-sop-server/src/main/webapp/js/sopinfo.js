@@ -6,6 +6,8 @@ function showTabs(id,index)
 		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/detail/" + id);
 		break;
 	case 1 :
+		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/personTab/" + id);
+		break;
 	case 2 :
 		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/showProject/" + id+"/2");
 		break;
@@ -16,7 +18,11 @@ function showTabs(id,index)
 		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/promeet/" + id);
 		break;
 	case 5 :
+		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/toFileList/" + id);
+		break;
 	case 6 :
+		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/toprolog/" + id);
+		break;
 	default : 
 		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/detail/" + id);
 	

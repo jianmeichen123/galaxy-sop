@@ -2,15 +2,16 @@
  * 可作为通用的tab切换
  * url:路径
  * data:项目id等参数
- */
+ *//*
 function changeTab(url,data) {
+	$("#tab2").attr("class","on");
     $.ajax({
 		type:"GET",
 		data:"",
 		dataType:"html",
 		url:url+data,
 		beforeSend : function(xhr) {
-			/**清楚浏览器缓存**/
+			*//**清楚浏览器缓存**//*
 			xhr.setRequestHeader("If-Modified-Since","0"); 
 			xhr.setRequestHeader("Cache-Control","no-cache");
 			if (sessionId) {
@@ -27,6 +28,18 @@ function changeTab(url,data) {
 			alert("网络错误")
 		}	
 	})
+}*/
+
+//个人简历
+function changeTab(url,data){
+	$.getHtml({
+		url: url+data, 
+		data:"",//传递参数
+		okback:function(){
+		
+		}//模版反回成功执行	
+	}); 
+	
 }
 
 function getTabPerson(){
@@ -40,19 +53,20 @@ function getTabPerson(){
     search: false, //显示搜索框
     pageList: [10,20,30],
     queryParamsType: 'size|page',
-    queryParams: function(params){params.projectId=id; return params;},
+    queryParams: function(params){params.projectId=projectId; return params;},
     sidePagination: "server", //服务端处理分页
           columns: [
                   {
                     title: '姓名',
                       field: 'personName',
-                      align: 'center',
-                      valign: 'middle'
+                      align: 'left',
+                      valign: 'middle',
+                      class:'personName'
                   },
                   {
                     title: '性别',
                     field: 'personSex',
-                    align: 'center',
+                    align: 'left',
                     valign: 'middle',
                     formatter:function(value,row,index){ 
                      	if (row.personSex == 0) {
@@ -67,25 +81,25 @@ function getTabPerson(){
                     {
                         title: '年龄',
                           field: 'personAge',
-                          align: 'center',
+                          align: 'left',
                           valign: 'middle'
                      },
                      {
                           title: '当前职务',
                             field: 'personDuties',
-                            align: 'center',
+                            align: 'left',
                             valign: 'middle'
                   },
                   {
                       title: '电话',
                         field: 'personTelephone',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle'
                   },
                   {
                       title: '最高学历',
                         field: 'highestDegree',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle',
                         formatter:function(value,row,index){ 
                          	if (row.highestDegree == 1) {
@@ -111,17 +125,17 @@ function getTabPerson(){
                   {
                       title: '工作年限',
                         field: 'workTime',
-                        align: 'center',
+                        align: 'left',
                         valign: 'middle'
                   },
                   {
                       title: '操作',
                       field: 'id',
-                      align: 'center',
+                      align: 'left',
                       formatter:function(value,row,index){  
-	                   var a = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="tiaozhuan(\''+ row.id + '\')" DATA-btn="resume" ><span class="edit">个人简历</span></a>';;
-	                   var e = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="updatePer(\''+ row.id + '\')"><span class="edit">编辑</span></a> ';  
-	                   var d = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="deletePer(\''+ row.id +'\')"><span class="del">删除</span></a> ';  
+	                   var a = '<span class="resume" onclick="tiaozhuan(\''+ row.id + '\')">个人简历</span>';;
+	                   var e = '<span class="edit" onclick="updatePer(\''+ row.id + '\')">编辑</span>';  
+	                   var d = '<span class="del" onclick="deletePer(\''+ row.id +'\')">删除</span>';  
                         return a+e+d;  
                     } 
                   }
@@ -146,7 +160,8 @@ if(beforeSubmit()){
 function savePersonCallBack(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		return;
+		layer.msg(data.result.message);
+		//return;
 	}
 	$("#popbg,#powindow").remove();
 	var projectId = $("#pid").val();

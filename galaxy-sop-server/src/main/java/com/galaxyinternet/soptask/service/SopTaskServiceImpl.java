@@ -278,7 +278,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			sopTaskBo.setRemark(sopTasknew.getRemark()==null?"":sopTasknew.getRemark());
 			List<String> qlist = new ArrayList<String>();
 			List<User> userList=new ArrayList<User>();
-			if(null!=sopTasknew.getAssignUid()&&!"".equals(sopTasknew.getAssignUid())){
+			if(null!=sopTasknew.getAssignUid()){
 				qlist.add(sopTasknew.getAssignUid().toString());
 				userList = userService.queryListById(qlist);
 			}
@@ -456,7 +456,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		    convertStringToDate = DateUtil.convertStringToDate(retStrFormatNowDate,"yyyy-MM-dd HH:mm:ss");
 			Date addDate = DateUtil.addDate(convertStringToDate,3);
 			convertDateToString = DateUtil.convertDateToStringForChina(addDate);
-            if(null!=endTime&&!"".equals(endTime)){
+            if(null!=endTime){
         		diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.convertDateToStringForChina(endTime));
             }else{
             	diffHour = DateUtil.getDiffHour(convertDateToString,DateUtil.getCurrentDateTime());			

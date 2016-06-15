@@ -76,6 +76,7 @@ import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
 import com.galaxyinternet.service.ConfigService;
@@ -154,27 +155,37 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	/**
 	 * 项目列表查询
-	 * @return 2016-06-21
+	 * @version 2016-06-21
+	 * @author yangshuhua
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> searchProject(HttpServletRequest request, @RequestBody ProjectBo project) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-		if(roleIdList.contains(UserConstant.TZJL)){
-			project.setCreateUid(user.getId());
-		}else if (roleIdList.contains(UserConstant.HHR)){
-			project.setProjectDepartid(user.getDepartmentId());
-		}else{
-			
+		
+		//有搜索条件则不启动默认筛选
+		if(project.getCreateUid() == null && project.getProjectDepartid() == null){
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if(roleIdList.contains(UserConstant.TZJL)){
+				project.setCreateUid(user.getId());
+			}else if (roleIdList.contains(UserConstant.HHR)){
+				project.setProjectDepartid(user.getDepartmentId());
+			}else{
+				
+			}
 		}
+		//搜索全部时,传过来参数值为0,此时要转换为查询全部
+		project.setCreateUid((project.getCreateUid() != null && project.getCreateUid().longValue() == 0L) ? null : project.getCreateUid());
+		project.setProjectDepartid((project.getProjectDepartid() != null && project.getProjectDepartid().longValue() == 0L) ? null : project.getProjectDepartid());
+		
 		List<Department> departmentList = departmentService.queryAll();
 		Page<Project> pageProject = projectService.queryPageList(project,
 						new PageRequest(project.getPageNum(), 
 								project.getPageSize(), 
 								Direction.fromString(project.getDirection()), 
 								project.getProperty()));
+		//封装事业线数据
 		List<Project> projectList = new ArrayList<Project>();
 		for(Project p : pageProject.getContent()){
 			projectList.add(p);
@@ -194,9 +205,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 	/**
 	 * 新建项目接口
-	 * 
+	 * @version 2016-06-21
 	 * @author yangshuhua
-	 * @return
 	 */
 	@Token
 	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
@@ -210,66 +220,65 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				|| project.getProjectType() == null
 				|| "".equals(project.getProjectType().trim())
 				|| project.getCreateDate() == null
-				|| "".equals(project.getCreateDate().trim())) {
+				|| "".equals(project.getCreateDate().trim())
+				|| project.getIndustryOwn() == null) {
 			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
 			return responseBody;
 		}
-		Object code = request.getSession().getAttribute(
-				Constants.SESSION_PROJECT_CODE);
-		if (code == null) {
-			responseBody.setResult(new Result(Status.ERROR, null, "项目编码丢失!"));
-			return responseBody;
-		}
-		Project obj = new Project();
-		obj.setProjectName(project.getProjectName());
-		List<Project> projectList = projectService.queryList(obj);
-		/*
-		 * Integer count = 0 ; for (Project p: projectList) { count ++; }
-		 * if(count>0){
-		 */
-		if (null != projectList && projectList.size() > 0) {
-			responseBody.setResult(new Result(Status.ERROR, null, "用户名重复!"));
-			return responseBody;
-		}
-		User user = (User) getUserFromSession(request);
-		// 判断当前用户是否为投资经理
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-				.getId());
-		if (!roleIdList.contains(UserConstant.HHR)
-				&& !roleIdList.contains(UserConstant.TZJL)) {
-			responseBody.setResult(new Result(Status.ERROR, null, "没有权限添加项目!"));
-			return responseBody;
-		}
-
-		project.setProjectCode(String.valueOf(code));
-		if (project.getProjectValuations() == null) {
-			if (project.getProjectShareRatio() != null
-					&& project.getProjectShareRatio() > 0
-					&& project.getProjectContribution() != null
-					&& project.getProjectContribution() > 0) {
-				project.setProjectValuations(project.getProjectContribution()
-						* 100 / project.getProjectShareRatio());
-			}
-		}
-
-		project.setStockTransfer(0);
-		project.setCreateUid(user.getId());
-		project.setCreateUname(user.getRealName());
-		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
-		project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
-		// 获取当前登录人的部门信息
-		Long did = user.getDepartmentId();
-		project.setProjectDepartid(did);
-		project.setUpdatedTime(new Date().getTime());
 		try {
-			project.setCreatedTime(DateUtil.convertStringToDate(
-					project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
-			long id = projectService.newProject(project);
-			if (id > 0) {
-				responseBody.setResult(new Result(Status.OK, null, "项目添加成功!"));
-				responseBody.setId(id);
-				ControllerUtils.setRequestParamsForMessageTip(request,
-						project.getProjectName(), project.getId());
+			User user = (User) getUserFromSession(request);
+			// 判断当前用户是否为投资经理
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			if (!roleIdList.contains(UserConstant.TZJL)) {
+				responseBody.setResult(new Result(Status.ERROR, null, "没有权限添加项目!"));
+				return responseBody;
+			}
+			//验证项目名是否重复
+			Project obj = new Project();
+			obj.setProjectName(project.getProjectName());
+			List<Project> projectList = projectService.queryList(obj);
+			if (null != projectList && projectList.size() > 0) {
+				responseBody.setResult(new Result(Status.ERROR, null, "项目名重复!"));
+				return responseBody;
+			}
+			//创建项目编码
+			Config config = configService.createCode();
+			NumberFormat nf = NumberFormat.getInstance();
+			nf.setGroupingUsed(false);
+			nf.setMaximumIntegerDigits(6);
+			nf.setMinimumIntegerDigits(6);
+			Long did = user.getDepartmentId();
+			if (did != null) {
+				int code = EnumUtil.getCodeByCareerline(did.longValue());
+				String projectCode = String.valueOf(code) + nf.format(Integer.parseInt(config.getValue()));
+				project.setProjectCode(String.valueOf(projectCode));
+				
+				if (project.getProjectValuations() == null) {
+					if (project.getProjectShareRatio() != null
+							&& project.getProjectShareRatio() > 0
+							&& project.getProjectContribution() != null
+							&& project.getProjectContribution() > 0) {
+						project.setProjectValuations(project.getProjectContribution() * 100 / project.getProjectShareRatio());
+					}
+				}
+				project.setCurrencyUnit(0);
+				//默认不涉及股权转让
+				project.setStockTransfer(0);
+				project.setCreateUid(user.getId());
+				project.setCreateUname(user.getRealName());
+				project.setProjectDepartid(did);
+				project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
+				project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
+				project.setUpdatedTime(new Date().getTime());
+				project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
+				SopFile file = (SopFile) request.getSession().getAttribute("businessPlan");
+				long id = projectService.newProject(project, file);
+				if (id > 0) {
+					responseBody.setResult(new Result(Status.OK, null, "项目添加成功!"));
+					responseBody.setId(id);
+					ControllerUtils.setRequestParamsForMessageTip(request,
+							project.getProjectName(), project.getId());
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -310,6 +319,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.setProjectValuations(project.getProjectContribution()
 						* 100 / project.getProjectShareRatio());
 			}
+		}
+		if(null!=project.getIndustryOwn()&&project.getIndustryOwn().longValue()==0){
+			project.setIndustryOwn(null);
 		}
 
 		Project p = projectService.queryById(project.getId());
@@ -352,8 +364,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		Project project = projectService.queryById(Long.parseLong(pid));
 		if (project != null) {
 			Department Department = new Department();//
-			Department.setId(project.getProjectDepartid());
-			Department queryOne = departmentService.queryOne(Department);
+			//Department.setId(project.getProjectDepartid());
+		Map<Long ,Department> map = (Map<Long ,Department>)cache.get(PlatformConst.REQUEST_DEPARTMENT);
+			Department queryOne =map.get(project.getProjectDepartid());
 			Long deptId = null;
 			if (queryOne != null) {
 				project.setProjectCareerline(queryOne.getName());
@@ -368,9 +381,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			if(project.getIndustryOwn()!=null){
-				Department Dt= new Department();
-				Dt.setId(project.getIndustryOwn());
-				Department queryTwo = departmentService.queryOne(Dt);
+			//	Department Dt= new Department();
+			//	Dt.setId(project.getIndustryOwn());
+				Department queryTwo = map.get(project.getIndustryOwn());
 				if (queryTwo != null) {
 					project.setIndustryOwnDs(queryTwo.getName());				
 				}
@@ -386,6 +399,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.getProjectName(), project.getId());
 		return responseBody;
 	}
+
 
 	/**
 	 * 获取所有事业线 判断选中登录人事业线
@@ -802,47 +816,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if (logger.isErrorEnabled()) {
 				logger.error("queryUserList ", e);
 			}
-		}
-		return responseBody;
-	}
-
-	/**
-	 * 创建项目编码
-	 * 
-	 * @author yangshuhua
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/cpc", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Config> createProjectCode(HttpServletRequest request) {
-		ResponseData<Config> responseBody = new ResponseData<Config>();
-
-		User user = (User) getUserFromSession(request);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-				.getId());
-		if (!roleIdList.contains(UserConstant.HHR)
-				&& !roleIdList.contains(UserConstant.TZJL)) {
-			responseBody.setResult(new Result(Status.ERROR, null, "没有权限!"));
-			return responseBody;
-		}
-
-		try {
-			Config config = configService.createCode();
-			NumberFormat nf = NumberFormat.getInstance();
-			nf.setGroupingUsed(false);
-			nf.setMaximumIntegerDigits(6);
-			nf.setMinimumIntegerDigits(6);
-			Long did = user.getDepartmentId();
-			if (did != null) {
-				int code = EnumUtil.getCodeByCareerline(did.longValue());
-				String projectCode = String.valueOf(code)
-						+ nf.format(Integer.parseInt(config.getValue()));
-				request.getSession().setAttribute(
-						Constants.SESSION_PROJECT_CODE, projectCode);
-				config.setPcode(projectCode);
-				responseBody.setEntity(config);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		return responseBody;
 	}
@@ -1497,12 +1470,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public Result validate(String progress, Project project, User user) {
 		if (project == null) {
 			return new Result(Status.ERROR, null, "未找到相应的项目信息!");
-		}
-		if (project.getProjectStatus().equals(
-				DictEnum.meetingResult.否决.getCode())) {
+		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())||project.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){ //字典 项目状态 = 会议结论 关闭
 			return new Result(Status.ERROR, null, "项目已关闭!");
+		}else if(project.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){ //字典 项目状态 = 会议结论 关闭
+			return new Result(Status.ERROR, null, "项目已退出!");
 		}
-
 		if (user.getId().longValue() != project.getCreateUid().longValue()) {
 			return new Result(Status.ERROR, null, "没有权限修改该项目!");
 		}
@@ -1957,11 +1929,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"所存在的更新文件丢失!"));
 			}
-			if (sopFile.getFileKey() == null) {
-				fileKey = String.valueOf(IdGenerator
-						.generateId(OSSHelper.class));
-			} else {
-				fileKey = sopFile.getFileKey();
+			if(sopFile != null){
+				if (sopFile.getFileKey() == null) {
+					fileKey = String.valueOf(IdGenerator
+							.generateId(OSSHelper.class));
+				} else {
+					fileKey = sopFile.getFileKey();
+				}
 			}
 			// 更新文件服务器信息
 			UploadFileResult result = uploadFileToOSS(request, fileKey,
@@ -2569,11 +2543,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		//toAddress =toAddress+"@galaxyinternet.com";
 		String content = MailTemplateUtils
 				.getContentByTemplate(Constants.MAIL_PQC_CONTENT);
-		String[] to = toAddress.split(";");
+		/*String[] to = toAddress.split(";");
 		if (to != null && to.length == 1) {
 			int atIndex = toAddress.lastIndexOf("@");
 			tzjlName = toAddress.substring(0, atIndex) + ":<br>您好!";
-		}
+		}*/
 		tzjlName = "您好!";
 		if (type == 0) {
 			content = MailTemplateUtils
@@ -2624,6 +2598,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/project/sopinfo/main");
 		mv.addObject("projectId", id);
+		mv.addObject("pid", id);
 		mv.addObject("index", index);
 		return mv;
 	}
@@ -2639,6 +2614,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/project/sopinfo/projectinfo");
 		mv.addObject("projectId", id);
+		mv.addObject("pid", id);
 		return mv;
 	}
 	/**
@@ -2789,6 +2765,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 				y:可添加会议
 	 * 				n:不可以添加，需要排期
 	 * 				k:不允许添加
+	 * 				v:不可以添加，需要秘书排期操作
 	 * 		  map.meettype = meetingType:2
 	 * 		  map.butname = '添加立项会会议记录' / '申请立项会排期'
 	 */
@@ -2805,8 +2782,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "项目信息错误!"));
 				return responseBody;
 			}
+			
 			//非项目创建者，or  项目已否决    不允许添加会议
-			if(user.getId()!=proinfo.getCreateUid() || proinfo.getProjectStatus().equals("meetingResult:3")){
+			/*GJZ("跟进中"	 ,   "projectStatus:0"),
+			THYY("投后运营" ,  "projectStatus:1"),
+			YFJ("已否决"		,"projectStatus:2"),
+			YTC("已退出"		,"projectStatus:3");*/
+			if(user.getId().intValue()!=proinfo.getCreateUid().intValue() || proinfo.getProjectStatus().equals("meetingResult:3") ||  
+					proinfo.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode()) || proinfo.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){
 				resultMap.put("add", "k");
 				responseBody.setUserData(resultMap);
 				responseBody.setResult(new Result(Status.OK, null));
@@ -2819,14 +2802,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			
 			int indez = Integer.parseInt(proinfo.getProjectProgress().substring(proinfo.getProjectProgress().length()-1)) ;
 			
-			if(indez == 3 || indez == 4 || indez == 7){
-				
-			}
-			
 			if(indez == 2){   // 内部评审("内部评审","projectProgress:2"),
-				add = "y";
 				meettype = "meetingType:1";
-				butname = "添加内评会会议记录";
+				butname = "内评会";
 			}else if(indez == 3){   // CEO评审("CEO评审","projectProgress:3"),
 				meettype = "meetingType:2";
 				butname = "CEO评审";
@@ -2839,23 +2817,58 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}else{ 
 				add = "k";
 			}
-			
+			/*
+					    会议通过                               待定 
+			内评会：     直接到下一个阶段          一直循环添加会议记录
+			ceo评审：  申请立项会排期  		申请ceo排期						
+			立项会：     直接到下一个阶段  	申请立项会排期	
+			投决会：     直接到下一个阶段  	申请投决会排期
+			*/
 			if(add == null && meettype !=null){
-				MeetingScheduling scheduling = new MeetingScheduling();
-				scheduling.setMeetingType(meettype);
-				scheduling.setProjectId(id);
-				scheduling = meetingSchedulingService.queryOne(scheduling);
-				if(scheduling == null || scheduling.getId()==null){
-					responseBody.setResult(new Result(Status.ERROR, null, "项目排期池信息错误!"));
-					return responseBody;
-				}
+				MeetingRecord mrQuery = new MeetingRecord();
+				mrQuery.setProjectId(id);
+				mrQuery.setMeetingType(meettype);
+				mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+				Long mrCount = meetingRecordService.queryCount(mrQuery);
 				
-				if(scheduling.getScheduleStatus() == 0){ //0表示待排期,需要申请排期
-					add = "n";
-					butname = "申请"+butname+"排期";
-				}else if(scheduling.getScheduleStatus() == 1){ //1表示已排期,可以添加会议记录
-					add = "y";
-					butname = "添加"+butname+"会议记录";
+				if(mrCount != null && mrCount.longValue() > 0L){  //有通过的会议，不能再添加
+					if(meettype.equals("meetingType:2")){
+						add = "n";
+						butname = "申请"+"立项会"+"排期";
+						meettype = "p_"+meettype;
+					}else{
+						add = "k";
+					}
+				}else{    //待定，会议排期池校验
+					if(meettype.equals("meetingType:1")){
+						add = "y";
+						butname = "添加会议记录";
+					}else{
+						MeetingScheduling scheduling = new MeetingScheduling();
+						scheduling.setMeetingType(meettype);
+						scheduling.setProjectId(id);
+						scheduling = meetingSchedulingService.queryOne(scheduling);
+						if(scheduling == null || scheduling.getId()==null){
+							responseBody.setResult(new Result(Status.ERROR, null, "项目排期池信息错误!"));
+							return responseBody;
+						}
+						/*
+						`sop_meeting_scheduling`    0       2	
+												ms -1      	排期but-->0  ms-->1   
+						`sop_meeting_record`        待定   	待定
+						*/
+						if(scheduling.getScheduleStatus() == 0){ //0 等秘书排期操作
+							add = "v";
+							butname = "待排期";
+						}else if(scheduling.getScheduleStatus() == 1){ //1表示已排期,可以添加会议记录
+							add = "y";
+							//butname = "添加"+butname+"会议记录";
+							butname = "添加会议记录";
+						}else if(scheduling.getScheduleStatus() == 2){ //1表示已排期,可以添加会议记录
+							add = "n";
+							butname = "申请"+butname+"排期";
+						}
+					}
 				}
 			}
 			
@@ -2866,12 +2879,27 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setUserData(resultMap);
 			responseBody.setResult(new Result(Status.OK, null));
 		} catch (Exception e) {
-			logger.error("getnearnotes 近期访谈、会议记录查询失败", e);
-			responseBody.setResult(new Result(Status.ERROR, null, "近期访谈、会议记录查询失败"));
+			logger.error("initProMeetBut 会议功能按钮初始化失败", e);
+			responseBody.setResult(new Result(Status.ERROR, null, "会议功能按钮初始化失败"));
 			return responseBody;
 		}
 
 		return responseBody;
+	}
+
+	/**
+	 * sop tab页面  会议 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toFileList/{pid}", method = RequestMethod.GET)
+	public String toFileList(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		Project project = new Project();
+		project = projectService.queryById(pid);
+		request.setAttribute("proinfo", GSONUtil.toJson(project));
+		request.setAttribute("projectId", pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", project.getProjectProgress());
+		request.setAttribute("projectName", project.getProjectName());
+		return "project/sopinfo/tab_filelist";
 	}
 	
 	

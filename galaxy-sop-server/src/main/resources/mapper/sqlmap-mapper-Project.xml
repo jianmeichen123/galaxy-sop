@@ -100,8 +100,17 @@
 		      <if test="companyLocation != null" > and company_location = #{companyLocation,jdbcType=LONGVARCHAR} </if>
 		      <if test="userPortrait != null" > and user_portrait = #{userPortrait,jdbcType=LONGVARCHAR} </if>
 		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
-				
-				
+			  <if test="nameCodeLike != null">
+			  	and (project_name like CONCAT("%",#{nameCodeLike},"%")
+				<if test="escapeChar ">
+					escape '/'
+				</if>
+				or project_code like CONCAT("%",#{nameCodeLike},"%")
+				<if test="escapeChar ">
+					escape '/'
+				</if>
+				)
+			  </if>
 			  <if test="projectName != null" > and project_name = #{projectName,jdbcType=VARCHAR} </if>
 			  <if test="createUname != null" > and create_uname = #{createUname,jdbcType=VARCHAR} </if>
 		      <if test="projectCode != null" > and project_code = #{projectCode,jdbcType=VARCHAR} </if>
@@ -258,10 +267,10 @@
 		      <if test="stockTransfer != null" >  stock_transfer = #{stockTransfer,jdbcType=INTEGER}, </if>
 		      <if test="projectCareerline != null" > project_careerline = #{projectCareerline,jdbcType=VARCHAR}, </if>
 		      <if test="projectDepartid != null" >  project_departId = #{projectDepartid,jdbcType=BIGINT}, </if>
-		      <if test="industryOwn != null" > industry_own = #{industryOwn,jdbcType=BIGINT}, </if>
+		      <if test="industryOwn" > industry_own = #{industryOwn,jdbcType=BIGINT}, </if>
 		      <if test="projectValuations != null" >   project_valuations = #{projectValuations,jdbcType=DECIMAL}, </if>
 		      <if test="finalValuations != null" > final_valuations = #{finalValuations,jdbcType=DECIMAL}, </if>
-		      <if test="financeStatus != null" > finance_status = #{financeStatus,jdbcType=VARCHAR}, </if>
+		      <if test="financeStatus" > finance_status = #{financeStatus,jdbcType=VARCHAR}, </if>
 		      <if test="projectContribution != null" >   project_contribution = #{projectContribution,jdbcType=DECIMAL}, </if>
 		      <if test="finalContribution != null" >  final_contribution = #{finalContribution,jdbcType=DECIMAL}, </if>
 		      <if test="currencyUnit != null" >  currency_unit = #{currencyUnit,jdbcType=INTEGER}, </if>
@@ -341,10 +350,10 @@
 		      <if test="stockTransfer != null" >  stock_transfer = #{stockTransfer,jdbcType=INTEGER}, </if>
 		      <if test="projectCareerline != null" > project_careerline = #{projectCareerline,jdbcType=VARCHAR}, </if>
 		      <if test="projectDepartid != null" >  project_departId = #{projectDepartid,jdbcType=BIGINT}, </if>
-		      <if test="industryOwn != null" > industry_own = #{industryOwn,jdbcType=BIGINT}, </if>
+		      <if test="industryOwn" > industry_own = #{industryOwn,jdbcType=BIGINT}, </if>
 		      <if test="projectValuations != null" >   project_valuations = #{projectValuations,jdbcType=DECIMAL}, </if>
 		      <if test="finalValuations != null" > final_valuations = #{finalValuations,jdbcType=DECIMAL}, </if>
-		      <if test="financeStatus != null" > finance_status = #{financeStatus,jdbcType=VARCHAR}, </if>
+		      <if test="financeStatus" > finance_status = #{financeStatus,jdbcType=VARCHAR}, </if>
 		      <if test="projectContribution != null" >   project_contribution = #{projectContribution,jdbcType=DECIMAL}, </if>
 		      <if test="finalContribution != null" >  final_contribution = #{finalContribution,jdbcType=DECIMAL}, </if>
 		      <if test="currencyUnit != null" >  currency_unit = #{currencyUnit,jdbcType=INTEGER}, </if>

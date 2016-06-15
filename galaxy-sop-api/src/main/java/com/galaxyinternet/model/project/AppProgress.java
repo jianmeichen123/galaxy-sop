@@ -404,5 +404,18 @@ public class AppProgress extends PagableRecordEntity {
 	public void setSchedulingFlag(Integer schedulingFlag) {
 		this.schedulingFlag = schedulingFlag;
 	}
+
+	public void setfWorktype(String fWorktype) {
+		this.fWorktype = fWorktype;
+	}
+
+	public void setFileStatusDesc(String fileStatusDesc) {
+		this.fileStatusDesc = fileStatusDesc;
+	}
+
+	public void setfSource(String fSource) {
+		this.fSource = fSource;
+	}
+	
 	
 }

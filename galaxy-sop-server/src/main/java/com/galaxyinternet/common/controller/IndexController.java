@@ -20,8 +20,6 @@ import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
-import com.galaxyinternet.framework.core.model.Result;
-import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.template.SopTemplate;
@@ -91,7 +89,8 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 * @return
 	 */
 	@RequestMapping(value = "/app", method = RequestMethod.GET)
-	public String addProject() {
+	public String addProject(HttpServletRequest request) {
+		request.getSession().removeAttribute("businessPlan");
 		return "project/add";
 	}
 	
@@ -158,10 +157,17 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	@RequestMapping(value = "/mpl", method = RequestMethod.GET)
 	public String myproject(HttpServletRequest request){
 		String id = request.getParameter("projectId");
+		//退回标记
+		String backSign = request.getParameter("backSign");
 		if(StringUtils.isNotBlank(id)){
 			Project project = projectService.queryById(Long.parseLong(id));
 			request.setAttribute("pid", id);
 			request.setAttribute("pname", project.getProjectName());
+		}
+		if(StringUtils.isNotBlank(backSign)){
+			request.setAttribute("backSign", backSign);
+		}else{
+			request.setAttribute("backSign", "false");
 		}
 		return "project/list";
 	}
@@ -334,13 +340,22 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	}
 	
 	/**
-	 * 完善简历的弹出层
+	 * 团队成员的弹出层
 	 */
 	@RequestMapping(value="/personTab/{id}", method = RequestMethod.GET)
 	public String personTab(@PathVariable Long id, HttpServletRequest request){
+		
+		User user = (User) getUserFromSession(request);
+		boolean flag = false;
+		if(id != null){
+			Project pro = projectService.queryById(id);
+			if(pro.getCreateUid().longValue() == user.getId().longValue()){
+				flag = true;
+			}
+		}
+		request.setAttribute("flag", flag);
 		request.setAttribute("pid", id);
 		return "project/sopinfo/tab_person";
 	}
-
 	
 }

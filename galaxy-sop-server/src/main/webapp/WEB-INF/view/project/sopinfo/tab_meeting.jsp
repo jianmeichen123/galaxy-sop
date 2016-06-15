@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -38,25 +40,32 @@
     <!--右中部内容-->
  	<div class="ritmin">
  	
-    	<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>Utter绝对潮流</div>
-    	
-    	<div class="new_tit_b">
-        	<span class="new_color size18">Utter绝对潮流</span><span class="new_color">ID987786600009</span>
-        	<span class="b_span"><a href="#">返回项目列表></a></span>
-        </div>
+    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
         
         
         <div class="new_left">
         	<div class="tabtable assessment label_static">
           	<!-- tab标签 -->
             <ul class="tablink">
-                <li><a href="javascript:;" onclick="toDetail('${pid}')">基本信息</a></li>
-                <li><a href="javascript:;">团队成员</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
-                <li><a href="javascript:;" onclick="toInterView('${pid}')">访谈记录</a></li>
-                <li class="on"><a href="javascript:;" onclick="toMeet('${pid}')">会议纪要</a></li>
-                <li><a href="javascript:;">项目文档</a></li>
-                <li><a href="javascript:;">操作日志</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',0)">基本信息</a></li>
+                <c:choose>
+	            <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
+                <li><a href="javascript:;" onclick="showTabs('${pid}',1)">团队成员</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',2)">股权结构</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',3)">访谈记录</a></li>
+                <li class="on"><a href="javascript:;" onclick="showTabs('${pid}',4)">会议纪要</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',5)">项目文档</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
+                </c:when>
+                <c:otherwise>
+                <li><a href="javascript:;" class="disabled">团队成员</a></li>
+                <li><a href="javascript:;" class="disabled">股权结构</a></li>
+                <li><a href="javascript:;" class="disabled">访谈记录</a></li>
+                <li><a href="javascript:;" class="disabled">会议纪要</a></li>
+				<li><a href="javascript:;" class="disabled">项目文档</a></li>
+                <li><a href="javascript:;" class="disabled">操作日志</a></li> 
+                </c:otherwise>
+             	</c:choose>
             </ul>
 
             
@@ -64,11 +73,12 @@
             <div data-tab="con" > 
                -->
             	<div class="member interview">
-            	
+            	    <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
                    <!--按钮-->
 					<div class="top clearfix">
-						<div class="btnbox_f btnbox_f1 clearfix">
-							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut">添加会议纪要</a>
+						<div class="btnbox_f btnbox_f1 clearfix">   <!-- pubbtn bluebtn ico c4 add_prj add_interview  添加会议纪要-->
+							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut" style="display: none;">添加会议纪要</a>
+							<!-- <a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" >添加会议纪要</a>  -->
 						</div>
 					</div>
 
@@ -98,7 +108,7 @@
 								<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
 							</dd>
 							<dd>
-								<a href="javascript:;" class="search_icon"action="querySearch">查询</a>
+								<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
 							</dd>
 						</dl>
 					</div>
@@ -109,14 +119,14 @@
 						data-toolbar="#custom-toolbar">
 						<thead>
 							<tr>
-								<th data-field="meetinfo" data-align="center" data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
-								<th data-field="meetingTypeStr" data-align="center" data-class="no1_2">会议类型</th>
-								<th data-field="meetingNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no3">会议纪要</th>
-								<th data-field="oper" data-align="center" data-formatter="meetOperFormat">操作</th>
+								<th data-field="meetinfo" data-align="left" data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
+								<th data-field="meetingTypeStr" data-align="left" data-class="no1_2">会议类型</th>
+								<th data-field="meetingNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
+								<th data-field="oper" data-align="left" data-formatter="meetOperFormat">操作</th>
 							</tr>
 						</thead>
 					</table>
-						
+					</c:if>	
                 </div>                 
            <!--  </div>
            tab end-->
@@ -160,7 +170,7 @@
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var selectRow = null;
-	
+	var admin = "${fx:isCreatedByUser('project',pid) }";
 
 $(function(){
 	createMenus(5);
@@ -182,7 +192,19 @@ $(function(){
 	});
 	
 	//初始化按钮，是 添加会议，or 申请排期
-	button_init();
+	/* if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin != "true"){
+		//$("#proMeetBut").remove();
+		$('#proMeetBut').removeAttr("onclick");
+	}else if(index == 2 || index == 3 || index == 4 || index == 7 ){
+		$('#proMeetBut').show();
+		button_init(); 
+	} */
+	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin != "true"){
+		//$("#proMeetBut").remove();
+		$('#proMeetBut').removeAttr("onclick");
+	}else if(index == 2 || index == 3 || index == 4 || index == 7 ){
+		$('#proMeetBut').show();
+	}
 });	
 	
 	
@@ -196,7 +218,6 @@ function button_init(){
 function button_init_callback(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		$("#saveInterView").removeClass("disabled");
 		layer.msg(data.result.message);
 		return;
 	}else{
@@ -224,6 +245,9 @@ function button_init_callback(data){
 			});
 		}else if(add == 'k'){
 			$("#proMeetBut").remove();
+		}else if(add == 'v'){
+			$("#proMeetBut").removeAttr("onclick");
+			$("#proMeetBut").text(butname);
 		}
 		
 	}
@@ -241,8 +265,15 @@ function toAddProMeet(){
 		data:"",
 		okback:function(){
 			var type = $("#proMeetBut").data("type");
-			if(type){
-				$("input[name='meetingTypeTc'][value ='"+type+"']").attr("checked","checked").addClass("disabled");
+			if(type){ 
+				$("input[name='meetingTypeTc'][value ='"+type+"']").attr("checked","checked");
+				$("input[name='meetingTypeTc']").attr("disabled","disabled").addClass("disabled");
+				
+				/* $("input[name='meetingTypeTc']").each(function(){
+					if(this.value != type){
+						this.parentNode.remove();
+					}
+				}); */
 			}
 			$("#proselect").remove();
 			initMeetUpload();
@@ -285,13 +316,16 @@ function initMeetUpload() {
 					}else if(res.meetingType == 'meetingType:4'){
 						res.stage = "projectProgress:7";
 					}
-					
+					res.pid = proid;
+					res.createDate = res.meetingDateStr;
+					res.result=res.meetingResult;
+					res.content = res.meetingNotes;
 					var file = $("#fileName").val(); //up.files.length
 					if(file.length > 0){
 						up.settings.multipart_params = res;
 						meetuploader.start();
 					}else{
-						sendPostRequestByJsonObj(platformUrl.saveMeetFile,res,function(data){
+						sendPostRequestByJsonObj(platformUrl.stageChange,res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
 								$("#savemeet").removeClass("disabled");
@@ -299,13 +333,7 @@ function initMeetUpload() {
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
-								var _this = $("#data-table");
-								if(_this == null || _this.length == 0 || _this == undefined){
-									removePop1();
-								}else{
-									$("#data-table").bootstrapTable('refresh');
-									removePop1();
-								}
+								window.location.reload();
 							}
 						});
 					}
@@ -337,13 +365,7 @@ function initMeetUpload() {
 					return;
 				}else{
 					layer.msg("保存成功", {time : 500});
-					var _this = $("#data-table");
-					if(_this == null || _this.length == 0 || _this == undefined){
-						removePop1();
-					}else{
-						$("#data-table").bootstrapTable('refresh');
-						removePop1();
-					}
+					window.location.reload();
 				}
 			},
 			BeforeUpload:function(up){
@@ -414,12 +436,20 @@ function interviewsave(){
 
 //会议排期
 function toMeetPool(meetType){
+	var returnKey = '';
 	if(meetType == "meetingType:2"){
-		applyCeoMeeting();
+		returnKey = applyCeoMeeting();
+	}else if(meetType == "p_meetingType:2"){
+		returnKey = toEstablishStage();
 	}else if(meetType == "meetingType:3"){
-		toLxmeetingPool();
+		returnKey = toLxmeetingPool();
 	}else if(meetType == "meetingType:4"){
-		inSureMeetingPool();
+		returnKey = inSureMeetingPool();
+	}
+	if(returnKey && returnKey == 'OK'){
+		$("#proMeetBut").text("待排期");
+		$("#proMeetBut").removeAttr("onclick");
+		$("#proMeetBut").off();
 	}
 }
  /**
@@ -427,83 +457,75 @@ function toMeetPool(meetType){
   */
 function toEstablishStage(){
 	var pid = proid;
+	var result = '';
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
-			var result = data.result.status;
+			result = data.result.status;
 			if(result == "OK"){ 
-				if($.isFunction(refreshProjectList))
-				{
-					refreshProjectList.call();
-				}
 				layer.msg("申请立项会成功!");
-				$("#powindow,#popbg").remove();
-				info(pid);
 			}else{
 				layer.msg(data.result.message);
 			}
 		});
 	}
+	return result;
 }
 /**
  * 申请CEO评审排期
  */
 function applyCeoMeeting(){
 	var pid = proid;
+	var result = '';
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.inCeoMeetingPool + pid, {}, function(data){
-			var result = data.result.status;
+			result = data.result.status;
 			if(result == "OK"){ 
-				if($.isFunction(refreshProjectList))
-				{
-					refreshProjectList.call();
-				}
 				layer.msg("申请CEO评审会成功!");
-				$("#powindow,#popbg").remove();
-				info(pid);
 			}else{
 				layer.msg(data.result.message);
 			}
 		});
 	}
+	return result;
 }
 /**
  * 立项会阶段申请立项会排期
  */
 function toLxmeetingPool(){
 	var pid = proid;
+	var result = '';
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.inLxmeetingPool + pid, {}, function(data){
-			var result = data.result.status;
+			result = data.result.status;
 			if(result == "OK"){ 
 				layer.msg("申请立项会成功!");
-				$("#powindow,#popbg").remove();
-				info(pid);
 			}else{
 				layer.msg(data.result.message);
 			}
 		});
 	}
+	return result;
 }
 /**
  * 投决会--点击申请投决会按钮
  */
 function inSureMeetingPool(){
 	var pid = proid;
+	var result = '';
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(
 				platformUrl.inSureMeetingPool + pid,
 				null,
 				function(data){
-					var result = data.result.status;
+					result = data.result.status;
 					if(result == "OK"){ 
 						layer.msg("申请成功!");
-						$("#powindow,#popbg").remove();
-						info(pid);
 					}else{
 						layer.msg(data.result.message);
 					}
 				});
 	}
+	return result;
 }
 
 

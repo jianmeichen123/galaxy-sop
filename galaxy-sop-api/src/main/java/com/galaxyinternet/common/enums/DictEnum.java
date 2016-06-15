@@ -1,8 +1,5 @@
 package com.galaxyinternet.common.enums;
 
-import java.util.Map;
-
-
 public enum DictEnum {
 	
 	项目类型("项目类型","projectType"),
@@ -236,6 +233,7 @@ public enum DictEnum {
 	
 	//会议状态
 	public enum meetingSheduleResult {
+		待申请排期("待排期",00),
 		待排期("待排期",0),
 		已排期("已排期",1),
 		已通过("已通过",2),
@@ -430,7 +428,7 @@ public enum DictEnum {
 		资金拨付凭证("资金拨付凭证","fileWorktype:9"),
 		公司资料("公司资料","fileWorktype:10"),
 		财务预测报告("财务预测报告","fileWorktype:11"),
-		商业计划("商业计划","fileWorktype:12");
+		商业计划("商业计划书","fileWorktype:12");
 		
 		private String name;
 
@@ -664,7 +662,7 @@ public enum DictEnum {
 			IdeaProgress[] ideaP = IdeaProgress.values();
 			String name = "";
 			for (IdeaProgress aidea : ideaP) {
-				if (code == aidea.getCode()) {
+				if (code.equals(aidea.getCode())) {
 					name = aidea.getName();
 					break;
 				}

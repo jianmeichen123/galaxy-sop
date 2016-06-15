@@ -33,178 +33,149 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    <h2>我的项目</h2>
-      <!-- 面包屑 -->
-     <!--  <ul class="breadcrumb">
-       <li><a href="javascript:;" class="bcfirst">我的项目</a></li>
-       <li><span>&gt;</span><a href="javascript:;">项目基本信息</a></li>
-       <li><span>&gt;</span><a href="javascript:;" class="active">项目详情信息</a></li>
-     </ul> -->
-      <div class="clearfix"></div>
-        <!--项目详细信息内容-->
-        <div class="projectmsg_d clearfix">
-          <!-- 第1部分 -->
-          <div class="block block1">
-            <table width="100%" cellspacing="5" cellpadding="0" >
-            <form action="" id="add_form" method="post">
-             <tbody>
-                  <tr>
-                      <td>
-                        <dl>
-                          <dt>项目编码：</dt>
-                          <dd id="pcode"></dd>
-                        </dl>
-                      </td>
-                      <td>
-                        <dl>
-                          <dt>创建时间：</dt>
-                          <dd>
-                          	<input type="text" class="datepicker-text time" name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/>
-                          </dd>
-                        </dl>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                        <dl>
-                          <dt>项目名称：</dt>
-                          <dd><input type="text" id="projectName" name="projectName" value="" placeholder="项目名称" valType="required" msg="<font color=red>*</font>项目名称不能为空"></dd>
-                        </dl>
-                      </td>
-                      <td>
-                        <dl>
-                          <dt>项目类型：</dt>
-                          <dd>
-                            <label><input name="projectType" type="radio" value="projectType:2"  checked/>内部创建</label>
-                            <label><input name="projectType" type="radio" value="projectType:1" />外部投资</label>
-                          </dd>
-                        </dl>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                        <dl>
-                          <dt>计划额度：</dt>
-                          <dd><input type="text" id="formatContribution" name="formatContribution" value="" placeholder="计划额度" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"></dd>
-                        </dl>
-                      </td>                      
-                      <td>
-                        <dl>
-                          <dt>估值：</dt>
-                          <dd>
-                          	<input type="text" id="formatValuations" name="formatValuations" value="" placeholder="估值" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字">
-                          </dd>
-                        </dl>
-                      </td>
-
-                  </tr>
-                  <tr>
-                      <td>
-                        <dl>
-                          <dt>出让股份：</dt>
-                          <dd><input type="text" id="formatShareRatio" name="formatShareRatio" value="" class="transferSharesTxt" allowNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间整数"><span>&nbsp;%</span></dd>
-                        </dl>
-                      </td>
-                      <td>
-                        <dl>
-                          <dt>单位（万）：</dt>
-                          <dd>
-                            <label><input name="formatUnit" type="radio" value="0" checked/>人民币</label>
-                            <label><input name="formatUnit" type="radio" value="1" />美元</label>
-                            <label><input name="formatUnit" type="radio" value="2" />英镑</label>
-                            <label><input name="formatUnit" type="radio" value="3" />欧元</label>
-                          </dd>
-                        </dl>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                        <dl>
-                          <dt>公司名称：</dt>
-                          <dd><input type="text" id="projectCompany" name="projectCompany" value="" placeholder="公司名称"></dd>
-                        </dl>
-                      </td>
-                      <td>
-                        <dl>
-                          <dt>组织机构代码：</dt>
-                          <dd><input type="text" id="projectCompanyCode" name="projectCompanyCode" value="" placeholder="组织机构代码" class="zzjg_txt"  allowNULL="yes" valType="CODE" msg='<font color=red>*</font>由字母或数字或"-"组成'></dd>
-                        </dl>
-                      </td>
-                  </tr>                   
-                </tbody>
-                </form>
-              </table>
-              <div class="btnbox">
-                <a href="javascript:;" onclick="add('save');" class="bluebtn pubbtn">保存</a>
-                <a href="javascript:;" onclick="add('saveandupdate');" class="pubbtn bluebtn">保存并编辑</a>
-                 
-              </div>
-          </div>
-          <!-- 第2部分 -->
-     <!--      <div class="block block2 shadow">
-            <dl>
-              <dt>项目概述</dt>
-            </dl>
-          </div>
-          第3部分
-          <div class="block block2">
-            <dl>
-              <dt>商业模式</dt>
-            </dl>
-          </div>
-          第4部分
-          <div class="block block2">
-            <dl>
-              <dt>公司定位</dt>
-            </dl>
-          </div>
-          第5部分
-          <div class="block block2 shadow">
-            <dl>
-              <dt>用户分析</dt>
-            </dl>
-          </div>
-          第6部分
-          <div class="block block2 shadow">
-            <dl>
-              <dt>竞情分析</dt>
-            </dl>
-          </div>
-          第7部分
-          <div class="block block2 clearfix">
-            <dl>
-              <dt>团队成员</dt>
-            </dl>
-          </div> 
-          第8部分       
-          <div class="block block2">
-            <dl>
-              <dt>股权结构</dt>
-            </dl>
-          </div>  -->
-          <!-- 第9部分     
-          <div class="block block2">
-            <dl>
-              <dt>档案库</dt>
-            </dl>
-          </div> -->          
+		<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>添加项目</div>
+        <div class="new_tit_b">
+            <span class="new_color size18">添加项目</span>
         </div>
-    </div> 
+    	
+        <div class="new_left">
+        	<div class="tabtable_con_on">
+                    <!--融资计划-->
+                    <div class="new_r_compile new_bottom_color">
+                        <span class="new_ico_basic"></span>
+                        <span class="new_color size16">基本信息</span>
+                    </div>  
+                    <form action="" id="add_form" method="post">
+                    <ul class="basic_ul">
+                    	<li>
+                        	<span class="basic_span"><em class="red">*</em>项目类型：</span>
+                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w"><label for="radio_w">外部投资</label></span>
+                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">内部项目</label></span>
+                            <span id="projectTypeTip" class="m_r30" style="display:none;">
+                            	<div class="tip-yellowsimple" style="visibility: inherit; left: 413.031px; top: 229px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
+                            </span>
+                        </li>
+                        <li>
+                            <span class="basic_span"><em class="red">*</em>项目名称：</span>
+                            <span class="m_r30"><input type="text" class='new_nputr' id="projectName" name="projectName" valType="required" msg="<font color=red>*</font>项目名称不能为空"/></span>
+                            <span class="basic_span"><em class="red">*</em>创建时间：</span>
+                            <span class="m_r30"><input type="text" class='datepicker-text new_nputr' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
+                        </li>
+                        <li>
+                        	<span class="basic_span"><em class="red">*</em>行业归属：</span>
+                            <span class="m_r30">
+                            	<select name="industryOwn" class='new_nputr' valType="required" msg="<font color=red>*</font>行业归属不能为空">
+			                    	<option value="">--请选择--</option>
+			                    </select>
+                            </span>
+                        	<span class="basic_span">融资状态：</span>
+                            <span class="m_r30">
+								<select name="financeStatus" class='new_nputr'>
+			                    </select>
+							</span>
+                        </li>
+                    </ul>  
+                    
+                    <!--融资计划-->
+                    <div class="new_r_compile new_bottom_color">
+                        <span class="new_ico_financing"></span>
+                        <span class="new_color size16 m_r15">融资计划</span>
+                        <span class="new_color_gray">请折算为人民币进行计算</span>
+                    </div>  
+                    <ul class="basic_ul">
+                    	
+                        <li>
+                            <span class="basic_span">融资金额：</span>
+                            <span class="m_r30">
+                            	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>
+                            </span>
+                            <span class="basic_span">估值：</span>
+                            <span class="m_r15">
+                            	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>
+                            </span>
+                            <span class="m_r30">万元人民币</span>
+                        </li>
+                        <li>
+                        	<span class="basic_span">出让股份：</span>
+                            <span class="m_r30">
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间整数"/>
+                            </span>
+                        </li>
+                    </ul>
+                    </form>
+                    <!--实际投资-->
+                    <div class="new_r_compile new_bottom_color">
+                        <span class="new_ico_book"></span>
+                        <span class="new_color size16">商业计划书</span>
+                    </div>  
+                    <!-- 商业计划书表格-->
+                    <table style="width:80%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
+                    </table>
+                    
+                    <div class="basic_input" onclick="add();">保存</div>
+                </div>
+        </div>
+       <!--右边-->
+        <div class="basic_right">
+        	<div class="tabtable_con_on">
+            	<div class="new_bottom_color">
+                    <span class="new_ico_hint"></span>
+                    <span class="new_color size16">温馨提示</span>
+                </div>
+                <ul class="basic_right_ul">
+                	<li>有效项目数据的最低标准如下:</li>
+                    <li>1、已录入商业计划书</li>
+                    <li>2、已录入至少一条访谈记录</li>
+                    <li>3、已录入至少一名创业团队成员</li>
+                </ul>     	
+                <p class="basic_p">不满足以上标准的项目数据，将会被系统删除。请尽快将项目信息补充完整，以达到项目数据的最低标准。</p>
+            </div>
+        </div>
+        <!--右边 end--> 
+    </div>
+     
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
+	<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/teamSheetNew.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness.js'></script>
 <script type="text/javascript">
-   var message = "";
-   var result=false;
-   var TOKEN ;
+	/**
+	 * @version 2016-06-21
+	 */
+	$('[data-on="compile"]').on('click',function(){
+		$('.bj_hui_on').show();
+		$('.compile_on').show();
+	});
+	$('[data-on="close"]').on('click',function(){
+		$('.bj_hui_on').hide();
+		$('.compile_on').hide();
+	});
+	/**
+	 * 查询事业线
+	 * @version 2016-06-21
+	 */
+	createCareelineOptions(platformUrl.getCareerlineList,"industryOwn","select");
+	/**
+	 * 获取融资状态下拉项
+	 * @version 2016-06-21
+	 */
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
+	
+	
+   var TOKEN;
 	$(function(){
 		$("#createDate").val(new Date().format("yyyy-MM-dd"));
 		createMenus(5);
 		//获取TOKEN 用于验证表单提交
-		sendPostRequest(platformUrl.getToken,callback);
-		sendGetRequest(platformUrl.getProjectCode, {}, function(data){
-			var code = data.entity.pcode;
-			$("#pcode").empty();
-			$("#pcode").html(code);
+		sendPostRequest(platformUrl.getToken,function(data){
+			TOKEN=data.TOKEN;
+			return TOKEN;
 		});
 		$("#formatShareRatio").blur(function(){
 			var valuations = calculationValuations();
@@ -218,11 +189,10 @@
 				$("#formatValuations").val(valuations.toFixed(2));
 			}
 		});
+		$('input:radio[name="projectType"]').click(function(){
+			$("#projectTypeTip").css("display","none");
+		});
 	});
-	function callback(data){
-		TOKEN=data.TOKEN;
-		return TOKEN;
-	}
 	function calculationValuations(){
 		var projectShareRatio = $("#formatShareRatio").val();
 		var projectContribution = $("#formatContribution").val();
@@ -232,64 +202,24 @@
 		return null;
 	}
 	var b = new Base64();
-	function add(obj){
+	function add(){
+		var val=$('input:radio[name="projectType"]:checked').val();
+		if(val == null){
+			$("#projectTypeTip").css("display","block");
+			return;
+		}
 		if(beforeSubmit()){
-			var json = {};
-			var projectName = $("#projectName").val();
-			var projectCompanyCode = $("#projectCompanyCode").val();
-			json = {"projectName":projectName,"projectCompanyCode":projectCompanyCode};
-			sendPostRequestByJsonObj(platformUrl.checkProject,json,callbackcheckProject);
-			if(result){
-				layer.msg(message);
-				$("#projectName").val("");
-				result=false;
-				return false;
-			}
-			$.ajax({
-				url : platformUrl.addProject,
-				data : b.encode(JSON.stringify(JSON.parse($("#add_form").serializeObject()))),
-			//  data : JSON.stringify(JSON.parse($("#add_form").serializeObject())),
-				async : false,
-				type : 'POST',
-				contentType : "application/json; charset=UTF-8",
-				dataType : "text",
-				cache : false,
-				beforeSend : function(xhr) {
-					if (TOKEN) {
-						xhr.setRequestHeader("TOKEN", TOKEN);
-					}
-					if (sessionId) {
-						xhr.setRequestHeader("sessionId", sessionId);
-					}
-					if(userId){
-						xhr.setRequestHeader("guserId", userId);
-					}
-				},
-				error : function() {
-					layer.msg("操作失败");
-				},
-				success : function(data) {
-					data = JSON.parse(b.decode(data));
-					if(data.result.status=="ERROR"){
-						layer.msg("项目名重复，请重新输入");
-					}else{
-						if(obj=="save"){
-							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
-						}
-						if(obj=="saveandupdate"){
-							forwardWithHeader(Constants.sopEndpointURL + "/galaxy/upp/"+data.id);
-						}
-					}
+			sendPostRequestBySignJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
+				if(data.result.status=="ERROR"){
+					layer.msg(data.result.message);
+				}else{
+					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
 				}
-			}); 
+			},TOKEN);
 		}
 	}
-	function callbackcheckProject(data) {
-		if (data.count!=0) {
-		   message = "存在重复项目名，请重新输入";
-			result=true;
-		} 
-	}
+	
+	
 </script>
 
 </html>

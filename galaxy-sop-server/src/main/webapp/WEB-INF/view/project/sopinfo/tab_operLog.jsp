@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -20,6 +22,7 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
+<script src="<%=path %>/js/sopinfo.js"></script>
 </head>
 
 
@@ -35,25 +38,32 @@
     <!--右中部内容-->
  	<div class="ritmin">
  	
-    	<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>Utter绝对潮流</div>
-    	
-    	<div class="new_tit_b">
-        	<span class="new_color size18">Utter绝对潮流</span><span class="new_color">ID987786600009</span>
-        	<span class="b_span"><a href="#">返回项目列表></a></span>
-        </div>
+    <jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
         
         
         <div class="new_left">
         	<div class="tabtable assessment label_static">
           	<!-- tab标签 -->
             <ul class="tablink">
-                <li><a href="javascript:;" onclick="toDetail('${pid}')">基本信息</a></li>
-                <li><a href="javascript:;">团队成员</a></li>
-                <li><a href="javascript:;">股权结构</a></li>
-                <li><a href="javascript:;" onclick="toInterView('${pid}')">访谈记录</a></li>
-                <li><a href="javascript:;" onclick="toMeet('${pid}')">会议纪要</a></li>
-                <li><a href="javascript:;">项目文档</a></li>
-                <li class="on"><a href="javascript:;" onclick="toOperLog('${pid}')">操作日志</a></li>
+                 <li><a href="javascript:;" onclick="showTabs('${pid}',0)">基本信息</a></li>
+                 <c:choose>
+	            <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
+                <li><a href="javascript:;" onclick="showTabs('${pid}',1)">团队成员</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',2)">股权结构</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',3)">访谈记录</a></li>
+                <li><a href="javascript:;" onclick="showTabs('${pid}',4)">会议纪要</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
+                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
+                </c:when>
+                <c:otherwise>
+                <li><a href="javascript:;" class="disabled">团队成员</a></li>
+                <li><a href="javascript:;" class="disabled">股权结构</a></li>
+                <li><a href="javascript:;" class="disabled">访谈记录</a></li>
+                <li><a href="javascript:;" class="disabled">会议纪要</a></li>
+				<li><a href="javascript:;" class="disabled">项目文档</a></li>
+                <li><a href="javascript:;" class="disabled">操作日志</a></li> 
+                </c:otherwise>
+             	</c:choose>
             </ul>
 
             
@@ -61,12 +71,12 @@
             <div data-tab="con" > 
                -->
             	<div class="tabtable_con">
-            	
+            		<c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
 					<div id="custom-toolbar">
 						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 					</div>
 					
-					<table id="projectProgress_table"
+					<table id="project_info_log"
 						data-url="<%=path%>/galaxy/operatlog/query"
 						data-page-list="[10,20,30]" data-toolbar="#custom-toolbar">
 						<thead>
@@ -80,7 +90,7 @@
 							</tr>
 						</thead>
 					</table>
-						
+					</c:if>	
                 </div>                 
            <!--  </div>
            tab end-->
@@ -123,7 +133,7 @@ $(function(){
 	
 	$("#projectId").val(proid);
 	
-	$('#data-table').bootstrapTable({
+	$('#project_info_log').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
 		pageList : [5, 10, 20 ],

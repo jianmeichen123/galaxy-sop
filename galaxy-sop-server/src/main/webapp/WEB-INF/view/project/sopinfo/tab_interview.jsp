@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -37,25 +39,32 @@
     <!--右中部内容-->
  	<div class="ritmin">
  	
-    	<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>Utter绝对潮流</div>
-    	
-    	<div class="new_tit_b">
-        	<span class="new_color size18">Utter绝对潮流</span><span class="new_color">ID987786600009</span>
-        	<span class="b_span"><a href="#">返回项目列表></a></span>
-        </div>
+    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
 
 
 		<div class="new_left">
 			<div class="tabtable assessment label_static">
 				<!-- tab标签 -->
 	            <ul class="tablink">
-	                <li><a href="javascript:;" onclick="toDetail('${pid}')">基本信息</a></li>
-	                <li><a href="javascript:;">团队成员</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},0)">基本信息</a></li>
+	                <c:choose>
+	             	<c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
+	                <li><a href="javascript:;" onclick="showTabs(${pid},1)">团队成员</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
-	                <li class="on"><a href="javascript:;" onclick="toInterView('${pid}')">访谈记录</a></li>
-	                <li><a href="javascript:;" onclick="toMeet('${pid}')">会议纪要</a></li>
-	                <li><a href="javascript:;">项目文档</a></li>
-	                <li><a href="javascript:;">操作日志</a></li>
+	                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
+	                </c:when>
+	                <c:otherwise>
+	                <li><a href="javascript:;" class="disabled">团队成员</a></li>
+	                <li><a href="javascript:;" class="disabled">股权结构</a></li>
+	                <li><a href="javascript:;" class="disabled">访谈记录</a></li>
+	                <li><a href="javascript:;" class="disabled">会议纪要</a></li>
+					<li><a href="javascript:;" class="disabled">项目文档</a></li>
+	                <li><a href="javascript:;" class="disabled">操作日志</a></li> 
+	                </c:otherwise>
+	             	</c:choose>
 	            </ul>
 
 
@@ -63,13 +72,13 @@
 				<div data-tab="con" >
   -->
 					<div class="member interview">
+						<c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
 
 						<!--按钮-->
 						<div class="top clearfix">
 							<div class="btnbox_f btnbox_f1 clearfix">
-								<!--  <a href="<%=path%>/galaxy/project/progress/interViewAdd" data-btn="interview" class="pubbtn lpubbtn bluebtn ico c4">添加访谈记录</a> 
-								<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark">启动内部评审</a> -->
-								<a href="#"  onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview">添加访谈记录</a>
+								<a href="#"  id="tjftjl" onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview" style="display: none;"></a>
+								<!-- <a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a> -->
 							</div>
 						</div>
 
@@ -97,13 +106,13 @@
 							data-toolbar="#projectProgress_1_table_custom-toolbar">
 							<thead>
 								<tr>
-									<th data-field="viewinfo" data-align="center" data-formatter="intervierInfoFormat" data-class="no1">访谈概况</th>
-									<th data-field="viewNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈记录</th>
-									<th data-field="oper" data-align="center" data-formatter="viewOperFormat">操作</th>
+									<th data-field="viewinfo" data-align="left" data-formatter="intervierInfoFormat" data-class="no1">访谈概况</th>
+									<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈记录</th>
+									<th data-field="oper" data-align="left" data-formatter="viewOperFormat">操作</th>
 								</tr>
 							</thead>
 						</table>
-						
+						</c:if>
 					</div>
 
 				<!-- </div>
@@ -148,7 +157,7 @@
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var interviewSelectRow = null;
-	
+	var admin = "${fx:isCreatedByUser('project',pid) }";
 
 $(function(){
 	createMenus(5);
@@ -167,29 +176,47 @@ $(function(){
 		idField : "id",
 		clickToSelect: true,
         search: false,
-       /*  onLoadSuccess: function (data) {
-        	$(".option_item_mark").click(function(){
-        		interviewSelectRow = $('#data-table').bootstrapTable('getSelections');
-        		showviewdetail(interviewSelectRow);
-        		//console.log($(this).data());
-        	});
-        } */
 	});
 	
-	
-	$('[data-on="compile"]').on('click', function() {
-		$('.bj_hui_on').show();
-		$('.compile_on').show();
-	})
-	$('[data-on="close"]').on('click', function() {
-		$('.bj_hui_on').hide();
-		$('.compile_on').hide();
-	})
-	
+	//check to show or not not show qdnbps button
+	/* if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
+		//$('#tjftjl').remove();
+		$('#tjftjl').removeAttr("onclick");
+	} else {
+		if(index == 1){
+			checkToShowBut();
+		}
+		$('#tjftjl').show();
+		$('#tjftjl').text("添加访谈记录");
+	} */
+	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
+		//$('#tjftjl').remove();
+		$('#tjftjl').removeAttr("onclick");
+	} else {
+		$('#tjftjl').show();
+		$('#tjftjl').text("添加访谈记录");
+	}
 });	
 	
-	
-	
+
+//检测是否显示启动内部评审按钮
+function checkToShowBut(){
+	if(viewList && viewList.length>0){
+		toshowbut();
+	}
+}
+function toshowbut(){
+	//$('#qdnbps').text("启动内部评审");
+	$('#qdnbps').on('click', function() {
+		startReview();
+	})	
+	$('#qdnbps').show();
+}
+function tohidebut(){
+	$('#qdnbps').hide();
+	$('#qdnbps').text("");
+	$('#qdnbps').off();
+}	
 
 /**
  * 添加接触访谈纪要弹出层
@@ -234,12 +261,16 @@ function initViewUpload() {
 						return;
 					}
 					res.stage = "projectProgress:1";
+					res.pid = proid;
+					res.createDate = res.viewDateStr;
+					res.content = res.viewNotes;
+					res.target = res.viewTarget;
 					//var file = $("#fileName").val();
 					if(up.files.length > 0){
 						up.settings.multipart_params = res;  //viewuploader.multipart_params = { id : "12345" };
 						viewuploader.start();
 					}else{
-						sendPostRequestByJsonObj(platformUrl.saveViewFile,res,function(data){
+						sendPostRequestByJsonObj(platformUrl.stageChange,res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
 								$("#save_interview").removeClass("disabled");
@@ -247,6 +278,10 @@ function initViewUpload() {
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
+								/* if(index == 1 && $("#qdnbps").css('display')=='none' ){
+									toshowbut();
+								} */
+								toFormatNearNotes();
 								var _this = $("#projectProgress_1_table");
 								if(_this == null || _this.length == 0 || _this == undefined){
 									removePop1();
@@ -284,6 +319,10 @@ function initViewUpload() {
 					return false;
 				}else{
 					layer.msg("保存成功", {time : 500});
+					/* if(index == 1 && $("#qdnbps").css('display')=='none' ){
+						toshowbut();
+					} */
+					toFormatNearNotes();
 					var _this = $("#projectProgress_1_table");
 					if(_this == null || _this.length == 0 || _this == undefined){
 						removePop1();
@@ -308,8 +347,9 @@ function initViewUpload() {
 	viewuploader.init();
 }
 
-
-
+/**
+ *  查看  or 编辑  
+ */
 function viewOperFormat(value,row,index){  
 	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
@@ -360,8 +400,24 @@ function interviewsave(){
 
 	
 
-
+/**
+ * 启动内部评审
+ */
+function startReview(){
+	if(proid != '' && proid != null && proid != undefined){
+		sendGetRequest(platformUrl.startReview + proid, {}, function(data){
+			var result = data.result.status;
+			if(result == "OK"){
+				layer.msg("启动内部评审成功!");
+				window.location.reload();
+			}else{
+				layer.msg(data.result.message);
+			}
+		});
+	}
+}
 	
 	
 </script>
 </html>
+

@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -37,15 +39,18 @@
                         <li><span class="gray_dot"></span>投后运营</li>
                     </ul>
                 </div>
-                 <span class="bluebtn new_btn" >项目流程</span>
+                 <!-- <span class="bluebtn new_btn" style="display: none;">项目流程</span> -->
             </div>
            
            
             
-            <div class="correlation">相关操作</div>
+            <div class="correlation">相关操作</div> 
+            <c:if test="${ projectInfo.projectStatus != 'projectStatus:2' and projectInfo.projectStatus != 'projectStatus:3' and fx:isCreatedByUser('project',projectId) }">
+            </c:if>
             <div class="new_correlation_cen">
-            	<span class="bluebtn new_btn" onclick="closePro()">否决项目</span>
+            	<span class="bluebtn new_btn" onclick="closePro()" id="fjxm_but">否决项目</span>
             </div>
+            
             
             
             
@@ -54,7 +59,10 @@
             	近期会议纪要
 				<span class="more null new_righ" id="meet_more" style="cursor: pointer;" >more</span>
 			</div>
-            <div class="new_correlation_cen" id="near_meet">
+            <div class="new_correlation_cen new_correlation_cen_con" id="near_meet">
+            <div class="no_con">
+            		暂无会议纪要
+            	</div>
             </div>
             
              
@@ -62,57 +70,67 @@
             <div class="correlation">近期访谈记录
 				<span class="more null new_righ" id="view_more" style="cursor: pointer;" >more</span>
 			</div>
-            <div class="new_correlation_cen" id="near_view">
+            <div class="new_correlation_cen new_correlation_cen_con" id="near_view">
+            	<div class="no_con">
+            		暂无访谈记录
+            	</div>
             </div>
             
         </div>
         
         <!--右边 end-->
    
-   
-
 <script>
-
-var proid = '${pid}';
-var prograss = '${prograss}';
+var proid = pid;
+var prograss = projectInfo.projectProgress;
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
-var index = Number(prograss.substring(prograss.length-1,prograss.length));
-
+var index = Number(prograss.substring("projectProgress:".length,prograss.length));
+var admin = "${fx:isCreatedByUser('project',pid) }";
 
 $(function(){
 	init_lct(); //流程图初始化
 	
+	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || admin!="true"){
+		$("#fjxm_but").removeAttr("onclick").attr("disabled","disabled").addClass("disabled");
+	}
+		
 	//获取近期访谈、会议 记录
-	sendGetRequest(Constants.sopEndpointURL+"/galaxy/project/getnearnotes/" + proid, null, formatNearNotes);
+	toFormatNearNotes();
 	
 	//more 链接初始化
-	$("#meet_more").on("click", function(){
-		toMeet(proid);
-	});
-	$("#view_more").on("click", function(){
-		toInterView(proid);
-	});
+	initMoreLine();
+	
+ 	//无会议记录
+	var len=$("#near_meet .new_b_bottom").length;
+	if(len==0){
+		$("#near_meet .no_con").show();
+	}
+	//无访谈记录
+	var len=$("#near_view .new_b_bottom").length;
+	if(len==0){
+		$("#near_view .no_con").show();
+	}
 	
 })
 
-/**
- * tab 跳转
- */
-function toInterView(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/proview/" + id);
-}
-function toMeet(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/promeet/" + id);
+//more 链接控制
+function initMoreLine(){
+	$("#meet_more").on("click", function(){
+		showTabs(proid,4)
+	});
+	$("#view_more").on("click", function(){
+		showTabs(proid,3)
+	});
+	
+	/* if(projectInfo.projectStatus != 'meetingResult:3' && projectInfo.projectStatus != 'projectStatus:2' && projectInfo.projectStatus != 'projectStatus:3'){
+	} else{
+		$("#meet_more").attr("disabled","disabled").addClass("disabled");
+		$("#view_more").attr("disabled","disabled").addClass("disabled");
+	} */
 }
 
-function toDetail(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/detail/" + id);
-}
-function toOperLog(id){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/toprolog/" + id);
-}
 
 /**
  * 流程图 ，动态生成初始化
@@ -134,6 +152,10 @@ function init_lct(){
 /**
  * 格式化 近期 访谈 会议
  */
+ var viewList;
+function toFormatNearNotes(){
+	sendGetRequest(Constants.sopEndpointURL+"/galaxy/project/getnearnotes/" + proid, null, formatNearNotes);
+}
 function formatNearNotes(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
@@ -141,7 +163,7 @@ function formatNearNotes(data){
 		return;
 	}
 	
-	var viewList = data.userData.viewList;
+	viewList = data.userData.viewList;
 	var meetList = data.userData.meetList;
 	
 	if(meetList && meetList.length>0){
@@ -153,11 +175,11 @@ function formatNearNotes(data){
 			
 			//会议结论 处理
 			var resultStr = "";
-			if(meetList[i].meetingResult = 'meetingResult:1'){ //通过
+			if(meetList[i].meetingResult == 'meetingResult:1'){ //通过
 				resultStr = "<span class='color_pass'>通过</span>";
-			}else if(meetList[i].meetingResult = 'meetingResult:2'){ //待定
+			}else if(meetList[i].meetingResult == 'meetingResult:2'){ //待定
 				resultStr = "<span class='color_undetermined'>待定</span>";
-			}else if(meetList[i].meetingResult = 'meetingResult:3'){ //否决
+			}else if(meetList[i].meetingResult == 'meetingResult:3'){ //否决
 				resultStr = "<span class='color_veto'>否决</span>";
 			}
 			
@@ -180,7 +202,8 @@ function formatNearNotes(data){
 						"<p>"+notesStr+"</p>"+
 					"</div>";
 			
-	    	$("#near_meet").append(str);
+	    	$("#near_meet").append(str); 	
+	    	
 	    } 
 	}
 	
@@ -194,7 +217,7 @@ function formatNearNotes(data){
 			var subStr = "";
 			var targerHtml="";
 			if(target.length>8){
-				subStr = targetStr.substring(0,8)+"...";
+				subStr = target.substring(0,8)+"...";
 				targerHtml = "<span class=\"new_b_li_one\" title="+target+">"+subStr+"</span>";
 			}else{
 				targerHtml = "<span class=\"new_b_li_one\" >"+target+"</span>";
@@ -241,7 +264,8 @@ function closeback(data){
 		return;
 	}else{
 		layer.msg("该项目已关闭");
-		toDetail(proid);
+		//toDetail(proid);
+		showTabs(proid,0)
 		//forwardWithHeader(platformUrl.mpl);
 	}
 }

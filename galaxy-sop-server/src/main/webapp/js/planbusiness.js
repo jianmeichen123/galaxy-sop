@@ -1,14 +1,38 @@
+/**
+ * 历史计划列表
+ * param : 
+ * 		_domid : grid列表domid
+ * 		_projectId :  项目ID
+ */
 var planGrid = {
 	projectId : undefined,
 	domid : undefined,
-	progress : undefined,
 	init : 	function(data){
+		
+		
+		var gridFormatter = {
+				fileNameFormatter : function(value,row,index){
+					return row.fileName + "." + row.fileSuffix;
+				},
+				operatorFormatter : function(value,row,index){
+					if(row.fileKey){
+						return [
+								'<a class="downloadlink blue"  href="javascript:void(0)">下载</a>'
+							   ].join('');
+					}
+				},
+				operatorEvent : {
+					 'click .downloadlink': function (e, value, row, index) {
+							layer.msg('正在下载，请稍后...',{time:2000});
+							window.location.href=platformUrl.downLoadFile+'/'+row.id ;
+				        }
+				}
+		}
+		
 		 planGrid.domid = data._domid;
 		 planGrid.projectId = data._projectId;
-		 planGrid.progress = (data._progress.split("_"))[1];
-		 searchPanel.initData();
 		 $('#' + data._domid).bootstrapTable({
-			url : platformUrl.searchSopFileList, // 请求后台的URL（*）
+			url : platformUrl.searchBusinessPlanHistory, // 请求后台的URL（*）
 			queryParamsType : 'size|page', // undefined
 			showRefresh : false,
 			search : false,
@@ -30,267 +54,37 @@ var planGrid = {
 			uniqueId : "id", // 每一行的唯一标识，一般为主键列
 			cardView : false, // 是否显示详细视图
 			detailView : false, // 是否显示父子表
+			//文件名称，状态，更新时间，下载
+			//fileName + fileSuffix,fileStatusDesc,createDate
 			columns : [{
-				field : 'checkbox',
-				checkbox : "true",
-				title : ''
-			},{
-				field : 'fSource',
-				title : '文件来源'
-			}, {
-				field : 'fileUName',
-				title : '起草者'
-			}, {
-				field : 'fType',
-				title : '存储类型'
-			}, {
-				field : 'fWorktype',
-				title : '业务分类'
-			}, {
-			    field: 'voucherFile',
-			    title: '签署凭证',
-			    events : planGrid.operatorVEvents,
-			    formatter: planGrid.operateVFormatter 	
-			  }, {
-				field : 'updatedDate',
-				title : '更新日期'
+				field : 'fileName',
+				title : '文档名称',
+				align : 'center',
+				formatter : gridFormatter.fileNameFormatter
 			}, {
 				field : 'fileStatusDesc',
-				title : '档案状态'
+				title : '状态',
+				align : 'center'
 			}, {
+				field : 'createDate',
+				title : '更新时间',
+				align : 'center'
+			},{
 				field : 'operate',
 				title : '操作',
 				align : 'center',
-				events : planGrid.updateEvents,
-				formatter : planGrid.updateFormatter
-
-			}, {
-				field : 'operate2',
-				title : '附件查看',
-				align : 'center',
-				events : planGrid.downloadEvents,
-				formatter : planGrid.downloadFomatter
-
-			} ]
-		});
-		 // 初始化查询按钮
-		 $("#file_repository_btn").click(planGrid.serarchData);
-
-		  
-	},
-	updateFormatter : function(value,row,index){
-		var tempPro;
-		if(typeof(row.projectProgress) != "undefined"){
-			tempPro = (row.projectProgress.split(":"))[1];
-		}else{
-			return '';
-		}
-		var uploadOpt,uploadClass;
-		if(row.fileKey){
-			uploadOpt = "更新";
-			uploadClass = "fileupdatelink";
-		}else{
-			uploadOpt = "上传";
-			uploadClass = "fileuploadlink";
-		}
-		
-		if(tempPro <= planGrid.progress && row.isEdit == "true"){
-			return [
-		            '<a class= "' + uploadClass +' blue"  href="javascript:void(0)">',
-		            uploadOpt,
-		            '</a>  '
-		        ].join('');
-		}
-		return '';
-		
-	},
-	updateEvents : {
-		//更新文档
-		'click .fileupdatelink' : function(e, value, row, index){
-        	formData = {
-        			_fileKey : row.fileKey,
-        			_fileSource : row.fileSource,
-        			_fileType : "fileType:1",
-        			_fileTypeAuto : true,
-        			_workType : row.fileWorktype,
-        			_projectId : row.projectId,
-        			_projectName : row.projectName,
-        			_isProve : "hide",
-        			_remark : "hide",
-    				callFuc : function(){
-    					planGrid.serarchData();
-    				},
-    				_url : platformUrl.commonUploadFile, //兼容老板插件
-    				_localUrl : platformUrl.commonUploadFile
-    		};
-    		win.init(formData);
-        },
-        //上传文档
-        'click .fileuploadlink' : function(e, value, row, index){
-        	var uploadUrl = undefined;
-        	var uploadFormFuc = undefined;
-        	if(row.isChangeTask == "true"){
-        		uploadUrl = platformUrl.stageChange;
-        		uploadFormFuc = function(dom){
-					//本地上传回掉参数获取事件, 通过dom.find(“”)获取表单数据 jquery 语法
-					var form = {
-							"pid" : dom.find("#win_sopProjectId").data("tid"),
-							"stage":row.projectProgress,
-							"type":dom.find("input[name='win_fileSource']:checked").val(),
-							"fileType":dom.find("#win_fileType").val(),
-							"fileWorktype":dom.find("#win_fileWorkType").val()
-					}
-					return form;
-				}
-        	}else{
-        		uploadUrl = platformUrl.commonUploadFile;
-        	}
-        	
-        	formData = {
-        			_fileKey : row.fileKey,
-        			_fileSource : row.fileSource,
-        			_fileType : "fileType:1",
-        			_fileTypeAuto : true,
-        			_workType : row.fileWorktype,
-        			_projectId : row.projectId,
-        			_projectName : row.projectName,
-        			_isProve : "hide",
-        			_remark : "hide",
-    				callFuc : function(){
-//    					planGrid.serarchData();
-    					$("#powindow,#popbg").remove();
-    					info(row.projectId);
-    				},
-    				_url : platformUrl.stageChange, //兼容老板插件
-    				_localUrl : uploadUrl,
-    				_getLocalFormParam : uploadFormFuc
-    		};
-    		win.init(formData);
-        }
-	},
-	operatorVEvents : {
-		//上传签署凭证文档
-        'click .voucherfileuploadlink' : function(e, value, row, index){
-        	formData = {
-        			_fileKey : row.fileKey,
-        			_fileSource : row.fileSource,
-        			_fileType : "fileType:1",
-        			_fileTypeAuto : true,
-        			_workType : row.fileWorktype,
-        			_projectId : row.projectId,
-        			_projectName : row.projectName,
-        			_isProve : true,
-        			_remark : "hide",
-    				callFuc : function(){
-//    					planGrid.serarchData();
-    					$("#powindow,#popbg").remove();
-    					info(row.projectId);
-    				},
-    				_url : platformUrl.stageChange, //兼容老板插件
-    				_localUrl : platformUrl.stageChange,
-    				_getLocalFormParam : function(dom){
-    					//本地上传回掉参数获取事件, 通过dom.find(“”)获取表单数据 jquery 语法
-    					var form = {
-    							"pid" : dom.find("#win_sopProjectId").data("tid"),
-    							"stage":row.projectProgress,
-    							"type":dom.find("input[name='win_fileSource']:checked").val(),
-    							"fileType":dom.find("#win_fileType").val(),
-    							"fileWorktype":dom.find("#win_fileWorkType").val(),
-    							"voucherType" : $("input[id='win_isProve']:checked").val()
-    					}
-    					return form;
-    				}
-    		};
-    		win.init(formData);
-        },
-        'click .filedownloadlink': function (e, value, row, index) {
-//			data = {
-//					fileKey : row.fileKey,
-//					fileName : row.fileName + "." + row.fileSuffix
-//			};
-			
-			layer.msg('正在下载，请稍后...',{time:2000});
-			var keyvalue;
-			if(e.target.id=="sopfile"){
-				keyvalue=row.id;
-			}else if(e.target.id=="vsopfile"){
-				keyvalue=row.voucherId + "?type=voucher"; 	
-			}else{
-				keyvalue="";
-			}
-			window.location.href=platformUrl.downLoadFile+'/'+keyvalue ;
-        }
-	},
-	operateVFormatter : function(value, row, index){
-		if(row.Vstatus=="false"){
-			if(row.fileKey){
-				return [
-						'<a class="voucherfileuploadlink blue"  href="javascript:void(0)">上传</a>'
-				        ].join('');
-			}else{
-				return [
-						'暂不能操作'
-				        ].join('');
-			}
-		}
-		if(row.Vstatus=="true"){
-			return [
-				'<a class="filedownloadlink blue" id="vsopfile"  href="javascript:void(0)">查看</a>  '
-		        ].join('');
-		}
-		if(row.Vstatus=="no"){
-			return [
-					'无'
-			        ].join('');
-		}
-	
-	},
-	downloadFomatter : function(value, row, index){
-		if(row.fileKey && row.fileValid==1){
-			return [
-			          '<a class="filedownloadlink blue" id ="sopfile"  href="javascript:void(0)">',
-			          '查看',
-			          '</a>  '
-			       ].join('');
-		}
-		return '';
-	},
-	downloadEvents : {
-		'click .filedownloadlink': function (e, value, row, index) {
-			layer.msg('正在下载，请稍后...',{time:2000});
-			var keyvalue;
-			if(e.target.id=="sopfile"){
-				keyvalue=row.id;
-			}else if(e.target.id=="vsopfile"){
-				keyvalue=row.voucherId; 	
-			}else{
-				keyvalue="";
-			}
-			window.location.href=platformUrl.downLoadFile+'/'+keyvalue ;
-        }
+				events : gridFormatter.operatorEvent,
+				formatter : gridFormatter.operatorFormatter
+			}]
+		});	  
 	},
 	queryParams : function(params){
-		var form = $("#file_repository_search_form").serializeObject();
-		form = jQuery.parseJSON(form);
-		params.fileSource = utils.confident(form.search_fileSource,"all");
-		params.fileType = utils.confident(form.search_fileType,"all");
-		params.fileWorktype = utils.confident(form.search_fileWorktype,"all");
-		params.fileStatus = utils.confident(form.search_fileStatus,"all");
-		var startTime = (new Date(form.file_startDate+' 00:00:00')).getTime();		
-		var endTime = (new Date(form.file_endDate+' 23:59:59')).getTime(); 		
-		if(startTime > endTime){
-			layer.msg("开始时间不能大于结束时间");
-			return false;
-		}
-		params.startTime = startTime;
-		params.endTime = endTime
-		params.pageType = "dialog";
 		params.projectId = planGrid.projectId;
 		return params;
-	},
-	serarchData : function(){
-		$('#'+planGrid.domid).bootstrapTable('refresh',planGrid.queryParams);
+
 	}
+
+
 };
 /**
  * 初始化商业计划模块
@@ -338,6 +132,32 @@ var initPage = {
 								_localUrl : platformUrl.commonUploadFile
 						};
 						win.init(formData);
+					},
+					businessPlanHistory : function(){
+						var historyDialog = {
+								
+								init : function(){
+									$.getHtml({
+										url:platformUrl.toBusinessPlanHistory,//模版请求地址
+										data:"",//传递参数
+										okback:function(){
+											var _this = this;											
+											var formdata = {
+													_domid : 'business_plan_grid',
+													_projectId : initPage.projectId
+											}
+											planGrid.init(formdata);
+//											console.log("111111");
+										}//end okback 模版反回成功执行		
+									});
+								},
+								close : function(_this){
+									
+								}
+						}
+						
+						historyDialog.init();
+						
 					}
 			}
 			
@@ -361,9 +181,15 @@ var initPage = {
 			dom.html(planNameHtml + planStatusHtml + planUpdateTimeHtml + operatorHtml);
 			if(data.result.status=="OK"){
 				//为空时候显示
-				if(data.result.errorCode=="null"){				
-					operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>上传</a>";
+				if(data.result.errorCode=="null"){	
+					console.log(isCreatedByUser);
+					console.log(isCreatedByUser == 'true');
+					if(isCreatedByUser == 'true')
+					{
+						operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>上传</a>";
+					}
 				}else{
+					
 					//文档名称
 					dom.find("#plan_name").html("《"+data.entity.fileName+"."+data.entity.fileSuffix+"》");
 					//文档状态
@@ -371,8 +197,11 @@ var initPage = {
 					//更新时间
 					dom.find("#plan_update_time").html(data.entity.createDate);
 					//操作类型
-					operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>更新</a>" +
-										 "<a href='javascript:;' class='ico f2' data-btn='describe' id='download_btn'>查看</a>" +
+					if(isCreatedByUser == 'true')
+					{
+						operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>更新</a>" ;
+					}
+					operatorDetailHtml += "<a href='javascript:;' class='ico f2' data-btn='describe' id='download_btn'>查看</a>" +
 										 "<a href='javascript:;' class='ico new2' data-btn='describe' id='show_history_btn'>查看历史</a>";
 				}
 			}
@@ -383,7 +212,7 @@ var initPage = {
 			};
 			dom.find("#upload_btn").click(operatorFuc.uploadBusinessPlan);
 			dom.find("#download_btn").click(operatorFuc.downloadBusinessPlan);
-			dom.find("#show_history_btn").click();
+			dom.find("#show_history_btn").click(operatorFuc.businessPlanHistory);
 		}
 }
 

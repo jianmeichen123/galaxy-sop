@@ -3,10 +3,10 @@
  * jsonStr:json字符串
  * jsonObj:json对象
  */
-function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun) {
-	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun);
+function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun, TOKEN) {
+	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun, TOKEN);
 }
-function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun) {
+function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun, TOKEN) {
 	$.ajax({
 		url : reqUrl,
 		type : "POST",
@@ -24,6 +24,9 @@ function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun) {
 			}
 			if(userId){
 				xhr.setRequestHeader("guserId", userId);
+			}
+			if(TOKEN){
+				xhr.setRequestHeader("TOKEN", TOKEN);
 			}
 		},
 		async : false,
@@ -795,12 +798,12 @@ function intervierInfoFormat(value, row, index){
 	var targerHtml="";
 	if(targetStr.length>8){
 		subStr = targetStr.substring(0,8)+"...";
-		targerHtml = "</br>访谈对象：<span title="+targetStr+">"+subStr+"</span>";
+		targerHtml = "</br>访谈对象：<label title="+targetStr+">"+subStr+"</label>";
 	}else{
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
 	
-	rc = "<div style=\"text-align:left;margin-left:10%;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
 				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
@@ -824,7 +827,7 @@ function metcolumnFormat(value, row, index){
 	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
-	rc = "<div style=\"text-align:left;margin-left:10%;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
 				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+row.meetingResultStr+
 				"</br>会议录音："+fileinfo+
@@ -1093,3 +1096,114 @@ function initTcVal(){
 	$("#btnNotBeUse").html("<a href=\"javascript:;\" class=\"pubbtn fffbtn\" data-close=\"close\">关闭</a>");
 	
 }
+
+/**
+ * 根据parentCode获取数据字典的子项集
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
+function createDictionaryOptions(url, name){
+	sendGetRequest(url,null, function(data){
+		var options = [];
+		$.each(data.entityList, function(i, value){
+			options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+		});
+		$('select[name="'+name+'"]').append(options.join(''));
+	});
+}
+
+/**
+ * 查询事业线
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
+function createCareelineOptions(url, name, selectStatus){
+	sendGetRequest(url,null, function(data){
+		var options = [];
+		$.each(data.entityList, function(i, value){
+			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'back="link"' : '') +'>'+value.name+'</option>');
+		});
+		$('select[name="'+name+'"]').append(options.join(''));
+		if(!selectStatus){
+			$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);
+		}
+	});
+}
+
+/**
+ * 根据事业线查询相应的投资经理
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
+function createUserOptions(url, name, mark){
+	sendGetRequest(url, null, function(data){
+		var options = [];
+		if(mark == 1){
+			options.push('<option value="0">全部</option>');
+		}
+		$.each(data.entityList, function(i, value){
+			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'selected="selected"' : '')+'>'+value.realName+'</option>');
+		});
+		if(mark == 1){
+			$('select[name="'+name+'"]').html(options.join(''));
+		}else{
+			$('select[name="'+name+'"]').append(options.join(''));
+		}
+	});
+}
+
+
+var cookieOperator = {
+		paramKey : 'parameter',
+		/*
+		 * 将信息保存到cookie然后提交
+		 * param : 
+		 * 		_paramKey : 参数键 (默认：parameter)
+		 * 		_url : url
+		 * 		_param : 参数值
+		 * 
+		 * */
+		forwardPushCookie : function(formdata){
+			var cookietime = new Date(); 
+			cookietime.setTime(cookietime.getTime() + (60 * 60 * 1000));//coockie保存一小时 
+			if(!formdata._param){
+				layer.msg('参数信息为空');
+				return;
+			}
+			var tempParamKey;
+			if(formdata._paramKey){
+				tempParamKey = formdata._paramKey;
+			}else{
+				tempParamKey = cookieOperator.paramKey;
+			}
+			$.cookie(tempParamKey, JSON.stringify(formdata._param),{expires:cookietime,path:Constants.sopEndpointURL}); 
+			forwardWithHeader(formdata._url);
+		},
+		/*
+		 * 将信息保存到cookie然后提交
+		 * param : 
+		 * 		_paramKey : 参数键 (默认：parameter)
+		 * */
+		pullCookie : function(formdata){
+			var tempParamKey;
+			if(formdata._paramKey){
+				tempParamKey = formdata._paramKey;
+			}else{
+				tempParamKey = cookieOperator.paramKey;
+			}
+			var retStr = $.cookie(tempParamKey);
+			if(retStr == '[object Object]'){
+				$.removeCookie(tempParamKey);
+				return;
+			}
+			if(retStr){
+				$.removeCookie(tempParamKey);
+				return jQuery.parseJSON(retStr);
+			}
+			return;
+			
+		}
+}
+
+
+

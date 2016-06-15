@@ -413,9 +413,11 @@ public class Project extends PagableEntity {
 	}
 
 	public void setFinanceStatus(String financeStatus) {
-		this.financeStatus = financeStatus == null ? null : financeStatus.trim();
+		this.financeStatus = financeStatus == null ? null: financeStatus.trim();
         if(financeStatus != null){
 			this.financeStatusDs = DictEnum.financeStatus.getNameByCode(financeStatus);
+		}else{
+			this.financeStatusDs ="不明确";
 		}
 	}
 

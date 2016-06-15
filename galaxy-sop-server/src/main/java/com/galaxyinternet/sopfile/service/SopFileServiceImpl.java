@@ -135,88 +135,90 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		if(fileList != null && !fileList.isEmpty()){
 			map=getVoucherId(fileList);
 		}
-		
-		//获取Project名称
-		Iterator<SopFile> it = fileList.iterator();
-		while (it.hasNext()) {
-			boolean flag=false;
-			SopFile sopFile = it.next();
-			/*if(sopFile.getFileValid().intValue() == 0){
-				sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
-				sopFile.setFileKey(null);	
-			}*/
-			//对于自己所上传的文档，可查看其状态，并标识装填已上传
-			if(query.getBelongUid()==null){
-				if (DictEnum.fileStatus.已上传.getCode().equals(sopFile.getFileStatus())) {
+		if(fileList != null){
+			//获取Project名称
+			Iterator<SopFile> it = fileList.iterator();
+			while (it.hasNext()) {
+				boolean flag=false;
+				SopFile sopFile = it.next();
+				/*if(sopFile.getFileValid().intValue() == 0){
+					sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
+					sopFile.setFileKey(null);	
+				}*/
+				//对于自己所上传的文档，可查看其状态，并标识装填已上传
+				if(query.getBelongUid()==null){
+					if (DictEnum.fileStatus.已上传.getCode().equals(sopFile.getFileStatus())) {
 
-					
-					if (sopFile.getFileValid() != null && sopFile.getFileValid().intValue() == 0) {
-						sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
+						
+						if (sopFile.getFileValid() != null && sopFile.getFileValid().intValue() == 0) {
+							sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
+						}
 					}
+				}else{
+					sopFile.setFileValid(1);
 				}
-			}else{
-				sopFile.setFileValid(1);
-			}
-				
-			if (sopFile.getProjectId() != null) {
-				for (Project project : projectList) {
-					if (sopFile.getProjectId().equals(project.getId())) {
-						int p1 = Integer.parseInt(sopFile.getProjectProgress().split(":")[1]);
-						int p2 = Integer.parseInt(project.getProjectProgress().split(":")[1]);
-						if (p1 <=p2) {
-							if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
-								if(project.getStockTransfer().intValue() == 1){
+					
+				if (sopFile.getProjectId() != null) {
+					for (Project project : projectList) {
+						if (sopFile.getProjectId().equals(project.getId())) {
+							int p1 = Integer.parseInt(sopFile.getProjectProgress().split(":")[1]);
+							int p2 = Integer.parseInt(project.getProjectProgress().split(":")[1]);
+							if (p1 <=p2) {
+								if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+									if(project.getStockTransfer().intValue() == 1){
+										flag=true;
+										sopFile.setProjectName(project.getProjectName());
+										break;
+									}
+								}else{
 									flag=true;
 									sopFile.setProjectName(project.getProjectName());
 									break;
 								}
-							}else{
-								flag=true;
-								sopFile.setProjectName(project.getProjectName());
-								break;
 							}
-						}
-							
-			
-					}
-				}
-		}
-		if(flag==true){
-			if (sopFile.getCareerLine() != null) {
-			for (Department department : departmentList) {
-					if (sopFile.getCareerLine().equals(department.getId())) {
-						sopFile.setCareerLineName(department.getName());
-						break;
-					}
-				}
-			}
-			if (sopFile.getFileUid() != null) {
-		    	for (User user : userList) {
-					if (sopFile.getFileUid().equals(user.getId())) {
-						sopFile.setFileUName(user.getRealName());
-						break;
-					}
-				}
-	
-			}	
-		      SopVoucherFile svf = map.get(sopFile.getVoucherId()==null?"":sopFile.getVoucherId().toString());
-				if (null != svf && !"".equals(svf)) {
-					sopFile.setVoucherFileName(svf.getFileName());
-					if(svf.getFileStatus().equals("fileStatus:1")){
-						sopFile.setVstatus("false");
-						sopFile.setVoucherFileKey(svf.getFileKey());
-					}
-					if(svf.getFileStatus().equals("fileStatus:3")){
-						sopFile.setVstatus("true");
-					}
-				} else {
-					sopFile.setVoucherFileName("");
-					sopFile.setVstatus("no");
-			}
+								
 				
-				result.add(sopFile);
+						}
+					}
+			}
+			if(flag==true){
+				if (sopFile.getCareerLine() != null) {
+				for (Department department : departmentList) {
+						if (sopFile.getCareerLine().equals(department.getId())) {
+							sopFile.setCareerLineName(department.getName());
+							break;
+						}
+					}
+				}
+				if (sopFile.getFileUid() != null) {
+			    	for (User user : userList) {
+						if (sopFile.getFileUid().equals(user.getId())) {
+							sopFile.setFileUName(user.getRealName());
+							break;
+						}
+					}
+		
+				}	
+			      SopVoucherFile svf = map.get(sopFile.getVoucherId()==null?"":sopFile.getVoucherId().toString());
+					if (null != svf) {
+						sopFile.setVoucherFileName(svf.getFileName());
+						if(svf.getFileStatus().equals("fileStatus:1")){
+							sopFile.setVstatus("false");
+							sopFile.setVoucherFileKey(svf.getFileKey());
+						}
+						if(svf.getFileStatus().equals("fileStatus:3")){
+							sopFile.setVstatus("true");
+						}
+					} else {
+						sopFile.setVoucherFileName("");
+						sopFile.setVstatus("no");
+				}
+					
+					result.add(sopFile);
+				}
 			}
 		}
+		
 		pageEntity.setTotal(new Long(result.size()));
 		List<SopFile> sl = new ArrayList<SopFile>();
 		sl.addAll(result.subList(pageable.getPageNumber()*pageable.getPageSize(), (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize()) > result.size() ? result.size() : (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize())));
@@ -784,13 +786,13 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		Map<String,SopVoucherFile> map=new HashMap<String,SopVoucherFile>();
 		List<Long> ids=new ArrayList<Long>();
 		for (SopFile sopfile:sopFile) {
-				if(null!=sopfile.getVoucherId()&&!"".equals(sopfile.getVoucherId())){
+				if(null!=sopfile.getVoucherId()){
 				ids.add(sopfile.getVoucherId());
 			}
 		}
 		if(!ids.isEmpty()){
 		    List<SopVoucherFile> selectListById = voucherFileDao.selectListById(ids);
-			if(null!=selectListById&&!"".equals(selectListById)){
+			if(null!=selectListById && selectListById.size() > 0){
 				for(SopVoucherFile vfile:selectListById){
 					map.put(vfile.getId().toString(), vfile);
 				}
