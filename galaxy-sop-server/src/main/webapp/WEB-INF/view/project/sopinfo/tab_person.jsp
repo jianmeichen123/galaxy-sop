@@ -118,7 +118,7 @@
 	var interviewSelectRow = null;
 	var projectId ='${pid}';
 	var flag = '${flag}';
-	var isCreatedByUser = "${fx:isCreatedByUser('project',projectId) }";
+	var isCreatedByUser = "${fx:isCreatedByUser('project',pid) }";
 $(function(){
 	createMenus(5);
 	getTabPerson();
@@ -180,8 +180,9 @@ function addPersonCallBack(data){
 
 	//个人简历
 	function tiaozhuan(id){
-		var url =platformUrl.personHHr;
-		if(flag == "true"){
+		//创建者可编辑
+		var url = platformUrl.personHHr;
+		if(isCreatedByUser == "true"){
 			url =platformUrl.personHr;
 		}
 		$.getHtml({
