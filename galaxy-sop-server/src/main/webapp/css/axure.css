@@ -1640,7 +1640,6 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .member table th,.member table td{text-align: left;padding-left: 30px;}
 .member table td .del{background:url(../img/btnico.png) 0 -61px no-repeat;margin-left: 15px;}
 .member table td .resume{background:url(../img/functionico.png) 0 -331px no-repeat;margin-right: 15px;}
-/* .member .bars{display:none;} */
 .personName{padding-left:30px !important;}
 #tablePerson td{padding-left:35px !important;}
 /*股权结构*/
