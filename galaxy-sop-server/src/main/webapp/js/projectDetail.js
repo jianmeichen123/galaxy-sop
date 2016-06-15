@@ -14,9 +14,9 @@ $(function(){
 		$("#createUname").text(projectInfo.createUname);
 		$("#projectCareerline").text(projectInfo.projectCareerline);
 		$("#projectType").text(projectInfo.type);
-		$("#project_contribution").text(projectInfo.projectContribution==0?"--":projectInfo.projectContribution);
-		$("#project_valuations").text(projectInfo.projectValuations==0?"--":projectInfo.projectValuations);
-		$("#project_share_ratio").text(projectInfo.projectShareRatio==0?"--":projectInfo.projectShareRatio);
+		$("#project_contribution").text(projectInfo.projectContribution==0||typeof(projectInfo.projectContribution)=="undefined"?"--":projectInfo.projectContribution);
+		$("#project_valuations").text(projectInfo.projectValuations==0||typeof(projectInfo.projectValuations)=="undefined"?"--":projectInfo.projectValuations);
+		$("#project_share_ratio").text(projectInfo.projectShareRatio==0||typeof(projectInfo.projectShareRatio)=="undefined"?"--":projectInfo.projectShareRatio);
 		$("#projectProgress").text(projectInfo.progress);
 		$("#projectStatusDs").text(projectInfo.projectStatusDs);
 		$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
