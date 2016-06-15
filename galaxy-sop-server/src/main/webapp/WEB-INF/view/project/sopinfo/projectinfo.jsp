@@ -278,7 +278,7 @@ function getProjectInfo(dtd)
 			<!--项目概述-->
 			<div class="tabtable_con_on">
 				<div class="project_on">
-                      <div id="describe_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                      <div id="describe_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                         <div class="compile_on_center">
                            <div class="compile_on_right">
                                <span class="compile_on_right_b" id="save_describe">保存</span>
@@ -318,7 +318,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='company_on'>
-					<div id="company_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="company_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_location">保存</span>
@@ -345,7 +345,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='portrayal_on'>
-					<div id="portrait_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="portrait_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_portrait">保存</span>
@@ -374,7 +374,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='product_on'>
-					<div id="business_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="business_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_business">保存</span>
@@ -402,7 +402,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='analysis_on'>
-					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_analysis">保存</span>
@@ -430,7 +430,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='operation_on'>
-					<div id="operation_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="operation_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_operation">保存</span>
@@ -459,7 +459,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='industry_on'>
-					<div id="industry_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="industry_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_industry">保存</span>
@@ -490,7 +490,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='next_financing_on'>
-					<div id="next_financing_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="next_financing_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_next_financing">保存</span>
