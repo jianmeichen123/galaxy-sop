@@ -39,13 +39,13 @@
                         <li><span class="gray_dot"></span>投后运营</li>
                     </ul>
                 </div>
-                 <span class="bluebtn new_btn" >项目流程</span>
+                 <!-- <span class="bluebtn new_btn" >项目流程</span> -->
             </div>
            
            
             
             <div class="correlation">相关操作</div> 
-            <c:if test="${ projectInfo.projectStatus != 'meetingResult:3' and projectInfo.projectStatus != 'projectStatus:2' and projectInfo.projectStatus != 'projectStatus:3' and fx:isCreatedByUser('project',projectId) }">
+            <c:if test="${ projectInfo.projectStatus != 'projectStatus:2' and projectInfo.projectStatus != 'projectStatus:3' and fx:isCreatedByUser('project',projectId) }">
             <div class="new_correlation_cen">
             	<span class="bluebtn new_btn" onclick="closePro()">否决项目</span>
             </div>
