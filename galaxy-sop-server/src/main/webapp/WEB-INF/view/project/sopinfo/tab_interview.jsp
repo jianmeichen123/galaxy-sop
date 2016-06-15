@@ -77,7 +77,7 @@
 						<!--按钮-->
 						<div class="top clearfix">
 							<div class="btnbox_f btnbox_f1 clearfix">
-								<a href="#"  id="tjftjl" onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview">添加访谈记录</a>
+								<a href="#"  id="tjftjl" onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview" style="display: none;"></a>
 								<a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a>
 							</div>
 						</div>
@@ -157,7 +157,7 @@
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var interviewSelectRow = null;
-	
+	var admin = "${fx:isCreatedByUser('project',pid) }";
 
 $(function(){
 	createMenus(5);
@@ -179,12 +179,23 @@ $(function(){
 	});
 	
 	//check to show or not not show qdnbps button
-	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || index != 1){
-		$('#tjftjl').remove();
-	}else if(index == 1){
-		checkToShowBut(); 
+	/* if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
+		//$('#tjftjl').remove();
+		$('#tjftjl').removeAttr("onclick");
+	} else {
+		if(index == 1){
+			checkToShowBut();
+		}
+		$('#tjftjl').show();
+		$('#tjftjl').text("添加访谈记录");
+	} */
+	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
+		//$('#tjftjl').remove();
+		$('#tjftjl').removeAttr("onclick");
+	} else {
+		$('#tjftjl').show();
+		$('#tjftjl').text("添加访谈记录");
 	}
-	
 });	
 	
 
@@ -195,7 +206,7 @@ function checkToShowBut(){
 	}
 }
 function toshowbut(){
-	$('#qdnbps').text("启动内部评审");
+	//$('#qdnbps').text("启动内部评审");
 	$('#qdnbps').on('click', function() {
 		startReview();
 	})	
