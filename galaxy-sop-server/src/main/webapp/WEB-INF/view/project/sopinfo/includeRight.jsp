@@ -45,8 +45,6 @@
            
             
             <div class="correlation">相关操作</div> 
-            <c:if test="${ projectInfo.projectStatus != 'projectStatus:2' and projectInfo.projectStatus != 'projectStatus:3' and fx:isCreatedByUser('project',projectId) }">
-            </c:if>
             <div class="new_correlation_cen">
             	<span class="bluebtn new_btn" onclick="closePro()" id="fjxm_but">否决项目</span>
             </div>
@@ -54,7 +52,7 @@
             
             
             
-            
+            <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
             <div class="correlation">
             	近期会议纪要
 				<span class="more null new_righ" id="meet_more" style="cursor: pointer;" >more</span>
@@ -75,6 +73,7 @@
             		暂无访谈记录
             	</div>
             </div>
+            </c:if>
             
         </div>
         
@@ -88,7 +87,7 @@ if(!prograss){
 }
 var index = Number(prograss.substring("projectProgress:".length,prograss.length));
 var admin = "${fx:isCreatedByUser('project',pid) }";
-
+var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
 $(function(){
 	init_lct(); //流程图初始化
 	
@@ -97,7 +96,10 @@ $(function(){
 	}
 		
 	//获取近期访谈、会议 记录
-	toFormatNearNotes();
+	if(admin == 'true' || isGG == 'true')
+	{
+		toFormatNearNotes();
+	}
 	
 	//more 链接初始化
 	initMoreLine();
@@ -117,17 +119,14 @@ $(function(){
 
 //more 链接控制
 function initMoreLine(){
-	if(admin == "true"){
-		$("#meet_more").on("click", function(){
-			showTabs(proid,4)
-		});
-		$("#view_more").on("click", function(){
-			showTabs(proid,3)
-		});
-	}else{
-		$("#meet_more").hide();
-		$("#view_more").hide();
-	}
+
+	$("#meet_more").on("click", function(){
+		showTabs(proid,4)
+	});
+	$("#view_more").on("click", function(){
+		showTabs(proid,3)
+	});
+
 	/* if(projectInfo.projectStatus != 'meetingResult:3' && projectInfo.projectStatus != 'projectStatus:2' && projectInfo.projectStatus != 'projectStatus:3'){
 	} else{
 		$("#meet_more").attr("disabled","disabled").addClass("disabled");
