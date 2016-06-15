@@ -78,7 +78,7 @@
 						<div class="top clearfix">
 							<div class="btnbox_f btnbox_f1 clearfix">
 								<a href="#"  id="tjftjl" onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview" style="display: none;"></a>
-								<a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a>
+								<!--  <a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a>-->
 							</div>
 						</div>
 
@@ -200,7 +200,7 @@ function checkToShowBut(){
 	}
 }
 function toshowbut(){
-	$('#qdnbps').text("启动内部评审");
+	//$('#qdnbps').text("启动内部评审");
 	$('#qdnbps').on('click', function() {
 		startReview();
 	})	

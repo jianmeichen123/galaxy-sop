@@ -35,10 +35,13 @@
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
+<!-- 校验 -->
+<!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
 
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 
@@ -208,7 +211,7 @@ function getProjectInfo(dtd)
 				        </div>  
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  id="project_name_edit"></input></span></td>
+				                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  id="project_name_edit" valType="required" msg="<font color=red>*</font>项目名称不能为空"></input></span></td>
 				                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit"></span></td>
 				            </tr>
 				            <tr>
