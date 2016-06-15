@@ -172,6 +172,18 @@ $(function(){
 			$(".next_financing_source_show").hide();
 		}
 
+		function  display_show(obj){
+			alert(obj)
+			var height=$('#'+obj).outerHeight();
+			if(height>100){
+				var str='';
+				str+='<span class="show_more">',
+				str+='<a style="display: line;" href="#" class="blue open ico1 f4" data-btn="show">展开</a> <a style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" data-btn="hide">收起</a>',
+				str+='</span>';
+				$('#'+obj).append(str);
+				$('#'+obj).css('height','100px')
+			}
+		}
 		/**
 		 * 商业计划
 		 */
