@@ -270,7 +270,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 				project.setUpdatedTime(new Date().getTime());
 				project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
-				long id = projectService.newProject(project);
+				SopFile file = (SopFile) request.getSession().getAttribute("businessPlan");
+				long id = projectService.newProject(project, file);
 				if (id > 0) {
 					responseBody.setResult(new Result(Status.OK, null, "项目添加成功!"));
 					responseBody.setId(id);
@@ -317,6 +318,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.setProjectValuations(project.getProjectContribution()
 						* 100 / project.getProjectShareRatio());
 			}
+		}
+		if(null!=project.getIndustryOwn()&&project.getIndustryOwn().longValue()==0){
+			project.setIndustryOwn(null);
 		}
 
 		Project p = projectService.queryById(project.getId());
@@ -1463,12 +1467,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public Result validate(String progress, Project project, User user) {
 		if (project == null) {
 			return new Result(Status.ERROR, null, "未找到相应的项目信息!");
-		}
-		if (project.getProjectStatus().equals(
-				DictEnum.meetingResult.否决.getCode())) {
+		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())||project.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){ //字典 项目状态 = 会议结论 关闭
 			return new Result(Status.ERROR, null, "项目已关闭!");
+		}else if(project.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){ //字典 项目状态 = 会议结论 关闭
+			return new Result(Status.ERROR, null, "项目已退出!");
 		}
-
 		if (user.getId().longValue() != project.getCreateUid().longValue()) {
 			return new Result(Status.ERROR, null, "没有权限修改该项目!");
 		}
@@ -1923,11 +1926,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"所存在的更新文件丢失!"));
 			}
-			if (sopFile.getFileKey() == null) {
-				fileKey = String.valueOf(IdGenerator
-						.generateId(OSSHelper.class));
-			} else {
-				fileKey = sopFile.getFileKey();
+			if(sopFile != null){
+				if (sopFile.getFileKey() == null) {
+					fileKey = String.valueOf(IdGenerator
+							.generateId(OSSHelper.class));
+				} else {
+					fileKey = sopFile.getFileKey();
+				}
 			}
 			// 更新文件服务器信息
 			UploadFileResult result = uploadFileToOSS(request, fileKey,
@@ -2535,11 +2540,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		//toAddress =toAddress+"@galaxyinternet.com";
 		String content = MailTemplateUtils
 				.getContentByTemplate(Constants.MAIL_PQC_CONTENT);
-		String[] to = toAddress.split(";");
+		/*String[] to = toAddress.split(";");
 		if (to != null && to.length == 1) {
 			int atIndex = toAddress.lastIndexOf("@");
 			tzjlName = toAddress.substring(0, atIndex) + ":<br>您好!";
-		}
+		}*/
 		tzjlName = "您好!";
 		if (type == 0) {
 			content = MailTemplateUtils
@@ -2774,13 +2779,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.ERROR, null, "项目信息错误!"));
 				return responseBody;
 			}
+			
 			//非项目创建者，or  项目已否决    不允许添加会议
 			/*GJZ("跟进中"	 ,   "projectStatus:0"),
 			THYY("投后运营" ,  "projectStatus:1"),
 			YFJ("已否决"		,"projectStatus:2"),
 			YTC("已退出"		,"projectStatus:3");*/
 			if(user.getId().intValue()!=proinfo.getCreateUid().intValue() || proinfo.getProjectStatus().equals("meetingResult:3") ||  
-					proinfo.getProjectStatus().equals("projectStatus:2") || proinfo.getProjectStatus().equals("projectStatus:3")){
+					proinfo.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode()) || proinfo.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){
 				resultMap.put("add", "k");
 				responseBody.setUserData(resultMap);
 				responseBody.setResult(new Result(Status.OK, null));

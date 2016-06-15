@@ -1339,7 +1339,7 @@ dl dt,dl label{font-weight: normal !important;}
 select{padding: 6px 0 !important;}
 /**切断文字**/
 .text-overflow{width:420px;padding:5px 0;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;}
-.text-overflow1{padding:10px;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;}
+.text-overflow1{padding:10px 0;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;}
 /**切断文字 end**/
 #template-table{border-radius: 6px;}
 .percentTxt{width:30px !important;display: inline-block !important;}
@@ -1410,6 +1410,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_r_compile{overflow:hidden; background-color:#fff; margin:15px 0;padding: 0 20px;}
 .new_r_compile span{ float:left;}
 .new_bottom_color{ border-bottom:1px solid #e6e8f1;padding:0 20px;padding-bottom: 10px;}
+.new_top_color{ border-top:1px solid #e6e8f1;padding:0 20px;padding-bottom: 10px;}
 .new_r_compile .new_fctbox{ display:block; float:right;}
 .new_fctbox .f1 {
     background-position: 0 0; float:left;
@@ -1427,17 +1428,23 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     background-position: 0 -177px;
     padding: 0 0 0 22px;
 }
-.new_ul_all .ico_dot{
-	 background-position: 5px -200px;
-    padding: 0 0 0 22px;
-	margin-top:7px;
-}
 .new_fctbox .ico {
     background: url(../img/functionico.png) no-repeat;
     height: 18px;
     line-height: 18px;
     float: left;
     margin-top: 3px;
+}
+.new_ul_all .ico {
+    background: url(../img/functionico.png) no-repeat;
+    height: 18px;
+    line-height: 18px;
+    float: left;
+}
+.new_ul_all .ico_dot{
+	 background-position: 5px -200px;
+    padding: 0 0 0 22px;
+	margin-top:9px;
 }
 /* .ico {
     background: url(../img/functionico.png) no-repeat;
@@ -1460,8 +1467,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_ico_product{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -127px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_jq{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -152px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_run{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -178px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
-.new_ico_nex{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -178px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
-.new_ico_industry{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -178px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_nex{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -159px -27px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_industry{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -129px -27px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .tabtable_con_on {
     background-color: #fff;
     overflow: hidden;
@@ -1469,7 +1476,6 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
   margin-top:15px;
 }
 .new_ul_all{
-	padding: 0 20px;
 	overflow:hidden;
 }
 .new_ul_all li{
@@ -1589,6 +1595,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .compile_on_right_q{ background-color:#fff; border:1px solid #ccd2d7; display:block; text-align:center; line-height:35px; height:35px;}
 .new_nputr{ line-height:20px; width:200px; line-height:20px; overflow:hidden;}
 .new_nputr_number{line-height:20px; width:90px; line-height:20px; overflow:hidden;}
+.no_con{height:105px;color:#aaa;font-size:12px;font-family:"宋体";background:url(../img/default.png) center 60px no-repeat;text-align:center;padding-top:120px;display:none;}
+.new_correlation_cen_con{height:225px;}
 /*全部项目*/
 .btnbox_f .add_prj{border:1px solid #539be2;}
 .searchall_prj{width:100%;padding:10px 0;background-color: #d6d8e1;border-radius: 4px;margin-top: 10px;position: relative;}
@@ -1631,9 +1639,12 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .member table{margin-bottom:20px !important;}
 .member table th,.member table td{text-align: left;padding-left: 30px;}
 .member table td .del{background:url(../img/btnico.png) 0 -61px no-repeat;margin-left: 15px;}
-.member table td .resume{background:url(../img/functionico.png) 0 -159px no-repeat;margin-right: 15px;}
-.member .bars{display:none;}
+.member table td .resume{background:url(../img/functionico.png) 0 -331px no-repeat;margin-right: 15px;}
+.personName{padding-left:30px !important;}
+#tablePerson td{padding-left:35px !important;}
 /*股权结构*/
+.sharesType{padding-left:30px !important;}
+#shares-table td{padding-left:35px !important;}
 .stock{border-radius: 6px;}
 .title{height: 45px;line-height: 44px;border-bottom:1px solid #e6e8f1;padding:0 20px;position: relative;}
 .icon{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; width:20px; height:22px; display:block; float:left;margin: 11px 10px 0 0;}
@@ -1657,7 +1668,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .interview .min_document{margin:0 30px;width:auto;position: relative;margin-top: 10px;margin-bottom: 20px}
 .interview .search_icon{font-size: 0;width:20px;height: 20px;background: url(../img/search1.png) 0 0 no-repeat;display: inline-block;position: absolute;top: 16px;}
 .interview table td{line-height: 22px;padding: 10px 0 10px 30px;}
-.interview table td span{font-size: 12px;width: 44px;padding-left: 26px;line-height: 20px;cursor: pointer;}
+.interview table td span{font-size: 12px;width: 40px;padding-left: 25px;line-height: 20px;cursor: pointer;text-align:left;}
 .interview table span.see{background-position: 0 -19px;}
 /*项目文档*/
 .email_btn{background:  url(../img/functionico.png) 10px -274px no-repeat;padding-left:28px;}
@@ -1709,12 +1720,12 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     margin-top: 10px;
 }
 /*访谈表格*/
-.no1{width:35%;}
-.no2{width:45%;}
+.no1{width:35%;padding-left:35px !important;}
+.no2{width:45%;padding-left:5px !important;}
 
-.no1_1{width:23%;}
+.no1_1{width:230px;padding-left:35px !important;}
 .no1_2{width:12%;}
-.no1_3{width:45%;}
+.no1_3{width:43%;}
 /*左侧导航icon*/
 .nav_index{width:20px;height:20px;display:inline-block;background: url(../img/baricon.png) 0 0 no-repeat;margin-right: 8px;}
 .basic_on{ 

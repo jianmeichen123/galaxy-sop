@@ -44,8 +44,8 @@
            
            
             
-            <div class="correlation">相关操作</div>
-            <c:if test="${fx:isCreatedByUser('project',projectId)}">
+            <div class="correlation">相关操作</div> 
+            <c:if test="${ projectInfo.projectStatus != 'meetingResult:3' and projectInfo.projectStatus != 'projectStatus:2' and projectInfo.projectStatus != 'projectStatus:3' and fx:isCreatedByUser('project',projectId) }">
             <div class="new_correlation_cen">
             	<span class="bluebtn new_btn" onclick="closePro()">否决项目</span>
             </div>
@@ -58,7 +58,10 @@
             	近期会议纪要
 				<span class="more null new_righ" id="meet_more" style="cursor: pointer;" >more</span>
 			</div>
-            <div class="new_correlation_cen" id="near_meet">
+            <div class="new_correlation_cen new_correlation_cen_con" id="near_meet">
+            <div class="no_con">
+            		暂无会议纪要
+            	</div>
             </div>
             
              
@@ -66,7 +69,10 @@
             <div class="correlation">近期访谈记录
 				<span class="more null new_righ" id="view_more" style="cursor: pointer;" >more</span>
 			</div>
-            <div class="new_correlation_cen" id="near_view">
+            <div class="new_correlation_cen new_correlation_cen_con" id="near_view">
+            	<div class="no_con">
+            		暂无访谈记录
+            	</div>
             </div>
             
         </div>
@@ -79,7 +85,7 @@ var prograss = projectInfo.projectProgress;
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
-var index = Number(prograss.substring(prograss.length-1,prograss.length));
+var index = Number(prograss.substring("projectProgress:".length,prograss.length));
 
 
 $(function(){
@@ -90,11 +96,22 @@ $(function(){
 	
 	//more 链接初始化
 	$("#meet_more").on("click", function(){
-		toMeet(proid);
+		showTabs(proid,4)
 	});
 	$("#view_more").on("click", function(){
-		toInterView(proid);
+		showTabs(proid,3)
 	});
+	
+ 	//无会议记录
+	var len=$("#near_meet .new_b_bottom").length;
+	if(len==0){
+		$("#near_meet .no_con").show();
+	}
+	//无访谈记录
+	var len=$("#near_view .new_b_bottom").length;
+	if(len==0){
+		$("#near_view .no_con").show();
+	}
 	
 })
 
@@ -170,7 +187,8 @@ function formatNearNotes(data){
 						"<p>"+notesStr+"</p>"+
 					"</div>";
 			
-	    	$("#near_meet").append(str);
+	    	$("#near_meet").append(str); 	
+	    	
 	    } 
 	}
 	

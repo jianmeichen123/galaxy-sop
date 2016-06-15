@@ -798,12 +798,12 @@ function intervierInfoFormat(value, row, index){
 	var targerHtml="";
 	if(targetStr.length>8){
 		subStr = targetStr.substring(0,8)+"...";
-		targerHtml = "</br>访谈对象：<span title="+targetStr+">"+subStr+"</span>";
+		targerHtml = "</br>访谈对象：<label title="+targetStr+">"+subStr+"</label>";
 	}else{
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
 	
-	rc = "<div style=\"text-align:left;margin-left:10%;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
 				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
@@ -827,7 +827,7 @@ function metcolumnFormat(value, row, index){
 	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
-	rc = "<div style=\"text-align:left;margin-left:10%;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
 				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+row.meetingResultStr+
 				"</br>会议录音："+fileinfo+
@@ -1117,14 +1117,16 @@ function createDictionaryOptions(url, name){
  * @param url   请求地址
  * @param name  select的name属性值
  */
-function createCareelineOptions(url, name){
+function createCareelineOptions(url, name, selectStatus){
 	sendGetRequest(url,null, function(data){
 		var options = [];
 		$.each(data.entityList, function(i, value){
 			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'back="link"' : '') +'>'+value.name+'</option>');
 		});
 		$('select[name="'+name+'"]').append(options.join(''));
-		$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);
+		if(!selectStatus){
+			$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);
+		}
 	});
 }
 

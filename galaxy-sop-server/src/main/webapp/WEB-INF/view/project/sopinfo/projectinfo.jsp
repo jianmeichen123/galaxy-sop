@@ -159,7 +159,7 @@ function getProjectInfo(dtd)
 						<tr>
 							<td><span class="new_color_gray">行业归属：</span><span class="new_color_black" id="industryOwnDs"></span></td>
 							<td><span class="new_color_gray" >投资经理：</span>
-								<span class="new_color_black" id="createUname"></span><span class="new_color_gray" id="projectCareerline"></span></td>
+								<span class="new_color_black" id="createUname"></span><span>(</span><span class="new_color_gray" id="projectCareerline"></span><span>)</span></td>
 						</tr>
 						
 					<tr>
@@ -177,11 +177,11 @@ function getProjectInfo(dtd)
 					</div>
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 						<tr>
-							<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span></td>
-							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span></td>
+							<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span><span>&nbsp;万元人民币</span></td>
+							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span><span>&nbsp;万元人民币</span></td>
 						</tr>
 						<tr>
-							<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"></span></td>
+							<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"></span><span>&nbsp;%</span></td>
 						</tr>
 					</table>
 					
@@ -191,11 +191,11 @@ function getProjectInfo(dtd)
 					</div>
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 						<tr>
-							<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution">万人民币</span></td>
-							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations">万人民</span></td>
+							<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution"></span><span>&nbsp;万元人民币</span></td>
+							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations"></span><span>&nbsp;万元人民币</span></td>
 						</tr>
 						<tr>
-							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio">%</span></td>
+							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio"></span><span>&nbsp;%</span></td>
 						</tr>
 					</table>
 				</div>
@@ -232,11 +232,11 @@ function getProjectInfo(dtd)
 				        </div>  
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="project_contribution_edit" />　万人民币</span></td>
-				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" id="project_valuations_edit" />　万人民</span></td>
+				                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="project_contribution_edit" />　&nbsp;万元人民币</span></td>
+				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input readonly="readonly" class="new_nputr_number" id="project_valuations_edit" />&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" id="project_share_ratio_edit" />　%</span></td>
+				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" id="project_share_ratio_edit" />　&nbsp;%</span></td>
 				            </tr>
 				        </table>
 				        <!--实际投资-->
@@ -246,11 +246,11 @@ function getProjectInfo(dtd)
 				        </div>  
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="finalContribution_edit"/>　万人民币</span></td>
-				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input class="new_nputr_number" id="finalValuations_edit"/>　万人民</span></td>
+				                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="finalContribution_edit"/>&nbsp;　万元人民币</span></td>
+				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input readonly="readonly" class="new_nputr_number" id="finalValuations_edit"/>&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" id="finalShareRatio_edit" />　%</span></td>
+				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" id="finalShareRatio_edit" />&nbsp;　%</span></td>
 				     		</tr>
 				        </table>
 				    </div>
@@ -258,10 +258,10 @@ function getProjectInfo(dtd)
 			</div>
 			<!--商业计划书-->
 			<div class="tabtable_con_on">
-				<div class="new_r_compile new_bottom_color">
+				<div class="new_r_compile ">
 					<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
 				</div>
-				<ul class="new_ul_all" id='business_plan'>
+				<ul class="new_ul_all new_top_color" id='business_plan'>
 					<li><span>《XXXXXXXXXXXXXXXXX》</span></li>
 					<li><span class="new_color_gray">状态：</span><span class="new_color_black">已上传</span></li>
 					<li><span class="new_color_gray">更新时间：</span><span class="new_color_black">2016-01-26</span></li>
@@ -284,7 +284,7 @@ function getProjectInfo(dtd)
                        </div>
                  </div>
                  <div class="project_center">
-					<div class="new_r_compile new_bottom_color">
+					<div class="new_r_compile ">
 						<span class="new_ico_project"></span> <span class="new_color size16">项目概述</span> <span class="bj_ico" id="descript">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox">
@@ -292,7 +292,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all">
+					<div class="new_ul_all new_top_color describe_show">
 						<span class="ico_dot ico"></span>
 						<p id="describe_show"></p>
 					</div>
@@ -309,7 +309,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all">
+					<div class="new_ul_all new_top_color location_show">
 						<span class="ico_dot ico"></span>
 						<p id="location_show"></p>
 					</div>
@@ -329,14 +329,14 @@ function getProjectInfo(dtd)
 			<div class="tabtable_con_on">
 				<div class='portrayal_center'>
 					<div class="new_r_compile ">
-						<span class="new_ico_firm"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
+						<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 						<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all">
+					<div class="new_ul_all new_top_color portrait_show">
 						<span class="ico_dot ico"></span>
 						<p id="portrait_show"></p>
 					</div>
@@ -353,6 +353,7 @@ function getProjectInfo(dtd)
 				
 			</div>
 			
+			
 			<!--产品服务-->
 			<div class="tabtable_con_on">
 				<div class='product_center'>
@@ -364,7 +365,7 @@ function getProjectInfo(dtd)
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all">
+					<div class="new_ul_all new_top_color business_model_show">
 						<span class="ico_dot ico"></span>
 						<p id="business_model_show"></p>
 					</div>
@@ -381,18 +382,46 @@ function getProjectInfo(dtd)
 				
 			</div>
 
+			<!--竞情分析-->
+			<div class="tabtable_con_on">
+				<div class='analysis_center'>
+					<div class="new_r_compile ">
+						<span class="new_ico_jq"></span> <span class="new_color size16">竞情分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
+						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<span class="new_fctbox"> 
+							<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
+						</span>
+						</c:if>
+					</div>
+					<div class="new_ul_all new_top_color analysis_show">
+						<span class="ico_dot ico"></span>
+						<p id="analysis_show"></p>
+					</div>
+				</div>
+				<div class='analysis_on'>
+					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="compile_on_right_b" id="save_analysis">保存</span>
+                           <span class="compile_on_right_q" data-name='analysis' data-on="close">取消</span>
+                       </div>  
+                   </div>
+				</div>
+				
+			</div>
+			
 			<!--运营数据-->
 			<div class="tabtable_con_on">
 				<div class='operation_center'>
 					<div class="new_r_compile ">
-						<span class="new_ico_product"></span> <span class="new_color size16">运营数据</span> <span class="bj_ico" id="operational_data">暂无数据</span>
+						<span class="new_ico_run"></span> <span class="new_color size16">运营数据</span> <span class="bj_ico" id="operational_data">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='operation' data-on="data-open">编辑</a>
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all">
+					<div class="new_ul_all new_top_color operational_data_show">
 						<span class="ico_dot ico"></span>
 						<p id="operational_data_show"></p>
 					</div>
@@ -414,14 +443,14 @@ function getProjectInfo(dtd)
 			<div class="tabtable_con_on">
 				<div class='industry_center'>
 					<div class="new_r_compile ">
-						<span class="new_ico_product"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
+						<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all">
+					<div class="new_ul_all new_top_color industry_analysis_show">
 						<span class="ico_dot ico"></span>
 						<p id="industry_analysis_show"></p>
 					</div>
@@ -438,47 +467,21 @@ function getProjectInfo(dtd)
 				
 			</div>
 			
-			<!--竞情分析-->
-			<div class="tabtable_con_on">
-				<div class='analysis_center'>
-					<div class="new_r_compile ">
-						<span class="new_ico_product"></span> <span class="new_color size16">竞情分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
-						<span class="new_fctbox"> 
-							<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
-						</span>
-						</c:if>
-					</div>
-					<div class="new_ul_all">
-						<span class="ico_dot ico"></span>
-						<p id="analysis_show"></p>
-					</div>
-				</div>
-				<div class='analysis_on'>
-					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
-                    <div class="compile_on_center">
-                       <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_analysis">保存</span>
-                           <span class="compile_on_right_q" data-name='analysis' data-on="close">取消</span>
-                       </div>  
-                   </div>
-				</div>
-				
-			</div>
+			
 			
 
 			<!--下一轮融资路径-->
 			<div class="tabtable_con_on">
 				<div class='next_financing_center'>
 					<div class="new_r_compile ">
-						<span class="new_ico_product"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" id="next_financing_source">暂无数据</span>
+						<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" id="next_financing_source">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 						<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open">编辑</a>
 						</span>
 						</c:if>
 					</div>
-					<div class="new_ul_all">
+					<div class="new_ul_all new_top_color next_financing_source_show">
 						<span class="ico_dot ico"></span>
 						<p id="next_financing_source_show"></p>
 					</div>
@@ -529,9 +532,11 @@ var projectId = <%=projectId%>;
 $(function(){
 	createMenus(5);
 	UM.getEditor('editor');
+	UM.getEditor('describe_editor');
 	UM.getEditor('company_editor');
-	UM.getEditor('portrayal_editor');
+	UM.getEditor('portrait_editor');
 	UM.getEditor('operation_editor');
+	UM.getEditor('business_editor');
 	UM.getEditor('industry_editor');
 	UM.getEditor('analysis_editor');
 	UM.getEditor('next_financing_editor');

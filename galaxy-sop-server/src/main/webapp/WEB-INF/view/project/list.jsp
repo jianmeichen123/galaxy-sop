@@ -14,6 +14,7 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!-- jsp文件头和头部 -->
 <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
@@ -64,7 +65,6 @@
           </ul>-->
         <!-- 搜索条件 -->
 		<div class="top clearfix" id="custom-toolbar">
-		 <form id='searchForm'>
           <div class="searchall_prj clearfix">
             <div class="searchall_top" data-btn="box">
                 <dl class="fmdl fml fmdll clearfix">
@@ -128,23 +128,22 @@
                 <a href="#" class="blue open ico1 f4" data-btn="show" style="display: block;">展开</a> <a href="#" class="blue searchbox_hidden hide ico1 f3" data-btn="hide" style="display: none;">收起</a>
             </div>
           </div>
-          </form>
         </div>
 		<div class="tab-pane active" id="view">	
 			<table id="project-table" data-url="project/search" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="projectName" data-align="left" class="data-input" data-formatter="projectInfo">项目名称</th>
-			        	<th data-field="project_type" data-formatter="typeFormat" data-align="left" class="data-input sort" data-sortable="true">项目类型<span></span></th>
-			        	<th data-field="finance_status" data-formatter="financeStatusFormat" data-align="left" class="data-input sort" data-sortable="true">融资状态<span></span></th>
-			        	<th data-field="project_progress" data-formatter="projectProgress" data-align="left" class="data-input sort" data-sortable="true">项目进度<span></span></th>
-			        	<th data-field="project_status" data-formatter="projectStatusFormat" data-align="left" class="data-input sort" data-sortable="true">项目状态<span></span></th>
-			        	<th data-field="projectCareerline" data-align="left" class="data-input">事业部</th>
-			        	<th data-field="createUname" data-align="left" class="data-input">投资经理</th>
-			        	<th data-field="created_time" data-formatter="createdFormat" data-align="left" class="data-input sort" data-sortable="true">创建日期<span></span></th>
-			        	<th data-field="updated_time" data-formatter="updateFormat" data-align="left" class="data-input sort" data-sortable="true">最后编辑时间<span></span></th>
-			        	<th data-align="left" class="col-md-2" data-formatter="editor" data-class="noborder">操作</th>
+			        	<th data-field="projectName" data-align="left" class="data-input" data-formatter="projectInfo" data-width="16%">项目名称</th>
+			        	<th data-field="project_type" data-formatter="typeFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">项目类型<span></span></th>
+			        	<th data-field="finance_status" data-formatter="financeStatusFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
+			        	<th data-field="project_progress" data-formatter="projectProgress" data-align="left" class="data-input sort" data-sortable="true" data-width="12%">项目进度<span></span></th>
+			        	<th data-field="project_status" data-formatter="projectStatusFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
+			        	<th data-field="projectCareerline" data-align="left" class="data-input" data-width="9%">事业部</th>
+			        	<th data-field="createUname" data-align="left" class="data-input" data-width="14%">投资经理</th>
+			        	<th data-field="created_time" data-formatter="createdFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
+			        	<th data-field="updated_time" data-formatter="updateFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">最后编辑时间<span></span></th>
+			        	<th data-align="left" class="col-md-2" data-formatter="editor" data-class="noborder" data-width="8%">操作</th>
  					</tr>	
  				</thead>
 			</table>
@@ -191,9 +190,6 @@
 	function editor(value, row, index){
 		var id=row.id;
 		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'><span class=\"prc\">项目流程</span></a>";
-		if(row.projectStatus != 'meetingResult:3' && parseInt(row.createUid) == parseInt(userId)){
-			options += "<a href='<%=path%>/galaxy/upp/"+id+"' class=\'blue\'><span class=\'see\'>查看</span></a>";
-		}
 		return options;
 	}
 	
@@ -205,10 +201,13 @@
 	
 	function proInfo(id){
 		var options = $("#data-table").bootstrapTable('getOptions');
-		var tempPageSize = options.pageSize;
-		var tempPageNum = options.pageNumber;
-		var tempForm = jQuery.parseJSON($('#searchForm').serializeObject());
-	
+		var tempPageSize = options.pageSize ? options.pageSize : 10;
+		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
+		
+		var nameCodeLike = $("input[name='nameCodeLike']").val();
+		var projectDepartid = $("select[name='projectDepartid']").val();
+		var createUid = $("select[name='createUid']").val();
+		
 		
 		var formdata = {
 				_paramKey : 'projectList',
@@ -216,9 +215,9 @@
 				_param : {
 					pageNum : tempPageNum,
 	        		pageSize : tempPageSize,
-	        		nameCodeLike : tempForm.nameCodeLike,
-	        		createUid : tempForm.createUid,
-	        		projectDepartid : tempForm.projectDepartid
+	        		nameCodeLike : nameCodeLike,
+	        		createUid : createUid,
+	        		projectDepartid : projectDepartid
 				}
 		}
 		cookieOperator.forwardPushCookie(formdata);
@@ -293,7 +292,6 @@
 	        	var backSign = ${backSign}
 	        	
 	        	if(backSign){
-	        		alert(backSign);
 	        		var formdata = {
 		        			_paramKey : 'projectList'
 		        	}
@@ -307,7 +305,10 @@
 		        		var options = $("#data-table").bootstrapTable('getOptions');
 	 	        		options.pageNumber = tempParam.pageNum - 1;
 	 	        		console.log('options.pageNumber ='+options.pageNumber );
-//	 	        		options.pageSize = tempParam.pageSize;
+	 	        		//给搜索表单赋值
+	 	        		$("input[name='nameCodeLike']").val(tempParam.nameCodeLike ? tempParam.nameCodeLike : "");
+	 	       			$("select[name='projectDepartid']").val(tempParam.projectDepartid ? tempParam.projectDepartid : "0");
+	 	       			$("select[name='createUid']").val(tempParam.createUid ? tempParam.createUid : "0");
 		        	}
 	        	}
 	        	

@@ -3,6 +3,8 @@ $(function(){
    /**
 	 * 加载项目详情数据
 	 */
+	var projectPro = projectInfo.projectProgress;
+	var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 
 		$("#project_name_title").text(projectInfo.projectName);
 		$("#project_name").text(projectInfo.projectName);
@@ -12,15 +14,15 @@ $(function(){
 		$("#createUname").text(projectInfo.createUname);
 		$("#projectCareerline").text(projectInfo.projectCareerline);
 		$("#projectType").text(projectInfo.type);
-		$("#project_contribution").text(projectInfo.projectContribution==0?"":projectInfo.projectContribution);
-		$("#project_valuations").text(projectInfo.projectValuations==0?"":projectInfo.projectValuations);
-		$("#project_share_ratio").text(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
+		$("#project_contribution").text(projectInfo.projectContribution==0?"--":projectInfo.projectContribution);
+		$("#project_valuations").text(projectInfo.projectValuations==0?"--":projectInfo.projectValuations);
+		$("#project_share_ratio").text(projectInfo.projectShareRatio==0?"--":projectInfo.projectShareRatio);
 		$("#projectProgress").text(projectInfo.progress);
 		$("#projectStatusDs").text(projectInfo.projectStatusDs);
 		$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
-		$("#finalValuations").text(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
-		$("#finalContribution").text(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
-		$("#finalShareRatio").text(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
+		$("#finalValuations").text(projectInfo.finalValuations==0||num<=7?"--":projectInfo.finalValuations);
+		$("#finalContribution").text(projectInfo.finalContribution==0||num<=7?"--":projectInfo.finalContribution);
+		$("#finalShareRatio").text(projectInfo.finalShareRatio==0||num<=7?"--":projectInfo.finalShareRatio);
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
@@ -48,6 +50,7 @@ $(function(){
 		sendGetRequest(platformUrl.getDepartMentDict+"/1",null,CallBackA);
 		function CallBackB(data){
 		    var _dom=$("#finance_status_sel");
+		    _dom.append("<option value=''>--不明确--</option>");
 			 $.each(data.entityList,function(){
 					if(this.code){
 						if(this.code==fs){
@@ -82,8 +85,10 @@ $(function(){
 			$("#describe_show").html(projectInfo.projectDescribe);
 			um.setContent(projectInfo.projectDescribe);
 			$("#descript").hide();
+			$('.describe_show').show();
 			
 		}else{
+			$('.describe_show').hide();
 			$("#describe_show").html('');
 		}
 		if(projectInfo.projectBusinessModel){
@@ -91,33 +96,41 @@ $(function(){
 			um.setContent(projectInfo.projectBusinessModel);
 			$("#business_model_show").html(projectInfo.projectBusinessModel)
 			$("#business_model").hide();
+			$('.business_model_show').show();
 			
 		}else{
 			$("#business_model_show").html('')
+			$('.business_model_show').hide();
 		}
 		if(projectInfo.companyLocation){
 			var um = UM.getEditor('company_editor');
 			um.setContent(projectInfo.companyLocation);
 			$("#location_show").html(projectInfo.companyLocation)
 			$("#location").hide();
+			$('.location_show').show();
 		}else{
 			$("#location_show").html('')
+			$('.location_show').hide();
 		}
 		if(projectInfo.userPortrait){
 			var um = UM.getEditor('portrait_editor');
 			um.setContent(projectInfo.userPortrait);
 			$("#portrait_show").html(projectInfo.userPortrait);
 			$("#portrait").hide();
+			$(".portrait_show").show();
 		}else{
 			$("#portrait_show").html('')
+			$(".portrait_show").hide();
 		}
 		if(projectInfo.prospectAnalysis){
 			var um = UM.getEditor('analysis_editor');
 			um.setContent(projectInfo.prospectAnalysis);
 			$("#analysis_show").html(projectInfo.prospectAnalysis)
 			$("#analysis").hide();
+			$(".analysis_show").show();
 		}else{
-			$("#analysis_show").html('')
+			$("#analysis_show").html('');
+			$(".analysis_show").hide();
 		}
 
 		if(projectInfo.operationalData){
@@ -125,24 +138,31 @@ $(function(){
 			um.setContent(projectInfo.operationalData);
 			$("#operational_data_show").html(projectInfo.operationalData);
 			$("#operational_data").hide();
+			$(".operational_data_show").show();
 		}else{
 			$("#operational_data_show").html('');
+			$(".operational_data_show").hide();
 		}
 		if(projectInfo.industryAnalysis){
 			var um = UM.getEditor('industry_editor');
 			um.setContent(projectInfo.industryAnalysis);
 			$("#industry_analysis_show").html(projectInfo.industryAnalysis);
 			$("#industry_analysis").hide();
+			$(".industry_analysis_show").show();
 		}else{
 			$("#industry_analysis_show").html('');
+			$(".industry_analysis_show").hide();
 		}
 		if(projectInfo.nextFinancingSource){
 			var um = UM.getEditor('next_financing_editor');
 			um.setContent(projectInfo.nextFinancingSource);
 			$("#next_financing_source_show").html(projectInfo.nextFinancingSource);
 			$("#next_financing_source").hide();
+			$(".next_financing_source_show").show();
+			
 		}else{
 			$("#next_financing_source_show").html('');
+			$(".next_financing_source_show").hide();
 		}
 
 		/**
@@ -151,7 +171,7 @@ $(function(){
 		var data = {
 				_projectId : pid,
 				_projectName : projectInfo.projectName,
-				_domId :　'business_plan'			
+				_domId :'business_plan'			
 		}
 		initPage.init(data);
 		/**
@@ -281,7 +301,7 @@ function saveSuccess(){
 $("#save_describe").click(function(){
 	var um = UM.getEditor('describe_editor');
 	var projectDescribe = um.getContent();
-	if(pid != '' && projectDescribe != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess());
 	}
 });
@@ -291,7 +311,7 @@ $("#save_describe").click(function(){
 $("#save_location").click(function(){
 	var um = UM.getEditor('company_editor');
 	var companyLocation = um.getContent();
-	if(pid != '' && companyLocation != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "companyLocation" : companyLocation}, saveSuccess());
 	}
 });
@@ -301,7 +321,7 @@ $("#save_location").click(function(){
 $("#save_portrait").click(function(){
 	var um = UM.getEditor('portrait_editor');
 	var userPortrait = um.getContent();
-	if(pid != '' && userPortrait != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
 	}
 });
@@ -311,7 +331,7 @@ $("#save_portrait").click(function(){
 $("#save_business").click(function(){
 	var um = UM.getEditor('business_editor');
 	var projectBusinessModel = um.getContent();
-	if(pid != '' && projectBusinessModel != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveSuccess());
 	}
 });
@@ -321,7 +341,7 @@ $("#save_business").click(function(){
 $("#save_operation").click(function(){
 	var um = UM.getEditor('operation_editor');
 	var operationalData = um.getContent();
-	if(pid != '' && operationalData != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "operationalData" : operationalData}, saveSuccess());
 	}
 });
@@ -332,7 +352,7 @@ $("#save_operation").click(function(){
 $("#save_industry").click(function(){
 	var um = UM.getEditor('industry_editor');
 	var industryAnalysis = um.getContent();
-	if(pid != '' && industryAnalysis != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "industryAnalysis" : industryAnalysis}, saveSuccess());
 	}
 });
@@ -343,7 +363,7 @@ $("#save_industry").click(function(){
 $("#save_analysis").click(function(){
 	var um = UM.getEditor('analysis_editor');
 	var prospectAnalysis = um.getContent();
-	if(pid != '' && prospectAnalysis != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "prospectAnalysis" : prospectAnalysis}, saveSuccess());
 	}
 });
@@ -353,7 +373,7 @@ $("#save_analysis").click(function(){
 $("#save_next_financing").click(function(){
 	var um = UM.getEditor('next_financing_editor');
 	var nextFinancingSource = um.getContent();
-	if(pid != '' && nextFinancingSource != ''){
+	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveSuccess());
 	}
 });

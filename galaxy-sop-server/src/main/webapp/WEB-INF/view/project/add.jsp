@@ -33,7 +33,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-		<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>Utter绝对潮流</div>
+		<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>添加项目</div>
         <div class="new_tit_b">
             <span class="new_color size18">添加项目</span>
         </div>
@@ -51,6 +51,9 @@
                         	<span class="basic_span"><em class="red">*</em>项目类型：</span>
                             <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w"><label for="radio_w">外部投资</label></span>
                             <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">内部项目</label></span>
+                            <span id="projectTypeTip" class="m_r30" style="display:none;">
+                            	<div class="tip-yellowsimple" style="visibility: inherit; left: 413.031px; top: 229px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
+                            </span>
                         </li>
                         <li>
                             <span class="basic_span"><em class="red">*</em>项目名称：</span>
@@ -62,6 +65,7 @@
                         	<span class="basic_span"><em class="red">*</em>行业归属：</span>
                             <span class="m_r30">
                             	<select name="industryOwn" class='new_nputr' valType="required" msg="<font color=red>*</font>行业归属不能为空">
+			                    	<option value="">--请选择--</option>
 			                    </select>
                             </span>
                         	<span class="basic_span">融资状态：</span>
@@ -104,30 +108,16 @@
                         <span class="new_ico_book"></span>
                         <span class="new_color size16">商业计划书</span>
                     </div>  
-                    <!-- 上传附件后的样式 -->
-                    <table width="80%" cellspacing="0" cellpadding="0" class="basic_table">
-                    	<tr>
-                        	<th>更新日期</th><th>文件状态</th><th>查看附件</th>
-                        </tr>
-                        <tr>
-                            <td>2016-01-20</td><td>已上传</td><td><a href="#">商业计划书.doc</a></td>
-                            
-                        </tr>
+                    <!-- 商业计划书表格-->
+                    <table style="width:80%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
                     </table>
-                    <!-- 上传附件前的样式 -->
-                    <table width="80%" cellspacing="0" cellpadding="0" class="basic_table">
-                    	<tr>
-                        	<th>更新日期</th><th>文件状态</th><th>查看附件</th>
-                        </tr>
-                        <tr>
-                            <td>2016-01-20</td><td>已上传</td><td><a href="#" class="upload">上传附件</a></td>
-                            
-                        </tr>
-                    </table>
-                    <div class="basic_input" onclick="add('save');">保存</div>
+                    
+                    <div class="basic_input" onclick="add();">保存</div>
                 </div>
         </div>
-        <!--右边-->
+       
+    </div>
+     <!--右边-->
         <div class="basic_right">
         	<div class="tabtable_con_on">
             	<div class="new_bottom_color">
@@ -143,10 +133,17 @@
                 <p class="basic_p">不满足以上标准的项目数据，将会被系统删除。请尽快将项目信息补充完整，以达到项目数据的最低标准。</p>
             </div>
         </div>
-        <!--右边 end-->
-    </div> 
+        <!--右边 end--> 
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
+<jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
+	<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/teamSheetNew.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/addPlanbusiness.js'></script>
 <script type="text/javascript">
 	/**
 	 * @version 2016-06-21
@@ -163,7 +160,7 @@
 	 * 查询事业线
 	 * @version 2016-06-21
 	 */
-	createCareelineOptions(platformUrl.getCareerlineList,"industryOwn");
+	createCareelineOptions(platformUrl.getCareerlineList,"industryOwn","select");
 	/**
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
@@ -192,6 +189,9 @@
 				$("#formatValuations").val(valuations.toFixed(2));
 			}
 		});
+		$('input:radio[name="projectType"]').click(function(){
+			$("#projectTypeTip").css("display","none");
+		});
 	});
 	function calculationValuations(){
 		var projectShareRatio = $("#formatShareRatio").val();
@@ -203,9 +203,13 @@
 	}
 	var b = new Base64();
 	function add(){
+		var val=$('input:radio[name="projectType"]:checked').val();
+		if(val == null){
+			$("#projectTypeTip").css("display","block");
+			return;
+		}
 		if(beforeSubmit()){
 			sendPostRequestBySignJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
-				data = JSON.parse(b.decode(data));
 				if(data.result.status=="ERROR"){
 					layer.msg(data.result.message);
 				}else{
@@ -214,6 +218,8 @@
 			},TOKEN);
 		}
 	}
+	
+	
 </script>
 
 </html>

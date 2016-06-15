@@ -53,7 +53,7 @@
 	                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
 	                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
-	                <li><a href="javascript:;">项目文档</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
 	                </c:when>
 	                <c:otherwise>
@@ -77,7 +77,7 @@
 						<!--按钮-->
 						<div class="top clearfix">
 							<div class="btnbox_f btnbox_f1 clearfix">
-								<a href="#"  onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview">添加访谈记录</a>
+								<a href="#"  id="tjftjl" onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview">添加访谈记录</a>
 								<a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a>
 							</div>
 						</div>
@@ -106,9 +106,9 @@
 							data-toolbar="#projectProgress_1_table_custom-toolbar">
 							<thead>
 								<tr>
-									<th data-field="viewinfo" data-align="center" data-formatter="intervierInfoFormat" data-class="no1">访谈概况</th>
-									<th data-field="viewNotes" data-align="center" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈记录</th>
-									<th data-field="oper" data-align="center" data-formatter="viewOperFormat">操作</th>
+									<th data-field="viewinfo" data-align="left" data-formatter="intervierInfoFormat" data-class="no1">访谈概况</th>
+									<th data-field="viewNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no2">访谈记录</th>
+									<th data-field="oper" data-align="left" data-formatter="viewOperFormat">操作</th>
 								</tr>
 							</thead>
 						</table>
@@ -179,10 +179,10 @@ $(function(){
 	});
 	
 	//check to show or not not show qdnbps button
-	if(index == 1){
+	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || index != 1){
+		$('#tjftjl').remove();
+	}else if(index == 1){
 		checkToShowBut(); 
-	}else{
-		tohidebut();
 	}
 	
 });	
@@ -192,8 +192,6 @@ $(function(){
 function checkToShowBut(){
 	if(viewList && viewList.length>0){
 		toshowbut();
-	}else{
-		tohidebut();
 	}
 }
 function toshowbut(){

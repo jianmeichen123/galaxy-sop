@@ -14,6 +14,7 @@ public class Menus extends BaseEntity {
 	 * 1--子节点
 	 */
 	private Integer order;
+	private Integer navNum;
 	private String menuName;
 	private String url;
 	private List<Menus> nodes;
@@ -27,6 +28,13 @@ public class Menus extends BaseEntity {
 	public Menus(Long id, Integer order, String menuName, String url){
 		this.id = id;
 		this.order = order;
+		this.menuName = menuName;
+		this.url = url;
+	}
+	public Menus(Long id, Integer order, Integer navNum, String menuName, String url){
+		this.id = id;
+		this.order = order;
+		this.navNum = navNum;
 		this.menuName = menuName;
 		this.url = url;
 	}
@@ -63,5 +71,11 @@ public class Menus extends BaseEntity {
 	public void setOrder(Integer order) {
 		this.order = order;
 	}
-
+	public Integer getNavNum() {
+		return navNum;
+	}
+	public void setNavNum(Integer navNum) {
+		this.navNum = navNum;
+	}
+	
 }

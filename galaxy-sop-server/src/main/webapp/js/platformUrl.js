@@ -558,7 +558,16 @@ var platformUrl = {
 	/**
 	 * 项目列表页面
 	 */
-	projectList : Constants.sopEndpointURL + "galaxy/mpl"
+	projectList : Constants.sopEndpointURL + "galaxy/mpl",
+	/**
+	 * 商业计划上传到session中
+	 */
+	uploadBpToSession : Constants.sopEndpointURL + "/galaxy/sopFile/uploadBpToSession",
+	/**
+	 * session中获取商业计划书
+	 */
+	getBusinessPlanFileInSession : Constants.sopEndpointURL + "/galaxy/sopFile/getBusinessPlanFileInSession",
+	
 	
 }
 
