@@ -77,7 +77,7 @@
                    <!--按钮-->
 					<div class="top clearfix">
 						<div class="btnbox_f btnbox_f1 clearfix">   <!-- pubbtn bluebtn ico c4 add_prj add_interview  添加会议纪要-->
-							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn fffbtn lpubbtn option_item_mark" id="proMeetBut" style="display: none;">添加会议纪要</a>
+							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut" style="display: none;">添加会议纪要</a>
 							<!-- <a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" >添加会议纪要</a>  -->
 						</div>
 					</div>
