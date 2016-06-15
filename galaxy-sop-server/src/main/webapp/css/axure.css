@@ -1728,7 +1728,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .no1_3{width:43%;}
 /* .nav_index{width:20px;height:20px;display:inline-block;background: url(../img/baricon.png) 0 0 no-repeat;margin-right: 8px;} */
 .basic_on{ 
-	z-index:1009;
+	z-index:1000;
 	border-radius:6px;
   display: none;
   position: absolute;
