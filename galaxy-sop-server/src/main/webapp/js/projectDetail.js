@@ -190,13 +190,13 @@ $(function(){
 			}
 		}
 		$('.new_top_color').delegate(".f4","click",function(){
-			$('.new_top_color .f4').hide();
-			$('.new_top_color .f3').show();
+			$(this).hide();
+			$(this).parent().children('.f3').show();
 			$(this).parent().parent().parent().css('height','auto')
 		}) 
 		$('.new_top_color').delegate(".f3","click",function(){
-			$('.new_top_color .f3').hide();
-			$('.new_top_color .f4').show();
+			$(this).hide();
+			$(this).parent().children('.f4').show();
 			$(this).parent().parent().parent().css('height','100px')
 		}) 
 		/**
