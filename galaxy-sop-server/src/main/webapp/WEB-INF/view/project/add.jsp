@@ -159,8 +159,7 @@
 		$('.compile_on').show();
 	});
 	$('[data-on="close"]').on('click',function(){
-		$('.bj_hui_on').hide();
-		$('.compile_on').hide();
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
 	});
 	/**
 	 * 查询事业线
