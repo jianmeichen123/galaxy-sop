@@ -208,7 +208,7 @@
 		}
 	
 	function proInfo(id){
-		var options = $("#data-table").bootstrapTable('getOptions');
+		var options = $("#project-table").bootstrapTable('getOptions');
 		var tempPageSize = options.pageSize ? options.pageSize : 10;
 		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
 		
@@ -289,7 +289,7 @@
 			queryParamsType: 'size|page',
 			pageSize:10,
 			showRefresh : false ,
-			url : $('#data-table').attr("data-url"),
+			url : $('#project-table').attr("data-url"),
 			sidePagination: 'server',
 			method : 'post',
 			sortOrder : 'desc',
@@ -310,7 +310,7 @@
 		        		param.nameCodeLike = tempParam.nameCodeLike;
 		        		param.createUid = tempParam.createUid;
 		        		param.projectDepartid = tempParam.projectDepartid;
-		        		var options = $("#data-table").bootstrapTable('getOptions');
+		        		var options = $("#project-table").bootstrapTable('getOptions');
 	 	        		options.pageNumber = tempParam.pageNum - 1;
 	 	        		console.log('options.pageNumber ='+options.pageNumber );
 	 	        		//给搜索表单赋值
