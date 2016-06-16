@@ -58,12 +58,12 @@
                 <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
                 </c:when>
                 <c:otherwise>
-                <li><a href="javascript:;" class="disabled">团队成员</a></li>
-                <li><a href="javascript:;" class="disabled">股权结构</a></li>
-                <li><a href="javascript:;" class="disabled">访谈记录</a></li>
-                <li><a href="javascript:;" class="disabled">会议纪要</a></li>
-				<li><a href="javascript:;" class="disabled">项目文档</a></li>
-                <li><a href="javascript:;" class="disabled">操作日志</a></li> 
+                <li class="no"><a href="javascript:;">团队成员</a></li>
+                <li class="no"><a href="javascript:;">股权结构</a></li>
+                <li class="no"><a href="javascript:;">访谈记录</a></li>
+                <li class="no"><a href="javascript:;">会议纪要</a></li>
+				<li class="no"><a href="javascript:;">项目文档</a></li>
+                <li class="no"><a href="javascript:;">操作日志</a></li> 
                 </c:otherwise>
              	</c:choose>
             </ul>
@@ -77,7 +77,7 @@
                    <!--按钮-->
 					<div class="top clearfix">
 						<div class="btnbox_f btnbox_f1 clearfix">   <!-- pubbtn bluebtn ico c4 add_prj add_interview  添加会议纪要-->
-							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn fffbtn lpubbtn option_item_mark" id="proMeetBut" style="display: none;">添加会议纪要</a>
+							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut" style="display: none;">添加会议纪要</a>
 							<!-- <a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" >添加会议纪要</a>  -->
 						</div>
 					</div>

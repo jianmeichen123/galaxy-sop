@@ -133,10 +133,13 @@ function getTabPerson(){
                       field: 'id',
                       align: 'left',
                       formatter:function(value,row,index){  
-	                   var a = '<span class="resume" onclick="tiaozhuan(\''+ row.id + '\')">个人简历</span>';;
-	                   var e = '<span class="edit" onclick="updatePer(\''+ row.id + '\')">编辑</span>';  
-	                   var d = '<span class="del" onclick="deletePer(\''+ row.id +'\')">删除</span>';  
-                        return a+e+d;  
+	                   var content = '<span class="resume" onclick="tiaozhuan(\''+ row.id + '\')">个人简历</span>';
+	                   if(isCreatedByUser == 'true')
+                	   {
+	                	   content += '<span class="edit" onclick="updatePer(\''+ row.id + '\')">编辑</span>';  
+	                	   content += '<span class="del" onclick="deletePer(\''+ row.id +'\')">删除</span>';  
+                	   }
+                        return content;  
                     } 
                   }
               ]

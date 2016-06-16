@@ -111,13 +111,15 @@
                     <!-- 商业计划书表格-->
                     <table style="width:80%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
                     </table>
-                    
-                    <div class="basic_input" onclick="add();">保存</div>
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="basic_input" onclick="add();">保存</span>
+                           <span class="compile_on_right_q" data-name='industry' data-on="close">取消</span>
+                       </div>  
+                   </div>
                 </div>
         </div>
-       
-    </div>
-     <!--右边-->
+       <!--右边-->
         <div class="basic_right">
         	<div class="tabtable_con_on">
             	<div class="new_bottom_color">
@@ -134,6 +136,8 @@
             </div>
         </div>
         <!--右边 end--> 
+    </div>
+     
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <jsp:include page="../common/uploadwin.jsp" flush="true"></jsp:include>

@@ -98,35 +98,35 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		if(roleIdList.contains(UserConstant.TZJL)){
 			tabs.add(new Menus(5L, 0, 3, "创投项目", u + "galaxy/mpl?" + params));
 			tabs.add(new Menus(21L, 0, 10, "创意管理", u + "galaxy/idea?" + params));
-			tabs.add(new Menus(6L, 0, "访谈跟进", u + "galaxy/project/progress/interView?" + params));
-			tabs.add(new Menus(7L, 0, "会议纪要", u + "galaxy/project/progress/meetView?" + params));
+			tabs.add(new Menus(6L, 0, 16,"访谈跟进", u + "galaxy/project/progress/interView?" + params));
+			tabs.add(new Menus(7L, 0, 15,"会议纪要", u + "galaxy/project/progress/meetView?" + params));
 		}
 		
 		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)
 				|| roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)
 				|| roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-			tabs.add(new Menus(9L, 0, "尽调报告", u + "galaxy/soptask?flag=jz&"+ params));
+			tabs.add(new Menus(9L, 0, 19,"尽调报告", u + "galaxy/soptask?flag=jz&"+ params));
 		}
 		
 		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
-			tabs.add(new Menus(10L, 0, "完善简历", u + "galaxy/soptask?flag=jl&"+ params));
+			tabs.add(new Menus(10L, 0, 20,"完善简历", u + "galaxy/soptask?flag=jl&"+ params));
 		}
 		if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
-			tabs.add(new Menus(11L, 0, "付款凭证", u + "galaxy/soptask?flag=pz&"+ params));
+			tabs.add(new Menus(11L, 0, 24,"付款凭证", u + "galaxy/soptask?flag=pz&"+ params));
 		}
 		
 		if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-			tabs.add(new Menus(12L, 0, "股权交割", u + "galaxy/soptask?flag=gq&"+ params));
+			tabs.add(new Menus(12L, 0, 25,"股权交割", u + "galaxy/soptask?flag=gq&"+ params));
 		}
 		
-		tabs.add(new Menus(13L, 0, "模板管理", u + "galaxy/template?" + params));
-		tabs.add(new Menus(14L, 0, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
+		tabs.add(new Menus(13L, 0, 17,"模板管理", u + "galaxy/template?" + params));
+		tabs.add(new Menus(14L, 0, 18,"档案管理", u + "galaxy/sopFile/toFileList?" + params));
 		
 		
 		//档案管理员
 		if(roleIdList.contains(17L)){
 			tabs.clear();
-			tabs.add(new Menus(14L, 0, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
+			tabs.add(new Menus(14L, 0,18, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
 		}
 		
 		//管理员
@@ -155,9 +155,9 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		if(roleIdList.contains(UserConstant.DMS) ||roleIdList.contains(UserConstant.CEOMS)){
 			tabs.clear();
 			tabs.add(new Menus(1L, 0, 1,"工作桌面", u + "galaxy/index?" + params));
-			tabs.add(new Menus(18L, 0, "立项会排期池", u + "galaxy/lxh?" + params));
-			tabs.add(new Menus(19L, 0, "投决会排期池", u + "galaxy/tjh?" + params));
-			tabs.add(new Menus(20L, 0, "CEO评审会排期池", u + "galaxy/psh?" + params));								
+			tabs.add(new Menus(18L, 0, 21,"立项会", u + "galaxy/lxh?" + params));
+			tabs.add(new Menus(19L, 0, 22,"投决会", u + "galaxy/tjh?" + params));
+			tabs.add(new Menus(20L, 0, 23,"CEO评审会", u + "galaxy/psh?" + params));								
 		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;

@@ -14,9 +14,9 @@ $(function(){
 		$("#createUname").text(projectInfo.createUname);
 		$("#projectCareerline").text(projectInfo.projectCareerline);
 		$("#projectType").text(projectInfo.type);
-		$("#project_contribution").text(projectInfo.projectContribution==0?"--":projectInfo.projectContribution);
-		$("#project_valuations").text(projectInfo.projectValuations==0?"--":projectInfo.projectValuations);
-		$("#project_share_ratio").text(projectInfo.projectShareRatio==0?"--":projectInfo.projectShareRatio);
+		$("#project_contribution").text(projectInfo.projectContribution==0||typeof(projectInfo.projectContribution)=="undefined"?"--":projectInfo.projectContribution);
+		$("#project_valuations").text(projectInfo.projectValuations==0||typeof(projectInfo.projectValuations)=="undefined"?"--":projectInfo.projectValuations);
+		$("#project_share_ratio").text(projectInfo.projectShareRatio==0||typeof(projectInfo.projectShareRatio)=="undefined"?"--":projectInfo.projectShareRatio);
 		$("#projectProgress").text(projectInfo.progress);
 		$("#projectStatusDs").text(projectInfo.projectStatusDs);
 		$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
@@ -51,6 +51,8 @@ $(function(){
 			//融资
 			sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
 			sendGetRequest(platformUrl.getDepartMentDict+"/1",null,CallBackA);
+			
+			initDialogVal();
 		
 		})
 			function CallBackB(data){
@@ -170,6 +172,18 @@ $(function(){
 			$(".next_financing_source_show").hide();
 		}
 
+		function  display_show(obj){
+			alert(obj)
+			var height=$('#'+obj).outerHeight();
+			if(height>100){
+				var str='';
+				str+='<span class="show_more">',
+				str+='<a style="display: line;" href="#" class="blue open ico1 f4" data-btn="show">展开</a> <a style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" data-btn="hide">收起</a>',
+				str+='</span>';
+				$('#'+obj).append(str);
+				$('#'+obj).css('height','100px')
+			}
+		}
 		/**
 		 * 商业计划
 		 */

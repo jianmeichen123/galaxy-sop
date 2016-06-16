@@ -58,17 +58,18 @@
 	                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
 	                </c:when>
 	                <c:otherwise>
-	                <li><a href="javascript:;" class="disabled">团队成员</a></li>
-	                <li><a href="javascript:;" class="disabled">股权结构</a></li>
-	                <li><a href="javascript:;" class="disabled">访谈记录</a></li>
-	                <li><a href="javascript:;" class="disabled">会议纪要</a></li>
-					<li><a href="javascript:;" class="disabled">项目文档</a></li>
-	                <li><a href="javascript:;" class="disabled">操作日志</a></li> 
+	                <li class="no"><a href="javascript:;">团队成员</a></li>
+	                <li class="no"><a href="javascript:;">股权结构</a></li>
+	                <li class="no"><a href="javascript:;">访谈记录</a></li>
+	                <li class="no"><a href="javascript:;">会议纪要</a></li>
+					<li class="no"><a href="javascript:;">项目文档</a></li>
+	                <li class="no"><a href="javascript:;">操作日志</a></li> 
 	                </c:otherwise>
 	             	</c:choose>
 	            </ul>
 	            <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
 				<div class="member">
+					<c:if test="${fx:isCreatedByUser('project',pid) }">
 				      <div class="top clearfix">
 				          <!--按钮-->
 				          <div class="btnbox_f btnbox_f1 clearfix">
@@ -76,6 +77,7 @@
 				              <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a>
 				          </div>
 				      </div>
+					</c:if>
 				              <!--表格内容-->
 				               <div class="tab-pane active" id="view">	
 				      <table id="tablePerson" width="100%" data-height="555" 
@@ -116,7 +118,7 @@
 	var interviewSelectRow = null;
 	var projectId ='${pid}';
 	var flag = '${flag}';
-
+	var isCreatedByUser = "${fx:isCreatedByUser('project',pid) }";
 $(function(){
 	createMenus(5);
 	getTabPerson();
@@ -178,8 +180,9 @@ function addPersonCallBack(data){
 
 	//个人简历
 	function tiaozhuan(id){
-		var url =platformUrl.personHHr;
-		if(flag == "true"){
+		//创建者可编辑
+		var url = platformUrl.personHHr;
+		if(isCreatedByUser == "true"){
 			url =platformUrl.personHr;
 		}
 		$.getHtml({

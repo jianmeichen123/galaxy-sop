@@ -44,8 +44,7 @@
     	<div class="new_tit_a"><a href="#">工作桌面</a>>创投项目</div>
     	 <input type="hidden" id="project_id" value=""/>
     	 <input type="hidden" id="uid" value=""/>
-    	 <c:choose>
-         <c:when test="${fx:hasRole(4)}">
+         <c:if test="${fx:hasRole(4)}">
          <!--页眉-->
          <div class="top clearfix">
         	<!--按钮-->
@@ -54,10 +53,7 @@
                 <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
             </div>
          </div>
-         </c:when>
-         <c:otherwise>
-         </c:otherwise>
-         </c:choose>
+         </c:if>
          <!--tips连接
           <ul class="tipslink tablink">
                 <li class="on"><a href="javascript:;" query-by="proType" query-val="1" >我的项目<span></span></a></li>
@@ -143,7 +139,9 @@
 			        	<th data-field="createUname" data-align="left" class="data-input" data-width="14%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
 			        	<th data-field="updated_time" data-formatter="updateFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">最后编辑时间<span></span></th>
+         				<c:if test="${fx:hasRole(4)}">
 			        	<th data-align="left" class="col-md-2" data-formatter="editor" data-class="noborder" data-width="8%">操作</th>
+ 						</c:if>
  					</tr>	
  				</thead>
 			</table>
@@ -189,15 +187,25 @@
 	var uid='${galax_session_user.id }';
 	function editor(value, row, index){
 		var id=row.id;
-		var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'><span class=\"prc\">项目流程</span></a>";
+		if(uid == row.createUid){
+			var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'><span class=\"prc\">项目流程</span></a>";
+		}
 		return options;
 	}
 	
-	function projectInfo(value,row,index){
-		var id=row.id;
-		var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")'>"+row.projectName+"</a>";
-		return options;
-	}
+	 function projectInfo(value,row,index){
+		    var id=row.id;
+			var str=row.projectName;
+			if(str.length>12){
+				subStr = str.substring(0,12);
+				var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")' title='"+str+"'>"+subStr+"</a>";
+				return options;
+			}
+			else{
+				var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")' title='"+str+"'>"+str+"</a>";
+				return options;
+			}
+		}
 	
 	function proInfo(id){
 		var options = $("#data-table").bootstrapTable('getOptions');

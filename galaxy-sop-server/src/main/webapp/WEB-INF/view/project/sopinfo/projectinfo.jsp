@@ -33,15 +33,9 @@
 
 <!-- 校验 -->
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
-<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
-<!-- 校验 -->
-<!-- 校验 -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
-<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
-
 
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 
@@ -121,12 +115,12 @@ function getProjectInfo(dtd)
                 <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li> 
                 </c:when>
                 <c:otherwise>
-                <li><a href="javascript:;" class="disabled">团队成员</a></li>
-                <li><a href="javascript:;" class="disabled">股权结构</a></li>
-                <li><a href="javascript:;" class="disabled">访谈记录</a></li>
-                <li><a href="javascript:;" class="disabled">会议纪要</a></li>
-				<li><a href="javascript:;" class="disabled">项目文档</a></li>
-                <li><a href="javascript:;" class="disabled">操作日志</a></li> 
+                <li class="no"><a href="javascript:;">团队成员</a></li>
+                <li class="no"><a href="javascript:;">股权结构</a></li>
+                <li class="no"><a href="javascript:;">访谈记录</a></li>
+                <li class="no"><a href="javascript:;">会议纪要</a></li>
+				<li class="no"><a href="javascript:;">项目文档</a></li>
+                <li class="no"><a href="javascript:;">操作日志</a></li> 
                 </c:otherwise>
                 </c:choose>
             </ul>
@@ -211,7 +205,7 @@ function getProjectInfo(dtd)
 				        </div>  
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  id="project_name_edit" valType="required" msg="<font color=red>*</font>项目名称不能为空"></input></span></td>
+				                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  size="20" id="project_name_edit" valType="required" msg="<font color=red>*</font>项目名称不能为空"></input></span></td>
 				                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit"></span></td>
 				            </tr>
 				            <tr>
@@ -220,7 +214,7 @@ function getProjectInfo(dtd)
 				            </tr>
 				            <tr>
 				                <td><span class="new_color_gray">行业归属：</span><span><select class="new_nputr" id="industry_own_sel" ></select></span></td>
-				                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span class="new_color_gray" id="projectCareerline_edit"></span></td>
+				                <td><span class="new_color_gray">投资经理：</span><span class="new_color_black" id="createUname_edit"></span><span>(</span><span class="new_color_gray" id="projectCareerline_edit"></span><span>)</span></td>
 				            </tr>
 				            <tr>
                                 <td><span class="new_color_gray">融资状态：</span><span><select class="new_nputr" id="finance_status_sel"></select></span></td>
@@ -233,13 +227,13 @@ function getProjectInfo(dtd)
 				            <span class="new_ico_financing"></span>
 				            <span class="new_color size16">融资计划</span>
 				        </div>  
-				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+				       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="project_contribution_edit" />　&nbsp;万元人民币</span></td>
-				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input readonly="readonly" class="new_nputr_number" id="project_valuations_edit" />&nbsp;　万元人民币</span></td>
+				                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>　&nbsp;万元人民币</span></td>
+				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input readonly="readonly" class="new_nputr_number" id="project_valuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" id="project_share_ratio_edit" />　&nbsp;%</span></td>
+				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数或小数"/>　&nbsp;%</span></td>
 				            </tr>
 				        </table>
 				        <!--实际投资-->
@@ -249,11 +243,11 @@ function getProjectInfo(dtd)
 				        </div>  
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" id="finalContribution_edit"/>&nbsp;　万元人民币</span></td>
-				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input readonly="readonly" class="new_nputr_number" id="finalValuations_edit"/>&nbsp;　万元人民币</span></td>
+				                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
+				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input readonly="readonly" class="new_nputr_number" id="finalValuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" id="finalShareRatio_edit" />&nbsp;　%</span></td>
+				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数或小数"/>&nbsp;　%</span></td>
 				     		</tr>
 				        </table>
 				    </div>
@@ -265,9 +259,9 @@ function getProjectInfo(dtd)
 					<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
 				</div>
 				<ul class="new_ul_all new_top_color" id='business_plan'>
-					<li><span>《XXXXXXXXXXXXXXXXX》</span></li>
-					<li><span class="new_color_gray">状态：</span><span class="new_color_black">已上传</span></li>
-					<li><span class="new_color_gray">更新时间：</span><span class="new_color_black">2016-01-26</span></li>
+					<li></li>
+					<li></li>
+					<li></li>
 
 					<li class="new_ul_right"><span class="new_fctbox"> <a href="javascript:;" class="ico f2" data-btn="describe">查看</a>
 							<a href="javascript:;" class="ico new1" data-btn="edit" id="uploadOperator">更新</a>
@@ -278,7 +272,7 @@ function getProjectInfo(dtd)
 			<!--项目概述-->
 			<div class="tabtable_con_on">
 				<div class="project_on">
-                      <div id="describe_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+                      <div id="describe_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                         <div class="compile_on_center">
                            <div class="compile_on_right">
                                <span class="compile_on_right_b" id="save_describe">保存</span>
@@ -318,7 +312,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='company_on'>
-					<div id="company_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="company_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_location">保存</span>
@@ -345,7 +339,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='portrayal_on'>
-					<div id="portrait_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="portrait_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_portrait">保存</span>
@@ -374,7 +368,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='product_on'>
-					<div id="business_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="business_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_business">保存</span>
@@ -402,7 +396,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='analysis_on'>
-					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_analysis">保存</span>
@@ -430,7 +424,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='operation_on'>
-					<div id="operation_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="operation_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_operation">保存</span>
@@ -459,7 +453,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='industry_on'>
-					<div id="industry_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="industry_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_industry">保存</span>
@@ -490,7 +484,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='next_financing_on'>
-					<div id="next_financing_editor" type="text/plain" style="width:790px;height:200px; margin-top:40px;"></div>  
+					<div id="next_financing_editor" type="text/plain" style="width:790px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_next_financing">保存</span>
@@ -557,6 +551,7 @@ $(function(){
 		$('.'+close+'_on').hide();
 		$('.'+close+'_center').show();
 		$('.bj_hui_on').hide();
+		$('.tip-yellowsimple').hide();
 	})
 	
 })

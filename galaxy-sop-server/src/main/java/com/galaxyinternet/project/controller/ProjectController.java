@@ -363,7 +363,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
 		if (project != null) {
-			Department Department = new Department();//
+			//Department Department = new Department();//
 			//Department.setId(project.getProjectDepartid());
 		Map<Long ,Department> map = (Map<Long ,Department>)cache.get(PlatformConst.REQUEST_DEPARTMENT);
 			Department queryOne =map.get(project.getProjectDepartid());
@@ -1514,8 +1514,33 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					.queryList(me);
 			if (!meetingList.isEmpty()) {
 				for (MeetingScheduling meet : meetingList) {
-					meet.setStatus(DictEnum.meetingResult.否决.getCode());
-					meet.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
+					
+					/**当否决项目时,将(当前)排期的状态改为已否决 .注:已经通过排期的会议状态不进行更改**/
+					//1.否决CEO评审
+					if(DictEnum.projectProgress.CEO评审.getCode().equals(project.getProjectProgress())
+							&& DictEnum.meetingType.CEO评审.getCode().equals(meet.getMeetingType())){
+						meet.setStatus(DictEnum.meetingResult.否决.getCode());
+						meet.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
+					}
+					//2.否决内部评审
+					if(DictEnum.projectProgress.内部评审.getCode().equals(project.getProjectProgress())
+							&& DictEnum.meetingType.内评会.getCode().equals(meet.getMeetingType())){
+						meet.setStatus(DictEnum.meetingResult.否决.getCode());
+						meet.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
+					}
+					//3.否决立项会
+					if(DictEnum.projectProgress.立项会.getCode().equals(project.getProjectProgress())
+							&& DictEnum.meetingType.立项会.getCode().equals(meet.getMeetingType())){
+						meet.setStatus(DictEnum.meetingResult.否决.getCode());
+						meet.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
+					}
+					//4.否决投决会
+					if(DictEnum.projectProgress.投资决策会.getCode().equals(project.getProjectProgress())
+							&& DictEnum.meetingType.投决会.getCode().equals(meet.getMeetingType())){
+						meet.setStatus(DictEnum.meetingResult.否决.getCode());
+						meet.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
+					}
+					
 				}
 			}
 			meetingSchedulingService.updateBatch(meetingList);

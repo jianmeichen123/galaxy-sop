@@ -36,6 +36,21 @@
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
 	</logger>
+	
+	<appender name="event" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <file>${log4j.path}/sopbak.log</file>  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>${log4j.path}/${byDay}/sopbak-%i.log.bak</fileNamePattern>  
+            <maxHistory>30</maxHistory>  
+        </rollingPolicy>  
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">  
+            <pattern>%msg%n</pattern>  
+        </encoder>  
+    </appender>  
+  
+    <logger name="com.galaxyinternet.sop.core.operation.bak" level="INFO" additivity="false">  
+        <appender-ref ref="event" />  
+    </logger>  
 
 	<root level="debug">
 		<appender-ref ref="STDOUT" />
