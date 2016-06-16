@@ -160,6 +160,7 @@ function toFormatNearNotes(){
 	sendGetRequest(Constants.sopEndpointURL+"/galaxy/project/getnearnotes/" + proid, null, formatNearNotes);
 }
 function formatNearNotes(data){
+	viewList = null;
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
 		layer.msg(data.result.message);
