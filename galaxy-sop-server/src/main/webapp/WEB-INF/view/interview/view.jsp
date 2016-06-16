@@ -41,7 +41,7 @@
 	
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>访谈跟进</h2>
+    	<h2>访谈记录</h2>
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
