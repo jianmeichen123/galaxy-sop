@@ -237,7 +237,7 @@ $(function(){
 		var projectShareRatio = $("#project_share_ratio_edit").val();
 		var projectContribution = $("#project_contribution_edit").val();
 		if(projectShareRatio > 0 && projectContribution > 0){
-			return projectContribution * (100/projectShareRatio);
+			return (projectContribution * (100/projectShareRatio)).toFixed(2);
 		}
 		return null;
 	}
@@ -272,7 +272,7 @@ $(function(){
 		var projectShareRatio = $("#finalShareRatio_edit").val();
 		var projectContribution = $("#finalContribution_edit").val();
 		if(projectShareRatio > 0 && projectContribution > 0){
-			return projectContribution * (100/projectShareRatio);
+			return (projectContribution * (100/projectShareRatio)).toFixed(2);
 		}
 		return null;
 	}
