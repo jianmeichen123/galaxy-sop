@@ -99,7 +99,7 @@
                         <li>
                         	<span class="basic_span">出让股份：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间整数"/>
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数或小数"/>
                             </span>
                             <span class="m_r30">% </span>
                         </li>
@@ -175,6 +175,7 @@
 	
 	
    var TOKEN;
+   var formData;
 	$(function(){
 		$("#createDate").val(new Date().format("yyyy-MM-dd"));
 		createMenus(5);
@@ -207,20 +208,38 @@
 		}
 		return null;
 	}
-	var b = new Base64();
+	
 	function add(){
 		var val=$('input:radio[name="projectType"]:checked').val();
 		if(val == null){
 			$("#projectTypeTip").css("display","block");
 			return;
 		}
+		var nowFormData = $("#add_form").serializeObject();
+		if(formData != nowFormData){
+			//获取TOKEN 用于验证表单提交
+			sendPostRequest(platformUrl.getToken,function(data){
+				TOKEN=data.TOKEN;
+				return TOKEN;
+			});
+		}
 		if(beforeSubmit()){
 			sendPostRequestBySignJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
-				if(data.result.status=="ERROR"){
-					layer.msg(data.result.message);
+				if(!data){
+					layer.msg("提交表单过于频繁!");
+				}else if(data.result.status=="ERROR"){
+					if(data.result.errorCode == "csds"){
+						layer.msg("必要的参数丢失!");
+					}else if(data.result.errorCode == "myqx"){
+						layer.msg("没有权限添加项目!");
+					}else if(data.result.errorCode == "mccf"){
+						layer.msg("项目名重复!");
+					}
+					formData = $("#add_form").serializeObject();
 				}else{
 					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
 				}
+				
 			},TOKEN);
 		}
 	}

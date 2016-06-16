@@ -7,6 +7,7 @@ function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun, TOKEN) {
 	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun, TOKEN);
 }
 function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun, TOKEN) {
+	var b = new Base64();
 	$.ajax({
 		url : reqUrl,
 		type : "POST",
@@ -32,7 +33,9 @@ function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun, TOKEN) {
 		async : false,
 		error : function(request) {},
 		success : function(data) {
-			data = JSON.parse(b.decode(data));
+			if(data){
+				data = JSON.parse(b.decode(data));
+			}
 			if (callbackFun) {
 				callbackFun(data);
 			}

@@ -291,12 +291,12 @@ $(function(){
 	}
 	$("[data-on='save']").click(function(){
 		var data=getUpdateData();
-	//	if(beforeSubmit()){
+		if(beforeSubmit()){
 			sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
 				layer.msg("修改项目基本信息项目成功!");
 				window.location.reload();
 			});
-	//	}
+		}
 	})
 
 });
