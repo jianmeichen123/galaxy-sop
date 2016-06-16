@@ -219,6 +219,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 			project.setCreateUname(user.getRealName());
 		}
 		project.setProjectDepartid(idea.getDepartmentId());
+		project.setIndustryOwn(idea.getDepartmentId());
 		project.setStockTransfer(0);
 		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
 		project.setProjectType(DictEnum.projectType.内部创建.getCode());
