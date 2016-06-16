@@ -1779,6 +1779,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .nav21{background-position: 0 -756px;}
 .nav22{background-position: 0 -805px;}
 .nav23{background-position: 0 -854px;}
+.nav24{background-position: 0 -475px;}
+.nav25{background-position: 0 -854px;}
 .lft li:hover .nav1,.lft li.on .nav1{background-position: -40px 0;}
 .lft li:hover .nav2,.lft li.on .nav2{background-position: -40px -72px;}
 .lft li:hover .nav3,.lft li.on .nav3{background-position: -40px -144px;}
@@ -1802,6 +1804,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .lft li:hover .nav21,.lft li.on .nav21{background-position: -40px -756px;}
 .lft li:hover .nav22,.lft li.on .nav22{background-position: -40px -805px;}
 .lft li:hover .nav23,.lft li.on .nav23{background-position: -40px -854px;}
+.lft li:hover .nav24,.lft li.on .nav24{background-position: -40px -475px;}
+.lft li:hover .nav25,.lft li.on .nav25{background-position: -40px -854px;}
 .lft .toggle_li ul{background-color: #6b7182 !important;}
 .lft .toggle_li li a{color:#eee !important;}
 .lft .toggle_li li ul a{padding-left:30px;}
