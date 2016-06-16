@@ -198,9 +198,9 @@ function formatNearNotes(data){
 			//返回会议记录
 			var str = "<div class=\"new_b_bottom\">"+
 						"<ul>"+
-							"<li class=\"new_b_li_one\">"+meetType+"</li>"+
-							"<li class=\"new_b_li_two\">"+resultStr +"</li>"+
-							"<li class=\"new_b_li_three\">"+ time +"</li>"+
+							"<li class=\"new_b_li_one new_b_li_one1\">"+meetType+"</li>"+
+							"<li class=\"new_b_li_two new_b_li_two1\">"+resultStr +"</li>"+
+							"<li class=\"new_b_li_three new_b_li_three1\">"+ time +"</li>"+
 						"</ul>"+
 						"<p>"+notesStr+"</p>"+
 					"</div>";

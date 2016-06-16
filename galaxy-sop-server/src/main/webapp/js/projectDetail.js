@@ -93,7 +93,7 @@ $(function(){
 			um.setContent(projectInfo.projectDescribe);
 			$("#descript").hide();
 			$('.describe_show').show();
-			
+			display_show("describe_show");
 		}else{
 			$('.describe_show').hide();
 			$("#describe_show").html('');
@@ -104,7 +104,7 @@ $(function(){
 			$("#business_model_show").html(projectInfo.projectBusinessModel)
 			$("#business_model").hide();
 			$('.business_model_show').show();
-			
+			display_show("business_model_show");
 		}else{
 			$("#business_model_show").html('')
 			$('.business_model_show').hide();
@@ -115,6 +115,7 @@ $(function(){
 			$("#location_show").html(projectInfo.companyLocation)
 			$("#location").hide();
 			$('.location_show').show();
+			display_show("location_show");
 		}else{
 			$("#location_show").html('')
 			$('.location_show').hide();
@@ -125,6 +126,7 @@ $(function(){
 			$("#portrait_show").html(projectInfo.userPortrait);
 			$("#portrait").hide();
 			$(".portrait_show").show();
+			display_show("portrait_show");
 		}else{
 			$("#portrait_show").html('')
 			$(".portrait_show").hide();
@@ -135,6 +137,7 @@ $(function(){
 			$("#analysis_show").html(projectInfo.prospectAnalysis)
 			$("#analysis").hide();
 			$(".analysis_show").show();
+			display_show("analysis_show");
 		}else{
 			$("#analysis_show").html('');
 			$(".analysis_show").hide();
@@ -146,6 +149,7 @@ $(function(){
 			$("#operational_data_show").html(projectInfo.operationalData);
 			$("#operational_data").hide();
 			$(".operational_data_show").show();
+			display_show("operational_data_show");
 		}else{
 			$("#operational_data_show").html('');
 			$(".operational_data_show").hide();
@@ -156,6 +160,7 @@ $(function(){
 			$("#industry_analysis_show").html(projectInfo.industryAnalysis);
 			$("#industry_analysis").hide();
 			$(".industry_analysis_show").show();
+			display_show("industry_analysis_show");
 		}else{
 			$("#industry_analysis_show").html('');
 			$(".industry_analysis_show").hide();
@@ -166,24 +171,34 @@ $(function(){
 			$("#next_financing_source_show").html(projectInfo.nextFinancingSource);
 			$("#next_financing_source").hide();
 			$(".next_financing_source_show").show();
-			
+			display_show("next_financing_source_show");
 		}else{
 			$("#next_financing_source_show").html('');
 			$(".next_financing_source_show").hide();
 		}
 
 		function  display_show(obj){
-			alert(obj)
+			
 			var height=$('#'+obj).outerHeight();
 			if(height>100){
 				var str='';
 				str+='<span class="show_more">',
-				str+='<a style="display: line;" href="#" class="blue open ico1 f4" data-btn="show">展开</a> <a style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" data-btn="hide">收起</a>',
+				str+='<span style="display: block;"  class="blue open ico1 f4" >展开</span> <span style="display: none;" href="#" class="blue searchbox_hidden hide ico1 f3" >收起</span>',
 				str+='</span>';
 				$('#'+obj).append(str);
-				$('#'+obj).css('height','100px')
+				$('#'+obj).parent().css('height','100px')
 			}
 		}
+		$('.new_top_color').delegate(".f4","click",function(){
+			$(this).hide();
+			$(this).parent().children('.f3').show();
+			$(this).parent().parent().parent().css('height','auto')
+		}) 
+		$('.new_top_color').delegate(".f3","click",function(){
+			$(this).hide();
+			$(this).parent().children('.f4').show();
+			$(this).parent().parent().parent().css('height','100px')
+		}) 
 		/**
 		 * 商业计划
 		 */
