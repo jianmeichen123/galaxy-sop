@@ -112,11 +112,11 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.add(new Menus(10L, 0, 20,"完善简历", u + "galaxy/soptask?flag=jl&"+ params));
 		}
 		if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
-			tabs.add(new Menus(11L, 0, "付款凭证", u + "galaxy/soptask?flag=pz&"+ params));
+			tabs.add(new Menus(11L, 0, 24,"付款凭证", u + "galaxy/soptask?flag=pz&"+ params));
 		}
 		
 		if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-			tabs.add(new Menus(12L, 0, "股权交割", u + "galaxy/soptask?flag=gq&"+ params));
+			tabs.add(new Menus(12L, 0, 25,"股权交割", u + "galaxy/soptask?flag=gq&"+ params));
 		}
 		
 		tabs.add(new Menus(13L, 0, 17,"模板管理", u + "galaxy/template?" + params));
@@ -126,7 +126,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		//档案管理员
 		if(roleIdList.contains(17L)){
 			tabs.clear();
-			tabs.add(new Menus(14L, 0, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
+			tabs.add(new Menus(14L, 0,18, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
 		}
 		
 		//管理员
