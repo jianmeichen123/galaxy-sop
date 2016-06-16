@@ -1410,8 +1410,13 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_r_compile{overflow:hidden; background-color:#fff; margin:15px 0;padding: 0 20px;}
 .new_r_compile span{ float:left;}
 .new_bottom_color{ border-bottom:1px solid #e6e8f1;padding:0 20px;padding-bottom: 10px;}
-.new_top_color{ border-top:1px solid #e6e8f1;padding:0 20px;padding-bottom: 10px;}
+.new_top_color{ overflow: hidden; position: relative; border-top:1px solid #e6e8f1;padding:0 20px;padding-bottom: 10px;}
 .new_r_compile .new_fctbox{ display:block; float:right;}
+.new_top_color .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
+.new_top_color .f4{background-position: right -95px;padding: 0 30px 0 11px; }
+.new_top_color .f3{background-position: right -40px;padding: 0 30px 0 0px; }
+.new_top_color .f4{ position: absolute; top:78px; right:0; background-color:#fff; color: #66b1f2; cursor:pointer}
+.new_top_color .f3{ position: absolute; bottom:21px; right:0; background-color:#fff; color: #66b1f2; cursor:pointer}
 .new_fctbox .f1 {
     background-position: 0 0; float:left;
     padding: 0 0 0 22px;
@@ -1457,6 +1462,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     color: #66b1f2;
     text-decoration: none;
 }
+.new_ico_basic{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 0; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_financing{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 0; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_practical{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-25px 0; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_project{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-50px 0; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
