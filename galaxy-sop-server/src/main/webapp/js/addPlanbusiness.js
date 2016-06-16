@@ -18,9 +18,9 @@ var planGrid = {
 				operatorFormatter : function(value,row,index){
 					var operator;
 					if(row.fileName){
-						operator = '更新';
+						operator = '更新附件';
 					}else{
-						operator = '上传';
+						operator = '上传附件';
 					}
 					return [
 							'<a class="uploadlink blue"  href="javascript:void(0)">'+ operator +'</a>'
