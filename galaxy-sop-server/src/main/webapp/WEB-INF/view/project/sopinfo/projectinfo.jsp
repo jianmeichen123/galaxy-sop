@@ -233,7 +233,7 @@ function getProjectInfo(dtd)
 				       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
 				                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>　&nbsp;万元人民币</span></td>
-				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input readonly="readonly" class="new_nputr_number" id="project_valuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
+				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
 				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数或小数"/>　&nbsp;%</span></td>
@@ -247,7 +247,7 @@ function getProjectInfo(dtd)
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
 				                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
-				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input readonly="readonly" class="new_nputr_number" id="finalValuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
+				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
 				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数或小数"/>&nbsp;　%</span></td>

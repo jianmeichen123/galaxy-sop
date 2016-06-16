@@ -1109,7 +1109,13 @@ function createDictionaryOptions(url, name){
 	sendGetRequest(url,null, function(data){
 		var options = [];
 		$.each(data.entityList, function(i, value){
-			options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+			if(value.code=="financeStatus:17"){
+				options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+			}else{
+				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+				
+			}
+			
 		});
 		$('select[name="'+name+'"]').append(options.join(''));
 	});

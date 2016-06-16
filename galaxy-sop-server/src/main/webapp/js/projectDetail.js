@@ -57,7 +57,6 @@ $(function(){
 		})
 			function CallBackB(data){
 		    var _dom=$("#finance_status_sel");
-		    _dom.append("<option value=''>--不明确--</option>");
 			 $.each(data.entityList,function(){
 					if(this.code){
 						if(this.code==fs){
