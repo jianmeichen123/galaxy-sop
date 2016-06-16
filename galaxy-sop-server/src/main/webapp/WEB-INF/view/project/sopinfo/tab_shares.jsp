@@ -64,7 +64,10 @@
               <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addSharesView()">添加</a>
           </div>
          </c:if>
-      </div>	
+      </div>
+    <div id="shares-custom-toolbar">
+		<input type="hidden" name="projectId" value="${projectId }">
+	</div>	
   	<table id="shares-table" data-height="555" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true">
    	<thead>
 	    <tr>
