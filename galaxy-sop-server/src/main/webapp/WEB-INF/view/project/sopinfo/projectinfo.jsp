@@ -129,14 +129,14 @@ function getProjectInfo(dtd)
 			<div class="tabtable_con tabtable_con_jbxx">
 				<!-- 默认展示 -->
 				<div class="basic_center">
-					<div class="new_r_compile">
-					<c:if test="${fx:isCreatedByUser('project',projectId)}">
+					<div class="new_r_compile ">
+						<!-- <span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span> -->
+						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name="basic" data-on="data-open">编辑</a>
 						</span>
 					</c:if>
 					</div>
-					
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 					 <input type="hidden" id="pid" name="id" value="${projectId}"/>
 						<tr>
@@ -202,7 +202,10 @@ function getProjectInfo(dtd)
 				        <div class="compile_on_right">
 				            <span class="compile_on_right_b"  data-on="save">保存</span>
 				            <span class="compile_on_right_q" data-name="basic" data-on="close">取消</span>
-				        </div>  
+				        </div> 
+				       <!--  <div class="new_r_compile new_bottom_color">
+							<span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span>
+						</div>  -->
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
 				                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  size="20" id="project_name_edit" valType="required" msg="<font color=red>*</font>项目名称不能为空"></input></span></td>
@@ -272,7 +275,7 @@ function getProjectInfo(dtd)
 			<!--项目概述-->
 			<div class="tabtable_con_on">
 				<div class="project_on">
-                      <div id="describe_editor" type="text/plain" style="width:790px;height:200px; "></div>  
+                      <div id="describe_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
                         <div class="compile_on_center">
                            <div class="compile_on_right">
                                <span class="compile_on_right_b" id="save_describe">保存</span>
@@ -312,7 +315,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='company_on'>
-					<div id="company_editor" type="text/plain" style="width:790px;height:200px; "></div>  
+					<div id="company_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_location">保存</span>
@@ -339,7 +342,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='portrayal_on'>
-					<div id="portrait_editor" type="text/plain" style="width:790px;height:200px; "></div>  
+					<div id="portrait_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_portrait">保存</span>
@@ -368,7 +371,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='product_on'>
-					<div id="business_editor" type="text/plain" style="width:790px;height:200px; "></div>  
+					<div id="business_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_business">保存</span>
@@ -396,7 +399,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='analysis_on'>
-					<div id="analysis_editor" type="text/plain" style="width:790px;height:200px; "></div>  
+					<div id="analysis_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_analysis">保存</span>
@@ -424,7 +427,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='operation_on'>
-					<div id="operation_editor" type="text/plain" style="width:790px;height:200px; "></div>  
+					<div id="operation_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_operation">保存</span>
@@ -453,7 +456,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='industry_on'>
-					<div id="industry_editor" type="text/plain" style="width:790px;height:200px; "></div>  
+					<div id="industry_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_industry">保存</span>
@@ -484,7 +487,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='next_financing_on'>
-					<div id="next_financing_editor" type="text/plain" style="width:790px;height:200px; "></div>  
+					<div id="next_financing_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_next_financing">保存</span>
