@@ -157,7 +157,7 @@
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var interviewSelectRow = null;
-	var admin = "${fx:isCreatedByUser('project',pid) }";
+	//var admin = "${fx:isCreatedByUser('project',pid) }";
 
 $(function(){
 	createMenus(5);

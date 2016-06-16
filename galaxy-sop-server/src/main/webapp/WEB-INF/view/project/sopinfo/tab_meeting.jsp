@@ -170,7 +170,7 @@
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var selectRow = null;
-	var admin = "${fx:isCreatedByUser('project',pid) }";
+	//var admin = "${fx:isCreatedByUser('project',pid) }";
 
 $(function(){
 	createMenus(5);
