@@ -391,7 +391,7 @@ table .width_gd{width:12%;}
 .fffbtn{ background-color:#fdfdfe; border-color:#ccd2d7; color:#4a97da}
 .fffbtn:hover{background-color: #66b1f2;color: #fff;border:1px solid #66b1f2;}
 .btnbox_f{float: left;}
-.btnbox_f a{height: 28px;line-height: 28px;display: inline-block;text-decoration: none;}
+.btnbox_f a{height: 28px;line-height: 28px;display: inline-block;text-decoration: none;margin-right:10px;}
 .searchbtn_ico{background:#66b1f2 url(../img/btnico2.png) 0 0 no-repeat;}
 .searchbtn_ico .cx{background-position: 15px 0;padding: 0 0 0 22px;}
 .export{width: 80px;display: block;margin-left: auto; margin-bottom: 10px;}
@@ -508,7 +508,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox{ min-width:1260px; margin:0 auto; padding:0 0 10px}
 /*左侧导航*/
 .pagebox .lft{ float:left; width:125px; background:#282d3b;position: fixed;top: 50px;left: 0;height: 100%;box-shadow: 2px 0px 2px #ccc;z-index: 12;padding-top: 20px;}
-.pagebox .lft li{ float:left; width:100%; height:48px;}
+.pagebox .lft li{ float:left; width:100%; min-height:48px;}
 .pagebox .lft li a,.pagebox .lft li div{position: relative; font-family: "微软雅黑";display:block; /* margin:0 auto; */ height:48px; text-align:left; line-height:48px; font-size:14px; color:#d8dce5;cursor: pointer;padding-left:45px;}
 .pagebox .lft .on a,
 .pagebox .lft li a:hover{ text-decoration:none; color:#6dafee;}
@@ -727,7 +727,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /* 档案管理 */
 #template-table{margin-top:10px;}
 .min_document_da{margin:10px 0;}
-.ritmin .top .btnbox_f1 .ico{background:#539be2 url(../img/btnico2.png) 0 0 no-repeat;}
+.ritmin .top .btnbox_f1 .ico{background:#539be2 url(../img/btnico2.png) 0 0 no-repeat;border:1px solid #539be2;}
 .ritmin .top .btnbox_f .c1{background-position: 15px 0;padding: 0 0 0 22px;}
 .ritmin .top .btnbox_f .c2{background-position: 15px -30px;padding: 0 0 0 22px;}
 .ritmin .top .btnbox_f .c3{background-position: 15px -60px;padding: 0 2px 0 32px;}
@@ -765,7 +765,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /* .ritmin .tabtable .tabtable_con .chartbox{margin:20px 0 0 0;}
  */.ritmin .tabtable .tabtable_con .chartbox .pubbtn{width:120px;}
 .ritmin .tabtable .tabtable_con .chartbox .histogram{height:172px;margin:35px 50px 40px;}
-.ritmin .tabtable .tabtable_con table{border-top: 2px solid #edeff5;margin:0 0 12px 0;}
+.ritmin .tabtable .tabtable_con table{margin:0 0 12px 0;}
 .ritmin .tabtable .tabtable_con .txt{background-color: #fff;}
 .project_analysis .tablink .on,.assessment .tablink .on{background:#fff;}
 /* 数据报表 */
@@ -1495,6 +1495,8 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 }
 .new_ul_all p{
 	line-height:35px;
+	font-size: 12px;
+font-family: "宋体";
 }
 
 /*右边*/

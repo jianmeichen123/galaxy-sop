@@ -129,7 +129,7 @@ function getProjectInfo(dtd)
 			<div class="tabtable_con tabtable_con_jbxx">
 				<!-- 默认展示 -->
 				<div class="basic_center">
-					<div class="new_r_compile ">
+					<div class="new_r_compile new_bottom_color">
 						<span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 

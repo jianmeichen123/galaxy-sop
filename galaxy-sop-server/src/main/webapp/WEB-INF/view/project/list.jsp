@@ -281,6 +281,7 @@
 	 */
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
+		var num_size='';
 		/**
 		 * 初始化项目列表
 		 * @version 2016-06-21
@@ -311,6 +312,7 @@
 		        		param.createUid = tempParam.createUid;
 		        		param.projectDepartid = tempParam.projectDepartid;
 		        		var options = $("#project-table").bootstrapTable('getOptions');
+		        		num_size =tempParam.pageNum;
 	 	        		options.pageNumber = tempParam.pageNum - 1;
 	 	        		console.log('options.pageNumber ='+options.pageNumber );
 	 	        		//给搜索表单赋值
@@ -326,6 +328,15 @@
 	        	if($("#showResetBtn").val() == '1'){
 	    			$("#resetBtn").removeClass("none");
 	    		}
+	        	if(num_size!=''){
+	        		$('.pagination li').removeClass('active');
+	        		$('.pagination li').each(function(){
+	        			if($(this).text()==num_size){
+	        				$(this).addClass('active')
+	        			}
+	        		})
+	        		num_size='';
+	        	}
 	        }
 		});
 		/**
