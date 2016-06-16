@@ -130,7 +130,7 @@ function getProjectInfo(dtd)
 				<!-- 默认展示 -->
 				<div class="basic_center">
 					<div class="new_r_compile ">
-						<!-- <span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span> -->
+						<span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name="basic" data-on="data-open">编辑</a>
@@ -203,9 +203,9 @@ function getProjectInfo(dtd)
 				            <span class="compile_on_right_b"  data-on="save">保存</span>
 				            <span class="compile_on_right_q" data-name="basic" data-on="close">取消</span>
 				        </div> 
-				       <!--  <div class="new_r_compile new_bottom_color">
+				        <div class="new_r_compile new_bottom_color">
 							<span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span>
-						</div>  -->
+						</div> 
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
 				                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  size="20" id="project_name_edit" valType="required" msg="<font color=red>*</font>项目名称不能为空"></input></span></td>
