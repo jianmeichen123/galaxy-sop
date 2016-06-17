@@ -73,7 +73,7 @@
 	    <tr>
 	    	<th data-field="sharesType" data-align="left" class="data-input sharesType">类型</th>
         	<th data-field="sharesOwner" data-align="left" class="data-input">所有人</th>
-        	<th data-field="sharesRatio" data-align="left" class="data-input">占比</th>
+        	<th data-field="sharesRatio" data-align="left" class="data-input">占比(%)</th>
         	<th data-field="gainMode" data-align="left" class="data-input">获取方式</th>
         	<th data-field="remark" data-align="left" class="data-input" >备注</th>
         	<c:if test="${fx:isCreatedByUser('project',pid) }">
