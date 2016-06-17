@@ -96,7 +96,7 @@ function validateBefore() {
 	//自定义的验证字符串
 	var regString;
 	if(valType=='required') {//不能为空的判断
-		if($(this).val()=='' || $(this).val().trim()=='') {
+		if($(this).val()=='' || $.trim($(this).val().trim())=='') {
 			flag=false;
 		}
 	} else if(valType=='requiredDiv'){
@@ -146,7 +146,7 @@ function beforeSubmit() {
 		 //清除可能已有的提示信息
 		 $(n).poshytip('hide');
 		 if($(n).attr("valType")=='required') {//对不能为空的文本框进行验证
-			if($(n).val()=='' || $(n).val().trim()=='') {
+			if($(n).val()=='' || $.trim($(n).val().trim())=='') {
 				//显示tips			
 				$(n).poshytip('show');
 				flag=false;
