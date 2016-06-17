@@ -74,7 +74,7 @@
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>融资状态：</dt>
                   <dd>
-                    <select name="financeStatus">
+                    <select name="financeStatusQuary">
                       <option index="-1" value="">全部</option>
                     </select>
                   </dd>
@@ -254,7 +254,7 @@
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
 	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatusQuary");
 	/**
 	 * 获取项目类型下拉项
 	 * @version 2016-06-21

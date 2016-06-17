@@ -70,7 +70,7 @@
                             </span>
                         	<span class="basic_span"><em class="red">*</em>融资状态：</span>
                             <span class="m_r30">
-								<select name="financeStatus" class='new_nputr'>
+								<select name="financeStatusAdd" class='new_nputr'>
 			                    </select>
 							</span>
                         </li>
@@ -170,7 +170,7 @@
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
 	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatusAdd");
 	
 	
    var TOKEN;

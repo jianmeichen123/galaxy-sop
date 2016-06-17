@@ -1108,12 +1108,14 @@ function initTcVal(){
 function createDictionaryOptions(url, name){
 	sendGetRequest(url,null, function(data){
 		var options = [];
-		$.each(data.entityList, function(i, value){
-			if(value.code=="financeStatus:17"){
-				options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
-			}else{
-				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
-				
+		$.each(data.entityList, function(i, value){	
+			if(name=='financeStatusAdd'){
+				if(value.code=="financeStatus:17"){
+					options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+				}else{
+					options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+					
+				}
 			}
 			
 		});
