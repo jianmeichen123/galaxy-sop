@@ -1689,7 +1689,15 @@
     			return false;
     		}
     	}
-    	
+    	if(query.createdDateFrom && query.createdDateThrough){
+    		var createdDateFrom = (new Date(query.createdDateFrom+' 00:00:00')).getTime();		
+    		var createdDateThrough = (new Date(query.createdDateThrough+' 23:59:59')).getTime();
+    		if(createdDateFrom > createdDateThrough){
+    			layer.msg("开始时间不能大于结束时间");
+    			return false;
+    		}
+    	}
+			
     	return query;
     }
     
