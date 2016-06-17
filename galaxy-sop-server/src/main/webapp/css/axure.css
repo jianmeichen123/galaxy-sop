@@ -1524,6 +1524,7 @@ font-family: "宋体";
 .line_ul_p .line_ul_li{
 	margin-right:10px;
 }
+.new_right .line_ul_p li{line-height:18px;}
 .line_ul_p li{
 	float:left;
 	width:14px;
