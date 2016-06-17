@@ -1527,7 +1527,8 @@ font-family: "宋体";
 	float:left;
 	width:14px;
 	margin-right:3%;
-  font-size: 12px;font-family: "宋体"
+  font-size: 12px;font-family: "宋体";
+  color:#536379;
 }
 .line_ul_p span{
 	background-image:url(../img/dot_ico.png);
@@ -1557,7 +1558,7 @@ font-family: "宋体";
 	margin-left:5px;
 	margin-top:-3px;
 }
-.green_dot { color:#38c638;}
+.line_ul_p .green_dot_color { color:#38c638;}
 .green_dot_on{ background-position: -51px 0;
 	height:20px;
 	width:15px;

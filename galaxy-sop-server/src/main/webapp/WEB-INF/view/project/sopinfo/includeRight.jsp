@@ -146,6 +146,7 @@ function init_lct(){
 				$(this).addClass("green_dot");
 			}else if(index == i){
 				$(this).addClass("green_dot");
+				$(this).addClass('green_dot_color');
 				$(this).prepend("<span class='green_dot_on'></span>");
 			}
 		}

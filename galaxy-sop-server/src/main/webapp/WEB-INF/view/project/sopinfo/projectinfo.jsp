@@ -386,7 +386,7 @@ function getProjectInfo(dtd)
 			<div class="tabtable_con_on">
 				<div class='analysis_center'>
 					<div class="new_r_compile ">
-						<span class="new_ico_jq"></span> <span class="new_color size16">竞情分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
+						<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>

@@ -362,7 +362,7 @@
 			$("select[name='financeStatus']").find("option[index='-1']").removeAttr("selected");
 			$("select[name='projectProgress']").find("option[index='-1']").removeAttr("selected");
 			$("select[name='projectStatus']").find("option[index='-1']").removeAttr("selected");
-			$("select[name='projectDepartid']").find('option[back="link"]').removeAttr("selected");
+			//$("select[name='projectDepartid']").find('option[back="link"]').removeAttr("selected");
 			//set selected status
 			$("select[name='projectType']").find("option[index='-1']").attr("selected",true);
 			$("select[name='financeStatus']").find("option[index='-1']").attr("selected",true);
@@ -370,6 +370,8 @@
 			$("select[name='projectStatus']").find("option[index='-1']").attr("selected",true);
 			$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
 			var did = $("select[name='projectDepartid']").find('option[back="link"]').val();
+			//alert(did)
+			$("select[name='projectDepartid']").val(did)
 			createUserOptions(platformUrl.getUserList+did, "createUid", 1);
 			$('input[name="nameCodeLike"]').val("");
 			$("#resetBtn").addClass("none");
