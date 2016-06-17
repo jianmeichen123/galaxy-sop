@@ -1116,6 +1116,8 @@ function createDictionaryOptions(url, name){
 					options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
 					
 				}
+			}else{
+				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');			
 			}
 			
 		});
