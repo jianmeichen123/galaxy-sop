@@ -61,7 +61,7 @@ function getTabPerson(){
                       field: 'personName',
                       align: 'left',
                       valign: 'middle',
-                      class:'personName'
+                      'class':'personName'
                   },
                   {
                       title: '当前职务',
