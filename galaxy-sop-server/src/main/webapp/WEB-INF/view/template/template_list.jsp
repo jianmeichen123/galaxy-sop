@@ -88,13 +88,13 @@
     <dl class="fmdl clearfix">
     	<dt>所属部门：</dt>
         <dd>
-        	<select name="departmentId" disabled="disabled"></select>
+        	<select name="departmentId" disabled="disabled" class="disabled"></select>
         </dd>
     </dl>
     <div class="fmdl clearfix">
     	<dt>选择档案：</dt>
     	<dd>
-        <input type="text" name="fileName" class="txt disabled" onchange="selectFile(this)" disabled="disabled"/>
+        <input type="text" name="fileName" class="txt" onchange="selectFile(this)" disabled="disabled"/>
     	</dd>
     	<dd>
         <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>
