@@ -23,7 +23,7 @@
 	
     <!--右中部内容-->
  	<div class="ritmin">
-        <h2>模板管理</h2>       
+        <h2>项目模板</h2>       
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->

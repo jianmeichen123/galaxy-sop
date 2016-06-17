@@ -37,7 +37,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>档案管理</h2>
+    	<h2>项目文档</h2>
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
