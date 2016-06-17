@@ -178,7 +178,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		//搜索全部时,传过来参数值为0,此时要转换为查询全部
 		project.setCreateUid((project.getCreateUid() != null && project.getCreateUid().longValue() == 0L) ? null : project.getCreateUid());
 		project.setProjectDepartid((project.getProjectDepartid() != null && project.getProjectDepartid().longValue() == 0L) ? null : project.getProjectDepartid());
-		
+		if(null!=project.getProperty()&&project.getProperty().equals("project_progress")){
+			project.setProperty(" CAST(REPLACE(project_progress,'projectProgress---','')  AS SIGNED) ");
+			
+		}
 		List<Department> departmentList = departmentService.queryAll();
 		Page<Project> pageProject = projectService.queryPageList(project,
 						new PageRequest(project.getPageNum(), 
@@ -222,7 +225,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				|| project.getCreateDate() == null
 				|| "".equals(project.getCreateDate().trim())
 				|| project.getIndustryOwn() == null) {
-			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
 		try {
@@ -230,7 +233,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			// 判断当前用户是否为投资经理
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			if (!roleIdList.contains(UserConstant.TZJL)) {
-				responseBody.setResult(new Result(Status.ERROR, null, "没有权限添加项目!"));
+				responseBody.setResult(new Result(Status.ERROR, "myqx", "没有权限添加项目!"));
 				return responseBody;
 			}
 			//验证项目名是否重复
@@ -238,7 +241,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			obj.setProjectName(project.getProjectName());
 			List<Project> projectList = projectService.queryList(obj);
 			if (null != projectList && projectList.size() > 0) {
-				responseBody.setResult(new Result(Status.ERROR, null, "项目名重复!"));
+				responseBody.setResult(new Result(Status.ERROR, "mccf", "项目名重复!"));
 				return responseBody;
 			}
 			//创建项目编码
@@ -274,7 +277,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				SopFile file = (SopFile) request.getSession().getAttribute("businessPlan");
 				long id = projectService.newProject(project, file);
 				if (id > 0) {
-					responseBody.setResult(new Result(Status.OK, null, "项目添加成功!"));
+					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
 					responseBody.setId(id);
 					ControllerUtils.setRequestParamsForMessageTip(request,
 							project.getProjectName(), project.getId());

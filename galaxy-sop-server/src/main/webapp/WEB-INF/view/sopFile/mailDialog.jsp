@@ -20,7 +20,7 @@
                   <tr>
                       <th>序号</th>
                       <th>档案名称</th>
-                     <!--   <th>档案大小 </th>-->
+                      <th>档案大小 </th>
                   </tr>
               </thead>                                                                                                                     
               <tbody>

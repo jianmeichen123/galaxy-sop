@@ -170,7 +170,7 @@
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var selectRow = null;
-	var admin = "${fx:isCreatedByUser('project',pid) }";
+	//var admin = "${fx:isCreatedByUser('project',pid) }";
 
 $(function(){
 	createMenus(5);
@@ -288,7 +288,7 @@ function initMeetUpload() {
 	var meetuploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : $("#file-select-btn")[0], // you can pass in id...
-		url : platformUrl.stageChange,
+		url : platformUrl.saveMeetFile,
 		multipart:true,
 		multi_selection:false,
 		filters : {
@@ -325,7 +325,7 @@ function initMeetUpload() {
 						up.settings.multipart_params = res;
 						meetuploader.start();
 					}else{
-						sendPostRequestByJsonObj(platformUrl.stageChange,res,function(data){
+						sendPostRequestByJsonObj(platformUrl.saveMeetFile,res,function(data){
 							var result = data.result.status;
 							if(result == "ERROR"){ //OK, ERROR
 								$("#savemeet").removeClass("disabled");

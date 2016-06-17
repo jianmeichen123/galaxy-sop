@@ -97,9 +97,12 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		
 		if(roleIdList.contains(UserConstant.TZJL)){
 			tabs.add(new Menus(5L, 0, 3, "创投项目", u + "galaxy/mpl?" + params));
-			tabs.add(new Menus(21L, 0, 10, "创意管理", u + "galaxy/idea?" + params));
-			tabs.add(new Menus(6L, 0, 16,"访谈跟进", u + "galaxy/project/progress/interView?" + params));
+			tabs.add(new Menus(6L, 0, 16,"访谈记录", u + "galaxy/project/progress/interView?" + params));
 			tabs.add(new Menus(7L, 0, 15,"会议纪要", u + "galaxy/project/progress/meetView?" + params));
+			tabs.add(new Menus(14L, 0, 18,"项目文档", u + "galaxy/sopFile/toFileList?" + params));
+			tabs.add(new Menus(13L, 0, 17,"项目模板", u + "galaxy/template?" + params));			
+			tabs.add(new Menus(21L, 0, 10, "项目创意", u + "galaxy/idea?" + params));		
+			
 		}
 		
 		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)
@@ -110,17 +113,23 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		
 		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
 			tabs.add(new Menus(10L, 0, 20,"完善简历", u + "galaxy/soptask?flag=jl&"+ params));
+			tabs.add(new Menus(14L, 0, 18,"项目文档", u + "galaxy/sopFile/toFileList?" + params));
+			tabs.add(new Menus(13L, 0, 17,"项目模板", u + "galaxy/template?" + params));
 		}
 		if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
 			tabs.add(new Menus(11L, 0, 24,"付款凭证", u + "galaxy/soptask?flag=pz&"+ params));
+			tabs.add(new Menus(14L, 0, 18,"项目文档", u + "galaxy/sopFile/toFileList?" + params));
+			tabs.add(new Menus(13L, 0, 17,"项目模板", u + "galaxy/template?" + params));
 		}
 		
 		if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
 			tabs.add(new Menus(12L, 0, 25,"股权交割", u + "galaxy/soptask?flag=gq&"+ params));
+			tabs.add(new Menus(14L, 0, 18,"项目文档", u + "galaxy/sopFile/toFileList?" + params));
+			tabs.add(new Menus(13L, 0, 17,"项目模板", u + "galaxy/template?" + params));
 		}
 		
-		tabs.add(new Menus(13L, 0, 17,"模板管理", u + "galaxy/template?" + params));
-		tabs.add(new Menus(14L, 0, 18,"档案管理", u + "galaxy/sopFile/toFileList?" + params));
+		
+		
 		
 		
 		//档案管理员
@@ -141,15 +150,16 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.clear();
 			tabs.add(new Menus(1L, 0, 1,"工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
 			//tabs.add(new Menus(3L, 0,8, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
-			tabs.add(new Menus(4L, 0, 3, "创投项目", serverUrl +"sop/galaxy/mpl?" + params));
-			tabs.add(new Menus(21L, 0, 10, "创意管理", u + "galaxy/idea?" + params));
-			tabs.add(new Menus(5L, 0, 11, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
+			tabs.add(new Menus(5L, 0, 3, "创投项目", serverUrl +"sop/galaxy/mpl?" + params));
+			
+			tabs.add(new Menus(22L, 0, 11, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
 			tabs.add(new Menus(6L, 0, 12, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
 			tabs.add(new Menus(7L, 0, 13,"绩效考核", serverUrl +"report/galaxy/report/kpi?" + params));
 			tabs.add(new Menus(11L, 0,14, "投后运营", "javascript:void(0);")
 					.addNode(new Menus(8L, 1, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params))
 					.addNode(new Menus(9L, 1, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params))
 					.addNode(new Menus(10L, 1, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params)));
+			tabs.add(new Menus(21L, 0, 10, "项目创意", u + "galaxy/idea?" + params));
 		}
 		//董事长秘书      CEO秘书
 		if(roleIdList.contains(UserConstant.DMS) ||roleIdList.contains(UserConstant.CEOMS)){

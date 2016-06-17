@@ -734,7 +734,8 @@ public enum DictEnum {
 			已上市("已上市", "financeStatus:13"),
 			新三板("新三板", "financeStatus:14"),
 			战略投资("战略投资", "financeStatus:15"),
-			已被收购("已被收购", "financeStatus:16");
+			已被收购("已被收购", "financeStatus:16"),
+			不明确("不明确", "financeStatus:17");
 			private String name;
 			private String code;
 

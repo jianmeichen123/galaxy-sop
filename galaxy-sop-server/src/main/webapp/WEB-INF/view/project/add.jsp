@@ -50,7 +50,7 @@
                     	<li>
                         	<span class="basic_span"><em class="red">*</em>项目类型：</span>
                             <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w"><label for="radio_w">外部投资</label></span>
-                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">内部项目</label></span>
+                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">内部创建</label></span>
                             <span id="projectTypeTip" class="m_r30" style="display:none;">
                             	<div class="tip-yellowsimple" style="visibility: inherit; left: 413.031px; top: 229px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
                             </span>
@@ -68,9 +68,9 @@
 			                    	<option value="">--请选择--</option>
 			                    </select>
                             </span>
-                        	<span class="basic_span">融资状态：</span>
+                        	<span class="basic_span"><em class="red">*</em>融资状态：</span>
                             <span class="m_r30">
-								<select name="financeStatus" class='new_nputr'>
+								<select name="financeStatusAdd" class='new_nputr'>
 			                    </select>
 							</span>
                         </li>
@@ -86,9 +86,10 @@
                     	
                         <li>
                             <span class="basic_span">融资金额：</span>
-                            <span class="m_r30">
+                            <span class="m_r15">
                             	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>
                             </span>
+                            <span class="m_r30">万人民币</span>
                             <span class="basic_span">估值：</span>
                             <span class="m_r15">
                             	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>
@@ -97,9 +98,10 @@
                         </li>
                         <li>
                         	<span class="basic_span">出让股份：</span>
-                            <span class="m_r30">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="LIMIT_2_INTEGER" msg="<font color=red>*</font>0-100间整数"/>
+                            <span class="m_r15">
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数或小数"/>
                             </span>
+                            <span class="m_r30">% </span>
                         </li>
                     </ul>
                     </form>
@@ -157,8 +159,7 @@
 		$('.compile_on').show();
 	});
 	$('[data-on="close"]').on('click',function(){
-		$('.bj_hui_on').hide();
-		$('.compile_on').hide();
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
 	});
 	/**
 	 * 查询事业线
@@ -169,10 +170,11 @@
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
 	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatusAdd");
 	
 	
    var TOKEN;
+   var formData;
 	$(function(){
 		$("#createDate").val(new Date().format("yyyy-MM-dd"));
 		createMenus(5);
@@ -205,20 +207,38 @@
 		}
 		return null;
 	}
-	var b = new Base64();
+	
 	function add(){
 		var val=$('input:radio[name="projectType"]:checked').val();
 		if(val == null){
 			$("#projectTypeTip").css("display","block");
 			return;
 		}
+		var nowFormData = $("#add_form").serializeObject();
+		if(formData != nowFormData){
+			//获取TOKEN 用于验证表单提交
+			sendPostRequest(platformUrl.getToken,function(data){
+				TOKEN=data.TOKEN;
+				return TOKEN;
+			});
+		}
 		if(beforeSubmit()){
 			sendPostRequestBySignJsonStr(platformUrl.addProject, $("#add_form").serializeObject(), function(data){
-				if(data.result.status=="ERROR"){
-					layer.msg(data.result.message);
+				if(!data){
+					layer.msg("提交表单过于频繁!");
+				}else if(data.result.status=="ERROR"){
+					if(data.result.errorCode == "csds"){
+						layer.msg("必要的参数丢失!");
+					}else if(data.result.errorCode == "myqx"){
+						layer.msg("没有权限添加项目!");
+					}else if(data.result.errorCode == "mccf"){
+						layer.msg("项目名重复!");
+					}
+					formData = $("#add_form").serializeObject();
 				}else{
 					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/mpl");
 				}
+				
 			},TOKEN);
 		}
 	}

@@ -74,7 +74,7 @@
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>融资状态：</dt>
                   <dd>
-                    <select name="financeStatus">
+                    <select name="financeStatusQuary">
                       <option index="-1" value="">全部</option>
                     </select>
                   </dd>
@@ -208,7 +208,7 @@
 		}
 	
 	function proInfo(id){
-		var options = $("#data-table").bootstrapTable('getOptions');
+		var options = $("#project-table").bootstrapTable('getOptions');
 		var tempPageSize = options.pageSize ? options.pageSize : 10;
 		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
 		
@@ -254,7 +254,7 @@
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
 	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatusQuary");
 	/**
 	 * 获取项目类型下拉项
 	 * @version 2016-06-21
@@ -281,6 +281,7 @@
 	 */
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
+		var num_size='';
 		/**
 		 * 初始化项目列表
 		 * @version 2016-06-21
@@ -289,7 +290,7 @@
 			queryParamsType: 'size|page',
 			pageSize:10,
 			showRefresh : false ,
-			url : $('#data-table').attr("data-url"),
+			url : $('#project-table').attr("data-url"),
 			sidePagination: 'server',
 			method : 'post',
 			sortOrder : 'desc',
@@ -310,7 +311,8 @@
 		        		param.nameCodeLike = tempParam.nameCodeLike;
 		        		param.createUid = tempParam.createUid;
 		        		param.projectDepartid = tempParam.projectDepartid;
-		        		var options = $("#data-table").bootstrapTable('getOptions');
+		        		var options = $("#project-table").bootstrapTable('getOptions');
+		        		num_size =tempParam.pageNum;
 	 	        		options.pageNumber = tempParam.pageNum - 1;
 	 	        		console.log('options.pageNumber ='+options.pageNumber );
 	 	        		//给搜索表单赋值
@@ -326,6 +328,15 @@
 	        	if($("#showResetBtn").val() == '1'){
 	    			$("#resetBtn").removeClass("none");
 	    		}
+	        	if(num_size!=''){
+	        		$('.pagination li').removeClass('active');
+	        		$('.pagination li').each(function(){
+	        			if($(this).text()==num_size){
+	        				$(this).addClass('active')
+	        			}
+	        		})
+	        		num_size='';
+	        	}
 	        }
 		});
 		/**
