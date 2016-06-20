@@ -112,12 +112,14 @@
                               
                       </div>
                     </div>
+                    <c:if test="${fx:isCreatedByUser('project',projectId) }">
                     <div class="top clearfix">
                         <!--按钮-->
                         <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
 							<a href="javascript:;" class="pubbtn fffbtn email_btn" id="file-show-mail-btn">发送选中</a> 
 						</div>
                     </div>
+                    </c:if>
                             <!--表格内容-->
                     <table width="100%" id="file_repository_table" cellspacing="0" cellpadding="0" class="commonsize"></table>  
         	</div>

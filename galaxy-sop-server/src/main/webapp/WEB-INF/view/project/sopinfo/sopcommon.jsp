@@ -8,7 +8,7 @@
 
 </head>
 <body>
-	<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>><span id="project_name_title"></span></div>
+	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>><a href="#" onclick="ProjectList()">创投项目</a>><span id="project_name_title"></span></div>
     	
     	<div class="new_tit_b">
         	<span class="size18" id="project_name_t"></span><span class="new_color" id="project_code_t"></span>
@@ -43,6 +43,18 @@ function backProjectList(){
 	var url = platformUrl.projectList+"?backSign=true";
 	forwardWithHeader(url);
 }
+/**
+ * 面包屑
+ * @version 2016-06-21
+ */
+function backIndex(){
+ var url=Constants.sopEndpointURL+"/galaxy/redirect";
+ forwardWithHeader(url);
+}
+function ProjectList(){
+	 var url=Constants.sopEndpointURL+"/galaxy/mpl";
+	 forwardWithHeader(url);
+	}
 </script>
 
 </html>

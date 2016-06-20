@@ -307,7 +307,7 @@ function air(indexNum){
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
-		okback:function(){
+		okback:function(_this){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
@@ -347,7 +347,7 @@ function air(indexNum){
 							"fileId" : fileId
 						};*/
 						return condition;
-					},indexNum);
+					},indexNum,null,_this);
 		}
 	});
 	return false;
@@ -387,7 +387,7 @@ function startReview(){
 		$.getHtml({
 		url:_url+pid,//模版请求地址
 		data:"",//传递参数
-		okback:function(){
+		okback:function(_this){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj(meetingType);
@@ -430,7 +430,8 @@ function startReview(){
 						{
 							refreshProjectList.call();
 						}
-					}
+					},
+					_this
 			);
 		}
 	});
@@ -559,7 +560,7 @@ function tzyxs(flag){
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
-		okback:function(){
+		okback:function(_this){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
@@ -609,7 +610,7 @@ function tzyxs(flag){
 				if(i == 1 && $.isFunction(refreshProjectList)){
 					refreshProjectList.call();
 				}
-			});
+			},_this);
 		}
 	});
 	return false;
@@ -642,7 +643,7 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 	}
 	$.getHtml({
 		url:_url,
-		okback:function(){
+		okback:function(_this){
 			if(voucher == 1){
 				$("#voucherType").attr("disabled",true);
 				$("#voucherType").attr("checked","checked");
@@ -652,7 +653,7 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 			$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
 			$("#fileType").val(fileType);
 			$("#fileWorkType").val(fileWorkType);
-
+//			var _this = this;
 			var uploader = $.fxUpload({
 				props:{
 					browse_button:'select_file_btn',
@@ -697,6 +698,12 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 							});
 						},
 						BeforeUpload:function(up){
+							
+							$(_this.id).showLoading(
+									 {
+									    'addClass': 'loading-indicator'						
+									 });
+							
 							var condition = {};
 							var pid = projectId;
 							var type = $("input[name='fileSource']:checked").val();
@@ -735,6 +742,7 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 							up.settings.multipart_params=condition;
 						},
 						FileUploaded: function(up, files, rtn) {
+							$(_this.id).hideLoading();
 							var data = $.parseJSON(rtn.response);
 							
 							if(data.result.status == "OK")
@@ -827,7 +835,7 @@ function uploadYwjd(){
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
-		okback:function(){
+		okback:function(_this){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
@@ -860,7 +868,7 @@ function uploadYwjd(){
 				condition.fileType = fileType;
 				condition.fileWorktype = fileWorktype;
 				return condition;
-			},null);
+			},null,null,_this);
 		}
 	});
 	return false;
@@ -1038,7 +1046,7 @@ function tzxy(st,projectType){
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
-		okback:function(){
+		okback:function(_this){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
@@ -1088,7 +1096,7 @@ function tzxy(st,projectType){
 				{
 					refreshProjectList.call();
 				}
-			});
+			},_this);
 		}
 	});
 	return false;
@@ -1124,7 +1132,7 @@ function selected(obj){
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
-		okback:function(){
+		okback:function(_this){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
@@ -1175,7 +1183,7 @@ function selected(obj){
 				{
 					refreshProjectList.call();
 				}
-			});
+			},_this);
 		}
 	});
 	return false;

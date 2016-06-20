@@ -426,7 +426,7 @@ function getFileTypeByName(fileName)
 	return type;
 }
 
-function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction,indexNum,success) {
+function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction,indexNum,success,_this) {
 	
 
 	
@@ -495,6 +495,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 			UploadProgress: function(up, file) {},
 			//文件上传后， 返回值  赋值,  再ajax 保存入库
 			FileUploaded: function(up, files, rtn) {
+				$(_this.id).hideLoading();
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
@@ -522,13 +523,16 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 			},
 			BeforeUpload:function(up){
 				//表单函数提交
-				
+				$(_this.id).showLoading(
+						 {
+						    'addClass': 'loading-indicator'						
+						 });
 				//alert(JSON.stringify(getSaveCondition()));
 			},
 			Error: function(up, err) {
 				//alert("错误"+err);
 				layer.msg("上传格式等错误,请重新选择文件!");
-				
+				$(_this.id).hideLoading();
 			}
 		}
 	});
@@ -1105,21 +1109,15 @@ function initTcVal(){
  * @param url   请求地址
  * @param name  select的name属性值
  */
-function createDictionaryOptions(url, name){
+function createDictionaryOptions(url, name, selectIndex){
 	sendGetRequest(url,null, function(data){
 		var options = [];
-		$.each(data.entityList, function(i, value){	
-			if(name=='financeStatusAdd'){
-				if(value.code=="financeStatus:17"){
-					options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
-				}else{
-					options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
-					
-				}
+		$.each(data.entityList, function(i, value){
+			if(selectIndex && i == selectIndex){
+				options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
 			}else{
-				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');			
+				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
 			}
-			
 		});
 		$('select[name="'+name+'"]').append(options.join(''));
 	});
