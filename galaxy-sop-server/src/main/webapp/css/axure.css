@@ -1732,6 +1732,7 @@ font-family: "宋体";
     margin-left: -4px;
     margin-top: 10px;
 }
+.commonsize th{font-size:14px;color:#3e4351;font-family:"微软雅黑";}
 /*访谈表格*/
 .no1{width:35%;padding-left:35px !important;}
 .no2{width:45%;padding-left:5px !important;}

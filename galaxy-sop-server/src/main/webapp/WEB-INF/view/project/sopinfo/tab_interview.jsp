@@ -100,7 +100,7 @@
 							</dl>
 						</div>
 						</div>
-						<table id="projectProgress_1_table"
+						<table id="projectProgress_1_table" class="commonsize"
 							data-url="<%=path%>/galaxy/project/progress/queryInterview" 
 							data-id-field="id" 
 							data-toolbar="#projectProgress_1_table_custom-toolbar">

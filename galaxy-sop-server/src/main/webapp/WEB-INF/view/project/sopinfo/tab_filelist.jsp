@@ -119,7 +119,7 @@
 						</div>
                     </div>
                             <!--表格内容-->
-                    <table width="100%" id="file_repository_table" cellspacing="0" cellpadding="0"></table>  
+                    <table width="100%" id="file_repository_table" cellspacing="0" cellpadding="0" class="commonsize"></table>  
         	</div>
         	</form>  
         	</c:if>
