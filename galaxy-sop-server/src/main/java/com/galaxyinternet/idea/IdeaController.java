@@ -63,7 +63,6 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.AbandonedService;
 import com.galaxyinternet.service.ConfigService;
@@ -241,8 +240,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			User user = (User)getUserFromSession(request);
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			//无权限查看，返回null
-			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+			if(roleIdList == null || (!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ))){
 				resp.setPageList(new Page<Idea>(new ArrayList<Idea>() , pageable, 0l));
 				return resp;
 			}
@@ -466,8 +465,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		UrlNumber urlNum=null;
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
-			idea.setClaimantUid(user.getId());
-			idea.setClaimantUname(user.getRealName());
+			idea.setGiveUpId(user.getId());
 			int queryById = ideaService.updateById(idea);
 		    urlNum=UrlNumber.one;
 			if(queryById<=0){
@@ -837,6 +835,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		if(responseBody !=null){
 			return responseBody;
 		}
+		responseBody = new ResponseData<Idea>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if (user == null) {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
@@ -844,7 +843,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 				.getId());
-		responseBody = new ResponseData<Idea>();
+		
 		if(idea.getDepartmentId() == null || idea.getDepartmentId().toString().equals("")){
 			if(RoleUtils.isGaoGuan(roleIdList)){
 				responseBody.setResult(new Result(Status.ERROR,"请选择所属事业线"));
@@ -866,7 +865,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					uNum = UrlNumber.three;
 				}else if(DictEnum.IdeaProgress.CYLXH.getCode().equals(tempIdea.getIdeaProgress())){
 					uNum = UrlNumber.four;
-				}else if(DictEnum.IdeaProgress.CYLGZ.getCode().equals(tempIdea.getIdeaProgress())){
+				}else{
 					uNum = UrlNumber.five;
 				}
 				operatorStr = "修改";

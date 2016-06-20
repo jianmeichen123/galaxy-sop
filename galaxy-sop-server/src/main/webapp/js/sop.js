@@ -22,10 +22,10 @@ function info(id){
 			$('.searchbox').toggleshow();
 			leicj();
 			/**
-			 * 加载项目详情数据
+			 * 加载项目详情数据   meetingResult:3
 			 */
 			sendGetRequest(platformUrl.detailProject + id, {}, function(data){
-				hasClosed = (data.entity.projectStatus == 'meetingResult:3');
+				hasClosed = (data.entity.projectStatus == 'meetingResult:3' || data.entity.projectStatus == 'projectStatus:2' || data.entity.projectStatus == 'projectStatus:3');
 				var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');
 				//项目的最新动态
 				if(data.entity.hasOwnProperty('updatedTime')){
@@ -1249,7 +1249,7 @@ function gqjg(){
 }
 /**
  * 格式化富文本保存的内容，以契合页面展示的要求
- */
+
 function ftcolumnFormat(value, row, index){
 	var fileinfo = "" ;
 	var rc = "";
@@ -1274,9 +1274,9 @@ function ftcolumnFormat(value, row, index){
 			"</div>" ;
 	return rc;
 }
-/**
+
  * 格式化富文本保存的内容，以契合页面展示的要求
- */	
+
 function metcolumnFormat(value, row, index){
 	var fileinfo = "";
 	var rc = "";
@@ -1290,7 +1290,7 @@ function metcolumnFormat(value, row, index){
 			"</div>" ;
 	return rc;
 }
-
+ */	
 /**
  * sop阶段中富文本弹出层的静态资源加载
  */
@@ -1354,7 +1354,7 @@ function showLogdetail(selectRowId){
 		um.setContent(interviewSelectRow.viewNotes);
 		//alert(uid+"----"+interviewSelectRow.createdId);
 		$("#vid").val(selectRowId);
-		if(uid!=interviewSelectRow.createdId){
+		if(typeof(variable) !== 'undefined' && uid!=interviewSelectRow.createdId){
 			$("#interviewsave").hide();
 		}
 		

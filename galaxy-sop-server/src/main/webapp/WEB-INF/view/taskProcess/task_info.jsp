@@ -161,10 +161,22 @@ function getProjectInfo(projectLoaded)
 							self.html(desc);
 						}
 						self.next().html(desc);
-					}else{
-						self.text(project[id]);
+					}					
+					else{
+						self.html(project[id]);
 					}
 					
+				}
+				if(self.attr('id') =='projectName'){
+					var str=project[id];
+					alert(str.length);
+					if(str.length>15){
+						self.text(str.substring(0,15));
+						self.attr("title",str);
+					}else{
+						self.text(str);
+						self.attr("title",str);
+					}
 				}
 			});
 			$(".projectmsg h2").text(project.projectName);

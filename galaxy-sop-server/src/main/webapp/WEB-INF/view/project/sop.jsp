@@ -218,7 +218,6 @@
 				</form>
 				<!--按钮-->
 				<div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-<!-- 					<a href="archivestc.html" data-btn="archives" class="pubbtn fffbtn">上传</a>--> 
 					<a href="javascript:;" class="pubbtn fffbtn" id="file-show-mail-btn">发送选中</a> 
 				</div>
 
@@ -244,9 +243,9 @@
 					 data-toolbar="#projectProgress_1_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
+							<th data-align="center" data-formatter="intervierInfoFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center" data-formatter="formatInterview_sop">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="tc_viewNotesFormat">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
@@ -270,7 +269,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -298,7 +297,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -312,7 +311,7 @@
 				<!--按钮-->
 				<div id="options_point4" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a id="add_lxhmeet" href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
-					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark">立项会排期</a>
+					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark">申请立项会排期</a>
 				</div>
 
 				<div id="projectProgress_4_table_custom-toolbar">
@@ -326,7 +325,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -339,7 +338,7 @@
 				<!--按钮-->
 				<div id="options_point7" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a id="add_tjhmeet" href="javascript:;" onclick="addMettingRecord(7,'meetingType:4')"  class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
-					<a id="inSure_btn" href="javascript:;" onclick="inSureMeetingPool()"  class="pubbtn fffbtn lpubbtn option_item_mark">投决会排期</a>
+					<a id="inSure_btn" href="javascript:;" onclick="inSureMeetingPool()"  class="pubbtn fffbtn lpubbtn option_item_mark">申请投决会排期</a>
 				</div>
 
 				<div id="projectProgress_7_table_custom-toolbar">
@@ -353,7 +352,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -458,7 +457,7 @@
 	</div>
 </div>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
-
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/init.js"></script>
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>

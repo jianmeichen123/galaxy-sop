@@ -82,7 +82,7 @@ public class PersonInvestServiceImpl extends BaseServiceImpl<PersonInvest> imple
 				personInvestDao.insert(personInvest);
 			}else {
 				personInvest.setUpdatedTime(time);
-				personInvestDao.updateById(personInvest);
+				personInvestDao.updateByIdForNull(personInvest);
 			}
 		}
 		List<PersonWork> personWorks = personResumetc.getPersonWork();

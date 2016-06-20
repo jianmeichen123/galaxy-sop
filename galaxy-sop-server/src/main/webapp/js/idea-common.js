@@ -97,16 +97,11 @@ function dateFormatter(val,row,index)
 				return;
 			}
 			idea = data.entity;
+			if(idea.ideaProgress=="ideaProgress:4"||idea.ideaProgress=="ideaProgress:1"){
+				$("#claimantdis").hide();
+			}
 			setGiveUpInfo(data.userData);
 			stockTransfer = idea.stockTransfer;
-			/*var progress = idea.ideaProgress;
-			if('ideaProgress:1' != progress && 'ideaProgress:4'!= progress){
-				$("[data-btn='claim']").hide();
-			}
-			var index=progress.substr("ideaProgress:".length);
-			if(idea.createBySelf!="self" || index>4){
-				$("[data-btn='edith']").hide();
-			}*/
 			$("#IdeaId").val(idea.id);
 			$("#ideaDetail dd")
 			.each(function(){
@@ -682,6 +677,7 @@ function dateFormatter(val,row,index)
 				if(data.result.status == 'OK')
 				{
 					layer.msg("认领成功！");
+					//getIdeaInfo(id)
 					 refreshIdeaList();
 			    	 refreshStageDialog(id);
 				//setTimeout("$('.claimtc').find('[data-close='close']').click();",2000);  

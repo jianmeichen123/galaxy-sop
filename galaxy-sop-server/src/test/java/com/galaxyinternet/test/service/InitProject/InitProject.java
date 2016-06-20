@@ -227,7 +227,7 @@ public class InitProject extends AbstractJUnit4SpringContextTests  {
 		project.setProjectCode(projectCode);
 		project.setStockTransfer(0);
 		
-		projectService.newProject(project);
+		projectService.newProject(project, null);
 		return project.getId();
 	}
 	

@@ -400,7 +400,7 @@ var platformUrl = {
 	/**
 	 * 项目详情
 	 */
-	projectDetail : Constants.sopEndpointURL + "/galaxy/detail/",
+	projectDetail : Constants.sopEndpointURL + "/galaxy/project/detail/",
 	/**
 	 * 查询密码
 	 */
@@ -518,7 +518,56 @@ var platformUrl = {
 	/**
 	 * 获取商业计划
 	 */	
-	getBusinessPlanFile : Constants.sopEndpointURL + "/galaxy/sopFile/getBusinessPlanFile"
+	getBusinessPlanFile : Constants.sopEndpointURL + "/galaxy/sopFile/getBusinessPlanFile",
+	
+	/**
+	 * 
+	 * 编辑公司法人信息
+	 */
+	saveCompanyInfo : Constants.sopEndpointURL + "/galaxy/project/saveCompanyInfo",
+	/**
+	 * 融资状态
+	 */
+	getFinanceStatusByParent : Constants.sopEndpointURL + "/galaxy/project/getFinanceStatusByParent",
+	
+	/**
+	 * 保存公司法人信息
+	 * 
+	 */
+	saveCompanyInfo : Constants.sopEndpointURL + "/galaxy/project/saveCompanyInfo",
+	/**
+	 * 商业计划页面
+	 */	
+	toBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/toBusinessPlanHistory",
+	/**
+	 * 商业计划历史查询
+	 */	
+	searchBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/searchBusinessPlanHistory",
+	/**
+	 * 查询数据字典子项集合
+	 */
+	searchDictionaryChildrenItems : Constants.sopEndpointURL + "/galaxy/common/getDictionaryList/",
+	/**
+	 * 查询事业线
+	 */
+	getCareerlineList : Constants.sopEndpointURL + "/galaxy/common/getCareerlineList",
+	/**
+	 * 根据事业线查询相应的投资经理
+	 */
+	getUserList : Constants.sopEndpointURL + "/galaxy/common/getUserList/",
+	/**
+	 * 项目列表页面
+	 */
+	projectList : Constants.sopEndpointURL + "galaxy/mpl",
+	/**
+	 * 商业计划上传到session中
+	 */
+	uploadBpToSession : Constants.sopEndpointURL + "/galaxy/sopFile/uploadBpToSession",
+	/**
+	 * session中获取商业计划书
+	 */
+	getBusinessPlanFileInSession : Constants.sopEndpointURL + "/galaxy/sopFile/getBusinessPlanFileInSession",
+	
 	
 }
 
