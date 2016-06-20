@@ -113,7 +113,7 @@
 						</dl>
 					</div>
 					</div>
-					<table id="data-table"
+					<table id="data-table" class="commonsize"
 						data-url="<%=path%>/galaxy/project/progress/queryMeet" 
 						data-id-field="id" 
 						data-toolbar="#custom-toolbar">

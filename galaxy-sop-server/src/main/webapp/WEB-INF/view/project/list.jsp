@@ -41,7 +41,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin prj_all">
-    	<div class="new_tit_a"><a href="#">工作桌面</a>>创投项目</div>
+    	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>>创投项目</div>
     	 <input type="hidden" id="project_id" value=""/>
     	 <input type="hidden" id="uid" value=""/>
          <c:if test="${fx:hasRole(4)}">
@@ -74,7 +74,7 @@
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>融资状态：</dt>
                   <dd>
-                    <select name="financeStatusQuary">
+                    <select name="financeStatus">
                       <option index="-1" value="">全部</option>
                     </select>
                   </dd>
@@ -125,7 +125,7 @@
             </div>
           </div>
         </div>
-		<div class="tab-pane active" id="view">	
+		<div class="tab-pane active ctlist" id="view">	
 			<table id="project-table" data-url="project/search" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
@@ -254,7 +254,7 @@
 	 * 获取融资状态下拉项
 	 * @version 2016-06-21
 	 */
-	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatusQuary");
+	createDictionaryOptions(platformUrl.searchDictionaryChildrenItems+"financeStatus","financeStatus");
 	/**
 	 * 获取项目类型下拉项
 	 * @version 2016-06-21
@@ -370,13 +370,26 @@
 			$("select[name='projectStatus']").find("option[index='-1']").attr("selected",true);
 			$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
 			var did = $("select[name='projectDepartid']").find('option[back="link"]').val();
-			//alert(did)
-			$("select[name='projectDepartid']").val(did)
-			createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+			if(typeof(did) == "undefined"){
+				$("select[name='projectDepartid']").val(0);
+				createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 1);
+				$("select[name='createUid']").val(0);
+			}else{
+				$("select[name='projectDepartid']").val(did);
+				createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+			}
 			$('input[name="nameCodeLike"]').val("");
 			$("#resetBtn").addClass("none");
 		});
 	});
+	/**
+	 * 面包屑
+	 * @version 2016-06-21
+	 */
+	function backIndex(){
+	 var url=Constants.sopEndpointURL+"/galaxy/redirect";
+	 forwardWithHeader(url);
+	}
 	/**
 	 * 创建时间格式化
 	 * @version 2016-06-21
