@@ -76,7 +76,7 @@
 						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 					</div>
 					
-					<table id="project_info_log"
+					<table id="project_info_log" class="commonsize"
 						data-url="<%=path%>/galaxy/operatlog/query"
 						data-page-list="[10,20,30]" data-toolbar="#custom-toolbar">
 						<thead>

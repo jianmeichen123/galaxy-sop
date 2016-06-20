@@ -285,7 +285,7 @@ function getProjectInfo(dtd)
                  </div>
                  <div class="project_center">
 					<div class="new_r_compile ">
-						<span class="new_ico_project"></span> <span class="new_color size16">项目概述</span> <span class="bj_ico" id="descript">暂无数据</span>
+						<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox">
 							<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
@@ -381,34 +381,6 @@ function getProjectInfo(dtd)
 				</div>
 				
 			</div>
-
-			<!--竞情分析-->
-			<div class="tabtable_con_on">
-				<div class='analysis_center'>
-					<div class="new_r_compile ">
-						<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
-						<span class="new_fctbox"> 
-							<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
-						</span>
-						</c:if>
-					</div>
-					<div class="new_ul_all new_top_color analysis_show">
-						<span class="ico_dot ico"></span>
-						<p id="analysis_show"></p>
-					</div>
-				</div>
-				<div class='analysis_on'>
-					<div id="analysis_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
-                    <div class="compile_on_center">
-                       <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_analysis">保存</span>
-                           <span class="compile_on_right_q" data-name='analysis' data-on="close">取消</span>
-                       </div>  
-                   </div>
-				</div>
-				
-			</div>
 			
 			<!--运营数据-->
 			<div class="tabtable_con_on">
@@ -461,6 +433,33 @@ function getProjectInfo(dtd)
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_industry">保存</span>
                            <span class="compile_on_right_q" data-name='industry' data-on="close">取消</span>
+                       </div>  
+                   </div>
+				</div>
+				
+			</div>
+			<!--竞情分析-->
+			<div class="tabtable_con_on">
+				<div class='analysis_center'>
+					<div class="new_r_compile ">
+						<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
+						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<span class="new_fctbox"> 
+							<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
+						</span>
+						</c:if>
+					</div>
+					<div class="new_ul_all new_top_color analysis_show">
+						<span class="ico_dot ico"></span>
+						<p id="analysis_show"></p>
+					</div>
+				</div>
+				<div class='analysis_on'>
+					<div id="analysis_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
+                    <div class="compile_on_center">
+                       <div class="compile_on_right">
+                           <span class="compile_on_right_b" id="save_analysis">保存</span>
+                           <span class="compile_on_right_q" data-name='analysis' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>

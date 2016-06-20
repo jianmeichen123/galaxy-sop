@@ -301,15 +301,18 @@ $(function(){
 });
 function getUpdateData(){
 	var id=$("#pid").val();
-	var pname=$("#project_name_edit").val();
-	var industry_own=$("#industry_own_sel").val();
-	var finance_status=$("#finance_status_sel").val();
-	var project_contribution=$("#project_contribution_edit").val()==""?0:$("#project_contribution_edit").val();
-	var project_valuations=$("#project_valuations_edit").val()==""?0:$("#project_valuations_edit").val();
-	var project_share_ratio=$("#project_share_ratio_edit").val()==""?0:$("#project_share_ratio_edit").val();
-	var finalcontribution=$("#finalContribution_edit").val()==""?0:$("#finalContribution_edit").val();
-	var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val();
-	var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val();
+	var pname=$("#project_name_edit").val().trim();
+	var industry_own=$("#industry_own_sel").val().trim();
+	var finance_status=$("#finance_status_sel").val().trim();
+	
+	var project_contribution=$("#project_contribution_edit").val()==""?null:$("#project_contribution_edit").val().trim();
+	var project_valuations=$("#project_valuations_edit").val()==""?null:$("#project_valuations_edit").val().trim();
+	var project_share_ratio=$("#project_share_ratio_edit").val()==""?null:$("#project_share_ratio_edit").val().trim();
+	var finalcontribution=$("#finalContribution_edit").val()==""?null:$("#finalContribution_edit").val().trim();
+	var finalvaluations=$("#finalValuations_edit").val()==""?null:$("#finalValuations_edit").val().trim();
+	var finalshare_ratio=$("#finalShareRatio_edit").val()==""?null:$("#finalShareRatio_edit").val().trim();
+	
+	
 	var formatData={"id":id,
 			       "projectName":pname,
 			        "industryOwn":industry_own,

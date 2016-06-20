@@ -1152,14 +1152,14 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .jxkh_ljwcstc{width: 500px;}
 /* 个人简历弹窗 */
 .resumetc{position: relative;top:0px;height: 430px;overflow: scroll;}
-.resumetc .tabtable{width:500px;padding: 10px; }
+.resumetc .tabtable{width:540px;padding: 10px; }
 .resumetc .resume .tablink .on{background-color: #f1f2f5;}
 .resumetc .tabtable .tabtable_con{display:none;padding: 10px;height:auto;background-color: #f1f2f5;}
 .resumetc .tabtable_con1{border:1px solid #e9ebf2;margin-bottom: 5px;position:relative;}
 .resumetc .tabtable_con1 h2{height: 30px;background-color: #f9fafc;line-height: 30px;text-align: center;font-size: 16px;font-weight: normal;color:#6b799f;}
 .resumetc .tabtable_con1 table{width: 100%;}
 .resumetc .tabtable_con1 table tr{border-bottom:1px solid #e9ebf2;}
-.resumetc .tabtable_con1 table th{width:50%;text-align: right;font-size: 14px;color:#2d3342;height:28px;line-height: 28px}
+.resumetc .tabtable_con1 table th{width:40%;text-align: right;font-size: 14px;color:#2d3342;height:28px;line-height: 28px}
 .resumetc .tabtable_con1 table td{text-align: left;border: 0;height:28px;line-height: 28px}
 .resumetc .tabtable_con2 table th{width:20%;background-color: #f9fafc;}
 .resumetc .tabtable_con2 dl dt{float: left;width: 100px;}
@@ -1628,11 +1628,11 @@ font-family: "宋体";
 .searchall_prj .show_more a{margin-left: 10px;cursor: pointer;}
 .searchall_prj .searchbox_hidden{display: none;}
 .searchall_prj .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
-.searchall_prj .f4{background-position: right -95px;padding: 0 28px 0 20px; }
-.searchall_prj .f3{background-position: right -40px;padding: 0 28px 0 0px; }
+.searchall_prj .f4{background-position: right -95px;padding: 0 30px 0 20px; }
+.searchall_prj .f3{background-position: right -40px;padding: 0 30px 0 0px; }
 .prj_all table{border-radius: 6px;margin: 10px 0;}
 .prj_all table thead{border-top-right-radius: 6px;}
-.prj_all table th{height:28px;line-height: 28px;text-align: left;padding-left: 5px;background:#f4f6fa url(../img/line.gif) right 4px no-repeat;}
+.prj_all table th{height:28px;line-height: 28px;text-align: left;padding-left: 5px;background:#f4f6fa url(../img/line.gif) right 8px no-repeat;}
 .prj_all table th.noborder{background: #f4f6fa;}
 .prj_all table td{text-align: left;padding-left: 5px;height:38px;}
 .prj_all table td img{margin-top: 12px;margin-right: 3px;}
@@ -1642,6 +1642,7 @@ font-family: "宋体";
 .sort .sortable span{width:8px;height:12px;margin-left:5px;display:inline-block;background:url(../img/sort.png) 0 0 no-repeat;}
 .sort .desc span{background:url(../img/sort.png) 0 -16px no-repeat;}
 .sort .asc span{background:url(../img/sort.png) 0 -32px no-repeat;}
+.ctlist .bars{margin:0 !important;}
 /*团队成员*/
 .edit_profile{background-color: #539be2;border:1px solid #539be2;}
 .member,.stock,.legal{background-color: #fff;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 30px;}
@@ -1659,7 +1660,7 @@ font-family: "宋体";
 #shares-table td{padding-left:35px !important;}
 .stock{border-radius: 6px;}
 .title{height: 45px;line-height: 44px;border-bottom:1px solid #e6e8f1;padding:0 20px;position: relative;}
-.icon{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; width:20px; height:22px; display:block; float:left;margin: 11px 10px 0 0;}
+.icon{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; width:20px; height:22px; display:block; float:left;margin: 11px 0 0 0;}
 .new_ico_stock{background-position:-25px -28px; }
 .new_ico_legal{background-position:-50px -26px; }
 .title .btn{position: absolute;right: 10px;top:12px;}
@@ -1669,11 +1670,11 @@ font-family: "宋体";
 .legal .new_table_stock{margin:15px 30px !important;background-color: transparent;}
 .new_table_stock td,.new_table_stock td span{margin:0;}
 .new_table_stock td .th{width: 60px;text-align: right;}
-.legal{height: 135px;}
-.hidden{display: none;z-index:1009;position: absolute;width: 100%;background-color: #fff;height: 135px;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 10px;}
+.legal{height: 125px;}
+.hidden{display: none;z-index:1009;position: absolute;width: 100%;background-color: #fff;height: 125px;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 10px;}
 .hidden td input{width:198px;border:1px solid #d6d8e1;height:22px;font-size: 12px;font-family: "宋体";padding-left:5px;}
 .legal .btn button{float: left;margin-left: 10px;}
-.legal .time{}
+.stock .bars{margin:0 !important;}
 .legal .timeico{display:inline-block;background:#fff url(../img/btnico2.png) 0 0 no-repeat;background-position: 180px -154px;}
 /*访谈记录*/
 .add_interview{width:110px;}
@@ -1686,7 +1687,7 @@ font-family: "宋体";
 .email_btn{background:  url(../img/functionico.png) 10px -274px no-repeat;padding-left:28px;}
 .email_btn:hover{background:#66b1f2 url(../img/btnico2.png) 10px -61px no-repeat;}
 .document{padding-top: 20px;}
-.document .min_document{margin:0 30px;width:auto;position: relative;padding-bottom: 10px;}
+.document .min_document{margin:0 20px;width:auto;position: relative;padding-bottom: 10px;}
 .searchbox_document .fmdl{display: block;overflow: hidden;margin-left: 10px;}
 .searchbox_document .fmdl input{display: inline-block;}
 .document .show_more{position: absolute;top: 0;right: 0px;}
@@ -1731,6 +1732,7 @@ font-family: "宋体";
     margin-left: -4px;
     margin-top: 10px;
 }
+.commonsize th{font-size:14px;color:#3e4351;font-family:"微软雅黑";}
 /*访谈表格*/
 .no1{width:35%;padding-left:35px !important;}
 .no2{width:45%;padding-left:5px !important;}

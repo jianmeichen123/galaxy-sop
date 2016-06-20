@@ -68,14 +68,14 @@
     <div id="shares-custom-toolbar">
 		<input type="hidden" name="projectId" value="${projectId }">
 	</div>	
-  	<table id="shares-table" data-height="555" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true">
+  	<table id="shares-table" data-height="555" data-page-list="[10, 20, 30]" data-toolbar="#shares-custom-toolbar" data-show-refresh="true" class="commonsize">
    	<thead>
 	    <tr>
 	    	<th data-field="sharesType" data-align="left" class="data-input sharesType">类型</th>
         	<th data-field="sharesOwner" data-align="left" class="data-input">所有人</th>
         	<th data-field="sharesRatio" data-align="left" class="data-input">占比(%)</th>
         	<th data-field="gainMode" data-align="left" class="data-input">获取方式</th>
-        	<th data-field="remark" data-align="left" class="data-input" >备注</th>
+        	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
         	<c:if test="${fx:isCreatedByUser('project',pid) }">
         	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
         	</c:if>
@@ -113,6 +113,19 @@
 	    forceParse:false,
 	    currentText: 'Now'
 	});
+	 function remarkFormater(value,row,index){
+		    var id=row.id;
+			var str=row.remark;
+			if(str.length>20){
+				subStr = str.substring(0,20);
+				var options = "<label title='"+str+"'>"+subStr+"</label>";
+				return options;
+			}
+			else{
+				var options = "<label title='"+str+"'>"+str+"</label>";
+				return options;
+			}
+		}
 	
 	
 	function editCompany()
