@@ -370,9 +370,13 @@
 			$("select[name='projectStatus']").find("option[index='-1']").attr("selected",true);
 			$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
 			var did = $("select[name='projectDepartid']").find('option[back="link"]').val();
-			//alert(did)
-			$("select[name='projectDepartid']").val(did)
-			createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+			if(typeof(did) == "undefined"){
+				$("select[name='projectDepartid']").val(0);
+				createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
+			}else{
+				$("select[name='projectDepartid']").val(did);
+				createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+			}
 			$('input[name="nameCodeLike"]').val("");
 			$("#resetBtn").addClass("none");
 		});
