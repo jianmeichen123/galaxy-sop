@@ -104,18 +104,24 @@ $(function(){
 	//more 链接初始化
 	initMoreLine();
 	
- 	//无会议记录
+});
+
+function toCheckShowIcon(){
+	//无会议记录
 	var len=$("#near_meet .new_b_bottom").length;
 	if(len==0){
 		$("#near_meet .no_con").show();
+	}else{
+		$("#near_meet .no_con").hide();
 	}
 	//无访谈记录
 	var len=$("#near_view .new_b_bottom").length;
 	if(len==0){
 		$("#near_view .no_con").show();
+	}else{
+		$("#near_view .no_con").hide();
 	}
-	
-})
+}
 
 //more 链接控制
 function initMoreLine(){
@@ -180,7 +186,7 @@ function formatNearNotes(data){
 	viewList = data.userData.viewList;
 	formatNearMeet(data.userData.meetList);
 	formatNearView(viewList);
-	
+	toCheckShowIcon();
 }
 
 

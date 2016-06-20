@@ -76,7 +76,7 @@
 				</dl>
 				<dl>
 				    <dd>
-				       <button id="pqcSubmit" type="button" class="bluebtn ico cx" onclick="confirmSubmit();">排期</button>
+				       <button id="pqcSubmit" type="button" class="bluebtn ico pq" onclick="confirmSubmit();">排期</button>
 					</dd>
 				</dl>
 			</div>
