@@ -373,6 +373,7 @@
 			if(typeof(did) == "undefined"){
 				$("select[name='projectDepartid']").val(0);
 				createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
+				$("select[name='createUid']").val(0);
 			}else{
 				$("select[name='projectDepartid']").val(did);
 				createUserOptions(platformUrl.getUserList+did, "createUid", 1);
