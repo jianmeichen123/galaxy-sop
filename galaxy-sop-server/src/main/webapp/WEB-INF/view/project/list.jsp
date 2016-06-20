@@ -41,7 +41,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin prj_all">
-    	<div class="new_tit_a"><a href="#">工作桌面</a>>创投项目</div>
+    	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>>创投项目</div>
     	 <input type="hidden" id="project_id" value=""/>
     	 <input type="hidden" id="uid" value=""/>
          <c:if test="${fx:hasRole(4)}">
@@ -381,6 +381,14 @@
 			$("#resetBtn").addClass("none");
 		});
 	});
+	/**
+	 * 面包屑
+	 * @version 2016-06-21
+	 */
+	function backIndex(){
+	 var url=Constants.sopEndpointURL+"/galaxy/redirect";
+	 forwardWithHeader(url);
+	}
 	/**
 	 * 创建时间格式化
 	 * @version 2016-06-21
