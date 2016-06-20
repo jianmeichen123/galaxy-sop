@@ -2641,12 +2641,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @return
 	 */
 	@RequestMapping("/detail/{id}")
-	public ModelAndView detail(@PathVariable("id") Long id)
+	public ModelAndView detail(@PathVariable("id") Long id,String mark)
 	{
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/project/sopinfo/projectinfo");
 		mv.addObject("projectId", id);
 		mv.addObject("pid", id);
+		mv.addObject("mark", mark);
 		return mv;
 	}
 	/**

@@ -2,6 +2,7 @@
 <%
 	String path = request.getContextPath();
 %>
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <style>
 .bars{display:none;}
 #projectProgress_1_table th:nth-child(1),#projectProgress_2_table th:nth-child(1),#projectProgress_3_table th:nth-child(1),#projectProgress_4_table th:nth-child(1),#projectProgress_7_table th:nth-child(1) {
@@ -12,6 +13,7 @@
 			float: left;
 			padding:0 10px;
 		}
+		
 </style>
 <div class="myprojecttc">
 	<a href="javascript:;" data-close="close" class="close null">关闭</a>
@@ -462,6 +464,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script>
 	//盒子展开隐藏
 	getTabPersonforP();
