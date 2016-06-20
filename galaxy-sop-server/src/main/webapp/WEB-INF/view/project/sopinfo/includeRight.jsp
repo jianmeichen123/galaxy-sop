@@ -161,7 +161,16 @@ function toFormatNearNotes(){
 	sendGetRequest(Constants.sopEndpointURL+"/galaxy/project/getnearnotes/" + proid, null, formatNearNotes);
 }
 function formatNearNotes(data){
-	viewList = null;
+	
+	var len=$("#near_meet .new_b_bottom").length;
+	if(len > 0){
+		$("#near_meet").empty();
+	}
+	var len=$("#near_view .new_b_bottom").length;
+	if(len > 0){
+		$("#near_view").empty();
+	}
+	
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
 		layer.msg(data.result.message);
@@ -169,8 +178,52 @@ function formatNearNotes(data){
 	}
 	
 	viewList = data.userData.viewList;
-	var meetList = data.userData.meetList;
+	formatNearMeet(data.userData.meetList);
+	formatNearView(viewList);
 	
+}
+
+
+function formatNearView(viewList){
+	if(viewList && viewList.length>0){
+		for(var i=0;i<viewList.length;i++){
+			var target = viewList[i].viewTarget;
+			var time = viewList[i].viewDateStr;
+			var notes = viewList[i].viewNotes;
+			
+			//访谈对象 处理
+			var subStr = "";
+			var targerHtml="";
+			if(target.length>8){
+				subStr = target.substring(0,8)+"...";
+				targerHtml = "<span class=\"new_b_li_one\" title="+target+">"+subStr+"</span>";
+			}else{
+				targerHtml = "<span class=\"new_b_li_one\" >"+target+"</span>";
+			}
+			
+			//记录  处理
+			var notesStr = "";
+			if(notes){
+				notesStr = delHtmlTag($.trim(notes));
+				if(notesStr && notesStr.length > 15){
+					notesStr = notesStr.substring(0,15)+"...";
+				}
+			}
+        
+			//返回会议记录
+			var str = "<div class=\"new_b_bottom\">"+
+						 "<div class=\"div_ul\">"+
+		        			targerHtml +
+		        			"<span class=\"new_b_li_three pull-right\">"+time+"</span>"+
+		        		  "</div>"+
+						"<p>"+notesStr+"</p>"+
+					"</div>";
+			
+	    	$("#near_view").append(str);
+	    } 
+	}
+}
+function formatNearMeet(meetList){
 	if(meetList && meetList.length>0){
 		for(var i=0;i<meetList.length;i++){
 			var meetType = meetList[i].meetingTypeStr;
@@ -211,45 +264,6 @@ function formatNearNotes(data){
 	    	
 	    } 
 	}
-	
-	if(viewList && viewList.length>0){
-		for(var i=0;i<viewList.length;i++){
-			var target = viewList[i].viewTarget;
-			var time = viewList[i].viewDateStr;
-			var notes = viewList[i].viewNotes;
-			
-			//访谈对象 处理
-			var subStr = "";
-			var targerHtml="";
-			if(target.length>8){
-				subStr = target.substring(0,8)+"...";
-				targerHtml = "<span class=\"new_b_li_one\" title="+target+">"+subStr+"</span>";
-			}else{
-				targerHtml = "<span class=\"new_b_li_one\" >"+target+"</span>";
-			}
-			
-			//记录  处理
-			var notesStr = "";
-			if(notes){
-				notesStr = delHtmlTag($.trim(notes));
-				if(notesStr && notesStr.length > 15){
-					notesStr = notesStr.substring(0,15)+"...";
-				}
-			}
-        
-			//返回会议记录
-			var str = "<div class=\"new_b_bottom\">"+
-						 "<div class=\"div_ul\">"+
-		        			targerHtml +
-		        			"<span class=\"new_b_li_three pull-right\">"+time+"</span>"+
-		        		  "</div>"+
-						"<p>"+notesStr+"</p>"+
-					"</div>";
-			
-	    	$("#near_view").append(str);
-	    } 
-	}
-	
 }
 
 
