@@ -207,7 +207,7 @@
 		if(str.length>12){
 			str = str.substring(0,12);
 		}
-		return '<a href="#" class="blue" onclick="forwardWithHeader(\'' + platformUrl.projectDetail+row.projectId + '\')">'+str+'</a>';
+		return '<a href="#" class="blue" onclick="forwardWithHeader(\'' + platformUrl.projectDetail+row.projectId +'?mark=m'+ '\')">'+str+'</a>';
 	}
 
 	

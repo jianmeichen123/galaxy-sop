@@ -14,7 +14,7 @@
         	<span class="size18" id="project_name_t"></span><span class="new_color" id="project_code_t"></span>
         	<span class="b_span"> 
         		<c:choose>
-	        		<c:when test="${mark == 't' }">
+	        		<c:when test="${mark == 't' || mark == 'm' }">
 						<a href="javascript:;" onclick='javascript:history.go(-1)'>返回></a>
 					</c:when>
 					<c:otherwise>
