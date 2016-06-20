@@ -137,7 +137,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                         </table>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="<%=path %>/galaxy/soptask" class="more null none">more</a>
+                    	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
                     </dd>
                 </dl>
               
