@@ -529,7 +529,7 @@ function getProjectInfo(dtd)
 var projectId = <%=projectId%>;
 
 $(function(){
-	createMenus(5);
+// 	createMenus(5);
 	UM.getEditor('editor');
 	UM.getEditor('describe_editor');
 	UM.getEditor('company_editor');
