@@ -11,7 +11,7 @@
 	<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>><span id="project_name_title"></span></div>
     	
     	<div class="new_tit_b">
-        	<span class="new_color size18" id="project_name_t"></span><span class="new_color" id="project_code_t"></span>
+        	<span class="size18" id="project_name_t"></span><span class="new_color" id="project_code_t"></span>
         	<span class="b_span"><a href="javascript:;" onclick='backProjectList()'>返回项目列表></a></span>
         </div>
 </body>

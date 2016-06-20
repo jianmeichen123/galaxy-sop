@@ -126,11 +126,10 @@ function getProjectInfo(dtd)
             </ul>
 
             <!-- 基本信息 -->
-			<div class="tabtable_con tabtable_con_jbxx">
+			<div class="tabtable_con_jbxx">
 				<!-- 默认展示 -->
 				<div class="basic_center">
-					<div class="new_r_compile new_bottom_color">
-						<span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span>
+					<div class="new_r_compile_new">
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name="basic" data-on="data-open">编辑</a>
@@ -156,14 +155,14 @@ function getProjectInfo(dtd)
 						<tr>
 							<td><span class="new_color_gray">行业归属：</span><span class="new_color_black" id="industryOwnDs"></span></td>
 							<td><span class="new_color_gray" >投资经理：</span>
-								<span class="new_color_black" id="createUname"></span><span>(</span><span class="new_color_gray" id="projectCareerline"></span><span>)</span></td>
+								<span class="new_color_black" id="createUname"></span><span class="new_color_gray">(</span><span class="new_color_gray" id="projectCareerline"></span><span class="new_color_gray">)</span></td>
 						</tr>
 						
 					<tr>
 							<td><span class="new_color_gray">融资状态：</span><span class="new_color_black" id="financeStatusDs"></span></td>
 							<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
-							<span>(</span>
-								<span class="new_color_gray" id="projectStatusDs"></span></span><span>)</span><span id="insertImg"></span></td>
+							<span class="new_color_gray">(</span>
+								<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray">)</span><span id="insertImg"></span></td>
 						</tr>
 					
 					</table>
@@ -174,11 +173,11 @@ function getProjectInfo(dtd)
 					</div>
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 						<tr>
-							<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span><span>&nbsp;万元人民币</span></td>
-							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span><span>&nbsp;万元人民币</span></td>
+							<td><span class="new_color_gray">融资金额：</span><span class="new_color_black" id="project_contribution"></span><span class="new_color_black">&nbsp;万元人民币</span></td>
+							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="project_valuations"></span><span class="new_color_black">&nbsp;万元人民币</span></td>
 						</tr>
 						<tr>
-							<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"></span><span>&nbsp;%</span></td>
+							<td><span class="new_color_gray">出让股份：</span><span class="new_color_black" id="project_share_ratio"></span><span class="new_color_black">&nbsp;%</span></td>
 						</tr>
 					</table>
 					
@@ -188,11 +187,11 @@ function getProjectInfo(dtd)
 					</div>
 					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 						<tr>
-							<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution"></span><span>&nbsp;万元人民币</span></td>
-							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations"></span><span>&nbsp;万元人民币</span></td>
+							<td><span class="new_color_gray">投资金额：</span><span class="new_color_black" id="finalContribution"></span><span class="new_color_black">&nbsp;万元人民币</span></td>
+							<td><span class="new_color_gray">项目估值：</span><span class="new_color_black" id="finalValuations"></span><span class="new_color_black">&nbsp;万元人民币</span></td>
 						</tr>
 						<tr>
-							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio"></span><span>&nbsp;%</span></td>
+							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio"></span><span class="new_color_black">&nbsp;%</span></td>
 						</tr>
 					</table>
 				</div>
@@ -232,11 +231,11 @@ function getProjectInfo(dtd)
 				        </div>  
 				       <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>　&nbsp;万元人民币</span></td>
-				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
+				                <td><span class="new_color_gray">融资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20"  id="project_contribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>　&nbsp;万元人民币</span></td>
+				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数,小数点后四位"/>　&nbsp;%</span></td>
+				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
 				            </tr>
 				        </table>
 				        <!--实际投资-->
@@ -246,11 +245,11 @@ function getProjectInfo(dtd)
 				        </div>  
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
-				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
+				                <td><span class="new_color_gray">投资金额：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalContribution_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;　万元人民币</span></td>
+				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数,小数点后四位"/>&nbsp;　%</span></td>
+				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;　%</span></td>
 				     		</tr>
 				        </table>
 				    </div>
@@ -529,7 +528,7 @@ function getProjectInfo(dtd)
 var projectId = <%=projectId%>;
 
 $(function(){
-	createMenus(5);
+// 	createMenus(5);
 	UM.getEditor('editor');
 	UM.getEditor('describe_editor');
 	UM.getEditor('company_editor');
