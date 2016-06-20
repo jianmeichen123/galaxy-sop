@@ -311,7 +311,7 @@
 				<!--按钮-->
 				<div id="options_point4" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a id="add_lxhmeet" href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
-					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark">立项会排期</a>
+					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark">申请立项会排期</a>
 				</div>
 
 				<div id="projectProgress_4_table_custom-toolbar">
@@ -338,7 +338,7 @@
 				<!--按钮-->
 				<div id="options_point7" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a id="add_tjhmeet" href="javascript:;" onclick="addMettingRecord(7,'meetingType:4')"  class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
-					<a id="inSure_btn" href="javascript:;" onclick="inSureMeetingPool()"  class="pubbtn fffbtn lpubbtn option_item_mark">投决会排期</a>
+					<a id="inSure_btn" href="javascript:;" onclick="inSureMeetingPool()"  class="pubbtn fffbtn lpubbtn option_item_mark">申请投决会排期</a>
 				</div>
 
 				<div id="projectProgress_7_table_custom-toolbar">

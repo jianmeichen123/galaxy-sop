@@ -61,8 +61,14 @@ function getTabPerson(){
                       field: 'personName',
                       align: 'left',
                       valign: 'middle',
-                      class:'personName'
+                      'class':'personName'
                   },
+                  {
+                      title: '当前职务',
+                        field: 'personDuties',
+                        align: 'left',
+                        valign: 'middle'
+              },
                   {
                     title: '性别',
                     field: 'personSex',
@@ -84,18 +90,6 @@ function getTabPerson(){
                           align: 'left',
                           valign: 'middle'
                      },
-                     {
-                          title: '当前职务',
-                            field: 'personDuties',
-                            align: 'left',
-                            valign: 'middle'
-                  },
-                  {
-                      title: '电话',
-                        field: 'personTelephone',
-                        align: 'left',
-                        valign: 'middle'
-                  },
                   {
                       title: '最高学历',
                         field: 'highestDegree',
@@ -125,6 +119,12 @@ function getTabPerson(){
                   {
                       title: '工作年限',
                         field: 'workTime',
+                        align: 'left',
+                        valign: 'middle'
+                  },
+                  {
+                      title: '电话',
+                        field: 'personTelephone',
                         align: 'left',
                         valign: 'middle'
                   },

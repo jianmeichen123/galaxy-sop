@@ -23,7 +23,7 @@
 	
     <!--右中部内容-->
  	<div class="ritmin">
-        <h2>模板管理</h2>       
+        <h2>项目模板</h2>       
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
@@ -88,13 +88,13 @@
     <dl class="fmdl clearfix">
     	<dt>所属部门：</dt>
         <dd>
-        	<select name="departmentId" disabled="disabled"></select>
+        	<select name="departmentId" disabled="disabled" class="disabled"></select>
         </dd>
     </dl>
     <div class="fmdl clearfix">
     	<dt>选择档案：</dt>
     	<dd>
-        <input type="text" name="fileName" class="txt disabled" onchange="selectFile(this)" disabled="disabled"/>
+        <input type="text" name="fileName" class="txt" onchange="selectFile(this)" disabled="disabled"/>
     	</dd>
     	<dd>
         <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>

@@ -236,7 +236,7 @@ function getProjectInfo(dtd)
 				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="project_valuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数或小数"/>　&nbsp;%</span></td>
+				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数,小数点后四位"/>　&nbsp;%</span></td>
 				            </tr>
 				        </table>
 				        <!--实际投资-->
@@ -250,7 +250,7 @@ function getProjectInfo(dtd)
 				                <td><span class="new_color_gray">项目估值：</span><span class="new_color_black"><input  class="new_nputr_number" id="finalValuations_edit" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>只能为整数或两位小数点的数字"/>&nbsp;　万元人民币</span></td>
 				            </tr>
 				            <tr>
-				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数或小数"/>&nbsp;　%</span></td>
+				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数,小数点后四位"/>&nbsp;　%</span></td>
 				     		</tr>
 				        </table>
 				    </div>
@@ -386,7 +386,7 @@ function getProjectInfo(dtd)
 			<div class="tabtable_con_on">
 				<div class='analysis_center'>
 					<div class="new_r_compile ">
-						<span class="new_ico_jq"></span> <span class="new_color size16">竞情分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
+						<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
 						<c:if test="${fx:isCreatedByUser('project',projectId)}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>

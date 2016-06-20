@@ -99,7 +99,7 @@
                         <li>
                         	<span class="basic_span">出让股份：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数或小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>请输入0-100的整数,小数点后四位"/>
                             </span>
                             <span class="m_r30">% </span>
                         </li>
