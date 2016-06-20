@@ -1628,11 +1628,11 @@ font-family: "宋体";
 .searchall_prj .show_more a{margin-left: 10px;cursor: pointer;}
 .searchall_prj .searchbox_hidden{display: none;}
 .searchall_prj .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
-.searchall_prj .f4{background-position: right -95px;padding: 0 28px 0 20px; }
-.searchall_prj .f3{background-position: right -40px;padding: 0 28px 0 0px; }
+.searchall_prj .f4{background-position: right -95px;padding: 0 30px 0 20px; }
+.searchall_prj .f3{background-position: right -40px;padding: 0 30px 0 0px; }
 .prj_all table{border-radius: 6px;margin: 10px 0;}
 .prj_all table thead{border-top-right-radius: 6px;}
-.prj_all table th{height:28px;line-height: 28px;text-align: left;padding-left: 5px;background:#f4f6fa url(../img/line.gif) right 4px no-repeat;}
+.prj_all table th{height:28px;line-height: 28px;text-align: left;padding-left: 5px;background:#f4f6fa url(../img/line.gif) right 8px no-repeat;}
 .prj_all table th.noborder{background: #f4f6fa;}
 .prj_all table td{text-align: left;padding-left: 5px;height:38px;}
 .prj_all table td img{margin-top: 12px;margin-right: 3px;}
@@ -1642,6 +1642,7 @@ font-family: "宋体";
 .sort .sortable span{width:8px;height:12px;margin-left:5px;display:inline-block;background:url(../img/sort.png) 0 0 no-repeat;}
 .sort .desc span{background:url(../img/sort.png) 0 -16px no-repeat;}
 .sort .asc span{background:url(../img/sort.png) 0 -32px no-repeat;}
+.ctlist .bars{margin:0 !important;}
 /*团队成员*/
 .edit_profile{background-color: #539be2;border:1px solid #539be2;}
 .member,.stock,.legal{background-color: #fff;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 30px;}
