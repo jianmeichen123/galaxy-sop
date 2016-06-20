@@ -105,7 +105,7 @@
                   </tr>
                 </tbody>
               </table>       <%-- <%=path %>/galaxy/detail/  upp --%>
-            <a href='<%=path %>/galaxy/detail/${projectId}'  class="pjt_more">项目详细信息&gt;</a>
+            <a href='<%=path %>/galaxy/project/detail/${projectId}?mark=t'  class="pjt_more">项目详细信息&gt;</a>
           </div>
           <!-- 下半部分 -->
           <!-- 人事尽职调查报告  hrjzdc;-->
