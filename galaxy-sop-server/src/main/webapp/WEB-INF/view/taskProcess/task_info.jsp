@@ -169,7 +169,7 @@ function getProjectInfo(projectLoaded)
 				}
 				if(self.attr('id') =='projectName'){
 					var str=project[id];
-					alert(str.length);
+					//alert(str.length);
 					if(str.length>15){
 						self.text(str.substring(0,15));
 						self.attr("title",str);
