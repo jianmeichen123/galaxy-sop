@@ -23,7 +23,7 @@ var planGrid = {
 						operator = '上传附件';
 					}
 					return [
-							'<a class="uploadlink blue"  href="javascript:void(0)">'+ operator +'</a>'
+							'<a class="uploadlink blue ico_pgn"  href="javascript:void(0)">'+ operator +'</a>'
 							 ].join('');
 					
 				},

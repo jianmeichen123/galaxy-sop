@@ -132,7 +132,7 @@
 }
 
 .fixed-table-container .bs-checkbox .th-inner {
-    padding: 8px 0;
+        padding: 4px 22px;
 }
 
 .fixed-table-container input[type="radio"],

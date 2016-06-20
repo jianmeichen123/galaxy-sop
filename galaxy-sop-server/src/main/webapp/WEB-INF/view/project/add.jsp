@@ -35,7 +35,7 @@
  	<div class="ritmin">
 		<div class="new_tit_a"><a href="#">工作桌面</a>><a href="#">创投项目</a>>添加项目</div>
         <div class="new_tit_b">
-            <span class="new_color size18">添加项目</span>
+            <span class="size18">添加项目</span>
         </div>
     	
         <div class="new_left">
@@ -49,8 +49,8 @@
                     <ul class="basic_ul">
                     	<li>
                         	<span class="basic_span"><em class="red">*</em>项目类型：</span>
-                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w"><label for="radio_w">外部投资</label></span>
-                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">内部创建</label></span>
+                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:1" id="radio_w"><label for="radio_w">&nbsp;外部投资</label></span>
+                            <span class="m_r30"><input name="projectType" type="radio" value="projectType:2" id="radio_n"><label for="radio_n">&nbsp;内部创建</label></span>
                             <span id="projectTypeTip" class="m_r30" style="display:none;">
                             	<div class="tip-yellowsimple" style="visibility: inherit; left: 413.031px; top: 229px; opacity: 1; width: 101px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>项目类型不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
                             </span>
@@ -111,10 +111,10 @@
                         <span class="new_color size16">商业计划书</span>
                     </div>  
                     <!-- 商业计划书表格-->
-                    <table style="width:80%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
+                    <table style="width:94%;" id="plan_business_table" cellspacing="0" cellpadding="0" class="basic_table">
                     </table>
                     <div class="compile_on_center">
-                       <div class="compile_on_right">
+                       <div class="compile_on_left">
                            <span class="basic_input" onclick="add();">保存</span>
                            <span class="compile_on_right_q" data-name='industry' data-on="close">取消</span>
                        </div>  

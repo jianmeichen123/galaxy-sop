@@ -72,7 +72,7 @@
                -->
             	<div class="tabtable_con">
             		<c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
-					<div id="custom-toolbar">
+					<div id="custom-toolbar" class='none'>
 						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 					</div>
 					
@@ -81,12 +81,12 @@
 						data-page-list="[10,20,30]" data-toolbar="#custom-toolbar">
 						<thead>
 							<tr>
-								<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
-								<th data-field="uname" data-align="center" >操作者</th>
-								<th data-field="operationType" data-align="center">动作</th>
-								<th data-field="operationContent" data-align="center">对象</th>
-								<th data-field="projectName" data-align="center" >项目</th>
-								<th data-field="sopstage" data-align="center" >业务</th>
+								<th data-field="createdTime" data-align="left" data-formatter="longTimeFormat">时间</th>
+								<th data-field="uname" data-align="left" >操作者</th>
+								<th data-field="operationType" data-align="left">动作</th>
+								<th data-field="operationContent" data-align="left">对象</th>
+								<th data-field="projectName" data-align="left" >项目</th>
+								<th data-field="sopstage" data-align="left" >业务</th>
 							</tr>
 						</thead>
 					</table>

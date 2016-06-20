@@ -359,11 +359,17 @@ var fileGrid = {
 		params.fileWorktype = utils.confident(form.search_fileWorktype,"all");
 		params.fileStatus = utils.confident(form.search_fileStatus,"all");
 		var startTime = (new Date(form.file_startDate+' 00:00:00')).getTime();		
-		var endTime = (new Date(form.file_endDate+' 23:59:59')).getTime(); 		
+		var endTime = (new Date(form.file_endDate+' 23:59:59')).getTime(); 	
 		if(startTime > endTime){
 			layer.msg("开始时间不能大于结束时间");
 			return false;
 		}
+		//兼容safari
+		if(form.file_startDate>form.file_endDate){
+			layer.msg("开始时间不能大于结束时间");
+			return false;
+		}
+		
 		params.startTime = startTime;
 		params.endTime = endTime
 		params.pageType = "dialog";
