@@ -40,7 +40,7 @@
             <!-- <a href="javascript:;" class="searchbtn null">搜索</a> -->
         </div>
         <dl class="fmdl clearfix">
-            <dt>会议召开日期：</dt>  <!-- class="form-control"  -->
+            <dt>会议召开时间：</dt>  <!-- class="form-control"  -->
             <dd>
             	<input type="text" class="datetimepickerHour txt time" readonly  id="meetingDateStr" name = "meetingDateStr"  style="height:23px;width:150px;"
             	valType="required" msg="<font color=red>*</font>会议日期不能为空"  />
