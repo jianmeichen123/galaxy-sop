@@ -1684,8 +1684,10 @@ font-family: "宋体";
 .stock .btnbox_f{margin:20px 0 10px 30px;}
 .legal{padding-bottom: 10px;margin-bottom: 10px;}
 .legal .new_table_stock{margin:15px 30px !important;background-color: transparent;}
-.new_table_stock td,.new_table_stock td span{margin:0;}
-.new_table_stock td .th{width: 60px;text-align: right;}
+.new_table_stock td,.new_table_stock td span{}
+.new_table_stock td .th{width: 60px;text-align: right; margin-bottom:5px;}
+.new_table_stock td {line-height:25px;}
+.new_table_stock span{  margin-top: 0px;}
 .legal{height: 125px;}
 .hidden{display: none;z-index:1009;position: absolute;width: 100%;background-color: #fff;height: 125px;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 10px;}
 .hidden td input{width:198px;border:1px solid #d6d8e1;height:22px;font-size: 12px;font-family: "宋体";padding-left:5px;}
