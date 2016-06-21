@@ -163,9 +163,6 @@ function getProjectInfo(dtd)
         <jsp:include page="./includeRight.jsp" flush="true"></jsp:include>
     </div>
 </div>
-<script type="text/javascript">
-console.log("$shar.aclViewProject=${aclViewProject}")
-</script>
 <!--隐藏-->
 <div class="bj_hui_on"></div>
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
