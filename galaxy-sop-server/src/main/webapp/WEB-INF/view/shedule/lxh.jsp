@@ -12,8 +12,8 @@
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <!-- 日期插件 -->
-
 <link rel="stylesheet" type="text/css" media="all" href="<%=path %>/plugins/daterangepicker/daterangepicker.css" />
 
 <!-- jsp文件头和头部 -->
@@ -93,7 +93,7 @@
 				    	<th data-field="meetingDate" data-align="center" class="data-input" data-formatter="meetingDateFormat" data-sortable="true" data-sortorder="desc">上次过会时间<span class="caret1"></span></th>
 				    	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
 				    	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
-				    	<th data-field="meetingRate" data-align="center" class="data-input" data-formatter="rateFormatter" data-sortable="true" data-sortOrder="desc">过会率<span class="caret1"></span></th>
+				    	<th data-field="meetingRate" data-align="center" class="data-input" data-formatter="rateFormatter" data-sortable="true" data-sortOrder="desc">过会率(%)<span class="caret1"></span></th>
 				    	<th data-field="applyTimeStr" data-align="center" class="data-input" data-sortable="true" data-sorter="apply_time" data-sortOrder="asc">申请时间<span class="caret1"></span></th>
 				    	<th data-field="reserveTimeStart" data-align="center" class="data-input" data-formatter="dataFormatter" data-sortable="true" data-sortorder="desc">排期时间<span class="caret1"></span></th>
  					</tr>	
@@ -113,6 +113,7 @@
 <script type="text/javascript" src="<%=path %>/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path %>/plugins/daterangepicker/moment.js"></script>
 <script type="text/javascript" src="<%=path %>/plugins/daterangepicker/daterangepicker-customer.js"></script>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script type="text/javascript">
     var flag =true;
     var roleIdList = '${roleIdList}';
@@ -296,6 +297,10 @@
 	});
 	
 	function confirmSubmit(){
+		$("#view").showLoading(
+				{
+					'addClass': 'loading-indicator'						
+				});
 		var columnValue = $("input[name='reserveTime']");
 		var obj = [];
 		$.each(columnValue, function(i,current){
@@ -326,6 +331,8 @@
 		var result = data.result.status;
 		if(result == "ERROR"){ //OK, ERROR
 			layer.msg(data.result.message);
+		    $("#loading-indicator-view").remove();
+		    $("#loading-indicator-view-overlay").remove();
 			return;
 		}
 	    layer.msg(data.result.message);
