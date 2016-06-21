@@ -31,4 +31,44 @@
         </property>
 	</bean>
 	
+	
+	
+	<bean id="com.galaxyinternet.common.utils.StaticParamService" class="com.galaxyinternet.common.utils.StaticParamService">
+		<property name="roleMessageType">
+			<map>
+			    <entry key="DSZ">
+			       <list>
+						<value>1.1</value>
+						<value>1.2</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="CEO">
+			       <list>
+						<value>1.4</value>
+						<value>1.5</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="DSZ">
+			       <list>
+						<value>1.1</value>
+						<value>1.2</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="HHR">
+			       <list>
+						<value>1.1</value>
+						<value>1.2</value>
+			       </list>
+			    </entry>
+			    
+			</map>
+			
+		</property>
+	</bean>
+	
+	
+	
 </beans>
