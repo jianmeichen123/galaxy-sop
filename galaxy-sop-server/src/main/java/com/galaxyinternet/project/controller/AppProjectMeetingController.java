@@ -129,11 +129,23 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 				MeetingScheduling ms = new MeetingScheduling();
 				ms.setProjectId(meetingRecord.getProjectId());
 				ms.setMeetingType(meetingRecord.getMeetingType());
-				ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
-				List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
+//				ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+				List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);				
 				if(mslist==null || mslist.isEmpty()){
 					responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
 					return responseBody;
+				}else{
+					int scheduleStatus = mslist.get(0).getScheduleStatus().intValue();
+//					String status = mslist.get(0).getStatus();
+							
+					if(scheduleStatus==DictEnum.meetingSheduleResult.已否决.getCode()){
+						responseBody.setResult(new Result(Status.ERROR, "","项目排期结果己否决，不能添加会议记录!"));
+						return responseBody;
+					}
+//					else if (scheduleStatus==DictEnum.meetingSheduleResult.已通过.getCode() && status .equals( DictEnum.meetingResult.通过.getCode() )){
+//						responseBody.setResult(new Result(Status.ERROR, "","项目会议已通过，不能添加会议记录!"));
+//						return responseBody;
+//					}
 				}
 			}			
 			try {
@@ -438,12 +450,9 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 		public String errMessage(Project project,User user,String prograss){
 			if(project == null){
 				return "项目检索为空";
-			}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())||project.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){ //字典 项目状态 = 会议结论 关闭
+			}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())){ //字典 项目状态 = 会议结论 关闭
 				return "项目已经关闭";
-			}else if(project.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){ //字典 项目状态 = 会议结论 关闭
-				return "项目已退出";
 			}
-			
 			if(user != null){
 				if(project.getCreateUid()==null || user.getId().longValue()!=project.getCreateUid().longValue()){ 
 					return "不允许操作他人项目";
