@@ -1378,7 +1378,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_tit_a a ,.new_tit_b a{ text-decoration:none; color:#60a1e3;}
 .new_tit_a a{font-family: "微软雅黑";line-height: 20px;}
 .new_color{ color:#6b799f; margin-left: 10px;}
-.new_color_gray{ color:#999;}
+.new_color_gray{ color:#999;font-family: "宋体";font-size:12px;margin-top:5px;}
 .new_color_black{ color:#333;}
 .size18{ font-size:22px;}
 .size16{ font-size:16px;font-family: "微软雅黑";}
