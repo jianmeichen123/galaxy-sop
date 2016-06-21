@@ -330,11 +330,27 @@
 	    		}
 	        	if(num_size!=''){
 	        		$('.pagination li').removeClass('active');
+	        		if(num_size>5){
+	        			$('.pagination .page-number').eq(0).html('<a href="javascript:void(0)">'+(num_size-4)+'</a>');
+	        			$('.pagination .page-number').eq(1).html('<a href="javascript:void(0)">'+(num_size-3)+'</a>');
+	        			$('.pagination .page-number').eq(2).html('<a href="javascript:void(0)">'+(num_size-2)+'</a>');
+	        			$('.pagination .page-number').eq(3).html('<a href="javascript:void(0)">'+(num_size-1)+'</a>');
+	        			$('.pagination .page-number').eq(4).html('<a href="javascript:void(0)">'+num_size+'</a>');
+	        			
+	        		}
 	        		$('.pagination li').each(function(){
 	        			if($(this).text()==num_size){
 	        				$(this).addClass('active')
 	        			}
 	        		})
+	        		console.log(data)
+	        		if(num_size*data.pageList.pageable.size>data.pageList.total){
+	        			$('.pagination-info').html('显示第 '+((num_size*data.pageList.pageable.size)-(data.pageList.pageable.size-1))+'到第 '+data.pageList.total+' 条记录，总共' +data.pageList.total+'条记录')
+	        		}else{
+	        			$('.pagination-info').html('显示第 '+((num_size*data.pageList.pageable.size)-(data.pageList.pageable.size-1))+'到第 '+num_size*data.pageList.pageable.size+' 条记录，总共' +data.pageList.total+'条记录')
+	        		}
+	        		$('.page-size').html(data.pageList.pageable.size)
+	        		
 	        		num_size='';
 	        	}
 	        }

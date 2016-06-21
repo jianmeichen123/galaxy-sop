@@ -116,7 +116,7 @@ function getProjectInfo(dtd)
             <ul class="tablink">
                 <li><a href="javascript:;" onClick="showTabs(${projectId},0)">基本信息</a></li>
                 <c:choose>
-                <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',projectId) }">
+                <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId) }">
                 <li><a href="javascript:;" onClick="showTabs(${projectId},1)">团队成员</a></li>
                 <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
@@ -141,7 +141,7 @@ function getProjectInfo(dtd)
 			<div data-tab="con"></div>
 			<!-- 股权结构 -->
             <div  data-tab="con" >   
-            	<c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',projectId) }">
+            	<c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId) }">
                 <jsp:include page="/galaxy/project/tabShares">
 		        	<jsp:param value="<%=request.getAttribute(\"projectId\") %>" name="id"/>
 		        </jsp:include>
