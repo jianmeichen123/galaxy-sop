@@ -179,7 +179,6 @@ $(function(){
 		function  display_show(obj){
 			
 			var height=$('#'+obj).outerHeight();
-			alert(height)
 			if(height>100){
 				var str='';
 				str+='<span class="show_more">',
