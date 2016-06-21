@@ -13,6 +13,7 @@
 			float: left;
 			padding:0 10px;
 		}
+#projectProgress_1_table td.noinfo{text-align:center !important;}
 		
 </style>
 <div class="myprojecttc">
