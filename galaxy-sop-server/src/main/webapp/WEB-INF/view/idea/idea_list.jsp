@@ -41,7 +41,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2 style="margin-top:-20px;">全部创意</h2>
+    	<h2 style="margin-top:-20px;">项目创意</h2>
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
@@ -53,6 +53,8 @@
         </div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="custom-toolbar">
+			<input type="hidden" name="property" value="created_time">
+			<input type="hidden" name="direction" value="DESC">
 			<div class="bottom searchall clearfix search_adjust idea_list_searchall">
 				<dl class="fmdl fmdll clearfix">
 					<dt>关键字：</dt>
@@ -138,7 +140,7 @@
 		<div class="fmdl clearfix">
 			<dt style="width:84px;text-align:right;">可行性报告：</dt>
 			<dd>
-				<input type="text" name="fileName" class="txt disabled" />
+				<input type="text" name="fileName" class="txt pointer-events" />
 			</dd>
 			<dd>
 				<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>

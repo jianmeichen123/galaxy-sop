@@ -21,7 +21,7 @@
 	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
     <script src="<%=path %>/js/init.js"></script>
 <%--     <script src="<%=path %>/js/jquery.showLoading.min.js"></script> --%>
-    <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/lib/jquery.poshytip.js"></script>
@@ -37,7 +37,7 @@
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
 	<!--右中部内容-->
  	<div class="ritmin">
-    	<h2>档案管理</h2>
+    	<h2>项目文档</h2>
         <!--页眉-->
         <div class="top clearfix">
         	<!--按钮-->
@@ -52,7 +52,7 @@
               <dt >&nbsp;&nbsp;&nbsp;档案来源：</dt>
               <dd class="clearfix">
 				<!--name="fileSource" -->
-                <label><input type="radio" name="source" value = "all" checked/>不限</label>
+                <label><input type="radio" name="source" value = "all"/>不限</label>
                 <label><input type="radio" name="source" value = "1"/>内部</label>
                 <label><input type="radio" name="source" value = "2"/>外部</label>
             </dd>

@@ -97,16 +97,11 @@ function dateFormatter(val,row,index)
 				return;
 			}
 			idea = data.entity;
+			if(idea.ideaProgress=="ideaProgress:4"||idea.ideaProgress=="ideaProgress:1"){
+				$("#claimantdis").hide();
+			}
 			setGiveUpInfo(data.userData);
 			stockTransfer = idea.stockTransfer;
-			/*var progress = idea.ideaProgress;
-			if('ideaProgress:1' != progress && 'ideaProgress:4'!= progress){
-				$("[data-btn='claim']").hide();
-			}
-			var index=progress.substr("ideaProgress:".length);
-			if(idea.createBySelf!="self" || index>4){
-				$("[data-btn='edith']").hide();
-			}*/
 			$("#IdeaId").val(idea.id);
 			$("#ideaDetail dd")
 			.each(function(){
@@ -682,6 +677,7 @@ function dateFormatter(val,row,index)
 				if(data.result.status == 'OK')
 				{
 					layer.msg("认领成功！");
+					//getIdeaInfo(id)
 					 refreshIdeaList();
 			    	 refreshStageDialog(id);
 				//setTimeout("$('.claimtc').find('[data-close='close']').click();",2000);  
@@ -716,11 +712,20 @@ function ideaLoaded(idea, index) {
 				$("[data-btn='claim']").hide(); //认领
 			}
 		//}
-		
+	} else {
+		$("[data-btn='claim']").hide(); //认领
+	}
+
+	if (idea.createdUid != userId || index > 4) {
+		$("[data-btn='edith']").hide(); //编辑
+	}
+	
+	if(index > 1){
 		sendGetRequest(platformUrl.ideaCheckHistory + "/" + idea.id, null,
 				function(data) {
 					if (data.result.status == "ERROR") {
 						layer.msg(data.result.message);
+						$("[data-btn='history']").hide();
 						return;
 					} else if (data.result.status == "OK") {
 						var canuse = data.result.message;
@@ -729,14 +734,8 @@ function ideaLoaded(idea, index) {
 						}
 					}
 				});
-	} else {
-		$("[data-btn='claim']").hide(); //认领
-		$("[data-btn='history']").hide(); //历史信息
 	}
-
-	if (idea.createdUid != userId || index > 4) {
-		$("[data-btn='edith']").hide(); //编辑
-	}
+	
 	//==== end index = 1 \ 4   
 
 	

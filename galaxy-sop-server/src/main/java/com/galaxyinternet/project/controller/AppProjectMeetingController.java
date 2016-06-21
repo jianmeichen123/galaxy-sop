@@ -129,11 +129,23 @@ public class AppProjectMeetingController extends BaseControllerImpl<Project, Pro
 				MeetingScheduling ms = new MeetingScheduling();
 				ms.setProjectId(meetingRecord.getProjectId());
 				ms.setMeetingType(meetingRecord.getMeetingType());
-				ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
-				List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
+//				ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+				List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);				
 				if(mslist==null || mslist.isEmpty()){
 					responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
 					return responseBody;
+				}else{
+					int scheduleStatus = mslist.get(0).getScheduleStatus().intValue();
+//					String status = mslist.get(0).getStatus();
+							
+					if(scheduleStatus==DictEnum.meetingSheduleResult.已否决.getCode()){
+						responseBody.setResult(new Result(Status.ERROR, "","项目排期结果己否决，不能添加会议记录!"));
+						return responseBody;
+					}
+//					else if (scheduleStatus==DictEnum.meetingSheduleResult.已通过.getCode() && status .equals( DictEnum.meetingResult.通过.getCode() )){
+//						responseBody.setResult(new Result(Status.ERROR, "","项目会议已通过，不能添加会议记录!"));
+//						return responseBody;
+//					}
 				}
 			}			
 			try {

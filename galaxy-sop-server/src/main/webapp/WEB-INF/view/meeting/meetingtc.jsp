@@ -27,7 +27,7 @@
 
 <div class="meetingtc">
 	<div class="top clearfix">
-    	<div class="searchall clearfix">
+    	<div class="searchall clearfix" id="proselect">
             <dl>
             	<dt>项目 :</dt>
                 <dd>
@@ -40,7 +40,7 @@
             <!-- <a href="javascript:;" class="searchbtn null">搜索</a> -->
         </div>
         <dl class="fmdl clearfix">
-            <dt>会议召开日期：</dt>  <!-- class="form-control"  -->
+            <dt>会议召开时间：</dt>  <!-- class="form-control"  -->
             <dd>
             	<input type="text" class="datetimepickerHour txt time" readonly  id="meetingDateStr" name = "meetingDateStr"  style="height:23px;width:150px;"
             	valType="required" msg="<font color=red>*</font>会议日期不能为空"  />
@@ -50,7 +50,7 @@
     <div class="min clearfix">
     	<dl class="fmdl fml clearfix">
             <dt>会议类型：</dt>
-            <dd class="clearfix">
+            <dd class="clearfix" id="meetTypeRadio">
                 <label><input type="radio" name="meetingTypeTc" value="meetingType:1" checked="checked" />内评会</label>
                 <label><input type="radio" name="meetingTypeTc" value="meetingType:2"/>CEO评审</label>
                 <label><input type="radio" name="meetingTypeTc" value="meetingType:3"/>立项会</label>

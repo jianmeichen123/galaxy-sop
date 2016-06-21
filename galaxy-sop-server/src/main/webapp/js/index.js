@@ -168,11 +168,12 @@
 					 '<td>'+ temp.taskType+'</td>'+
 					 '<td>'+ temp.taskName+'</td>'+
 					 '<td>'+ temp.taskStatus+'</td>'+
-					 '<td>'+ temp.projectName+'</td>'+
+					 '<td title="'+ getValue(temp.projectName)+'" class="cutstr">'+ temp.projectName+'</td>'+
 					 '<td>'+ temp.caozuohtml+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
 			  });
+			cutStr(10,'cutstr');
 			if(list.length<3){
 				$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
 			}

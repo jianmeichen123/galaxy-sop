@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.galaxyinternet.bo.IdeaBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
-import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.DictEnum.RecordType;
 import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.dao.idea.AbandonedDao;
@@ -172,7 +172,10 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 				Project project = CollectionUtils.getItem(projects, "id", idea.getProjectId());
 				String projectName = project != null ? project.getProjectName() : "";
 				String projectProgressDesc = project != null ? project.getProgress() : "";
-				String hhrName = CollectionUtils.getItemProp(users, "id", depart.getManagerId(), "realName");
+				String hhrName = null;
+				if(depart != null && depart.getManagerId() != null){
+					hhrName = CollectionUtils.getItemProp(users, "id", depart.getManagerId(), "realName");
+				}
 				idea.setDepartmentDesc(departmentDesc);
 				idea.setCreatedUname(createdUname);
 				idea.setClaimantUname(claimantUname);
@@ -210,20 +213,22 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 		project.setCreatedTime(new Date().getTime());
 		project.setCreateUid(idea.getClaimantUid());
 		project.setCurrencyUnit(0);
+		project.setFinanceStatus(DictEnum.financeStatus.尚未获投.getCode());
 		if(user != null)
 		{
 			project.setCreateUname(user.getRealName());
 		}
 		project.setProjectDepartid(idea.getDepartmentId());
+		project.setIndustryOwn(idea.getDepartmentId());
 		project.setStockTransfer(0);
 		project.setProjectProgress(DictEnum.projectProgress.接触访谈.getCode());
 		project.setProjectType(DictEnum.projectType.内部创建.getCode());
-		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
+		project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 		try 
 		{
 			String projectCode = generateProjectCode(project.getProjectDepartid());
 			project.setProjectCode(projectCode);
-			projectService.newProject(project);
+			projectService.newProject(project, null);
 			idea.setProjectId(project.getId());
 			idea.setIdeaProgress(SopConstant.IDEA_PROGRESS_CJXM);
 			updateById(idea);
@@ -249,7 +254,7 @@ public class IdeaServiceImpl extends BaseServiceImpl<Idea>implements IdeaService
 			result=ideaDao.updateById(idea);
 			if(idea.getIdeaProgress().equals("ideaProgress:4")&&result>=1){
 				Abandoned abandoned=new Abandoned();
-				User user = userService.queryById(idea.getClaimantUid());
+				User user = userService.queryById(idea.getGiveUpId());
 				abandoned.setAbUserid(user!=null?user.getId():0);
 				abandoned.setAbUsername(user!=null?user.getRealName():"");
 				abandoned.setIdeaId(idea.getId());

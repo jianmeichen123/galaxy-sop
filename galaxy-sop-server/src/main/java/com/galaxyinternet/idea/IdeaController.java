@@ -63,7 +63,6 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.AbandonedService;
 import com.galaxyinternet.service.ConfigService;
@@ -241,8 +240,8 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			User user = (User)getUserFromSession(request);
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 			//无权限查看，返回null
-			if(!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
-					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ)){
+			if(roleIdList == null || (!roleIdList.contains(UserConstant.TZJL) && !roleIdList.contains(UserConstant.HHR)
+					&& !roleIdList.contains(UserConstant.CEO) && !roleIdList.contains(UserConstant.DSZ))){
 				resp.setPageList(new Page<Idea>(new ArrayList<Idea>() , pageable, 0l));
 				return resp;
 			}
@@ -425,6 +424,14 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		try {
 			Idea queryById = ideaService.queryById(id);
+			if(queryById.getProjectId()!=null){
+				Project project = projectService.queryById(queryById.getProjectId().longValue());
+				queryById.setProjectName(project.getProjectName());
+			}
+			if(queryById.getClaimantUid()!=null){
+				User us = userService.queryById(queryById.getClaimantUid());
+				queryById.setClaimantUname(us.getRealName());
+			}
 			if(queryById.getCreatedUid().equals(user.getId())){
 				queryById.setCreateBySelf("self");
 			}else{
@@ -466,8 +473,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		UrlNumber urlNum=null;
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
-			idea.setClaimantUid(user.getId());
-			idea.setClaimantUname(user.getRealName());
+			idea.setGiveUpId(user.getId());
 			int queryById = ideaService.updateById(idea);
 		    urlNum=UrlNumber.one;
 			if(queryById<=0){
@@ -837,6 +843,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		if(responseBody !=null){
 			return responseBody;
 		}
+		responseBody = new ResponseData<Idea>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if (user == null) {
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
@@ -844,7 +851,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		}
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 				.getId());
-		responseBody = new ResponseData<Idea>();
+		
 		if(idea.getDepartmentId() == null || idea.getDepartmentId().toString().equals("")){
 			if(RoleUtils.isGaoGuan(roleIdList)){
 				responseBody.setResult(new Result(Status.ERROR,"请选择所属事业线"));
@@ -866,7 +873,7 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 					uNum = UrlNumber.three;
 				}else if(DictEnum.IdeaProgress.CYLXH.getCode().equals(tempIdea.getIdeaProgress())){
 					uNum = UrlNumber.four;
-				}else if(DictEnum.IdeaProgress.CYLGZ.getCode().equals(tempIdea.getIdeaProgress())){
+				}else{
 					uNum = UrlNumber.five;
 				}
 				operatorStr = "修改";
@@ -1326,8 +1333,6 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			
 			Result result = new Result(Status.OK,null,null);
 			try {
-				
-				
 				//Idea  验证
 				Idea idea = ideaService.queryById(ideaid);
 				if(idea == null || idea.getDepartmentId()==null){
@@ -1341,11 +1346,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 						return responseBody;
 					}
 					
-					if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) ){
-						result.setMessage("y");
-					}else if((roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HHR) ) 
-							&& user.getDepartmentId().longValue() == idea.getDepartmentId().longValue()){
+					Abandoned abandoned = new Abandoned();
+					abandoned.setIdeaId(ideaid);
+					Long total = abandonedService.queryCount(abandoned);
+					if(total!=null && total.intValue() > 0){
+						if(roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) ){
 							result.setMessage("y");
+						}else if((roleIdList.contains(UserConstant.TZJL) || roleIdList.contains(UserConstant.HHR) ) 
+								&& user.getDepartmentId().longValue() == idea.getDepartmentId().longValue()){
+								result.setMessage("y");
+						}
 					}else{
 						result.setMessage("n");
 					}

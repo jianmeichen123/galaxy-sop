@@ -2,6 +2,7 @@ package com.galaxyinternet.project.controller;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,12 +108,17 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		this.tempfilePath = tempfilePath;
 	}
 	
+	
+	
 	public String errMessage(Project project,User user,String prograss){
 		if(project == null){
 			return "项目检索为空";
-		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())){ //字典 项目状态 = 会议结论 关闭
+		}else if(project.getProjectStatus().equals(DictEnum.meetingResult.否决.getCode())||project.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){ //字典 项目状态 = 会议结论 关闭
 			return "项目已经关闭";
+		}else if(project.getProjectStatus().equals(DictEnum.projectStatus.YTC.getCode())){ //字典 项目状态 = 会议结论 关闭
+			return "项目已退出";
 		}
+		
 		if(user != null){
 			if(project.getCreateUid()==null || user.getId().longValue()!=project.getCreateUid().longValue()){ 
 				return "不允许操作他人项目";
@@ -515,30 +521,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				}
 			}
 		}*/
-		//已有通过的会议，不能再添加会议纪要
-		mrQuery = new MeetingRecord();
-		mrQuery.setProjectId(meetingRecord.getProjectId());
-		mrQuery.setMeetingType(meetingRecord.getMeetingType());
-		mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-		Long mrCount = meetingRecordService.queryCount(mrQuery);
-		if(mrCount != null && mrCount.longValue() > 0L)
-		{
-			responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
-			return responseBody;
-		}
 		
-		//排期池校验
-		if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
-			MeetingScheduling ms = new MeetingScheduling();
-			ms.setProjectId(meetingRecord.getProjectId());
-			ms.setMeetingType(meetingRecord.getMeetingType());
-			ms.setStatus(DictEnum.meetingResult.待定.getCode());
-			List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
-			if(mslist==null || mslist.isEmpty()){
-				responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
-				return responseBody;
-			}
-		}
 			
 		try {
 			String prograss = "";
@@ -565,6 +548,35 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				responseBody.setResult(new Result(Status.ERROR,null, err));
 				return responseBody;
 			}
+			
+			
+			//已有通过的会议，不能再添加会议纪要
+			mrQuery = new MeetingRecord();
+			mrQuery.setProjectId(meetingRecord.getProjectId());
+			mrQuery.setMeetingType(meetingRecord.getMeetingType());
+			mrQuery.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+			Long mrCount = meetingRecordService.queryCount(mrQuery);
+			if(mrCount != null && mrCount.longValue() > 0L)
+			{
+				responseBody.setResult(new Result(Status.ERROR, "","已有通过的会议，不能再添加会议纪要!"));
+				return responseBody;
+			}
+			
+			//排期池校验
+			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode()) || meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){	
+				MeetingScheduling ms = new MeetingScheduling();
+				ms.setProjectId(meetingRecord.getProjectId());
+				ms.setMeetingType(meetingRecord.getMeetingType());
+				ms.setStatus(DictEnum.meetingResult.待定.getCode());  //排期按钮置为 待定
+				//ms.setScheduleStatus(1);  //秘书排期   2 搁置
+				//ms.setScheduleStatus(0);  //排期池
+				List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
+				if(mslist==null || mslist.isEmpty()){
+					responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
+					return responseBody;
+				}
+			}
+			
 			
 			//保存
 			Long id = null;
@@ -677,7 +689,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				return responseBody;
 			}
 			//RecordType { PROJECT((byte) 0, "项目"), IDEAS((byte) 1, "创意");
-			meetingRecord.setRecordType((byte) (1));
+			//meetingRecord.setRecordType((byte) (1));
 			meetingRecordService.updateById(meetingRecord);
 		    responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(meetingRecord.getId());

@@ -137,7 +137,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                         </table>
                     </dd>
                     <dd class="clearfix">
-                    	<a href="<%=path %>/galaxy/soptask" class="more null none">more</a>
+                    	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
                     </dd>
                 </dl>
               
@@ -156,7 +156,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						<!-- <img src="<%=path%>/img/sy.png" alt=""> -->
 						
 						<dt>
-							<h3 class="ico t2">创意库</h3>
+							<h3 class="ico t2">项目创意</h3>
 						</dt>
 						
 						<dd>
@@ -207,7 +207,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                                 <tr>
                                     <th>序号</th>
                                     <th>更新时间</th>
-                                    <th>操作人</th>
+                                    <th>办理人</th>
                                     <th>消息内容</th>
                                 </tr>
                             </thead>
@@ -221,7 +221,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 </dl>
                 
                 <dl id="dan_k">
-                	<dt><h3 class="ico t5">档案库</h3></dt>
+                	<dt><h3 class="ico t5">项目文档</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0" id="file_gird_index">
                             

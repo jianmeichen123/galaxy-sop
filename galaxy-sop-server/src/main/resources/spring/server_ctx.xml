@@ -40,12 +40,9 @@
 		<constructor-arg index="2" ref="cache" />
 	</bean>
 	
-	<bean id="com.galaxyinternet.timer.init.InitContainer" 
-		class="com.galaxyinternet.timer.init.InitContainer" 
-		init-method="init"></bean>
 		
-	<bean id="com.galaxyinternet.timer.beans.SpringContextManager" 
-		class="com.galaxyinternet.timer.beans.SpringContextManager"
+	<bean id="com.galaxyinternet.common.utils.SpringContextManager" 
+		class="com.galaxyinternet.common.utils.SpringContextManager"
 		scope="singleton"/>
 	
 	
@@ -53,8 +50,10 @@
 	
 	<bean id="galaxyTaskScheduler" class="com.galaxyinternet.scheduling.GalaxyTaskScheduler"/>
 	<task:scheduled-tasks scheduler="galaxyTaskScheduler">
+		<!-- 
 		<task:scheduled ref="testTask" method="execute" cron="*/5 * * * * MON-FRI"/>
 		<task:scheduled ref="testAnnotaionTask" method="execute" cron="*/5 * * * * MON-FRI"/>
+		 -->
 		<task:scheduled ref="meetingPassStageTask" method="execute" cron="0 0 1,4,7 1 * ?"/>
 	</task:scheduled-tasks>  
 	<!--  0 0 1,4,7 1 * ?		

@@ -45,7 +45,7 @@
         </div> -->
         
         <dl class="fmdl clearfix">
-            <dt>会议召开日期：</dt>
+            <dt>会议召开时间：</dt>
             <dd>
                 <input name="projectTime" id="projectTime" type="hidden" value="${timeStr }"/>
             	<input class="datetimepickerHour txt time" style="height:24px;" type="text" id="meeting_date" readonly value="" />

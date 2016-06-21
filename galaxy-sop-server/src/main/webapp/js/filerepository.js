@@ -63,6 +63,13 @@ var fileGrid = {
 		 fileGrid.domid = data._domid;
 		 fileGrid.projectId = data._projectId;
 		 fileGrid.progress = (data._progress.split("_"))[1];
+		 //2016-06-12新追加页面开发
+		 if(!fileGrid.progress){
+			 fileGrid.progress =  (data._progress.split(":"))[1];
+		 }
+		 if(data._callFuc){
+			 fileGrid.callFuc = data._callFuc;
+		 }
 		 searchPanel.initData();
 		 $('#' + data._domid).bootstrapTable({
 			url : platformUrl.searchSopFileList, // 请求后台的URL（*）
@@ -135,6 +142,7 @@ var fileGrid = {
 
 		  
 	},
+	callFuc : undefined,
 	updateFormatter : function(value,row,index){
 		var tempPro;
 		if(typeof(row.projectProgress) != "undefined"){
@@ -164,6 +172,15 @@ var fileGrid = {
 	updateEvents : {
 		//更新文档
 		'click .fileupdatelink' : function(e, value, row, index){
+
+
+			if(!fileGrid.callFuc){
+        		fileGrid.callFuc = function(){
+    				$("#powindow,#popbg").remove();
+    				info(row.projectId);
+    			}
+        	}
+			
         	formData = {
         			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
@@ -174,9 +191,7 @@ var fileGrid = {
         			_projectName : row.projectName,
         			_isProve : "hide",
         			_remark : "hide",
-    				callFuc : function(){
-    					fileGrid.serarchData();
-    				},
+    				callFuc : fileGrid.callFuc,
     				_url : platformUrl.commonUploadFile, //兼容老板插件
     				_localUrl : platformUrl.commonUploadFile
     		};
@@ -203,6 +218,12 @@ var fileGrid = {
         		uploadUrl = platformUrl.commonUploadFile;
         	}
         	
+        	if(!fileGrid.callFuc){
+        		fileGrid.callFuc = function(){
+    				$("#powindow,#popbg").remove();
+    				info(row.projectId);
+    			}
+        	}
         	formData = {
         			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
@@ -213,11 +234,7 @@ var fileGrid = {
         			_projectName : row.projectName,
         			_isProve : "hide",
         			_remark : "hide",
-    				callFuc : function(){
-//    					fileGrid.serarchData();
-    					$("#powindow,#popbg").remove();
-    					info(row.projectId);
-    				},
+    				callFuc : fileGrid.callFuc,
     				_url : platformUrl.stageChange, //兼容老板插件
     				_localUrl : uploadUrl,
     				_getLocalFormParam : uploadFormFuc
@@ -228,6 +245,13 @@ var fileGrid = {
 	operatorVEvents : {
 		//上传签署凭证文档
         'click .voucherfileuploadlink' : function(e, value, row, index){
+        	if(!fileGrid.callFuc){
+        		fileGrid.callFuc = function(){
+    				$("#powindow,#popbg").remove();
+    				info(row.projectId);
+    			}
+        	}
+        	
         	formData = {
         			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
@@ -238,11 +262,7 @@ var fileGrid = {
         			_projectName : row.projectName,
         			_isProve : true,
         			_remark : "hide",
-    				callFuc : function(){
-//    					fileGrid.serarchData();
-    					$("#powindow,#popbg").remove();
-    					info(row.projectId);
-    				},
+    				callFuc : fileGrid.callFuc,
     				_url : platformUrl.stageChange, //兼容老板插件
     				_localUrl : platformUrl.stageChange,
     				_getLocalFormParam : function(dom){
@@ -339,11 +359,17 @@ var fileGrid = {
 		params.fileWorktype = utils.confident(form.search_fileWorktype,"all");
 		params.fileStatus = utils.confident(form.search_fileStatus,"all");
 		var startTime = (new Date(form.file_startDate+' 00:00:00')).getTime();		
-		var endTime = (new Date(form.file_endDate+' 23:59:59')).getTime(); 		
+		var endTime = (new Date(form.file_endDate+' 23:59:59')).getTime(); 	
 		if(startTime > endTime){
 			layer.msg("开始时间不能大于结束时间");
 			return false;
 		}
+		//兼容safari
+		if(form.file_startDate>form.file_endDate){
+			layer.msg("开始时间不能大于结束时间");
+			return false;
+		}
+		
 		params.startTime = startTime;
 		params.endTime = endTime
 		params.pageType = "dialog";
@@ -425,7 +451,7 @@ var utils = {
 		}
 		
 }
-function init(){
-}
-
-$(document).ready(init());
+//function init(){
+//}
+//
+//$(document).ready(init());

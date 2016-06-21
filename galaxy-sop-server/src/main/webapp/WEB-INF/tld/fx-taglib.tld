@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<tlib-version>1.0</tlib-version>
+	<short-name>fx</short-name>
+	
+	<function>
+		<name>hasRole</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>boolean hasRole(java.lang.Long)</function-signature>
+	</function>
+	<function>
+		<name>isCreatedByUser</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>boolean isCreatedByUser(java.lang.String, java.lang.Long)</function-signature>
+	</function>
+	<function>
+		<name>inOwnDepart</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>boolean inOwnDepart(java.lang.String, java.lang.Long)</function-signature>
+	</function>
+</taglib>

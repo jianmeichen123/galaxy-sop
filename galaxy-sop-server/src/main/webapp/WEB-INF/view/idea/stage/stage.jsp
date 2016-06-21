@@ -6,14 +6,14 @@
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 
 <!-- 富文本编辑器 -->
-<link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+<%-- <link id="f" href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <script id="a" src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
-
+ --%>
 <script>
 	$("#f").attr("href",Constants.sopEndpointURL + "/ueditor/themes/default/css/umeditor.css");
 	$("#a").attr("src",Constants.sopEndpointURL + "/js/plupload.full.min.js");
@@ -22,7 +22,7 @@
 	$("#c").attr("src",Constants.sopEndpointURL + "/ueditor/umeditor.config.js");
 	$("#d").attr("src",Constants.sopEndpointURL + "/ueditor/umeditor.min.js");
 	$("#e").attr("src",Constants.sopEndpointURL + "/ueditor/lang/zh-cn/zh-cn.js");
-</script>
+</script> 
 
 <div class="creativetc" >
   <a href="javascript:;" data-close="close" class="close null">关闭</a>
@@ -76,6 +76,11 @@
                       <dt>所属事业线：</dt>
                       <dd id="departmentDesc" class="dw">O2O</dd>
                     </dl>
+                  </dl>
+                     <dl id="claimantdis">
+                      <dt>认领人：</dt>
+                      <dd id="claimantUname" class="dw"  >O2O</dd>
+                    </dl> 
                   </div>
                   <div class="mid clearfix">
                     <dl>
@@ -151,8 +156,8 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="meetInfoFormat" data-width="50%">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<th data-align="center" data-formatter="metcolumnFormat" data-width="50%">会议概况</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
 							<!-- <th data-field="meetingNotes" data-align="center" data-formatter="formatMeetNote">会议纪要</th>  --> 
 						</tr>
 					</thead>

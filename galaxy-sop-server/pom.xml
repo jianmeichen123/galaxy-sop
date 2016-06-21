@@ -113,7 +113,7 @@
 				<jdbc.username>fxuser</jdbc.username>
 				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
 				<!-- 本地项目地址 -->
-				<log4j.path>${catalina.base}/logs/</log4j.path>
+				<log4j.path>D:/logs/</log4j.path>
 				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
@@ -500,6 +500,12 @@
 			<groupId>com.github.sgroschupf</groupId>
 			<artifactId>zkclient</artifactId>
 			<version>0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<version>2.1</version>
+			<scope>provided</scope>
 		</dependency>
 		<!-- dubbo 服务注册方式 end -->
 	</dependencies>

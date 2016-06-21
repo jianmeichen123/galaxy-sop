@@ -76,7 +76,7 @@
 				</dl>
 				<dl>
 				    <dd>
-				       <button id="pqcSubmit" type="button" class="bluebtn ico cx" onclick="confirmSubmit();">排期</button>
+				       <button id="pqcSubmit" type="button" class="bluebtn ico pq" onclick="confirmSubmit();">排期</button>
 					</dd>
 				</dl>
 			</div>
@@ -148,9 +148,6 @@
 		var str = index+1;
 		return str;
 	}
-	function projectNameFormatter(value, row, index){
-		return '<a href="#" class="blue" onclick="forwardWithHeader(\'' + platformUrl.projectDetail+row.projectId + '\')">'+row.projectName+'</a>';
-	}
 	function statusFormatter(value, row, index){
 		var status = "待排期";
 		if(value == 1){
@@ -205,6 +202,14 @@
 		}
 		
 	}
+	function projectNameFormatter(value, row, index){
+		var str=row.projectName;
+		if(str.length>12){
+			str = str.substring(0,12);
+		}
+		return '<a href="#" class="blue" onclick="forwardWithHeader(\'' + platformUrl.projectDetail+row.projectId +'?mark=m'+ '\')">'+str+'</a>';
+	}
+
 	
 	tiggerTable1($("#data-table"),10,function(){
 		var options = {

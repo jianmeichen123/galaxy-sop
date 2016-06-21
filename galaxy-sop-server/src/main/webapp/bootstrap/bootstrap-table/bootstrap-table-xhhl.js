@@ -1531,9 +1531,10 @@
         // show no records
         if (!html.length) {
             html.push('<tr class="no-records-found">',
-                sprintf('<td colspan="%s">%s</td>',
+                sprintf('<td colspan="%s" style="text-align:center;color:#aaa;">%s</td>',
                     this.$header.find('th').length, this.options.formatNoMatches()),
                 '</tr>');
+           /* html.push('<div class="no-records-found" style="width:150px;margin:0 auto;">没有找到匹配的记录</div>');*/
         }
 
         this.$body.html(html.join(''));
@@ -1679,6 +1680,34 @@
     			query[name]=val;
     		}
     	});
+    	
+    	if(query.startTime && query.endTime){
+    		var startTime = (new Date(query.startTime+' 00:00:00')).getTime();		
+    		var endTime = (new Date(query.endTime+' 23:59:59')).getTime();
+    		if(startTime > endTime){
+    			layer.msg("开始时间不能大于结束时间");
+    			return false;
+    		}
+    		//兼容safari
+    		if(query.startTime>query.endTime){
+    			layer.msg("开始时间不能大于结束时间");
+    			return false;
+    		}
+    	}
+    	if(query.createdDateFrom && query.createdDateThrough){
+    		var createdDateFrom = (new Date(query.createdDateFrom+' 00:00:00')).getTime();		
+    		var createdDateThrough = (new Date(query.createdDateThrough+' 23:59:59')).getTime();
+    		if(createdDateFrom > createdDateThrough){
+    			layer.msg("开始时间不能大于结束时间");
+    			return false;
+    		}
+    		//兼容safari
+    		if(query.createdDateFrom>query.createdDateThrough){
+    			layer.msg("开始时间不能大于结束时间");
+    			return false;
+    		}
+    	}
+			
     	return query;
     }
     
@@ -1734,6 +1763,9 @@
         
         ///
         var searchQuery =this.getCustomToolbar();
+        if(searchQuery == false || searchQuery == "false"){
+        	return;
+        }
         $.each(searchQuery,function(name,val){
         	params[name]=val;
         });

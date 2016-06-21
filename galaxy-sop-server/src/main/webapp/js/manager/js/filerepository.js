@@ -145,6 +145,11 @@ var fileGrid = {
 			layer.msg("开始时间不能大于结束时间");
 			return false;
 			}
+		//兼容safari
+		if(form.file_startDate>form.file_endDate){
+			layer.msg("开始时间不能大于结束时间");
+			return false;
+		}
 		params.startTime = startTime;
 		params.endTime = endTime;
 		params.pageType = "dialog";

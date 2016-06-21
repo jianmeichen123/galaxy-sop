@@ -37,7 +37,7 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th data-field="meetInfo" data-align="center" data-formatter="meetInfoFormatter">会议概况</th>
+				<th data-field="meetInfo" data-align="center" data-formatter="metcolumnFormat">会议概况</th>
 				<th data-field="meetingNotes" data-align="center" data-formatter="meetNoteFormatter">会议纪要</th>
 			</tr>
 		</thead>
@@ -52,6 +52,7 @@ $(".history-table").bootstrapTable({
 	pagination: true,
     search: false
 });
+/* 
 function meetInfoFormatter(val,row,index)
 {
 	var fileinfo = "";
@@ -65,14 +66,14 @@ function meetInfoFormatter(val,row,index)
 				"</br>会议录音："+fileinfo+
 			"</div>" ;
 	return rc;
-}
+} */
 function meetNoteFormatter(value,row,index){
-	var len = getLength($.trim(value));
+	var len = getLength($.trim(value.replace(/<[^>]+>/g,"")));
 	if(value != ''){
-		var strlog=delHtmlTag(value);
+		var strlog=value.replace(/<[^>]+>/g,"");
 		var strrrr=strlog;
 		if(len>100){
-			var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","").replace("white-space: normal;","");
+			var subValue = $.trim(value.replace(/<[^>]+>/g,"")).substring(0,100);
 			var rc = "<div id=\"log\" style=\"text-align:left;margin-left:20%;\" class=\"text-overflow\" title='"+strrrr+"'>"+subValue+'...'+'</div>';
 			
 			return rc;

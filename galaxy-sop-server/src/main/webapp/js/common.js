@@ -3,10 +3,11 @@
  * jsonStr:json字符串
  * jsonObj:json对象
  */
-function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun) {
-	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun);
+function sendPostRequestBySignJsonStr(reqUrl, jsonStr, callbackFun, TOKEN) {
+	sendPostRequestBySignJsonObj(reqUrl, JSON.parse(jsonStr), callbackFun, TOKEN);
 }
-function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun) {
+function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun, TOKEN) {
+	var b = new Base64();
 	$.ajax({
 		url : reqUrl,
 		type : "POST",
@@ -25,11 +26,16 @@ function sendPostRequestBySignJsonObj(reqUrl, jsonObj, callbackFun) {
 			if(userId){
 				xhr.setRequestHeader("guserId", userId);
 			}
+			if(TOKEN){
+				xhr.setRequestHeader("TOKEN", TOKEN);
+			}
 		},
 		async : false,
 		error : function(request) {},
 		success : function(data) {
-			data = JSON.parse(b.decode(data));
+			if(data){
+				data = JSON.parse(b.decode(data));
+			}
 			if (callbackFun) {
 				callbackFun(data);
 			}
@@ -420,7 +426,7 @@ function getFileTypeByName(fileName)
 	return type;
 }
 
-function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction,indexNum,success) {
+function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,paramsFunction,indexNum,success,_this) {
 	
 
 	
@@ -489,6 +495,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 			UploadProgress: function(up, file) {},
 			//文件上传后， 返回值  赋值,  再ajax 保存入库
 			FileUploaded: function(up, files, rtn) {
+				$(_this.id).hideLoading();
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
@@ -516,13 +523,16 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 			},
 			BeforeUpload:function(up){
 				//表单函数提交
-				
+				$(_this.id).showLoading(
+						 {
+						    'addClass': 'loading-indicator'						
+						 });
 				//alert(JSON.stringify(getSaveCondition()));
 			},
 			Error: function(up, err) {
 				//alert("错误"+err);
 				layer.msg("上传格式等错误,请重新选择文件!");
-				
+				$(_this.id).hideLoading();
 			}
 		}
 	});
@@ -779,7 +789,10 @@ function getMeetCondition(hasProid,projectId,
 
 
 
-//interview table format
+/**
+ * sopinfo  访谈页面
+ * 访谈概况 , 访谈对象-长度控制
+ */
 function intervierInfoFormat(value, row, index){
 	var fileinfo = "" ;
 	var rc = "";
@@ -790,14 +803,14 @@ function intervierInfoFormat(value, row, index){
 	var targetStr = row.viewTarget;
 	var subStr = "";
 	var targerHtml="";
-	if(targetStr.length>6){
-		subStr = targetStr.substring(0,6)+"...";
-		targerHtml = "</br>访谈对象：<span title="+targetStr+">"+subStr+"</span>";
+	if(targetStr.length>8){
+		subStr = targetStr.substring(0,8)+"...";
+		targerHtml = "</br>访谈对象：<label title="+targetStr+">"+subStr+"</label>";
 	}else{
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
 	
-	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
 				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
@@ -807,13 +820,21 @@ function intervierInfoFormat(value, row, index){
 
 
 //meet table format
-function meetInfoFormat(value, row, index){
+function meetProInfoFormat(value, row, index){
+	return row.proName+"</br>"+row.meetingTypeStr;
+}
+
+/**
+ * sopinfo  会议页面
+ * 会议概况
+ */
+function metcolumnFormat(value, row, index){
 	var fileinfo = "";
 	var rc = "";
 	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
-	rc = "<div style=\"text-align:left;margin-left:20%;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
 				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+row.meetingResultStr+
 				"</br>会议录音："+fileinfo+
@@ -821,102 +842,156 @@ function meetInfoFormat(value, row, index){
 	return rc;
 }
 
-
-//interview
-function sublengthFormat(value,row,index){
-	//统一去掉说有标签
-	var delhtmlValue = $.trim((value));
-	var len = getLength($.trim(delhtmlValue));
-	if(len>100){
-		var subValue = delhtmlValue.substring(0,100);
-		var rc = "<div id=\"log\"  class=\"text-overflow\" title='"+value+"'>"+subValue+'...'+'</div>';
-		
-		return rc;
-	}else{
-		return delhtmlValue;
+/*function meetInfoFormat(value, row, index){
+	var fileinfo = "";
+	var rc = "";
+	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
+		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
-}
-//interviewdelHtmlTag
-function formatLog(value,row,index){
-	var subValue="";
-	if(null!=value&&value!=""){
-		subValue = delHtmlTag(value);
+	rc = "<div style=\"text-align:left;margin-left:10%;padding:10px 0;\">"+
+				"会议日期："+row.meetingDateStr+
+				"</br>会议结论："+row.meetingResultStr+
+				"</br>会议录音："+fileinfo+
+			"</div>" ;
+	return rc;
+}*/
+
+
+/**
+ * 格式化富文本，记录中附加详情,不附加 title
+ */	
+function viewNotesFormat(value,row,index){
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		//len = getLength(str);
+		len = str.length;
+	}
+	if(len>120){
+		var subValue =str.substring(0,120); 
+		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+					subValue+ "..."+
+					"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
+				'</div>';
+		return rc;
+	}else {
+		return str+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
 	}
 	
-	 var  len=subValue.length;
-	/*alert(subValue)
-	alert(value)
-	alert(len);*/
-	if(value != ''){
-		var strlog=delHtmlTag(value);
-		var strrrr=strlog;
-		if(len>80){
-			var subValue1 = subValue.substring(0,80);
-			var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+strrrr+"'>"+subValue1+'...'+'</div>';
-			return rc;
-		}else{
-			return strlog;
-		}
-	}
-
 }
-
-
-//富文本截取        //======= 废弃   ====//
-function formatInterview(value,row,index){
-	var str=delHtmlTag($.trim(value))
+function tc_viewNotesFormat(value,row,index){
 	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
 	if(str!="" && typeof(str)!="undefined"){
-		len = getLength(str);
+		len = str.length;
 	}
-	if(value != ''){
-		var strlog=delHtmlTag(value);
-		var strrrr=strlog;
-		if(len>120){
-			// title='"+strrrr+"'
-			var subValue =str.substring(0,120); 
-			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
-			subValue+
-			"..."+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
-		'</div>';
-			return rc;
-		}else {
-			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
-		}
-	}else{
-		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
+	if(len>90){
+		var subValue =str.substring(0,90); 
+		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+					subValue+ "..."+
+					"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
+				'</div>';
+		return rc;
+	}else {
+		return str+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
 	}
+	
 }
 
-function formatInterview_sop(value,row,index){
-	var str=delHtmlTag($.trim(value))
+/**
+ * 格式化富文本，记录中不附加详情,不附加 title
+ */	
+function viewNotesFormat_noinfo(value,row,index){
 	var len=0;
-	if(str!="" && typeof(str)!="undefined"){
-		len = getLength(str);
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
 	}
-	if(value != ''){
-		var strlog=delHtmlTag(value);
-		var strrrr=strlog;
-		if(len>100){
-			// title='"+strrrr+"'
-			var subValue =str.substring(0,100); 
-			var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow\">"+
-			subValue+
-			"..."+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"+    
-		'</div>';
-			return rc;
-		}else {
-			return strlog+"<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>";
-		}
-	}else{
-		return "<a href=\"javascript:;\" class=\"blue option_item_mark\"  onclick=\"showLogdetail("+row.id+")\" >详情<a>"
+	if(str!="" && typeof(str)!="undefined"){
+		len = str.length;
+	}
+	if(len>120){
+		var subValue =str.substring(0,120); 
+		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+					subValue+ "..."+
+				'</div>';
+		return rc;
+	}else {
+		return str;
+	}
+}
+function tc_viewNotesFormat_noinfo(value,row,index){
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		len = str.length;
+	}
+	if(len>90){
+		var subValue =str.substring(0,90); 
+		var rc = "<div id=\"log\" style=\"text-align:left;\" class=\"text-overflow1\">"+
+					subValue+ "..."+
+				'</div>';
+		return rc;
+	}else {
+		return str;
 	}
 }
 
-//meet table format
-function meetProInfoFormat(value, row, index){
-	return row.proName+"</br>"+row.meetingTypeStr;
+/**
+ * 格式化富文本 只附加 title
+ */	
+function formatLog(value,row,index){
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		len = str.length;
+	}
+	
+	if(len>120){
+		var subValue1 = str.substring(0,120);
+		var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+str+"'>" +
+					subValue1+'...' +
+				'</div>';
+		return rc;
+	}else{
+		return str;
+	}
 }
+function tc_formatLog(value,row,index){
+	var len=0;
+	var str= "";
+	if(!(!value)){
+		str=delHtmlTag($.trim(value))
+	}
+	if(str!="" && typeof(str)!="undefined"){
+		len = str.length;
+	}
+	
+	if(len>90){
+		var subValue1 = str.substring(0,90);
+		var rc = "<div id=\"log\" style=\"text-align:left;padding:10px 0;\" class=\"text-overflow1\" title='"+str+"'>" +
+					subValue1+'...' +
+				'</div>';
+		return rc;
+	}else{
+		return str;
+	}
+}
+
+
+
 
 
 //LONG time format
@@ -936,18 +1011,7 @@ function getVal(val,defaultValIfNull)
 }
 
 
-function subLengthFormat(value, row, index){
-	var len = getLength($.trim(value));
-	var valuelog=replaceStr(row.viewNotes);
-	if(len>100){
-		var subValue = $.trim(value).substring(0,100).replace("<p>","").replace("</p>","");
-		//$(this).attr("title",value);
-		var str = "<div class=\"subLength text-overflow\" title='"+valuelog+"'>"+subValue+"..."+"</div>" ;
-		return str;
-	}else{
-		return valuelog;
-	}
-}
+
 
 function replaceStr(str){
 	if(str){
@@ -1039,3 +1103,118 @@ function initTcVal(){
 	$("#btnNotBeUse").html("<a href=\"javascript:;\" class=\"pubbtn fffbtn\" data-close=\"close\">关闭</a>");
 	
 }
+
+/**
+ * 根据parentCode获取数据字典的子项集
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
+function createDictionaryOptions(url, name, selectIndex){
+	sendGetRequest(url,null, function(data){
+		var options = [];
+		$.each(data.entityList, function(i, value){
+			if(selectIndex && i == selectIndex){
+				options.push('<option index="'+i+'" selected="selected" value="'+value.code+'">'+value.name+'</option>');
+			}else{
+				options.push('<option index="'+i+'" value="'+value.code+'">'+value.name+'</option>');
+			}
+		});
+		$('select[name="'+name+'"]').append(options.join(''));
+	});
+}
+
+/**
+ * 查询事业线
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
+function createCareelineOptions(url, name, selectStatus){
+	sendGetRequest(url,null, function(data){
+		var options = [];
+		$.each(data.entityList, function(i, value){
+			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'back="link"' : '') +'>'+value.name+'</option>');
+		});
+		$('select[name="'+name+'"]').append(options.join(''));
+		if(!selectStatus){
+			$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);
+		}
+	});
+}
+
+/**
+ * 根据事业线查询相应的投资经理
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
+function createUserOptions(url, name, mark){
+	sendGetRequest(url, null, function(data){
+		var options = [];
+		if(mark == 1){
+			options.push('<option value="0">全部</option>');
+		}
+		$.each(data.entityList, function(i, value){
+			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'selected="selected"' : '')+'>'+value.realName+'</option>');
+		});
+		if(mark == 1){
+			$('select[name="'+name+'"]').html(options.join(''));
+		}else{
+			$('select[name="'+name+'"]').append(options.join(''));
+		}
+	});
+}
+
+
+var cookieOperator = {
+		paramKey : 'parameter',
+		/*
+		 * 将信息保存到cookie然后提交
+		 * param : 
+		 * 		_paramKey : 参数键 (默认：parameter)
+		 * 		_url : url
+		 * 		_param : 参数值
+		 * 
+		 * */
+		forwardPushCookie : function(formdata){
+			var cookietime = new Date(); 
+			cookietime.setTime(cookietime.getTime() + (60 * 60 * 1000));//coockie保存一小时 
+			if(!formdata._param){
+				layer.msg('参数信息为空');
+				return;
+			}
+			var tempParamKey;
+			if(formdata._paramKey){
+				tempParamKey = formdata._paramKey;
+			}else{
+				tempParamKey = cookieOperator.paramKey;
+			}
+			$.cookie(tempParamKey, JSON.stringify(formdata._param),{expires:cookietime,path:Constants.sopEndpointURL}); 
+			forwardWithHeader(formdata._url);
+		},
+		/*
+		 * 将信息保存到cookie然后提交
+		 * param : 
+		 * 		_paramKey : 参数键 (默认：parameter)
+		 * */
+		pullCookie : function(formdata){
+			var tempParamKey;
+			if(formdata._paramKey){
+				tempParamKey = formdata._paramKey;
+			}else{
+				tempParamKey = cookieOperator.paramKey;
+			}
+			var retStr = $.cookie(tempParamKey);
+			if(retStr == '[object Object]'){
+				$.removeCookie(tempParamKey);
+				return;
+			}
+			if(retStr){
+				$.removeCookie(tempParamKey);
+				return jQuery.parseJSON(retStr);
+			}
+			return;
+			
+		}
+}
+
+
+

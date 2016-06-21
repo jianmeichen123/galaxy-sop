@@ -224,7 +224,7 @@
 						<tr>
 							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
 						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center" data-formatter="formatInterview_sop">访谈日志</th>
+						<th data-field="viewNotes" data-align="center" data-formatter="tc_viewNotesFormat">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
@@ -244,7 +244,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -265,7 +265,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -287,7 +287,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -308,7 +308,7 @@
 					<thead>
 						<tr>
 							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="formatLog">会议纪要</th>
+							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -759,7 +759,7 @@ $(function(){
 		 * 加载项目详情数据
 		 */
 		sendGetRequest(platformUrl.detailProject + id, {}, function(data){
-			hasClosed = (data.entity.projectStatus == 'meetingResult:3');
+			hasClosed = (data.entity.projectStatus == 'meetingResult:3' || data.entity.projectStatus == 'projectStatus:2' || data.entity.projectStatus == 'projectStatus:3');
 			var pp = data.entity.projectProgress;
 			var pNum = pp.substr(pp.length-1,1);
 			var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');

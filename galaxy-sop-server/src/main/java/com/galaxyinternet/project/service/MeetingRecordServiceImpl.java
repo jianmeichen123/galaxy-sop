@@ -106,12 +106,12 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		pro.setId(pid);
 		
 		if(meetingResult.equals(DictEnum.meetingResult.否决.getCode()) ){ //update 项目状态
-			pro.setProjectStatus(DictEnum.meetingResult.否决.getCode()); 
+			pro.setProjectStatus(DictEnum.projectStatus.YFJ.getCode()); 
 			projectDao.updateById(pro);
 			
 		}else if(meetingResult.equals(DictEnum.meetingResult.通过.getCode()) ){ //update 项目进度
 			pro.setProjectProgress(DictEnum.projectProgress.CEO评审.getCode());
-			pro.setProjectStatus(DictEnum.meetingResult.待定.getCode()); 
+			pro.setProjectStatus(DictEnum.projectStatus.GJZ.getCode()); 
 			projectDao.updateById(pro);
 			
 			MeetingScheduling ms = new MeetingScheduling();
@@ -132,13 +132,13 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		pro.setId(pid);
 		
 		if(meetingResult.equals(DictEnum.meetingResult.否决.getCode()) ){ //update 项目状态
-			pro.setProjectStatus(DictEnum.meetingResult.否决.getCode()); 
+			pro.setProjectStatus(DictEnum.projectStatus.YFJ.getCode()); 
 			projectDao.updateById(pro);
 			
 		}else if(meetingResult.equals(DictEnum.meetingResult.通过.getCode()) ){ //update 项目状态
 			//pro.setProjectStatus(DictEnum.meetingResult.通过.getCode()); 
 			pro.setProjectProgress(DictEnum.projectProgress.立项会.getCode());
-			pro.setProjectStatus(DictEnum.meetingResult.待定.getCode()); 
+			pro.setProjectStatus(DictEnum.projectStatus.GJZ.getCode()); 
 			projectDao.updateById(pro);
 			
 			MeetingScheduling ms = new MeetingScheduling();
@@ -163,7 +163,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.待定.getCode())) {
 			//ms.setStatus(DictEnum.meetingResult.待定.getCode());
 			ms.setStatus(DictEnum.meetingResult.通过.getCode());
-			ms.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+			ms.setScheduleStatus(DictEnum.meetingSheduleResult.已通过.getCode());
 		}else if (meetingRecord.getMeetingResult() != null && meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.否决.getCode())) {
 			ms.setStatus(DictEnum.meetingResult.否决.getCode());
 			ms.setScheduleStatus(DictEnum.meetingSheduleResult.已否决.getCode());
@@ -183,13 +183,13 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		
 		if(meetingResult.equals(DictEnum.meetingResult.否决.getCode()) ){ 
 			//update 项目状态
-			pro.setProjectStatus(DictEnum.meetingResult.否决.getCode()); 
+			pro.setProjectStatus(DictEnum.projectStatus.YFJ.getCode()); 
 			projectDao.updateById(pro);
 			
 		}else if(meetingResult.equals(DictEnum.meetingResult.通过.getCode()) ){
 			//update 项目进度
 			pro.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
-			pro.setProjectStatus(DictEnum.meetingResult.待定.getCode()); 
+			pro.setProjectStatus(DictEnum.projectStatus.GJZ.getCode()); 
 			projectDao.updateById(pro);
 
 			//投资意向书  任务生成
@@ -216,13 +216,13 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		
 		if(meetingResult.equals(DictEnum.meetingResult.否决.getCode()) ){
 			//update 项目状态
-			pro.setProjectStatus(DictEnum.meetingResult.否决.getCode()); 
+			pro.setProjectStatus(DictEnum.projectStatus.YFJ.getCode()); 
 			projectDao.updateById(pro);
 			
 		}else if(meetingResult.equals(DictEnum.meetingResult.通过.getCode()) ){ 
 			//update 项目进度
 			pro.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
-			pro.setProjectStatus(DictEnum.meetingResult.待定.getCode()); 
+			pro.setProjectStatus(DictEnum.projectStatus.GJZ.getCode()); 
 			projectDao.updateById(pro);
 			
 			//投资协议  任务生成
@@ -374,7 +374,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	@Transactional
 	public void upTermSheetSign(Project project,Long userid,Long departid){
 		project.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
-		project.setProjectStatus(DictEnum.meetingResult.待定.getCode());
+		project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 		projectDao.updateById(project);
 		
 		//业务dd  任务生成

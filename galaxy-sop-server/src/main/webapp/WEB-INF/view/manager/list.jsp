@@ -192,7 +192,7 @@ function setCheckLine(data){
 				 * 加载项目详情数据
 				 */
 				sendGetRequest(platformUrl.detailProject + id, {}, function(data){
-					hasClosed = (data.entity.projectStatus == 'meetingResult:3');
+					hasClosed = ( data.entity.projectStatus == 'meetingResult:3' ||data.entity.projectStatus == 'projectStatus:2' || data.entity.projectStatus == 'projectStatus:3');
 					var pp = data.entity.projectProgress;
 					var pNum = pp.substr(pp.length-1,1);
 					var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');
@@ -637,7 +637,7 @@ function setCheckLine(data){
 				"</div>" ;
 		return rc;
 	}
-		
+	/* 	
 	function metcolumnFormat(value, row, index){
 		var fileinfo = "";
 		var rc = "";
@@ -650,7 +650,7 @@ function setCheckLine(data){
 					"</br>会议录音："+fileinfo+
 				"</div>" ;
 		return rc;
-	}
+	} */
 	
 	
 	function downFile(id){

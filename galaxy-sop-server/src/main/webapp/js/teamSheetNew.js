@@ -121,6 +121,10 @@
 									//上传按钮点击事件开始上传
 									$(_this.id).find("#win_uploadBtn").click(function(){
 										//alert("上传保存事件并关闭弹出框");
+										if(uploader.files.length < 1){
+											layer.msg("请选择文件");
+											return;
+										}
 										uploader.start();
 										return false;
 									})
@@ -422,13 +426,15 @@
 						var i =1;
 						var ids = new Array();
 						$.each(rows,function(){
-							var $tr=$("<tr></tr>");
-							$tr.append("<td>"+ i +"</td>");
-							$tr.append("<td>"+ this.fWorktype +"</td>");
-							$tr.append("<td>"+ getFileSize(this.fileLength) +"</td>");
-							$(_dialog.id).find("#attach-table tbody").append($tr);
-							ids.push(this.id);
-							i++;
+							if(this.fileLength){
+								var $tr=$("<tr></tr>");
+								$tr.append("<td>"+ i +"</td>");
+								$tr.append("<td>"+ this.fWorktype +"</td>");
+								$tr.append("<td>"+ getFileSize(this.fileLength) +"</td>");
+								$(_dialog.id).find("#attach-table tbody").append($tr);
+								ids.push(this.id);
+								i++;
+							}	
 						});
 						
 						$(_dialog.id).find("#send-mail-btn").click(function(){
@@ -460,12 +466,7 @@
 						});
 					}
 				});
-				
-				
-				
-				
-							
-				
+	
 			},
 			callFuc : function(){
 				
