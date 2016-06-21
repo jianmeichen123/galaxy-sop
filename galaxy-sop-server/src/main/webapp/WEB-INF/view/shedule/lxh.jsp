@@ -331,6 +331,8 @@
 		var result = data.result.status;
 		if(result == "ERROR"){ //OK, ERROR
 			layer.msg(data.result.message);
+		    $("#loading-indicator-view").remove();
+		    $("#loading-indicator-view-overlay").remove();
 			return;
 		}
 	    layer.msg(data.result.message);
