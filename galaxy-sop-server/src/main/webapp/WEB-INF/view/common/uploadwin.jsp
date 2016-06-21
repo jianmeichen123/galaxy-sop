@@ -61,7 +61,7 @@
 <!-- 		<div  id="filelist"></div> -->
 <!-- 		<div  id="console"></div> -->
 <!--     </div> -->
-    <a href="javascript:;" class="pubbtn bluebtn" id="win_uploadBtn">上传保存</a>
+    <a href="javascript:;" class="pubbtn bluebtn" id="win_uploadBtn" style="margin-left:80px;">上传保存</a>
 <%--     <input type="hidden" id="pathInput" value="<%=path%>"> --%>
 	</div>
 </div>
