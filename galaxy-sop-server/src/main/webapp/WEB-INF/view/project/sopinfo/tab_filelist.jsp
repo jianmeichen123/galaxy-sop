@@ -40,10 +40,10 @@
         <div class="new_left">
         	<div class="tabtable assessment label_static">
           	<!-- tab标签 -->
-            <ul class="tablink">
+            <ul class="tablink tablinks">
                 <li><a href="javascript:;" onclick="showTabs(${projectId},0)">基本信息</a></li>
                 <c:choose>
-	            <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:hasRole(18)||fx:hasRole(19)||fx:isCreatedByUser('project',projectId) }">
+	            <c:when test="${aclViewProject==true}">
                 <li><a href="javascript:;" onClick="showTabs(${projectId},1)" >团队成员</a></li>
                 <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
@@ -63,7 +63,7 @@
             </ul>
             <!-- 档案库信息 -->
             <div id="file_repository">
-            	<c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId) }">
+            	<c:if test="${aclViewProject==true}">
             	<form id = 'file_repository_search_form'>
             	<div class="member document">
                     <!-- 搜索条件 -->

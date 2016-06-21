@@ -355,6 +355,7 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 		}
 		request.setAttribute("flag", flag);
 		request.setAttribute("pid", id);
+		request.setAttribute("projectId", id);
 		return "project/sopinfo/tab_person";
 	}
 	

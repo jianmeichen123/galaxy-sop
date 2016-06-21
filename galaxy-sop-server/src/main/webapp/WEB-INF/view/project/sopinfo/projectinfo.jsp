@@ -103,10 +103,10 @@ function getProjectInfo(dtd)
 	<div class="new_left">
        	<div class="tabtable assessment label_static1">
           	<!-- tab标签 -->
-            <ul class="tablink">
+            <ul class="tablink tablinks">
                 <li class="on"><a href="javascript:;" onclick="showTabs(${projectId},0)">基本信息</a></li>
                 <c:choose>
-                <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId) }">
+                <c:when test="${aclViewProject==true }">
                 <li><a href="javascript:;" onClick="showTabs(${projectId},1)" >团队成员</a></li>
                 <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
@@ -274,7 +274,7 @@ function getProjectInfo(dtd)
 			<!--项目概述-->
 			<div class="tabtable_con_on">
 				<div class="project_on">
-                      <div id="describe_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
+                      <div id="describe_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                         <div class="compile_on_center">
                            <div class="compile_on_right">
                                <span class="compile_on_right_b" id="save_describe">保存</span>
@@ -314,7 +314,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='company_on'>
-					<div id="company_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
+					<div id="company_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_location">保存</span>
@@ -341,7 +341,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='portrayal_on'>
-					<div id="portrait_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
+					<div id="portrait_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_portrait">保存</span>
@@ -370,7 +370,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='product_on'>
-					<div id="business_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
+					<div id="business_editor" type="text/plain" class='width_fwb' style=" height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_business">保存</span>
@@ -398,7 +398,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='operation_on'>
-					<div id="operation_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
+					<div id="operation_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_operation">保存</span>
@@ -427,7 +427,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='industry_on'>
-					<div id="industry_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
+					<div id="industry_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_industry">保存</span>
@@ -454,7 +454,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='analysis_on'>
-					<div id="analysis_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
+					<div id="analysis_editor" type="text/plain" class='width_fwb'  style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_analysis">保存</span>
@@ -485,7 +485,7 @@ function getProjectInfo(dtd)
 					</div>
 				</div>
 				<div class='next_financing_on'>
-					<div id="next_financing_editor" type="text/plain" style="min-width:860px;height:200px; "></div>  
+					<script id="next_financing_editor" type="text/plain" class='width_fwb' style="width:100%; height:200px;"></script>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="compile_on_right_b" id="save_next_financing">保存</span>
@@ -556,8 +556,8 @@ $(function(){
 	})
 	
 })
-
-
+var width_fwb=$('.tabtable_con_on').width();
+$('.width_fwb').css('width',(width_fwb-20));
 
 	
 
