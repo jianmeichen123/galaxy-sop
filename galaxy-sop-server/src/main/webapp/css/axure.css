@@ -1175,6 +1175,8 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .resumetc .tabtable label{font-size: 12px;position: relative;margin:0 10px 0 0;padding:0 0 0 20px;line-height: 30px;}
 .resumetc .tabtable label input[type="radio"]{position: absolute;top: 0px;left:5px;}
 .resumetc .tabtable .add,.resumetc .tabtable .addd{width:20px;height:20px;border:0;border-radius: 50%;position: absolute;top:6px;right:8px;color: #fff;font-size: 20px;line-height: 20px;font-weight: bold;}
+.resumetc table th{border-bottom:0;}
+.resumetc select{border:1px solid #dadfe3;border-radius:4px;height:26px;width:90%;}
 /* 搜索弹层 */
 /* 添加日程新的弹窗 */
 .schedule1tc{background-color: #fff;padding: 10px;position: relative;height:400px;}
