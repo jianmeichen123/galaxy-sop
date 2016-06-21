@@ -16,8 +16,8 @@
 		<function-signature>boolean isCreatedByUser(java.lang.String, java.lang.Long)</function-signature>
 	</function>
 	<function>
-		<name>isDepart</name>
+		<name>inOwnDepart</name>
 		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
-		<function-signature>boolean isDepart(java.lang.Long)</function-signature>
+		<function-signature>boolean inOwnDepart(java.lang.String, java.lang.Long)</function-signature>
 	</function>
 </taglib>

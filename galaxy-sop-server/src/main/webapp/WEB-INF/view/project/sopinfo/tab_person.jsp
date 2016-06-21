@@ -49,7 +49,7 @@
 	            <ul class="tablink">
 	             	<li><a href="javascript:;" onclick="showTabs(${pid},0)">基本信息</a></li>
 	             	<c:choose>
-	             	<c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',pid) }">
+	             	<c:when test="${aclViewProject==true}">
 	                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},1)">团队成员</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
@@ -67,7 +67,7 @@
 	                </c:otherwise>
 	             	</c:choose>
 	            </ul>
-	            <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',pid) }">
+	            <c:if test="${aclViewProject==true}">
 				<div class="member">
 					<c:if test="${fx:isCreatedByUser('project',pid) }">
 				      <div class="top clearfix">
