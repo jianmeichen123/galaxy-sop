@@ -12,8 +12,8 @@
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <!-- 日期插件 -->
-
 <link rel="stylesheet" type="text/css" media="all" href="<%=path %>/plugins/daterangepicker/daterangepicker.css" />
 
 <!-- jsp文件头和头部 -->
@@ -113,6 +113,7 @@
 <script type="text/javascript" src="<%=path %>/plugins/bootstrap-3.3.2/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path %>/plugins/daterangepicker/moment.js"></script>
 <script type="text/javascript" src="<%=path %>/plugins/daterangepicker/daterangepicker-customer.js"></script>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script type="text/javascript">
     var flag =true;
     var roleIdList = '${roleIdList}';
@@ -296,6 +297,10 @@
 	});
 	
 	function confirmSubmit(){
+		$("#view").showLoading(
+				{
+					'addClass': 'loading-indicator'						
+				});
 		var columnValue = $("input[name='reserveTime']");
 		var obj = [];
 		$.each(columnValue, function(i,current){
