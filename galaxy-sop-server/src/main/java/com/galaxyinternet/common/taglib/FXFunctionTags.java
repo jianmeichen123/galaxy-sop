@@ -31,6 +31,26 @@ public class FXFunctionTags
 		}
 		return false;
 	}
+	public static boolean inOwnDepart(String recordType, Long id)
+	{
+		User user = WebUtils.getUserFromSession();
+		if(user != null && recordType != null && id != null)
+		{
+			if(recordType.equalsIgnoreCase("project"))
+			{
+				ProjectService projectService = WebUtils.getBean(ProjectService.class);
+				if(projectService != null)
+				{
+					Project project = projectService.queryById(id);
+					if(project != null && project.getProjectDepartid() != null)
+					{
+						return project.getProjectDepartid().equals(user.getDepartmentId());
+					}
+				}
+			}
+		}
+		return false;
+	}
 	
 	public static boolean isDepart(Long depId)
 	{

@@ -9,6 +9,7 @@ a:hover{ text-decoration:underline}
 li{ display:block; list-style:none}
 textarea{resize: none;outline: none}
 input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
+.pointer-events{pointer-events: none;}
 /*clearfix-浮动清理*/
 .clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden }
 .clearfix { display:inline-block }
@@ -82,7 +83,6 @@ table .width_gd{width:12%;}
 .pull-left {float: left !important;}
 .btn {
   display: inline-block;
-  padding: 2px 4px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: normal;
@@ -1175,6 +1175,8 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .resumetc .tabtable label{font-size: 12px;position: relative;margin:0 10px 0 0;padding:0 0 0 20px;line-height: 30px;}
 .resumetc .tabtable label input[type="radio"]{position: absolute;top: 0px;left:5px;}
 .resumetc .tabtable .add,.resumetc .tabtable .addd{width:20px;height:20px;border:0;border-radius: 50%;position: absolute;top:6px;right:8px;color: #fff;font-size: 20px;line-height: 20px;font-weight: bold;}
+.resumetc table th{border-bottom:0;}
+.resumetc select{border:1px solid #dadfe3;border-radius:4px;height:26px;width:90%;}
 /* 搜索弹层 */
 /* 添加日程新的弹窗 */
 .schedule1tc{background-color: #fff;padding: 10px;position: relative;height:400px;}
@@ -1265,7 +1267,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 /* 编辑创意基本信息 */
 .creative_edit dt{width:90px;text-align:right;}
 .creative_edit dd input{width:200px !important;}
-.creative_edit .box{width:190px;margin:0 auto;}
+.creative_edit .box{width:190px;margin:0 100px;}
 .creative_edit .box a{display:inline-block;}
 .creative_edit .fmdl textarea{width:520px ;height:100px ;}
 
@@ -1384,7 +1386,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_tit_b span{ display:block; margin-right:10px; float:left; line-height:60px; height:60px;}
 .new_tit_b .b_span{ float:right; margin-right:30%;}
 .new_left{ width:75%; float:left; }
-.tablink li {
+.tablinks li {
     float: left;
     padding: 0 7px;
     margin: 0 4px 0 0;
@@ -1394,11 +1396,11 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     border-radius: 4px 4px 0 0;
     cursor: pointer;
 }
-.tablink li a{ color: #f9f9fb;}
-.assessment .tablink .no {
+.tablinks li a{ color: #f9f9fb;}
+.assessment .tablinks .no {
     background: #d6d8e1;
 }
-.assessment .tablink .no a{ color:#9ea1ad}
+.assessment .tablinks .no a{ color:#9ea1ad}
 .new_table{ margin-top:10px;}
 .new_table td{ border:0}
 .new_table .on td{ background-color:transparent;}
@@ -1629,16 +1631,17 @@ font-family: "宋体";
 .searchall_prj .searchall_top,.searchall_prj .searchall_bottom{padding:0 20px;overflow: hidden;width:940px;}
 .searchall_prj .searchall_top{margin-bottom: 10px;display: none;}
 .searchall_prj .fmdl{margin-right: 30px;}
+.searchall_prj .fmdl select{box-sizing: border-box; height:30px;}
 .searchall_prj dt{width:75px;text-align: right;font-size: 14px;color:#3e4351;}
 .searchall_prj dd,.searchall_prj dd select{width:110px;}
 .searchall_prj dd select{border:1px solid #ccd2d7;}
-.searchall_prj .txt{width:165px;height:28px;line-height: 28px;border:1px solid #ccd2d7;border-radius: 4px;font-size: 12px;padding-left: 5px;margin-left: 85px;}
+.searchall_prj .txt{width:165px;height:30px; float: left; line-height: 30px;box-sizing: border-box; border:1px solid #ccd2d7;border-radius: 4px;font-size: 12px;padding-left: 5px;margin-left: 85px;}
 .searchall_prj button{display: inline-block;}
 .searchall_prj .bluebtn{height:28px;background-color: #66b1f2;margin-left: 5px;}
 .cx_prj{height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -180px;padding:0 8px 0 30px;}
 .searchall_prj .reset{width:60px;}
-.searchall_prj .btn{margin-right: 35px;}
-.searchall_prj .show_more{position: absolute;right:20px;top:20px;}
+.searchall_prj .btn{margin-left: 35px; float: left;}
+.searchall_prj .show_more{position: absolute;right:20px;top:15px;}
 .searchall_prj .show_more a{margin-left: 10px;cursor: pointer;}
 .searchall_prj .searchbox_hidden{display: none;}
 .searchall_prj .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
@@ -1682,8 +1685,10 @@ font-family: "宋体";
 .stock .btnbox_f{margin:20px 0 10px 30px;}
 .legal{padding-bottom: 10px;margin-bottom: 10px;}
 .legal .new_table_stock{margin:15px 30px !important;background-color: transparent;}
-.new_table_stock td,.new_table_stock td span{margin:0;}
-.new_table_stock td .th{width: 60px;text-align: right;}
+.new_table_stock td,.new_table_stock td span{}
+.new_table_stock td .th{width: 60px;text-align: right; margin-bottom:5px;}
+.new_table_stock td {line-height:25px;}
+.new_table_stock span{  margin-top: 0px;}
 .legal{height: 125px;}
 .hidden{display: none;z-index:1009;position: absolute;width: 100%;background-color: #fff;height: 125px;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 10px;}
 .hidden td input{width:198px;border:1px solid #d6d8e1;height:22px;font-size: 12px;font-family: "宋体";padding-left:5px;}

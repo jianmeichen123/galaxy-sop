@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <!doctype html>
 <html>
 <head>
@@ -14,7 +15,7 @@
         	<span class="size18" id="project_name_t"></span><span class="new_color" id="project_code_t"></span>
         	<span class="b_span"> 
         		<c:choose>
-	        		<c:when test="${mark == 't' }">
+	        		<c:when test="${mark == 't' || mark == 'm' }">
 						<a href="javascript:;" onclick='javascript:history.go(-1)'>返回></a>
 					</c:when>
 					<c:otherwise>
@@ -24,7 +25,7 @@
 			</span>
         </div>
 </body>
-
+<c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <script>
 var pid='${pid}';
 if(null==pid||typeof(pid)=="underfind"||pid==""){
