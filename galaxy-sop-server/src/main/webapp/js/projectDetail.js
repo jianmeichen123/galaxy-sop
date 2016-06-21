@@ -20,9 +20,9 @@ $(function(){
 		$("#projectProgress").text(projectInfo.progress);
 		$("#projectStatusDs").text(projectInfo.projectStatusDs);
 		$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
-		$("#finalValuations").text(projectInfo.finalValuations==0?"--":projectInfo.finalValuations);
-		$("#finalContribution").text(projectInfo.finalContribution==0?"--":projectInfo.finalContribution);
-		$("#finalShareRatio").text(projectInfo.finalShareRatio==0?"--":projectInfo.finalShareRatio);
+		$("#finalValuations").text(projectInfo.finalValuations==0||typeof(projectInfo.finalValuations)=="undefined"?"--":projectInfo.finalValuations);
+		$("#finalContribution").text(projectInfo.finalContribution==0||typeof(projectInfo.finalContribution)?"--":projectInfo.finalContribution);
+		$("#finalShareRatio").text(projectInfo.finalShareRatio==0||typeof(projectInfo.finalShareRatio)?"--":projectInfo.finalShareRatio);
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
