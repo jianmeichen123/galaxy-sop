@@ -1777,6 +1777,7 @@ font-family: "宋体";
   background-color: #fff;
   width: 100%;
   margin-top: 10px;
+  overflow:hidden;
   height: 290px;
 }
 /*左侧导航icon*/
