@@ -135,8 +135,8 @@ $(function(){
 	
 	$('#project_info_log').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
-		pageSize:5,
-		pageList : [5, 10, 20 ],
+		pageSize:10,
+		pageList : [10, 20, 30 ],
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
