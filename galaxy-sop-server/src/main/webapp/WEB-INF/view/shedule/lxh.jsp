@@ -148,9 +148,6 @@
 		var str = index+1;
 		return str;
 	}
-	function projectNameFormatter(value, row, index){
-		return '<a href="#" class="blue" onclick="forwardWithHeader(\'' + platformUrl.projectDetail+row.projectId + '\')">'+row.projectName+'</a>';
-	}
 	function statusFormatter(value, row, index){
 		var status = "待排期";
 		if(value == 1){

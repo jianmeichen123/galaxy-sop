@@ -30,7 +30,7 @@ if(null != user) {
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
 %>
 
-<!-- 这里写js和css文件---------start -->
+<!-- 这里写js和css文件 start -->
 <script src="<%=request.getContextPath() %>/js/fx_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-1.12.2.min.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/jquery.cookie.js"></script>
