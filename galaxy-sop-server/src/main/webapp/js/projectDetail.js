@@ -336,7 +336,7 @@ function saveSuccess(){
  */
 $("#save_describe").click(function(){
 	var um = UM.getEditor('describe_editor');
-	var projectDescribe = um.getContent();
+	var projectDescribe = um.getContentTxt();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess());
 	}
