@@ -179,6 +179,7 @@ $(function(){
 		function  display_show(obj){
 			
 			var height=$('#'+obj).outerHeight();
+			alert(height)
 			if(height>100){
 				var str='';
 				str+='<span class="show_more">',
@@ -346,7 +347,7 @@ $("#save_describe").click(function(){
  */
 $("#save_location").click(function(){
 	var um = UM.getEditor('company_editor');
-	var companyLocation = um.getContent();
+	var companyLocation = um.getContentTxt();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "companyLocation" : companyLocation}, saveSuccess());
 	}
@@ -356,7 +357,7 @@ $("#save_location").click(function(){
  */
 $("#save_portrait").click(function(){
 	var um = UM.getEditor('portrait_editor');
-	var userPortrait = um.getContent();
+	var userPortrait = um.getContentTxt();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
 	}
@@ -366,7 +367,7 @@ $("#save_portrait").click(function(){
  */
 $("#save_business").click(function(){
 	var um = UM.getEditor('business_editor');
-	var projectBusinessModel = um.getContent();
+	var projectBusinessModel = um.getContentTxt();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveSuccess());
 	}
@@ -376,7 +377,7 @@ $("#save_business").click(function(){
  */
 $("#save_operation").click(function(){
 	var um = UM.getEditor('operation_editor');
-	var operationalData = um.getContent();
+	var operationalData = um.getContentTxt();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "operationalData" : operationalData}, saveSuccess());
 	}
@@ -387,7 +388,7 @@ $("#save_operation").click(function(){
  */
 $("#save_industry").click(function(){
 	var um = UM.getEditor('industry_editor');
-	var industryAnalysis = um.getContent();
+	var industryAnalysis = um.getContentTxt();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "industryAnalysis" : industryAnalysis}, saveSuccess());
 	}
@@ -398,7 +399,7 @@ $("#save_industry").click(function(){
  */
 $("#save_analysis").click(function(){
 	var um = UM.getEditor('analysis_editor');
-	var prospectAnalysis = um.getContent();
+	var prospectAnalysis = um.getContentTxt();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "prospectAnalysis" : prospectAnalysis}, saveSuccess());
 	}
@@ -408,7 +409,7 @@ $("#save_analysis").click(function(){
  */
 $("#save_next_financing").click(function(){
 	var um = UM.getEditor('next_financing_editor');
-	var nextFinancingSource = um.getContent();
+	var nextFinancingSource = um.getContentTxt();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveSuccess());
 	}
