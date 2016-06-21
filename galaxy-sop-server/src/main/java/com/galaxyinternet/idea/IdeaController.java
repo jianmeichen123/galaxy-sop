@@ -473,6 +473,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		UrlNumber urlNum=null;
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
+			Idea queryIdea = ideaService.queryById(idea.getId());
+			if(queryIdea !=null && queryIdea.getIdeaProgress()!=null){
+				if(queryIdea.getIdeaProgress().equals(SopConstant.IDEA_PROGRESS_GZ)){
+					responseBody.setResult(new Result(Status.ERROR, null, "操作过期"));
+					return responseBody;
+				}
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, null, "创意信息错误"));
+				return responseBody;
+			}
 			idea.setGiveUpId(user.getId());
 			int queryById = ideaService.updateById(idea);
 		    urlNum=UrlNumber.one;
@@ -508,6 +518,17 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 		UrlNumber urlNum=null;
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
+			Idea queryIdea = ideaService.queryById(idea.getId());
+			if(queryIdea !=null && queryIdea.getIdeaProgress()!=null){
+				if(!(queryIdea.getIdeaProgress().equals(SopConstant.IDEA_PROGRESS_DRL) || queryIdea.getIdeaProgress().equals(SopConstant.IDEA_PROGRESS_GZ))){
+					responseBody.setResult(new Result(Status.ERROR, null, "操作过期"));
+					return responseBody;
+				}
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, null, "创意信息错误"));
+				return responseBody;
+			}
+			
 			idea.setClaimantUid(user.getId());
 			idea.setClaimantUname(user.getRealName());
 			int queryById = ideaService.updateById(idea);
