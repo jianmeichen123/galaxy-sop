@@ -140,7 +140,7 @@
 		<div class="fmdl clearfix">
 			<dt style="width:84px;text-align:right;">可行性报告：</dt>
 			<dd>
-				<input type="text" name="fileName" class="txt disabled" />
+				<input type="text" name="fileName" class="txt pointer-events" />
 			</dd>
 			<dd>
 				<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a>

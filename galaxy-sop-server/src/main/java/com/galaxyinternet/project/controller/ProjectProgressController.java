@@ -2,6 +2,7 @@ package com.galaxyinternet.project.controller;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -566,11 +567,12 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 				MeetingScheduling ms = new MeetingScheduling();
 				ms.setProjectId(meetingRecord.getProjectId());
 				ms.setMeetingType(meetingRecord.getMeetingType());
-				//ms.setStatus(DictEnum.meetingResult.待定.getCode());
-				ms.setScheduleStatus(1);
+				ms.setStatus(DictEnum.meetingResult.待定.getCode());  //排期按钮置为 待定
+				//ms.setScheduleStatus(1);  //秘书排期   2 搁置
+				//ms.setScheduleStatus(0);  //排期池
 				List<MeetingScheduling> mslist = meetingSchedulingService.queryList(ms);
 				if(mslist==null || mslist.isEmpty()){
-					responseBody.setResult(new Result(Status.ERROR, "","未排期，不能添加会议记录!"));
+					responseBody.setResult(new Result(Status.ERROR, "","未在排期池中，不能添加会议记录!"));
 					return responseBody;
 				}
 			}

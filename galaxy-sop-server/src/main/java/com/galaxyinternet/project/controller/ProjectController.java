@@ -2717,6 +2717,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("pid", pid);
 		request.setAttribute("prograss", proinfo.getProjectProgress());
 		request.setAttribute("pname", proinfo.getProjectName());
+		request.setAttribute("projectId", pid);
 		return "project/sopinfo/tab_operLog";
 	}
 	/**
@@ -2729,6 +2730,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("pid", pid);
 		request.setAttribute("prograss", proinfo.getProjectProgress());
 		request.setAttribute("pname", proinfo.getProjectName());
+		request.setAttribute("projectId", pid);
 		return "project/sopinfo/tab_interview";
 	}
 	/**
@@ -2742,6 +2744,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("pid", pid);
 		request.setAttribute("prograss", proinfo.getProjectProgress());
 		request.setAttribute("pname", proinfo.getProjectName());
+		request.setAttribute("projectId", pid);
 		return "project/sopinfo/tab_meeting";
 	}
 	/**
