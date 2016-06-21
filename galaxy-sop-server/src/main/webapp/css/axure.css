@@ -1175,6 +1175,8 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .resumetc .tabtable label{font-size: 12px;position: relative;margin:0 10px 0 0;padding:0 0 0 20px;line-height: 30px;}
 .resumetc .tabtable label input[type="radio"]{position: absolute;top: 0px;left:5px;}
 .resumetc .tabtable .add,.resumetc .tabtable .addd{width:20px;height:20px;border:0;border-radius: 50%;position: absolute;top:6px;right:8px;color: #fff;font-size: 20px;line-height: 20px;font-weight: bold;}
+.resumetc table th{border-bottom:0;}
+.resumetc select{border:1px solid #dadfe3;border-radius:4px;height:26px;width:90%;}
 /* 搜索弹层 */
 /* 添加日程新的弹窗 */
 .schedule1tc{background-color: #fff;padding: 10px;position: relative;height:400px;}
@@ -1682,8 +1684,10 @@ font-family: "宋体";
 .stock .btnbox_f{margin:20px 0 10px 30px;}
 .legal{padding-bottom: 10px;margin-bottom: 10px;}
 .legal .new_table_stock{margin:15px 30px !important;background-color: transparent;}
-.new_table_stock td,.new_table_stock td span{margin:0;}
-.new_table_stock td .th{width: 60px;text-align: right;}
+.new_table_stock td,.new_table_stock td span{}
+.new_table_stock td .th{width: 60px;text-align: right; margin-bottom:5px;}
+.new_table_stock td {line-height:25px;}
+.new_table_stock span{  margin-top: 0px;}
 .legal{height: 125px;}
 .hidden{display: none;z-index:1009;position: absolute;width: 100%;background-color: #fff;height: 125px;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 10px;}
 .hidden td input{width:198px;border:1px solid #d6d8e1;height:22px;font-size: 12px;font-family: "宋体";padding-left:5px;}

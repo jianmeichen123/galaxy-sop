@@ -106,7 +106,7 @@ function getProjectInfo(dtd)
             <ul class="tablink">
                 <li class="on"><a href="javascript:;" onclick="showTabs(${projectId},0)">基本信息</a></li>
                 <c:choose>
-                <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',projectId) }">
+                <c:when test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId) }">
                 <li><a href="javascript:;" onClick="showTabs(${projectId},1)" >团队成员</a></li>
                 <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
@@ -202,9 +202,9 @@ function getProjectInfo(dtd)
 				            <span class="compile_on_right_b"  data-on="save">保存</span>
 				            <span class="compile_on_right_q" data-name="basic" data-on="close">取消</span>
 				        </div> 
-				        <div class="new_r_compile new_bottom_color">
+				       <!--  <div class="new_r_compile new_bottom_color">
 							<span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span>
-						</div> 
+						</div>  -->
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
 				                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  size="20" id="project_name_edit" valType="required" msg="<font color=red>*</font>项目名称不能为空"></input></span></td>
