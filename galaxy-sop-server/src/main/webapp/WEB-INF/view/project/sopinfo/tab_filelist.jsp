@@ -40,7 +40,7 @@
         <div class="new_left">
         	<div class="tabtable assessment label_static">
           	<!-- tab标签 -->
-            <ul class="tablink">
+            <ul class="tablink tablinks">
                 <li><a href="javascript:;" onclick="showTabs(${projectId},0)">基本信息</a></li>
                 <c:choose>
 	            <c:when test="${aclViewProject==true}">

@@ -103,7 +103,7 @@ function getProjectInfo(dtd)
 	<div class="new_left">
        	<div class="tabtable assessment label_static1">
           	<!-- tab标签 -->
-            <ul class="tablink">
+            <ul class="tablink tablinks">
                 <li class="on"><a href="javascript:;" onclick="showTabs(${projectId},0)">基本信息</a></li>
                 <c:choose>
                 <c:when test="${aclViewProject==true }">

@@ -1386,7 +1386,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_tit_b span{ display:block; margin-right:10px; float:left; line-height:60px; height:60px;}
 .new_tit_b .b_span{ float:right; margin-right:30%;}
 .new_left{ width:75%; float:left; }
-.tablink li {
+.tablinks li {
     float: left;
     padding: 0 7px;
     margin: 0 4px 0 0;
@@ -1396,11 +1396,11 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     border-radius: 4px 4px 0 0;
     cursor: pointer;
 }
-.tablink li a{ color: #f9f9fb;}
-.assessment .tablink .no {
+.tablinks li a{ color: #f9f9fb;}
+.assessment .tablinks .no {
     background: #d6d8e1;
 }
-.assessment .tablink .no a{ color:#9ea1ad}
+.assessment .tablinks .no a{ color:#9ea1ad}
 .new_table{ margin-top:10px;}
 .new_table td{ border:0}
 .new_table .on td{ background-color:transparent;}
