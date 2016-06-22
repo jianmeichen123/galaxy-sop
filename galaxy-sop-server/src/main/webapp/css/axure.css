@@ -1841,4 +1841,5 @@ font-family: "宋体";
 .add_schedule{background:url(../img/no_icon.png) 0 -57px no-repeat;padding-left:15px;float:right;}
 /*无内容样式*/
 .no_info{color:#bbb;border:0;height:160px;}
+.no_info01{height:120px;}
 .no_info_icon{background:url(../img/no_icon.png) 0 -25px no-repeat;display:inline-block;width:155px;height:25px;margin-left:20%;}
