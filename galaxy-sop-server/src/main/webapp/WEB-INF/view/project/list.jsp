@@ -282,6 +282,7 @@
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
 		var num_size='';
+		var page_size;
 		/**
 		 * 初始化项目列表
 		 * @version 2016-06-21
@@ -313,7 +314,9 @@
 		        		param.projectDepartid = tempParam.projectDepartid;
 		        		var options = $("#project-table").bootstrapTable('getOptions');
 		        		num_size =tempParam.pageNum;
+		        		page_size = tempParam.pageSize;
 	 	        		options.pageNumber = tempParam.pageNum - 1;
+	 	        		options.pageSize = tempParam.pageSize;
 	 	        		console.log('options.pageNumber ='+options.pageNumber );
 	 	        		//给搜索表单赋值
 	 	        		$("input[name='nameCodeLike']").val(tempParam.nameCodeLike ? tempParam.nameCodeLike : "");
@@ -349,9 +352,15 @@
 	        		}else{
 	        			$('.pagination-info').html('显示第 '+((num_size*data.pageList.pageable.size)-(data.pageList.pageable.size-1))+'到第 '+num_size*data.pageList.pageable.size+' 条记录，总共' +data.pageList.total+'条记录')
 	        		}
-	        		$('.page-size').html(data.pageList.pageable.size)
+	        		
 	        		
 	        		num_size='';
+	        		if(page_size){
+	        			$('.page-size').html(page_size);
+	        			var options = $("#project-table").bootstrapTable('getOptions');
+	 	        		options.pageSize = page_size;
+	        		}
+	        		
 	        	}
 	        }
 		});
