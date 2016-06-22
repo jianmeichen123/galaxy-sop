@@ -1,10 +1,10 @@
 package com.galaxyinternet.common.utils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 public class StaticParamService {
@@ -23,17 +23,20 @@ public class StaticParamService {
 		
 		Map<Long,List<String>> roleMessageTypeMap = paraService.getRoleMessageType();
 		
-		if(roleMessageTypeMap != null && !roleMessageTypeMap.isEmpty()){
-			Set<String> typeSet = new HashSet<String>();
-			if(roleIdList!=null){
+		if(roleMessageTypeMap != null && !roleMessageTypeMap.isEmpty() && roleIdList!=null){
+			
+			if(roleIdList.size()==1){
+				typelist = roleMessageTypeMap.get(roleIdList.get(0));
+			}else{
+				Set<String> typeSet = new TreeSet<String>();
 				for(Long role:roleIdList){
 					if(roleMessageTypeMap.containsKey(role)){
 						typelist = roleMessageTypeMap.get(role);
 						typeSet.addAll(typelist);
 					}
 				}
+				typelist = new ArrayList<String>(typeSet);
 			}
-			typelist = new ArrayList<String>(typeSet);
 		}
 		
 		return typelist;

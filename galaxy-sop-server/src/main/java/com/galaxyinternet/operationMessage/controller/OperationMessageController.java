@@ -20,7 +20,7 @@ import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.StaticParamService;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -87,13 +87,18 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 		Result result = new Result();
 		try {
 			User user = (User) getUserFromSession(request);
-			if(operationMessageBo.getModule()!=null&&operationMessageBo.getModule() != PlatformConst.MODULE_BROADCAST_MESSAGE.intValue()){
-				operationMessageBo.setBelongUid(user.getId());
-			}
-			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-			List<String> typelist = StaticParamService.getRoleTypeList(roleIdList, staticParamService);
 			
+			/*if(operationMessageBo.getModule()!=null&&operationMessageBo.getModule() != PlatformConst.MODULE_BROADCAST_MESSAGE.intValue()){
+				operationMessageBo.setBelongUid(user.getId());
+			}*/
+			
+			initquery(operationMessageBo,user,roleIdList);
+			
+			List<String> typelist = StaticParamService.getRoleTypeList(roleIdList, staticParamService);
+			if(typelist!=null && !typelist.isEmpty()){
+				operationMessageBo.setMessageTypes(typelist);
+			}
 			
 			Page<OperationMessage> operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
 			responseBody.setPageList(operationMessage);
@@ -114,15 +119,21 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 		ResponseData<OperationMessageBo> responseBody = new ResponseData<OperationMessageBo>();
 		Result result = new Result();
 		try {
+			User user = (User) getUserFromSession(request);
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+			
  			OperationMessageBo operationMessageBo = new OperationMessageBo();
 			Long lastTime = (Long) cache.get(PlatformConst.OPERATIO_NMESSAGE_TIME+getUserId(request));
 			if(lastTime == null){
 				lastTime= DateUtil.getCurrentDate().getTime();
 			}
 			operationMessageBo.setCreatedTimeStart(lastTime);
-			User user = (User) getUserFromSession(request);
-			operationMessageBo.setOperatorId(user.getId());
+			initquery(operationMessageBo,user,roleIdList);
+			
+			/*operationMessageBo.setOperatorId(user.getId());
 			operationMessageBo.setModule(PlatformConst.MODULE_BROADCAST_MESSAGE);//1
+			 */			
+			
 			Long count = operationMessageService.selectCount(operationMessageBo);
 			operationMessageBo.setCount(count);
 			operationMessageBo.setOperatorId(null);
@@ -134,6 +145,36 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 		}
 		return responseBody;
 	}
+	
+	
+	public void initquery(OperationMessageBo operationMessageBo,User user,List<Long> roleIdList){
+		
+		if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)
+				|| roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)){     
+		
+		}else if (roleIdList.contains(UserConstant.HHR)){
+			operationMessageBo.setBelongDepartmentId(user.getDepartmentId());
+		
+		}else if (roleIdList.contains(UserConstant.TZJL)){
+			operationMessageBo.setBelongUid(user.getId());
+		
+		}else if (roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.CWZJ)
+				|| roleIdList.contains(UserConstant.HRJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.CWJL)){
+			
+			operationMessageBo.setRoleId(user.getRoleId());
+			operationMessageBo.setBelongUid(user.getId());
+			
+			if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
+				operationMessageBo.setMessageType("7.1");
+			}else if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
+				operationMessageBo.setMessageType("7.3");
+			}else{
+				operationMessageBo.setMessageType("7.2");
+			}
+		}
+		
+	}
+	
 	
 	
 }
