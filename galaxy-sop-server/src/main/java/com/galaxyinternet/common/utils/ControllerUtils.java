@@ -21,17 +21,27 @@ public class ControllerUtils {
 	 *            项目id
 	 *
 	 */
-	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId) {
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId) 
+	{
+		String messageType = null;
+		setRequestParamsForMessageTip(request,projectName,projectId,messageType);
+	}
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId, String messageType) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, projectId);
+		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
-	
-	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId,UrlNumber number) {
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId,UrlNumber number) 
+	{
+		setRequestParamsForMessageTip(request,projectName,projectId,null,number);
+	}
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId, String messageType,UrlNumber number) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, projectId);
+		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
 		params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}

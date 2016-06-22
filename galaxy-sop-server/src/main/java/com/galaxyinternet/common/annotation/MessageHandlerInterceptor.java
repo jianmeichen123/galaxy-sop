@@ -1,6 +1,7 @@
 package com.galaxyinternet.common.annotation;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.common.ProgressLog;
 import com.galaxyinternet.model.operationLog.OperationLogType;
 import com.galaxyinternet.model.operationLog.OperationLogs;
@@ -186,6 +188,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		return entity;
 	}
 
+	
 	private OperationMessage populateOperationMessage(OperationType type, User user, Map<String, Object> map) {
 		OperationMessage entity = new OperationMessage();
 		entity.setContent(type.getContent());
@@ -196,6 +199,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			entity.setDepartment(user.getDepartmentName());
 			entity.setRole(user.getRole());
 		}
+		entity.setDepartmentId(user.getDepartmentId());
 		entity.setOperatorId(user.getId());
 		entity.setOperator(user.getRealName());
 		Object o = map.get(PlatformConst.REQUEST_SCOPE_USER);
@@ -210,8 +214,12 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		entity.setType(type.getType());
 		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
 		entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
+		entity.setMessageType(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE)));
 		Integer module = type.getModule();
 		entity.setModule(module == null ? OperationType.getModule(user.getRoleId()) : module);
+		
+		operationMessageService.process(entity);
+		
 		return entity;
 	}
 
