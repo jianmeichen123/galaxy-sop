@@ -119,7 +119,7 @@
 			var content = data.pageList.content;
 			
 			$(content).each(function(index,item){
-				var tr = " <tr><td>"+longTimeFormatChines(item.createdTime)+"</td> <td><span>"+item.operator+"</span>"+item.content+"</td></tr>"
+				var tr = " <tr><td>"+longTimeFormatChines(item.createdTime)+"</td> <td><span class='operator'>"+item.operator+"</span>"+item.content+"</td></tr>"
 				news_table.append(tr);
 			})
 			if (content.length==0) {
@@ -227,7 +227,7 @@
 			var tbodyList = $("#tbody"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}

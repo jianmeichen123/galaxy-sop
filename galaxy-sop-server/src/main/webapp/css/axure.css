@@ -1839,4 +1839,6 @@ font-family: "宋体";
 /*添加日程*/
 #top{height:72px;}
 .add_schedule{background:url(../img/no_icon.png) 0 -57px no-repeat;padding-left:15px;float:right;}
-
+/*无内容样式*/
+.no_info{color:#bbb;border:0;height:160px;}
+.no_info_icon{background:url(../img/no_icon.png) 0 -25px no-repeat;display:inline-block;width:155px;height:25px;margin-left:20%;}

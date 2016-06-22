@@ -27,7 +27,7 @@ function loadAjaxSopUserSchedule(url){
 			 $("#top").html("");
 			 var htmlstart="";
 			   if (dataList.length==0) {
-				    htmlstart+="<span style=\"font-size:12px;font-family:'宋体';display:inline-block;width:70px;margin:20px 37%;color:#bbb;hight:18px;line-height:18px;background:url(../img/no_icon.png) 0 0 no-repeat;padding-left:25px;\">无日程安排</span>";
+				    htmlstart+="<span style=\"font-size:12px;font-family:'宋体';display:inline-block;width:70px;margin:15px 37%;color:#bbb;hight:18px;line-height:18px;background:url(../img/no_icon.png) 0 0 no-repeat;padding-left:25px;\">无日程安排</span>";
 			   }
 			/*	if(dataList.length<3){
 					$("#top").siblings().children('.more').css("display","none");
