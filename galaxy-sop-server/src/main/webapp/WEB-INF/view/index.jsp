@@ -42,7 +42,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	<!--右侧-->
     <div class="rit">
         <!--时间-->
-        <div class="top"  onclick="shecudle();">
+        <div class="top" >
         	<b class="sj ico null">三角</b>
             <div class="tody ico">
             	<p class="time"></p>
@@ -55,7 +55,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             <a href="javascript:;" class="link"><b class="b3 null">点</b>5天后，买飞机票</a>
              -->
             </div>
-            <div class="morebox"><a href="javascript:;" class="more null">more</a></div>
+            <div class="morebox"><a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加日程</a></div>
         </div>
         <!--立项排期会-->
         <dl>
