@@ -205,10 +205,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<table width="100%" cellspacing="0"  cellpadding="0">
                             <thead>
                                 <tr>
-                                    <th>序号</th>
-                                    <th>更新时间</th>
-                                    <th>办理人</th>
-                                    <th>消息内容</th>
+                                    <th>日期时间</th>
+                                    <th>消息</th>
                                 </tr>
                             </thead>
                             <tbody>
