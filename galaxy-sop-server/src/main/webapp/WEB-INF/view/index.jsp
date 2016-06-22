@@ -58,7 +58,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             <div class="morebox"><a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加日程</a></div>
         </div>
         <!--立项排期会-->
-        <dl>
+        <dl style="position:relative;">
         	<dt>立项会排期</dt>
             <dd>
             	<table id="projectMeeting" width="100%" cellspacing="0" cellpadding="0" class="index">
@@ -74,7 +74,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     </tbody>
                 </table>
             </dd>
-            <dd class="clearfix">
+            <dd class="clearfix position">
            
 <!--              <a href="/html/projectMeeting.html" data-btn="project" class="more null">more</a>
  -->            
@@ -82,7 +82,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             </dd>
         </dl>
         <!--投决会排期-->
-        <dl class="tjh_block">
+        <dl class="tjh_block" style="position:relative;">
         	<dt>投决会排期</dt>
             <dd>
             	<table width="100%" cellspacing="0" cellpadding="0" >
@@ -99,7 +99,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     </tbody>
                 </table>
             </dd>
-            <dd class="clearfix">
+            <dd class="clearfix position">
                 <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
 <!--                 <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
             </dd>
@@ -116,7 +116,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <div class="tablist clearfix">
         	<!--左侧列表-->
             <div class="l">
-            	<dl>
+            	<dl style="position:relative;">
                 	<dt><h3 class="ico t1">待办任务</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0">
@@ -136,7 +136,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                             </tbody>
                         </table>
                     </dd>
-                    <dd class="clearfix">
+                    <dd class="clearfix position">
                     	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
                     </dd>
                 </dl>
@@ -152,7 +152,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     -->
                 </dl>
                 
-                 <dl class="Creative_library">
+                 <dl class="Creative_library" style="position:relative;">
 						<!-- <img src="<%=path%>/img/sy.png" alt=""> -->
 						
 						<dt>
@@ -188,7 +188,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							</table>
 						</dd>
 
-						<dd class="clearfix">
+						<dd class="clearfix position">
 							<a href="javascript:;" onclick="toCyPage()" class="more null none">more</a>
 							<!--  <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
 						</dd>
@@ -199,7 +199,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             </div>
             <!--右侧列表-->
             <div class="r">
-            	<dl class="r_news">
+            	<dl class="r_news" style="position:relative;">
                 	<dt><h3 class="ico t4">消息提醒</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0">
@@ -213,19 +213,19 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                             </tbody>
                         </table>
                     </dd>
-                    <dd class="clearfix">
+                    <dd class="clearfix position">
                     	<a href="<%=path %>/galaxy/operationMessage/index" class="more null">more</a>
                     </dd>
                 </dl>
                 
-                <dl id="dan_k">
+                <dl id="dan_k" style="position:relative;">
                 	<dt><h3 class="ico t5">项目文档</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0" id="file_gird_index">
                             
                         </table>
                     </dd>
-                    <dd class="clearfix">
+                    <dd class="clearfix position">
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
