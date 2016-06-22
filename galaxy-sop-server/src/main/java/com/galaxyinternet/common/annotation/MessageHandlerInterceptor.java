@@ -199,7 +199,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			entity.setDepartment(user.getDepartmentName());
 			entity.setRole(user.getRole());
 		}
-		entity.setDepartmentId(user.getDepartmentId());
+		entity.setOperatorDepartmentId(user.getDepartmentId());
 		entity.setOperatorId(user.getId());
 		entity.setOperator(user.getRealName());
 		Object o = map.get(PlatformConst.REQUEST_SCOPE_USER);
@@ -209,6 +209,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		} else {
 			u = user;
 		}
+		entity.setBelongDepartmentId(u.getDepartmentId());
 		entity.setBelongUid(u.getId());
 		entity.setBelongUname(u.getRealName());
 		entity.setType(type.getType());
@@ -218,9 +219,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		Integer module = type.getModule();
 		entity.setModule(module == null ? OperationType.getModule(user.getRoleId()) : module);
 		
-		operationMessageService.process(entity);
+		return operationMessageService.process(entity);
 		
-		return entity;
 	}
 
 }
