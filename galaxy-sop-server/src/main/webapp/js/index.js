@@ -119,7 +119,7 @@
 			var content = data.pageList.content;
 			
 			$(content).each(function(index,item){
-				var tr = " <tr><td>"+(index+1)+"</td><td>"+longTimeFormatChines(item.createdTime)+"</td> <td>"+item.operator+"</td><td>"+item.content+"</td></tr>"
+				var tr = " <tr><td>"+longTimeFormatChines(item.createdTime)+"</td> <td><span>"+item.operator+"</span>"+item.content+"</td></tr>"
 				news_table.append(tr);
 			})
 			if (content.length==0) {
