@@ -92,13 +92,7 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			/*if(operationMessageBo.getModule()!=null&&operationMessageBo.getModule() != PlatformConst.MODULE_BROADCAST_MESSAGE.intValue()){
 				operationMessageBo.setBelongUid(user.getId());
 			}*/
-			
 			initquery(operationMessageBo,user,roleIdList);
-			
-			List<String> typelist = StaticParamService.getRoleTypeList(roleIdList, staticParamService);
-			if(typelist!=null && !typelist.isEmpty()){
-				operationMessageBo.setMessageTypes(typelist);
-			}
 			
 			Page<OperationMessage> operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
 			responseBody.setPageList(operationMessage);
@@ -171,6 +165,11 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			}else{
 				operationMessageBo.setMessageType("7.2");
 			}
+		}
+		
+		List<String> typelist = StaticParamService.getRoleTypeList(roleIdList, staticParamService);
+		if(typelist!=null && !typelist.isEmpty()){
+			operationMessageBo.setMessageTypes(typelist);
 		}
 		
 	}
