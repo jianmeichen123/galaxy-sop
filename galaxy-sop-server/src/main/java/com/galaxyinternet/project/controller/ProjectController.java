@@ -1231,6 +1231,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 
 	 * @author yangshuhua
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/incm/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> inCeoMeetingPool(HttpServletRequest request,
@@ -1257,6 +1258,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				meetingSchedulingService.updateById(tm);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
+				
+				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.1", UrlNumber.one);
 			} else {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"项目不能重复申请CEO评审排期!"));
@@ -1301,8 +1304,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				projectService.toEstablishStage(project);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
-				ControllerUtils.setRequestParamsForMessageTip(request,
-						project.getProjectName(), project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.2", UrlNumber.one);
+				
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"异常，申请立项会失败!"));
@@ -1407,8 +1410,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			projectService.toSureMeetingStage(project);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
-			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(), project.getId());
+			
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.3", UrlNumber.one);
 		} catch (Exception e) {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "异常，申请投决会失败!"));
