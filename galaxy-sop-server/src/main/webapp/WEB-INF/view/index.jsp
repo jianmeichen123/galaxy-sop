@@ -65,9 +65,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <!--立项排期会-->
         <dl style="position:relative;">
         	<dt>立项会排期</dt>
-        	 <c:if test="${fx:hasRole(4)}">
-        	 <dd><a href="javascript:;" class="blue" style="float:right" onclick="paiqidate('meetingType:3');">排期时间</a></dd>
-        	 </c:if>
             <dd>
             	<table id="projectMeeting" width="100%" cellspacing="0" cellpadding="0" class="index">
                     <thead>
@@ -82,19 +79,18 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     </tbody>
                 </table>
             </dd>
-            <dd class="clearfix position">
-           
+            <dd class="clearfix position">           
 <!--              <a href="/html/projectMeeting.html" data-btn="project" class="more null">more</a>
  -->            
               <a href="<%=path %>/html/projectMeeting.html" data-btn="project" class="more null">more</a>
             </dd>
+            <c:if test="${fx:hasRole(4)}">
+        	 <dd><a href="javascript:;" class="blue paiqidate" onclick="paiqidate('meetingType:3');">排期时间</a></dd>
+        	 </c:if>
         </dl>
         <!--投决会排期-->
         <dl class="tjh_block" style="position:relative;">
         	<dt>投决会排期</dt>
-        	<c:if test="${fx:hasRole(4)}">
-        	<dd><a href="javascript:;" class="blue" style="float:right" onclick="paiqidate('meetingType:4');">排期时间</a></dd>
-        	</c:if>
             <dd>
             	<table width="100%" cellspacing="0" cellpadding="0" >
                     <thead>
@@ -114,6 +110,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
 <!--                 <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
             </dd>
+            <c:if test="${fx:hasRole(4)}">
+        	<dd><a href="javascript:;" class="blue paiqidate" onclick="paiqidate('meetingType:4');">排期时间</a></dd>
+        	</c:if>
         </dl>
     </div>
     

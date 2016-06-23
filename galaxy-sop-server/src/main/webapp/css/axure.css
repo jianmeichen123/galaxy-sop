@@ -1844,6 +1844,8 @@ font-family: "宋体";
 /*添加日程*/
 #top{height:72px;}
 .add_schedule{background:url(../img/no_icon.png) 0 -57px no-repeat;padding-left:15px;float:right;}
+/*排期入口*/
+.paiqidate{position:absolute;bottom:5px;right:15px;background:url(../img/no_icon.png) 0 -77px no-repeat;padding-left:20px;}
 /*无内容样式*/
 .no_info{color:#bbb;border:0;height:160px;}
 .no_info01{height:120px;}
