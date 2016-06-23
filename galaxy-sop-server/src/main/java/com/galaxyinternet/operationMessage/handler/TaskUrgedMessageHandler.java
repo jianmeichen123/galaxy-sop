@@ -40,8 +40,11 @@ public class TaskUrgedMessageHandler extends AbstractMessageHandler implements M
 	@Override
 	public OperationMessage handle(OperationMessage message)
 	{
-		StringBuffer content = new StringBuffer("催办了项目");
-		content.append(getProjectNameLink(message)).append("的");
+		StringBuffer content = new StringBuffer();
+		content.append(message.getOperator())
+		.append("催办了项目")
+		.append(getProjectNameLink(message))
+		.append("的");
 		if(MESSAGE_TYPE_CBRSJDRW.equals(message.getMessageType()))
 		{
 			content.append(SopConstant.TASK_NAME_RSJD);

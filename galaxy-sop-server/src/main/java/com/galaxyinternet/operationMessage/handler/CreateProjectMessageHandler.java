@@ -23,7 +23,8 @@ public class CreateProjectMessageHandler extends AbstractMessageHandler implemen
 	public OperationMessage handle(OperationMessage message)
 	{
 		StringBuffer content = new StringBuffer();
-		content.append("添加了项目")
+		content.append(message.getOperator())
+		.append("添加了项目")
 		.append(getProjectNameLink(message));
 		message.setContent(content.toString());
 		return message;
