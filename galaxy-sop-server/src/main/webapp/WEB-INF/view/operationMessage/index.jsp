@@ -4,7 +4,6 @@
 <% 
 	String path = request.getContextPath(); 
     java.util.Date date=new java.util.Date();
-    System.out.println(date);
 %>
 
 <!doctype html>
@@ -29,53 +28,28 @@
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix">
 	<jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
-    <!--右中部内容-->
- 	<div class="ritmin news_ritmin">
-    	<h2>消息提醒</h2>
-        <!--页眉-->
-        <div class="top clearfix news_top" id="custom-toolbar">
-        	<!--搜索-->
-          <div class="searchbox clearfix">
-            <input type="hidden"  id="tipslink_val" name="module" value="1" />
-            <input name="keyword" type="text" class="txt" placeholder="请输入项目名称"/>
-            <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
-
-          </div>
-        		<select name="type">
-	        		<option value="">全部</option>
-	        		<option value="项目">项目</option>
-	        		<option value="任务">任务</option>
-        		</select>
-            <!--tips连接-->
-        	<ul class="tipslink tablink">
-
-                <li class="on"><a href="javascript:;" query-by="module" query-val="1" >广播消息<span><!-- (10) --></span></a></li>
-                <c:if test="<%=roleId !=1 && roleId !=2 && roleId !=3  %>">
-                <li><a href="javascript:;"  query-by="module" query-val="2">与我有关 <span><!-- (4) --></span></a></li>
-                </c:if>
-          </ul>
-        </div>
-        <!--表格内容-->
-						<table width="100%" cellspacing="0" cellpadding="0" 
-						 id="data-table" data-url="operationMessageQueryList"  data-page-list="[10,20,30]"
-						 data-toolbar="#custom-toolbar"
-				         >
-						   <thead>
-						    <tr>
-						    
-						    <th data-field="createdTime" data-formatter="longTimeFormatChines" data-align="center" class="data-input">更新时间</th>
-					        <th data-field="department" data-align="center" class="data-input">投资线/部门</th>
-					        <th data-field="role" data-align="center"  class="data-input">角色</th>
-					        <th data-field="type" data-align="center" class="col-md-1 status ">消息类型</th>
-					        <th data-field="projectName" data-align="center" >项目名称</th>
-					        <th data-field="operator" data-align="center" >操作人</th>
-					        <th data-field="content" data-align="center" class="col-md-2" >消息内容</th>
-   						 	</tr>	
-   						 	</thead>
-					</table>
 	
+     <!--右中部内容-->
+ 	<div class="ritmin message">
+    	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>>消息提醒</div>
+    	<div class="new_tit_b">
+	        <span class="new_color size18">消息提醒</span>
+	      </div>
+	      
+      <!-- 消息提醒内容 -->
+		<div class="tab-pane active ctlist" id="view">	
+			<table  data-url="operationMessageQueryList"  data-page-list="[10,20,30]" data-show-refresh="true">
+				<thead>
+				    <tr>
+			        	<th data-field="createdTime" data-formatter="longTimeFormatChines" data-align="center" class="message_t">日期时间</th>
+			        	<th data-field="content" data-align="center" class="message_n" >消息</th>
+ 					</tr>	
+ 				</thead>
+			</table>
+           </div>
 
     </div>
+
 </div>
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
@@ -92,5 +66,9 @@
 		createMenus(3);
 	});
 	
+	function backIndex(){
+		 var url=Constants.sopEndpointURL+"/galaxy/redirect";
+		 forwardWithHeader(url);
+		}
 </script>
 </html>
