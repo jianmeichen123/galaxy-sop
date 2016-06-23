@@ -11,7 +11,7 @@ public abstract class AbstractMessageHandler
 		.append(message.getProjectId())
 		.append("\">")
 		.append(message.getProjectName())
-		.append("<a>");
+		.append("</a>");
 		return link.toString();
 	}
 }
