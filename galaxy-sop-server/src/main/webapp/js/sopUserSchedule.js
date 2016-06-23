@@ -27,7 +27,7 @@ function loadAjaxSopUserSchedule(url){
 			 $("#top").html("");
 			 var htmlstart="";
 			   if (dataList.length==0) {
-				    htmlstart+="<span style=\"font-size:12px;font-family:'宋体';display:inline-block;width:70px;margin:15px 37%;color:#bbb;hight:18px;line-height:18px;background:url(../img/no_icon.png) 0 0 no-repeat;padding-left:25px;\">无日程安排</span>";
+				    htmlstart+="<span class=\"schedule_noinfo\">无日程安排</span>";
 			   }
 			/*	if(dataList.length<3){
 					$("#top").siblings().children('.more').css("display","none");
@@ -36,7 +36,7 @@ function loadAjaxSopUserSchedule(url){
 				}*/
 				if (dataList.length!=0){
 					 for(var ii = 0 ; ii < dataList.length ; ii++){
-						 htmlstart +="<a href=\"javascript:;\" class=\"link\"><b class=\"b1 null\">点</b>"+dataList[ii].timeTask+"</a>";
+						 htmlstart +="<a href=\"javascript:;\" class=\"link\" onclick=\"shecudle();\"><b class=\"b1 null\">点</b>"+dataList[ii].timeTask+"</a>";
 					 }					
 				}
 
