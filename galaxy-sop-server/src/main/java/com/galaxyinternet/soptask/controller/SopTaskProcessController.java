@@ -23,6 +23,7 @@ import com.galaxyinternet.bo.SopTaskBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -36,11 +37,14 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
+import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
@@ -63,6 +67,8 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	private UserService userService;
 	@Autowired
 	private UserRoleService userRoleService;
+	@Autowired
+	private ProjectService projectService;
 
 
 	@Override
@@ -226,6 +232,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/taskUrged", produces = MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger
 	public ResponseData<User> taskUrged(Long id,HttpServletRequest request)
 	{
 		ResponseData<User> resp = new ResponseData<User>();
@@ -241,6 +248,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				resp.getResult().addError("请求参数错误");
 				return resp;
 			}
+			Project project = projectService.queryById(task.getProjectId());
 			User user = null;
 			if(task.getAssignUid() != null) //已认领的任务 - 认领人
 			{
@@ -301,6 +309,24 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				logger.error("No user fount. file id = "+id);
 				resp.getResult().addError("请求参数错误");
 				return resp;
+			}
+			if(project != null)
+			{
+				String messageType = null;
+				if(SopConstant.TASK_NAME_RSJD.equals(task.getTaskName()))
+				{
+					messageType = "7.1";
+				}
+				else if(SopConstant.TASK_NAME_CWJD.equals(task.getTaskName()))
+				{
+					messageType = "7.2";
+				}
+				else if(SopConstant.TASK_NAME_FWJD.equals(task.getTaskName()))
+				{
+					messageType = "7.3";
+				}
+				
+				ControllerUtils.setRequestParamsForMessageTip(request, user, project.getProjectName(), project.getId(), messageType, UrlNumber.one);
 			}
 			//邮件发送失败 返回
 			if (flag == false) {
