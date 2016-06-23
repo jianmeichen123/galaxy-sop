@@ -1531,7 +1531,7 @@
         // show no records
         if (!html.length) {
             html.push('<tr class="no-records-found">',
-                sprintf('<td colspan="%s" style="text-align:center !important;color:#bbb;border:0;" class="noinfo no_info01"><label class="no_info_icon_xhhl">%s</label></td>',
+                sprintf('<td colspan="%s" style="text-align:center !important;color:#bbb;border:0;line-height:32px !important" class="noinfo no_info01"><label class="no_info_icon_xhhl">%s</label></td>',
                     this.$header.find('th').length, this.options.formatNoMatches()),
                 '</tr>');
         }
