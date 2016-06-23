@@ -1325,6 +1325,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 
 	 * @author yangshuhua
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/inlx/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> inLxmeetingPool(HttpServletRequest request,
@@ -1351,6 +1352,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				meetingSchedulingService.updateById(tm);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.2", UrlNumber.one);
 			} else {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"项目不能重复申请立项会排期!"));
