@@ -255,6 +255,16 @@ var platformUrl = {
 	 */
 	toShedule : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/scheduleList",
 	/**
+	 * 排期时间跳转
+	 */
+	popupMeetingList : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/popupMeetingList/",
+	/**
+	 * 排期时间-内容视图
+	 */
+	sh : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/sh",
+	
+	
+	/**
 	 * 档案列表
 	 */
 	searchSopFileList : Constants.sopEndpointURL + "/galaxy/sopFile/searchSopFileList",

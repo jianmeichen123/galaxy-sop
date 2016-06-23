@@ -1,12 +1,15 @@
 <%@ page language="java" pageEncoding="UTF-8"
 import="com.galaxyinternet.framework.core.oss.OSSConstant"
 %>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <% 
 String path = request.getContextPath();
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
 java.util.Map<String, String> map = new com.google.gson.Gson().fromJson(endpoint,new com.google.gson.reflect.TypeToken<java.util.Map<String, String>>() {}.getType());
 String reportEndpoint = map.get("galaxy.project.report.endpoint");
 %>
+
 <!doctype html>
 <html>
 <head>
@@ -55,11 +58,16 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             <a href="javascript:;" class="link"><b class="b3 null">点</b>5天后，买飞机票</a>
              -->
             </div>
-            <div class="morebox"><a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加日程</a></div>
+            <div class="morebox">
+                <a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加日程</a>
+            </div>
         </div>
         <!--立项排期会-->
         <dl style="position:relative;">
         	<dt>立项会排期</dt>
+        	 <c:if test="${fx:hasRole(4)}">
+        	 <dd><a href="javascript:;" class="blue" style="float:right" onclick="paiqidate('meetingType:3');">排期时间</a></dd>
+        	 </c:if>
             <dd>
             	<table id="projectMeeting" width="100%" cellspacing="0" cellpadding="0" class="index">
                     <thead>
@@ -84,6 +92,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <!--投决会排期-->
         <dl class="tjh_block" style="position:relative;">
         	<dt>投决会排期</dt>
+        	<c:if test="${fx:hasRole(4)}">
+        	<dd><a href="javascript:;" class="blue" style="float:right" onclick="paiqidate('meetingType:4');">排期时间</a></dd>
+        	</c:if>
             <dd>
             	<table width="100%" cellspacing="0" cellpadding="0" >
                     <thead>
@@ -450,6 +461,10 @@ function ceopaiqi(){
 		$("#dan_k").css("display","none");	
 	}
 
+}
+
+function paiqidate(type){
+	forwardWithHeader(platformUrl.popupMeetingList + type);
 }
 
 

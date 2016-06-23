@@ -236,6 +236,25 @@
 		</where>
 	</select>
 	
+	<!-- 查询 -->
+	<select id="selectShedule" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_meeting_scheduling
+		<where>
+		    reserve_time_start != '' and reserve_time_end != ''
+			<trim prefixOverrides="and">
+				<if test="ids != null">
+					AND project_id IN
+					<foreach collection="ids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+			</trim>
+		</where>
+		<if test="meetingType != null" > and meeting_type = #{meetingType} </if>
+	</select>
   
   
 </mapper>
