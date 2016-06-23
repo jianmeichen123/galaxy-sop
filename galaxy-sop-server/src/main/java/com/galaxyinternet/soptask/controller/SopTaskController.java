@@ -127,7 +127,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	/**
 	 * 弹出页面
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG,LogType.MESSAGE})
 	@RequestMapping(value = "/goClaimtcPage",method = RequestMethod.GET)
 	public String goClaimtcPage(HttpServletRequest request) {
 
@@ -145,6 +145,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		try {
 			SopTask queryById = sopTaskService.queryById(Long.parseLong(id));
 			UrlNumber urlNum=null;
+			String messageType = null;
 			boolean flag = true;
 			switch(queryById.getTaskFlag())
 			{
@@ -153,12 +154,15 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 					break;
 				case 2 : //人事尽职调查报告
 					 urlNum=UrlNumber.two;
+					 messageType="8.1";
 					break;
 				case 3 : //法务尽职调查报告
 					urlNum=UrlNumber.five;
+					messageType="8.3";
 					break;
 				case 4 : //财务尽调报告
 					urlNum=UrlNumber.three;
+					messageType="8.2";
 					break;
 				case 8 : //资金拨付凭证
 					urlNum=UrlNumber.four;
@@ -175,7 +179,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			sopTask.setProjectId(queryById.getProjectId());
 			 sopTaskService.updateById(sopTask);
 			 request.setAttribute("taskid", id);	
-			 ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),urlNum);
+			 ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),messageType,urlNum);
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
 		} catch (Exception e) {
@@ -289,7 +293,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	 * @return
 	 * @PathVariable("taskId") String taskId
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG})
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG,LogType.MESSAGE})
 	@ResponseBody
 	@RequestMapping(value = "/updateTaskStatus", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTask> updateTaskStatus( @RequestBody SopTask entity,HttpServletRequest request) {
@@ -348,7 +352,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	/**
 	 * 人、财、法上传文件后"点击提交完成"
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG})
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG,LogType.MESSAGE})
 	@ResponseBody
 	@RequestMapping(value = "/submitTask", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<SopTask> submitTask(@RequestBody SopTask entity,HttpServletRequest request) {
@@ -366,6 +370,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		boolean flag=true;
 		String fileWorktype = "";
 		UrlNumber urlNum=null;
+		String messageType=null;
 		switch(soptask.getTaskFlag())
 		{
 			case 0: //完善简历
@@ -375,18 +380,18 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 				fileWorktype = "fileWorktype:5";
 				break;
 			case 2 : //人事尽职调查报告
-			//	btnTxt = "上传尽调报告";
 				 urlNum=UrlNumber.two;
+				 messageType="9.1";
 				fileWorktype = "fileWorktype:2";
 				break;
 			case 3 : //法务尽职调查报告
-				//btnTxt = "上传尽调报告";
 				urlNum=UrlNumber.five;
+				messageType="9.3";
 				fileWorktype = "fileWorktype:3";
 				break;
 			case 4 : //财务尽调报告
-			//	btnTxt = "上传尽调报告";
 				urlNum=UrlNumber.three;
+				messageType="9.2";
 				fileWorktype = "fileWorktype:4";
 				break;
 			case 5 : //业务尽调报告	
@@ -426,7 +431,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		}
 		try {
 			sopTaskService.submitTask(entity);
-			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),urlNum);
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),messageType,urlNum);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null,"异常，请重试!"));
 			return responseBody;
