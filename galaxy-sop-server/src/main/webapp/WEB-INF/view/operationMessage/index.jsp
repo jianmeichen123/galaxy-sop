@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"  type="text/css">
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
    <!-- bootstrap-table -->
-<link rel="stylesheet" href="/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 <!--  <script src="<%=path %>/js/soptask.js" type="text/javascript"></script>-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
@@ -54,11 +54,9 @@
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script src="<%=request.getContextPath() %>/js/operationMessage.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>	
 <!-- bootstrap-table -->
-<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/init.js"></script>	
 
 <script type="text/javascript">
