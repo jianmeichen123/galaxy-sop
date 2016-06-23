@@ -27,7 +27,7 @@ public class ApplySchedulingMessageHandler extends AbstractMessageHandler implem
 	@Override
 	public boolean support(OperationMessage message)
 	{
-		return message != null && StringUtils.isNoneBlank(message.getMessageType()) && "10".equals(message.getMessageType().substring(0,2));
+		return message != null && StringUtils.isNoneBlank(message.getMessageType())&&message.getMessageType().length()>1 && "10".equals(message.getMessageType().substring(0,2));
 	}
 
 	@Override
