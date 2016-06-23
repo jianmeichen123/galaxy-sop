@@ -83,12 +83,12 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				final Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
 				if (null != map && !map.isEmpty()) {
 					String uniqueKey = getUniqueKey(request, map, logger);
-					final OperationType type = OperationType.getObject(uniqueKey);
-					final OperationLogType operLogType = OperationLogType.getObject(uniqueKey);
+					final OperationType type = OperationType.getObject(uniqueKey);   //message
+					final OperationLogType operLogType = OperationLogType.getObject(uniqueKey); //log
 					if (null != type || null != operLogType) {
 						final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 						final RecordType recordType = logger.recordType();
-						final LogType[] logTypes = logger.operationScope();
+						final LogType[] logTypes = logger.operationScope();  //log message 
 						GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 							@Override
 							public void run() {

@@ -291,8 +291,9 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(id);
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
-			
+			//ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId());
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "3", UrlNumber.one);
+
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "访谈添加失败"));
 			
@@ -371,20 +372,25 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return responseBody;
 	}
 
-
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/updateInterview", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopFile> updateInterview(@RequestBody InterviewRecord interviewRecord, HttpServletRequest request ) {
-			ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+	public ResponseData<InterviewRecord> updateInterview(@RequestBody InterviewRecord interviewRecord, HttpServletRequest request ) {
+		ResponseData<InterviewRecord> responseBody = new ResponseData<InterviewRecord>();
 		try {
 			interviewRecordService.updateById(interviewRecord);
-		    responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(interviewRecord.getId());
-			} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "修改日志失败"));
+			
+			interviewRecord = interviewRecordService.queryById(interviewRecord.getId());
+			Project project = projectService.queryById(interviewRecord.getProjectId());
+			
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "3", UrlNumber.one);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "修改访谈记录失败"));
 			
 			if(logger.isErrorEnabled()){
-				logger.error("updateInterview修改日志失败",e);
+				logger.error("updateInterview 修改访谈记录失败",e);
 			}
 		}
 		return responseBody;
@@ -522,22 +528,26 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}
 		}*/
 		
-			
 		try {
 			String prograss = "";
 			UrlNumber uNum = null;
+			String messageType = null;
 			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       
 				prograss = DictEnum.projectProgress.内部评审.getCode();                                 	
 				uNum = UrlNumber.one;
+				messageType = "4.1";
 			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ 
 				prograss = DictEnum.projectProgress.CEO评审.getCode(); 								
 				uNum = UrlNumber.two;
+				messageType = "4.2";
 			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	
 				prograss = DictEnum.projectProgress.立项会.getCode(); 										
 				uNum = UrlNumber.three;
+				messageType = "4.3";
 			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
 				prograss = DictEnum.projectProgress.投资决策会.getCode(); 								
 				uNum = UrlNumber.four;
+				messageType = "4.4";
 			}
 			
 			//project id 验证
@@ -576,7 +586,6 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 					return responseBody;
 				}
 			}
-			
 			
 			//保存
 			Long id = null;
@@ -668,7 +677,7 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, ""));
 			
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),uNum);
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, uNum);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "会议添加失败"));
 			if(logger.isErrorEnabled()){
@@ -678,11 +687,11 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 		return responseBody;
 	}
 	
-	
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/updatemeet", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopFile> updatemeet(@RequestBody MeetingRecord meetingRecord, HttpServletRequest request ) {
-		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
+	public ResponseData<MeetingRecord> updatemeet(@RequestBody MeetingRecord meetingRecord, HttpServletRequest request ) {
+		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
 		try {
 			if(meetingRecord.getId()==null){
 				responseBody.setResult(new Result(Status.ERROR,null, "主键缺失"));
@@ -693,9 +702,23 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			meetingRecordService.updateById(meetingRecord);
 		    responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(meetingRecord.getId());
+			
+			meetingRecord = meetingRecordService.queryById(meetingRecord.getId());
+			Project project = projectService.queryById(meetingRecord.getProjectId());
+			String messageType = null;
+			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       
+				messageType = "4.1";
+			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ 
+				messageType = "4.2";
+			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	
+				messageType = "4.3";
+			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
+				messageType = "4.4";
+			}
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, UrlNumber.one);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "修改日志失败"));
-			logger.error("updateInterview修改日志失败",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "修改会议纪要失败"));
+			logger.error("updatemeet 修改会议纪要失败",e);
 		}
 		return responseBody;
 	}
