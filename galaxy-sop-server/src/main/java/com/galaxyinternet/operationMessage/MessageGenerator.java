@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -85,7 +86,9 @@ public class MessageGenerator implements InitializingBean,ApplicationContextAwar
 		entity.setMessageType(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE)));
 		Integer module = type.getModule();
 		entity.setModule(module == null ? OperationType.getModule(user.getRoleId()) : module);
-		
+		if(StringUtils.isNoneBlank(entity.getMessageType()) && "11".equals(entity.getMessageType().charAt(0))){
+			entity.setContent(u.getKeyword());
+		}
 		process(entity);
 		
 		return entity;

@@ -1,0 +1,56 @@
+package com.galaxyinternet.operationMessage.handler;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Component;
+
+import com.galaxyinternet.handler.MessageHandler;
+import com.galaxyinternet.model.operationMessage.OperationMessage;
+@Component
+public class MeetSchedulingMessageHandler extends AbstractMessageHandler implements MessageHandler
+{
+	private static final long serialVersionUID = 1L;
+	
+	/**
+		11.1	进入CEO评审会会议排期
+		11.2	进入立项会会议排期
+		11.3	进入投决会会议排期
+	*/		
+	private String ceo_schedul_type = "11.1";
+	private String lxh_schedul_type = "11.2";
+	private String tjh_schedul_type = "11.3";
+	
+	@Override
+	public int getOrder()
+	{
+		return 11;
+	}
+
+	@Override
+	public boolean support(OperationMessage message)
+	{
+		return message != null && StringUtils.isNoneBlank(message.getMessageType()) && "11".equals(message.getMessageType().substring(0, 2));
+	}
+
+	@Override
+	public OperationMessage handle(OperationMessage message)
+	{
+		// 项目 Utter绝对潮流  的  立项会   已被安排于   3月12日  16:00举行
+		StringBuffer content = new StringBuffer();
+		content.append("项目")
+		.append(getProjectNameLink(message));
+		if(message.getMessageType().equals(ceo_schedul_type)){
+			content.append("的CEO评审会");
+		}else if(message.getMessageType().equals(lxh_schedul_type)){
+			content.append("的立项会");
+		}else if(message.getMessageType().equals(tjh_schedul_type)){
+			content.append("的投决会");
+		}
+		content.append("已被安排于")
+		.append(message.getKeyword())
+		.append("举行");
+		message.setContent(content.toString());
+		return message;
+	}
+
+}
+

@@ -2357,6 +2357,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			for (MeetingScheduling ms : query) {
 				String mestr = "";
+				String messageType = null;
 				MeetingScheduling oldMs = msmap.get(ms.getId());
 				Project pj = mapProject.get(oldMs.getProjectId());
 				//验证已经已通过|已否决的会议不能进行排期
@@ -2368,14 +2369,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				if (DictEnum.meetingType.投决会.getCode().equals(
 						ms.getMeetingType())) {
 					mestr = DictEnum.meetingType.投决会.getName();
+					messageType = "11.3";
 				}
 				if (DictEnum.meetingType.立项会.getCode().equals(
 						ms.getMeetingType())) {
 					mestr = DictEnum.meetingType.立项会.getName();
+					messageType = "11.2";
 				}
 				if (DictEnum.meetingType.CEO评审.getCode().equals(
 						ms.getMeetingType())) {
 					mestr = DictEnum.meetingType.CEO评审.getName();
+					messageType = "11.1";
 				}
 				String messageInfo = mestr + "排期时间为";
 				if (oldMs.getReserveTimeStart() != null
@@ -2418,7 +2422,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					}
 
 				}
-
+				User belongUser = userService.queryById(pj.getCreateUid());
+				belongUser.setKeyword(DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
+				ControllerUtils.setRequestParamsForMessageTip(request, belongUser, pj.getProjectName(), pj.getId(), messageType, UrlNumber.one);
 			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
@@ -2442,12 +2448,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @param type 0：取消发送邮件 1:更新或新增邮件
 	 */
 	public void sendTaskProjectEmail(HttpServletRequest request,Project pj,String messageInfo,List<User> userlist,Timestamp reserveTimeStart,Timestamp reserveTimeEnd,Integer type,UrlNumber number){
+		
 		if(!userlist.isEmpty()){
 			String address = "";
 			for(User user: userlist){
-				ControllerUtils.setRequestParamsForMessageTip(request,
+				/*ControllerUtils.setRequestParamsForMessageTip(request,
 						user, pj.getProjectName(), pj.getId(),
-						number);
+						number);*/
+				
 				if(StringUtils.isBlank(address)){
 					address+=user.getEmail()+"@galaxyinternet.com";
 				}else{
