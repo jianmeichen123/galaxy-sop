@@ -14,12 +14,12 @@
 <title>繁星</title>
 
 
-<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"  type="text/css">
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-   <!-- bootstrap-table -->
+<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
+
+<!-- bootstrap-table -->
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-<!--  <script src="<%=path %>/js/soptask.js" type="text/javascript"></script>-->
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 
 </head>
@@ -37,25 +37,23 @@
 	      </div>
 	      
       <!-- 消息提醒内容 -->
-		<div class="tab-pane active ctlist" id="view">	
-			<table  data-url="operationMessageQueryList"  data-page-list="[10,20,30]" data-show-refresh="true">
+			<table id="data-table" data-url="operationMessageQueryList"  data-page-list="[10,20,30]" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="createdTime" data-formatter="longTimeFormatChines" data-align="center" class="message_t">日期时间</th>
-			        	<th data-field="content" data-align="center" class="message_n" >消息</th>
+			        	<th data-field="createdTime" data-align="left" data-class="no0_1" data-formatter="longTimeFormat_Chines" >日期时间</th>
+			        	<th data-field="content" data-align="left"  data-class="no0_2">消息</th>
  					</tr>	
  				</thead>
 			</table>
-           </div>
 
     </div>
 
 </div>
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
-<script src="<%=request.getContextPath() %>/js/operationMessage.js" type="text/javascript"></script>
-<!-- bootstrap-table -->
-<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<!-- bootstrap-table  -->
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 <script src="<%=request.getContextPath() %>/js/init.js"></script>	
 
