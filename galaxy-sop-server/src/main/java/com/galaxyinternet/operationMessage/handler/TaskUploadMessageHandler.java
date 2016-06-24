@@ -79,9 +79,9 @@ public class TaskUploadMessageHandler extends AbstractMessageHandler implements 
 		.append(message.getContent())
 		.append("了")
 		.append(map.get(message.getMessageType()).getName())
-		.append("<<")
+		.append("&lt;&lt;")
 		.append(fileName)
-		.append(">>");
+		.append("&gt;&gt;");
 		message.setContent(content.toString());
 		return message;
 	}
