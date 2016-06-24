@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,7 +45,7 @@ import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
-import com.galaxyinternet.service.SopVoucherFileService;
+import com.galaxyinternet.service.UserService;
 
 @Controller
 @RequestMapping("/galaxy/soptask")
@@ -71,7 +70,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 	private SopFileService sopFileService;
 	
 	@Autowired
-	private SopVoucherFileService sopVoucherFileSerce;
+	private UserService userService;
 	
 
 	@Override
@@ -431,7 +430,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		}
 		try {
 			sopTaskService.submitTask(entity);
-			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),messageType,urlNum);
+			User manager = userService.queryById(project.getCreateUid());
+			ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),messageType,urlNum);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null,"异常，请重试!"));
 			return responseBody;
