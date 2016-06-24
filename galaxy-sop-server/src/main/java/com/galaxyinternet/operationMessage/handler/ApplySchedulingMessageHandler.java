@@ -3,21 +3,21 @@ package com.galaxyinternet.operationMessage.handler;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 @Component
-public class ApplySchedulingMessageHandler extends AbstractMessageHandler implements MessageHandler
+public class ApplySchedulingMessageHandler implements MessageHandler
 {
 	private static final long serialVersionUID = 1L;
 	
 	/**
 	 *  10.1	申请CEO评审会议排期
-		10.2	申请立项会会议排期
 		10.3	申请投决会会议排期	
-	private String ceo_apply_type = "10.1";
-	private String lxh_apply_type = "10.2";
-	private String tjh_apply_type = "10.3";
 	*/
+	public static final String ceo_apply_type = "10.1";
+	public static final String tjh_apply_type = "10.3";
+	
 	@Override
 	public int getOrder()
 	{
@@ -37,7 +37,7 @@ public class ApplySchedulingMessageHandler extends AbstractMessageHandler implem
 		StringBuffer content = new StringBuffer();
 		content.append(message.getOperator())
 		.append("为项目")
-		.append(getProjectNameLink(message))
+		.append(ControllerUtils.getProjectNameLink(message))
 		.append(message.getContent());
 		message.setContent(content.toString());
 		return message;

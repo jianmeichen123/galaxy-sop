@@ -6,10 +6,22 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.platform.constant.PlatformConst;
 
 public class ControllerUtils {
+	
+	
+	public static String getProjectNameLink(OperationMessage message) {
+		StringBuffer link = new StringBuffer();
+		link.append("<a href=\"#\" class=\"blue project_name\" data-project-id=\"")
+		.append(message.getProjectId())
+		.append("\">")
+		.append(message.getProjectName())
+		.append("</a>");
+		return link.toString();
+	}
 
 	/**
 	 * 
@@ -42,7 +54,9 @@ public class ControllerUtils {
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, projectId);
 		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
-		params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
+		if(number != null){
+			params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
+		}
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
 	public static void setRequestParamsForMessageTip(HttpServletRequest request, User user, String projectName, Long projectId,UrlNumber number) 

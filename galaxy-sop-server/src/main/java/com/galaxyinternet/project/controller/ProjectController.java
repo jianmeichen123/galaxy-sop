@@ -76,6 +76,7 @@ import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
@@ -890,8 +891,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 	/**
 	 * 项目阶段中的文档上传 该项目对应的创建人操作
-	 * 
-	 * @author yangshuhua voucherType
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
@@ -1134,7 +1133,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					// 记录操作日志
 					ControllerUtils.setRequestParamsForMessageTip(request,
 							project.getProjectName(), project.getId(),
-							r.getNumber());
+							r.getMessageType(), r.getNumber());
 				}
 			}
 		} catch (Exception e) {
@@ -1210,8 +1209,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				projectService.updateById(project);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
-				ControllerUtils.setRequestParamsForMessageTip(request,
-						project.getProjectName(), project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),StageChangeHandler._6_2_);
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"异常，启动内部评审失败!"));
@@ -1304,7 +1302,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				projectService.toEstablishStage(project);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
-				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.2", UrlNumber.one);
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_4_);
 				
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR, null,

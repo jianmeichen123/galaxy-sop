@@ -8,12 +8,13 @@ import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.service.SopFileService;
 @Component
-public class TaskUploadMessageHandler extends AbstractMessageHandler implements MessageHandler
+public class TaskUploadMessageHandler implements MessageHandler
 {
 	@Autowired
 	private SopFileService fileService;
@@ -75,7 +76,7 @@ public class TaskUploadMessageHandler extends AbstractMessageHandler implements 
 		StringBuffer content = new StringBuffer();
 		content.append(message.getOperator())
 		.append("为项目")
-		.append(getProjectNameLink(message))
+		.append(ControllerUtils.getProjectNameLink(message))
 		.append(message.getContent())
 		.append("了")
 		.append(map.get(message.getMessageType()).getName())

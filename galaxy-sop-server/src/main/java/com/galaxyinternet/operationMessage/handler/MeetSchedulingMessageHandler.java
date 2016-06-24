@@ -3,10 +3,11 @@ package com.galaxyinternet.operationMessage.handler;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 @Component
-public class MeetSchedulingMessageHandler extends AbstractMessageHandler implements MessageHandler
+public class MeetSchedulingMessageHandler implements MessageHandler
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -37,7 +38,7 @@ public class MeetSchedulingMessageHandler extends AbstractMessageHandler impleme
 		// 项目 Utter绝对潮流  的  立项会   已被安排于   3月12日  16:00举行
 		StringBuffer content = new StringBuffer();
 		content.append("项目")
-		.append(getProjectNameLink(message));
+		.append(ControllerUtils.getProjectNameLink(message));
 		if(message.getMessageType().equals(ceo_schedul_type)){
 			content.append("的CEO评审会");
 		}else if(message.getMessageType().equals(lxh_schedul_type)){

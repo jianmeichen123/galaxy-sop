@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.model.common.ProgressLog;
@@ -21,6 +22,8 @@ import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.operationMessage.OperationType;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.operationMessage.MessageGenerator;
+import com.galaxyinternet.operationMessage.handler.ApplySchedulingMessageHandler;
+import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationLogsService;
 import com.galaxyinternet.service.OperationMessageService;
@@ -61,7 +64,10 @@ import com.galaxyinternet.service.ProgressLogService;
 public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 
 	final org.slf4j.Logger loger = LoggerFactory.getLogger(MessageHandlerInterceptor.class);
-
+	
+	public static final String lxh_apply_type = "10.2";
+	
+	
 	@Autowired
 	OperationMessageService operationMessageService;
 	@Autowired
@@ -111,7 +117,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		}
 		super.afterCompletion(request, response, handler, ex);
 	}
-
+	
 	/**
 	 * 
 	 * @Description:产生消息提醒的方法
@@ -119,6 +125,17 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	private void insertMessageTip(OperationMessage message) {
 		try {
 			operationMessageService.insert(message);
+			StringBuffer content = new StringBuffer();
+			if(message.getMessageType().equals(StageChangeHandler._6_4_)){
+				message.setMessageType(lxh_apply_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("申请立项会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			}
+			
 		} catch (Exception e1) {
 			loger.error("产生提醒消息异常，请求数据：" + message, e1);
 		}

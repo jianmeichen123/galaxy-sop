@@ -6,10 +6,11 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.common.constants.SopConstant;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 @Component
-public class TaskCompleteMessageHandler extends AbstractMessageHandler implements MessageHandler
+public class TaskCompleteMessageHandler implements MessageHandler
 {
 	private Map<String,String> map = new HashMap<String,String>();
 	public TaskCompleteMessageHandler()
@@ -42,7 +43,7 @@ public class TaskCompleteMessageHandler extends AbstractMessageHandler implement
 		StringBuffer content = new StringBuffer();
 		content.append(message.getOperator())
 		.append("完成了项目")
-		.append(getProjectNameLink(message))
+		.append(ControllerUtils.getProjectNameLink(message))
 		.append("的")
 		.append(map.get(message.getMessageType()))
 		.append("任务");

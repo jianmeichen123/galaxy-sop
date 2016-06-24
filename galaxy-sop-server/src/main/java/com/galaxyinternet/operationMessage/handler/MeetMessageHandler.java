@@ -3,10 +3,11 @@ package com.galaxyinternet.operationMessage.handler;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 @Component
-public class MeetMessageHandler extends AbstractMessageHandler implements MessageHandler
+public class MeetMessageHandler implements MessageHandler
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -41,7 +42,7 @@ public class MeetMessageHandler extends AbstractMessageHandler implements Messag
 		StringBuffer content = new StringBuffer();
 		content.append(message.getOperator())
 		.append("为项目")
-		.append(getProjectNameLink(message))
+		.append(ControllerUtils.getProjectNameLink(message))
 		.append(message.getContent());
 		if(message.getMessageType().equals(lph_message_type)){
 			content.append("了内评会会议纪要");

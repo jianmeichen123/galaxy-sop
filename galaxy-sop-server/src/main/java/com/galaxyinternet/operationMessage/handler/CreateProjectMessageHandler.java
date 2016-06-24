@@ -2,10 +2,11 @@ package com.galaxyinternet.operationMessage.handler;
 
 import org.springframework.stereotype.Component;
 
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 @Component
-public class CreateProjectMessageHandler extends AbstractMessageHandler implements MessageHandler
+public class CreateProjectMessageHandler implements MessageHandler
 {
 
 	private String add_project = "1";
@@ -31,7 +32,7 @@ public class CreateProjectMessageHandler extends AbstractMessageHandler implemen
 		}else if(message.getMessageType().equals(update_project)){
 			content.append("编辑了项目");
 		}
-		content.append(getProjectNameLink(message));
+		content.append(ControllerUtils.getProjectNameLink(message));
 		message.setContent(content.toString());
 		return message;
 	}

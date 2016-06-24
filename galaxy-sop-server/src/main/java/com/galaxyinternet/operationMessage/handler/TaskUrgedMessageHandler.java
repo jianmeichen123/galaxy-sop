@@ -3,10 +3,11 @@ package com.galaxyinternet.operationMessage.handler;
 import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.common.constants.SopConstant;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 @Component
-public class TaskUrgedMessageHandler extends AbstractMessageHandler implements MessageHandler
+public class TaskUrgedMessageHandler implements MessageHandler
 {
 
 	/**
@@ -43,7 +44,7 @@ public class TaskUrgedMessageHandler extends AbstractMessageHandler implements M
 		StringBuffer content = new StringBuffer();
 		content.append(message.getOperator())
 		.append("催办了项目")
-		.append(getProjectNameLink(message))
+		.append(ControllerUtils.getProjectNameLink(message))
 		.append("的");
 		if(MESSAGE_TYPE_CBRSJDRW.equals(message.getMessageType()))
 		{

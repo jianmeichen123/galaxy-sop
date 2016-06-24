@@ -21,6 +21,7 @@ import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 
 /**
  * 添加内部评审会议记录
@@ -82,10 +83,12 @@ public class InMeetingHandler implements Handler {
 		
 		int in = Integer.parseInt(DictEnum.projectProgress.内部评审.getCode().substring(DictEnum.projectProgress.内部评审.getCode().length()-1));
 		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
+		String messageType = null;
 		if(q.getResult().equals(DictEnum.meetingResult.通过.getCode()) && (in == pin)){
 			p.setProjectProgress(DictEnum.projectProgress.CEO评审.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
+			messageType = StageChangeHandler._6_3_;
 			MeetingScheduling ms = new MeetingScheduling();
 			ms.setProjectId(project.getId());
 			ms.setMeetingType(DictEnum.meetingType.CEO评审.getCode());
@@ -101,7 +104,7 @@ public class InMeetingHandler implements Handler {
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
 		}
-		return new SopResult(Status.OK,null,"添加内部评审记录成功!",UrlNumber.two);
+		return new SopResult(Status.OK,null,"添加内部评审记录成功!",UrlNumber.two,messageType);
 	}
 	
 }
