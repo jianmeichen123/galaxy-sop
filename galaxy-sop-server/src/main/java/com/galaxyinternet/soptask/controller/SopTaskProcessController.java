@@ -136,6 +136,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 	
 	@ResponseBody
 	@RequestMapping("/uploadFile")
+	@com.galaxyinternet.common.annotation.Logger
 	public Result uploadFile(SopFile bo, HttpServletRequest request)
 	{
 		Result result = new Result();
@@ -172,6 +173,46 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 						bo.setFileUid(user.getId());
 					}
 					sopFileService.updateById(bo);
+					
+					/*****Log/Message Start*****/
+					Project project = projectService.queryById(po.getProjectId());
+					if(project != null && project.getCreateUid() != null)
+					{
+						UrlNumber number = UrlNumber.one;
+						if(po.getFileKey() != null)
+						{
+							number = UrlNumber.two;
+						}
+						User manager = userService.queryById(project.getCreateUid());
+						String messageType = null;
+						if(DictEnum.fileWorktype.人力资源尽职调查报告.getCode().equals(po.getFileWorktype()))
+						{
+							messageType = "5.5";
+						}
+						else if(DictEnum.fileWorktype.财务尽职调查报告.getCode().equals(po.getFileWorktype()))
+						{
+							messageType = "5.6";
+						}
+						else if(DictEnum.fileWorktype.法务尽职调查报告.getCode().equals(po.getFileWorktype()))
+						{
+							messageType = "5.7";
+						}
+						else if(DictEnum.fileWorktype.工商转让凭证.getCode().equals(po.getFileWorktype()))
+						{
+							messageType = "5.10";
+						}
+						else if(DictEnum.fileWorktype.资金拨付凭证.getCode().equals(po.getFileWorktype()))
+						{
+							messageType = "5.11";
+						}
+						if(messageType != null)
+						{
+							ControllerUtils.setRequestParamsForMessageTip(request, manager, project.getProjectName(), project.getId(), messageType, number);
+						}
+					}
+					
+					/*****Log/Message End*****/
+					
 				}
 			}
 			
