@@ -8,6 +8,8 @@ import com.galaxyinternet.model.operationMessage.OperationMessage;
 public class CreateProjectMessageHandler extends AbstractMessageHandler implements MessageHandler
 {
 
+	private String add_project = "1";
+	private String update_project = "2";
 	/**
 	 * 
 	 */
@@ -16,16 +18,20 @@ public class CreateProjectMessageHandler extends AbstractMessageHandler implemen
 	@Override
 	public boolean support(OperationMessage message)
 	{
-		return message != null && "1".equals(message.getMessageType());
+		return message != null && "1".equals(message.getMessageType()) || message != null && "2".equals(message.getMessageType());
 	}
 
 	@Override
 	public OperationMessage handle(OperationMessage message)
 	{
 		StringBuffer content = new StringBuffer();
-		content.append(message.getOperator())
-		.append("添加了项目")
-		.append(getProjectNameLink(message));
+		content.append(message.getOperator());
+		if(message.getMessageType().equals(add_project)){
+			content.append("添加了项目");
+		}else if(message.getMessageType().equals(update_project)){
+			content.append("编辑了项目");
+		}
+		content.append(getProjectNameLink(message));
 		message.setContent(content.toString());
 		return message;
 	}
