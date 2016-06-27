@@ -23,6 +23,7 @@ import com.galaxyinternet.model.operationMessage.OperationType;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.operationMessage.MessageGenerator;
 import com.galaxyinternet.operationMessage.handler.ApplySchedulingMessageHandler;
+import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationLogsService;
@@ -124,14 +125,24 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	 * 
 	 * @Description:产生消息提醒的方法
 	 */
+	
 	private void insertMessageTip(OperationMessage message) {
 		try {
 			operationMessageService.insert(message);
 			StringBuffer content = new StringBuffer();
+			
 			if(message.getMessageType().equals(StageChangeHandler._6_1_)){
 				content.append(message.getOperator());
 				content.append(message.getOperator()).append("添加了项目");
 				content.append(ControllerUtils.getProjectNameLink(message));
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_3_)){
+				message.setMessageType(MeetMessageHandler.lph_message_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("添加了内评会会议纪要");
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
 			} else if(message.getMessageType().equals(StageChangeHandler._6_4_)){
@@ -140,6 +151,14 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				.append("为项目")
 				.append(ControllerUtils.getProjectNameLink(message))
 				.append("申请立项会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_5_)){
+				message.setMessageType(MeetMessageHandler.lph_message_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("添加了立项会会议纪要");
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
 			} else if(message.getMessageType().equals(StageChangeHandler._6_7_)){
@@ -155,6 +174,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			loger.error("产生提醒消息异常，请求数据：" + message, e1);
 		}
 	}
+	
 
 	// 添加创意动态
 	private void insertIdeaNews(ProgressLog message) {

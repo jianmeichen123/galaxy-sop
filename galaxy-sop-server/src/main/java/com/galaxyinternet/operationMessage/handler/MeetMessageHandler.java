@@ -18,10 +18,10 @@ public class MeetMessageHandler implements MessageHandler
 		4.3	添加/编辑立项会会议纪要
 		4.4	添加/编辑投决会会议纪要	
 	 */
-	private String lph_message_type = "4.1";
-	private String ceo_message_type = "4.2";
-	private String lxh_message_type = "4.3";
-	private String tjh_message_type = "4.3";
+	public static final String lph_message_type = "4.1";
+	public static final String ceo_message_type = "4.2";
+	public static final String lxh_message_type = "4.3";
+	public static final String tjh_message_type = "4.3";
 	
 	@Override
 	public int getOrder()

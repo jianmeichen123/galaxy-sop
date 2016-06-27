@@ -535,7 +535,11 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.内评会.getCode())){       
 				prograss = DictEnum.projectProgress.内部评审.getCode();                                 	
 				uNum = UrlNumber.one;
-				messageType = "4.1";
+				if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
+					messageType = "6.3";
+				}else{
+					messageType = "4.1";
+				}
 			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.CEO评审.getCode())){ 
 				prograss = DictEnum.projectProgress.CEO评审.getCode(); 								
 				uNum = UrlNumber.two;
@@ -543,7 +547,11 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.立项会.getCode())){	
 				prograss = DictEnum.projectProgress.立项会.getCode(); 										
 				uNum = UrlNumber.three;
-				messageType = "4.3";
+				if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
+					messageType = "6.5";
+				}else{
+					messageType = "4.3";
+				}
 			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
 				prograss = DictEnum.projectProgress.投资决策会.getCode(); 								
 				uNum = UrlNumber.four;
