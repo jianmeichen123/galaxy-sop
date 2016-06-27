@@ -28,7 +28,7 @@ public class TaskgoClaimtMessageHandler implements MessageHandler
 	@Override
 	public int getOrder()
 	{
-		return 9;
+		return 8;
 	}
 
 	@Override
