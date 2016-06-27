@@ -9,6 +9,7 @@ public class SopResult extends Result{
 	
 	private UrlNumber number;
 	private String messageType;
+	private Object attachment;
 	
 	public SopResult(){}
 	public SopResult(Status status, Object message){
@@ -26,6 +27,12 @@ public class SopResult extends Result{
 		this.number = number;
 		this.messageType = messageType;
 	}
+	public SopResult(Status status, String errorCode, Object message, UrlNumber number,String messageType,Object attachment){
+		super(status, errorCode, message);
+		this.number = number;
+		this.messageType = messageType;
+		this.attachment = attachment;
+	}
 
 	public UrlNumber getNumber() {
 		return number;
@@ -39,5 +46,11 @@ public class SopResult extends Result{
 	}
 	public void setMessageType(String messageType) {
 		this.messageType = messageType;
+	}
+	public Object getAttachment() {
+		return attachment;
+	}
+	public void setAttachment(Object attachment) {
+		this.attachment = attachment;
 	}
 }
