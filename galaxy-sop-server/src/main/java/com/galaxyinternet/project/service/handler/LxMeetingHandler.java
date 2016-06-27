@@ -23,6 +23,7 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 
 /**
  * 添加立项会议记录
@@ -96,10 +97,12 @@ public class LxMeetingHandler implements Handler {
 		 */
 		int in = Integer.parseInt(DictEnum.projectProgress.立项会.getCode().substring(DictEnum.projectProgress.立项会.getCode().length()-1));
 		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
+		String messageType = null;
 		if(q.getResult().equals(DictEnum.meetingResult.通过.getCode()) && (in == pin)){
 			p.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
+			messageType = StageChangeHandler._6_5_;
 			SopTask task = new SopTask();
 			task.setProjectId(q.getPid());
 			task.setTaskName(SopConstant.TASK_NAME_SCTZYXS);
@@ -133,7 +136,7 @@ public class LxMeetingHandler implements Handler {
 			tm.setUpdatedTime((new Date()).getTime());
 			meetingSchedulingDao.updateById(tm);
 		}
-		return new SopResult(Status.OK,null,"添加立项会议记录要成功!",UrlNumber.four);
+		return new SopResult(Status.OK,null,"添加立项会议记录要成功!",UrlNumber.four,messageType);
 	}
 	
 }
