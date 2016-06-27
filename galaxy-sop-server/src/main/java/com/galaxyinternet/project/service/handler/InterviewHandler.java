@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.common.SopResult;
 import com.galaxyinternet.common.ViewQuery;
+import com.galaxyinternet.common.annotation.MessageHandlerInterceptor;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
@@ -68,7 +69,7 @@ public class InterviewHandler implements Handler {
 		ir.setCreatedId(project.getCreateUid());
 		ir.setCreatedTime((new Date()).getTime());
 		interviewRecordService.insert(ir);
-		return new SopResult(Status.OK,null,"添加访谈纪要成功!",UrlNumber.one);
+		return new SopResult(Status.OK,null,"添加访谈纪要成功!",UrlNumber.one,MessageHandlerInterceptor.add_interview_type);
 	}
 	
 }

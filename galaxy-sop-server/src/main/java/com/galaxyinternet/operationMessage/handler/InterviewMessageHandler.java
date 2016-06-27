@@ -2,6 +2,7 @@ package com.galaxyinternet.operationMessage.handler;
 
 import org.springframework.stereotype.Component;
 
+import com.galaxyinternet.common.annotation.MessageHandlerInterceptor;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
@@ -19,7 +20,7 @@ public class InterviewMessageHandler implements MessageHandler
 	@Override
 	public boolean support(OperationMessage message)
 	{
-		return message != null && "3".equals(message.getMessageType());
+		return message != null && MessageHandlerInterceptor.add_interview_type.equals(message.getMessageType());
 	}
 
 	@Override

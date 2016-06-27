@@ -433,7 +433,7 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 			int r = sopTaskService.submitTask(entity);
 			User manager = userService.queryById(project.getCreateUid());
 			if(r == 1){
-				ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),StageChangeHandler._6_10_,null);
+				ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),StageChangeHandler._6_10_,urlNum);
 			}else{
 				ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),messageType,urlNum);
 			}

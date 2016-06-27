@@ -66,6 +66,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 
 	final org.slf4j.Logger loger = LoggerFactory.getLogger(MessageHandlerInterceptor.class);
 	
+	public static final String add_interview_type = "3";
+	
 	public static final String ceo_apply_type = "10.1";
 	public static final String lxh_apply_type = "10.2";
 	public static final String tjh_apply_type = "10.3";
