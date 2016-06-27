@@ -187,23 +187,23 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 						String messageType = null;
 						if(DictEnum.fileWorktype.人力资源尽职调查报告.getCode().equals(po.getFileWorktype()))
 						{
-							messageType = "5.5";
+							messageType = "_5.5";
 						}
 						else if(DictEnum.fileWorktype.财务尽职调查报告.getCode().equals(po.getFileWorktype()))
 						{
-							messageType = "5.6";
+							messageType = "_5.6";
 						}
 						else if(DictEnum.fileWorktype.法务尽职调查报告.getCode().equals(po.getFileWorktype()))
 						{
-							messageType = "5.7";
+							messageType = "_5.7";
 						}
 						else if(DictEnum.fileWorktype.工商转让凭证.getCode().equals(po.getFileWorktype()))
 						{
-							messageType = "5.10";
+							messageType = "_5.10";
 						}
 						else if(DictEnum.fileWorktype.资金拨付凭证.getCode().equals(po.getFileWorktype()))
 						{
-							messageType = "5.11";
+							messageType = "_5.11";
 						}
 						if(messageType != null)
 						{
