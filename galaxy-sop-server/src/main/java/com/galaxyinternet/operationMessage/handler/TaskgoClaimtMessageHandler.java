@@ -17,7 +17,7 @@ public class TaskgoClaimtMessageHandler implements MessageHandler
 	{
 		map.put("8.1", SopConstant.TASK_NAME_RSJD);
 		map.put("8.2", SopConstant.TASK_NAME_CWJD);
-		map.put("8.2", SopConstant.TASK_NAME_FWJD);
+		map.put("8.3", SopConstant.TASK_NAME_FWJD);
 	}
 
 	/**
