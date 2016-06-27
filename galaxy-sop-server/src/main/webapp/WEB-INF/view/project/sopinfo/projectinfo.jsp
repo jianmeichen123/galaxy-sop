@@ -199,8 +199,8 @@ function getProjectInfo(dtd)
 				<div class="basic_on">
 					<div class="compile_on_center">
 				        <div class="compile_on_right">
-				            <span class="compile_on_right_b"  data-on="save">保存</span>
-				            <span class="compile_on_right_q" data-name="basic" data-on="close">取消</span>
+				            <span class="pubbtn bluebtn"  data-on="save">保存</span>
+				            <span class="pubbtn fffbtn" data-name="basic" data-on="close">取消</span>
 				        </div> 
 				       <!--  <div class="new_r_compile new_bottom_color">
 							<span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span>
@@ -277,8 +277,8 @@ function getProjectInfo(dtd)
                       <div id="describe_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                         <div class="compile_on_center">
                            <div class="compile_on_right">
-                               <span class="compile_on_right_b" id="save_describe">保存</span>
-                               <span class="compile_on_right_q" data-name="project" data-on="close">取消</span>
+                               <span class="pubbtn bluebtn" id="save_describe">保存</span>
+                               <span class="pubbtn fffbtn" data-name="project" data-on="close">取消</span>
                            </div>  
                        </div>
                  </div>
@@ -317,8 +317,8 @@ function getProjectInfo(dtd)
 					<div id="company_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_location">保存</span>
-                           <span class="compile_on_right_q" data-name='company' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_location">保存</span>
+                           <span class="pubbtn fffbtn" data-name='company' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -344,8 +344,8 @@ function getProjectInfo(dtd)
 					<div id="portrait_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_portrait">保存</span>
-                           <span class="compile_on_right_q" data-name='portrayal' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_portrait">保存</span>
+                           <span class="pubbtn fffbtn" data-name='portrayal' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -373,8 +373,8 @@ function getProjectInfo(dtd)
 					<div id="business_editor" type="text/plain" class='width_fwb' style=" height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_business">保存</span>
-                           <span class="compile_on_right_q" data-name='product' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_business">保存</span>
+                           <span class="pubbtn fffbtn" data-name='product' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -401,8 +401,8 @@ function getProjectInfo(dtd)
 					<div id="operation_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_operation">保存</span>
-                           <span class="compile_on_right_q" data-name='operation' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_operation">保存</span>
+                           <span class="pubbtn fffbtn" data-name='operation' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -430,8 +430,8 @@ function getProjectInfo(dtd)
 					<div id="industry_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_industry">保存</span>
-                           <span class="compile_on_right_q" data-name='industry' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_industry">保存</span>
+                           <span class="pubbtn fffbtn" data-name='industry' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -457,8 +457,8 @@ function getProjectInfo(dtd)
 					<div id="analysis_editor" type="text/plain" class='width_fwb'  style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_analysis">保存</span>
-                           <span class="compile_on_right_q" data-name='analysis' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_analysis">保存</span>
+                           <span class="pubbtn fffbtn" data-name='analysis' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -488,8 +488,8 @@ function getProjectInfo(dtd)
 					<script id="next_financing_editor" type="text/plain" class='width_fwb' style="width:100%; height:200px;"></script>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_next_financing">保存</span>
-                           <span class="compile_on_right_q" data-name='next_financing' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_next_financing">保存</span>
+                           <span class="pubbtn fffbtn" data-name='next_financing' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
