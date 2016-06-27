@@ -174,12 +174,13 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 					flag=false;
 			}
 			Project project = projectService.queryById(queryById.getProjectId());
+			User manager = userService.queryById(project.getId());
 			sopTask.setAssignUid(user.getId());
 			sopTask.setTaskFlag(queryById.getTaskFlag());
 			sopTask.setProjectId(queryById.getProjectId());
 			 sopTaskService.updateById(sopTask);
 			 request.setAttribute("taskid", id);	
-			 ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),messageType,urlNum);
+			 ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),messageType,urlNum);
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
 		} catch (Exception e) {
@@ -309,8 +310,9 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		    SopTask po = sopTaskService.queryById(entity.getId());
 		    if(po != null && po.getProjectId() != null){
 		    	Project project = projectService.queryById(po.getProjectId());
+		    	User manager = userService.queryById(project.getId());
 		    	um=UrlNumber.one;
-		    	ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),um);
+		    	ControllerUtils.setRequestParamsForMessageTip(request,manager, project.getProjectName(), project.getId(),um);
 		    }
 		} catch (PlatformException e) {
 			result.addError(e.getMessage());
