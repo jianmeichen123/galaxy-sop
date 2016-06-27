@@ -128,7 +128,12 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		try {
 			operationMessageService.insert(message);
 			StringBuffer content = new StringBuffer();
-			if(message.getMessageType().equals(StageChangeHandler._6_4_)){
+			if(message.getMessageType().equals(StageChangeHandler._6_1_)){
+				content.append(message.getOperator()).append("添加了项目");
+				content.append(ControllerUtils.getProjectNameLink(message));
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_4_)){
 				message.setMessageType(lxh_apply_type);
 				content.append(message.getOperator())
 				.append("为项目")

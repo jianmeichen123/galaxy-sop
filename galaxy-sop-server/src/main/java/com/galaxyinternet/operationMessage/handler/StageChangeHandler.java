@@ -44,7 +44,9 @@ public class StageChangeHandler implements MessageHandler {
 		StringBuffer content = new StringBuffer();
 		content.append("项目");
 		content.append(ControllerUtils.getProjectNameLink(message));
-		if(message.getMessageType().equals(_6_2_)){
+		if(message.getMessageType().equals(_6_1_)){
+			content.append("进入接触访谈阶段");
+		}else if(message.getMessageType().equals(_6_2_)){
 			content.append("进入内部评审阶段");
 		}else if(message.getMessageType().equals(_6_3_)){
 			content.append("进入CEO评审阶段");
