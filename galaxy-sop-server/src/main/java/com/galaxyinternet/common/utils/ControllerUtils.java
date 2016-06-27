@@ -83,6 +83,18 @@ public class ControllerUtils {
 		}
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, User user, String projectName, Long projectId, String messageType, UrlNumber number,Object userData) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);
+		params.put(PlatformConst.REQUEST_SCOPE_USER, user);
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, projectId);
+		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
+		if(number != null){
+			params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
+		}
+		params.put(PlatformConst.REQUEST_SCOPE_USER_DATA, userData);
+		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
+	}
 	
 	public static void setRequestIdeaParamsForMessageTip(HttpServletRequest request, User user, String ideaName, Long ideaId,String content,UrlNumber number) {
 		Map<String, Object> params = new HashMap<String, Object>();
