@@ -87,7 +87,7 @@ public class MessageGenerator implements InitializingBean,ApplicationContextAwar
 		Integer module = type.getModule();
 		entity.setModule(module == null ? OperationType.getModule(user.getRoleId()) : module);
 		if(StringUtils.isNoneBlank(entity.getMessageType()) && entity.getMessageType().trim().length() >= 2 && "11".equals(entity.getMessageType().substring(0,2))){
-			entity.setContent(u.getKeyword());
+			entity.setKeyword(u.getKeyword());
 		}
 		process(entity);
 		
