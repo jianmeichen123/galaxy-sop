@@ -23,6 +23,7 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 
 /**
@@ -97,7 +98,7 @@ public class LxMeetingHandler implements Handler {
 		 */
 		int in = Integer.parseInt(DictEnum.projectProgress.立项会.getCode().substring(DictEnum.projectProgress.立项会.getCode().length()-1));
 		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
-		String messageType = null;
+		String messageType = MeetMessageHandler.lxh_message_type;
 		if(q.getResult().equals(DictEnum.meetingResult.通过.getCode()) && (in == pin)){
 			p.setProjectProgress(DictEnum.projectProgress.投资意向书.getCode());
 			p.setUpdatedTime((new Date()).getTime());

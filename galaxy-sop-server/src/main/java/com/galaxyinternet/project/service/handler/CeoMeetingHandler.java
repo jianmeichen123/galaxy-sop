@@ -20,6 +20,7 @@ import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
 
 /**
  * 添加CEO评审会议记录
@@ -107,7 +108,7 @@ public class CeoMeetingHandler implements Handler {
 		tm.setMeetingCount(tm.getMeetingCount() + 1);
 		tm.setUpdatedTime((new Date()).getTime());
 		meetingSchedulingDao.updateById(tm);
-		return new SopResult(Status.OK,null,"添加CEO评审记录成功!",UrlNumber.three);
+		return new SopResult(Status.OK,null,"添加CEO评审记录成功!",UrlNumber.three,MeetMessageHandler.ceo_message_type);
 	}
 	
 }
