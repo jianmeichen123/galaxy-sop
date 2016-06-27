@@ -18,19 +18,16 @@ public class SopFileMessageHandler implements MessageHandler {
 
 	@Override
 	public int getOrder() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public boolean support(OperationMessage message) {
-		// TODO Auto-generated method stub
-		return message.getMessageType().contains("5.");
+		return message.getMessageType().startsWith("5.");
 	}
 
 	@Override
 	public OperationMessage handle(OperationMessage message) {
-		// TODO Auto-generated method stub'
 //		OperationMessage [department=人工智能,
 //				role=投资经理, type=项目, 
 //				projectName=leung, operator=人工智能-投资经理one,
