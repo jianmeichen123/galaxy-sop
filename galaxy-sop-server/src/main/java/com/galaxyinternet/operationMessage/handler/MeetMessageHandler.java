@@ -32,7 +32,7 @@ public class MeetMessageHandler implements MessageHandler
 	@Override
 	public boolean support(OperationMessage message)
 	{
-		return message != null && StringUtils.isNoneBlank(message.getMessageType()) && "4".equals(message.getMessageType().charAt(0));
+		return message != null && StringUtils.isNoneBlank(message.getMessageType()) && "4".equals(message.getMessageType().substring(0, 1));
 	}
 
 	@Override

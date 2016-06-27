@@ -48,7 +48,7 @@ public class MeetSchedulingMessageHandler implements MessageHandler
 		}
 		content.append("已被安排于")
 		.append(message.getKeyword())
-		.append("举行");
+		.append(" 举行");
 		message.setContent(content.toString());
 		return message;
 	}
