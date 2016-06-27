@@ -1346,7 +1346,7 @@ dl dt,dl label{font-weight: normal !important;}
 .search_adjust2 .fml dd{width:160px !important;}
 .block dl dd p{word-break:break-all;}
 /*ie8select文字垂直居中*/
-select{*padding: 6px 0 !important;}
+select{padding: 6px 0 !important;}
 /**切断文字**/
 .text-overflow{width:420px;padding:5px 0;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;word-break:break-all;}
 .text-overflow1{padding:10px 0;overflow:hidden;text-overflow:ellipsis;word-wrap:break-word;text-align:left;word-break:break-all;}
@@ -1628,7 +1628,7 @@ font-family: "宋体";
     padding: 0 0 6px 22px;}
 .compile_on_right_b{ background-color:#66b1f2; color:#fff; text-align:center; line-height:35px; height:35px; display:block;}
 .compile_on_right_q{ background-color:#fff; border:1px solid #ccd2d7; display:block; text-align:center; line-height:35px; height:35px;}
-.new_nputr{ line-height:24px; width:200px; color:#525662; font-size:12px; overflow:hidden; box-sizing: border-box;height:24px;border:1px solid #aaa;border-radius:4px;padding-left:5px;}
+.new_nputr{ line-height:24px; width:200px; color:#525662; font-size:12px; overflow:hidden; box-sizing: border-box;height:24px;border:1px solid #aaa;border-radius:4px;padding:0 5px !important;}
 .new_nputr_number{width:90px; height:22px;line-height:22px; overflow:hidden;border:1px solid #aaa;border-radius:4px;padding-left:5px;}
 .no_con{height:105px;color:#aaa;font-size:12px;font-family:"宋体";background:url(../img/default.png) center 60px no-repeat;text-align:center;padding-top:120px;display:none;}
 .new_correlation_cen_con{height:225px;}
