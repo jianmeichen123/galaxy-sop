@@ -178,7 +178,63 @@
 <script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
 
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
-
+<script type="text/javascript">
+	function setCookie(name,value,hours,path){
+		var name = escape(name);
+		var value = escape(value);
+		var expires = new Date();
+		expires.setTime(expires.getTime() + hours * 60*60*1000);
+		path = path =="" ? "":";path=" + path;
+		_expires = (typeof hours) == "string" ? "": ";expires=" + expires.toUTCString();
+		document.cookie = name + "=" + value + _expires + path;
+		console.log("---cookie:" + document.cookie);
+	}
+	function getCookieValue(name){
+		var name = escape(name);
+		var allcookies = document.cookie;
+		name += "=";
+		var pos = allcookies.indexOf(name);
+		if(pos != -1){
+			var start = pos + name.length;
+			var end = allcookies.indexOf(";",start);
+			if(end == -1){
+				end = allcookies.length;
+			}
+			var value = allcookies.substring(start,end);
+			return unescape(value);
+		} else{
+			return "";
+		}
+	}
+	function deleteCookie(name,path){
+		var name = escape(name);
+		var expires = new Date(0);
+		path = path == "" ? "" : ";path=" + path;
+		document.cookie = name + "=" + ";expires=" + expires.toUTCString() + path;
+	}
+	// 关闭浏览器后数据不会消失
+	function updatePageCountNoSession(){
+		// localStorage.pagecount与localStorage.getItem("pagecount")在此处均可用，
+		// 不同的是：若pagecount不存在，前者返回undefined，后者返回null。
+		if(localStorage.pagecount){
+			localStorage.pagecount = Number(localStorage.pagecount) + 1;
+		} else{
+			localStorage.pagecount = 1;
+			// 取值或设置值的两种方式
+			// localStorage.setItem("pagecount",1);
+		}
+		console.log("---localStorage pagecount:" + localStorage.getItem("pagecount"));
+	}
+	// 关闭网页后数据会消失
+	function updatePageCountWithSession(){
+		if(sessionStorage.pagecount){
+			sessionStorage.pagecount = Number(sessionStorage.pagecount) + 1;
+		} else{
+			sessionStorage.pagecount = 1;
+		}
+		console.log("---sessionStorage pagecount:" + sessionStorage.pagecount);	
+	}
+	</script>
 <script type="text/javascript">
 	createMenus(5);
 	/**
@@ -215,6 +271,14 @@
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		var projectDepartid = $("select[name='projectDepartid']").val();
 		var createUid = $("select[name='createUid']").val();
+
+		//ie兼容
+		setCookie("pageNum", tempPageNum,1,'/');
+		setCookie("pageSize", tempPageSize,1,'/');
+		setCookie("nameCodeLike", nameCodeLike,1,'/');
+		setCookie("createUid", createUid,1,'/');
+		setCookie("projectDepartid", projectDepartid,1,'/');
+		
 		
 		
 		var formdata = {
@@ -281,14 +345,25 @@
 	 */
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
-		var num_size='';
+		var page_Num='';  //页码
+
+		function cookies_szie(){//
+			
+			var pageSize = getCookieValue("pageSize");
+			if(pageSize!=''){
+				return pageSize;
+			}else{
+	        	return 10;
+	      	}
+			
+		}
 		/**
 		 * 初始化项目列表
 		 * @version 2016-06-21
 		 */
 		$('#project-table').bootstrapTable({
 			queryParamsType: 'size|page',
-			pageSize:10,
+			pageSize: cookies_szie(),
 			showRefresh : false ,
 			url : $('#project-table').attr("data-url"),
 			sidePagination: 'server',
@@ -304,31 +379,68 @@
 	        		var formdata = {
 		        			_paramKey : 'projectList'
 		        	}
-		        	var tempParam = cookieOperator.pullCookie(formdata);
-		        	if(tempParam){
-		        		param.pageNum = tempParam.pageNum - 1;
-		        		param.pageSize = tempParam.pageSize;
-		        		param.nameCodeLike = tempParam.nameCodeLike;
-		        		param.createUid = tempParam.createUid;
-		        		param.projectDepartid = tempParam.projectDepartid;
+	        		if(getCookieValue("pageSize")){
+	        			//alert('公用')
+	        		    param.pageNum = getCookieValue("pageNum") - 1;
+		        		param.pageSize = getCookieValue("pageSize");
+		        		param.nameCodeLike = getCookieValue("nameCodeLike");
+		        		param.createUid = getCookieValue("createUid");
+		        		param.projectDepartid = getCookieValue("projectDepartid");
+		        		
 		        		var options = $("#project-table").bootstrapTable('getOptions');
-		        		num_size =tempParam.pageNum;
-	 	        		options.pageNumber = tempParam.pageNum - 1;
-	 	        		console.log('options.pageNumber ='+options.pageNumber );
+		        		page_Num =getCookieValue("pageNum")
+	 	        		options.pageNumber = getCookieValue("pageNum") - 1;
+	 	        		
 	 	        		//给搜索表单赋值
-	 	        		$("input[name='nameCodeLike']").val(tempParam.nameCodeLike ? tempParam.nameCodeLike : "");
-	 	       			$("select[name='projectDepartid']").val(tempParam.projectDepartid ? tempParam.projectDepartid : "0");
-	 	       			$("select[name='createUid']").val(tempParam.createUid ? tempParam.createUid : "0");
-		        	}
+	 	        		$("input[name='nameCodeLike']").val(getCookieValue("nameCodeLike") ? getCookieValue("nameCodeLike") : "");
+	 	       			$("select[name='projectDepartid']").val(getCookieValue("projectDepartid") ? getCookieValue("projectDepartid") : "0");
+	 	       			$("select[name='createUid']").val(getCookieValue("createUid") ? getCookieValue("createUid") : "0");
+	 	       			
+	 	       			deleteCookie("pageSize","/");
+	 	       			//console.log(Cookies.get("pageNum") , Cookies.get("pageSize"),Cookies.get("nameCodeLike"),Cookies.get("createUid"),Cookies.get("projectDepartid") );
+        			}
+		        	
 	        	}
 	        	
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
+	        	console.log(data)
 	        	if($("#showResetBtn").val() == '1'){
 	    			$("#resetBtn").removeClass("none");
 	    		}
-	        	if(num_size!=''){
+				
+				if(page_Num!=''){
+					$('.pagination li').removeClass('active');
+					if($('.pagination .page-number').length<page_Num){
+						for(var i=$('.pagination .page-number').length; i>0; i--){
+							alert(i)
+							$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
+						}
+					}
+					$('.pagination li').each(function(){
+	        			if($(this).text()==page_Num){
+	        				$(this).click();
+	        				//$(this).addClass('active')
+	        			}
+	        		})
+
+					page_Num='';
+				}
+
+				
+        		/* if(page_size){
+        			$('.page-size').html(page_size);
+        			var options = $("#project-table").bootstrapTable('getOptions');
+ 	        		options.pageSize = page_size;
+        		}
+        		if(num_size){
+        			var options = $("#project-table").bootstrapTable('getOptions');
+        			options.pageNumber = num_size-1;
+        			console.log(options.pageNumber)
+        		}
+        		num_size=''; */
+	        	/* if(num_size!=''){
 	        		$('.pagination li').removeClass('active');
 	        		if(num_size>5){
 	        			$('.pagination .page-number').eq(0).html('<a href="javascript:void(0)">'+(num_size-4)+'</a>');
@@ -343,16 +455,16 @@
 	        				$(this).addClass('active')
 	        			}
 	        		})
-	        		console.log(data)
 	        		if(num_size*data.pageList.pageable.size>data.pageList.total){
 	        			$('.pagination-info').html('显示第 '+((num_size*data.pageList.pageable.size)-(data.pageList.pageable.size-1))+'到第 '+data.pageList.total+' 条记录，总共' +data.pageList.total+'条记录')
 	        		}else{
 	        			$('.pagination-info').html('显示第 '+((num_size*data.pageList.pageable.size)-(data.pageList.pageable.size-1))+'到第 '+num_size*data.pageList.pageable.size+' 条记录，总共' +data.pageList.total+'条记录')
 	        		}
-	        		$('.page-size').html(data.pageList.pageable.size)
+	        		
 	        		
 	        		num_size='';
-	        	}
+	        		
+	        	} */
 	        }
 		});
 		/**

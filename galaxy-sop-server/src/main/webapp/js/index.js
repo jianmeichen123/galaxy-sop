@@ -80,7 +80,7 @@
 			var tbodyList = $("#ceopsbodytop"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 	   }
@@ -119,13 +119,13 @@
 			var content = data.pageList.content;
 			
 			$(content).each(function(index,item){
-				var tr = " <tr><td>"+(index+1)+"</td><td>"+longTimeFormatChines(item.createdTime)+"</td> <td>"+item.operator+"</td><td>"+item.content+"</td></tr>"
+				var tr = " <tr><td>"+longTimeFormatChines(item.createdTime)+"</td> <td><span class='operator'>"+item.operator+"</span>"+item.content+"</td></tr>"
 				news_table.append(tr);
 			})
 			if (content.length==0) {
 				var noData =
 					'<tr>'+
-					 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+					 '<td colspan="2" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 					' </tr>'; 			
 				news_table.append(noData);
 		   }
@@ -181,7 +181,7 @@
 			var tbodyList = $("#sopStak"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="7">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="7" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}	
@@ -227,7 +227,7 @@
 			var tbodyList = $("#tbody"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}
@@ -276,7 +276,7 @@
 			var tbodyList = $("#tlbody"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}
@@ -309,7 +309,7 @@ cutStr(5,'cutstr');
 			var tbodyList = $("#tcbody"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}
@@ -341,7 +341,7 @@ cutStr(5,'cutstr');
 			var tbodyList = $("#votebody"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);	
 		}
@@ -532,7 +532,7 @@ function cyIndexCallback(data){
 		$("#cy_index").parent().parent().siblings().children('.more').css("display","none");
 		var noData =
 			'<tr>'+
-			'<td colspan="7">'+'没有找到匹配的记录'+'</td>'+
+			'<td colspan="7" class="no_info"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 			' </tr>'; 			
 		tbodyList.append(noData);
 	}	

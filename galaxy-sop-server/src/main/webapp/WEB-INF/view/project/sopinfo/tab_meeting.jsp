@@ -101,15 +101,17 @@
 						</dl>
 
 						<dl class="fmdl fmmr fmdll clearfix">
-							<dt>会议日期：</dt>
+							<!-- <dt>会议日期：</dt>
 							<dd>
 								<input type="text" class="datepicker txt time" readonly id="startTime" name="startTime" style="height: 23px;" /> 
 								<span>至</span>
 								<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
 							</dd>
+							 -->
 							<dd>
 								<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
 							</dd>
+							
 						</dl>
 					</div>
 					</div>

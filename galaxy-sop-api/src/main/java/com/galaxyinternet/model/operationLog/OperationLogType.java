@@ -93,7 +93,41 @@ public enum OperationLogType {
 	//点击工商变更登记凭证催办列里的“催办”
 	REMIND_COMPANY_CHANGE_CERTIFICATE("", OperType.REMINDER.getOperationType(), "工商变更登记凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
 	
-
+	 /**
+     * 人，法，财操作项目日志添加开始
+     * 
+     */	
+	//认领任务-人事完善简历
+	UPLOAD_EQUITY_CLAIMT_SOPTASK_RS_JL("/galaxy/soptask/goClaimtcPage/"+UrlNumber.one, OperType.CLAIMT.getOperationType(), Target.DUE_DILIGENCE_PERFECTED_PINFO.getTargetName(),SopStage.TOUCH_INTERVIEW.getStageName()),
+	//认领任务-人事尽职调查
+	UPLOAD_EQUITY_CLAIMT_SOPTASK_RS_JD("/galaxy/soptask/goClaimtcPage/"+UrlNumber.two, OperType.CLAIMT.getOperationType(), Target.DUE_DILIGENCE_RS_JD.getTargetName(),SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	//认领任务-财务尽职调查
+	UPLOAD_EQUITY_CLAIMT_SOPTASK_CW_JD("/galaxy/soptask/goClaimtcPage/"+UrlNumber.three, OperType.CLAIMT.getOperationType(), Target.DUE_DILIGENCE_CW_JD.getTargetName(),SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	//认领任务-财务付款凭证
+	UPLOAD_EQUITY_CLAIMT_SOPTASK_CW_FKPZ("/galaxy/soptask/goClaimtcPage/"+UrlNumber.four, OperType.CLAIMT.getOperationType(), Target.DUE_DILIGENCE_CW_FKPZ.getTargetName(),SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
+	//认领任务-法务尽职调查
+	UPLOAD_EQUITY_CLAIMT_SOPTASK_FW_JD("/galaxy/soptask/goClaimtcPage/"+UrlNumber.five, OperType.CLAIMT.getOperationType(), Target.DUE_DILIGENCE_FW_JD.getTargetName(),SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	//认领任务-法务工商变更
+	UPLOAD_EQUITY_CLAIMT_SOPTASK_FW_GSBG("/galaxy/soptask/goClaimtcPage/"+UrlNumber.six, OperType.CLAIMT.getOperationType(), Target.DUE_DILIGENCE_FW_GSBG.getTargetName(),SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
+	
+    //完成任务-人事完善简历
+	UPLOAD_EQUITY_SUBMIT_SOPTASK_RS_JL("/galaxy/soptask/updateTaskStatus/"+UrlNumber.one, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_PERFECTED_PINFO.getTargetName(),SopStage.TOUCH_INTERVIEW.getStageName()),
+	//完成任务-人事尽职调查
+	UPLOAD_EQUITY_SUBMIT_SOPTASK_RS_JD("/galaxy/soptask/submitTask/"+UrlNumber.two, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_RS_JD.getTargetName(),SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	//完成任务-财务尽职调查
+	UPLOAD_EQUITY_SUBMIT_SOPTASK_CW_JD("/galaxy/soptask/submitTask/"+UrlNumber.three, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_CW_JD.getTargetName(),SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	//完成任务-财务付款凭证
+	UPLOAD_EQUITY_SUBMIT_SOPTASK_CW_FKPZ("/galaxy/soptask/submitTask/"+UrlNumber.four, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_CW_FKPZ.getTargetName(),SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
+	//完成任务-法务尽职调查
+	UPLOAD_EQUITY_SUBMIT_SOPTASK_FW_JD("/galaxy/soptask/submitTask/"+UrlNumber.five, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_FW_JD.getTargetName(),SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	//完成任务-法务工商变更
+	UPLOAD_EQUITY_SUBMIT_SOPTASK_FW_GSBG("/galaxy/soptask/submitTask/"+UrlNumber.six, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_FW_GSBG.getTargetName(),SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
+	
+	/**
+    * 人，法，财操作项目日志添加结束
+    * 
+    */
+	
 	
 	//更新投资意向书 1
 	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),

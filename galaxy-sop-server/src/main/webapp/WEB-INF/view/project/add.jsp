@@ -115,8 +115,8 @@
                     </table>
                     <div class="compile_on_center">
                        <div class="compile_on_left">
-                           <span class="basic_input" onclick="add();">保存</span>
-                           <span class="compile_on_right_q" data-name='industry' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" onclick="add();">保存</span>
+                           <span class="pubbtn fffbtn" data-name='industry' data-on="close">取消</span>
                        </div>  
                    </div>
                 </div>

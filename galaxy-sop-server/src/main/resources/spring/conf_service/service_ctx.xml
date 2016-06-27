@@ -31,4 +31,148 @@
         </property>
 	</bean>
 	
+	
+	<bean id="com.galaxyinternet.common.utils.StaticParamService" class="com.galaxyinternet.common.utils.StaticParamService">
+		<property name="roleMessageType">
+			<map>
+			    <entry key="1">   <!-- 董事长 -->
+			       <list>
+						<value>4.3</value>
+						<value>4.4</value>
+						<value>6.10</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="2">    <!-- CEO -->
+			       <list>
+						<value>4.3</value>
+						<value>4.4</value>
+						<value>6.10</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="3">  <!-- 合伙人 -->
+			       <list>
+						<value>1</value>
+						<value>3</value>
+						<value>4.1</value>
+						<value>4.2</value>
+						<value>4.3</value>
+						<value>4.4</value>
+						<value>6.10</value>
+						<value>10.1</value>
+						<value>10.2</value>
+						<value>10.3</value>
+						<value>11.1</value>
+						<value>11.2</value>
+						<value>11.3</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="4">  <!-- 投资经理 -->
+			       <list>
+						<value>5.5</value>
+						<value>5.6</value>
+						<value>5.7</value>
+						<value>5.10</value>
+						<value>5.11</value>
+						<value>6.10</value>
+						<value>8.1</value>
+						<value>8.2</value>
+						<value>8.3</value>
+						<value>9.1</value>
+						<value>9.2</value>
+						<value>9.3</value>
+						<value>11.1</value>
+						<value>11.2</value>
+						<value>11.3</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="5">  <!-- 投后负责人 -->
+			       <list>
+			       </list>
+			    </entry>
+			    
+			    <entry key="6">  <!-- 项目运营负责人 -->
+			       <list>
+			       </list>
+			    </entry>
+			    
+			    <entry key="7">  <!-- HR总监 -->
+			       <list>
+						<value>6.6</value>
+						<value>7.1</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="8">  <!--  HR经理 -->
+			       <list>
+						<value>6.6</value>
+						<value>7.1</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="9">  <!--  法务总监 -->
+			       <list>
+						<value>6.6</value>
+						<value>7.3</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="10">  <!--  法务经理 -->
+			       <list>
+						<value>6.6</value>
+						<value>7.3</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="11">  <!--  财务总监 -->
+			       <list>
+						<value>6.6</value>
+						<value>7.2</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="12">  <!--  财务经理 -->
+			       <list>
+						<value>6.6</value>
+						<value>7.2</value>
+			       </list>
+			    </entry>
+			    
+			    
+			     <entry key="16">  <!--  管理员 -->
+			       <list>
+			       </list>
+			    </entry>
+			    
+			     <entry key="17">  <!--  档案管理员 -->
+			       <list>
+			       </list>
+			    </entry>
+			    
+			     <entry key="18">  <!--  董事长秘书 -->
+			       <list>
+						<value>4.3</value>
+						<value>4.4</value>
+						<value>6.10</value>
+			       </list>
+			    </entry>
+			    
+			    <entry key="19">  <!--  ceo秘书 -->
+			       <list>
+						<value>4.3</value>
+						<value>4.4</value>
+						<value>6.10</value>
+			       </list>
+			    </entry>
+			    
+			</map>
+			
+		</property>
+	</bean>
+	
+	
+	
 </beans>

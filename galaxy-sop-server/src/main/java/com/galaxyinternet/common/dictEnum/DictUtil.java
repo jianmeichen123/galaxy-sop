@@ -1,5 +1,6 @@
 package com.galaxyinternet.common.dictEnum;
 
+
 public class DictUtil {
 	public static String getStatusName(String code){
 		String name="";
@@ -35,6 +36,24 @@ public class DictUtil {
 		if(code==2)	{
 			name="特急";
 		}
+		return name;
+	}
+	
+	public static String getMeetingType(String code){
+		String name="";
+		if(code.equals(DictEnum.meetingType.内评会.getCode()))	{ 
+			name=DictEnum.meetingType.内评会.getName();
+		}
+		if(code.equals(DictEnum.meetingType.投决会.getCode()))	{
+			name=DictEnum.meetingType.投决会.getName();
+		}
+		if(code.equals(DictEnum.meetingType.立项会.getCode()))	{
+			name=DictEnum.meetingType.立项会.getName();
+		}
+		if(code.equals(DictEnum.meetingType.CEO评审.getCode()))	{
+			name=DictEnum.meetingType.CEO评审.getName();
+		}
+		
 		return name;
 	}
 

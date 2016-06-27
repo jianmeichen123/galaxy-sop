@@ -27,16 +27,16 @@ function loadAjaxSopUserSchedule(url){
 			 $("#top").html("");
 			 var htmlstart="";
 			   if (dataList.length==0) {
-				    htmlstart+="<div style=\"font-size:12px;font-family:'宋体';text-align:center;color:#7a8798;hight:50px;line-height:50px\">无日程安排</div>";
+				    htmlstart+="<span class=\"schedule_noinfo\">无日程安排</span>";
 			   }
-				if(dataList.length<3){
+			/*	if(dataList.length<3){
 					$("#top").siblings().children('.more').css("display","none");
 				}else{
 					$("#top").siblings().children('.more').css("display","block");
-				}
+				}*/
 				if (dataList.length!=0){
 					 for(var ii = 0 ; ii < dataList.length ; ii++){
-						 htmlstart +="<a href=\"javascript:;\" class=\"link\"><b class=\"b1 null\">点</b>"+dataList[ii].timeTask+"</a>";
+						 htmlstart +="<a href=\"javascript:;\" class=\"link\" onclick=\"shecudle();\"><b class=\"b1 null\">点</b>"+dataList[ii].timeTask+"</a>";
 					 }					
 				}
 

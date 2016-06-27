@@ -3,11 +3,15 @@ package com.galaxyinternet.soptask.controller;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.SheduleCommon;
 import com.galaxyinternet.bo.SopUserScheduleBo;
+import com.galaxyinternet.bo.project.MeetingSchedulingBo;
+import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.dictEnum.DictUtil;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -29,8 +36,15 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.department.Department;
+import com.galaxyinternet.model.project.MeetingScheduling;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopUserSchedule;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.DepartmentService;
+import com.galaxyinternet.service.MeetingSchedulingService;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopUserScheduleService;
 
 @Controller
@@ -42,9 +56,18 @@ public class SopUserScheduleController extends
 
 	@Autowired
 	private SopUserScheduleService sopUserScheduleService;
+	
+	@Autowired
+	private MeetingSchedulingService meetingSchedulingService;
+	
+	@Autowired
+	private DepartmentService departmentService;
 
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
+	
+	@Autowired
+	private ProjectService projectService;
 
 	@Override
 	protected BaseService<SopUserSchedule> getBaseService() {
@@ -166,6 +189,83 @@ public class SopUserScheduleController extends
 		
 	}
 	
+	/**
+	 * 日程跳转页面
+	 * @param request
+	 * @date 2016-06-23
+	 * @return
+	 */
+	@RequestMapping(value = "/popupMeetingList/{type}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String popupMeetingList(@PathVariable("type") String type,HttpServletRequest request) {
+		request.setAttribute("type", type);
+		return "shedule/sheduleMeeting";
+	}
+	
+	/**
+	 * 日程表格
+	 * @param request
+	 * @param query
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/sh", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingSchedulingBo> shedulingMeeting(HttpServletRequest request,@RequestBody MeetingScheduling query){
+		ResponseData<MeetingSchedulingBo> responseBody = new ResponseData<MeetingSchedulingBo>();
+		
+		User user = (User) getUserFromSession(request);
+
+		ProjectBo pb = new ProjectBo();
+		pb.setCreateUid(user.getId());
+		List<Project> projectList = projectService.queryList(pb);
+		
+		//组装项目的投资经理uid
+		List<Long> proids = new ArrayList<Long>();
+		List<String> departmentids = new ArrayList<String>();
+		Map<Long,Project> projectProMap = new HashMap<Long,Project>();
+		for(Project pr:projectList){
+			proids.add(pr.getId());
+			projectProMap.put(pr.getId(), pr);
+			departmentids.add(String.valueOf(pr.getProjectDepartid()));
+		}
+		//若此人没有创建的项目则返回
+		if(proids != null && proids.size() > 0){
+			query.setProjectIdList(proids);
+		}else{
+			return responseBody;
+		}
+		//若前端传来排期类型为空
+		if(StringUtils.isEmpty(query.getMeetingType())){
+			return responseBody;
+		}
+		//获取排期数据
+		List<MeetingSchedulingBo> mslist=meetingSchedulingService.meetingListByCondition(query);
+		if(mslist.size() == 0){
+			return responseBody;
+		}
+		
+		//获取事业线数据
+		Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
+		List<Department> careerlineList = departmentService.queryListById(departmentids);
+		for(Department department : careerlineList){
+			careerlineMap.put(department.getId(), department);
+		}
+		
+		//组装数据
+		for(MeetingSchedulingBo ms : mslist){
+			    Project p = projectProMap.get(ms.getProjectId());
+				ms.setProjectCode(p.getProjectCode());
+				ms.setProjectName(p.getProjectName());
+				ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
+				ms.setCreateUname(p.getCreateUname());
+				ms.setMeetingType(DictUtil.getMeetingType(ms.getMeetingType()));
+				ms.setStart(DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
+				ms.setEnd(DateUtil.convertDateToStringForChina(ms.getReserveTimeEnd()));
+                ms.setTitle(p.getProjectName()+ms.getMeetingType());
+				
+		}
+		responseBody.setEntityList(mslist);
+		return responseBody;
+	}
 	
 
 }

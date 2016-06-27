@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.model.common.ProgressLog;
@@ -19,7 +21,13 @@ import com.galaxyinternet.model.operationLog.OperationLogType;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.operationMessage.OperationType;
+import com.galaxyinternet.model.sopfile.SopParentFile;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.operationMessage.MessageGenerator;
+import com.galaxyinternet.operationMessage.handler.ApplySchedulingMessageHandler;
+import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
+import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
+import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationLogsService;
 import com.galaxyinternet.service.OperationMessageService;
@@ -60,11 +68,20 @@ import com.galaxyinternet.service.ProgressLogService;
 public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 
 	final org.slf4j.Logger loger = LoggerFactory.getLogger(MessageHandlerInterceptor.class);
-
+	
+	public static final String add_interview_type = "3";
+	
+	public static final String ceo_apply_type = "10.1";
+	public static final String lxh_apply_type = "10.2";
+	public static final String tjh_apply_type = "10.3";
+	
+	
 	@Autowired
 	OperationMessageService operationMessageService;
 	@Autowired
 	OperationLogsService operationLogsService;
+	@Autowired
+	MessageGenerator messageGenerator;
 
 	@Autowired
 	ProgressLogService ideaNewsService;
@@ -80,18 +97,20 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				final Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
 				if (null != map && !map.isEmpty()) {
 					String uniqueKey = getUniqueKey(request, map, logger);
-					final OperationType type = OperationType.getObject(uniqueKey);
-					final OperationLogType operLogType = OperationLogType.getObject(uniqueKey);
+					final OperationType type = OperationType.getObject(uniqueKey);   //message
+					final OperationLogType operLogType = OperationLogType.getObject(uniqueKey); //log
 					if (null != type || null != operLogType) {
 						final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 						final RecordType recordType = logger.recordType();
-						final LogType[] logTypes = logger.operationScope();
+						final LogType[] logTypes = logger.operationScope();  //log message 
 						GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 							@Override
 							public void run() {
 								for (final LogType ltype : logTypes) {
 									if (ltype == LogType.MESSAGE) {
-										insertMessageTip(populateOperationMessage(type, user, map));
+										if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE) != null){
+											insertMessageTip(populateOperationMessage(type, user, map));
+										}
 									} else if (ltype == LogType.LOG) {
 										insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
 									} else if (ltype == LogType.IDEANEWS) {
@@ -108,18 +127,113 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		}
 		super.afterCompletion(request, response, handler, ex);
 	}
-
+	
 	/**
 	 * 
 	 * @Description:产生消息提醒的方法
 	 */
+	
 	private void insertMessageTip(OperationMessage message) {
 		try {
 			operationMessageService.insert(message);
+			StringBuffer content = new StringBuffer();
+			
+			if(message.getMessageType().equals(StageChangeHandler._6_1_)){
+				content.append(message.getOperator());
+				content.append(message.getOperator()).append("添加了项目");
+				content.append(ControllerUtils.getProjectNameLink(message));
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_3_)){
+				message.setMessageType(MeetMessageHandler.lph_message_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("添加了内评会会议纪要");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+				content.setLength(0);
+				message.setMessageType(ceo_apply_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("申请CEO评审会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_4_)){
+				message.setMessageType(lxh_apply_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("申请立项会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_5_)){
+				message.setMessageType(MeetMessageHandler.lph_message_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("添加了立项会会议纪要");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_6_)){
+				message.setMessageType(SopFileMessageHandler._5_3_);
+				SopParentFile sopFile = (SopParentFile) message.getUserData();
+				content.append(message.getOperator());
+				content.append("为项目");
+				content.append(ControllerUtils.getProjectNameLink(message));
+				content.append("上传了投资意向书签署凭证");
+				content.append("《");
+				content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
+				content.append("》");	
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_7_)){
+				message.setMessageType(tjh_apply_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("申请投决会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_9_)){
+				SopParentFile sopFile = (SopParentFile) message.getUserData();
+				if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.投资协议)){
+					message.setMessageType(SopFileMessageHandler._5_9_);
+					content.append(message.getOperator());
+					content.append("为项目");
+					content.append(ControllerUtils.getProjectNameLink(message));
+					content.append("上传了投资协议签署凭证");
+					content.append("《");
+					content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
+					content.append("》");	
+					message.setContent(content.toString());
+					operationMessageService.insert(message);
+				}else{
+					message.setMessageType(SopFileMessageHandler._5_13_);
+					content.append(message.getOperator());
+					content.append("为项目");
+					content.append(ControllerUtils.getProjectNameLink(message));
+					content.append("上传了股权转让签署凭证");
+					content.append("《");
+					content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
+					content.append("》");	
+					message.setContent(content.toString());
+					operationMessageService.insert(message);
+				}
+				message.setMessageType(tjh_apply_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("申请投决会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			}
 		} catch (Exception e1) {
 			loger.error("产生提醒消息异常，请求数据：" + message, e1);
 		}
 	}
+	
 
 	// 添加创意动态
 	private void insertIdeaNews(ProgressLog message) {
@@ -186,33 +300,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		return entity;
 	}
 
+	
 	private OperationMessage populateOperationMessage(OperationType type, User user, Map<String, Object> map) {
-		OperationMessage entity = new OperationMessage();
-		entity.setContent(type.getContent());
-		if("lijunyang".equals(user.getEmail())){
-			entity.setDepartment("产品研发部");
-			entity.setRole("SVP");
-		}else{
-			entity.setDepartment(user.getDepartmentName());
-			entity.setRole(user.getRole());
-		}
-		entity.setOperatorId(user.getId());
-		entity.setOperator(user.getRealName());
-		Object o = map.get(PlatformConst.REQUEST_SCOPE_USER);
-		User u = null;
-		if (o != null) {
-			u = (User) o;
-		} else {
-			u = user;
-		}
-		entity.setBelongUid(u.getId());
-		entity.setBelongUname(u.getRealName());
-		entity.setType(type.getType());
-		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
-		entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
-		Integer module = type.getModule();
-		entity.setModule(module == null ? OperationType.getModule(user.getRoleId()) : module);
-		return entity;
+		return messageGenerator.generate(type, user, map);
 	}
 
 }
