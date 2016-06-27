@@ -21,7 +21,7 @@ public class MeetMessageHandler implements MessageHandler
 	public static final String lph_message_type = "4.1";
 	public static final String ceo_message_type = "4.2";
 	public static final String lxh_message_type = "4.3";
-	public static final String tjh_message_type = "4.3";
+	public static final String tjh_message_type = "4.4";
 	
 	@Override
 	public int getOrder()
