@@ -21,6 +21,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 
 /**
  * 上传投资协议/投资协议的签署证明、股权转让协议/股权转让协议的签署证明
@@ -88,6 +89,7 @@ public class TzxyHandler implements Handler {
 			 * 前一个判断是可以将项目状态切换为股权交割
 			 * 后一个判断是需要上传股权转让协议
 			 */
+			String messageType = null;
 			if(project.getProjectType().equals(DictEnum.projectType.内部创建.getCode())
 					|| (project.getProjectType().equals(DictEnum.projectType.外部投资.getCode())
 							&& q.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())
@@ -98,7 +100,7 @@ public class TzxyHandler implements Handler {
 				project.setProjectProgress(DictEnum.projectProgress.股权交割.getCode());
 				project.setUpdatedTime((new Date()).getTime());
 				projectDao.updateById(project);
-				
+				messageType = StageChangeHandler._6_9_;
 				//生成待办任务:上传资金拨付凭证和上传工商变更登记凭证
 				SopTask task = new SopTask();
 				task.setProjectId(q.getPid());
@@ -155,9 +157,9 @@ public class TzxyHandler implements Handler {
 			
 			
 			if(q.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
-				r = new SopResult(Status.OK,null,"上传股权转让协议签署证明成功!",UrlNumber.eleven);
+				r = new SopResult(Status.OK,null,"上传股权转让协议签署证明成功!",UrlNumber.eleven,messageType);
 			}else{
-				r = new SopResult(Status.OK,null,"上传投资协议签署证明成功!",UrlNumber.twelve);
+				r = new SopResult(Status.OK,null,"上传投资协议签署证明成功!",UrlNumber.twelve,messageType);
 			}
 		}else{
 			if(q.getHasStockTransfer() != null && q.getHasStockTransfer().intValue() == 1){

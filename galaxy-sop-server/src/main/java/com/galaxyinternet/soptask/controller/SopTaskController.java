@@ -41,6 +41,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
@@ -429,9 +430,13 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 		     }
 		}
 		try {
-			sopTaskService.submitTask(entity);
+			int r = sopTaskService.submitTask(entity);
 			User manager = userService.queryById(project.getCreateUid());
-			ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),messageType,urlNum);
+			if(r == 1){
+				ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),StageChangeHandler._6_10_,null);
+			}else{
+				ControllerUtils.setRequestParamsForMessageTip(request,manager,project.getProjectName(), project.getId(),messageType,urlNum);
+			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null,"异常，请重试!"));
 			return responseBody;

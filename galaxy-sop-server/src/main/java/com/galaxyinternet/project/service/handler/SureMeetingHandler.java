@@ -1,6 +1,5 @@
 package com.galaxyinternet.project.service.handler;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 
 /**
  * 添加投决会议记录
@@ -95,11 +95,12 @@ public class SureMeetingHandler implements Handler {
 		
 		int in = Integer.parseInt(DictEnum.projectProgress.投资决策会.getCode().substring(DictEnum.projectProgress.投资决策会.getCode().length()-1));
 		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length()-1)) ;
-			
+		String messageType = null;
 		if(q.getResult().equals(DictEnum.meetingResult.通过.getCode()) && (in == pin)){
 			p.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
+			messageType = StageChangeHandler._6_5_;
 			/**
 			 * 为当前的投资经理生成一个上传投资协议的待办任务
 			 * 当期上传投资协议的签署证明时，根据是否勾选涉及股权转让，去判断是否生成上传股权转让协议的待办任务
@@ -137,7 +138,7 @@ public class SureMeetingHandler implements Handler {
 			tm.setUpdatedTime((new Date()).getTime());
 			meetingSchedulingDao.updateById(tm);
 		}
-		return new SopResult(Status.OK,null,"添加投决会议记录成功!",UrlNumber.eight);
+		return new SopResult(Status.OK,null,"添加投决会议记录成功!",UrlNumber.eight,messageType);
 	}
 	
 }

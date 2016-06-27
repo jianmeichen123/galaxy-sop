@@ -11,13 +11,6 @@ public class ApplySchedulingMessageHandler implements MessageHandler
 {
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 *  10.1	申请CEO评审会议排期
-		10.3	申请投决会会议排期	
-	*/
-	public static final String ceo_apply_type = "10.1";
-	public static final String tjh_apply_type = "10.3";
-	
 	@Override
 	public int getOrder()
 	{

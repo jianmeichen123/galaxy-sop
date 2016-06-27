@@ -65,7 +65,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 
 	final org.slf4j.Logger loger = LoggerFactory.getLogger(MessageHandlerInterceptor.class);
 	
+	public static final String ceo_apply_type = "10.1";
 	public static final String lxh_apply_type = "10.2";
+	public static final String tjh_apply_type = "10.3";
 	
 	
 	@Autowired
@@ -134,8 +136,15 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				.append("申请立项会会议排期");
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_7_)){
+				message.setMessageType(tjh_apply_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("申请投决会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
 			}
-			
 		} catch (Exception e1) {
 			loger.error("产生提醒消息异常，请求数据：" + message, e1);
 		}

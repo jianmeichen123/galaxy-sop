@@ -1303,7 +1303,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
 				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_4_);
-				
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"异常，申请立项会失败!"));
@@ -1410,8 +1409,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			projectService.toSureMeetingStage(project);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
-			
-			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.3", UrlNumber.one);
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_);
 		} catch (Exception e) {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "异常，申请投决会失败!"));
