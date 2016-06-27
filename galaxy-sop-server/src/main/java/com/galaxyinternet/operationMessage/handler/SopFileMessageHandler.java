@@ -15,6 +15,8 @@ public class SopFileMessageHandler implements MessageHandler {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public static final String _upload_tzyxs_type_ = "5.2";
 
 	@Override
 	public int getOrder() {

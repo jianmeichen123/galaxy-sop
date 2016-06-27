@@ -21,6 +21,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 
 /**
@@ -155,7 +156,7 @@ public class TzyxsHandler implements Handler {
 			f.setFileName(q.getFileName());
 			f.setFileSuffix(q.getSuffix());
 			sopFileDao.updateById(f);
-			return new SopResult(Status.OK,null,"上传投资意向书成功!",UrlNumber.five);
+			return new SopResult(Status.OK,null,"上传投资意向书成功!",UrlNumber.five,SopFileMessageHandler._upload_tzyxs_type_);
 		}
 	}
 	
