@@ -145,6 +145,14 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				.append("添加了内评会会议纪要");
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
+				content.setLength(0);
+				message.setMessageType(ceo_apply_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("申请CEO评审会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
 			} else if(message.getMessageType().equals(StageChangeHandler._6_4_)){
 				message.setMessageType(lxh_apply_type);
 				content.append(message.getOperator())
