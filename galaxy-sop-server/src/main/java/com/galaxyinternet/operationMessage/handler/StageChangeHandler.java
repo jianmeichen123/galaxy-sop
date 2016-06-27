@@ -28,7 +28,8 @@ public class StageChangeHandler implements MessageHandler {
 
 	@Override
 	public boolean support(OperationMessage message) {
-		return message != null && (_6_2_.equals(message.getMessageType()) 
+		return message != null && (_6_1_.equals(message.getMessageType())
+				|| _6_2_.equals(message.getMessageType()) 
 				|| _6_3_.equals(message.getMessageType())
 				|| _6_4_.equals(message.getMessageType()) 
 				|| _6_5_.equals(message.getMessageType())
