@@ -100,7 +100,7 @@ public class SureMeetingHandler implements Handler {
 			p.setProjectProgress(DictEnum.projectProgress.投资协议.getCode());
 			p.setUpdatedTime((new Date()).getTime());
 			projectDao.updateById(p);
-			messageType = StageChangeHandler._6_5_;
+			messageType = StageChangeHandler._6_8_;
 			/**
 			 * 为当前的投资经理生成一个上传投资协议的待办任务
 			 * 当期上传投资协议的签署证明时，根据是否勾选涉及股权转让，去判断是否生成上传股权转让协议的待办任务
