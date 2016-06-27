@@ -42,7 +42,7 @@ public class TaskgoClaimtMessageHandler implements MessageHandler
 	{
 		StringBuffer content = new StringBuffer();
 		content.append(message.getOperator())
-		.append("认领了了项目")
+		.append("认领了项目")
 		.append(ControllerUtils.getProjectNameLink(message))
 		.append("的")
 		.append(map.get(message.getMessageType()))
