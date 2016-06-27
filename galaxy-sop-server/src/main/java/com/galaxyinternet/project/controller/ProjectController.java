@@ -1451,6 +1451,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				meetingSchedulingService.updateById(tm);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.3", UrlNumber.one);
 			} else {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"项目不能重复申请立项会排期!"));
