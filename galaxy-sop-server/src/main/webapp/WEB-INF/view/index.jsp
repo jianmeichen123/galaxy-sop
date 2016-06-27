@@ -212,7 +212,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             	<dl class="r_news" style="position:relative;">
                 	<dt><h3 class="ico t4">消息提醒</h3></dt>
                     <dd>
-                    	<table width="100%" cellspacing="0"  cellpadding="0">
+                    	<!-- <table width="100%" cellspacing="0"  cellpadding="0">
                             <thead>
                                 <tr>
                                     <th>日期时间</th>
@@ -221,7 +221,15 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                             </thead>
                             <tbody>
                             </tbody>
-                        </table>
+                        </table> -->
+                        <table id="message-data-table" data-url="operationMessageQueryList" data-page-size="3" data-page-list="[3,20,30]" data-show-refresh="true">
+							<thead>
+							    <tr>
+						        	<th data-field="createdTime" data-align="left" data-width="35%" data-formatter="longTimeFormat_Chines" >日期时间</th>
+						        	<th data-field="content" data-align="left"  data-width="65%" data-formatter="projectNameFormat">消息</th>
+			 					</tr>	
+			 				</thead>
+						</table>
                     </dd>
                     <dd class="clearfix position">
                     	<a href="<%=path %>/galaxy/operationMessage/index" class="more null">more</a>
@@ -356,6 +364,18 @@ $(function(){
 			var chart = new Highcharts.Chart(chartOptions);
 		});
 	}
+	$('#message-data-table').bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		pageSize:3,
+		showRefresh : false ,
+		url : platformUrl[$('#message-data-table').attr("data-url")],
+		sidePagination: 'server',
+		method : 'post',
+		sortOrder : 'desc',
+		sortName : 'updated_time',
+		pagination: true,
+        search: false,
+	});
 });
 //通用ajax数据回调
 function ajaxCallback(obj,callback){
