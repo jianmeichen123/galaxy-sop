@@ -97,7 +97,7 @@ public class TaskUploadMessageHandler implements MessageHandler
 		SopFile sopFile = fileService.queryOne(query);
 		if(sopFile != null)
 		{
-			fileName = sopFile.getFileName();
+			fileName = sopFile.getFileName()+"."+sopFile.getFileSuffix();
 		}
 		return fileName;
 	}
