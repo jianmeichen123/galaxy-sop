@@ -83,6 +83,7 @@ public class TaskUploadMessageHandler implements MessageHandler
 		.append("&lt;&lt;")
 		.append(fileName)
 		.append("&gt;&gt;");
+		message.setMessageType(message.getMessageType().replace("_", ""));
 		message.setContent(content.toString());
 		return message;
 	}
