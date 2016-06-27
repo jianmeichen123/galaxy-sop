@@ -40,8 +40,8 @@
 			<table id="data-table" data-url="operationMessageQueryList"  data-page-list="[10,20,30]" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="createdTime" data-align="left" data-class="no0_1" data-formatter="longTimeFormat_Chines" >日期时间</th>
-			        	<th data-field="content" data-align="left"  data-class="no0_2" data-formatter="projectNameFormat">消息</th>
+			        	<th data-field="createdTime" data-align="left" data-class="message_t" data-formatter="longTimeFormat_Chines" >日期时间</th>
+			        	<th data-field="content" data-align="left"  data-class="message_n" data-formatter="projectNameFormat">消息</th>
  					</tr>	
  				</thead>
 			</table>

@@ -1847,6 +1847,15 @@ font-family: "宋体";
 .lft .toggle_li li a{color:#eee !important;}
 .lft .toggle_li li ul a{padding-left:30px;}
 .lft .toggle_li li a:hover,.lft .toggle_li li.on a{color:#6dafee !important;}
+/*消息提醒*/
+.message table{border-radius:6px;margin-bottom: 10px;width:80% !important;}
+.message table .message_t{width:20%;}
+.message table .message_n{width:80%;}
+.message table th{font-size: 16px;font-family: "微软雅黑";color:#6b799f;padding-left: 25px !important;}
+.message .fixed-table-container thead th .th-inner{line-height:38px;}
+.message .bootstrap-table .table > tbody > tr > td{height:48px;padding-left: 30px !important;}
+.message table .operator{margin-right: 10px;}
+.message .fixed-table-pagination{width: 80%;}
 /*添加日程*/
 #top{height:72px;}
 .add_schedule{background:url(../img/no_icon.png) 0 -57px no-repeat;padding-left:15px;float:right;}
