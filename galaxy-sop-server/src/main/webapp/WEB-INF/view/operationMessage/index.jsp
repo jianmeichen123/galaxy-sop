@@ -75,6 +75,7 @@
 				" </a>" ;
 		
 		var content =value.replace("projectname",aa);
+		console.log(content)
 		return content;
 		
 	}
