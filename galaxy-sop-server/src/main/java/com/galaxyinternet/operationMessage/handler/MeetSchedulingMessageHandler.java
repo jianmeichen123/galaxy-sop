@@ -46,9 +46,21 @@ public class MeetSchedulingMessageHandler implements MessageHandler
 		}else if(message.getMessageType().equals(tjh_schedul_type)){
 			content.append("的投决会");
 		}
-		content.append("已被安排于")
-		.append(message.getKeyword())
-		.append(" 举行");
+		if(message.getKeyword().contains("cancle")){
+			content.append("原已被安排于");
+			content.append(message.getKeyword());
+			content.append("的会议已取消");
+		}
+		if(message.getKeyword().contains("update")){
+			content.append("原已被安排于");
+			content.append(message.getKeyword());
+			content.append("的会议已重新被安排");
+		}
+		if(message.getKeyword().contains("insert")){
+			content.append("已被安排于");
+			content.append(message.getKeyword());
+			content.append("举行");
+		}
 		message.setContent(content.toString());
 		return message;
 	}

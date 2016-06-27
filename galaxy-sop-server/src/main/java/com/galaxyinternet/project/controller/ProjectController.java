@@ -2389,6 +2389,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				List<String> userLs = proMap.get(pj.getId());
 				//获取项目中的user
 				List<User> userlist = userService.queryListById(userLs);
+				User belongUser = userService.queryById(pj.getCreateUid());
 				// 如果是更新或取消排期时间
 				if (oldMs.getReserveTimeStart() != null
 						&& oldMs.getReserveTimeEnd() != null) {
@@ -2398,7 +2399,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						ms.setScheduleStatus(0);
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,null,null,0,UrlNumber.three);
-						
+						belongUser.setKeyword("cancle:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
 					} else {
 						// 更新会议时间
 						if (oldMs.getReserveTimeStart().getTime() != ms
@@ -2407,6 +2408,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 										.getReserveTimeEnd().getTime()) {
 							meetingSchedulingService.updateByIdSelective(ms);
 							sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.two);
+							belongUser.setKeyword("update:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
 						}
 					}
 				} else {
@@ -2415,11 +2417,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							&& ms.getReserveTimeEnd() != null) {
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.one);
+						belongUser.setKeyword("insert:"+DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));	
 					}
 
 				}
-				User belongUser = userService.queryById(pj.getCreateUid());
-				belongUser.setKeyword(DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
 				ControllerUtils.setRequestParamsForMessageTip(request, belongUser, pj.getProjectName(), pj.getId(), messageType, UrlNumber.one);
 			}
 		} catch (Exception e) {
