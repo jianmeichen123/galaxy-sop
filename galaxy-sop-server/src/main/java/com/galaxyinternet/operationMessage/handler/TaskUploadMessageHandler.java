@@ -21,23 +21,23 @@ public class TaskUploadMessageHandler implements MessageHandler
 	/**
 	 * 5.5	上传/更新人事尽调
 	 */
-	private String MESSAGE_TYPE_RSJD = "5.5";
+	private String MESSAGE_TYPE_RSJD = "_5.5";
 	/**
 	 * 5.6	上传/更新财务尽调
 	 */
-	private String MESSAGE_TYPE_CWJD = "5.6";
+	private String MESSAGE_TYPE_CWJD = "_5.6";
 	/**
 	 * 5.7	上传/更新法务尽调
 	 */
-	private String MESSAGE_TYPE_FWJD = "5.7";
+	private String MESSAGE_TYPE_FWJD = "_5.7";
 	/**
 	 * 5.10	上传/更新股权变更凭证
 	 */
-	private String MESSAGE_TYPE_GSZR = "5.10";
+	private String MESSAGE_TYPE_GSZR = "_5.10";
 	/**
 	 * 5.11	上传/更新财务打款凭证
 	 */
-	private String MESSAGE_TYPE_ZJBF = "5.11";
+	private String MESSAGE_TYPE_ZJBF = "_5.11";
 	
 	private Map<String,DictEnum.fileWorktype> map = new HashMap<String,DictEnum.fileWorktype>();
 	

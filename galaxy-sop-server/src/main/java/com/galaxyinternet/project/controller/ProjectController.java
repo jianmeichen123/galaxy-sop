@@ -1133,7 +1133,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					// 记录操作日志
 					ControllerUtils.setRequestParamsForMessageTip(request,
 							project.getProjectName(), project.getId(),
-							r.getMessageType(), r.getNumber());
+							r.getMessageType(), r.getNumber(),r.getAttachment());
 				}
 			}
 		} catch (Exception e) {

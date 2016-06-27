@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
@@ -20,10 +21,12 @@ import com.galaxyinternet.model.operationLog.OperationLogType;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.operationMessage.OperationType;
+import com.galaxyinternet.model.sopfile.SopParentFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.operationMessage.MessageGenerator;
 import com.galaxyinternet.operationMessage.handler.ApplySchedulingMessageHandler;
 import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
+import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationLogsService;
@@ -173,7 +176,51 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				.append("添加了立项会会议纪要");
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_6_)){
+				message.setMessageType(SopFileMessageHandler._5_3_);
+				SopParentFile sopFile = (SopParentFile) message.getUserData();
+				content.append(message.getOperator());
+				content.append("为项目");
+				content.append(ControllerUtils.getProjectNameLink(message));
+				content.append("上传了投资意向书签署凭证");
+				content.append("《");
+				content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
+				content.append("》");	
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
 			} else if(message.getMessageType().equals(StageChangeHandler._6_7_)){
+				message.setMessageType(tjh_apply_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("申请投决会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_9_)){
+				SopParentFile sopFile = (SopParentFile) message.getUserData();
+				if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.投资协议)){
+					message.setMessageType(SopFileMessageHandler._5_9_);
+					content.append(message.getOperator());
+					content.append("为项目");
+					content.append(ControllerUtils.getProjectNameLink(message));
+					content.append("上传了投资协议签署凭证");
+					content.append("《");
+					content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
+					content.append("》");	
+					message.setContent(content.toString());
+					operationMessageService.insert(message);
+				}else{
+					message.setMessageType(SopFileMessageHandler._5_13_);
+					content.append(message.getOperator());
+					content.append("为项目");
+					content.append(ControllerUtils.getProjectNameLink(message));
+					content.append("上传了股权转让签署凭证");
+					content.append("《");
+					content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
+					content.append("》");	
+					message.setContent(content.toString());
+					operationMessageService.insert(message);
+				}
 				message.setMessageType(tjh_apply_type);
 				content.append(message.getOperator())
 				.append("为项目")

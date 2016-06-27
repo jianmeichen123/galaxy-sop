@@ -2,6 +2,7 @@ package com.galaxyinternet.operationMessage.handler;
 
 import org.springframework.stereotype.Component;
 
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
@@ -16,7 +17,17 @@ public class SopFileMessageHandler implements MessageHandler {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public static final String _upload_tzyxs_type_ = "5.2";
+	public static final String _5_2_ = "5.2";
+	public static final String _5_3_ = "5.3";
+	public static final String _5_4_ = "5.4";
+	//投资协议
+	public static final String _5_8_ = "5.8";
+	//投资协议签署凭证
+	public static final String _5_9_ = "5.9";
+	//股权转让协议
+	public static final String _5_12_ = "5.12";
+	//股权转让协议签署凭证
+	public static final String _5_13_ = "5.13";
 
 	@Override
 	public int getOrder() {
@@ -36,12 +47,10 @@ public class SopFileMessageHandler implements MessageHandler {
 //				content=更新, module=null, projectId=5, operatorId=104]
 
 		SopParentFile sopFile = (SopParentFile) message.getUserData();
-		String currentDate = DateUtil.longToString(System.currentTimeMillis());
 		StringBuffer content = new StringBuffer();
-		content.append(currentDate + " ");
 		content.append(message.getOperator());
 		content.append("为项目");
-		content.append(message.getProjectName());
+		content.append(ControllerUtils.getProjectNameLink(message));
 		content.append(message.getContent() + "了");
 		content.append(sopFile.getfWorktype());
 		content.append("《");

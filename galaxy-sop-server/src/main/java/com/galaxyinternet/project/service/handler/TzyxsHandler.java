@@ -136,7 +136,7 @@ public class TzyxsHandler implements Handler {
 				task.setDepartmentId(SopConstant.DEPARTMENT_CW_ID);
 				sopTaskDao.insert(task);
 			}
-			return new SopResult(Status.OK,null,"上传投资意向书签署证明成功!",UrlNumber.six,messageType);
+			return new SopResult(Status.OK,null,"上传投资意向书签署证明成功!",UrlNumber.six,messageType,fv);
 		}else{
 			//投资意向书
 			SopFile qf = new SopFile();
@@ -156,7 +156,7 @@ public class TzyxsHandler implements Handler {
 			f.setFileName(q.getFileName());
 			f.setFileSuffix(q.getSuffix());
 			sopFileDao.updateById(f);
-			return new SopResult(Status.OK,null,"上传投资意向书成功!",UrlNumber.five,SopFileMessageHandler._upload_tzyxs_type_);
+			return new SopResult(Status.OK,null,"上传投资意向书成功!",UrlNumber.five,SopFileMessageHandler._5_2_,f);
 		}
 	}
 	

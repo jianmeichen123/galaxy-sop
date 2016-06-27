@@ -21,6 +21,7 @@ import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 
 /**
@@ -155,11 +156,11 @@ public class TzxyHandler implements Handler {
 			task.setTaskDeadline(time);
 			sopTaskDao.updateTask(task);
 			
-			
+			fv.setfWorktype(fv.getfWorktype() + "签署凭证");
 			if(q.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
-				r = new SopResult(Status.OK,null,"上传股权转让协议签署证明成功!",UrlNumber.eleven,messageType);
+				r = new SopResult(Status.OK,null,"上传股权转让协议签署证明成功!",UrlNumber.eleven,messageType == null ? SopFileMessageHandler._5_13_ : messageType, fv);
 			}else{
-				r = new SopResult(Status.OK,null,"上传投资协议签署证明成功!",UrlNumber.twelve,messageType);
+				r = new SopResult(Status.OK,null,"上传投资协议签署证明成功!",UrlNumber.twelve,messageType == null ? SopFileMessageHandler._5_9_ : messageType, fv);
 			}
 		}else{
 			if(q.getHasStockTransfer() != null && q.getHasStockTransfer().intValue() == 1){
@@ -186,9 +187,9 @@ public class TzxyHandler implements Handler {
 			sopFileDao.updateById(f);
 			
 			if(q.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
-				r = new SopResult(Status.OK,null,"上传投资协议成功!",UrlNumber.nine);
+				r = new SopResult(Status.OK,null,"上传投资协议成功!",UrlNumber.nine,SopFileMessageHandler._5_8_,f);
 			}else{
-				r = new SopResult(Status.OK,null,"上传股权转让协议成功!",UrlNumber.ten);
+				r = new SopResult(Status.OK,null,"上传股权转让协议成功!",UrlNumber.ten,SopFileMessageHandler._5_12_,f);
 			}
 		}
 		return r;
