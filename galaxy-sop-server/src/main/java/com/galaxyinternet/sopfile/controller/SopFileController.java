@@ -604,8 +604,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			responseBody = handler.updateFile(multipartRequest, responseBody, user, sopFile);
 			num = (UrlNumber) responseBody.getUserData().get("num");
 			if(num!=null){
-				String projectName = proJectService.queryById(sopFile.getProjectId()).getProjectName();
-				ControllerUtils.setRequestParamsForMessageTip(request, projectName, sopFile.getProjectId(),messageType,num,sopFile);
+				Project tempProject = proJectService.queryById(sopFile.getProjectId());
+				String projectName = tempProject.getProjectName();
+				User belongUser = userService.queryById(tempProject.getCreateUid());
+				ControllerUtils.setRequestParamsForMessageTip(request,belongUser, projectName, sopFile.getProjectId(),messageType,num,sopFile);
 			}
 		}catch(DaoException e){
 			responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_DAO));

@@ -221,6 +221,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 					message.setContent(content.toString());
 					operationMessageService.insert(message);
 				}
+				content.setLength(0);
 				message.setMessageType(tjh_apply_type);
 				content.append(message.getOperator())
 				.append("为项目")
