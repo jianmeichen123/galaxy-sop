@@ -1,15 +1,14 @@
 package com.galaxyinternet.model.sopfile;
 
 
-import com.galaxyinternet.framework.core.model.BaseEntity;
 
-public class SopVoucherFile extends BaseEntity {
+
+public class SopVoucherFile extends SopParentFile {
 	
 	private static final long serialVersionUID = 1L;
 	
-    private Long projectId;
+
     private String projectProgress;
-    private String fileWorktype;
     private Long careerLine;
     private String fileSource;
     private String fileType;
@@ -17,30 +16,15 @@ public class SopVoucherFile extends BaseEntity {
     private String fileStatus;
     private Long fileUid;
     private String filUri;
-    private Long fileLength;
-    private String fileKey;
-    private String bucketName;
-    private String fileName;
-    private String fileSuffix;
 
-    public Long getProjectId() {
-        return projectId;
-    }
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
+
     public String getProjectProgress() {
         return projectProgress;
     }
     public void setProjectProgress(String projectProgress) {
         this.projectProgress = projectProgress == null ? null : projectProgress.trim();
     }
-    public String getFileWorktype() {
-        return fileWorktype;
-    }
-    public void setFileWorktype(String fileWorktype) {
-    	 this.fileWorktype = fileWorktype == null ? null : fileWorktype.trim();
-    }
+   
     public Long getCareerLine() {
         return careerLine;
     }
@@ -83,35 +67,6 @@ public class SopVoucherFile extends BaseEntity {
     public void setFilUri(String filUri) {
         this.filUri = filUri;
     }
-	public Long getFileLength() {
-		return fileLength;
-	}
-	public void setFileLength(Long fileLength) {
-		this.fileLength = fileLength;
-	}
-	public String getFileKey() {
-		return fileKey;
-	}
-	public void setFileKey(String fileKey) {
-		this.fileKey = fileKey;
-	}
-	public String getBucketName() {
-		return bucketName;
-	}
-	public void setBucketName(String bucketName) {
-		this.bucketName = bucketName;
-	}
-	public String getFileName() {
-		return fileName;
-	}
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
-	public String getFileSuffix() {
-		return fileSuffix;
-	}
-	public void setFileSuffix(String fileSuffix) {
-		this.fileSuffix = fileSuffix;
-	}
+
 	
 }

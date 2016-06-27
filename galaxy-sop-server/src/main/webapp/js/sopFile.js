@@ -186,7 +186,7 @@ var fileGrid = {
         },
         //更新文档
 		'click .fileupdatelink' : function(e, value, row, index){
-        	formData = {
+			var formData = {
         			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
         			_fileType : "fileType:1",
@@ -194,7 +194,6 @@ var fileGrid = {
         			_workType : row.fileWorktype,
         			_projectId : row.projectId,
         			_projectName : row.projectName,
-        			_isProve : "hide",
         			_remark : "hide",
     				callFuc : function(){
     					searchPanel.serarchData();
@@ -202,6 +201,12 @@ var fileGrid = {
     				_url : platformUrl.commonUploadFile, //兼容老板插件
     				_localUrl : platformUrl.commonUploadFile
     		};
+			if('vsopfile'==e.currentTarget.id){
+				//签署凭证
+				formData._isProve = true;
+			}else{
+				formData._isProve = "hide";
+			}
     		win.init(formData);
         },
         

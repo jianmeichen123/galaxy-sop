@@ -164,7 +164,12 @@
 												win.callFuc();
 //												dataGrid.load(_projectId);
 											}else{
-												layer.msg(_restmp.result.errorCode);
+												if(_restmp.result.errorCode){
+													layer.msg(_restmp.result.errorCode);
+												}else if(_restmp.result.message){
+													layer.msg(_restmp.result.message);
+												}
+												
 //												alert(_restmp.result.errorCode);
 											}
 										}else{

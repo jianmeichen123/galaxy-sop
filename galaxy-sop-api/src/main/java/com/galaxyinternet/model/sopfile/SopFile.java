@@ -9,16 +9,13 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.common.PagableRecordEntity;
 
-public class SopFile extends PagableRecordEntity {
+public class SopFile extends SopParentFile {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
    
-    /**
-     * 项目ID
-     */
-    private Long projectId;
+   
     
     /**
      * 上传所属人
@@ -38,10 +35,7 @@ public class SopFile extends PagableRecordEntity {
     private String projectProgress;
 
     
-    /**
-     * 业务分类
-     */
-    private String fileWorktype;
+
 
     
     /**
@@ -89,31 +83,7 @@ public class SopFile extends PagableRecordEntity {
      */
     private String filUri;
         
-    /**
-     * 文件大小
-     */
-    private Long fileLength;
-  
-    /**
-     * 档案阿里云存储KEY
-     */
-    private String fileKey;
 
-    
-    /**
-     * 档案BackName
-     */
-    private String bucketName;
-    
-    /**
-     * 文档名称
-     */
-    private String fileName;
-    
-    /**
-     * 文档后缀
-     */
-    private String fileSuffix;
     
     
     
@@ -130,7 +100,6 @@ public class SopFile extends PagableRecordEntity {
   	
   	//枚举转换
   	private String fType = "";
-  	private String fWorktype;
   	private String progress;
   	private String fileStatusDesc;
   	private String updatedDate;
@@ -152,6 +121,9 @@ public class SopFile extends PagableRecordEntity {
   	private String isEdit;
   	private String isChangeTask;
   	private String isProveEdit;
+  	
+  	
+  	private String isProve;
   	
   	/**
   	 *  请求页面
@@ -190,9 +162,7 @@ public class SopFile extends PagableRecordEntity {
 		return fType == null ? "" : fType;
 	}
 
-	public String getfWorktype() {
-		return fWorktype;
-	}
+
 
 	public String getCreateDate() {
  		return createDate;
@@ -220,14 +190,6 @@ public class SopFile extends PagableRecordEntity {
  		return progress;
  	}
     
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
 
     public Long getBelongUid() {
 		return belongUid;
@@ -257,17 +219,7 @@ public class SopFile extends PagableRecordEntity {
     }
 
     
-    public String getFileWorktype() {
-        return fileWorktype;
-    }
-
-    
-    public void setFileWorktype(String fileWorktype) {
-    	 this.fileWorktype = fileWorktype == null ? null : fileWorktype.trim();
-         if(fileWorktype != null){
- 			this.fWorktype = DictEnum.fileWorktype.getNameByCode(fileWorktype);
- 		}
-    }
+   
 
     
     public Long getCareerLine() {
@@ -360,44 +312,7 @@ public class SopFile extends PagableRecordEntity {
     }
 
 
-	public Long getFileLength() {
-		return fileLength;
-	}
 
-
-	public void setFileLength(Long fileLength) {
-		this.fileLength = fileLength;
-	}
-
-
-	public String getFileKey() {
-		return fileKey;
-	}
-
-
-	public void setFileKey(String fileKey) {
-		this.fileKey = fileKey;
-	}
-
-
-	public String getBucketName() {
-		return bucketName;
-	}
-
-
-	public void setBucketName(String bucketName) {
-		this.bucketName = bucketName;
-	}
-
-
-	public String getFileName() {
-		return fileName;
-	}
-
-
-	public void setFileName(String fileName) {
-		this.fileName = fileName;
-	}
 
 	public String getFileStatusDesc() {
 		return fileStatusDesc;
@@ -452,14 +367,6 @@ public class SopFile extends PagableRecordEntity {
 
 	public void setProjectIdList(List<Long> projectIdList) {
 		this.projectIdList = projectIdList;
-	}
-
-	public String getFileSuffix() {
-		return fileSuffix;
-	}
-
-	public void setFileSuffix(String fileSuffix) {
-		this.fileSuffix = fileSuffix;
 	}
 
 	public String getPageType() {
@@ -564,6 +471,15 @@ public class SopFile extends PagableRecordEntity {
 		this.fileworktypeList = fileworktypeList;
 	}
 
+	public String getIsProve() {
+		return isProve;
+	}
+
+	public void setIsProve(String isProve) {
+		this.isProve = isProve;
+	}
+
+	
 	
 	
 }

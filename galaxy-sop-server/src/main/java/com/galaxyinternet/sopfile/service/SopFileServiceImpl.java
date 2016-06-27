@@ -321,41 +321,9 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 * @return
 	 */
 	@Transactional
-	public SopVoucherFile updateProve(SopVoucherFile sopVoucherFile,SopTask sopTask,Project project,Long userId,Long departmentId){
+	public SopVoucherFile updateProve(SopVoucherFile sopVoucherFile){
 		//回填签署凭证文件表
 		voucherFileDao.updateById(sopVoucherFile);
-		//修改任务状态完成
-		sopTask.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
-		sopTask.setTaskDeadline(new Date());
-		sopTaskDao.updateById(sopTask);
-		SopTaskBo sopTaskBo = new SopTaskBo();
-		sopTaskBo.setProjectId(sopTask.getProjectId());
-		List<String> taskFlagList = new ArrayList<String>();
-		if(project.getProgress().equals(DictEnum.projectProgress.投资意向书.getCode())){
-			//投资意向书
-			taskFlagList.add("1");
-		}else if(project.getProgress().equals(DictEnum.projectProgress.投资协议.getCode())){
-			//投资协议
-			taskFlagList.add("6");
-			//股权转让
-			taskFlagList.add("7");
-		}else if(project.getProgress().equals(DictEnum.projectProgress.股权交割.getCode())){
-			//工商签署
-			taskFlagList.add("9");
-		}
-		sopTaskBo.setTaskFlagList(taskFlagList);
-		//判断所有任务状态均为完成
-		if(searchIsAllHasCompleted(sopTaskBo)){
-			//更新当前项目阶段并插入任务
-			if(project.getProgress().equals(DictEnum.projectProgress.投资意向书.getCode())){
-				upTermSheetSign(project, userId, departmentId);
-			}else if(project.getProgress().equals(DictEnum.projectProgress.投资协议.getCode())){
-				upInvestmentSign(project);
-			}else if(project.getProgress().equals(DictEnum.projectProgress.股权交割.getCode())){
-
-			}	
-		}
-
 		return sopVoucherFile;
 	}
 	
