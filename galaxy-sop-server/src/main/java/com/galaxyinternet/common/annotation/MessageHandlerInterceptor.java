@@ -69,6 +69,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 
 	final org.slf4j.Logger loger = LoggerFactory.getLogger(MessageHandlerInterceptor.class);
 	
+	//添加创投项目
+	public static final String add_project_type = "1";
 	public static final String add_interview_type = "3";
 	
 	public static final String ceo_apply_type = "10.1";
@@ -139,6 +141,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			StringBuffer content = new StringBuffer();
 			
 			if(message.getMessageType().equals(StageChangeHandler._6_1_)){
+				message.setMessageType(add_project_type);
 				content.append(message.getOperator());
 				content.append(message.getOperator()).append("添加了项目");
 				content.append(ControllerUtils.getProjectNameLink(message));
