@@ -14,6 +14,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>繁星</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
@@ -375,6 +376,11 @@ $(function(){
 		sortName : 'updated_time',
 		pagination: true,
         search: false,
+        onLoadSuccess: function (data){
+        	if(data.pageList.total<3){
+        		$(".r_news .more").css("display","none");
+        	}
+        }
 	});
 });
 //通用ajax数据回调
