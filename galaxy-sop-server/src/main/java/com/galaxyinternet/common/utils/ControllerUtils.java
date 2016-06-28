@@ -58,7 +58,9 @@ public class ControllerUtils {
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, projectId);
 		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
-		params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
+		if(number!=null){
+			params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());	
+		}
 		params.put(PlatformConst.REQUEST_SCOPE_USER_DATA, userData);
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
