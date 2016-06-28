@@ -329,10 +329,8 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 					if(urList != null && urList.size() >0)
 					{
 						List<Long> usrIds = new ArrayList<Long>();
-						if(urList != null){
-							for(UserRole au : urList){
-								usrIds.add(au.getUserId());
-							}
+						for(UserRole au : urList){
+							usrIds.add(au.getUserId());
 						}
 						if(usrIds != null && !usrIds.isEmpty())
 						{
@@ -340,16 +338,18 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 							quser.setStatus("0");
 							quser.setIds(usrIds);
 							List<User> users = userService.queryList(quser);
-							user = users.iterator().next();   //默认  只有各部门仅一总监
-							
-							Date date = new Date();
-							String taskCreateDate = DateUtil.longToString(task.getCreatedTime());
-							String taskUrgedTime = DateUtil.convertDateToString(date);
-							String toMail = user.getEmail() + Constants.MAIL_SUFFIX;
-							String str = MailTemplateUtils.getContentByTemplate(Constants.MAIL_URGE_CONTENT_SPECIAL);
-							String content = PlaceholderConfigurer.formatText(str, user.getRealName(),taskCreateDate,task.getTaskName(),taskUrgedTime,curUser.getRealName());
-							String subject = "催办通知";// 邮件主题
-							flag = SimpleMailSender.sendHtmlMail(toMail, subject, content)&& flag;
+							if(users != null && !users.isEmpty()){
+								user = users.iterator().next();   //默认  只有各部门仅一总监
+								
+								Date date = new Date();
+								String taskCreateDate = DateUtil.longToString(task.getCreatedTime());
+								String taskUrgedTime = DateUtil.convertDateToString(date);
+								String toMail = user.getEmail() + Constants.MAIL_SUFFIX;
+								String str = MailTemplateUtils.getContentByTemplate(Constants.MAIL_URGE_CONTENT_SPECIAL);
+								String content = PlaceholderConfigurer.formatText(str, user.getRealName(),taskCreateDate,task.getTaskName(),taskUrgedTime,curUser.getRealName());
+								String subject = "催办通知";// 邮件主题
+								flag = SimpleMailSender.sendHtmlMail(toMail, subject, content)&& flag;
+							}
 						}
 						
 					}

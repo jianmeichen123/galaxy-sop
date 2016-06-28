@@ -344,11 +344,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project.setCreatedTime(DateUtil.convertStringToDate(
 				p.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 
+		String projectName = p.getProjectName();
+		if(!StringUtils.isBlank(project.getProjectName())){
+			projectName = project.getProjectName();
+		}
+		
 		int num = projectService.updateById(project);
 		if (num > 0) {
 			responseBody.setResult(new Result(Status.OK, null, "项目修改成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(), project.getId(),"2");
+					projectName, project.getId(),"2");
 		}
 		return responseBody;
 	}
