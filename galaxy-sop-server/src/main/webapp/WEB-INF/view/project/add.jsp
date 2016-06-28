@@ -210,7 +210,7 @@
 	
 	function add(){
 		var val=$('input:radio[name="projectType"]:checked').val();
-		if(val == null){
+		if(val == null || typeof(val) == "undefined"){
 			$("#projectTypeTip").css("display","block");
 			return;
 		}
