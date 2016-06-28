@@ -9,7 +9,7 @@
 		data["pageSize"] = 3;
 		data["pageNum"] = 0;
 		data["module"] = 1;
-		sendPostRequestByJsonObj(platformUrl.operationMessageQueryList, data, top5MessageCallback);
+		//sendPostRequestByJsonObj(platformUrl.operationMessageQueryList, data, top5MessageCallback);
 	}
 	
 
@@ -55,8 +55,7 @@
 		sendPostRequestByJsonObj(platformUrl.soptaskshouye,jsonData, SopTaskCallback);
 	}
 
-	function top5CeoPsMeetingCallback(data) {
-		
+	function top5CeoPsMeetingCallback(data) {		
 		var list = data.entityList;
 		if(list != "" || list != undefined || list != null){
 			var tbodyList = $("#ceopsbodytop"); 
@@ -113,13 +112,27 @@
 			  });
 		}
 	}
-	function top5MessageCallback(data){
+//	消息提醒
+	function projectNameFormat(value, row, index){
+		var id = row.projectId;
+		 
+		var aa = "<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class=\"blue project_name\"> "+
+					row.projectName +
+				" </a>" ;	
+		var content =value.replace("projectname",aa);
+		if(content.length>80){
+			var str =content.substring(0,80)+"...";
+		}else{
+			var str =content;
+		}
+		return str;		
+	}
+	/*function top5MessageCallback(data){
 		if(data.result.status == "OK"){
 			var news_table =  $(".r_news table tbody");
-			var content = data.pageList.content;
-			
+			var content = data.pageList.content;			
 			$(content).each(function(index,item){
-				var tr = " <tr><td>"+longTimeFormatChines(item.createdTime)+"</td> <td><span class='operator'>"+item.operator+"</span>"+item.content+"</td></tr>"
+				var tr = " <tr><td>"+longTimeFormat_Chines(item.createdTime)+"</td> <td>"+item.projectName+"</td></tr>"
 				news_table.append(tr);
 			})
 			if (content.length==0) {
@@ -133,7 +146,7 @@
 				news_table.parent().parent().siblings().children('.more').css("display","none");
 			};
 		}
-	}
+	}*/
 	
 	function SopTaskCallback(data){
 		//组装数据
