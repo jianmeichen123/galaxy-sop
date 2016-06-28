@@ -41,7 +41,7 @@
 				<thead>
 				    <tr>
 			        	<th data-field="createdTime" data-align="left" data-class="message_t" data-formatter="longTimeFormat_Chines" >日期时间</th>
-			        	<th data-field="content" data-align="left"  data-class="message_n" data-formatter="projectNameFormat">消息</th>
+			        	<th data-field="content" data-align="left"  data-class="message_n" data-formatter="projectNameLineFormat">消息</th>
  					</tr>	
  				</thead>
 			</table>
@@ -67,17 +67,6 @@
 		 forwardWithHeader(url);
 	}
 	
-	function projectNameFormat(value, row, index){
-		var id = row.projectId;
-		 
-		var aa = "<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class=\"blue project_name\"> "+
-					row.projectName +
-				" </a>" ;
-		
-		var content =value.replace("projectname",aa);
-		console.log(content)
-		return content;
-		
-	}
+	
 </script>
 </html>
