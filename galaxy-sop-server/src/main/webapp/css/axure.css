@@ -1705,7 +1705,7 @@ font-family: "宋体";
 /*访谈记录*/
 .add_interview{width:110px;}
 .interview .min_document{margin:0 30px;width:auto;position: relative;margin-top: 10px;margin-bottom: 20px}
-.interview .search_icon{font-size: 0;width:20px;height: 20px;background: url(../img/search1.png) 0 0 no-repeat;display: inline-block;position: absolute;top: 16px;}
+.interview .search_icon{font-size: 0;width:20px;height: 20px;background: url(../img/search1.png) 0 0 no-repeat;display: inline-block;position: absolute;top: 7px;}
 .interview table td{line-height: 22px;padding: 10px 0 10px 30px;}
 .interview table td span{font-size: 12px;width: 40px;padding-left: 25px;line-height: 20px;cursor: pointer;text-align:left;}
 .interview table span.see{background-position: 0 -19px;}
