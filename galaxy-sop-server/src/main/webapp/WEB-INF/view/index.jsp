@@ -375,6 +375,11 @@ $(function(){
 		sortName : 'updated_time',
 		pagination: true,
         search: false,
+        onLoadSuccess: function (data){
+        	if(data.pageList.total<3){
+        		$(".r_news .more").css("display","none");
+        	}
+        }
 	});
 });
 //通用ajax数据回调
