@@ -38,6 +38,7 @@
 <!doctype html>
 <html>
 <head>
+<meta name="renderer" content="webkit">
 <meta charset="utf-8">
 <title>繁星404</title>
 <!-- 校验样式 -->
