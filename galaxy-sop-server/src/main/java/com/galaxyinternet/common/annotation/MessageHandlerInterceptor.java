@@ -169,7 +169,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
 			} else if(message.getMessageType().equals(StageChangeHandler._6_5_)){
-				message.setMessageType(MeetMessageHandler.lph_message_type);
+				message.setMessageType(MeetMessageHandler.lxh_message_type);
 				content.append(message.getOperator())
 				.append("为项目")
 				.append(ControllerUtils.getProjectNameLink(message))
