@@ -226,7 +226,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							<thead>
 							    <tr>
 						        	<th data-field="createdTime" data-align="left" data-width="35%" data-formatter="longTimeFormat_Chines" >日期时间</th>
-						        	<th data-field="content" data-align="left"  data-width="65%" data-formatter="projectNameFormat">消息</th>
+						        	<th data-field="content" data-align="left"  data-width="65%" data-formatter="projectNameLineFormat">消息</th>
 			 					</tr>	
 			 				</thead>
 						</table>
