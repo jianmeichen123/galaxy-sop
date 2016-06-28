@@ -45,7 +45,7 @@ var platformUrl = {
 	/**
 	 * 修改项目信息
 	 */
-	updateProject : Constants.sopEndpointURL + "/galaxy/project/up",
+	updateProject : Constants.sopEndpointURL + "/galaxy/project/editProject",
 	/**
 	 * 添加团队成员
 	 */

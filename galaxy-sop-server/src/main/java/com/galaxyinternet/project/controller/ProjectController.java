@@ -299,7 +299,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
-	@RequestMapping(value = "/up", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/editProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> resetProject(@RequestBody Project project,
 			HttpServletRequest request) throws ParseException {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
