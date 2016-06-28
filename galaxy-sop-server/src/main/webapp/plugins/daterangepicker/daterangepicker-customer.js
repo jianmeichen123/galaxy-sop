@@ -1425,11 +1425,11 @@
             if (isLeft) {
                 this.leftCalendar.month.month(month).year(year);
                 if (this.linkedCalendars)
-                    this.rightCalendar.month = this.leftCalendar.month.clone().add(1, 'month');
+                    this.rightCalendar.month = this.leftCalendar.month.clone().add(0, 'month');
             } else {
                 this.rightCalendar.month.month(month).year(year);
                 if (this.linkedCalendars)
-                    this.leftCalendar.month = this.rightCalendar.month.clone().subtract(1, 'month');
+                    this.leftCalendar.month = this.rightCalendar.month.clone().subtract(0, 'month');
             }
             this.updateCalendars();
         },
