@@ -120,12 +120,7 @@
 					row.projectName +
 				" </a>" ;	
 		var content =value.replace("projectname",aa);
-		if(content.length>80){
-			var str =content.substring(0,80)+"...";
-		}else{
-			var str =content;
-		}
-		return str;		
+		return content;	
 	}
 	/*function top5MessageCallback(data){
 		if(data.result.status == "OK"){

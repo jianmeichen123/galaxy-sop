@@ -1857,6 +1857,7 @@ font-family: "宋体";
 .message .bootstrap-table .table > tbody > tr > td{height:48px;padding-left: 30px !important;}
 .message table .operator{margin-right: 10px;}
 .message .fixed-table-pagination{width: 80%;}
+.r_news table{table-layout:fixed;}
 .r_news table td{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
 .r_news .fixed-table-pagination{display:none !important;}
 /*添加日程*/
