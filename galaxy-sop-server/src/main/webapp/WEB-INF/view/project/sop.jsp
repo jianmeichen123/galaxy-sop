@@ -439,7 +439,7 @@
 				</div>
 				<table id="projectProgress_table"
 					data-url="<%=path%>/galaxy/operatlog/query"
-					data-page-list="[10,20,30]" data-toolbar="#pro_message_custom-toolbar">
+					data-page-list="[5,10,15]" data-toolbar="#pro_message_custom-toolbar">
 					<thead>
 						<tr>
 							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
