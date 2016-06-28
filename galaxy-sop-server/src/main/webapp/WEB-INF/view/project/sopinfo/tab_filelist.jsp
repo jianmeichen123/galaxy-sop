@@ -70,7 +70,7 @@
                     <div class="min_document clearfix" >
                     <!-- 查询选项 -->
                       <div class="searchbox_document">
-                        <div class="show_more">
+                        <div class="show_more" style="z-index:9;">
                           <a href="#" class="blue open ico1 f4" data-btn='show'>展开</a>
                           <a href="#" class="blue searchbox_hidden hide ico1 f3" data-btn='hide'>收起</a>
                         </div>
