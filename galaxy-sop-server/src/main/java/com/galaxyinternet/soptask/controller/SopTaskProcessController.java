@@ -335,6 +335,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 						if(usrIds != null && !usrIds.isEmpty())
 						{
 							User quser  = new User();
+							quser.setStatus("0");
 							quser.setIds(usrIds);
 							List<User> users = userService.queryList(quser);
 							if(users != null && !users.isEmpty()){
