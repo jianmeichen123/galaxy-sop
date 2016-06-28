@@ -299,7 +299,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
-	@RequestMapping(value = "/up", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/editProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> resetProject(@RequestBody Project project,
 			HttpServletRequest request) throws ParseException {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
@@ -344,11 +344,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project.setCreatedTime(DateUtil.convertStringToDate(
 				p.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 
+		String projectName = p.getProjectName();
+		if(!StringUtils.isBlank(project.getProjectName())){
+			projectName = project.getProjectName();
+		}
+		
 		int num = projectService.updateById(project);
 		if (num > 0) {
 			responseBody.setResult(new Result(Status.OK, null, "项目修改成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(), project.getId(),"2");
+					projectName, project.getId(),"2");
 		}
 		return responseBody;
 	}
