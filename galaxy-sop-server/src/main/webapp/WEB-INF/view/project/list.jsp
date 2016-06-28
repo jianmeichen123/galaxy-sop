@@ -187,7 +187,7 @@
 		path = path =="" ? "":";path=" + path;
 		_expires = (typeof hours) == "string" ? "": ";expires=" + expires.toUTCString();
 		document.cookie = name + "=" + value + _expires + path;
-		console.log("---cookie:" + document.cookie);
+		//console.log("---cookie:" + document.cookie);
 	}
 	function getCookieValue(name){
 		var name = escape(name);
@@ -223,7 +223,7 @@
 			// 取值或设置值的两种方式
 			// localStorage.setItem("pagecount",1);
 		}
-		console.log("---localStorage pagecount:" + localStorage.getItem("pagecount"));
+		//console.log("---localStorage pagecount:" + localStorage.getItem("pagecount"));
 	}
 	// 关闭网页后数据会消失
 	function updatePageCountWithSession(){
@@ -232,7 +232,7 @@
 		} else{
 			sessionStorage.pagecount = 1;
 		}
-		console.log("---sessionStorage pagecount:" + sessionStorage.pagecount);	
+		//console.log("---sessionStorage pagecount:" + sessionStorage.pagecount);	
 	}
 	</script>
 <script type="text/javascript">

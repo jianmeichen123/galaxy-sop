@@ -1013,7 +1013,15 @@ function getVal(val,defaultValIfNull)
 	return val;
 }
 
-
+function projectNameLineFormat(value, row, index){
+	var id = row.projectId;
+	var aa = " <a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class=\"blue project_name\">"+
+				row.projectName +
+			"</a> " ;
+	var content =value.replace("projectname",aa);
+	return content;
+	
+}
 
 
 function replaceStr(str){

@@ -16,9 +16,11 @@ public class SopFileMessageHandler implements MessageHandler {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	//投资意向书
 	public static final String _5_2_ = "5.2";
+	//投资意向书签署凭证
 	public static final String _5_3_ = "5.3";
+	//业务尽职调查报告
 	public static final String _5_4_ = "5.4";
 	//投资协议
 	public static final String _5_8_ = "5.8";
