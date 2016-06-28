@@ -834,7 +834,7 @@ function metcolumnFormat(value, row, index){
 	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
-	var str="<span class=\"meeting_result\">"+row.meetingResultStr+"</span>"
+	var str="<label class=\"meeting_result\">"+row.meetingResultStr+"</label>"
 	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
 				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+str+
