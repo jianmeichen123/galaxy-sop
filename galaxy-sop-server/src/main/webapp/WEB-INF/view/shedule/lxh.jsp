@@ -205,10 +205,10 @@
 	}
 	function projectNameFormatter(value, row, index){
 		var str=row.projectName;
-		if(str.length>12){
-			str = str.substring(0,12);
+		if(str.length>10){
+			str = str.substring(0,10);
 		}
-		return '<a href="#" class="blue" onclick="forwardWithHeader(\'' + platformUrl.projectDetail+row.projectId +'?mark=m'+ '\')">'+str+'</a>';
+		return '<a href="#" class="blue" title="'+row.projectName+'" onclick="forwardWithHeader(\'' + platformUrl.projectDetail+row.projectId +'?mark=m'+ '\')">'+str+'</a>';
 	}
 
 	

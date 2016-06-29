@@ -1003,7 +1003,7 @@ function longTimeFormatChines(value, row, index){
 	return Number(value).toDate().format("yyyy年MM月dd日 hh:mm:ss")
 }
 function longTimeFormat_Chines(value, row, index){
-	return Number(value).toDate().format("yyyy-MM-dd hh:mm:ss")
+	return Number(value).toDate().format("yyyy-MM-dd hh:mm")
 }
 function getVal(val,defaultValIfNull)
 {

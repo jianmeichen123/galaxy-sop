@@ -2,6 +2,7 @@ package com.galaxyinternet.operationMessage.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -143,34 +144,38 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 	
 	public void initquery(OperationMessageBo operationMessageBo,User user,List<Long> roleIdList){
 		
+		boolean flat = true;
+		
 		if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)
-				|| roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)){     
-		
-		}else if (roleIdList.contains(UserConstant.HHR)){
+				|| roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)
+				|| roleIdList.contains(UserConstant.HHR)
+				|| roleIdList.contains(UserConstant.TZJL)
+				|| roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.CWZJ)
+				|| roleIdList.contains(UserConstant.HRJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.CWJL)
+				){     
 			operationMessageBo.setBelongDepartmentId(user.getDepartmentId());
-		
-		}else if (roleIdList.contains(UserConstant.TZJL)){
 			operationMessageBo.setBelongUid(user.getId());
+		}else{
+			 flat = false;
+		}
 		
-		}else if (roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.CWZJ)
-				|| roleIdList.contains(UserConstant.HRJL) || roleIdList.contains(UserConstant.FWJL) || roleIdList.contains(UserConstant.CWJL)){
-			
-			operationMessageBo.setRoleId(user.getRoleId());
-			operationMessageBo.setBelongUid(user.getId());
-			
-			if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
-				operationMessageBo.setMessageType("7.1");
-			}else if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-				operationMessageBo.setMessageType("7.3");
-			}else{
-				operationMessageBo.setMessageType("7.2");
+		
+		if(flat){
+			Map<String,List<String>> typelist = StaticParamService.getRoleTypeList(roleIdList, staticParamService);
+			if(typelist.get("inAll")!= null && !typelist.get("inAll").isEmpty()){
+				operationMessageBo.setInAll(typelist.get("inAll"));
+			}
+			if(typelist.get("inPer")!= null && !typelist.get("inPer").isEmpty()){
+				operationMessageBo.setInPer(typelist.get("inPer"));
+			}
+			if(typelist.get("inPat")!= null && !typelist.get("inPat").isEmpty()){
+				operationMessageBo.setInPat(typelist.get("inPat"));
 			}
 		}
 		
-		List<String> typelist = StaticParamService.getRoleTypeList(roleIdList, staticParamService);
-		if(typelist!=null && !typelist.isEmpty()){
-			operationMessageBo.setMessageTypes(typelist);
-		}
+//		if(typelist!=null && !typelist.isEmpty()){
+//			operationMessageBo.setMessageTypes(typelist);
+//		}
 		
 	}
 	

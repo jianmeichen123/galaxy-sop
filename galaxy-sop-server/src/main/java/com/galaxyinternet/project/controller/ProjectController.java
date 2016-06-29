@@ -281,7 +281,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				if (id > 0) {
 					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
 					responseBody.setId(id);
-					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_);
+					file.setMultipartFile(null);
+					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_,file);
 				}
 			}
 		} catch (Exception e) {
@@ -1995,6 +1996,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			sopFile.setFileKey(fileKey);
 			sopFile.setFileLength(result.getContentLength());
 			sopFileService.updateById(sopFile);
+//			if(DictsopFile.getFileWorktype())
 			responseBody.setResult(new Result(Status.OK, null, "更新文件成功!"));
 			Project project = projectService.queryById(sopFile.getProjectId());
 			String messageType = null;

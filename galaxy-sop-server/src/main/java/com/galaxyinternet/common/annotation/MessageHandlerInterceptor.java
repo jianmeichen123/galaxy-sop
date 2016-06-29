@@ -1,6 +1,7 @@
 package com.galaxyinternet.common.annotation;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,6 @@ import com.galaxyinternet.model.operationMessage.OperationType;
 import com.galaxyinternet.model.sopfile.SopParentFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.operationMessage.MessageGenerator;
-import com.galaxyinternet.operationMessage.handler.ApplySchedulingMessageHandler;
 import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
 import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
@@ -146,6 +146,17 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				content.append(ControllerUtils.getProjectNameLink(message));
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
+				
+				List<String> messageList = message.getMessageList();
+				if(messageList != null){
+					for(String temp : messageList){
+						message.setContent(temp);
+						operationMessageService.insert(message);
+					}
+				}
+				
+				
+				
 			} else if(message.getMessageType().equals(StageChangeHandler._6_3_)){
 				message.setMessageType(MeetMessageHandler.lph_message_type);
 				content.append(message.getOperator())
@@ -196,6 +207,14 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				.append("为项目")
 				.append(ControllerUtils.getProjectNameLink(message))
 				.append("申请投决会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			}else if(message.getMessageType().equals(StageChangeHandler._6_8_)){
+				message.setMessageType(MeetMessageHandler.tjh_message_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("添加了投决会会议纪要");
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
 			} else if(message.getMessageType().equals(StageChangeHandler._6_9_)){

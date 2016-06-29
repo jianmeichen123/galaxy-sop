@@ -2,7 +2,6 @@ package com.galaxyinternet.project.controller;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,6 @@ import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.common.enums.DictEnum.RecordType;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
@@ -555,7 +553,11 @@ public class ProjectProgressController extends BaseControllerImpl<Project, Proje
 			}else if(meetingRecord.getMeetingType().equals(DictEnum.meetingType.投决会.getCode())){
 				prograss = DictEnum.projectProgress.投资决策会.getCode(); 								
 				uNum = UrlNumber.four;
-				messageType = "4.4";
+				if(meetingRecord.getMeetingResult().equals(DictEnum.meetingResult.通过.getCode())){
+					messageType = "6.8";
+				}else{
+					messageType = "4.4";
+				}
 			}
 			
 			//project id 验证

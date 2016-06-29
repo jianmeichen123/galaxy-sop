@@ -38,8 +38,12 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 });
 
 $(function(){
+	if(projectInfo.projectName.length>24){
+		var str=projectInfo.projectName.substring(0,24);
+	}
 	$("#project_name_title").text(projectInfo.projectName);
-	$("#project_name_t").text(projectInfo.projectName);
+	$("#project_name_t").text(str);
+	$("#project_name_t").attr("title",projectInfo.projectName);
 	$("#project_code_t").text(projectInfo.projectCode);
 
    $("#workDesk").click(function(){
