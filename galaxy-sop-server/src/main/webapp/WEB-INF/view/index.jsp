@@ -266,7 +266,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						</tbody>
 					</table>
 				</dd>
-				<dd class="clearfix">
+				<dd class="clearfix position">
 					<!-- <a href="javascript:;" class="more null">more</a> -->
 					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
 				</dd>
