@@ -80,9 +80,9 @@ public class TaskUploadMessageHandler implements MessageHandler
 		.append(message.getContent())
 		.append("了")
 		.append(map.get(message.getMessageType()).getName())
-		.append("&lt;&lt;")
+		.append("《")
 		.append(fileName)
-		.append("&gt;&gt;");
+		.append("》");
 		message.setMessageType(message.getMessageType().replace("_", ""));
 		message.setContent(content.toString());
 		return message;
