@@ -1,12 +1,13 @@
 package com.galaxyinternet.operationMessage.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.galaxyinternet.common.utils.ControllerUtils;
-import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.handler.MessageHandler;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
-import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopParentFile;
 
 @Component
@@ -38,7 +39,7 @@ public class SopFileMessageHandler implements MessageHandler {
 
 	@Override
 	public boolean support(OperationMessage message) {
-		return message.getMessageType().startsWith("5.");
+		return message.getMessageType().startsWith("5.") || message.getMessageType().equals("6.1");
 	}
 
 	@Override
@@ -49,17 +50,36 @@ public class SopFileMessageHandler implements MessageHandler {
 //				content=更新, module=null, projectId=5, operatorId=104]
 
 		SopParentFile sopFile = (SopParentFile) message.getUserData();
-		StringBuffer content = new StringBuffer();
-		content.append(message.getOperator());
-		content.append("为项目");
-		content.append(ControllerUtils.getProjectNameLink(message));
-		content.append(message.getContent() + "了");
-		content.append(sopFile.getfWorktype());
-		content.append("《");
-		content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
-		content.append("》");	
-		message.setContent(content.toString());
+		if(sopFile!=null){
+			if(message.getMessageType().equals("6.1")){
+				
+				List<String> messageList = message.getMessageList() == null ? new ArrayList<String>() : message.getMessageList();
+				StringBuffer content = new StringBuffer();
+				content.append(message.getOperator());
+				content.append("为项目");
+				content.append(ControllerUtils.getProjectNameLink(message));
+				content.append("创建" + "了");
+				content.append(sopFile.getfWorktype());
+				content.append("《");
+				content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
+				content.append("》");	
+				messageList.add(content.toString());
+				message.setMessageList(messageList);
+			}else{
+				StringBuffer content = new StringBuffer();
+				content.append(message.getOperator());
+				content.append("为项目");
+				content.append(ControllerUtils.getProjectNameLink(message));
+				content.append(message.getContent() + "了");
+				content.append(sopFile.getfWorktype());
+				content.append("《");
+				content.append(sopFile.getFileName() + "." + sopFile.getFileSuffix());
+				content.append("》");	
+				message.setContent(content.toString());
+			}	
+		}
 		return message;
+		
 	}
 	
 	
