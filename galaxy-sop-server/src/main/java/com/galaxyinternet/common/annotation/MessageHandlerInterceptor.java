@@ -210,6 +210,14 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				.append("申请投决会会议排期");
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
+			}else if(message.getMessageType().equals(StageChangeHandler._6_8_)){
+				message.setMessageType(MeetMessageHandler.tjh_message_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("添加了投决会会议纪要");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
 			} else if(message.getMessageType().equals(StageChangeHandler._6_9_)){
 				SopParentFile sopFile = (SopParentFile) message.getUserData();
 				if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.投资协议)){
