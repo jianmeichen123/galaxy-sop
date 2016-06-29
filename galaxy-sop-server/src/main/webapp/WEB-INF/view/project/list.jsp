@@ -350,7 +350,7 @@
 		function cookies_szie(){//
 			
 			var pageSize = getCookieValue("pageSize");
-			if(pageSize!=''){
+			if(getCookieValue("backProjectList")!=''){
 				return pageSize;
 			}else{
 	        	return 10;
@@ -379,7 +379,7 @@
 	        		var formdata = {
 		        			_paramKey : 'projectList'
 		        	}
-	        		if(getCookieValue("pageSize")){
+	        		if(getCookieValue("backProjectList")!=''){
 	        			//alert('公用')
 	        		    param.pageNum = getCookieValue("pageNum") - 1;
 		        		param.pageSize = getCookieValue("pageSize");
@@ -396,7 +396,7 @@
 	 	       			$("select[name='projectDepartid']").val(getCookieValue("projectDepartid") ? getCookieValue("projectDepartid") : "0");
 	 	       			$("select[name='createUid']").val(getCookieValue("createUid") ? getCookieValue("createUid") : "0");
 	 	       			
-	 	       			deleteCookie("pageSize","/");
+	 	       			deleteCookie("backProjectList","/");
 	 	       			//console.log(Cookies.get("pageNum") , Cookies.get("pageSize"),Cookies.get("nameCodeLike"),Cookies.get("createUid"),Cookies.get("projectDepartid") );
         			}
 		        	
@@ -414,7 +414,6 @@
 					$('.pagination li').removeClass('active');
 					if($('.pagination .page-number').length<page_Num){
 						for(var i=$('.pagination .page-number').length; i>0; i--){
-							alert(i)
 							$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
 						}
 					}

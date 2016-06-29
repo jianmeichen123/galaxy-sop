@@ -16,7 +16,7 @@
         	<span class="b_span"> 
         		<c:choose>
 	        		<c:when test="${mark == 't' || mark == 'm' }">
-						<a href="javascript:;" onclick='javascript:history.go(-1)'>返回></a>
+						<a href="javascript:history.back(-1)" onclick='back_href()'>返回></a>
 					</c:when>
 					<c:otherwise>
 	        		  <a href="javascript:;" onclick='backProjectList()'>返回项目列表></a>
@@ -52,8 +52,12 @@ $(function(){
    })
 
 })
-
+function back_href(){
+	setCookie("backProjectList", 'click',24,'/');
+}
 function backProjectList(){
+	//ie兼容
+	setCookie("backProjectList", 'click',24,'/');
 	var url = platformUrl.projectList+"?backSign=true";
 	forwardWithHeader(url);
 }
