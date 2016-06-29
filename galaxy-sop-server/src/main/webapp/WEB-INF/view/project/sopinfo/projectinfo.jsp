@@ -74,6 +74,8 @@ function getProjectInfo(dtd)
 			{
 				dtd.resolve();
 			}
+			var len=$("#project_name").length
+			console.log($("#project_name"))
 		}
 	);
 	if(hasDtd)
@@ -98,7 +100,7 @@ function getProjectInfo(dtd)
     <!--右中部内容-->
 <div class="ritmin">
  	
-    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
+    <jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
         
 	<div class="new_left">
        	<div class="tabtable assessment label_static1">
@@ -136,7 +138,7 @@ function getProjectInfo(dtd)
 						</span>
 					</c:if>
 					</div>
-					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+					<table width="100%" cellspacing="0" cellpadding="0" class="new_table" id="project_info">
 					 <input type="hidden" id="pid" name="id" value="${projectId}"/>
 						<tr>
 							<td><span class="new_color_gray">项目名称：</span>
@@ -554,6 +556,13 @@ $(function(){
 		$('.bj_hui_on').hide();
 		$('.tip-yellowsimple').hide();
 	})
+	//项目名称截断
+	if(projectInfo.projectName.length>24){
+		var str=projectInfo.projectName.substring(0,24);
+	}
+	$("#project_name").text(str);
+	$("#project_name").attr("title",projectInfo.projectName);
+	
 	
 })
 var width_fwb=$('.tabtable_con_on').width();
