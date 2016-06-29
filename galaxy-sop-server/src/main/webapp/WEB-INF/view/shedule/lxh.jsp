@@ -205,8 +205,8 @@
 	}
 	function projectNameFormatter(value, row, index){
 		var str=row.projectName;
-		if(str.length>10){
-			str = str.substring(0,10);
+		if(str.length>7){
+			str = str.substring(0,7);
 		}
 		return '<a href="#" class="blue" title="'+row.projectName+'" onclick="forwardWithHeader(\'' + platformUrl.projectDetail+row.projectId +'?mark=m'+ '\')">'+str+'</a>';
 	}
