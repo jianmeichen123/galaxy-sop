@@ -6,7 +6,7 @@
 
 	function top5Message() {
 		var data = {};
-		data["pageSize"] = 3;
+		data["pageSize"] = 4;
 		data["pageNum"] = 0;
 		data["module"] = 1;
 		//sendPostRequestByJsonObj(platformUrl.operationMessageQueryList, data, top5MessageCallback);
@@ -51,7 +51,7 @@
 
 	//主页待办任务
 	function selectSopTask(){
-		var jsonData={"pageNum":0,"pageSize":3,"flagUrl":"index"}; 
+		var jsonData={"pageNum":0,"pageSize":4,"flagUrl":"index"}; 
 		sendPostRequestByJsonObj(platformUrl.soptaskshouye,jsonData, SopTaskCallback);
 	}
 
@@ -84,7 +84,7 @@
 			tbodyList.append(noData);
 	   }
 		
-		if(list.length<3){
+		if(list.length<4){
 			$("#ceopsbodytop").parent().parent().siblings().children('.more').css("display","none");
 		}
 	}
@@ -147,7 +147,7 @@
 		//组装数据
 		
 		var list =  data.pageList.content;
-		if(list.length<3){
+		if(list.length<4){
 			$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
 		}
 		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
@@ -492,7 +492,7 @@ $(function(){
 
 //主页创意
 function selectCyIndex(){ 
-	var jsonData={"pageNum":0,"pageSize":3,"isforindex":"isfor"}; 
+	var jsonData={"pageNum":0,"pageSize":4,"isforindex":"isfor"}; 
 	sendPostRequestByJsonObj(platformUrl.sopcyshouye,jsonData, cyIndexCallback);
 }
 function cyIndexCallback(data){
@@ -533,7 +533,7 @@ function cyIndexCallback(data){
 			tbodyList.append(tr);
 		});
 		cutStr(10,'cutstr');
-		if(list.length<3){
+		if(list.length<4){
 			$("#cy_index").parent().parent().siblings().children('.more').css("display","none");	
 		}
 	}else{
