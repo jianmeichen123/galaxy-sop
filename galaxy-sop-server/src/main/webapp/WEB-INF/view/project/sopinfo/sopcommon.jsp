@@ -16,10 +16,10 @@
         	<span class="b_span"> 
         		<c:choose>
 	        		<c:when test="${mark == 't' || mark == 'm' }">
-						<a href="javascript:history.back(-1)" onclick='back_href()'>返回></a>
+						<a href="javascript:history.back()" onclick='back_href()'>返回></a>
 					</c:when>
 					<c:otherwise>
-	        		  <a href="javascript:history.back(-1)" onclick='backProjectList()'>返回项目列表></a>
+	        		  <a href="javascript:history.back()" onclick='backProjectList()'>返回项目列表></a>
 	        		</c:otherwise>
 				</c:choose>
 			</span>
