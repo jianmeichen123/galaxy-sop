@@ -179,63 +179,6 @@
 
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
 <script type="text/javascript">
-	function setCookie(name,value,hours,path){
-		var name = escape(name);
-		var value = escape(value);
-		var expires = new Date();
-		expires.setTime(expires.getTime() + hours * 60*60*1000);
-		path = path =="" ? "":";path=" + path;
-		_expires = (typeof hours) == "string" ? "": ";expires=" + expires.toUTCString();
-		document.cookie = name + "=" + value + _expires + path;
-		//console.log("---cookie:" + document.cookie);
-	}
-	function getCookieValue(name){
-		var name = escape(name);
-		var allcookies = document.cookie;
-		name += "=";
-		var pos = allcookies.indexOf(name);
-		if(pos != -1){
-			var start = pos + name.length;
-			var end = allcookies.indexOf(";",start);
-			if(end == -1){
-				end = allcookies.length;
-			}
-			var value = allcookies.substring(start,end);
-			return unescape(value);
-		} else{
-			return "";
-		}
-	}
-	function deleteCookie(name,path){
-		var name = escape(name);
-		var expires = new Date(0);
-		path = path == "" ? "" : ";path=" + path;
-		document.cookie = name + "=" + ";expires=" + expires.toUTCString() + path;
-	}
-	// 关闭浏览器后数据不会消失
-	function updatePageCountNoSession(){
-		// localStorage.pagecount与localStorage.getItem("pagecount")在此处均可用，
-		// 不同的是：若pagecount不存在，前者返回undefined，后者返回null。
-		if(localStorage.pagecount){
-			localStorage.pagecount = Number(localStorage.pagecount) + 1;
-		} else{
-			localStorage.pagecount = 1;
-			// 取值或设置值的两种方式
-			// localStorage.setItem("pagecount",1);
-		}
-		//console.log("---localStorage pagecount:" + localStorage.getItem("pagecount"));
-	}
-	// 关闭网页后数据会消失
-	function updatePageCountWithSession(){
-		if(sessionStorage.pagecount){
-			sessionStorage.pagecount = Number(sessionStorage.pagecount) + 1;
-		} else{
-			sessionStorage.pagecount = 1;
-		}
-		//console.log("---sessionStorage pagecount:" + sessionStorage.pagecount);	
-	}
-	</script>
-<script type="text/javascript">
 	createMenus(5);
 	/**
 	 * 分页数据生成操作内容
@@ -272,27 +215,15 @@
 		var projectDepartid = $("select[name='projectDepartid']").val();
 		var createUid = $("select[name='createUid']").val();
 
-		//ie兼容
+		/**
+		 * 返回本页附加参数功能实现代码
+		 */
 		setCookie("pageNum", tempPageNum,1,'/');
 		setCookie("pageSize", tempPageSize,1,'/');
 		setCookie("nameCodeLike", nameCodeLike,1,'/');
 		setCookie("createUid", createUid,1,'/');
 		setCookie("projectDepartid", projectDepartid,1,'/');
-		
-		
-		
-		var formdata = {
-				_paramKey : 'projectList',
-				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
-				_param : {
-					pageNum : tempPageNum,
-	        		pageSize : tempPageSize,
-	        		nameCodeLike : nameCodeLike,
-	        		createUid : createUid,
-	        		projectDepartid : projectDepartid
-				}
-		}
-		cookieOperator.forwardPushCookie(formdata);
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
 	}
 	
 	function refreshProjectList()
@@ -345,25 +276,17 @@
 	 */
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
-		var page_Num='';  //页码
-
-		function cookies_szie(){//
-			
-			var pageSize = getCookieValue("pageSize");
-			if(getCookieValue("backProjectList")!=''){
-				return pageSize;
-			}else{
-	        	return 10;
-	      	}
-			
-		}
+		/**
+		 * 返回本页附加参数功能实现代码
+		 */
+		var page_Num='';
 		/**
 		 * 初始化项目列表
 		 * @version 2016-06-21
 		 */
 		$('#project-table').bootstrapTable({
 			queryParamsType: 'size|page',
-			pageSize: cookies_szie(),
+			pageSize: cookies_szie(),//返回本页附加参数功能实现代码
 			showRefresh : false ,
 			url : $('#project-table').attr("data-url"),
 			sidePagination: 'server',
@@ -379,6 +302,9 @@
 	        		var formdata = {
 		        			_paramKey : 'projectList'
 		        	}
+	        		/**
+					 * 返回本页附加参数功能实现代码
+					 */
 	        		if(getCookieValue("backProjectList")!=''){
 	        			//alert('公用')
 	        		    param.pageNum = getCookieValue("pageNum") - 1;
@@ -405,11 +331,12 @@
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
-	        	console.log(data)
 	        	if($("#showResetBtn").val() == '1'){
 	    			$("#resetBtn").removeClass("none");
 	    		}
-				
+				/**
+				 * 返回本页附加参数功能实现代码
+				 */
 				if(page_Num!=''){
 					$('.pagination li').removeClass('active');
 					if($('.pagination .page-number').length<page_Num){
@@ -428,42 +355,6 @@
 				}
 
 				
-        		/* if(page_size){
-        			$('.page-size').html(page_size);
-        			var options = $("#project-table").bootstrapTable('getOptions');
- 	        		options.pageSize = page_size;
-        		}
-        		if(num_size){
-        			var options = $("#project-table").bootstrapTable('getOptions');
-        			options.pageNumber = num_size-1;
-        			console.log(options.pageNumber)
-        		}
-        		num_size=''; */
-	        	/* if(num_size!=''){
-	        		$('.pagination li').removeClass('active');
-	        		if(num_size>5){
-	        			$('.pagination .page-number').eq(0).html('<a href="javascript:void(0)">'+(num_size-4)+'</a>');
-	        			$('.pagination .page-number').eq(1).html('<a href="javascript:void(0)">'+(num_size-3)+'</a>');
-	        			$('.pagination .page-number').eq(2).html('<a href="javascript:void(0)">'+(num_size-2)+'</a>');
-	        			$('.pagination .page-number').eq(3).html('<a href="javascript:void(0)">'+(num_size-1)+'</a>');
-	        			$('.pagination .page-number').eq(4).html('<a href="javascript:void(0)">'+num_size+'</a>');
-	        			
-	        		}
-	        		$('.pagination li').each(function(){
-	        			if($(this).text()==num_size){
-	        				$(this).addClass('active')
-	        			}
-	        		})
-	        		if(num_size*data.pageList.pageable.size>data.pageList.total){
-	        			$('.pagination-info').html('显示第 '+((num_size*data.pageList.pageable.size)-(data.pageList.pageable.size-1))+'到第 '+data.pageList.total+' 条记录，总共' +data.pageList.total+'条记录')
-	        		}else{
-	        			$('.pagination-info').html('显示第 '+((num_size*data.pageList.pageable.size)-(data.pageList.pageable.size-1))+'到第 '+num_size*data.pageList.pageable.size+' 条记录，总共' +data.pageList.total+'条记录')
-	        		}
-	        		
-	        		
-	        		num_size='';
-	        		
-	        	} */
 	        }
 		});
 		/**
