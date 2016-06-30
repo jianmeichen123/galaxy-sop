@@ -46,15 +46,11 @@
 						</entry>
 
 						<entry key="inPer">
-							<list>
 								<null/>
-							</list>
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>
@@ -70,15 +66,11 @@
 						</entry>
 
 						<entry key="inPer">
-							<list>
 								<null/>
-							</list>
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>
@@ -94,15 +86,11 @@
 						</entry>
 
 						<entry key="inPer">
-							<list>
 								<null/>
-							</list>
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>
@@ -118,15 +106,11 @@
 						</entry>
 
 						<entry key="inPer">
-							<list>
 								<null/>
-							</list>
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>
@@ -135,15 +119,11 @@
 				<entry key="3">  <!-- 合伙人 -->
 					<map>
 						<entry key="inAll">
-							<list>
 								<null/>
-							</list>
 						</entry>
 
 						<entry key="inPer">
-							<list>
 								<null/>
-							</list>
 						</entry>
 
 						<entry key="inPat">
@@ -170,9 +150,7 @@
 				<entry key="4">  <!-- 投资经理 -->
 					<map>
 						<entry key="inAll">
-							<list>
 								<null/>
-							</list>
 						</entry>
 
 						<entry key="inPer">
@@ -195,9 +173,7 @@
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>
@@ -218,9 +194,7 @@
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>
@@ -241,9 +215,7 @@
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>
@@ -265,9 +237,7 @@
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>
@@ -289,9 +259,7 @@
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>
@@ -312,9 +280,7 @@
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>
@@ -335,9 +301,7 @@
 						</entry>
 
 						<entry key="inPat">
-							<list>
 								<null/>
-							</list>
 						</entry>
 					</map>
 				</entry>

@@ -85,7 +85,7 @@
 								<th data-field="uname" data-align="left" >操作者</th>
 								<th data-field="operationType" data-align="left">动作</th>
 								<th data-field="operationContent" data-align="left">对象</th>
-								<th data-field="projectName" data-align="left" >项目</th>
+								<th data-field="projectName" data-align="left" data-formatter="projectNameFormatter">项目</th>
 								<th data-field="sopstage" data-align="left" >业务</th>
 							</tr>
 						</thead>
@@ -120,12 +120,24 @@
 
 
 <script>
-
 	var proinfo = '${proinfo}';
 	//proinfo = JSON.parse(proinfo);
 	var proid = '${pid}';
 	var pname = '${pname}';
 	var selectRow = null;
+	function projectNameFormatter(value,row,index){
+		var str=row.projectName;
+		if(str.length>12){
+			subStr = str.substring(0,12);
+			var options = "<span title='"+str+"'>"+subStr+"</span>";
+			return options;
+		}
+		else{
+			var options = "<span title='"+str+"'>"+str+"</span>";
+			return options;
+		}
+	}
+
 	
 
 $(function(){
@@ -146,6 +158,7 @@ $(function(){
 		clickToSelect: true,
         search: false,
 	});
+
 	
 	
 });	

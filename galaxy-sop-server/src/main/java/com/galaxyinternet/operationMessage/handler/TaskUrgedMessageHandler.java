@@ -66,6 +66,12 @@ public class TaskUrgedMessageHandler implements MessageHandler
 		else if(MESSAGE_TYPE_CBFWJDRW.equals(message.getMessageType()))
 		{
 			content.append(SopConstant.TASK_NAME_FWJD);
+		}else if(MESSAGE_TYPE_GSBG.equals(message.getMessageType()))
+		{
+			content.append(SopConstant.TASK_NAME_GSBG);
+		}else if(MESSAGE_TYPE_ZJBF.equals(message.getMessageType()))
+		{
+			content.append(SopConstant.TASK_NAME_ZJBF);
 		}
 		content.append("任务");
 		message.setContent(content.toString());

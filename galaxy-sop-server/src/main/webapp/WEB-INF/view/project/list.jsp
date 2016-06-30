@@ -215,6 +215,7 @@
 		var projectDepartid = $("select[name='projectDepartid']").val();
 		var createUid = $("select[name='createUid']").val();
 
+		
 		/**
 		 * 返回本页附加参数功能实现代码
 		 */
@@ -276,10 +277,11 @@
 	 * @version 2016-06-21
 	 */
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
+    /**
+	 * 返回本页附加参数功能实现代码
+	 */
 	$(function(){
-		/**
-		 * 返回本页附加参数功能实现代码
-		 */
+
 		var page_Num='';
 		/**
 		 * 初始化项目列表
@@ -299,15 +301,16 @@
 	        queryParams : function(param){
 	        	var backSign = ${backSign}
 	        	
-	        	if(backSign){
+	        		if(getCookieValue("backProjectList")!=''){
+	        			page_Num =getCookieValue("pageNum")
+	        		}
 	        		var formdata = {
-		        			_paramKey : 'projectList'
+		        		_paramKey : 'projectList'
 		        	}
 	        		/**
 					 * 返回本页附加参数功能实现代码
 					 */
-	        		if(getCookieValue("backProjectList")!=''){
-	        			alert('公用')
+	        		/* if(getCookieValue("backProjectList")!=''){
 	        		    param.pageNum = getCookieValue("pageNum") - 1;
 		        		param.pageSize = getCookieValue("pageSize");
 		        		param.nameCodeLike = getCookieValue("nameCodeLike");
@@ -323,11 +326,16 @@
 	 	       			$("select[name='projectDepartid']").val(getCookieValue("projectDepartid") ? getCookieValue("projectDepartid") : "0");
 	 	       			$("select[name='createUid']").val(getCookieValue("createUid") ? getCookieValue("createUid") : "0");
 	 	       			
+	 	       		 deleteCookie("pageNum","/");
+					deleteCookie("pageSize","/");
+					deleteCookie("nameCodeLike","/");
+					deleteCookie("createUid","/");
+					deleteCookie("projectDepartid","/");
+					deleteCookie("backProjectList","/"); 
 	 	       			deleteCookie("backProjectList","/");
-	 	       			//console.log(Cookies.get("pageNum") , Cookies.get("pageSize"),Cookies.get("nameCodeLike"),Cookies.get("createUid"),Cookies.get("projectDepartid") );
-        			}
+        			} */
 		        	
-	        	}
+	        	
 	        	
 	        	return param;
 	        },
@@ -351,6 +359,13 @@
 	        				//$(this).addClass('active')
 	        			}
 	        		})
+					deleteCookie("pageNum","/");
+					deleteCookie("pageSize","/");
+					deleteCookie("nameCodeLike","/");
+					deleteCookie("createUid","/");
+					deleteCookie("projectDepartid","/");
+					deleteCookie("backProjectList","/");
+
 
 					page_Num='';
 				}
@@ -372,7 +387,6 @@
 		 */
 		$('button[action="querySearch"]').click(function(){
 			$("#showResetBtn").val(1);
-			 alert('ddd')
 		});
 		/**
 		 * "重置"操作

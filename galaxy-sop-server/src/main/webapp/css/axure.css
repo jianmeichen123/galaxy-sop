@@ -8,6 +8,7 @@ a{ text-decoration:none; outline:none;font-size:12px; font-family:"宋体"}
 a:hover{ text-decoration:underline}
 li{ display:block; list-style:none}
 textarea{resize: none;outline: none}
+table .data-input{max-width:200px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .pointer-events{pointer-events: none;}
 /*clearfix-浮动清理*/
@@ -774,7 +775,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /* .ritmin .tabtable .tabtable_con .chartbox{margin:20px 0 0 0;}
  */.ritmin .tabtable .tabtable_con .chartbox .pubbtn{width:120px;}
 .ritmin .tabtable .tabtable_con .chartbox .histogram{height:172px;margin:35px 50px 40px;}
-.ritmin .tabtable .tabtable_con table{border-top: 2px solid #edeff5;margin:0 0 12px 0;}
+.ritmin .tabtable .tabtable_con table{/* border-top: 2px solid #edeff5; */margin:0 0 12px 0;}
 .ritmin .tabtable .tabtable_con .txt{background-color: #fff;}
 .project_analysis .tablink .on,.assessment .tablink .on{background:#fff;}
 /* 数据报表 */
@@ -808,7 +809,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .middle .middle_l table{border-top-right-radius: 0 !important;}
 .search_box dl dd select {font-size: 12px !important;}
 /* .search_box .qx{width: 50px;}
- */.chart_name{margin-left: 10px;font-size: 16px;color:#2d3342;height: 30px !important;line-height: 30px !important;}
+ */.chart_name{margin-left: 10px;font-size: 18px !important;color:#2d3342;height: 30px !important;line-height: 30px !important;}
 /* 数据报表计算说明 */
 .tooltip-test{width:14px;display: inline-block;background: url(../img/tips.png) 0 4px no-repeat;font-size: 0;margin-left: 2px;}
 .tooltip {
