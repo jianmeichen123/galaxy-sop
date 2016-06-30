@@ -200,7 +200,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						</dd>
 
 						<dd class="clearfix position">
-							<a href="javascript:;" onclick="toCyPage()" class="more null none">more</a>
+							<a href="javascript:;" onclick="toCyPage()" class="more null">more</a>
 							<!--  <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
 						</dd>
 
@@ -367,7 +367,7 @@ $(function(){
 	}
 	$('#message-data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
-		pageSize:3,
+		pageSize:4,
 		showRefresh : false ,
 		url : platformUrl[$('#message-data-table').attr("data-url")],
 		sidePagination: 'server',
@@ -377,7 +377,7 @@ $(function(){
 		pagination: true,
         search: false,
         onLoadSuccess: function (data){
-        	if(data.pageList.total<3){
+        	if(data.pageList.total<4){
         		$(".r_news .more").css("display","none");
         	}
         }

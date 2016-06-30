@@ -26,6 +26,9 @@ public class TaskUrgedMessageHandler implements MessageHandler
 	 * 7.3	催办法务尽调任务
 	 */
 	private String MESSAGE_TYPE_CBFWJDRW = "7.3";
+	
+	private String MESSAGE_TYPE_GSBG = "7.4";
+	private String MESSAGE_TYPE_ZJBF = "7.5";
 	@Override
 	public int getOrder()
 	{
@@ -35,7 +38,13 @@ public class TaskUrgedMessageHandler implements MessageHandler
 	@Override
 	public boolean support(OperationMessage message)
 	{
-		return message != null && (MESSAGE_TYPE_CBRSJDRW.equals(message.getMessageType()) || MESSAGE_TYPE_CBCWJDRW.equals(message.getMessageType()) || MESSAGE_TYPE_CBFWJDRW.equals(message.getMessageType()));
+		return message != null && (
+				MESSAGE_TYPE_CBRSJDRW.equals(message.getMessageType()) || 
+				MESSAGE_TYPE_CBCWJDRW.equals(message.getMessageType()) || 
+				MESSAGE_TYPE_CBFWJDRW.equals(message.getMessageType()) || 
+				MESSAGE_TYPE_GSBG.equals(message.getMessageType()) || 
+				MESSAGE_TYPE_ZJBF.equals(message.getMessageType())
+				);
 	}
 
 	@Override

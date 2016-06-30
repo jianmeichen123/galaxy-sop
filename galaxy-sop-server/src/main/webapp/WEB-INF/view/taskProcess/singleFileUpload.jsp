@@ -51,7 +51,7 @@
 	    <dl class="fmdl clearfix">
 	    	<dt>所属项目：</dt>
 	        <dd>
-	        	<input type="text" name="projectName" disabled class="txt"/>
+	        	<input type="text" name="projectName" disabled="disabled" class="txt disabled"/>
 	        </dd>
 	    </dl>
 	    

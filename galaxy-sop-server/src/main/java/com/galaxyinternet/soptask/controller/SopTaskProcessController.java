@@ -376,6 +376,14 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				{
 					messageType = "7.3";
 				}
+				else if(SopConstant.TASK_NAME_GSBG.equals(task.getTaskName()))
+				{
+					messageType = "7.4";
+				}
+				else if(SopConstant.TASK_NAME_ZJBF.equals(task.getTaskName()))
+				{
+					messageType = "7.5";
+				}
 				
 				ControllerUtils.setRequestParamsForMessageTip(request, user, project.getProjectName(), project.getId(), messageType, UrlNumber.one);
 			}
