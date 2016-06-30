@@ -470,10 +470,16 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 			responseBody.setResult(new Result(Status.ERROR, null, "缺失必要的参数!"));
 			return responseBody;
 		}
+		
+		
 		UrlNumber urlNum=null;
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		try {
 			Idea queryIdea = ideaService.queryById(idea.getId());
+			//如果创意已经放弃则返回
+			if(DictEnum.IdeaProgress.CYLGZ.getCode().equals(queryIdea.getIdeaProgress())){
+				responseBody.setResult(new Result(Status.ERROR, null, "创意已经放弃!"));
+			}
 			if(queryIdea !=null && queryIdea.getIdeaProgress()!=null){
 				if(queryIdea.getIdeaProgress().equals(SopConstant.IDEA_PROGRESS_GZ)){
 					responseBody.setResult(new Result(Status.ERROR, null, "操作过期"));

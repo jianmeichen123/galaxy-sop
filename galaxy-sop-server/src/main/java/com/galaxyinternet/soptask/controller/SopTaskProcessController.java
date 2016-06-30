@@ -1,6 +1,7 @@
 package com.galaxyinternet.soptask.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -327,19 +328,28 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 					//添加催办邮件 
 					if(urList != null && urList.size() >0)
 					{
-						UserRole ur = urList.iterator().next();
-						if(ur.getUserId() != null)
+						List<Long> usrIds = new ArrayList<Long>();
+						for(UserRole au : urList){
+							usrIds.add(au.getUserId());
+						}
+						if(usrIds != null && !usrIds.isEmpty())
 						{
-							user = userService.queryById(ur.getUserId());
-							
-							Date date = new Date();
-							String taskCreateDate = DateUtil.longToString(task.getCreatedTime());
-							String taskUrgedTime = DateUtil.convertDateToString(date);
-							String toMail = user.getEmail() + Constants.MAIL_SUFFIX;
-							String str = MailTemplateUtils.getContentByTemplate(Constants.MAIL_URGE_CONTENT_SPECIAL);
-							String content = PlaceholderConfigurer.formatText(str, user.getRealName(),taskCreateDate,task.getTaskName(),taskUrgedTime,curUser.getRealName());
-							String subject = "催办通知";// 邮件主题
-							flag = SimpleMailSender.sendHtmlMail(toMail, subject, content)&& flag;
+							User quser  = new User();
+							quser.setStatus("0");
+							quser.setIds(usrIds);
+							List<User> users = userService.queryList(quser);
+							if(users != null && !users.isEmpty()){
+								user = users.iterator().next();   //默认  只有各部门仅一总监
+								
+								Date date = new Date();
+								String taskCreateDate = DateUtil.longToString(task.getCreatedTime());
+								String taskUrgedTime = DateUtil.convertDateToString(date);
+								String toMail = user.getEmail() + Constants.MAIL_SUFFIX;
+								String str = MailTemplateUtils.getContentByTemplate(Constants.MAIL_URGE_CONTENT_SPECIAL);
+								String content = PlaceholderConfigurer.formatText(str, user.getRealName(),taskCreateDate,task.getTaskName(),taskUrgedTime,curUser.getRealName());
+								String subject = "催办通知";// 邮件主题
+								flag = SimpleMailSender.sendHtmlMail(toMail, subject, content)&& flag;
+							}
 						}
 						
 					}

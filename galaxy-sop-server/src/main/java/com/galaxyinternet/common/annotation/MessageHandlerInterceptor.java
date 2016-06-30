@@ -1,6 +1,7 @@
 package com.galaxyinternet.common.annotation;
 
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,6 @@ import com.galaxyinternet.model.operationMessage.OperationType;
 import com.galaxyinternet.model.sopfile.SopParentFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.operationMessage.MessageGenerator;
-import com.galaxyinternet.operationMessage.handler.ApplySchedulingMessageHandler;
 import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
 import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
@@ -69,6 +69,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 
 	final org.slf4j.Logger loger = LoggerFactory.getLogger(MessageHandlerInterceptor.class);
 	
+	//添加创投项目
+	public static final String add_project_type = "1";
 	public static final String add_interview_type = "3";
 	
 	public static final String ceo_apply_type = "10.1";
@@ -139,11 +141,22 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			StringBuffer content = new StringBuffer();
 			
 			if(message.getMessageType().equals(StageChangeHandler._6_1_)){
-				content.append(message.getOperator());
+				message.setMessageType(add_project_type);
 				content.append(message.getOperator()).append("添加了项目");
 				content.append(ControllerUtils.getProjectNameLink(message));
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
+				
+				List<String> messageList = message.getMessageList();
+				if(messageList != null){
+					for(String temp : messageList){
+						message.setContent(temp);
+						operationMessageService.insert(message);
+					}
+				}
+				
+				
+				
 			} else if(message.getMessageType().equals(StageChangeHandler._6_3_)){
 				message.setMessageType(MeetMessageHandler.lph_message_type);
 				content.append(message.getOperator())
@@ -194,6 +207,14 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				.append("为项目")
 				.append(ControllerUtils.getProjectNameLink(message))
 				.append("申请投决会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			}else if(message.getMessageType().equals(StageChangeHandler._6_8_)){
+				message.setMessageType(MeetMessageHandler.tjh_message_type);
+				content.append(message.getOperator())
+				.append("为项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("添加了投决会会议纪要");
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
 			} else if(message.getMessageType().equals(StageChangeHandler._6_9_)){

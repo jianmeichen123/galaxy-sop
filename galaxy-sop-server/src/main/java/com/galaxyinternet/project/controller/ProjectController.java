@@ -76,6 +76,7 @@ import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.project.service.HandlerManager;
@@ -280,7 +281,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				if (id > 0) {
 					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
 					responseBody.setId(id);
-					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_);
+					file.setMultipartFile(null);
+					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_,file);
 				}
 			}
 		} catch (Exception e) {
@@ -298,7 +300,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
-	@RequestMapping(value = "/up", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/editProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> resetProject(@RequestBody Project project,
 			HttpServletRequest request) throws ParseException {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
@@ -343,11 +345,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project.setCreatedTime(DateUtil.convertStringToDate(
 				p.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 
+		String projectName = p.getProjectName();
+		if(!StringUtils.isBlank(project.getProjectName())){
+			projectName = project.getProjectName();
+		}
+		
 		int num = projectService.updateById(project);
 		if (num > 0) {
 			responseBody.setResult(new Result(Status.OK, null, "项目修改成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(), project.getId(),"2");
+					projectName, project.getId(),"2");
 		}
 		return responseBody;
 	}
@@ -1939,7 +1946,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @param request
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/updateCommonFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> updateCommonFile(ProjectQuery p,
@@ -1989,7 +1996,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			sopFile.setFileKey(fileKey);
 			sopFile.setFileLength(result.getContentLength());
 			sopFileService.updateById(sopFile);
+//			if(DictsopFile.getFileWorktype())
 			responseBody.setResult(new Result(Status.OK, null, "更新文件成功!"));
+			Project project = projectService.queryById(sopFile.getProjectId());
+			String messageType = null;
+			if(p.getFileWorktype().equals(DictEnum.fileWorktype.投资意向书.getCode())){
+				messageType = SopFileMessageHandler._5_2_;
+			}else if(p.getFileWorktype().equals(DictEnum.fileWorktype.业务尽职调查报告.getCode())){
+				messageType = SopFileMessageHandler._5_4_;
+			}else if(p.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
+				messageType = SopFileMessageHandler._5_8_;
+			}else if(p.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+				messageType = SopFileMessageHandler._5_12_;
+			}
+			ControllerUtils.setRequestParamsForMessageTip(request,
+					project.getProjectName(),project.getId(),
+					messageType,null,sopFile);
 		} catch (Exception e) {
 			responseBody.getResult().addError("更新失败");
 			logger.error("更新失败", e);

@@ -834,9 +834,10 @@ function metcolumnFormat(value, row, index){
 	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
+	var str="<label class=\"meeting_result\">"+row.meetingResultStr+"</label>"
 	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
 				"会议日期："+row.meetingDateStr+
-				"</br>会议结论："+row.meetingResultStr+
+				"</br>会议结论："+str+
 				"</br>会议录音："+fileinfo+
 			"</div>" ;
 	return rc;
@@ -1002,7 +1003,7 @@ function longTimeFormatChines(value, row, index){
 	return Number(value).toDate().format("yyyy年MM月dd日 hh:mm:ss")
 }
 function longTimeFormat_Chines(value, row, index){
-	return Number(value).toDate().format("yyyy-MM-dd hh:mm:ss")
+	return Number(value).toDate().format("yyyy-MM-dd hh:mm")
 }
 function getVal(val,defaultValIfNull)
 {
@@ -1013,7 +1014,15 @@ function getVal(val,defaultValIfNull)
 	return val;
 }
 
-
+function projectNameLineFormat(value, row, index){
+	var id = row.projectId;
+	var aa = " <a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class=\"blue project_name\">"+
+				row.projectName +
+			"</a> " ;
+	var content =value.replace("projectname",aa);
+	return content;
+	
+}
 
 
 function replaceStr(str){

@@ -14,13 +14,7 @@ public class ControllerUtils {
 	
 	
 	public static String getProjectNameLink(OperationMessage message) {
-		StringBuffer link = new StringBuffer();
-		link.append("<a href=\"#\" class=\"blue project_name\" data-project-id=\"")
-		.append(message.getProjectId())
-		.append("\">")
-		.append(message.getProjectName())
-		.append("</a>");
-		return link.toString();
+		return "projectname";
 	}
 
 	/**
@@ -45,6 +39,14 @@ public class ControllerUtils {
 		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}
+	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId, String messageType,Object userData) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);
+		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, projectId);
+		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
+		params.put(PlatformConst.REQUEST_SCOPE_USER_DATA, userData);
+		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
+	}
 	public static void setRequestParamsForMessageTip(HttpServletRequest request, String projectName, Long projectId,UrlNumber number) 
 	{
 		setRequestParamsForMessageTip(request,projectName,projectId,null,number);
@@ -64,7 +66,9 @@ public class ControllerUtils {
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, projectName);
 		params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, projectId);
 		params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
-		params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());
+		if(number!=null){
+			params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, number.name());	
+		}
 		params.put(PlatformConst.REQUEST_SCOPE_USER_DATA, userData);
 		request.setAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP, params);
 	}

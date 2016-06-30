@@ -1217,12 +1217,17 @@
             var col = title.substr(3, 1);
             var cal = $(e.target).parents('.calendar');
             var date = cal.hasClass('left') ? this.leftCalendar.calendar[row][col] : this.rightCalendar.calendar[row][col];
-
-            if (this.endDate) {
+            var position = cal.hasClass('left') ? 'left' : 'right';
+            if(position=="left"){
+            	this.container.find('input[name=daterangepicker_start]').val(date.format(this.locale.format));
+            }else{
+            	this.container.find('input[name=daterangepicker_end]').val(date.format(this.locale.format));
+            }
+          /*  if (this.endDate) {
                 this.container.find('input[name=daterangepicker_start]').val(date.format(this.locale.format));
             } else {
                 this.container.find('input[name=daterangepicker_end]').val(date.format(this.locale.format));
-            }
+            }*/
 
             //highlight the dates between the start date and the date being hovered as a potential end date
             var leftCalendar = this.leftCalendar;
@@ -1425,11 +1430,11 @@
             if (isLeft) {
                 this.leftCalendar.month.month(month).year(year);
                 if (this.linkedCalendars)
-                    this.rightCalendar.month = this.leftCalendar.month.clone().add(1, 'month');
+                    this.rightCalendar.month = this.leftCalendar.month.clone().add(0, 'month');
             } else {
                 this.rightCalendar.month.month(month).year(year);
                 if (this.linkedCalendars)
-                    this.leftCalendar.month = this.rightCalendar.month.clone().subtract(1, 'month');
+                    this.leftCalendar.month = this.rightCalendar.month.clone().subtract(0, 'month');
             }
             this.updateCalendars();
         },

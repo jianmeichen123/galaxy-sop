@@ -14,6 +14,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>繁星</title>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
@@ -226,7 +227,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							<thead>
 							    <tr>
 						        	<th data-field="createdTime" data-align="left" data-width="35%" data-formatter="longTimeFormat_Chines" >日期时间</th>
-						        	<th data-field="content" data-align="left"  data-width="65%" data-formatter="projectNameFormat">消息</th>
+						        	<th data-field="content" data-align="left"  data-width="65%" data-formatter="projectNameLineFormat">消息</th>
 			 					</tr>	
 			 				</thead>
 						</table>
@@ -265,7 +266,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						</tbody>
 					</table>
 				</dd>
-				<dd class="clearfix">
+				<dd class="clearfix position">
 					<!-- <a href="javascript:;" class="more null">more</a> -->
 					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
 				</dd>
@@ -375,6 +376,11 @@ $(function(){
 		sortName : 'updated_time',
 		pagination: true,
         search: false,
+        onLoadSuccess: function (data){
+        	if(data.pageList.total<3){
+        		$(".r_news .more").css("display","none");
+        	}
+        }
 	});
 });
 //通用ajax数据回调

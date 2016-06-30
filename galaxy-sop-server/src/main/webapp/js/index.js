@@ -120,12 +120,7 @@
 					row.projectName +
 				" </a>" ;	
 		var content =value.replace("projectname",aa);
-		if(content.length>80){
-			var str =content.substring(0,80)+"...";
-		}else{
-			var str =content;
-		}
-		return str;		
+		return content;	
 	}
 	/*function top5MessageCallback(data){
 		if(data.result.status == "OK"){
@@ -152,6 +147,9 @@
 		//组装数据
 		
 		var list =  data.pageList.content;
+		if(list.length<3){
+			$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
+		}
 		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#sopStak"); 
 			var i=0;
@@ -187,9 +185,6 @@
 				 tbodyList.append(tr);
 			  });
 			cutStr(10,'cutstr');
-			if(list.length<3){
-				$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
-			}
 		}else{
 			var tbodyList = $("#sopStak"); 
 			var noData =

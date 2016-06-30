@@ -63,7 +63,7 @@
 						        <th data-field="taskType" data-align="center" >任务类型</th>
 						        <th data-field="taskName" data-align="center" width="200px" >任务名称</th>
 						        <th data-field="taskStatus" data-align="center" class="col-md-2" >任务状态</th>
-						        <th data-field="projectName" data-align="center" class="col-md-2" >所属项目</th>
+						        <th data-field="projectName" data-align="center" class="col-md-2" data-formatter="projectNameFormatter">所属项目</th>
 						        <th data-field="createUname" data-align="center" class="col-md-2" >投资经理</th>
 								<th data-align="center" class="col-md-2" data-field="caozuohtml" >操作</th>
    						 	</tr>	
@@ -84,6 +84,18 @@
 <script src="<%=request.getContextPath() %>/js/init.js"></script>	
 
 <script type="text/javascript">
+function projectNameFormatter(value,row,index){
+		var str=row.projectName;
+		if(str.length>12){
+			subStr = str.substring(0,12);
+			var options = "<span title='"+str+"'>"+subStr+"</span>";
+			return options;
+		}
+		else{
+			var options = "<span title='"+str+"'>"+str+"</span>";
+			return options;
+		}
+	}
     var flag="${flagUrl}";
     var num=0;
     if(flag=="jl"){
