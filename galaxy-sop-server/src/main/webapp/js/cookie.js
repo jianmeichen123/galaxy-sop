@@ -37,7 +37,8 @@ function setCookie(name,value,hours,path){
 	 */
 	function cookies_szie(){
 		var pageSize = getCookieValue("pageSize");
-		if(getCookieValue("backProjectList")!=''){
+		if(pageSize!=''){
+			deleteCookie("pageSize","/");
 			return pageSize;
 		}else{
         	return 10;

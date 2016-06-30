@@ -16,15 +16,16 @@
         	<span class="b_span"> 
         		<c:choose>
 	        		<c:when test="${mark == 't' || mark == 'm' }">
-						<a href="javascript:history.back(-1)" onclick='back_href()'>返回></a>
+						<a href="javascript:history.back()" onclick='back_href()'>返回></a>
 					</c:when>
 					<c:otherwise>
-	        		  <a href="javascript:;" onclick='backProjectList()'>返回项目列表></a>
+	        		  <a href="javascript:history.back()" onclick='backProjectList()'>返回项目列表></a>
 	        		</c:otherwise>
 				</c:choose>
 			</span>
         </div>
 </body>
+<script src="<%=request.getContextPath() %>/js/cookie.js"></script>
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <script>
 var pid='${pid}';
