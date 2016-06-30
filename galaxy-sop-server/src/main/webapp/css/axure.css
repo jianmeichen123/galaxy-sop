@@ -8,6 +8,7 @@ a{ text-decoration:none; outline:none;font-size:12px; font-family:"宋体"}
 a:hover{ text-decoration:underline}
 li{ display:block; list-style:none}
 textarea{resize: none;outline: none}
+table .data-input{max-width:200px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .pointer-events{pointer-events: none;}
 /*clearfix-浮动清理*/
