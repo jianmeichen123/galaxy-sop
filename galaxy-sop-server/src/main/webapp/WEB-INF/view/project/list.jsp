@@ -301,14 +301,16 @@
 	        queryParams : function(param){
 	        	var backSign = ${backSign}
 	        	
-	        	if(backSign){
+	        		if(getCookieValue("backProjectList")!=''){
+	        			page_Num =getCookieValue("pageNum")
+	        		}
 	        		var formdata = {
-		        			_paramKey : 'projectList'
+		        		_paramKey : 'projectList'
 		        	}
 	        		/**
 					 * 返回本页附加参数功能实现代码
 					 */
-	        		if(getCookieValue("backProjectList")!=''){
+	        		/* if(getCookieValue("backProjectList")!=''){
 	        		    param.pageNum = getCookieValue("pageNum") - 1;
 		        		param.pageSize = getCookieValue("pageSize");
 		        		param.nameCodeLike = getCookieValue("nameCodeLike");
@@ -324,16 +326,16 @@
 	 	       			$("select[name='projectDepartid']").val(getCookieValue("projectDepartid") ? getCookieValue("projectDepartid") : "0");
 	 	       			$("select[name='createUid']").val(getCookieValue("createUid") ? getCookieValue("createUid") : "0");
 	 	       			
-	 	       		deleteCookie("pageNum","/");
+	 	       		 deleteCookie("pageNum","/");
 					deleteCookie("pageSize","/");
 					deleteCookie("nameCodeLike","/");
 					deleteCookie("createUid","/");
 					deleteCookie("projectDepartid","/");
-					deleteCookie("backProjectList","/");
+					deleteCookie("backProjectList","/"); 
 	 	       			deleteCookie("backProjectList","/");
-        			}
+        			} */
 		        	
-	        	}
+	        	
 	        	
 	        	return param;
 	        },
