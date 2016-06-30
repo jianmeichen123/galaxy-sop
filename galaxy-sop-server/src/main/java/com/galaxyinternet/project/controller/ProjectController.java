@@ -1394,7 +1394,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		SopFile file = new SopFile();
 		file.setProjectId(pid);
 		file.setFileValid(1);
-		file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+		file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode()); 
 		List<SopFile> files = sopFileService.queryList(file);
 		if (files == null
 				|| (project.getProjectType().equals(
