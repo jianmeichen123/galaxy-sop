@@ -59,8 +59,8 @@ function back_href(){
 function backProjectList(){
 	//ie兼容
 	setCookie("backProjectList", 'click',24,'/');
-	//var url = platformUrl.projectList+"?backSign=true";
-	//forwardWithHeader(url);
+	var url = platformUrl.projectList+"?backSign=true";
+	forwardWithHeader(url);
 }
 /**
  * 面包屑

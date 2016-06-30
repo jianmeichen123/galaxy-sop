@@ -307,7 +307,6 @@
 					 * 返回本页附加参数功能实现代码
 					 */
 	        		if(getCookieValue("backProjectList")!=''){
-	        			alert('公用')
 	        		    param.pageNum = getCookieValue("pageNum") - 1;
 		        		param.pageSize = getCookieValue("pageSize");
 		        		param.nameCodeLike = getCookieValue("nameCodeLike");
@@ -372,7 +371,6 @@
 		 */
 		$('button[action="querySearch"]').click(function(){
 			$("#showResetBtn").val(1);
-			 alert('ddd')
 		});
 		/**
 		 * "重置"操作
