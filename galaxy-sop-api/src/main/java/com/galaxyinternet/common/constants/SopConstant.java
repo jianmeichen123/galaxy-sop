@@ -40,7 +40,7 @@ public interface SopConstant {
 	public static final int TASK_FLAG_GQZR = 7;
 	public static final String TASK_NAME_ZJBF = "上传资金拨付凭证";
 	public static final int TASK_FLAG_ZJBF = 8;
-	public static final String TASK_NAME_GSBG = "上传工商变更登记凭证";
+	public static final String TASK_NAME_GSBG = "上传工商转让凭证";
 	public static final int TASK_FLAG_GSBG = 9;
 	
 	//ceo评审

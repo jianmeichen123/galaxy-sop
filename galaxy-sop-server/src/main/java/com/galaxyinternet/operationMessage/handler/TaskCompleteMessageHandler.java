@@ -18,7 +18,7 @@ public class TaskCompleteMessageHandler implements MessageHandler
 		map.put("9.1", SopConstant.TASK_NAME_RSJD);
 		map.put("9.2", SopConstant.TASK_NAME_CWJD);
 		map.put("9.3", SopConstant.TASK_NAME_FWJD);
-		map.put("9.4", "上传工商转让凭证");
+		map.put("9.4", SopConstant.TASK_NAME_GSBG);
 		map.put("9.5", SopConstant.TASK_NAME_ZJBF);
 	}
 

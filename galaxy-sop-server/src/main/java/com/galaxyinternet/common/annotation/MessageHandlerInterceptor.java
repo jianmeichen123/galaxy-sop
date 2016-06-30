@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.alibaba.dubbo.remoting.exchange.Request;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -248,6 +250,21 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				.append("为项目")
 				.append(ControllerUtils.getProjectNameLink(message))
 				.append("申请投决会会议排期");
+				message.setContent(content.toString());
+				operationMessageService.insert(message);
+			} else if(message.getMessageType().equals(StageChangeHandler._6_10_)){
+				String messageType = (String) message.getUserData();
+				message.setMessageType(messageType);
+				content.append(message.getOperator())
+				.append("完成了项目")
+				.append(ControllerUtils.getProjectNameLink(message))
+				.append("的");
+				if(messageType.equals("9.5")){
+					content.append(SopConstant.TASK_NAME_ZJBF);
+				}else{
+					content.append(SopConstant.TASK_NAME_GSBG);
+				}
+				content.append("任务");
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
 			}
