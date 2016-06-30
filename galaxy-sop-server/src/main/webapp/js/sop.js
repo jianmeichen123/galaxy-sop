@@ -47,7 +47,7 @@ function info(id){
 				progress = progress.replace(":","_");
 				var index = progress.substr("projectProgress_".length);
 
-				if(index == 1 || index == 3 || index == 4  || index == 7 ){
+				if(index == 1 || index == 3 || index == 4 || index == 6 || index == 7 ){
 					checkCanUse(index,data.entity.id,data.entity.projectType);
 				}
 				for(var i = 1; i<11; i++){
@@ -106,11 +106,10 @@ function info(id){
 					if(i == 6){
 						if(hasClosed){
 							$("#jzdc_options").remove();
+						}
+						if(!canUseBut){
 							$("#tjhsqBut").remove();
 						}
-						/*if(!canUseBut){
-							$("#tjhsqBut").remove();
-						}*/
 						jzdc();
 					}
 					if(i == 7){
@@ -187,11 +186,9 @@ function info(id){
 							 
 							 if(parseInt(indexNum) < parseInt(index)){
 								 $("#jzdc_options").remove();
-								 $("#tjhsqBut").remove();
-							 }
-							 /*else if(!canUseBut){
+							 }else if(!canUseBut){
 								$("#tjhsqBut").remove();
-							 }*/
+							}
 						}else if(indexNum == '7'){
 							$("#projectProgress_6_con").css("display","none");
 							$("#projectProgress_7_con").css("display","block");
