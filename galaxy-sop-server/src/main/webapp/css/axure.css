@@ -43,7 +43,7 @@ input.disabled{background-color: #000;}
 .null{ display:block; overflow:hidden; font-size:0; line-height:0; text-indent:-999px}
 /*公用表格*/
 table{ background:#ffffff;}
-table th{ text-align:center; color:#2d3342; font-weight:normal; font-size:12px; line-height:38px;border-bottom: 1px solid #d6d8e1;}
+table th{ text-align:center; color:#2d3342; font-weight:normal; font-size:12px; line-height:34px;border-bottom: 1px solid #d6d8e1;}
 table td{ height:30px;line-height:30px; text-align:center; font-size:12px; color:#536379; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
 .fixed_width td{width:16%;}
 table td a{ font-size:12px; margin:0 2px; color:#536379; font-family:"宋体";margin:0 4px;}
@@ -603,7 +603,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .rit .top .tody{ margin:0 0 24px 18px; padding:0 0 0 74px; height:56px; background-position:0 -30px}
 .pagebox .rit .top .tody .time{ line-height:36px; font-size:24px; color:#60aae6; background-position: 105px 150px !important;}
 .pagebox .rit .top .tody .date{ line-height:20px; font-size:12px; color:#c9cbcf; font-family:"宋体"}
-.pagebox .rit .top .link{ line-height:20px; display:block; margin:0 14px 5px; position:relative; padding:0 0 0 16px; font-size:12px; color:#aaaaaa; font-family:"宋体";overflow: hidden;white-space: nowrap;text-overflow: ellipsis}
+.pagebox .rit .top .link{ line-height:20px; display:block; margin:0 22px 5px; position:relative; padding:0 0 0 16px; font-size:12px; color:#aaaaaa; font-family:"宋体";overflow: hidden;white-space: nowrap;text-overflow: ellipsis}
 .pagebox .rit .top .link b{ position:absolute; width:8px; height:8px; border-radius:8px; left:0; top:50%; margin:-4px 0 0}
 .pagebox .rit .top .link .b1{ background:#ff9000}
 .pagebox .rit .top .link .b2{ background:#3fdb51}
@@ -615,7 +615,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .rit dd .more{ float:right}
 /*右中部分*/
 .pagebox .ritmin{ float:left; width:88.5%;margin:60px 0 0 10.505%;}
-.pagebox .ritmin h2{ line-height:46px; height:46px; font-size:18px; font-weight:normal; color:#808e9b}
+.pagebox .ritmin h2{ line-height:46px; height:46px; font-size:22px; font-weight:normal; color:#808e9b}
 .pagebox .ritmin .breadcrumb{height: 48px;line-height: 44px;font-size:14px; font-weight:normal;}
 .pagebox .ritmin .breadcrumb li{float: left;color:#808e9b; }
 .pagebox .ritmin .breadcrumb li.bottom_align{padding-top:4px; }
@@ -1849,18 +1849,16 @@ font-family: "宋体";
 .lft .toggle_li li ul a{padding-left:30px;}
 .lft .toggle_li li a:hover,.lft .toggle_li li.on a{color:#6dafee !important;}
 /*消息提醒*/
-.message table{border-radius:6px;margin-bottom: 10px;width:80% !important;}
+/* .message table{border-radius:6px;margin-bottom: 10px;width:80% !important;}*/
 .message table .message_t{width:20%;}
 .message table .message_t1{width:40%}
 .message table .message_n{width:80%;}
 .message table th{font-size: 16px;font-family: "微软雅黑";color:#6b799f;padding-left: 25px !important;}
-.message .fixed-table-container thead th .th-inner{line-height:38px;}
-.message .bootstrap-table .table > tbody > tr > td{height:48px;padding-left: 30px !important;}
+.message .bootstrap-table .table > tbody > tr > td{padding-left: 30px !important;}
 .message table .operator{margin-right: 10px;}
-.message .fixed-table-pagination{width: 80%;}
 .r_news table{table-layout:fixed;}
 .r_news table td{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
-.r_news .fixed-table-pagination{display:none !important;}
+.r_news .fixed-table-pagination{display:none !important;} 
 /*添加日程*/
 #top{height:72px;}
 .add_schedule{background:url(../img/no_icon.png) 0 -57px no-repeat;padding-left:15px;float:right;}

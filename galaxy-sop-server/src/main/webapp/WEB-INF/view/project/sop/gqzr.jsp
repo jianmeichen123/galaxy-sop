@@ -14,7 +14,7 @@
     <dl class="fmdl clearfix">
     	<dt>存储类型：</dt>
         <dd>
-        	<select id="fileType" disabled="disabled">
+        	<select id="fileType" disabled="disabled" class="disabled">
         	    <option value="">全部</option>
             	<option value="fileType:1">文档</option>
             	<option value="fileType:2">音频文件</option>
@@ -26,7 +26,7 @@
     <dl class="fmdl clearfix">
     	<dt>业务分类：</dt>
         <dd>
-        	<select id="fileWorkType" disabled="disabled">
+        	<select id="fileWorkType" disabled="disabled"  class="disabled">
             	<option value="fileWorktype:7">股权转让协议</option>
             </select>
         </dd>
