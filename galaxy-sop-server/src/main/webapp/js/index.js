@@ -83,9 +83,8 @@
 				' </tr>'; 			
 			tbodyList.append(noData);
 	   }
-		
-		if(list.length<4){
-			$("#ceopsbodytop").parent().parent().siblings().children('.more').css("display","none");
+		if(list.length>3){
+			$("#ceo_p .position").css("display","block");
 		}
 	}
 	
