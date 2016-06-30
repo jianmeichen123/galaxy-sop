@@ -281,7 +281,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				if (id > 0) {
 					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
 					responseBody.setId(id);
-					file.setMultipartFile(null);
+					if(file!=null){
+						file.setMultipartFile(null);
+					}
 					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_,file);
 				}
 			}
