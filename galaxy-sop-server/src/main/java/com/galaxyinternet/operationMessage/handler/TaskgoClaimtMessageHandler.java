@@ -18,6 +18,8 @@ public class TaskgoClaimtMessageHandler implements MessageHandler
 		map.put("8.1", SopConstant.TASK_NAME_RSJD);
 		map.put("8.2", SopConstant.TASK_NAME_CWJD);
 		map.put("8.3", SopConstant.TASK_NAME_FWJD);
+		map.put("8.4", "上传工商转让凭证");
+		map.put("8.5", SopConstant.TASK_NAME_ZJBF);
 	}
 
 	/**

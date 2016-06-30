@@ -165,9 +165,11 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 					messageType="8.2";
 					break;
 				case 8 : //资金拨付凭证
+					messageType="8.5";
 					urlNum=UrlNumber.four;
 					break;
 				case 9 : //工商变更登记凭证
+					messageType="8.4";
 					urlNum=UrlNumber.six;
 					break;
 				default :
@@ -407,9 +409,11 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 				break;
 			case 8 : //资金拨付凭证
 				urlNum=UrlNumber.four;
+				messageType="9.5";
 				fileWorktype = "fileWorktype:9";
 				break;
 			case 9 : //工商变更登记凭证
+				messageType="9.4";
 			//	btnTxt = "上传工商变更登记凭证";
 				urlNum=UrlNumber.six;
 				fileWorktype = "fileWorktype:8";
