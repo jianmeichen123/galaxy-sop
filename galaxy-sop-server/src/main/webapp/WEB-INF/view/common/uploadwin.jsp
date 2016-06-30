@@ -2,11 +2,9 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<head>
-<meta charset="utf-8">
+
 	<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <%--     <script src="<%=path %>/js/jquery.showLoading.min.js"></script> --%>
-</head>
 <!-- 弹出页面 -->
 <div id="uploadPanel"  style="display: none;">
 	<div class="meetingtc" >

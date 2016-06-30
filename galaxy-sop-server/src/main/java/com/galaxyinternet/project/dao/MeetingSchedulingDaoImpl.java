@@ -93,6 +93,17 @@ public class MeetingSchedulingDaoImpl extends BaseDaoImpl<MeetingScheduling, Lon
 		}
 	}
 
+	@Override
+	public List<MeetingSchedulingBo> meetingListByCondition(MeetingScheduling ms) {
+		// TODO Auto-generated method stub
+		try {
+			List<MeetingSchedulingBo> list=sqlSessionTemplate.selectList(getSqlName("selectShedule"),ms);
+		    return list;
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询对象出错！语句：%s", getSqlName("selectShedule")), e);
+		}
+	}
+
 	
 	
 }

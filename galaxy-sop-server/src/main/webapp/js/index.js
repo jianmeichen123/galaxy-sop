@@ -9,7 +9,7 @@
 		data["pageSize"] = 3;
 		data["pageNum"] = 0;
 		data["module"] = 1;
-		sendPostRequestByJsonObj(platformUrl.operationMessageQueryList, data, top5MessageCallback);
+		//sendPostRequestByJsonObj(platformUrl.operationMessageQueryList, data, top5MessageCallback);
 	}
 	
 
@@ -55,8 +55,7 @@
 		sendPostRequestByJsonObj(platformUrl.soptaskshouye,jsonData, SopTaskCallback);
 	}
 
-	function top5CeoPsMeetingCallback(data) {
-		
+	function top5CeoPsMeetingCallback(data) {		
 		var list = data.entityList;
 		if(list != "" || list != undefined || list != null){
 			var tbodyList = $("#ceopsbodytop"); 
@@ -80,7 +79,7 @@
 			var tbodyList = $("#ceopsbodytop"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 	   }
@@ -113,19 +112,28 @@
 			  });
 		}
 	}
-	function top5MessageCallback(data){
+//	消息提醒
+	function projectNameFormat(value, row, index){
+		var id = row.projectId;
+		 
+		var aa = "<a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class=\"blue project_name\"> "+
+					row.projectName +
+				" </a>" ;	
+		var content =value.replace("projectname",aa);
+		return content;	
+	}
+	/*function top5MessageCallback(data){
 		if(data.result.status == "OK"){
 			var news_table =  $(".r_news table tbody");
-			var content = data.pageList.content;
-			
+			var content = data.pageList.content;			
 			$(content).each(function(index,item){
-				var tr = " <tr><td>"+(index+1)+"</td><td>"+longTimeFormatChines(item.createdTime)+"</td> <td>"+item.operator+"</td><td>"+item.content+"</td></tr>"
+				var tr = " <tr><td>"+longTimeFormat_Chines(item.createdTime)+"</td> <td>"+item.projectName+"</td></tr>"
 				news_table.append(tr);
 			})
 			if (content.length==0) {
 				var noData =
 					'<tr>'+
-					 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+					 '<td colspan="2" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 					' </tr>'; 			
 				news_table.append(noData);
 		   }
@@ -133,12 +141,15 @@
 				news_table.parent().parent().siblings().children('.more').css("display","none");
 			};
 		}
-	}
+	}*/
 	
 	function SopTaskCallback(data){
 		//组装数据
 		
 		var list =  data.pageList.content;
+		if(list.length<3){
+			$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
+		}
 		if(list != null && list != "" && typeof(list) != 'undefined' && list.length != 0 ){
 			var tbodyList = $("#sopStak"); 
 			var i=0;
@@ -174,14 +185,11 @@
 				 tbodyList.append(tr);
 			  });
 			cutStr(10,'cutstr');
-			if(list.length<3){
-				$("#sopStak").parent().parent().siblings().children('.more').css("display","none");	
-			}
 		}else{
 			var tbodyList = $("#sopStak"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="7">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="7" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}	
@@ -227,7 +235,7 @@
 			var tbodyList = $("#tbody"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}
@@ -276,7 +284,7 @@
 			var tbodyList = $("#tlbody"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}
@@ -309,7 +317,7 @@ cutStr(5,'cutstr');
 			var tbodyList = $("#tcbody"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);
 		}
@@ -341,7 +349,7 @@ cutStr(5,'cutstr');
 			var tbodyList = $("#votebody"); 
 			var noData =
 				'<tr>'+
-				 '<td colspan="4">'+'没有找到匹配的记录'+'</td>'+
+				 '<td colspan="4" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 				' </tr>'; 			
 			tbodyList.append(noData);	
 		}
@@ -532,7 +540,7 @@ function cyIndexCallback(data){
 		$("#cy_index").parent().parent().siblings().children('.more').css("display","none");
 		var noData =
 			'<tr>'+
-			'<td colspan="7">'+'没有找到匹配的记录'+'</td>'+
+			'<td colspan="7" class="no_info"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 			' </tr>'; 			
 		tbodyList.append(noData);
 	}	

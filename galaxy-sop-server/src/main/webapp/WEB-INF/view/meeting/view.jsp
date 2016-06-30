@@ -89,7 +89,6 @@
             
           </div>
         </div>
-        
 		<div class="tab-pane active" id="view">
 			<table id="data-table" data-url="<%=path %>/galaxy/project/progress/queryMeet"
 				data-method="post" data-side-pagination="server"
@@ -150,6 +149,21 @@ $(function(){
 		pagination: true,
 		clickToSelect: true,
         search: false,
+        onLoadSuccess: function(){
+        	var len=$(".meeting_result").length
+        	for(var i=0;i<len;i++){
+        		console.log($(".meeting_result").eq(i).text());
+        		if($(".meeting_result").eq(i).text()=="通过"){
+        			$(".meeting_result").eq(i).addClass("color_pass");
+            	}else if($(".meeting_result").eq(i).text()=="待定"){
+            		$(".meeting_result").eq(i).addClass("color_undetermined");  
+            	}else if($(".meeting_result").eq(i).text()=="否决"){
+            		$(".meeting_result").eq(i).addClass("red");
+            		
+            	}
+        	}
+        
+        }
 	});
 	
 });

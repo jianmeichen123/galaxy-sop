@@ -76,6 +76,8 @@ import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.timer.PassRate;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
+import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
@@ -279,8 +281,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				if (id > 0) {
 					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
 					responseBody.setId(id);
-					ControllerUtils.setRequestParamsForMessageTip(request,
-							project.getProjectName(), project.getId());
+					file.setMultipartFile(null);
+					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_,file);
 				}
 			}
 		} catch (Exception e) {
@@ -296,9 +298,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @return
 	 * @throws ParseException
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
-	@RequestMapping(value = "/up", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/editProject", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> resetProject(@RequestBody Project project,
 			HttpServletRequest request) throws ParseException {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
@@ -343,11 +345,16 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project.setCreatedTime(DateUtil.convertStringToDate(
 				p.getCreateDate().trim(), "yyyy-MM-dd").getTime());
 
+		String projectName = p.getProjectName();
+		if(!StringUtils.isBlank(project.getProjectName())){
+			projectName = project.getProjectName();
+		}
+		
 		int num = projectService.updateById(project);
 		if (num > 0) {
 			responseBody.setResult(new Result(Status.OK, null, "项目修改成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(), project.getId());
+					projectName, project.getId(),"2");
 		}
 		return responseBody;
 	}
@@ -891,8 +898,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 	/**
 	 * 项目阶段中的文档上传 该项目对应的创建人操作
-	 * 
-	 * @author yangshuhua voucherType
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
@@ -1135,7 +1140,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					// 记录操作日志
 					ControllerUtils.setRequestParamsForMessageTip(request,
 							project.getProjectName(), project.getId(),
-							r.getNumber());
+							r.getMessageType(), r.getNumber(),r.getAttachment());
 				}
 			}
 		} catch (Exception e) {
@@ -1211,8 +1216,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				projectService.updateById(project);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
-				ControllerUtils.setRequestParamsForMessageTip(request,
-						project.getProjectName(), project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(),StageChangeHandler._6_2_);
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"异常，启动内部评审失败!"));
@@ -1232,6 +1236,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 
 	 * @author yangshuhua
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/incm/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> inCeoMeetingPool(HttpServletRequest request,
@@ -1258,6 +1263,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				meetingSchedulingService.updateById(tm);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
+				
+				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.1", UrlNumber.one);
 			} else {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"项目不能重复申请CEO评审排期!"));
@@ -1302,8 +1309,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				projectService.toEstablishStage(project);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
-				ControllerUtils.setRequestParamsForMessageTip(request,
-						project.getProjectName(), project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_4_);
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"异常，申请立项会失败!"));
@@ -1323,6 +1329,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * 
 	 * @author yangshuhua
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/inlx/{pid}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Project> inLxmeetingPool(HttpServletRequest request,
@@ -1349,6 +1356,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				meetingSchedulingService.updateById(tm);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.2", UrlNumber.one);
 			} else {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"项目不能重复申请立项会排期!"));
@@ -1408,8 +1416,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			projectService.toSureMeetingStage(project);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
-			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(), project.getId());
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_);
 		} catch (Exception e) {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "异常，申请投决会失败!"));
@@ -1451,6 +1458,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				meetingSchedulingService.updateById(tm);
 				responseBody.setResult(new Result(Status.OK, ""));
 				responseBody.setId(project.getId());
+				ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), "10.3", UrlNumber.one);
 			} else {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"项目不能重复申请立项会排期!"));
@@ -1938,7 +1946,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @param request
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/updateCommonFile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectQuery> updateCommonFile(ProjectQuery p,
@@ -1988,7 +1996,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			sopFile.setFileKey(fileKey);
 			sopFile.setFileLength(result.getContentLength());
 			sopFileService.updateById(sopFile);
+//			if(DictsopFile.getFileWorktype())
 			responseBody.setResult(new Result(Status.OK, null, "更新文件成功!"));
+			Project project = projectService.queryById(sopFile.getProjectId());
+			String messageType = null;
+			if(p.getFileWorktype().equals(DictEnum.fileWorktype.投资意向书.getCode())){
+				messageType = SopFileMessageHandler._5_2_;
+			}else if(p.getFileWorktype().equals(DictEnum.fileWorktype.业务尽职调查报告.getCode())){
+				messageType = SopFileMessageHandler._5_4_;
+			}else if(p.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
+				messageType = SopFileMessageHandler._5_8_;
+			}else if(p.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+				messageType = SopFileMessageHandler._5_12_;
+			}
+			ControllerUtils.setRequestParamsForMessageTip(request,
+					project.getProjectName(),project.getId(),
+					messageType,null,sopFile);
 		} catch (Exception e) {
 			responseBody.getResult().addError("更新失败");
 			logger.error("更新失败", e);
@@ -2353,6 +2376,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			for (MeetingScheduling ms : query) {
 				String mestr = "";
+				String messageType = null;
 				MeetingScheduling oldMs = msmap.get(ms.getId());
 				Project pj = mapProject.get(oldMs.getProjectId());
 				//验证已经已通过|已否决的会议不能进行排期
@@ -2364,14 +2388,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				if (DictEnum.meetingType.投决会.getCode().equals(
 						ms.getMeetingType())) {
 					mestr = DictEnum.meetingType.投决会.getName();
+					messageType = "11.3";
 				}
 				if (DictEnum.meetingType.立项会.getCode().equals(
 						ms.getMeetingType())) {
 					mestr = DictEnum.meetingType.立项会.getName();
+					messageType = "11.2";
 				}
 				if (DictEnum.meetingType.CEO评审.getCode().equals(
 						ms.getMeetingType())) {
 					mestr = DictEnum.meetingType.CEO评审.getName();
+					messageType = "11.1";
 				}
 				String messageInfo = mestr + "排期时间为";
 				if (oldMs.getReserveTimeStart() != null
@@ -2385,6 +2412,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				List<String> userLs = proMap.get(pj.getId());
 				//获取项目中的user
 				List<User> userlist = userService.queryListById(userLs);
+				User belongUser = userService.queryById(pj.getCreateUid());
 				// 如果是更新或取消排期时间
 				if (oldMs.getReserveTimeStart() != null
 						&& oldMs.getReserveTimeEnd() != null) {
@@ -2394,7 +2422,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						ms.setScheduleStatus(0);
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,null,null,0,UrlNumber.three);
-						
+						belongUser.setKeyword("cancle:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
 					} else {
 						// 更新会议时间
 						if (oldMs.getReserveTimeStart().getTime() != ms
@@ -2403,6 +2431,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 										.getReserveTimeEnd().getTime()) {
 							meetingSchedulingService.updateByIdSelective(ms);
 							sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.two);
+							belongUser.setKeyword("update:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
 						}
 					}
 				} else {
@@ -2411,10 +2440,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							&& ms.getReserveTimeEnd() != null) {
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.one);
+						belongUser.setKeyword("insert:"+DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));	
 					}
 
 				}
-
+				ControllerUtils.setRequestParamsForMessageTip(request, belongUser, pj.getProjectName(), pj.getId(), messageType, UrlNumber.one);
 			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
@@ -2438,12 +2468,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 * @param type 0：取消发送邮件 1:更新或新增邮件
 	 */
 	public void sendTaskProjectEmail(HttpServletRequest request,Project pj,String messageInfo,List<User> userlist,Timestamp reserveTimeStart,Timestamp reserveTimeEnd,Integer type,UrlNumber number){
+		
 		if(!userlist.isEmpty()){
 			String address = "";
 			for(User user: userlist){
-				ControllerUtils.setRequestParamsForMessageTip(request,
+				/*ControllerUtils.setRequestParamsForMessageTip(request,
 						user, pj.getProjectName(), pj.getId(),
-						number);
+						number);*/
+				
 				if(StringUtils.isBlank(address)){
 					address+=user.getEmail()+"@galaxyinternet.com";
 				}else{

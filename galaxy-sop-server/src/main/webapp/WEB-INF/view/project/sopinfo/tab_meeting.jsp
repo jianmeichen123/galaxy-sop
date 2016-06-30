@@ -101,15 +101,17 @@
 						</dl>
 
 						<dl class="fmdl fmmr fmdll clearfix">
-							<dt>会议日期：</dt>
+							<!-- <dt>会议日期：</dt>
 							<dd>
 								<input type="text" class="datepicker txt time" readonly id="startTime" name="startTime" style="height: 23px;" /> 
 								<span>至</span>
 								<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
 							</dd>
+							 -->
 							<dd>
 								<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
 							</dd>
+							
 						</dl>
 					</div>
 					</div>
@@ -189,6 +191,21 @@ $(function(){
 		idField : "id",
 		clickToSelect: true,
         search: false,
+        onLoadSuccess: function(){
+        	var len=$(".meeting_result").length
+        	for(var i=0;i<len;i++){
+        		console.log($(".meeting_result").eq(i).text());
+        		if($(".meeting_result").eq(i).text()=="通过"){
+        			$(".meeting_result").eq(i).addClass("color_pass");
+            	}else if($(".meeting_result").eq(i).text()=="待定"){
+            		$(".meeting_result").eq(i).addClass("color_undetermined");  
+            	}else if($(".meeting_result").eq(i).text()=="否决"){
+            		$(".meeting_result").eq(i).addClass("red");
+            		
+            	}
+        	}
+        
+        }
 	});
 	
 	//初始化按钮，是 添加会议，or 申请排期

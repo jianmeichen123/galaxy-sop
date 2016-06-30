@@ -18,6 +18,7 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 
 /**
  * 上传业务尽职调查报告
@@ -73,7 +74,7 @@ public class YwjzdcHandler implements Handler {
 		task.setTaskDeadline(time);
 		sopTaskDao.updateTask(task);
 		
-		return new SopResult(Status.OK,null,"上传业务尽职调查报告成功!",UrlNumber.seven);
+		return new SopResult(Status.OK,null,"上传业务尽职调查报告成功!",UrlNumber.seven,SopFileMessageHandler._5_4_,f);
 	}
 	
 }

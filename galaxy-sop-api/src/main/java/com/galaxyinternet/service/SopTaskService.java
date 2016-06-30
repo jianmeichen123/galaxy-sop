@@ -19,7 +19,7 @@ public interface SopTaskService extends BaseService<SopTask> {
 	/**
 	 * 提交完成文件上传任务
 	 */
-	public void submitTask(SopTask task) throws Exception;
+	public int submitTask(SopTask task) throws Exception;
 	
 	/**
 	 * 完善简历待办任务的生成
