@@ -775,7 +775,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 /* .ritmin .tabtable .tabtable_con .chartbox{margin:20px 0 0 0;}
  */.ritmin .tabtable .tabtable_con .chartbox .pubbtn{width:120px;}
 .ritmin .tabtable .tabtable_con .chartbox .histogram{height:172px;margin:35px 50px 40px;}
-.ritmin .tabtable .tabtable_con table{border-top: 2px solid #edeff5;margin:0 0 12px 0;}
+.ritmin .tabtable .tabtable_con table{/* border-top: 2px solid #edeff5; */margin:0 0 12px 0;}
 .ritmin .tabtable .tabtable_con .txt{background-color: #fff;}
 .project_analysis .tablink .on,.assessment .tablink .on{background:#fff;}
 /* 数据报表 */
