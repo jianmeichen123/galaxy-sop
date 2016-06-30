@@ -54,6 +54,7 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/platformUrl.js" type="text/javascript"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/cookie.js"></script>
 <script>
 checkVersion()
 function getInternetExplorerVersion(){
