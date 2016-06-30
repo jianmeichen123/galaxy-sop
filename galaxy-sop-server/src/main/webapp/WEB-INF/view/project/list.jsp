@@ -218,8 +218,9 @@
 		/**
 		 * 返回本页附加参数功能实现代码
 		 */
-		setCookie("pageNum", tempPageNum,1,'/');
-		setCookie("pageSize", tempPageSize,1,'/');
+		setCookie("pageNum", tempPageNum,24,'/');
+		setCookie("pageSize", tempPageSize,24,'/');
+		
 		setCookie("nameCodeLike", nameCodeLike,1,'/');
 		setCookie("createUid", createUid,1,'/');
 		setCookie("projectDepartid", projectDepartid,1,'/');
@@ -306,7 +307,7 @@
 					 * 返回本页附加参数功能实现代码
 					 */
 	        		if(getCookieValue("backProjectList")!=''){
-	        			//alert('公用')
+	        			alert('公用')
 	        		    param.pageNum = getCookieValue("pageNum") - 1;
 		        		param.pageSize = getCookieValue("pageSize");
 		        		param.nameCodeLike = getCookieValue("nameCodeLike");
@@ -364,12 +365,14 @@
 		$('select[name="projectDepartid"]').change(function(){
 			var did = $('select[name="projectDepartid"]').val();
 		    createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+		   
 		});
 		/**
 		 * 控制"重置"按钮
 		 */
 		$('button[action="querySearch"]').click(function(){
 			$("#showResetBtn").val(1);
+			 alert('ddd')
 		});
 		/**
 		 * "重置"操作
