@@ -1390,6 +1390,28 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(result);
 			return responseBody;
 		}
+		// 验证文档是否齐全
+		SopFile file = new SopFile();
+		file.setProjectId(pid);
+		file.setFileValid(1);
+		file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+		List<SopFile> files = sopFileService.queryList(file);
+		if (files == null
+				|| (project.getProjectType().equals(
+						DictEnum.projectType.外部投资.getCode()) && files.size() < 4)
+				|| (project.getProjectType().equals(
+						DictEnum.projectType.内部创建.getCode()) && files.size() < 2)) {
+			responseBody.setResult(new Result(Status.ERROR, null,
+					"文档不齐全，不能申请投决会!"));
+			return responseBody;
+		}
+		for (SopFile f : files) {
+			if (f.getFileKey() == null || "".equals(f.getFileKey().trim())) {
+				responseBody.setResult(new Result(Status.ERROR, null,
+						"文档不齐全，不能申请投决会!"));
+				return responseBody;
+			}
+		}
 		try {
 			projectService.toSureMeetingStage(project);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -1716,8 +1738,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					responseBody.setResult(new Result(Status.OK, null, false));
 				}
 			} else if (index == 6) { // 尽调阶段，文档齐全后， 申请投决会排期按钮 可用
-				/*if (projectType == null) {
-					responseBody.setResult(new Result(Status.ERROR, null,"入参失败"));
+				if (projectType == null) {
+					responseBody.setResult(new Result(Status.ERROR, null,
+							"入参失败"));
 					return responseBody;
 				}
 				// 验证文档是否齐全
@@ -1729,10 +1752,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 				boolean allHas = true;
 				if (files != null
-						&& ((projectType.equals(DictEnum.projectType.外部投资.getCode()) && files.size() == 4) || 
-								(projectType.equals(DictEnum.projectType.内部创建.getCode()) && files.size() == 2))) {
+						&& ((projectType.equals(DictEnum.projectType.外部投资
+								.getCode()) && files.size() == 4) || (projectType
+								.equals(DictEnum.projectType.内部创建.getCode()) && files
+								.size() == 2))) {
 					for (SopFile f : files) {
-						if (f.getFileKey() == null || "".equals(f.getFileKey().trim())) {
+						if (f.getFileKey() == null
+								|| "".equals(f.getFileKey().trim())) {
 							allHas = false;
 							break;
 						}
@@ -1740,7 +1766,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				} else {
 					allHas = false;
 				}
-				responseBody.setResult(new Result(Status.OK, null, allHas));*/
+				responseBody.setResult(new Result(Status.OK, null, allHas));
 
 			} else if (index == 7) { // 投决会阶段，在排期池中时， 申请投决会排期按钮 不可用
 				MeetingScheduling meetSchedu = new MeetingScheduling();
