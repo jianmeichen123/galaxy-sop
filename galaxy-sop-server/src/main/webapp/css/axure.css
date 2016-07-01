@@ -1711,10 +1711,10 @@ font-family: "宋体";
 .interview table td span{font-size: 12px;width: 40px;padding-left: 25px;line-height: 20px;cursor: pointer;text-align:left;}
 .interview table span.see{background-position: 0 -19px;}
 /*项目文档*/
-.email_btn{background:  url(../img/functionico.png) 10px -274px no-repeat;padding-left:28px;}
-.email_btn:hover{background:#66b1f2 url(../img/btnico2.png) 10px -61px no-repeat;}
-.document{padding-top: 20px;}
-.document .min_document{margin:0 20px;width:auto;position: relative;padding-bottom: 10px;}
+.email_btn{background:#66b1f2 url(../img/btnico2.png) 10px -61px no-repeat;padding-left:28px;}
+.email_btn:hover{background:#fff url(../img/functionico.png) 10px -274px no-repeat;color:#66b1f2;}
+/* .document{padding-top: 20px;} */
+.document .min_document{margin:0 20px;width:auto;position: relative;padding-bottom: 10px;margin-bottom:10px;}
 .searchbox_document .fmdl{display: block;overflow: hidden;margin-left: 10px;}
 .searchbox_document .fmdl input{display: inline-block;}
 .document .show_more{position: absolute;top: 0;right: 0px;}
