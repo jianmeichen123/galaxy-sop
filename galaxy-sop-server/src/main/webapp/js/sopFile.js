@@ -15,6 +15,19 @@ var searchPanel = {
 					layer.msg('请选择档案。');
 					return;
 				}
+
+				var i = 0;
+				$.each(rows,function(){
+					if(this.fileLength){
+						i++;
+						return false;
+					}	
+				});
+				if(i == 0){
+					layer.msg('无文件。');
+					return;
+				}
+				
 				var data = {
 						_rows : rows
 				}

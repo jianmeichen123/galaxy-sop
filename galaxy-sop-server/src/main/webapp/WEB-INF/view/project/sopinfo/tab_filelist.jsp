@@ -116,7 +116,7 @@
                     <div class="top clearfix">
                         <!--按钮-->
                         <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-							<a href="javascript:;" class="pubbtn fffbtn email_btn" id="file-show-mail-btn">发送选中</a> 
+							<a href="javascript:;" class="pubbtn fffbtn email_btn" id="file-show-mail-btn">发邮件给</a>
 						</div>
                     </div>
                     </c:if>
