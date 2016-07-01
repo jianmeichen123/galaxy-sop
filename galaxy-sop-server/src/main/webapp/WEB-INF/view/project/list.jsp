@@ -195,8 +195,8 @@
 	 function projectInfo(value,row,index){
 		    var id=row.id;
 			var str=row.projectName;
-			if(str.length>12){
-				subStr = str.substring(0,12);
+			if(str.length>10){
+				subStr = str.substring(0,10);
 				var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")' title='"+str+"'>"+subStr+"</a>";
 				return options;
 			}
