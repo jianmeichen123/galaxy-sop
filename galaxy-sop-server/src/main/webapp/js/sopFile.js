@@ -143,8 +143,8 @@ var fileGrid = {
 		  
 	},
 	projectNameFormatter : function(value, row, index){
-		if(row.projectName>10){
-			var str=row.projectName.substring(0,10);
+		if(row.projectName.length>12){
+			var str=row.projectName.substring(0,12);
 			var options='<span title="'+row.projectName+'">'+str+'</span>'
 		}else{
 			var options='<span title="'+row.projectName+'">'+row.projectName+'</span>'
