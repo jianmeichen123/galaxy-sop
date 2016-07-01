@@ -83,7 +83,7 @@
 				' </tr>'; 			
 			tbodyList.append(noData);
 	   }
-		if(list.length>3){
+		if(list.length>2){
 			$("#ceo_p .position").css("display","block");
 		}
 	}
