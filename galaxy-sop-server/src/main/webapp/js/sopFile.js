@@ -98,7 +98,8 @@ var fileGrid = {
 		        title: '所属业务线'
 		      }, {
 		        field: 'projectName',
-		        title: '所属项目'
+		        title: '所属项目',
+		        formatter: fileGrid.projectNameFormatter	
 		      }, {
 		        field: 'fSource',
 		        title: '档案来源'
@@ -140,6 +141,15 @@ var fileGrid = {
 		 
 
 		  
+	},
+	projectNameFormatter : function(value, row, index){
+		if(row.projectName>10){
+			var str=row.projectName.substring(0,10);
+			var options='<span title="'+row.projectName+'">'+str+'</span>'
+		}else{
+			var options='<span title="'+row.projectName+'">'+row.projectName+'</span>'
+		}
+		return options;
 	},
 	operateFormatter : function(value, row, index){
 		var uploadOpt;
@@ -342,6 +352,7 @@ var fileGrid = {
 		}
 	
 	},
+
 	downloadCallBackfunction : function(data){
 		alert(1)
 	},
