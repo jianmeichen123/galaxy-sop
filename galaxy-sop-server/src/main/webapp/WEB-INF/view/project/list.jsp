@@ -222,6 +222,9 @@
 		setCookie("pageNum", tempPageNum,24,'/');
 		setCookie("pageSize", tempPageSize,24,'/');
 		
+		//清除返回的页码
+		deleteCookie("number_on","/");
+		
 		setCookie("nameCodeLike", nameCodeLike,1,'/');
 		setCookie("createUid", createUid,1,'/');
 		setCookie("projectDepartid", projectDepartid,1,'/');

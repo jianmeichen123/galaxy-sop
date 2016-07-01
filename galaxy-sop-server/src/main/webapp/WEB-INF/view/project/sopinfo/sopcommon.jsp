@@ -16,10 +16,10 @@
         	<span class="b_span"> 
         		<c:choose>
 	        		<c:when test="${mark == 't' || mark == 'm' }">
-						<a href="javascript:history.back()" onclick='back_href()'>返回></a>
+						<a href="javascript:;" onclick='back_href()'>返回></a>
 					</c:when>
 					<c:otherwise>
-	        		  <a href="javascript:history.back()" onclick='backProjectList()'>返回项目列表></a>
+	        		  <a href="javascript:;" onclick='backProjectList()'>返回项目列表></a>
 	        		</c:otherwise>
 				</c:choose>
 			</span>
@@ -28,6 +28,17 @@
 <script src="<%=request.getContextPath() %>/js/cookie.js"></script>
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <script>
+var number_on;
+$(function(){
+	if(getCookieValue("number_on")==''){
+		setCookie("number_on", '1',24,'/')
+		number_on=getCookieValue("number_on");
+	}else{
+		number_on=getCookieValue("number_on");
+		number_on++;
+		setCookie("number_on",number_on,24,'/');
+	}
+});
 var pid='${pid}';
 if(null==pid||typeof(pid)=="underfind"||pid==""){
 	pid='${projectId}';
@@ -55,12 +66,17 @@ $(function(){
 })
 function back_href(){
 	setCookie("backProjectList", 'click',24,'/');
+	deleteCookie("number_on","/");
+	history.go(-number_on)
 }
 function backProjectList(){
 	//ie兼容
 	setCookie("backProjectList", 'click',24,'/');
-	var url = platformUrl.projectList+"?backSign=true";
-	forwardWithHeader(url);
+
+	deleteCookie("number_on","/");
+	history.go(-number_on)
+	
+	
 }
 /**
  * 面包屑
