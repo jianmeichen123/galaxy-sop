@@ -50,8 +50,9 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 });
 
 $(function(){
+	var str="";
 	if(projectInfo.projectName.length>24){
-		var str=projectInfo.projectName.substring(0,24);
+		str=projectInfo.projectName.substring(0,24);
 	}
 	$("#project_name_title").text(projectInfo.projectName);
 	$("#project_name_t").text(str);
