@@ -89,7 +89,7 @@
                             <span class="m_r15">
                             	<input type="text" class='new_nputr_number' id="formatContribution" name="formatContribution" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
                             </span>
-                            <span class="m_r30">万人民币</span>
+                            <span class="m_r30">万元人民币</span>
                             <span class="basic_span">估值：</span>
                             <span class="m_r15">
                             	<input type="text" class='new_nputr_number' id="formatValuations" name="formatValuations" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持两位小数"/>
@@ -115,8 +115,8 @@
                     </table>
                     <div class="compile_on_center">
                        <div class="compile_on_left">
-                           <span class="basic_input" onclick="add();">保存</span>
-                           <span class="compile_on_right_q" data-name='industry' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" onclick="add();">保存</span>
+                           <span class="pubbtn fffbtn" data-name='industry' data-on="close">取消</span>
                        </div>  
                    </div>
                 </div>
@@ -210,7 +210,7 @@
 	
 	function add(){
 		var val=$('input:radio[name="projectType"]:checked').val();
-		if(val == null){
+		if(val == null || typeof(val) == "undefined"){
 			$("#projectTypeTip").css("display","block");
 			return;
 		}

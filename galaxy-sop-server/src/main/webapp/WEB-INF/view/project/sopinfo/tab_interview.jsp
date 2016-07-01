@@ -83,13 +83,13 @@
 						</div>
 
 						<!-- 接触访谈信息 -->
-						<div class="min_document clearfix" id="projectProgress_1_table_custom-toolbar" >
+						<div class="min_document clearfix" id="projectProgress_1_table_custom-toolbar" style="display:none; " >
 						<div class="bottom searchall clearfix">
 							<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
-							<dl class="fmdl fmmr fmdll clearfix">
+						<!--   <dl class="fmdl fmmr fmdll clearfix">
 								<dt>访谈日期：</dt>
 								<dd>
-									<!-- <input class="form-control" type="date" id = "startTime" name="startTime"  /> -->
+									<!-- <input class="form-control" type="date" id = "startTime" name="startTime"  /> 
 									<input type="text" class="datepicker txt time" readonly id="startTime" name="startTime" style="height: 23px;" /> 
 									<span>至</span>
 									<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
@@ -98,6 +98,7 @@
 									<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
 								</dd>
 							</dl>
+							-->
 						</div>
 						</div>
 						<table id="projectProgress_1_table" class="commonsize"

@@ -477,7 +477,8 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	
 	@Transactional
 	@Override
-	public void submitTask(SopTask task) throws Exception {
+	public int submitTask(SopTask task) throws Exception {
+		int result = 0;
 		task = sopTaskDao.selectById(task.getId());
 		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
 		task.setTaskDeadline(new Date());
@@ -514,9 +515,11 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		    		project.setId(task.getProjectId());
 		    		project.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
 		    		projectDao.updateById(project);
+		    		result = 1;
 		    	}
 			}
 		}
+		return result;
 	}
 	
 	@Override

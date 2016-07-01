@@ -834,9 +834,10 @@ function metcolumnFormat(value, row, index){
 	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
+	var str="<label class=\"meeting_result\">"+row.meetingResultStr+"</label>"
 	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
 				"会议日期："+row.meetingDateStr+
-				"</br>会议结论："+row.meetingResultStr+
+				"</br>会议结论："+str+
 				"</br>会议录音："+fileinfo+
 			"</div>" ;
 	return rc;
@@ -1001,6 +1002,9 @@ function longTimeFormat(value, row, index){
 function longTimeFormatChines(value, row, index){
 	return Number(value).toDate().format("yyyy年MM月dd日 hh:mm:ss")
 }
+function longTimeFormat_Chines(value, row, index){
+	return Number(value).toDate().format("yyyy-MM-dd hh:mm")
+}
 function getVal(val,defaultValIfNull)
 {
 	if(val == "" || val == null || val == 'undefined')
@@ -1010,7 +1014,15 @@ function getVal(val,defaultValIfNull)
 	return val;
 }
 
-
+function projectNameLineFormat(value, row, index){
+	var id = row.projectId;
+	var aa = " <a href=\'" + Constants.sopEndpointURL + "/galaxy/project/detail/" +id + "?mark=m\' class=\"blue project_name\">"+
+				row.projectName +
+			"</a> " ;
+	var content =value.replace("projectname",aa);
+	return content;
+	
+}
 
 
 function replaceStr(str){
@@ -1163,58 +1175,6 @@ function createUserOptions(url, name, mark){
 	});
 }
 
-
-var cookieOperator = {
-		paramKey : 'parameter',
-		/*
-		 * 将信息保存到cookie然后提交
-		 * param : 
-		 * 		_paramKey : 参数键 (默认：parameter)
-		 * 		_url : url
-		 * 		_param : 参数值
-		 * 
-		 * */
-		forwardPushCookie : function(formdata){
-			var cookietime = new Date(); 
-			cookietime.setTime(cookietime.getTime() + (60 * 60 * 1000));//coockie保存一小时 
-			if(!formdata._param){
-				layer.msg('参数信息为空');
-				return;
-			}
-			var tempParamKey;
-			if(formdata._paramKey){
-				tempParamKey = formdata._paramKey;
-			}else{
-				tempParamKey = cookieOperator.paramKey;
-			}
-			$.cookie(tempParamKey, JSON.stringify(formdata._param),{expires:cookietime,path:Constants.sopEndpointURL}); 
-			forwardWithHeader(formdata._url);
-		},
-		/*
-		 * 将信息保存到cookie然后提交
-		 * param : 
-		 * 		_paramKey : 参数键 (默认：parameter)
-		 * */
-		pullCookie : function(formdata){
-			var tempParamKey;
-			if(formdata._paramKey){
-				tempParamKey = formdata._paramKey;
-			}else{
-				tempParamKey = cookieOperator.paramKey;
-			}
-			var retStr = $.cookie(tempParamKey);
-			if(retStr == '[object Object]'){
-				$.removeCookie(tempParamKey);
-				return;
-			}
-			if(retStr){
-				$.removeCookie(tempParamKey);
-				return jQuery.parseJSON(retStr);
-			}
-			return;
-			
-		}
-}
 
 
 

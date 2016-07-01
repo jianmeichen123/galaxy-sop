@@ -66,11 +66,19 @@
             	<c:if test="${aclViewProject==true}">
             	<form id = 'file_repository_search_form'>
             	<div class="member document">
+            	 <c:if test="${fx:isCreatedByUser('project',projectId) }">
+                    <div class="top clearfix">
+                        <!--按钮-->
+                        <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
+							<a href="javascript:;" class="pubbtn bluebtn email_btn" id="file-show-mail-btn">发邮件给</a>
+						</div>
+                    </div>
+                    </c:if>
                     <!-- 搜索条件 -->
                     <div class="min_document clearfix" >
                     <!-- 查询选项 -->
                       <div class="searchbox_document">
-                        <div class="show_more">
+                        <div class="show_more" style="z-index:9;">
                           <a href="#" class="blue open ico1 f4" data-btn='show'>展开</a>
                           <a href="#" class="blue searchbox_hidden hide ico1 f3" data-btn='hide'>收起</a>
                         </div>
@@ -112,14 +120,7 @@
                               
                       </div>
                     </div>
-                    <c:if test="${fx:isCreatedByUser('project',projectId) }">
-                    <div class="top clearfix">
-                        <!--按钮-->
-                        <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-							<a href="javascript:;" class="pubbtn fffbtn email_btn" id="file-show-mail-btn">发送选中</a> 
-						</div>
-                    </div>
-                    </c:if>
+     
                             <!--表格内容-->
                     <table width="100%" id="file_repository_table" cellspacing="0" cellpadding="0" class="commonsize"></table>  
         	</div>

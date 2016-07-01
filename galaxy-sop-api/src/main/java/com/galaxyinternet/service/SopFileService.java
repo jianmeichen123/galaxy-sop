@@ -42,7 +42,7 @@ public interface SopFileService extends BaseService<SopFile> {
 	 * @param project
 	 * @return
 	 */
-	public SopVoucherFile updateProve(SopVoucherFile sopVoucherFile,SopTask sopTask,Project project,Long userId,Long departmentId);
+	public SopVoucherFile updateProve(SopVoucherFile sopVoucherFile);
 	
 
 	/**

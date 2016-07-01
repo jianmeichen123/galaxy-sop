@@ -178,7 +178,6 @@
 <script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
 
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
-
 <script type="text/javascript">
 	createMenus(5);
 	/**
@@ -196,8 +195,8 @@
 	 function projectInfo(value,row,index){
 		    var id=row.id;
 			var str=row.projectName;
-			if(str.length>12){
-				subStr = str.substring(0,12);
+			if(str.length>10){
+				subStr = str.substring(0,10);
 				var options = "<a href='#' class='blue' data-btn='myproject' onclick='proInfo(" + id + ")' title='"+str+"'>"+subStr+"</a>";
 				return options;
 			}
@@ -215,20 +214,21 @@
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		var projectDepartid = $("select[name='projectDepartid']").val();
 		var createUid = $("select[name='createUid']").val();
+
 		
+		/**
+		 * 返回本页附加参数功能实现代码
+		 */
+		setCookie("pageNum", tempPageNum,24,'/');
+		setCookie("pageSize", tempPageSize,24,'/');
 		
-		var formdata = {
-				_paramKey : 'projectList',
-				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
-				_param : {
-					pageNum : tempPageNum,
-	        		pageSize : tempPageSize,
-	        		nameCodeLike : nameCodeLike,
-	        		createUid : createUid,
-	        		projectDepartid : projectDepartid
-				}
-		}
-		cookieOperator.forwardPushCookie(formdata);
+		//清除返回的页码
+		deleteCookie("number_on","/");
+		
+		setCookie("nameCodeLike", nameCodeLike,1,'/');
+		setCookie("createUid", createUid,1,'/');
+		setCookie("projectDepartid", projectDepartid,1,'/');
+		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
 	}
 	
 	function refreshProjectList()
@@ -280,15 +280,19 @@
 	 * @version 2016-06-21
 	 */
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
+    /**
+	 * 返回本页附加参数功能实现代码
+	 */
 	$(function(){
-		var num_size='';
+
+		var page_Num='';
 		/**
 		 * 初始化项目列表
 		 * @version 2016-06-21
 		 */
 		$('#project-table').bootstrapTable({
 			queryParamsType: 'size|page',
-			pageSize:10,
+			pageSize: cookies_szie(),//返回本页附加参数功能实现代码
 			showRefresh : false ,
 			url : $('#project-table').attr("data-url"),
 			sidePagination: 'server',
@@ -300,27 +304,41 @@
 	        queryParams : function(param){
 	        	var backSign = ${backSign}
 	        	
-	        	if(backSign){
+	        		if(getCookieValue("backProjectList")!=''){
+	        			page_Num =getCookieValue("pageNum")
+	        		}
 	        		var formdata = {
-		        			_paramKey : 'projectList'
+		        		_paramKey : 'projectList'
 		        	}
-		        	var tempParam = cookieOperator.pullCookie(formdata);
-		        	if(tempParam){
-		        		param.pageNum = tempParam.pageNum - 1;
-		        		param.pageSize = tempParam.pageSize;
-		        		param.nameCodeLike = tempParam.nameCodeLike;
-		        		param.createUid = tempParam.createUid;
-		        		param.projectDepartid = tempParam.projectDepartid;
+	        		/**
+					 * 返回本页附加参数功能实现代码
+					 */
+	        		/* if(getCookieValue("backProjectList")!=''){
+	        		    param.pageNum = getCookieValue("pageNum") - 1;
+		        		param.pageSize = getCookieValue("pageSize");
+		        		param.nameCodeLike = getCookieValue("nameCodeLike");
+		        		param.createUid = getCookieValue("createUid");
+		        		param.projectDepartid = getCookieValue("projectDepartid");
+		        		
 		        		var options = $("#project-table").bootstrapTable('getOptions');
-		        		num_size =tempParam.pageNum;
-	 	        		options.pageNumber = tempParam.pageNum - 1;
-	 	        		console.log('options.pageNumber ='+options.pageNumber );
+		        		page_Num =getCookieValue("pageNum")
+	 	        		options.pageNumber = getCookieValue("pageNum") - 1;
+	 	        		
 	 	        		//给搜索表单赋值
-	 	        		$("input[name='nameCodeLike']").val(tempParam.nameCodeLike ? tempParam.nameCodeLike : "");
-	 	       			$("select[name='projectDepartid']").val(tempParam.projectDepartid ? tempParam.projectDepartid : "0");
-	 	       			$("select[name='createUid']").val(tempParam.createUid ? tempParam.createUid : "0");
-		        	}
-	        	}
+	 	        		$("input[name='nameCodeLike']").val(getCookieValue("nameCodeLike") ? getCookieValue("nameCodeLike") : "");
+	 	       			$("select[name='projectDepartid']").val(getCookieValue("projectDepartid") ? getCookieValue("projectDepartid") : "0");
+	 	       			$("select[name='createUid']").val(getCookieValue("createUid") ? getCookieValue("createUid") : "0");
+	 	       			
+	 	       		 deleteCookie("pageNum","/");
+					deleteCookie("pageSize","/");
+					deleteCookie("nameCodeLike","/");
+					deleteCookie("createUid","/");
+					deleteCookie("projectDepartid","/");
+					deleteCookie("backProjectList","/"); 
+	 	       			deleteCookie("backProjectList","/");
+        			} */
+		        	
+	        	
 	        	
 	        	return param;
 	        },
@@ -328,31 +346,34 @@
 	        	if($("#showResetBtn").val() == '1'){
 	    			$("#resetBtn").removeClass("none");
 	    		}
-	        	if(num_size!=''){
-	        		$('.pagination li').removeClass('active');
-	        		if(num_size>5){
-	        			$('.pagination .page-number').eq(0).html('<a href="javascript:void(0)">'+(num_size-4)+'</a>');
-	        			$('.pagination .page-number').eq(1).html('<a href="javascript:void(0)">'+(num_size-3)+'</a>');
-	        			$('.pagination .page-number').eq(2).html('<a href="javascript:void(0)">'+(num_size-2)+'</a>');
-	        			$('.pagination .page-number').eq(3).html('<a href="javascript:void(0)">'+(num_size-1)+'</a>');
-	        			$('.pagination .page-number').eq(4).html('<a href="javascript:void(0)">'+num_size+'</a>');
-	        			
-	        		}
-	        		$('.pagination li').each(function(){
-	        			if($(this).text()==num_size){
-	        				$(this).addClass('active')
+				/**
+				 * 返回本页附加参数功能实现代码
+				 */
+				if(page_Num!=''){
+					$('.pagination li').removeClass('active');
+					if($('.pagination .page-number').length<page_Num){
+						for(var i=$('.pagination .page-number').length; i>0; i--){
+							$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
+						}
+					}
+					$('.pagination li').each(function(){
+	        			if($(this).text()==page_Num){
+	        				$(this).click();
+	        				//$(this).addClass('active')
 	        			}
 	        		})
-	        		console.log(data)
-	        		if(num_size*data.pageList.pageable.size>data.pageList.total){
-	        			$('.pagination-info').html('显示第 '+((num_size*data.pageList.pageable.size)-(data.pageList.pageable.size-1))+'到第 '+data.pageList.total+' 条记录，总共' +data.pageList.total+'条记录')
-	        		}else{
-	        			$('.pagination-info').html('显示第 '+((num_size*data.pageList.pageable.size)-(data.pageList.pageable.size-1))+'到第 '+num_size*data.pageList.pageable.size+' 条记录，总共' +data.pageList.total+'条记录')
-	        		}
-	        		$('.page-size').html(data.pageList.pageable.size)
-	        		
-	        		num_size='';
-	        	}
+					deleteCookie("pageNum","/");
+					deleteCookie("pageSize","/");
+					deleteCookie("nameCodeLike","/");
+					deleteCookie("createUid","/");
+					deleteCookie("projectDepartid","/");
+					deleteCookie("backProjectList","/");
+
+
+					page_Num='';
+				}
+
+				
 	        }
 		});
 		/**
@@ -362,6 +383,7 @@
 		$('select[name="projectDepartid"]').change(function(){
 			var did = $('select[name="projectDepartid"]').val();
 		    createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+		   
 		});
 		/**
 		 * 控制"重置"按钮

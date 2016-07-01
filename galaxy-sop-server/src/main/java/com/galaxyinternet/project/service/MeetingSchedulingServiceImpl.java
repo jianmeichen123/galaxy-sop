@@ -353,5 +353,11 @@ public class MeetingSchedulingServiceImpl
 		return meetingSchedulingDao.getMeetingListByIds(bo);
 	}
 
+	@Override
+	public List<MeetingSchedulingBo> meetingListByCondition(MeetingScheduling ms) {
+		// TODO Auto-generated method stub
+		return meetingSchedulingDao.meetingListByCondition(ms);
+	}
+
 
 }

@@ -74,6 +74,8 @@ function getProjectInfo(dtd)
 			{
 				dtd.resolve();
 			}
+			var len=$("#project_name").length
+			console.log($("#project_name"))
 		}
 	);
 	if(hasDtd)
@@ -98,7 +100,7 @@ function getProjectInfo(dtd)
     <!--右中部内容-->
 <div class="ritmin">
  	
-    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
+    <jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
         
 	<div class="new_left">
        	<div class="tabtable assessment label_static1">
@@ -136,7 +138,7 @@ function getProjectInfo(dtd)
 						</span>
 					</c:if>
 					</div>
-					<table width="100%" cellspacing="0" cellpadding="0" class="new_table">
+					<table width="100%" cellspacing="0" cellpadding="0" class="new_table" id="project_info">
 					 <input type="hidden" id="pid" name="id" value="${projectId}"/>
 						<tr>
 							<td><span class="new_color_gray">项目名称：</span>
@@ -199,8 +201,8 @@ function getProjectInfo(dtd)
 				<div class="basic_on">
 					<div class="compile_on_center">
 				        <div class="compile_on_right">
-				            <span class="compile_on_right_b"  data-on="save">保存</span>
-				            <span class="compile_on_right_q" data-name="basic" data-on="close">取消</span>
+				            <span class="pubbtn bluebtn"  data-on="save">保存</span>
+				            <span class="pubbtn fffbtn" data-name="basic" data-on="close">取消</span>
 				        </div> 
 				       <!--  <div class="new_r_compile new_bottom_color">
 							<span class="new_ico_basic"></span> <span class="new_color size16">基本信息</span>
@@ -277,8 +279,8 @@ function getProjectInfo(dtd)
                       <div id="describe_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                         <div class="compile_on_center">
                            <div class="compile_on_right">
-                               <span class="compile_on_right_b" id="save_describe">保存</span>
-                               <span class="compile_on_right_q" data-name="project" data-on="close">取消</span>
+                               <span class="pubbtn bluebtn" id="save_describe">保存</span>
+                               <span class="pubbtn fffbtn" data-name="project" data-on="close">取消</span>
                            </div>  
                        </div>
                  </div>
@@ -317,8 +319,8 @@ function getProjectInfo(dtd)
 					<div id="company_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_location">保存</span>
-                           <span class="compile_on_right_q" data-name='company' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_location">保存</span>
+                           <span class="pubbtn fffbtn" data-name='company' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -344,8 +346,8 @@ function getProjectInfo(dtd)
 					<div id="portrait_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_portrait">保存</span>
-                           <span class="compile_on_right_q" data-name='portrayal' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_portrait">保存</span>
+                           <span class="pubbtn fffbtn" data-name='portrayal' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -373,8 +375,8 @@ function getProjectInfo(dtd)
 					<div id="business_editor" type="text/plain" class='width_fwb' style=" height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_business">保存</span>
-                           <span class="compile_on_right_q" data-name='product' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_business">保存</span>
+                           <span class="pubbtn fffbtn" data-name='product' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -401,8 +403,8 @@ function getProjectInfo(dtd)
 					<div id="operation_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_operation">保存</span>
-                           <span class="compile_on_right_q" data-name='operation' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_operation">保存</span>
+                           <span class="pubbtn fffbtn" data-name='operation' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -430,8 +432,8 @@ function getProjectInfo(dtd)
 					<div id="industry_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_industry">保存</span>
-                           <span class="compile_on_right_q" data-name='industry' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_industry">保存</span>
+                           <span class="pubbtn fffbtn" data-name='industry' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -457,8 +459,8 @@ function getProjectInfo(dtd)
 					<div id="analysis_editor" type="text/plain" class='width_fwb'  style="height:200px; "></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_analysis">保存</span>
-                           <span class="compile_on_right_q" data-name='analysis' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_analysis">保存</span>
+                           <span class="pubbtn fffbtn" data-name='analysis' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -488,8 +490,8 @@ function getProjectInfo(dtd)
 					<script id="next_financing_editor" type="text/plain" class='width_fwb' style="width:100%; height:200px;"></script>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
-                           <span class="compile_on_right_b" id="save_next_financing">保存</span>
-                           <span class="compile_on_right_q" data-name='next_financing' data-on="close">取消</span>
+                           <span class="pubbtn bluebtn" id="save_next_financing">保存</span>
+                           <span class="pubbtn fffbtn" data-name='next_financing' data-on="close">取消</span>
                        </div>  
                    </div>
 				</div>
@@ -554,6 +556,13 @@ $(function(){
 		$('.bj_hui_on').hide();
 		$('.tip-yellowsimple').hide();
 	})
+	//项目名称截断
+	if(projectInfo.projectName.length>24){
+		var str=projectInfo.projectName.substring(0,24);
+	}
+	$("#project_name").text(str);
+	$("#project_name").attr("title",projectInfo.projectName);
+	
 	
 })
 var width_fwb=$('.tabtable_con_on').width();

@@ -45,7 +45,7 @@ var platformUrl = {
 	/**
 	 * 修改项目信息
 	 */
-	updateProject : Constants.sopEndpointURL + "/galaxy/project/up",
+	updateProject : Constants.sopEndpointURL + "/galaxy/project/editProject",
 	/**
 	 * 添加团队成员
 	 */
@@ -254,6 +254,16 @@ var platformUrl = {
 	 * 我的日程
 	 */
 	toShedule : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/scheduleList",
+	/**
+	 * 排期时间跳转
+	 */
+	popupMeetingList : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/popupMeetingList/",
+	/**
+	 * 排期时间-内容视图
+	 */
+	sh : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/sh",
+	
+	
 	/**
 	 * 档案列表
 	 */

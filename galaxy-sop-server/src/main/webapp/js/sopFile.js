@@ -15,6 +15,19 @@ var searchPanel = {
 					layer.msg('请选择档案。');
 					return;
 				}
+
+				var i = 0;
+				$.each(rows,function(){
+					if(this.fileLength){
+						i++;
+						return false;
+					}	
+				});
+				if(i == 0){
+					layer.msg('无文件。');
+					return;
+				}
+				
 				var data = {
 						_rows : rows
 				}
@@ -85,7 +98,8 @@ var fileGrid = {
 		        title: '所属业务线'
 		      }, {
 		        field: 'projectName',
-		        title: '所属项目'
+		        title: '所属项目',
+		        formatter: fileGrid.projectNameFormatter	
 		      }, {
 		        field: 'fSource',
 		        title: '档案来源'
@@ -127,6 +141,15 @@ var fileGrid = {
 		 
 
 		  
+	},
+	projectNameFormatter : function(value, row, index){
+		if(row.projectName.length>12){
+			var str=row.projectName.substring(0,12);
+			var options='<span title="'+row.projectName+'">'+str+'</span>'
+		}else{
+			var options='<span title="'+row.projectName+'">'+row.projectName+'</span>'
+		}
+		return options;
 	},
 	operateFormatter : function(value, row, index){
 		var uploadOpt;
@@ -186,7 +209,7 @@ var fileGrid = {
         },
         //更新文档
 		'click .fileupdatelink' : function(e, value, row, index){
-        	formData = {
+			var formData = {
         			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
         			_fileType : "fileType:1",
@@ -194,7 +217,6 @@ var fileGrid = {
         			_workType : row.fileWorktype,
         			_projectId : row.projectId,
         			_projectName : row.projectName,
-        			_isProve : "hide",
         			_remark : "hide",
     				callFuc : function(){
     					searchPanel.serarchData();
@@ -202,6 +224,12 @@ var fileGrid = {
     				_url : platformUrl.commonUploadFile, //兼容老板插件
     				_localUrl : platformUrl.commonUploadFile
     		};
+			if('vsopfile'==e.currentTarget.id){
+				//签署凭证
+				formData._isProve = true;
+			}else{
+				formData._isProve = "hide";
+			}
     		win.init(formData);
         },
         
@@ -324,6 +352,7 @@ var fileGrid = {
 		}
 	
 	},
+
 	downloadCallBackfunction : function(data){
 		alert(1)
 	},

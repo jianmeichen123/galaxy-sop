@@ -5,16 +5,6 @@
 	String path = request.getContextPath(); 
 %>
 
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>项目详情</title>
-<!--
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-
-</head>
 
 
 
@@ -62,7 +52,6 @@
             		暂无会议纪要
             	</div>
             </div>
-            
              
              
             <div class="correlation">近期访谈记录
@@ -298,5 +287,5 @@ function closeback(data){
 
 
 </script>
-</html>
+
 

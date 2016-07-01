@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<link rel='stylesheet' href='../lib/cupertino/jquery-ui.min.css' />
+<link href='../fullcalendar.css' rel='stylesheet' />
+<link href='../fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='../lib/moment.min.js'></script>
+<script src='../lib/jquery.min.js'></script>
+<script src='../fullcalendar.min.js'></script>
+<script>
+
+	$(document).ready(function() {
+
+		$('#calendar').fullCalendar({
+			theme: true,
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			// 日期格式化
+			 monthNames: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],  
+            monthNamesShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],  
+            dayNames: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],  
+            dayNamesShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"],  
+            today: ["今天"],  
+            firstDay: 1,  
+            buttonText: {  
+              today: '今天',  
+              month: '月',  
+              week: '周',  
+              day: '日',  
+              // prev: '上一月',  
+              // next: '下一月'  
+            }, 
+            // allDaySlot:false, 是否显示allday
+
+			defaultView:'agendaWeek',//默认显示视图
+			defaultDate: '2016-05-12',
+			editable: true,
+			firstHour:9,
+			// minTime:9,
+			// maxTime:18,
+			allDayText:'',
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+				{
+					title: 'All Day Event',
+					start: '2016-05-01'
+				},
+				{
+					title: 'Long Event',
+					start: '2016-05-07',
+					end: '2016-05-10'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2016-05-09T16:00:00'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2016-05-16T16:00:00'
+				},
+				{
+					title: 'Conference',
+					start: '2016-05-11',
+					end: '2016-05-13'
+				},
+				{
+					title: 'Meeting',
+					start: '2016-05-12T10:30:00',
+					end: '2016-05-12T12:30:00'
+				},
+				{
+					title: 'Lunch',
+					start: '2016-05-12T12:00:00'
+				},
+				{
+					title: 'Meeting',
+					start: '2016-05-12T14:30:00'
+				},
+				{
+					title: 'Happy Hour',
+					start: '2016-05-12T17:30:00'
+				},
+				{
+					title: 'Dinner',
+					start: '2016-05-12T20:00:00'
+				},
+				{
+					title: 'Birthday Party',
+					start: '2016-05-13T07:00:00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'https://www.baidu.com/',
+					start: '2016-05-28'
+				}
+			],
+			eventClick: function(calEvent, jsEvent, view) {
+			// $.fancybox({
+			// 	'type':'ajax',
+			// 	'href':'event.php?action=edit&id='+calEvent.id
+			// });
+			 alert(22);
+			 $(".gray").height($(document).height());
+			$(".gray").stop().fadeTo(0,0.4);
+			$(".box").show().css("top",$(window).height()/2-$(".box").height()/2)
+    	}
+		});
+		
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+/*.gray{
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  background:black;
+  display: none;
+}*/
+.box{
+  width: 420px;
+  height: 380px;
+  background-color: #fff;
+  position: absolute; 
+  z-index: 1000; 
+  left:50%; 
+  margin-left: -170px; 
+  padding-top:10px;
+  box-shadow: 0px 0px 5px #ccc;
+  display: none;
+}
+
+</style>
+</head>
+<body>
+
+	<div id='calendar'></div>
+<!-- 	<div class="gray"></div>
+ --><div class="box">
+ 		<span>关闭</span>
+		<dl>
+			<dt>事项类型：</dt>
+			<dd>会议安排</dd>
+		</dl>
+		<dl>
+			<dt>会议类型：</dt>
+			<dd>立项会</dd>
+		</dl>
+		<dl>
+			<dt>开始时间：</dt>
+			<dd>2016-03-22  10:00</dd>
+		</dl>
+		<dl>
+			<dt>结束时间：</dt>
+			<dd>2016-04-11  11:00</dd>
+		</dl>
+		<dl>
+			<dt>参会项目：</dt>
+			<dd><a href="https:www.baidu.com" class="blue">食乐淘</a></dd>
+		</dl>
+		<dl>
+			<dt>投资事业线：</dt>
+			<dd>O2O及电商</dd>
+		</dl>
+		<dl>
+			<dt>投资经理：</dt>
+			<dd>宋学军</dd>
+		</dl>
+	</div>
+
+</body>
+</html>

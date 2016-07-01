@@ -16,7 +16,7 @@
         	<span class="b_span"> 
         		<c:choose>
 	        		<c:when test="${mark == 't' || mark == 'm' }">
-						<a href="javascript:;" onclick='javascript:history.go(-1)'>返回></a>
+						<a href="javascript:;" onclick='back_href()'>返回></a>
 					</c:when>
 					<c:otherwise>
 	        		  <a href="javascript:;" onclick='backProjectList()'>返回项目列表></a>
@@ -25,8 +25,20 @@
 			</span>
         </div>
 </body>
+<script src="<%=request.getContextPath() %>/js/cookie.js"></script>
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <script>
+var number_on;
+$(function(){
+	if(getCookieValue("number_on")==''){
+		setCookie("number_on", '1',24,'/')
+		number_on=getCookieValue("number_on");
+	}else{
+		number_on=getCookieValue("number_on");
+		number_on++;
+		setCookie("number_on",number_on,24,'/');
+	}
+});
 var pid='${pid}';
 if(null==pid||typeof(pid)=="underfind"||pid==""){
 	pid='${projectId}';
@@ -36,10 +48,15 @@ var projectInfo = '';
 sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
 	projectInfo = data.entity;
 });
-
+var str;
 $(function(){
+	var str=projectInfo.projectName;
+	if(projectInfo.projectName.length>24){
+		str=projectInfo.projectName.substring(0,24);
+	}
 	$("#project_name_title").text(projectInfo.projectName);
-	$("#project_name_t").text(projectInfo.projectName);
+	$("#project_name_t").text(str);
+	$("#project_name_t").attr("title",projectInfo.projectName);
 	$("#project_code_t").text(projectInfo.projectCode);
 
    $("#workDesk").click(function(){
@@ -48,10 +65,19 @@ $(function(){
    })
 
 })
-
+function back_href(){
+	setCookie("backProjectList", 'click',24,'/');
+	deleteCookie("number_on","/");
+	history.go(-number_on)
+}
 function backProjectList(){
-	var url = platformUrl.projectList+"?backSign=true";
-	forwardWithHeader(url);
+	//ie兼容
+	setCookie("backProjectList", 'click',24,'/');
+
+	deleteCookie("number_on","/");
+	history.go(-number_on)
+	
+	
 }
 /**
  * 面包屑
