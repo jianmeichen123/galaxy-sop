@@ -17,16 +17,30 @@ var searchPanel = {
 					layer.msg('请选择档案。');
 					return;
 				}
-				for(var i=0;i<rows.length;i++){
+				
+				var i = 0;
+				$.each(rows,function(){
+					if(this.fileLength){
+						i++;
+						return false;
+					}	
+				});
+				if(i == 0){
+					layer.msg('无文件。');
+					return;
+				}
+				/*for(var i=0;i<rows.length;i++){
 					if(!rows[i].fileKey){
 						layer.msg("发送邮件中含有缺失档案！");
 						return;
 					}
-				}
+				}*/
 
 				var data = {
 						_rows : rows
 				}
+				
+				
 				mailWin.init(data);
 			});
 			
