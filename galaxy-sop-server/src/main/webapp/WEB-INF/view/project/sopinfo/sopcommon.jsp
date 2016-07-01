@@ -48,7 +48,7 @@ var projectInfo = '';
 sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
 	projectInfo = data.entity;
 });
-
+var str;
 $(function(){
 	var str=projectInfo.projectName;
 	if(projectInfo.projectName.length>24){
