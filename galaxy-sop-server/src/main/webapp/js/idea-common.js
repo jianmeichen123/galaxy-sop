@@ -349,7 +349,7 @@ function dateFormatter(val,row,index)
 									refreshIdeaList();
 							
 								}else{
-									layer.msg(data.result.errorCode);
+									layer.msg(data.result.message);
 								}
 								
 							});
