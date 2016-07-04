@@ -282,10 +282,10 @@ $(function(){
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 		var proStatus = projectInfo.projectStatus;
 		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
-		if( pronum != 2){
-			return "<img src='"+Constants.sopEndpointURL+"img/process/p"+num+".gif' >";
+		if(pronum == 0 || pronum == 1){
+			return "<img src=\"<%=path%>/img/process/p"+num+".gif\" class=\"fl\">"+row.progress;
 		}else{
-			return "<img src='"+Constants.sopEndpointURL+"img/process/pd"+num+".gif'>";
+			return "<img src=\"<%=path%>/img/process/pd"+num+".gif\" class=\"fl\">"+row.progress;
 		}
 	}
 	$("[data-on='save']").click(function(){
