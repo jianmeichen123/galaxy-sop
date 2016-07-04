@@ -1392,7 +1392,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(result);
 			return responseBody;
 		}
-		// 验证文档是否齐全
+		/*// 验证文档是否齐全//尽职调查去掉文件验证
 		SopFile file = new SopFile();
 		file.setProjectId(pid);
 		file.setFileValid(1);
@@ -1413,7 +1413,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						"文档不齐全，不能申请投决会!"));
 				return responseBody;
 			}
-		}
+		}*/
 		try {
 			projectService.toSureMeetingStage(project);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -1739,7 +1739,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				} else {
 					responseBody.setResult(new Result(Status.OK, null, false));
 				}
-			} else if (index == 6) { // 尽调阶段，文档齐全后， 申请投决会排期按钮 可用
+			} /*else if (index == 6) { // 尽调阶段，文档齐全后， 申请投决会排期按钮 可用
+			//尽职调查去掉文件验证
 				if (projectType == null) {
 					responseBody.setResult(new Result(Status.ERROR, null,
 							"入参失败"));
@@ -1770,7 +1771,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 				responseBody.setResult(new Result(Status.OK, null, allHas));
 
-			} else if (index == 7) { // 投决会阶段，在排期池中时， 申请投决会排期按钮 不可用
+			} */else if (index == 7) { // 投决会阶段，在排期池中时， 申请投决会排期按钮 不可用
 				MeetingScheduling meetSchedu = new MeetingScheduling();
 				meetSchedu.setProjectId(projectId);
 				meetSchedu.setMeetingType(DictEnum.meetingType.投决会.getCode());
