@@ -82,6 +82,11 @@ public class SopFile extends SopParentFile {
      * 存储地址
      */
     private String filUri;
+    
+    /**
+     * 会议记录ID
+     */
+    private Long meetingId;
         
 
     
@@ -311,8 +316,19 @@ public class SopFile extends SopParentFile {
         this.filUri = filUri;
     }
 
+    
 
 
+
+	
+
+	public Long getMeetingId() {
+		return meetingId;
+	}
+
+	public void setMeetingId(Long meetingId) {
+		this.meetingId = meetingId;
+	}
 
 	public String getFileStatusDesc() {
 		return fileStatusDesc;
