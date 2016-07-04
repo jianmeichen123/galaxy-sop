@@ -11,8 +11,52 @@
         
         <!--右边        li  class="green_dot"  span class="green_dot_on"    <span class="gray_dot"></span> -->  
         <div class="new_right">
-        
-        	<b class="sj_ico null">三角</b>
+			<div class="correlation">投后运营</div>
+			<div class="new_correlation_cen status">
+				<span>运营状态</span><img src="<%=path %>/img/status/s01.png">
+				<div class="delivery">
+					<div class="title">交割前确认事项</div>
+					<ul class="clearfix">
+						<li class="fl">已完成：<span class="delivery_complete">3</span></li>
+						<li class="fr">总计：<span class="delivery_total">16</span></li>
+					</ul>
+					<div class="progressBar">
+						<div id="bar"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="correlation">近期会议纪要 <span class="more null new_righ" id="platform_jxkh_more" style="cursor: pointer;" href="#">more</span>
+			</div>
+			<div class="new_correlation_cen">
+				<div class="new_b_bottom">
+					<ul class="clearfix">
+						<li class="new_b_li_one">周运营会</li>
+						<li class="new_b_li_two"><span class="color_pass">健康</span></li>
+						<li class="new_b_li_three">2016-1-25</li>
+					</ul>
+					<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
+		
+				</div>
+				<div class="new_b_bottom">
+					<ul class="clearfix">
+						<li class="new_b_li_one">周运营会</li>
+						<li class="new_b_li_two"><span class="color_upper">高于预期</span></li>
+						<li class="new_b_li_three">2016-1-25</li>
+					</ul>
+					<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
+				</div>
+				<div class="new_b_bottom">
+					<ul class="clearfix">
+						<li class="new_b_li_one">周运营会</li>
+						<li class="new_b_li_two"><span class="color_veto">健康预警</span></li>
+						<li class="new_b_li_three">2016-1-25</li>
+					</ul>
+					<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
+				</div>
+			</div>
+		
+			<b class="sj_ico null">三角</b>
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
                 	<ul class="line_ul_p" id="lct_ul">
@@ -93,6 +137,7 @@ $(function(){
 	//more 链接初始化
 	initMoreLine();
 	
+	setJgqrProgress();
 });
 
 function toCheckShowIcon(){
@@ -283,7 +328,18 @@ function closeback(data){
 		//forwardWithHeader(platformUrl.mpl);
 	}
 }
-
+/**
+ * 交割前确认事项完成进度
+ */
+function setJgqrProgress()
+{
+	$("#bar").css("width","0px");  //初始化进度条宽度；
+    var deliveryComplete=$(".delivery_complete").text();
+        deliveryTotal=$(".delivery_total").text();
+        Wh=$(".progressBar").width();
+    barWidth=parseInt(deliveryComplete/deliveryTotal*Wh)+"px";
+    $("#bar").css("width",barWidth)
+}
 
 
 </script>

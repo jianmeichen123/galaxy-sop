@@ -1880,3 +1880,58 @@ dl{position: relative;}
 .no_info_div{ width:230px; margin-left:auto; margin-right:auto; padding-top:80px;}
 .no_info_div span{ text-align: center; line-height:30px; color:#bbb;}
 .mask_platform_time,.mask_platform_progress{width:100%;height:148px;position:absolute;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0);display:none;}
+/*交割前事项*/
+.delivery td label{margin-right: 30px;cursor: pointer;}
+.color_upper{color:#a8e247;}
+.new_right .status{padding-top: 40px;position: relative;}
+.status img{display: inline-block;position: absolute; left: 70px;}
+.new_b_bottom ul li{width:33.33%;}
+.h_bluebtn{background:#539be2;border:1px solid #539be2;}
+.pbtn{ display:block; height:28px;text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;padding: 0 10px;}
+.ritmin .top .btnbox_f .ca4{background-position: 8px -120px;padding: 0 10px 0 26px;}
+.pro_analysis .fmdll{margin-right: 30px;}
+.proOperation .min_document{margin: 0 30px;width: auto;position: relative;margin-top: 10px;margin-bottom: 20px;}
+.proOperation .download{background: url(../img/functionico.png) no-repeat;height: 22px;line-height: 22px;background-position: 0 -306px;padding: 0 0 6px 22px;}
+.px{cursor:pointer;width:12px;height: 12px;display: inline-block;background:url(../img/select-arr-default.gif) -10px -8px no-repeat;margin-left: 5px;}
+.px_d{background:url(../img/select-arr-default.gif) -10px -37px no-repeat;}
+.status .title{background-color: #f9fafc;color:#909cc4;height: 20px;line-height: 20px;border:0;margin:0 0 20px 0;}
+.new_correlation_cen .delivery{margin:30px 0 20px 0;}
+/*弹层7.2*/
+.deltc{width: 420px;}
+.deltc .tips_d{width: 20px;height: 20px;background:url(../img/tips.png) 0 -20px no-repeat;display: inline-block;position: absolute;top:3px;left: 150px;}
+.deltc .tips{position: relative;margin: 50px 0;padding-left: 180px;}
+.status_con{margin-top: 45px;}
+.status .radio{color:#535762;margin-right: 30px;}
+.statustc{ width:580px;}
+.status dl{ margin-bottom: 6px;}
+.status .fmdl dt{width:100px;text-align: right;}
+.status .fmdl dd textarea{ height:150px; width:430px}
+.status .btnbox{width: 216px;margin:20px auto;}
+.status .btnbox .pubbtn{ margin:0 0 0 20px; display:inline-block; *display:inline; zoom:1;}
+.status .fmdl .ltxt{width:430px;}
+.seeinfor_con{margin-bottom: 20px;}
+ .progressBar{width:99%;height:8px;border:1px solid #e1e5ee;border-radius:5px;margin-top:10px;}
+ #bar{height:8px;border-radius:5px;background:#529ae2;width:0;}
+/*运营分析*/
+.conference_all{ width:550px; margin-top:45px;}
+.area{ width:420px; min-height:80px; overflow-y: scroll}
+.button_affrim{ width:220px; margin-left:auto; overflow:hidden; margin-bottom:20px; margin-right:auto;}
+.area_input{ width:328px; height: 28px !important;}
+.overflow_y{height:80px; overflow-y: scroll}
+.area_div{width:328px; }
+.area_div ul li{ width:100%; overflow:hidden; position:relative;}
+.affrim_close{ float:right;}
+.affrim_name{ float:left; color:#525662;}
+.fmdl .register_all_affrim{ margin-top:0px; text-decoration:none;}
+.register_all_affrim{ width:90px; line-height:30px; height:30px; font-size:14px; border-radius:5px; text-decoration:none;text-align:center; color:#fff; background-color:#66b1f2;  margin-left:auto; margin-right:auto; display:block; margin-top:10px;}
+.button_affrim a{text-decoration:none;}
+.affrim_bj{ display:block; float:left; width:16px; height:16px; margin-top:7px; margin-right:5px; background-image:url(../img/affrim.png); background-position:0 0; background-repeat:no-repeat; color:#fff; line-height:16px; text-align:center; font-size:12px;}
+.affrim_close{display:block;  width:20px; height:15px; margin-top:7px; margin-right:5px; background-image:url(../img/affrim.png); background-position:-16px -0px; background-repeat:no-repeat; color:#fff; line-height:16px; text-align:center; font-size:12px; cursor:pointer;}
+.affrim_line{ width:98%; height:1px; background-color:#edf0f2; margin-left:auto; margin-right:auto; overflow:hidden; margin-bottom:25px; margin-top:25px;}
+.area_input_all{ width:427px;  height: 28px !important; line-height:30px;}
+.run_digest_ul{ width:100%; overflow:hidden;}
+.run_digest_ul li{ float:left; width:50%;}
+.area_run{ width:420px; max-height:200px; overflow-y:scroll;}
+.health_case{ width:100%; border:1px solid #ccd2d7; border-bottom:0px solid #ccd2d7; overflow:hidden; margin-bottom:20px; margin-top:20px;}
+.health_case th{ background-color:#f9fafc}
+.health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; text-indent:15px;}
