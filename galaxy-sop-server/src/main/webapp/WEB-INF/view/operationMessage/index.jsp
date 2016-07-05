@@ -83,9 +83,6 @@
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
-	        	if($("#showResetBtn").val() == '1'){
-	    			$("#resetBtn").removeClass("none");
-	    		}
 	        	//返回附带参数功能代码
 	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
 	        		$('.pagination li').removeClass('active');

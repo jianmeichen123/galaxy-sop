@@ -82,7 +82,7 @@
 			</div>
 		</div>
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="project/queryScheduling/${pageType}" data-height="555" 
+			<table id="meeting-shedule-list" data-url="project/queryScheduling/${pageType}" data-height="555" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
@@ -208,76 +208,120 @@
 		if(str.length>7){
 			str = str.substring(0,7);
 		}
-		return '<a href="#" class="blue" title="'+row.projectName+'" onclick="forwardWithHeader(\'' + platformUrl.projectDetail+row.projectId +'?mark=m'+ '\')">'+str+'</a>';
+		return '<a href="#" class="blue" title="'+row.projectName+'" onclick="viewDetail(' + row.projectId + ')">'+str+'</a>';
+	}
+	function viewDetail(id){
+		var options = $("#meeting-shedule-list").bootstrapTable('getOptions');
+		var tempPageSize = options.pageSize ? options.pageSize : 10;
+		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
+		var formdata = {
+				_paramKey : 'meetingSheduleList',
+				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
+				_path : Constants.sopEndpointURL,
+				_param : {
+					pageNum : tempPageNum,
+	        		pageSize : tempPageSize
+				}
+		}
+		cookieOperator.forwardPushCookie(formdata);
 	}
 
-	
-	tiggerTable1($("#data-table"),10,function(){
-		var options = {
-			"singleDatePicker": false,
-			"showDropdowns": true,
-			"showWeekNumbers": true,
-			"showISOWeekNumbers": true,
-			"timePicker": true,
-			"timePicker24Hour": true,
-			"timePickerIncrement": 5,
-			"timePickerSeconds": false,
-			"locale": {
-				"format": "YYYY-MM-DD HH:mm",
-				"separator": " - ",
-				"applyLabel": "确定",
-				"cancelLabel": "取消",
-				"fromLabel": "From",
-				"toLabel": "To",
-				"customRangeLabel": "自定义",
-				"daysOfWeek": [
-					"周日",
-					"周一",
-					"周二",
-					"周三",
-					"周四",
-					"周五",
-					"周六"
-				],
-				"monthNames": [
-					"一月",
-					"二月",
-					"三月",
-					"四月",
-					"五月",
-					"六月",
-					"七月",
-					"八月",
-					"九月",
-					"十月",
-					"十一月",
-					"十二月"
-				],
-				"firstDay": 1
-			},
-			"autoUpdateInput": false,
-			"startDate": true,
-			"endDate": true,
-			"minDate": 0,
-			"maxDate": 0,
-			"opens": "left",
-			"drops": "down",
-			"buttonClasses": "btn btn-sm",
-			"applyClass": "btn-success",
-			"cancelClass": "btn-default"
-	    };
-        $('.form_datetime').daterangepicker(options, function(start, end, label) { 
-			console.log('New date range selected: ' 
-				+ start.format('YYYY-MM-DD HH:mm') + ' - ' 
-				+ end.format('HH:mm') 
-				+ ' (predefined range: ' + label + ')'); 
-			
-		});
-      $('.form_datetime').on('apply.daterangepicker',function(ev, picker) {
-          $(this).val(picker.startDate.format('YYYY-MM-DD HH:mm') + ' - ' + picker.endDate.format('YYYY-MM-DD HH:mm') );
-
-      });
+	var initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
+	$("#meeting-shedule-list").bootstrapTable({
+		queryParamsType: 'size|page',
+		pageSize:10,
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+        search: false,
+        //返回附带参数功能代码
+	    queryParams : function(param){
+	    	if(typeof(initParams) !== 'undefined'){
+	    		param.pageNum = initParams.pageNum - 1;
+	        	param.pageSize = initParams.pageSize;
+	        	var options = $("#data-table").bootstrapTable('getOptions');
+	 	        options.pageNumber = initParams.pageNum - 1;
+	    	}
+	        return param;
+	    },
+	    onLoadSuccess: function (data) {
+	        //返回附带参数功能代码
+	        if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
+	        	$('.pagination li').removeClass('active');
+	        	$('.pagination li').each(function(){
+	        		if($(this).text()==initParams.pageNum){
+	        			$(this).addClass('active')
+	        		}
+	        	});
+	        }
+	    },
+        onLoadSuccess: function(){
+			var options = {
+				"singleDatePicker": false,
+				"showDropdowns": true,
+				"showWeekNumbers": true,
+				"showISOWeekNumbers": true,
+				"timePicker": true,
+				"timePicker24Hour": true,
+				"timePickerIncrement": 5,
+				"timePickerSeconds": false,
+				"locale": {
+					"format": "YYYY-MM-DD HH:mm",
+					"separator": " - ",
+					"applyLabel": "确定",
+					"cancelLabel": "取消",
+					"fromLabel": "From",
+					"toLabel": "To",
+					"customRangeLabel": "自定义",
+					"daysOfWeek": [
+						"周日",
+						"周一",
+						"周二",
+						"周三",
+						"周四",
+						"周五",
+						"周六"
+					],
+					"monthNames": [
+						"一月",
+						"二月",
+						"三月",
+						"四月",
+						"五月",
+						"六月",
+						"七月",
+						"八月",
+						"九月",
+						"十月",
+						"十一月",
+						"十二月"
+					],
+					"firstDay": 1
+				},
+				"autoUpdateInput": false,
+				"startDate": true,
+				"endDate": true,
+				"minDate": 0,
+				"maxDate": 0,
+				"opens": "left",
+				"drops": "down",
+				"buttonClasses": "btn btn-sm",
+				"applyClass": "btn-success",
+				"cancelClass": "btn-default"
+	    	};
+        	$('.form_datetime').daterangepicker(options, function(start, end, label) { 
+				console.log('New date range selected: ' 
+					+ start.format('YYYY-MM-DD HH:mm') + ' - ' 
+					+ end.format('HH:mm') 
+					+ ' (predefined range: ' + label + ')'); 
+			});
+      		$('.form_datetime').on('apply.daterangepicker',function(ev, picker) {
+          		$(this).val(picker.startDate.format('YYYY-MM-DD HH:mm') + ' - ' + picker.endDate.format('YYYY-MM-DD HH:mm') );
+     		});
+		}
 	});
+	
 	
 	function cleard(id){
 	  $("#"+id).val("");
