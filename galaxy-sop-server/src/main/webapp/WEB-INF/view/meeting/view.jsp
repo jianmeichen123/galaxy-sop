@@ -102,10 +102,10 @@
 				</colgroup>
 				<thead>
 					<tr>
-						 <th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-						<!-- <th data-field="hygk" data-align="center">会议概况</th> -->
-						<th data-align="center"  data-formatter="meetProInfoFormat" >项目信息</th>  
-						<th data-field="meetingNotes" data-align="center" data-formatter="meetFormatLog">会议纪要</th>
+						 <th  data-formatter="metcolumnFormat">会议概况</th>
+						<!-- <th data-field="hygk" >会议概况</th> -->
+						<th   data-formatter="meetProInfoFormat" >项目信息</th>  
+						<th data-field="meetingNotes"  data-formatter="meetFormatLog">会议纪要</th>
 					</tr>
 				</thead>
 			</table>

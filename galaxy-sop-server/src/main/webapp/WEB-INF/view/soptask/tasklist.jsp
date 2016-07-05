@@ -57,15 +57,15 @@
 				         data-toolbar="#custom-toolbar" >
 						   <thead>
 						    <tr>
-						        <th data-field="orderRemark" data-align="center" class="data-input">优先级</th>
-						        <th data-field="hours" data-align="center" class="data-input">剩余时间(h)</th>
-						        <th data-field="taskDeadlineformat" data-align="center" class="col-md-1 status ">提交日期</th>
-						        <th data-field="taskType" data-align="center" >任务类型</th>
-						        <th data-field="taskName" data-align="center" width="200px" >任务名称</th>
-						        <th data-field="taskStatus" data-align="center" class="col-md-2" >任务状态</th>
-						        <th data-field="projectName" data-align="center" class="col-md-2" data-formatter="projectNameFormatter">所属项目</th>
-						        <th data-field="createUname" data-align="center" class="col-md-2" >投资经理</th>
-								<th data-align="center" class="col-md-2" data-field="caozuohtml" >操作</th>
+						        <th data-field="orderRemark"  class="data-input">优先级</th>
+						        <th data-field="hours"  class="data-input">剩余时间(h)</th>
+						        <th data-field="taskDeadlineformat"  class="col-md-1 status ">提交日期</th>
+						        <th data-field="taskType"  >任务类型</th>
+						        <th data-field="taskName"  width="200px" >任务名称</th>
+						        <th data-field="taskStatus"  class="col-md-2" >任务状态</th>
+						        <th data-field="projectName"  class="col-md-2" data-formatter="projectNameFormatter">所属项目</th>
+						        <th data-field="createUname"  class="col-md-2" >投资经理</th>
+								<th  class="col-md-2" data-field="caozuohtml" >操作</th>
    						 	</tr>	
    						 	</thead>
 					</table>

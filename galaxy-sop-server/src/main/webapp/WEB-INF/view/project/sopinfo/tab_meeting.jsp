@@ -121,10 +121,10 @@
 						data-toolbar="#custom-toolbar">
 						<thead>
 							<tr>
-								<th data-field="meetinfo" data-align="left" data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
-								<th data-field="meetingTypeStr" data-align="left" data-class="no1_2">会议类型</th>
-								<th data-field="meetingNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
-								<th data-field="oper" data-align="left" data-formatter="meetOperFormat">操作</th>
+								<th data-field="meetinfo"  data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
+								<th data-field="meetingTypeStr"  data-class="no1_2">会议类型</th>
+								<th data-field="meetingNotes"  data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
+								<th data-field="oper"  data-formatter="meetOperFormat">操作</th>
 							</tr>
 						</thead>
 					</table>
