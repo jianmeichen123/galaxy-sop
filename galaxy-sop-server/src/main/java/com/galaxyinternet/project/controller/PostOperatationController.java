@@ -105,7 +105,7 @@ public class PostOperatationController extends BaseControllerImpl<Project, Proje
 		Delivery deliveryQuery = new Delivery();
 		deliveryQuery.setProjectId(projectId);
 		Long total = deliveryService.queryCount(deliveryQuery);
-		deliveryQuery.setStatus((byte) 1);
+		deliveryQuery.setDelStatus((byte) 1);
 		Long complete = deliveryService.queryCount(deliveryQuery);
 		
 		data.putAttachmentItem("total",total);

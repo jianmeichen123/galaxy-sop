@@ -120,13 +120,24 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	/**
 	 * 弹窗   编辑事项 / 查看
 	 */
-	@RequestMapping(value = "/tomatterdeliver/{deliverid}", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/tomatterdeliver/{deliverid}", method = RequestMethod.GET)
 	public ModelAndView toMatterDeliver(@PathVariable("deliverid") Long deliverid,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("project/tanchuan/delivery_matter");
 		Delivery deliver = deliveryService.selectDelivery(deliverid);
-		mv.addObject("deliverInfo", deliver);
+		mv.addObject("deliverInfo", GSONUtil.toJson(deliver));
 		return mv;
+	}
+	@RequestMapping(value = "/tomatterdeliver/{deliverid}", method = RequestMethod.GET)
+	public String toMatterDeliver(@PathVariable("deliverid") Long deliverid,HttpServletRequest request) {
+		Delivery deliver = deliveryService.selectDelivery(deliverid);
+		request.setAttribute("deliverInfo", GSONUtil.toJson(deliver));
+		return "project/tanchuan/delivery_matter";
+	}
+	*/
+	@RequestMapping(value = "/tomatterdeliver", method = RequestMethod.GET)
+	public String toMatterDeliver(HttpServletRequest request) {
+		return "project/tanchuan/delivery_matter";
 	}
 	
 	/**
@@ -143,24 +154,24 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/operdelivery", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Delivery> operDelivery(@RequestBody DeliveryBo deliveryBo,HttpServletRequest request,HttpServletResponse response ) {
+	public ResponseData<Delivery> operDelivery(@RequestBody Delivery delivery,HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<Delivery> responseBody = new ResponseData<Delivery>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
-		if(deliveryBo == null || deliveryBo.getProjectId() == null || deliveryBo.getDescribe() == null ){
+		if(delivery == null || delivery.getProjectId() == null || delivery.getDelDescribe() == null ){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善信息"));
 			return responseBody;
 		}
 		
 		try {
 			Long id = null;
-			boolean isIn = deliveryBo.getId()==null;
+			boolean isIn = delivery.getId()==null;
 			if(isIn){ 
-				deliveryBo.setCreatedUid(user.getId()); 
-				id = deliveryService.insertDelivery(deliveryBo);
+				delivery.setCreatedUid(user.getId()); 
+				id = deliveryService.insertDelivery(delivery);
 			}else{ 
-				deliveryBo.setUpdatedUid(user.getId()); 
-				id = deliveryService.updateDelivery(deliveryBo);
+				delivery.setUpdatedUid(user.getId()); 
+				id = deliveryService.updateDelivery(delivery);
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(id);
@@ -193,6 +204,23 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 		return responseBody;
 	}
 	
+	/**
+	 *查询 事项
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/selectdelivery/{deliverid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Delivery> selectDelivery(@PathVariable("deliverid") Long deliverid,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<Delivery> responseBody = new ResponseData<Delivery>();
+		try {
+			Delivery deliver = deliveryService.selectDelivery(deliverid);
+			responseBody.setEntity(deliver);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "查询失败"));
+			logger.error("delDelivery 查询失败",e);
+		}
+		return responseBody;
+	}
 	
 	/**
 	 *查询 事项列表

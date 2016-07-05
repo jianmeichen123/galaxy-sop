@@ -90,7 +90,7 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 			list = page.getContent();
 			
 			Set<Long> uidset = new HashSet<Long>();
-			for(DeliveryBo dbo : list){
+/*			for(DeliveryBo dbo : list){
 				uidset.add(dbo.getUpdatedUid()==null?dbo.getCreatedUid():dbo.getUpdatedUid());
 			}
 			if(uidset!=null && !uidset.isEmpty()){
@@ -106,6 +106,27 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 			
 			for(DeliveryBo dbo : list){
 				dbo.setEndByUname(idUnameMap.get(dbo.getUpdatedUid()==null?dbo.getCreatedUid():dbo.getUpdatedUid()));
+			}*/
+			for(DeliveryBo dbo : list){
+				if(dbo.getUpdatedUid()!=null){
+					uidset.add(dbo.getUpdatedUid());
+				}
+			}
+			if(uidset!=null && !uidset.isEmpty()){
+				User user = new User();
+				user.setIds(new ArrayList<Long>(uidset));
+				List<User> userlist = userService.queryList(user);
+				if(userlist!=null && !userlist.isEmpty()){
+					for(User u : userlist){
+						idUnameMap.put(u.getId(), u.getRealName());
+					}
+				}
+			}
+			
+			for(DeliveryBo dbo : list){
+				if(dbo.getUpdatedUid()!=null){
+					dbo.setEndByUname(idUnameMap.get(dbo.getUpdatedUid()));
+				}
 			}
 			
 		}else{

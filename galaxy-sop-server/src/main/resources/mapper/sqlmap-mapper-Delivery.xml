@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.galaxyinternet.model.touhou.Delivery">
 
-  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.touhou.Delivery">
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.bo.touhou.DeliveryBo">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="project_id" jdbcType="BIGINT" property="projectId" />
-    <result column="describe" jdbcType="VARCHAR" property="describe" />
+    <result column="del_describe" jdbcType="VARCHAR" property="delDescribe" />
     <result column="details" jdbcType="VARCHAR" property="details" />
-    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="del_status" jdbcType="TINYINT" property="delStatus" />
     <result column="file_num" jdbcType="TINYINT" property="fileNum" />
     <result column="created_uid" jdbcType="BIGINT" property="createdUid" />
     <result column="created_time" jdbcType="BIGINT" property="createdTime" />
@@ -16,7 +16,7 @@
   </resultMap>
   
   <sql id="Base_Column_List">
-    id, project_id, 'describe', details, 'status', file_num, created_uid, created_time, updated_uid, 
+    id, project_id, del_describe, details, del_status, file_num, created_uid, created_time, updated_uid, 
     updated_time
   </sql>
   
@@ -25,9 +25,9 @@
 			<trim prefixOverrides="and">
 			      <if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
 				  <if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
-			      <if test="describe != null"> and 'describe' = #{describe,jdbcType=VARCHAR} </if>
+			      <if test="delDescribe != null"> and del_describe = #{delDescribe,jdbcType=VARCHAR} </if>
 			      <if test="details != null"> and details = #{details,jdbcType=VARCHAR} </if>
-			      <if test="status != null"> and 'status' = #{status,jdbcType=TINYINT} </if>
+			      <if test="delStatus != null"> and del_status = #{delStatus,jdbcType=TINYINT} </if>
 			      <if test="fileNum != null"> and file_num = #{fileNum,jdbcType=TINYINT} </if>
 			      <if test="createdUid != null"> and created_uid = #{createdUid,jdbcType=BIGINT} </if>
 			      <if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
@@ -78,12 +78,12 @@
 	
  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.touhou.Delivery">
  		 <![CDATA[
-	 		insert into sop_delivery (id, project_id, 'describe', 
-		      details, 'status', file_num, 
+	 		insert into sop_delivery (id, project_id, del_describe, 
+		      details, del_status, file_num, 
 		      created_uid, created_time, updated_uid, 
 		      updated_time)
-		    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{describe,jdbcType=VARCHAR}, 
-		      #{details,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{fileNum,jdbcType=TINYINT}, 
+		    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{delDescribe,jdbcType=VARCHAR}, 
+		      #{details,jdbcType=VARCHAR}, #{delStatus,jdbcType=TINYINT}, #{fileNum,jdbcType=TINYINT}, 
 		      #{createdUid,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, #{updatedUid,jdbcType=BIGINT}, 
 		      #{updatedTime,jdbcType=BIGINT})
  		 ]]>
@@ -93,9 +93,9 @@
 	<update id="updateById" parameterType="com.galaxyinternet.model.touhou.Delivery">
 		update sop_delivery
 		<set>
-	      <if test="describe != null">  'describe' = #{describe,jdbcType=VARCHAR}, </if>
+	      <if test="delDescribe != null">  del_describe = #{delDescribe,jdbcType=VARCHAR}, </if>
 	      <if test="details != null">  details = #{details,jdbcType=VARCHAR}, </if>
-	      <if test="status != null">  'status' = #{status,jdbcType=TINYINT}, </if>
+	      <if test="delStatus != null">  del_status = #{delStatus,jdbcType=TINYINT}, </if>
 	      <if test="fileNum != null">  file_num = #{fileNum,jdbcType=TINYINT}, </if>
 	      <if test="updatedUid != null">  updated_uid = #{updatedUid,jdbcType=BIGINT}, </if>
 	      <if test="updatedTime != null">  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>

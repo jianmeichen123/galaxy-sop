@@ -10,11 +10,11 @@ public class Delivery extends PagableEntity {
 
     private Long projectId;
 
-    private String describe;
+    private String delDescribe;
 
     private String details;
 
-    private Byte status;  //0:未完成  1:已完成
+    private Byte delStatus;  //0:未完成  1:已完成
     private String statusFormat;
 
     private Byte fileNum;
@@ -35,12 +35,12 @@ public class Delivery extends PagableEntity {
         this.projectId = projectId;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDelDescribe() {
+        return delDescribe;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDelDescribe(String delDescribe) {
+        this.delDescribe = delDescribe == null ? null : delDescribe.trim();
     }
 
     public String getDetails() {
@@ -51,19 +51,19 @@ public class Delivery extends PagableEntity {
         this.details = details == null ? null : details.trim();
     }
 
-    public Byte getStatus() {
-        return status;
+    public Byte getDelStatus() {
+        return delStatus;
     }
 
-    public void setStatus(Byte status) {
-    	if(status!=null){
-			if(status == 0){
+    public void setDelStatus(Byte delStatus) {
+    	if(delStatus!=null){
+			if(delStatus == 0){
 				statusFormat = "未完成";
-			}else if(status == 1){
+			}else if(delStatus == 1){
 				statusFormat = "已完成";
 			}
 		}
-        this.status = status;
+        this.delStatus = delStatus;
     }
 
     public Byte getFileNum() {

@@ -9,12 +9,12 @@
     <div class="form clearfix">
         <div class="conference_all">
         	<form id="deliver_form" >
-        	<input type="hidden" name="projectId" />
-        	<input type="hidden" name="id" />
+        	<input type="hidden" name="projectId" value="" />
+        	<input type="hidden" name="id" value="" />
             <dl class="fmdl clearfix">
                 <dt>事项简述：</dt>
                 <dd>
-                    <input type="text" class="txt"  id="describe" name="describe"  maxlength="24"/>
+                    <input type="text" class="txt"  id="delDescribe" name="delDescribe"  maxlength="24"/>
                 </dd>
             </dl>
             
@@ -25,8 +25,8 @@
             
             <dl class="fmdl fl_l">
                  <dt>完成情况：</dt>
-                 <dd><label for=""><input type="radio" name="status" value="0" checked="checked" >未完成</label></dd>
-                 <dd><label for=""><input type="radio" name="status" value="1">已完成</label></dd>
+                 <dd><label for=""><input type="radio" name="delStatus" value="0" checked="checked" >未完成</label></dd>
+                 <dd><label for=""><input type="radio" name="delStatus" value="1">已完成</label></dd>
             </dl>
             </form>
             

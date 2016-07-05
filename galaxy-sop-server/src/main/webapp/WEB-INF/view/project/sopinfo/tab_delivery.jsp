@@ -47,8 +47,6 @@
 				<!-- tab标签 -->
 	            <ul class="tablink tablinks">
 	                <li><a href="javascript:;" onclick="showTabs(${pid},0)">基本信息</a></li>
-	                <c:choose>
-	             	<c:when test="${aclViewProject==true}">
 	                <li><a href="javascript:;" onclick="showTabs(${pid},1)">团队成员</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
@@ -58,19 +56,7 @@
                 	<li><a href="javascript:;" onclick="showTabs(${pid},9)">运营分析</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
-	                </c:when>
-	                <c:otherwise>
-	                <li class="no"><a href="javascript:;">团队成员</a></li>
-	                <li class="no"><a href="javascript:;">股权结构</a></li>
-	                <li class="no"><a href="javascript:;">访谈记录</a></li>
-	                <li class="no"><a href="javascript:;">会议纪要</a></li>
-	                <li class="no"><a href="javascript:;">交割前事项</a></li>
-	                <li class="no"><a href="javascript:;">拨款信息</a></li>
-                	<li class="no"><a href="javascript:;">运营分析</a></li>
-					<li class="no"><a href="javascript:;">项目文档</a></li>
-	                <li class="no"><a href="javascript:;">操作日志</a></li> 
-	                </c:otherwise>
-	             	</c:choose>
+	                
 	            </ul>
 
 
@@ -79,26 +65,26 @@
 			<div data-tab="con">
 			 -->
 			<div class="member">
-				<div class="top clearfix" style="display: none;">
+				<div class="top clearfix">
 					<!--按钮-->
 					<div class="btnbox_f btnbox_f1 clearfix">
 						<a href="javascript:void(0)"  class="pubbtn bluebtn ico c4" data-btn='to_add_deliver' data-name='添加事项'></a>
 					</div>
 				</div>
 				
-				<div class="min_document clearfix" id="custom-toolbar"" >
+				<div class="min_document clearfix" id="custom-toolbar" style="display:none;" >
 					<div class="bottom searchall clearfix">
 						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 					</div>
 				</div>
 				<table id="project_delivery_table" class="commonsize delivery"
 					data-url="<%=path%>/galaxy/delivery/queryprodeliverypage" 
-					data-id-field="id" 
+					data-id-field="id"  data-page-list="[10, 20, 30]"
 					data-toolbar="#custom-toolbar">
 					<thead>
 						<tr>
-							<th data-field="describe" data-align="left" data-formatter="infoDeliverFormat" >事项简述</th>
-							<th data-field="status" data-align="center" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态</th>
+							<th data-field="delDescribe" data-align="center" data-formatter="infoDeliverFormat" >事项简述</th>
+							<th data-field="del_status" data-align="center" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态</th>
 							<th data-field="endByUname" data-align="center">编辑人</th>
 							<th data-field="updatedTime" data-align="center" data-formatter="longTime_Format" >编辑日期</th>
 							<th data-field="fileNum" data-align="center" >附件数</th>
@@ -156,7 +142,7 @@ $(function(){
 	$('#project_delivery_table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
-		pageList : [10, 20 ],
+		pageList : [10, 20, 30 ],
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
@@ -170,8 +156,8 @@ $(function(){
 	
 	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
 		$("[data-btn='to_add_deliver']").off();
+		$("data-btn='to_add_deliver'").remove();
 	} else {
-		$(".member .top .clearfix ").show();
 		$("[data-btn='to_add_deliver']").text("添加事项");
 		$("[data-btn='to_add_deliver']").on("click",function(){
 			var $self = $(this);
@@ -182,6 +168,7 @@ $(function(){
 				data:"",
 				okback:function(){
 					$("#popup_name").html(_name);
+					$("#deliver_form [name='projectId']").val(proid);
 				}
 			});
 			return false;
@@ -194,18 +181,14 @@ $(function(){
  *  状态 format
  */
 function statusFormat(value,row,index){  
-	if(value == '1' || value == 1){
-		return "已完成";
-	}else{
-		return "未完成";
-	}
+	return row.statusFormat;
 }
 
 /**
  *  查看
  */
 function infoDeliverFormat(value,row,index){  
-	var info = "<a class=\"blue\" data-name=\'查看事项信息\' onclick=\"deliverInfoEdit('"+row.id+"','v')\" >"+value+"</a>";
+	var info = "<label class=\"blue\" onclick=\"deliverInfoEdit('"+row.id+"','v')\" >"+value+"</label>";
 	return info;
 }
 
@@ -213,8 +196,8 @@ function infoDeliverFormat(value,row,index){
  * 编辑   删除   下载
  */
 function operFormat(value,row,index){  
-	var edit = "<label class=\"blue\" data-name=\'编辑事项信息\' onclick=\"deliverInfoEdit('"+row.id+"','e')\" >编辑</label>";
-	var del = " <label class=\"blue\" data-name=\'提示\' onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
+	var edit = "<label class=\"blue\" onclick=\"deliverInfoEdit('"+row.id+"','e')\" >编辑</label>";
+	var del = " <label class=\"blue\" onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
 	var downfile = " <label class=\"blue\">下载附件</label>";
 	return edit+del+downfile;
 }
@@ -225,28 +208,37 @@ function operFormat(value,row,index){
  */
 function deliverInfoEdit(selectRowId,type){
 	//deliver_selectRow = $('#project_delivery_table').bootstrapTable('getRowByUniqueId', selectRowId);
-	
-	var $self = $(this);
-	var _name= $self.attr("data-name");
-	var _url = Constants.sopEndpointURL + '/galaxy/delivery/tomatterdeliver/'+selectRowId;
+	//var $self = $(this);
+	//var _name= $self.attr("data-name");
+	var _url = Constants.sopEndpointURL + '/galaxy/delivery/tomatterdeliver';
 
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(){
-			$("#popup_name").html(_name);
-			var deliverInfo = '$(deliverInfo)';
-
-			$("#deliver_form[name='describe']").val(deliverInfo.deliverInfo);
-			$("#deliver_form[name='details']").text(deliverInfo.details);
-			$("#deliver_form[name='status'][value='"+deliverInfo.status+"']").attr("checked",'checked');
 			
-			if(type == 'v'){
-				$("#choose_oper").remove();
-			}else if(type == 'e'){
-				$("#deliver_form[name='id']").val(deliverInfo.id);
-				$("#deliver_form[name='projectId']").val(proid);
-			}
+			_url = Constants.sopEndpointURL + '/galaxy/delivery/selectdelivery/'+selectRowId;
+			sendGetRequest(_url, {}, function(data){
+				var result = data.result.status;
+				if(result == "OK"){
+					var deliverInfo = data.entity;
+					
+					$("#deliver_form [name='delDescribe']").val(deliverInfo.delDescribe);
+					$("#deliver_form [name='details']").text(deliverInfo.details);
+					$("#deliver_form [name='delStatus'][value='"+deliverInfo.delStatus+"']").attr("checked",'checked');
+					
+					if(type == 'v'){
+						$("#popup_name").html("查看事项信息");
+						$("#choose_oper").remove();
+					}else if(type == 'e'){
+						$("#popup_name").html("编辑事项信息");
+						$("#deliver_form [name='id']").val(deliverInfo.id);
+						$("#deliver_form [name='projectId']").val(proid);
+					}
+				}else{
+					layer.msg(data.result.message);
+				}
+			});
 		}
 	});
 	return false;
@@ -273,15 +265,12 @@ function save_deliver(){
  * 删除  事项
  */
 function to_del_deliver(selectRowId){
-	var $self = $(this);
-	var _name= $self.attr("data-name");
 	var _url = Constants.sopEndpointURL + '/galaxy/delivery/todeldeliver/';
-
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(){
-			$("#popup_name").html(_name);
+			$("#popup_name").html("提示");
 			$("#del_deliver_id").val(selectRowId);
 		}
 	});
