@@ -79,7 +79,7 @@ public class PostOperatationController extends BaseControllerImpl<Project, Proje
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="getThyyInfo", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping("/getThyyInfo")
 	public ResponseData<MeetingRecord> getThyyInfo(Long projectId)
 	{
 		
@@ -89,7 +89,7 @@ public class PostOperatationController extends BaseControllerImpl<Project, Proje
 		Byte healthState = (byte)2;
 		ProjectHealthBo healthQuery = new ProjectHealthBo();
 		healthQuery.setProjectId(projectId);
-		PageRequest healthPageable = new PageRequest(0,1, new Sort(Direction.ASC,"created_time"));
+		PageRequest healthPageable = new PageRequest(0,1, new Sort(Direction.DESC,"created_time"));
 		List<ProjectHealth> healthList = projectHealthService.queryList(healthQuery, healthPageable);
 		if(healthList != null && healthList.size() >0)
 		{

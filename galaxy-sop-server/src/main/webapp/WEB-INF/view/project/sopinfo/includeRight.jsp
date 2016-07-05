@@ -12,10 +12,12 @@
         <!--右边        li  class="green_dot"  span class="green_dot_on"    <span class="gray_dot"></span> -->  
         <div class="new_right">
         	<!-- 投后运营Start -->
+        	<c:if test="${aclViewProject }">
+        	
         	<div id="thyy_div" style="display:none;">
 				<div class="correlation">投后运营</div>
 				<div class="new_correlation_cen status">
-					<span>运营状态</span><img src="<%=path %>/img/status/s01.png">
+					<span>运营状态</span><img src="<%=path %>/img/status/s01.png" id="yyzt_img">
 					<div class="delivery">
 						<div class="title">交割前确认事项</div>
 						<ul class="clearfix">
@@ -30,34 +32,13 @@
 	
 				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="platform_jxkh_more" style="cursor: pointer;" href="#">more</span>
 				</div>
-				<div class="new_correlation_cen">
-					<div class="new_b_bottom">
-						<ul class="clearfix">
-							<li class="new_b_li_one">周运营会</li>
-							<li class="new_b_li_two"><span class="color_pass">健康</span></li>
-							<li class="new_b_li_three">2016-1-25</li>
-						</ul>
-						<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-			
-					</div>
-					<div class="new_b_bottom">
-						<ul class="clearfix">
-							<li class="new_b_li_one">周运营会</li>
-							<li class="new_b_li_two"><span class="color_upper">高于预期</span></li>
-							<li class="new_b_li_three">2016-1-25</li>
-						</ul>
-						<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-					</div>
-					<div class="new_b_bottom">
-						<ul class="clearfix">
-							<li class="new_b_li_one">周运营会</li>
-							<li class="new_b_li_two"><span class="color_veto">健康预警</span></li>
-							<li class="new_b_li_three">2016-1-25</li>
-						</ul>
-						<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-					</div>
+				<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
+					<div class="no_con">
+	            		暂无会议纪要
+	            	</div>
 				</div>
 			</div>
+			</c:if>
 			<!-- 投后运营End -->
 			<!-- 投前Start -->
 			<div id="tq_div" style="display:none;">
@@ -132,7 +113,11 @@ $(function(){
 	//显示投前或投后信息
 	if(prograss == 'projectProgress:10')
 	{
-		$("#thyy_div").show();
+		if($("#thyy_div").length>0)
+		{
+			$("#thyy_div").show();
+			setThyyInfo();
+		}
 	}
 	else
 	{
@@ -145,13 +130,14 @@ $(function(){
 	}
 		
 	//获取近期访谈、会议 记录
-	if(admin == 'true' || isGG == 'true')
+	if(prograss != 'projectProgress:10' && (admin == 'true' || isGG == 'true'))
 	{
+		console.log('this is show');
 		toFormatNearNotes();
+		//more 链接初始化
+		initMoreLine();
 	}
 	
-	//more 链接初始化
-	initMoreLine();
 	
 	setJgqrProgress();
 });
@@ -349,7 +335,57 @@ function closeback(data){
  */
 function setThyyInfo()
 {
-	
+	var url = "<%=path%>/galaxy/project/postOperation/getThyyInfo?projectId=${pid}";
+	sendGetRequest(url,null,function(data){
+		if(data.result.status == 'OK')
+		{
+			//运营状态
+			var healthState = data.userData.healthState;
+			var imgSrc = '<%=path %>/img/status/s0'+healthState+'.png';
+			$("#yyzt_img").attr('src',imgSrc);
+			//交割前确认事项
+			var total = data.userData.total;
+			var complete = data.userData.complete;
+			$(".delivery_complete").text(complete);
+		    $(".delivery_total").text(total);
+			if(total>0)
+			{
+		    	var Wh=$(".progressBar").width();
+		    	var barWidth=parseInt(complete/total*Wh)+"px";
+		    	$("#bar").css("width",barWidth)
+			}
+			//运营会议
+			if(data.entityList != null && data.entityList.length>0)
+			{
+				
+				$.each(data.entityList,function(){
+					
+					var div = $('<div class="new_b_bottom"></div>');
+					var ul = $('<ul class="clearfix "></ul>');
+					div.append(ul);
+					ul.append('<li class="new_b_li_one">'+this.meetingTypeStr+'</li>');
+					ul.append('<li class="new_b_li_three" style="width:66%">'+this.meetingDateStr+'</li>');
+					//会议记录  处理
+					var notes = this.meetingNotes;
+					var notesStr = "";
+					if(notes)
+					{
+						notesStr = delHtmlTag($.trim(notes));
+						if(notesStr && notesStr.length > 15)
+						{
+							notesStr = notesStr.substring(0,15)+"...";
+						}
+					}
+					div.append('<p>'+notesStr+'</p>');
+					$("#thyy_meet_div").append(div);
+				});
+			}
+			else
+			{
+				$("#thyy_meet_div .no_con").show();
+			}
+		}
+	});
 }
 /**
  * 交割前确认事项完成进度
