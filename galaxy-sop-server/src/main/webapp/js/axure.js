@@ -53,6 +53,7 @@
 		},options);
 		function popEve(){
 			this.strbg = "<div id=\"popbg\"><iframe frameborder=\"0\" src=\"about:blank\"></iframe></div>";
+			this.strbg01 = "<div id=\"popbg01\"></div>";
 			this.strpop = "<div id=\"powindow\" class=\"pop\"  data-id=\"popid"+$(".pop").length+"\"><a href=\"javascript:;\" data-close=\"close\" class=\"close null\">关闭</a><div class=\"poptxt\"><p class='popwait'>数据加载中，请稍候...</p></div></div>";
 			this.txt = opts.txt;//弹层添加数据
 			this.statusmove = true;//移动状态标识
@@ -74,6 +75,9 @@
 				var _this = this;
 				if($("#popbg").length==0){
 					$("body").append(_this.strbg);
+				}
+				if($(".pop").length>0){
+					$("body").append(_this.strbg01);
 				}
 				return _this;
 			},
@@ -101,9 +105,13 @@
 					win_y = (win_h-ht)/2;
 				//背景设置高度+显示
 				$("#popbg,#popbg iframe").css({"height":win_h});
+				$("#popbg01").css({"height":win_h});
 				$("#popbg").show().animate({
 					opacity:0.7
 				},300);
+				$("#popbg01").show().animate({
+					opacity:0
+				},0);
 				//弹出层定位+显示
 				$(_this.id).Fixed({
 					x:win_x,
@@ -162,6 +170,9 @@
 						if($(".pop").length==0){
 							$("#popbg").hide();
 							$('.tip-yellowsimple').hide();	//表单验证提示关闭
+						}
+						if($(".pop").length>0){
+							$("#popbg01").remove();
 						}
 						return false;
 				});
