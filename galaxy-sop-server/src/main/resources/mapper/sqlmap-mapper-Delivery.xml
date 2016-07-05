@@ -16,7 +16,7 @@
   </resultMap>
   
   <sql id="Base_Column_List">
-    id, project_id, describe, details, status, file_num, created_uid, created_time, updated_uid, 
+    id, project_id, 'describe', details, 'status', file_num, created_uid, created_time, updated_uid, 
     updated_time
   </sql>
   
@@ -25,9 +25,9 @@
 			<trim prefixOverrides="and">
 			      <if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
 				  <if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
-			      <if test="describe != null"> and describe = #{describe,jdbcType=VARCHAR} </if>
+			      <if test="describe != null"> and 'describe' = #{describe,jdbcType=VARCHAR} </if>
 			      <if test="details != null"> and details = #{details,jdbcType=VARCHAR} </if>
-			      <if test="status != null"> and status = #{status,jdbcType=TINYINT} </if>
+			      <if test="status != null"> and 'status' = #{status,jdbcType=TINYINT} </if>
 			      <if test="fileNum != null"> and file_num = #{fileNum,jdbcType=TINYINT} </if>
 			      <if test="createdUid != null"> and created_uid = #{createdUid,jdbcType=BIGINT} </if>
 			      <if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
@@ -78,8 +78,8 @@
 	
  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.touhou.Delivery">
  		 <![CDATA[
-	 		insert into sop_delivery (id, project_id, describe, 
-		      details, status, file_num, 
+	 		insert into sop_delivery (id, project_id, 'describe', 
+		      details, 'status', file_num, 
 		      created_uid, created_time, updated_uid, 
 		      updated_time)
 		    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{describe,jdbcType=VARCHAR}, 
@@ -93,9 +93,9 @@
 	<update id="updateById" parameterType="com.galaxyinternet.model.touhou.Delivery">
 		update sop_delivery
 		<set>
-	      <if test="describe != null">  describe = #{describe,jdbcType=VARCHAR}, </if>
+	      <if test="describe != null">  'describe' = #{describe,jdbcType=VARCHAR}, </if>
 	      <if test="details != null">  details = #{details,jdbcType=VARCHAR}, </if>
-	      <if test="status != null">  status = #{status,jdbcType=TINYINT}, </if>
+	      <if test="status != null">  'status' = #{status,jdbcType=TINYINT}, </if>
 	      <if test="fileNum != null">  file_num = #{fileNum,jdbcType=TINYINT}, </if>
 	      <if test="updatedUid != null">  updated_uid = #{updatedUid,jdbcType=BIGINT}, </if>
 	      <if test="updatedTime != null">  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>

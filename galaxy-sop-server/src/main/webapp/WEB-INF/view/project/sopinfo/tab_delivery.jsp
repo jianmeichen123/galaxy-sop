@@ -51,9 +51,9 @@
 	             	<c:when test="${aclViewProject==true}">
 	                <li><a href="javascript:;" onclick="showTabs(${pid},1)">团队成员</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
-	                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},7)">交割前事项</a></li>
+	                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},7)">交割前事项</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},8)">拨款信息</a></li>
                 	<li><a href="javascript:;" onclick="showTabs(${pid},9)">运营分析</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
@@ -86,7 +86,7 @@
 					</div>
 				</div>
 				
-				<div class="min_document clearfix" id="custom-toolbar" style="display:none; " >
+				<div class="min_document clearfix" id="custom-toolbar"" >
 					<div class="bottom searchall clearfix">
 						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 					</div>
@@ -98,7 +98,7 @@
 					<thead>
 						<tr>
 							<th data-field="describe" data-align="left" data-formatter="infoDeliverFormat" >事项简述</th>
-							<th data-field="statusFormat" data-align="center" >状态</th>
+							<th data-field="status" data-align="center" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态</th>
 							<th data-field="endByUname" data-align="center">编辑人</th>
 							<th data-field="updatedTime" data-align="center" data-formatter="longTime_Format" >编辑日期</th>
 							<th data-field="fileNum" data-align="center" >附件数</th>
@@ -107,25 +107,6 @@
 					</thead>
 				</table>
 				
-				
-				
-				<!--表格内容-->
-				<table width="100%" cellspacing="0" cellpadding="0" class="commonsize delivery">
-					<tbody>
-						<tr>
-							<td><a class="blue" href="tchtml/seeinfortc.html" data-btn="seeinfor" data-name='查看事项信息'>完成工商变更</a></td>
-							<td>已完成</td>
-							<td>宋学军</td>
-							<td>2016-06-01</td>
-							<td>2</td>
-							<td>
-								<label class="blue" href="tchtml/compile_matter.html" data-btn="compile_matter" data-name='编辑事项信息'>编辑</label>
-								<label class="blue" href="tchtml/1tips.html" data-btn="tips" data-name='提示'>删除</label>
-								<label class="blue">下载附件</label>
-							</td>
-						</tr>
-					</tbody>
-				</table>
 			</div>
 			<!-- </div>
 				tab end-->
@@ -209,6 +190,16 @@ $(function(){
 });	
 	
 
+/**
+ *  状态 format
+ */
+function statusFormat(value,row,index){  
+	if(value == '1' || value == 1){
+		return "已完成";
+	}else{
+		return "未完成";
+	}
+}
 
 /**
  *  查看
@@ -263,7 +254,7 @@ function deliverInfoEdit(selectRowId,type){
 
 
 function save_deliver(){  
-	var content = JSON.parse($("#deliver_form")..serializeObject());
+	var content = JSON.parse($("#deliver_form").serializeObject());
 	var _url =  Constants.sopEndpointURL + '/galaxy/delivery/operdelivery'
 	sendPostRequestByJsonObj(_url, content, function(data){
 		if (data.result.status=="OK") {
