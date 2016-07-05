@@ -1671,7 +1671,7 @@ font-family: "宋体";
 .ctlist .bars{margin:0 !important;}
 /*团队成员*/
 .edit_profile{background-color: #539be2;border:1px solid #539be2;}
-.member,.stock,.legal{background-color: #fff;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 30px;}
+.member,.stock,.legal{background-color: #fff;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 30px; overflow:hidden;}
 .member a{margin-right: 10px;}
 .member .btnbox_f{margin:20px 0 10px 30px;}
 .member .btnbox_f .add_profile{width:60px;}
@@ -1715,7 +1715,7 @@ font-family: "宋体";
 .email_btn{background:#539be2 url(../img/btnico2.png) 10px -61px no-repeat;padding-left:28px;border:1px solid #539be2;}
 .email_btn:hover{background:#fff url(../img/functionico.png) 10px -274px no-repeat;color:#66b1f2;}
 /* .document{padding-top: 20px;} */
-.document .min_document{margin:0 20px;width:auto;position: relative;padding-bottom: 10px;margin-bottom:10px;}
+.document .min_document{margin:0 20px;width:auto;position: relative;padding-bottom: 10px;margin-bottom: 20px;margin-top:20px;}
 .searchbox_document .fmdl{display: block;overflow: hidden;margin-left: 10px;}
 .searchbox_document .fmdl input{display: inline-block;}
 .document .show_more{position: absolute;top: 0;right: 0px;}
@@ -1763,14 +1763,14 @@ font-family: "宋体";
 .commonsize th{font-size:14px;color:#3e4351;font-family:"微软雅黑";}
 
 /*访谈表格*/
-.no0_1{width:20%;padding-left:35px !important;}
+.no0_1{width:20%;}
 .no0_2{width:60%;padding-left:5px !important;}
 
 /*访谈表格*/
-.no1{width:35%;padding-left:35px !important;}
+.no1{width:35%;}
 .no2{width:45%;padding-left:5px !important;}
 
-.no1_1{width:230px;padding-left:35px !important;}
+.no1_1{width:230px;}
 .no1_2{width:12%;}
 .no1_3{width:43%;}
 /* .nav_index{width:20px;height:20px;display:inline-block;background: url(../img/baricon.png) 0 0 no-repeat;margin-right: 8px;} */
