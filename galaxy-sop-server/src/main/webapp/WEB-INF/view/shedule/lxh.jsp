@@ -246,7 +246,7 @@
 	var initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
 	$("#meeting-shedule-list").bootstrapTable({
 		queryParamsType: 'size|page',
-		pageSize:1,
+		pageSize:10,
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
