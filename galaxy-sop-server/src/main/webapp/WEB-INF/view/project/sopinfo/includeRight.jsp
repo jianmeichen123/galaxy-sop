@@ -11,51 +11,56 @@
         
         <!--右边        li  class="green_dot"  span class="green_dot_on"    <span class="gray_dot"></span> -->  
         <div class="new_right">
-			<div class="correlation">投后运营</div>
-			<div class="new_correlation_cen status">
-				<span>运营状态</span><img src="<%=path %>/img/status/s01.png">
-				<div class="delivery">
-					<div class="title">交割前确认事项</div>
-					<ul class="clearfix">
-						<li class="fl">已完成：<span class="delivery_complete">3</span></li>
-						<li class="fr">总计：<span class="delivery_total">16</span></li>
-					</ul>
-					<div class="progressBar">
-						<div id="bar"></div>
+        	<!-- 投后运营Start -->
+        	<div id="thyy_div" style="display:none;">
+				<div class="correlation">投后运营</div>
+				<div class="new_correlation_cen status">
+					<span>运营状态</span><img src="<%=path %>/img/status/s01.png">
+					<div class="delivery">
+						<div class="title">交割前确认事项</div>
+						<ul class="clearfix">
+							<li class="fl">已完成：<span class="delivery_complete">3</span></li>
+							<li class="fr">总计：<span class="delivery_total">16</span></li>
+						</ul>
+						<div class="progressBar">
+							<div id="bar"></div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="platform_jxkh_more" style="cursor: pointer;" href="#">more</span>
+				</div>
+				<div class="new_correlation_cen">
+					<div class="new_b_bottom">
+						<ul class="clearfix">
+							<li class="new_b_li_one">周运营会</li>
+							<li class="new_b_li_two"><span class="color_pass">健康</span></li>
+							<li class="new_b_li_three">2016-1-25</li>
+						</ul>
+						<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
+			
+					</div>
+					<div class="new_b_bottom">
+						<ul class="clearfix">
+							<li class="new_b_li_one">周运营会</li>
+							<li class="new_b_li_two"><span class="color_upper">高于预期</span></li>
+							<li class="new_b_li_three">2016-1-25</li>
+						</ul>
+						<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
+					</div>
+					<div class="new_b_bottom">
+						<ul class="clearfix">
+							<li class="new_b_li_one">周运营会</li>
+							<li class="new_b_li_two"><span class="color_veto">健康预警</span></li>
+							<li class="new_b_li_three">2016-1-25</li>
+						</ul>
+						<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
 					</div>
 				</div>
 			</div>
-
-			<div class="correlation">近期会议纪要 <span class="more null new_righ" id="platform_jxkh_more" style="cursor: pointer;" href="#">more</span>
-			</div>
-			<div class="new_correlation_cen">
-				<div class="new_b_bottom">
-					<ul class="clearfix">
-						<li class="new_b_li_one">周运营会</li>
-						<li class="new_b_li_two"><span class="color_pass">健康</span></li>
-						<li class="new_b_li_three">2016-1-25</li>
-					</ul>
-					<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-		
-				</div>
-				<div class="new_b_bottom">
-					<ul class="clearfix">
-						<li class="new_b_li_one">周运营会</li>
-						<li class="new_b_li_two"><span class="color_upper">高于预期</span></li>
-						<li class="new_b_li_three">2016-1-25</li>
-					</ul>
-					<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-				</div>
-				<div class="new_b_bottom">
-					<ul class="clearfix">
-						<li class="new_b_li_one">周运营会</li>
-						<li class="new_b_li_two"><span class="color_veto">健康预警</span></li>
-						<li class="new_b_li_three">2016-1-25</li>
-					</ul>
-					<p>会议结论会议结论会议结论会议结论会议结论会议结论会议结论会议结论</p>
-				</div>
-			</div>
-		
+			<!-- 投后运营End -->
+			<!-- 投前Start -->
+			<div id="tq_div" style="display:none;">
 			<b class="sj_ico null">三角</b>
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
@@ -109,12 +114,14 @@
             </c:if>
             
         </div>
-        
+        </div>
+        <!-- 投前End -->
         <!--右边 end-->
    
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
+console.log("prograss="+prograss);
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
@@ -122,6 +129,15 @@ var index = Number(prograss.substring("projectProgress:".length,prograss.length)
 var admin = "${fx:isCreatedByUser('project',pid) }";
 var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
 $(function(){
+	//显示投前或投后信息
+	if(prograss == 'projectProgress:10')
+	{
+		$("#thyy_div").show();
+	}
+	else
+	{
+		$("#tq_div").show();
+	}
 	init_lct(); //流程图初始化
 	
 	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || admin!="true"){
@@ -327,6 +343,13 @@ function closeback(data){
 		showTabs(proid,0)
 		//forwardWithHeader(platformUrl.mpl);
 	}
+}
+/**
+ * 设置投后运营信息
+ */
+function setThyyInfo()
+{
+	
 }
 /**
  * 交割前确认事项完成进度

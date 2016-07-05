@@ -8,7 +8,9 @@ package com.galaxyinternet.common.annotation;
  */
 public enum RecordType {
 
-	PROJECT((byte) 0, "项目"), IDEAS((byte) 1, "创意");
+	PROJECT((byte) 0, "项目"), 
+	IDEAS((byte) 1, "创意"), 
+	OPERATION_MEETING((byte) 2, "运营会议");
 
 	private byte type;
 	private String name;
