@@ -223,7 +223,7 @@ function infoDeliverFormat(value,row,index){
  */
 function operFormat(value,row,index){  
 	var edit = "<label class=\"blue\" data-name=\'编辑事项信息\' onclick=\"deliverInfoEdit('"+row.id+"','e')\" >编辑</label>";
-	var del = " <label class=\"blue\" data-name=\'提示\' onclick=\"del_deliver('"+row.id+"')\" >删除</label>";
+	var del = " <label class=\"blue\" data-name=\'提示\' onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
 	var downfile = " <label class=\"blue\">下载附件</label>";
 	return edit+del+downfile;
 }
@@ -273,7 +273,6 @@ function save_deliver(){
 		} else {
 			layer.msg(data.result.message);
 		}
-		
 	});
 }
 
@@ -282,35 +281,35 @@ function save_deliver(){
 /**
  * 删除  事项
  */
-function del_deliver(selectRowId,type){
-	//deliver_selectRow = $('#project_delivery_table').bootstrapTable('getRowByUniqueId', selectRowId);
-	
+function to_del_deliver(selectRowId){
 	var $self = $(this);
 	var _name= $self.attr("data-name");
-	var _url = Constants.sopEndpointURL + '/galaxy/delivery/tomatterdeliver/'+selectRowId;
+	var _url = Constants.sopEndpointURL + '/galaxy/delivery/todeldeliver/';
 
 	$.getHtml({
 		url:_url,
 		data:"",
 		okback:function(){
 			$("#popup_name").html(_name);
-			var deliverInfo = '$(deliverInfo)';
-
-			$("#deliver_form[name='describe']").val(deliverInfo.deliverInfo);
-			$("#deliver_form[name='details']").text(deliverInfo.details);
-			$("#deliver_form[name='status'][value='"+deliverInfo.status+"']").attr("checked",'checked');
-			
-			if(type == 'v'){
-				$("#choose_oper").remove();
-			}else if(type == 'e'){
-				$("#deliver_form[name='id']").val(deliverInfo.id);
-				$("#deliver_form[name='projectId']").val(proid);
-			}
+			$("#del_deliver_id").val(selectRowId);
 		}
 	});
 	return false;
 }
-	
+
+function del_deliver(){  
+	var id = $("#del_deliver_id").val();
+	var _url =  Constants.sopEndpointURL + '/galaxy/delivery/deldelivery/'+id;
+	sendPostRequestByJsonObj(_url, content, function(data){
+		if (data.result.status=="OK") {
+			layer.msg("删除成功");
+			removePop1();
+			$("#project_delivery_table").bootstrapTable('refresh');
+		} else {
+			layer.msg(data.result.message);
+		}
+	});
+}	
 
 
 	

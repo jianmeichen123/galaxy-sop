@@ -14,7 +14,8 @@ public class Delivery extends PagableEntity {
 
     private String details;
 
-    private Byte status;
+    private Byte status;  //0:未完成  1:已完成
+    private String statusFormat;
 
     private Byte fileNum;
 
@@ -24,6 +25,7 @@ public class Delivery extends PagableEntity {
     
     private List<File> files; 
 
+    private String endByUname;
 
     public Long getProjectId() {
         return projectId;
@@ -54,6 +56,13 @@ public class Delivery extends PagableEntity {
     }
 
     public void setStatus(Byte status) {
+    	if(status!=null){
+			if(status == 0){
+				statusFormat = "未完成";
+			}else if(status == 1){
+				statusFormat = "已完成";
+			}
+		}
         this.status = status;
     }
 
@@ -88,6 +97,22 @@ public class Delivery extends PagableEntity {
 
 	public void setFiles(List<File> files) {
 		this.files = files;
+	}
+
+	public String getEndByUname() {
+		return endByUname;
+	}
+
+	public void setEndByUname(String endByUname) {
+		this.endByUname = endByUname;
+	}
+
+	public String getStatusFormat() {
+		return statusFormat;
+	}
+
+	public void setStatusFormat(String statusFormat) {
+		this.statusFormat = statusFormat;
 	}
 
     
