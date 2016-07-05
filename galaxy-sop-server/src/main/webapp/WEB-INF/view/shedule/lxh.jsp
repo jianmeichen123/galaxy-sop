@@ -214,22 +214,39 @@
 		var options = $("#meeting-shedule-list").bootstrapTable('getOptions');
 		var tempPageSize = options.pageSize ? options.pageSize : 10;
 		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
+		var careline = $("select[name='careline']").val();
+		var keyword = $("input[name='keyword']").val();
 		var formdata = {
 				_paramKey : 'meetingSheduleList',
 				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
 				_path : Constants.sopEndpointURL,
 				_param : {
 					pageNum : tempPageNum,
-	        		pageSize : tempPageSize
+	        		pageSize : tempPageSize,
+	        		careline : careline,
+	        		keyword : keyword
 				}
 		}
 		cookieOperator.forwardPushCookie(formdata);
 	}
+	
+	sendGetRequest(platformUrl.getDepartMentDict+"/department",null,function(data){
+		var $optionArray = [];
+		var ii = 0;
+		$.each(data.entityList,function(i,current){
+			if(current.type == 1){
+				$optionArray[ii] = '<option value="'+current.id+'">'+current.name+'</option>';
+				ii++;
+			}
+		});
+		var $optionHtml = $($optionArray.join(''));
+		$optionHtml.insertAfter($('option[value=""]'));
+	});
 
 	var initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
 	$("#meeting-shedule-list").bootstrapTable({
 		queryParamsType: 'size|page',
-		pageSize:10,
+		pageSize:1,
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
@@ -240,13 +257,19 @@
 	    	if(typeof(initParams) !== 'undefined'){
 	    		param.pageNum = initParams.pageNum - 1;
 	        	param.pageSize = initParams.pageSize;
-	        	var options = $("#data-table").bootstrapTable('getOptions');
+	        	param.keyword = initParams.keyword;
+	        	if(initParams.careline != ''){
+	        		param.careline = initParams.careline;
+	        		$("select[name='careline']").val(initParams.careline);
+	        	}
+	        	$("input[name='keyword']").val(initParams.keyword);
+	        	var options = $("#meeting-shedule-list").bootstrapTable('getOptions');
 	 	        options.pageNumber = initParams.pageNum - 1;
 	    	}
 	        return param;
 	    },
-	    onLoadSuccess: function (data) {
-	        //返回附带参数功能代码
+        onLoadSuccess: function(){
+        	//返回附带参数功能代码
 	        if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
 	        	$('.pagination li').removeClass('active');
 	        	$('.pagination li').each(function(){
@@ -255,8 +278,6 @@
 	        		}
 	        	});
 	        }
-	    },
-        onLoadSuccess: function(){
 			var options = {
 				"singleDatePicker": false,
 				"showDropdowns": true,
@@ -327,18 +348,6 @@
 	  $("#"+id).val("");
 	}
 	
-	sendGetRequest(platformUrl.getDepartMentDict+"/department",null,function(data){
-		var $optionArray = [];
-		var ii = 0;
-		$.each(data.entityList,function(i,current){
-			if(current.type == 1){
-				$optionArray[ii] = '<option value="'+current.id+'">'+current.name+'</option>';
-				ii++;
-			}
-		});
-		var $optionHtml = $($optionArray.join(''));
-		$optionHtml.insertAfter($('option[value=""]'));
-	});
 	
 	function confirmSubmit(){
 		$("#view").showLoading(
