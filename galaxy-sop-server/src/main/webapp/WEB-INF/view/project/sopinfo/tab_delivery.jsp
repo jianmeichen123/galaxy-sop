@@ -202,7 +202,6 @@ function operFormat(value,row,index){
 	}
 	content += downfile;
 	return content;
-	return edit+del+downfile;
 }
 
 
