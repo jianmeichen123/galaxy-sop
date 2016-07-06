@@ -1,5 +1,7 @@
 package com.galaxyinternet.model.touhou;
 
+import java.util.List;
+
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class DeliveryFile extends PagableEntity {
@@ -8,6 +10,9 @@ public class DeliveryFile extends PagableEntity {
     private Long deliveryId;
 
     private Long fileId;
+    
+    private List<Long> fileIds;
+    
 
     public Long getDeliveryId() {
         return deliveryId;
@@ -24,4 +29,14 @@ public class DeliveryFile extends PagableEntity {
     public void setFileId(Long fileId) {
         this.fileId = fileId;
     }
+
+	public List<Long> getFileIds() {
+		return fileIds;
+	}
+
+	public void setFileIds(List<Long> fileIds) {
+		this.fileIds = fileIds;
+	}
+    
+    
 }

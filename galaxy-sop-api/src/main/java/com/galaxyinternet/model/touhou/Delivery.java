@@ -1,9 +1,9 @@
 package com.galaxyinternet.model.touhou;
 
-import java.io.File;
 import java.util.List;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.model.sopfile.SopFile;
 
 public class Delivery extends PagableEntity {
 	private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class Delivery extends PagableEntity {
 
     private Long updatedUid;
     
-    private List<File> files; 
+    private List<SopFile> files; 
 
     private String endByUname;
 
@@ -91,11 +91,11 @@ public class Delivery extends PagableEntity {
         this.updatedUid = updatedUid;
     }
 
-	public List<File> getFiles() {
+	public List<SopFile> getFiles() {
 		return files;
 	}
 
-	public void setFiles(List<File> files) {
+	public void setFiles(List<SopFile> files) {
 		this.files = files;
 	}
 

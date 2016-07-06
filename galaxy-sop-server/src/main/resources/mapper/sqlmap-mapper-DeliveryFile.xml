@@ -19,6 +19,12 @@
 				  <if test="id != null"> and id = #{id,jdbcType=BIGINT} </if>
 				  <if test="deliveryId != null"> and delivery_id = #{deliveryId,jdbcType=BIGINT} </if>
 			      <if test="fileId != null"> and file_id = #{fileId,jdbcType=BIGINT} </if>
+			      <if test="fileIds != null">
+					and file_id in
+					<foreach collection="fileIds" index="item" item="item" open="(" separator="," close=")" >
+						#{item}
+					</foreach>
+			   </if>
 			      <if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			</trim>
 		</where>

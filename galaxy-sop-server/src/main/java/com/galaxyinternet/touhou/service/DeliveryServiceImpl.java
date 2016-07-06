@@ -55,24 +55,46 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	}
 	
 	
+	
+	/**
+	 * 由 事项 id 查询中间表数据
+	 */
+	public List<DeliveryFile> getDfileById(Long deliveryId){
+		DeliveryFile query = new DeliveryFile();
+		query.setDeliveryId(deliveryId);
+		List<DeliveryFile> dfilelist = deliveryFileDao.selectList(query); //事项 文件 关联
+		return dfilelist;
+	}
+	
+	/**
+	 * 由 文件 ids 查询 文件数据
+	 */
+	public List<SopFile> getFilesByIds(List<Long> ids){
+		SopFileBo sf = new SopFileBo();
+		sf.setIds(ids);
+		List<SopFile> files = fileDao.selectList(sf);  //文件
+		return files;
+	}
+	
+	
+	/**
+	 * 事项查询    查询中间表  - fileids - file
+	 */
 	@Override
 	public Delivery selectDelivery(Long deliveryId) {
 		Delivery delivery = deliveryDao.selectById(deliveryId);
-		
 		if(delivery!=null & delivery.getFileNum()!=null){
-			DeliveryFile query = new DeliveryFile();
-			query.setDeliveryId(deliveryId);
-			List<DeliveryFile> dfilelist = deliveryFileDao.selectList(query); //事项 文件 关联
+			List<DeliveryFile> dfilelist = getDfileById(deliveryId); //事项 文件 关联
 			
 			if(dfilelist!=null && !dfilelist.isEmpty()){
 				List<Long> fileidlist = new ArrayList<Long>();
 				for(DeliveryFile adf : dfilelist){
 					fileidlist.add(adf.getFileId());
 				}
-				SopFileBo sf = new SopFileBo();
-				sf.setIds(fileidlist);
-				List<SopFile> files = fileDao.selectList(sf);  //文件
-				delivery.setFiles(files);
+				List<SopFile> files = getFilesByIds(fileidlist);  //文件
+				if(files!=null && !files.isEmpty()){
+					delivery.setFiles(files);
+				}
 			}
 		}
 		return delivery;
@@ -100,7 +122,26 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 
 	@Override
 	public void delDeliveryById(Long deliverid) {
-		deliveryDao.deleteById(deliverid);
+		Delivery delivery = deliveryDao.selectById(deliverid);
+		if(delivery!=null & delivery.getFileNum()!=null){
+			List<DeliveryFile> dfilelist = getDfileById(deliverid); //事项 文件 关联
+			
+			if(dfilelist!=null && !dfilelist.isEmpty()){
+				List<Long> fileidlist = new ArrayList<Long>();
+				for(DeliveryFile adf : dfilelist){
+					fileidlist.add(adf.getFileId());
+				}
+				SopFileBo fileQ = new SopFileBo();
+				fileQ.setIds(fileidlist);
+				fileDao.delete(fileQ);
+				
+				DeliveryFile dfQ = new DeliveryFile();
+				dfQ.setFileIds(fileidlist);
+				deliveryFileDao.delete(dfQ);
+			}
+			
+			deliveryDao.deleteById(deliverid);
+		}
 		
 	}
 
