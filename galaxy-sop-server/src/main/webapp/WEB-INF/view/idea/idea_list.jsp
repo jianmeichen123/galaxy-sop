@@ -108,7 +108,7 @@
 		<input type="hidden" data-id="ideaNowId" value="" />
 		
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="idea/search" data-height="555" class="idea_list_table"
+			<table id="data-table" data-url="idea/search" class="idea_list_table"
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>

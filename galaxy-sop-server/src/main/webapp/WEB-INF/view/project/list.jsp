@@ -126,7 +126,7 @@
           </div>
         </div>
 		<div class="tab-pane active ctlist" id="view">	
-			<table id="project-table" data-url="project/search" data-height="555" 
+			<table id="project-table" data-url="project/search" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
