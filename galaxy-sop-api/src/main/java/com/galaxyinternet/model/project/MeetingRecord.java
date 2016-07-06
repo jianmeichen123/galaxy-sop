@@ -109,6 +109,12 @@ public class MeetingRecord  extends PagableRecordEntity{
 				this.meetingTypeStr = "立项会";
 			}else if(meetingType.equals("meetingType:4")){
 				meetingTypeStr = "投决会";
+			}else if(meetingType.equals("postMeetingType:1")){
+				meetingTypeStr = "周会议";
+			}else if(meetingType.equals("postMeetingType:2")){
+				meetingTypeStr = "月会议";
+			}else if(meetingType.equals("postMeetingType:3")){
+				meetingTypeStr = "季度会议";
 			}
 		}
         this.meetingType = meetingType == null ? null : meetingType.trim();
@@ -178,9 +184,9 @@ public class MeetingRecord  extends PagableRecordEntity{
 				meetingTypeStr = "投决会";
 			}else if(meetingType.equals("postMeetingType:1")){
 				meetingTypeStr = "周会议";
-			}else if(meetingType.equals("postMeetingType:1")){
+			}else if(meetingType.equals("postMeetingType:2")){
 				meetingTypeStr = "月会议";
-			}else if(meetingType.equals("postMeetingType:1")){
+			}else if(meetingType.equals("postMeetingType:3")){
 				meetingTypeStr = "季度会议";
 			}
 		}
