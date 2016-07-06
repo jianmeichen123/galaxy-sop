@@ -151,7 +151,7 @@ $(function(){
 	
 	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
 		$("[data-btn='to_add_deliver']").off();
-		$("data-btn='to_add_deliver'").remove();
+		$("[data-btn='to_add_deliver']").remove();
 	} else {
 		$("[data-btn='to_add_deliver']").text("添加事项");
 		$("[data-btn='to_add_deliver']").on("click",function(){
@@ -194,6 +194,14 @@ function operFormat(value,row,index){
 	var edit = "<label class=\"blue\" onclick=\"deliverInfoEdit('"+row.id+"','e')\" >编辑</label>";
 	var del = " <label class=\"blue\" onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
 	var downfile = " <label class=\"blue\">下载附件</label>";
+	var content = "";
+	if("${isCreatedByUser}"=="true")
+	{
+		content += edit;
+		content += del;
+	}
+	content += downfile;
+	return content;
 	return edit+del+downfile;
 }
 

@@ -106,6 +106,7 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	@RequestMapping(value = "/toprodeliver/{pid}", method = RequestMethod.GET)
 	public String toprolog(@PathVariable("pid") Long pid, HttpServletRequest request) {
 		request.setAttribute("pid", pid);
+		request.setAttribute("projectId", pid);
 		return "project/sopinfo/tab_delivery";
 	}
 	
