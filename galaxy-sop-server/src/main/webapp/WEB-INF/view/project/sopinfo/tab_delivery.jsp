@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8">
 <title>项目详情</title>
-
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
@@ -20,8 +20,7 @@
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<!-- 富文本编辑器 -->
-<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+
 
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 <script src="<%=path %>/js/sopinfo.js"></script>
@@ -77,6 +76,7 @@
 						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 					</div>
 				</div>
+				
 				<table id="project_delivery_table" class="commonsize delivery"
 					data-url="<%=path%>/galaxy/delivery/queryprodeliverypage" 
 					data-id-field="id"  data-page-list="[10, 20, 30]"
@@ -121,11 +121,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-<!-- 富文本编辑器 -->
-<script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
-<script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
-<script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
-<script id="e" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 
 
 
@@ -230,6 +225,7 @@ function deliverInfoEdit(selectRowId,type){
 					if(type == 'v'){
 						$("#popup_name").html("查看事项信息");
 						$("#choose_oper").remove();
+						$("#choose_up_file").remove();
 					}else if(type == 'e'){
 						$("#popup_name").html("编辑事项信息");
 						$("#deliver_form [name='id']").val(deliverInfo.id);
@@ -280,7 +276,7 @@ function to_del_deliver(selectRowId){
 function del_deliver(){  
 	var id = $("#del_deliver_id").val();
 	var _url =  Constants.sopEndpointURL + '/galaxy/delivery/deldelivery/'+id;
-	sendPostRequestByJsonObj(_url, content, function(data){
+	sendPostRequestByJsonObj(_url, {}, function(data){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();

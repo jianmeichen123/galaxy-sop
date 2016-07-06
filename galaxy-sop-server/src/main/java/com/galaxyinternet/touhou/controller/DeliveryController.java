@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -232,17 +233,24 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 		ResponseData<DeliveryBo> responseBody = new ResponseData<DeliveryBo>();
 		
 		try {
+			PageRequest pageRequest = new PageRequest();
+			Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
+			Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 10;
 			Direction direction = Direction.DESC;
-			String property = "updated_time";
-			if(!StringUtils.isEmpty(query.getProperty())){
-				if("desc".equals(query.getDirection())){
-					direction = Direction.DESC;
-				}else{
-					direction = Direction.ASC;
+			String property = "created_time"; //updated_time
+			if(StringUtils.isNotEmpty(query.getProperty())){
+				if(StringUtils.isNotEmpty(query.getDirection())){
+					try {
+						direction = Direction.fromString(query.getDirection());
+					} catch (Exception e) {
+						direction = Direction.ASC;
+					}
 				}
-				property = "created_time";
+				property = query.getProperty();
+				pageRequest = new PageRequest(pageNum,pageSize, direction,property);
+			}else {
+				pageRequest = new PageRequest(pageNum,pageSize,direction,new String[]{"CASE  WHEN IFNULL(updated_time,'')='' THEN created_time ELSE updated_time END ","created_time"});
 			}
-			PageRequest pageRequest = new PageRequest(query.getPageNum(), query.getPageSize(),direction,property);
 			
 			Page<DeliveryBo> deliverypage =  deliveryService.queryDeliveryPageList(query, pageRequest);
 			
