@@ -7,6 +7,7 @@
     <result column="project_id" jdbcType="BIGINT" property="projectId" />
     <result column="health_state" jdbcType="TINYINT" property="healthState" />
     <result column="rematk" jdbcType="VARCHAR" property="rematk" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="created_uid" jdbcType="BIGINT" property="createdUid" />
     <result column="created_time" jdbcType="BIGINT" property="createdTime" />
     <result column="updated_uid" jdbcType="BIGINT" property="updatedUid" />
@@ -14,7 +15,7 @@
   </resultMap>
   
   <sql id="Base_Column_List">
-    id, project_id, health_state, rematk, created_uid, created_time, updated_uid, updated_time
+    id, project_id, health_state, rematk, user_name, created_uid, created_time, updated_uid, updated_time
   </sql>
   
   <sql id="Base_Where_Clause">
@@ -24,6 +25,7 @@
 			      <if test="projectId != null"> and project_id = #{projectId,jdbcType=BIGINT} </if>
 			      <if test="healthState != null"> and health_state = #{healthState,jdbcType=TINYINT} </if>
 			      <if test="rematk != null"> and rematk = #{rematk,jdbcType=VARCHAR} </if>
+			      <if test="userName != null"> and user_name = #{userName,jdbcType=VARCHAR} </if>
 			      <if test="createdUid != null"> and created_uid = #{createdUid,jdbcType=BIGINT} </if>
 			      <if test="createdTime != null"> and created_time = #{createdTime,jdbcType=BIGINT} </if>
 			      <if test="updatedUid != null"> and updated_uid = #{updatedUid,jdbcType=BIGINT} </if>
@@ -75,10 +77,10 @@
  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.touhou.ProjectHealth">
  		 <![CDATA[
 	 		insert into sop_project_health (id, project_id, health_state, 
-		      rematk, created_uid, created_time, 
+		      rematk, user_name, created_uid, created_time, 
 		      updated_uid, updated_time)
 		    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{healthState,jdbcType=TINYINT}, 
-		      #{rematk,jdbcType=VARCHAR}, #{createdUid,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
+		      #{rematk,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{createdUid,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 		      #{updatedUid,jdbcType=BIGINT}, #{updatedTime,jdbcType=BIGINT})
  		 ]]>
  	</insert>
@@ -90,6 +92,7 @@
 	      <if test="projectId != null"> project_id = #{projectId,jdbcType=BIGINT} </if>
 	      <if test="healthState != null"> health_state = #{healthState,jdbcType=TINYINT} </if>
 	      <if test="rematk != null"> rematk = #{rematk,jdbcType=VARCHAR} </if>
+	      <if test="userName != null"> user_name = #{userName,jdbcType=VARCHAR} </if>
 	      <if test="createdUid != null"> created_uid = #{createdUid,jdbcType=BIGINT} </if>
 	      <if test="createdTime != null"> created_time = #{createdTime,jdbcType=BIGINT} </if>
 	      <if test="updatedUid != null"> updated_uid = #{updatedUid,jdbcType=BIGINT} </if>

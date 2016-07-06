@@ -2,21 +2,38 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+
 <div class="addmentc">
 	<div class="title_bj" id="popup_name"></div>
+	
     <div class="form clearfix">
         <div class="conference_all">
-        	<table class='health_case' cellpadding="0" cellspacing="0">
-            	<tr>
-                	<th>健康状况</th><th>风险点</th><th>分析人</th><th>分析日期</th>
-                </tr>
-            	<tr>
-                	<td>健康状况</td><td>风险点</td><td>分析人</td><td>分析日期</td>
-                </tr>
-            </table>
+        
+        
+	     	<div class="min_document clearfix" id="health-custom-toolbar" style="display:none;" >
+				<div class="bottom searchall clearfix">
+					<input type="hidden" name="projectId" value=""> 
+				</div>
+			</div>
+			
+			<table id="project_health_table" class="health_case"
+				data-url="<%=path%>/galaxy/health/queryhealthpage" 
+				data-id-field="id"  data-page-list="[5,10, 20]"
+				data-toolbar="#health-custom-toolbar">
+				<thead>
+					<tr>
+						<th data-field="healthStateStr" data-align="center" >健康状况</th>
+						<th data-field="rematk" data-align="center">风险点</th>
+						<th data-field="createdTime" data-align="center" data-formatter="longTime_Format" >分析日期</th>
+						<th data-field="userName" data-align="center" >分析人</th>
+					</tr>
+				</thead>
+			</table>
                
         </div>
     </div>
     
   	
 </div>
+
+
