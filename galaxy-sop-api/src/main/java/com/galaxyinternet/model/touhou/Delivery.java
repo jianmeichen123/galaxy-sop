@@ -10,11 +10,12 @@ public class Delivery extends PagableEntity {
 
     private Long projectId;
 
-    private String describe;
+    private String delDescribe;
 
     private String details;
 
-    private Byte status;
+    private Byte delStatus;  //0:未完成  1:已完成
+    private String statusFormat;
 
     private Byte fileNum;
 
@@ -24,6 +25,7 @@ public class Delivery extends PagableEntity {
     
     private List<File> files; 
 
+    private String endByUname;
 
     public Long getProjectId() {
         return projectId;
@@ -33,12 +35,12 @@ public class Delivery extends PagableEntity {
         this.projectId = projectId;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDelDescribe() {
+        return delDescribe;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDelDescribe(String delDescribe) {
+        this.delDescribe = delDescribe == null ? null : delDescribe.trim();
     }
 
     public String getDetails() {
@@ -49,12 +51,19 @@ public class Delivery extends PagableEntity {
         this.details = details == null ? null : details.trim();
     }
 
-    public Byte getStatus() {
-        return status;
+    public Byte getDelStatus() {
+        return delStatus;
     }
 
-    public void setStatus(Byte status) {
-        this.status = status;
+    public void setDelStatus(Byte delStatus) {
+    	if(delStatus!=null){
+			if(delStatus == 0){
+				statusFormat = "未完成";
+			}else if(delStatus == 1){
+				statusFormat = "已完成";
+			}
+		}
+        this.delStatus = delStatus;
     }
 
     public Byte getFileNum() {
@@ -88,6 +97,22 @@ public class Delivery extends PagableEntity {
 
 	public void setFiles(List<File> files) {
 		this.files = files;
+	}
+
+	public String getEndByUname() {
+		return endByUname;
+	}
+
+	public void setEndByUname(String endByUname) {
+		this.endByUname = endByUname;
+	}
+
+	public String getStatusFormat() {
+		return statusFormat;
+	}
+
+	public void setStatusFormat(String statusFormat) {
+		this.statusFormat = statusFormat;
 	}
 
     

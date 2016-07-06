@@ -11,6 +11,7 @@
         
         <!--右边        li  class="green_dot"  span class="green_dot_on"    <span class="gray_dot"></span> -->  
         <div class="new_right">
+        	<b class="sj_ico null">三角</b>
         	<!-- 投后运营Start -->
         	<c:if test="${aclViewProject }">
         	
@@ -42,7 +43,7 @@
 			<!-- 投后运营End -->
 			<!-- 投前Start -->
 			<div id="tq_div" style="display:none;">
-			<b class="sj_ico null">三角</b>
+			
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
                 	<ul class="line_ul_p" id="lct_ul">
@@ -102,7 +103,6 @@
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
-console.log("prograss="+prograss);
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
@@ -132,7 +132,6 @@ $(function(){
 	//获取近期访谈、会议 记录
 	if(prograss != 'projectProgress:10' && (admin == 'true' || isGG == 'true'))
 	{
-		console.log('this is show');
 		toFormatNearNotes();
 		//more 链接初始化
 		initMoreLine();

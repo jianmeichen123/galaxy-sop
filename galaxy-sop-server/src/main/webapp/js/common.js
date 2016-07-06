@@ -999,6 +999,13 @@ function tc_formatLog(value,row,index){
 function longTimeFormat(value, row, index){
 	return Number(value).toDate().format("yyyy/MM/dd")
 }
+function longTime_Format(value, row, index){
+	if(value){
+		return Number(value).toDate().format("yyyy-MM-dd")
+	}else
+		return "-";
+	
+}
 function longTimeFormatChines(value, row, index){
 	return Number(value).toDate().format("yyyy年MM月dd日 hh:mm:ss")
 }
