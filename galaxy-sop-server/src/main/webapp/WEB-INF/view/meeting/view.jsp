@@ -102,7 +102,7 @@
 				</colgroup>
 				<thead>
 					<tr>
-						 <th  data-formatter="metcolumnFormat">会议概况</th>
+						 <th  data-formatter="metcolumnFormat" data-class="th_no1">会议概况</th>
 						<!-- <th data-field="hygk" >会议概况</th> -->
 						<th   data-formatter="meetProInfoFormat" >项目信息</th>  
 						<th data-field="meetingNotes"  data-formatter="meetFormatLog">会议纪要</th>

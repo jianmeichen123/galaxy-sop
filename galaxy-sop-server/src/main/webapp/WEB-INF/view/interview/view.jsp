@@ -92,13 +92,13 @@
 	          		data-toolbar="#custom-toolbar" data-page-list="[10,20,30]"
 					data-id-field="id" data-unique-id="id" data-show-refresh="true">
 				<colgroup >
-					<col style="width:20%;"> <!-- 名称 -->
 					<col style="width:30%;"> <!-- 名称 -->
+					<col style="width:20%;"> <!-- 名称 -->
 					<col style="width:50%;">  <!-- 状态 -->
 				</colgroup>
 				<thead>
 					<tr>
-						<th  data-formatter="intervierInfoFormat">访谈概况</th>
+						<th  data-formatter="intervierInfoFormat" data-class="th_no1">访谈概况</th>
 						<th  data-field="proName" >所属项目</th>  
 						<th  data-field="viewNotes"  data-formatter="viewNotesFormat">访谈日志</th>
 						<!-- <th  data-field="createdId" ></th> -->

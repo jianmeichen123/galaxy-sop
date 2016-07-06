@@ -1765,6 +1765,7 @@ font-family: "宋体";
 /*访谈表格*/
 .no0_1{width:20%;}
 .no0_2{width:60%;padding-left:5px !important;}
+.th_no1 .th-inner {margin-left:30px !important;}
 
 /*访谈表格*/
 .no1{width:35%;}
