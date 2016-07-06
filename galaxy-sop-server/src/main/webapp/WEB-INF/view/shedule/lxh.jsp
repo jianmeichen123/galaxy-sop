@@ -244,6 +244,9 @@
 	});
 
 	var initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
+	$("button[action='querySearch']").click(function(){
+		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
+	});
 	$("#meeting-shedule-list").bootstrapTable({
 		queryParamsType: 'size|page',
 		pageSize:10,
