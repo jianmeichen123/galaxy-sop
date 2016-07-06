@@ -4,10 +4,10 @@ import java.text.ParseException;
 import java.util.Date;
 
 import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.model.common.RecordEntity;
+import com.galaxyinternet.model.common.PagableRecordEntity;
 
 
-public class MeetingRecord  extends RecordEntity{
+public class MeetingRecord  extends PagableRecordEntity{
 	private static final long serialVersionUID = 1L;
 
 	 private Long projectId;
@@ -31,6 +31,10 @@ public class MeetingRecord  extends RecordEntity{
     private String fname;
     
     private String participant;
+    
+    private String meetingName;
+    
+    private String createUid;
     
     private byte meetValid; //0表示有效，1表示无效
     
@@ -230,10 +234,24 @@ public class MeetingRecord  extends RecordEntity{
 		this.meetingNotesText = meetingNotesText;
 	}
 
+	
     
-	
-	
-	
+
+	public String getCreateUid() {
+		return createUid;
+	}
+
+	public void setCreateUid(String createUid) {
+		this.createUid = createUid;
+	}
+
+	public String getMeetingName() {
+		return meetingName;
+	}
+
+	public void setMeetingName(String meetingName) {
+		this.meetingName = meetingName;
+	}
 
 	public static String dateStrformat(String dateStr){  //2016-05-27 16:00:00   19
 		int len = dateStr.length();

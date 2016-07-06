@@ -63,6 +63,11 @@ import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 
+
+/**
+ * 投后阶段    交割前事项
+ */
+
 @Controller
 @RequestMapping("/galaxy/delivery")
 public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo> {

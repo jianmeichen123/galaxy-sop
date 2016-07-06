@@ -68,6 +68,9 @@
 					<!--按钮-->
 					<div class="btnbox_f btnbox_f1 clearfix">
 						<a href="javascript:void(0)"  class="pubbtn bluebtn ico c4" data-btn='to_add_deliver' data-name='添加事项'></a>
+						
+						<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
+                        <a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
 					</div>
 				</div>
 				
@@ -134,20 +137,7 @@ $(function(){
 	
 	$("#projectId").val(proid);
 	
-	$('#project_delivery_table').bootstrapTable({
-		queryParamsType: 'size|page', // undefined
-		pageSize:5,
-		pageList : [10, 20, 30 ],
-		showRefresh : false ,
-		sidePagination: 'server',
-		method : 'post',
-		pagination: true,
-		uniqueId: "id", 
-		idField : "id",
-		clickToSelect: true,
-        search: false,
-	});
-	
+	init_bootstrapTable('project_delivery_table',10);
 	
 	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
 		$("[data-btn='to_add_deliver']").off();
@@ -170,7 +160,22 @@ $(function(){
 		});
 	}
 });	
-	
+
+function init_bootstrapTable(table_id,page_size){
+	$('#'+table_id).bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		pageSize:page_size,
+		pageList : [10, 20, 30 ],
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+		uniqueId: "id", 
+		idField : "id",
+		clickToSelect: true,
+        search: false,
+	});
+}
 
 /**
  *  状态 format
@@ -192,15 +197,17 @@ function infoDeliverFormat(value,row,index){
  */
 function operFormat(value,row,index){  
 	var edit = "<label class=\"blue\" onclick=\"deliverInfoEdit('"+row.id+"','e')\" >编辑</label>";
-	var del = " <label class=\"blue\" onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
-	var downfile = " <label class=\"blue\">下载附件</label>";
+	var del = "<label class=\"blue\" onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
+	var downfile = "<label class=\"blue\">下载附件</label>";
 	var content = "";
-	if("${isCreatedByUser}"=="true")
-	{
+	if("${isCreatedByUser}"=="true"){
 		content += edit;
 		content += del;
 	}
-	content += downfile;
+	if(row.fileNum){
+		content += downfile;
+	}
+	
 	return content;
 }
 
@@ -295,7 +302,80 @@ function del_deliver(){
 }	
 
 
+
+
+//============================健康状况
+$(function(){
+	show_health_case();
+	show_health_status();
+});
+
+function hide_health_case(){
+	$("[data-btn='health_case']").off();
+	$("[data-btn='health_case']").remove();
+}
+function hide_health_status(){
+	$("[data-btn='health_status']").off();
+	$("[data-btn='health_status']").remove();
+}
+ /**
+  * 健康记录  列表
+  */
+function show_health_case(){
+	$("[data-btn='health_case']").text("健康状况变更记录");
+	$("[data-btn='health_case']").on("click",function(){
+		var $self = $(this);
+		var _name= $self.attr("data-name");
+		var _url = Constants.sopEndpointURL + '/galaxy/health/tohealthlist';
+		$.getHtml({
+			url:_url,
+			data:"",
+			okback:function(){
+				$("#popup_name").html(_name);
+				$("#health-custom-toolbar [name='projectId']").val(proid);
+				
+				init_bootstrapTable('project_health_table',5);
+			}
+		});
+		return false;
+	});
+}
+/**
+ * 健康记录  添加
+ */
+function show_health_status(){
+	$("[data-btn='health_status']").text("健康状况");
+	$("[data-btn='health_status']").on("click",function(){
+		var $self = $(this);
+		var _name= $self.attr("data-name");
+		var _url = Constants.sopEndpointURL + '/galaxy/health/toaddhealth';
+		$.getHtml({
+			url:_url,
+			data:"",
+			okback:function(){
+				$("#popup_name").html(_name);
+				$("#health_form [name='projectId']").val(proid);
+			}
+		});
+		return false;
+	});
+}
+function save_health(){
+	var content = JSON.parse($("#health_form").serializeObject());
+	var _url =  Constants.sopEndpointURL + '/galaxy/health/addhealth'
+	sendPostRequestByJsonObj(_url, content, function(data){
+		if (data.result.status=="OK") {
+			layer.msg("保存成功");
+			removePop1();
+			$("#project_delivery_table").bootstrapTable('refresh');
+		} else {
+			layer.msg(data.result.message);
+		}
+	});
 	
+}
+
+
 	
 </script>
 </html>
