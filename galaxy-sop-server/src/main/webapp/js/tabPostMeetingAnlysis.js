@@ -77,11 +77,14 @@ var meetGrid = {
 			    });
 		},
 		operateFormatter : function(value, row, index){
-			return [
-			        '<a class="meet_edit blue"  href="javascript:void(0)">编辑</a>  ',
-		            '<a class="meet_delete blue" href="javascript:void(0)">删除</a>  ',
-		            '<a class="meet_download blue" href="javascript:void(0)">下载附件</a>  ',
-		        ].join('');
+			var btns = "";
+			if("isCreatedByUser" == "true")
+			{
+				btns += '<a class="meet_edit blue"  href="javascript:void(0)">编辑</a>  ';
+				btns += '<a class="meet_delete blue" href="javascript:void(0)">删除</a>  ';
+			}
+			btns += '<a class="meet_download blue" href="javascript:void(0)">下载附件</a>  '
+			return btns;
 		},
 		operateEvents : {
 			

@@ -72,9 +72,13 @@
                     <div class="top clearfix">
                         <!--按钮-->
                         <div class="btnbox_f btnbox_f1 clearfix">
+                        	<c:if test="${isCreatedByUser}">
                             <a class="pbtn bluebtn h_bluebtn" href="tchtml/conference.html" data-btn="conference" data-name='添加运营会议纪要'>添加运营会议纪要</a>
+                        	</c:if>
                             <a class="pbtn bluebtn h_bluebtn" href="tchtml/health_case.html" data-btn="health_case" data-name='健康状况变更记录'>健康状况记录变更</a>
+                            <c:if test="${isCreatedByUser}">
                             <a class="pbtn bluebtn h_bluebtn" href="tchtml/statustc.html" data-btn="status" data-name='健康状况'>健康状态</a>
+                            </c:if>
                         </div>
                     </div>
                     <!-- 搜索条件 -->
