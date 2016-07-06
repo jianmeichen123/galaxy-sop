@@ -18,7 +18,7 @@
 			</span>
         </div>
 </body>
-<script src="<%=request.getContextPath() %>/js/cookie.js"></script>
+<%-- <script src="<%=request.getContextPath() %>/js/cookie.js"></script> --%>
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isCreatedByUser" value="${fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <script>
