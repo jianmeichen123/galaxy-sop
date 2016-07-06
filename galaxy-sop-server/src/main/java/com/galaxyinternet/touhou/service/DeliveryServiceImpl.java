@@ -1,5 +1,6 @@
 package com.galaxyinternet.touhou.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.bo.project.InterviewRecordBo;
+import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.touhou.DeliveryBo;
+import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.touhou.DeliveryDao;
 import com.galaxyinternet.dao.touhou.DeliveryFileDao;
 import com.galaxyinternet.framework.core.constants.SqlId;
@@ -25,6 +28,7 @@ import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
+import com.galaxyinternet.model.touhou.DeliveryFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DeliveryService;
 import com.galaxyinternet.service.UserService;
@@ -40,6 +44,9 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	private DeliveryFileDao deliveryFileDao;
 	
 	@Autowired
+	private SopFileDao fileDao;
+	
+	@Autowired
 	private UserService userService;
 	
 	@Override
@@ -51,6 +58,23 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	@Override
 	public Delivery selectDelivery(Long deliveryId) {
 		Delivery delivery = deliveryDao.selectById(deliveryId);
+		
+		if(delivery!=null & delivery.getFileNum()!=null){
+			DeliveryFile query = new DeliveryFile();
+			query.setDeliveryId(deliveryId);
+			List<DeliveryFile> dfilelist = deliveryFileDao.selectList(query); //事项 文件 关联
+			
+			if(dfilelist!=null && !dfilelist.isEmpty()){
+				List<Long> fileidlist = new ArrayList<Long>();
+				for(DeliveryFile adf : dfilelist){
+					fileidlist.add(adf.getFileId());
+				}
+				SopFileBo sf = new SopFileBo();
+				sf.setIds(fileidlist);
+				List<SopFile> files = fileDao.selectList(sf);  //文件
+				delivery.setFiles(files);
+			}
+		}
 		return delivery;
 	}
 
