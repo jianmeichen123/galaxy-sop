@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,12 @@ import com.galaxyinternet.dao.touhou.DeliveryFileDao;
 import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.file.FileResult;
+import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
+import com.galaxyinternet.framework.core.model.Result;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.project.InterviewRecord;
@@ -32,11 +38,12 @@ import com.galaxyinternet.model.touhou.DeliveryFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DeliveryService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.touhou.controller.DeliveryController;
 
 
 @Service("com.galaxyinternet.touhou.service.DeliveryServiceImpl")
 public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements DeliveryService {
-
+	final Logger logger = LoggerFactory.getLogger(DeliveryServiceImpl.class);
 	@Autowired
 	private DeliveryDao deliveryDao;
 	
@@ -75,6 +82,28 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		List<SopFile> files = fileDao.selectList(sf);  //文件
 		return files;
 	}
+	
+	/**
+	 * 由 文件 ids 删除 aliyun 文件
+	 */
+	public void delAliyunFiles(List<Long> ids){
+		List<SopFile> files = getFilesByIds(ids);  //文件
+		if(files!=null){
+			for(SopFile file : files){
+				try {
+					FileResult fileResult = OSSHelper.deleteFile(file.getBucketName(), file.getFileKey());
+					if(fileResult.getResult().getStatus().equals(Status.ERROR)){
+						logger.error("delAliyunFiles 删除 aliyun 文件失败");
+					}
+				} catch (Exception e) {
+					logger.error("delAliyunFiles 删除 aliyun 文件失败 "+ GSONUtil.toJson(file),e);
+				}
+				
+			}
+		}
+	}
+	
+	
 	
 	
 	/**
@@ -123,26 +152,31 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	@Override
 	public void delDeliveryById(Long deliverid) {
 		Delivery delivery = deliveryDao.selectById(deliverid);
+		List<Long> fileidlist = new ArrayList<Long>();
+		
 		if(delivery!=null & delivery.getFileNum()!=null){
 			List<DeliveryFile> dfilelist = getDfileById(deliverid); //事项 文件 关联
 			
 			if(dfilelist!=null && !dfilelist.isEmpty()){
-				List<Long> fileidlist = new ArrayList<Long>();
+				
 				for(DeliveryFile adf : dfilelist){
 					fileidlist.add(adf.getFileId());
 				}
 				SopFileBo fileQ = new SopFileBo();
 				fileQ.setIds(fileidlist);
-				fileDao.delete(fileQ);
+				fileDao.delete(fileQ);    // 删除 file、表
 				
 				DeliveryFile dfQ = new DeliveryFile();
 				dfQ.setFileIds(fileidlist);
-				deliveryFileDao.delete(dfQ);
+				deliveryFileDao.delete(dfQ); // 删除 中间表
 			}
 			
-			deliveryDao.deleteById(deliverid);
+			deliveryDao.deleteById(deliverid);  // 删除  事项
 		}
 		
+		if(fileidlist!=null && !fileidlist.isEmpty()){  // 删除 阿里云 文件
+			delAliyunFiles(fileidlist);
+		}
 	}
 
 	@Override
