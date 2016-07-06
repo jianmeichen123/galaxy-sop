@@ -197,15 +197,17 @@ function infoDeliverFormat(value,row,index){
  */
 function operFormat(value,row,index){  
 	var edit = "<label class=\"blue\" onclick=\"deliverInfoEdit('"+row.id+"','e')\" >编辑</label>";
-	var del = " <label class=\"blue\" onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
-	var downfile = " <label class=\"blue\">下载附件</label>";
+	var del = "<label class=\"blue\" onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
+	var downfile = "<label class=\"blue\">下载附件</label>";
 	var content = "";
-	if("${isCreatedByUser}"=="true")
-	{
+	if("${isCreatedByUser}"=="true"){
 		content += edit;
 		content += del;
 	}
-	content += downfile;
+	if(row.fileNum){
+		content += downfile;
+	}
+	
 	return content;
 }
 
