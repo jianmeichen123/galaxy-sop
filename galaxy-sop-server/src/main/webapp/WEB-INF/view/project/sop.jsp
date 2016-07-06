@@ -246,7 +246,7 @@
 					 data-toolbar="#projectProgress_1_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th  data-formatter="intervierInfoFormat">访谈概况</th>
+							<th  data-formatter="intervierInfoFormat" class="th_no1">访谈概况</th>
 						<!-- <th data-field="ftgk" >访谈概况</th> -->
 						<th data-field="viewNotes"  data-formatter="tc_viewNotesFormat">访谈日志</th>
 						</tr>
@@ -271,7 +271,7 @@
 					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[10,20,30]">
 					<thead>
 						<tr>
-							<th  data-formatter="metcolumnFormat">会议概况</th>
+							<th  data-formatter="metcolumnFormat" class="th_no1">会议概况</th>
 							<th data-field="meetingNotes"  data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
@@ -299,7 +299,7 @@
 					data-toolbar="#projectProgress_3_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th  data-formatter="metcolumnFormat">会议概况</th>
+							<th  data-formatter="metcolumnFormat" class="th_no1">会议概况</th>
 							<th data-field="meetingNotes"  data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
@@ -327,7 +327,7 @@
 					data-toolbar="#projectProgress_4_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th  data-formatter="metcolumnFormat">会议概况</th>
+							<th  data-formatter="metcolumnFormat" class="th_no1">会议概况</th>
 							<th data-field="meetingNotes"  data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
@@ -354,7 +354,7 @@
 					data-toolbar="#projectProgress_7_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th  data-formatter="metcolumnFormat">会议概况</th>
+							<th  data-formatter="metcolumnFormat" class="th_no1">会议概况</th>
 							<th data-field="meetingNotes"  data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
@@ -379,7 +379,7 @@
 				<table width="100%" cellspacing="0" cellpadding="0">
 					<thead>
 						<tr>
-							<th>业务类别</th>
+							<th style="padding-left:5px;">业务类别</th>
 							<th>更新日期</th>
 							<th>经办部门</th>
 							<th>存储类型</th>
