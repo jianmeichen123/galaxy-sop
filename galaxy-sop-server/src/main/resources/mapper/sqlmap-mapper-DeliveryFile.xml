@@ -71,9 +71,9 @@
 	
  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.touhou.DeliveryFile">
  		 <![CDATA[
-	 		insert into sop_delivery_file (id, delivery_id, file_id
+	 		insert into sop_delivery_file (delivery_id, file_id
 		      )
-		    values (#{id,jdbcType=BIGINT}, #{deliveryId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}
+		    values (#{deliveryId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}
 		      )
  		 ]]>
  	</insert>
