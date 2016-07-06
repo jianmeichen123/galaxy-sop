@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>项目详情</title>
+<title>项目详情00000</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
@@ -124,7 +124,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-
+<script src="<%=path %>/js/batchUpload.js" type="text/javascript" charset="utf-8"></script>
 
 
 <script>
@@ -154,6 +154,23 @@ $(function(){
 				okback:function(){
 					$("#popup_name").html(_name);
 					$("#deliver_form [name='projectId']").val(proid);
+					
+					var delDescribe = $("#delDescribe").val();
+					var details = $("#details").val();
+					var delStatus = $("#delStatus").val();
+					
+					toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
+					Constants.sopEndpointURL + '/galaxy/delivery/operdelivery',"textarea2","select_btn","save_file","container","filelist",
+							function paramsFunction(){
+								var mytime=Date.parse(new Date());     //获取当前时间
+								var	condition = {};
+								condition.projectId = proid;
+								condition.fileReidsKey = mytime;
+								condition.delDescribe = delDescribe;
+								condition.details = details;
+								condition.delStatus = delStatus;
+								return condition;
+					});
 				}
 			});
 			return false;

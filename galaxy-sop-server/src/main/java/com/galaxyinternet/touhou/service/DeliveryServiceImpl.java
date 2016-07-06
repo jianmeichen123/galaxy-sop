@@ -2,6 +2,7 @@ package com.galaxyinternet.touhou.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -12,10 +13,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.touhou.DeliveryBo;
+import com.galaxyinternet.common.SopResult;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.touhou.DeliveryDao;
 import com.galaxyinternet.dao.touhou.DeliveryFileDao;
@@ -30,6 +34,7 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -37,8 +42,10 @@ import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.touhou.DeliveryFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DeliveryService;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.touhou.controller.DeliveryController;
+import com.galaxyinternet.model.touhou.DeliveryFile;
 
 
 @Service("com.galaxyinternet.touhou.service.DeliveryServiceImpl")
@@ -55,6 +62,9 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ProjectService projectService;
 	
 	@Override
 	protected BaseDao<Delivery, Long> getBaseDao() {
@@ -214,6 +224,39 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		}
 		
 		return page;
+	}
+
+
+
+	@Override
+	@Transactional
+	public SopResult insertDelivery(List<SopFile> sopfiles, Delivery delivery) {
+		Project project = projectService.queryById(delivery.getProjectId());
+		// TODO Auto-generated method stub
+		Long delid = null;
+		delid = deliveryDao.insert(delivery);
+		Long fid = null;
+		for(SopFile sopfile:sopfiles){
+			SopFile file = new SopFile();
+			file.setProjectId(delivery.getProjectId());
+			file.setProjectProgress(project.getProjectProgress());
+			file.setCareerLine(project.getProjectDepartid());
+			file.setFileType(DictEnum.fileType.音频文件.getCode());
+			file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+			file.setFileUid(project.getCreateUid());
+			file.setCreatedTime((new Date()).getTime());
+			file.setFileLength(sopfile.getFileLength());
+			file.setFileKey(sopfile.getFileKey());
+			file.setBucketName(sopfile.getBucketName());
+			file.setFileName(sopfile.getFileName());
+			file.setFileSuffix(sopfile.getFileSuffix());
+			fid = fileDao.insert(file);
+			DeliveryFile df = new DeliveryFile();
+			df.setDeliveryId(delid);
+			df.setFileId(fid);
+			deliveryFileDao.insert(df);
+		}
+		return new SopResult(Status.OK,null,"添加交割事件成功!",UrlNumber.four,null);
 	}
 
 

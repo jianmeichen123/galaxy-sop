@@ -3,7 +3,7 @@
 	String path = request.getContextPath(); 
 %>
 
-<div class="addmentc">
+<div class="addmentc" id="container">
 	<div class="title_bj" id="popup_name"></div>
 	
     <div class="form clearfix">
@@ -24,7 +24,7 @@
             
             <dl class="fmdl fl_l">
                  <dt>完成情况：</dt>
-                 <dd><label for=""><input type="radio" name="delStatus" value="0" checked="checked" >未完成</label></dd>
+                 <dd><label for=""><input type="radio" id="delStatus" name="delStatus" value="0" checked="checked" >未完成</label></dd>
                  <dd><label for=""><input type="radio" name="delStatus" value="1">已完成</label></dd>
             </dl>
             </form>
@@ -35,8 +35,18 @@
             <dl class="fmdl fl_l" id="choose_up_file">
                  <dt>上传附件 ：</dt>
                  <dd><input class="area_input" name="textarea2" id="textarea2" cols="45" rows="5"></input></dd>
-                 <dd> <a href="javascript:;"  class="register_all_affrim fl">选择附件</a></dd>
+                 <dd> <a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a></dd>
             </dl>  
+            <dl>
+                 <table style="width: 600px" id="filelist" border="1">
+                    <tr>
+                      <td>文件名称</td>
+                      <td>文件大小</td>
+                      <td>操作</td>
+                      <td>上传进度</td>
+                    </tr>
+                 </table> 
+            </dl>
             <dl class="fmdl fl_l" id="show_up_file">
                  <dt>&nbsp;</dt>
                  <dd class="overflow_y">
@@ -52,7 +62,7 @@
     
     
     <div class="button_affrim" id="choose_oper">
-        <a href="javascript:;"  class="register_all_affrim fl" onclick="save_deliver()">确认</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="save_file">确认</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
   	

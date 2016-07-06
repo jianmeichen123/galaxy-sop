@@ -1,9 +1,13 @@
 package com.galaxyinternet.service;
 
+import java.util.List;
+
 import com.galaxyinternet.bo.touhou.DeliveryBo;
+import com.galaxyinternet.common.SopResult;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 
 public interface DeliveryService extends BaseService<Delivery> {
@@ -18,5 +22,8 @@ public interface DeliveryService extends BaseService<Delivery> {
 	
 	public Page<DeliveryBo> queryDeliveryPageList(DeliveryBo query, PageRequest pageRequest);
 
+	
+	public SopResult insertDelivery(List<SopFile> sopfiles,Delivery delivery);
+    
 	
 }

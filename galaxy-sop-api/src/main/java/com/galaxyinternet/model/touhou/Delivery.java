@@ -26,8 +26,19 @@ public class Delivery extends PagableEntity {
     private List<SopFile> files; 
 
     private String endByUname;
+    
+    private String fileReidsKey;
+    
 
-    public Long getProjectId() {
+    public String getFileReidsKey() {
+		return fileReidsKey;
+	}
+
+	public void setFileReidsKey(String fileReidsKey) {
+		this.fileReidsKey = fileReidsKey;
+	}
+
+	public Long getProjectId() {
         return projectId;
     }
 

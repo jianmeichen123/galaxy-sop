@@ -30,10 +30,12 @@ import org.springframework.web.servlet.ModelAndView;
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.touhou.DeliveryBo;
+import com.galaxyinternet.common.SopResult;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
+import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.file.OSSHelper;
@@ -62,6 +64,7 @@ import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.BatchUploadFile;
 
 
 /**
@@ -86,6 +89,10 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	private SopFileService sopFileService;
 	@Autowired
 	private DepartmentService departmentService;
+	@Autowired
+	BatchUploadFile batchUpload;
+	@Autowired
+	Cache cache;
 
 	private String tempfilePath;
 
@@ -160,35 +167,40 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	 * 添加/编辑事项
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/operdelivery", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Delivery> operDelivery(@RequestBody Delivery delivery,HttpServletRequest request,HttpServletResponse response ) {
+	@RequestMapping(value = "/operdelivery", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Delivery> operDelivery(@RequestBody Delivery delivery,HttpServletRequest request) {
 		ResponseData<Delivery> responseBody = new ResponseData<Delivery>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		
-		if(delivery == null || delivery.getProjectId() == null || delivery.getDelDescribe() == null ){
+		if(delivery == null || delivery.getProjectId() == null || delivery.getDelDescribe() == null || delivery.getFileReidsKey() == null){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善信息"));
 			return responseBody;
 		}
-		
-		try {
-			Long id = null;
-			boolean isIn = delivery.getId()==null;
-			if(isIn){ 
-				delivery.setCreatedUid(user.getId()); 
-				id = deliveryService.insertDelivery(delivery);
-			}else{ 
-				delivery.setUpdatedUid(user.getId()); 
-				id = deliveryService.updateDelivery(delivery);
-			}
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(id);
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
-			
-			if(logger.isErrorEnabled()){
-				logger.error("operDelivery 操作失败",e);
+		ResponseData<SopFile> result = batchUpload.batchUpload(user.getId()+delivery.getFileReidsKey());
+		if(Status.OK.equals(result.getResult().getStatus())){
+			List<SopFile> fileList = result.getEntityList();
+			//处理业务逻辑
+			try {
+				Long id = null;
+				boolean isIn = delivery.getId()==null;
+				if(isIn){ 
+					delivery.setCreatedUid(user.getId()); 
+					SopResult sopResult = deliveryService.insertDelivery(fileList, delivery);
+					if(Status.OK.equals(sopResult.getStatus())){
+						responseBody.setResult(new Result(Status.OK, ""));
+					}
+				}else{ 
+					delivery.setUpdatedUid(user.getId()); 
+					id = deliveryService.updateDelivery(delivery);
+				}
+				
+			} catch (Exception e) {
+				responseBody.setResult(new Result(Status.ERROR,null, "操作失败"));
+				if(logger.isErrorEnabled()){
+					logger.error("operDelivery 操作失败",e);
+				}
 			}
 		}
+		responseBody.setResult(result.getResult());
 		return responseBody;
 	}
 	
