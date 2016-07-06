@@ -282,6 +282,9 @@
 	$(function(){
 		//返回附带参数功能代码
 		var initParams = cookieOperator.pullCookie({_paramKey : 'projectList'});
+		$("button[action='querySearch']").click(function(){
+			initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
+		});
 		/**
 		 * 初始化项目列表
 		 * @version 2016-06-21
