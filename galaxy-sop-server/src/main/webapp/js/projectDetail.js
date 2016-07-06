@@ -283,9 +283,9 @@ $(function(){
 		var proStatus = projectInfo.projectStatus;
 		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
 		if(pronum == 0 || pronum == 1){
-			return "<img src=\"<%=path%>/img/process/p"+num+".gif\" class=\"fl\">"+row.progress;
+			return "<img src='"+Constants.sopEndpointURL+"img/process/p"+num+".gif' >";
 		}else{
-			return "<img src=\"<%=path%>/img/process/pd"+num+".gif\" class=\"fl\">"+row.progress;
+			return "<img src='"+Constants.sopEndpointURL+"img/process/pd"+num+".gif'>";
 		}
 	}
 	$("[data-on='save']").click(function(){
