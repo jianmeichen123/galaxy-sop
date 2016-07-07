@@ -3,20 +3,16 @@ package com.galaxyinternet.touhou.controller;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -25,46 +21,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.galaxyinternet.bo.project.InterviewRecordBo;
-import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.touhou.DeliveryBo;
-import com.galaxyinternet.common.SopResult;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
-import com.galaxyinternet.common.enums.DictEnum;
-import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
-import com.galaxyinternet.framework.core.constants.UserConstant;
-import com.galaxyinternet.framework.core.file.OSSHelper;
-import com.galaxyinternet.framework.core.file.UploadFileResult;
-import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
-import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.framework.core.utils.GSONUtil;
-import com.galaxyinternet.framework.core.utils.JSONUtils;
-import com.galaxyinternet.model.department.Department;
-import com.galaxyinternet.model.operationLog.UrlNumber;
-import com.galaxyinternet.model.project.FormatData;
-import com.galaxyinternet.model.project.InterviewRecord;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DeliveryService;
-import com.galaxyinternet.service.DepartmentService;
-import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
-import com.galaxyinternet.service.UserRoleService;
-import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.BatchUploadFile;
 
 
@@ -81,15 +55,7 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	@Autowired
 	private DeliveryService deliveryService;
 	@Autowired
-	private UserService userService;
-	@Autowired
-	private UserRoleService userRoleService;
-	@Autowired
-	private ProjectService projectService;
-	@Autowired
 	private SopFileService sopFileService;
-	@Autowired
-	private DepartmentService departmentService;
 	@Autowired
 	BatchUploadFile batchUpload;
 	@Autowired
