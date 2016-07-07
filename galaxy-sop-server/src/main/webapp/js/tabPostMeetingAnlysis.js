@@ -226,6 +226,8 @@ var editPostMeetingDialog = {
 						saveCallBackFuc : function(data){
 							if(data.result.status=="OK"){
 								layer.msg("保存成功");
+								//刷新投后运营简报信息
+								setThyyInfo();
 							}else{
 								layer.msg(data.result.errorCode);
 							}

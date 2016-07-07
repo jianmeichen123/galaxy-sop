@@ -211,6 +211,8 @@ function save_health(){
 		if (data.result.status=="OK") {
 			layer.msg("保存成功");
 			removePop1();
+			//刷新投后运营简报信息
+			setThyyInfo();
 			$("#project_delivery_table").bootstrapTable('refresh');
 		} else {
 			layer.msg(data.result.message);
