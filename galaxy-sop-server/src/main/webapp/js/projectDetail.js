@@ -16,13 +16,13 @@ $(function(){
 		$("#projectType").text(projectInfo.type);
 		$("#project_contribution").text(projectInfo.projectContribution==0||typeof(projectInfo.projectContribution)=="undefined"?"--":projectInfo.projectContribution);
 		$("#project_valuations").text(projectInfo.projectValuations==0||typeof(projectInfo.projectValuations)=="undefined"?"--":projectInfo.projectValuations);
-		$("#project_share_ratio").text(projectInfo.projectShareRatio==0||typeof(projectInfo.projectShareRatio)=="undefined"?"--":projectInfo.projectShareRatio);
+		$("#project_share_ratio").text(typeof(projectInfo.projectShareRatio)=="undefined"?"--":projectInfo.projectShareRatio);
 		$("#projectProgress").text(projectInfo.progress);
 		$("#projectStatusDs").text(projectInfo.projectStatusDs);
 		$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
 		$("#finalValuations").text(projectInfo.finalValuations==0||typeof(projectInfo.finalValuations)=="undefined"?"--":projectInfo.finalValuations);
 		$("#finalContribution").text(projectInfo.finalContribution==0||typeof(projectInfo.finalContribution)=="undefined"?"--":projectInfo.finalContribution);
-		$("#finalShareRatio").text(projectInfo.finalShareRatio==0||typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);
+		$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
@@ -39,13 +39,13 @@ $(function(){
 			$("#projectType_edit").text(projectInfo.type);
 			$("#project_contribution_edit").val(projectInfo.projectContribution==0?"":projectInfo.projectContribution);
 			$("#project_valuations_edit").val(projectInfo.projectValuations==0?"":projectInfo.projectValuations);
-			$("#project_share_ratio_edit").val(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
+			$("#project_share_ratio_edit").val(projectInfo.projectShareRatio==0?0:projectInfo.projectShareRatio);
 			$("#projectProgress_edit").text(projectInfo.progress);
 			$("#projectStatusDs_edit").text(projectInfo.projectStatusDs);
 			$("#financeStatusDs_edit").text(projectInfo.financeStatusDs);
 			$("#finalValuations_edit").val(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
 			$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
-			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
+			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?0:projectInfo.finalShareRatio);
 			 p=projectInfo.industryOwn;
 		    fs=projectInfo.financeStatus;
 			//融资

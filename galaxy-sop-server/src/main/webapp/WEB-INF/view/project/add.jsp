@@ -57,7 +57,7 @@
                         </li>
                         <li>
                             <span class="basic_span"><em class="red">*</em>项目名称：</span>
-                            <span class="m_r30"><input type="text" class='new_nputr' id="projectName" name="projectName" valType="required" msg="<font color=red>*</font>项目名称不能为空"/></span>
+                            <span class="m_r30"><input type="text" class='new_nputr' maxlength="24" id="projectName" name="projectName" valType="required" msg="<font color=red>*</font>项目名称不能为空"/></span>
                             <span class="basic_span"><em class="red">*</em>创建时间：</span>
                             <span class="m_r30"><input type="text" class='datepicker-text new_nputr' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
                         </li>
@@ -99,7 +99,7 @@
                         <li>
                         	<span class="basic_span">出让股份：</span>
                             <span class="m_r15">
-                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^([1-9][0-9](\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
+                            	<input type="text" class='new_nputr_number' id="formatShareRatio" name="formatShareRatio" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>
                             </span>
                             <span class="m_r30">% </span>
                         </li>
