@@ -154,7 +154,6 @@ $(function(){
 				okback:function(){
 					$("#popup_name").html(_name);
 					$("#deliver_form [name='projectId']").val(proid);
-					
 					toInitBachUpload();
 				}
 			});
@@ -167,9 +166,9 @@ function toInitBachUpload(){
 	toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
 					Constants.sopEndpointURL + '/galaxy/delivery/operdelivery',"textarea2","select_btn","save_file","container","filelist",
 							function paramsFunction(){
-								var mytime=Date.parse(new Date());     //获取当前时间
-								var	condition = {};
-								condition.fileReidsKey = mytime;
+								var condition = JSON.parse($form.serializeObject());
+								condition.fileReidsKey = Date.parse(new Date());
+								condition.fileNum = $("#filelist").children().length - 1;
 								return condition;
 					},"deliver_form");
 }
@@ -234,12 +233,14 @@ function deliverInfoEdit(selectRowId,type){
 					$("#deliver_form [name='delStatus'][value='"+deliverInfo.delStatus+"']").attr("checked",'checked');
 					
 					$.each(data.entity.files,function(){
-						$("#filelist").append("<tr id='"+this.id+"tr'>"+
-													"<td>"+this.fileName+"</td>"+
-													"<td>"+this.fileLength+"</td>"+
-													"<td><button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button> </td>"+
-													"<td>100%</td>"+
-												"</tr>");
+						var but = type == 'v' ? " -" : "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
+						var htm = "<tr id='"+this.id+"tr'>"+
+										"<td>"+this.fileName+"</td>"+
+										"<td>"+this.fileLength+"</td>"+
+										"<td>"+ but +"</td>"+
+										"<td>100%</td>"+
+									"</tr>"
+						$("#filelist").append(htm);
 					});
 					
 					if(type == 'v'){
