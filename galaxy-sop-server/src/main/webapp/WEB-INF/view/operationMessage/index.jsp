@@ -60,7 +60,7 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(3);
-		var initParams = cookieOperator.pullCookie({_paramKey : 'messageList'});
+		var initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : Constants.sopEndpointURL});
 		$('#message-table').bootstrapTable({
 			queryParamsType: 'size|page',
 			pageSize:10,
@@ -103,6 +103,8 @@
 		return content;
 	}
 	function viewDetail(id){
+		//项目详情页返回地址
+		setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/operationMessage/index',6,'/');
 		var options = $("#message-table").bootstrapTable('getOptions');
 		var tempPageSize = options.pageSize ? options.pageSize : 10;
 		var tempPageNum = options.pageNumber ? options.pageNumber : 1;

@@ -211,9 +211,13 @@
 		return '<a href="#" class="blue" title="'+row.projectName+'" onclick="viewDetail(' + row.projectId + ')">'+str+'</a>';
 	}
 	function viewDetail(id){
+		//项目详情页返回地址
+		var currentUrl = location.href;
+		setCookie("project_detail_back_path", currentUrl,6,'/');
 		var options = $("#meeting-shedule-list").bootstrapTable('getOptions');
 		var tempPageSize = options.pageSize ? options.pageSize : 10;
 		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
+		var scheduleStatus = $("input[name='scheduleStatus']:checked").val();
 		var careline = $("select[name='careline']").val();
 		var keyword = $("input[name='keyword']").val();
 		var formdata = {
@@ -223,6 +227,7 @@
 				_param : {
 					pageNum : tempPageNum,
 	        		pageSize : tempPageSize,
+	        		scheduleStatus : scheduleStatus,
 	        		careline : careline,
 	        		keyword : keyword
 				}
@@ -243,9 +248,9 @@
 		$optionHtml.insertAfter($('option[value=""]'));
 	});
 
-	var initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
+	var initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL});
 	$("button[action='querySearch']").click(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
+		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL});
 	});
 	$("#meeting-shedule-list").bootstrapTable({
 		queryParamsType: 'size|page',
@@ -261,6 +266,10 @@
 	    		param.pageNum = initParams.pageNum - 1;
 	        	param.pageSize = initParams.pageSize;
 	        	param.keyword = initParams.keyword;
+	        	if(initParams.scheduleStatus != ''){
+	        		param.scheduleStatus = initParams.scheduleStatus;
+	        		$("input[name='scheduleStatus'][value='"+initParams.scheduleStatus+"']").attr("checked","true");
+	        	}
 	        	if(initParams.careline != ''){
 	        		param.careline = initParams.careline;
 	        		$("select[name='careline']").val(initParams.careline);
