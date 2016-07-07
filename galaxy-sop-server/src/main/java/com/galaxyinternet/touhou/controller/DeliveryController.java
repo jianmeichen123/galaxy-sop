@@ -55,6 +55,7 @@ import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.FormatData;
 import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
@@ -283,6 +284,42 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 			logger.error("queryProDeliveryPage ", e);
 		}
 		return responseBody;
+	}
+	
+	/**
+	 * 批量下载
+	 * @param id
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/downloadBatchFile/{id}")
+	public void downloadBatchFile(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
+	{
+		if(id != null){
+			List<Long> fileIdList = deliveryService.deliveryFileList(id);
+			SopFile sopfile = new SopFile();
+			if(fileIdList != null && fileIdList.size() > 0){
+				sopfile.setIds(fileIdList);
+			}
+			List<SopFile> sopFileList = sopFileService.queryList(sopfile);
+			List<SopDownLoad> sopDownLoadList = new ArrayList<SopDownLoad>();
+			try {
+				if(sopFileList != null && sopFileList.size() > 0){
+					for(SopFile file:sopFileList){
+						SopDownLoad downloadEntity = new SopDownLoad();
+						downloadEntity.setFileName(file.getFileName());
+						downloadEntity.setFileSuffix("." + file.getFileSuffix());
+						downloadEntity.setFileSize(file.getFileLength());
+						downloadEntity.setFileKey(file.getFileKey());
+						sopDownLoadList.add(downloadEntity);
+					}
+			
+				}
+				sopFileService.downloadBatch(request, response, tempfilePath,"交割事项-"+String.valueOf(id),sopDownLoadList);
+			} catch (Exception e) {
+				logger.error("下载失败.",e);
+			}
+		}
 	}
 	
 	

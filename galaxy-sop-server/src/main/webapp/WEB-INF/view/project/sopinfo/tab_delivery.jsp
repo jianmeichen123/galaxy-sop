@@ -195,7 +195,7 @@ function infoDeliverFormat(value,row,index){
 function operFormat(value,row,index){  
 	var edit = "<label class=\"blue\" onclick=\"deliverInfoEdit('"+row.id+"','e')\" >编辑</label>";
 	var del = "<label class=\"blue\" onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
-	var downfile = "<label class=\"blue\">下载附件</label>";
+	var downfile = "<label class=\"blue\" onclick=\"to_download_deliver('"+row.id+"')\">下载附件</label>";
 	var content = "";
 	if("${isCreatedByUser}"=="true"){
 		content += edit;
@@ -293,6 +293,16 @@ function to_del_deliver(selectRowId){
 		}
 	});
 	return false;
+}
+
+function to_download_deliver(id){
+	try {
+		var url = Constants.sopEndpointURL + '/galaxy/delivery/downloadBatchFile'+"/"+id;
+		layer.msg('正在下载，请稍后...',{time:2000});
+		window.location.href=url+"?sid="+sessionId+"&guid="+userId;
+	} catch (e) {
+		layer.msg("下载失败");
+	}
 }
 
 function del_deliver(){  

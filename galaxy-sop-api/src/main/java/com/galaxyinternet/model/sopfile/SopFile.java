@@ -122,6 +122,7 @@ public class SopFile extends SopParentFile implements Serializable{
   	private List<Long> fileULikeidList;
   	private List<String> fileStatusList;
   	private List<String> fileworktypeList;
+  	private List<Long> ids;
   	
   	private String startTime;
   	private String endTime;
@@ -504,6 +505,14 @@ public class SopFile extends SopParentFile implements Serializable{
 
 	public void setTempPath(String tempPath) {
 		this.tempPath = tempPath;
+	}
+
+	public List<Long> getIds() {
+		return ids;
+	}
+
+	public void setIds(List<Long> ids) {
+		this.ids = ids;
 	}
     
 	

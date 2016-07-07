@@ -268,6 +268,23 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 
 
 
+	@Override
+	public List<Long> deliveryFileList(Long deliverid) {
+		// TODO Auto-generated method stub
+		List<Long> listFile = new ArrayList<Long>();
+		DeliveryFile deliveryFile = new DeliveryFile();
+		deliveryFile.setDeliveryId(deliverid);
+		List<DeliveryFile> dfList = deliveryFileDao.selectList(deliveryFile);
+		if(dfList != null && dfList.size() > 0){
+			for(DeliveryFile df:dfList){
+				listFile.add(df.getFileId());
+			}
+		}
+		return listFile;
+	}
+
+
+
 
 }
 

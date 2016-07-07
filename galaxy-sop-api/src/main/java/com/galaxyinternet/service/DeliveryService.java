@@ -1,6 +1,8 @@
 package com.galaxyinternet.service;
 
 
+import java.util.List;
+
 import com.galaxyinternet.bo.touhou.DeliveryBo;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -19,6 +21,6 @@ public interface DeliveryService extends BaseService<Delivery> {
 	
 	public Page<DeliveryBo> queryDeliveryPageList(DeliveryBo query, PageRequest pageRequest);
 
-    
+    public List<Long> deliveryFileList(Long deliverid);
 	
 }

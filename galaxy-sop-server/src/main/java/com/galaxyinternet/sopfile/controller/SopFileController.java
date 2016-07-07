@@ -1366,6 +1366,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return responseBody;
 	}
 	
+	/**
+	 * 将文件上传到redis中
+	 * @param request
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value = "/sendUploadByRedis", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)  
     public Result batchUpload(HttpServletRequest request){
@@ -1398,5 +1403,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		
 	}
+	
+	
 
 }
