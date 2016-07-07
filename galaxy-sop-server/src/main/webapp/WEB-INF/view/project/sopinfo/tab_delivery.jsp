@@ -234,7 +234,12 @@ function deliverInfoEdit(selectRowId,type){
 					$("#deliver_form [name='delStatus'][value='"+deliverInfo.delStatus+"']").attr("checked",'checked');
 					
 					$.each(data.entity.files,function(){
-						$("#"+fileListId).append("<tr id='"+file.id+"tr'><td>"+plupload.formatSize(file.size)+"</td><td>"+file.name+"</td><td><button type='button' id='"+file.id+"btn' onclick=del('"+file.id+"','"+file.name+"','"+fieInputId+"')>删除</button> </td><td id='"+file.id+"_progress'></td></tr>");
+						$("#filelist").append("<tr id='"+this.id+"tr'>"+
+													"<td>"+this.fileName+"</td>"+
+													"<td>"+this.fileLength+"</td>"+
+													"<td><button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button> </td>"+
+													"<td>100%</td>"+
+												"</tr>");
 					});
 					
 					if(type == 'v'){
