@@ -74,7 +74,7 @@
 				          <!--按钮-->
 				          <div class="btnbox_f btnbox_f1 clearfix">
 				              <a href="javascript:;" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addPerson();">添加</a>
-				              <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a>
+				             <!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
 				          </div>
 				      </div>
 					</c:if>
