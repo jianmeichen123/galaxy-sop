@@ -166,7 +166,7 @@ function toInitBachUpload(){
 	toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
 					Constants.sopEndpointURL + '/galaxy/delivery/operdelivery',"textarea2","select_btn","save_file","container","filelist",
 							function paramsFunction(){
-								var condition = JSON.parse($form.serializeObject());
+								var condition = JSON.parse($("#deliver_form").serializeObject());
 								condition.fileReidsKey = Date.parse(new Date());
 								condition.fileNum = $("#filelist").children().length - 1;
 								return condition;
