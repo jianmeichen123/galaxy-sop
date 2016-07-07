@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>项目详情00000</title>
+<title>项目详情</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
@@ -160,24 +160,15 @@ $(function(){
 	}
 });	
 
-
-
 function toInitBachUpload(){
 	toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
-			Constants.sopEndpointURL + '/galaxy/delivery/operdelivery',"textarea2","select_btn","save_file","container","filelist",
-					function paramsFunction(){
-						var mytime=Date.parse(new Date());     //获取当前时间
-						var	condition = {};
-						
-						condition.projectId = $("#deliver_form [name='projectId']").val();
-						condition.id = $("#deliver_form [name='id']").val();
-						condition.fileReidsKey = mytime;
-						condition.delDescribe = $("#deliver_form [name='delDescribe']").val( );  
-						condition.details = $("#deliver_form [name='details']").val( );  
-						condition.delStatus = $("#deliver_form [name='delStatus'] checked").val();
-						
-						return condition;
-			});
+					Constants.sopEndpointURL + '/galaxy/delivery/operdelivery',"textarea2","select_btn","save_file","container","filelist",
+							function paramsFunction(){
+								var mytime=Date.parse(new Date());     //获取当前时间
+								var	condition = {};
+								condition.fileReidsKey = mytime;
+								return condition;
+					},"deliver_form");
 }
 
 /**

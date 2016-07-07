@@ -9,8 +9,9 @@
  * @param containerId 上传文件区域的id
  * @param fileListId  文件列表显示id
  * @param paramsFunction 上传所需要的附加参数
+ * @param deliver_form 数据的表单form id
  */
-function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction) {
+function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form) {
 	var params = paramsFunction();
 	uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
@@ -35,9 +36,15 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 					return false;
 				});
 			},
+			BeforeUpload:function(up){
+				var $form =$("#"+deliver_form);
+				var data = JSON.parse($form.serializeObject());
+				data['fileReidsKey']=params['fileReidsKey'];
+				params = data;
+				
+			},
 			FileUploaded:function(up,file,rtn){
 				var response = $.parseJSON(rtn.response);
-				//alert(response);
 				var rs = response.status;
 				if(rs == "error"){ //OK, ERROR
 					$("#"+fieInputId).val($("#"+fieInputId).val().replace(file.name,""));
