@@ -110,7 +110,7 @@
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, 
 	      #{meetingDate,jdbcType=TIMESTAMP}, #{meetingType,jdbcType=VARCHAR}, #{meetingResult,jdbcType=VARCHAR}, 
 	      #{meetingNotes,jdbcType=VARCHAR}, #{meetingNotesText,jdbcType=VARCHAR},#{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT}, 
-	     #{createUid,jdbcType=BIGINT}, #{participant,jdbcType=VARCHAR},#{meetValid,jdbcType=TINYINT},#{meeting_name,jdbcType=BIGINT})
+	     #{createUid,jdbcType=BIGINT}, #{participant,jdbcType=VARCHAR},#{meetValid,jdbcType=TINYINT},#{meetingName,jdbcType=BIGINT})
 	    ]]>
     </insert>
     
