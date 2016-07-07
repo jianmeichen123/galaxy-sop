@@ -31,7 +31,7 @@
 					</div>
 				</div>
 	
-				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="platform_jxkh_more" style="cursor: pointer;" href="#">more</span>
+				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;" href="#">more</span>
 				</div>
 				<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
 					<div class="no_con">
@@ -117,6 +117,9 @@ $(function(){
 		if($("#thyy_div").length>0)
 		{
 			$("#thyy_div").show();
+			$("#thyy_meet_more").click(function(){
+				showTabs(proid,9)
+			});
 			setThyyInfo();
 		}
 	}
