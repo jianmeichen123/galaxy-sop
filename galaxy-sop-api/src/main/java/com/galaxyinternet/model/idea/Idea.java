@@ -1,9 +1,9 @@
 package com.galaxyinternet.model.idea;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 

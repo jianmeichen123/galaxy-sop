@@ -3,21 +3,25 @@ package com.galaxyinternet.model.project;
 import java.text.ParseException;
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.common.PagableRecordEntity;
 
 
 public class MeetingRecord  extends PagableRecordEntity{
 	private static final long serialVersionUID = 1L;
-
-	 private Long projectId;
+	
+	@NotEmpty
+	private Long projectId;
 
     private Long fileId;
 	private String fkey;
-
+	@NotEmpty
     private Date meetingDate;
     private String meetingDateStr;
 
+    @NotEmpty
     private String meetingType;
     private String meetingTypeStr;
 
@@ -32,11 +36,18 @@ public class MeetingRecord  extends PagableRecordEntity{
     
     private String participant;
     
-    private String meetingName;
+    private Long meetingName;
     
-    private String createUid;
+    private Long createUid;
     
     private byte meetValid; //0表示有效，1表示无效
+    
+    
+    
+    /**
+     * 非数据库映射字段
+     */
+    private String createUName;
     
     
     public String getParticipant() {
@@ -247,21 +258,22 @@ public class MeetingRecord  extends PagableRecordEntity{
 	}
 
 	
-    
+	
+	
 
-	public String getCreateUid() {
+	public Long getCreateUid() {
 		return createUid;
 	}
 
-	public void setCreateUid(String createUid) {
+	public void setCreateUid(Long createUid) {
 		this.createUid = createUid;
 	}
 
-	public String getMeetingName() {
+	public Long getMeetingName() {
 		return meetingName;
 	}
 
-	public void setMeetingName(String meetingName) {
+	public void setMeetingName(Long meetingName) {
 		this.meetingName = meetingName;
 	}
 
@@ -290,6 +302,14 @@ public class MeetingRecord  extends PagableRecordEntity{
 			break;
 		}
 		return dateStr;
+	}
+
+	public String getCreateUName() {
+		return createUName;
+	}
+
+	public void setCreateUName(String createUName) {
+		this.createUName = createUName;
 	}
 	
 

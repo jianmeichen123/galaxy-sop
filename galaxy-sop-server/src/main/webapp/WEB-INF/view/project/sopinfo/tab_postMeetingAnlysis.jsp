@@ -18,8 +18,11 @@
 
 <!-- bootstrap-table -->
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<%-- <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/> --%>
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css">
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
@@ -73,7 +76,7 @@
                         <!--按钮-->
                         <div class="btnbox_f btnbox_f1 clearfix">
                         	<c:if test="${isCreatedByUser}">
-                            <a class="pbtn bluebtn h_bluebtn" href="tchtml/conference.html" data-btn="conference" data-name='添加运营会议纪要'>添加运营会议纪要</a>
+                            <a href="javascript:void(0)" class="pbtn bluebtn h_bluebtn" id="addPostMeetingBtn"  data-btn="conference">添加运营会议纪要</a>
                         	</c:if>
                         	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
                             <c:if test="${isCreatedByUser}">
@@ -97,13 +100,13 @@
 								<span>至</span>
 								<input type="text" class="datepicker txt time" name="meet_endDate"  />
 						  </dd>
-                          <dd><a href="javascript:;" class="bluebtn ico cx">查询</a></dd>
+                          <dd><a href="javascript:;" id="searchBtn" class="bluebtn ico cx">查询</a></dd>
                         </dl>
                       </div>
                       </form>
                     </div>                            
                     <!--表格内容-->
-                    <table name="meetGrid" width="100%" cellspacing="0" cellpadding="0" class="commonsize delivery">
+                    <table id="meetGrid" width="100%" cellspacing="0" cellpadding="0" class="commonsize delivery">
                     </table>
         		</div>  
         	</div>
@@ -115,9 +118,14 @@
 </div>
 
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
-
+<script type="text/javascript">
+	function getProject(){
+		return ${proinfo};
+	}
+</script>
 <script src="<%=path %>/js/jquery-1.10.2.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/axure.js" type="text/javascript"></script>
+<script src="<%=path %>/js/common.js" type="text/javascript"></script>
 <!-- 富文本编辑器 -->
 <script id="d" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script id="c" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
@@ -133,7 +141,6 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
-
 <script type="text/javascript" src="<%=path%>/js/tabPostMeetingAnlysis.js"></script>
 
 <script>

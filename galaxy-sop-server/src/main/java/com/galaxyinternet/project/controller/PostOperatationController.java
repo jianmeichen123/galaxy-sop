@@ -3,6 +3,7 @@ package com.galaxyinternet.project.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.touhou.ProjectHealthBo;
 import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -30,19 +32,22 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.touhou.ProjectHealth;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DeliveryService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectHealthService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.UserRoleService;
 
 @Controller
 @RequestMapping(value="/galaxy/project/postOperation")
-public class PostOperatationController extends BaseControllerImpl<Project, ProjectBo> {
+public class PostOperatationController extends BaseControllerImpl<MeetingRecord, MeetingRecord> {
 
 	@Autowired
 	private ProjectService projectService;
@@ -54,13 +59,15 @@ public class PostOperatationController extends BaseControllerImpl<Project, Proje
 	private DeliveryService deliveryService;
 	@Autowired
 	private DictService dictService;
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	public static final String ERROR_DAO_EXCEPTION = "系统出现异常";
 	
 	@Override
-	protected BaseService<Project> getBaseService() {
+	protected BaseService<MeetingRecord> getBaseService() {
 		// TODO Auto-generated method stub
-		return projectService;
+		return meetingService;
 	}
 	
 	
@@ -111,8 +118,8 @@ public class PostOperatationController extends BaseControllerImpl<Project, Proje
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value="queryMeeting", method=RequestMethod.POST ,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingRecord> queryMeeting(@RequestBody MeetingRecordBo meetingRecord){
+	@RequestMapping(value="queryPostMeeting", method=RequestMethod.POST ,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingRecord> queryPostMeeting(@RequestBody MeetingRecordBo meetingRecord){
 		
 		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
 		try {
@@ -129,6 +136,49 @@ public class PostOperatationController extends BaseControllerImpl<Project, Proje
 		return responseBody;	
 	}
 	
+	
+	/**
+	 * 跳转编辑投后运营会议弹窗
+	 * @return
+	 */
+	@RequestMapping(value="toEditPostMeeting", method=RequestMethod.GET)
+	public String toEditPostMeeting(){
+		return "project/dialog/editPostMeetingDialog";
+	}
+	
+	/**
+	 * 获取头后运营会议名称序号(存入result message中)
+	 * @param meetingType
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="getMeetNumberByType/{projectId}/{meetingType}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingRecord> getMeetNumberByType(@PathVariable Long projectId,@PathVariable String meetingType){
+		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
+		if(projectId==null && projectId.equals(0) ){
+			responseBody.setResult(new Result(Status.ERROR,"参数错误"));
+			return responseBody;
+		}
+		if(StringUtils.isBlank(meetingType)){
+			responseBody.setResult(new Result(Status.ERROR,"参数错误"));
+			return responseBody;
+		}
+		try {
+			MeetingRecord meetingRecord = new MeetingRecord();
+			meetingRecord.setProjectId(projectId);
+			meetingRecord.setMeetingType(meetingType);
+			Long number = meetingService.queryMeetNumberByType(meetingRecord);
+			Result result = new Result(Status.OK, "");
+			result.setMessage(number);
+					
+			responseBody.setResult(result);
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, ERROR_DAO_EXCEPTION));
+		}
+		return responseBody;	
+	}
+	
 	/**
 	 * 新建编辑投后会议记录
 	 * @param request
@@ -137,7 +187,28 @@ public class PostOperatationController extends BaseControllerImpl<Project, Proje
 	 */
 	@ResponseBody
 	@RequestMapping(value="saveMeeting", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<MeetingRecord> saveMeeting(HttpServletRequest request, @RequestBody MeetingRecord meetingRecord){
+	public ResponseData<MeetingRecord> saveMeeting(HttpServletRequest request, @RequestBody @Valid MeetingRecord meetingRecord){
+		ResponseData<MeetingRecord> responseBody = getErrorResponse(meetingRecord);
+		if(responseBody != null){
+			return responseBody;
+		}
+		responseBody = new ResponseData<MeetingRecord>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+				.getId());
+		try {
+			if(meetingRecord.getMeetingName() == null || meetingRecord.getMeetingName().intValue()==0){
+				meetingRecord.setMeetingName(meetingService.queryMeetNumberByType(meetingRecord));
+			}
+			meetingRecord.setCreateUid(user.getId());
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		return null;
 	}
 	/**

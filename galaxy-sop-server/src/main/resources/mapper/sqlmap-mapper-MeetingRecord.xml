@@ -16,7 +16,7 @@
     <result column="create_uid" property="createUid" jdbcType="BIGINT" />
     <result column="participant" jdbcType="VARCHAR" property="participant" />
     <result column="meet_valid" jdbcType="TINYINT" property="meetValid" />
-    <result column="meeting_name" jdbcType="VARCHAR" property="meetingName" />
+    <result column="meeting_name" jdbcType="BIGINT" property="meetingName" />
   </resultMap>
   
   
@@ -46,12 +46,17 @@
 			   
 			   <if test="meetingType != null" >and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
 			   
-			   <if test="meetingTypeList !=null">
-			   		and meeting_type in 
-					<foreach collection="meetingTypeList" item="meetingType" index="index" open="(" close=")" separator=",">
-						#{meetingType}
-					</foreach>
-			   </if>
+			   <choose>
+			   		<when test="meetingTypeList !=null">
+			   			and meeting_type in 
+							<foreach collection="meetingTypeList" item="meetingType" index="index" open="(" close=")" separator=",">
+								#{meetingType}
+							</foreach>
+			   		</when>
+			   		<otherwise>
+			   			and 1 = 2 
+			   		</otherwise>
+			   </choose>
 			   
 		      <if test="meetingResult != null" >and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
 		      <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
@@ -60,7 +65,7 @@
 			  <if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>	
 			  <if test="createUid != null" >and create_uid = #{createUid,jdbcType=BIGINT} </if>
 			  <if test="meetValid != null"> and meet_valid = #{meetValid,jdbcType=TINYINT} </if>	
-			  <if test="meetingName != null" >and meeting_name = #{meetingName,jdbcType=VARCHAR} </if>
+			  <if test="meetingName != null" >and meeting_name = #{meetingName,jdbcType=BIGINT} </if>
 		  </trim>
 		</where>
 		<!-- <if test="sorting != null">order by ${sorting}</if> -->
@@ -105,7 +110,7 @@
 	    values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{fileId,jdbcType=BIGINT}, 
 	      #{meetingDate,jdbcType=TIMESTAMP}, #{meetingType,jdbcType=VARCHAR}, #{meetingResult,jdbcType=VARCHAR}, 
 	      #{meetingNotes,jdbcType=VARCHAR}, #{meetingNotesText,jdbcType=VARCHAR},#{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT}, 
-	     #{createUid,jdbcType=BIGINT}, #{participant,jdbcType=VARCHAR},#{meetValid,jdbcType=TINYINT},#{meeting_name,jdbcType=VARCHAR})
+	     #{createUid,jdbcType=BIGINT}, #{participant,jdbcType=VARCHAR},#{meetValid,jdbcType=TINYINT},#{meeting_name,jdbcType=BIGINT})
 	    ]]>
     </insert>
     
@@ -123,7 +128,7 @@
 		    <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT}, </if>
 		    <if test="createUid != null" > create_uid = #{createUid,jdbcType=BIGINT}, </if>
 		    <if test="meetValid != null">  meet_valid = #{meetValid,jdbcType=TINYINT}, </if>
-		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=VARCHAR} </if>
+		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=BIGINT} </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -157,7 +162,7 @@
 		    <if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
 		    <if test="participant != null" > meeting_result = #{participant,jdbcType=VARCHAR}, </if>
 		    <if test="meetValid != null">  meet_valid = #{meetValid,jdbcType=TINYINT}, </if>
-		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=VARCHAR} </if>
+		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id}
 	</update>
@@ -187,7 +192,7 @@
 	    <result column="meeting_notes" property="meetingNotes" jdbcType="VARCHAR" />
 	    <result column="meeting_notes_text" property="meetingNotesText" jdbcType="VARCHAR" />
 	    <result column="created_time" property="createdTime" jdbcType="BIGINT" />
-	    <result column="meeting_name" property="meetingName" jdbcType="VARCHAR" />
+	    <result column="meeting_name" property="meetingName" jdbcType="BIGINT" />
 	</resultMap>
 	
   
@@ -240,5 +245,19 @@
 			<if test="recordType != null"> and sm.record_type = #{recordType,jdbcType=TINYINT} </if>	
 		) a
 	</select>
+	
+	
+	<!-- 根据项目及类型查询会议名称的序号-->
+	<select id="selectMeetNumberByType" resultType="java.lang.Long" parameterType="java.util.Map">
+	  	select max(meeting_name) from sop_meeting_record
+	  	where meeting_type = #{meetingType}
+	  	and	  project_id = #{projectId}
+	</select>
+	
+	
+
+	
+	
+	
   
 </mapper>

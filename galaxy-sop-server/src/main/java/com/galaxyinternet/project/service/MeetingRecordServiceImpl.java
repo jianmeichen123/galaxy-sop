@@ -30,9 +30,11 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
 import com.galaxyinternet.service.MeetingRecordService;
+import com.galaxyinternet.service.UserService;
 
 
 @Service("com.galaxyinternet.service.MeetingRecordService")
@@ -49,6 +51,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 	private SopFileDao sopFileDao;
 	@Autowired
 	private MeetingSchedulingDao meetingSchedulingDao;
+	@Autowired
+	private UserService userService;
 	
 	
 	@Autowired
@@ -449,5 +453,48 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		Long id = getBaseDao().insert(meetingRecord);
 		return id;
 	}
+
+
+	@Override
+	public Long queryMeetNumberByType(MeetingRecord query) {
+		// TODO Auto-generated method stub
+		return meetingRecordDao.selectMeetNumberByType(query);	
+	}
+	
+	
+	@Override
+	public Page<MeetingRecord> queryPageList(MeetingRecord query,
+			Pageable pageable) {
+		// TODO Auto-generated method stub
+		Page<MeetingRecord> pageEntity = super.queryPageList(query, pageable);
+		List<User> userList = getUser(pageEntity.getContent());
+		
+		for(MeetingRecord meetingRecord : pageEntity.getContent()){
+			for(User user : userList){
+				if(user.equals(meetingRecord.getCreateUid())){
+					meetingRecord.setCreateUName(user.getRealName());
+				}
+			}	
+		}
+		
+		return pageEntity;
+	}
+	
+	private List<User> getUser(List<MeetingRecord> meetingRecordList){
+		User user = new User();
+		List<Long> ids = new ArrayList<Long>();	
+		for(MeetingRecord meetingRecord : meetingRecordList){
+			if(meetingRecord.getCreateUid()!=null && !ids.contains(meetingRecord.getCreateUid())){
+				ids.add(meetingRecord.getCreateUid());
+			}	
+		}
+		user.setIds(ids);
+		if(ids.size() > 0){
+			return userService.queryList(user);
+		}
+		return null;
+	}
+	
+	
 	
 }
