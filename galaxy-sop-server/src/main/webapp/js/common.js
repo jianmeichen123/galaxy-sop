@@ -1247,7 +1247,7 @@ function init_bootstrapTable(table_id,page_size){
 		uniqueId: "id", 
 		idField : "id",
 		clickToSelect: true,
-        search: false,
+        search: false
 	});
 }
 
