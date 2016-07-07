@@ -18,8 +18,9 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 		browse_button : selectBtnId, // you can pass an id...
 		container: containerId, // ... or DOM Element itself
 		url : fileurl,
+		multipart:true,
 		filters : {
-			max_file_size : '10mb',
+			max_file_size : '5mb',
 			mime_types: [
 				{title : "Image files", extensions : "jpg,gif,png,txt,docx,doc"},
 				{title : "Zip files", extensions : "zip"}

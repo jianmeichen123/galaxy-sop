@@ -58,6 +58,8 @@ public class BatchUploadFile {
 					     }
 					     sopFileList.add(sop);
 				}
+			}else{
+				cache.remove(fileRedisKey);
 			}
 			resultResponse.setEntityList(sopFileList);
 		}catch(Exception e){

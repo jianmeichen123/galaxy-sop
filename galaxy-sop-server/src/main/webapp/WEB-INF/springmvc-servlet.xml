@@ -58,18 +58,26 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	<!-- 上传文件 -->
-	<bean id="multipartResolver"
+	<!-- <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding">
 			<value>UTF-8</value>
 		</property>
 		<property name="maxUploadSize">
-			<!-- 线上: 最大上传文件限制为25M -->
-			<!-- <value>26214400</value> -->
-			<!--测试： 最大上传文件限制为50M -->
+			线上: 最大上传文件限制为25M
+			<value>26214400</value>
+			测试： 最大上传文件限制为50M
 			<value>52428800</value>
 		</property>
-	</bean>
+	</bean> -->
+	
+	
+    <!-- 配置springMVC处理上传文件的信息 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="104857600000"/>
+        <property name="maxInMemorySize" value="857600000"/>
+    </bean>
 
 	<mvc:interceptors>
 		<mvc:interceptor>
