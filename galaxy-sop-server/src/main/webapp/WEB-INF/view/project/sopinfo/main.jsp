@@ -122,6 +122,9 @@ function getProjectInfo(dtd)
                 <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},4)">会议纪要</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${projectId},7)">交割前事项</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${projectId},8)">拨款信息</a></li>
+               	<li><a href="javascript:;" onclick="showTabs(${projectId},9)">运营分析</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},5)">项目文档</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},6)">操作日志</a></li>
                 </c:when>
@@ -130,6 +133,9 @@ function getProjectInfo(dtd)
                 <li class="no"><a href="javascript:;">股权结构</a></li>
                 <li class="no"><a href="javascript:;">访谈记录</a></li>
                 <li class="no"><a href="javascript:;">会议纪要</a></li>
+                <li class="no"><a href="javascript:;">交割前事项</a></li>
+                <li class="no"><a href="javascript:;">拨款信息</a></li>
+               	<li class="no"><a href="javascript:;">运营分析</a></li>
 				<li class="no"><a href="javascript:;">项目文档</a></li>
                 <li class="no"><a href="javascript:;">操作日志</a></li> 
                 </c:otherwise>
