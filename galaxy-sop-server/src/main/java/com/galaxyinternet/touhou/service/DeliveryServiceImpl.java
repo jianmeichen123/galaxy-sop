@@ -20,6 +20,7 @@ import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.touhou.DeliveryBo;
 import com.galaxyinternet.common.SopResult;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.touhou.DeliveryDao;
 import com.galaxyinternet.dao.touhou.DeliveryFileDao;
@@ -64,7 +65,7 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	private UserService userService;
 	
 	@Autowired
-	private ProjectService projectService;
+	private ProjectDao projectDao;
 	
 	@Override
 	protected BaseDao<Delivery, Long> getBaseDao() {
@@ -119,7 +120,7 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	/**
 	 * 事项查询    查询中间表  - fileids - file
 	 */
-	@Override
+	@Transactional
 	public Delivery selectDelivery(Long deliveryId) {
 		Delivery delivery = deliveryDao.selectById(deliveryId);
 		if(delivery!=null & delivery.getFileNum()!=null){
@@ -139,15 +140,54 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		return delivery;
 	}
 
-	
-	@Override
+	/**
+	 * 添加事项     file - 中间表  - 交割事项
+	 */
+	@SuppressWarnings("null")
+	@Transactional
 	public Long insertDelivery(Delivery delivery) {
-		Long id = deliveryDao.insert(delivery);
-		return id;
+		Byte fnum = null;
+		Long delid = null;
+		List<DeliveryFile> dfileIn = null;
+		List<SopFile> sopfiles = delivery.getFiles();
+		
+		if(sopfiles!=null && !sopfiles.isEmpty()){
+			fnum = (byte) sopfiles.size();
+			delivery.setFileNum(fnum);
+		}
+		delid = deliveryDao.insert(delivery);   //交割事项
+		
+		if(sopfiles!=null && !sopfiles.isEmpty() && fnum !=null){
+			Project project = projectDao.selectById(delivery.getProjectId());
+			for(SopFile sopfile:sopfiles){
+				sopfile.setProjectId(project.getId());
+				sopfile.setProjectProgress(project.getProjectProgress());
+				sopfile.setCareerLine(project.getProjectDepartid());
+				sopfile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				sopfile.setFileUid(project.getCreateUid());
+				/*file.setFileLength(sopfile.getFileLength());
+				file.setFileKey(sopfile.getFileKey());
+				file.setBucketName(sopfile.getBucketName());
+				file.setFileName(sopfile.getFileName());
+				file.setFileSuffix(sopfile.getFileSuffix());*/
+			}
+			fileDao.insertInBatch(sopfiles);
+			
+			for(SopFile sopfile:sopfiles){
+				DeliveryFile df = new DeliveryFile();
+				df.setDeliveryId(delid);
+				df.setFileId(sopfile.getId());
+				
+				dfileIn.add(df);
+			}
+			deliveryFileDao.insertInBatch(dfileIn);
+		}
+		
+		return delid;
 	}
 
 	
-	@Override
+	@Transactional
 	public Long updateDelivery(Delivery delivery) {
 		int num = deliveryDao.updateById(delivery);
 		if(num > 0){
@@ -159,7 +199,7 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	}
 
 
-	@Override
+	@Transactional
 	public void delDeliveryById(Long deliverid) {
 		Delivery delivery = deliveryDao.selectById(deliverid);
 		List<Long> fileidlist = new ArrayList<Long>();
@@ -189,7 +229,8 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		}
 	}
 
-	@Override
+	
+	@Transactional
 	public Page<DeliveryBo> queryDeliveryPageList(DeliveryBo query, PageRequest pageRequest) {
 		Page<DeliveryBo> page = deliveryDao.selectDeliveryPageList(query, pageRequest);
 		List<DeliveryBo> list = null;
@@ -227,41 +268,6 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	}
 
 
-
-	@Override
-	@Transactional
-	public SopResult insertDelivery(List<SopFile> sopfiles, Delivery delivery) {
-		Project project = projectService.queryById(delivery.getProjectId());
-		// TODO Auto-generated method stub
-		Long delid = null;
-		delid = deliveryDao.insert(delivery);
-		Long fid = null;
-		for(SopFile sopfile:sopfiles){
-			SopFile file = new SopFile();
-			file.setProjectId(delivery.getProjectId());
-			file.setProjectProgress(project.getProjectProgress());
-			file.setCareerLine(project.getProjectDepartid());
-			file.setFileType(DictEnum.fileType.音频文件.getCode());
-			file.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-			file.setFileUid(project.getCreateUid());
-			file.setCreatedTime((new Date()).getTime());
-			file.setFileLength(sopfile.getFileLength());
-			file.setFileKey(sopfile.getFileKey());
-			file.setBucketName(sopfile.getBucketName());
-			file.setFileName(sopfile.getFileName());
-			file.setFileSuffix(sopfile.getFileSuffix());
-			fid = fileDao.insert(file);
-			DeliveryFile df = new DeliveryFile();
-			df.setDeliveryId(delid);
-			df.setFileId(fid);
-			deliveryFileDao.insert(df);
-		}
-		return new SopResult(Status.OK,null,"添加交割事件成功!",UrlNumber.four,null);
-	}
-
-
-
-	
 
 
 }
