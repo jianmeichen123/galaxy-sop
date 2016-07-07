@@ -85,6 +85,23 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	}
 	
 	/**
+	 *	由 事项id  查询其  文件 ids
+	 */
+	@Override
+	public List<Long> deliveryFileList(Long deliverid) {
+		List<Long> listFile = new ArrayList<Long>();
+		DeliveryFile deliveryFile = new DeliveryFile();
+		deliveryFile.setDeliveryId(deliverid);
+		List<DeliveryFile> dfList = deliveryFileDao.selectList(deliveryFile);
+		if(dfList != null && dfList.size() > 0){
+			for(DeliveryFile df:dfList){
+				listFile.add(df.getFileId());
+			}
+		}
+		return listFile;
+	}
+	
+	/**
 	 * 由 文件 ids 查询 文件数据
 	 */
 	public List<SopFile> getFilesByIds(List<Long> ids){
@@ -123,14 +140,12 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	@Transactional
 	public Delivery selectDelivery(Long deliveryId) {
 		Delivery delivery = deliveryDao.selectById(deliveryId);
+		
 		if(delivery!=null & delivery.getFileNum()!=null){
-			List<DeliveryFile> dfilelist = getDfileById(deliveryId); //事项 文件 关联
 			
-			if(dfilelist!=null && !dfilelist.isEmpty()){
-				List<Long> fileidlist = new ArrayList<Long>();
-				for(DeliveryFile adf : dfilelist){
-					fileidlist.add(adf.getFileId());
-				}
+			List<Long> fileidlist =  deliveryFileList(deliveryId); //事项 文件 关联
+			
+			if(fileidlist!=null && !fileidlist.isEmpty()){
 				List<SopFile> files = getFilesByIds(fileidlist);  //文件
 				if(files!=null && !files.isEmpty()){
 					delivery.setFiles(files);
@@ -279,13 +294,11 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		List<Long> fileidlist = new ArrayList<Long>();
 		
 		if(delivery!=null & delivery.getFileNum()!=null){
-			List<DeliveryFile> dfilelist = getDfileById(deliverid); //事项 文件 关联
 			
-			if(dfilelist!=null && !dfilelist.isEmpty()){
+			fileidlist = deliveryFileList(deliverid);
+			
+			if(fileidlist!=null && !fileidlist.isEmpty()){
 				
-				for(DeliveryFile adf : dfilelist){
-					fileidlist.add(adf.getFileId());
-				}
 				SopFileBo fileQ = new SopFileBo();
 				fileQ.setIds(fileidlist);
 				fileDao.delete(fileQ);    // 删除 file、表
@@ -294,9 +307,9 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 				dfQ.setFileIds(fileidlist);
 				deliveryFileDao.delete(dfQ); // 删除 中间表
 			}
-			
-			deliveryDao.deleteById(deliverid);  // 删除  事项
 		}
+		
+		deliveryDao.deleteById(deliverid);  // 删除  事项
 		
 		if(fileidlist!=null && !fileidlist.isEmpty()){  // 删除 阿里云 文件
 			delAliyunFiles(fileidlist);
@@ -342,22 +355,7 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	}
 
 
-	/**
-	 *	由 事项id  查询其  文件 ids
-	 */
-	@Override
-	public List<Long> deliveryFileList(Long deliverid) {
-		List<Long> listFile = new ArrayList<Long>();
-		DeliveryFile deliveryFile = new DeliveryFile();
-		deliveryFile.setDeliveryId(deliverid);
-		List<DeliveryFile> dfList = deliveryFileDao.selectList(deliveryFile);
-		if(dfList != null && dfList.size() > 0){
-			for(DeliveryFile df:dfList){
-				listFile.add(df.getFileId());
-			}
-		}
-		return listFile;
-	}
+	
 
 
 
