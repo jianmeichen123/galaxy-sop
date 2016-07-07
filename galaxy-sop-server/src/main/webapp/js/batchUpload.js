@@ -57,7 +57,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 			FilesAdded: function(up, files) {
 				plupload.each(files, function(file) {
 					$("#"+fieInputId).val($("#"+fieInputId).val()+" "+file.name);
-					$("#"+fileListId).append("<tr id='"+file.id+"tr'><td>"+plupload.formatSize(file.size)+"</td><td>"+file.name+"</td><td><button type='button' id='"+file.id+"btn' onclick=del('"+file.id+"','"+file.name+"','"+fieInputId+"')>删除</button> </td><td id='"+file.id+"_progress'></td></tr>"); 
+					$("#"+fileListId).append("<tr id='"+file.id+"tr'><td>"+file.name+"</td><td>"+plupload.formatSize(file.size)+"</td><td><button type='button' id='"+file.id+"btn' onclick=del('"+file.id+"','"+file.name+"','"+fieInputId+"')>删除</button> </td><td id='"+file.id+"_progress'></td></tr>"); 
 				});
 			},
 			UploadProgress: function(up, file) {
