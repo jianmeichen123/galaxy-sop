@@ -1182,6 +1182,15 @@ function createUserOptions(url, name, mark){
 	});
 }
 
+/*
+ * 
+ * 判断对象是否为数组
+ * */
+function isArray(obj) {    
+	return Object.prototype.toString.call(obj) === '[object Array]';     
+} 
+
+
 var cookieOperator = {
 	paramKey : 'parameter',
 	/*
@@ -1224,22 +1233,21 @@ var cookieOperator = {
 		return;
 		
 	}
-	
-	
-
-	function init_bootstrapTable(table_id,page_size){
-		$('#'+table_id).bootstrapTable({
-			queryParamsType: 'size|page', // undefined
-			pageSize:page_size,
-			pageList : [10, 20, 30 ],
-			showRefresh : false ,
-			sidePagination: 'server',
-			method : 'post',
-			pagination: true,
-			uniqueId: "id", 
-			idField : "id",
-			clickToSelect: true,
-	        search: false,
-		});
-	}
 }
+
+function init_bootstrapTable(table_id,page_size){
+	$('#'+table_id).bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		pageSize:page_size,
+		pageList : [10, 20, 30 ],
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+		uniqueId: "id", 
+		idField : "id",
+		clickToSelect: true,
+        search: false,
+	});
+}
+
