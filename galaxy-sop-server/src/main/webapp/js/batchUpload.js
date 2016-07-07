@@ -18,9 +18,8 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 		browse_button : selectBtnId, // you can pass an id...
 		container: containerId, // ... or DOM Element itself
 		url : fileurl,
-		multipart:true,
 		filters : {
-			max_file_size : '5mb',
+			max_file_size : '10mb',
 			mime_types: [
 				{title : "Image files", extensions : "jpg,gif,png,txt,docx,doc"},
 				{title : "Zip files", extensions : "zip"}
@@ -30,9 +29,23 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 			PostInit: function(up) {
 				//$("#"+fileListId).html('');
 				$("#" + submitBtnId).click(function(){
-					/*if(up.files.length > 0){*/
+					/*if(up.files.length > 0){
 						uploader.start();
-					/*}*/
+					}*/
+					if(up.files.length == 0){
+							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
+								var result = data.result.status;
+								if(result == "OK"){
+									$.each(files, function(i) {     
+									    $("#"+files[i].id+"_progress").html('<span>'+ files[i].percent + "%</span>"); 
+									}); 
+									removePop1();
+									$("#project_delivery_table").bootstrapTable('refresh');
+								}
+							});
+						}else{
+							uploader.start();
+						}
 					return false;
 				});
 			},
