@@ -22,7 +22,8 @@ $(function(){
 		$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
 		$("#finalValuations").text(projectInfo.finalValuations==0||typeof(projectInfo.finalValuations)=="undefined"?"--":projectInfo.finalValuations);
 		$("#finalContribution").text(projectInfo.finalContribution==0||typeof(projectInfo.finalContribution)=="undefined"?"--":projectInfo.finalContribution);
-		$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);
+		$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);$("#serviceChage").val(projectInfo.serviceChage==0?0:projectInfo.serviceChage);
+		$("#serviceCharge").text(projectInfo.serviceCharge==0?0:projectInfo.serviceCharge);
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
@@ -46,6 +47,8 @@ $(function(){
 			$("#finalValuations_edit").val(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
 			$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
 			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?0:projectInfo.finalShareRatio);
+			$("#serviceChargeedit").val(typeof(projectInfo.serviceCharge)=="undefined"?"--":projectInfo.serviceCharge)
+			
 			 p=projectInfo.industryOwn;
 		    fs=projectInfo.financeStatus;
 			//融资
@@ -311,7 +314,7 @@ function getUpdateData(){
 	var finalcontribution=$("#finalContribution_edit").val()==""?null:$("#finalContribution_edit").val().trim();
 	var finalvaluations=$("#finalValuations_edit").val()==""?null:$("#finalValuations_edit").val().trim();
 	var finalshare_ratio=$("#finalShareRatio_edit").val()==""?null:$("#finalShareRatio_edit").val().trim();
-	
+	var serviceCharge=$("#serviceChargeedit").val()==""?null:$("#serviceChargeedit").val().trim();
 	
 	var formatData={"id":id,
 			       "projectName":pname,
@@ -322,7 +325,8 @@ function getUpdateData(){
 			       "projectShareRatio":project_share_ratio,
 			       "finalValuations":finalvaluations,//实际估值
                    "finalContribution":finalcontribution,//实际投资
-  	               "finalShareRatio":finalshare_ratio	//实际股权占比		
+  	               "finalShareRatio":finalshare_ratio,	//实际股权占比	
+  	               "serviceCharge":serviceCharge
 	};
 	return formatData;
 }

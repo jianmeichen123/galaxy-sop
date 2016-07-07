@@ -17,7 +17,8 @@
     <result column="final_contribution" property="finalContribution" jdbcType="DECIMAL" />    
     <result column="currency_unit" property="currencyUnit" jdbcType="INTEGER" />
     <result column="project_share_ratio" property="projectShareRatio" jdbcType="DECIMAL" />    
-    <result column="final_share_ratio" property="finalShareRatio" jdbcType="DECIMAL" />    
+    <result column="final_share_ratio" property="finalShareRatio" jdbcType="DECIMAL" /> 
+    <result column="service_charge" property="serviceCharge" jdbcType="DECIMAL" />    
     <result column="project_company" property="projectCompany" jdbcType="VARCHAR" />    
     <result column="formation_date" property="formationDate" jdbcType="BIGINT" />    
     <result column="project_company_code" property="projectCompanyCode" jdbcType="VARCHAR" />   
@@ -43,7 +44,7 @@
   
   <sql id="Base_Column_List" >
     id, project_name, project_code, project_type, stock_transfer, project_careerline, project_departId,industry_own, 
-    project_valuations, final_valuations, finance_status, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio, project_company, formation_date, project_company_code, company_legal, create_uid, 
+    project_valuations, final_valuations, finance_status, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio,service_charge, project_company, formation_date, project_company_code, company_legal, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
     project_describe, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
     industry_analysis,operational_data, idea_id
@@ -80,6 +81,7 @@
 		      <if test="currencyUnit != null" > and currency_unit = #{currencyUnit,jdbcType=INTEGER} </if>
 		      <if test="projectShareRatio != null" > and project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL} </if>
 		      <if test="finalShareRatio != null" > and final_share_ratio = #{finalShareRatio,jdbcType=DECIMAL} </if>
+		      <if test="serviceCharge != null" > and service_charge = #{serviceCharge,jdbcType=DECIMAL} </if> 
 		      <if test="projectCareerline != null" > and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
 		      <if test="projectCompany != null" > and project_company = #{projectCompany,jdbcType=VARCHAR} </if>
 		      <if test="formationDate != null" > and formation_date = #{formationDate,jdbcType=BIGINT} </if>
@@ -214,7 +216,7 @@
 	     insert into sop_project (id, project_name, project_code, 
 	      project_type, stock_transfer, project_careerline, project_departId, industry_own, 
 	      project_valuations, final_valuations, finance_status, project_contribution, final_contribution, 
-	      currency_unit, project_share_ratio, final_share_ratio, project_company, formation_date, project_company_code, company_legal, create_uid, 
+	      currency_unit, project_share_ratio, final_share_ratio, service_charge,project_company, formation_date, project_company_code, company_legal, create_uid, 
 	      create_uname, create_uposition, project_progress, 
 	      project_status, updated_time, created_time, 
 	      project_describe, project_business_model, 
@@ -223,7 +225,7 @@
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, #{industryOwn,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
-	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{finalShareRatio,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{formationDate,jdbcType=BIGINT}, #{projectCompanyCode,jdbcType=VARCHAR}, #{companyLegal,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
+	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{finalShareRatio,jdbcType=DECIMAL},#{serviceCharge,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{formationDate,jdbcType=BIGINT}, #{projectCompanyCode,jdbcType=VARCHAR}, #{companyLegal,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
 	      #{createUname,jdbcType=VARCHAR}, #{createUposition,jdbcType=VARCHAR}, #{projectProgress,jdbcType=VARCHAR}, 
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
@@ -237,7 +239,7 @@
 	     insert into sop_project (id, project_name, project_code, 
 	      project_type, stock_transfer, project_careerline, project_departId, industry_own,
 	      project_valuations, final_valuations, finance_status, project_contribution, final_contribution,
-	      currency_unit, project_share_ratio, final_share_ratio, project_company, formation_date, project_company_code, company_legal, create_uid, 
+	      currency_unit, project_share_ratio, final_share_ratio,service_charge, project_company, formation_date, project_company_code, company_legal, create_uid, 
 	      create_uname, create_uposition, project_progress, 
 	      project_status, updated_time, created_time, 
 	      project_describe, project_business_model, 
@@ -246,7 +248,7 @@
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT},  #{industryOwn,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
-	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{finalShareRatio,jdbcType=DECIMAL}, #{projectCompany,jdbcType=VARCHAR}, #{formationDate,jdbcType=BIGINT}, #{projectCompanyCode,jdbcType=VARCHAR}, #{companyLegal,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
+	      #{currencyUnit,jdbcType=INTEGER}, #{projectShareRatio,jdbcType=DECIMAL}, #{finalShareRatio,jdbcType=DECIMAL},#{serviceCharge,jdbcType=DECIMAL},  #{projectCompany,jdbcType=VARCHAR}, #{formationDate,jdbcType=BIGINT}, #{projectCompanyCode,jdbcType=VARCHAR}, #{companyLegal,jdbcType=VARCHAR}, #{createUid,jdbcType=BIGINT}, 
 	      #{createUname,jdbcType=VARCHAR}, #{createUposition,jdbcType=VARCHAR}, #{projectProgress,jdbcType=VARCHAR}, 
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
@@ -276,7 +278,7 @@
 		      <if test="currencyUnit != null" >  currency_unit = #{currencyUnit,jdbcType=INTEGER}, </if>
 		      <if test="projectShareRatio != null" > project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL}, </if>
 		      <if test="finalShareRatio != null" > final_share_ratio = #{finalShareRatio,jdbcType=DECIMAL}, </if>
-		      
+		      <if test="serviceCharge != null" > service_charge = #{serviceCharge,jdbcType=DECIMAL}, </if>
 		      <if test="projectCompany != null" >  project_company = #{projectCompany,jdbcType=VARCHAR}, </if>
 		      <if test="formationDate != null" > formation_date = #{formationDate,jdbcType=BIGINT}, </if>
 		      <if test="projectCompanyCode != null" >  project_company_code = #{projectCompanyCode,jdbcType=VARCHAR}, </if>
@@ -315,7 +317,7 @@
 		      <if test="currencyUnit != null" > and currency_unit = #{currencyUnit,jdbcType=INTEGER} </if>
 		      <if test="projectShareRatio != null" > and project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL} </if>
 		      <if test="finalShareRatio != null" > and final_share_ratio = #{finalShareRatio,jdbcType=DECIMAL} </if>
-		      
+		      <if test="serviceCharge != null" > and service_charge = #{serviceCharge,jdbcType=DECIMAL} </if>
 		      <if test="projectCompany != null" > and project_company = #{projectCompany,jdbcType=VARCHAR} </if>
 		      <if test="formationDate != null" > and formation_date = #{formationDate,jdbcType=BIGINT} </if>
 		      <if test="projectCompanyCode != null" > and project_company_code = #{projectCompanyCode,jdbcType=VARCHAR} </if>
@@ -358,7 +360,8 @@
 		      <if test="finalContribution != null" >  final_contribution = #{finalContribution,jdbcType=DECIMAL}, </if>
 		      <if test="currencyUnit != null" >  currency_unit = #{currencyUnit,jdbcType=INTEGER}, </if>
 		      <if test="projectShareRatio != null" > project_share_ratio = #{projectShareRatio,jdbcType=DECIMAL}, </if>
-		      <if test="finalShareRatio != null" > final_share_ratio = #{finalShareRatio,jdbcType=DECIMAL}, </if>		      
+		      <if test="finalShareRatio != null" > final_share_ratio = #{finalShareRatio,jdbcType=DECIMAL}, </if>
+		      <if test="serviceCharge != null" > service_charge = #{serviceCharge,jdbcType=DECIMAL}, </if>
 		      <if test="projectCompany != null" >  project_company = #{projectCompany,jdbcType=VARCHAR}, </if>
 		      <if test="formationDate != null" > formation_date = #{formationDate,jdbcType=BIGINT}, </if>
 		      <if test="projectCompanyCode != null" >  project_company_code = #{projectCompanyCode,jdbcType=VARCHAR}, </if>
