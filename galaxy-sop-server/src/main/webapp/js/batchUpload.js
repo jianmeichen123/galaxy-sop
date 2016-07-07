@@ -27,7 +27,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 		},
 		init: {
 			PostInit: function(up) {
-				$("#"+fileListId).html('');
+				//$("#"+fileListId).html('');
 				$("#" + submitBtnId).click(function(){
 					/*if(up.files.length > 0){*/
 						uploader.start();
