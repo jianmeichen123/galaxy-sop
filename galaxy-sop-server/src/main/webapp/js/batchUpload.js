@@ -21,7 +21,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 		filters : {
 			max_file_size : '10mb',
 			mime_types: [
-				{title : "Image files", extensions : "jpg,gif,png,txt"},
+				{title : "Image files", extensions : "jpg,gif,png,txt,docx,doc"},
 				{title : "Zip files", extensions : "zip"}
 			]
 		},
@@ -30,7 +30,6 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				$("#"+fileListId).html('');
 				$("#" + submitBtnId).click(function(){
 					/*if(up.files.length > 0){*/
-						up.settings.multipart_params = params;
 						uploader.start();
 					/*}*/
 					return false;
@@ -38,6 +37,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 			},
 			BeforeUpload:function(up){
 				params = paramsFunction();
+				up.settings.multipart_params = params;
 				/*var $form =$("#"+deliver_form);
 				var data = JSON.parse($form.serializeObject());
 				data['fileReidsKey']=params['fileReidsKey'];
