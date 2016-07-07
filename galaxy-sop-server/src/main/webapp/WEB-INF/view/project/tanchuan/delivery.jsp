@@ -47,16 +47,6 @@
                     </tr>
                  </table> 
             </dl>
-           <!--  <dl class="fmdl fl_l" id="show_up_file">
-                 <dt>&nbsp;</dt>
-                 <dd class="overflow_y">
-                 	<div class="area_div">
-                 		<ul>
-                        	<li></li>
-                        </ul>
-                    </div>
-                 </dd>
-            </dl>    -->
         </div>
     </div>
     

@@ -168,7 +168,21 @@ function toInitBachUpload(){
 							function paramsFunction(){
 								var condition = JSON.parse($("#deliver_form").serializeObject());
 								condition.fileReidsKey = Date.parse(new Date());
-								condition.fileNum = $("#filelist").children().length - 1;
+								condition.fileNum = $("#filelist").find("tr").length - 1;
+								
+								var oldFids=[];
+								var oldfileids = $("input[name='oldfileids']");
+								if(oldfileids && oldfileids.length > 0){
+									
+									$.each(oldfileids, function(i) { 
+										var idVal = oldfileids[i].value;
+									   	if(!isNaN(idVal)){
+									   		oldFids.push(idVal);
+									   	}
+									});
+									condition.fileIds = oldFids;
+								}
+								
 								return condition;
 					},"deliver_form");
 }
@@ -235,7 +249,9 @@ function deliverInfoEdit(selectRowId,type){
 					$.each(data.entity.files,function(){
 						var but = type == 'v' ? " -" : "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
 						var htm = "<tr id='"+this.id+"tr'>"+
-										"<td>"+this.fileName+"</td>"+
+										"<td>"+this.fileName+
+											"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
+										"</td>"+
 										"<td>"+this.fileLength+"</td>"+
 										"<td>"+ but +"</td>"+
 										"<td>100%</td>"+

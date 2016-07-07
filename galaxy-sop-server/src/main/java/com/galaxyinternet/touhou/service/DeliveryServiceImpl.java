@@ -186,9 +186,84 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	}
 
 	
+	/**
+	 * 编辑事项     file - 中间表  - 交割事项
+	 */
 	@Transactional
 	public Long updateDelivery(Delivery delivery) {
+		
+		Delivery oldDelivery =  deliveryDao.selectById(delivery.getId());
+		if(oldDelivery == null){
+			throw new DaoException(String.format("updateDelivery 数据错误: " + GSONUtil.toJson(delivery)));
+		}
+		
+		List<SopFile> upFiles = delivery.getFiles();   			//新存入 sopfile
+		List<Long> oldHasFileIds = delivery.getFileIds();       //原fileids 还保留的
+		List<Long> toDelfileids = new ArrayList<Long>();
+		
+		Byte allNum = delivery.getFileNum();
+		Byte oldNum = oldDelivery.getFileNum()==null?0:oldDelivery.getFileNum();
+		Byte oldHasNum = (byte) (oldHasFileIds ==null?0:oldHasFileIds.size());
+		Byte upNum = (byte) (upFiles == null?0:upFiles.size());
+		
+		if(allNum == null || allNum == 0){
+			delivery.setFileNum(null);
+			
+			if(oldNum != 0){
+				toDelfileids = deliveryFileList(delivery.getId());
+			}
+		}else{
+			delivery.setFileNum(allNum);
+			
+			if(oldNum!=0){
+				if(oldHasNum == 0){
+					toDelfileids = deliveryFileList(delivery.getId());
+				}else if(oldNum != oldHasNum){
+					List<Long> oldfileids = deliveryFileList(delivery.getId());  //查询中间表， 取原 fileids
+					for(Long oldId : oldfileids){
+						if(!oldHasFileIds.contains(oldId)){
+							toDelfileids.add(oldId);
+						}
+					}
+				}
+			}
+
+			if(upNum != 0){ 
+				List<DeliveryFile> dfileIn = new ArrayList<DeliveryFile>();
+				
+				Project project = projectDao.selectById(delivery.getProjectId());
+				for(SopFile sopfile:upFiles){
+					sopfile.setProjectId(project.getId());
+					sopfile.setProjectProgress(project.getProjectProgress());
+					sopfile.setCareerLine(project.getProjectDepartid());
+					sopfile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+					sopfile.setFileUid(project.getCreateUid());
+				}
+				fileDao.insertInBatch(upFiles);
+				
+				for(SopFile sopfile:upFiles){
+					DeliveryFile df = new DeliveryFile();
+					df.setDeliveryId(delivery.getId());
+					df.setFileId(sopfile.getId());
+					
+					dfileIn.add(df);
+				}
+				deliveryFileDao.insertInBatch(dfileIn);
+			}
+		}
+		
+		if(toDelfileids!=null && !toDelfileids.isEmpty()){
+			SopFileBo fileQ = new SopFileBo();
+			fileQ.setIds(toDelfileids);
+			fileDao.delete(fileQ);    // 删除 file、表
+			
+			DeliveryFile dfQ = new DeliveryFile();
+			dfQ.setFileIds(toDelfileids);
+			deliveryFileDao.delete(dfQ); // 删除 中间表
+		}
+		
 		int num = deliveryDao.updateById(delivery);
+		
 		if(num > 0){
 			return delivery.getId();
 		}else{
@@ -267,10 +342,11 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	}
 
 
-
+	/**
+	 *	由 事项id  查询其  文件 ids
+	 */
 	@Override
 	public List<Long> deliveryFileList(Long deliverid) {
-		// TODO Auto-generated method stub
 		List<Long> listFile = new ArrayList<Long>();
 		DeliveryFile deliveryFile = new DeliveryFile();
 		deliveryFile.setDeliveryId(deliverid);

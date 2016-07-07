@@ -24,6 +24,7 @@ public class Delivery extends PagableEntity {
     private Long updatedUid;
     
     private List<SopFile> files; 
+    private List<Long> fileIds;
 
     private String endByUname;
     
@@ -124,6 +125,14 @@ public class Delivery extends PagableEntity {
 
 	public void setStatusFormat(String statusFormat) {
 		this.statusFormat = statusFormat;
+	}
+
+	public List<Long> getFileIds() {
+		return fileIds;
+	}
+
+	public void setFileIds(List<Long> fileIds) {
+		this.fileIds = fileIds;
 	}
 
     
