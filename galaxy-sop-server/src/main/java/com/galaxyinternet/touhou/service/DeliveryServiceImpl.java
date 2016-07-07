@@ -143,12 +143,11 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	/**
 	 * 添加事项     file - 中间表  - 交割事项
 	 */
-	@SuppressWarnings("null")
 	@Transactional
 	public Long insertDelivery(Delivery delivery) {
 		Byte fnum = null;
 		Long delid = null;
-		List<DeliveryFile> dfileIn = null;
+		List<DeliveryFile> dfileIn = new ArrayList<DeliveryFile>();
 		List<SopFile> sopfiles = delivery.getFiles();
 		
 		if(sopfiles!=null && !sopfiles.isEmpty()){

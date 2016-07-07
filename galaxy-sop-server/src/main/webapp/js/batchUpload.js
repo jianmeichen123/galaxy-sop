@@ -28,10 +28,10 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 			PostInit: function(up) {
 				$("#"+fileListId).html('');
 				$("#" + submitBtnId).click(function(){
-					if(up.files.length > 0){
+					/*if(up.files.length > 0){*/
 						up.settings.multipart_params = params;
 						uploader.start();
-					}
+					/*}*/
 					return false;
 				});
 			},
@@ -57,16 +57,18 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				 $("#"+file.id+"_progress").html('<span>'+ percent + "%</span>"); 
 			},
 			UploadComplete: function(up, files){//所有都上传完成
-				if($("#"+fieInputId).val().trim()){
+				/*if($("#"+fieInputId).val().trim()){*/
 					sendPostRequestByJsonObj(sendFileUrl,params,function(data){
 					var result = data.result.status;
 					if(result == "OK"){
 						$.each(files, function(i) {     
 						    $("#"+files[i].id+"_progress").html('<span>'+ files[i].percent + "%</span>"); 
 						}); 
+						removePop1();
+						$("#project_delivery_table").bootstrapTable('refresh');
 					}
 				});
-				}
+				/*}*/
 		    },
 			Error: function(up, err) {
 				alert(err.message);

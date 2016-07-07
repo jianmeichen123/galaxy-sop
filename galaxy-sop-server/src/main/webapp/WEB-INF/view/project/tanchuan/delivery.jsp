@@ -37,17 +37,17 @@
                  <dd><input class="area_input" name="textarea2" id="textarea2" cols="45" rows="5"></input></dd>
                  <dd> <a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a></dd>
             </dl>  
-            <dl>
-                 <table style="width: 600px" id="filelist" border="1">
+            <dl class="fmdl fl_l" id="show_up_file">
+                 <table style="width:400px" id="filelist" border="1">
                     <tr>
-                      <td>文件名称</td>
-                      <td>文件大小</td>
-                      <td>操作</td>
-                      <td>上传进度</td>
+                      <td style="width:200px">名称</td>
+                      <td style="width:50px">大小</td>
+                      <td style="width:50px">操作</td>
+                      <td style="width:50px">进度</td>
                     </tr>
                  </table> 
             </dl>
-            <dl class="fmdl fl_l" id="show_up_file">
+           <!--  <dl class="fmdl fl_l" id="show_up_file">
                  <dt>&nbsp;</dt>
                  <dd class="overflow_y">
                  	<div class="area_div">
@@ -56,7 +56,7 @@
                         </ul>
                     </div>
                  </dd>
-            </dl>   
+            </dl>    -->
         </div>
     </div>
     
