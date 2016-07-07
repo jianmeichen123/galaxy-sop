@@ -135,7 +135,10 @@ $(function(){
 	$("#projectId").val(proid);
 	
 	init_bootstrapTable('project_delivery_table',10);
-	
+	//刷新右侧投后运营简报信息
+	$("#project_delivery_table").on('load-success.bs.table',function(){
+		setThyyInfo();
+	});
 	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
 		$("[data-btn='to_add_deliver']").off();
 		$("[data-btn='to_add_deliver']").remove();

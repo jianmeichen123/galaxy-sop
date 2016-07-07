@@ -361,7 +361,7 @@ function setThyyInfo()
 			//运营会议
 			if(data.entityList != null && data.entityList.length>0)
 			{
-				
+				$("#thyy_meet_div .new_b_bottom").remove();
 				$.each(data.entityList,function(){
 					
 					var div = $('<div class="new_b_bottom"></div>');
