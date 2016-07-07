@@ -36,16 +36,22 @@
             
             <dl class="fmdl fl_l" id="choose_up_file">
                  <dt>上传附件 ：</dt>
-                 <dd><input class="area_input" name="textarea2" id="textarea2" cols="45" rows="5"></input></dd>
-                 <dd> <a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a></dd>
+                 <div class="fmload clearfix">
+		            <dd>
+			        	<input  type="text"  class="txt" name="textarea2" id="textarea2" ></input>
+			        </dd>
+			        <dd>
+			        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
+		    		</dd>
+		        </div>
             </dl>  
             <dl class="fmdl fl_l" id="show_up_file">
-                 <table style="width:400px;" id="filelist" border="1">
+                 <table style="width:90%;border: 1px;margin: auto;" id="filelist">
                     <tr>
-                      <td style="width:200px;">名称</td>
-                      <td style="width:50px;">大小</td>
-                      <td style="width:50px;">操作</td>
-                      <td style="width:50px;">进度</td>
+                      <td style="width:50%;">文件名称</td>
+                      <td style="width:20%" align="center">文件大小</td>
+                      <td style="width:15%" align="center">操作</td>
+                      <td style="width:15%" align="center">进度</td>
                     </tr>
                  </table> 
             </dl>
