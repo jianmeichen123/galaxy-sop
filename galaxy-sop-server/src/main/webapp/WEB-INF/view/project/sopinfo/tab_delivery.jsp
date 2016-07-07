@@ -152,22 +152,7 @@ $(function(){
 					$("#popup_name").html(_name);
 					$("#deliver_form [name='projectId']").val(proid);
 					
-					var delDescribe = $("#delDescribe").val();
-					var details = $("#details").val();
-					var delStatus = $("#delStatus").val();
-					
-					toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
-					Constants.sopEndpointURL + '/galaxy/delivery/operdelivery',"textarea2","select_btn","save_file","container","filelist",
-							function paramsFunction(){
-								var mytime=Date.parse(new Date());     //获取当前时间
-								var	condition = {};
-								condition.projectId = proid;
-								condition.fileReidsKey = mytime;
-								condition.delDescribe = delDescribe;
-								condition.details = details;
-								condition.delStatus = delStatus;
-								return condition;
-					});
+					toInitBachUpload();
 				}
 			});
 			return false;
@@ -176,6 +161,24 @@ $(function(){
 });	
 
 
+
+function toInitBachUpload(){
+	toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
+			Constants.sopEndpointURL + '/galaxy/delivery/operdelivery',"textarea2","select_btn","save_file","container","filelist",
+					function paramsFunction(){
+						var mytime=Date.parse(new Date());     //获取当前时间
+						var	condition = {};
+						
+						condition.projectId = $("#deliver_form [name='projectId']").val();
+						condition.id = $("#deliver_form [name='id']").val();
+						condition.fileReidsKey = mytime;
+						condition.delDescribe = $("#deliver_form [name='delDescribe']").val( );  
+						condition.details = $("#deliver_form [name='details']").val( );  
+						condition.delStatus = $("#deliver_form [name='delStatus'] checked").val();
+						
+						return condition;
+			});
+}
 
 /**
  *  状态 format
@@ -236,6 +239,10 @@ function deliverInfoEdit(selectRowId,type){
 					$("#deliver_form [name='details']").text(deliverInfo.details);
 					$("#deliver_form [name='delStatus'][value='"+deliverInfo.delStatus+"']").attr("checked",'checked');
 					
+					$.each(data.entity.files,function(){
+						$("#"+fileListId).append("<tr id='"+file.id+"tr'><td>"+plupload.formatSize(file.size)+"</td><td>"+file.name+"</td><td><button type='button' id='"+file.id+"btn' onclick=del('"+file.id+"','"+file.name+"','"+fieInputId+"')>删除</button> </td><td id='"+file.id+"_progress'></td></tr>");
+					});
+					
 					if(type == 'v'){
 						$("#popup_name").html("查看事项信息");
 						$("#choose_oper").remove();
@@ -244,7 +251,9 @@ function deliverInfoEdit(selectRowId,type){
 						$("#popup_name").html("编辑事项信息");
 						$("#deliver_form [name='id']").val(deliverInfo.id);
 						$("#deliver_form [name='projectId']").val(proid);
+						toInitBachUpload();
 					}
+					
 				}else{
 					layer.msg(data.result.message);
 				}
