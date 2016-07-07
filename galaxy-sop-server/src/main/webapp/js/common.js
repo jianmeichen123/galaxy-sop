@@ -1191,6 +1191,40 @@ function isArray(obj) {
 } 
 
 
+
+
+function setCookie(name,value,hours,path){
+	var name = escape(name);
+	var value = escape(value);
+	var expires = new Date();
+	expires.setTime(expires.getTime() + hours * 60*60*1000);
+	path = path =="" ? "":";path=" + path;
+	_expires = (typeof hours) == "string" ? "": ";expires=" + expires.toUTCString();
+	document.cookie = name + "=" + value + _expires + path;
+}
+function getCookieValue(name){
+	var name = escape(name);
+	var allcookies = document.cookie;
+	name += "=";
+	var pos = allcookies.indexOf(name);
+	if(pos != -1){
+		var start = pos + name.length;
+		var end = allcookies.indexOf(";",start);
+		if(end == -1){
+			end = allcookies.length;
+		}
+		var value = allcookies.substring(start,end);
+		return unescape(value);
+	} else{
+		return "";
+	}
+}
+function deleteCookie(name,path){
+	var name = escape(name);
+	var expires = new Date(0);
+	path = path == "" ? "" : ";path=" + path;
+	document.cookie = name + "=" + ";expires=" + expires.toUTCString() + path;
+}
 var cookieOperator = {
 	paramKey : 'parameter',
 	/*
@@ -1203,19 +1237,14 @@ var cookieOperator = {
 	 * 
 	 * */
 	forwardPushCookie : function(formdata){
-		var cookietime = new Date(); 
-		cookietime.setTime(cookietime.getTime() + (60 * 60 * 1000));//coockie保存一小时 
-		if(!formdata._param){
-			layer.msg('参数信息为空');
-			return;
-		}
 		var tempParamKey;
 		if(formdata._paramKey){
 			tempParamKey = formdata._paramKey;
 		}else{
 			tempParamKey = cookieOperator.paramKey;
 		}
-		$.cookie(tempParamKey, JSON.stringify(formdata._param),{expires:cookietime,path:formdata._path});
+		setCookie(tempParamKey,JSON.stringify(formdata._param),6,formdata._path);
+		//$.cookie(tempParamKey, JSON.stringify(formdata._param),{expires:cookietime,path:formdata._path});
 		forwardWithHeader(formdata._url);
 	},
 	pullCookie : function(formdata){
@@ -1225,9 +1254,11 @@ var cookieOperator = {
 		}else{
 			tempParamKey = cookieOperator.paramKey;
 		}
-		var retStr = $.cookie(tempParamKey);
+		var retStr = getCookieValue(tempParamKey);
+		//var retStr = $.cookie(tempParamKey);
 		if(retStr){
-			$.removeCookie(tempParamKey);
+			deleteCookie(tempParamKey,formdata._path);
+			//$.removeCookie(tempParamKey);
 			return jQuery.parseJSON(retStr);
 		}
 		return;

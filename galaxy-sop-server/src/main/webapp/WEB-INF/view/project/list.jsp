@@ -208,6 +208,8 @@
 		}
 	
 	function proInfo(id){
+		//项目详情页返回地址
+		setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
 		//返回附带参数功能代码
 		var options = $("#project-table").bootstrapTable('getOptions');
 		var tempPageSize = options.pageSize ? options.pageSize : 10;
@@ -281,7 +283,7 @@
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
 		//返回附带参数功能代码
-		var initParams = cookieOperator.pullCookie({_paramKey : 'projectList'});
+		var initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
 		$("button[action='querySearch']").click(function(){
 			initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
 		});

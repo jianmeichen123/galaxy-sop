@@ -14,7 +14,7 @@
     	<div class="new_tit_b">
         	<span class="size18" id="project_name_t"></span><span class="new_color" id="project_code_t"></span>
         	<span class="b_span"> 
-	        	<a href="javascript:history.back();">返回></a>
+	        	<a href="#" onclick="back();">返回></a>
 			</span>
         </div>
 </body>
@@ -32,6 +32,15 @@ var projectInfo = '';
 sendGetRequest(platformUrl.detailProject + pid, {}, function(data){	
 	projectInfo = data.entity;
 });
+
+function back(){
+	var path = getCookieValue("project_detail_back_path");
+	if(path){
+		forwardWithHeader(path);
+	}else{
+		window.history.back();
+	}
+}
 
 $(function(){
 	var str=projectInfo.projectName;
