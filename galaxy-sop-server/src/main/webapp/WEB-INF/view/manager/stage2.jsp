@@ -430,13 +430,13 @@ $(function(){
  	                  {
  	                    title: '姓名',
  	                      field: 'personName',
- 	                      align: 'center',
+ 	                      
  	                      valign: 'middle'
  	                  },
  	                  {
                          title: '性别',
                          field: 'personSex',
-                         align: 'center',
+                         
                          valign: 'middle',
                          formatter:function(value,row,index){ 
                           	if (row.personSex == 0) {
@@ -451,25 +451,25 @@ $(function(){
  	                    {
  	                        title: '年龄',
  	                          field: 'personAge',
- 	                          align: 'center',
+ 	                          
  	                          valign: 'middle'
  	                     },
  	                     {
  	                          title: '当前职务',
  	                            field: 'personDuties',
- 	                            align: 'center',
+ 	                            
  	                            valign: 'middle'
  	                  },
  	                  {
  	                      title: '电话',
  	                        field: 'personTelephone',
- 	                        align: 'center',
+ 	                        
  	                        valign: 'middle'
  	                  },
  	                  {
  	                      title: '最高学历',
  	                        field: 'highestDegree',
- 	                        align: 'center',
+ 	                        
  	                        valign: 'middle',
  	                       formatter:function(value,row,index){ 
 	                         	if (row.highestDegree == 1) {
@@ -495,7 +495,7 @@ $(function(){
  	                  {
  	                      title: '工作年限',
  	                        field: 'workTime',
- 	                        align: 'center',
+ 	                        
  	                        valign: 'middle'
  	                  }
  	              ]
@@ -518,31 +518,31 @@ $(function(){
                    {
                      title: '类型',
                        field: 'sharesType',
-                       align: 'center',
+                       
                        valign: 'middle'
                    },
                    {
                        title: '所有权人',
                          field: 'sharesOwner',
-                         align: 'center',
+                         
                          valign: 'middle'
                      },
                      {
                          title: '占比(%)',
                            field: 'sharesRatio',
-                           align: 'center',
+                           
                            valign: 'middle'
                       },
                       {
                            title: '获取方式',
                              field: 'gainMode',
-                             align: 'center',
+                             
                              valign: 'middle'
                    },
                    {
                        title: '备注',
                          field: 'remark',
-                         align: 'center',
+                         
                          valign: 'middle'
                    }
                ]
