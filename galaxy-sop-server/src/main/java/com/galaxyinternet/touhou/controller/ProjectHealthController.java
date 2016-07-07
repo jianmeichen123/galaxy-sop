@@ -5,7 +5,6 @@ package com.galaxyinternet.touhou.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.galaxyinternet.bo.touhou.DeliveryBo;
 import com.galaxyinternet.bo.touhou.ProjectHealthBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.exception.PlatformException;
@@ -32,11 +30,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.touhou.ProjectHealth;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectHealthService;
-import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.UserRoleService;
-import com.galaxyinternet.service.UserService;
 
 
 /**
@@ -51,14 +45,6 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 
 	@Autowired
 	private ProjectHealthService projectHealthService;
-	@Autowired
-	private UserService userService;
-	@Autowired
-	private UserRoleService userRoleService;
-	@Autowired
-	private ProjectService projectService;
-	@Autowired
-	private DepartmentService departmentService;
 
 	
 	private String tempfilePath;
