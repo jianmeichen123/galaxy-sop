@@ -169,8 +169,8 @@ function getProjectInfo(dtd)
 					<tr>
 							<td><span class="new_color_gray">融资状态：</span><span class="new_color_black" id="financeStatusDs"></span></td>
 							<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
-							<span class="new_color_gray">(</span>
-								<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray">)</span><span id="insertImg"></span></td>
+							<span class="new_color_gray" id="s">(</span>
+								<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray" id="end">)</span><span id="insertImg"></span></td>
 						</tr>
 					
 					</table>

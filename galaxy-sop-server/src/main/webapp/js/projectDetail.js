@@ -4,6 +4,11 @@ $(function(){
 	 * 加载项目详情数据
 	 */
 	var projectPro = projectInfo.projectProgress;
+	if(projectPro=="projectProgress:10"){
+		$("#end").hide();
+		$("#s").hide();
+		
+	}
 	var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 
 		$("#project_name_title").text(projectInfo.projectName);
@@ -18,7 +23,7 @@ $(function(){
 		$("#project_valuations").text(projectInfo.projectValuations==0||typeof(projectInfo.projectValuations)=="undefined"?"--":projectInfo.projectValuations);
 		$("#project_share_ratio").text(typeof(projectInfo.projectShareRatio)=="undefined"?"--":projectInfo.projectShareRatio);
 		$("#projectProgress").text(projectInfo.progress);
-		$("#projectStatusDs").text(projectInfo.projectStatusDs);
+		$("#projectStatusDs").text(projectInfo.projectProgress=="projectProgress:10"?"":projectInfo.projectStatusDs);
 		$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
 		$("#finalValuations").text(projectInfo.finalValuations==0||typeof(projectInfo.finalValuations)=="undefined"?"--":projectInfo.finalValuations);
 		$("#finalContribution").text(projectInfo.finalContribution==0||typeof(projectInfo.finalContribution)=="undefined"?"--":projectInfo.finalContribution);
@@ -48,7 +53,6 @@ $(function(){
 			$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
 			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?0:projectInfo.finalShareRatio);
 			$("#serviceChargeedit").val(typeof(projectInfo.serviceCharge)=="undefined"?"--":projectInfo.serviceCharge)
-			
 			 p=projectInfo.industryOwn;
 		    fs=projectInfo.financeStatus;
 			//融资
