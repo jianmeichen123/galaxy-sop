@@ -47,12 +47,14 @@
             </dl>  
             <dl class="fmdl fl_l" id="show_up_file">
                  <table style="width:90%;border: 1px;margin: auto;" id="filelist">
+                 <thead>
                     <tr>
-                      <td style="width:50%;">文件名称</td>
-                      <td style="width:20%" align="center">文件大小</td>
-                      <td style="width:15%" align="center">操作</td>
-                      <td style="width:15%" align="center">进度</td>
+                      <th style="width:50%;">文件名称</th>
+                      <th style="width:20%" align="center">文件大小</th>
+                      <th style="width:15%" align="center">操作</th>
+                      <th style="width:15%" align="center">进度</th>
                     </tr>
+                 </thead>
                  </table> 
             </dl>
         </div>
