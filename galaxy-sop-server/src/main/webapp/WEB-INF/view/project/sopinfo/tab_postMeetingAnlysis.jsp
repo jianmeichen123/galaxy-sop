@@ -75,10 +75,13 @@
                         	<c:if test="${isCreatedByUser}">
                             <a class="pbtn bluebtn h_bluebtn" href="tchtml/conference.html" data-btn="conference" data-name='添加运营会议纪要'>添加运营会议纪要</a>
                         	</c:if>
-                            <a class="pbtn bluebtn h_bluebtn" href="tchtml/health_case.html" data-btn="health_case" data-name='健康状况变更记录'>健康状况记录变更</a>
+                        	
+                        	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
+                        	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
+                            <%-- <a class="pbtn bluebtn h_bluebtn" href="tchtml/health_case.html" data-btn="health_case" data-name='健康状况变更记录'>健康状况记录变更</a>
                             <c:if test="${isCreatedByUser}">
                             <a class="pbtn bluebtn h_bluebtn" href="tchtml/statustc.html" data-btn="status" data-name='健康状况'>健康状态</a>
-                            </c:if>
+                            </c:if> --%>
                         </div>
                     </div>
                     <!-- 搜索条件 -->
@@ -136,6 +139,82 @@
 
 <script type="text/javascript" src="<%=path%>/js/tabPostMeetingAnlysis.js"></script>
 
+<script>
+
+//============================健康状况
+	var proid = projectInfo.id;
+	var deliver_selectRow = null;
+	
+$(function(){
+	show_health_case();
+	show_health_status();
+});
+
+function hide_health_case(){
+	$("[data-btn='health_case']").off();
+	$("[data-btn='health_case']").remove();
+}
+function hide_health_status(){
+	$("[data-btn='health_status']").off();
+	$("[data-btn='health_status']").remove();
+}
+ /**
+  * 健康记录  列表
+  */
+function show_health_case(){
+	$("[data-btn='health_case']").text("健康状况变更记录");
+	$("[data-btn='health_case']").on("click",function(){
+		var $self = $(this);
+		var _name= $self.attr("data-name");
+		var _url = Constants.sopEndpointURL + '/galaxy/health/tohealthlist';
+		$.getHtml({
+			url:_url,
+			data:"",
+			okback:function(){
+				$("#popup_name").html(_name);
+				$("#health-custom-toolbar [name='projectId']").val(proid);
+				
+				init_bootstrapTable('project_health_table',5);
+			}
+		});
+		return false;
+	});
+}
+/**
+ * 健康记录  添加
+ */
+function show_health_status(){
+	$("[data-btn='health_status']").text("健康状况");
+	$("[data-btn='health_status']").on("click",function(){
+		var $self = $(this);
+		var _name= $self.attr("data-name");
+		var _url = Constants.sopEndpointURL + '/galaxy/health/toaddhealth';
+		$.getHtml({
+			url:_url,
+			data:"",
+			okback:function(){
+				$("#popup_name").html(_name);
+				$("#health_form [name='projectId']").val(proid);
+			}
+		});
+		return false;
+	});
+}
+function save_health(){
+	var content = JSON.parse($("#health_form").serializeObject());
+	var _url =  Constants.sopEndpointURL + '/galaxy/health/addhealth'
+	sendPostRequestByJsonObj(_url, content, function(data){
+		if (data.result.status=="OK") {
+			layer.msg("保存成功");
+			removePop1();
+			$("#project_delivery_table").bootstrapTable('refresh');
+		} else {
+			layer.msg(data.result.message);
+		}
+	});
+	
+}
+</script>
+
+
 </html>
-
-
