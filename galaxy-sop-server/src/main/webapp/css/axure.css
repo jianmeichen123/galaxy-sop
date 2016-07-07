@@ -808,7 +808,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .middle .middle_l table{border-top-right-radius: 0 !important;}
 .search_box dl dd select {font-size: 12px !important;}
 /* .search_box .qx{width: 50px;}
- */.chart_name{margin-left: 10px;font-size: 18px !important;color:#2d3342;height: 30px !important;line-height: 30px !important;}
+ */.chart_name{margin-left: 10px;font-size: 18px !important;color:#3e4351 !important;;height: 30px !important;line-height: 30px !important;}
 /* 数据报表计算说明 */
 .tooltip-test{width:14px;display: inline-block;background: url(../img/tips.png) 0 4px no-repeat;font-size: 0;margin-left: 2px;}
 .tooltip {
@@ -898,7 +898,6 @@ right: 200px;}
 .chart_list dl dd ul li span{margin-left: 15px;background: url(../img/deal.png) no-repeat;padding-left: 16px;}
 .chart_list dl dd ul li span.d2{background-position: 0 -22px;}
 .chartbox_bottom{margin: 0 auto;}
-.chartbox_bottom .tabtable{border:1px solid #edeff5;}
 .chartbox_bottom .tabtable .tabtable_top{display: block;padding: 10px 10%;height: 30px;background-color: #edeff5;}
 .chartbox_bottom .tabtable .tabtable_top select{float: left;height: 28px;line-height: 28px;width: 120px;border-radius: 4px;border:1px solid #CCD2D7;}
 .chartbox_bottom .tabtable .tabtable_top a{float: right;}
@@ -907,7 +906,8 @@ right: 200px;}
 .mask{position: absolute;width:99%;height: 100%;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
 .mask1{position: absolute;width:99%;height: 100px;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0)}
 dl dd .time1{display:inline-block !important;width: 100px !important;background:url(../img/btnico2.png) 0 0 no-repeat !important;background-position: 85px -150px !important;}
-
+.assessment .tablink_business li{width:25%;margin:0;padding:0;text-align:center;border-radius:0;color:#3d4351;height:38px;line-height:38px;background:#e8ebf2;}
+.assessment .tablink_business li.on{background:#e8ebf2;border-radius:0;color:#5880df;}
  /*管理员 数据字典*/
 .dictionary{ padding:0 0 0 90px}
 .dictionary ul{ float:left; width:140px; margin:46px 3px 0 0}
