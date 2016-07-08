@@ -195,7 +195,17 @@ function paramsContion(){
 function toInitBachUpload(){
 	toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
 					Constants.sopEndpointURL + '/galaxy/delivery/operdelivery',"textarea2","select_btn","save_file","container","filelist",
-					paramsContion,"deliver_form");
+					paramsContion,"deliver_form",saveCallBackFuc);
+}
+
+
+/**
+ * 回调函数
+ */
+ 
+function saveCallBackFuc(data){
+	removePop1();
+	$("#project_delivery_table").bootstrapTable('refresh');
 }
 
 /**

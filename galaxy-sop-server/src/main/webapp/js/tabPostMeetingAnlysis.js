@@ -137,10 +137,11 @@ var meetGrid = {
 						 meetingDateStr : row.meetingDateStr,
 						 meetingName : row.meetingName,
 						 meetingType : row.meetingType,
-						 meetingNotes : row.meetingNotes
+						 meetingNotes : row.meetingNotes,
 				}
 				editPostMeetingDialog.init(formdata);
-				
+				filelist(row.id);
+			
 	        },
 	        'click .meet_delete': function (e, value, row, index) {
 				
@@ -201,6 +202,8 @@ var editPostMeetingDialog = {
 				url:platformUrl.toEditPostMeeting,//模版请求地址
 				data:"",//传递参数
 				okback:function(_this){
+					
+					
 					
 //					console.log(111111);
 //					$("#meetingDate").val("");		
@@ -263,47 +266,13 @@ var editPostMeetingDialog = {
 									layer.msg("初始化项目类型出错");
 									return;
 								}	
-							},
-							save : function(){
-								if(beforeSubmit()){
-									var form = $("#win_post_meeting_form").serializeObject();
-									form = jQuery.parseJSON(form);
-									form.projectId = pInfo.id;
-									var nowTime = (new Date()).getTime();
-									var meetingTime = (new Date(form.meetingDateStr)).getTime();
-//									if(meetingTime <= nowTime){
-//										layer.msg("会议时间应为未来的某一时刻");
-//										return false;
-//									}
-									$(".pop").showLoading(
-											 {
-											    'addClass': 'loading-indicator'						
-											 });
-									
-									
-									
-									sendPostRequestByJsonObj(platformUrl.saveMeeting,form,operator.saveCallBackFuc);
-
-								}
-							},
-							saveCallBackFuc : function(data){
-								$(".pop").hideLoading();
-								if(data.result.status=="OK"){
-									layer.msg("保存成功");
-									meetGrid.searchData();
-									editPostMeetingDialog.close(_this);
-									//刷新投后运营简报信息
-									setThyyInfo();
-									
-								}else{
-									layer.msg(data.result.errorCode);
-								}
-								editPostMeetingDialog.callFuc();
 							}
 					};
-					
 					//初始化页面
 					sendGetRequest(platformUrl.dictFindByParentCode+"/postMeetingType",null,operator.initDataCallBack);
+					toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
+							platformUrl.saveMeeting,"textarea2","select_btn","win_ok_btn","post-meeting-dialog","filelist",
+							paramsContion,"win_post_meeting_form",saveCallBackFuc);
 					
 					
 				}//end okback 模版反回成功执行		
@@ -332,6 +301,60 @@ function init(){
 	meetingSearchPanel.initData();
 	
 }
+
+//获取 页面数据\保存数据
+function paramsContion(){
+	
+	if(!beforeSubmit()){
+		return false;
+	}
+	$(".pop").showLoading(
+			 {
+			    'addClass': 'loading-indicator'						
+			 });
+	var condition = JSON.parse($("#win_post_meeting_form").serializeObject());
+	condition.fileReidsKey = Date.parse(new Date());
+	condition.projectId = pInfo.id;
+	condition.fileNum = $("#show_up_file").find("tr").length - 1;
+	return condition;
+}
+//回调函数
+function saveCallBackFuc(data){
+	$(".pop").hideLoading();
+	if(data.result.status=="OK"){
+		layer.msg("保存成功");
+		meetGrid.searchData();
+		removePop1();
+		//刷新投后运营简报信息
+		setThyyInfo();
+		
+	}
+}
+
+function filelist(id){
+	var _url = Constants.sopEndpointURL + '/galaxy/project/postOperation/selectFile/'+row.id;
+	sendGetRequest(_url, {}, function(data){
+		var result = data.result.status;
+		if(result == "OK"){
+			var deliverInfo = data.entity;
+			$.each(data.entity.files,function(){
+				var but = type == 'v' ? " -" : "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
+				var htm = "<tr id='"+this.id+"tr'>"+
+								"<td>"+this.fileName+
+									"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
+								"</td>"+
+								"<td>"+this.fileLength+"</td>"+
+								"<td>"+ but +"</td>"+
+								"<td>100%</td>"+
+							"</tr>"
+				$("#filelist").append(htm);
+				alert(9);
+			});
+		}
+		});
+}
+
+
 
 var pInfo;
 

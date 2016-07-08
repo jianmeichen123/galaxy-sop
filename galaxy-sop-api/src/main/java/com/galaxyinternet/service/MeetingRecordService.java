@@ -30,5 +30,7 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	 */
 	public Long queryMeetNumberByType(MeetingRecord query);
 	
+	public Long insertMeeting(MeetingRecord query);
+	
 
 }

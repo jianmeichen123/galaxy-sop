@@ -10,8 +10,9 @@
  * @param fileListId  文件列表显示id
  * @param paramsFunction 上传所需要的附加参数
  * @param deliver_form 数据的表单form id
+ * @param callBackFun 回调函数
  */
-function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form) {
+function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun) {
 	var params = {};
 	uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
@@ -86,8 +87,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						$.each(files, function(i) {     
 						    $("#"+files[i].id+"_progress").html('<span>'+ files[i].percent + "%</span>"); 
 						}); 
-						removePop1();
-						$("#project_delivery_table").bootstrapTable('refresh');
+						saveCallBackFuc(data);
 					}else{
 					    $.each(files, function(i) {     
 						    $("#"+files[i].id+"_progress").html('<span>'+"上传失败!"+"</span>"); 

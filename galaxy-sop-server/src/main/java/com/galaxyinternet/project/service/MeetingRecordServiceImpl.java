@@ -30,6 +30,7 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.soptask.SopTask;
+import com.galaxyinternet.model.touhou.DeliveryFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.IdeaService;
@@ -493,6 +494,40 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			return userService.queryList(user);
 		}
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public Long insertMeeting(MeetingRecord query) {
+		Byte fnum = null;
+		Long delid = null;
+		List<SopFile> sopfiles = query.getFiles();
+		
+		if(sopfiles!=null && !sopfiles.isEmpty()){
+			fnum = (byte) sopfiles.size();
+			query.setFileNum(fnum);
+		}
+		delid = meetingRecordDao.insert(query);   //交割事项
+		
+		if(sopfiles!=null && !sopfiles.isEmpty() && fnum !=null){
+			Project project = projectDao.selectById(query.getProjectId());
+			for(SopFile sopfile:sopfiles){
+				sopfile.setProjectId(project.getId());
+				sopfile.setProjectProgress(project.getProjectProgress());
+				sopfile.setCareerLine(project.getProjectDepartid());
+				sopfile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				sopfile.setFileUid(project.getCreateUid());
+				sopfile.setMeetingId(delid);
+				sopfile.setFileLength(sopfile.getFileLength());
+				sopfile.setFileKey(sopfile.getFileKey());
+				sopfile.setBucketName(sopfile.getBucketName());
+				sopfile.setFileName(sopfile.getFileName());
+				sopfile.setFileSuffix(sopfile.getFileSuffix());
+			}
+			sopFileDao.insertInBatch(sopfiles);
+			
+		}
+		return delid;
 	}
 	
 	

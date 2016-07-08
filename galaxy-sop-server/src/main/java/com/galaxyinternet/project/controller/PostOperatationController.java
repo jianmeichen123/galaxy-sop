@@ -1,8 +1,10 @@
 package com.galaxyinternet.project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +36,8 @@ import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.sopfile.SopDownLoad;
+import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.touhou.ProjectHealth;
 import com.galaxyinternet.model.user.User;
@@ -42,7 +46,9 @@ import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.MeetingRecordService;
 import com.galaxyinternet.service.ProjectHealthService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.utils.BatchUploadFile;
 
 @Controller
 @RequestMapping(value="/galaxy/project/postOperation")
@@ -60,6 +66,10 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 	private DictService dictService;
 	@Autowired
 	private UserRoleService userRoleService;
+	@Autowired
+	private SopFileService sopFileService;
+	@Autowired
+	BatchUploadFile batchUpload;
 	
 	public static final String ERROR_DAO_EXCEPTION = "系统出现异常";
 	
@@ -200,6 +210,14 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 				.getId());
 		try {
+			if(meetingRecord.getFileReidsKey() != null){
+				ResponseData<SopFile> result = batchUpload.batchUpload(user.getId()+meetingRecord.getFileReidsKey());
+				if(Status.OK.equals(result.getResult().getStatus())){
+					List<SopFile> fileList = result.getEntityList();
+					meetingRecord.setFiles(fileList);
+				}
+			}
+			
 			//设置meetingName
 			if(meetingRecord.getMeetingName() == null || meetingRecord.getMeetingName().intValue()==0){
 				Long meetNumber = meetingService.queryMeetNumberByType(meetingRecord);
@@ -213,7 +231,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 			//设置会议类型
 			meetingRecord.setRecordType(RecordType.OPERATION_MEETING.getType());
 			
-			
+			Long id = null;
 			if(meetingRecord.getId()!=null && meetingRecord.getId().intValue()!=0){
 				//更新
 				meetingService.updateByIdSelective(meetingRecord);
@@ -223,9 +241,10 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 				//
 				meetingRecord.setMeetingResult(DictEnum.meetingResult.通过.getCode());
 				//插入
-				meetingService.insert(meetingRecord);
+				id = meetingService.insertMeeting(meetingRecord);
 			}	
 			responseBody.setResult(new Result(Status.OK,"")); 
+			responseBody.setId(id);
 				
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -283,5 +302,35 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 		
 		return data;
 	}
+	
+	
+	/**
+	 * 获取文件列表
+	 * @param id
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/selectFile/{id}")
+	public ResponseData<MeetingRecord> selectFile(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
+	{
+		ResponseData<MeetingRecord> data = new ResponseData<MeetingRecord>();
+		MeetingRecord meeting = new MeetingRecord();
+		try{
+			if(id != null){
+				SopFile sopfile = new SopFile();
+			    sopfile.setMeetingId(id);
+				List<SopFile> sopFileList = sopFileService.queryList(sopfile);
+				meeting.setFiles(sopFileList);
+				data.setEntity(meeting);
+				data.setResult(new Result(Status.OK, ""));
+			}else{
+				data.setResult(new Result(Status.ERROR, "无操作数据!"));
+			}
+		}catch(Exception e){
+			data.setResult(new Result(Status.ERROR, ERROR_DAO_EXCEPTION));
+		}
+		return data;
+	}
+	
 
 }

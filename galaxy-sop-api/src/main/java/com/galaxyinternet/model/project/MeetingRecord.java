@@ -2,11 +2,13 @@ package com.galaxyinternet.model.project;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.common.PagableRecordEntity;
+import com.galaxyinternet.model.sopfile.SopFile;
 
 
 public class MeetingRecord  extends PagableRecordEntity{
@@ -41,6 +43,12 @@ public class MeetingRecord  extends PagableRecordEntity{
     private Long createUid;
     
     private byte meetValid; //0表示有效，1表示无效
+    
+    private String fileReidsKey;
+    
+    private Byte fileNum;
+    
+    private List<SopFile> files;
     
     
     
@@ -311,6 +319,32 @@ public class MeetingRecord  extends PagableRecordEntity{
 	public void setCreateUName(String createUName) {
 		this.createUName = createUName;
 	}
+
+	public String getFileReidsKey() {
+		return fileReidsKey;
+	}
+
+	public void setFileReidsKey(String fileReidsKey) {
+		this.fileReidsKey = fileReidsKey;
+	}
+
+	public Byte getFileNum() {
+		return fileNum;
+	}
+
+	public void setFileNum(Byte fileNum) {
+		this.fileNum = fileNum;
+	}
+
+	public List<SopFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<SopFile> files) {
+		this.files = files;
+	}
+    
+	
 	
 
 }
