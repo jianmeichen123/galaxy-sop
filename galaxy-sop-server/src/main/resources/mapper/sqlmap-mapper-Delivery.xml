@@ -94,9 +94,9 @@
 		update sop_delivery
 		<set>
 	      <if test="delDescribe != null">  del_describe = #{delDescribe,jdbcType=VARCHAR}, </if>
-	      <if test="details != null">  details = #{details,jdbcType=VARCHAR}, </if>
+	      details = #{details,jdbcType=VARCHAR},
 	      <if test="delStatus != null">  del_status = #{delStatus,jdbcType=TINYINT}, </if>
-	      <if test="fileNum != null">  file_num = #{fileNum,jdbcType=TINYINT}, </if>
+	      file_num = #{fileNum,jdbcType=TINYINT},
 	      <if test="updatedUid != null">  updated_uid = #{updatedUid,jdbcType=BIGINT}, </if>
 	      <if test="updatedTime != null">  updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
 		</set>
