@@ -188,7 +188,7 @@
 	function editor(value, row, index){
 		var id=row.id;
 		if(uid == row.createUid){
-			var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'><span class=\"prc\">项目流程</span></a>";
+			var options = "<span class=\"prc\" data-btn='myproject' onclick='info(" + id + ")'>项目流程</span>";
 		}
 		return options;
 	}
