@@ -22,11 +22,11 @@ d="0"+d;
 var sday = y+"-"+m+"-"+d;
 
 var sStartDate = '2012-10-08';//开始星期，周一的日期
-var x1 = '1、6';
-var x2 = '2、7';
-var x3 = '3、8';
-var x4 = '4、9';
-var x5 = '5、0';
+var x1 = '2、7';
+var x2 = '3、8';
+var x3 = '4、9';
+var x4 = '5、0';
+var x5 = '1、6';
 var x6 = '不限行';
 var x7 = '不限行';
 var arr1=sStartDate.split("-");
