@@ -1290,7 +1290,7 @@ background-size: 100%;}
 .erwm span{width:100%;height:18px;font-size: 0;display: inline-block;cursor: pointer;position: absolute;top: 0;right: 0;}
 .erwm a{width:100%;text-align: center;position: absolute;bottom: 7px;margin-left:-5px;font-size:12px;color:#fff;}
 /*登录信息与密码*/
-.title_bj{ width:100%; background-color:#f9fafc; height:40px; line-height:40px; text-align:center; position:absolute; top:0; left:0;}
+.title_bj{ width:100%; background-color:#f9fafc; height:40px; line-height:40px; text-align:center; position:absolute; top:0; left:0;font-size:16px;color:#3e4351;}
 .register_all{ width:500px; position:relative; margin-top:45px;}
 .register_all ul li{ width:50%; float:left; line-height:40px; height:40px; }
 .register_all_one{ color:#74767f;}
@@ -1681,8 +1681,8 @@ font-family: "宋体";
 .member table th,.member table td{text-align: left;padding-left: 30px;}
 .member table td .del{background:url(../img/btnico.png) 0 -61px no-repeat;margin-left: 15px;}
 .member table td .resume{background:url(../img/functionico.png) 0 -331px no-repeat;margin-right: 15px;}
-.personName{padding-left:30px !important;}
-#tablePerson td{padding-left:35px !important;}
+.personName,#project_delivery_table th,#meetGrid th{padding-left:30px !important;}
+#tablePerson td,#project_delivery_table td,#meetGrid td{padding-left:35px !important;}
 /*股权结构*/
 .sharesType{padding-left:30px !important;}
 #shares-table td{padding-left:35px !important;}
@@ -1917,6 +1917,7 @@ dl{position: relative;}
  .progressBar{width:99%;height:8px;border:1px solid #e1e5ee;border-radius:5px;margin-top:10px;}
  #bar{height:8px;border-radius:5px;background:#529ae2;width:0;}
 /*运营分析*/
+#post-meeting-dialog{position:static !important;}
 .conference_all{ width:550px; margin-top:45px;}
 .area{ width:420px; min-height:80px; overflow-y: scroll}
 .button_affrim{ width:220px; margin-left:auto; overflow:hidden; margin-bottom:20px; margin-right:auto;}
