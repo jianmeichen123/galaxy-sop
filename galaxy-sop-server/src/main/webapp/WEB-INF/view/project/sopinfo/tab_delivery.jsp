@@ -24,6 +24,9 @@
 
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 <script src="<%=path %>/js/sopinfo.js"></script>
+<style type="text/css">
+.bars{margin:0 !important;}
+</style>
 </head>
 
 
@@ -83,12 +86,12 @@
 					data-toolbar="#custom-toolbar">
 					<thead>
 						<tr>
-							<th data-field="delDescribe" data-align="center" data-formatter="infoDeliverFormat" >事项简述</th>
-							<th data-field="del_status" data-align="center" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态<span></span></th>
-							<th data-field="endByUname" data-align="center">编辑人</th>
-							<th data-field="updatedTime" data-align="center" data-formatter="longTime_Format" >编辑日期</th>
-							<th data-field="fileNum" data-align="center" >附件数</th>
-							<th data-align="center" data-formatter="operFormat">操作</th>
+							<th data-field="delDescribe" data-align="left" data-formatter="infoDeliverFormat" data-width="25%">事项简述</th>
+							<th data-field="del_status" data-align="left" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态<span></span></th>
+							<th data-field="endByUname" data-align="left">编辑人</th>
+							<th data-field="updatedTime" data-align="left" data-formatter="longTime_Format" >编辑日期</th>
+							<th data-field="fileNum" data-align="left" >附件数</th>
+							<th data-align="left" data-formatter="operFormat">操作</th>
 						</tr>
 					</thead>
 				</table>
