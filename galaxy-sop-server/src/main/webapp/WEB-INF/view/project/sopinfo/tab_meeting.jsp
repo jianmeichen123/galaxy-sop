@@ -127,7 +127,7 @@
 						data-toolbar="#custom-toolbar">
 						<thead>
 							<tr>
-								<th data-field="meetinfo"  data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
+								<th data-field="meetinfo"  data-formatter="metcolumnFormat" data-class="no1_1 th_no1">会议概况</th>
 								<th data-field="meetingTypeStr"  data-class="no1_2">会议类型</th>
 								<th data-field="meetingNotes"  data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
 								<th data-field="oper"  data-formatter="meetOperFormat">操作</th>

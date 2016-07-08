@@ -3,6 +3,13 @@
 	String path = request.getContextPath(); 
 %>
 
+<!-- 校验 -->
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
+
 <div class="addmentc">
 	<div class="title_bj" id="popup_name"></div>
 	
@@ -14,7 +21,7 @@
             <dl class="fmdl clearfix">
                 <dt>事项简述：</dt>
                 <dd>
-                    <input type="text" class="txt"  id="delDescribe" name="delDescribe"  maxlength="24"/>
+                    <input type="text" class="txt"  id="delDescribe" name="delDescribe"  maxlength="24" valType="required" msg="<font color=red>*</font>事项简述不能为空"/>
                 </dd>
             </dl>
             

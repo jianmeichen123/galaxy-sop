@@ -154,12 +154,18 @@ function toCheckShowIcon(){
 	}else{
 		$("#near_meet .no_con").hide();
 	}
+	if(len<3){
+		$("#meet_more").hide();
+	}
 	//无访谈记录
 	var len=$("#near_view .new_b_bottom").length;
 	if(len==0){
 		$("#near_view .no_con").show();
 	}else{
 		$("#near_view .no_con").hide();
+	}
+	if(len<3){
+		$("#view_more").hide();
 	}
 }
 
