@@ -96,7 +96,8 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 					    $.each(files, function(i) {     
 						    $("#"+files[i].id+"_progress").html('<span>'+"上传失败!"+"</span>"); 
 						}); 
-					    //$("#"+fileListId).html('');
+					    $("#"+fieInputId).val('');
+					    alert(data.result.message);
 					}
 					
 				});
