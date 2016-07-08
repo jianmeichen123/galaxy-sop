@@ -38,9 +38,14 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						up.stop();
 						return;
 					}
+					$(".pop").showLoading(
+					 {
+					    'addClass': 'loading-indicator'						
+					 });
 					if(up.files.length == 0){
 							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
 								var result = data.result.status;
+								$(".pop").hideLoading();
 								if(result == "OK"){
 									saveCallBackFuc(data);
 								}else{
@@ -82,6 +87,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				if($("#"+fieInputId).val().trim()){
 					sendPostRequestByJsonObj(sendFileUrl,params,function(data){
 					var result = data.result.status;
+					$(".pop").hideLoading();
 					if(result == "OK"){
 						$.each(files, function(i) {     
 						    $("#"+files[i].id+"_progress").html('<span>'+ files[i].percent + "%</span>"); 

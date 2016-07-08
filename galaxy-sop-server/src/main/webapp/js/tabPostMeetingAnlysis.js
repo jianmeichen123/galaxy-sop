@@ -356,10 +356,10 @@ function paramsContion(){
 	if(!beforeSubmit()){
 		return false;
 	}
-	$(".pop").showLoading(
-			 {
-			    'addClass': 'loading-indicator'						
-			 });
+//	$(".pop").showLoading(
+//			 {
+//			    'addClass': 'loading-indicator'						
+//			 });
 	var condition = JSON.parse($("#win_post_meeting_form").serializeObject());
 	condition.fileReidsKey = Date.parse(new Date());
 	condition.projectId = pInfo.id;
@@ -368,7 +368,7 @@ function paramsContion(){
 }
 //回调函数
 function saveCallBackFuc(data){
-	$(".pop").hideLoading();
+	//$(".pop").hideLoading();
 	if(data.result.status=="OK"){
 		layer.msg("保存成功");
 		meetGrid.searchData();
