@@ -271,10 +271,10 @@ var editPostMeetingDialog = {
 									form.projectId = pInfo.id;
 									var nowTime = (new Date()).getTime();
 									var meetingTime = (new Date(form.meetingDateStr)).getTime();
-									if(meetingTime <= nowTime){
-										layer.msg("会议时间应为未来的某一时刻");
-										return false;
-									}
+//									if(meetingTime <= nowTime){
+//										layer.msg("会议时间应为未来的某一时刻");
+//										return false;
+//									}
 									$(".pop").showLoading(
 											 {
 											    'addClass': 'loading-indicator'						
