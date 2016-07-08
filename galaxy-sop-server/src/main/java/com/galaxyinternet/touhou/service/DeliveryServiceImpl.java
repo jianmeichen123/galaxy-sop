@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.touhou.DeliveryBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
@@ -28,12 +29,14 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.touhou.DeliveryFile;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.DeliveryService;
 import com.galaxyinternet.service.UserService;
 
@@ -266,6 +269,17 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 			deliveryFileDao.delete(dfQ); // 删除 中间表
 			
 			delAliyunFiles(toDelfileids);  // 删除 阿里云 文件
+			
+			
+			final List<Long> alifileidlist = toDelfileids;
+			if(alifileidlist!=null && !alifileidlist.isEmpty()){  // 删除 阿里云 文件
+				GalaxyThreadPool.getExecutorService().execute(new Runnable() {
+					@Override
+					public void run() {
+						delAliyunFiles(alifileidlist);
+					}
+				});
+			}
 		}
 		
 		int num = deliveryDao.updateById(delivery);
@@ -302,8 +316,14 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		
 		deliveryDao.deleteById(deliverid);  // 删除  事项
 		
-		if(fileidlist!=null && !fileidlist.isEmpty()){  // 删除 阿里云 文件
-			delAliyunFiles(fileidlist);
+		final List<Long> alifileidlist = fileidlist;
+		if(alifileidlist!=null && !alifileidlist.isEmpty()){  // 删除 阿里云 文件
+			GalaxyThreadPool.getExecutorService().execute(new Runnable() {
+				@Override
+				public void run() {
+					delAliyunFiles(alifileidlist);
+				}
+			});
 		}
 	}
 
