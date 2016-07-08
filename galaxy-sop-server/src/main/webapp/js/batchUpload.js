@@ -29,6 +29,9 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 			PostInit: function(up) {
 				//$("#"+fileListId).html('');
 				$("#" + submitBtnId).click(function(){
+					
+					params = paramsFunction();
+					
 					var isFlag = params;
 					if(isFlag == false || isFlag == "false"){
 						up.stop();
@@ -44,20 +47,14 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 								    layer.msg(data.result.message);
 								}
 							});
-						}else{
-							uploader.start();
-						}
+					}else{
+						up.settings.multipart_params = params;
+						uploader.start();
+					}
 					return false;
 				});
 			},
 			BeforeUpload:function(up){
-				params = paramsFunction();
-				
-				up.settings.multipart_params = params;
-				/*var $form =$("#"+deliver_form);
-				var data = JSON.parse($form.serializeObject());
-				data['fileReidsKey']=params['fileReidsKey'];
-				params = data;*/
 				
 			},
 			FileUploaded:function(up,file,rtn){
