@@ -12,16 +12,16 @@ import com.galaxyinternet.model.common.PagableRecordEntity;
 public class MeetingRecord  extends PagableRecordEntity{
 	private static final long serialVersionUID = 1L;
 	
-	@NotEmpty
 	private Long projectId;
 
     private Long fileId;
 	private String fkey;
-	@NotEmpty
+	
     private Date meetingDate;
+    @NotEmpty(message="会议日期不能为空")
     private String meetingDateStr;
 
-    @NotEmpty
+    @NotEmpty(message="会议类型不能为空")
     private String meetingType;
     private String meetingTypeStr;
 

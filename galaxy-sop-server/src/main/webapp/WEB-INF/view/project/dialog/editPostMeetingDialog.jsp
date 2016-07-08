@@ -17,8 +17,9 @@
 	            <dl class="fmdl clearfix">
 	                <dt>会议时间：</dt>
 	                <dd>
-	                <input type="hidden" name="meetingName" id="meetingName"/>
-	                    <input type="text" class="datetimepickerHour txt time" id="meetingDate" name="meetingDate" valType="required" msg="<font color=red>*</font>会议时间不能为空"  /> 
+	                <input type="hidden" name="id" id="id" value="0"/>
+	                <input type="hidden" name="meetingName" value="0" id="meetingName"/>
+	                    <input type="text" class="datetimepickerHour txt time" id="meetingDateStr" name="meetingDateStr" valType="required" msg="<font color=red>*</font>会议时间不能为空"  /> 
 	                </dd>
 	            </dl>
 	            <dl class="fmdl fl_l clearfix" id="edit_meeting_type">
@@ -29,9 +30,11 @@
 	            </dl>
 	            <dl class="fmdl fl_l">
 	                 <dt>会议纪要 ：</dt>
-	                 <dd><textarea class="area" name="meetingNotes" id="textarea2" cols="45" rows="5"></textarea></dd>
+	                 <dd><textarea class="area" name="meetingNotes" id="meetingNotes" cols="45" rows="5"></textarea></dd>
 	            </dl>  
-	            <div class="affrim_line"></div> 
+	            <div class="affrim_line"></div>
+	            
+	             
 	        </div>
 	    </div>
 	    <div class="button_affrim">
@@ -48,7 +51,7 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script>
+<%-- <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script> --%>
 <!-- 校验 -->
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
 <script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
@@ -59,3 +62,22 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
+
+<script type="text/javascript">
+	//初始化时间
+	$('.datetimepickerHour').datetimepicker({
+	       inline: true,
+	       sideBySide: true,
+	       language: "zh-CN",
+	       autoclose: true,
+	       todayHighlight: false,
+		    today: "Today",
+		    todayBtn:'linked',
+		    leftArrow: '<i class="fa fa-long-arrow-left"></i>',
+		    rightArrow: '<i class="fa fa-long-arrow-right"></i>',
+		    forceParse:false,
+		    currentText: 'Now',
+		   defaultDate : new Date(),
+		   todayBtn:  1
+	    });
+</script>

@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
-import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.touhou.ProjectHealthBo;
 import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
@@ -32,7 +32,6 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.dict.Dict;
-import com.galaxyinternet.model.idea.Idea;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.touhou.Delivery;
@@ -201,15 +200,38 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 				.getId());
 		try {
+			//设置meetingName
 			if(meetingRecord.getMeetingName() == null || meetingRecord.getMeetingName().intValue()==0){
-				meetingRecord.setMeetingName(meetingService.queryMeetNumberByType(meetingRecord));
+				Long meetNumber = meetingService.queryMeetNumberByType(meetingRecord);
+				if(meetNumber==null){
+					meetNumber = 0l;
+				}
+				meetingRecord.setMeetingName(meetNumber + 1);
 			}
-			meetingRecord.setCreateUid(user.getId());
+			//设置meetingValid
+			meetingRecord.setMeetValid((byte) 0);
+			//设置会议类型
+			meetingRecord.setRecordType(RecordType.OPERATION_MEETING.getType());
 			
+			
+			if(meetingRecord.getId()!=null && meetingRecord.getId().intValue()!=0){
+				//更新
+				meetingService.updateByIdSelective(meetingRecord);
+			}else{
+				//设置会议发起人
+				meetingRecord.setCreateUid(user.getId());
+				//
+				meetingRecord.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+				//插入
+				meetingService.insert(meetingRecord);
+			}	
+			responseBody.setResult(new Result(Status.OK,"")); 
+				
 		} catch (Exception e) {
 			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, ERROR_DAO_EXCEPTION));
 		}
-		return null;
+		return responseBody;
 	}
 	/**
 	 * 投后运营信息

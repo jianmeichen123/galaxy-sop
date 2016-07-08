@@ -12,7 +12,6 @@ var meetingSearchPanel = {
 			//初始化会议类型请求
 			sendGetRequest(platformUrl.dictFindByParentCode+"/postMeetingType",null,meetingSearchPanel.initDataCallBack);
 			
-			
 		},
 		initDataCallBack : function(data){
 			if(data.result.status == 'OK'){
@@ -75,13 +74,14 @@ var meetGrid = {
 			      columns: [
 					{
 			        field: 'meetingName',
-			        title: '会议名称'
+			        title: '会议名称',
+			        formatter : meetGrid.meetingNameFormatter
 			      }, {
 			        field: 'meetingType',
 			        title: '类型',
 			        formatter: meetGrid.meetingTypeFormatter	
 			      }, {
-			        field: 'createUid',
+			        field: 'createUName',
 			        title: '发起人（上传人）'
 			      }, {
 			        field: 'meetingDateStr',
@@ -104,12 +104,23 @@ var meetGrid = {
 					return false;
 				}
 			});
-			console.log(value);
 			return retStr;
+		},
+		meetingNameFormatter : function(value,row,index){
+			var retStr;
+			$.each(meetingSearchPanel.meetingTypeList,function(){
+				if(row.meetingType == this.code){
+					retStr = this.name;
+					return false;
+				}
+			});
+			retStr += "纪要" + value;
+			return retStr;
+//			var retStr = row."";
 		},
 		operateFormatter : function(value, row, index){
 			var btns = "";
-			if("isCreatedByUser" == "true")
+			if(isCreatedByUser == "true")
 			{
 				btns += '<a class="meet_edit blue"  href="javascript:void(0)">编辑</a>  ';
 				btns += '<a class="meet_delete blue" href="javascript:void(0)">删除</a>  ';
@@ -120,6 +131,15 @@ var meetGrid = {
 		operateEvents : {
 			
 			'click .meet_edit': function (e, value, row, index) {
+				console.log("edit");
+				var formdata = {
+						 id : row.id,
+						 meetingDateStr : row.meetingDateStr,
+						 meetingName : row.meetingName,
+						 meetingType : row.meetingType,
+						 meetingNotes : row.meetingNotes
+				}
+				editPostMeetingDialog.init(formdata);
 				
 	        },
 	        'click .meet_delete': function (e, value, row, index) {
@@ -166,93 +186,128 @@ var meetGrid = {
 
 
 var editPostMeetingDialog = {
-		init : function(){
+		/*
+		 * 参数formdata
+		 * id : 会议ID,
+		 * meetingDateStr :会议时间,
+		 * meetingNotes : 会议纪要,
+		 * meetingName : 会议名称,
+		 * meetingType : 会议类型,
+		 * meetingNotes : 会议纪要
+		 * 
+		 * */
+		init : function(_formdata){
 			$.getHtml({
 				url:platformUrl.toEditPostMeeting,//模版请求地址
 				data:"",//传递参数
 				okback:function(_this){
+					
 //					console.log(111111);
-//					$("#meetingDate").val("");
+//					$("#meetingDate").val("");		
+					var operator = {
+							initDataCallBack : function(data){
+								if(data.result.status == 'OK'){
+									//初始化会议类型
+									$("#win_post_meeting_form").find("#edit_meeting_type").html("");
+									var htmlPreFix = "<dt>类型 ：</dt>";
+									var html = "";
+									$.each(data.entityList,function(index){
+										var checked = "";
+										if(_formdata && _formdata.meetingType){
+											//会议类型回填
+											if(_formdata.meetingType == this.code){
+												checked = "checked='checked'";
+											}
+										}else{
+											if(index==0){
+												checked = "checked='checked'";
+											}
+										}
+										
+										html += "<dd><label for=''><input name='meetingType' type='radio' " +
+												checked + 
+												" value='" +
+												this.code + 
+												"' >" +
+												this.name + 
+												"</label></dd>";
+											
+											
+									});
+									$("#win_post_meeting_form").find("#edit_meeting_type").html(htmlPreFix +　html);
+									
+									//初始化页面
+									//会议名称回填
+									if(_formdata && _formdata.meetingName){
+										$("#win_post_meeting_form").find("#meetingName").val(_formdata.meetingName);
+									}
+									//会议id
+									if(_formdata && _formdata.id){
+										$("#win_post_meeting_form").find("#id").val(_formdata.id);
+									}
+									
+									//会议时间
+									if(_formdata && _formdata.meetingDateStr){
+										$("#win_post_meeting_form").find("#meetingDateStr").val(_formdata.meetingDateStr);
+									}
+									//会议纪要
+									if(_formdata && _formdata.meetingNotes){
+										$("#win_post_meeting_form").find("#meetingNotes").val(_formdata.meetingNotes);
+									}
+									//初始化按钮
+									$("#win_ok_btn").click(operator.save);
+									$("#win_cancel_btn").click(function(){
+										editPostMeetingDialog.close(_this);
+									});	
+								}else{
+									layer.msg("初始化项目类型出错");
+									return;
+								}	
+							},
+							save : function(){
+								if(beforeSubmit()){
+									var form = $("#win_post_meeting_form").serializeObject();
+									form = jQuery.parseJSON(form);
+									form.projectId = pInfo.id;
+									var nowTime = (new Date()).getTime();
+									var meetingTime = (new Date(form.meetingDateStr)).getTime();
+									if(meetingTime <= nowTime){
+										layer.msg("会议时间应为未来的某一时刻");
+										return false;
+									}
+									$(".pop").showLoading(
+											 {
+											    'addClass': 'loading-indicator'						
+											 });
+									
+									
+									
+									sendPostRequestByJsonObj(platformUrl.saveMeeting,form,operator.saveCallBackFuc);
+
+								}
+							},
+							saveCallBackFuc : function(data){
+								$(".pop").hideLoading();
+								if(data.result.status=="OK"){
+									layer.msg("保存成功");
+									meetGrid.searchData();
+									editPostMeetingDialog.close(_this);
+									//刷新投后运营简报信息
+									setThyyInfo();
+									
+								}else{
+									layer.msg(data.result.errorCode);
+								}
+								editPostMeetingDialog.callFuc();
+							}
+					};
+					
 					//初始化页面
-					sendGetRequest(platformUrl.dictFindByParentCode+"/postMeetingType",null,editPostMeetingDialog.initDataCallBack);
+					sendGetRequest(platformUrl.dictFindByParentCode+"/postMeetingType",null,operator.initDataCallBack);
 					
 					
 				}//end okback 模版反回成功执行		
 			});
-		},
-		initDataCallBack : function(data){
-			if(data.result.status == 'OK'){
-				//初始化会议类型
-				$("#win_post_meeting_form").find("#edit_meeting_type").html("");
-				var htmlPreFix = "<dt>类型 ：</dt>";
-				var html = "";
-				$.each(data.entityList,function(index){
-					var checked = "";
-					if(index==0){
-						checked = "checked='checked'";
-					}
-					html += "<dd><label for=''><input name='meetingType' type='radio' " +
-							checked + 
-							" value='" +
-							this.code + 
-							"' >" +
-							this.name + 
-							"</label></dd>";
-						
-						
-				});
-				$("#win_post_meeting_form").find("#edit_meeting_type").html(htmlPreFix +　html);
-				
-				var operator = {
-						save : function(){
-							if(beforeSubmit()){
-								var form = $("#win_post_meeting_form").serializeObject();
-								form = jQuery.parseJSON(form);
-								form.projectId = pInfo.id;
-								var nowTime = (new Date()).getTime();
-								var meetingTime = (new Date(form.meetingDate)).getTime();
-								if(meetingTime <= nowTime){
-									layer.msg("会议时间应为未来的某一时刻");
-									return false;
-								}
-								$(".pop").showLoading(
-										 {
-										    'addClass': 'loading-indicator'						
-										 });
-								sendPostRequestByJsonObj(platformUrl.saveMeeting,form,operator.saveCallBackFuc);
-
-							}
-						},
-						saveCallBackFuc : function(data){
-							if(data.result.status=="OK"){
-								layer.msg("保存成功");
-								//刷新投后运营简报信息
-								setThyyInfo();
-							}else{
-								layer.msg(data.result.errorCode);
-							}
-							$(".pop").hideLoading();
-							editPostMeetingDialog.close(_this);
-							editPostMeetingDialog.callFuc();
-						}
-				};
-				
-				//初始化按钮
-				$("#win_ok_btn").click(operator.save);
-				$("#win_cancel_btn").click(function(){
-					editPostMeetingDialog.close(_this);
-				});
-				
-				
-				
-				
-				
-				
-				
-			}else{
-				layer.msg("初始化项目类型出错");
-				return;
-			}
 		},
 		callFuc : function(){
 			

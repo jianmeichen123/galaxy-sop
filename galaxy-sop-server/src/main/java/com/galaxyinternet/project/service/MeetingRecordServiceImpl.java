@@ -471,7 +471,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		
 		for(MeetingRecord meetingRecord : pageEntity.getContent()){
 			for(User user : userList){
-				if(user.equals(meetingRecord.getCreateUid())){
+				if(user.getId().equals(meetingRecord.getCreateUid())){
 					meetingRecord.setCreateUName(user.getRealName());
 				}
 			}	
