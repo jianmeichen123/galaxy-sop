@@ -265,9 +265,6 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 			dfQ.setFileIds(toDelfileids);
 			deliveryFileDao.delete(dfQ); // 删除 中间表
 			
-			delAliyunFiles(toDelfileids);  // 删除 阿里云 文件
-			
-			
 			final List<Long> alifileidlist = toDelfileids;
 			if(alifileidlist!=null && !alifileidlist.isEmpty()){  // 删除 阿里云 文件
 				GalaxyThreadPool.getExecutorService().execute(new Runnable() {
