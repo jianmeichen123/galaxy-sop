@@ -42,8 +42,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
 								var result = data.result.status;
 								if(result == "OK"){
-									removePop1();
-									$("#project_delivery_table").bootstrapTable('refresh');
+									saveCallBackFuc(data);
 								}else{
 								    layer.msg(data.result.message);
 								}
