@@ -140,14 +140,31 @@ var meetGrid = {
 						 meetingNotes : row.meetingNotes,
 				}
 				editPostMeetingDialog.init(formdata);
-				filelist(row.id);
+//				
 			
 	        },
 	        'click .meet_delete': function (e, value, row, index) {
-				
+	        	sendGetRequest(platformUrl.deletePostMeeting + "/" + row.id ,null,function(data){
+	        		if(data.result.status=="OK"){
+						layer.msg("删除成功");
+						meetGrid.searchData();
+						//刷新投后运营简报信息
+						setThyyInfo();
+						
+					}else{
+						layer.msg(data.result.errorCode);
+					}
+	        	});
+	        	
 	        },
 	        'click .meet_download': function (e, value, row, index) {
-				
+	        	try {
+	        		var url = Constants.sopEndpointURL + '/galaxy/project/postOperation/downloadBatchFile'+"/"+row.id;
+	        		layer.msg('正在下载，请稍后...',{time:2000});
+	        		window.location.href=url+"?sid="+sessionId+"&guid="+userId;
+	        	} catch (e) {
+	        		layer.msg("下载失败");
+	        	}
 	        }
 		},
 		queryParams : function(params){
@@ -202,6 +219,7 @@ var editPostMeetingDialog = {
 				url:platformUrl.toEditPostMeeting,//模版请求地址
 				data:"",//传递参数
 				okback:function(_this){
+					
 					
 					
 					
@@ -266,13 +284,43 @@ var editPostMeetingDialog = {
 									layer.msg("初始化项目类型出错");
 									return;
 								}	
+							},
+							fileInitDataCallBack : function (data){
+								
+								var result = data.result.status;
+								if(result == "OK"){
+									var deliverInfo = data.entity;
+									$.each(data.entity.files,function(){
+										var but = "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
+										var htm = "<tr id='"+this.id+"tr'>"+
+														"<td>"+this.fileName+
+															"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
+														"</td>"+
+														"<td>"+this.fileLength+"</td>"+
+														"<td>"+ but +"</td>"+
+														"<td>100%</td>"+
+													"</tr>"
+										$("#filelist").append(htm);
+									});
+								}
 							}
 					};
+					
 					//初始化页面
 					sendGetRequest(platformUrl.dictFindByParentCode+"/postMeetingType",null,operator.initDataCallBack);
+					if(_formdata.id){
+						//filelist(_formdata.id);
+						sendGetRequest(Constants.sopEndpointURL + '/galaxy/project/postOperation/selectFile/'+_formdata.id,null,operator.fileInitDataCallBack);
+					}
+					
 					toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
 							platformUrl.saveMeeting,"textarea2","select_btn","win_ok_btn","post-meeting-dialog","filelist",
 							paramsContion,"win_post_meeting_form",saveCallBackFuc);
+					
+					if(_formdata.id){
+						filelist(_formdata.id);
+					}
+					
 					
 					
 				}//end okback 模版反回成功执行		
@@ -332,25 +380,9 @@ function saveCallBackFuc(data){
 }
 
 function filelist(id){
-	var _url = Constants.sopEndpointURL + '/galaxy/project/postOperation/selectFile/'+row.id;
+	var _url = Constants.sopEndpointURL + '/galaxy/project/postOperation/selectFile/'+id;
 	sendGetRequest(_url, {}, function(data){
-		var result = data.result.status;
-		if(result == "OK"){
-			var deliverInfo = data.entity;
-			$.each(data.entity.files,function(){
-				var but = type == 'v' ? " -" : "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
-				var htm = "<tr id='"+this.id+"tr'>"+
-								"<td>"+this.fileName+
-									"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
-								"</td>"+
-								"<td>"+this.fileLength+"</td>"+
-								"<td>"+ but +"</td>"+
-								"<td>100%</td>"+
-							"</tr>"
-				$("#filelist").append(htm);
-				alert(9);
-			});
-		}
+		
 		});
 }
 

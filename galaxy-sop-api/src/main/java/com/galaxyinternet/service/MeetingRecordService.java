@@ -29,6 +29,12 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 	 * 根据项目及类型查询会议名称的序号
 	 */
 	public Long queryMeetNumberByType(MeetingRecord query);
+	/**
+	 * 删除投后运营会议
+	 * @param id
+	 * @return
+	 */
+	public int deletePostMeetingById(Long id);
 	
 	public Long insertMeeting(MeetingRecord query);
 	

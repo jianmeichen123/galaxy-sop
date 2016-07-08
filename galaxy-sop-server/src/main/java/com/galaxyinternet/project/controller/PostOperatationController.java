@@ -172,7 +172,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 	}
 	
 	/**
-	 * 获取头后运营会议名称序号(存入result message中)
+	 * 获取投后运营会议名称序号(存入result message中)
 	 * @param meetingType
 	 * @return
 	 */
@@ -268,6 +268,26 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 		}
 		return responseBody;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="deletePostMeeting/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingRecord> deletePostMeeting(@PathVariable Long id){
+		ResponseData<MeetingRecord> responseBody = new ResponseData<MeetingRecord>();
+		if(id == null || id.intValue()==0){
+			responseBody.setResult(new Result(Status.ERROR, "参数错误"));
+			return responseBody;
+		}
+		try {
+			meetingService.deletePostMeetingById(id);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, ERROR_DAO_EXCEPTION));
+		}
+		return responseBody;
+	}
+	
+	
 	/**
 	 * 投后运营信息
 	 * @param request
@@ -326,8 +346,9 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 	 * @param request
 	 * @param response
 	 */
-	@RequestMapping("/selectFile/{id}")
-	public ResponseData<MeetingRecord> selectFile(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
+	@ResponseBody
+	@RequestMapping(value="/selectFile/{id}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<MeetingRecord> selectFile(@PathVariable("id") Long id, HttpServletRequest request)
 	{
 		ResponseData<MeetingRecord> data = new ResponseData<MeetingRecord>();
 		MeetingRecord meeting = new MeetingRecord();

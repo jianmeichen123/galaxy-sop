@@ -588,7 +588,12 @@ var platformUrl = {
 	/**
 	 * 保存投后运营会议
 	 */
-	saveMeeting : Constants.sopEndpointURL + "/galaxy/project/postOperation/saveMeeting"
+	saveMeeting : Constants.sopEndpointURL + "/galaxy/project/postOperation/saveMeeting",
+
+	/**
+	 * 删除投后运营会议
+	 */
+	deletePostMeeting: Constants.sopEndpointURL + "/galaxy/project/postOperation/deletePostMeeting"
 	
 	
 	

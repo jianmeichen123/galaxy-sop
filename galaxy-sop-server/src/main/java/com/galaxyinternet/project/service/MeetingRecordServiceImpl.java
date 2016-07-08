@@ -22,6 +22,7 @@ import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.file.OSSHelper;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.idea.Idea;
@@ -479,6 +480,29 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		}
 		
 		return pageEntity;
+	}
+	
+	
+	/**
+	 * 删除投后运营会议
+	 * @param id
+	 * @return
+	 */
+	public int deletePostMeetingById(Long id){
+		List<String> keyList = new ArrayList<String>();
+		SopFile sopFile = new SopFile();
+		sopFile.setMeetingId(id);
+		List<SopFile> sopFileList = sopFileDao.selectList(sopFile);
+		for(SopFile temp : sopFileList){
+			if(!keyList.contains(temp.getFileKey())){
+				keyList.add(temp.getFileKey());
+			}
+		}
+		if(keyList.size() > 0){
+			OSSHelper.deleteMultipleFiles(keyList);
+			sopFileDao.delete(sopFile);
+		}	
+		return super.deleteById(id);		
 	}
 	
 	private List<User> getUser(List<MeetingRecord> meetingRecordList){
