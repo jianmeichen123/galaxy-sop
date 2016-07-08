@@ -5,7 +5,7 @@
 <style>
 .bars{margin:0 !important;}
 </style>
-<div class="addmentc">
+<div class="addmentc post_operatetc">
 	<div class="title_bj" id="popup_name"></div>
 	
     <div class="form clearfix">

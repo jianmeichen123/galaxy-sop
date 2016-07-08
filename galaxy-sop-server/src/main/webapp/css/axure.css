@@ -1917,8 +1917,9 @@ dl{position: relative;}
  .progressBar{width:99%;height:8px;border:1px solid #e1e5ee;border-radius:5px;margin-top:10px;}
  #bar{height:8px;border-radius:5px;background:#529ae2;width:0;}
 /*运营分析*/
+.post_operatetc,.editPostMeetingtc{width:650px;}
 #post-meeting-dialog{position:static !important;}
-.conference_all{ width:550px; margin-top:45px;}
+.conference_all{ width:590px; margin:45px auto 30px;}
 .area{ width:420px; min-height:80px; overflow-y: scroll}
 .button_affrim{ width:220px; margin-left:auto; overflow:hidden; margin-bottom:20px; margin-right:auto;}
 .area_input{ width:328px; height: 28px !important;}
@@ -1937,7 +1938,7 @@ dl{position: relative;}
 .run_digest_ul{ width:100%; overflow:hidden;}
 .run_digest_ul li{ float:left; width:50%;}
 .area_run{ width:420px; max-height:200px; overflow-y:scroll;}
-.health_case{ width:100%; border:1px solid #ccd2d7; border-bottom:0px solid #ccd2d7; overflow:hidden; margin-bottom:20px; margin-top:20px;}
+.health_case{ width:100%; border:1px solid #ccd2d7; overflow:hidden; margin-bottom:20px; margin-top:20px;}
 .health_case th{ background-color:#f9fafc}
 .health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; text-indent:15px;}
 
