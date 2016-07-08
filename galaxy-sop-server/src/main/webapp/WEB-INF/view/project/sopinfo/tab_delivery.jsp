@@ -225,7 +225,7 @@ function operFormat(value,row,index){
 		content += edit;
 		content += del;
 	}
-	if(row.fileNum){
+	if(row.fileNum && row.fileNum != 0 && row.fileNum != '0'){
 		content += downfile;
 	}
 	
