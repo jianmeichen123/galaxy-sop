@@ -298,6 +298,10 @@ function deliverInfoEdit(selectRowId,type){
 					$("#deliver_form [name='details']").text(deliverInfo.details);
 					$("#deliver_form [name='delStatus'][value='"+deliverInfo.delStatus+"']").attr("checked",'checked');
 					
+					var hasFile = false;
+					if(data.entity.files && data.entity.files.length > 0){
+						hasFile = true;
+					}
 					$.each(data.entity.files,function(){
 						var but = type == 'v' ? " -" : "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
 						var htm = "<tr id='"+this.id+"tr'>"+
@@ -315,6 +319,9 @@ function deliverInfoEdit(selectRowId,type){
 						$("#popup_name").html("查看事项信息");
 						$("#choose_oper").remove();
 						$("#choose_up_file").remove();
+						if(hasFile == false){
+							$("#filelist").remove();
+						}
 					}else if(type == 'e'){
 						$("#popup_name").html("编辑事项信息");
 						$("#deliver_form [name='id']").val(deliverInfo.id);
