@@ -51,7 +51,7 @@
 	                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
 	                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},7)">交割前事项</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},8)">拨款信息</a></li>
+	               <!-- <li><a href="javascript:;" onclick="showTabs(${pid},8)">拨款信息</a></li>-->  
                 	<li><a href="javascript:;" onclick="showTabs(${pid},9)">运营分析</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
@@ -162,29 +162,32 @@ $(function(){
 	}
 });	
 
+//获取 页面数据\保存数据
+function paramsContion(){
+	var condition = JSON.parse($("#deliver_form").serializeObject());
+	condition.fileReidsKey = Date.parse(new Date());
+	condition.fileNum = $("#filelist").find("tr").length - 1;
+	
+	var oldFids=[];
+	var oldfileids = $("input[name='oldfileids']");
+	if(oldfileids && oldfileids.length > 0){
+		
+		$.each(oldfileids, function(i) { 
+			var idVal = oldfileids[i].value;
+		   	if(!isNaN(idVal)){
+		   		oldFids.push(idVal);
+		   	}
+		});
+		condition.fileIds = oldFids;
+	}
+	
+	return condition;
+}
+
 function toInitBachUpload(){
 	toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
 					Constants.sopEndpointURL + '/galaxy/delivery/operdelivery',"textarea2","select_btn","save_file","container","filelist",
-							function paramsFunction(){
-								var condition = JSON.parse($("#deliver_form").serializeObject());
-								condition.fileReidsKey = Date.parse(new Date());
-								condition.fileNum = $("#filelist").find("tr").length - 1;
-								
-								var oldFids=[];
-								var oldfileids = $("input[name='oldfileids']");
-								if(oldfileids && oldfileids.length > 0){
-									
-									$.each(oldfileids, function(i) { 
-										var idVal = oldfileids[i].value;
-									   	if(!isNaN(idVal)){
-									   		oldFids.push(idVal);
-									   	}
-									});
-									condition.fileIds = oldFids;
-								}
-								
-								return condition;
-					},"deliver_form");
+					paramsContion,"deliver_form");
 }
 
 /**
@@ -279,9 +282,11 @@ function deliverInfoEdit(selectRowId,type){
 	return false;
 }
 
-
+/**
+ * 保存  事项
+ */
 function save_deliver(){  
-	var content = JSON.parse($("#deliver_form").serializeObject());
+	var content = paramsContion();
 	var _url =  Constants.sopEndpointURL + '/galaxy/delivery/operdelivery'
 	sendPostRequestByJsonObj(_url, content, function(data){
 		if (data.result.status=="OK") {
