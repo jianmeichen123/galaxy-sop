@@ -115,7 +115,7 @@
 	});
 	 function remarkFormater(value,row,index){
 		    var id=row.id;
-			var str=row.sharesOwner;
+			var str=row.remark;
 			if(str.length>10){
 				subStr = str.substring(0,10);
 				var options = "<label title='"+str+"'>"+subStr+"</label>";
@@ -141,7 +141,7 @@
 		}
 	 function sharesOwnerFormatter(value,row,index){
 		    var id=row.id;
-			var str=row.remark;
+			var str=row.sharesOwner;
 			if(str.length>10){
 				subStr = str.substring(0,10);
 				var options = "<label title='"+str+"'>"+subStr+"</label>";
