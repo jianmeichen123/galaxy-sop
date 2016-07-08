@@ -29,7 +29,6 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 			PostInit: function(up) {
 				//$("#"+fileListId).html('');
 				$("#" + submitBtnId).click(function(){
-					params = paramsFunction()
 					var isFlag = params;
 					if(isFlag == false || isFlag == "false"){
 						up.stop();
