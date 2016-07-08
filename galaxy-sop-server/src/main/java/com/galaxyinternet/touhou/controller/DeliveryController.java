@@ -141,7 +141,7 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 		
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
-		if(delivery == null || delivery.getProjectId() == null || delivery.getDelDescribe() == null ){
+		if(delivery == null || delivery.getProjectId() == null || delivery.getDelDescribe() == null || StringUtils.isBlank(delivery.getDelDescribe())){
 			responseBody.setResult(new Result(Status.ERROR,null, "请完善信息"));
 			return responseBody;
 		}

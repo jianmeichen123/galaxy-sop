@@ -12,7 +12,7 @@
  * @param deliver_form 数据的表单form id
  */
 function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form) {
-	var params = paramsFunction();
+	var params = {};
 	uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : selectBtnId, // you can pass an id...
@@ -29,10 +29,10 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 			PostInit: function(up) {
 				//$("#"+fileListId).html('');
 				$("#" + submitBtnId).click(function(){
+					params = paramsFunction()
 					var isFlag = params;
 					if(isFlag == false || isFlag == "false"){
 						up.stop();
-						$("#show_up_file").html('');
 						return;
 					}
 					if(up.files.length == 0){
