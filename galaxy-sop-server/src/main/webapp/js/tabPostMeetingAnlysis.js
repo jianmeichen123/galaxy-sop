@@ -364,6 +364,18 @@ function paramsContion(){
 	condition.fileReidsKey = Date.parse(new Date());
 	condition.projectId = pInfo.id;
 	condition.fileNum = $("#show_up_file").find("tr").length - 1;
+	var oldFids=[];
+	var oldfileids = $("input[name='oldfileids']");
+	if(oldfileids && oldfileids.length > 0){
+		
+		$.each(oldfileids, function(i) { 
+			var idVal = oldfileids[i].value;
+		   	if(!isNaN(idVal)){
+		   		oldFids.push(idVal);
+		   	}
+		});
+		condition.fileIds = oldFids;
+	}
 	return condition;
 }
 //回调函数

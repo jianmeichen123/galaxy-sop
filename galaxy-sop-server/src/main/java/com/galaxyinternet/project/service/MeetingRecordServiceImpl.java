@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -531,7 +532,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			fnum = (byte) sopfiles.size();
 			query.setFileNum(fnum);
 		}
-		delid = meetingRecordDao.insert(query);   //交割事项
+		delid = meetingRecordDao.insert(query);   
 		
 		if(sopfiles!=null && !sopfiles.isEmpty() && fnum !=null){
 			Project project = projectDao.selectById(query.getProjectId());
@@ -552,6 +553,76 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			
 		}
 		return delid;
+	}
+
+	private void saveFiles(List<SopFile> sopFileList,List<Long> fileIds,Long meetingId,Long projectId){
+		//获取会议现有所有文件
+		SopFile fQuery = new SopFile();
+		fQuery.setMeetingId(meetingId);
+		List<SopFile> oldFileList = sopFileDao.selectList(fQuery);
+		//删除文件
+		if(oldFileList!=null && oldFileList.size()>0){
+			List<Long> oldFileIds = new ArrayList<Long>();
+			for(SopFile sopFile : oldFileList){
+				oldFileIds.add(sopFile.getId());
+			}
+			List<Long> deleteFileIds = getDeleteFileIds(oldFileIds, fileIds);
+			sopFileDao.deleteByIdInBatch(deleteFileIds);
+		}	
+		if(sopFileList!=null && !sopFileList.isEmpty()){
+			Project project = projectDao.selectById(projectId);
+			for(SopFile sopfile:sopFileList){
+				sopfile.setProjectId(project.getId());
+				sopfile.setProjectProgress(project.getProjectProgress());
+				sopfile.setCareerLine(project.getProjectDepartid());
+				sopfile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+				sopfile.setFileUid(project.getCreateUid());
+				sopfile.setMeetingId(meetingId);
+				sopfile.setFileLength(sopfile.getFileLength());
+				sopfile.setFileKey(sopfile.getFileKey());
+				sopfile.setBucketName(sopfile.getBucketName());
+				sopfile.setFileName(sopfile.getFileName());
+				sopfile.setFileSuffix(sopfile.getFileSuffix());
+			}
+			sopFileDao.insertInBatch(sopFileList);	
+		}
+	}
+	
+	private List<Long> getDeleteFileIds(List<Long> oldFileIds,List<Long> fileIds){
+		List<Long> deleteFileIds = null;
+		if(fileIds==null){
+			deleteFileIds = oldFileIds;
+		}else{
+			deleteFileIds = new ArrayList<Long>();
+			for(Long fileId : oldFileIds){
+				if(!fileIds.contains(fileId)){
+					deleteFileIds.add(fileId);
+				}
+			}
+		}
+		return deleteFileIds;	
+	}
+
+	@Override
+	public boolean saveMeeting(MeetingRecord query,Long userId) {
+		// TODO Auto-generated method stub
+		if(query.getId()!=null && query.getId().intValue()!=0){
+			//更新
+			meetingRecordDao.updateByIdSelective(query);
+		}else{
+			//插入
+			//设置会议发起人
+			query.setCreateUid(userId);
+			//
+			query.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+			//插入
+			meetingRecordDao.insert(query);
+		}
+		//文件处理
+		List<SopFile> sopFileList = query.getFiles();
+		List<Long> fileIds = query.getFileIds();
+		saveFiles(sopFileList, fileIds, query.getId(), query.getProjectId());
+		return true;
 	}
 	
 	

@@ -226,6 +226,8 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 				.getId());
 		try {
+			
+			
 			if(meetingRecord.getFileReidsKey() != null){
 				ResponseData<SopFile> result = batchUpload.batchUpload(user.getId()+meetingRecord.getFileReidsKey());
 				if(Status.OK.equals(result.getResult().getStatus())){
@@ -234,6 +236,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 				}
 			}
 			
+					
 			//设置meetingName
 			if(meetingRecord.getMeetingName() == null || meetingRecord.getMeetingName().intValue()==0){
 				Long meetNumber = meetingService.queryMeetNumberByType(meetingRecord);
@@ -247,20 +250,9 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 			//设置会议类型
 			meetingRecord.setRecordType(RecordType.OPERATION_MEETING.getType());
 			
-			Long id = null;
-			if(meetingRecord.getId()!=null && meetingRecord.getId().intValue()!=0){
-				//更新
-				meetingService.updateByIdSelective(meetingRecord);
-			}else{
-				//设置会议发起人
-				meetingRecord.setCreateUid(user.getId());
-				//
-				meetingRecord.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-				//插入
-				id = meetingService.insertMeeting(meetingRecord);
-			}	
+			meetingService.saveMeeting(meetingRecord, user.getId());
 			responseBody.setResult(new Result(Status.OK,"")); 
-			responseBody.setId(id);
+			responseBody.setId(meetingRecord.getId());
 				
 		} catch (Exception e) {
 			// TODO: handle exception

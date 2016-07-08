@@ -50,6 +50,8 @@ public class MeetingRecord  extends PagableRecordEntity{
     
     private List<SopFile> files;
     
+    private List<Long> fileIds;
+    
     
     
     /**
@@ -342,6 +344,14 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setFiles(List<SopFile> files) {
 		this.files = files;
+	}
+
+	public List<Long> getFileIds() {
+		return fileIds;
+	}
+
+	public void setFileIds(List<Long> fileIds) {
+		this.fileIds = fileIds;
 	}
     
 	
