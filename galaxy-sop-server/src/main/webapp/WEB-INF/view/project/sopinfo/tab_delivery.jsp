@@ -84,7 +84,7 @@
 					<thead>
 						<tr>
 							<th data-field="delDescribe" data-align="center" data-formatter="infoDeliverFormat" >事项简述</th>
-							<th data-field="del_status" data-align="center" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态</th>
+							<th data-field="del_status" data-align="center" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态<span></span></th>
 							<th data-field="endByUname" data-align="center">编辑人</th>
 							<th data-field="updatedTime" data-align="center" data-formatter="longTime_Format" >编辑日期</th>
 							<th data-field="fileNum" data-align="center" >附件数</th>
@@ -164,6 +164,11 @@ $(function(){
 
 //获取 页面数据\保存数据
 function paramsContion(){
+	
+	if(!beforeSubmit()){
+		return false;
+	}
+	
 	var condition = JSON.parse($("#deliver_form").serializeObject());
 	condition.fileReidsKey = Date.parse(new Date());
 	condition.fileNum = $("#filelist").find("tr").length - 1;
