@@ -219,9 +219,40 @@ function statusFormat(value,row,index){
  *  查看
  */
 function infoDeliverFormat(value,row,index){  
-	var info = "<label class=\"blue\" onclick=\"deliverInfoEdit('"+row.id+"','v')\" >"+value+"</label>";
+	var old = value;
+	var cut = cutStr(25,old);
+	var hasCut = getLength(value) >= 25;
+	var info = "<label class=\"blue\" onclick=\"deliverInfoEdit('"+row.id+"','v')\" >"+cut+"</label>";
+	if(hasCut && hasCut == true){
+		info = "<label class=\"blue\" onclick=\"deliverInfoEdit('"+row.id+"','v')\" title='"+old+"' >"+cut+"</label>";
+	}
 	return info;
 }
+function cutStr(theNum,theOldStr){
+	var leaveStr = "";
+	var leng = getLength(theOldStr);
+	if(theNum >= leng){
+		return theOldStr;
+	}else{
+		var cont = 0;
+		for (var i = 0; i < theOldStr.length; i++) {
+			if (theOldStr.charCodeAt(i) >= 0x4e00 && theOldStr.charCodeAt(i) <= 0x9fa5){ 
+				cont += 2;
+			}else {
+				cont++;
+			}
+			if(cont >= theNum){
+				break;
+			}
+			leaveStr += theOldStr.charAt(i);
+		}
+		return leaveStr + "...";
+	}
+	return theOldStr;
+}
+
+
+
 
 /**
  * 编辑   删除   下载
