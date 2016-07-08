@@ -216,24 +216,8 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		if(allNum == null || allNum == 0){
 			delivery.setFileNum(null);
 			
-			if(oldNum != 0){
-				toDelfileids = deliveryFileList(delivery.getId());
-			}
 		}else{
 			delivery.setFileNum(allNum);
-			
-			if(oldNum!=0){
-				if(oldHasNum == 0){
-					toDelfileids = deliveryFileList(delivery.getId());
-				}else if(oldNum != oldHasNum){
-					List<Long> oldfileids = deliveryFileList(delivery.getId());  //查询中间表， 取原 fileids
-					for(Long oldId : oldfileids){
-						if(!oldHasFileIds.contains(oldId)){
-							toDelfileids.add(oldId);
-						}
-					}
-				}
-			}
 
 			if(upNum != 0){ 
 				List<DeliveryFile> dfileIn = new ArrayList<DeliveryFile>();
@@ -256,6 +240,19 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 					dfileIn.add(df);
 				}
 				deliveryFileDao.insertInBatch(dfileIn);
+			}
+		}
+		
+		if(oldNum!=0){
+			if(oldHasNum == 0){
+				toDelfileids = deliveryFileList(delivery.getId());
+			}else if(oldNum != oldHasNum){
+				List<Long> oldfileids = deliveryFileList(delivery.getId());  //查询中间表， 取原 fileids
+				for(Long oldId : oldfileids){
+					if(!oldHasFileIds.contains(oldId)){
+						toDelfileids.add(oldId);
+					}
+				}
 			}
 		}
 		
