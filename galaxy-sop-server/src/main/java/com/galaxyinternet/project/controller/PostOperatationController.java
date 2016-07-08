@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
@@ -48,12 +51,14 @@ import com.galaxyinternet.service.ProjectHealthService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserRoleService;
+import com.galaxyinternet.touhou.controller.DeliveryController;
 import com.galaxyinternet.utils.BatchUploadFile;
 
 @Controller
 @RequestMapping(value="/galaxy/project/postOperation")
 public class PostOperatationController extends BaseControllerImpl<MeetingRecord, MeetingRecord> {
 
+	final Logger logger = LoggerFactory.getLogger(PostOperatationController.class);
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
@@ -70,6 +75,17 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 	private SopFileService sopFileService;
 	@Autowired
 	BatchUploadFile batchUpload;
+	
+	private String tempfilePath;
+
+	public String getTempfilePath() {
+		return tempfilePath;
+	}
+
+	@Value("${sop.oss.tempfile.path}")
+	public void setTempfilePath(String tempfilePath) {
+		this.tempfilePath = tempfilePath;
+	}
 	
 	public static final String ERROR_DAO_EXCEPTION = "系统出现异常";
 	
@@ -330,6 +346,39 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 			data.setResult(new Result(Status.ERROR, ERROR_DAO_EXCEPTION));
 		}
 		return data;
+	}
+	
+	/**
+	 * 批量下载
+	 * @param id
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/downloadBatchFile/{id}")
+	public void downloadBatchFile(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
+	{
+		if(id != null){
+			SopFile sopfile = new SopFile();
+		    sopfile.setMeetingId(id);
+			List<SopFile> sopFileList = sopFileService.queryList(sopfile);
+			List<SopDownLoad> sopDownLoadList = new ArrayList<SopDownLoad>();
+			try {
+				if(sopFileList != null && sopFileList.size() > 0){
+					for(SopFile file:sopFileList){
+						SopDownLoad downloadEntity = new SopDownLoad();
+						downloadEntity.setFileName(file.getFileName());
+						downloadEntity.setFileSuffix("." + file.getFileSuffix());
+						downloadEntity.setFileSize(file.getFileLength());
+						downloadEntity.setFileKey(file.getFileKey());
+						sopDownLoadList.add(downloadEntity);
+					}
+			
+				}
+				sopFileService.downloadBatch(request, response, tempfilePath,"会议纪要-"+String.valueOf(id),sopDownLoadList);
+			} catch (Exception e) {
+				logger.error("下载失败.",e);
+			}
+		}
 	}
 	
 
