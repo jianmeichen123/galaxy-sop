@@ -2,7 +2,9 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
+<style>
+.bars{margin:0 !important;}
+</style>
 <div class="addmentc">
 	<div class="title_bj" id="popup_name"></div>
 	
