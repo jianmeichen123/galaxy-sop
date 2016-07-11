@@ -8,7 +8,7 @@
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 
 <div class="addmentc">
 	<div class="title_bj" id="popup_name"></div>
@@ -71,3 +71,4 @@
     </div>
   	
 </div>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
