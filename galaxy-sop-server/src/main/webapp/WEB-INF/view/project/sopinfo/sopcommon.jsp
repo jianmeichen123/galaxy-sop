@@ -9,7 +9,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>><a href="#" onclick="projectList()">创投项目</a>><span id="project_name_title"></span></div>
+	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>>
+	<c:choose>
+		<c:when test="${empty sessionScope._curr_menu_ }">
+			<a href="#" onclick="projectList()">创投项目</a>
+		</c:when>
+		<c:otherwise>
+			<a href="#">${sessionScope._curr_menu_ }</a>
+		</c:otherwise>
+	</c:choose>
+	><span id="project_name_title"></span></div>
     	
     	<div class="new_tit_b">
         	<span class="size18" id="project_name_t"></span><span class="new_color" id="project_code_t"></span>
