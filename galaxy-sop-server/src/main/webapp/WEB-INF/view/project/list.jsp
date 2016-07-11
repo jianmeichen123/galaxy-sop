@@ -211,8 +211,9 @@
 		//项目详情页返回地址
 		setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
 		//返回附带参数功能代码
-		var tempPageSize =( ".dropdown-toggle .page-size").text();
-		var tempPageNum = $( ".pagination .active").text();
+		var options = $("#project-table").bootstrapTable('getOptions');
+		var tempPageSize = options.pageSize ? options.pageSize : 10;
+		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
 		var projectType = $("select[name='projectType']").val();
 		var financeStatus = $("select[name='financeStatus']").val();
 		var projectProgress = $("select[name='projectProgress']").val();
