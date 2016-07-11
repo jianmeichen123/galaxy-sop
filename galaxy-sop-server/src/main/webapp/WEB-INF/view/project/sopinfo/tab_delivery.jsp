@@ -15,7 +15,7 @@
 <link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
 <link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 <!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-
+<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <!-- bootstrap-table -->
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!-- 日历插件 -->
@@ -125,7 +125,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script src="<%=path %>/js/batchUpload.js" type="text/javascript" charset="utf-8"></script>
-
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 
 <script>
 
