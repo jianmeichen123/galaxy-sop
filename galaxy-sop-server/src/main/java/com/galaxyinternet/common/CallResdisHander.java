@@ -1,6 +1,7 @@
 package com.galaxyinternet.common;
 import java.util.concurrent.TimeoutException;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,8 @@ public class CallResdisHander {
 			if (success) {
 				String strId=cache.getValue("id");
 				//如果id为空说明未设置id值
-				if (strId==null||strId=="") {
+				//if (strId==null||strId=="") {
+				if (StringUtils.isBlank(strId)) {
 					id = 100000001l;
 				} else {
 					id=Long.valueOf(strId);

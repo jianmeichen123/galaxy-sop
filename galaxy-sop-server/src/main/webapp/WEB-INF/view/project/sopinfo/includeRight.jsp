@@ -125,6 +125,15 @@ $(function(){
 	}
 	else
 	{
+		$.each($('.new_left .tablinks li'),function(){
+			var tab = $(this);
+			if(tab.find('a').text() == '运营分析')
+			{
+				tab.addClass('no');
+				tab.find('a').removeAttr("onclick");
+			}
+		});
+		
 		$("#tq_div").show();
 	}
 	init_lct(); //流程图初始化
