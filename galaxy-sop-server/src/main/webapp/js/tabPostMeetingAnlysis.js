@@ -8,7 +8,12 @@ var meetingSearchPanel = {
 		initData : function(){
 			//初始化查询按钮
 			$("#searchBtn").click(meetGrid.searchData);
-			$("#addPostMeetingBtn").click(editPostMeetingDialog.init);
+			$("#addPostMeetingBtn").click(function(){
+				var formdata = {
+						 isEdit : true
+				}
+				editPostMeetingDialog.init(formdata);
+			});
 			//初始化会议类型请求
 			sendGetRequest(platformUrl.dictFindByParentCode+"/postMeetingType",null,meetingSearchPanel.initDataCallBack);
 			
@@ -27,7 +32,8 @@ var meetingSearchPanel = {
 							"</label>";
 				});
 				$("#search_meet_type").html(html);
-				
+				//初始化日历控件
+				$("#post_meeting_anlysis").find(".datepicker").val("");
 				meetGrid.init(pInfo);
 			}else{
 				layer.msg("初始化项目类型出错");
@@ -68,14 +74,13 @@ var meetGrid = {
 			      cardView: false,          //是否显示详细视图
 			      detailView: false,          //是否显示父子表
 			      onLoadSuccess : function(data){
-			    	  //初始化日历控件
-						$("#post_meeting_anlysis").find(".datepicker").val("");
 			      },
 			      columns: [
 					{
 			        field: 'meetingName',
 			        title: '会议名称',
-			        formatter : meetGrid.meetingNameFormatter
+			        formatter : meetGrid.meetingNameFormatter,
+			        events : meetGrid.meetingNameEvents
 			      }, {
 			        field: 'meetingType',
 			        title: '类型',
@@ -101,6 +106,7 @@ var meetGrid = {
 
 			      }]
 			    });
+			
 		},
 		meetingTypeFormatter : function(value,row,index){
 			var retStr;
@@ -112,15 +118,16 @@ var meetGrid = {
 			});
 			return retStr;
 		},
-		meetingNameFormatter : function(value,row,index){
-			var retStr;
+		meetingNameFormatter : function(value,row,index){	
+			var retStr = "<a class='meet_show_detail blue'  href='javascript:void(0)'>";
 			$.each(meetingSearchPanel.meetingTypeList,function(){
 				if(row.meetingType == this.code){
-					retStr = this.name;
+					retStr += this.name;
 					return false;
 				}
 			});
 			retStr += "纪要" + value;
+			retStr += "</a> ";
 			return retStr;
 //			var retStr = row."";
 		},
@@ -137,6 +144,28 @@ var meetGrid = {
 			
 			return btns;
 		},
+		meetingNameEvents : {
+			'click .meet_show_detail': function (e, value, row, index) {
+				var retStr = "";
+				$.each(meetingSearchPanel.meetingTypeList,function(){
+					if(row.meetingType == this.code){
+						retStr += this.name;
+						return false;
+					}
+				});
+				retStr += "纪要" + value;
+				var formdata = {
+						 id : row.id,
+						 meetingDateStr : row.meetingDateStr,
+						 meetingName : row.meetingName,
+						 meetingType : row.meetingType,
+						 meetingNotes : row.meetingNotes,
+						 isEdit : false,
+						 popName : retStr
+				}
+				editPostMeetingDialog.init(formdata);		
+	        }
+		},
 		operateEvents : {
 			
 			'click .meet_edit': function (e, value, row, index) {
@@ -147,23 +176,33 @@ var meetGrid = {
 						 meetingName : row.meetingName,
 						 meetingType : row.meetingType,
 						 meetingNotes : row.meetingNotes,
+						 isEdit : true,
+						 popName : "编辑会议纪要"
 				}
 				editPostMeetingDialog.init(formdata);
 //				
 			
 	        },
 	        'click .meet_delete': function (e, value, row, index) {
-	        	sendGetRequest(platformUrl.deletePostMeeting + "/" + row.id ,null,function(data){
-	        		if(data.result.status=="OK"){
-						layer.msg("删除成功");
-						meetGrid.searchData();
-						//刷新投后运营简报信息
-						setThyyInfo();
-						
-					}else{
-						layer.msg(data.result.errorCode);
-					}
-	        	});
+	        	layer.confirm('你确定要删除吗?', {
+	        		  btn: ['确定', '取消'] //可以无限个按钮
+	        		}, function(index, layero){
+	        			sendGetRequest(platformUrl.deletePostMeeting + "/" + row.id ,null,function(data){
+	    	        		if(data.result.status=="OK"){
+	    						layer.msg("删除成功");
+	    						meetGrid.searchData();
+	    						//刷新投后运营简报信息
+	    						setThyyInfo();
+	    						
+	    					}else{
+	    						layer.msg(data.result.errorCode);
+	    					}
+	    	        	});
+	        		  //按钮【按钮一】的回调
+	        		}, function(index){
+	        		  //按钮【按钮二】的回调
+	        		});
+	        	
 	        	
 	        },
 	        'click .meet_download': function (e, value, row, index) {
@@ -191,8 +230,13 @@ var meetGrid = {
 				return false;
 			}
 			params.projectId = meetGrid.projectId;
-			params.startTime = startTime;
-			params.endTime = endTime;
+			//bootstrap 对日期要剪掉8个小时么? 源码是怎么写的有时间阅读以下
+			if(!searchForm.meet_startDate == ""){
+				params.startTime = searchForm.meet_startDate;
+			}
+			if(!searchForm.meet_endDate == ""){
+				params.endTime = searchForm.meet_endDate;
+			}
 			if(searchForm.meetingTypeList){
 				//当选择一个复选框时，serializeObject方法
 				if(!isArray(searchForm.meetingTypeList)){
@@ -221,19 +265,18 @@ var editPostMeetingDialog = {
 		 * meetingName : 会议名称,
 		 * meetingType : 会议类型,
 		 * meetingNotes : 会议纪要
+		 * popName : 对话框名称
 		 * 
 		 * */
 		init : function(_formdata){
+			
 			$.getHtml({
 				url:platformUrl.toEditPostMeeting,//模版请求地址
 				data:"",//传递参数
 				okback:function(_this){
-					
-					
-					
-					
-//					console.log(111111);
-//					$("#meetingDate").val("");		
+					if(_formdata.popName){
+						$("#popup_name").html(_formdata.popName);
+					}
 					var operator = {
 							initDataCallBack : function(data){
 								if(data.result.status == 'OK'){
@@ -285,10 +328,19 @@ var editPostMeetingDialog = {
 										$("#win_post_meeting_form").find("#meetingNotes").val(_formdata.meetingNotes);
 									}
 									//初始化按钮
-									$("#win_ok_btn").click(operator.save);
+//									$("#win_ok_btn").click(operator.save);
 									$("#win_cancel_btn").click(function(){
 										editPostMeetingDialog.close(_this);
-									});	
+									});
+									if(!_formdata.isEdit){
+										$("#win_post_meeting_form").find("#meetingDateStr").attr("disabled", true);
+										$("#win_post_meeting_form").find("#meetingNotes").attr("disabled", true);
+										$("#win_post_meeting_form").find("#edit_meeting_type").find("input:radio").attr("disabled", true);
+										$("#win_post_meeting_form").find("#win_ok_btn").attr("disabled",true);
+										$("#win_post_meeting_form").find("#win_cancel_btn").attr("disabled", true);	
+										$("#win_post_meeting_form").find("#choose_up_file").hide();
+									}
+									
 								}else{
 									layer.msg("初始化项目类型出错");
 									return;
@@ -300,9 +352,14 @@ var editPostMeetingDialog = {
 								if(result == "OK"){
 									var deliverInfo = data.entity;
 									$.each(data.entity.files,function(){
-										var but = "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
+										var but = "";
+										if(_formdata.isEdit){
+											 var but = 	"<button type='button' id='"+this.id+"btn' " +
+											 			"onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>" +
+											 			"删除</button>" ;
+											}
 										var htm = "<tr id='"+this.id+"tr'>"+
-														"<td>"+this.fileName+
+														"<td>"+this.fileName+"."+this.fileSuffix+
 															"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
 														"</td>"+
 														"<td>"+this.fileLength+"</td>"+
@@ -312,6 +369,10 @@ var editPostMeetingDialog = {
 										$("#filelist").append(htm);
 									});
 								}
+							},
+							//回调函数
+							saveCallBackFuc : function (data){
+								editPostMeetingDialog.callFuc(data,_this);
 							}
 					};
 					
@@ -324,19 +385,29 @@ var editPostMeetingDialog = {
 					
 					toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
 							platformUrl.saveMeeting,"textarea2","select_btn","win_ok_btn","post-meeting-dialog","filelist",
-							paramsContion,"win_post_meeting_form",saveCallBackFuc);
+							paramsContion,"win_post_meeting_form",operator.saveCallBackFuc);
 					
-					if(_formdata.id){
-						filelist(_formdata.id);
-					}
+				
 					
 					
 					
 				}//end okback 模版反回成功执行		
 			});
 		},
-		callFuc : function(){
-			
+		callFuc : function(data,_this){
+//			operator.saveCallBackFuc(data);
+
+			//$(".pop").hideLoading();
+			if(data.result.status=="OK"){
+				layer.msg("保存成功");
+				meetGrid.searchData();
+//				removePop1();
+				editPostMeetingDialog.close(_this);
+				//刷新投后运营简报信息
+				setThyyInfo();
+				
+			}
+		
 		},
 		//关闭弹出框
 		close : function(_this){
@@ -353,6 +424,7 @@ var editPostMeetingDialog = {
 
 
 function init(){
+	datePickerInitByHandler();
 	createMenus(5);
 	pInfo = getProject();
 	meetingSearchPanel.initData();
@@ -387,25 +459,8 @@ function paramsContion(){
 	}
 	return condition;
 }
-//回调函数
-function saveCallBackFuc(data){
-	//$(".pop").hideLoading();
-	if(data.result.status=="OK"){
-		layer.msg("保存成功");
-		meetGrid.searchData();
-		removePop1();
-		//刷新投后运营简报信息
-		setThyyInfo();
-		
-	}
-}
 
-function filelist(id){
-	var _url = Constants.sopEndpointURL + '/galaxy/project/postOperation/selectFile/'+id;
-	sendGetRequest(_url, {}, function(data){
-		
-		});
-}
+
 
 
 
