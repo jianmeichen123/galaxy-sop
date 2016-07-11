@@ -91,7 +91,19 @@
 			<bean
 				class="com.galaxyinternet.common.annotation.MessageHandlerInterceptor" />
 		</mvc:interceptor>
-
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.galaxyinternet.common.interceptor.MenuAccessInterceptor">
+				<property name="mappings">
+					<map>
+						<entry key="galaxy/mpl" value="创投项目"/>
+						<entry key="galaxy/lxh" value="立项会"/>
+						<entry key="galaxy/tjh" value="投决会"/>
+						<entry key="galaxy/psh" value="CEO评审会"/>
+					</map>
+				</property>
+			</bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 	<bean id="gsonHttpMessageConverter"
 		class="org.springframework.http.converter.json.GsonHttpMessageConverter">

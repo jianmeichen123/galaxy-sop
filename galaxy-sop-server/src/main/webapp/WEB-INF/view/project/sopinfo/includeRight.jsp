@@ -383,7 +383,7 @@ function setThyyInfo()
 					var ul = $('<ul class="clearfix "></ul>');
 					div.append(ul);
 					ul.append('<li class="new_b_li_one">'+this.meetingTypeStr+'</li>');
-					ul.append('<li class="new_b_li_three" style="width:66%">'+this.meetingDateStr+'</li>');
+					ul.append('<li class="new_b_li_three" style="width:66%">'+this.meetingDateStr.substr(0,16)+'</li>');
 					//会议记录  处理
 					var notes = this.meetingNotes;
 					var notesStr = "";

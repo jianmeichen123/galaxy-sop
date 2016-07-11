@@ -28,7 +28,7 @@ $(function(){
 		$("#finalValuations").text(projectInfo.finalValuations==0||typeof(projectInfo.finalValuations)=="undefined"?"--":projectInfo.finalValuations);
 		$("#finalContribution").text(projectInfo.finalContribution==0||typeof(projectInfo.finalContribution)=="undefined"?"--":projectInfo.finalContribution);
 		$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);$("#serviceChage").val(projectInfo.serviceChage==0?0:projectInfo.serviceChage);
-		$("#serviceCharge").text(projectInfo.serviceCharge==0?0:projectInfo.serviceCharge);
+		$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":projectInfo.serviceCharge);
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
@@ -52,7 +52,7 @@ $(function(){
 			$("#finalValuations_edit").val(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
 			$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
 			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?0:projectInfo.finalShareRatio);
-			$("#serviceChargeedit").val(typeof(projectInfo.serviceCharge)=="undefined"?"--":projectInfo.serviceCharge)
+			$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
 			 p=projectInfo.industryOwn;
 		    fs=projectInfo.financeStatus;
 			//融资

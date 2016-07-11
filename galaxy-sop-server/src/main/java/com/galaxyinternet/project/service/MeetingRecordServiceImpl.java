@@ -473,6 +473,17 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 		List<User> userList = getUser(pageEntity.getContent());
 		
 		for(MeetingRecord meetingRecord : pageEntity.getContent()){
+			//设置头后运营会议是否存在文件
+			SopFile tempQuery = new SopFile();
+			tempQuery.setMeetingId(meetingRecord.getId());
+		    List<SopFile> sopFileList = sopFileDao.selectList(tempQuery);
+			if(sopFileList!=null && sopFileList.size() > 0){
+				meetingRecord.setHasFile("true");
+			}else{
+				meetingRecord.setHasFile("false");
+			}
+			
+			//设置用户名称
 			for(User user : userList){
 				if(user.getId().equals(meetingRecord.getCreateUid())){
 					meetingRecord.setCreateUName(user.getRealName());
