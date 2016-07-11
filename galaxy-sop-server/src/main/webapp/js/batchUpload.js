@@ -14,25 +14,26 @@
  */
 function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun) {
 	var params = {};
+	var fileName = '';
 	uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : selectBtnId, // you can pass an id...
 		container: containerId, // ... or DOM Element itself
 		url : fileurl,
+		rename : true,
+		unique_names:true,
 		filters : {
-			max_file_size : '10mb',
-			mime_types: [
+			max_file_size : '25mb'
+			/*mime_types: [
 				{title : "Image files", extensions : "jpg,gif,png,txt,docx,doc"},
 				{title : "Zip files", extensions : "zip"}
 			]
-		},
+	       prevent_duplicates : true //不允许选取重复文件
+*/		},
 		init: {
 			PostInit: function(up) {
-				//$("#"+fileListId).html('');
 				$("#" + submitBtnId).click(function(){
-					
 					params = paramsFunction();
-					
 					var isFlag = params;
 					if(isFlag == false || isFlag == "false"){
 						up.stop();
@@ -59,8 +60,8 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 					return false;
 				});
 			},
-			BeforeUpload:function(up){
-				
+			BeforeUpload:function(up,file){
+				params["fileName"] = file.name;
 			},
 			FileUploaded:function(up,file,rtn){
 				var response = $.parseJSON(rtn.response);
@@ -73,7 +74,20 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				}
              }, 
 			FilesAdded: function(up, files) {
+				var max_files = 10;
 				plupload.each(files, function(file) {
+					/**
+					 * 最多只能上传10个文件
+					 */
+                    if (up.files.length > max_files) {
+                    	uploader.removeFile(file);
+						return;
+					}
+                    /**
+                     * 生成上传文件的列表
+                     */
+				    var name =countSameFile(file,fileListId);
+				    file.name = name;
 					$("#"+fieInputId).val($("#"+fieInputId).val()+" "+file.name);
 					$("#"+fileListId).append("<tr id='"+file.id+"tr'><td>"+file.name+"</td><td>"+plupload.formatSize(file.size)+"</td><td><button type='button' id='"+file.id+"btn' onclick=del('"+file.id+"','"+file.name+"','"+fieInputId+"')>删除</button> </td><td id='"+file.id+"_progress'></td></tr>"); 
 				});
@@ -122,4 +136,19 @@ function del(id,name,fieInputId){
 	$("#"+fieInputId).val($("#"+fieInputId).val().replace(name,""));
     uploader.removeFile(id);
     $("#"+id+"tr").remove();
+}
+
+function countSameFile(file,fileList){
+	var name = file.name;
+	var count = 0;
+	$("#"+fileList+" tr:gt(0)").each(function(){
+	  var inputValue = $(this).find("td").eq(0).text();
+	  if(inputValue == name){
+	    count++;
+	    var  subname = name.substring(0,name.lastIndexOf("."));
+	    var fix =  name.substring(name.lastIndexOf(".")+1,name.length);
+	    name = subname+"-"+count+"."+fix;
+	  }
+    });
+	return name;
 }

@@ -871,7 +871,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 					
 				}
 			     FileInputStream fiso = new FileInputStream(tempFile); 
-			     outzip.putNextEntry(new ZipEntry(System.currentTimeMillis()+downloadEntity.getFileName()+downloadEntity.getFileSuffix())); 
+			     outzip.putNextEntry(new ZipEntry(downloadEntity.getFileName()+downloadEntity.getFileSuffix())); 
 	             //设置压缩文件内的字符编码，不然会变成乱码    
 			     //outzip.setEncoding("GBK");    
 	             int len;    

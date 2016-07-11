@@ -277,66 +277,62 @@ function operFormat(value,row,index){
 /**
  * 查看/编辑  事项
  */
-function deliverInfoEdit(selectRowId,type){
-	//deliver_selectRow = $('#project_delivery_table').bootstrapTable('getRowByUniqueId', selectRowId);
-	//var $self = $(this);
-	//var _name= $self.attr("data-name");
-	var _url = Constants.sopEndpointURL + '/galaxy/delivery/tomatterdeliver';
-
-	$.getHtml({
-		url:_url,
-		data:"",
-		okback:function(){
-			
-			_url = Constants.sopEndpointURL + '/galaxy/delivery/selectdelivery/'+selectRowId;
-			sendGetRequest(_url, {}, function(data){
-				var result = data.result.status;
-				if(result == "OK"){
-					var deliverInfo = data.entity;
-					
-					$("#deliver_form [name='delDescribe']").val(deliverInfo.delDescribe);
-					$("#deliver_form [name='details']").text(deliverInfo.details);
-					$("#deliver_form [name='delStatus'][value='"+deliverInfo.delStatus+"']").attr("checked",'checked');
-					
-					var hasFile = false;
-					if(data.entity.files && data.entity.files.length > 0){
-						hasFile = true;
-					}
-					$.each(data.entity.files,function(){
-						var but = type == 'v' ? " -" : "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
-						var htm = "<tr id='"+this.id+"tr'>"+
-										"<td>"+this.fileName+
-											"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
-										"</td>"+
-										"<td>"+this.fileLength+"</td>"+
-										"<td>"+ but +"</td>"+
-										"<td>100%</td>"+
-									"</tr>"
-						$("#filelist").append(htm);
-					});
-					
-					if(type == 'v'){
-						$("#popup_name").html("查看事项信息");
-						$("#choose_oper").remove();
-						$("#choose_up_file").remove();
-						if(hasFile == false){
-							$("#filelist").remove();
-						}
-					}else if(type == 'e'){
-						$("#popup_name").html("编辑事项信息");
-						$("#deliver_form [name='id']").val(deliverInfo.id);
-						$("#deliver_form [name='projectId']").val(proid);
-						toInitBachUpload();
-					}
-					
-				}else{
-					layer.msg(data.result.message);
-				}
-			});
+ function deliverInfoEdit(selectRowId,type){
+		deliver_selectRow = $('#project_delivery_table').bootstrapTable('getRowByUniqueId', selectRowId);
+		//var $self = $(this);
+		//var _name= $self.attr("data-name");
+		var _url = Constants.sopEndpointURL + '/galaxy/delivery/tomatterdeliver';
+		if(type == 'v'){
+			_url = Constants.sopEndpointURL + '/galaxy/delivery/todeliverinfo';
 		}
-	});
-	return false;
-}
+		$.getHtml({
+			url:_url,
+			data:"",
+			okback:function(){
+				if(type == 'v'){
+					$("#popup_name").html("查看事项信息");
+					$("#deliver_form [name='delDescribe']").val(deliver_selectRow.delDescribe);
+					$("#deliver_form [name='details']").text(deliver_selectRow.details);
+					$("#deliver_form [name='delStatus']").val(deliver_selectRow.statusFormat);
+				}else{
+					_url = Constants.sopEndpointURL + '/galaxy/delivery/selectdelivery/'+selectRowId;
+					sendGetRequest(_url, {}, function(data){
+						var result = data.result.status;
+						if(result == "OK"){
+							var deliverInfo = data.entity;
+							
+							$("#popup_name").html("编辑事项信息");
+							$("#deliver_form [name='id']").val(deliverInfo.id);
+							$("#deliver_form [name='projectId']").val(proid);
+							$("#deliver_form [name='delDescribe']").val(deliverInfo.delDescribe);
+							$("#deliver_form [name='details']").text(deliverInfo.details);
+							$("#deliver_form [name='delStatus'][value='"+deliverInfo.delStatus+"']").attr("checked",'checked');
+							
+							$.each(data.entity.files,function(){
+								var but = type == 'v' ? " -" : "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
+								var htm = "<tr id='"+this.id+"tr'>"+
+												"<td>"+this.fileName+
+													"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
+												"</td>"+
+												"<td>"+this.fileLength+"</td>"+
+												"<td>"+ but +"</td>"+
+												"<td>100%</td>"+
+											"</tr>"
+								$("#filelist").append(htm);
+							});
+							
+							toInitBachUpload();
+							
+						}else{
+							layer.msg(data.result.message);
+						}
+					});
+				}
+				
+			}
+		});
+		return false;
+	}
 
 /**
  * 保存  事项

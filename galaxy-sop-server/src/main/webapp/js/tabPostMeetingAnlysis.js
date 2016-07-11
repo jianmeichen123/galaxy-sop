@@ -95,7 +95,7 @@ var meetGrid = {
 			      }, {
 			    	  field: 'operate', 
 			    	  title: '操作', 
-			    	  align: 'center', 
+			    	  align: 'left', 
 			    	  events: meetGrid.operateEvents, 
 			    	  formatter: meetGrid.operateFormatter 
 
