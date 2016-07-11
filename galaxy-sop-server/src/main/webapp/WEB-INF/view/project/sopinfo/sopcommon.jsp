@@ -22,6 +22,17 @@
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isCreatedByUser" value="${fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <script>
+var number_on;
+$(function(){
+	if(getCookieValue("number_on")==''){
+		setCookie("number_on", '1',24,'/')
+		number_on=getCookieValue("number_on");
+	}else{
+		number_on=getCookieValue("number_on");
+		number_on++;
+		setCookie("number_on",number_on,24,'/');
+	}
+});
 var isCreatedByUser = "${isCreatedByUser}";
 var pid='${pid}';
 if(null==pid||typeof(pid)=="underfind"||pid==""){
@@ -33,15 +44,19 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 	projectInfo = data.entity;
 });
 
-function back(){
+/* function back(){
 	var path = getCookieValue("project_detail_back_path");
 	if(path){
 		forwardWithHeader(path);
 	}else{
 		window.history.back();
 	}
+} */
+function back(){
+	setCookie("backProjectList", 'click',24,'/');
+ 	deleteCookie("number_on","/");
+ 	history.go(-number_on)
 }
-
 $(function(){
 	var str=projectInfo.projectName;
 	if(projectInfo.projectName.length>24){
