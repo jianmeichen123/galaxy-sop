@@ -1397,7 +1397,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			cache.setRedisSetOBJ(user.getId()+fileKey,form);
 			return new Result(Status.OK, "");
 		} catch (Exception e) {
-			cache.remove(user.getTelephone()+request.getParameter("fileReidsKey"));
+			cache.removeRedisKeyOBJ(user.getTelephone()+request.getParameter("fileReidsKey"));
 			// TODO: handle exception
 			return new Result(Status.ERROR, "系统出现异常");
 		}
