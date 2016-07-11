@@ -291,9 +291,9 @@ function operFormat(value,row,index){
 			okback:function(){
 				if(type == 'v'){
 					$("#popup_name").html("查看事项信息");
-					$("#deliver_form [name='delDescribe']").val(deliver_selectRow.delDescribe);
+					$("#deliver_form [name='delDescribe']").text(deliver_selectRow.delDescribe);
 					$("#deliver_form [name='details']").text(deliver_selectRow.details);
-					$("#deliver_form [name='delStatus']").val(deliver_selectRow.statusFormat);
+					$("#deliver_form [name='delStatus']").text(deliver_selectRow.statusFormat);
 				}else{
 					_url = Constants.sopEndpointURL + '/galaxy/delivery/selectdelivery/'+selectRowId;
 					sendGetRequest(_url, {}, function(data){
