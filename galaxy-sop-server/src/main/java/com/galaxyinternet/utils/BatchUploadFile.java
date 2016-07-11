@@ -59,14 +59,14 @@ public class BatchUploadFile {
 					     sopFileList.add(sop);
 				}
 			}else{
-				cache.remove(fileRedisKey);
+				cache.removeRedisKeyOBJ(fileRedisKey);
 			}
 			resultResponse.setEntityList(sopFileList);
 		}catch(Exception e){
 			logger.error(e.getLocalizedMessage());
 			resultResponse.setResult(new Result(Status.ERROR,"系统异常!"));
 		}finally {
-			cache.remove(fileRedisKey);
+			cache.removeRedisKeyOBJ(fileRedisKey);
 		}
 		return resultResponse;
 	}
