@@ -48,9 +48,13 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 								var result = data.result.status;
 								$(".pop").hideLoading();
 								if(result == "OK"){
-									saveCallBackFuc(data);
+									if(callBackFun && typeof(callBackFun) == "function"){
+										callBackFun(data);
+									}else{
+										callBack(data);
+									}
 								}else{
-								    layer.msg(data.result.message);
+								    layer.msg(data.result.errorCode);
 								}
 							});
 					}else{
@@ -106,7 +110,11 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						$.each(files, function(i) {     
 						    $("#"+files[i].id+"_progress").html('<span>'+ files[i].percent + "%</span>"); 
 						}); 
-						saveCallBackFuc(data);
+						if(callBackFun && typeof(callBackFun) == "function"){
+							callBackFun(data);
+						}else{
+							callBack(data);
+						}
 					}else{
 					    $.each(files, function(i) {     
 						    $("#"+files[i].id+"_progress").html('<span>'+"上传失败!"+"</span>"); 
@@ -138,6 +146,7 @@ function del(id,name,fieInputId){
     $("#"+id+"tr").remove();
 }
 
+
 function countSameFile(file,fileList){
 	var name = file.name;
 	var count = 0;
@@ -151,4 +160,6 @@ function countSameFile(file,fileList){
 	  }
     });
 	return name;
+}
+function callBack(data){
 }

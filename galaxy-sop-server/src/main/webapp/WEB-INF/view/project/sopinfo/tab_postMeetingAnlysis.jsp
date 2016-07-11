@@ -145,7 +145,7 @@
 <!-- time -->
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
 <script type="text/javascript" src="<%=path%>/js/tabPostMeetingAnlysis.js"></script>
 <script src="<%=path %>/js/batchUpload.js" type="text/javascript" charset="utf-8"></script>
 
