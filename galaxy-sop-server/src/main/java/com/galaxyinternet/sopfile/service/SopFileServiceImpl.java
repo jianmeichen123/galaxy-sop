@@ -848,6 +848,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		String strZipName = type+".zip";
 		ZipOutputStream outzip = new ZipOutputStream(new FileOutputStream(tempfilePath+strZipName));
 		byte[] buffer = new byte[1024 * 4];
+		List<SopDownLoad> tempSopDownList = new ArrayList<SopDownLoad>();
 		try{
 			for(int i =0 ; i< downloadEntityList.size(); i++){
 				SopDownLoad downloadEntity = downloadEntityList.get(i);
@@ -869,8 +870,8 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 					}
 					
 				}
-			     FileInputStream fiso = new FileInputStream(tempFile);    
-			     outzip.putNextEntry(new ZipEntry(downloadEntity.getFileName()+downloadEntity.getFileSuffix())); 
+			     FileInputStream fiso = new FileInputStream(tempFile); 
+			     outzip.putNextEntry(new ZipEntry(System.currentTimeMillis()+downloadEntity.getFileName()+downloadEntity.getFileSuffix())); 
 	             //设置压缩文件内的字符编码，不然会变成乱码    
 			     //outzip.setEncoding("GBK");    
 	             int len;    
@@ -939,5 +940,5 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
         }  
     	return result;
     }    
-	
+    
 }
