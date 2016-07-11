@@ -221,7 +221,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				operationMessageService.insert(message);
 			} else if(message.getMessageType().equals(StageChangeHandler._6_9_)){
 				SopParentFile sopFile = (SopParentFile) message.getUserData();
-				if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.投资协议)){
+				if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.投资协议.getCode())){
 					message.setMessageType(SopFileMessageHandler._5_9_);
 					content.append(message.getOperator());
 					content.append("为项目");

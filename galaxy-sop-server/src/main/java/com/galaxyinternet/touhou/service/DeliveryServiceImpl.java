@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.touhou.DeliveryBo;
-import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
@@ -36,7 +35,6 @@ import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.touhou.DeliveryFile;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.DeliveryService;
 import com.galaxyinternet.service.UserService;
 
@@ -133,7 +131,7 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	public Delivery selectDelivery(Long deliveryId) {
 		Delivery delivery = deliveryDao.selectById(deliveryId);
 		
-		if(delivery!=null & delivery.getFileNum()!=null){
+		if(delivery!=null && delivery.getFileNum()!=null){
 			
 			List<Long> fileidlist =  deliveryFileList(deliveryId); //事项 文件 关联
 			
@@ -246,7 +244,7 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		if(oldNum!=0){
 			if(oldHasNum == 0){
 				toDelfileids = deliveryFileList(delivery.getId());
-			}else if(oldNum != oldHasNum){
+			}else if(oldNum.byteValue() != oldHasNum.byteValue()){
 				List<Long> oldfileids = deliveryFileList(delivery.getId());  //查询中间表， 取原 fileids
 				for(Long oldId : oldfileids){
 					if(!oldHasFileIds.contains(oldId)){
@@ -292,7 +290,7 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		Delivery delivery = deliveryDao.selectById(deliverid);
 		List<Long> fileidlist = new ArrayList<Long>();
 		
-		if(delivery!=null & delivery.getFileNum()!=null){
+		if(delivery!=null && delivery.getFileNum()!=null){
 			
 			fileidlist = deliveryFileList(deliverid);
 			
