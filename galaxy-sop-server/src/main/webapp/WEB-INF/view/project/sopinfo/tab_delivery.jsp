@@ -311,7 +311,7 @@ function operFormat(value,row,index){
 							$.each(data.entity.files,function(){
 								var but = type == 'v' ? " -" : "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
 								var htm = "<tr id='"+this.id+"tr'>"+
-												"<td>"+this.fileName+
+												"<td>"+this.fileName+"."+this.fileSuffix+
 													"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
 												"</td>"+
 												"<td>"+this.fileLength+"</td>"+
