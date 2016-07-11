@@ -256,7 +256,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						cellpadding="0" class="index">
 						<thead>
 							<tr>
-								<th>序w号</th>
+								<th>序号</th>
 								<th>项目名称</th>
 								<th>上次过会时间</th>
 								<th>过会次数</th>

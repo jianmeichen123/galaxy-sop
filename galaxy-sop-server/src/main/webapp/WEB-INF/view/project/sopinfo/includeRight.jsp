@@ -11,8 +11,39 @@
         
         <!--右边        li  class="green_dot"  span class="green_dot_on"    <span class="gray_dot"></span> -->  
         <div class="new_right">
-        
         	<b class="sj_ico null">三角</b>
+        	<!-- 投后运营Start -->
+        	<c:if test="${aclViewProject }">
+        	
+        	<div id="thyy_div" style="display:none;">
+				<div class="correlation">投后运营</div>
+				<div class="new_correlation_cen status">
+					<span>运营状态</span><img src="<%=path %>/img/status/s01.png" id="yyzt_img">
+					<div class="delivery">
+						<div class="title">交割前确认事项</div>
+						<ul class="clearfix">
+							<li class="fl">已完成：<span class="delivery_complete">3</span></li>
+							<li class="fr">总计：<span class="delivery_total">16</span></li>
+						</ul>
+						<div class="progressBar">
+							<div id="bar"></div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;" href="#">more</span>
+				</div>
+				<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
+					<div class="no_con">
+	            		暂无会议纪要
+	            	</div>
+				</div>
+			</div>
+			</c:if>
+			<!-- 投后运营End -->
+			<!-- 投前Start -->
+			<div id="tq_div" style="display:none;">
+			
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
                 	<ul class="line_ul_p" id="lct_ul">
@@ -65,12 +96,14 @@
             </c:if>
             
         </div>
-        
+        </div>
+        <!-- 投前End -->
         <!--右边 end-->
    
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
+
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
@@ -78,6 +111,22 @@ var index = Number(prograss.substring("projectProgress:".length,prograss.length)
 var admin = "${fx:isCreatedByUser('project',pid) }";
 var isGG = "${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)}";
 $(function(){
+	//显示投前或投后信息
+	if(prograss == 'projectProgress:10')
+	{
+		if($("#thyy_div").length>0)
+		{
+			$("#thyy_div").show();
+			$("#thyy_meet_more").click(function(){
+				showTabs(proid,9)
+			});
+			setThyyInfo();
+		}
+	}
+	else
+	{
+		$("#tq_div").show();
+	}
 	init_lct(); //流程图初始化
 	
 	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || admin!="true"){
@@ -85,14 +134,16 @@ $(function(){
 	}
 		
 	//获取近期访谈、会议 记录
-	if(admin == 'true' || isGG == 'true')
+	if(prograss != 'projectProgress:10' && (admin == 'true' || isGG == 'true'))
 	{
+
 		toFormatNearNotes();
+		//more 链接初始化
+		initMoreLine();
 	}
 	
-	//more 链接初始化
-	initMoreLine();
 	
+	setJgqrProgress();
 });
 
 function toCheckShowIcon(){
@@ -103,12 +154,18 @@ function toCheckShowIcon(){
 	}else{
 		$("#near_meet .no_con").hide();
 	}
+	if(len<3){
+		$("#meet_more").hide();
+	}
 	//无访谈记录
 	var len=$("#near_view .new_b_bottom").length;
 	if(len==0){
 		$("#near_view .no_con").show();
 	}else{
 		$("#near_view .no_con").hide();
+	}
+	if(len<3){
+		$("#view_more").hide();
 	}
 }
 
@@ -283,7 +340,75 @@ function closeback(data){
 		//forwardWithHeader(platformUrl.mpl);
 	}
 }
-
+/**
+ * 设置投后运营信息
+ */
+function setThyyInfo()
+{
+	var url = "<%=path%>/galaxy/project/postOperation/getThyyInfo?projectId=${pid}";
+	sendGetRequest(url,null,function(data){
+		if(data.result.status == 'OK')
+		{
+			//运营状态
+			var healthState = data.userData.healthState;
+			var imgSrc = '<%=path %>/img/status/s0'+healthState+'.png';
+			$("#yyzt_img").attr('src',imgSrc);
+			//交割前确认事项
+			var total = data.userData.total;
+			var complete = data.userData.complete;
+			$(".delivery_complete").text(complete);
+		    $(".delivery_total").text(total);
+			if(total>0)
+			{
+		    	var Wh=$(".progressBar").width();
+		    	var barWidth=parseInt(complete/total*Wh)+"px";
+		    	$("#bar").css("width",barWidth)
+			}
+			//运营会议
+			if(data.entityList != null && data.entityList.length>0)
+			{
+				$("#thyy_meet_div .new_b_bottom").remove();
+				$.each(data.entityList,function(){
+					
+					var div = $('<div class="new_b_bottom"></div>');
+					var ul = $('<ul class="clearfix "></ul>');
+					div.append(ul);
+					ul.append('<li class="new_b_li_one">'+this.meetingTypeStr+'</li>');
+					ul.append('<li class="new_b_li_three" style="width:66%">'+this.meetingDateStr+'</li>');
+					//会议记录  处理
+					var notes = this.meetingNotes;
+					var notesStr = "";
+					if(notes)
+					{
+						notesStr = delHtmlTag($.trim(notes));
+						if(notesStr && notesStr.length > 15)
+						{
+							notesStr = notesStr.substring(0,15)+"...";
+						}
+					}
+					div.append('<p>'+notesStr+'</p>');
+					$("#thyy_meet_div").append(div);
+				});
+			}
+			else
+			{
+				$("#thyy_meet_div .no_con").show();
+			}
+		}
+	});
+}
+/**
+ * 交割前确认事项完成进度
+ */
+function setJgqrProgress()
+{
+	$("#bar").css("width","0px");  //初始化进度条宽度；
+    var deliveryComplete=$(".delivery_complete").text();
+        deliveryTotal=$(".delivery_total").text();
+        Wh=$(".progressBar").width();
+    barWidth=parseInt(deliveryComplete/deliveryTotal*Wh)+"px";
+    $("#bar").css("width",barWidth)
+}
 
 
 </script>

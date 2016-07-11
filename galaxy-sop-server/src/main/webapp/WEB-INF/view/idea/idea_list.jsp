@@ -108,17 +108,17 @@
 		<input type="hidden" data-id="ideaNowId" value="" />
 		
 		<div class="tab-pane active" id="view">	
-			<table id="data-table" data-url="idea/search" data-height="555" class="idea_list_table"
+			<table id="data-table" data-url="idea/search" class="idea_list_table"
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				    	<th data-field="ideaCode" data-align="center" class="data-input">创意编码</th>
-			        	<th data-field="ideaName" data-align="center" class="data-input" data-formatter="ideaNameLinkFormatter">创意名称</th>
-			        	<th data-field="departmentDesc" data-align="center" class="data-input">所属事业线</th>
-			        	<th data-field="createdUname" data-align="center" class="data-input">提出人</th>
-			        	<th data-field="createdTime" data-align="center" class="data-input" data-formatter="dateFormatter">提出时间</th>
-			        	<th data-field="updatedTime" data-align="center" class="data-input" data-formatter="dateFormatter">最后编辑时间</th>
-			        	<th data-field="ideaProgress" data-align="center" class="data-input" data-formatter="progressFormatter">进度</th>
+				    	<th data-field="ideaCode"  class="data-input">创意编码</th>
+			        	<th data-field="ideaName"  class="data-input" data-formatter="ideaNameLinkFormatter">创意名称</th>
+			        	<th data-field="departmentDesc"  class="data-input">所属事业线</th>
+			        	<th data-field="createdUname"  class="data-input">提出人</th>
+			        	<th data-field="createdTime"  class="data-input" data-formatter="dateFormatter">提出时间</th>
+			        	<th data-field="updatedTime"  class="data-input" data-formatter="dateFormatter">最后编辑时间</th>
+			        	<th data-field="ideaProgress"  class="data-input" data-formatter="progressFormatter">进度</th>
  					</tr>	
  				</thead>
 			</table>

@@ -237,9 +237,9 @@
 					 data-toolbar="#projectProgress_1_table_custom-toolbar" data-show-refresh="true" > 
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="ftcolumnFormat">访谈概况</th>
-						<!-- <th data-field="ftgk" data-align="center">访谈概况</th> -->
-						<th data-field="viewNotes" data-align="center" data-formatter="tc_viewNotesFormat">访谈日志</th>
+							<th  data-formatter="ftcolumnFormat">访谈概况</th>
+						<!-- <th data-field="ftgk" >访谈概况</th> -->
+						<th data-field="viewNotes"  data-formatter="tc_viewNotesFormat">访谈日志</th>
 						</tr>
 					</thead>
 				</table>
@@ -258,8 +258,8 @@
 					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[10,20,30]">
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
+							<th  data-formatter="metcolumnFormat">会议概况</th>
+							<th data-field="meetingNotes"  data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -279,8 +279,8 @@
 					data-toolbar="#projectProgress_3_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
+							<th  data-formatter="metcolumnFormat">会议概况</th>
+							<th data-field="meetingNotes"  data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -301,8 +301,8 @@
 					data-toolbar="#projectProgress_4_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
+							<th  data-formatter="metcolumnFormat">会议概况</th>
+							<th data-field="meetingNotes"  data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -322,8 +322,8 @@
 					data-toolbar="#projectProgress_7_table_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
+							<th  data-formatter="metcolumnFormat">会议概况</th>
+							<th data-field="meetingNotes"  data-formatter="tc_formatLog">会议纪要</th>
 						</tr>
 					</thead>
 				</table>
@@ -435,12 +435,12 @@
 					data-page-list="[10,20,30]" data-toolbar="#pro_message_custom-toolbar">
 					<thead>
 						<tr>
-							<th data-field="createdTime" data-align="center" data-formatter="longTimeFormat">时间</th>
-							<th data-field="uname" data-align="center" >操作者</th>
-							<th data-field="operationType" data-align="center">动作</th>
-							<th data-field="operationContent" data-align="center">对象</th>
-							<th data-field="projectName" data-align="center" >项目</th>
-							<th data-field="sopstage" data-align="center" >业务</th>
+							<th data-field="createdTime"  data-formatter="longTimeFormat">时间</th>
+							<th data-field="uname"  >操作者</th>
+							<th data-field="operationType" >动作</th>
+							<th data-field="operationContent" >对象</th>
+							<th data-field="projectName"  >项目</th>
+							<th data-field="sopstage"  >业务</th>
 						</tr>
 					</thead>
 				</table>
@@ -505,13 +505,13 @@
  	                  {
  	                    title: '姓名',
  	                      field: 'personName',
- 	                      align: 'center',
+ 	                      
  	                      valign: 'middle'
  	                  },
  	                  {
                          title: '性别',
                          field: 'personSex',
-                         align: 'center',
+                         
                          valign: 'middle',
                          formatter:function(value,row,index){ 
                           	if (row.personSex == 0) {
@@ -526,25 +526,25 @@
  	                    {
  	                        title: '年龄',
  	                          field: 'personAge',
- 	                          align: 'center',
+ 	                          
  	                          valign: 'middle'
  	                     },
  	                     {
  	                          title: '当前职务',
  	                            field: 'personDuties',
- 	                            align: 'center',
+ 	                            
  	                            valign: 'middle'
  	                  },
  	                  {
  	                      title: '电话',
  	                        field: 'personTelephone',
- 	                        align: 'center',
+ 	                        
  	                        valign: 'middle'
  	                  },
  	                  {
  	                      title: '最高学历',
  	                        field: 'highestDegree',
- 	                        align: 'center',
+ 	                        
  	                        valign: 'middle',
  	                       formatter:function(value,row,index){ 
 	                         	if (row.highestDegree == 1) {
@@ -570,7 +570,7 @@
  	                  {
  	                      title: '工作年限',
  	                        field: 'workTime',
- 	                        align: 'center',
+ 	                        
  	                        valign: 'middle'
  	                  }
  	              ]
@@ -593,31 +593,31 @@
                    {
                      title: '类型',
                        field: 'sharesType',
-                       align: 'center',
+                       
                        valign: 'middle'
                    },
                    {
                        title: '所有权人',
                          field: 'sharesOwner',
-                         align: 'center',
+                         
                          valign: 'middle'
                      },
                      {
                          title: '占比(%)',
                            field: 'sharesRatio',
-                           align: 'center',
+                           
                            valign: 'middle'
                       },
                       {
                            title: '获取方式',
                              field: 'gainMode',
-                             align: 'center',
+                             
                              valign: 'middle'
                    },
                    {
                        title: '备注',
                          field: 'remark',
-                         align: 'center',
+                         
                          valign: 'middle'
                    }
                ]

@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -14,7 +15,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -833,7 +836,108 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		return filePage;
 	}
+
+	/**
+	 * 批量下载
+	 */
+	@Override
+	public void downloadBatch(HttpServletRequest request,
+			HttpServletResponse response, String tempfilePath,String type,
+			List<SopDownLoad> downloadEntityList) throws Exception {
+		// TODO Auto-generated method stub
+		String strZipName = type+".zip";
+		ZipOutputStream outzip = new ZipOutputStream(new FileOutputStream(tempfilePath+strZipName));
+		byte[] buffer = new byte[1024 * 4];
+		try{
+			for(int i =0 ; i< downloadEntityList.size(); i++){
+				SopDownLoad downloadEntity = downloadEntityList.get(i);
+				File tempDir = new File(tempfilePath);
+				File tempFile = new File(tempfilePath, downloadEntity.getFileKey() + "_" +downloadEntity.getFileName());
+				
+				if (!tempDir.exists()) {
+					tempDir.mkdirs();
+				}
+				if(!tempFile.exists() || !tempFile.isFile()){
+					tempFile.createNewFile();
+					if (downloadEntity.getFileSize().longValue() > OSSConstant.DOWNLOAD_PART_SIZE) {
+						OSSHelper.downloadSupportBreakpoint(tempFile.getAbsolutePath(),
+								downloadEntity.getFileKey());
+					} else {
+						DownloadFileResult result = OSSHelper.simpleDownloadByOSS(tempFile,
+								downloadEntity.getFileKey());
+						System.err.println(GSONUtil.toJson(result));
+					}
+					
+				}
+			     FileInputStream fiso = new FileInputStream(tempFile);    
+			     outzip.putNextEntry(new ZipEntry(downloadEntity.getFileName()+downloadEntity.getFileSuffix())); 
+	             //设置压缩文件内的字符编码，不然会变成乱码    
+			     //outzip.setEncoding("GBK");    
+	             int len;    
+	             // 读入需要下载的文件的内容，打包到zip文件    
+	             while ((len = fiso.read(buffer)) > 0) {    
+	            	 outzip.write(buffer, 0, len);    
+	             }    
+	             outzip.closeEntry();    
+	             fiso.close();  
+			}
+			this.downFile(response, strZipName,tempfilePath);    
+		}catch(Exception e){
+			throw new Exception(e);
+		}finally{
+			try {
+				if(outzip != null)
+				{
+					outzip.close();
+				}
+			} catch (IOException e) {
+				logger.error("下载失败.",e);
+			}
+		}	
+		
+	}
 	
 	
+	/**   
+     * 文件下载   
+     * @param response   
+     * @param str   
+     */    
+    private Result downFile(HttpServletResponse response, String str,String tempFilePath) {    
+    	Result result = new Result();
+    	result.setStatus(Status.OK);
+    	try {    
+            String path = tempFilePath + str;    
+            File file = new File(path);    
+            if (file.exists()) {    
+                InputStream ins = new FileInputStream(path);    
+                BufferedInputStream bins = new BufferedInputStream(ins);// 放到缓冲流里面    
+                OutputStream outs = response.getOutputStream();// 获取文件输出IO流    
+                BufferedOutputStream bouts = new BufferedOutputStream(outs);    
+                response.setContentType("application/x-download");// 设置response内容的类型    
+                response.setHeader(    
+                        "Content-disposition",    
+                        "attachment;filename="    
+                                + URLEncoder.encode(str, "UTF-8"));// 设置头部信息    
+                int bytesRead = 0;    
+                byte[] buffer = new byte[1024 * 2];    
+                // 开始向网络传输文件流    
+                while ((bytesRead = bins.read(buffer, 0, 1024 * 2)) != -1) {    
+                    bouts.write(buffer, 0, bytesRead);    
+                }    
+                bouts.flush();// 这里一定要调用flush()方法    
+                ins.close();    
+                bins.close();    
+                outs.close();    
+                bouts.close();    
+            } else {    
+            	result.setStatus(Status.ERROR);
+            }    
+        } catch (IOException e) {    
+        	logger.error("文件下载出错", e);   
+        	result.setStatus(Status.ERROR);
+        }  
+    	return result;
+    }    
 	
 }

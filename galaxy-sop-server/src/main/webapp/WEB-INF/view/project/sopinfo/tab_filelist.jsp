@@ -48,6 +48,9 @@
                 <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},4)">会议纪要</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${projectId},7)">交割前事项</a></li>
+                <!--  <li><a href="javascript:;" onclick="showTabs(${projectId},8)">拨款信息</a></li>-->
+               	<li><a href="javascript:;" onclick="showTabs(${projectId},9)">运营分析</a></li>
                 <li class="on"><a href="javascript:;" onclick="showTabs(${projectId},5)">项目文档</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${projectId},6)">操作日志</a></li>
                 </c:when>
@@ -56,6 +59,9 @@
                 <li class="no"><a href="javascript:;">股权结构</a></li>
                 <li class="no"><a href="javascript:;">访谈记录</a></li>
                 <li class="no"><a href="javascript:;">会议纪要</a></li>
+                <li class="no"><a href="javascript:;">交割前事项</a></li>
+                <!--<li class="no"><a href="javascript:;">拨款信息</a></li>  -->
+                <li class="no"><a href="javascript:;">运营分析</a></li>
 				<li class="no"><a href="javascript:;">项目文档</a></li>
                 <li class="no"><a href="javascript:;">操作日志</a></li> 
                 </c:otherwise>
@@ -66,6 +72,14 @@
             	<c:if test="${aclViewProject==true}">
             	<form id = 'file_repository_search_form'>
             	<div class="member document">
+            	 <c:if test="${fx:isCreatedByUser('project',projectId) }">
+                    <div class="top clearfix">
+                        <!--按钮-->
+                        <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
+							<a href="javascript:;" class="pubbtn bluebtn email_btn" id="file-show-mail-btn">发邮件给</a>
+						</div>
+                    </div>
+                    </c:if>
                     <!-- 搜索条件 -->
                     <div class="min_document clearfix" >
                     <!-- 查询选项 -->
@@ -112,14 +126,7 @@
                               
                       </div>
                     </div>
-                    <c:if test="${fx:isCreatedByUser('project',projectId) }">
-                    <div class="top clearfix">
-                        <!--按钮-->
-                        <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-							<a href="javascript:;" class="pubbtn fffbtn email_btn" id="file-show-mail-btn">发邮件给</a>
-						</div>
-                    </div>
-                    </c:if>
+     
                             <!--表格内容-->
                     <table width="100%" id="file_repository_table" cellspacing="0" cellpadding="0" class="commonsize"></table>  
         	</div>

@@ -2,22 +2,28 @@ package com.galaxyinternet.model.project;
 
 import java.text.ParseException;
 import java.util.Date;
+import java.util.List;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.model.common.RecordEntity;
+import com.galaxyinternet.model.common.PagableRecordEntity;
+import com.galaxyinternet.model.sopfile.SopFile;
 
 
-public class MeetingRecord  extends RecordEntity{
+public class MeetingRecord  extends PagableRecordEntity{
 	private static final long serialVersionUID = 1L;
-
-	 private Long projectId;
+	
+	private Long projectId;
 
     private Long fileId;
 	private String fkey;
-
+	
     private Date meetingDate;
+    @NotEmpty(message="会议日期不能为空")
     private String meetingDateStr;
 
+    @NotEmpty(message="会议类型不能为空")
     private String meetingType;
     private String meetingTypeStr;
 
@@ -32,7 +38,26 @@ public class MeetingRecord  extends RecordEntity{
     
     private String participant;
     
+    private Long meetingName;
+    
+    private Long createUid;
+    
     private byte meetValid; //0表示有效，1表示无效
+    
+    private String fileReidsKey;
+    
+    private Byte fileNum;
+    
+    private List<SopFile> files;
+    
+    private List<Long> fileIds;
+    
+    
+    
+    /**
+     * 非数据库映射字段
+     */
+    private String createUName;
     
     
     public String getParticipant() {
@@ -105,6 +130,12 @@ public class MeetingRecord  extends RecordEntity{
 				this.meetingTypeStr = "立项会";
 			}else if(meetingType.equals("meetingType:4")){
 				meetingTypeStr = "投决会";
+			}else if(meetingType.equals("postMeetingType:1")){
+				meetingTypeStr = "周会议";
+			}else if(meetingType.equals("postMeetingType:2")){
+				meetingTypeStr = "月会议";
+			}else if(meetingType.equals("postMeetingType:3")){
+				meetingTypeStr = "季度会议";
 			}
 		}
         this.meetingType = meetingType == null ? null : meetingType.trim();
@@ -172,6 +203,12 @@ public class MeetingRecord  extends RecordEntity{
 				meetingTypeStr = "立项会";
 			}else if(meetingType.equals("meetingType:4")){
 				meetingTypeStr = "投决会";
+			}else if(meetingType.equals("postMeetingType:1")){
+				meetingTypeStr = "周会议";
+			}else if(meetingType.equals("postMeetingType:2")){
+				meetingTypeStr = "月会议";
+			}else if(meetingType.equals("postMeetingType:3")){
+				meetingTypeStr = "季度会议";
 			}
 		}
 		return meetingTypeStr;
@@ -230,10 +267,25 @@ public class MeetingRecord  extends RecordEntity{
 		this.meetingNotesText = meetingNotesText;
 	}
 
-    
 	
 	
 	
+
+	public Long getCreateUid() {
+		return createUid;
+	}
+
+	public void setCreateUid(Long createUid) {
+		this.createUid = createUid;
+	}
+
+	public Long getMeetingName() {
+		return meetingName;
+	}
+
+	public void setMeetingName(Long meetingName) {
+		this.meetingName = meetingName;
+	}
 
 	public static String dateStrformat(String dateStr){  //2016-05-27 16:00:00   19
 		int len = dateStr.length();
@@ -261,6 +313,48 @@ public class MeetingRecord  extends RecordEntity{
 		}
 		return dateStr;
 	}
+
+	public String getCreateUName() {
+		return createUName;
+	}
+
+	public void setCreateUName(String createUName) {
+		this.createUName = createUName;
+	}
+
+	public String getFileReidsKey() {
+		return fileReidsKey;
+	}
+
+	public void setFileReidsKey(String fileReidsKey) {
+		this.fileReidsKey = fileReidsKey;
+	}
+
+	public Byte getFileNum() {
+		return fileNum;
+	}
+
+	public void setFileNum(Byte fileNum) {
+		this.fileNum = fileNum;
+	}
+
+	public List<SopFile> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<SopFile> files) {
+		this.files = files;
+	}
+
+	public List<Long> getFileIds() {
+		return fileIds;
+	}
+
+	public void setFileIds(List<Long> fileIds) {
+		this.fileIds = fileIds;
+	}
+    
+	
 	
 
 }

@@ -78,6 +78,7 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.BatchUploadFile;
 import com.galaxyinternet.utils.FileUtils;
 import com.galaxyinternet.utils.RoleUtils;
 import com.galaxyinternet.utils.RoleWorkTypeRule;
@@ -106,14 +107,19 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	private UserRoleService userRoleService;
 	@Autowired
 	private UserService userService;
-	@Autowired
-	Cache cache;
+	
 	@Autowired
 	private ProjectService projectService;
 	@Autowired
 	private SopVoucherFileService sopVoucherFileService;
 	@Autowired
 	private SopTaskService sopTaskService;
+	@Autowired
+	Cache cache;
+	
+	@Autowired
+	BatchUploadFile batchUpload;
+	
 	
 	private String tempfilePath;
 	
@@ -1360,5 +1366,44 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		return responseBody;
 	}
 	
+	/**
+	 * 将文件上传到redis中
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/sendUploadByRedis", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)  
+    public Result batchUpload(HttpServletRequest request){
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		try {
+			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
+			MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
+			SopFile form = new SopFile();
+			form.setBucketName(OSSFactory.getDefaultBucketName());
+			form.setFileKey(String
+						.valueOf(IdGenerator.generateId(OSSHelper.class)));
+			Map<String, String> nameMap = FileUtils.transFileNames(multipartFile.getOriginalFilename());
+			String fileKey = request.getParameter("fileReidsKey");
+			form.setFileName(nameMap.get("fileName"));
+			form.setFileSuffix(nameMap.get("fileSuffix"));
+			form.setFileLength(multipartFile.getSize());
+			form.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+			form.setFileUid(user.getId());
+			form.setRecordType((byte)0);
+			form.setCareerLine(user.getDepartmentId());
+			form.setCreatedTime(System.currentTimeMillis());
+			form.setMultipartFile(multipartFile);
+			form.setTempPath(tempfilePath);
+			cache.setRedisSetOBJ(user.getId()+fileKey,form);
+			return new Result(Status.OK, "");
+		} catch (Exception e) {
+			cache.remove(user.getTelephone()+request.getParameter("fileReidsKey"));
+			// TODO: handle exception
+			return new Result(Status.ERROR, "系统出现异常");
+		}
+		
+	}
 	
+	
+
 }

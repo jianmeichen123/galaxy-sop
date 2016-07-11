@@ -54,6 +54,9 @@
                 <li><a href="javascript:;" onclick="showTabs('${pid}',2)">股权结构</a></li>
                 <li><a href="javascript:;" onclick="showTabs('${pid}',3)">访谈记录</a></li>
                 <li class="on"><a href="javascript:;" onclick="showTabs('${pid}',4)">会议纪要</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},7)">交割前事项</a></li>
+               <!--   <li><a href="javascript:;" onclick="showTabs(${pid},8)">拨款信息</a></li>-->
+               	<li><a href="javascript:;" onclick="showTabs(${pid},9)">运营分析</a></li>
                 <li><a href="javascript:;" onclick="showTabs('${pid}',5)">项目文档</a></li>
                 <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
                 </c:when>
@@ -62,6 +65,9 @@
                 <li class="no"><a href="javascript:;">股权结构</a></li>
                 <li class="no"><a href="javascript:;">访谈记录</a></li>
                 <li class="no"><a href="javascript:;">会议纪要</a></li>
+                <li class="no"><a href="javascript:;">交割前事项</a></li>
+                <li class="no"><a href="javascript:;">拨款信息</a></li>
+               	<li class="no"><a href="javascript:;">运营分析</a></li>
 				<li class="no"><a href="javascript:;">项目文档</a></li>
                 <li class="no"><a href="javascript:;">操作日志</a></li> 
                 </c:otherwise>
@@ -75,9 +81,9 @@
             	<div class="member interview">
             	    <c:if test="${aclViewProject==true}">
                    <!--按钮-->
-					<div class="top clearfix">
+					<div class="top clearfix" style="display: none;">
 						<div class="btnbox_f btnbox_f1 clearfix">   <!-- pubbtn bluebtn ico c4 add_prj add_interview  添加会议纪要-->
-							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut" style="display: none;">添加会议纪要</a>
+							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut" >添加会议纪要</a>
 							<!-- <a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" >添加会议纪要</a>  -->
 						</div>
 					</div>
@@ -121,10 +127,10 @@
 						data-toolbar="#custom-toolbar">
 						<thead>
 							<tr>
-								<th data-field="meetinfo" data-align="left" data-formatter="metcolumnFormat" data-class="no1_1">会议概况</th>
-								<th data-field="meetingTypeStr" data-align="left" data-class="no1_2">会议类型</th>
-								<th data-field="meetingNotes" data-align="left" data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
-								<th data-field="oper" data-align="left" data-formatter="meetOperFormat">操作</th>
+								<th data-field="meetinfo"  data-formatter="metcolumnFormat" data-class="no1_1 th_no1">会议概况</th>
+								<th data-field="meetingTypeStr"  data-class="no1_2">会议类型</th>
+								<th data-field="meetingNotes"  data-formatter="tc_viewNotesFormat_noinfo" data-class="no1_3">会议纪要</th>
+								<th data-field="oper"  data-formatter="meetOperFormat">操作</th>
 							</tr>
 						</thead>
 					</table>

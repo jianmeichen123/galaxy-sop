@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
+import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
@@ -42,5 +43,16 @@ public class MeetingRecordDaoImpl extends BaseDaoImpl<MeetingRecord, Long> imple
 			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("selectMeetCount")), e);
 		}
 	}
+	
+	public Long selectMeetNumberByType(MeetingRecord query) {
+		try {
+			Map<String, Object> params = BeanUtils.toMap(query);
+			return sqlSessionTemplate.selectOne(getSqlName("selectMeetNumberByType"), params);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("selectMeetCount")), e);
+		}
+	}
+	
+	
 
 }

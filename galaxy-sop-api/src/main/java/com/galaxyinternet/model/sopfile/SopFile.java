@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.sopfile;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -7,9 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.model.common.PagableRecordEntity;
 
-public class SopFile extends SopParentFile {
+public class SopFile extends SopParentFile implements Serializable{
     /**
 	 * 
 	 */
@@ -82,9 +82,17 @@ public class SopFile extends SopParentFile {
      * 存储地址
      */
     private String filUri;
+    
+    /**
+     * 会议记录ID
+     */
+    private Long meetingId;
         
 
-    
+    /**
+     * 临时地址
+     */
+    private String tempPath;
     
     
     
@@ -114,6 +122,7 @@ public class SopFile extends SopParentFile {
   	private List<Long> fileULikeidList;
   	private List<String> fileStatusList;
   	private List<String> fileworktypeList;
+  	private List<Long> ids;
   	
   	private String startTime;
   	private String endTime;
@@ -311,8 +320,19 @@ public class SopFile extends SopParentFile {
         this.filUri = filUri;
     }
 
+    
 
 
+
+	
+
+	public Long getMeetingId() {
+		return meetingId;
+	}
+
+	public void setMeetingId(Long meetingId) {
+		this.meetingId = meetingId;
+	}
 
 	public String getFileStatusDesc() {
 		return fileStatusDesc;
@@ -479,6 +499,22 @@ public class SopFile extends SopParentFile {
 		this.isProve = isProve;
 	}
 
+	public String getTempPath() {
+		return tempPath;
+	}
+
+	public void setTempPath(String tempPath) {
+		this.tempPath = tempPath;
+	}
+
+	public List<Long> getIds() {
+		return ids;
+	}
+
+	public void setIds(List<Long> ids) {
+		this.ids = ids;
+	}
+    
 	
 	
 	

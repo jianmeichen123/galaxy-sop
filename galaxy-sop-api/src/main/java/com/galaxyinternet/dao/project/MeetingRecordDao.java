@@ -10,5 +10,12 @@ import com.galaxyinternet.model.project.MeetingRecord;
 public interface MeetingRecordDao extends BaseDao<MeetingRecord, Long> {
 	
 	public Page<MeetingRecordBo> selectMeetPageList(MeetingRecordBo query, Pageable pageable);
+	
+	/**
+	 * 根据项目及类型查询会议名称的序号
+	 * @param query
+	 * @return
+	 */
+	public Long selectMeetNumberByType(MeetingRecord query);
 
 }
