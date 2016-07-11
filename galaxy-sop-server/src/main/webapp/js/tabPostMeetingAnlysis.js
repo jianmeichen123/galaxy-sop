@@ -85,7 +85,13 @@ var meetGrid = {
 			        title: '发起人（上传人）'
 			      }, {
 			        field: 'meetingDateStr',
-			        title: '会议时间'
+			        title: '会议时间',
+			        formatter:function(val){
+			        	if(val != null)
+		        		{
+			        		return val.substr(0,16);
+		        		}
+			        }
 			      }, {
 			    	  field: 'operate', 
 			    	  title: '操作', 
@@ -272,7 +278,7 @@ var editPostMeetingDialog = {
 									
 									//会议时间
 									if(_formdata && _formdata.meetingDateStr){
-										$("#win_post_meeting_form").find("#meetingDateStr").val(_formdata.meetingDateStr);
+										$("#win_post_meeting_form").find("#meetingDateStr").val(_formdata.meetingDateStr.substr(0,16));
 									}
 									//会议纪要
 									if(_formdata && _formdata.meetingNotes){

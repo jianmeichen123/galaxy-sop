@@ -1384,7 +1384,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 						.valueOf(IdGenerator.generateId(OSSHelper.class)));
 			Map<String, String> nameMap = FileUtils.transFileNames(multipartFile.getOriginalFilename());
 			String fileKey = request.getParameter("fileReidsKey");
-			form.setFileName(nameMap.get("fileName"));
+			//form.setFileName(nameMap.get("fileName"));
+			form.setFileName(request.getParameter("fileName").substring(0, request.getParameter("fileName").lastIndexOf(".")));
 			form.setFileSuffix(nameMap.get("fileSuffix"));
 			form.setFileLength(multipartFile.getSize());
 			form.setFileStatus(DictEnum.fileStatus.已上传.getCode());

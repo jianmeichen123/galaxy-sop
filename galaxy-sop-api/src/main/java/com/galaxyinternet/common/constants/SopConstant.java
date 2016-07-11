@@ -73,4 +73,8 @@ public interface SopConstant {
 	/**创意阶段 - 项目投决会**/
 	public static final String IDEA_PROGRESS_TJH 			= "ideaProgress:7";
 	
+	public static final String REQUEST_SCOPE_ATTR_IS_MENU 	= "_is_menu_";
+	public static final String SESSION_SCOPE_ATTR_CUR_MENU 	= "_curr_menu_";
+	
+	
 }
