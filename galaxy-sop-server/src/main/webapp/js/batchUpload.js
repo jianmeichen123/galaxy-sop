@@ -14,7 +14,6 @@
  */
 function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,containerId,fileListId,paramsFunction,deliver_form,callBackFun) {
 	var params = {};
-	var fileName = '';
 	uploader = new plupload.Uploader({
 		runtimes : 'html5,flash,silverlight,html4',
 		browse_button : selectBtnId, // you can pass an id...
@@ -28,8 +27,8 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				{title : "Image files", extensions : "jpg,gif,png,txt,docx,doc"},
 				{title : "Zip files", extensions : "zip"}
 			]
-	       prevent_duplicates : true //不允许选取重复文件
-*/		},
+	       prevent_duplicates : true //不允许选取重复文件*/
+		},
 		init: {
 			PostInit: function(up) {
 				$("#" + submitBtnId).click(function(){
