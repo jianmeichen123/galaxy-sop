@@ -150,6 +150,8 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 	 */
 	@Transactional
 	public Long insertDelivery(Delivery delivery) {
+		delivery.setFileNum((byte) 0);
+		
 		Byte fnum = null;
 		Long delid = null;
 		List<DeliveryFile> dfileIn = new ArrayList<DeliveryFile>();
@@ -212,8 +214,8 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		Byte upNum = (byte) (upFiles == null?0:upFiles.size());
 		
 		if(allNum == null || allNum == 0){
-			delivery.setFileNum(null);
-			
+			//delivery.setFileNum(null);
+			delivery.setFileNum((byte) 0);
 		}else{
 			delivery.setFileNum(allNum);
 
