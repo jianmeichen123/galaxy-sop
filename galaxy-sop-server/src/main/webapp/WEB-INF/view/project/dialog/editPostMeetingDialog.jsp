@@ -44,7 +44,7 @@
 		    		</dd>
 		        </div>
             </dl>
-            <div style='display:block; height:80px; overflow-y:scroll;'>
+            <div style='display:block; height:80px;'>
             	<dl class="fmdl fl_l" id="show_up_file">
 	                 <table style="width:100%;border: 1px;margin: auto;" id="filelist">
 	                    <tr>
