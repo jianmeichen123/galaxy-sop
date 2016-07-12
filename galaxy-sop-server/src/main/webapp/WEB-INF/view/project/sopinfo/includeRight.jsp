@@ -129,8 +129,7 @@ $(function(){
 			var tab = $(this);
 			if(tab.find('a').text() == '运营分析')
 			{
-				tab.addClass('no');
-				tab.find('a').removeAttr("onclick");
+				tab.remove();
 			}
 		});
 		
