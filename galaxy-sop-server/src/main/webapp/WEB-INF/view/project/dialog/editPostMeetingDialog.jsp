@@ -102,6 +102,13 @@
 		    currentText: 'Now',
 		   defaultDate : new Date(),
 		   todayBtn:  1
+	    }).on('changeDate', function(ev){
+	    	$('.tip-yellowsimple').each(function(){
+	    		if( $(this).text()=='*会议时间不能为空'){
+	    			 $(this).remove();
+	    		}
+	    	})
+	       //alert( $('.tip-yellowsimple').text()=='*会议时间不能为空');
 	    });
 </script>
 <style>
