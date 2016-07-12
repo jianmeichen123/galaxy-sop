@@ -1941,5 +1941,5 @@ dl{position: relative;}
 .area_run{ width:420px; max-height:200px; overflow-y:scroll;}
 .health_case{ width:100%; border:1px solid #ccd2d7; overflow:hidden; margin-bottom:20px; margin-top:20px;}
 .health_case th{ background-color:#f9fafc}
-.health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; text-indent:15px;}
+.health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; }
 
