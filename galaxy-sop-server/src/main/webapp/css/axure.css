@@ -1898,7 +1898,7 @@ dl{position: relative;}
 .proOperation .download{background: url(../img/functionico.png) no-repeat;height: 22px;line-height: 22px;background-position: 0 -306px;padding: 0 0 6px 22px;}
 .px{cursor:pointer;width:12px;height: 12px;display: inline-block;background:url(../img/select-arr-default.gif) -10px -8px no-repeat;margin-left: 5px;}
 .px_d{background:url(../img/select-arr-default.gif) -10px -37px no-repeat;}
-.status .title{background-color: #f9fafc;color:#909cc4;height: 20px;line-height: 20px;border:0;margin:0 0 20px 0;}
+.status .title{background-color: #f9fafc; padding: 0 ; color:#909cc4;height: 20px;line-height: 20px;border:0;margin:0 0 20px 0;}
 .new_correlation_cen .delivery{margin:30px 0 20px 0;}
 /*弹层7.2*/
 .deltc{width: 420px;}

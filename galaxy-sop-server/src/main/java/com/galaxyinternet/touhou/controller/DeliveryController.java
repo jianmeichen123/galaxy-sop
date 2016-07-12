@@ -120,6 +120,10 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	public String toMatterDeliver(HttpServletRequest request) {
 		return "project/tanchuan/delivery_matter";
 	}
+	@RequestMapping(value = "/todeliverinfo", method = RequestMethod.GET)
+	public String toDeliverInfo(HttpServletRequest request) {
+		return "project/tanchuan/seeinfortc";
+	}
 	
 	/**
 	 * 弹窗 删除事项

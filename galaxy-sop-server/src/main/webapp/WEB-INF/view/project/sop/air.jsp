@@ -72,3 +72,11 @@
 	UM.getEditor('viewNotes');
 	$("#viewDate").val(new Date().format("yyyy-MM-dd hh:mm"));
 </script>
+<style>
+div.tip-yellowsimple {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+</style>

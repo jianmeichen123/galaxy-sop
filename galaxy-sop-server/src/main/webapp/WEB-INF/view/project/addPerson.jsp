@@ -50,3 +50,11 @@
       <a href="javascript:;" onclick="savePerson();" class="pubbtn bluebtn">保存</a>
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
+<style>
+div.tip-yellowsimple {
+    visibility: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+</style>
