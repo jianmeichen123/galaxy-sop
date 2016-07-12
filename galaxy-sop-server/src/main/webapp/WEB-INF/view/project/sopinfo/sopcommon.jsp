@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>>
+	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backIndex()">工作桌面</a>>
 	<c:choose>
 		<c:when test="${empty sessionScope._curr_menu_ }">
 			<a href="#" onclick="projectList()">创投项目</a>

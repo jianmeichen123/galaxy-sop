@@ -120,7 +120,7 @@ String projectId=(String)request.getAttribute("projectId");
           <ul>
             <li><a href="javascript:;">下载投资意向书模板</a></li>
             <li><a href="javascript:;">更新投资意向书</a></li>
-            <li><a href="javascript:;">上传签署证明</a></li>
+            <li><a href="javascript:;">上传签署凭证</a></li>
           </ul>
           </div>
         </div>

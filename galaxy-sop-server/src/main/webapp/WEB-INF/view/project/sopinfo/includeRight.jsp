@@ -31,7 +31,7 @@
 					</div>
 				</div>
 	
-				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;" href="#">more</span>
+				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;">more</span>
 				</div>
 				<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
 					<div class="no_con">
@@ -129,8 +129,7 @@ $(function(){
 			var tab = $(this);
 			if(tab.find('a').text() == '运营分析')
 			{
-				tab.addClass('no');
-				tab.find('a').removeAttr("onclick");
+				tab.remove();
 			}
 		});
 		
@@ -374,6 +373,9 @@ function setThyyInfo()
 		    	$("#bar").css("width",barWidth)
 			}
 			//运营会议
+			if(data.entityList.length<3){
+				$("#thyy_meet_more").hide();
+			}
 			if(data.entityList != null && data.entityList.length>0)
 			{
 				$("#thyy_meet_div .new_b_bottom").remove();
