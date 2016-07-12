@@ -882,6 +882,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	             outzip.closeEntry();    
 	             fiso.close();  
 			}
+			outzip.close();
 			this.downFile(response, strZipName,tempfilePath);    
 		}catch(Exception e){
 			throw new Exception(e);
@@ -891,6 +892,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 				{
 					outzip.close();
 				}
+				
 			} catch (IOException e) {
 				logger.error("下载失败.",e);
 			}
@@ -937,7 +939,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
         } catch (IOException e) {    
         	logger.error("文件下载出错", e);   
         	result.setStatus(Status.ERROR);
-        }  
+        }
     	return result;
     }    
     
