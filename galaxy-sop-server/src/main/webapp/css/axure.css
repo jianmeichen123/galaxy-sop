@@ -1905,9 +1905,10 @@ dl{position: relative;}
 .deltc .tips{position: relative;margin: 50px 0;padding-left: 180px;}
 .status_con{margin-top: 45px;}
 .status .radio{color:#535762;margin-right: 30px;}
-.statustc{ width:580px;}
+.statustc{ width:670px;}
 .status dl{ margin-bottom: 6px;}
-.status .fmdl dt{width:100px;text-align: right;}
+.status .fmdl dt{width:80px;text-align: right;} 
+.status .fmdl dd{width:560px;font-size:12px;}
 .status .fmdl dd textarea{ height:150px; width:430px}
 .status .btnbox{width: 216px;margin:20px auto;}
 .status .btnbox .pubbtn{ margin:0 0 0 20px; display:inline-block; *display:inline; zoom:1;}
