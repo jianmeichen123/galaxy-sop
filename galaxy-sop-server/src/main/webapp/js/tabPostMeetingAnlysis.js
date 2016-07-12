@@ -333,12 +333,25 @@ var editPostMeetingDialog = {
 										editPostMeetingDialog.close(_this);
 									});
 									if(!_formdata.isEdit){
-										$("#win_post_meeting_form").find("#meetingDateStr").attr("disabled", true);
-										$("#win_post_meeting_form").find("#meetingNotes").attr("disabled", true);
-										$("#win_post_meeting_form").find("#edit_meeting_type").find("input:radio").attr("disabled", true);
-										$("#win_post_meeting_form").find("#win_ok_btn").attr("disabled",true);
-										$("#win_post_meeting_form").find("#win_cancel_btn").attr("disabled", true);	
+										$("#win_post_meeting_form").find("#div_meetingDateStr").html("<dd>" + _formdata.meetingDateStr  +"</dd>")
+										var meetingTypeName;
+										$.each(meetingSearchPanel.meetingTypeList,function(){
+											if(_formdata.meetingType == this.code){
+												meetingTypeName = this.name;
+												return false;
+											}
+										});
+										$("#win_post_meeting_form").find("#edit_meeting_type").html("<dt>会议类型 ：</dt><dd>" + meetingTypeName + "</dd>");
+										
+										$("#win_post_meeting_form").find("#div_meetingNotes").html("<dd>" + _formdata.meetingNotes + "</dd>")
+										
+										$("#win_post_meeting_form").find("#win_ok_btn").hide()
+										$("#win_post_meeting_form").find("#win_cancel_btn").hide();	
 										$("#win_post_meeting_form").find("#choose_up_file").hide();
+										$("#win_post_meeting_form").find("#div_show_up_file").hide();
+										$("#win_post_meeting_form").find(".affrim_line").hide();
+										
+										
 									}
 									
 								}else{
@@ -362,7 +375,7 @@ var editPostMeetingDialog = {
 														"<td>"+this.fileName+"."+this.fileSuffix+
 															"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
 														"</td>"+
-														"<td>"+this.fileLength+"</td>"+
+														"<td>"+plupload.formatSize(this.fileLength)+"</td>"+
 														"<td>"+ but +"</td>"+
 														"<td>100%</td>"+
 													"</tr>"

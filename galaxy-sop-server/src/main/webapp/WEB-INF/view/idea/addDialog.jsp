@@ -18,7 +18,7 @@
 			<dl class="fmdl clearfix fl">
     			<dt>创意编号：</dt>
         		<dd class="clearfix">
-        			<input type="text" id="win_idea_code" name="ideaCode" class="txt"/>
+        			<input type="text" id="win_idea_code" name="ideaCode" class="txt disabled"/>
        	 		</dd>
 		    </dl>
 		    <dl class="fmdl clearfix fl">
@@ -32,7 +32,7 @@
 		    	<dt>提出人：</dt>
 		        <dd>
 		        	<input type="hidden" id="win_idea_create_id" name="createdUid"/>
-		        	<input type="text" id="win_idea_create_name" name="createdUname"  class="txt"/>
+		        	<input type="text" id="win_idea_create_name" name="createdUname"  class="txt disabled"/>
 		        </dd>
 		    </dl>
 		    <dl class="fmdl clearfix fl">
@@ -47,7 +47,7 @@
 		    <dl class="fmdl clearfix fl">
 		    	<dt>提出时间：</dt>
 		        <dd>
-		        	<input type="text" id="win_idea_create_Date" data-tid="" name="createDate"  class="txt"/>
+		        	<input type="text" id="win_idea_create_Date" data-tid="" name="createDate"  class="txt disabled"/>
 		        </dd>
 		    </dl>
 		    <dl class="fmdl clearfix fl">

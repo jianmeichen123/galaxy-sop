@@ -14,23 +14,29 @@
 		<div class="title_bj" id="popup_name">添加运营会议纪要</div>
 	    <div class="form clearfix">
 	        <div class="conference_all">
-	            <dl class="fmdl clearfix">
-	                <dt>会议时间：</dt>
-	                <dd>
-	                <input type="hidden" name="id" id="id" value="0"/>
-	                <input type="hidden" name="meetingName" value="0" id="meetingName"/>
-	                    <input type="text" class="datetimepickerHour txt time" id="meetingDateStr" name="meetingDateStr" valType="required" msg="<font color=red>*</font>会议时间不能为空"  /> 
+	            <dl class="fmdl fl_l  clearfix">
+	                <dt>会议时间 ：</dt>
+	                <dd >
+	                	<div id="div_meetingDateStr">
+	                		<input type="hidden" name="id" id="id" value="0"/>
+	                		<input type="hidden" name="meetingName" value="0" id="meetingName"/>
+	                    	<input type="text" class="datetimepickerHour txt time" id="meetingDateStr" name="meetingDateStr" valType="required" msg="<font color=red>*</font>会议时间不能为空"  />
+	                    </div> 
 	                </dd>
 	            </dl>
 	            <dl class="fmdl fl_l clearfix" id="edit_meeting_type">
-	                 <dt>类型 ：</dt>
-	                 <dd><label for=""><input name="meetingType" type="radio" >周纪要</label></dd>
-	                 <dd><label for=""><input name="meetingType" type="radio">月纪要</label></dd>
-	                 <dd><label for=""><input name="meetingType" type="radio">季度纪要</label></dd>
+	            		<dt>类型 ：</dt>
+	                 	<dd><label for=""><input name="meetingType" type="radio" >周纪要</label></dd>
+	                	<dd><label for=""><input name="meetingType" type="radio">月纪要</label></dd>
+	                 	<dd><label for=""><input name="meetingType" type="radio">季度纪要</label></dd>   
 	            </dl>
 	            <dl class="fmdl fl_l clearfix">
 	                 <dt>会议纪要 ：</dt>
-	                 <dd><textarea class="area" name="meetingNotes" id="meetingNotes" cols="45" rows="5" valType="required" msg="<font color=red>*</font>会议纪要不能为空"></textarea></dd>
+	                 <dd>
+	                 	<div id="div_meetingNotes">
+	                 		<textarea class="area" name="meetingNotes" id="meetingNotes" cols="45" rows="5" valType="required" msg="<font color=red>*</font>会议纪要不能为空"></textarea>
+	                 	</div>
+	                 </dd>
 	            </dl>  
 	            <div class="affrim_line"></div>
 	             <dl class="fmdl fl_l" id="choose_up_file">
@@ -44,7 +50,8 @@
 		    		</dd>
 		        </div>
             </dl>
-            <div style='display:block; height:80px; overflow-y:scroll;'>
+
+            <div style='display:block; height:80px;' id="div_show_up_file">
             	<dl class="fmdl fl_l" id="show_up_file">
 	                 <table style="width:100%;border: 1px;margin: auto;" id="filelist">
 	                    <tr>
@@ -102,6 +109,13 @@
 		    currentText: 'Now',
 		   defaultDate : new Date(),
 		   todayBtn:  1
+	    }).on('changeDate', function(ev){
+	    	$('.tip-yellowsimple').each(function(){
+	    		if( $(this).text()=='*会议时间不能为空'){
+	    			 $(this).remove();
+	    		}
+	    	})
+	       //alert( $('.tip-yellowsimple').text()=='*会议时间不能为空');
 	    });
 </script>
 <style>
