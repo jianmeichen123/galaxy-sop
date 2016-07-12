@@ -2,7 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<div class="status">
+<div class="status statustc">
     <div class="title_bj" id="popup_name"></div>
     <div class="status_con seeinfor_con">
     <form id="deliver_form" >
