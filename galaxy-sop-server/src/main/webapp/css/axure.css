@@ -48,7 +48,7 @@ table{ background:#ffffff;}
 table th{ text-align:left; color:#2d3342; font-weight:normal; font-size:12px; line-height:34px;border-bottom: 1px solid #d6d8e1;}
 table td{ height:30px;line-height:30px; text-align:left; font-size:12px; color:#536379; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
 .fixed_width td{width:16%;}
-table td a{ font-size:12px; margin:0 2px; color:#536379; font-family:"宋体";margin:0 4px;}
+table td a{ font-size:12px; margin:0 2px; color:#536379; font-family:"宋体";}
 table .on td{ background:#f8f8fb}
 .noborder{border-top: 0 !important;}
 table em{display: inline-block;width:30%;}
@@ -1428,7 +1428,6 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 
 .new_bottom_color{ border-bottom:1px solid #e6e8f1;padding:0 20px;padding-bottom: 5px;}
 .new_top_color{ overflow: hidden; position: relative; border-top:1px solid #e6e8f1;padding:0 20px; margin-bottom: 25px;}
-.new_top_color p{ padding-bottom:13px;}
 .new_r_compile .new_fctbox{ display:block; float:right;}
 .new_top_color .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
 .new_top_color .f4{background-position: right -95px;padding: 0 30px 0 11px; }
@@ -1906,9 +1905,10 @@ dl{position: relative;}
 .deltc .tips{position: relative;margin: 50px 0;padding-left: 180px;}
 .status_con{margin-top: 45px;}
 .status .radio{color:#535762;margin-right: 30px;}
-.statustc{ width:580px;}
+.statustc{ width:670px;}
 .status dl{ margin-bottom: 6px;}
-.status .fmdl dt{width:100px;text-align: right;}
+.status .fmdl dt{width:80px;text-align: right;} 
+.status .fmdl dd{width:560px;font-size:12px;}
 .status .fmdl dd textarea{ height:150px; width:430px}
 .status .btnbox{width: 216px;margin:20px auto;}
 .status .btnbox .pubbtn{ margin:0 0 0 20px; display:inline-block; *display:inline; zoom:1;}
@@ -1942,4 +1942,7 @@ dl{position: relative;}
 .health_case{ width:100%; border:1px solid #ccd2d7; overflow:hidden; margin-bottom:20px; margin-top:20px;}
 .health_case th{ background-color:#f9fafc}
 .health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; }
+.editPostMeetingtc .fmdl dd textarea,.addmentc .fmdl dd textarea{line-height:16px;font-size:12px;}
+#show_up_file{max-height:100px;overflow:auto;margin:-10px 0 0 0 ;}
+#show_up_file table td{height:26px;line-height:26px;}
 

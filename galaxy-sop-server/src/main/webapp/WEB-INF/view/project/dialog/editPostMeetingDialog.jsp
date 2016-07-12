@@ -14,8 +14,8 @@
 		<div class="title_bj" id="popup_name">添加运营会议纪要</div>
 	    <div class="form clearfix">
 	        <div class="conference_all">
-	            <dl class="fmdl clearfix">
-	                <dt>会议时间：</dt>
+	            <dl class="fmdl fl_l  clearfix">
+	                <dt>会议时间 ：</dt>
 	                <dd>
 	                <input type="hidden" name="id" id="id" value="0"/>
 	                <input type="hidden" name="meetingName" value="0" id="meetingName"/>
@@ -40,7 +40,7 @@
 			        	<input  type="text"  class="txt" name="textarea2" id="textarea2" ></input>
 			        </dd>
 			        <dd>
-			        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择w附件</a>
+			        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
 		    		</dd>
 		        </div>
             </dl>
@@ -102,6 +102,13 @@
 		    currentText: 'Now',
 		   defaultDate : new Date(),
 		   todayBtn:  1
+	    }).on('changeDate', function(ev){
+	    	$('.tip-yellowsimple').each(function(){
+	    		if( $(this).text()=='*会议时间不能为空'){
+	    			 $(this).remove();
+	    		}
+	    	})
+	       //alert( $('.tip-yellowsimple').text()=='*会议时间不能为空');
 	    });
 </script>
 <style>

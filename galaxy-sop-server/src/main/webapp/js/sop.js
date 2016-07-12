@@ -503,7 +503,7 @@ function tzyxs(flag){
 						        	handlefile +='<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="addFile(5,0);">上传投资意向书</a></td>';
 								}else{
 									var fileSource =  dataList[p].fileSource;
-									handlefile += '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateSopFile('+'\''+dataList[p].projectProgress+'\','+fileSource+',\''+dataList[p].fileWorktype+'\',\''+dataList[p].fileType+'\','+dataList[p].id+","+0+')">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署证明</a></td>';
+									handlefile += '<td><a href="javascript:; " class="pubbtn fffbtn llpubbtn" onclick="updateSopFile('+'\''+dataList[p].projectProgress+'\','+fileSource+',\''+dataList[p].fileWorktype+'\',\''+dataList[p].fileType+'\','+dataList[p].id+","+0+')">更新投资意向书</a><a  href="javascript:; " class="pubbtn fffbtn lpubbtn" onclick="addFile(5,1);">上传签署凭证</a></td>';
 								}
 							}
 							
