@@ -40,7 +40,7 @@
 			        	<input  type="text"  class="txt" name="textarea2" id="textarea2" ></input>
 			        </dd>
 			        <dd>
-			        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择w附件</a>
+			        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
 		    		</dd>
 		        </div>
             </dl>
