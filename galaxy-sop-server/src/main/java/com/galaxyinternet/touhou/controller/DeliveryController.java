@@ -266,6 +266,9 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 	public void downloadBatchFile(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
 	{
 		if(id != null){
+			
+			Delivery delivery = deliveryService.queryById(id);
+			
 			List<Long> fileIdList = deliveryService.deliveryFileList(id);
 			SopFile sopfile = new SopFile();
 			if(fileIdList != null && fileIdList.size() > 0){
@@ -285,7 +288,7 @@ public class DeliveryController extends BaseControllerImpl<Delivery, DeliveryBo>
 					}
 			
 				}
-				sopFileService.downloadBatch(request, response, tempfilePath,"交割事项-"+String.valueOf(id),sopDownLoadList);
+				sopFileService.downloadBatch(request, response, tempfilePath,delivery.getDelDescribe(),sopDownLoadList);
 			} catch (Exception e) {
 				logger.error("下载失败.",e);
 			}
