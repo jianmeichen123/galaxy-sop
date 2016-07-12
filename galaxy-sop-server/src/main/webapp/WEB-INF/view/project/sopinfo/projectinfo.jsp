@@ -536,7 +536,6 @@ function getProjectInfo(dtd)
 <script src="<%=path %>/js/planbusiness.js"></script>
 <script src="<%=path %>/js/person.js"></script>
 <script>
-
 var projectId = <%=projectId%>;
 
 $(function(){
@@ -561,7 +560,14 @@ $(function(){
 	UM.getEditor('analysis_editor');
 	UM.getEditor('next_financing_editor');
 	//统一显示
+	 $('.edui-icon-fullscreen').on('click',function(){
+			$('body').css('padding-bottom','300px')
+	})
 	$('[data-on="data-open"]').on('click',function(){
+		 var scroll_top=$(this).offset().top;
+		 $('html,body').animate({  
+		        scrollTop: scroll_top
+		    }, 1000);   
 		var open=$(this).attr('data-name')
 		//alert(open)
 		$('.'+open+'_on').show();
@@ -576,6 +582,7 @@ $(function(){
 		$('.bj_hui_on').hide();
 		$('.tip-yellowsimple').hide();
 	})
+	
 	//项目名称截断
 	if(projectInfo.projectName.length>24){
 		var str=projectInfo.projectName.substring(0,24);
