@@ -1943,4 +1943,6 @@ dl{position: relative;}
 .health_case th{ background-color:#f9fafc}
 .health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; }
 .editPostMeetingtc .fmdl dd textarea,.addmentc .fmdl dd textarea{line-height:16px;font-size:12px;}
+#show_up_file{max-height:100px;overflow:auto;margin:-10px 0 0 0 ;}
+#show_up_file table td{height:26px;line-height:26px;}
 
