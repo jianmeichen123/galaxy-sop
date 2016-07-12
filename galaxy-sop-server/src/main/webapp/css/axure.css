@@ -1942,4 +1942,5 @@ dl{position: relative;}
 .health_case{ width:100%; border:1px solid #ccd2d7; overflow:hidden; margin-bottom:20px; margin-top:20px;}
 .health_case th{ background-color:#f9fafc}
 .health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; }
+.editPostMeetingtc .fmdl dd textarea,.addmentc .fmdl dd textarea{line-height:16px;font-size:12px;}
 
