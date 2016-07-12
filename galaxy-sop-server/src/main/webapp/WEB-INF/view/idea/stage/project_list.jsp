@@ -21,7 +21,7 @@
             <th data-field="projectProgressDesc" data-align="left" class="data-input">项目进度</th>
             <th data-field="hhrName" data-align="left" class="data-input">合伙人</th>
             <th data-field="claimantUname" data-align="left" class="data-input">投资经理</th>
-            <th data-field="createdTime" data-align="left" class="data-input" data-formatter="datetimeFormatter">提出时间</th>
+            <th data-field="createdTime" data-align="left" class="data-input" data-formatter="dateFormatter">提出时间</th>
         </tr>
     </thead>                                                                                                                                    
 </table>
