@@ -27,7 +27,7 @@
             
             <dl class="fmdl fl_l">
                  <dt>详细内容：</dt>
-                 <dd><textarea class="area" name="details" id="details" cols="45" rows="5" maxlength="100"></textarea></dd>
+                 <dd><textarea class="area" name="details" id="details" cols="45" rows="5" maxlength="100" valType="required" msg="<font color=red>*</font>详细内容不能为空"></textarea></dd>
             </dl>
             
             <dl class="fmdl fl_l">

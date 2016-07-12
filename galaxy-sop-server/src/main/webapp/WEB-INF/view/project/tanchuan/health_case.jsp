@@ -26,8 +26,8 @@
 					<tr>
 						<th data-field="healthStateStr" data-align="center" >健康状况</th>
 						<th data-field="rematk" data-align="center">风险点</th>
-						<th data-field="createdTime" data-align="center" data-formatter="longTime_Format" >分析日期</th>
 						<th data-field="userName" data-align="center" >分析人</th>
+						<th data-field="createdTime" data-align="center" data-formatter="longTime_Format" >分析日期</th>
 					</tr>
 				</thead>
 			</table>

@@ -85,11 +85,17 @@ var meetGrid = {
 			        title: '发起人（上传人）'
 			      }, {
 			        field: 'meetingDateStr',
-			        title: '会议时间'
+			        title: '会议时间',
+			        formatter:function(val){
+			        	if(val != null)
+		        		{
+			        		return val.substr(0,16);
+		        		}
+			        }
 			      }, {
 			    	  field: 'operate', 
 			    	  title: '操作', 
-			    	  align: 'center', 
+			    	  align: 'left', 
 			    	  events: meetGrid.operateEvents, 
 			    	  formatter: meetGrid.operateFormatter 
 
@@ -125,7 +131,10 @@ var meetGrid = {
 				btns += '<a class="meet_edit blue"  href="javascript:void(0)">编辑</a>  ';
 				btns += '<a class="meet_delete blue" href="javascript:void(0)">删除</a>  ';
 			}
-			btns += '<a class="meet_download blue" href="javascript:void(0)">下载附件</a>  '
+			if(row.hasFile && row.hasFile=="true"){
+				btns += '<a class="meet_download blue" href="javascript:void(0)">下载附件</a>  '
+			}
+			
 			return btns;
 		},
 		operateEvents : {
@@ -269,7 +278,7 @@ var editPostMeetingDialog = {
 									
 									//会议时间
 									if(_formdata && _formdata.meetingDateStr){
-										$("#win_post_meeting_form").find("#meetingDateStr").val(_formdata.meetingDateStr);
+										$("#win_post_meeting_form").find("#meetingDateStr").val(_formdata.meetingDateStr.substr(0,16));
 									}
 									//会议纪要
 									if(_formdata && _formdata.meetingNotes){

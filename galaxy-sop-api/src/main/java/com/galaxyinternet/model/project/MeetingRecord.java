@@ -54,6 +54,18 @@ public class MeetingRecord  extends PagableRecordEntity{
     
     
     
+    
+    
+    
+    
+    
+    /**
+     * 非映射字段
+     */
+    private String hasFile;
+    
+    
+    
     /**
      * 非数据库映射字段
      */
@@ -352,6 +364,14 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setFileIds(List<Long> fileIds) {
 		this.fileIds = fileIds;
+	}
+
+	public String getHasFile() {
+		return hasFile;
+	}
+
+	public void setHasFile(String hasFile) {
+		this.hasFile = hasFile;
 	}
     
 	

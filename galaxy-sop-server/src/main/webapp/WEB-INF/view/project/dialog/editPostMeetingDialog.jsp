@@ -30,7 +30,7 @@
 	            </dl>
 	            <dl class="fmdl fl_l clearfix">
 	                 <dt>会议纪要 ：</dt>
-	                 <dd><textarea class="area" name="meetingNotes" id="meetingNotes" cols="45" rows="5"></textarea></dd>
+	                 <dd><textarea class="area" name="meetingNotes" id="meetingNotes" cols="45" rows="5" valType="required" msg="<font color=red>*</font>会议纪要不能为空"></textarea></dd>
 	            </dl>  
 	            <div class="affrim_line"></div>
 	             <dl class="fmdl fl_l" id="choose_up_file">

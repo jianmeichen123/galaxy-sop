@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.UserBo;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
@@ -89,7 +90,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		User user = (User) getUserFromSession(request);
 		
 		List<Menus> tabs = new ArrayList<Menus>();
-		String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
+		String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request)+ "&"+SopConstant.REQUEST_SCOPE_ATTR_IS_MENU +"=true";
 		//通用Tab
 		tabs.add(new Menus(1L, 0, 1, "工作桌面", u + "galaxy/index?" + params));
 		tabs.add(new Menus(2L, 0, 2, "待办任务", u + "galaxy/soptask?" + params));
