@@ -362,7 +362,7 @@ var editPostMeetingDialog = {
 														"<td>"+this.fileName+"."+this.fileSuffix+
 															"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
 														"</td>"+
-														"<td>"+this.fileLength+"</td>"+
+														"<td>"+plupload.formatSize(this.fileLength)+"</td>"+
 														"<td>"+ but +"</td>"+
 														"<td>100%</td>"+
 													"</tr>"
