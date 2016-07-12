@@ -53,14 +53,7 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 	projectInfo = data.entity;
 });
 
-/* function back(){
-	var path = getCookieValue("project_detail_back_path");
-	if(path){
-		forwardWithHeader(path);
-	}else{
-		window.history.back();
-	}
-} */
+
 function back(){
 	setCookie("backProjectList", 'click',24,'/');
  	deleteCookie("number_on","/");
