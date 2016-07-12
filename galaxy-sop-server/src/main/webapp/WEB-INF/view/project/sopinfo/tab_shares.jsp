@@ -180,7 +180,9 @@
 		var data = JSON.parse($("#company-info-form").serializeObject());
 		if(data.formationDate != null && data.formationDate != '')
 		{
-			var date = $('#company-info-form [name="formationDate"]').datepicker('getDate');
+			var val = $('#company-info-form [name="formationDate"]').val();
+			var date = new Date(val);
+			date.setHours(0);
 			data['formationDate'] = date.getTime();
 		}
 		sendPostRequestByJsonObj(
