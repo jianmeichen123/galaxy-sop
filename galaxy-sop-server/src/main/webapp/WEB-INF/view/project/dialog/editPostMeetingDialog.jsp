@@ -40,12 +40,13 @@
 			        	<input  type="text"  class="txt" name="textarea2" id="textarea2" ></input>
 			        </dd>
 			        <dd>
-			        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
+			        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择w附件</a>
 		    		</dd>
 		        </div>
-            </dl>  
-	            <dl class="fmdl fl_l" id="show_up_file">
-	                 <table style="width:90%;border: 1px;margin: auto;" id="filelist">
+            </dl>
+            <div style='display:block; height:80px; overflow-y:scroll;'>
+            	<dl class="fmdl fl_l" id="show_up_file">
+	                 <table style="width:100%;border: 1px;margin: auto;" id="filelist">
 	                    <tr>
 	                      <th style="width:50%;">文件名称</th>
 	                      <th style="width:20%" align="center">文件大小</th>
@@ -54,6 +55,8 @@
 	                    </tr>
 	                 </table> 
 	            </dl>
+            </div>  
+	            
 	             
 	        </div>
 	    </div>
