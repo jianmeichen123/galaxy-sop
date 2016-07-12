@@ -14,8 +14,8 @@
 		<div class="title_bj" id="popup_name">添加运营会议纪要</div>
 	    <div class="form clearfix">
 	        <div class="conference_all">
-	            <dl class="fmdl clearfix">
-	                <dt>会议时间：</dt>
+	            <dl class="fmdl fl_l  clearfix">
+	                <dt>会议时间 ：</dt>
 	                <dd>
 	                <input type="hidden" name="id" id="id" value="0"/>
 	                <input type="hidden" name="meetingName" value="0" id="meetingName"/>
