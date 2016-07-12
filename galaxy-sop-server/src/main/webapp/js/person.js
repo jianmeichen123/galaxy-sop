@@ -61,13 +61,15 @@ function getTabPerson(){
                       field: 'personName',
                       align: 'left',
                       valign: 'middle',
-                      'class':'personName'
+                      'class':'personName',
+                      formatter:'personName'
                   },
                   {
                       title: '当前职务',
                         field: 'personDuties',
                         align: 'left',
-                        valign: 'middle'
+                        valign: 'middle',
+                        formatter:'personDuties'
               },
                   {
                     title: '性别',
@@ -195,6 +197,32 @@ function deletePer(id,url){
 			$("#projectId").val(projectId);
 			sendGetRequest(url,'',savePersonCallBack);
 		}
+	}
+}
+
+function personName(value,row,index){
+	var str=row.personName;
+	if(str.length>20){
+		subStr = str.substring(0,20);
+		var options = "<label title='"+str+"'>"+subStr+"</label>";
+		return options;
+	}
+	else{
+		var options = "<label title='"+str+"'>"+str+"</label>";
+		return options;
+	}
+}
+
+function personDuties(value,row,index){
+	var str=row.personDuties;
+	if(str.length>10){
+		subStr = str.substring(0,10);
+		var options = "<label title='"+str+"'>"+subStr+"</label>";
+		return options;
+	}
+	else{
+		var options = "<label title='"+str+"'>"+str+"</label>";
+		return options;
 	}
 }
 
