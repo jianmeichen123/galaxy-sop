@@ -339,16 +339,28 @@
 	        	if($("#showResetBtn").val() == '1'){
 	    			$("#resetBtn").removeClass("none");
 	    		}
-	        	//返回附带参数功能代码
+	        	
+	        	
 	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
-	        		$( ".dropdown-toggle .page-size").text(initParams.pageSize);
-	        		$('.pagination li').removeClass('active');
-	        		$('.pagination li').each(function(){
-	        			if($(this).text()==initParams.pageNum){
-	        				$(this).addClass('active');
-	        			}
-	        		})
-	        	}
+	    			if(initParams.pageNum==1){
+	    				return;
+	    			}else{
+	    				$('.pagination li').removeClass('active');
+	    				if($('.pagination .page-number').length< getCookieValue("tempPageNum")){
+	    					for(var i=$('.pagination .page-number').length; i>0; i--){
+	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
+	    					}
+	    				}
+
+	    				$('.pagination li').each(function(){
+	    	    			if($(this).text()==initParams.pageNum){
+	    	    				$(this).click();
+	    	    				//$(this).addClass('active')
+	    	    			}
+	    				})
+	    			}
+	    		}
+	        	
 	        }
 		});
 		/**
