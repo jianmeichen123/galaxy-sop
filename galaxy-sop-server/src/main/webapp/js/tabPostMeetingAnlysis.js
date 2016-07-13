@@ -87,7 +87,7 @@ var meetGrid = {
 			        formatter: meetGrid.meetingTypeFormatter	
 			      }, {
 			        field: 'createUName',
-			        title: '发起人（上传人）'
+			        title: '上传人'
 			      }, {
 			        field: 'meetingDateStr',
 			        title: '会议时间',
