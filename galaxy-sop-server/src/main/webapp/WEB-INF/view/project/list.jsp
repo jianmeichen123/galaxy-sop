@@ -344,6 +344,12 @@
 	        	//返回附带参数功能代码
 	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
 	        		$( ".dropdown-toggle .page-size").text(initParams.pageSize);
+	        		$('.pagination li').removeClass('active');
+	        		$('.pagination li').each(function(){
+	        			if($(this).text()==initParams.pageNum){
+	        				$(this).addClass('active')
+	        			}
+	        		});
 	        	}
 	        }
 		});
