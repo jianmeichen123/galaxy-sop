@@ -353,7 +353,7 @@ var editPostMeetingDialog = {
 										});
 										$("#win_post_meeting_form").find("#edit_meeting_type").html("<dt class='edit_meeting_type_dt'>会议类型 ：</dt><dd class='edit_meeting_type_dd'>" + meetingTypeName + "</dd>");
 										
-										$("#win_post_meeting_form").find("#div_meetingNotes").html("<dd>" + _formdata.meetingNotes + "</dd>")
+										$("#win_post_meeting_form").find("#div_meetingNotes").html("<dd class='div_meetingNotes_dd'>" + _formdata.meetingNotes + "</dd>")
 										
 										$("#win_post_meeting_form").find("#win_ok_btn").hide()
 										$("#win_post_meeting_form").find("#win_cancel_btn").hide();	

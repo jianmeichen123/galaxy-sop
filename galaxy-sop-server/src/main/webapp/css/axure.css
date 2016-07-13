@@ -1951,4 +1951,4 @@ dl{position: relative;}
 .conference_all dd{font-size:12px;font-family:'宋体'}
 .edit_meeting_type_dt{margin-top:-30px !important;margin-left:300px !important;}
 .edit_meeting_type_dd{margin-top:-30px !important;margin-left:380px !important;}
-
+.div_meetingNotes_dd{max-height:250px;overflow:auto;}
