@@ -1921,7 +1921,7 @@ dl{position: relative;}
 #filelist{border:1px solid #ccd2d7 !important;border-top-left-radius:6px;border-top-right-radius:6px;border-bottom:0;}
 .post_operatetc,.editPostMeetingtc{width:650px;}
 #post-meeting-dialog{position:static !important;}
-.conference_all{ width:590px; margin:45px auto 30px;}
+.conference_all{ width:590px; margin:45px auto 0;}
 .area{ width:420px; min-height:80px; overflow-y: auto}
 .button_affrim{ width:202px; margin-left:auto; overflow:hidden; margin-bottom:20px; margin-right:auto;}
 .area_input{ width:328px; height: 28px !important;}
