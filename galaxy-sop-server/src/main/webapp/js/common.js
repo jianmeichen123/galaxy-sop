@@ -1270,7 +1270,6 @@ function init_bootstrapTable(table_id,page_size){
 	$('#'+table_id).bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:page_size,
-		pageList : [10, 20, 30 ],
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
