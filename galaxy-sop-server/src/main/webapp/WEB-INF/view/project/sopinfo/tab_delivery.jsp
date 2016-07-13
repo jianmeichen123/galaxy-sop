@@ -81,8 +81,9 @@
 				</div>
 				
 				<table id="project_delivery_table" class="commonsize delivery"
+					data-page-list="[10, 20, 30]" 
 					data-url="<%=path%>/galaxy/delivery/queryprodeliverypage" 
-					data-id-field="id"  data-page-list="[10, 20, 30]"
+					data-id-field="id"
 					data-toolbar="#custom-toolbar">
 					<thead>
 						<tr>
