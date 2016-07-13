@@ -64,7 +64,8 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				});
 			},
 			BeforeUpload:function(up,file){
-				params["fileName"] = file.name;
+				var name = file.name.replace(/\s+/g,"");
+				params["fileName"] = name;
 			},
 			FileUploaded:function(up,file,rtn){
 				var response = $.parseJSON(rtn.response);
@@ -89,8 +90,8 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
                     /**
                      * 生成上传文件的列表
                      */
-				    var name =countSameFile(file,fileListId);
-				    file.name = name;
+				    var name =countSameSubFile(file,fileListId);
+				    file.name = name.replace(/\s+/g,"");;
 					$("#"+fieInputId).val($("#"+fieInputId).val()+" "+file.name);
 					$("#"+fileListId).append("<tr id='"+file.id+"tr'><td>"+file.name+"</td><td>"+plupload.formatSize(file.size)+"</td><td><button type='button' id='"+file.id+"btn' onclick=del('"+file.id+"','"+file.name+"','"+fieInputId+"')>删除</button> </td><td id='"+file.id+"_progress'></td></tr>"); 
 				});
@@ -145,19 +146,33 @@ function del(id,name,fieInputId){
     $("#"+id+"tr").remove();
 }
 
-
-function countSameFile(file,fileList){
-	var name = file.name;
+function countSameSubFile(file,fileList){
+	var name = file.name.replace(/\s+/g,"");
+	var  subname = name.substring(0,name.lastIndexOf("."));
+	 var fix =  name.substring(name.lastIndexOf(".")+1,name.length);
 	var count = 0;
 	$("#"+fileList+" tr:gt(0)").each(function(){
 	  var inputValue = $(this).find("td").eq(0).text();
 	  if(inputValue == name){
-	    count++;
-	    var  subname = name.substring(0,name.lastIndexOf("."));
-	    var fix =  name.substring(name.lastIndexOf(".")+1,name.length);
-	    name = subname+"-"+count+"."+fix;
+		  count++;
+	  }else{
+		  var inputV =  inputValue.substring(0,inputValue.lastIndexOf("."));
+		  var inputFix =  inputValue.substring(inputValue.lastIndexOf(".")+1,inputValue.length);
+		  if(inputFix == fix){
+			  if(inputV.indexOf("-")>0){
+				  var subInputV = inputV.substring(0,inputV.lastIndexOf("-"));
+				  if(subInputV == subname){
+					  count++;
+				  }
+			  }
+		  }
 	  }
     });
+	if(count == 0){
+		name = subname+"."+fix;
+	}else{
+		name = subname+"-"+count+"."+fix;
+	}
 	return name;
 }
 function callBack(data){
