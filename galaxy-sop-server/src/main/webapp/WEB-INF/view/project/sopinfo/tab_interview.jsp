@@ -288,6 +288,11 @@ function initViewUpload() {
 								/* if(index == 1 && $("#qdnbps").css('display')=='none' ){
 									toshowbut();
 								} */
+								//启用滚动条
+								 $(document.body).css({
+								   "overflow-x":"auto",
+								   "overflow-y":"auto"
+								 });
 								toFormatNearNotes();
 								var _this = $("#projectProgress_1_table");
 								if(_this == null || _this.length == 0 || _this == undefined){
