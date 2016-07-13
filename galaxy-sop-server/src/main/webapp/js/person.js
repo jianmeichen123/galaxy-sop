@@ -168,6 +168,11 @@ function savePersonCallBack(data){
 		layer.msg(data.result.message);
 		//return;
 	}
+	//启用滚动条
+	 $(document.body).css({
+	   "overflow-x":"auto",
+	   "overflow-y":"auto"
+	 });
 	$("#popbg,#powindow").remove();
 	var projectId = $("#pid").val();
 	getTabPerson(projectId);
