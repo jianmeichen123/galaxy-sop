@@ -374,16 +374,7 @@ function to_del_deliver(selectRowId){
 		  btn: ['确定', '取消'] 
 		}, 
 		function(index, layero){
-			var _url =  Constants.sopEndpointURL + '/galaxy/delivery/deldelivery/'+selectRowId;
-			sendPostRequestByJsonObj(_url, {}, function(data){
-				if (data.result.status=="OK") {
-					layer.msg("删除成功");
-					removePop1();
-					$("#project_delivery_table").bootstrapTable('refresh');
-				} else {
-					layer.msg(data.result.message);
-				}
-			});
+			del_deliver();
 		}, 
 		function(index){
 		}
