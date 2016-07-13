@@ -374,7 +374,7 @@ function to_del_deliver(selectRowId){
 		  btn: ['确定', '取消'] 
 		}, 
 		function(index, layero){
-			del_deliver();
+			del_deliver(selectRowId);
 		}, 
 		function(index){
 		}
@@ -391,8 +391,8 @@ function to_download_deliver(id){
 	}
 }
 
-function del_deliver(){  
-	var id = $("#del_deliver_id").val();
+function del_deliver(id){  
+	//var id = $("#del_deliver_id").val();
 	var _url =  Constants.sopEndpointURL + '/galaxy/delivery/deldelivery/'+id;
 	sendPostRequestByJsonObj(_url, {}, function(data){
 		if (data.result.status=="OK") {
