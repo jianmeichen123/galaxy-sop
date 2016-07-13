@@ -37,12 +37,3 @@
     
   	
 </div>
-
-<style>
-div.tip-yellowsimple {
-    visibility: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-</style>
