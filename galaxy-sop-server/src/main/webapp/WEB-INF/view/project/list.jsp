@@ -221,6 +221,8 @@
 		var projectDepartid = $("select[name='projectDepartid']").val();
 		var createUid = $("select[name='createUid']").val();
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
+		
+		var PageSize_ab = $( ".dropdown-toggle .page-size").text();
 		var formdata = {
 				_paramKey : 'projectList',
 				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
@@ -360,7 +362,6 @@
 	    				})
 	    			}
 	    		}
-	        	
 	        }
 		});
 		/**

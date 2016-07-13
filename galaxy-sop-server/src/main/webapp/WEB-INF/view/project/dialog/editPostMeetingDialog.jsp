@@ -20,7 +20,7 @@
 	                	<div id="div_meetingDateStr">
 	                		<input type="hidden" name="id" id="id" value="0"/>
 	                		<input type="hidden" name="meetingName" value="0" id="meetingName"/>
-	                    	<input type="text" class="datetimepickerHour txt time" id="meetingDateStr" name="meetingDateStr" valType="required" msg="<font color=red>*</font>会议时间不能为空"  />
+	                    	<input type="text" class="datetimepickerHour txt time" id="meetingDateStr" readonly="readonly" name="meetingDateStr" valType="required" msg="<font color=red>*</font>会议时间不能为空"  />
 	                    </div> 
 	                </dd>
 	            </dl>
@@ -51,9 +51,9 @@
 		        </div>
             </dl>
 
-            <div style='display:block; height:80px;' id="div_show_up_file">
+            <div style='display:block;' id="div_show_up_file">
             	<dl class="fmdl fl_l" id="show_up_file">
-	                 <table style="width:100%;border: 1px;margin: auto;" id="filelist">
+	                 <table style="width:100%;margin: auto;" id="filelist" cellspacing="0" cellpadding="0">
 	                    <tr>
 	                      <th style="width:50%;">文件名称</th>
 	                      <th style="width:20%" align="center">文件大小</th>

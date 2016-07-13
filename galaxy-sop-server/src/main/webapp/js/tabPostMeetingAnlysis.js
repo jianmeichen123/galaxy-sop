@@ -8,6 +8,10 @@ var meetingSearchPanel = {
 		initData : function(){
 			//初始化查询按钮
 			$("#searchBtn").click(meetGrid.searchData);
+			
+			
+			
+			
 			$("#addPostMeetingBtn").click(function(){
 				var formdata = {
 						 isEdit : true
@@ -31,7 +35,9 @@ var meetingSearchPanel = {
 							this.name +
 							"</label>";
 				});
+				
 				$("#search_meet_type").html(html);
+				$("#search_meet").find(":checkbox").change(meetGrid.searchData);
 				//初始化日历控件
 				$("#post_meeting_anlysis").find(".datepicker").val("");
 				meetGrid.init(pInfo);
@@ -74,6 +80,7 @@ var meetGrid = {
 			      cardView: false,          //是否显示详细视图
 			      detailView: false,          //是否显示父子表
 			      onLoadSuccess : function(data){
+			    	  pageMode = false;
 			      },
 			      columns: [
 					{
@@ -147,13 +154,13 @@ var meetGrid = {
 		meetingNameEvents : {
 			'click .meet_show_detail': function (e, value, row, index) {
 				var retStr = "";
-				$.each(meetingSearchPanel.meetingTypeList,function(){
+				/*$.each(meetingSearchPanel.meetingTypeList,function(){
 					if(row.meetingType == this.code){
 						retStr += this.name;
 						return false;
 					}
-				});
-				retStr += "纪要" + value;
+				});*/
+				retStr = "查看会议纪要信息";
 				var formdata = {
 						 id : row.id,
 						 meetingDateStr : row.meetingDateStr,
@@ -202,8 +209,7 @@ var meetGrid = {
 	        		}, function(index){
 	        		  //按钮【按钮二】的回调
 	        		});
-	        	
-	        	
+ 	
 	        },
 	        'click .meet_download': function (e, value, row, index) {
 	        	try {
@@ -216,6 +222,9 @@ var meetGrid = {
 	        }
 		},
 		queryParams : function(params){
+			if(pageMode){
+				params.pageNum = 0;
+			}
 			var searchForm = $("#search_meet").serializeObject();
 			searchForm = jQuery.parseJSON(searchForm);
 			var startTime = (new Date(searchForm.meet_startDate+' 00:00:00'));		
@@ -251,6 +260,7 @@ var meetGrid = {
 			return params;
 		},
 		searchData : function(){
+			pageMode = true;
 			$('#meetGrid').bootstrapTable('refresh',meetGrid.queryParams);	 
 		 }
 }
@@ -341,9 +351,9 @@ var editPostMeetingDialog = {
 												return false;
 											}
 										});
-										$("#win_post_meeting_form").find("#edit_meeting_type").html("<dt>会议类型 ：</dt><dd>" + meetingTypeName + "</dd>");
+										$("#win_post_meeting_form").find("#edit_meeting_type").html("<dt class='edit_meeting_type_dt'>会议类型 ：</dt><dd class='edit_meeting_type_dd'>" + meetingTypeName + "</dd>");
 										
-										$("#win_post_meeting_form").find("#div_meetingNotes").html("<dd>" + _formdata.meetingNotes + "</dd>")
+										$("#win_post_meeting_form").find("#div_meetingNotes").html("<dd class='div_meetingNotes_dd'>" + _formdata.meetingNotes + "</dd>")
 										
 										$("#win_post_meeting_form").find("#win_ok_btn").hide()
 										$("#win_post_meeting_form").find("#win_cancel_btn").hide();	
@@ -481,7 +491,7 @@ function paramsContion(){
 
 
 
-
+var pageMode = false; 
 var pInfo;
 
 

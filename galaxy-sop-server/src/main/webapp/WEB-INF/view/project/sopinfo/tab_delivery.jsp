@@ -81,8 +81,9 @@
 				</div>
 				
 				<table id="project_delivery_table" class="commonsize delivery"
+					data-page-list="[10, 20, 30]" 
 					data-url="<%=path%>/galaxy/delivery/queryprodeliverypage" 
-					data-id-field="id"  data-page-list="[10, 20, 30]"
+					data-id-field="id"
 					data-toolbar="#custom-toolbar">
 					<thead>
 						<tr>
@@ -205,6 +206,11 @@ function toInitBachUpload(){
  
 function saveCallBackFuc(data){
 	removePop1();
+	//启用滚动条
+	 $(document.body).css({
+	   "overflow-x":"auto",
+	   "overflow-y":"auto"
+	 });
 	$("#project_delivery_table").bootstrapTable('refresh');
 }
 
@@ -300,7 +306,6 @@ function operFormat(value,row,index){
 						var result = data.result.status;
 						if(result == "OK"){
 							var deliverInfo = data.entity;
-							
 							$("#popup_name").html("编辑事项信息");
 							$("#deliver_form [name='id']").val(deliverInfo.id);
 							$("#deliver_form [name='projectId']").val(proid);

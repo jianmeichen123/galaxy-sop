@@ -994,7 +994,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 #popbg iframe{filter:alpha(opacity=0);opacity: 0; width:100%; height:100%}
 .pop{ position:fixed; _position:absolute; left:0; top:0; z-index:1000;filter:Alpha(opacity=0);opacity: 0; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
 .popzx{ z-index:9999}
-.pop .close{ position:absolute; right:0; top:0; width:26px; height:26px; background:url(../img/tcclose.png) no-repeat; z-index:10;opacity: 1;}
+.pop .close{ position:absolute; right:8px; top:6px; width:26px; height:26px; background:url(../img/tcclose.png) no-repeat; z-index:10;opacity: 1;}
 .pop .poptxt{ position:relative; padding:10px}
 /*请稍候*/
 .pop .popwait{ line-height:100px; font-size:20px; color:#999; text-align:center}
@@ -1229,7 +1229,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .creativetc{padding:0 20px 20px;width:800px;}
 .creativetc .tabtable_con{height:400px;}
 .creativetc .pjt_introduct{color:#535762;font-size: 12px;font-family: "宋体";margin: 0 0 5px 0;}
-.creativetc .pjt_introduct h3,.create_historytc .idea-title{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left;}
+.creativetc .pjt_introduct h3,.create_historytc .idea-title{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left; overflow: hidden;}
 .creativetc .pjt_introduct .pjt_brf{margin:5px 0 0 0;}
 .creativetc .pjt_introduct .pjt_brf li{float: left;margin:0 20px 0 0;line-height: 20px;}
 .creativetc .tablink li{min-width:55px;text-align: center;}
@@ -1672,7 +1672,7 @@ font-family: "宋体";
 /*团队成员*/
 .edit_profile{background-color: #539be2;border:1px solid #539be2;}
 .member,.stock,.legal{background-color: #fff;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 30px; overflow:hidden;}
-.member a{margin-right: 10px;}
+.member .delivery a{margin-right: 10px;}
 .member .btnbox_f{margin:20px 0 10px 30px;}
 .member .btnbox_f .add_profile{width:60px;}
 .member table{margin-bottom:20px !important;}
@@ -1896,7 +1896,7 @@ dl{position: relative;}
 .proOperation .download{background: url(../img/functionico.png) no-repeat;height: 22px;line-height: 22px;background-position: 0 -306px;padding: 0 0 6px 22px;}
 .px{cursor:pointer;width:12px;height: 12px;display: inline-block;background:url(../img/select-arr-default.gif) -10px -8px no-repeat;margin-left: 5px;}
 .px_d{background:url(../img/select-arr-default.gif) -10px -37px no-repeat;}
-.status .title{background-color: #f9fafc; padding: 0 ; color:#909cc4;height: 20px;line-height: 20px;border:0;margin:0 0 20px 0;}
+.status .title{background-color: #f9fafc; padding: 0 ; color:#909cc4;height: 20px;line-height: 20px;border:0;margin:0 0 20px 0;padding-left:5px;}
 .new_correlation_cen .delivery{margin:30px 0 20px 0;}
 /*弹层7.2*/
 .deltc{width: 420px;}
@@ -1917,11 +1917,13 @@ dl{position: relative;}
  #bar{height:8px;border-radius:5px;background:#529ae2;width:0;}
 /*运营分析*/
 #filelist button{background:transparent;border:0;color:#438ee1}
+#filelist th{background:#f9fafc;}
+#filelist{border:1px solid #ccd2d7 !important;border-top-left-radius:6px;border-top-right-radius:6px;border-bottom:0;}
 .post_operatetc,.editPostMeetingtc{width:650px;}
 #post-meeting-dialog{position:static !important;}
-.conference_all{ width:590px; margin:45px auto 30px;}
-.area{ width:420px; min-height:80px; overflow-y: scroll}
-.button_affrim{ width:220px; margin-left:auto; overflow:hidden; margin-bottom:20px; margin-right:auto;}
+.conference_all{ width:590px; margin:45px auto 0;}
+.area{ width:420px; min-height:80px; overflow-y: auto}
+.button_affrim{ width:202px; margin-left:auto; overflow:hidden; margin-bottom:20px; margin-right:auto;}
 .area_input{ width:328px; height: 28px !important;}
 .overflow_y{height:80px; overflow-y: scroll}
 .area_div{width:328px; }
@@ -1942,7 +1944,11 @@ dl{position: relative;}
 .health_case th{ background-color:#f9fafc}
 .health_case th ,.health_case td{border-bottom:1px solid #ccd2d7; text-align:left; }
 .editPostMeetingtc .fmdl dd textarea,.addmentc .fmdl dd textarea{line-height:16px;font-size:12px;}
-#show_up_file{max-height:100px;overflow:auto;margin:-10px 0 0 0 ;}
+#show_up_file{max-height:100px;overflow:auto;}
 #show_up_file table td{height:26px;line-height:26px;}
-.scroll_table .fixed-table-body{height:250px; overflow-y:scroll;}
-
+.scroll_table .fixed-table-body{height:250px; overflow-y:auto;}
+#div_meetingNotes dd{width:490px;margin:0;}
+.conference_all dd{font-size:12px;font-family:'宋体'}
+.edit_meeting_type_dt{margin-top:-30px !important;margin-left:300px !important;}
+.edit_meeting_type_dd{margin-top:-30px !important;margin-left:380px !important;}
+.div_meetingNotes_dd{max-height:250px;overflow:auto;}

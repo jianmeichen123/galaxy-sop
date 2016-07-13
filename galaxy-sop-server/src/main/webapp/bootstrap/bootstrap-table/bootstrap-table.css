@@ -59,7 +59,7 @@
     overflow-y: auto;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .fixed-table-container table {

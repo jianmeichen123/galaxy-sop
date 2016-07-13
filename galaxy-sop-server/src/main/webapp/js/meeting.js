@@ -111,6 +111,11 @@ function initMeetUpload() {
 								return;
 							}else{
 								layer.msg("保存成功", {time : 500});
+								//启用滚动条
+								 $(document.body).css({
+								   "overflow-x":"auto",
+								   "overflow-y":"auto"
+								 });
 								var _this = $("#data-table");
 								if(_this == null || _this.length == 0 || _this == undefined){
 									removePop1();
