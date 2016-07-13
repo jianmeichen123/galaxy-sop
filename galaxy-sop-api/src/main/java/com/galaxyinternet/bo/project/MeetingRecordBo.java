@@ -17,6 +17,8 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private String proNameCode;
 	private int inpro; //是否项目内查看 1：是
 	private List<Long> proIdList;
+	
+	private String meetingTypeNull;
 	private List<String> meetingTypeList;
 	
 	private Integer pageNum;// 页码，默认是第一页
@@ -152,6 +154,12 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setMeetingTypeList(List<String> meetingTypeList) {
 		this.meetingTypeList = meetingTypeList;
+	}
+	public String getMeetingTypeNull() {
+		return meetingTypeNull;
+	}
+	public void setMeetingTypeNull(String meetingTypeNull) {
+		this.meetingTypeNull = meetingTypeNull;
 	}
 	
 	
