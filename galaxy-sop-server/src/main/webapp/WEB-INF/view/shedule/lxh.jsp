@@ -248,7 +248,7 @@
 		$optionHtml.insertAfter($('option[value=""]'));
 	});
 
-	var initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL});
+	var initParams;
 	$("button[action='querySearch']").click(function(){
 		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL});
 	});
@@ -262,6 +262,7 @@
         search: false,
         //返回附带参数功能代码
 	    queryParams : function(param){
+	    	initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL});
 	    	if(typeof(initParams) !== 'undefined'){
 	    		param.pageNum = initParams.pageNum - 1;
 	        	param.pageSize = initParams.pageSize;
@@ -283,6 +284,7 @@
         onLoadSuccess: function(){
         	//返回附带参数功能代码
 	        if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
+	        	$( ".dropdown-toggle .page-size").text(initParams.pageSize);
 	        	$('.pagination li').removeClass('active');
 	        	$('.pagination li').each(function(){
 	        		if($(this).text()==initParams.pageNum){
