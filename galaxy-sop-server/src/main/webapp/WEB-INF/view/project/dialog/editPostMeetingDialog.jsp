@@ -51,7 +51,7 @@
 		        </div>
             </dl>
 
-            <div style='display:block; height:80px;' id="div_show_up_file">
+            <div style='display:block;' id="div_show_up_file">
             	<dl class="fmdl fl_l" id="show_up_file">
 	                 <table style="width:100%;margin: auto;" id="filelist" cellspacing="0" cellpadding="0">
 	                    <tr>

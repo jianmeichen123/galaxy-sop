@@ -12,7 +12,7 @@
     <div class="left">
       <dl class="fmdl fml">
         <dt>姓名：</dt>
-        <dd><input type="text" id="personName" name="personName" value="${person.personName }" class="txt" placeholder="姓名" valType="OTHER" regString="^.{20}$"msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></dd>
+        <dd><input type="text" id="personName" name="personName" value="${person.personName }" class="txt" placeholder="姓名" valType="OTHER" regString="^.{1,20}$"msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></dd>
       </dl>
        <dl class="fmdl">
         <dt>年龄：</dt>
