@@ -1672,7 +1672,7 @@ font-family: "宋体";
 /*团队成员*/
 .edit_profile{background-color: #539be2;border:1px solid #539be2;}
 .member,.stock,.legal{background-color: #fff;border-radius: 6px;border-top-left-radius: 0;padding-bottom: 30px; overflow:hidden;}
-.member a{margin-right: 10px;}
+.member .delivery a{margin-right: 10px;}
 .member .btnbox_f{margin:20px 0 10px 30px;}
 .member .btnbox_f .add_profile{width:60px;}
 .member table{margin-bottom:20px !important;}
