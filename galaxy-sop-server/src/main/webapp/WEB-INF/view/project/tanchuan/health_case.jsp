@@ -20,7 +20,7 @@
 			
 			<table id="project_health_table" class="health_case"
 				data-url="<%=path%>/galaxy/health/queryhealthpage" 
-				data-id-field="id"  data-page-list="[5,10, 20]"
+				data-id-field="id"  data-page-list="[5,10,20]"
 				data-toolbar="#health-custom-toolbar">
 				<thead>
 					<tr>
