@@ -371,6 +371,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 	public void downloadBatchFile(@PathVariable("id") Long id, HttpServletRequest request, HttpServletResponse response)
 	{
 		if(id != null){
+			MeetingRecord meeting = meetingService.queryById(id);
 			SopFile sopfile = new SopFile();
 		    sopfile.setMeetingId(id);
 			List<SopFile> sopFileList = sopFileService.queryList(sopfile);
@@ -387,7 +388,8 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 					}
 			
 				}
-				sopFileService.downloadBatch(request, response, tempfilePath,"会议纪要-"+String.valueOf(id),sopDownLoadList);
+				String meetingTypeStr = meeting.getMeetingTypeStr();
+				sopFileService.downloadBatch(request, response, tempfilePath,meetingTypeStr+"纪要"+meeting.getMeetingName(),sopDownLoadList);
 			} catch (Exception e) {
 				logger.error("下载失败.",e);
 			}

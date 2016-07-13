@@ -162,6 +162,11 @@
 			closepop:function(){
 				var _this = this;
 				$(_this.id).on("click","[data-close='close']",function(){
+						//启用滚动条
+						 $(document.body).css({
+						   "overflow-x":"auto",
+						   "overflow-y":"auto"
+						 });
 						//关闭对外接口
 						_this.hideback.apply(_this);
 						$(_this.id).remove();
@@ -519,6 +524,11 @@
 					dataType:"html",
 					url:opts.url,
 					beforeSend : function(xhr) {
+						/** 锁定滚动条*/
+						$(document.body).css({
+						   "overflow-x":"hidden",
+						   "overflow-y":"hidden"
+						 });
 						/**清楚浏览器缓存**/
 						xhr.setRequestHeader("If-Modified-Since","0"); 
 						xhr.setRequestHeader("Cache-Control","no-cache");

@@ -314,7 +314,7 @@ function operFormat(value,row,index){
 												"<td>"+this.fileName+"."+this.fileSuffix+
 													"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
 												"</td>"+
-												"<td>"+this.fileLength+"</td>"+
+												"<td>"+plupload.formatSize(this.fileLength)+"</td>"+
 												"<td>"+ but +"</td>"+
 												"<td>100%</td>"+
 											"</tr>"
@@ -355,7 +355,7 @@ function save_deliver(){
 
 /**
  * 删除  事项
- */
+
 function to_del_deliver(selectRowId){
 	var _url = Constants.sopEndpointURL + '/galaxy/delivery/todeldeliver/';
 	$.getHtml({
@@ -367,6 +367,18 @@ function to_del_deliver(selectRowId){
 		}
 	});
 	return false;
+} */
+function to_del_deliver(selectRowId){
+	layer.confirm('你确定要删除吗?', 
+		{
+		  btn: ['确定', '取消'] 
+		}, 
+		function(index, layero){
+			del_deliver(selectRowId);
+		}, 
+		function(index){
+		}
+	);
 }
 
 function to_download_deliver(id){
@@ -379,8 +391,8 @@ function to_download_deliver(id){
 	}
 }
 
-function del_deliver(){  
-	var id = $("#del_deliver_id").val();
+function del_deliver(id){  
+	//var id = $("#del_deliver_id").val();
 	var _url =  Constants.sopEndpointURL + '/galaxy/delivery/deldelivery/'+id;
 	sendPostRequestByJsonObj(_url, {}, function(data){
 		if (data.result.status=="OK") {

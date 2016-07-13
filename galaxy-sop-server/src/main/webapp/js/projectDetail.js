@@ -64,7 +64,9 @@ $(function(){
 		})
 			function CallBackB(data){
 		    var _dom=$("#finance_status_sel");
-			 $.each(data.entityList,function(){
+		    var childNum = _dom.find("option").length;
+		    if(!childNum || childNum ==0 ){
+		    	$.each(data.entityList,function(){
 					if(this.code){
 						if(this.code==fs){
 							_dom.append("<option selected value='"+this.code+"'>"+this.name+"</option>");
@@ -77,10 +79,14 @@ $(function(){
 					}
 					
 				});
+		    }
+			 
 		}
 		function CallBackA(data){
 		       var _dom=$("#industry_own_sel");
-				 $.each(data.entityList,function(){
+		       var childNum = _dom.find("option").length;
+			    if(!childNum || childNum ==0 ){
+			    	$.each(data.entityList,function(){
 						if(this.code){
 							_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
 						}else{
@@ -92,6 +98,8 @@ $(function(){
 						}
 						
 					});
+			    }
+				 
 			}
 		if(projectInfo.projectDescribe){
 			var um = UM.getEditor('describe_editor');

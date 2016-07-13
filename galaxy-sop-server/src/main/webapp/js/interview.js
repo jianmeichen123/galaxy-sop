@@ -157,6 +157,11 @@ function initViewUpload() {
 									$("#data-table").bootstrapTable('refresh');
 									removePop1();
 								}
+								//启用滚动条
+								 $(document.body).css({
+								   "overflow-x":"auto",
+								   "overflow-y":"auto"
+								 });
 							}
 						});
 					}

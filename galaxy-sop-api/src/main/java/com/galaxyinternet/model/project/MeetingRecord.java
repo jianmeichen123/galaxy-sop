@@ -106,7 +106,8 @@ public class MeetingRecord  extends PagableRecordEntity{
 			}
 		}else{
 			if(meetingDateStr==null && meetingDate!=null){
-				meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
+				//meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
+				meetingDateStr = DateUtil.convertDateToString(meetingDate,"yyyy-MM-dd HH:mm");
 			}
 		}
         return meetingDate;
@@ -122,7 +123,7 @@ public class MeetingRecord  extends PagableRecordEntity{
 			}
 		}else{
 			if(meetingDateStr==null && meetingDate!=null){
-				meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
+				meetingDateStr = DateUtil.convertDateToString(meetingDate,"yyyy-MM-dd HH:mm");
 			}
 		}
         this.meetingDate = meetingDate;
@@ -182,7 +183,7 @@ public class MeetingRecord  extends PagableRecordEntity{
     
 	public String getMeetingDateStr() {
 		if(meetingDateStr==null && meetingDate!=null){
-			meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
+			meetingDateStr = DateUtil.convertDateToString(meetingDate,"yyyy-MM-dd HH:mm");
 		}
 		return meetingDateStr;
 	}
@@ -190,17 +191,8 @@ public class MeetingRecord  extends PagableRecordEntity{
 	
 	
 	public void setMeetingDateStr(String meetingDateStr) { ////2016-05-27 16:00:00   19
-		if(meetingDate==null && meetingDateStr!=null ){
-			meetingDateStr = dateStrformat(meetingDateStr.trim());
-			try {
-	    		meetingDate = DateUtil.convertStringtoD(meetingDateStr);
-			} catch (ParseException e) {
-				meetingDate = null;
-			}
-		}else{
-			if(meetingDateStr==null && meetingDate!=null){
-				meetingDateStr = DateUtil.convertDateToStringForChina(meetingDate);
-			}
+		if(meetingDateStr==null && meetingDate!=null){
+			meetingDateStr = DateUtil.convertDateToString(meetingDate,"yyyy-MM-dd HH:mm");
 		}
 		this.meetingDateStr = meetingDateStr;
 	}
@@ -304,13 +296,7 @@ public class MeetingRecord  extends PagableRecordEntity{
 		if( dateStr.indexOf("/") != -1){
 			dateStr = dateStr.replaceAll("/", "-");
 		}
-	//	String format = "yyyy-MM-dd HH:mm:ss";
 		switch (len) {
-		/*case 8:
-			if(dateStr.indexOf("-")==-1 || dateStr.indexOf("/")==-1 ){
-				format = "yyyyMMdd";
-			}
-			break;*/
 		case 10:
 			dateStr = dateStr + " 00:00:00";
 			break;

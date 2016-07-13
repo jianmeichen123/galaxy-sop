@@ -13,7 +13,7 @@
       </dl>
       <dl class="fmdl">
         <dt>占比：</dt>
-        <dd><input type="text" name="sharesRatio" value="" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,3})?|100(\.[0]{1,3}))$" msg="<font color=red>*</font>0-100间数字"/><span>&nbsp;%</span></dd>
+        <dd><input type="text" name="sharesRatio" value="" class="percentTxt txt" valType="OTHER" regString="^(\d{1,2}(\.\d{1,2})?|100(\.[0]{1,2}))$" msg="<font color=red>*</font>0-100之间的两位小数"/><span>&nbsp;%</span></dd>
       </dl> 
     </div>
     <div class="right">
@@ -37,11 +37,3 @@
   </form>
 </div>
 <jsp:include page="../common/validateJs.jsp" flush="true"></jsp:include>
-<style>
-div.tip-yellowsimple {
-    visibility: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-</style>

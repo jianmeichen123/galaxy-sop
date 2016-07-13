@@ -116,13 +116,13 @@
 					data-toolbar="#ideaProgress_2_params">
 					<thead>
 						<tr>
-							<th data-field="fileUName" data-align="center" >上传者</th>
-							<th data-field="fType" data-align="center" >存档类型</th>
-							<th data-field="projectProgress" data-align="center" data-formatter="progressFormatter">创意状态</th>
-							<th data-field="careerLineName" data-align="center" >所属事业线</th>
-							<th data-field="updatedDate" data-align="center"  data-formatter="datetimeFormatter2">更新时间</th>
-							<th data-field="operateFile" data-align="center" data-formatter="ideaOperateFormat">操作</th>
-							<th data-align="center" data-formatter="ideaFileDownFormat">附件查看</th>
+							<th data-field="fileUName" data-align="left" >上传者</th>
+							<th data-field="fType" data-align="left" >存档类型</th>
+							<th data-field="projectProgress" data-align="left" data-formatter="progressFormatter">创意状态</th>
+							<th data-field="careerLineName" data-align="left" >所属事业线</th>
+							<th data-field="updatedDate" data-align="left"  data-formatter="datetimeFormatter2">更新时间</th>
+							<th data-field="operateFile" data-align="left" data-formatter="ideaOperateFormat">操作</th>
+							<th data-align="left" data-formatter="ideaFileDownFormat">附件查看</th>
 						</tr>
 					</thead>
 				</table>
@@ -156,8 +156,8 @@
 					</colgroup>
 					<thead>
 						<tr>
-							<th data-align="center" data-formatter="metcolumnFormat" data-width="50%">会议概况</th>
-							<th data-field="meetingNotes" data-align="center" data-formatter="tc_formatLog">会议纪要</th>
+							<th data-align="left" data-formatter="metcolumnFormat" data-width="50%" data-class="th_no1">会议概况</th>
+							<th data-field="meetingNotes" data-align="left" data-formatter="tc_formatLog">会议纪要</th>
 							<!-- <th data-field="meetingNotes" data-align="center" data-formatter="formatMeetNote">会议纪要</th>  --> 
 						</tr>
 					</thead>
@@ -181,13 +181,13 @@
 					data-page-list="[8,15,30]" data-toolbar="#ideaProgress_log_params">
 					<thead>
 						<tr>
-							<th data-field="createdTime" data-align="center" data-formatter="datetimeFormatter">操作时间</th>
-							<th data-field="uname" data-align="center" >操作人</th>
-							<th data-field="operationContent" data-align="center">变更动态</th>
+							<th data-field="createdTime" data-align="left" data-formatter="datetimeFormatter">操作时间</th>
+							<th data-field="uname" data-align="left" >操作人</th>
+							<th data-field="operationContent" data-align="left">变更动态</th>
 							<!-- <th data-field="operationType" data-align="center">变更动态</th>
 							<th data-field="operationContent" data-align="center">对象</th> -->
 							<!--  <th data-field="projectName" data-align="center" >创意</th>-->
-							<th data-field="sopstage" data-align="center" >进度</th>
+							<th data-field="sopstage" data-align="left" >进度</th>
 						</tr>
 					</thead>
 				</table>

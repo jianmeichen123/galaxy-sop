@@ -45,7 +45,7 @@
                  <dt>上传附件 ：</dt>
                  <div class="fmload clearfix">
 		            <dd>
-			        	<input  type="text"  class="txt" name="textarea2" id="textarea2" ></input>
+			        	<input  type="text"  class="txt" name="textarea2" id="textarea2" readonly="readonly"></input>
 			        </dd>
 			        <dd>
 			        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
@@ -74,11 +74,3 @@
     </div>
   	
 </div>
-<style>
-div.tip-yellowsimple {
-    visibility: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-}
-</style>

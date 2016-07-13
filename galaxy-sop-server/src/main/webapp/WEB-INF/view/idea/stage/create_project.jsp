@@ -6,7 +6,7 @@
   <div class="top clearfix">
        <dl class="fmdl">
         <dt>项目名称：</dt>
-        <dd><input type="text" value="项目11" name="projectName" class="txt"/></dd>
+        <dd><input type="text" value="项目11" name="projectName" class="txt" maxlength="24"/></dd>
       </dl> 
   </div>
     <div class="btnbox">

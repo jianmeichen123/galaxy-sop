@@ -87,7 +87,7 @@ var meetGrid = {
 			        formatter: meetGrid.meetingTypeFormatter	
 			      }, {
 			        field: 'createUName',
-			        title: '发起人（上传人）'
+			        title: '上传人'
 			      }, {
 			        field: 'meetingDateStr',
 			        title: '会议时间',
@@ -225,7 +225,7 @@ var meetGrid = {
 				return false;
 			}
 			//兼容safari
-			if(searchForm.meet_startDate>searchForm.meet_endDate){
+			if(parseInt(searchForm.meet_startDate)>parseInt(searchForm.meet_endDate)){
 				layer.msg("开始时间不能大于结束时间");
 				return false;
 			}
@@ -282,7 +282,7 @@ var editPostMeetingDialog = {
 								if(data.result.status == 'OK'){
 									//初始化会议类型
 									$("#win_post_meeting_form").find("#edit_meeting_type").html("");
-									var htmlPreFix = "<dt>类型 ：</dt>";
+									var htmlPreFix = "<dt>会议类型 ：</dt>";
 									var html = "";
 									$.each(data.entityList,function(index){
 										var checked = "";
@@ -333,12 +333,25 @@ var editPostMeetingDialog = {
 										editPostMeetingDialog.close(_this);
 									});
 									if(!_formdata.isEdit){
-										$("#win_post_meeting_form").find("#meetingDateStr").attr("disabled", true);
-										$("#win_post_meeting_form").find("#meetingNotes").attr("disabled", true);
-										$("#win_post_meeting_form").find("#edit_meeting_type").find("input:radio").attr("disabled", true);
-										$("#win_post_meeting_form").find("#win_ok_btn").attr("disabled",true);
-										$("#win_post_meeting_form").find("#win_cancel_btn").attr("disabled", true);	
+										$("#win_post_meeting_form").find("#div_meetingDateStr").html("<dd>" + _formdata.meetingDateStr  +"</dd>")
+										var meetingTypeName;
+										$.each(meetingSearchPanel.meetingTypeList,function(){
+											if(_formdata.meetingType == this.code){
+												meetingTypeName = this.name;
+												return false;
+											}
+										});
+										$("#win_post_meeting_form").find("#edit_meeting_type").html("<dt>会议类型 ：</dt><dd>" + meetingTypeName + "</dd>");
+										
+										$("#win_post_meeting_form").find("#div_meetingNotes").html("<dd>" + _formdata.meetingNotes + "</dd>")
+										
+										$("#win_post_meeting_form").find("#win_ok_btn").hide()
+										$("#win_post_meeting_form").find("#win_cancel_btn").hide();	
 										$("#win_post_meeting_form").find("#choose_up_file").hide();
+										$("#win_post_meeting_form").find("#div_show_up_file").hide();
+										$("#win_post_meeting_form").find(".affrim_line").hide();
+										
+										
 									}
 									
 								}else{
@@ -411,6 +424,11 @@ var editPostMeetingDialog = {
 		},
 		//关闭弹出框
 		close : function(_this){
+				//启用滚动条
+				 $(document.body).css({
+				   "overflow-x":"auto",
+				   "overflow-y":"auto"
+				 });
 				//关闭对外接口
 				_this.hideback.apply(_this);
 				$(_this.id).remove();
