@@ -25,7 +25,7 @@
 	                </dd>
 	            </dl>
 	            <dl class="fmdl fl_l clearfix" id="edit_meeting_type">
-	            		<dt>类型 ：</dt>
+	            		<dt>会议类型 ：</dt>
 	                 	<dd><label for=""><input name="meetingType" type="radio" >周纪要</label></dd>
 	                	<dd><label for=""><input name="meetingType" type="radio">月纪要</label></dd>
 	                 	<dd><label for=""><input name="meetingType" type="radio">季度纪要</label></dd>   
