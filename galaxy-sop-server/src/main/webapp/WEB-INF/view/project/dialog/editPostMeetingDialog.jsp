@@ -53,7 +53,7 @@
 
             <div style='display:block; height:80px;' id="div_show_up_file">
             	<dl class="fmdl fl_l" id="show_up_file">
-	                 <table style="width:100%;border: 1px;margin: auto;" id="filelist">
+	                 <table style="width:100%;margin: auto;" id="filelist" cellspacing="0" cellpadding="0">
 	                    <tr>
 	                      <th style="width:50%;">文件名称</th>
 	                      <th style="width:20%" align="center">文件大小</th>
