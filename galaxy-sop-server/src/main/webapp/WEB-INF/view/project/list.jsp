@@ -347,7 +347,7 @@
 	        		$('.pagination li').removeClass('active');
 	        		$('.pagination li').each(function(){
 	        			if($(this).text()==initParams.pageNum){
-	        				$(this).addClass('active')
+	        				$(this).addClass('active');
 	        			}
 	        		});
 	        	}
