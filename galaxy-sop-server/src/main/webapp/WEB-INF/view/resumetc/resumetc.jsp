@@ -35,7 +35,7 @@ select{padding:0 !important}
                   </tr>
                   <tr>
                     <th>姓名：</th>
-                    <td><input name="personName" id="personName" type="text" value=""  valType="NAME" regString="^[A-Za-z\u4e00-\u9fa5\.]+$" msg="姓名格式错误 长度限制20"></td>
+                    <td><input name="personName" id="personName" type="text" value=""  valType="OTHER" regString="^.{1,20}$"msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" ></td>
                   </tr>
                   <tr>
                     <th>成员关系：</th>
