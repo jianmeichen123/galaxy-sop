@@ -147,13 +147,13 @@ var meetGrid = {
 		meetingNameEvents : {
 			'click .meet_show_detail': function (e, value, row, index) {
 				var retStr = "";
-				$.each(meetingSearchPanel.meetingTypeList,function(){
+				/*$.each(meetingSearchPanel.meetingTypeList,function(){
 					if(row.meetingType == this.code){
 						retStr += this.name;
 						return false;
 					}
-				});
-				retStr += "纪要" + value;
+				});*/
+				retStr = "查看会议纪要信息";
 				var formdata = {
 						 id : row.id,
 						 meetingDateStr : row.meetingDateStr,
