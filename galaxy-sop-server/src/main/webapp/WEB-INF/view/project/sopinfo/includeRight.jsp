@@ -379,6 +379,7 @@ function setThyyInfo()
 			if(data.entityList != null && data.entityList.length>0)
 			{
 				$("#thyy_meet_div .new_b_bottom").remove();
+				$("#thyy_meet_div .no_con").hide();
 				$.each(data.entityList,function(){
 					
 					var div = $('<div class="new_b_bottom"></div>');
