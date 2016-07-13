@@ -20,7 +20,7 @@
 	                	<div id="div_meetingDateStr">
 	                		<input type="hidden" name="id" id="id" value="0"/>
 	                		<input type="hidden" name="meetingName" value="0" id="meetingName"/>
-	                    	<input type="text" class="datetimepickerHour txt time" id="meetingDateStr" name="meetingDateStr" valType="required" msg="<font color=red>*</font>会议时间不能为空"  />
+	                    	<input type="text" class="datetimepickerHour txt time" id="meetingDateStr" readonly="readonly" name="meetingDateStr" valType="required" msg="<font color=red>*</font>会议时间不能为空"  />
 	                    </div> 
 	                </dd>
 	            </dl>
