@@ -221,6 +221,8 @@
 		var projectDepartid = $("select[name='projectDepartid']").val();
 		var createUid = $("select[name='createUid']").val();
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
+		
+		var PageSize_ab = $( ".dropdown-toggle .page-size").text();
 		var formdata = {
 				_paramKey : 'projectList',
 				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
@@ -341,12 +343,7 @@
 	    		}
 	        	//返回附带参数功能代码
 	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
-	        		$('.pagination li').removeClass('active');
-	        		$('.pagination li').each(function(){
-	        			if($(this).text()==initParams.pageNum){
-	        				$(this).addClass('active')
-	        			}
-	        		})
+	        		$( ".dropdown-toggle .page-size").text(initParams.pageSize);
 	        	}
 	        }
 		});
