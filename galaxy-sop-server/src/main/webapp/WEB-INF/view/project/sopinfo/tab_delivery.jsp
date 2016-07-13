@@ -355,7 +355,7 @@ function save_deliver(){
 
 /**
  * 删除  事项
- */
+
 function to_del_deliver(selectRowId){
 	var _url = Constants.sopEndpointURL + '/galaxy/delivery/todeldeliver/';
 	$.getHtml({
@@ -367,6 +367,27 @@ function to_del_deliver(selectRowId){
 		}
 	});
 	return false;
+} */
+function to_del_deliver(selectRowId){
+	layer.confirm('你确定要删除吗?', 
+		{
+		  btn: ['确定', '取消'] 
+		}, 
+		function(index, layero){
+			var _url =  Constants.sopEndpointURL + '/galaxy/delivery/deldelivery/'+selectRowId;
+			sendPostRequestByJsonObj(_url, {}, function(data){
+				if (data.result.status=="OK") {
+					layer.msg("删除成功");
+					removePop1();
+					$("#project_delivery_table").bootstrapTable('refresh');
+				} else {
+					layer.msg(data.result.message);
+				}
+			});
+		}, 
+		function(index){
+		}
+	);
 }
 
 function to_download_deliver(id){
