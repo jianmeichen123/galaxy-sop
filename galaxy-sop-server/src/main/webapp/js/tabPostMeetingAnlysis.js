@@ -225,7 +225,7 @@ var meetGrid = {
 				return false;
 			}
 			//兼容safari
-			if(searchForm.meet_startDate>searchForm.meet_endDate){
+			if(parseInt(searchForm.meet_startDate)>parseInt(searchForm.meet_endDate)){
 				layer.msg("开始时间不能大于结束时间");
 				return false;
 			}
