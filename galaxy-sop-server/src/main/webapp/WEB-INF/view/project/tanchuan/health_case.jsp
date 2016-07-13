@@ -9,7 +9,7 @@
 	<div class="title_bj" id="popup_name"></div>
 	
     <div class="form clearfix">
-        <div class="conference_all">
+        <div class="conference_all scroll_table">
         
         
 	     	<div class="min_document clearfix" id="health-custom-toolbar" style="display:none;" >
