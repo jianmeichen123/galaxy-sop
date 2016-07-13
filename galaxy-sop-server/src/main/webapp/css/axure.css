@@ -1229,7 +1229,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .creativetc{padding:0 20px 20px;width:800px;}
 .creativetc .tabtable_con{height:400px;}
 .creativetc .pjt_introduct{color:#535762;font-size: 12px;font-family: "宋体";margin: 0 0 5px 0;}
-.creativetc .pjt_introduct h3,.create_historytc .idea-title{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left;}
+.creativetc .pjt_introduct h3,.create_historytc .idea-title{color: #6b799f;font-weight: normal;font-size: 20px;font-family: "微软雅黑";height: 30px;line-height: 30px;float: left; overflow: hidden;}
 .creativetc .pjt_introduct .pjt_brf{margin:5px 0 0 0;}
 .creativetc .pjt_introduct .pjt_brf li{float: left;margin:0 20px 0 0;line-height: 20px;}
 .creativetc .tablink li{min-width:55px;text-align: center;}
