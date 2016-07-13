@@ -283,7 +283,7 @@
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
 		//返回附带参数功能代码
-		var initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
+		var initParams ;
 		$("button[action='querySearch']").click(function(){
 			initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
 		});
@@ -304,6 +304,7 @@
 	        search: false,
 	        //返回附带参数功能代码
 	        queryParams : function(param){
+	        	initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
 	    		if(typeof(initParams) !== 'undefined'){
 	    			param.pageNum = initParams.pageNum - 1;
 	        		param.pageSize = initParams.pageSize;
@@ -338,6 +339,7 @@
 	        	if($("#showResetBtn").val() == '1'){
 	    			$("#resetBtn").removeClass("none");
 	    		}
+	        	initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
 	        	//返回附带参数功能代码
 	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
 	        		$('.pagination li').removeClass('active');
