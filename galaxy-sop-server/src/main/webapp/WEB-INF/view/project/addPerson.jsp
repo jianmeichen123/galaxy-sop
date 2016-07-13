@@ -41,7 +41,7 @@
         <dd><input type="text" id="personIdcard" name="personIdcard" value="" class="txt" placeholder="身份证号码" allowNULL="yes" valType="IDENTITY" msg="<font color=red>*</font>身份证号码格式不正确"/></dd>
       </dl>
       <dl class="fmdl">
-        <dt>职位：</dt>
+        <dt>当前职务：</dt>
         <dd><input type="text" id="personDuties" name="personDuties" value="" class="txt" placeholder="职位" allowNULL="yes" msg="<font color=red>*</font>职位不能为空"/></dd>
       </dl>
     </div>
