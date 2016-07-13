@@ -341,7 +341,7 @@ var editPostMeetingDialog = {
 												return false;
 											}
 										});
-										$("#win_post_meeting_form").find("#edit_meeting_type").html("<dt>会议类型 ：</dt><dd>" + meetingTypeName + "</dd>");
+										$("#win_post_meeting_form").find("#edit_meeting_type").html("<dt class='edit_meeting_type_dt'>会议类型 ：</dt><dd class='edit_meeting_type_dd'>" + meetingTypeName + "</dd>");
 										
 										$("#win_post_meeting_form").find("#div_meetingNotes").html("<dd>" + _formdata.meetingNotes + "</dd>")
 										
