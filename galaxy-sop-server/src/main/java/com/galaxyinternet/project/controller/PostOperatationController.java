@@ -152,6 +152,9 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 					meetingRecord.getPageSize());
 			//运营分析 类型投后运营会议
 			meetingRecord.setRecordType(RecordType.OPERATION_MEETING.getType());
+			if(meetingRecord.getMeetingTypeList() == null || meetingRecord.getMeetingTypeList().size() <= 0){
+				meetingRecord.setMeetingTypeNull("true");
+			}
 			Page<MeetingRecord> pageList = meetingService.queryPageList(meetingRecord, pageRequest);
 			responseBody.setPageList(pageList);
 		} catch (DaoException e) {

@@ -8,6 +8,10 @@ var meetingSearchPanel = {
 		initData : function(){
 			//初始化查询按钮
 			$("#searchBtn").click(meetGrid.searchData);
+			
+			
+			
+			
 			$("#addPostMeetingBtn").click(function(){
 				var formdata = {
 						 isEdit : true
@@ -31,7 +35,9 @@ var meetingSearchPanel = {
 							this.name +
 							"</label>";
 				});
+				
 				$("#search_meet_type").html(html);
+				$("#search_meet").find(":checkbox").change(meetGrid.searchData);
 				//初始化日历控件
 				$("#post_meeting_anlysis").find(".datepicker").val("");
 				meetGrid.init(pInfo);
@@ -74,6 +80,7 @@ var meetGrid = {
 			      cardView: false,          //是否显示详细视图
 			      detailView: false,          //是否显示父子表
 			      onLoadSuccess : function(data){
+			    	  pageMode = false;
 			      },
 			      columns: [
 					{
@@ -202,8 +209,7 @@ var meetGrid = {
 	        		}, function(index){
 	        		  //按钮【按钮二】的回调
 	        		});
-	        	
-	        	
+ 	
 	        },
 	        'click .meet_download': function (e, value, row, index) {
 	        	try {
@@ -216,6 +222,9 @@ var meetGrid = {
 	        }
 		},
 		queryParams : function(params){
+			if(pageMode){
+				params.pageNum = 0;
+			}
 			var searchForm = $("#search_meet").serializeObject();
 			searchForm = jQuery.parseJSON(searchForm);
 			var startTime = (new Date(searchForm.meet_startDate+' 00:00:00'));		
@@ -251,6 +260,7 @@ var meetGrid = {
 			return params;
 		},
 		searchData : function(){
+			pageMode = true;
 			$('#meetGrid').bootstrapTable('refresh',meetGrid.queryParams);	 
 		 }
 }
@@ -481,7 +491,7 @@ function paramsContion(){
 
 
 
-
+var pageMode = false; 
 var pInfo;
 
 

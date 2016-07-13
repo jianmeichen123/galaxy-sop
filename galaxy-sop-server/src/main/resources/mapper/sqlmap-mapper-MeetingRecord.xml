@@ -54,6 +54,7 @@
 							</foreach>
 			   		</when>
 			   </choose>
+			  <if test="meetingTypeNull !=null"> and 1 = 2</if>
 			   
 		      <if test="meetingResult != null" >and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
 		      <if test="meetingNotes != null" >and meeting_notes = #{meetingNotes,jdbcType=VARCHAR} </if>
