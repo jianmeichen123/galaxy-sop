@@ -282,7 +282,7 @@ var editPostMeetingDialog = {
 								if(data.result.status == 'OK'){
 									//初始化会议类型
 									$("#win_post_meeting_form").find("#edit_meeting_type").html("");
-									var htmlPreFix = "<dt>类型 ：</dt>";
+									var htmlPreFix = "<dt>会议类型 ：</dt>";
 									var html = "";
 									$.each(data.entityList,function(index){
 										var checked = "";
@@ -424,6 +424,11 @@ var editPostMeetingDialog = {
 		},
 		//关闭弹出框
 		close : function(_this){
+				//启用滚动条
+				 $(document.body).css({
+				   "overflow-x":"auto",
+				   "overflow-y":"auto"
+				 });
 				//关闭对外接口
 				_this.hideback.apply(_this);
 				$(_this.id).remove();
