@@ -400,6 +400,11 @@ function interviewsave(){
 				layer.msg("保存成功");
 				//$(".meetingtc").find("[data-close='close']").click();
 				removePop1();
+				//启用滚动条
+				 $(document.body).css({
+				   "overflow-x":"auto",
+				   "overflow-y":"auto"
+				 });
 				$("#projectProgress_1_table").bootstrapTable('refresh');
 			} else {
 				layer.msg(data.result.message);

@@ -444,6 +444,11 @@ function interviewsave(){
 			if (data.result.status=="OK") {
 				layer.msg("保存成功");
 				removePop1();
+				//启用滚动条
+				 $(document.body).css({
+				   "overflow-x":"auto",
+				   "overflow-y":"auto"
+				 });
 				$("#data-table").bootstrapTable('refresh');
 			} else {
 				layer.msg(data.result.message);
