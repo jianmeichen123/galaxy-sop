@@ -57,16 +57,6 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 								}
 							});
 					}else{
-						/**
-						 * 最多只能上传10个文件
-						 */
-						var max_files = 10;
-	                    if (up.files.length > max_files) {
-	                    	//uploader.removeFile(file);
-	                    	$(".pop").hideLoading();
-	                    	layer.msg("最多只能传10个文件!");
-							return;
-						}
 						up.settings.multipart_params = params;
 						uploader.start();
 					}
@@ -88,7 +78,17 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				}
              }, 
 			FilesAdded: function(up, files) {
+				var max_files = 10;
 				plupload.each(files, function(file) {
+					var fileLength = $("#"+fileListId+" tr:gt(0)").length;
+					/**
+					 * 最多只能上传10个文件
+					 */
+                    if (fileLength >= max_files) {
+                    	uploader.removeFile(file);
+                    	layer.msg("最多只能传10个文件!");
+						return;
+					}
                     /**
                      * 生成上传文件的列表
                      */
