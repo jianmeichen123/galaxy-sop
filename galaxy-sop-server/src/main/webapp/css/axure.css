@@ -1066,7 +1066,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .emailtc .fmdl dd textarea{ height:150px; width:360px;line-height: 20px;}
 .emailtc .fmdl dd table{border:1px solid #e9ebf2; border-radius:6px;height:auto; width:370px}
 .emailtc .fmdl dd table th{background-color: #f9fafc;border-bottom: 0;}
-.emailtc .fmdl dd table th,.emailtc .fmdl dd table td{padding-left:5px;}
+.emailtc .fmdl dd table th,.emailtc .fmdl dd table td,.myprojecttc table th,.myprojecttc table td{padding-left:5px;}
 .emailtc .fmdl dd .txt,.emailtc .fmdl dd textarea{font-size: 12px;color:#535762;}
 .emailtc .checkbox{margin:0 0 0 110px;}
 .emailtc .btnbox .pubbtn{ margin:20px 0 0 110px; display:inline-block; *display:inline; zoom:1;}
