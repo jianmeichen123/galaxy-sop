@@ -632,7 +632,7 @@
 					html = "<span class='content'>状态：未上传</span><span class='content'>更新时间：无</span>";
 				}else{
 					html = "<span class='content'>状态：已上传</span><span class='content'>更新时间："+data.entity.createDate+"</span>" + 
-						"<a href='javascript:;' class='ico f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
+						"<a href='javascript:;' class=' f1' data-btn='download' onclick='downloadBusinessPlan(" + data.entity.id +")' >下载</a>";
 				}
 				$("#business_plan_dd").html(html);
 			}else{

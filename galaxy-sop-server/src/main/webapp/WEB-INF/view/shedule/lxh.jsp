@@ -249,7 +249,7 @@
 	});
 
 	var initParams,
-			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL});
+			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL}),
 			initPageSize = 10;
 	if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 		initPageSize = pageParams.pageSize;
