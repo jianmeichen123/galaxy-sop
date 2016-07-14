@@ -285,9 +285,13 @@
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
 		//返回附带参数功能代码
-		var initParams;
+		var initParams,
+			initPageSize = 10;
 		$("button[action='querySearch']").click(function(){
 			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
+			if(typeof(initParams) !== 'undefined' && initParams.pageSize !=''){
+				initPageSize = initParams.pageSize;
+			}
 		});
 		/**
 		 * 初始化项目列表
@@ -295,7 +299,7 @@
 		 */
 		$('#project-table').bootstrapTable({
 			queryParamsType: 'size|page',
-			pageSize:cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : Constants.sopEndpointURL})!=='undefined'?cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : Constants.sopEndpointURL}).pageSize:10,
+			pageSize:initPageSize,
 			showRefresh : false,
 			url : $('#project-table').attr("data-url"),
 			sidePagination: 'server',
@@ -362,6 +366,7 @@
 	    				})
 	    			}
 	    		}
+	        	initPageSize=10;
 	        }
 		});
 		/**
