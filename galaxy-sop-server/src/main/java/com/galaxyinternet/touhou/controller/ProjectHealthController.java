@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.touhou.ProjectHealthBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.model.Page;
@@ -27,10 +28,12 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.touhou.Delivery;
+import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.touhou.ProjectHealth;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectHealthService;
+import com.galaxyinternet.service.ProjectService;
 
 
 /**
@@ -45,7 +48,8 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 
 	@Autowired
 	private ProjectHealthService projectHealthService;
-
+	@Autowired
+	private ProjectService projectService;
 	
 	private String tempfilePath;
 
@@ -84,10 +88,11 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	/**
 	 * 添加  健康记录
 	 */
+	@com.galaxyinternet.common.annotation.Logger
 	@ResponseBody
 	@RequestMapping(value = "/addhealth", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Delivery> addHealth(@RequestBody ProjectHealth projectHealth,HttpServletRequest request,HttpServletResponse response ) {
-		ResponseData<Delivery> responseBody = new ResponseData<Delivery>();
+	public ResponseData<ProjectHealth> addHealth(@RequestBody ProjectHealth projectHealth,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		
 		if(projectHealth == null || projectHealth.getProjectId() == null){
@@ -96,11 +101,22 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 		}
 		
 		try {
+			Project project = projectService.queryById(projectHealth.getProjectId());
 			projectHealth.setCreatedUid(user.getId()); 
 			projectHealth.setUserName(user.getRealName());
 			Long id = projectHealthService.insert(projectHealth);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(id);
+			
+			String messageType = "";
+			if(projectHealth.getHealthState() == 1){
+				messageType = "13.1";
+			}else if(projectHealth.getHealthState() == 2){
+				messageType = "13.2";
+			}else if(projectHealth.getHealthState() == 3){
+				messageType = "13.3";
+			}
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project.getProjectName(), project.getId(), messageType, UrlNumber.one);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "添加失败"));
 			logger.error("addHealth 添加失败",e);
