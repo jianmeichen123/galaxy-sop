@@ -248,13 +248,18 @@
 		$optionHtml.insertAfter($('option[value=""]'));
 	});
 
-	var initParams;
+	var initParams,
+			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL});
+			initPageSize = 10;
+	if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
+		initPageSize = pageParams.pageSize;
+	}
 	$("button[action='querySearch']").click(function(){
 		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL});
 	});
 	$("#meeting-shedule-list").bootstrapTable({
 		queryParamsType: 'size|page',
-		pageSize:10,
+		pageSize:initPageSize,
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
@@ -285,24 +290,25 @@
 
 
         	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
-    			if(initParams.pageNum==1){
-    				return;
-    			}else{
-    				$('.pagination li').removeClass('active');
-    				if($('.pagination .page-number').length< getCookieValue("tempPageNum")){
-    					for(var i=$('.pagination .page-number').length; i>0; i--){
-    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
-    					}
-    				}
+	    		if(initParams.pageNum==1){
+	    			return;
+	    		}else{
+	    			$('.pagination li').removeClass('active');
+	    			if($('.pagination .page-number').length< initParams.pageNum){
+	    				for(var i=$('.pagination .page-number').length; i>0; i--){
+	    					$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
+	    				}
+	    			}
 
-    				$('.pagination li').each(function(){
-    	    			if($(this).text()==initParams.pageNum){
-    	    				$(this).click();
-    	    				//$(this).addClass('active')
-    	    			}
-    				})
-    			}
-    		}
+	    			$('.pagination li').each(function(){
+	    	    		if($(this).text()==initParams.pageNum){
+	    	    			$(this).click();
+	    	    			//$(this).addClass('active')
+	    	    		}
+	    			})
+	    		}
+	    	}
+	        initPageSize=10;
         	
 			var options = {
 				"singleDatePicker": false,
