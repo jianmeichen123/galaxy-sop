@@ -183,7 +183,7 @@ function loadTempList()
 					if(this.fileName != null)
 					{
 						var $td = $('<td></td>');
-						$td.append('<a data-act="download" data-tid='+this.id+' href="javascript:; " class="blue">下载</a>');
+						$td.append('<a data-act="download" data-tid='+this.id+' href="javascript:; " class="blue" style="margin-right:10px;">下载</a>');
 						if(editableTypes.indexOf(this.worktype)>=0)
 						{
 							$td.append('<a data-act="update" data-tid='+this.id+' href="javascript:; " class="blue">更新</a>');
