@@ -354,7 +354,7 @@
 	    				return;
 	    			}else{
 	    				$('.pagination li').removeClass('active');
-	    				if($('.pagination .page-number').length< getCookieValue("tempPageNum")){
+	    				if($('.pagination .page-number').length< initParams.pageNum){
 	    					for(var i=$('.pagination .page-number').length; i>0; i--){
 	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
 	    					}
