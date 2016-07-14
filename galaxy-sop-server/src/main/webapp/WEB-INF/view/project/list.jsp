@@ -285,9 +285,15 @@
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
 		//返回附带参数功能代码
-		var initParams;
+		var initParams,
+			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
+			initPageSize = 10;
+		
+		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
+			initPageSize = pageParams.pageSize;
+		}
 		$("button[action='querySearch']").click(function(){
-			initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
+			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
 		});
 		/**
 		 * 初始化项目列表
@@ -295,7 +301,7 @@
 		 */
 		$('#project-table').bootstrapTable({
 			queryParamsType: 'size|page',
-			pageSize:10,
+			pageSize:initPageSize,
 			showRefresh : false,
 			url : $('#project-table').attr("data-url"),
 			sidePagination: 'server',
@@ -348,7 +354,7 @@
 	    				return;
 	    			}else{
 	    				$('.pagination li').removeClass('active');
-	    				if($('.pagination .page-number').length< getCookieValue("tempPageNum")){
+	    				if($('.pagination .page-number').length< initParams.pageNum){
 	    					for(var i=$('.pagination .page-number').length; i>0; i--){
 	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
 	    					}
@@ -362,6 +368,7 @@
 	    				})
 	    			}
 	    		}
+	        	initPageSize=10;
 	        }
 		});
 		/**

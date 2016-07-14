@@ -1247,6 +1247,19 @@ var cookieOperator = {
 		//$.cookie(tempParamKey, JSON.stringify(formdata._param),{expires:cookietime,path:formdata._path});
 		forwardWithHeader(formdata._url);
 	},
+	getDataNoDelete:function(formdata){
+		var tempParamKey;
+		if(formdata._paramKey){
+			tempParamKey = formdata._paramKey;
+		}else{
+			tempParamKey = cookieOperator.paramKey;
+		}
+		var retStr = getCookieValue(tempParamKey);
+		if(retStr){
+			return jQuery.parseJSON(retStr);
+		}
+		return;
+	},
 	pullCookie : function(formdata){
 		var tempParamKey;
 		if(formdata._paramKey){

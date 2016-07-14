@@ -36,6 +36,11 @@ function editProjectName()
 		layer.msg("请输入新项目名称.");
 		return;
 	}
+	if(projectName.length>24)
+	{
+		layer.msg("提示：项目名称过长，请修改后保存.");
+		return;
+	}
 	if($.trim(projectName) == $.trim(ideaInfo.projectName))
 	{
 		layer.msg("新项目名称与旧项目名称相同.");
