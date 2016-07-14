@@ -61,7 +61,7 @@
 	$(function(){
 		createMenus(3);
 		var initParams,
-				pageParams=cookieOperator.pullCookie({_paramKey : 'messageList',_path : Constants.sopEndpointURL}),
+				pageParams=cookieOperator.getDataNoDelete({_paramKey : 'messageList',_path : Constants.sopEndpointURL}),
 				initPageSize = 10;
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 			initPageSize = pageParams.pageSize;
