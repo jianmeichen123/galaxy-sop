@@ -287,7 +287,7 @@
 		//返回附带参数功能代码
 		var initParams;
 		$("button[action='querySearch']").click(function(){
-			initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList'});
+			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
 		});
 		/**
 		 * 初始化项目列表
@@ -295,7 +295,7 @@
 		 */
 		$('#project-table').bootstrapTable({
 			queryParamsType: 'size|page',
-			pageSize:10,
+			pageSize:cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : Constants.sopEndpointURL})!=='undefined'?cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : Constants.sopEndpointURL}).pageSize:10,
 			showRefresh : false,
 			url : $('#project-table').attr("data-url"),
 			sidePagination: 'server',
