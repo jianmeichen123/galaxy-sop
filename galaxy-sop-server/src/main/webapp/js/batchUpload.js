@@ -2,7 +2,7 @@
 /**
  * 
  * @param fileurl 上传文件url
- * @param pid 项目id
+ * @param sendFileUrl 执行文件上传url
  * @param fieInputId 文件输入的id
  * @param selectBtnId 选择文件按钮的id
  * @param submitBtnId 上传按钮的id
