@@ -1623,7 +1623,7 @@ font-family: "宋体";
     border-top-left-radius: 0;}
 .tabtable_con_jbxx table{padding:0px 20px 10px;}
 .compile_on_center{position: relative;}
-.compile_on_right{ position: absolute; right:20px; top: 5px;}
+.compile_on_right{ position: absolute; right:20px; top: 12px;}
 .compile_on_right span{ float:left; border-radius:4px; margin-right:20px;  cursor:pointer;}
 .compile_on_left{margin-left:20px; overflow:hidden;padding-bottom:20px;}
 .compile_on_left span{ float:left; border-radius:4px; margin-right:20px; cursor:pointer;}
