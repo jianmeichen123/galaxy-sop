@@ -1242,7 +1242,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .creativetc .block .top dl{width:258px;height:28px;padding:0;}
 .creativetc .block dt{width:86px;color:#3e4351;text-align: right;}
 .creativetc .block .bottom dd{width:655px;float: left;}
-.creativetc .block button{margin:10px 0 0 15px;cursor: pointer;}
+/* .creativetc .block button{margin:10px 0 0 15px;cursor: pointer;} */
 .creativetc .block_t{padding: 10px;height:369px;overflow:auto;}
 .creativetc .btnbox_f1 button{display: inline-block;margin:0 0 10px 5px;}
 .creativetc .td1{width:27%;padding-left:3%;}
