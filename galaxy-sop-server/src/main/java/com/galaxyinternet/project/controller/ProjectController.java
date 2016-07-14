@@ -1259,6 +1259,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			MeetingScheduling tm = meetingSchedulingService.queryOne(m);
 			if (!tm.getStatus().equals(DictEnum.meetingResult.待定.getCode())) {
 				tm.setStatus(DictEnum.meetingResult.待定.getCode());
+				tm.setReserveTimeStartStr(null);
+				tm.setReserveTimeEndStr(null);
+				tm.setReserveTimeEnd(null);
+				tm.setReserveTimeStart(null);
 				tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
 				tm.setUpdatedTime((new Date()).getTime());
 				tm.setApplyTime(new Timestamp(new Date().getTime()));
@@ -1353,6 +1357,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if (!tm.getStatus().equals(DictEnum.meetingResult.待定.getCode())) {
 				tm.setStatus(DictEnum.meetingResult.待定.getCode());
 				tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+				tm.setReserveTimeStartStr(null);
+				tm.setReserveTimeEndStr(null);
+				tm.setReserveTimeEnd(null);
+				tm.setReserveTimeStart(null);
 				tm.setUpdatedTime((new Date()).getTime());
 				tm.setApplyTime(new Timestamp(new Date().getTime()));
 				meetingSchedulingService.updateById(tm);
@@ -1455,6 +1463,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if (!tm.getStatus().equals(DictEnum.meetingResult.待定.getCode())) {
 				tm.setStatus(DictEnum.meetingResult.待定.getCode());
 				tm.setScheduleStatus(DictEnum.meetingSheduleResult.待排期.getCode());
+				tm.setReserveTimeStartStr(null);
+				tm.setReserveTimeEndStr(null);
+				tm.setReserveTimeEnd(null);
+				tm.setReserveTimeStart(null);
 				tm.setUpdatedTime((new Date()).getTime());
 				tm.setApplyTime(new Timestamp(new Date().getTime()));
 				meetingSchedulingService.updateById(tm);
