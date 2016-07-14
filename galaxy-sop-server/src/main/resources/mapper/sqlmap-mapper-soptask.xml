@@ -95,16 +95,16 @@
 				<if test="projectId != null"> and project_id =#{projectId}</if>
 				<if test="taskName != null"> and task_name =#{taskName}</if>
 				<if test="flagUrl != '' and flagUrl=='jz' ">
-				        and task_flag in ('2','3','4','5') <!--and assign_uid =#{assignUid} -->
+				        and task_flag in ('2','3','4','5') <!--and assign_uid =#{assignUid} and task_status!='taskStatus:3'-->
 				</if>
 				<if test="flagUrl != '' and flagUrl=='pz' ">
-				        and task_flag in ('8','9') <!--and assign_uid =#{assignUid} -->
+				        and task_flag ='8' <!--and assign_uid =#{assignUid} and task_status!='taskStatus:3'-->
 				</if>
 				 <if test="flagUrl != '' and flagUrl=='jl' ">
-				        and task_flag ='0' <!--and assign_uid =#{assignUid} -->
+				        and task_flag ='0' <!--and assign_uid =#{assignUid} and task_status!='taskStatus:3'-->
 				 </if>
 				 <if test="flagUrl != '' and flagUrl=='gq' ">
-				        and task_flag ='7' <!--and assign_uid =#{assignUid} -->
+				        and task_flag ='9' <!--and assign_uid =#{assignUid}   and task_status!='taskStatus:3'-->
 				 </if>
 				<!--  <if test="flagUrl != '' and flagUrl=='index' ">
 				        and task_status!='taskStatus:3'
