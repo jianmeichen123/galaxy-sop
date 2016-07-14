@@ -286,7 +286,7 @@
 	$(function(){
 		//返回附带参数功能代码
 		var initParams,
-			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
+			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : Constants.sopEndpointURL}),
 			initPageSize = 10;
 		
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){

@@ -60,10 +60,15 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(3);
-		var initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : Constants.sopEndpointURL});
+		var initParams,
+				pageParams=cookieOperator.pullCookie({_paramKey : 'messageList',_path : Constants.sopEndpointURL}),
+				initPageSize = 10;
+		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
+			initPageSize = pageParams.pageSize;
+		}
 		$('#message-table').bootstrapTable({
 			queryParamsType: 'size|page',
-			pageSize:10,
+			pageSize:initPageSize,
 			showRefresh : false,
 			url : platformUrl[$('#message-table').attr("data-url")],
 			sidePagination: 'server',
@@ -74,6 +79,7 @@
 	        search: false,
 	        //返回附带参数功能代码
 	        queryParams : function(param){
+	        	initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : Constants.sopEndpointURL});
 	    		if(typeof(initParams) !== 'undefined'){
 	    			param.pageNum = initParams.pageNum - 1;
 	        		param.pageSize = initParams.pageSize;
@@ -83,15 +89,26 @@
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
-	        	//返回附带参数功能代码
 	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
-	        		$('.pagination li').removeClass('active');
-	        		$('.pagination li').each(function(){
-	        			if($(this).text()==initParams.pageNum){
-	        				$(this).addClass('active')
-	        			}
-	        		})
-	        	}
+	    			if(initParams.pageNum==1){
+	    				return;
+	    			}else{
+	    				$('.pagination li').removeClass('active');
+	    				if($('.pagination .page-number').length< initParams.pageNum){
+	    					for(var i=$('.pagination .page-number').length; i>0; i--){
+	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
+	    					}
+	    				}
+
+	    				$('.pagination li').each(function(){
+	    	    			if($(this).text()==initParams.pageNum){
+	    	    				$(this).click();
+	    	    				//$(this).addClass('active')
+	    	    			}
+	    				})
+	    			}
+	    		}
+	        	initPageSize=10;
 	        }
 		});
 		
