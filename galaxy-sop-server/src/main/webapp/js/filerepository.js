@@ -138,14 +138,12 @@ var fileGrid = {
 			}, {
 				field : 'operate',
 				title : '操作',
-				align : 'center',
 				events : fileGrid.updateEvents,
 				formatter : fileGrid.updateFormatter
 
 			}, {
 				field : 'operate2',
 				title : '附件查看',
-				align : 'center',
 				events : fileGrid.downloadEvents,
 				formatter : fileGrid.downloadFomatter
 

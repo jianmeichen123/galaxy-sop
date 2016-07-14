@@ -112,16 +112,16 @@ function setCheckLine(data){
 				data-page-list="[10,20,30]" data-toolbar="#custom-toolbar">
 				<thead>
 				    <tr>
-				    	<th data-field="projectCode" data-align="center" class="data-input">项目编码</th>				    	
-			        	<th data-field="projectName" data-align="center" class="data-input" data-formatter="projectNameFormatter">项目名称</th>			        	
-			        	<th data-field="progress" data-align="center" class="data-input" data-formatter="progressFormatter">项目进度</th>
-			        	<th data-field="projectCareerline" data-align="center" class="data-input">投资事业线</th>
-			        	<th data-field="hhrName" data-align="center" class="data-input">合伙人</th>
-			        	<th data-field="createUname" data-align="center" class="data-input">投资经理</th>
-			        	<th data-field="type" data-align="center" class="data-input">项目类型</th>
-			        	<th data-field="projectContribution" data-align="center" class="data-input">投资金额（万）</th>
-			        	<th data-field="createDate" data-align="center" class="data-input" data-sortable="true">创建日期</th>
-			        	<th data-field="updateDate" data-align="center" class="data-input">最后修改时间</th>
+				    	<th data-field="projectCode"  class="data-input">项目编码</th>				    	
+			        	<th data-field="projectName"  class="data-input" data-formatter="projectNameFormatter">项目名称</th>			        	
+			        	<th data-field="progress"  class="data-input" data-formatter="progressFormatter">项目进度</th>
+			        	<th data-field="projectCareerline"  class="data-input">投资事业线</th>
+			        	<th data-field="hhrName"  class="data-input">合伙人</th>
+			        	<th data-field="createUname"  class="data-input">投资经理</th>
+			        	<th data-field="type"  class="data-input">项目类型</th>
+			        	<th data-field="projectContribution"  class="data-input">投资金额（万）</th>
+			        	<th data-field="createDate"  class="data-input" data-sortable="true">创建日期</th>
+			        	<th data-field="updateDate"  class="data-input">最后修改时间</th>
  					</tr>	
  				</thead>
 			</table>

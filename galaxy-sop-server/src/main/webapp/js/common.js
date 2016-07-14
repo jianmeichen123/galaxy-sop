@@ -810,7 +810,7 @@ function intervierInfoFormat(value, row, index){
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
 	
-	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;padding:10px 0;margin-left:30px;\">"+
 				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
@@ -835,7 +835,7 @@ function metcolumnFormat(value, row, index){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 	}
 	var str="<label class=\"meeting_result\">"+row.meetingResultStr+"</label>"
-	rc = "<div style=\"text-align:left;margin-left:30px;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;padding:10px 0;margin-left:30px;\">"+
 				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+str+
 				"</br>会议录音："+fileinfo+
@@ -998,6 +998,13 @@ function tc_formatLog(value,row,index){
 //LONG time format
 function longTimeFormat(value, row, index){
 	return Number(value).toDate().format("yyyy/MM/dd")
+}
+function longTime_Format(value, row, index){
+	if(value){
+		return Number(value).toDate().format("yyyy-MM-dd")
+	}else
+		return "-";
+	
 }
 function longTimeFormatChines(value, row, index){
 	return Number(value).toDate().format("yyyy年MM月dd日 hh:mm:ss")
@@ -1175,6 +1182,102 @@ function createUserOptions(url, name, mark){
 	});
 }
 
+/*
+ * 
+ * 判断对象是否为数组
+ * */
+function isArray(obj) {    
+	return Object.prototype.toString.call(obj) === '[object Array]';     
+} 
 
 
+
+
+function setCookie(name,value,hours,path){
+	var name = escape(name);
+	var value = escape(value);
+	var expires = new Date();
+	expires.setTime(expires.getTime() + hours * 60*60*1000);
+	path = path =="" ? "":";path=" + path;
+	_expires = (typeof hours) == "string" ? "": ";expires=" + expires.toUTCString();
+	document.cookie = name + "=" + value + _expires + path;
+}
+function getCookieValue(name){
+	var name = escape(name);
+	var allcookies = document.cookie;
+	name += "=";
+	var pos = allcookies.indexOf(name);
+	if(pos != -1){
+		var start = pos + name.length;
+		var end = allcookies.indexOf(";",start);
+		if(end == -1){
+			end = allcookies.length;
+		}
+		var value = allcookies.substring(start,end);
+		return unescape(value);
+	} else{
+		return "";
+	}
+}
+function deleteCookie(name,path){
+	var name = escape(name);
+	var expires = new Date(0);
+	path = path == "" ? "" : ";path=" + path;
+	document.cookie = name + "=" + ";expires=" + expires.toUTCString() + path;
+}
+var cookieOperator = {
+	paramKey : 'parameter',
+	/*
+	 * 将信息保存到cookie然后提交
+	 * param : 
+	 * 		_paramKey : 参数键 (默认：parameter)
+	 * 		_url : url
+	 * 		_path : path
+	 * 		_param : 参数值
+	 * 
+	 * */
+	forwardPushCookie : function(formdata){
+		var tempParamKey;
+		if(formdata._paramKey){
+			tempParamKey = formdata._paramKey;
+		}else{
+			tempParamKey = cookieOperator.paramKey;
+		}
+		setCookie(tempParamKey,JSON.stringify(formdata._param),6,formdata._path);
+		//$.cookie(tempParamKey, JSON.stringify(formdata._param),{expires:cookietime,path:formdata._path});
+		forwardWithHeader(formdata._url);
+	},
+	pullCookie : function(formdata){
+		var tempParamKey;
+		if(formdata._paramKey){
+			tempParamKey = formdata._paramKey;
+		}else{
+			tempParamKey = cookieOperator.paramKey;
+		}
+		var retStr = getCookieValue(tempParamKey);
+		//var retStr = $.cookie(tempParamKey);
+		if(retStr){
+			deleteCookie(tempParamKey,formdata._path);
+			//$.removeCookie(tempParamKey);
+			return jQuery.parseJSON(retStr);
+		}
+		return;
+		
+	}
+}
+
+function init_bootstrapTable(table_id,page_size){
+	$('#'+table_id).bootstrapTable({
+		queryParamsType: 'size|page', // undefined
+		pageSize:page_size,
+		showRefresh : false ,
+		sidePagination: 'server',
+		method : 'post',
+		pagination: true,
+		uniqueId: "id", 
+		idField : "id",
+		clickToSelect: true,
+        search: false
+	});
+}
 

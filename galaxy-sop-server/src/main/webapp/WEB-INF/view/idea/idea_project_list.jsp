@@ -47,14 +47,14 @@
 				data-page-list="[10, 20, 30]" data-toolbar="#idea-project-table-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-				    	<th data-field="ideaCode" data-align="center" class="data-input">创意编码</th>
-			        	<th data-field="ideaName" data-align="center" class="data-input" data-formatter="ideaNameLinkFormatter2">创意名称</th>
-			        	<th data-field="projectName" data-align="center" class="data-input" data-formatter="proNameLinkFormatter">关联项目</th>
-			        	<th data-field="departmentDesc" data-align="center" class="data-input">所属事业线</th>
-			        	<th data-field="projectProgressDesc" data-align="center" class="data-input">进度</th>
-			        	<th data-field="hhrName" data-align="center" class="data-input">合伙人</th>
-			        	<th data-field="claimantUname" data-align="center" class="data-input">投资经理</th>
-			        	<th data-field="createdTime" data-align="center" class="data-input" data-formatter="datetimeFormatter">提出时间</th>
+				    	<th data-field="ideaCode"  class="data-input">创意编码</th>
+			        	<th data-field="ideaName"  class="data-input" data-formatter="ideaNameLinkFormatter2">创意名称</th>
+			        	<th data-field="projectName"  class="data-input" data-formatter="proNameLinkFormatter">关联项目</th>
+			        	<th data-field="departmentDesc"  class="data-input">所属事业线</th>
+			        	<th data-field="projectProgressDesc"  class="data-input">进度</th>
+			        	<th data-field="hhrName"  class="data-input">合伙人</th>
+			        	<th data-field="claimantUname"  class="data-input">投资经理</th>
+			        	<th data-field="createdTime"  class="data-input" data-formatter="datetimeFormatter">提出时间</th>
  					</tr>	
  				</thead>
 			</table>

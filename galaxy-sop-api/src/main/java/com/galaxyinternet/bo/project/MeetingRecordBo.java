@@ -18,6 +18,9 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private int inpro; //是否项目内查看 1：是
 	private List<Long> proIdList;
 	
+	private String meetingTypeNull;
+	private List<String> meetingTypeList;
+	
 	private Integer pageNum;// 页码，默认是第一页
 	private Integer pageSize;// 每页显示的记录数，默认是10
 	
@@ -145,6 +148,18 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setDepartId(Long departId) {
 		this.departId = departId;
+	}
+	public List<String> getMeetingTypeList() {
+		return meetingTypeList;
+	}
+	public void setMeetingTypeList(List<String> meetingTypeList) {
+		this.meetingTypeList = meetingTypeList;
+	}
+	public String getMeetingTypeNull() {
+		return meetingTypeNull;
+	}
+	public void setMeetingTypeNull(String meetingTypeNull) {
+		this.meetingTypeNull = meetingTypeNull;
 	}
 	
 	

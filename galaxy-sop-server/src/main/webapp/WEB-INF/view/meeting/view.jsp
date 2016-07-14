@@ -93,7 +93,7 @@
 			<table id="data-table" data-url="<%=path %>/galaxy/project/progress/queryMeet"
 				data-method="post" data-side-pagination="server"
 				data-pagination="true" data-toolbar="#custom-toolbar"
-				data-page-list="[10,20,30]" data-id-field="id" data-unique-id="id"
+				data-page-list="[5,10,20]" data-id-field="id" data-unique-id="id"
 				data-show-refresh="false">
 				<colgroup >
 					<col style="width:30%;"> <!-- 名称 -->
@@ -102,10 +102,10 @@
 				</colgroup>
 				<thead>
 					<tr>
-						 <th data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-						<!-- <th data-field="hygk" data-align="center">会议概况</th> -->
-						<th data-align="center"  data-formatter="meetProInfoFormat" >项目信息</th>  
-						<th data-field="meetingNotes" data-align="center" data-formatter="meetFormatLog">会议纪要</th>
+						 <th  data-formatter="metcolumnFormat" data-class="th_no1">会议概况</th>
+						<!-- <th data-field="hygk" >会议概况</th> -->
+						<th   data-formatter="meetProInfoFormat" >项目信息</th>  
+						<th data-field="meetingNotes"  data-formatter="meetFormatLog">会议纪要</th>
 					</tr>
 				</thead>
 			</table>
@@ -142,7 +142,6 @@ $(function(){
 	$('#data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
-		pageList : [10, 20, 30 ],
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',

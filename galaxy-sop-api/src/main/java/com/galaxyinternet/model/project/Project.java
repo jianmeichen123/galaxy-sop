@@ -43,6 +43,7 @@ public class Project extends PagableEntity {
   	private Double finalValuations;//实际估值
   	private Double finalContribution;//实际投资
   	private Double finalShareRatio;//实际所占股份百分比
+	private Double serviceCharge;
   	private String companyLegal;//公司法人
   	private Long formationDate;//公司成立时间
   	//数据转换
@@ -499,5 +500,15 @@ public class Project extends PagableEntity {
 	public void setOperationalData(String operationalData) {
 		this.operationalData = operationalData;
 	}
+
+	public Double getServiceCharge() {
+		return serviceCharge;
+	}
+
+	public void setServiceCharge(Double serviceCharge) {
+		this.serviceCharge = serviceCharge;
+	}
+	
+	
 
 }

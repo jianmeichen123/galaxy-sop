@@ -10,7 +10,7 @@
       </dl>
        <dl class="fmdl">
         <dt>新项目名称：</dt>
-        <dd><input type="text" class="txt" name="projectName"/></dd>
+        <dd><input type="text" class="txt" name="projectName" maxlength="24"/></dd>
       </dl> 
   </div>
     <div class="btnbox">

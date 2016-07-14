@@ -59,20 +59,22 @@ function getTabPerson(){
                   {
                     title: '姓名',
                       field: 'personName',
-                      align: 'left',
+                     
                       valign: 'middle',
-                      'class':'personName'
+                      'class':'personName',
+                      formatter:'personName'
                   },
                   {
                       title: '当前职务',
                         field: 'personDuties',
-                        align: 'left',
-                        valign: 'middle'
+                       
+                        valign: 'middle',
+                        formatter:'personDuties'
               },
                   {
                     title: '性别',
                     field: 'personSex',
-                    align: 'left',
+                   
                     valign: 'middle',
                     formatter:function(value,row,index){ 
                      	if (row.personSex == 0) {
@@ -87,13 +89,13 @@ function getTabPerson(){
                     {
                         title: '年龄',
                           field: 'personAge',
-                          align: 'left',
+                         
                           valign: 'middle'
                      },
                   {
                       title: '最高学历',
                         field: 'highestDegree',
-                        align: 'left',
+                       
                         valign: 'middle',
                         formatter:function(value,row,index){ 
                          	if (row.highestDegree == 1) {
@@ -119,19 +121,19 @@ function getTabPerson(){
                   {
                       title: '工作年限',
                         field: 'workTime',
-                        align: 'left',
+                       
                         valign: 'middle'
                   },
                   {
                       title: '电话',
                         field: 'personTelephone',
-                        align: 'left',
+                       
                         valign: 'middle'
                   },
                   {
                       title: '操作',
                       field: 'id',
-                      align: 'left',
+                     
                       formatter:function(value,row,index){  
 	                   var content = '<span class="resume" onclick="tiaozhuan(\''+ row.id + '\')">个人简历</span>';
 	                   if(isCreatedByUser == 'true')
@@ -166,6 +168,11 @@ function savePersonCallBack(data){
 		layer.msg(data.result.message);
 		//return;
 	}
+	//启用滚动条
+	 $(document.body).css({
+	   "overflow-x":"auto",
+	   "overflow-y":"auto"
+	 });
 	$("#popbg,#powindow").remove();
 	var projectId = $("#pid").val();
 	getTabPerson(projectId);
@@ -195,6 +202,32 @@ function deletePer(id,url){
 			$("#projectId").val(projectId);
 			sendGetRequest(url,'',savePersonCallBack);
 		}
+	}
+}
+
+function personName(value,row,index){
+	var str=row.personName;
+	if(str.length>20){
+		subStr = str.substring(0,20);
+		var options = "<label title='"+str+"'>"+subStr+"</label>";
+		return options;
+	}
+	else{
+		var options = "<label title='"+str+"'>"+str+"</label>";
+		return options;
+	}
+}
+
+function personDuties(value,row,index){
+	var str=row.personDuties;
+	if(str.length>10){
+		subStr = str.substring(0,10);
+		var options = "<label title='"+str+"'>"+subStr+"</label>";
+		return options;
+	}
+	else{
+		var options = "<label title='"+str+"'>"+str+"</label>";
+		return options;
 	}
 }
 

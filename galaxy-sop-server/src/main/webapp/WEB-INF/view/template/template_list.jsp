@@ -35,7 +35,7 @@
         <table width="100%" cellspacing="0" cellpadding="0" id="template-table">
               <thead>
                   <tr>
-                      <th></th>
+                      <th style="width:5%;"></th>
                       <th class="width_gd">业务类型</th>
                       <th>所属部门</th>
                       <th>存储类型</th>
@@ -174,7 +174,7 @@ function loadTempList()
 				var editableTypes = data.userData.editableTypes;
 				$.each(data.entityList,function(){
 					var $tr = $('<tr data-id="'+this.id+'" data-file-key="'+this.fileKey+'" data-doc-type="'+this.docType+'" data-department-id="'+this.departmentId+'" data-file-name="'+this.fileName+'" data-worktype="'+this.worktype+'" data-worktype-desc="'+this.workTypeDesc+'" data-file-length="'+this.fileLength+'"></tr>');
-					$tr.append('<td><input type="checkbox" name="document" /></td>') ;
+					$tr.append('<td style="text-align:center;"><input type="checkbox" name="document" /></td>') ;
 					$tr.append('<td>'+getVal(this.workTypeDesc,"-")+'</td>') ;
 					$tr.append('<td>'+getVal(this.departmentDesc,"-")+'</td>') ;
 					$tr.append('<td>'+getVal(this.docTypeDesc,"-")+'</td>') ;

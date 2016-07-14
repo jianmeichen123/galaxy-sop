@@ -106,25 +106,31 @@ function getProjectInfo(dtd)
        	<div class="tabtable assessment label_static1">
           	<!-- tab标签 -->
             <ul class="tablink tablinks">
-                <li class="on"><a href="javascript:;" onclick="showTabs(${projectId},0)">基本信息</a></li>
+                <li  class="on"><a href="javascript:;" onclick="showTabs(${pid},0)">基本信息</a></li>
                 <c:choose>
-                <c:when test="${aclViewProject==true }">
-                <li><a href="javascript:;" onClick="showTabs(${projectId},1)" >团队成员</a></li>
-                <li><a href="javascript:;" onClick="showTabs(${projectId},2)">股权结构</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${projectId},4)">会议纪要</a></li>
-				<li><a href="javascript:;" onclick="showTabs(${projectId},5)">项目文档</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li> 
+             	<c:when test="${aclViewProject==true}">
+                <li><a href="javascript:;" onclick="showTabs(${pid},1)">团队成员</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},7)">交割前事项</a></li>
+              <!--   <li><a href="javascript:;" onclick="showTabs(${pid},8)">拨款信息</a></li> -->
+               	<li><a href="javascript:;" onclick="showTabs(${pid},9)">运营分析</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
+                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
                 </c:when>
                 <c:otherwise>
                 <li class="no"><a href="javascript:;">团队成员</a></li>
                 <li class="no"><a href="javascript:;">股权结构</a></li>
                 <li class="no"><a href="javascript:;">访谈记录</a></li>
                 <li class="no"><a href="javascript:;">会议纪要</a></li>
+                <li class="no"><a href="javascript:;">交割前事项</a></li>
+<!--                 <li class="no"><a href="javascript:;">拨款信息</a></li> -->
+               	<li class="no"><a href="javascript:;">运营分析</a></li>
 				<li class="no"><a href="javascript:;">项目文档</a></li>
                 <li class="no"><a href="javascript:;">操作日志</a></li> 
                 </c:otherwise>
-                </c:choose>
+             	</c:choose>
             </ul>
 
             <!-- 基本信息 -->
@@ -163,8 +169,8 @@ function getProjectInfo(dtd)
 					<tr>
 							<td><span class="new_color_gray">融资状态：</span><span class="new_color_black" id="financeStatusDs"></span></td>
 							<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
-							<span class="new_color_gray">(</span>
-								<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray">)</span><span id="insertImg"></span></td>
+							<span class="new_color_gray" id="s">(</span>
+								<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray" id="end">)</span><span id="insertImg"></span></td>
 						</tr>
 					
 					</table>
@@ -194,6 +200,8 @@ function getProjectInfo(dtd)
 						</tr>
 						<tr>
 							<td><span class="new_color_gray">股权占比：</span><span class="new_color_black" id="finalShareRatio"></span><span class="new_color_black">&nbsp;%</span></td>
+							<td><span class="new_color_gray">服务费：</span><span class="new_color_black" id="serviceCharge"></span><span class="new_color_black">&nbsp;%</span></td>
+				
 						</tr>
 					</table>
 				</div>
@@ -209,7 +217,7 @@ function getProjectInfo(dtd)
 						</div>  -->
 				        <table width="100%" cellspacing="0" cellpadding="0" class="new_table">
 				            <tr>
-				                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  size="20" id="project_name_edit" valType="required" msg="<font color=red>*</font>项目名称不能为空"></input></span></td>
+				                <td><span class="new_color_gray">项目名称：</span><span><input class="new_nputr"  size="20" maxlength="24"  id="project_name_edit" valType="required" msg="<font color=red>*</font>项目名称不能为空"></input></span></td>
 				                <td><span class="new_color_gray">创建时间：</span><span class="new_color_black" id="create_date_edit"></span></td>
 				            </tr>
 				            <tr>
@@ -252,6 +260,8 @@ function getProjectInfo(dtd)
 				            </tr>
 				            <tr>
 				                <td><span class="new_color_gray">股权占比：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="finalShareRatio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>&nbsp;　%</span></td>
+				                <td><span class="new_color_gray">服务费&nbsp;：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="serviceChargeedit" allowNULL="yes" valType="OTHER" regString="^([0-4](\.\d{1,4})?)$|^(5(\.[0]{1,4})?)$" msg="<font color=red>*</font>0到5之间的四位小数"/>&nbsp;　%</span></td>
+				     	
 				     		</tr>
 				        </table>
 				    </div>
@@ -526,10 +536,19 @@ function getProjectInfo(dtd)
 <script src="<%=path %>/js/planbusiness.js"></script>
 <script src="<%=path %>/js/person.js"></script>
 <script>
-
 var projectId = <%=projectId%>;
 
 $(function(){
+	var menu=$('#top_menu a:nth-child(2)').text();
+	if(menu == '创投项目'){
+		createMenus(5);
+	}else if(menu == '立项会'){
+		createMenus(18);
+	}else if(menu == '投决会'){
+		createMenus(19);
+	}else if(menu == 'CEO评审会'){
+		createMenus(20);
+	}
 // 	createMenus(5);
 	UM.getEditor('editor');
 	UM.getEditor('describe_editor');
@@ -541,7 +560,14 @@ $(function(){
 	UM.getEditor('analysis_editor');
 	UM.getEditor('next_financing_editor');
 	//统一显示
+	 $('.edui-icon-fullscreen').on('click',function(){
+			$('body').css('padding-bottom','300px')
+	})
 	$('[data-on="data-open"]').on('click',function(){
+		 var scroll_top=$(this).offset().top;
+		 $('html,body').animate({  
+		        scrollTop: scroll_top
+		    }, 1000);   
 		var open=$(this).attr('data-name')
 		//alert(open)
 		$('.'+open+'_on').show();
@@ -556,6 +582,7 @@ $(function(){
 		$('.bj_hui_on').hide();
 		$('.tip-yellowsimple').hide();
 	})
+	
 	//项目名称截断
 	if(projectInfo.projectName.length>24){
 		var str=projectInfo.projectName.substring(0,24);

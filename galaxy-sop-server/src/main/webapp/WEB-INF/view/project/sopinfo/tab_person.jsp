@@ -54,6 +54,9 @@
 	                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
+	                <li><a href="javascript:;" onclick="showTabs(${pid},7)">交割前事项</a></li>
+                   <!-- <li><a href="javascript:;" onclick="showTabs(${pid},8)">拨款信息</a></li> --> 
+               	    <li><a href="javascript:;" onclick="showTabs(${pid},9)">运营分析</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
 	                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
 	                </c:when>
@@ -62,6 +65,9 @@
 	                <li class="no"><a href="javascript:;">股权结构</a></li>
 	                <li class="no"><a href="javascript:;">访谈记录</a></li>
 	                <li class="no"><a href="javascript:;">会议纪要</a></li>
+	                <li class="no"><a href="javascript:;">交割前事项</a></li>
+	                <li class="no"><a href="javascript:;">拨款信息</a></li>
+	                <li class="no"><a href="javascript:;">运营分析</a></li>
 					<li class="no"><a href="javascript:;">项目文档</a></li>
 	                <li class="no"><a href="javascript:;">操作日志</a></li> 
 	                </c:otherwise>
@@ -74,7 +80,7 @@
 				          <!--按钮-->
 				          <div class="btnbox_f btnbox_f1 clearfix">
 				              <a href="javascript:;" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addPerson();">添加</a>
-				              <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a>
+				             <!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
 				          </div>
 				      </div>
 					</c:if>

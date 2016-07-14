@@ -90,4 +90,9 @@ public interface SopFileService extends BaseService<SopFile> {
 	 */
 	public Page<SopFile> queryFileList(SopFile query, Pageable pageable);
 	
+	/**
+	 * 批量打包下载
+	 */
+	public void downloadBatch(HttpServletRequest request,HttpServletResponse response,String tempfilePath,String type,List<SopDownLoad> downloadEntityList) throws Exception;
+	
 }
