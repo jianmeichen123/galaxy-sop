@@ -5,11 +5,11 @@
 <style>
 .bars{margin:0 !important;}
 </style>
-<div class="addmentc post_operatetc">
+<div class="addmentc post_operatetc_750">
 	<div class="title_bj" id="popup_name"></div>
 	
     <div class="form clearfix">
-        <div class="conference_all scroll_table">
+        <div class="conference_all_750 scroll_table">
         
         
 	     	<div class="min_document clearfix" id="health-custom-toolbar" style="display:none;" >
