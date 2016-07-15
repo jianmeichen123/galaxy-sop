@@ -43,3 +43,5 @@ function createMenus(current){
 	});
 }
 </script>
+
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/cookie.js"></script>
