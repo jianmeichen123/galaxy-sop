@@ -56,7 +56,8 @@ public class InterviewRecord extends BaseEntity{
 			}
 		}else{
 			if(viewDateStr==null && viewDate!=null){
-				viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
+//				viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
+				viewDateStr = DateUtil.convertDateToString(viewDate,"yyyy-MM-dd HH:mm");
 			}
 		}
         return viewDate;
@@ -72,7 +73,7 @@ public class InterviewRecord extends BaseEntity{
 			}
 		}else{
 			if(viewDateStr==null && viewDate!=null){
-				viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
+				viewDateStr = DateUtil.convertDateToString(viewDate,"yyyy-MM-dd HH:mm");
 			}
 		}
         this.viewDate = viewDate;
@@ -99,14 +100,15 @@ public class InterviewRecord extends BaseEntity{
     
     public String getViewDateStr() {
     	if(viewDateStr==null && viewDate!=null){
-			viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
+			//viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
+			viewDateStr = DateUtil.convertDateToString(viewDate,"yyyy-MM-dd HH:mm");
 		}
 		return viewDateStr;
 	}
 
 	public void setViewDateStr(String viewDateStr){
 		if(viewDateStr==null && viewDate!=null){
-			viewDateStr = DateUtil.convertDateToStringForChina(viewDate);
+			viewDateStr = DateUtil.convertDateToString(viewDate,"yyyy-MM-dd HH:mm");
 		}
 		this.viewDateStr = viewDateStr;
 	}
@@ -140,13 +142,7 @@ public class InterviewRecord extends BaseEntity{
 		if( dateStr.indexOf("/") != -1){
 			dateStr = dateStr.replaceAll("/", "-");
 		}
-	//	String format = "yyyy-MM-dd HH:mm:ss";
 		switch (len) {
-		/*case 8:
-			if(dateStr.indexOf("-")==-1 || dateStr.indexOf("/")==-1 ){
-				format = "yyyyMMdd";
-			}
-			break;*/
 		case 10:
 			dateStr = dateStr + " 00:00:00";
 			break;

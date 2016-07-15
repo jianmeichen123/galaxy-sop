@@ -33,7 +33,6 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 <!-- 这里写js和css文件 start -->
 <script src="<%=request.getContextPath() %>/js/fx_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-1.12.2.min.js" type="text/javascript"></script>
-<script src="<%=request.getContextPath() %>/js/jquery.cookie.js"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-validate.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/json2.js" type="text/javascript"></script>
 <!-- end -->
@@ -48,13 +47,13 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 	var roleId = '<%=roleId%>';
 </script>
 <script src="<%=request.getContextPath() %>/js/base64.js" type="text/javascript"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery.cookie.js"></script>
 <script src="<%=request.getContextPath() %>/js/common.js" type="text/javascript"></script>
 <%-- <script src="<%=request.getContextPath() %>/js/alioss/aliyun-oss-sdk.min.js"></script>
 <script src="<%=request.getContextPath() %>/js/alioss/alioss_init.js"></script> --%>
 <script src="<%=request.getContextPath() %>/js/axure.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/platformUrl.js" type="text/javascript"></script>
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/cookie.js"></script>
 <script>
 checkVersion()
 function getInternetExplorerVersion(){

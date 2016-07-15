@@ -23,5 +23,22 @@ public interface MeetingRecordService extends BaseService<MeetingRecord> {
 
 	Long addCyMeetRecord(MeetingRecord meetingRecord, SopFile sopFile);
 	
+	/**
+	 * @param query
+	 * @return
+	 * 根据项目及类型查询会议名称的序号
+	 */
+	public Long queryMeetNumberByType(MeetingRecord query);
+	/**
+	 * 删除投后运营会议
+	 * @param id
+	 * @return
+	 */
+	public int deletePostMeetingById(Long id);
+	
+	public Long insertMeeting(MeetingRecord query);
+	
+	public boolean saveMeeting(MeetingRecord query,Long userId);
+	
 
 }

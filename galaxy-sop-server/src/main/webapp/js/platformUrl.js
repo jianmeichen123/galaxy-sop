@@ -577,6 +577,25 @@ var platformUrl = {
 	 * session中获取商业计划书
 	 */
 	getBusinessPlanFileInSession : Constants.sopEndpointURL + "/galaxy/sopFile/getBusinessPlanFileInSession",
+	/**
+	 * 运营分析查询
+	 */
+	queryPostMeeting : Constants.sopEndpointURL + "/galaxy/project/postOperation/queryPostMeeting",
+	/**
+	 * 添加投后运营会议弹窗跳转
+	 */
+	toEditPostMeeting : Constants.sopEndpointURL + "/galaxy/project/postOperation/toEditPostMeeting",
+	/**
+	 * 保存投后运营会议
+	 */
+	saveMeeting : Constants.sopEndpointURL + "/galaxy/project/postOperation/saveMeeting",
+
+	/**
+	 * 删除投后运营会议
+	 */
+	deletePostMeeting: Constants.sopEndpointURL + "/galaxy/project/postOperation/deletePostMeeting"
+	
+	
 	
 	
 }

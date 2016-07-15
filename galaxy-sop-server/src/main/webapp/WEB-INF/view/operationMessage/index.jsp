@@ -37,11 +37,11 @@
 	      </div>
 	      
       <!-- 消息提醒内容 -->
-			<table id="data-table" data-url="operationMessageQueryList"  data-page-list="[10,20,30]" data-show-refresh="true">
+			<table id="message-table" data-url="operationMessageQueryList"  data-page-list="[10,20,30]" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="createdTime" data-align="left" data-class="message_t" data-formatter="longTimeFormat_Chines" >日期时间</th>
-			        	<th data-field="content" data-align="left"  data-class="message_n" data-formatter="projectNameLineFormat">消息</th>
+			        	<th data-field="createdTime"  data-class="message_t" data-formatter="longTimeFormat_Chines" >日期时间</th>
+			        	<th data-field="content"   data-class="message_n" data-formatter="projectNameFormat">消息</th>
  					</tr>	
  				</thead>
 			</table>
@@ -60,13 +60,93 @@
 <script type="text/javascript">
 	$(function(){
 		createMenus(3);
+		var initParams,
+				pageParams=cookieOperator.getDataNoDelete({_paramKey : 'messageList',_path : "/"}),
+				initPageSize = 10;
+		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
+			initPageSize = pageParams.pageSize;
+		}
+		$('#message-table').bootstrapTable({
+			queryParamsType: 'size|page',
+			pageSize:initPageSize,
+			showRefresh : false,
+			url : platformUrl[$('#message-table').attr("data-url")],
+			sidePagination: 'server',
+			method : 'post',
+			sortOrder : 'desc',
+			sortName : 'updated_time',
+			pagination: true,
+	        search: false,
+	        //返回附带参数功能代码
+	        queryParams : function(param){
+	        	if(getCookieValue("backProjectList")!=''){
+	        		initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : "/"});
+	        		deleteCookie("backProjectList","/");
+	        	}else{
+	        		initParams=undefined;
+	        	}
+	    		if(typeof(initParams) !== 'undefined'){
+		    		param.pageNum = initParams.pageNum - 1;
+		        	param.pageSize = initParams.pageSize;
+		        	var options = $("#data-table").bootstrapTable('getOptions');
+		 	        options.pageNumber = initParams.pageNum - 1;
+		    	}
+	        	return param;
+	        },
+	        onLoadSuccess: function (data) {
+	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
+	    			if(initParams.pageNum==1){
+	    				return;
+	    			}else{
+	    				$('.pagination li').removeClass('active');
+	    				if($('.pagination .page-number').length< initParams.pageNum){
+	    					for(var i=$('.pagination .page-number').length; i>0; i--){
+	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
+	    					}
+	    				}
+
+	    				$('.pagination li').each(function(){
+	    	    			if($(this).text()==initParams.pageNum){
+	    	    				$(this).click();
+	    	    				//$(this).addClass('active')
+	    	    			}
+	    				})
+	    			}
+	    		}
+	        	initPageSize=10;
+	        }
+		});
+		
 	});
-	
+	function projectNameFormat(value, row, index){
+		var id = row.projectId;
+		var aa = "<a href='#' onclick='viewDetail(" + id + ")' class='blue project_name'>"+row.projectName+"</a>";
+		var content =value.replace("projectname",aa);
+		return content;
+	}
+	function viewDetail(id){
+		//项目详情页返回地址
+		setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/operationMessage/index',6,'/');
+		var options = $("#message-table").bootstrapTable('getOptions');
+		var tempPageSize = options.pageSize ? options.pageSize : 10;
+		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
+		var formdata = {
+				_paramKey : 'messageList',
+				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" +id,
+				_path : "/",
+				_param : {
+					pageNum : tempPageNum,
+	        		pageSize : tempPageSize
+				}
+		}
+		
+		var href_url=window.location;
+		setCookie("href_url", href_url,24,'/');
+		cookieOperator.forwardPushCookie(formdata);
+	}
 	function backIndex(){
 		 var url=Constants.sopEndpointURL+"/galaxy/redirect";
 		 forwardWithHeader(url);
 	}
-	
-	
 </script>
 </html>

@@ -4,6 +4,11 @@ $(function(){
 	 * 加载项目详情数据
 	 */
 	var projectPro = projectInfo.projectProgress;
+	if(projectPro=="projectProgress:10"){
+		$("#end").hide();
+		$("#s").hide();
+		
+	}
 	var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 
 		$("#project_name_title").text(projectInfo.projectName);
@@ -14,15 +19,16 @@ $(function(){
 		$("#createUname").text(projectInfo.createUname);
 		$("#projectCareerline").text(projectInfo.projectCareerline);
 		$("#projectType").text(projectInfo.type);
-		$("#project_contribution").text(projectInfo.projectContribution==0||typeof(projectInfo.projectContribution)=="undefined"?"--":projectInfo.projectContribution);
-		$("#project_valuations").text(projectInfo.projectValuations==0||typeof(projectInfo.projectValuations)=="undefined"?"--":projectInfo.projectValuations);
-		$("#project_share_ratio").text(projectInfo.projectShareRatio==0||typeof(projectInfo.projectShareRatio)=="undefined"?"--":projectInfo.projectShareRatio);
+		$("#project_contribution").text(typeof(projectInfo.projectContribution)=="undefined"?"--":projectInfo.projectContribution);
+		$("#project_valuations").text(typeof(projectInfo.projectValuations)=="undefined"?"--":projectInfo.projectValuations);
+		$("#project_share_ratio").text(typeof(projectInfo.projectShareRatio)=="undefined"?"--":projectInfo.projectShareRatio);
 		$("#projectProgress").text(projectInfo.progress);
-		$("#projectStatusDs").text(projectInfo.projectStatusDs);
+		$("#projectStatusDs").text(projectInfo.projectProgress=="projectProgress:10"?"":projectInfo.projectStatusDs);
 		$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
-		$("#finalValuations").text(projectInfo.finalValuations==0||typeof(projectInfo.finalValuations)=="undefined"?"--":projectInfo.finalValuations);
-		$("#finalContribution").text(projectInfo.finalContribution==0||typeof(projectInfo.finalContribution)=="undefined"?"--":projectInfo.finalContribution);
-		$("#finalShareRatio").text(projectInfo.finalShareRatio==0||typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);
+		$("#finalValuations").text(typeof(projectInfo.finalValuations)=="undefined"?"--":projectInfo.finalValuations);
+		$("#finalContribution").text(typeof(projectInfo.finalContribution)=="undefined"?"--":projectInfo.finalContribution);
+		$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);
+		$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":projectInfo.serviceCharge);
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
@@ -37,15 +43,16 @@ $(function(){
 			$("#createUname_edit").text(projectInfo.createUname);
 			$("#projectCareerline_edit").text(projectInfo.projectCareerline);
 			$("#projectType_edit").text(projectInfo.type);
-			$("#project_contribution_edit").val(projectInfo.projectContribution==0?"":projectInfo.projectContribution);
-			$("#project_valuations_edit").val(projectInfo.projectValuations==0?"":projectInfo.projectValuations);
-			$("#project_share_ratio_edit").val(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
+			$("#project_contribution_edit").val(projectInfo.projectContribution==0?0:projectInfo.projectContribution);
+			$("#project_valuations_edit").val(projectInfo.projectValuations==0?0:projectInfo.projectValuations);
+			$("#project_share_ratio_edit").val(projectInfo.projectShareRatio==0?0:projectInfo.projectShareRatio);
 			$("#projectProgress_edit").text(projectInfo.progress);
 			$("#projectStatusDs_edit").text(projectInfo.projectStatusDs);
 			$("#financeStatusDs_edit").text(projectInfo.financeStatusDs);
-			$("#finalValuations_edit").val(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
-			$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
-			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
+			$("#finalValuations_edit").val(projectInfo.finalValuations==0?0:projectInfo.finalValuations);
+			$("#finalContribution_edit").val(projectInfo.finalContribution==0?0:projectInfo.finalContribution);
+			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?0:projectInfo.finalShareRatio);
+			$("#serviceChargeedit").val(projectInfo.serviceCharge==0?0:projectInfo.serviceCharge)
 			 p=projectInfo.industryOwn;
 		    fs=projectInfo.financeStatus;
 			//融资
@@ -57,7 +64,9 @@ $(function(){
 		})
 			function CallBackB(data){
 		    var _dom=$("#finance_status_sel");
-			 $.each(data.entityList,function(){
+		    var childNum = _dom.find("option").length;
+		    if(!childNum || childNum ==0 ){
+		    	$.each(data.entityList,function(){
 					if(this.code){
 						if(this.code==fs){
 							_dom.append("<option selected value='"+this.code+"'>"+this.name+"</option>");
@@ -70,10 +79,14 @@ $(function(){
 					}
 					
 				});
+		    }
+			 
 		}
 		function CallBackA(data){
 		       var _dom=$("#industry_own_sel");
-				 $.each(data.entityList,function(){
+		       var childNum = _dom.find("option").length;
+			    if(!childNum || childNum ==0 ){
+			    	$.each(data.entityList,function(){
 						if(this.code){
 							_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
 						}else{
@@ -85,6 +98,8 @@ $(function(){
 						}
 						
 					});
+			    }
+				 
 			}
 		if(projectInfo.projectDescribe){
 			var um = UM.getEditor('describe_editor');
@@ -282,7 +297,7 @@ $(function(){
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 		var proStatus = projectInfo.projectStatus;
 		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
-		if( pronum != 2){
+		if(pronum == 0 || pronum == 1){
 			return "<img src='"+Constants.sopEndpointURL+"img/process/p"+num+".gif' >";
 		}else{
 			return "<img src='"+Constants.sopEndpointURL+"img/process/pd"+num+".gif'>";
@@ -305,13 +320,13 @@ function getUpdateData(){
 	var industry_own=$("#industry_own_sel").val().trim();
 	var finance_status=$("#finance_status_sel").val().trim();
 	
-	var project_contribution=$("#project_contribution_edit").val()==""?null:$("#project_contribution_edit").val().trim();
-	var project_valuations=$("#project_valuations_edit").val()==""?null:$("#project_valuations_edit").val().trim();
-	var project_share_ratio=$("#project_share_ratio_edit").val()==""?null:$("#project_share_ratio_edit").val().trim();
-	var finalcontribution=$("#finalContribution_edit").val()==""?null:$("#finalContribution_edit").val().trim();
-	var finalvaluations=$("#finalValuations_edit").val()==""?null:$("#finalValuations_edit").val().trim();
-	var finalshare_ratio=$("#finalShareRatio_edit").val()==""?null:$("#finalShareRatio_edit").val().trim();
-	
+	var project_contribution=$("#project_contribution_edit").val()==""?0:$("#project_contribution_edit").val().trim();
+	var project_valuations=$("#project_valuations_edit").val()==""?0:$("#project_valuations_edit").val().trim();
+	var project_share_ratio=$("#project_share_ratio_edit").val()==""?0:$("#project_share_ratio_edit").val().trim();
+	var finalcontribution=$("#finalContribution_edit").val()==""?0:$("#finalContribution_edit").val().trim();
+	var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val().trim();
+	var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
+	var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
 	
 	var formatData={"id":id,
 			       "projectName":pname,
@@ -322,7 +337,8 @@ function getUpdateData(){
 			       "projectShareRatio":project_share_ratio,
 			       "finalValuations":finalvaluations,//实际估值
                    "finalContribution":finalcontribution,//实际投资
-  	               "finalShareRatio":finalshare_ratio	//实际股权占比		
+  	               "finalShareRatio":finalshare_ratio,	//实际股权占比	
+  	               "serviceCharge":serviceCharge
 	};
 	return formatData;
 }
@@ -336,7 +352,7 @@ function saveSuccess(){
  */
 $("#save_describe").click(function(){
 	var um = UM.getEditor('describe_editor');
-	var projectDescribe = um.getContentTxt();
+	var projectDescribe = um.getContent();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectDescribe" : projectDescribe}, saveSuccess());
 	}
@@ -346,7 +362,7 @@ $("#save_describe").click(function(){
  */
 $("#save_location").click(function(){
 	var um = UM.getEditor('company_editor');
-	var companyLocation = um.getContentTxt();
+	var companyLocation = um.getContent();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "companyLocation" : companyLocation}, saveSuccess());
 	}
@@ -356,7 +372,7 @@ $("#save_location").click(function(){
  */
 $("#save_portrait").click(function(){
 	var um = UM.getEditor('portrait_editor');
-	var userPortrait = um.getContentTxt();
+	var userPortrait = um.getContent();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "userPortrait" : userPortrait}, saveSuccess());
 	}
@@ -366,7 +382,7 @@ $("#save_portrait").click(function(){
  */
 $("#save_business").click(function(){
 	var um = UM.getEditor('business_editor');
-	var projectBusinessModel = um.getContentTxt();
+	var projectBusinessModel = um.getContent();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "projectBusinessModel" : projectBusinessModel}, saveSuccess());
 	}
@@ -376,7 +392,7 @@ $("#save_business").click(function(){
  */
 $("#save_operation").click(function(){
 	var um = UM.getEditor('operation_editor');
-	var operationalData = um.getContentTxt();
+	var operationalData = um.getContent();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "operationalData" : operationalData}, saveSuccess());
 	}
@@ -387,7 +403,7 @@ $("#save_operation").click(function(){
  */
 $("#save_industry").click(function(){
 	var um = UM.getEditor('industry_editor');
-	var industryAnalysis = um.getContentTxt();
+	var industryAnalysis = um.getContent();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "industryAnalysis" : industryAnalysis}, saveSuccess());
 	}
@@ -398,7 +414,7 @@ $("#save_industry").click(function(){
  */
 $("#save_analysis").click(function(){
 	var um = UM.getEditor('analysis_editor');
-	var prospectAnalysis = um.getContentTxt();
+	var prospectAnalysis = um.getContent();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "prospectAnalysis" : prospectAnalysis}, saveSuccess());
 	}
@@ -408,7 +424,7 @@ $("#save_analysis").click(function(){
  */
 $("#save_next_financing").click(function(){
 	var um = UM.getEditor('next_financing_editor');
-	var nextFinancingSource = um.getContentTxt();
+	var nextFinancingSource = um.getContent();
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveSuccess());
 	}

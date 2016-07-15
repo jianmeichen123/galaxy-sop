@@ -12,12 +12,12 @@
 	<table id="research-history" class="history-table" data-id-field="id" data-url="<%=path%>/galaxy/idea/queryIdeaDyList" data-toolbar="#research-history-params" data-page-size="3">
 		<thead>
 			<tr>
-				<th data-field="fileUName" data-align="center" >上传者</th>
-				<th data-field="fType" data-align="center" >存档类型</th>
-				<th data-field="projectProgress" data-align="center" data-formatter="progressFormatter">创意状态</th>
-				<th data-field="careerLineName" data-align="center" >所属事业线</th>
-				<th data-field="updatedDate" data-align="center" >更新时间</th>
-				<th data-align="center" data-formatter="ideaFileDownFormat">附件查看</th>
+				<th data-field="fileUName" data-align="left" >上传者</th>
+				<th data-field="fType" data-align="left" >存档类型</th>
+				<th data-field="projectProgress" data-align="left" data-formatter="progressFormatter">创意状态</th>
+				<th data-field="careerLineName" data-align="left" >所属事业线</th>
+				<th data-field="updatedDate" data-align="left" >更新时间</th>
+				<th data-align="left" data-formatter="ideaFileDownFormat">附件查看</th>
 			</tr>
 		</thead>
 	</table>
@@ -37,8 +37,8 @@
 		</colgroup>
 		<thead>
 			<tr>
-				<th data-field="meetInfo" data-align="center" data-formatter="metcolumnFormat">会议概况</th>
-				<th data-field="meetingNotes" data-align="center" data-formatter="meetNoteFormatter">会议纪要</th>
+				<th data-field="meetInfo" data-align="left" data-formatter="metcolumnFormat">会议概况</th>
+				<th data-field="meetingNotes" data-align="left" data-formatter="meetNoteFormatter">会议纪要</th>
 			</tr>
 		</thead>
 	</table>

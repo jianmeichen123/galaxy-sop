@@ -36,10 +36,10 @@ function setCookie(name,value,hours,path){
 	 * 获取分页显示数
 	 */
 	function cookies_szie(){
-		var pageSize = getCookieValue("pageSize");
-		if(pageSize!=''){
-			deleteCookie("pageSize","/");
-			return pageSize;
+		var PageSize_ab = getCookieValue("PageSize_ab");
+		//alert(PageSize_ab+'dddd')
+		if(PageSize_ab!=''){
+			return PageSize_ab;
 		}else{
         	return 10;
       	}
@@ -68,3 +68,11 @@ function setCookie(name,value,hours,path){
 		}
 		//console.log("---sessionStorage pagecount:" + sessionStorage.pagecount);	
 	}
+	$("div").delegate(".url_cookie", "click", function() {
+		var href_url=window.location;
+		setCookie("href_url", href_url,24,'/');
+	});
+	$("div").delegate(".project_name", "click", function() {
+		var href_url=window.location;
+		setCookie("href_url", href_url,24,'/');
+	});

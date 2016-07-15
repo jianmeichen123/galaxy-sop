@@ -514,6 +514,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		    		Project project = new Project();
 		    		project.setId(task.getProjectId());
 		    		project.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+		    		project.setProjectStatus(DictEnum.projectStatus.THYY.getCode());
 		    		projectDao.updateById(project);
 		    		result = 1;
 		    	}

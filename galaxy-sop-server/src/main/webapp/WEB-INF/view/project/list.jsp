@@ -126,21 +126,21 @@
           </div>
         </div>
 		<div class="tab-pane active ctlist" id="view">	
-			<table id="project-table" data-url="project/search" data-height="555" 
+			<table id="project-table" data-url="project/search" 
 				data-page-list="[10, 20, 30]" data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="projectName" data-align="left" class="data-input" data-formatter="projectInfo" data-width="16%">项目名称</th>
-			        	<th data-field="project_type" data-formatter="typeFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">项目类型<span></span></th>
-			        	<th data-field="finance_status" data-formatter="financeStatusFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
-			        	<th data-field="project_progress" data-formatter="projectProgress" data-align="left" class="data-input sort" data-sortable="true" data-width="12%">项目进度<span></span></th>
-			        	<th data-field="project_status" data-formatter="projectStatusFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
-			        	<th data-field="projectCareerline" data-align="left" class="data-input" data-width="9%">事业部</th>
-			        	<th data-field="createUname" data-align="left" class="data-input" data-width="14%">投资经理</th>
-			        	<th data-field="created_time" data-formatter="createdFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
-			        	<th data-field="updated_time" data-formatter="updateFormat" data-align="left" class="data-input sort" data-sortable="true" data-width="8%">最后编辑时间<span></span></th>
+			        	<th data-field="projectName"  class="data-input" data-formatter="projectInfo" data-width="16%">项目名称</th>
+			        	<th data-field="project_type" data-formatter="typeFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目类型<span></span></th>
+			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
+			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="12%">项目进度<span></span></th>
+			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
+			        	<th data-field="projectCareerline"  class="data-input" data-width="9%">事业部</th>
+			        	<th data-field="createUname"  class="data-input" data-width="14%">投资经理</th>
+			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
+			        	<th data-field="updated_time" data-formatter="updateFormat"  class="data-input sort" data-sortable="true" data-width="8%">最后编辑时间<span></span></th>
          				<c:if test="${fx:hasRole(4)}">
-			        	<th data-align="left" class="col-md-2" data-formatter="editor" data-class="noborder" data-width="8%">操作</th>
+			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder" data-width="8%">操作</th>
  						</c:if>
  					</tr>	
  				</thead>
@@ -178,6 +178,7 @@
 <script type="text/javascript" src="<%=path %>/js/filerepository.js"></script>
 
 <script type="text/javascript" src="<%=path %>/js/sop.js"></script>
+
 <script type="text/javascript">
 	createMenus(5);
 	/**
@@ -187,7 +188,7 @@
 	function editor(value, row, index){
 		var id=row.id;
 		if(uid == row.createUid){
-			var options = "<a href='#' class='blue' data-btn='myproject' onclick='info(" + id + ")'><span class=\"prc\">项目流程</span></a>";
+			var options = "<span class=\"prc\" data-btn='myproject' onclick='info(" + id + ")'>项目流程</span>";
 		}
 		return options;
 	}
@@ -207,32 +208,42 @@
 		}
 	
 	function proInfo(id){
+		//项目详情页返回地址
+		setCookie("project_detail_back_path", Constants.sopEndpointURL + 'galaxy/mpl',6,'/');
+		//返回附带参数功能代码
 		var options = $("#project-table").bootstrapTable('getOptions');
 		var tempPageSize = options.pageSize ? options.pageSize : 10;
 		var tempPageNum = options.pageNumber ? options.pageNumber : 1;
-		
-		var nameCodeLike = $("input[name='nameCodeLike']").val();
+		var projectType = $("select[name='projectType']").val();
+		var financeStatus = $("select[name='financeStatus']").val();
+		var projectProgress = $("select[name='projectProgress']").val();
+		var projectStatus = $("select[name='projectStatus']").val();
 		var projectDepartid = $("select[name='projectDepartid']").val();
 		var createUid = $("select[name='createUid']").val();
-
+		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		
-		/**
-		 * 返回本页附加参数功能实现代码
-		 */
-		setCookie("pageNum", tempPageNum,24,'/');
-		setCookie("pageSize", tempPageSize,24,'/');
-		
-		//清除返回的页码
-		deleteCookie("number_on","/");
-		
-		setCookie("nameCodeLike", nameCodeLike,1,'/');
-		setCookie("createUid", createUid,1,'/');
-		setCookie("projectDepartid", projectDepartid,1,'/');
-		forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
+		var formdata = {
+				_paramKey : 'projectList',
+				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
+				_path : "/",
+				_param : {
+					pageNum : tempPageNum,
+	        		pageSize : tempPageSize,
+	        		projectType : projectType,
+	        		financeStatus : financeStatus,
+	        		projectProgress : projectProgress,
+	        		projectStatus : projectStatus,
+	        		projectDepartid : projectDepartid,
+	        		createUid : createUid,
+	        		nameCodeLike : nameCodeLike
+				}
+		}
+		var href_url=window.location;
+		setCookie("href_url", href_url,24,'/');
+		cookieOperator.forwardPushCookie(formdata);
 	}
 	
-	function refreshProjectList()
-	{
+	function refreshProjectList(){
 		$("#project-table").bootstrapTable('refresh');
 	}
 	
@@ -242,13 +253,6 @@
 			info(pid);
 		}	
 	});
-	
-	
-	
-	
-	
-	
-	
 	
 	/**
 	 * 获取融资状态下拉项
@@ -280,20 +284,26 @@
 	 * @version 2016-06-21
 	 */
     createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
-    /**
-	 * 返回本页附加参数功能实现代码
-	 */
 	$(function(){
-
-		var page_Num='';
+		//返回附带参数功能代码
+		var initParams,
+			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
+			initPageSize = 10;
+		
+		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
+			initPageSize = pageParams.pageSize;
+		}
+		$("button[action='querySearch']").click(function(){
+			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+		});
 		/**
 		 * 初始化项目列表
 		 * @version 2016-06-21
 		 */
 		$('#project-table').bootstrapTable({
 			queryParamsType: 'size|page',
-			pageSize: cookies_szie(),//返回本页附加参数功能实现代码
-			showRefresh : false ,
+			pageSize:initPageSize,
+			showRefresh : false,
 			url : $('#project-table').attr("data-url"),
 			sidePagination: 'server',
 			method : 'post',
@@ -301,79 +311,70 @@
 			sortName : 'updated_time',
 			pagination: true,
 	        search: false,
+	        //返回附带参数功能代码
 	        queryParams : function(param){
-	        	var backSign = ${backSign}
-	        	
-	        		if(getCookieValue("backProjectList")!=''){
-	        			page_Num =getCookieValue("pageNum")
+	        	if(getCookieValue("backProjectList")!=''){
+	        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	        		deleteCookie("backProjectList","/");
+	        	}else{
+	        		initParams=undefined;
+	        	}
+	        	if(typeof(initParams) !== 'undefined'){
+	    			param.pageNum = initParams.pageNum - 1;
+	        		param.pageSize = initParams.pageSize;
+	        		if(initParams.projectType != ''){
+	        			param.projectType = initParams.projectType;
+	        			$("select[name='projectType']").val(initParams.projectType);
 	        		}
-	        		var formdata = {
-		        		_paramKey : 'projectList'
-		        	}
-	        		/**
-					 * 返回本页附加参数功能实现代码
-					 */
-	        		/* if(getCookieValue("backProjectList")!=''){
-	        		    param.pageNum = getCookieValue("pageNum") - 1;
-		        		param.pageSize = getCookieValue("pageSize");
-		        		param.nameCodeLike = getCookieValue("nameCodeLike");
-		        		param.createUid = getCookieValue("createUid");
-		        		param.projectDepartid = getCookieValue("projectDepartid");
-		        		
-		        		var options = $("#project-table").bootstrapTable('getOptions');
-		        		page_Num =getCookieValue("pageNum")
-	 	        		options.pageNumber = getCookieValue("pageNum") - 1;
-	 	        		
-	 	        		//给搜索表单赋值
-	 	        		$("input[name='nameCodeLike']").val(getCookieValue("nameCodeLike") ? getCookieValue("nameCodeLike") : "");
-	 	       			$("select[name='projectDepartid']").val(getCookieValue("projectDepartid") ? getCookieValue("projectDepartid") : "0");
-	 	       			$("select[name='createUid']").val(getCookieValue("createUid") ? getCookieValue("createUid") : "0");
-	 	       			
-	 	       		 deleteCookie("pageNum","/");
-					deleteCookie("pageSize","/");
-					deleteCookie("nameCodeLike","/");
-					deleteCookie("createUid","/");
-					deleteCookie("projectDepartid","/");
-					deleteCookie("backProjectList","/"); 
-	 	       			deleteCookie("backProjectList","/");
-        			} */
-		        	
-	        	
-	        	
+	        		if(initParams.financeStatus != ''){
+	        			param.financeStatus = initParams.financeStatus;
+	        			$("select[name='financeStatus']").val(initParams.financeStatus);
+	        		}
+	        		if(initParams.projectProgress != ''){
+	        			param.projectProgress = initParams.projectProgress;
+	        			$("select[name='projectProgress']").val(initParams.projectProgress);
+	        		}
+	        		if(initParams.projectStatus != ''){
+	        			param.projectStatus = initParams.projectStatus;
+	        			$("select[name='projectStatus']").val(initParams.projectStatus);
+	        		}
+	        		param.projectDepartid = initParams.projectDepartid;
+	        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
+	        		param.createUid = initParams.createUid;
+	        		$("select[name='createUid']").val(initParams.createUid);
+	        		param.nameCodeLike = initParams.nameCodeLike;
+	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike);
+	        		var options = $("#data-table").bootstrapTable('getOptions');
+	 	        	options.pageNumber = initParams.pageNum - 1;
+	    		}
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
 	        	if($("#showResetBtn").val() == '1'){
 	    			$("#resetBtn").removeClass("none");
 	    		}
-				/**
-				 * 返回本页附加参数功能实现代码
-				 */
-				if(page_Num!=''){
-					$('.pagination li').removeClass('active');
-					if($('.pagination .page-number').length<page_Num){
-						for(var i=$('.pagination .page-number').length; i>0; i--){
-							$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
-						}
-					}
-					$('.pagination li').each(function(){
-	        			if($(this).text()==page_Num){
-	        				$(this).click();
-	        				//$(this).addClass('active')
-	        			}
-	        		})
-					deleteCookie("pageNum","/");
-					deleteCookie("pageSize","/");
-					deleteCookie("nameCodeLike","/");
-					deleteCookie("createUid","/");
-					deleteCookie("projectDepartid","/");
-					deleteCookie("backProjectList","/");
+	        	
+	        	
+	        	if(typeof(initParams) !== 'undefined' && initParams.pageNum != ''){
+	    			if(initParams.pageNum==1){
+	    				return;
+	    			}else{
+	    				$('.pagination li').removeClass('active');
+	    				if($('.pagination .page-number').length< initParams.pageNum){
+	    					for(var i=$('.pagination .page-number').length; i>0; i--){
+	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
+	    					}
+	    				}
 
-
-					page_Num='';
-				}
-
-				
+	    				$('.pagination li').each(function(){
+	    	    			if($(this).text()==initParams.pageNum){
+	    	    				$(this).click();
+	    	    				//$(this).addClass('active')
+	    	    			}
+	    				})
+	    			}
+	    		}
+	        	initPageSize=10;
 	        }
 		});
 		/**
@@ -383,7 +384,6 @@
 		$('select[name="projectDepartid"]').change(function(){
 			var did = $('select[name="projectDepartid"]').val();
 		    createUserOptions(platformUrl.getUserList+did, "createUid", 1);
-		   
 		});
 		/**
 		 * 控制"重置"按钮
@@ -400,7 +400,6 @@
 			$("select[name='financeStatus']").find("option[index='-1']").removeAttr("selected");
 			$("select[name='projectProgress']").find("option[index='-1']").removeAttr("selected");
 			$("select[name='projectStatus']").find("option[index='-1']").removeAttr("selected");
-			//$("select[name='projectDepartid']").find('option[back="link"]').removeAttr("selected");
 			//set selected status
 			$("select[name='projectType']").find("option[index='-1']").attr("selected",true);
 			$("select[name='financeStatus']").find("option[index='-1']").attr("selected",true);
@@ -425,8 +424,8 @@
 	 * @version 2016-06-21
 	 */
 	function backIndex(){
-	 var url=Constants.sopEndpointURL+"/galaxy/redirect";
-	 forwardWithHeader(url);
+	    var url=Constants.sopEndpointURL+"/galaxy/redirect";
+	    forwardWithHeader(url);
 	}
 	/**
 	 * 创建时间格式化
@@ -458,7 +457,7 @@
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 		var proStatus = row.projectStatus;
 		var pronum = proStatus.substring(proStatus.lastIndexOf(":")+1,proStatus.length);
-		if( pronum == 0){
+		if(pronum == 0 || pronum == 1){
 			return "<img src=\"<%=path%>/img/process/p"+num+".gif\" class=\"fl\">"+row.progress;
 		}else{
 			return "<img src=\"<%=path%>/img/process/pd"+num+".gif\" class=\"fl\">"+row.progress;
@@ -479,5 +478,4 @@
 		return row.type;
 	}
 </script>
-
 </html>

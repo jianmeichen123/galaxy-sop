@@ -57,7 +57,7 @@
                         </li>
                         <li>
                             <span class="basic_span"><em class="red">*</em>项目名称：</span>
-                            <span class="m_r30"><input type="text" class='new_nputr' id="projectName" name="projectName" valType="required" msg="<font color=red>*</font>项目名称不能为空"/></span>
+                            <span class="m_r30"><input type="text" class='new_nputr' maxlength="24" id="projectName" name="projectName" valType="required" msg="<font color=red>*</font>项目名称不能为空"/></span>
                             <span class="basic_span"><em class="red">*</em>创建时间：</span>
                             <span class="m_r30"><input type="text" class='datepicker-text new_nputr' name="createDate" id="createDate" readonly value="" valType="required" msg="<font color=red>*</font>创建时间不能为空"/></span>
                         </li>

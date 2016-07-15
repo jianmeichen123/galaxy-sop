@@ -38,7 +38,7 @@
                 </dd>
             </dl>
         </div>
-        <dl class="fmdl clearfix"> 
+        <dl class="fmdl clearfix fl"> 
             <dt>访谈时间：</dt>
             <dd>
             	<input type="text" class="datetimepickerHour txt time" readonly  id="viewDate" name ="viewDate" style="height:23px;width:150px;"  

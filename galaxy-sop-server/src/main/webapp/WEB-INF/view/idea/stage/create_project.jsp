@@ -6,7 +6,7 @@
   <div class="top clearfix">
        <dl class="fmdl">
         <dt>项目名称：</dt>
-        <dd><input type="text" value="项目11" name="projectName" class="txt"/></dd>
+        <dd><input type="text" value="项目11" name="projectName" class="txt" maxlength="24"/></dd>
       </dl> 
   </div>
     <div class="btnbox">
@@ -36,6 +36,11 @@ function createProject()
 	if(projectName == null || $.trim(projectName).length==0)
 	{
 		layer.msg("请填写项目名称.");
+		return;
+	}
+	if(projectName.length>24)
+	{
+		layer.msg("提示：项目名称过长，请修改后保存.");
 		return;
 	}
 	var data = {

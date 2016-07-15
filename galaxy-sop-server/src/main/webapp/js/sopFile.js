@@ -126,7 +126,6 @@ var fileGrid = {
 		      },{
 		    	  field: 'operate', 
 		    	  title: '操作', 
-		    	  align: 'center', 
 		    	  events: fileGrid.operateEvents, 
 		    	  formatter: fileGrid.operateFormatter 
 

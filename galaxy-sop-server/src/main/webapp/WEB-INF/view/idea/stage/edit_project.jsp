@@ -10,7 +10,7 @@
       </dl>
        <dl class="fmdl">
         <dt>新项目名称：</dt>
-        <dd><input type="text" class="txt" name="projectName"/></dd>
+        <dd><input type="text" class="txt" name="projectName" maxlength="24"/></dd>
       </dl> 
   </div>
     <div class="btnbox">
@@ -34,6 +34,11 @@ function editProjectName()
 	if(projectName == null || $.trim(projectName).length==0)
 	{
 		layer.msg("请输入新项目名称.");
+		return;
+	}
+	if(projectName.length>24)
+	{
+		layer.msg("提示：项目名称过长，请修改后保存.");
 		return;
 	}
 	if($.trim(projectName) == $.trim(ideaInfo.projectName))

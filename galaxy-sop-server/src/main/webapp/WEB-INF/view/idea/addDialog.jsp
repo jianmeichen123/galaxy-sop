@@ -18,7 +18,7 @@
 			<dl class="fmdl clearfix fl">
     			<dt>创意编号：</dt>
         		<dd class="clearfix">
-        			<input type="text" id="win_idea_code" name="ideaCode" class="txt"/>
+        			<input type="text" id="win_idea_code" name="ideaCode" class="txt disabled"/>
        	 		</dd>
 		    </dl>
 		    <dl class="fmdl clearfix fl">
@@ -32,7 +32,7 @@
 		    	<dt>提出人：</dt>
 		        <dd>
 		        	<input type="hidden" id="win_idea_create_id" name="createdUid"/>
-		        	<input type="text" id="win_idea_create_name" name="createdUname"  class="txt"/>
+		        	<input type="text" id="win_idea_create_name" name="createdUname"  class="txt disabled"/>
 		        </dd>
 		    </dl>
 		    <dl class="fmdl clearfix fl">
@@ -47,7 +47,7 @@
 		    <dl class="fmdl clearfix fl">
 		    	<dt>提出时间：</dt>
 		        <dd>
-		        	<input type="text" id="win_idea_create_Date" data-tid="" name="createDate"  class="txt"/>
+		        	<input type="text" id="win_idea_create_Date" data-tid="" name="createDate"  class="txt disabled"/>
 		        </dd>
 		    </dl>
 		    <dl class="fmdl clearfix fl">
@@ -77,3 +77,11 @@
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/umeditor.min.js"></script>
 <script type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<!-- 校验 -->
+<script type="text/javascript" src="<%=path %>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/messages_zh.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate.js"></script>
+<script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>

@@ -85,7 +85,7 @@ var fileGrid = {
 			}, {
 				field : 'operate2',
 				title : '附件查看',
-				align : 'center',
+				
 				events : fileGrid.downloadEvents,
 				formatter : fileGrid.downloadFomatter
 

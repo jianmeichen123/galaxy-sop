@@ -14,14 +14,14 @@
 <table id="project-table" data-url="idea/search" data-toolbar="#project-toolbar">
     <thead>
         <tr>
-            <th data-field="ideaCode" data-align="center" class="data-input">创意编码</th>
-            <th data-field="ideaName" data-align="center" class="data-input">创意名称</th>
-            <th data-field="projectName" data-align="center" class="data-input">关联项目</th>
-            <th data-field="departmentDesc" data-align="center" class="data-input">投资事业线</th>
-            <th data-field="projectProgressDesc" data-align="center" class="data-input">项目进度</th>
-            <th data-field="hhrName" data-align="center" class="data-input">合伙人</th>
-            <th data-field="claimantUname" data-align="center" class="data-input">投资经理</th>
-            <th data-field="createdTime" data-align="center" class="data-input" data-formatter="datetimeFormatter">提出时间</th>
+            <th data-field="ideaCode" data-align="left" class="data-input">创意编码</th>
+            <th data-field="ideaName" data-align="left" class="data-input">创意名称</th>
+            <th data-field="projectName" data-align="left" class="data-input">关联项目</th>
+            <th data-field="departmentDesc" data-align="left" class="data-input">投资事业线</th>
+            <th data-field="projectProgressDesc" data-align="left" class="data-input">项目进度</th>
+            <th data-field="hhrName" data-align="left" class="data-input">合伙人</th>
+            <th data-field="claimantUname" data-align="left" class="data-input">投资经理</th>
+            <th data-field="createdTime" data-align="left" class="data-input" data-formatter="dateFormatter">提出时间</th>
         </tr>
     </thead>                                                                                                                                    
 </table>
