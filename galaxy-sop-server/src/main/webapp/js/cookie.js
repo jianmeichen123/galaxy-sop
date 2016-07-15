@@ -68,11 +68,11 @@ function setCookie(name,value,hours,path){
 		}
 		//console.log("---sessionStorage pagecount:" + sessionStorage.pagecount);	
 	}
-	$('.url_cookie').click(function(){
+	$("div").delegate(".url_cookie", "click", function() {
 		var href_url=window.location;
 		setCookie("href_url", href_url,24,'/');
-	})
-	$('.project_name')click(function(){
+	});
+	$("div").delegate(".project_name", "click", function() {
 		var href_url=window.location;
 		setCookie("href_url", href_url,24,'/');
-	})
+	});
