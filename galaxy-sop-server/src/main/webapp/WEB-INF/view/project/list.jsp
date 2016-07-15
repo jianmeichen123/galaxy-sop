@@ -222,11 +222,10 @@
 		var createUid = $("select[name='createUid']").val();
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		
-		var PageSize_ab = $( ".dropdown-toggle .page-size").text();
 		var formdata = {
 				_paramKey : 'projectList',
 				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
-				_path : Constants.sopEndpointURL,
+				_path : "/",
 				_param : {
 					pageNum : tempPageNum,
 	        		pageSize : tempPageSize,
@@ -239,6 +238,8 @@
 	        		nameCodeLike : nameCodeLike
 				}
 		}
+		var href_url=window.location;
+		setCookie("href_url", href_url,24,'/');
 		cookieOperator.forwardPushCookie(formdata);
 	}
 	
@@ -286,14 +287,14 @@
 	$(function(){
 		//返回附带参数功能代码
 		var initParams,
-			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : Constants.sopEndpointURL}),
+			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'projectList',_path : "/"}),
 			initPageSize = 10;
 		
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 			initPageSize = pageParams.pageSize;
 		}
 		$("button[action='querySearch']").click(function(){
-			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
+			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
 		});
 		/**
 		 * 初始化项目列表
@@ -312,8 +313,13 @@
 	        search: false,
 	        //返回附带参数功能代码
 	        queryParams : function(param){
-	        	initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : Constants.sopEndpointURL});
-	    		if(typeof(initParams) !== 'undefined'){
+	        	if(getCookieValue("backProjectList")!=''){
+	        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	        		deleteCookie("backProjectList","/");
+	        	}else{
+	        		initParams=undefined;
+	        	}
+	        	if(typeof(initParams) !== 'undefined'){
 	    			param.pageNum = initParams.pageNum - 1;
 	        		param.pageSize = initParams.pageSize;
 	        		if(initParams.projectType != ''){

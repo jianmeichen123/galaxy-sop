@@ -223,7 +223,7 @@
 		var formdata = {
 				_paramKey : 'meetingSheduleList',
 				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
-				_path : Constants.sopEndpointURL,
+				_path : "/",
 				_param : {
 					pageNum : tempPageNum,
 	        		pageSize : tempPageSize,
@@ -232,6 +232,9 @@
 	        		keyword : keyword
 				}
 		}
+		
+		var href_url=window.location;
+		setCookie("href_url", href_url,24,'/');
 		cookieOperator.forwardPushCookie(formdata);
 	}
 	
@@ -249,13 +252,13 @@
 	});
 
 	var initParams,
-			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL}),
+			pageParams=cookieOperator.getDataNoDelete({_paramKey : 'meetingSheduleList',_path : "/"}),
 			initPageSize = 10;
 	if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 		initPageSize = pageParams.pageSize;
 	}
 	$("button[action='querySearch']").click(function(){
-		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL});
+		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : "/"});
 	});
 	$("#meeting-shedule-list").bootstrapTable({
 		queryParamsType: 'size|page',
@@ -267,7 +270,12 @@
         search: false,
         //返回附带参数功能代码
 	    queryParams : function(param){
-	    	initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : Constants.sopEndpointURL});
+	    	if(getCookieValue("backProjectList")!=''){
+        		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : "/"});
+        		deleteCookie("backProjectList","/");
+        	}else{
+	        	initParams=undefined;
+	        }
 	    	if(typeof(initParams) !== 'undefined'){
 	    		param.pageNum = initParams.pageNum - 1;
 	        	param.pageSize = initParams.pageSize;

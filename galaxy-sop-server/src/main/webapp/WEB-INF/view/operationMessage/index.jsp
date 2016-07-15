@@ -61,7 +61,7 @@
 	$(function(){
 		createMenus(3);
 		var initParams,
-				pageParams=cookieOperator.pullCookie({_paramKey : 'messageList',_path : Constants.sopEndpointURL}),
+				pageParams=cookieOperator.getDataNoDelete({_paramKey : 'messageList',_path : "/"}),
 				initPageSize = 10;
 		if(typeof(pageParams) !== 'undefined' && pageParams.pageSize !=''){
 			initPageSize = pageParams.pageSize;
@@ -79,13 +79,18 @@
 	        search: false,
 	        //返回附带参数功能代码
 	        queryParams : function(param){
-	        	initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : Constants.sopEndpointURL});
+	        	if(getCookieValue("backProjectList")!=''){
+	        		initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : "/"});
+	        		deleteCookie("backProjectList","/");
+	        	}else{
+	        		initParams=undefined;
+	        	}
 	    		if(typeof(initParams) !== 'undefined'){
-	    			param.pageNum = initParams.pageNum - 1;
-	        		param.pageSize = initParams.pageSize;
-	        		var options = $("#data-table").bootstrapTable('getOptions');
-	 	        	options.pageNumber = initParams.pageNum - 1;
-	    		}
+		    		param.pageNum = initParams.pageNum - 1;
+		        	param.pageSize = initParams.pageSize;
+		        	var options = $("#data-table").bootstrapTable('getOptions');
+		 	        options.pageNumber = initParams.pageNum - 1;
+		    	}
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
@@ -128,12 +133,15 @@
 		var formdata = {
 				_paramKey : 'messageList',
 				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" +id,
-				_path : Constants.sopEndpointURL,
+				_path : "/",
 				_param : {
 					pageNum : tempPageNum,
 	        		pageSize : tempPageSize
 				}
 		}
+		
+		var href_url=window.location;
+		setCookie("href_url", href_url,24,'/');
 		cookieOperator.forwardPushCookie(formdata);
 	}
 	function backIndex(){
