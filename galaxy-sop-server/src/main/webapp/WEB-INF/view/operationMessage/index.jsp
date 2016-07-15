@@ -79,7 +79,10 @@
 	        search: false,
 	        //返回附带参数功能代码
 	        queryParams : function(param){
-	        	initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : "/"});
+	        	if(getCookieValue("backProjectList")!=''){
+	        		initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : "/"});
+	        		deleteCookie("backProjectList","/");
+	        	}
 	    		if(typeof(initParams) !== 'undefined'){
 	    			param.pageNum = initParams.pageNum - 1;
 	        		param.pageSize = initParams.pageSize;
@@ -134,6 +137,9 @@
 	        		pageSize : tempPageSize
 				}
 		}
+		
+		var href_url=window.location;
+		setCookie("href_url", href_url,24,'/');
 		cookieOperator.forwardPushCookie(formdata);
 	}
 	function backIndex(){
