@@ -81,15 +81,16 @@
 	        queryParams : function(param){
 	        	if(getCookieValue("backProjectList")!=''){
 	        		initParams = cookieOperator.pullCookie({_paramKey : 'messageList',_path : "/"});
-	        		if(typeof(initParams) !== 'undefined'){
-		    			param.pageNum = initParams.pageNum - 1;
-		        		param.pageSize = initParams.pageSize;
-		        		var options = $("#data-table").bootstrapTable('getOptions');
-		 	        	options.pageNumber = initParams.pageNum - 1;
-		    		}
 	        		deleteCookie("backProjectList","/");
+	        	}else{
+	        		initParams=undefined;
 	        	}
-	    		
+	    		if(typeof(initParams) !== 'undefined'){
+		    		param.pageNum = initParams.pageNum - 1;
+		        	param.pageSize = initParams.pageSize;
+		        	var options = $("#data-table").bootstrapTable('getOptions');
+		 	        options.pageNumber = initParams.pageNum - 1;
+		    	}
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
