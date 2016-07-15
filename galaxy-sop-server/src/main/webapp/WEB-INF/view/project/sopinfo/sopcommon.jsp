@@ -55,9 +55,17 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 
 
 function back(){
-	setCookie("backProjectList", 'click',24,'/');
- 	deleteCookie("number_on","/");
- 	history.go(-number_on)
+	setCookie("backProjectList", 'click',24,'/');	
+	var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+	if (userAgent.indexOf("Safari") > -1) {
+		
+		var href_url=getCookieValue("href_url");
+		deleteCookie("href_url","/");
+		window.location=href_url;
+	}else{
+	 	deleteCookie("number_on","/");
+	 	history.go(-number_on)
+	}
 }
 $(function(){
 	var str=projectInfo.projectName;
