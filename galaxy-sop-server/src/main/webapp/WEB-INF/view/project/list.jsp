@@ -315,36 +315,38 @@
 	        queryParams : function(param){
 	        	if(getCookieValue("backProjectList")!=''){
 	        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
-	        		if(typeof(initParams) !== 'undefined'){
-		    			param.pageNum = initParams.pageNum - 1;
-		        		param.pageSize = initParams.pageSize;
-		        		if(initParams.projectType != ''){
-		        			param.projectType = initParams.projectType;
-		        			$("select[name='projectType']").val(initParams.projectType);
-		        		}
-		        		if(initParams.financeStatus != ''){
-		        			param.financeStatus = initParams.financeStatus;
-		        			$("select[name='financeStatus']").val(initParams.financeStatus);
-		        		}
-		        		if(initParams.projectProgress != ''){
-		        			param.projectProgress = initParams.projectProgress;
-		        			$("select[name='projectProgress']").val(initParams.projectProgress);
-		        		}
-		        		if(initParams.projectStatus != ''){
-		        			param.projectStatus = initParams.projectStatus;
-		        			$("select[name='projectStatus']").val(initParams.projectStatus);
-		        		}
-		        		param.projectDepartid = initParams.projectDepartid;
-		        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
-		        		param.createUid = initParams.createUid;
-		        		$("select[name='createUid']").val(initParams.createUid);
-		        		param.nameCodeLike = initParams.nameCodeLike;
-		        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike);
-		        		var options = $("#data-table").bootstrapTable('getOptions');
-		 	        	options.pageNumber = initParams.pageNum - 1;
-		    		}
 	        		deleteCookie("backProjectList","/");
+	        	}else{
+	        		initParams=undefined;
 	        	}
+	        	if(typeof(initParams) !== 'undefined'){
+	    			param.pageNum = initParams.pageNum - 1;
+	        		param.pageSize = initParams.pageSize;
+	        		if(initParams.projectType != ''){
+	        			param.projectType = initParams.projectType;
+	        			$("select[name='projectType']").val(initParams.projectType);
+	        		}
+	        		if(initParams.financeStatus != ''){
+	        			param.financeStatus = initParams.financeStatus;
+	        			$("select[name='financeStatus']").val(initParams.financeStatus);
+	        		}
+	        		if(initParams.projectProgress != ''){
+	        			param.projectProgress = initParams.projectProgress;
+	        			$("select[name='projectProgress']").val(initParams.projectProgress);
+	        		}
+	        		if(initParams.projectStatus != ''){
+	        			param.projectStatus = initParams.projectStatus;
+	        			$("select[name='projectStatus']").val(initParams.projectStatus);
+	        		}
+	        		param.projectDepartid = initParams.projectDepartid;
+	        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
+	        		param.createUid = initParams.createUid;
+	        		$("select[name='createUid']").val(initParams.createUid);
+	        		param.nameCodeLike = initParams.nameCodeLike;
+	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike);
+	        		var options = $("#data-table").bootstrapTable('getOptions');
+	 	        	options.pageNumber = initParams.pageNum - 1;
+	    		}
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
