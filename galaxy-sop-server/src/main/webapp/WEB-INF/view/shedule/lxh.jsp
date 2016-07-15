@@ -272,24 +272,25 @@
 	    queryParams : function(param){
 	    	if(getCookieValue("backProjectList")!=''){
         		initParams = cookieOperator.pullCookie({_paramKey : 'meetingSheduleList',_path : "/"});
+        		if(typeof(initParams) !== 'undefined'){
+	    			param.pageNum = initParams.pageNum - 1;
+	        		param.pageSize = initParams.pageSize;
+	        		param.keyword = initParams.keyword;
+	        		if(initParams.scheduleStatus != ''){
+	        			param.scheduleStatus = initParams.scheduleStatus;
+	        			$("input[name='scheduleStatus'][value='"+initParams.scheduleStatus+"']").attr("checked","true");
+	        		}
+	        		if(initParams.careline != ''){
+	        			param.careline = initParams.careline;
+	        			$("select[name='careline']").val(initParams.careline);
+	        		}
+	        		$("input[name='keyword']").val(initParams.keyword);
+	        		var options = $("#meeting-shedule-list").bootstrapTable('getOptions');
+	 	        	options.pageNumber = initParams.pageNum - 1;
+	    		}
         		deleteCookie("backProjectList","/");
         	}
-	    	if(typeof(initParams) !== 'undefined'){
-	    		param.pageNum = initParams.pageNum - 1;
-	        	param.pageSize = initParams.pageSize;
-	        	param.keyword = initParams.keyword;
-	        	if(initParams.scheduleStatus != ''){
-	        		param.scheduleStatus = initParams.scheduleStatus;
-	        		$("input[name='scheduleStatus'][value='"+initParams.scheduleStatus+"']").attr("checked","true");
-	        	}
-	        	if(initParams.careline != ''){
-	        		param.careline = initParams.careline;
-	        		$("select[name='careline']").val(initParams.careline);
-	        	}
-	        	$("input[name='keyword']").val(initParams.keyword);
-	        	var options = $("#meeting-shedule-list").bootstrapTable('getOptions');
-	 	        options.pageNumber = initParams.pageNum - 1;
-	    	}
+	    	
 	        return param;
 	    },
         onLoadSuccess: function(){
