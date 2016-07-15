@@ -72,3 +72,7 @@ function setCookie(name,value,hours,path){
 		var href_url=window.location;
 		setCookie("href_url", href_url,24,'/');
 	})
+	$('.project_name')click(function(){
+		var href_url=window.location;
+		setCookie("href_url", href_url,24,'/');
+	})
