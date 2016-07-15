@@ -222,7 +222,6 @@
 		var createUid = $("select[name='createUid']").val();
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
 		
-		var PageSize_ab = $( ".dropdown-toggle .page-size").text();
 		var formdata = {
 				_paramKey : 'projectList',
 				_url : Constants.sopEndpointURL + "/galaxy/project/detail/" + id,
@@ -239,6 +238,8 @@
 	        		nameCodeLike : nameCodeLike
 				}
 		}
+		var href_url=window.location;
+		setCookie("href_url", href_url,24,'/');
 		cookieOperator.forwardPushCookie(formdata);
 	}
 	
@@ -312,7 +313,10 @@
 	        search: false,
 	        //返回附带参数功能代码
 	        queryParams : function(param){
-	        	initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	        	if(getCookieValue("backProjectList")!=''){
+	        		initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
+	        		deleteCookie("backProjectList","/");
+	        	}
 	    		if(typeof(initParams) !== 'undefined'){
 	    			param.pageNum = initParams.pageNum - 1;
 	        		param.pageSize = initParams.pageSize;
