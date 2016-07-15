@@ -64,6 +64,7 @@ function back(){
 		window.location=href_url;
 	}else{
 	 	deleteCookie("number_on","/");
+	 	deleteCookie("backProjectList","/");
 	 	history.go(-number_on)
 	}
 }
