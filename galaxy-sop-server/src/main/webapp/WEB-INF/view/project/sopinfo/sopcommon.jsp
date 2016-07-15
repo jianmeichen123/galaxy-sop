@@ -31,7 +31,7 @@
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isCreatedByUser" value="${fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <script>
-var number_on;
+/* var number_on;
 $(function(){
 	if(getCookieValue("number_on")==''){
 		setCookie("number_on", '1',24,'/')
@@ -41,7 +41,7 @@ $(function(){
 		number_on++;
 		setCookie("number_on",number_on,24,'/');
 	}
-});
+}); */
 var isCreatedByUser = "${isCreatedByUser}";
 var pid='${pid}';
 if(null==pid||typeof(pid)=="underfind"||pid==""){
@@ -56,17 +56,9 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 
 function back(){
 	setCookie("backProjectList", 'click',24,'/');	
-	var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
-	if (userAgent.indexOf("Safari") > -1) {
-		
-		var href_url=getCookieValue("href_url");
-		deleteCookie("href_url","/");
-		window.location=href_url;
-	}else{
-	 	deleteCookie("number_on","/");
-	 	deleteCookie("backProjectList","/");
-	 	history.go(-number_on)
-	}
+	var href_url=getCookieValue("href_url");
+	deleteCookie("href_url","/");
+	window.location=href_url;	
 }
 $(function(){
 	var str=projectInfo.projectName;
