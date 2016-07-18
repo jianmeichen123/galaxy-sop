@@ -60,9 +60,9 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 		User user = (User) getUserFromSession(request);
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		if(roleIdList != null && (roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)||roleIdList.contains(UserConstant.HHR))){
-			serverUrl = getServerUrl();
+			//serverUrl = getServerUrl();
 			String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
-			return "redirect:" + serverUrl +"report/galaxy/report/platform?"+params;
+			return "redirect:/galaxy/report/platform?"+params;
 		}else if(roleIdList != null && roleIdList.contains(UserConstant.GLY)){
 			String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
 			return "redirect:" + serverUrl +"platform/galaxy/user?"+params;

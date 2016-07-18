@@ -9,7 +9,6 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 java.util.Map<String, String> map = new com.google.gson.Gson().fromJson(endpoint,new com.google.gson.reflect.TypeToken<java.util.Map<String, String>>() {}.getType());
 String reportEndpoint = map.get("galaxy.project.report.endpoint");
 %>
-称健美称健美陈建梅
 <!doctype html>
 <html>
 <head>
@@ -158,7 +157,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<div id="histogram" class="histogram" style="height:160px"></div>
                     </dd>
                   <!--    <dd class="clearfix">
-                    	<a href="<%=reportEndpoint %>/galaxy/report/dataBriefing" class="more null">more</a>
+                    	<a href="<<%=path %>/galaxy/report/dataBriefing" class="more null">more</a>
                     </dd>
                     -->
                 </dl>

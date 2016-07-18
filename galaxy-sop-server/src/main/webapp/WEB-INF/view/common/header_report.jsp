@@ -53,7 +53,25 @@ var isDSZ = "<%=isDSZ%>";
 <jsp:include page="taglib.jsp" flush="true"></jsp:include>
 <!--[if lt IE 9]><link href="<%=request.getContextPath() %>/css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
 
+
+<!-- report start -->
+<link href="<%=request.getContextPath() %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link href="<%=request.getContextPath() %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+
+<script src="<%=request.getContextPath() %>/js/highcharts.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/js/highcharts_ext.js" type="text/javascript"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/js/bootstrap.min.js"></script>
+<!-- bootstrap-table -->
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/bootstrap-table-report.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<!-- bootstrap-datetimepicker -->
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=request.getContextPath() %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=request.getContextPath() %>/js/cookie.js" type="text/javascript"></script>
+
 <script src="<%=request.getContextPath() %>/js/common_report.js" type="text/javascript"></script>
+<!-- end -->
+
 
 <body>
 <div class="erwm">
