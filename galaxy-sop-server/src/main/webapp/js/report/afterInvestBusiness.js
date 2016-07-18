@@ -1,0 +1,3 @@
+$(function () {
+	createMenus(9);
+});

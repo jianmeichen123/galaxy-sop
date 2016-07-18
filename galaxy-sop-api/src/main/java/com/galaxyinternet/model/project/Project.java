@@ -11,6 +11,9 @@ import com.galaxyinternet.framework.core.utils.NumberUtils;
 public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
+	private int completed;
+   
+
 	private String projectName;
     private String projectCode;
     private Long ideaId;
@@ -509,6 +512,12 @@ public class Project extends PagableEntity {
 		this.serviceCharge = serviceCharge;
 	}
 	
-	
+	public int getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(int completed) {
+		this.completed = completed;
+	}
 
 }

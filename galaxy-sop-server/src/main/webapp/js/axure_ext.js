@@ -30,6 +30,7 @@ $(function(){
 	
 	//日程时间
 	//$(".projectmsg_d .block").today();
+	$(".pagebox .rit .top .tody").today();
 	//柱状图
 	$(".histogram").histogram();
 	//表格滑过
@@ -95,6 +96,7 @@ $(function(){
 	$(".news").tabchange();
 	$(".assessment").tabchange();
 	$(".project_analysis").tabchange();
+	$(".chartbox_bottom").tabchange1();
 
 	//------------------------------弹窗部分
 		//添加团队成员信息弹窗

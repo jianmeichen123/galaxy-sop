@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.chart.Chart">
+		
+	<select id="lineChart" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_project_line_chart(#{sdate},#{edate},#{year},#{deptid},#{projectType},#{model},#{datatype},#{pageNum},#{pageSize});
+	</select>
+	<select id="lineHhrChart" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_project_line_hhr_chart(#{sdate},#{edate},#{year},#{deptid},#{projectType},#{model},#{datatype},#{pageNum},#{pageSize});
+	</select>
+
+	<select id="dataBriefChart" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_data_brief_chart(#{year},#{type},#{deptid});
+	</select>
+
+	<select id="projectList" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_project_list(#{sdate},#{edate},#{projectType},#{projectProgress},#{deptid},#{userid},#{secLxh},#{secTjh},#{type},#{pageNum},#{pageSize});
+	</select>
+	
+	<select id="userKPI" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_user_kpi(#{sdate},#{edate},#{year},#{projectType},#{projectProgress},#{deptid},#{datatype},#{pageNum},#{pageSize});
+	</select>
+	
+	<select id="deptKPI" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_dept_kpi(#{sdate},#{edate},#{year},#{deptid},#{projectType},#{datatype},#{pageNum},#{pageSize});
+	</select>
+	
+	<select id="projectProgressChart" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_project_progress_chart(#{sdate},#{edate},#{projectType},#{projectProgress},#{deptid},#{userid});
+	</select>
+	
+	<select id="meetingRate" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_meeting_rate(#{sdate},#{edate},#{deptid},#{meetingType},#{projectType},#{model},#{datatype},#{pageNum},#{pageSize});
+	</select>
+	<select id="meetingRateUser" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_meeting_rate_user(#{sdate},#{edate},#{deptid},#{meetingType},#{projectType},#{model},#{datatype},#{pageNum},#{pageSize});
+	</select>
+	
+	<select id="rateRiseD" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_rate_rise_d(#{sdate},#{edate},#{deptid},#{projectType},#{datatype},#{pageNum},#{pageSize});
+	</select>
+	<select id="rateRiseDChart" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_rate_rise_d_chart(#{sdate},#{edate},#{deptid},#{projectType});
+	</select>
+	
+	<select id="rateRiseM" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_rate_rise_m(#{sym},#{eym},#{deptid},#{projectType},#{datatype},#{pageNum},#{pageSize});
+	</select>
+	<select id="rateRiseMChart" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_rate_rise_m_chart(#{sym},#{eym},#{deptid},#{projectType});
+	</select>
+	
+	<select id="rateRiseMonthChart" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_rate_rise_month_chart(#{sym},#{eym},#{deptid},#{projectType},#{projectProgress});
+	</select>
+	
+	<select id="platformmeetingScheduling" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_meeting_scheduling(#{deptid});
+	</select>
+	<select id="meetingSchedList" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_meeting_scheduling_list(#{sdate},#{edate},#{deptid},#{meetingType},#{model},#{datatype},#{pageNum},#{pageSize});
+	</select>
+	
+	<select id="progressDurationList" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_progress_duration_list(#{sdate},#{edate},#{projectType},#{projectProgress},#{projectStatus},#{deptid},#{model},#{datatype},#{pageNum},#{pageSize});
+	</select>
+	
+	<select id="departmentList" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_department_list(#{id},#{name},#{parentId},#{type},#{managerId});
+	</select>
+	
+	<select id="appBrief" resultType="java.util.Map" parameterType="java.util.Map">
+		call t_ft_app_brief(#{deptid},#{userid});
+	</select>
+</mapper>
+	

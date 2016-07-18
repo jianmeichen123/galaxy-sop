@@ -40,6 +40,7 @@
     <result column="operational_data" property="operationalData" jdbcType="LONGVARCHAR" />
     <result column="count" property="count" jdbcType="BIGINT" />
     <result column="idea_id" property="ideaId" jdbcType="BIGINT" />
+    <result column="completed" property="completed" />
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -182,6 +183,9 @@
 				<if test="ideaId != null">
 					and idea_id = #{ideaId}
 				</if>
+				
+				<if test="startTime != null"> <![CDATA[ and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>		
+                <if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -429,5 +433,40 @@
 		 id 
 		from sop_project
 		<include refid="Base_Where_Clause" />
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- report -->
+	
+		<!-- 查询 -->
+	<select id="selectProjectReportForGg" resultMap="BaseResultMap" parameterType="java.util.Map">
+<!-- 		SELECT project_departId, 
+			(SELECT COUNT(*) FROM `sop_project` WHERE project_type = 'projectType:1' AND project_departId = a.`project_departId` GROUP BY project_type) wbcompleted,
+			(SELECT COUNT(*) FROM `sop_project` WHERE project_type = 'projectType:2' AND project_departId = a.`project_departId` GROUP BY project_type) zjcompleted,
+			COUNT(id) completed
+		FROM `sop_project` a
+		<include refid="Base_Where_Clause" />
+		GROUP BY project_departId -->
+		select
+			project_departId, project_type, count(id) completed
+		from sop_project
+		<include refid="Base_Where_Clause" />
+		GROUP BY project_departId,project_type
 	</select>
 </mapper>

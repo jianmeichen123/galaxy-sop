@@ -230,7 +230,13 @@ function forwardWithHeader(url){
 }
 
 
-
+function forwardIndexWithHeader(url, sessionId, userId) {
+	if (url.indexOf("?") == -1) {
+		window.location.href = url + "?sid=" + sessionId + "&guid=" + userId;
+	} else {
+		window.location.href = url + "&sid=" + sessionId + "&guid=" + userId;
+	}
+}
 
 
 /**

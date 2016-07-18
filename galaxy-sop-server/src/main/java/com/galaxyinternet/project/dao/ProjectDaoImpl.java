@@ -66,4 +66,17 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 	}
 
 
+	
+	
+	
+	
+	
+	//=== report
+	
+	@Override
+	public List<Project> selectProjectReportForGg(ProjectBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectProjectReportForGg"),params);
+	}
+
 }
