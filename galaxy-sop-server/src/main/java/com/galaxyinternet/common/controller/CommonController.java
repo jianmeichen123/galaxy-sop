@@ -80,9 +80,6 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		serverUrl = getServerUrl();
 		
 		ResponseData<Menus> responseBody = new ResponseData<Menus>();
-		Header header = new Header();
-		header.setAttachment(selected);
-		responseBody.setHeader(header);
 		
 		User user = (User) getUserFromSession(request);
 		List<Menus> tabs = null;
@@ -101,7 +98,15 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				session.setAttribute(key, tabs);
 			}
 		}
-		
+		String referer = request.getHeader("Referer");
+		Menus selectedMenu = getSelectedMenu(referer, tabs);
+		if(selectedMenu != null && selectedMenu.getId() != null)
+		{
+			selected = selectedMenu.getId().intValue();
+		}
+		Header header = new Header();
+		header.setAttachment(selected);
+		responseBody.setHeader(header);
 	    responseBody.setEntityList(tabs);
 		return responseBody;
 	}
@@ -286,4 +291,26 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		}
 		return menus;
 	}
+	private Menus getSelectedMenu(String url,List<Menus> menus)
+	{
+		Menus menu = null;
+		if(StringUtils.isNoneBlank(url) && menus != null && menus.size() >0 )
+		{
+			for(Menus item : menus)
+			{
+				if(StringUtils.isNoneBlank(item.getUrl()) && url.contains(item.getUrl()))
+				{
+					menu = item;
+					break;
+				}
+				List<Menus> subMenus = item.getNodes();
+				if(subMenus != null && subMenus.size()>0)
+				{
+					menu = getSelectedMenu(url,subMenus);
+				}
+			}
+		}
+		return menu;
+	}
+	
 }
