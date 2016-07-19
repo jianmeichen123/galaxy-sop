@@ -269,9 +269,9 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			for(PlatformResource res : list)
 			{
 				String url = null;
-				if(StringUtils.isNoneEmpty(res.getResourceUrl()))
+				if(StringUtils.isNotEmpty(res.getResourceUrl()))
 				{
-					String product = StringUtils.isNoneBlank(res.getProductMark()) ? res.getProductMark()+"/" : "" ;
+					String product = StringUtils.isNotEmpty(res.getProductMark()) ? res.getProductMark()+"/" : "" ;
 					url = serverUrl+product+res.getResourceUrl()+"?"+params;
 				}
 				Integer level = res.getParentId() != null && res.getParentId().intValue() > 0 ? 1 : 0;
@@ -294,11 +294,11 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	private Menus getSelectedMenu(String url,List<Menus> menus)
 	{
 		Menus menu = null;
-		if(StringUtils.isNoneBlank(url) && menus != null && menus.size() >0 )
+		if(StringUtils.isNotEmpty(url) && menus != null && menus.size() >0 )
 		{
 			for(Menus item : menus)
 			{
-				if(StringUtils.isNoneBlank(item.getUrl()) && url.contains(item.getUrl()))
+				if(StringUtils.isNotEmpty(item.getUrl()) && url.contains(item.getUrl()))
 				{
 					menu = item;
 					break;
