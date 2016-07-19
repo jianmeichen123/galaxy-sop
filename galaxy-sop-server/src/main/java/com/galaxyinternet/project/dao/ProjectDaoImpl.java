@@ -3,6 +3,7 @@ package com.galaxyinternet.project.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
@@ -77,6 +78,35 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 	public List<Project> selectProjectReportForGg(ProjectBo query) {
 		Map<String, Object> params = BeanUtils.toMap(query);
 		return sqlSessionTemplate.selectList(getSqlName("selectProjectReportForGg"),params);
+	}
+	
+	@Override
+	public List<Project> selectUserProNumByProType(ProjectBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectUserProNumByProType"),params);
+	}
+	
+	@Override
+	public List<Project> selectUserProNumOrderByNum(ProjectBo query, Pageable pageable) {
+		return sqlSessionTemplate.selectList(getSqlName("selectUserProNumOrderByNum"),getParams(query, pageable));
+	}
+
+	@Override
+	public List<Project> selectUserCompletedProNum(ProjectBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectUserCompletedProNum"),params);
+	}
+	
+	@Override
+	public List<Project> selectDeptrCompletedProNum(ProjectBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectDeptCompletedProNum"),params);
+	}
+
+	@Override
+	public Long selectUserProNumCount(ProjectBo proQuery) {
+		Map<String, Object> params = BeanUtils.toMap(proQuery);
+		return sqlSessionTemplate.selectOne(getSqlName("selectUserProNumCount"),params);
 	}
 
 }

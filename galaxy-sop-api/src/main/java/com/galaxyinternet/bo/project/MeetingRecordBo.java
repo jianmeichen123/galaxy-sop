@@ -16,6 +16,7 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private String endTime;
 	private String proNameCode;
 	private int inpro; //是否项目内查看 1：是
+	
 	private List<Long> proIdList;
 	private List<String> meetingTypeList;
 	
@@ -26,6 +27,11 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private String property;// 排序的字段名称
 	
 	private Long departId; //部门id
+	
+	
+	private String projectType;
+	private List<Long> userIdList;
+	
 	
 	public String getProName() {
 		return proName;
@@ -152,6 +158,18 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setMeetingTypeList(List<String> meetingTypeList) {
 		this.meetingTypeList = meetingTypeList;
+	}
+	public String getProjectType() {
+		return projectType;
+	}
+	public void setProjectType(String projectType) {
+		this.projectType = projectType;
+	}
+	public List<Long> getUserIdList() {
+		return userIdList;
+	}
+	public void setUserIdList(List<Long> userIdList) {
+		this.userIdList = userIdList;
 	}
 	
 	

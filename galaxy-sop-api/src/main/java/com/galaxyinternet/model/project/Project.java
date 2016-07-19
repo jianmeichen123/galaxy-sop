@@ -12,6 +12,7 @@ public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
 	private int completed;
+	private int depNumOrder;
    
 
 	private String projectName;
@@ -518,6 +519,14 @@ public class Project extends PagableEntity {
 
 	public void setCompleted(int completed) {
 		this.completed = completed;
+	}
+
+	public int getDepNumOrder() {
+		return depNumOrder;
+	}
+
+	public void setDepNumOrder(int depNumOrder) {
+		this.depNumOrder = depNumOrder;
 	}
 
 }

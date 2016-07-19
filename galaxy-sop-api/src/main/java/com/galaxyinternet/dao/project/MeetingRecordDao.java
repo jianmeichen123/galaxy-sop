@@ -1,5 +1,7 @@
 package com.galaxyinternet.dao.project;
 
+import java.util.List;
+
 import org.springframework.data.domain.Pageable;
 
 import com.galaxyinternet.bo.project.MeetingRecordBo;
@@ -17,5 +19,10 @@ public interface MeetingRecordDao extends BaseDao<MeetingRecord, Long> {
 	 * @return
 	 */
 	public Long selectMeetNumberByType(MeetingRecord query);
+
+	public Long selectMeetCountByGHL(MeetingRecordBo mquery1);
+
+	public List<MeetingRecord> selectUserPassMeetNum(MeetingRecordBo mquery1);
+
 
 }

@@ -17,6 +17,9 @@
     <result column="participant" jdbcType="VARCHAR" property="participant" />
     <result column="meet_valid" jdbcType="TINYINT" property="meetValid" />
     <result column="meeting_name" jdbcType="BIGINT" property="meetingName" />
+    
+    <result column="departId"  property="departId" />
+    <result column="passMeetNum"  property="passMeetNum" />
   </resultMap>
   
   
@@ -242,5 +245,62 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	<!-- report -->
+	
+	
+	<!-- 查询总数 -->
+	<select id="selectMeetCountByGHL" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) 
+		from sop_meeting_record meet,sop_project pro
+		where
+			meet.project_id = pro.id
+			
+	      <if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+		   <if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+		   
+		   <if test="meetingType != null" >and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+		  
+	      <if test="meetingResult != null" >and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+		  
+		  <if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>	
+		  
+		  <if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+		  
+	</select>
+	
+	
+	<select id="selectUserPassMeetNum" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			pro.create_uid, pro.project_departId departId, count(meet.id) passMeetNum
+		from sop_meeting_record meet,sop_project pro
+		where
+			meet.project_id = pro.id
+			<if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+			<if test="userIdList != null">
+				AND pro.create_uid IN
+				<foreach collection="userIdList" index="item" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+		
+			<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+		
+			<if test="meetingResult != null">and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+		
+			<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+	
+		GROUP BY pro.create_uid
+	</select>
+	
+  
   
 </mapper>

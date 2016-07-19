@@ -58,6 +58,13 @@
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
 			   <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
+			    <if test="createtUids != null">
+					AND create_uid IN
+					<foreach collection="createtUids" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			  </if>
 			    <if test="projectProgress != null" > and project_progress = #{projectProgress,jdbcType=VARCHAR} </if>
 			   <if test="projectType != null" > and project_type = #{projectType,jdbcType=VARCHAR} </if>
 			  
@@ -184,8 +191,6 @@
 					and idea_id = #{ideaId}
 				</if>
 				
-				<if test="startTime != null"> <![CDATA[ and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>		
-                <if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -469,4 +474,134 @@
 		<include refid="Base_Where_Clause" />
 		GROUP BY project_departId,project_type
 	</select>
+	
+	
+	
+	<select id="selectUserProNumByProType" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			create_uid, project_departId,project_type, count(id) completed
+		from sop_project
+		<include refid="Base_Where_Clause" />
+		GROUP BY create_uid,project_type
+	</select>
+	
+	
+	<select id="selectUserCompletedProNum" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			create_uid, project_departId, count(id) completed
+		from sop_project
+		<include refid="Base_Where_Clause" />
+		GROUP BY create_uid
+	</select>
+	
+	
+	<select id="selectDeptCompletedProNum" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			project_departId, count(id) completed
+		from sop_project
+		<include refid="Base_Where_Clause" />
+		GROUP BY project_departId
+	</select>
+	
+	
+	<select id="selectUserProNumOrderByNum" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			create_uid, project_departId, count(id) completed
+		from sop_project
+		<where>
+			<trim prefixOverrides="and">
+		
+				<if test="ids != null">
+					AND id IN
+					<foreach collection="ids" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+		
+				<if test="createtUids != null">
+					AND create_uid IN
+					<foreach collection="createtUids" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				
+				<if test="projectType != null"> and project_type = #{projectType,jdbcType=VARCHAR} </if>
+		
+				<if test="projectDepartid != null"> and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
+				<if test="deptIdList != null">
+					AND project_departId IN
+					<foreach collection="deptIdList" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+		
+				<if test="projectCareerline != null"> and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
+		
+				<if test="projectStatus != null"> and project_status = #{projectStatus,jdbcType=VARCHAR} </if>
+		
+				<if test="startTime != null"> <![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
+		
+				<!-- 过滤已关闭项目 -->
+				<if test="resultCloseFilter != null"> AND project_status != #{resultCloseFilter,jdbcType=VARCHAR} </if>
+			</trim>
+		</where>
+		GROUP BY create_uid
+		<if test="sorting != null"> order by ${sorting} </if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+		
+	</select>
+	
+	
+	
+	
+	<!-- 查询总数 -->
+	<select id="selectUserProNumCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(a.create_uid) from (
+			select
+				create_uid, project_departId, count(id) completed
+			from sop_project
+			<where>
+				<trim prefixOverrides="and">
+					<if test="ids != null">
+						AND id IN
+						<foreach collection="ids" index="item" item="item" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</if>
+			
+					<if test="createtUids != null">
+						AND create_uid IN
+						<foreach collection="createtUids" index="item" item="item" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</if>
+					
+					<if test="projectType != null"> and project_type = #{projectType,jdbcType=VARCHAR} </if>
+			
+					<if test="projectDepartid != null"> and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
+					<if test="deptIdList != null">
+						AND project_departId IN
+						<foreach collection="deptIdList" index="item" item="item" open="(" separator="," close=")">
+							#{item}
+						</foreach>
+					</if>
+			
+					<if test="projectCareerline != null"> and project_careerline = #{projectCareerline,jdbcType=VARCHAR} </if>
+			
+					<if test="projectStatus != null"> and project_status = #{projectStatus,jdbcType=VARCHAR} </if>
+			
+					<if test="startTime != null"> <![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
+					<if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
+			
+					<!-- 过滤已关闭项目 -->
+					<if test="resultCloseFilter != null"> AND project_status != #{resultCloseFilter,jdbcType=VARCHAR} </if>
+				</trim>
+			</where>
+			GROUP BY create_uid
+		) a
+	</select>
+	
 </mapper>

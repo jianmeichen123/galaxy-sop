@@ -59,6 +59,8 @@ public class MeetingRecord  extends PagableRecordEntity{
      */
     private String createUName;
     
+    private Integer passMeetNum;
+    
     
     public String getParticipant() {
 		return participant;
@@ -352,6 +354,14 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setFileIds(List<Long> fileIds) {
 		this.fileIds = fileIds;
+	}
+
+	public Integer getPassMeetNum() {
+		return passMeetNum;
+	}
+
+	public void setPassMeetNum(Integer passMeetNum) {
+		this.passMeetNum = passMeetNum;
 	}
     
 	
