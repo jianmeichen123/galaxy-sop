@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.chart.SopProjectAnalysis">
+	<resultMap id="BaseResultMap"
+		type="com.galaxyinternet.model.chart.SopProjectAnalysis">
+		<result column="project_progress" jdbcType="VARCHAR" property="projectProgress" />
+		<result column="project_count" jdbcType="BIGINT" property="projectCount" />
+	</resultMap>
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectType != null">and project_type =
+					#{projectType,jdbcType=VARCHAR} </if>
+				<if test="projectDepartId != null">and project_departId =
+					#{projectDepartId,jdbcType=VARCHAR} </if>
+				<if test="startTime!=null"><![CDATA[  and updated_time >= #{startTime,jdbcType=BIGINT} ]]></if>
+				<if test="endTime!=null"><![CDATA[  and updated_time <= #{endTime,jdbcType=BIGINT} ]]></if>
+			</trim>
+		</where>
+	</sql>
+
+	<!-- 查询 -->
+	<select id="selectOverView" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select project_progress,count(0) as projectCount
+		from sop_project
+		group by project_progress
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(0) from sop_project
+		<include refid="Base_Where_Clause" />
+	</select>
+</mapper>
