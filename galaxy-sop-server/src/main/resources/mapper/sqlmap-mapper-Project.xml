@@ -485,14 +485,6 @@
 		GROUP BY project_departId
 	</select>
 	
-	<select id="selectDeptCompletedProNum" resultMap="BaseResultMap" parameterType="java.util.Map">
-		select
-			project_departId, count(id) completed
-		from sop_project
-		<include refid="Base_Where_Clause" />
-		GROUP BY project_departId
-	</select>
-	
 	
 	<select id="selectUserProNumOrderByNum" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
