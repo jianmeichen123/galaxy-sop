@@ -86,8 +86,8 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		HttpSession session = request.getSession();
 		if(session != null)
 		{
-			String key = Constants.SESSION_USER_MENUS_KEY+user.getId();
-			if(session.getAttribute(Constants.SESSION_USER_MENUS_KEY+user.getId()) != null)
+			String key = Constants.SESSION_USER_MENUS_KEY+getSessionId(request);
+			if(session.getAttribute(key) != null)
 			{
 				tabs = (List<Menus>)session.getAttribute(key);
 			}
