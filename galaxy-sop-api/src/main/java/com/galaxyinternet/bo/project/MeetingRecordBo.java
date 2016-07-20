@@ -26,12 +26,12 @@ public class MeetingRecordBo  extends MeetingRecord{
 	private String direction;// asc,desc
 	private String property;// 排序的字段名称
 	
-	private Long departId; //部门id
+	
 	
 	
 	private String projectType;
 	private List<Long> userIdList;
-	
+	private List<Long> deptIdList;
 	
 	public String getProName() {
 		return proName;
@@ -147,12 +147,6 @@ public class MeetingRecordBo  extends MeetingRecord{
 		this.property = property==null?null:property.trim();
 	}
 	
-	public Long getDepartId() {
-		return departId;
-	}
-	public void setDepartId(Long departId) {
-		this.departId = departId;
-	}
 	public List<String> getMeetingTypeList() {
 		return meetingTypeList;
 	}
@@ -170,6 +164,12 @@ public class MeetingRecordBo  extends MeetingRecord{
 	}
 	public void setUserIdList(List<Long> userIdList) {
 		this.userIdList = userIdList;
+	}
+	public List<Long> getDeptIdList() {
+		return deptIdList;
+	}
+	public void setDeptIdList(List<Long> deptIdList) {
+		this.deptIdList = deptIdList;
 	}
 	
 	

@@ -302,5 +302,37 @@
 	</select>
 	
   
+   <select id="selectDeptPassMeetNum" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			pro.project_departId departId, count(meet.id) passMeetNum
+		from sop_meeting_record meet,sop_project pro
+		where
+			meet.project_id = pro.id
+			<if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+			<if test="userIdList != null">
+				AND pro.create_uid IN
+				<foreach collection="userIdList" index="item" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="deptIdList != null">
+				AND pro.project_departId IN
+				<foreach collection="deptIdList" index="item" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+		
+			<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+		
+			<if test="meetingResult != null">and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+		
+			<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+	
+		GROUP BY pro.project_departId
+	</select>
   
 </mapper>

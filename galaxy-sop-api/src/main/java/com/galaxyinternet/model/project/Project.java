@@ -11,7 +11,8 @@ import com.galaxyinternet.framework.core.utils.NumberUtils;
 public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
-	private int completed;
+	private int completed; 
+	private int type_completed; 
 	private int depNumOrder;
    
 
@@ -527,6 +528,14 @@ public class Project extends PagableEntity {
 
 	public void setDepNumOrder(int depNumOrder) {
 		this.depNumOrder = depNumOrder;
+	}
+
+	public int getType_completed() {
+		return type_completed;
+	}
+
+	public void setType_completed(int type_completed) {
+		this.type_completed = type_completed;
 	}
 
 }

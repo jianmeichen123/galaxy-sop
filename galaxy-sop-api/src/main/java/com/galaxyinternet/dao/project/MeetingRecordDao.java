@@ -24,5 +24,7 @@ public interface MeetingRecordDao extends BaseDao<MeetingRecord, Long> {
 
 	public List<MeetingRecord> selectUserPassMeetNum(MeetingRecordBo mquery1);
 
+	public List<MeetingRecord> selectDeptPassMeetNum(MeetingRecordBo mquery1);
+
 
 }

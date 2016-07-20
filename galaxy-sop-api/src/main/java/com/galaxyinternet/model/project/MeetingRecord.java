@@ -60,7 +60,7 @@ public class MeetingRecord  extends PagableRecordEntity{
     private String createUName;
     
     private Integer passMeetNum;
-    
+    private Long departId; //部门id
     
     public String getParticipant() {
 		return participant;
@@ -362,6 +362,14 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setPassMeetNum(Integer passMeetNum) {
 		this.passMeetNum = passMeetNum;
+	}
+
+	public Long getDepartId() {
+		return departId;
+	}
+
+	public void setDepartId(Long departId) {
+		this.departId = departId;
 	}
     
 	

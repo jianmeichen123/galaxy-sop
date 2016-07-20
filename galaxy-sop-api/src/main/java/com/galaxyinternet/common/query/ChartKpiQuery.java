@@ -23,7 +23,7 @@ public class ChartKpiQuery extends PagableEntity {
 	private String projectType;
 	
 	
-	
+	private String forPerOrDept;   //'per' or 'dept'
 	
 	
 	
@@ -65,6 +65,12 @@ public class ChartKpiQuery extends PagableEntity {
 	}
 	public void setEndTime(Long endTime) {
 		this.endTime = endTime;
+	}
+	public String getForPerOrDept() {
+		return forPerOrDept;
+	}
+	public void setForPerOrDept(String forPerOrDept) {
+		this.forPerOrDept = forPerOrDept==null?"per":forPerOrDept;
 	}
 	
 	

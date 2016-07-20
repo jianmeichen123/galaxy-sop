@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.model.project.Project;
 
 public interface ProjectDao extends BaseDao<Project, Long> {
@@ -34,13 +35,22 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 
 	public List<Project> selectProjectReportForGg(ProjectBo query);
 
-	List<Project> selectUserProNumByProType(ProjectBo query);
-
-	List<Project> selectUserProNumOrderByNum(ProjectBo query, Pageable pageable);
-
+	public List<Project> selectUserProNumOrderByNum(ProjectBo query, Pageable pageable);
+	public List<Project> selectDeptProNumOrderByNum(ProjectBo query, Pageable pageable);
+	
 	public List<Project> selectUserCompletedProNum(ProjectBo query);
 
-	List<Project> selectDeptrCompletedProNum(ProjectBo query);
+	public Long selectUserProNumRowCount(ProjectBo proQuery);
+	
+	public Long selectDeptProNumRowCount(ProjectBo proQuery);
 
-	public Long selectUserProNumCount(ProjectBo proQuery);
+	public List<Project> selectDeptCompletedProNum(ProjectBo proOverCount);
+
+	List<Project> selectDeptAllProNumAndByType(ProjectBo query);
+
+	List<Project> selectTzjlAllProNumAndByType(ProjectBo query);
+
+	
+
+	
 }

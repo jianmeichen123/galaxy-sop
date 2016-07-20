@@ -81,32 +81,48 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 	}
 	
 	@Override
-	public List<Project> selectUserProNumByProType(ProjectBo query) {
+	public List<Project> selectDeptAllProNumAndByType(ProjectBo query) {
 		Map<String, Object> params = BeanUtils.toMap(query);
-		return sqlSessionTemplate.selectList(getSqlName("selectUserProNumByProType"),params);
+		return sqlSessionTemplate.selectList(getSqlName("selectDeptAllProNumAndByType"),params);
 	}
+	@Override
+	public List<Project> selectTzjlAllProNumAndByType(ProjectBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectTzjlAllProNumAndByType"),params);
+	}
+	
 	
 	@Override
 	public List<Project> selectUserProNumOrderByNum(ProjectBo query, Pageable pageable) {
 		return sqlSessionTemplate.selectList(getSqlName("selectUserProNumOrderByNum"),getParams(query, pageable));
 	}
-
+	@Override
+	public List<Project> selectDeptProNumOrderByNum(ProjectBo query, Pageable pageable) {
+		return sqlSessionTemplate.selectList(getSqlName("selectDeptProNumOrderByNum"),getParams(query, pageable));
+	}
+	
 	@Override
 	public List<Project> selectUserCompletedProNum(ProjectBo query) {
 		Map<String, Object> params = BeanUtils.toMap(query);
 		return sqlSessionTemplate.selectList(getSqlName("selectUserCompletedProNum"),params);
 	}
-	
 	@Override
-	public List<Project> selectDeptrCompletedProNum(ProjectBo query) {
+	public List<Project> selectDeptCompletedProNum(ProjectBo query) {
 		Map<String, Object> params = BeanUtils.toMap(query);
 		return sqlSessionTemplate.selectList(getSqlName("selectDeptCompletedProNum"),params);
 	}
+	
 
 	@Override
-	public Long selectUserProNumCount(ProjectBo proQuery) {
+	public Long selectUserProNumRowCount(ProjectBo proQuery) {
 		Map<String, Object> params = BeanUtils.toMap(proQuery);
-		return sqlSessionTemplate.selectOne(getSqlName("selectUserProNumCount"),params);
+		return sqlSessionTemplate.selectOne(getSqlName("selectUserProNumRowCount"),params);
+	}
+	
+	@Override
+	public Long selectDeptProNumRowCount(ProjectBo proQuery) {
+		Map<String, Object> params = BeanUtils.toMap(proQuery);
+		return sqlSessionTemplate.selectOne(getSqlName("selectDeptProNumRowCount"),params);
 	}
 
 }
