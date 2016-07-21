@@ -98,7 +98,17 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				session.setAttribute(key, tabs);
 			}
 		}
+		//选中菜单
 		String referer = request.getHeader("Referer");
+		String key = Constants.USER_LAST_ACCESS_MENU+getSessionId(request);
+		if(StringUtils.isNotEmpty(referer) && referer.contains(SopConstant.REQUEST_SCOPE_ATTR_IS_MENU))
+		{
+			session.setAttribute(key, referer);
+		}
+		else if(session.getAttribute(key) != null)
+		{
+			referer = (String)session.getAttribute(key);
+		}
 		Menus selectedMenu = getSelectedMenu(referer, tabs);
 		if(selectedMenu != null && selectedMenu.getId() != null)
 		{
