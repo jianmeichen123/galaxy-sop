@@ -711,7 +711,6 @@
 						</foreach>
 					</if>
 					
-			
 					<if test="projectDepartid != null"> and project_departId = #{projectDepartid,jdbcType=BIGINT} </if>
 					<if test="deptIdList != null">
 						AND project_departId IN
@@ -773,9 +772,9 @@
 		WHERE
 			a.project_departId = b.project_departId 
 		<if test="sorting != null"> order by ${sorting} </if>
-		<if test="offset != null and limit != null">
+		<!-- <if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
-		</if>
+		</if> -->
 	</select>
 	
 	
@@ -862,9 +861,9 @@
 		WHERE
 			a.create_uid = b.create_uid 
 		<if test="sorting != null"> order by ${sorting} </if>
-		<if test="offset != null and limit != null">
+		<!-- <if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
-		</if>
+		</if> -->
 	</select>
 	
 	
