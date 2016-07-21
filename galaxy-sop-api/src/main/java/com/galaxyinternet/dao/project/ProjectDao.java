@@ -46,9 +46,9 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 
 	public List<Project> selectDeptCompletedProNum(ProjectBo proOverCount);
 
-	List<Project> selectDeptAllProNumAndByType(ProjectBo query);
+	List<Project> selectDeptAllProNumAndByType(ProjectBo query, Pageable pageable);
 
-	List<Project> selectTzjlAllProNumAndByType(ProjectBo query);
+	List<Project> selectTzjlAllProNumAndByType(ProjectBo query, Pageable pageable);
 
 	
 

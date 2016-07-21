@@ -692,7 +692,6 @@
 	
 	
 	
-	
 	<!-- 查询条件下   各部门   完成项目数、内部项目完成数、 外部项目完成数（all - type1） -->
 	<select id="selectDeptAllProNumAndByType" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT
@@ -773,7 +772,14 @@
 			) b
 		WHERE
 			a.project_departId = b.project_departId 
+		<if test="sorting != null"> order by ${sorting} </if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
+	
+	
+	
 	
 	<!-- 查询条件下   各投资经理    完成项目数、内部项目完成数、 外部项目完成数（all - type1） -->
 	<select id="selectTzjlAllProNumAndByType" resultMap="BaseResultMap" parameterType="java.util.Map">
@@ -855,6 +861,10 @@
 			) b
 		WHERE
 			a.create_uid = b.create_uid 
+		<if test="sorting != null"> order by ${sorting} </if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
 	</select>
 	
 	

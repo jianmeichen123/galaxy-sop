@@ -81,14 +81,16 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 	}
 	
 	@Override
-	public List<Project> selectDeptAllProNumAndByType(ProjectBo query) {
-		Map<String, Object> params = BeanUtils.toMap(query);
-		return sqlSessionTemplate.selectList(getSqlName("selectDeptAllProNumAndByType"),params);
+	public List<Project> selectDeptAllProNumAndByType(ProjectBo query, Pageable pageable) {
+		return sqlSessionTemplate.selectList(getSqlName("selectDeptAllProNumAndByType"),getParams(query, pageable));
 	}
 	@Override
-	public List<Project> selectTzjlAllProNumAndByType(ProjectBo query) {
-		Map<String, Object> params = BeanUtils.toMap(query);
-		return sqlSessionTemplate.selectList(getSqlName("selectTzjlAllProNumAndByType"),params);
+	public List<Project> selectTzjlAllProNumAndByType(ProjectBo query, Pageable pageable) {
+		/*Map<String, Object> params = null;
+		if(pageable == null){
+			params = BeanUtils.toMap(query);
+		}else params = getParams(query, pageable);*/
+		return sqlSessionTemplate.selectList(getSqlName("selectTzjlAllProNumAndByType"),getParams(query, pageable));
 	}
 	
 	
