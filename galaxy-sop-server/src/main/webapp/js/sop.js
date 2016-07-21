@@ -564,8 +564,11 @@ function tzyxs(flag){
 		okback:function(_this){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
+			
+			
 			leicj();
 			if(i == 1){
+				$('.title_bj').html('上传签署凭证');
 				$("#voucherType").attr("checked","checked");
 				$("#voucherType").attr("disabled",true);
 			}
@@ -661,6 +664,7 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 					url:platformUrl.updateFile,
 					init:{
 						PostInit: function(up) {
+							$('.title_bj').html('更新投资意向书');
 							$("#save_file_btn").click(function(){
 								if(up.files.length == 0)
 								{
@@ -837,6 +841,7 @@ function uploadYwjd(){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(_this){
+			$('.title_bj').html('上传尽调报告')
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
@@ -1052,6 +1057,7 @@ function tzxy(st,projectType){
 			$('.searchbox').toggleshow();
 			leicj();
 			if(i == 1){
+				$('.title_bj').html('上传签署凭证')
 				$("#voucherType").attr("disabled",true);
 				$("#voucherType").attr("checked","checked");
 			}else{
