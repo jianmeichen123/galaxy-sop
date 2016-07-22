@@ -230,6 +230,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
+		//验证商业计划书是否上传成功
+		SopFile file = (SopFile) request.getSession().getAttribute("businessPlan");
+		if(file != null && file.getFileLength().longValue() <= 0){
+			responseBody.setResult(new Result(Status.ERROR, "file error", "商业计划书上传失败!"));
+			return responseBody;
+		}
 		try {
 			User user = (User) getUserFromSession(request);
 			// 判断当前用户是否为投资经理
@@ -276,7 +282,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				project.setProjectStatus(DictEnum.projectStatus.GJZ.getCode());
 				project.setUpdatedTime(new Date().getTime());
 				project.setCreatedTime(DateUtil.convertStringToDate(project.getCreateDate().trim(), "yyyy-MM-dd").getTime());
-				SopFile file = (SopFile) request.getSession().getAttribute("businessPlan");
 				long id = projectService.newProject(project, file);
 				if (id > 0) {
 					responseBody.setResult(new Result(Status.OK, "success", "项目添加成功!"));
