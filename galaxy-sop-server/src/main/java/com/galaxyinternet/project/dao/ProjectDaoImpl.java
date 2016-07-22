@@ -80,10 +80,12 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 		return sqlSessionTemplate.selectList(getSqlName("selectProjectReportForGg"),params);
 	}
 	
+	/**排序，不分页，手动分页*/
 	@Override
 	public List<Project> selectDeptAllProNumAndByType(ProjectBo query, Pageable pageable) {
 		return sqlSessionTemplate.selectList(getSqlName("selectDeptAllProNumAndByType"),getParams(query, pageable));
 	}
+	/**排序，不分页，手动分页*/
 	@Override
 	public List<Project> selectTzjlAllProNumAndByType(ProjectBo query, Pageable pageable) {
 		/*Map<String, Object> params = null;

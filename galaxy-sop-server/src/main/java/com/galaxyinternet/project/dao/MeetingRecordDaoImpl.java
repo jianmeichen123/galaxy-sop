@@ -77,6 +77,23 @@ public class MeetingRecordDaoImpl extends BaseDaoImpl<MeetingRecord, Long> imple
 		return sqlSessionTemplate.selectList(getSqlName("selectDeptPassMeetNum"),params);
 	}
 	
-	
+	@Override
+	public List<MeetingRecord> selectHasMeetPro(MeetingRecordBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectDeptPassMeetNum"),params);
+	}
 
+	
+	@Override
+	public List<MeetingRecord> selectDeptHasMeetProNumByParams(MeetingRecordBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectDeptHasMeetProNumByParams"),params);
+	}
+	
+	@Override
+	public List<MeetingRecord> selectTzjlHasMeetProNumByParams(MeetingRecordBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectTzjlHasMeetProNumByParams"),params);
+	}
+	
 }

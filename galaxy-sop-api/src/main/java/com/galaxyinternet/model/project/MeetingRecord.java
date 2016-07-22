@@ -53,7 +53,6 @@ public class MeetingRecord  extends PagableRecordEntity{
     private List<Long> fileIds;
     
     
-    
     /**
      * 非数据库映射字段
      */
@@ -61,6 +60,8 @@ public class MeetingRecord  extends PagableRecordEntity{
     
     private Integer passMeetNum;
     private Long departId; //部门id
+    private Integer sumProNum; //统计条件下对应的项目数
+    
     
     public String getParticipant() {
 		return participant;
@@ -370,6 +371,14 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setDepartId(Long departId) {
 		this.departId = departId;
+	}
+
+	public Integer getSumProNum() {
+		return sumProNum;
+	}
+
+	public void setSumProNum(Integer sumProNum) {
+		this.sumProNum = sumProNum;
 	}
     
 	

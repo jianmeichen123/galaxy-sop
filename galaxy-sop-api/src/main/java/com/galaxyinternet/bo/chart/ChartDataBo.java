@@ -21,27 +21,29 @@ public class ChartDataBo extends PagableEntity{
 	private Integer zjCompleted;   //自建项目数
 	private Integer wbCompleted;   //外部投资项目数
 	private Integer completed;     //项目数,	                项目id数， 创建项目数
-	private Integer completedAll;  //累计已完成数     累计已完成的项目数。
+	private Integer completedAll;  //累计已完成数     累计已完成的项目数。 仅不受查询时间影响
 	private Integer notCompleted;  //未完成数 =目标数-完成项目数
 
-	private Double wbRate;   //内部创建与外部投资项目数占比
+	private Double wbRate;   //外部投资项目数占比
 	private Double zjRate;   //自建项目数比率
 	
 	private Integer companyRank;    //公司排名		个人项目数在公司的排名
 	private Integer deptRank;       //部门排名                  个人项目数在本投资事业线的排名
 	
-	private Double  rate;           //完成率
+	private Double  rate;           //完成率     or  过会率
 	private Double  totalRate;      //公司完成数占比             项目数/平台所有项目总和
 	private Double  deptRate;       //部门完成数占比		项目数/所在投资事业线的项目总和
-	
+
 	private Integer  lxhPnumber;    //立项会通过数             立项会结果为“通过”的项目id数
 	private Integer  tjhPnumber;    //投决会通过数             投资决策会结果为“通过”的项目id数。
 	
 	private Double   ghlRate;      //过会率           立项会通过数/立项会已过会的项目id数。
 	private Double   tjlRate;      //投决率	        投资决策会通过数/投资决策会已过会的项目id数。
 	
-	
-	
+	private Integer proMeetNum;  //过会项目数   已开会的项目数
+	private Integer  vetoMeetProNumber;    //会 失败数             结果为“否决”
+	private Integer  waitMeetProNumber;    //会  待定数          结果为“待定”
+	private Integer  passMeetProNumber;    //会  通过数          结果为“通过”
 	
 	public Long getUserId() {
 		return userId;
@@ -290,7 +292,30 @@ public class ChartDataBo extends PagableEntity{
 	public void setRate(Double rate) {
 		this.rate = rate;
 	}
-	
+	public Integer getProMeetNum() {
+		return proMeetNum;
+	}
+	public void setProMeetNum(Integer proMeetNum) {
+		this.proMeetNum = proMeetNum;
+	}
+	public Integer getVetoMeetProNumber() {
+		return vetoMeetProNumber;
+	}
+	public void setVetoMeetProNumber(Integer vetoMeetProNumber) {
+		this.vetoMeetProNumber = vetoMeetProNumber;
+	}
+	public Integer getWaitMeetProNumber() {
+		return waitMeetProNumber;
+	}
+	public void setWaitMeetProNumber(Integer waitMeetProNumber) {
+		this.waitMeetProNumber = waitMeetProNumber;
+	}
+	public Integer getPassMeetProNumber() {
+		return passMeetProNumber;
+	}
+	public void setPassMeetProNumber(Integer passMeetProNumber) {
+		this.passMeetProNumber = passMeetProNumber;
+	}
 	
 	
 	

@@ -21,7 +21,7 @@ public class ChartKpiQuery extends PagableEntity {
 	private Long endTime;
 	private Long deptid;    //  部门编号
 	private String projectType;
-	
+	private String meetingType;
 	
 	private String forPerOrDept;   //'per' or 'dept'
 	
@@ -71,6 +71,12 @@ public class ChartKpiQuery extends PagableEntity {
 	}
 	public void setForPerOrDept(String forPerOrDept) {
 		this.forPerOrDept = forPerOrDept==null?"per":forPerOrDept;
+	}
+	public String getMeetingType() {
+		return meetingType;
+	}
+	public void setMeetingType(String meetingType) {
+		this.meetingType = meetingType;
 	}
 	
 	
