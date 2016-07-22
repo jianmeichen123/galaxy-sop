@@ -2,7 +2,8 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<div class="edit_nametc" id="create-project-dialog">
+<div class="edit_nametc margin_45" id="create-project-dialog">
+<div class="title_bj">创建成项目</div>
   <div class="top clearfix">
        <dl class="fmdl">
         <dt>项目名称：</dt>

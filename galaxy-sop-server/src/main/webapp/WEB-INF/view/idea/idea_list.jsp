@@ -130,14 +130,14 @@
 
 <!--file--id  upload dialog start -->
 <div id="upload-dialog" class="archivestc" style="display: none;">
-	<form id="upload-form">
+	<form id="upload-form" style='margin-top:45px;'>
 		<input type="hidden" name="id"> 
 		<input type="hidden" name="isEdit"> 
 		<input type="hidden" name="projectId">
 		<input type="hidden" name="projectProgress">
+		<div class="title_bj">上传可行性报告</div>
 
-
-		<div class="fmdl clearfix">
+		<div class="fmdl clearfix ">
 			<dt style="width:84px;text-align:right;">可行性报告：</dt>
 			<dd>
 				<input type="text" name="fileName" class="txt pointer-events" />
