@@ -34,9 +34,10 @@ var planGrid = {
 				        			_projectName : initPage.projectName,
 				        			_remark : "hide",
 				    				callFuc : function(){
-				    					$("#powindow").remove();
+				    					/*$("#powindow").remove();
 				    					$("#popbg").remove();
-				    					refreshData();
+				    					refreshData();*/
+				    					window.location.reload(platformUrl.projectDetail + initPage.projectId);
 				    				},
 				    				_url : platformUrl.commonUploadFile, //兼容老板插件
 				    				_localUrl : platformUrl.commonUploadFile
