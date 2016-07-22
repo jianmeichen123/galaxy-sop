@@ -162,7 +162,7 @@
 			closepop:function(){
 				var _this = this;
 				$(_this.id).on("click","[data-close='close']",function(){
-					$("[data-close='close']").remove()
+					$("#popbg01").remove()
 						//启用滚动条
 						 $(document.body).css({
 						   "overflow-x":"auto",
