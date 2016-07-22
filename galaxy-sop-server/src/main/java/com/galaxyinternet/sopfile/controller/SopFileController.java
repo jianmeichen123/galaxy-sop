@@ -48,6 +48,7 @@ import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.file.UploadFileResult;
 import com.galaxyinternet.framework.core.id.IdGenerator;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -1336,32 +1337,44 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			return responseBody;
 		}
 		try {
-			MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
-			MultipartFile multipartFile = multipartRequest.getFile("file"); // 获取multipartFile文件
+			
+			MultipartFile file = null;
+			if(request instanceof MultipartHttpServletRequest)
+			{
+				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+				file = multipartRequest.getFile("file");
+			}
 			SopFile form = new SopFile();
-			form.setFileSource(request.getParameter("fileSource"));
-			form.setFileType(request.getParameter("fileType"));
-			form.setFileWorktype(request.getParameter("fileWorktype"));
-			form.setFileSource(request.getParameter("fileSource"));
-			form.setRemark(request.getParameter("remark"));			
-			form.setBucketName(OSSFactory.getDefaultBucketName());
-			form.setFileKey(String
-						.valueOf(IdGenerator.generateId(OSSHelper.class)));
-			Map<String, String> nameMap = FileUtils.transFileNames(multipartFile.getOriginalFilename());
-			form.setFileName(nameMap.get("fileName"));
-			form.setFileSuffix(nameMap.get("fileSuffix"));
-			form.setFileLength(multipartFile.getSize());
-			form.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-			form.setFileUid(user.getId());
-			form.setRecordType((byte)0);
-			form.setCareerLine(user.getDepartmentId());
-			form.setCreatedTime(System.currentTimeMillis());
-			form.setMultipartFile(multipartFile);
+			if(file != null){
+				String fileName = file.getOriginalFilename();
+				int dotPos = fileName.lastIndexOf(".");
+				String prefix = fileName.substring(0, dotPos);
+				String suffix = fileName.substring(dotPos);
+				String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+				UploadFileResult result = uploadFileToOSS(request, fileKey, tempfilePath);
+				if(result.getResult() != null && Result.Status.OK.equals(result.getResult().getStatus()))
+				{
+					form.setFileSource(request.getParameter("fileSource"));
+					form.setFileType(request.getParameter("fileType"));
+					form.setFileWorktype(request.getParameter("fileWorktype"));
+					form.setFileSource(request.getParameter("fileSource"));
+					form.setRemark(request.getParameter("remark"));			
+					form.setBucketName(OSSFactory.getDefaultBucketName());
+					form.setFileKey(fileKey);
+					form.setFileName(prefix);
+					form.setFileSuffix(suffix);
+					form.setFileLength(result.getContentLength());
+					form.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+					form.setFileUid(user.getId());
+					form.setRecordType((byte)0);
+					form.setCareerLine(user.getDepartmentId());
+					form.setCreatedTime(System.currentTimeMillis());
+				}
+			}
 			request.getSession().setAttribute("businessPlan", form);
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
-			// TODO: handle exception
-			responseBody.setResult(new Result(Status.ERROR, "系统出现异常"));
+			responseBody.setResult(new Result(Status.ERROR, null, "系统出现异常"));
 		}
 		return responseBody;
 	}
