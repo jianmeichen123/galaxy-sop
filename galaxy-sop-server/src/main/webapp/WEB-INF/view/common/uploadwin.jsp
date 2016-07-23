@@ -41,6 +41,7 @@
     <dl class="fmdl clearfix">
     	<dt>所属项目：</dt>
         <dd>
+            <input type="hidden" id="win_sopFileId" data-tid=""  class="txt disabled"/>
         	<input type="text" id="win_sopProjectId" data-tid=""  class="txt disabled"/>
         </dd>
        <dd><a class="searchbtn null" id="win_searchProjectBtn" href="javascript:;">搜索</a></dd>

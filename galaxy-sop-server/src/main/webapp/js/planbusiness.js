@@ -17,11 +17,39 @@ var planGrid = {
 				operatorFormatter : function(value,row,index){
 					if(row.fileKey){
 						return [
-								'<a class="downloadlink blue"  href="javascript:void(0)">下载</a>'
+								'<a class="updatelink blue"  href="javascript:void(0)">更新</a><a class="downloadlink blue"  href="javascript:void(0)">下载</a>'
 							   ].join('');
 					}
 				},
 				operatorEvent : {
+					'click .updatelink': function (e, value, row, index) {
+						 var formData = {
+								    _fileId : row.id,
+				        			_fileKey : row.fileKey,
+				        			_fileSource : row.fileSource,
+				        			_fileType : "fileType:1",
+				        			_workType : "fileWorktype:12",
+				        			_fileTypeAuto : true,
+				        			_projectId : initPage.projectId,
+				        			_projectName : initPage.projectName,
+				        			_remark : "hide",
+				    				callFuc : function(){
+				    					/*$("#powindow").remove();
+				    					$("#popbg").remove();
+				    					refreshData();*/
+				    					window.location.reload(platformUrl.projectDetail + initPage.projectId);
+				    				},
+				    				_url : platformUrl.commonUploadFile, //兼容老板插件
+				    				_localUrl : platformUrl.commonUploadFile
+				    		};
+							if('vsopfile'==e.currentTarget.id){
+								//签署凭证
+								formData._isProve = true;
+							}else{
+								formData._isProve = "hide";
+							}
+				    		win.init(formData);
+			        },
 					 'click .downloadlink': function (e, value, row, index) {
 							layer.msg('正在下载，请稍后...',{time:2000});
 							window.location.href=platformUrl.downLoadFile+'/'+row.id ;
@@ -219,6 +247,29 @@ var initPage = {
 }
 
 function init(){
+}
+
+
+function refreshData(){
+	var historyDialog = {
+			init : function(){
+				$.getHtml({
+					url:platformUrl.toBusinessPlanHistory,//模版请求地址
+					data:"",//传递参数
+					okback:function(){
+						var _this = this;											
+						var formdata = {
+								_domid : 'business_plan_grid',
+								_projectId : initPage.projectId
+						}
+						planGrid.init(formdata);
+					}//end okback 模版反回成功执行		
+				});
+			},
+			close : function(_this){
+			}
+	}
+	historyDialog.init();
 }
 
 $(document).ready(init());
