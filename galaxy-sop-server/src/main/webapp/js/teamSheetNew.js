@@ -92,6 +92,7 @@
 			fileKey : undefined,
 			init : function(_formdata){
 				win.fileKey = _formdata._fileKey;
+				win.fileId = _formdata._fileId;
 				win.initData();
 				win.callFuc = _formdata.callFuc;
 				$.popup({
@@ -184,6 +185,7 @@
 														"fileType" : $(_this.id).find("#win_fileType").val(),
 														"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
 														"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
+														"id" : $(_this.id).find("#win_sopFileId").val(),
 														"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
 														"remark" : $(_this.id).find("#win_FILELIST").val(),
 														"fileKey" : win.ossObject.fileKey,
@@ -252,6 +254,7 @@
 													"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
 													"fileType" : $(_this.id).find("#win_fileType").val(),
 													"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
+													"id" : $(_this.id).find("#win_sopFileId").val(),
 													"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
 													"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
 													"remark" : $(_this.id).find("#win_FILELIST").val()
@@ -292,7 +295,7 @@
 				var $fileType = $(_this.id).find("#win_fileType");
 				var $sopProjectId = $(_this.id).find("#win_sopProjectId");
 				var $searchProjectBtn = $(_this.id).find("#win_searchProjectBtn");
-				
+				var $sopFileId = $(_this.id).find("#win_sopFileId");
 				var $isProve = $(_this.id).find("#win_isProve");
 				var $remark = $(_this.id).find("#win_FILELIST"); 
 				
@@ -319,6 +322,10 @@
 					$fileWorkType.val(_formdata._workType);
 					$fileWorkType.attr("disabled","disabled");	
 					$fileWorkType.attr("class","disabled");
+				}
+				//文件ID
+				if(_formdata._fileId){
+					$sopFileId.val(_formdata._fileId);
 				}
 				//项目
 				if(_formdata._projectId){

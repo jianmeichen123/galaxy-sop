@@ -560,6 +560,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		form.setFileSource(request.getParameter("fileSource"));
 		form.setRemark(request.getParameter("remark"));
 
+		if(!StringUtils.isBlank(request.getParameter("id"))){
+			form.setId(Long.valueOf(request.getParameter("id")));
+		}
+		
 		String projectId = request.getParameter("projectId");
 		String isProve = request.getParameter("isProve");
 			
@@ -738,7 +742,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				map.put("num", num);
 				responseBody.setUserData(map);
 				if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.商业计划.getCode())){
-					sopFileService.insert(sopFile);
+					if(sopFile.getId() != null){
+						sopFileService.updateFile(sopFile);
+					}else{
+						sopFileService.insert(sopFile);
+					}
 				}else{
 					// 调用非签署凭证业务方法
 					if(sopFileService.updateFile(sopFile)){
