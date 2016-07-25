@@ -30,6 +30,7 @@ import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.framework.core.utils.StringEx;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -245,13 +246,14 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 			sopTaskBo.setOrderRemark(sopTasknew.getTaskOrder()==null?"":DictUtil.getTaskOrderName(sopTasknew.getTaskOrder()));
 			sopTaskBo.setDepartmentId(sopTasknew.getDepartmentId());
 			sopTaskBo.setTaskStatus(sopTasknew.getTaskStatus()==null?"":sopTasknew.getTaskStatus());
-			
+			String mark=ResourceMark(sopTasknew);
+			sopTaskBo.setMark(mark);
 			if(sopTasknew.getTaskStatus().equals("taskStatus:1")){
 				StringBuffer caozuohtml=new StringBuffer();
 				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
-				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
+				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));	
 //				sopTaskBo.setStatusFlag("1");/.append("/galaxy/soptask/goClaimtcPage?id="+sopTaskBo.getId())
-				caozuohtml.append("<a id='dai' href='javascript:void(0)' class='blue' ")
+				caozuohtml.append("<a id='dai' href='javascript:void(0)' name='markResource' resource-mark='"+mark+"' class='blue' ")
 				.append("     data-btn='claim'").append(" >").append("认领").append("<input type='hidden' id='taskid' ")
 						.append(" value='"+sopTasknew.getId()+"'").append("/><input type='hidden' id='projectid' ").append(" value='"+sopTasknew.getProjectId()+"' />");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
@@ -262,7 +264,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("2");
 			//	String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
-				caozuohtml.append("<a href='javascript:void(0)' class='blue' ").append(" id='doclaim' ").append(" >").append("处理")
+				caozuohtml.append("<a href='javascript:void(0)' name='markResource' resource-mark='"+mark+"' class='blue' ").append(" id='doclaim' ").append(" >").append("处理")
 				.append("<input type='hidden'").append(" value='"+sopTasknew.getId()+"'/>").append("</a>");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 		
@@ -275,6 +277,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				caozuohtml.append("<a ").append(" >").append(DictUtil.getStatusName(sopTasknew.getTaskStatus())).append("</a>");
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
+			sopTaskBo.setProjectId(sopTasknew.getProjectId());
 			sopTaskBo.setRemark(sopTasknew.getRemark()==null?"":sopTasknew.getRemark());
 			List<String> qlist = new ArrayList<String>();
 			List<User> userList=new ArrayList<User>();
@@ -527,6 +530,34 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	public List<SopTask> getSopTaskByProjectId(SopTaskBo query) {
 		// TODO Auto-generated method stub
 		return sopTaskDao.getSopTaskByProjectId(query);
+	}
+	
+	public String ResourceMark(SopTask soptask){
+		String result="";
+		switch(soptask.getTaskFlag())
+		{
+			case 0: //完善简历	
+				result="resume_produce_task";
+				break;
+			case 2 : //人事尽职调查报告
+				result="person_produce_task";
+				break;
+			case 3 : //法务尽职调查报告
+				result="law_handle_task";
+				break;
+			case 4 : //财务尽调报告
+				result="finance_handle_task";
+				break;
+			case 8 : //资金拨付凭证
+				result="payment_handle_task";
+				break;
+			case 9 : //工商变更登记凭证
+				result="delivery_handle_task";
+				break;
+			default :
+				result="";
+		}
+		return result;
 	}
 	
 }
