@@ -262,9 +262,8 @@ var ideaAddDialog = {
 	
 	function init(){
 		$("#addBtn").click(function(){
-			title_name=$(this).text();
 			sendGetRequest(platformUrl.getAddIdeaInfo,null,initCallBack.getAddIdeaInfoCallBack);
-			$('.title_bj').html(title_name);
+			
 		});
 	}
 	
