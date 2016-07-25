@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +32,13 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.resource.PlatformResource;
 import com.galaxyinternet.model.user.Menus;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.ResourceService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.RoleUtils;
@@ -60,12 +64,15 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	private DepartmentService departmentService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ResourceService resourceService;
 	
 	/**
 	 * 动态生成左边菜单项列表
 	 * @author yangshuhua
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(value = "/menu/{selected}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Menus> menu(@PathVariable("selected") int selected, HttpServletRequest request){
@@ -73,103 +80,43 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		serverUrl = getServerUrl();
 		
 		ResponseData<Menus> responseBody = new ResponseData<Menus>();
+		
+		User user = (User) getUserFromSession(request);
+		List<Menus> tabs = null;
+		HttpSession session = request.getSession();
+		if(session != null)
+		{
+			String key = Constants.SESSION_USER_MENUS_KEY+getSessionId(request);
+			if(session.getAttribute(key) != null)
+			{
+				tabs = (List<Menus>)session.getAttribute(key);
+			}
+			else
+			{
+				String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request)+ "&"+SopConstant.REQUEST_SCOPE_ATTR_IS_MENU +"=true";
+				tabs = getUserMenus(user.getId(), 0L, params);
+				session.setAttribute(key, tabs);
+			}
+		}
+		//选中菜单
+		String referer = request.getHeader("Referer");
+		String key = Constants.USER_LAST_ACCESS_MENU+getSessionId(request);
+		if(StringUtils.isNotEmpty(referer) && referer.contains(SopConstant.REQUEST_SCOPE_ATTR_IS_MENU))
+		{
+			session.setAttribute(key, referer);
+		}
+		else if(session.getAttribute(key) != null)
+		{
+			referer = (String)session.getAttribute(key);
+		}
+		Menus selectedMenu = getSelectedMenu(referer, tabs);
+		if(selectedMenu != null && selectedMenu.getId() != null)
+		{
+			selected = selectedMenu.getId().intValue();
+		}
 		Header header = new Header();
 		header.setAttachment(selected);
 		responseBody.setHeader(header);
-		String p = request.getRequestURI();
-		String url = request.getRequestURL().toString();
-		String contextPath = request.getContextPath();
-		String u = null;
-		if(contextPath == null || "".equals(contextPath.trim())){
-			//rl.substring(0, url.indexOf(p) + 1);
-			u = url.substring(0, url.indexOf(p) + 1);
-		}else{
-			u = url.substring(0, url.indexOf(contextPath) + contextPath.length() + 1);
-		}
-		
-		User user = (User) getUserFromSession(request);
-		
-		List<Menus> tabs = new ArrayList<Menus>();
-		String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request)+ "&"+SopConstant.REQUEST_SCOPE_ATTR_IS_MENU +"=true";
-		//通用Tab
-		tabs.add(new Menus(1L, 0, 1, "工作桌面", u + "galaxy/index?" + params));
-		tabs.add(new Menus(2L, 0, 2, "待办任务", u + "galaxy/soptask?" + params));
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
-		
-		if(roleIdList.contains(UserConstant.TZJL)){
-			tabs.add(new Menus(5L, 0, 3, "创投项目", u + "galaxy/mpl?" + params));
-			tabs.add(new Menus(6L, 0, 16,"访谈记录", u + "galaxy/project/progress/interView?" + params));
-			tabs.add(new Menus(7L, 0, 15,"会议纪要", u + "galaxy/project/progress/meetView?" + params));
-			tabs.add(new Menus(14L, 0, 18,"项目文档", u + "galaxy/sopFile/toFileList?" + params));
-			tabs.add(new Menus(13L, 0, 17,"项目模板", u + "galaxy/template?" + params));			
-			tabs.add(new Menus(21L, 0, 10, "项目创意", u + "galaxy/idea?" + params));		
-			
-		}
-		
-		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)
-				|| roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)
-				|| roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-			tabs.add(new Menus(9L, 0, 19,"尽调报告", u + "galaxy/soptask?flag=jz&"+ params));
-		}
-		
-		if(roleIdList.contains(UserConstant.HRZJ) || roleIdList.contains(UserConstant.HRJL)){
-			tabs.add(new Menus(10L, 0, 20,"完善简历", u + "galaxy/soptask?flag=jl&"+ params));
-			tabs.add(new Menus(14L, 0, 18,"项目文档", u + "galaxy/sopFile/toFileList?" + params));
-			tabs.add(new Menus(13L, 0, 17,"项目模板", u + "galaxy/template?" + params));
-		}
-		if(roleIdList.contains(UserConstant.CWZJ) || roleIdList.contains(UserConstant.CWJL)){
-			tabs.add(new Menus(11L, 0, 24,"付款凭证", u + "galaxy/soptask?flag=pz&"+ params));
-			tabs.add(new Menus(14L, 0, 18,"项目文档", u + "galaxy/sopFile/toFileList?" + params));
-			tabs.add(new Menus(13L, 0, 17,"项目模板", u + "galaxy/template?" + params));
-		}
-		
-		if(roleIdList.contains(UserConstant.FWZJ) || roleIdList.contains(UserConstant.FWJL)){
-			tabs.add(new Menus(12L, 0, 25,"股权交割", u + "galaxy/soptask?flag=gq&"+ params));
-			tabs.add(new Menus(14L, 0, 18,"项目文档", u + "galaxy/sopFile/toFileList?" + params));
-			tabs.add(new Menus(13L, 0, 17,"项目模板", u + "galaxy/template?" + params));
-		}
-		
-		
-		
-		
-		
-		//档案管理员
-		if(roleIdList.contains(17L)){
-			tabs.clear();
-			tabs.add(new Menus(14L, 0,18, "档案管理", u + "galaxy/sopFile/toFileList?" + params));
-		}
-		
-		//管理员
-		if(roleIdList.contains(16L)){
-			tabs.clear();
-			tabs.add(new Menus(15L, 0, "用户管理", serverUrl + "platform/galaxy/user?" + params));
-			tabs.add(new Menus(16L, 0, "数据字典", serverUrl + "platform/galaxy/dict/index?" + params));
-		}
-		
-		//高管
-		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(1L) || roleIdList.contains(2L)){
-			tabs.clear();
-			tabs.add(new Menus(1L, 0, 1,"工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
-			//tabs.add(new Menus(3L, 0,8, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
-			tabs.add(new Menus(5L, 0, 3, "创投项目", serverUrl +"sop/galaxy/mpl?" + params));
-			
-			tabs.add(new Menus(22L, 0, 11, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
-			tabs.add(new Menus(6L, 0, 12, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
-			tabs.add(new Menus(7L, 0, 13,"绩效考核", serverUrl +"report/galaxy/report/kpi?" + params));
-			tabs.add(new Menus(11L, 0,14, "投后运营", "javascript:void(0);")
-					.addNode(new Menus(8L, 1, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params))
-					.addNode(new Menus(9L, 1, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params))
-					.addNode(new Menus(10L, 1, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params)));
-			tabs.add(new Menus(21L, 0, 10, "项目创意", u + "galaxy/idea?" + params));
-		}
-		//董事长秘书      CEO秘书
-		if(roleIdList.contains(UserConstant.DMS) ||roleIdList.contains(UserConstant.CEOMS)){
-			tabs.clear();
-			tabs.add(new Menus(1L, 0, 1,"工作桌面", u + "galaxy/index?" + params));
-			tabs.add(new Menus(18L, 0, 21,"立项会", u + "galaxy/lxh?" + params));
-			tabs.add(new Menus(19L, 0, 22,"投决会", u + "galaxy/tjh?" + params));
-			tabs.add(new Menus(20L, 0, 23,"CEO评审会", u + "galaxy/psh?" + params));								
-		}
 	    responseBody.setEntityList(tabs);
 		return responseBody;
 	}
@@ -323,5 +270,57 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		return responseBody;
 	}
 	
-
+	private List<Menus> getUserMenus(Long userId, Long parentId, String params)
+	{
+		List<Menus> menus = new ArrayList<Menus>();
+		List<PlatformResource> list = resourceService.queryUserMenus(userId, parentId);
+		if(list != null && list.size() >0)
+		{
+			for(PlatformResource res : list)
+			{
+				String url = null;
+				if(StringUtils.isNotEmpty(res.getResourceUrl()))
+				{
+					String product = StringUtils.isNotEmpty(res.getProductMark()) ? res.getProductMark()+"/" : "" ;
+					url = serverUrl+product+res.getResourceUrl()+"?"+params;
+				}
+				Integer level = res.getParentId() != null && res.getParentId().intValue() > 0 ? 1 : 0;
+				Integer navNum = NumberUtils.isNumber(res.getStyle()) ? Integer.valueOf(res.getStyle()) : null;
+				Menus menu = new Menus(res.getId(), level, navNum, res.getResourceName(), url);
+				
+				List<Menus> subMenus = getUserMenus(userId,res.getId(),params);
+				if(subMenus != null && subMenus.size()>0 )
+				{
+					for(Menus node : subMenus)
+					{
+						menu.addNode(node);
+					}
+				}
+				menus.add(menu);
+			}
+		}
+		return menus;
+	}
+	private Menus getSelectedMenu(String url,List<Menus> menus)
+	{
+		Menus menu = null;
+		if(StringUtils.isNotEmpty(url) && menus != null && menus.size() >0 )
+		{
+			for(Menus item : menus)
+			{
+				if(StringUtils.isNotEmpty(item.getUrl()) && url.contains(item.getUrl()))
+				{
+					menu = item;
+					break;
+				}
+				List<Menus> subMenus = item.getNodes();
+				if(subMenus != null && subMenus.size()>0)
+				{
+					menu = getSelectedMenu(url,subMenus);
+				}
+			}
+		}
+		return menu;
+	}
+	
 }

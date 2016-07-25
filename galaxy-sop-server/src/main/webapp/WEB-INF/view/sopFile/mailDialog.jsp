@@ -1,8 +1,8 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <div id="mail-dialog" style="display:none;">
 <form id="mail-form" >
-<div class="emailtc" >
-    <h2>档案管理-邮件分享</h2>
+<div class="emailtc margin_45" >
+<div class="title_bj">档案管理-邮件分享</div>
     <dl class="fmdl clearfix">
         <dt>收件人：</dt>
         <dd class="clearfix">

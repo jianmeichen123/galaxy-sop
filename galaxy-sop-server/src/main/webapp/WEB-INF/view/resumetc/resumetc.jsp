@@ -11,8 +11,9 @@
 select{padding:0 !important}
 </style>
 
+<div class="title_bj">成员详情</div>
 
-<div class="resumetc" >
+<div class="resumetc margin_45">
           <!-- 个人简历 -->
           <div class="tabtable resume">
           <form action="" id="up_person_form" method="post">

@@ -6,7 +6,7 @@
 			x: 0,
             y: 0
         }, options);
-		var isIe6 = false;
+		var isIe6 = false;close
 		if(window.ActiveXObject)//判断浏览器是否属于IE
 		{
 			var browser=navigator.appName
@@ -162,6 +162,7 @@
 			closepop:function(){
 				var _this = this;
 				$(_this.id).on("click","[data-close='close']",function(){
+					$("#popbg01").remove()
 						//启用滚动条
 						 $(document.body).css({
 						   "overflow-x":"auto",

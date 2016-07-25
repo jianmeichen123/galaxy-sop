@@ -3,7 +3,8 @@
 	String path = request.getContextPath(); 
 %>
 <!-- 弹出页面 -->
-<div id="addFile" class="meetingtc">
+<div class="title_bj">上传附件</div>
+<div id="addFile" class="meetingtc margin_45">
 	<dl class="fmdl clearfix">
     	<dt>档案来源：</dt>
         <dd class="clearfix">
