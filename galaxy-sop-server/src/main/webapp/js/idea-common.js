@@ -173,9 +173,10 @@ function dateFormatter(val,row,index)
 				
 				var id=$("#IdeaId").val();
 				$("#editBtn").click(function(){
+					title_name=$(this).text();
 					sendGetRequest(platformUrl.detailIdea+"/"+id,null,initCallBack.getdetailIdeaInfoCallBack);
+					$('.title_bj').html(title_name);
 				});
-				
 				layer.close(layerIndex);
 				
 			}//end okback 模版反回成功执行	

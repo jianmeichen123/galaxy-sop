@@ -54,6 +54,7 @@ var ideaAddDialog = {
 										//关闭对外接口
 										_this.hideback.apply(_this);
 										$(_this.id).remove();
+										$('#popbg01').remove();
 										$('.tip-yellowsimple').hide();
 										//判断是否关闭背景
 										if($(".pop").length==0){
@@ -261,7 +262,9 @@ var ideaAddDialog = {
 	
 	function init(){
 		$("#addBtn").click(function(){
+			title_name=$(this).text();
 			sendGetRequest(platformUrl.getAddIdeaInfo,null,initCallBack.getAddIdeaInfoCallBack);
+			$('.title_bj').html(title_name);
 		});
 	}
 	
