@@ -161,7 +161,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     </dd>
                 </dl>
               
-                <dl>
+                <dl resource-mark="project_view_module" style="display:none">
                 	<dt><h3 class="ico t3">数据报表</h3></dt>
                     <dd class="zzbox">
                     	<div id="histogram" class="histogram" style="height:160px"></div>
@@ -359,6 +359,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			}
 		if(isContainResourceByMark("task_list")){
 		       $('dl[resource-mark="task_list"]').css("display","block");
+			}
+		if(isContainResourceByMark("project_view_module")){
+		       $('dl[resource-mark="project_view_module"]').css("display","block");
 			}
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 	});
