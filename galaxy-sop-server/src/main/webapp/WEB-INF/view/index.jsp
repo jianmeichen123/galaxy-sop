@@ -67,7 +67,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             </div>
         </div>
         <!--立项排期会-->
-        <acl:acl resourceMark="lxh">
+        <acl:acl resourceMark="shedule_lxh">
         <dl style="position:relative;">
         	<dt>立项会排期</dt>
             <dd>
@@ -97,7 +97,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         </dl>
         </acl:acl>
         <!--投决会排期-->
-        <acl:acl resourceMark="tjh">
+        <acl:acl resourceMark="shedule_tjh">
         <dl class="tjh_block" style="position:relative;">
         	<dt>投决会排期</dt>
             <dd>
@@ -257,7 +257,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
-               <acl:acl resourceMark="psh">
+               <acl:acl resourceMark="shedule_ceo">
                  <dl id="ceo_p">
 				<dt><h3 class="ico t5">CEO评审排期</h3></dt>
 				<dd>
