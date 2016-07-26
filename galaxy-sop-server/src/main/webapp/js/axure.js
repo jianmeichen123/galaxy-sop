@@ -189,6 +189,12 @@
 		var obj = new popEve();
 		obj.init();
 	};
+	$.locksCreenOpen =function(){
+		$(document.body).css({
+		   "overflow-x":"auto",
+		   "overflow-y":"auto"
+		 });
+	}
 	//切换样式控制
 	$.fn.changeClass = function(options){
 		if($(this).length==0){ return false};
