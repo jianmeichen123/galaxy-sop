@@ -44,7 +44,7 @@
     	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>>创投项目</div>
     	 <input type="hidden" id="project_id" value=""/>
     	 <input type="hidden" id="uid" value=""/>
-         <c:if test="${fx:hasRole(4)}">
+         <%-- <c:if test="${fx:hasRole(4)}"> --%>
          <!--页眉-->
          <div class="top clearfix">
         	<!--按钮-->
@@ -53,7 +53,7 @@
                 <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
             </div>
          </div>
-         </c:if>
+         <%-- </c:if> --%>
          <!--tips连接
           <ul class="tipslink tablink">
                 <li class="on"><a href="javascript:;" query-by="proType" query-val="1" >我的项目<span></span></a></li>
@@ -181,6 +181,10 @@
 
 <script type="text/javascript">
 	createMenus(5);
+	/**权限点**/
+	if(isContainResourceByMark("project_add")){
+	       $('a[resource-mark="project_add"]').css("display","block");
+	}
 	/**
 	 * 分页数据生成操作内容
 	 */
@@ -296,10 +300,6 @@
 		$("button[action='querySearch']").click(function(){
 			initParams = cookieOperator.pullCookie({_paramKey : 'projectList',_path : "/"});
 		});
-		/**权限点**/
-		if(isContainResourceByMark("project_add")){
-		       $('a[resource-mark="project_add"]').css("display","block");
-			}
 		/**
 		 * 初始化项目列表
 		 * @version 2016-06-21
