@@ -177,7 +177,8 @@
 							$("#popbg").hide();
 							$('.tip-yellowsimple').hide();	//表单验证提示关闭
 						}
-						if($(".pop").length>0){
+						if($(".pop").length==0){
+							
 							$("#popbg01").remove();
 						}
 						return false;

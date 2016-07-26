@@ -3,7 +3,8 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<div class="claimtc">
+<div class="claimtc ">
+	<div class="title_bj">提示</div>
 	<c:choose>
 		<c:when test="${tipType eq 1}">
 			<p class="tips">
