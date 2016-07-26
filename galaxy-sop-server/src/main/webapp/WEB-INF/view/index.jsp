@@ -3,7 +3,6 @@ import="com.galaxyinternet.framework.core.oss.OSSConstant,com.galaxyinternet.mod
 %>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
-<%@ taglib uri="http://www.galaxyinternet.com/tags/acl" prefix="acl" %>
 <% 
 
 String path = request.getContextPath();
@@ -67,7 +66,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             </div>
         </div>
         <!--立项排期会-->
-        <acl:acl resourceMark="shedule_lxh">
         <dl style="position:relative;">
         	<dt>立项会排期</dt>
             <dd>
@@ -95,9 +93,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         	<%-- </c:if> --%>
         	
         </dl>
-        </acl:acl>
         <!--投决会排期-->
-        <acl:acl resourceMark="shedule_tjh">
         <dl class="tjh_block" style="position:relative;">
         	<dt>投决会排期</dt>
             <dd>
@@ -123,7 +119,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         	<dd><a href="javascript:;" class="blue paiqidate" resource-mark="shedule_tjh" style="display:none" onclick="paiqidate('meetingType:4');">排期时间</a></dd>
         	<%-- </c:if> --%>
         </dl>
-        </acl:acl>
     </div>
     
     
@@ -257,7 +252,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
-               <acl:acl resourceMark="shedule_ceo">
                  <dl id="ceo_p">
 				<dt><h3 class="ico t5">CEO评审排期</h3></dt>
 				<dd>
@@ -280,7 +274,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
 				</dd>
 			</dl> 
-			</acl:acl>
                 <dl  class="tool_radius">
                 	<dt><h3 class="ico t6">常用工具</h3></dt>
                     <dd class="tool">
