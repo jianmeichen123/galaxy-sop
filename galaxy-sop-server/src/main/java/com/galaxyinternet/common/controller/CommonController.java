@@ -283,10 +283,17 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				if(StringUtils.isNotEmpty(res.getResourceUrl()))
 				{
 					String product = StringUtils.isNotEmpty(res.getProductMark()) ? res.getProductMark()+"/" : "" ;
-					url = serverUrl+product+res.getResourceUrl()+"?"+params;
+					String reqUrl=serverUrl+product+res.getResourceUrl();
+					
 					if("index".equals(res.getResourceMark()) && (RoleUtils.isGaoGuan(roleIdList)||RoleUtils.isHHR(roleIdList)))
 					{
 						url = serverUrl+"report/galaxy/report/platform?"+params;
+					}else{
+						if(reqUrl.indexOf("?")==-1){
+							url = reqUrl+"?"+params;
+						}else{
+							url = reqUrl+"&"+params;
+						}
 					}
 				}
 				Integer level = res.getParentId() != null && res.getParentId().intValue() > 0 ? 1 : 0;
