@@ -3,6 +3,7 @@ import="com.galaxyinternet.framework.core.oss.OSSConstant,com.galaxyinternet.mod
 %>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://www.galaxyinternet.com/tags/acl" prefix="acl" %>
 <% 
 
 String path = request.getContextPath();
@@ -256,7 +257,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
-                <acl:acl resourceMark="shedule_ceo">
+               <acl:acl resourceMark="shedule_ceo">
                  <dl id="ceo_p">
 				<dt><h3 class="ico t5">CEO评审排期</h3></dt>
 				<dd>
