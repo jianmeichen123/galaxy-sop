@@ -129,7 +129,6 @@ function projectNameFormatter(value,row,index){
 		
 	});
 	var aa=$("a[resource-mark]")
-	alert()
 	  if(isContainResourceByMark("interView")){
 	    	$('div[resource-mark="interView"]').css("display","block");
 	    }
