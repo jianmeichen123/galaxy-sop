@@ -136,7 +136,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <div class="tablist clearfix">
         	<!--左侧列表-->
             <div class="l">
-            	<dl style="position:relative;"  resource-mark="task_list" style="display:none">
+               <acl:acl resourceMark="task_list">
+            	<dl style="position:relative;">
                 	<dt><h3 class="ico t1">待办任务</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0">
@@ -160,7 +161,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
                     </dd>
                 </dl>
-              
+                </acl:acl>
                 <dl resource-mark="project_view_module" style="display:none">
                 	<dt><h3 class="ico t3">数据报表</h3></dt>
                     <dd class="zzbox">
@@ -351,9 +352,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		if(isContainResourceByMark("shedule_list")){
 	       $('div[resource-mark="shedule_list"]').css("display","block");
 		}
-		if(isContainResourceByMark("task_list")){
-		       $('dl[resource-mark="task_list"]').css("display","block");
-			}
 		if(isContainResourceByMark("project_view_module")){
 		       $('dl[resource-mark="project_view_module"]').css("display","block");
 			}
