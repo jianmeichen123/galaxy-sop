@@ -42,6 +42,7 @@ public class ProjectBo extends Project {
 	
 	private List<Long>  createtUids;//业务扩展字段---项目创建人 ids
 	
+	private Integer resultNullFilter;
 	
 	public String getProType() {
 		return proType;
@@ -178,5 +179,14 @@ public class ProjectBo extends Project {
 	public void setCreatetUids(List<Long> createtUids) {
 		this.createtUids = createtUids;
 	}
+
+	public Integer getResultNullFilter() {
+		return resultNullFilter;
+	}
+
+	public void setResultNullFilter(Integer resultNullFilter) {
+		this.resultNullFilter = resultNullFilter;
+	}
+	
 	
 }

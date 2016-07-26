@@ -695,7 +695,7 @@
 	<!-- 查询条件下   各部门   完成项目数、内部项目完成数、 外部项目完成数（all - type1） -->
 	<select id="selectDeptAllProNumAndByType" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT
-			a.project_departId,a.completed completed,b.completed type_completed
+			a.project_departId,a.completed completed,IFNULL(b.completed,0) type_completed
 		FROM 
 			(
 			SELECT
@@ -731,7 +731,8 @@
 				</trim>
 			</where>
 			GROUP BY project_departId
-			) a,
+			) a
+			left join
 			(
 			SELECT
 				project_departId, COUNT(id) completed
@@ -769,8 +770,13 @@
 			</where>
 			GROUP BY project_departId
 			) b
-		WHERE
-			a.project_departId = b.project_departId 
+			on 
+				a.project_departId = b.project_departId 
+		<where>
+			<trim prefixOverrides="and">
+			  <if test="resultNullFilter != null"> and b.completed != #{resultNullFilter}</if>
+			</trim>
+		</where>
 		<if test="sorting != null"> order by ${sorting} </if>
 		<!-- <if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
@@ -783,7 +789,7 @@
 	<!-- 查询条件下   各投资经理    完成项目数、内部项目完成数、 外部项目完成数（all - type1） -->
 	<select id="selectTzjlAllProNumAndByType" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT
-			a.create_uid,a.completed completed,b.completed type_completed
+			a.create_uid,a.completed completed,IFNULL(b.completed,0) type_completed
 		FROM 
 			(
 			SELECT
@@ -820,7 +826,8 @@
 				</trim>
 			</where>
 			GROUP BY create_uid
-			) a,
+			) a
+			left join
 			(
 			SELECT
 				create_uid, COUNT(id) completed
@@ -858,13 +865,19 @@
 			</where>
 			GROUP BY create_uid
 			) b
-		WHERE
-			a.create_uid = b.create_uid 
+			on
+				a.create_uid = b.create_uid 
+		<where>
+			<trim prefixOverrides="and">
+			  <if test="resultNullFilter != null"> and b.completed != #{resultNullFilter}</if>
+			</trim>
+		</where>
 		<if test="sorting != null"> order by ${sorting} </if>
 		<!-- <if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if> -->
 	</select>
+	
 	
 	
 </mapper>

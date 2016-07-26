@@ -1,15 +1,6 @@
 package com.galaxyinternet.common.query;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import com.galaxyinternet.common.ViewQuery;
 import com.galaxyinternet.framework.core.model.PagableEntity;
-import com.galaxyinternet.framework.core.utils.DateUtil;
 
 
 public class ChartKpiQuery extends PagableEntity {

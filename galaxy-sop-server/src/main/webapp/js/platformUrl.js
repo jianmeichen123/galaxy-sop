@@ -611,22 +611,7 @@ var platformUrl = {
 	 * 1.工作桌面－事项预览弹出层
 	 */
 	meetingSchedList : Constants.sopEndpointURL + "/galaxy/report/meetingSchedList",
-	/**
-	 * 事业线分组查询
-	 * 1.项目分析－项目数统计（项目数top10，数据表格）
-	 */
-	linechart : Constants.sopEndpointURL + "/galaxy/report/linechart",
-		/**
-	 * 事业线分组查询
-	 * 1.项目分析－项目数统计（ 数据表格 ）
-	 */
-	gglinechart : Constants.sopEndpointURL + "/galaxy/report/gglinechart",
-	
-	/**
-	 * 事业线分组查询
-	 * 1.项目分析－项目数统计（项目数top10，数据表格）--合伙人专用
-	 */
-	linehhrchart : Constants.sopEndpointURL + "/galaxy/report/lineHhrChart",
+
 	/**
 	 * 1.数据简报－项目目标追踪、投资事业线目标完成对比
 	 */
@@ -673,29 +658,8 @@ var platformUrl = {
 	 * 2. 工作平台－投资资金
 	 */
 	rateRiseMonthChart : Constants.sopEndpointURL + "/galaxy/report/rateRiseMonthChart",
-	/**
-	 * 过会率－事业线
-	 * 1. 项目分析－过会率统计（图表＋表格）
-	 * 2. 项目分析－投决率统计（图表＋表格）
-	 */
-	meetingrate : Constants.sopEndpointURL + "/galaxy/report/meetingrate",
-	/**
-	 * 过会率-投资经理
-	 * 1. 项目分析－过会率统计（图表＋表格）
-	 * 2. 项目分析－投决率统计（图表＋表格）
-	 */
-	meetingRateUser : Constants.sopEndpointURL + "/galaxy/report/meetingRateUser",
-	/**
-	 * 投资经理kpi
-	 * 1. 绩效考核－投资经理绩效考核（图表＋表格）
-	 */
-	userkpi : Constants.sopEndpointURL + "/galaxy/report/userkpi",
-	/**
-	 * 团队kpi
-	 * 1. 绩效考核－团队绩效考核（图表＋表格）
-	 * 2. 工作桌面－绩效考核
-	 */
-	deptkpi : Constants.sopEndpointURL + "/galaxy/report/deptkpi",
+	
+	
 	/**
 	 * 部门列表
 	 * 1. common.js 各查询条件中的 投资事业线 select
@@ -731,13 +695,58 @@ var platformUrl = {
 	/**
 	 * 项目阶段高管
 	 */
-	projectStage4Manager: Constants.sopEndpointURL+"/galaxy/sop2/"
+	projectStage4Manager: Constants.sopEndpointURL+"/galaxy/sop2/",
 
 	
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 过会率－事业线
+	 * 1. 项目分析－过会率统计（图表＋表格）
+	 * 2. 项目分析－投决率统计（图表＋表格）
+	 */
+	meetingrate : Constants.sopEndpointURL + "/galaxy/kpireport/deptMeetPassRate",
+	/**
+	 * 过会率-投资经理
+	 * 1. 项目分析－过会率统计（图表＋表格）
+	 * 2. 项目分析－投决率统计（图表＋表格）
+	 */
+	meetingRateUser : Constants.sopEndpointURL + "/galaxy/kpireport/tzjlMeetPassRate",
+	
+	
+	/**
+	 * 1.项目分析－项目数统计
+	 */
+	gglinechart : Constants.sopEndpointURL + "/galaxy/kpireport/gglinechart",
+	
+	/**
+	 * 1.项目分析－项目数统计 --合伙人专用
+	 */
+	hhrlinechart : Constants.sopEndpointURL + "/galaxy/kpireport/hhrLineChart",
+	
+	
+	
+	/**
+	 * 投资经理kpi
+	 * 1. 绩效考核－投资经理绩效考核（图表＋表格）
+	 */
+	userkpi : Constants.sopEndpointURL + "/galaxy/kpireport/userkpi",
+	/**
+	 * 团队kpi
+	 * 1. 绩效考核－团队绩效考核（图表＋表格）
+	 * 2. 工作桌面－绩效考核
+	 */
+	deptkpi : Constants.sopEndpointURL + "/galaxy/kpireport/deptkpi"
 }
 
 /**
