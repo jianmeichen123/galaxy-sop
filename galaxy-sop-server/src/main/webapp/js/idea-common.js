@@ -702,14 +702,20 @@ function ideaLoaded(idea, index) {
 	if (index == 1) {
 		$("[data-btn='history']").hide(); //历史信息
 		//if (idea.createdUid == userId) {   //任何角色都可以认领
-			if (roleId != 4) {
+			/*if (roleId != 4) {
 				$("[data-btn='claim']").hide(); //认领
+			}*/
+			if(isContainResourceByMark("idea_claim")){
+			       $('button[resource-mark="idea_claim"]').css("display","inline-block");
 			}
 		//}
 	} else if (index == 4) { //index = 4   搁置
 		//if (idea.createdUid == userId) {
-			if (roleId != 4) {
+			/*if (roleId != 4) {
 				$("[data-btn='claim']").hide(); //认领
+			}*/
+			if(isContainResourceByMark("idea_claim")){
+			       $('button[resource-mark="idea_claim"]').css("display","inline-block");
 			}
 		//}
 	} else {
