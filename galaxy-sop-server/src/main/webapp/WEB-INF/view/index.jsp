@@ -66,6 +66,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             </div>
         </div>
         <!--立项排期会-->
+        <acl:acl resourceMark="shedule_lxh">
         <dl style="position:relative;">
         	<dt>立项会排期</dt>
             <dd>
@@ -88,12 +89,14 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
               <a href="<%=path %>/html/projectMeeting.html" data-btn="project" class="more null">more</a>
             </dd>
             
-            <%-- <c:if test="${fx:hasRole(4)}"> --%>
-        	 <dd><a href="javascript:;" class="blue paiqidate" resource-mark="shedule_lxh" style="display:none" onclick="paiqidate('meetingType:3');">排期时间</a></dd>
-        	<%-- </c:if> --%>
+            <c:if test="${fx:hasRole(4)}">
+        	 <dd><a href="javascript:;" class="blue paiqidate" onclick="paiqidate('meetingType:3');">排期时间</a></dd>
+        	</c:if>
         	
         </dl>
+        </acl:acl>
         <!--投决会排期-->
+        <acl:acl resourceMark="shedule_tjh">
         <dl class="tjh_block" style="position:relative;">
         	<dt>投决会排期</dt>
             <dd>
@@ -115,10 +118,11 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
 <!--                 <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
             </dd>
-            <%-- <c:if test="${fx:hasRole(4)}"> --%>
-        	<dd><a href="javascript:;" class="blue paiqidate" resource-mark="shedule_tjh" style="display:none" onclick="paiqidate('meetingType:4');">排期时间</a></dd>
-        	<%-- </c:if> --%>
+            <c:if test="${fx:hasRole(4)}">
+        	<dd><a href="javascript:;" class="blue paiqidate" onclick="paiqidate('meetingType:4');">排期时间</a></dd>
+        	</c:if>
         </dl>
+        </acl:acl>
     </div>
     
     
@@ -252,6 +256,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
+                <acl:acl resourceMark="shedule_ceo">
                  <dl id="ceo_p">
 				<dt><h3 class="ico t5">CEO评审排期</h3></dt>
 				<dd>
@@ -274,6 +279,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
 				</dd>
 			</dl> 
+			</acl:acl>
                 <dl  class="tool_radius">
                 	<dt><h3 class="ico t6">常用工具</h3></dt>
                     <dd class="tool">
@@ -344,12 +350,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		if(isContainResourceByMark("shedule_list")){
 	       $('div[resource-mark="shedule_list"]').css("display","block");
 		}
-		if(isContainResourceByMark("shedule_lxh")){
-	       $('a[resource-mark="shedule_lxh"]').css("display","block");
-		}
-		if(isContainResourceByMark("shedule_tjh")){
-		       $('a[resource-mark="shedule_tjh"]').css("display","block");
-			}
 		if(isContainResourceByMark("task_list")){
 		       $('dl[resource-mark="task_list"]').css("display","block");
 			}
