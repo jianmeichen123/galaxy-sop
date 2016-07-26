@@ -172,7 +172,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     -->
                 </dl>
                 
-                 <dl class="Creative_library" style="position:relative;">
+                 <dl style="position:relative;display:none;" class="Creative_library" resource-mark="idea_summary">
 						<!-- <img src="<%=path%>/img/sy.png" alt=""> -->
 						
 						<dt>
@@ -362,6 +362,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			}
 		if(isContainResourceByMark("project_view_module")){
 		       $('dl[resource-mark="project_view_module"]').css("display","block");
+			}
+		if(isContainResourceByMark("idea_summary")){
+		       $('dl[resource-mark="idea_summary"]').css("display","block");
 			}
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 	});
