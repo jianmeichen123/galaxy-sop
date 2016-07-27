@@ -239,7 +239,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 			{
 				messageType = "12.3";
 			}
-			else if("postMeetingType:3".endsWith(meetingRecord.getMeetingType()))
+			else if("postMeetingType:2".endsWith(meetingRecord.getMeetingType()))
 			{
 				messageType = "12.2";
 			}
@@ -248,7 +248,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 				messageType = "12.1";
 			}
 			
-			if(meetingRecord.getId() != null)
+			if(meetingRecord.getId() != null && meetingRecord.getId().intValue() >0)
 			{
 				urlNumber = UrlNumber.two;
 			}
