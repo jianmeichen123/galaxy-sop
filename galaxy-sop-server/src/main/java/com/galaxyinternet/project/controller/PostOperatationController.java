@@ -248,7 +248,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 				messageType = "12.1";
 			}
 			
-			if(meetingRecord.getId() != null)
+			if(meetingRecord.getId() != null && meetingRecord.getId().intValue() >0)
 			{
 				urlNumber = UrlNumber.two;
 			}
