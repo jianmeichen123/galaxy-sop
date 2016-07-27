@@ -227,7 +227,7 @@ var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(),
 var weekLimitnow = GetDateStr(-(nowTemp.getDay())+7);
 var weekLimit = GetDateStr(-(nowTemp.getDay()));
 
-// 获取左侧菜单
+/*// 获取左侧菜单
 function createMenus(current){
 	sendGetRequest(platformUrl.createMenus + current, {}, function(data){
 		 var selected = data.header.attachment;
@@ -266,7 +266,7 @@ function createMenus(current){
 	           $(this).children('ul').stop().slideToggle();
 	         });
 	});
-}
+}*/
 
 
 
