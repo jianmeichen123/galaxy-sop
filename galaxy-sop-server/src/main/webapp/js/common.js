@@ -502,6 +502,8 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 					layer.msg(response.result.message);
 					$("div[data-id='popid1']").remove();
 					return false;
+				}else{
+					$.popupTwoClose();
 				}
 				if($.isFunction(success))
 				{

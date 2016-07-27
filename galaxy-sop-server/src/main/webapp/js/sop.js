@@ -333,6 +333,8 @@ function air(indexNum){
 						$("#viewTarget").focus();
 							return false;
 						}
+
+						$.popupTwoClose(); 
 						condition.pid = pid;
 						condition.stage = "projectProgress:1";
 						condition.createDate = viewDateStr;
@@ -416,6 +418,7 @@ function startReview(){
 							alert("结果不能为空");
 							return;
 						}
+						$.popupTwoClose(); 
 						condition.pid = pid;
 						condition.stage = "projectProgress:"+num;
 						condition.createDate = meetingDateStr;
@@ -756,6 +759,7 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 								var pid = projectId
 								$("#powindow,#popbg").remove();
 								info(pid);
+								$.popupTwoClose();
 							}
 							else
 							{
