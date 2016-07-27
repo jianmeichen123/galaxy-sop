@@ -7,7 +7,7 @@
 <%--     <script src="<%=path %>/js/jquery.showLoading.min.js"></script> --%>
 <!-- 弹出页面 -->
 <div id="uploadPanel"  style="display: none;">
-	<div class="title_bj">更新文件</div>
+	<div class="title_bj">上传更新</div>
 	<div class="meetingtc margin_45">
 	<dl class="fmdl clearfix">
     	<dt>档案来源：</dt>

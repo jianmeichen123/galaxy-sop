@@ -159,13 +159,16 @@
      } --%>
     //保存日程
     function saveShedule(){
+    	
     	if(beforeSubmit()){
 	    	var id=$("#id").val();
 	    	if(id == '' || id == 'null' || id == null){
 	    	  $("#id").remove();
 	    	}
 	    	sendPostRequestByJsonObj(platformUrl.saveShedule, JSON.parse($("#shedule_form").serializeObject()), sheduleCallBack);
+	    	$.locksCreenOpen();
     	}
+    	
     }
     //新建日程
     function newShedule(){

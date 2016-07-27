@@ -43,9 +43,9 @@
  	<div class="ritmin">
     	<h2 style="margin-top:-20px;">项目创意</h2>
         <!--页眉-->
-        <div class="top clearfix">
+        <div class="top clearfix" resource-mark="idea_add" style="display:none;">
         	<!--按钮-->
-            <div class="btnbox_f btnbox_f1 clearfix">
+            <div class="btnbox_f btnbox_f1 clearfix" >
 <%--             href="<%=path %>/galaxy/idea/add" --%>
                 <a id="addBtn" href="javascript:;" class="pubbtn bluebtn ico c4">添加创意</a>
 
@@ -237,6 +237,11 @@
 			$("[name='departmentId']").attr("disabled","true");
 			$("[name='departmentId']").attr("class","disabled");
 		}
+		if(isContainResourceByMark("idea_add")){
+		       $('div[resource-mark="idea_add"]').css("display","block");
+			}
+		
+		
 	});
 	cutStr(5,'cutstr');
 	

@@ -3,7 +3,8 @@
 	String path = request.getContextPath(); 
 %>
 <div class="addmentc">
-  <div class="form clearfix">
+  <div class="form clearfix margin_45">
+  <div class='title_bj'>添加团队成员</div>
   <form action="" id="person_form" method="post" type="validate">
   	<input type="hidden" value="" name="projectId" id="projectId">
     <div class="left">

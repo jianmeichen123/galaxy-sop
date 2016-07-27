@@ -329,9 +329,21 @@ function formatNearMeet(meetList){
 
 
 function closePro(){
+	layer.confirm('你确定要删除吗?', 
+			{
+			  btn: ['确定', '取消'] 
+			}, 
+			function(index, layero){
+				sendGetRequest(platformUrl.closeProject+proid,null,closeback);
+			}, 
+			function(index){
+				
+			}
+		);
+	/*
 	if(confirm("确定要否决项目吗？")){
 		sendGetRequest(platformUrl.closeProject+proid,null,closeback);
-	}
+	} */
 }
 
 

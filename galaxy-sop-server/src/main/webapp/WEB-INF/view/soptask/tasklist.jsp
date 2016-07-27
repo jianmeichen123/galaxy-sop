@@ -128,5 +128,10 @@ function projectNameFormatter(value,row,index){
 		createMenus(num);
 		
 	});
+	var aa=$("a[resource-mark]")
+	  if(isContainResourceByMark("interView")){
+	    	$('div[resource-mark="interView"]').css("display","block");
+	    }
+	
 </script>
 </html>

@@ -23,7 +23,8 @@
 </div>
 <!-- 弹出页面 -->
 <div id="upload-dialog" style="display: none;">
-	<div class="archivestc" >
+	<div class="title_bj"></div>
+	<div class="archivestc margin_45" >
 	<form>
 		<input type="hidden" name="id">
 		<dl class="fmdl clearfix">
@@ -71,7 +72,8 @@ $(function(){
 	loadRows();
 	loadRelatedData();
 	$("#show-upload-btn").click(function(){
-		showUploadPopup();
+		var title_name=$(this).text();
+		showUploadPopup(title_name);
 	});
 	$("#complete-task-btn").click(function(){
 		//更新task为完成状态
@@ -159,11 +161,12 @@ function loadRelatedData()
 			}
 	);
 }
-function showUploadPopup()
+function showUploadPopup(title_name)
 {
 	$.popup({
 		txt:$("#upload-dialog").html(),
 		showback:function(){
+			$('.title_bj').html(title_name)
 			var _this = this;
 			initUpload(_this);
 			initForm(_this);

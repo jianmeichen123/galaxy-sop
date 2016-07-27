@@ -10,6 +10,7 @@ li{ display:block; list-style:none}
 textarea{resize: none;outline: none}
 input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .pointer-events{pointer-events: none;}
+.userinfro select{ margin-left:10px;   padding: 0px 0 !important;}
 /* 去掉ie中input框右侧的X */
  ::-ms-clear{display: none;}
 /*clearfix-浮动清理*/
@@ -1297,7 +1298,6 @@ background-size: 100%;}
 .register_all{ width:500px; position:relative; margin-top:45px;}
 .register_all ul li{ width:50%; float:left; line-height:40px; height:40px; }
 .register_all_one{ color:#74767f;}
-.register_all_two{ color:#525662;}
 .register_all_input{ width:90px; line-height:30px; height:30px; font-size:14px; border-radius:5px; text-decoration:none;text-align:center; color:#4a97da; border:1px solid #ccd2d7; margin-left:auto; margin-right:auto; display:block; margin-top:10px;}
 .register_all_input:hover,.change_cancel:hover{text-decoration:none; background-color: #66b1f2;color:#fff;border: 1px solid #66b1f2;}
 .change_affirm:hover{background-color: #85c1f5;}
@@ -1795,7 +1795,16 @@ font-family: "宋体";
   width: 100%;
   margin-top: 10px;
   overflow:hidden;
-  height: 270px;
+  height: 310px;
+}
+.title_bj_tzjl {
+    width: 100%;
+    background-color: #f9fafc;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    color: #3e4351;
 }
 /*左侧导航icon*/
 .navbar{width:20px;height:22px;position:absolute;background: url(../img/baricon.png) 0 0 no-repeat;top: 14px;left: 22px;}
