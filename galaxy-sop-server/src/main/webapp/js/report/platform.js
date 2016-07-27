@@ -9,7 +9,7 @@ $(function() {
 	selectSopTask();
 	createMenus(1);
 	initHref();
-	load_data_chart_kpi();//绩效考核图表
+	//load_data_chart_kpi();//绩效考核图表
 	load_data_chart_progress();//项目进度图表
 	load_data_chart_tz_money();//投资资金图表
 	load_data_chart_project_time();//项目历时
@@ -358,7 +358,7 @@ $(function() {
 	
 	function initHref(){
 		//console.log('initHref');
-		$("#platform_jxkh_more").attr('href' , path + "/galaxy/report/kpi?guid="+userId+"&sid="+sessionId +"#gg_jxkh_u");//绩效考核链接
+		//$("#platform_jxkh_more").attr('href' , path + "/galaxy/report/kpi?guid="+userId+"&sid="+sessionId +"#gg_jxkh_u");//绩效考核链接
 		$("#more_xmjd").attr('href' , path + "/galaxy/report/projectAnalysis?guid="+userId+"&sid="+sessionId);//项目进度
 	}
 
@@ -890,7 +890,7 @@ $(function() {
 		}
 	});*/
 	
-	function load_data_chart_kpi(){
+	function load_data_chart_kpi_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx(){
     	var obj ={url:platformUrl.deptkpi};
     	obj.contentType="application/json";
     	obj.data = {pageNum:0,pageSize:5},
@@ -1165,7 +1165,7 @@ function meetingDateFormat(value){
 }
 
 //绩效考核，前5
-var containerKpiOptions = {
+var containerKpiOptions_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx = {
     chart: {
     	renderTo:'container_kpi',
         zoomType: 'xy',

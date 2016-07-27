@@ -708,6 +708,16 @@ var platformUrl = {
 	
 	
 	
+	/**
+	 * 1.数据简报－投资事业线目标完成对比
+	 */
+	deptProTarget : Constants.sopEndpointURL + "/galaxy/kpireport/deptProTarget",
+	
+	/**
+	 * 1.数据简报－投资事业线目标完成对比 --合伙人专用
+	 */
+	tzjlProTarget : Constants.sopEndpointURL + "/galaxy/kpireport/tzjlProTarget",
+	
 	
 	
 	/**
