@@ -27,6 +27,7 @@ import com.galaxyinternet.bo.touhou.ProjectHealthBo;
 import com.galaxyinternet.common.annotation.RecordType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.dictEnum.DictEnum;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
@@ -37,6 +38,7 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
@@ -215,6 +217,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 	 */
 	@ResponseBody
 	@RequestMapping(value="saveMeeting", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE)
+	@com.galaxyinternet.common.annotation.Logger()
 	public ResponseData<MeetingRecord> saveMeeting(HttpServletRequest request, @RequestBody @Valid MeetingRecord meetingRecord){
 		ResponseData<MeetingRecord> responseBody = getErrorResponse(meetingRecord);
 		if(responseBody != null){
@@ -226,10 +229,29 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
 		}
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
-				.getId());
 		try {
+			Long projectId = meetingRecord.getProjectId();
+			Project project = projectService.queryById(projectId);
+			String projectName = project != null ? project.getProjectName() : null;
+			String messageType = null;
+			UrlNumber urlNumber = UrlNumber.one;
+			if("postMeetingType:3".endsWith(meetingRecord.getMeetingType()))
+			{
+				messageType = "12.3";
+			}
+			else if("postMeetingType:2".endsWith(meetingRecord.getMeetingType()))
+			{
+				messageType = "12.2";
+			}
+			else
+			{
+				messageType = "12.1";
+			}
 			
+			if(meetingRecord.getId() != null && meetingRecord.getId().intValue() >0)
+			{
+				urlNumber = UrlNumber.two;
+			}
 			
 			if(meetingRecord.getFileReidsKey() != null){
 				ResponseData<SopFile> result = batchUpload.batchUpload(user.getId()+meetingRecord.getFileReidsKey());
@@ -256,7 +278,7 @@ public class PostOperatationController extends BaseControllerImpl<MeetingRecord,
 			meetingService.saveMeeting(meetingRecord, user.getId());
 			responseBody.setResult(new Result(Status.OK,"")); 
 			responseBody.setId(meetingRecord.getId());
-				
+			ControllerUtils.setRequestParamsForMessageTip(request, user, projectName, projectId, messageType, urlNumber);	
 		} catch (Exception e) {
 			// TODO: handle exception
 			responseBody.setResult(new Result(Status.ERROR, ERROR_DAO_EXCEPTION));
