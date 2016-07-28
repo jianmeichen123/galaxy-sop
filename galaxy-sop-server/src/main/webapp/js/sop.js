@@ -577,6 +577,7 @@ function tzyxs(flag){
 			}
 			else
 			{
+				$('.title_bj').html('上传投资意向书');
 				$("#voucherDiv").css("display","none");
 				
 			}
@@ -657,6 +658,12 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 			}else{
 				$("#voucherDiv").css("display","none");
 			}
+			if(fileWorkType=='fileWorktype:1'){
+				$('.title_bj').html('更新业务尽职调查报告')
+			}
+			if(fileWorkType=='fileWorktype:5'){
+				$('.title_bj').html('更新投资意向书')
+			}
 			$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
 			$("#fileType").val(fileType);
 			$("#fileWorkType").val(fileWorkType);
@@ -667,7 +674,6 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 					url:platformUrl.updateFile,
 					init:{
 						PostInit: function(up) {
-							$('.title_bj').html('更新投资意向书');
 							$("#save_file_btn").click(function(){
 								if(up.files.length == 0)
 								{
@@ -845,7 +851,7 @@ function uploadYwjd(){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(_this){
-			$('.title_bj').html('上传尽调报告')
+			$('.title_bj').html('上传业务尽调报告')
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
