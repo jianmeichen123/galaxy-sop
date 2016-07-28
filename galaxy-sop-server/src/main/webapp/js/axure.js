@@ -189,6 +189,11 @@
 		var obj = new popEve();
 		obj.init();
 	};
+	//二次弹窗关闭
+	$.popupTwoClose =function(){
+		$("#popbg01").remove();
+	};
+	//屏幕开屏
 	$.locksCreenOpen =function(){
 		$(document.body).css({
 		   "overflow-x":"auto",
