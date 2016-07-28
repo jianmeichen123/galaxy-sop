@@ -90,7 +90,7 @@
 									<th data-field="realName"  		 class="data-input" data-visible="false">	投资经理</th> 
 									<th data-field="departmentName"  class="data-input">	投资事业线	</th>
 									<th data-field="rate"  		 	 class="data-input" data-formatter="rate_format">完成率</th>
-									<th data-field="target"  		 class="data-input" data-formatter="cat_xmstj">目标数</th>
+									<th data-field="target"  		 class="data-input" >目标数</th>
 									<th data-field="completed"  	 class="data-input" data-formatter="pro_num_format">	项目数		</th>
 									<th data-field="notCompleted"  	 class="data-input">	未完成		</th>
 								</tr>
@@ -152,6 +152,7 @@ if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
 }
 
 var pageNum = 1;
+var queryParamsJson = {};
 
 var url = platformUrl.gglinechart;
 if(!isGG) url = platformUrl.hhrlinechart;
@@ -174,7 +175,9 @@ $(function () {
 		pagination: true,
         search: false,
         url: url,
-        onLoadSuccess: function(){
+        onLoadSuccess: function(backdata){
+        	queryParamsJson = eval("("+backdata.queryParamsJsonStr+")");
+        	
         	if(!isGG) $('#data-table-xmstj').bootstrapTable('showColumn', 'realName');
         	
         	var options = $('#data-table-xmstj').bootstrapTable('getOptions');
@@ -250,40 +253,67 @@ function rate_format(value, row, index){
 	}
 }
 
-function pro_num_format(value, row, index){
-	var projectType = $("select[name='projectType']").val();
-	if(projectType==''){
-		return row.completed;
-	} else if(projectType=='projectType:2'){
-		return row.zjCompleted;
-	}else{
-		return row.wbCompleted;
-	}
-}
 /****************************************************************************
  * 项目数统计弹出层
  ***************************************************************************/
-function cat_xmstj(value, row, index){
+function pro_num_format(value, row, index){
 	if(value=='undefined' || value==0 || !value){
 		return 0;
 	} else{
-		/* var id=isHHR=='true' ? row.user_id : row.department_id; */
-		var options = "<a href='#' onclick='xmstjprojectList(" + row.user_id + ")' class='blue'>"+value+"</a>";
+		var projectType = $("select[name='projectType']").val();
+		if(projectType==''){
+			value = row.completed;
+		} else if(projectType=='projectType:2'){
+			value = row.zjCompleted;
+		}else{
+			value = row.wbCompleted;
+		}
+		/* 
+		var id = row.userId;
+		if(!isGG) id = row.departmentId;
+		
+		var id = isGG?row.departmentId:row.userId;
+		*/
+		var userid = row.userId;
+		var deptid = row.departmentId;
+		
+		var options = "<a href='#' onclick='xmstjprojectList("+userid+","+deptid+")' class='blue'>"+value+"</a>";
 		return options;
 	}
+	
+	
 }
-function xmstjprojectList(id){
-	var _url= path + '/galaxy/report/paprojectlist';
+
+function xmstjprojectList(userid,deptid){
+	var _url= platformUrl.topronumProjectlist;
+	
 	$.getHtml({
 		url:_url,//模版请求地址	
 		data:"",//传递参数
-		okback:function(){
-			$("#xmstj_projectlist_sdate").val( $("#xmstj_sdate").val() );
- 			$("#xmstj_projectlist_edate").val( $("#xmstj_edate").val() );
- 			$("#xmstj_projectlist_projectType").val( $("#xmstj_projectType").val() );
-			isHHR == 'true' ? $("#xmstj_projectlist_userid").val(id) : $("#xmstj_projectlist_deptid").val(id);
-			var obj = {url: platformUrl.projectlist,toolbar:'#custom-toolbasr_xmstj_projectlist'}
-			$('#data-table-xmstj-projectlist').bootstrapTable($.extend({},DefaultBootstrapTableOptions,obj));
+		okback : function() {
+			if(isGG){
+				queryParamsJson.deptid = deptid;
+			}else{
+				queryParamsJson.userId = userid;
+				queryParamsJson.deptid = deptid;
+			}
+			
+			$('#data-table-xmstj-projectlist').bootstrapTable({
+				queryParamsType : 'size|page', // undefined
+				pageSize : 10,
+				showRefresh : false,
+				sidePagination : 'server',
+				method : 'post',
+				pagination : true,
+				search : false,
+				url: platformUrl.proNumProjectlist,
+				queryParams:function(){
+					return queryParamsJson;
+				},
+				onLoadSuccess : function(result) {
+					//console.log(result)
+				}
+			});
 		}
 	});
 	return false;

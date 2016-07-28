@@ -135,6 +135,7 @@ if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
 }
 
 var pageNum = 1;
+var queryParamsJson = {};
 
 var url = platformUrl.meetingrate;
 if(!isGG) url = platformUrl.meetingRateUser;
@@ -157,7 +158,9 @@ $(function () {
 		pagination: true,
         search: false,
         url: url,
-        onLoadSuccess: function(){
+        onLoadSuccess: function(backdata){
+        	queryParamsJson = eval("("+backdata.queryParamsJsonStr+")");
+        	
         	if(!isGG) $('#data-table-tjl').bootstrapTable('showColumn', 'realName');
         	var options = $('#data-table-tjl').bootstrapTable('getOptions');
         	var data = options.data;
@@ -201,13 +204,45 @@ function init(){
 	if(value=='undefined' || value==0 || !value){
 		return "0%";
 	}else{
+		var userid = row.userId;
+		var deptid = row.departmentId;
 		value = value * 100;
-	 	var options = value==0 ? '0%' : "<a href='#' onclick='tjlprojectList(" + id + ")' class='blue'>"+value.toFixed(2)+"%</a>";
+	 	var options = value==0 ? '0%' : "<a href='#' onclick='tjlprojectList("+userid+","+deptid+")' class='blue'>"+value.toFixed(2)+"%</a>";
 	 	return options;
 	}
 }
- function tjlprojectList(id){
-	var _url= path + '/galaxy/report/tjlprojectlist';
+ function tjlprojectList(userid,deptid){
+	 var _url= platformUrl.topronumProjectlist;
+	 $.getHtml({
+			url:_url,//模版请求地址	
+			data:"",//传递参数
+			okback : function() {
+				if(isGG){
+					queryParamsJson.deptid = deptid;
+				}else{
+					queryParamsJson.userId = userid;
+					queryParamsJson.deptid = deptid;
+				}
+				
+				$('#data-table-xmstj-projectlist').bootstrapTable({
+					queryParamsType : 'size|page', // undefined
+					pageSize : 10,
+					showRefresh : false,
+					sidePagination : 'server',
+					method : 'post',
+					pagination : true,
+					search : false,
+					url: platformUrl.meetRateProjectlist,
+					queryParams:function(){
+						return queryParamsJson;
+					},
+					onLoadSuccess : function(result) {
+						//console.log(result)
+					}
+				});
+			}
+		});
+	 /* 
 	$.getHtml({
 		url:_url,//模版请求地址	
 		data:"",//传递参数
@@ -218,7 +253,7 @@ function init(){
 			var obj = {url: platformUrl.projectlist,toolbar:'#custom-toolbasr_tjl_projectlist'}
 			$('#data-table-tjl-projectlist').bootstrapTable($.extend({},DefaultBootstrapTableOptions,obj));
 		}
-	});
+	}); */
 	return false;
 }  
 

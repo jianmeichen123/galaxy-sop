@@ -13,8 +13,10 @@ public class Project extends PagableEntity {
 
 	private int completed; 
 	private int type_completed; 
-	private int depNumOrder;
-   
+	private int depNumOrder;  //部门排名
+	private Long durationDay;   //历时
+	private String departmentName;
+	
 
 	private String projectName;
     private String projectCode;
@@ -537,5 +539,22 @@ public class Project extends PagableEntity {
 	public void setType_completed(int type_completed) {
 		this.type_completed = type_completed;
 	}
+
+	public Long getDurationDay() {
+		return durationDay;
+	}
+
+	public void setDurationDay(Long durationDay) {
+		this.durationDay = durationDay;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
 
 }

@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
+import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.PageRequest;
+import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 
 public interface ProjectDao extends BaseDao<Project, Long> {
@@ -50,7 +52,9 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 
 	List<Project> selectTzjlAllProNumAndByType(ProjectBo query, Pageable pageable);
 
-	
 
+	List<Project> selectHasMeetProList(MeetingRecordBo query, Pageable pageable);
+
+	
 	
 }

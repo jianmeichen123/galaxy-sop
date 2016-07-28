@@ -135,6 +135,7 @@ if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
 }
 
 var pageNum = 1;
+var queryParamsJson = {};
 
 var url = platformUrl.meetingrate;
 if(!isGG) url = platformUrl.meetingRateUser;
@@ -157,7 +158,9 @@ $(function () {
 		pagination: true,
         search: false,
         url: url,
-        onLoadSuccess: function(){
+        onLoadSuccess: function(backdata){
+        	queryParamsJson = eval("("+backdata.queryParamsJsonStr+")");
+        	
         	if(!isGG) $('#data-table-ghl').bootstrapTable('showColumn', 'realName');
         	var options = $('#data-table-ghl').bootstrapTable('getOptions');
         	var data = options.data;
@@ -201,13 +204,45 @@ function init(){
 	if(value=='undefined' || value==0 || !value){
 		return "0%";
 	}else{
+		var userid = row.userId;
+		var deptid = row.departmentId;
 		value = value * 100;
-		var options = "<a href='#' onclick='ghlprojectList(" + id + ")' class='blue'>"+value.toFixed(2)+"%</a>";
+		var options = "<a href='#' onclick='ghlprojectList("+userid+","+deptid+")' class='blue'>"+value.toFixed(2)+"%</a>";
 		return options;	
 	}
 }
- function ghlprojectList(id){
-	var _url= path + '/galaxy/report/ghlprojectlist';
+ function ghlprojectList(userid,deptid){
+	 var _url= platformUrl.topronumProjectlist;
+	 $.getHtml({
+			url:_url,//模版请求地址	
+			data:"",//传递参数
+			okback : function() {
+				if(isGG){
+					queryParamsJson.deptid = deptid;
+				}else{
+					queryParamsJson.userId = userid;
+					queryParamsJson.deptid = deptid;
+				}
+				
+				$('#data-table-xmstj-projectlist').bootstrapTable({
+					queryParamsType : 'size|page', // undefined
+					pageSize : 10,
+					showRefresh : false,
+					sidePagination : 'server',
+					method : 'post',
+					pagination : true,
+					search : false,
+					url: platformUrl.meetRateProjectlist,
+					queryParams:function(){
+						return queryParamsJson;
+					},
+					onLoadSuccess : function(result) {
+						//console.log(result)
+					}
+				});
+			}
+		});
+	 /* 
 	$.getHtml({
 		url:_url,//模版请求地址	
 		data:"",//传递参数
@@ -218,7 +253,7 @@ function init(){
 			var obj = {url: platformUrl.projectlist,toolbar:'#custom-toolbasr_ghl_projectlist'}
 			$('#data-table-ghl-projectlist').bootstrapTable($.extend({},DefaultBootstrapTableOptions,obj));
 		}
-	});
+	}); */
 	return false;
 }
 

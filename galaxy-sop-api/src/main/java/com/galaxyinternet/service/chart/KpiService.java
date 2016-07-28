@@ -29,6 +29,14 @@ public interface KpiService extends BaseService<Chart> {
 	Page<ChartDataBo> deptProTarget(ChartKpiQuery query);
 
 	Page<ChartDataBo> tzjlProTarget(ChartKpiQuery query);
+
+	Page<Project> proNum_ProjectList(ChartKpiQuery query);
+
+	Page<Project> meetRate_ProjectList(ChartKpiQuery query);
+
+	/*Page<Project> deptProjectList(ChartKpiQuery query);
+
+	Page<Project> tzjlProjectList(ChartKpiQuery query);*/
 	
 	
 	

@@ -11,6 +11,7 @@ public class ChartKpiQuery extends PagableEntity {
 	private String edate;   //  结束时间
 	private Long endTime;
 	private Long deptid;    //  部门编号
+	private Long userId;    
 	private String projectType;
 	private String meetingType;
 	
@@ -68,6 +69,12 @@ public class ChartKpiQuery extends PagableEntity {
 	}
 	public void setMeetingType(String meetingType) {
 		this.meetingType = meetingType;
+	}
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	
 	

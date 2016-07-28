@@ -23,7 +23,9 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.chart.Chart;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.chart.ChartService;
 import com.galaxyinternet.service.chart.KpiService;
@@ -53,7 +55,7 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 	/**
 	 *  获取合伙人管理事业线id
 	    * @Title: getDepId
-	    * @Description: TODO(这里用一句话描述这个方法的作用)
+	    * @Description: 
 	    * @param @param request
 	    * @param @return    参数
 	    * @return int    返回类型
@@ -79,7 +81,7 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 	/**
 	 * 	判断一个用户是否是合伙人 
 	    * @Title: isHHR
-	    * @Description: TODO(这里用一句话描述这个方法的作用)
+	    * @Description: 
 	    * @param @param request
 	    * @param @return    参数
 	    * @return boolean    返回类型
@@ -182,6 +184,7 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			String queryParamsJsonStr = GSONUtil.toJson(query);
 			if(StringUtils.isBlank(query.getSdate())){
 				query.setSdate(DateUtil.getDefaultSdate(1));
 			}
@@ -203,6 +206,7 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			Page<ChartDataBo> pageList = kpiService.deptkpi(query);
 			//pageList.setHHR(isHHR(request));
 			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setQueryParamsJsonStr(queryParamsJsonStr);
 			responseBody.setPageList(pageList);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "统计失败"));
@@ -225,7 +229,7 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 	@RequestMapping(value = "/deptkpiprojectlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String deptkpiprojectlist(HttpServletRequest request) {
 	
-		return "common/deptkpiprojectlist";
+		return "report/jxkh/deptkpiprojectlist";
 	}
 	
 	
@@ -265,6 +269,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			String queryParamsJsonStr = GSONUtil.toJson(query);
+			
 			if(StringUtils.isBlank(query.getSdate())){
 				query.setSdate(DateUtil.getDefaultSdate(1));
 			}
@@ -286,6 +292,7 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			Page<ChartDataBo> pageList = kpiService.ggLineChart(query);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setPageList(pageList);
+			responseBody.setQueryParamsJsonStr(queryParamsJsonStr);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "高管项目数统计失败"));
 			logger.error("gglinechart 高管项目数统计失败",e);
@@ -319,6 +326,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 				return responseBody;
 			}
 			
+			String queryParamsJsonStr = GSONUtil.toJson(query);
+			
 			if(StringUtils.isBlank(query.getSdate())){
 				query.setSdate(DateUtil.getDefaultSdate(1));
 			}
@@ -340,6 +349,7 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			Page<ChartDataBo> pageList = kpiService.hhrLineChart(query);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setPageList(pageList);
+			responseBody.setQueryParamsJsonStr(queryParamsJsonStr);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "项目数统计失败"));
 			logger.error("hhrLineChart 项目数统计失败",e);
@@ -351,35 +361,67 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 	
 	
 	
-	
-	
-	
-	
 	/**
-	 * 项目分析－过会率统计－项目列表页面，只提供路由功能
+	 * 项目分析－项目数统计－弹窗 项目列表页面，只提供路由功能
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/ghlprojectlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String ghlprojectlist(HttpServletRequest request) {
-	
-		return "common/ghlprojectlist";
+	@RequestMapping(value = "/toproNumProjectlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toproNumProjectlist(HttpServletRequest request) {
+		return "report/projectAnalysis/paprojectlist";
 	}
 	
 	/**
-	 * 项目分析－投决率统计－项目列表页面，只提供路由功能
+	 * 项目分析
+	 * 项目数统计 -- 弹窗 项目列表页面
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/tjlprojectlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String tjlprojectlist(HttpServletRequest request) {
-	
-		return "common/tjlprojectlist";
+	@ResponseBody
+	@RequestMapping(value = "/proNumProjectlist", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> proNumProjectlist(HttpServletRequest request,@RequestBody ChartKpiQuery query) {
+		//返回对象
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		
+		try {
+			
+			if(StringUtils.isBlank(query.getSdate())){
+				query.setSdate(DateUtil.getDefaultSdate(1));
+			}
+			if(StringUtils.isBlank(query.getEdate())){
+				query.setEdate(DateUtil.getDefaultEdate(1));
+			}
+			
+			query.setSdate(query.getSdate().trim() + " 00:00:00");
+			query.setEdate(query.getEdate().trim() + " 23:59:59");
+			Long startTime = DateUtil.stringToLong(query.getSdate(), "yyyy-MM-dd HH:mm:ss");
+			Long endTime = DateUtil.stringToLong(query.getEdate(), "yyyy-MM-dd HH:mm:ss");
+			if(startTime > endTime){
+				responseBody.setResult(new Result(Status.ERROR,null, "开始时间不能大于结束时间"));
+				return responseBody;
+			}
+			query.setStartTime(startTime);
+			query.setEndTime(endTime);
+			
+			/*Page<Project> pageList = null;
+			if(query.getUserId()!=null){
+				pageList =kpiService.tzjlProjectList(query);
+			}else if(query.getDeptid()!=null){
+				pageList =kpiService.deptProjectList(query);
+			}else {
+				responseBody.setResult(new Result(Status.ERROR,null, "统计条件缺失"));
+				return responseBody;
+			}*/
+			Page<Project> pageList =kpiService.proNum_ProjectList(query);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setPageList(pageList);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "项目数统计失败"));
+			logger.error("hhrLineChart 项目数统计失败",e);
+		}
+		
+		return responseBody;
 	}
-	
-	
-	
-	
 	
 	
 	
@@ -431,6 +473,9 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 				responseBody.setResult(new Result(Status.ERROR,null, "统计条件缺失"));
 				return responseBody;
 			}
+			
+			String queryParamsJsonStr = GSONUtil.toJson(query);
+			
 			if(StringUtils.isBlank(query.getSdate())){
 				query.setSdate(DateUtil.getDefaultSdate(1));
 			}
@@ -452,6 +497,7 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			Page<ChartDataBo> pageList = kpiService.deptMeetPassRate(query);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setPageList(pageList);
+			responseBody.setQueryParamsJsonStr(queryParamsJsonStr);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "过会率统计失败"));
 			logger.error("deptMeetPassRate 过会率统计失败",e);
@@ -491,6 +537,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 				return responseBody;
 			}
 			
+			String queryParamsJsonStr = GSONUtil.toJson(query);
+			
 			if(StringUtils.isBlank(query.getSdate())){
 				query.setSdate(DateUtil.getDefaultSdate(1));
 			}
@@ -512,6 +560,7 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			Page<ChartDataBo> pageList = kpiService.tzjlMeetPassRate(query);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setPageList(pageList);
+			responseBody.setQueryParamsJsonStr(queryParamsJsonStr);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "项目数统计失败"));
 			logger.error("hhrLineChart 项目数统计失败",e);
@@ -520,6 +569,58 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 		return responseBody;
 	}
 	
+	
+	/**
+	 * 项目分析
+	 * 会率 -- 弹窗 项目列表页面
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/meetRateProjectlist", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> meetRateProjectlist(HttpServletRequest request,@RequestBody ChartKpiQuery query) {
+		//返回对象
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		
+		try {
+			
+			if(StringUtils.isBlank(query.getSdate())){
+				query.setSdate(DateUtil.getDefaultSdate(1));
+			}
+			if(StringUtils.isBlank(query.getEdate())){
+				query.setEdate(DateUtil.getDefaultEdate(1));
+			}
+			
+			query.setSdate(query.getSdate().trim() + " 00:00:00");
+			query.setEdate(query.getEdate().trim() + " 23:59:59");
+			Long startTime = DateUtil.stringToLong(query.getSdate(), "yyyy-MM-dd HH:mm:ss");
+			Long endTime = DateUtil.stringToLong(query.getEdate(), "yyyy-MM-dd HH:mm:ss");
+			if(startTime > endTime){
+				responseBody.setResult(new Result(Status.ERROR,null, "开始时间不能大于结束时间"));
+				return responseBody;
+			}
+			query.setStartTime(startTime);
+			query.setEndTime(endTime);
+			
+			/*Page<Project> pageList = null;
+			if(query.getUserId()!=null){
+				pageList =kpiService.tzjlProjectList(query);
+			}else if(query.getDeptid()!=null){
+				pageList =kpiService.deptProjectList(query);
+			}else {
+				responseBody.setResult(new Result(Status.ERROR,null, "统计条件缺失"));
+				return responseBody;
+			}*/
+			Page<Project> pageList =kpiService.meetRate_ProjectList(query);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setPageList(pageList);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "项目数统计失败"));
+			logger.error("hhrLineChart 项目数统计失败",e);
+		}
+		
+		return responseBody;
+	}
 	
 	
 	

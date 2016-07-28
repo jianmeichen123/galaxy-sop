@@ -880,4 +880,60 @@
 	
 	
 	
+	
+	<select id="selectHasMeetProList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			pro.id, 
+			pro.project_name, 
+			pro.project_code, 
+			pro.project_type, 
+			pro.project_careerline, 
+			pro.project_departId,
+			pro.industry_own, 
+	    	pro.create_uid, 
+	    	pro.create_uname, 
+	    	pro.project_progress, 
+	    	pro.project_status, 
+	    	pro.updated_time, 
+	    	pro.created_time,
+	    	pro.user_portrait
+		from sop_meeting_record meet,sop_project pro
+		where
+			meet.project_id = pro.id
+			
+			<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+		
+			<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+		
+			<if test="meetingResult != null">and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+		
+			<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+			
+			<if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+			
+			<if test="createUid != null" >and pro.create_uid = #{createUid,jdbcType=BIGINT} </if>
+			<if test="userIdList != null">
+				AND pro.create_uid IN
+				<foreach collection="userIdList" index="item" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="departId != null"> and pro.project_departId = #{departId,jdbcType=BIGINT} </if>
+			<if test="deptIdList != null">
+				AND pro.project_departId IN
+				<foreach collection="deptIdList" index="item" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<!-- 过滤已关闭项目 -->
+			<if test="resultCloseFilter != null"> AND pro.project_status != #{resultCloseFilter,jdbcType=VARCHAR} </if>
+		GROUP BY pro.id
+		<if test="sorting != null"> order by ${sorting} </if>
+		<!-- <if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if> -->
+	</select>
+	
 </mapper>

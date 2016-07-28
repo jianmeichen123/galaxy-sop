@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.framework.core.constants.SqlId;
@@ -129,4 +130,19 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 		return sqlSessionTemplate.selectOne(getSqlName("selectDeptProNumRowCount"),params);
 	}
 
+	@Override
+	public List<Project> selectHasMeetProList(MeetingRecordBo query, Pageable pageable) {
+		
+		Map<String, Object> params = BeanUtils.toMap(query, getRowBounds(pageable));
+		if (pageable != null && pageable.getSort() != null) {
+			String sorting = pageable.getSort().toString();
+			params.put("sorting", sorting.replace(":", ""));
+			String str=(String)params.get("sorting");
+			if(str.contains("---")){
+				params.put("sorting", str.replace("---", ":"));
+			}
+		}
+		return sqlSessionTemplate.selectList(getSqlName("selectHasMeetProList"),params);
+	}
+	
 }

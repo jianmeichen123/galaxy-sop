@@ -732,8 +732,21 @@ var platformUrl = {
 	 * 2. 项目分析－投决率统计（图表＋表格）
 	 */
 	meetingRateUser : Constants.sopEndpointURL + "/galaxy/kpireport/tzjlMeetPassRate",
+	/**
+	 * 项目分析－过会率 - 项目统计弹窗
+	 */
+	meetRateProjectlist : Constants.sopEndpointURL + "/galaxy/kpireport/meetRateProjectlist",
 	
 	
+	
+	/**
+	 * 项目分析－项目数统计弹窗
+	 */
+	topronumProjectlist : Constants.sopEndpointURL + "/galaxy/kpireport/toproNumProjectlist",
+	/**
+	 * 项目分析－项目数统计弹窗
+	 */
+	proNumProjectlist : Constants.sopEndpointURL + "/galaxy/kpireport/proNumProjectlist",
 	/**
 	 * 1.项目分析－项目数统计
 	 */
@@ -756,7 +769,12 @@ var platformUrl = {
 	 * 1. 绩效考核－团队绩效考核（图表＋表格）
 	 * 2. 工作桌面－绩效考核
 	 */
-	deptkpi : Constants.sopEndpointURL + "/galaxy/kpireport/deptkpi"
+	deptkpi : Constants.sopEndpointURL + "/galaxy/kpireport/deptkpi",
+	/**
+	 * 团队kpi 弹窗
+	 * 团队绩效－项目列表页面
+	 */
+	deptkpiprojectlist : Constants.sopEndpointURL + "/galaxy/kpireport/deptkpiprojectlist"
 }
 
 /**

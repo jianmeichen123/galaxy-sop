@@ -124,6 +124,8 @@
 
 var url = platformUrl.deptkpi;
 var pageNum = 1;
+var queryParamsJson = {};
+
 
 $(function () {
 	//左侧菜单
@@ -142,7 +144,8 @@ $(function () {
 		pagination: true,
         search: false,
         url: url,
-        onLoadSuccess: function(){
+        onLoadSuccess: function(backdata){
+        	queryParamsJson = eval("("+backdata.queryParamsJsonStr+")");
         	var options = $('#data-table-deptkpi').bootstrapTable('getOptions');
         	var data = options.data;
         	pageNum = options.pageNumber;
@@ -199,23 +202,17 @@ function rate_format(value, row, index){
 
 
 function cat_deptkpi(value, row, index) {
-	var id = row.dept_id;
-	var options = "<a href='#' onclick='deptkpiprojectList(" + id + ")' class='blue'>"
-			+ value + "</a>";
+	var id = row.departmentId;
+	var options = "<a href='#' onclick='deptkpiprojectList(" + id + ")' class='blue'>"+ value + "</a>";
 	return options;
 }
 function deptkpiprojectList(id) {
-	var _url = path + '/galaxy/report/deptkpiprojectlist';
+	var _url = platformUrl.deptkpiprojectlist;
 	$.getHtml({
 		url : _url,//模版请求地址	
 		data : "",//传递参数
 		okback : function() {
-			$("#deptkpi_projectlist_projectType").val(
-			$("#deptkpi_projectType").val()); //项目类型
-			$("#deptkpi_projectlist_deptid").val(id); //部门
-			$("#deptkpi_projectlist_sdate").val($("#deptkpi_sdate").val()); //项目创建日期
-			$("#deptkpi_projectlist_edate").val($("#deptkpi_edate").val()); //项目创建日期
-			//console.log("给hidden赋值");
+			queryParamsJson.deptid = id;
 			$('#data-table-deptkpi-projectlist').bootstrapTable({
 				queryParamsType : 'size|page', // undefined
 				pageSize : 10,
@@ -225,6 +222,10 @@ function deptkpiprojectList(id) {
 				pagination : true,
 				search : false,
 				//dataType: 'html',
+				url: platformUrl.userkpi,
+				queryParams:function(){
+					return queryParamsJson;
+				},
 				onLoadSuccess : function(result) {
 					//console.log(result)
 				}

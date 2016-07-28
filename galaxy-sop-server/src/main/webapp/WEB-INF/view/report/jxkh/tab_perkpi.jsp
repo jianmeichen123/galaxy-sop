@@ -95,7 +95,7 @@
 						<th data-field="completed"  	 class="data-input">	项目数		</th>
 						<th data-field="completedAll"    class="data-input">	累计已完成数	</th>
 						<th data-field="companyRank"     class="data-input">	公司排名		</th>   <!--  data-formatte="com_ranking" -->
-						<th data-field="deptRank"  		 class="data-input">	部门排名		</th>
+						<!-- <th data-field="deptRank"  		 class="data-input">	部门排名		</th> -->
 						<th data-field="totalRate"  	 class="data-input" data-formatter="rate_format">公司完成数占比</th>
 						<th data-field="deptRate" 	     class="data-input" data-formatter="rate_format">部门完成数占比</th>
 						<th data-field="lxhPnumber"  	 class="data-input">	立项会通过数	</th>
