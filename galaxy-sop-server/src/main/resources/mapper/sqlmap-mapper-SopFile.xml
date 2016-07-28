@@ -25,8 +25,6 @@
 		<result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
 		<result column="record_type" jdbcType="TINYINT" property="recordType" />
 		<result column="meeting_id" jdbcType="BIGINT" property="meetingId"/>
-		<result column="file_isdel" property="fileIsdel"/>
-		<result column="meet_flag" property="meetFlag"/>
 	</resultMap>
 	
 	<sql id="Base_Column_List">
@@ -34,7 +32,7 @@
 		file_source, file_type,
 		remark, voucher_id,  file_status, file_uid, fil_uri, updated_time, created_time,
 		file_length,
-		file_key, bucket_name,file_name,file_suffix,record_type,meeting_id,file_isdel,meet_flag
+		file_key, bucket_name,file_name,file_suffix,record_type,meeting_id
 	</sql>
 	
 	
@@ -117,9 +115,7 @@
 			        </foreach>
 				</if>
 				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
-				<if test="meetingId != null"> and meeting_id = #{meetingId,jdbcType=BIGINT} </if>
-				<if test="fileIsdel != null"> and file_isdel = #{fileIsdel} </if>
-				<if test="meetFlag != null"> and meet_flag = #{meetFlag} </if>			
+				<if test="meetingId != null"> and meeting_id = #{meetingId,jdbcType=BIGINT} </if>			
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>
@@ -190,7 +186,7 @@
  		file_type, remark, voucher_id, file_status,
  		file_uid, fil_uri, updated_time,
  		created_time, file_length, file_key,
- 		bucket_name,file_name,file_suffix,record_type,meeting_id,file_isdel,meet_flag)
+ 		bucket_name,file_name,file_suffix,record_type,meeting_id)
  		values (#{id,jdbcType=BIGINT}, #{projectId,jdbcType=BIGINT}, #{belongUid,jdbcType=BIGINT}, #{fileValid,jdbcType=INTEGER},
  		#{projectProgress,jdbcType=VARCHAR},
  		#{fileWorktype,jdbcType=VARCHAR}, #{careerLine,jdbcType=BIGINT}, #{fileSource,jdbcType=VARCHAR},
@@ -203,10 +199,7 @@
  		#{fileName,jdbcType=VARCHAR},
  		#{fileSuffix,jdbcType=VARCHAR},
  		#{recordType,jdbcType=TINYINT},
- 		#{meetingId,jdbcType=BIGINT},
- 		#{fileIsdel},
- 		#{meetFlag}
- 		)
+ 		#{meetingId,jdbcType=BIGINT})
  	</insert>
 	
 	<update id="updateByIdSelective" parameterType="SopFilePO">
@@ -233,8 +226,6 @@
 			<if test="fileName != null"> file_name = #{fileName,jdbcType=VARCHAR}, </if>
 			<if test="fileSuffix != null"> file_suffix = #{fileSuffix,jdbcType=VARCHAR}, </if>
 			<if test="meetingId != null"> meeting_id = #{meetingId,jdbcType=BIGINT}, </if>
-			<if test="fileIsdel != null"> file_isdel = #{fileIsdel}, </if>
-			<if test="meetFlag != null"> meet_flag = #{meetFlag}</if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -270,8 +261,6 @@
 			<if test="fileSuffix != null"> file_suffix = #{fileSuffix,jdbcType=VARCHAR}, </if>
 			<if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
 			<if test="meetingId != null"> meeting_id = #{meetingId,jdbcType=BIGINT}, </if>
-			<if test="fileIsdel != null"> file_isdel = #{fileIsdel}, </if>
-			<if test="meetFlag != null"> meet_flag = #{meetFlag}</if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>

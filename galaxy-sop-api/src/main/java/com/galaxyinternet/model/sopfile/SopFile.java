@@ -87,16 +87,6 @@ public class SopFile extends SopParentFile implements Serializable{
      * 会议记录ID
      */
     private Long meetingId;
-    
-    /**
-     * 是否被删除
-     */
-    private Integer fileIsdel;
-    
-    /**
-     * 关联类型
-     */
-    private Integer meetFlag;
         
 
     /**
@@ -342,22 +332,6 @@ public class SopFile extends SopParentFile implements Serializable{
 
 	public void setMeetingId(Long meetingId) {
 		this.meetingId = meetingId;
-	}
-
-	public Integer getFileIsdel() {
-		return fileIsdel;
-	}
-
-	public void setFileIsdel(Integer fileIsdel) {
-		this.fileIsdel = fileIsdel;
-	}
-
-	public Integer getMeetFlag() {
-		return meetFlag;
-	}
-
-	public void setMeetFlag(Integer meetFlag) {
-		this.meetFlag = meetFlag;
 	}
 
 	public String getFileStatusDesc() {
