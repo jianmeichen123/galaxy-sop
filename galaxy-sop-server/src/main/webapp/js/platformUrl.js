@@ -593,10 +593,18 @@ var platformUrl = {
 	/**
 	 * 删除投后运营会议
 	 */
-	deletePostMeeting: Constants.sopEndpointURL + "/galaxy/project/postOperation/deletePostMeeting"
+	deletePostMeeting: Constants.sopEndpointURL + "/galaxy/project/postOperation/deletePostMeeting",
 	
+	/**
+	 * 立项报告
+	 */
+	showLxReportUpload: Constants.sopEndpointURL + "/galaxy/sopFile/showLxReportUpload",
+	/**
+	 * 立项报告
+	 */
+	uploadSimpleFile: Constants.sopEndpointURL + "/galaxy/sopFile/upload",
 	
-	
+	delFile: Constants.sopEndpointURL + "/galaxy/sopFile/delFile"
 	
 }
 

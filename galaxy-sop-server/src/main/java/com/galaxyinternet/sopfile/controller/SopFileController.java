@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,8 @@ import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.department.Department;
@@ -1427,7 +1431,78 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		
 	}
+	@RequestMapping("/showLxReportUpload")
+	public String showLxReportUpload()
+	{
+		return "/project/lxReportUpload";
+	}
+	@ResponseBody
+	@RequestMapping(value="/upload")
+	public ResponseData<SopFile> upload(SopFile sopFile, HttpServletRequest request)
+	{
+		ResponseData<SopFile> data = new ResponseData<>();
+		try
+		{
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			boolean isInsert = true;
+			String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+			if(sopFile != null && sopFile.getId() != null && sopFile.getId().intValue() > 0)
+			{
+				SopFile po = sopFileService.queryById(sopFile.getId());
+				if(po != null && po.getFileKey() != null)
+				{
+					isInsert = false;
+					fileKey = po.getFileKey();
+				}
+			}
+			else
+			{
+				sopFile.setCreatedTime(new Date().getTime());
+			}
+			UploadFileResult uploadResult = uploadFileToOSS(request, fileKey, tempfilePath);
+			sopFile.setFileLength(uploadResult.getContentLength());
+			sopFile.setBucketName(uploadResult.getBucketName());
+			sopFile.setFileName(uploadResult.getFileName());
+			sopFile.setFileSuffix(uploadResult.getFileSuffix());
+			sopFile.setFileKey(fileKey);
+			sopFile.setUpdatedTime(new Date().getTime());
+			sopFile.setFileUid(user.getId());
+			sopFile.setCareerLine(user.getDepartmentId());
+			if(isInsert)
+			{
+				sopFile.setCreatedTime(new Date().getTime());
+				sopFileService.insert(sopFile);
+			}
+			else
+			{
+				sopFileService.updateById(sopFile);
+			}
+		}
+		catch (Exception e)
+		{
+			logger.error("上传立项报告失败."+ToStringBuilder.reflectionToString(sopFile),e);
+			data.getResult().addError("上传立项报告失败.");
+		}
+		
+		return data;
+	}
 	
+	@RequestMapping("/delFile")
+	@ResponseBody
+	public ResponseData<SopFile> delFile(Long id)
+	{
+		ResponseData<SopFile> data = new ResponseData<>();
+		try
+		{
+			sopFileService.deleteById(id);
+		}
+		catch (Exception e)
+		{
+			logger.error("删除文件失败, ID : "+id,e);
+			data.getResult().addError("删除失败");
+		}
+		return data;
+	}
 	
 
 }

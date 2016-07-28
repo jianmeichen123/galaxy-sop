@@ -315,8 +315,20 @@
 				<div id="options_point4" class="btnbox_f btnbox_f1 btnbox_m clearfix">
 					<a id="add_lxhmeet" href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
 					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark">申请立项会排期</a>
+					<a id="upload_lx_report" href="javascript:;" onclick="showLxUpload()" class="pubbtn fffbtn lpubbtn option_item_mark" style="display:none;">添加项目立项报告</a>
 				</div>
-
+				<table id="lx_report_table" style="display:none;">
+					<thead>
+						<tr>
+							<th data-field="fWorktype" data-align="center" >业务类型</th>
+							<th data-field="createdTime" data-align="center"  data-formatter="longTime_Format">创建日期</th>
+							<th data-field="fType" data-align="center" >存档类型</th>
+							<th data-field="updatedTime" data-align="center"  data-formatter="longTime_Format">更新日期</th>
+							<th data-field="fileStatusDesc" data-align="center">档案状态</th>
+							<th data-field="operateFile" data-align="center" data-formatter="lxReportFormatter">操作</th>
+						</tr>
+					</thead>
+				</table>
 				<div id="projectProgress_4_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
 					<input type="hidden" name=meetingType value="meetingType:3">
@@ -768,4 +780,74 @@
  			return result;
  		}
 	}
+ 	
+ 	//立项报告上传
+ 	function showLxUpload(id)
+ 	{
+ 		$.getHtml({
+			url:platformUrl.showLxReportUpload,
+			okback:function(){
+				$("#lx_report_upload_form [name='projectId']").val(alertid);
+				if(typeof(id) != 'undefined')
+				{
+					$("#lx_report_upload_form [name='id']").val(id);
+				}
+			}
+		});
+ 	}
+ 	$("#lx_report_table").bootstrapTable();
+ 	function initLxReportTable()
+ 	{
+ 		$("#lx_report_table").bootstrapTable('removeAll');
+	 	sendPostRequestByJsonObj(
+			platformUrl.queryFile, 
+			{
+				projectId:alertid,
+				fileWorktype:"fileWorktype:17"
+			}, 
+			function(data){
+				if(data.entityList.length>0)
+				{
+					$("#lx_report_table").bootstrapTable('load', data.entityList);
+					$("#lx_report_table").show();
+					$("#upload_lx_report").hide();
+				}
+				else
+				{
+					$("#upload_lx_report").show();
+					$("#lx_report_table").hide();
+				}
+			}
+	 	);
+ 	}
+ 	initLxReportTable();
+ 	function lxReportFormatter(val,row,index)
+ 	{
+ 		var update = '<a href="#" class="blue" onclick="showLxUpload('+row.id+')">更新</a>';
+ 		var download = '<a href="#" class="blue" onclick="filedown('+row.id+')">下载</a>';
+ 		var del = '<a href="#" class="blue" onclick="delLxReport('+row.id+')">删除</a>';
+ 		return update+"&nbsp;"+download+"&nbsp;"+del;
+ 	}
+ 	function delLxReport(id)
+ 	{
+ 		layer.confirm("确定删除？",function(i){
+ 			layer.close(i);
+ 			sendPostRequestByJsonObj(
+ 				platformUrl.delFile+"?id="+id,
+ 				{},
+ 				function(data){
+ 					if(data.result.status=='OK')
+					{
+						layer.msg("删除成功");
+						initLxReportTable();
+					}
+ 					else
+					{
+						layer.msg("删除失败。");
+					}
+ 				}
+ 			);
+ 		});
+ 	}
+ 	
 </script>
