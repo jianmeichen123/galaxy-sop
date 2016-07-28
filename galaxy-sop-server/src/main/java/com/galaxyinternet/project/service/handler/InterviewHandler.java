@@ -42,16 +42,7 @@ public class InterviewHandler implements Handler {
 	@Transactional
 	public SopResult handler(ViewQuery query, Project project) throws Exception {
 		ProjectQuery q = (ProjectQuery) query;
-		//添加访谈文件记录
-		InterviewRecord ir = new InterviewRecord();
-		ir.setProjectId(q.getPid());
-		ir.setViewDate(q.getParseDate() == null ? new Date() : q.getParseDate());
-		ir.setViewTarget(q.getTarget());
-		ir.setViewNotes(q.getContent());
-		ir.setCreatedId(project.getCreateUid());
-		ir.setCreatedTime((new Date()).getTime());
-		Long id = interviewRecordService.insert(ir);
-		
+		Long fid = null;
 		if(q.getFileKey() != null){
 			SopFile file = new SopFile();
 			file.setProjectId(q.getPid());
@@ -66,11 +57,18 @@ public class InterviewHandler implements Handler {
 			file.setBucketName(q.getBucketName());
 			file.setFileName(q.getFileName());
 			file.setFileSuffix(q.getSuffix());
-			file.setMeetingId(id);
-			file.setFileIsdel(1);
-			file.setMeetFlag(0);
-			sopFileDao.insert(file);
+			fid = sopFileDao.insert(file);
 		}
+		//添加访谈文件记录
+		InterviewRecord ir = new InterviewRecord();
+		ir.setProjectId(q.getPid());
+		ir.setFileId(fid);
+		ir.setViewDate(q.getParseDate() == null ? new Date() : q.getParseDate());
+		ir.setViewTarget(q.getTarget());
+		ir.setViewNotes(q.getContent());
+		ir.setCreatedId(project.getCreateUid());
+		ir.setCreatedTime((new Date()).getTime());
+		interviewRecordService.insert(ir);
 		return new SopResult(Status.OK,null,"添加访谈纪要成功!",UrlNumber.one,MessageHandlerInterceptor.add_interview_type);
 	}
 	
