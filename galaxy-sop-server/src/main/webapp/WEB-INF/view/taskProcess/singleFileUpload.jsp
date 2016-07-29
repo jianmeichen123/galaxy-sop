@@ -86,7 +86,8 @@ $(function(){
 			function(data){
 				if(data.result.status=="OK"){
 					layer.msg("提交成功。");
-					forwardWithHeader(platformUrl.showTask);
+					var url = $("#menus .on a").attr('href');
+					window.location=url;
 				}
 				else
 				{
