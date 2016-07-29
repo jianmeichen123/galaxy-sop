@@ -29,7 +29,8 @@
 
 
 <!-- 添加访谈记录弹出层 -->
-<div class="meetingtc">
+<div class="meetingtc margin_45">
+<div class="title_bj">新增访谈</div>
 	<div claiss="top clearfix">
         <dl class="fmdl clearfix">
             <dt>访谈时间：</dt>

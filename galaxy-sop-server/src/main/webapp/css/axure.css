@@ -10,6 +10,7 @@ li{ display:block; list-style:none}
 textarea{resize: none;outline: none}
 input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .pointer-events{pointer-events: none;}
+.userinfro select{ margin-left:10px;   padding: 0px 0 !important;}
 /* 去掉ie中input框右侧的X */
  ::-ms-clear{display: none;}
 /*clearfix-浮动清理*/
@@ -17,6 +18,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .clearfix { display:inline-block }
 * html .clearfix { height:1% }
 .clearfix { display:block}
+.margin_45{ margin-top:45px;}
 /*公用浮动*/
 .fl{ float:left}
 .fr{ float:right}
@@ -1096,10 +1098,9 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .resettc .tips .ok{ position:absolute; width:40px; height:40px; background-position:0 0; left:60px; top:50%; margin:-20px 0 0}
 .resettc .btnbox{ text-align:center;margin:20px 0 0 0;}
 .resettc .btnbox .pubbtn{ margin:0 10px; display:inline-block; *display:inline; zoom:1;}
-
 /* 添加人员弹窗 */
 .userinfrotc .userinfro{width:540px;border: 1px solid #e9ebf2;margin-bottom: 20px;}
-.userinfrotc .userinfro dl{border-bottom: 1px solid #e9ebf2; height: auto;line-height: 28px;height: 28px;}
+.userinfrotc .userinfro dl{border-bottom: 1px solid #e9ebf2; height: auto;line-height: 28px;height: 28px; overflow: hidden;}
 .userinfrotc .userinfro dl dt{width: 125px;padding-right:10px;text-align: right;float: left;color: #414652;background-color: #f9fafc;font-weight: normal;line-height: 27px;font-family: '微软雅黑';font-size:14px;}
 .userinfrotc .userinfro dl dd{width:405px;float: left; font-size: 12px;color:#535762;}
 .userinfrotc .userinfro  .role label{margin-right: 20px;width:155px;display: inline-block;font-weight: normal;}
@@ -1296,7 +1297,6 @@ background-size: 100%;}
 .register_all{ width:500px; position:relative; margin-top:45px;}
 .register_all ul li{ width:50%; float:left; line-height:40px; height:40px; }
 .register_all_one{ color:#74767f;}
-.register_all_two{ color:#525662;}
 .register_all_input{ width:90px; line-height:30px; height:30px; font-size:14px; border-radius:5px; text-decoration:none;text-align:center; color:#4a97da; border:1px solid #ccd2d7; margin-left:auto; margin-right:auto; display:block; margin-top:10px;}
 .register_all_input:hover,.change_cancel:hover{text-decoration:none; background-color: #66b1f2;color:#fff;border: 1px solid #66b1f2;}
 .change_affirm:hover{background-color: #85c1f5;}
@@ -1794,60 +1794,71 @@ font-family: "宋体";
   width: 100%;
   margin-top: 10px;
   overflow:hidden;
-  height: 270px;
+  height: 310px;
+}
+.title_bj_tzjl {
+    width: 100%;
+    background-color: #f9fafc;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    color: #3e4351;
 }
 /*左侧导航icon*/
 .navbar{width:20px;height:22px;position:absolute;background: url(../img/baricon.png) 0 0 no-repeat;top: 14px;left: 22px;}
-.nav1{background-position: 0 0;}
-.nav2{background-position: 0 -72px;}
-.nav3{background-position: 0 -144px;}
+.nav160{background-position: 0 0;}
+.nav168{background-position: 0 -72px;}
+.nav171{background-position: 0 -144px;}
 .nav4{background-position: 0 -216px;}
 .nav5{background-position: 0 -288px;}
 .nav6{background-position: 0 -330px;}
 .nav7{background-position: 0 -377px;}
 .nav8{background-position: 0 -425px;}
 .nav9{background-position: 0 -475px;}
-.nav10{background-position: 0 -216px;}
-.nav11{background-position: 0 -570px;}
-.nav12{background-position: 0 -615px;}
-.nav13{background-position: 0 -673px;}
-.nav14{background-position: 0 -720px;}
-.nav15{background-position: 0 -950px;}
-.nav16{background-position: 0 -902px;}
-.nav17{background-position: 0 -998px;}
-.nav18{background-position: 0 -1046px;}
-.nav19{background-position: 0 -378px;}
-.nav20{background-position: 0 -1189px;}
-.nav21{background-position: 0 -756px;}
-.nav22{background-position: 0 -805px;}
-.nav23{background-position: 0 -854px;}
-.nav24{background-position: 0 -1141px;}
-.nav25{background-position: 0 -1092px;}
-.lft li:hover .nav1,.lft li.on .nav1{background-position: -40px 0;}
-.lft li:hover .nav2,.lft li.on .nav2{background-position: -40px -72px;}
-.lft li:hover .nav3,.lft li.on .nav3{background-position: -40px -144px;}
+.nav137{background-position: 0 -216px;}
+.nav143{background-position: 0 -570px;}
+.nav144{background-position: 0 -615px;}
+.nav147{background-position: 0 -673px;}
+.nav150{background-position: 0 -720px;}
+.nav134{background-position: 0 -950px;}
+.nav195{background-position: 0 -902px;}
+.nav136{background-position: 0 -998px;}
+.nav135{background-position: 0 -1046px;}
+.nav177,.nav189{background-position: 0 -378px;}
+.nav180{background-position: 0 -1189px;}
+.nav183{background-position: 0 -378px;}
+.nav156{background-position: 0 -756px;}
+.nav157{background-position: 0 -805px;}
+.nav158{background-position: 0 -854px;}
+.nav186{background-position: 0 -1141px;}
+.nav192{background-position: 0 -1092px;}
+.lft li:hover .nav160,.lft li.on .nav160{background-position: -40px 0;}
+.lft li:hover .nav168,.lft li.on .nav168{background-position: -40px -72px;}
+.lft li:hover .nav171,.lft li.on .nav171{background-position: -40px -144px;}
 .lft li:hover .nav4,.lft li.on .nav4{background-position: -40px -216px;}
 .lft li:hover .nav5,.lft li.on .nav5{background-position: -40px -288px;}
 .lft li:hover .nav6,.lft li.on .nav6{background-position: -40px -330px;}
 .lft li:hover .nav7,.lft li.on .nav7{background-position: -40px -377px;}
 .lft li:hover .nav8,.lft li.on .nav8{background-position: -40px -425px;}
 .lft li:hover .nav9,.lft li.on .nav9{background-position: -40px -475px;}
-.lft li:hover .nav10,.lft li.on .nav10{background-position: -40px -216px;}
-.lft li:hover .nav11,.lft li.on .nav11{background-position: -40px -570px;}
-.lft li:hover .nav12,.lft li.on .nav12{background-position: -40px -615px;}
-.lft li:hover .nav13,.lft li.on .nav13{background-position: -40px -673px;}
-.lft li:hover .nav14,.lft li.on .nav14{background-position: -40px -720px;}
-.lft li:hover .nav15,.lft li.on .nav15{background-position: -40px -950px;}
-.lft li:hover .nav16,.lft li.on .nav16{background-position: -40px -902px;}
-.lft li:hover .nav17,.lft li.on .nav17{background-position: -40px -998px;}
-.lft li:hover .nav18,.lft li.on .nav18{background-position: -40px -1046px;}
-.lft li:hover .nav19,.lft li.on .nav19{background-position: -40px -378px;}
-.lft li:hover .nav20,.lft li.on .nav20{background-position: -40px -1189px;}
-.lft li:hover .nav21,.lft li.on .nav21{background-position: -40px -756px;}
-.lft li:hover .nav22,.lft li.on .nav22{background-position: -40px -805px;}
-.lft li:hover .nav23,.lft li.on .nav23{background-position: -40px -854px;}
-.lft li:hover .nav24,.lft li.on .nav24{background-position: -40px -1141px;}
-.lft li:hover .nav25,.lft li.on .nav25{background-position: -40px -1092px;}
+.lft li:hover .nav137,.lft li.on .nav137{background-position: -40px -216px;}
+.lft li:hover .nav143,.lft li.on .nav143{background-position: -40px -570px;}
+.lft li:hover .nav144,.lft li.on .nav144{background-position: -40px -615px;}
+.lft li:hover .nav147,.lft li.on .nav147{background-position: -40px -673px;}
+.lft li:hover .nav150,.lft li.on .nav150{background-position: -40px -720px;}
+.lft li:hover .nav134,.lft li.on .nav134{background-position: -40px -950px;}
+.lft li:hover .nav195,.lft li.on .nav195{background-position: -40px -902px;}
+.lft li:hover .nav136,.lft li.on .nav136{background-position: -40px -998px;}
+.lft li:hover .nav135,.lft li.on .nav135{background-position: -40px -1046px;}
+.lft li:hover .nav177,.lft li.on .nav177,.lft li:hover .nav189,.lft li.on .nav189{background-position: -40px -378px;}
+.lft li:hover .nav183,.lft li.on .nav183{background-position: -40px -378px;}
+.lft li:hover .nav180,.lft li.on .nav180{background-position: -40px -1189px;}
+.lft li:hover .nav156,.lft li.on .nav156{background-position: -40px -756px;}
+.lft li:hover .nav157,.lft li.on .nav157{background-position: -40px -805px;}
+.lft li:hover .nav158,.lft li.on .nav158{background-position: -40px -854px;}
+.lft li:hover .nav186,.lft li.on .nav186{background-position: -40px -1141px;}
+.lft li:hover .nav192,.lft li.on .nav192{background-position: -40px -1092px;}
 .lft .toggle_li ul{background-color: #1f222d !important;}
 .lft .toggle_li li a{color:#eee !important;}
 .lft .toggle_li li ul a{padding-left:30px;}

@@ -23,6 +23,7 @@ public class SopTaskBo extends  SopTask{
 	private String flagUrl;
 	private String concatcode;
 	private String assignUidName; //认领人的名字(配合APP端)
+	private String mark;
 	
 	
 	public String getAssignUidName() {
@@ -151,6 +152,14 @@ public class SopTaskBo extends  SopTask{
 
 	public void setProjectIds(List<Long> projectIds) {
 		this.projectIds = projectIds;
+	}
+
+	public String getMark() {
+		return mark;
+	}
+
+	public void setMark(String mark) {
+		this.mark = mark;
 	}
 	
 	

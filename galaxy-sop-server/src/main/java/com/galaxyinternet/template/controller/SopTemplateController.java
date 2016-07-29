@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.template.SopTemplateBo;
 import com.galaxyinternet.common.annotation.LogType;
@@ -156,37 +158,42 @@ public class SopTemplateController extends BaseControllerImpl<SopTemplate, SopTe
 	{
 		ResponseData<SopTemplate> resp = new ResponseData<SopTemplate>();
 		Object obj = session.getAttribute(Constants.SESSION_USER_KEY);
-		if(obj == null)
-		{
+		if(obj == null){
 			resp.setResult(new Result(Status.ERROR, "未登录!"));
 			return resp;
 		}
 		try {
 			SopTemplate po = null;
 			String fileKey = null;
-			if(template.getId() != null)
-			{
+			if(template.getId() != null){
 				po = templateService.queryById(template.getId());
 				fileKey = po.getFileKey();
-			}
-			else
-			{
+			} else {
 				po = template;
 			}
-			if(fileKey == null)
-			{
+			if(fileKey == null){
 				fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
 			}
-			UploadFileResult ut = uploadFileToOSS(request, fileKey, tempfilePath);
-			resp.setResult(ut.getResult());
-			if(ut.getResult() != null && Result.Status.OK == ut.getResult().getStatus())
-			{
-				po.setFileName(template.getFileName());
-				po.setFileKey(fileKey);
-				po.setFileLength(ut.getContentLength());
-				po.setUpdateUid(((User)obj).getId());
-				po.setUpdateUname(((User)obj).getRealName());
-				templateService.updateById(po);
+			
+			MultipartFile file = null;
+			if(request instanceof MultipartHttpServletRequest){
+				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+				file = multipartRequest.getFile("file");
+			}
+			if(file != null){
+				String fileName = file.getOriginalFilename();
+				
+				UploadFileResult ut = uploadFileToOSS(request, fileKey, tempfilePath);
+				resp.setResult(ut.getResult());
+				if(ut.getResult() != null && Result.Status.OK == ut.getResult().getStatus())
+				{
+					po.setFileName(fileName);
+					po.setFileKey(fileKey);
+					po.setFileLength(ut.getContentLength());
+					po.setUpdateUid(((User)obj).getId());
+					po.setUpdateUname(((User)obj).getRealName());
+					templateService.updateById(po);
+				}
 			}
 		} catch (Exception e) {
 			resp.getResult().addError("上传失败");

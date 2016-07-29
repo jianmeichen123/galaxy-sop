@@ -502,6 +502,8 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 					layer.msg(response.result.message);
 					$("div[data-id='popid1']").remove();
 					return false;
+				}else{
+					$.popupTwoClose();
 				}
 				if($.isFunction(success))
 				{
@@ -1293,4 +1295,15 @@ function init_bootstrapTable(table_id,page_size){
         search: false
 	});
 }
-
+function setting(value,row,index){
+	var settingHtml="";
+	if(row.taskStatus=='待完工'){
+		settingHtml="<a href='javascript:void(0)' class='blue'  id='doclaim' onclick='doSoptask("+row.id+")' >处理</a>";
+	}else if(row.taskStatus=='待认领'){
+		settingHtml="<a id='dai' href='javascript:void(0)' resource-mark='' onclick='claimSopTask("+row.id +","+row.projectId+")' class='blue' data-btn='claim' >认领</a>"
+	}else{
+		settingHtml="<a href='javascript:void(0)'>完成</a>"
+		
+	}
+		return settingHtml;
+}

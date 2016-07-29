@@ -160,7 +160,7 @@ var meetGrid = {
 						return false;
 					}
 				});*/
-				retStr = "查看会议纪要信息";
+				retStr = $(this).text();
 				var formdata = {
 						 id : row.id,
 						 meetingDateStr : row.meetingDateStr,

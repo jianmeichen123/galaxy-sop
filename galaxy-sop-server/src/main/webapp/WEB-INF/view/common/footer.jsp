@@ -2,7 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<script type="text/javascript">
+<script>
 function createMenus(current){
 	sendGetRequest(platformUrl.createMenus + current, {}, function(data){
 		 var selected = data.header.attachment;
@@ -10,9 +10,9 @@ function createMenus(current){
 	   	 $.each(data.entityList, function(i,o){
 	   		 if(typeof(o.nodes) == "undefined"){
 	   			if(selected == o.id){
-		   			html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
+		   			html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
 		   		}else{
-		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '"><span class="navbar nav'+o.navNum+'"></span>' + o.menuName + '</a></li>';
+		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '"><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
 		   		}
 	   		 }else{
 	   			var innerHtml ="";
@@ -27,16 +27,16 @@ function createMenus(current){
 	   			 });
 	   			 
 	   			 if(isExend){
-	   				html += '<li class="toggle_li on"><a href="javascript:;"><span class="navbar nav'+o.navNum+'"></span>'+o.menuName+'</a><ul style="display:block;">';
+	   				html += '<li class="toggle_li on"><a href="javascript:;"><span class="navbar nav'+o.id+'"></span>'+o.menuName+'</a><ul style="display:block;">';
 	   			 }else{
-	   				html +='<li class="toggle_li"><a href="javascript:;"><span class="navbar nav'+o.navNum+'"></span>'+o.menuName+'</a><ul>';
+	   				html +='<li class="toggle_li"><a href="javascript:;"><span class="navbar nav'+o.id+'"></span>'+o.menuName+'</a><ul>';
 	   			 }
 	   			 html += innerHtml;
 	   			 html += '</ul></li>';
 	   		 }
 	   	 });
 	   	 $("#menus").html(html);
-	   	 //投后菜单显示隐藏    
+	   //投后菜单显示隐藏    
 	     $(".pagebox .lft .toggle_li").click(function(event) {
 	           $(this).children('ul').stop().slideToggle();
 	         });

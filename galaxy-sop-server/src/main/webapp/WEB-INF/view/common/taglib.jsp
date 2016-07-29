@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	import="com.galaxyinternet.framework.core.constants.Constants,com.galaxyinternet.framework.core.oss.OSSConstant"
+	import="com.galaxyinternet.framework.core.constants.Constants,
+	com.galaxyinternet.framework.core.oss.OSSConstant,
+	com.galaxyinternet.model.user.User,
+	java.util.List,
+	com.galaxyinternet.model.resource.PlatformResource"
 	pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -55,6 +59,28 @@ String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX
 <script src="<%=request.getContextPath() %>/js/axure_ext.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/platformUrl.js" type="text/javascript"></script>
 <script>
+var allResourceToUser = new Array();
+<%
+if(null!=user){
+	List<PlatformResource> list = user.getAllResourceToUser();
+	if(list!=null){
+		for(int j=0;j<list.size();j++)
+		{%>
+			allResourceToUser.push(<%=list.get(j)%>);
+		<%}
+	}
+	
+}%>
+	
+	function isContainResourceByMark(mark){
+		var result = false;
+		$.each(allResourceToUser, function(index, element){
+			if(element.resourceMark == mark){
+				result = true;
+			}
+		});
+		return result;
+	}
 checkVersion()
 function getInternetExplorerVersion(){
 	var rv = -1; 

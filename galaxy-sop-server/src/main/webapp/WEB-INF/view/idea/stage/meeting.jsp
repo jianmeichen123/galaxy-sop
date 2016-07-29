@@ -46,7 +46,8 @@
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 
-<div class="meetingtc">
+<div class="meetingtc margin_45">
+<div class="title_bj">添加会议纪要</div>
 	<form id="win_meetingtc">
 	<div class="top clearfix">
         <dl class="fmdl clearfix">

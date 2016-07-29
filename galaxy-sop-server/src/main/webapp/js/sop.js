@@ -333,6 +333,8 @@ function air(indexNum){
 						$("#viewTarget").focus();
 							return false;
 						}
+
+						$.popupTwoClose(); 
 						condition.pid = pid;
 						condition.stage = "projectProgress:1";
 						condition.createDate = viewDateStr;
@@ -416,6 +418,7 @@ function startReview(){
 							alert("结果不能为空");
 							return;
 						}
+						$.popupTwoClose(); 
 						condition.pid = pid;
 						condition.stage = "projectProgress:"+num;
 						condition.createDate = meetingDateStr;
@@ -564,13 +567,17 @@ function tzyxs(flag){
 		okback:function(_this){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
+			
+			
 			leicj();
 			if(i == 1){
+				$('.title_bj').html('上传签署凭证');
 				$("#voucherType").attr("checked","checked");
 				$("#voucherType").attr("disabled",true);
 			}
 			else
 			{
+				$('.title_bj').html('上传投资意向书');
 				$("#voucherDiv").css("display","none");
 				
 			}
@@ -650,6 +657,12 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 				$("#voucherType").attr("checked","checked");
 			}else{
 				$("#voucherDiv").css("display","none");
+			}
+			if(fileWorkType=='fileWorktype:1'){
+				$('.title_bj').html('更新业务尽职调查报告')
+			}
+			if(fileWorkType=='fileWorktype:5'){
+				$('.title_bj').html('更新投资意向书')
 			}
 			$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
 			$("#fileType").val(fileType);
@@ -752,6 +765,7 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 								var pid = projectId
 								$("#powindow,#popbg").remove();
 								info(pid);
+								$.popupTwoClose();
 							}
 							else
 							{
@@ -837,6 +851,7 @@ function uploadYwjd(){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(_this){
+			$('.title_bj').html('上传业务尽调报告')
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
@@ -1052,6 +1067,7 @@ function tzxy(st,projectType){
 			$('.searchbox').toggleshow();
 			leicj();
 			if(i == 1){
+				$('.title_bj').html('上传签署凭证')
 				$("#voucherType").attr("disabled",true);
 				$("#voucherType").attr("checked","checked");
 			}else{

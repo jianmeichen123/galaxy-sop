@@ -425,6 +425,7 @@ function notesInfoEdit(selectRowId,type){
 		url:_url,
 		data:"",
 		okback:function(){
+			$('.title_bj').html('会议详情')
 			var um=UM.getEditor('viewNotes');
 			um.setContent(selectRow.meetingNotes);
 			if(type == 'v'){

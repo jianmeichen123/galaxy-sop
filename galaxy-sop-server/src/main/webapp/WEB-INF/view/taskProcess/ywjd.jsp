@@ -25,7 +25,8 @@
 </div>
 <!-- 弹出页面 -->
 <div id="upload-dialog" style="display: none;">
-	<div class="archivestc" >
+	<div class="title_bj">上传业务尽职调查报告</div>
+	<div class="archivestc margin_45" >
 	<form>
 		<input type="hidden" name="id">
 		<input type="hidden" name="pid" value="${projectId }">
