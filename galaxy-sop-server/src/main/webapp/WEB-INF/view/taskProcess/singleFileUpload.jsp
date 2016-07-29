@@ -126,6 +126,7 @@ function loadRows()
 					{
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">查看</a></td>');
 						$("#complete-task-btn").removeClass('disabled');
+						$("#complete-task-btn").removeProp("disabled");
 						var btnText = $("#show-upload-btn").text();
 						if(btnText != null && btnText.indexOf('上传')>-1)
 						{
@@ -224,7 +225,7 @@ function initUpload(_dialog){
 				if(data.status == "OK")
 				{
 					layer.msg("上传成功.");
-					$("#complete-task-btn").removeAttr("disabled");
+					$("#complete-task-btn").removeProp("disabled");
 					$(_dialog.id).find("[data-close='close']").click();
 					loadRows();
 				}
