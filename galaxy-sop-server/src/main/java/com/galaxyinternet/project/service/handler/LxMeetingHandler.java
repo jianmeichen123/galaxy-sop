@@ -137,7 +137,7 @@ public class LxMeetingHandler implements Handler {
 			tm.setUpdatedTime((new Date()).getTime());
 			meetingSchedulingDao.updateById(tm);
 		}
-		return new SopResult(Status.OK,null,"添加立项会议记录要成功!",UrlNumber.four,messageType);
+		return new SopResult(Status.OK,null,"添加立项会议记录成功!",UrlNumber.four,messageType);
 	}
 	
 }
