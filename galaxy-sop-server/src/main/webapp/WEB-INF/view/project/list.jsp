@@ -344,6 +344,7 @@
 	        		}
 	        		param.projectDepartid = initParams.projectDepartid;
 	        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
+	        		createUserOptions(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
 	        		param.createUid = initParams.createUid;
 	        		$("select[name='createUid']").val(initParams.createUid);
 	        		param.nameCodeLike = initParams.nameCodeLike;
@@ -364,9 +365,19 @@
 	    				return;
 	    			}else{
 	    				$('.pagination li').removeClass('active');
-	    				if($('.pagination .page-number').length< initParams.pageNum){
-	    					for(var i=$('.pagination .page-number').length; i>0; i--){
-	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
+	    				if($('.pagination .page-number').length< initParams.pageNum)
+	    				{
+	    					var len = $('.pagination .page-number').length;
+	    					var totalPages = $("#project-table").bootstrapTable('getOptions').totalPages;
+	    					var end = initParams.pageNum + Math.floor(len/2);
+	    					if(end>totalPages)
+    						{
+	    						end = totalPages;
+    						}
+	    					
+	    					for(var i=len-1; i>=0; i--)
+	    					{
+	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+ end-- +'</a>');
 	    					}
 	    				}
 
