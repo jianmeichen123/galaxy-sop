@@ -12,7 +12,8 @@
 	<!-- jsp文件头和头部 -->
 	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 	<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
-
+	<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
+	<script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
     
 </head>
 <body>
@@ -56,13 +57,14 @@
 							</div>
 						</div>
 	
-						<div class="center top clearfix">
-							<!-- 平台项目状态分布图  -->
+<!-- 						<div class="center top clearfix"> -->
+<!-- 							平台项目状态分布图  -->
 							
-								<h2 class="chart_name">投资事业线目标完成对比</h2>
-								<div id="chartBrief3"  style="min-width:800px;"></div>
+<!-- 								<h2 class="chart_name">投资事业线目标完成对比</h2> -->
+<!-- 								<div id="chartBrief3"  style="min-width:800px;"></div> -->
 						
-						</div>
+<!-- 						</div> -->
+						<jsp:include page="../report/dataSimpleRep/div_dataBriefing.jsp" flush="true"></jsp:include>
 						<!-- 项目完成跟踪图 -->
 						<div class="bottom">
 							<h2 class="chart_name">项目完成率分析</h2>
@@ -80,7 +82,5 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 </body>
-<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
-<script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
 <script src="<%=path%>/js/charts/dataBriefing.js"></script>
 </html>

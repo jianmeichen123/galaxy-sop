@@ -22,6 +22,18 @@
 	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
     <script src="<%=path %>/js/init.js"></script>
     
+    <!-- time -->
+	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
+	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-selecter.js"></script>
+	
+	<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
+	<script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
+	<script src="<%=path%>/js/charts/tabAnalysisOverview.js"></script>
+	<script src="<%=path%>/js/charts/tabAnalysisRiseRate.js"></script>
+	<script src="<%=path%>/js/charts/projectAnalysis.js"></script>
+    
 </head>
 
 
@@ -110,22 +122,15 @@
 
 
 </body>
-<!-- time -->
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-selecter.js"></script>
 
-<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
-<script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
-<script src="<%=path%>/js/charts/tabAnalysisOverview.js"></script>
-<script src="<%=path%>/js/charts/tabAnalysisRiseRate.js"></script>
-<script src="<%=path%>/js/charts/projectAnalysis.js"></script>
 <script type="text/javascript">
 
-function init(){
+
+$(function(){
+	
 	overViewInit();
-}
+});
+
 	
 </script>
 

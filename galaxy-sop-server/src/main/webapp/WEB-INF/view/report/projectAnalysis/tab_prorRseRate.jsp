@@ -126,11 +126,10 @@
 
 <script type="text/javascript">
 
-function init(){
-	createMenus(25);
-	riseRateInit();
-}
+$(function(){
 	
+	riseRateInit();
+});
 </script>
 
 </html>
