@@ -12,9 +12,10 @@ function createMenus(current){
 	   			if(selected == o.id){
 	   				if(o.url.indexOf("?flag") > -1){
 	   					o.id='168'
-	   					o.menuName='待办任务';
+	   					o.menuName="待办任务";
 	   				}
-		   			}else{
+		   			html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
+		   		}else{
 		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '"><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
 		   		}
 	   		 }else{
