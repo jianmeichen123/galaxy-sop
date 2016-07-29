@@ -140,7 +140,7 @@ if(!isGG) url = platformUrl.hhrlinechart;
 
 $(function () {
 	//左侧菜单
-	createMenus(8);
+	
 	
 	init(); //页面初始化
 	

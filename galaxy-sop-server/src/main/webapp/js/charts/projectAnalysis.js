@@ -19,12 +19,11 @@ $(document).ready(init());
 
 */
 
-
-function init(){
-	
+$(function(){
 	var liList = $(".project_analysis .tablink").find("li");
-	createMenus(25);
-}
+	createMenus(8);
+	
+});
 
 
 var isGG = true;

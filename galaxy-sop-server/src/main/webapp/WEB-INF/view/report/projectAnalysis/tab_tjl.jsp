@@ -44,8 +44,8 @@
 				<li><a href="javascript:;" onclick="showCheckTabs(1)">项目总览</a></li>   
 				<li><a href="javascript:;" onclick="showCheckTabs(2)">项目数统计</a></li>
 				<li><a href="javascript:;" onclick="showCheckTabs(3)">项目完成增长率统计</a></li>
-				<li class="on"><a href="javascript:;" onclick="showCheckTabs(4)">过会率统计</a></li>
-				<li><a href="javascript:;" onclick="showCheckTabs(5)">投决率统计</a></li>
+				<li><a href="javascript:;" onclick="showCheckTabs(4)">过会率统计</a></li>
+				<li class="on"><a href="javascript:;" onclick="showCheckTabs(5)">投决率统计</a></li>
 			</ul>
 			
 			
@@ -120,7 +120,7 @@ if(!isGG) url = platformUrl.meetingRateUser;
 
 $(function () {
 	//左侧菜单
-	createMenus(8);
+	
 	
 	init(); //页面初始化
 	
