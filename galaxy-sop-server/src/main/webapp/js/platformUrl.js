@@ -550,6 +550,16 @@ var platformUrl = {
 	 */	
 	toBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/toBusinessPlanHistory",
 	/**
+	 * 跳转至会议录音详情页面
+	 */	
+	toInterviewDetail : Constants.sopEndpointURL + "/galaxy/sopFile/toInterviewDetail",
+	/**
+	 * 跳转至会议录音详情页面
+	 */	
+	interViewByMeetingId : Constants.sopEndpointURL + "/galaxy/sopFile/interViewByMeetingId",
+
+	
+	/**
 	 * 商业计划历史查询
 	 */	
 	searchBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/searchBusinessPlanHistory",
