@@ -236,6 +236,28 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 	
 	
 	
+	/**
+	 * 项目分析－项目数统计－项目列表页面，只提供路由功能
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/toProOverView", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toProOverView(HttpServletRequest request) {
+	
+		return "report/projectAnalysis/tab_proOverView";
+	}
+	
+	
+	/**
+	 * 项目分析－项目数统计－项目列表页面，只提供路由功能
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/toprorRiseRate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public String toprorRiseRate(HttpServletRequest request) {
+	
+		return "report/projectAnalysis/tab_prorRseRate";
+	}
 	
 	
 	 

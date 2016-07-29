@@ -20,6 +20,8 @@
     
     <result column="departId"  property="departId" />
     <result column="passMeetNum"  property="passMeetNum" />
+    <result column="first_meet_time"  property="passMeetNum" jdbcType="TIMESTAMP" />
+    <result column="pass_meet_time"  property="passMeetNum" jdbcType="TIMESTAMP" />
   </resultMap>
   
   
@@ -453,6 +455,49 @@
 	</select>
 	
 	
+	
+	
+	
+	
+	
+	<select id="selectMeetFirstTimeAndPassTime" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT  a.departId,a.create_uid, COUNT(a.project_id) sumProNum
+		FROM
+			(
+			SELECT
+				pro.id project_id, pro.create_uid,pro.project_departId departId
+			FROM 
+				sop_meeting_record meet,sop_project pro
+			WHERE
+				meet.project_id = pro.id
+				<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			
+				<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+			
+				<if test="meetingResult != null">and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+			
+				<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+				
+				<if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+				<if test="userIdList != null">
+					AND pro.create_uid IN
+					<foreach collection="userIdList" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				
+				<if test="departId != null"> and pro.project_departId = #{departId,jdbcType=BIGINT} </if>
+				<if test="deptIdList != null">
+					AND pro.project_departId IN
+					<foreach collection="deptIdList" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+			GROUP BY pro.id	
+			) a
+		GROUP BY a.create_uid
+	</select>
 	
 	
 </mapper>

@@ -41,11 +41,11 @@
 		<div class="tabtable project_analysis">
 			<!-- tab标签 -->
 			<ul class="tablink">
-				<li><a href="javascript:;" >项目总览</a></li>
-				<li><a href="javascript:;" onclick="toproNum()">项目数统计</a></li>
-				<li><a href="javascript:;" >项目完成增长率统计</a></li>
-				<li><a href="javascript:;" onclick="toGhlSum()">过会率统计</a></li>
-				<li class="on"><a href="javascript:;" onclick="toTjlSum()">投决率统计</a></li>
+				<li><a href="javascript:;" onclick="showCheckTabs(1)">项目总览</a></li>   
+				<li><a href="javascript:;" onclick="showCheckTabs(2)">项目数统计</a></li>
+				<li><a href="javascript:;" onclick="showCheckTabs(3)">项目完成增长率统计</a></li>
+				<li class="on"><a href="javascript:;" onclick="showCheckTabs(4)">过会率统计</a></li>
+				<li><a href="javascript:;" onclick="showCheckTabs(5)">投决率统计</a></li>
 			</ul>
 			
 			
@@ -110,32 +110,9 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 
-
+<script src="<%=path%>/js/charts/projectAnalysis.js"></script>
 
 <script>
-
-function toproNum(){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/kpireport/paprojectlist");
-}
-
-function toGhlSum(){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/kpireport/toGhlSum");
-} 
-
-function toTjlSum(){
-	forwardWithHeader(Constants.sopEndpointURL+"/galaxy/kpireport/toTjlSum");
-} 
-
-
-var isGG = true;
-if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
-	isGG = true;
-}else{
-	isGG = false;
-}
-
-var pageNum = 1;
-var queryParamsJson = {};
 
 var url = platformUrl.meetingrate;
 if(!isGG) url = platformUrl.meetingRateUser;
