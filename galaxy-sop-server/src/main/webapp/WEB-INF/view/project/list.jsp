@@ -344,6 +344,7 @@
 	        		}
 	        		param.projectDepartid = initParams.projectDepartid;
 	        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
+	        		createUserOptions(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
 	        		param.createUid = initParams.createUid;
 	        		$("select[name='createUid']").val(initParams.createUid);
 	        		param.nameCodeLike = initParams.nameCodeLike;
