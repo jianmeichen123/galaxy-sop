@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxyinternet.model.chart.SopCharts">
+	<resultMap id="BaseResultMap"
+		type="com.galaxyinternet.model.chart.SopCharts">
+		<result column="project_count" jdbcType="BIGINT" property="projectCount" />
+		<result column="project_progress" jdbcType="VARCHAR" property="projectProgress" />
+		<result column="project_date" jdbcType="VARCHAR" property="projectDate" />
+	</resultMap>
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectType != null"> and project_type = #{projectType,jdbcType=VARCHAR} </if>
+				<if test="startTime!=null"><![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]></if>
+				<if test="endTime!=null"><![CDATA[  and created_time <= #{endTime,jdbcType=BIGINT} ]]></if>
+				<if test="departmentId != null"> and project_departId = #{departmentId,jdbcType=BIGINT}</if>
+			</trim>
+		</where>
+	</sql>
+
+
+	<!-- 查询 -->
+	<select id="selectOverView" resultMap="BaseResultMap"
+		parameterType="java.util.Map">
+		select project_progress,count(0) as projectCount
+		from sop_project
+		<include refid="Base_Where_Clause" />
+		group by project_progress
+	</select>
+
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(0) from sop_project
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询总数 -->
+	<select id="selectCompleteCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(0) as complete_count from sop_project
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 根据日期分组查询目标数 -->
+	<select id="selectCountGroupDate" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select 	
+		<choose>
+			<when test="dateType!=null">
+				from_unixtime(created_time/1000,#{dateType,jdbcType=VARCHAR}) as project_date,
+			</when>
+			<otherwise>
+				from_unixtime(created_time/1000,'%Y-%m-%d') as project_date,
+			</otherwise>
+		</choose>
+		count(0) as project_count 
+		from sop_project
+		<include refid="Base_Where_Clause" />
+		group by 
+		<choose>
+			<when test="dateType!=null">
+				from_unixtime(created_time/1000,#{dateType,jdbcType=VARCHAR})
+			</when>
+			<otherwise>
+				from_unixtime(created_time/1000,'%Y-%m-%d') 
+			</otherwise>
+		</choose>
+		order by project_date asc 
+	</select>
+	
+	
+</mapper>

@@ -1288,3 +1288,150 @@ function init_bootstrapTable(table_id,page_size){
 	});
 }
 
+/*
+ * 日期计算工具
+ * author : zhongliangzhang
+ * 
+ * */
+var DateUtils = {
+		/*获取当年第一天*/
+		getYearFirstDay : function(){
+			var date = new Date();  
+			var year = date.getFullYear();  
+//			var month = date.getMonth() + 1;  
+//			var firstdateStr = year + '-01' + '-01';
+			return new Date(year,"0","1");
+		},
+		getTime : function(date){
+			return new Date(date).getTime();
+		},
+		/*
+		 * 获取月份第一天 params
+		 * year : 指定年份
+		 * month : 指定月份
+		 * retType : 返回形式 (date:date类型返回,int:int形式返回(返回天数 ))
+		 * 
+		 * exam :
+		 * var params = {
+		 *			year : 2016,
+		 *			month : 7,
+		 *			retType : 'int'
+		 *	}
+		 *	var ddd = DateUtils.getYearFirstDay(params);
+		 * 
+		 * 
+		 * 
+		 * */
+		getFirstDayByMonth : function(params){
+			var year;
+			var month;
+			if(params && params.year && params.month){
+				year = params.year;
+				month = params.month - 1;
+			}else{
+				var date = new Date();  
+				year = date.getFullYear();
+				month = date.getMonth();
+			}
+			while(month > 12){
+				month -= 12;
+				year ++;
+			}
+            if(params && params.retType){
+            	if(params.retType=='date'){
+            		return new Date(year,month,1); 
+            	}else if(params.retType=='int'){
+            		return new Date(year,month,1).getDate();
+            	}
+            }
+            return new Date(year,month,1);                //取当年当月中的第一天          
+          
+		},
+		/*
+		 * 获取月份最后一天params
+		 * year : 指定年份
+		 * month : 指定月份
+		 * retType : 返回形式 (date:date类型返回,int:int形式返回(返回天数 ))
+		 * 
+		 * exam :
+		 * var params = {
+		 *			year : 2016,
+		 *			month : 7,
+		 *			retType : 'int'
+		 *	}
+		 *	var ddd = DateUtils.getLastDayByMonth(params);
+		 * 
+		 * 
+		 * 
+		 * */
+		getLastDayByMonth : function(params){
+			var year;
+			var month;
+			if(params && params.year && params.month){
+				year = params.year;
+				month = params.month - 1;
+			}else{
+				var date = new Date();  
+				year = date.getFullYear();
+				month = date.getMonth();
+			}
+			while(month > 12){
+				month -= 12;
+				year ++;
+			}
+			var nextMonthFirstDay = new Date(year,month+1,1);
+            if(params && params.retType){
+            	if(params.retType=='date'){
+            		return new Date(nextMonthFirstDay.getTime()-1000); 
+            	}else if(params.retType=='int'){
+            		return new Date(nextMonthFirstDay.getTime()-1000).getDate(); 
+            	}
+            }
+            return new Date(nextMonthFirstDay.getTime()-1000); 
+		},
+		/*
+		 * 获取当天最早些时候
+		 * year : 指定年份
+		 * month : 指定月份
+		 * day : 指定天
+		 * retType : 返回形式 (date:date类型返回,int:int形式返回(返回天数 ))
+		 * 
+		 * exam :
+		 * var params = {
+		 *			year : 2016,
+		 *			month : 7,
+		 *			retType : 'int'
+		 *	}
+		 *	var ddd = DateUtils.getLastDayByMonth(params);
+		 * 
+		 * 
+		 * 
+		 * */
+		getEarliestDay : function(params){
+			var year;
+			var month;
+			if(params && params.year && params.month){
+				year = params.year;
+				month = params.month - 1;
+				day = params.day;
+			}else{
+				var date = new Date();  
+				year = date.getFullYear();
+				month = date.getMonth();
+				day = date.getDate();
+			}
+			while(month > 12){
+				month -= 12;
+				year ++;
+			}
+            if(params && params.retType){
+            	if(params.retType=='date'){
+            		return new Date(year,month,day); 
+            	}else if(params.retType=='int'){
+            		return new Date(year,month,day).getDate(); 
+            	}
+            }
+            return new Date(year,month,day); 
+		}
+}
+

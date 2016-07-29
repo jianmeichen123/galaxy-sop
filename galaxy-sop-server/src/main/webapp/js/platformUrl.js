@@ -689,24 +689,31 @@ var platformUrl = {
 	 * 项目分析
 	 */
 	projectAnalysis: Constants.sopEndpointURL + "/galaxy/report/projectAnalysis",
-	
-	
-	
+		
 	/**
 	 * 项目阶段高管
 	 */
-	projectStage4Manager: Constants.sopEndpointURL+"/galaxy/sop2/",
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	projectStage4Manager: Constants.sopEndpointURL+"/galaxy/sop2/",	
+	/**
+	 * 项目目标追踪
+	 */
+	searchTargetTracking: Constants.sopEndpointURL+"/galaxy/charts/briefing/searchTargetTracking",
+	/**
+	 * 项目完成率分析
+	 */
+	searchProjectCompletion : Constants.sopEndpointURL+"/galaxy/charts/briefing/searchProjectCompletion",
+	/**
+	 * 项目总览
+	 */
+	searchOverView : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchOverView",
+	/**
+	 * 项目查询（图表用）
+	 */
+	searchProjectByCharts : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchProjectByCharts",
+	/**
+	 * 项目完成率查询（图表）
+	 */
+	searchRiseRate : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchRiseRate"
 	
 	/**
 	 * 1.数据简报－投资事业线目标完成对比

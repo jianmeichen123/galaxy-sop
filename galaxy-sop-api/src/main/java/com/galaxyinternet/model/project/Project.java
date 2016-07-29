@@ -71,6 +71,7 @@ public class Project extends PagableEntity {
     private String projectStatusDs;
     //融资状态的数据转换
     private String financeStatusDs;
+
     //in查询
     private List<Long> deptIdList;
 	private Long startTime; 
@@ -540,6 +541,7 @@ public class Project extends PagableEntity {
 		this.type_completed = type_completed;
 	}
 
+
 	public Long getDurationDay() {
 		return durationDay;
 	}
@@ -547,6 +549,7 @@ public class Project extends PagableEntity {
 	public void setDurationDay(Long durationDay) {
 		this.durationDay = durationDay;
 	}
+
 
 	public String getDepartmentName() {
 		return departmentName;

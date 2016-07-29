@@ -26,6 +26,7 @@ function statisticsInit(){
 }
 //项目增长率
 function riseRateInit(){
+	searchRiseRatePanel.init();
 	console.log("riseRateInit");
 }
 //过会率

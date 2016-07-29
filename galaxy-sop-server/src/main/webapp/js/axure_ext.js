@@ -95,7 +95,7 @@ $(function(){
 	$(".dictionary").tabchange();
 	$(".news").tabchange();
 	$(".assessment").tabchange();
-	$(".project_analysis").tabchange();
+	$(".project_analysis").tabchange2();
 	$(".chartbox_bottom").tabchange1();
 
 	//------------------------------弹窗部分

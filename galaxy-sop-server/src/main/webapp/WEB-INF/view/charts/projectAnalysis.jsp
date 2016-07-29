@@ -48,14 +48,14 @@
 						<dl class="fmdl fmmr clearfix">
 							<dt>投资事业线：</dt>
 							<dd>
-								<select name="projectDepartId" id="search_project_depart_id"></select>
+								<select name="departmentId" id="search_department_id"></select>
 							</dd>
 						</dl>
 						<dl class="fmdl fmmr clearfix">
 							<dt>项目类型：</dt>
 							<dd>
 								<select name="projectType" id="search_project_type">
-									<option value="-1">全部</option>
+									<option value="all">全部</option>
 									<option value="projectType:2">内部创建</option>
 									<option value="projectType:1">外部投资</option>
 								</select>
@@ -74,7 +74,7 @@
 								<input type="text" class="txt time datepicker" id="search_end_time" name="endTime" readonly value="" />
 							</dd>
 							<dd>
-								<input type="hidden" name="projectProgress" id="search_project_progress" value="-1"/>
+								<input type="hidden" name="projectProgress" id="search_project_progress" value="all"/>
 								<a href="javascript:;" class="bluebtn ico tj" id="search_btn">统计</a>
 							</dd>
 						</dl>
@@ -85,11 +85,11 @@
 						<div>
 							<h2 class="chart_name">项目进度分布图</h2>
 						</div>
-						<div id="histogram"></div>
+						<div id="chart_overview"></div>
 					</div>
 					<!--表格内容-->
 					<!-- <a href="javascript:;" class="pubbtn bluebtn export">导出</a> -->
-					<table id="data-table-xmzl" width="100%" cellspacing="0"
+					<table id="grid_overview" width="100%" cellspacing="0"
 						cellpadding="0"></table>
 				</div>
 				
@@ -146,47 +146,34 @@
 				
 				<!-- 项目数完成增长率统计 -->
 				<div class="tabtable_con" data-tab="con">
-					<div class="search_box searchall" id="custom-toolbar-xmzzl">
+					<form id="search_rise_rate_form">
+					<div class="search_box searchall">
 						<dl class="fmdl fmmr clearfix">
 							<dt>投资事业线：</dt>
 							<dd>
-								<select name="deptid" id="xmzzl_deptid"></select>
+								<select name="departmentId" id="search_project_depart_id"></select>
 							</dd>
 						</dl>
 						<dl class="fmdl fmmr clearfix">
 							<dt>项目类型：</dt>
 							<dd>
-								<select name="projectType" id="xmzzl_projectType">
-									<option value="-1">全部</option>
+								<select name="projectType" id="search_project_type">
+									<option value="all">全部</option>
 									<option value="projectType:2">内部创建</option>
 									<option value="projectType:1">外部投资</option>
 								</select>
 							</dd>
 						</dl>
+						<div id= "search_datepicker">					
+						</div>
 						<dl class="fmdl fmmr clearfix">
-							<dt>项目创建日期：</dt>
-							<dd>
-								<input type="radio" name="radio_xmzzl" value="1"
-									checked="checked" />日 <input type="radio" name="radio_xmzzl"
-									value="3" />月
-							</dd>
-							<dd id="xmzzl_dd_day">
-								<input type="text" class="txt time datepicker" id="xmzzl_sdate"
-									name="sdate" value="" /> <span>至</span> <input type="text"
-									class="txt time datepicker" id="xmzzl_edate" name="edate"
-									value="" />
-							</dd>
-							<dd id="xmzzl_dd_month" style="display: none;">
-								<input type="text" class="txt time change_month" id="xmzzl_sym"
-									name="sym" value="" /> <span>至</span> <input type="text"
-									class="txt time change_month" id="xmzzl_eym" name="eym" value="" />
-							</dd>
 							<dd>
 								<a href="javascript:;" class="bluebtn ico tj"
-									id="querySearch_xmzzl">统计</a>
+									id="search_btn">统计</a>
 							</dd>
 						</dl>
 					</div>
+					</form>
 					<!--柱状图部分-->
 					<div class="chartbox">
 						<div id="container_xmzzl" class="chart chart_m"></div>
@@ -279,6 +266,7 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-selecter.js"></script>
 <script type="text/javascript">
 // 	function getforwardProgress(){
 // 		return ${forwardProgress};
@@ -313,7 +301,10 @@
 	
 	
 </script>
+<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
+<script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
 <script src="<%=path%>/js/charts/tabAnalysisOverview.js"></script>
+<script src="<%=path%>/js/charts/tabAnalysisRiseRate.js"></script>
 <script src="<%=path%>/js/charts/projectAnalysis.js"></script>
 </html>
 

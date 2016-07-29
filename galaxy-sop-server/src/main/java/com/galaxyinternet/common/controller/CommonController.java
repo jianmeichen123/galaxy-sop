@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.UserBo;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
@@ -90,7 +91,6 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		
 		List<Menus> tabs = new ArrayList<Menus>();
 		String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
-		//通用Tab
 		tabs.add(new Menus(1L, 0, 1, "工作桌面", u + "galaxy/index?" + params));
 		tabs.add(new Menus(2L, 0, 2, "待办任务", u + "galaxy/soptask?" + params));
 		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
@@ -148,21 +148,6 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		}
 		
 		//高管
-/*		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(1L) || roleIdList.contains(2L)){
-			tabs.clear();
-			tabs.add(new Menus(1L, 0, 1,"工作桌面", serverUrl + "report/galaxy/report/platform?" + params));
-			//tabs.add(new Menus(3L, 0,8, "消息提醒", serverUrl +"sop/galaxy/operationMessage/index?"+params));
-			tabs.add(new Menus(5L, 0, 3, "创投项目", serverUrl +"sop/galaxy/mpl?" + params));
-			
-			tabs.add(new Menus(22L, 0, 11, "数据简报", serverUrl +"report/galaxy/report/dataBriefing?" + params));
-			tabs.add(new Menus(6L, 0, 12, "项目分析", serverUrl +"report/galaxy/report/projectAnalysis?" + params));
-			tabs.add(new Menus(7L, 0, 13,"绩效考核", serverUrl +"report/galaxy/report/kpi?" + params));
-			tabs.add(new Menus(11L, 0,14, "投后运营", "javascript:void(0);")
-					.addNode(new Menus(8L, 1, "投后项目跟踪", serverUrl +"report/galaxy/report/afterInvestTrack?" + params))
-					.addNode(new Menus(9L, 1, "投后业务运营", serverUrl +"report/galaxy/report/afterInvestBusiness?" + params))
-					.addNode(new Menus(10L, 1, "投后企业财报", serverUrl +"report/galaxy/report/afterInvestFinace?" + params)));
-			tabs.add(new Menus(21L, 0, 10, "项目创意", u + "galaxy/idea?" + params));
-		}*/
 		if(roleIdList.contains(UserConstant.HHR) || roleIdList.contains(1L) || roleIdList.contains(2L)){
 			tabs.clear();
 			tabs.add(new Menus(1L, 0, 1,"工作桌面", u + "galaxy/report/platform?" + params));
@@ -185,7 +170,6 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 					.addNode(new Menus(10L, 1, "投后企业财报", u + "galaxy/report/afterInvestFinace?" + params)));
 			tabs.add(new Menus(21L, 0, 10, "项目创意", u + "galaxy/idea?" + params));
 		}
-		
 		//董事长秘书      CEO秘书
 		if(roleIdList.contains(UserConstant.DMS) ||roleIdList.contains(UserConstant.CEOMS)){
 			tabs.clear();
@@ -194,6 +178,8 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.add(new Menus(19L, 0, 22,"投决会", u + "galaxy/tjh?" + params));
 			tabs.add(new Menus(20L, 0, 23,"CEO评审会", u + "galaxy/psh?" + params));								
 		}
+		tabs.add(new Menus(25L, 0, 24,"测试页面(项目分析)", u + "galaxy/charts/analysis/toProjectAnalysis?" + params));
+		tabs.add(new Menus(26L, 0, 25,"测试页面(数据简报)", u + "galaxy/charts/briefing/toDataBriefing?" + params));
 	    responseBody.setEntityList(tabs);
 		return responseBody;
 	}

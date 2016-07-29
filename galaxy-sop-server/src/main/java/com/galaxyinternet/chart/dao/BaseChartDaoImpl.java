@@ -1,4 +1,4 @@
-package com.galaxyinternet.dao.chart;
+package com.galaxyinternet.chart.dao;
 
 
 import java.util.List;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
-import com.galaxyinternet.model.chart.SopProjectAnalysis;
 
 public class BaseChartDaoImpl<T> {
 	@Autowired(required = true)
@@ -68,7 +67,7 @@ public class BaseChartDaoImpl<T> {
 	}
 	
 	protected List<T> selectListBySqlName(String sqlName,
-			SopProjectAnalysis query) {
+			T query) {
 		// TODO Auto-generated method stub
 		try {
 			Map<String, Object> params = BeanUtils.toMap(query);
@@ -79,7 +78,7 @@ public class BaseChartDaoImpl<T> {
 		}
 	}
 	
-	protected T selectEntityBySqlName(String sqlName, SopProjectAnalysis query) {
+	protected T selectEntityBySqlName(String sqlName, T query) {
 		// TODO Auto-generated method stub
 		try {
 			Map<String, Object> params = BeanUtils.toMap(query);
@@ -93,7 +92,8 @@ public class BaseChartDaoImpl<T> {
 	protected Long selectCountBySqlName(String sqlName,T query) {
 		// TODO Auto-generated method stub
 		try {
-			return sqlSessionTemplate.selectOne(getSqlName(sqlName));
+			Map<String, Object> params = BeanUtils.toMap(query);
+			return sqlSessionTemplate.selectOne(getSqlName(sqlName),params);
 		} catch (Exception e) {
 			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName(SqlId.SQL_SELECT_COUNT)), e);
 		}

@@ -22,8 +22,11 @@ import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.role.Role;
@@ -32,6 +35,7 @@ import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.model.user.UserRole;
+import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserRoleService;
@@ -55,6 +59,9 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private UserRoleService userRoleService;
 	@Autowired
 	private SopTaskService sopTaskService;
+	@Autowired
+	private DepartmentService departmentService;
+
 	
 	@Override
 	protected BaseDao<Project, Long> getBaseDao() {
@@ -486,6 +493,38 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 			f.setId(null);
 		}
 		return id;
+	}
+	
+	public Page<Project> queryPageListByChart(Project query,PageRequest pageRequest){
+		Page<Project> projectPage = super.queryPageList(query, pageRequest);
+		//查找合伙人
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("roleId", UserConstant.HHR);
+		List<Map<String,Object>> userList = userService.queryUserDetail(params);
+		//查找事业线
+		List<Department> departmentList = departmentService.queryAll();
+		
+
+		for(Project project : projectPage.getContent()){
+			for(Map<String,Object> tempUser : userList){
+				Long departmentId = (Long) tempUser.get("departmentId");
+				if(departmentId!=null){
+					if(departmentId.equals(project.getProjectDepartid())){
+						project.setHhrName((String)tempUser.get("userName"));
+					}
+				}
+			}
+			//所属事业线
+			for(Department department : departmentList){
+				if(project.getProjectDepartid().intValue() == department.getId().intValue()){
+					project.setDepartmentName(department.getName());
+					break;
+				}
+			}
+			
+		}
+		return projectPage;
+		
 	}
 
 	
