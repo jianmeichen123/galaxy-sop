@@ -545,10 +545,10 @@ function cyIndexCallback(data){
 	}	
 }
 function toCyPage(){
-	window.location.href=$("#menus").find("[data-menueid='21']").attr("href");
+	window.location.href=$("#menus").find("[data-menueid='137']").attr("href");
 }
 
 function toCyOper(ideaid){
-	window.location.href=$("#menus").find("[data-menueid='21']").attr("href")+"&indextoid="+ideaid;
+	window.location.href=$("#menus").find("[data-menueid='137']").attr("href")+"&indextoid="+ideaid;
 }
 
