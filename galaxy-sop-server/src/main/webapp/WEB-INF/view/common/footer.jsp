@@ -10,8 +10,8 @@ function createMenus(current){
 	   	 $.each(data.entityList, function(i,o){
 	   		 if(typeof(o.nodes) == "undefined"){
 	   			if(selected == o.id){
-	   				if(selected=='177'||selected=='180'||selected=='183'||selected=='186'||selected=='189'||selected=='192'){
-	   					selected='168'
+	   				if(o.url.indexOf("?flag") > -1){
+	   					o.id='168'
 	   				}
 		   			html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
 		   		}else{
