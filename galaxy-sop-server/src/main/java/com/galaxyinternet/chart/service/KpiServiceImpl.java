@@ -18,11 +18,14 @@ import org.springframework.stereotype.Service;
 import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
+import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ChartKpiQuery;
 import com.galaxyinternet.dao.chart.ChartDao;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
+import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.ProjectDao;
+import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -31,7 +34,9 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.chart.Chart;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.MeetingRecord;
+import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.Project;
+import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.UserService;
@@ -59,7 +64,12 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 	@Autowired
 	private DepartmentService departmentService;
 	
+	@Autowired
+	private MeetingSchedulingDao meetingSchedulingDao;
 
+	@Autowired
+	private SopTaskDao sopTaskDao;
+	
 	@Override
 	protected BaseDao<Chart, Long> getBaseDao() {
 		return this.chartDao;
@@ -133,53 +143,14 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 	
 	// TODO   项目历时
 	/**
-	 * 接触访谈：|第一次启动内部评审会时间                                       -         项目进度为“接触访谈”开始时间|
-	 * 		              第一个内评会记录 会议时间（启动内部评审功能按钮）     项目创建时间   
-	 * 
-	 * 内部评审    |内部评审会的会议结论为通过的会议时间          -         项目进度为“内部评审”开始时间
-	 * 			 内评会 通过 记录 会议时间                                                                       第一个内评会记录 会议时间
-	 * 
-	 * CEO评审     |第一次启动立项会排期时间【第一次立项会排期创建时间】  -  项目进度为“CEO评审”开始时间【CEO评审排期创建时间】|
-	 * 			第一次立项会排期创建时间                                                                                  CEO评审排期创建时间                          
-	 * 
-	 * 立项会                |立项会的会议结论为通过的会议时间-项目进度为“立项会”开始时间|
-	 *             立项会通过记录 会议时间       -   第一次立项会排期创建时间
-	 * 
-	 * 投资意向书     |项目进度为“投资意向书”开始时间【上传投资意向书待办任务创建时间】-第一次上传投资意向书签署证明完成时间【业务尽职调查报告创建时间】|
-	 *             上传投资意向书待办任务创建时间                                                                                         业务尽职调查报告创建时间
-	 * 
-	 * 尽职调查           |项目进度为“尽职调查”开始时间【业务尽职调查报告创建时间】-第一次启动投决会排期时间【第一次投决会排期创建时间】|
-	 *             业务尽职调查报告创建时间                                                                                     第一次投决会排期创建时间
-	 * 
-	 * 投资决策会     |项目进度为“投决会”开始时间【第一次投决会排期创建时间】-会议结论为通过的会议时间|
-	 *             投决会通过记录 会议时间       -                            第一次投决会排期创建时间  
-	 * 
-	 * 投资协议          |项目进度为“投资协议”开始时间【上传投资协议待办任务创建时间】-第一次上传签署证明结束时间【上传工商转让凭证待办任务创建时间】|
-	 *            上传投资协议待办任务创建时间                                                                                      上传工商转让凭证待办任务创建时间
-	 * 
-	 * 股权交割          |项目进度为“股权交割”开始时间-第一次上传交割凭证的结束时间|
-	 * 
-	 * 
-	 * 
-	 * 	
-	
-	SopConstant.TASK_FLAG_SCTZYXS  1    "上传投资意向书";
-	SopConstant.TASK_NAME_YWJD     5    "上传业务尽职调查报告";
-	SopConstant.TASK_NAME_TZXY     6	"上传投资协议";
-	SopConstant.TASK_NAME_ZJBF     8	"上传资金拨付凭证";
-	SopConstant.TASK_NAME_GSBG     9	"上传工商转让凭证";
-	
-	待认领("待认领","taskStatus:1"),
-	待完工("待完工","taskStatus:2"),
-	已完成("已完成","taskStatus:3");
-	
-	 * @param request
 	 * @return
 	 */
 	public Page<ChartDataBo> proTimeLine(ChartKpiQuery query){
+		Long total = 0l;
+		List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+		Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList,total);
 		
-		
-		//统计查询， 查询用户  -- 项目数 
+		//统计查询， 项目
 		ProjectBo proQuery = new ProjectBo();
 		proQuery.setStartTime(query.getStartTime());
 		proQuery.setEndTime(query.getEndTime());
@@ -187,18 +158,285 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		List<Project> proList = projectDao.selectList(proQuery);
 		
 		
+		
+		//查询会议 开始时间、通过时间
 		MeetingRecordBo mquery1 = new MeetingRecordBo();
 		mquery1.setStartTime(query.getSdate());
 		mquery1.setEndTime(query.getEdate());
 		mquery1.setMeetingResult(DictEnum.meetingResult.通过.getCode());
 		List<MeetingRecord> meetList = meetingRecordDao.selectMeetFirstTimeAndPassTime(mquery1);
 		
+		/*
+		 * logo_time:
+		 * 				firstMeetTime
+		 * 				passMeetTime
+		 * 				paiqiCreateTime
+		 * meetType:
+		 * 				内评会("内评会","meetingType:1"),
+						CEO评审("CEO评审","meetingType:2"),
+						立项会("立项会","meetingType:3"),
+						投决会("投决会","meetingType:4");
+		 * proid
+		 * 				1
+		 * 				2...
+		 * */
+		Map<Long, Map<String, Map<String, Long>>> proid_meetType_logo_time = new HashMap<Long, Map<String, Map<String, Long>>>(); 
+		
+		for(MeetingRecord  meet : meetList){
+			Map<String, Map<String, Long>> meetType_logo_time = new HashMap<String, Map<String, Long>>(); 
+			Map<String, Long> logo_time = new HashMap<String, Long>();
+			
+			if(proid_meetType_logo_time.containsKey(meet.getProjectId())){
+				meetType_logo_time = proid_meetType_logo_time.get(meet.getProjectId());
+				
+				logo_time.put("firstMeetTime", meet.getFirstMeetTime()==null?null:DateUtil.dateToLong(meet.getFirstMeetTime()));
+				logo_time.put("passMeetTime", meet.getPassMeetTime()==null?null:DateUtil.dateToLong(meet.getPassMeetTime()));
+				
+				meetType_logo_time.put(meet.getMeetingType(), logo_time);
+				
+			}else{
+				logo_time.put("firstMeetTime", meet.getFirstMeetTime()==null?null:DateUtil.dateToLong(meet.getFirstMeetTime()));
+				logo_time.put("passMeetTime", meet.getPassMeetTime()==null?null:DateUtil.dateToLong(meet.getPassMeetTime()));
+				
+				meetType_logo_time.put(meet.getMeetingType(), logo_time);
+				
+				proid_meetType_logo_time.put(meet.getProjectId(), meetType_logo_time);
+			}
+		}
+		
+		meetList.clear();
 		
 		
 		
+		//查询开始申请排期时间
+		MeetingScheduling m = new MeetingScheduling();
+		m.setStartTime(query.getStartTime());
+		m.setEndTime(query.getEndTime());
+		List<MeetingScheduling> tm = meetingSchedulingDao.selectList(m);
+		
+		for( MeetingScheduling schedule :  tm){
+			Map<String, Map<String, Long>> meetType_logo_time = new HashMap<String, Map<String, Long>>(); 
+			Map<String, Long> logo_time = new HashMap<String, Long>();
+			
+			if(proid_meetType_logo_time.containsKey(schedule.getProjectId())){
+				meetType_logo_time = proid_meetType_logo_time.get(schedule.getProjectId());
+				
+				if(meetType_logo_time.containsKey(schedule.getMeetingType())){
+					logo_time = meetType_logo_time.get(schedule.getMeetingType());
+					logo_time.put("paiqiCreateTime", schedule.getCreatedTime());
+				}else{
+					logo_time.put("paiqiCreateTime", schedule.getCreatedTime());
+					meetType_logo_time.put(schedule.getMeetingType(), logo_time);
+				}
+			}else{
+				logo_time.put("paiqiCreateTime", schedule.getCreatedTime());
+				meetType_logo_time.put(schedule.getMeetingType(), logo_time);
+				proid_meetType_logo_time.put(schedule.getProjectId(), meetType_logo_time);
+			}
+		}
+		
+		meetList.clear();
 		
 		
-		return null;
+		//查询任务 开始 完成 时间
+		List<Integer> taskFlagList = new ArrayList<Integer>();
+		taskFlagList.add(SopConstant.TASK_FLAG_SCTZYXS);
+		taskFlagList.add(SopConstant.TASK_FLAG_YWJD);
+		taskFlagList.add(SopConstant.TASK_FLAG_TZXY);
+		taskFlagList.add(SopConstant.TASK_FLAG_ZJBF);
+		taskFlagList.add(SopConstant.TASK_FLAG_GSBG);
+		
+		SopTask taQ = new SopTask();
+		taQ.setStartTime(query.getStartTime());
+		taQ.setEndTime(query.getEndTime());
+		taQ.setTaskFlagS(taskFlagList);
+		List<SopTask> taskList = sopTaskDao.selectList(taQ);
+		
+		/*
+		 * logo_time:
+		 * 				taskCreateTime
+		 * 				taskOverTime
+		 * 
+		 * taskFlag:
+		 * 				1
+		 * 				2...
+		 * proid
+		 * 				1
+		 * 				2...
+		 * */
+		Map<Long, Map<Integer, Map<String, Long>>> proid_taskFlag_logo_time = new HashMap<Long, Map<Integer, Map<String, Long>>>(); 
+		
+		for( SopTask task :  taskList){
+			Map<Integer, Map<String, Long>> taskFlag_logo_time = new HashMap<Integer, Map<String, Long>>(); 
+			Map<String, Long> logo_time = new HashMap<String, Long>();
+			
+			if(proid_meetType_logo_time.containsKey(task.getProjectId())){
+				taskFlag_logo_time = proid_taskFlag_logo_time.get(task.getProjectId());
+				if(task.getTaskStatus().equals(DictEnum.taskStatus.已完成.getCode())){
+					logo_time.put("taskOverTime", task.getUpdatedTime());
+				}
+				logo_time.put("taskOverTime", task.getCreatedTime());
+				taskFlag_logo_time.put(task.getTaskFlag(), logo_time);
+			}else{
+				if(task.getTaskStatus().equals(DictEnum.taskStatus.已完成.getCode())){
+					logo_time.put("taskOverTime", task.getUpdatedTime());
+				}
+				logo_time.put("taskOverTime", task.getCreatedTime());
+				
+				taskFlag_logo_time.put(task.getTaskFlag(), logo_time);
+				proid_taskFlag_logo_time.put(task.getProjectId(), taskFlag_logo_time);
+			}
+		}
+		
+		taskList.clear();
+		
+		
+		Long timeNow = DateUtil.dateToLong(new Date());  //截至到当前日期    /(1000*3600*24)
+		
+		Map<String, Long> resultMap = new HashMap<String,Long>();
+		resultMap.put("time_1", 0l);
+		resultMap.put("time_2", 0l);
+		resultMap.put("time_3", 0l);
+		resultMap.put("time_4", 0l);
+		resultMap.put("time_5", 0l);
+		resultMap.put("time_6", 0l);
+		resultMap.put("time_7", 0l);
+		resultMap.put("time_8", 0l);
+		resultMap.put("time_9", 0l);
+		
+		for( Project pro :proList){
+			
+			//内部评审
+			Long lph_first_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:1").get("firstMeetTime")==null?0l:proid_meetType_logo_time.get(pro.getId()).get("meetingType:1").get("firstMeetTime");
+			Long lph_pass_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:1").get("passMeetTime")==null?0l:proid_meetType_logo_time.get(pro.getId()).get("meetingType:1").get("passMeetTime")  ;
+			//ceo评审
+			Long ceo_paiqi_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:2").get("paiqiCreateTime")==null?0l:proid_meetType_logo_time.get(pro.getId()).get("meetingType:2").get("paiqiCreateTime")  ;
+			Long ceo_first_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:2").get("firstMeetTime")==null?0l:proid_meetType_logo_time.get(pro.getId()).get("meetingType:2").get("firstMeetTime")  ;
+			Long ceo_pass_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:2").get("passMeetTime")==null?0l:proid_meetType_logo_time.get(pro.getId()).get("meetingType:2").get("passMeetTime")  ;
+			//立项会
+			Long lxh_paiqi_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:3").get("paiqiCreateTime")==null?0l: proid_meetType_logo_time.get(pro.getId()).get("meetingType:3").get("paiqiCreateTime")  ;
+			Long lxh_first_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:3").get("firstMeetTime")==null?0l:proid_meetType_logo_time.get(pro.getId()).get("meetingType:3").get("firstMeetTime")   ;
+			Long lxh_pass_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:3").get("passMeetTime")==null?0l:proid_meetType_logo_time.get(pro.getId()).get("meetingType:3").get("passMeetTime")  ;
+			
+			//投资意向书
+			Long task_tzyxs_stime = proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_SCTZYXS).get("taskCreateTime")==null?0l:proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_SCTZYXS).get("taskCreateTime")  ;
+			//Long task_tzyxs_etime = proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_SCTZYXS).get("taskOverTime");
+			
+			//尽职调查
+			Long task_jzdc_stime = proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_YWJD).get("taskCreateTime")==null?0l: proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_YWJD).get("taskCreateTime") ;
+			
+			//投决会
+			Long tjh_paiqi_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:4").get("paiqiCreateTime")==null?0l: proid_meetType_logo_time.get(pro.getId()).get("meetingType:4").get("paiqiCreateTime") ;
+			Long tjh_first_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:4").get("firstMeetTime")==null?0l:proid_meetType_logo_time.get(pro.getId()).get("meetingType:4").get("firstMeetTime")  ;
+			Long tjh_pass_time = proid_meetType_logo_time.get(pro.getId()).get("meetingType:4").get("passMeetTime")==null?0l:proid_meetType_logo_time.get(pro.getId()).get("meetingType:4").get("passMeetTime")  ;
+			
+			//投资协议
+			Long task_tzxy_stime = proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_TZXY).get("taskCreateTime")==null?0l:proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_TZXY).get("taskCreateTime")  ;
+			
+			//股权交割
+			Long task_gszr_stime = proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_GSBG).get("taskCreateTime")==null?0l: proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_GSBG).get("taskCreateTime") ;
+			Long task_gszr_etime = proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_GSBG).get("taskOverTime")==null?0l:proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_GSBG).get("taskOverTime")  ;
+			Long task_zjbf_etime = proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_ZJBF).get("taskOverTime")==null?0l:proid_taskFlag_logo_time.get(pro.getId()).get(SopConstant.TASK_FLAG_ZJBF).get("taskOverTime")  ;
+			
+			
+			int projectPro = Integer.parseInt(pro.getProjectProgress().substring(pro.getProjectProgress().indexOf(":")+1)) ;
+			
+			Long endTime = null;
+			if(pro.getProjectProgress().equals(DictEnum.projectStatus.YFJ.getCode())){
+				endTime = pro.getUpdatedTime();
+			}else endTime = timeNow;
+			
+			switch (projectPro) {
+				case 10:
+				case 9:
+					Long time_9 = resultMap.get("time_9");
+					if(projectPro == 9){
+						time_9 += endTime -task_gszr_stime;
+					}else{
+						time_9 += (task_zjbf_etime > task_gszr_etime ? task_zjbf_etime : task_gszr_etime) - task_gszr_stime;
+					}
+					resultMap.put("time_9", time_9);
+				case 8:
+					Long time_8 = resultMap.get("time_8");
+					if(projectPro == 8){
+						time_8 += endTime -task_tzxy_stime;
+					}else{
+						time_8 += task_gszr_stime - task_tzxy_stime;
+					}
+					resultMap.put("time_8", time_8);
+				case 7:
+					Long time_7 = resultMap.get("time_7");
+					if(projectPro == 7){
+						time_7 += endTime -tjh_paiqi_time;
+					}else{
+						time_7 += task_tzxy_stime - tjh_paiqi_time;
+					}
+					resultMap.put("time_7", time_7);
+				case 6:
+					Long time_6 = resultMap.get("time_6");
+					if(projectPro == 6){
+						time_6 += endTime -task_jzdc_stime;
+					}else{
+						time_6 += tjh_paiqi_time - task_jzdc_stime;
+					}
+					resultMap.put("time_6", time_6);
+				case 5:
+					Long time_5 = resultMap.get("time_5");
+					if(projectPro == 5){
+						time_5 += endTime -task_tzyxs_stime;
+					}else{
+						time_5 += task_jzdc_stime - task_tzyxs_stime;
+					}
+					resultMap.put("time_5", time_5);
+				case 4:
+					Long time_4 = resultMap.get("time_4");
+					if(projectPro == 4){
+						time_4 += endTime -lxh_paiqi_time;
+					}else{
+						time_4 += task_tzyxs_stime - lxh_paiqi_time;
+					}
+					resultMap.put("time_4", time_4);
+				case 3:
+					Long time_3 = resultMap.get("time_3");
+					if(projectPro == 3){
+						time_3 += endTime -ceo_paiqi_time;
+					}else{
+						time_3 += lxh_paiqi_time - ceo_paiqi_time;
+					}
+					resultMap.put("time_3", time_3);
+				case 2:
+					Long time_2 = resultMap.get("time_2");
+					if(projectPro == 2){
+						time_2 += endTime - lph_first_time;
+					}else{
+						time_2 += ceo_paiqi_time - lph_first_time;
+					}
+					resultMap.put("time_2", time_2);
+				case 1:
+					Long time_1 = resultMap.get("time_1");
+					if(projectPro == 1){
+						time_1 += endTime - pro.getCreatedTime();
+					}else{
+						time_1 += lph_first_time - pro.getCreatedTime();
+					}
+					resultMap.put("time_1", time_1);
+					break;
+				default:
+					break;
+			}
+		}
+		
+		
+		for (int i = 1; i < 10; i++) {
+			ChartDataBo kpi = new ChartDataBo();
+			kpi.setProgressCode("projectProgress:"+i);
+			kpi.setProgressName(DictEnum.projectProgress.getNameByCode("projectProgress:"+i));
+			kpi.setDayLine(resultMap.get("time_"+i)/(1000*3600*24));
+			kpiDataList.add(kpi);   
+		}
+		kpiPage = new Page<ChartDataBo>(kpiDataList,9l);
+		return kpiPage;
+		
 	}
 	
 	

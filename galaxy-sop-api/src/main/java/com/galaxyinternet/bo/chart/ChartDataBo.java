@@ -45,6 +45,13 @@ public class ChartDataBo extends PagableEntity{
 	private Integer  waitMeetProNumber;    //会  待定数          结果为“待定”
 	private Integer  passMeetProNumber;    //会  通过数          结果为“通过”
 	
+	
+	private String progressCode;
+	private String progressName;
+	private Long dayLine;        //目标数
+	
+	
+	
 	public Long getUserId() {
 		return userId;
 	}
@@ -315,6 +322,24 @@ public class ChartDataBo extends PagableEntity{
 	}
 	public void setPassMeetProNumber(Integer passMeetProNumber) {
 		this.passMeetProNumber = passMeetProNumber;
+	}
+	public String getProgressCode() {
+		return progressCode;
+	}
+	public void setProgressCode(String progressCode) {
+		this.progressCode = progressCode;
+	}
+	public String getProgressName() {
+		return progressName;
+	}
+	public void setProgressName(String progressName) {
+		this.progressName = progressName;
+	}
+	public Long getDayLine() {
+		return dayLine;
+	}
+	public void setDayLine(Long dayLine) {
+		this.dayLine = dayLine;
 	}
 	
 	

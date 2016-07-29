@@ -57,6 +57,13 @@
 				 -->
 				<if test="taskType != null and taskType!='' "> and task_type =#{taskType}</if>
 				<if test="taskFlag != null"> and task_flag =#{taskFlag}</if>
+				<if test="taskFlagS != null">
+					AND task_flag IN
+					<foreach collection="taskFlagS" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			  </if>
 				<if test="taskOrder != null"> and task_order =#{taskOrder}</if>
 				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
 				<if test="departmentId != null"> and department_id =#{departmentId}</if>	
@@ -67,6 +74,9 @@
 				<if test="(taskStatus == null or taskStatus=='') and (taskOrder == null) "> and task_status !='taskStatus:3'</if>
 				<if test="remark != null"> and remark =#{remark}</if>
 				<if test="createdTime != null"> and created_time =#{createdTime}</if>
+				 <if test="startTime != null"> <![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
+			     <if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
+			  
 				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
