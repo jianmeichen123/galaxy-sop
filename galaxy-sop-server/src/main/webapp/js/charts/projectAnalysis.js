@@ -22,12 +22,10 @@ $(document).ready(init());
 
 function init(){
 	
-	var liList = $(".")
-	
-	
-	
+	var liList = $(".project_analysis .tablink").find("li");
 	createMenus(25);
 }
+
 
 var isGG = true;
 if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){

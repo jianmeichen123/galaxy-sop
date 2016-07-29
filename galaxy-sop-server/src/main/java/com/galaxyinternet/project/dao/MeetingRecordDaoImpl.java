@@ -96,4 +96,10 @@ public class MeetingRecordDaoImpl extends BaseDaoImpl<MeetingRecord, Long> imple
 		return sqlSessionTemplate.selectList(getSqlName("selectTzjlHasMeetProNumByParams"),params);
 	}
 	
+	
+	@Override
+	public List<MeetingRecord> selectMeetFirstTimeAndPassTime(MeetingRecordBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectMeetFirstTimeAndPassTime"),params);
+	}
 }

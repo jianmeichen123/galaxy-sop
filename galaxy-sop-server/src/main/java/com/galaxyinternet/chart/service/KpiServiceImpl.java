@@ -131,6 +131,85 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 	
 	
 	
+	// TODO   项目历时
+	/**
+	 * 接触访谈：|第一次启动内部评审会时间                                       -         项目进度为“接触访谈”开始时间|
+	 * 		              第一个内评会记录 会议时间（启动内部评审功能按钮）     项目创建时间   
+	 * 
+	 * 内部评审    |内部评审会的会议结论为通过的会议时间          -         项目进度为“内部评审”开始时间
+	 * 			 内评会 通过 记录 会议时间                                                                       第一个内评会记录 会议时间
+	 * 
+	 * CEO评审     |第一次启动立项会排期时间【第一次立项会排期创建时间】  -  项目进度为“CEO评审”开始时间【CEO评审排期创建时间】|
+	 * 			第一次立项会排期创建时间                                                                                  CEO评审排期创建时间                          
+	 * 
+	 * 立项会                |立项会的会议结论为通过的会议时间-项目进度为“立项会”开始时间|
+	 *             立项会通过记录 会议时间       -   第一次立项会排期创建时间
+	 * 
+	 * 投资意向书     |项目进度为“投资意向书”开始时间【上传投资意向书待办任务创建时间】-第一次上传投资意向书签署证明完成时间【业务尽职调查报告创建时间】|
+	 *             上传投资意向书待办任务创建时间                                                                                         业务尽职调查报告创建时间
+	 * 
+	 * 尽职调查           |项目进度为“尽职调查”开始时间【业务尽职调查报告创建时间】-第一次启动投决会排期时间【第一次投决会排期创建时间】|
+	 *             业务尽职调查报告创建时间                                                                                     第一次投决会排期创建时间
+	 * 
+	 * 投资决策会     |项目进度为“投决会”开始时间【第一次投决会排期创建时间】-会议结论为通过的会议时间|
+	 *             投决会通过记录 会议时间       -                            第一次投决会排期创建时间  
+	 * 
+	 * 投资协议          |项目进度为“投资协议”开始时间【上传投资协议待办任务创建时间】-第一次上传签署证明结束时间【上传工商转让凭证待办任务创建时间】|
+	 *            上传投资协议待办任务创建时间                                                                                      上传工商转让凭证待办任务创建时间
+	 * 
+	 * 股权交割          |项目进度为“股权交割”开始时间-第一次上传交割凭证的结束时间|
+	 * 
+	 * 
+	 * 
+	 * 	
+	
+	SopConstant.TASK_FLAG_SCTZYXS  1    "上传投资意向书";
+	SopConstant.TASK_NAME_YWJD     5    "上传业务尽职调查报告";
+	SopConstant.TASK_NAME_TZXY     6	"上传投资协议";
+	SopConstant.TASK_NAME_ZJBF     8	"上传资金拨付凭证";
+	SopConstant.TASK_NAME_GSBG     9	"上传工商转让凭证";
+	
+	待认领("待认领","taskStatus:1"),
+	待完工("待完工","taskStatus:2"),
+	已完成("已完成","taskStatus:3");
+	
+	 * @param request
+	 * @return
+	 */
+	public Page<ChartDataBo> proTimeLine(ChartKpiQuery query){
+		
+		
+		//统计查询， 查询用户  -- 项目数 
+		ProjectBo proQuery = new ProjectBo();
+		proQuery.setStartTime(query.getStartTime());
+		proQuery.setEndTime(query.getEndTime());
+		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
+		List<Project> proList = projectDao.selectList(proQuery);
+		
+		
+		MeetingRecordBo mquery1 = new MeetingRecordBo();
+		mquery1.setStartTime(query.getSdate());
+		mquery1.setEndTime(query.getEdate());
+		mquery1.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+		List<MeetingRecord> meetList = meetingRecordDao.selectMeetFirstTimeAndPassTime(mquery1);
+		
+		
+		
+		
+		
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// TODO   投资经理KPI
 	/**
 	 * 获取投资经理KPI
@@ -851,7 +930,10 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			pro.setHhrName(deptOfHHRMap.get(query.getDeptid()) == null?"":deptOfHHRMap.get(query.getDeptid()).getRealName());
 			pro.setDepartmentName(thisDept.getName());
 			//pro.setCreateUname(uIdUserMap.get(pro.getCreateUid()).getRealName());
-			pro.setDurationDay((nowTime - pro.getCreatedTime())/(1000*3600*24));
+			
+			if(pro.getProjectProgress().equals(DictEnum.projectStatus.YFJ.getCode())){
+				pro.setDurationDay((pro.getUpdatedTime() - pro.getCreatedTime())/(1000*3600*24));
+			}else pro.setDurationDay((nowTime - pro.getCreatedTime())/(1000*3600*24));
 		}
 		kpiPage = new Page<Project>(proList,total);
 		return kpiPage;
@@ -1177,12 +1259,14 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		deptIds.add(query.getDeptid());
 		Map<Long, User> deptOfHHRMap = queryDeptOfHHR(deptIds,3);
 		
-		
 		for(Project pro : proList){
 			pro.setHhrName(deptOfHHRMap.get(query.getDeptid()) == null?"":deptOfHHRMap.get(query.getDeptid()).getRealName());
 			pro.setDepartmentName(thisDept.getName());
 			pro.setCreateUname(uIdUserMap.get(pro.getCreateUid()).getRealName());
-			pro.setDurationDay((nowTime - pro.getCreatedTime())/(1000*3600*24));
+			if(pro.getProjectProgress().equals(DictEnum.projectStatus.YFJ.getCode())){
+				pro.setDurationDay((pro.getUpdatedTime() - pro.getCreatedTime())/(1000*3600*24));
+			}else pro.setDurationDay((nowTime - pro.getCreatedTime())/(1000*3600*24));
+			
 		}
 		kpiPage = new Page<Project>(proList,total);
 		return kpiPage;

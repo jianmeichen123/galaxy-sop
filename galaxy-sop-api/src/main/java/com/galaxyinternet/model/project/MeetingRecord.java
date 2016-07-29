@@ -62,6 +62,9 @@ public class MeetingRecord  extends PagableRecordEntity{
     private Long departId; //部门id
     private Integer sumProNum; //统计条件下对应的项目数
     
+    private Date firstMeetTime;
+    private Date passMeetTime;
+    
     
     public String getParticipant() {
 		return participant;
@@ -379,6 +382,22 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setSumProNum(Integer sumProNum) {
 		this.sumProNum = sumProNum;
+	}
+
+	public Date getFirstMeetTime() {
+		return firstMeetTime;
+	}
+
+	public void setFirstMeetTime(Date firstMeetTime) {
+		this.firstMeetTime = firstMeetTime;
+	}
+
+	public Date getPassMeetTime() {
+		return passMeetTime;
+	}
+
+	public void setPassMeetTime(Date passMeetTime) {
+		this.passMeetTime = passMeetTime;
 	}
     
 	

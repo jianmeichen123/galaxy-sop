@@ -50,7 +50,7 @@
 			
 			
 			<!-- 项目数完成增长率统计 -->
-				<div class="tabtable_con" data-tab="con">
+				<div class="tabtable_con">
 					<form id="search_rise_rate_form">
 					<div class="search_box searchall">
 						<dl class="fmdl fmmr clearfix">
