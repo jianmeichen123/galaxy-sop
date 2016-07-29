@@ -713,7 +713,7 @@ var platformUrl = {
 	/**
 	 * 项目完成率查询（图表）
 	 */
-	searchRiseRate : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchRiseRate"
+	searchRiseRate : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchRiseRate",
 	
 	/**
 	 * 1.数据简报－投资事业线目标完成对比
