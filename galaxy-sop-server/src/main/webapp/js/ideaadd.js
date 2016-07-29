@@ -263,7 +263,7 @@ var ideaAddDialog = {
 	function init(){
 		$("#addBtn").click(function(){
 			sendGetRequest(platformUrl.getAddIdeaInfo,null,initCallBack.getAddIdeaInfoCallBack);
-			
+			$('#edit_and_add').html('添加创意')
 		});
 	}
 	
