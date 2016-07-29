@@ -174,7 +174,9 @@ function dateFormatter(val,row,index)
 				var id=$("#IdeaId").val();
 				$("#editBtn").click(function(){
 					sendGetRequest(platformUrl.detailIdea+"/"+id,null,initCallBack.getdetailIdeaInfoCallBack);
-					
+					if($(this).text()=='编辑'){
+						$('#edit_and_add').html('编辑创意');
+					}
 				});
 				layer.close(layerIndex);
 				

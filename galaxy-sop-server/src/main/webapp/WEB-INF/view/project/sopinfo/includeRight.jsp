@@ -329,7 +329,7 @@ function formatNearMeet(meetList){
 
 
 function closePro(){
-	layer.confirm('你确定要删除吗?', 
+	layer.confirm('你确定要否决项目吗?', 
 			{
 			  btn: ['确定', '取消'] 
 			}, 
