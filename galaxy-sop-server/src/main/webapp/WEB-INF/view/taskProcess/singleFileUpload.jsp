@@ -87,7 +87,6 @@ $(function(){
 				if(data.result.status=="OK"){
 					layer.msg("提交成功。");
 					var url = $("#menus .on a").attr('href');
-					alert(url);
 					window.location=url;
 				}
 				else
