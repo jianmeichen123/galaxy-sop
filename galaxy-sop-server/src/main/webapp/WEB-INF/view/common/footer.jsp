@@ -11,7 +11,7 @@ function createMenus(current){
 	   		 if(typeof(o.nodes) == "undefined"){
 	   			if(selected == o.id){
 	   				if(o.url.indexOf("?flag") > -1){
-	   					o.id='168';
+	   					o.id='168'
 	   					o.menuName="待办任务";
 	   				}
 		   			html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
@@ -43,4 +43,9 @@ function createMenus(current){
 	   //投后菜单显示隐藏    
 	     $(".pagebox .lft .toggle_li").click(function(event) {
 	           $(this).children('ul').stop().slideToggle();
-	
+	         });
+	});
+}
+</script>
+
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/cookie.js"></script>
