@@ -159,7 +159,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			//tabs.add(new Menus(7L, 0, 13,"绩效考核", u + "galaxy/report/kpi?" + params));
 			
 			tabs.add(new Menus(22L, 0, 11, "数据简报", u + "galaxy/kpireport/toDataBriefing?" + params));
-			tabs.add(new Menus(6L, 0, 12, "项目分析", u + "galaxy/kpireport/paprojectlist?" + params));
+			tabs.add(new Menus(6L, 0, 12, "项目分析", u + "galaxy/kpireport/toProOverView?" + params));
 			tabs.add(new Menus(8L, 0, 13,"绩效考核", u + "galaxy/kpireport/touserkpi?" + params));
 			
 			
