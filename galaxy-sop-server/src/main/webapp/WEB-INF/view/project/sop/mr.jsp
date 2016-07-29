@@ -32,8 +32,8 @@
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-
-<div class="meetingtc">
+<div class="title_bj">新增会议</div>
+<div class="meetingtc margin_45">
 	<div class="top clearfix">
     	<!-- <div class="searchall clearfix">
             <dl>

@@ -23,7 +23,8 @@
 </div>
 <!-- 弹出页面 -->
 <div id="upload-dialog" style="display: none;">
-	<div class="archivestc" >
+	<div class="title_bj"></div>
+	<div class="archivestc margin_45" >
 	<form>
 		<input type="hidden" name="id">
 		<dl class="fmdl clearfix">
@@ -62,7 +63,7 @@
 	        </dd>
 	        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a></dd>
 	    </dl> 
-	    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn";>上传保存</a>
+	    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
 	</form>
 	</div>
 </div>
@@ -71,7 +72,8 @@ $(function(){
 	loadRows();
 	loadRelatedData();
 	$("#show-upload-btn").click(function(){
-		showUploadPopup();
+		var title_name=$(this).text();
+		showUploadPopup(title_name);
 	});
 	$("#complete-task-btn").click(function(){
 		//更新task为完成状态
@@ -84,7 +86,8 @@ $(function(){
 			function(data){
 				if(data.result.status=="OK"){
 					layer.msg("提交成功。");
-					forwardWithHeader(platformUrl.showTask);
+					var url = $("#menus .on a").attr('href');
+					window.location=url;
 				}
 				else
 				{
@@ -124,6 +127,7 @@ function loadRows()
 					{
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">查看</a></td>');
 						$("#complete-task-btn").removeClass('disabled');
+						$("#complete-task-btn").removeProp("disabled");
 						var btnText = $("#show-upload-btn").text();
 						if(btnText != null && btnText.indexOf('上传')>-1)
 						{
@@ -159,11 +163,12 @@ function loadRelatedData()
 			}
 	);
 }
-function showUploadPopup()
+function showUploadPopup(title_name)
 {
 	$.popup({
 		txt:$("#upload-dialog").html(),
 		showback:function(){
+			$('.title_bj').html(title_name)
 			var _this = this;
 			initUpload(_this);
 			initForm(_this);
@@ -221,7 +226,7 @@ function initUpload(_dialog){
 				if(data.status == "OK")
 				{
 					layer.msg("上传成功.");
-					$("#complete-task-btn").removeAttr("disabled");
+					$("#complete-task-btn").removeProp("disabled");
 					$(_dialog.id).find("[data-close='close']").click();
 					loadRows();
 				}

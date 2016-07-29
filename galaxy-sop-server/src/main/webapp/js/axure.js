@@ -6,7 +6,7 @@
 			x: 0,
             y: 0
         }, options);
-		var isIe6 = false;
+		var isIe6 = false;close
 		if(window.ActiveXObject)//判断浏览器是否属于IE
 		{
 			var browser=navigator.appName
@@ -162,6 +162,7 @@
 			closepop:function(){
 				var _this = this;
 				$(_this.id).on("click","[data-close='close']",function(){
+					$("#popbg01").remove()
 						//启用滚动条
 						 $(document.body).css({
 						   "overflow-x":"auto",
@@ -176,7 +177,8 @@
 							$("#popbg").hide();
 							$('.tip-yellowsimple').hide();	//表单验证提示关闭
 						}
-						if($(".pop").length>0){
+						if($(".pop").length==0){
+							
 							$("#popbg01").remove();
 						}
 						return false;
@@ -187,6 +189,17 @@
 		var obj = new popEve();
 		obj.init();
 	};
+	//二次弹窗关闭
+	$.popupTwoClose =function(){
+		$("#popbg01").remove();
+	};
+	//屏幕开屏
+	$.locksCreenOpen =function(){
+		$(document.body).css({
+		   "overflow-x":"auto",
+		   "overflow-y":"auto"
+		 });
+	}
 	//切换样式控制
 	$.fn.changeClass = function(options){
 		if($(this).length==0){ return false};

@@ -26,6 +26,7 @@ var planGrid = {
 								   ].join('');
 						}
 						
+
 					}
 				},
 				operatorEvent : {
@@ -94,20 +95,16 @@ var planGrid = {
 			columns : [{
 				field : 'fileName',
 				title : '文档名称',
-				align : 'center',
 				formatter : gridFormatter.fileNameFormatter
 			}, {
 				field : 'fileStatusDesc',
-				title : '状态',
-				align : 'center'
+				title : '状态'
 			}, {
 				field : 'createDate',
-				title : '更新时间',
-				align : 'center'
+				title : '更新时间'
 			},{
 				field : 'operate',
 				title : '操作',
-				align : 'center',
 				events : gridFormatter.operatorEvent,
 				formatter : gridFormatter.operatorFormatter
 			}]
@@ -151,6 +148,11 @@ var initPage = {
 						window.location.href=platformUrl.downLoadFile+'/'+id ;
 					},
 					uploadBusinessPlan : function(){
+						if($(this).text()=='上传'){
+							 $('.title_bj').html('上传商业计划书');							 
+						 }else{
+							 $('.title_bj').html('更新商业计划书');	
+						 }
 						formData = {
 				    			_fileType : "fileType:1",
 				    			_fileTypeAuto : true,
@@ -255,7 +257,6 @@ var initPage = {
 
 function init(){
 }
-
 
 function refreshData(){
 	var historyDialog = {

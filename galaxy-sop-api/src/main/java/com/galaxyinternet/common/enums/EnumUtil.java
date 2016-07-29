@@ -42,6 +42,42 @@ public class EnumUtil {
 			return CodeEnum.artificialIntelligence.getCode();
 		}else if(id == CodeEnum.rongKuai.getId()){
 			return CodeEnum.rongKuai.getCode();
+		}else if(id == CodeEnum.internetMedical2.getId()){
+			return CodeEnum.internetMedical2.getCode();
+		}else if(id == CodeEnum.RKo2o.getId()){
+			return CodeEnum.RKo2o.getCode();
+		}else if(id == CodeEnum.RKjr.getId()){
+			return CodeEnum.RKjr.getCode();
+		}else if(id == CodeEnum.RKly.getId()){
+			return CodeEnum.RKly.getCode();
+		}else if(id == CodeEnum.RKcy.getId()){
+			return CodeEnum.RKcy.getCode();
+		}else if(id == CodeEnum.RKjy.getId()){
+			return CodeEnum.RKjy.getCode();
+		}else if(id == CodeEnum.RKny.getId()){
+			return CodeEnum.RKny.getCode();
+		}else if(id == CodeEnum.RKyl.getId()){
+			return CodeEnum.RKyl.getCode();
+		}else if(id == CodeEnum.RKzn.getId()){
+			return CodeEnum.RKzn.getCode();
+		}else if(id == CodeEnum.RKgh.getId()){
+			return CodeEnum.RKgh.getCode();
+		}else if(id == CodeEnum.RKfz.getId()){
+			return CodeEnum.RKfz.getCode();
+		}else if(id == CodeEnum.RKdc.getId()){
+			return CodeEnum.RKdc.getCode();
+		}else if(id == CodeEnum.RKdsj.getId()){
+			return CodeEnum.RKdsj.getCode();
+		}else if(id == CodeEnum.RKqyfw.getId()){
+			return CodeEnum.RKqyfw.getCode();
+		}else if(id == CodeEnum.RKmt.getId()){
+			return CodeEnum.RKmt.getCode();
+		}else if(id == CodeEnum.RKjk.getId()){
+			return CodeEnum.RKjk.getCode();
+		}else if(id == CodeEnum.RKqc.getId()){
+			return CodeEnum.RKqc.getCode();
+		}else if(id == CodeEnum.RKzt.getId()){
+			return CodeEnum.RKzt.getCode();
 		}else{
 			return 99;
 		}

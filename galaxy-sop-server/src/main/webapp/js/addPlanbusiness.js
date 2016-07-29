@@ -23,12 +23,17 @@ var planGrid = {
 						operator = '上传附件';
 					}
 					return [
-							'<a class="uploadlink blue ico_pgn"  href="javascript:void(0)">'+ operator +'</a>'
+							'<a class="uploadlink blue ico_pgn 3333"  href="javascript:void(0)">'+ operator +'</a>'
 							 ].join('');
 					
 				},
 				operatorEvent : {
 					 'click .uploadlink': function (e, value, row, index) {
+						 if($(this).text()=='上传附件'){
+							 $('.title_bj').html('上传商业计划书');							 
+						 }else{
+							 $('.title_bj').html('更新商业计划书');	
+						 }
 						 formData = {
 					    			_fileType : "fileType:1",
 					    			_fileTypeAuto : true,
@@ -46,6 +51,7 @@ var planGrid = {
 									_localUrl : platformUrl.uploadBpToSession
 							};
 							win.init(formData);
+							
 				        }
 				}
 		}

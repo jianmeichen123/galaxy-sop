@@ -195,14 +195,34 @@ function updatePerson(){
  * @param id
  */
 function deletePer(id,url){
-	if(confirm("确定要删除该团队成员吗？")){
+	layer.confirm('你确定要删除吗?',
+			{
+			  btn: ['确定', '取消'] 
+			}, 
+			function(index, layero){
+				var projectId = $("#pid").val();
+				var url = platformUrl.deletePPerson+id+"/"+projectId;
+				if(projectId != ''){
+					$("#projectId").val(projectId);
+					sendGetRequest(url,'',savePersonCallBack);
+					//removePop1();
+					layer.close(index);
+					layer.msg("删除成功");
+				}
+			}, 
+			function(index){
+			}
+		);
+	
+	
+	/*if(confirm("确定要删除该团队成员吗？")){
 		var projectId = $("#pid").val();
 		var url = platformUrl.deletePPerson+id+"/"+projectId;
 		if(projectId != ''){
 			$("#projectId").val(projectId);
 			sendGetRequest(url,'',savePersonCallBack);
 		}
-	}
+	}*/
 }
 
 function personName(value,row,index){

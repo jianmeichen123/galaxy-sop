@@ -374,7 +374,7 @@ function to_del_deliver(selectRowId){
 	return false;
 } */
 function to_del_deliver(selectRowId){
-	layer.confirm('你确定要删除吗?', 
+	layer.confirm('你确定要删除吗?',
 		{
 		  btn: ['确定', '取消'] 
 		}, 

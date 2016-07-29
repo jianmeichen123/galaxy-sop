@@ -1,13 +1,16 @@
 <%@ page language="java" pageEncoding="UTF-8"
-import="com.galaxyinternet.framework.core.oss.OSSConstant"
+import="com.galaxyinternet.framework.core.oss.OSSConstant,com.galaxyinternet.model.user.User"
 %>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://www.galaxyinternet.com/tags/acl" prefix="acl" %>
 <% 
+
 String path = request.getContextPath();
 String endpoint = (String)application.getAttribute(OSSConstant.GALAXYINTERNET_FX_ENDPOINT);
 java.util.Map<String, String> map = new com.google.gson.Gson().fromJson(endpoint,new com.google.gson.reflect.TypeToken<java.util.Map<String, String>>() {}.getType());
 String reportEndpoint = map.get("galaxy.project.report.endpoint");
+
 %>
 
 <!doctype html>
@@ -46,7 +49,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 	<!--右侧-->
     <div class="rit">
         <!--时间-->
-        <div class="top" >
+        <div class="top"  resource-mark="shedule_list" style="display:none">
         	<b class="sj ico null">三角</b>
             <div class="tody ico">
             	<p class="time"></p>
@@ -64,6 +67,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             </div>
         </div>
         <!--立项排期会-->
+        <acl:acl resourceMark="shedule_lxh">
         <dl style="position:relative;">
         	<dt>立项会排期</dt>
             <dd>
@@ -85,11 +89,15 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
  -->            
               <a href="<%=path %>/html/projectMeeting.html" data-btn="project" class="more null">more</a>
             </dd>
+            
             <c:if test="${fx:hasRole(4)}">
         	 <dd><a href="javascript:;" class="blue paiqidate" onclick="paiqidate('meetingType:3');">排期时间</a></dd>
-        	 </c:if>
+        	</c:if>
+        	
         </dl>
+        </acl:acl>
         <!--投决会排期-->
+        <acl:acl resourceMark="shedule_tjh">
         <dl class="tjh_block" style="position:relative;">
         	<dt>投决会排期</dt>
             <dd>
@@ -115,6 +123,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         	<dd><a href="javascript:;" class="blue paiqidate" onclick="paiqidate('meetingType:4');">排期时间</a></dd>
         	</c:if>
         </dl>
+        </acl:acl>
     </div>
     
     
@@ -127,6 +136,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <div class="tablist clearfix">
         	<!--左侧列表-->
             <div class="l">
+               <acl:acl resourceMark="task_list">
             	<dl style="position:relative;">
                 	<dt><h3 class="ico t1">待办任务</h3></dt>
                     <dd>
@@ -151,8 +161,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
                     </dd>
                 </dl>
-              
-                <dl>
+                </acl:acl>
+                <dl resource-mark="project_view_module" style="display:none">
                 	<dt><h3 class="ico t3">数据报表</h3></dt>
                     <dd class="zzbox">
                     	<div id="histogram" class="histogram" style="height:160px"></div>
@@ -163,7 +173,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     -->
                 </dl>
                 
-                 <dl class="Creative_library" style="position:relative;">
+                 <dl style="position:relative;display:none;" class="Creative_library" resource-mark="idea_summary">
 						<!-- <img src="<%=path%>/img/sy.png" alt=""> -->
 						
 						<dt>
@@ -248,7 +258,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
-               
+               <acl:acl resourceMark="shedule_ceo">
                  <dl id="ceo_p">
 				<dt><h3 class="ico t5">CEO评审排期</h3></dt>
 				<dd>
@@ -271,6 +281,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
 				</dd>
 			</dl> 
+			</acl:acl>
                 <dl  class="tool_radius">
                 	<dt><h3 class="ico t6">常用工具</h3></dt>
                     <dd class="tool">
@@ -328,6 +339,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 
 <script type="text/javascript">
 	$(function(){	
+		
 		$(".pagebox .rit .top .tody").today();
 		top5ProjectMeeting();
 		ProjectVoteWill();
@@ -337,14 +349,24 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		top5Message();
 		ceopaiqi();
 		top5CeoPsMeeting();
+		if(isContainResourceByMark("shedule_list")){
+	       $('div[resource-mark="shedule_list"]').css("display","block");
+		}
+		if(isContainResourceByMark("project_view_module")){
+		       $('dl[resource-mark="project_view_module"]').css("display","block");
+			}
+		if(isContainResourceByMark("idea_summary")){
+		       $('dl[resource-mark="idea_summary"]').css("display","block");
+			}
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 	});
+	
 </script>
 <script>
 $(function(){
 	load_data_chart();
 	function load_data_chart(){
-		var obj ={url:Constants.reportEndpointURL+"/galaxy/report/projectprogress"};
+		 var obj ={url:Constants.reportEndpointURL+"/galaxy/report/projectprogress"};
 		obj.contentType="application/json";
 		obj.data={"userid":"${galax_session_user.id}","sdate":"-1","edate":"-1"};
 		ajaxCallback(obj,function(data){
@@ -363,7 +385,7 @@ $(function(){
 			chartOptions.series[0].data = re;
 			chartOptions.xAxis.categories = categories;
 			var chart = new Highcharts.Chart(chartOptions);
-		});
+		}); 
 	}
 	$('#message-data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined

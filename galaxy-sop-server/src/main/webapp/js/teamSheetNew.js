@@ -256,6 +256,7 @@
 													"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
 													"id" : $(_this.id).find("#win_sopFileId").val(),
 													"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
+													"id" : $(_this.id).find("#win_sopFileId").val(),
 													"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
 													"remark" : $(_this.id).find("#win_FILELIST").val()
 											};
@@ -294,6 +295,7 @@
 				var $fileWorkType = $(_this.id).find("#win_fileWorkType");
 				var $fileType = $(_this.id).find("#win_fileType");
 				var $sopProjectId = $(_this.id).find("#win_sopProjectId");
+				var $sopFileId = $(_this.id).find("#win_sopFileId");
 				var $searchProjectBtn = $(_this.id).find("#win_searchProjectBtn");
 				var $sopFileId = $(_this.id).find("#win_sopFileId");
 				var $isProve = $(_this.id).find("#win_isProve");

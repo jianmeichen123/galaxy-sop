@@ -111,7 +111,7 @@
             <dl class="fmdl clearfix">
                 <dt>事项内容：</dt>
                 <dd>
-                    <textarea id="content" name="content" valType="OTHER" regString="^[\u4e00-\u9fa5]{1,100}$|^[\dA-Za-z_]{1,200}$" msg="<font color=red>*</font>事项内容不能超过200字符"></textarea>
+                    <textarea id="content" name="content" valType="OTHER" regString="^.{1,200}$" msg="<font color=red>*</font>事项内容不能超过200字符"></textarea>
                 </dd>
             </dl>
             <div class="btnbox">
@@ -159,13 +159,16 @@
      } --%>
     //保存日程
     function saveShedule(){
+    	
     	if(beforeSubmit()){
 	    	var id=$("#id").val();
 	    	if(id == '' || id == 'null' || id == null){
 	    	  $("#id").remove();
 	    	}
 	    	sendPostRequestByJsonObj(platformUrl.saveShedule, JSON.parse($("#shedule_form").serializeObject()), sheduleCallBack);
+	    	$.locksCreenOpen();
     	}
+    	
     }
     //新建日程
     function newShedule(){

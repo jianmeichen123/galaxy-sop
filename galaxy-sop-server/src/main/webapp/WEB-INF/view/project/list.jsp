@@ -44,16 +44,16 @@
     	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>>创投项目</div>
     	 <input type="hidden" id="project_id" value=""/>
     	 <input type="hidden" id="uid" value=""/>
-         <c:if test="${fx:hasRole(4)}">
+         <%-- <c:if test="${fx:hasRole(4)}"> --%>
          <!--页眉-->
          <div class="top clearfix">
         	<!--按钮-->
             <div class="btnbox_f btnbox_f1 clearfix">
-                <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4" style="margin-top:10px;">添加项目</a>
+                <a href="<%=path %>/galaxy/app" class="pubbtn bluebtn ico c4" style="margin-top:10px;display:none" resource-mark="project_add">添加项目</a>
                 <!-- <a href="编辑项目.html" class="pubbtn bluebtn ico c5">编辑</a> -->
             </div>
          </div>
-         </c:if>
+         <%-- </c:if> --%>
          <!--tips连接
           <ul class="tipslink tablink">
                 <li class="on"><a href="javascript:;" query-by="proType" query-val="1" >我的项目<span></span></a></li>
@@ -181,6 +181,10 @@
 
 <script type="text/javascript">
 	createMenus(5);
+	/**权限点**/
+	if(isContainResourceByMark("project_add")){
+	       $('a[resource-mark="project_add"]').css("display","block");
+	}
 	/**
 	 * 分页数据生成操作内容
 	 */
@@ -340,6 +344,7 @@
 	        		}
 	        		param.projectDepartid = initParams.projectDepartid;
 	        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
+	        		createUserOptions(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
 	        		param.createUid = initParams.createUid;
 	        		$("select[name='createUid']").val(initParams.createUid);
 	        		param.nameCodeLike = initParams.nameCodeLike;
@@ -360,9 +365,19 @@
 	    				return;
 	    			}else{
 	    				$('.pagination li').removeClass('active');
-	    				if($('.pagination .page-number').length< initParams.pageNum){
-	    					for(var i=$('.pagination .page-number').length; i>0; i--){
-	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+i+'</a>');
+	    				if($('.pagination .page-number').length< initParams.pageNum)
+	    				{
+	    					var len = $('.pagination .page-number').length;
+	    					var totalPages = $("#project-table").bootstrapTable('getOptions').totalPages;
+	    					var end = initParams.pageNum + Math.floor(len/2);
+	    					if(end>totalPages)
+    						{
+	    						end = totalPages;
+    						}
+	    					
+	    					for(var i=len-1; i>=0; i--)
+	    					{
+	    						$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+ end-- +'</a>');
 	    					}
 	    				}
 

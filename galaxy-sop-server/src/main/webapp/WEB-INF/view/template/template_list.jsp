@@ -67,13 +67,14 @@
  
 </div>
 <!-- upload dialog start -->
-<div id="upload-dialog" class="archivestc" style="display:none;">
-<form id="upload-form">
+<div id="upload-dialog"  class="archivestc " style="display:none;">
+
+	<div class="title_bj">模板更新</div>
+<form id="upload-form" style='margin-top:45px;'>
 	<input type="hidden" name="id">
 	<input type="hidden" name="fileKey">
 	<input type="hidden" name="fileLength">
-	<h2>模板更新</h2>   
-    <dl class="fmdl clearfix">
+    <dl class="fmdl clearfix ">
     	<dt>存储类型：</dt>
         <dd>
         	<select name="docType" class="disabled" disabled="disabled"></select>
@@ -107,8 +108,8 @@
 <!-- Mail dialog start-->
 <div id="mail-dialog" style="display:none;">
 <form id="mail-form">
-<div class="emailtc" >
-    <h2>模板管理-邮件分享</h2>
+<div class="title_bj">模板管理-邮件分享</div>
+<div class="emailtc margin_45" >
     <dl class="fmdl clearfix">
         <dt>收件人：</dt>
         <dd class="clearfix">

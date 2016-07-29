@@ -54,6 +54,7 @@ var ideaAddDialog = {
 										//关闭对外接口
 										_this.hideback.apply(_this);
 										$(_this.id).remove();
+										$('#popbg01').remove();
 										$('.tip-yellowsimple').hide();
 										//判断是否关闭背景
 										if($(".pop").length==0){
@@ -262,6 +263,7 @@ var ideaAddDialog = {
 	function init(){
 		$("#addBtn").click(function(){
 			sendGetRequest(platformUrl.getAddIdeaInfo,null,initCallBack.getAddIdeaInfoCallBack);
+			$('#edit_and_add').html('添加创意')
 		});
 	}
 	

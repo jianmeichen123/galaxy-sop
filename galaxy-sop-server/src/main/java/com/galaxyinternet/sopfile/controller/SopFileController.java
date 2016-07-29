@@ -559,6 +559,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		form.setFileWorktype(request.getParameter("fileWorktype"));
 		form.setFileSource(request.getParameter("fileSource"));
 		form.setRemark(request.getParameter("remark"));
+		
+		if(!StringUtils.isBlank(request.getParameter("id"))){
+			form.setId(Long.valueOf(request.getParameter("id")));
+		}
+		
 
 		if(!StringUtils.isBlank(request.getParameter("id"))){
 			form.setId(Long.valueOf(request.getParameter("id")));

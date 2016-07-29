@@ -23,9 +23,10 @@
 
 
 <!-- 添加访谈记录弹出层 -->
-<div class="meetingtc">
-	<div class="top clearfix">
-        <dl class="fmdl clearfix">
+<div class="meetingtc margin_45">
+<div class="title_bj">访谈日志</div>
+	<div>
+        <dl>
         <input type="hidden" id="vid">
             <!-- <dt>访谈时间：</dt> -->
             <dd>
@@ -44,7 +45,6 @@
         </dl>
     </div> --%>
     <dl class="fmdl clearfix">
-        <dt>访谈日志：</dt>
         <dd>
             <div type="text/plain" id="viewNotes" style="width:100%; min-width:646px; height:100px;" valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>会议纪要不能超过9000字符"></div>
         </dd>

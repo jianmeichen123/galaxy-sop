@@ -24,7 +24,8 @@
 </div>
 <!-- 弹出页面 -->
 <div id="upload-dialog" style="display: none;">
-	<div class="archivestc" >
+	<div class="title_bj">上传投资意向书</div>
+	<div class="archivestc margin_45" >
 	<form>
 		<input type="hidden" name="id">
 		<input type="hidden" name="pid" value="${projectId }">
@@ -74,7 +75,7 @@ $(function(){
 	loadRows();
 	loadRelatedData();
 	$("#show-upload-btn").click(function(){
-		showUploadPopup();
+		showUploadPopup($(this).text());
 	});
 	
 	$("#show-voucher-upload-btn").click(function(){
@@ -156,6 +157,11 @@ function showUploadPopup(type)
 		init:init(type),
 		txt:$("#upload-dialog").html(),
 		showback:function(){
+			if(type=='voucher'){
+				$('.title_bj').html('上传签署凭证');
+			}else{
+				$('.title_bj').html(type);
+			}
 			var _this = this;
 			initUpload(_this,type);
 			initForm(_this,type);

@@ -2,7 +2,8 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<div class="addmentc">
+<div class="addmentc margin_45">
+<div class="title_bj">编辑股权结构</div>
   <form action="" id="up_stock_form" method="post" type="validate">
   <input type="hidden" value="" name="projectId" id="projectId">
   <input type="hidden" name="id" value="${share.id }">
