@@ -63,7 +63,7 @@
 	        </dd>
 	        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a></dd>
 	    </dl> 
-	    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn";>上传保存</a>
+	    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
 	</form>
 	</div>
 </div>

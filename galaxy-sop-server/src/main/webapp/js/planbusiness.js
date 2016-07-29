@@ -140,6 +140,11 @@ var initPage = {
 						window.location.href=platformUrl.downLoadFile+'/'+id ;
 					},
 					uploadBusinessPlan : function(){
+						if($(this).text()=='上传'){
+							 $('.title_bj').html('上传商业计划书');							 
+						 }else{
+							 $('.title_bj').html('更新商业计划书');	
+						 }
 						formData = {
 				    			_fileType : "fileType:1",
 				    			_fileTypeAuto : true,
