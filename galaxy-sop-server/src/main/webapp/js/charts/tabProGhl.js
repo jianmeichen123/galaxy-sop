@@ -1,10 +1,12 @@
 var gul_url = platformUrl.meetingrate;
 if(!isGG) gul_url = platformUrl.meetingRateUser;
 
-
 var pageNum_ghl = 1;
 var queryParamsJson_ghl = {};
 
+$("#querySearch_ghl").on('click',function(){
+	$('#data-table-xmstj').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-ghl')); 
+});
 
 function pro_ghl_init(){
 	//绑定querySearch事件
@@ -15,6 +17,9 @@ function pro_ghl_init(){
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
+		queryParams:function(params){
+			return json_2_1(params,getToobarQueryParams('custom-toolbar-ghl'));
+		},
 		pagination: true,
         search: false,
         url: gul_url,
@@ -45,8 +50,6 @@ function pro_ghl_init(){
 
 
 	 
-
-
  
 /****************************************************************************
  * 过会率统计弹出层
@@ -84,8 +87,8 @@ function pro_ghl_init(){
 					pagination : true,
 					search : false,
 					url: platformUrl.meetRateProjectlist,
-					queryParams:function(){
-						return queryParamsJson_ghl;
+					queryParams:function(params){
+						return json_2_1(queryParamsJson_ghl,params);
 					},
 					onLoadSuccess : function(result) {
 						//console.log(result)

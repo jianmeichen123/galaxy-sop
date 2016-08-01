@@ -5,6 +5,10 @@ if(!isGG) url_tjl = platformUrl.meetingRateUser;
 var pageNum_tjl = 1;
 var queryParamsJson_tjl = {};
 
+$("#querySearch_tjl").on('click',function(){
+	$('#data-table-xmstj').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-tjl')); 
+});
+
 function pro_tjl_init(){
 	//绑定querySearch事件
 	$('#data-table-tjl').bootstrapTable({
@@ -14,6 +18,9 @@ function pro_tjl_init(){
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
+		queryParams:function(params){
+			return json_2_1(params,getToobarQueryParams('custom-toolbar-tjl'));
+		},
 		pagination: true,
         search: false,
         url: url_tjl,
@@ -41,7 +48,6 @@ function pro_tjl_init(){
         }
 	});
 }	
-
 
 
  
@@ -81,8 +87,8 @@ function pro_tjl_init(){
 					pagination : true,
 					search : false,
 					url: platformUrl.meetRateProjectlist,
-					queryParams:function(){
-						return queryParamsJson_tjl;
+					queryParams:function(params){
+						return json_2_1(queryParamsJson_tjl,params);
 					},
 					onLoadSuccess : function(result) {
 						//console.log(result)

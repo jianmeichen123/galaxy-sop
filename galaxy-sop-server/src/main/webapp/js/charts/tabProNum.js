@@ -3,9 +3,13 @@
 var pronum_url = platformUrl.gglinechart;
 if(!isGG) pronum_url = platformUrl.hhrlinechart;
 
-
 var pageNum_pronum = 1;
 var queryParamsJson_pronum = {};
+
+$("#querySearch_xmstj").on('click',function(){
+	$('#data-table-xmstj').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-xmstj')); 
+});
+
 
 function pro_num_init(){
 	//绑定querySearch事件
@@ -16,6 +20,9 @@ function pro_num_init(){
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
+		queryParams:function(params){
+			return json_2_1(params,getToobarQueryParams('custom-toolbar-xmstj'));
+		},
 		pagination: true,
         search: false,
         url: pronum_url,
@@ -74,6 +81,8 @@ function pro_num_init(){
 }
 
 
+
+
 /****************************************************************************
  * 项目数统计弹出层
  ***************************************************************************/
@@ -128,8 +137,8 @@ function xmstjprojectList(userid,deptid){
 				pagination : true,
 				search : false,
 				url: platformUrl.proNumProjectlist,
-				queryParams:function(){
-					return queryParamsJson_pronum;
+				queryParams:function(params){
+					return json_2_1(queryParamsJson_pronum,params);
 				},
 				onLoadSuccess : function(result) {
 					//console.log(result)

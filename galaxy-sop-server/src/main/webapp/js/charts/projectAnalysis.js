@@ -1,3 +1,36 @@
+var isGG = true;
+if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
+	isGG = true;
+}else{
+	isGG = false;
+}
+
+
+
+var utils = {
+	each : function(_data,_dom,type){
+		_dom.empty();
+		if(type=="all"){
+			_dom.append("<option value='all'>全部</option>");
+		}
+		$.each(_data.entityList,function(){
+			if(this.code){
+				_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
+			}else{
+				_dom.append("<option value='"+this.id+"'>"+this.name+"</option>");
+			}
+			
+		});
+	},
+	confident : function(value,tem){
+		if(value==tem){
+			return;
+		}else{
+			return value;
+		}
+	}
+}
+
 
 $(function(){
 	createMenus(8);
@@ -25,54 +58,6 @@ $(function(){
 	overViewInit();
 });
 	
-
-
-var isGG = true;
-if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
-	isGG = true;
-}else{
-	isGG = false;
-}
-
-
-
-//格式化比率
-function rate_format(value, row, index){
-	if(value=='undefined' || value==0 || !value){
-		return "0%";
-	} else if(value=='-'){
-		return value;
-	}else{
-		value = value * 100;
-		return value.toFixed(2)+"%";
-	}
-}
-
-
-var utils = {
-	each : function(_data,_dom,type){
-		_dom.empty();
-		if(type=="all"){
-			_dom.append("<option value='all'>全部</option>");
-		}
-		$.each(_data.entityList,function(){
-			if(this.code){
-				_dom.append("<option value='"+this.code+"'>"+this.name+"</option>");
-			}else{
-				_dom.append("<option value='"+this.id+"'>"+this.name+"</option>");
-			}
-			
-		});
-	},
-	confident : function(value,tem){
-		if(value==tem){
-			return;
-		}else{
-			return value;
-		}
-	}
-}
-
 
 
 
@@ -103,5 +88,59 @@ function investmentRateInit(){
 }
 
 
+
+//格式化比率
+function rate_format(value, row, index){
+	if(value=='undefined' || value==0 || !value){
+		return "0%";
+	} else if(value=='-'){
+		return value;
+	}else{
+		value = value * 100;
+		return value.toFixed(2)+"%";
+	}
+}
+
+
+//根据toobar id 获取表单参数
+function getToobarQueryParams(ToolbarId){
+	var toolbar = $("#"+ToolbarId);
+	var query = {};
+	toolbar.find("input[name][type!='radio']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		var val = input.val();
+		if(val!=''){
+			query[name]=val;
+		}
+	});
+	toolbar.find("input[type='radio']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		if(input.attr("checked")=="checked"||input.prop("checked")==true){
+			var val = input.val();
+    		if(val!=''){
+    			query[name]=val;
+    		}
+		}
+	});
+	toolbar.find("select[name]").each(function(){
+		var select = $(this);
+		var name = select.attr("name");
+		var val = select.val();
+		if(val!=''){
+			query[name]=val;
+		}
+	});
+	console.log(query);
+	return query;
+}
+
+
+function json_2_1(json1,json2){
+	var json = {};
+	json = eval('('+(JSON.stringify(json1)+JSON.stringify(json2)).replace(/}{/,',')+')');
+	return json;
+}
 
 

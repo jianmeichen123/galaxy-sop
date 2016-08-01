@@ -116,7 +116,6 @@
 			
 			<!-- 项目数统计 -->
 			<div class="tabtable_con"  data-tab="con">
-				<form>
 				<div class="search_box searchall" id="custom-toolbar-xmstj">
 					<dl class="fmdl fmmr clearfix">
 						<dt>项目类型：</dt>
@@ -136,11 +135,11 @@
 							<input type="text" class="txt time datepicker" value="" id="xmstj_edate" name="edate" />
 						</dd>
 						<dd>
-							<a href="javascript:;" class="bluebtn ico tj" action="querySearch">统计</a>
+							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_xmstj" >统计</a>
 						</dd>
 					</dl>
 				</div>
-				</form>
+				
 				<!--柱状图部分-->
 				<div class="chartbox">
 					<div id="container_xmstj" class="chart_m" style="min-width:800px;"></div>
@@ -149,7 +148,7 @@
 				
 				<div class="middle clearfix">
 					<div class="middle_l">
-						<table id="data-table-xmstj"  data-toolbar="#custom-toolbar-xmstj"
+						<table id="data-table-xmstj" 
 							width="100%" cellspacing="0" cellpadding="0">
 							<thead>
 								<tr>
@@ -236,7 +235,6 @@
 			
 			 <!-- 过会率统计 -->
 			 <div class="tabtable_con"   data-tab="con">
-			 	<form>
 				<div class="search_box searchall" id="custom-toolbar-ghl">
 					<dl class="fmdl fmmr clearfix">
 						<dt>会议时间：</dt>
@@ -247,11 +245,11 @@
 						</dd>
 						<dd>
 							<input type="hidden" name="meetingType" value="meetingType:3" /> 
-							<a href="javascript:;" class="bluebtn ico tj" action="querySearch">统计</a>
+							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_ghl">统计</a>
 						</dd>
 					</dl>
 				</div>
-				</form>
+				
 				<!--柱状图部分-->
 				<div class="chartbox">
 					<h2 class="chart_name">过会率TOP10</h2>
@@ -260,7 +258,7 @@
 				
 				
 				<!--表格内容-->
-				<table id="data-table-ghl"  data-toolbar="#custom-toolbar-ghl"
+				<table id="data-table-ghl"
 					width="100%" cellspacing="0" cellpadding="0" class="table_m">
 					<thead>
 						<tr>
@@ -281,7 +279,6 @@
 			
 			<!-- 投决率统计 -->
 			 <div class="tabtable_con"   data-tab="con">
-			 	<form>
 				<div class="search_box searchall" id="custom-toolbar-tjl">
 					<dl class="fmdl fmmr clearfix">
 						<dt>会议时间：</dt>
@@ -292,11 +289,10 @@
 						</dd>
 						<dd>
 							<input type="hidden" name="meetingType" value="meetingType:4" />
-							<a href="javascript:;" class="bluebtn ico tj" action="querySearch">统计</a>
+							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_tjl">统计</a>
 						</dd>
 					</dl>
 				</div>
-				</form>
 				<!--柱状图部分-->
 				<div class="chartbox">
 					<h2 class="chart_name">投决率TOP10</h2>
@@ -305,7 +301,7 @@
 				
 				
 				<!--表格内容-->
-				<table id="data-table-tjl"  data-toolbar="#custom-toolbar-tjl"
+				<table id="data-table-tjl" 
 					width="100%" cellspacing="0" cellpadding="0" class="table_m">
 					<thead>
 						<tr>
@@ -332,7 +328,7 @@
 
 </body>
 
-<%-- <script src="<%=path %>/js/cookie.js" type="text/javascript"></script> --%>
+<script src="<%=path %>/js/cookie.js" type="text/javascript"></script>
 <!-- table分页 -->
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
