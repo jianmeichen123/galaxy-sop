@@ -295,9 +295,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 			}
 		} catch (Exception e) {
+			logger.error("异常信息:",e.getMessage());
 			e.printStackTrace();
 		}
-		logger.error("测试!");
+	
 		return responseBody;
 	}
 
