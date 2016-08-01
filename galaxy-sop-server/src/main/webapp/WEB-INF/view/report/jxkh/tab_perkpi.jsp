@@ -72,7 +72,7 @@
 						<input type="text" class="txt time datepicker" name="edate" id="userkpi_edate" value="" />
 					</dd>
 					<dd>
-						<a href="javascript:;" class="bluebtn ico tj" action="querySearch">统计</a>
+						<a href="javascript:;" class="bluebtn ico tj" id="querySearch_perkpi">统计</a>
 					</dd>
 				</dl>
 			</div>
@@ -85,7 +85,7 @@
 			
 			
 			<!--表格内容-->
-			<table id="data-table-userkpi" data-toolbar="#custom-toolbasr-userkpi"
+			<table id="data-table-userkpi"
 				width="100%" cellspacing="0" cellpadding="0" class="table_m" >
 				<thead>
 					<tr>
@@ -142,6 +142,10 @@ $(function () {
 	
 	init(); //页面初始化
 	
+	$("#querySearch_perkpi").on('click',function(){
+		$('#data-table-userkpi').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-userkpi')); 
+	});
+	
 	//绑定querySearch事件
 	$('#data-table-userkpi').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
@@ -150,7 +154,9 @@ $(function () {
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
-		
+		queryParams:function(params){
+			return json_2_1(params,getToobarQueryParams('custom-toolbasr-userkpi'));
+		},
 		pagination: true,
         search: false,
         url: url,

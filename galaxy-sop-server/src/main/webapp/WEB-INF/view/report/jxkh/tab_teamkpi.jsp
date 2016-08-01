@@ -64,7 +64,7 @@
 						<input type="text" class="txt time datepicker" id="deptkpi_edate" name="edate" value="" />
 					</dd>
 					<dd>
-						<a href="javascript:;" class="bluebtn ico tj" action="querySearch">统计</a>  <!-- id="querySearch_deptkpi" -->
+						<a href="javascript:;" class="bluebtn ico tj" action="querySearch_teamkpi">统计</a>  <!-- id="querySearch_deptkpi" -->
 					</dd>
 				</dl>
 			</div>
@@ -76,7 +76,7 @@
 			
 			
 			<!--表格内容-->
-			<table id="data-table-deptkpi"  data-toolbar="#custom-toolbasr-deptkpi"
+			<table id="data-table-deptkpi"
 				width="100%" cellspacing="0" cellpadding="0" class="table_m">
 				<thead>
 					<tr>
@@ -133,6 +133,10 @@ $(function () {
 	
 	init(); //页面初始化
 	
+	$("#querySearch_teamkpi").on('click',function(){
+		$('#data-table-deptkpi').bootstrapTable('refresh',getToobarQueryParams('custom-toolbasr-deptkpi')); 
+	});
+	
 	//绑定querySearch事件
 	$('#data-table-deptkpi').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
@@ -141,6 +145,9 @@ $(function () {
 		showRefresh : false ,
 		sidePagination: 'server',
 		method : 'post',
+		queryParams:function(params){
+			return json_2_1(params,getToobarQueryParams('custom-toolbasr-deptkpi'));
+		},
 		pagination: true,
         search: false,
         url: url,
@@ -223,8 +230,8 @@ function deptkpiprojectList(id) {
 				search : false,
 				//dataType: 'html',
 				url: platformUrl.userkpi,
-				queryParams:function(){
-					return queryParamsJson;
+				queryParams:function(params){
+					return json_2_1(queryParamsJson,params);
 				},
 				onLoadSuccess : function(result) {
 					//console.log(result)
