@@ -1432,49 +1432,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		
 	}
 
-	/**
-	 * 跳转跳转至多文件详情页面
-	 * 2016-07-28
-	 * @return
-	 */
-	@RequestMapping(value="/toInterviewDetail")
-	public String toInterviewDetail(){
-		return "sopFile/interviewDialog";
-	}
-	/**
-	 * 
-	 * @param request
-	 * @param sopFile
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value="/interViewByMeetingId",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopFile> interViewByMeetingId(HttpServletRequest request, @RequestBody SopFile sopFile) {
-		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		if(sopFile.getMeetingId() == null){
-			responseBody.setResult(new Result(Status.ERROR, "记录ID不能为空"));
-			return responseBody;
-		}
-		try {
-		//	sopFile.setFileWorktype(DictEnum.fileWorktype.商业计划.getCode());
-			sopFile.setFileIsdel(1);
-			//sopFile.setMeetFlag(1);
-			PageRequest pageRequest = new PageRequest(sopFile.getPageNum(),sopFile.getPageSize(), Direction.DESC,
-					"created_time");
-			Page<SopFile> sopFilePage = sopFileService.queryFileList(sopFile, pageRequest);
-			if(sopFilePage.getContent().size()<=0){
-				responseBody.setResult(new Result(Status.OK,"null"));
-				return responseBody;
-			}
-			responseBody.setResult(new Result(Status.OK,""));
-			responseBody.setPageList(sopFilePage);
-		} catch (Exception e) {
-			// TODO: handle exception
-			responseBody.setResult(new Result(Status.ERROR,"系统出现异常"));
-		}
-		
-		return responseBody;
-	}
 	@RequestMapping("/showLxReportUpload")
 	public String showLxReportUpload()
 	{
