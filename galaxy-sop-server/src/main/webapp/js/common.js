@@ -799,7 +799,15 @@ function intervierInfoFormat(value, row, index){
 	var fileinfo = "" ;
 	var rc = "";
 	if( row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
-		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+		//fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+		if(row.meetingId!=undefined){
+			fileinfo = "<a href=\"javascript:;\" onclick=\"reloadInterviewFile("+row.id+",0);\" class=\"blue\" >详情</a>"
+
+		}else{
+			fileinfo = "<a href=\"javascript:;\" onclick=\"reloadInterviewFile(107,0);\" class=\"blue\" >详情</a>"
+
+		}
+
 	}
 	
 	var targetStr = row.viewTarget;
@@ -811,7 +819,6 @@ function intervierInfoFormat(value, row, index){
 	}else{
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
-	
 	rc = "<div style=\"text-align:left;padding:10px 0;margin-left:30px;\">"+
 				"访谈时间："+row.viewDateStr+
 				targerHtml+
@@ -834,7 +841,8 @@ function metcolumnFormat(value, row, index){
 	var fileinfo = "";
 	var rc = "";
 	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
-		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+	//	fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
+		fileinfo = "<a href=\"javascript:reloadInterviewFile("+row.id+",1);\" class=\"blue\" >详情</a>"
 	}
 	var str="<label class=\"meeting_result\">"+row.meetingResultStr+"</label>"
 	rc = "<div style=\"text-align:left;padding:10px 0;margin-left:30px;\">"+
@@ -844,21 +852,6 @@ function metcolumnFormat(value, row, index){
 			"</div>" ;
 	return rc;
 }
-
-/*function meetInfoFormat(value, row, index){
-	var fileinfo = "";
-	var rc = "";
-	if(row.fname!=null && row.fname!=undefined && row.fname!="undefined" ){
-		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
-	}
-	rc = "<div style=\"text-align:left;margin-left:10%;padding:10px 0;\">"+
-				"会议日期："+row.meetingDateStr+
-				"</br>会议结论："+row.meetingResultStr+
-				"</br>会议录音："+fileinfo+
-			"</div>" ;
-	return rc;
-}*/
-
 
 /**
  * 格式化富文本，记录中附加详情,不附加 title
@@ -1115,7 +1108,10 @@ function initTcVal(){
 	
 	var fileinfo = "";
 	if(interviewSelectRow.fname!=null && interviewSelectRow.fname!=undefined && interviewSelectRow.fname!="undefined" ){
-		fileinfo = "<a href=\"javascript:;\" onclick=\"filedown("+interviewSelectRow.fileId+","+interviewSelectRow.fkey+");\" class=\"blue\" >"+interviewSelectRow.fname+"</a>"
+	//	fileinfo = "<a href=\"javascript:;\" onclick=\"filedown("+interviewSelectRow.fileId+","+interviewSelectRow.fkey+");\" class=\"blue\" >"+interviewSelectRow.fname+"</a>"
+	fileinfo = "<a href=\"javascript:;\" onclick=\"reloadInterviewFile("+interviewSelectRow. id+",0);\" class=\"blue\" >"+详情+"</a>"
+		
+		
 	}
 	$("#fileNotBeUse").html("");
 	$("#fileNotBeUse").html("访谈录音："+fileinfo);
@@ -1307,3 +1303,85 @@ function setting(value,row,index){
 	}
 		return settingHtml;
 }
+var meetingId;
+function reloadInterviewFile(meetId,type){
+
+				$.getHtml({
+					url:platformUrl.toInterviewDetail,//模版请求地址
+					data:"",//传递参数
+					okback:function(){
+						var _this = this;											
+						var formdata = {
+								_domid : 'business_plan_grid',
+								meetId : meetId
+						}
+						meetingId=meetId;
+						loadData(formdata,type);
+					}
+				});
+		
+			}
+	function loadData (data,type){
+
+		function query(param){
+			param.meetingId=data.meetId;
+			param.meetFlag=type;
+			return param; 
+
+		}
+		
+		//	var query={"meetingId":data.meetingId};
+			 $('#' + data._domid).bootstrapTable({
+				url : platformUrl.interViewByMeetingId, // 请求后台的URL（*）
+				queryParamsType : 'size|page', // undefined
+				showRefresh : false,
+				search : false,
+				method : 'post', // 请求方式（*）
+				// toolbar: '#toolbar', //工具按钮用哪个容器
+				// striped: true, //是否显示行间隔色
+				cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+				pagination : true, // 是否显示分页（*）
+				sortable : false, // 是否启用排序
+				sortOrder : "asc", // 排序方式
+				queryParams :query,// 传递参数（*）
+				sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）
+				pageNumber : 1, // 初始化加载第一页，默认第一页
+				pageSize : 10, // 每页的记录行数（*）
+				pageList : [ 10, 20 ], // 可供选择的每页的行数（*）
+				strictSearch : true,
+				clickToSelect : true, // 是否启用点击选中行
+				// height: 460, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+				uniqueId : "id", // 每一行的唯一标识，一般为主键列
+				cardView : false, // 是否显示详细视图
+				detailView : false, // 是否显示父子表
+				//文件名称，状态，更新时间，下载
+				//fileName + fileSuffix,fileStatusDesc,createDate
+				columns : [{
+					field : 'fileName',
+					title : '文档名称',
+				//	formatter : gridFormatter.fileNameFormatter
+				}, {
+					field : 'fileStatusDesc',
+					title : '状态'
+				}, {
+					field : 'createDate',
+					title : '上传时间'
+				},{
+					field : 'operate',
+					title : '操作',
+					//events : operatorEvent,
+					formatter :operatorFormatter
+				}]
+			});	  
+		}
+function operatorEvent(id){
+			layer.msg('正在下载，请稍后...',{time:2000});
+			window.location.href=platformUrl.downLoadFile+'/'+id ;
+		}
+function operatorFormatter(value,row,index){
+		if(row.fileKey){
+			return [
+					'<a class="downloadlink blue"  href="javascript:void(0)" onclick="operatorEvent('+row.id+ ')">查看</a>'
+				   ].join('');
+		}
+	}

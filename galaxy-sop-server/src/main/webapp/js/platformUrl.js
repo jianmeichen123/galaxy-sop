@@ -550,6 +550,16 @@ var platformUrl = {
 	 */	
 	toBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/toBusinessPlanHistory",
 	/**
+	 * 跳转至会议录音详情页面
+	 */	
+	toInterviewDetail : Constants.sopEndpointURL + "/galaxy/sopFile/toInterviewDetail",
+	/**
+	 * 跳转至会议录音详情页面
+	 */	
+	interViewByMeetingId : Constants.sopEndpointURL + "/galaxy/sopFile/interViewByMeetingId",
+
+	
+	/**
 	 * 商业计划历史查询
 	 */	
 	searchBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/searchBusinessPlanHistory",
@@ -593,10 +603,18 @@ var platformUrl = {
 	/**
 	 * 删除投后运营会议
 	 */
-	deletePostMeeting: Constants.sopEndpointURL + "/galaxy/project/postOperation/deletePostMeeting"
+	deletePostMeeting: Constants.sopEndpointURL + "/galaxy/project/postOperation/deletePostMeeting",
 	
+	/**
+	 * 立项报告
+	 */
+	showLxReportUpload: Constants.sopEndpointURL + "/galaxy/sopFile/showLxReportUpload",
+	/**
+	 * 立项报告
+	 */
+	uploadSimpleFile: Constants.sopEndpointURL + "/galaxy/sopFile/upload",
 	
-	
+	delFile: Constants.sopEndpointURL + "/galaxy/sopFile/delFile"
 	
 }
 
