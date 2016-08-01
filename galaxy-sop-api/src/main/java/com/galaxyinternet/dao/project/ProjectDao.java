@@ -55,6 +55,8 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 
 	List<Project> selectHasMeetProList(MeetingRecordBo query, Pageable pageable);
 
+	public List<Project> selectColumnList(ProjectBo proQuery);
+
 	
 	
 }

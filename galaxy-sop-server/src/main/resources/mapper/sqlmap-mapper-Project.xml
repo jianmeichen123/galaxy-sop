@@ -214,6 +214,28 @@
 		<include refid="Base_Where_Clause" />
 	</select>
 
+
+	<!-- 查询 -->
+	<select id="selectColumnList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			id, 
+			project_name, 
+			project_code, 
+			project_type, 
+			project_careerline, 
+			project_departId,
+			industry_own, 
+		    create_uid, 
+		    create_uname, 
+		    create_uposition, 
+		    project_progress, 
+		    project_status, 
+		    updated_time, 
+		    created_time
+		from sop_project
+		<include refid="Base_Where_Clause" />
+	</select>
+	
 	<!-- 根据ID查询 -->
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select

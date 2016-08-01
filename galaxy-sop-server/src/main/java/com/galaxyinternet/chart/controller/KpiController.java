@@ -98,6 +98,57 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 	
 	
 	
+	
+	
+	/**
+	 * 首页 项目历时
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/proProgressTimeLine", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ChartDataBo> proProgressTimeLine(HttpServletRequest request,@RequestBody(required=false) ChartKpiQuery query) {
+		
+		//返回对象
+		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
+		
+		try {
+			if(query==null){
+				query = new ChartKpiQuery();
+			}
+			if(StringUtils.isBlank(query.getSdate())){
+				query.setSdate(DateUtil.getDefaultSdate(1));
+			}
+			if(StringUtils.isBlank(query.getEdate())){
+				query.setEdate(DateUtil.getDefaultEdate(1));
+			}
+			
+			query.setSdate(query.getSdate().trim() + " 00:00:00");
+			query.setEdate(query.getEdate().trim() + " 23:59:59");
+			Long startTime = DateUtil.stringToLong(query.getSdate(), "yyyy-MM-dd HH:mm:ss");
+			Long endTime = DateUtil.stringToLong(query.getEdate(), "yyyy-MM-dd HH:mm:ss");
+			if(startTime > endTime){
+				responseBody.setResult(new Result(Status.ERROR,null, "开始时间不能大于结束时间"));
+				return responseBody;
+			}
+			query.setStartTime(startTime);
+			query.setEndTime(endTime);
+
+			Page<ChartDataBo> pageList = kpiService.proTimeLine(query);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setPageList(pageList);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "项目历时统计失败"));
+			logger.error("proProgressTimeLine 项目历时统计失败",e);
+		}
+		
+		return responseBody;
+	}
+	
+	
+	
+	
+	
 	//    //TODO   绩效考核
 	
 	/**
@@ -163,8 +214,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setPageList(pageList);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "统计失败"));
-			logger.error("userKpi report 统计失败",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "绩效考核统计失败"));
+			logger.error("userKpi report 绩效考核统计失败",e);
 		}
 		
 		return responseBody;
@@ -209,8 +260,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			responseBody.setQueryParamsJsonStr(queryParamsJsonStr);
 			responseBody.setPageList(pageList);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "统计失败"));
-			logger.error("userKpi report 统计失败",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "绩效考核统计失败"));
+			logger.error("deptkpi report 绩效考核统计失败",e);
 		}
 		
 		return responseBody;
@@ -316,8 +367,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			responseBody.setPageList(pageList);
 			responseBody.setQueryParamsJsonStr(queryParamsJsonStr);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "高管项目数统计失败"));
-			logger.error("gglinechart 高管项目数统计失败",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "项目数统计失败"));
+			logger.error("gglinechart 项目数统计失败",e);
 		}
 		
 		return responseBody;
@@ -438,8 +489,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setPageList(pageList);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "项目数统计失败"));
-			logger.error("hhrLineChart 项目数统计失败",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "项目列表统计失败"));
+			logger.error("proNumProjectlist 项目列表统计失败",e);
 		}
 		
 		return responseBody;
@@ -584,8 +635,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			responseBody.setPageList(pageList);
 			responseBody.setQueryParamsJsonStr(queryParamsJsonStr);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "项目数统计失败"));
-			logger.error("hhrLineChart 项目数统计失败",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "统计失败"));
+			logger.error("tzjlMeetPassRate 统计失败",e);
 		}
 		
 		return responseBody;
@@ -637,8 +688,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setPageList(pageList);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "项目数统计失败"));
-			logger.error("hhrLineChart 项目数统计失败",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "项目列表统计失败"));
+			logger.error("meetRateProjectlist 项目列表统计失败",e);
 		}
 		
 		return responseBody;
@@ -707,8 +758,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setPageList(pageList);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "过会率统计失败"));
-			logger.error("deptMeetPassRate 过会率统计失败",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "投资事业线目标完成对比统计失败"));
+			logger.error("deptProTarget 投资事业线目标完成对比统计失败",e);
 		}
 		
 		return responseBody;
@@ -769,8 +820,8 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setPageList(pageList);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,null, "项目数统计失败"));
-			logger.error("hhrLineChart 项目数统计失败",e);
+			responseBody.setResult(new Result(Status.ERROR,null, "投资事业线目标完成对比统计失败"));
+			logger.error("tzjlProTarget 投资事业线目标完成对比统计失败",e);
 		}
 		
 		return responseBody;

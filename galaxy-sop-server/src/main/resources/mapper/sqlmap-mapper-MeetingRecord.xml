@@ -467,11 +467,13 @@
 			FROM 
 				sop_meeting_record 
 			WHERE 
-				<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
-				<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			  <trim prefixOverrides="and">
+				<if test="startTime != null"> <![CDATA[  and meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
 			
-				<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
-				<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+				<if test="meetingType != null">and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
+			  </trim>
 			GROUP BY project_id,meeting_type
 			) a
 			LEFT JOIN
@@ -481,11 +483,13 @@
 			FROM 
 				sop_meeting_record 
 			WHERE 
-				<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
-				<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
-				<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
-				<if test="meetingResult != null">and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
-				<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+			  <trim prefixOverrides="and">
+				<if test="startTime != null"> <![CDATA[  and meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="meetingType != null">and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+				<if test="meetingResult != null">and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
+			  </trim>
 			GROUP BY project_id,meeting_type
 			)b
 			ON a.project_id = b.project_id AND a.meeting_type = b.meeting_type

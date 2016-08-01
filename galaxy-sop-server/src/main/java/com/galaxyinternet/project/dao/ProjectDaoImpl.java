@@ -145,4 +145,10 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 		return sqlSessionTemplate.selectList(getSqlName("selectHasMeetProList"),params);
 	}
 	
+	
+	@Override
+	public List<Project> selectColumnList(ProjectBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectColumnList"),params);
+	}
 }
