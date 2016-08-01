@@ -6,8 +6,13 @@
 		<result column="project_count" jdbcType="BIGINT" property="projectCount" />
 		<result column="project_progress" jdbcType="VARCHAR" property="projectProgress" />
 		<result column="project_date" jdbcType="VARCHAR" property="projectDate" />
+		<result column="department_id" jdbcType="BIGINT" property="departmentId"/>
+		<result column="project_type" jdbcType="VARCHAR" property="projectType"/>
+		<result column="create_uid" jdbcType="BIGINT" property="createUid"/>
+		<result column="appraisement" jdbcType="BIGINT" property="appraisement"/>
+		<result column="invest" jdbcType="BIGINT" property="invest"/>
 	</resultMap>
-
+	
 	<sql id="Base_Where_Clause">
 		<where>
 			<trim prefixOverrides="and">
@@ -15,6 +20,7 @@
 				<if test="startTime!=null"><![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]></if>
 				<if test="endTime!=null"><![CDATA[  and created_time <= #{endTime,jdbcType=BIGINT} ]]></if>
 				<if test="departmentId != null"> and project_departId = #{departmentId,jdbcType=BIGINT}</if>
+				<if test="projectProgress != null"> and project_progress = #{projectProgress,jdbcType=VARCHAR}</if>
 			</trim>
 		</where>
 	</sql>
@@ -67,6 +73,81 @@
 			</otherwise>
 		</choose>
 		order by project_date asc 
+	</select>
+	<!-- 根据事业线，投资经理，项目类型，日期分组查询目标数 -->
+	<select id="selectCountGroupAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select 	
+		<choose>
+			<when test="dateType!=null">
+				from_unixtime(created_time/1000,#{dateType,jdbcType=VARCHAR}) as project_date,
+			</when>
+			<otherwise>
+				from_unixtime(created_time/1000,'%Y-%m-%d') as project_date,
+			</otherwise>
+		</choose>
+		count(0) as project_count,
+		project_departId as department_id,
+		project_type,
+		create_uid
+		from sop_project
+		<include refid="Base_Where_Clause" />
+		group by 
+		<choose>
+			<when test="dateType!=null">
+				from_unixtime(created_time/1000,#{dateType,jdbcType=VARCHAR}),
+			</when>
+			<otherwise>
+				from_unixtime(created_time/1000,'%Y-%m-%d'),
+			</otherwise>
+		</choose>
+		project_departId,project_type,create_uid
+		 order by project_date asc 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="selectCountGroupAllCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(0) from (
+			select	
+				<choose>
+					<when test="dateType!=null">
+						from_unixtime(created_time/1000,#{dateType,jdbcType=VARCHAR}) as project_date,
+					</when>
+					<otherwise>
+						from_unixtime(created_time/1000,'%Y-%m-%d') as project_date,
+					</otherwise>
+				</choose>	
+				project_departId as department_Id,
+				project_type,
+				create_uid,
+				count(0) projectCount
+				from  sop_project 
+				<include refid="Base_Where_Clause" />
+				group by 	
+							<choose>
+								<when test="dateType!=null">
+									from_unixtime(created_time/1000,#{dateType,jdbcType=VARCHAR}),
+								</when>
+								<otherwise>
+									from_unixtime(created_time/1000,'%Y-%m-%d'),
+								</otherwise>
+							</choose>
+							project_departId,
+							project_type,
+							create_uid
+				order by 	project_Date asc
+			) a	
+	</select>
+	
+	<select id="selectInvestmentGroupDate" resultMap="BaseResultMap" parameterType="java.util.Map" >
+		select 		ifnull(sum(project_valuations),0)  as appraisement , 
+					ifnull(sum(project_contribution),0) as invest, 
+					from_unixtime(created_time/1000,'%Y-%m') as project_date
+		from 		sop_project 
+		<include refid="Base_Where_Clause" />
+		group by 	from_unixtime(created_time/1000,'%Y-%m')
 	</select>
 	
 	

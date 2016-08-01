@@ -1,13 +1,13 @@
 var searchRiseRatePanel = {
 		init : function(){
 			//初始化日期选择
-			var formdata = {
+			var _formdata = {
 					title : "项目创建日期：",
 					day : true,
 					month : true,
 					domid : "search_datepicker"
 			}
-			datepickerSelecter.init(formdata);
+			datepickerSelecter.init(_formdata);
 			//初始化日期
 			datePickerInitByHandler("search_rise_rate_form");
 			
@@ -29,8 +29,94 @@ var searchRiseRatePanel = {
 				utils.each(data,_dom,"all");
 			});
 			
+			$("#search_rise_rate_form").find("#search_btn").click(function(){
+				queryRiseRateUtils.query();
+			});  
+			
 			chartRiseRateUtils.init();
+			var formdata = {
+					domid : "grid_rise_rate"
+			}
+			riseRateGrid.init(formdata);
+			
 		}
+}
+
+var riseRateGrid = {
+		init : function(formdata){
+			if(!formdata.domid){
+				layer.msg("参数domid不能为空");
+				return;
+			}
+			$('#'+formdata.domid).bootstrapTable({
+			      url : platformUrl.searchRiseRateGrid,     //请求后台的URL（*）
+			      queryParamsType: 'size|page', // undefined
+			      showRefresh : false ,
+			      search: false,
+			      method : 'post',           //请求方式（*）
+//			      toolbar: '#toolbar',        //工具按钮用哪个容器
+//			      striped: true,           //是否显示行间隔色
+			      cache: false,            //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+			      pagination: true,          //是否显示分页（*）
+			      sortable: false,           //是否启用排序
+			      sortOrder: "asc",          //排序方式
+			      queryParams: riseRateGrid.queryParams,//传递参数（*）
+			      sidePagination: "server",      //分页方式：client客户端分页，server服务端分页（*）
+			      pageNumber:1,            //初始化加载第一页，默认第一页
+			      pageSize: 10,            //每页的记录行数（*）
+			      pageList: [10, 20],    //可供选择的每页的行数（*）
+			      strictSearch: true,
+			      clickToSelect: true,        //是否启用点击选中行
+//			      height: 460,            //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+			      uniqueId: "id",           //每一行的唯一标识，一般为主键列
+			      cardView: false,          //是否显示详细视图
+			      detailView: false,          //是否显示父子表
+			      columns: [
+					{
+			        field: 'projectDate',
+			        title: '时间'
+			      },{
+				    field: 'departmentName',
+				    title: '投资事业线'
+				  },{
+			        field: 'projectTypeName',
+			        title: '项目类型'	
+			      }, {
+			        field: 'createUname',
+			        title: '投资经理'
+			      }, {
+			        field: 'projectCount',
+			        title: '项目数'
+			      }, {
+			        field: 'riseRate',
+			        title: '环比'
+			      }]
+			    });
+		},
+		queryParams : function(params){
+			var form = queryRiseRateUtils.getQuery();
+			params.departmentId = form.departmentId;
+//			params.projectProgress = form.projectProgress;
+			params.projectType = form.projectType;
+			
+			params.startTime = form.startTime;
+			params.endTime = form.endTime;
+			params.dateType = form.dateType;
+			return params;
+			
+		},
+		nameFormatter : function(value, row, index){
+			return ['<a class="projectNameLink blue" id="projectName" href="javascript:void(0)">',
+			        value,
+			        '</a>  '
+			        ].join('');
+		},
+		nameEvents : {
+			'click .filedownloadlink': function (e, value, row, index) {
+				window.location.href = platformUrl.showProject + "/" + row.id + "/1";
+			}
+		},
+		research : false
 }
 
 var queryRiseRateUtils = {
@@ -53,6 +139,7 @@ var queryRiseRateUtils = {
 			form.endTime = $("#search_rise_rate_form").find("#search_date_choose_" + form.chooseDate).find("#search_end_time").val();
 			
 			if(form.chooseDate=='day'){
+				form.dateType = '%Y-%m-%d';
 				if(form.startTime && form.startTime.trim() != ''){
 					form.startTime = DateUtils.getTime(form.startTime+' 00:00:00');
 				}else{
@@ -64,13 +151,14 @@ var queryRiseRateUtils = {
 					form.endTime = undefined;
 				}
 			}else if(form.chooseDate=='month'){
+				form.dateType = '%Y-%m';
 				if(form.startTime && form.startTime.trim() != ''){
 					form.startTime = DateUtils.getTime(form.startTime+'-01 00:00:00');
 				}else{
 					form.startTime = undefined;
 				}
 				if(form.endTime && form.endTime.trim() != ''){
-					var lastDay = DateUtil.getLastDayByMonth();
+					var lastDay = DateUtils.getLastDayByMonth();
 					form.endTime = DateUtils.getTime(form.endTime+'-'+lastDay+' 23:59:59');
 				}else{
 					form.endTime = undefined;
@@ -81,17 +169,17 @@ var queryRiseRateUtils = {
 			return form;
 		},
 		query : function(){
-			projectGrid.research = true;
+			riseRateGrid.research = true;
 			//departmentId,projectType,startTime,endTime
-			chartOverviewUtils.init();
-			$('#grid_overview').bootstrapTable('refresh',projectGrid.queryParams);
+			chartRiseRateUtils.init();
+			$('#grid_rise_rate').bootstrapTable('refresh',riseRateGrid.queryParams);
 		}
 }
 
 var chartRiseRateUtils = {
 		chartRiseRateOptions : {
 				chart: {
-					renderTo:'container_xmzzl',type: 'line',//margin: [ 50, 50, 100, 80]
+					renderTo:'chart_rise_rate',type: 'line',//margin: [ 50, 50, 100, 80]
 		        },
 		        title: {
 		            text: '项目完成率分析',

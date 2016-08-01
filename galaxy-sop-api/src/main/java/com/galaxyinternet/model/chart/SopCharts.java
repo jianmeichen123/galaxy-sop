@@ -2,6 +2,7 @@ package com.galaxyinternet.model.chart;
 
 import java.io.Serializable;
 
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
@@ -34,7 +35,7 @@ public class SopCharts extends BaseEntity implements Serializable {
 	/**
 	 * 项目所属事业线
 	 */
-	private String departmentId;
+	private Long departmentId;
 	
 	/**
 	 * 排序
@@ -46,16 +47,18 @@ public class SopCharts extends BaseEntity implements Serializable {
 	 * 以下为查询用
 	 * 开始时间
 	 */
-	private String startTime;
+	private Long startTime;
 	
 	/**
 	 * 结束时间
 	 */
-	private String endTime;
+	private Long endTime;
 	/**
 	 *  项目类型
 	 */
 	private String projectType;
+	
+	private Long createUid;
 	
 	
 	
@@ -106,8 +109,40 @@ public class SopCharts extends BaseEntity implements Serializable {
 	 */
 	private String dateType;
 	
+	/**
+	 * 估值
+	 */
+	private Long appraisement;
 	
+	/**
+	 * 投资
+	 */
+	private Long invest;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private String createUname;
+	private String departmentName;
+	private String projectTypeName;
 
+	
+	
+	protected Integer pageSize;
+	protected Integer pageNum;
 	
 	
 	
@@ -150,34 +185,40 @@ public class SopCharts extends BaseEntity implements Serializable {
 	public void setSort(int sort) {
 		this.sort = sort;
 	}
-	public String getStartTime() {
+	public Long getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(String startTime) {
+	public void setStartTime(Long startTime) {
 		this.startTime = startTime;
 	}
-	public String getEndTime() {
+	public Long getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(String endTime) {
+	public void setEndTime(Long endTime) {
 		this.endTime = endTime;
 	}
 	public String getProjectType() {
 		return projectType;
 	}
+
 	public void setProjectType(String projectType) {
-		this.projectType = projectType;
+		this.projectType = projectType == null ? null : projectType.trim();
+		if (projectType != null) {
+			this.projectTypeName = DictEnum.projectType
+					.getNameByCode(projectType);
+		}
 	}
-	public String getDepartmentId() {
+
+	
+	
+
+
+	public Long getDepartmentId() {
 		return departmentId;
 	}
-	public void setDepartmentId(String departmentId) {
+	public void setDepartmentId(Long departmentId) {
 		this.departmentId = departmentId;
 	}
-	
-	
-
-
 	public String getProjectDate() {
 		return projectDate;
 	}
@@ -235,6 +276,54 @@ public class SopCharts extends BaseEntity implements Serializable {
 	}
 	public void setRiseRate(String riseRate) {
 		this.riseRate = riseRate;
+	}
+	public Long getCreateUid() {
+		return createUid;
+	}
+	public void setCreateUid(Long createUid) {
+		this.createUid = createUid;
+	}
+	public String getCreateUname() {
+		return createUname;
+	}
+	public void setCreateUname(String createUname) {
+		this.createUname = createUname;
+	}
+	public String getDepartmentName() {
+		return departmentName;
+	}
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+	public String getProjectTypeName() {
+		return projectTypeName;
+	}
+	public void setProjectTypeName(String projectTypeName) {
+		this.projectTypeName = projectTypeName;
+	}
+	public Integer getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(Integer pageSize) {
+		this.pageSize = pageSize;
+	}
+	public Integer getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(Integer pageNum) {
+		this.pageNum = pageNum;
+	}
+	public Long getAppraisement() {
+		return appraisement;
+	}
+	public void setAppraisement(Long appraisement) {
+		this.appraisement = appraisement;
+	}
+	public Long getInvest() {
+		return invest;
+	}
+	public void setInvest(Long invest) {
+		this.invest = invest;
 	}
 
 	

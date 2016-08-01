@@ -4,8 +4,10 @@ package com.galaxyinternet.chart.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 
 import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.exception.DaoException;
@@ -61,8 +63,18 @@ public class BaseChartDaoImpl<T> {
 	 *            查询对象
 	 * @return Map 查询参数
 	 */
-	protected Map<String, Object> getParams(T query) {
-		Map<String, Object> params = BeanUtils.toMap(query);
+	protected Map<String, Object> getParams(T query,Pageable pageable) {
+		Map<String, Object> params = BeanUtils.toMap(query,getRowBounds(pageable));
+		if (pageable != null && pageable.getSort() != null) {
+			String sorting = pageable.getSort().toString();
+			params.put("sorting", sorting.replace(":", ""));
+			String str=(String)params.get("sorting");
+			if(str.contains("---")){
+				
+				params.put("sorting", str.replace("---", ":"));
+			}
+		
+		}
 		return params;
 	}
 	
@@ -97,6 +109,21 @@ public class BaseChartDaoImpl<T> {
 		} catch (Exception e) {
 			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName(SqlId.SQL_SELECT_COUNT)), e);
 		}
+	}
+	
+	/**
+	 * 设置分页
+	 * 
+	 * @param pageInfo
+	 *            分页信息
+	 * @return SQL分页参数对象
+	 */
+	protected RowBounds getRowBounds(Pageable pageable) {
+		RowBounds bounds = RowBounds.DEFAULT;
+		if (null != pageable) {
+			bounds = new RowBounds(pageable.getOffset(), pageable.getPageSize());
+		}
+		return bounds;
 	}
 	
 	
