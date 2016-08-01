@@ -1,5 +1,15 @@
-/*function init(){
-	createMenus(25);
+
+$(function(){
+	createMenus(8);
+	
+	//表单日期初始化
+	var currDate = new Date();
+	var sdate = currDate.format("yyyy-01-01");
+	var edate = currDate.format("yyyy-MM-dd");
+	$("input[name='sdate']").val(sdate);
+	$("input[name='edate']").val(edate);
+	
+	
 	$('.project_analysis').tabchange2({
 		onchangeSuccess:function(index){
 			switch(index){
@@ -13,17 +23,8 @@
 		}
 	});
 	overViewInit();
-}
-
-$(document).ready(init());
-
-*/
-
-$(function(){
-	var liList = $(".project_analysis .tablink").find("li");
-	createMenus(8);
-	
 });
+	
 
 
 var isGG = true;
@@ -33,8 +34,19 @@ if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
 	isGG = false;
 }
 
-var pageNum = 1;
-var queryParamsJson = {};
+
+
+//格式化比率
+function rate_format(value, row, index){
+	if(value=='undefined' || value==0 || !value){
+		return "0%";
+	} else if(value=='-'){
+		return value;
+	}else{
+		value = value * 100;
+		return value.toFixed(2)+"%";
+	}
+}
 
 
 var utils = {
@@ -62,31 +74,6 @@ var utils = {
 }
 
 
-function showCheckTabs(index)
-{
-	switch(index)
-	{
-	case 1 :  
-		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/kpireport/toProOverView");
-		break;
-	case 2 :
-		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/kpireport/paprojectlist");
-		break;
-	case 3 :
-		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/kpireport/toprorRiseRate");
-		break;
-	case 4 :
-		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/kpireport/toGhlSum");
-		break;
-	case 5 :
-		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/kpireport/toTjlSum");
-		break;
-	default : 
-		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/kpireport/toProOverView");
-	
-	}
-
-}
 
 
 //项目总览
@@ -96,6 +83,7 @@ function overViewInit(){
 }
 //项目统计数
 function statisticsInit(){
+	pro_num_init();
 	console.log("statisticsInit");
 }
 //项目增长率
@@ -105,10 +93,15 @@ function riseRateInit(){
 }
 //过会率
 function passMeetRateInit(){
+	pro_ghl_init();
 	console.log("passMeetRateInit");
 }
 //投决率
 function investmentRateInit(){
+	pro_tjl_init();
 	console.log("investmentRateInit");
 }
+
+
+
 

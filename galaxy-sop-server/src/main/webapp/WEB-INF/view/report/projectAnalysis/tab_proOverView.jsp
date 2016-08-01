@@ -10,32 +10,20 @@
 <head>
 <meta charset="utf-8">
 <title>繁星</title>
+	
 	<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+	<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
+	<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
 	<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-	<!-- jsp文件头和头部 -->
-	<%@ include file="/WEB-INF/view/common/taglib.jsp"%>
+	
+	<!-- bootstrap-table -->
 	<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 	<!-- 日历插件 -->
 	<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-	<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
-	<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
-	<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-    <script src="<%=path %>/js/init.js"></script>
-    
-    <!-- time -->
-	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-	<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
-	<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-selecter.js"></script>
 	
-	<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
-	<script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
-	<script src="<%=path%>/js/charts/tabAnalysisOverview.js"></script>
-	<script src="<%=path%>/js/charts/tabAnalysisRiseRate.js"></script>
-	<script src="<%=path%>/js/charts/projectAnalysis.js"></script>
-    
-</head>
+	<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 
+</head>
 
 
 <body>
@@ -53,17 +41,25 @@
 		
 		<div class="tabtable project_analysis">
 			<!-- tab标签 -->
-			<ul class="tablink">
+			<!-- <ul class="tablink">
 				<li class="on"><a href="javascript:;" onclick="showCheckTabs(1)">项目总览</a></li>   
 				<li><a href="javascript:;" onclick="showCheckTabs(2)">项目数统计</a></li>
 				<li><a href="javascript:;" onclick="showCheckTabs(3)">项目完成增长率统计</a></li>
 				<li><a href="javascript:;" onclick="showCheckTabs(4)">过会率统计</a></li>
 				<li><a href="javascript:;" onclick="showCheckTabs(5)">投决率统计</a></li>
+			</ul> -->
+			<ul class="tablink">
+				<li data-tab="nav"><a href="javascript:;">项目总览</a></li>
+				<li data-tab="nav"><a href="javascript:;">项目数统计</a></li>
+				<li data-tab="nav"><a href="javascript:;">项目完成增长率统计</a></li>
+				<li data-tab="nav"><a href="javascript:;">过会率统计</a></li>
+				<li data-tab="nav"><a href="javascript:;">投决率统计</a></li>
 			</ul>
 			
 			
+			
 			<!-- 项目总揽部分 -->
-			<div class="tabtable_con">
+			<div class="tabtable_con" data-tab="con">
 			  	<form id="search_overview_form">
 				<div class="search_box searchall" id="custom-toolbasr-xmzl">
 					<dl class="fmdl fmmr clearfix">
@@ -114,6 +110,219 @@
 					cellpadding="0"></table>
 			</div>
 			
+			
+			
+			
+			
+			<!-- 项目数统计 -->
+			<div class="tabtable_con"  data-tab="con">
+				<form>
+				<div class="search_box searchall" id="custom-toolbar-xmstj">
+					<dl class="fmdl fmmr clearfix">
+						<dt>项目类型：</dt>
+						<dd>
+							<select name="projectType" id="xmstj_projectType">
+								<option value="">全部</option>
+								<option value="projectType:2">内部创建</option>
+								<option value="projectType:1">外部投资</option>
+							</select>
+						</dd>
+					</dl>
+					<dl class="fmdl fmmr clearfix">
+						<dt>项目创建日期：</dt>
+						<dd>
+							<input type="text" class="txt time datepicker" value="" id="xmstj_sdate" name="sdate" /> 
+							<span>至</span> 
+							<input type="text" class="txt time datepicker" value="" id="xmstj_edate" name="edate" />
+						</dd>
+						<dd>
+							<a href="javascript:;" class="bluebtn ico tj" action="querySearch">统计</a>
+						</dd>
+					</dl>
+				</div>
+				</form>
+				<!--柱状图部分-->
+				<div class="chartbox">
+					<div id="container_xmstj" class="chart_m" style="min-width:800px;"></div>
+				</div>
+				
+				
+				<div class="middle clearfix">
+					<div class="middle_l">
+						<table id="data-table-xmstj"  data-toolbar="#custom-toolbar-xmstj"
+							width="100%" cellspacing="0" cellpadding="0">
+							<thead>
+								<tr>
+									<th data-field="realName"  		 class="data-input" data-visible="false">	投资经理</th> 
+									<th data-field="departmentName"  class="data-input">	投资事业线	</th>
+									<th data-field="rate"  		 	 class="data-input" data-formatter="rate_format">完成率</th>
+									<th data-field="target"  		 class="data-input" >目标数</th>
+									<th data-field="completed"  	 class="data-input" data-formatter="pro_num_format">	项目数		</th>
+									<th data-field="notCompleted"  	 class="data-input">	未完成		</th>
+								</tr>
+							</thead>
+							
+						</table>
+					</div>
+					
+					<div class="middle_r">
+						<!-- 环形图展示  -->
+						<div id="container_xmstj_bt"></div>
+					</div>
+				</div>
+				
+			</div>
+			
+			
+			
+			
+			
+			<!-- 项目数完成增长率统计 -->
+			<div class="tabtable_con"  data-tab="con">
+				<form id="search_rise_rate_form">
+				<div class="search_box searchall">
+					<dl class="fmdl fmmr clearfix">
+						<dt>投资事业线：</dt>
+						<dd>
+							<select name="departmentId" id="search_project_depart_id"></select>
+						</dd>
+					</dl>
+					<dl class="fmdl fmmr clearfix">
+						<dt>项目类型：</dt>
+						<dd>
+							<select name="projectType" id="search_project_type">
+								<option value="all">全部</option>
+								<option value="projectType:2">内部创建</option>
+								<option value="projectType:1">外部投资</option>
+							</select>
+						</dd>
+					</dl>
+					<div id= "search_datepicker">					
+					</div>
+					<dl class="fmdl fmmr clearfix">
+						<dd>
+							<a href="javascript:;" class="bluebtn ico tj"
+								id="search_btn">统计</a>
+						</dd>
+					</dl>
+				</div>
+				</form>
+				<!--柱状图部分-->
+				<div class="chartbox">
+					<div id="container_xmzzl" class="chart chart_m"></div>
+				</div>
+				<!--表格内容-->
+				<!-- <a href="javascript:;" class="pubbtn bluebtn export">导出</a> -->
+				<table id="data-table-xmzzl" width="100%" cellspacing="0"
+					cellpadding="0">
+					<thead>
+						<tr>
+							<th data-field="biz_date"  class="data-input">时间</th>
+							<th data-field="dept_name"  class="data-input">投资事业线</th>
+							<th data-field="project_type_name" 
+								class="data-input">项目类型</th>
+							<th data-field="real_name"  class="data-input">投资经理</th>
+							<th data-field="completed"  class="data-input">项目数</th>
+							<th data-field="rise_rate"  class="data-input"
+								data-formatter="rate_format">环比</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			
+			
+			
+			
+			
+			 <!-- 过会率统计 -->
+			 <div class="tabtable_con"   data-tab="con">
+			 	<form>
+				<div class="search_box searchall" id="custom-toolbar-ghl">
+					<dl class="fmdl fmmr clearfix">
+						<dt>会议时间：</dt>
+						<dd>
+							<input type="text" id="ghl_sdate" name="sdate" class="txt time datepicker" value="" /> 
+							<span>至</span> 
+							<input type="text" id="ghl_edate" name="edate" class="txt time datepicker" value="" />
+						</dd>
+						<dd>
+							<input type="hidden" name="meetingType" value="meetingType:3" /> 
+							<a href="javascript:;" class="bluebtn ico tj" action="querySearch">统计</a>
+						</dd>
+					</dl>
+				</div>
+				</form>
+				<!--柱状图部分-->
+				<div class="chartbox">
+					<h2 class="chart_name">过会率TOP10</h2>
+					<div id="container_ghl"></div>
+				</div>
+				
+				
+				<!--表格内容-->
+				<table id="data-table-ghl"  data-toolbar="#custom-toolbar-ghl"
+					width="100%" cellspacing="0" cellpadding="0" class="table_m">
+					<thead>
+						<tr>
+							<th data-field="realName"  		 class="data-input" data-visible="false"> 投资经理</th> 
+							<th data-field="departmentName"  class="data-input"> 投资事业线	</th>
+							<th data-field="rate"  		 	 class="data-input" data-formatter="cat_ghl">过会率</th>
+							<th data-field="proMeetNum"  	 class="data-input" >过会项目数</th>
+							<th data-field="passMeetProNumber"  	 class="data-input" >通过数</th>
+							<th data-field="vetoMeetProNumber"  	 class="data-input" >失败数</th>
+							<th data-field="waitMeetProNumber"  	 class="data-input" >待定数</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			
+			
+			
+			
+			<!-- 投决率统计 -->
+			 <div class="tabtable_con"   data-tab="con">
+			 	<form>
+				<div class="search_box searchall" id="custom-toolbar-tjl">
+					<dl class="fmdl fmmr clearfix">
+						<dt>会议时间：</dt>
+						<dd>
+							<input type="text" id="ghl_sdate" name="sdate" class="txt time datepicker" value="" /> 
+							<span>至</span> 
+							<input type="text" id="ghl_edate" name="edate" class="txt time datepicker" value="" />
+						</dd>
+						<dd>
+							<input type="hidden" name="meetingType" value="meetingType:4" />
+							<a href="javascript:;" class="bluebtn ico tj" action="querySearch">统计</a>
+						</dd>
+					</dl>
+				</div>
+				</form>
+				<!--柱状图部分-->
+				<div class="chartbox">
+					<h2 class="chart_name">投决率TOP10</h2>
+					<div id="container_tjl"></div>
+				</div>
+				
+				
+				<!--表格内容-->
+				<table id="data-table-tjl"  data-toolbar="#custom-toolbar-tjl"
+					width="100%" cellspacing="0" cellpadding="0" class="table_m">
+					<thead>
+						<tr>
+							<th data-field="realName"  		 class="data-input" data-visible="false"> 投资经理</th> 
+							<th data-field="departmentName"  class="data-input"> 投资事业线	</th>
+							<th data-field="rate"  		 	 class="data-input" data-formatter="cat_tjl">过会率</th>
+							<th data-field="proMeetNum"  	 class="data-input" >过会项目数</th>
+							<th data-field="passMeetProNumber"  	 class="data-input" >通过数</th>
+							<th data-field="vetoMeetProNumber"  	 class="data-input" >失败数</th>
+							<th data-field="waitMeetProNumber"  	 class="data-input" >待定数</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			
+			
+			
 		</div>
 	</div>
 </div>
@@ -123,16 +332,28 @@
 
 </body>
 
-<script type="text/javascript">
+<%-- <script src="<%=path %>/js/cookie.js" type="text/javascript"></script> --%>
+<!-- table分页 -->
+<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/js/init.js"></script>
+    
+<!-- time -->
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-selecter.js"></script>
 
+<script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
+<script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
 
-$(function(){
-	
-	overViewInit();
-});
-
-	
-</script>
+<script src="<%=path%>/js/charts/projectAnalysis.js"></script>
+<script src="<%=path%>/js/charts/tabAnalysisOverview.js"></script>
+<script src="<%=path%>/js/charts/tabProNum.js"></script>
+<script src="<%=path%>/js/charts/tabAnalysisRiseRate.js"></script>
+<script src="<%=path%>/js/charts/tabProGhl.js"></script>
+<script src="<%=path%>/js/charts/tabProTjl.js"></script>
 
 </html>
 
