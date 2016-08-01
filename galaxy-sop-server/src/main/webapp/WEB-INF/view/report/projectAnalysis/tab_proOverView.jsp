@@ -41,13 +41,6 @@
 		
 		<div class="tabtable project_analysis">
 			<!-- tab标签 -->
-			<!-- <ul class="tablink">
-				<li class="on"><a href="javascript:;" onclick="showCheckTabs(1)">项目总览</a></li>   
-				<li><a href="javascript:;" onclick="showCheckTabs(2)">项目数统计</a></li>
-				<li><a href="javascript:;" onclick="showCheckTabs(3)">项目完成增长率统计</a></li>
-				<li><a href="javascript:;" onclick="showCheckTabs(4)">过会率统计</a></li>
-				<li><a href="javascript:;" onclick="showCheckTabs(5)">投决率统计</a></li>
-			</ul> -->
 			<ul class="tablink">
 				<li data-tab="nav"><a href="javascript:;">项目总览</a></li>
 				<li data-tab="nav"><a href="javascript:;">项目数统计</a></li>
@@ -55,7 +48,6 @@
 				<li data-tab="nav"><a href="javascript:;">过会率统计</a></li>
 				<li data-tab="nav"><a href="javascript:;">投决率统计</a></li>
 			</ul>
-			
 			
 			
 			<!-- 项目总揽部分 -->
@@ -130,9 +122,9 @@
 					<dl class="fmdl fmmr clearfix">
 						<dt>项目创建日期：</dt>
 						<dd>
-							<input type="text" class="txt time datepicker" value="" id="xmstj_sdate" name="sdate" /> 
+							<input type="text" class="txt time datepicker" readonly value="" id="xmstj_sdate" name="sdate" />
 							<span>至</span> 
-							<input type="text" class="txt time datepicker" value="" id="xmstj_edate" name="edate" />
+							<input type="text" class="txt time datepicker" readonly value="" id="xmstj_edate" name="edate" />
 						</dd>
 						<dd>
 							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_xmstj" >统计</a>
@@ -171,7 +163,6 @@
 				</div>
 				
 			</div>
-			
 			
 			
 			
@@ -232,7 +223,6 @@
 			
 			
 			
-			
 			 <!-- 过会率统计 -->
 			 <div class="tabtable_con"   data-tab="con">
 				<div class="search_box searchall" id="custom-toolbar-ghl">
@@ -273,7 +263,6 @@
 					</thead>
 				</table>
 			</div>
-			
 			
 			
 			
@@ -338,8 +327,10 @@
 <!-- time -->
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-selecter.js"></script>
+
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datePicker-handler-init.js"></script>
 
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
