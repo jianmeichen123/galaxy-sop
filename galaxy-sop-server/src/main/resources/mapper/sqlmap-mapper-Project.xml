@@ -168,7 +168,7 @@
 					</if>								 												
 				</if>
 				
-				<!-- 过滤已关闭项目 -->
+				<!-- 过滤项目 -->
 				<if test="resultCloseFilter != null">
 					AND project_status !=  #{resultCloseFilter,jdbcType=VARCHAR}
 				</if>

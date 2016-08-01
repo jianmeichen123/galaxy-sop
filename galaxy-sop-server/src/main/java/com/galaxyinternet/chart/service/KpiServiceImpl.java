@@ -174,18 +174,16 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		proQuery.setStartTime(query.getStartTime());
 		proQuery.setEndTime(query.getEndTime());
 		proQuery.setProjectDepartid(query.getDeptid());
-		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
+		proQuery.setResultCloseFilter(DictEnum.projectStatus.GJZ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectColumnList(proQuery);
 		
 		if(proList == null || proList.isEmpty()){
 			return kpiPage;
 		}
 		List<Long> proIds = new ArrayList<Long>();
-		if(!inCompany){
-			for(Project pro : proList){
-				proIds.add(pro.getId());
-			}
-		}else proIds=null;
+		for(Project pro : proList){
+			proIds.add(pro.getId());
+		}
 		
 		
 		//查询会议 开始时间、通过时间
