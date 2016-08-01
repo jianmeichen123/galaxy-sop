@@ -85,7 +85,7 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 		try {
 			//设置当前年份 （如果有指定年份的需求 需要加入endTime）
 			Date currentYear = DateUtil.getCurrYearFirst();
-			sopCharts.setStartTime(String.valueOf(currentYear.getTime()));
+			sopCharts.setStartTime(currentYear.getTime());
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 				.getId());
@@ -94,7 +94,7 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 					|| roleIdList.contains(UserConstant.DSZ)) {
 				
 			} else if (roleIdList.contains(UserConstant.HHR)) {
-				sopCharts.setDepartmentId(user.getDepartmentId().toString());
+				sopCharts.setDepartmentId(user.getDepartmentId());
 			}
 			
 			//获取项目目标数
@@ -134,14 +134,14 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 		try {
 			//设置当前年份 （如果有指定年份的需求 需要加入endTime）
 			Date currentYear = DateUtil.getCurrYearFirst();
-			sopCharts.setStartTime(String.valueOf(currentYear.getTime()));
+			sopCharts.setStartTime(currentYear.getTime());
 			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 					.getId());
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){
-				sopCharts.setDepartmentId(user.getDepartmentId().toString());
+				sopCharts.setDepartmentId(user.getDepartmentId());
 			}
 			chartsList = dataBriefingService.queryCountGroupDate(sopCharts);
 			for(SopCharts chart : chartsList){
@@ -188,7 +188,7 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 	 * @param times			时间段 ‘天’单位 为空则获取整年
 	 * @return
 	 */
-	private Long queryTargetCount(String departmentId, Long times){
+	private Long queryTargetCount(Long departmentId, Long times){
 		//获取个人目标数
 		Config config = new Config();
 		config.setKey("target_count_code");
@@ -197,11 +197,11 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 		int userCount = 0;
 		
 		//部门为空时获取所有投资经理人数
-		if(!StringUtils.isBlank(departmentId)){
+		if(departmentId!=null){
 			Map<String,Object> params = new HashMap<String,Object>();
 			params.put("roleId", UserConstant.TZJL);
 			List<Long> departmentIds = new ArrayList<Long>();
-			departmentIds.add(Long.parseLong(departmentId));
+			departmentIds.add(departmentId);
 			params.put("departmentIds", departmentIds);
 			userCount = userService.querytTzjlSum(params).get(0).getUserTzjlSum();
 		}else{

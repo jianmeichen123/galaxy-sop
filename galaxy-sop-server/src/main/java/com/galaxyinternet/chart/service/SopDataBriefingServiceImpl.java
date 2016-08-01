@@ -1,20 +1,12 @@
 package com.galaxyinternet.chart.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.dao.chart.SopDataBriefingDao;
-import com.galaxyinternet.framework.core.constants.UserConstant;
-import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.chart.SopCharts;
-import com.galaxyinternet.model.common.Config;
-import com.galaxyinternet.model.user.UserRole;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.UserRoleService;

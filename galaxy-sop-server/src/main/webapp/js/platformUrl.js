@@ -710,16 +710,15 @@ var platformUrl = {
 	 * 项目完成率查询（图表）
 	 */
 	searchRiseRate : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchRiseRate",
-	
-	
-	
-	
 	/**
-	 * 项目历时
-	 * 1. 工作桌面－项目历时
+	 * 项目完成率（表格）
 	 */
-	progressDurationList : Constants.sopEndpointURL + "/galaxy/kpireport/proProgressTimeLine",
-	
+	searchRiseRateGrid : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchRiseRateGrid",
+	/**
+	 * 项目投资金额
+	 */
+	searchInvestmentGroupDate : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchInvestmentGroupDate",	
+
 	/**
 	 * 1.数据简报－投资事业线目标完成对比
 	 */
@@ -768,9 +767,7 @@ var platformUrl = {
 	 * 1.项目分析－项目数统计 --合伙人专用
 	 */
 	hhrlinechart : Constants.sopEndpointURL + "/galaxy/kpireport/hhrLineChart",
-	
-	
-	
+		
 	/**
 	 * 投资经理kpi
 	 * 1. 绩效考核－投资经理绩效考核（图表＋表格）
@@ -786,7 +783,12 @@ var platformUrl = {
 	 * 团队kpi 弹窗
 	 * 团队绩效－项目列表页面
 	 */
-	deptkpiprojectlist : Constants.sopEndpointURL + "/galaxy/kpireport/deptkpiprojectlist"
+	deptkpiprojectlist : Constants.sopEndpointURL + "/galaxy/kpireport/deptkpiprojectlist",
+	/**
+	 * 项目历时
+	 * 1. 工作桌面－项目历时
+	 */
+	progressDurationList : Constants.sopEndpointURL + "/galaxy/kpireport/proProgressTimeLine",
 }
 
 /**

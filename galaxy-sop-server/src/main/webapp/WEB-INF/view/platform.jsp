@@ -148,7 +148,7 @@ String endpoint = (String)application.getAttribute(com.galaxyinternet.framework.
 						<h3 class="ico t9">投资资金</h3>
 					</dt>
 					<dd>
-						<div id="container_investmentFunds"
+						<div id="charts_investment"
 							style="min-width:300px; height: 200px;padding-top:5px;"></div>
 					</dd>
 				</dl>
@@ -206,6 +206,8 @@ String endpoint = (String)application.getAttribute(com.galaxyinternet.framework.
 	};
 </script>
 
+<script src="<%=request.getContextPath() %>/js/charts/projectInvestment.js"></script>
+<script src="<%=request.getContextPath() %>/js/charts/projectProgress.js"></script>
 <script src="<%=request.getContextPath() %>/js/report/platform.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath() %>/js/init.js" type="text/javascript"></script>
 <script src="<%=request.getContextPath()%>/js/sopUserSchedule.js" type="text/javascript"></script>

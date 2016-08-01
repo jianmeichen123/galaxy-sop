@@ -1,5 +1,6 @@
 package com.galaxyinternet.chart.controller;
 
+import java.awt.print.Pageable;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
@@ -77,7 +79,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){
-				query.setDepartmentId(user.getDepartmentId().toString());
+				query.setDepartmentId(user.getDepartmentId());
 			}
 			List<SopCharts> overViewList = analysisService.queryProjectOverView(query);
 			responseBody.setEntityList(overViewList);
@@ -146,7 +148,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){
-				query.setDepartmentId(user.getDepartmentId().toString());
+				query.setDepartmentId(user.getDepartmentId());
 			}
 			
 			List<SopCharts> sopChartsList = analysisService.queryRiseRate(query);
@@ -160,8 +162,68 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 	}
 	
 	
+	/**
+	 * 图表查询
+	 * @param request
+	 * @param query
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/searchRiseRateGrid",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopCharts> searchRiseRateGrid(HttpServletRequest request,@RequestBody SopCharts query){
+		ResponseData<SopCharts> responseBody = new ResponseData<SopCharts>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		try {
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+					.getId());
+			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
+				
+			}else if(roleIdList.contains(UserConstant.HHR)){
+				query.setDepartmentId(user.getDepartmentId());
+			}
+			PageRequest pageRequest = new PageRequest(query.getPageNum(),
+					query.getPageSize());
+			Page<SopCharts> sopChartsPage = analysisService.queryRiseRateGroup(query,pageRequest);
+			responseBody.setPageList(sopChartsPage);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (DaoException e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, "系统出现误不可预知错"));
+		}
+		return responseBody;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/searchInvestmentGroupDate",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopCharts> searchInvestmentGroupDate(HttpServletRequest request,SopCharts query){
+		ResponseData<SopCharts> responseBody = new ResponseData<SopCharts>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		try {
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+					.getId());
+			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
+				
+			}else if(roleIdList.contains(UserConstant.HHR)){
+				query.setDepartmentId(user.getDepartmentId());
+			}
+			query.setProjectProgress(DictEnum.projectProgress.投后运营.getCode());
+			List<SopCharts> chartsList = analysisService.queryInvestmentGroupDate(query);
+			responseBody.setEntityList(chartsList);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (DaoException e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, "系统出现误不可预知错"));
+		}
+		return responseBody;
+	}
 	
 	
-	
-
 }

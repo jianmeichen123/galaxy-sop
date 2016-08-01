@@ -9,10 +9,20 @@ $(function() {
 	selectSopTask();
 	createMenus(1);
 	initHref();
-	
+
 	load_data_chart_kpi();//绩效考核图表
-	load_data_chart_progress();//项目进度图表
-	load_data_chart_tz_money();//投资资金图表
+//	load_data_chart_progress();//项目进度图表
+//	load_data_chart_tz_money();//投资资金图表
+	/*新版项目进度图表*/
+	var progressFormdata = {
+			domid : 'container_progress'
+	}
+	chartProjectProgressUtils.init(progressFormdata);
+	/*新版投资资金图表*/
+	var investFormdata = {
+			domid : 'charts_investment'
+	};
+	chartsInvestmentUtils.init(investFormdata);
 	load_data_chart_project_time();//项目历时
 	loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 	//项目进度图表默认加载链接
@@ -32,22 +42,7 @@ $(function() {
 		forwardWithHeader(url);
 	})
 	
-	/*//项目历时图表默认加载链接
-	$("#container_time .highcharts-title tspan").click(function(){
-		var url = platformUrl.projectAnalysis;
-		if(forwardParam.timeParam){
-			url += "?forwardProgress=" + forwardParam.timeParam ;
-		}
-		forwardWithHeader(url);
-	})
-	//项目历时图表默认加载链接---兼容ie8
-	$("#container_time .highcharts-title span").click(function(){
-		var url = platformUrl.projectAnalysis;
-		if(forwardParam.timeParam){
-			url += "?forwardProgress=" + forwardParam.timeParam ;
-		}
-		forwardWithHeader(url);
-	})*/
+
 	//项目进度无数据样式
 	if($("#container_progress .highcharts-title tspan").text()=="0个" || $("#container_progress .highcharts-title span").text()=="0个"){
 		$(".mask_platform_progress").show();
