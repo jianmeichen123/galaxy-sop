@@ -181,7 +181,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			return kpiPage;
 		}
 		List<Long> proIds = new ArrayList<Long>();
-		if(inCompany){
+		if(!inCompany){
 			for(Project pro : proList){
 				proIds.add(pro.getId());
 			}
@@ -282,7 +282,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		taQ.setEndTime(query.getEndTime());
 		taQ.setTaskFlagS(taskFlagList);
 		taQ.setProjectIdList(proIds);
-		List<SopTask> taskList = sopTaskDao.selectList(taQ);
+		List<SopTask> taskList = sopTaskDao.selectXXXXXX(taQ); 
 		
 		/*
 		 * logo_time:
@@ -337,6 +337,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		resultMap.put("time_9", 0l);
 		
 		for( Project pro :proList){
+			int projectPro = Integer.parseInt(pro.getProjectProgress().substring(pro.getProjectProgress().indexOf(":")+1)) ;
+			
 			//内部评审
 			Long lph_first_time = 0l;
 			Long lph_pass_time = 0l;
@@ -371,8 +373,48 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			Long task_gszr_etime = 0l;
 			Long task_zjbf_etime = 0l;
 			
-			
-			int projectPro = Integer.parseInt(pro.getProjectProgress().substring(pro.getProjectProgress().indexOf(":")+1)) ;
+			switch (projectPro) {
+				case 10:
+				case 9:
+					//股权交割
+					task_gszr_stime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_GSBG,"taskCreateTime");
+					task_gszr_etime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_GSBG,"taskOverTime");
+					task_zjbf_etime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_ZJBF,"taskOverTime");
+				case 8:
+					//投资协议
+					task_tzxy_stime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_TZXY,"taskCreateTime");
+				case 7:
+					//投决会
+					tjh_paiqi_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:4","paiqiCreateTime");
+					tjh_first_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:4","firstMeetTime");
+					tjh_pass_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:4","passMeetTime");
+				case 6:
+					//尽职调查
+					task_jzdc_stime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_YWJD,"taskCreateTime");
+				case 5:
+					//投资意向书
+					task_tzyxs_stime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_SCTZYXS,"taskCreateTime");
+					task_tzyxs_etime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_SCTZYXS,"taskOverTime");
+				case 4:
+					//立项会
+					lxh_paiqi_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:3","paiqiCreateTime");
+					lxh_first_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:3","firstMeetTime");
+					lxh_pass_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:3","passMeetTime");
+				case 3:
+					//ceo评审
+					ceo_paiqi_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:2","paiqiCreateTime");
+					ceo_first_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:2","firstMeetTime");
+					ceo_pass_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:2","passMeetTime");
+				case 2:
+					//内部评审
+					lph_first_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:1","firstMeetTime");
+					lph_pass_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:1","passMeetTime");
+				case 1:
+					break;
+				default:
+					break;
+			}
+				
 			
 			Long endTime = null;
 			if(pro.getProjectProgress().equals(DictEnum.projectStatus.YFJ.getCode())){
@@ -383,166 +425,138 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			long b_endTime = 0l;
 			
 			switch (projectPro) {
-			case 10:
-			case 9:
-				task_gszr_stime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_GSBG,"taskCreateTime");
-				task_gszr_etime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_GSBG,"taskOverTime");
-				task_zjbf_etime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_ZJBF,"taskOverTime");
-				
-				task_tzxy_stime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_TZXY,"taskCreateTime");
-				
-				Long time_9 = resultMap.get("time_9");
-				if(projectPro == 9){
-					a_startTime = endTime;
-				}else{
-					a_startTime = task_zjbf_etime > task_gszr_etime ? task_zjbf_etime : task_gszr_etime;
-				}
-				b_endTime = task_gszr_stime;
-				
-				if(a_startTime != 0l && b_endTime != 0l){
-					time_9 +=  a_startTime - b_endTime ;
-					resultMap.put("time_9", time_9);
-				}
-			case 8:
-				tjh_paiqi_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:4","paiqiCreateTime");
-				tjh_first_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:4","firstMeetTime");
-				tjh_pass_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:4","passMeetTime");
-				
-				
-				Long time_8 = resultMap.get("time_8");
-				if(projectPro == 8){
-					a_startTime = endTime;
-				}else{
-					a_startTime = task_gszr_stime;
-				}
-				b_endTime = task_tzxy_stime ==0l?tjh_pass_time:task_tzxy_stime;
-
-				if(a_startTime != 0l && b_endTime != 0l){
-					time_8 += a_startTime - b_endTime ;
-					resultMap.put("time_8", time_8);
-				}
-			case 7:
-				task_jzdc_stime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_YWJD,"taskCreateTime");
-				
-				Long time_7 = resultMap.get("time_7");
-				if(projectPro == 7){
-					a_startTime = endTime;
-				}else{
-					a_startTime = task_tzxy_stime ==0l?tjh_pass_time:task_tzxy_stime;
-				}
-				b_endTime = tjh_paiqi_time==0l?tjh_first_time:tjh_paiqi_time;
-				
-				if(a_startTime != 0l && b_endTime != 0l){
-					time_7 += a_startTime - b_endTime ;
-					resultMap.put("time_7", time_7);
-				}
-			case 6:
-				task_tzyxs_stime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_SCTZYXS,"taskCreateTime");
-				task_tzyxs_etime = task_nullHandle1(proid_taskFlag_logo_time,0l,pro.getId(),SopConstant.TASK_FLAG_SCTZYXS,"taskOverTime");
-				
-				Long time_6 = resultMap.get("time_6");
-				if(projectPro == 6){
-					a_startTime = endTime;
-				}else{
-					a_startTime = tjh_paiqi_time==0l?tjh_first_time:tjh_paiqi_time;
-				}
-				b_endTime = task_jzdc_stime==0l?task_tzyxs_etime:task_jzdc_stime;
-				
-				if(a_startTime != 0l && b_endTime != 0l){
-					time_6 += a_startTime - b_endTime ;
-					resultMap.put("time_6", time_6);
-				}
-			case 5:
-				lxh_paiqi_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:3","paiqiCreateTime");
-				lxh_first_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:3","firstMeetTime");
-				lxh_pass_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:3","passMeetTime");
-				
-				Long time_5 = resultMap.get("time_5");
-				if(projectPro == 5){
-					a_startTime = endTime;
-				}else{
-					a_startTime = task_jzdc_stime==0l?task_tzyxs_etime:task_jzdc_stime;
-				}
-				b_endTime = task_tzyxs_stime==0l?lxh_pass_time:task_tzyxs_stime;
-				
-				if(a_startTime != 0l && b_endTime != 0l){
-					time_5 += a_startTime - b_endTime ;
-					resultMap.put("time_5", time_5);
-				}
-
-			case 4:
-				ceo_paiqi_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:2","paiqiCreateTime");
-				ceo_first_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:2","firstMeetTime");
-				ceo_pass_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:2","passMeetTime");
-				
-				Long time_4 = resultMap.get("time_4");
-				if(projectPro == 4){
-					a_startTime = endTime;
-				}else{
-					a_startTime = task_tzyxs_stime==0l?lxh_pass_time:task_tzyxs_stime;
-				}
-				
-				b_endTime = lxh_paiqi_time==0l?ceo_pass_time:lxh_paiqi_time;
-				
-				if(a_startTime != 0l && b_endTime != 0l){
-					time_4 += a_startTime - b_endTime ;
-					resultMap.put("time_4", time_4);
-				}
-			case 3:
-				lph_first_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:1","firstMeetTime");
-				lph_pass_time = meet_nullHandle2(proid_meetType_logo_time,0l,pro.getId(),"meetingType:1","passMeetTime");
-				
-				Long time_3 = resultMap.get("time_3");
-				if(projectPro == 3){
-					a_startTime = endTime;
-				}else{
-					a_startTime = lxh_paiqi_time==0l?ceo_pass_time:lxh_paiqi_time;
-				}
-				b_endTime = ceo_paiqi_time==0l?lph_pass_time:ceo_paiqi_time;
-				
-				if(a_startTime != 0l && b_endTime != 0l){
-					time_3 += a_startTime - b_endTime ;
-					resultMap.put("time_3", time_3);
-				}
-			case 2:
-				
-				Long time_2 = resultMap.get("time_2");
-				if(projectPro == 2){
-					a_startTime = endTime;
-				}else{
-					a_startTime = ceo_paiqi_time==0l?lph_pass_time:ceo_paiqi_time;
-				}
-				b_endTime = lph_first_time;
-				
-				if(a_startTime != 0l && b_endTime != 0l) {
-					time_2 += a_startTime - b_endTime ;
-					resultMap.put("time_2", time_2);
-				}
-				
-				/*else if(projectPro == 2){
-					time_2 += a_startTime - pro.getUpdatedTime();  //
-				}*/
-			case 1:
-				Long time_1 = resultMap.get("time_1");
-				if(projectPro == 1){
-					a_startTime = endTime;
-				}else{
-					a_startTime = lph_first_time;
-				}
-				b_endTime = pro.getCreatedTime();
-				
-				if(a_startTime != 0l && b_endTime != 0l){
-					time_1 += a_startTime - b_endTime ;
-					resultMap.put("time_1", time_1);
-				}
-				
-				/*else if(projectPro == 2){
-					time_1 += pro.getUpdatedTime() - b_endTime ;
-				}*/
-				break;
-			default:
-				break;
-		}
+				case 10:
+				case 9:
+					Long time_9 = resultMap.get("time_9");
+					if(projectPro == 9){
+						a_startTime = endTime;
+					}else{
+						a_startTime = task_zjbf_etime > task_gszr_etime ? task_zjbf_etime : task_gszr_etime;
+					}
+					b_endTime = task_gszr_stime;
+					
+					if(a_startTime != 0l && b_endTime != 0l){
+						time_9 +=  a_startTime - b_endTime ;
+						resultMap.put("time_9", time_9);
+					}
+				case 8:
+					Long time_8 = resultMap.get("time_8");
+					if(projectPro == 8){
+						a_startTime = endTime;
+					}else{
+						a_startTime = task_gszr_stime;
+					}
+					b_endTime = task_tzxy_stime ==0l?tjh_pass_time:task_tzxy_stime;
+	
+					if(a_startTime != 0l && b_endTime != 0l){
+						time_8 += a_startTime - b_endTime ;
+						resultMap.put("time_8", time_8);
+					}
+				case 7:
+					Long time_7 = resultMap.get("time_7");
+					if(projectPro == 7){
+						a_startTime = endTime;
+					}else{
+						a_startTime = task_tzxy_stime ==0l?tjh_pass_time:task_tzxy_stime;
+					}
+					b_endTime = tjh_paiqi_time==0l?tjh_first_time:tjh_paiqi_time;
+					
+					if(a_startTime != 0l && b_endTime != 0l){
+						time_7 += a_startTime - b_endTime ;
+						resultMap.put("time_7", time_7);
+					}
+				case 6:
+					Long time_6 = resultMap.get("time_6");
+					if(projectPro == 6){
+						a_startTime = endTime;
+					}else{
+						a_startTime = tjh_paiqi_time==0l?tjh_first_time:tjh_paiqi_time;
+					}
+					b_endTime = task_jzdc_stime==0l?task_tzyxs_etime:task_jzdc_stime;
+					
+					if(a_startTime != 0l && b_endTime != 0l){
+						time_6 += a_startTime - b_endTime ;
+						resultMap.put("time_6", time_6);
+					}
+				case 5:
+					Long time_5 = resultMap.get("time_5");
+					if(projectPro == 5){
+						a_startTime = endTime;
+					}else{
+						a_startTime = task_jzdc_stime==0l?task_tzyxs_etime:task_jzdc_stime;
+					}
+					b_endTime = task_tzyxs_stime==0l?lxh_pass_time:task_tzyxs_stime;
+					
+					if(a_startTime != 0l && b_endTime != 0l){
+						time_5 += a_startTime - b_endTime ;
+						resultMap.put("time_5", time_5);
+					}
+	
+				case 4:
+					Long time_4 = resultMap.get("time_4");
+					if(projectPro == 4){
+						a_startTime = endTime;
+					}else{
+						a_startTime = task_tzyxs_stime==0l?lxh_pass_time:task_tzyxs_stime;
+					}
+					
+					b_endTime = lxh_paiqi_time==0l?ceo_pass_time:lxh_paiqi_time;
+					
+					if(a_startTime != 0l && b_endTime != 0l){
+						time_4 += a_startTime - b_endTime ;
+						resultMap.put("time_4", time_4);
+					}
+				case 3:
+					Long time_3 = resultMap.get("time_3");
+					if(projectPro == 3){
+						a_startTime = endTime;
+					}else{
+						a_startTime = lxh_paiqi_time==0l?ceo_pass_time:lxh_paiqi_time;
+					}
+					b_endTime = ceo_paiqi_time==0l?lph_pass_time:ceo_paiqi_time;
+					
+					if(a_startTime != 0l && b_endTime != 0l){
+						time_3 += a_startTime - b_endTime ;
+						resultMap.put("time_3", time_3);
+					}
+				case 2:
+					Long time_2 = resultMap.get("time_2");
+					if(projectPro == 2){
+						a_startTime = endTime;
+					}else{
+						a_startTime = ceo_paiqi_time==0l?lph_pass_time:ceo_paiqi_time;
+					}
+					b_endTime = lph_first_time;
+					
+					if(a_startTime != 0l && b_endTime != 0l) {
+						time_2 += a_startTime - b_endTime ;
+						resultMap.put("time_2", time_2);
+					}
+					
+					/*else if(projectPro == 2){
+						time_2 += a_startTime - pro.getUpdatedTime();  //
+					}*/
+				case 1:
+					Long time_1 = resultMap.get("time_1");
+					if(projectPro == 1){
+						a_startTime = endTime;
+					}else{
+						a_startTime = lph_first_time;
+					}
+					b_endTime = pro.getCreatedTime();
+					
+					if(a_startTime != 0l && b_endTime != 0l){
+						time_1 += a_startTime - b_endTime ;
+						resultMap.put("time_1", time_1);
+					}
+					
+					/*else if(projectPro == 2){
+						time_1 += pro.getUpdatedTime() - b_endTime ;
+					}*/
+					break;
+				default:
+					break;
+			}
 			
 		}
 		
