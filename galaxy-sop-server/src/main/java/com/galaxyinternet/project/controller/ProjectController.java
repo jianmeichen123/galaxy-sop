@@ -101,6 +101,7 @@ import com.galaxyinternet.service.UserService;
 public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 	final Logger logger = LoggerFactory.getLogger(ProjectController.class);
+	private final static Logger LOG_ADD_PROJECT = LoggerFactory.getLogger("LOG_ADDPROJECT_LOGGER");
 
 	@Autowired
 	private ProjectService projectService;
@@ -289,12 +290,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					if(file!=null){
 						file.setMultipartFile(null);
 					}
+					LOG_ADD_PROJECT.info("添加项目["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
 					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_,file);
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		logger.error("测试!");
 		return responseBody;
 	}
 
