@@ -701,6 +701,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						p.getProjectName(), p.getId());
 			}
 		} catch (Exception e) {
+			logger.error("添加团队异常 ",e.getMessage());
 			e.printStackTrace();
 		}
 		return responseBody;
@@ -2472,6 +2473,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
+			logger.error("更新排期失败 ",e.getMessage());
 			e.printStackTrace();
 			return responseBody;
 		}
@@ -2607,6 +2609,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
+			logger.error("更新排期失败 ", e.getMessage());
 			e.printStackTrace();
 			return responseBody;
 		}
@@ -2652,6 +2655,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if (success) {
 			return "success";
 		} else {
+			logger.error("发送邮件失败.");
 			return "fail";
 		}
 	}
