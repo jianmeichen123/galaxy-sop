@@ -9,7 +9,8 @@ $(function() {
 	selectSopTask();
 	createMenus(1);
 	initHref();
-	//load_data_chart_kpi();//绩效考核图表
+	
+	load_data_chart_kpi();//绩效考核图表
 	load_data_chart_progress();//项目进度图表
 	load_data_chart_tz_money();//投资资金图表
 	load_data_chart_project_time();//项目历时
@@ -1059,7 +1060,7 @@ $(function() {
     	});
     }
 	
-	function load_data_chart_project_time(){
+	function load_data_chart_project_timexxxxxxxxxxxxxxxxxxxxxxx(){
     	var obj ={url:platformUrl.progressDurationList};
     	obj.data={model:2,sdate:'-1',edate:'-1',projectProgress:'projectProgress:10',projectStatus:-2};
     	obj.contentType="application/json";
@@ -1586,7 +1587,7 @@ function info(id){
 	
 }
 //项目历时
-var containerProjectTimeOptions = {
+var containerProjectTimeOptionsxxxxxxxxxxxxx = {
         chart: {
         	renderTo: 'container_time',
             plotBackgroundColor: null,

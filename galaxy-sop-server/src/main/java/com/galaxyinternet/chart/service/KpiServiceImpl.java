@@ -163,6 +163,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 	 * @return
 	 */
 	public Page<ChartDataBo> proTimeLine(ChartKpiQuery query){
+		boolean inCompany = query.getDeptid()==null;
+		
 		Long total = 0l;
 		List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
 		Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList,total);
@@ -171,9 +173,19 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		ProjectBo proQuery = new ProjectBo();
 		proQuery.setStartTime(query.getStartTime());
 		proQuery.setEndTime(query.getEndTime());
+		proQuery.setProjectDepartid(query.getDeptid());
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectColumnList(proQuery);
 		
+		if(proList == null || proList.isEmpty()){
+			return kpiPage;
+		}
+		List<Long> proIds = new ArrayList<Long>();
+		if(inCompany){
+			for(Project pro : proList){
+				proIds.add(pro.getId());
+			}
+		}else proIds=null;
 		
 		
 		//查询会议 开始时间、通过时间
@@ -181,6 +193,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		mquery1.setStartTime(query.getSdate());
 		mquery1.setEndTime(query.getEdate());
 		mquery1.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+		mquery1.setProIdList(proIds);
 		List<MeetingRecord> meetList = meetingRecordDao.selectMeetFirstTimeAndPassTime(mquery1);
 		
 		/*
@@ -229,6 +242,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		MeetingScheduling m = new MeetingScheduling();
 		m.setStartTime(query.getStartTime());
 		m.setEndTime(query.getEndTime());
+		m.setProjectIdList(proIds);
 		List<MeetingScheduling> tm = meetingSchedulingDao.selectList(m);
 		
 		for( MeetingScheduling schedule :  tm){
@@ -267,6 +281,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		taQ.setStartTime(query.getStartTime());
 		taQ.setEndTime(query.getEndTime());
 		taQ.setTaskFlagS(taskFlagList);
+		taQ.setProjectIdList(proIds);
 		List<SopTask> taskList = sopTaskDao.selectList(taQ);
 		
 		/*

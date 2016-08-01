@@ -25,7 +25,7 @@ public class SopTask extends PagableEntity{
  	private Long startTime; 
  	private Long endTime;
  	private List<Integer> taskFlagS;
-     
+ 	private List<Long> projectIdList;
      
 	public Long getProjectId() {
 		return projectId;
@@ -112,6 +112,12 @@ public class SopTask extends PagableEntity{
 	}
 	public void setTaskFlagS(List<Integer> taskFlagS) {
 		this.taskFlagS = taskFlagS;
+	}
+	public List<Long> getProjectIdList() {
+		return projectIdList;
+	}
+	public void setProjectIdList(List<Long> projectIdList) {
+		this.projectIdList = projectIdList;
 	}
     
 }

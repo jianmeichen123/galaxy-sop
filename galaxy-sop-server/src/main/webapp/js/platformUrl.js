@@ -627,11 +627,7 @@ var platformUrl = {
 	 * 1. 项目分析－项目总览（数据表格）这里有10个切换表格
 	 */
 	projectlist : Constants.sopEndpointURL + "/galaxy/report/projectlist",
-	/**
-	 * 项目历时
-	 * 1. 工作桌面－项目历时
-	 */
-	progressDurationList : Constants.sopEndpointURL + "/galaxy/report/progressDurationList",
+	
 	/**
 	 * 项目完成增长率
 	 * 1. 项目分析－项目完成增长率统计（项目完成率分析－日报－图表）
@@ -714,6 +710,15 @@ var platformUrl = {
 	 * 项目完成率查询（图表）
 	 */
 	searchRiseRate : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchRiseRate",
+	
+	
+	
+	
+	/**
+	 * 项目历时
+	 * 1. 工作桌面－项目历时
+	 */
+	progressDurationList : Constants.sopEndpointURL + "/galaxy/kpireport/proProgressTimeLine",
 	
 	/**
 	 * 1.数据简报－投资事业线目标完成对比

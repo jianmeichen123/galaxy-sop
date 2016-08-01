@@ -38,6 +38,13 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="projectIdList != null">
+					AND project_id IN
+					<foreach collection="projectIdList" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
 				<if test="taskName != null"> and task_name =#{taskName}</if>
 				<if test="flagUrl != '' and flagUrl=='jz' ">
 				        and task_flag in ('2','3','4','5') <!--and assign_uid =#{assignUid} and task_status!='taskStatus:3'-->

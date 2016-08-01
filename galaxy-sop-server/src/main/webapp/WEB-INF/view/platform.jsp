@@ -180,6 +180,8 @@ String endpoint = (String)application.getAttribute(com.galaxyinternet.framework.
 							style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
 					</dd>
 				</dl>
+				
+				
 				<dl class="tool_radius executive_last">
 					<img src="<%=request.getContextPath()%>/img/sy.png" alt="" />
 					<dt>
@@ -222,7 +224,6 @@ var kpiurl = platformUrl.deptkpi;
 if(!isGG)  kpiurl = platformUrl.userkpi;
 
 $(function() {
-	load_data_chart_kpi();//绩效考核图表
 	
 	$('#platform_jxkh_more').click(function(){
 	    window.location.href=path + "/galaxy/kpireport/touserkpi?guid="+userId+"&sid="+sessionId;
@@ -260,7 +261,109 @@ function load_data_chart_kpi(){
 		}
    	});
 }
-    
+
+
+
+function load_data_chart_project_time(){
+	sendPostRequestByJsonObj(platformUrl.progressDurationList,null,function(data){
+		var result = data.result.status;
+		if(result == "ERROR"){ //OK, ERROR
+			layer.msg(data.result.message);
+			return;
+		}else{
+			var entityList = data.pageList.content;
+			
+			var re = [];
+			var color=['#587edd','#49ceff','#00bdf4','#88dfd8','#4490d2','#bee6d5','#6ebdea','#ff9c89','#62d1b0'];
+			//var selectedPie = "";
+			var totalDay = 0;
+			for(var i=0;i<entityList.length;i++){
+				totalDay += entityList[i].dayLine;
+			}
+			totalDay_all=totalDay;
+			for(var i=0;i<entityList.length;i++){
+				var rate = entityList[i].dayLine/totalDay;
+				var tmp = {
+						name : entityList[i].progressName,
+						color :color[i],
+						y : entityList[i].dayLine,
+						rate : parseFloat(rate.toFixed(1))
+				};
+				if(i==0){
+					//tmp.sliced=true;
+					//tmp.selected=true;
+					//selectedPie = {num:tmp.y,rate:rate};
+				}
+				re.push(tmp);
+			}
+			//console.log(re);
+			//console.log(totalDay);
+			containerProjectTimeOptions.series[0].data = re;
+			containerProjectTimeOptions.title.text = "<span style='color:#4490d2'>"+ totalDay +"天</span>"+"<br/>";
+			containerProjectTimeOptions.plotOptions.pie.events.click = function(e){
+				//console.log(e.point.name);
+				//console.log(chart.title);
+				chart.setTitle(
+						{
+							text: "<span style='color:#4490d2'>"+ e.point.y +"天</span>"+"<br/>"+"<span>"+ parseFloat(e.point.percentage.toFixed(1)) +"%</span>",
+							y:-5,
+							x:-95
+						}
+				);
+				chart.redraw();
+				e.point.select();
+				
+				//如果没有pie块被选择，返回到只显示数量状态。
+				var selected_curr = chart.getSelectedPoints();
+				if(selected_curr.length==0){
+					chart.setTitle(
+	    					{
+	    						text: "<span style='color:#4490d2'>"+ totalDay +"天</span>"+"<br/>",
+	    						y:5,
+	    						x:-90
+	    					}
+	    			);
+				}
+				judgeProgress($.trim(e.point.name),'time');
+				
+			};
+			containerProjectTimeOptions.plotOptions.pie.point.events.legendItemClick = function(e){
+				//console.log(e);
+				//chart.setTitle({text: "<span style='color:#4490d2'>"+ e.target.y +"个</span>"+"<br/>"+"<span>"+ parseFloat(e.target.percentage.toFixed(1)) +"%</span>"});
+	    		//chart.redraw();
+				chart.setTitle(
+						{
+							text: "<span style='color:#4490d2'>"+ e.target.y +"天</span>"+"<br/>"+"<span>"+ parseFloat(e.target.percentage.toFixed(1)) +"%</span>",
+							y:-5,
+							x:-95
+						}
+				);       		
+				chart.redraw();
+				e.target.select();
+				var selected_curr = chart.getSelectedPoints();
+				//console.log(selected_curr)
+				if(selected_curr.length==0){
+					chart.setTitle(
+	    					{
+	    						text: "<span style='color:#4490d2'>"+ totalDay +"天</span>"+"<br/>",
+	    						y:5,
+	    						x:-95
+	    					}
+	    			);
+				}
+				judgeProgress($.trim(e.target.name),'time');
+				return false;
+				//如果没有pie块被选择，返回到只显示数量状态。
+			
+			};
+			var chart = new Highcharts.Chart(containerProjectTimeOptions);
+		}
+   	});
+	
+}
+
+
+
 //绩效考核，前5
 var containerKpiOptions = {
     chart: {
@@ -376,4 +479,112 @@ var containerKpiOptions = {
         }
     }]
 };
+
+
+//项目历时
+var containerProjectTimeOptions = {
+     chart: {
+     	renderTo: 'container_time',
+         plotBackgroundColor: null,
+         plotBorderWidth: null,
+         plotShadow: false,
+         backgroundColor: 'rgba(255, 255, 255, 0)',
+     },
+     title: {
+         text: "<span style='color:#4490d2'>"+'60天'+"</span>"+"<br/>"+"<span>"+'45%'+"</span>",
+         verticalAlign:'middle',
+         y:5,
+         x:-90,
+         style:{
+             fontFamily:'微软雅黑',
+             color:'#4490d2',
+             fontWeight:'bold',
+             cursor:'pointer'
+         },
+     },
+     //去除版权
+     credits: {
+       enabled:false
+     },
+     //去除右上角导出图标
+     exporting: {
+         enabled:true
+     },
+     tooltip: {
+         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+     },
+     plotOptions: {
+	     pie: {
+	         borderWidth: 0,
+	         allowPointSelect: true,
+	         cursor: 'pointer',
+	         depth: 35,
+	         dataLabels: {
+	             color:'black',
+	             rotation: -90,
+	             enabled: true,
+	             formatter:function(){
+	                 return this.point.percentage.toFixed(1)+"%";
+	             },
+	             connectorWidth:0,
+	             connectorPadding:0,
+	             distance:120
+	         },
+	         showInLegend: true,
+	         events :{
+		      	click : function(e){
+		      		
+		      	}
+		     },
+		     point:{
+		      	events:{
+			       	click: function(e){
+			       		//console.log(e.point.name);
+			       		//this.title="123";
+			       	},
+			       	legendItemClick : function(e){
+			       	}
+				}	
+		     }
+	     }
+	 },
+	 legend: {                                                
+	     layout: 'horizontal',                                  
+	     floating: false,                                       
+	     align: 'right',
+	     verticalAlign: 'middle',
+	     borderWidth: 0,
+	     width:200,
+	     padding:-25,
+	     itemWidth:90,
+	     //minHeight:100,
+	     itemStyle:{
+	         fontWeight:'normal',
+	         color:'#7a8798',
+	     },
+	     //x:0,
+	 },            
+
+     series: [{
+         type: 'pie',
+         size:'140%',
+         innerSize :'70%',
+         name: '项目历时',
+         data: [
+             {name:'接触访谈',color:'#c5b33b',y:8},
+             {name: '内部评审',color:'#cbc63a',y: 10},
+             { name:'CEO评审',color:'#bac73b',y:16},
+             { name:'立项会',color:'#a6cb2b',y:20},
+             { name:'投资意向书',color:'#69bf56',y: 30},
+             { name:'尽职调查',color:'#58b260',y:40},
+             { name:'投决会',color:'#36afa2',y:50},
+             { name:'投资协议',color:'#159196',y:55},
+             { name:'股权交割',color:'#4790d2',y:60},
+         ],
+         dataLabels: {
+             enabled: false, 
+         }
+     }]
+ };
+    
 </script>

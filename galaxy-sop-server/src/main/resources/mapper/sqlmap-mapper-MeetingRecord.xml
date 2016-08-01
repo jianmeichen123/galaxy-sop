@@ -468,6 +468,12 @@
 				sop_meeting_record 
 			WHERE 
 			  <trim prefixOverrides="and">
+			    <if test="proIdList != null">
+					and project_id in
+					<foreach collection="proIdList" index="item" item="item" open="(" separator="," close=")" >
+						#{item}
+					</foreach>
+			    </if>
 				<if test="startTime != null"> <![CDATA[  and meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 				<if test="endTime != null"> <![CDATA[ and meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
 			
@@ -484,6 +490,12 @@
 				sop_meeting_record 
 			WHERE 
 			  <trim prefixOverrides="and">
+			 	 <if test="proIdList != null">
+					and project_id in
+					<foreach collection="proIdList" index="item" item="item" open="(" separator="," close=")" >
+						#{item}
+					</foreach>
+			    </if>
 				<if test="startTime != null"> <![CDATA[  and meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
 				<if test="endTime != null"> <![CDATA[ and meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
 				<if test="meetingType != null">and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>

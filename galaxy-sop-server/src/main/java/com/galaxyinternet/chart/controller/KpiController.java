@@ -134,6 +134,12 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 			query.setStartTime(startTime);
 			query.setEndTime(endTime);
 
+			//强制 HHR 只能看个人部门下的数据
+			int hhrDeptId = getDepId(request);
+			if(hhrDeptId!=-1){
+				query.setDeptid((long) hhrDeptId);
+			}
+			
 			Page<ChartDataBo> pageList = kpiService.proTimeLine(query);
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setPageList(pageList);
