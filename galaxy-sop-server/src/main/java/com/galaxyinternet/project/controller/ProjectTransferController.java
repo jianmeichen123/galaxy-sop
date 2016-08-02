@@ -4,6 +4,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.galaxyinternet.bo.project.ProjectTransferBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -27,5 +28,15 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 		// TODO Auto-generated method stub
 		return this.projectTransferService;
 	}
+	
+	/**
+	 * 添加页面
+	 */
+	@RequestMapping(value = "/toProjectTransfer", method = RequestMethod.GET)
+	public String interViewAdd() {
+		return "interview/project_transfer";
+	}
+	
+	
 	
 }

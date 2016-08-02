@@ -1968,3 +1968,57 @@ dl{position: relative;}
 .edit_meeting_type_dd{margin-top:-30px !important;margin-left:380px !important;}
 .div_meetingNotes_dd{max-height:250px;overflow:auto;}
 .width_36 ,.width_36  .th-inner{ width:400px; overflow:hidden;}
+/*权限*/
+.lft li:hover .role1, .lft li.on .role1 {
+    background-position: -40px -1236px;
+}
+.role1 {
+    background-position: 0 -1236px;
+}
+.lft li:hover .role2, .lft li.on .role2 {
+    background-position: -40px -1285px;
+}
+.role2 {
+    background-position: 0 -1285px;
+}
+.lft li:hover .role3, .lft li.on .role3 {
+    background-position: -39px -1333px;
+}
+.role3 {
+    background-position: 0 -1333px;
+}
+.role_center{ width:100%; background-color:#fff; border-radius:6px; margin-top:10px; padding-bottom: 20px;}
+.role_center_info{ padding:20px;}
+.width_150{ width:100px;  line-height: 28px;}
+.align_r{ text-align:right;}
+.ul_role{ width:100%; overflow:hidden;}
+.ul_role li{ width:100%; overflow:hidden; margin-bottom:10px; position:relative;}
+.role_save span {
+    float: left;
+    border-radius: 4px;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.role_textarea{ min-width:950px; overflow:hidden; border-radius:6px; height:100px; overflow-y:auto;}
+.role_list{width:950px; }
+.role_list span{ display:block; float:left; margin-right:20px; margin-bottom:5px;}
+.role_border{ border:1px solid #ccd2d7; width:auto; border-radius:6px; box-sizing:border-box; min-width:950px; }
+.role_set{ width:900px; margin-left:auto; margin-right:auto; margin-top:20px; margin-bottom:20px; overflow:hidden; }
+.role_line{ width:900px; margin-left:auto; margin-right:auto; margin-top:20px; margin-bottom:20px; height:1px; background-color:#dfe0e3;}
+.role_set ul li{ line-height:35px; margin-bottom:0px;}
+.role_set ul li ul{ margin-left:35px;}
+.role_set ul li select{ float:right; width:120px; height:25px; padding:2px 0 !important}
+.role_menu{ height:35px; cursor:pointer; float:left;}
+.menu_input{ float:left;  margin-right:5px; margin-top:10px;}
+.role_triangle{float:left; margin-right:5px; background:url(../img/role.png) no-repeat 0px 0px; height:20px; width:10px; margin-top:12px;}
+.role_triangle_open{ background-position:-10px -0px; margin-top:11px;}
+.role_center table { border-radius:8px; background-color:#fff; overflow:hidden;}
+.role_center table th{ background-color:#fff; line-height:35px;}
+.role_center table td{ border-bottom:1px solid #f6f7fa;}
+.role_center .delete{ color:#cfcfcf; text-decoration:none; cursor:not-allowed;}
+
+/*角色弹窗*/
+.role_all{ width:450px; margin-top:45px; }
+.role_toolTip_input{ width:325px; border:1px solid #ccd2d7; line-height:30px; height:30px; border-radius:2px; font-size: 12px; text-indent:5px;}
+.role_all ul li{ overflow:hidden; margin-bottom:20px;}
+.role_toolTip_area{ width:325px; height:150px; overflow-y:auto;　border:1px solid #ccd2d7; resize:none; box-sizing:border-box; text-indent:5px;}

@@ -68,6 +68,8 @@
             <div class="correlation">相关操作</div> 
             <div class="new_correlation_cen">
             	<span class="bluebtn new_btn" onclick="closePro()" id="fjxm_but">否决项目</span>
+            	<span class="bluebtn new_btn" onclick="transferPro()" id="yjxm_btn">否决项目</span>
+        
             </div>
             
             
@@ -349,6 +351,17 @@ function closePro(){
 		sendGetRequest(platformUrl.closeProject+proid,null,closeback);
 	} */
 }
+
+function transferPro(){
+	var _url=platformUrl.toProjectTransfer;
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){}//模版反回成功执行	
+	});
+}
+
+
 
 
 //关闭回调

@@ -812,7 +812,14 @@ var platformUrl = {
 	 * 项目历时
 	 * 1. 工作桌面－项目历时
 	 */
-	progressDurationList : Constants.sopEndpointURL + "/galaxy/kpireport/proProgressTimeLine"
+	progressDurationList : Constants.sopEndpointURL + "/galaxy/kpireport/proProgressTimeLine",
+	/**
+	 * 项目历时
+	 * 1. 移交项目页面跳转
+	 * 
+	 */
+	toProjectTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toProjectTransfer"
+	
 }
 
 /**
