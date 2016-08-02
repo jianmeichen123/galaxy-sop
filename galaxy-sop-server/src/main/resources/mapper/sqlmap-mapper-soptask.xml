@@ -38,6 +38,13 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="projectIdList != null">
+					AND project_id IN
+					<foreach collection="projectIdList" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
 				<if test="taskName != null"> and task_name =#{taskName}</if>
 				<if test="flagUrl != '' and flagUrl=='jz' ">
 				        and task_flag in ('2','3','4','5') <!--and assign_uid =#{assignUid} and task_status!='taskStatus:3'-->
@@ -57,6 +64,13 @@
 				 -->
 				<if test="taskType != null and taskType!='' "> and task_type =#{taskType}</if>
 				<if test="taskFlag != null"> and task_flag =#{taskFlag}</if>
+				<if test="taskFlagS != null">
+					AND task_flag IN
+					<foreach collection="taskFlagS" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			  </if>
 				<if test="taskOrder != null"> and task_order =#{taskOrder}</if>
 				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
 				<if test="departmentId != null"> and department_id =#{departmentId}</if>	
@@ -67,6 +81,9 @@
 				<if test="(taskStatus == null or taskStatus=='') and (taskOrder == null) "> and task_status !='taskStatus:3'</if>
 				<if test="remark != null"> and remark =#{remark}</if>
 				<if test="createdTime != null"> and created_time =#{createdTime}</if>
+				 <if test="startTime != null"> <![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
+			     <if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
+			  
 				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
@@ -144,6 +161,55 @@
 		<include refid="Base_Where_Clause" />
 	</select>
 
+
+
+	<!-- 查询 -->
+	<select id="selectXXXXXX" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_task
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id}</if>
+				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="projectIdList != null">
+					AND project_id IN
+					<foreach collection="projectIdList" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				<if test="taskName != null"> and task_name =#{taskName}</if>
+				<if test="taskType != null and taskType!='' "> and task_type =#{taskType}</if>
+				<if test="taskFlag != null"> and task_flag =#{taskFlag}</if>
+				<if test="taskFlagS != null">
+					AND task_flag IN
+					<foreach collection="taskFlagS" index="item" item="item" open="("
+						separator="," close=")">
+						#{item}
+					</foreach>
+			  </if>
+				<if test="taskOrder != null"> and task_order =#{taskOrder}</if>
+				<if test="taskDeadline != null"> and task_deadline =#{taskDeadline}</if>
+				<if test="departmentId != null"> and department_id =#{departmentId}</if>	
+				<if test="assignUid != null">
+					and (assign_uid =#{assignUid} or task_status='taskStatus:1' )
+				</if>
+				<if test="taskStatus != null and taskStatus!='' "> and task_status =#{taskStatus}</if>
+				<if test="remark != null"> and remark =#{remark}</if>
+				<if test="createdTime != null"> and created_time =#{createdTime}</if>
+				 <if test="startTime != null"> <![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
+			     <if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
+			  
+				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+				<!-- 模糊查询 -->
+			</trim>
+		</where>
+	</select>
+	
+	
+	
+	
 	<!-- 根据ID查询 -->
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
 		select

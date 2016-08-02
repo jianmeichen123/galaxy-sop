@@ -230,7 +230,13 @@ function forwardWithHeader(url){
 }
 
 
-
+function forwardIndexWithHeader(url, sessionId, userId) {
+	if (url.indexOf("?") == -1) {
+		window.location.href = url + "?sid=" + sessionId + "&guid=" + userId;
+	} else {
+		window.location.href = url + "&sid=" + sessionId + "&guid=" + userId;
+	}
+}
 
 
 /**
@@ -1281,6 +1287,7 @@ function init_bootstrapTable(table_id,page_size){
         search: false
 	});
 }
+
 function setting(value,row,index){
 	var settingHtml="";
 	if(row.taskStatus=='待完工'){
@@ -1292,4 +1299,195 @@ function setting(value,row,index){
 		
 	}
 		return settingHtml;
+}
+
+/*
+ * 日期计算工具
+ * author : zhongliangzhang
+ * 
+ * */
+var DateUtils = {
+		/*获取当年第一天*/
+		getYearFirstDay : function(){
+			var date = new Date();  
+			var year = date.getFullYear();  
+//			var month = date.getMonth() + 1;  
+//			var firstdateStr = year + '-01' + '-01';
+			return new Date(year,"0","1");
+		},
+		getTime : function(date){
+			return new Date(date).getTime();
+		},
+		/*
+		 * 获取月份第一天 params
+		 * year : 指定年份
+		 * month : 指定月份
+		 * retType : 返回形式 (date:date类型返回,int:int形式返回(返回天数 ))
+		 * 
+		 * exam :
+		 * var params = {
+		 *			year : 2016,
+		 *			month : 7,
+		 *			retType : 'int'
+		 *	}
+		 *	var ddd = DateUtils.getYearFirstDay(params);
+		 * 
+		 * 
+		 * 
+		 * */
+		getFirstDayByMonth : function(params){
+			var year;
+			var month;
+			if(params && params.year && params.month){
+				year = params.year;
+				month = params.month - 1;
+			}else{
+				var date = new Date();  
+				year = date.getFullYear();
+				month = date.getMonth();
+			}
+			while(month > 12){
+				month -= 12;
+				year ++;
+			}
+            if(params && params.retType){
+            	if(params.retType=='date'){
+            		return new Date(year,month,1); 
+            	}else if(params.retType=='int'){
+            		return new Date(year,month,1).getDate();
+            	}
+            }
+            return new Date(year,month,1);                //取当年当月中的第一天          
+          
+		},
+		/*
+		 * 获取月份最后一天params
+		 * year : 指定年份
+		 * month : 指定月份
+		 * retType : 返回形式 (date:date类型返回,int:int形式返回(返回天数 ))
+		 * 
+		 * exam :
+		 * var params = {
+		 *			year : 2016,
+		 *			month : 7,
+		 *			retType : 'int'
+		 *	}
+		 *	var ddd = DateUtils.getLastDayByMonth(params);
+		 * 
+		 * 
+		 * 
+		 * */
+		getLastDayByMonth : function(params){
+			var year;
+			var month;
+			if(params && params.year && params.month){
+				year = params.year;
+				month = params.month - 1;
+			}else{
+				var date = new Date();  
+				year = date.getFullYear();
+				month = date.getMonth();
+			}
+			while(month > 12){
+				month -= 12;
+				year ++;
+			}
+			var nextMonthFirstDay = new Date(year,month+1,1);
+            if(params && params.retType){
+            	if(params.retType=='date'){
+            		return new Date(nextMonthFirstDay.getTime()-1000); 
+            	}else if(params.retType=='int'){
+            		return new Date(nextMonthFirstDay.getTime()-1000).getDate(); 
+            	}
+            }
+            return new Date(nextMonthFirstDay.getTime()-1000); 
+		},
+		/*
+		 * 获取当天最早些时候
+		 * year : 指定年份
+		 * month : 指定月份
+		 * day : 指定天
+		 * retType : 返回形式 (date:date类型返回,int:int形式返回(返回天数 ))
+		 * 
+		 * exam :
+		 * var params = {
+		 *			year : 2016,
+		 *			month : 7,
+		 *			retType : 'int'
+		 *	}
+		 *	var ddd = DateUtils.getLastDayByMonth(params);
+		 * 
+		 * 
+		 * 
+		 * */
+		getEarliestDay : function(params){
+			var year;
+			var month;
+			if(params && params.year && params.month){
+				year = params.year;
+				month = params.month - 1;
+				day = params.day;
+			}else{
+				var date = new Date();  
+				year = date.getFullYear();
+				month = date.getMonth();
+				day = date.getDate();
+			}
+			while(month > 12){
+				month -= 12;
+				year ++;
+			}
+            if(params && params.retType){
+            	if(params.retType=='date'){
+            		return new Date(year,month,day); 
+            	}else if(params.retType=='int'){
+            		return new Date(year,month,day).getDate(); 
+            	}
+            }
+            return new Date(year,month,day); 
+		}
+}
+
+
+
+
+//根据toobar id 获取表单参数
+function getToobarQueryParams(ToolbarId){
+	var toolbar = $("#"+ToolbarId);
+	var query = {};
+	toolbar.find("input[name][type!='radio']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		var val = input.val();
+		if(val!=''){
+			query[name]=val;
+		}
+	});
+	toolbar.find("input[type='radio']").each(function(){
+		var input = $(this);
+		var name = input.attr("name");
+		if(input.attr("checked")=="checked"||input.prop("checked")==true){
+			var val = input.val();
+    		if(val!=''){
+    			query[name]=val;
+    		}
+		}
+	});
+	toolbar.find("select[name]").each(function(){
+		var select = $(this);
+		var name = select.attr("name");
+		var val = select.val();
+		if(val!=''){
+			query[name]=val;
+		}
+	});
+	console.log(query);
+	return query;
+}
+
+
+function json_2_1(json1,json2){
+	var json = {};
+	json = eval('('+(JSON.stringify(json1)+JSON.stringify(json2)).replace(/}{/,',')+')');
+	return json;
 }

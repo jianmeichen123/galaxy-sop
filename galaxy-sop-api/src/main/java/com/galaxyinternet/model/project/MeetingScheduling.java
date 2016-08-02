@@ -13,6 +13,10 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 public class MeetingScheduling extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
+	
+	private String type;//标志 0：今日会议 1:待开的会议
+
+	
 	private Long projectId;
 
 	private String meetingType;
@@ -67,6 +71,11 @@ public class MeetingScheduling extends PagableEntity {
 	
 	private List<Long> ids;//排期id集合
 
+	//report
+	private Long startTime; 
+	private Long endTime;
+	
+	
 	public Timestamp getReserveTimeEnd() {
 		if (StringUtils.isNotBlank(this.reserveTimeEndStr)) {
 			Date tmp = null;
@@ -339,6 +348,30 @@ public class MeetingScheduling extends PagableEntity {
 
 	public void setIds(List<Long> ids) {
 		this.ids = ids;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Long getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Long startTime) {
+		this.startTime = startTime;
+	}
+
+	public Long getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Long endTime) {
+		this.endTime = endTime;
 	}
     
 }

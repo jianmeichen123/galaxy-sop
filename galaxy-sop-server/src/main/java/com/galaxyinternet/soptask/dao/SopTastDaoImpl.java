@@ -1,17 +1,21 @@
 package com.galaxyinternet.soptask.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import com.galaxyinternet.bo.SopTaskBo;
+import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.utils.BeanUtils;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopTask;
 
 @Repository("sopTaskDao")
@@ -82,4 +86,19 @@ public class SopTastDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTask
 			throw new DaoException(String.format("查询对象列表出错！语句：%s", getSqlName("selectTaskByProjectId")), e);
 		}
 	}
+	
+	
+	
+	@Override
+	public List<SopTask> selectXXXXXX(SopTask query) {
+		try {
+			Map<String, Object> params = BeanUtils.toMap(query);
+			return sqlSessionTemplate.selectList(getSqlName("selectXXXXXX"),params);
+		} catch (Exception e) {
+			throw new DaoException(String.format("查询对象列表出错！语句：%s", getSqlName("selectXXXXXX")), e);
+		}
+	}
+	
+	
+	
 }

@@ -1,6 +1,13 @@
 package com.galaxyinternet.sopfile.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +16,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -575,66 +583,74 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		//校验
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		// 业务分类校验 并 初始化任务名称及项目阶段
-		String proProgress = "";
-		Integer taskFlag = null;
-		UrlNumber num = null;
-		responseBody = validateUploadForm(responseBody, user,
-				projectId, form.getFileWorktype(), proProgress, num,
-				taskFlag,isProve);
-		if (responseBody.getResult().getErrorCode() != null) {
-			return responseBody;
-		}
-		form.setProjectId(Long.parseLong(projectId));
-		Map<String, Object> tempMap = responseBody.getUserData();
-		proProgress = (String) tempMap.get("progress");
-		taskFlag = (Integer) tempMap.get("taskFlag");
-//		num = (UrlNumber) tempMap.get("num");
-		
-		String messageType = (String) tempMap.get("messageType");
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
-		MultipartFile file = multipartRequest.getFile("file"); // 获取multipartFile文件
-		form.setFileName(file.getOriginalFilename());
-		form.setFileLength(file.getSize());
-		
-		
-		FileUploadHandler handler = null;
-		if("checked".equals(isProve)){
-			handler = new VoucherFileUpload();
-		}else{
-			handler = new FileUpload();
-		}
-		
-		SopParentFile sopFile = handler.getFileEntity(form, user);
-		
+		try {
+			Map<Long, String> map = new HashMap<Long, String>();
+			BufferedReader reader = null;
+			try {
+				reader = new BufferedReader(new InputStreamReader(SopFileController.class.getResourceAsStream("/fileid.txt")));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					String[] array = line.split(",");
+					map.put(Long.valueOf(array[0]), array[1]);
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally {
+	            try {
+	                if (reader != null) {
+	                	reader.close();
+	                }
+	            } catch (Exception e2) {
+	                e2.printStackTrace();
+	            }
+	        }
+			Iterator<Entry<Long, String>> iterator = map.entrySet().iterator();
+			while(iterator.hasNext()){
+				Entry entry = iterator.next();
+				System.out.println(entry.getKey() + "-->" + entry.getValue());
+				download(entry);	
+			}
+			File tempDir = new File("G:\\test");
+			File logFile = new File("G:\\test\\log\\fileLog.txt");
+			OutputStream logOut = new FileOutputStream(logFile);
+			if (!tempDir.exists()) {
 				
-		try{
-			//阿里云上传
-			Map<String, Object> map = sopFileService.aLiColoudUpload(request,
-					sopFile.getFileKey());
-			if(map==null){
-				responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_ALCLOUD));
-				return responseBody;
+			}else{
+				File[] files = tempDir.listFiles();
+				for(int i=0;i<files.length;i++){
+					
+					if(files[i].length()<=0){
+						//文件里面写数据 
+						logOut.write(files[i].getName().getBytes());
+						logOut.write("\r\n".getBytes());
+					}
+				}
 			}
-			//上传业务updateFile
-			responseBody = handler.updateFile(multipartRequest, responseBody, user, sopFile);
-			num = (UrlNumber) responseBody.getUserData().get("num");
-			if(num!=null){
-				Project tempProject = proJectService.queryById(sopFile.getProjectId());
-				String projectName = tempProject.getProjectName();
-				User belongUser = userService.queryById(tempProject.getCreateUid());
-				ControllerUtils.setRequestParamsForMessageTip(request,belongUser, projectName, sopFile.getProjectId(),messageType,num,sopFile);
-			}
-		}catch(DaoException e){
+			logOut.flush();
+			logOut.close();
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
 			responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_DAO));
-		}catch(IOException e){
-			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
-		}catch(Exception e){
-			responseBody.setResult(new Result(Status.ERROR, e.getMessage()+ERR_UPLOAD_IO));
-		}finally{
 		}
 		
 		return responseBody;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 	
 	/***
@@ -1504,6 +1520,75 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		return data;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 文件下载接口
+	 * 
+	 * @param request
+	 * @param response
+	 * @param tempfilePath
+	 *            临时存储路径
+	 * @param downloadEntity
+	 *            下载实体类
+	 * @throws Exception
+	 */
+	public void download(Entry<Long, String> enter) throws Exception{
+
+		InputStream fis = null;
+		OutputStream out = null;
+		
+				
+		File tempDir = new File("G:\\test");
+		File tempFile = new File("G:\\test", enter.getKey().toString());
+		
+		if (!tempDir.exists()) {
+			tempDir.mkdirs();
+		}
+		if(!tempFile.exists() || !tempFile.isFile()){
+			tempFile.createNewFile();
+				OSSHelper.downloadSupportBreakpoint(tempFile.getAbsolutePath(),
+						enter.getValue());
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }
