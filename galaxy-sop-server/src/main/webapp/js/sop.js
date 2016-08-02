@@ -659,10 +659,12 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 				$("#voucherDiv").css("display","none");
 			}
 			if(fileWorkType=='fileWorktype:1'){
-				$('.title_bj').html('更新业务尽职调查报告')
+				$('.title_bj').html('更新业务尽职调查报告');
 			}
 			if(fileWorkType=='fileWorktype:5'){
-				$('.title_bj').html('更新投资意向书')
+				$('.title_bj').html('更新投资意向书');
+			}else{
+				$('.title_bj').html('更新上传文件');
 			}
 			$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
 			$("#fileType").val(fileType);
@@ -1156,6 +1158,7 @@ function selected(obj){
 			if(i == 1){
 				$("#voucherType").attr("disabled",true);
 				$("#voucherType").attr("checked","checked");
+				$('.title_bj').html('上传签署凭证');
 			}else{
 				$("#voucherDiv").css("display","none");
 				

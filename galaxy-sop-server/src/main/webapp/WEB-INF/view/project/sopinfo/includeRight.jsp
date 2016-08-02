@@ -164,6 +164,8 @@ function toCheckShowIcon(){
 	}
 	if(len<3){
 		$("#meet_more").hide();
+	}else{
+		$("#meet_more").show();
 	}
 	//无访谈记录
 	var len=$("#near_view .new_b_bottom").length;
@@ -174,6 +176,8 @@ function toCheckShowIcon(){
 	}
 	if(len<3){
 		$("#view_more").hide();
+	}else{
+		$("#view_more").show();
 	}
 }
 

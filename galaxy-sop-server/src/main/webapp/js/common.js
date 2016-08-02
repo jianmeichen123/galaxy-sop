@@ -517,6 +517,7 @@ function toinitUpload(fileurl,pid,selectBtnId,fileInputId,submitBtnId,fileType,p
 				}
 				layer.msg(response.result.message);
 				$("#powindow,#popbg").remove();
+				$.popupTwoClose();
 				info(pid);
 				
 				//location.reload(true);
