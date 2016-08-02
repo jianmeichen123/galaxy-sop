@@ -191,13 +191,26 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getDepartmentDict/{parentCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Department> getDepartmentDict( @PathVariable String parentCode,HttpServletRequest request) {
+	@RequestMapping(value = "/getDepartmentDict/{departmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Department> getDepartmentDict( @PathVariable String departmentId,HttpServletRequest request) {
 		ResponseData<Department> responseBody = new ResponseData<Department>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
 		List<Department> departDicts = null;
 		Result result = new Result();
 		try {
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+					.getId());
+			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
+				departmentId = "all";
+			}
 			Department query = new Department();
+			if(!"all".equals(departmentId)){
+				query.setId(Long.parseLong(departmentId));
+			}
 			query.setType(1);
 			departDicts = departMentService.queryList(query);	
 		}catch(PlatformException e){

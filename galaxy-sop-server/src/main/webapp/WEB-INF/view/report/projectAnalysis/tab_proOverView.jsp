@@ -170,54 +170,42 @@
 			<!-- 项目数完成增长率统计 -->
 			<div class="tabtable_con"  data-tab="con">
 				<form id="search_rise_rate_form">
-				<div class="search_box searchall">
-					<dl class="fmdl fmmr clearfix">
-						<dt>投资事业线：</dt>
-						<dd>
-							<select name="departmentId" id="search_project_depart_id"></select>
-						</dd>
-					</dl>
-					<dl class="fmdl fmmr clearfix">
-						<dt>项目类型：</dt>
-						<dd>
-							<select name="projectType" id="search_project_type">
-								<option value="all">全部</option>
-								<option value="projectType:2">内部创建</option>
-								<option value="projectType:1">外部投资</option>
-							</select>
-						</dd>
-					</dl>
-					<div id= "search_datepicker">					
+					<div class="search_box searchall">
+						<dl class="fmdl fmmr clearfix">
+							<dt>投资事业线：</dt>
+							<dd>
+								<select name="departmentId" id="search_project_depart_id"></select>
+							</dd>
+						</dl>
+						<dl class="fmdl fmmr clearfix">
+							<dt>项目类型：</dt>
+							<dd>
+								<select name="projectType" id="search_project_type">
+									<option value="all">全部</option>
+									<option value="projectType:2">内部创建</option>
+									<option value="projectType:1">外部投资</option>
+								</select>
+							</dd>
+						</dl>
+						<div id= "search_datepicker">					
+						</div>
+						<dl class="fmdl fmmr clearfix">
+							<dd>
+								<a href="javascript:;" class="bluebtn ico tj"
+									id="search_btn">统计</a>
+							</dd>
+						</dl>
 					</div>
-					<dl class="fmdl fmmr clearfix">
-						<dd>
-							<a href="javascript:;" class="bluebtn ico tj"
-								id="search_btn">统计</a>
-						</dd>
-					</dl>
-				</div>
-				</form>
-				<!--柱状图部分-->
-				<div class="chartbox">
-					<div id="container_xmzzl" class="chart chart_m"></div>
-				</div>
-				<!--表格内容-->
-				<!-- <a href="javascript:;" class="pubbtn bluebtn export">导出</a> -->
-				<table id="data-table-xmzzl" width="100%" cellspacing="0"
-					cellpadding="0">
-					<thead>
-						<tr>
-							<th data-field="biz_date"  class="data-input">时间</th>
-							<th data-field="dept_name"  class="data-input">投资事业线</th>
-							<th data-field="project_type_name" 
-								class="data-input">项目类型</th>
-							<th data-field="real_name"  class="data-input">投资经理</th>
-							<th data-field="completed"  class="data-input">项目数</th>
-							<th data-field="rise_rate"  class="data-input"
-								data-formatter="rate_format">环比</th>
-						</tr>
-					</thead>
-				</table>
+					</form>
+					<!--柱状图部分-->
+					<div class="chartbox">
+						<div id="chart_rise_rate" class="chart chart_m"></div>
+					</div>
+					<!--表格内容-->
+					<!-- <a href="javascript:;" class="pubbtn bluebtn export">导出</a> -->
+					<table id="grid_rise_rate" width="100%" cellspacing="0"
+						cellpadding="0">
+					</table>
 			</div>
 			
 			
