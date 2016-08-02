@@ -6,7 +6,7 @@ var searchPanel = {
 			//业务类型
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorktype",null,searchPanel.initDataCallBack);
 			//所属事业线
-			sendGetRequest(platformUrl.getDepartMentDict+"/department",null,searchPanel.initDataCallBack);
+			sendGetRequest(platformUrl.getDepartMentDict+"/all",null,searchPanel.initDataCallBack);
 			//注册发送邮件按钮
 			$("#show-mail-btn").click(function(){
 				var rows = $("#fileGrid").bootstrapTable('getSelections');

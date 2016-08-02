@@ -158,7 +158,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			//tabs.add(new Menus(6L, 0, 12, "项目分析", u + "galaxy/report/projectAnalysis?" + params));
 			//tabs.add(new Menus(7L, 0, 13,"绩效考核", u + "galaxy/report/kpi?" + params));
 			
-			tabs.add(new Menus(22L, 0, 11, "数据简报", u + "galaxy/kpireport/toDataBriefing?" + params));
+			tabs.add(new Menus(22L, 0, 11, "数据简报", u + "galaxy/charts/analysis/toProjectAnalysis?" + params));
 			tabs.add(new Menus(6L, 0, 12, "项目分析", u + "galaxy/kpireport/toProOverView?" + params));
 			tabs.add(new Menus(8L, 0, 13,"绩效考核", u + "galaxy/kpireport/touserkpi?" + params));
 			
@@ -178,8 +178,8 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			tabs.add(new Menus(19L, 0, 22,"投决会", u + "galaxy/tjh?" + params));
 			tabs.add(new Menus(20L, 0, 23,"CEO评审会", u + "galaxy/psh?" + params));								
 		}
-		tabs.add(new Menus(25L, 0, 24,"测试页面(项目分析)", u + "galaxy/charts/analysis/toProjectAnalysis?" + params));
-		tabs.add(new Menus(26L, 0, 25,"测试页面(数据简报)", u + "galaxy/charts/briefing/toDataBriefing?" + params));
+//		tabs.add(new Menus(25L, 0, 24,"测试页面(项目分析)", u + "galaxy/charts/analysis/toProjectAnalysis?" + params));
+//		tabs.add(new Menus(26L, 0, 25,"测试页面(数据简报)", u + "galaxy/charts/briefing/toDataBriefing?" + params));
 	    responseBody.setEntityList(tabs);
 		return responseBody;
 	}

@@ -57,7 +57,7 @@ $(function(){
 		    fs=projectInfo.financeStatus;
 			//融资
 			sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
-			sendGetRequest(platformUrl.getDepartMentDict+"/1",null,CallBackA);
+			sendGetRequest(platformUrl.getDepartMentDict+"/all",null,CallBackA);
 			
 			initDialogVal();
 		

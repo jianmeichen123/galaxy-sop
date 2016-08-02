@@ -23,7 +23,7 @@ var searchRiseRatePanel = {
 			
 			$("#search_rise_rate_form").find("#search_end_time").datepicker("setDate",DateUtils.getEarliestDay());
 			//初始化投资事业线
-			sendGetRequest(platformUrl.getDepartMentDict+"/department",null,function(data){
+			sendGetRequest(platformUrl.getDepartMentDict + "/" + departmentId,null,function(data){
 				var _dom;
 				_dom = $("#search_rise_rate_form").find("#search_project_depart_id");
 				utils.each(data,_dom,"all");

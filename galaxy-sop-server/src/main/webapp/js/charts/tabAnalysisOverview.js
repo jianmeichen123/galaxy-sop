@@ -4,13 +4,12 @@ var searchOverviewPanel = {
 			datePickerInitByHandler("search_overview_form");
 			$("#search_overview_form").find("#search_start_time").datepicker("setDate",DateUtils.getYearFirstDay());
 			//初始化投资事业线
-			sendGetRequest(platformUrl.getDepartMentDict+"/department",null,function(data){
+			sendGetRequest(platformUrl.getDepartMentDict + "/" + departmentId,null,function(data){
 				var _dom;
 				_dom = $("#search_overview_form").find("#search_department_id");
 				utils.each(data,_dom,"all");
 				
-				
-				
+				$("#search_overview_form").find("#search_project_progress").val("all");
 				//项目总览图表
 				var formdata = {
 				}
@@ -59,8 +58,12 @@ var queryOverviewUtils = {
 		},
 		query : function(){
 			projectGrid.research = true;
-			//departmentId,projectType,startTime,endTime
+			$("#search_overview_form").find("#search_project_progress").val("all");
 			chartOverviewUtils.init();
+			$('#grid_overview').bootstrapTable('refresh',projectGrid.queryParams);
+		},
+		queryGrid : function(projectProgress){
+			$("#search_overview_form").find("#search_project_progress").val("projectProgress:" + projectProgress);
 			$('#grid_overview').bootstrapTable('refresh',projectGrid.queryParams);
 		}
 }
@@ -161,10 +164,10 @@ var projectGrid = {
 			    });
 		},
 		queryParams : function(params){
-//			if(projectGrid.research){
-//				params.pageNum = 0;
-//				projectGrid.research = false;
-//			}
+			if(projectGrid.research){
+				params.pageNum = 0;
+				projectGrid.research = false;
+			}
 			var form = queryOverviewUtils.getQuery();
 			params.projectDepartid = form.departmentId;
 			params.projectProgress = form.projectProgress;
@@ -218,7 +221,7 @@ var chartOverviewUtils = {
 		                    var temp = event.point.category.split('-');
 		                    if(temp!=null && temp!='' && temp!='undefind'){
 		                    	var dict_code = temp[1].split(':');
-		                    	showDetails(dict_code[1])                    	
+		                    	queryOverviewUtils.queryGrid(dict_code[1]);                   	
 		                    }
 		                }
 		            }
