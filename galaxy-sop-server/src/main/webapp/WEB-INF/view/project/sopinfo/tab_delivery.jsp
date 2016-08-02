@@ -132,15 +132,23 @@
 
 	var proid = projectInfo.id;
 	var deliver_selectRow = null;
-
+	var isTransfering = "${fx:isTransfering(pid) }";
 $(function(){
 	createMenus(5);
 	
 	$("#projectId").val(proid);
-	
+	if(isTransfering == 'true')
+	{
+		//$("[data-btn='to_add_deliver']").addClass('limits_gray');
+	}
 	init_bootstrapTable('project_delivery_table',10);
 	//刷新右侧投后运营简报信息
 	$("#project_delivery_table").on('load-success.bs.table',function(){
+		if(isTransfering == 'true')
+		{
+			
+			$("#project_delivery_table label.blue").addClass('limits_gray').removeAttr('onclick');
+		}
 		setThyyInfo();
 	});
 	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
@@ -150,6 +158,10 @@ $(function(){
 		$("[data-btn='to_add_deliver']").text("添加事项");
 		$("[data-btn='to_add_deliver']").on("click",function(){
 			var $self = $(this);
+			if($self.hasClass('limits_gray'))
+			{
+				return;
+			}
 			var _name= $self.attr("data-name");
 			var _url = Constants.sopEndpointURL + '/galaxy/delivery/toadddeliver';
 			$.getHtml({

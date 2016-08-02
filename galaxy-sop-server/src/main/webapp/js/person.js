@@ -148,11 +148,11 @@ function getTabPerson(){
           onLoadSuccess:function(){
         	  if(isTransfering == 'true')
         	  {
-        		  $table.find("tr td:last span").addClass('limits_gray');
+        		  $table.find("tr span").addClass('limits_gray');
         	  }
         	  else
     		  {
-        		  $table.find("tr td:last span").click(function(){
+        		  $table.find("tr span").click(function(){
         			  var id = $(this).data('id');
         			  if($(this).hasClass('resume'))
     				  {

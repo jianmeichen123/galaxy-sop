@@ -179,12 +179,16 @@
 	var pname = '${pname}';
 	var selectRow = null;
 	//var admin = "${fx:isCreatedByUser('project',pid) }";
-
+	var isTransfering = "${fx:isTransfering(pid) }";
 $(function(){
 	createMenus(5);
 	
 	$("#projectId").val(proid);
-	
+	if(isTransfering == 'true')
+	{
+		$("#proMeetBut").addClass('limits_gray');
+		$('#proMeetBut').removeAttr("onclick");
+	}
 	$('#data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:5,
@@ -210,6 +214,10 @@ $(function(){
             		
             	}
         	}
+        	if(isTransfering == 'true')
+       		{
+        		$('#data-table span.edit').addClass('limits_gray').removeAttr('onclick');
+       		}
         
         }
 	});

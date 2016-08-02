@@ -255,14 +255,14 @@
         onLoadSuccess: function (data) {
         	if(isTransfering == 'true')
        		{
-        		$("#shares-table tr td:last span").addClass('limits_gray');
+        		$("#shares-table span").addClass('limits_gray');
        		}
         	else
        		{
-        		$("#shares-table tr td:last span.edit").click(function(){
+        		$("#shares-table span.edit").click(function(){
         			editStock($(this).data('id'));
         		});
-        		$("#shares-table tr td:last span.del").click(function(){
+        		$("#shares-table span.del").click(function(){
         			delStock($(this).data('id'));
         		});
        		}

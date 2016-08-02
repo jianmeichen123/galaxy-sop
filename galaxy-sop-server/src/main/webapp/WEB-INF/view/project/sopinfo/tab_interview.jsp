@@ -165,11 +165,17 @@
 	var pname = '${pname}';
 	var interviewSelectRow = null;
 	//var admin = "${fx:isCreatedByUser('project',pid) }";
+	var isTransfering = "${fx:isTransfering(pid) }";
 
 $(function(){
 	createMenus(5);
 	
 	$("#projectId").val(proid);
+	if(isTransfering == 'true')
+	{
+		$("#tjftjl").addClass('limits_gray');
+		//$('#tjftjl').removeAttr("onclick");
+	}
 	
 	$('#projectProgress_1_table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
@@ -183,6 +189,12 @@ $(function(){
 		idField : "id",
 		clickToSelect: true,
         search: false,
+        onLoadSuccess:function(){
+        	if(isTransfering == 'true')
+       		{
+        		$('#projectProgress_1_table span.edit').addClass('limits_gray').removeAttr('onclick');
+       		}
+        }
 	});
 	
 	//check to show or not not show qdnbps button
