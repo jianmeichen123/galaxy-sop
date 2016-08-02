@@ -38,14 +38,11 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						up.stop();
 						return;
 					}
-					$(".pop").showLoading(
-					 {
-					    'addClass': 'loading-indicator'						
-					 });
+					
+					layer.load(1);
 					if(up.files.length == 0){
 							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
 								var result = data.result.status;
-								$(".pop").hideLoading();
 								if(result == "OK"){
 									if(callBackFun && typeof(callBackFun) == "function"){
 										callBackFun(data);

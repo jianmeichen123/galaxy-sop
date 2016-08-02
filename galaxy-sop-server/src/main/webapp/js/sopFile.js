@@ -194,7 +194,6 @@ var fileGrid = {
 					fileKey : row.fileKey,
 					fileName : row.fileName + "." + row.fileSuffix
 			};
-			
 			layer.msg('正在下载，请稍后...',{time:2000});
 			var keyvalue;
 			if(e.target.id=="sopfile"){
@@ -220,9 +219,13 @@ var fileGrid = {
     				callFuc : function(){
     					searchPanel.serarchData();
     				},
+    				
     				_url : platformUrl.commonUploadFile, //兼容老板插件
     				_localUrl : platformUrl.commonUploadFile
     		};
+			if($(this).text()=='更新'){
+				$('.title_bj').html('更新文档')
+			}
 			if('vsopfile'==e.currentTarget.id){
 				//签署凭证
 				formData._isProve = true;
@@ -249,6 +252,9 @@ var fileGrid = {
 					}
 					return form;
 				}
+        		if($(this).text()=='上传'){
+    				$('.title_bj').html('上传文档')
+    			}
         	}else{
         		uploadUrl = platformUrl.commonUploadFile;
         	}

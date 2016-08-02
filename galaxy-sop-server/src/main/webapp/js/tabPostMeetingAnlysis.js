@@ -420,11 +420,11 @@ var editPostMeetingDialog = {
 		callFuc : function(data,_this){
 //			operator.saveCallBackFuc(data);
 
-			//$(".pop").hideLoading();
+			layer.closeAll('loading');
 			if(data.result.status=="OK"){
 				layer.msg("保存成功");
 				meetGrid.searchData();
-//				removePop1();
+				removePop1();
 				editPostMeetingDialog.close(_this);
 				//刷新投后运营简报信息
 				setThyyInfo();
