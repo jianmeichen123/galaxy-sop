@@ -48,6 +48,7 @@
 
 <script type="text/javascript">
 var isCreatedByUser = "${fx:isCreatedByUser('project',projectId) }";
+var isTransfering = "${fx:isTransfering(projectId) }";
 var projectInfo;
 $(function(){
 	createMenus(4);
@@ -572,7 +573,15 @@ $(function(){
 	 $('.edui-icon-fullscreen').on('click',function(){
 			$('body').css('padding-bottom','300px')
 	})
+	if(isTransfering)
+	{
+		$('[data-on="data-open"]').addClass('limits_gray');
+	}
 	$('[data-on="data-open"]').on('click',function(){
+		if($(this).hasClass('limits_gray'))
+		{
+			return;
+		}
 		 var scroll_top=$(this).offset().top;
 		 $('html,body').animate({  
 		        scrollTop: scroll_top

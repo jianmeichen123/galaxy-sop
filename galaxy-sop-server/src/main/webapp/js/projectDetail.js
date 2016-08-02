@@ -35,6 +35,10 @@ $(function(){
 		var p;
 		var fs;
 		$("[data-on='data-open']").click(function (){
+			if($(this).hasClass('limits_gray'))
+			{
+				return;
+			}
 			//基本信息修改
 			$("#editImg").html(ht);
 			$("#project_name_edit").val(projectInfo.projectName);

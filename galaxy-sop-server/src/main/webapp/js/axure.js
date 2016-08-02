@@ -692,7 +692,7 @@
 					},
 					success:function(html){
 						$(_this.id).find(".poptxt").html(html);
-						opts.okback();
+						opts.okback(_this);
 						//重新定位
 						_this.postionEve();
 					},

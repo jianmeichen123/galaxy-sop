@@ -128,6 +128,8 @@ function xmstjprojectList(userid,deptid){
 				queryParamsJson_pronum.deptid = deptid;
 			}
 			
+			$("#tc_title_name").html("项目数统计 ");
+			
 			$('#data-table-xmstj-projectlist').bootstrapTable({
 				queryParamsType : 'size|page', // undefined
 				pageSize : 10,
@@ -141,7 +143,7 @@ function xmstjprojectList(userid,deptid){
 					return json_2_1(queryParamsJson_pronum,params);
 				},
 				onLoadSuccess : function(result) {
-					//console.log(result)
+					$('#data-table-xmstj-projectlist').bootstrapTable('showColumn', 'departmentName');
 				}
 			});
 		}

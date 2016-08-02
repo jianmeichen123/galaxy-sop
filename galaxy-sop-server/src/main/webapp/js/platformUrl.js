@@ -572,6 +572,10 @@ var platformUrl = {
 	 */
 	getCareerlineList : Constants.sopEndpointURL + "/galaxy/common/getCareerlineList",
 	/**
+	 * 查询事业线
+	 */
+	getCareerlineListByRole : Constants.sopEndpointURL + "/galaxy/common/getCareerlineListByRole",
+	/**
 	 * 根据事业线查询相应的投资经理
 	 */
 	getUserList : Constants.sopEndpointURL + "/galaxy/common/getUserList/",

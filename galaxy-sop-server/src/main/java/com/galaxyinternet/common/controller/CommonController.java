@@ -283,6 +283,37 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		return responseBody;
 	}
 	
+	
+	/**
+	 * 查询事业线
+	 * @version 2016-06-21
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getCareerlineListByRole", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Department> getCareerlineListByRole(HttpServletRequest request) {
+		ResponseData<Department> responseBody = new ResponseData<Department>();
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		
+		Department query = new Department();
+		query.setType(1);
+		if( roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){
+		}else if(roleIdList.contains(UserConstant.HHR)){
+			query.setId(user.getDepartmentId());
+		}
+		
+		List<Department> careerlineList = departmentService.queryList(query);
+		for(Department department : careerlineList){
+			if(user.getDepartmentId().longValue() == department.getId().longValue()){
+				department.setCurrentUser(true);
+				break;
+			}
+		}
+		responseBody.setEntityList(careerlineList);
+		responseBody.setResult(new Result(Status.OK, null, "获取事业线成功！"));
+		return responseBody;
+	}
+	
 	/**
 	 * 根据事业线查询相应的投资经理
 	 * @version 2016-06-21

@@ -191,8 +191,14 @@
 	var uid='${galax_session_user.id }';
 	function editor(value, row, index){
 		var id=row.id;
-		if(uid == row.createUid){
+		var transferingIds = "${fx:getTransferingPids()}".split(",");
+		if(uid == row.createUid)
+		{
 			var options = "<span class=\"prc\" data-btn='myproject' onclick='info(" + id + ")'>项目流程</span>";
+			if(transferingIds.contains(id))
+			{
+				options = "<span class=\"prc prc_gray\" data-btn='myproject' title=\"项目移交中\"></span>";
+			}
 		}
 		return options;
 	}
