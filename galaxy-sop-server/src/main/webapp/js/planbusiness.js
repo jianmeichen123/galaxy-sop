@@ -166,7 +166,6 @@ var initPage = {
 				    			_isProve : "hide",
 				    			_remark : "hide",
 								callFuc : function(){
-									console.log("刷新商业计划模块");
 									window.location.reload(platformUrl.projectDetail + project.projectId);
 								},
 								_url : platformUrl.commonUploadFile, //兼容老板插件
@@ -188,7 +187,6 @@ var initPage = {
 													_projectId : initPage.projectId
 											}
 											planGrid.init(formdata);
-//											console.log("111111");
 										}//end okback 模版反回成功执行		
 									});
 								},
@@ -227,8 +225,6 @@ var initPage = {
 				{
 					grayClass = " limits_gray";
 				}
-				console.log("isTransfering="+isTransfering);
-				console.log("grayClass="+grayClass);
 				if(data.result.errorCode=="null"){
 					//文档状态
 					dom.find("#plan_status").html("未上传");

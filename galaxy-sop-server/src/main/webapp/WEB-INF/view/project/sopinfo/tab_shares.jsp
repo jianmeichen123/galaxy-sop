@@ -61,7 +61,7 @@
         <!--按钮-->
         <c:if test="${fx:isCreatedByUser('project',pid) }">
           <div class="btnbox_f btnbox_f1 clearfix">
-              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addSharesView()">添加</a>
+              <a href="#" id="add_share_bth" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addSharesView()">添加</a>
           </div>
          </c:if>
       </div>
@@ -86,9 +86,18 @@
 
 <script type="text/javascript">
 	var $sharesTable;
-	
+	var isTransfering = "${fx:isTransfering(pid) }";
+	if(isTransfering == 'true')
+	{
+		$('.legal [data-btn="edit"]').addClass('limits_gray');
+		$('#add_share_bth').addClass('limits_gray');
+	}
 	refreshCompanyInfo();
 	$('.legal [data-btn="edit"]').on('click',function(){
+		if($(this).hasClass('limits_gray'))
+		{
+			return;
+		}
 		editCompany();
 	});
 	$('.legal [data-btn="save"]').on('click',function(){
@@ -244,13 +253,26 @@
 		pagination: true,
         search: false,
         onLoadSuccess: function (data) {
+        	if(isTransfering == 'true')
+       		{
+        		$("#shares-table tr td:last span").addClass('limits_gray');
+       		}
+        	else
+       		{
+        		$("#shares-table tr td:last span.edit").click(function(){
+        			editStock($(this).data('id'));
+        		});
+        		$("#shares-table tr td:last span.del").click(function(){
+        			delStock($(this).data('id'));
+        		});
+       		}
         }
 	});
 	
 	function shareOperatFormater(val,row,index)
 	{
-		var e = '<span class="edit" onclick="editStock(\''+ row.id + '\')">编辑</span> ';  
-        var d = '<span class="del" onclick="delStock(\''+ row.id +'\')">删除</span>';  
+		var e = '<span class="edit" data-id="'+row.id+'">编辑</span> ';  
+        var d = '<span class="del" data-id="'+row.id+'">删除</span>';  
         return e+d;  
 	}
 	function editStock(id){
@@ -294,6 +316,10 @@
 		
 	}
 	function addSharesView(){
+		if(isTransfering == 'true')
+		{
+			return;
+		}
 		$.getHtml({
 			url:platformUrl.addSharesView,
 			okback:function(){
