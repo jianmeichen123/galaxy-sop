@@ -77,4 +77,7 @@ public interface SopConstant {
 	public static final String SESSION_SCOPE_ATTR_CUR_MENU 	= "_curr_menu_";
 	
 	
+	public static final String CACHE_SCOPE_TRANSFER_PROJECT = "transfer_project";
+	
+	
 }
