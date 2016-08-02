@@ -220,6 +220,7 @@ function deptkpiprojectList(id) {
 		data : "",//传递参数
 		okback : function() {
 			queryParamsJson.deptid = id;
+			$("#tc_title_name").html("团队绩效考核 ");
 			$('#data-table-deptkpi-projectlist').bootstrapTable({
 				queryParamsType : 'size|page', // undefined
 				pageSize : 10,

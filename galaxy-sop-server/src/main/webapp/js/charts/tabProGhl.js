@@ -78,6 +78,8 @@ function pro_ghl_init(){
 					queryParamsJson_ghl.deptid = deptid;
 				}
 				
+				$("#tc_title_name").html("过会率统计 ");
+				
 				$('#data-table-xmstj-projectlist').bootstrapTable({
 					queryParamsType : 'size|page', // undefined
 					pageSize : 10,
