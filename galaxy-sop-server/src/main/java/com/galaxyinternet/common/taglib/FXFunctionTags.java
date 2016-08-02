@@ -8,6 +8,7 @@ import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
+import com.google.gson.Gson;
 
 public class FXFunctionTags
 {
@@ -82,6 +83,24 @@ public class FXFunctionTags
 			}
 		}
 		return false;
+	}
+	public static String getTransferingPids()
+	{
+		Cache cache = WebUtils.getBean(Cache.class);
+		if(cache != null)
+		{
+			Object obj = cache.get(SopConstant.CACHE_SCOPE_TRANSFER_PROJECT);
+			if(obj != null)
+			{
+				String result = new Gson().toJson(obj);
+				if(result != null)
+				{
+					result = result.replaceAll("\\[|\\]", "");
+				}
+				return result;
+			}
+		}
+		return "";
 	}
 	
 }

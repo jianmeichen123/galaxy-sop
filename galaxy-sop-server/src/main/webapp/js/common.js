@@ -1491,3 +1491,16 @@ function json_2_1(json1,json2){
 	json = eval('('+(JSON.stringify(json1)+JSON.stringify(json2)).replace(/}{/,',')+')');
 	return json;
 }
+if (!Array.prototype.contains)
+{
+	Array.prototype.contains = function(ele){
+		for(i in this)
+		{
+			if(this[i] == ele)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+}
