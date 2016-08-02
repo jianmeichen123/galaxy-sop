@@ -143,7 +143,7 @@ function xmstjprojectList(userid,deptid){
 					return json_2_1(queryParamsJson_pronum,params);
 				},
 				onLoadSuccess : function(result) {
-					//console.log(result)
+					$('#data-table-xmstj-projectlist').bootstrapTable('showColumn', 'departmentName');
 				}
 			});
 		}

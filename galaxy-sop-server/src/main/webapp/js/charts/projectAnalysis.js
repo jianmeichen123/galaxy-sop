@@ -33,7 +33,7 @@ var utils = {
 
 
 $(function(){
-	createMenus(8);
+	createMenus(6);
 	
 	//表单日期初始化
 	var currDate = new Date();
