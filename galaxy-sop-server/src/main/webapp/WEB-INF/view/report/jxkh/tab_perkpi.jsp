@@ -41,7 +41,9 @@
 			<!-- tab标签 -->
             <ul class="tablink tablinks">
 				<li class="on"><a href="javascript:;" onclick="toperKpi()">个人绩效考核</a></li>
-				<li><a href="javascript:;" onclick="toteamKpi()">团队绩效考核</a></li>
+				 <c:if test="${fx:hasRole(1l) or fx:hasRole(2l) }">
+					<li><a href="javascript:;" onclick="toteamKpi()">团队绩效考核</a></li>
+				</c:if>
             </ul>
 
 		<div class="tabtable_con">
@@ -193,7 +195,7 @@ function init(){
 	$("input[name='edate']").val(edate);
 	
 	//表单事业线下拉初始化
-	createCareelineOptions(platformUrl.getCareerlineList,"deptid","");
+	createCareelineOptions(platformUrl.getCareerlineListByRole,"deptid","");
 	
 }
 	 
