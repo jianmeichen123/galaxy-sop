@@ -10,13 +10,9 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class SopFile extends SopParentFile implements Serializable{
-    /**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
    
-   
-    
     /**
      * 上传所属人
      */
@@ -88,17 +84,6 @@ public class SopFile extends SopParentFile implements Serializable{
      */
     private Long meetingId;
     
-    /**
-     * 是否被删除
-     */
-    private Integer fileIsdel;
-    
-    /**
-     * 关联类型
-     */
-    private Integer meetFlag;
-        
-
     /**
      * 临时地址
      */
@@ -196,7 +181,6 @@ public class SopFile extends SopParentFile implements Serializable{
 	}
      @Override
     public void setUpdatedTime(Long updatedTime) {
-    	// TODO Auto-generated method stub
     	super.setUpdatedTime(updatedTime);
     	if(updatedTime != null){
      		this.updatedDate = DateUtil.longToString(updatedTime);
@@ -342,22 +326,6 @@ public class SopFile extends SopParentFile implements Serializable{
 
 	public void setMeetingId(Long meetingId) {
 		this.meetingId = meetingId;
-	}
-
-	public Integer getFileIsdel() {
-		return fileIsdel;
-	}
-
-	public void setFileIsdel(Integer fileIsdel) {
-		this.fileIsdel = fileIsdel;
-	}
-
-	public Integer getMeetFlag() {
-		return meetFlag;
-	}
-
-	public void setMeetFlag(Integer meetFlag) {
-		this.meetFlag = meetFlag;
 	}
 
 	public String getFileStatusDesc() {
