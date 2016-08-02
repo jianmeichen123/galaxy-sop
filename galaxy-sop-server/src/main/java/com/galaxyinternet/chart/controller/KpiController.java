@@ -293,8 +293,10 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 	
 	
 	
+	//==========================  项目数 统计      //TODO   项目数 统计  
+	
 	/**
-	 * 项目分析－项目数统计－项目列表页面，只提供路由功能
+	 * 项目分析
 	 * @param request
 	 * @return
 	 */
@@ -302,34 +304,6 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 	public String toProOverView(HttpServletRequest request) {
 	
 		return "report/projectAnalysis/tab_proOverView";
-	}
-	
-	
-	/**
-	 * 项目分析－项目数统计－项目列表页面，只提供路由功能
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/toprorRiseRate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toprorRiseRate(HttpServletRequest request) {
-	
-		return "report/projectAnalysis/tab_prorRseRate";
-	}
-	
-	
-	 
-	//==========================  项目数 统计      //TODO   项目数 统计  
-	
-	
-	/**
-	 * 项目分析－项目数统计－项目列表页面，只提供路由功能
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/paprojectlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String paprojectlist(HttpServletRequest request) {
-	
-		return "report/projectAnalysis/tab_proNum";
 	}
 	
 	
@@ -507,30 +481,6 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 	
 	//  //TODO   过会率统计，投决率统计
 	
-	
-	/**
-	 * 项目分析－过会率统计页面
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/toGhlSum", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toGhlSum(HttpServletRequest request) {
-	
-		return "report/projectAnalysis/tab_ghl";
-	}
-	
-	
-	
-	/**
-	 * 项目分析－投决率统计页面
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/toTjlSum", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toTjlSum(HttpServletRequest request) {
-	
-		return "report/projectAnalysis/tab_tjl";
-	}
 	
 	
 	/**
@@ -714,18 +664,6 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 	
 	
 	/**
-	 * 项目分析－过会率统计页面
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/toDataBriefing", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public String toDataBriefing(HttpServletRequest request) {
-	
-		return "report/dataSimpleRep/div_dataBriefing";
-	}
-	
-	
-	/**
 	 * 数据简报
 	 * 投资事业线目标完成对比
 	 * @param request
@@ -770,11 +708,6 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 		
 		return responseBody;
 	}
-	
-	
-	
-	
-	
 	
 	
 	
