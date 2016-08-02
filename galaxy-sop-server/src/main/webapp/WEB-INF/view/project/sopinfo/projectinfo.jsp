@@ -76,7 +76,6 @@ function getProjectInfo(dtd)
 				dtd.resolve();
 			}
 			var len=$("#project_name").length
-			console.log($("#project_name"))
 		}
 	);
 	if(hasDtd)
