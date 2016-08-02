@@ -70,6 +70,7 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
+import com.galaxyinternet.model.project.ProjectTransfer;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -90,6 +91,7 @@ import com.galaxyinternet.service.PassRateService;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.ProjectTransferService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
@@ -100,8 +102,8 @@ import com.galaxyinternet.service.UserService;
 @RequestMapping("/galaxy/project")
 public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
-	final Logger logger = LoggerFactory.getLogger(ProjectController.class);
-	private final static Logger LOG_ADD_PROJECT = LoggerFactory.getLogger("LOG_ADDPROJECT_LOGGER");
+	final Logger _common_logger_ = LoggerFactory.getLogger(ProjectController.class);
+	private final static Logger _alarm_logger_ = LoggerFactory.getLogger("ALARM_LOG");
 
 	@Autowired
 	private ProjectService projectService;
@@ -135,6 +137,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@Autowired
 	private SopTaskService sopTaskService;
+	
+	@Autowired
+	private ProjectTransferService projectTransferService;
 
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -206,6 +211,42 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		responseBody.setPageList(pageProject);
 		responseBody.putAttachmentItem("user",user);
 		responseBody.setResult(new Result(Status.OK, ""));
+		return responseBody;
+	}
+	
+	
+	/**
+	 * 项目移交
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/applyTransfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectTransfer> applyTransfer(@RequestBody ProjectTransfer projectTransfer,
+			HttpServletRequest request) {
+		ResponseData<ProjectTransfer> responseBody = new ResponseData<ProjectTransfer>();
+		if(projectTransfer.getProjectId() == null 
+				|| projectTransfer.getAfterDepartmentId() == null 
+				|| projectTransfer.getAfterUid() == null){
+			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
+			return responseBody;
+		}
+		try {
+			Project project = projectService.queryById(projectTransfer.getProjectId());
+			if(project == null){
+				responseBody.setResult(new Result(Status.ERROR,"csds" , "未找到被移交的项目!"));
+				return responseBody;
+			}
+			User user = (User) getUserFromSession(request);
+			projectTransfer.setBeforeUid(user.getId());
+			projectTransfer.setBeforeDepartmentId(user.getDepartmentId());
+			projectTransferService.insert(projectTransfer);
+			responseBody.setResult(new Result(Status.OK,"200" , "项目移交成功!"));
+			_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,"err" , "项目移交失败!"));
+			if(_common_logger_.isErrorEnabled()){
+				_common_logger_.error("移交项目失败[josn]-" + projectTransfer);
+			}
+		}
 		return responseBody;
 	}
 
@@ -290,15 +331,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					if(file!=null){
 						file.setMultipartFile(null);
 					}
-					LOG_ADD_PROJECT.info("添加项目["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
+					_alarm_logger_.info("添加项目["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
 					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_,file);
 				}
 			}
 		} catch (Exception e) {
-			logger.error("异常信息:",e.getMessage());
-			e.printStackTrace();
+			_common_logger_.error("异常信息:",e.getMessage());
 		}
-	
 		return responseBody;
 	}
 
@@ -448,8 +487,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "查询事业线失败"));
-			if (logger.isErrorEnabled()) {
-				logger.error("queryCheckLine 查询事业线失败 ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("queryCheckLine 查询事业线失败 ", e);
 			}
 		}
 		return responseBody;
@@ -567,8 +606,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"queryUserList faild"));
-			if (logger.isErrorEnabled()) {
-				logger.error("queryUserList ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("queryUserList ", e);
 			}
 		}
 		return responseBody;
@@ -657,8 +696,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"queryUserList faild"));
-			if (logger.isErrorEnabled()) {
-				logger.error("queryUserList ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("queryUserList ", e);
 			}
 		}
 		return responseBody;
@@ -701,8 +740,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						p.getProjectName(), p.getId());
 			}
 		} catch (Exception e) {
-			logger.error("添加团队异常 ",e.getMessage());
-			e.printStackTrace();
+			_common_logger_.error("添加团队异常 ",e.getMessage());
 		}
 		return responseBody;
 	}
@@ -802,8 +840,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"queryUserList faild"));
-			if (logger.isErrorEnabled()) {
-				logger.error("queryUserList ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("queryUserList ", e);
 			}
 		}
 		return responseBody;
@@ -835,8 +873,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "异常，请重试!"));
-			if (logger.isErrorEnabled()) {
-				logger.error("queryUserList ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("queryUserList ", e);
 			}
 		}
 		return responseBody;
@@ -1156,7 +1194,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 			}
 		} catch (Exception e) {
-			logger.error("操作失败", e);
+			_common_logger_.error("操作失败", e);
 			responseBody.getResult().addError("操作失败!");
 		}
 
@@ -1183,8 +1221,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 		int r = (project.getStockTransfer() == null || project
 				.getStockTransfer().intValue() == 0) ? 1 : 0;
-		if (logger.isInfoEnabled()) {
-			logger.info("old stockTransfer:" + project.getStockTransfer()
+		if (_common_logger_.isInfoEnabled()) {
+			_common_logger_.info("old stockTransfer:" + project.getStockTransfer()
 					+ ", new stockTransfer:" + r);
 		}
 		project.setStockTransfer(r);
@@ -1232,8 +1270,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"异常，启动内部评审失败!"));
-				if (logger.isErrorEnabled()) {
-					logger.error("update project faild ", e);
+				if (_common_logger_.isErrorEnabled()) {
+					_common_logger_.error("update project faild ", e);
 				}
 			}
 		} else {
@@ -1288,8 +1326,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"异常，申请CEO评审排期失败!"));
-			if (logger.isErrorEnabled()) {
-				logger.error("update project faild ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("update project faild ", e);
 			}
 		}
 		return responseBody;
@@ -1329,8 +1367,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			} catch (Exception e) {
 				responseBody.setResult(new Result(Status.ERROR, null,
 						"异常，申请立项会失败!"));
-				if (logger.isErrorEnabled()) {
-					logger.error("update project faild ", e);
+				if (_common_logger_.isErrorEnabled()) {
+					_common_logger_.error("update project faild ", e);
 				}
 			}
 		} else {
@@ -1384,8 +1422,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (Exception e) {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "异常，申请立项会失败!"));
-			if (logger.isErrorEnabled()) {
-				logger.error("update project faild ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("update project faild ", e);
 			}
 		}
 		return responseBody;
@@ -1440,8 +1478,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (Exception e) {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "异常，申请投决会失败!"));
-			if (logger.isErrorEnabled()) {
-				logger.error("update project faild ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("update project faild ", e);
 			}
 		}
 		return responseBody;
@@ -1490,8 +1528,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (Exception e) {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "异常，申请投决会失败!"));
-			if (logger.isErrorEnabled()) {
-				logger.error("update project faild ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("update project faild ", e);
 			}
 		}
 		return responseBody;
@@ -1608,8 +1646,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"add meetingRecord faild"));
 
-			if (logger.isErrorEnabled()) {
-				logger.error("add meetingRecord faild ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("add meetingRecord faild ", e);
 			}
 		}
 
@@ -1629,7 +1667,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			resp.setUserData(summary);
 		} catch (Exception e) {
-			logger.error("获取数据快览失败", e);
+			_common_logger_.error("获取数据快览失败", e);
 			resp.getResult().addError("获取数据快览失败");
 		}
 
@@ -1809,8 +1847,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "验证失败"));
-			if (logger.isErrorEnabled()) {
-				logger.error("checkCanUse 验证失败", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("checkCanUse 验证失败", e);
 			}
 		}
 
@@ -1844,7 +1882,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				} else {
 					responseBody.setResult(new Result(Status.ERROR, null,
 							"数据返回错误"));
-					logger.error("checkHasPool 数据返回错误,应返回一条数据  "
+					_common_logger_.error("checkHasPool 数据返回错误,应返回一条数据  "
 							+ GSONUtil.toJson(list));
 				}
 			} else {
@@ -1852,8 +1890,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "查询失败"));
-			if (logger.isErrorEnabled()) {
-				logger.error("checkHasPool 查询失败", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("checkHasPool 查询失败", e);
 			}
 		}
 
@@ -1888,7 +1926,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				} else {
 					responseBody.setResult(new Result(Status.ERROR, null,
 							"数据返回错误"));
-					logger.error("checkPassMeet 数据返回错误,应返回一条数据  "
+					_common_logger_.error("checkPassMeet 数据返回错误,应返回一条数据  "
 							+ GSONUtil.toJson(list));
 				}
 			} else {
@@ -1896,8 +1934,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "查询失败"));
-			if (logger.isErrorEnabled()) {
-				logger.error("checkPassMeet 查询失败", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("checkPassMeet 查询失败", e);
 			}
 		}
 
@@ -2039,7 +2077,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					messageType,null,sopFile);
 		} catch (Exception e) {
 			responseBody.getResult().addError("更新失败");
-			logger.error("更新失败", e);
+			_common_logger_.error("更新失败", e);
 		}
 
 		return responseBody;
@@ -2066,7 +2104,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (Exception e) {
 			result.setMessage("系统错误");
 			result.addError("系统错误");
-			logger.error("根据parentId查找数据字典错误", e);
+			_common_logger_.error("根据parentId查找数据字典错误", e);
 		}
 		if (!("null").equals(id)) {
 			result.setMessage(id);
@@ -2104,7 +2142,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (Exception e) {
 			result.setMessage("系统错误");
 			result.addError("系统错误");
-			logger.error("根据parentId查找数据字典错误", e);
+			_common_logger_.error("根据parentId查找数据字典错误", e);
 		}
 		if (!("null").equals(id)) {
 			result.setMessage(id);
@@ -2315,8 +2353,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		} catch (PlatformException e) {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"queryUserList faild"));
-			if (logger.isErrorEnabled()) {
-				logger.error("queryUserList ", e);
+			if (_common_logger_.isErrorEnabled()) {
+				_common_logger_.error("queryUserList ", e);
 			}
 		}
 		return responseBody;
@@ -2473,7 +2511,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
-			logger.error("更新排期失败 ",e.getMessage());
+			_common_logger_.error("更新排期失败 ",e.getMessage());
 			e.printStackTrace();
 			return responseBody;
 		}
@@ -2609,7 +2647,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
-			logger.error("更新排期失败 ", e.getMessage());
+			_common_logger_.error("更新排期失败 ", e.getMessage());
 			e.printStackTrace();
 			return responseBody;
 		}
@@ -2655,7 +2693,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		if (success) {
 			return "success";
 		} else {
-			logger.error("发送邮件失败.");
+			_common_logger_.error("发送邮件失败.");
 			return "fail";
 		}
 	}
@@ -2673,7 +2711,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				roleIdList = userRoleService.selectRoleIdByUserId(user
 						.getId());
 			}catch(Exception e){
-				logger.error("获取角色列表失败!", e);
+				_common_logger_.error("获取角色列表失败!", e);
 			}
 		}
 		return roleIdList;
@@ -2755,9 +2793,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		catch (Exception e)
 		{
-			if(logger.isErrorEnabled())
+			if(_common_logger_.isErrorEnabled())
 			{
-				logger.error("保存法人信息错误:"+project,e);
+				_common_logger_.error("保存法人信息错误:"+project,e);
 			}
 			data.getResult().addError(e.getMessage());
 		}
@@ -2846,7 +2884,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setUserData(listresult);
 			responseBody.setResult(new Result(Status.OK, null));
 		} catch (Exception e) {
-			logger.error("getnearnotes 近期访谈、会议记录查询失败", e);
+			_common_logger_.error("getnearnotes 近期访谈、会议记录查询失败", e);
 			responseBody.setResult(new Result(Status.ERROR, null, "近期访谈、会议记录查询失败"));
 			return responseBody;
 		}
@@ -2974,7 +3012,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setUserData(resultMap);
 			responseBody.setResult(new Result(Status.OK, null));
 		} catch (Exception e) {
-			logger.error("initProMeetBut 会议功能按钮初始化失败", e);
+			_common_logger_.error("initProMeetBut 会议功能按钮初始化失败", e);
 			responseBody.setResult(new Result(Status.ERROR, null, "会议功能按钮初始化失败"));
 			return responseBody;
 		}

@@ -1,6 +1,7 @@
 package com.galaxyinternet.model.project;
 
 
+import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
@@ -9,6 +10,7 @@ public class ProjectTransfer extends PagableEntity {
 
 	private Long projectId; //项目id
 	private Long beforeUid; //项目移交人
+	private Long beforeDepartmentId;//移交部门Id
 	private Long afterUid;  //项目接收人
 	private Long afterDepartmentId;  //项目接受部门 
 	private String transferReason;//项目移交原因
@@ -34,6 +36,14 @@ public class ProjectTransfer extends PagableEntity {
 
 	public void setBeforeUid(Long beforeUid) {
 		this.beforeUid = beforeUid;
+	}
+
+	public Long getBeforeDepartmentId() {
+		return beforeDepartmentId;
+	}
+
+	public void setBeforeDepartmentId(Long beforeDepartmentId) {
+		this.beforeDepartmentId = beforeDepartmentId;
 	}
 
 	public Long getAfterUid() {
@@ -113,6 +123,12 @@ public class ProjectTransfer extends PagableEntity {
     		this.updateDate = DateUtil.longToString(updatedTime);
     	}
     }
+	
+	
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
    	
   
 }

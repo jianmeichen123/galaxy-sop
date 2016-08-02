@@ -5,6 +5,7 @@
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="project_id" property="projectId" jdbcType="BIGINT" />
     <result column="before_uid" property="beforeUid" jdbcType="BIGINT" />
+    <result column="before_department_id" property="beforeDepartmentId"/>
     <result column="after_uid" property="afterUid" jdbcType="BIGINT" />
     <result column="transfer_reason" property="transferReason" jdbcType="VARCHAR" />
     <result column="after_department_id" property="afterDepartmentId" jdbcType="BIGINT" />
@@ -19,11 +20,13 @@
     id, 
     project_id,
      before_uid, 
+     before_department_id,
      after_uid, 
      after_department_id,
       transfer_reason,
        record_status,
        undo_reason,
+       refuse_reason,
        updated_time,
        created_time
   </sql>
@@ -36,13 +39,10 @@
 			   <if test="id != null"> and id =#{id}</if>
 			   <if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
 			   <if test="beforeUid != null" > and before_uid = #{beforeUid,jdbcType=BIGINT} </if>
+			   <if test="beforeDepartmentId != null" > and before_department_id = #{beforeDepartmentId,jdbcType=BIGINT} </if>
 			   <if test="afterUid != null" > and after_uid = #{afterUid,jdbcType=BIGINT} </if>
-			   <if test="projectDepartid != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
-		       <if test="transferReason != null" > and transfer_reason = #{transferReason,jdbcType=VARCHAR} </if>
+			   <if test="afterDepartmentId != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
 		       <if test="recordStatus != null" > and record_status = #{recordStatus,jdbcType=VARCHAR} </if>   
-		       <if test="undoReason != null" > and undo_reason = #{undoReason,jdbcType=VARCHAR} </if>
-		       <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
-		       <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>				
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -72,11 +72,13 @@
            id, 
            project_id,
            before_uid, 
+           before_department_id,
            after_uid,
            after_department_id,
            transfer_reason,
            record_status,
            undo_reason,
+           refuse_reason,
            updated_time,
            created_time
 		from sop_transfer_record
@@ -95,17 +97,20 @@
 	     insert into sop_transfer_record (id,
 	      project_id,
 	      before_uid,
+	      before_department_id,
 	      after_uid,
 	      after_department_id,
 	      transfer_reason, 
 	      record_status,
 	      undo_reason,
+	      refuse_reason,
 	      updated_time,
 	      created_time)
 	    values
 	     (#{id,jdbcType=BIGINT},
 	      #{projectId,jdbcType=BIGINT},
 	      #{beforeUid,jdbcType=BIGINT},
+	      #{beforeDepartmentId},
 	      #{afterUid,jdbcType=BIGINT}
           #{afterDepartmentId,jdbcType=BIGINT}, 
           #{transferReason,jdbcType=VARCHAR}, 
@@ -121,29 +126,28 @@
 	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.project.Project">
 		update sop_transfer_record
 		<set>
-			    <if test="id != null"> and id =#{id}</if>
-			   <if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
-			   <if test="beforeUid != null" > and before_uid = #{beforeUid,jdbcType=BIGINT} </if>
-			   <if test="afterUid != null" > and after_uid = #{afterUid,jdbcType=BIGINT} </if>
-			   <if test="projectDepartid != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
-		       <if test="transferReason != null" > and transfer_reason = #{transferReason,jdbcType=VARCHAR} </if>
-		       <if test="recordStatus != null" > and record_status = #{recordStatus,jdbcType=VARCHAR} </if>   
-		       <if test="undoReason != null" > and undo_reason = #{undoReason,jdbcType=VARCHAR} </if>
-		       <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
-		       <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>				
+			    <if test="id != null"> id =#{id}, </if>
+			   <if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+			   <if test="beforeUid != null" > before_uid = #{beforeUid,jdbcType=BIGINT}, </if>
+			   <if test="beforeDepartmentId != null" > before_department_id = #{beforeDepartmentId,jdbcType=BIGINT}, </if>
+			   <if test="afterUid != null" > after_uid = #{afterUid,jdbcType=BIGINT}, </if>
+			   <if test="afterDepartmentId != null" > after_department_id = #{afterDepartmentId,jdbcType=BIGINT}, </if>
+		       <if test="transferReason != null" > transfer_reason = #{transferReason,jdbcType=VARCHAR}, </if>
+		       <if test="recordStatus != null" > record_status = #{recordStatus,jdbcType=VARCHAR}, </if>   
+		       <if test="undoReason != null" > undo_reason = #{undoReason,jdbcType=VARCHAR}, </if>
+		       <if test="refuseReason != null" > refuse_reason = #{refuseReason,jdbcType=VARCHAR}, </if>
+		       <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+		       <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>				
 	</set>
 		<where>
 			<trim prefixOverrides="and">
 			       <if test="id != null"> and id =#{id}</if>
 			   <if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
 			   <if test="beforeUid != null" > and before_uid = #{beforeUid,jdbcType=BIGINT} </if>
+			   <if test="beforeDepartmentId != null" > and before_department_id = #{beforeDepartmentId,jdbcType=BIGINT} </if>
 			   <if test="afterUid != null" > and after_uid = #{afterUid,jdbcType=BIGINT} </if>
-			   <if test="projectDepartid != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
-		       <if test="transferReason != null" > and transfer_reason = #{transferReason,jdbcType=VARCHAR} </if>
-		       <if test="recordStatus != null" > and record_status = #{recordStatus,jdbcType=VARCHAR} </if>   
-		       <if test="undoReason != null" > and undo_reason = #{undoReason,jdbcType=VARCHAR} </if>
-		       <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
-		       <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>				
+			   <if test="afterDepartmentId != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
+		       <if test="recordStatus != null" > and record_status = #{recordStatus,jdbcType=VARCHAR} </if>			
             </trim>
 		</where>
 	</update>
@@ -151,16 +155,18 @@
 	<update id="updateById" parameterType="com.galaxyinternet.model.project.Project">
 		update sop_transfer_record
 		<set>
-			    <if test="id != null"> and id =#{id}</if>
-			   <if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
-			   <if test="beforeUid != null" > and before_uid = #{beforeUid,jdbcType=BIGINT} </if>
-			   <if test="afterUid != null" > and after_uid = #{afterUid,jdbcType=BIGINT} </if>
-			   <if test="projectDepartid != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
-		       <if test="transferReason != null" > and transfer_reason = #{transferReason,jdbcType=VARCHAR} </if>
-		       <if test="recordStatus != null" > and record_status = #{recordStatus,jdbcType=VARCHAR} </if>   
-		       <if test="undoReason != null" > and undo_reason = #{undoReason,jdbcType=VARCHAR} </if>
-		       <if test="updatedTime != null" > and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
-		       <if test="createdTime != null" > and created_time = #{createdTime,jdbcType=BIGINT} </if>				
+			    <if test="id != null"> id =#{id}, </if>
+			   <if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+			   <if test="beforeUid != null" > before_uid = #{beforeUid,jdbcType=BIGINT}, </if>
+			   <if test="beforeDepartmentId != null" > before_department_id = #{beforeDepartmentId,jdbcType=BIGINT}, </if>
+			   <if test="afterUid != null" > after_uid = #{afterUid,jdbcType=BIGINT}, </if>
+			   <if test="afterDepartmentId != null" > after_department_id = #{afterDepartmentId,jdbcType=BIGINT}, </if>
+		       <if test="transferReason != null" > transfer_reason = #{transferReason,jdbcType=VARCHAR}, </if>
+		       <if test="recordStatus != null" > record_status = #{recordStatus,jdbcType=VARCHAR}, </if>   
+		       <if test="undoReason != null" > undo_reason = #{undoReason,jdbcType=VARCHAR}, </if>
+		       <if test="refuseReason != null" > refuse_reason = #{refuseReason,jdbcType=VARCHAR}, </if>
+		       <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+		       <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>				
 	   </set>
 		where id = #{id}
 	</update>

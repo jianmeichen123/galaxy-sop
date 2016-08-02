@@ -180,8 +180,8 @@
 	<!-- 记录sql end -->
 	
 	
-	<!-- 统计新建项目 start -->
-	<appender name="LOG_ADDPROJECT"
+	<!-- 告警日志 -->
+	<appender name="IS_ALARM"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<File>${log4j.path}/logs/info/new-project-count.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -201,8 +201,8 @@
 			<level>INFO</level>
 		</filter>
 	</appender>
-    <logger name="LOG_ADDPROJECT_LOGGER" additivity="false" level="INFO"> 
-		 <appender-ref ref="LOG_ADDPROJECT" /> 
+    <logger name="ALARM_LOG" additivity="false" level="INFO"> 
+		 <appender-ref ref="IS_ALARM" /> 
 	</logger>
 	
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
