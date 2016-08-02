@@ -41,7 +41,7 @@
 			<!-- tab标签 -->
             <ul class="tablink tablinks">
 				<li class="on"><a href="javascript:;" onclick="toperKpi()">个人绩效考核</a></li>
-				 <c:if test="${fx:hasRole(1l) or fx:hasRole(2l) }">
+				 <c:if test="${fx:hasRole(1) or fx:hasRole(2) }">
 					<li><a href="javascript:;" onclick="toteamKpi()">团队绩效考核</a></li>
 				</c:if>
             </ul>
