@@ -77,7 +77,7 @@ function pro_tjl_init(){
 					queryParamsJson_tjl.userId = userid;
 					queryParamsJson_tjl.deptid = deptid;
 				}
-				
+				$("#tc_title_name").html("投决率统计 ");
 				$('#data-table-xmstj-projectlist').bootstrapTable({
 					queryParamsType : 'size|page', // undefined
 					pageSize : 10,

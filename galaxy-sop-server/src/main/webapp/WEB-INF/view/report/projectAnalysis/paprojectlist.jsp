@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 
-<div class="xmstjtc">
+<div class="xmstjtc margin_45" >
+	<div class="title_bj" id="tc_title_name"></div>
 	<div id="custom-toolbasr_xmstj_projectlist">
 	</div>
 	<table id="data-table-xmstj-projectlist"
