@@ -55,8 +55,8 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 	
 	@Override
 	@Transactional
-	public void applyProjectTransfer(ProjectTransfer projectTransfer) {
-		projectTransferDao.insert(projectTransfer);
+	public Long  applyProjectTransfer(ProjectTransfer projectTransfer) {
+		Long id=projectTransferDao.insert(projectTransfer);
 		SopTask task = new SopTask();
 		task.setProjectId(projectTransfer.getProjectId());
 		task.setTaskName("接收项目");
@@ -67,6 +67,7 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		task.setAssignUid(projectTransfer.getAfterUid());
 		task.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
 		sopTaskDao.insert(task);
+		return id;
 	}
 	
 	

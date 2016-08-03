@@ -8,7 +8,7 @@
             	<li>
                     <div class="fl width_150 align_r">接受部门：</div>
                     <div class="fl">
-                        <select name='beforeDepartmentId' >
+                        <select name='afterDepartmentId' >
                            <option value="">请选择</option>
                         </select>&nbsp;&nbsp;<label class="red">&#42;&nbsp;必填</dd>
                     </div>
@@ -16,7 +16,7 @@
                 <li>
                     <div class="fl width_150 align_r">接收人：</div>
                     <div class="fl">
-                         <select name='beforeUid' >
+                         <select name='afterUid' >
                            <option value="">请选择</option>
                          </select>&nbsp;&nbsp;<label class="red">&#42;&nbsp;必填</dd>
                    </div>

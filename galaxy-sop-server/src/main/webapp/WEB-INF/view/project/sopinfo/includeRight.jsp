@@ -68,8 +68,8 @@
             <div class="correlation">相关操作</div> 
             <div class="new_correlation_cen">
             	<span class="bluebtn new_btn" onclick="closePro()" id="fjxm_but">否决项目</span>
-            	<span class="bluebtn new_btn" onclick="transferPro()" id="yjxm_btn">移交项目</span>
-        
+            	<span class="bluebtn new_btn" onclick="transferPro()" style="display:none" id="yjxm_btn">移交项目</span>
+                <span class="bluebtn new_btn" onclick="revokePro()" style="display:none" id="cxxm_btn">撤销移交</span>
             </div>
             
             
@@ -90,7 +90,7 @@
             <div class="correlation">近期访谈记录
 				<span class="more null new_righ" id="view_more" style="cursor: pointer;" >more</span>
 			</div>
-            <div class="new_correlation_cen new_correlation_cen_con" id="near_view">
+            <div class="new_correlation_cen new_correlation_cen_con"  id="near_view">
             	<div class="no_con">
             		暂无访谈记录
             	</div>
@@ -105,7 +105,12 @@
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
-
+if(isCreatedByUser == "true"){
+	$("#fjxm_but").attr("style","background:#d6d8e1;");
+	$("#yjxm_btn").attr("style","display:none;");
+	$("#cxxm_btn").attr("style","display:block;");
+	
+}
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
@@ -346,10 +351,6 @@ function closePro(){
 				
 			}
 		);
-	/*
-	if(confirm("确定要否决项目吗？")){
-		sendGetRequest(platformUrl.closeProject+proid,null,closeback);
-	} */
 }
 
 function transferPro(){
@@ -358,11 +359,20 @@ function transferPro(){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			doSumbit();
+			doSumbit(proid);
 		}//模版反回成功执行	
 	});
 }
-
+function revokePro(){
+	var _url=platformUrl.toProjectTransfer;
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			doSumbit(proid);
+		}//模版反回成功执行	
+	});
+}
 
 
 

@@ -47,11 +47,19 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	
 	
 	/**
-	 * 添加页面
+	 * 页面跳转至移交项目
 	 */
 	@RequestMapping(value = "/toProjectTransfer", method = RequestMethod.GET)
-	public String interViewAdd() {
+	public String toProjectTransfer() {
 		return "project/projectTransfer/project_transfer";
+	}
+	
+	/**
+	 * 页面跳转至撤销项目页面
+	 */
+	@RequestMapping(value = "/toRevokeProTransfer", method = RequestMethod.GET)
+	public String toRevokeProTransfer() {
+		return "project/projectTransfer/revoke_transfer";
 	}
 	
 	
@@ -78,14 +86,14 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			User user = (User) getUserFromSession(request);
 			projectTransfer.setBeforeUid(user.getId());
 			projectTransfer.setBeforeDepartmentId(user.getDepartmentId());
-			projectTransferService.applyProjectTransfer(projectTransfer);
+		    Long result=	projectTransferService.applyProjectTransfer(projectTransfer);
 			projectTransferService.setTransferProjectInRedis(cache, project.getId());
 			
 			List<Long> ids = (List<Long>) cache.get(SopConstatnts.Redis._transfer_projects_key_);
 			for(Long id : ids){
 				System.out.println(">>>>>>" + id);
 			}
-			
+			responseBody.setId(result);
 			responseBody.setResult(new Result(Status.OK,"200" , "项目移交成功!"));
 			_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
 		} catch (Exception e) {

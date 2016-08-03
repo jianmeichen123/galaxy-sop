@@ -435,49 +435,50 @@ $("#save_next_financing").click(function(){
 	
 	
 });
-function doSumbit(){
+function doSumbit(projectId){
 	/**
 	 * 查询事业线
 	 * @version 2016-08-03
 	 */
-	createCareelineOptions(platformUrl.getCareerlineList,"beforeDepartmentId",1);
+	createCareelineOptions(platformUrl.getCareerlineList,"afterDepartmentId",1);
 	/**
 	 * 根据事业线查询相应的投资经理
 	 * @version 2016-08-03
 	 */
-	if(null==$('select[name="beforeDepartmentId"]').val()||$('select[name="beforeDepartmentId"]').val()==""){
-          createUserOptions(platformUrl.getUserList+"0", "beforeUid",1);
+	if(null==$('select[name="afterDepartmentId"]').val()||$('select[name="afterDepartmentId"]').val()==""){
+          createUserOptions(platformUrl.getUserList+"0", "afterUid",1);
 	}else{
-		  createUserOptions(platformUrl.getUserList+$('select[name="beforeDepartmentId"]').val(), "beforeUid",1);
+		  createUserOptions(platformUrl.getUserList+$('select[name="afterDepartmentId"]').val(), "afterUid",1);
 			
 	}
 	/**
 	 * 改变事业线时获取该事业线下的投资经理
 	 * @version 2016-06-21
 	 */
-	$('select[name="beforeDepartmentId"]').change(function(){
-		var did = $('select[name="beforeDepartmentId"]').val();
-	    createUserOptions(platformUrl.getUserList+did, "beforeUid", 1);
+	$('select[name="afterDepartmentId"]').change(function(){
+		var did = $('select[name="afterDepartmentId"]').val();
+	    createUserOptions(platformUrl.getUserList+did, "afterUid", 1);
 	});
 	$(".poptxt").on("click","a[action='save']",function() {
 						var pop = $(".pop");
 						var json = {};
-                      if (pop.find('select[name="beforeDepartmentId"] option:selected').val() == null
-								|| pop.find('select[name="beforeDepartmentId"] option:selected')
+                      if (pop.find('select[name="afterDepartmentId"] option:selected').val() == null
+								|| pop.find('select[name="afterDepartmentId"] option:selected')
 										.val() == "") {
 							layer.msg("请选择移交部门");
 							return;
 						}
-                      if (pop.find('select[name="beforeUid"] option:selected').val() == null
-								|| $('select[name="beforeUid"] option:selected').val() == ""||
-								$('select[name="beforeUid"] option:selected').val()==0) {
+                      if (pop.find('select[name="afterUid"] option:selected').val() == null
+								|| $('select[name="afterUid"] option:selected').val() == ""||
+								$('select[name="afterUid"] option:selected').val()==0) {
 							layer.msg("请选择移交人");
 							return;
 						}
-                  	var depId = $('select[name="beforeDepartmentId"] option:selected').val();
-					var userId = $("select[name='beforeUid'] option:selected").val();
-					json['beforeDepartmentId'] = depId;
-					json['beforeUid'] = userId;
+                  	var depId = $('select[name="afterDepartmentId"] option:selected').val();
+					var userId = $("select[name='afterUid'] option:selected").val();
+					json['projectId']=projectId;
+					json['afterDepartmentId'] = depId;
+					json['afterUid'] = userId;
                      var transferReason=pop.find("[name='transferReason']").val();
           	     	if ( transferReason!= ""){
           	     		if (transferReason.length>100) {
@@ -493,16 +494,15 @@ function doSumbit(){
 		});
 }
 function callbackFun(data){
-	alert(data.result.status);
 	if (data.result.status != "OK") {
 			layer.msg("添加失败");
 	} else {
-		// 清除表单数据
-		$(pop).find("select").each(function() {
-			if ($(this).val().trim() != "") {
-				json[$(this).attr("name")] = null;
-			}
+		layer.msg("添加成功")
+			history.go(0);
+		
+	}
 
-		});
 }
+function revokeTransfer(){
+	
 }

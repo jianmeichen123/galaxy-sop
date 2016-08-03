@@ -24,7 +24,7 @@ public interface ProjectTransferService extends BaseService<ProjectTransfer> {
 	 * 2.生成待办任务
 	 * @param projectTransfer
 	 */
-	void applyProjectTransfer(ProjectTransfer projectTransfer);
+	Long applyProjectTransfer(ProjectTransfer projectTransfer);
 	
 	/**
 	 * 撤销项目移交
