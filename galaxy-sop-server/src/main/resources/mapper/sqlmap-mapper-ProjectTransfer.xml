@@ -118,14 +118,14 @@
 	      #{projectId,jdbcType=BIGINT},
 	      #{beforeUid,jdbcType=BIGINT},
 	      #{beforeDepartmentId},
-	      #{afterUid,jdbcType=BIGINT}
+	      #{afterUid,jdbcType=BIGINT},
           #{afterDepartmentId,jdbcType=BIGINT}, 
           #{transferReason,jdbcType=VARCHAR}, 
           #{recordStatus},
           #{undoReason,jdbcType=VARCHAR}, 
 	      #{refuseReason,jdbcType=VARCHAR}, 
-	      #{createDate,jdbcType=BIGINT},
-	      #{updateDate,jdbcType=BIGINT})
+	      #{updatedTime,jdbcType=BIGINT},
+	      #{createdTime,jdbcType=BIGINT})
 	    ]]>
     </insert>
     

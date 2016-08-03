@@ -142,8 +142,10 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 			}else{
 				transferProjectList = (List<Long>) cacheObj;
 			}
-			transferProjectList.add(pid);
-			cache.set(SopConstatnts.Redis._transfer_projects_key_, transferProjectList);
+			if(!transferProjectList.contains(pid)){
+				transferProjectList.add(pid);
+				cache.set(SopConstatnts.Redis._transfer_projects_key_, transferProjectList);
+			}
 		}
 	}
 	@Override
@@ -153,7 +155,9 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 			Object cacheObj = cache.get(SopConstatnts.Redis._transfer_projects_key_);
 			if(cacheObj != null){
 				transferProjectList = (List<Long>) cacheObj;
-				transferProjectList.remove(pid);
+				if(transferProjectList.contains(pid)){
+					transferProjectList.remove(pid);
+				}
 				cache.set(SopConstatnts.Redis._transfer_projects_key_, transferProjectList);
 			}
 		}
