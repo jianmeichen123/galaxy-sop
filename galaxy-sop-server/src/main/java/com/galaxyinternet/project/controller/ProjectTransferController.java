@@ -34,7 +34,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	 */
 	@RequestMapping(value = "/toProjectTransfer", method = RequestMethod.GET)
 	public String interViewAdd() {
-		return "interview/project_transfer";
+		return "project/projectTransfer/project_transfer";
 	}
 	
 	
