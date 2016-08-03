@@ -66,30 +66,12 @@ function info(id){
 						if(!canUseBut){
 							$("#qdnbps").remove();
 						}
-						//开关按钮控制-移交|内部评审
-						if(isTransfering == 'true')
-						{
-							if("#limitInterview"[0]){
-								$('#limitInterview').addClass('limits_gray');
-							}
-							if($("#qdnbps")[0]){
-								$('#qdnbps').addClass('limits_gray');
-							}
-						}
-						
 						//加载访谈接触记录的分页数据
 						tiggerTable($("#" + progress + "_table"),3);
 					}
 					if(i == 2){
 						if(hasClosed){
 							$("#options_point2").remove();
-						}
-						//移交按钮控制-添加会议
-						if(isTransfering == 'true')
-						{
-							if("#addMeeting"[0]){
-								$('#addMeeting').addClass('limits_gray');
-							}
 						}
 					}
 					if(i == 3){
@@ -108,20 +90,6 @@ function info(id){
 							$("#applyCeoMeeting").remove();
 						}
 						
-						//ceo评审阶段-添加会议|申请排期按钮控制
-						if(isTransfering == 'true')
-						{
-							if("#add_ceomeet"[0]){
-								$('#add_ceomeet').addClass('limits_gray');
-							}
-							if("#lxhpq"[0]){
-								$('#lxhpq').addClass('limits_gray');
-							}
-							if("#applyCeoMeeting"[0]){
-								$('#applyCeoMeeting').addClass('limits_gray');
-							}
-						}
-						
 					}
 					if(i == 4){
 						if(hasClosed){
@@ -131,19 +99,6 @@ function info(id){
 							$("#reset_btn").remove();
 						}else{
 							$("#add_lxhmeet").remove();
-						}
-						//立项会阶段移交按钮控制
-						if(isTransfering == 'true')
-						{
-							if("#add_lxhmeet"[0]){
-								$('#add_lxhmeet').addClass('limits_gray');
-							}
-							if("#reset_btn"[0]){
-								$('#reset_btn').addClass('limits_gray');
-							}
-							if("#upload_lx_report"[0]){
-								$('#upload_lx_report').addClass('limits_gray');
-							}
 						}
 						
 					}
@@ -167,16 +122,6 @@ function info(id){
 							$("#inSure_btn").remove();
 						}else{
 							$("#add_tjhmeet").remove();
-						}
-						//投决会阶段移交按钮控制
-						if(isTransfering == 'true')
-						{
-							if("#add_tjhmeet"[0]){
-								$('#add_tjhmeet').addClass('limits_gray');
-							}
-							if("#inSure_btn"[0]){
-								$('#inSure_btn').addClass('limits_gray');
-							}
 						}
 					}
 					if(i == 8){
@@ -334,10 +279,6 @@ function checkCanUse(index,projectId,projectType){
  * 申请CEO评审排期
  */
 function applyCeoMeeting(){
-	if($(this).hasClass('limits_gray'))
-	{
-		return;
-	}
 	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.inCeoMeetingPool + pid, {}, function(data){
@@ -362,10 +303,6 @@ function applyCeoMeeting(){
  * 添加接触访谈纪要弹出层
  */
 function air(indexNum){
-	if($(this).hasClass('limits_gray'))
-	{
-		return;
-	}
 	$("[data-id='popid1']").remove();
 	loadJs();
 	var _url=Constants.sopEndpointURL + '/galaxy/air';
@@ -424,10 +361,6 @@ function air(indexNum){
  * 启动内部评审
  */
 function startReview(){
-	if($(this).hasClass('limits_gray'))
-	{
-		return;
-	}
 	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.startReview + pid, {}, function(data){
@@ -451,10 +384,6 @@ function startReview(){
  * 上传会议记录
  */
  function addMettingRecord(num,meetingType){
-	    if($(this).hasClass('limits_gray'))
-		{
-			return;
-		}
 		$("[data-id='popid1']").remove();
 		var pid=projectId;
 		loadJs();
@@ -518,10 +447,6 @@ function startReview(){
   * CEO评审阶段申请立项会排期
   */
 function toEstablishStage(){
-	if($(this).hasClass('limits_gray'))
-	{
-		return;
-	}
 	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.toEstablishStage + pid, {}, function(data){
@@ -545,10 +470,6 @@ function toEstablishStage(){
   * 立项会阶段申请立项会排期
   */
 function toLxmeetingPool(){
-	if($(this).hasClass('limits_gray'))
-	{
-		return;
-	}
 	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(platformUrl.inLxmeetingPool + pid, {}, function(data){
@@ -1000,10 +921,6 @@ function inTjh(){
  * 投决会--点击申请投决会按钮
  */
 function inSureMeetingPool(){
-	if($(this).hasClass('limits_gray'))
-	{
-		return;
-	}
 	var pid = projectId;
 	if(pid != '' && pid != null && pid != undefined){
 		sendGetRequest(

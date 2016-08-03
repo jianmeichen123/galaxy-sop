@@ -481,7 +481,6 @@
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script>
      var projectId = alertid;
-     var isTransfering = "${fx:isTransfering(projectId) }";
 	 //盒子展开隐藏
 	 getTabPersonforP();
 	 getTabShareforP();
@@ -788,10 +787,6 @@
  	//立项报告上传
  	function showLxUpload(id)
  	{
- 		if($(this).hasClass('limits_gray'))
- 		{
- 			return;
- 		}
  		$.getHtml({
 			url:platformUrl.showLxReportUpload,
 			okback:function(){
