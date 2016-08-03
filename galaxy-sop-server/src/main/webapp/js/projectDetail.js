@@ -432,5 +432,79 @@ $("#save_next_financing").click(function(){
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveSuccess());
 	}
+	
+	
 });
+function doSumbit(){
+	/**
+	 * 查询事业线
+	 * @version 2016-08-03
+	 */
+	createCareelineOptions(platformUrl.getCareerlineList,"beforeDepartmentId",1);
+	/**
+	 * 根据事业线查询相应的投资经理
+	 * @version 2016-08-03
+	 */
+    createUserOptions(platformUrl.getUserList+$('select[name="beforeDepartmentId"]').val(), "beforeUid", 0);
+    
+	/**
+	 * 改变事业线时获取该事业线下的投资经理
+	 * @version 2016-06-21
+	 */
+	$('select[name="beforeDepartmentId"]').change(function(){
+		var did = $('select[name="beforeDepartmentId"]').val();
+	    createUserOptions(platformUrl.getUserList+did, "beforeUid", 1);
+	});
+	$(".poptxt").on("click","a[action='save']",function() {
+						var pop = $(".pop");
+						var json = {};
+                      if (pop.find('select[name="beforeDepartmentId"] option:selected').val() == null
+								|| pop.find('select[name="beforeDepartmentId"] option:selected')
+										.val() == "") {
+							layer.msg("请选择移交部门");
+							return;
+						}
+                      if (pop.find('select[name="beforeUid"] option:selected').val() == null
+								|| $('select[name="beforeUid"] option:selected').val() == "") {
+							layer.msg("请选择移交人");
+							return;
+						}
+                  	var depId = $('select[name="beforeDepartmentId"] option:selected').val();
+					var userId = $("select[name='beforeUid'] option:selected").val();
+					json['beforeDepartmentId'] = depId;
+					json['beforeUid'] = userId;
+                     var transferReason=pop.find("[name='transferReason']").val();
+          	     	if ( desc!= ""){
+          	     		if (transferReason.length>100) {
+          					layer.msg("角色描述最多输入100个字符");
 
+          					return;
+          				}else{
+          					json['transferReason']=transferReason;
+          				}
+          	      	}
+          	     	var reqUrl=
+          	     	sendGetRequestByJsonObj(reqUrl, json, callbackFun);
+		});
+}
+function callbackFun(data){
+	alert(data.result.status);
+	if (data.result.status != "OK") {
+		if (data.result.message == "邮件发送失败") {
+			layer.msg("邮件发送失败", {
+				time : 1000
+			}, function() {
+				history.go(0);
+			});
+		} else {
+			layer.msg("添加失败");
+		}
+	} else {
+		// 清除表单数据
+		$(pop).find("select").each(function() {
+			if ($(this).val().trim() != "") {
+				json[$(this).attr("name")] = null;
+			}
+
+		});
+}

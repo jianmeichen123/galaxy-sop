@@ -30,9 +30,9 @@ public interface ProjectTransferService extends BaseService<ProjectTransfer> {
 	void undoProjectTransfer(ProjectTransfer projectTransfer);
 	
 	
-	void setTransferProjectInRedis(Cache cache,Project project);
+	void setTransferProjectInRedis(Cache cache, Long pid);
 	
-	void removeTransferProjectFromRedis(Cache cache,Project project);
+	void removeTransferProjectFromRedis(Cache cache, Long pid);
 	
 	
 	

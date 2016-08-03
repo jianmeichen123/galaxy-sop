@@ -70,7 +70,6 @@ import com.galaxyinternet.model.project.MeetingScheduling;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectPerson;
-import com.galaxyinternet.model.project.ProjectTransfer;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
@@ -91,13 +90,11 @@ import com.galaxyinternet.service.PassRateService;
 import com.galaxyinternet.service.PersonPoolService;
 import com.galaxyinternet.service.ProjectPersonService;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.ProjectTransferService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
-import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -138,9 +135,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	@Autowired
 	private SopTaskService sopTaskService;
 	
-	@Autowired
-	private ProjectTransferService projectTransferService;
-
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 
@@ -213,80 +207,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		responseBody.setResult(new Result(Status.OK, ""));
 		return responseBody;
 	}
-	
-	
-	/**
-	 * 项目移交
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/applyTransfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectTransfer> applyTransfer(@RequestBody ProjectTransfer projectTransfer,
-			HttpServletRequest request) {
-		ResponseData<ProjectTransfer> responseBody = new ResponseData<ProjectTransfer>();
-		if(projectTransfer.getProjectId() == null 
-				|| projectTransfer.getAfterDepartmentId() == null 
-				|| projectTransfer.getAfterUid() == null){
-			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
-			return responseBody;
-		}
-		try {
-			Project project = projectService.queryById(projectTransfer.getProjectId());
-			if(project == null){
-				responseBody.setResult(new Result(Status.ERROR,"csds" , "未找到被移交的项目!"));
-				return responseBody;
-			}
-			User user = (User) getUserFromSession(request);
-			projectTransfer.setBeforeUid(user.getId());
-			projectTransfer.setBeforeDepartmentId(user.getDepartmentId());
-			projectTransferService.applyProjectTransfer(projectTransfer);
-			projectTransferService.setTransferProjectInRedis(cache, project);
-			responseBody.setResult(new Result(Status.OK,"200" , "项目移交成功!"));
-			_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,"err" , "项目移交失败!"));
-			if(_common_logger_.isErrorEnabled()){
-				_common_logger_.error("移交项目失败[josn]-" + projectTransfer);
-			}
-		}
-		return responseBody;
-	}
-	
-	
-	/**
-	 * 撤销项目移交
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/undoTransfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<ProjectTransfer> undoTransfer(@RequestBody ProjectTransfer projectTransfer,
-			HttpServletRequest request) {
-		ResponseData<ProjectTransfer> responseBody = new ResponseData<ProjectTransfer>();
-		if(projectTransfer.getProjectId() == null || projectTransfer.getUndoReason() == null){
-			responseBody.setResult(new Result(Status.ERROR,"err" , "缺少必需参数!"));
-			return responseBody;
-		}
-		try {
-			User user = (User) getUserFromSession(request);
-			List<ProjectTransfer> datas = projectTransferService.applyTransferData(projectTransfer.getProjectId());
-			if(datas == null || datas.isEmpty()){
-				responseBody.setResult(new Result(Status.ERROR,"err" , "没有找到相关的移交申请记录!"));
-				return responseBody;
-			}
-			ProjectTransfer transfer = datas.get(0);
-			projectTransferService.undoProjectTransfer(transfer);
-			
-			
-			responseBody.setResult(new Result(Status.ERROR,"200" , "移交申请撤销成功!"));
-			_common_logger_.info(user.getRealName() + "撤销移交申请成功[json]-" + transfer);
-		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR,"err" , "撤销移交申请失败!"));
-			if(_common_logger_.isErrorEnabled()){
-				_common_logger_.error("撤销移交申请失败[josn]-" + projectTransfer);
-			}
-		}
-		return responseBody;
-	}
-	
-	
 	/**
 	 * 新建项目接口
 	 * @version 2016-06-21

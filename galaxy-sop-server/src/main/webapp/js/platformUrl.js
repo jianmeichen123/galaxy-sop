@@ -818,7 +818,13 @@ var platformUrl = {
 	 * 1. 移交项目页面跳转
 	 * 
 	 */
-	toProjectTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toProjectTransfer"
+	toProjectTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toProjectTransfer",
+	/**
+	 * 项目移交
+	 * 1. 移交项目页面跳转
+	 * 
+	 */
+	applyTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/applyTransfer"
 	
 }
 
