@@ -77,6 +77,7 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 				transferProjectList = (List<Long>) cacheObj;
 			}
 			transferProjectList.add(project.getId());
+			cache.set(SopConstatnts.Redis._transfer_projects_key_, transferProjectList);
 		}
 	}
 	@Override
