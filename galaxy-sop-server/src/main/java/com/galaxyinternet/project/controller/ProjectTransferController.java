@@ -27,7 +27,7 @@ import com.galaxyinternet.service.ProjectTransferService;
 import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
-@RequestMapping("/galaxy/projectTransfer/applyTransfer")
+@RequestMapping("/galaxy/projectTransfer")
 public class ProjectTransferController extends BaseControllerImpl<ProjectTransfer, ProjectTransferBo> {
 	private final static Logger _common_logger_ = LoggerFactory.getLogger(ProjectTransferController.class);
 	

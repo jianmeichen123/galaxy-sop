@@ -445,9 +445,12 @@ function doSumbit(){
 	 * 根据事业线查询相应的投资经理
 	 * @version 2016-08-03
 	 */
-	if(null==$('select[name="beforeDepartmentId"]').val()||$('select[name="beforeDepartmentId"]').val()==""){}
-    createUserOptions(platformUrl.getUserList+$('select[name="beforeDepartmentId"]').val(), "beforeUid",1);
-    
+	if(null==$('select[name="beforeDepartmentId"]').val()||$('select[name="beforeDepartmentId"]').val()==""){
+          createUserOptions(platformUrl.getUserList+"0", "beforeUid",1);
+	}else{
+		  createUserOptions(platformUrl.getUserList+$('select[name="beforeDepartmentId"]').val(), "beforeUid",1);
+			
+	}
 	/**
 	 * 改变事业线时获取该事业线下的投资经理
 	 * @version 2016-06-21
@@ -466,7 +469,8 @@ function doSumbit(){
 							return;
 						}
                       if (pop.find('select[name="beforeUid"] option:selected').val() == null
-								|| $('select[name="beforeUid"] option:selected').val() == "") {
+								|| $('select[name="beforeUid"] option:selected').val() == ""||
+								$('select[name="beforeUid"] option:selected').val()==0) {
 							layer.msg("请选择移交人");
 							return;
 						}
@@ -475,7 +479,7 @@ function doSumbit(){
 					json['beforeDepartmentId'] = depId;
 					json['beforeUid'] = userId;
                      var transferReason=pop.find("[name='transferReason']").val();
-          	     	if ( desc!= ""){
+          	     	if ( transferReason!= ""){
           	     		if (transferReason.length>100) {
           					layer.msg("角色描述最多输入100个字符");
 
@@ -484,22 +488,14 @@ function doSumbit(){
           					json['transferReason']=transferReason;
           				}
           	      	}
-          	     	var reqUrl=
-          	     	sendGetRequestByJsonObj(reqUrl, json, callbackFun);
+          	     	var reqUrl=platformUrl.applyTransfer;
+          	     	sendPostRequestByJsonObj(reqUrl, json, callbackFun);
 		});
 }
 function callbackFun(data){
 	alert(data.result.status);
 	if (data.result.status != "OK") {
-		if (data.result.message == "邮件发送失败") {
-			layer.msg("邮件发送失败", {
-				time : 1000
-			}, function() {
-				history.go(0);
-			});
-		} else {
 			layer.msg("添加失败");
-		}
 	} else {
 		// 清除表单数据
 		$(pop).find("select").each(function() {
@@ -508,4 +504,5 @@ function callbackFun(data){
 			}
 
 		});
+}
 }
