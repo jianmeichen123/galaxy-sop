@@ -124,8 +124,8 @@
           #{recordStatus},
           #{undoReason,jdbcType=VARCHAR}, 
 	      #{refuseReason,jdbcType=VARCHAR}, 
-	      #{createDate,jdbcType=BIGINT},
-	      #{updateDate,jdbcType=BIGINT})
+	      #{createdTime,jdbcType=BIGINT},
+	      #{updatedTime,jdbcType=BIGINT})
 	    ]]>
     </insert>
     
