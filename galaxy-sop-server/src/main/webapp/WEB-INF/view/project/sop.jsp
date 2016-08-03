@@ -2,6 +2,7 @@
 <%
 	String path = request.getContextPath();
 %>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <style>
 .bars{display:none;}
@@ -232,7 +233,7 @@
 			<div class="block" data-tab="con" id="projectProgress_1_con">
 				<!--按钮-->
 				<div id="options_point1" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="#" data-btn="interview" onclick="air(1);" class="pubbtn fffbtn lpubbtn option_item_mark">添加访谈记录</a>
+					<a href="#" id="limitInterview" data-btn="interview" onclick="air(1);" class="pubbtn fffbtn lpubbtn option_item_mark">添加访谈记录</a>
 					<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark">启动内部评审</a>
 				</div>
 				<div id="projectProgress_1_table_custom-toolbar">
@@ -259,7 +260,7 @@
 
 				<!--按钮-->
 				<div id="options_point2" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="addMettingRecord(2,'meetingType:1')" data-btn="interview" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
+					<a href="javascript:;" onclick="addMettingRecord(2,'meetingType:1')" id="addMeeting" data-btn="interview" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
 				</div>
 				<div id="projectProgress_2_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
@@ -478,8 +479,9 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script>
-	//盒子展开隐藏
-	getTabPersonforP();
+     var projectId = alertid;
+	 //盒子展开隐藏
+	 getTabPersonforP();
 	 getTabShareforP();
 	 	
  	function getTabPersonforP(){
@@ -784,6 +786,10 @@
  	//立项报告上传
  	function showLxUpload(id)
  	{
+ 		if($(this).hasClass('limits_gray'))
+ 		{
+ 			return;
+ 		}
  		$.getHtml({
 			url:platformUrl.showLxReportUpload,
 			okback:function(){
@@ -849,5 +855,5 @@
  			);
  		});
  	}
- 	
+ 
 </script>
