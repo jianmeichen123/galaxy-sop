@@ -97,13 +97,13 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
 @RequestMapping("/galaxy/project")
 public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
-	final Logger _common_logger_ = LoggerFactory.getLogger(ProjectController.class);
-	private final static Logger _alarm_logger_ = LoggerFactory.getLogger("ALARM_LOG");
+	private final static Logger _common_logger_ = LoggerFactory.getLogger(ProjectController.class);
 
 	@Autowired
 	private ProjectService projectService;
@@ -238,7 +238,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			User user = (User) getUserFromSession(request);
 			projectTransfer.setBeforeUid(user.getId());
 			projectTransfer.setBeforeDepartmentId(user.getDepartmentId());
-			projectTransferService.insert(projectTransfer);
+			projectTransferService.applyProjectTransfer(projectTransfer);
+			projectTransferService.setTransferProjectInRedis(cache, project);
 			responseBody.setResult(new Result(Status.OK,"200" , "项目移交成功!"));
 			_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
 		} catch (Exception e) {
@@ -249,7 +250,41 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		}
 		return responseBody;
 	}
-
+	
+	
+	/**
+	 * 撤销项目移交
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/undoTransfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectTransfer> undoTransfer(@RequestBody ProjectTransfer projectTransfer,
+			HttpServletRequest request) {
+		ResponseData<ProjectTransfer> responseBody = new ResponseData<ProjectTransfer>();
+		if(projectTransfer.getProjectId() == null || projectTransfer.getUndoReason() == null){
+			responseBody.setResult(new Result(Status.ERROR,"err" , "缺少必需参数!"));
+			return responseBody;
+		}
+		try {
+			User user = (User) getUserFromSession(request);
+			List<ProjectTransfer> datas = projectTransferService.applyTransferData(projectTransfer.getProjectId());
+			if(datas == null || datas.isEmpty()){
+				responseBody.setResult(new Result(Status.ERROR,"err" , "没有找到相关的移交申请记录!"));
+				return responseBody;
+			}
+			ProjectTransfer transfer = datas.get(0);
+			projectTransferService.updateByIdSelective(transfer);
+			responseBody.setResult(new Result(Status.ERROR,"200" , "移交申请撤销成功!"));
+			_common_logger_.info(user.getRealName() + "撤销移交申请成功[json]-" + transfer);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,"err" , "撤销移交申请失败!"));
+			if(_common_logger_.isErrorEnabled()){
+				_common_logger_.error("撤销移交申请失败[josn]-" + projectTransfer);
+			}
+		}
+		return responseBody;
+	}
+	
+	
 	/**
 	 * 新建项目接口
 	 * @version 2016-06-21
@@ -331,7 +366,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					if(file!=null){
 						file.setMultipartFile(null);
 					}
-					_alarm_logger_.info("添加项目["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
+					_common_logger_.info("添加项目["+"项目名称:"+project.getProjectName()+" 创建人:"+project.getCreateUname()+" 部门："+user.getDepartmentName()+"]");
 					ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),StageChangeHandler._6_1_,file);
 				}
 			}

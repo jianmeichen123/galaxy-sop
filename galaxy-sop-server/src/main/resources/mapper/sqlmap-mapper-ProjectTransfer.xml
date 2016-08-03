@@ -92,6 +92,13 @@
 		from sop_transfer_record where id = #{id}
 	</select>
 	
+	<!-- 根据ID查询 -->
+	<select id="selectApplyRecord" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_transfer_record where project_id = #{pid} and record_status is null
+	</select>
+	
   	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.Project" >
 	    <![CDATA[
 	     insert into sop_transfer_record (id,
