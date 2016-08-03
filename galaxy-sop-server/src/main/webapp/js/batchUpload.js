@@ -74,6 +74,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 					$("#"+file.id+"_progress").html('<span>'+"上传失败!"+"</span>");
 					return false;
 				}
+				layer.closeAll('loading');
              }, 
 			FilesAdded: function(up, files) {
 				var max_files = 10;
