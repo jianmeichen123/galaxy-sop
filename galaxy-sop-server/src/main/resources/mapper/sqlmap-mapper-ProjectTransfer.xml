@@ -118,7 +118,7 @@
 	      #{projectId,jdbcType=BIGINT},
 	      #{beforeUid,jdbcType=BIGINT},
 	      #{beforeDepartmentId},
-	      #{afterUid,jdbcType=BIGINT}
+	      #{afterUid,jdbcType=BIGINT},
           #{afterDepartmentId,jdbcType=BIGINT}, 
           #{transferReason,jdbcType=VARCHAR}, 
           #{recordStatus},
