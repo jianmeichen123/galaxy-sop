@@ -51,6 +51,7 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.SopConstatnts;
 
 
 @Controller
@@ -125,6 +126,9 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				fileWorktype = "fileWorktype:8";
 				viewName = "/taskProcess/singleFileUpload";
 				break;
+			case SopConstatnts.TaskCode._accept_project_flag_ : //工商变更登记凭证
+				btnTxt = "接收项目";
+				viewName = "/galaxy/projectTransfer/toReciviceTransfer";
 			default :
 				logger.error("Error taskFlag "+ taskFlag);
 		}

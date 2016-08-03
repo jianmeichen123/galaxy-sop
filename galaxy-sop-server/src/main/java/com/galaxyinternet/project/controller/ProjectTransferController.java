@@ -61,6 +61,13 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	public String toRevokeProTransfer() {
 		return "project/projectTransfer/revoke_transfer";
 	}
+	/**
+	 * 页面跳转至撤销项目页面
+	 */
+	@RequestMapping(value = "/toReciviceTransfer", method = RequestMethod.GET)
+	public String toReciviceTransfer() {
+		return "project/projectTransfer/receiveTask";
+	}
 	
 	
 	/**

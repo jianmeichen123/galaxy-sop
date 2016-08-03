@@ -495,14 +495,42 @@ function doSumbit(projectId){
 }
 function callbackFun(data){
 	if (data.result.status != "OK") {
-			layer.msg("添加失败");
+			layer.msg("提交成功");
 	} else {
-		layer.msg("添加成功")
+		layer.msg("提交失败")
 			history.go(0);
 		
 	}
 
 }
 function revokeTransfer(){
+	$(".poptxt").on("click","a[action='revokeTransfer']",function() {
+		var pop = $(".pop");
+		var json = {};
+     var undoReason=pop.find("[name='undoReason']").val();
+   	if ( undoReason!= ""){
+   		if (undoReason.length>100) {
+				layer.msg("撤销原因最多输入100个字符");
+
+				return;
+			}else{
+				json['undoReason']=undoReason;
+			}
+    	}else{
+    		layer.msg("撤销原因不能为空");
+    	}
+   	var reqUrl=platformUrl.undoTransfer;
+   	sendPostRequestByJsonObj(reqUrl, json, callbackFunRevoke);
+    });
 	
+}
+function callbackFunRevoke(){
+	if (data.result.status != "OK") {
+		layer.msg("项目撤销移交成功");
+} else {
+	layer.msg("项目撤销移交成功")
+		history.go(0);
+	
+}
+
 }
