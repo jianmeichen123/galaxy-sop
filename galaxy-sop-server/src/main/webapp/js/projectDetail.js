@@ -445,7 +445,8 @@ function doSumbit(){
 	 * 根据事业线查询相应的投资经理
 	 * @version 2016-08-03
 	 */
-    createUserOptions(platformUrl.getUserList+$('select[name="beforeDepartmentId"]').val(), "beforeUid", 0);
+	if(null==$('select[name="beforeDepartmentId"]').val()||$('select[name="beforeDepartmentId"]').val()==""){}
+    createUserOptions(platformUrl.getUserList+$('select[name="beforeDepartmentId"]').val(), "beforeUid",1);
     
 	/**
 	 * 改变事业线时获取该事业线下的投资经理
