@@ -128,7 +128,7 @@ public class SopTaskProcessController extends BaseControllerImpl<SopTask, SopTas
 				break;
 			case SopConstatnts.TaskCode._accept_project_flag_ : //工商变更登记凭证
 				btnTxt = "接收项目";
-				viewName = "/galaxy/projectTransfer/toReciviceTransfer";
+				viewName = "/project/projectTransfer/receiveTask";
 			default :
 				logger.error("Error taskFlag "+ taskFlag);
 		}
