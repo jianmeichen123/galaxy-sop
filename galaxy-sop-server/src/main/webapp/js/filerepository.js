@@ -147,7 +147,14 @@ var fileGrid = {
 				events : fileGrid.downloadEvents,
 				formatter : fileGrid.downloadFomatter
 
-			} ]
+			} ],
+			onLoadSuccess : function(){
+				if(typeof(isTransfering) != 'undefined' && isTransfering == 'true')
+				{
+					$('#' + data._domid).find('.fileuploadlink').addClass('limits_gray');
+					$('#' + data._domid).find('.fileupdatelink').addClass('limits_gray');
+				}
+			}
 		});
 		 // 初始化查询按钮
 		 $("#file_repository_btn").click(fileGrid.serarchData);
@@ -184,7 +191,10 @@ var fileGrid = {
 	updateEvents : {
 		//更新文档
 		'click .fileupdatelink' : function(e, value, row, index){
-
+			if($(this).hasClass('limits_gray'))
+			{
+				return;
+			}
 
 			if(!fileGrid.callFuc){
         		fileGrid.callFuc = function(){
@@ -211,6 +221,10 @@ var fileGrid = {
         },
         //上传文档
         'click .fileuploadlink' : function(e, value, row, index){
+        	if($(this).hasClass('limits_gray'))
+			{
+				return;
+			}
         	var uploadUrl = undefined;
         	var uploadFormFuc = undefined;
         	if(row.isChangeTask == "true"){
