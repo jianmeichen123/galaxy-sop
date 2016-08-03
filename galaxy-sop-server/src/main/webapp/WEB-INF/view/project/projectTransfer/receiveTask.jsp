@@ -25,6 +25,10 @@
 $(function(){
 	
 });
+function projectLoaded(project)
+{
+	
+}
 </script>
 </body>
 </html>
