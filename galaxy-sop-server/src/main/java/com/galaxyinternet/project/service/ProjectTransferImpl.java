@@ -67,7 +67,7 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 	}
 	
 	@Override
-	public void setTransferProjectInRedis(Cache cache, Project project) {
+	public void setTransferProjectInRedis(Cache cache, Long pid) {
 		synchronized (this) {
 			List<Long> transferProjectList = null;
 			Object cacheObj = cache.get(SopConstatnts.Redis._transfer_projects_key_);
@@ -76,18 +76,19 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 			}else{
 				transferProjectList = (List<Long>) cacheObj;
 			}
-			transferProjectList.add(project.getId());
+			transferProjectList.add(pid);
 			cache.set(SopConstatnts.Redis._transfer_projects_key_, transferProjectList);
 		}
 	}
 	@Override
-	public void removeTransferProjectFromRedis(Cache cache, Project project) {
+	public void removeTransferProjectFromRedis(Cache cache, Long pid) {
 		synchronized (this) {
 			List<Long> transferProjectList = null;
 			Object cacheObj = cache.get(SopConstatnts.Redis._transfer_projects_key_);
 			if(cacheObj != null){
 				transferProjectList = (List<Long>) cacheObj;
-				transferProjectList.remove(project);
+				transferProjectList.remove(pid);
+				cache.set(SopConstatnts.Redis._transfer_projects_key_, transferProjectList);
 			}
 		}
 	}
