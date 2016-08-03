@@ -288,7 +288,7 @@ function getProjectInfo(dtd)
 			<div class="tabtable_con_on" >
 				<div class="project_on " >
 					<div class="title_bj_tzjl">项目描述</div>
-                      <div id="describe_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
+                      <div id="describe_editor" type="text/plain" class='width_fwb'></div>  
                         <div class="compile_on_center">
                            <div class="compile_on_right">
                                <span class="pubbtn bluebtn" id="save_describe">保存</span>
@@ -329,7 +329,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='company_on'>					
 					<div class="title_bj_tzjl">公司定位</div>
-					<div id="company_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
+					<div id="company_editor" type="text/plain" class='width_fwb'></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_location">保存</span>
@@ -357,7 +357,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='portrayal_on'>
 					<div class="title_bj_tzjl">用户画像</div>
-					<div id="portrait_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
+					<div id="portrait_editor" type="text/plain" class='width_fwb'></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_portrait">保存</span>
@@ -387,7 +387,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='product_on'>
 					<div class="title_bj_tzjl">产品服务</div>
-					<div id="business_editor" type="text/plain" class='width_fwb' style=" height:200px; "></div>  
+					<div id="business_editor" type="text/plain" class='width_fwb' ></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_business">保存</span>
@@ -416,7 +416,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='operation_on'>
 					<div class="title_bj_tzjl">运营数据</div>
-					<div id="operation_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
+					<div id="operation_editor" type="text/plain" class='width_fwb' ></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_operation">保存</span>
@@ -446,7 +446,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='industry_on'>
 					<div class="title_bj_tzjl">行业分析</div>
-					<div id="industry_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
+					<div id="industry_editor" type="text/plain" class='width_fwb' ></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_industry">保存</span>
@@ -474,7 +474,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='analysis_on'>
 					<div class="title_bj_tzjl">竞争分析</div>
-					<div id="analysis_editor" type="text/plain" class='width_fwb'  style="height:200px; "></div>  
+					<div id="analysis_editor" type="text/plain" class='width_fwb'></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_analysis">保存</span>
@@ -506,7 +506,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='next_financing_on'>
 					<div class="title_bj_tzjl">下一轮融资路径</div>
-					<script id="next_financing_editor" type="text/plain" class='width_fwb' style="width:100%; height:200px;"></script>  
+					<script id="next_financing_editor" type="text/plain" class='width_fwb'></script>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_next_financing">保存</span>

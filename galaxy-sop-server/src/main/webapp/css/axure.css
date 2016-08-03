@@ -19,6 +19,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 * html .clearfix { height:1% }
 .clearfix { display:block}
 .margin_45{ margin-top:45px;}
+.width_fwb{height:150px; overflow-y:auto}
 /*公用浮动*/
 .fl{ float:left}
 .fr{ float:right}
