@@ -8,13 +8,11 @@ var code = "0";
  */
 var alertid="";
 var projectId;
+
 function info(id){
 	projectId = id;
-	var isTransfering = "${fx:isTransfering(projectId) }";
 	var _url = Constants.sopEndpointURL + '/galaxy/ips';
 	alertid=id;
-	
-	
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数

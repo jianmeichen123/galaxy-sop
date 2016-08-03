@@ -3,6 +3,7 @@
 	String path = request.getContextPath();
 %>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <style>
 .bars{display:none;}
@@ -480,6 +481,7 @@
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script>
      var projectId = alertid;
+     var isTransfering = "${fx:isTransfering(projectId) }";
 	 //盒子展开隐藏
 	 getTabPersonforP();
 	 getTabShareforP();
