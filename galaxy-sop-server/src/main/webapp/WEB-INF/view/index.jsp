@@ -332,7 +332,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <!-- clude -->
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
-
+<script src="<%=path %>/js/indexProjectProgress.js" type="text/javascript"></script>
 
 
 
@@ -363,29 +363,10 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 </script>
 <script>
 $(function(){
-	load_data_chart();
-	function load_data_chart(){
-		 var obj ={url:Constants.reportEndpointURL+"/galaxy/report/projectprogress"};
-		obj.contentType="application/json";
-		obj.data={"userid":"${galax_session_user.id}","sdate":"-1","edate":"-1"};
-		ajaxCallback(obj,function(data){
-			var result = data.result;
-			var mapList = data.mapList;
-			if(result.status=='ERROR'){
-				$.popup(100,'消息',result.message);
-				return false;
-			}
-			var re = [];
-			var categories = [];
-			for(var i=0;i<mapList.length;i++){
-				re.push( mapList[i].c);
-				categories.push(mapList[i].name);
-			}
-			chartOptions.series[0].data = re;
-			chartOptions.xAxis.categories = categories;
-			var chart = new Highcharts.Chart(chartOptions);
-		}); 
+	var formdata = {
+			domid : "histogram"
 	}
+	chartIndexPProgressUtils.init(formdata);
 	$('#message-data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:4,
