@@ -8,6 +8,7 @@ import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.utils.SopConstatnts;
 import com.google.gson.Gson;
 
 public class FXFunctionTags
@@ -75,7 +76,7 @@ public class FXFunctionTags
 		Cache cache = WebUtils.getBean(Cache.class);
 		if(projectId != null && cache != null)
 		{
-			Object obj = cache.get(SopConstant.CACHE_SCOPE_TRANSFER_PROJECT);
+			Object obj = cache.get(SopConstatnts.Redis._transfer_projects_key_);
 			if(obj != null)
 			{
 				List<Long> projectIds = (List<Long>)obj;
@@ -89,7 +90,7 @@ public class FXFunctionTags
 		Cache cache = WebUtils.getBean(Cache.class);
 		if(cache != null)
 		{
-			Object obj = cache.get(SopConstant.CACHE_SCOPE_TRANSFER_PROJECT);
+			Object obj = cache.get(SopConstatnts.Redis._transfer_projects_key_);
 			if(obj != null)
 			{
 				String result = new Gson().toJson(obj);
