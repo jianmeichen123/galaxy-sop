@@ -1167,12 +1167,14 @@ function createUserOptions(url, name, mark){
 			options.push('<option value="0">全部</option>');
 		}
 		$.each(data.entityList, function(i, value){
-			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'selected="selected"' : '')+'>'+value.realName+'</option>');
+			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'back="link"' : '')+'>'+value.realName+'</option>');
 		});
 		if(mark == 1){
-			$('select[name="'+name+'"]').html(options.join(''));
+	     	$('select[name="'+name+'"]').html(options.join(''));
 		}else{
 			$('select[name="'+name+'"]').append(options.join(''));
+			$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);	
+				
 		}
 	});
 }
