@@ -28,8 +28,8 @@ import com.galaxyinternet.service.ProjectTransferService;
 @Controller
 @RequestMapping("/galaxy/projectTransfer/applyTransfer")
 public class ProjectTransferController extends BaseControllerImpl<ProjectTransfer, ProjectTransferBo> {
-
-	private final static Logger _common_logger_ = LoggerFactory.getLogger(ProjectController.class);
+	private final static Logger _common_logger_ = LoggerFactory.getLogger(ProjectTransferController.class);
+	
     @Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 
@@ -80,7 +80,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			projectTransfer.setBeforeUid(user.getId());
 			projectTransfer.setBeforeDepartmentId(user.getDepartmentId());
 			projectTransferService.applyProjectTransfer(projectTransfer);
-			projectTransferService.setTransferProjectInRedis(cache, project);
+			projectTransferService.setTransferProjectInRedis(cache, project.getId());
 			responseBody.setResult(new Result(Status.OK,"200" , "项目移交成功!"));
 			_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
 		} catch (Exception e) {
@@ -114,8 +114,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			}
 			ProjectTransfer transfer = datas.get(0);
 			projectTransferService.undoProjectTransfer(transfer);
-			
-			
+			projectTransferService.removeTransferProjectFromRedis(cache, transfer.getProjectId());
 			responseBody.setResult(new Result(Status.ERROR,"200" , "移交申请撤销成功!"));
 			_common_logger_.info(user.getRealName() + "撤销移交申请成功[json]-" + transfer);
 		} catch (Exception e) {
