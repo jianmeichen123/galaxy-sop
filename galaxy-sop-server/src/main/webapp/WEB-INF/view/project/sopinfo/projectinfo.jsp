@@ -572,7 +572,7 @@ $(function(){
 	 $('.edui-icon-fullscreen').on('click',function(){
 			$('body').css('padding-bottom','300px')
 	})
-	if(isTransfering)
+	if(isTransfering == 'true')
 	{
 		$('[data-on="data-open"]').addClass('limits_gray');
 	}

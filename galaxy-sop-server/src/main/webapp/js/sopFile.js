@@ -160,7 +160,10 @@ var fileGrid = {
 			uploadOpt = "上传";
 			uploadClass = "fileuploadlink"
 		}
-		
+		if(typeof(transferingIds) != 'undefined' && transferingIds.contains(row.projectId))
+		{
+			uploadClass += " limits_gray";
+		}
 		if(row.fileKey && row.fileValid==1 && row.isEdit == "true"){
 			
 			return [
@@ -207,6 +210,10 @@ var fileGrid = {
         },
         //更新文档
 		'click .fileupdatelink' : function(e, value, row, index){
+			if($(this).hasClass('limits_gray'))
+			{
+				return;
+			}
 			var formData = {
         			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
@@ -237,6 +244,10 @@ var fileGrid = {
         
         //上传文档
         'click .fileuploadlink' : function(e, value, row, index){
+        	if($(this).hasClass('limits_gray'))
+			{
+				return;
+			}
         	var uploadUrl = undefined;
         	var uploadFormFuc = undefined;
         	if(row.isChangeTask == "true"){
