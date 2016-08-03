@@ -28,10 +28,28 @@ public interface ProjectTransferService extends BaseService<ProjectTransfer> {
 	 * 2.修改待办任务
 	 */
 	void undoProjectTransfer(ProjectTransfer projectTransfer);
+	/**
+	 * 接收项目移交动作
+	 */
+	void receiveProjectTransfer(ProjectTransfer projectTransfer);
 	
+	/**
+	 * 拒接项目移交
+	 */
+	void rejectProjectTransfer(ProjectTransfer projectTransfer);
 	
+	/**
+	 * 将项目移交中的项目放入Redis
+	 * @param cache
+	 * @param pid
+	 */
 	void setTransferProjectInRedis(Cache cache, Long pid);
 	
+	/**
+	 * 当撤销、接收、拒接时，从Redis中移除对应的项目
+	 * @param cache
+	 * @param pid
+	 */
 	void removeTransferProjectFromRedis(Cache cache, Long pid);
 	
 	

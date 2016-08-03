@@ -19,9 +19,8 @@
 }
 .edui-container .edui-editor-body{
     background-color: #fff;
-    height: 150px;
-  /*   overflow-y:scroll;  */
-    overflow-x:hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 .edui-container, .edui-toolbar{
 	width:100% !important;

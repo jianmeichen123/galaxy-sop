@@ -24,4 +24,10 @@ public interface SopConstatnts {
 		public static final int _accept_project_flag_ = 10;
 	}
 	
+	public interface TransferStatus{
+		public static final int _undo_status_ = 1;
+		public static final int _receive_status_ = 2;
+		public static final int _reject_status_ = 3;
+	}
+	
 }

@@ -88,6 +88,7 @@ public class SopTask extends PagableEntity{
 		this.remark = remark;
 	}
 	private String taskStatus;
+	private String queryTaskStatus;
      private String remark;
 	public Long getId() {
 		return id;
@@ -118,6 +119,12 @@ public class SopTask extends PagableEntity{
 	}
 	public void setProjectIdList(List<Long> projectIdList) {
 		this.projectIdList = projectIdList;
+	}
+	public String getQueryTaskStatus() {
+		return queryTaskStatus;
+	}
+	public void setQueryTaskStatus(String queryTaskStatus) {
+		this.queryTaskStatus = queryTaskStatus;
 	}
     
 }
