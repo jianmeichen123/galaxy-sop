@@ -257,7 +257,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));	
 //				sopTaskBo.setStatusFlag("1");/.append("/galaxy/soptask/goClaimtcPage?id="+sopTaskBo.getId())
 				
-				if(FXFunctionTags.isTransfering(sopTasknew.getProjectId()) && sopTaskBo.getTaskFlag().intValue() != SopConstatnts.TaskCode._accept_project_flag_){
+				if(FXFunctionTags.isTransfering(sopTasknew.getProjectId()) && sopTasknew.getTaskFlag().intValue() != SopConstatnts.TaskCode._accept_project_flag_){
 					caozuohtml.append("<a ").append(" >").append("认领").append("</a>");
 				}else{
 					caozuohtml.append("<a id='dai' href='javascript:void(0)' name='markResource' resource-mark='"+mark+"' class='blue' ")
@@ -272,7 +272,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("2");
 			//	String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
-				if(FXFunctionTags.isTransfering(sopTasknew.getProjectId()) && sopTaskBo.getTaskFlag().intValue() != SopConstatnts.TaskCode._accept_project_flag_){
+				if(FXFunctionTags.isTransfering(sopTasknew.getProjectId()) && sopTasknew.getTaskFlag().intValue() != SopConstatnts.TaskCode._accept_project_flag_){
 					caozuohtml.append("<a ").append(" >").append("处理").append("</a>");
 				}else{
 					caozuohtml.append("<a href='javascript:void(0)' name='markResource' resource-mark='"+mark+"' class='blue' ").append(" id='doclaim' ").append(" >").append("处理")
