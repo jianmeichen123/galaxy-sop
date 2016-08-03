@@ -8,13 +8,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.dao.project.MeetingRecordDao;
+import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.project.ProjectTransferDao;
+import com.galaxyinternet.dao.sopfile.SopFileDao;
+import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectTransfer;
+import com.galaxyinternet.model.sopfile.SopFile;
+import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.service.ProjectTransferService;
 import com.galaxyinternet.utils.SopConstatnts;
@@ -27,8 +34,14 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 	private ProjectTransferDao projectTransferDao;
 	@Autowired
 	private SopTaskDao sopTaskDao;
-	
-	
+	@Autowired
+	private ProjectDao projectDao;
+	@Autowired
+	private MeetingRecordDao meetingRecordDao;
+	@Autowired
+	private SopFileDao sopFileDao;
+	@Autowired
+	private SopVoucherFileDao sopVoucherFileDao;
 	
 	
 	@Override
@@ -72,8 +85,39 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 	
 	@Override
 	@Transactional
-	public void receiveProjectTransfer(ProjectTransfer projectTransfer) {
+	public void receiveProjectTransfer(ProjectTransfer projectTransfer, Long createId, String createName, Long departmentId) {
+		projectTransferDao.updateById(projectTransfer);
+		SopTask task = new SopTask();
+		task.setProjectId(projectTransfer.getProjectId());
+		task.setTaskFlag(SopConstatnts.TaskCode._accept_project_flag_);
+		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		task.setQueryTaskStatus(DictEnum.taskStatus.待完工.getCode());
+		sopTaskDao.updateByIdSelective(task);
+		Project project = projectDao.selectById(projectTransfer.getProjectId());
+		project.setCreateUid(createId);
+		project.setCreateUname(createName);
+		project.setProjectDepartid(departmentId);
+		projectDao.updateById(project);
 		
+		MeetingRecord mr = new MeetingRecord();
+		mr.setProjectId(project.getId());
+		List<MeetingRecord> ms = meetingRecordDao.selectList(mr);
+		if(ms != null){
+			for(MeetingRecord m : ms){
+				m.setCreateUid(createId);
+				meetingRecordDao.updateById(m);
+			}
+		}
+		
+		SopFile file = new SopFile();
+		file.setProjectId(project.getId());
+		file.setCareerLine(departmentId);
+		sopFileDao.updateDepartmentId(file);
+		
+		SopVoucherFile f = new SopVoucherFile();
+		f.setProjectId(project.getId());
+		f.setCareerLine(departmentId);
+		sopVoucherFileDao.updateDepartmentId(f);
 	}
 	
 	@Override

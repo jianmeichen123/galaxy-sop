@@ -9,4 +9,9 @@ public interface SopVoucherFileDao extends BaseDao<SopVoucherFile, Long> {
 	
 	public List<SopVoucherFile> selectListById(List<Long> idList);
 	
+	/**
+	 * 项目移交时修改文档部门ID
+	 */
+	int updateDepartmentId(SopVoucherFile f);
+	
 }

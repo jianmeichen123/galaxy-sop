@@ -47,8 +47,12 @@ public class SopFileDaoImpl extends BaseDaoImpl<SopFile, Long> implements SopFil
 	 * @return
 	 */
 	public List<Map<String, String>> queryProjectName(Map<String, Object> map) {
-		// TODO Auto-generated method stub
 		return sqlSessionTemplate.selectList(getSqlName("queryProjectName"), map);
+	}
+
+	@Override
+	public int updateDepartmentId(SopFile f) {
+		return sqlSessionTemplate.update(getSqlName("updateDepartmentId"), f);
 	}
 	
 

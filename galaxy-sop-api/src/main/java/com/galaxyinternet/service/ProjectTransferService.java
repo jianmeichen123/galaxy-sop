@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectTransfer;
 
 /**
@@ -12,6 +11,11 @@ import com.galaxyinternet.model.project.ProjectTransfer;
  */
 public interface ProjectTransferService extends BaseService<ProjectTransfer> {
 	
+	/**
+	 * 根据项目ID查询其所属的项目移交中的申请记录
+	 * @param pid
+	 * @return
+	 */
 	List<ProjectTransfer> applyTransferData(Long pid);
 	
 	/**
@@ -30,8 +34,14 @@ public interface ProjectTransferService extends BaseService<ProjectTransfer> {
 	void undoProjectTransfer(ProjectTransfer projectTransfer);
 	/**
 	 * 接收项目移交动作
+	 * 1.sop_project[project_departId、create_uname、create_uid、project_careerline（暂时无用）]
+	 * 2.sop_file[career_line]
+	 *   sop_voucher_file[career_line]
+	 *   注:在创建项目时，即已经录入了，在档案管理员有按部门搜索的
+	 * 3.sop_meeting_record[create_uid]
+	 *   注:编辑会议时，校验使用
 	 */
-	void receiveProjectTransfer(ProjectTransfer projectTransfer);
+	void receiveProjectTransfer(ProjectTransfer projectTransfer, Long createId, String createName, Long departmentId);
 	
 	/**
 	 * 拒接项目移交

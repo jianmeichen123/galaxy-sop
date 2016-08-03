@@ -157,12 +157,47 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "拒接项目失败!"));
 			if(_common_logger_.isErrorEnabled()){
-				_common_logger_.error("撤销移交申请失败[josn]-" + projectTransfer);
+				_common_logger_.error("拒接项目失败[josn]-" + projectTransfer);
 			}
 		}
 		return responseBody;
 	}
 	
+	
+	
+	/**
+	 * 接收项目移交
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/receiveTransfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectTransfer> receiveTransfer(@RequestBody ProjectTransfer projectTransfer,
+			HttpServletRequest request) {
+		ResponseData<ProjectTransfer> responseBody = new ResponseData<ProjectTransfer>();
+		if(projectTransfer.getProjectId() == null){
+			responseBody.setResult(new Result(Status.ERROR,"err" , "缺少必需参数!"));
+			return responseBody;
+		}
+		try {
+			User user = (User) getUserFromSession(request);
+			List<ProjectTransfer> datas = projectTransferService.applyTransferData(projectTransfer.getProjectId());
+			if(datas == null || datas.isEmpty()){
+				responseBody.setResult(new Result(Status.ERROR,"err" , "没有找到相关的移交申请记录!"));
+				return responseBody;
+			}
+			ProjectTransfer transfer = datas.get(0);
+			transfer.setRecordStatus(SopConstatnts.TransferStatus._receive_status_);
+			projectTransferService.receiveProjectTransfer(transfer, transfer.getAfterUid(), user.getRealName(), transfer.getAfterDepartmentId());
+			projectTransferService.removeTransferProjectFromRedis(cache, transfer.getProjectId());
+			responseBody.setResult(new Result(Status.ERROR,"200" , "接收项目成功!"));
+			_common_logger_.info(user.getRealName() + "接收项目成功[json]-" + transfer);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,"err" , "接收项目失败!"));
+			if(_common_logger_.isErrorEnabled()){
+				_common_logger_.error("接收项目失败[josn]-" + projectTransfer);
+			}
+		}
+		return responseBody;
+	}
 	
 	
 	
