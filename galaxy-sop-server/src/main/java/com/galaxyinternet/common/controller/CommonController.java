@@ -135,15 +135,13 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			
 			tabs = new ArrayList<Menus>();
 			String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
-			tabs.add(new Menus(1L, 0, 1, "工作桌面", u + "galaxy/index?" + params));
-			tabs.add(new Menus(2L, 0, 2, "待办任务", u + "galaxy/soptask?" + params));
 			tabs.clear();
 			tabs.add(new Menus(1L, 0, 1,"工作桌面", u + "galaxy/report/platform?" + params));
 			tabs.add(new Menus(5L, 0, 3, "创投项目", u + "galaxy/mpl?" + params));
 			
 			tabs.add(new Menus(22L, 0, 11, "数据简报", u + "galaxy/charts/analysis/toProjectAnalysis?" + params));
 			tabs.add(new Menus(6L, 0, 12, "项目分析", u + "galaxy/kpireport/toProOverView?" + params));
-			tabs.add(new Menus(8L, 0, 13,"绩效考核", u + "galaxy/kpireport/touserkpi?" + params));
+			tabs.add(new Menus(7L, 0, 13,"绩效考核", u + "galaxy/kpireport/touserkpi?" + params));
 			
 			
 			

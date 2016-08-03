@@ -129,7 +129,7 @@ var queryParamsJson = {};
 
 $(function () {
 	//左侧菜单
-	createMenus(8);
+	createMenus(7);
 	
 	init(); //页面初始化
 	

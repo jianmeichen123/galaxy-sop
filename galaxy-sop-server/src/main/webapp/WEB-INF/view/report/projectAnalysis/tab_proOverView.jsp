@@ -122,9 +122,9 @@
 					<dl class="fmdl fmmr clearfix">
 						<dt>项目创建日期：</dt>
 						<dd>
-							<input type="text" class="txt time datepicker" readonly value="" id="xmstj_sdate" name="sdate" />
+							<input type="text" class="datepicker txt time" readonly value="" id="xmstj_sdate" name="sdate" />
 							<span>至</span> 
-							<input type="text" class="txt time datepicker" readonly value="" id="xmstj_edate" name="edate" />
+							<input type="text" class="datepicker txt time" readonly value="" id="xmstj_edate" name="edate" />
 						</dd>
 						<dd>
 							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_xmstj" >统计</a>
@@ -217,9 +217,9 @@
 					<dl class="fmdl fmmr clearfix">
 						<dt>会议时间：</dt>
 						<dd>
-							<input type="text" id="ghl_sdate" name="sdate" class="txt time datepicker" value="" /> 
+							<input type="text" id="ghl_sdate" name="sdate" class="datepicker txt time" value="" /> 
 							<span>至</span> 
-							<input type="text" id="ghl_edate" name="edate" class="txt time datepicker" value="" />
+							<input type="text" id="ghl_edate" name="edate" class="datepicker txt time" value="" />
 						</dd>
 						<dd>
 							<input type="hidden" name="meetingType" value="meetingType:3" /> 
@@ -260,9 +260,9 @@
 					<dl class="fmdl fmmr clearfix">
 						<dt>会议时间：</dt>
 						<dd>
-							<input type="text" id="ghl_sdate" name="sdate" class="txt time datepicker" value="" /> 
+							<input type="text" id="ghl_sdate" name="sdate" class="datepicker txt time" value="" /> 
 							<span>至</span> 
-							<input type="text" id="ghl_edate" name="edate" class="txt time datepicker" value="" />
+							<input type="text" id="ghl_edate" name="edate" class="datepicker txt time" value="" />
 						</dd>
 						<dd>
 							<input type="hidden" name="meetingType" value="meetingType:4" />
