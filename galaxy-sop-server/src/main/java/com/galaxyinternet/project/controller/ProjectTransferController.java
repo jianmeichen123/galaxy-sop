@@ -24,6 +24,7 @@ import com.galaxyinternet.model.project.ProjectTransfer;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.ProjectTransferService;
+import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
 @RequestMapping("/galaxy/projectTransfer/applyTransfer")
@@ -41,10 +42,8 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	
 	@Override
 	protected BaseService<ProjectTransfer> getBaseService() {
-		// TODO Auto-generated method stub
 		return this.projectTransferService;
 	}
-
 	
 	
 	/**
@@ -113,12 +112,50 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 				return responseBody;
 			}
 			ProjectTransfer transfer = datas.get(0);
+			transfer.setRecordStatus(SopConstatnts.TransferStatus._undo_status_);
+			transfer.setUndoReason(projectTransfer.getUndoReason());
 			projectTransferService.undoProjectTransfer(transfer);
 			projectTransferService.removeTransferProjectFromRedis(cache, transfer.getProjectId());
 			responseBody.setResult(new Result(Status.ERROR,"200" , "移交申请撤销成功!"));
 			_common_logger_.info(user.getRealName() + "撤销移交申请成功[json]-" + transfer);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "撤销移交申请失败!"));
+			if(_common_logger_.isErrorEnabled()){
+				_common_logger_.error("撤销移交申请失败[josn]-" + projectTransfer);
+			}
+		}
+		return responseBody;
+	}
+	
+	
+	/**
+	 * 拒接项目移交
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/rejectTransfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectTransfer> rejectTransfer(@RequestBody ProjectTransfer projectTransfer,
+			HttpServletRequest request) {
+		ResponseData<ProjectTransfer> responseBody = new ResponseData<ProjectTransfer>();
+		if(projectTransfer.getProjectId() == null || projectTransfer.getRefuseReason() == null){
+			responseBody.setResult(new Result(Status.ERROR,"err" , "缺少必需参数!"));
+			return responseBody;
+		}
+		try {
+			User user = (User) getUserFromSession(request);
+			List<ProjectTransfer> datas = projectTransferService.applyTransferData(projectTransfer.getProjectId());
+			if(datas == null || datas.isEmpty()){
+				responseBody.setResult(new Result(Status.ERROR,"err" , "没有找到相关的移交申请记录!"));
+				return responseBody;
+			}
+			ProjectTransfer transfer = datas.get(0);
+			transfer.setRecordStatus(SopConstatnts.TransferStatus._reject_status_);
+			transfer.setRefuseReason(projectTransfer.getRefuseReason());
+			projectTransferService.rejectProjectTransfer(transfer);
+			projectTransferService.removeTransferProjectFromRedis(cache, transfer.getProjectId());
+			responseBody.setResult(new Result(Status.ERROR,"200" , "拒接项目成功!"));
+			_common_logger_.info(user.getRealName() + "拒接项目成功[json]-" + transfer);
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,"err" , "拒接项目失败!"));
 			if(_common_logger_.isErrorEnabled()){
 				_common_logger_.error("撤销移交申请失败[josn]-" + projectTransfer);
 			}

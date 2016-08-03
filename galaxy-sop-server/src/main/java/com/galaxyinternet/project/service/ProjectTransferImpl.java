@@ -40,8 +40,8 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		return projectTransferDao.selectApplyRecord(pid);
 	}
 	
-	@Transactional
 	@Override
+	@Transactional
 	public void applyProjectTransfer(ProjectTransfer projectTransfer) {
 		projectTransferDao.insert(projectTransfer);
 		SopTask task = new SopTask();
@@ -58,11 +58,33 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 	
 	
 	@Override
+	@Transactional
 	public void undoProjectTransfer(ProjectTransfer projectTransfer) {
-		projectTransferDao.updateByIdSelective(projectTransfer);
+		projectTransferDao.updateById(projectTransfer);
 		SopTask task = new SopTask();
 		task.setProjectId(projectTransfer.getProjectId());
 		task.setTaskFlag(SopConstatnts.TaskCode._accept_project_flag_);
+		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		task.setQueryTaskStatus(DictEnum.taskStatus.待完工.getCode());
+		sopTaskDao.updateByIdSelective(task);
+	}
+	
+	
+	@Override
+	@Transactional
+	public void receiveProjectTransfer(ProjectTransfer projectTransfer) {
+		
+	}
+	
+	@Override
+	@Transactional
+	public void rejectProjectTransfer(ProjectTransfer projectTransfer) {
+		projectTransferDao.updateById(projectTransfer);
+		SopTask task = new SopTask();
+		task.setProjectId(projectTransfer.getProjectId());
+		task.setTaskFlag(SopConstatnts.TaskCode._accept_project_flag_);
+		task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+		task.setQueryTaskStatus(DictEnum.taskStatus.待完工.getCode());
 		sopTaskDao.updateByIdSelective(task);
 	}
 	
@@ -92,5 +114,4 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 			}
 		}
 	}
-	
 }

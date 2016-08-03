@@ -9,7 +9,7 @@
     <result column="after_uid" property="afterUid" jdbcType="BIGINT" />
     <result column="transfer_reason" property="transferReason" jdbcType="VARCHAR" />
     <result column="after_department_id" property="afterDepartmentId" jdbcType="BIGINT" />
-    <result column="record_status" property="recordStatus" jdbcType="VARCHAR" />    
+    <result column="record_status" property="recordStatus"/>    
     <result column="undo_reason" property="undoReason" jdbcType="VARCHAR" />    
     <result column="refuse_reason" property="refuseReason" jdbcType="VARCHAR" />    
     <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
@@ -42,7 +42,7 @@
 			   <if test="beforeDepartmentId != null" > and before_department_id = #{beforeDepartmentId,jdbcType=BIGINT} </if>
 			   <if test="afterUid != null" > and after_uid = #{afterUid,jdbcType=BIGINT} </if>
 			   <if test="afterDepartmentId != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
-		       <if test="recordStatus != null" > and record_status = #{recordStatus,jdbcType=VARCHAR} </if>   
+		       <if test="recordStatus != null" > and record_status = #{recordStatus} </if>   
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -121,7 +121,7 @@
 	      #{afterUid,jdbcType=BIGINT}
           #{afterDepartmentId,jdbcType=BIGINT}, 
           #{transferReason,jdbcType=VARCHAR}, 
-          #{recordStatus,jdbcType=VARCHAR},
+          #{recordStatus},
           #{undoReason,jdbcType=VARCHAR}, 
 	      #{refuseReason,jdbcType=VARCHAR}, 
 	      #{createDate,jdbcType=BIGINT},
@@ -140,7 +140,7 @@
 			   <if test="afterUid != null" > after_uid = #{afterUid,jdbcType=BIGINT}, </if>
 			   <if test="afterDepartmentId != null" > after_department_id = #{afterDepartmentId,jdbcType=BIGINT}, </if>
 		       <if test="transferReason != null" > transfer_reason = #{transferReason,jdbcType=VARCHAR}, </if>
-		       <if test="recordStatus != null" > record_status = #{recordStatus,jdbcType=VARCHAR}, </if>   
+		       <if test="recordStatus != null" > record_status = #{recordStatus}, </if>   
 		       <if test="undoReason != null" > undo_reason = #{undoReason,jdbcType=VARCHAR}, </if>
 		       <if test="refuseReason != null" > refuse_reason = #{refuseReason,jdbcType=VARCHAR}, </if>
 		       <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
@@ -154,7 +154,8 @@
 			   <if test="beforeDepartmentId != null" > and before_department_id = #{beforeDepartmentId,jdbcType=BIGINT} </if>
 			   <if test="afterUid != null" > and after_uid = #{afterUid,jdbcType=BIGINT} </if>
 			   <if test="afterDepartmentId != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
-		       <if test="recordStatus != null" > and record_status = #{recordStatus,jdbcType=VARCHAR} </if>			
+		       <if test="recordStatus != null" > and record_status = #{recordStatus} </if>		
+		       <if test="attachment != null" > and record_status is null </if>	
             </trim>
 		</where>
 	</update>
@@ -169,7 +170,7 @@
 			   <if test="afterUid != null" > after_uid = #{afterUid,jdbcType=BIGINT}, </if>
 			   <if test="afterDepartmentId != null" > after_department_id = #{afterDepartmentId,jdbcType=BIGINT}, </if>
 		       <if test="transferReason != null" > transfer_reason = #{transferReason,jdbcType=VARCHAR}, </if>
-		       <if test="recordStatus != null" > record_status = #{recordStatus,jdbcType=VARCHAR}, </if>   
+		       <if test="recordStatus != null" > record_status = #{recordStatus}, </if>   
 		       <if test="undoReason != null" > undo_reason = #{undoReason,jdbcType=VARCHAR}, </if>
 		       <if test="refuseReason != null" > refuse_reason = #{refuseReason,jdbcType=VARCHAR}, </if>
 		       <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>

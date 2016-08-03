@@ -14,7 +14,7 @@ public class ProjectTransfer extends PagableEntity {
 	private Long afterUid;  //项目接收人
 	private Long afterDepartmentId;  //项目接受部门 
 	private String transferReason;//项目移交原因
-	private String recordStatus; //移交状态
+	private Integer recordStatus; //移交状态
     private String undoReason; //
     private Long refuseReason;//决绝原因
    	private String createDate;//创建时间
@@ -70,11 +70,11 @@ public class ProjectTransfer extends PagableEntity {
 		this.transferReason = transferReason;
 	}
 
-	public String getRecordStatus() {
+	public Integer getRecordStatus() {
 		return recordStatus;
 	}
 
-	public void setRecordStatus(String recordStatus) {
+	public void setRecordStatus(Integer recordStatus) {
 		this.recordStatus = recordStatus;
 	}
 
@@ -123,8 +123,7 @@ public class ProjectTransfer extends PagableEntity {
     		this.updateDate = DateUtil.longToString(updatedTime);
     	}
     }
-	
-	
+
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);
