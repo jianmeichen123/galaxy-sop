@@ -272,7 +272,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				return responseBody;
 			}
 			ProjectTransfer transfer = datas.get(0);
-			projectTransferService.updateByIdSelective(transfer);
+			projectTransferService.undoProjectTransfer(transfer);
+			
+			
 			responseBody.setResult(new Result(Status.ERROR,"200" , "移交申请撤销成功!"));
 			_common_logger_.info(user.getRealName() + "撤销移交申请成功[json]-" + transfer);
 		} catch (Exception e) {

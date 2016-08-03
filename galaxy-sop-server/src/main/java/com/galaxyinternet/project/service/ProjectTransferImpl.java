@@ -56,20 +56,39 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		sopTaskDao.insert(task);
 	}
 	
+	
+	@Override
+	public void undoProjectTransfer(ProjectTransfer projectTransfer) {
+		projectTransferDao.updateByIdSelective(projectTransfer);
+		SopTask task = new SopTask();
+		task.setProjectId(projectTransfer.getProjectId());
+		task.setTaskFlag(SopConstatnts.TaskCode._accept_project_flag_);
+		sopTaskDao.updateByIdSelective(task);
+	}
+	
 	@Override
 	public void setTransferProjectInRedis(Cache cache, Project project) {
 		synchronized (this) {
-			List<Project> transferProjectList = null;
+			List<Long> transferProjectList = null;
 			Object cacheObj = cache.get(SopConstatnts.Redis._transfer_projects_key_);
 			if(cacheObj == null){
-				transferProjectList = new ArrayList<Project>();
+				transferProjectList = new ArrayList<Long>();
 			}else{
-				transferProjectList = (List<Project>) cacheObj;
+				transferProjectList = (List<Long>) cacheObj;
 			}
-			transferProjectList.add(project);
+			transferProjectList.add(project.getId());
 		}
-		
-		
+	}
+	@Override
+	public void removeTransferProjectFromRedis(Cache cache, Project project) {
+		synchronized (this) {
+			List<Long> transferProjectList = null;
+			Object cacheObj = cache.get(SopConstatnts.Redis._transfer_projects_key_);
+			if(cacheObj != null){
+				transferProjectList = (List<Long>) cacheObj;
+				transferProjectList.remove(project);
+			}
+		}
 	}
 	
 }
