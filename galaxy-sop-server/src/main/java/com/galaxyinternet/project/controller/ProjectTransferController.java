@@ -185,7 +185,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 				System.out.println(">>>>>>" + id);
 			}
 			
-			responseBody.setResult(new Result(Status.ERROR,"200" , "拒接项目成功!"));
+			responseBody.setResult(new Result(Status.OK,"200" , "拒接项目成功!"));
 			_common_logger_.info(user.getRealName() + "拒接项目成功[json]-" + transfer);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "拒接项目失败!"));
