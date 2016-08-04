@@ -95,12 +95,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			projectTransfer.setBeforeDepartmentId(user.getDepartmentId());
 		    Long result=	projectTransferService.applyProjectTransfer(projectTransfer);
 			projectTransferService.setTransferProjectInRedis(cache, project.getId());
-			
 			List<Long> ids = (List<Long>) cache.get(SopConstatnts.Redis._transfer_projects_key_);
-			for(Long id : ids){
-				System.out.println(">>>>>>" + id);
-			}
-			responseBody.setId(result);
 			responseBody.setResult(new Result(Status.OK,"200" , "项目移交成功!"));
 			_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
 		} catch (Exception e) {
@@ -137,13 +132,6 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			transfer.setUndoReason(projectTransfer.getUndoReason());
 			projectTransferService.undoProjectTransfer(transfer);
 			projectTransferService.removeTransferProjectFromRedis(cache, transfer.getProjectId());
-			
-			List<Long> ids = (List<Long>) cache.get(SopConstatnts.Redis._transfer_projects_key_);
-			for(Long id : ids){
-				System.out.println(">>>>>>" + id);
-			}
-			
-			responseBody.setResult(new Result(Status.OK,"200" , "移交申请撤销成功!"));
 			_common_logger_.info(user.getRealName() + "撤销移交申请成功[json]-" + transfer);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "撤销移交申请失败!"));
@@ -181,11 +169,6 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			projectTransferService.removeTransferProjectFromRedis(cache, transfer.getProjectId());
 			
 			List<Long> ids = (List<Long>) cache.get(SopConstatnts.Redis._transfer_projects_key_);
-			for(Long id : ids){
-				System.out.println(">>>>>>" + id);
-			}
-			
-			responseBody.setResult(new Result(Status.OK,"200" , "拒接项目成功!"));
 			_common_logger_.info(user.getRealName() + "拒接项目成功[json]-" + transfer);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "拒接项目失败!"));
@@ -221,13 +204,6 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			transfer.setRecordStatus(SopConstatnts.TransferStatus._receive_status_);
 			projectTransferService.receiveProjectTransfer(transfer, transfer.getAfterUid(), user.getRealName(), transfer.getAfterDepartmentId());
 			projectTransferService.removeTransferProjectFromRedis(cache, transfer.getProjectId());
-			
-			List<Long> ids = (List<Long>) cache.get(SopConstatnts.Redis._transfer_projects_key_);
-			for(Long id : ids){
-				System.out.println(">>>>>>" + id);
-			}
-			
-			responseBody.setResult(new Result(Status.OK,"200" , "接收项目成功!"));
 			_common_logger_.info(user.getRealName() + "接收项目成功[json]-" + transfer);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "接收项目失败!"));
