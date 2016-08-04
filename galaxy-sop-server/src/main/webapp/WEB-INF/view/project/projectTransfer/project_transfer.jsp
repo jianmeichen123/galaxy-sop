@@ -1,4 +1,9 @@
-
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath(); 
+   // String projectid=request.getParameter("projectId");
+  
+%>
 <div class="addmentc margin_45">
 
 	<div class="title_bj">移交项目</div>
