@@ -495,9 +495,9 @@ function doSumbit(projectId){
 }
 function callbackFun(data){
 	if (data.result.status != "OK") {
-			layer.msg("提交成功");
+			layer.msg("提交失败");
 	} else {
-		layer.msg("提交失败")
+		layer.msg("提交成功")
 			history.go(0);
 		
 	}
