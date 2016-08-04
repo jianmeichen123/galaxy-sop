@@ -68,8 +68,8 @@
             <div class="correlation">相关操作</div> 
             <div class="new_correlation_cen">
             	<span class="bluebtn new_btn" onclick="closePro(this)" id="fjxm_but">否决项目</span>
-            	<span class="bluebtn new_btn" onclick="transferPro()" style="display:none" id="yjxm_btn">移交项目</span>
-                <span class="bluebtn new_btn" onclick="revokePro()" style="display:none" id="cxxm_btn">撤销移交</span>
+            	<span class="bluebtn new_btn_right" onclick="transferPro()" style="display:none" id="yjxm_btn">移交项目</span>
+                <span class="bluebtn new_btn_right" onclick="revokePro()" style="display:none" id="cxxm_btn">撤销移交</span>
             </div>
             
             

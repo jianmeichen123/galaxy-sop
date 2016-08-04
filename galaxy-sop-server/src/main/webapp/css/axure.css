@@ -1588,7 +1588,7 @@ font-family: "宋体";
 	margin-left:2px;
 	margin-top:-20px;
 }
-.new_btn{ width:100px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;}
+.new_btn,.new_btn_right{ width:100px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;}
 .correlation{ border-top:1px solid #e9ebf2; background-color:#f9fafc; height:40px; line-height:40px; text-indent:20px;font-size: 16px;font-family: "微软雅黑";color:#6b799f;}
 .new_correlation_cen{ width:89%;  margin-left:auto; margin-right:auto; overflow:hidden;font-family: "宋体";font-size: 12px;}
 .new_correlation_cen .new_btn{ float:left; margin-top:20px;}
@@ -2026,24 +2026,28 @@ dl{position: relative;}
 
 /*移交项目图标*/
 .prj_all table td .prc_gray {
-    background-position: 0 -586px;
+    background-position: 0 -586px  !important;
     margin-right: 15px;
     vertical-align: middle;
     cursor: default;
 }
 .new_fctbox .limits_gray ,.member table td .limits_gray{
-    background-position: 0 -362px;
+    background-position: 0 -362px  !important;
     float: left;
     padding: 0 0 0 22px;
     cursor:default;
     color:#aaaaaa;
 }
 .new_ul_right .new_fctbox .limits_gray{
-    background-position: 0 -538px;
+    background-position: 0 -538px  !important;
     padding: 0 0 0 22px;
 }
 .ritmin .top .btnbox_f1 .limits_gray {
     background-color: #aaaaaa;
     border: 1px solid #aaaaaa;
     cursor:default;
+}
+.new_correlation_cen .new_btn_right {
+    float: right;
+    margin-top: 20px;
 }
