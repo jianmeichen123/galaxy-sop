@@ -146,8 +146,16 @@ $(function(){
 	$("#project_delivery_table").on('load-success.bs.table',function(){
 		if(isTransfering == 'true')
 		{
-			
-			$("#project_delivery_table label.blue").addClass('limits_gray').removeAttr('onclick');
+			$.each($("#project_delivery_table tr"),function(){
+				$(this).find("td:last").addClass('limits_gray');
+			});
+			$.each($("#project_delivery_table label.blue"), function(){
+				var text = $(this).text();
+				if(text == '编辑' || text == '删除')
+				{
+					$(this).removeAttr('onclick');
+				}
+			});
 		}
 		setThyyInfo();
 	});

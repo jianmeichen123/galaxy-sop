@@ -148,7 +148,7 @@ function getTabPerson(){
           onLoadSuccess:function(){
         	  if(isTransfering == 'true')
         	  {
-        		  $table.find("tr span").addClass('limits_gray');
+        		  $table.find("tr span").parent().addClass('limits_gray');
         	  }
         	  else
     		  {

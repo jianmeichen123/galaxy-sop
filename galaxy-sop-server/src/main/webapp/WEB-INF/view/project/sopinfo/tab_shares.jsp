@@ -255,7 +255,9 @@
         onLoadSuccess: function (data) {
         	if(isTransfering == 'true')
        		{
-        		$("#shares-table span").addClass('limits_gray');
+        		$.each($("#shares-table tr"),function(){
+	        		$(this).find("td:last").addClass('limits_gray');
+        		});
        		}
         	else
        		{

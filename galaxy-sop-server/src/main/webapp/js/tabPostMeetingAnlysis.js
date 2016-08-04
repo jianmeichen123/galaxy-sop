@@ -13,6 +13,10 @@ var meetingSearchPanel = {
 			
 			
 			$("#addPostMeetingBtn").click(function(){
+				if($(this).hasClass('limits_gray'))
+				{
+					return;
+				}
 				var formdata = {
 						 isEdit : true
 				}
@@ -81,6 +85,12 @@ var meetGrid = {
 			      detailView: false,          //是否显示父子表
 			      onLoadSuccess : function(data){
 			    	  pageMode = false;
+			    	  if(isTransfering == 'true')
+		    		  {
+			    		  $.each($('#meetGrid tr'),function(){
+			    			  $(this).find('td:last').addClass('limits_gray');
+			    		  });
+		    		  }
 			      },
 			      columns: [
 					{

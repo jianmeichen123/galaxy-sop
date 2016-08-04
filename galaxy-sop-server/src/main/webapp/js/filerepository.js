@@ -151,8 +151,8 @@ var fileGrid = {
 			onLoadSuccess : function(){
 				if(typeof(isTransfering) != 'undefined' && isTransfering == 'true')
 				{
-					$('#' + data._domid).find('.fileuploadlink').addClass('limits_gray');
-					$('#' + data._domid).find('.fileupdatelink').addClass('limits_gray');
+					$('#' + data._domid).find('.fileuploadlink').parent().addClass('limits_gray');
+					$('#' + data._domid).find('.fileupdatelink').parent().addClass('limits_gray');
 				}
 			}
 		});
@@ -191,7 +191,7 @@ var fileGrid = {
 	updateEvents : {
 		//更新文档
 		'click .fileupdatelink' : function(e, value, row, index){
-			if($(this).hasClass('limits_gray'))
+			if($(this).parent().hasClass('limits_gray'))
 			{
 				return;
 			}
@@ -221,7 +221,7 @@ var fileGrid = {
         },
         //上传文档
         'click .fileuploadlink' : function(e, value, row, index){
-        	if($(this).hasClass('limits_gray'))
+        	if($(this).parent().hasClass('limits_gray'))
 			{
 				return;
 			}
