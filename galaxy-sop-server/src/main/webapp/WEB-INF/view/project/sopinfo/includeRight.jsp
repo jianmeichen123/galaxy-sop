@@ -67,7 +67,7 @@
             
             <div class="correlation">相关操作</div> 
             <div class="new_correlation_cen">
-            	<span class="bluebtn new_btn" onclick="closePro()" id="fjxm_but">否决项目</span>
+            	<span class="bluebtn new_btn" onclick="closePro(this)" id="fjxm_but">否决项目</span>
             	<span class="bluebtn new_btn" onclick="transferPro()" style="display:none" id="yjxm_btn">移交项目</span>
                 <span class="bluebtn new_btn" onclick="revokePro()" style="display:none" id="cxxm_btn">撤销移交</span>
             </div>
@@ -353,8 +353,7 @@ function formatNearMeet(meetList){
 
 
 function closePro(){
-	if($(this).hasClass('limits_gray'))
-	{
+	if($("#fjxm_but").hasClass('limits_gray')){
 		return;
 	}
 	layer.confirm('你确定要否决项目吗?', 
