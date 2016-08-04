@@ -105,12 +105,25 @@
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
-if(isCreatedByUser == "true"){
+/* if(isCreatedByUser == "true"){
 	$("#fjxm_but").attr("style","background:#d6d8e1;");
 	$("#yjxm_btn").attr("style","display:none;");
 	$("#cxxm_btn").attr("style","display:block;");
 	
+} */
+
+if(isTransfering == 'true')
+{
+	$('#fjxm_but').addClass('limits_gray');
+	$("#yjxm_btn").attr("style","display:none;");
+	$("#cxxm_btn").attr("style","display:block;");
+	
+}else{
+	$('#fjxm_but').removeClass('limits_gray');
+	$("#yjxm_btn").attr("style","display:block;");
+	$("#cxxm_btn").attr("style","display:none;");
 }
+
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
@@ -340,6 +353,10 @@ function formatNearMeet(meetList){
 
 
 function closePro(){
+	if($(this).hasClass('limits_gray'))
+	{
+		return;
+	}
 	layer.confirm('你确定要否决项目吗?', 
 			{
 			  btn: ['确定', '取消'] 
