@@ -18,18 +18,10 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
-<div class="schedule1tc">
-    <div class="top clearfix">
-        <a href="javascript:;" class="pubbtn bluebtn addbtn" onclick="newShedule()">新建</a>
-        <div class="searchall clearfix">
-            <!-- 
-            <input type="text" placeholder="请输入关键字" class="txt"/>
-            <a class="searchbtn null" href="javascript:;">搜索</a>
-             -->
-        </div>
-    </div>
+<div class="title_bj">日程列表</div>
+<div class="schedule1tc margin_45">
     <div class="bottom clearfix">
-        <div class="bottom_l">
+        <div class="bottom_l none">
             <% 
               String contentstr="";
               String timestr="";
@@ -84,9 +76,8 @@
 		    <%}%>
         </div>
       
-        <div id="editShedule" class="bottom_r2 bottom_r"  data-tab='con'> 
-           <form action="" id="shedule_form" method="post">    
-            <h2> <span id="changeSpan">添加日程安排</span></h2>
+        <div id="editShedule" class="bottom_r"  data-tab='con'> 
+           <form action="" id="shedule_form" method="post">   
             <input type="hidden" id="id" name="id" value=""/>
             <dl class="fmdl clearfix">
                 <dt>处理日期：</dt>
@@ -171,7 +162,7 @@
     	
     }
     //新建日程
-    function newShedule(){
+  /*   function newShedule(){
     	$("#changeSpan").html("添加日程安排");
     	$("#updateShow").css("display","none");
     	$("#addShow").css("display","block");
@@ -181,7 +172,7 @@
     	$("#id").remove();
     	uncheckAll('itemType','1');
     	uncheckAll('itemOrder','1');
-    }
+    } */
     //取消选中  
     function uncheckAll(type,value)   
     {   
@@ -234,7 +225,7 @@
    	    if(itemOrder == '1'){
    	    	uncheckAll('itemOrder','0');
    	    }
-   	    $("#changeSpan").html("修改日程安排");
+   	    //$("#changeSpan").html("修改日程安排");
    		$("#updateShow").css("display","block");
     	$("#addShow").css("display","none");
     	

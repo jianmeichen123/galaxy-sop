@@ -1,42 +1,23 @@
-<div class=" margin_45">
-<div class="title_bj">CEO评审排期</div>
+<div class="title_bj">日程列表</div>
+<div class="margin_45" style='height:320px'>
 
 	<div class="top clearfix">
-        <a href="javascript:;" class="pubbtn bluebtn addbtn" onclick="newShedule()" style='background: #539be2 url(../img/btnico2.png) 15px -120px no-repeat;  padding: 0 0px 0 10px;'>新建</a>
+        <a href="javascript:;" class="pubbtn bluebtn addbtn" onclick="shecudle()" style='background: #539be2 url(../img/btnico2.png) 15px -120px no-repeat;  padding: 0 0px 0 10px;'>新建</a>
     </div>
     <style>
     .bootstrap-table .fixed-table-body{ width: 700px;
     max-height: 280px;
     overflow-y: auto;}
-    </style>
-	<div class="">		
-		<table id="shecudle_list" data-method="post"
-								data-show-refresh="true" data-side-pagination="server"
-								data-pagination="true" 
-								data-search="false">
-		</table>
-	</div>
+    </style>	
+	<table id="shecudle_list" data-method="post"
+							data-show-refresh="true" data-side-pagination="server"
+							data-pagination="true" 
+							data-search="false">
+	</table>
 	
 </div>
 
 <script type="text/javascript">
-function newShedule(){
-	$("#powindow").remove();
-	$("#popbg").remove();
-	var $self = $(this);
-	var _name= $self.attr("data-name");
-	//var _url = Constants.sopEndpointURL + '/galaxy/health/tohealthlist';
-	var _url = $self.attr("href");
-	$.getHtml({
-		url:_url,
-		data:"",
-		okback:function(){
-			$("#popup_name").html(_name);
-			
-		}
-	});
-	return false;
-}
 //页面传参
 function queryParamsforP(params) {
 	return {
@@ -85,7 +66,7 @@ $('#shecudle_list').bootstrapTable({
 			title: '操作',
 			formatter:function(value,row,index){ 
 				var id = row.id;
-				var resetUrl = "<a class='blue' href='javascript:resetPwd(" + id
+				var resetUrl = "<a class='blue' href='javascript:shecudle(" + id
 				+ ")'>编辑</a>&nbsp;<a class='blue' href='javascript:deleteRole(" + id
 				+ ")'>删除</a>";
 				return resetUrl;
