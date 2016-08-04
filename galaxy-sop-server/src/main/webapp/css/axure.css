@@ -2025,7 +2025,7 @@ dl{position: relative;}
 .role_toolTip_area{ width:325px; height:150px; overflow-y:auto;　border:1px solid #ccd2d7; resize:none; box-sizing:border-box; text-indent:5px;}
 
 /*移交项目图标*/
-.prj_all table td .prc_gray {
+.prj_all table td .prc_gray, .prj_all table td .limits_gray {
     background-position: 0 -586px  !important;
     margin-right: 15px;
     vertical-align: middle;
