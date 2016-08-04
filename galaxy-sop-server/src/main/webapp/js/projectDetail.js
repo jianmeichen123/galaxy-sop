@@ -503,33 +503,34 @@ function callbackFun(data){
 	}
 
 }
-function revokeTransfer(){
+function revokeTransfer(projectId){
 	$(".poptxt").on("click","a[action='revokeTransfer']",function() {
 		var pop = $(".pop");
 		var json = {};
      var undoReason=pop.find("[name='undoReason']").val();
-   	if ( undoReason!= ""){
+   	if ( undoReason== ""){
+   		layer.msg("撤销原因不能为空");
+		return;
+   	}else{
    		if (undoReason.length>100) {
-				layer.msg("撤销原因最多输入100个字符");
-
-				return;
-			}else{
-				json['undoReason']=undoReason;
-			}
-    	}else{
-    		layer.msg("撤销原因不能为空");
-    	}
+			layer.msg("撤销原因最多输入100个字符");
+			return;
+		}else{
+			json['undoReason']=undoReason;
+		}
+	}
+   	json['projectId']=projectId;
    	var reqUrl=platformUrl.undoTransfer;
    	sendPostRequestByJsonObj(reqUrl, json, callbackFunRevoke);
     });
 	
 }
-function callbackFunRevoke(){
+function callbackFunRevoke(data){
 	if (data.result.status != "OK") {
-		layer.msg("项目撤销移交成功");
+		layer.msg("项目撤销移交失败");
 } else {
 	layer.msg("项目撤销移交成功")
-		history.go(0);
+	history.go(0);
 	
 }
 

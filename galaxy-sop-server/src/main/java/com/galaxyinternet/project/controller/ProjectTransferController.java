@@ -64,9 +64,9 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	/**
 	 * 页面跳转至撤销项目页面
 	 */
-	@RequestMapping(value = "/toReciviceTransfer", method = RequestMethod.GET)
+	@RequestMapping(value = "/toRefuseTransfer", method = RequestMethod.GET)
 	public String toReciviceTransfer() {
-		return "project/projectTransfer/receiveTask";
+		return "project/projectTransfer/refuse_transfer";
 	}
 	
 	
@@ -143,7 +143,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 				System.out.println(">>>>>>" + id);
 			}
 			
-			responseBody.setResult(new Result(Status.ERROR,"200" , "移交申请撤销成功!"));
+			responseBody.setResult(new Result(Status.OK,"200" , "移交申请撤销成功!"));
 			_common_logger_.info(user.getRealName() + "撤销移交申请成功[json]-" + transfer);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "撤销移交申请失败!"));

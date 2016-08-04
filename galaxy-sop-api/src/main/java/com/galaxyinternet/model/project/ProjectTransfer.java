@@ -16,7 +16,7 @@ public class ProjectTransfer extends PagableEntity {
 	private String transferReason;//项目移交原因
 	private Integer recordStatus; //移交状态
     private String undoReason; //
-    private Long refuseReason;//决绝原因
+    private String refuseReason;//决绝原因
    	private String createDate;//创建时间
    	private String updateDate;//修改时间
    	
@@ -86,11 +86,13 @@ public class ProjectTransfer extends PagableEntity {
 		this.undoReason = undoReason;
 	}
 
-	public Long getRefuseReason() {
+
+
+	public String getRefuseReason() {
 		return refuseReason;
 	}
 
-	public void setRefuseReason(Long refuseReason) {
+	public void setRefuseReason(String refuseReason) {
 		this.refuseReason = refuseReason;
 	}
 

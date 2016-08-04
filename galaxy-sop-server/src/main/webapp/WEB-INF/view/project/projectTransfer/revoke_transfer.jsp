@@ -33,19 +33,4 @@
 
 <script>
 
-/**
- * 查询事业线
- * @version 2016-08-03
- */
-createCareelineOptions(platformUrl.getCareerlineList,"beforeDepartmentId",1);
-/**
- * 根据事业线查询相应的投资经理
- * @version 2016-08-03
- */
-createUserOptions(platformUrl.getUserList+$('select[name="beforeDepartmentId"]').val(), "beforeUid", 0);
-
-
-
-
-
 </script>

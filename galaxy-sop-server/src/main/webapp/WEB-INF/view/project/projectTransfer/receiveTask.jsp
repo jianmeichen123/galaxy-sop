@@ -14,21 +14,34 @@
           <!-- 下半部分 -->
       <DIV class="btm">
         <ul>
-		<li><a href="javascript:;" id="complete-task-btn" >接收项目</a></li>
-		<li><a href="javascript:;" id="complete-task-btn" >拒绝项目</a></li>
+		<li><a href="javascript:;" id="receive-task-btn" >接收项目</a></li>
+		<li><a href="javascript:;" id="refuse-task-btn" >拒绝项目</a></li>
 	   </ul>
 
           </DIV>
 
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
-$(function(){
-	
-});
 function projectLoaded(project)
 {
 	
 }
+var pid = "${projectId}";
+ $("#refuse-task-btn").click(function(){
+	 var url =platformUrl.toRefuseTransfer
+		$.getHtml({
+			url: url, 
+			data:"",//传递参数
+			okback:function(){
+				refuseTransfer(pid);
+			}//模版反回成功执行	
+		}); 
+		
+ })
+ 
+
+
+
 </script>
 </body>
 </html>
