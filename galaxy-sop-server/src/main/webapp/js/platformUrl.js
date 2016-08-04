@@ -852,7 +852,15 @@ var platformUrl = {
 	 * 1. 拒接移交项目页面跳转
 	 * 
 	 */
-	rejectTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/rejectTransfer"
+	rejectTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/rejectTransfer",
+	/**
+	 * 处理任务
+	 * 1. 拒接移交项目页面跳转
+	 * 
+	 */
+	receiveTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/receiveTransfer",
+
+	
 
 	
 }

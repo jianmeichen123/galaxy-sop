@@ -194,37 +194,6 @@ function delHtmlTag(str)
 
 
 }
-function refuseTransfer(pid){
-	 $(".poptxt").on("click","a[action='refuseReason']",function() {
-			var pop = $(".pop");
-			var json = {};
-	     var refuseReason=pop.find("[name='refuseReason']").val();
-	   	if ( refuseReason== ""){
-	   		layer.msg("拒接项目原因不能为空");
-			return;
-	   	}else{
-	   		if (refuseReason.length>100) {
-				layer.msg("拒接项目原因最多输入100个字符");
-				return;
-			}else{
-				json['refuseReason']=refuseReason;
-			}
-		}
-	   	json['projectId']=pid;
-	   	var reqUrl=platformUrl.rejectTransfer;
-	   	sendPostRequestByJsonObj(reqUrl, json, callbackFunRefuse);
-	    });
-}
-function callbackFunRefuse(data){
-		if (data.result.status != "OK") {
-			layer.msg("拒接项目失败");
-	} else {
-		layer.msg("拒接项目成功")
-		history.go(0);
-		
-	}
-}
-
 
 
 </script>

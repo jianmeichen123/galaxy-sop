@@ -39,8 +39,65 @@ var pid = "${projectId}";
 		
  })
  
+function refuseTransfer(pid){
+	 $(".poptxt").on("click","a[action='refuseReason']",function() {
+			var pop = $(".pop");
+			var json = {};
+	     var refuseReason=pop.find("[name='refuseReason']").val();
+	   	if ( refuseReason== ""){
+	   		layer.msg("拒接项目原因不能为空");
+			return;
+	   	}else{
+	   		if (refuseReason.length>100) {
+				layer.msg("拒接项目原因最多输入100个字符");
+				return;
+			}else{
+				json['refuseReason']=refuseReason;
+			}
+		}
+	   	json['projectId']=pid;
+	   	var reqUrl=platformUrl.rejectTransfer;
+	   	sendPostRequestByJsonObj(reqUrl, json, callbackFunRefuse);
+	    });
+}
+function callbackFunRefuse(data){
+		if (data.result.status != "OK") {
+			layer.msg("拒接项目失败");
+	} else {
+		layer.msg("拒接项目成功")
+		history.go(0);
+		
+	}
+}
 
+$("#receive-task-btn").click(function(){
+	
+	layer.confirm('你确定要接受该项目吗?', 
+			{
+			  btn: ['确定', '取消'] 
+			}, 
+			function(index, layero){
+				var json = {};
+				json['projectId']=pid;
+				sendPostRequestByJsonObj(platformUrl.receiveTransfer,json,closeback);
+			}, 
+			function(index){
+				
+			}
+		);
+})
 
+//关闭回调
+function closeback(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		layer.msg("error "+data.result.message);
+		return;
+	}else{
+		layer.msg("接受项目成功");
+		history.go(0);		//forwardWithHeader(platformUrl.mpl);
+	}
+}
 
 </script>
 </body>
