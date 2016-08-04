@@ -173,8 +173,7 @@ $(function(){
 	$("#projectId").val(proid);
 	if(isTransfering == 'true')
 	{
-		$("#tjftjl").addClass('limits_gray');
-		//$('#tjftjl').removeAttr("onclick");
+		$("#tjftjl").addClass('limits_gray').removeAttr("onclick");
 	}
 	
 	$('#projectProgress_1_table').bootstrapTable({

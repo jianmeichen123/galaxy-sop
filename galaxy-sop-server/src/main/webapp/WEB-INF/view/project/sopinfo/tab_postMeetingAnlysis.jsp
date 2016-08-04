@@ -124,6 +124,12 @@
 
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
 <script type="text/javascript">
+	var isTransfering = "${fx:isTransfering(pid) }";
+	if(isTransfering == 'true')
+	{
+		$("[data-btn='conference']").addClass('limits_gray');
+		$("[data-btn='health_status']").addClass('limits_gray');
+	}
 	function getProject(){
 		return ${proinfo};
 	}
@@ -196,6 +202,10 @@ function show_health_case(){
 function show_health_status(){
 	$("[data-btn='health_status']").text("健康状况");
 	$("[data-btn='health_status']").on("click",function(){
+		if($(this).hasClass('limits_gray'))
+		{
+			return;
+		}
 		var $self = $(this);
 		var _name= $self.attr("data-name");
 		var _url = Constants.sopEndpointURL + '/galaxy/health/toaddhealth';
