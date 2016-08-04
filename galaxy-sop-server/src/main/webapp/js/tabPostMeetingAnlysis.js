@@ -186,7 +186,10 @@ var meetGrid = {
 		operateEvents : {
 			
 			'click .meet_edit': function (e, value, row, index) {
-				console.log("edit");
+				if($(this).parent().hasClass('limits_gray'))
+				{
+					return;
+				}
 				var formdata = {
 						 id : row.id,
 						 meetingDateStr : row.meetingDateStr,
@@ -201,6 +204,10 @@ var meetGrid = {
 			
 	        },
 	        'click .meet_delete': function (e, value, row, index) {
+	        	if($(this).parent().hasClass('limits_gray'))
+				{
+					return;
+				}
 	        	layer.confirm('你确定要删除吗?', {
 	        		  btn: ['确定', '取消'] //可以无限个按钮
 	        		}, function(index, layero){
