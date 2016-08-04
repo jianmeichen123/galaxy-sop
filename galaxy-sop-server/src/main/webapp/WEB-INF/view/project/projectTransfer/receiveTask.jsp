@@ -95,7 +95,8 @@ function closeback(data){
 		return;
 	}else{
 		layer.msg("接受项目成功");
-		history.go(0);		//forwardWithHeader(platformUrl.mpl);
+		var url = $("#menus .on a").attr('href');
+		window.location=url;		//forwardWithHeader(platformUrl.mpl);
 	}
 }
 
