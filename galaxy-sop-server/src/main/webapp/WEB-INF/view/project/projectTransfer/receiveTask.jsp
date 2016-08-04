@@ -65,7 +65,8 @@ function callbackFunRefuse(data){
 			layer.msg("拒接项目失败");
 	} else {
 		layer.msg("拒接项目成功")
-		history.go(0);
+		var url = $("#menus .on a").attr('href');
+		window.location=url;		
 		
 	}
 }
