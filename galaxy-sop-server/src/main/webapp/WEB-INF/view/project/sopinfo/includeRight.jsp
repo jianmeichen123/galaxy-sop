@@ -380,12 +380,12 @@ function transferPro(){
 	});
 }
 function revokePro(){
-	var _url=platformUrl.toProjectTransfer;
+	var _url=platformUrl.toRevokeProTransfer;
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			doSumbit(proid);
+			revokeTransfer(proid);
 		}//模版反回成功执行	
 	});
 }
