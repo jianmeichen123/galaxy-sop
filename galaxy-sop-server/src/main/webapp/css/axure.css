@@ -1190,7 +1190,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .resumetc select{border:1px solid #dadfe3;border-radius:4px;height:26px;width:90%;}
 /* 搜索弹层 */
 /* 添加日程新的弹窗 */
-.schedule1tc{background-color: #fff;padding: 10px;position: relative;height:400px;}
+.schedule1tc{background-color: #fff;height:240px; position: relative; width:700px;}
 .schedule1tc .addbtn{float: left;}
 .schedule1tc .top{width: 570px;margin-bottom: 10px;}
 .schedule1tc .searchall{float: right;}
@@ -1209,11 +1209,11 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .schedule1tc .bottom .bottom_l dl dd dl{border-bottom:1px solid #e9ebf2;padding: 5px 5px 5px 16px;}
 .schedule1tc .bottom .bottom_l .tips .on{background: #d1e9ff url(../img/dian.png) 4px 10px no-repeat; }
 .schedule1tc .bottom .bottom_l dl dd dl dt{font-size: 12px;font-family: "宋体";margin-bottom: 5px;}
-.schedule1tc .bottom .bottom_r{float: left;width: 400px;height: 300px;border:1px solid #e9ebf2;padding:5px;}
+.schedule1tc .bottom .bottom_r{width: 100%;height: 300px; }
 .schedule1tc .bottom .bottom_r h2{font-size: 16px;font-family: "微软雅黑";font-weight: normal;color:#5d678a;margin-bottom: 5px;}
 .schedule1tc .bottom .bottom_r dl{margin-left: 10px;}
 .schedule1tc .bottom .bottom_r dl .txt{width: 88px;}
-.schedule1tc .bottom .bottom_r dl textarea{width: 280px;min-height: 100px}
+.schedule1tc .bottom .bottom_r dl textarea{width: 560px;min-height: 100px}
 .schedule1tc .bottom .bottom_r .btnbox{width:288px; margin-left:90px; margin-top:10px;}
 .schedule1tc .bottom .bottom_r .pubbtn{display: inline-block;margin-right: 10px;}
 .schedule1tc .bottom .bottom_r dd,.schedule1tc .bottom .fmdl label{font-size: 12px;font-family: "宋体" }
@@ -1588,7 +1588,7 @@ font-family: "宋体";
 	margin-left:2px;
 	margin-top:-20px;
 }
-.new_btn{ width:100px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;}
+.new_btn,.new_btn_right{ width:100px; text-align:center; line-height:30px; height:30px; border-radius:4px; color:#fff; display:block; margin-left:auto; margin-right:auto; margin-bottom:20px; cursor:pointer;}
 .correlation{ border-top:1px solid #e9ebf2; background-color:#f9fafc; height:40px; line-height:40px; text-indent:20px;font-size: 16px;font-family: "微软雅黑";color:#6b799f;}
 .new_correlation_cen{ width:89%;  margin-left:auto; margin-right:auto; overflow:hidden;font-family: "宋体";font-size: 12px;}
 .new_correlation_cen .new_btn{ float:left; margin-top:20px;}
@@ -2023,3 +2023,31 @@ dl{position: relative;}
 .role_toolTip_input{ width:325px; border:1px solid #ccd2d7; line-height:30px; height:30px; border-radius:2px; font-size: 12px; text-indent:5px;}
 .role_all ul li{ overflow:hidden; margin-bottom:20px;}
 .role_toolTip_area{ width:325px; height:150px; overflow-y:auto;　border:1px solid #ccd2d7; resize:none; box-sizing:border-box; text-indent:5px;}
+
+/*移交项目图标*/
+.prj_all table td .prc_gray, .prj_all table td .limits_gray {
+    background-position: 0 -586px  !important;
+    margin-right: 15px;
+    vertical-align: middle;
+    cursor: default;
+}
+.new_fctbox .limits_gray ,.member table td .limits_gray{
+    background-position: 0 -362px  !important;
+    float: left;
+    padding: 0 0 0 22px;
+    cursor:default;
+    color:#aaaaaa;
+}
+.new_ul_right .new_fctbox .limits_gray{
+    background-position: 0 -538px  !important;
+    padding: 0 0 0 22px;
+}
+.ritmin .top .btnbox_f1 .limits_gray {
+    background-color: #aaaaaa;
+    border: 1px solid #aaaaaa;
+    cursor:default;
+}
+.new_correlation_cen .new_btn_right {
+    float: right;
+    margin-top: 20px;
+}

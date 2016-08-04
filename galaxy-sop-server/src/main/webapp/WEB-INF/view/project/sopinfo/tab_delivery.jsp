@@ -139,7 +139,7 @@ $(function(){
 	$("#projectId").val(proid);
 	if(isTransfering == 'true')
 	{
-		//$("[data-btn='to_add_deliver']").addClass('limits_gray');
+		$("[data-btn='to_add_deliver']").addClass('limits_gray');
 	}
 	init_bootstrapTable('project_delivery_table',10);
 	//刷新右侧投后运营简报信息

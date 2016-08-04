@@ -197,7 +197,7 @@
 			var options = "<span class=\"prc\" data-btn='myproject' onclick='info(" + id + ")'>项目流程</span>";
 			if(transferingIds.contains(id))
 			{
-				options = "<span class=\"prc prc_gray\" data-btn='myproject' title=\"项目移交中\"></span>";
+				options = "<span class=\"prc limits_gray\" data-btn='myproject' title=\"项目移交中\"></span>";
 			}
 		}
 		return options;
