@@ -492,6 +492,41 @@ $(function(){
 		});
 		return false;
 	});
+	
+	//日程列表
+	//修改密码验证弹窗
+	$("[data-btn='shecudle_list']").on("click",function(){
+		var $self = $(this);
+		var _url = $self.attr("href");
+		var _name= $self.attr("data-name");
+		$.getHtml({
+			url:_url,//模版请求地址
+			data:"",//传递参数
+			okback:function(date){
+				console.log(platformUrl.shecudle_list)
+				
+				$('#shecudle_list').bootstrapTable({
+					method: 'post',
+					url: platformUrl.shecudle_list,
+					height: $(window).height() - 200,
+					striped: true,
+					dataType: "json",
+					pagination: true,
+					"queryParamsType": "limit",
+					singleSelect: false,
+					contentType: "application/x-www-form-urlencoded",
+				});
+			}//模版反回成功执行	
+		});
+		return false;
+	});
+	
+	
+	
+	
+	
+	
+	
 });
 
 function getQueryString(url,name){

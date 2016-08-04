@@ -255,6 +255,10 @@ var platformUrl = {
 	 */
 	toShedule : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/scheduleList",
 	/**
+	 * 我的日程列表
+	 */
+	shecudle_list : Constants.sopEndpointURL + "galaxy/sopUserSchedule/queryscheduleList",
+	/**
 	 * 排期时间跳转
 	 */
 	popupMeetingList : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/popupMeetingList/",

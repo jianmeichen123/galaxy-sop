@@ -45,6 +45,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <jsp:include page="./common/header.jsp" flush="true"></jsp:include>
 
 <div class="pagebox clearfix">
+
+
+
 	<!--右侧-->
     <div class="rit">
         <!--时间-->
@@ -62,7 +65,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
              -->
             </div>
             <div class="morebox">
-                <a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加日程</a>
+               <a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加1日程</a>
+                <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="add_schedule blue">添加日程</a>
             </div>
         </div>
         <!--立项排期会-->

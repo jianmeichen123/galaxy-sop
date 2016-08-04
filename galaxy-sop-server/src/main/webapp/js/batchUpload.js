@@ -55,6 +55,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 								}
 							});
 					}else{
+						layer.closeAll('loading');
 						up.settings.multipart_params = params;
 						uploader.start();
 					}
@@ -121,6 +122,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						    $("#"+files[i].id+"_progress").html('<span>'+"上传失败!"+"</span>"); 
 						}); 
 					    $("#"+fieInputId).val('');
+					    layer.closeAll('loading');
 					    alert(data.result.message);
 					}
 					
