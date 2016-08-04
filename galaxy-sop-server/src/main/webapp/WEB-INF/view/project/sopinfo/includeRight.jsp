@@ -67,7 +67,7 @@
             
             <div class="correlation">相关操作</div> 
             <div class="new_correlation_cen">
-            	<span class="bluebtn new_btn" onclick="closePro()" id="fjxm_but">否决项目</span>
+            	<span class="bluebtn new_btn" onclick="closePro(this)" id="fjxm_but">否决项目</span>
             	<span class="bluebtn new_btn" onclick="transferPro()" style="display:none" id="yjxm_btn">移交项目</span>
                 <span class="bluebtn new_btn" onclick="revokePro()" style="display:none" id="cxxm_btn">撤销移交</span>
             </div>
@@ -105,12 +105,25 @@
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
-if(isCreatedByUser == "true"){
+/* if(isCreatedByUser == "true"){
 	$("#fjxm_but").attr("style","background:#d6d8e1;");
 	$("#yjxm_btn").attr("style","display:none;");
 	$("#cxxm_btn").attr("style","display:block;");
 	
+} */
+
+if(isTransfering == 'true')
+{
+	$('#fjxm_but').addClass('limits_gray');
+	$("#yjxm_btn").attr("style","display:none;");
+	$("#cxxm_btn").attr("style","display:block;");
+	
+}else{
+	$('#fjxm_but').removeClass('limits_gray');
+	$("#yjxm_btn").attr("style","display:block;");
+	$("#cxxm_btn").attr("style","display:none;");
 }
+
 if(!prograss){
 	prograss = 'projectProgress:0';
 }
@@ -340,6 +353,9 @@ function formatNearMeet(meetList){
 
 
 function closePro(){
+	if($("#fjxm_but").hasClass('limits_gray')){
+		return;
+	}
 	layer.confirm('你确定要否决项目吗?', 
 			{
 			  btn: ['确定', '取消'] 
