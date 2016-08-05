@@ -630,6 +630,9 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		}
 		List<Project> proList = projectDao.selectUserProNumOrderByNum(proQuery,pageRequest);
 		
+		if(proList ==null || !proList.isEmpty()){
+			return kpiPage;
+		}
 		
 		// 用户  -- 项目数   记录数
 		total = projectDao.selectUserProNumRowCount(proQuery);
@@ -833,6 +836,10 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectDeptProNumOrderByNum(proQuery,pageRequest);
 		
+		if(proList ==null || !proList.isEmpty()){
+			return kpiPage;
+		}
+		
 		// 事业线  -- 项目数   记录数
 		total = projectDao.selectDeptProNumRowCount(proQuery);
 		
@@ -1034,6 +1041,10 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectDeptAllProNumAndByType(proQuery,pageRequest);
 		
+		if(proList ==null || !proList.isEmpty()){
+			return kpiPage;
+		}
+		
 		// 事业线  -- 项目数   记录数
 		total = (long) proList.size();
 		
@@ -1175,6 +1186,10 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectTzjlAllProNumAndByType(proQuery,pageRequest);
 		
+		if(proList ==null || !proList.isEmpty()){
+			return kpiPage;
+		}
+		
 		// 投资经理   -- 项目数   记录数
 		total = (long) proList.size();
 		
@@ -1272,6 +1287,10 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		proQuery.setProjectDepartid(query.getDeptid());
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectList(proQuery, pageRequest);
+		
+		if(proList ==null || !proList.isEmpty()){
+			return kpiPage;
+		}
 		
 		total = projectDao.selectCount(proQuery);
 		
@@ -1597,6 +1616,9 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectHasMeetProList(mquery2,pageRequest);
 		
+		if(proList ==null || !proList.isEmpty()){
+			return kpiPage;
+		}
 		total = (long) proList.size();
 		
 		// 分页处理
