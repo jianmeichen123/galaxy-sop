@@ -394,7 +394,6 @@ table .width_gd{width:12%;}
 .llpubbtn{width: 140px;}
 .pubbtn:hover{ text-decoration:none}
 .bluebtn{ background-color:#66b1f2; border-color:#66b1f2; color:#FFF}
-.bluebtn:hover{background-color:#85c1f5; border-color:#85c1f5;text-decoration:none }
 .fffbtn{ background-color:#fdfdfe; border-color:#ccd2d7; color:#4a97da}
 .fffbtn:hover{background-color: #66b1f2;color: #fff;border:1px solid #66b1f2;}
 .btnbox_f{float: left;}
@@ -2030,10 +2029,8 @@ dl{position: relative;}
     vertical-align: middle;
     cursor: default;
 }
-.new_fctbox .limits_gray ,.member table td .limits_gray{
+.new_fctbox .limits_gray ,.member table .limits_gray .edit{
     background-position: 0 -362px  !important;
-    float: left;
-    padding: 0 0 0 22px;
     cursor:default;
     color:#aaaaaa;
 }
@@ -2049,4 +2046,22 @@ dl{position: relative;}
 .new_correlation_cen .new_btn_right {
     float: right;
     margin-top: 20px;
+}
+.member table .limits_gray .resume{
+	background-position: 0 -694px  !important;	 
+    cursor:default;
+    color:#aaaaaa;
+}
+.member table .limits_gray .del{
+	background-position: 0 -201px  !important;
+	cursor:default;
+	color:#aaaaaa;
+}
+.limits_gray .blue{
+	cursor:default;
+	color:#aaaaaa;
+}
+.limits_gray .meet_download {
+	cursor:pointer !important;
+	color:#438ee1 !important;
 }

@@ -255,10 +255,6 @@ var platformUrl = {
 	 */
 	toShedule : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/scheduleList",
 	/**
-	 * 我的日程列表
-	 */
-	shecudle_list : Constants.sopEndpointURL + "galaxy/sopUserSchedule/queryscheduleList",
-	/**
 	 * 排期时间跳转
 	 */
 	popupMeetingList : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/popupMeetingList/",
@@ -712,7 +708,7 @@ var platformUrl = {
 	/**
 	 * 项目分析
 	 */
-	projectAnalysis: Constants.sopEndpointURL + "/galaxy/report/projectAnalysis",
+	projectAnalysis: Constants.sopEndpointURL + "/galaxy/kpireport/toProOverView",
 		
 	/**
 	 * 项目阶段高管
@@ -846,21 +842,7 @@ var platformUrl = {
 	 * 1. 撤销移交项目页面跳转
 	 * 
 	 */
-	toRefuseTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toRefuseTransfer",
-	/**
-	 * 处理任务
-	 * 1. 拒接移交项目页面跳转
-	 * 
-	 */
-	rejectTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/rejectTransfer",
-	/**
-	 * 处理任务
-	 * 1. 拒接移交项目页面跳转
-	 * 
-	 */
-	receiveTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/receiveTransfer",
-
-	
+	toReciviceTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toReciviceTransfer"
 
 	
 }

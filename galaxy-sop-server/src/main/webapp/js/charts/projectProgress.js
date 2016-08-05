@@ -1,6 +1,96 @@
 /**
- * 
+ * 项目进度
  */
+$(document).ready(function(){
+	//项目进度无数据样式
+	if($("#container_progress .highcharts-title tspan").text()=="0个" || $("#container_progress .highcharts-title span").text()=="0个"){
+		$(".mask_platform_progress").show();
+		$('#container_progress').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+            },
+            title: {
+                text: "<span style='color:#e9ebf2'>"+'0个'+"</span>",
+                verticalAlign:'middle',
+                y:5,
+                x:-95,
+                style:{
+                    fontFamily:'微软雅黑',
+                    color:'#e9ebf2',
+                    fontWeight:'bold',
+                },
+            },
+            //去除版权
+            credits: {
+              enabled:false
+            },
+            //去除右上角导出图标
+            exporting: {
+                enabled:true
+            },
+            plotOptions: {
+            pie: {
+                borderWidth: 0,
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35,
+                dataLabels: {
+                    color:'black',
+                    rotation: -90,
+                    enabled: true,
+                    connectorWidth:0,
+                    connectorPadding:0,
+                    distance:120
+                },
+                showInLegend: true
+            }
+        },
+
+        legend: {                                                 
+            layout: 'horizontal', 
+            floating: false,                                       
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0,
+            itemWidth:90,
+            width:200,
+            padding:-25,
+            minHeight:100,
+            itemStyle:{
+                fontWeight:'normal',
+                color:'#7a8798',
+            },
+            //x:0,
+        },            
+
+            series: [{
+                type: 'pie',
+                size:'140%',
+                innerSize :'70%',
+                name: '项目退出占比',
+                data: [
+                    {name:'接触访谈',color:'#e9ebf2',y:8},
+                    {name: '内部评审',color:'#e9ebf2',y: 10},
+                    { name:'CEO评审',color:'#e9ebf2',y:16},
+                    { name:'立项会',color:'#e9ebf2',y:20},
+                    { name:'投资意向书',color:'#e9ebf2',y: 30},
+                    { name:'尽职调查',color:'#e9ebf2',y:40},
+                    { name:'投决会',color:'#e9ebf2',y:50},
+                    { name:'投资协议',color:'#e9ebf2',y:55},
+                    { name:'股权交割',color:'#e9ebf2',y:60},
+                    { name:'投后运营',color:'#e9ebf2',y:90},
+                ],
+                dataLabels: {
+                    enabled: false, 
+                }
+            }]
+        });
+	}
+});
+
 
 var chartProjectProgressUtils = {
 		chartProjectProgressOptions : {
@@ -120,23 +210,7 @@ var chartProjectProgressUtils = {
 					if(data.entityList){
 						
 			    		var color=['#587edd','#49ceff','#00bdf4','#88dfd8','#4490d2','#bee6d5','#6ebdea','#ff9c89','#62d1b0','#a3e394'];
-//			    		for(var i=0;i<entityList.length;i++){
-//			    			var rate = entityList[i].rate*100;
-//			    			var tmp = {
-//			    					name : entityList[i].name,
-//			    					color :color[i],
-//			    					y : entityList[i].c,
-//			    					rate : parseFloat(rate.toFixed(1))
-//			    			};
-//			    			if(i==0){
-//			    				//tmp.sliced=true;
-//			    				//tmp.selected=true;
-//			    				//selectedPie = {num:tmp.y,rate:rate};
-//			    			}
-//			    			re.push(tmp);
-//			    			totalNum += entityList[i].c;
-//			    			
-//			    		}
+
 			    		var seriesArr = new Array();
 			    		var totalCount = 0;
 			    		var i = 0;
@@ -177,7 +251,7 @@ var chartProjectProgressUtils = {
 			        					}
 			        			);
 			    			}
-			    			chartProjectProgressUtils.judgeProgress($.trim(e.point.name),'progress');
+			    			chartProjectProgressUtils.judgeProgress($.trim(e.point.name),'progress',totalCount);
 			    		};
 			    		chartProjectProgressUtils.chartProjectProgressOptions.plotOptions.pie.point.events.legendItemClick = function(e){
 			    			
@@ -199,17 +273,36 @@ var chartProjectProgressUtils = {
 			    			if(selected_curr.length==0){
 			    				chart.setTitle(
 			        					{
-			        						text: "<span style='color:#4490d2'>"+ totalNum +"个</span>"+"<br/>",
+			        						text: "<span style='color:#4490d2'>"+ totalCount +"个</span>"+"<br/>",
 			        						y:5,
 			        						x:-95
 			        					}
 			        			);
 			    			}
-			    			chartProjectProgressUtils.judgeProgress($.trim(e.target.name),'progress');
+			    			chartProjectProgressUtils.judgeProgress($.trim(e.target.name),'progress',totalCount);
 			    			//e.target.show();
 			    			return false;
 			    		};
 			    		var chart = new Highcharts.Chart(chartProjectProgressUtils.chartProjectProgressOptions);
+			    		
+			    		
+			    		//项目进度图表默认加载链接
+			    		$("#container_progress .highcharts-title tspan").click(function(){
+			    			var url = platformUrl.projectAnalysis;
+			    			if(chartProjectProgressUtils.forwardParam.progressParam){
+			    				url += "?forwardProgress=" + chartProjectProgressUtils.forwardParam.progressParam ;
+			    			}
+			    			forwardWithHeader(url);
+			    		});
+			    		//项目进度图表默认加载链接----兼容ie8
+			    		$("#container_progress .highcharts-title span").click(function(){
+			    			var url = platformUrl.projectAnalysis;
+			    			if(chartProjectProgressUtils.forwardParam.progressParam){
+			    				url += "?forwardProgress=" + chartProjectProgressUtils.forwardParam.progressParam ;
+			    			}
+			    			forwardWithHeader(url);
+			    		})
+			    		
 					}else{
 						layer.msg('后端查询数据为空');
 					}
@@ -221,7 +314,11 @@ var chartProjectProgressUtils = {
 			});
 	
 		},
-		judgeProgress : function(name,flag){
+		forwardParam : {
+			progressParam : undefined,
+			timeParam : undefined
+			},
+		judgeProgress : function(name,flag,totalCount){
 			var param;
 			if(typeof(name) != 'undefined'){
 				if(name == '接触访谈'){
@@ -248,16 +345,16 @@ var chartProjectProgressUtils = {
 			}
 			
 			if(flag=='progress'){
-				forwardParam.progressParam = param;
+				chartProjectProgressUtils.forwardParam.progressParam = param;
 				$("#container_progress .highcharts-title tspan").click(function(){
 					
-					if($("#container_progress .highcharts-title tspan").text()== (totalNum_all+'个')){
+					if($("#container_progress .highcharts-title tspan").text()== (totalCount+'个')){
 						var url = platformUrl.projectAnalysis;
 						forwardWithHeader(url);
 					}else{
 						var url = platformUrl.projectAnalysis;
-						if(forwardParam.progressParam){
-							url += "?forwardProgress=" + forwardParam.progressParam ;
+						if(chartProjectProgressUtils.forwardParam.progressParam){
+							url += "?forwardProgress=" + chartProjectProgressUtils.forwardParam.progressParam ;
 						}
 						forwardWithHeader(url);
 					}
@@ -269,8 +366,8 @@ var chartProjectProgressUtils = {
 						forwardWithHeader(url);
 					}else{
 						var url = platformUrl.projectAnalysis;
-						if(forwardParam.progressParam){
-							url += "?forwardProgress=" + forwardParam.progressParam ;
+						if(chartProjectProgressUtils.forwardParam.progressParam){
+							url += "?forwardProgress=" + chartProjectProgressUtils.forwardParam.progressParam ;
 						}
 						forwardWithHeader(url);
 					}

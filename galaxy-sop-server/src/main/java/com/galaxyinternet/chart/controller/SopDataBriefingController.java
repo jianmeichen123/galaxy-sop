@@ -37,7 +37,7 @@ import com.galaxyinternet.service.chart.SopDataBriefingService;
 import com.galaxyinternet.utils.MathUtils;
 
 @Controller
-@RequestMapping("/galaxy/charts/briefing")
+@RequestMapping("/galaxy/charts/briefing") 
 public class SopDataBriefingController extends BaseControllerImpl<SopCharts, SopCharts> {
 	
 	@Autowired
@@ -202,6 +202,7 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 			params.put("roleId", UserConstant.TZJL);
 			List<Long> departmentIds = new ArrayList<Long>();
 			departmentIds.add(departmentId);
+			params.put("status", "0");
 			params.put("departmentIds", departmentIds);
 			userCount = userService.querytTzjlSum(params).get(0).getUserTzjlSum();
 		}else{
