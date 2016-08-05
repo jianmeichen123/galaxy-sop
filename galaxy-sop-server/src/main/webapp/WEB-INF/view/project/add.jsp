@@ -219,10 +219,6 @@
 			$("#projectTypeTip").css("display","block");
 			return;
 		}
-		
-		if(valfa=='0'){
-			
-		}
 		var nowFormData = $("#add_form").serializeObject();
 		if(formData != nowFormData){
 			//获取TOKEN 用于验证表单提交
