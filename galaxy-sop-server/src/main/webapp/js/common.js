@@ -1507,3 +1507,68 @@ if (!Array.prototype.contains)
 		return false;
 	}
 }
+/**
+ * 通用弹出层列表，结合分页插件
+ * @param obj
+ * obj.url  非必需，弹出层的html路径
+ * obj.datatable 非必需，弹出层的datatable标识（id）
+ * obj.toolbar  非必需，table插件参数区
+ * obj.serverUrl  必需，请求数据的url
+ * obj.params  非必需，table插件筛选参数
+ * obj.columns  必需，table插件列表项,例如columns: [{field:'project_code',align:'center',class:'"data-input"',title:'项目编号'},{field:'project_contribution',align:'center',class:'"data-input"',title:'投资金额（万）',formatter:'money_format'}],
+ * @returns {Boolean}
+ */
+function ajaxPopup(obj,tite_mame){
+	var url = obj.url || platformUrl.popList;
+	var divid = obj.datatable || "data-table-ajax-popup"; 
+	var toolbar = obj.toolbar || "#custom-toolbasr-ajax-popup";
+	var serverUrl = obj.serverUrl;
+	var params = obj.params || {};
+	var columns = obj.columns || {};
+	 //页面传参
+    function queryParams(params) {
+    	return {
+	    	pageSize: params.pageSize,
+	    	pageNum: params.pageNum,
+	    	direction: params.direction,
+	    	meetingType:params.meetingType,
+	    	scheduleStatus:params.scheduleStatus,
+	    	type:params.type
+    	};
+    }
+	$.getHtml({
+ 		url: obj.url || (platformUrl.popList),
+ 		data:"",
+ 		okback:function(){
+ 			for(var k in params){
+ 				/*var hiddenInput = '<input type="hidden" name="'+ k +'" id="'+ k +'" value="'+ params[k] +'">';
+ 				$(toolbar).append(hiddenInput);*/
+ 			}
+ 			$('.title_bj').html(tite_mame)
+ 			$('#'+ divid).bootstrapTable('destroy');
+ 		    $('#'+ divid).bootstrapTable({
+ 		    	
+ 		    	url: serverUrl,
+ 			    dataType: "json",
+ 			    pagination: true, //分页
+ 			    sidePagination: 'server',
+ 			    showRefresh : false ,
+ 			    search: false, //显示搜索框
+ 			    queryParamsType: 'size|page',
+ 			    method : 'post',
+ 			    queryParams: queryParams(params),
+ 			    pageSize:20,
+ 			    pagination: true,
+				pageList: [10, 20, 50],
+			    search: false,
+			    toolbar: toolbar,
+ 			    columns:columns,
+ 			    undefinedText:' ',
+ 			    onLoadSuccess:function(result){
+ 			    	//$(toolbar).html("");
+ 			    }
+ 			});
+ 		}
+ 	});
+ 	return false;
+}
