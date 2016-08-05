@@ -257,8 +257,7 @@
 		}
 		
 	}
-	
-	resetText
+
 	
 </script>
 
