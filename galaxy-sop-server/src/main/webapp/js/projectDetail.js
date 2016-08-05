@@ -30,7 +30,7 @@ $(function(){
 		$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);
 		$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":projectInfo.serviceCharge);
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
-		$("#faName").text(typeof(projectInfo.faFlag)=="undefined"?"无":projectInfo.serviceCharge);
+		$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
 		var p;
@@ -58,6 +58,11 @@ $(function(){
 			$("#finalContribution_edit").val(projectInfo.finalContribution==0?0:projectInfo.finalContribution);
 			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?0:projectInfo.finalShareRatio);
 			$("#serviceChargeedit").val(projectInfo.serviceCharge==0?0:projectInfo.serviceCharge)
+			if(typeof(projectInfo.faFlag)!="underfined"&&projectInfo.faFlag!=0){
+				$('#faFlagEdit').attr("checked","checked");
+				$("#faNameEdit").val(projectInfo.faName);
+				$("#faNameEdit").css("display","block");
+			}
 			 p=projectInfo.industryOwn;
 		    fs=projectInfo.financeStatus;
 			//融资
@@ -332,6 +337,13 @@ function getUpdateData(){
 	var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val().trim();
 	var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
 	var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
+	var faFlag=$('input:radio[name="faFlag"]:checked').val();
+	var faName="";
+	if(faFlag=='0'){
+		faName="";
+	}else{
+		faName=$("#faNameEdit").val();
+	}
 	
 	var formatData={"id":id,
 			       "projectName":pname,
@@ -343,7 +355,11 @@ function getUpdateData(){
 			       "finalValuations":finalvaluations,//实际估值
                    "finalContribution":finalcontribution,//实际投资
   	               "finalShareRatio":finalshare_ratio,	//实际股权占比	
-  	               "serviceCharge":serviceCharge
+  	               "serviceCharge":serviceCharge,
+  	               "faFlag":faFlag,
+  	               "faName":faName
+  	             
+  	               
 	};
 	return formatData;
 }
@@ -535,4 +551,13 @@ function callbackFunRevoke(data){
 	
 }
 
+}
+function setText(obj){
+	if(obj=="set"){
+	   $("#faNameEdit").css("display","block"); 
+	}else{
+	   $("#faNameEdit").css("display","none");
+	   $("#faNameEdit").val(projectInfo.faName);
+	}
+	
 }

@@ -173,7 +173,7 @@ function getProjectInfo(dtd)
 								<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray" id="end">)</span><span id="insertImg"></span></td>
 						</tr>
 						     <tr>
-							     <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black" id="financeStatusDs"></span></td>
+							     <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black" id="faName"></span></td>
 								</tr>
 					
 					</table>
@@ -236,6 +236,14 @@ function getProjectInfo(dtd)
                                 <td><span class="new_color_gray">融资状态：</span><span><select class="new_nputr" id="finance_status_sel"></select></span></td>
                                  <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
                             </tr>
+                              <tr>
+                                <td><span class="new_color_gray">来源于FA：</span>
+                                <span>
+                                                                                          否  <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">
+                                                                                          是<input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">
+                                   <input type="text" class="new_nputr" placeholder="请输入FA名称"  maxlength="24" name="faName" id="faNameEdit" style="display:none" />
+                                </span></td>
+                              </tr>
 				        </table>  
 				        
 				        <!--融资计划-->
@@ -251,10 +259,7 @@ function getProjectInfo(dtd)
 				            <tr>
 				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
 				            </tr>
-				             <tr>
-				                <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="faFlag_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
-				            </tr>
-				        </table>
+				              </table>
 				        <!--实际投资-->
 				        <div class="new_r_compile new_bottom_color">
 				            <span class="new_ico_practical"></span>

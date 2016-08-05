@@ -77,8 +77,7 @@
                         <span class="basic_span"><em class="red">*</em>来源于FA：</span>
                             <span class="m_r30" style="with:400px">
                              <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否
-                             <input type="radio" name="faFlag" onclick="setText('set')" value="1">是
-                             <input type="text" class='new_nputr' placeholder="请输入FA名称" style="display:none" maxlength="24" name="faName" id="faName"/>
+                             <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2">是
                              </span>
                     </ul>  
                     
@@ -220,6 +219,10 @@
 			$("#projectTypeTip").css("display","block");
 			return;
 		}
+		
+		if(valfa=='0'){
+			
+		}
 		var nowFormData = $("#add_form").serializeObject();
 		if(formData != nowFormData){
 			//获取TOKEN 用于验证表单提交
@@ -248,17 +251,18 @@
 			},TOKEN);
 		}
 	}
+	
+
 	function setText(obj){
 		if(obj=="set"){
-			$("#faName").css("display","block");
+			$("#faFlag2").after('<input type="text" class="new_nputr" placeholder="请输入FA名称"  maxlength="24" name="faName" id="faName" /> ');
 		}else{
-			$("#faName").css("display","none");
+			$("#faName").remove();
+	
 
 		}
 		
 	}
-
-	
 </script>
 
 </html>

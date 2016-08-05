@@ -379,10 +379,7 @@
 		      <if test="projectBusinessModel != null" > and project_business_model = #{projectBusinessModel,jdbcType=LONGVARCHAR} </if>
 		      <if test="companyLocation != null" > and company_location = #{companyLocation,jdbcType=LONGVARCHAR} </if>
 		      <if test="userPortrait != null" > and user_portrait = #{userPortrait,jdbcType=LONGVARCHAR} </if>
-		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
-		      <if test="faFlag != null" > and fa_flag  = #{faFlag,jdbcType=INTEGER} </if>
-		      <if test="faName != null" > and fa_name = #{faName,jdbcType=VARCHAR} </if>
-		
+		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>	
 			</trim>
 		</where>
 	</update>
