@@ -49,7 +49,7 @@ var matterPreviewUtils = {
 				
 				//事项预览点击数字跳出弹出层
 				var meeting_obj = {serverUrl: platformUrl.MeetingSheduleNewList};
-				meeting_obj.params={meetingType:'',scheduleStatus:'',type:''};
+				meeting_obj.params={meetingType:'',scheduleStatus:'',type:'',direction:'asc',pageSize:10,pageNum:0};
 				meeting_obj.columns = [
 				               {field:'projectName',align:'center',"class":'data-input',title:'项目名称'},
 				               {field:'meetingType',align:'center',"class":'data-input',title:'会议类型'},
@@ -96,7 +96,8 @@ var matterPreviewUtils = {
 						meeting_obj.params.meetingType = "meetingType:3";
 						meeting_obj.params.scheduleStatus = 0;
 						meeting_obj.params.type ="1";
-						ajaxPopup(meeting_obj);
+						var tite_mame=$(this).parent().find('span').text();
+						ajaxPopup(meeting_obj,tite_mame);
 					});
 				}
 				
@@ -105,7 +106,8 @@ var matterPreviewUtils = {
 						meeting_obj.params.meetingType = "meetingType:4";
 						meeting_obj.params.scheduleStatus = 0;
 						meeting_obj.params.type ="1";
-						ajaxPopup(meeting_obj);
+						var tite_mame=$(this).parent().find('span').text();
+						ajaxPopup(meeting_obj,tite_mame);
 					});
 				}
 				
@@ -114,7 +116,8 @@ var matterPreviewUtils = {
 						meeting_obj.params.meetingType = "meetingType:2";
 						meeting_obj.params.scheduleStatus = 0;
 						meeting_obj.params.type ="1";
-						ajaxPopup(meeting_obj);
+						var tite_mame=$(this).parent().find('span').text();
+						ajaxPopup(meeting_obj,tite_mame);
 					});
 				}
 			});

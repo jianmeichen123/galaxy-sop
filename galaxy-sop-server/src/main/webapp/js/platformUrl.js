@@ -694,16 +694,20 @@ var platformUrl = {
 	/**
 	 * 获取会议总数
 	 */
-	MeetingSheduleNewList : Constants.sopEndpointURL + "/galaxy/meetingShe/shedulingList",
+	MeetingSheduleNewList : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/shedulingList",
 	
 	sh : Constants.sopEndpointURL + "/galaxy/meetingShe/sh",
 	
-
+    /**
+     * pop弹出层
+     */
+	
+	popList : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/popupList",
 	
 	/**
 	 * 排期日程入口
 	 */
-	popupMeetingList: Constants.sopEndpointURL + "/galaxy/report/popupMeetingList/",
+	popupMeetingList: Constants.sopEndpointURL + "/galaxy/sopUserSchedule/popupMeetingList/",
 	
 	/**
 	 * 项目分析

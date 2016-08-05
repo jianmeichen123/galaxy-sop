@@ -53,33 +53,15 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 
 
 
+
 	<!--右侧-->
-    <div class="rit">
-        <!--时间-->
-        <div class="top"  resource-mark="shedule_list" style="display:none">
-        	<b class="sj ico null">三角</b>
-            <div class="tody ico">
-            	<p class="time"></p>
-                <p class="date"></p>
-            </div>
-            <div id="top">
-            <!-- 
-            <a href="javascript:;" class="link"><b class="b1 null">点</b>明天，要和创业团队见面</a>
-            <a href="javascript:;" class="link"><b class="b2 null">点</b>后天，要和夹克的虾团队见面</a>
-            <a href="javascript:;" class="link"><b class="b3 null">点</b>5天后，买飞机票</a>
-             -->
-            </div>
-            <div class="morebox">
-                <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="add_schedule blue">添加日程</a>
-            </div>
-        </div>
-        
-        
+    <div class="rit rit_executive">
+        <acl:acl resourceMark="shedule_ceo">
         <!--CEO评审排期  -->
-        <div resource-mark="div_ceo_review_shedule_gg" class="top top_rit_executive"  id="ceo_cat" style="display:none">
+        <div class="top top_rit_executive"  id="ceo_cat">
         	<!-- <b class="sj ico null">三角</b> -->
         	<dl id="ceo_p">
-				<dt><h3 class="ico t5">CEO评审排期</h3></dt>
+				<dt>CEO评审排期</dt>
 				<dd>
 					<table id="ceopsMeeting" width="100%" cellspacing="0"
 						cellpadding="0" class="index">
@@ -100,11 +82,27 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
 				</dd>
 			</dl> 
-			
 		</div>
-        
-        
-        
+		</acl:acl>
+        <!--时间-->
+        <div class="top"  resource-mark="shedule_list" style="height: 178px;display:none">
+        	<b class="sj ico null">三角</b>
+            <div class="tody ico">
+            	<p class="time"></p>
+                <p class="date"></p>
+            </div>
+            <div id="top">
+            <!-- 
+            <a href="javascript:;" class="link"><b class="b1 null">点</b>明天，要和创业团队见面</a>
+            <a href="javascript:;" class="link"><b class="b2 null">点</b>后天，要和夹克的虾团队见面</a>
+            <a href="javascript:;" class="link"><b class="b3 null">点</b>5天后，买飞机票</a>
+             -->
+            </div>
+            <div class="morebox">
+               <!-- <a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加1日程</a> -->
+                <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="add_schedule blue">添加日程</a>
+            </div>
+        </div>
         <!--立项排期会-->
         <acl:acl resourceMark="shedule_lxh">
         <dl style="position:relative;">
@@ -179,7 +177,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <!--表格列表-->
         <div class="tablist clearfix">
         	<!--左侧列表-->
-            <div class="l">
+            <div class="l l_executive">
                <acl:acl resourceMark="task_list">
             	<dl style="position:relative;">
                 	<dt><h3 class="ico t1">待办任务</h3></dt>
@@ -260,8 +258,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 
 					</dl>
 					<!-- 事项预览 -->
-					<div resource-mark="div_matter_preview_gg" style="display:none">
-						<dl>
+						<dl resource-mark="div_matter_preview_gg" style="display:none">
 							<dt>
 								<h3 class="ico t7">事项预览</h3>
 							</dt>
@@ -285,10 +282,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 								</div>
 							</dd>
 						</dl>
-					</div>
 					<!-- 项目进度 -->
-					<div resource-mark="div_project_progress_gg" style="display:none">
-						<dl>
+						<dl resource-mark="div_project_progress_gg" style="display:none">
 							<dt>
 								<h3 class="ico t8">项目进度</h3>
 								<a href="javascript:;" class="more position_0 null" id="more_xmjd">more</a>
@@ -299,10 +294,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 									style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
 							</dd>
 						</dl>
-					</div>
 					<!-- 投资资金 -->
-					<div resource-mark="div_investment_gg" style="display:none">
-						<dl class="executive_last">
+						<dl class="executive_last" resource-mark="div_investment_gg" style="display:none">
 							<dt>
 								<h3 class="ico t9">投资资金</h3>
 							</dt>
@@ -311,11 +304,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 									style="min-width:300px; height: 200px;padding-top:5px;"></div>
 							</dd>
 						</dl>
-					</div>
             </div>
             <!--右侧列表-->
-            <div class="r">
-            	<div resource-mark="div_tip_message" style="display:none">
+            <div class="r r_executive">
             	<dl class="r_news" style="position:relative;">
                 	<dt><h3 class="ico t4">消息提醒</h3></dt>
                     <dd>
@@ -342,10 +333,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a href="<%=path %>/galaxy/operationMessage/index" class="more null">more</a>
                     </dd>
                 </dl>
-                </div>
                 
-                <div resource-mark="div_pro_doc" style="display:none">
-                <dl id="dan_k" style="position:relative;">
+                <dl resource-mark="div_pro_doc" id="dan_k" style="display:none;position:relative;">
                 	<dt><h3 class="ico t5">项目文档</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0" id="file_gird_index">
@@ -356,32 +345,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
-                </div>
                 
-               <acl:acl resourceMark="shedule_ceo">
-                 <dl id="ceo_p">
-				<dt><h3 class="ico t5">CEO评审排期</h3></dt>
-				<dd>
-					<table id="ceopsMeeting" width="100%" cellspacing="0"
-						cellpadding="0" class="index">
-						<thead>
-							<tr>
-								<th>序号</th>
-								<th>项目名称</th>
-								<th>上次过会时间</th>
-								<th>过会次数</th>
-							</tr>
-						</thead>
-						<tbody id="ceopsbodytop">
-						</tbody>
-					</table>
-				</dd>
-				<dd class="clearfix position" style='display:none'>
-					<!-- <a href="javascript:;" class="more null">more</a> -->
-					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
-				</dd>
-			</dl> 
-			</acl:acl>
+            
 			
 			<acl:acl resourceMark="div_normal_tool">
                 <dl  class="tool_radius">
@@ -398,8 +363,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             </acl:acl>
                 
                 <!-- 绩效考核 -->
-                <div resource-mark="div_performance_gg" style="display:none">
-					<dl class="r_news">
+					<dl resource-mark="div_performance_gg" style="display:none" class="r_news">
 						<dt>
 							<h3 class="ico t10">绩效考核</h3>
 							<span class="more null position_0" id="platform_jxkh_more" style="cursor: pointer;">more</span>
@@ -408,11 +372,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							<div id="container_kpi" style="min-width:300px; height: 162px;padding-top:5px;"></div>
 						</dd>
 					</dl>
-				</div>
                 
                 <!-- 项目历时 -->
-                <div resource-mark="div_duration_gg" style="display:none">
-					<dl>
+					<dl resource-mark="div_duration_gg" style="display:none">
 						<dt>
 							<h3 class="ico t11">项目历时</h3>
 						</dt>
@@ -422,11 +384,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 								style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
 						</dd>
 					</dl>
-				</div>
                 
                 <!-- 项目运营 -->
-                <div resource-mark="div_operation_gg" style="display:none">
-					<dl class="tool_radius executive_last">
+					<dl resource-mark="div_operation_gg" style="display:none" class="tool_radius executive_last">
 						<img src="<%=request.getContextPath()%>/img/sy.png" alt="" />
 						<dt>
 							<h3 class="ico t12">项目运营</h3>
@@ -435,7 +395,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							<div id="container_operation" style="min-width:300px; height: 200px;padding-top:5px;"></div>
 						</dd>
 					</dl>
-				</div>
                     
             </div>
         </div>
@@ -514,7 +473,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		
 		
 		$.each(allResourceToUser, function(index, element){
-			 $('div[resource-mark="' + element.resourceMark + '"]').css("display","block");
+			 $('dl[resource-mark="' + element.resourceMark + '"]').css("display","block");
 			 
 		});
 		
@@ -537,6 +496,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		//项目历时
 		load_data_chart_project_time();
 		noDataProTimeDiv();
+
 		
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 		//项目进度图表默认加载链接
