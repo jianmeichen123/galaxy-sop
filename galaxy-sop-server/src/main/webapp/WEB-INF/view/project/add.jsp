@@ -78,7 +78,8 @@
                             <span class="m_r30" style="with:400px">
                              <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否
                              <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2">是
-                             </span>
+                             <input type="text" class="new_nputr" placeholder="请输入FA名称" style="display:none" maxlength="24" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
+                        </span>
                     </ul>  
                     
                     <!--融资计划-->
@@ -248,14 +249,14 @@
 		}
 	}
 	
-
 	function setText(obj){
 		if(obj=="set"){
-			$("#faFlag2").after('<input type="text" class="new_nputr" placeholder="请输入FA名称"  maxlength="24" name="faName" id="faName" /> ');
+			$("#faName").attr("style","display:inline-block;")
+			$("#faName").removeAttr("allowNULL");
 		}else{
-			$("#faName").remove();
-	
-
+			$('.tip-yellowsimple').hide();
+			$("#faName").attr("allowNULL","yes");
+			$("#faName").attr("style","display:none;");
 		}
 		
 	}
