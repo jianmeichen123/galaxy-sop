@@ -1706,7 +1706,20 @@
     			return false;
     		}
     	}
-			
+    	
+    	if(query.sdate && query.edate){
+    		var createdDateFrom = (new Date(query.sdate+' 00:00:00')).getTime();		
+    		var createdDateThrough = (new Date(query.edate+' 23:59:59')).getTime();
+    		if(createdDateFrom > createdDateThrough){
+    			layer.msg("开始时间不能大于结束时间");
+    			return false;
+    		}
+    		//兼容safari
+    		if(query.sdate>query.edate){
+    			layer.msg("开始时间不能大于结束时间");
+    			return false;
+    		}
+    	}	
     	return query;
     }
     
