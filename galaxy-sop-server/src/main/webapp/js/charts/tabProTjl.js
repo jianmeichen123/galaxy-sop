@@ -6,7 +6,7 @@ var pageNum_tjl = 1;
 var queryParamsJson_tjl = {};
 
 $("#querySearch_tjl").on('click',function(){
-	$('#data-table-xmstj').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-tjl')); 
+	$('#data-table-tjl').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-tjl')); 
 });
 
 function pro_tjl_init(){

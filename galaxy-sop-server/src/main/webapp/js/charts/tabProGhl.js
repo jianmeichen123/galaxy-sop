@@ -5,7 +5,7 @@ var pageNum_ghl = 1;
 var queryParamsJson_ghl = {};
 
 $("#querySearch_ghl").on('click',function(){
-	$('#data-table-xmstj').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-ghl')); 
+	$('#data-table-ghl').bootstrapTable('refresh',getToobarQueryParams('custom-toolbar-ghl')); 
 });
 
 function pro_ghl_init(){
