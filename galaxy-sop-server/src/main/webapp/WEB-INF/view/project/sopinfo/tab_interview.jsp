@@ -191,7 +191,11 @@ $(function(){
         onLoadSuccess:function(){
         	if(isTransfering == 'true')
        		{
-        		$('#projectProgress_1_table span.edit').addClass('limits_gray').removeAttr('onclick');
+        		$.each($('#projectProgress_1_table tr'),function(){
+        			var $this = $(this);
+        			$this.find('td:last').addClass('limits_gray');
+        			$this.find('td:last .edit').removeAttr('onclick');
+        		});
        		}
         }
 	});

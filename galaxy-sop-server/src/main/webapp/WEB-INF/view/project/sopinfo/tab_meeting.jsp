@@ -216,7 +216,11 @@ $(function(){
         	}
         	if(isTransfering == 'true')
        		{
-        		$('#data-table span.edit').addClass('limits_gray').removeAttr('onclick');
+        		$.each($('#data-table tr'),function(){
+        			var $this = $(this);
+        			$this.find('td:last').addClass('limits_gray');
+        			$this.find('td:last .edit').removeAttr('onclick');
+        		});
        		}
         
         }
