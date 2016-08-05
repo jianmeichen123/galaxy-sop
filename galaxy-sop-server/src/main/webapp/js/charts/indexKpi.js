@@ -14,8 +14,7 @@ if(!isGG)  kpiurl = platformUrl.userkpi;
 $(function() {
 	
 	$('#platform_jxkh_more').click(function(){
-	    window.location.href=path + "/galaxy/kpireport/touserkpi?guid="+userId+"&sid="+sessionId;
-	    //$("#platform_jxkh_more").attr('href' , path + "/galaxy/report/kpi?guid="+userId+"&sid="+sessionId +"#gg_jxkh_u");//绩效考核链接
+		forwardWithHeader(platformUrl.touserkpi);
 	})
 });
 
