@@ -76,10 +76,10 @@
                         </li>
                         <span class="basic_span"><em class="red">*</em>来源于FA：</span>
                             <span class="m_r30" style="with:400px">
-                            <input type="radio" name="faFlag" onclick="setText('set')">是
-                             <input type="radio" name="faFlag" onclick="setText('reset')">否
-                            <input type="text" class='new_nputr' placeholder="请输入FA名称" style="display:none" maxlength="24" id="faName"/></span>
-                           
+                             <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否
+                             <input type="radio" name="faFlag" onclick="setText('set')" value="1">是
+                             <input type="text" class='new_nputr' placeholder="请输入FA名称" style="display:none" maxlength="24" name="faName" id="faName"/>
+                             </span>
                     </ul>  
                     
                     <!--融资计划-->
