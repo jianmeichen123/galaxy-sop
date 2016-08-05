@@ -64,7 +64,7 @@
 						<input type="text" class="txt time datepicker" id="deptkpi_edate" name="edate" value="" />
 					</dd>
 					<dd>
-						<a href="javascript:;" class="bluebtn ico tj" action="querySearch_teamkpi">统计</a>  <!-- id="querySearch_deptkpi" -->
+						<a href="javascript:;" class="bluebtn ico tj" id="querySearch_teamkpi">统计</a>  <!-- id="querySearch_deptkpi" -->
 					</dd>
 				</dl>
 			</div>
