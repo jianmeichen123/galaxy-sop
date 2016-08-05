@@ -9,12 +9,16 @@ if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
 	isGG = false;
 }
 var kpiurl = platformUrl.deptkpi;
-if(!isGG)  kpiurl = platformUrl.userkpi;
+var tokpi = platformUrl.todeptkpi;
+if(!isGG){
+	kpiurl = platformUrl.userkpi;
+	tokpi = platformUrl.touserkpi;
+}
 
 $(function() {
 	
 	$('#platform_jxkh_more').click(function(){
-		forwardWithHeader(platformUrl.touserkpi);
+		forwardWithHeader(tokpi);
 	})
 });
 
