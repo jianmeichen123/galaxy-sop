@@ -166,12 +166,15 @@ function getProjectInfo(dtd)
 								<span class="new_color_black" id="createUname"></span><span class="new_color_gray">(</span><span class="new_color_gray" id="projectCareerline"></span><span class="new_color_gray">)</span></td>
 						</tr>
 						
-					<tr>
+					     <tr>
 							<td><span class="new_color_gray">融资状态：</span><span class="new_color_black" id="financeStatusDs"></span></td>
 							<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
 							<span class="new_color_gray" id="s">(</span>
 								<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray" id="end">)</span><span id="insertImg"></span></td>
 						</tr>
+						     <tr>
+							     <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black" id="financeStatusDs"></span></td>
+								</tr>
 					
 					</table>
 
@@ -247,6 +250,9 @@ function getProjectInfo(dtd)
 				            </tr>
 				            <tr>
 				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
+				            </tr>
+				             <tr>
+				                <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="faFlag_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
 				            </tr>
 				        </table>
 				        <!--实际投资-->

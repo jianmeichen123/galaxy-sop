@@ -74,6 +74,12 @@
 			                    </select>
 							</span>
                         </li>
+                        <span class="basic_span"><em class="red">*</em>来源于FA：</span>
+                            <span class="m_r30" style="with:400px">
+                            <input type="radio" name="faFlag" onclick="setText('set')">是
+                             <input type="radio" name="faFlag" onclick="setText('reset')">否
+                            <input type="text" class='new_nputr' placeholder="请输入FA名称" style="display:none" maxlength="24" id="faName" name="projectName" valType="required" msg="<font color=red>*</font>项目名称不能为空"/></span>
+                           
                     </ul>  
                     
                     <!--融资计划-->
@@ -242,7 +248,17 @@
 			},TOKEN);
 		}
 	}
+	function setText(obj){
+		if(obj=="set"){
+			$("#faName").css("display","block");
+		}else{
+			$("#faName").css("display","none");
+
+		}
+		
+	}
 	
+	resetText
 	
 </script>
 

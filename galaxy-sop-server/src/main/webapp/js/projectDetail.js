@@ -30,6 +30,7 @@ $(function(){
 		$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);
 		$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":projectInfo.serviceCharge);
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
+		$("#faName").text(typeof(projectInfo.faFlag)=="undefined"?"无":projectInfo.serviceCharge);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
 		var p;
