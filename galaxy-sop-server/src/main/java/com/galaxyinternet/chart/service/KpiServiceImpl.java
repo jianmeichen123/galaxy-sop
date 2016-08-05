@@ -630,7 +630,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		}
 		List<Project> proList = projectDao.selectUserProNumOrderByNum(proQuery,pageRequest);
 		
-		if(proList ==null || !proList.isEmpty()){
+		if(proList ==null || proList.isEmpty()){
 			return kpiPage;
 		}
 		
@@ -836,7 +836,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectDeptProNumOrderByNum(proQuery,pageRequest);
 		
-		if(proList ==null || !proList.isEmpty()){
+		if(proList ==null || proList.isEmpty()){
 			return kpiPage;
 		}
 		
@@ -1041,7 +1041,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectDeptAllProNumAndByType(proQuery,pageRequest);
 		
-		if(proList ==null || !proList.isEmpty()){
+		if(proList ==null || proList.isEmpty()){
 			return kpiPage;
 		}
 		
@@ -1186,7 +1186,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectTzjlAllProNumAndByType(proQuery,pageRequest);
 		
-		if(proList ==null || !proList.isEmpty()){
+		if(proList ==null || proList.isEmpty()){
 			return kpiPage;
 		}
 		
@@ -1288,7 +1288,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectList(proQuery, pageRequest);
 		
-		if(proList ==null || !proList.isEmpty()){
+		if(proList ==null || proList.isEmpty()){
 			return kpiPage;
 		}
 		
@@ -1616,7 +1616,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		//proQuery.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode()); //过滤已否决
 		List<Project> proList = projectDao.selectHasMeetProList(mquery2,pageRequest);
 		
-		if(proList ==null || !proList.isEmpty()){
+		if(proList ==null || proList.isEmpty()){
 			return kpiPage;
 		}
 		total = (long) proList.size();
