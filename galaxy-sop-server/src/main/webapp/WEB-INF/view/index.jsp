@@ -501,7 +501,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		selectCyIndex();
 		createMenus(1);
 		top5Message();
-		ceopaiqi();
 		top5CeoPsMeeting();
 		if(isContainResourceByMark("shedule_list")){
 	       $('div[resource-mark="shedule_list"]').css("display","block");
@@ -581,14 +580,6 @@ $(function(){
 	});
 });
 
-function ceopaiqi(){
-	if(roleId!='19'&&roleId!='18'&&roleId!='1'&&roleId!='2'){
-		$("#ceo_p").css("display","none");
-	}else{
-		$("#dan_k").css("display","none");	
-	}
-
-}
 
 function paiqidate(type){
 	forwardWithHeader(platformUrl.popupMeetingList + type);
