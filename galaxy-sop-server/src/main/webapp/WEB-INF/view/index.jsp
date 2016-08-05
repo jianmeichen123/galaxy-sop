@@ -70,7 +70,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
              -->
             </div>
             <div class="morebox">
-               <a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加1日程</a>
                 <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="add_schedule blue">添加日程</a>
             </div>
         </div>
