@@ -538,6 +538,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		chartsInvestmentUtils.init(investFormdata);
 		//项目历时
 		load_data_chart_project_time();
+		noDataProTimeDiv();
 		
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 		//项目进度图表默认加载链接
