@@ -708,7 +708,7 @@ var platformUrl = {
 	/**
 	 * 项目分析
 	 */
-	projectAnalysis: Constants.sopEndpointURL + "/galaxy/report/projectAnalysis",
+	projectAnalysis: Constants.sopEndpointURL + "/galaxy/kpireport/toProOverView",
 		
 	/**
 	 * 项目阶段高管
