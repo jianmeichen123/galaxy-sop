@@ -2061,7 +2061,7 @@ dl{position: relative;}
 	cursor:default;
 	color:#aaaaaa;
 }
-.limits_gray .meet_download {
+.limits_gray .meet_download ,.limits_gray .see {
 	cursor:pointer !important;
 	color:#438ee1 !important;
 }

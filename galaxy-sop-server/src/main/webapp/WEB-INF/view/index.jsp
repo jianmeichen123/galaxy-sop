@@ -70,7 +70,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
              -->
             </div>
             <div class="morebox">
-               <a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加1日程</a>
                 <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="add_schedule blue">添加日程</a>
             </div>
         </div>
@@ -501,7 +500,6 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		selectCyIndex();
 		createMenus(1);
 		top5Message();
-		ceopaiqi();
 		top5CeoPsMeeting();
 		if(isContainResourceByMark("shedule_list")){
 	       $('div[resource-mark="shedule_list"]').css("display","block");
@@ -538,6 +536,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		chartsInvestmentUtils.init(investFormdata);
 		//项目历时
 		load_data_chart_project_time();
+		noDataProTimeDiv();
 		
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 		//项目进度图表默认加载链接
@@ -580,14 +579,6 @@ $(function(){
 	});
 });
 
-function ceopaiqi(){
-	if(roleId!='19'&&roleId!='18'&&roleId!='1'&&roleId!='2'){
-		$("#ceo_p").css("display","none");
-	}else{
-		$("#dan_k").css("display","none");	
-	}
-
-}
 
 function paiqidate(type){
 	forwardWithHeader(platformUrl.popupMeetingList + type);

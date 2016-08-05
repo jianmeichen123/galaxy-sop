@@ -791,7 +791,13 @@ var platformUrl = {
 	 * 1.项目分析－项目数统计 --合伙人专用
 	 */
 	hhrlinechart : Constants.sopEndpointURL + "/galaxy/kpireport/hhrLineChart",
-		
+	
+	/**
+	 * to kpi
+	 */
+	touserkpi : Constants.sopEndpointURL + "/galaxy/kpireport/touserkpi",
+	todeptkpi : Constants.sopEndpointURL + "/galaxy/kpireport/toteamkpi",
+	
 	/**
 	 * 投资经理kpi
 	 * 1. 绩效考核－投资经理绩效考核（图表＋表格）

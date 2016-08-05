@@ -2,7 +2,7 @@
  * 项目历时
  */
 
-$(function(){
+function noDataProTimeDiv(){
 	//项目历时无数据样式
 	if($("#container_time .highcharts-title tspan").text()=="0天" || $("#container_time .highcharts-title span").text()=="0天"){
 		$(".mask_platform_time").show();
@@ -93,9 +93,7 @@ $(function(){
 		
 	}
 	
-	
-	
-});
+}
 
 function load_data_chart_project_time(){
 	sendPostRequestByJsonObj(platformUrl.progressDurationList,null,function(data){

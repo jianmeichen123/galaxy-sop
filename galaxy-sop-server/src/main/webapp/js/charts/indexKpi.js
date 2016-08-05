@@ -9,13 +9,16 @@ if(roleId == '1' || roleId == 1 || roleId == '2' || roleId == 2){
 	isGG = false;
 }
 var kpiurl = platformUrl.deptkpi;
-if(!isGG)  kpiurl = platformUrl.userkpi;
+var tokpi = platformUrl.todeptkpi;
+if(!isGG){
+	kpiurl = platformUrl.userkpi;
+	tokpi = platformUrl.touserkpi;
+}
 
 $(function() {
 	
 	$('#platform_jxkh_more').click(function(){
-	    window.location.href=path + "/galaxy/kpireport/touserkpi?guid="+userId+"&sid="+sessionId;
-	    //$("#platform_jxkh_more").attr('href' , path + "/galaxy/report/kpi?guid="+userId+"&sid="+sessionId +"#gg_jxkh_u");//绩效考核链接
+		forwardWithHeader(tokpi);
 	})
 });
 
