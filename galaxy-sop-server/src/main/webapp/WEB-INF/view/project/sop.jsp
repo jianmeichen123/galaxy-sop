@@ -319,7 +319,7 @@
 					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark">申请立项会排期</a>
 					<a id="upload_lx_report" href="javascript:;" onclick="showLxUpload()" class="pubbtn fffbtn lpubbtn option_item_mark" style="display:none;">添加项目立项报告</a>
 				</div>
-				<table id="lx_report_table" style="display:none;">
+				<table id="lx_report_table" >
 					<thead>
 						<tr>
 							<th data-field="fWorktype" data-align="center" >业务类型</th>
@@ -812,13 +812,11 @@
 				if(data.entityList.length>0)
 				{
 					$("#lx_report_table").bootstrapTable('load', data.entityList);
-					$("#lx_report_table").show();
 					$("#upload_lx_report").hide();
 				}
 				else
 				{
 					$("#upload_lx_report").show();
-					$("#lx_report_table").hide();
 				}
 			}
 	 	);
@@ -828,7 +826,7 @@
  	{
  		var update = '<a href="#" class="blue" onclick="showLxUpload('+row.id+')">更新</a>';
  		var download = '<a href="#" class="blue" onclick="filedown('+row.id+')">下载</a>';
- 		var del = '<a href="#" class="blue" onclick="delLxReport('+row.id+')">删除</a>';
+ 		var del = '<a href="#" class="blue" style="display:none;" onclick="delLxReport('+row.id+')">删除</a>';
  		return update+"&nbsp;"+download+"&nbsp;"+del;
  	}
  	function delLxReport(id)
