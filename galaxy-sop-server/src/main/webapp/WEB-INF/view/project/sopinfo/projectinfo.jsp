@@ -237,11 +237,11 @@ function getProjectInfo(dtd)
                                  <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
                             </tr>
                               <tr>
-                                <td><span class="new_color_gray">来源于FA：</span>
+                                <td><span class="new_color_gray">来源于FA66：</span>
                                 <span>
                                                                                           否  <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">
                                                                                           是<input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">
-                                   <input type="text" class="new_nputr" placeholder="请输入FA名称"  maxlength="24" name="faName" id="faNameEdit" style="display:none" />
+                                   <input type="text" class="new_nputr" placeholder="请输入FA名称"  maxlength="24" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/>
                                 </span></td>
                               </tr>
 				        </table>  

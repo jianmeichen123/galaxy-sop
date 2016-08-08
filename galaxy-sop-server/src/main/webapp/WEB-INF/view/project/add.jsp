@@ -253,8 +253,10 @@
 		if(obj=="set"){
 			$("#faName").attr("style","display:inline-block;")
 			$("#faName").removeAttr("allowNULL");
+			$("#faName").focus();
 		}else{
-			$('.tip-yellowsimple').hide();
+			$('.tip-yellowsimple').remove();
+			$("#faName").val('');
 			$("#faName").attr("allowNULL","yes");
 			$("#faName").attr("style","display:none;");
 		}

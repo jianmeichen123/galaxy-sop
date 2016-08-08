@@ -58,7 +58,8 @@ $(function(){
 			$("#finalContribution_edit").val(projectInfo.finalContribution==0?0:projectInfo.finalContribution);
 			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?0:projectInfo.finalShareRatio);
 			$("#serviceChargeedit").val(projectInfo.serviceCharge==0?0:projectInfo.serviceCharge)
-			if(typeof(projectInfo.faFlag)!="underfined"&&projectInfo.faFlag!=0){
+			
+			if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
 				$('#faFlagEdit').attr("checked","checked");
 				$("#faNameEdit").val(projectInfo.faName);
 				$("#faNameEdit").css("display","block");
@@ -554,10 +555,13 @@ function callbackFunRevoke(data){
 }
 function setText(obj){
 	if(obj=="set"){
-	   $("#faNameEdit").css("display","block"); 
+		$("#faNameEdit").attr("style","display:inline-block;")
+		$("#faNameEdit").removeAttr("allowNULL");
+		$("#faNameEdit").focus();
 	}else{
-	   $("#faNameEdit").css("display","none");
-	   $("#faNameEdit").val(projectInfo.faName);
+		$('.tip-yellowsimple').remove();
+		$("#faNameEdit").val(projectInfo.faName);
+		$("#faNameEdit").attr("allowNULL","yes");
+		$("#faNameEdit").attr("style","display:none;");
 	}
-	
 }

@@ -112,7 +112,7 @@ var prograss = projectInfo.projectProgress;
 	
 } */
 
-if('${fx:isTransfering(pid) }' == 'true')
+if('${fx:isTransfering(pid) }' == 'true' && '${fx:hasRole(4)')
 {
 	$('#fjxm_but').addClass('limits_gray');
 	$("#yjxm_btn").attr("style","display:none;");
@@ -123,6 +123,7 @@ if('${fx:isTransfering(pid) }' == 'true')
 	$("#yjxm_btn").attr("style","display:block;");
 	$("#cxxm_btn").attr("style","display:none;");
 }
+
 
 if(!prograss){
 	prograss = 'projectProgress:0';
