@@ -527,27 +527,25 @@ function callbackFun(data){
 	}
 
 }
+
 function revokeTransfer(projectId){
-	$(".poptxt").on("click","a[action='revokeTransfer']",function() {
-		var pop = $(".pop");
-		var json = {};
-     var undoReason=pop.find("[name='undoReason']").val();
-   	if ( undoReason== ""){
-   		layer.msg("撤销原因不能为空");
-		return;
-   	}else{
-   		if (undoReason.length>100) {
-			layer.msg("撤销原因最多输入100个字符");
-			return;
-		}else{
-			json['undoReason']=undoReason;
+	$("textarea[name='undoReason']").on("keydown",function(){
+		var revokeReason = $(this).val();
+		if(revokeReason != ''){
+			$("#revoke-reason").css("visibility","hidden");
 		}
-	}
-   	json['projectId']=projectId;
-   	var reqUrl=platformUrl.undoTransfer;
-   	sendPostRequestByJsonObj(reqUrl, json, callbackFunRevoke);
-    });
+	});
 	
+	$("#revokeTransfer").click(function(){
+		$('input[name="projectId"]').val(projectId);
+		var revokeReason = $("textarea[name='undoReason']").val();
+		if(revokeReason == ''){
+			$("#revoke-reason").css("visibility","inherit");
+			return;
+		}
+		var reqUrl=platformUrl.undoTransfer;
+		sendPostRequestByJsonStr(reqUrl, $("#revoke_form").serializeObject(), callbackFunRevoke);
+	});
 }
 function callbackFunRevoke(data){
 	if (data.result.status != "OK") {
