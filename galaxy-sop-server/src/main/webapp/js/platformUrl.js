@@ -287,6 +287,10 @@ var platformUrl = {
 	
 	operationMessageRemind : Constants.sopEndpointURL + "/galaxy/operationMessage/remind",
 	MessageIndex : Constants.sopEndpointURL + "/galaxy/operationMessage/index",
+	/***
+	 * 日程列表
+	 */
+	shecudle_list : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/queryscheduleList",
 	
 	/***
 	 * 日程显示三条记录
