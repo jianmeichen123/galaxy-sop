@@ -266,7 +266,7 @@
   
   <!-- report -->
    <!-- 查询待办总数 -->
-	<select id="selectTotal" resultType="java.lang.Long" parameterType="com.galaxyinternet.bo.MeetingSchedulingBo">
+	<select id="selectTotal" resultType="java.lang.Long" parameterType="com.galaxyinternet.model.project.MeetingScheduling">
 		select count(id) from sop_meeting_scheduling
 			<where>
 			<trim prefixOverrides="and">
