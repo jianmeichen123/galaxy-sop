@@ -265,23 +265,21 @@
   
   
   <!-- report -->
-  
-  
-  <!-- 查询待办总数 -->
-	<select id="selectTotal" resultType="java.lang.Long" parameterType="com.galaxyinternet.bo.project.MeetingSchedulingBo">
+   <!-- 查询待办总数 -->
+	<select id="selectTotal" resultType="java.lang.Long" parameterType="com.galaxyinternet.model.project.MeetingScheduling">
 		select count(id) from sop_meeting_scheduling
 			<where>
 			<trim prefixOverrides="and">
 		    <if test="meetingType != null" > and meeting_type = #{meetingType} </if>
 		    <if test="reserveTimeStart != null"> and (reserve_time_start &gt;= #{reserveTimeStart}  </if>
-		    <if test="reserveTimeEnd != null"> and reserve_time_end &lt;= #{reserveTimeEnd} or reserve_time_end  &gt;= #{reserveTimeStart}) </if>
+		    <if test="reserveTimeEnd != null"> and reserve_time_end &lt;= #{reserveTimeEnd} or reserve_time_end  &gt;= #{reserveTimeStart} and reserve_time_start  &lt;= #{reserveTimeEnd}) </if>
 		    <if test="scheduleStatus != null" > and schedule_status = #{scheduleStatus} </if>
 		    <if test="scheduleStatus == null" > and schedule_status !=0 </if>
 		    </trim>
 		    </where>
 	</select>
 	
-	<!-- 查询待办总数 -->
+	  <!-- 查询待办总数 -->
  	<select id="selectListByCondition"  resultMap="BaseResultMap" parameterType="java.util.Map">
 		select * from sop_meeting_scheduling
 		<where>
@@ -297,6 +295,5 @@
 			 limit #{offset}, #{limit}
 		</if>
 	</select> 
-	
 	
 </mapper>
