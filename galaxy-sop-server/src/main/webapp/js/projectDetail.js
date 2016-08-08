@@ -559,7 +559,9 @@ function setText(obj){
 		$("#faNameEdit").removeAttr("allowNULL");
 		$("#faNameEdit").focus();
 	}else{
-		$('.tip-yellowsimple').remove();
+		if($('.tip-yellowsimple')[0]){
+			$('.tip-yellowsimple').remove();
+		}
 		$("#faNameEdit").val(projectInfo.faName);
 		$("#faNameEdit").attr("allowNULL","yes");
 		$("#faNameEdit").attr("style","display:none;");
