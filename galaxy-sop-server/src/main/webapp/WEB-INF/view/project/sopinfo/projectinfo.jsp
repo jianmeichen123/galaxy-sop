@@ -237,7 +237,7 @@ function getProjectInfo(dtd)
                                  <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
                             </tr>
                               <tr>
-                                <td><span class="new_color_gray">来源于FA66：</span>
+                                <td><span class="new_color_gray">来源于FA：</span>
                                 <span>
                                                                                           否  <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">
                                                                                           是<input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">
