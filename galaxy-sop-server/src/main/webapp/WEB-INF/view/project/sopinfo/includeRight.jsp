@@ -105,22 +105,26 @@
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
-/* if(isCreatedByUser == "true"){
-	$("#fjxm_but").attr("style","background:#d6d8e1;");
-	$("#yjxm_btn").attr("style","display:none;");
-	$("#cxxm_btn").attr("style","display:block;");
-	
-} */
 
 if('${fx:isTransfering(pid) }' == 'true')
 {
-	$('#fjxm_but').addClass('limits_gray');
+	$('#fjxm_but').addClass("disabled");
 	$("#yjxm_btn").attr("style","display:none;");
-	$("#cxxm_btn").attr("style","display:block;");
+	if(isCreatedByUser == "true"){
+	  $("#cxxm_btn").attr("style","display:block;");
+	}else{
+	  $("#cxxm_btn").attr("style","display:block;");
+	  $("#cxxm_btn").addClass("disabled");
+	}
 		
 }else{
-	$('#fjxm_but').removeClass('limits_gray');
-	$("#yjxm_btn").attr("style","display:block;");
+	$('#fjxm_but').removeClass('disabled');
+	if(isCreatedByUser == "true"){
+	  $("#yjxm_btn").attr("style","display:block;");
+	}else{
+	  $("#yjxm_btn").attr("style","display:block;");
+	  $("#yjxm_btn").addClass("disabled");
+	}
 	$("#cxxm_btn").attr("style","display:none;");
 }
 
