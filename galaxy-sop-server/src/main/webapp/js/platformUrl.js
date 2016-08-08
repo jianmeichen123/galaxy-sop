@@ -852,12 +852,25 @@ var platformUrl = {
 	 */
 	toRevokeProTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toRevokeProTransfer",
 	/**
-	 * 处理任务
-	 * 1. 撤销移交项目页面跳转
+	 * 跳转至拒接页面
+	 * 
 	 * 
 	 */
-	toReciviceTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toReciviceTransfer"
+	toRefuseTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toRefuseTransfer",
+	/**
+	 * 拒绝接收项目
+	 * 1. 
+	 * 
+	 */
+	rejectTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/rejectTransfer",
+	/**
+	 * 接收项目
+	 * 
+	 * 
+	 */
+	receiveTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/receiveTransfer",
 
+	
 	
 }
 
