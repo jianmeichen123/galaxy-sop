@@ -112,7 +112,7 @@ var prograss = projectInfo.projectProgress;
 	
 } */
 
-if('${fx:isTransfering(pid) }' == 'true' && '${fx:hasRole(1)}' == 'true')
+if('${fx:isTransfering(pid) }' == 'true' && '${fx:hasRole(4)}' == 'true')
 {
 	$('#fjxm_but').addClass('limits_gray');
 	$("#yjxm_btn").attr("style","display:none;");
