@@ -169,6 +169,10 @@ var fileGrid = {
 		}else{
 			return '';
 		}
+		if(typeof(isTransfering) != 'undefined' && isTransfering == 'true')
+		{
+			return '';
+		}
 		var uploadOpt,uploadClass;
 		if(row.fileKey){
 			uploadOpt = "更新";

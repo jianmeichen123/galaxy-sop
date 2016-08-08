@@ -2,7 +2,6 @@ package com.galaxyinternet.common.taglib;
 
 import java.util.List;
 
-import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.model.project.Project;

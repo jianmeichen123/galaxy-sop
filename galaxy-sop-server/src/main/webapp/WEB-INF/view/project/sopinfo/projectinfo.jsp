@@ -138,7 +138,7 @@ function getProjectInfo(dtd)
 				<!-- 默认展示 -->
 				<div class="basic_center">
 					<div class="new_r_compile_new">
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name="basic" data-on="data-open">编辑</a>
 						</span>
@@ -310,7 +310,7 @@ function getProjectInfo(dtd)
                  <div class="project_center">
 					<div class="new_r_compile ">
 						<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox">
 							<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 						</span>
@@ -327,7 +327,7 @@ function getProjectInfo(dtd)
 				<div class='company_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" id="location">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
 						</span>
@@ -355,7 +355,7 @@ function getProjectInfo(dtd)
 				<div class='portrayal_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 						<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
 						</span>
@@ -385,7 +385,7 @@ function getProjectInfo(dtd)
 				<div class='product_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
 						</span>
@@ -414,7 +414,7 @@ function getProjectInfo(dtd)
 				<div class='operation_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_run"></span> <span class="new_color size16">运营数据</span> <span class="bj_ico" id="operational_data">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='operation' data-on="data-open">编辑</a>
 						</span>
@@ -444,7 +444,7 @@ function getProjectInfo(dtd)
 				<div class='industry_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 						</span>
@@ -472,7 +472,7 @@ function getProjectInfo(dtd)
 				<div class='analysis_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
 						</span>
@@ -504,7 +504,7 @@ function getProjectInfo(dtd)
 				<div class='next_financing_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" id="next_financing_source">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 						<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open">编辑</a>
 						</span>

@@ -136,7 +136,7 @@ function getTabPerson(){
                      
                       formatter:function(value,row,index){  
 	                   var content = '<span class="resume" data-id="'+row.id+'">个人简历</span>';
-	                   if(isCreatedByUser == 'true')
+	                   if(isCreatedByUser == 'true' && isTransfering == 'false')
                 	   {
 	                	   content += '<span class="edit" data-id="'+row.id+'">编辑</span>';  
 	                	   content += '<span class="del" data-id="'+row.id+'">删除</span>';  
@@ -145,8 +145,8 @@ function getTabPerson(){
                     } 
                   }
               ],
-          onLoadSuccess:function(){
-        	  if(isTransfering == 'true')
+          onLoadSuccess:function(data){
+        	  if(data.pageList.total>0 && isTransfering == 'true')
         	  {
         		  $table.find("tr span").parent().addClass('limits_gray');
         	  }
