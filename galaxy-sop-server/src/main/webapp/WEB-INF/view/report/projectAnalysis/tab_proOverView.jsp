@@ -304,6 +304,11 @@
 
 
 </body>
+<script type="text/javascript">
+	function getProjectProgress(){
+		return ${projectProgress};
+	}
+</script>
 
 <script src="<%=path %>/js/cookie.js" type="text/javascript"></script>
 <!-- table分页 -->

@@ -8,8 +8,13 @@ var searchOverviewPanel = {
 				var _dom;
 				_dom = $("#search_overview_form").find("#search_department_id");
 				utils.each(data,_dom,"all");
+				var forwardProgress = getProjectProgress();
+				if(forwardProgress){
+					$("#search_overview_form").find("#search_project_progress").val("projectProgress:" +　forwardProgress);
+				}else{
+					$("#search_overview_form").find("#search_project_progress").val("all");
+				}
 				
-				$("#search_overview_form").find("#search_project_progress").val("all");
 				//项目总览图表
 				var formdata = {
 				}
@@ -185,8 +190,8 @@ var projectGrid = {
 			        ].join('');
 		},
 		nameEvents : {
-			'click .filedownloadlink': function (e, value, row, index) {
-				window.location.href = platformUrl.showProject + "/" + row.id + "/1";
+			'click .projectNameLink': function (e, value, row, index) {
+				window.location.href = platformUrl.projectDetail + "/" + row.id;
 			}
 		},
 		research : false
@@ -303,6 +308,7 @@ var chartOverviewUtils = {
 		init : function(formdata){
 			//departmentId,projectType,startTime,endTime
 			var form = queryOverviewUtils.getQuery();
+			form.projectProgress = undefined;
 			//获取数据
 			sendPostRequestByJsonObj(platformUrl.searchOverView,form,function(data){
 				if(data.result.status=='OK'){
@@ -325,34 +331,34 @@ var chartOverviewUtils = {
 							temp = this.value.split('-');
 							switch(temp[1]){
 								case "projectProgress:1": 
-									return "<a href='javascript:;' onclick='showDetails(1);' class='blue'>" + temp[0] + "</a>";
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(1);' class='blue'>" + temp[0] + "</a>";
 									break;
 								case "projectProgress:2": 
-									return "<a href='javascript:;' onclick='showDetails(2);' class='blue'>" + temp[0] + "</a>";
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(2);' class='blue'>" + temp[0] + "</a>";
 									break;
 								case "projectProgress:3": 
-									return "<a href='javascript:;' onclick='showDetails(3);' class='blue'>" + temp[0] + "</a>";
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(3);' class='blue'>" + temp[0] + "</a>";
 									break;
 								case "projectProgress:4": 
-									return "<a href='javascript:;' onclick='showDetails(4);' class='blue'>" + temp[0] + "</a>";
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(4);' class='blue'>" + temp[0] + "</a>";
 									break;
 								case "projectProgress:5": 
-									return "<a href='javascript:;' onclick='showDetails(5);' class='blue'>" + temp[0] + "</a>";
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(5);' class='blue'>" + temp[0] + "</a>";
 									break;
 								case "projectProgress:6": 
-									return "<a href='javascript:;' onclick='showDetails(6);' class='blue'>" + temp[0] + "</a>";
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(6);' class='blue'>" + temp[0] + "</a>";
 									break;
 								case "projectProgress:7": 
-									return "<a href='javascript:;' onclick='showDetails(7);' class='blue'>" + temp[0] + "</a>";
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(7);' class='blue'>" + temp[0] + "</a>";
 									break;
 								case "projectProgress:8": 
-									return "<a href='javascript:;' onclick='showDetails(8);' class='blue'>" + temp[0] + "</a>";
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(8);' class='blue'>" + temp[0] + "</a>";
 									break;
 								case "projectProgress:9": 
-									return "<a href='javascript:;' onclick='showDetails(9);' class='blue'>" + temp[0] + "</a>";
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(9);' class='blue'>" + temp[0] + "</a>";
 									break;
 								case "projectProgress:10": 
-									return "<a href='javascript:;' onclick='showDetails(10);' class='blue'>" + temp[0] + "</a>";
+									return "<a href='javascript:;' onclick='queryOverviewUtils.queryGrid(10);' class='blue'>" + temp[0] + "</a>";
 									break;
 							}
 						};

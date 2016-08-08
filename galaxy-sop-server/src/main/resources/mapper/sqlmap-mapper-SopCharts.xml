@@ -30,10 +30,16 @@
 	<!-- 查询 -->
 	<select id="selectOverView" resultMap="BaseResultMap"
 		parameterType="java.util.Map">
-		select project_progress,count(0) as projectCount
-		from sop_project
-		<include refid="Base_Where_Clause" />
-		group by project_progress
+		
+		select 		dict.dict_code as project_progress, ifnull(main.projectCount,0) as projectCount
+		from 
+					(select * from dict where parent_code = 'projectProgress') dict 
+		left join
+					(select 	project_progress,count(0) as projectCount
+					 from 		sop_project
+					 <include refid="Base_Where_Clause" />
+					 group by 	project_progress ) main
+		on			main.project_progress = dict.dict_code
 	</select>
 
 	<!-- 查询总数 -->

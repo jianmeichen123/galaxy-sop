@@ -168,7 +168,8 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 				
 				Long targetCount = queryTargetCount(sopCharts.getDepartmentId(), new Long(days));
 				
-				String completedRate = MathUtils.calculate(projectCount, targetCount, "/", 2);
+				String completedRate = MathUtils.calculate(projectCount, targetCount, "/", 4);
+				completedRate = MathUtils.calculate(Float.parseFloat(completedRate), 100L, "*", 4);
 				//计算完成率
 				chart.setCompletedRate(completedRate);
 				

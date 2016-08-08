@@ -53,13 +53,23 @@ public class SopProjectAnalysisServiceImpl implements SopProjectAnalysisService 
 		//获取字典
 		List<Dict> dictList = dictService.selectByParentCode("projectProgress");	
 		List<SopCharts> overViewList = analysisDao.selectOverView(query);
+		
+		
+		
+		
 		for(SopCharts overView : overViewList){
 			if(overView.getProjectCount()==null){
 				overView.setProjectCount(0L);
 			}
 			//计算阶段项目比率
-			String projectRate = MathUtils.calculate(overView.getProjectCount(),totalCount, "/", 4);
-			projectRate = String.valueOf(Float.parseFloat(projectRate) * 100);
+			String projectRate;
+			if(totalCount != 0){
+				projectRate = MathUtils.calculate(overView.getProjectCount(),totalCount, "/", 4);
+				projectRate = String.valueOf(Float.parseFloat(projectRate) * 100);
+			}else{
+				projectRate = "0.00";
+			}
+			
 			overView.setProjectRate(projectRate);
 			overView.setTotalCount(totalCount);
 			for(Dict dict : dictList){
@@ -69,7 +79,10 @@ public class SopProjectAnalysisServiceImpl implements SopProjectAnalysisService 
 					break;
 				}
 			}
-		}
+		}	
+		
+		
+		
 		overViewList = sort(overViewList);
 		return overViewList;
 	}
