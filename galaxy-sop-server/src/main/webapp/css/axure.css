@@ -1021,7 +1021,8 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .scheduletc .btnbox .pubbtn{ margin:0 20px 0 0; display:inline-block; *display:inline; zoom:1;}
 /*立项弹窗*/
 .projecttc{ width:700px; height:320px; overflow-y:auto}
-.xmstjtc,.ghltjtc,.tjltjtc{ width:900px; height:400px; overflow-y:auto}
+.xmstjtc,.ghltjtc,.tjltjtc{ width:900px; height:430px; }
+.xmstjtc .fixed-table-body,.ghltjtc .fixed-table-body,.tjltjtc .fixed-table-body{height:350px; overflow-y:auto}
 /*新增会议*/
 .meetingtc{ width:680px}
 .meetingtc .top{ margin:0 0 15px}
