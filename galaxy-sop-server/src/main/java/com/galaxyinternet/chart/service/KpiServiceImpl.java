@@ -964,8 +964,11 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			kpi.setTotalRate(total_rate);
 			
 			//内部创建项目占比
-			if(StringUtils.isBlank(query.getProjectType()) && deptProNumByTypetMap.get(pro.getProjectDepartid())!= null){
-				zjRate = deptProNumByTypetMap.get(pro.getProjectDepartid())*1.0 / pro.getCompleted();
+			if(StringUtils.isBlank(query.getProjectType())){
+				if(deptProNumByTypetMap.get(pro.getProjectDepartid())!= null){
+					zjRate = deptProNumByTypetMap.get(pro.getProjectDepartid())*1.0 / pro.getCompleted();
+				}else
+					zjRate = 0.0;
 			}
 			kpi.setZjRate(zjRate);
 			

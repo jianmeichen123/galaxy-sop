@@ -454,6 +454,7 @@ $("#save_next_financing").click(function(){
 	
 });
 function doSumbit(projectId){
+	$('input[name="projectId"]').val(projectId);
 	/**
 	 * 查询事业线
 	 * @version 2016-08-03
@@ -477,39 +478,44 @@ function doSumbit(projectId){
 		var did = $('select[name="afterDepartmentId"]').val();
 	    createUserOptions(platformUrl.getUserList+did, "afterUid", 1);
 	});
-	$(".poptxt").on("click","a[action='save']",function() {
-						var pop = $(".pop");
-						var json = {};
-                      if (pop.find('select[name="afterDepartmentId"] option:selected').val() == null
-								|| pop.find('select[name="afterDepartmentId"] option:selected')
-										.val() == "") {
-							layer.msg("请选择移交部门");
-							return;
-						}
-                      if (pop.find('select[name="afterUid"] option:selected').val() == null
-								|| $('select[name="afterUid"] option:selected').val() == ""||
-								$('select[name="afterUid"] option:selected').val()==0) {
-							layer.msg("请选择移交人");
-							return;
-						}
-                  	var depId = $('select[name="afterDepartmentId"] option:selected').val();
-					var userId = $("select[name='afterUid'] option:selected").val();
-					json['projectId']=projectId;
-					json['afterDepartmentId'] = depId;
-					json['afterUid'] = userId;
-                     var transferReason=pop.find("[name='transferReason']").val();
-          	     	if ( transferReason!= ""){
-          	     		if (transferReason.length>100) {
-          					layer.msg("角色描述最多输入100个字符");
-
-          					return;
-          				}else{
-          					json['transferReason']=transferReason;
-          				}
-          	      	}
-          	     	var reqUrl=platformUrl.applyTransfer;
-          	     	sendPostRequestByJsonObj(reqUrl, json, callbackFun);
-		});
+	
+	$("select[name='afterDepartmentId']").on("change",function(){
+		var did = $(this).val();
+		if(did != ''){
+			$("#receive-did").css("visibility","hidden");
+		}
+	});
+	$("select[name='afterUid']").on("change",function(){
+		var uid = $(this).val();
+		if(uid != ''){
+			$("#receive-uid").css("visibility","hidden");
+		}
+	});
+	$("textarea[name='transferReason']").on("keydown",function(){
+		var reason = $(this).val();
+		if(reason != ''){
+			$("#receive-reason").css("visibility","hidden");
+		}
+	});
+	$("#projectTransfer").on("click",function() {
+		var did = $("select[name='afterDepartmentId']").val();
+		if(did == ''){
+			$("#receive-did").css("visibility","inherit");
+			return;
+		}
+		var uid = $("select[name='afterUid']").val();
+		if(uid == 0){
+			$("#receive-uid").css("visibility","inherit");
+			return;
+		}
+		var reason = $("textarea[name='transferReason']").val();
+		if(reason == ''){
+			$("#receive-reason").css("visibility","inherit");
+			return;
+		}
+		var reqUrl=platformUrl.applyTransfer;
+		sendPostRequestByJsonStr(reqUrl, $("#transfer_form").serializeObject(), callbackFun);
+	});
 }
 function callbackFun(data){
 	if (data.result.status != "OK") {
@@ -521,27 +527,25 @@ function callbackFun(data){
 	}
 
 }
+
 function revokeTransfer(projectId){
-	$(".poptxt").on("click","a[action='revokeTransfer']",function() {
-		var pop = $(".pop");
-		var json = {};
-     var undoReason=pop.find("[name='undoReason']").val();
-   	if ( undoReason== ""){
-   		layer.msg("撤销原因不能为空");
-		return;
-   	}else{
-   		if (undoReason.length>100) {
-			layer.msg("撤销原因最多输入100个字符");
-			return;
-		}else{
-			json['undoReason']=undoReason;
+	$("textarea[name='undoReason']").on("keydown",function(){
+		var revokeReason = $(this).val();
+		if(revokeReason != ''){
+			$("#revoke-reason").css("visibility","hidden");
 		}
-	}
-   	json['projectId']=projectId;
-   	var reqUrl=platformUrl.undoTransfer;
-   	sendPostRequestByJsonObj(reqUrl, json, callbackFunRevoke);
-    });
+	});
 	
+	$("#revokeTransfer").click(function(){
+		$('input[name="projectId"]').val(projectId);
+		var revokeReason = $("textarea[name='undoReason']").val();
+		if(revokeReason == ''){
+			$("#revoke-reason").css("visibility","inherit");
+			return;
+		}
+		var reqUrl=platformUrl.undoTransfer;
+		sendPostRequestByJsonStr(reqUrl, $("#revoke_form").serializeObject(), callbackFunRevoke);
+	});
 }
 function callbackFunRevoke(data){
 	if (data.result.status != "OK") {

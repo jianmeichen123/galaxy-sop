@@ -160,26 +160,27 @@ var fileGrid = {
 			uploadOpt = "上传";
 			uploadClass = "fileuploadlink"
 		}
+		var isTransfing = false;
 		if(typeof(transferingIds) != 'undefined' && transferingIds.contains(row.projectId))
 		{
+			isTransfing = true;
 			uploadClass += " limits_gray";
 		}
+		var opts = new Array();
 		if(row.fileKey && row.fileValid==1 && row.isEdit == "true"){
 			
-			return [
-			        '<a class="' + uploadClass + ' blue"  href="javascript:void(0)">',
-			        uploadOpt,
-			        '</a>  ',
-		            '<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">',
-		            '下载',
-		            '</a>  '
-		        ].join('');
+			if(isTransfing == false )
+			{
+				opts.push('<a class="' + uploadClass + ' blue"  href="javascript:void(0)">'+uploadOpt+'</a>  ');
+			}
+			opts.push('<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">下载</a>');
+			return opts.join('');
 		}else if(!row.fileKey && row.isEdit == "true"){
-			return [
-		            '<a class="' + uploadClass + ' blue"  href="javascript:void(0)">',
-		            uploadOpt,
-		            '</a>  '
-		        ].join('');
+			if(isTransfing == false )
+			{
+				opts.push('<a class="' + uploadClass + ' blue"  href="javascript:void(0)">'+uploadOpt+'</a>  ');
+			}
+			return opts.join('');
 		}else if(row.fileKey && row.fileValid==1  && row.isEdit == "false"){
 			return [
 			        '<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">',

@@ -67,12 +67,14 @@
 			<div data-tab="con">
 			 -->
 			<div class="member">
+				<c:if test="${isEditable }">
 				<div class="top clearfix">
 					<!--按钮-->
 					<div class="btnbox_f btnbox_f1 clearfix">
 						<a href="javascript:void(0)"  class="pubbtn bluebtn ico c4" data-btn='to_add_deliver' data-name='添加事项'></a>
 					</div>
 				</div>
+				</c:if>
 				
 				<div class="min_document clearfix" id="custom-toolbar" style="display:none;" >
 					<div class="bottom searchall clearfix">
@@ -143,8 +145,8 @@ $(function(){
 	}
 	init_bootstrapTable('project_delivery_table',10);
 	//刷新右侧投后运营简报信息
-	$("#project_delivery_table").on('load-success.bs.table',function(){
-		if(isTransfering == 'true')
+	$("#project_delivery_table").on('load-success.bs.table',function(table,data){
+		if(data.pageList.total>0 && isTransfering == 'true')
 		{
 			$.each($("#project_delivery_table tr"),function(){
 				$(this).find("td:last").addClass('limits_gray');
@@ -288,7 +290,7 @@ function operFormat(value,row,index){
 	var del = "<label class=\"blue\" onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
 	var downfile = "<label class=\"blue\" onclick=\"to_download_deliver('"+row.id+"')\">下载附件</label>";
 	var content = "";
-	if("${isCreatedByUser}"=="true"){
+	if("${isCreatedByUser}"=="true" && isTransfering == 'false'){
 		content += edit;
 		content += del;
 	}

@@ -7,7 +7,7 @@
 		<div class="title">
 	        <span class="new_ico_legal icon"></span>
 	        <span class="new_color size16">法人信息</span>
-	        <c:if test="${fx:isCreatedByUser('project',pid) }">
+	        <c:if test="${isEditable}">
 	        <div class="btn">
 	         	<span class="new_fctbox">
 	            	<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
@@ -59,7 +59,7 @@
     </div> 
     <div class="top clearfix">
         <!--按钮-->
-        <c:if test="${fx:isCreatedByUser('project',pid) }">
+        <c:if test="${isEditable}">
           <div class="btnbox_f btnbox_f1 clearfix">
               <a href="#" id="add_share_bth" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addSharesView()">添加</a>
           </div>
@@ -76,7 +76,7 @@
         	<th data-field="sharesRatio" data-align="left" class="data-input">占比(%)</th>
         	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th>
         	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
-        	<c:if test="${fx:isCreatedByUser('project',pid) }">
+        	<c:if test="${isEditable }">
         	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
         	</c:if>
 			</tr>	
@@ -253,21 +253,12 @@
 		pagination: true,
         search: false,
         onLoadSuccess: function (data) {
-        	if(isTransfering == 'true')
-       		{
-        		$.each($("#shares-table tr"),function(){
-	        		$(this).find("td:last").addClass('limits_gray');
-        		});
-       		}
-        	else
-       		{
-        		$("#shares-table span.edit").click(function(){
-        			editStock($(this).data('id'));
-        		});
-        		$("#shares-table span.del").click(function(){
-        			delStock($(this).data('id'));
-        		});
-       		}
+       		$("#shares-table span.edit").click(function(){
+       			editStock($(this).data('id'));
+       		});
+       		$("#shares-table span.del").click(function(){
+       			delStock($(this).data('id'));
+       		});
         }
 	});
 	

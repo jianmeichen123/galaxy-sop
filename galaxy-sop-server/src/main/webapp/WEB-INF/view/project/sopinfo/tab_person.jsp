@@ -75,7 +75,7 @@
 	            </ul>
 	            <c:if test="${aclViewProject==true}">
 				<div class="member">
-					<c:if test="${fx:isCreatedByUser('project',pid) }">
+					<c:if test="${isEditable}">
 				      <div class="top clearfix">
 				          <!--按钮-->
 				          <div class="btnbox_f btnbox_f1 clearfix">

@@ -1793,10 +1793,11 @@ $(function () {
         }]
     });
 /*企业投资金额统计*/
-    $('#container_qytzje').highcharts({                                   
+    $('#container_qytzje').highcharts({ 
         chart: {                                                   
             type: 'bar',
-            height:'300',
+            height:300,
+            width:1200
         },                                                                 
         title: {                                                   
             text: '企业投资金额统计' ,
@@ -2016,7 +2017,7 @@ $(function () {
     $('#container_qyxjl').highcharts({
         chart: {
             type: 'column',
-            width:'1200',
+            width:1200
         },
         title: {
             text: '企业现金流表',
@@ -2082,7 +2083,7 @@ $(function () {
     $('#container_zcfz').highcharts({
         chart: {
             type: 'column',
-            width:'1200',
+            width:1200
         },
         title: {
             text: '企业资产负债表',
@@ -2152,7 +2153,7 @@ $(function () {
     $('#container_qylr').highcharts({
         chart: {
             type: 'column',
-            width:'1200',
+            width:1200
         },
         title: {
             text: '企业利润表',

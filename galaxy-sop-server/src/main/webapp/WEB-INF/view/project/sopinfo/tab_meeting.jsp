@@ -81,13 +81,14 @@
             	<div class="member interview">
             	    <c:if test="${aclViewProject==true}">
                    <!--按钮-->
+                   <c:if test="${isEditable }">
 					<div class="top clearfix" style="display: none;">
 						<div class="btnbox_f btnbox_f1 clearfix">   <!-- pubbtn bluebtn ico c4 add_prj add_interview  添加会议纪要-->
 							<a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" id="proMeetBut" >添加会议纪要</a>
 							<!-- <a href="#" onclick="toAddProMeet();" data-type="" class="pubbtn bluebtn ico c4 add_prj add_interview" >添加会议纪要</a>  -->
 						</div>
 					</div>
-
+					</c:if>
 					<!-- 会议信息 -->
 					<div class="min_document clearfix" id="custom-toolbar">
 					<div class="bottom searchall clearfix">
@@ -201,7 +202,7 @@ $(function(){
 		idField : "id",
 		clickToSelect: true,
         search: false,
-        onLoadSuccess: function(){
+        onLoadSuccess: function(data){
         	var len=$(".meeting_result").length
         	for(var i=0;i<len;i++){
         		console.log($(".meeting_result").eq(i).text());
@@ -214,7 +215,7 @@ $(function(){
             		
             	}
         	}
-        	if(isTransfering == 'true')
+        	if(data.pageList.total>0 && isTransfering == 'true')
        		{
         		$.each($('#data-table tr'),function(){
         			var $this = $(this);
@@ -423,7 +424,7 @@ function meetOperFormat(value,row,index){
 	var info = "<span  class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
-	if(userId==row.uid){
+	if(userId==row.uid && isTransfering == 'false'){
 		edit = " <span  class=\"edit blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
 	}
 	return info + edit;
