@@ -84,6 +84,11 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
+		List<ProjectTransfer> datas = projectTransferService.applyTransferData(projectTransfer.getProjectId());
+		if(null!=datas &&datas.size()>0){
+			responseBody.setResult(new Result(Status.ERROR,"err" , "该项目已经在移交中！"));
+			return responseBody;
+		}
 		try {
 			Project project = projectService.queryById(projectTransfer.getProjectId());
 			if(project == null){

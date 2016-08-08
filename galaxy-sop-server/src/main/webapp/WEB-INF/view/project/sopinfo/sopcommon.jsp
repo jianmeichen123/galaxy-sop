@@ -2,12 +2,16 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<% 
+	String path = request.getContextPath(); 
+%>
 <!doctype html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<script src="<%=path %>/js/projectTransfer.js"></script>
 <body>
 	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backIndex()">工作桌面</a>>
 	<c:choose>
