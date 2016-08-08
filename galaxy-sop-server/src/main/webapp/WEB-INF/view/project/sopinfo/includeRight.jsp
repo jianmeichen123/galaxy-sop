@@ -112,12 +112,12 @@ var prograss = projectInfo.projectProgress;
 	
 } */
 
-if('${fx:isTransfering(pid) }' == 'true' && '${fx:hasRole(4)')
+if('${fx:isTransfering(pid) }' == 'true' && '${fx:hasRole(1)}' == 'true')
 {
 	$('#fjxm_but').addClass('limits_gray');
 	$("#yjxm_btn").attr("style","display:none;");
 	$("#cxxm_btn").attr("style","display:block;");
-	
+		
 }else{
 	$('#fjxm_but').removeClass('limits_gray');
 	$("#yjxm_btn").attr("style","display:block;");
