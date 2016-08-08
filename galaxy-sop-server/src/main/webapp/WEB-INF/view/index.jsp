@@ -307,7 +307,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
             </div>
             <!--右侧列表-->
             <div class="r r_executive">
-            	<dl class="r_news" style="position:relative;">
+            	<dl resource-mark="div_tip_message" class="r_news" style="display:none;position:relative;">
                 	<dt><h3 class="ico t4">消息提醒</h3></dt>
                     <dd>
                     	<!-- <table width="100%" cellspacing="0"  cellpadding="0">
