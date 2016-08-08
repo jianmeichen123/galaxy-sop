@@ -1,6 +1,5 @@
 package com.galaxyinternet.chart.controller;
 
-import java.awt.print.Pageable;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
