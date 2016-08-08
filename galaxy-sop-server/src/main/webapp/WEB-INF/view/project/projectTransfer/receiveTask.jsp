@@ -40,25 +40,24 @@ var pid = "${projectId}";
  })
  
 function refuseTransfer(pid){
-	 $(".poptxt").on("click","a[action='refuseReason']",function() {
-			var pop = $(".pop");
-			var json = {};
-	     var refuseReason=pop.find("[name='refuseReason']").val();
-	   	if ( refuseReason== ""){
-	   		layer.msg("拒接项目原因不能为空");
-			return;
-	   	}else{
-	   		if (refuseReason.length>100) {
-				layer.msg("拒接项目原因最多输入100个字符");
-				return;
-			}else{
-				json['refuseReason']=refuseReason;
+	 
+	 $("textarea[name='refuseReason']").on("keydown",function(){
+			var refuseReason = $(this).val();
+			if(refuseReason != ''){
+				$("#refuse-reason").css("visibility","hidden");
 			}
-		}
-	   	json['projectId']=pid;
-	   	var reqUrl=platformUrl.rejectTransfer;
-	   	sendPostRequestByJsonObj(reqUrl, json, callbackFunRefuse);
-	    });
+		});
+		$('input[name="projectId"]').val(pid);
+		
+		$("#refuseReason").click(function(){
+			var revokeReason = $("textarea[name='refuseReason']").val();
+			if(revokeReason == ''){
+				$("#refuse-reason").css("visibility","inherit");
+				return;
+			}
+			var reqUrl=platformUrl.rejectTransfer;
+			sendPostRequestByJsonStr(reqUrl, $("#refuse_form").serializeObject(), callbackFunRefuse);
+		});
 }
 function callbackFunRefuse(data){
 		if (data.result.status != "OK") {

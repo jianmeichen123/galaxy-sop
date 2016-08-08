@@ -535,9 +535,9 @@ function revokeTransfer(projectId){
 			$("#revoke-reason").css("visibility","hidden");
 		}
 	});
+	$('input[name="projectId"]').val(projectId);
 	
 	$("#revokeTransfer").click(function(){
-		$('input[name="projectId"]').val(projectId);
 		var revokeReason = $("textarea[name='undoReason']").val();
 		if(revokeReason == ''){
 			$("#revoke-reason").css("visibility","inherit");
