@@ -10,6 +10,19 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+
+<style type="text/css">
+div.tip-yellowsimple {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.tip-yellowsimple .tip-arrow-left{
+position:absolute;
+}
+</style>
 </head>
 <script src="<%=path %>/js/projectTransfer.js"></script>
 <body>
