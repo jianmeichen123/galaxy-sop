@@ -118,7 +118,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			User u=userService.queryById(userid);
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_APPLY,
 					true,u,projectTransfer.getTransferReason(),
-					DictEnum.getNameByCode(project.getProjectProgress()));
+					DictEnum.projectProgress.getNameByCode(project.getProjectProgress()));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "项目移交失败!"));
 			if(_common_logger_.isErrorEnabled()){
@@ -160,8 +160,9 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			String undoReason=datas.get(0).getUndoReason();
 			User u=userService.queryById(userid);
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_REVOKE,
-					true,u,undoReason,DictEnum.getNameByCode(project.getProjectProgress()));
+					true,u,undoReason,DictEnum.projectProgress.getNameByCode(project.getProjectProgress()));
 		} catch (Exception e) {
+			
 			responseBody.setResult(new Result(Status.ERROR,"err" , "撤销移交申请失败!"));
 			if(_common_logger_.isErrorEnabled()){
 				_common_logger_.error("撤销移交申请失败[josn]-" + projectTransfer);
@@ -200,11 +201,11 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			
 			List<Long> ids = (List<Long>) cache.get(SopConstatnts.Redis._transfer_projects_key_);
 			_common_logger_.info(user.getRealName() + "拒接项目成功[json]-" + transfer);
-			Long userid=datas.get(0).getAfterUid();
+			Long userid=datas.get(0).getBeforeUid();
 			String rejectReason=datas.get(0).getRefuseReason();
 			User u=userService.queryById(userid);
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_REFUSE,
-					true,u,rejectReason,DictEnum.getNameByCode(project.getProjectProgress()));
+					true,u,rejectReason,DictEnum.projectProgress.getNameByCode(project.getProjectProgress()));
 	
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "拒接项目失败!"));
@@ -243,10 +244,10 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			projectTransferService.receiveProjectTransfer(transfer, transfer.getAfterUid(), user.getRealName(), transfer.getAfterDepartmentId());
 			projectTransferService.removeTransferProjectFromRedis(cache, transfer.getProjectId());
 			_common_logger_.info(user.getRealName() + "接收项目成功[json]-" + transfer);
-			Long userid=datas.get(0).getAfterUid();
+			Long userid=datas.get(0).getBeforeUid();
 			User u=userService.queryById(userid);
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_RECIVICE,
-					true,u,"",DictEnum.getNameByCode(project.getProjectProgress()));
+					true,u,"",DictEnum.projectProgress.getNameByCode(project.getProjectProgress()));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "接收项目失败!"));
 			if(_common_logger_.isErrorEnabled()){
