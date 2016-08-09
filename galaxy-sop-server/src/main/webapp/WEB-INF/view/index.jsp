@@ -286,7 +286,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						<dl resource-mark="div_project_progress_gg" style="display:none">
 							<dt>
 								<h3 class="ico t8">项目进度</h3>
-								<a href="javascript:;" class="more position_0 null" id="more_xmjd">more</a>
+								<a href="javascript:;" class="more position_0 null" id="more_progress">more</a>
 							</dt>
 							<dd style="position: relative;">
 								<div class="mask_platform_progress"></div>
@@ -488,6 +488,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 				domid : 'container_progress'
 		}
 		chartProjectProgressUtils.init(progressFormdata);
+		
 		/*新版投资资金图表*/
 		var investFormdata = {
 				domid : 'charts_investment'

@@ -302,7 +302,10 @@ var chartProjectProgressUtils = {
 			    			}
 			    			forwardWithHeader(url);
 			    		})
-			    		
+			    		//more 链接
+			    		$("#more_progress").click(function(){
+			    			forwardWithHeader(platformUrl.projectAnalysis);
+			    		});
 					}else{
 						layer.msg('后端查询数据为空');
 					}
