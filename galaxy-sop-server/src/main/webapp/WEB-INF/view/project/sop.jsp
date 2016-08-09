@@ -461,6 +461,7 @@
 							<th data-field="operationType" >动作</th>
 							<th data-field="operationContent" >对象</th>
 							<th data-field="projectName"  >项目</th>
+							<th data-field="reason"  >原因</th>
 							<th data-field="sopstage"  >业务</th>
 						</tr>
 					</thead>
