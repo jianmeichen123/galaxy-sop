@@ -188,7 +188,7 @@ var ideaAddDialog = {
 			},
 			initData : function(){
 				//所属事业线
-				sendGetRequest(platformUrl.getDepartMentDict+"/department",null,ideaAddDialog.initDataCallBack);
+				sendGetRequest(platformUrl.getDepartMentDict+"/all",null,ideaAddDialog.initDataCallBack);
 			},
 			initDataCallBack : function(data){
 				var _dom = $("#win_idea_department");

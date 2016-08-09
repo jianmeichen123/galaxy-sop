@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -31,7 +30,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.SopTaskBo;
-import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.sopfile.SopVoucherFileBo;
@@ -55,7 +53,6 @@ import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.department.Department;
-import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -63,12 +60,14 @@ import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
-import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 import com.galaxyinternet.utils.FileUtils;
-import com.galaxyinternet.utils.WorktypeTask;
+
+
+
+
 @Service("com.galaxyinternet.service.SopFileService")
 public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		SopFileService {
@@ -126,7 +125,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 * 分页查询获取project名称
 	 */
 	public Page<SopFile> queryPageList(SopFile query, Pageable pageable) {
-		// TODO Auto-generated method stub
 		//Page<SopFile> pageEntity = super.queryPageList(query,pageable);
 		Page<SopFile> pageEntity = new Page<SopFile>(null, pageable, null);
 		List<SopFile> fileList = sopFileDao.selectList(query);
@@ -625,7 +623,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			retMap.put("file", multipartFile);
 			retMap.put("upResult", upResult);
 		}catch (IOException e) {
-			// TODO Auto-generated catch block
 			throw new IOException(e);
 		}finally{
 //			tempFile.delete();
@@ -844,11 +841,9 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	public void downloadBatch(HttpServletRequest request,
 			HttpServletResponse response, String tempfilePath,String type,
 			List<SopDownLoad> downloadEntityList) throws Exception {
-		// TODO Auto-generated method stub
 		String strZipName = type+".zip";
 		ZipOutputStream outzip = new ZipOutputStream(new FileOutputStream(tempfilePath+strZipName));
 		byte[] buffer = new byte[1024 * 4];
-		List<SopDownLoad> tempSopDownList = new ArrayList<SopDownLoad>();
 		try{
 			for(int i =0 ; i< downloadEntityList.size(); i++){
 				SopDownLoad downloadEntity = downloadEntityList.get(i);
@@ -941,6 +936,11 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
         	result.setStatus(Status.ERROR);
         }
     	return result;
-    }    
+    }
+
+	@Override
+	public int updateDepartmentId(SopFile f) {
+		return sopFileDao.updateDepartmentId(f);
+	}    
     
 }

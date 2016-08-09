@@ -81,13 +81,14 @@
 						<c:if test="${aclViewProject==true}">
 
 						<!--按钮-->
+						<c:if test="${isEditable }">
 						<div class="top clearfix">
 							<div class="btnbox_f btnbox_f1 clearfix">
 								<a href="#"  id="tjftjl" onclick="toAddProInterview();" class="pubbtn bluebtn ico c4 add_prj add_interview" style="display: none;"></a>
 								<!-- <a href="#"  id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark" style="display: none;"></a> -->
 							</div>
 						</div>
-
+						</c:if>
 						<!-- 接触访谈信息 -->
 						<div class="min_document clearfix" id="projectProgress_1_table_custom-toolbar" style="display:none; " >
 						<div class="bottom searchall clearfix">
@@ -165,11 +166,16 @@
 	var pname = '${pname}';
 	var interviewSelectRow = null;
 	//var admin = "${fx:isCreatedByUser('project',pid) }";
+	var isTransfering = "${fx:isTransfering(pid) }";
 
 $(function(){
 	createMenus(5);
 	
 	$("#projectId").val(proid);
+	if(isTransfering == 'true')
+	{
+		$("#tjftjl").addClass('limits_gray').removeAttr("onclick");
+	}
 	
 	$('#projectProgress_1_table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
@@ -183,6 +189,16 @@ $(function(){
 		idField : "id",
 		clickToSelect: true,
         search: false,
+        onLoadSuccess:function(data){
+        	if(data.pageList.total>0 && isTransfering == 'true')
+       		{
+        		$.each($('#projectProgress_1_table tr'),function(){
+        			var $this = $(this);
+        			$this.find('td:last').addClass('limits_gray');
+        			$this.find('td:last .edit').removeAttr('onclick');
+        		});
+       		}
+        }
 	});
 	
 	//check to show or not not show qdnbps button
@@ -366,7 +382,7 @@ function viewOperFormat(value,row,index){
 	var info = "<span class=\"see blue\"  onclick=\"notesInfoEdit('"+row.id+"','v')\" >查看</span>";
 	var edit = "";
 	
-	if(userId==row.createdId){
+	if(userId==row.createdId && isTransfering == 'false'){
 		edit = " <span class=\"edit blue\"  onclick=\"notesInfoEdit('"+row.id+"','e')\" >编辑</span>";
 	}
 	return info + edit;

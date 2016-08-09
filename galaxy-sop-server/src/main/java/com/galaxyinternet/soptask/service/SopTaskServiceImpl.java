@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.dictEnum.DictUtil;
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.common.taglib.FXFunctionTags;
 import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
@@ -39,6 +41,7 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.SopConstatnts;
 
 @Service("com.galaxyinternet.service.SopTaskService")
 public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopTaskService {
@@ -104,7 +107,7 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		Page<SopTaskBo> formatData=new Page<>(null, pageable, null);
 		List<Project> projectList = new ArrayList<Project>();
 		Page<SopTask> selectListSopTask =new Page<>(null, pageable, null);
-	// 如果查询条件部位空的时候，现根据项目名称或者投资经理去查询该项目的任务列表
+	    // 如果查询条件部位空的时候，现根据项目名称或者投资经理去查询该项目的任务列表
 		if (sopTaskBo.getKeyword() != null && !"".equals(sopTaskBo.getKeyword())) {
 			projectBo.setKeyword(sopTaskBo.getKeyword());
 			projectBo.setFlagkeyword("concatcode");
@@ -253,9 +256,14 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setCaozuo(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));	
 //				sopTaskBo.setStatusFlag("1");/.append("/galaxy/soptask/goClaimtcPage?id="+sopTaskBo.getId())
-				caozuohtml.append("<a id='dai' href='javascript:void(0)' name='markResource' resource-mark='"+mark+"' class='blue' ")
-				.append("     data-btn='claim'").append(" >").append("认领").append("<input type='hidden' id='taskid' ")
-						.append(" value='"+sopTasknew.getId()+"'").append("/><input type='hidden' id='projectid' ").append(" value='"+sopTasknew.getProjectId()+"' />");
+				
+				if(FXFunctionTags.isTransfering(sopTasknew.getProjectId()) && sopTasknew.getTaskFlag().intValue() != SopConstatnts.TaskCode._accept_project_flag_){
+					caozuohtml.append("<a ").append(" >").append("认领").append("</a>");
+				}else{
+					caozuohtml.append("<a id='dai' href='javascript:void(0)' name='markResource' resource-mark='"+mark+"' class='blue' ")
+					.append("     data-btn='claim'").append(" >").append("认领").append("<input type='hidden' id='taskid' ")
+							.append(" value='"+sopTasknew.getId()+"'").append("/><input type='hidden' id='projectid' ").append(" value='"+sopTasknew.getProjectId()+"' />");
+				}
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 			}
 			if(sopTasknew.getTaskStatus().equals("taskStatus:2")){
@@ -264,8 +272,13 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				sopTaskBo.setTaskStatus(DictUtil.getStatusName(sopTasknew.getTaskStatus()));
 				sopTaskBo.setStatusFlag("2");
 			//	String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request);
-				caozuohtml.append("<a href='javascript:void(0)' name='markResource' resource-mark='"+mark+"' class='blue' ").append(" id='doclaim' ").append(" >").append("处理")
-				.append("<input type='hidden'").append(" value='"+sopTasknew.getId()+"'/>").append("</a>");
+				if(FXFunctionTags.isTransfering(sopTasknew.getProjectId()) && sopTasknew.getTaskFlag().intValue() != SopConstatnts.TaskCode._accept_project_flag_){
+					caozuohtml.append("<a ").append(" >").append("处理").append("</a>");
+				}else{
+					caozuohtml.append("<a href='javascript:void(0)' name='markResource' resource-mark='"+mark+"' class='blue' ").append(" id='doclaim' ").append(" >").append("处理")
+					.append("<input type='hidden'").append(" value='"+sopTasknew.getId()+"'/>").append("</a>");
+					
+				}
 				sopTaskBo.setCaozuohtml(caozuohtml.toString());
 		
 			}

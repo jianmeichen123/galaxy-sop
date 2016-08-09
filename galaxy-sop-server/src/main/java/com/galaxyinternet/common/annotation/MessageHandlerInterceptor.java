@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.alibaba.dubbo.remoting.exchange.Request;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
@@ -28,12 +27,14 @@ import com.galaxyinternet.model.sopfile.SopParentFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.operationMessage.MessageGenerator;
 import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
+import com.galaxyinternet.operationMessage.handler.ProjectTransferMessageHandler;
 import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationLogsService;
 import com.galaxyinternet.service.OperationMessageService;
 import com.galaxyinternet.service.ProgressLogService;
+import com.galaxyinternet.service.UserService;
 
 /**
  * @description 消息提醒拦截器
@@ -82,6 +83,10 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	@Autowired
 	OperationMessageService operationMessageService;
+	
+	@Autowired
+	private UserService userService;
+	
 	@Autowired
 	OperationLogsService operationLogsService;
 	@Autowired
@@ -113,8 +118,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 								for (final LogType ltype : logTypes) {
 									if (ltype == LogType.MESSAGE) {
 										if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE) != null){
-											insertMessageTip(populateOperationMessage(type, user, map));
-										}
+											    insertMessageTip(populateOperationMessage(type, user, map));
+									     }
 									} else if (ltype == LogType.LOG) {
 										insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
 									} else if (ltype == LogType.IDEANEWS) {
@@ -139,7 +144,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	private void insertMessageTip(OperationMessage message) {
 		try {
-			operationMessageService.insert(message);
+			Long c=operationMessageService.insert(message);
 			StringBuffer content = new StringBuffer();
 			
 			if(message.getMessageType().equals(StageChangeHandler._6_1_)){
@@ -267,6 +272,12 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 				content.append("任务");
 				message.setContent(content.toString());
 				operationMessageService.insert(message);
+			}else if(message.getFlag()==true)
+			{
+                User user = (User) message.getUserData();
+				message.setBelongUid(user.getId());
+				message.setBelongDepartmentId(user.getDepartmentId());
+			    operationMessageService.insert(message);
 			}
 		} catch (Exception e1) {
 			loger.error("产生提醒消息异常，请求数据：" + message, e1);
@@ -316,9 +327,16 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		entity.setUname(user.getRealName());
 		entity.setDepartName(user.getDepartmentName());
 		entity.setUserDepartid(user.getDepartmentId());
-		entity.setSopstage(type.getSopstage());
+		boolean flag=(boolean)map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_NUM);
+		if(flag==true){
+			String sopstage=(String)map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_STAGE);
+			entity.setSopstage(sopstage);
+		}else{
+			entity.setSopstage(type.getSopstage());
+		}
 		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
 		entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
+		entity.setReason(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON)));
 		entity.setRecordType(recordType.getType());
 		return entity;
 	}
@@ -343,5 +361,4 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	private OperationMessage populateOperationMessage(OperationType type, User user, Map<String, Object> map) {
 		return messageGenerator.generate(type, user, map);
 	}
-
 }

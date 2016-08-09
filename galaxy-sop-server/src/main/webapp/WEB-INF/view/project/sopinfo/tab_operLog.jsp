@@ -92,6 +92,7 @@
 								<th data-field="operationType" data-align="left">动作</th>
 								<th data-field="operationContent" data-align="left">对象</th>
 								<th data-field="projectName" data-align="left" data-formatter="projectNameFormatter">项目</th>
+								<th data-field="reason" data-align="left" >原因</th>
 								<th data-field="sopstage" data-align="left" >业务</th>
 							</tr>
 						</thead>

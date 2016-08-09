@@ -148,6 +148,10 @@ var initPage = {
 						window.location.href=platformUrl.downLoadFile+'/'+id ;
 					},
 					uploadBusinessPlan : function(){
+						if($(this).hasClass('limits_gray'))
+						{
+							return;
+						}
 						if($(this).text()=='上传'){
 							 $('.title_bj').html('上传商业计划书');							 
 						 }else{
@@ -162,7 +166,6 @@ var initPage = {
 				    			_isProve : "hide",
 				    			_remark : "hide",
 								callFuc : function(){
-									console.log("刷新商业计划模块");
 									window.location.reload(platformUrl.projectDetail + project.projectId);
 								},
 								_url : platformUrl.commonUploadFile, //兼容老板插件
@@ -184,7 +187,6 @@ var initPage = {
 													_projectId : initPage.projectId
 											}
 											planGrid.init(formdata);
-//											console.log("111111");
 										}//end okback 模版反回成功执行		
 									});
 								},
@@ -218,6 +220,11 @@ var initPage = {
 			dom.html(planNameHtml + planStatusHtml + planUpdateTimeHtml + operatorHtml);
 			if(data.result.status=="OK"){
 				//为空时候显示
+				var grayClass = "";
+				if(isTransfering=='true')
+				{
+					grayClass = " limits_gray";
+				}
 				if(data.result.errorCode=="null"){
 					//文档状态
 					dom.find("#plan_status").html("未上传");
@@ -225,7 +232,7 @@ var initPage = {
 					dom.find("#plan_update_time").html("无");
 					if(isCreatedByUser == 'true')
 					{
-						operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>上传</a>";
+						operatorDetailHtml = "<a href='javascript:;' class='ico new1"+grayClass+"' data-btn='edit' id='upload_btn'>上传</a>";
 					}
 				}else{
 					
@@ -238,7 +245,7 @@ var initPage = {
 					//操作类型
 					if(isCreatedByUser == 'true')
 					{
-						operatorDetailHtml = "<a href='javascript:;' class='ico new1' data-btn='edit' id='upload_btn'>更新</a>" ;
+						operatorDetailHtml = "<a href='javascript:;' class='ico new1"+grayClass+"' data-btn='edit' id='upload_btn'>更新</a>" ;
 					}
 					operatorDetailHtml += "<a href='javascript:;' class='ico f2' data-btn='describe' id='download_btn'>查看</a>" +
 										 "<a href='javascript:;' class='ico new2' data-btn='describe' id='show_history_btn'>查看历史</a>";

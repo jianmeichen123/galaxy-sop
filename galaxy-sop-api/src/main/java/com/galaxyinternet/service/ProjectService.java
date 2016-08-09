@@ -3,6 +3,8 @@ package com.galaxyinternet.service;
 import java.util.List;
 import java.util.Map;
 
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -34,6 +36,14 @@ public interface ProjectService extends BaseService<Project> {
 	 * 为项目补全档案
 	 */
 	public long perfectFilesForProject(Project project) throws Exception;
+	
+	/**
+	 * 分页条件查询（图表用）
+	 * @param query
+	 * @param pageRequest
+	 * @return
+	 */
+	public Page<Project> queryPageListByChart(Project query,PageRequest pageRequest);
 	
 
 }

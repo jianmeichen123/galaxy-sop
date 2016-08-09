@@ -67,7 +67,9 @@
             
             <div class="correlation">相关操作</div> 
             <div class="new_correlation_cen">
-            	<span class="bluebtn new_btn" onclick="closePro()" id="fjxm_but">否决项目</span>
+            	<span class="bluebtn new_btn" onclick="closePro(this)" id="fjxm_but">否决项目</span>
+            	<span class="bluebtn new_btn_right" onclick="transferPro()" style="display:none" id="yjxm_btn">移交项目</span>
+                <span class="bluebtn new_btn_right" onclick="revokePro()" style="display:none" id="cxxm_btn">撤销移交</span>
             </div>
             
             
@@ -88,7 +90,7 @@
             <div class="correlation">近期访谈记录
 				<span class="more null new_righ" id="view_more" style="cursor: pointer;" >more</span>
 			</div>
-            <div class="new_correlation_cen new_correlation_cen_con" id="near_view">
+            <div class="new_correlation_cen new_correlation_cen_con"  id="near_view">
             	<div class="no_con">
             		暂无访谈记录
             	</div>
@@ -103,6 +105,29 @@
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
+
+if('${fx:isTransfering(pid) }' == 'true')
+{
+	$('#fjxm_but').addClass("disabled");
+	$("#yjxm_btn").attr("style","display:none;");
+	if(isCreatedByUser == "true"){
+	  $("#cxxm_btn").attr("style","display:block;");
+	}else{
+	  $("#cxxm_btn").attr("style","display:block;");
+	  $("#cxxm_btn").addClass("disabled");
+	}
+		
+}else{
+	$('#fjxm_but').removeClass('disabled');
+	if(isCreatedByUser == "true"){
+	  $("#yjxm_btn").attr("style","display:block;");
+	}else{
+	  $("#yjxm_btn").attr("style","display:block;");
+	  $("#yjxm_btn").addClass("disabled");
+	}
+	$("#cxxm_btn").attr("style","display:none;");
+}
+
 
 if(!prograss){
 	prograss = 'projectProgress:0';
@@ -164,6 +189,8 @@ function toCheckShowIcon(){
 	}
 	if(len<3){
 		$("#meet_more").hide();
+	}else{
+		$("#meet_more").show();
 	}
 	//无访谈记录
 	var len=$("#near_view .new_b_bottom").length;
@@ -174,6 +201,8 @@ function toCheckShowIcon(){
 	}
 	if(len<3){
 		$("#view_more").hide();
+	}else{
+		$("#view_more").show();
 	}
 }
 
@@ -329,6 +358,9 @@ function formatNearMeet(meetList){
 
 
 function closePro(){
+	if($("#fjxm_but").hasClass('limits_gray')){
+		return;
+	}
 	layer.confirm('你确定要否决项目吗?', 
 			{
 			  btn: ['确定', '取消'] 
@@ -340,11 +372,29 @@ function closePro(){
 				
 			}
 		);
-	/*
-	if(confirm("确定要否决项目吗？")){
-		sendGetRequest(platformUrl.closeProject+proid,null,closeback);
-	} */
 }
+
+function transferPro(){
+	var _url=platformUrl.toProjectTransfer;
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			doSumbit(proid);
+		}//模版反回成功执行	
+	});
+}
+function revokePro(){
+	var _url=platformUrl.toRevokeProTransfer;
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			revokeTransfer(proid);
+		}//模版反回成功执行	
+	});
+}
+
 
 
 //关闭回调

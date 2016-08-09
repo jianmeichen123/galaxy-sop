@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.project.ProjectTransfer" >
+  <resultMap id="BaseResultMap" type="com.galaxyinternet.model.project.ProjectTransfer" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT" />
+    <result column="before_uid" property="beforeUid" jdbcType="BIGINT" />
+    <result column="before_department_id" property="beforeDepartmentId"/>
+    <result column="after_uid" property="afterUid" jdbcType="BIGINT" />
+    <result column="transfer_reason" property="transferReason" jdbcType="VARCHAR" />
+    <result column="after_department_id" property="afterDepartmentId" jdbcType="BIGINT" />
+    <result column="record_status" property="recordStatus"/>    
+    <result column="undo_reason" property="undoReason" jdbcType="VARCHAR" />    
+    <result column="refuse_reason" property="refuseReason" jdbcType="VARCHAR" />    
+    <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
+    <result column="created_time" property="createdTime" jdbcType="BIGINT" />   
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, 
+    project_id,
+     before_uid, 
+     before_department_id,
+     after_uid, 
+     after_department_id,
+      transfer_reason,
+       record_status,
+       undo_reason,
+       refuse_reason,
+       updated_time,
+       created_time
+  </sql>
+  
+  
+  
+  <sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+			   <if test="id != null"> and id =#{id}</if>
+			   <if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
+			   <if test="beforeUid != null" > and before_uid = #{beforeUid,jdbcType=BIGINT} </if>
+			   <if test="beforeDepartmentId != null" > and before_department_id = #{beforeDepartmentId,jdbcType=BIGINT} </if>
+			   <if test="afterUid != null" > and after_uid = #{afterUid,jdbcType=BIGINT} </if>
+			   <if test="afterDepartmentId != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
+		       <if test="recordStatus != null" > and record_status = #{recordStatus} </if>   
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id) from sop_transfer_record
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_transfer_record
+		<include refid="Base_Where_Clause" />
+	</select>
+
+
+	<!-- 查询 -->
+	<select id="selectColumnList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+           id, 
+           project_id,
+           before_uid, 
+           before_department_id,
+           after_uid,
+           after_department_id,
+           transfer_reason,
+           record_status,
+           undo_reason,
+           refuse_reason,
+           updated_time,
+           created_time
+		from sop_transfer_record
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_transfer_record where id = #{id}
+	</select>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectApplyRecord" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_transfer_record where project_id = #{pid} and record_status is null
+	</select>
+	
+  	<insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.galaxyinternet.model.project.Project" >
+	    <![CDATA[
+	     insert into sop_transfer_record (id,
+	      project_id,
+	      before_uid,
+	      before_department_id,
+	      after_uid,
+	      after_department_id,
+	      transfer_reason, 
+	      record_status,
+	      undo_reason,
+	      refuse_reason,
+	      updated_time,
+	      created_time)
+	    values
+	     (#{id,jdbcType=BIGINT},
+	      #{projectId,jdbcType=BIGINT},
+	      #{beforeUid,jdbcType=BIGINT},
+	      #{beforeDepartmentId},
+	      #{afterUid,jdbcType=BIGINT},
+          #{afterDepartmentId,jdbcType=BIGINT}, 
+          #{transferReason,jdbcType=VARCHAR}, 
+          #{recordStatus},
+          #{undoReason,jdbcType=VARCHAR}, 
+	      #{refuseReason,jdbcType=VARCHAR}, 
+	      #{updatedTime,jdbcType=BIGINT},
+	      #{createdTime,jdbcType=BIGINT})
+	    ]]>
+    </insert>
+    
+     <!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.project.Project">
+		update sop_transfer_record
+		<set>
+			    <if test="id != null"> id =#{id}, </if>
+			   <if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+			   <if test="beforeUid != null" > before_uid = #{beforeUid,jdbcType=BIGINT}, </if>
+			   <if test="beforeDepartmentId != null" > before_department_id = #{beforeDepartmentId,jdbcType=BIGINT}, </if>
+			   <if test="afterUid != null" > after_uid = #{afterUid,jdbcType=BIGINT}, </if>
+			   <if test="afterDepartmentId != null" > after_department_id = #{afterDepartmentId,jdbcType=BIGINT}, </if>
+		       <if test="transferReason != null" > transfer_reason = #{transferReason,jdbcType=VARCHAR}, </if>
+		       <if test="recordStatus != null" > record_status = #{recordStatus}, </if>   
+		       <if test="undoReason != null" > undo_reason = #{undoReason,jdbcType=VARCHAR}, </if>
+		       <if test="refuseReason != null" > refuse_reason = #{refuseReason,jdbcType=VARCHAR}, </if>
+		       <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+		       <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>				
+	</set>
+		<where>
+			<trim prefixOverrides="and">
+			       <if test="id != null"> and id =#{id}</if>
+			   <if test="projectId != null" > and project_id = #{projectId,jdbcType=BIGINT} </if>
+			   <if test="beforeUid != null" > and before_uid = #{beforeUid,jdbcType=BIGINT} </if>
+			   <if test="beforeDepartmentId != null" > and before_department_id = #{beforeDepartmentId,jdbcType=BIGINT} </if>
+			   <if test="afterUid != null" > and after_uid = #{afterUid,jdbcType=BIGINT} </if>
+			   <if test="afterDepartmentId != null" > and after_department_id = #{afterDepartmentId,jdbcType=BIGINT} </if>
+		       <if test="recordStatus != null" > and record_status = #{recordStatus} </if>		
+		       <if test="attachment != null" > and record_status is null </if>	
+            </trim>
+		</where>
+	</update>
+    <!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.project.Project">
+		update sop_transfer_record
+		<set>
+			    <if test="id != null"> id =#{id}, </if>
+			   <if test="projectId != null" > project_id = #{projectId,jdbcType=BIGINT}, </if>
+			   <if test="beforeUid != null" > before_uid = #{beforeUid,jdbcType=BIGINT}, </if>
+			   <if test="beforeDepartmentId != null" > before_department_id = #{beforeDepartmentId,jdbcType=BIGINT}, </if>
+			   <if test="afterUid != null" > after_uid = #{afterUid,jdbcType=BIGINT}, </if>
+			   <if test="afterDepartmentId != null" > after_department_id = #{afterDepartmentId,jdbcType=BIGINT}, </if>
+		       <if test="transferReason != null" > transfer_reason = #{transferReason,jdbcType=VARCHAR}, </if>
+		       <if test="recordStatus != null" > record_status = #{recordStatus}, </if>   
+		       <if test="undoReason != null" > undo_reason = #{undoReason,jdbcType=VARCHAR}, </if>
+		       <if test="refuseReason != null" > refuse_reason = #{refuseReason,jdbcType=VARCHAR}, </if>
+		       <if test="updatedTime != null" > updated_time = #{updatedTime,jdbcType=BIGINT}, </if>
+		       <if test="createdTime != null" > created_time = #{createdTime,jdbcType=BIGINT} </if>				
+	   </set>
+		where id = #{id}
+	</update>
+    
+    <!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_transfer_record
+		<include refid="Base_Where_Clause" />
+	</delete>
+     <!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_transfer_record where id = #{id}
+	</delete>	
+</mapper>

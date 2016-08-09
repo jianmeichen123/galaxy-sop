@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<classPathEntry
+		location="G:/xhhl/DB/mysql-connector-java-5.1.36.jar" />
+		
+    <context id="context1" targetRuntime="MyBatis3">
+        <jdbcConnection 
+			driverClass="com.mysql.jdbc.Driver" 
+			connectionURL="jdbc:mysql://10.9.11.232:3306/fx_db" 
+			userId="fxuser" 
+			password="fxdb_Fp9EPkG2"/>
+        <javaModelGenerator 
+			targetPackage="com.galaxyinternet.dao.sopfile" 
+			targetProject="galaxy-sop-api"/>
+        <sqlMapGenerator 
+        	targetPackage="com.galaxyinternet.dao.sopfile" 
+        	targetProject="galaxy-sop-api"/>
+        <javaClientGenerator 
+        	targetPackage="com.galaxyinternet.dao.sopfile" 
+        	targetProject="galaxy-sop-api" 
+        	type="XMLMAPPER"/>
+<!--         <table   -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_op_task_deal" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"> -->
+<!--         </table> -->
+<!--         <table  -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_v_task_detail_complet" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"></table> -->
+<!--          <table  -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_op_task_deal_detail" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"></table>  -->
+<!--          <table  -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_op_task_deal_rv" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"></table> -->
+<!--          <table  -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_job_record_info" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"></table> -->
+<!--          <table  -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_op_unify_plan_detail" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"></table> -->
+<!--          <table  -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_op_unify_deal" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"></table> -->
+<!--          <table  -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_op_task_deal_qa" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"></table> -->
+<!--          <table  -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_op_leader_inspect" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"></table> -->
+<!--          <table  -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_v_task_deal_check_level1" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"></table> -->
+<!--          <table  -->
+<!--         	schema=""   -->
+<!--         	tableName="dq_dic_job_guide_book_new" -->
+<!--         	enableCountByExample="false"   -->
+<!--             enableDeleteByExample="false"  -->
+<!--             enableSelectByExample="false"   -->
+<!--             enableUpdateByExample="false"></table> -->
+            <table 
+        	schema="fx_db"  
+        	tableName="sop_file"
+        	enableCountByExample="false"  
+            enableDeleteByExample="false" 
+            enableSelectByExample="false"  
+            enableUpdateByExample="false"></table>
+            
+    </context>
+</generatorConfiguration>

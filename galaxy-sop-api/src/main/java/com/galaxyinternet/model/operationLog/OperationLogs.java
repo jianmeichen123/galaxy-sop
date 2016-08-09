@@ -29,6 +29,8 @@ public class OperationLogs extends RecordEntity{
     
     private String sopstage;
     
+    private String reason;
+    
     /**
      * 0项目 1创意
     
@@ -138,7 +140,13 @@ public class OperationLogs extends RecordEntity{
 		this.sopstage = sopstage;
 	}
 
-	
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 
 	@Override
 	public String toString() {
@@ -147,6 +155,6 @@ public class OperationLogs extends RecordEntity{
 				+ operationType + ", operationTypeStr=" + operationTypeStr + ", projectId=" + projectId
 				+ ", projectName=" + projectName + ", operationContent=" + operationContent + ", operationContentStr="
 				+ operationContentStr + ", sopstage=" + sopstage + ", type=" + recordType + ", id=" + id + ", createdTime="
-				+ createdTime + "]";
+				+ createdTime + ", reason=" + reason +"]";
 	}
 }

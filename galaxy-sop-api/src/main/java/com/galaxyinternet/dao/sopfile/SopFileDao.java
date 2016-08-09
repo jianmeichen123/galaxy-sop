@@ -25,4 +25,10 @@ public interface SopFileDao extends BaseDao<SopFile, Long> {
 	 */
 	public List<Map<String,String>> queryProjectName(Map<String,Object> map);
 	
+	/**
+	 * 项目移交时修改文档部门ID
+	 */
+	int updateDepartmentId(SopFile f);
+	
+	
 }

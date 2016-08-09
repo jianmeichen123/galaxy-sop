@@ -1,6 +1,7 @@
 package com.galaxyinternet.model.soptask;
 
 import java.util.Date;
+import java.util.List;
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
@@ -20,9 +21,11 @@ public class SopTask extends PagableEntity{
      private Long departmentId;
      private Long assignUid;
      
-     
-     
-     
+    //report
+ 	private Long startTime; 
+ 	private Long endTime;
+ 	private List<Integer> taskFlagS;
+ 	private List<Long> projectIdList;
      
 	public Long getProjectId() {
 		return projectId;
@@ -85,12 +88,43 @@ public class SopTask extends PagableEntity{
 		this.remark = remark;
 	}
 	private String taskStatus;
+	private String queryTaskStatus;
      private String remark;
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}   
+	}
+	public Long getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(Long startTime) {
+		this.startTime = startTime;
+	}
+	public Long getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Long endTime) {
+		this.endTime = endTime;
+	}
+	public List<Integer> getTaskFlagS() {
+		return taskFlagS;
+	}
+	public void setTaskFlagS(List<Integer> taskFlagS) {
+		this.taskFlagS = taskFlagS;
+	}
+	public List<Long> getProjectIdList() {
+		return projectIdList;
+	}
+	public void setProjectIdList(List<Long> projectIdList) {
+		this.projectIdList = projectIdList;
+	}
+	public String getQueryTaskStatus() {
+		return queryTaskStatus;
+	}
+	public void setQueryTaskStatus(String queryTaskStatus) {
+		this.queryTaskStatus = queryTaskStatus;
+	}
     
 }
