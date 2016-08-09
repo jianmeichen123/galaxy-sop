@@ -315,8 +315,8 @@
 			<div class="block" data-tab="con" id="projectProgress_4_con">
 				<!--按钮-->
 				<div id="options_point4" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a id="add_lxhmeet" href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
-					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark">申请立项会排期</a>
+					<a id="add_lxhmeet" href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn option_item_mark toggle">添加会议记录</a>
+					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark toggle">申请立项会排期</a>
 					<a id="upload_lx_report" href="javascript:;" onclick="showLxUpload()" class="pubbtn fffbtn lpubbtn option_item_mark" style="display:none;">添加项目立项报告</a>
 				</div>
 				<table id="lx_report_table" >
@@ -816,11 +816,13 @@
 				}
 				else
 				{
+					console.log('show');
 					$("#upload_lx_report").show();
 				}
 			}
 	 	);
  	}
+ 	
  	initLxReportTable();
  	function lxReportFormatter(val,row,index)
  	{

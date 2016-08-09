@@ -1468,6 +1468,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	}
 	@ResponseBody
 	@RequestMapping(value="/upload")
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG)
 	public ResponseData<SopFile> upload(SopFile sopFile, HttpServletRequest request)
 	{
 		ResponseData<SopFile> data = new ResponseData<>();
@@ -1498,6 +1499,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			sopFile.setUpdatedTime(new Date().getTime());
 			sopFile.setFileUid(user.getId());
 			sopFile.setCareerLine(user.getDepartmentId());
+			UrlNumber urlNumber = null;
+			if(DictEnum.fileWorktype.立项报告.getCode().endsWith(sopFile.getFileWorktype()))
+			{
+				urlNumber = isInsert ? UrlNumber.one : UrlNumber.two;
+			}
 			if(isInsert)
 			{
 				sopFile.setCreatedTime(new Date().getTime());
@@ -1507,6 +1513,17 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			{
 				sopFileService.updateById(sopFile);
 			}
+			String projectName = null;
+			Long projectId = sopFile.getProjectId();
+			if(projectId != null)
+			{
+				Project project = projectService.queryById(projectId);
+				if(project != null)
+				{
+					projectName = project.getProjectName();
+				}
+			}
+			ControllerUtils.setRequestParamsForMessageTip(request, projectName, projectId, urlNumber);
 		}
 		catch (Exception e)
 		{

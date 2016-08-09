@@ -168,7 +168,7 @@ function info(id){
 							}
 						    tiggerTable($("#projectProgress_4_table"),3);
 						    if(index != '4'){
-						    	$("#options_point4").remove();
+						    	$("#options_point4 .toggle").remove();
 						    }else if(canUseBut){
 						    	$("#add_lxhmeet").remove();
 						    }

@@ -167,7 +167,10 @@ public enum OperationLogType {
 	//放弃创意
 	CY_EDIT_FQ_IDEA("/galaxy/idea/giveUp", OperType.UPDATE.getOperationType(), "创意",SopStage.CY_DRL.getStageName()),
 	//搁置阶段编辑创意
-	CY_EDIT_GZ_IDEA("/galaxy/idea/addIdea/"+UrlNumber.five, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_GZ.getStageName());
+	CY_EDIT_GZ_IDEA("/galaxy/idea/addIdea/"+UrlNumber.five, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_GZ.getStageName()),
+	
+	LX_REPORT_UPLOAD("/galaxy/sopFile/upload/"+UrlNumber.one, OperType.UPLOAD.getOperationType(), "项目立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
+	LX_REPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "项目立项报告",SopStage.PROJECT_SCHEDULE.getStageName());
 	
 
 
