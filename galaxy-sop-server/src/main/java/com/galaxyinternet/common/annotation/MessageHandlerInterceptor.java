@@ -327,9 +327,16 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		entity.setUname(user.getRealName());
 		entity.setDepartName(user.getDepartmentName());
 		entity.setUserDepartid(user.getDepartmentId());
-		entity.setSopstage(type.getSopstage());
+		boolean flag=(boolean)map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_NUM);
+		if(flag==true){
+			String sopstage=(String)map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_STAGE);
+			entity.setSopstage(sopstage);
+		}else{
+			entity.setSopstage(type.getSopstage());
+		}
 		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
 		entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
+		entity.setReason(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON)));
 		entity.setRecordType(recordType.getType());
 		return entity;
 	}

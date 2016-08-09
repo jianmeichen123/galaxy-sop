@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.galaxyinternet.bo.project.ProjectTransferBo;
 import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.dictEnum.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
@@ -116,7 +117,8 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			Long userid=projectTransfer.getAfterUid();
 			User u=userService.queryById(userid);
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_APPLY,
-					true,u,projectTransfer.getTransferReason());
+					true,u,projectTransfer.getTransferReason(),
+					DictEnum.getNameByCode(project.getProjectProgress()));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "项目移交失败!"));
 			if(_common_logger_.isErrorEnabled()){
@@ -158,7 +160,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			String undoReason=datas.get(0).getUndoReason();
 			User u=userService.queryById(userid);
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_REVOKE,
-					true,u,undoReason);
+					true,u,undoReason,DictEnum.getNameByCode(project.getProjectProgress()));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "撤销移交申请失败!"));
 			if(_common_logger_.isErrorEnabled()){
@@ -202,7 +204,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			String rejectReason=datas.get(0).getRefuseReason();
 			User u=userService.queryById(userid);
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_REFUSE,
-					true,u,rejectReason);
+					true,u,rejectReason,DictEnum.getNameByCode(project.getProjectProgress()));
 	
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "拒接项目失败!"));
@@ -244,7 +246,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			Long userid=datas.get(0).getAfterUid();
 			User u=userService.queryById(userid);
 			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_RECIVICE,
-					true,u,"");
+					true,u,"",DictEnum.getNameByCode(project.getProjectProgress()));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "接收项目失败!"));
 			if(_common_logger_.isErrorEnabled()){
