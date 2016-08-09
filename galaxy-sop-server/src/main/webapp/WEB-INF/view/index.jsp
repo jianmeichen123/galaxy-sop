@@ -56,34 +56,36 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 
 	<!--右侧-->
     <div class="rit rit_executive">
-        <acl:acl resourceMark="shedule_ceo">
-        <!--CEO评审排期  -->
-        <div class="top top_rit_executive"  id="ceo_cat">
-        	<!-- <b class="sj ico null">三角</b> -->
-        	<dl id="ceo_p">
-				<dt>CEO评审排期</dt>
-				<dd>
-					<table id="ceopsMeeting" width="100%" cellspacing="0"
-						cellpadding="0" class="index">
-						<thead>
-							<tr>
-								<th>序号</th>
-								<th>项目名称</th>
-								<th>上次过会时间</th>
-								<th>过会次数</th>
-							</tr>
-						</thead>
-						<tbody id="ceopsbodytop">
-						</tbody>
-					</table>
-				</dd>
-				<dd class="clearfix position" style='display:none'>
-					<!-- <a href="javascript:;" class="more null">more</a> -->
-					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
-				</dd>
-			</dl> 
+    	<div id="position_7">
+	        <acl:acl resourceMark="shedule_ceo">
+	        <!--CEO评审排期  -->
+	        <div class="top top_rit_executive"  id="ceo_cat">
+	        	<!-- <b class="sj ico null">三角</b> -->
+	        	<dl id="ceo_p">
+					<dt id="title_ceopq">CEO评审排期</dt>
+					<dd>
+						<table id="ceopsMeeting" width="100%" cellspacing="0"
+							cellpadding="0" class="index">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>项目名称</th>
+									<th>上次过会时间</th>
+									<th>过会次数</th>
+								</tr>
+							</thead>
+							<tbody id="ceopsbodytop">
+							</tbody>
+						</table>
+					</dd>
+					<dd class="clearfix position">
+						<!-- <a href="javascript:;" class="more null">more</a> -->
+						<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
+					</dd>
+				</dl> 
+			</div>
+			</acl:acl>
 		</div>
-		</acl:acl>
         <!--时间-->
         <div class="top"  resource-mark="shedule_list" style="height: 178px;display:none">
         	<b class="sj ico null">三角</b>
@@ -345,7 +347,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
-                
+            <div id="position_5">
+            	
+            </div>
             
 			
 			<acl:acl resourceMark="div_normal_tool">
@@ -437,7 +441,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 <script src="<%=path %>/js/indexProjectProgress.js" type="text/javascript"></script>
-
+<script src="<%=path %>/js/indexMsResource.js" type="text/javascript"></script>
 
 
 <!-- charts -->
@@ -446,6 +450,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <script src="<%=path %>/js/charts/indexKpi.js"></script>
 <script src="<%=path %>/js/charts/indexProjectDuration.js"></script>
 <script src="<%=path %>/js/charts/indexMatterPreview.js"></script>
+
 
 
 
@@ -471,6 +476,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			}
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 		
+		
+		
+		msResourceUtils.specialDeal();
 		
 		$.each(allResourceToUser, function(index, element){
 			 $('dl[resource-mark="' + element.resourceMark + '"]').css("display","block");

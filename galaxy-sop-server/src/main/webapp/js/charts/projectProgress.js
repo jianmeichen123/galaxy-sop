@@ -301,7 +301,7 @@ var chartProjectProgressUtils = {
 			    				url += "?forwardProgress=" + chartProjectProgressUtils.forwardParam.progressParam ;
 			    			}
 			    			forwardWithHeader(url);
-			    		})
+			    		});
 			    		//more 链接
 			    		$("#more_progress").click(function(){
 			    			forwardWithHeader(platformUrl.projectAnalysis);
