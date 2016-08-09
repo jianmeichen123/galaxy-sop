@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.project.ProjectTransferBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -22,8 +24,11 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectTransfer;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.operationMessage.handler.ProjectTransferMessageHandler;
+import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.ProjectTransferService;
+import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
@@ -39,6 +44,10 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	protected BaseService<ProjectTransfer> getBaseService() {
@@ -73,6 +82,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	/**
 	 * 项目移交
 	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.LOG,LogType.MESSAGE})
 	@ResponseBody
 	@RequestMapping(value = "/applyTransfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectTransfer> applyTransfer(@RequestBody ProjectTransfer projectTransfer,
@@ -103,6 +113,10 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			List<Long> ids = (List<Long>) cache.get(SopConstatnts.Redis._transfer_projects_key_);
 			responseBody.setResult(new Result(Status.OK,"200" , "项目移交成功!"));
 			_common_logger_.info(user.getRealName() + "移交项目成功[json]-" + projectTransfer);
+			Long userid=projectTransfer.getAfterUid();
+			User u=userService.queryById(userid);
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_APPLY,
+					true,u,projectTransfer.getTransferReason());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "项目移交失败!"));
 			if(_common_logger_.isErrorEnabled()){
@@ -116,6 +130,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	/**
 	 * 撤销项目移交
 	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.LOG,LogType.MESSAGE})
 	@ResponseBody
 	@RequestMapping(value = "/undoTransfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectTransfer> undoTransfer(@RequestBody ProjectTransfer projectTransfer,
@@ -126,6 +141,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			return responseBody;
 		}
 		try {
+			Project project=projectService.queryById(projectTransfer.getProjectId());
 			User user = (User) getUserFromSession(request);
 			List<ProjectTransfer> datas = projectTransferService.applyTransferData(projectTransfer.getProjectId());
 			if(datas == null || datas.isEmpty()){
@@ -138,6 +154,11 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			projectTransferService.undoProjectTransfer(transfer);
 			projectTransferService.removeTransferProjectFromRedis(cache, transfer.getProjectId());
 			_common_logger_.info(user.getRealName() + "撤销移交申请成功[json]-" + transfer);
+			Long userid=datas.get(0).getAfterUid();
+			String undoReason=datas.get(0).getUndoReason();
+			User u=userService.queryById(userid);
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_REVOKE,
+					true,u,undoReason);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "撤销移交申请失败!"));
 			if(_common_logger_.isErrorEnabled()){
@@ -151,6 +172,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	/**
 	 * 拒接项目移交
 	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.LOG,LogType.MESSAGE})
 	@ResponseBody
 	@RequestMapping(value = "/rejectTransfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectTransfer> rejectTransfer(@RequestBody ProjectTransfer projectTransfer,
@@ -161,6 +183,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			return responseBody;
 		}
 		try {
+			Project project=projectService.queryById(projectTransfer.getProjectId());
 			User user = (User) getUserFromSession(request);
 			List<ProjectTransfer> datas = projectTransferService.applyTransferData(projectTransfer.getProjectId());
 			if(datas == null || datas.isEmpty()){
@@ -175,6 +198,12 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			
 			List<Long> ids = (List<Long>) cache.get(SopConstatnts.Redis._transfer_projects_key_);
 			_common_logger_.info(user.getRealName() + "拒接项目成功[json]-" + transfer);
+			Long userid=datas.get(0).getAfterUid();
+			String rejectReason=datas.get(0).getRefuseReason();
+			User u=userService.queryById(userid);
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_REFUSE,
+					true,u,rejectReason);
+	
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "拒接项目失败!"));
 			if(_common_logger_.isErrorEnabled()){
@@ -189,6 +218,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 	/**
 	 * 接收项目移交
 	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.LOG,LogType.MESSAGE})
 	@ResponseBody
 	@RequestMapping(value = "/receiveTransfer", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ProjectTransfer> receiveTransfer(@RequestBody ProjectTransfer projectTransfer,
@@ -199,6 +229,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			return responseBody;
 		}
 		try {
+			Project project=projectService.queryById(projectTransfer.getProjectId());
 			User user = (User) getUserFromSession(request);
 			List<ProjectTransfer> datas = projectTransferService.applyTransferData(projectTransfer.getProjectId());
 			if(datas == null || datas.isEmpty()){
@@ -210,6 +241,10 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			projectTransferService.receiveProjectTransfer(transfer, transfer.getAfterUid(), user.getRealName(), transfer.getAfterDepartmentId());
 			projectTransferService.removeTransferProjectFromRedis(cache, transfer.getProjectId());
 			_common_logger_.info(user.getRealName() + "接收项目成功[json]-" + transfer);
+			Long userid=datas.get(0).getAfterUid();
+			User u=userService.queryById(userid);
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),ProjectTransferMessageHandler.MESSAGE_TYPE_RECIVICE,
+					true,u,"");
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,"err" , "接收项目失败!"));
 			if(_common_logger_.isErrorEnabled()){

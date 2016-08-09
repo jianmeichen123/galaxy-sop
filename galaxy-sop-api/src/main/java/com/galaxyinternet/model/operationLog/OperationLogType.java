@@ -170,8 +170,13 @@ public enum OperationLogType {
 	CY_EDIT_GZ_IDEA("/galaxy/idea/addIdea/"+UrlNumber.five, OperType.UPDATE.getOperationType(), "创意",SopStage.CY_GZ.getStageName()),
 	
 	LX_REPORT_UPLOAD("/galaxy/sopFile/upload/"+UrlNumber.one, OperType.UPLOAD.getOperationType(), "项目立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
-	LX_REPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "项目立项报告",SopStage.PROJECT_SCHEDULE.getStageName());
+	LX_REPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.two, OperType.UPDATE.getOperationType(), "项目立项报告",SopStage.PROJECT_SCHEDULE.getStageName()),
 	
+	APPLY_TRANSFER("/galaxy/projectTransfer/applyTransfer",OperType.APPLY.getOperationType(), "项目","移交项目"),
+	UNDO_TRANSFER("/galaxy/projectTransfer/undoTransfer",OperType.REVOKE.getOperationType(), "项目","撤销移交"),
+	REJECT_TRANSFER("/galaxy/projectTransfer/rejectTransfer",OperType.RECIEIVE.getOperationType(), "项目","接收项目"),
+	RECEIVE_TRANSFER("/galaxy/projectTransfer/receiveTransfer",OperType.REFUSE.getOperationType(), "项目","拒绝项目");
+
 
 
 	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/
