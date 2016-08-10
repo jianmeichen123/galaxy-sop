@@ -9,7 +9,7 @@
 	<div class="title_bj">添加项目立项报告</div>
 
 	<div class="fmdl clearfix ">
-		<dt style="width: 84px; text-align: right;">项目立项报告：</dt>
+		<dt style="width: 130px; text-align: right;">项目立项报告：</dt>
 		<dd>
 			<input type="text" name="fileName" class="txt pointer-events" />
 		</dd>
@@ -17,8 +17,8 @@
 			<a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">上传附件</a>
 		</dd>
 	</div>
-	<div>
-		<span style=" float:left; margin-right:25px;"><a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">保存</a></span>
+	<div style='margin-top:25px;'>
+		<span style=" float:left; margin-right:95px;"><a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">保存</a></span>
 		<span style=" float:left"><a href="javascript:;" class="pubbtn fffbtn" data-close="close" id="upload-close">取消</a></span>
 		<div  style=" width:100%; height:20px; overflow:hidden">&nbsp;</div>
 	</div>
