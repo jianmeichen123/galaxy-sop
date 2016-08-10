@@ -9,16 +9,19 @@
     max-height: 280px;
     overflow-y: auto;}
     </style>	
+    <div id="shedule_view">
     <table id="shecudle_list" width="100%" data-height="555" 
 				            	data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" >
 					  </table> 
 	
 	</table>
+	</div>
 	
 </div>
 
 <script type="text/javascript">
-
+var html='<table id="shecudle_list"  data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" ></table>';
+$("#shedule_view").html(html);
 $('#shecudle_list').bootstrapTable({
     url: platformUrl.shecudle_list, 
     dataType: "json",
