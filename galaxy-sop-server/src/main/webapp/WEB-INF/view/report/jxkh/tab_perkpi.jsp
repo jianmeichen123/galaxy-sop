@@ -171,11 +171,13 @@ $(function () {
         		var re = [];
     	   		var categories = [];
         		for(var i=0;i<data.length;i++){
-        			if(i==10){
+        			if(i>=10){
         				break;
+        			}else{
+        				re.push(data[i].completed);
+           	   			categories.push(data[i].realName);
         			}
-       	   			re.push(data[i].completed);
-       	   			categories.push(data[i].realName);
+       	   			
             	}
     	   		containerUserKpiOptions.series[0].data = re;
     	   		containerUserKpiOptions.xAxis.categories = categories;
