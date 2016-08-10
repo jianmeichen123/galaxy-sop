@@ -322,12 +322,12 @@
 				<table id="lx_report_table" >
 					<thead>
 						<tr>
-							<th data-field="fWorktype" data-align="center" >业务类型</th>
-							<th data-field="createdTime" data-align="center"  data-formatter="longTime_Format">创建日期</th>
-							<th data-field="fType" data-align="center" >存档类型</th>
-							<th data-field="updatedTime" data-align="center"  data-formatter="longTime_Format">更新日期</th>
-							<th data-field="fileStatusDesc" data-align="center">档案状态</th>
-							<th data-field="operateFile" data-align="center" data-formatter="lxReportFormatter">操作</th>
+							<th data-field="fWorktype" >业务类型</th>
+							<th data-field="createdTime"  data-formatter="longTime_Format">创建日期</th>
+							<th data-field="fType"  >存档类型</th>
+							<th data-field="updatedTime"  data-formatter="longTime_Format">更新日期</th>
+							<th data-field="fileStatusDesc" >档案状态</th>
+							<th data-field="operateFile"  data-formatter="lxReportFormatter">操作</th>
 						</tr>
 					</thead>
 				</table>
@@ -829,7 +829,7 @@
  	function lxReportFormatter(val,row,index)
  	{
  		var update = '<a href="#" class="blue" onclick="showLxUpload('+row.id+')">更新</a>';
- 		var download = '<a href="#" class="blue" onclick="filedown('+row.id+')">下载</a>';
+ 		var download = '<a href="#" class="blue" onclick="filedown('+row.id+')">查看</a>';
  		var del = '<a href="#" class="blue" style="display:none;" onclick="delLxReport('+row.id+')">删除</a>';
  		return update+"&nbsp;"+download+"&nbsp;"+del;
  	}

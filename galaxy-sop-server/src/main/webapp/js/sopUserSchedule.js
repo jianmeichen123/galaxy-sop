@@ -46,6 +46,7 @@ function loadAjaxSopUserSchedule(url){
 }
 //点击日程面板
 function shecudle(id){
+	alert(id)
 	$("#powindow").remove();
 	$("#popbg").remove();
 	$.getHtml({
@@ -61,5 +62,4 @@ function shecudle(id){
 		}
 			
 	});
-	return false;
 }
