@@ -318,7 +318,7 @@ $(function(){
 		var data=getUpdateData();
 		if(beforeSubmit()){
 			sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
-				layer.msg("修改项目基本信息项目成功!");
+				layer.msg("修改项目基本信息成功!");
 				window.location.reload();
 			});
 		}

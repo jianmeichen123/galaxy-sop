@@ -795,6 +795,7 @@
 				if(typeof(id) != 'undefined')
 				{
 					$("#lx_report_upload_form [name='id']").val(id);
+					$('.title_bj').html('更新项目立项报告')
 				}
 			}
 		});
