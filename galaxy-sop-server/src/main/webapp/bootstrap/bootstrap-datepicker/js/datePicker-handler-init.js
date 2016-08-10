@@ -70,10 +70,10 @@ var weekLimitnow = GetDateStr(-(nowTemp.getDay())+7);
 var weekLimit = GetDateStr(-(nowTemp.getDay()));
 
 
-function datePickerInitByHandler(){
+function datePickerInitByHandler(domid){
 
 	//日期视图
-	$('.datepicker').datepicker({
+	$("#"+domid).find('.datepicker').datepicker({
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
 	    autoclose: true,
@@ -98,7 +98,7 @@ function datePickerInitByHandler(){
 	    //startDate: '-3d',
 	    //endDate: '+3d'
 	});
-	$('.datepicker').datepicker("setDate",new Date());
+	$("#"+domid).find('.datepicker').datepicker("setDate",new Date());
 	//日期视图--限制选择当天之前的日期
 	$('.end-datepicker').datepicker({
 	    format: 'yyyy-mm-dd',
@@ -125,7 +125,7 @@ function datePickerInitByHandler(){
 	    //endDate: '+3d'
 	});
 	//日期视图--限制选择当天之后的日期
-	$('.start-datepicker').datepicker({
+	$("#"+domid).find('.start-datepicker').datepicker({
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
 	    autoclose: true,
@@ -149,10 +149,11 @@ function datePickerInitByHandler(){
 	    //startDate: '-3d',
 	    //endDate: '+3d'
 	});
-	$('.start-datepicker').datepicker("setDate",new Date());
+	$("#"+domid).find('.start-datepicker').datepicker("setDate",new Date());
 	//月份视图
-	$('.change_month').datepicker({
+	$("#"+domid).find('.change_month').datepicker({
 		format: "yyyy-mm",
+		language: "zh-CN",
 		minViewMode: 1,
 		autoclose: true,
 		endDate: dateLimit
@@ -169,7 +170,7 @@ function datePickerInitByHandler(){
 	function UTCDate(){
 		return new Date(Date.UTC.apply(Date, arguments));
 	}
-	$('#change_week').datepicker({
+	$("#"+domid).find('#change_week').datepicker({
 		language: "zh-CN",
 		format: "yyyy-mm-dd",
 		//weekStart: 1,
@@ -199,12 +200,12 @@ function datePickerInitByHandler(){
 		}
 	});
 	//默认周起始日期为周一，选中当周所有日期
-	$("#change_week").click(function(){
+	$("#"+domid).find("#change_week").click(function(){
 		$(".day.active").siblings(".day").addClass("active");;
 	});
 
 	//周区间选择
-	$('#week_start_calendar').datepicker({
+	$("#"+domid).find('#week_start_calendar').datepicker({
 		language: "zh-CN",
 		format: "yyyy-mm-dd",
 		//weekStart: 1,
@@ -232,11 +233,11 @@ function datePickerInitByHandler(){
 		}
 	});
 	//默认周起始日期为周一，选中当周所有日期
-	$("#week_start_calendar").click(function(){
+	$("#"+domid).find("#week_start_calendar").click(function(){
 		$(".day.active").siblings(".day").addClass("active");
 	});
 
-	$('#week_end_calendar').datepicker({
+	$("#"+domid).find('#week_end_calendar').datepicker({
 		language: "zh-CN",
 		format: "yyyy-mm-dd",
 		//weekStart: 1,
@@ -263,11 +264,11 @@ function datePickerInitByHandler(){
 			$('#week_end_calendar').html(date_start+"-"+date_end+" <b class=\"caret\"></b>");
 		}
 	});
-	$("#week_end_calendar").click(function(){
+	$("#"+domid).find("#week_end_calendar").click(function(){
 		$(".day.active").siblings(".day").addClass("active");;
 	});
 
-	$('#week_end_calendar_now').datepicker({
+	$("#"+domid).find('#week_end_calendar_now').datepicker({
 		language: "zh-CN",
 		format: "yyyy-mm-dd",
 		//weekStart: 1,
@@ -291,11 +292,11 @@ function datePickerInitByHandler(){
 		$('#week_end_calendar_now').attr('data-date',ev.date.format("yyyy-MM-dd"));
 		$('#week_end_calendar_now').html(date_start+"-"+date_end+" <b class=\"caret\"></b>");
 	});
-	$("#week_end_calendar_now").click(function(){
+	$("#"+domid).find("#week_end_calendar_now").click(function(){
 		$(".day.active").siblings(".day").addClass("active");;
 	});
 	//日期视图
-	$('.datepicker-text').datepicker({
+	$("#"+domid).find('.datepicker-text').datepicker({
 	    format: 'yyyy-mm-dd',
 	    language: "zh-CN",
 	    autoclose: true,

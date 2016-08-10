@@ -8,12 +8,11 @@ var code = "0";
  */
 var alertid="";
 var projectId;
+
 function info(id){
 	projectId = id;
 	var _url = Constants.sopEndpointURL + '/galaxy/ips';
 	alertid=id;
-	
-	
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
@@ -90,6 +89,7 @@ function info(id){
 							$("#add_ceomeet").remove();
 							$("#applyCeoMeeting").remove();
 						}
+						
 					}
 					if(i == 4){
 						if(hasClosed){
@@ -100,6 +100,7 @@ function info(id){
 						}else{
 							$("#add_lxhmeet").remove();
 						}
+						
 					}
 					if(i == 5){
 						tzyxs(0);
@@ -167,7 +168,7 @@ function info(id){
 							}
 						    tiggerTable($("#projectProgress_4_table"),3);
 						    if(index != '4'){
-						    	$("#options_point4").remove();
+						    	$("#options_point4 .toggle").remove();
 						    }else if(canUseBut){
 						    	$("#add_lxhmeet").remove();
 						    }
@@ -659,10 +660,12 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 				$("#voucherDiv").css("display","none");
 			}
 			if(fileWorkType=='fileWorktype:1'){
-				$('.title_bj').html('更新业务尽职调查报告')
+				$('.title_bj').html('更新业务尽职调查报告');
 			}
 			if(fileWorkType=='fileWorktype:5'){
-				$('.title_bj').html('更新投资意向书')
+				$('.title_bj').html('更新投资意向书');
+			}else{
+				$('.title_bj').html('更新上传文件');
 			}
 			$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
 			$("#fileType").val(fileType);
@@ -1156,6 +1159,7 @@ function selected(obj){
 			if(i == 1){
 				$("#voucherType").attr("disabled",true);
 				$("#voucherType").attr("checked","checked");
+				$('.title_bj').html('上传签署凭证');
 			}else{
 				$("#voucherDiv").css("display","none");
 				

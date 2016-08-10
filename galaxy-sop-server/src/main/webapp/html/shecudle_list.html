@@ -1,0 +1,113 @@
+<div class="title_bj">日程列表</div>
+<div class="margin_45" style='height:320px'>
+
+	<div class="top clearfix">
+        <a href="javascript:;" class="pubbtn bluebtn addbtn" onclick="shecudle()" style='background: #539be2 url(../img/btnico2.png) 15px -120px no-repeat;  padding: 0 0px 0 10px;'>新建</a>
+    </div>
+    <style>
+    .bootstrap-table .fixed-table-body{ width: 700px;
+    max-height: 280px;
+    overflow-y: auto;}
+    </style>	
+    <div id="shedule_view">
+
+
+	</div>
+	
+</div>
+
+<script type="text/javascript">
+var html='<table id="shecudle_list"  data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" ></table>';
+$("#shedule_view").html(html);
+$('#shecudle_list').bootstrapTable({
+    url: platformUrl.shecudle_list, 
+    dataType: "json",
+    pagination: true, //分页
+    search: false, //显示搜索框
+    pageList: [10,20,30],
+    queryParamsType: 'size|page',
+    queryParams:function(params){return params;},
+    sidePagination: "server", //服务端处理分页
+          columns: [
+			{
+			field: 'itemDateStr',
+			title: '处理日期'
+			}, {
+			field: 'itemType',
+			title: '事项类型',
+			formatter:function(value,row,index){ 
+             	if (row.itemType == 1) {
+        			return "个人";
+        		}else if (row.itemType == 0) {
+        			return "工作";
+        		}
+            }
+			}, {
+			field: 'itemOrder',
+			title: '优先级别',
+			formatter:function(value,row,index){ 
+             	if (row.itemOrder == 1) {
+        			return "紧急";
+        		}else if (row.itemOrder == 0) {
+        			return "正常";
+        		}
+			}
+			}, {
+			field: 'content',
+			title: '事项内容',
+			formatter:function(value,row,index){
+				var resetUrl = "<div class='widt_200'>"+value+"</div>";
+				return resetUrl;
+			}
+			}, {
+			field: 'editor',
+			title: '操作',
+			formatter:function(value,row,index){ 
+				var id = row.id;
+				var resetUrl = "<a class='blue' href='javascript:shecudle(" + id
+				+ ")'>编辑</a>&nbsp;<a class='blue' href='javascript:deleteRole(" + id
+				+ ")'>删除</a>";
+				return resetUrl;
+			}
+			}
+              ]
+      });
+//删除角色
+function deleteRole(id) {
+	var data = {
+			'id' : id
+	};	
+	layer.confirm('你确定要删除吗?', 
+		{
+		  btn: ['确定', '取消'] 
+		}, 
+		function(index, layero){
+			if(id){
+	    		sendGetRequest(platformUrl.deleteShedule+id,'',sheduleCallBack);
+	    	}
+		}, 
+		function(index){
+			
+		}
+	);
+} 
+//新建|修改|删除回调函数
+function sheduleCallBack(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		layer.msg("操作失败!");
+		return;
+	}
+	$("#powindow").remove();
+	$("#popbg").remove();
+	//alert(platformUrl.sheduleMoreThree)
+	loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
+	//<%request.removeAttribute("sheduleList");%>
+	//shecudle();
+	//shecudle();
+	
+	layer.closeAll('loading');
+	layer.msg("操作成功!");
+}
+
+</script>

@@ -3,9 +3,11 @@ package com.galaxyinternet.project.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+import com.galaxyinternet.bo.project.MeetingRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.framework.core.constants.SqlId;
@@ -66,4 +68,87 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 	}
 
 
+	
+	
+	
+	
+	
+	//=== report
+	
+	@Override
+	public List<Project> selectProjectReportForGg(ProjectBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectProjectReportForGg"),params);
+	}
+	
+	/**排序，不分页，手动分页*/
+	@Override
+	public List<Project> selectDeptAllProNumAndByType(ProjectBo query, Pageable pageable) {
+		return sqlSessionTemplate.selectList(getSqlName("selectDeptAllProNumAndByType"),getParams(query, pageable));
+	}
+	/**排序，不分页，手动分页*/
+	@Override
+	public List<Project> selectTzjlAllProNumAndByType(ProjectBo query, Pageable pageable) {
+		/*Map<String, Object> params = null;
+		if(pageable == null){
+			params = BeanUtils.toMap(query);
+		}else params = getParams(query, pageable);*/
+		return sqlSessionTemplate.selectList(getSqlName("selectTzjlAllProNumAndByType"),getParams(query, pageable));
+	}
+	
+	
+	@Override
+	public List<Project> selectUserProNumOrderByNum(ProjectBo query, Pageable pageable) {
+		return sqlSessionTemplate.selectList(getSqlName("selectUserProNumOrderByNum"),getParams(query, pageable));
+	}
+	@Override
+	public List<Project> selectDeptProNumOrderByNum(ProjectBo query, Pageable pageable) {
+		return sqlSessionTemplate.selectList(getSqlName("selectDeptProNumOrderByNum"),getParams(query, pageable));
+	}
+	
+	@Override
+	public List<Project> selectUserCompletedProNum(ProjectBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectUserCompletedProNum"),params);
+	}
+	@Override
+	public List<Project> selectDeptCompletedProNum(ProjectBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectDeptCompletedProNum"),params);
+	}
+	
+
+	@Override
+	public Long selectUserProNumRowCount(ProjectBo proQuery) {
+		Map<String, Object> params = BeanUtils.toMap(proQuery);
+		return sqlSessionTemplate.selectOne(getSqlName("selectUserProNumRowCount"),params);
+	}
+	
+	@Override
+	public Long selectDeptProNumRowCount(ProjectBo proQuery) {
+		Map<String, Object> params = BeanUtils.toMap(proQuery);
+		return sqlSessionTemplate.selectOne(getSqlName("selectDeptProNumRowCount"),params);
+	}
+
+	@Override
+	public List<Project> selectHasMeetProList(MeetingRecordBo query, Pageable pageable) {
+		
+		Map<String, Object> params = BeanUtils.toMap(query, getRowBounds(pageable));
+		if (pageable != null && pageable.getSort() != null) {
+			String sorting = pageable.getSort().toString();
+			params.put("sorting", sorting.replace(":", ""));
+			String str=(String)params.get("sorting");
+			if(str.contains("---")){
+				params.put("sorting", str.replace("---", ":"));
+			}
+		}
+		return sqlSessionTemplate.selectList(getSqlName("selectHasMeetProList"),params);
+	}
+	
+	
+	@Override
+	public List<Project> selectColumnList(ProjectBo query) {
+		Map<String, Object> params = BeanUtils.toMap(query);
+		return sqlSessionTemplate.selectList(getSqlName("selectColumnList"),params);
+	}
 }

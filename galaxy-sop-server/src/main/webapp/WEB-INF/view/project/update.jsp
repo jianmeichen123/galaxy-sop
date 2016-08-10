@@ -438,6 +438,8 @@
         </div>
         <!-- 关闭按钮 -->
         <a href="javascript:;" class="pubbtn fffbtn close"  onclick="closePro()" >否决项目</a>
+        <a href="javascript:;" class="pubbtn fffbtn close"  onclick="closePro()" >项目</a>
+        
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>

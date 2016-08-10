@@ -12,11 +12,9 @@ import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.service.BaseService;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.sopfile.SopVoucherFile;
-import com.galaxyinternet.model.soptask.SopTask;
 
 /**
  * @author zhongliangzhang
@@ -95,4 +93,10 @@ public interface SopFileService extends BaseService<SopFile> {
 	 */
 	public void downloadBatch(HttpServletRequest request,HttpServletResponse response,String tempfilePath,String type,List<SopDownLoad> downloadEntityList) throws Exception;
 	
+	
+	
+	/**
+	 * 项目移交时修改文档部门ID
+	 */
+	int updateDepartmentId(SopFile f);
 }

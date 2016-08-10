@@ -265,101 +265,7 @@
 	$.fn.tabchange = function(options){
 		if($(this).length==0) return false;
 		var opts = $.extend({
-			//defaultnum:0,
-			onClass:"on",
-			eventType:"click",
-			movetime:300,
-			onchangeSuccess:function(data){}
-		},options);
-		function tab(t){
-			this.nav = t.find("[data-tab='nav']");
-			this.onclass = opts.onClass;
-			this.con = t.find("[data-tab='con']");
-			this.suffix = t.find("[data-tab='suffix']");
-			this.num = opts.defaultnum;
-			this.time = opts.movetime;
-		};
-		tab.prototype = {
-			seton : function(){
-				var _this = this;
-				_this.nav.removeClass(_this.onclass);
-				_this.con.hide();
-				_this.nav.eq(_this.num).addClass(_this.onclass);
-				_this.con.eq(_this.num).show();	
-				_this.setsuffix();
-			},
-			setsuffix : function(n){
-				if(this.suffix.length==0) return false;
-				var _this = this,
-					_width = _this.suffix.width();;
-				_this.suffix.stop(true).animate({
-					"left" : _width*this.num	
-				},_this.time);
-			}
-		};
-		return $(this).each(function() {
-            var $this = $(this);
-			var obj = new tab($this);
-			obj.seton();
-			//事件执行
-			obj.nav.on(opts.eventType,function(){
-				obj.num = $(this).index();
-				obj.seton();
-				opts.onchangeSuccess.apply(this,[obj.num]);
-			});
-        });
-	};	
-	$.fn.tabchange5 = function(options){
-		if($(this).length==0) return false;
-		var opts = $.extend({
-			//defaultnum:0,
-			onClass:"on",
-			eventType:"click",
-			movetime:300,
-			onchangeSuccess:function(data){}
-		},options);
-		function tab(t){
-			this.nav = t.find("[data-tab='nav']");
-			this.onclass = opts.onClass;
-			this.con = t.find("[data-tab='con']");
-			this.suffix = t.find("[data-tab='suffix']");
-			this.num = opts.defaultnum;
-			this.time = opts.movetime;
-		};
-		tab.prototype = {
-			seton : function(){
-				var _this = this;
-				_this.nav.removeClass(_this.onclass);
-				_this.con.hide();
-				_this.nav.eq(_this.num).addClass(_this.onclass);
-				_this.con.eq(_this.num).show();	
-				_this.setsuffix();
-			},
-			setsuffix : function(n){
-				if(this.suffix.length==0) return false;
-				var _this = this,
-					_width = _this.suffix.width();;
-				_this.suffix.stop(true).animate({
-					"left" : _width*this.num	
-				},_this.time);
-			}
-		};
-		return $(this).each(function() {
-            var $this = $(this);
-			var obj = new tab($this);
-			obj.seton();
-			//事件执行
-			obj.nav.on(opts.eventType,function(){
-				obj.num = $(this).index();
-				obj.seton();
-				opts.onchangeSuccess.apply(this,[obj.num]);
-			});
-        });
-	};	
-	$.fn.tabchange2 = function(options){
-		if($(this).length==0) return false;
-		var opts = $.extend({
-			defaultnum:0,
+			//defaultnum:0,   // report no ‘//’
 			onClass:"on",
 			eventType:"click",
 			movetime:300,
@@ -448,7 +354,196 @@
 			});
         });
 	};	
-
+	$.fn.tabchange2 = function(options){
+		if($(this).length==0) return false;
+		var opts = $.extend({
+			defaultnum:0,
+			onClass:"on",
+			eventType:"click",
+			movetime:300,
+			onchangeSuccess:function(data){}
+		},options);
+		function tab(t){
+			this.nav = t.find("[data-tab='nav']");
+			this.onclass = opts.onClass;
+			this.con = t.find("[data-tab='con']");
+			this.suffix = t.find("[data-tab='suffix']");
+			this.num = opts.defaultnum;
+			this.time = opts.movetime;
+		};
+		tab.prototype = {
+			seton : function(){
+				var _this = this;
+				_this.nav.removeClass(_this.onclass);
+				_this.con.hide();
+				_this.nav.eq(_this.num).addClass(_this.onclass);
+				_this.con.eq(_this.num).show();	
+				_this.setsuffix();
+			},
+			setsuffix : function(n){
+				if(this.suffix.length==0) return false;
+				var _this = this,
+					_width = _this.suffix.width();;
+				_this.suffix.stop(true).animate({
+					"left" : _width*this.num	
+				},_this.time);
+			}
+		};
+		return $(this).each(function() {
+            var $this = $(this);
+			var obj = new tab($this);
+			obj.seton();
+			//事件执行
+			obj.nav.on(opts.eventType,function(){
+				obj.num = $(this).index();
+				obj.seton();
+				opts.onchangeSuccess.apply(this,[obj.num]);
+			});
+        });
+	};
+	$.fn.tabchange3 = function(options){
+		if($(this).length==0) return false;
+		var opts = $.extend({
+			defaultnum:1,
+			onClass:"on",
+			eventType:"click",
+			movetime:300,
+			onchangeSuccess:function(data){}
+		},options);
+		function tab(t){
+			this.nav = t.find("[data-tab='nav']");
+			this.onclass = opts.onClass;
+			this.con = t.find("[data-tab='con']");
+			this.suffix = t.find("[data-tab='suffix']");
+			this.num = opts.defaultnum;
+			this.time = opts.movetime;
+		};
+		tab.prototype = {
+			seton : function(){
+				var _this = this;
+				_this.nav.removeClass(_this.onclass);
+				_this.con.hide();
+				_this.nav.eq(_this.num).addClass(_this.onclass);
+				_this.con.eq(_this.num).show();	
+				_this.setsuffix();
+			},
+			setsuffix : function(n){
+				if(this.suffix.length==0) return false;
+				var _this = this,
+					_width = _this.suffix.width();;
+				_this.suffix.stop(true).animate({
+					"left" : _width*this.num	
+				},_this.time);
+			}
+		};
+		return $(this).each(function() {
+            var $this = $(this);
+			var obj = new tab($this);
+			obj.seton();
+			//事件执行
+			obj.nav.on(opts.eventType,function(){
+				obj.num = $(this).index();
+				obj.seton();
+				opts.onchangeSuccess.apply(this,[obj.num]);
+			});
+        });
+	};
+	$.fn.tabchange5 = function(options){
+		if($(this).length==0) return false;
+		var opts = $.extend({
+			//defaultnum:0,
+			onClass:"on",
+			eventType:"click",
+			movetime:300,
+			onchangeSuccess:function(data){}
+		},options);
+		function tab(t){
+			this.nav = t.find("[data-tab='nav']");
+			this.onclass = opts.onClass;
+			this.con = t.find("[data-tab='con']");
+			this.suffix = t.find("[data-tab='suffix']");
+			this.num = opts.defaultnum;
+			this.time = opts.movetime;
+		};
+		tab.prototype = {
+			seton : function(){
+				var _this = this;
+				_this.nav.removeClass(_this.onclass);
+				_this.con.hide();
+				_this.nav.eq(_this.num).addClass(_this.onclass);
+				_this.con.eq(_this.num).show();	
+				_this.setsuffix();
+			},
+			setsuffix : function(n){
+				if(this.suffix.length==0) return false;
+				var _this = this,
+					_width = _this.suffix.width();;
+				_this.suffix.stop(true).animate({
+					"left" : _width*this.num	
+				},_this.time);
+			}
+		};
+		return $(this).each(function() {
+            var $this = $(this);
+			var obj = new tab($this);
+			obj.seton();
+			//事件执行
+			obj.nav.on(opts.eventType,function(){
+				obj.num = $(this).index();
+				obj.seton();
+				opts.onchangeSuccess.apply(this,[obj.num]);
+			});
+        });
+	};	
+	//日期和时间
+	$.fn.today = function(options){
+		if($(this).length==0){return false;}
+		var $this = $(this);
+		var opts = $.extend({
+			time:".time",
+			date:".date"	
+		},options);
+		var _time = $this.find(opts.time),
+			_date = $this.find(opts.date);
+		function checkTime(i){
+		  if(i<10){i="0"+ i}
+		  return i
+		}
+		function week(i){
+			switch(i){
+				case 0:
+					return "周末";
+				break;	
+				case 1:
+					return "周一";
+				break;	
+				case 2:
+					return "周二";
+				break;	
+				case 3:
+					return "周三";
+				break;	
+				case 4:
+					return "周四";
+				break;	
+				case 5:
+					return "周五";
+				break;	
+				case 6:
+					return "周六";
+				break;	
+			}	
+		}
+		function getdate(){
+			var nowDate  = new Date(),
+				nyr = nowDate.getFullYear()+"年"+(nowDate.getMonth()+1)+"月"+nowDate.getDate()+"日&nbsp;"+week(nowDate.getDay()),
+				sfm = checkTime(nowDate.getHours())+":"+checkTime(nowDate.getMinutes())+":"+checkTime(nowDate.getSeconds());
+			_time.html(sfm);
+			_date.html(nyr);
+			window.setTimeout(getdate,500);
+		}
+		getdate();
+	};		
 	//柱状图
 	$.fn.histogram = function(){
 		if($(this).length==0){ return false}
@@ -523,7 +618,7 @@
 			obj.init();
 		});
 	};
-	/*获取html模版弹窗*/
+	/*获取html模版弹窗
 	$.getHtml = function(options){
 		var opts = $.extend({
 			url:"",//模版请求地址
@@ -537,12 +632,12 @@
 					dataType:"html",
 					url:opts.url,
 					beforeSend : function(xhr) {
-						/** 锁定滚动条*/
+						//锁定滚动条
 						$(document.body).css({
 						   "overflow-x":"hidden",
 						   "overflow-y":"hidden"
 						 });
-						/**清楚浏览器缓存**/
+						//清楚浏览器缓存
 						xhr.setRequestHeader("If-Modified-Since","0"); 
 						xhr.setRequestHeader("Cache-Control","no-cache");
 						if (sessionId) {
@@ -567,6 +662,49 @@
 		//拉取静态模版
 		$.popup(opts);
 	};
+	*/
+	//====report
+	$.getHtml = function(options){
+		var opts = $.extend({
+			url:"",//模版请求地址
+			data:"",//传递参数
+			okback:function(){}//模版反回成功执行	
+		},options);
+		//拉取静态模版
+		$.popup({
+			showback:function(){
+				var _this = this;
+				$.ajax({
+					type:"GET",
+					data:opts.data,
+					dataType:"html",
+					url:opts.url,
+					beforeSend : function(xhr) {
+						/**清楚浏览器缓存**/
+						xhr.setRequestHeader("If-Modified-Since","0"); 
+						xhr.setRequestHeader("Cache-Control","no-cache");
+						if (sessionId) {
+							xhr.setRequestHeader("sessionId", sessionId);
+						}
+						if(userId){
+							xhr.setRequestHeader("guserId", userId);
+						}
+					},
+					success:function(html){
+						$(_this.id).find(".poptxt").html(html);
+						opts.okback(_this);
+						//重新定位
+						_this.postionEve();
+					},
+					error:function(){
+						alert("网络错误")
+					}	
+				})
+			}	
+		});
+	};
+	
+	
 	/*
 		日期{
 			stamp:当前时间戳

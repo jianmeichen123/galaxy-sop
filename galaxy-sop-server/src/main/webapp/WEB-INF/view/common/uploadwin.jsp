@@ -52,7 +52,7 @@
      <dl class="fmdl clearfix">
     	<dt>文档上传：</dt>
         <dd>
-        	<input type="text" class="txt" id="win_fileTxt"/>
+        	<input type="text" class="txt" id="win_fileTxt" readonly="readonly"/>
         </dd>
         <dd> <a href="javascript:;" class="pubbtn fffbtn" id="win_selectBtn">选择档案</a></dd>
     </dl>  

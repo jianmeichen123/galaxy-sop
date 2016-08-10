@@ -17,12 +17,13 @@
     <result column="operation_content" property="operationContent" jdbcType="VARCHAR" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
     <result column="record_type"  property="recordType" jdbcType="TINYINT" />
+    <result column="reason"  property="reason" jdbcType="VARCHAR" />
   </resultMap>
   
   
   <sql id="Base_Column_List" >
     id, uid, uname, user_roleId, user_role, user_departId, depart_name, operation_type, 
-    project_id, project_name,sop_stage, operation_content, created_time,record_type
+    project_id, project_name,sop_stage, operation_content, created_time,record_type,reason
   </sql>
   
   
@@ -50,6 +51,7 @@
 					</foreach>
 				</if>
 				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
+				<if test="reason != null" >and reason = #{reason,jdbcType=VARCHAR} </if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->
 			</trim>
@@ -87,13 +89,13 @@
 		    insert into sop_operation_logs (id, uid, uname, 
 		      user_roleId, user_role, user_departId, 
 		      depart_name, operation_type, project_id, 
-		      project_name, sop_stage, operation_content, created_time,record_type
+		      project_name, sop_stage, operation_content, created_time,record_type,reason
 		      )
 		    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{uname,jdbcType=VARCHAR}, 
 		      #{userRoleid,jdbcType=BIGINT}, #{userRole,jdbcType=VARCHAR}, #{userDepartid,jdbcType=BIGINT}, 
 		      #{departName,jdbcType=VARCHAR}, #{operationType,jdbcType=VARCHAR}, #{projectId,jdbcType=BIGINT}, 
 		      #{projectName,jdbcType=VARCHAR}, #{sopstage,jdbcType=VARCHAR},#{operationContent,jdbcType=VARCHAR}, 
-		      #{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT}
+		      #{createdTime,jdbcType=BIGINT},#{recordType,jdbcType=TINYINT}, #{reason,jdbcType=VARCHAR}
 		      )
 	    ]]>
     </insert>
@@ -113,7 +115,8 @@
 		  <if test="projectId != null" >project_id = #{projectId,jdbcType=BIGINT}, </if>
 		  <if test="projectName != null" >project_name = #{projectName,jdbcType=VARCHAR}, </if>
 		  <if test="sopstage != null" >sop_stage = #{sopstage,jdbcType=VARCHAR}, </if>
-		  <if test="operationContent != null" >operation_content = #{operationContent,jdbcType=VARCHAR} </if>
+		  <if test="operationContent != null" >operation_content = #{operationContent,jdbcType=VARCHAR}, </if>
+		  <if test="reason != null" >reason = #{reason,jdbcType=VARCHAR} </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -131,6 +134,7 @@
 				  <if test="operationContent != null" >and operation_content = #{operationContent,jdbcType=VARCHAR} </if>
 				  <if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
 				  <if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
+				   <if test="reason != null" >reason = #{reason,jdbcType=VARCHAR}</if>
 			</trim>
 		</where>
 	</update>
@@ -151,6 +155,7 @@
 		  <if test="sopstage != null" >sop_stage = #{sopstage,jdbcType=VARCHAR}, </if>
 		  <if test="operationContent != null" >operation_content = #{operationContent,jdbcType=VARCHAR}, </if>
 		  <if test="recordType != null"> record_type = #{recordType,jdbcType=TINYINT},</if>
+		  <if test="reason != null" >reason = #{reason,jdbcType=VARCHAR}, </if>
 		</set>
 		where id = #{id}
 	</update>

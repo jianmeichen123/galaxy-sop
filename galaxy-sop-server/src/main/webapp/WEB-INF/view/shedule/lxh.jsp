@@ -321,8 +321,8 @@
 			var options = {
 				"singleDatePicker": false,
 				"showDropdowns": true,
-				"showWeekNumbers": true,
-				"showISOWeekNumbers": true,
+				"showWeekNumbers": false,
+				"showISOWeekNumbers": false,
 				"timePicker": true,
 				"timePicker24Hour": true,
 				"timePickerIncrement": 5,

@@ -20,4 +20,14 @@
 		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
 		<function-signature>boolean inOwnDepart(java.lang.String, java.lang.Long)</function-signature>
 	</function>
+	<function>
+		<name>isTransfering</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>boolean isTransfering(java.lang.Long)</function-signature>
+	</function>
+	<function>
+		<name>getTransferingPids</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>java.lang.String getTransferingPids()</function-signature>
+	</function>
 </taglib>

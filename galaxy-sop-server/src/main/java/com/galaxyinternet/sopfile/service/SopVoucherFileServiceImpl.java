@@ -20,4 +20,9 @@ public class SopVoucherFileServiceImpl extends BaseServiceImpl<SopVoucherFile> i
 		return this.sopVoucherFileDao;
 	}
 
+	@Override
+	public int updateDepartmentId(SopVoucherFile f) {
+		return sopVoucherFileDao.updateDepartmentId(f);
+	}
+
 }

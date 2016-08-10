@@ -77,4 +77,6 @@ public interface SopConstant {
 	public static final String SESSION_SCOPE_ATTR_CUR_MENU 	= "_curr_menu_";
 	
 	
+	
+	
 }

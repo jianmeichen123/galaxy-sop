@@ -63,14 +63,26 @@
 			var i=0;
 			$(list).each(function(){
 				 var templ = $(this)[0];
+				 var _td;
+				 sendGetRequest(platformUrl.judgeRole + "/" + templ.projectId, null,function(data){
+					if(data.result.status!="OK"){
+						return false;
+					}
+					if(data.result.message=="show"){
+						_td = '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>';
+					}else{
+						_td = '<td  title="'+ getValue(templ.projectName)+'" class="cutstr">'+ getValue(templ.projectName) +'</td>';
+					}
+				 });
 				 i=i+1;
 				 var tr='<tr>'+
 					 '<td>'+i+'</td>'+
-					 '<td class="cutstr" title="'+getValue((templ.projectName))+'">'+ getValue((templ.projectName))+'</td>'+
+					 _td+
 					 '<td>'+ getDateValue(templ.meetingDate)+'</td>'+
 					 '<td>'+getIntegerValue(templ.meetingCount)+'</td>'+
 					' </tr>'; 
 				 tbodyList.append(tr);
+				 
 			  });
 			cutStr(10,'cutstr');
 		}		

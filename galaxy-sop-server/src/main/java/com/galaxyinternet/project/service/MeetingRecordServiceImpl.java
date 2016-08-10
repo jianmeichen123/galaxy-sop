@@ -577,6 +577,7 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 			for(SopFile sopFile : oldFileList){
 				oldFileIds.add(sopFile.getId());
 			}
+
 			//删除的文件ID列表
 			List<Long> deleteFileIds = getDeleteFileIds(oldFileIds, fileIds);
 			SopFile query = new SopFile();
@@ -595,7 +596,8 @@ public class MeetingRecordServiceImpl extends BaseServiceImpl<MeetingRecord> imp
 				sopFileDao.deleteByIdInBatch(deleteFileIds);
 			}
 			
-			
+			/*List<Long> deleteFileIds = getDeleteFileIds(oldFileIds, fileIds);
+			sopFileDao.deleteByIdInBatch(deleteFileIds);*/
 		}	
 		if(sopFileList!=null && !sopFileList.isEmpty()){
 			Project project = projectDao.selectById(projectId);

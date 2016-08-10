@@ -2,6 +2,8 @@
 <%
 	String path = request.getContextPath();
 %>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <style>
 .bars{display:none;}
@@ -232,7 +234,7 @@
 			<div class="block" data-tab="con" id="projectProgress_1_con">
 				<!--按钮-->
 				<div id="options_point1" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="#" data-btn="interview" onclick="air(1);" class="pubbtn fffbtn lpubbtn option_item_mark">添加访谈记录</a>
+					<a href="#" id="limitInterview" data-btn="interview" onclick="air(1);" class="pubbtn fffbtn lpubbtn option_item_mark">添加访谈记录</a>
 					<a href="javascript:startReview();" id="qdnbps" class="pubbtn fffbtn lpubbtn option_item_mark">启动内部评审</a>
 				</div>
 				<div id="projectProgress_1_table_custom-toolbar">
@@ -259,7 +261,7 @@
 
 				<!--按钮-->
 				<div id="options_point2" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="addMettingRecord(2,'meetingType:1')" data-btn="interview" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
+					<a href="javascript:;" onclick="addMettingRecord(2,'meetingType:1')" id="addMeeting" data-btn="interview" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
 				</div>
 				<div id="projectProgress_2_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
@@ -313,10 +315,22 @@
 			<div class="block" data-tab="con" id="projectProgress_4_con">
 				<!--按钮-->
 				<div id="options_point4" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a id="add_lxhmeet" href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn option_item_mark">添加会议记录</a>
-					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark">申请立项会排期</a>
+					<a id="add_lxhmeet" href="javascript:;" onclick="addMettingRecord(4,'meetingType:3')" class="pubbtn fffbtn lpubbtn option_item_mark toggle">添加会议记录</a>
+					<a id="reset_btn" href="javascript:;" onclick="toLxmeetingPool()" class="pubbtn fffbtn lpubbtn option_item_mark toggle">申请立项会排期</a>
+					<a id="upload_lx_report" href="javascript:;" onclick="showLxUpload()" class="pubbtn fffbtn lpubbtn option_item_mark" style="display:none;">添加项目立项报告</a>
 				</div>
-
+				<table id="lx_report_table" >
+					<thead>
+						<tr>
+							<th data-field="fWorktype" data-align="center" >业务类型</th>
+							<th data-field="createdTime" data-align="center"  data-formatter="longTime_Format">创建日期</th>
+							<th data-field="fType" data-align="center" >存档类型</th>
+							<th data-field="updatedTime" data-align="center"  data-formatter="longTime_Format">更新日期</th>
+							<th data-field="fileStatusDesc" data-align="center">档案状态</th>
+							<th data-field="operateFile" data-align="center" data-formatter="lxReportFormatter">操作</th>
+						</tr>
+					</thead>
+				</table>
 				<div id="projectProgress_4_table_custom-toolbar">
 					<input type="hidden" name="projectId" value="">
 					<input type="hidden" name=meetingType value="meetingType:3">
@@ -447,6 +461,7 @@
 							<th data-field="operationType" >动作</th>
 							<th data-field="operationContent" >对象</th>
 							<th data-field="projectName"  >项目</th>
+							<th data-field="reason"  >原因</th>
 							<th data-field="sopstage"  >业务</th>
 						</tr>
 					</thead>
@@ -466,8 +481,9 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script>
-	//盒子展开隐藏
-	getTabPersonforP();
+     var projectId = alertid;
+	 //盒子展开隐藏
+	 getTabPersonforP();
 	 getTabShareforP();
 	 	
  	function getTabPersonforP(){
@@ -768,4 +784,74 @@
  			return result;
  		}
 	}
+ 	
+ 	//立项报告上传
+ 	function showLxUpload(id)
+ 	{
+ 		$.getHtml({
+			url:platformUrl.showLxReportUpload,
+			okback:function(){
+				$("#lx_report_upload_form [name='projectId']").val(alertid);
+				if(typeof(id) != 'undefined')
+				{
+					$("#lx_report_upload_form [name='id']").val(id);
+				}
+			}
+		});
+ 	}
+ 	$("#lx_report_table").bootstrapTable();
+ 	function initLxReportTable()
+ 	{
+ 		$("#lx_report_table").bootstrapTable('removeAll');
+	 	sendPostRequestByJsonObj(
+			platformUrl.queryFile, 
+			{
+				projectId:alertid,
+				fileWorktype:"fileWorktype:17"
+			}, 
+			function(data){
+				if(data.entityList.length>0)
+				{
+					$("#lx_report_table").bootstrapTable('load', data.entityList);
+					$("#upload_lx_report").hide();
+				}
+				else
+				{
+					console.log('show');
+					$("#upload_lx_report").show();
+				}
+			}
+	 	);
+ 	}
+ 	
+ 	initLxReportTable();
+ 	function lxReportFormatter(val,row,index)
+ 	{
+ 		var update = '<a href="#" class="blue" onclick="showLxUpload('+row.id+')">更新</a>';
+ 		var download = '<a href="#" class="blue" onclick="filedown('+row.id+')">下载</a>';
+ 		var del = '<a href="#" class="blue" style="display:none;" onclick="delLxReport('+row.id+')">删除</a>';
+ 		return update+"&nbsp;"+download+"&nbsp;"+del;
+ 	}
+ 	function delLxReport(id)
+ 	{
+ 		layer.confirm("确定删除？",function(i){
+ 			layer.close(i);
+ 			sendPostRequestByJsonObj(
+ 				platformUrl.delFile+"?id="+id,
+ 				{},
+ 				function(data){
+ 					if(data.result.status=='OK')
+					{
+						layer.msg("删除成功");
+						initLxReportTable();
+					}
+ 					else
+					{
+						layer.msg("删除失败。");
+					}
+ 				}
+ 			);
+ 		});
+ 	}
+ 
 </script>

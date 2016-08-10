@@ -12,7 +12,6 @@ java.util.Map<String, String> map = new com.google.gson.Gson().fromJson(endpoint
 String reportEndpoint = map.get("galaxy.project.report.endpoint");
 
 %>
-
 <!doctype html>
 <html>
 <head>
@@ -37,7 +36,12 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <script src="<%=path%>/js/index.js" type="text/javascript"></script>
 <link href="<%=path %>/css/calendar.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="<%=path %>/js/calendarnew.js"></script>
+
+
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
+<script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
+
+
 <script src="<%=path %>/js/time.js" type="text/javascript"></script>
 </head>
 
@@ -46,10 +50,44 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <jsp:include page="./common/header.jsp" flush="true"></jsp:include>
 
 <div class="pagebox clearfix">
+
+
+
+
 	<!--右侧-->
-    <div class="rit">
+    <div class="rit rit_executive">
+    	<div id="position_7">
+	        <acl:acl resourceMark="shedule_ceo">
+	        <!--CEO评审排期  -->
+	        <div class="top top_rit_executive"  id="ceo_cat">
+	        	<!-- <b class="sj ico null">三角</b> -->
+	        	<dl id="ceo_p">
+					<dt id="title_ceopq">CEO评审排期</dt>
+					<dd>
+						<table id="ceopsMeeting" width="100%" cellspacing="0"
+							cellpadding="0" class="index">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>项目名称</th>
+									<th>上次过会时间</th>
+									<th>过会次数</th>
+								</tr>
+							</thead>
+							<tbody id="ceopsbodytop">
+							</tbody>
+						</table>
+					</dd>
+					<dd class="clearfix position">
+						<!-- <a href="javascript:;" class="more null">more</a> -->
+						<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
+					</dd>
+				</dl> 
+			</div>
+			</acl:acl>
+		</div>
         <!--时间-->
-        <div class="top"  resource-mark="shedule_list" style="display:none">
+        <div class="top"  resource-mark="shedule_list" style="height: 178px;display:none">
         	<b class="sj ico null">三角</b>
             <div class="tody ico">
             	<p class="time"></p>
@@ -63,7 +101,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
              -->
             </div>
             <div class="morebox">
-                <a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加日程</a>
+               <!-- <a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加1日程</a> -->
+                <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="add_schedule blue">添加日程</a>
             </div>
         </div>
         <!--立项排期会-->
@@ -124,6 +163,11 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         	</c:if>
         </dl>
         </acl:acl>
+        
+        
+        
+		
+        
     </div>
     
     
@@ -135,7 +179,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
         <!--表格列表-->
         <div class="tablist clearfix">
         	<!--左侧列表-->
-            <div class="l">
+            <div class="l l_executive">
                <acl:acl resourceMark="task_list">
             	<dl style="position:relative;">
                 	<dt><h3 class="ico t1">待办任务</h3></dt>
@@ -168,7 +212,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<div id="histogram" class="histogram" style="height:160px"></div>
                     </dd>
                   <!--    <dd class="clearfix">
-                    	<a href="<%=reportEndpoint %>/galaxy/report/dataBriefing" class="more null">more</a>
+                    	<a href="<<%=path %>/galaxy/report/dataBriefing" class="more null">more</a>
                     </dd>
                     -->
                 </dl>
@@ -215,12 +259,57 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						</dd>
 
 					</dl>
-
-
+					<!-- 事项预览 -->
+						<dl resource-mark="div_matter_preview_gg" style="display:none">
+							<dt>
+								<h3 class="ico t7">事项预览</h3>
+							</dt>
+							<dd>
+								<div class="l_previewTop">
+								    <div style="margin-left:25%; display:none"><span vertical-align:middle>今日会议总数<a id= "meeting_number_today" href="javascript:;" >0</a>个</span></div>
+									<span class='bj_pagebox'>今日：立项会　<a id="lxh_number_today" href="javascript:;">0</a>个</span> 
+									<span class='bj_pagebox bj_pagebox_left'>投决会　<a id="tjh_number_today" href="javascript:;">0</a>个</span>
+									<span class='bj_pagebox bj_pagebox_left'>评审会　<a id="psh_number_today" href="javascript:;">0</a>个</span>
+								</div>
+								<div class="l_previewBottom clearfix">
+									<div class="l_previewBottom_l l_previewBottom_b">
+										<span><p>立项会</p><p>排期等待</p></span><a href="javascript:;" id="lxh_eduling_wait"></a>
+									</div>
+									<div class="l_previewBottom_r l_previewBottom_b">
+										<span><p>投决会</p><p>排期等待</p></span><a href="javascript:;" id="tjh_eduling_wait"></a>
+									</div>
+									<div class="l_previewBottom_r l_previewBottom_b">
+										<span><p>评审会</p><p>排期等待</p></span><a href="javascript:;" id="psh_eduling_wait"></a>
+									</div>
+								</div>
+							</dd>
+						</dl>
+					<!-- 项目进度 -->
+						<dl resource-mark="div_project_progress_gg" style="display:none">
+							<dt>
+								<h3 class="ico t8">项目进度</h3>
+								<a href="javascript:;" class="more position_0 null" id="more_progress">more</a>
+							</dt>
+							<dd style="position: relative;">
+								<div class="mask_platform_progress"></div>
+								<div id="container_progress"
+									style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
+							</dd>
+						</dl>
+					<!-- 投资资金 -->
+						<dl class="executive_last" resource-mark="div_investment_gg" style="display:none">
+							<dt>
+								<h3 class="ico t9">投资资金</h3>
+							</dt>
+							<dd>
+								<div id="charts_investment"
+									style="min-width:300px; height: 200px;padding-top:5px;"></div>
+							</dd>
+						</dl>
             </div>
             <!--右侧列表-->
-            <div class="r">
-            	<dl class="r_news" style="position:relative;">
+            <div class="r r_executive">
+            	<dl resource-mark="div_tip_message" class="r_news" style="display:none;position:relative;">
                 	<dt><h3 class="ico t4">消息提醒</h3></dt>
                     <dd>
                     	<!-- <table width="100%" cellspacing="0"  cellpadding="0">
@@ -247,7 +336,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     </dd>
                 </dl>
                 
-                <dl id="dan_k" style="position:relative;">
+                <dl resource-mark="div_pro_doc" id="dan_k" style="display:none;position:relative;">
                 	<dt><h3 class="ico t5">项目文档</h3></dt>
                     <dd>
                     	<table width="100%" cellspacing="0"  cellpadding="0" id="file_gird_index">
@@ -258,30 +347,12 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                     	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
-               <acl:acl resourceMark="shedule_ceo">
-                 <dl id="ceo_p">
-				<dt><h3 class="ico t5">CEO评审排期</h3></dt>
-				<dd>
-					<table id="ceopsMeeting" width="100%" cellspacing="0"
-						cellpadding="0" class="index">
-						<thead>
-							<tr>
-								<th>序号</th>
-								<th>项目名称</th>
-								<th>上次过会时间</th>
-								<th>过会次数</th>
-							</tr>
-						</thead>
-						<tbody id="ceopsbodytop">
-						</tbody>
-					</table>
-				</dd>
-				<dd class="clearfix position" style='display:none'>
-					<!-- <a href="javascript:;" class="more null">more</a> -->
-					<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
-				</dd>
-			</dl> 
-			</acl:acl>
+            <div id="position_5">
+            	
+            </div>
+            
+			
+			<acl:acl resourceMark="div_normal_tool">
                 <dl  class="tool_radius">
                 	<dt><h3 class="ico t6">常用工具</h3></dt>
                     <dd class="tool">
@@ -293,6 +364,42 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                         <a href="javascript:;" style="text-decoration:none;cursor:default;">&nbsp;</a>
                     </dd>
                 </dl>
+            </acl:acl>
+                
+                <!-- 绩效考核 -->
+					<dl resource-mark="div_performance_gg" style="display:none" class="r_news">
+						<dt>
+							<h3 class="ico t10">绩效考核</h3>
+							<span class="more null position_0" id="platform_jxkh_more" style="cursor: pointer;">more</span>
+						</dt>
+						<dd>
+							<div id="container_kpi" style="min-width:300px; height: 162px;padding-top:5px;"></div>
+						</dd>
+					</dl>
+                
+                <!-- 项目历时 -->
+					<dl resource-mark="div_duration_gg" style="display:none">
+						<dt>
+							<h3 class="ico t11">项目历时</h3>
+						</dt>
+						<dd style="position: relative;">
+							<div class="mask_platform_time"></div>
+							<div id="container_time"
+								style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
+						</dd>
+					</dl>
+                
+                <!-- 项目运营 -->
+					<dl resource-mark="div_operation_gg" style="display:none" class="tool_radius executive_last">
+						<img src="<%=request.getContextPath()%>/img/sy.png" alt="" />
+						<dt>
+							<h3 class="ico t12">项目运营</h3>
+						</dt>
+						<dd>
+							<div id="container_operation" style="min-width:300px; height: 200px;padding-top:5px;"></div>
+						</dd>
+					</dl>
+                    
             </div>
         </div>
     </div>
@@ -333,6 +440,16 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <!-- clude -->
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
+<script src="<%=path %>/js/indexProjectProgress.js" type="text/javascript"></script>
+<script src="<%=path %>/js/indexMsResource.js" type="text/javascript"></script>
+
+
+<!-- charts -->
+<script src="<%=path %>/js/charts/projectInvestment.js"></script>
+<script src="<%=path %>/js/charts/projectProgress.js"></script>
+<script src="<%=path %>/js/charts/indexKpi.js"></script>
+<script src="<%=path %>/js/charts/indexProjectDuration.js"></script>
+<script src="<%=path %>/js/charts/indexMatterPreview.js"></script>
 
 
 
@@ -347,9 +464,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		selectCyIndex();
 		createMenus(1);
 		top5Message();
-		ceopaiqi();
 		top5CeoPsMeeting();
-		if(isContainResourceByMark("shedule_list")){
+		/* if(isContainResourceByMark("shedule_list")){
 	       $('div[resource-mark="shedule_list"]').css("display","block");
 		}
 		if(isContainResourceByMark("project_view_module")){
@@ -359,34 +475,72 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		       $('dl[resource-mark="idea_summary"]').css("display","block");
 			}
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
+		
+		 */
+		
+		msResourceUtils.specialDeal();
+		
+		$.each(allResourceToUser, function(index, element){
+			 $('[resource-mark="' + element.resourceMark + '"]').css("display","block");
+			 
+		});
+		
+		
+		
+		//事项预览
+		if($('dl[resource-mark="div_matter_preview_gg"]').css("display") == 'block'){
+			matterPreviewUtils.init();
+		}
+		//绩效考核图表
+		if($('dl[resource-mark="div_performance_gg"]').css("display") == 'block'){
+			load_data_chart_kpi();
+		}
+		
+		
+		/*新版项目进度图表*/
+		if($('dl[resource-mark="div_project_progress_gg"]').css("display") == 'block'){
+			var progressFormdata = {
+					domid : 'container_progress'
+			}
+			chartProjectProgressUtils.init(progressFormdata);
+			
+			//项目进度图表默认加载链接
+			$("#container_progress .highcharts-title tspan").click(function(){
+				var url = platformUrl.projectAnalysis;
+				if(forwardParam.progressParam){
+					url += "?forwardProgress=" + forwardParam.progressParam ;
+				}
+				forwardWithHeader(url);
+			});
+		}
+		
+		/*新版投资资金图表*/
+		if($('dl[resource-mark="div_investment_gg"]').css("display") == 'block'){
+			var investFormdata = {
+					domid : 'charts_investment'
+			};
+			chartsInvestmentUtils.init(investFormdata);
+		}
+		
+		//项目历时
+		if($('dl[resource-mark="div_duration_gg"]').css("display") == 'block'){
+			load_data_chart_project_time();
+			noDataProTimeDiv();
+		}
+		
+		
+		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
+		
+		
 	});
 	
 </script>
 <script>
 $(function(){
-	load_data_chart();
-	function load_data_chart(){
-		 var obj ={url:Constants.reportEndpointURL+"/galaxy/report/projectprogress"};
-		obj.contentType="application/json";
-		obj.data={"userid":"${galax_session_user.id}","sdate":"-1","edate":"-1"};
-		ajaxCallback(obj,function(data){
-			var result = data.result;
-			var mapList = data.mapList;
-			if(result.status=='ERROR'){
-				$.popup(100,'消息',result.message);
-				return false;
-			}
-			var re = [];
-			var categories = [];
-			for(var i=0;i<mapList.length;i++){
-				re.push( mapList[i].c);
-				categories.push(mapList[i].name);
-			}
-			chartOptions.series[0].data = re;
-			chartOptions.xAxis.categories = categories;
-			var chart = new Highcharts.Chart(chartOptions);
-		}); 
+	var formdata = {
+			domid : "histogram"
 	}
+	chartIndexPProgressUtils.init(formdata);
 	$('#message-data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:4,
@@ -405,110 +559,7 @@ $(function(){
         }
 	});
 });
-//通用ajax数据回调
-function ajaxCallback(obj,callback){
-	$.ajax({
-		url:obj.url,
-		dataType:obj.dataType||'json',
-		//contentType: obj.contentType ||"application/x-www-form-urlencoded; charset=UTF-8",
-		contentType:obj.contentType ||"application/json",
-		type:obj.type||'POST',
-		data: JSON.stringify( obj.data||{} ),
-		async : false,
-		beforeSend:function(xhr){
-			if(sessionId){
-				xhr.setRequestHeader("sessionId",sessionId);
-			}
-			if(userId){
-				xhr.setRequestHeader("guserId",userId);
-			}
-		},
-		error : function(request) {
-			//alert("connetion error");
-		},
-		success:function(data){
-			if(data.hasOwnProperty("result")&&data.result.errorCode=="3"){
-				location.href = platformUrl.toLoginPage;
-			}
-			callback.call(this,data);
-		}
-	});
-}
 
-var chartOptions={
-	chart: {
-		renderTo :'histogram',
-        type: 'column'
-    },
-    title: {
-        text: ''
-    },
-    credits: {
-        enabled:false
-    },
-    exporting: {
-    	enabled:false
-    },
-    xAxis: {
-        //categories: ['朱玟','牟敏','关屿','赵广智','陈丛翀','王飞韵','蔡燕','王晓宇'],
-        tickWidth:0,
-    	labels: {
-            rotation:-45,
-            //align: 'right',
-            //staggerLines:2,
-            style: {
-                fontSize: '12px',
-                fontFamily: 'Verdana, sans-serif'
-                //writingMode:'tb-rl'   //文字竖排样式,
-            },
-        }
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text:''
-        }
-    },
-    legend: {
-        enabled: false,
-        x:5,
-    },
-    tooltip: {
-    	/*useHTML: true,
-    	formatter: function(){
-    		return this.point.x +'<br/>项目数:'+ this.point.y +'个';
-    	}*/
-    	enabled:true
-    },
-    series: [{
-        name: '项目数',
-        //data: [8,5,4,3,3,2,2,2,2],
-        dataLabels: {
-            enabled: false,
-            rotation: 0,
-            color: '#FFFFFF',
-            align: 'center',
-            x: 0,
-            y: 25,
-            style: {
-                fontSize: '13px',
-                fontFamily: 'Verdana, sans-serif',
-                textShadow: '0 0 3px black'
-            },
-            /*formatter:function(){
-     			return this.point.y;
-			},*/
-        }
-    }]
-};
-function ceopaiqi(){
-	if(roleId!='19'&&roleId!='18'){
-		$("#ceo_p").css("display","none");
-	}else{
-		$("#dan_k").css("display","none");	
-	}
-
-}
 
 function paiqidate(type){
 	forwardWithHeader(platformUrl.popupMeetingList + type);

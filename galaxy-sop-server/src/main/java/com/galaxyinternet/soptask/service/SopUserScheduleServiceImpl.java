@@ -83,6 +83,7 @@ public class SopUserScheduleServiceImpl extends
 				}
 				sopbo.setTimeTask(message+ sopUser.getContent());
 			}
+			sopbo.setId(sopUser.getId());
 			sopbo.setItemType(sopUser.getItemType());
 			sopbo.setItemOrder(sopUser.getItemOrder());
 			sopbo.setUserId(sopUser.getUserId());

@@ -202,6 +202,12 @@
  		#{meetingId,jdbcType=BIGINT})
  	</insert>
 	
+	<!-- 项目移交时修改文档部门ID -->
+	<update id="updateDepartmentId" parameterType="SopFilePO">
+		update sop_file set career_line = #{careerLine} where project_id = #{projectId}
+	</update>
+	
+	
 	<update id="updateByIdSelective" parameterType="SopFilePO">
 		update sop_file
 		<set>
