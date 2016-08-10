@@ -9,30 +9,24 @@
     max-height: 280px;
     overflow-y: auto;}
     </style>	
-	<table id="shecudle_list" data-method="post"
-							data-show-refresh="true" data-side-pagination="server"
-							data-pagination="true" 
-							data-search="false">
-	</table>
+    <div id="shedule_view">
+
+
+	</div>
 	
 </div>
 
 <script type="text/javascript">
-//页面传参
-function queryParamsforP(params) {
-	return {
-    	pageSize: params.limit,
-    	pageNum: params.offset,
-    	order: params.order
-	};
-}
+var html='<table id="shecudle_list"  data-height="555" data-method="post" data-page-list="[10,20,30]" data-show-refresh="true" ></table>';
+$("#shedule_view").html(html);
 $('#shecudle_list').bootstrapTable({
     url: platformUrl.shecudle_list, 
     dataType: "json",
     pagination: true, //分页
     search: false, //显示搜索框
     pageList: [10,20,30],
-    queryParams: queryParamsforP,
+    queryParamsType: 'size|page',
+    queryParams:function(params){return params;},
     sidePagination: "server", //服务端处理分页
           columns: [
 			{
@@ -60,7 +54,11 @@ $('#shecudle_list').bootstrapTable({
 			}
 			}, {
 			field: 'content',
-			title: '事项内容'
+			title: '事项内容',
+			formatter:function(value,row,index){
+				var resetUrl = "<div class='widt_200'>"+value+"</div>";
+				return resetUrl;
+			}
 			}, {
 			field: 'editor',
 			title: '操作',
@@ -111,10 +109,5 @@ function sheduleCallBack(data){
 	layer.closeAll('loading');
 	layer.msg("操作成功!");
 }
-//重置密码
-function resetPwd(id) {
-	alert('ddd')
-	forwardWithHeader(platformUrl.roleEdit+"?id="+id);
-	
-}
+
 </script>

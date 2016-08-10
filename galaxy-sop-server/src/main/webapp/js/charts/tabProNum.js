@@ -42,12 +42,14 @@ function pro_num_init(){
         		var tz = [];
         		var categories = [];
         		for(var i=0;i<data.length;i++){
-        			if(i==10){
+        			if(i>=10){
         				break;
+        			}else{
+        				zj.push( data[i].zjCompleted);
+            			tz.push( data[i].wbCompleted);
+            			categories.push(isGG ? data[i].departmentName : data[i].realName);
         			}
-        			zj.push( data[i].zjCompleted);
-        			tz.push( data[i].wbCompleted);
-        			categories.push(isGG ? data[i].departmentName : data[i].realName);
+        			
         		}
         		containerXmstjOptions.series[0].data = ((projectType==''|| projectType=='projectType:2' || typeof(projectType)=='undefined') ? zj : [] );
         		containerXmstjOptions.series[1].data = ((projectType==''|| projectType=='projectType:1' || typeof(projectType)=='undefined') ? tz : [] );

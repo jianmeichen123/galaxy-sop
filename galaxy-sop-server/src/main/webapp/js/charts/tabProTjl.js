@@ -35,11 +35,13 @@ function pro_tjl_init(){
         		var re = [];
         		var categories = [];
         		for(var i=0;i<data.length;i++){
-        			if(i==10){
+        			if(i>=10){
         				break;
+        			}else{
+        				re.push(data[i].rate*100);
+            			categories.push(isGG ? data[i].departmentName : data[i].realName);
         			}
-        			re.push(data[i].rate*100);
-        			categories.push(isGG ? data[i].departmentName : data[i].realName);
+        			
         		}
         		containerTjlOptions.series[0].data = re;
         		containerTjlOptions.xAxis.categories = categories;

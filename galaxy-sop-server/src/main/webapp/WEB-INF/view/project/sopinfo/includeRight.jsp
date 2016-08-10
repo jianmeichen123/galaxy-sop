@@ -42,7 +42,7 @@
 			</c:if>
 			<!-- 投后运营End -->
 			<!-- 投前Start -->
-			<div id="tq_div" style="display:none;">
+			<div class="tq_div" style="display:none;">
 			
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
@@ -62,6 +62,7 @@
                 </div>
                  <!-- <span class="bluebtn new_btn" style="display: none;">项目流程</span> -->
             </div>
+            </div>
            
            
             
@@ -74,7 +75,7 @@
             
             
             
-            
+            <div class="tq_div" style="display:none;">
             <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
             <div class="correlation">
             	近期会议纪要
@@ -98,8 +99,8 @@
             </c:if>
             
         </div>
-        </div>
         <!-- 投前End -->
+        </div>
         <!--右边 end-->
    
 <script>
@@ -139,6 +140,7 @@ $(function(){
 	//显示投前或投后信息
 	if(prograss == 'projectProgress:10')
 	{
+		$('#fjxm_but').remove();
 		if($("#thyy_div").length>0)
 		{
 			$("#thyy_div").show();
@@ -158,7 +160,7 @@ $(function(){
 			}
 		});
 		
-		$("#tq_div").show();
+		$(".tq_div").show();
 	}
 	init_lct(); //流程图初始化
 	

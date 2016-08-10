@@ -26,12 +26,12 @@
 			<trim prefixOverrides="and">
 				<if test="id != null"> and id =#{id}</if>
 				<if test="userId != null"> and user_id =#{userId}</if>
-				<if test="itemType != null"> and item_type =#{itemType}</if>
+				<!-- <if test="itemType != null"> and item_type =#{itemType}</if>
 				<if test="content != null"> and mobile =#{content}</if>
 				<if test="itemOrder != null"> and item_order =#{itemOrder}</if>
 				<if test="itemDate != null"> and item_date like CONCAT("%",#{itemDate},"%")</if>
 				<if test="createdTime != null"> and created_time =#{createdTime}</if>
-				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if>
+				<if test="updatedTime != null"> and updated_time =#{updatedTime}</if> -->
 				<if test="itemDate != null"> order by item_date desc</if>
 				<!-- 模糊查询 -->
 				<!-- <if test="nameLike != null">and name like CONCAT("%",#{nameLike},"%")</if> -->

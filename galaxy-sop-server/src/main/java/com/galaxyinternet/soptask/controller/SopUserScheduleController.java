@@ -40,6 +40,7 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.MeetingScheduling;
+import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopUserSchedule;
 import com.galaxyinternet.model.user.User;
@@ -176,7 +177,8 @@ public class SopUserScheduleController extends
 		User user = (User) getUserFromSession(request);		
 		sopUserScheduleBo.setUserId(user.getId());
 		try {
-			Page<SopUserSchedule> pageList = sopUserScheduleService.scheduleListByName(sopUserScheduleBo, new PageRequest(sopUserScheduleBo.getPageNum(), sopUserScheduleBo.getPageSize()));
+			
+			Page<SopUserSchedule> pageList = sopUserScheduleService.queryPageList(sopUserScheduleBo, new PageRequest(sopUserScheduleBo.getPageNum(), sopUserScheduleBo.getPageSize()));
 			responseBody.setPageList(pageList);
 			return responseBody;
 		} catch (PlatformException e) {
