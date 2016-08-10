@@ -88,8 +88,8 @@ public class MessageGenerator implements InitializingBean,ApplicationContextAwar
 		entity.setMessageType(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE)));
 		entity.setUserData((Serializable) map.get(PlatformConst.REQUEST_SCOPE_USER_DATA));
 		Object obj=map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_NUM);
-		if(null!=o){
-			boolean flag=(boolean)o;
+		if(null!=obj){
+			boolean flag=(boolean)obj;
 			entity.setFlag(flag);
 		}
 		
