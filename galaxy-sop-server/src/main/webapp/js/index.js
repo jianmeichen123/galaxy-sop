@@ -556,11 +556,18 @@ function cyIndexCallback(data){
 		tbodyList.append(noData);
 	}	
 }
+function dealtTask(){
+	window.location.href=$("#menus").find("[data-menueid='168']").attr("href");
+}
+
 function toCyPage(){
 	window.location.href=$("#menus").find("[data-menueid='137']").attr("href");
 }
 
 function toCyOper(ideaid){
 	window.location.href=$("#menus").find("[data-menueid='137']").attr("href")+"&indextoid="+ideaid;
+}
+function Sopfile(){
+	window.location.href=$("#menus").find("[data-menueid='135']").attr("href");
 }
 
