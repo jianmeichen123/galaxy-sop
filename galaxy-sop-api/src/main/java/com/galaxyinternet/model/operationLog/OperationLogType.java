@@ -174,8 +174,8 @@ public enum OperationLogType {
 	
 	APPLY_TRANSFER("/galaxy/projectTransfer/applyTransfer",OperType.APPLY.getOperationType(), "移交项目","移交项目"),
 	UNDO_TRANSFER("/galaxy/projectTransfer/undoTransfer",OperType.REVOKE.getOperationType(), "撤回项目","撤销移交"),
-	REJECT_TRANSFER("/galaxy/projectTransfer/rejectTransfer",OperType.REFUSE.getOperationType(), "接收项目","接收项目"),
-	RECEIVE_TRANSFER("/galaxy/projectTransfer/receiveTransfer",OperType.RECIEIVE.getOperationType(), "拒接项目","拒绝项目");
+	REJECT_TRANSFER("/galaxy/projectTransfer/rejectTransfer",OperType.REFUSE.getOperationType(), "拒接项目","拒接项目"),
+	RECEIVE_TRANSFER("/galaxy/projectTransfer/receiveTransfer",OperType.RECIEIVE.getOperationType(), "接收项目","接收项目");
 
 
 

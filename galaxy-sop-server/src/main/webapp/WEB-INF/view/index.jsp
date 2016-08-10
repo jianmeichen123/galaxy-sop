@@ -202,7 +202,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                         </table>
                     </dd>
                     <dd class="clearfix position">
-                    	<a href="<%=path %>/galaxy/soptask" class="more null">more</a>
+                    	<a href="javascript:;"  onclick="dealtTask()" class="more null">more</a>
                     </dd>
                 </dl>
                 </acl:acl>
@@ -344,7 +344,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                         </table>
                     </dd>
                     <dd class="clearfix position">
-                    	<a  href="<%=path %>/galaxy/sopFile/toFileList" class="more null" id="file_gird_more">more</a>
+                    	<a  href="javascript:void(0)" onclick="Sopfile()"  class="more null" id="file_gird_more">more</a>
                     </dd>
                 </dl>
             <div id="position_5">
