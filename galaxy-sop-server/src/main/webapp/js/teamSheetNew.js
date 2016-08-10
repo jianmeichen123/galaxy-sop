@@ -254,7 +254,6 @@
 													"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
 													"fileType" : $(_this.id).find("#win_fileType").val(),
 													"fileWorktype" : $(_this.id).find("#win_fileWorkType").val(),
-													"id" : $(_this.id).find("#win_sopFileId").val(),
 													"projectId" : $(_this.id).find("#win_sopProjectId").data("tid"),
 													"id" : $(_this.id).find("#win_sopFileId").val(),
 													"isProve" : $(_this.id).find("#win_isProve").attr("checked"),
@@ -297,7 +296,7 @@
 				var $sopProjectId = $(_this.id).find("#win_sopProjectId");
 				var $sopFileId = $(_this.id).find("#win_sopFileId");
 				var $searchProjectBtn = $(_this.id).find("#win_searchProjectBtn");
-				var $sopFileId = $(_this.id).find("#win_sopFileId");
+				
 				var $isProve = $(_this.id).find("#win_isProve");
 				var $remark = $(_this.id).find("#win_FILELIST"); 
 				

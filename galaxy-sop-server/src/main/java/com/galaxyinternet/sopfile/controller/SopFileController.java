@@ -770,6 +770,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					}else{
 						sopFileService.insert(sopFile);
 					}
+					
 				}else{
 					// 调用非签署凭证业务方法
 					if(sopFileService.updateFile(sopFile)){
