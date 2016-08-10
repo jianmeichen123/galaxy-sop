@@ -465,7 +465,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 		createMenus(1);
 		top5Message();
 		top5CeoPsMeeting();
-		if(isContainResourceByMark("shedule_list")){
+		/* if(isContainResourceByMark("shedule_list")){
 	       $('div[resource-mark="shedule_list"]').css("display","block");
 		}
 		if(isContainResourceByMark("project_view_module")){
@@ -476,48 +476,60 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 			}
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
 		
-		
+		 */
 		
 		msResourceUtils.specialDeal();
 		
 		$.each(allResourceToUser, function(index, element){
-			 $('dl[resource-mark="' + element.resourceMark + '"]').css("display","block");
+			 $('[resource-mark="' + element.resourceMark + '"]').css("display","block");
 			 
 		});
 		
 		
 		
 		//事项预览
-		matterPreviewUtils.init();
-		//绩效考核图表
-		load_data_chart_kpi();
-		/*新版项目进度图表*/
-		var progressFormdata = {
-				domid : 'container_progress'
+		if($('dl[resource-mark="div_matter_preview_gg"]').css("display") == 'block'){
+			matterPreviewUtils.init();
 		}
-		chartProjectProgressUtils.init(progressFormdata);
+		//绩效考核图表
+		if($('dl[resource-mark="div_performance_gg"]').css("display") == 'block'){
+			load_data_chart_kpi();
+		}
+		
+		
+		/*新版项目进度图表*/
+		if($('dl[resource-mark="div_project_progress_gg"]').css("display") == 'block'){
+			var progressFormdata = {
+					domid : 'container_progress'
+			}
+			chartProjectProgressUtils.init(progressFormdata);
+			
+			//项目进度图表默认加载链接
+			$("#container_progress .highcharts-title tspan").click(function(){
+				var url = platformUrl.projectAnalysis;
+				if(forwardParam.progressParam){
+					url += "?forwardProgress=" + forwardParam.progressParam ;
+				}
+				forwardWithHeader(url);
+			});
+		}
 		
 		/*新版投资资金图表*/
-		var investFormdata = {
-				domid : 'charts_investment'
-		};
-		chartsInvestmentUtils.init(investFormdata);
+		if($('dl[resource-mark="div_investment_gg"]').css("display") == 'block'){
+			var investFormdata = {
+					domid : 'charts_investment'
+			};
+			chartsInvestmentUtils.init(investFormdata);
+		}
+		
 		//项目历时
-		load_data_chart_project_time();
-		noDataProTimeDiv();
-
+		if($('dl[resource-mark="div_duration_gg"]').css("display") == 'block'){
+			load_data_chart_project_time();
+			noDataProTimeDiv();
+		}
+		
 		
 		loadAjaxSopUserSchedule(platformUrl.sheduleMoreThree); 
-		//项目进度图表默认加载链接
-		$("#container_progress .highcharts-title tspan").click(function(){
-			var url = platformUrl.projectAnalysis;
-			if(forwardParam.progressParam){
-				url += "?forwardProgress=" + forwardParam.progressParam ;
-			}
-			forwardWithHeader(url);
-		});
-		
-		
 		
 		
 	});

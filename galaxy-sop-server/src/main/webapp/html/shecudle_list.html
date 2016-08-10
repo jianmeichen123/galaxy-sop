@@ -60,7 +60,11 @@ $('#shecudle_list').bootstrapTable({
 			}
 			}, {
 			field: 'content',
-			title: '事项内容'
+			title: '事项内容',
+			formatter:function(value,row,index){
+				var resetUrl = "<div class='widt_200'>"+value+"</div>";
+				return resetUrl;
+			}
 			}, {
 			field: 'editor',
 			title: '操作',
