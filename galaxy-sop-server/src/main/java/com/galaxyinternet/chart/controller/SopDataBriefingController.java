@@ -194,7 +194,7 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 		Config config = new Config();
 		config.setKey("target_count_code");
 		config = configService.queryOne(config);
-		Long personTargetCount = Long.parseLong(config.getValue());
+		Float personTargetCount = Float.parseFloat(config.getValue());
 		int userCount = 0;
 		
 		//部门为空时获取所有投资经理人数
@@ -213,10 +213,12 @@ public class SopDataBriefingController extends BaseControllerImpl<SopCharts, Sop
 		}
 		//时长为空时为一年,时长以天为单位
 		if(times != null){
-			personTargetCount = personTargetCount / times;
-		}	
+			personTargetCount = Float.parseFloat(MathUtils.calculate(personTargetCount, new Long(365), "/", 2));
+			personTargetCount = Float.parseFloat(MathUtils.calculate(personTargetCount, times, "*", 2));
+		}
 		
-		return personTargetCount * userCount;
+		Float targetCount = Float.parseFloat(MathUtils.calculate(personTargetCount, new Long(userCount), "*", 2));
+		return new Long((int) (targetCount.floatValue() + 0.5));
 	}
 	
 	

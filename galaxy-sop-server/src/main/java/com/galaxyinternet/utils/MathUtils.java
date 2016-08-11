@@ -9,6 +9,7 @@ public class MathUtils {
 	
 	public static String calculate(Long a, Long b,String compute, int reservation) {
 		numberFormat.setMaximumFractionDigits(reservation);
+		numberFormat.setGroupingUsed(false); 
 		String result = null;
 		switch (compute) {
 		case "+":
@@ -31,6 +32,7 @@ public class MathUtils {
 	
 	public static String calculate(Float a, Float b,String compute, int reservation) {
 		numberFormat.setMaximumFractionDigits(reservation);
+		numberFormat.setGroupingUsed(false); 
 		String result = null;
 		switch (compute) {
 		case "+":
@@ -53,6 +55,7 @@ public class MathUtils {
 	
 	public static String calculate(Long a, Float b,String compute, int reservation) {
 		numberFormat.setMaximumFractionDigits(reservation);
+		numberFormat.setGroupingUsed(false); 
 		String result = null;
 		switch (compute) {
 		case "+":
@@ -75,6 +78,7 @@ public class MathUtils {
 	
 	public static String calculate(Float a, Long b,String compute, int reservation) {
 		numberFormat.setMaximumFractionDigits(reservation);
+		numberFormat.setGroupingUsed(false); 
 		String result = null;
 		switch (compute) {
 		case "+":

@@ -208,7 +208,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				departmentId = "all";
 			}
 			Department query = new Department();
-			if(!"all".equals(departmentId)){
+			if(null!=departmentId&&!"all".equals(departmentId)){
 				query.setId(Long.parseLong(departmentId));
 			}
 			query.setType(1);

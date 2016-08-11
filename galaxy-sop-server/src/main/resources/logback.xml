@@ -26,11 +26,11 @@
        <!-- 发送邮件配置 -->
        <property name="smtpHost" value="smtp.qq.com" />  
 	   <property name="smtpPort" value="587" />  
-	   <property name="username" value="371408447" />  
-	   <property name="password" value="********" />  
+	   <property name="username" value="439655771" />  
+	   <property name="password" value="sop000000" />  
 	   <property name="SSL" value="true" />  
-	   <property name="email_to" value="yaxinliu@galaxyinternet.com" />  
-	   <property name="email_from" value="371408447@qq.com" />  
+	   <property name="email_to" value="jianmeichen@galaxyinternet.com" />  
+	   <property name="email_from" value="439655771@qq.com" />  
 	   <property name="email_subject" value="【Error】: %logger" />
        
          <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener" />
