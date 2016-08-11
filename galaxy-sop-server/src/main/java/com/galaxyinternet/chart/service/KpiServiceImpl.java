@@ -448,7 +448,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			}
 				
 			Long endTime = null;
-			if(pro.getProjectProgress().equals(DictEnum.projectStatus.YFJ.getCode())){
+			if(pro.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){
 				endTime = pro.getUpdatedTime();
 			}else endTime = timeNow;
 			
@@ -835,7 +835,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			kpi.setLxhPnumber(userLxhPNum.get(pro.getCreateUid())==null?0:userLxhPNum.get(pro.getCreateUid()));
 			//过会率
 			double ghlRate = 0;
-			if(user_hasLxhProNumMap!=null && user_hasLxhProNumMap.get(pro.getProjectDepartid()) != null && user_hasLxhProNumMap.get(pro.getCreateUid()) !=0){
+			if(user_hasLxhProNumMap!=null && user_hasLxhProNumMap.get(pro.getCreateUid()) != null && user_hasLxhProNumMap.get(pro.getCreateUid()) !=0){
 				ghlRate = kpi.getLxhPnumber()*1.0 / user_hasLxhProNumMap.get(pro.getCreateUid()) ;
 			}
 			kpi.setGhlRate(ghlRate);
@@ -844,7 +844,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			kpi.setTjhPnumber(userTjhPNum.get(pro.getCreateUid())==null?0:userTjhPNum.get(pro.getCreateUid()));
 			//投决率
 			double tjl_rate = 0;
-			if(user_hasTjhtProNumMap!=null && user_hasTjhtProNumMap.get(pro.getProjectDepartid()) != null && user_hasTjhtProNumMap.get(pro.getCreateUid()) !=0){
+			if(user_hasTjhtProNumMap!=null && user_hasTjhtProNumMap.get(pro.getCreateUid()) != null && user_hasTjhtProNumMap.get(pro.getCreateUid()) !=0){
 				tjl_rate = kpi.getTjhPnumber()*1.0 / user_hasTjhtProNumMap.get(pro.getCreateUid()) ;
 			}
 			kpi.setTjlRate(tjl_rate);
