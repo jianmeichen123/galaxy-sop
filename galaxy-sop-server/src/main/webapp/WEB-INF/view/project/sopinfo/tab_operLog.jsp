@@ -92,7 +92,7 @@
 								<th data-field="operationType" data-align="left">动作</th>
 								<th data-field="operationContent" data-align="left">对象</th>
 								<th data-field="projectName" data-align="left" data-formatter="projectNameFormatter">项目</th>
-								<th data-field="reason" data-align="left" >原因</th>
+								<th data-field="reason" data-align="left" data-formatter="reason">原因</th>
 								<th data-field="sopstage" data-align="left" >业务</th>
 							</tr>
 						</thead>
@@ -170,7 +170,15 @@ $(function(){
 	
 });	
 	
-	
+function reason(value){
+	if (value) {
+		var resetUrl = "<a  href='javascript:void(0);' title='"+value+"'><div class='width_1'>"+value+"</div></a>";
+		return   resetUrl;
+		
+	}else{
+		return   '--';
+	}
+}
 	
 </script>
 </html>
