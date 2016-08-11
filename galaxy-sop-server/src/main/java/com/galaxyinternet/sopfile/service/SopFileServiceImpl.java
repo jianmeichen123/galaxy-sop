@@ -224,11 +224,11 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		List<SopFile> sl = new ArrayList<SopFile>();
 		
 		int beginIndex = pageable.getPageNumber() * pageable.getPageSize();
-		int endIndex = pageable.getPageNumber() * pageable.getPageSize() + pageable.getPageSize();
-		if (result.size() < endIndex) {
-			endIndex = result.size();
-			result = result.subList(beginIndex, endIndex);
-		}
+		int endIndex = pageable.getPageNumber() * pageable.getPageSize() + ((result.size() - beginIndex) >= pageable.getPageSize() ? pageable.getPageSize() : result.size() - beginIndex) ;
+
+//		endIndex = result.size();
+		result = result.subList(beginIndex, endIndex);
+
 		sl.addAll(result);
 		pageEntity.setContent(sl);
 		return pageEntity;
