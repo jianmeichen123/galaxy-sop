@@ -767,12 +767,12 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		//  开过会议的项目的 数据封装
 		Map<Long, Integer> user_hasLxhProNumMap = new HashMap<Long,Integer>();
 		for(MeetingRecord mrecord : userLxhHasNum){
-			user_hasLxhProNumMap.put(mrecord.getDepartId(), mrecord.getSumProNum());
+			user_hasLxhProNumMap.put(mrecord.getCreateUid(), mrecord.getSumProNum());
 		}
 		
 		Map<Long, Integer> user_hasTjhtProNumMap = new HashMap<Long,Integer>();
 		for(MeetingRecord mrecord : userTjhHasNum){
-			user_hasTjhtProNumMap.put(mrecord.getDepartId(), mrecord.getSumProNum());
+			user_hasTjhtProNumMap.put(mrecord.getCreateUid(), mrecord.getSumProNum());
 		}
 		
 		//投资经理查询条件下的项目     立项会结果为“通过”的项目id数
