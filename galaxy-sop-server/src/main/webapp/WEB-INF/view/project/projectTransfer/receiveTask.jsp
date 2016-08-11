@@ -91,7 +91,7 @@ $("#receive-task-btn").click(function(){
 function closeback(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		layer.msg("error "+data.result.message);
+		layer.msg(data.result.message);
 		return;
 	}else{
 		layer.msg("接收项目成功");

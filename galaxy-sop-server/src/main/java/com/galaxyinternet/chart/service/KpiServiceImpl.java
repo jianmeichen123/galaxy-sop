@@ -163,7 +163,6 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 	 * @return
 	 */
 	public Page<ChartDataBo> proTimeLine(ChartKpiQuery query){
-		boolean inCompany = query.getDeptid()==null;
 		
 		Long total = 0l;
 		List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
@@ -180,9 +179,44 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		if(proList == null || proList.isEmpty()){
 			return kpiPage;
 		}
+		Map<String,Integer> progressNumMap = new HashMap<String,Integer>();
+		progressNumMap.put("projectProgress:1", 0);
+		progressNumMap.put("projectProgress:2", 0);
+		progressNumMap.put("projectProgress:3", 0);
+		progressNumMap.put("projectProgress:4", 0);
+		progressNumMap.put("projectProgress:5", 0);
+		progressNumMap.put("projectProgress:6", 0);
+		progressNumMap.put("projectProgress:7", 0);
+		progressNumMap.put("projectProgress:8", 0);
+		progressNumMap.put("projectProgress:9", 0);
 		List<Long> proIds = new ArrayList<Long>();
 		for(Project pro : proList){
 			proIds.add(pro.getId());
+			int projectPro = Integer.parseInt(pro.getProjectProgress().substring(pro.getProjectProgress().indexOf(":")+1)) ;
+			switch (projectPro) {
+				case 10:
+				case 9:
+					progressNumMap.put("projectProgress:9", progressNumMap.get("projectProgress:9")+1);
+				case 8:
+					progressNumMap.put("projectProgress:8", progressNumMap.get("projectProgress:8")+1);
+				case 7:
+					progressNumMap.put("projectProgress:7", progressNumMap.get("projectProgress:7")+1);
+				case 6:
+					progressNumMap.put("projectProgress:6", progressNumMap.get("projectProgress:6")+1);
+				case 5:
+					progressNumMap.put("projectProgress:5", progressNumMap.get("projectProgress:5")+1);
+				case 4:
+					progressNumMap.put("projectProgress:4", progressNumMap.get("projectProgress:4")+1);
+				case 3:
+					progressNumMap.put("projectProgress:3", progressNumMap.get("projectProgress:3")+1);
+				case 2:
+					progressNumMap.put("projectProgress:2", progressNumMap.get("projectProgress:2")+1);
+				case 1:
+					progressNumMap.put("projectProgress:1", progressNumMap.get("projectProgress:1")+1);
+					break;
+				default:
+					break;
+			}
 		}
 		
 		
@@ -413,9 +447,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					break;
 			}
 				
-			
 			Long endTime = null;
-			if(pro.getProjectProgress().equals(DictEnum.projectStatus.YFJ.getCode())){
+			if(pro.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){
 				endTime = pro.getUpdatedTime();
 			}else endTime = timeNow;
 			
@@ -562,7 +595,12 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			ChartDataBo kpi = new ChartDataBo();
 			kpi.setProgressCode("projectProgress:"+i);
 			kpi.setProgressName(DictEnum.projectProgress.getNameByCode("projectProgress:"+i));
-			kpi.setDayLine(resultMap.get("time_"+i)/(1000*3600*24));
+			
+			int progressNum = progressNumMap.get("projectProgress:"+i);
+			if(progressNum != 0){
+				kpi.setDayLine(resultMap.get("time_"+i)/(1000*3600*24)/progressNum);
+			}else kpi.setDayLine(0l);
+			
 			kpiDataList.add(kpi);   
 		}
 		kpiPage = new Page<ChartDataBo>(kpiDataList,9l);
@@ -714,13 +752,28 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		mquery1.setStartTime(query.getSdate());
 		mquery1.setEndTime(query.getEdate());
 		mquery1.setProjectType(query.getProjectType());
+		mquery1.setUserIdList(tzjlIdList);
 		mquery1.setMeetingType(DictEnum.meetingType.立项会.getCode());
-		mquery1.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-		Long lxhPassNum = meetingRecordDao.selectMeetCountByGHL(mquery1);
+//		mquery1.setMeetingResult(DictEnum.meetingResult.通过.getCode());
+//		Long lxhPassNum = meetingRecordDao.selectMeetCountByGHL(mquery1);
+		List<MeetingRecord> userLxhHasNum = meetingRecordDao.selectTzjlHasMeetProNumByParams(mquery1);
 		
 		//查询条件下   投资决策会 结果为“通过”的项目id数
 		mquery1.setMeetingType(DictEnum.meetingType.投决会.getCode());
-		Long tjhPassNum = meetingRecordDao.selectMeetCountByGHL(mquery1);
+//		Long tjhPassNum = meetingRecordDao.selectMeetCountByGHL(mquery1);
+		List<MeetingRecord> userTjhHasNum = meetingRecordDao.selectTzjlHasMeetProNumByParams(mquery1);
+		
+		
+		//  开过会议的项目的 数据封装
+		Map<Long, Integer> user_hasLxhProNumMap = new HashMap<Long,Integer>();
+		for(MeetingRecord mrecord : userLxhHasNum){
+			user_hasLxhProNumMap.put(mrecord.getCreateUid(), mrecord.getSumProNum());
+		}
+		
+		Map<Long, Integer> user_hasTjhtProNumMap = new HashMap<Long,Integer>();
+		for(MeetingRecord mrecord : userTjhHasNum){
+			user_hasTjhtProNumMap.put(mrecord.getCreateUid(), mrecord.getSumProNum());
+		}
 		
 		//投资经理查询条件下的项目     立项会结果为“通过”的项目id数
 		Map<Long, Integer> userLxhPNum = new HashMap<Long, Integer>();  
@@ -782,8 +835,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			kpi.setLxhPnumber(userLxhPNum.get(pro.getCreateUid())==null?0:userLxhPNum.get(pro.getCreateUid()));
 			//过会率
 			double ghlRate = 0;
-			if(lxhPassNum!=null && lxhPassNum != 0 ){
-				ghlRate =  kpi.getLxhPnumber()*1.0 / lxhPassNum ;
+			if(user_hasLxhProNumMap!=null && user_hasLxhProNumMap.get(pro.getCreateUid()) != null && user_hasLxhProNumMap.get(pro.getCreateUid()) !=0){
+				ghlRate = kpi.getLxhPnumber()*1.0 / user_hasLxhProNumMap.get(pro.getCreateUid()) ;
 			}
 			kpi.setGhlRate(ghlRate);
 			
@@ -791,8 +844,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			kpi.setTjhPnumber(userTjhPNum.get(pro.getCreateUid())==null?0:userTjhPNum.get(pro.getCreateUid()));
 			//投决率
 			double tjl_rate = 0;
-			if(tjhPassNum!=null && tjhPassNum != 0 ){
-				tjl_rate = kpi.getTjhPnumber()*1.0 / tjhPassNum ;
+			if(user_hasTjhtProNumMap!=null && user_hasTjhtProNumMap.get(pro.getCreateUid()) != null && user_hasTjhtProNumMap.get(pro.getCreateUid()) !=0){
+				tjl_rate = kpi.getTjhPnumber()*1.0 / user_hasTjhtProNumMap.get(pro.getCreateUid()) ;
 			}
 			kpi.setTjlRate(tjl_rate);
 			
@@ -900,14 +953,30 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		MeetingRecordBo mquery1 = new MeetingRecordBo();
 		mquery1.setStartTime(query.getSdate());
 		mquery1.setEndTime(query.getEdate());
+		mquery1.setDeptIdList(deptIdList);
 		mquery1.setProjectType(query.getProjectType());
 		mquery1.setMeetingType(DictEnum.meetingType.立项会.getCode());
-		mquery1.setMeetingResult(DictEnum.meetingResult.通过.getCode());
-		Long lxhPassNum = meetingRecordDao.selectMeetCountByGHL(mquery1);
+//		Long lxhPassNum = meetingRecordDao.selectMeetCountByGHL(mquery1);
+		List<MeetingRecord> deptLxhHasNum = meetingRecordDao.selectDeptHasMeetProNumByParams(mquery1);
 		
 		//查询条件下   投资决策会 结果为“通过”的项目id数
 		mquery1.setMeetingType(DictEnum.meetingType.投决会.getCode());
-		Long tjhPassNum = meetingRecordDao.selectMeetCountByGHL(mquery1);
+//		Long tjhPassNum = meetingRecordDao.selectMeetCountByGHL(mquery1);
+		List<MeetingRecord> deptTjhHasNum = meetingRecordDao.selectDeptHasMeetProNumByParams(mquery1);
+		
+		
+		
+		//各部门中   开过会议的项目的 数据封装
+		Map<Long, Integer> deptId_hasLxhProNumMap = new HashMap<Long,Integer>();
+		for(MeetingRecord mrecord : deptLxhHasNum){
+			deptId_hasLxhProNumMap.put(mrecord.getDepartId(), mrecord.getSumProNum());
+		}
+		
+		Map<Long, Integer> deptId_hasTjhtProNumMap = new HashMap<Long,Integer>();
+		for(MeetingRecord mrecord : deptTjhHasNum){
+			deptId_hasTjhtProNumMap.put(mrecord.getDepartId(), mrecord.getSumProNum());
+		}
+		
 		
 		//事业线  查询条件下的项目     立项会结果为“通过”的项目id数
 		Map<Long, Integer> deptLxhPNum = new HashMap<Long, Integer>();  
@@ -977,8 +1046,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			kpi.setLxhPnumber(deptLxhPNum.get(pro.getProjectDepartid())==null?0:deptLxhPNum.get(pro.getProjectDepartid()));
 			//过会率
 			double ghlRate = 0;
-			if(lxhPassNum!=null && lxhPassNum != 0 ){
-				ghlRate = kpi.getLxhPnumber()*1.0 / lxhPassNum ;
+			if(deptId_hasLxhProNumMap!=null && deptId_hasLxhProNumMap.get(pro.getProjectDepartid()) != null && deptId_hasLxhProNumMap.get(pro.getProjectDepartid()) !=0){
+				ghlRate = kpi.getLxhPnumber()*1.0 / deptId_hasLxhProNumMap.get(pro.getProjectDepartid()) ;
 			}
 			kpi.setGhlRate(ghlRate);
 			
@@ -986,8 +1055,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			kpi.setTjhPnumber(deptTjhPNum.get(pro.getProjectDepartid())==null?0:deptTjhPNum.get(pro.getProjectDepartid()));
 			//投决率
 			double tjl_rate = 0;
-			if(tjhPassNum!=null && tjhPassNum != 0 ){
-				tjl_rate = kpi.getTjhPnumber()*1.0 / tjhPassNum ;
+			if(deptId_hasTjhtProNumMap!=null && deptId_hasTjhtProNumMap.get(pro.getProjectDepartid()) != null && deptId_hasTjhtProNumMap.get(pro.getProjectDepartid()) != 0){
+				tjl_rate = kpi.getTjhPnumber()*1.0 / deptId_hasTjhtProNumMap.get(pro.getProjectDepartid()) ;
 			}
 			kpi.setTjlRate(tjl_rate);
 			
