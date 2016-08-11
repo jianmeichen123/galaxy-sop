@@ -302,6 +302,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			departmentIds.add(departmentId);
 		}
 		user.setDepartmentIds(departmentIds);
+		user.setStatus("0");
 		List<User> userList = userService.queryList(user);
 		List<User> responseUserList = new ArrayList<User>();
 		List<Long> uids = userRoleService.selectUserIdByRoleId(UserConstant.TZJL);
