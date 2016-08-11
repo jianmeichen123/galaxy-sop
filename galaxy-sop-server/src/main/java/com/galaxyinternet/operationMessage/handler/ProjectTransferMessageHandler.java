@@ -59,10 +59,10 @@ public class ProjectTransferMessageHandler implements MessageHandler
 		}
 		else if(MESSAGE_TYPE_RECIVICE.equals(message.getMessageType()))
 		{
-			content.append("接受了");
+			content.append("接收了");
 		}else if(MESSAGE_TYPE_REFUSE.equals(message.getMessageType()))
 		{
-			content.append("拒绝了");
+			content.append("拒接了");
 		}
 		content.append("项目");
 		content.append(ControllerUtils.getProjectNameLink(message));
