@@ -20,6 +20,7 @@
     
     <result column="departId"  property="departId" />
     <result column="passMeetNum"  property="passMeetNum" />
+    <result column="sumProNum"  property="sumProNum" />
     <result column="first_meet_time"  property="firstMeetTime" jdbcType="TIMESTAMP" />
     <result column="pass_meet_time"  property="passMeetTime" jdbcType="TIMESTAMP" />
   </resultMap>
