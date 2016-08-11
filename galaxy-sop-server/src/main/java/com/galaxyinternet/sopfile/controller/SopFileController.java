@@ -354,8 +354,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					}else{
 						Page<SopFile> pageSopFile = new Page<SopFile>(
 								new ArrayList<SopFile>(), new PageRequest(
-										sopFile.getPageNum()==null? 0 : sopFile.getPageNum(),
-										sopFile.getPageSize()==null? 0 : sopFile.getPageSize()), 0l);
+										sopFile.getPageNum()==null || sopFile.getPageNum() < 0 ? 0 : sopFile.getPageNum(),
+										sopFile.getPageSize()==null || sopFile.getPageSize() < 1? 10 : sopFile.getPageSize()), 0l);
 						responseBody.setPageList(pageSopFile);
 						responseBody.setResult(new Result(Status.OK, ""));
 						return responseBody;
