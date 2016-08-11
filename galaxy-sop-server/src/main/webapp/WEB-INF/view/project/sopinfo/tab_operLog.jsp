@@ -171,12 +171,13 @@ $(function(){
 });	
 	
 function reason(value){
-	if (value) {
-		var resetUrl = "<a  href='javascript:void(0);' title='"+value+"'><div class='width_1'>"+value+"</div></a>";
+	var str=row.reason;
+	if(str == '' || str == null || str == 'null' || typeof(str) == "undefined"){
+		return "--";
+	}
+	else{
+		var resetUrl = "<a  href='javascript:void(0);' title='"+str+"'><div class='width_1'>"+str+"</div></a>";
 		return   resetUrl;
-		
-	}else{
-		return   '--';
 	}
 }
 	
