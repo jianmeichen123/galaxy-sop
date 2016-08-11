@@ -598,7 +598,6 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			kpi.setProgressCode("projectProgress:"+i);
 			kpi.setProgressName(DictEnum.projectProgress.getNameByCode("projectProgress:"+i));
 			
-			progressNumMap.put("projectProgress:1", 0);
 			int progressNum = progressNumMap.get("projectProgress:"+i);
 			if(progressNum != 0){
 				kpi.setDayLine(resultMap.get("time_"+i)/(1000*3600*24)/progressNum);
