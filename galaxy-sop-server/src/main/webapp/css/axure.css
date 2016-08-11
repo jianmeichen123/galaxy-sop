@@ -21,6 +21,8 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .margin_45{ margin-top:45px;}
 .width_fwb{height:150px; overflow-y:auto}
 .widt_200{ width:200px; word-break:break-all;}
+.width_1{width:100px; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+#project_info_log td a{ margin: 0 0px 0 0; text-decoration:none;}
 /*公用浮动*/
 .fl{ float:left}
 .fr{ float:right}
