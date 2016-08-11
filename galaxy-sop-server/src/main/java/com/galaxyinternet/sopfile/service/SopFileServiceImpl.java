@@ -222,7 +222,9 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		pageEntity.setTotal(new Long(result.size()));
 		List<SopFile> sl = new ArrayList<SopFile>();
-		sl.addAll(result.subList(pageable.getPageNumber()*pageable.getPageSize(), (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize()) > result.size() ? result.size() : (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize())));
+		if(null!=result&&!result.isEmpty()){
+			sl.addAll(result.subList(pageable.getPageNumber()*pageable.getPageSize(), (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize()) > result.size() ? result.size() : (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize())));	
+		}
 		pageEntity.setContent(sl);
 		return pageEntity;
 	}
