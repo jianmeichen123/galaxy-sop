@@ -611,8 +611,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 //		num = (UrlNumber) tempMap.get("num");
 		
 		String messageType = (String) tempMap.get("messageType");
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 璇锋眰杞崲
-		MultipartFile file = multipartRequest.getFile("file"); // 鑾峰彇multipartFile鏂囦欢
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; 
+		MultipartFile file = multipartRequest.getFile("file"); 
 		form.setFileName(file.getOriginalFilename());
 		form.setFileLength(file.getSize());
 		
