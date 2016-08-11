@@ -88,7 +88,7 @@ if(isContainResourceByMark("task_into_view")){
     $('a[resource-mark="task_into_view"]').css("display","block");
 	}
 	
-window.setInterval("reloadMessage(),fillHeaderdata()",100000000); 
+//window.setInterval("reloadMessage(),fillHeaderdata()",100000000); 
  function reloadMessage(){
  	sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
  }

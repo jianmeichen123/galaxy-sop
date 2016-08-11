@@ -115,7 +115,7 @@ var isDSZ = "<%=isDSZ%>";
 fillHeaderdata();
 initHref();
 reloadMessage();
-window.setInterval("reloadMessage();",1000000000); 
+//window.setInterval("reloadMessage();",1000000000); 
 function reloadMessage(){
 	sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
 }
