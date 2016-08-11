@@ -828,10 +828,10 @@
  	initLxReportTable();
  	function lxReportFormatter(val,row,index)
  	{
- 		var update = '<a href="#" class="blue" onclick="showLxUpload('+row.id+')">更新</a>';
+ 		var update = canToOption ? '<a href="#" class="blue" onclick="showLxUpload('+row.id+')">更新</a>&nbsp;' : '';
  		var download = '<a href="#" class="blue" onclick="filedown('+row.id+')">查看</a>';
  		var del = '<a href="#" class="blue" style="display:none;" onclick="delLxReport('+row.id+')">删除</a>';
- 		return update+"&nbsp;"+download+"&nbsp;"+del;
+ 		return update+download+"&nbsp;"+del;
  	}
  	function delLxReport(id)
  	{
