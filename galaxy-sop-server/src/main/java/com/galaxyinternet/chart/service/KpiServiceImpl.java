@@ -163,7 +163,6 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 	 * @return
 	 */
 	public Page<ChartDataBo> proTimeLine(ChartKpiQuery query){
-		boolean inCompany = query.getDeptid()==null;
 		
 		Long total = 0l;
 		List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
