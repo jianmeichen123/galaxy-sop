@@ -67,8 +67,7 @@ function callbackFun(data){
 			layer.msg("提交失败");
 	} else {
 		layer.msg("提交成功")
-			history.go(0);
-		
+		window.location=window.location;
 	}
 
 }
@@ -97,8 +96,7 @@ function callbackFunRevoke(data){
 		layer.msg("项目撤销移交失败");
 } else {
 	layer.msg("项目撤销移交成功")
-	history.go(0);
-	
+	window.location=window.location;
 }
 
 }

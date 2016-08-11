@@ -150,7 +150,7 @@ var meetGrid = {
 		},
 		operateFormatter : function(value, row, index){
 			var btns = "";
-			if(isCreatedByUser == "true")
+			if(isCreatedByUser == "true" && isTransfering != 'true')
 			{
 				btns += '<a class="meet_edit blue"  href="javascript:void(0)">编辑</a>  ';
 				btns += '<a class="meet_delete blue" href="javascript:void(0)">删除</a>  ';
