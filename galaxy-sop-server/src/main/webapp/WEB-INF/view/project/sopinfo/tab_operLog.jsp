@@ -170,7 +170,7 @@ $(function(){
 	
 });	
 	
-function reason(value){
+function reason(row){
 	var str=row.reason;
 	if(str == '' || str == null || str == 'null' || typeof(str) == "undefined"){
 		return "--";
