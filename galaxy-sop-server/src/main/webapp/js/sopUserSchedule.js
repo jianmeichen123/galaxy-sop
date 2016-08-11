@@ -61,5 +61,4 @@ function shecudle(id){
 		}
 			
 	});
-	return false;
 }
