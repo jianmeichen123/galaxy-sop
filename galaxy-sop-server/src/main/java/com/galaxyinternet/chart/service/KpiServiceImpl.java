@@ -180,9 +180,44 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		if(proList == null || proList.isEmpty()){
 			return kpiPage;
 		}
+		Map<String,Integer> progressNumMap = new HashMap<String,Integer>();
+		progressNumMap.put("projectProgress:1", 0);
+		progressNumMap.put("projectProgress:2", 0);
+		progressNumMap.put("projectProgress:3", 0);
+		progressNumMap.put("projectProgress:4", 0);
+		progressNumMap.put("projectProgress:5", 0);
+		progressNumMap.put("projectProgress:6", 0);
+		progressNumMap.put("projectProgress:7", 0);
+		progressNumMap.put("projectProgress:8", 0);
+		progressNumMap.put("projectProgress:9", 0);
 		List<Long> proIds = new ArrayList<Long>();
 		for(Project pro : proList){
 			proIds.add(pro.getId());
+			int projectPro = Integer.parseInt(pro.getProjectProgress().substring(pro.getProjectProgress().indexOf(":")+1)) ;
+			switch (projectPro) {
+				case 10:
+				case 9:
+					progressNumMap.put("projectProgress:9", progressNumMap.get("projectProgress:9")+1);
+				case 8:
+					progressNumMap.put("projectProgress:8", progressNumMap.get("projectProgress:8")+1);
+				case 7:
+					progressNumMap.put("projectProgress:7", progressNumMap.get("projectProgress:7")+1);
+				case 6:
+					progressNumMap.put("projectProgress:6", progressNumMap.get("projectProgress:6")+1);
+				case 5:
+					progressNumMap.put("projectProgress:5", progressNumMap.get("projectProgress:5")+1);
+				case 4:
+					progressNumMap.put("projectProgress:4", progressNumMap.get("projectProgress:4")+1);
+				case 3:
+					progressNumMap.put("projectProgress:3", progressNumMap.get("projectProgress:3")+1);
+				case 2:
+					progressNumMap.put("projectProgress:2", progressNumMap.get("projectProgress:2")+1);
+				case 1:
+					progressNumMap.put("projectProgress:1", progressNumMap.get("projectProgress:1")+1);
+					break;
+				default:
+					break;
+			}
 		}
 		
 		
@@ -562,7 +597,13 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			ChartDataBo kpi = new ChartDataBo();
 			kpi.setProgressCode("projectProgress:"+i);
 			kpi.setProgressName(DictEnum.projectProgress.getNameByCode("projectProgress:"+i));
-			kpi.setDayLine(resultMap.get("time_"+i)/(1000*3600*24));
+			
+			progressNumMap.put("projectProgress:1", 0);
+			int progressNum = progressNumMap.get("projectProgress:"+i);
+			if(progressNum != 0){
+				kpi.setDayLine(resultMap.get("time_"+i)/(1000*3600*24)/progressNum);
+			}else kpi.setDayLine(0l);
+			
 			kpiDataList.add(kpi);   
 		}
 		kpiPage = new Page<ChartDataBo>(kpiDataList,9l);
