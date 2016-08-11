@@ -1701,7 +1701,7 @@ font-family: "宋体";
 .legal{padding-bottom: 10px;margin-bottom: 10px;}
 .legal .new_table_stock{margin:15px 30px !important;background-color: transparent;}
 .new_table_stock td,.new_table_stock td span{}
-.new_table_stock td .th{width: 60px;text-align: right; margin-bottom:5px;}
+.new_table_stock td .th{width: 70px;text-align: right; margin-bottom:5px;}
 .new_table_stock td {line-height:25px;}
 .new_table_stock span{  margin-top: 0px;}
 .legal{height: 125px;}
@@ -2061,10 +2061,10 @@ dl{position: relative;}
 	cursor:default;
 	color:#aaaaaa;
 }
-.limits_gray .blue{
+/* .limits_gray .blue{
 	cursor:default;
 	color:#aaaaaa;
-}
+} */
 .limits_gray .meet_download ,.limits_gray .see {
 	cursor:pointer !important;
 	color:#438ee1 !important;
