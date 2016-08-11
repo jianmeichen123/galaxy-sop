@@ -452,8 +452,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 				endTime = pro.getUpdatedTime();
 			}else endTime = timeNow;
 			
-			long a_startTime = 0L;
-			long b_endTime = 0l;
+			Long a_startTime = 0L;
+			Long b_endTime = 0l;
 			
 			switch (projectPro) {
 				case 10:
@@ -466,7 +466,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					}
 					b_endTime = task_gszr_stime;
 					
-					if(a_startTime != 0l && b_endTime != 0l){
+					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						time_9 +=  a_startTime - b_endTime ;
 						resultMap.put("time_9", time_9);
 					}
@@ -479,7 +479,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					}
 					b_endTime = task_tzxy_stime ==0l?tjh_pass_time:task_tzxy_stime;
 	
-					if(a_startTime != 0l && b_endTime != 0l){
+					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						time_8 += a_startTime - b_endTime ;
 						resultMap.put("time_8", time_8);
 					}
@@ -492,7 +492,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					}
 					b_endTime = tjh_paiqi_time==0l?tjh_first_time:tjh_paiqi_time;
 					
-					if(a_startTime != 0l && b_endTime != 0l){
+					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						time_7 += a_startTime - b_endTime ;
 						resultMap.put("time_7", time_7);
 					}
@@ -505,7 +505,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					}
 					b_endTime = task_jzdc_stime==0l?task_tzyxs_etime:task_jzdc_stime;
 					
-					if(a_startTime != 0l && b_endTime != 0l){
+					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						time_6 += a_startTime - b_endTime ;
 						resultMap.put("time_6", time_6);
 					}
@@ -518,7 +518,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					}
 					b_endTime = task_tzyxs_stime==0l?lxh_pass_time:task_tzyxs_stime;
 					
-					if(a_startTime != 0l && b_endTime != 0l){
+					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						time_5 += a_startTime - b_endTime ;
 						resultMap.put("time_5", time_5);
 					}
@@ -533,7 +533,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					
 					b_endTime = lxh_paiqi_time==0l?ceo_pass_time:lxh_paiqi_time;
 					
-					if(a_startTime != 0l && b_endTime != 0l){
+					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						time_4 += a_startTime - b_endTime ;
 						resultMap.put("time_4", time_4);
 					}
@@ -546,7 +546,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					}
 					b_endTime = ceo_paiqi_time==0l?lph_pass_time:ceo_paiqi_time;
 					
-					if(a_startTime != 0l && b_endTime != 0l){
+					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						time_3 += a_startTime - b_endTime ;
 						resultMap.put("time_3", time_3);
 					}
@@ -559,7 +559,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					}
 					b_endTime = lph_first_time;
 					
-					if(a_startTime != 0l && b_endTime != 0l) {
+					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						time_2 += a_startTime - b_endTime ;
 						resultMap.put("time_2", time_2);
 					}
@@ -576,7 +576,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					}
 					b_endTime = pro.getCreatedTime();
 					
-					if(a_startTime != 0l && b_endTime != 0l){
+					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						time_1 += a_startTime - b_endTime ;
 						resultMap.put("time_1", time_1);
 					}
