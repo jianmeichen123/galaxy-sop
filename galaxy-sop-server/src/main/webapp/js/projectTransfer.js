@@ -64,7 +64,7 @@ function doSumbit(projectId){
 }
 function callbackFun(data){
 	if (data.result.status != "OK") {
-			layer.msg("提交失败");
+			layer.msg(data.result.message);
 	} else {
 		layer.msg("提交成功")
 		window.location=window.location;
