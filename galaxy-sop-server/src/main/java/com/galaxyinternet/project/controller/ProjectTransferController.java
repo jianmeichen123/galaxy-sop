@@ -95,6 +95,11 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
+		User user = (User) getUserFromSession(request);
+		if(user.getId().longValue() == projectTransfer.getAfterUid().longValue()){
+			responseBody.setResult(new Result(Status.ERROR,"err" , "不能将项目移交给本人！"));
+			return responseBody;
+		}
 		List<ProjectTransfer> datas = projectTransferService.applyTransferData(projectTransfer.getProjectId());
 		if(null!=datas &&datas.size()>0){
 			responseBody.setResult(new Result(Status.ERROR,"err" , "该项目已经在移交中！"));
@@ -106,7 +111,6 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 				responseBody.setResult(new Result(Status.ERROR,"csds" , "未找到被移交的项目!"));
 				return responseBody;
 			}
-			User user = (User) getUserFromSession(request);
 			projectTransfer.setBeforeUid(user.getId());
 			projectTransfer.setBeforeDepartmentId(user.getDepartmentId());
 		    Long result=	projectTransferService.applyProjectTransfer(projectTransfer);
@@ -236,7 +240,7 @@ public class ProjectTransferController extends BaseControllerImpl<ProjectTransfe
 			User user = (User) getUserFromSession(request);
 			List<ProjectTransfer> datas = projectTransferService.applyTransferData(projectTransfer.getProjectId());
 			if(datas == null || datas.isEmpty()){
-				responseBody.setResult(new Result(Status.ERROR,"err" , "没有找到相关的移交申请记录!"));
+				responseBody.setResult(new Result(Status.ERROR,"err" , "接收项目失败!"));
 				return responseBody;
 			}
 			ProjectTransfer transfer = datas.get(0);
