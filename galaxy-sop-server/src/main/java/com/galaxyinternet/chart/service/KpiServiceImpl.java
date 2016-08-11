@@ -448,7 +448,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 			}
 				
 			Long endTime = null;
-			if(pro.getProjectProgress().equals(DictEnum.projectStatus.YFJ.getCode())){
+			if(pro.getProjectStatus().equals(DictEnum.projectStatus.YFJ.getCode())){
 				endTime = pro.getUpdatedTime();
 			}else endTime = timeNow;
 			
