@@ -38,6 +38,7 @@ import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.query.ProjectQuery;
+import com.galaxyinternet.common.taglib.FXFunctionTags;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
@@ -2253,6 +2254,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					if ((time > startTime) && sheduleStatus == 1) {
 						Edit = 0;
 					}
+				}
+				//正在移交中的项目
+				if(FXFunctionTags.isTransfering(ms.getProjectId())){
+					Edit = 0;
 				}
 				ms.setIsEdit(Edit);
 				ids.add(String.valueOf(ms.getProjectId()));
