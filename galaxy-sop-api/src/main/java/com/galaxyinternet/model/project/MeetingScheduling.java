@@ -66,6 +66,7 @@ public class MeetingScheduling extends PagableEntity {
 
 	// 权限部分
 	private byte isEdit;
+	private byte isTransfor;
 
 	private Double meetingRate;
 	
@@ -76,6 +77,14 @@ public class MeetingScheduling extends PagableEntity {
 	private Long endTime;
 	
 	
+	public byte getIsTransfor() {
+		return isTransfor;
+	}
+
+	public void setIsTransfor(byte isTransfor) {
+		this.isTransfor = isTransfor;
+	}
+
 	public Timestamp getReserveTimeEnd() {
 		if (StringUtils.isNotBlank(this.reserveTimeEndStr)) {
 			Date tmp = null;
