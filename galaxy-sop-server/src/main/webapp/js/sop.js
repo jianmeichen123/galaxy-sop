@@ -100,7 +100,6 @@ function info(id){
 						}else{
 							$("#add_lxhmeet").remove();
 						}
-						
 					}
 					if(i == 5){
 						tzyxs(0);
@@ -241,6 +240,9 @@ function info(id){
 				if(!canToOption){
 					$(".option_item_mark").remove();
 				}
+				//立项报告列表
+				$("#lx_report_table").bootstrapTable();
+				initLxReportTable();
 			},null);
 		}
 	});

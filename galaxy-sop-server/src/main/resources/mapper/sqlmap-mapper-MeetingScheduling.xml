@@ -286,7 +286,7 @@
 		   <trim prefixOverrides="and">
 		    <if test="meetingType != null" > and meeting_type = #{meetingType} </if>
 		    <if test="reserveTimeStart != null"> and (reserve_time_start &gt;= #{reserveTimeStart}  </if>
-		    <if test="reserveTimeEnd != null"> and reserve_time_end &lt;= #{reserveTimeEnd} or reserve_time_end  &gt;= #{reserveTimeStart}) </if>
+		    <if test="reserveTimeEnd != null"> and reserve_time_end &lt;= #{reserveTimeEnd} or reserve_time_end  &gt;= #{reserveTimeStart} and reserve_time_start  &lt;= #{reserveTimeEnd}) </if>
 		    <if test="scheduleStatus != null" > and schedule_status = #{scheduleStatus} </if>
 		    <if test="scheduleStatus == null" > and schedule_status !=0 </if>
 		    </trim>

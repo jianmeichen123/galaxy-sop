@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -128,7 +130,9 @@
 <script id="b" type="text/javascript" charset="utf-8" src="<%=path %>/ueditor/dialogs/map/map.js"></script>
 <script id="e" type="text/javascript" src="<%=path %>/ueditor/lang/zh-cn/zh-cn.js"></script>
 
-
+<script>
+var transferingIds = "${fx:getTransferingPids()}".split(",");
+</script>
 <!-- clude -->
 <script src="<%=path %>/js/interview.js" type="text/javascript"></script>
 
