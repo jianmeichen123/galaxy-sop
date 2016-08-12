@@ -84,7 +84,7 @@
 				 tbodyList.append(tr);
 				 
 			  });
-			cutStr(10,'cutstr');
+			cutStr(5,'cutstr');
 		}		
 		if (list.length==0) {
 			
