@@ -214,59 +214,60 @@ public class SopUserScheduleController extends
 	@RequestMapping(value = "/sh", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingSchedulingBo> shedulingMeeting(HttpServletRequest request,@RequestBody MeetingScheduling query){
 		ResponseData<MeetingSchedulingBo> responseBody = new ResponseData<MeetingSchedulingBo>();
-		
 		User user = (User) getUserFromSession(request);
-
-		ProjectBo pb = new ProjectBo();
-		pb.setCreateUid(user.getId());
-		List<Project> projectList = projectService.queryList(pb);
-		
-		//组装项目的投资经理uid
-		List<Long> proids = new ArrayList<Long>();
-		List<String> departmentids = new ArrayList<String>();
-		Map<Long,Project> projectProMap = new HashMap<Long,Project>();
-		for(Project pr:projectList){
-			proids.add(pr.getId());
-			projectProMap.put(pr.getId(), pr);
-			departmentids.add(String.valueOf(pr.getProjectDepartid()));
+		try{
+			ProjectBo pb = new ProjectBo();
+			pb.setCreateUid(user.getId());
+			List<Project> projectList = projectService.queryList(pb);
+			//组装项目的投资经理uid
+			List<Long> proids = new ArrayList<Long>();
+			List<String> departmentids = new ArrayList<String>();
+			Map<Long,Project> projectProMap = new HashMap<Long,Project>();
+			for(Project pr:projectList){
+				proids.add(pr.getId());
+				projectProMap.put(pr.getId(), pr);
+				departmentids.add(String.valueOf(pr.getProjectDepartid()));
+			}
+			//若此人没有创建的项目则返回
+			if(proids != null && proids.size() > 0){
+				query.setProjectIdList(proids);
+			}else{
+				return responseBody;
+			}
+			//若前端传来排期类型为空
+			if(StringUtils.isEmpty(query.getMeetingType())){
+				return responseBody;
+			}
+			//获取排期数据
+			List<MeetingSchedulingBo> mslist=meetingSchedulingService.meetingListByCondition(query);
+			if(mslist.size() == 0){
+				return responseBody;
+			}
+			
+			//获取事业线数据
+			Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
+			List<Department> careerlineList = departmentService.queryListById(departmentids);
+			for(Department department : careerlineList){
+				careerlineMap.put(department.getId(), department);
+			}
+			//组装数据
+			for(MeetingSchedulingBo ms : mslist){
+				    Project p = projectProMap.get(ms.getProjectId());
+				    if(p != null){
+				    	ms.setProjectCode(p.getProjectCode());
+						ms.setProjectName(p.getProjectName());
+						ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
+						ms.setCreateUname(p.getCreateUname());
+						ms.setMeetingType(DictUtil.getMeetingType(ms.getMeetingType()));
+						ms.setStart(DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
+						ms.setEnd(DateUtil.convertDateToStringForChina(ms.getReserveTimeEnd()));
+		                ms.setTitle(p.getProjectName()+ms.getMeetingType());
+				    }
+			}
+			responseBody.setEntityList(mslist);
+		}catch(Exception e){
+			logger.error("排期时间出错:"+e.getMessage());
 		}
-		//若此人没有创建的项目则返回
-		if(proids != null && proids.size() > 0){
-			query.setProjectIdList(proids);
-		}else{
-			return responseBody;
-		}
-		//若前端传来排期类型为空
-		if(StringUtils.isEmpty(query.getMeetingType())){
-			return responseBody;
-		}
-		//获取排期数据
-		List<MeetingSchedulingBo> mslist=meetingSchedulingService.meetingListByCondition(query);
-		if(mslist.size() == 0){
-			return responseBody;
-		}
-		
-		//获取事业线数据
-		Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
-		List<Department> careerlineList = departmentService.queryListById(departmentids);
-		for(Department department : careerlineList){
-			careerlineMap.put(department.getId(), department);
-		}
-		
-		//组装数据
-		for(MeetingSchedulingBo ms : mslist){
-			    Project p = projectProMap.get(ms.getProjectId());
-				ms.setProjectCode(p.getProjectCode());
-				ms.setProjectName(p.getProjectName());
-				ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
-				ms.setCreateUname(p.getCreateUname());
-				ms.setMeetingType(DictUtil.getMeetingType(ms.getMeetingType()));
-				ms.setStart(DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
-				ms.setEnd(DateUtil.convertDateToStringForChina(ms.getReserveTimeEnd()));
-                ms.setTitle(p.getProjectName()+ms.getMeetingType());
-				
-		}
-		responseBody.setEntityList(mslist);
 		return responseBody;
 	}
 	

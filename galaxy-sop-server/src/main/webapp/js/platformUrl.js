@@ -700,7 +700,7 @@ var platformUrl = {
 	 */
 	MeetingSheduleNewList : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/shedulingList",
 	
-	sh : Constants.sopEndpointURL + "/galaxy/meetingShe/sh",
+	ceosh : Constants.sopEndpointURL + "/galaxy/meetingShe/sh",
 	
     /**
      * pop弹出层
