@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 
 import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.dao.project.InterviewRecordDao;
+import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
@@ -44,9 +46,16 @@ public class InterviewRecordDaoImpl extends BaseDaoImpl<InterviewRecord, Long> i
 			throw new DaoException(String.format("查询对象总数出错！语句：%s", getSqlName("selectInterviewCount")), e);
 		}
 	}
-	
-	
-	
-	
+
+
+	@Override
+	public int updateCreateUid(InterviewRecord ir) {
+		Assert.notNull(ir);
+		try {
+			return sqlSessionTemplate.update(getSqlName("updateCreateUid"), ir);
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据ID更新对象出错！语句：%s", getSqlName(SqlId.SQL_UPDATE_BY_ID)), e);
+		}
+	}
 	
 }
