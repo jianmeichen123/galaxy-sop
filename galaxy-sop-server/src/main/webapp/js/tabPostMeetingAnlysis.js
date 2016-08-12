@@ -208,7 +208,7 @@ var meetGrid = {
 				{
 					return;
 				}
-	        	layer.confirm('你确定要删除吗?', {
+	        	layer.confirm('是否删除事项?', {
 	        		  btn: ['确定', '取消'] //可以无限个按钮
 	        		}, function(index, layero){
 	        			sendGetRequest(platformUrl.deletePostMeeting + "/" + row.id ,null,function(data){

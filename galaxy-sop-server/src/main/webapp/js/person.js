@@ -219,7 +219,7 @@ function updatePerson(){
  * @param id
  */
 function deletePer(id,url){
-	layer.confirm('你确定要删除吗?',
+	layer.confirm('是否删除事项?',
 			{
 			  btn: ['确定', '取消'] 
 			}, 
