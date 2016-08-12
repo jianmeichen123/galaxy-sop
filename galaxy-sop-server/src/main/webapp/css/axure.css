@@ -2025,7 +2025,7 @@ dl{position: relative;}
 .role_all{ width:450px; margin-top:45px; }
 .role_toolTip_input{ width:325px; border:1px solid #ccd2d7; line-height:30px; height:30px; border-radius:2px; font-size: 12px; text-indent:5px;}
 .role_all ul li{ overflow:hidden; margin-bottom:20px;}
-.role_toolTip_area{ width:325px; height:150px; overflow-y:auto;　border:1px solid #ccd2d7; resize:none; box-sizing:border-box; text-indent:5px;}
+.role_toolTip_area{ width:325px; padding-top:5px; height:150px; overflow-y:auto;　border:1px solid #ccd2d7; resize:none; box-sizing:border-box; text-indent:5px;}
 
 /*移交项目图标*/
 .prj_all table td .prc_gray, .prj_all table td .limits_gray {
@@ -2074,3 +2074,4 @@ dl{position: relative;}
     color: #FFF;
     cursor:default;
  }
+ .mar_left{ float:left;}
