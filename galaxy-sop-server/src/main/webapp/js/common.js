@@ -1572,3 +1572,21 @@ function ajaxPopup(obj,tite_mame){
  	});
  	return false;
 }
+
+
+
+
+
+
+
+
+
+
+//查看项目详情
+function to_pro_info(id){
+	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
+}
+
+
+
+
