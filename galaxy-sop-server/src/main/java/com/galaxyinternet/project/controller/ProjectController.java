@@ -2243,7 +2243,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 			List<String> ids = new ArrayList<String>();
 			for (MeetingScheduling ms : schedulingList) {
-				byte Edit = 1;
+				byte Edit = 1;//可编辑
+				byte isTransfor = 1;//未移交
 				Integer sheduleStatus = ms.getScheduleStatus();
 				if (sheduleStatus == 2 || sheduleStatus == 3) {
 					Edit = 0;
@@ -2257,9 +2258,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 				//正在移交中的项目
 				if(FXFunctionTags.isTransfering(ms.getProjectId())){
-					Edit = 0;
+					Edit = 0;//不可编辑
+					isTransfor = 0;//移交中
 				}
 				ms.setIsEdit(Edit);
+				ms.setIsTransfor(isTransfor);
 				ids.add(String.valueOf(ms.getProjectId()));
 			}
 
