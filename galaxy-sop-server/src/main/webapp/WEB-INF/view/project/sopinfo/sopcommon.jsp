@@ -75,8 +75,12 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 function back(){
 	setCookie("backProjectList", 'click',24,'/');	
 	var href_url=getCookieValue("href_url");
-	deleteCookie("href_url","/");
-	window.location=href_url;	
+	if(href_url){
+		deleteCookie("href_url","/");
+		window.location=href_url;
+	}else
+		window.history.go(-1);
+		
 }
 $(function(){
 	var str=projectInfo.projectName;

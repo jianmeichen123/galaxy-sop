@@ -84,5 +84,12 @@ public interface SopTaskService extends BaseService<SopTask> {
 	 */
 	public List<SopTask> getSopTaskByProjectId(SopTaskBo query);
 	
+	/**
+	 * 项目移交时将投资经理的任务进行迁移
+	 * @param task
+	 * @return
+	 */
+	int updateAtProjectTranfer(SopTask task);
+	
 }
 

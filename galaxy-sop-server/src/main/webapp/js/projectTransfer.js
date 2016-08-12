@@ -21,7 +21,11 @@ function doSumbit(projectId){
 	 */
 	$('select[name="afterDepartmentId"]').change(function(){
 		var did = $('select[name="afterDepartmentId"]').val();
-	    createUserOptions(platformUrl.getUserList+did, "afterUid", 1);
+		if(did == null || did == ''){
+			createUserOptions(platformUrl.getUserList+"0", "afterUid",1);
+		}else{
+			createUserOptions(platformUrl.getUserList+did, "afterUid", 1);
+		}
 	});
 	
 	$("select[name='afterDepartmentId']").on("change",function(){

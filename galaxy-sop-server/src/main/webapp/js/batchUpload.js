@@ -99,8 +99,11 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				});
 			},
 			UploadProgress: function(up, file) {
-				 var percent = parseInt(file.percent)-10;
-				 $("#"+file.id+"_progress").html('<span>'+ percent + "%</span>"); 
+				 var percent = parseInt(file.percent)
+				 if(percent > 10){
+					 percent = parseInt(file.percent)-10;
+					 $("#"+file.id+"_progress").html('<span>'+ percent + "%</span>"); 
+				 }
 			},
 			UploadComplete: function(up, files){//所有都上传完成
 			

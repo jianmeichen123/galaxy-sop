@@ -84,17 +84,14 @@ var planGrid = {
 			//fileName + fileSuffix,fileStatusDesc,createDate
 			columns : [{
 				field : 'createDate',
-				title : '更新时间',
-				align : 'center'
+				title : '更新时间'
 			}, {
 				field : 'fileName',
 				title : '文档名称',
-				align : 'center',
 				formatter : gridFormatter.fileNameFormatter
 			}, {
 				field : 'operate',
 				title : '操作',
-				align : 'center',
 				events : gridFormatter.operatorEvent,
 				formatter : gridFormatter.operatorFormatter
 			}]

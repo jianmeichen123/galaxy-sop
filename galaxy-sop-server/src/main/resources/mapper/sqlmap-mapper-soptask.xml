@@ -303,6 +303,24 @@
 		where id = #{id}
 	</update>
 	
+	
+	<update id="updateAtProjectTranfer" parameterType="SopTaskPO">
+		update sop_task
+		<set>
+			<if test="departmentId != null">  department_id =#{departmentId},</if>
+			<if test="assignUid != null">  assign_uid =#{assignUid},</if>
+			<if test="createdTime != null">  created_time =#{createdTime},</if>
+			<if test="updatedTime != null">  updated_time =#{updatedTime}</if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				<if test="projectId != null"> and project_id =#{projectId}</if>
+				<if test="queryAssignUid != null"> and assign_uid =#{queryAssignUid}</if>
+				<if test="taskStatus != null"> and task_status =#{taskStatus}</if>
+			</trim>
+		</where>
+	</update>
+	
 	<!-- 修改项目状态 -->
 	<update id="updateTask" parameterType="SopTaskPO">
 		update sop_task 

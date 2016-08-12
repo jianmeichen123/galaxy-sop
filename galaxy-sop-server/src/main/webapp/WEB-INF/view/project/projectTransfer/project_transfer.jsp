@@ -31,7 +31,7 @@
                 </li>
                 <li>
                     <div class="fl width_150 align_r">移交原因：</div>
-                    <div class="fl"><textarea style="width:305px;" class="role_toolTip_area" name="transferReason" maxlength="100"></textarea></div>
+                    <div class="fl"><textarea  class="role_toolTip_area" name="transferReason" maxlength="100"></textarea></div>
                     <div id="receive-reason" class="tip-yellowsimple" style="visibility: hidden; left: 332px; top: 157px; width: 101px; opacity: 1;"><div class="tip-inner tip-bg-image"><font color="red">*</font>移交原因不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
                 </li>
                 </form>

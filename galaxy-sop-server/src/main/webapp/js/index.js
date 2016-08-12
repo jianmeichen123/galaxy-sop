@@ -69,7 +69,7 @@
 						return false;
 					}
 					if(data.result.message=="show"){
-						_td = '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>';
+						_td = '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="to_pro_info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>';
 					}else{
 						_td = '<td  title="'+ getValue(templ.projectName)+'" class="cutstr">'+ getValue(templ.projectName) +'</td>';
 					}
@@ -84,7 +84,7 @@
 				 tbodyList.append(tr);
 				 
 			  });
-			cutStr(10,'cutstr');
+			cutStr(5,'cutstr');
 		}		
 		if (list.length==0) {
 			
@@ -226,7 +226,7 @@
 							return false;
 						}
 						if(data.result.message=="show"){
-							_td = '<td title="'+ getValue(temp.projectName)+'">' + '<a class="cutstr blue" href="javascript:void(0)" onclick="info(' + temp.projectId + ')">'+ getValue(temp.projectName)+ '</a>' + '</td>';
+							_td = '<td title="'+ getValue(temp.projectName)+'">' + '<a class="cutstr blue" href="javascript:void(0)" onclick="to_pro_info(' + temp.projectId + ')">'+ getValue(temp.projectName)+ '</a>' + '</td>';
 						}else{
 							_td = '<td class="cutstr" title="'+ getValue(temp.projectName)+'">' + getValue(temp.projectName) + '</td>';
 						}
@@ -276,7 +276,7 @@
 							return false;
 						}
 						if(data.result.message=="show"){
-							_td = '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>';
+							_td = '<td  title="'+ getValue(templ.projectName)+'">'+ '<a class="blue cutstr" href="javascript:void(0)" onclick="to_pro_info(' + templ.projectId + ')">' + getValue(templ.projectName)+ '</a>' +'</td>';
 						}else{
 							_td = '<td  title="'+ getValue(templ.projectName)+'" class="cutstr">'+ getValue(templ.projectName) +'</td>';
 						}

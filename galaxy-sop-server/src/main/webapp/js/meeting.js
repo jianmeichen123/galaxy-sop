@@ -39,6 +39,10 @@ function setMeetProSelect(data){
 		return;
 	}else{
 		for(var i=0;i<data.entityList.length;i++){
+			if(typeof(transferingIds) != 'undefined' && transferingIds.contains(data.entityList[i].id))
+			{
+				continue;
+			}
 	    	$("#projectId").append("<option value='"+data.entityList[i].id+"'>"+data.entityList[i].projectName+"</option>");
 	    } 
 	}

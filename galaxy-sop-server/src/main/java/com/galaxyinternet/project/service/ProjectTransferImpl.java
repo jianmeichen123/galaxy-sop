@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.common.enums.DictEnum;
+import com.galaxyinternet.dao.project.InterviewRecordDao;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.project.ProjectTransferDao;
@@ -17,6 +18,7 @@ import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.dao.BaseDao;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.project.ProjectTransfer;
@@ -42,6 +44,8 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 	private SopFileDao sopFileDao;
 	@Autowired
 	private SopVoucherFileDao sopVoucherFileDao;
+	@Autowired
+	private InterviewRecordDao interviewRecordDao;
 	
 	
 	@Override
@@ -119,6 +123,21 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		f.setProjectId(project.getId());
 		f.setCareerLine(departmentId);
 		sopVoucherFileDao.updateDepartmentId(f);
+		
+		InterviewRecord ir = new InterviewRecord();
+		ir.setProjectId(project.getId());
+		ir.setCreatedId(createId);
+		ir.setUpdatedTime(System.currentTimeMillis());
+		interviewRecordDao.updateById(ir);
+		SopTask t = new SopTask();
+		t.setDepartmentId(departmentId);
+		t.setAssignUid(createId);
+		t.setCreatedTime(System.currentTimeMillis());
+		t.setUpdatedTime(System.currentTimeMillis());
+		t.setProjectId(project.getId());
+		t.setQueryAssignUid(projectTransfer.getBeforeUid());
+		t.setTaskStatus(DictEnum.taskStatus.待完工.getCode());
+		sopTaskDao.updateAtProjectTranfer(t);
 	}
 	
 	@Override
