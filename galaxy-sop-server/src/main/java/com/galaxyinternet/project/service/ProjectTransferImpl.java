@@ -127,8 +127,7 @@ public class ProjectTransferImpl extends BaseServiceImpl<ProjectTransfer> implem
 		InterviewRecord ir = new InterviewRecord();
 		ir.setProjectId(project.getId());
 		ir.setCreatedId(createId);
-		ir.setUpdatedTime(System.currentTimeMillis());
-		interviewRecordDao.updateById(ir);
+		interviewRecordDao.updateCreateUid(ir);
 		SopTask t = new SopTask();
 		t.setDepartmentId(departmentId);
 		t.setAssignUid(createId);
