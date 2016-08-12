@@ -800,7 +800,6 @@
 			}
 		});
  	}
- 	$("#lx_report_table").bootstrapTable();
  	function initLxReportTable()
  	{
  		$("#lx_report_table").bootstrapTable('removeAll');
@@ -825,7 +824,6 @@
 	 	);
  	}
  	
- 	initLxReportTable();
  	function lxReportFormatter(val,row,index)
  	{
  		var update = canToOption ? '<a href="#" class="blue" onclick="showLxUpload('+row.id+')">更新</a>&nbsp;' : '';
