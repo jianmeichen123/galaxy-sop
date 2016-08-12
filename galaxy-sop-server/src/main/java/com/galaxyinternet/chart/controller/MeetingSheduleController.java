@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
@@ -38,11 +40,15 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.MeetingSchedulingService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.soptask.controller.SopUserScheduleController;
 
 @Controller
 @RequestMapping("/galaxy/meetingShe")
 public class MeetingSheduleController extends BaseControllerImpl<MeetingScheduling, MeetingSchedulingBo>{
 
+	final Logger logger = LoggerFactory
+			.getLogger(MeetingSheduleController.class);
+	
 	@Autowired
 	private MeetingSchedulingService meetingSchedulingService;
 	
@@ -181,51 +187,53 @@ public class MeetingSheduleController extends BaseControllerImpl<MeetingScheduli
 		if(query.getMeetingType().contains("meetingType:3") && query.getMeetingType().contains("meetingType:4")){
 			query.setMeetingType(null);
 		}
-		
-		List<MeetingSchedulingBo> mslist=meetingSchedulingService.meetingListByCondition(query);
-		if(mslist.size() == 0){
-			return responseBody;
-		}
-		List<String> ids = new ArrayList<String>();
-		for(MeetingSchedulingBo ms : mslist){
-			ids.add(String.valueOf(ms.getProjectId()));
-		}
-	
-		ProjectBo pb = new ProjectBo();
-		pb.setIds(ids);
-		List<Project> projectList = projectService.queryList(pb);
-		//组装项目的投资经理uid
-		List<String> uids = new ArrayList<String>();
-		List<String> departmentids = new ArrayList<String>();
-		for(Project pr:projectList){
-			uids.add(String.valueOf(pr.getCreateUid()));
-			departmentids.add(String.valueOf(pr.getProjectDepartid()));
-		}
-		
-		Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
-		List<Department> careerlineList = departmentService.queryListById(departmentids);
-		for(Department department : careerlineList){
-			careerlineMap.put(department.getId(), department);
-		}
-		
-		//组装数据
-		for(MeetingSchedulingBo ms : mslist){
-			for(Project p : projectList){
-				if(ms.getProjectId().longValue() == p.getId().longValue()){
-					ms.setProjectCode(p.getProjectCode());
-					ms.setProjectName(p.getProjectName());
-					ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
-					ms.setCreateUname(p.getCreateUname());
-					ms.setMeetingType(DictUtil.getMeetingType(ms.getMeetingType()));
-					ms.setStart(DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
-					ms.setEnd(DateUtil.convertDateToStringForChina(ms.getReserveTimeEnd()));
-                    ms.setTitle(p.getProjectName()+ms.getMeetingType());
+		try{
+			List<MeetingSchedulingBo> mslist=meetingSchedulingService.meetingListByCondition(query);
+			if(mslist.size() == 0){
+				return responseBody;
+			}
+			List<String> ids = new ArrayList<String>();
+			for(MeetingSchedulingBo ms : mslist){
+				ids.add(String.valueOf(ms.getProjectId()));
+			}
+			ProjectBo pb = new ProjectBo();
+			pb.setIds(ids);
+			List<Project> projectList = projectService.queryList(pb);
+			//组装项目的投资经理uid
+			List<String> uids = new ArrayList<String>();
+			List<String> departmentids = new ArrayList<String>();
+			for(Project pr:projectList){
+				uids.add(String.valueOf(pr.getCreateUid()));
+				departmentids.add(String.valueOf(pr.getProjectDepartid()));
+			}
+			
+			Map<Long, Department> careerlineMap = new HashMap<Long, Department>();
+			List<Department> careerlineList = departmentService.queryListById(departmentids);
+			for(Department department : careerlineList){
+				careerlineMap.put(department.getId(), department);
+			}
+			
+			//组装数据
+			for(MeetingSchedulingBo ms : mslist){
+				for(Project p : projectList){
+					if(ms.getProjectId().longValue() == p.getId().longValue()){
+						ms.setProjectCode(p.getProjectCode());
+						ms.setProjectName(p.getProjectName());
+						ms.setProjectCareerline(careerlineMap.get(p.getProjectDepartid()).getName());
+						ms.setCreateUname(p.getCreateUname());
+						ms.setMeetingType(DictUtil.getMeetingType(ms.getMeetingType()));
+						ms.setStart(DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));
+						ms.setEnd(DateUtil.convertDateToStringForChina(ms.getReserveTimeEnd()));
+	                    ms.setTitle(p.getProjectName()+ms.getMeetingType());
+						
+					}
 					
 				}
-				
 			}
+			responseBody.setEntityList(mslist);
+		}catch(Exception e){
+			logger.error("ceo获取排期日程错误:"+e.getMessage());
 		}
-		responseBody.setEntityList(mslist);
 		return responseBody;
 	}
 
