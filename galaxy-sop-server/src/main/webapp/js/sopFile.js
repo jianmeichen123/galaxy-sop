@@ -232,7 +232,10 @@ var fileGrid = {
     				_localUrl : platformUrl.commonUploadFile
     		};
 			if($(this).text()=='更新'){
-				$('.title_bj').html('更新文档')
+				$('.title_bj').html('更新文档');
+			}
+			if($(this).text()=='上传'){
+				$('.title_bj').html('项目文档')
 			}
 			if('vsopfile'==e.currentTarget.id){
 				//签署凭证
@@ -249,6 +252,8 @@ var fileGrid = {
 			{
 				return;
 			}
+
+        	$('.title_bj').html('项目文档');
         	var uploadUrl = undefined;
         	var uploadFormFuc = undefined;
         	if(row.isChangeTask == "true"){
