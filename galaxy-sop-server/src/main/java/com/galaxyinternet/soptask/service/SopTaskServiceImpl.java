@@ -32,7 +32,6 @@ import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.ExceptionMessage;
 import com.galaxyinternet.framework.core.utils.StringEx;
-import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -541,7 +540,6 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 	
 	@Override
 	public List<SopTask> getSopTaskByProjectId(SopTaskBo query) {
-		// TODO Auto-generated method stub
 		return sopTaskDao.getSopTaskByProjectId(query);
 	}
 	
@@ -571,6 +569,11 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 				result="";
 		}
 		return result;
+	}
+
+	@Override
+	public int updateAtProjectTranfer(SopTask task) {
+		return sopTaskDao.updateAtProjectTranfer(task);
 	}
 	
 }

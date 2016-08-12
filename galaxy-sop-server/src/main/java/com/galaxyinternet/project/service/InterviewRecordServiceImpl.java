@@ -155,5 +155,11 @@ public class InterviewRecordServiceImpl extends BaseServiceImpl<InterviewRecord>
 	}
 
 
+	@Override
+	public int updateCreateUid(InterviewRecord ir) {
+		return interviewRecordDao.updateCreateUid(ir);
+	}
+
+
 	
 }

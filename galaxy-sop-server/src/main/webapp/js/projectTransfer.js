@@ -21,7 +21,11 @@ function doSumbit(projectId){
 	 */
 	$('select[name="afterDepartmentId"]').change(function(){
 		var did = $('select[name="afterDepartmentId"]').val();
-	    createUserOptions(platformUrl.getUserList+did, "afterUid", 1);
+		if(did == null || did == ''){
+			createUserOptions(platformUrl.getUserList+"0", "afterUid",1);
+		}else{
+			createUserOptions(platformUrl.getUserList+did, "afterUid", 1);
+		}
 	});
 	
 	$("select[name='afterDepartmentId']").on("change",function(){
@@ -64,11 +68,10 @@ function doSumbit(projectId){
 }
 function callbackFun(data){
 	if (data.result.status != "OK") {
-			layer.msg("提交失败");
+			layer.msg(data.result.message);
 	} else {
 		layer.msg("提交成功")
-			history.go(0);
-		
+		window.location=window.location;
 	}
 
 }
@@ -97,8 +100,7 @@ function callbackFunRevoke(data){
 		layer.msg("项目撤销移交失败");
 } else {
 	layer.msg("项目撤销移交成功")
-	history.go(0);
-	
+	window.location=window.location;
 }
 
 }

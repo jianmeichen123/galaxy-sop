@@ -14,7 +14,7 @@
         	<input type="hidden" name="projectId" value="">
                 <li>
                     <div class="fl width_150 align_r">撤销移交原因：</div>
-                    <div class="fl"><textarea style="width:215px;" class="role_toolTip_area" name="undoReason"></textarea></div>
+                    <div class="fl"><textarea  class="role_toolTip_area" name="undoReason" maxlength="100" ></textarea></div>
                     <div id="revoke-reason" class="tip-yellowsimple" style="visibility: hidden; left: 331px; top: 55px; width: 101px; opacity: 1;"><div class="tip-inner tip-bg-image"><font color="red">*</font>撤销原因不能为空</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
                 </li>
                 </form>

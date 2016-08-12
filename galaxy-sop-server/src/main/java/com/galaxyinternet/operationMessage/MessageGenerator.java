@@ -87,7 +87,12 @@ public class MessageGenerator implements InitializingBean,ApplicationContextAwar
 		entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
 		entity.setMessageType(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE)));
 		entity.setUserData((Serializable) map.get(PlatformConst.REQUEST_SCOPE_USER_DATA));
-		entity.setFlag((boolean)map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_NUM));
+		Object obj=map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_NUM);
+		if(null!=obj){
+			boolean flag=(boolean)obj;
+			entity.setFlag(flag);
+		}
+		
 		Integer module = type.getModule();
 		entity.setModule(module == null ? OperationType.getModule(user.getRoleId()) : module);
 		if(StringUtils.isNoneBlank(entity.getMessageType()) && entity.getMessageType().trim().length() >= 2 && "11".equals(entity.getMessageType().substring(0,2))){

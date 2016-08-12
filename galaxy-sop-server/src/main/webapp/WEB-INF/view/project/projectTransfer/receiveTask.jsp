@@ -15,7 +15,7 @@
       <DIV class="btm">
         <ul>
 		<li><a href="javascript:;" id="receive-task-btn" >接收项目</a></li>
-		<li><a href="javascript:;" id="refuse-task-btn" >拒绝项目</a></li>
+		<li><a href="javascript:;" id="refuse-task-btn" >拒接项目</a></li>
 	   </ul>
 
           </DIV>
@@ -72,7 +72,7 @@ function callbackFunRefuse(data){
 
 $("#receive-task-btn").click(function(){
 	
-	layer.confirm('你确定要接受该项目吗?', 
+	layer.confirm('你确定要接收该项目吗?', 
 			{
 			  btn: ['确定', '取消'] 
 			}, 
@@ -91,10 +91,10 @@ $("#receive-task-btn").click(function(){
 function closeback(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
-		layer.msg("error "+data.result.message);
+		layer.msg(data.result.message);
 		return;
 	}else{
-		layer.msg("接受项目成功");
+		layer.msg("接收项目成功");
 		var url = $("#menus .on a").attr('href');
 		window.location=url;		//forwardWithHeader(platformUrl.mpl);
 	}

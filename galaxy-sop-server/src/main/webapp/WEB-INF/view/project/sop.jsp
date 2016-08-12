@@ -322,12 +322,12 @@
 				<table id="lx_report_table" >
 					<thead>
 						<tr>
-							<th data-field="fWorktype" data-align="center" >业务类型</th>
-							<th data-field="createdTime" data-align="center"  data-formatter="longTime_Format">创建日期</th>
-							<th data-field="fType" data-align="center" >存档类型</th>
-							<th data-field="updatedTime" data-align="center"  data-formatter="longTime_Format">更新日期</th>
-							<th data-field="fileStatusDesc" data-align="center">档案状态</th>
-							<th data-field="operateFile" data-align="center" data-formatter="lxReportFormatter">操作</th>
+							<th data-field="fWorktype" >业务类型</th>
+							<th data-field="createdTime"  data-formatter="longTime_Format">创建日期</th>
+							<th data-field="fType"  >存档类型</th>
+							<th data-field="updatedTime"  data-formatter="longTime_Format">更新日期</th>
+							<th data-field="fileStatusDesc" >档案状态</th>
+							<th data-field="operateFile"  data-formatter="lxReportFormatter">操作</th>
 						</tr>
 					</thead>
 				</table>
@@ -461,7 +461,7 @@
 							<th data-field="operationType" >动作</th>
 							<th data-field="operationContent" >对象</th>
 							<th data-field="projectName"  >项目</th>
-							<th data-field="reason"  >原因</th>
+							<th data-field="reason" data-formatter="reason">原因</th>
 							<th data-field="sopstage"  >业务</th>
 						</tr>
 					</thead>
@@ -795,11 +795,11 @@
 				if(typeof(id) != 'undefined')
 				{
 					$("#lx_report_upload_form [name='id']").val(id);
+					$('.title_bj').html('更新项目立项报告')
 				}
 			}
 		});
  	}
- 	$("#lx_report_table").bootstrapTable();
  	function initLxReportTable()
  	{
  		$("#lx_report_table").bootstrapTable('removeAll');
@@ -824,13 +824,12 @@
 	 	);
  	}
  	
- 	initLxReportTable();
  	function lxReportFormatter(val,row,index)
  	{
- 		var update = '<a href="#" class="blue" onclick="showLxUpload('+row.id+')">更新</a>';
- 		var download = '<a href="#" class="blue" onclick="filedown('+row.id+')">下载</a>';
+ 		var update = canToOption ? '<a href="#" class="blue" onclick="showLxUpload('+row.id+')">更新</a>&nbsp;' : '';
+ 		var download = '<a href="#" class="blue" onclick="filedown('+row.id+')">查看</a>';
  		var del = '<a href="#" class="blue" style="display:none;" onclick="delLxReport('+row.id+')">删除</a>';
- 		return update+"&nbsp;"+download+"&nbsp;"+del;
+ 		return update+download+"&nbsp;"+del;
  	}
  	function delLxReport(id)
  	{
@@ -853,5 +852,16 @@
  			);
  		});
  	}
+ 	
+ 	function reason(value){
+ 		if(value == '' || value == null || value == 'null' || typeof(value) == "undefined"){
+ 			return "--";
+ 		}
+ 		else{
+ 			var resetUrl = "<a  href='javascript:void(0);' title='"+value+"'><div class='width_1'>"+value+"</div></a>";
+ 			return   resetUrl;
+ 		}
+ 	}
+ 		
  
 </script>

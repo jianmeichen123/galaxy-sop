@@ -17,5 +17,10 @@ public interface InterviewRecordService extends BaseService<InterviewRecord> {
 	public Long updateViewForFile(SopFile sopFile, InterviewRecord view);
 
 	public Page<InterviewRecordBo> queryInterviewPage(InterviewRecordBo query, Pageable pageable);
+	
+	/**
+	 * 项目移交修改create_uid
+	 */
+	public int updateCreateUid(InterviewRecord ir);
 
 }

@@ -222,7 +222,14 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		pageEntity.setTotal(new Long(result.size()));
 		List<SopFile> sl = new ArrayList<SopFile>();
-		sl.addAll(result.subList(pageable.getPageNumber()*pageable.getPageSize(), (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize()) > result.size() ? result.size() : (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize())));
+		
+		int beginIndex = pageable.getPageNumber() * pageable.getPageSize();
+		int endIndex = pageable.getPageNumber() * pageable.getPageSize() + ((result.size() - beginIndex) >= pageable.getPageSize() ? pageable.getPageSize() : result.size() - beginIndex) ;
+
+//		endIndex = result.size();
+		result = result.subList(beginIndex, endIndex);
+
+		sl.addAll(result);
 		pageEntity.setContent(sl);
 		return pageEntity;
 	}
@@ -904,14 +911,14 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
     private Result downFile(HttpServletResponse response, String str,String tempFilePath) {    
     	Result result = new Result();
     	result.setStatus(Status.OK);
+    	BufferedInputStream bins = null;
+    	BufferedOutputStream bouts = null;
     	try {    
             String path = tempFilePath + str;    
             File file = new File(path);    
             if (file.exists()) {    
-                InputStream ins = new FileInputStream(path);    
-                BufferedInputStream bins = new BufferedInputStream(ins);// 放到缓冲流里面    
-                OutputStream outs = response.getOutputStream();// 获取文件输出IO流    
-                BufferedOutputStream bouts = new BufferedOutputStream(outs);    
+                bins = new BufferedInputStream(new FileInputStream(path));// 放到缓冲流里面    
+                bouts = new BufferedOutputStream(response.getOutputStream());    
                 response.setContentType("application/x-download");// 设置response内容的类型    
                 response.setHeader(    
                         "Content-disposition",    
@@ -923,17 +930,29 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
                 while ((bytesRead = bins.read(buffer, 0, 1024 * 2)) != -1) {    
                     bouts.write(buffer, 0, bytesRead);    
                 }    
-                bouts.flush();// 这里一定要调用flush()方法    
-                ins.close();    
-                bins.close();    
-                outs.close();    
-                bouts.close();    
             } else {    
             	result.setStatus(Status.ERROR);
             }    
         } catch (IOException e) {    
         	logger.error("文件下载出错", e);   
         	result.setStatus(Status.ERROR);
+        }finally{
+        	if(bouts != null){
+        		try {
+					bouts.flush();// 这里一定要调用flush()方法
+					bouts.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}finally{
+					if(bins != null){
+						try {
+							bins.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+        	}
         }
     	return result;
     }

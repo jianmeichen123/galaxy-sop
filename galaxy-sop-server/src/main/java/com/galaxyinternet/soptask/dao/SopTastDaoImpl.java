@@ -8,14 +8,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import com.galaxyinternet.bo.SopTaskBo;
-import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.dao.soptask.SopTaskDao;
 import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.soptask.SopTask;
 
 @Repository("sopTaskDao")
@@ -96,6 +94,16 @@ public class SopTastDaoImpl extends BaseDaoImpl<SopTask, Long>implements SopTask
 			return sqlSessionTemplate.selectList(getSqlName("selectXXXXXX"),params);
 		} catch (Exception e) {
 			throw new DaoException(String.format("查询对象列表出错！语句：%s", getSqlName("selectXXXXXX")), e);
+		}
+	}
+
+	@Override
+	public int updateAtProjectTranfer(SopTask task) {
+		Assert.notNull(task);
+		try {
+			return sqlSessionTemplate.update(getSqlName("updateAtProjectTranfer"), task);
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据ID更新对象出错！语句：%s", getSqlName(SqlId.SQL_UPDATE_BY_ID)), e);
 		}
 	}
 	

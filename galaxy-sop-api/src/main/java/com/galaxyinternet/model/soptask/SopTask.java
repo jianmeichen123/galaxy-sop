@@ -20,6 +20,7 @@ public class SopTask extends PagableEntity{
      private Date taskDeadline;
      private Long departmentId;
      private Long assignUid;
+     private Long queryAssignUid;
      
     //report
  	private Long startTime; 
@@ -74,6 +75,12 @@ public class SopTask extends PagableEntity{
 	}
 	public void setAssignUid(Long assignUid) {
 		this.assignUid = assignUid;
+	}
+	public Long getQueryAssignUid() {
+		return queryAssignUid;
+	}
+	public void setQueryAssignUid(Long queryAssignUid) {
+		this.queryAssignUid = queryAssignUid;
 	}
 	public String getTaskStatus() {
 		return taskStatus;

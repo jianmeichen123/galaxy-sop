@@ -20,6 +20,7 @@
     
     <result column="departId"  property="departId" />
     <result column="passMeetNum"  property="passMeetNum" />
+    <result column="sumProNum"  property="sumProNum" />
     <result column="first_meet_time"  property="firstMeetTime" jdbcType="TIMESTAMP" />
     <result column="pass_meet_time"  property="passMeetTime" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -154,6 +155,10 @@
 		    <if test="meetingName != null" > meeting_name = #{meetingName,jdbcType=BIGINT} </if>
 		</set>
 		where id = #{id}
+	</update>
+	
+	<update id="updateCreateUid" parameterType="com.galaxyinternet.model.project.MeetingRecord">
+		update sop_meeting_record set create_uid = #{createUid,jdbcType=BIGINT} where project_id = #{projectId,jdbcType=BIGINT}
 	</update>
 	
     
