@@ -170,13 +170,12 @@ $(function(){
 	
 });	
 	
-function reason(row){
-	var str=row.reason;
-	if(str == '' || str == null || str == 'null' || typeof(str) == "undefined"){
+function reason(value){
+	if(value == '' || value == null || value == 'null' || typeof(value) == "undefined"){
 		return "--";
 	}
 	else{
-		var resetUrl = "<a  href='javascript:void(0);' title='"+str+"'><div class='width_1'>"+str+"</div></a>";
+		var resetUrl = "<a  href='javascript:void(0);' title='"+value+"'><div class='width_1'>"+value+"</div></a>";
 		return   resetUrl;
 	}
 }
