@@ -1,3 +1,5 @@
+var search_btn='none';
+//var one_click_number='';
 var searchOverviewPanel = {
 		init : function(){
 			//初始化日期
@@ -23,9 +25,22 @@ var searchOverviewPanel = {
 				var formdata = {
 						domid : "grid_overview"
 				}
+
 				projectGrid.init(formdata);
+
 				
 				$("#search_overview_form").find("#search_btn").click(function(){
+					search_btn='click'
+					var search_department_id =$("#search_department_id").val();
+					var search_project_type =$("#search_project_type").val()
+					var search_start_time =$("#search_start_time").val()
+					var search_end_time =$("#search_end_time").val();
+					
+					setCookie("search_department_id", search_department_id,24,'/');
+					setCookie("search_project_type", search_project_type,24,'/');
+					setCookie("search_start_time", search_start_time,24,'/');
+					setCookie("search_end_time", search_end_time,24,'/');
+					
 					queryOverviewUtils.query();
 				})
 				
@@ -68,6 +83,15 @@ var queryOverviewUtils = {
 			$('#grid_overview').bootstrapTable('refresh',projectGrid.queryParams);
 		},
 		queryGrid : function(projectProgress){
+			
+			
+			var one_click_number =projectProgress;
+			console.log(one_click_number)
+			setCookie("one_click_number", one_click_number,24,'/');
+			
+			
+			
+			
 			$("#search_overview_form").find("#search_project_progress").val("projectProgress:" + projectProgress);
 			$('#grid_overview').bootstrapTable('refresh',projectGrid.queryParams);
 		}
@@ -78,6 +102,26 @@ var projectGrid = {
 			if(!formdata.domid){
 				layer.msg("参数domid不能为空");
 				return;
+			}
+			//返回页面加载
+			if(getCookieValue("backProjectList")!=''){
+
+				$('#search_department_id').val(getCookieValue('search_department_id'))
+				$('#search_project_type').val(getCookieValue('search_project_type'));
+				$('#search_start_time').val(getCookieValue('search_start_time'));
+				$('#search_end_time').val(getCookieValue('search_end_time'));	
+				deleteCookie("backProjectList","/");
+				
+				if(getCookieValue("one_click_number")!=''){
+					queryOverviewUtils.queryGrid(getCookieValue("one_click_number"))
+					//alert(getCookieValue("one_click_number"))
+					deleteCookie("one_click_number","/");
+				}
+				
+				
+				//queryOverviewUtils.query();
+				//点击搜索
+				//queryOverviewUtils.queryGrid(getCookieValue("one_click_number"))
 			}
 			$('#'+formdata.domid).bootstrapTable({
 			      url : platformUrl.searchProjectByCharts,     //请求后台的URL（*）
@@ -94,7 +138,7 @@ var projectGrid = {
 			      queryParams: projectGrid.queryParams,//传递参数（*）
 			      sidePagination: "server",      //分页方式：client客户端分页，server服务端分页（*）
 			      pageNumber:1,            //初始化加载第一页，默认第一页
-			      pageSize: 10,            //每页的记录行数（*）
+			      pageSize: cookies_szie(),            //每页的记录行数（*）
 			      pageList: [10, 20],    //可供选择的每页的行数（*）
 			      strictSearch: true,
 			      clickToSelect: true,        //是否启用点击选中行
@@ -165,7 +209,36 @@ var projectGrid = {
 			      },{
 				    field: 'updateDate',
 				    title: '最后修改时间'
-				  }]
+				  }],onLoadSuccess:function(){
+					  //console.log('0dddddddddddddddd')
+						//显示页码
+						if(getCookieValue("one_click_number")==''){
+							if(getCookieValue("tempPageNum")!='' ){
+								if(getCookieValue("tempPageNum")==1){
+									return;
+								}else{
+									$('.pagination li').removeClass('active');
+									if($('.pagination .page-number').length< getCookieValue("tempPageNum")){
+										for(var i=$('.pagination .page-number').length; i>0; i--){
+											$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+222+'</a>');
+										}
+									}
+
+									$('.pagination li').each(function(){
+					        			if($(this).text()==getCookieValue("tempPageNum")){
+					        				$(this).click();
+					        				//$(this).addClass('active')
+					        			}
+									})								
+								}
+								
+								deleteCookie("PageSize_ab",'/');
+								deleteCookie("tempPageNum",'/');
+							}
+							
+						}
+						
+	                }
 			    });
 		},
 		queryParams : function(params){
@@ -191,6 +264,32 @@ var projectGrid = {
 		},
 		nameEvents : {
 			'click .projectNameLink': function (e, value, row, index) {
+				
+				var PageSize_ab = $( ".dropdown-toggle .page-size").text();
+				var tempPageNum = $( ".pagination .active").text();
+				var href_url=window.location
+				//ie兼容
+				setCookie("PageSize_ab", PageSize_ab,24,'/');
+				setCookie("tempPageNum", tempPageNum,24,'/');
+				setCookie("href_url", href_url,24,'/');
+				//清除返回的页码
+				deleteCookie("number_on","/");
+				//哪一个
+				//setCookie("one_click_number", one_click_number,24,'/');
+				
+				
+				if(search_btn !='none'){
+					var search_department_id =$("#search_department_id").val();
+					var search_project_type =$("#search_project_type").val()
+					var search_start_time =$("#search_start_time").val()
+					var search_end_time =$("#search_end_time").val();
+					
+					setCookie("search_department_id", search_department_id,24,'/');
+					setCookie("search_project_type", search_project_type,24,'/');
+					setCookie("search_start_time", search_start_time,24,'/');
+					setCookie("search_end_time", search_end_time,24,'/');
+					
+				}
 				window.location.href = platformUrl.projectDetail + "/" + row.id;
 			}
 		},
