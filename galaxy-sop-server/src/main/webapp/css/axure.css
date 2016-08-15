@@ -22,7 +22,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .width_fwb,#viewNotes,#win_idea_desc{height:150px;       overflow-y: scroll !important ;}
 .widt_200{ width:200px; word-break:break-all;}
 .width_1{width:100px; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-#project_info_log td a{ margin: 0 0px 0 0; text-decoration:none;}
+#project_info_log td a,.projectProgress_table td a{ margin: 0 0px 0 0; text-decoration:none;}
 /*公用浮动*/
 .fl{ float:left}
 .fr{ float:right}
@@ -54,7 +54,7 @@ table{ background:#ffffff;}
 table th{ text-align:left; color:#2d3342; font-weight:normal; font-size:12px; line-height:34px;border-bottom: 1px solid #d6d8e1;outline:none;}
 table td{ height:30px;line-height:30px; text-align:left; font-size:12px; color:#536379; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
 .fixed_width td{width:16%;}
-table td a{ font-size:12px; margin:0 2px 0 0; color:#536379; font-family:"宋体";}
+table td a{ font-size:12px;  color:#536379; font-family:"宋体";}
 table .on td{ background:#f8f8fb}
 .noborder{border-top: 0 !important;}
 table em{display: inline-block;width:30%;}

@@ -84,9 +84,9 @@ var queryOverviewUtils = {
 		},
 		queryGrid : function(projectProgress){
 			
-			
 			var one_click_number =projectProgress;
-			console.log(one_click_number)
+			//alert(one_click_number)
+			//console.log(one_click_number)
 			setCookie("one_click_number", one_click_number,24,'/');
 			
 			
@@ -111,6 +111,11 @@ var projectGrid = {
 				$('#search_start_time').val(getCookieValue('search_start_time'));
 				$('#search_end_time').val(getCookieValue('search_end_time'));	
 				deleteCookie("backProjectList","/");
+				
+				deleteCookie("search_department_id","/");
+				deleteCookie("search_project_type","/");
+				deleteCookie("search_start_time","/");
+				deleteCookie("search_end_time","/");
 				
 				if(getCookieValue("one_click_number")!=''){
 					queryOverviewUtils.queryGrid(getCookieValue("one_click_number"))
@@ -219,8 +224,10 @@ var projectGrid = {
 								}else{
 									$('.pagination li').removeClass('active');
 									if($('.pagination .page-number').length< getCookieValue("tempPageNum")){
+										
 										for(var i=$('.pagination .page-number').length; i>0; i--){
-											$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+222+'</a>');
+											//console.log(getCookieValue('tempPageNum'))
+											$('.pagination .page-number').eq(i).html('<a href="javascript:void(0)">'+getCookieValue('tempPageNum')+'</a>');
 										}
 									}
 
@@ -242,6 +249,7 @@ var projectGrid = {
 			    });
 		},
 		queryParams : function(params){
+			console.log(params)
 			if(projectGrid.research){
 				params.pageNum = 0;
 				projectGrid.research = false;
