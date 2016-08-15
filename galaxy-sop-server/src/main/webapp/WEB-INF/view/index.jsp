@@ -457,6 +457,10 @@ var transferingIds = "${fx:getTransferingPids()}".split(",");
 
 
 <script type="text/javascript">
+var forwardParam = {
+		progressParam : undefined,
+		timeParam : undefined
+};
 	$(function(){	
 		
 		$(".pagebox .rit .top .tody").today();
