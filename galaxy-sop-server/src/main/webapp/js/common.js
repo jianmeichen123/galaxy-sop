@@ -1573,6 +1573,9 @@ function ajaxPopup(obj,tite_mame){
 }
 //查看项目详情
 function to_pro_info(id){
+	var href_url=window.location
+	//ie兼容
+	setCookie("href_url", href_url,24,'/');
 	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
 }
 
