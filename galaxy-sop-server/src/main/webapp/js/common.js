@@ -1525,63 +1525,38 @@ function ajaxPopup(obj,tite_mame){
 	var serverUrl = obj.serverUrl;
 	var params = obj.params || {};
 	var columns = obj.columns || {};
-	 //页面传参
-    function queryParams(params) {
-    	return {
-	    	pageSize: params.pageSize,
-	    	pageNum: params.pageNum,
-	    	direction: params.direction,
-	    	meetingType:params.meetingType,
-	    	scheduleStatus:params.scheduleStatus,
-	    	type:params.type
-    	};
-    }
 	$.getHtml({
  		url: obj.url || (platformUrl.popList),
  		data:"",
  		okback:function(){
- 			for(var k in params){
- 				/*var hiddenInput = '<input type="hidden" name="'+ k +'" id="'+ k +'" value="'+ params[k] +'">';
- 				$(toolbar).append(hiddenInput);*/
- 			}
  			$('.title_bj').html(tite_mame)
  			$('#'+ divid).bootstrapTable('destroy');
  		    $('#'+ divid).bootstrapTable({
- 		    	
- 		    	url: serverUrl,
- 			    dataType: "json",
- 			    pagination: true, //分页
- 			    sidePagination: 'server',
- 			    showRefresh : false ,
- 			    search: false, //显示搜索框
- 			    queryParamsType: 'size|page',
- 			    method : 'post',
- 			    queryParams: queryParams(params),
- 			    pageSize:20,
- 			    pagination: true,
-				pageList: [10, 20, 50],
-			    search: false,
-			    toolbar: toolbar,
- 			    columns:columns,
- 			    undefinedText:' ',
- 			    onLoadSuccess:function(result){
- 			    	//$(toolbar).html("");
- 			    }
+	    	queryParamsType: 'size|page',
+			pageSize:20,
+			showRefresh : false ,
+			sidePagination: 'server',
+	    	url: serverUrl,
+		    dataType: "json",
+		    pagination: true, //分页
+		    search: false, //显示搜索框
+		    queryParamsType: 'size|page',
+		    method : 'post',
+		    queryParams: function(params){params.meetingType=obj.params.meetingType;params.scheduleStatus=obj.params.scheduleStatus;params.type=obj.params.type;return params;},
+		    pageSize:20,
+		    pagination: true,
+			pageList: [10, 20, 50],
+		    toolbar: toolbar,
+		    columns:columns,
+		    undefinedText:' ',
+		    onLoadSuccess:function(result){
+		    	//$(toolbar).html("");
+		    }
  			});
  		}
  	});
  	return false;
 }
-
-
-
-
-
-
-
-
-
-
 //查看项目详情
 function to_pro_info(id){
 	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
