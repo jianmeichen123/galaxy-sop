@@ -214,14 +214,20 @@
 		var val = $(this).val();
 		if(val == 'ideaProgress:6' || val == 'ideaProgress:7')
 		{
-			$(this).val("");
 			$.getHtml({
 				url:platformUrl.ideaProjectList,
 				data:{ideaProgress:val},
 				okback:function(){
-					
+					if(val == 'ideaProgress:6'){
+						$('.title_bj').html('立项会')
+					}
+					if(val == 'ideaProgress:7'){
+						$('.title_bj').html('投决会');
+					}
 				}
 			});
+
+			$(this).val("");
 		}
 	});
 	
