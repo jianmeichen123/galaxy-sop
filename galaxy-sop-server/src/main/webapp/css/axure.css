@@ -1936,7 +1936,7 @@ dl{position: relative;}
 #filelist button{background:transparent;border:0;color:#438ee1}
 #filelist th{background:#f9fafc;}
 #filelist{border:1px solid #ccd2d7 !important;border-top-left-radius:6px;border-top-right-radius:6px;border-bottom:0;}
-.post_operatetc,.editPostMeetingtc{width:650px;}
+.post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;overflow:auto;}
 .post_operatetc_750{ width:75opx;}
 #post-meeting-dialog{position:static !important;}
 .conference_all{ width:590px; margin:45px auto 30px;}
@@ -1970,7 +1970,7 @@ dl{position: relative;}
 .conference_all dd{font-size:12px;font-family:'宋体'}
 .edit_meeting_type_dt{margin-top:-30px !important;margin-left:300px !important;}
 .edit_meeting_type_dd{margin-top:-30px !important;margin-left:380px !important;}
-.div_meetingNotes_dd{max-height:250px;overflow:auto;}
+.div_meetingNotes_dd{max-height:250px;overflow:auto;word-wrap:break-word}
 .width_36 ,.width_36  .th-inner{ width:400px; overflow:hidden;}
 /*权限*/
 .lft li:hover .role1, .lft li.on .role1 {
