@@ -30,7 +30,14 @@
 						</div>
 					</div>
 				</div>
-	
+				
+				<div class="correlation">相关操作</div> 
+	            <div class="new_correlation_cen">
+	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
+	            	<span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
+	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
+	            </div>
+            
 				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;">more</span>
 				</div>
 				<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
@@ -65,14 +72,14 @@
             </div>
            
            
-            
-            <div class="correlation">相关操作</div> 
-            <div class="new_correlation_cen">
-            	<span class="bluebtn new_btn" onclick="closePro(this)" id="fjxm_but">否决项目</span>
-            	<span class="bluebtn new_btn_right" onclick="transferPro()" style="display:none" id="yjxm_btn">移交项目</span>
-                <span class="bluebtn new_btn_right" onclick="revokePro()" style="display:none" id="cxxm_btn">撤销移交</span>
+            <div class="tq_div" style="display:none;">
+	            <div class="correlation">相关操作</div> 
+	            <div class="new_correlation_cen">
+	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
+	            	<span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
+	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
+	            </div>
             </div>
-            
             
             
             <div class="tq_div" style="display:none;">
@@ -109,22 +116,22 @@ var prograss = projectInfo.projectProgress;
 
 if('${fx:isTransfering(pid) }' == 'true')
 {
-	$('#fjxm_but').addClass("disabled");
-	$("#yjxm_btn").attr("style","display:none;");
+	$('.fjxm_but').addClass("disabled");
+	$(".yjxm_btn").attr("style","display:none;");
 	if(isCreatedByUser == "true"){
-	  $("#cxxm_btn").attr("style","display:block;");
+	  $(".cxxm_btn").attr("style","display:block;");
 	}else{
-	  $("#cxxm_btn").attr("style","display:block;");
-	  $("#cxxm_btn").addClass("disabled");
+	  $(".cxxm_btn").attr("style","display:block;");
+	  $(".cxxm_btn").addClass("disabled");
 	}
 		
 }else{
-	$('#fjxm_but').removeClass('disabled');
+	$('.fjxm_but').removeClass('disabled');
 	if(isCreatedByUser == "true"){
-	  $("#yjxm_btn").attr("style","display:block;");
+	  $(".yjxm_btn").attr("style","display:block;");
 	}else{
-	  $("#yjxm_btn").attr("style","display:block;");
-	  $("#yjxm_btn").addClass("disabled");
+	  $(".yjxm_btn").attr("style","display:block;");
+	  $(".yjxm_btn").addClass("disabled");
 	}
 	$("#cxxm_btn").attr("style","display:none;");
 }
@@ -140,7 +147,7 @@ $(function(){
 	//显示投前或投后信息
 	if(prograss == 'projectProgress:10')
 	{
-		$('#fjxm_but').remove();
+		$('.fjxm_but').remove();
 		if($("#thyy_div").length>0)
 		{
 			$("#thyy_div").show();
@@ -165,7 +172,7 @@ $(function(){
 	init_lct(); //流程图初始化
 	
 	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || admin!="true"){
-		$("#fjxm_but").removeAttr("onclick").attr("disabled","disabled").addClass("disabled");
+		$(".fjxm_but").removeAttr("onclick").attr("disabled","disabled").addClass("disabled");
 	}
 		
 	//获取近期访谈、会议 记录
@@ -360,7 +367,7 @@ function formatNearMeet(meetList){
 
 
 function closePro(){
-	if($("#fjxm_but").hasClass('limits_gray')){
+	if($(".fjxm_but").hasClass('limits_gray')){
 		return;
 	}
 	layer.confirm('你确定要否决项目吗?', 
