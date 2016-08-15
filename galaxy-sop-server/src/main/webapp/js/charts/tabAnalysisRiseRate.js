@@ -140,24 +140,24 @@ var queryRiseRateUtils = {
 			
 			if(form.chooseDate=='day'){
 				form.dateType = '%Y-%m-%d';
-				if(form.startTime && form.startTime.trim() != ''){
+				if(form.startTime && $.trim(form.startTime) != ''){
 					form.startTime = DateUtils.getTime(form.startTime+' 00:00:00');
 				}else{
 					form.startTime = undefined;
 				}
-				if(form.endTime && form.endTime.trim() != ''){
+				if(form.endTime && $.trim(form.endTime) != ''){
 					form.endTime = DateUtils.getTime(form.endTime+' 23:59:59');
 				}else{
 					form.endTime = undefined;
 				}
 			}else if(form.chooseDate=='month'){
 				form.dateType = '%Y-%m';
-				if(form.startTime && form.startTime.trim() != ''){
+				if(form.startTime && $.trim(form.startTime) != ''){
 					form.startTime = DateUtils.getTime(form.startTime+'-01 00:00:00');
 				}else{
 					form.startTime = undefined;
 				}
-				if(form.endTime && form.endTime.trim() != ''){
+				if(form.endTime && $.trim(form.endTime) != ''){
 					var lastDay = DateUtils.getLastDayByMonth();
 					form.endTime = DateUtils.getTime(form.endTime+'-'+lastDay+' 23:59:59');
 				}else{

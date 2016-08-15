@@ -2,8 +2,8 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-	<div style=" width:1200px" class="ritmin">
-
+	<div style=" width:1200px" class="ritmin margin_45">
+		<div class="title_bj"></div>
         <!-- 搜索条件 -->
 		<div class="min_document clearfix" id="idea-project-table-toolbar">
 		

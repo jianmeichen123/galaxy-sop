@@ -61,7 +61,9 @@ public class MeetSchedulingMessageHandler implements MessageHandler
 			content.append(message.getKeyword().replace("insert", ""));
 			content.append("举行");
 		}
-		message.setContent(content.toString());
+		if(!"operate".equals(message.getKeyword())){
+			message.setContent(content.toString());
+		}
 		return message;
 	}
 

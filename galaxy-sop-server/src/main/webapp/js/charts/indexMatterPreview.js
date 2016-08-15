@@ -49,7 +49,7 @@ var matterPreviewUtils = {
 				
 				//事项预览点击数字跳出弹出层
 				var meeting_obj = {serverUrl: platformUrl.MeetingSheduleNewList};
-				meeting_obj.params={meetingType:'',scheduleStatus:'',type:'',direction:'asc',pageSize:10,pageNum:0};
+				meeting_obj.params={meetingType:'',scheduleStatus:'',type:''};
 				meeting_obj.columns = [
 				               {field:'projectName',"class":'data-input',title:'项目名称'},
 				               {field:'meetingType',"class":'data-input',title:'会议类型'},
