@@ -260,7 +260,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	}
 	
 	/**
-	 * 获取档案列表(分页查询)
+	 * 获取档案列表(	查询)
 	 * 
 	 * @param
 	 * @return
@@ -438,7 +438,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 						temp.getFileWorktype());
 				if(!roleIdList.contains(UserConstant.DAGLY)){
 					if(temp.getEditUser()!=null){
-						if(temp.getEditUser() != obj.getId()){
+						if(!temp.getEditUser().equals(obj.getId()) ){
 							isEdit = "false";
 							if("false".equals(temp.getVstatus())){
 								temp.setVstatus("no");
