@@ -440,7 +440,9 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					if(temp.getEditUser()!=null){
 						if(temp.getEditUser() != obj.getId()){
 							isEdit = "false";
-							temp.setVstatus("no");
+							if("false".equals(temp.getVstatus())){
+								temp.setVstatus("no");
+							}	
 						}
 					}else{
 						logger.error("ID : " + temp.getId() + "文件业务分类 ：" + temp.getFileWorktype() + "的文档所属的项目没有创建人");
