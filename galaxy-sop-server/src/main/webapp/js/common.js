@@ -1328,7 +1328,7 @@ var DateUtils = {
 //				alert(dateCurson[1]);
 				var datePart = dateCurson[0].split('-');
 				var timePart = dateCurson[1].split(':');
-				return new Date(datePart[0],datePart[1],datePart[2],timePart[0],timePart[1],timePart[2]).getTime();
+				return new Date(datePart[0],datePart[1]-1,datePart[2],timePart[0],timePart[1],timePart[2]).getTime();
 			}else{
 				return date.getTime();
 			}
