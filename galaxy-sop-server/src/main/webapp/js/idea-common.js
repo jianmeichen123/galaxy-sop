@@ -445,6 +445,9 @@ function dateFormatter(val,row,index)
 		$.popup({
 			txt:$("#upload-dialog").html(),
 			showback:function(){
+				if(mark=='e'){
+					$('.title_bj').html('更新可行性报告');					
+				}
 				var _this = this;
 				if(upreport(_this,mark,prograss,fileid)){
 					initIdeaUpload(_this);

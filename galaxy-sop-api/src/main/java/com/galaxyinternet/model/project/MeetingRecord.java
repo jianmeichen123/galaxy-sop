@@ -70,7 +70,8 @@ public class MeetingRecord  extends PagableRecordEntity{
     
     private Date firstMeetTime;
     private Date passMeetTime;
-    
+    private Long firstCreatedTime;
+    private Long lastCreatedTime;
     
     public String getParticipant() {
 		return participant;
@@ -397,6 +398,22 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setPassMeetTime(Date passMeetTime) {
 		this.passMeetTime = passMeetTime;
+	}
+
+	public Long getFirstCreatedTime() {
+		return firstCreatedTime;
+	}
+
+	public void setFirstCreatedTime(Long firstCreatedTime) {
+		this.firstCreatedTime = firstCreatedTime;
+	}
+
+	public Long getLastCreatedTime() {
+		return lastCreatedTime;
+	}
+
+	public void setLastCreatedTime(Long lastCreatedTime) {
+		this.lastCreatedTime = lastCreatedTime;
 	}
     
 	

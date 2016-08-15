@@ -175,7 +175,7 @@ function loadRows()
 					}	
 					$("#hrjzdc-table tbody").append($tr);
 					if((this.fileWorktype == 'fileWorktype:6' && this.voucherFileName != '' && this.voucherFileName != null) || (this.fileWorktype == 'fileWorktype:7' && this.voucherFileName != '' && this.voucherFileName != null)){
-s						$("#stock_transfer").attr("disabled","true");
+						$("#stock_transfer").attr("disabled","true");
 					}
 				});
 				

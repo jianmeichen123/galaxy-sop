@@ -23,6 +23,10 @@
     <result column="sumProNum"  property="sumProNum" />
     <result column="first_meet_time"  property="firstMeetTime" jdbcType="TIMESTAMP" />
     <result column="pass_meet_time"  property="passMeetTime" jdbcType="TIMESTAMP" />
+    
+    <result column="first_created_time" property="firstCreatedTime" jdbcType="BIGINT" />
+    <result column="last_created_time" property="lastCreatedTime" jdbcType="BIGINT" />
+    
   </resultMap>
   
   
@@ -461,11 +465,11 @@
 	
 	<select id="selectMeetFirstTimeAndPassTime" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT 
-			a.*,b.pass_meet_time
+			a.*,b.pass_meet_time,b.last_created_time
 		FROM 
 			(
 			SELECT 
-				project_id,meeting_type,MIN(meeting_date) first_meet_time
+				project_id,meeting_type,MIN(meeting_date) first_meet_time,MIN(created_time) first_created_time
 			FROM 
 				sop_meeting_record 
 			WHERE 
@@ -487,7 +491,7 @@
 			LEFT JOIN
 			(
 			SELECT 
-				project_id,meeting_type,MAX(meeting_date) pass_meet_time
+				project_id,meeting_type,MAX(meeting_date) pass_meet_time,MAX(created_time) last_created_time
 			FROM 
 				sop_meeting_record 
 			WHERE 
