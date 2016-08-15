@@ -369,7 +369,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		{
 			for(Menus item : menus)
 			{
-				if(StringUtils.isNotEmpty(item.getUrl()) && item.getUrl().contains(url))
+				if(StringUtils.isNotEmpty(item.getUrl()) && item.getUrl().contains(getUrl(url)))
 				{
 					menu = item;
 					break;
@@ -377,11 +377,23 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				List<Menus> subMenus = item.getNodes();
 				if(subMenus != null && subMenus.size()>0)
 				{
-					menu = getSelectedMenu(url,subMenus);
+					menu = getSelectedMenu(getUrl(url),subMenus);
 				}
 			}
 		}
 		return menu;
 	}
+	private String getUrl(String url)
+	{
+		String result = url;
+		int index = url != null ? url.indexOf("?") : -1;
+		if(index != -1)
+		{
+			result = url.substring(0, index);
+		}
+		
+		return result;
+	}
+	
 	
 }
