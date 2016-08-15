@@ -359,8 +359,13 @@ public class IdeaController extends BaseControllerImpl<Idea, Idea> {
 	 */
 	@RequestMapping(value = "/goIdeaStagePage",method = RequestMethod.GET)
 	public String goIdeaStagePage(HttpServletRequest request) {
-       String id = request.getParameter("id");
-	   request.setAttribute("id", id);
+		String id = request.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+			Idea idea = ideaService.queryById(Long.parseLong(id));
+			request.setAttribute("projectId", idea.getProjectId());
+			request.setAttribute("id", id);
+		}
+	   
 		return "idea/stage/stage";
 	}
 	/**
