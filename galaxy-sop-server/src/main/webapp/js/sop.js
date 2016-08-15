@@ -976,6 +976,7 @@ function tzxy(st,projectType){
 								$tr.append('<td>无</td>') ;
 							}	
 							$tr.append('<td>'+this.fileStatusDesc+'</td>');
+							var hasTzxy = false;
 							if(this.fileWorktype == 'fileWorktype:6'){
 								if(canToOption){
 									var e6 ="downloadTemplate('templateType:2');";
@@ -1005,6 +1006,7 @@ function tzxy(st,projectType){
 										$tr.append('<td></td>');
 									}
 								}else{
+									hasTzxy = true;
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 								}
 							}else if(this.fileWorktype == 'fileWorktype:7'){
@@ -1030,10 +1032,14 @@ function tzxy(st,projectType){
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 								}
 								if(this.voucherFileKey == null){	
-									if(canToOption){
-										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,1);" class="blue">上传</a></td>');
+									if(hasTzxy){
+										if(canToOption){
+											$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,1);" class="blue">上传</a></td>');
+										}else{
+											$tr.append('<td></td>');
+										}
 									}else{
-										$tr.append('<td></td>');
+										$tr.append('<td><span style="color: #536379;">上传</span></td>');
 									}
 								}else{
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\');" class="blue">查看</a></td>'); 	
