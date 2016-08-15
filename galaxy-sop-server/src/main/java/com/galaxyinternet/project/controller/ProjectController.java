@@ -2476,7 +2476,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					}
 
 				}
-				ControllerUtils.setRequestParamsForMessageTip(request, belongUser, pj.getProjectName(), pj.getId(), messageType, UrlNumber.one);
+				if(!"operate".equals(belongUser.getKeyword())){
+					ControllerUtils.setRequestParamsForMessageTip(request, belongUser, pj.getProjectName(), pj.getId(), messageType, UrlNumber.one);
+				}
+				
 			}
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
