@@ -174,8 +174,8 @@ function loadRows()
 						$tr.append('<td><a href="javascript:;" onclick="downloadFile(this);" data-type="voucher">查看</a></td>');
 					}	
 					$("#hrjzdc-table tbody").append($tr);
-					if((this.fileWorktype == 'fileWorktype:6' && this.fileKey != null) || (this.fileWorktype == 'fileWorktype:7' && this.fileKey != null)){
-						$("#stock_transfer").attr("disabled","true");
+					if((this.fileWorktype == 'fileWorktype:6' && this.voucherFileName != '' && this.voucherFileName != null) || (this.fileWorktype == 'fileWorktype:7' && this.voucherFileName != '' && this.voucherFileName != null)){
+s						$("#stock_transfer").attr("disabled","true");
 					}
 				});
 				
