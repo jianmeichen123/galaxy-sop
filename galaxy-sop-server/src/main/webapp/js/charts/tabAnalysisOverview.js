@@ -1,5 +1,3 @@
-var search_btn='none';
-//var one_click_number='';
 var searchOverviewPanel = {
 		init : function(){
 			//初始化日期
@@ -30,7 +28,6 @@ var searchOverviewPanel = {
 
 				
 				$("#search_overview_form").find("#search_btn").click(function(){
-					search_btn='click'
 					var search_department_id =$("#search_department_id").val();
 					var search_project_type =$("#search_project_type").val()
 					var search_start_time =$("#search_start_time").val()
@@ -286,7 +283,6 @@ var projectGrid = {
 				//setCookie("one_click_number", one_click_number,24,'/');
 				
 				
-				if(search_btn !='none'){
 					var search_department_id =$("#search_department_id").val();
 					var search_project_type =$("#search_project_type").val()
 					var search_start_time =$("#search_start_time").val()
@@ -297,7 +293,7 @@ var projectGrid = {
 					setCookie("search_start_time", search_start_time,24,'/');
 					setCookie("search_end_time", search_end_time,24,'/');
 					
-				}
+				
 				window.location.href = platformUrl.projectDetail + "/" + row.id;
 			}
 		},

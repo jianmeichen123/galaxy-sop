@@ -396,7 +396,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							<h3 class="ico t12">项目运营</h3>
 						</dt>
 						<dd>
-							<div id="container_operation" style="min-width:300px; height: 200px;padding-top:5px;"></div>
+							<div style='margin-left:auto; margin-right:auto; width:450px;'>
+							<div id="container_operation" style="min-width:440px;  height: 200px;padding-top:5px;"></div>
+							</div>
 						</dd>
 					</dl>
                     
