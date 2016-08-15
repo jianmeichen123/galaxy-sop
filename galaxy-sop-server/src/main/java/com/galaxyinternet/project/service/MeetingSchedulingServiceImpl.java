@@ -1,5 +1,6 @@
 package com.galaxyinternet.project.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -359,5 +360,74 @@ public class MeetingSchedulingServiceImpl
 		return meetingSchedulingDao.meetingListByCondition(ms);
 	}
 
+
+	
+	
+	
+	//=== report
+	@Override
+	public MeetingSchedulingBo getMeetingScheduling(MeetingSchedulingBo bo) {
+		// TODO Auto-generated method stub
+		String currentTime = DateUtil.refFormatNowDate();
+		String start = currentTime + " 00:00:00";
+		String end = currentTime + " 23:59:59";
+		//获取总数
+		MeetingSchedulingBo meetotal=new MeetingSchedulingBo();
+		meetotal.setReserveTimeStart(Timestamp.valueOf(start));
+		meetotal.setReserveTimeEnd(Timestamp.valueOf(end));
+		Long total = meetingSchedulingDao.getMeetingScheduling(meetotal);
+		//立项会
+		MeetingSchedulingBo lxhtotal=new MeetingSchedulingBo();
+		lxhtotal.setReserveTimeStart(Timestamp.valueOf(start));
+		lxhtotal.setReserveTimeEnd(Timestamp.valueOf(end));
+		lxhtotal.setMeetingType("meetingType:3");
+		Long lxh= meetingSchedulingDao.getMeetingScheduling(lxhtotal);
+		//投决会
+		MeetingSchedulingBo tjhtotal=new MeetingSchedulingBo();
+		tjhtotal.setReserveTimeStart(Timestamp.valueOf(start));
+		tjhtotal.setReserveTimeEnd(Timestamp.valueOf(end));
+		tjhtotal.setMeetingType("meetingType:4");
+		Long tjh= meetingSchedulingDao.getMeetingScheduling(tjhtotal);
+		//评审会
+		MeetingSchedulingBo pshtotal=new MeetingSchedulingBo();
+		pshtotal.setReserveTimeStart(Timestamp.valueOf(start));
+		pshtotal.setReserveTimeEnd(Timestamp.valueOf(end));
+		pshtotal.setMeetingType("meetingType:2");
+		Long psh= meetingSchedulingDao.getMeetingScheduling(pshtotal);
+		
+		//立项会等待
+		MeetingSchedulingBo lxhwait=new MeetingSchedulingBo();
+		lxhwait.setScheduleStatus(0);
+		lxhwait.setMeetingType("meetingType:3");
+		Long lxhwaitCount =  meetingSchedulingDao.getMeetingScheduling(lxhwait);
+		//投决会等待
+		MeetingSchedulingBo tjhwait=new MeetingSchedulingBo();
+		tjhwait.setScheduleStatus(0);
+		tjhwait.setMeetingType("meetingType:4");
+		Long tjhwaitCount =  meetingSchedulingDao.getMeetingScheduling(tjhwait);
+		//评审会等待
+		MeetingSchedulingBo pshwait=new MeetingSchedulingBo();
+		pshwait.setScheduleStatus(0);
+		pshwait.setMeetingType("meetingType:2");
+		Long pshwaitCount =  meetingSchedulingDao.getMeetingScheduling(pshwait);
+		
+		
+		MeetingSchedulingBo mbo=new MeetingSchedulingBo();
+		mbo.setMeetingTotal(total);
+		mbo.setLxhTotal(lxh);
+		mbo.setTjhTotal(tjh);
+		mbo.setPshTotal(psh);
+		mbo.setLxhWait(lxhwaitCount);
+		mbo.setTjhWait(tjhwaitCount);
+		mbo.setPshWait(pshwaitCount);
+		return mbo;
+	}
+
+	@Override
+	public Page<MeetingScheduling> getMeetingList(MeetingSchedulingBo bo,PageRequest page) {
+		// TODO Auto-generated method stub
+		Page<MeetingScheduling> list=meetingSchedulingDao.getMeetingList(bo,page);
+		return list;
+	}
 
 }

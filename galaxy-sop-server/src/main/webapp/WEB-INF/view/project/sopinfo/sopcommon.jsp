@@ -2,12 +2,29 @@
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<% 
+	String path = request.getContextPath(); 
+%>
 <!doctype html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+
+<style type="text/css">
+div.tip-yellowsimple {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.tip-yellowsimple .tip-arrow-left{
+position:absolute;
+}
+</style>
 </head>
+<script src="<%=path %>/js/projectTransfer.js"></script>
 <body>
 	<div class="new_tit_a" id="top_menu"><a href="#" onclick="backIndex()">工作桌面</a>>
 	<c:choose>
@@ -30,6 +47,7 @@
 <%-- <script src="<%=request.getContextPath() %>/js/cookie.js"></script> --%>
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isCreatedByUser" value="${fx:isCreatedByUser('project',projectId)  }" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 <script>
 /* var number_on;
 $(function(){
@@ -57,8 +75,12 @@ sendGetRequest(platformUrl.detailProject + pid, {}, function(data){
 function back(){
 	setCookie("backProjectList", 'click',24,'/');	
 	var href_url=getCookieValue("href_url");
-	deleteCookie("href_url","/");
-	window.location=href_url;	
+	if(href_url){
+		deleteCookie("href_url","/");
+		window.location=href_url;
+	}/* else
+		window.history.go(-1); */
+		
 }
 $(function(){
 	var str=projectInfo.projectName;

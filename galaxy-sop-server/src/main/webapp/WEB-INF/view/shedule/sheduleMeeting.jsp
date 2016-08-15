@@ -3,6 +3,9 @@
 String path = request.getContextPath();
   String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<%@ taglib uri="http://www.galaxyinternet.com/tags/acl" prefix="acl" %>
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <!--  shedule start -->
 <link href="<%=request.getContextPath() %>/shedule/css/axure.css" type="text/css" rel="stylesheet"/>
@@ -60,8 +63,12 @@ String path = request.getContextPath();
       events:  function (view) {//动态把数据查出，按照月份动态查询
              $("#calendar").fullCalendar('removeEvents');
              var params={};
+             var url = platformUrl.ceosh;
+             if('${fx:hasRole(4)}' == 'true'){
+            	 url = platformUrl.sh;
+             }
              params = {"meetingType":meetingType};
-             sendPostRequestByJsonObj(platformUrl.sh,params,returnParames);
+             sendPostRequestByJsonObj(url,params,returnParames);
       },
       eventClick: function(calEvent, jsEvent, view) {
 		$('.calendar_box').remove();

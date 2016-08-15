@@ -438,6 +438,8 @@
         </div>
         <!-- 关闭按钮 -->
         <a href="javascript:;" class="pubbtn fffbtn close"  onclick="closePro()" >否决项目</a>
+        <a href="javascript:;" class="pubbtn fffbtn close"  onclick="closePro()" >项目</a>
+        
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
@@ -611,13 +613,11 @@ function closeback(data){
 	                  {
 	                    title: '姓名',
 	                      field: 'personName',
-	                      align: 'center',
 	                      valign: 'middle'
 	                  },
 	                  {
                         title: '性别',
                         field: 'personSex',
-                        align: 'center',
                         valign: 'middle',
                         formatter:function(value,row,index){ 
                          	if (row.personSex == 0) {
@@ -632,25 +632,21 @@ function closeback(data){
 	                    {
 	                        title: '年龄',
 	                          field: 'personAge',
-	                          align: 'center',
 	                          valign: 'middle'
 	                     },
 	                     {
 	                          title: '当前职务',
 	                            field: 'personDuties',
-	                            align: 'center',
 	                            valign: 'middle'
 	                  },
 	                  {
 	                      title: '电话',
 	                        field: 'personTelephone',
-	                        align: 'center',
 	                        valign: 'middle'
 	                  },
 	                  {
 	                      title: '最高学历',
 	                        field: 'highestDegree',
-	                        align: 'center',
 	                        valign: 'middle',
 	                        formatter:function(value,row,index){ 
 	                         	if (row.highestDegree == 1) {
@@ -676,13 +672,11 @@ function closeback(data){
 	                  {
 	                      title: '工作年限',
 	                        field: 'workTime',
-	                        align: 'center',
 	                        valign: 'middle'
 	                  },
 	                  {
 	                      title: '操作',
 	                      field: 'id',
-	                      align: 'center',
 	                      formatter:function(value,row,index){  
 		                   var a = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="tiaozhuan(\''+ row.id + '\')" DATA-btn="resume" >个人简历</a>';;
 		                   var e = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="updatePer(\''+ row.id + '\')">修改</a> ';  
@@ -713,37 +707,31 @@ function closeback(data){
                   {
                     title: '类型',
                       field: 'sharesType',
-                      align: 'center',
                       valign: 'middle'
                   },
                   {
                       title: '所有权人',
                         field: 'sharesOwner',
-                        align: 'center',
                         valign: 'middle'
                     },
                     {
                         title: '占比(%)',
                           field: 'sharesRatio',
-                          align: 'center',
                           valign: 'middle'
                      },
                      {
                           title: '获取方式',
                             field: 'gainMode',
-                            align: 'center',
                             valign: 'middle'
                   },
                   {
                       title: '备注',
                         field: 'remark',
-                        align: 'center',
                         valign: 'middle'
                   },
                   {
                       title: '操作',
                       field: 'id',
-                      align: 'center',
                       formatter:function(value,row,index){  
                    var e = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="editStock(\''+ row.id + '\')">修改</a> ';  
                    var d = '<a href="javascript:;" mce_href="javascript:;" class="blue" onclick="delStock(\''+ row.id +'\')">删除</a> ';  

@@ -36,7 +36,7 @@ function loadAjaxSopUserSchedule(url){
 				}*/
 				if (dataList.length!=0){
 					 for(var ii = 0 ; ii < dataList.length ; ii++){
-						 htmlstart +="<a href=\"javascript:;\" class=\"link\" onclick=\"shecudle();\"><b class=\"b1 null\">点</b>"+dataList[ii].timeTask+"</a>";
+						 htmlstart +="<a href=\"javascript:;\" class=\"link\" onclick=\"shecudle("+dataList[ii].id+");\"><b class=\"b1 null\">点</b>"+dataList[ii].timeTask+"</a>";
 					 }					
 				}
 
@@ -45,11 +45,20 @@ function loadAjaxSopUserSchedule(url){
 	});
 }
 //点击日程面板
-function shecudle(){
+function shecudle(id){
+	$("#powindow").remove();
+	$("#popbg").remove();
 	$.getHtml({
 		url:platformUrl.toShedule,//模版请求地址
 		data:"",//传递参数
+		okback:function(date){
+			if(id){
+				sendGetRequest(platformUrl.sheduleInfo+id,'',getSheduleCallBack);
+				$('.title_bj').html('修改日程安排')
+			}else{
+				$('.title_bj').html('添加日程安排')
+			}
+		}
 			
 	});
-	return false;
 }

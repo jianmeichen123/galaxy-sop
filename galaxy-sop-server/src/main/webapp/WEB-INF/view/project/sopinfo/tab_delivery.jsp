@@ -67,12 +67,14 @@
 			<div data-tab="con">
 			 -->
 			<div class="member">
+				<c:if test="${isEditable }">
 				<div class="top clearfix">
 					<!--按钮-->
 					<div class="btnbox_f btnbox_f1 clearfix">
 						<a href="javascript:void(0)"  class="pubbtn bluebtn ico c4" data-btn='to_add_deliver' data-name='添加事项'></a>
 					</div>
 				</div>
+				</c:if>
 				
 				<div class="min_document clearfix" id="custom-toolbar" style="display:none;" >
 					<div class="bottom searchall clearfix">
@@ -132,15 +134,31 @@
 
 	var proid = projectInfo.id;
 	var deliver_selectRow = null;
-
+	var isTransfering = "${fx:isTransfering(pid) }";
 $(function(){
 	createMenus(5);
 	
 	$("#projectId").val(proid);
-	
+	if(isTransfering == 'true')
+	{
+		$("[data-btn='to_add_deliver']").addClass('limits_gray');
+	}
 	init_bootstrapTable('project_delivery_table',10);
 	//刷新右侧投后运营简报信息
-	$("#project_delivery_table").on('load-success.bs.table',function(){
+	$("#project_delivery_table").on('load-success.bs.table',function(table,data){
+		if(data.pageList.total>0 && isTransfering == 'true')
+		{
+			$.each($("#project_delivery_table tr"),function(){
+				$(this).find("td:last").addClass('limits_gray');
+			});
+			$.each($("#project_delivery_table label.blue"), function(){
+				var text = $(this).text();
+				if(text == '编辑' || text == '删除')
+				{
+					$(this).removeAttr('onclick');
+				}
+			});
+		}
 		setThyyInfo();
 	});
 	if(projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || projectInfo.projectStatus == 'meetingResult:3' || admin!="true"){
@@ -150,6 +168,10 @@ $(function(){
 		$("[data-btn='to_add_deliver']").text("添加事项");
 		$("[data-btn='to_add_deliver']").on("click",function(){
 			var $self = $(this);
+			if($self.hasClass('limits_gray'))
+			{
+				return;
+			}
 			var _name= $self.attr("data-name");
 			var _url = Constants.sopEndpointURL + '/galaxy/delivery/toadddeliver';
 			$.getHtml({
@@ -268,7 +290,7 @@ function operFormat(value,row,index){
 	var del = "<label class=\"blue\" onclick=\"to_del_deliver('"+row.id+"')\" >删除</label>";
 	var downfile = "<label class=\"blue\" onclick=\"to_download_deliver('"+row.id+"')\">下载附件</label>";
 	var content = "";
-	if("${isCreatedByUser}"=="true"){
+	if("${isCreatedByUser}"=="true" && isTransfering == 'false'){
 		content += edit;
 		content += del;
 	}
@@ -374,7 +396,7 @@ function to_del_deliver(selectRowId){
 	return false;
 } */
 function to_del_deliver(selectRowId){
-	layer.confirm('你确定要删除吗?',
+	layer.confirm('是否删除事项?',
 		{
 		  btn: ['确定', '取消'] 
 		}, 

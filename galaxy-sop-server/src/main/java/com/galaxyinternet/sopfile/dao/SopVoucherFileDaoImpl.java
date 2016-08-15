@@ -17,4 +17,9 @@ public class SopVoucherFileDaoImpl extends BaseDaoImpl<SopVoucherFile, Long> imp
 		return sqlSessionTemplate.selectList(getSqlName("selectListById"),idList);
 	}
 
+	@Override
+	public int updateDepartmentId(SopVoucherFile f) {
+		return sqlSessionTemplate.update(getSqlName("updateDepartmentId"), f);
+	}
+
 }

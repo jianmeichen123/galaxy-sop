@@ -39,6 +39,10 @@
 				<if test="scheduleStatus != null" >and schedule_status = #{scheduleStatus} </if>
 				<if test="updatedTime != null" >and updated_time = #{updatedTime,jdbcType=BIGINT} </if>
 				<if test="createdTime != null" >and created_time = #{createdTime,jdbcType=BIGINT} </if>
+				
+				<if test="startTime != null"> <![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]> </if>
+			    <if test="endTime != null"> <![CDATA[ and created_time <= #{endTime,jdbcType=BIGINT} ]]> </if>
+			  
 				<if test="projectIdList != null">
 					AND project_id IN
 					<foreach collection="projectIdList" index="item" item="item" open="("
@@ -252,9 +256,44 @@
 					</foreach>
 				</if>
 			</trim>
+			<if test="meetingType != null" > and meeting_type = #{meetingType} </if>
 		</where>
-		<if test="meetingType != null" > and meeting_type = #{meetingType} </if>
 	</select>
   
   
+  
+  
+  
+  <!-- report -->
+   <!-- 查询待办总数 -->
+	<select id="selectTotal" resultType="java.lang.Long" parameterType="com.galaxyinternet.model.project.MeetingScheduling">
+		select count(id) from sop_meeting_scheduling
+			<where>
+			<trim prefixOverrides="and">
+		    <if test="meetingType != null" > and meeting_type = #{meetingType} </if>
+		    <if test="reserveTimeStart != null"> and (reserve_time_start &gt;= #{reserveTimeStart}  </if>
+		    <if test="reserveTimeEnd != null"> and reserve_time_end &lt;= #{reserveTimeEnd} or reserve_time_end  &gt;= #{reserveTimeStart} and reserve_time_start  &lt;= #{reserveTimeEnd}) </if>
+		    <if test="scheduleStatus != null" > and schedule_status = #{scheduleStatus} </if>
+		    <if test="scheduleStatus == null" > and schedule_status !=0 </if>
+		    </trim>
+		    </where>
+	</select>
+	
+	  <!-- 查询待办总数 -->
+ 	<select id="selectListByCondition"  resultMap="BaseResultMap" parameterType="java.util.Map">
+		select * from sop_meeting_scheduling
+		<where>
+		   <trim prefixOverrides="and">
+		    <if test="meetingType != null" > and meeting_type = #{meetingType} </if>
+		    <if test="reserveTimeStart != null"> and (reserve_time_start &gt;= #{reserveTimeStart}  </if>
+		    <if test="reserveTimeEnd != null"> and reserve_time_end &lt;= #{reserveTimeEnd} or reserve_time_end  &gt;= #{reserveTimeStart} and reserve_time_start  &lt;= #{reserveTimeEnd}) </if>
+		    <if test="scheduleStatus != null" > and schedule_status = #{scheduleStatus} </if>
+		    <if test="scheduleStatus == null" > and schedule_status !=0 </if>
+		    </trim>
+		</where>    
+		    <if test="offset != null and limit != null">
+			 limit #{offset}, #{limit}
+		</if>
+	</select> 
+	
 </mapper>

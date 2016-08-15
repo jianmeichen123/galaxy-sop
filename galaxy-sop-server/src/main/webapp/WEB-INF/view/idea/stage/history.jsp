@@ -2,8 +2,10 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<div class="ritmin create_historytc">
-	<div class="clearfix">
+<div class="title_bj">历史信息</div>
+<div class="ritmin create_historytc margin_45">
+
+	<div class="clearfix ">
 	  <h3 class="idea-title">调研</h3>       
 	</div>
 	<div id="research-history-params">

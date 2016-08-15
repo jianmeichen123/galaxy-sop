@@ -1,4 +1,6 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -76,7 +78,7 @@
 				</dl>
 				<dl>
 				    <dd>
-				       <button id="pqcSubmit" type="button" class="bluebtn ico pq" onclick="confirmSubmit();">排期</button>
+				       <button id="pqcSubmit" type="button" class="bluebtn ico pq" onclick="confirmSubmit();return false;">排期</button>
 					</dd>
 				</dl>
 			</div>
@@ -188,11 +190,15 @@
 					return timeHtml = '<input id="test'+index+'" data-pid="'+row.id+'" size="40" name="reserveTime" type="text" value=""  class="form_datetime ">'+"<a href=\"javascript:cleard('test"+index+"');\" class=\"red\"><i class=\"fa fa-close\"></i></a>";
 				}
 			}else{
+				if(row.isTransfor == '0'){
+					return timeHtml  = '项目移交中不允许排期';
+				}
 				if(typeof(row.reserveTimeStartStr) == "undefined"){
 					return timeHtml  = '未进行排期';
 				}else{
 					return timeHtml = row.reserveTimeStartStr+' - '+row.reserveTimeEndStr;
 				}
+				
 			}
 		}else{
 			if(typeof(row.reserveTimeStartStr) == "undefined"){
@@ -321,8 +327,8 @@
 			var options = {
 				"singleDatePicker": false,
 				"showDropdowns": true,
-				"showWeekNumbers": true,
-				"showISOWeekNumbers": true,
+				"showWeekNumbers": false,
+				"showISOWeekNumbers": false,
 				"timePicker": true,
 				"timePicker24Hour": true,
 				"timePickerIncrement": 5,

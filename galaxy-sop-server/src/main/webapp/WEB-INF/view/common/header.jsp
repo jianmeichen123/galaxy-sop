@@ -75,6 +75,7 @@
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
+$("#daiban").attr('href','<%=path %>/galaxy/soptask?sid='+sessionId+'&guid='+userId+'&_is_menu_=true');
 reloadMessage();
 
 if(roleId=='1'||roleId=='2'||roleId=='3'){
@@ -88,7 +89,7 @@ if(isContainResourceByMark("task_into_view")){
     $('a[resource-mark="task_into_view"]').css("display","block");
 	}
 	
-window.setInterval("reloadMessage(),fillHeaderdata()",10000); 
+//window.setInterval("reloadMessage(),fillHeaderdata()",100000000); 
  function reloadMessage(){
  	sendPostRequest(platformUrl.operationMessageRemind, remindcbf);
  }

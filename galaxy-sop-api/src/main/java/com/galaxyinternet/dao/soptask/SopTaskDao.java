@@ -38,5 +38,11 @@ public interface SopTaskDao extends BaseDao<SopTask, Long> {
 	 * @return
 	 */
 	public List<SopTask> getSopTaskByProjectId(SopTaskBo query);
+
+
+	public List<SopTask> selectXXXXXX(SopTask taQ);
+	
+	
+	int updateAtProjectTranfer(SopTask task);
 	
 }

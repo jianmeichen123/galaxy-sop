@@ -7,10 +7,11 @@ var ideaAddDialog = {
 				$.popup({
 					txt : $("#addDialog").html(),
 					showback:function(){
-						//alert("弹出层初始化");
 						var _this = this;
 						$("#addDialog").find(".meetingtc").remove();
 						$(_this.id).find("#win_idea_name").attr("valType",'required');
+						$(_this.id).find("#win_idea_name").val("");
+						document.getElementById("win_idea_name").value = "";
 						$(_this.id).find("#win_idea_department").attr("valType",'required');
 						initDialogVal();	
 						var operator = {
@@ -188,7 +189,7 @@ var ideaAddDialog = {
 			},
 			initData : function(){
 				//所属事业线
-				sendGetRequest(platformUrl.getDepartMentDict+"/department",null,ideaAddDialog.initDataCallBack);
+				sendGetRequest(platformUrl.getDepartMentDict+"/all",null,ideaAddDialog.initDataCallBack);
 			},
 			initDataCallBack : function(data){
 				var _dom = $("#win_idea_department");

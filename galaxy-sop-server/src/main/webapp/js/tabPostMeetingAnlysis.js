@@ -13,6 +13,10 @@ var meetingSearchPanel = {
 			
 			
 			$("#addPostMeetingBtn").click(function(){
+				if($(this).hasClass('limits_gray'))
+				{
+					return;
+				}
 				var formdata = {
 						 isEdit : true
 				}
@@ -81,6 +85,12 @@ var meetGrid = {
 			      detailView: false,          //是否显示父子表
 			      onLoadSuccess : function(data){
 			    	  pageMode = false;
+			    	  if(isTransfering == 'true')
+		    		  {
+			    		  $.each($('#meetGrid tr'),function(){
+			    			  $(this).find('td:last').addClass('limits_gray');
+			    		  });
+		    		  }
 			      },
 			      columns: [
 					{
@@ -140,7 +150,7 @@ var meetGrid = {
 		},
 		operateFormatter : function(value, row, index){
 			var btns = "";
-			if(isCreatedByUser == "true")
+			if(isCreatedByUser == "true" && isTransfering != 'true')
 			{
 				btns += '<a class="meet_edit blue"  href="javascript:void(0)">编辑</a>  ';
 				btns += '<a class="meet_delete blue" href="javascript:void(0)">删除</a>  ';
@@ -176,7 +186,10 @@ var meetGrid = {
 		operateEvents : {
 			
 			'click .meet_edit': function (e, value, row, index) {
-				console.log("edit");
+				if($(this).parent().hasClass('limits_gray'))
+				{
+					return;
+				}
 				var formdata = {
 						 id : row.id,
 						 meetingDateStr : row.meetingDateStr,
@@ -191,7 +204,11 @@ var meetGrid = {
 			
 	        },
 	        'click .meet_delete': function (e, value, row, index) {
-	        	layer.confirm('你确定要删除吗?', {
+	        	if($(this).parent().hasClass('limits_gray'))
+				{
+					return;
+				}
+	        	layer.confirm('是否删除事项?', {
 	        		  btn: ['确定', '取消'] //可以无限个按钮
 	        		}, function(index, layero){
 	        			sendGetRequest(platformUrl.deletePostMeeting + "/" + row.id ,null,function(data){
@@ -420,11 +437,11 @@ var editPostMeetingDialog = {
 		callFuc : function(data,_this){
 //			operator.saveCallBackFuc(data);
 
-			//$(".pop").hideLoading();
+			layer.closeAll('loading');
 			if(data.result.status=="OK"){
 				layer.msg("保存成功");
 				meetGrid.searchData();
-//				removePop1();
+				removePop1();
 				editPostMeetingDialog.close(_this);
 				//刷新投后运营简报信息
 				setThyyInfo();

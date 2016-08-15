@@ -30,11 +30,16 @@ $(function(){
 		$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);
 		$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":projectInfo.serviceCharge);
 		$("#industryOwnDs").text(projectInfo.industryOwnDs);
+		$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
 		var ht=projectProgress(data)
 		$("#insertImg").html(ht);
 		var p;
 		var fs;
 		$("[data-on='data-open']").click(function (){
+			if($(this).hasClass('limits_gray'))
+			{
+				return;
+			}
 			//基本信息修改
 			$("#editImg").html(ht);
 			$("#project_name_edit").val(projectInfo.projectName);
@@ -53,11 +58,17 @@ $(function(){
 			$("#finalContribution_edit").val(projectInfo.finalContribution==0?0:projectInfo.finalContribution);
 			$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?0:projectInfo.finalShareRatio);
 			$("#serviceChargeedit").val(projectInfo.serviceCharge==0?0:projectInfo.serviceCharge)
+			
+			if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
+				$('#faFlagEdit').attr("checked","checked");
+				$("#faNameEdit").val(projectInfo.faName);
+				$("#faNameEdit").css("display","block");
+			}
 			 p=projectInfo.industryOwn;
 		    fs=projectInfo.financeStatus;
 			//融资
 			sendGetRequest(platformUrl.getFinanceStatusByParent+"/getFinanceStatusByParent",null,CallBackB);
-			sendGetRequest(platformUrl.getDepartMentDict+"/1",null,CallBackA);
+			sendGetRequest(platformUrl.getDepartMentDict+"/all",null,CallBackA);
 			
 			initDialogVal();
 		
@@ -307,7 +318,7 @@ $(function(){
 		var data=getUpdateData();
 		if(beforeSubmit()){
 			sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
-				layer.msg("修改项目基本信息项目成功!");
+				layer.msg("修改项目基本信息成功!");
 				window.location.reload();
 			});
 		}
@@ -327,6 +338,13 @@ function getUpdateData(){
 	var finalvaluations=$("#finalValuations_edit").val()==""?0:$("#finalValuations_edit").val().trim();
 	var finalshare_ratio=$("#finalShareRatio_edit").val()==""?0:$("#finalShareRatio_edit").val().trim();
 	var serviceCharge=$("#serviceChargeedit").val()==""?0:$("#serviceChargeedit").val().trim();
+	var faFlag=$('input:radio[name="faFlag"]:checked').val();
+	var faName="";
+	if(faFlag=='0'){
+		faName="";
+	}else{
+		faName=$("#faNameEdit").val();
+	}
 	
 	var formatData={"id":id,
 			       "projectName":pname,
@@ -338,7 +356,11 @@ function getUpdateData(){
 			       "finalValuations":finalvaluations,//实际估值
                    "finalContribution":finalcontribution,//实际投资
   	               "finalShareRatio":finalshare_ratio,	//实际股权占比	
-  	               "serviceCharge":serviceCharge
+  	               "serviceCharge":serviceCharge,
+  	               "faFlag":faFlag,
+  	               "faName":faName
+  	             
+  	               
 	};
 	return formatData;
 }
@@ -428,5 +450,6 @@ $("#save_next_financing").click(function(){
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateProject, {"id" : pid, "nextFinancingSource" : nextFinancingSource}, saveSuccess());
 	}
+	
+	
 });
-

@@ -114,6 +114,13 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		{
 			selected = selectedMenu.getId().intValue();
 		}
+		
+		
+		
+		
+		
+		
+		
 		Header header = new Header();
 		header.setAttachment(selected);
 		responseBody.setHeader(header);
@@ -121,6 +128,16 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		return responseBody;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	protected BaseService<User> getBaseService() {
 		return null;
@@ -232,6 +249,37 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		return responseBody;
 	}
 	
+	
+	/**
+	 * 查询事业线
+	 * @version 2016-06-21
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getCareerlineListByRole", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Department> getCareerlineListByRole(HttpServletRequest request) {
+		ResponseData<Department> responseBody = new ResponseData<Department>();
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		
+		Department query = new Department();
+		query.setType(1);
+		if( roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)){
+		}else if(roleIdList.contains(UserConstant.HHR)){
+			query.setId(user.getDepartmentId());
+		}
+		
+		List<Department> careerlineList = departmentService.queryList(query);
+		for(Department department : careerlineList){
+			if(user.getDepartmentId().longValue() == department.getId().longValue()){
+				department.setCurrentUser(true);
+				break;
+			}
+		}
+		responseBody.setEntityList(careerlineList);
+		responseBody.setResult(new Result(Status.OK, null, "获取事业线成功！"));
+		return responseBody;
+	}
+	
 	/**
 	 * 根据事业线查询相应的投资经理
 	 * @version 2016-06-21
@@ -254,6 +302,7 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 			departmentIds.add(departmentId);
 		}
 		user.setDepartmentIds(departmentIds);
+		user.setStatus("0");
 		List<User> userList = userService.queryList(user);
 		List<User> responseUserList = new ArrayList<User>();
 		List<Long> uids = userRoleService.selectUserIdByRoleId(UserConstant.TZJL);
@@ -274,7 +323,6 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	{
 		List<Menus> menus = new ArrayList<Menus>();
 		List<PlatformResource> list = resourceService.queryUserMenus(userId, parentId);
-		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(userId);
 		if(list != null && list.size() >0)
 		{
 			for(PlatformResource res : list)
@@ -284,16 +332,11 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				{
 					String product = StringUtils.isNotEmpty(res.getProductMark()) ? res.getProductMark()+"/" : "" ;
 					String reqUrl=serverUrl+product+res.getResourceUrl();
-					
-					if("index".equals(res.getResourceMark()) && (RoleUtils.isGaoGuan(roleIdList)||RoleUtils.isHHR(roleIdList)))
-					{
-						url = serverUrl+"report/galaxy/report/platform?"+params;
+
+					if(reqUrl.indexOf("?")==-1){
+						url = reqUrl+"?"+params;
 					}else{
-						if(reqUrl.indexOf("?")==-1){
-							url = reqUrl+"?"+params;
-						}else{
-							url = reqUrl+"&"+params;
-						}
+						url = reqUrl+"&"+params;
 					}
 				}
 				Integer level = res.getParentId() != null && res.getParentId().intValue() > 0 ? 1 : 0;
@@ -334,5 +377,4 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		}
 		return menu;
 	}
-	
 }

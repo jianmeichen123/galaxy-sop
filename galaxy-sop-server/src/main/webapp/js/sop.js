@@ -8,12 +8,11 @@ var code = "0";
  */
 var alertid="";
 var projectId;
+
 function info(id){
 	projectId = id;
 	var _url = Constants.sopEndpointURL + '/galaxy/ips';
 	alertid=id;
-	
-	
 	$.getHtml({
 		url:_url,//模版请求地址
 		data:"",//传递参数
@@ -90,6 +89,7 @@ function info(id){
 							$("#add_ceomeet").remove();
 							$("#applyCeoMeeting").remove();
 						}
+						
 					}
 					if(i == 4){
 						if(hasClosed){
@@ -167,7 +167,7 @@ function info(id){
 							}
 						    tiggerTable($("#projectProgress_4_table"),3);
 						    if(index != '4'){
-						    	$("#options_point4").remove();
+						    	$("#options_point4 .toggle").remove();
 						    }else if(canUseBut){
 						    	$("#add_lxhmeet").remove();
 						    }
@@ -240,6 +240,9 @@ function info(id){
 				if(!canToOption){
 					$(".option_item_mark").remove();
 				}
+				//立项报告列表
+				$("#lx_report_table").bootstrapTable();
+				initLxReportTable();
 			},null);
 		}
 	});
@@ -659,10 +662,12 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 				$("#voucherDiv").css("display","none");
 			}
 			if(fileWorkType=='fileWorktype:1'){
-				$('.title_bj').html('更新业务尽职调查报告')
+				$('.title_bj').html('更新业务尽职调查报告');
 			}
 			if(fileWorkType=='fileWorktype:5'){
-				$('.title_bj').html('更新投资意向书')
+				$('.title_bj').html('更新投资意向书');
+			}else{
+				$('.title_bj').html('更新上传文件');
 			}
 			$("input[name='fileSource'][value='"+fileSource+"']").attr("checked",true);
 			$("#fileType").val(fileType);
@@ -951,6 +956,10 @@ function tzxy(st,projectType){
 				function(data){
 					
 					_tbody.empty();
+					//前置文件是否丢失
+					var hasTzxy = false,
+						hasTzxyQspz = false,
+						hasGqxy = false;
 					$.each(data.entityList,function(i,o){
 						
 							var $tr=$('<tr></tr>');
@@ -986,6 +995,7 @@ function tzxy(st,projectType){
 									}
 									$tr.append('<td>无</td>');
 								}else{
+									hasTzxy = true;
 									if(canToOption){
 										$tr.append('<td><a href="javascript:;" onclick="updateSopFile('+'\''+this.projectProgress+'\','+this.fileSource+',\''+this.fileWorktype+'\',\''+this.fileType+'\','+this.id+","+0+')" class="blue">更新</a></td>');
 									}else{
@@ -994,12 +1004,13 @@ function tzxy(st,projectType){
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+');" class="blue">查看</a></td>');	
 								}
 								if(this.voucherFileKey == null){
-									if(canToOption){
+									if(canToOption && hasTzxy){
 										$tr.append('<td><a href="javascript:;" onclick="tzxyAlert(8,1);" class="blue">上传</a></td>');
 									}else{
 										$tr.append('<td></td>');
 									}
 								}else{
+									hasTzxyQspz = true;
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\'); " class="blue">查看</a></td>'); 	
 								}
 							}else if(this.fileWorktype == 'fileWorktype:7'){
@@ -1017,6 +1028,7 @@ function tzxy(st,projectType){
 									}
 									$tr.append('<td>无</td>');
 								}else{
+									hasGqxy = true;
 									if(canToOption){
 										$tr.append('<td><a href="javascript:;" onclick="updateSopFile('+'\''+this.projectProgress+'\','+this.fileSource+',\''+this.fileWorktype+'\',\''+this.fileType+'\','+this.id+","+0+')" class="blue">更新</a></td>');
 									}else{
@@ -1025,7 +1037,7 @@ function tzxy(st,projectType){
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 								}
 								if(this.voucherFileKey == null){	
-									if(canToOption){
+									if(canToOption && hasGqxy && hasTzxyQspz){
 										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,1);" class="blue">上传</a></td>');
 									}else{
 										$tr.append('<td></td>');
@@ -1156,6 +1168,7 @@ function selected(obj){
 			if(i == 1){
 				$("#voucherType").attr("disabled",true);
 				$("#voucherType").attr("checked","checked");
+				$('.title_bj').html('上传签署凭证');
 			}else{
 				$("#voucherDiv").css("display","none");
 				

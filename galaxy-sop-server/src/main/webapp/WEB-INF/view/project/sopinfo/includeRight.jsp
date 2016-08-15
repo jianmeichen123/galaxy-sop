@@ -30,7 +30,14 @@
 						</div>
 					</div>
 				</div>
-	
+				
+				<div class="correlation">相关操作</div> 
+	            <div class="new_correlation_cen">
+	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
+	            	<span class="bluebtn new_btn yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
+	                <span class="bluebtn new_btn cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
+	            </div>
+            
 				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;">more</span>
 				</div>
 				<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
@@ -42,7 +49,7 @@
 			</c:if>
 			<!-- 投后运营End -->
 			<!-- 投前Start -->
-			<div id="tq_div" style="display:none;">
+			<div class="tq_div" style="display:none;">
 			
         	<div class="new_right_flow">
             	<div class="new_right_flow_line">
@@ -62,17 +69,20 @@
                 </div>
                  <!-- <span class="bluebtn new_btn" style="display: none;">项目流程</span> -->
             </div>
+            </div>
            
            
-            
-            <div class="correlation">相关操作</div> 
-            <div class="new_correlation_cen">
-            	<span class="bluebtn new_btn" onclick="closePro()" id="fjxm_but">否决项目</span>
+            <div class="tq_div" style="display:none;">
+	            <div class="correlation">相关操作</div> 
+	            <div class="new_correlation_cen">
+	            	<span class="bluebtn new_btn fjxm_but" onclick="closePro(this)">否决项目</span>
+	            	<span class="bluebtn new_btn_right yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
+	                <span class="bluebtn new_btn_right cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
+	            </div>
             </div>
             
             
-            
-            
+            <div class="tq_div" style="display:none;">
             <c:if test="${fx:hasRole(1) || fx:hasRole(2) || fx:hasRole(3)|| fx:isCreatedByUser('project',pid) }">
             <div class="correlation">
             	近期会议纪要
@@ -88,7 +98,7 @@
             <div class="correlation">近期访谈记录
 				<span class="more null new_righ" id="view_more" style="cursor: pointer;" >more</span>
 			</div>
-            <div class="new_correlation_cen new_correlation_cen_con" id="near_view">
+            <div class="new_correlation_cen new_correlation_cen_con"  id="near_view">
             	<div class="no_con">
             		暂无访谈记录
             	</div>
@@ -96,13 +106,36 @@
             </c:if>
             
         </div>
-        </div>
         <!-- 投前End -->
+        </div>
         <!--右边 end-->
    
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
+
+if('${fx:isTransfering(pid) }' == 'true')
+{
+	$('.fjxm_but').addClass("disabled");
+	$(".yjxm_btn").attr("style","display:none;");
+	if(isCreatedByUser == "true"){
+	  $(".cxxm_btn").attr("style","display:block;");
+	}else{
+	  $(".cxxm_btn").attr("style","display:block;");
+	  $(".cxxm_btn").addClass("disabled");
+	}
+		
+}else{
+	$('.fjxm_but').removeClass('disabled');
+	if(isCreatedByUser == "true"){
+	  $(".yjxm_btn").attr("style","display:block;");
+	}else{
+	  $(".yjxm_btn").attr("style","display:block;");
+	  $(".yjxm_btn").addClass("disabled");
+	}
+	$("#cxxm_btn").attr("style","display:none;");
+}
+
 
 if(!prograss){
 	prograss = 'projectProgress:0';
@@ -114,6 +147,7 @@ $(function(){
 	//显示投前或投后信息
 	if(prograss == 'projectProgress:10')
 	{
+		$('.fjxm_but').remove();
 		if($("#thyy_div").length>0)
 		{
 			$("#thyy_div").show();
@@ -133,12 +167,12 @@ $(function(){
 			}
 		});
 		
-		$("#tq_div").show();
+		$(".tq_div").show();
 	}
 	init_lct(); //流程图初始化
 	
 	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || admin!="true"){
-		$("#fjxm_but").removeAttr("onclick").attr("disabled","disabled").addClass("disabled");
+		$(".fjxm_but").removeAttr("onclick").attr("disabled","disabled").addClass("disabled");
 	}
 		
 	//获取近期访谈、会议 记录
@@ -164,6 +198,8 @@ function toCheckShowIcon(){
 	}
 	if(len<3){
 		$("#meet_more").hide();
+	}else{
+		$("#meet_more").show();
 	}
 	//无访谈记录
 	var len=$("#near_view .new_b_bottom").length;
@@ -174,6 +210,8 @@ function toCheckShowIcon(){
 	}
 	if(len<3){
 		$("#view_more").hide();
+	}else{
+		$("#view_more").show();
 	}
 }
 
@@ -329,6 +367,9 @@ function formatNearMeet(meetList){
 
 
 function closePro(){
+	if($(".fjxm_but").hasClass('limits_gray')){
+		return;
+	}
 	layer.confirm('你确定要否决项目吗?', 
 			{
 			  btn: ['确定', '取消'] 
@@ -340,11 +381,29 @@ function closePro(){
 				
 			}
 		);
-	/*
-	if(confirm("确定要否决项目吗？")){
-		sendGetRequest(platformUrl.closeProject+proid,null,closeback);
-	} */
 }
+
+function transferPro(){
+	var _url=platformUrl.toProjectTransfer;
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			doSumbit(proid);
+		}//模版反回成功执行	
+	});
+}
+function revokePro(){
+	var _url=platformUrl.toRevokeProTransfer;
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			revokeTransfer(proid);
+		}//模版反回成功执行	
+	});
+}
+
 
 
 //关闭回调

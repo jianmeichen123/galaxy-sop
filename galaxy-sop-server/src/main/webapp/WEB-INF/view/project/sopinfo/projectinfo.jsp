@@ -48,6 +48,7 @@
 
 <script type="text/javascript">
 var isCreatedByUser = "${fx:isCreatedByUser('project',projectId) }";
+var isTransfering = "${fx:isTransfering(projectId) }";
 var projectInfo;
 $(function(){
 	createMenus(4);
@@ -75,7 +76,6 @@ function getProjectInfo(dtd)
 				dtd.resolve();
 			}
 			var len=$("#project_name").length
-			console.log($("#project_name"))
 		}
 	);
 	if(hasDtd)
@@ -138,7 +138,7 @@ function getProjectInfo(dtd)
 				<!-- 默认展示 -->
 				<div class="basic_center">
 					<div class="new_r_compile_new">
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name="basic" data-on="data-open">编辑</a>
 						</span>
@@ -166,12 +166,15 @@ function getProjectInfo(dtd)
 								<span class="new_color_black" id="createUname"></span><span class="new_color_gray">(</span><span class="new_color_gray" id="projectCareerline"></span><span class="new_color_gray">)</span></td>
 						</tr>
 						
-					<tr>
+					     <tr>
 							<td><span class="new_color_gray">融资状态：</span><span class="new_color_black" id="financeStatusDs"></span></td>
 							<td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress"></span>
 							<span class="new_color_gray" id="s">(</span>
 								<span class="new_color_gray" id="projectStatusDs"></span><span class="new_color_gray" id="end">)</span><span id="insertImg"></span></td>
 						</tr>
+						     <tr>
+							     <td><span class="new_color_gray">来源于FA：</span><span class="new_color_black" id="faName"></span></td>
+								</tr>
 					
 					</table>
 
@@ -233,6 +236,14 @@ function getProjectInfo(dtd)
                                 <td><span class="new_color_gray">融资状态：</span><span><select class="new_nputr" id="finance_status_sel"></select></span></td>
                                  <td><span class="new_color_gray">项目进度：</span><span class="new_color_black" id="projectProgress_edit"></span><span>(</span><span class="new_color_gray" id="projectStatusDs_edit"></span><span>)</span><span id="editImg" class="" style="overflow:hidden;"></span></td>
                             </tr>
+                              <tr>
+                                <td><span class="new_color_gray">来源于FA：</span>
+                                <span class="mar_left">
+                                	<div class="mar_left"><input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否 </div>
+                                    <div class="mar_left"><input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">是</div>
+                                    <div class="mar_left"><input type="text" class="new_nputr" placeholder="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></div>
+                                </span></td>
+                              </tr>
 				        </table>  
 				        
 				        <!--融资计划-->
@@ -248,7 +259,7 @@ function getProjectInfo(dtd)
 				            <tr>
 				                <td><span class="new_color_gray">出让股份：</span><span class="new_color_black"><input class="new_nputr_number" size="20" id="project_share_ratio_edit" allowNULL="yes" valType="OTHER" regString="^(\d{1,2}(\.\d{1,4})?)$" msg="<font color=red>*</font>0到100之间的四位小数"/>　&nbsp;%</span></td>
 				            </tr>
-				        </table>
+				              </table>
 				        <!--实际投资-->
 				        <div class="new_r_compile new_bottom_color">
 				            <span class="new_ico_practical"></span>
@@ -288,7 +299,7 @@ function getProjectInfo(dtd)
 			<div class="tabtable_con_on" >
 				<div class="project_on " >
 					<div class="title_bj_tzjl">项目描述</div>
-                      <div id="describe_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
+                      <div id="describe_editor" type="text/plain" class='width_fwb'></div>  
                         <div class="compile_on_center">
                            <div class="compile_on_right">
                                <span class="pubbtn bluebtn" id="save_describe">保存</span>
@@ -299,7 +310,7 @@ function getProjectInfo(dtd)
                  <div class="project_center">
 					<div class="new_r_compile ">
 						<span class="new_ico_project"></span> <span class="new_color size16">项目描述</span> <span class="bj_ico" id="descript">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox">
 							<a href="javascript:;" class="ico f1" data-name="project" data-on="data-open">编辑</a>
 						</span>
@@ -316,7 +327,7 @@ function getProjectInfo(dtd)
 				<div class='company_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_firm"></span> <span class="new_color size16">公司定位</span> <span class="bj_ico" id="location">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='company'  data-on="data-open">编辑</a>
 						</span>
@@ -329,7 +340,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='company_on'>					
 					<div class="title_bj_tzjl">公司定位</div>
-					<div id="company_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
+					<div id="company_editor" type="text/plain" class='width_fwb'></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_location">保存</span>
@@ -344,7 +355,7 @@ function getProjectInfo(dtd)
 				<div class='portrayal_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_people"></span> <span class="new_color size16">用户画像</span> <span class="bj_ico" id="portrait">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 						<a href="javascript:;" class="ico f1" data-name='portrayal'  data-on="data-open">编辑</a>
 						</span>
@@ -357,7 +368,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='portrayal_on'>
 					<div class="title_bj_tzjl">用户画像</div>
-					<div id="portrait_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
+					<div id="portrait_editor" type="text/plain" class='width_fwb'></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_portrait">保存</span>
@@ -374,7 +385,7 @@ function getProjectInfo(dtd)
 				<div class='product_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_product"></span> <span class="new_color size16">产品服务</span> <span class="bj_ico" id="business_model">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='product' data-on="data-open">编辑</a>
 						</span>
@@ -387,7 +398,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='product_on'>
 					<div class="title_bj_tzjl">产品服务</div>
-					<div id="business_editor" type="text/plain" class='width_fwb' style=" height:200px; "></div>  
+					<div id="business_editor" type="text/plain" class='width_fwb' ></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_business">保存</span>
@@ -403,7 +414,7 @@ function getProjectInfo(dtd)
 				<div class='operation_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_run"></span> <span class="new_color size16">运营数据</span> <span class="bj_ico" id="operational_data">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='operation' data-on="data-open">编辑</a>
 						</span>
@@ -416,7 +427,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='operation_on'>
 					<div class="title_bj_tzjl">运营数据</div>
-					<div id="operation_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
+					<div id="operation_editor" type="text/plain" class='width_fwb' ></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_operation">保存</span>
@@ -433,7 +444,7 @@ function getProjectInfo(dtd)
 				<div class='industry_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_industry"></span> <span class="new_color size16">行业分析</span> <span class="bj_ico" id="industry_analysis">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='industry' data-on="data-open">编辑</a>
 						</span>
@@ -446,7 +457,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='industry_on'>
 					<div class="title_bj_tzjl">行业分析</div>
-					<div id="industry_editor" type="text/plain" class='width_fwb' style="height:200px; "></div>  
+					<div id="industry_editor" type="text/plain" class='width_fwb' ></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_industry">保存</span>
@@ -461,7 +472,7 @@ function getProjectInfo(dtd)
 				<div class='analysis_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_jq"></span> <span class="new_color size16">竞争分析</span> <span class="bj_ico" id="analysis">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 							<a href="javascript:;" class="ico f1" data-name='analysis' data-on="data-open">编辑</a>
 						</span>
@@ -474,7 +485,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='analysis_on'>
 					<div class="title_bj_tzjl">竞争分析</div>
-					<div id="analysis_editor" type="text/plain" class='width_fwb'  style="height:200px; "></div>  
+					<div id="analysis_editor" type="text/plain" class='width_fwb'></div>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_analysis">保存</span>
@@ -493,7 +504,7 @@ function getProjectInfo(dtd)
 				<div class='next_financing_center'>
 					<div class="new_r_compile ">
 						<span class="new_ico_nex"></span> <span class="new_color size16">下一轮融资路径</span> <span class="bj_ico" id="next_financing_source">暂无数据</span>
-						<c:if test="${fx:isCreatedByUser('project',projectId)}">
+						<c:if test="${isEditable}">
 						<span class="new_fctbox"> 
 						<a href="javascript:;" class="ico f1" data-name='next_financing' data-on="data-open">编辑</a>
 						</span>
@@ -506,7 +517,7 @@ function getProjectInfo(dtd)
 				</div>
 				<div class='next_financing_on'>
 					<div class="title_bj_tzjl">下一轮融资路径</div>
-					<script id="next_financing_editor" type="text/plain" class='width_fwb' style="width:100%; height:200px;"></script>  
+					<script id="next_financing_editor" type="text/plain" class='width_fwb'></script>  
                     <div class="compile_on_center">
                        <div class="compile_on_right">
                            <span class="pubbtn bluebtn" id="save_next_financing">保存</span>
@@ -572,7 +583,15 @@ $(function(){
 	 $('.edui-icon-fullscreen').on('click',function(){
 			$('body').css('padding-bottom','300px')
 	})
+	if(isTransfering == 'true')
+	{
+		$('[data-on="data-open"]').addClass('limits_gray');
+	}
 	$('[data-on="data-open"]').on('click',function(){
+		if($(this).hasClass('limits_gray'))
+		{
+			return;
+		}
 		 var scroll_top=$(this).offset().top;
 		 $('html,body').animate({  
 		        scrollTop: scroll_top

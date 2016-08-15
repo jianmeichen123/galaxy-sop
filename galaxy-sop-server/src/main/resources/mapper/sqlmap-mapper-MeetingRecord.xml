@@ -17,6 +17,16 @@
     <result column="participant" jdbcType="VARCHAR" property="participant" />
     <result column="meet_valid" jdbcType="TINYINT" property="meetValid" />
     <result column="meeting_name" jdbcType="BIGINT" property="meetingName" />
+    
+    <result column="departId"  property="departId" />
+    <result column="passMeetNum"  property="passMeetNum" />
+    <result column="sumProNum"  property="sumProNum" />
+    <result column="first_meet_time"  property="firstMeetTime" jdbcType="TIMESTAMP" />
+    <result column="pass_meet_time"  property="passMeetTime" jdbcType="TIMESTAMP" />
+    
+    <result column="first_created_time" property="firstCreatedTime" jdbcType="BIGINT" />
+    <result column="last_created_time" property="lastCreatedTime" jdbcType="BIGINT" />
+    
   </resultMap>
   
   
@@ -243,5 +253,265 @@
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	<!-- report -->
+	
+	
+	<!-- 查询总数 -->
+	<select id="selectMeetCountByGHL" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(*) 
+		from sop_meeting_record meet,sop_project pro
+		where
+			meet.project_id = pro.id
+			
+	      <if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+		   <if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+		   
+		   <if test="meetingType != null" >and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+		  
+	      <if test="meetingResult != null" >and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+		  
+		  <if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>	
+		  
+		  <if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+		  <if test="departId != null"> and pro.project_departId = #{departId,jdbcType=BIGINT} </if>
+	</select>
+	
+	
+	<select id="selectUserPassMeetNum" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			pro.create_uid, pro.project_departId departId, count(meet.id) passMeetNum
+		from sop_meeting_record meet,sop_project pro
+		where
+			meet.project_id = pro.id
+			<if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+			<if test="departId != null"> and pro.project_departId = #{departId,jdbcType=BIGINT} </if>
+			<if test="userIdList != null">
+				AND pro.create_uid IN
+				<foreach collection="userIdList" index="item" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+		
+			<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+		
+			<if test="meetingResult != null">and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+		
+			<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+	
+		GROUP BY pro.create_uid
+	</select>
+	
   
+   <select id="selectDeptPassMeetNum" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			pro.project_departId departId, count(meet.id) passMeetNum
+		from sop_meeting_record meet,sop_project pro
+		where
+			meet.project_id = pro.id
+			<if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+			<if test="userIdList != null">
+				AND pro.create_uid IN
+				<foreach collection="userIdList" index="item" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="deptIdList != null">
+				AND pro.project_departId IN
+				<foreach collection="deptIdList" index="item" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+		
+			<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+		
+			<if test="meetingResult != null">and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+		
+			<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+	
+		GROUP BY pro.project_departId
+	</select>
+  
+  
+  <select id="selectHasMeetPro" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+			pro.id project_id,pro.project_departId departId
+		from sop_meeting_record meet,sop_project pro
+		where
+			meet.project_id = pro.id
+			
+			<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+			<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+		
+			<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+		
+			<if test="meetingResult != null">and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+		
+			<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+			
+			<if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+			<if test="userIdList != null">
+				AND pro.create_uid IN
+				<foreach collection="userIdList" index="item" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			
+			<if test="deptIdList != null">
+				AND pro.project_departId IN
+				<foreach collection="deptIdList" index="item" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		GROUP BY pro.id
+	</select>
+	
+	
+	
+	
+	<select id="selectDeptHasMeetProNumByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT  a.departId,a.create_uid, COUNT(a.project_id) sumProNum
+		FROM
+			(
+			SELECT
+				pro.id project_id, pro.create_uid,pro.project_departId departId
+			FROM 
+				sop_meeting_record meet,sop_project pro
+			WHERE
+				meet.project_id = pro.id
+				<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			
+				<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+			
+				<if test="meetingResult != null">and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+			
+				<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+				
+				<if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+				<if test="userIdList != null">
+					AND pro.create_uid IN
+					<foreach collection="userIdList" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				
+				<if test="deptIdList != null">
+					AND pro.project_departId IN
+					<foreach collection="deptIdList" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+			GROUP BY pro.id	
+			) a
+		GROUP BY a.departId
+	</select>
+	
+	
+	
+	<select id="selectTzjlHasMeetProNumByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT  a.departId,a.create_uid, COUNT(a.project_id) sumProNum
+		FROM
+			(
+			SELECT
+				pro.id project_id, pro.create_uid,pro.project_departId departId
+			FROM 
+				sop_meeting_record meet,sop_project pro
+			WHERE
+				meet.project_id = pro.id
+				<if test="startTime != null"> <![CDATA[  and meet.meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and meet.meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			
+				<if test="meetingType != null">and meet.meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+			
+				<if test="meetingResult != null">and meet.meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+			
+				<if test="recordType != null"> and meet.record_type = #{recordType,jdbcType=TINYINT} </if>
+				
+				<if test="projectType != null"> and pro.project_type = #{projectType,jdbcType=VARCHAR} </if>
+				<if test="userIdList != null">
+					AND pro.create_uid IN
+					<foreach collection="userIdList" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+				
+				<if test="departId != null"> and pro.project_departId = #{departId,jdbcType=BIGINT} </if>
+				<if test="deptIdList != null">
+					AND pro.project_departId IN
+					<foreach collection="deptIdList" index="item" item="item" open="(" separator="," close=")">
+						#{item}
+					</foreach>
+				</if>
+			GROUP BY pro.id	
+			) a
+		GROUP BY a.create_uid
+	</select>
+	
+	
+	
+	
+	<select id="selectMeetFirstTimeAndPassTime" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT 
+			a.*,b.pass_meet_time,b.last_created_time
+		FROM 
+			(
+			SELECT 
+				project_id,meeting_type,MIN(meeting_date) first_meet_time,MIN(created_time) first_created_time
+			FROM 
+				sop_meeting_record 
+			WHERE 
+			  <trim prefixOverrides="and">
+			    <if test="proIdList != null">
+					and project_id in
+					<foreach collection="proIdList" index="item" item="item" open="(" separator="," close=")" >
+						#{item}
+					</foreach>
+			    </if>
+				<if test="startTime != null"> <![CDATA[  and meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+			
+				<if test="meetingType != null">and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
+			  </trim>
+			GROUP BY project_id,meeting_type
+			) a
+			LEFT JOIN
+			(
+			SELECT 
+				project_id,meeting_type,MAX(meeting_date) pass_meet_time,MAX(created_time) last_created_time
+			FROM 
+				sop_meeting_record 
+			WHERE 
+			  <trim prefixOverrides="and">
+			 	 <if test="proIdList != null">
+					and project_id in
+					<foreach collection="proIdList" index="item" item="item" open="(" separator="," close=")" >
+						#{item}
+					</foreach>
+			    </if>
+				<if test="startTime != null"> <![CDATA[  and meeting_date >= #{startTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="endTime != null"> <![CDATA[ and meeting_date <= #{endTime,jdbcType=TIMESTAMP} ]]> </if>
+				<if test="meetingType != null">and meeting_type = #{meetingType,jdbcType=VARCHAR} </if>
+				<if test="meetingResult != null">and meeting_result = #{meetingResult,jdbcType=VARCHAR} </if>
+				<if test="recordType != null"> and record_type = #{recordType,jdbcType=TINYINT} </if>
+			  </trim>
+			GROUP BY project_id,meeting_type
+			)b
+			ON a.project_id = b.project_id AND a.meeting_type = b.meeting_type
+	</select>
+	
+	
 </mapper>

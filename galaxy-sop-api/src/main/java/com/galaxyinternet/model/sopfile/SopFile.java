@@ -10,13 +10,9 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class SopFile extends SopParentFile implements Serializable{
-    /**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
    
-   
-    
     /**
      * 上传所属人
      */
@@ -87,8 +83,7 @@ public class SopFile extends SopParentFile implements Serializable{
      * 会议记录ID
      */
     private Long meetingId;
-        
-
+    
     /**
      * 临时地址
      */
@@ -186,7 +181,6 @@ public class SopFile extends SopParentFile implements Serializable{
 	}
      @Override
     public void setUpdatedTime(Long updatedTime) {
-    	// TODO Auto-generated method stub
     	super.setUpdatedTime(updatedTime);
     	if(updatedTime != null){
      		this.updatedDate = DateUtil.longToString(updatedTime);

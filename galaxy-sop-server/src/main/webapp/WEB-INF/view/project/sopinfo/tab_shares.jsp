@@ -7,7 +7,7 @@
 		<div class="title">
 	        <span class="new_ico_legal icon"></span>
 	        <span class="new_color size16">法人信息</span>
-	        <c:if test="${fx:isCreatedByUser('project',pid) }">
+	        <c:if test="${isEditable}">
 	        <div class="btn">
 	         	<span class="new_fctbox">
 	            	<a href="javascript:;" class="ico f1" data-btn="edit">编辑</a>
@@ -59,9 +59,9 @@
     </div> 
     <div class="top clearfix">
         <!--按钮-->
-        <c:if test="${fx:isCreatedByUser('project',pid) }">
+        <c:if test="${isEditable}">
           <div class="btnbox_f btnbox_f1 clearfix">
-              <a href="#" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addSharesView()">添加</a>
+              <a href="#" id="add_share_bth" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addSharesView()">添加</a>
           </div>
          </c:if>
       </div>
@@ -76,7 +76,7 @@
         	<th data-field="sharesRatio" data-align="left" class="data-input">占比(%)</th>
         	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th>
         	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
-        	<c:if test="${fx:isCreatedByUser('project',pid) }">
+        	<c:if test="${isEditable }">
         	<th data-align="left" class="col-md-2" data-formatter="shareOperatFormater">操作</th>
         	</c:if>
 			</tr>	
@@ -86,9 +86,18 @@
 
 <script type="text/javascript">
 	var $sharesTable;
-	
+	var isTransfering = "${fx:isTransfering(pid) }";
+	if(isTransfering == 'true')
+	{
+		$('.legal [data-btn="edit"]').addClass('limits_gray');
+		$('#add_share_bth').addClass('limits_gray');
+	}
 	refreshCompanyInfo();
 	$('.legal [data-btn="edit"]').on('click',function(){
+		if($(this).hasClass('limits_gray'))
+		{
+			return;
+		}
 		editCompany();
 	});
 	$('.legal [data-btn="save"]').on('click',function(){
@@ -244,13 +253,19 @@
 		pagination: true,
         search: false,
         onLoadSuccess: function (data) {
+       		$("#shares-table span.edit").click(function(){
+       			editStock($(this).data('id'));
+       		});
+       		$("#shares-table span.del").click(function(){
+       			delStock($(this).data('id'));
+       		});
         }
 	});
 	
 	function shareOperatFormater(val,row,index)
 	{
-		var e = '<span class="edit" onclick="editStock(\''+ row.id + '\')">编辑</span> ';  
-        var d = '<span class="del" onclick="delStock(\''+ row.id +'\')">删除</span>';  
+		var e = '<span class="edit" data-id="'+row.id+'">编辑</span> ';  
+        var d = '<span class="del" data-id="'+row.id+'">删除</span>';  
         return e+d;  
 	}
 	function editStock(id){
@@ -294,6 +309,10 @@
 		
 	}
 	function addSharesView(){
+		if(isTransfering == 'true')
+		{
+			return;
+		}
 		$.getHtml({
 			url:platformUrl.addSharesView,
 			okback:function(){

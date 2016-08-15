@@ -6,7 +6,7 @@ var searchPanel = {
 			//业务类型
 			sendGetRequest(platformUrl.dictFindByParentCode+"/fileWorktype",null,searchPanel.initDataCallBack);
 			//所属事业线
-			sendGetRequest(platformUrl.getDepartMentDict+"/department",null,searchPanel.initDataCallBack);
+			sendGetRequest(platformUrl.getDepartMentDict+"/all",null,searchPanel.initDataCallBack);
 			//注册发送邮件按钮
 			$("#show-mail-btn").click(function(){
 				var rows = $("#fileGrid").bootstrapTable('getSelections');
@@ -160,23 +160,27 @@ var fileGrid = {
 			uploadOpt = "上传";
 			uploadClass = "fileuploadlink"
 		}
-		
+		var isTransfing = false;
+		if(typeof(transferingIds) != 'undefined' && transferingIds.contains(row.projectId))
+		{
+			isTransfing = true;
+			uploadClass += " limits_gray";
+		}
+		var opts = new Array();
 		if(row.fileKey && row.fileValid==1 && row.isEdit == "true"){
 			
-			return [
-			        '<a class="' + uploadClass + ' blue"  href="javascript:void(0)">',
-			        uploadOpt,
-			        '</a>  ',
-		            '<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">',
-		            '下载',
-		            '</a>  '
-		        ].join('');
+			if(isTransfing == false )
+			{
+				opts.push('<a class="' + uploadClass + ' blue"  href="javascript:void(0)">'+uploadOpt+'</a>  ');
+			}
+			opts.push('<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">下载</a>');
+			return opts.join('');
 		}else if(!row.fileKey && row.isEdit == "true"){
-			return [
-		            '<a class="' + uploadClass + ' blue"  href="javascript:void(0)">',
-		            uploadOpt,
-		            '</a>  '
-		        ].join('');
+			if(isTransfing == false )
+			{
+				opts.push('<a class="' + uploadClass + ' blue"  href="javascript:void(0)">'+uploadOpt+'</a>  ');
+			}
+			return opts.join('');
 		}else if(row.fileKey && row.fileValid==1  && row.isEdit == "false"){
 			return [
 			        '<a class="filedownloadlink blue" id="sopfile" href="javascript:void(0)">',
@@ -194,7 +198,6 @@ var fileGrid = {
 					fileKey : row.fileKey,
 					fileName : row.fileName + "." + row.fileSuffix
 			};
-			
 			layer.msg('正在下载，请稍后...',{time:2000});
 			var keyvalue;
 			if(e.target.id=="sopfile"){
@@ -208,6 +211,10 @@ var fileGrid = {
         },
         //更新文档
 		'click .fileupdatelink' : function(e, value, row, index){
+			if($(this).hasClass('limits_gray'))
+			{
+				return;
+			}
 			var formData = {
         			_fileKey : row.fileKey,
         			_fileSource : row.fileSource,
@@ -220,9 +227,16 @@ var fileGrid = {
     				callFuc : function(){
     					searchPanel.serarchData();
     				},
+    				
     				_url : platformUrl.commonUploadFile, //兼容老板插件
     				_localUrl : platformUrl.commonUploadFile
     		};
+			if($(this).text()=='更新'){
+				$('.title_bj').html('更新文档');
+			}
+			if($(this).text()=='上传'){
+				$('.title_bj').html('项目文档')
+			}
 			if('vsopfile'==e.currentTarget.id){
 				//签署凭证
 				formData._isProve = true;
@@ -234,6 +248,12 @@ var fileGrid = {
         
         //上传文档
         'click .fileuploadlink' : function(e, value, row, index){
+        	if($(this).hasClass('limits_gray'))
+			{
+				return;
+			}
+
+        	$('.title_bj').html('项目文档');
         	var uploadUrl = undefined;
         	var uploadFormFuc = undefined;
         	if(row.isChangeTask == "true"){
@@ -249,6 +269,9 @@ var fileGrid = {
 					}
 					return form;
 				}
+        		if($(this).text()=='上传'){
+    				$('.title_bj').html('项目文档')
+    			}
         	}else{
         		uploadUrl = platformUrl.commonUploadFile;
         	}

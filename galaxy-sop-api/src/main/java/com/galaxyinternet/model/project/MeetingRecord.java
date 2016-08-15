@@ -53,17 +53,10 @@ public class MeetingRecord  extends PagableRecordEntity{
     private List<Long> fileIds;
     
     
-    
-    
-    
-    
-    
-    
     /**
      * 非映射字段
      */
     private String hasFile;
-    
     
     
     /**
@@ -71,6 +64,14 @@ public class MeetingRecord  extends PagableRecordEntity{
      */
     private String createUName;
     
+    private Integer passMeetNum;
+    private Long departId; //部门id
+    private Integer sumProNum; //统计条件下对应的项目数
+    
+    private Date firstMeetTime;
+    private Date passMeetTime;
+    private Long firstCreatedTime;
+    private Long lastCreatedTime;
     
     public String getParticipant() {
 		return participant;
@@ -358,6 +359,61 @@ public class MeetingRecord  extends PagableRecordEntity{
 
 	public void setHasFile(String hasFile) {
 		this.hasFile = hasFile;
+	}
+	public Integer getPassMeetNum() {
+		return passMeetNum;
+	}
+
+	public void setPassMeetNum(Integer passMeetNum) {
+		this.passMeetNum = passMeetNum;
+	}
+
+	public Long getDepartId() {
+		return departId;
+	}
+
+	public void setDepartId(Long departId) {
+		this.departId = departId;
+	}
+
+	public Integer getSumProNum() {
+		return sumProNum;
+	}
+
+	public void setSumProNum(Integer sumProNum) {
+		this.sumProNum = sumProNum;
+	}
+
+	public Date getFirstMeetTime() {
+		return firstMeetTime;
+	}
+
+	public void setFirstMeetTime(Date firstMeetTime) {
+		this.firstMeetTime = firstMeetTime;
+	}
+
+	public Date getPassMeetTime() {
+		return passMeetTime;
+	}
+
+	public void setPassMeetTime(Date passMeetTime) {
+		this.passMeetTime = passMeetTime;
+	}
+
+	public Long getFirstCreatedTime() {
+		return firstCreatedTime;
+	}
+
+	public void setFirstCreatedTime(Long firstCreatedTime) {
+		this.firstCreatedTime = firstCreatedTime;
+	}
+
+	public Long getLastCreatedTime() {
+		return lastCreatedTime;
+	}
+
+	public void setLastCreatedTime(Long lastCreatedTime) {
+		this.lastCreatedTime = lastCreatedTime;
 	}
     
 	

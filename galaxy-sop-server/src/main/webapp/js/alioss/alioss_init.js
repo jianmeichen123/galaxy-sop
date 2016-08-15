@@ -50,6 +50,7 @@ var ossClient = {
 			ossClient.mustHasFile = data.mustHasFile;
 			ossClient.noFileOper = data.noFileOper;
 			ossClient.validateForm = data.validateForm;
+			ossClient.successCallBack = data.successCallBack;
 			if (!data.fileKey) {
 				data.fileKey = undefined;
 			}
@@ -108,7 +109,7 @@ var ossClient = {
 
 				}
 			} else {
-				if (!ossClient.getLocalFormParam) {
+				/*if (!ossClient.getLocalFormParam) {
 					formParams = {
 							"fileSource" : $(_this.id).find("input[name='win_fileSource']:checked").val(),
 							"fileType" : $(_this.id).find("#win_fileType").val(),
@@ -119,12 +120,17 @@ var ossClient = {
 					};
 				} else {
 					formParams = ossClient.getLocalFormParam(
-							up, up.files[0], ossClient.fileKey);
+							up, up.files[0], ossClient.uploadObject.fileKey);
 				}
+				*/
+				if (!(!ossClient.getLocalFormParam)) {
+					formParams = ossClient.getLocalFormParam(up, up.files[0], ossClient.uploadObject.fileKey);
+				}
+				
 			}
 
 			// 校验 formParams
-			if (formParams == false) {
+			if (formParams == false || formParams.length == 0) {
 				up.stop();
 				return;
 			}
@@ -136,7 +142,6 @@ var ossClient = {
 					} else {
 						ossClient.noFileOper(formParams);
 					}
-				
 				}
 			} else {
 					if (ossClient.uploadObject.uploadMode == "oss") {
@@ -174,38 +179,51 @@ var ossClient = {
 				} else {
 					layer.msg("上传成功");
 				}
-
 			} else {
-				var form;
+				/* var form;
 				if (!ossClient.ossUrl) {
 					ossClient.ossUrl = platformUrl.fileCallBack;
 				}
+				
 				if (!ossClient.getOssFormParam) {
 					form = {
 
 					}
 				} else {
-					form = ossClient.getOssFormParam(up, file,
-							uploadObject.fileKey);
+					form = ossClient.getOssFormParam(up, file,uploadObject.fileKey);
 				}
-				sendPostRequestByJsonObj(
-						ossClient.ossUrl,
-						form,
-						function(data) {
-							if (data.result.status == "OK") {
-								if (ossClient.successCallBack) {
-									ossClient.successCallBack(up, file, result);
+				*/
+				
+				if(!(!ossClient.ossUrl)){
+					var form;
+					
+					if(!(!ossClient.getOssFormParam)){
+						form = ossClient.getOssFormParam(up, file,ossClient.uploadObject.fileKey);
+					}
+					
+					sendPostRequestByJsonObj(
+							ossClient.ossUrl,
+							form,
+							function(data) {
+								if (data.result.status == "OK") {
+									if (ossClient.successCallBack) {
+										ossClient.successCallBack(up, file, result);
+									} else {
+										layer.msg("上传成功");
+									}
 								} else {
-									layer.msg("上传成功");
+									if (ossClient.successCallBack) {
+										ossClient.successCallBack(up, file, result);
+									}else{
+										layer.msg("上传失败");
+									}
 								}
-							} else {
-								layer.msg("上传失败");
-							}
-						});
+							});
+					
+				}
 			}
 		} else {
 			layer.msg("上传失败");
-			// alert("上传失败");
 		}
 	},
 	

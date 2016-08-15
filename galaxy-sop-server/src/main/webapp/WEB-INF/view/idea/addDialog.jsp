@@ -61,7 +61,7 @@
 	<dl class="fmdl clearfix">
 		  <dt>创意简述：</dt>
 		  <dd class="eduidd" style="width:549px;">
-		      <div type="text/plain" name="ideaDescHtml" id="win_idea_desc" style="width:100%; height:150px;"
+		      <div type="text/plain" name="ideaDescHtml" id="win_idea_desc" class='width_fwb'
 	        	  valType="MAXBYTE" regString="9000" msg="<font color=red>*</font>访谈纪要不能超过9000字节" >
 	          </div>
 		  </dd>

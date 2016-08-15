@@ -10,7 +10,7 @@ function createMenus(current){
 	   	 $.each(data.entityList, function(i,o){
 	   		 if(typeof(o.nodes) == "undefined"){
 	   			if(selected == o.id){
-   			           html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
+		   			html += '<li class="on"><a href="' + o.url + '" data-menueid="' + o.id + '" ><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
 		   		}else{
 		   			html += '<li><a href="' + o.url + '"  data-menueid="' + o.id + '"><span class="navbar nav'+o.id+'"></span>' + o.menuName + '</a></li>';
 		   		}
@@ -35,6 +35,8 @@ function createMenus(current){
 	   			 html += '</ul></li>';
 	   		 }
 	   	 });
+	   	 //星眸链接
+	   	 html += '<li class="on"><a href="http://xm.galaxyinternet.com/galaxy/index?sid=' + sessionId + '&guid=' + userId + '" data-menueid="" target="_blank"><span class="navbar xingmou"></span>星眸</a></li>';
 	   	 $("#menus").html(html);
 	   //投后菜单显示隐藏    
 	     $(".pagebox .lft .toggle_li").click(function(event) {

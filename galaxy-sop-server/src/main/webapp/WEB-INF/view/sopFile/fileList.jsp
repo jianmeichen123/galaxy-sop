@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <% 
 	String path = request.getContextPath(); 
 %>
@@ -109,7 +110,9 @@
 
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
 </body>
-
+<script type="text/javascript">
+var transferingIds = "${fx:getTransferingPids()}".split(",");
+</script>
 
 
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
@@ -122,8 +125,6 @@
 	
 
 
-<script type="text/javascript">
 
-</script>
 </html>
 

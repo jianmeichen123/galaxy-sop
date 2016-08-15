@@ -287,6 +287,10 @@ var platformUrl = {
 	
 	operationMessageRemind : Constants.sopEndpointURL + "/galaxy/operationMessage/remind",
 	MessageIndex : Constants.sopEndpointURL + "/galaxy/operationMessage/index",
+	/***
+	 * 日程列表
+	 */
+	shecudle_list : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/queryscheduleList",
 	
 	/***
 	 * 日程显示三条记录
@@ -550,6 +554,16 @@ var platformUrl = {
 	 */	
 	toBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/toBusinessPlanHistory",
 	/**
+	 * 跳转至会议录音详情页面
+	 */	
+	toInterviewDetail : Constants.sopEndpointURL + "/galaxy/sopFile/toInterviewDetail",
+	/**
+	 * 跳转至会议录音详情页面
+	 */	
+	interViewByMeetingId : Constants.sopEndpointURL + "/galaxy/sopFile/interViewByMeetingId",
+
+	
+	/**
 	 * 商业计划历史查询
 	 */	
 	searchBusinessPlanHistory : Constants.sopEndpointURL + "/galaxy/sopFile/searchBusinessPlanHistory",
@@ -561,6 +575,10 @@ var platformUrl = {
 	 * 查询事业线
 	 */
 	getCareerlineList : Constants.sopEndpointURL + "/galaxy/common/getCareerlineList",
+	/**
+	 * 查询事业线
+	 */
+	getCareerlineListByRole : Constants.sopEndpointURL + "/galaxy/common/getCareerlineListByRole",
 	/**
 	 * 根据事业线查询相应的投资经理
 	 */
@@ -593,9 +611,265 @@ var platformUrl = {
 	/**
 	 * 删除投后运营会议
 	 */
-	deletePostMeeting: Constants.sopEndpointURL + "/galaxy/project/postOperation/deletePostMeeting"
+	deletePostMeeting: Constants.sopEndpointURL + "/galaxy/project/postOperation/deletePostMeeting",
+	
+	/**
+	 * 立项报告
+	 */
+	showLxReportUpload: Constants.sopEndpointURL + "/galaxy/sopFile/showLxReportUpload",
+	/**
+	 * 立项报告
+	 */
+	uploadSimpleFile: Constants.sopEndpointURL + "/galaxy/sopFile/upload",
+	
+	delFile: Constants.sopEndpointURL + "/galaxy/sopFile/delFile",
 	
 	
+	
+	
+	
+	/*************以下为report url**************/
+	/**
+	 * 会议排期等待数
+	 * 1.工作桌面－事项预览
+	 */
+	platformMeetingScheduling : Constants.sopEndpointURL + "/galaxy/report/platformMeetingScheduling",
+	/**
+	 * 会议排期列表通用
+	 * 1.工作桌面－事项预览弹出层
+	 */
+	meetingSchedList : Constants.sopEndpointURL + "/galaxy/report/meetingSchedList",
+
+	/**
+	 * 1.数据简报－项目目标追踪、投资事业线目标完成对比
+	 */
+	databriefchart : Constants.sopEndpointURL + "/galaxy/report/databriefchart",
+	/**
+	 * 项目进度分布
+	 * 1.工作桌面－项目进度
+	 * 2.项目分析－项目总览－项目进度分布图
+	 */
+	projectprogress : Constants.sopEndpointURL + "/galaxy/report/projectprogress",
+	/**
+	 * 项目列表和项目维度的相关数据项
+	 * 1. 项目分析－项目总览（数据表格）这里有10个切换表格
+	 */
+	projectlist : Constants.sopEndpointURL + "/galaxy/report/projectlist",
+	
+	/**
+	 * 项目完成增长率
+	 * 1. 项目分析－项目完成增长率统计（项目完成率分析－日报－图表）
+	 */
+	rateRiseDChart : Constants.sopEndpointURL + "/galaxy/report/rateRiseDChart",
+	/**
+	 * 项目完成增长率
+	 * 1.项目分析－项目完成增长率统计（项目完成率分析－日报－表格）
+	 */
+	rateRiseD : Constants.sopEndpointURL + "/galaxy/report/rateRiseD",
+	/**
+	 * 项目完成增长率
+	 * 1. 项目分析－项目完成增长率统计（项目完成率分析－月报－图表）
+	 */
+	rateRiseMChart : Constants.sopEndpointURL + "/galaxy/report/rateRiseMChart",
+	/**
+	 * 项目完成增长率
+	 * 1.项目分析－项目完成增长率统计（项目完成率分析－月报－表格）
+	 */
+	rateRiseM : Constants.sopEndpointURL + "/galaxy/report/rateRiseM",
+	/**
+	 * 项目完成率分析
+	 * 1. 数据简报－项目完成率分析
+	 * 2. 工作平台－投资资金
+	 */
+	rateRiseMonthChart : Constants.sopEndpointURL + "/galaxy/report/rateRiseMonthChart",
+	
+	
+	/**
+	 * 部门列表
+	 * 1. common.js 各查询条件中的 投资事业线 select
+	 */
+	departmentList : Constants.sopEndpointURL + "/galaxy/report/departmentList",
+	
+	/**
+	 * 获取会议总数
+	 */
+	MeetingShedule : Constants.sopEndpointURL + "/galaxy/meetingShe/sheduling",
+	
+	/**
+	 * 获取会议总数
+	 */
+	MeetingSheduleNewList : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/shedulingList",
+	
+	ceosh : Constants.sopEndpointURL + "/galaxy/meetingShe/sh",
+	
+    /**
+     * pop弹出层
+     */
+	
+	popList : Constants.sopEndpointURL + "/galaxy/sopUserSchedule/popupList",
+	
+	/**
+	 * 排期日程入口
+	 */
+	popupMeetingList: Constants.sopEndpointURL + "/galaxy/sopUserSchedule/popupMeetingList/",
+	
+	/**
+	 * 项目分析
+	 */
+	projectAnalysis: Constants.sopEndpointURL + "/galaxy/kpireport/toProOverView",
+		
+	/**
+	 * 项目阶段高管
+	 */
+	projectStage4Manager: Constants.sopEndpointURL+"/galaxy/sop2/",	
+	/**
+	 * 项目目标追踪
+	 */
+	searchTargetTracking: Constants.sopEndpointURL+"/galaxy/charts/briefing/searchTargetTracking",
+	/**
+	 * 项目完成率分析
+	 */
+	searchProjectCompletion : Constants.sopEndpointURL+"/galaxy/charts/briefing/searchProjectCompletion",
+	/**
+	 * 项目总览
+	 */
+	searchOverView : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchOverView",
+	/**
+	 * 项目查询（图表用）
+	 */
+	searchProjectByCharts : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchProjectByCharts",
+	/**
+	 * 项目完成率查询（图表）
+	 */
+	searchRiseRate : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchRiseRate",
+	/**
+	 * 项目完成率（表格）
+	 */
+	searchRiseRateGrid : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchRiseRateGrid",
+	/**
+	 * 项目投资金额
+	 */
+	searchInvestmentGroupDate : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchInvestmentGroupDate",	
+
+	/**
+	 * 1.数据简报－投资事业线目标完成对比
+	 */
+	deptProTarget : Constants.sopEndpointURL + "/galaxy/kpireport/deptProTarget",
+	
+	/**
+	 * 1.数据简报－投资事业线目标完成对比 --合伙人专用
+	 */
+	tzjlProTarget : Constants.sopEndpointURL + "/galaxy/kpireport/tzjlProTarget",
+	
+	
+	
+	/**
+	 * 过会率－事业线
+	 * 1. 项目分析－过会率统计（图表＋表格）
+	 * 2. 项目分析－投决率统计（图表＋表格）
+	 */
+	meetingrate : Constants.sopEndpointURL + "/galaxy/kpireport/deptMeetPassRate",
+	/**
+	 * 过会率-投资经理
+	 * 1. 项目分析－过会率统计（图表＋表格）
+	 * 2. 项目分析－投决率统计（图表＋表格）
+	 */
+	meetingRateUser : Constants.sopEndpointURL + "/galaxy/kpireport/tzjlMeetPassRate",
+	/**
+	 * 项目分析－过会率 - 项目统计弹窗
+	 */
+	meetRateProjectlist : Constants.sopEndpointURL + "/galaxy/kpireport/meetRateProjectlist",
+	
+	
+	
+	/**
+	 * 项目分析－项目数统计弹窗
+	 */
+	topronumProjectlist : Constants.sopEndpointURL + "/galaxy/kpireport/toproNumProjectlist",
+	/**
+	 * 项目分析－项目数统计弹窗
+	 */
+	proNumProjectlist : Constants.sopEndpointURL + "/galaxy/kpireport/proNumProjectlist",
+	/**
+	 * 1.项目分析－项目数统计
+	 */
+	gglinechart : Constants.sopEndpointURL + "/galaxy/kpireport/gglinechart",
+	
+	/**
+	 * 1.项目分析－项目数统计 --合伙人专用
+	 */
+	hhrlinechart : Constants.sopEndpointURL + "/galaxy/kpireport/hhrLineChart",
+	
+	/**
+	 * to kpi
+	 */
+	touserkpi : Constants.sopEndpointURL + "/galaxy/kpireport/touserkpi",
+	todeptkpi : Constants.sopEndpointURL + "/galaxy/kpireport/toteamkpi",
+	
+	/**
+	 * 投资经理kpi
+	 * 1. 绩效考核－投资经理绩效考核（图表＋表格）
+	 */
+	userkpi : Constants.sopEndpointURL + "/galaxy/kpireport/userkpi",
+	/**
+	 * 团队kpi
+	 * 1. 绩效考核－团队绩效考核（图表＋表格）
+	 * 2. 工作桌面－绩效考核
+	 */
+	deptkpi : Constants.sopEndpointURL + "/galaxy/kpireport/deptkpi",
+	/**
+	 * 团队kpi 弹窗
+	 * 团队绩效－项目列表页面
+	 */
+	deptkpiprojectlist : Constants.sopEndpointURL + "/galaxy/kpireport/deptkpiprojectlist",
+	/**
+	 * 项目历时
+	 * 1. 工作桌面－项目历时
+	 */
+	progressDurationList : Constants.sopEndpointURL + "/galaxy/kpireport/proProgressTimeLine",
+	/**
+	 * 项目历时
+	 * 1. 移交项目页面跳转
+	 * 
+	 */
+	toProjectTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toProjectTransfer",
+	/**
+	 * 项目移交
+	 * 1. 移交项目页面跳转
+	 * 
+	 */
+	applyTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/applyTransfer",
+	/**
+	 * 移交撤销
+	 * 1. 撤销移交项目页面跳转
+	 * 
+	 */
+	undoTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/undoTransfer",
+	/**
+	 * 移交撤销页面
+	 * 1. 撤销移交项目页面跳转
+	 * 
+	 */
+	toRevokeProTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toRevokeProTransfer",
+	/**
+	 * 跳转至拒接页面
+	 * 
+	 * 
+	 */
+	toRefuseTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/toRefuseTransfer",
+	/**
+	 * 拒绝接收项目
+	 * 1. 
+	 * 
+	 */
+	rejectTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/rejectTransfer",
+	/**
+	 * 接收项目
+	 * 
+	 * 
+	 */
+	receiveTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/receiveTransfer",
+
 	
 	
 }

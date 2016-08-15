@@ -425,7 +425,7 @@ function calculationValuations(){
 function update(){
 	if(beforeSubmit()){
 		sendPostRequestByJsonObj(platformUrl.updateProject, JSON.parse($("#update_form_basic").serializeObject()), function(){
-			layer.msg("修改项目基本信息项目成功!");
+			layer.msg("修改项目基本信息成功!");
 			window.location.reload();
 		});
 	}

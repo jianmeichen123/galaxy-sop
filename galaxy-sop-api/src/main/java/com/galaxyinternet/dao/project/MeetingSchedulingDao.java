@@ -43,5 +43,12 @@ public interface MeetingSchedulingDao extends BaseDao<MeetingScheduling, Long> {
      * @return
      */
     public List<MeetingSchedulingBo> meetingListByCondition(MeetingScheduling ms);
+    
+    
+    
+    
+    //=======REPORT
+    public Long getMeetingScheduling(MeetingSchedulingBo bo);
+	public Page<MeetingScheduling> getMeetingList(MeetingSchedulingBo bo,PageRequest page);
 
 }

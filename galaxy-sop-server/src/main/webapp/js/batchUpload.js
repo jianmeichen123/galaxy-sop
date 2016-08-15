@@ -38,14 +38,12 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						up.stop();
 						return;
 					}
-					$(".pop").showLoading(
-					 {
-					    'addClass': 'loading-indicator'						
-					 });
+					
+					layer.load(1);
 					if(up.files.length == 0){
 							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
+								layer.closeAll('loading');
 								var result = data.result.status;
-								$(".pop").hideLoading();
 								if(result == "OK"){
 									if(callBackFun && typeof(callBackFun) == "function"){
 										callBackFun(data);
@@ -57,6 +55,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 								}
 							});
 					}else{
+						layer.closeAll('loading');
 						up.settings.multipart_params = params;
 						uploader.start();
 					}
@@ -76,6 +75,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 					$("#"+file.id+"_progress").html('<span>'+"上传失败!"+"</span>");
 					return false;
 				}
+				layer.closeAll('loading');
              }, 
 			FilesAdded: function(up, files) {
 				var max_files = 10;
@@ -99,8 +99,11 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				});
 			},
 			UploadProgress: function(up, file) {
-				 var percent = parseInt(file.percent)-10;
-				 $("#"+file.id+"_progress").html('<span>'+ percent + "%</span>"); 
+				 var percent = parseInt(file.percent)
+				 if(percent > 10){
+					 percent = parseInt(file.percent)-10;
+					 $("#"+file.id+"_progress").html('<span>'+ percent + "%</span>"); 
+				 }
 			},
 			UploadComplete: function(up, files){//所有都上传完成
 			
@@ -122,6 +125,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						    $("#"+files[i].id+"_progress").html('<span>'+"上传失败!"+"</span>"); 
 						}); 
 					    $("#"+fieInputId).val('');
+					    layer.closeAll('loading');
 					    alert(data.result.message);
 					}
 					

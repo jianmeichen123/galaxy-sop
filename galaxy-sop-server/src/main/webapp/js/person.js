@@ -135,16 +135,40 @@ function getTabPerson(){
                       field: 'id',
                      
                       formatter:function(value,row,index){  
-	                   var content = '<span class="resume" onclick="tiaozhuan(\''+ row.id + '\')">个人简历</span>';
-	                   if(isCreatedByUser == 'true')
+	                   var content = '<span class="resume" data-id="'+row.id+'">个人简历</span>';
+	                   if(isCreatedByUser == 'true' && isTransfering == 'false')
                 	   {
-	                	   content += '<span class="edit" onclick="updatePer(\''+ row.id + '\')">编辑</span>';  
-	                	   content += '<span class="del" onclick="deletePer(\''+ row.id +'\')">删除</span>';  
+	                	   content += '<span class="edit" data-id="'+row.id+'">编辑</span>';  
+	                	   content += '<span class="del" data-id="'+row.id+'">删除</span>';  
                 	   }
                         return content;  
                     } 
                   }
-              ]
+              ],
+          onLoadSuccess:function(data){
+        	  if(data.pageList.total>0 && isTransfering == 'true')
+        	  {
+        		  $table.find("tr span").parent().addClass('limits_gray');
+        	  }
+        	  else
+    		  {
+        		  $table.find("tr span").click(function(){
+        			  var id = $(this).data('id');
+        			  if($(this).hasClass('resume'))
+    				  {
+        				  tiaozhuan(id);
+    				  }
+        			  else if($(this).hasClass('edit'))
+    				  {
+        				  updatePer(id);
+    				  }
+        			  else if($(this).hasClass('del'))
+    				  {
+        				  deletePer(id);
+    				  }
+        		  });
+    		  }
+          }
       });
       $table.bootstrapTable('refresh');
 	}
@@ -195,7 +219,7 @@ function updatePerson(){
  * @param id
  */
 function deletePer(id,url){
-	layer.confirm('你确定要删除吗?',
+	layer.confirm('是否删除事项?',
 			{
 			  btn: ['确定', '取消'] 
 			}, 

@@ -75,11 +75,11 @@
 	            </ul>
 	            <c:if test="${aclViewProject==true}">
 				<div class="member">
-					<c:if test="${fx:isCreatedByUser('project',pid) }">
+					<c:if test="${isEditable}">
 				      <div class="top clearfix">
 				          <!--按钮-->
 				          <div class="btnbox_f btnbox_f1 clearfix">
-				              <a href="javascript:;" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addPerson();">添加</a>
+				              <a id="add_person_btn" href="javascript:;" class="pubbtn bluebtn ico c4 add_prj add_profile" onclick="addPerson();">添加</a>
 				             <!--  <a href="javascript:;" class="pubbtn bluebtn edit_profile" onclick="toSureMsg();">完善简历</a> -->
 				          </div>
 				      </div>
@@ -125,14 +125,23 @@
 	var projectId ='${pid}';
 	var flag = '${flag}';
 	var isCreatedByUser = "${fx:isCreatedByUser('project',pid) }";
+	var isTransfering = "${fx:isTransfering(pid) }";
 $(function(){
 	createMenus(5);
 	getTabPerson();
+	if(isTransfering == 'true')
+	{
+		$("#add_person_btn").addClass('limits_gray');
+	}
 	
 	
 });	
 //添加团队成员
 function addPerson(){
+	if($("#add_person_btn").hasClass('limits_gray'))
+	{
+		return;
+	}
 	sendGetRequest(platformUrl.getDegreeByParent + "/" + "null",null,addPersonCallBack);
 	return false;
 }

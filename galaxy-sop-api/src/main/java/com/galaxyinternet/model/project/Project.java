@@ -11,6 +11,13 @@ import com.galaxyinternet.framework.core.utils.NumberUtils;
 public class Project extends PagableEntity {
 	private static final long serialVersionUID = 1L;
 
+	private int completed; 
+	private int type_completed; 
+	private int depNumOrder;  //部门排名
+	private Long durationDay;   //历时
+	private String departmentName;
+	
+
 	private String projectName;
     private String projectCode;
     private Long ideaId;
@@ -64,10 +71,15 @@ public class Project extends PagableEntity {
     private String projectStatusDs;
     //融资状态的数据转换
     private String financeStatusDs;
+
     //in查询
     private List<Long> deptIdList;
 	private Long startTime; 
 	private Long endTime;
+	
+	private Integer faFlag;//项目是否来自中介
+	
+	private String faName;//中介名称
 	
 	
 	
@@ -509,6 +521,65 @@ public class Project extends PagableEntity {
 		this.serviceCharge = serviceCharge;
 	}
 	
+	public int getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted(int completed) {
+		this.completed = completed;
+	}
+
+	public int getDepNumOrder() {
+		return depNumOrder;
+	}
+
+	public void setDepNumOrder(int depNumOrder) {
+		this.depNumOrder = depNumOrder;
+	}
+
+	public int getType_completed() {
+		return type_completed;
+	}
+
+	public void setType_completed(int type_completed) {
+		this.type_completed = type_completed;
+	}
+
+
+	public Long getDurationDay() {
+		return durationDay;
+	}
+
+	public void setDurationDay(Long durationDay) {
+		this.durationDay = durationDay;
+	}
+
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public Integer getFaFlag() {
+		return faFlag;
+	}
+
+	public void setFaFlag(Integer faFlag) {
+		this.faFlag = faFlag;
+	}
+
+	public String getFaName() {
+		return faName;
+	}
+
+	public void setFaName(String faName) {
+		this.faName = faName;
+	}
 	
+	
+
 
 }

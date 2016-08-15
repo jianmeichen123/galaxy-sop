@@ -11,4 +11,9 @@ public interface InterviewRecordDao extends BaseDao<InterviewRecord, Long> {
 	
 	public Page<InterviewRecordBo> selectInterviewPageList(InterviewRecordBo query, Pageable pageable);
 	
+	
+	/**
+	 * 项目移交修改create_uid
+	 */
+	public int updateCreateUid(InterviewRecord ir);
 }

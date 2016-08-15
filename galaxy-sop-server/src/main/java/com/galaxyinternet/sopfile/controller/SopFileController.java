@@ -1,6 +1,13 @@
 package com.galaxyinternet.sopfile.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,11 +16,14 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +69,8 @@ import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
+import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.department.Department;
@@ -179,13 +191,26 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/getDepartmentDict/{parentCode}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Department> getDepartmentDict( @PathVariable String parentCode,HttpServletRequest request) {
+	@RequestMapping(value = "/getDepartmentDict/{departmentId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Department> getDepartmentDict( @PathVariable String departmentId,HttpServletRequest request) {
 		ResponseData<Department> responseBody = new ResponseData<Department>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
 		List<Department> departDicts = null;
 		Result result = new Result();
 		try {
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+					.getId());
+			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
+				departmentId = "all";
+			}
 			Department query = new Department();
+			if(!"all".equals(departmentId)&&!"department".equals(departmentId)){
+				query.setId(Long.parseLong(departmentId));
+			}
 			query.setType(1);
 			departDicts = departMentService.queryList(query);	
 		}catch(PlatformException e){
@@ -252,6 +277,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			return responseBody;
 		}
 		try {
+			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj
 					.getId());
 			//获取可显示的业务分类
@@ -316,10 +342,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					sopFile.setBelongUid(obj.getId());
 				} else if (roleIdList.contains(UserConstant.TZJL)) {
 					// 投资经理
-					Project project = new Project();
-					project.setCreateUid(obj.getId());
+					Project pQuery = new Project();
+					pQuery.setCreateUid(obj.getId());
 					List<Project> projectList = proJectService
-							.queryList(project);
+							.queryList(pQuery);
 					List<Long> projectIdList = new ArrayList<Long>();
 					for (Project temp : projectList) {
 						projectIdList.add(temp.getId());
@@ -329,8 +355,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					}else{
 						Page<SopFile> pageSopFile = new Page<SopFile>(
 								new ArrayList<SopFile>(), new PageRequest(
-										sopFile.getPageNum()==null? 0 : sopFile.getPageNum(),
-										sopFile.getPageSize()==null? 0 : sopFile.getPageSize()), 0l);
+										sopFile.getPageNum()==null || sopFile.getPageNum() < 0 ? 0 : sopFile.getPageNum(),
+										sopFile.getPageSize()==null || sopFile.getPageSize() < 1? 10 : sopFile.getPageSize()), 0l);
 						responseBody.setPageList(pageSopFile);
 						responseBody.setResult(new Result(Status.OK, ""));
 						return responseBody;
@@ -355,11 +381,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				// 模糊搜索
 				if (sopFile.getKeyword() != null
 						&& !sopFile.getKeyword().isEmpty()) {
-					ProjectBo project = new ProjectBo();
-					project.setKeyword(sopFile.getKeyword());
-					project.setFlagkeyword("onlyName");
+					ProjectBo pQuery = new ProjectBo();
+					pQuery.setKeyword(sopFile.getKeyword());
+					pQuery.setFlagkeyword("onlyName");
 					List<Project> projectList = projectService
-							.queryList(project);
+							.queryList(pQuery);
 					User user = new User();
 					user.setKeyword(sopFile.getKeyword());
 					user.setFlagkeyword("onlyName");
@@ -406,12 +432,26 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,
 					pageRequest);
 			// 操作权限判断 && 上传文件任务权限判断
+			
 			for (SopFile temp : pageSopFile.getContent()) {
 				String isEdit = RoleUtils.getWorkTypeEdit(roleIdList,
 						temp.getFileWorktype());
+				if(!roleIdList.contains(UserConstant.DAGLY)){
+					if(temp.getEditUser()!=null){
+						if(temp.getEditUser() != obj.getId()){
+							isEdit = "false";
+							if("false".equals(temp.getVstatus())){
+								temp.setVstatus("no");
+							}	
+						}
+					}else{
+						logger.error("ID : " + temp.getId() + "文件业务分类 ：" + temp.getFileWorktype() + "的文档所属的项目没有创建人");
+					}	
+				}
+				
+				
 				String isChangeTask = RoleUtils.getWorktypeChangeTask(roleIdList,temp.getFileWorktype());
 				String isProveEdit = RoleUtils.getWorktypeProveEdit(roleIdList,temp.getFileWorktype());
-				
 				temp.setIsEdit(isEdit);
 				temp.setIsChangeTask(isChangeTask);
 				temp.setIsProveEdit(isProveEdit);
@@ -564,18 +604,12 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			form.setId(Long.valueOf(request.getParameter("id")));
 		}
 		
-
-		if(!StringUtils.isBlank(request.getParameter("id"))){
-			form.setId(Long.valueOf(request.getParameter("id")));
-		}
-		
 		String projectId = request.getParameter("projectId");
-		String isProve = request.getParameter("isProve");
-			
+		String isProve = request.getParameter("isProve");		
 		//校验
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		ResponseData<SopFile> responseBody = new ResponseData<SopFile>();
-		// 业务分类校验 并 初始化任务名称及项目阶段
+		//校验代码
 		String proProgress = "";
 		Integer taskFlag = null;
 		UrlNumber num = null;
@@ -592,8 +626,8 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 //		num = (UrlNumber) tempMap.get("num");
 		
 		String messageType = (String) tempMap.get("messageType");
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; // 请求转换
-		MultipartFile file = multipartRequest.getFile("file"); // 获取multipartFile文件
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request; 
+		MultipartFile file = multipartRequest.getFile("file"); 
 		form.setFileName(file.getOriginalFilename());
 		form.setFileLength(file.getSize());
 		
@@ -606,7 +640,6 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		
 		SopParentFile sopFile = handler.getFileEntity(form, user);
-		
 				
 		try{
 			//阿里云上传
@@ -616,7 +649,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				responseBody.setResult(new Result(Status.ERROR, ERR_UPLOAD_ALCLOUD));
 				return responseBody;
 			}
-			//上传业务updateFile
+			//updateFile
 			responseBody = handler.updateFile(multipartRequest, responseBody, user, sopFile);
 			num = (UrlNumber) responseBody.getUserData().get("num");
 			if(num!=null){
@@ -634,7 +667,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}finally{
 		}
 		
-		return responseBody;
+		return responseBody;	
 	}
 	
 	/***
@@ -752,6 +785,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					}else{
 						sopFileService.insert(sopFile);
 					}
+					
 				}else{
 					// 调用非签署凭证业务方法
 					if(sopFileService.updateFile(sopFile)){
@@ -1430,6 +1464,164 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		}
 		
 	}
+
+	@RequestMapping("/showLxReportUpload")
+	public String showLxReportUpload()
+	{
+		return "/project/lxReportUpload";
+	}
+	@ResponseBody
+	@RequestMapping(value="/upload")
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.LOG)
+	public ResponseData<SopFile> upload(SopFile sopFile, HttpServletRequest request)
+	{
+		ResponseData<SopFile> data = new ResponseData<>();
+		try
+		{
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			boolean isInsert = true;
+			String fileKey = String.valueOf(IdGenerator.generateId(OSSHelper.class));
+			if(sopFile != null && sopFile.getId() != null && sopFile.getId().intValue() > 0)
+			{
+				SopFile po = sopFileService.queryById(sopFile.getId());
+				if(po != null && po.getFileKey() != null)
+				{
+					isInsert = false;
+					fileKey = po.getFileKey();
+				}
+			}
+			else
+			{
+				sopFile.setCreatedTime(new Date().getTime());
+			}
+			UploadFileResult uploadResult = uploadFileToOSS(request, fileKey, tempfilePath);
+			sopFile.setFileLength(uploadResult.getContentLength());
+			sopFile.setBucketName(uploadResult.getBucketName());
+			sopFile.setFileName(uploadResult.getFileName());
+			sopFile.setFileSuffix(uploadResult.getFileSuffix());
+			sopFile.setFileKey(fileKey);
+			sopFile.setUpdatedTime(new Date().getTime());
+			sopFile.setFileUid(user.getId());
+			sopFile.setCareerLine(user.getDepartmentId());
+			UrlNumber urlNumber = null;
+			if(DictEnum.fileWorktype.立项报告.getCode().endsWith(sopFile.getFileWorktype()))
+			{
+				urlNumber = isInsert ? UrlNumber.one : UrlNumber.two;
+			}
+			if(isInsert)
+			{
+				sopFile.setCreatedTime(new Date().getTime());
+				sopFileService.insert(sopFile);
+			}
+			else
+			{
+				sopFileService.updateById(sopFile);
+			}
+			String projectName = null;
+			Long projectId = sopFile.getProjectId();
+			if(projectId != null)
+			{
+				Project project = projectService.queryById(projectId);
+				if(project != null)
+				{
+					projectName = project.getProjectName();
+				}
+			}
+			ControllerUtils.setRequestParamsForMessageTip(request, projectName, projectId, urlNumber);
+		}
+		catch (Exception e)
+		{
+			logger.error("上传立项报告失败."+ToStringBuilder.reflectionToString(sopFile),e);
+			data.getResult().addError("上传立项报告失败.");
+		}
+		
+		return data;
+	}
+	
+	@RequestMapping("/delFile")
+	@ResponseBody
+	public ResponseData<SopFile> delFile(Long id)
+	{
+		ResponseData<SopFile> data = new ResponseData<>();
+		try
+		{
+			sopFileService.deleteById(id);
+		}
+		catch (Exception e)
+		{
+			logger.error("删除文件失败, ID : "+id,e);
+			data.getResult().addError("删除失败");
+		}
+		return data;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * 文件下载接口
+	 * 
+	 * @param request
+	 * @param response
+	 * @param tempfilePath
+	 *            临时存储路径
+	 * @param downloadEntity
+	 *            下载实体类
+	 * @throws Exception
+	 */
+	public void download(Entry<Long, String> enter) throws Exception{
+
+		InputStream fis = null;
+		OutputStream out = null;
+		
+				
+		File tempDir = new File("G:\\test");
+		File tempFile = new File("G:\\test", enter.getKey().toString());
+		
+		if (!tempDir.exists()) {
+			tempDir.mkdirs();
+		}
+		if(!tempFile.exists() || !tempFile.isFile()){
+			tempFile.createNewFile();
+				OSSHelper.downloadSupportBreakpoint(tempFile.getAbsolutePath(),
+						enter.getValue());
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

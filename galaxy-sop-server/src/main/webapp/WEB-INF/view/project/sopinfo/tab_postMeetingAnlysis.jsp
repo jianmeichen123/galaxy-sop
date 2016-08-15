@@ -80,11 +80,11 @@
                     <div class="top clearfix">
                         <!--按钮-->
                         <div class="btnbox_f btnbox_f1 clearfix">
-                        	<c:if test="${isCreatedByUser}">
+                        	<c:if test="${isEditable}">
                             <a href="javascript:void(0)" class="pbtn bluebtn h_bluebtn" id="addPostMeetingBtn"  data-btn="conference">添加运营会议纪要</a>
                         	</c:if>
                         	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
-                            <c:if test="${isCreatedByUser}">
+                            <c:if test="${isEditable}">
                         	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
                             </c:if>
                         </div>
@@ -124,6 +124,12 @@
 
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
 <script type="text/javascript">
+	var isTransfering = "${fx:isTransfering(pid) }";
+	if(isTransfering == 'true')
+	{
+		$("[data-btn='conference']").addClass('limits_gray');
+		$("[data-btn='health_status']").addClass('limits_gray');
+	}
 	function getProject(){
 		return ${proinfo};
 	}
@@ -196,6 +202,10 @@ function show_health_case(){
 function show_health_status(){
 	$("[data-btn='health_status']").text("健康状况");
 	$("[data-btn='health_status']").on("click",function(){
+		if($(this).hasClass('limits_gray'))
+		{
+			return;
+		}
 		var $self = $(this);
 		var _name= $self.attr("data-name");
 		var _url = Constants.sopEndpointURL + '/galaxy/health/toaddhealth';

@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -31,7 +30,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.galaxyinternet.bo.SopTaskBo;
-import com.galaxyinternet.bo.project.InterviewRecordBo;
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.sopfile.SopVoucherFileBo;
@@ -55,7 +53,6 @@ import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.department.Department;
-import com.galaxyinternet.model.project.InterviewRecord;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -63,12 +60,14 @@ import com.galaxyinternet.model.sopfile.SopVoucherFile;
 import com.galaxyinternet.model.soptask.SopTask;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
-import com.galaxyinternet.service.DictService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
 import com.galaxyinternet.utils.FileUtils;
-import com.galaxyinternet.utils.WorktypeTask;
+
+
+
+
 @Service("com.galaxyinternet.service.SopFileService")
 public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		SopFileService {
@@ -126,7 +125,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	 * 分页查询获取project名称
 	 */
 	public Page<SopFile> queryPageList(SopFile query, Pageable pageable) {
-		// TODO Auto-generated method stub
 		//Page<SopFile> pageEntity = super.queryPageList(query,pageable);
 		Page<SopFile> pageEntity = new Page<SopFile>(null, pageable, null);
 		List<SopFile> fileList = sopFileDao.selectList(query);
@@ -171,11 +169,13 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 									if(project.getStockTransfer().intValue() == 1){
 										flag=true;
 										sopFile.setProjectName(project.getProjectName());
+										sopFile.setEditUser(project.getCreateUid());
 										break;
 									}
 								}else{
 									flag=true;
 									sopFile.setProjectName(project.getProjectName());
+									sopFile.setEditUser(project.getCreateUid());
 									break;
 								}
 							}
@@ -224,7 +224,14 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 		
 		pageEntity.setTotal(new Long(result.size()));
 		List<SopFile> sl = new ArrayList<SopFile>();
-		sl.addAll(result.subList(pageable.getPageNumber()*pageable.getPageSize(), (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize()) > result.size() ? result.size() : (pageable.getPageNumber()*pageable.getPageSize()+pageable.getPageSize())));
+		
+		int beginIndex = pageable.getPageNumber() * pageable.getPageSize();
+		int endIndex = pageable.getPageNumber() * pageable.getPageSize() + ((result.size() - beginIndex) >= pageable.getPageSize() ? pageable.getPageSize() : result.size() - beginIndex) ;
+
+//		endIndex = result.size();
+		result = result.subList(beginIndex, endIndex);
+
+		sl.addAll(result);
 		pageEntity.setContent(sl);
 		return pageEntity;
 	}
@@ -625,7 +632,6 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 			retMap.put("file", multipartFile);
 			retMap.put("upResult", upResult);
 		}catch (IOException e) {
-			// TODO Auto-generated catch block
 			throw new IOException(e);
 		}finally{
 //			tempFile.delete();
@@ -844,11 +850,9 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	public void downloadBatch(HttpServletRequest request,
 			HttpServletResponse response, String tempfilePath,String type,
 			List<SopDownLoad> downloadEntityList) throws Exception {
-		// TODO Auto-generated method stub
 		String strZipName = type+".zip";
 		ZipOutputStream outzip = new ZipOutputStream(new FileOutputStream(tempfilePath+strZipName));
 		byte[] buffer = new byte[1024 * 4];
-		List<SopDownLoad> tempSopDownList = new ArrayList<SopDownLoad>();
 		try{
 			for(int i =0 ; i< downloadEntityList.size(); i++){
 				SopDownLoad downloadEntity = downloadEntityList.get(i);
@@ -909,14 +913,14 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
     private Result downFile(HttpServletResponse response, String str,String tempFilePath) {    
     	Result result = new Result();
     	result.setStatus(Status.OK);
+    	BufferedInputStream bins = null;
+    	BufferedOutputStream bouts = null;
     	try {    
             String path = tempFilePath + str;    
             File file = new File(path);    
             if (file.exists()) {    
-                InputStream ins = new FileInputStream(path);    
-                BufferedInputStream bins = new BufferedInputStream(ins);// 放到缓冲流里面    
-                OutputStream outs = response.getOutputStream();// 获取文件输出IO流    
-                BufferedOutputStream bouts = new BufferedOutputStream(outs);    
+                bins = new BufferedInputStream(new FileInputStream(path));// 放到缓冲流里面    
+                bouts = new BufferedOutputStream(response.getOutputStream());    
                 response.setContentType("application/x-download");// 设置response内容的类型    
                 response.setHeader(    
                         "Content-disposition",    
@@ -928,19 +932,36 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
                 while ((bytesRead = bins.read(buffer, 0, 1024 * 2)) != -1) {    
                     bouts.write(buffer, 0, bytesRead);    
                 }    
-                bouts.flush();// 这里一定要调用flush()方法    
-                ins.close();    
-                bins.close();    
-                outs.close();    
-                bouts.close();    
             } else {    
             	result.setStatus(Status.ERROR);
             }    
         } catch (IOException e) {    
         	logger.error("文件下载出错", e);   
         	result.setStatus(Status.ERROR);
+        }finally{
+        	if(bouts != null){
+        		try {
+					bouts.flush();// 这里一定要调用flush()方法
+					bouts.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}finally{
+					if(bins != null){
+						try {
+							bins.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
+        	}
         }
     	return result;
-    }    
+    }
+
+	@Override
+	public int updateDepartmentId(SopFile f) {
+		return sopFileDao.updateDepartmentId(f);
+	}    
     
 }
