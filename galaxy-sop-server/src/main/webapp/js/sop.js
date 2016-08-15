@@ -956,6 +956,10 @@ function tzxy(st,projectType){
 				function(data){
 					
 					_tbody.empty();
+					//前置文件是否丢失
+					var hasTzxy = false,
+						hasTzxyQspz = false,
+						hasGqxy = false;
 					$.each(data.entityList,function(i,o){
 						
 							var $tr=$('<tr></tr>');
@@ -976,10 +980,6 @@ function tzxy(st,projectType){
 								$tr.append('<td>无</td>') ;
 							}	
 							$tr.append('<td>'+this.fileStatusDesc+'</td>');
-							//前置文件是否丢失
-							var hasTzxy = false,
-								hasTzxyQspz = false,
-								hasGqxy = false;
 							if(this.fileWorktype == 'fileWorktype:6'){
 								if(canToOption){
 									var e6 ="downloadTemplate('templateType:2');";
