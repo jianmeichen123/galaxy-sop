@@ -1,3 +1,4 @@
+var totalDay_all='';
 /**
  * 项目历时
  */
