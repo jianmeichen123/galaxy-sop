@@ -309,7 +309,7 @@
 		return ${projectProgress};
 	}
 </script>
-
+<script src="<%=path %>/js/split.js" type="text/javascript"></script>
 <script src="<%=path %>/js/cookie.js" type="text/javascript"></script>
 <!-- table分页 -->
 <script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>

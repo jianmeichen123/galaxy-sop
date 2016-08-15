@@ -7,10 +7,12 @@ var ideaAddDialog = {
 				$.popup({
 					txt : $("#addDialog").html(),
 					showback:function(){
-						//alert("弹出层初始化");
+						alert("弹出层初始化");
 						var _this = this;
 						$("#addDialog").find(".meetingtc").remove();
 						$(_this.id).find("#win_idea_name").attr("valType",'required');
+						$(_this.id).find("#win_idea_name").val("");
+						document.getElementById("win_idea_name").value = "";
 						$(_this.id).find("#win_idea_department").attr("valType",'required');
 						initDialogVal();	
 						var operator = {
