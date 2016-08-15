@@ -2460,6 +2460,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							meetingSchedulingService.updateByIdSelective(ms);
 							sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.two);
 							belongUser.setKeyword("update:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
+						}else{
+							belongUser.setKeyword("operate");	
 						}
 					}
 				} else {
@@ -2469,6 +2471,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.one);
 						belongUser.setKeyword("insert:"+DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));	
+					}else{
+						belongUser.setKeyword("operate");	
 					}
 
 				}
