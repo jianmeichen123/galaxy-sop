@@ -16,7 +16,7 @@
       <dl class="fmdl clearfix">
         <dt>详细内容：</dt>
           <dd class="clearfix">
-          	<span name="details" style="word-wrap:break-word"></span>
+          	<span name="details" style="word-wrap:break-word;display:block"></span>
             <!-- <textarea name="details"></textarea> -->
           </dd>
       </dl>
