@@ -48,7 +48,7 @@
         <!--用户信息-->
         <div class="usermsg clearfix"  id="messages">
             <span class="light_blue">当前您有：</span>
-            <a href="<%=path %>/galaxy/soptask?_is_menu_=true" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办任务<em class="totalUrgent"></em></a>
+            <a href="<%=path %>/galaxy/soptask" class="work" resource-mark="task_into_view" style="display:none" id="daiban">待办任务<em class="totalUrgent"></em></a>
             <!-- <a href="<%=path %>/galaxy/soptask" class="work">紧急任务<em class="bubble"></em></a> -->
             <a href="<%=path %>/galaxy/operationMessage/index" class="work">消息提醒<em action="remind">0</em></a> 
         </div>    	
@@ -75,6 +75,7 @@
 </div>
 <script src="<%=path %>/js/car_limit.js"></script>
 <script type="text/javascript">
+$("#daiban").attr('href','<%=path %>/galaxy/soptask?sid='+sessionId+'&guid='+userId+'&_is_menu_=true');
 reloadMessage();
 
 if(roleId=='1'||roleId=='2'||roleId=='3'){
