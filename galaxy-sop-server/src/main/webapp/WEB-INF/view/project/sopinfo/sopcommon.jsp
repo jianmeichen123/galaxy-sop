@@ -78,8 +78,8 @@ function back(){
 	if(href_url){
 		deleteCookie("href_url","/");
 		window.location=href_url;
-	}else
-		window.history.go(-1);
+	}/* else
+		window.history.go(-1); */
 		
 }
 $(function(){

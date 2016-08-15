@@ -22,7 +22,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .width_fwb,#viewNotes,#win_idea_desc{height:150px;       overflow-y: scroll !important ;}
 .widt_200{ width:200px; word-break:break-all;}
 .width_1{width:100px; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
-#project_info_log td a{ margin: 0 0px 0 0; text-decoration:none;}
+#project_info_log td a,.projectProgress_table td a{ margin: 0 0px 0 0; text-decoration:none;}
 /*公用浮动*/
 .fl{ float:left}
 .fr{ float:right}
@@ -54,7 +54,7 @@ table{ background:#ffffff;}
 table th{ text-align:left; color:#2d3342; font-weight:normal; font-size:12px; line-height:34px;border-bottom: 1px solid #d6d8e1;outline:none;}
 table td{ height:30px;line-height:30px; text-align:left; font-size:12px; color:#536379; font-family:"宋体"; border-bottom:1px solid #f6f7fa;}
 .fixed_width td{width:16%;}
-table td a{ font-size:12px; margin:0 2px 0 0; color:#536379; font-family:"宋体";}
+table td a{ font-size:12px;  color:#536379; font-family:"宋体";}
 table .on td{ background:#f8f8fb}
 .noborder{border-top: 0 !important;}
 table em{display: inline-block;width:30%;}
@@ -1936,8 +1936,8 @@ dl{position: relative;}
 #filelist button{background:transparent;border:0;color:#438ee1}
 #filelist th{background:#f9fafc;}
 #filelist{border:1px solid #ccd2d7 !important;border-top-left-radius:6px;border-top-right-radius:6px;border-bottom:0;}
-.post_operatetc,.editPostMeetingtc{width:650px;}
-.post_operatetc_750{ width:75opx;}
+.post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;overflow:auto;}
+.post_operatetc_750{ width:750px;}
 #post-meeting-dialog{position:static !important;}
 .conference_all{ width:590px; margin:45px auto 30px;}
 .conference_all_750{ width:730px; margin:45px auto 30px;}
@@ -1970,7 +1970,7 @@ dl{position: relative;}
 .conference_all dd{font-size:12px;font-family:'宋体'}
 .edit_meeting_type_dt{margin-top:-30px !important;margin-left:300px !important;}
 .edit_meeting_type_dd{margin-top:-30px !important;margin-left:380px !important;}
-.div_meetingNotes_dd{max-height:250px;overflow:auto;}
+.div_meetingNotes_dd{max-height:250px;overflow:auto;word-wrap:break-word}
 .width_36 ,.width_36  .th-inner{ width:400px; overflow:hidden;}
 /*权限*/
 .lft li:hover .role1, .lft li.on .role1 {

@@ -1319,7 +1319,21 @@ var DateUtils = {
 			return new Date(year,"0","1");
 		},
 		getTime : function(date){
-			return new Date(date).getTime();
+//			var dateCurson = date.split(' ');
+//			alert(dateCurson[0]);
+//			alert(dateCurson[1]);
+			if(typeof(date) == 'string'){
+				var dateCurson = date.split(' ');
+//				alert(dateCurson[0]);
+//				alert(dateCurson[1]);
+				var datePart = dateCurson[0].split('-');
+				var timePart = dateCurson[1].split(':');
+				return new Date(datePart[0],datePart[1],datePart[2],timePart[0],timePart[1],timePart[2]).getTime();
+			}else{
+				return date.getTime();
+			}
+			
+			
 		},
 		/*
 		 * 获取月份第一天 params

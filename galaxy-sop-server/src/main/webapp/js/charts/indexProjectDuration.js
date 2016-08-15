@@ -1,3 +1,4 @@
+var totalDay_all='';
 /**
  * 项目历时
  */
@@ -331,6 +332,7 @@ var projectIndurationUtils = {
 			if(flag=='progress'){
 				chartProjectProgressUtils.forwardParam.progressParam = param;
 				$("#container_progress .highcharts-title tspan").click(function(){
+					alert("11")
 					
 					if($("#container_progress .highcharts-title tspan").text()== (totalCount+'个')){
 						var url = platformUrl.projectAnalysis;

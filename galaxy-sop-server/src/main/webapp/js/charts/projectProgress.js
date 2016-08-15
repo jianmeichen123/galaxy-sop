@@ -1,3 +1,4 @@
+var totalNum_all='';
 /**
  * 项目进度
  */
