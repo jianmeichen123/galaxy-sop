@@ -49,12 +49,12 @@ var queryOverviewUtils = {
 			if(form.projectProgress=='all'){
 				form.projectProgress = undefined; 
 			}
-			if(form.startTime && form.startTime.trim() != ''){
+			if(form.startTime && $.trim(form.startTime) != ''){
 				form.startTime = DateUtils.getTime(form.startTime+' 00:00:00');
 			}else{
 				form.startTime = undefined;
 			}
-			if(form.endTime && form.endTime.trim() != ''){
+			if(form.endTime && $.trim(form.endTime) != ''){
 				form.endTime = DateUtils.getTime(form.endTime+' 23:59:59');
 			}else{
 				form.endTime = undefined;

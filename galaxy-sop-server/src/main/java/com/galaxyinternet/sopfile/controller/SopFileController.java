@@ -277,6 +277,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			return responseBody;
 		}
 		try {
+			
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(obj
 					.getId());
 			//获取可显示的业务分类
@@ -341,10 +342,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 					sopFile.setBelongUid(obj.getId());
 				} else if (roleIdList.contains(UserConstant.TZJL)) {
 					// 投资经理
-					Project project = new Project();
-					project.setCreateUid(obj.getId());
+					Project pQuery = new Project();
+					pQuery.setCreateUid(obj.getId());
 					List<Project> projectList = proJectService
-							.queryList(project);
+							.queryList(pQuery);
 					List<Long> projectIdList = new ArrayList<Long>();
 					for (Project temp : projectList) {
 						projectIdList.add(temp.getId());
@@ -380,11 +381,11 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				// 模糊搜索
 				if (sopFile.getKeyword() != null
 						&& !sopFile.getKeyword().isEmpty()) {
-					ProjectBo project = new ProjectBo();
-					project.setKeyword(sopFile.getKeyword());
-					project.setFlagkeyword("onlyName");
+					ProjectBo pQuery = new ProjectBo();
+					pQuery.setKeyword(sopFile.getKeyword());
+					pQuery.setFlagkeyword("onlyName");
 					List<Project> projectList = projectService
-							.queryList(project);
+							.queryList(pQuery);
 					User user = new User();
 					user.setKeyword(sopFile.getKeyword());
 					user.setFlagkeyword("onlyName");
@@ -431,12 +432,24 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,
 					pageRequest);
 			// 操作权限判断 && 上传文件任务权限判断
+			
 			for (SopFile temp : pageSopFile.getContent()) {
 				String isEdit = RoleUtils.getWorkTypeEdit(roleIdList,
 						temp.getFileWorktype());
+				if(!roleIdList.contains(UserConstant.DAGLY)){
+					if(temp.getEditUser()!=null){
+						if(temp.getEditUser() != obj.getId()){
+							isEdit = "false";
+							temp.setVstatus("no");
+						}
+					}else{
+						logger.error("ID : " + temp.getId() + "文件业务分类 ：" + temp.getFileWorktype() + "的文档所属的项目没有创建人");
+					}	
+				}
+				
+				
 				String isChangeTask = RoleUtils.getWorktypeChangeTask(roleIdList,temp.getFileWorktype());
 				String isProveEdit = RoleUtils.getWorktypeProveEdit(roleIdList,temp.getFileWorktype());
-				
 				temp.setIsEdit(isEdit);
 				temp.setIsChangeTask(isChangeTask);
 				temp.setIsProveEdit(isProveEdit);

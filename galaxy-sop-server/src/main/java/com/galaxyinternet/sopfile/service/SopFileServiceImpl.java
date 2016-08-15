@@ -169,11 +169,13 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 									if(project.getStockTransfer().intValue() == 1){
 										flag=true;
 										sopFile.setProjectName(project.getProjectName());
+										sopFile.setEditUser(project.getCreateUid());
 										break;
 									}
 								}else{
 									flag=true;
 									sopFile.setProjectName(project.getProjectName());
+									sopFile.setEditUser(project.getCreateUid());
 									break;
 								}
 							}

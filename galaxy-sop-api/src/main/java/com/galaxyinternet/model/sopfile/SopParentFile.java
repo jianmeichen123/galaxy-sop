@@ -41,6 +41,12 @@ public class SopParentFile extends PagableRecordEntity  {
      * 业务分类描述
      */
     protected String fWorktype;
+    
+    
+    /**
+     * 编辑人
+     */
+    protected Long editUser;
 
 	public Long getFileLength() {
 		return fileLength;
@@ -107,6 +113,14 @@ public class SopParentFile extends PagableRecordEntity  {
 
 	public void setfWorktype(String fWorktype) {
 		this.fWorktype = fWorktype;
+	}
+
+	public Long getEditUser() {
+		return editUser;
+	}
+
+	public void setEditUser(Long editUser) {
+		this.editUser = editUser;
 	}
 	 
 	 
