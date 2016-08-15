@@ -818,7 +818,7 @@ function intervierInfoFormat(value, row, index){
 	}else{
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
-	rc = "<div style=\"text-align:left;padding:10px 0;margin-left:30px;\">"+
+	rc = "<div style=\"text-align:left;padding:10px 0;\">"+
 				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
@@ -843,7 +843,7 @@ function metcolumnFormat(value, row, index){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 		}
 	var str="<label class=\"meeting_result\">"+row.meetingResultStr+"</label>"
-	rc = "<div style=\"text-align:left;padding:10px 0;margin-left:30px;\">"+
+	rc = "<div style=\"text-align:left;padding:10px 0;\">"+
 				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+str+
 				"</br>会议录音："+fileinfo+
