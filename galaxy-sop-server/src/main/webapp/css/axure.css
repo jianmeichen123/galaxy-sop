@@ -19,7 +19,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 * html .clearfix { height:1% }
 .clearfix { display:block}
 .margin_45{ margin-top:45px;}
-.width_fwb,#viewNotes{height:150px;  overflow-y:auto;}
+.width_fwb,#viewNotes,#win_idea_desc{height:150px;       overflow-y: scroll !important ;}
 .widt_200{ width:200px; word-break:break-all;}
 .width_1{width:100px; overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
 #project_info_log td a{ margin: 0 0px 0 0; text-decoration:none;}
@@ -588,7 +588,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .min .tablist .tool{ text-align:center; padding:17px 0 1px; height:175px;border-bottom-right-radius: 6px;}
 .pagebox .min .tablist .tool_radius{border-bottom-right-radius: 6px;}
 .pagebox .min .tablist .tool .ico{ background-image:url(../img/toolico.png)}
-.pagebox .min .tablist .tool a{ position:relative; display:inline-block; *display:inline; zoom:1; width:60px; height:20px; padding:44px 0 0; margin:0 20px 25px; font-size:12px; color:#536379; text-align:center; line-height:20px}
+.pagebox .min .tablist .tool a{ position:relative; display:block; float:left; zoom:1; width:60px; height:20px; padding:44px 0 0; margin:0 20px 25px; font-size:12px; color:#536379; text-align:center; line-height:20px}
 .pagebox .min .tablist .tool a b{ position:absolute; left:50%; top:0}
 .pagebox .min .tablist .tool a .b1{ width:39px; height:39px; margin:0 0 0 -20px; background-position:0 0}
 .pagebox .min .tablist .tool a .b2{ width:32px; height:40px; margin:0 0 0 -16px; background-position:0 -49px}

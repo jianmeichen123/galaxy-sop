@@ -270,7 +270,7 @@ var fileGrid = {
 					return form;
 				}
         		if($(this).text()=='上传'){
-    				$('.title_bj').html('上传文档')
+    				$('.title_bj').html('项目文档')
     			}
         	}else{
         		uploadUrl = platformUrl.commonUploadFile;
