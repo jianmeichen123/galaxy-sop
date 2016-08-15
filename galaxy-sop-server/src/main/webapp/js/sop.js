@@ -1037,14 +1037,10 @@ function tzxy(st,projectType){
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.id+'); " class="blue">查看</a></td>'); 	
 								}
 								if(this.voucherFileKey == null){	
-									if(hasTzxy && hasGqxy && hasTzxyQspz){
-										if(canToOption){
-											$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,1);" class="blue">上传</a></td>');
-										}else{
-											$tr.append('<td></td>');
-										}
+									if(canToOption && hasGqxy && hasTzxyQspz){
+										$tr.append('<td><a href="javascript:;" onclick="gqzrAlert(8,1);" class="blue">上传</a></td>');
 									}else{
-										$tr.append('<td><span style="color: #536379;">上传</span></td>');
+										$tr.append('<td></td>');
 									}
 								}else{
 									$tr.append('<td><a href="javascript:;" onclick="filedown('+this.voucherId+',null,\'voucher\');" class="blue">查看</a></td>'); 	
