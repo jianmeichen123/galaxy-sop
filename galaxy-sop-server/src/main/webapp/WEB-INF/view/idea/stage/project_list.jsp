@@ -12,7 +12,7 @@ if(isTransfering == 'true'){
 </script>
  <!--按钮-->
 <div class="btnbox_f btnbox_f1 btnbox_m clearfix">
-    <button class="pubbtn fffbtn lpubbtn" href="idea/showEditProjectDialog" id="edit_name" data-btn="edit_name">编辑项目名称</button>
+   <!--  <button class="pubbtn fffbtn lpubbtn" href="idea/showEditProjectDialog" id="edit_name" data-btn="edit_name">编辑项目名称</button>--> 
 </div>
 
 <!--表格内容-->
