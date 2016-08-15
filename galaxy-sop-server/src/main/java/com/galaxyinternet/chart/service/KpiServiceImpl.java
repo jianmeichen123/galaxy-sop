@@ -254,11 +254,17 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 				logo_time.put("firstMeetTime", meet.getFirstMeetTime()==null?null:DateUtil.dateToLong(meet.getFirstMeetTime()));
 				logo_time.put("passMeetTime", meet.getPassMeetTime()==null?null:DateUtil.dateToLong(meet.getPassMeetTime()));
 				
+				//logo_time.put("firstMeetTime",meet.getFirstCreatedTime());
+				//logo_time.put("passMeetTime", meet.getLastCreatedTime());
+				
 				meetType_logo_time.put(meet.getMeetingType(), logo_time);
 				
 			}else{
 				logo_time.put("firstMeetTime", meet.getFirstMeetTime()==null?null:DateUtil.dateToLong(meet.getFirstMeetTime()));
 				logo_time.put("passMeetTime", meet.getPassMeetTime()==null?null:DateUtil.dateToLong(meet.getPassMeetTime()));
+				
+				//logo_time.put("firstMeetTime", meet.getFirstCreatedTime());
+				//logo_time.put("passMeetTime", meet.getLastCreatedTime());
 				
 				meetType_logo_time.put(meet.getMeetingType(), logo_time);
 				
@@ -495,7 +501,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					}else{
 						a_startTime = task_tzxy_stime ==0l?tjh_pass_time:task_tzxy_stime;
 					}
-					b_endTime = tjh_paiqi_time==0l?tjh_first_time:tjh_paiqi_time;
+					//b_endTime = tjh_paiqi_time==0l?tjh_first_time:tjh_paiqi_time;
+					b_endTime = tjh_first_time==0l?tjh_paiqi_time:tjh_first_time;
 					
 					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						if(a_startTime > b_endTime){
@@ -508,7 +515,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					if(projectPro == 6){
 						a_startTime = endTime;
 					}else{
-						a_startTime = tjh_paiqi_time==0l?tjh_first_time:tjh_paiqi_time;
+						//a_startTime = tjh_paiqi_time==0l?tjh_first_time:tjh_paiqi_time;
+						a_startTime = tjh_first_time==0l?tjh_paiqi_time:tjh_first_time;
 					}
 					b_endTime = task_jzdc_stime==0l?task_tzyxs_etime:task_jzdc_stime;
 					
@@ -542,7 +550,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					}else{
 						a_startTime = task_tzyxs_stime==0l?lxh_pass_time:task_tzyxs_stime;
 					}
-					b_endTime = lxh_paiqi_time==0l?ceo_pass_time:lxh_paiqi_time;
+					//b_endTime = lxh_paiqi_time==0l?ceo_pass_time:lxh_paiqi_time;
+					b_endTime = ceo_pass_time==0l?lxh_paiqi_time:ceo_pass_time;
 					
 					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						if(a_startTime > b_endTime){
@@ -555,9 +564,12 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					if(projectPro == 3){
 						a_startTime = endTime;
 					}else{
-						a_startTime = lxh_paiqi_time==0l?ceo_pass_time:lxh_paiqi_time;
+						//a_startTime = lxh_paiqi_time==0l?ceo_pass_time:lxh_paiqi_time;
+						a_startTime = ceo_pass_time==0l?lxh_paiqi_time:ceo_pass_time;
+						
 					}
-					b_endTime = ceo_paiqi_time==0l?lph_pass_time:ceo_paiqi_time;
+					//b_endTime = ceo_paiqi_time==0l?lph_pass_time:ceo_paiqi_time;
+					b_endTime = lph_pass_time==0l?ceo_paiqi_time:lph_pass_time;
 					
 					if(a_startTime != null && b_endTime != null && a_startTime != 0l && b_endTime != 0l){
 						if(a_startTime > b_endTime){
@@ -570,7 +582,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 					if(projectPro == 2){
 						a_startTime = endTime;
 					}else{
-						a_startTime = ceo_paiqi_time==0l?lph_pass_time:ceo_paiqi_time;
+						//a_startTime = ceo_paiqi_time==0l?lph_pass_time:ceo_paiqi_time;
+						a_startTime = lph_pass_time==0l?ceo_paiqi_time:lph_pass_time;
 					}
 					b_endTime = lph_first_time;
 					
