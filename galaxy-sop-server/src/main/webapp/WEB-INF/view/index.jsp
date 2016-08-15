@@ -435,7 +435,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <script src="<%=map.get("galaxy.project.sop.endpoint") %>js/sop.js" type="text/javascript"></script>
 
 
-
+<script type="text/javascript">
+var transferingIds = "${fx:getTransferingPids()}".split(",");
+</script>
 
 <!-- clude -->
 <script src="<%=path %>/js/meeting.js" type="text/javascript"></script>

@@ -168,6 +168,7 @@
               <div class="block block_t" data-tab="con">
               	<jsp:include page="/galaxy/idea/showProject">
               		<jsp:param value="${id }" name="ideaId"/>
+              		<jsp:param value="${projectId }" name="projectId"/>
               	</jsp:include>
               </div> 
               		 <!-- 变更动态 -->
