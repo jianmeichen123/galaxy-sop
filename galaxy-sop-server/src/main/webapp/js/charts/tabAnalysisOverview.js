@@ -85,7 +85,7 @@ var queryOverviewUtils = {
 		queryGrid : function(projectProgress){
 			
 			var one_click_number =projectProgress;
-			alert(one_click_number)
+			//alert(one_click_number)
 			//console.log(one_click_number)
 			setCookie("one_click_number", one_click_number,24,'/');
 			
