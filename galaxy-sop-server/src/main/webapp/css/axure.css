@@ -1084,7 +1084,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .addmentc .left,.addmentc .right{width:390px;float: left;}
 .addmentc dl{margin:10px 0;overflow: hidden;}
 .addmentc dl dt,.addmentc dl dd{float: left;}
-.addmentc dl dt{width:100px;text-align: right;font-family: '微软雅黑';line-height: 30px;}
+.addmentc dl dt{width:110px;text-align: right;font-family: '微软雅黑';line-height: 30px;}
 .addmentc .fmdl dd .txt{ width:150px;font-size: 12px;font-family: '宋体';}
 .addmentc .pubbtn{margin: 20px 0 0 250px;}
 /* 立项会弹窗 */
