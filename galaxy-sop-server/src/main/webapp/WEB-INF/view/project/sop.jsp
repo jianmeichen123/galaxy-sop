@@ -900,7 +900,7 @@
  	}
  	function jdReportFormatter(val,row,index)
  	{
- 		var update = canToOption ? '<a href="#" class="blue" onclick="showJDUpload('+row.fileWorktype+','+row.id+')">更新</a>&nbsp;' : '';
+ 		var update = canToOption ? '<a href="#" class="blue" onclick="showJDUpload(\''+row.fileWorktype+'\','+row.id+')">更新</a>&nbsp;' : '';
  		var download = '<a href="#" class="blue" onclick="filedown('+row.id+')">查看</a>';
  		return update+download;
  	}
