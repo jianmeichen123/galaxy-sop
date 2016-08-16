@@ -94,6 +94,12 @@
                           <dd id="createUname"></dd>
                         </dl>
                       </td>
+                      <td>
+                        <dl>
+                          <dt>公司名称：</dt>
+                          <dd id="projectCompany"></dd>
+                        </dl>
+                      </td>
                   </tr>
                   <tr>
                     <td colspan="2">
