@@ -614,11 +614,11 @@ var platformUrl = {
 	deletePostMeeting: Constants.sopEndpointURL + "/galaxy/project/postOperation/deletePostMeeting",
 	
 	/**
-	 * 立项报告
+	 * 立项报告/尽调启动会报告/尽调总结会报告
 	 */
-	showLxReportUpload: Constants.sopEndpointURL + "/galaxy/sopFile/showLxReportUpload",
+	showReportUpload: Constants.sopEndpointURL + "/galaxy/sopFile/showReportUpload",
 	/**
-	 * 立项报告
+	 * 立项报告/尽调启动会报告/尽调总结会报告
 	 */
 	uploadSimpleFile: Constants.sopEndpointURL + "/galaxy/sopFile/upload",
 	
