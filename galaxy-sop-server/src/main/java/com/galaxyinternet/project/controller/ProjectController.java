@@ -2790,6 +2790,19 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		return "project/sopinfo/tab_operLog";
 	}
 	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toAppropriation/{pid}", method = RequestMethod.GET)
+	public String toAppropriation(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		Project proinfo = new Project();
+		proinfo = projectService.queryById(pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", proinfo.getProjectProgress());
+		request.setAttribute("pname", proinfo.getProjectName());
+		request.setAttribute("projectId", pid);
+		return "project/sopinfo/tab_operLog";
+	}
+	/**
 	 * sop tab页面  访谈 详情    /galaxy/project/proview/
 	 */
 	@RequestMapping(value = "/proview/{pid}", method = RequestMethod.GET)
@@ -3006,6 +3019,5 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("projectName", project.getProjectName());
 		return "project/sopinfo/tab_filelist";
 	}
-	
-	
+
 }
