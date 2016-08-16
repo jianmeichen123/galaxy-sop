@@ -2075,3 +2075,42 @@ dl{position: relative;}
     cursor:default;
  }
  .mar_left{ float:left;}
+  /* 投后运营V2.3.91 */
+.ritmin .fund_list .bottom  dl dd .txt{width:130px;}
+.fund_list .cx{margin-left:10px;}
+.agreement{margin-bottom: 50px;}
+.b_agreement{padding:15px 30px 0;height:55px;background-color: #f9fafc;border-bottom:1px solid #d6d8e1;margin-top: 30px;}
+.b_agreement_l h3{font-weight:normal;font-size: 14px;font-family:"微软雅黑";}
+.b_agreement_r{width:260px;padding-top: 8px;}
+.b_agreement_l dl,.b_agreement_l dt,.b_agreement_l dd{color:#9ba5b2;float: left;font-size: 12px;font-family:"宋体";}
+.b_agreement_l dl{margin-right:35px;margin-top: 12px;}
+.b_agreement_r button{height:30px;border:1px solid #66b1f2;display: inline-block;cursor: pointer;}
+.b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left: 30px;cursor: pointer;}
+.money{margin:40px 0 30px;}
+#bar_m{height:8px;border-radius:5px;background:#529ae2;}
+.agreement .show_more,.agreement .show_hide{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}
+.agreement .show_hide{width:42px;background:url(../img/showMore.png) right -20px no-repeat;}
+.delivery td label.noMargin{margin:0;}
+
+/*拨款弹窗*/
+.addbutton a {
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.actual_all{width: 590px; margin: 15px auto 30px;}
+.addmentc fmdl{margin: 0 0 15px;}
+.edittxt{width: 230px; font-size: 12px; line-height: 28px; height: 28px; 
+border: 1px solid #dadfe3;
+background: #ffffff;
+height: 28px;
+line-height: 28px;
+border-radius: 4px;
+padding: 0 4px;}
+.edit_actual{width: 450px;
+margin: 45px auto 30px;}
+.actual_all th,.actual_all td{padding:0 5px;}
+.actual_all .health_case{border-radius:5px;border-bottom:0;}
