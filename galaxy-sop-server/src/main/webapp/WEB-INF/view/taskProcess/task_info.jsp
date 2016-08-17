@@ -186,8 +186,11 @@ function getProjectInfo(projectLoaded)
 				}
 				if(self.attr('id') =='projectCompany'){
 					var str=project[id];
+					console.log(str)
 					//alert(str.length);
-					if(str.length>20){
+					if(str == undefined || str == null || str ==''){
+						self.text('');
+					}else if(str.length>20){
 						self.text(str.substring(0,20));
 						self.attr("title",str);
 					}else{

@@ -44,7 +44,7 @@
           </tr>
           <tr>
               <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>
-              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate"></td>
+              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"></td>
           </tr>
       </table>                    
       </form>
@@ -185,6 +185,10 @@
 	}
 	function saveCompany()
 	{
+		var date = $('input[name="formationDate"]').val();
+		if(date == ''){
+			$('input[name="formationDate"]').attr("name","cancel");
+		}
 		var url = platformUrl.saveCompanyInfo;
 		var data = JSON.parse($("#company-info-form").serializeObject());
 		if(data.formationDate != null && data.formationDate != '')
@@ -214,6 +218,7 @@
 	}
 	function refreshCompanyInfo()
 	{
+		$('input[name="cancel"]').attr("name","formationDate");
 		var dtd = $.Deferred();
 		$.when(top.getProjectInfo(dtd))
 		.done(function(){
