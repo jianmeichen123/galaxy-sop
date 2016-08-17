@@ -382,8 +382,10 @@
 			<div class="block" data-tab="con" id="projectProgress_6_con">
 				<!--按钮-->
 				<div id="jzdc_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn option_item_mark">上传业务尽职调查报告</a>
-					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn option_item_mark" id="tjhsqBut">申请投决会排期</a>
+					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn option_item_mark toggle">上传业务尽职调查报告</a>
+					<a href="javascript:;" id="jdqd_report_upload_btn" onclick="showJDUpload('fileWorktype:18')" class="pubbtn fffbtn llpubbtn option_item_mark">上传尽职调查启动会报告</a>
+					<a href="javascript:;" id="jdzj_report_upload_btn" onclick="showJDUpload('fileWorktype:19')" class="pubbtn fffbtn llpubbtn option_item_mark">上传尽职调查总结会报告</a>
+					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn option_item_mark toggle" id="tjhsqBut">申请投决会排期</a>
 				</div>
 				<div class="process clearfix">
 					<h2>业务尽调报告审核流程</h2>
@@ -404,6 +406,40 @@
 					</thead>
 					<tbody id="fileList">
 					</tbody>
+				</table>
+				<!-- 尽调启动会报告 -->
+				<div id="jdqd_table_params">
+					<input type="hidden" name="projectId">
+					<input type="hidden" name="fileWorktype" value="fileWorktype:18">
+				</div>
+				<table id="jdqd_report_table" data-url="sopFile/query" data-toolbar="#jdqd_table_params" data-method="post">
+					<thead>
+						<tr>
+							<th data-field="fWorktype">业务类型</th>
+							<th data-field="createdTime" data-formatter="longTime_Format">创建日期</th>
+							<th data-field="fType">存档类型</th>
+							<th data-field="updatedTime" data-formatter="longTime_Format">更新日期</th>
+							<th data-field="fileStatusDesc">档案状态</th>
+							<th data-field="operateFile" data-formatter="jdReportFormatter">操作</th>
+						</tr>
+					</thead>
+				</table>
+				<!-- 尽调总结会报告 -->
+				<div id="jdzj_table_params">
+					<input type="hidden" name="projectId">
+					<input type="hidden" name="fileWorktype" value="fileWorktype:19">
+				</div>
+				<table id="jdzj_report_table" data-url="sopFile/query" data-toolbar="#jdzj_table_params" data-method="post">
+					<thead>
+						<tr>
+							<th data-field="fWorktype">业务类型</th>
+							<th data-field="createdTime" data-formatter="longTime_Format">创建日期</th>
+							<th data-field="fType">存档类型</th>
+							<th data-field="updatedTime" data-formatter="longTime_Format">更新日期</th>
+							<th data-field="fileStatusDesc">档案状态</th>
+							<th data-field="operateFile" data-formatter="jdReportFormatter">操作</th>
+						</tr>
+					</thead>
 				</table>
 			</div>
 			<!-- 投资协议 -->
@@ -789,12 +825,12 @@
  	function showLxUpload(id)
  	{
  		$.getHtml({
-			url:platformUrl.showLxReportUpload,
+			url:platformUrl.showReportUpload,
 			okback:function(){
-				$("#lx_report_upload_form [name='projectId']").val(alertid);
+				$("#report_upload_form [name='projectId']").val(alertid);
 				if(typeof(id) != 'undefined')
 				{
-					$("#lx_report_upload_form [name='id']").val(id);
+					$("#report_upload_form [name='id']").val(id);
 					$('.title_bj').html('更新项目立项报告')
 				}
 			}
@@ -817,12 +853,12 @@
 				}
 				else
 				{
-					console.log('show');
 					$("#upload_lx_report").show();
 				}
 			}
 	 	);
  	}
+ 	
  	
  	function lxReportFormatter(val,row,index)
  	{
@@ -862,6 +898,70 @@
  			return   resetUrl;
  		}
  	}
+ 	function jdReportFormatter(val,row,index)
+ 	{
+ 		var update = canToOption ? '<a href="#" class="blue" onclick="showJDUpload(\''+row.fileWorktype+'\','+row.id+')">更新</a>&nbsp;' : '';
+ 		var download = '<a href="#" class="blue" onclick="filedown('+row.id+')">查看</a>';
+ 		return update+download;
+ 	}
+ 	function showJDUpload(type,id)
+ 	{
+ 		$.getHtml({
+			url:platformUrl.showReportUpload,
+			okback:function(){
+				$("#report_upload_form [name='projectId']").val(alertid);
+				var action = "上传";
+				var name = "";
+				$("#report_upload_form [name='fileWorktype']").val(type);
+				$("#report_upload_form [name='projectProgress']").val("projectProgress:6");
+				if(typeof(id) != 'undefined')
+				{
+					$("#report_upload_form [name='id']").val(id);
+					action = "更新"
+				}
+				if('fileWorktype:18' == type)
+				{
+					name="尽职调查启动会报告";
+				}
+				else if('fileWorktype:19' == type)
+				{
+					name="尽职调查总结会报告";
+				}
+				$('.title_bj').html(action+name)
+				$('#reportName').html(name)
+			}
+		});
+ 	}
+ 	$.when(proDef).done(function(){
+ 		$("#jdqd_table_params [name='projectId']").val(alertid);
+ 		$("#jdzj_table_params [name='projectId']").val(alertid);
  		
+ 		$("#jdqd_report_table").bootstrapTable();
+ 		$("#jdqd_report_table").on('load-success.bs.table',function(table,data){
+ 			if(data.entityList.length>0)
+			{
+				$("#jdqd_report_table").bootstrapTable('load', data.entityList);
+				$("#jdqd_report_upload_btn").hide();
+			}
+			else
+			{
+				$("#jdqd_report_upload_btn").show();
+			}
+ 		});
+ 		
+ 		$("#jdzj_report_table").bootstrapTable();
+ 		$("#jdzj_report_table").on('load-success.bs.table',function(table,data){
+ 			if(data.entityList.length>0)
+			{
+ 				$("#jdzj_report_table").bootstrapTable('load', data.entityList);
+				$("#jdzj_report_upload_btn").hide();
+			}
+			else
+			{
+				$("#jdzj_report_upload_btn").show();
+			}
+ 		})
+ 		
+ 	});
  
 </script>

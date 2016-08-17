@@ -8,7 +8,7 @@ var code = "0";
  */
 var alertid="";
 var projectId;
-
+var proDef = $.Deferred();
 function info(id){
 	projectId = id;
 	var _url = Constants.sopEndpointURL + '/galaxy/ips';
@@ -186,7 +186,7 @@ function info(id){
 							 tiggerTable($("#projectProgress_6_table"),3);
 							 
 							 if(parseInt(indexNum) < parseInt(index)){
-								 $("#jzdc_options").remove();
+								 $("#jzdc_options .toggle").remove();
 							 /*}else if(!canUseBut){*///尽职调查去掉文件验证
 								$("#tjhsqBut").remove();
 							}
@@ -240,6 +240,7 @@ function info(id){
 				if(!canToOption){
 					$(".option_item_mark").remove();
 				}
+				proDef.resolve();
 				//立项报告列表
 				$("#lx_report_table").bootstrapTable();
 				initLxReportTable();

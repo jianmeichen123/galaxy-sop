@@ -39,12 +39,12 @@
       <input type="hidden" name="id" value="${projectId }">
       <table width="100%" cellspacing="0" cellpadding="0" class="new_table new_table_stock">
           <tr>
-              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany"></td>
-              <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode"></td>
+              <td><span class="new_color_gray th">公司名称：</span><input type="text" placeholder="请输入公司名称" name="projectCompany" maxlength="30"></td>
+              <td><span class="new_color_gray th">组织代码：</span><input type="text" placeholder="请输入组织机构代码" name="projectCompanyCode" maxlength="20"></td>
           </tr>
           <tr>
-              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal"></td>
-              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate"></td>
+              <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>
+              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"></td>
           </tr>
       </table>                    
       </form>
@@ -185,6 +185,10 @@
 	}
 	function saveCompany()
 	{
+		var date = $('input[name="formationDate"]').val();
+		if(date == ''){
+			$('input[name="formationDate"]').attr("name","cancel");
+		}
 		var url = platformUrl.saveCompanyInfo;
 		var data = JSON.parse($("#company-info-form").serializeObject());
 		if(data.formationDate != null && data.formationDate != '')
@@ -214,12 +218,47 @@
 	}
 	function refreshCompanyInfo()
 	{
+		$('input[name="cancel"]').attr("name","formationDate");
 		var dtd = $.Deferred();
 		$.when(top.getProjectInfo(dtd))
 		.done(function(){
-			$("#company-info #projectCompany").text(getVal(projectInfo.projectCompany,''));
-			$("#company-info #projectCompanyCode").text(getVal(projectInfo.projectCompanyCode,''));
-			$("#company-info #companyLegal").text(getVal(projectInfo.companyLegal,''));
+			var projectCompanyStr=projectInfo.projectCompany;
+			//console.log(projectCompanyStr)
+			if(projectCompanyStr == undefined){
+				var projectCompanyStrN='';
+			}else if(projectCompanyStr.length>20){
+				var projectCompanyStrN=projectCompanyStr.substring(0,20);				
+			}else{
+				var projectCompanyStrN=projectCompanyStr;
+			}
+			
+			var projectCompanyCodeStr=projectInfo.projectCompanyCode;
+			if(projectCompanyCodeStr == undefined){
+				var projectCompanyCodeStrN='';
+			}else if(projectCompanyCodeStr.length>20){
+				
+				var projectCompanyCodeStrN=projectCompanyCodeStr.substring(0,20);				
+			}else{
+				var projectCompanyCodeStrN=projectCompanyCodeStr;
+			}
+			
+			
+			var companyLegalStr=projectInfo.companyLegal;
+			if(projectCompanyStr == undefined){
+				var companyLegalStrN='';
+			}else if(companyLegalStr.length>20){
+				
+				var companyLegalStrN=companyLegalStr.substring(0,20);				
+			}else{
+				var companyLegalStrN=companyLegalStr;
+			} 
+			
+			$("#company-info #projectCompany").text(getVal(projectCompanyStrN,''));
+			$("#company-info #projectCompany").attr("title",getVal(projectInfo.projectCompany,''));
+			$("#company-info #projectCompanyCode").text(getVal(projectCompanyCodeStrN,''));
+			$("#company-info #projectCompanyCode").attr("title",getVal(projectInfo.projectCompanyCode,''));
+			$("#company-info #companyLegal").text(getVal(companyLegalStrN,''));
+			$("#company-info #companyLegal").attr("title",getVal(projectInfo.companyLegal,''));
 			var date = '';
 			if(!isNaN(projectInfo.formationDate))
 			{
@@ -227,6 +266,7 @@
 			}
 			$("#company-info #formationDate").text(date);
 		});
+		
 	}
 	//设置公司表单数据
 	function initCompanyFormData()

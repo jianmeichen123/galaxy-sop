@@ -1465,10 +1465,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		
 	}
 
-	@RequestMapping("/showLxReportUpload")
-	public String showLxReportUpload()
+	@RequestMapping("/showReportUpload")
+	public String showReportUpload()
 	{
-		return "/project/lxReportUpload";
+		return "/project/reportUpload";
 	}
 	@ResponseBody
 	@RequestMapping(value="/upload")
@@ -1507,6 +1507,14 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			if(DictEnum.fileWorktype.立项报告.getCode().endsWith(sopFile.getFileWorktype()))
 			{
 				urlNumber = isInsert ? UrlNumber.one : UrlNumber.two;
+			}
+			else if(DictEnum.fileWorktype.尽职调查启动会报告.getCode().endsWith(sopFile.getFileWorktype()))
+			{
+				urlNumber = isInsert ? UrlNumber.three : UrlNumber.four;
+			}
+			else if(DictEnum.fileWorktype.尽职调查总结会报告.getCode().endsWith(sopFile.getFileWorktype()))
+			{
+				urlNumber = isInsert ? UrlNumber.five : UrlNumber.six;
 			}
 			if(isInsert)
 			{

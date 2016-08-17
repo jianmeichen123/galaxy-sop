@@ -94,6 +94,12 @@
                           <dd id="createUname"></dd>
                         </dl>
                       </td>
+                      <td>
+                        <dl>
+                          <dt>公司名称：</dt>
+                          <dd id="projectCompany"></dd>
+                        </dl>
+                      </td>
                   </tr>
                   <tr>
                     <td colspan="2">
@@ -172,6 +178,17 @@ function getProjectInfo(projectLoaded)
 					//alert(str.length);
 					if(str.length>15){
 						self.text(str.substring(0,15));
+						self.attr("title",str);
+					}else{
+						self.text(str);
+						self.attr("title",str);
+					}
+				}
+				if(self.attr('id') =='projectCompany'){
+					var str=project[id];
+					//alert(str.length);
+					if(str.length>20){
+						self.text(str.substring(0,20));
 						self.attr("title",str);
 					}else{
 						self.text(str);

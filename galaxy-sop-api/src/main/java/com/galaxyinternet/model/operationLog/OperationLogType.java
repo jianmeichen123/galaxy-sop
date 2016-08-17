@@ -175,8 +175,15 @@ public enum OperationLogType {
 	APPLY_TRANSFER("/galaxy/projectTransfer/applyTransfer",OperType.APPLY.getOperationType(), "移交项目","移交项目"),
 	UNDO_TRANSFER("/galaxy/projectTransfer/undoTransfer",OperType.REVOKE.getOperationType(), "撤销项目","撤销移交"),
 	REJECT_TRANSFER("/galaxy/projectTransfer/rejectTransfer",OperType.REFUSE.getOperationType(), "拒接项目","拒接项目"),
-	RECEIVE_TRANSFER("/galaxy/projectTransfer/receiveTransfer",OperType.RECIEIVE.getOperationType(), "接收项目","接收项目");
-
+	RECEIVE_TRANSFER("/galaxy/projectTransfer/receiveTransfer",OperType.RECIEIVE.getOperationType(), "接收项目","接收项目"),
+	/**上传尽调启动报告**/
+	JDQD_REPORT_UPLOAD("/galaxy/sopFile/upload/"+UrlNumber.three, OperType.UPLOAD.getOperationType(), "尽职调查启动会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	/**更新尽调启动报告**/
+	JDQD_REPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.four, OperType.UPDATE.getOperationType(), "尽职调查启动会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	/**上传尽调总结报告**/
+	JDZJ_REPORT_UPLOAD("/galaxy/sopFile/upload/"+UrlNumber.five, OperType.UPLOAD.getOperationType(), "尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	/**更新尽调总结报告**/
+	JDZJREPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.six, OperType.UPDATE.getOperationType(), "尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName());
 
 
 	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/
