@@ -878,8 +878,16 @@ var platformUrl = {
 	 */
    //添加分期拨款计划弹出页面
 	
-	toApprActualAging : Constants.sopEndpointURL + "/galaxy/project/toApprActualAging",
+	toApprActualAging : Constants.sopEndpointURL + "/galaxy/grant/total/toApprActualAging",
 	
+   //添加总拨款计划弹出页面
+	
+	toApprActualAll : Constants.sopEndpointURL + "/galaxy/grant/total/toApprActualAll",
+	
+   //添加总拨款计划提交
+	
+	addGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/addGrantTotal",
+
 	
 }
 

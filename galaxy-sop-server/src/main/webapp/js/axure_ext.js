@@ -536,21 +536,7 @@ $(function(){
 		return false;
 	});
 	
-	//编辑总拨款计划
-	$("[data-btn='actual_all']").on("click",function(){ 
-		var $self = $(this);
-		var _url = $self.attr("href");
-		var _name= $self.attr("data-name");
-		$.getHtml({
-			url:_url,//模版请求地址
-			data:"",//传递参数
-			okback:function(){
-				$("#popup_name").html(_name);
-			}//模版反回成功执行	
-		});
-		return false;
-	});
-	
+
 	//实际拨款信息列表
 	$("[data-btn='actual']").on("click",function(){ 
 		var $self = $(this);
