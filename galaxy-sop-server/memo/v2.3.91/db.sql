@@ -1,7 +1,7 @@
 use fx_db;
 
 /**创建总拨款计划记录表**/
-CREATE TABLE `sop_total_grant` (
+CREATE TABLE `sop_grant_total` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '总拨款计划ID',
   `project_id` bigint(20) DEFAULT NULL COMMENT '关联的项目ID',
   `grant_name` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '总拨款计划名称',
@@ -16,7 +16,7 @@ CREATE TABLE `sop_total_grant` (
 
 
 /**创建分期拨款计划记录表**/
-CREATE TABLE `sop_part_grant` (
+CREATE TABLE `sop_grant_part` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '分期拨款计划ID',
   `total_grant_id` bigint(20) DEFAULT NULL COMMENT '关联的总拨款计划ID',
   `grant_name` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '分期拨款计划名称',
@@ -32,7 +32,7 @@ CREATE TABLE `sop_part_grant` (
 
 
 /**创建实际拨款计划记录表**/
-CREATE TABLE `sop_actual_grant` (
+CREATE TABLE `sop_grant_actual` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '实际拨款计划ID',
   `part_grant_id` bigint(20) DEFAULT NULL COMMENT '关联的总拨款计划ID',
   `grant_money` decimal(15,2) DEFAULT NULL COMMENT '总拨款计划金额',
