@@ -217,7 +217,7 @@
 		$("[data-btn='actual_all']").on("click",function(){ 
 			var $self = $(this);
 		//	var _url = $self.attr("href");
-		    var _url=
+		    var _url=platformUrl.toApprActualAll;
 			var _name= $self.attr("data-name");
 			$.getHtml({
 				url:_url,//模版请求地址

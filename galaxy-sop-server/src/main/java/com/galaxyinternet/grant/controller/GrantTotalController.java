@@ -53,9 +53,15 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		request.setAttribute("prograss", proinfo.getProjectProgress());
 		request.setAttribute("pname", proinfo.getProjectName());
 		request.setAttribute("projectId", pid);
-		return "project/sopinfo/tanchuan/actual_aging";
+		return "project/tanchuan/actual_aging";
 	}
-	
+	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toApprActualAll", method = RequestMethod.GET)
+	public String toApprActualAll(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		return "project/tanchuan/appr_actual_all";
+	}
 	/**
 	 * 新建总拨款计划
 	 */
