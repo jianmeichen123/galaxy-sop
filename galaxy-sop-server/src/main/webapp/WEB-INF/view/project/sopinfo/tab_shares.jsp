@@ -254,11 +254,11 @@
 			} 
 			
 			$("#company-info #projectCompany").text(getVal(projectCompanyStrN,''));
-			$("#company-info #projectCompany").attr("title",getVal(projectInfo.projectCompany,''));
+			$("#company-info #projectCompany").attr("title",getVal(projectCompanyStr,''));
 			$("#company-info #projectCompanyCode").text(getVal(projectCompanyCodeStrN,''));
-			$("#company-info #projectCompanyCode").attr("title",getVal(projectInfo.projectCompanyCode,''));
+			$("#company-info #projectCompanyCode").attr("title",getVal(projectCompanyCodeStr,''));
 			$("#company-info #companyLegal").text(getVal(companyLegalStrN,''));
-			$("#company-info #companyLegal").attr("title",getVal(projectInfo.companyLegal,''));
+			$("#company-info #companyLegal").attr("title",getVal(companyLegalStr,''));
 			var date = '';
 			if(!isNaN(projectInfo.formationDate))
 			{
