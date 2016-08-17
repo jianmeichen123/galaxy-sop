@@ -1,5 +1,8 @@
 package com.galaxyinternet.grant.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -23,9 +26,11 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
 
@@ -38,15 +43,19 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	private final static Logger _common_logger_ = LoggerFactory.getLogger(GrantTotalController.class);
 	
 	@Autowired
+	private ProjectService projectService;
+	
+	@Autowired
 	private GrantTotalService grantTotalService;
+	@Autowired
+	private GrantPartService grantPartService;
 	
 	@Override
 	protected BaseService<GrantTotal> getBaseService() {
 		return this.grantTotalService;
 	}
 	
-	@Autowired
-	private ProjectService projectService;
+	
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
@@ -91,6 +100,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			responseBody.setResult(new Result(Status.OK, "success", "添加总拨款计划成功!"));
 			_common_logger_.info("添加总拨款计划成功"+grantTotal.toString());
 		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, "error", "添加总拨款计划失败!"));
 			_common_logger_.error("添加总拨款计划失败！", e);
 		}
 		return responseBody;
@@ -101,19 +111,31 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/search", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<GrantTotalBo> searchProject(HttpServletRequest request, @RequestBody GrantTotalBo totalBo) {
-		ResponseData<GrantTotalBo> responseBody = new ResponseData<GrantTotalBo>();
+	public ResponseData<GrantTotal> searchProject(HttpServletRequest request, @RequestBody GrantTotal total) {
+		ResponseData<GrantTotal> responseBody = new ResponseData<GrantTotal>();
 		try {
 			User user = (User) getUserFromSession(request);
-			totalBo.setCreateUid(user.getId());
-			Page<GrantTotal> totalPage = grantTotalService.queryPageList(totalBo,
-					new PageRequest(totalBo.getPageNum(), //1 
-							totalBo.getPageSize(), //3
-							Direction.fromString(totalBo.getDirection()), //desc
-							totalBo.getProperty()));
-			responseBody.setResult(new Result(Status.OK, ""));
+			total.setCreateUid(user.getId());
+			Page<GrantTotal> totalPage = grantTotalService.queryPageList(total,
+					new PageRequest(total.getPageNum(), //1 
+							total.getPageSize(), //3
+							Direction.fromString(total.getDirection()), //desc
+							total.getProperty()));
+			GrantPart part = new GrantPart();
+			//封装分期拨款
+			List<GrantTotal> tList = new ArrayList<GrantTotal>();
+			for(GrantTotal t : totalPage.getContent()){
+				part.setTotalGrantId(t.getId());
+				List<GrantPart> partList = grantPartService.queryList(part);
+				t.setPartList(partList);
+				tList.add(t);
+			}
+			totalPage.setContent(tList);
+			responseBody.setPageList(totalPage);
+			responseBody.setResult(new Result(Status.OK, "success", "查询总拨款计划列表成功!"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			responseBody.setResult(new Result(Status.ERROR, "error", "查询总拨款计划列表失败!"));
+			_common_logger_.error("查询总拨款计划列表失败！", e);
 		}
 		return responseBody;
 	}

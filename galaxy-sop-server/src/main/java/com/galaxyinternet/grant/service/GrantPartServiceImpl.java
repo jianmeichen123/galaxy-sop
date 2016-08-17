@@ -1,5 +1,6 @@
 package com.galaxyinternet.grant.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.galaxyinternet.dao.GrantPartDao;
@@ -11,6 +12,7 @@ import com.galaxyinternet.service.GrantPartService;
 @Service("com.galaxyinternet.grant.GrantPartService")
 public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements GrantPartService {
 	
+	@Autowired
 	private GrantPartDao grantPartDao;
 	
 	@Override

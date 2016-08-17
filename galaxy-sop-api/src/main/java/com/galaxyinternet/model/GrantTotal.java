@@ -1,5 +1,7 @@
 package com.galaxyinternet.model;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
@@ -12,7 +14,6 @@ public class GrantTotal extends PagableEntity {
 	private Double grantMoney;
 	private Long createUid;
 	private String createUname;
-	
 	
 	public Long getProjectId() {
 		return projectId;
@@ -43,6 +44,16 @@ public class GrantTotal extends PagableEntity {
 	}
 	public void setCreateUname(String createUname) {
 		this.createUname = createUname;
+	}
+	
+	
+	//----bo----
+	private List<GrantPart> partList;
+	public List<GrantPart> getPartList() {
+		return partList;
+	}
+	public void setPartList(List<GrantPart> partList) {
+		this.partList = partList;
 	}
 	
 	@Override
