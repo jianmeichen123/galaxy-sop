@@ -185,8 +185,8 @@ function getProjectInfo(projectLoaded)
 					}
 				}
 				if(self.attr('id') =='projectCompany'){
-					var str=project[id];
-					console.log(str)
+					var str=$.trim(project[id]);
+					//console.log(str)
 					//alert(str.length);
 					if(str == undefined || str == null || str ==''){
 						self.text('');
