@@ -1,5 +1,6 @@
 package com.galaxyinternet.model;
 
+import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class GrantActual extends PagableEntity{
@@ -35,5 +36,10 @@ public class GrantActual extends PagableEntity{
 	}
 	public void setCreateUname(String createUname) {
 		this.createUname = createUname;
+	}
+	
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
 	}
 }
