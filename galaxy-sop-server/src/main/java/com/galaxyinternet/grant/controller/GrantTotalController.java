@@ -59,7 +59,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
 	@RequestMapping(value = "/toApprActualAll", method = RequestMethod.GET)
-	public String toApprActualAll(@PathVariable("pid") Long pid, HttpServletRequest request) {
+	public String toApprActualAll(HttpServletRequest request) {
 		return "project/tanchuan/appr_actual_all";
 	}
 	/**

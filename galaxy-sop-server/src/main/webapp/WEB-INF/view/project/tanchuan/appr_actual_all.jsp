@@ -1,3 +1,8 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<% 
+	String path = request.getContextPath(); 
+%>
+
 <div class="addmentc">
 		<div class="title_bj" id="popup_name"></div>
 	    <div class="form clearfix">
