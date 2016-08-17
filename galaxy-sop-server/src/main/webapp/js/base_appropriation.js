@@ -1,10 +1,23 @@
 
-$(function(){	
+$(function(){
+	sendGetRequest(platformUrl.queryGrantTotalList,null,queryBack);
 	assembleHtml();
 	assembleSingleTabHtml();
 	assembleHtml();
 });
-
+function queryBack(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		layer.msg(data.result.message);
+	//	removePop1();
+		return;
+	}else{
+		var entityList = data.entityList;
+		if(typeof(entityList)!="underfined"&&entityList!=null&&entityList.length>0){
+			alert("haha");
+		}
+	}
+}
 function  assembleHtml(){
 	var html=
 		'<div class="agreement">'
