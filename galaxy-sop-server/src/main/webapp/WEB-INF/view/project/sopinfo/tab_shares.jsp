@@ -222,7 +222,7 @@
 		var dtd = $.Deferred();
 		$.when(top.getProjectInfo(dtd))
 		.done(function(){
-			var projectCompanyStr=projectInfo.projectCompany;
+			var projectCompanyStr=$.trim(projectInfo.projectCompany);
 			//console.log(projectCompanyStr)
 			if(projectCompanyStr == undefined){
 				var projectCompanyStrN='';
@@ -232,7 +232,7 @@
 				var projectCompanyStrN=projectCompanyStr;
 			}
 			
-			var projectCompanyCodeStr=projectInfo.projectCompanyCode;
+			var projectCompanyCodeStr=$.trim(projectInfo.projectCompanyCode);
 			if(projectCompanyCodeStr == undefined){
 				var projectCompanyCodeStrN='';
 			}else if(projectCompanyCodeStr.length>20){
@@ -243,7 +243,7 @@
 			}
 			
 			
-			var companyLegalStr=projectInfo.companyLegal;
+			var companyLegalStr=$.trim(projectInfo.companyLegal);
 			if(projectCompanyStr == undefined){
 				var companyLegalStrN='';
 			}else if(companyLegalStr.length>20){
@@ -254,11 +254,11 @@
 			} 
 			
 			$("#company-info #projectCompany").text(getVal(projectCompanyStrN,''));
-			$("#company-info #projectCompany").attr("title",getVal(projectInfo.projectCompany,''));
+			$("#company-info #projectCompany").attr("title",getVal(projectCompanyStr,''));
 			$("#company-info #projectCompanyCode").text(getVal(projectCompanyCodeStrN,''));
-			$("#company-info #projectCompanyCode").attr("title",getVal(projectInfo.projectCompanyCode,''));
+			$("#company-info #projectCompanyCode").attr("title",getVal(projectCompanyCodeStr,''));
 			$("#company-info #companyLegal").text(getVal(companyLegalStrN,''));
-			$("#company-info #companyLegal").attr("title",getVal(projectInfo.companyLegal,''));
+			$("#company-info #companyLegal").attr("title",getVal(companyLegalStr,''));
 			var date = '';
 			if(!isNaN(projectInfo.formationDate))
 			{
