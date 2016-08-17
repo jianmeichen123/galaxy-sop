@@ -22,6 +22,7 @@
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
 <script src="<%=path %>/js/sopinfo.js"></script>
+<script src="<%=path %>/js/base_appropriation.js"></script>
 <style type="text/css">
 .bars{margin:0 !important;}
 </style></head>
@@ -78,128 +79,9 @@
                         </dl>
                       </div>
                     </div>  
-                    <!-- 创业服务协议 --> 
-                    <div class="agreement">
-                      <div class="b_agreement clearfix">
-                          <div class="b_agreement_l fl">
-                            <h3>创业服务协议</h3>
-                            <dl>
-                              <dt>计划总拨款金额：</dt>
-                              <dd>20,000,000</dd>
-                            </dl>
-                            <dl>
-                              <dt>编辑人：</dt>
-                              <dd>徐文秀</dd>
-                            </dl>
-                            <dl>
-                              <dt>编辑日期：</dt>
-                              <dd>2016-07-18</dd>
-                            </dl>
-                          </div>
-                          <div class="b_agreement_r fr">
-                                <button class="pbtn bluebtn" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name='添加分期拨款计划'>添加分期拨款计划</button>
-                                <label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-name='编辑总拨款计划'>编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name='提示'>删除</label>
-                          </div>
-                      </div>                       
-                      <!--表格内容-->
-                      <table width="100%" cellspacing="0" cellpadding="0" class="commonsize delivery">
-                            <thead>
-                                <tr>
-                                    <th>分拨</th>
-                                    <th>拨款时间</th>
-                                    <th>计划拨款金额（元）</th>
-                                    <th>实际拨款金额（元）</th>
-                                    <th>附件数</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>                                                                                                                                    
-                            <tbody>
-                                <tr>
-                                    <td><a class="blue" href="/sop/html/actual.html" data-btn="actual" data-name='实际拨款信息列表'>分拨1 </a></td>
-                                    <td>完成条款4-15个工作日内</td>
-                                    <td>6,000,000</td>
-                                    <td>6,000,000</td>
-                                    <td>6</td>                                  
-                                    <td><label class="blue" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name='编辑分期拨款计划'>编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name='提示'>删除</label><label class="blue noMargin">下载附件</label></td> 
-                                </tr>
-                                <tr>
-                                    <td><a class="blue" href="/sop/html/actual.html" data-btn="actual" data-name='实际拨款信息列表'>分拨1 </a></td>
-                                    <td>完成条款4-15个工作日内</td>
-                                    <td>6,000,000</td>
-                                    <td>6,000,000</td>
-                                    <td>6</td>                                  
-                                    <td><label class="blue" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name='编辑分期拨款计划'>编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name='提示'>删除</label><label class="blue noMargin">下载附件</label></td> 
-                                </tr>
-                                                       
-                              </tbody>
-                        </table>
-                    </div>
-                  
-                    <!-- 追加投资协议 --> 
-                    <div class="agreement">
-                      <div class="b_agreement clearfix">
-                          <div class="b_agreement_l fl">
-                            <h3>追加投资协议</h3>
-                            <dl>
-                              <dt>计划总拨款金额：</dt>
-                              <dd>20,000,000</dd>
-                            </dl>
-                            <dl>
-                              <dt>编辑人：</dt>
-                              <dd>徐文秀</dd>
-                            </dl>
-                            <dl>
-                              <dt>编辑日期：</dt>
-                              <dd>2016-07-18</dd>
-                            </dl>
-                          </div>
-                          <div class="b_agreement_r fr">
-                                <button class="pbtn bluebtn" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name='添加分期拨款计划'>添加分期拨款计划</button>
-                                <label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-name='编辑总拨款计划'>编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name='提示'>删除</label>
-                          </div>
-                      </div>                       
-                      <!--表格内容-->
-                      <table width="100%" cellspacing="0" cellpadding="0" class="commonsize delivery moneyAgreement">
-                            <thead>
-                                <tr>
-                                    <th>分拨</th>
-                                    <th>拨款时间</th>
-                                    <th>计划拨款金额（元）</th>
-                                    <th>实际拨款金额（元）</th>
-                                    <th>附件数</th>
-                                    <th>操作</th>
-                                </tr>
-                            </thead>                                                                                                                                    
-                            <tbody>
-                                <tr>
-                                    <td><a class="blue" href="/sop/html/run_digest.html" data-btn="run_digest" data-name='分拨1'>分拨1 </a></td>
-                                    <td>完成条款4-15个工作日内</td>
-                                    <td>6,000,000</td>
-                                    <td>6,000,000</td>
-                                    <td>6</td>                                  
-                                    <td><label class="blue" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name='编辑分期拨款计划'>编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name='提示'>删除</label><label class="blue noMargin">下载附件</label></td> 
-                                </tr>
-                                <tr>
-                                    <td><a class="blue" href="/sop/html/run_digest.html" data-btn="run_digest" data-name='分拨2'>分拨2 </a></td>
-                                    <td>完成条款4-15个工作日内</td>
-                                    <td>6,000,000</td>
-                                    <td>6,000,000</td>
-                                    <td>6</td>                                  
-                                    <td><label class="blue" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name='编辑分期拨款计划'>编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name='提示'>删除</label><label class="blue noMargin">下载附件</label></td> 
-                                </tr>
-                                <tr>
-                                    <td><a class="blue" href="/sop/html/run_digest.html" data-btn="run_digest" data-name='分拨3'>分拨3 </a></td>
-                                    <td>完成条款4-15个工作日内</td>
-                                    <td>6,000,000</td>
-                                    <td>6,000,000</td>
-                                    <td>6</td>                                  
-                                    <td><label class="blue" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name='编辑分期拨款计划'>编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name='提示'>删除</label><label class="blue noMargin">下载附件</label></td> 
-                                </tr>                                                       
-                              </tbody>
-                        </table>
-                        <span class="show_more blue fr">显示更多</span><span class="show_hide blue fr">收起</span>
-                    </div>
-  
+                  <div id="tabApprAllList">
+                    
+           </div>
         </div>  
                    <!--tab end-->
           </div>
@@ -220,14 +102,12 @@
 	  data.property = "created_time";
 	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList, JSON.stringify(data), function(data){
 		console.log(data);	
-	  });
-	  
+	  }); 
 		//编辑总拨款计划
 		$("[data-btn='actual_all']").on("click",function(){ 
 			var $self = $(this);
-		//	var _url = $self.attr("href");
-		    var _url=platformUrl.toApprActualAll;
-			var _name= $self.attr("data-name");
+		var _url=platformUrl.toApprActualAll+"?pid=${pid}";
+		var _name= $self.attr("data-name");
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
@@ -237,6 +117,21 @@
 			});
 			return false;
 		});
+		//编辑总拨款计划
+		$("[data-btn='actual_aging']").on("click",function(){ 
+			var $self = $(this);
+		var _url=platformUrl.toApprActualAging+"/${pid}";
+		var _name= $self.attr("data-name");
+			$.getHtml({
+				url:_url,//模版请求地址
+				data:"",//传递参数
+				okback:function(){
+					$("#popup_name").html(_name);
+				}//模版反回成功执行	
+			});
+			return false;
+		});
+		
 		
 	  createMenus(5);
      $("#bar").css("width","0px");  //初始化进度条宽度；

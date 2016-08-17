@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort.Direction;
 
 import com.galaxyinternet.bo.GrantTotalBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.form.Token;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -57,13 +58,15 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		request.setAttribute("prograss", proinfo.getProjectProgress());
 		request.setAttribute("pname", proinfo.getProjectName());
 		request.setAttribute("projectId", pid);
-		return "project/tanchuan/actual_aging";
+		return "project/tanchuan/appr_actual_aging";
 	}
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
 	@RequestMapping(value = "/toApprActualAll", method = RequestMethod.GET)
 	public String toApprActualAll(HttpServletRequest request) {
+		String pid=request.getParameter("pid");
+		request.setAttribute("projectId", pid);
 		return "project/tanchuan/appr_actual_all";
 	}
 	/**
@@ -108,8 +111,6 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 							totalBo.getPageSize(), //3
 							Direction.fromString(totalBo.getDirection()), //desc
 							totalBo.getProperty()));
-			
-			
 			responseBody.setResult(new Result(Status.OK, ""));
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -2,34 +2,61 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
 
 <div class="addmentc">
 		<div class="title_bj" id="popup_name"></div>
+		<form action="" method="post" id="add_form">
 	    <div class="form clearfix">
 	        <div class="edit_actual">
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>协议名称 ：</dt>
 	                <dd>
 	                	<div>
-	                    	<input class="edittxt" type="text">
+	                    	<input class="edittxt" type="text" name="grantName" valType="required" msg="<font color=red>*</font>称不能为空">
 	                    </div>
 	                </dd>
 	            </dl>
-                
+                <input type="hidden" name="projectId" value="${projectId}">
                 <dl class="fmdl fl_l  clearfix">
 	                <dt>计划拨款金额 ：</dt>
-	                <dd>
-	                	
+	                <dd>	
 	                	<div>
-	                    	<input class=" txt " type="text">
+	                    	<input class=" txt " type="text" name="grantMoney">
 	                    </div> 
 	                </dd>
 	            </dl>
 	             
 	        </div>
 	    </div>
+	    </form>
 	    <div class="button_affrim">
-	        <a href="javascript:;" id="win_ok_btn" class="register_all_affrim fl">确认</a>
+	        <a href="javascript:;" id="win_ok_btn" onclick="saveAppr()" class="register_all_affrim fl">确认</a>
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr">取消</a>
 	    </div>  	
 	</div>
+	<script>
+	var 	formData;
+	function saveAppr(){
+		if(beforeSubmit()){
+			sendPostRequestByJsonStr(platformUrl.addGrantTotal, $("#add_form").serializeObject(), function(data){
+				if(!data){
+					layer.msg("提交表单过于频繁!");
+				}else if(data.result.status=="ERROR"){
+					
+						layer.msg("shibai!");
+				}else{
+					layer.msg("添加总拨款计划成功!");
+					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}");
+				}
+				
+			});
+		}
+	}
+
+
+	
+	</script>
