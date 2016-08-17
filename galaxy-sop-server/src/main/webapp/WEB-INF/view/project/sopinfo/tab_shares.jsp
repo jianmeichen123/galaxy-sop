@@ -44,7 +44,7 @@
           </tr>
           <tr>
               <td><span class="new_color_gray th">法人：</span><input type="text" placeholder="请输入法人名称" name="companyLegal" maxlength="30"></td>
-              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate"></td>
+              <td><span class="new_color_gray th">成立日期：</span><input type="text" class="timeico" name="formationDate" onkeydown="return false;"></td>
           </tr>
       </table>                    
       </form>
@@ -185,6 +185,10 @@
 	}
 	function saveCompany()
 	{
+		var date = $('input[name="formationDate"]').val();
+		if(date == ''){
+			$('input[name="formationDate"]').attr("name","cancel");
+		}
 		var url = platformUrl.saveCompanyInfo;
 		var data = JSON.parse($("#company-info-form").serializeObject());
 		if(data.formationDate != null && data.formationDate != '')
@@ -214,29 +218,41 @@
 	}
 	function refreshCompanyInfo()
 	{
+		$('input[name="cancel"]').attr("name","formationDate");
 		var dtd = $.Deferred();
 		$.when(top.getProjectInfo(dtd))
 		.done(function(){
 			var projectCompanyStr=projectInfo.projectCompany;
-			if(projectCompanyStr.length>20){
+			//console.log(projectCompanyStr)
+			if(projectCompanyStr == undefined){
+				var projectCompanyStrN='';
+			}else if(projectCompanyStr.length>20){
 				var projectCompanyStrN=projectCompanyStr.substring(0,20);				
 			}else{
 				var projectCompanyStrN=projectCompanyStr;
 			}
+			
 			var projectCompanyCodeStr=projectInfo.projectCompanyCode;
-			if(projectCompanyCodeStr.length>20){
+			if(projectCompanyCodeStr == undefined){
+				var projectCompanyCodeStrN='';
+			}else if(projectCompanyCodeStr.length>20){
 				
 				var projectCompanyCodeStrN=projectCompanyCodeStr.substring(0,20);				
 			}else{
 				var projectCompanyCodeStrN=projectCompanyCodeStr;
 			}
+			
+			
 			var companyLegalStr=projectInfo.companyLegal;
-			if(companyLegalStr.length>20){
+			if(projectCompanyStr == undefined){
+				var companyLegalStrN='';
+			}else if(companyLegalStr.length>20){
 				
 				var companyLegalStrN=companyLegalStr.substring(0,20);				
 			}else{
 				var companyLegalStrN=companyLegalStr;
-			}
+			} 
+			
 			$("#company-info #projectCompany").text(getVal(projectCompanyStrN,''));
 			$("#company-info #projectCompany").attr("title",getVal(projectInfo.projectCompany,''));
 			$("#company-info #projectCompanyCode").text(getVal(projectCompanyCodeStrN,''));
