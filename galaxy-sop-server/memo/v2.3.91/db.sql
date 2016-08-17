@@ -1,3 +1,4 @@
+use fx_db;
 
 /**创建总拨款计划记录表**/
 CREATE TABLE `sop_total_grant` (
