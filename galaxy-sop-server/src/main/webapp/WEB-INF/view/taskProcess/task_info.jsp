@@ -184,6 +184,17 @@ function getProjectInfo(projectLoaded)
 						self.attr("title",str);
 					}
 				}
+				if(self.attr('id') =='projectCompany'){
+					var str=project[id];
+					//alert(str.length);
+					if(str.length>20){
+						self.text(str.substring(0,20));
+						self.attr("title",str);
+					}else{
+						self.text(str);
+						self.attr("title",str);
+					}
+				}
 			});
 			$(".projectmsg h2").text(project.projectName);
 			if($.isFunction(projectLoaded)){

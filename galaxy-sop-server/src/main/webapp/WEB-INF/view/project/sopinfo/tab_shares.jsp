@@ -217,9 +217,32 @@
 		var dtd = $.Deferred();
 		$.when(top.getProjectInfo(dtd))
 		.done(function(){
-			$("#company-info #projectCompany").text(getVal(projectInfo.projectCompany,''));
-			$("#company-info #projectCompanyCode").text(getVal(projectInfo.projectCompanyCode,''));
-			$("#company-info #companyLegal").text(getVal(projectInfo.companyLegal,''));
+			var projectCompanyStr=projectInfo.projectCompany;
+			if(projectCompanyStr.length>20){
+				var projectCompanyStrN=projectCompanyStr.substring(0,20);				
+			}else{
+				var projectCompanyStrN=projectCompanyStr;
+			}
+			var projectCompanyCodeStr=projectInfo.projectCompanyCode;
+			if(projectCompanyCodeStr.length>20){
+				
+				var projectCompanyCodeStrN=projectCompanyCodeStr.substring(0,20);				
+			}else{
+				var projectCompanyCodeStrN=projectCompanyCodeStr;
+			}
+			var companyLegalStr=projectInfo.companyLegal;
+			if(companyLegalStr.length>20){
+				
+				var companyLegalStrN=companyLegalStr.substring(0,20);				
+			}else{
+				var companyLegalStrN=companyLegalStr;
+			}
+			$("#company-info #projectCompany").text(getVal(projectCompanyStrN,''));
+			$("#company-info #projectCompany").attr("title",getVal(projectInfo.projectCompany,''));
+			$("#company-info #projectCompanyCode").text(getVal(projectCompanyCodeStrN,''));
+			$("#company-info #projectCompanyCode").attr("title",getVal(projectInfo.projectCompanyCode,''));
+			$("#company-info #companyLegal").text(getVal(companyLegalStrN,''));
+			$("#company-info #companyLegal").attr("title",getVal(projectInfo.companyLegal,''));
 			var date = '';
 			if(!isNaN(projectInfo.formationDate))
 			{
@@ -227,6 +250,7 @@
 			}
 			$("#company-info #formationDate").text(date);
 		});
+		
 	}
 	//设置公司表单数据
 	function initCompanyFormData()
