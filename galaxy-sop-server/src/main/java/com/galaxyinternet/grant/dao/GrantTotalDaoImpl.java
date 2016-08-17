@@ -1,4 +1,4 @@
-package com.galaxyinternet.grant;
+package com.galaxyinternet.grant.dao;
 
 import org.springframework.stereotype.Repository;
 
