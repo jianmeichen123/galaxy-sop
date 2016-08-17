@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,8 +20,10 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.GrantTotal;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantTotalService;
+import com.galaxyinternet.service.ProjectService;
 
 
 
@@ -36,6 +40,35 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		return this.grantTotalService;
 	}
 	
+	@Autowired
+	private ProjectService projectService;
+	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toAppropriation/{pid}", method = RequestMethod.GET)
+	public String toAppropriation(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		Project proinfo = new Project();
+		proinfo = projectService.queryById(pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", proinfo.getProjectProgress());
+		request.setAttribute("pname", proinfo.getProjectName());
+		request.setAttribute("projectId", pid);
+		return "project/sopinfo/tab_ appropriation";
+	}
+	
+	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toApprActualAging/{pid}", method = RequestMethod.GET)
+	public String toApprActualAging(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		Project proinfo = new Project();
+		proinfo = projectService.queryById(pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", proinfo.getProjectProgress());
+		request.setAttribute("pname", proinfo.getProjectName());
+		request.setAttribute("projectId", pid);
+		return "project/sopinfo/tanchuan/actual_aging";
+	}
 	
 	/**
 	 * 新建总拨款计划

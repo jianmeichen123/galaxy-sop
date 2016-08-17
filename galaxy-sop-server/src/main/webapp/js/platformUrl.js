@@ -869,7 +869,16 @@ var platformUrl = {
 	 * 
 	 */
 	receiveTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/receiveTransfer",
-
+	//
+	
+	/**
+	 * 拨款信息开始
+	 * 
+	 * 
+	 */
+   //添加分期拨款计划弹出页面
+	
+	toApprActualAging : Constants.sopEndpointURL + "/galaxy/project/toApprActualAging",
 	
 	
 }
