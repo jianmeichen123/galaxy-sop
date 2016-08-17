@@ -869,26 +869,18 @@ var platformUrl = {
 	 * 
 	 */
 	receiveTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/receiveTransfer",
-	//
 	
 	/**
 	 * 拨款信息开始
-	 * 
-	 * 
 	 */
-   //添加分期拨款计划弹出页面
-	
+    //添加分期拨款计划弹出页面
 	toApprActualAging : Constants.sopEndpointURL + "/galaxy/grant/total/toApprActualAging",
-	
-   //添加总拨款计划弹出页面
-	
+    //添加总拨款计划弹出页面
 	toApprActualAll : Constants.sopEndpointURL + "/galaxy/grant/total/toApprActualAll",
-	
-   //添加总拨款计划提交
-	
+    //添加总拨款计划提交
 	addGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/addGrantTotal",
-
-	
+	//查询总拨款计划列表
+	queryGrantTotalList : Constants.sopEndpointURL + "/galaxy/grant/total/search",
 }
 
 /**

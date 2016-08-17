@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.data.domain.Sort.Direction;
 
 import com.galaxyinternet.bo.GrantTotalBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
@@ -33,6 +36,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	
 	private final static Logger _common_logger_ = LoggerFactory.getLogger(GrantTotalController.class);
 	
+	@Autowired
 	private GrantTotalService grantTotalService;
 	
 	@Override
@@ -85,6 +89,30 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			_common_logger_.info("添加总拨款计划成功"+grantTotal.toString());
 		} catch (Exception e) {
 			_common_logger_.error("添加总拨款计划失败！", e);
+		}
+		return responseBody;
+	}
+	
+	/**
+	 * 总拨款计划列表查询
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/search", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantTotalBo> searchProject(HttpServletRequest request, @RequestBody GrantTotalBo totalBo) {
+		ResponseData<GrantTotalBo> responseBody = new ResponseData<GrantTotalBo>();
+		try {
+			User user = (User) getUserFromSession(request);
+			totalBo.setCreateUid(user.getId());
+			Page<GrantTotal> totalPage = grantTotalService.queryPageList(totalBo,
+					new PageRequest(totalBo.getPageNum(), //1 
+							totalBo.getPageSize(), //3
+							Direction.fromString(totalBo.getDirection()), //desc
+							totalBo.getProperty()));
+			
+			
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return responseBody;
 	}

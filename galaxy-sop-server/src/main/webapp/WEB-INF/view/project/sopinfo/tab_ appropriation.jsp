@@ -211,8 +211,17 @@
 </div>
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
 <script>
-// 交割前事项js
   $(function(){
+	  
+	  var data = {};
+	  data.pageNum = 1;
+	  data.pageSize = 3;
+	  data.direction = "asc";
+	  data.property = "created_time";
+	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList, JSON.stringify(data), function(data){
+		console.log(data);	
+	  });
+	  
 		//编辑总拨款计划
 		$("[data-btn='actual_all']").on("click",function(){ 
 			var $self = $(this);
