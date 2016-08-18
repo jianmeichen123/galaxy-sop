@@ -133,7 +133,16 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 										insertIdeaNews(populateProgressLog(operLogType, user, map, recordType));
 									}else if (ltype == LogType.IOSPUSHMESS) {
 										toPushIosMessage(iosMessageOper,user,map);
-									} else if (ltype == LogType.PROJECTNEWS) {
+									}else if(ltype == LogType.BATCHMESSAGE){
+										if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH) != null){
+											List<Map<String,Object>> mapList = (List<Map<String, Object>>) map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH);
+											if(mapList != null && mapList.size() > 0){
+												for(Map<String,Object> map:mapList){
+													insertMessageTip(populateOperationMessage(type, user, map));
+												}
+											}
+										}
+									}else if (ltype == LogType.PROJECTNEWS) {
 										// 这里用于扩展
 									}
 								}

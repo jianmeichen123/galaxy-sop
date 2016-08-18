@@ -52,9 +52,15 @@ public class MeetSchedulingMessageHandler implements MessageHandler
 			content.append("的会议已取消");
 		}
 		if(message.getKeyword().contains("update")){
-			content.append("原已被安排于");
-			content.append(message.getKeyword().replace("update", ""));
-			content.append("的会议已重新被安排");
+			String timestr = message.getKeyword().replace("update", "");
+			if(StringUtils.isNotEmpty(timestr)){
+				String time[] = timestr.split(",");
+				content.append("原已被安排于");
+				content.append(time[0]);
+				content.append("的会议已重新被安排");
+				content.append("，将于"+time[1]+"进行");
+			}
+			
 		}
 		if(message.getKeyword().contains("insert")){
 			content.append("已被安排于");

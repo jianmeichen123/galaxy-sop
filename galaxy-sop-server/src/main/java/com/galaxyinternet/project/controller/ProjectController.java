@@ -2329,7 +2329,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/**
 	 * 更新排期池时间/updateReserveTime
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE,LogType.IOSPUSHMESS})
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.BATCHMESSAGE,LogType.IOSPUSHMESS})
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTime", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> updateReserveTime(
@@ -2401,11 +2401,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		}
 		StringBuffer proNameList=new StringBuffer();
+		List<Map<String, Object>> messageList = new ArrayList<Map<String, Object>>();
 		try {
 			for (MeetingScheduling ms : query) {
 				MeetingScheduling  redisPush = new MeetingScheduling();
 				String mestr = "";
-				String messageType = null;
+				String messageType = "";
 				MeetingScheduling oldMs = msmap.get(ms.getId());
 				
 				redisPush.setId(oldMs.getId());
@@ -2471,7 +2472,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 										.getReserveTimeEnd().getTime()) {
 							meetingSchedulingService.updateByIdSelective(ms);
 							sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.two);
-							belongUser.setKeyword("update:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
+							belongUser.setKeyword("update:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart())+","+DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));	
 							
 							redisPush.setReserveTimeStart(oldMs.getReserveTimeStart());
 							cache.removeRedisSetOBJ(Constants.PUSH_MESSAGE_LIST, redisPush);
@@ -2500,17 +2501,25 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					}
 
 				}
+				//消息数据
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, pj.getProjectName());
+				params.put(PlatformConst.REQUEST_SCOPE_USER, belongUser);
+				params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, pj.getId());
+				params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
+				params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, UrlNumber.one);
 				if(!"operate".equals(belongUser.getKeyword())){
-					ControllerUtils.setRequestParamsForMessageTip(request, belongUser, pj.getProjectName(), pj.getId(), messageType, UrlNumber.one);
+					messageList.add(params);
 				}
-				
 			}
+			ControllerUtils.setRequestBatchParamsForMessageTip(request,messageList);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
 			_common_logger_.error("更新排期失败 ",e.getMessage());
 			e.printStackTrace();
 			return responseBody;
 		}
+		
 		responseBody.setResult(new Result(Status.OK, null, "更新成功!"));
 		if(proNameList.length() > 0){
 			responseBody.setResult(new Result(Status.OK, null, proNameList.toString()+" 项目已经通过,不能进行排期!"));

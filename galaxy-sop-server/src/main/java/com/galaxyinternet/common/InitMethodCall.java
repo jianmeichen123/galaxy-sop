@@ -1,26 +1,18 @@
 package com.galaxyinternet.common;
 
-
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.galaxyinternet.common.utils.SpringContextManager;
 import com.galaxyinternet.scheduling.MeetingPassStageTask;
 import com.galaxyinternet.scheduling.PullMessageTask;
 import com.galaxyinternet.scheduling.PushMessageTask;
 import com.galaxyinternet.scheduling.UserInfoCache;
-import com.galaxyinternet.service.UserRoleService;
 
 
 public class InitMethodCall extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	@Autowired
-	private UserRoleService userRoleService;
-
 	public void init(ServletConfig config) throws ServletException {
 		MeetingPassStageTask meetingPassStageTask = SpringContextManager.getBean("meetingPassStageTask",MeetingPassStageTask.class);
 		meetingPassStageTask.execute();
