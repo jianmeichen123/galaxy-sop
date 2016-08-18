@@ -52,6 +52,7 @@ public class GrantTotal extends PagableEntity {
 	private List<GrantPart> partList;
 	private String formatCreatedTime;
 	private String formatUpdatedTime;
+	private Double searchPartMoney;
 	public List<GrantPart> getPartList() {
 		return partList;
 	}
@@ -65,7 +66,16 @@ public class GrantTotal extends PagableEntity {
 		return formatCreatedTime;
 	}
 	public String getFormatUpdatedTime() {
+		if(updatedTime != null){
+			return DateUtil.longToString(updatedTime);
+		}
 		return formatUpdatedTime;
+	}
+	public Double getSearchPartMoney() {
+		return searchPartMoney;
+	}
+	public void setSearchPartMoney(Double searchPartMoney) {
+		this.searchPartMoney = searchPartMoney;
 	}
 	
 	

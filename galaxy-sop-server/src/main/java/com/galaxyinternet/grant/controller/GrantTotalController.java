@@ -125,10 +125,23 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			//封装分期拨款
 			List<GrantTotal> tList = new ArrayList<GrantTotal>();
 			for(GrantTotal t : totalPage.getContent()){
+				boolean isSearch = false;
 				part.setTotalGrantId(t.getId());
 				List<GrantPart> partList = grantPartService.selectHasActualMoney(part);
-				t.setPartList(partList);
-				tList.add(t);
+				if(total.getSearchPartMoney() != null){
+					for(GrantPart p : partList){
+						if(p.getGrantMoney().doubleValue() == total.getSearchPartMoney().doubleValue()){
+							isSearch = true;
+							break;
+						}
+					}
+				}else{
+					isSearch = true;
+				}
+				if(isSearch){
+					t.setPartList(partList);
+					tList.add(t);
+				}
 			}
 			totalPage.setContent(tList);
 			responseBody.setPageList(totalPage);
