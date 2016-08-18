@@ -2097,9 +2097,9 @@ dl{position: relative;}
 .b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left: 30px;cursor: pointer;}
 .money{margin:40px 0 30px;}
 #bar_m{height:8px;border-radius:5px;background:#529ae2;}
-.agreement .show_more{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}
+.proOperation .show_more{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}
 .delivery td label.noMargin{margin:0;}
-
+#tabApprAllList .agreement{display:none;}
 /*拨款弹窗*/
 .addbutton a {
     height: 28px;
