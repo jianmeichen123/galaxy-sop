@@ -70,7 +70,7 @@ function  assembleSingleTabHtml(grantPart){
 		   +'<td><a class="blue" href="/sop/html/actual.html" data-btn="actual" data-name="实际拨款信息列表">'+grantPart.grantName+'</a></td>'
 		   +'<td>'+grantPart.grantDetail+'</td>'
 		   +'<td>'+grantPart.grantMoney+'</td>'
-		   +'<td>'+grantPart.grantMoney+'</td>'
+		   +'<td>'+grantPart.actualMoney+'</td>'
 		   +'<td>'+grantPart.grantMoney+'</td>'                                 
 		   +'<td><label class="blue" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name="编辑分期拨款计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name="提示">删除</label><label class="blue noMargin">下载附件</label></td>' 
 		   +'</tr>';

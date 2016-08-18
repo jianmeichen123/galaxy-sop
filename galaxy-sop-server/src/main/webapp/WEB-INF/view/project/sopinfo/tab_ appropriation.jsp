@@ -27,6 +27,9 @@
 .bars{margin:0 !important;}
 </style></head>
 <body>
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
 <jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 

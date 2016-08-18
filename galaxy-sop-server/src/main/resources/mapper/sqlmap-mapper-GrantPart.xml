@@ -152,7 +152,7 @@
 		<result column="create_uname" property="createUname" />
 		<result column="updated_time" property="updatedTime" />
 		<result column="created_time" property="createdTime" />
-		<result column="actualMoney" property="actual_money" />
+		<result column="actual_money" property="actualMoney" />
 	</resultMap>
 	<!-- 查询，包含所属实际拨款总金额 -->
 	<select id="selectHasActualMoney" resultMap="A_BaseResultMap" parameterType="java.util.Map">

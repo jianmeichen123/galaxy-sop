@@ -2,10 +2,6 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<!-- 校验 -->
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-
 
 <div class="addmentc">
 		<div class="title_bj" id="popup_name"></div>
@@ -16,7 +12,7 @@
 	                <dt>协议名称 ：</dt>
 	                <dd>
 	                	<div>
-	                    	<input class="edittxt" type="text" name="grantName" valType="required" msg="<font color=red>*</font>称不能为空">
+	                    	<input class="edittxt" type="text" name="grantName" allowNULL="yes" valType="OTHER" regString="^([\u4e00-\u9fa5]{1,20}?)$" msg="<font color=red>*</font>只能输入20个汉字">
 	                    </div>
 	                </dd>
 	            </dl>
