@@ -241,7 +241,7 @@ function getProjectInfo(dtd)
                                 <span class="mar_left">
                                 	<div class="mar_left"><input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否 </div>
                                     <div class="mar_left"><input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">是</div>
-                                    <div class="mar_left"><input type="text" class="new_nputr" placeholder="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></div>
+                                    <div class="mar_left"><input type="text" class="new_nputr" value="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></div>
                                 </span></td>
                               </tr>
 				        </table>  
@@ -623,7 +623,18 @@ $(function(){
 var width_fwb=$('.tabtable_con_on').width();
 $('.width_fwb').css('width',(width_fwb-20));
 
+$("#faNameEdit").keydown(function(){
+		if(this.value=="请输入FA名称"){
+			this.value = "";
+		}
 	
+})
+$("#faNameEdit").blur(function(){
+		if(this.value==""){
+			this.value = "请输入FA名称";
+		}
+	
+})	
 
 
 
