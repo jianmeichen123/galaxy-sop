@@ -6,9 +6,6 @@ $(function(){
 	  data.direction = "asc";
 	  data.property = "created_time";
 	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList,JSON.stringify(data),queryBack);
-	//assembleHtml();
-	//assembleSingleTabHtml();
-	//assembleHtml();
 });
 function queryBack(data){
 	var result = data.result.status;
