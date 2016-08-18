@@ -260,7 +260,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	}
 	
 	/**
-	 * 获取档案列表(	查询)
+	 * 获取档案列表(分页查询)
 	 * 
 	 * @param
 	 * @return
