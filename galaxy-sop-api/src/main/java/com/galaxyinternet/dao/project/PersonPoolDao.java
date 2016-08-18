@@ -15,5 +15,12 @@ public interface PersonPoolDao extends BaseDao<PersonPool, Long> {
 	public Page<PersonPool> selectByPid(PersonPoolBo query,Pageable pageable);
 	
 	public List<PersonPool> selectNoToTask(Map<String,Object> params);
+	
+	/**
+	 * 根据名称查询项目ID
+	 * @param personPool
+	 * @return
+	 */
+	public List<PersonPool> selectProjectIdByPersonName(PersonPool personPool);
 		
 }
