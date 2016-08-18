@@ -1649,20 +1649,20 @@ font-family: "宋体";
 /*全部项目*/
 .btnbox_f .add_prj{border:1px solid #539be2;}
 .searchall_prj{width:100%;padding:10px 0;background-color: #d6d8e1;border-radius: 4px;margin-top: 10px;position: relative;}
-.searchall_prj .searchall_top,.searchall_prj .searchall_bottom{padding:0 20px;overflow: hidden;width:940px;}
+.searchall_prj .searchall_top,.searchall_prj .searchall_bottom{padding:0 20px;overflow: hidden;width:95%;}
 .searchall_prj .searchall_top{margin-bottom: 10px;display: none;}
-.searchall_prj .fmdl{margin-right: 30px;}
+.searchall_prj .fmdl{margin-right: 20px;}
 .searchall_prj .fmdl select{box-sizing: border-box; height:30px;}
 .searchall_prj dt{width:75px;text-align: right;font-size: 14px;color:#3e4351;}
 .searchall_prj dd,.searchall_prj dd select{width:110px;}
 .searchall_prj dd select{border:1px solid #ccd2d7;}
-.searchall_prj .txt{width:165px;height:30px; float: left; line-height: 30px;box-sizing: border-box; border:1px solid #ccd2d7;border-radius: 4px;font-size: 12px;padding-left: 5px;margin-left: 85px;}
-.searchall_prj button{display: inline-block;}
+.searchall_prj .fmdl .txt{width:165px;height:30px; float: left; line-height: 30px;box-sizing: border-box; border:1px solid #ccd2d7;border-radius: 4px;font-size: 12px;padding-left: 5px;}
+.searchall_prj button{display: inline-block;cursor:pointer;}
 .searchall_prj .bluebtn{height:28px;background-color: #66b1f2;margin-left: 5px;}
 .cx_prj{height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -180px;padding:0 8px 0 30px;}
 .searchall_prj .reset{width:60px;}
 .searchall_prj .btn{margin-left: 35px; float: left;}
-.searchall_prj .show_more{position: absolute;right:20px;top:15px;}
+.searchall_prj .show_more{position: absolute;right:90px;bottom:15px;}
 .searchall_prj .show_more a{margin-left: 10px;cursor: pointer;}
 .searchall_prj .searchbox_hidden{display: none;}
 .searchall_prj .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}
