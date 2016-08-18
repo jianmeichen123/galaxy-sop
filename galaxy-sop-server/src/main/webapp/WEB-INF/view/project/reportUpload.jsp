@@ -6,6 +6,7 @@
 	<input type="hidden" name="fileStatus" value="fileStatus:2"/>
 	<input type="hidden" name="projectProgress" value="projectProgress:4"/>
 	<input type="hidden" name="fileType"/> 
+	<input type="hidden" name="fileSource" value="1"/> 
 	<div class="title_bj">添加项目立项报告</div>
 
 	<div class="fmdl clearfix ">

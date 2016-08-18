@@ -13,6 +13,9 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .userinfro select{ margin-left:10px;   padding: 0px 0 !important;}
 /* 去掉ie中input框右侧的X */
  ::-ms-clear{display: none;}
+/*固定弹窗排期头部*/
+.fixed_table_tit{position:fixed; width:680px}
+.fixed_table{width:680px}
 /*clearfix-浮动清理*/
 .clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden }
 .clearfix { display:inline-block }
@@ -2094,9 +2097,9 @@ dl{position: relative;}
 .b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left: 30px;cursor: pointer;}
 .money{margin:40px 0 30px;}
 #bar_m{height:8px;border-radius:5px;background:#529ae2;}
-.agreement .show_more{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}
+.proOperation .show_more{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}
 .delivery td label.noMargin{margin:0;}
-
+#tabApprAllList .agreement{display:none;}
 /*拨款弹窗*/
 .addbutton a {
     height: 28px;
