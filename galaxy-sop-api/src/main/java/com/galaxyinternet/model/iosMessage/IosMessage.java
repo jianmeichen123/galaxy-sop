@@ -3,6 +3,7 @@ package com.galaxyinternet.model.iosMessage;
 import java.util.List;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 
 public class IosMessage extends BaseEntity{
 
@@ -71,6 +72,12 @@ public class IosMessage extends BaseEntity{
 	}
 	public void setOperator(String operator) {
 		this.operator = operator;
+	}
+	
+	
+	@Override
+	public String toString() {
+		return GSONUtil.toJson(this);
 	}
 
 	

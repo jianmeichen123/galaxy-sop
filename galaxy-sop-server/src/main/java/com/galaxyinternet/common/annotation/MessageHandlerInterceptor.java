@@ -13,16 +13,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.alibaba.fastjson.JSONObject;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.iosMessage.IosMessageGenerator;
+import com.galaxyinternet.iosMessage.operType.IosMeaageOperation;
 import com.galaxyinternet.model.common.ProgressLog;
+import com.galaxyinternet.model.iosMessage.IosMessage;
 import com.galaxyinternet.model.operationLog.OperationLogType;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
 import com.galaxyinternet.model.operationMessage.OperationType;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopParentFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.operationMessage.MessageGenerator;
@@ -34,7 +40,7 @@ import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationLogsService;
 import com.galaxyinternet.service.OperationMessageService;
 import com.galaxyinternet.service.ProgressLogService;
-import com.galaxyinternet.service.UserService;
+import com.tencent.xinge.XGPush;
 
 /**
  * @description 消息提醒拦截器
@@ -85,12 +91,11 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	OperationMessageService operationMessageService;
 	
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
 	OperationLogsService operationLogsService;
 	@Autowired
 	MessageGenerator messageGenerator;
+	@Autowired
+	IosMessageGenerator iosMessageGenerator;
 
 	@Autowired
 	ProgressLogService ideaNewsService;
@@ -108,7 +113,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 					String uniqueKey = getUniqueKey(request, map, logger);
 					final OperationType type = OperationType.getObject(uniqueKey);   //message
 					final OperationLogType operLogType = OperationLogType.getObject(uniqueKey); //log
-					if (null != type || null != operLogType) {
+					final IosMeaageOperation iosMessageOper = IosMeaageOperation.getObject(uniqueKey); //ios
+					
+					if (null != type || null != operLogType || null != iosMessageOper) {
 						final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 						final RecordType recordType = logger.recordType();
 						final LogType[] logTypes = logger.operationScope();  //log message 
@@ -124,6 +131,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 										insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
 									} else if (ltype == LogType.IDEANEWS) {
 										insertIdeaNews(populateProgressLog(operLogType, user, map, recordType));
+									}else if (ltype == LogType.IOSPUSHMESS) {
+										toPushIosMessage(iosMessageOper,user,map);
 									} else if (ltype == LogType.PROJECTNEWS) {
 										// 这里用于扩展
 									}
@@ -365,4 +374,37 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	private OperationMessage populateOperationMessage(OperationType type, User user, Map<String, Object> map) {
 		return messageGenerator.generate(type, user, map);
 	}
+	
+	
+	
+	// ios message push
+	private void toPushIosMessage(IosMeaageOperation type, User user, Map<String, Object> map) {
+		try{
+			if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE) != null){
+				String messageType = String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE));
+				if(messageType.equals("8.4") || messageType.equals("8.5") ||
+						messageType.equals("9.4") || messageType.equals("9.5")){
+					return;
+				}
+			}else throw new Exception("requset 封装的  map 中  messageType 信息缺失");;
+			
+			IosMessage entity = iosMessageGenerator.generate(type, user,map);
+		
+			if(entity==null || entity.getUidList()==null || entity.getUidList().isEmpty()){
+				return;
+			}
+			System.err.println(entity);
+			XGPush xinge = XGPush.getInstance();
+			org.json.JSONObject result = xinge.pushAccountList(entity.getUidList(),entity.getTitle(), entity.getContent());
+			
+		} catch (Exception e) {
+			loger.error("ios 消息推送失败" +e);
+		}
+	}
+	
+	
+		
+	
+	
+	
 }

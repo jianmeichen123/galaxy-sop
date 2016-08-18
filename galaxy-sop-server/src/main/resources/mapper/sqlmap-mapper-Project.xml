@@ -42,9 +42,8 @@
     <result column="idea_id" property="ideaId" jdbcType="BIGINT" />
     <result column="completed" property="completed" />
     <result column="type_completed" property="type_completed" />
-     <result column="fa_flag" property="faFlag" jdbcType="INTEGER" />
+    <result column="fa_flag" property="faFlag" jdbcType="INTEGER" />
     <result column="fa_name" property="faName" jdbcType="VARCHAR"/>
-    
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -194,13 +193,15 @@
 				<if test="ideaId != null">
 					and idea_id = #{ideaId}
 				</if>
-				<if test="ideaId != null">
+				<if test="faFlag != null">
 					and fa_flag = #{faFlag}
 				</if>
-				<if test="ideaId != null">
+				<if test="faName != null">
 					and fa_name = #{faName}
 				</if>
-				
+				<if test="stopSearch != null">
+					and 1 = 2
+				</if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>

@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.common.PagableRecordEntity;
 import com.galaxyinternet.model.sopfile.SopFile;
 
@@ -416,7 +417,11 @@ public class MeetingRecord  extends PagableRecordEntity{
 		this.lastCreatedTime = lastCreatedTime;
 	}
     
-	
+	@Override
+	public String toString() {
+		return GSONUtil.toJson(this);
+	}
+
 	
 
 }

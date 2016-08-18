@@ -1,31 +1,45 @@
 
 $(function(){
-	sendGetRequest(platformUrl.queryGrantTotalList,null,queryBack);
-	assembleHtml();
-	assembleSingleTabHtml();
-	assembleHtml();
+	  var data = {};
+	  data.pageNum = 0;
+	  data.pageSize = 3;
+	  data.direction = "asc";
+	  data.property = "created_time";
+	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList,JSON.stringify(data),queryBack);
 });
 function queryBack(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
 		layer.msg(data.result.message);
-	//	removePop1();
 		return;
 	}else{
-		var entityList = data.entityList;
-		if(typeof(entityList)!="underfined"&&entityList!=null&&entityList.length>0){
-			alert("haha");
+	    var entityList = data.pageList;
+		if(typeof(entityList)!="underfined"&&entityList!=null){
+			var content=entityList.content;
+			if(content.length>0){
+				for(var i=0;i<content.length;i++){
+					var grantTotal=content[i];
+					$("#tabApprAllList").append(assembleHtml(grantTotal));
+					var partList=grantTotal.partList;
+					if(null!=partList&&partList.length>0){
+						for(var k=0;k<partList.length;k++){
+							  var grantPart=partList[k];
+							  $("#tabApprSingleList").append(assembleSingleTabHtml(grantPart));
+							}
+						}
+					}
+			}
 		}
 	}
 }
-function  assembleHtml(){
+function  assembleHtml(grantTotal){
 	var html=
 		'<div class="agreement">'
 	     +'<div class="b_agreement clearfix">'
 		  +'<div class="b_agreement_l fl">'
-		     +'<h3>创业服务协议</h3>'
-	         +'<dl><dt>计划总拨款金额：</dt><dd>20,000,000</dd></dl>'
-             +'<dl><dt>编辑人：</dt><dd>徐文秀</dd></dl>'    
+		     +'<h3>'+grantTotal.grantName+'</h3>'
+	         +'<dl><dt>计划总拨款金额：</dt><dd>'+grantTotal.grantMoney+'</dd></dl>'
+             +'<dl><dt>编辑人：</dt><dd>'+grantTotal.createUname+'</dd></dl>'    
              +'<dl><dt>编辑日期：</dt><dd>2016-07-18</dd></dl>'
           +'</div>'    
          +'<div class="b_agreement_r fr">'
@@ -48,19 +62,19 @@ function  assembleHtml(){
       +'<tbody id="tabApprSingleList"></tbody>'
    +'</table>'
  +'</div>';
-	 $("#tabApprAllList").append(html);
+	 return html ;
 } 
 
-function  assembleSingleTabHtml(){
+function  assembleSingleTabHtml(grantPart){
 	 var value='<tr>'	 
-		   +'<td><a class="blue" href="/sop/html/actual.html" data-btn="actual" data-name="实际拨款信息列表">分拨1 </a></td>'
-		   +'<td>完成条款4-15个工作日内</td>'
-		   +'<td>6,000,000</td>'
-		   +'<td>6,000,000</td>'
-		   +'<td>6</td>'                                 
+		   +'<td><a class="blue" href="/sop/html/actual.html" data-btn="actual" data-name="实际拨款信息列表">'+grantPart.grantName+'</a></td>'
+		   +'<td>'+grantPart.grantDetail+'</td>'
+		   +'<td>'+grantPart.grantMoney+'</td>'
+		   +'<td>'+grantPart.grantMoney+'</td>'
+		   +'<td>'+grantPart.grantMoney+'</td>'                                 
 		   +'<td><label class="blue" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name="编辑分期拨款计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name="提示">删除</label><label class="blue noMargin">下载附件</label></td>' 
 		   +'</tr>';
-	  $("#tabApprSingleList").append(value);
+	  return value;
 }
 
 

@@ -1,3 +1,11 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<% 
+	String path = request.getContextPath(); 
+%>
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
 <div class="addmentc">
 	<div class="title_bj" id="popup_name">实际拨款信息列表</div>
      
