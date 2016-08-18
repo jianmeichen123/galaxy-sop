@@ -2329,7 +2329,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/**
 	 * 更新排期池时间/updateReserveTime
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.MESSAGE,LogType.IOSPUSHMESS})
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTime", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> updateReserveTime(
