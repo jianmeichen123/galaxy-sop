@@ -44,6 +44,9 @@ public class ProjectBo extends Project {
 	
 	private Integer resultNullFilter;
 	
+	//用于终止查询
+	private String stopSearch;
+	
 	public String getProType() {
 		return proType;
 	}
@@ -186,6 +189,14 @@ public class ProjectBo extends Project {
 
 	public void setResultNullFilter(Integer resultNullFilter) {
 		this.resultNullFilter = resultNullFilter;
+	}
+
+	public String getStopSearch() {
+		return stopSearch;
+	}
+
+	public void setStopSearch(String stopSearch) {
+		this.stopSearch = stopSearch;
 	}
 	
 	

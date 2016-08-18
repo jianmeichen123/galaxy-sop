@@ -12,6 +12,7 @@ import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
+import com.galaxyinternet.framework.core.utils.BeanUtils;
 import com.galaxyinternet.model.project.PersonPool;
 
 @Repository("personPoolDao")
@@ -38,5 +39,24 @@ public class PersonPoolDaoImpl extends BaseDaoImpl<PersonPool, Long> implements 
 			throw new DaoException(String.format("根据pids查询：%s", getSqlName(SqlId.SQL_SELECT)), e);
 		}
 	}
+	
+	
+	/**
+	 * 根据名称查询项目ID
+	 * @param personPool
+	 * @return
+	 */
+	public List<PersonPool> selectProjectIdByPersonName(PersonPool personPool){
+		List<PersonPool> personPoolList = null;
+		try {
+			Map<String, Object> params = BeanUtils.toMap(personPool);
+			personPoolList = sqlSessionTemplate.selectList(getSqlName("selectProjectIdByPersonName"), params);
+		} catch (Exception e) {
+			throw new DaoException(String.format("根据personName查询：%s", getSqlName(SqlId.SQL_SELECT)), e);
+		}
+		return personPoolList;
+	}
+	
+	
 
 }
