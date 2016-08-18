@@ -93,16 +93,7 @@
 </div>
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
 <script>
-  $(function(){
-	  
-	  var data = {};
-	  data.pageNum = 1;
-	  data.pageSize = 3;
-	  data.direction = "asc";
-	  data.property = "created_time";
-	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList, JSON.stringify(data), function(data){
-		console.log(data);	
-	  }); 
+  $(function(){  
 		//编辑总拨款计划
 		$("[data-btn='actual_all']").on("click",function(){ 
 			var $self = $(this);
