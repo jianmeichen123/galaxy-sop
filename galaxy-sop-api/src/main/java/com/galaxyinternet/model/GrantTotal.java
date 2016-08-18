@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class GrantTotal extends PagableEntity {
 
@@ -49,12 +50,24 @@ public class GrantTotal extends PagableEntity {
 	
 	//----bo----
 	private List<GrantPart> partList;
+	private String formatCreatedTime;
+	private String formatUpdatedTime;
 	public List<GrantPart> getPartList() {
 		return partList;
 	}
 	public void setPartList(List<GrantPart> partList) {
 		this.partList = partList;
 	}
+	public String getFormatCreatedTime() {
+		if(createdTime != null){
+			return DateUtil.longToString(createdTime);
+		}
+		return formatCreatedTime;
+	}
+	public String getFormatUpdatedTime() {
+		return formatUpdatedTime;
+	}
+	
 	
 	@Override
 	public String toString() {
