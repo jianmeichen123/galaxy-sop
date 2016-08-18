@@ -394,7 +394,7 @@ table .width_gd{width:12%;}
 /*公用按钮*/
 .pubbtn{ display:block; width:80px; height:28px; border:1px solid #FFF; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;}
 .lpubbtn{width: 115px;}
-.llpubbtn{width: 140px;}
+.llpubbtn{width: 155px;}
 .pubbtn:hover{ text-decoration:none}
 .bluebtn{ background-color:#66b1f2; border-color:#66b1f2; color:#FFF}
 .fffbtn{ background-color:#fdfdfe; border-color:#ccd2d7; color:#4a97da}
