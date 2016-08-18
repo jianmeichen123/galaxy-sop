@@ -78,6 +78,38 @@ public class EnumUtil {
 			return CodeEnum.RKqc.getCode();
 		}else if(id == CodeEnum.RKzt.getId()){
 			return CodeEnum.RKzt.getCode();
+		}else if(id == CodeEnum.CBLo2o.getId()){
+			return CodeEnum.CBLo2o.getCode();
+		}else if(id == CodeEnum.CBLjr.getId()){
+			return CodeEnum.CBLjr.getCode();
+		}else if(id == CodeEnum.CBLly.getId()){
+			return CodeEnum.CBLly.getCode();
+		}else if(id == CodeEnum.CBLcy.getId()){
+			return CodeEnum.CBLcy.getCode();
+		}else if(id == CodeEnum.CBLjy.getId()){
+			return CodeEnum.CBLjy.getCode();
+		}else if(id == CodeEnum.CBLny.getId()){
+			return CodeEnum.CBLny.getCode();
+		}else if(id == CodeEnum.CBLyl.getId()){
+			return CodeEnum.CBLyl.getCode();
+		}else if(id == CodeEnum.CBLzn.getId()){
+			return CodeEnum.CBLzn.getCode();
+		}else if(id == CodeEnum.CBLgh.getId()){
+			return CodeEnum.CBLgh.getCode();
+		}else if(id == CodeEnum.CBLfz.getId()){
+			return CodeEnum.CBLfz.getCode();
+		}else if(id == CodeEnum.CBLdc.getId()){
+			return CodeEnum.CBLdc.getCode();
+		}else if(id == CodeEnum.CBLdsj.getId()){
+			return CodeEnum.CBLdsj.getCode();
+		}else if(id == CodeEnum.CBLqyfw.getId()){
+			return CodeEnum.CBLqyfw.getCode();
+		}else if(id == CodeEnum.CBLmt.getId()){
+			return CodeEnum.CBLmt.getCode();
+		}else if(id == CodeEnum.CBLjk.getId()){
+			return CodeEnum.CBLjk.getCode();
+		}else if(id == CodeEnum.CBLqc.getId()){
+			return CodeEnum.CBLqc.getCode();
 		}else{
 			return 99;
 		}
