@@ -23,34 +23,31 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
+import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
-import com.galaxyinternet.model.chart.Chart;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
-import com.galaxyinternet.service.chart.ChartService;
 import com.galaxyinternet.service.chart.KpiService;
 
 @Controller
 @RequestMapping("/galaxy/kpireport")
-public class KpiController extends BaseControllerImpl<Chart, Chart>{
+public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	final Logger logger = LoggerFactory.getLogger(KpiController.class);
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
 	
-	@Autowired
-	private ChartService chartService;
 	
 	@Autowired
 	private KpiService kpiService;
 	
+	
+
 	@Override
-	protected ChartService getBaseService() {
-		return this.chartService;
+	protected BaseService<ChartDataBo> getBaseService() {
+		return kpiService;
 	}
-	
-	
 	
 	
 	/**
@@ -767,9 +764,7 @@ public class KpiController extends BaseControllerImpl<Chart, Chart>{
 		
 		return responseBody;
 	}
-	
-	
-	
+
 	
 	
 	
