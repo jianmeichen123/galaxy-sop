@@ -2329,7 +2329,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/**
 	 * 更新排期池时间/updateReserveTime
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope={LogType.IOSPUSHMESS,LogType.MESSAGE})
+	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTime", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> updateReserveTime(
@@ -2403,10 +2403,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		StringBuffer proNameList=new StringBuffer();
 		try {
 			for (MeetingScheduling ms : query) {
+				MeetingScheduling  redisPush = new MeetingScheduling();
 				String mestr = "";
 				String messageType = null;
 				MeetingScheduling oldMs = msmap.get(ms.getId());
+				
+				redisPush.setId(oldMs.getId());
+				redisPush.setProjectId(oldMs.getProjectId());
+				redisPush.setMeetingType(oldMs.getMeetingType());
 				Project pj = mapProject.get(oldMs.getProjectId());
+				
+				redisPush.setProjectName(pj.getProjectName());
+				redisPush.setCreateId(pj.getCreateUid().toString());
 				//验证已经已通过|已否决的会议不能进行排期
 				if(2 == oldMs.getScheduleStatus() || 3 == oldMs.getScheduleStatus()){
 					proNameList.append(pj.getProjectName());
@@ -2451,6 +2459,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,null,null,0,UrlNumber.three);
 						belongUser.setKeyword("cancle:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
+					
+						redisPush.setReserveTimeStart(oldMs.getReserveTimeStart());
+						cache.removeRedisSetOBJ(Constants.PUSH_MESSAGE_LIST, redisPush);
+						
 					} else {
 						// 更新会议时间
 						if (oldMs.getReserveTimeStart().getTime() != ms
@@ -2460,6 +2472,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 							meetingSchedulingService.updateByIdSelective(ms);
 							sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.two);
 							belongUser.setKeyword("update:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
+							
+							redisPush.setReserveTimeStart(oldMs.getReserveTimeStart());
+							cache.removeRedisSetOBJ(Constants.PUSH_MESSAGE_LIST, redisPush);
+							
+							redisPush.setReserveTimeStart(ms.getReserveTimeStart());
+							cache.setRedisSetOBJ(Constants.PUSH_MESSAGE_LIST,redisPush);
+							
 						}else{
 							belongUser.setKeyword("operate");	
 						}
@@ -2471,6 +2490,11 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.one);
 						belongUser.setKeyword("insert:"+DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));	
+						
+						
+						redisPush.setReserveTimeStart(ms.getReserveTimeStart());
+						cache.setRedisSetOBJ(Constants.PUSH_MESSAGE_LIST,redisPush);
+						
 					}else{
 						belongUser.setKeyword("operate");	
 					}
