@@ -40,7 +40,7 @@ function  assembleHtml(grantTotal){
 		     +'<h3>'+grantTotal.grantName+'</h3>'
 	         +'<dl><dt>计划总拨款金额：</dt><dd>'+grantTotal.grantMoney+'</dd></dl>'
              +'<dl><dt>编辑人：</dt><dd>'+grantTotal.createUname+'</dd></dl>'    
-             +'<dl><dt>编辑日期：</dt><dd>2016-07-18</dd></dl>'
+             +'<dl><dt>编辑日期：</dt><dd>'+grantTotal.formatCreatedTime+'</dd></dl>'
           +'</div>'    
          +'<div class="b_agreement_r fr">'
             +'<button class="pbtn bluebtn" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name="添加分期拨款计划">添加分期拨款计划</button>'

@@ -20,17 +20,21 @@
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+
 <jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
+<!-- 校验 -->
+<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
+
 <script src="<%=path %>/js/sopinfo.js"></script>
 <script src="<%=path %>/js/base_appropriation.js"></script>
 <style type="text/css">
 .bars{margin:0 !important;}
 </style></head>
 <body>
-<!-- 校验 -->
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-
 <jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 
 <div class="pagebox clearfix">
@@ -107,6 +111,7 @@
 				data:"",//传递参数
 				okback:function(){
 					$("#popup_name").html(_name);
+					initDialogVal();
 				}//模版反回成功执行	
 			});
 			return false;
@@ -121,6 +126,7 @@
 				data:"",//传递参数
 				okback:function(){
 					$("#popup_name").html(_name);
+					initDialogVal();
 				}//模版反回成功执行	
 			});
 			return false;
