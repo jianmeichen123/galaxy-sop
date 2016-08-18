@@ -651,7 +651,7 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .projectmsg .top table dl{padding-left:10px;overflow: hidden;}
 .pagebox .projectmsg .top table dl dt{float: left;font-size: 14px;color:#2d3342;width:88px;text-align: right;}
 .pagebox .projectmsg .top table dl dd{float: left;font-size: 12px;color:#525662;font-family: "宋体"}
-.pagebox .projectmsg .top table dl dd.tarea{float: left;text-align: left;width: 620px;line-height: 20px;padding:5px 0;cursor: pointer;min-height: 20px;}
+.pagebox .projectmsg .top table dl dd.tarea{float: left;text-align: left;width: 620px;line-height: 20px;padding:5px 0; min-height: 20px;}
 .pagebox .projectmsg .pjt_more{float:right;padding-right: 10px;color:#66b1f2;}
 .pagebox .projectmsg .btm{padding:45px 5px 5px;}
 .pagebox .projectmsg .btm table{border: 1px solid #e9ebf2;border-radius: 0;margin: 0 0 20px 0}
