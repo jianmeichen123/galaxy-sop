@@ -1662,7 +1662,7 @@ font-family: "宋体";
 .cx_prj{height:28px; border:1px solid #66b1f2; text-align:center; line-height:28px; font-size:14px; font-family:"宋体"; border-radius:4px;background:#66b1f2 url(../img/btnico2.png) no-repeat;background-position: 5px -180px;padding:0 8px 0 30px;}
 .searchall_prj .reset{width:60px;}
 .searchall_prj .btn{margin-left: 35px; float: left;}
-.searchall_prj .show_more{position: absolute;right:90px;bottom:15px;}
+.searchall_prj .show_more{position: absolute;right:25px;bottom:15px;}
 .searchall_prj .show_more a{margin-left: 10px;cursor: pointer;}
 .searchall_prj .searchbox_hidden{display: none;}
 .searchall_prj .ico1{background:url(../img/functionico.png) no-repeat;height: 18px;line-height: 18px;float: left;}

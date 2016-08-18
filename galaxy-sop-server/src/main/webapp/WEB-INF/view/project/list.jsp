@@ -79,14 +79,7 @@
                     </select>
                   </dd>
                 </dl>
-                <dl class="fmdl fml fmdll clearfix">
-                  <dt>项目进度：</dt>
-                  <dd>
-                    <select name="projectProgress">
-                      <option index="-1" value="">全部</option>
-                    </select>
-                  </dd>
-                </dl>
+               
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>项目状态：</dt>
                   <dd>
@@ -101,6 +94,13 @@
                     <input type="text" class="txt" name="projectPerson" placeholder="请输入团队成员姓名" style="margin-left:0">
                   </dd>
                 </dl>
+                 <dl class="fmdl fml  fmdll clearfix">
+              		<dt >来源于FA：</dt>
+              		<dd class="clearfix">
+		                <label><input type="radio" name="faFlag" value = "1"/>是</label>
+		                <label><input type="radio" name="faFlag" value = "0"/>否</label>
+	            	</dd>
+         		</dl> 
             </div>
             <div class="searchall_bottom clearfix">
                 <dl class="fmdl fml fmdll clearfix">
@@ -119,15 +119,16 @@
                     </select>
                   </dd>
                 </dl>
-                 <dl class="fmdl fml  fmdll clearfix">
-              		<dt >来源于FA：</dt>
-              		<dd class="clearfix">
-		                <label><input type="radio" name="faFlag" value = "1"/>是</label>
-		                <label><input type="radio" name="faFlag" value = "0"/>否</label>
-	            	</dd>
-         		</dl>   
+                 <dl class="fmdl fml fmdll clearfix">
+                  <dt>项目进度：</dt>
+                  <dd>
+                    <select name="projectProgress">
+                      <option index="-1" value="">全部</option>
+                    </select>
+                  </dd>
+                </dl>  
                 <dl class="fmdl fmdll clearfix">
-                	<input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称或编号">
+                	<input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称或编号" style="margin-left:15px;">
 	                <div class="btn fr">
 	                    <button type="submit" class="bluebtn cx_prj" action="querySearch">搜索</button>
 	                    <input type="hidden" value="0" id="showResetBtn">
