@@ -126,7 +126,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			List<GrantTotal> tList = new ArrayList<GrantTotal>();
 			for(GrantTotal t : totalPage.getContent()){
 				part.setTotalGrantId(t.getId());
-				List<GrantPart> partList = grantPartService.queryList(part);
+				List<GrantPart> partList = grantPartService.selectHasActualMoney(part);
 				t.setPartList(partList);
 				tList.add(t);
 			}

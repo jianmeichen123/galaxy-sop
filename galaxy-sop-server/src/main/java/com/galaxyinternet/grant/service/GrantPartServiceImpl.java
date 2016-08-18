@@ -1,5 +1,7 @@
 package com.galaxyinternet.grant.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,16 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 	@Override
 	protected BaseDao<GrantPart, Long> getBaseDao() {
 		return this.grantPartDao;
+	}
+
+	@Override
+	public double calculateBelongToActualMoney(Long partId) {
+		return grantPartDao.sumBelongToActualMoney(partId);
+	}
+
+	@Override
+	public List<GrantPart> selectHasActualMoney(GrantPart part) {
+		return grantPartDao.selectHasActualMoney(part);
 	}
 
 }

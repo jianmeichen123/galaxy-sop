@@ -132,4 +132,41 @@
 		 )
 	    ]]>
 	</insert>
+	
+	
+	
+	<!-- 计算所属的实际拨款总金额 -->
+	<select id="sumBelongToActualMoney" resultType="java.lang.Double" parameterType="java.lang.Long">
+		select sum(grant_money) from sop_grant_actual where part_grant_id = #{partId}
+	</select>
+	
+	
+	
+	<resultMap id="A_BaseResultMap" type="com.galaxyinternet.model.GrantPart">
+		<id column="id" property="id" />
+		<result column="total_grant_id" property="totalGrantId" />
+		<result column="grant_name" property="grantName" />
+		<result column="grant_detail" property="grantDetail" />
+		<result column="grant_money" property="grantMoney" />
+		<result column="create_uid" property="createUid" />
+		<result column="create_uname" property="createUname" />
+		<result column="updated_time" property="updatedTime" />
+		<result column="created_time" property="createdTime" />
+		<result column="actualMoney" property="actual_money" />
+	</resultMap>
+	<!-- 查询，包含所属实际拨款总金额 -->
+	<select id="selectHasActualMoney" resultMap="A_BaseResultMap" parameterType="java.util.Map">
+		select
+			p.id, p.total_grant_id, p.grant_name, p.grant_detail, p.grant_money, p.create_uid, p.create_uname,
+			p.updated_time,p.created_time,sum(a.grant_money) as actual_money
+		from sop_grant_part as p left join sop_grant_actual as a on p.id=a.part_grant_id 
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> p.id =#{id} </if>
+				<if test="totalGrantId != null"> and p.total_grant_id = #{totalGrantId} </if>
+				<if test="createUid != null"> and p.create_uid = #{createUid} </if>
+			</trim>
+		</where>
+		group by p.id
+	</select>
 </mapper>

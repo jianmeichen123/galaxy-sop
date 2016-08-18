@@ -51,6 +51,17 @@ public class GrantPart extends PagableEntity{
 		this.createUname = createUname;
 	}
 	
+	//---bo---
+	private double actualMoney;
+	public double getActualMoney() {
+		return actualMoney;
+	}
+	public void setActualMoney(double actualMoney) {
+		this.actualMoney = actualMoney;
+	}
+	
+	
+	
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);
