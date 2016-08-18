@@ -61,6 +61,8 @@ function  assembleHtml(grantTotal){
       +'</thead>' 
       +'<tbody id="tabApprSingleList"></tbody>'
    +'</table>'
+  // <!--显示更多-->
+   +'<span class="show_more blue fr">显示更多</span>'
  +'</div>';
 	 return html ;
 } 

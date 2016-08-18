@@ -165,6 +165,11 @@
         tr_s.css("display","none");
       })
     }
+    // 仅最后一个显示更多显示
+    var tabApprSingleList_tr=$("#tabApprAllList .agreement:last-child #tabApprSingleList tr").length
+    if(tabApprSingleList_tr>2){
+ 	   $("#tabApprAllList .agreement:last-child .show_more").css("display","block");
+    }
 
   })
    
