@@ -1,5 +1,6 @@
 package com.galaxyinternet.grant.controller;
 
+import java.awt.GradientPaint;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,6 +150,67 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "查询总拨款计划列表失败!"));
 			_common_logger_.error("查询总拨款计划列表失败！", e);
+		}
+		return responseBody;
+	}
+	
+	/**
+	 * 新建总拨款计划
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/deleteGrantTotal/{tid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantTotal> deleteGrantTotal(@PathVariable("tid") Long tid,
+			HttpServletRequest request) {
+		ResponseData<GrantTotal> responseBody = new ResponseData<GrantTotal>();
+		
+		GrantTotal c = grantTotalService.queryById(tid);
+		if(c == null){
+			responseBody.setResult(new Result(Status.ERROR, "error" , "要删除的总拨款记录不存在!"));
+			return responseBody;
+		}
+		
+		GrantPart part = new GrantPart();
+		part.setTotalGrantId(c.getId());
+		Long count = grantPartService.queryCount(part);
+		if(count > 0){
+			responseBody.setResult(new Result(Status.ERROR, "error" , "存在分期拨款计划，不允许进行删除操作!"));
+			return responseBody;
+		}
+		
+		try {
+			grantTotalService.deleteById(c.getId());
+			responseBody.setResult(new Result(Status.OK, "ok", "删除总拨款计划失败!"));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, "error", "删除总拨款计划失败!"));
+			_common_logger_.error("删除总拨款计划失败！", e);
+		}
+		return responseBody;
+	}
+	
+	
+	/**
+	 * 编辑总拨款计划
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/resetGrantTotal", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantTotal> resetGrantTotal(@RequestBody GrantTotal grantTotal,
+			HttpServletRequest request) {
+		ResponseData<GrantTotal> responseBody = new ResponseData<GrantTotal>();
+		if(grantTotal.getId() == null){
+			responseBody.setResult(new Result(Status.ERROR, "error" , "缺少必要的参数!"));
+			return responseBody;
+		}
+		GrantTotal c = grantTotalService.queryById(grantTotal.getId());
+		if(c == null){
+			responseBody.setResult(new Result(Status.ERROR, "error" , "要编辑的总拨款记录不存在!"));
+			return responseBody;
+		}
+		try {
+			grantTotalService.updateById(grantTotal);
+			responseBody.setResult(new Result(Status.OK, "ok", "编辑总拨款计划失败!"));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, "error", "编辑总拨款计划失败!"));
+			_common_logger_.error("编辑总拨款计划失败！", e);
 		}
 		return responseBody;
 	}
