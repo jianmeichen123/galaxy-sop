@@ -1,13 +1,14 @@
 
 $(function(){
-	reloadData(0,9999);
+	reloadData(0,6,null);
 });
-function reloadData(pageNum,pageSize){
+function reloadData(pageNum,pageSize,searchPartMoney){
 	var data = {};
 	  data.pageNum = pageNum;
 	  data.pageSize = pageSize;
-	  data.direction = "asc";
+	  data.direction = "desc";
 	  data.property = "created_time";
+	  data.searchPartMoney=searchPartMoney;
 	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList,JSON.stringify(data),queryBack);
 
 }

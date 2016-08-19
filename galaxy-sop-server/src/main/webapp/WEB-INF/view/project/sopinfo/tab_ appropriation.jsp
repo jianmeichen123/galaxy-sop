@@ -80,9 +80,9 @@
                         <dl class="fmdl fmdll clearfix">
                           <dt>计划拨款金额：</dt>
                           <dd>
-                            <input type="text" class="txt"/>
+                            <input type="text" class="txt" id="searchPartMoney"/>
                           </dd>
-                          <dd><a href="javascript:;" class="bluebtn ico cx">搜索</a></dd>
+                          <dd><a href="javascript:;" class="bluebtn ico cx" id="search" >搜索</a></dd>
                         </dl>
                       </div>
                     </div>  
@@ -200,5 +200,17 @@
 			 }
 		}
   }
+ $("#search").click( function(){
+	
+		var searchPartMoney=$("#searchPartMoney").val();
+		  alert(searchPartMoney)
+		if(null==searchPartMoney||""==searchPartMoney){
+			reloadData(0,9999,null);
+		}else{
+			reloadData(0,9999,searchPartMoney);
+		}
+		
+		
+	})
 </script>
 </html>

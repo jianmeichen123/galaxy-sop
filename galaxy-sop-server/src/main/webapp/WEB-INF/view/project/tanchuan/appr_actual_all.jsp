@@ -21,7 +21,7 @@
 	                <dt>计划拨款金额 ：</dt>
 	                <dd>	
 	                	<div>
-	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持11位长度的两位小数">
+	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持11位长度的两位小数">
 	                    </div> 
 	                </dd>
 	            </dl>
