@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.util.StringUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -410,7 +411,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			
 			IosMessage entity = iosMessageGenerator.generate(type, user,map);
 		
-			if(entity==null || entity.getUidList()==null || entity.getUidList().isEmpty()){
+			if(entity==null || entity.getUidList()==null || entity.getUidList().isEmpty() || StringUtils.isBlank(entity.getContent())){
 				return;
 			}
 			System.err.println(entity);
