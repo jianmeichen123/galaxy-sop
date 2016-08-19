@@ -11,60 +11,59 @@
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <div class="addmentc">
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
-	    <div class="form clearfix">
+	    <div class="form clearfix" id="actual_aging_container">
 	        <div class="conference_all">
-	            <dl class="fmdl fl_l  clearfix">
-	                <dt>协议名称 ：</dt>
-	                <dd>
-	                	<span>创业服务协议</span>
-	                </dd>
-	            </dl>
-                <dl class="fmdl fl_l  clearfix">
-	                <dt>拨款时间 ：</dt>
-	                <dd>
-	                	<div>
-	                    	<input class="edittxt" type="text">
-	                    </div> 
-	                </dd>
-	            </dl>
-                 <dl class="fmdl fl_l  clearfix">
-	                <dt>拨款金额 ：</dt>
-	                <dd>
-	                	
-	                	<div>
-	                    	<input class=" txt " type="text">
-	                    </div> 
-                        <div class="gray">剩余金额14,000,000元</div> 
-	                </dd>
-	            </dl>
-                
+	           <form id="actual_aging_form">
+		            <dl class="fmdl fl_l  clearfix">
+		                <dt>协议名称 ：</dt>
+		                <dd>
+		                	<span>创业服务协议</span>
+		                </dd>
+		            </dl>
+	                <dl class="fmdl fl_l  clearfix">
+		                <dt>拨款时间 ：</dt>
+		                <dd>
+		                	<div>
+		                    	<input class="edittxt" name="grant_detail" type="text" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" />
+		                    </div> 
+		                </dd>
+		            </dl>
+	                 <dl class="fmdl fl_l  clearfix">
+		                <dt>拨款金额 ：</dt>
+		                <dd>
+		                	
+		                	<div>
+		                    	<input class=" txt " name="grantMoney" type="text">
+		                    </div> 
+	                        <div class="gray">剩余金额14,000,000元</div> 
+		                </dd>
+		            </dl>
+                 </form>
 	            <div class="affrim_line"></div>
 	             <dl class="fmdl fl_l" id="choose_up_file">
-                 <dt>上传附件 ：</dt>
-                 <div class="fmload clearfix">
-		            <dd>
-			        	<input class="txt" name="textarea2" id="textarea2" readonly="readonly" type="text">
-			        </dd>
-			        <dd>
-			        	<a style="position: relative; z-index: 1;" href="javascript:;" class="register_all_affrim fl" id="select_btn">选择附件</a>
-		    		</dd>
-		        </div>
-            </dl>
-
-            <div style="display:block;">
-            	<dl class="fmdl fl_l" >
-	                 <table class='table' cellpadding="0" cellspacing="0">
-	                    <tbody><tr class="">
-	                      <th style="width:50%;">文件名称</th>
-	                      <th style="width:20%" align="center">文件大小</th>
-	                      <th style="width:15%" align="center">操作</th>
-	                      <th style="width:15%" align="center">进度</th>
-	                    </tr>
-	                 <tr><td>14小树好吃-商业计划书.pdf</td><td>551 kb</td><td><a href="javascript:void(0)" class="blue" >删除</a> </td><td ></td></tr>
-                     <tr><td>14小树好吃-商业计划书-1.pdf</td><td>551 kb</td><td><a href="javascript:void(0)" class="blue" >删除</a>  </td><td></td></tr>
-                     </tbody></table> 
-	            </dl>
-            </div>  
+		                 <dt>上传附件 ：</dt>
+		                 <div class="fmload clearfix">
+				            <dd>
+					        	<input  type="text"  class="txt" name="textarea2" id="textarea2" readonly="readonly"></input>
+					        </dd>
+					        <dd>
+					        	<a href="javascript:;"  class="register_all_affrim fl" id="select_btn">选择附件</a>
+				    		</dd>
+				        </div>
+		            </dl>  
+		            <dl class="fmdl fl_l" id="show_up_file">
+		                 <table style="width:90%;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
+		                 <thead>
+		                    <tr>
+		                      <th style="width:50%;">文件名称</th>
+		                      <th style="width:20%" align="center">文件大小</th>
+		                      <th style="width:15%" align="center">操作</th>
+		                      <th style="width:15%" align="center">进度</th>
+		                    </tr>
+		                 </thead>
+		                 </table> 
+		            </dl>
+         
 	            
 	             
 	        </div>

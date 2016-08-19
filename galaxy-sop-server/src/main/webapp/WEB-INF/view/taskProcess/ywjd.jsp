@@ -76,6 +76,8 @@ $(function(){
 	loadRows();
 	loadRelatedData();
 	$("#show-upload-btn").click(function(){
+		var title_name =$(this).html();
+		$(".title_bj").html(title_name);
 		showUploadPopup();
 	});
 	$("#apply-decision-btn").click(function(){
