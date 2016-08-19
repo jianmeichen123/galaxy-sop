@@ -1,6 +1,7 @@
 
 $(function(){
-	reloadData(0,6,null);
+	$("#tabApprAllList").children('div').remove(); 
+	reloadData(0,9999,null);
 });
 function reloadData(pageNum,pageSize,searchPartMoney){
 	var data = {};
@@ -13,23 +14,29 @@ function reloadData(pageNum,pageSize,searchPartMoney){
 
 }
 function queryBack(data){
+	
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
 		layer.msg(data.result.message);
 		return;
-	}else{
+	}else{ 
 	    var entityList = data.pageList;
 		if(typeof(entityList)!="underfined"&&entityList!=null){
+			$("#tabApprAllList").children('div').remove(); 
 			var content=entityList.content;
 			if(content.length>0){
 				for(var i=0;i<content.length;i++){
 					var grantTotal=content[i];
-					$("#tabApprAllList").append(assembleHtml(grantTotal));
+					var _this=$("#tabApprAllList");
+					var kk=assembleHtml(grantTotal,i);
+					alert(kk)
+					$("#tabApprAllList").append(kk);
 					var partList=grantTotal.partList;
 					if(null!=partList&&partList.length>0){
 						for(var k=0;k<partList.length;k++){
 							  var grantPart=partList[k];
-							  $("#tabApprSingleList").append(assembleSingleTabHtml(grantPart));
+							  var o=_this;
+							  $("#tabApprSingleList_"+i+"").append(assembleSingleTabHtml(grantPart));
 							}
 						}
 					}
@@ -37,7 +44,7 @@ function queryBack(data){
 		}
 	}
 }
-function  assembleHtml(grantTotal){
+function  assembleHtml(grantTotal,i){
 	var html=
 		'<div class="agreement">'
 	     +'<div class="b_agreement clearfix">'
@@ -64,7 +71,7 @@ function  assembleHtml(grantTotal){
               +'<th>操作</th>'
              +'</tr>'
       +'</thead>' 
-      +'<tbody id="tabApprSingleList"></tbody>'
+      +'<tbody id="tabApprSingleList_'+i+'"></tbody>'
    +'</table>'
  +'</div>';
 	 return html ;
@@ -81,5 +88,4 @@ function  assembleSingleTabHtml(grantPart){
 		   +'</tr>';
 	  return value;
 }
-
 

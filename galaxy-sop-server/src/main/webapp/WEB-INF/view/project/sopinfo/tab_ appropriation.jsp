@@ -88,7 +88,7 @@
                     </div>  
                   <div id="tabApprAllList">
                    
-           </div>
+                  </div>
             <span class="show_more blue fr" id="reloadAll">显示更多</span>
         </div>  
                    <!--tab end-->
@@ -225,16 +225,17 @@
 		}
   }
  $("#search").click( function(){
-	
 		var searchPartMoney=$("#searchPartMoney").val();
 		  alert(searchPartMoney)
 		if(null==searchPartMoney||""==searchPartMoney){
+			
 			reloadData(0,9999,null);
+			
 		}else{
+			//$("#tabApprAllList").remove();
 			reloadData(0,9999,searchPartMoney);
+			
 		}
-		
-		
 	})
 
   //获取 页面数据\保存数据
