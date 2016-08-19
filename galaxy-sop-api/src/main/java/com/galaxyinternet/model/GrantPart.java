@@ -13,6 +13,7 @@ public class GrantPart extends PagableEntity{
 	private Double grantMoney;
 	private Long createUid;
 	private String createUname;
+	private Integer partStatus;
 	
 	public Long getTotalGrantId() {
 		return totalGrantId;
@@ -50,7 +51,13 @@ public class GrantPart extends PagableEntity{
 	public void setCreateUname(String createUname) {
 		this.createUname = createUname;
 	}
-	
+	public Integer getPartStatus() {
+		return partStatus;
+	}
+	public void setPartStatus(Integer partStatus) {
+		this.partStatus = partStatus;
+	}
+
 	//---bo---
 	private double actualMoney;
 	public double getActualMoney() {
