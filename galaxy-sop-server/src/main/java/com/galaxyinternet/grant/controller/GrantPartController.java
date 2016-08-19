@@ -47,7 +47,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	private GrantTotalService grantTotalService;
 	
 	
-	@RequestMapping(value = "/toAddGrantPart/{tid}", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/toAddGrantPart/{tid}", method = RequestMethod.GET)
 	public ModelAndView toApprActualAging(@PathVariable("tid") Long tid, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("project/tanchuan/appr_actual_aging");
 		GrantTotal total = grantTotalService.queryById(tid);
@@ -55,8 +55,21 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 		double useMoney = grantPartService.calculateBelongToActualMoney(tid);
 		mv.addObject("remainMoney", total.getGrantMoney() - useMoney);
 		return mv;
-	}
+	}*/
 	
+	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toApprActualAging/{pid}", method = RequestMethod.GET)
+	public String toApprActualAging(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		/*Project proinfo = new Project();
+		proinfo = projectService.queryById(pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", proinfo.getProjectProgress());
+		request.setAttribute("pname", proinfo.getProjectName());
+		request.setAttribute("projectId", pid);*/
+		return "project/tanchuan/appr_actual_aging";
+	}
 	
 	/**
 	 * 新建分期拨款计划
