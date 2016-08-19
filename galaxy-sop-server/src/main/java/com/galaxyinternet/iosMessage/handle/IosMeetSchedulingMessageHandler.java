@@ -56,37 +56,54 @@ public class IosMeetSchedulingMessageHandler implements IosMessageHandler
 		//boolean toceo = true;
 		//boolean tohhr = true;
 		
-		StringBuffer content = new StringBuffer();
-		
-		content.append(message.getProjectName()).append("项目的");
-		
+		String meetName = "";
 		if(message.getMessageType().equals(ceo_schedul_type)){
-			content.append("【CEO评审会】");
+			meetName = "【CEO评审会】";
 		}else if(message.getMessageType().equals(lxh_schedul_type)){
-			content.append("【立项会】");
+			meetName = "【立项会】";
 		}else if(message.getMessageType().equals(tjh_schedul_type)){
-			content.append("【投决会】");
+			meetName = "【投决会】";
 		}else{
 			return null;
 		}
 		
+		StringBuffer content = new StringBuffer();
+		
 		if(message.getKeyword().contains("cancle:")){
-			/*content.append("原安排于");
-			content.append(message.getKeyword().replace("cancle:", ""));
-			content.append("的会议已取消");*/
-			return message;
-		}else if(message.getKeyword().contains("update:")){
-			content.append("已调整到");
-			content.append(message.getKeyword().replace("update:", ""));
-			content.append("召开");
-		}else if(message.getKeyword().contains("insert:")){
-			content.append("已安排在");
-			content.append(message.getKeyword().replace("insert:", ""));
-			content.append("召开");
+			// 原定于2016.10.10日24：24召开的XXXXXXXXXX项目【CEO评审会】，因故取消，如有疑问请联系相关负责人。
+			content.append("原定于")
+			.append(message.getKeyword().replace("cancle:", ""))
+			.append("召开的")
+			.append(message.getProjectName())
+			.append("项目的")
+			.append(meetName)
+			.append("，因故取消，如有疑问请联系相关负责人。");
+			
+		}else{
+			//XXXXXXXXXX项目的【CEO评审会】，已安排在2016.10.10日24：24召开，请您准时参加，如对时间有疑问请联系相关负责人。
+			content.append(message.getProjectName())
+			.append("项目的")
+			.append(meetName);
+			if(message.getKeyword().contains("update:")){
+				String timestr = message.getKeyword().replace("update", "");
+				String time[] = new String[2];
+				if(StringUtils.isNotEmpty(timestr)){
+					time = timestr.split(",");
+				}
+				content.append(",已调整到")
+				.append(time[0])
+				.append("召开")
+				.append(message.getContent());
+			}else if(message.getKeyword().contains("insert:")){
+				content.append(",已安排在")
+				.append(message.getKeyword().replace("insert:", ""))
+				.append("召开")
+				.append(message.getContent());
+			}
 		}
 		
 		if(!"operate".equals(message.getKeyword())){
-			message.setContent(content.append(message.getContent()).toString());
+			message.setContent(content.toString());
 		}
 		
 		
