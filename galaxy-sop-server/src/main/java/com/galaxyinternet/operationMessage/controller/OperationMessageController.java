@@ -1,6 +1,7 @@
 package com.galaxyinternet.operationMessage.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.OperationMessageBo;
+import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.StaticParamService;
 import com.galaxyinternet.exception.PlatformException;
@@ -94,8 +96,10 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 				operationMessageBo.setBelongUid(user.getId());
 			}*/
 			initquery(operationMessageBo,user,roleIdList);
-			
-			Page<OperationMessage> operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
+			Page<OperationMessage> operationMessage = new Page<OperationMessage>(new ArrayList<OperationMessage>(),0l);;
+			if(operationMessageBo.getFlag()){
+				 operationMessage = operationMessageService.queryPageList(operationMessageBo,new PageRequest(operationMessageBo.getPageNum(), operationMessageBo.getPageSize()));
+			}
 			responseBody.setPageList(operationMessage);
 			responseBody.setResult(new Result(Status.OK, ""));
 			return responseBody;	
@@ -128,8 +132,10 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 			/*operationMessageBo.setOperatorId(user.getId());
 			operationMessageBo.setModule(PlatformConst.MODULE_BROADCAST_MESSAGE);//1
 			 */			
-			
-			Long count = operationMessageService.selectCount(operationMessageBo);
+			Long count = 0l;
+			if(operationMessageBo.getFlag()){
+				 count = operationMessageService.selectCount(operationMessageBo);
+			}
 			operationMessageBo.setCount(count);
 			operationMessageBo.setOperatorId(null);
 			responseBody.setEntity(operationMessageBo);
@@ -146,6 +152,7 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 		
 		boolean flat = true;
 		
+		//查看消息资格判断
 		if(roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.CEO)
 				|| roleIdList.contains(UserConstant.DMS) || roleIdList.contains(UserConstant.CEOMS)
 				|| roleIdList.contains(UserConstant.HHR)
@@ -158,25 +165,26 @@ public class OperationMessageController extends BaseControllerImpl<OperationMess
 		}else{
 			 flat = false;
 		}
-		
-		
+		 
+		//查看消息范围
 		if(flat){
 			Map<String,List<String>> typelist = StaticParamService.getRoleTypeList(roleIdList, staticParamService);
-			if(typelist.get("inAll")!= null && !typelist.get("inAll").isEmpty()){
-				operationMessageBo.setInAll(typelist.get("inAll"));
-			}
-			if(typelist.get("inPer")!= null && !typelist.get("inPer").isEmpty()){
-				operationMessageBo.setInPer(typelist.get("inPer"));
-			}
-			if(typelist.get("inPat")!= null && !typelist.get("inPat").isEmpty()){
-				operationMessageBo.setInPat(typelist.get("inPat"));
+			
+			if(typelist==null || typelist.isEmpty()){
+				flat = false;
+			}else{
+				if(typelist.get("inAll")!= null && !typelist.get("inAll").isEmpty()){
+					operationMessageBo.setInAll(typelist.get("inAll"));
+				}
+				if(typelist.get("inPer")!= null && !typelist.get("inPer").isEmpty()){
+					operationMessageBo.setInPer(typelist.get("inPer"));
+				}
+				if(typelist.get("inPat")!= null && !typelist.get("inPat").isEmpty()){
+					operationMessageBo.setInPat(typelist.get("inPat"));
+				}
 			}
 		}
-		
-//		if(typelist!=null && !typelist.isEmpty()){
-//			operationMessageBo.setMessageTypes(typelist);
-//		}
-		
+		operationMessageBo.setFlag(flat);
 	}
 	
 	

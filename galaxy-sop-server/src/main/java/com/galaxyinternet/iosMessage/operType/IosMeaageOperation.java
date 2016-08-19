@@ -16,6 +16,7 @@ public enum IosMeaageOperation {
 	//完成任务
 	SUBMIT_TASK              ("/galaxy/soptask/submitTask",                 		PlatformConst.IOS_TITLE_TASK, "，请您关注"),
 	
+	XXXXXXXXXXXXXX			("/galaxy/project/updateReserveTime", 	PlatformConst.IOS_TITLE_MEET, "，请您准时参加，如对时间有疑问请联系相关负责人。"),
 	ADD_SCHEDULING			("/galaxy/project/updateReserveTime/"+ UrlNumber.one, 	PlatformConst.IOS_TITLE_MEET, "，请您准时参加，如对时间有疑问请联系相关负责人。"),
 	UPDATE_SCHEDULING		("/galaxy/project/updateReserveTime/"+ UrlNumber.two, 	PlatformConst.IOS_TITLE_MEET, "，请您准时参加，如对时间有疑问请联系相关负责人。"),
 	DELETE_SCHEDULING		("/galaxy/project/updateReserveTime/"+ UrlNumber.three, PlatformConst.IOS_TITLE_MEET, "，请您准时参加，如对时间有疑问请联系相关负责人。");

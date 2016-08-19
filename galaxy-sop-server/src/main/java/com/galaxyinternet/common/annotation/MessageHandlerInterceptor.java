@@ -105,7 +105,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	public void afterCompletion(final HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 		if (handler instanceof HandlerMethod) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
-			Method method = handlerMethod.getMethod();
+			final Method method = handlerMethod.getMethod();
 			final Logger logger = method.getAnnotation(Logger.class);
 			if (logger != null) {
 				final Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
@@ -132,7 +132,18 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 									} else if (ltype == LogType.IDEANEWS) {
 										insertIdeaNews(populateProgressLog(operLogType, user, map, recordType));
 									}else if (ltype == LogType.IOSPUSHMESS) {
-										toPushIosMessage(iosMessageOper,user,map);
+										if(method.getName().contains("updateReserveTime")){
+											if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH) != null){
+												List<Map<String,Object>> mapList = (List<Map<String, Object>>) map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH);
+												if(mapList != null && mapList.size() > 0){
+													for(Map<String,Object> map:mapList){
+														toPushIosMessage(iosMessageOper, user, map);
+													}
+												}
+											}
+										}else
+											toPushIosMessage(iosMessageOper,user,map);
+										
 									}else if(ltype == LogType.BATCHMESSAGE){
 										if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH) != null){
 											List<Map<String,Object>> mapList = (List<Map<String, Object>>) map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH);

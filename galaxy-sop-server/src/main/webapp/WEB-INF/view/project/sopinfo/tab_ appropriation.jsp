@@ -87,8 +87,9 @@
                       </div>
                     </div>  
                   <div id="tabApprAllList">
-                    
+                   
            </div>
+            <span class="show_more blue fr">显示更多</span>
         </div>  
                    <!--tab end-->
           </div>
@@ -171,9 +172,10 @@
       })
     }
     // 仅最后一个显示更多显示
-    var tabApprSingleList_tr=$("#tabApprAllList .agreement:last-child #tabApprSingleList tr").length
-    if(tabApprSingleList_tr>2){
- 	   $("#tabApprAllList .agreement:last-child .show_more").css("display","block");
+    var tabApprSingleListBlock=$("#tabApprAllList .agreement").length;
+    $("#tabApprAllList .agreement:lt(2)").css("display","block");
+    if(tabApprSingleListBlock>2){
+ 	   $(".proOperation .show_more").css("display","block");
     }
 
   })
