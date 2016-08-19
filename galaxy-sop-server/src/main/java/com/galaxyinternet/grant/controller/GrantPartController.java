@@ -73,6 +73,9 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 		
 		try {
 			Long count = grantPartService.queryCount(grantPart);
+			/**
+			 * 分期拨款记录删除时，做逻辑删除
+			 */
 			if(count > 0){
 				grantPart.setGrantName("分拨" + (count + 1));
 			}else{

@@ -9,13 +9,14 @@
 		<result column="grant_money" property="grantMoney" />
 		<result column="create_uid" property="createUid" />
 		<result column="create_uname" property="createUname" />
+		<result column="part_status" property="partStatus" />
 		<result column="updated_time" property="updatedTime" />
 		<result column="created_time" property="createdTime" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
 		id, total_grant_id, grant_name, grant_detail, grant_money, create_uid, create_uname,
-		updated_time,created_time
+		part_status, updated_time,created_time
 	</sql>
 
 
@@ -26,6 +27,7 @@
 				<if test="id != null"> id =#{id} </if>
 				<if test="totalGrantId != null"> and total_grant_id = #{totalGrantId} </if>
 				<if test="createUid != null"> and create_uid = #{createUid} </if>
+				<if test="partStatus != null"> and part_status = #{partStatus} </if>
 				<if test="keyword != null">
 			  		and grant_name like CONCAT("%",#{keyword},"%")
 					<if test="escapeChar ">
@@ -76,6 +78,9 @@
 			<if test="grantMoney != null"> 
 				grant_money = #{grantMoney}, 
 			</if>
+			<if test="partStatus != null"> 
+				part_status = #{partStatus}, 
+			</if>
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
 			</if>
@@ -95,6 +100,9 @@
 			</if>
 			<if test="grantMoney != null"> 
 				grant_money = #{grantMoney}, 
+			</if>
+			<if test="partStatus != null"> 
+				part_status = #{partStatus}, 
 			</if>
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
@@ -125,10 +133,10 @@
 	    <![CDATA[
 	     insert into sop_grant_part(
 	     	id, total_grant_id, grant_name, grant_detail, grant_money, create_uid, 
-	     	create_uname, updated_time,created_time
+	     	create_uname, part_status, updated_time,created_time
 	     )values(
 	     	#{id}, #{totalGrantId}, #{grantName}, #{grantDetail}, #{grantMoney}, #{createUid}, 
-	     	#{createUname},#{updatedTime}, #{createdTime}
+	     	#{createUname},#{partStatus},#{updatedTime}, #{createdTime}
 		 )
 	    ]]>
 	</insert>
@@ -137,7 +145,7 @@
 	
 	<!-- 计算所属的实际拨款总金额 -->
 	<select id="sumBelongToActualMoney" resultType="java.lang.Double" parameterType="java.lang.Long">
-		select sum(grant_money) from sop_grant_actual where part_grant_id = #{partId}
+		select sum(grant_money) from sop_grant_actual where part_grant_id = #{partId} and part_status = 0
 	</select>
 	
 	
@@ -150,6 +158,7 @@
 		<result column="grant_money" property="grantMoney" />
 		<result column="create_uid" property="createUid" />
 		<result column="create_uname" property="createUname" />
+		<result column="part_status" property="partStatus" />
 		<result column="updated_time" property="updatedTime" />
 		<result column="created_time" property="createdTime" />
 		<result column="actual_money" property="actualMoney" />
@@ -158,7 +167,7 @@
 	<select id="selectHasActualMoney" resultMap="A_BaseResultMap" parameterType="java.util.Map">
 		select
 			p.id, p.total_grant_id, p.grant_name, p.grant_detail, p.grant_money, p.create_uid, p.create_uname,
-			p.updated_time,p.created_time,sum(a.grant_money) as actual_money
+			p.part_status, p.updated_time,p.created_time,sum(a.grant_money) as actual_money
 		from sop_grant_part as p left join sop_grant_actual as a on p.id=a.part_grant_id 
 		<where>
 			<trim prefixOverrides="and">

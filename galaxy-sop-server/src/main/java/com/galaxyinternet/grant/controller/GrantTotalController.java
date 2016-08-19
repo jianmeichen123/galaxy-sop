@@ -126,6 +126,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			for(GrantTotal t : totalPage.getContent()){
 				boolean isSearch = false;
 				part.setTotalGrantId(t.getId());
+				part.setPartStatus(0);
 				List<GrantPart> partList = grantPartService.selectHasActualMoney(part);
 				if(total.getSearchPartMoney() != null){
 					for(GrantPart p : partList){
@@ -179,7 +180,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	
 	
 	/**
-	 * 新建总拨款计划
+	 * 删除总拨款计划
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/deleteGrantTotal/{tid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -195,6 +196,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		
 		GrantPart part = new GrantPart();
 		part.setTotalGrantId(c.getId());
+		part.setPartStatus(0);
 		Long count = grantPartService.queryCount(part);
 		if(count > 0){
 			responseBody.setResult(new Result(Status.ERROR, "error" , "存在分期拨款计划，不允许进行删除操作!"));
@@ -202,7 +204,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		}
 		
 		try {
-			grantTotalService.deleteById(c.getId());
+			grantTotalService.removeGrantTotal(c.getId());
 			responseBody.setResult(new Result(Status.OK, "ok", "删除总拨款计划失败!"));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "删除总拨款计划失败!"));

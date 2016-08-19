@@ -11,7 +11,7 @@ CREATE TABLE `sop_grant_total` (
   `updated_time` bigint(20) DEFAULT NULL COMMENT '项目的最近一次修改日期',
   `created_time` bigint(20) NOT NULL COMMENT '项目的创建日期',
   PRIMARY KEY (`id`),
-  KEY `sop_total_grant_index` (`project_id`,`create_uid`)
+  KEY `sop_grant_total_index` (`project_id`,`create_uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
@@ -24,10 +24,11 @@ CREATE TABLE `sop_grant_part` (
   `grant_money` decimal(15,2) DEFAULT NULL COMMENT '总拨款计划金额',
   `create_uid` bigint(20) DEFAULT NULL COMMENT '创建者的用户ID',
   `create_uname` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '创建者名',
+  `part_status` int(11) DEFAULT 0 COMMENT '分期拨款记录状态：默认0表示正常、1表示删除',
   `updated_time` bigint(20) DEFAULT NULL COMMENT '项目的最近一次修改日期',
   `created_time` bigint(20) NOT NULL COMMENT '项目的创建日期',
   PRIMARY KEY (`id`),
-  KEY `sop_part_grant_index` (`total_grant_id`,`create_uid`)
+  KEY `sop_grant_part_index` (`total_grant_id`,`create_uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
@@ -41,5 +42,5 @@ CREATE TABLE `sop_grant_actual` (
   `updated_time` bigint(20) DEFAULT NULL COMMENT '项目的最近一次修改日期',
   `created_time` bigint(20) NOT NULL COMMENT '项目的创建日期',
   PRIMARY KEY (`id`),
-  KEY `sop_actual_grant_index` (`part_grant_id`,`create_uid`)
+  KEY `sop_grant_actual_index` (`part_grant_id`,`create_uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
