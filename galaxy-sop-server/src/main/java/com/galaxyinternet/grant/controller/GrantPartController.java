@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.galaxyinternet.bo.GrantPartBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
@@ -47,16 +46,17 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	private GrantTotalService grantTotalService;
 	
 	
-	@RequestMapping(value = "/toAddGrantPart/{tid}", method = RequestMethod.GET)
-	public ModelAndView toApprActualAging(@PathVariable("tid") Long tid, HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView("project/tanchuan/appr_actual_aging");
-		GrantTotal total = grantTotalService.queryById(tid);
-		mv.addObject("total", total);
-		double useMoney = grantPartService.calculateBelongToActualMoney(tid);
-		mv.addObject("remainMoney", total.getGrantMoney() - useMoney);
-		return mv;
+	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toApprActualAging/{pid}", method = RequestMethod.GET)
+	public String toApprActualAging(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		GrantTotal total = grantTotalService.queryById(pid);
+		double useMoney = grantPartService.calculateBelongToActualMoney(pid);
+		request.setAttribute("total", total);
+		request.setAttribute("remainMoney", total.getGrantMoney() - useMoney);
+		return "project/tanchuan/appr_actual_aging";
 	}
-	
 	
 	/**
 	 * 新建分期拨款计划

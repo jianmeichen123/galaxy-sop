@@ -100,6 +100,11 @@
  
 </div>
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
+<!-- file -->
+<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
+<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<script src="<%=path %>/js/batchUpload.js" type="text/javascript" charset="utf-8"></script>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script>
   $(function(){  
 		//添加，编辑总拨款计划弹出页面
@@ -122,6 +127,7 @@
 			});
 			return false;
 		});
+		
 		//编辑总拨款计划
 		$("[data-btn='actual_aging']").on("click",function(){ 
 			var $self = $(this);
@@ -131,12 +137,15 @@
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
+					toInitBachUpload();
 					$("#popup_name").html(_name);
 					initDialogVal();
+					
 				}//模版反回成功执行	
 			});
 			return false;
 		});
+		
 		
 		
 	  createMenus(5);
@@ -200,5 +209,52 @@
 			 }
 		}
   }
+  //获取 页面数据\保存数据
+function paramsContion(){
+	
+	if(!beforeSubmit()){
+		return false;
+	}
+	
+	var condition = JSON.parse($("#actual_aging_form").serializeObject());
+	condition.fileReidsKey = Date.parse(new Date());
+	condition.fileNum = $("#filelist").find("tr").length - 1;
+	
+	var oldFids=[];
+	var oldfileids = $("input[name='oldfileids']");
+	if(oldfileids && oldfileids.length > 0){
+		
+		$.each(oldfileids, function(i) { 
+			var idVal = oldfileids[i].value;
+		   	if(!isNaN(idVal)){
+		   		oldFids.push(idVal);
+		   	}
+		});
+		condition.fileIds = oldFids;
+	}
+	
+	return condition;
+}
+
+function toInitBachUpload(){
+	toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
+			        platformUrl.toAddApprActualAging,"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
+					paramsContion,"actual_aging_form",saveCallBackFuc);
+}
+
+/**
+ * 回调函数
+ */
+ 
+function saveCallBackFuc(data){
+	removePop1();
+	//启用滚动条
+	 $(document.body).css({
+	   "overflow-x":"auto",
+	   "overflow-y":"auto"
+	 });
+	$("#project_delivery_table").bootstrapTable('refresh');
+}
 </script>
+
 </html>

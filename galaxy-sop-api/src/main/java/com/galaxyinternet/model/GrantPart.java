@@ -1,7 +1,10 @@
 package com.galaxyinternet.model;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.model.sopfile.SopFile;
 
 public class GrantPart extends PagableEntity{
 	
@@ -17,6 +20,8 @@ public class GrantPart extends PagableEntity{
 	 * 默认0
 	 */
 	private Integer partStatus = 0;
+	private String fileReidsKey;
+	private List<SopFile> files; 
 	
 	public Long getTotalGrantId() {
 		return totalGrantId;
@@ -72,6 +77,18 @@ public class GrantPart extends PagableEntity{
 	
 	
 	
+	public String getFileReidsKey() {
+		return fileReidsKey;
+	}
+	public void setFileReidsKey(String fileReidsKey) {
+		this.fileReidsKey = fileReidsKey;
+	}
+	public List<SopFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<SopFile> files) {
+		this.files = files;
+	}
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);
