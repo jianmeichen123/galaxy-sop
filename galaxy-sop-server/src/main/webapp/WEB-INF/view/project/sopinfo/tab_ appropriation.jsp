@@ -69,7 +69,7 @@
                     <div class="top clearfix">
                         <!--按钮-->
                         <div class="btnbox_f btnbox_f1">
-                            <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-name='添加总拨款计划'>添加总拨款计划</a>
+                            <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总拨款计划'>添加总拨款计划</a>
                         </div>
 
                     </div>
@@ -101,16 +101,21 @@
 <jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
 <script>
   $(function(){  
-		//编辑总拨款计划
-		$("[data-btn='actual_all']").on("click",function(){ 
+		//添加，编辑总拨款计划弹出页面
+	$("[data-btn='actual_all']").on("click",function(){ 
 			var $self = $(this);
 		var _url=platformUrl.toApprActualAll+"?pid=${pid}";
 		var _name= $self.attr("data-name");
+		var data_on=$self.attr("data-on");
+		var id=$self.attr("data-val");
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
 					$("#popup_name").html(_name);
+					if(data_on=="edit"){
+						sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
+					}
 					initDialogVal();
 				}//模版反回成功执行	
 			});
@@ -172,6 +177,26 @@
     }
 
   })
-   
+   function queryBack1(data){
+	  var result = data.result.status;
+		if(result == "ERROR"){ //OK, ERROR
+			layer.msg(data.result.message);
+			return;
+		}else{
+			 var grantTotal = data.entity;
+			 if(null!=grantTotal){
+				 $("#info dd input")
+					.each(function(){
+						var self = $(this);
+						if(self.attr('id') != 'undefined')
+						{
+						   var id = self.attr('id');
+						   var text = grantTotal[id];
+						   self.val(text);
+						}
+					});
+			 }
+		}
+  }
 </script>
 </html>

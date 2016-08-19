@@ -44,7 +44,7 @@ function  assembleHtml(grantTotal){
           +'</div>'    
          +'<div class="b_agreement_r fr">'
             +'<button class="pbtn bluebtn" href="/sop/html/actual_aging.html" data-btn="actual_aging" data-name="添加分期拨款计划">添加分期拨款计划</button>'
-            +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-name="编辑总拨款计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name="提示">删除</label>'
+            +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总拨款计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name="提示">删除</label>'
          +'</div>'
     +'</div>'                      
   //  <!--表格内容-->

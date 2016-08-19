@@ -155,6 +155,32 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	}
 	
 	/**
+	 * 根据id查询某个总拨款计划
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getGrantTotal/{tid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantTotal> getGrantTotal(@PathVariable("tid") Long tid,
+			HttpServletRequest request) {
+		ResponseData<GrantTotal> responseBody = new ResponseData<GrantTotal>();
+		
+			if(tid == null){
+			responseBody.setResult(new Result(Status.ERROR, "error" , "重要的参数丢失!"));
+			return responseBody;
+		}
+
+		try {
+			GrantTotal c = grantTotalService.queryById(tid);
+			responseBody.setEntity(c);
+			responseBody.setResult(new Result(Status.OK, "ok", "查询总拨款计划成功!"));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, "error", "查询总拨款计划成功!"));
+			_common_logger_.error("查询总拨款计划成功！", e);
+		}
+		return responseBody;
+	}
+	
+	
+	/**
 	 * 新建总拨款计划
 	 */
 	@ResponseBody

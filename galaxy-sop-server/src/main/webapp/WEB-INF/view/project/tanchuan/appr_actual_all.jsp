@@ -7,12 +7,12 @@
 		<div class="title_bj" id="popup_name"></div>
 		<form action="" method="post" id="add_form">
 	    <div class="form clearfix">
-	        <div class="edit_actual">
+	        <div class="edit_actual" id="info">
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>协议名称 ：</dt>
 	                <dd>
 	                	<div>
-	                    	<input class="edittxt" type="text" name="grantName"  valType="OTHER" regString="^[\u4e00-\u9fa5]{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个汉字"/>
+	                    	<input class="edittxt" type="text" id="grantName" name="grantName"  valType="OTHER" regString="^[\u4e00-\u9fa5]{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个汉字"/>
 	                    </div>
 	                </dd>
 	            </dl>
@@ -21,7 +21,7 @@
 	                <dt>计划拨款金额 ：</dt>
 	                <dd>	
 	                	<div>
-	                    	<input class=" txt " type="text" name="grantMoney" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持11位长度的两位小数">
+	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney" allowNULL="yes" valType="LIMIT_11_NUMBER" msg="<font color=red>*</font>支持11位长度的两位小数">
 	                    </div> 
 	                </dd>
 	            </dl>
@@ -44,7 +44,7 @@
 					layer.msg("提交表单过于频繁!");
 				}else if(data.result.status=="ERROR"){
 					
-						layer.msg("shibai!");
+						layer.msg("添加总拨款计划失败!");
 				}else{
 					layer.msg("添加总拨款计划成功!");
 					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}");
@@ -53,7 +53,4 @@
 			});
 		}
 	}
-
-
-	
 	</script>

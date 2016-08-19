@@ -881,6 +881,13 @@ var platformUrl = {
 	addGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/addGrantTotal",
 	//查询总拨款计划列表
 	queryGrantTotalList : Constants.sopEndpointURL + "/galaxy/grant/total/search",
+	//查询单个总拨款计划列表
+	getGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/getGrantTotal",
+	//删除总拨款计划列表
+	deleteGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/deleteGrantTotal",
+	//编辑总拨款计划列表
+	resetGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/resetGrantTotal",
+	
 }
 
 /**
