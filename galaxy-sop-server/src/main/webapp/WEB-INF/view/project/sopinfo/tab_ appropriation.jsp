@@ -89,6 +89,7 @@
                   <div id="tabApprAllList">
                    
                   </div>
+            <span class="show_total">总共 41 条记录</span>
             <span class="show_more blue fr" id="reloadAll">显示更多</span>
         </div>  
                    <!--tab end-->
@@ -153,6 +154,9 @@
 	    var tabApprSingleListBlock=$("#tabApprAllList .agreement").length;
 	    console.log(tabApprSingleListBlock)
 	    $("#tabApprAllList .agreement:lt(2)").css("display","block");
+	    if(tabApprSingleListBlock==0){
+	    	$(".proOperation .show_total").css("display","none");
+	    }
 	    if(tabApprSingleListBlock<3){
 	    	 $(".proOperation .show_more").css("display","none");
 	    }
@@ -163,7 +167,7 @@
 	    $(".proOperation .show_more").on('click', function() {
 	    clickNum++;
 	    var iNum = 2*clickNum+2; //每次点击加载的条数
-	    console.log(iNum)
+	    //console.log(iNum)
 	    $("#tabApprAllList .agreement:lt("+iNum+")").css("display","block");
 	    if(iNum>tabApprSingleListBlock || iNum==tabApprSingleListBlock){
 	    	 $(".proOperation .show_more").css("display","none");

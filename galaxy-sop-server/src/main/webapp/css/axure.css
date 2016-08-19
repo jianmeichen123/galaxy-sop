@@ -2095,6 +2095,7 @@ dl{position: relative;}
 .proOperation .show_more{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}
 .delivery td label.noMargin{margin:0;}
 #tabApprAllList .agreement{display:none;}
+.show_total{font-size: 12px;font-family:"宋体";color:#8a97b9;margin-left:20px;}
 /*拨款弹窗*/
 .addbutton a {
     height: 28px;
