@@ -18,13 +18,15 @@
 		                <dt>协议名称 ：</dt>
 		                <dd>
 		                	<span>创业服务协议</span>
+		                	<input name="totalGrantId" id=totalGrantId type="hidden" value="${totalGrantId}"/>
+		                	<input name="id" type="hidden" value=""/>
 		                </dd>
 		            </dl>
 	                <dl class="fmdl fl_l  clearfix">
 		                <dt>拨款时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" name="grant_detail" type="text" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" />
+		                    	<input class="edittxt" name="grantDetail" type="text" value="" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" />
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -33,7 +35,7 @@
 		                <dd>
 		                	
 		                	<div>
-		                    	<input class=" txt " name="grantMoney" type="text">
+		                    	<input class=" txt " name="grantMoney" type="text" value=""/>
 		                    </div> 
 	                        <div class="gray">剩余金额14,000,000元</div> 
 		                </dd>

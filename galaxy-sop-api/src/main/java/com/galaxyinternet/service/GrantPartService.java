@@ -10,4 +10,9 @@ public interface GrantPartService extends BaseService<GrantPart>{
 	double calculateBelongToActualMoney(Long partId);
 	
 	List<GrantPart> selectHasActualMoney(GrantPart part);
+	
+	public void insertGrantPart(GrantPart grantPart);
+	
+	public GrantPart selectGrantPart(Long partId);
+	
 }

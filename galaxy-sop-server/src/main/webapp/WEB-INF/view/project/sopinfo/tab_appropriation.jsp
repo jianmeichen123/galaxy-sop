@@ -129,17 +129,58 @@
 			return false;
 		});
 		
+	    function showGrantPart(tid){
+	    	
+	    }
 		//编辑总拨款计划
 		$("[data-btn='actual_aging']").on("click",function(){ 
-			var $self = $(this);
-		var _url=platformUrl.toApprActualAging+"/${pid}";
+		var $self = $(this);
+		var _data_type = $self.attr("data_type");
+		
+		var _id = $self.attr("data-id");
+		var _url=platformUrl.toApprActualAging+"/"+_id;
 		var _name= $self.attr("data-name");
+		
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
-					toInitBachUpload();
+					
 					$("#popup_name").html(_name);
+					if(_data_type == "edit"){
+						var _part_id = $self.attr("data-part-id");
+						//edit
+						_url = Constants.sopEndpointURL + '//galaxy/grant/part/selectGrantPart/'+_part_id;
+						sendGetRequest(_url, {}, function(data){
+							var result = data.result.status;
+							if(result == "OK"){
+								var grantPartInfo = data.entity;
+								$("#actual_aging_container [name='id']").val(grantPartInfo.id);
+								$("#actual_aging_container [name='totalGrantId']").val(grantPartInfo.totalGrantId);
+								$("#actual_aging_container [name='grantDetail']").val(grantPartInfo.grantDetail);
+								$("#actual_aging_container [name='grantMoney']").val(grantPartInfo.grantMoney);
+								
+								$.each(data.entity.files,function(){
+									var but = "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
+									var htm = "<tr id='"+this.id+"tr'>"+
+													"<td>"+this.fileName+"."+this.fileSuffix+
+														"<input type=\"hidden\" name=\"oldfileids\" value='"+this.id+"' />"+
+													"</td>"+
+													"<td>"+plupload.formatSize(this.fileLength)+"</td>"+
+													"<td>"+ but +"</td>"+
+													"<td>100%</td>"+
+												"</tr>"
+									$("#filelist").append(htm);
+								});
+								toInitBachUpload();
+								
+							}else{
+								layer.msg(data.result.message);
+							}
+						});
+					}else{
+						toInitBachUpload();
+					}
 					initDialogVal();
 					
 				}//模版反回成功执行	
@@ -242,13 +283,7 @@ function toInitBachUpload(){
  */
  
 function saveCallBackFuc(data){
-	removePop1();
-	//启用滚动条
-	 $(document.body).css({
-	   "overflow-x":"auto",
-	   "overflow-y":"auto"
-	 });
-	$("#project_delivery_table").bootstrapTable('refresh');
+	showTabs('${pid}',8);
 }
 </script>
 

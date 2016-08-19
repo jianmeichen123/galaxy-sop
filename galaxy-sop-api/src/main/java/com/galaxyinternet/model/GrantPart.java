@@ -16,12 +16,14 @@ public class GrantPart extends PagableEntity{
 	private Double grantMoney;
 	private Long createUid;
 	private String createUname;
+	private GrantTotal grantTotal;
 	/**
 	 * 默认0
 	 */
 	private Integer partStatus = 0;
 	private String fileReidsKey;
 	private List<SopFile> files; 
+	private byte fileNum;
 	
 	public Long getTotalGrantId() {
 		return totalGrantId;
@@ -76,7 +78,6 @@ public class GrantPart extends PagableEntity{
 	}
 	
 	
-	
 	public String getFileReidsKey() {
 		return fileReidsKey;
 	}
@@ -88,6 +89,20 @@ public class GrantPart extends PagableEntity{
 	}
 	public void setFiles(List<SopFile> files) {
 		this.files = files;
+	}
+	public byte getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(byte fileNum) {
+		this.fileNum = fileNum;
+	}
+	
+	
+	public GrantTotal getGrantTotal() {
+		return grantTotal;
+	}
+	public void setGrantTotal(GrantTotal grantTotal) {
+		this.grantTotal = grantTotal;
 	}
 	@Override
 	public String toString() {

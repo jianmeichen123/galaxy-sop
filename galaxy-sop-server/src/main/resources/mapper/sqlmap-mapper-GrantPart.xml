@@ -12,11 +12,12 @@
 		<result column="part_status" property="partStatus" />
 		<result column="updated_time" property="updatedTime" />
 		<result column="created_time" property="createdTime" />
+		<result column="file_num" property="fileNum" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
 		id, total_grant_id, grant_name, grant_detail, grant_money, create_uid, create_uname,
-		part_status, updated_time,created_time
+		part_status, updated_time,created_time,file_num
 	</sql>
 
 
@@ -84,6 +85,9 @@
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
 			</if>
+			<if test="fileNum != null"> 
+				file_num = #{fileNum,jdbcType=TINYINT}, 
+			</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -106,6 +110,9 @@
 			</if>
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
+			</if>
+			<if test="fileNum != null"> 
+				file_num = #{fileNum,jdbcType=TINYINT}, 
 			</if>
 		</set>
 		<where>
@@ -133,10 +140,10 @@
 	    <![CDATA[
 	     insert into sop_grant_part(
 	     	id, total_grant_id, grant_name, grant_detail, grant_money, create_uid, 
-	     	create_uname, part_status, updated_time,created_time
+	     	create_uname, part_status, updated_time,created_time,file_num
 	     )values(
 	     	#{id}, #{totalGrantId}, #{grantName}, #{grantDetail}, #{grantMoney}, #{createUid}, 
-	     	#{createUname},#{partStatus},#{updatedTime}, #{createdTime}
+	     	#{createUname},#{partStatus},#{updatedTime}, #{createdTime},#{fileNum}
 		 )
 	    ]]>
 	</insert>
@@ -162,12 +169,13 @@
 		<result column="updated_time" property="updatedTime" />
 		<result column="created_time" property="createdTime" />
 		<result column="actual_money" property="actualMoney" />
+		<result column="file_num" property="fileNum" />
 	</resultMap>
 	<!-- 查询，包含所属实际拨款总金额 -->
 	<select id="selectHasActualMoney" resultMap="A_BaseResultMap" parameterType="java.util.Map">
 		select
 			p.id, p.total_grant_id, p.grant_name, p.grant_detail, p.grant_money, p.create_uid, p.create_uname,
-			p.part_status, p.updated_time,p.created_time,sum(a.grant_money) as actual_money
+			p.part_status, p.updated_time,p.created_time,p.file_num,sum(a.grant_money) as actual_money
 		from sop_grant_part as p left join sop_grant_actual as a on p.id=a.part_grant_id 
 		<where>
 			<trim prefixOverrides="and">
