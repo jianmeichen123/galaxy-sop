@@ -1,6 +1,6 @@
 
 $(function(){
-	reloadData(0,9999);
+	reloadData(0,7);
 });
 function reloadData(pageNum,pageSize){
 	var data = {};
