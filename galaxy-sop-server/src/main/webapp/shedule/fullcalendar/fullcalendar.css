@@ -404,15 +404,15 @@ hr.fc-divider {
 .fc-row table {
 	/* don't put left/right border on anything within a fake row.
 	   the outer tbody will worry about this */
-	border-left: 0 hidden transparent;
-	border-right: 0 hidden transparent;
+	border-left: 0;
+	border-right: 0;
 
 	/* no bottom borders on rows */
-	border-bottom: 0 hidden transparent; 
+	border-bottom: 0; 
 }
 
 .fc-row:first-child table {
-	border-top: 0 hidden transparent; /* no top border on first row */
+	border-top: 0; /* no top border on first row */
 }
 
 
@@ -1021,7 +1021,7 @@ a.fc-more:hover {
 }
 
 .fc-time-grid table { /* don't put outer borders on slats/bg/content/etc */
-	border: 0 hidden transparent;
+	border: 0;
 }
 
 .fc-time-grid > .fc-bg {

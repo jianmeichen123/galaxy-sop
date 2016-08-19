@@ -465,9 +465,10 @@ $(function(){
 				});
 				$(".creativetc .tabtable").tabchange2();
 				$('#project_name').click(function(){
-					$('.block').css({
+					/*$('.block').css({
 						display: 'none',
-					});;
+					});*/
+					$('.block').css("display","none");
 					$(".aa").show();
 					$('.tablink li').eq(0).addClass('on').siblings().removeClass('on');
 				});
@@ -502,9 +503,7 @@ $(function(){
 		$.getHtml({
 			url:_url,//模版请求地址
 			data:"",//传递参数
-			okback:function(date){
-				console.log(platformUrl.shecudle_list)
-				
+			okback:function(date){				
 				$('#shecudle_list').bootstrapTable({
 					method: 'post',
 					url: platformUrl.shecudle_list,
@@ -514,7 +513,7 @@ $(function(){
 					pagination: true,
 					"queryParamsType": "limit",
 					singleSelect: false,
-					contentType: "application/x-www-form-urlencoded",
+					contentType: "application/x-www-form-urlencoded"
 				});
 			}//模版反回成功执行	
 		});
