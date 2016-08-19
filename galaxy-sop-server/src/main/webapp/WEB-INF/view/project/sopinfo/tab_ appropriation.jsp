@@ -89,7 +89,7 @@
                   <div id="tabApprAllList">
                    
            </div>
-            <span class="show_more blue fr">显示更多</span>
+            <span class="show_more blue fr" id="reloadAll">显示更多</span>
         </div>  
                    <!--tab end-->
           </div>
