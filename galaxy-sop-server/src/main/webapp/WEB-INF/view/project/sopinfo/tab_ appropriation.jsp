@@ -180,13 +180,28 @@
         tr_s.css("display","none");
       })
     }
-    // 仅最后一个显示更多显示
+    // 点击一次加载2条
     var tabApprSingleListBlock=$("#tabApprAllList .agreement").length;
+    console.log(tabApprSingleListBlock)
     $("#tabApprAllList .agreement:lt(2)").css("display","block");
+    if(tabApprSingleListBlock<3){
+    	 $(".proOperation .show_more").css("display","none");
+    }
     if(tabApprSingleListBlock>2){
  	   $(".proOperation .show_more").css("display","block");
     }
-
+    var clickNum = 0; //点击的次数
+    $(".proOperation .show_more").on('click', function() {
+    clickNum++;
+    var iNum = 2*clickNum+2; //每次点击加载的条数
+    console.log(iNum)
+    $("#tabApprAllList .agreement:lt("+iNum+")").css("display","block");
+    if(iNum>tabApprSingleListBlock || iNum==tabApprSingleListBlock){
+    	 $(".proOperation .show_more").css("display","none");
+    } 
+    });
+    
+    
   })
    function queryBack1(data){
 	  var result = data.result.status;
