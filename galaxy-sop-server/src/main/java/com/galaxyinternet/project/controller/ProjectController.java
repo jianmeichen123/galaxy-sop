@@ -3050,6 +3050,6 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("prograss", proinfo.getProjectProgress());
 		request.setAttribute("pname", proinfo.getProjectName());
 		request.setAttribute("projectId", pid);
-		return "project/sopinfo/tab_ appropriation";
+		return "project/sopinfo/tab_appropriation";
 	}
 }
