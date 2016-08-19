@@ -1,12 +1,16 @@
 
 $(function(){
-	  var data = {};
-	  data.pageNum = 0;
-	  data.pageSize = 3;
+	reloadData(0,9999);
+});
+function reloadData(pageNum,pageSize){
+	var data = {};
+	  data.pageNum = pageNum;
+	  data.pageSize = pageSize;
 	  data.direction = "asc";
 	  data.property = "created_time";
 	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList,JSON.stringify(data),queryBack);
-});
+
+}
 function queryBack(data){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
