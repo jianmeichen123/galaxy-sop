@@ -144,6 +144,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 				}
 			}
 			totalPage.setContent(tList);
+			totalPage.setTotal(Long.parseLong(String.valueOf(tList.size())));
 			responseBody.setPageList(totalPage);
 			responseBody.setResult(new Result(Status.OK, "success", "查询总拨款计划列表成功!"));
 		} catch (Exception e) {
