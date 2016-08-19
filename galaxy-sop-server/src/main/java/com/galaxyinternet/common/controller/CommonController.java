@@ -394,7 +394,10 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 				}
 				return res.getId();
 			}
-			res = getResourceById(userRes, res.getParentId());
+			if(res != null)
+			{
+				res = getResourceById(userRes, res.getParentId());
+			}
 		}
 		while(res != null);
 		return null;
