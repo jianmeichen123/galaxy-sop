@@ -13,7 +13,10 @@ public class GrantPart extends PagableEntity{
 	private Double grantMoney;
 	private Long createUid;
 	private String createUname;
-	private Integer partStatus;
+	/**
+	 * 默认0
+	 */
+	private Integer partStatus = 0;
 	
 	public Long getTotalGrantId() {
 		return totalGrantId;

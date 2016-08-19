@@ -1,5 +1,7 @@
 package com.galaxyinternet.grant.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -22,7 +24,6 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
-import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
@@ -72,14 +73,15 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 		}
 		
 		try {
-			Long count = grantPartService.queryCount(grantPart);
-			/**
-			 * 分期拨款记录删除时，做逻辑删除
-			 */
-			if(count > 0){
-				grantPart.setGrantName("分拨" + (count + 1));
+			GrantPart part = new GrantPart();
+			List<GrantPart> partList = grantPartService.queryList(part);
+			if(partList != null && partList.size() > 0){
+				GrantPart p = partList.get(partList.size());
+				String grantName = p.getGrantName().trim();
+				int currentNum = Integer.parseInt(grantName.substring(grantName.length() - 1));
+				grantPart.setGrantName("分拨" + (currentNum + 1));
 			}else{
-				grantPart.setGrantName("分拨" + (count + 1));
+				grantPart.setGrantName("分拨1");
 			}
 			User user = (User) getUserFromSession(request);
 			grantPart.setCreateUid(user.getId());

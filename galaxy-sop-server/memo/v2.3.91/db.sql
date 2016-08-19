@@ -24,7 +24,7 @@ CREATE TABLE `sop_grant_part` (
   `grant_money` decimal(15,2) DEFAULT NULL COMMENT '总拨款计划金额',
   `create_uid` bigint(20) DEFAULT NULL COMMENT '创建者的用户ID',
   `create_uname` varchar(50) COLLATE utf8_bin DEFAULT NULL COMMENT '创建者名',
-  `part_status` int(11) DEFAULT 0 COMMENT '分期拨款记录状态：默认0表示正常、1表示删除',
+  `part_status` int(11) DEFAULT 0 COMMENT '分期拨款记录状态：默认0表示正常',
   `updated_time` bigint(20) DEFAULT NULL COMMENT '项目的最近一次修改日期',
   `created_time` bigint(20) NOT NULL COMMENT '项目的创建日期',
   PRIMARY KEY (`id`),
