@@ -14,7 +14,7 @@ function reloadData(pageNum,pageSize,searchPartMoney){
 
 }
 function queryBack(data){
-	
+	$("#tabApprAllList").children('div').remove(); 
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
 		layer.msg(data.result.message);
@@ -22,14 +22,12 @@ function queryBack(data){
 	}else{ 
 	    var entityList = data.pageList;
 		if(typeof(entityList)!="underfined"&&entityList!=null){
-			$("#tabApprAllList").children('div').remove(); 
 			var content=entityList.content;
 			if(content.length>0){
 				for(var i=0;i<content.length;i++){
 					var grantTotal=content[i];
 					var _this=$("#tabApprAllList");
 					var kk=assembleHtml(grantTotal,i);
-					alert(kk)
 					$("#tabApprAllList").append(kk);
 					var partList=grantTotal.partList;
 					if(null!=partList&&partList.length>0){

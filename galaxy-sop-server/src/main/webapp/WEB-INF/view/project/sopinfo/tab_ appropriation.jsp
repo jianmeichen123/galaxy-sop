@@ -145,64 +145,32 @@
 			});
 			return false;
 		});
-		
-		
-		
-	  createMenus(5);
-     $("#bar").css("width","0px");  //初始化进度条宽度；
-    var deliveryComplete=$(".delivery_complete").text();
-        deliveryTotal=$(".delivery_total").text();
-        Wh=$(".progressBar").width();
-    barWidth=parseInt(deliveryComplete/deliveryTotal*Wh)+"px";
-    $("#bar").css("width",barWidth)
-
-  //拨款进度
-  $("#bar_m").css("width","0px");  //初始化进度条宽度；
-    var moneyComplete=$(".money_complete").text();
-        moneyTotal=$(".money_total").text();
-        m_width=$(".progressBar").width();
-        barWidth=parseInt(moneyComplete/moneyTotal*m_width)+"px";
-    $("#bar_m").css("width",barWidth)
-    //获取表格除第一行，第二行之外的元素
-    var tr_n=$(".moneyAgreement tbody tr")
-    var tr_s=$(".moneyAgreement tbody tr").eq(1).nextAll();
-    tr_s.css("display","none");
-    if(tr_n.length>2){
-      $(".agreement .show_more").show();
-      $(".agreement .show_more").click(function(){
-        $(this).hide();
-        $(".agreement .show_hide").show();
-        tr_n.show();
-      })
-       $(".agreement .show_hide").click(function(){
-        $(this).hide();
-        $(".agreement .show_more").show();
-        tr_s.css("display","none");
-      })
-    }
-    // 点击一次加载2条
-    var tabApprSingleListBlock=$("#tabApprAllList .agreement").length;
-    console.log(tabApprSingleListBlock)
-    $("#tabApprAllList .agreement:lt(2)").css("display","block");
-    if(tabApprSingleListBlock<3){
-    	 $(".proOperation .show_more").css("display","none");
-    }
-    if(tabApprSingleListBlock>2){
- 	   $(".proOperation .show_more").css("display","block");
-    }
-    var clickNum = 0; //点击的次数
-    $(".proOperation .show_more").on('click', function() {
-    clickNum++;
-    var iNum = 2*clickNum+2; //每次点击加载的条数
-    console.log(iNum)
-    $("#tabApprAllList .agreement:lt("+iNum+")").css("display","block");
-    if(iNum>tabApprSingleListBlock || iNum==tabApprSingleListBlock){
-    	 $(".proOperation .show_more").css("display","none");
-    } 
-    });
-    
-    
+	 createMenus(5);
+    showTwo();
   })
+  function showTwo(){
+	// 点击一次加载2条
+	    var tabApprSingleListBlock=$("#tabApprAllList .agreement").length;
+	    console.log(tabApprSingleListBlock)
+	    $("#tabApprAllList .agreement:lt(2)").css("display","block");
+	    if(tabApprSingleListBlock<3){
+	    	 $(".proOperation .show_more").css("display","none");
+	    }
+	    if(tabApprSingleListBlock>2){
+	 	   $(".proOperation .show_more").css("display","block");
+	    }
+	    var clickNum = 0; //点击的次数
+	    $(".proOperation .show_more").on('click', function() {
+	    clickNum++;
+	    var iNum = 2*clickNum+2; //每次点击加载的条数
+	    console.log(iNum)
+	    $("#tabApprAllList .agreement:lt("+iNum+")").css("display","block");
+	    if(iNum>tabApprSingleListBlock || iNum==tabApprSingleListBlock){
+	    	 $(".proOperation .show_more").css("display","none");
+	    } 
+	    });
+	    
+  }
    function queryBack1(data){
 	  var result = data.result.status;
 		if(result == "ERROR"){ //OK, ERROR
@@ -226,29 +194,22 @@
   }
  $("#search").click( function(){
 		var searchPartMoney=$("#searchPartMoney").val();
-		  alert(searchPartMoney)
 		if(null==searchPartMoney||""==searchPartMoney){
-			
 			reloadData(0,9999,null);
-			
 		}else{
-			//$("#tabApprAllList").remove();
 			reloadData(0,9999,searchPartMoney);
-			
 		}
+		  showTwo();
 	})
 
   //获取 页面数据\保存数据
 function paramsContion(){
-	
 	if(!beforeSubmit()){
 		return false;
 	}
-	
 	var condition = JSON.parse($("#actual_aging_form").serializeObject());
 	condition.fileReidsKey = Date.parse(new Date());
 	condition.fileNum = $("#filelist").find("tr").length - 1;
-	
 	var oldFids=[];
 	var oldfileids = $("input[name='oldfileids']");
 	if(oldfileids && oldfileids.length > 0){
@@ -261,7 +222,6 @@ function paramsContion(){
 		});
 		condition.fileIds = oldFids;
 	}
-	
 	return condition;
 }
 
