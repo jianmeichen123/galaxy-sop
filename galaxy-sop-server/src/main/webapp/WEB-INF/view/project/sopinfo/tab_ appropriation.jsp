@@ -149,6 +149,7 @@
 	 createMenus(5);
     showTwo();
   })
+ 
   function showTwo(){
 	// 点击一次加载2条
 	    var tabApprSingleListBlock=$("#tabApprAllList .agreement").length;
@@ -164,7 +165,7 @@
 	 	   $(".proOperation .show_more").css("display","block");
 	    }
 	    var clickNum = 0; //点击的次数
-	    $(".proOperation .show_more").on('click', function() {
+	    $(".proOperation .show_more").unbind('click').click(function(event) {
 	    clickNum++;
 	    var iNum = 2*clickNum+2; //每次点击加载的条数
 	    //console.log(iNum)
@@ -172,6 +173,7 @@
 	    if(iNum>tabApprSingleListBlock || iNum==tabApprSingleListBlock){
 	    	 $(".proOperation .show_more").css("display","none");
 	    } 
+	    return false;
 	    });
 	    
   }
