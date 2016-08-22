@@ -12,6 +12,7 @@ public interface GrantPartService extends BaseService<GrantPart>{
 	List<GrantPart> selectHasActualMoney(GrantPart part);
 	
 	public void insertGrantPart(GrantPart grantPart);
+	public void upateGrantPart(GrantPart grantPart);
 	
 	public GrantPart selectGrantPart(Long partId);
 	

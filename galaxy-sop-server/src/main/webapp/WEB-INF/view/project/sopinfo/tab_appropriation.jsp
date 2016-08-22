@@ -140,6 +140,7 @@
 		var _id = $self.attr("data-id");
 		var _url=platformUrl.toApprActualAging+"/"+_id;
 		var _name= $self.attr("data-name");
+		var _total_name = $self.attr("data-total-name");
 		
 			$.getHtml({
 				url:_url,//模版请求地址
@@ -147,6 +148,7 @@
 				okback:function(){
 					
 					$("#popup_name").html(_name);
+					$("#totalName").html(_total_name);
 					if(_data_type == "edit"){
 						var _part_id = $self.attr("data-part-id");
 						//edit
@@ -179,6 +181,7 @@
 							}
 						});
 					}else{
+						$("#partId").remove();
 						toInitBachUpload();
 					}
 					initDialogVal();
@@ -188,13 +191,13 @@
 			return false;
 		});
 	 createMenus(5);
-    showTwo();
+     showTwo();
   })
  
   function showTwo(){
 	// 点击一次加载2条
 	    var tabApprSingleListBlock=$("#tabApprAllList .agreement").length;
-	    console.log(tabApprSingleListBlock)
+	    //console.log(tabApprSingleListBlock)
 	    $("#tabApprAllList .agreement:lt(2)").css("display","block");
 	    if(tabApprSingleListBlock==0){
 	    	$(".proOperation .show_total").css("display","none");

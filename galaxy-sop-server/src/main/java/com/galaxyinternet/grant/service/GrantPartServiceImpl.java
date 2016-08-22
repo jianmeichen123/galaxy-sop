@@ -3,6 +3,8 @@ package com.galaxyinternet.grant.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +16,13 @@ import com.galaxyinternet.dao.GrantPartDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.file.FileResult;
+import com.galaxyinternet.framework.core.file.OSSHelper;
+import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
+import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.GrantFile;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.project.Project;
@@ -23,9 +31,11 @@ import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.touhou.DeliveryFile;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.touhou.service.DeliveryServiceImpl;
 
 @Service("com.galaxyinternet.grant.GrantPartService")
 public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements GrantPartService {
+	final Logger logger = LoggerFactory.getLogger(GrantPartServiceImpl.class);
 	
 	@Autowired
 	private GrantPartDao grantPartDao;
@@ -134,4 +144,111 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 		return files;
 	}
 
+	@Transactional
+	public void upateGrantPart(GrantPart grantPart) {
+		
+		GrantPart oldGrantPart =  grantPartDao.selectById(grantPart.getId());
+		if(oldGrantPart == null){
+			throw new DaoException(String.format("upateGrantPart 数据错误: " + GSONUtil.toJson(oldGrantPart)));
+		}
+		List<SopFile> upFiles = grantPart.getFiles();   			//新存入 sopfile
+		List<Long> oldHasFileIds = grantPart.getFileIds();       //原fileids 还保留的
+		List<Long> toDelfileids = new ArrayList<Long>();
+		
+		Byte allNum = grantPart.getFileNum();
+		Byte oldNum = oldGrantPart.getFileNum() == null ?0:oldGrantPart.getFileNum();
+		Byte oldHasNum = (byte) (oldHasFileIds ==null?0:oldHasFileIds.size());
+		Byte upNum = (byte) (upFiles == null?0:upFiles.size());
+		
+		//文件删除
+		if(oldNum!=0){
+			if(oldHasNum == 0){
+				toDelfileids = grantPartFileList(grantPart.getId());
+			}else if(oldNum.byteValue() != oldHasNum.byteValue()){
+				List<Long> oldfileids = grantPartFileList(grantPart.getId());  //查询中间表， 取原 fileids
+				for(Long oldId : oldfileids){
+					if(!oldHasFileIds.contains(oldId)){
+						toDelfileids.add(oldId);
+					}
+				}
+			}
+		}
+		if(toDelfileids!=null && !toDelfileids.isEmpty()){
+			SopFileBo fileQ = new SopFileBo();
+			fileQ.setIds(toDelfileids);
+			fileDao.delete(fileQ);    // 删除 file、表
+			
+			GrantFile dfQ = new GrantFile();
+			dfQ.setFileIds(toDelfileids);
+			grantFileDao.delete(dfQ); // 删除 中间表
+		}
+		
+		//新文件上传
+		if(allNum == null || allNum == 0){
+			grantPart.setFileNum((byte) 0);
+		}else{
+			grantPart.setFileNum(allNum);
+			if(upNum != 0){ 
+				List<GrantFile> dfileIn = new ArrayList<GrantFile>();
+				Project project =  projectDao.selectById(grantPart.getGrantTotal().getProjectId());
+				for(SopFile sopfile:upFiles){
+					sopfile.setProjectId(project.getId());
+					sopfile.setProjectProgress(project.getProjectProgress());
+					sopfile.setCareerLine(project.getProjectDepartid());
+					sopfile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
+					sopfile.setFileUid(project.getCreateUid());
+				}
+				fileDao.insertInBatch(upFiles);
+				
+				for(SopFile sopfile:upFiles){
+					GrantFile df = new GrantFile();
+					df.setGrantId(grantPart.getId());
+					df.setFileId(sopfile.getId());
+					dfileIn.add(df);
+				}
+				grantFileDao.insertInBatch(dfileIn);
+			}
+		}
+		
+		//更新交割事项
+		int num = grantPartDao.updateById(grantPart);
+		
+		// 删除 阿里云 文件
+		if(toDelfileids!=null && !toDelfileids.isEmpty()){
+			final List<Long> alifileidlist = toDelfileids;
+			if(alifileidlist!=null && !alifileidlist.isEmpty()){ 
+				GalaxyThreadPool.getExecutorService().execute(new Runnable() {
+					@Override
+					public void run() {
+						delAliyunFiles(alifileidlist);
+					}
+				});
+			}
+		}
+		
+	}
+	
+	/**
+	 * 由 文件 ids 删除 aliyun 文件
+	 */
+	public void delAliyunFiles(List<Long> ids){
+		List<SopFile> files = getFilesByIds(ids);  //文件
+		if(files!=null){
+			for(SopFile file : files){
+				try {
+					FileResult fileResult = OSSHelper.deleteFile(file.getBucketName(), file.getFileKey());
+					if(fileResult.getResult().getStatus().equals(Status.ERROR)){
+						logger.error("delAliyunFiles 删除 aliyun 文件失败");
+					}
+				} catch (Exception e) {
+					logger.error("delAliyunFiles 删除 aliyun 文件失败 "+ GSONUtil.toJson(file),e);
+				}
+				
+			}
+		}
+	}
+	
+
 }
+
+
