@@ -43,7 +43,7 @@
             <jsp:include page="tab_header.jsp?index=5" flush="true"></jsp:include>
             <!-- 档案库信息 -->
             <div id="file_repository">
-            	<c:if test="${aclViewProject==true}">
+            	<c:if test="${aclViewProject==true or isThyy}">
             	<form id = 'file_repository_search_form'>
             	<div class="member document">
             	 <c:if test="${fx:isCreatedByUser('project',projectId) }">

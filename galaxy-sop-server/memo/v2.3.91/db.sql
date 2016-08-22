@@ -44,3 +44,25 @@ CREATE TABLE `sop_grant_actual` (
   PRIMARY KEY (`id`),
   KEY `sop_grant_actual_index` (`part_grant_id`,`create_uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/**添加投后运营角色，id=20**/
+INSERT INTO `fx_db`.`platform_role`
+            (`id`,
+             `name`,
+             `role_code`,
+             `user_id`,
+             `description`,
+             `disabled`,
+             `sort`,
+             `created_time`,
+             `updated_time`,
+             `application_platform`)
+VALUES (20,
+        '投后运营',
+        'THYY',
+        NULL,
+        '负责投成的项目打款及运营情况收集。',
+        NULL,
+        0,
+        1469153154195,
+        NULL,
+        0);

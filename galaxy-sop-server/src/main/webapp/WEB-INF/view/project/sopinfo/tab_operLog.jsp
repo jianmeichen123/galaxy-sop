@@ -51,7 +51,7 @@
             <div data-tab="con" > 
                -->
             	<div class="tabtable_con">
-            		<c:if test="${aclViewProject==true}">
+            		<c:if test="${aclViewProject==true or isThyy}">
 					<div id="custom-toolbar" class='none'>
 						<input type="hidden" id="projectId" name="projectId" value="">   <!-- 项目id -->
 					</div>

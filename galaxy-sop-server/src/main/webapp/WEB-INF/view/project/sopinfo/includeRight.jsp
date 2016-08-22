@@ -13,7 +13,7 @@
         <div class="new_right">
         	<b class="sj_ico null">三角</b>
         	<!-- 投后运营Start -->
-        	<c:if test="${aclViewProject }">
+        	<c:if test="${aclViewProject or isThyy}">
         	
         	<div id="thyy_div" style="display:none;">
 				<div class="correlation">投后运营</div>
@@ -161,7 +161,7 @@ $(function(){
 	{
 		$.each($('.new_left .tablinks li'),function(){
 			var tab = $(this);
-			if(tab.find('a').text() == '运营分析')
+			if(tab.find('a').text() == '运营分析' || tab.find('a').text() == '拨款信息')
 			{
 				tab.remove();
 			}

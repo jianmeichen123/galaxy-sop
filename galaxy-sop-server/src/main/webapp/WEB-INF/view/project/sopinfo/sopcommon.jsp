@@ -45,9 +45,11 @@ position:absolute;
         </div>
 </body>
 <%-- <script src="<%=request.getContextPath() %>/js/cookie.js"></script> --%>
+<!-- 高管/投资经理 -->
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isCreatedByUser" value="${fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+<c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>
 <script>
 /* var number_on;
 $(function(){
