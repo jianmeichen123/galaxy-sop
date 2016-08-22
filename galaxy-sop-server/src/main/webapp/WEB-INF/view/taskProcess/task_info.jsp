@@ -22,6 +22,9 @@
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 <script src="<%=path %>/js/my.js" type="text/javascript"></script>
 <script src="<%=path %>/js/my_ext.js" type="text/javascript"></script>
+<!-- 保存进度条 -->
+<link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 </head>
 
 <body>

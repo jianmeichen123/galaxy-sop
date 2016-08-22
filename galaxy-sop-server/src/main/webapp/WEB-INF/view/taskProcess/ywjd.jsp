@@ -67,7 +67,7 @@
 	        </dd>
 	        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a></dd>
 	    </dl> 
-	    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn";>上传保存</a>
+	    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
 	</form>
 	</div>
 </div>
@@ -238,6 +238,10 @@ function initUpload(_dialog){
 				});
 			},
 			BeforeUpload:function(up){
+				$(_dialog.id).showLoading(
+						 {
+						    'addClass': 'loading-indicator'						
+						 });
 				var $form =$(_dialog.id).find("form")
 				var data = JSON.parse($form.serializeObject());
 				data['type'] = data['fileSource'];
@@ -246,6 +250,7 @@ function initUpload(_dialog){
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {
+				$(_dialog.id).hideLoading();
 				var data = $.parseJSON(rtn.response);
 				if(data.result.status == "OK")
 				{
@@ -259,6 +264,7 @@ function initUpload(_dialog){
 				}
 			},
 			Error: function(up, err) {
+				$(_dialog.id).hideLoading();
 				layer.msg(err.message);
 			}
 		}
