@@ -41,7 +41,7 @@ function  assembleHtml(grantTotal,i){
 	     +'<div class="b_agreement clearfix">'
 		  +'<div class="b_agreement_l fl">'
 		     +'<h3>'+grantTotal.grantName+'</h3>'
-	         +'<dl><dt>计划总拨款金额：</dt><dd>'+grantTotal.grantMoney+'</dd></dl>'
+	         +'<dl><dt>计划总拨款金额（元）：</dt><dd>'+grantTotal.grantMoney+'</dd></dl>'
              +'<dl><dt>编辑人：</dt><dd>'+grantTotal.createUname+'</dd></dl>'    
              +'<dl><dt>编辑日期：</dt><dd>'+grantTotal.formatCreatedTime+'</dd></dl>'
           +'</div>'    
@@ -70,7 +70,7 @@ function  assembleHtml(grantTotal,i){
 
 function  assembleSingleTabHtml(grantPart,grantName){
 	 var value='<tr>'	 
-		   +'<td><a class="blue" href="javascript:void(0)" data-btn="actual" data-name="实际拨款信息列表">'+grantPart.grantName+'</a></td>'
+		   +'<td><a class="blue" href="javascript:void(0)" data-part-id='+grantPart.id+' data-btn="actual" data-name="实际拨款信息列表">'+grantPart.grantName+'</a></td>'
 		   +'<td>'+grantPart.grantDetail+'</td>'
 		   +'<td>'+grantPart.grantMoney+'</td>'
 		   +'<td>'+grantPart.actualMoney+'</td>'

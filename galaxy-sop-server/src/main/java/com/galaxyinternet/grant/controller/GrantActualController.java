@@ -7,10 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.galaxyinternet.bo.GrantActualBo;
@@ -41,9 +43,11 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
-	@RequestMapping(value = "/toApprActualPage", method = RequestMethod.GET)
-	public String toApprActualPage(HttpServletRequest request) {
-				return "project/tanchuan/appr_actual";
+	@RequestMapping(value = "/toApprActualPage/{partId}", method = RequestMethod.GET)
+	public ModelAndView toApprActualPage(@PathVariable("partId") Long partId, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("project/tanchuan/appr_actual");
+		mv.addObject("partId", partId);
+		return mv;
 	}
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/

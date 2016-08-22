@@ -91,7 +91,7 @@ public class IosMeetSchedulingMessageHandler implements IosMessageHandler
 					time = timestr.split(",");
 				}
 				content.append(",已调整到")
-				.append(time[0])
+				.append(time[1])
 				.append("召开")
 				.append(message.getContent());
 			}else if(message.getKeyword().contains("insert:")){
