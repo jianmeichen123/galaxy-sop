@@ -47,19 +47,7 @@
 		<div class="new_left">
 			<div class="tabtable assessment label_static">
 				<!-- tab标签 -->
-	            <ul class="tablink tablinks">
-	                <li><a href="javascript:;" onclick="showTabs(${pid},0)">基本信息</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},1)">团队成员</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
-	                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},7)">交割前事项</a></li>
-	               <li><a href="javascript:;" onclick="showTabs(${pid},8)">拨款信息</a></li> 
-                	<li><a href="javascript:;" onclick="showTabs(${pid},9)">运营分析</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
-	                
-	            </ul>
+	            <jsp:include page="tab_header.jsp?index=7" flush="true"></jsp:include>
 
 
 
