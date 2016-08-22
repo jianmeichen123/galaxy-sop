@@ -192,7 +192,7 @@
 						//查看实际拨款信息
 					$("[data-btn='actual_look']").on("click",function(){ 
 						var $self = $(this);
-						var _url = $self.attr("href");
+						var _url = platformUrl.toApprActualLock;
 						var _name= $self.attr("data-name");
 						$.getHtml({
 							url:_url,//模版请求地址
@@ -206,7 +206,7 @@
 						//编辑实际拨款信息
 					$("[data-btn='edit_actual']").on("click",function(){ 
 						var $self = $(this);
-						var _url = $self.attr("href");
+						var _url=platformUrl.toApprActualPage;
 						var _name= $self.attr("data-name");
 						$.getHtml({
 							url:_url,//模版请求地址
@@ -220,7 +220,7 @@
 				//添加实际拨款信息
 					$("[data-btn='edit_actual']").on("click",function(){ 
 						var $self = $(this);
-						var _url = $self.attr("href");
+						var _url = platformUrl.toApprActualPage;
 						var _name= $self.attr("data-name");
 						$.getHtml({
 							url:_url,//模版请求地址

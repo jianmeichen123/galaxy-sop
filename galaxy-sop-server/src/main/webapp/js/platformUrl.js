@@ -888,9 +888,13 @@ var platformUrl = {
 	//编辑总拨款计划列表
 	resetGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/resetGrantTotal",
 	//添加分期拨款计划
-	toAddApprActualAging : Constants.sopEndpointURL + "/galaxy/grant/part/addGrantPart",
-	//添加分期拨款计划
-	toApprActualPage : Constants.sopEndpointURL + "/galaxy/grant/part/toApprActualPage",
+	toAddApprActualAging : Constants.sopEndpointURL + "/galaxy/grant/actual/addGrantPart",
+	//谈书实际拨款列表
+	toApprActualPage : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualPage",
+	//查看实际拨款详情
+	toApprActualLook : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLock",
+	//查看实际拨款详情
+	toApprActualAdd : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLock",
 	
 	
 }

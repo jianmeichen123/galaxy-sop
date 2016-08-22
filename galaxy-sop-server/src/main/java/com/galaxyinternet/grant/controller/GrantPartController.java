@@ -63,13 +63,6 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 		return "project/tanchuan/appr_actual_aging";
 	}
 	/**
-	 * sop tab页面  日志 详情    /galaxy/project/proview/
-	 */
-	@RequestMapping(value = "/toApprActualPage", method = RequestMethod.GET)
-	public String toApprActualPage(HttpServletRequest request) {
-				return "project/tanchuan/appr_actual";
-	}
-	/**
 	 *查询 事项
 	 */
 	@ResponseBody
