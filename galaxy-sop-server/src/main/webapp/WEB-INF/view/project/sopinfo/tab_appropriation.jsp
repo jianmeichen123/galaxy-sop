@@ -130,7 +130,7 @@ var pId;
 		var _data_type = $self.attr("data_type");
 		
 		var _id = $self.attr("data-id");
-		var _url=platformUrl.toApprActualAging+"/"+_id;
+		var _url=  Constants.sopEndpointURL+'/galaxy/grant/part/toApprPartAging'+"/"+_id;
 		var _name= $self.attr("data-name");
 		var _total_name = $self.attr("data-total-name");
 		
@@ -335,7 +335,7 @@ function paramsContion(){
 
 function toInitBachUpload(){
 	toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
-			        platformUrl.toAddApprActualAging,"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
+			Constants.sopEndpointURL+'/galaxy/grant/part/addGrantPart',"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
 					paramsContion,"actual_aging_form",saveCallBackFuc);
 }
 

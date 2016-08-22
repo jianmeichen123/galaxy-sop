@@ -54,13 +54,13 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
-	@RequestMapping(value = "/toApprActualAging/{tid}", method = RequestMethod.GET)
+	@RequestMapping(value = "/toApprPartAging/{tid}", method = RequestMethod.GET)
 	public String toApprActualAging(@PathVariable("tid") Long tid, HttpServletRequest request) {
 		GrantTotal total = grantTotalService.queryById(tid);
 		double useMoney = grantPartService.calculateBelongToActualMoney(tid);
 		request.setAttribute("totalGrantId", total.getId());
 		request.setAttribute("remainMoney", total.getGrantMoney() - useMoney);
-		return "project/tanchuan/appr_actual_aging";
+		return "project/tanchuan/appr_part_aging";
 	}
 	/**
 	 *查询 事项
