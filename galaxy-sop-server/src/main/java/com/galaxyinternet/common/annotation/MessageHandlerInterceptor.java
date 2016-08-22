@@ -170,6 +170,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	private void insertMessageTip(OperationMessage message) {
 		try {
+			if(message == null){
+				return;
+			}
 			Long c=operationMessageService.insert(message);
 			StringBuffer content = new StringBuffer();
 			
