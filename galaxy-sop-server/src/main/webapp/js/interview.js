@@ -186,6 +186,7 @@ function initViewUpload() {
 			},
 			
 			FileUploaded: function(up, files, rtn) {  //上传回调
+				$("#powindow").hideLoading();
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
@@ -207,9 +208,14 @@ function initViewUpload() {
 			},
 			
 			BeforeUpload:function(up){
+				$("#powindow").showLoading(
+						 {
+						    'addClass': 'loading-indicator'						
+						 });
 			},
 			
 			Error: function(up, err) {
+				$("#powindow").hideLoading();
 				$("#saveInterView").removeClass("disabled");
 				$("#fileName").val("");
 				layer.msg(err.message);
