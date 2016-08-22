@@ -33,6 +33,7 @@
 			  	</if>
 			</trim>
 			<if test="sorting != null">order by ${sorting}</if>
+			<if test="property != null">order by ${property} ${direction}</if>
 			<if test="offset != null and limit != null">
 				limit #{offset}, #{limit}
 			</if>
