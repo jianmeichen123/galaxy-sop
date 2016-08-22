@@ -41,7 +41,7 @@ function  assembleHtml(grantTotal,i){
 	     +'<div class="b_agreement clearfix">'
 		  +'<div class="b_agreement_l fl">'
 		     +'<h3>'+grantTotal.grantName+'</h3>'
-	         +'<dl><dt>计划总拨款金额：</dt><dd>'+grantTotal.grantMoney+'</dd></dl>'
+	         +'<dl><dt>计划总拨款金额（元）：</dt><dd>'+grantTotal.grantMoney+'</dd></dl>'
              +'<dl><dt>编辑人：</dt><dd>'+grantTotal.createUname+'</dd></dl>'    
              +'<dl><dt>编辑日期：</dt><dd>'+grantTotal.formatCreatedTime+'</dd></dl>'
           +'</div>'    
