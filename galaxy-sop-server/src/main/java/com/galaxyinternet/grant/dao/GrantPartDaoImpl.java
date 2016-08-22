@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
 import com.galaxyinternet.dao.GrantPartDao;
-import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.impl.BaseDaoImpl;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.utils.BeanUtils;
@@ -22,6 +21,7 @@ public class GrantPartDaoImpl extends BaseDaoImpl<GrantPart, Long> implements Gr
 		try {
 			return sqlSessionTemplate.selectOne(getSqlName("sumBelongToActualMoney"), partId);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DaoException(String.format("计算实际拨款总金额出错！语句：%s", getSqlName("sumBelongToActualMoney")), e);
 		}
 	}

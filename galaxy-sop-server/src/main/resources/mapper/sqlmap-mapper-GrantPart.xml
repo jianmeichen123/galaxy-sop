@@ -152,7 +152,7 @@
 	
 	<!-- 计算所属的实际拨款总金额 -->
 	<select id="sumBelongToActualMoney" resultType="java.lang.Double" parameterType="java.lang.Long">
-		select sum(grant_money) from sop_grant_actual where part_grant_id = #{partId} and part_status = 0
+		select IFNULL(SUM(actual.grant_money), 0) from sop_grant_actual actual, sop_grant_part part where actual.part_grant_id = #{partId} and part.part_status = 0
 	</select>
 	
 	
