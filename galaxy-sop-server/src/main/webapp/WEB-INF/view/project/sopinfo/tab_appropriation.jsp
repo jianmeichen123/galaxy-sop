@@ -95,8 +95,9 @@
 <script src="<%=path %>/js/batchUpload.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script>
+var pId;
   $(function(){  
-	  var pId="${pid}";
+	pId="${pid}";
 	  $("#tabApprAllList").children('div').remove(); 
 		reloadData(null,pId);
 		//添加，编辑总拨款计划弹出页面
@@ -302,9 +303,9 @@
  $("#search").click( function(){
 		var searchPartMoney=$("#searchPartMoney").val();
 		if(null==searchPartMoney||""==searchPartMoney){
-			reloadData(0,9999,null);
+			reloadData(null,pId);
 		}else{
-			reloadData(0,9999,searchPartMoney);
+			reloadData(searchPartMoney,pId);
 		}
 		  showTwo();
 	})
