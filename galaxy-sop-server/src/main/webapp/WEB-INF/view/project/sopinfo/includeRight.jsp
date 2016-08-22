@@ -29,6 +29,16 @@
 							<div id="bar"></div>
 						</div>
 					</div>
+					 <!-- 拨款进度 -->
+              <div class="money">
+                <div class="title">拨款进度</div>
+                <ul class="clearfix">
+                  <li class="fl">已拨款：<span class="money_complete">123</span>万</li>
+                  <li class="fr">计划拨款：<span class="money_total">800</span>万</li>
+                </ul>
+                <div class="progressBar"><div id="bar_m"></div></div>
+              </div>
+              <!-- 拨款进度end -->
 				</div>
 				
 				<div class="correlation">相关操作</div> 

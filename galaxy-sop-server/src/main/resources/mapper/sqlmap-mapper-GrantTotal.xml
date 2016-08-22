@@ -126,4 +126,9 @@
 		 )
 	    ]]>
 	</insert>
+	
+	<!-- 计算该项目的协议拨款总金额 -->
+	<select id="sumPlanMoney" resultType="java.lang.Double" parameterType="java.lang.Long">
+		SELECT IFNULL(SUM(st.grant_money), 0) FROM sop_grant_total st WHERE st.project_id= #{projectId}
+	</select>
 </mapper>

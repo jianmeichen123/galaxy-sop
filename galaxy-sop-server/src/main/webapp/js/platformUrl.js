@@ -892,10 +892,12 @@ var platformUrl = {
 	//谈书实际拨款列表
 	toApprActualPage : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualPage",
 	//查看实际拨款详情
-	toApprActualLook : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLock",
+	toApprActualLook : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLook",
 	//查看实际拨款详情
-	toApprActualAdd : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLock",
-	
+	toApprActualAdd : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLook",
+	//右侧拨款进度
+	getApprProcess : Constants.sopEndpointURL + "/galaxy/grant/total/getApprProcess",
+
 	
 }
 

@@ -86,7 +86,7 @@
 				<jdbc.username>fxuser</jdbc.username>
 				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
 				<!-- 本地项目地址 -->
-				<log4j.path>${catalina.base}/logs/</log4j.path>
+				<log4j.path>d:/logs/</log4j.path>
 				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>

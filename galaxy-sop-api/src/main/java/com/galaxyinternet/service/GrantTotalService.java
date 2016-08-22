@@ -4,5 +4,6 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.GrantTotal;
 
 public interface GrantTotalService extends BaseService<GrantTotal>{
+	public Double setApprProcess(Long query);
 	
 }

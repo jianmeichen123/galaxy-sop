@@ -1,7 +1,9 @@
 package com.galaxyinternet.grant.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -230,6 +232,30 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		}
 		try {
 			grantTotalService.updateById(grantTotal);
+			responseBody.setResult(new Result(Status.OK, "ok", "编辑总拨款计划失败!"));
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR, "error", "编辑总拨款计划失败!"));
+			_common_logger_.error("编辑总拨款计划失败！", e);
+		}
+		return responseBody;
+	}
+	/**
+	 * 编辑总拨款计划
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getApprProcess/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantTotal> getAppropriationProcess(@PathVariable("pid")  Long pid,
+			HttpServletRequest request) {
+		ResponseData<GrantTotal> responseBody = new ResponseData<GrantTotal>();
+		if(pid == null){
+			responseBody.setResult(new Result(Status.ERROR, "error" , "缺少必要的参数!"));
+			return responseBody;
+		}
+		try {
+			Double setApprProcess = grantTotalService.setApprProcess(pid);
+			Map<String,Object> map=new HashMap<String,Object>();
+			map.put("sumPlanMoney", setApprProcess);
+			responseBody.setUserData(map);
 			responseBody.setResult(new Result(Status.OK, "ok", "编辑总拨款计划失败!"));
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "编辑总拨款计划失败!"));

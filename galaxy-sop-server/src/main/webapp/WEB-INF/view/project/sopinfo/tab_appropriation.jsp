@@ -239,7 +239,33 @@ var pId;
 			});
 			return false;
 		});
+		//拨款进度
+		  $("#bar_m").css("width","0px");  //初始化进度条宽度；
+		    var moneyComplete=$(".money_complete").text();
+		        moneyTotal=$(".money_total").text();
+		        m_width=$(".progressBar").width();
+		        barWidth=parseInt(moneyComplete/moneyTotal*m_width)+"px";
+		    $("#bar_m").css("width",barWidth)
+		    //获取表格除第一行，第二行之外的元素
+		    var tr_n=$(".moneyAgreement tbody tr")
+		    var tr_s=$(".moneyAgreement tbody tr").eq(1).nextAll();
+		    tr_s.css("display","none");
+		    if(tr_n.length>2){
+		      $(".agreement .show_more").show();
+		      $(".agreement .show_more").click(function(){
+		        $(this).hide();
+		        $(".agreement .show_hide").show();
+		        tr_n.show();
+		      })
+		       $(".agreement .show_hide").click(function(){
+		        $(this).hide();
+		        $(".agreement .show_more").show();
+		        tr_s.css("display","none");
+		      })
+		    }
+
 	 createMenus(5);
+	 appropriationProcess();
      showTwo();
   })
  
@@ -346,6 +372,19 @@ function toInitBachUpload(){
 function saveCallBackFuc(data){
 	showTabs('${pid}',8);
 }
+function appropriationProcess(){
+	sendPostRequest(platformUrl.getApprProcess+"/"+pId,appropriationProcessBack);
+}
+function appropriationProcessBack(data){
+	var result = data.result.status;
+	if(result == "ERROR"){ //OK, ERROR
+		layer.msg(data.result.message);
+		return;
+	}else{
+		 var grantTotal = data.entity;
+	}
+}
+
 </script>
 
 </html>
