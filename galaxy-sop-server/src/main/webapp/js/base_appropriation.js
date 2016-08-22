@@ -1,10 +1,6 @@
 
-function reloadData(pageNum,pageSize,searchPartMoney,pid){
+function reloadData(searchPartMoney,pid){
 	var data = {};
-	  data.pageNum = pageNum;
-	  data.pageSize = pageSize;
-	  data.direction = "desc";
-	  data.property = "created_time";
 	  data.searchPartMoney=searchPartMoney;
 	  data.proejctId=pid;
 	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList,JSON.stringify(data),queryBack);

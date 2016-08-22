@@ -98,7 +98,7 @@
   $(function(){  
 	  var pId="${pid}";
 	  $("#tabApprAllList").children('div').remove(); 
-		reloadData(0,9999,null,pId);
+		reloadData(null,pId);
 		//添加，编辑总拨款计划弹出页面
 	$("[data-btn='actual_all']").on("click",function(){ 
 			var $self = $(this);
