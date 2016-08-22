@@ -239,8 +239,12 @@ function initUpload(_dialog){
 				}
 			},
 			Error: function(up, err) {
-				layer.closeAll('loading');
+			 	var txt=$(_dialog.id).find("input[name='fileName']");
 				layer.msg(err.message);
+			  	setTimeout(function(){
+				  	layer.closeAll('loading');
+			  		txt.val("");
+			  	}, 2000);
 			}
 		}
 	});
