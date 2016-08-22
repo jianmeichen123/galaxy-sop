@@ -130,7 +130,7 @@ var pId;
 		var _data_type = $self.attr("data_type");
 		
 		var _id = $self.attr("data-id");
-		var _url= Constants.sopEndpointURL + '/galaxy/grant/part/addGrantPart'+"/"+_id;
+		var _url=platformUrl.toApprActualAging+"/"+_id;
 		var _name= $self.attr("data-name");
 		var _total_name = $self.attr("data-total-name");
 		
