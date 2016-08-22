@@ -35,7 +35,7 @@ function queryBack(data){
 						for(var k=0;k<partList.length;k++){
 							  var grantPart=partList[k];
 							  var o=_this;
-							  $("#tabApprSingleList_"+i+"").append(assembleSingleTabHtml(grantPart));
+							  $("#tabApprSingleList_"+i+"").append(assembleSingleTabHtml(grantPart,grantTotal.grantName));
 							}
 						}
 					}
@@ -54,7 +54,7 @@ function  assembleHtml(grantTotal,i){
              +'<dl><dt>编辑日期：</dt><dd>'+grantTotal.formatCreatedTime+'</dd></dl>'
           +'</div>'    
          +'<div class="b_agreement_r fr">'
-            +'<button class="pbtn bluebtn" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+grantTotal.id+'" data-name="天假分期拨款计划">添加分期拨款计划</button>'
+            +'<button class="pbtn bluebtn" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+grantTotal.id+'" data-name="添加分期拨款计划" data-total-name="'+grantTotal.grantName+'">添加分期拨款计划</button>'
             +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总拨款计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name="提示">删除</label>'
          +'</div>'
     +'</div>'                      
@@ -76,14 +76,14 @@ function  assembleHtml(grantTotal,i){
 	 return html ;
 } 
 
-function  assembleSingleTabHtml(grantPart){
+function  assembleSingleTabHtml(grantPart,grantName){
 	 var value='<tr>'	 
 		   +'<td><a class="blue" href="javascript:void(0)" data-btn="actual" data-name="实际拨款信息列表">'+grantPart.grantName+'</a></td>'
 		   +'<td>'+grantPart.grantDetail+'</td>'
 		   +'<td>'+grantPart.grantMoney+'</td>'
 		   +'<td>'+grantPart.actualMoney+'</td>'
 		   +'<td>'+grantPart.fileNum+'</td>'                                 
-		   +'<td><label class="blue" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期拨款计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name="提示">删除</label><label class="blue noMargin">下载附件</label></td>' 
+		   +'<td><label class="blue" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期拨款计划" data-total-name="'+grantName+'">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name="提示">删除</label><label class="blue noMargin">下载附件</label></td>' 
 		   +'</tr>';
 	  return value;
 }

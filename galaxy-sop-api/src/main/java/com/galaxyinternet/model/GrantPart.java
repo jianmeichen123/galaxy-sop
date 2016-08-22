@@ -24,7 +24,16 @@ public class GrantPart extends PagableEntity{
 	private String fileReidsKey;
 	private List<SopFile> files; 
 	private byte fileNum;
+    private List<Long> fileIds;	
 	
+	
+	
+	public List<Long> getFileIds() {
+		return fileIds;
+	}
+	public void setFileIds(List<Long> fileIds) {
+		this.fileIds = fileIds;
+	}
 	public Long getTotalGrantId() {
 		return totalGrantId;
 	}
@@ -90,13 +99,13 @@ public class GrantPart extends PagableEntity{
 	public void setFiles(List<SopFile> files) {
 		this.files = files;
 	}
-	public byte getFileNum() {
-		return fileNum;
-	}
-	public void setFileNum(byte fileNum) {
-		this.fileNum = fileNum;
-	}
-	
+    public Byte getFileNum() {
+        return fileNum;
+    }
+
+    public void setFileNum(Byte fileNum) {
+        this.fileNum = fileNum;
+    }
 	
 	public GrantTotal getGrantTotal() {
 		return grantTotal;

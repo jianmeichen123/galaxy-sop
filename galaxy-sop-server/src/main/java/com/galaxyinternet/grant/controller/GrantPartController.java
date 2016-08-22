@@ -128,14 +128,17 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 					grantPart.setFiles(fileList);
 				}
 			}
-			
-			grantPartService.insertGrantPart(grantPart);
-			responseBody.setResult(new Result(Status.OK, "success", "添加分期拨款计划成功!"));
+			if(grantPart.getId() == null){
+				grantPartService.insertGrantPart(grantPart);
+			}else{
+				grantPartService.upateGrantPart(grantPart);
+			}
+			responseBody.setResult(new Result(Status.OK, "success", "操作分期拨款计划成功!"));
 			_common_logger_.info("添加总拨款计划成功"+grantPart.getGrantName());
 		} catch (Exception e) {
 			e.printStackTrace();
-			responseBody.setResult(new Result(Status.ERROR, "error", "添加总拨款计划失败!"));
-			_common_logger_.error("添加总拨款计划失败！", e);
+			responseBody.setResult(new Result(Status.ERROR, "error", "操作总拨款计划失败!"));
+			_common_logger_.error("操作总拨款计划失败！", e);
 		}
 		return responseBody;
 	}

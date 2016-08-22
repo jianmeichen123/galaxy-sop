@@ -17,9 +17,9 @@
 		            <dl class="fmdl fl_l  clearfix">
 		                <dt>协议名称 ：</dt>
 		                <dd>
-		                	<span>创业服务协议</span>
+		                	<span id="totalName">创业服务协议</span>
 		                	<input name="totalGrantId" id=totalGrantId type="hidden" value="${totalGrantId}"/>
-		                	<input name="id" type="hidden" value=""/>
+		                	<input name="id" id="partId" type="hidden" value=""/>
 		                </dd>
 		            </dl>
 	                <dl class="fmdl fl_l  clearfix">

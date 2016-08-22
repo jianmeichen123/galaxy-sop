@@ -136,7 +136,8 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 														toPushIosMessage(iosMessageOper, user, map);
 													}
 												}
-											}
+											}else
+												toPushIosMessage(iosMessageOper,user,map);
 										}else
 											toPushIosMessage(iosMessageOper,user,map);
 										
