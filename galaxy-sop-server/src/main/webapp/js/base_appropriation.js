@@ -70,7 +70,7 @@ function  assembleHtml(grantTotal,i){
 
 function  assembleSingleTabHtml(grantPart,grantName){
 	 var value='<tr>'	 
-		   +'<td><a class="blue" href="javascript:void(0)" data-btn="actual" data-name="实际拨款信息列表">'+grantPart.grantName+'</a></td>'
+		   +'<td><a class="blue" href="javascript:void(0)" data-part-id='+grantPart.id+' data-btn="actual" data-name="实际拨款信息列表">'+grantPart.grantName+'</a></td>'
 		   +'<td>'+grantPart.grantDetail+'</td>'
 		   +'<td>'+grantPart.grantMoney+'</td>'
 		   +'<td>'+grantPart.actualMoney+'</td>'

@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
-<script src="<%=path %>/js/init.js"></script>
 
 <div class="addmentc">
 	<div class="title_bj" id="popup_name">实际拨款信息列表</div>
@@ -20,9 +19,9 @@
     </div>
     <div class="form clearfix">
         <div class="actual_all">
-        
-        	<table id="data-table" data-url="grant/actual/searchActualList" 
-				data-page-list="[2, 3]" data-show-refresh="true">
+        	<input type="hidden" value="" name="partGrantId">
+        	<table id="actual-table" data-page-list="[2, 3]" 
+        		data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
 			        	<th data-field="grantMoney"  class="data-input" data-formatter="projectInfo" data-width="25%">实际拨款金额（元）</th>
@@ -43,6 +42,25 @@
                
         </div>
     </div>
-    
+    <script type="text/javascript">
+	    $('#actual-table').bootstrapTable({
+	    	queryParamsType: 'size|page',
+			pageSize:2,
+			showRefresh : false ,
+			url : Constants.sopEndpointURL+"/galaxy/grant/actual/searchActualList",
+			sidePagination: 'server',
+			method : 'post',
+			sortOrder : 'desc',
+			sortName : 'updated_time',
+			pagination: true,
+	        search: false,
+	        queryParams:function(param){
+	        	param.partGrantId = ${partId};
+	        	return param;
+	        },
+	        onLoadSuccess: function (data) {
+	        }
+	    });
+    </script>
   	
 </div>
