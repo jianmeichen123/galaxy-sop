@@ -20,7 +20,7 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
 .clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden }
 .clearfix { display:inline-block }
 * html .clearfix { height:1% }
-.clearfix { display:block}
+.clearfix { display:block; overflow:hide;}
 .margin_45{ margin-top:45px;}
 .width_fwb,#viewNotes,#win_idea_desc{height:150px;       overflow-y: scroll !important ;}
 .widt_200{ width:200px; word-break:break-all;}
