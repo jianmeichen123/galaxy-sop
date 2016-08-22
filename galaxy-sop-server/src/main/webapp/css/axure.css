@@ -1400,7 +1400,7 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .new_color_gray{ color:#999;font-family: "宋体";font-size:12px;margin-top:5px;}
 .new_color_black{ color:#333;}
 .size18{ font-size:22px;}
-.size16{ font-size:16px;font-family: "微软雅黑";}
+.size16{ font-size:16px;font-family: "微软雅黑"; display:table-cell; height:20px; margin-top:3px; vertical-align:bottom;}
 .size14{ font-size:14px}
 .new_tit_b span{ display:block; margin-right:10px; float:left; line-height:60px; height:60px;}
 .new_tit_b .b_span{ float:right;}
@@ -1489,15 +1489,15 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
     text-decoration: none;
 }
 .new_ico_basic{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 0; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
-.new_ico_financing{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 0; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
-.new_ico_practical{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-25px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
-.new_ico_project{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-50px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_financing{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0 3px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_practical{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-25px 2px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_project{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:-50px 2px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_book{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position:0px -27px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_firm{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -76px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
-.new_ico_people{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -100px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_people{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -100px 2px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .bj_ico{ width:80px; height:25px; margin-left:15px; color:#6b799f; line-height:25px; text-align:center; background-color:#eeeeee; border-radius:4px; display:block;}
 .new_ico_product{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -127px 3px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
-.new_ico_jq{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -152px 0px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
+.new_ico_jq{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -152px 2px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_run{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -178px 3px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_nex{background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -159px -29px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
 .new_ico_industry{ background-image:url(../img/tubiao1.png); background-repeat:no-repeat; background-position: -129px -27px; width:20px; height:20px; display:block; float:left; padding-bottom:5px;}
