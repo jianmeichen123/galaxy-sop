@@ -1,16 +1,12 @@
 
-$(function(){
-	$("#tabApprAllList").children('div').remove(); 
-	reloadData(0,9999,null);
-	reloadData(0,9999);
-});
-function reloadData(pageNum,pageSize,searchPartMoney){
+function reloadData(pageNum,pageSize,searchPartMoney,pid){
 	var data = {};
 	  data.pageNum = pageNum;
 	  data.pageSize = pageSize;
 	  data.direction = "desc";
 	  data.property = "created_time";
 	  data.searchPartMoney=searchPartMoney;
+	  data.proejctId=pid;
 	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList,JSON.stringify(data),queryBack);
 
 }
