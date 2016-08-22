@@ -117,15 +117,13 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			return responseBody;
 		}
 		try {
-			Page<GrantTotal> totalPage = grantTotalService.queryPageList(total,
-					new PageRequest(total.getPageNum(), //1 
-							total.getPageSize(), //3
-							Direction.fromString(total.getDirection()), //desc
-							total.getProperty()));
+			total.setProperty("created_time");
+			total.setDirection("desc");
+			List<GrantTotal> totalList = grantTotalService.queryList(total);
 			GrantPart part = new GrantPart();
 			//封装分期拨款
 			List<GrantTotal> tList = new ArrayList<GrantTotal>();
-			for(GrantTotal t : totalPage.getContent()){
+			for(GrantTotal t : totalList){
 				boolean isSearch = false;
 				part.setTotalGrantId(t.getId());
 				List<GrantPart> partList = grantPartService.selectHasActualMoney(part);
@@ -144,8 +142,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 					tList.add(t);
 				}
 			}
-			totalPage.setContent(tList);
-			totalPage.setTotal(Long.parseLong(String.valueOf(tList.size())));
+			Page<GrantTotal> totalPage = new Page<GrantTotal>(tList, Long.parseLong(String.valueOf(tList.size())));
 			responseBody.setPageList(totalPage);
 			responseBody.setResult(new Result(Status.OK, "success", "查询总拨款计划列表成功!"));
 		} catch (Exception e) {

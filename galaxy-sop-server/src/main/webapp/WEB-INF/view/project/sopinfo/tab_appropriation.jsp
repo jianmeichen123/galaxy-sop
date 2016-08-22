@@ -77,7 +77,7 @@
                   <div id="tabApprAllList">
                    
                   </div>
-            <span class="show_total">总共 41 条记录</span>
+             <span class="show_total">显示第 <span class="start">1</span> 条到第 <span class="end">2</span> 条，总共 <span class="total">2</span> 条记录</span>
             <span class="show_more blue fr" id="reloadAll">显示更多</span>
         </div>  
                    <!--tab end-->
@@ -242,26 +242,35 @@
      showTwo();
   })
  
-  function showTwo(){
+   function showTwo(){
 	// 点击一次加载2条
 	    var tabApprSingleListBlock=$("#tabApprAllList .agreement").length;
-	    //console.log(tabApprSingleListBlock)
 	    $("#tabApprAllList .agreement:lt(2)").css("display","block");
 	    if(tabApprSingleListBlock==0){
 	    	$(".proOperation .show_total").css("display","none");
 	    }
 	    if(tabApprSingleListBlock<3){
 	    	 $(".proOperation .show_more").css("display","none");
+	    	 $(".show_total .end").text(tabApprSingleListBlock);//左侧显示条数
+	    	 $(".show_total .total").text(tabApprSingleListBlock);//左侧显示条数
 	    }
 	    if(tabApprSingleListBlock>2){
 	 	   $(".proOperation .show_more").css("display","block");
+	 	  $(".show_total .end").text('2');//左侧显示条数
+	 	  $(".show_total .total").text(tabApprSingleListBlock);//左侧显示条数
 	    }
+
 	    var clickNum = 0; //点击的次数
 	    $(".proOperation .show_more").unbind('click').click(function(event) {
 	    clickNum++;
 	    var iNum = 2*clickNum+2; //每次点击加载的条数
 	    //console.log(iNum)
 	    $("#tabApprAllList .agreement:lt("+iNum+")").css("display","block");
+	    if(iNum>tabApprSingleListBlock){
+	    	$(".show_total .end").text(tabApprSingleListBlock);
+	    }else{
+	    	$(".show_total .end").text(iNum);
+	    }
 	    if(iNum>tabApprSingleListBlock || iNum==tabApprSingleListBlock){
 	    	 $(".proOperation .show_more").css("display","none");
 	    } 
