@@ -195,8 +195,9 @@ function initUpload(_dialog){
 						layer.msg("请选择文件");
 						return;
 					}
-					
 					uploader.start();
+
+					layer.load(2);
 					return false;
 				});
 			},
@@ -225,6 +226,7 @@ function initUpload(_dialog){
 				
 				if(data.status == "OK")
 				{
+					layer.closeAll('loading');
 					layer.msg("上传成功.");
 					$("#complete-task-btn").removeProp("disabled");
 					$(_dialog.id).find("[data-close='close']").click();
@@ -232,10 +234,12 @@ function initUpload(_dialog){
 				}
 				else
 				{
+					layer.closeAll('loading');
 					layer.msg("上传失败.");
 				}
 			},
 			Error: function(up, err) {
+				layer.closeAll('loading');
 				layer.msg(err.message);
 			}
 		}
