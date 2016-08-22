@@ -338,7 +338,12 @@ var pId;
 
   //获取 页面数据\保存数据
 function paramsContion(){
+	 
 	if(!beforeSubmit()){
+		return false;
+	}
+	if($("#grantMoney").val()+$("#remainMoney").val() > $("#totalMoney").val()){
+		layer.msg("分期拨款金额之和大于总拨款金额");
 		return false;
 	}
 	var condition = JSON.parse($("#actual_aging_form").serializeObject());
@@ -368,7 +373,6 @@ function toInitBachUpload(){
 /**
  * 回调函数
  */
- 
 function saveCallBackFuc(data){
 	showTabs('${pid}',8);
 }
@@ -385,6 +389,42 @@ function appropriationProcessBack(data){
 	}
 }
 
+function to_del_grantPart(selectRowId){
+	layer.confirm('是否删除事项?',
+		{
+		  btn: ['确定', '取消'] 
+		}, 
+		function(index, layero){
+			del_grantPart(selectRowId);
+		}, 
+		function(index){
+		}
+	);
+}
+
+function to_download_grantPart(id){
+	try {
+		var url = Constants.sopEndpointURL + '/galaxy/grant/part/downloadBatchFile'+"/"+id;
+		layer.msg('正在下载，请稍后...',{time:2000});
+		window.location.href=url+"?sid="+sessionId+"&guid="+userId;
+	} catch (e) {
+		layer.msg("下载失败");
+	}
+}
+
+function del_grantPart(id){  
+	//var id = $("#del_grantPart_id").val();
+	var _url =  Constants.sopEndpointURL + '/galaxy/grant/part/delGrantPart/'+id;
+	sendPostRequestByJsonObj(_url, {}, function(data){
+		if (data.result.status=="OK") {
+			layer.msg("删除成功");
+			removePop1();
+			showTabs('${pid}',8);
+		} else {
+			layer.msg(data.result.message);
+		}
+	});
+}	
 </script>
 
 </html>

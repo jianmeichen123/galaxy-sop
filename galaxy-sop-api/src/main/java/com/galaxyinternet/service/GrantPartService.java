@@ -13,7 +13,10 @@ public interface GrantPartService extends BaseService<GrantPart>{
 	
 	public void insertGrantPart(GrantPart grantPart);
 	public void upateGrantPart(GrantPart grantPart);
+	public void deleteGrantPart(Long grantPartId);
 	
 	public GrantPart selectGrantPart(Long partId);
+	
+	 public List<Long> grantPartFileList(Long partId);
 	
 }
