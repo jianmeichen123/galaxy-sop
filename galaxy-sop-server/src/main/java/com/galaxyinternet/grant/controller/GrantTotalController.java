@@ -112,9 +112,11 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	@RequestMapping(value = "/search", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantTotal> searchProject(HttpServletRequest request, @RequestBody GrantTotal total) {
 		ResponseData<GrantTotal> responseBody = new ResponseData<GrantTotal>();
+		if(total.getProjectId() == null && "".equals(total.getProjectId())){
+			responseBody.setResult(new Result(Status.ERROR,"error" , "必要的参数丢失!"));
+			return responseBody;
+		}
 		try {
-			User user = (User) getUserFromSession(request);
-			total.setCreateUid(user.getId());
 			Page<GrantTotal> totalPage = grantTotalService.queryPageList(total,
 					new PageRequest(total.getPageNum(), //1 
 							total.getPageSize(), //3

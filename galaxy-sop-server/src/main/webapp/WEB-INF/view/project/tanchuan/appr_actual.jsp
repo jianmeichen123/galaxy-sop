@@ -6,6 +6,12 @@
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
 
+<!-- 分页二css+四js -->
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="<%=path %>/js/init.js"></script>
+
 <div class="addmentc">
 	<div class="title_bj" id="popup_name">实际拨款信息列表</div>
      
@@ -14,6 +20,18 @@
     </div>
     <div class="form clearfix">
         <div class="actual_all">
+        
+        	<table id="data-table" data-url="grant/actual/searchActualList" 
+				data-page-list="[2, 3]" data-show-refresh="true">
+				<thead>
+				    <tr>
+			        	<th data-field="grantMoney"  class="data-input" data-formatter="projectInfo" data-width="25%">实际拨款金额（元）</th>
+			        	<th data-field="project_type" class="data-input  data-width="25%">拨款日期<span></span></th>
+			        	<th data-field="createUname" class="data-input  data-width="25%">拨款人<span></span></th>
+			        	<th class="col-md-2" data-formatter="editor" data-class="noborder" data-width="25%">操作</th>
+ 					</tr>	
+ 				</thead>
+			</table>
         	<table class='health_case' cellpadding="0" cellspacing="0">
             	<tr>
                 	<th>实际拨款金额（元）</th><th>拨款日期</th><th>拨款人</th><th>操作</th>
