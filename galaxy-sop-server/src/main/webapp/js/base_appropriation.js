@@ -75,7 +75,7 @@ function  assembleSingleTabHtml(grantPart,grantName){
 		   +'<td>'+grantPart.grantMoney+'</td>'
 		   +'<td>'+grantPart.actualMoney+'</td>'
 		   +'<td>'+grantPart.fileNum+'</td>'                                 
-		   +'<td><label class="blue" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期拨款计划" data-total-name="'+grantName+'">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-name="提示">删除</label><label class="blue noMargin">下载附件</label></td>' 
+		   +'<td><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期拨款计划" data-total-name="'+grantName+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label><label class="blue noMargin" onclick="to_download_grantPart('+grantPart.id+')">下载附件</label></td>' 
 		   +'</tr>';
 	  return value;
 }

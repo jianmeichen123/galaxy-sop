@@ -75,10 +75,12 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 		try {
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 					.getId());
-			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
+			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.THYY)) {
 				
 			}else if(roleIdList.contains(UserConstant.HHR)){
 				query.setDepartmentId(user.getDepartmentId());
+			}else if(roleIdList.contains(UserConstant.TZJL)){
+				query.setCreateUid(user.getId());
 			}
 			List<SopCharts> overViewList = analysisService.queryProjectOverView(query);
 			responseBody.setEntityList(overViewList);

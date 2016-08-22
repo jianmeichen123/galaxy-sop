@@ -31,6 +31,7 @@
 
 <script src="<%=path %>/js/sopinfo.js"></script>
 <script src="<%=path %>/js/base_appropriation.js"></script>
+<script src="<%=path %>/js/date.js"></script>
 <style type="text/css">
 .bars{margin:0 !important;}
 </style></head>
@@ -56,9 +57,11 @@
             	<div class="member proOperation">
                     <div class="top clearfix">
                         <!--按钮-->
+                        <c:if test="${isCreatedByUser }">
                         <div class="btnbox_f btnbox_f1">
                             <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总拨款计划'>添加总拨款计划</a>
                         </div>
+                        </c:if>
 
                     </div>
                     <!-- 搜索条件 -->
@@ -100,6 +103,12 @@ var pId;
 	pId="${pid}";
 	  $("#tabApprAllList").children('div').remove(); 
 		reloadData(null,pId);
+	 //只有创建人显示编辑按钮
+	  if(isCreatedByUser != 'true')
+	  {
+		  $("#tabApprAllList .b_agreement_r").hide();
+		  $("#tabApprAllList .edit-btn, #tabApprAllList .del-btn").hide();
+	  }
 		//添加，编辑总拨款计划弹出页面
 	$("[data-btn='actual_all']").on("click",function(){ 
 			var $self = $(this);
@@ -337,7 +346,14 @@ var pId;
 
   //获取 页面数据\保存数据
 function paramsContion(){
+	 
 	if(!beforeSubmit()){
+		return false;
+	}
+	var partMoney = $("#grantMoney").val();
+	var remainMoney = $("#remainMoney").val();
+	if(parseFloat(partMoney) > parseFloat(remainMoney)){
+		layer.msg("分期拨款金额之和大于总拨款金额");
 		return false;
 	}
 	var condition = JSON.parse($("#actual_aging_form").serializeObject());
@@ -357,7 +373,6 @@ function paramsContion(){
 	}
 	return condition;
 }
-
 function toInitBachUpload(){
 	toBachUpload(Constants.sopEndpointURL+'galaxy/sopFile/sendUploadByRedis',
 			Constants.sopEndpointURL+'/galaxy/grant/part/addGrantPart',"textarea2","select_btn","win_ok_btn","actual_aging_container","filelist",
@@ -367,10 +382,46 @@ function toInitBachUpload(){
 /**
  * 回调函数
  */
- 
 function saveCallBackFuc(data){
 	showTabs('${pid}',8);
 }
+function to_del_grantPart(selectRowId){
+	layer.confirm('是否删除事项?',
+		{
+		  btn: ['确定', '取消'] 
+		}, 
+		function(index, layero){
+			del_grantPart(selectRowId);
+		}, 
+		function(index){
+		}
+	);
+}
+
+function to_download_grantPart(id){
+	try {
+		var url = Constants.sopEndpointURL + '/galaxy/grant/part/downloadBatchFile'+"/"+id;
+		layer.msg('正在下载，请稍后...',{time:2000});
+		window.location.href=url+"?sid="+sessionId+"&guid="+userId;
+	} catch (e) {
+		layer.msg("下载失败");
+	}
+}
+
+function del_grantPart(id){  
+	//var id = $("#del_grantPart_id").val();
+	var _url =  Constants.sopEndpointURL + '/galaxy/grant/part/delGrantPart/'+id;
+	sendPostRequestByJsonObj(_url, {}, function(data){
+		if (data.result.status=="OK") {
+			layer.msg("删除成功");
+			removePop1();
+			showTabs('${pid}',8);
+		} else {
+			layer.msg(data.result.message);
+		}
+	});
+}	
+
 </script>
 
 </html>

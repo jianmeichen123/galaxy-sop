@@ -46,7 +46,7 @@ public class IosMeetSchedulingMessageHandler implements IosMessageHandler
 	@Override
 	public boolean support(IosMessage message)
 	{
-		return message != null && StringUtils.isNoneBlank(message.getMessageType()) && message.getMessageType().startsWith("11");
+		return message != null && StringUtils.isNotBlank(message.getMessageType()) && message.getMessageType().startsWith("11");
 	}
 
 	@Override

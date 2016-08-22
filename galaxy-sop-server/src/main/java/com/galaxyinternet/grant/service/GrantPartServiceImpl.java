@@ -27,11 +27,8 @@ import com.galaxyinternet.model.GrantFile;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
-import com.galaxyinternet.model.touhou.Delivery;
-import com.galaxyinternet.model.touhou.DeliveryFile;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.UserService;
-import com.galaxyinternet.touhou.service.DeliveryServiceImpl;
 
 @Service("com.galaxyinternet.grant.GrantPartService")
 public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements GrantPartService {
@@ -245,6 +242,40 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 				}
 				
 			}
+		}
+	}
+
+	@Transactional
+	public void deleteGrantPart(Long grantPartId) {
+		GrantPart part = grantPartDao.selectById(grantPartId);
+		List<Long> fileidlist = new ArrayList<Long>();
+		
+		if(part!=null && part.getFileNum()!=null){
+			
+			fileidlist = grantPartFileList(grantPartId);
+			
+			if(fileidlist!=null && !fileidlist.isEmpty()){
+				
+				SopFileBo fileQ = new SopFileBo();
+				fileQ.setIds(fileidlist);
+				fileDao.delete(fileQ);    // 删除 file、表
+				
+				GrantFile dfQ = new GrantFile();
+				dfQ.setFileIds(fileidlist);
+				grantFileDao.delete(dfQ); // 删除 中间表
+			}
+		}
+		
+		grantPartDao.deleteById(grantPartId);  // 删除 
+		
+		final List<Long> alifileidlist = fileidlist;
+		if(alifileidlist!=null && !alifileidlist.isEmpty()){  // 删除 阿里云 文件
+			GalaxyThreadPool.getExecutorService().execute(new Runnable() {
+				@Override
+				public void run() {
+					delAliyunFiles(alifileidlist);
+				}
+			});
 		}
 	}
 	
