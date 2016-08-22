@@ -1,5 +1,7 @@
 package com.galaxyinternet.grant.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -41,7 +43,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		return this.grantActualService;
 	}
 	/**
-	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 * 查看实际拨款列表弹出层
 	 */
 	@RequestMapping(value = "/toApprActualPage/{partId}", method = RequestMethod.GET)
 	public ModelAndView toApprActualPage(@PathVariable("partId") Long partId, HttpServletRequest request) {
@@ -49,6 +51,18 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		mv.addObject("partId", partId);
 		return mv;
 	}
+	/**
+	 * 查看实际拨款详细信息弹出层
+	 */
+	@RequestMapping(value = "/lookActual/{actualId}", method = RequestMethod.GET)
+	public ModelAndView lookActual(@PathVariable("actualId") Long actualId, HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView("project/tanchuan/appr_actual_look");
+		Map<String, Object> actualInfo = grantActualService.lookActualDetail(actualId);
+		mv.addObject("actualInfo", actualInfo);
+		return mv;
+	}
+	
+	
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */

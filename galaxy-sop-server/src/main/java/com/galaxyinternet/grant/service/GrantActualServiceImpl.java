@@ -1,5 +1,7 @@
 package com.galaxyinternet.grant.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,11 @@ public class GrantActualServiceImpl extends BaseServiceImpl<GrantActual> impleme
 	@Override
 	protected BaseDao<GrantActual, Long> getBaseDao() {
 		return this.grantActualDao;
+	}
+
+	@Override
+	public Map<String, Object> lookActualDetail(Long actualId) {
+		return grantActualDao.lookActualDetail(actualId);
 	}
 
 }

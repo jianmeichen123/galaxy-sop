@@ -118,4 +118,17 @@
 		 )
 	    ]]>
 	</insert>
+	
+	
+	<!-- 根据ID查询 -->
+	<select id="lookActualDetail" resultType="java.util.Map" parameterType="java.lang.Long">
+		select 
+			t.grant_name as totalName, p.grant_detail as partDetail, 
+			p.grant_money as partMoney, a.grant_money as actualMoney 
+		from sop_grant_actual as a 
+		left join sop_grant_part as p on a.part_grant_id = p.id 
+		left join sop_grant_total as t on p.total_grant_id = t.id
+		where a.id=#{actualId};
+	</select>
+	
 </mapper>

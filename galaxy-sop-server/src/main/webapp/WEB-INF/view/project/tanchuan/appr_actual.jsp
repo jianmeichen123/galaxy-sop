@@ -27,7 +27,7 @@
 			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat" class="data-input" data-formatter="projectInfo" data-width="25%">实际拨款金额（元）</th>
 			        	<th data-field="createdTime" data-formatter="createDateFormat" class="data-input  data-width="25%">拨款日期<span></span></th>
 			        	<th data-field="createUname" class="data-input  data-width="25%">拨款人<span></span></th>
-			        	<th class="col-md-2" data-formatter="editor" data-class="noborder" data-width="25%">操作</th>
+			        	<th class="col-md-2" data-formatter="operatorFormat" data-class="noborder" data-width="25%">操作</th>
  					</tr>	
  				</thead>
 			</table>
@@ -39,6 +39,12 @@
 	    }
 	    function grantMoneyFormat(value, row, index){
 	    	return value;
+	    }
+	    function operatorFormat(value, row, index){
+	    	var edit = "<a herf=\"javascript:void(0);\" class=\"blue\" onclick=\"actualEdit('"+row.id+"');\" >编辑</a>";
+	    	var del = "<a herf=\"javascript:void(0);\" class=\"blue\" onclick=\"actualRemove('"+row.id+"');\" >删除</a>";
+	    	var look = "<a herf=\"javascript:void(0);\" class=\"blue\" onclick=\"actualLook('"+row.id+"');\">查看</a>";
+	        return edit+del+look; 
 	    }
 	    $('#actual-table').bootstrapTable({
 	    	queryParamsType: 'size|page',
@@ -58,6 +64,16 @@
 	        onLoadSuccess: function (data) {
 	        }
 	    });
+	    
+	    function actualLook(actualId){
+	    	$.getHtml({
+				url:Constants.sopEndpointURL+"/galaxy/grant/actual/lookActual/"+actualId,
+				data:"",
+				okback:function(){
+					
+				}	
+			});
+	    }
     </script>
   	
 </div>

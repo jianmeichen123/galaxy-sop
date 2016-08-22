@@ -14,29 +14,25 @@
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>协议名称 ：</dt>
 	                <dd>
-	                	<span>创业服务协议</span>
+	                	<span>${actualInfo.totalName}</span>
 	                </dd>
 	            </dl>
                 <dl class="fmdl fl_l  clearfix">
 	                <dt>计划拨款时间 ：</dt>
 	                <dd>
-	                	<div>
-	                    	完成条款4后15个工作日内
-	                    </div> 
+	                	<div>${actualInfo.partDetail}</div> 
 	                </dd>
 	            </dl>
                 <dl class="fmdl fl_l  clearfix">
 	                <dt>计划拨款金额：</dt>
 	                <dd>
-	                	
-	                	<div>14,000,00</div> 
+	                	<div>${actualInfo.partMoney}</div> 
 	                </dd>
 	            </dl>
                  <dl class="fmdl fl_l  clearfix">
 	                <dt>实际拨款金额 ：</dt>
 	                <dd>
-	                	
-	                	<div>14,000,00</div> 
+	                	<div>${actualInfo.actualMoney}</div> 
                         <div class="gray">剩余金额14,000,000元</div> 
 	                </dd>
 	            </dl>
