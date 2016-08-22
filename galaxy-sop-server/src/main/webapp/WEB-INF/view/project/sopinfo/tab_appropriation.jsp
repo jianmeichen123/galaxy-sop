@@ -31,6 +31,7 @@
 
 <script src="<%=path %>/js/sopinfo.js"></script>
 <script src="<%=path %>/js/base_appropriation.js"></script>
+<script src="<%=path %>/js/date.js"></script>
 <style type="text/css">
 .bars{margin:0 !important;}
 </style></head>

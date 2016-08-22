@@ -2,7 +2,6 @@ package com.galaxyinternet.model;
 
 import com.alibaba.fastjson.JSON;
 import com.galaxyinternet.framework.core.model.PagableEntity;
-import com.galaxyinternet.framework.core.utils.DateUtil;
 
 public class GrantActual extends PagableEntity{
 
@@ -38,18 +37,6 @@ public class GrantActual extends PagableEntity{
 	public void setCreateUname(String createUname) {
 		this.createUname = createUname;
 	}
-	
-	
-	//------bo------
-	private String createDateStr;
-	public String getCreateDateStr() {
-		if(createdTime != null){
-			DateUtil.longToString(createdTime, "yyyy年MM月dd日");
-		}
-		return createDateStr;
-	}
-	
-	
 	
 	@Override
 	public String toString() {
