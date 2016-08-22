@@ -2,7 +2,7 @@
 function reloadData(searchPartMoney,pid){
 	var data = {};
 	  data.searchPartMoney=searchPartMoney;
-	  data.proejctId=pid;
+	  data.projectId=pid;
 	  sendPostRequestByJsonStr(platformUrl.queryGrantTotalList,JSON.stringify(data),queryBack);
 
 }
