@@ -13,6 +13,9 @@
 <%@ include file="/WEB-INF/view/common/taglib.jsp"%>
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
+<!-- 保存进度条 -->
+<link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 </head>
 
 <body>
@@ -333,12 +336,17 @@ function initUpload(_dialog)
 				});
 			},
 			BeforeUpload : function(up,file){
+				$("#powindow").showLoading(
+						 {
+						    'addClass': 'loading-indicator'						
+						 });
 				$form = $(_dialog.id).find("#upload-form");
 				$form.find('.disabled').removeAttr('disabled');
 				up.settings.multipart_params =  JSON.parse($form .serializeObject());
 				$form.find('.disabled').attr('disabled','disabled');
 			},
 			FileUploaded: function(up, files, rtn) {
+				$("#powindow").hideLoading();
 				var data = $.parseJSON(rtn.response);
 				if(data.result.status == 'OK')
 				{
@@ -352,6 +360,7 @@ function initUpload(_dialog)
 				}
 			},
 			Error: function(up, err) {
+				$("#powindow").hideLoading();
 				layer.msg("上传失败:"+err.message);
 			}
 		}
