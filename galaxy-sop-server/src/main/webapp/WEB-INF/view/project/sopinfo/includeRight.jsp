@@ -47,7 +47,7 @@
 	            	<span class="bluebtn new_btn yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
 	                <span class="bluebtn new_btn cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
 	            </div>
-            
+            	
 				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;">more</span>
 				</div>
 				<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
@@ -119,7 +119,7 @@
         <!-- 投前End -->
         </div>
         <!--右边 end-->
-   
+<script src="<%=path %>/js/refuseProject.js"></script>
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
@@ -380,17 +380,23 @@ function closePro(){
 	if($(".fjxm_but").hasClass('limits_gray')){
 		return;
 	}
-	layer.confirm('你确定要否决项目吗?', 
-			{
-			  btn: ['确定', '取消'] 
-			}, 
-			function(index, layero){
-				sendGetRequest(platformUrl.closeProject+proid,null,closeback);
-			}, 
-			function(index){
+// 	layer.confirm('你确定要否决项目吗?', 
+// 			{
+// 			  btn: ['确定', '取消'] 
+// 			}, 
+// 			function(index, layero){
+// 				sendGetRequest(platformUrl.closeProject+proid,null,closeback);
+// 			}, 
+// 			function(index){
 				
-			}
-		);
+// 			}
+// 		);
+	var formdata = {
+			projectId : proid
+	}
+	refuseProjectDialog.init(formdata);
+	
+	
 }
 
 function transferPro(){
@@ -417,7 +423,7 @@ function revokePro(){
 
 
 //关闭回调
-function closeback(data){
+function closeback(data,fuc){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
 		alert("error "+data.result.message);
@@ -425,6 +431,7 @@ function closeback(data){
 	}else{
 		layer.msg("该项目已关闭");
 		//toDetail(proid);
+		fuc();
 		showTabs(proid,0)
 		//forwardWithHeader(platformUrl.mpl);
 	}
@@ -505,5 +512,6 @@ function setJgqrProgress()
 
 
 </script>
+
 
 

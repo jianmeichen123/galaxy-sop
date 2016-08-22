@@ -63,6 +63,7 @@ import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.FormatData;
 import com.galaxyinternet.model.project.InterviewRecord;
@@ -1525,10 +1526,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 *            项目id
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
 	@ResponseBody
-	@RequestMapping(value = "/breakpro/{pid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> breakproject(@PathVariable Long pid,
+	@RequestMapping(value = "/breakpro",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> breakproject(@RequestBody OperationLogs param,
 			HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 
@@ -1537,10 +1538,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			// project id 验证
 			Project project = new Project();
-			project = projectService.queryById(pid);
+			project = projectService.queryById(param.getProjectId());
 			// 项目关闭将会议记录修改为否决项目
 			MeetingScheduling me = new MeetingScheduling();
-			me.setProjectId(pid);
+			me.setProjectId(param.getProjectId());
 			List<MeetingScheduling> meetingList = meetingSchedulingService
 					.queryList(me);
 			if (!meetingList.isEmpty()) {
@@ -1598,8 +1599,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				return responseBody;
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
-			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(), project.getId());
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"add meetingRecord faild"));
@@ -3052,4 +3052,15 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("projectId", pid);
 		return "project/sopinfo/tab_appropriation";
 	}
+	
+	/**
+	 * 否决项目弹框
+	 * @return
+	 */
+	@RequestMapping(value = "/toRefuseProject", method = RequestMethod.GET)
+	public String toRefuseProject(){
+		return "project/dialog/refuseProjectDialog";
+	}
+	
+	
 }
