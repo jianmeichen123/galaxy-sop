@@ -73,7 +73,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
-	@RequestMapping(value = "/toApprActualAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/toApprAllAdd", method = RequestMethod.GET)
 	public String toApprActualAll(HttpServletRequest request) {
 		String pid=request.getParameter("pid");
 		request.setAttribute("projectId", pid);
@@ -92,17 +92,26 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			responseBody.setResult(new Result(Status.ERROR,"csds" , "必要的参数丢失!"));
 			return responseBody;
 		}
+		String deal="";
 		try {
 			User user = (User) getUserFromSession(request);
 			grantTotal.setCreateUid(user.getId());
 			grantTotal.setCreateUname(user.getRealName());
-			long id = grantTotalService.insert(grantTotal);
+			long id=0;
+			if(null==grantTotal.getId()){
+				 id = grantTotalService.insert(grantTotal);
+				 deal="添加";
+			}else{
+				 id = grantTotalService.updateById(grantTotal);
+				 deal="修改";
+			}
+			
 			responseBody.setId(id);
-			responseBody.setResult(new Result(Status.OK, "success", "添加总拨款计划成功!"));
-			_common_logger_.info("添加总拨款计划成功"+grantTotal.toString());
+			responseBody.setResult(new Result(Status.OK, "success", deal+"总拨款计划成功!"));
+			_common_logger_.info(deal+"总拨款计划成功"+grantTotal.toString());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "添加总拨款计划失败!"));
-			_common_logger_.error("添加总拨款计划失败！", e);
+			_common_logger_.error(deal+"总拨款计划失败！", e);
 		}
 		return responseBody;
 	}

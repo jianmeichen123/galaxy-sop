@@ -10,6 +10,7 @@
 	        <div class="edit_actual" id="info">
 	            <dl class="fmdl fl_l  clearfix">
 	                <dt>协议名称 ：</dt>
+	                <input type="hidden"  name="totallId" id="id" >
 	                <dd>
 	                	<div>
 	                    	<input class="edittxt" type="text" id="grantName" name="grantName"  valType="OTHER" regString="^[\u4e00-\u9fa5]{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个汉字"/>

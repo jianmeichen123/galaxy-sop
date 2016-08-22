@@ -112,7 +112,7 @@ var pId;
 		//添加，编辑总拨款计划弹出页面
 	$("[data-btn='actual_all']").on("click",function(){ 
 			var $self = $(this);
-		var _url=platformUrl.toApprActualAll+"?pid=${pid}";
+		var _url=platformUrl.toApprAllAdd+"?pid=${pid}";
 		var _name= $self.attr("data-name");
 		var data_on=$self.attr("data-on");
 		var id=$self.attr("data-val");
@@ -295,6 +295,7 @@ var pId;
 			return;
 		}else{
 			 var grantTotal = data.entity;
+			 $("#totallId").val(grantTotal.id);
 			 if(null!=grantTotal){
 				 $("#info dd input")
 					.each(function(){
