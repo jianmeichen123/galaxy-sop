@@ -265,7 +265,6 @@ var pId;
 		    }
 
 	 createMenus(5);
-	 appropriationProcess();
      showTwo();
   })
  
@@ -372,19 +371,6 @@ function toInitBachUpload(){
 function saveCallBackFuc(data){
 	showTabs('${pid}',8);
 }
-function appropriationProcess(){
-	sendPostRequest(platformUrl.getApprProcess+"/"+pId,appropriationProcessBack);
-}
-function appropriationProcessBack(data){
-	var result = data.result.status;
-	if(result == "ERROR"){ //OK, ERROR
-		layer.msg(data.result.message);
-		return;
-	}else{
-		 var grantTotal = data.entity;
-	}
-}
-
 </script>
 
 </html>

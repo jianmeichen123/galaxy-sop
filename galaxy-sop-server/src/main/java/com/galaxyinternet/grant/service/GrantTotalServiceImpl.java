@@ -1,5 +1,8 @@
 package com.galaxyinternet.grant.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +19,19 @@ public class GrantTotalServiceImpl extends BaseServiceImpl<GrantTotal> implement
 	@Autowired
 	private GrantTotalDao grantTotalDao;
 	
-	@Autowired
-	private GrantPartDao grantPartDao;
-	
 	@Override
 	protected BaseDao<GrantTotal, Long> getBaseDao() {
 		return this.grantTotalDao;
 	}
 
 	@Override
-	public Double setApprProcess(Long query) {
+	public Map<String,Object> setApprProcess(Long query) {
+		Map<String,Object> map=new HashMap<String, Object>();
 		// TODO Auto-generated method stub
 		Double sumPlanMoney = grantTotalDao.sumPlanMoney(query);
-		
-		return sumPlanMoney;
+		Double sumProjectToActualMoney = grantTotalDao.sumProjectToActualMoney(query);
+		map.put("sumPlanMoney", sumPlanMoney);
+		map.put("sumActualMoney", sumProjectToActualMoney);
+		return map;
 	}
-
 }

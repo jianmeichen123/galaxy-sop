@@ -19,8 +19,19 @@ public class GrantTotalDaoImpl extends BaseDaoImpl<GrantTotal, Long> implements 
 			return sqlSessionTemplate.selectOne(getSqlName("sumPlanMoney"), projectId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new DaoException(String.format("计算实际拨款总金额出错！语句：%s", getSqlName("sumPlanMoney")), e);
+			throw new DaoException(String.format("计算实际计划协议总金额出错！语句：%s", getSqlName("sumPlanMoney")), e);
 		}
 	}
+	@Override
+	public Double sumProjectToActualMoney(Long projectId) {
+		Assert.notNull(projectId);
+		try {
+			return sqlSessionTemplate.selectOne(getSqlName("sumProjectToActualMoney"), projectId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException(String.format("计算该项目实际拨款总金额出错！语句：%s", getSqlName("sumProjectToActualMoney")), e);
+		}
+	}
+	
 
 }

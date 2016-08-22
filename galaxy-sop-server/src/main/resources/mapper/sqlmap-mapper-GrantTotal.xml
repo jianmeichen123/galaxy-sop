@@ -131,4 +131,11 @@
 	<select id="sumPlanMoney" resultType="java.lang.Double" parameterType="java.lang.Long">
 		SELECT IFNULL(SUM(st.grant_money), 0) FROM sop_grant_total st WHERE st.project_id= #{projectId}
 	</select>
+	
+		<!-- 计算所属的实际拨款总金额 -->
+	<select id="sumProjectToActualMoney" resultType="java.lang.Double" parameterType="java.lang.Long">
+		SELECT SUM(sa.`grant_money`)FROM `sop_grant_actual` sa,`sop_grant_part` sp, `sop_grant_total` st WHERE sa.`part_grant_id`=sp.`id` AND sp.`total_grant_id`=st.`id`
+      and sp.part_status = 0 AND st.`project_id`=#{projectId} 
+	</select>
+	
 </mapper>

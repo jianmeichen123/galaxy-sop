@@ -252,14 +252,12 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			return responseBody;
 		}
 		try {
-			Double setApprProcess = grantTotalService.setApprProcess(pid);
-			Map<String,Object> map=new HashMap<String,Object>();
-			map.put("sumPlanMoney", setApprProcess);
-			responseBody.setUserData(map);
-			responseBody.setResult(new Result(Status.OK, "ok", "编辑总拨款计划失败!"));
+			Map<String,Object> setApprProcess = grantTotalService.setApprProcess(pid);
+			responseBody.setUserData(setApprProcess);
+			responseBody.setResult(new Result(Status.OK, "ok", "查询拨款进度失败!"));
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "error", "编辑总拨款计划失败!"));
-			_common_logger_.error("编辑总拨款计划失败！", e);
+			responseBody.setResult(new Result(Status.ERROR, "error", "查询拨款进度失败!"));
+			_common_logger_.error("查询拨款进度失败！", e);
 		}
 		return responseBody;
 	}
