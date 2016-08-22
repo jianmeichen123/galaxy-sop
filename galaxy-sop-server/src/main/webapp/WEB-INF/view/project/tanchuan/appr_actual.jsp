@@ -2,6 +2,15 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+<!-- 校验 -->
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
+<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+
+<!-- 分页二css+四js -->
+<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
 <div class="addmentc">
 	<div class="title_bj" id="popup_name">实际拨款信息列表</div>
      
