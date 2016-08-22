@@ -889,6 +889,10 @@ var platformUrl = {
 	resetGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/resetGrantTotal",
 	//添加分期拨款计划
 	toAddApprActualAging : Constants.sopEndpointURL + "/galaxy/grant/part/addGrantPart",
+	//添加分期拨款计划
+	toApprActualPage : Constants.sopEndpointURL + "/galaxy/grant/part/toApprActualPage",
+	
+	
 }
 
 /**
