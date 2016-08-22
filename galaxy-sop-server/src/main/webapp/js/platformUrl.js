@@ -33,7 +33,7 @@ var platformUrl = {
 	/**
 	 * 关闭项目
 	 */
-	closeProject : Constants.sopEndpointURL + "/galaxy/project/breakpro/",
+	closeProject : Constants.sopEndpointURL + "/galaxy/project/breakpro",
 	/**
 	 * 获取事业部——高管查询select
 	 */
@@ -869,6 +869,10 @@ var platformUrl = {
 	 * 
 	 */
 	receiveTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/receiveTransfer",
+	/**
+	 * 否决项目
+	 */
+	toRefuseProject : Constants.sopEndpointURL + "/galaxy/project/toRefuseProject",
 	
 	/**
 	 * 拨款信息开始

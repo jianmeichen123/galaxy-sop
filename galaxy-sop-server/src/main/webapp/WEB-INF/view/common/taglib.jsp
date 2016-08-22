@@ -111,6 +111,7 @@ function checkVersion(){
 </script>
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/layer/layer.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/layer/extend/layer.ext.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/my.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/my_ext.js"></script>
 <link rel="shortcut icon" href="<%=request.getContextPath() %>/img/favicon.ico" />
