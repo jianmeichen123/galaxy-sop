@@ -127,7 +127,7 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	public Page<SopFile> queryPageList(SopFile query, Pageable pageable) {
 		//Page<SopFile> pageEntity = super.queryPageList(query,pageable);
 		Page<SopFile> pageEntity = new Page<SopFile>(null, pageable, null);
-		List<SopFile> fileList = sopFileDao.selectList(query);
+		List<SopFile> fileList = sopFileDao.selectPageList(query, pageable).getContent();
 		List<Department> departmentList = getDepartMent();
 		List<User> userList = getUser(fileList);
 		List<Project> projectList = getProject(fileList);
