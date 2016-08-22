@@ -11,7 +11,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-
+<!-- 保存进度条 -->
+<link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <style type="text/css">
 div.tip-yellowsimple {
     visibility: hidden;
