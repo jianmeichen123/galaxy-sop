@@ -342,7 +342,9 @@ function paramsContion(){
 	if(!beforeSubmit()){
 		return false;
 	}
-	if($("#grantMoney").val() > $("#remainMoney").val()){
+	var partMoney = $("#grantMoney").val();
+	var remainMoney = $("#remainMoney").val();
+	if(parseFloat(partMoney) > parseFloat(remainMoney)){
 		layer.msg("分期拨款金额之和大于总拨款金额");
 		return false;
 	}
