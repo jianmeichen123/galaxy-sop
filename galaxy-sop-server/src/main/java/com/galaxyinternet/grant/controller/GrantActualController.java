@@ -60,7 +60,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		Map<String, Object> actualInfo = grantActualService.lookActualDetail(actualId);
 		try {
 			double countMoney = grantActualService.calculateBelongToActualMoney(Long.parseLong(String.valueOf(actualInfo.get("partId"))));
-			actualInfo.put("remainMoney", Long.parseLong(String.valueOf(actualInfo.get("partMoney"))) - countMoney);
+			actualInfo.put("remainMoney", Double.parseDouble(String.valueOf(actualInfo.get("partMoney"))) - countMoney);
 		} catch (NumberFormatException e) {
 			_common_logger_.debug("转换出错，相应金额为NULL");
 		}
