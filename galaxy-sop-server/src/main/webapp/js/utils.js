@@ -32,7 +32,26 @@ function fixSizeDecimal(number, size){
 		size = 2;
 	}
 	if(number != 0){
+		var n = number.toFixed(size);
+		
 		return number.toFixed(size);
 	}
 	return 0;
+}
+
+/**
+ * 处理数字整数，每三位加逗号分隔
+ * addCommas(1000)   // 1,000
+ * addCommas(1231.897243)  // 1,231.897243
+ */
+function addCommas(nStr){
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
 }
