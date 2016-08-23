@@ -204,49 +204,62 @@ $(function(){
 	 		 var grantTotal = data.userData;
 	 		 var sumPlanMoney=grantTotal.sumPlanMoney;
 	 		 var sumActualMoney=grantTotal.sumActualMoney;
+	 		  setData(sumPlanMoney,sumActualMoney);
 	 		 if(typeof(sumActualMoney)=="underfined"||null==sumActualMoney||sumActualMoney==0){
-	 			sumActualMoney=0.00;
+	 			sumActualMoney=0;
 	 		 }else{
-	 			sumActualMoney=(sumActualMoney/10000).toFixed(2);
+	 			 var format=addCommas(fixSizeDecimal(sumActualMoney/10000));
+	 			 if(format==0.00){
+	 				sumActualMoney=0;
+	 			 }
 	 		 }
 	 		 if(null==sumPlanMoney||typeof(sumPlanMoney)=="underfined"||sumPlanMoney==0){
-	 			    sumPlanMoney=0.00;
+	 			    sumPlanMoney=0;
 		 		 }else{
-		 			sumPlanMoney=(sumPlanMoney/10000).toFixed(2);
+		 			 var format=addCommas(fixSizeDecimal(sumPlanMoney/10000));
+		 			 if(format==0.00){
+		 				sumPlanMoney=0;
+		 			 }else{
+		 				sumPlanMoney=format ;
+		 			 }
+		 			
 		 		 }
 	 		$(".money_complete").text(sumActualMoney);
 	 		$(".money_total").text(sumPlanMoney);
-	 	}
+	  	}
 	 }
-		//拨款进度
-		  $("#bar_m").css("width","0px");  //初始化进度条宽度；
-		    var moneyComplete=$(".money_complete").text();
-		        moneyTotal=$(".money_total").text();
-		        m_width=$(".progressBar").width();
-		        if(moneyComplete==0.00){
-		        	barWidth=0+"px";
-		        }else{
-		        	barWidth=parseInt(moneyComplete/moneyTotal*m_width)+"px";
-		        }
-		        
-		    $("#bar_m").css("width",barWidth)
-		    //获取表格除第一行，第二行之外的元素
-		    var tr_n=$(".moneyAgreement tbody tr")
-		    var tr_s=$(".moneyAgreement tbody tr").eq(1).nextAll();
-		    tr_s.css("display","none");
-		    if(tr_n.length>2){
-		      $(".agreement .show_more").show();
-		      $(".agreement .show_more").click(function(){
-		        $(this).hide();
-		        $(".agreement .show_hide").show();
-		        tr_n.show();
-		      })
-		       $(".agreement .show_hide").click(function(){
-		        $(this).hide();
-		        $(".agreement .show_more").show();
-		        tr_s.css("display","none");
-		      })
-		    }
+		function setData(sumPlanMoney,sumActualMoney){
+			 //拨款进度
+			  $("#bar_m").css("width","0px");  //初始化进度条宽度；
+			    var moneyComplete=sumActualMoney;
+			        moneyTotal=sumPlanMoney;
+			        m_width=$(".progressBar").width();
+			        if(moneyComplete==0){
+			        	barWidth=0+"px";
+			        }else{
+			        	barWidth=parseInt(moneyComplete/moneyTotal*m_width)+"px";
+			        }
+			        
+			    $("#bar_m").css("width",barWidth)
+			    //获取表格除第一行，第二行之外的元素
+			    var tr_n=$(".moneyAgreement tbody tr")
+			    var tr_s=$(".moneyAgreement tbody tr").eq(1).nextAll();
+			    tr_s.css("display","none");
+			    if(tr_n.length>2){
+			      $(".agreement .show_more").show();
+			      $(".agreement .show_more").click(function(){
+			        $(this).hide();
+			        $(".agreement .show_hide").show();
+			        tr_n.show();
+			      })
+			       $(".agreement .show_hide").click(function(){
+			        $(this).hide();
+			        $(".agreement .show_more").show();
+			        tr_s.css("display","none");
+			      })
+			    }
+
+		}
 
 });
 

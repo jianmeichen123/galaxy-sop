@@ -15,6 +15,7 @@ public class GrantTotal extends PagableEntity {
 	private Double grantMoney;
 	private Long createUid;
 	private String createUname;
+	private boolean is_edit;
 	
 	public Long getProjectId() {
 		return projectId;
@@ -79,6 +80,18 @@ public class GrantTotal extends PagableEntity {
 	}
 	
 	
+	public boolean getIs_edit() {
+		return is_edit;
+	}
+	public void setIs_edit(boolean is_edit) {
+		this.is_edit = is_edit;
+	}
+	public void setFormatCreatedTime(String formatCreatedTime) {
+		this.formatCreatedTime = formatCreatedTime;
+	}
+	public void setFormatUpdatedTime(String formatUpdatedTime) {
+		this.formatUpdatedTime = formatUpdatedTime;
+	}
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);

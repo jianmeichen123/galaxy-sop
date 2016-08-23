@@ -190,6 +190,14 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 
 		try {
 			GrantTotal c = grantTotalService.queryById(tid);
+			GrantPart p=new GrantPart();
+			p.setTotalGrantId(tid);
+			List<GrantPart> partList = grantPartService.selectHasActualMoney(p);
+			if(null!=partList&&!partList.isEmpty()){
+				c.setIs_edit(false);
+			}else{
+				c.setIs_edit(true);
+			}
 			responseBody.setEntity(c);
 			responseBody.setResult(new Result(Status.OK, "ok", "查询总拨款计划成功!"));
 		} catch (Exception e) {
