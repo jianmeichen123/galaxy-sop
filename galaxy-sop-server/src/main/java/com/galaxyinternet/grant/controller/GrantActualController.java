@@ -58,6 +58,12 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	public ModelAndView lookActual(@PathVariable("actualId") Long actualId, HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("project/tanchuan/appr_actual_look");
 		Map<String, Object> actualInfo = grantActualService.lookActualDetail(actualId);
+		try {
+			double countMoney = grantActualService.calculateBelongToActualMoney(Long.parseLong(String.valueOf(actualInfo.get("partId"))));
+			actualInfo.put("remainMoney", Long.parseLong(String.valueOf(actualInfo.get("partMoney"))) - countMoney);
+		} catch (NumberFormatException e) {
+			_common_logger_.debug("转换出错，相应金额为NULL");
+		}
 		mv.addObject("actualInfo", actualInfo);
 		return mv;
 	}

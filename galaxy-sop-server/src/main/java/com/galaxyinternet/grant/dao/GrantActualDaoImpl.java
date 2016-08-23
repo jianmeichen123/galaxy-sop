@@ -25,4 +25,15 @@ public class GrantActualDaoImpl extends BaseDaoImpl<GrantActual, Long> implement
 		}
 	}
 
+	@Override
+	public double sumBelongToActualMoney(Long partId) {
+		Assert.notNull(partId);
+		try {
+			return sqlSessionTemplate.selectOne(getSqlName("sumBelongToActualMoney"), partId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DaoException(String.format("计算实际拨款总金额出错！语句：%s", getSqlName("sumBelongToActualMoney")), e);
+		}
+	}
+
 }

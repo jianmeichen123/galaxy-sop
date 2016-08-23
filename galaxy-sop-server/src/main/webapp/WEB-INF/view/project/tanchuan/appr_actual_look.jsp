@@ -33,7 +33,7 @@
 	                <dt>实际拨款金额 ：</dt>
 	                <dd>
 	                	<div>${actualInfo.actualMoney}</div> 
-                        <div class="gray">剩余金额14,000,000元</div> 
+                        <div class="gray">剩余金额${actualInfo.remainMoney}元</div> 
 	                </dd>
 	            </dl>
 	        </div>

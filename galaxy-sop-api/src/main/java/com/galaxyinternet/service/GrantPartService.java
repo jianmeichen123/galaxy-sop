@@ -7,7 +7,7 @@ import com.galaxyinternet.model.GrantPart;
 
 public interface GrantPartService extends BaseService<GrantPart>{
 	
-	double calculateBelongToActualMoney(Long partId);
+	double calculateBelongToPartMoney(Long totalId);
 	
 	List<GrantPart> selectHasActualMoney(GrantPart part);
 	

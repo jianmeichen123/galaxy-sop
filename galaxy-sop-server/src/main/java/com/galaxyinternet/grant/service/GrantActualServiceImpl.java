@@ -27,4 +27,9 @@ public class GrantActualServiceImpl extends BaseServiceImpl<GrantActual> impleme
 		return grantActualDao.lookActualDetail(actualId);
 	}
 
+	@Override
+	public double calculateBelongToActualMoney(Long partId) {
+		return grantActualDao.sumBelongToActualMoney(partId);
+	}
+
 }

@@ -7,7 +7,7 @@ import com.galaxyinternet.model.GrantPart;
 
 public interface GrantPartDao extends BaseDao<GrantPart, Long>{
 	
-	double sumBelongToActualMoney(Long partId);
+	double sumBelongToPartMoney(Long totalId);
 	
 	List<GrantPart> selectHasActualMoney(GrantPart part);
 	

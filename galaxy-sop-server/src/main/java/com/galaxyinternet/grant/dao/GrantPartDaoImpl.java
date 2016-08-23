@@ -16,10 +16,10 @@ import com.galaxyinternet.model.GrantPart;
 public class GrantPartDaoImpl extends BaseDaoImpl<GrantPart, Long> implements GrantPartDao{
 
 	@Override
-	public double sumBelongToActualMoney(Long partId) {
-		Assert.notNull(partId);
+	public double sumBelongToPartMoney(Long totalId) {
+		Assert.notNull(totalId);
 		try {
-			return sqlSessionTemplate.selectOne(getSqlName("sumBelongToActualMoney"), partId);
+			return sqlSessionTemplate.selectOne(getSqlName("sumBelongToPartMoney"), totalId);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DaoException(String.format("计算实际拨款总金额出错！语句：%s", getSqlName("sumBelongToActualMoney")), e);

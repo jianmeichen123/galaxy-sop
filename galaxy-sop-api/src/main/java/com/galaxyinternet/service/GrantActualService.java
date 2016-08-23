@@ -11,5 +11,10 @@ public interface GrantActualService extends BaseService<GrantActual>{
 	 * 查看实际拨款信息
 	 */
 	Map<String, Object> lookActualDetail(Long actualId);
-
+	
+	
+	/**
+	 * 计算实际拨款金额的总和
+	 */
+	double calculateBelongToActualMoney(Long partId);
 }

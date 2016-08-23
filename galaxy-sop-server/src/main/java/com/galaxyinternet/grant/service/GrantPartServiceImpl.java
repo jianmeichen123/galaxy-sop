@@ -28,7 +28,6 @@ import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.service.GrantPartService;
-import com.galaxyinternet.service.UserService;
 
 @Service("com.galaxyinternet.grant.GrantPartService")
 public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements GrantPartService {
@@ -46,17 +45,14 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 	@Autowired
 	private SopFileDao fileDao;
 	
-	@Autowired
-	private UserService userService;
-	
 	@Override
 	protected BaseDao<GrantPart, Long> getBaseDao() {
 		return this.grantPartDao;
 	}
 
 	@Override
-	public double calculateBelongToActualMoney(Long partId) {
-		return grantPartDao.sumBelongToActualMoney(partId);
+	public double calculateBelongToPartMoney(Long totalId) {
+		return grantPartDao.sumBelongToPartMoney(totalId);
 	}
 
 	@Override
@@ -66,7 +62,6 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 
 	@Transactional
 	public void insertGrantPart(GrantPart grantPart) {
-		// TODO Auto-generated method stub
 		grantPart.setFileNum((byte) 0);
 		Byte fnum = null;
 		Long grantid = null;
@@ -77,7 +72,7 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 			fnum = (byte) sopfiles.size();
 			grantPart.setFileNum(fnum);
 		}
-		grantid = grantPartDao.insert(grantPart);   //拨款信息
+		grantid = grantPartDao.insert(grantPart); 
 		
 		if(sopfiles!=null && !sopfiles.isEmpty() && fnum !=null){
 			Project project = projectDao.selectById(grantPart.getGrantTotal().getProjectId());
@@ -208,7 +203,7 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 		}
 		
 		//更新交割事项
-		int num = grantPartDao.updateById(grantPart);
+		grantPartDao.updateById(grantPart);
 		
 		// 删除 阿里云 文件
 		if(toDelfileids!=null && !toDelfileids.isEmpty()){

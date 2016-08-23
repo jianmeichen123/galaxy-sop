@@ -73,7 +73,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	@RequestMapping(value = "/toApprPartAging/{tid}", method = RequestMethod.GET)
 	public String toApprActualAging(@PathVariable("tid") Long tid, HttpServletRequest request) {
 		GrantTotal total = grantTotalService.queryById(tid);
-		double useMoney = grantPartService.calculateBelongToActualMoney(tid);
+		double useMoney = grantPartService.calculateBelongToPartMoney(tid);
 		request.setAttribute("totalGrantId", total.getId());
 		request.setAttribute("totalMoney", total.getGrantMoney());
 		request.setAttribute("remainMoney", total.getGrantMoney() - useMoney);

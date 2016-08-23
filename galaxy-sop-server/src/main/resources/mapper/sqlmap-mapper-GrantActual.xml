@@ -124,11 +124,17 @@
 	<select id="lookActualDetail" resultType="java.util.Map" parameterType="java.lang.Long">
 		select 
 			t.grant_name as totalName, p.grant_detail as partDetail, 
-			p.grant_money as partMoney, a.grant_money as actualMoney 
+			p.grant_money as partMoney, a.grant_money as actualMoney,
+			a.id as actualId, p.id as partId, t.id as totalId
 		from sop_grant_actual as a 
 		left join sop_grant_part as p on a.part_grant_id = p.id 
 		left join sop_grant_total as t on p.total_grant_id = t.id
 		where a.id=#{actualId};
+	</select>
+	
+	<!-- 计算所属的实际拨款总金额 -->
+	<select id="sumBelongToActualMoney" resultType="java.lang.Double" parameterType="java.lang.Long">
+		select ifnull(sum(grant_money), 0) from sop_grant_actual where part_grant_id = #{partId}
 	</select>
 	
 </mapper>
