@@ -81,6 +81,11 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				var max_files = 10;
 				plupload.each(files, function(file) {
 					var fileLength = $("#"+fileListId+" tr:gt(0)").length;
+					var fileLength1 = $("#"+fileListId+" tr").length;
+					//console.log(fileLength1)
+					if(fileLength1>0){
+						$("#"+fileListId).css("display","block")
+					}
 					/**
 					 * 最多只能上传10个文件
 					 */
@@ -150,6 +155,10 @@ function del(id,name,fieInputId){
 	$("#"+fieInputId).val($("#"+fieInputId).val().replace(name,""));
     uploader.removeFile(id);
     $("#"+id+"tr").remove();
+    var fieInputLen=$("tr[id]").length;
+    if(fieInputLen==0){
+    	$("#filelist").css("display","none");
+    }
 }
 
 /**

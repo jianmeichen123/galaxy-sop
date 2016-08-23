@@ -52,12 +52,12 @@
 		        </div>
             </dl>  
             <dl class="fmdl fl_l" id="show_up_file">
-                 <table style="width:90%;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
+                 <table style="width:530px;margin: auto;" id="filelist"  cellspacing="0" cellpadding="0">
                     <tr>
-                      <th style="width:50%;">文件名称</th>
-                      <th style="width:20%" align="center">文件大小</th>
-                      <th style="width:15%" align="center">操作</th>
-                      <th style="width:15%" align="center">进度</th>
+                      <th style="width:265px;">文件名称</th>
+                      <th style="width:105px" align="center">文件大小</th>
+                      <th style="width:80px" align="center">操作</th>
+                      <th style="width:80px" align="center">进度</th>
                     </tr>
                  </table> 
             </dl>
