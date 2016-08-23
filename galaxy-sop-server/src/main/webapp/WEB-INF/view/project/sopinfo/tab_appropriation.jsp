@@ -309,6 +309,10 @@ var pId;
 			 }else{
 				 $("#totallId").val(grantTotal.id);
 			 }
+			 if(grantTotal.is_edit==false){
+				 $("#grantMoney").attr("readonly","readonly");
+				 $("#grantMoney").css("border",0);
+			 }
 			 if(null!=grantTotal){
 				 $("#info dd input")
 					.each(function(){

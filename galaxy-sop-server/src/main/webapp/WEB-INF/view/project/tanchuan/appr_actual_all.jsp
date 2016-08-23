@@ -13,7 +13,7 @@
 	                <input type="hidden"  name="id" id="totallId" >
 	                <dd>
 	                	<div>
-	                    	<input class="edittxt" type="text" id="grantName" name="grantName"  valType="OTHER" regString="^[\u4e00-\u9fa5]{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个汉字"/>
+	                    	<input class="edittxt" type="text" id="grantName" name="grantName"   valType="OTHER" regString="^[\u4e00-\u9fa5]{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个汉字"/>
 	                    </div>
 	                </dd>
 	            </dl>
@@ -21,7 +21,7 @@
                 <dl class="fmdl fl_l  clearfix">
 	                <dt>计划拨款金额 ：</dt>
 	                <dd>	
-	                	<div>
+	                	<div id="setValue">
 	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  valType="LIMIT_9_NUMBER" msg="<font color=red>*</font>支持9位长度的两位小数">
 	                    </div> 
 	                </dd>
@@ -45,9 +45,9 @@
 					layer.msg("提交表单过于频繁!");
 				}else if(data.result.status=="ERROR"){
 					
-						layer.msg("添加总拨款计划失败!");
+						layer.msg(data.result.message);
 				}else{
-					layer.msg("添加总拨款计划成功!");
+					layer.msg(data.result.message);
 					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}");
 				}
 				
