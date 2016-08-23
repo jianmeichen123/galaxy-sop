@@ -19,19 +19,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.galaxyinternet.bo.GrantPartBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
+import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
+import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.SopFileService;
 import com.galaxyinternet.utils.BatchUploadFile;
 
@@ -49,6 +54,8 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	protected BaseService<GrantPart> getBaseService() {
 		return this.grantPartService;
 	}
+	@Autowired
+	private ProjectService projectService;
 	@Autowired
 	private SopFileService sopFileService;
 	@Autowired
@@ -100,6 +107,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	/**
 	 * 新建分期拨款计划
 	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addGrantPart", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantPart> addGrantPart(@RequestBody GrantPart grantPart,
@@ -117,6 +125,11 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 				responseBody.setResult(new Result(Status.ERROR,"csds" , "未找到总拨款计划!"));
 				return responseBody;
 			}
+			
+			UrlNumber uNum = null;
+			Project project = new Project();
+			project = projectService.queryById(total.getProjectId());
+			
 			GrantPart part = new GrantPart();
 			List<GrantPart> partList = grantPartService.queryList(part);
 			if(partList != null && partList.size() > 0){
@@ -139,11 +152,14 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 				}
 			}
 			if(grantPart.getId() == null){
+				uNum = UrlNumber.one;
 				grantPartService.insertGrantPart(grantPart);
 			}else{
+				uNum = UrlNumber.two;
 				grantPartService.upateGrantPart(grantPart);
 			}
 			responseBody.setResult(new Result(Status.OK, "success", "操作分期拨款计划成功!"));
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.2", uNum);
 			_common_logger_.info("操作总拨款计划成功"+grantPart.getGrantName());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,13 +172,21 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	/**
 	 *删除
 	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/delGrantPart/{grantPartid}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Delivery> delGrantPart(@PathVariable("grantPartid") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<Delivery> responseBody = new ResponseData<Delivery>();
 		try {
+			
+			GrantPart part = grantPartService.queryById(grantPartid);
+			GrantTotal total = grantTotalService.queryById(part.getTotalGrantId());
+			Project project = new Project();
+			project = projectService.queryById(total.getProjectId());
+			
 			grantPartService.deleteGrantPart(grantPartid);
 			responseBody.setResult(new Result(Status.OK, ""));
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.2", UrlNumber.three);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "删除失败"));
 			_common_logger_.error("delGrantPart 删除失败",e);
