@@ -8,6 +8,7 @@
 
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
 <script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
+<script src="<%=path %>/js/utils.js"></script>
 <link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
 <div class="addmentc">
 		<div class="title_bj" id="popup_name">编辑会议纪要</div>
@@ -39,7 +40,7 @@
 		                	<div>
 		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value=""/>
 		                    </div> 
-	                        <div class="gray">剩余金额${remainMoney }元</div> 
+	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>元</div> 
 		                </dd>
 		            </dl>
                  </form>
@@ -77,3 +78,11 @@
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr" data-close="close">取消</a>
 	    </div>  	
 	</div>
+	<script>
+	   $(function(){
+		  var remainMoney = '${remainMoney}';
+		      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
+           $("#formatRemainMoney").html(remainMoney);
+	   });
+	
+	</script>
