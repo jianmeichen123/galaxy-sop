@@ -38,7 +38,7 @@
 	    	return time_zh(value, "年", "月", "日");
 	    }
 	    function grantMoneyFormat(value, row, index){
-	    	return fixSizeDecimal(value);
+	    	return addCommas(fixSizeDecimal(value));
 	    }
 	    function operatorFormat(value, row, index){
 	    	var edit = "<a herf=\"javascript:void(0);\" class=\"blue\" onclick=\"actualEdit('"+row.id+"');\" >编辑</a>";
