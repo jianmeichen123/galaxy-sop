@@ -123,6 +123,8 @@ var pId;
 					$("#popup_name").html(_name);
 					if(data_on=="edit"){
 						sendPostRequest(platformUrl.getGrantTotal+"/"+id,queryBack1);
+					}else{
+						 $("#totallId").val(0);
 					}
 					initDialogVal();
 				}//模版反回成功执行	
@@ -295,7 +297,11 @@ var pId;
 			return;
 		}else{
 			 var grantTotal = data.entity;
-			 $("#totallId").val(grantTotal.id);
+			 if(null!=grantTotal.id&&typeof(grantTotal.id)=="underfined"){
+				 $("#totallId").val(0);
+			 }else{
+				 $("#totallId").val(grantTotal.id);
+			 }
 			 if(null!=grantTotal){
 				 $("#info dd input")
 					.each(function(){

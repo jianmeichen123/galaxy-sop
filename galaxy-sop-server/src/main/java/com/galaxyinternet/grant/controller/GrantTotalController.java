@@ -98,7 +98,8 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			grantTotal.setCreateUid(user.getId());
 			grantTotal.setCreateUname(user.getRealName());
 			long id=0;
-			if(null==grantTotal.getId()){
+			if(null==grantTotal.getId()||grantTotal.getId()==0){
+				 grantTotal.setId(null);
 				 id = grantTotalService.insert(grantTotal);
 				 deal="添加";
 			}else{

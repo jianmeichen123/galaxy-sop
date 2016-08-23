@@ -901,6 +901,8 @@ var platformUrl = {
 	toApprActualAdd : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLook",
 	//右侧拨款进度
 	getApprProcess : Constants.sopEndpointURL + "/galaxy/grant/total/getApprProcess",
+	//删除成功提示框
+	deleteAlert : Constants.sopEndpointURL + "/galaxy/deleteAlert",
 
 	
 }

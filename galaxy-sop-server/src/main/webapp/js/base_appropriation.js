@@ -80,12 +80,26 @@ function  assembleSingleTabHtml(grantPart,grantName){
 	  return value;
 }
 function deleteAppr(id){
- 		sendPostRequest(platformUrl.deleteGrantTotal+"/"+id,function(data){
- 			if (data.result.status=="OK") {
- 				layer.msg("删除成功");
- 			} else {
- 				layer.msg(data.result.message);
- 				window.location.href=location;
- 			}
- 		});
+	var _url = platformUrl.deleteAlert;
+	$.getHtml({
+		url:_url,//模版请求地址
+		data:"",//传递参数
+		okback:function(){
+			$("[data-btn='appr_delete']").click(function(){
+				del_appr(id);
+			})
+			
+		}//模版反回成功执行	
+	});
+ 		
  	}
+function del_appr(id){
+	sendPostRequest(platformUrl.deleteGrantTotal+"/"+id,function(data){
+			if (data.result.status=="OK") {
+			//	layer.msg("删除成功");
+                window.location=location;
+			} else {
+				layer.msg(data.result.message);
+			}
+		});
+}
