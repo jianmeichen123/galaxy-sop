@@ -66,3 +66,10 @@ VALUES (20,
         1469153154195,
         NULL,
         0);
+/**拨款相关资源**/
+INSERT INTO `fx_db`.`platform_resource`(`parent_id`,`resource_mark`,`resource_name`,`resource_url`,`resource_type`,`resource_order`,`resource_desc`,`resource_status`,`product_mark`,`created_uid`,`created_time`,`updated_uid`,`updated_time`,`application_platform`,`style`)
+VALUES ((SELECT id FROM ((SELECT * FROM platform_resource WHERE resource_mark='project_view')  t)),'add_appr_actual','添加实际拨款信息',NULL,'3',1,'添加实际拨款信息','1','sop',999,1451577600000,999,1451577600000,'1',NULL);
+INSERT INTO `fx_db`.`platform_resource`(`parent_id`,`resource_mark`,`resource_name`,`resource_url`,`resource_type`,`resource_order`,`resource_desc`,`resource_status`,`product_mark`,`created_uid`,`created_time`,`updated_uid`,`updated_time`,`application_platform`,`style`)
+VALUES ((SELECT id FROM ((SELECT * FROM platform_resource WHERE resource_mark='project_view')  t)),'edit_appr_actual','编辑实际拨款信息',NULL,'3',2,'编辑实际拨款信息','1','sop',999,1451577600000,999,1451577600000,'1',NULL);
+INSERT INTO `fx_db`.`platform_resource`(`parent_id`,`resource_mark`,`resource_name`,`resource_url`,`resource_type`,`resource_order`,`resource_desc`,`resource_status`,`product_mark`,`created_uid`,`created_time`,`updated_uid`,`updated_time`,`application_platform`,`style`)
+VALUES ((SELECT id FROM ((SELECT * FROM platform_resource WHERE resource_mark='project_view')  t)),'delete_appr_actual','删除实际拨款信息',NULL,'3',3,'删除实际拨款信息','1','sop',999,1451577600000,999,1451577600000,'1',NULL);
