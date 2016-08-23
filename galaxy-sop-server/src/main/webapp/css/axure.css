@@ -2084,12 +2084,13 @@ dl{position: relative;}
 .fund_list .cx{margin-left:10px;}
 .agreement{margin-bottom: 50px;}
 .b_agreement{padding:15px 30px 0;height:55px;background-color: #f9fafc;border-bottom:1px solid #d6d8e1;margin-top: 30px;}
+.b_agreement_l {width:70%}
 .b_agreement_l h3{font-weight:normal;font-size: 14px;font-family:"微软雅黑";}
-.b_agreement_r{width:260px;padding-top: 8px;}
+.b_agreement_r{width:28%;padding-top: 8px;}
 .b_agreement_l dl,.b_agreement_l dt,.b_agreement_l dd{color:#9ba5b2;float: left;font-size: 12px;font-family:"宋体";}
-.b_agreement_l dl{margin-right:35px;margin-top: 12px;}
+.b_agreement_l dl{margin-right:5%;margin-top: 12px;}
 .b_agreement_r button{height:30px;border:1px solid #66b1f2;display: inline-block;cursor: pointer;}
-.b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left: 30px;cursor: pointer;}
+.b_agreement_r label{font-size: 12px;font-family:"宋体";margin-left: 8%;cursor: pointer;}
 .money{margin:40px 0 30px;}
 #bar_m{height:8px;border-radius:5px;background:#529ae2;}
 .proOperation .show_more{display:none;width:65px;cursor:pointer;font-size: 12px;font-family:"宋体";margin-right: 45px;background:url(../img/showMore.png) right 2px no-repeat;}

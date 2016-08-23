@@ -38,7 +38,10 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						up.stop();
 						return;
 					}
-					
+					$("#powindow").showLoading(
+							 {
+							    'addClass': 'loading-indicator'						
+							 });
 					layer.load(1);
 					if(up.files.length == 0){
 							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
