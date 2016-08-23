@@ -148,7 +148,7 @@ public enum OperationLogType {
 	_14_2_1	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.one,		OperType.ADD.getOperationType() ,	    "分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 	_14_2_2	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.two,		OperType.UPDATE.getOperationType() ,	"分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 	_14_2_3	    ("/galaxy/grant/part/delGrantPart/"+UrlNumber.three,	OperType.DELETE.getOperationType() ,	"分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	
+	// http://zfeng.local.com/sop/galaxy/grant/part/delGrantPart/32/three
 	
 	
 	
@@ -220,9 +220,20 @@ public enum OperationLogType {
 		OperationLogType[] types = OperationLogType.values();
 		OperationLogType result = null;
 		for (OperationLogType type : types) {
-			if (type.getUniqueKey()!=null && type.getUniqueKey().trim().length()>0 && uniqueKey.contains(type.getUniqueKey())) {
-				result = type;
-				break;
+			if (type.getUniqueKey()!=null && type.getUniqueKey().trim().length()>0){
+					
+				String requestNum = uniqueKey.substring(uniqueKey.lastIndexOf("/"));
+				String localNum = type.getUniqueKey().substring(type.getUniqueKey().lastIndexOf("/"));
+				
+				if(requestNum.equals(localNum)){
+					if ( uniqueKey.substring(0,uniqueKey.lastIndexOf("/")).contains(type.getUniqueKey().substring(0,type.getUniqueKey().lastIndexOf("/")))) {
+						result = type;
+						break;
+					}
+				}else if ( uniqueKey.contains(type.getUniqueKey())) {
+					result = type;
+					break;
+				}
 			}
 		}
 		return result;
