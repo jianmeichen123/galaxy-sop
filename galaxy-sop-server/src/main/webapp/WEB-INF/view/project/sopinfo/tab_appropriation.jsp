@@ -149,9 +149,11 @@ var pId;
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
-					
 					$("#popup_name").html(_name);
 					$("#totalName").html(_total_name);
+					if($("#popup_name").text()=="添加分期拨款计划"){
+						$("#filelist").css("display","none");  //隐藏表头  
+					}
 					if(_data_type == "edit"){
 						var _part_id = $self.attr("data-part-id");
 						//edit
@@ -178,6 +180,11 @@ var pId;
 									$("#filelist").append(htm);
 								});
 								toInitBachUpload();
+								var fileLen=$("#filelist tr:gt(0)").length;
+								//console.log(fileLen)
+								if(fileLen==0){
+									$("#filelist").css("display","none");
+								}
 								
 							}else{
 								layer.msg(data.result.message);
