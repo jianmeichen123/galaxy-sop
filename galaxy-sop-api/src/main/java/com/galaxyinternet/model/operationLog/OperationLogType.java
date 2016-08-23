@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.operationLog;
 
+
 /**
  * @Description: sop流程中操作日志的规范类
  * @author keifer
@@ -134,6 +135,17 @@ public enum OperationLogType {
 	
 	//更新投资意向书 1
 	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
+	
+	
+	
+	//总拨款计划
+	_14_1_1	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.one,	 OperType.ADD.getOperationType() ,	    "拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_2	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.two,	 OperType.UPDATE.getOperationType() ,	"拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_2_1	("/galaxy/grant/total/resetGrantTotal/"+UrlNumber.two,	 OperType.UPDATE.getOperationType() ,	"拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_3_1   ("/galaxy/grant/total/deleteGrantTotal/"+UrlNumber.three,OperType.DELETE.getOperationType() ,	"拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	
+	
+	
 	/*项目操作日志的配置------------------------------------结束----------------------------------------------------------*/
 	
 	
