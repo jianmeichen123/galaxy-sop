@@ -169,6 +169,7 @@ $(function(){
 					$("#popup_name").html(_name);
 					$("#deliver_form [name='projectId']").val(proid);
 					toInitBachUpload();
+					$("#filelist").css("display","none")
 				}
 			});
 			return false;
@@ -337,6 +338,11 @@ function operFormat(value,row,index){
 							});
 							
 							toInitBachUpload();
+							var fileLen=$("#filelist tr:gt(0)").length;
+							//console.log(fileLen)
+							if(fileLen==0){
+								$("#filelist").css("display","none");
+							}
 							
 						}else{
 							layer.msg(data.result.message);
