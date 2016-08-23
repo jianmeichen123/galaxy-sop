@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.data.domain.Sort.Direction;
 
 import com.galaxyinternet.bo.GrantTotalBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -29,6 +31,7 @@ import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
+import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantPartService;
@@ -82,6 +85,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	/**
 	 * 新建总拨款计划
 	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/addGrantTotal", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantTotal> addGrantTotal(@RequestBody GrantTotal grantTotal,
@@ -94,21 +98,28 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		}
 		String deal="";
 		try {
+			UrlNumber uNum = null;
+			Project project = new Project();
+			project = projectService.queryById(grantTotal.getProjectId());
+			
 			User user = (User) getUserFromSession(request);
 			grantTotal.setCreateUid(user.getId());
 			grantTotal.setCreateUname(user.getRealName());
 			long id=0;
 			if(null==grantTotal.getId()||grantTotal.getId()==0){
+				uNum = UrlNumber.one;
 				 grantTotal.setId(null);
 				 id = grantTotalService.insert(grantTotal);
 				 deal="添加";
 			}else{
+				uNum = UrlNumber.two;
 				 id = grantTotalService.updateById(grantTotal);
 				 deal="修改";
 			}
 			
 			responseBody.setId(id);
 			responseBody.setResult(new Result(Status.OK, "success", deal+"总拨款计划成功!"));
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.1", uNum);
 			_common_logger_.info(deal+"总拨款计划成功"+grantTotal.toString());
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "添加总拨款计划失败!"));
@@ -192,6 +203,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	/**
 	 * 删除总拨款计划
 	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/deleteGrantTotal/{tid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantTotal> deleteGrantTotal(@PathVariable("tid") Long tid,
@@ -213,8 +225,12 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		}
 		
 		try {
+			Project project = new Project();
+			project = projectService.queryById(c.getProjectId());
+			
 			grantTotalService.deleteById(c.getId());
 			responseBody.setResult(new Result(Status.OK, "ok", "删除总拨款计划失败!"));
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.1", UrlNumber.three);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "删除总拨款计划失败!"));
 			_common_logger_.error("删除总拨款计划失败！", e);
@@ -226,6 +242,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	/**
 	 * 编辑总拨款计划
 	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/resetGrantTotal", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantTotal> resetGrantTotal(@RequestBody GrantTotal grantTotal,
@@ -241,8 +258,12 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			return responseBody;
 		}
 		try {
+			Project project = new Project();
+			project = projectService.queryById(c.getProjectId());
+			
 			grantTotalService.updateById(grantTotal);
 			responseBody.setResult(new Result(Status.OK, "ok", "编辑总拨款计划失败!"));
+			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.1", UrlNumber.two);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, "error", "编辑总拨款计划失败!"));
 			_common_logger_.error("编辑总拨款计划失败！", e);
