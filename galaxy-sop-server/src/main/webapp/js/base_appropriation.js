@@ -47,7 +47,7 @@ function  assembleHtml(grantTotal,i){
           +'</div>'    
          +'<div class="b_agreement_r fr">'
             +'<button class="pbtn bluebtn" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+grantTotal.id+'" data-name="添加分期拨款计划" data-total-name="'+grantTotal.grantName+'">添加分期拨款计划</button>'
-            +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总拨款计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" data-val="'+grantTotal.id+'" data-name="提示">删除</label>'
+            +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总拨款计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" onclick="deleteAppr('+grantTotal.id+')" data-name="提示">删除</label>'
          +'</div>'
     +'</div>'                      
   //  <!--表格内容-->
@@ -79,14 +79,13 @@ function  assembleSingleTabHtml(grantPart,grantName){
 		   +'</tr>';
 	  return value;
 }
-$("[data-btn='tips']").click(function(){
-	var _this=this;
-	var id=this.data-val;
-	sendPostRequest(platformUrl.deleteGrantTotal+"/"+id,function(){
-		if (data.result.status=="OK") {
-			layer.msg("删除成功");
-		} else {
-			layer.msg(data.result.message);
-		}
-	});
-})
+function deleteAppr(id){
+ 		sendPostRequest(platformUrl.deleteGrantTotal+"/"+id,function(data){
+ 			if (data.result.status=="OK") {
+ 				layer.msg("删除成功");
+ 			} else {
+ 				layer.msg(data.result.message);
+ 				window.location.href=location;
+ 			}
+ 		});
+ 	}
