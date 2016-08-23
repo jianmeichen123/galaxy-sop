@@ -90,7 +90,7 @@
                 </dl>
                   <dl class="fmdl fmdll clearfix">
                   <dt>团队成员:</dt>
-                  <dd style="width:165px;">
+                  <dd style="width:135px;">
                     <input type="text" class="txt" name="projectPerson" placeholder="请输入团队成员姓名" style="margin-left:0">
                   </dd>
                 </dl>
@@ -150,15 +150,15 @@
 			        	<th data-field="projectName"  class="data-input" data-formatter="projectInfo" data-width="16%">项目名称</th>
 			        	<th data-field="project_type" data-formatter="typeFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目类型<span></span></th>
 			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="7%">融资状态<span></span></th>
-			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="11%">项目进度<span></span></th>
+			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="13%">项目进度<span></span></th>
 			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="7%">项目状态<span></span></th>
 			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="6%">来源于FA<span></span></th>
 			        	<th data-field="projectCareerline"  class="data-input" data-width="9%">事业部</th>
 			        	<th data-field="createUname"  class="data-input" data-width="14%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
-			        	<th data-field="updated_time" data-formatter="updateFormat"  class="data-input sort" data-sortable="true" data-width="6%">最后编辑时间<span></span></th>
+			        	<th data-field="updated_time" data-formatter="updateFormat"  class="data-input sort" data-sortable="true" data-width="5%">最后编辑时间<span></span></th>
          				<c:if test="${fx:hasRole(4)}">
-			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder" data-width="8%">操作</th>
+			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder" data-width="6%">操作</th>
  						</c:if>
  					</tr>	
  				</thead>
