@@ -270,7 +270,7 @@ var projectGrid = {
 		nameEvents : {
 			'click .projectNameLink': function (e, value, row, index) {
 				
-				var PageSize_ab = $( ".dropdown-toggle .page-size").text();
+				var PageSize_ab = $( ".tabtable_con_overview .dropdown-toggle .page-size").text();
 				var tempPageNum = $( ".pagination .active").text();
 				var href_url=window.location
 				//ie兼容
