@@ -381,7 +381,7 @@ function notesInfoEdit(selectRowId,type){
 			um.setContent(interviewSelectRow.viewNotes);
 			if(type == 'v'){
 				$("#interviewsave").remove();
-				//um.setDisabled();
+				um.setDisabled();
 			}
 		}
 	});
