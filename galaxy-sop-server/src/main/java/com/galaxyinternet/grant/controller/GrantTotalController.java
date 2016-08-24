@@ -105,6 +105,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			User user = (User) getUserFromSession(request);
 			grantTotal.setCreateUid(user.getId());
 			grantTotal.setCreateUname(user.getRealName());
+			grantTotal.setUpdatedTime(System.currentTimeMillis());
 			long id=0;
 			if(null==grantTotal.getId()||grantTotal.getId()==0){
 				uNum = UrlNumber.one;
