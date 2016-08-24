@@ -80,9 +80,21 @@
 	</div>
 	<script>
 	   $(function(){
-		  var remainMoney = '${remainMoney}';
-		      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
-           $("#formatRemainMoney").html(remainMoney);
+		   var remainMoney = '${remainMoney}';
+			  remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
+	          $("#formatRemainMoney").html(remainMoney);			
+		  $("#grantMoney").blur(function(){
+			 var grantMoney=$("#grantMoney").val();
+			  var remainMoney = '${remainMoney}';
+			  var remainMoneyNew=remainMoney-grantMoney;
+			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+			      if(remainMoneyNew<0){
+			    	  $("#formatRemainMoney").html("0.00");
+			      }else{
+			    	  $("#formatRemainMoney").html(remainMoney);
+			      }	          
+		  })
+		  
 	   });
 	
 	</script>
