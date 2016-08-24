@@ -204,7 +204,7 @@ var pId;
 		//实际拨款信息列表
 		$("[data-btn='actual']").on("click",function(){ 
 			var $self = $(this);
-			var _url=platformUrl.toApprActualPage + "/" + $self.attr("data-part-id");;
+			var _url=platformUrl.toApprActualPage + "/" + $self.attr("data-part-id");
 			var _name= $self.attr("data-name");
 			$.getHtml({
 				url:_url,//模版请求地址

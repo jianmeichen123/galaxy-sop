@@ -1,5 +1,6 @@
 package com.galaxyinternet.grant.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.data.domain.Sort.Direction;
 
+import com.alibaba.dubbo.remoting.exchange.Response;
 import com.galaxyinternet.bo.GrantActualBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -26,7 +30,13 @@ import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.GrantActual;
+import com.galaxyinternet.model.GrantPart;
+import com.galaxyinternet.model.GrantTotal;
+import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantActualService;
+import com.galaxyinternet.service.GrantPartService;
+import com.galaxyinternet.service.GrantTotalService;
+import com.galaxyinternet.utils.MathUtils;
 
 
 @Controller
@@ -37,6 +47,10 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	
 	@Autowired
 	private GrantActualService grantActualService;
+	@Autowired
+	private GrantPartService grantPartService;
+	@Autowired
+	private GrantTotalService grantTotalService;
 	
 	@Override
 	protected BaseService<GrantActual> getBaseService() {
@@ -109,5 +123,106 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		}
 		return responseBody;
 	}
+	
+	@RequestMapping(value="/toEditApprActual",method=RequestMethod.GET)
+	public String toEditApprActual(){
+		return "project/tanchuan/appr_edit_actual";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/initEditApprActual",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantActual> initEditApprActual(@RequestBody GrantActual aQuery,HttpServletRequest request){
+		ResponseData<GrantActual> responseBody = new ResponseData<GrantActual>();
+		try {	
+			GrantActual actual = null;
+			//获取实际拨款中实际拨款金额
+			if(aQuery.getId()!=null){
+				actual = grantActualService.queryById(aQuery.getId());
+			}
+			if(aQuery.getPartGrantId()!=null){
+				aQuery.setId(null);
+				List<GrantActual> actualList = grantActualService.queryList(aQuery);
+				GrantPart part = grantPartService.queryById(aQuery.getPartGrantId());
+				GrantTotal total = grantTotalService.queryById(part.getTotalGrantId());
+				if(actual==null){
+					actual = new GrantActual();
+				}
+				actual.setProtocolName(total.getGrantName());
+				actual.setPlanGrantTime(part.getGrantDetail());
+				actual.setPlanGrantMoney(part.getGrantMoney());
+				Double surplusGrantMoney = part.getGrantMoney();
+				for(GrantActual temp : actualList){
+					surplusGrantMoney = Double.parseDouble(MathUtils.calculate(surplusGrantMoney, temp.getGrantMoney(), "-", 2));
+				}
+				
+				//剩余金额
+				actual.setSurplusGrantMoney(surplusGrantMoney);
+				responseBody.setEntity(actual);
+			}else{
+				responseBody.setResult(new Result(Status.ERROR, "参数错误(partGrandID)"));
+			}
+			
+		} catch (DaoException e) {
+			_common_logger_.error("初始化实际拨款对话框出现错误", e);
+			responseBody.setResult(new Result(Status.ERROR, "系统出现不可预知的错误"));
+		}
+		return responseBody;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/saveApprActual" , method=RequestMethod.POST , produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantActual> saveApprActual(HttpServletRequest request, @RequestBody GrantActual form){
+		ResponseData<GrantActual> responseBody = new ResponseData<GrantActual>();
+		//校验
+		if(form.getPartGrantId()==null){
+			responseBody.setResult(new Result(Status.ERROR, "分拨ID不能为空"));
+			return responseBody;
+		}
+		if(form.getGrantMoney()==null){
+			responseBody.setResult(new Result(Status.ERROR, "实际拨款金额不能为空"));
+			return responseBody;
+		}
+		//还需存在金额校验
+
+		try {
+			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+			if(form.getId()==null || form.getId().intValue() == 0){
+				//新增
+				form.setCreateUid(user.getId());
+				form.setCreateUname(user.getRealName());
+				grantActualService.insert(form);
+			}else{
+				//编辑
+				GrantActual actual = grantActualService.queryById(form.getId());
+				actual.setGrantMoney(form.getGrantMoney());
+				actual.setUpdatedTime(System.currentTimeMillis());
+				grantActualService.updateById(actual);
+			}
+			responseBody.setResult(new Result(Status.OK, ""));
+			
+		} catch (DaoException e) {
+			// TODO: handle exception
+			_common_logger_.error("添加或编辑出现错误", e);
+			responseBody.setResult(new Result(Status.ERROR, "系统出现不可预知的错误"));
+		}
+		return responseBody;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/deleteApprActual/{id}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantActual> deleteApprActual( @PathVariable Long id,HttpServletRequest request){
+		ResponseData<GrantActual> responseBody = new ResponseData<GrantActual>();
+		try {
+			grantActualService.deleteById(id);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (DaoException e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, "系统出现不可预知的错误"));
+			_common_logger_.error("删除错误", e);
+		}
+		return responseBody;
+	}
+	
+	
 	
 }

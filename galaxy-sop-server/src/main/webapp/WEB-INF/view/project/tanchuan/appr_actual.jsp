@@ -15,7 +15,7 @@
 	<div class="title_bj" id="popup_name">实际拨款信息列表</div>
      
     <div class="addbutton btnbox_f1 clearfix margin_45">                        	
-        <a href="tchtml/edit_actual.html" data-btn="edit_actual" data-name='添加实际拨款信息' class="pbtn bluebtn h_bluebtn">添加实际拨款信息</a>        
+        <a href="javascript:;" id="btn_add_appr_actual"   resource-mark="add_appr_actual" class="pbtn bluebtn h_bluebtn">添加实际拨款信息</a>        
     </div>
     <div class="form clearfix">
         <div class="actual_all">
@@ -24,10 +24,10 @@
         		data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat" class="data-input" data-formatter="projectInfo" data-width="25%">实际拨款金额（元）</th>
+			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="25%">实际拨款金额（元）</th>
 			        	<th data-field="createdTime" data-formatter="createDateFormat" class="data-input  data-width="25%">拨款日期<span></span></th>
 			        	<th data-field="createUname" class="data-input  data-width="25%">拨款人<span></span></th>
-			        	<th class="col-md-2" data-formatter="operatorFormat" data-class="noborder" data-width="25%">操作</th>
+			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width="25%">操作</th>
  					</tr>	
  				</thead>
 			</table>
@@ -41,11 +41,57 @@
 	    	return addCommas(fixSizeDecimal(value));
 	    }
 	    function operatorFormat(value, row, index){
-	    	var edit = "<a herf=\"javascript:void(0);\" class=\"blue\" onclick=\"actualEdit('"+row.id+"');\" >编辑</a>";
-	    	var del = "<a herf=\"javascript:void(0);\" class=\"blue\" onclick=\"actualRemove('"+row.id+"');\" >删除</a>";
-	    	var look = "<a herf=\"javascript:void(0);\" class=\"blue\" onclick=\"actualLook('"+row.id+"');\">查看</a>";
-	        return edit+del+look; 
-	    }
+		      return [
+		              //
+					'<a resource-mark="edit_appr_actual" style="display: none"  class="editActualLink blue"  href="javascript:void(0)">编辑</a>',
+					'<a resource-mark="delete_appr_actual" style="display: none"  class="deleteActualLink blue"  href="javascript:void(0)">删除</a>',
+					'<a class="showActualLink blue" href="javascript:void(0)">查看</a>'
+			        ].join('');
+		 }
+	    var operatorEvent = {
+	    		'click .editActualLink' : function(e, value, row, index){
+	    			var formdata = {
+	    					parentId　:	${partId},
+	    					actualId : row.id,
+	    					operatorFlag : 2,
+	    					callFuc : function(){
+		    					 $('#actual-table').bootstrapTable('refresh',function(param){
+		    				        	param.partGrantId = ${partId};
+		    				        	return param;
+		    				        });
+		    					}
+	    			}
+	    			editApprActualDialog.init(formdata);
+	    		},
+	    		'click .deleteActualLink'  : function(e, value, row, index){
+	    			layer.confirm('确定要删除吗?', {
+		        		  btn: ['确定', '取消'] //可以无限个按钮
+		        		}, function(index, layero){
+		        			sendGetRequest(platformUrl.deleteApprActual + "/" + row.id ,null,function(data){
+		    	        		if(data.result.status=="OK"){
+		    	        			layer.msg("删除成功");
+		    	        			 $('#actual-table').bootstrapTable('refresh',function(param){
+			    				        	param.partGrantId = ${partId};
+			    				        	return param;
+			    				        });
+		    					}else{
+		    						layer.msg(data.result.errorCode);
+		    					}
+		    	        	});
+		        		  //按钮【按钮一】的回调
+		        		}, function(index){
+		        		  //按钮【按钮二】的回调
+		        		});
+	    		},
+				'click .showActualLink'  : function(e, value, row, index){
+					var formdata = {
+	    					parentId　:	${partId},
+	    					actualId : row.id,
+	    					operatorFlag : 3
+	    			}
+	    			editApprActualDialog.init(formdata);
+	    		}
+	    };
 	    $('#actual-table').bootstrapTable({
 	    	queryParamsType: 'size|page',
 			pageSize:2,
@@ -62,6 +108,11 @@
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
+	        	 $.each(allResourceToUser, function(index, element){
+	        		 console.log(element.resourceMark)
+	     			 $('[resource-mark="' + element.resourceMark + '"]').css("display","inline-block");
+	     			 
+	     		});
 	        }
 	    });
 	    
@@ -74,6 +125,28 @@
 				}	
 			});
 	    }
+    </script>
+    <script src="<%=path %>/js/editApprActualDialog.js"></script>
+    <script type="text/javascript">
+    
+	    function init(){
+	    	$("#btn_add_appr_actual").click(function(){
+	    		var formdata = {
+	    				parentId　:	${partId},
+	    				callFuc : function(){
+	    					 $('#actual-table').bootstrapTable('refresh',function(param){
+	    				        	param.partGrantId = ${partId};
+	    				        	return param;
+	    				        });
+
+	    				}
+	    		}
+	    		editApprActualDialog.init(formdata);
+	    	});
+	    }
+	    console.log(allResourceToUser);
+	    $(document).ready(init());
+    	
     </script>
   	
 </div>
