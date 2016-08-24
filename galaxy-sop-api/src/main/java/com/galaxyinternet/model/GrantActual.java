@@ -38,6 +38,53 @@ public class GrantActual extends PagableEntity{
 		this.createUname = createUname;
 	}
 	
+	
+	//以下为显示字段
+	/**
+	 * 协议名称(totalGrant  grantName)
+	 */
+	private String protocolName;
+	
+	/**
+	 * 计划拨款时间(grantPart grantDetail)
+	 */
+	private String planGrantTime;
+	
+	/**
+	 * 计划拨款金额(grantPart grantMoney)
+	 */
+	private Double planGrantMoney;
+	
+	/**
+	 * 剩余拨款金额
+	 */
+	private Double surplusGrantMoney;
+	
+	
+	public String getProtocolName() {
+		return protocolName;
+	}
+	public void setProtocolName(String protocolName) {
+		this.protocolName = protocolName;
+	}
+	public String getPlanGrantTime() {
+		return planGrantTime;
+	}
+	public void setPlanGrantTime(String planGrantTime) {
+		this.planGrantTime = planGrantTime;
+	}
+	public Double getPlanGrantMoney() {
+		return planGrantMoney;
+	}
+	public void setPlanGrantMoney(Double planGrantMoney) {
+		this.planGrantMoney = planGrantMoney;
+	}
+	public Double getSurplusGrantMoney() {
+		return surplusGrantMoney;
+	}
+	public void setSurplusGrantMoney(Double surplusGrantMoney) {
+		this.surplusGrantMoney = surplusGrantMoney;
+	}
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);

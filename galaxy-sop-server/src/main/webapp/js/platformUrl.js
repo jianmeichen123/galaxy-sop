@@ -903,6 +903,15 @@ var platformUrl = {
 	getApprProcess : Constants.sopEndpointURL + "/galaxy/grant/total/getApprProcess",
 	//删除成功提示框
 	deleteAlert : Constants.sopEndpointURL + "/galaxy/deleteAlert",
+	//实际拨款编辑弹窗
+	toEditApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/toEditApprActual",
+	//初始化拨款编辑弹窗
+	initEditApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/initEditApprActual",
+	//保存实际拨款
+	saveApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/saveApprActual",
+	//删除实际拨款
+	deleteApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/deleteApprActual"
+
 
 	
 }
