@@ -38,6 +38,8 @@ import com.galaxyinternet.service.OperationMessageService;
 import com.galaxyinternet.service.ProgressLogService;
 import com.tencent.xinge.XGPush;
 
+import net.sf.json.JSONObject;
+
 /**
  * @description 消息提醒拦截器
  * @author keifer
@@ -412,7 +414,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 						messageType.equals("9.4") || messageType.equals("9.5")){
 					return;
 				}
-			}else throw new Exception("requset 封装的  map 中  messageType 信息缺失");;
+			}else throw new Exception("requset 封装的  map 中  messageType 信息缺失");
 			
 			IosMessage entity = iosMessageGenerator.generate(type, user,map);
 		
@@ -423,8 +425,17 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			XGPush xinge = XGPush.getInstance();
 			org.json.JSONObject result = xinge.pushAccountList(entity.getUidList(),entity.getTitle(), entity.getContent());
 			
+			if(result!=null){
+				String backStr = result.toString();
+				String iosmarkV = backStr.substring(backStr.indexOf("ret_code\":")+10, backStr.indexOf("ret_code\":")+11);
+				String andriodmarkV = backStr.substring(backStr.lastIndexOf("ret_code\":")+10, backStr.lastIndexOf("ret_code\":")+11);
+				if(!iosmarkV.equals("0") || !andriodmarkV.equals("0")){
+					throw new Exception("xingge 推送失败 "+backStr);
+				}
+			}
+			
 		} catch (Exception e) {
-			loger.error("ios 消息推送失败" +e);
+			loger.error("xingge 消息推送失败" +e);
 		}
 	}
 	
