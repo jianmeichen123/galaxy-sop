@@ -1001,7 +1001,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 #popbg{ position:fixed; _position:absolute; left:0; top:0; background:#000;filter:Alpha(opacity=0);opacity: 0;  z-index:999; width:100%; height:100%}
 #popbg01{ position:fixed; _position:absolute; left:0; top:0; background:#fff;filter:Alpha(opacity=0);opacity: 0;  z-index:1000; width:100%; height:100%}
 #popbg iframe{filter:alpha(opacity=0);opacity: 0; width:100%; height:100%}
-.pop{ position:fixed; _position:absolute; left:0; top:0; z-index:1000;filter:Alpha(opacity=0);opacity: 0; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
+.pop{  position:absolute; left:0; top:0; z-index:1000; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
 .popzx{ z-index:9999}
 .pop .close{ position:absolute; right:8px; top:6px; width:26px; height:26px; background:url(../img/tcclose.png) no-repeat; z-index:10;opacity: 1;}
 .pop .poptxt{ position:relative; padding:10px}
