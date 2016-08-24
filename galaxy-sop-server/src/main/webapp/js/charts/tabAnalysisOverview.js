@@ -271,7 +271,7 @@ var projectGrid = {
 			'click .projectNameLink': function (e, value, row, index) {
 				
 				var PageSize_ab = $( ".tabtable_con_overview .dropdown-toggle .page-size").text();
-				var tempPageNum = $( ".pagination .active").text();
+				var tempPageNum = $( ".tabtable_con_overview .pagination .active").text();
 				var href_url=window.location
 				//ie兼容
 				setCookie("PageSize_ab", PageSize_ab,24,'/');
