@@ -66,7 +66,21 @@ var editApprActualDialog = {
 												
 											}
 											if(data.entity.surplusGrantMoney){
-												$surplusGrantMoney.html("剩余金额" + addCommas(fixSizeDecimal(data.entity.surplusGrantMoney)) + "元");
+													var grantMoneyOld=$formGrantMoney.val(); 
+												   var remainMoney = data.entity.surplusGrantMoney;
+													  remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
+													  remainMoneyTotal=data.entity.surplusGrantMoney+Number(grantMoneyOld); //剩余+实际拨款
+													  $surplusGrantMoney.html("剩余金额" + remainMoney + "元");											         
+													  $formGrantMoney.blur(function(){
+													 var grantMoney=$formGrantMoney.val();
+													  var remainMoneyNew=remainMoneyTotal-grantMoney;
+													      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+													      if(remainMoneyNew<0 || remainMoneyNew==0){
+													    	  $surplusGrantMoney.html("剩余金额0.00元");
+													      }else{
+													    	  $surplusGrantMoney.html("剩余金额" + remainMoney + "元");
+													      }	          
+												  })
 											}
 											$okBtn.click(operator.save);
 											$cancelBtn.click(function(){
