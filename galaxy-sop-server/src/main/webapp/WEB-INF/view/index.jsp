@@ -356,8 +356,19 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 <dl  class="tool_radius">
                 	<dt><h3 class="ico t6">常用工具</h3></dt>
                     <dd class="tool">
+		        	<c:choose>
+			        	<c:when test="${fx:hasRole(20)}">
+						<a href="javascript:;" class="light_gray "><b class="b4 ico null">ico</b>新增访谈</a>
+                    	<a href="javascript:;" class="light_gray"><b class="b3 ico null">ico</b>新增会议</a>
+			        	
+			        	</c:when>
+			        	<c:otherwise>
+			        	
                         <a href="<%=path %>/galaxy/project/progress/interViewAdd" data-btn="interview"><b class="b4 ico null">ico</b>新增访谈</a>
                     	<a href="<%=path %>/galaxy/project/progress/meetAddView" data-btn="meeting"><b class="b3 ico null">ico</b>新增会议</a>
+			        	</c:otherwise>
+		        	</c:choose>
+                    	
                     	<a href="javascript:;" class="light_gray"><b class="b1 ico null">ico</b>通讯录</a>
                         <a href="javascript:;" class="light_gray"><b class="b2 ico null">ico</b>估值计算</a>
                         <a href="javascript:;" class="light_gray"><b class="b5 ico null">ico</b>发邮件</a>
@@ -487,8 +498,8 @@ var forwardParam = {
 		 */
 		
 		msResourceUtils.specialDeal();
-		
 		$.each(allResourceToUser, function(index, element){
+			
 			 $('[resource-mark="' + element.resourceMark + '"]').css("display","block");
 			 
 		});
