@@ -38,7 +38,7 @@
 		                <dd>
 		                	
 		                	<div>
-		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value=""/>
+		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="LIMIT_9_NUMBER" msg="<font color=red>*</font>支持9位长度的两位小数"/>
 		                    </div> 
 	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>元</div> 
 		                </dd>
@@ -82,7 +82,8 @@
 	   $(function(){
 		   var remainMoney = '${remainMoney}';
 			  remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
-	          $("#formatRemainMoney").html(remainMoney);			
+	          $("#formatRemainMoney").html(remainMoney);	
+	         
 		  $("#grantMoney").blur(function(){
 			 var grantMoney=$("#grantMoney").val();
 			  var remainMoney = '${remainMoney}';
