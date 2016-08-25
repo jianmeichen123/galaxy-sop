@@ -29,7 +29,7 @@
 		                <dt>拨款时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" name="grantDetail" type="text" value="" valType="OTHER" regString="^[\u4e00-\u9fa5]{1,20}$" msg="<font color=red>*</font>协议名称只能输入20个汉字"/>
+		                    	<input class="edittxt" name="grantDetail" type="text" value="" valType="OTHER" regString="^[\u4e00-\u9fa5]{1,20}$" msg="<font color=red>*</font>拨款时间只能输入20个汉字"/>
 		                    </div> 
 		                </dd>
 		            </dl>
