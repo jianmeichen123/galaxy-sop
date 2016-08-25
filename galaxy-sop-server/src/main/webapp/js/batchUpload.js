@@ -46,7 +46,6 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 					if(up.files.length == 0){
 							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
 								//layer.closeAll('loading');
-								$(".pop").hideLoading();
 								var result = data.result.status;
 								if(result == "OK"){
 									if(callBackFun && typeof(callBackFun) == "function"){
@@ -57,6 +56,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 								}else{
 								    layer.msg(data.result.errorCode);
 								}
+								$(".pop").hideLoading();
 							});
 					}else{
 						//layer.closeAll('loading');
