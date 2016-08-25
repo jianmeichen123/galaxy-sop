@@ -421,7 +421,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			if(entity==null || entity.getUidList()==null || entity.getUidList().isEmpty() || StringUtils.isBlank(entity.getContent())){
 				return;
 			}
-			System.err.println(entity);
+
 			XGPush xinge = XGPush.getInstance();
 			org.json.JSONObject result = xinge.pushAccountList(entity.getUidList(),entity.getTitle(), entity.getContent());
 			
