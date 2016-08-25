@@ -81,7 +81,7 @@
 							<th data-field="del_status" data-align="left" class="data-input sort" data-sortable="true" data-formatter="statusFormat">状态<span></span></th>
 							<th data-field="endByUname" data-align="left">编辑人</th>
 							<th data-field="updatedTime" data-align="left" data-formatter="longTime_Format" >编辑日期</th>
-							<th data-field="fileNum" data-align="left" >附件数</th>
+							<th data-field="fileNum" data-align="left" data-formatter="notReturn_Format">附件数</th>
 							<th data-align="left" data-formatter="operFormat">操作</th>
 						</tr>
 					</thead>
@@ -231,6 +231,13 @@ function saveCallBackFuc(data){
 function statusFormat(value,row,index){  
 	return row.statusFormat;
 }
+
+
+function notReturn_Format(value,row,index){  
+	return value==null?0:value ;
+}
+
+
 
 /**
  *  查看
