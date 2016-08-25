@@ -193,13 +193,10 @@ var pId;
 						});
 					
 						   var grantMoneyOld=$("#grantMoney").val();
-						   console.log(typeof(grantMoneyOld))
-						  //var remainMoney ='${remainMoney}';
+
 						 var remainMoney=parseInt(delCommas($("#formatRemainMoney").text()));
-						 console.log(typeof(remainMoney))
 				          $("#grantMoney").blur(function(){
 				 			 var grantMoney=$("#grantMoney").val();
-				 			 alert(grantMoneyOld-grantMoney)
 				 			  var remainMoneyNew=remainMoney+Number(grantMoneyOld)-Number(grantMoney);
 				 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
 				 			      if(remainMoneyNew<0){
