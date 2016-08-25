@@ -195,9 +195,10 @@ var pId;
 						   var grantMoneyOld=$("#grantMoney").val();
 
 						 var remainMoney=parseInt(delCommas($("#formatRemainMoney").text()));
+						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
 				          $("#grantMoney").blur(function(){
 				 			 var grantMoney=$("#grantMoney").val();
-				 			  var remainMoneyNew=remainMoney+Number(grantMoneyOld)-Number(grantMoney);
+				 			  var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
 				 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
 				 			      if(remainMoneyNew<0){
 				 			    	  $("#formatRemainMoney").html("0.00");
