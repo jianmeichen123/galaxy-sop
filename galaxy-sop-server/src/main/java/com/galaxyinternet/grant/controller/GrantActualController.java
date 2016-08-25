@@ -20,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.dubbo.remoting.exchange.Response;
 import com.galaxyinternet.bo.GrantActualBo;
+import com.galaxyinternet.common.annotation.LogType;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
+import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
@@ -32,10 +34,14 @@ import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.model.GrantActual;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
+import com.galaxyinternet.model.operationLog.UrlNumber;
+import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.GrantActualService;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
+import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.MathUtils;
 
 
@@ -51,6 +57,10 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	private GrantPartService grantPartService;
 	@Autowired
 	private GrantTotalService grantTotalService;
+	@Autowired
+	private ProjectService projectService;
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	protected BaseService<GrantActual> getBaseService() {
@@ -169,6 +179,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		return responseBody;
 	}
 	
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value="/saveApprActual" , method=RequestMethod.POST , produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantActual> saveApprActual(HttpServletRequest request, @RequestBody GrantActual form){
@@ -185,21 +196,30 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		//还需存在金额校验
 
 		try {
+			UrlNumber uNum = null;
+			GrantPart part = grantPartService.queryById(form.getPartGrantId());
+			GrantTotal total = grantTotalService.queryById(part.getTotalGrantId());
+			Project project = new Project();
+			project = projectService.queryById(total.getProjectId());
+			User blongUser = userService.queryById(project.getCreateUid());
+			
 			User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 			if(form.getId()==null || form.getId().intValue() == 0){
 				//新增
+				uNum = UrlNumber.one;
 				form.setCreateUid(user.getId());
 				form.setCreateUname(user.getRealName());
 				grantActualService.insert(form);
 			}else{
 				//编辑
+				uNum = UrlNumber.two;
 				GrantActual actual = grantActualService.queryById(form.getId());
 				actual.setGrantMoney(form.getGrantMoney());
 				actual.setUpdatedTime(System.currentTimeMillis());
 				grantActualService.updateById(actual);
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
-			
+			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", uNum);
 		} catch (DaoException e) {
 			// TODO: handle exception
 			_common_logger_.error("添加或编辑出现错误", e);
@@ -208,13 +228,22 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		return responseBody;
 	}
 	
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value="/deleteApprActual/{id}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<GrantActual> deleteApprActual( @PathVariable Long id,HttpServletRequest request){
 		ResponseData<GrantActual> responseBody = new ResponseData<GrantActual>();
 		try {
+			
+			GrantActual actual = grantActualService.queryById(id);
+			GrantPart part = grantPartService.queryById(actual.getPartGrantId());
+			GrantTotal total = grantTotalService.queryById(part.getTotalGrantId());
+			Project project = projectService.queryById(total.getProjectId());
+			User blongUser = userService.queryById(project.getCreateUid());
+			
 			grantActualService.deleteById(id);
 			responseBody.setResult(new Result(Status.OK, ""));
+			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", UrlNumber.three);
 		} catch (DaoException e) {
 			// TODO: handle exception
 			responseBody.setResult(new Result(Status.ERROR, "系统出现不可预知的错误"));
