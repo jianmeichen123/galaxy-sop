@@ -136,7 +136,7 @@ var pId;
 	    	
 	    }
 		//编辑总拨款计划
-		$("[data-btn='actual_aging']").on("click",function(){ 
+		$("[data-btn='actual_aging']").on("click",function(){ 			
 		var $self = $(this);
 		var _data_type = $self.attr("data_type");
 		
@@ -154,6 +154,7 @@ var pId;
 					if($("#popup_name").text()=="添加分期拨款计划"){
 						$("#filelist").css("display","none");  //隐藏表头  
 					}
+					  
 					if(_data_type == "edit"){
 						var _part_id = $self.attr("data-part-id");
 						//edit
@@ -190,26 +191,29 @@ var pId;
 								layer.msg(data.result.message);
 							}
 						});
-						  var grantMoneyOld=$("#grantMoney").val();
-						  return grantMoneyOld;
+					
+						   var grantMoneyOld=$("#grantMoney").val();
+						   console.log(typeof(grantMoneyOld))
+						  //var remainMoney ='${remainMoney}';
+						 var remainMoney=parseInt(delCommas($("#formatRemainMoney").text()));
+						 console.log(typeof(remainMoney))
 				          $("#grantMoney").blur(function(){
 				 			 var grantMoney=$("#grantMoney").val();
-				 			  var remainMoney = '${remainMoney}';
-				 			  var remainMoneyNew=remainMoney+grantMoneyOld-grantMoney;
+				 			 alert(grantMoneyOld-grantMoney)
+				 			  var remainMoneyNew=remainMoney+Number(grantMoneyOld)-Number(grantMoney);
 				 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
 				 			      if(remainMoneyNew<0){
 				 			    	  $("#formatRemainMoney").html("0.00");
 				 			      }else{
 				 			    	  $("#formatRemainMoney").html(remainMoney);
 				 			      }	          
-				 		  })
+				 		  }) 
 						 
 					}else{
 						$("#partId").remove();
 						toInitBachUpload();
 					}
-					initDialogVal();
-					
+					initDialogVal();	
 				}//模版反回成功执行	
 			});
 			return false;
@@ -427,7 +431,7 @@ function del_grantPart(id){
 			layer.msg(data.result.message);
 		}
 	});
-}	
+}
 
 </script>
 
