@@ -190,6 +190,20 @@ var pId;
 								layer.msg(data.result.message);
 							}
 						});
+						  var grantMoneyOld=$("#grantMoney").val();
+						  return grantMoneyOld;
+				          $("#grantMoney").blur(function(){
+				 			 var grantMoney=$("#grantMoney").val();
+				 			  var remainMoney = '${remainMoney}';
+				 			  var remainMoneyNew=remainMoney+grantMoneyOld-grantMoney;
+				 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+				 			      if(remainMoneyNew<0){
+				 			    	  $("#formatRemainMoney").html("0.00");
+				 			      }else{
+				 			    	  $("#formatRemainMoney").html(remainMoney);
+				 			      }	          
+				 		  })
+						 
 					}else{
 						$("#partId").remove();
 						toInitBachUpload();
