@@ -136,7 +136,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 			project = projectService.queryById(total.getProjectId());
 			
 			GrantPart part = new GrantPart();
-			part.setId(total.getId());
+			part.setTotalGrantId(total.getId());
 			List<GrantPart> partList = grantPartService.queryList(part);
 			if(partList != null && partList.size() > 0){
 				GrantPart p = partList.get(partList.size()-1);
