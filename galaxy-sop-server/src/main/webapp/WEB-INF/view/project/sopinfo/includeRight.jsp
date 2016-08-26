@@ -211,6 +211,8 @@ $(function(){
 	 			 var format=addCommas(fixSizeDecimal(sumActualMoney/10000));
 	 			 if(format==0.00){
 	 				sumActualMoney=0;
+	 			 }else{
+	 				sumActualMoney=format ;
 	 			 }
 	 		 }
 	 		 if(null==sumPlanMoney||typeof(sumPlanMoney)=="underfined"||sumPlanMoney==0){
