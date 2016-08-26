@@ -23,6 +23,7 @@
 		                	<input name="id" id="partId" type="hidden" value=""/>
 		                	<input type="hidden" id="remainMoney" value="${remainMoney }"/>
 		                	<input type="hidden" id="totalMoney" value="${totalMoney }"/>
+		                	<input type="hidden" name="oldRemainMoney" id="oldRemainMoney" value=""/>
 		                </dd>
 		            </dl>
 	                <dl class="fmdl fl_l  clearfix">

@@ -167,6 +167,7 @@ var pId;
 								$("#actual_aging_container [name='totalGrantId']").val(grantPartInfo.totalGrantId);
 								$("#actual_aging_container [name='grantDetail']").val(grantPartInfo.grantDetail);
 								$("#actual_aging_container [name='grantMoney']").val(grantPartInfo.grantMoney);
+								$("#actual_aging_container [name='oldRemainMoney']").val(grantPartInfo.grantMoney);
 								
 								$.each(data.entity.files,function(){
 									var but = "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
@@ -182,7 +183,6 @@ var pId;
 								});
 								toInitBachUpload();
 								var fileLen=$("#filelist tr:gt(0)").length;
-								//console.log(fileLen)
 								if(fileLen==0){
 									$("#filelist").css("display","none");
 								}
@@ -361,7 +361,10 @@ function paramsContion(){
 	}
 	var partMoney = $("#grantMoney").val();
 	var remainMoney = $("#remainMoney").val();
-	if(parseFloat(partMoney) > parseFloat(remainMoney)){
+	var grantMoneyOld=$("#grantMoney").val();
+	var newgrant = Number(grantMoneyOld)+Number(remainMoney);
+	
+	if(parseFloat(partMoney) > parseFloat(newgrant)){
 		layer.msg("分期拨款金额之和大于总拨款金额");
 		return false;
 	}
@@ -395,7 +398,7 @@ function saveCallBackFuc(data){
 	showTabs('${pid}',8);
 }
 function to_del_grantPart(selectRowId){
-	layer.confirm('是否删除事项?',
+	layer.confirm('是否删除分期拨款计划?',
 		{
 		  btn: ['确定', '取消'] 
 		}, 
@@ -418,7 +421,6 @@ function to_download_grantPart(id){
 }
 
 function del_grantPart(id){  
-	//var id = $("#del_grantPart_id").val();
 	var _url =  Constants.sopEndpointURL + '/galaxy/grant/part/delGrantPart/'+id;
 	sendPostRequestByJsonObj(_url, {}, function(data){
 		if (data.result.status=="OK") {
