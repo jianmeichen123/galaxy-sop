@@ -308,6 +308,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
                 User user = (User) message.getUserData();
 				message.setBelongUid(user.getId());
 				message.setBelongDepartmentId(user.getDepartmentId());
+				message.setSingleMark((byte) 1);
 			    operationMessageService.insert(message);
 			}
 		} catch (Exception e1) {
@@ -421,7 +422,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 			if(entity==null || entity.getUidList()==null || entity.getUidList().isEmpty() || StringUtils.isBlank(entity.getContent())){
 				return;
 			}
-			System.err.println(entity);
+
 			XGPush xinge = XGPush.getInstance();
 			org.json.JSONObject result = xinge.pushAccountList(entity.getUidList(),entity.getTitle(), entity.getContent());
 			

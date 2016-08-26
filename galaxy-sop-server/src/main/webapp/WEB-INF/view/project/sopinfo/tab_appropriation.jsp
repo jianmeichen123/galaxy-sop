@@ -136,7 +136,7 @@ var pId;
 	    	
 	    }
 		//编辑总拨款计划
-		$("[data-btn='actual_aging']").on("click",function(){ 
+		$("[data-btn='actual_aging']").on("click",function(){ 			
 		var $self = $(this);
 		var _data_type = $self.attr("data_type");
 		
@@ -154,6 +154,7 @@ var pId;
 					if($("#popup_name").text()=="添加分期拨款计划"){
 						$("#filelist").css("display","none");  //隐藏表头  
 					}
+					  
 					if(_data_type == "edit"){
 						var _part_id = $self.attr("data-part-id");
 						//edit
@@ -166,6 +167,7 @@ var pId;
 								$("#actual_aging_container [name='totalGrantId']").val(grantPartInfo.totalGrantId);
 								$("#actual_aging_container [name='grantDetail']").val(grantPartInfo.grantDetail);
 								$("#actual_aging_container [name='grantMoney']").val(grantPartInfo.grantMoney);
+								$("#actual_aging_container [name='oldRemainMoney']").val(grantPartInfo.grantMoney);
 								
 								$.each(data.entity.files,function(){
 									var but = "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
@@ -181,7 +183,6 @@ var pId;
 								});
 								toInitBachUpload();
 								var fileLen=$("#filelist tr:gt(0)").length;
-								//console.log(fileLen)
 								if(fileLen==0){
 									$("#filelist").css("display","none");
 								}
@@ -190,12 +191,27 @@ var pId;
 								layer.msg(data.result.message);
 							}
 						});
+					
+						   var grantMoneyOld=$("#grantMoney").val();
+
+						 var remainMoney=parseInt(delCommas($("#formatRemainMoney").text()));
+						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
+				          $("#grantMoney").blur(function(){
+				 			 var grantMoney=$("#grantMoney").val();
+				 			  var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
+				 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+				 			      if(remainMoneyNew<0 || remainMoneyNew==0){
+				 			    	  $("#formatRemainMoney").html("0.00");
+				 			      }else{
+				 			    	  $("#formatRemainMoney").html(remainMoney);
+				 			      }	          
+				 		  }) 
+						 
 					}else{
 						$("#partId").remove();
 						toInitBachUpload();
 					}
-					initDialogVal();
-					
+					initDialogVal();	
 				}//模版反回成功执行	
 			});
 			return false;
@@ -204,7 +220,7 @@ var pId;
 		//实际拨款信息列表
 		$("[data-btn='actual']").on("click",function(){ 
 			var $self = $(this);
-			var _url=platformUrl.toApprActualPage + "/" + $self.attr("data-part-id");;
+			var _url=platformUrl.toApprActualPage + "/" + $self.attr("data-part-id");
 			var _name= $self.attr("data-name");
 			$.getHtml({
 				url:_url,//模版请求地址
@@ -345,7 +361,10 @@ function paramsContion(){
 	}
 	var partMoney = $("#grantMoney").val();
 	var remainMoney = $("#remainMoney").val();
-	if(parseFloat(partMoney) > parseFloat(remainMoney)){
+	var grantMoneyOld=$("#grantMoney").val();
+	var newgrant = Number(grantMoneyOld)+Number(remainMoney);
+	
+	if(parseFloat(partMoney) > parseFloat(newgrant)){
 		layer.msg("分期拨款金额之和大于总拨款金额");
 		return false;
 	}
@@ -379,7 +398,7 @@ function saveCallBackFuc(data){
 	showTabs('${pid}',8);
 }
 function to_del_grantPart(selectRowId){
-	layer.confirm('是否删除事项?',
+	layer.confirm('是否删除分期拨款计划?',
 		{
 		  btn: ['确定', '取消'] 
 		}, 
@@ -402,7 +421,6 @@ function to_download_grantPart(id){
 }
 
 function del_grantPart(id){  
-	//var id = $("#del_grantPart_id").val();
 	var _url =  Constants.sopEndpointURL + '/galaxy/grant/part/delGrantPart/'+id;
 	sendPostRequestByJsonObj(_url, {}, function(data){
 		if (data.result.status=="OK") {
@@ -413,7 +431,7 @@ function del_grantPart(id){
 			layer.msg(data.result.message);
 		}
 	});
-}	
+}
 
 </script>
 

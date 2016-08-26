@@ -597,6 +597,9 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .pagebox .min .tablist .tool a .b2{ width:32px; height:40px; margin:0 0 0 -16px; background-position:0 -49px}
 .pagebox .min .tablist .tool a .b3{ width:37px; height:40px; margin:0 0 0 -18px; background-position:0 -100px}
 .pagebox .min .tablist .tool a .b4{ width:40px; height:30px; margin:0 0 0 -20px; background-position:0 -151px}
+
+.pagebox .min .tablist .tool .light_gray .b3{ background-position:0 -306px}
+.pagebox .min .tablist .tool .light_gray .b4{ background-position:-1px -357px}
 .pagebox .min .tablist .tool a .b5{ width:40px; height:28px; margin:0 0 0 -20px; background-position:0 -191px}
 .pagebox .min .tablist .tool .add{ background-position:0 -229px; font-size:12px; color:#FFF}
 /*柱状图*/
@@ -1001,7 +1004,7 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 #popbg{ position:fixed; _position:absolute; left:0; top:0; background:#000;filter:Alpha(opacity=0);opacity: 0;  z-index:999; width:100%; height:100%}
 #popbg01{ position:fixed; _position:absolute; left:0; top:0; background:#fff;filter:Alpha(opacity=0);opacity: 0;  z-index:1000; width:100%; height:100%}
 #popbg iframe{filter:alpha(opacity=0);opacity: 0; width:100%; height:100%}
-.pop{ position:fixed; _position:absolute; left:0; top:0; z-index:1000;filter:Alpha(opacity=0);opacity: 0; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
+.pop{  position:absolute; left:0; top:0; z-index:1000; border:2px solid #e9ebf2; border-radius:6px; background:#FFF}
 .popzx{ z-index:9999}
 .pop .close{ position:absolute; right:8px; top:6px; width:26px; height:26px; background:url(../img/tcclose.png) no-repeat; z-index:10;opacity: 1;}
 .pop .poptxt{ position:relative; padding:10px}
@@ -1922,8 +1925,8 @@ dl{position: relative;}
 .new_correlation_cen .delivery{margin:30px 0 20px 0;}
 /*弹层7.2*/
 .deltc{width: 420px;}
-.deltc .tips_d{width: 20px;height: 20px;background:url(..//img/tips.png) 0 -20px no-repeat;display: inline-block;position: absolute;top:3px;left: 150px;}
-.deltc .tips{position: relative;margin: 50px 0;padding-left: 180px;}
+.deltc .tips_d{width: 20px;height: 20px;background:url(..//img/tips.png) 0 -20px no-repeat;display: inline-block;position: absolute;top:3px;left: 120px;}
+.deltc .tips{position: relative;margin: 50px 0;padding-left: 150px;}
 .status_con{margin-top: 45px;}
 .status .radio{color:#535762;margin-right: 30px;}
 .statustc{ width:670px;}
@@ -2118,3 +2121,4 @@ padding: 0 4px;}
 margin: 45px auto 30px;}
 .actual_all th,.actual_all td{padding:0 5px;}
 .actual_all .health_case{border-radius:5px;border-bottom:0;}
+#actual-table td a{margin-right:10px;}

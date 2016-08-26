@@ -23,13 +23,14 @@
 		                	<input name="id" id="partId" type="hidden" value=""/>
 		                	<input type="hidden" id="remainMoney" value="${remainMoney }"/>
 		                	<input type="hidden" id="totalMoney" value="${totalMoney }"/>
+		                	<input type="hidden" name="oldRemainMoney" id="oldRemainMoney" value=""/>
 		                </dd>
 		            </dl>
 	                <dl class="fmdl fl_l  clearfix">
 		                <dt>拨款时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" name="grantDetail" type="text" value="" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" />
+		                    	<input class="edittxt" name="grantDetail" type="text" value="" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/>
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -38,7 +39,7 @@
 		                <dd>
 		                	
 		                	<div>
-		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value=""/>
+		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="LIMIT_9_NUMBER" msg="<font color=red>*</font>支持9位长度的两位小数"/>
 		                    </div> 
 	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>元</div> 
 		                </dd>
@@ -80,9 +81,22 @@
 	</div>
 	<script>
 	   $(function(){
-		  var remainMoney = '${remainMoney}';
-		      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
-           $("#formatRemainMoney").html(remainMoney);
+		   var remainMoney = '${remainMoney}';
+			  remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
+	          $("#formatRemainMoney").html(remainMoney);	
+	         
+		  $("#grantMoney").blur(function(){
+			 var grantMoney=$("#grantMoney").val();
+			  var remainMoney = '${remainMoney}';
+			  var remainMoneyNew=remainMoney-grantMoney;
+			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+			      if(remainMoneyNew<0 || remainMoneyNew==0){
+			    	  $("#formatRemainMoney").html("0.00");
+			      }else{
+			    	  $("#formatRemainMoney").html(remainMoney);
+			      }	          
+		  })
+		  
 	   });
 	
 	</script>

@@ -55,3 +55,17 @@ function addCommas(nStr){
 	}
 	return x1 + x2;
 }
+
+/**
+ * 去除千分位
+ *@param{Object}num
+ */
+ 
+function delCommas(num){
+  if($.trim(num+"")==""){
+   return"";
+  }
+  num=num.replace(/,/gi,'');
+  console.log(num);
+  return num;
+}

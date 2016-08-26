@@ -219,7 +219,7 @@
 		<include refid="sql_search_project_List" />
 		from	sop_person_pool spool,sop_project_person spp
 		where	spool.id = spp.person_id
-		and		spool.person_name like CONCAT("%",#{personName},"%")
+		and		 UPPER(spool.person_name) like CONCAT("%",#{personName},"%")
 	</select>
 	
 	

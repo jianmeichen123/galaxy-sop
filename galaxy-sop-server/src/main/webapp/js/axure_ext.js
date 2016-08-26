@@ -520,7 +520,7 @@ $(function(){
 		return false;
 	});
 	
-	//实际拨款信息列表
+	/*//实际拨款信息列表
 	$("[data-btn='health_case']").on("click",function(){ 
 		var $self = $(this);
 		var _url = $self.attr("href");
@@ -533,7 +533,7 @@ $(function(){
 			}//模版反回成功执行	
 		});
 		return false;
-	});
+	});*/
 	
 
 	

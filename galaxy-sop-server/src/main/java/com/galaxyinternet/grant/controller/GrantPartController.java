@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.model.GrantActual;
 import com.galaxyinternet.model.GrantPart;
 import com.galaxyinternet.model.GrantTotal;
 import com.galaxyinternet.model.operationLog.UrlNumber;
@@ -34,6 +36,7 @@ import com.galaxyinternet.model.sopfile.SopDownLoad;
 import com.galaxyinternet.model.sopfile.SopFile;
 import com.galaxyinternet.model.touhou.Delivery;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.GrantActualService;
 import com.galaxyinternet.service.GrantPartService;
 import com.galaxyinternet.service.GrantTotalService;
 import com.galaxyinternet.service.ProjectService;
@@ -60,6 +63,8 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	private SopFileService sopFileService;
 	@Autowired
 	private GrantTotalService grantTotalService;
+	@Autowired
+	private GrantActualService grantActualService;
 	@Autowired
 	BatchUploadFile batchUpload;
 	
@@ -177,8 +182,18 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	@RequestMapping(value = "/delGrantPart/{grantPartid}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Delivery> delGrantPart(@PathVariable("grantPartid") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
 		ResponseData<Delivery> responseBody = new ResponseData<Delivery>();
+		if(StringUtils.isEmpty(grantPartid)){
+			responseBody.setResult(new Result(Status.ERROR,null, "参数丢失!"));
+			return responseBody;
+		}
 		try {
-			
+			GrantActual ga = new GrantActual();
+			ga.setPartGrantId(grantPartid);
+			Long actual = grantActualService.queryCount(ga);
+			if(actual > 0){
+				responseBody.setResult(new Result(Status.ERROR,null, "存在分期拨款计划,不允许进行删除操作"));
+				return responseBody;
+			}
 			GrantPart part = grantPartService.queryById(grantPartid);
 			GrantTotal total = grantTotalService.queryById(part.getTotalGrantId());
 			Project project = new Project();

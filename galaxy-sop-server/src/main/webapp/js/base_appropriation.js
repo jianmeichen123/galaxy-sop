@@ -75,8 +75,11 @@ function  assembleSingleTabHtml(grantPart,grantName){
 		   +'<td>'+addCommas(fixSizeDecimal(grantPart.grantMoney))+'</td>'
 		   +'<td>'+addCommas(fixSizeDecimal(grantPart.actualMoney))+'</td>'
 		   +'<td>'+grantPart.fileNum+'</td>'                                 
-		   +'<td><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期拨款计划" data-total-name="'+grantName+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label><label class="blue noMargin" onclick="to_download_grantPart('+grantPart.id+')">下载附件</label></td>' 
-		   +'</tr>';
+		   +'<td><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期拨款计划" data-total-name="'+grantName+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>';
+		   if(grantPart.fileNum != 0){
+			   value +='<label class="blue noMargin" onclick="to_download_grantPart('+grantPart.id+')">下载附件</label></td>';
+		   }
+		   value += '</tr>';
 	  return value;
 }
 function deleteAppr(id){
@@ -85,6 +88,7 @@ function deleteAppr(id){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
+			$("#popup_name").html("提示");
 			$("[data-btn='appr_delete']").click(function(){
 				del_appr(id);
 			})

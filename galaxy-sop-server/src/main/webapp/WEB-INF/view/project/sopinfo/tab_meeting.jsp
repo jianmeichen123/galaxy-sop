@@ -415,6 +415,7 @@ function notesInfoEdit(selectRowId,type){
 			um.setContent(selectRow.meetingNotes);
 			if(type == 'v'){
 				$("#interviewsave").remove();
+				um.setDisabled();
 			}
 		}
 	});
@@ -428,6 +429,7 @@ function interviewsave(){
 	if(id != ''){
 		sendPostRequestByJsonObj(platformUrl.updateMeet, {"id" : id, "meetingNotes" : log}, function(data){
 			if (data.result.status=="OK") {
+				$("#hint_all").css("display","none");
 				layer.msg("保存成功");
 				removePop1();
 				//启用滚动条
@@ -438,6 +440,8 @@ function interviewsave(){
 				$("#data-table").bootstrapTable('refresh');
 			} else {
 				layer.msg(data.result.message);
+				$("#hint_all").css("display","block");
+				
 			}
 			
 		});

@@ -1395,6 +1395,7 @@ function showLogdetail(selectRowId){
 		$("#vid").val(selectRowId);
 		if(typeof(variable) !== 'undefined' && uid!=interviewSelectRow.createdId){
 			$("#interviewsave").hide();
+			um.setDisabled();
 		}
 		
 	}//模版反回成功执行	
@@ -1408,11 +1409,13 @@ function interviewsave(){
 	if(pid != '' && log != ''){
 		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
 			if (data.result.status=="OK") {
+				$("#hint_all").css("display","none");
 				layer.msg("保存成功");
 				$(".meetingtc").find("[data-close='close']").click();
 				$("#projectProgress_1_table").bootstrapTable('refresh');
 			} else {
 				layer.msg(data.result.message);
+				$("#hint_all").css("display","block");
 			}
 			
 		});

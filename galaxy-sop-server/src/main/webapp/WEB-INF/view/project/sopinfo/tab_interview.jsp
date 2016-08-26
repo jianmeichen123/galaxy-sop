@@ -381,6 +381,7 @@ function notesInfoEdit(selectRowId,type){
 			um.setContent(interviewSelectRow.viewNotes);
 			if(type == 'v'){
 				$("#interviewsave").remove();
+				um.setDisabled();
 			}
 		}
 	});
@@ -394,6 +395,7 @@ function interviewsave(){
 	if(id != ''){
 		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : id, "viewNotes" : log}, function(data){
 			if (data.result.status=="OK") {
+				$("#hint_all").css("display","none");
 				layer.msg("保存成功");
 				//$(".meetingtc").find("[data-close='close']").click();
 				removePop1();
@@ -405,6 +407,7 @@ function interviewsave(){
 				$("#projectProgress_1_table").bootstrapTable('refresh');
 			} else {
 				layer.msg(data.result.message);
+				$("#hint_all").css("display","block");
 			}
 			
 		});
