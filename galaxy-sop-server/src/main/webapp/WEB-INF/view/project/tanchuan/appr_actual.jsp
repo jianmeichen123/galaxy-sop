@@ -15,7 +15,7 @@
 	<div class="title_bj" id="popup_name">实际拨款信息列表</div>
      
     <div class="addbutton btnbox_f1 clearfix margin_45">                        	
-        <a href="javascript:;" id="btn_add_appr_actual"   resource-mark="add_appr_actual" class="pbtn bluebtn h_bluebtn">添加实际拨款信息</a>        
+        <a href="javascript:;" id="btn_add_appr_actual" style="display: none"  resource-mark="add_appr_actual" class="pbtn bluebtn h_bluebtn">添加实际拨款信息</a>        
     </div>
     <div class="form clearfix">
         <div class="actual_all">

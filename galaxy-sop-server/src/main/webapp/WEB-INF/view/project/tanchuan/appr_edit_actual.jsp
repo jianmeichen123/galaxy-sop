@@ -30,7 +30,7 @@
 	                	<div id="label_grant_money">
 	                    	<input class="txt" id="form_grant_money" type="text" valType="LIMIT_9_NUMBER" msg="<font color=red>*</font>支持9位长度的两位小数">
 	                    </div> 
-                        <div class="gray" id="label_surplus_grant_money">剩余金额14,000,000元</div> 
+                        <div class="gray" id="label_surplus_grant_money">剩余金额0元</div> 
 	                </dd>
 	            </dl>
 	             

@@ -67,22 +67,29 @@ var editApprActualDialog = {
 											}
 											if(data.entity.surplusGrantMoney){
 													var grantMoneyOld=$formGrantMoney.val(); 
-												   var remainMoney = data.entity.surplusGrantMoney;
-													  remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
-													  remainMoneyTotal=data.entity.surplusGrantMoney+Number(grantMoneyOld); //剩余+实际拨款
-													  $surplusGrantMoney.html("剩余金额" + remainMoney + "元");											         
-													  $formGrantMoney.blur(function(){
-													 var grantMoney=$formGrantMoney.val();
-													  var remainMoneyNew=remainMoneyTotal-grantMoney;
-													      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
-													      if(remainMoneyNew<0 || remainMoneyNew==0){
-													    	  $surplusGrantMoney.html("剩余金额0.00元");
-													      }else{
-													    	  $surplusGrantMoney.html("剩余金额" + remainMoney + "元");
-													      }	          
+													var remainMoney = data.entity.surplusGrantMoney;
+													remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
+													remainMoneyTotal=data.entity.surplusGrantMoney+Number(grantMoneyOld); // 剩余+实际拨款
+													$surplusGrantMoney.html("剩余金额" + remainMoney + "元");											         
+													$formGrantMoney.blur(function(){
+													var grantMoney=$formGrantMoney.val();
+													var remainMoneyNew=remainMoneyTotal-grantMoney;
+													remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+													if(remainMoneyNew<0 || remainMoneyNew==0){
+														$surplusGrantMoney.html("剩余金额0.00元");
+													}else{
+													    $surplusGrantMoney.html("剩余金额" + remainMoney + "元");
+													}	          
 												  })
 											}
-											$okBtn.click(operator.save);
+											$okBtn.click(function(){
+												var saveParam = {
+														preMoney : 	data.entity.grantMoney ? data.entity.grantMoney : 0,
+														surplusGrantMoney : data.entity.surplusGrantMoney ? data.entity.surplusGrantMoney : 0
+														
+												}
+												operator.save(saveParam);
+											});
 											$cancelBtn.click(function(){
 												editApprActualDialog.close(_this);
 											});
@@ -91,7 +98,21 @@ var editApprActualDialog = {
 										}
 									});
 								},
-								save : function(){	
+								/**
+								 * 编辑实际拨款弹窗
+								 * preMoney : 初始实际金额
+								 * surplusGrantMoney : 剩余金额
+								 */
+								save : function(saveParam){
+									var grantMoney = $("#form_edit_actual_dialog").find("#form_grant_money").val();
+									if(!beforeSubmit()){
+										return false;
+									}else{
+										if(parseFloat(grantMoney) - parseFloat(saveParam.preMoney) > parseFloat(saveParam.surplusGrantMoney)){
+											layer.msg("实际拨款金额超过预算金额");
+											return false;
+										}
+									}
 									var form = {
 										id : formdata.actualId,
 										partGrantId : formdata.parentId,
