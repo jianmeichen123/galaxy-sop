@@ -308,6 +308,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
                 User user = (User) message.getUserData();
 				message.setBelongUid(user.getId());
 				message.setBelongDepartmentId(user.getDepartmentId());
+				message.setSingleMark((byte) 1);
 			    operationMessageService.insert(message);
 			}
 		} catch (Exception e1) {
