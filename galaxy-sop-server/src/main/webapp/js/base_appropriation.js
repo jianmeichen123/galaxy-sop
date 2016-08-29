@@ -29,6 +29,12 @@ function queryBack(data){
 							  var o=_this;
 							  $("#tabApprSingleList_"+i+"").append(assembleSingleTabHtml(grantPart,grantTotal.grantName));
 							}
+						}else{
+							var noData =
+								'<tr>'+
+								 '<td colspan="6" class="no_info no_info01" style="text-align:center;"><p class="no_info_icon">没有找到匹配的记录</p></td>'+
+								' </tr>'; 			
+							 $("#tabApprSingleList_"+i+"").append(noData)
 						}
 					}
 			}
