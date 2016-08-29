@@ -141,7 +141,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 			if(partList != null && partList.size() > 0){
 				GrantPart p = partList.get(partList.size()-1);
 				String grantName = p.getGrantName().trim();
-				int currentNum = Integer.parseInt(grantName.substring(grantName.length() - 1));
+				int currentNum = Integer.parseInt(grantName.substring(2,grantName.length()));
 				grantPart.setGrantName("分拨" + (currentNum + 1));
 			}else{
 				grantPart.setGrantName("分拨1");
