@@ -116,7 +116,7 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				 }
 			},
 			UploadComplete: function(up, files){//所有都上传完成
-			
+				$(".pop").hideLoading();
 				if($("#"+fieInputId).val().trim()){
 					sendPostRequestByJsonObj(sendFileUrl,params,function(data){
 					var result = data.result.status;
@@ -135,7 +135,6 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						}); 
 					    $("#"+fieInputId).val('');
 					    //layer.closeAll('loading');
-					    $(".pop").hideLoading();
 					    alert(data.result.message);
 					}
 					
