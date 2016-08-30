@@ -81,3 +81,12 @@ CREATE TABLE `sop_grant_file` (
    `created_time` bigint(20) DEFAULT NULL,
    PRIMARY KEY (`id`)
  ) ENGINE=InnoDB AUTO_INCREMENT=417 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/**数据字典-立项报告**/ 
+INSERT INTO `fx_db`.`dict` (`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`created_time`,`updated_time`,`is_delete`)
+VALUES ('fileWorktype','立项报告',17,'fileWorktype:17','17',1456818150913,1456818150913,'0');
+/**数据字典-尽职调查启动会报告**/ 
+INSERT INTO `fx_db`.`dict` (`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`created_time`,`updated_time`,`is_delete`)
+VALUES ('fileWorktype','尽职调查启动会报告',18,'fileWorktype:18','18',1456818150913,1456818150913,'0');
+/**数据字典-尽职调查总结会报告**/ 
+INSERT INTO `fx_db`.`dict` (`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`created_time`,`updated_time`,`is_delete`)
+VALUES ('fileWorktype','尽职调查总结会报告',19,'fileWorktype:19','19',1456818150913,1456818150913,'0');

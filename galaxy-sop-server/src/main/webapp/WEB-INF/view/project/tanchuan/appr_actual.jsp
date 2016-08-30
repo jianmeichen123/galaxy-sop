@@ -20,7 +20,7 @@
     <div class="form clearfix">
         <div class="actual_all">
         	<input type="hidden" value="" name="partGrantId">
-        	<table id="actual-table" data-page-list="[2, 3]" 
+        	<table id="actual-table" data-page-list="[5]" 
         		data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
@@ -94,7 +94,7 @@
 	    };
 	    $('#actual-table').bootstrapTable({
 	    	queryParamsType: 'size|page',
-			pageSize:2,
+			pageSize:5,
 			showRefresh : false ,
 			url : Constants.sopEndpointURL+"/galaxy/grant/actual/searchActualList",
 			sidePagination: 'server',
