@@ -249,6 +249,8 @@
 		var projectDepartid = $("select[name='projectDepartid']").val();
 		var createUid = $("select[name='createUid']").val();
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
+		var projectPerson = $("input[name='projectPerson']").val();
+		var faFlag = $("input[name='faFlag']:checked").val();
 		
 		var formdata = {
 				_paramKey : 'projectList',
@@ -263,7 +265,9 @@
 	        		projectStatus : projectStatus,
 	        		projectDepartid : projectDepartid,
 	        		createUid : createUid,
-	        		nameCodeLike : nameCodeLike
+	        		nameCodeLike : nameCodeLike,
+	        		projectPerson:projectPerson,
+	        		faFlag:faFlag
 				}
 		}
 		var href_url=window.location;
@@ -373,6 +377,10 @@
 	        		$("select[name='createUid']").val(initParams.createUid);
 	        		param.nameCodeLike = initParams.nameCodeLike;
 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike);
+	        		param.projectPerson = initParams.projectPerson;
+	        		$("input[name='projectPerson']").val(initParams.projectPerson);
+	        		param.faFlag = initParams.faFlag;
+	        		$("input[name='faFlag'][value='"+initParams.faFlag+"']").prop("checked",true);
 	        		var options = $("#data-table").bootstrapTable('getOptions');
 	 	        	options.pageNumber = initParams.pageNum - 1;
 	    		}
