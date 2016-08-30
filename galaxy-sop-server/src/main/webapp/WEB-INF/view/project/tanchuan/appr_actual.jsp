@@ -94,7 +94,7 @@
 	    };
 	    $('#actual-table').bootstrapTable({
 	    	queryParamsType: 'size|page',
-			pageSize:2,
+			pageSize:5,
 			showRefresh : false ,
 			url : Constants.sopEndpointURL+"/galaxy/grant/actual/searchActualList",
 			sidePagination: 'server',
