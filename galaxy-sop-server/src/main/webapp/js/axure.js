@@ -107,10 +107,10 @@
 				$("#popbg,#popbg iframe").css({"height":win_h});
 				$("#popbg01").css({"height":win_h});
 				$("#popbg").show().animate({
-					opacity:0.7
+					opacity:0.5
 				},300);
 				$("#popbg01").show().animate({
-					opacity:0
+					opacity:0.5
 				},0);
 				//弹出层定位+显示
 				$(_this.id).Fixed({
