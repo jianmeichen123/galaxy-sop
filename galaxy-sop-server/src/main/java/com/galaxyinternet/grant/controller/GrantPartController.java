@@ -135,17 +135,6 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 			Project project = new Project();
 			project = projectService.queryById(total.getProjectId());
 			
-			GrantPart part = new GrantPart();
-			part.setTotalGrantId(total.getId());
-			List<GrantPart> partList = grantPartService.queryList(part);
-			if(partList != null && partList.size() > 0){
-				GrantPart p = partList.get(partList.size()-1);
-				String grantName = p.getGrantName().trim();
-				int currentNum = Integer.parseInt(grantName.substring(2,grantName.length()));
-				grantPart.setGrantName("分拨" + (currentNum + 1));
-			}else{
-				grantPart.setGrantName("分拨1");
-			}
 			User user = (User) getUserFromSession(request);
 			grantPart.setCreateUid(user.getId());
 			grantPart.setCreateUname(user.getRealName());
@@ -158,6 +147,17 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 				}
 			}
 			if(grantPart.getId() == null){
+				GrantPart part = new GrantPart();
+				part.setTotalGrantId(total.getId());
+				List<GrantPart> partList = grantPartService.queryList(part);
+				if(partList != null && partList.size() > 0){
+					GrantPart p = partList.get(partList.size()-1);
+					String grantName = p.getGrantName().trim();
+					int currentNum = Integer.parseInt(grantName.substring(2,grantName.length()));
+					grantPart.setGrantName("分拨" + (currentNum + 1));
+				}else{
+					grantPart.setGrantName("分拨1");
+				}
 				uNum = UrlNumber.one;
 				grantPartService.insertGrantPart(grantPart);
 			}else{
