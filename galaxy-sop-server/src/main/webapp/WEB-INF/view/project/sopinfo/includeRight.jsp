@@ -169,14 +169,6 @@ $(function(){
 	}
 	else
 	{
-		$.each($('.new_left .tablinks li'),function(){
-			var tab = $(this);
-			if(tab.find('a').text() == '运营分析' || tab.find('a').text() == '拨款信息')
-			{
-				tab.remove();
-			}
-		});
-		
 		$(".tq_div").show();
 	}
 	init_lct(); //流程图初始化
