@@ -384,7 +384,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			for (SopFile temp : pageSopFile.getContent()) {
 				String isEdit = RoleUtils.getWorkTypeEdit(roleIdList,
 						temp.getFileWorktype());
-				if(!roleIdList.contains(UserConstant.DAGLY)){
+				if(roleIdList.contains(UserConstant.TZJL)){
 					if(temp.getEditUser()!=null){
 						if(!temp.getEditUser().equals(obj.getId()) ){
 							isEdit = "false";
