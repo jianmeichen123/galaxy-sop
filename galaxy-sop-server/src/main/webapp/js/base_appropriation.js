@@ -114,10 +114,23 @@ function deleteAppr(id){
 function del_appr(id){
 	sendPostRequest(platformUrl.deleteGrantTotal+"/"+id,function(data){
 			if (data.result.status=="OK") {
-			//	layer.msg("删除成功");
+				layer.msg("删除成功");
                 window.location=location;
 			} else {
-				layer.msg(data.result.message);
+				if(data.result.errorCode=='cantDelete'){
+					var _url = Constants.sopEndpointURL+"/galaxy/grant/total/tipsDelete";
+					$.getHtml({
+						url:_url,//模版请求地址
+						data:"",//传递参数
+						okback:function(){
+							$('#powindow[data-id="popid0"]').remove();	
+					}//模版反回成功执行	
+				});
+				 		
+				}else{
+					layer.msg(data.result.message);
+				}
+				
 			}
 		});
 }

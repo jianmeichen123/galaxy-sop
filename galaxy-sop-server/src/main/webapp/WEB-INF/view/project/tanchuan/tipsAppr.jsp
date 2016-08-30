@@ -2,7 +2,7 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-<div class="claimtc deltc">
+<div class="claimtc deltc" >
 	<div class="title_bj" id="popup_name"></div>
 	<p class="tips">
 		<input type="hidden" id="del_deliver_id" value="" />
@@ -11,6 +11,6 @@
 	</p>
     <div class="btnbox">
     	<a href="javascript:;" class="pubbtn bluebtn" data-btn="appr_delete">确定</a>
-    	<a href="javascript:;" class="pubbtn fffbtn" data-close="close">取消</a>
+    	<a href="javascript:;" class="pubbtn fffbtn" id="isDelete" data-close="close">取消</a>
     </div>
 </div>

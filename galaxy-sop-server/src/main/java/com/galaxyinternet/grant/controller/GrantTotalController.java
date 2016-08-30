@@ -83,6 +83,14 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		return "project/tanchuan/appr_actual_all";
 	}
 	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/tipsDelete", method = RequestMethod.GET)
+	public String tipsDelete(HttpServletRequest request) {
+		return "project/tanchuan/tipsDelete";
+	}
+	
+	/**
 	 * 新建总拨款计划
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
@@ -229,7 +237,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		part.setTotalGrantId(c.getId());
 		Long count = grantPartService.queryCount(part);
 		if(count > 0){
-			responseBody.setResult(new Result(Status.ERROR, "error" , "存在分期拨款计划，不允许进行删除操作!"));
+			responseBody.setResult(new Result(Status.ERROR, "cantDelete" , "存在分期拨款计划，不允许进行删除操作!"));
 			return responseBody;
 		}
 		
