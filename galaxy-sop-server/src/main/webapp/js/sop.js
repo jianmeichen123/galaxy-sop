@@ -30,6 +30,9 @@ function info(id){
 				if(data.entity.hasOwnProperty('updatedTime')){
 					updatedTime = Number(data.entity.updatedTime).toDate().format('yyyy-MM-dd');
 				}
+				if(fileGrid){
+					fileGrid.initFlag = false;
+				}
 				$("#pj-title-updated-time").html('<span>&#40;</span>'+updatedTime+'<span>&#41;</span>');
 				//设置全局参数
 				$("#project_name").text(data.entity.projectName);
