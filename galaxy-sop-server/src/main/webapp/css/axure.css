@@ -1945,7 +1945,7 @@ dl{position: relative;}
 #filelist button{background:transparent;border:0;color:#438ee1}
 #filelist th{background:#f9fafc;}
 #filelist{border:1px solid #ccd2d7 !important;border-top-left-radius:6px;border-top-right-radius:6px;border-bottom:0;}
-.post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;overflow:auto;}
+.post_operatetc,.editPostMeetingtc{width:650px;max-height:420px;}
 .post_operatetc_750{ width:750px;}
 #post-meeting-dialog{position:static !important;}
 .conference_all{ width:590px; margin:45px auto 30px;}
