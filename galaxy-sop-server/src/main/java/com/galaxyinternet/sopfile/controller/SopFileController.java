@@ -1452,6 +1452,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			sopFile.setUpdatedTime(new Date().getTime());
 			sopFile.setFileUid(user.getId());
 			sopFile.setCareerLine(user.getDepartmentId());
+			sopFile.setFileValid(1);
 			UrlNumber urlNumber = null;
 			if(DictEnum.fileWorktype.立项报告.getCode().endsWith(sopFile.getFileWorktype()))
 			{
