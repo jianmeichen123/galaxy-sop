@@ -455,6 +455,8 @@
 				createUserOptions(platformUrl.getUserList+did, "createUid", 1);
 			}
 			$('input[name="nameCodeLike"]').val("");
+			$('input[name="faFlag"]').removeAttr("checked");
+			$('input[name="projectPerson"]').val("");
 			$("#resetBtn").addClass("none");
 		});
 	});
