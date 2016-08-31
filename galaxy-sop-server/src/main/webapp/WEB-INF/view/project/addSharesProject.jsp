@@ -20,11 +20,11 @@
     <div class="right">
       <dl class="fmdl">
         <dt>类型：</dt>
-        <dd><input type="text" name="sharesType" value="" class="txt" valType="OTHER" regString="^\S{1,30}$"msg="<font color=red>*</font>不能为空且且字符长度最大30"/></dd>
+        <dd><input type="text" name="sharesType" value="" class="txt" valType="OTHER" regString="^\S{1,30}$"msg="<font color=red>*</font>不能为空且字符长度最大30"/></dd>
       </dl>  
       <dl class="fmdl">
         <dt>获取方式：</dt>
-        <dd><input type="text" name="gainMode" value="" class="txt" valType="OTHER" regString="^\S{1,50}$"msg="<font color=red>*</font>不能为空且且字符长度最大50"/></dd>
+        <dd><input type="text" name="gainMode" value="" class="txt" valType="OTHER" regString="^\S{1,50}$"msg="<font color=red>*</font>不能为空且字符长度最大50"/></dd>
       </dl>
     </div>
   </div>
