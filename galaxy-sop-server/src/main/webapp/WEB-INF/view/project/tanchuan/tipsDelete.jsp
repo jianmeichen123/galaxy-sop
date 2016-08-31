@@ -4,9 +4,9 @@
 %>
 <div class="claimtc deltc">
 	<div class="title_bj" id="popup_name">提示</div>
-	<p class="tips" id="showMessage">
+	<p class=" tips_d_new" id="showMessage">
 		<input type="hidden" id="del_deliver_id" value="" />
-		<b class="null tips_d">ico</b>
+		<b class="null tips_d ">ico</b>
 		存在分期拨款计划，不允许删除操作？
 	</p>
     <div class="btnbox">
