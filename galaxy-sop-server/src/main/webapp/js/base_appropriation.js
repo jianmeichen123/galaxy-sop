@@ -14,8 +14,13 @@ function queryBack(data){
 		return;
 	}else{ 
 	    var entityList = data.pageList;
+	    //暂无拨款计划
+	    if(entityList.total==0){
+	    	var noContent='<div class="no_con" style="display: block;">暂无内容</div>';
+	    	$("#tabApprAllList").append(noContent);
+	    }
 		if(typeof(entityList)!="underfined"&&entityList!=null){
-			var content=entityList.content;
+			var content=entityList.content;			
 			if(content.length>0){
 				for(var i=0;i<content.length;i++){
 					var grantTotal=content[i];
