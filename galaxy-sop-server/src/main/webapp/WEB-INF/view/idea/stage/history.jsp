@@ -11,7 +11,7 @@
 	<div id="research-history-params">
 		<input type="hidden" name="projectId" value="${id}">
 	</div>
-	<table id="research-history" class="history-table" data-id-field="id" data-url="<%=path%>/galaxy/idea/queryIdeaDyList" data-toolbar="#research-history-params" data-page-size="3">
+	<table id="research-history" class="history-table" data-id-field="id" data-url="<%=path%>/galaxy/idea/queryIdeaDyList" data-toolbar="#research-history-params" data-page-size="10">
 		<thead>
 			<tr>
 				<th data-field="fileUName" data-align="left" >上传者</th>
@@ -32,7 +32,7 @@
 					<input type="hidden" name="recordType" value="1">
 					<input type="hidden" name="meetValid" value="1">
 	</div>
-	<table id="cjlxh-history" class="history-table" data-id-field="id" data-url="<%=path%>/galaxy/idea/queryCyMeet" data-toolbar="#cjlxh-history-params" data-page-size="1">
+	<table id="cjlxh-history" class="history-table" data-id-field="id" data-url="<%=path%>/galaxy/idea/queryCyMeet" data-toolbar="#cjlxh-history-params" data-page-size="10">
 		<colgroup >
 			<col style="width:30%;"> <!-- 名称 -->
 			<col style="width:70%;">  <!-- 状态 -->
