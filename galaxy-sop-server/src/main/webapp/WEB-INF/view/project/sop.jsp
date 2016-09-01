@@ -530,7 +530,8 @@
  	    pagination: true, //分页
  	    search: false, //显示搜索框
  	    pageList: [10,20,30],
- 	    queryParams: queryParamsforP,
+ 	   	queryParamsType: 'size|page',
+ 	    queryParams:function(params){return params;},
  	    sidePagination: "server", //服务端处理分页
  	          columns: [
  	                  {
@@ -618,7 +619,8 @@
      search: false, //显示搜索框
      showRefresh: true,
      pageList: [10,20,30],
-     queryParams: queryParamsforP,
+     queryParamsType: 'size|page',
+     queryParams:function(params){return params;},
      sidePagination: "server", //服务端处理分页
            columns: [
                    {
@@ -655,15 +657,7 @@
        });
        $table.bootstrapTable('refresh');
  	}
-     //页面传参
-     function queryParamsforP(params) {
-     	return {
- 	    	pageSize: params.limit,
- 	    	pageNum: params.offset,
- 	    	order: params.order,
- 	    	projectId:alertid
-     	};
-     }
+     
      /**
  	 * 加载项目详情数据
  	 */
