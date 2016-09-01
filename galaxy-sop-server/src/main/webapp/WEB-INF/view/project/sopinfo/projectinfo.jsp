@@ -533,6 +533,11 @@ function getProjectInfo(dtd)
 var projectId = <%=projectId%>;
 
 $(function(){
+	//未上传上传计划书，用于调样式
+	if($("#plan_name").text()==''){
+		$("#plan_name").parent('li').css("margin-right","0");
+	}
+	
 	var menu=$('#top_menu a:nth-child(2)').text();
 	if(menu == '创投项目'){
 		createMenus(5);
