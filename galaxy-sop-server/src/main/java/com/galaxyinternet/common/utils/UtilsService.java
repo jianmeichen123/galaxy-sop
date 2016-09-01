@@ -94,6 +94,7 @@ public class UtilsService extends BaseGalaxyTask {
 		Map<String,Object> params = new HashMap<String,Object>();
 		params.put("progressIntValue", 6);
 		params.put("notCompleteTaskStatus", DictEnum.taskStatus.已完成.getCode());
+		params.put("resultCloseFilter", DictEnum.projectStatus.YFJ.getCode());
 		List<Integer> taskFalgs = new ArrayList<Integer>();
 		taskFalgs.add(SopConstant.TASK_FLAG_RSJD);
 		taskFalgs.add(SopConstant.TASK_FLAG_FWJD);

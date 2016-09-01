@@ -481,11 +481,7 @@
 	
 	
 	
-	<!-- 拉取所有  跳过尽调阶段的 项目ids
-	progressIntValue  6
-	notCompleteTaskStatus   taskStatus:3
-	taskFlags   2,3,4,5
-	 -->
+	<!-- 拉取所有  跳过尽调阶段的 项目ids -->
 	<select id="selectProIdsForPrivilege" resultType="java.lang.Long" parameterType="java.util.Map">
 		SELECT 
 			id
@@ -511,6 +507,9 @@
 							AND task_status  !=  #{notCompleteTaskStatus,jdbcType=VARCHAR}
 					)
 				</if>
+				
+				<!-- 过滤已关闭项目 -->
+				<if test="resultCloseFilter != null"> AND project_status != #{resultCloseFilter,jdbcType=VARCHAR} </if>
 			</trim>
 		</where>
 	</select>
