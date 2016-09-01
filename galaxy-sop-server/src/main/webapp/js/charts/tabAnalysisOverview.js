@@ -1,5 +1,3 @@
-var search_btn='none';
-//var one_click_number='';
 var searchOverviewPanel = {
 		init : function(){
 			//初始化日期
@@ -30,7 +28,6 @@ var searchOverviewPanel = {
 
 				
 				$("#search_overview_form").find("#search_btn").click(function(){
-					search_btn='click'
 					var search_department_id =$("#search_department_id").val();
 					var search_project_type =$("#search_project_type").val()
 					var search_start_time =$("#search_start_time").val()
@@ -273,8 +270,8 @@ var projectGrid = {
 		nameEvents : {
 			'click .projectNameLink': function (e, value, row, index) {
 				
-				var PageSize_ab = $( ".dropdown-toggle .page-size").text();
-				var tempPageNum = $( ".pagination .active").text();
+				var PageSize_ab = $( ".tabtable_con_overview .dropdown-toggle .page-size").text();
+				var tempPageNum = $( ".tabtable_con_overview .pagination .active").text();
 				var href_url=window.location
 				//ie兼容
 				setCookie("PageSize_ab", PageSize_ab,24,'/');

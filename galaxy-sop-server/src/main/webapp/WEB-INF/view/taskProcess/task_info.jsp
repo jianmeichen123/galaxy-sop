@@ -22,6 +22,9 @@
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 <script src="<%=path %>/js/my.js" type="text/javascript"></script>
 <script src="<%=path %>/js/my_ext.js" type="text/javascript"></script>
+<!-- 保存进度条 -->
+<link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 </head>
 
 <body>
@@ -92,6 +95,12 @@
                         <dl>
                           <dt>投资经理：</dt>
                           <dd id="createUname"></dd>
+                        </dl>
+                      </td>
+                      <td>
+                        <dl>
+                          <dt>公司名称：</dt>
+                          <dd id="projectCompany"></dd>
                         </dl>
                       </td>
                   </tr>
@@ -172,6 +181,20 @@ function getProjectInfo(projectLoaded)
 					//alert(str.length);
 					if(str.length>15){
 						self.text(str.substring(0,15));
+						self.attr("title",str);
+					}else{
+						self.text(str);
+						self.attr("title",str);
+					}
+				}
+				if(self.attr('id') =='projectCompany'){
+					var str=$.trim(project[id]);
+					//console.log(str)
+					//alert(str.length);
+					if(str == undefined || str == null || str ==''){
+						self.text('');
+					}else if(str.length>20){
+						self.text(str.substring(0,20));
 						self.attr("title",str);
 					}else{
 						self.text(str);

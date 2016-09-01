@@ -63,6 +63,7 @@ import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.FormatData;
 import com.galaxyinternet.model.project.InterviewRecord;
@@ -185,6 +186,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			project.setProperty(" CAST(REPLACE(project_progress,'projectProgress---','')  AS SIGNED) ");
 			
 		}
+		if(project.getProjectPerson()!=null) project.setProjectPerson(project.getProjectPerson().toUpperCase());
 		List<Department> departmentList = departmentService.queryAll();
 		Page<Project> pageProject = projectService.queryPageList(project,
 						new PageRequest(project.getPageNum(), 
@@ -1525,10 +1527,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 *            项目id
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
 	@ResponseBody
-	@RequestMapping(value = "/breakpro/{pid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> breakproject(@PathVariable Long pid,
+	@RequestMapping(value = "/breakpro",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> breakproject(@RequestBody OperationLogs param,
 			HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 
@@ -1537,10 +1539,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			// project id 验证
 			Project project = new Project();
-			project = projectService.queryById(pid);
+			project = projectService.queryById(param.getProjectId());
 			// 项目关闭将会议记录修改为否决项目
 			MeetingScheduling me = new MeetingScheduling();
-			me.setProjectId(pid);
+			me.setProjectId(param.getProjectId());
 			List<MeetingScheduling> meetingList = meetingSchedulingService
 					.queryList(me);
 			if (!meetingList.isEmpty()) {
@@ -1598,8 +1600,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				return responseBody;
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
-			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(), project.getId());
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"add meetingRecord faild"));
@@ -2329,7 +2330,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/**
 	 * 更新排期池时间/updateReserveTime
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.BATCHMESSAGE,LogType.IOSPUSHMESS})
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTime", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> updateReserveTime(
@@ -2401,12 +2402,21 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		}
 		StringBuffer proNameList=new StringBuffer();
+		List<Map<String, Object>> messageList = new ArrayList<Map<String, Object>>();
 		try {
 			for (MeetingScheduling ms : query) {
+				MeetingScheduling  redisPush = new MeetingScheduling();
 				String mestr = "";
-				String messageType = null;
+				String messageType = "";
 				MeetingScheduling oldMs = msmap.get(ms.getId());
+				
+				redisPush.setId(oldMs.getId());
+				redisPush.setProjectId(oldMs.getProjectId());
+				redisPush.setMeetingType(oldMs.getMeetingType());
 				Project pj = mapProject.get(oldMs.getProjectId());
+				
+				redisPush.setProjectName(pj.getProjectName());
+				redisPush.setCreateId(pj.getCreateUid().toString());
 				//验证已经已通过|已否决的会议不能进行排期
 				if(2 == oldMs.getScheduleStatus() || 3 == oldMs.getScheduleStatus()){
 					proNameList.append(pj.getProjectName());
@@ -2451,6 +2461,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,null,null,0,UrlNumber.three);
 						belongUser.setKeyword("cancle:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
+					
+						redisPush.setReserveTimeStart(oldMs.getReserveTimeStart());
+						cache.removeRedisSetOBJ(Constants.PUSH_MESSAGE_LIST, redisPush);
+						
 					} else {
 						// 更新会议时间
 						if (oldMs.getReserveTimeStart().getTime() != ms
@@ -2459,7 +2473,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 										.getReserveTimeEnd().getTime()) {
 							meetingSchedulingService.updateByIdSelective(ms);
 							sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.two);
-							belongUser.setKeyword("update:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
+							belongUser.setKeyword("update:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart())+","+DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));	
+							
+							redisPush.setReserveTimeStart(oldMs.getReserveTimeStart());
+							cache.removeRedisSetOBJ(Constants.PUSH_MESSAGE_LIST, redisPush);
+							
+							redisPush.setReserveTimeStart(ms.getReserveTimeStart());
+							cache.setRedisSetOBJ(Constants.PUSH_MESSAGE_LIST,redisPush);
+							
 						}else{
 							belongUser.setKeyword("operate");	
 						}
@@ -2471,22 +2492,35 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.one);
 						belongUser.setKeyword("insert:"+DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));	
+						
+						
+						redisPush.setReserveTimeStart(ms.getReserveTimeStart());
+						cache.setRedisSetOBJ(Constants.PUSH_MESSAGE_LIST,redisPush);
+						
 					}else{
 						belongUser.setKeyword("operate");	
 					}
 
 				}
+				//消息数据
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, pj.getProjectName());
+				params.put(PlatformConst.REQUEST_SCOPE_USER, belongUser);
+				params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, pj.getId());
+				params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
+				params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, UrlNumber.one);
 				if(!"operate".equals(belongUser.getKeyword())){
-					ControllerUtils.setRequestParamsForMessageTip(request, belongUser, pj.getProjectName(), pj.getId(), messageType, UrlNumber.one);
+					messageList.add(params);
 				}
-				
 			}
+			ControllerUtils.setRequestBatchParamsForMessageTip(request,messageList);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
 			_common_logger_.error("更新排期失败 ",e.getMessage());
 			e.printStackTrace();
 			return responseBody;
 		}
+		
 		responseBody.setResult(new Result(Status.OK, null, "更新成功!"));
 		if(proNameList.length() > 0){
 			responseBody.setResult(new Result(Status.OK, null, proNameList.toString()+" 项目已经通过,不能进行排期!"));
@@ -3005,6 +3039,28 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("prograss", project.getProjectProgress());
 		request.setAttribute("projectName", project.getProjectName());
 		return "project/sopinfo/tab_filelist";
+	}
+	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toAppropriation/{pid}", method = RequestMethod.GET)
+	public String toAppropriation(@PathVariable("pid") Long pid, HttpServletRequest request) {
+		Project proinfo = new Project();
+		proinfo = projectService.queryById(pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", proinfo.getProjectProgress());
+		request.setAttribute("pname", proinfo.getProjectName());
+		request.setAttribute("projectId", pid);
+		return "project/sopinfo/tab_appropriation";
+	}
+	
+	/**
+	 * 否决项目弹框
+	 * @return
+	 */
+	@RequestMapping(value = "/toRefuseProject", method = RequestMethod.GET)
+	public String toRefuseProject(){
+		return "project/dialog/refuseProjectDialog";
 	}
 	
 	

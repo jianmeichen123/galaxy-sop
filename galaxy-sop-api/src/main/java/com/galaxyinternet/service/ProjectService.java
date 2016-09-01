@@ -3,6 +3,9 @@ package com.galaxyinternet.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Pageable;
+
+import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.BaseService;
@@ -31,6 +34,8 @@ public interface ProjectService extends BaseService<Project> {
 	public List<Project> queryListById(List<Long> idList);
 	
 	public int closeProject(Project project);
+	
+	public Page<Project> queryPageList(ProjectBo query, Pageable pageable);
 	
 	/**
 	 * 为项目补全档案

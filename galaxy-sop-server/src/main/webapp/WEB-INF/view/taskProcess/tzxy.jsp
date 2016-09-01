@@ -33,7 +33,8 @@
 </div>
 <!-- 弹出页面 -->
 <div id="upload-dialog" style="display: none;">
-	<div class="archivestc" >
+	<div class="archivestc margin_45" >
+	<div class="title_bj" id="upload-dialog-name"></div>
 	<form>
 		<input type="hidden" name="id">
 		<input type="hidden" name="type">
@@ -75,7 +76,7 @@
 	        </dd>
 	        <dd> <a href="javascript:;" class="pubbtn fffbtn" id="file-select-btn">选择档案</a></dd>
 	    </dl> 
-	    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn";>上传保存</a>
+	    <a href="javascript:;" class="pubbtn bluebtn" id="upload-btn">上传保存</a>
 	</form>
 	</div>
 </div>
@@ -151,11 +152,11 @@ function loadRows()
 					$tr.append('<td><a href="javascript:;" onclick="downloadTemplate(\''+tempType+'\');" data-type="">下载</a></td>');
 					//上传附件
 					if(isBlank(this.fileName)){
-						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-type="">上传</a></td>');
+						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-name="上传">上传</a></td>');
 					}
 					else
 					{
-						$tr.append('<td><a href="javascript:;" onclick="showUploadPopup(this);" data-type="">更新</a></td>');
+						$tr.append('<td><a href="javascript:;" onclick="showUploadPopup(this);" data-name="更新">更新</a></td>');
 					}
 					//查看附件
 					if(isBlank(this.fileName)){
@@ -167,7 +168,7 @@ function loadRows()
 					}
 					//签署凭证
 					if(isBlank(this.voucherFileName)){
-						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-type="voucher">上传</a></td>');
+						$tr.append('<td><a href="#" onclick="showUploadPopup(this);" data-type="voucher" data-name="签署凭证">上传</a></td>');
 					}
 					else
 					{
@@ -215,6 +216,16 @@ function showUploadPopup(ele)
 {
 	var row = $(ele).closest("tr");
 	var type = $(ele).data("type");
+	var name =$(ele).attr('data-name');
+	if(name=='上传'){
+		$('#upload-dialog-name').html('上传附件');
+	}
+	if(name=='更新'){
+		$('#upload-dialog-name').html('更新附件')
+	}
+	if(name=='签署凭证'){
+		$('#upload-dialog-name').html('上传签署凭证')
+	}
 	$.popup({
 		init:init(type),
 		txt:$("#upload-dialog").html(),
@@ -272,6 +283,10 @@ function initUpload(_dialog,type){
 				});
 			},
 			BeforeUpload:function(up){
+				$(_dialog.id).showLoading(
+						 {
+						    'addClass': 'loading-indicator'						
+						 });
 				var $form =$(_dialog.id).find("form");
 				var data = JSON.parse($form.serializeObject());
 				data['type'] = data['fileSource'];
@@ -284,6 +299,7 @@ function initUpload(_dialog,type){
 				up.settings.multipart_params = data;
 			},
 			FileUploaded: function(up, files, rtn) {
+				$(_dialog.id).hideLoading();
 				var data = $.parseJSON(rtn.response);
 				if(data.result.status == "OK")
 				{
@@ -297,6 +313,7 @@ function initUpload(_dialog,type){
 				}
 			},
 			Error: function(up, err) {
+				$(_dialog.id).hideLoading();
 				layer.msg(err.message);
 			}
 		}

@@ -120,120 +120,37 @@ public class SopFileServiceImpl extends BaseServiceImpl<SopFile> implements
 	}
 
 	
-
-	/**
-	 * 分页查询获取project名称
-	 */
+	@Override
 	public Page<SopFile> queryPageList(SopFile query, Pageable pageable) {
-		//Page<SopFile> pageEntity = super.queryPageList(query,pageable);
-		Page<SopFile> pageEntity = new Page<SopFile>(null, pageable, null);
-		List<SopFile> fileList = sopFileDao.selectList(query);
+		Page<SopFile> pageFile = sopFileDao.selectPageFile(query, pageable);
 		List<Department> departmentList = getDepartMent();
-		List<User> userList = getUser(fileList);
-		List<Project> projectList = getProject(fileList);
-		List<SopFile> result=new ArrayList<SopFile>();
-		Map<String,SopVoucherFile> map=new HashMap<String,SopVoucherFile>();
-		if(fileList != null && !fileList.isEmpty()){
-			map=getVoucherId(fileList);
-		}
-		if(fileList != null){
-			//获取Project名称
-			Iterator<SopFile> it = fileList.iterator();
-			while (it.hasNext()) {
-				boolean flag=false;
-				SopFile sopFile = it.next();
-				/*if(sopFile.getFileValid().intValue() == 0){
-					sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
-					sopFile.setFileKey(null);	
-				}*/
-				//对于自己所上传的文档，可查看其状态，并标识装填已上传
-				if(query.getBelongUid()==null){
-					if (DictEnum.fileStatus.已上传.getCode().equals(sopFile.getFileStatus())) {
-
-						
-						if (sopFile.getFileValid() != null && sopFile.getFileValid().intValue() == 0) {
-							sopFile.setFileStatus(DictEnum.fileStatus.缺失.getCode());
-						}
+		for(SopFile temp : pageFile.getContent()){
+			if(query.getBelongUid()==null){
+				if (DictEnum.fileStatus.已上传.getCode().equals(temp.getFileStatus())) {
+					if (temp.getFileValid() != null && temp.getFileValid().intValue() == 0) {
+						temp.setFileStatus(DictEnum.fileStatus.缺失.getCode());
 					}
-				}else{
-					sopFile.setFileValid(1);
 				}
-					
-				if (sopFile.getProjectId() != null) {
-					for (Project project : projectList) {
-						if (sopFile.getProjectId().equals(project.getId())) {
-							int p1 = Integer.parseInt(sopFile.getProjectProgress().split(":")[1]);
-							int p2 = Integer.parseInt(project.getProjectProgress().split(":")[1]);
-							if (p1 <=p2) {
-								if(sopFile.getFileWorktype().equals(DictEnum.fileWorktype.股权转让协议.getCode())){
-									if(project.getStockTransfer().intValue() == 1){
-										flag=true;
-										sopFile.setProjectName(project.getProjectName());
-										sopFile.setEditUser(project.getCreateUid());
-										break;
-									}
-								}else{
-									flag=true;
-									sopFile.setProjectName(project.getProjectName());
-									sopFile.setEditUser(project.getCreateUid());
-									break;
-								}
-							}
-								
-				
-						}
-					}
+			}else{
+				temp.setFileValid(1);
 			}
-			if(flag==true){
-				if (sopFile.getCareerLine() != null) {
-				for (Department department : departmentList) {
-						if (sopFile.getCareerLine().equals(department.getId())) {
-							sopFile.setCareerLineName(department.getName());
-							break;
-						}
-					}
-				}
-				if (sopFile.getFileUid() != null) {
-			    	for (User user : userList) {
-						if (sopFile.getFileUid().equals(user.getId())) {
-							sopFile.setFileUName(user.getRealName());
-							break;
-						}
-					}
-		
-				}	
-			      SopVoucherFile svf = map.get(sopFile.getVoucherId()==null?"":sopFile.getVoucherId().toString());
-					if (null != svf) {
-						sopFile.setVoucherFileName(svf.getFileName());
-						if(svf.getFileStatus().equals("fileStatus:1")){
-							sopFile.setVstatus("false");
-							sopFile.setVoucherFileKey(svf.getFileKey());
-						}
-						if(svf.getFileStatus().equals("fileStatus:3")){
-							sopFile.setVstatus("true");
-						}
-					} else {
-						sopFile.setVoucherFileName("");
-						sopFile.setVstatus("no");
-				}
-					
-					result.add(sopFile);
+			for(Department department : departmentList){
+				if(department.getId().equals(temp.getCareerLine())){
+					temp.setCareerLineName(department.getName());
 				}
 			}
+			if(temp.getVoucherId()!=null){
+				if (temp.getVstatus().equals("fileStatus:1")) {
+					temp.setVstatus("false");
+				}
+				if (temp.getVstatus().equals("fileStatus:3")) {
+					temp.setVstatus("true");
+				}
+			}else{
+				temp.setVstatus("no");
+			}
 		}
-		
-		pageEntity.setTotal(new Long(result.size()));
-		List<SopFile> sl = new ArrayList<SopFile>();
-		
-		int beginIndex = pageable.getPageNumber() * pageable.getPageSize();
-		int endIndex = pageable.getPageNumber() * pageable.getPageSize() + ((result.size() - beginIndex) >= pageable.getPageSize() ? pageable.getPageSize() : result.size() - beginIndex) ;
-
-//		endIndex = result.size();
-		result = result.subList(beginIndex, endIndex);
-
-		sl.addAll(result);
-		pageEntity.setContent(sl);
-		return pageEntity;
+		return pageFile;
 	}
 	
 	

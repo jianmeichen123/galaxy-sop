@@ -52,6 +52,7 @@ public class MeetingScheduling extends PagableEntity {
 	private String createUname;
 	private String meetingDateStr;
 	private String applyTimeStr;
+	private String createId;
 
 	private String reserveTimeStartStr;
 	private String reserveTimeEndStr;
@@ -381,6 +382,14 @@ public class MeetingScheduling extends PagableEntity {
 
 	public void setEndTime(Long endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getCreateId() {
+		return createId;
+	}
+
+	public void setCreateId(String createId) {
+		this.createId = createId;
 	}
     
 }

@@ -304,6 +304,10 @@ var editPostMeetingDialog = {
 					if(_formdata.popName){
 						$("#popup_name").html(_formdata.popName);
 					}
+					if($("#popup_name").text()=="添加运营会议纪要"){
+						//添加运营会议纪要，未添加附件时，表头隐藏
+						$("#filelist").css("display","none");
+					}
 					var operator = {
 							initDataCallBack : function(data){
 								if(data.result.status == 'OK'){
@@ -387,7 +391,6 @@ var editPostMeetingDialog = {
 								}	
 							},
 							fileInitDataCallBack : function (data){
-								
 								var result = data.result.status;
 								if(result == "OK"){
 									var deliverInfo = data.entity;
@@ -408,6 +411,12 @@ var editPostMeetingDialog = {
 													"</tr>"
 										$("#filelist").append(htm);
 									});
+									//无附件，隐藏表头
+									var fileLen=$("#filelist tr[id]").length;
+									console.log(fileLen)
+									if(fileLen ==0){
+										$("#filelist").css("display","none")
+									}
 								}
 							},
 							//回调函数

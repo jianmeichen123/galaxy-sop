@@ -148,6 +148,9 @@
 								<value>12.2</value>
 								<value>12.3</value>
 								<value>13.3</value>
+								<value>14.1</value>
+								<value>14.2</value>
+								<value>14.3</value>
 								<value>15.1</value>
 								<value>15.2</value>
 								<value>15.3</value>
@@ -180,7 +183,9 @@
 								<value>11.1</value>
 								<value>11.2</value>
 								<value>11.3</value>
-								<value>14</value>
+								<value>14.1</value>
+								<value>14.2</value>
+								<value>14.3</value>
 								<value>15.1</value>
 								<value>15.2</value>
 								<value>15.3</value>
@@ -195,6 +200,58 @@
 				</entry>
 
 
+
+				<entry key="6">  <!-- 项目运营负责人 -->
+					<map>
+						<entry key="inAll">
+							<list>
+								<value>13.3</value>
+								<value>14.1</value>
+								<value>14.2</value>
+								<value>14.3</value>
+								<value>15.1</value>
+								<value>15.2</value>
+								<value>15.3</value>
+								<value>15.4</value>
+							</list>
+						</entry>
+
+						<entry key="inPer">
+							<null/>
+						</entry>
+
+						<entry key="inPat">
+								<null/>
+						</entry>
+					</map>
+				</entry>
+				
+				<entry key="20">  <!-- 运营部人 -->
+					<map>
+						<entry key="inAll">
+							<list>
+								<value>13.3</value>
+								<value>14.1</value>
+								<value>14.2</value>
+								<value>14.3</value>
+								<value>15.1</value>
+								<value>15.2</value>
+								<value>15.3</value>
+								<value>15.4</value>
+							</list>
+						</entry>
+
+						<entry key="inPer">
+							<null/>
+						</entry>
+
+						<entry key="inPat">
+								<null/>
+						</entry>
+					</map>
+				</entry>
+				
+				
 				<entry key="7">  <!-- HR总监 -->
 					<map>
 						<entry key="inAll">

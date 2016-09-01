@@ -46,33 +46,7 @@
 		<div class="new_left">
 			<div class="tabtable assessment label_static">
 				<!-- tab标签 -->
-	            <ul class="tablink tablinks">
-	             	<li><a href="javascript:;" onclick="showTabs(${pid},0)">基本信息</a></li>
-	             	<c:choose>
-	             	<c:when test="${aclViewProject==true}">
-	                <li class="on"><a href="javascript:;" onclick="showTabs(${pid},1)">团队成员</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},7)">交割前事项</a></li>
-                   <!-- <li><a href="javascript:;" onclick="showTabs(${pid},8)">拨款信息</a></li> --> 
-               	    <li><a href="javascript:;" onclick="showTabs(${pid},9)">运营分析</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
-	                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
-	                </c:when>
-	                <c:otherwise>
-	                <li class="no"><a href="javascript:;">团队成员</a></li>
-	                <li class="no"><a href="javascript:;">股权结构</a></li>
-	                <li class="no"><a href="javascript:;">访谈记录</a></li>
-	                <li class="no"><a href="javascript:;">会议纪要</a></li>
-	                <li class="no"><a href="javascript:;">交割前事项</a></li>
-	                <li class="no"><a href="javascript:;">拨款信息</a></li>
-	                <li class="no"><a href="javascript:;">运营分析</a></li>
-					<li class="no"><a href="javascript:;">项目文档</a></li>
-	                <li class="no"><a href="javascript:;">操作日志</a></li> 
-	                </c:otherwise>
-	             	</c:choose>
-	            </ul>
+	            <jsp:include page="tab_header.jsp?index=1" flush="true"></jsp:include>
 	            <c:if test="${aclViewProject==true}">
 				<div class="member">
 					<c:if test="${isEditable}">

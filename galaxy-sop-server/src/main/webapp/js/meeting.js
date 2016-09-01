@@ -148,6 +148,7 @@ function initMeetUpload() {
 			
 			
 			FileUploaded: function(up, files, rtn) {  //文件上传后回掉
+				$("#powindow").hideLoading();
 				var response = $.parseJSON(rtn.response);
 				var rs = response.result.status;
 				if(rs == "ERROR"){ //OK, ERROR
@@ -168,8 +169,13 @@ function initMeetUpload() {
 				}
 			},
 			BeforeUpload:function(up){
+				$("#powindow").showLoading(
+						 {
+						    'addClass': 'loading-indicator'						
+						 });
 			},
 			Error: function(up, err) {
+				$("#powindow").hideLoading();
 				$("#savemeet").removeClass("disabled");
 				$("#fileName").val("");
 				layer.msg(err.message);

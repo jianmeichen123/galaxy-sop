@@ -74,10 +74,14 @@ var isDSZ = "<%=isDSZ%>";
 
 
 <body>
-<div class="erwm">
-    <img src="<%=request.getContextPath() %>/img/erwm.gif" alt="" style="margin:0 auto;">
-    <span data-btn="close_erwm">关闭</span>
-    <a href="<%=path %>/html/installReadme.html" target="_blank">查看安装说明</a>
+<div class="erwms erwm">
+	<p>繁星APP</p>
+   	<img src="<%=path %>/img/ewms.gif" alt="">
+</div>
+<div class="erwmb erwm">
+   	<img src="<%=path %>/img/ewmb.gif" alt="">
+   	<p>繁星APP客户端</p>
+   	<p><a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看安装说明</a></p>
 </div>
 <div class="header clearfix">
 	<div class="warning" id="warning"><i></i>您的浏览器版本过低，繁星系统不提供对IE10以下浏览器的支持，快使用速度更快，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
@@ -209,8 +213,14 @@ function initHref(){
 	$("#work_xxtx").attr('href' , platformUrl.MessageIndex);//消息提醒
 }
 
-/*关闭二维码*/
-$("[data-btn='close_erwm']").on("click",function(){
-    $('.erwm').hide();
-})
+/*二维码放大*/
+ $(".erwms").on("mouseover",function(){
+	 $(this).hide();
+     $(".erwmb").show();
+ })
+  $(".erwmb").on("mouseout",function(){
+	 $(".erwms").show();
+     $(this).hide();
+ })
+ 
 </script>

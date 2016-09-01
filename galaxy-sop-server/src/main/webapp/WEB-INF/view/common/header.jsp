@@ -35,10 +35,19 @@
    
  
 %>
-<div class="erwm">
+<%-- <div class="erwm">
     <img src="<%=path %>/img/erwm.gif" alt="" style="margin:0 auto;">
     <span data-btn="close_erwm">关闭</span> 
     <a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看安装说明</a>
+</div> --%>
+<div class="erwms erwm">
+	<p>繁星APP</p>
+   	<img src="<%=path %>/img/ewms.gif" alt="">
+</div>
+<div class="erwmb erwm">
+   	<img src="<%=path %>/img/ewmb.gif" alt="">
+   	<p>繁星APP客户端</p>
+   	<p><a href="<%=path %>/html/installReadme.html?realname=1" target="_blank">查看安装说明</a></p>
 </div>
 <div class="header clearfix">
  <div class="warning" id="warning"><i></i>建议使用IE10以上浏览器，体验更好的浏览器吧！&nbsp;<a href="http://windows.microsoft.com/zh-cn/internet-explorer/download-ie" class="red">IE11</a>&nbsp;&nbsp;<a href="http://rj.baidu.com/soft/detail/14744.html?ald" class="red">谷歌浏览器</a><em id="close" onclick="gb()"></em></div>
@@ -129,8 +138,14 @@ if(isContainResourceByMark("task_into_view")){
 		}
 	} */
  /*关闭二维码*/
- $("[data-btn='close_erwm']").on("click",function(){
-     $('.erwm').hide();
+ $(".erwms").on("mouseover",function(){
+	 $(this).hide();
+     $(".erwmb").show();
  })
+  $(".erwmb").on("mouseout",function(){
+	 $(".erwms").show();
+     $(this).hide();
+ })
+ 
  
 </script>

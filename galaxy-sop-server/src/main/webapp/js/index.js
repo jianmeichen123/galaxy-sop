@@ -538,12 +538,13 @@ function cyIndexCallback(data){
 				'<td>'+ temp.departmentDesc+'</td>'+ 
 				'<td>'+ ((isNaN(temp.createdTime))?'-': Number(temp.createdTime).toDate().format("yyyy-MM-dd"))+'</td>'+
 				'<td>'+ ((isNaN(temp.updatedTime))?'-': Number(temp.updatedTime).toDate().format("yyyy-MM-dd"))+'</td>'+
-				'<td>'+ temp.createdUname+'</td>'+
+				'<td class="cutstrName" title="'+ temp.createdUname+'">'+ temp.createdUname+'</td>'+
 				'<td>'+ ideaProgressDesc+'</td>'+
 				'</tr>'; 
 			tbodyList.append(tr);
 		});
 		cutStr(10,'cutstr');
+		cutStr(4,'cutstrName');
 		if(list.length<4){
 			$("#cy_index").parent().parent().siblings().children('.more').css("display","none");	
 		}

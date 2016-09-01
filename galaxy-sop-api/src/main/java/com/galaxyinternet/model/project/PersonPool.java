@@ -40,6 +40,9 @@ public class PersonPool extends PagableEntity{
     private String formatAgeStr;
     private String formatWorkTime;
     
+    //虚拟扩充字段
+    private Long projectId;
+    
     
     
     
@@ -266,6 +269,12 @@ public class PersonPool extends PagableEntity{
 
 	public void setTeamAbility(String teamAbility) {
 		this.teamAbility = teamAbility;
+	}
+	public Long getProjectId() {
+		return projectId;
+	}
+	public void setProjectId(Long projectId) {
+		this.projectId = projectId;
 	}
     
     

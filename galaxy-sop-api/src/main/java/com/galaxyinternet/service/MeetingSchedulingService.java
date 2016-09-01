@@ -71,6 +71,6 @@ public interface MeetingSchedulingService extends BaseService<MeetingScheduling>
     
     //=====report
     public MeetingSchedulingBo  getMeetingScheduling(MeetingSchedulingBo bo);
-	public Page<MeetingScheduling> getMeetingList(MeetingSchedulingBo query,PageRequest pageRequest);
+	public Page<MeetingScheduling> getMeetingListForReport(MeetingSchedulingBo query,PageRequest pageRequest);
 
 }

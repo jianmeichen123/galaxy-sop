@@ -25,6 +25,14 @@
 		<result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
 		<result column="record_type" jdbcType="TINYINT" property="recordType" />
 		<result column="meeting_id" jdbcType="BIGINT" property="meetingId"/>
+		
+		
+		<result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+		<result column="file_uname" jdbcType="VARCHAR" property="fileUName"/> 
+		<result column="v_status" jdbcType="VARCHAR" property="Vstatus"/>
+		<result column="edit_user" jdbcType="BIGINT" property="editUser"/>
+		
+		
 	</resultMap>
 	
 	<sql id="Base_Column_List">
@@ -143,6 +151,104 @@
 		</if>
 	</select>
 	
+	<select id="selectPageFile" resultMap="BaseResultMap" parameterType="java.util.Map">
+			select 	
+			<include refid="Page_Column_List" />		
+			from sop_file sf
+					left join sop_voucher_file svf on sf.voucher_id = svf.id
+					left join platform_user pu on sf.file_uid = pu.id,
+					sop_project sp
+			where	sf.project_id = sp.id
+			and		(select dict.dict_value  from dict where dict.dict_code = sp.project_progress) >= (select dict.dict_value  from dict where dict.dict_code = sf.project_progress)
+			and		sf.file_worktype is not null and sf.file_worktype != 'fileWorktype:12'
+			<![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]>
+			<include refid="Page_Where_Clause" />
+			<if test="sorting != null">order by ${sorting}</if>
+			<if test="offset != null and limit != null">
+				limit #{offset}, #{limit}
+			</if>			
+	</select>
+	
+	
+	<select id="selectPageFileCount" resultType="java.lang.Long" parameterType="java.util.Map">
+			select count(0)
+			from sop_file sf
+					left join sop_voucher_file svf on sf.voucher_id = svf.id
+					left join platform_user pu on sf.file_uid = pu.id,
+					sop_project sp
+			where	sf.project_id = sp.id
+			and		(select dict.dict_value  from dict where dict.dict_code = sp.project_progress) >= (select dict.dict_value  from dict where dict.dict_code = sf.project_progress)
+			and		sf.file_worktype is not null and sf.file_worktype != 'fileWorktype:12'
+			<![CDATA[ and		case when sp.stock_transfer <> '1' then sf.file_worktype != 'fileWorktype:7' else 1=1 end ]]>
+			<include refid="Page_Where_Clause" />
+	</select>
+	
+	<sql id="Page_Column_List">
+		sf.id,sf.belong_uid,sf.project_id,sp.project_name,sp.create_uid as edit_user,sf.project_progress,
+					sf.file_worktype,sf.career_line,sf.file_source,sf.file_type,
+					sf.voucher_id,sf.file_status,sf.file_uid,pu.real_name as file_uname,sf.updated_time,
+					sf.created_time,sf.file_length,sf.file_key,sf.bucket_name,sf.file_name,
+					sf.file_suffix,sf.file_valid,sf.record_type,
+					svf.file_status as v_status 
+	</sql>
+	
+	<sql id="Page_Where_Clause">		
+			<if test="id != null"> and sf.id =#{id,jdbcType=BIGINT}</if>
+			<if test="projectId != null" >and sf.project_id = #{projectId,jdbcType=BIGINT} </if>
+			<if test="belongUid != null" >and sf.belong_uid = #{belongUid,jdbcType=BIGINT} </if>
+			<if test="fileValid != null" >and sf.file_valid = #{fileValid,jdbcType=INTEGER} </if>
+			<if test="projectProgress != null" >and sf.project_progress = #{projectProgress,jdbcType=VARCHAR} </if>				
+			<if test="fileWorktype != null"> and sf.file_worktype = #{fileWorktype,jdbcType=VARCHAR} </if> 				
+			<if test="careerLine != null" > and sf.career_line = #{careerLine,jdbcType=VARCHAR} </if>
+			<if test="fileSource != null" > and sf.file_source = #{fileSource,jdbcType=VARCHAR} </if>
+			<if test="fileType != null" > and sf.file_type = #{fileType,jdbcType=VARCHAR} </if>
+			<if test="voucherId != null" > and sf.voucher_id = #{voucherId,jdbcType=BIGINT} </if>
+			<if test="fileStatus != null" > and sf.file_status = #{fileStatus,jdbcType=VARCHAR} </if>
+			<if test="fileUid != null" > and sf.file_uid = #{fileUid,jdbcType=BIGINT} </if>
+			<if test="filUri != null" > and sf.fil_uri = #{filUri,jdbcType=BIGINT} </if>
+			<if test="updatedTime != null" > and sf.updated_time = #{updatedTime,jdbcType=BIGINT} </if>
+			<if test="startTime!=null"><![CDATA[  and sf.updated_time >= #{startTime,jdbcType=BIGINT} ]]></if>
+			<if test="endTime!=null"><![CDATA[  and sf.updated_time <= #{endTime,jdbcType=BIGINT} ]]></if>
+			<if test="createdTime != null" > and sf.created_time = #{createdTime,jdbcType=BIGINT} </if>
+			<if test="fileLength != null" > and sf.file_length = #{fileLength,jdbcType=BIGINT} </if>
+			<if test="fileKey != null" > and sf.file_key = #{fileKey,jdbcType=VARCHAR} </if>
+			<if test="bucketName != null" > and sf.bucket_name = #{bucketName,jdbcType=VARCHAR} </if>
+			<if test="fileName != null" > and sf.file_name = #{fileName,jdbcType=VARCHAR} </if>
+			<if test="fileSuffix != null" > and sf.file_suffix = #{fileSuffix,jdbcType=VARCHAR} </if>
+			<if test="fileStatusList != null">
+				and sf.file_status in 
+				<foreach collection="fileStatusList" item="fs" index="index" open="(" close=")" separator=",">
+			        #{fs}
+			    </foreach>
+			</if>
+			<if test="fileworktypeList != null"> 
+				and sf.file_worktype in
+				<foreach collection="fileworktypeList" item="fileworktypeList" index="index" open="(" close=")" separator=",">
+			        #{fileworktypeList}
+			    </foreach>
+			</if>
+			<if test="ids != null"> 
+				and sf.id in
+				<foreach collection="ids" item="idItem" index="index" open="(" close=")" separator=",">
+			        #{idItem}
+			    </foreach>
+			</if>
+			<if test="projectIdList != null"> 
+					and sf.project_id in
+					<foreach collection="projectIdList" item="id" index="index" open="(" close=")" separator=",">
+			            #{id}
+			        </foreach>
+			</if>
+			<if test="recordType != null"> and sf.record_type = #{recordType,jdbcType=TINYINT} </if>
+			<if test="meetingId != null"> and sf.meeting_id = #{meetingId,jdbcType=BIGINT} </if>
+			<if test="keyword !=null"> and	(sp.project_name like CONCAT("%",#{keyword},"%") or pu.real_name like CONCAT("%",#{keyword},"%") ) </if>
+	</sql>
+	
+	
+	
+	
+	
+	
 	<!-- 查询 -->
 	<select id="selectByProjectId" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
@@ -162,10 +268,6 @@
 		parameterType="java.util.Map">
 		select count(id) from sop_file
 		<include refid="Base_Where_Clause" />
-		<if test="sorting != null">order by ${sorting}</if>
-		<if test="offset != null and limit != null">
-			limit #{offset}, #{limit}
-		</if>
 	</select>
 	
 	<!-- 删除 -->

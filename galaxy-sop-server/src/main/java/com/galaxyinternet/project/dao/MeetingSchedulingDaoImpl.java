@@ -120,7 +120,7 @@ public class MeetingSchedulingDaoImpl extends BaseDaoImpl<MeetingScheduling, Lon
 	}
 
 	@Override
-	public Page<MeetingScheduling> getMeetingList(MeetingSchedulingBo bo,PageRequest page) {
+	public Page<MeetingScheduling> getMeetingListForReport(MeetingSchedulingBo bo,PageRequest page) {
 		// TODO Auto-generated method stub
 		try {
 			List<MeetingScheduling> list=sqlSessionTemplate.selectList(getSqlName("selectListByCondition"), getParams(bo, page));

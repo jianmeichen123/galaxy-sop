@@ -79,14 +79,7 @@
                     </select>
                   </dd>
                 </dl>
-                <dl class="fmdl fml fmdll clearfix">
-                  <dt>项目进度：</dt>
-                  <dd>
-                    <select name="projectProgress">
-                      <option index="-1" value="">全部</option>
-                    </select>
-                  </dd>
-                </dl>
+               
                 <dl class="fmdl fml fmdll clearfix">
                   <dt>项目状态：</dt>
                   <dd>
@@ -95,6 +88,19 @@
                     </select>
                   </dd>
                 </dl>
+                  <dl class="fmdl fmdll clearfix">
+                  <dt>团队成员:</dt>
+                  <dd style="width:135px;">
+                    <input type="text" class="txt" name="projectPerson" placeholder="请输入团队成员姓名" style="margin-left:0">
+                  </dd>
+                </dl>
+                 <dl class="fmdl fml  fmdll clearfix">
+              		<dt >来源于FA：</dt>
+              		<dd class="clearfix">
+		                <label><input type="radio" name="faFlag" value = "1"/>是</label>
+		                <label><input type="radio" name="faFlag" value = "0"/>否</label>
+	            	</dd>
+         		</dl> 
             </div>
             <div class="searchall_bottom clearfix">
                 <dl class="fmdl fml fmdll clearfix">
@@ -113,12 +119,23 @@
                     </select>
                   </dd>
                 </dl>
-                <input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称或编号">
-                <div class="btn fr">
-                    <button type="submit" class="bluebtn cx_prj" action="querySearch">搜索</button>
-                    <input type="hidden" value="0" id="showResetBtn">
-                    <button class="pubbtn bluebtn reset none" id="resetBtn">重置</button>
-                </div>
+                 <dl class="fmdl fml fmdll clearfix">
+                  <dt>项目进度：</dt>
+                  <dd>
+                    <select name="projectProgress">
+                      <option index="-1" value="">全部</option>
+                    </select>
+                  </dd>
+                </dl>  
+                <dl class="fmdl fmdll clearfix">
+                	<input type="text" class="txt" name="nameCodeLike" placeholder="请输入项目名称或编号" style="margin-left:15px;">
+	                <div class="btn fr">
+	                    <button type="submit" class="bluebtn cx_prj" action="querySearch">搜索</button>
+	                    <input type="hidden" value="0" id="showResetBtn">
+	                    <button class="pubbtn bluebtn reset none" id="resetBtn">重置</button>
+	                </div>
+                </dl>
+                
             </div>
             <div class="show_more">
                 <a href="#" class="blue open ico1 f4" data-btn="show" style="display: block;">展开</a> <a href="#" class="blue searchbox_hidden hide ico1 f3" data-btn="hide" style="display: none;">收起</a>
@@ -132,15 +149,16 @@
 				    <tr>
 			        	<th data-field="projectName"  class="data-input" data-formatter="projectInfo" data-width="16%">项目名称</th>
 			        	<th data-field="project_type" data-formatter="typeFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目类型<span></span></th>
-			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">融资状态<span></span></th>
-			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="12%">项目进度<span></span></th>
-			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="8%">项目状态<span></span></th>
+			        	<th data-field="finance_status" data-formatter="financeStatusFormat"  class="data-input sort" data-sortable="true" data-width="5%">融资状态<span></span></th>
+			        	<th data-field="project_progress" data-formatter="projectProgress"  class="data-input sort" data-sortable="true" data-width="15%">项目进度<span></span></th>
+			        	<th data-field="project_status" data-formatter="projectStatusFormat"  class="data-input sort" data-sortable="true" data-width="5%">项目状态<span></span></th>
+			        	<th data-field="faFlag" data-formatter="projectFaFormat"   data-width="6%">来源于FA<span></span></th>
 			        	<th data-field="projectCareerline"  class="data-input" data-width="9%">事业部</th>
-			        	<th data-field="createUname"  class="data-input" data-width="14%">投资经理</th>
+			        	<th data-field="createUname"  class="data-input" data-width="17%">投资经理</th>
 			        	<th data-field="created_time" data-formatter="createdFormat"  class="data-input sort" data-sortable="true" data-width="8%">创建日期<span></span></th>
-			        	<th data-field="updated_time" data-formatter="updateFormat"  class="data-input sort" data-sortable="true" data-width="8%">最后编辑时间<span></span></th>
+			        	<th data-field="updated_time" data-formatter="updateFormat"  class="data-input sort" data-sortable="true" data-width="5%">最后编辑时间<span></span></th>
          				<c:if test="${fx:hasRole(4)}">
-			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder" data-width="8%">操作</th>
+			        	<th  class="col-md-2" data-formatter="editor" data-class="noborder" data-width="6%">操作</th>
  						</c:if>
  					</tr>	
  				</thead>
@@ -231,6 +249,8 @@
 		var projectDepartid = $("select[name='projectDepartid']").val();
 		var createUid = $("select[name='createUid']").val();
 		var nameCodeLike = $("input[name='nameCodeLike']").val();
+		var projectPerson = $("input[name='projectPerson']").val();
+		var faFlag = $("input[name='faFlag']:checked").val();
 		
 		var formdata = {
 				_paramKey : 'projectList',
@@ -245,7 +265,9 @@
 	        		projectStatus : projectStatus,
 	        		projectDepartid : projectDepartid,
 	        		createUid : createUid,
-	        		nameCodeLike : nameCodeLike
+	        		nameCodeLike : nameCodeLike,
+	        		projectPerson:projectPerson,
+	        		faFlag:faFlag
 				}
 		}
 		var href_url=window.location;
@@ -355,6 +377,10 @@
 	        		$("select[name='createUid']").val(initParams.createUid);
 	        		param.nameCodeLike = initParams.nameCodeLike;
 	        		$("input[name='nameCodeLike']").val(initParams.nameCodeLike);
+	        		param.projectPerson = initParams.projectPerson;
+	        		$("input[name='projectPerson']").val(initParams.projectPerson);
+	        		param.faFlag = initParams.faFlag;
+	        		$("input[name='faFlag'][value='"+initParams.faFlag+"']").prop("checked",true);
 	        		var options = $("#data-table").bootstrapTable('getOptions');
 	 	        	options.pageNumber = initParams.pageNum - 1;
 	    		}
@@ -437,6 +463,8 @@
 				createUserOptions(platformUrl.getUserList+did, "createUid", 1);
 			}
 			$('input[name="nameCodeLike"]').val("");
+			$('input[name="faFlag"]').removeAttr("checked");
+			$('input[name="projectPerson"]').val("");
 			$("#resetBtn").addClass("none");
 		});
 	});
@@ -468,6 +496,19 @@
 	 */
 	function projectStatusFormat(value,row,index){
 		return row.projectStatusDs;
+	}
+	/**
+	 * 项目FA格式化
+	 * @version 2016-06-21
+	 */
+	function projectFaFormat(value,row,index){
+		var retStr = '-';
+		if(row.faFlag=='1'){
+			retStr = "是";
+		}else if(row.faFlag=='0'){
+			retStr = '否';
+		}
+		return retStr;
 	}
 	/**
 	 * 项目进度格式化
