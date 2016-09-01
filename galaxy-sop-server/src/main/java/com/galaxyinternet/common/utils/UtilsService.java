@@ -11,30 +11,34 @@ import org.springframework.stereotype.Component;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.cache.Cache;
+import com.galaxyinternet.framework.core.exception.BusinessException;
+import com.galaxyinternet.scheduling.BaseGalaxyTask;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.SopConstatnts;
 
 
 @Component(value="utilsService")
-public class UtilsService {
+public class UtilsService extends BaseGalaxyTask {
 
-	@Autowired
-	private UserService userService;
-	
 	@Autowired
 	private ProjectService projectService;
 	
 	@Autowired
 	private Cache cache;
 	
-	//用于检查是否检索过
-	private boolean markCanUse = true;
 	
 	//用于检查是否检索过
 	private boolean hasCheckedGreenChannel = false;
 	
-	//设置过时时间， 重新检索时间，单位秒，4小时 = 4 * 60 * 60
-	private final int refreshTime = 4 * 60 * 60;
+	
+	/**
+		设置过时时间， 重新检索时间，单位秒，2小时 = 4 * 60 * 60
+		refreshTime = 2 * 60 * 60;
+	*/
+	@Override
+	protected void executeInteral() throws BusinessException {
+		 saveByRedis(SopConstatnts.Redis._GREEN_CHANNEL_6_,initIds());
+	}
 	
 	
 	/**
@@ -130,9 +134,9 @@ public class UtilsService {
 		}
 		cache.set(key, proIds);
 	}
-	
-	
-	
+
+
+
 	
 	
 	
