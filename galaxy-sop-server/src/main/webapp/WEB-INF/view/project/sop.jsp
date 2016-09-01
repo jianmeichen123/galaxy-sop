@@ -242,7 +242,7 @@
 				</div>
 				<table id="projectProgress_1_table"
 					data-url="<%=path%>/galaxy/project/progress/queryInterview"
-					data-page-list="[10,20,30]"
+					data-page-list="[3,10,20]"
 					data-id-field="id" data-unique-id="id"
 					data-side-pagination="server" data-pagination="true"
 					 data-toolbar="#projectProgress_1_table_custom-toolbar">
