@@ -481,12 +481,39 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
+	<!-- 拉取所有  跳过尽调阶段的 项目ids
+	progressIntValue  6
+	notCompleteTaskStatus   taskStatus:3
+	taskFlags   2,3,4,5
+	 -->
+	<select id="selectProIdsForPrivilege" resultType="java.lang.Long" parameterType="java.util.Map">
+		SELECT 
+			id
+		FROM
+			sop_project
+		<where>
+			<trim prefixOverrides="and">
+				<if test="progressIntValue != null" > 
+					CAST(REPLACE(project_progress,'projectProgress:','') AS SIGNED) > #{progressIntValue} 
+				</if>
+				
+				<if test="notCompleteTaskStatus != null and taskFlags !=null" > 
+					AND id IN(
+						SELECT 
+							project_id
+						FROM
+							sop_task
+						WHERE
+							task_flag IN
+							<foreach collection="taskFlags" index="item" item="item" open="(" separator="," close=")">
+								#{item}
+							</foreach>
+							AND task_status  !=  #{notCompleteTaskStatus,jdbcType=VARCHAR}
+					)
+				</if>
+			</trim>
+		</where>
+	</select>
 	
 	
 	

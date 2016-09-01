@@ -103,7 +103,9 @@ function projectLoaded(project)
 {
 	if(project.projectProgress != 'projectProgress:6')
 	{
-		$("#show-upload-btn").addClass('disabled');
+		if(typeof(isPrivilege_6) != 'undefined' && isPrivilege_6 == 'false'){
+			$("#show-upload-btn").addClass('disabled');
+		}
 		$("#apply-decision-btn").addClass('disabled');
 	}
 }
@@ -145,6 +147,9 @@ function loadRows()
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
+				if(typeof(isPrivilege_6) != 'undefined' && isPrivilege_6 == 'true'){
+					hasEmpty = true;
+				}
 				$("#apply-decision-btn").toggleClass('disabled',hasEmpty);
 			}
 	);
