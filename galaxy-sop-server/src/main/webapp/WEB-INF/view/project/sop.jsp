@@ -242,7 +242,7 @@
 				</div>
 				<table id="projectProgress_1_table"
 					data-url="<%=path%>/galaxy/project/progress/queryInterview"
-					data-page-list="[10,20,30]"
+					data-page-list="[3,10,20]"
 					data-id-field="id" data-unique-id="id"
 					data-side-pagination="server" data-pagination="true"
 					 data-toolbar="#projectProgress_1_table_custom-toolbar">
@@ -530,7 +530,8 @@
  	    pagination: true, //分页
  	    search: false, //显示搜索框
  	    pageList: [10,20,30],
- 	    queryParams: queryParamsforP,
+ 	   	queryParamsType: 'size|page',
+ 	    queryParams:function(params){return params;},
  	    sidePagination: "server", //服务端处理分页
  	          columns: [
  	                  {
@@ -618,7 +619,8 @@
      search: false, //显示搜索框
      showRefresh: true,
      pageList: [10,20,30],
-     queryParams: queryParamsforP,
+     queryParamsType: 'size|page',
+     queryParams:function(params){return params;},
      sidePagination: "server", //服务端处理分页
            columns: [
                    {
@@ -655,15 +657,7 @@
        });
        $table.bootstrapTable('refresh');
  	}
-     //页面传参
-     function queryParamsforP(params) {
-     	return {
- 	    	pageSize: params.limit,
- 	    	pageNum: params.offset,
- 	    	order: params.order,
- 	    	projectId:alertid
-     	};
-     }
+     
      /**
  	 * 加载项目详情数据
  	 */
