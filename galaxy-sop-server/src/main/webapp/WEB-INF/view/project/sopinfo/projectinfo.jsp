@@ -259,9 +259,6 @@ function getProjectInfo(dtd)
 					<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
 				</div>
 				<ul class="new_ul_all new_top_color" id='business_plan'>
-					<li></li>
-					<li></li>
-					<li></li>
 
 					<li class="new_ul_right"><span class="new_fctbox"> <a href="javascript:;" class="ico f2" data-btn="describe">查看</a>
 							<a href="javascript:;" class="ico new1" data-btn="edit" id="uploadOperator">更新</a>

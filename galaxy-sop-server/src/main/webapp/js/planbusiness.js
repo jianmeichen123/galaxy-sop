@@ -203,7 +203,7 @@ var initPage = {
 			var uploadOperator;
 			var dom = $("#" + initPage.domId);
 			dom.html("");
-			var planNameHtml = "<li><span id ='plan_name'></span></li>";
+			var planNameHtml = "<li class='plan_name_all'><span id ='plan_name'></span></li>";
 			var planStatusHtml = "<li>" +
 								 	"<span class='new_color_gray'>状态：</span>" +
 								 	"<span class='new_color_black' id='plan_status'></span>" +
@@ -226,6 +226,7 @@ var initPage = {
 					grayClass = " limits_gray";
 				}
 				if(data.result.errorCode=="null"){
+					$('.plan_name_all').hide();
 					//文档状态
 					dom.find("#plan_status").html("未上传");
 					//更新时间
@@ -235,7 +236,7 @@ var initPage = {
 						operatorDetailHtml = "<a href='javascript:;' class='ico new1"+grayClass+"' data-btn='edit' id='upload_btn'>上传</a>";
 					}
 				}else{
-					
+					$('.plan_name_all').show();
 					//文档名称
 					dom.find("#plan_name").html("《"+data.entity.fileName+"."+data.entity.fileSuffix+"》");
 					//文档状态
