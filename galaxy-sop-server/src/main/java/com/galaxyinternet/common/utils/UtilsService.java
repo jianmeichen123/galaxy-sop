@@ -45,6 +45,31 @@ public class UtilsService extends BaseGalaxyTask {
 	 * 检查 项目id 是否跳过尽调阶段
 	 * true  有跳过
 	 */
+	public boolean checkProIsGreenChannel(Long pid){
+		boolean isGreen = false;
+		
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("progressIntValue", 6);
+		params.put("notCompleteTaskStatus", DictEnum.taskStatus.已完成.getCode());
+		params.put("projectId", pid);
+		params.put("resultCloseFilter", DictEnum.projectStatus.YFJ.getCode());
+		List<Integer> taskFalgs = new ArrayList<Integer>();
+		taskFalgs.add(SopConstant.TASK_FLAG_RSJD);
+		taskFalgs.add(SopConstant.TASK_FLAG_FWJD);
+		taskFalgs.add(SopConstant.TASK_FLAG_CWJD);
+		taskFalgs.add(SopConstant.TASK_FLAG_YWJD);
+		List<Long> ids = projectService.getProIdsForPrivilege(params);
+		if(ids == null || ids.isEmpty()){
+			isGreen = false;
+		}else isGreen = true;
+		
+		return isGreen;
+	}
+	
+	/**
+	 * 检查 项目id 是否跳过尽调阶段
+	 * true  有跳过
+	 */
 	public boolean checkProIsGreenChannel(String key, Long pid){
 		boolean isGreen = false;
 		List<Long> proIds = getProids_GreenChannel(key);

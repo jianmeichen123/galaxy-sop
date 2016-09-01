@@ -168,7 +168,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 		proQuery.setStartTime(query.getStartTime());
 		proQuery.setEndTime(query.getEndTime());
 		proQuery.setProjectDepartid(query.getDeptid());
-		proQuery.setResultCloseFilter(DictEnum.projectStatus.GJZ.getCode()); //过滤已否决
+		proQuery.setResultCloseFilter(DictEnum.projectStatus.GJZ.getCode()); //过滤跟进中
 		List<Project> proList = projectDao.selectColumnList(proQuery);
 		
 		if(proList == null || proList.isEmpty()){

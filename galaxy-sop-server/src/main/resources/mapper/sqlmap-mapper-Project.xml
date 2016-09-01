@@ -481,7 +481,7 @@
 	
 	
 	
-	<!-- 拉取所有  跳过尽调阶段的 项目ids -->
+	<!-- 拉取   跳过尽调阶段的 项目id -->
 	<select id="selectProIdsForPrivilege" resultType="java.lang.Long" parameterType="java.util.Map">
 		SELECT 
 			id
@@ -499,12 +499,17 @@
 							project_id
 						FROM
 							sop_task
-						WHERE
-							task_flag IN
-							<foreach collection="taskFlags" index="item" item="item" open="(" separator="," close=")">
-								#{item}
-							</foreach>
-							AND task_status  !=  #{notCompleteTaskStatus,jdbcType=VARCHAR}
+						<where>
+							<trim prefixOverrides="and">
+								<if test="projectId != null"> AND project_id = #{projectId,jdbcType=BIGINT} </if>
+								AND task_flag IN
+								<foreach collection="taskFlags" index="item" item="item" open="(" separator="," close=")">
+									#{item}
+								</foreach>
+								AND task_status  !=  #{notCompleteTaskStatus,jdbcType=VARCHAR}
+							</trim>
+						</where>
+						GROUP BY project_id
 					)
 				</if>
 				
