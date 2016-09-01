@@ -114,7 +114,14 @@ function loadRows()
 					}
 					else
 					{
-						$("#show-voucher-upload-btn").removeClass("disabled");
+						if(isBlank(this.voucherFileName))
+						{
+							$("#show-voucher-upload-btn").removeClass("disabled");
+						}
+						else
+						{
+							$("#show-voucher-upload-btn").addClass("disabled");
+						}
 						$tr.append('<td><a href="#" onclick="downloadFile(this)">查看</a></td>');
 						$('#show-upload-btn').text('更新投资意向书');
 					}
