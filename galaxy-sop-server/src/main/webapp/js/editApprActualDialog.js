@@ -109,7 +109,7 @@ var editApprActualDialog = {
 										return false;
 									}else{
 										if(parseFloat(grantMoney) - parseFloat(saveParam.preMoney) > parseFloat(saveParam.surplusGrantMoney)){
-											layer.msg("实际拨款金额超过预算金额");
+											layer.msg("实际拨款金额之和大于分期拨款金额");
 											return false;
 										}
 									}

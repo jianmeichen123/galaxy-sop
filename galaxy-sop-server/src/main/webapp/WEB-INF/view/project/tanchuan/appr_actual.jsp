@@ -64,7 +64,7 @@
 	    			editApprActualDialog.init(formdata);
 	    		},
 	    		'click .deleteActualLink'  : function(e, value, row, index){
-	    			layer.confirm('确定要删除吗?', {
+	    			layer.confirm('是否删除实际拨款信息?', {
 		        		  btn: ['确定', '取消'] //可以无限个按钮
 		        		}, function(index, layero){
 		        			sendGetRequest(platformUrl.deleteApprActual + "/" + row.id ,null,function(data){
