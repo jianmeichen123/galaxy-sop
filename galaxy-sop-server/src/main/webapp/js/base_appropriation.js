@@ -42,8 +42,11 @@ function queryBack(data){
 							 $("#tabApprSingleList_"+i+"").append(noData)
 						}
 					}
-					$("#tabApprAllList .b_agreement_r").hide();
-					$("#tabApprAllList .edit-btn, #tabApprAllList .del-btn").hide();
+					if(isCreatedByUser != 'true')
+					{
+					 	$("#tabApprAllList .b_agreement_r").hide();
+					 	$("#tabApprAllList .edit-btn, #tabApprAllList .del-btn").hide();
+					}
 			}
 		}
 	}
