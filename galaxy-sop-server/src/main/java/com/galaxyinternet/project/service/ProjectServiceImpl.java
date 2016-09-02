@@ -558,6 +558,11 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return pageProject;
 	}
 	
-
+	
+	@Override
+	public List<Long> getProIdsForPrivilege(Map<String,Object> params) {
+		return projectDao.selectProIdsForPrivilege(params);
+	}
+	
 	
 }

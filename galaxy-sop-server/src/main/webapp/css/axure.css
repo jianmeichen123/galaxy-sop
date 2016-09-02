@@ -1928,6 +1928,8 @@ dl{position: relative;}
 .new_correlation_cen .delivery{margin:30px 0 20px 0;}
 /*弹层7.2*/
 .deltc{width: 420px;}
+.pocein .deltc{ text-align:center; text-indent: 10px;  position: relative; padding:10px 0px;}
+.pocein .deltc .tips_d{top:10px;}
 .deltc .tips_d{width: 20px;height: 20px;background:url(../img/tips.png) 0 -20px no-repeat;display: inline-block;position: absolute;top:3px;left: 120px;}
 .deltc .tips{position: relative;margin: 50px 0;padding-left: 150px;}
 .tips_d_new{     text-align: center !important; padding:50px 0 50px 20px;     position: relative}

@@ -2,6 +2,7 @@ package com.galaxyinternet.common.taglib;
 
 import java.util.List;
 
+import com.galaxyinternet.common.utils.UtilsService;
 import com.galaxyinternet.common.utils.WebUtils;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.model.project.Project;
@@ -102,5 +103,13 @@ public class FXFunctionTags
 		}
 		return "";
 	}
-	
+
+	public static boolean isPrivilege_6(Long projectId)
+	{
+		UtilsService util = WebUtils.getBean(UtilsService.class);
+		if(projectId != null && util != null){
+			return util.checkProIsGreenChannel(projectId);
+		}
+		return false;
+	}
 }

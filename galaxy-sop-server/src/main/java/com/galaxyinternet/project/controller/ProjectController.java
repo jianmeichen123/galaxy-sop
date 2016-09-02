@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,6 +41,7 @@ import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.taglib.FXFunctionTags;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.common.utils.UtilsService;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -97,6 +99,7 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -136,6 +139,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@Autowired
 	private SopTaskService sopTaskService;
+	
+	@Resource(name ="utilsService")
+	private UtilsService utilsService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -1000,15 +1006,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						"必要的参数丢失!"));
 				return responseBody;
 			}
-			int in = Integer.parseInt(p.getStage().substring(
-					p.getStage().length() - 1));
-			int pin = Integer.parseInt(project.getProjectProgress().substring(
-					project.getProjectProgress().length() - 1));
+
+			int in = Integer.parseInt(p.getStage().substring(p.getStage().length() - 1));
+			int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length() - 1));
 			if (in < pin) {
-				responseBody
-						.setResult(new Result(Status.ERROR, null, "该操作已过期!"));
-				return responseBody;
+				//if(!utilsService.checkProIsGreenChannel(SopConstatnts.Redis._GREEN_CHANNEL_6_, p.getPid())){
+				if(!utilsService.checkProIsGreenChannel(p.getPid())){
+					responseBody.setResult(new Result(Status.ERROR, null, "该操作已过期!"));
+					return responseBody;				
+				}
 			}
+			
+			
 			// 如果是内部创建/未勾选"涉及股权转让"没有股权转让文档
 			if (p.getFileWorktype().equals(
 					DictEnum.fileWorktype.股权转让协议.getCode())) {
@@ -1435,6 +1444,30 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_);
+			/*
+			boolean toGreen = false;
+			SopFile file = new SopFile();
+			file.setProjectId(pid);
+			file.setFileValid(1);
+			file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+			List<SopFile> files = sopFileService.queryList(file);
+			if (files == null
+					|| (project.getProjectType().equals(DictEnum.projectType.外部投资.getCode()) && files.size() < 4)
+					|| (project.getProjectType().equals(DictEnum.projectType.内部创建.getCode()) && files.size() < 2)) {
+				toGreen = true;
+			}
+			if(!toGreen){
+				for (SopFile f : files) {
+					if (f.getFileKey() == null || "".equals(f.getFileKey().trim())) {
+						toGreen = true;
+					}
+				}
+			}
+			if(toGreen){
+				utilsService.saveByRedis(SopConstatnts.Redis._GREEN_CHANNEL_6_, pid);
+			}
+			*/
+			
 		} catch (Exception e) {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "异常，申请投决会失败!"));
