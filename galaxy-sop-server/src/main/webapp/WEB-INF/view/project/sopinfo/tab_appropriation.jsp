@@ -350,7 +350,12 @@ var pId;
   }
 
    $("#search").click( function(){
-	    showTabs('${pid}'+"/"+$("#searchPartMoney").val(),8);
+		var searchPartMoney=$("#searchPartMoney").val();
+		if(null==searchPartMoney||""==searchPartMoney){
+			reloadData(null,pId);
+		}else{
+			showTabs('${pid}'+"/"+$("#searchPartMoney").val(),8);
+		}
 		showTwo();
 	})
 
