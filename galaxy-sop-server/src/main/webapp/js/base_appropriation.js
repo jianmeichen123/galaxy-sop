@@ -16,7 +16,7 @@ function queryBack(data){
 	    var entityList = data.pageList;
 	    //暂无拨款计划
 	    if(entityList.total==0){
-	    	var noContent='<div class="no_con" style="display: block;">暂无内容</div>';
+	    	var noContent='<div class="no_con" style="display: block;">没有找到匹配的记录</div>';
 	    	$("#tabApprAllList").append(noContent);
 	    }
 		if(typeof(entityList)!="underfined"&&entityList!=null){
