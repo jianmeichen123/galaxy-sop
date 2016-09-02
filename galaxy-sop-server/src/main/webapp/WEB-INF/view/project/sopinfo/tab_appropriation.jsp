@@ -352,10 +352,9 @@ var pId;
    $("#search").click( function(){
 		var searchPartMoney=$("#searchPartMoney").val();
 		if(null==searchPartMoney||""==searchPartMoney){
-			reloadData(null,pId);
-		}else{
-			showTabs('${pid}'+"/"+$("#searchPartMoney").val(),8);
+			searchPartMoney = null;
 		}
+		showTabs('${pid}'+"/"+searchPartMoney,8);
 		showTwo();
 	})
 
