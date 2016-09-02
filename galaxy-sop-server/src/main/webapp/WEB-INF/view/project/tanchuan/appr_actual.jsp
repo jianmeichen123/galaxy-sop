@@ -73,16 +73,50 @@
 	    			editApprActualDialog.init(formdata);
 	    		},
 	    		'click .deleteActualLink'  : function(e, value, row, index){
-	    			layer.confirm('是否删除实际拨款信息?', {
+	    			layer.confirm('确定要删除吗?', {
 		        		  btn: ['确定', '取消'] //可以无限个按钮
 		        		}, function(index, layero){
+		        			
+		        			
 		        			sendGetRequest(platformUrl.deleteApprActual + "/" + row.id ,null,function(data){
 		    	        		if(data.result.status=="OK"){
-		    	        			layer.msg("删除成功");
-		    	        			 $('#actual-table').bootstrapTable('refresh',function(param){
-			    				        	param.partGrantId = ${partId};
-			    				        	return param;
-			    				        });
+		    	        			
+		    	        			layer.msg("删除成功"); 
+		    	        			
+		    	        			var options = $('#actual-table').bootstrapTable('getOptions');
+		    	                	var data = options.data;
+		    	                	var pageNum_ = options.pageNumber; 
+		    	                	console.log(data);
+		    	                	
+		    	        			$('#actual-table').bootstrapTable('destroy');
+	    	                		$('#actual-table').bootstrapTable({
+	    	                	    	queryParamsType: 'size|page',
+	    	                			pageSize:5,
+	    	                			showRefresh : false ,
+	    	                			url : Constants.sopEndpointURL+"/galaxy/grant/actual/searchActualList",
+	    	                			sidePagination: 'server',
+	    	                			method : 'post',
+	    	                			sortOrder : 'desc',
+	    	                			sortName : 'updated_time',
+	    	                			pagination: true,
+	    	                	        search: false,
+	    	                	        queryParams:function(param){
+	    	                	        	if(pageNum_ != 1 &&　data.length != 1){
+	    	                	        		param.pageNum = pageNum_-1;
+	    	                	        	}
+	    	                	        	param.partGrantId = ${partId};
+	    	                	        	return param;
+	    	                	        },
+	    	                	        onLoadSuccess: function (data) {
+	    	                	        	 $.each(allResourceToUser, function(index, element){
+	    	                	        		 console.log(element.resourceMark)
+	    	                	     			 $('[resource-mark="' + element.resourceMark + '"]').css("display","inline-block");
+	    	                	     			 
+	    	                	     		});
+	    	                	        }
+	    	                	    });
+		    	        			 
+	    	                	    
 		    					}else{
 		    						layer.msg(data.result.errorCode);
 		    					}
