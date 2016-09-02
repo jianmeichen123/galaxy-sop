@@ -57,7 +57,7 @@
             	<div class="member proOperation">
                     <div class="top clearfix">
                         <!--按钮-->
-                        <c:if test="${isCreatedByUser }">
+                        <c:if test="${isEditable }">
                         <div class="btnbox_f btnbox_f1">
                             <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总拨款计划'>添加总拨款计划</a>
                         </div>
@@ -98,13 +98,14 @@
 <script src="<%=path %>/js/batchUpload.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script>
+var isTransfering = "${fx:isTransfering(pid) }";
 var pId;
-  $(function(){  
+  $(function(){
 	pId="${pid}";
 	  $("#tabApprAllList").children('div').remove(); 
 		reloadData(null,pId);
 	 //只有创建人显示编辑按钮
-	  if(isCreatedByUser != 'true')
+	  if(isEditable != 'true')
 	  {
 		  $("#tabApprAllList .b_agreement_r").hide();
 		  $("#tabApprAllList .edit-btn, #tabApprAllList .del-btn").hide();
