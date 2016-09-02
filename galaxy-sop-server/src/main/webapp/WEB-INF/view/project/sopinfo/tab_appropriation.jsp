@@ -150,6 +150,19 @@ var pId;
 		var _name= $self.attr("data-name");
 		var _total_name = $self.attr("data-total-name");
 		
+		var isFlag = true;
+		
+		if(_data_type == "edit"){
+			var _is_url =  Constants.sopEndpointURL + '/galaxy/grant/part/isGrantPart/'+$self.attr("data-part-id");
+			sendPostRequestByJsonObj(_is_url, {}, function(data){
+				if (data.result.status=="ERROR") {
+					layer.msg(data.result.message);
+					isFlag = false;
+				} 
+			});
+			
+		}
+		if(isFlag){
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
@@ -219,7 +232,8 @@ var pId;
 					initDialogVal();	
 				}//模版反回成功执行	
 			});
-			return false;
+		}
+	    return false;
 		});
 
 		//实际拨款信息列表
@@ -352,10 +366,9 @@ var pId;
    $("#search").click( function(){
 		var searchPartMoney=$("#searchPartMoney").val();
 		if(null==searchPartMoney||""==searchPartMoney){
-			reloadData(null,pId);
-		}else{
-			showTabs('${pid}'+"/"+$("#searchPartMoney").val(),8);
+			searchPartMoney = null;
 		}
+		showTabs('${pid}'+"/"+searchPartMoney,8);
 		showTwo();
 	})
 
