@@ -7,13 +7,19 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 <div class="addmentc margin_45">
-	<div class="title_bj">提示</div>
+	<div class="title_bj">信息</div>
     <div class="form clearfix">
         <div class="role_all">
         <form action="" id="form_refuse_project" method="post">
         	<ul>	
+        		<li class='pocein'>
+        			<p class="tips deltc">
+					<b class="null tips_d">ico</b>
+					你确定要否决项目吗？
+					</p>
+				</li>
                 <li>
-                    <div class="fl width_150 align_r"><font color=red>*</font>原因：</div>
+                    <div class="fl width_150 align_r"><font color=red>*</font>否决原因：</div>
                     <div class="fl"><textarea  class="role_toolTip_area" name="reason" maxlength="100" valType="required" msg="<font color=red>*</font>原因不能为空"></textarea></div>  
                 </li>
                 <li>
@@ -21,7 +27,7 @@
                     <div class="fl">
                     <div class="button_affrim">
                     <a href="javascript:;" class="register_all_affrim fl" id="button_confirm" >确认</a>
-                    <a href="javascript:;" class="register_all_input fr" id="button_cancel">取消</a>
+                    <a href="javascript:;" class="register_all_input fr" data-close="close" >取消</a>
                  </div>
                     </div>
                 </li>

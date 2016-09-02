@@ -16,7 +16,7 @@ function queryBack(data){
 	    var entityList = data.pageList;
 	    //暂无拨款计划
 	    if(entityList.total==0){
-	    	var noContent='<div class="no_con" style="display: block;">暂无内容</div>';
+	    	var noContent='<div class="no_con" style="display: block;">没有找到匹配的记录</div>';
 	    	$("#tabApprAllList").append(noContent);
 	    }
 		if(typeof(entityList)!="underfined"&&entityList!=null){
@@ -112,7 +112,7 @@ function deleteAppr(id){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			$("#popup_name").html("提示");
+			$("#popup_name").html("信息");
 			$("[data-btn='appr_delete']").click(function(){
 				del_appr(id);
 			})

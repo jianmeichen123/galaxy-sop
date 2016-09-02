@@ -30,7 +30,7 @@
 		                <dt>拨款时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" name="grantDetail" type="text" value="" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/>
+		                    	<input class="edittxt" name="grantDetail" type="text" value="" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>拨款时间只能是汉字或字符，长度为20"/>
 		                    </div> 
 		                </dd>
 		            </dl>
