@@ -56,6 +56,7 @@ public class UtilsService{
 		taskFalgs.add(SopConstant.TASK_FLAG_FWJD);
 		taskFalgs.add(SopConstant.TASK_FLAG_CWJD);
 		taskFalgs.add(SopConstant.TASK_FLAG_YWJD);
+		params.put("taskFlags", taskFalgs);
 		List<Long> ids = projectService.getProIdsForPrivilege(params);
 		if(ids == null || ids.isEmpty()){
 			isGreen = false;
@@ -124,6 +125,7 @@ public class UtilsService{
 		taskFalgs.add(SopConstant.TASK_FLAG_FWJD);
 		taskFalgs.add(SopConstant.TASK_FLAG_CWJD);
 		taskFalgs.add(SopConstant.TASK_FLAG_YWJD);
+		params.put("taskFlags", taskFalgs);
 		List<Long> ids = projectService.getProIdsForPrivilege(params);
 		return ids==null || ids.isEmpty() ? null : ids;
 	}
