@@ -58,12 +58,16 @@ var reportUploader = new plupload.Uploader({
 			});
 		},
 		BeforeUpload : function(up,file){
+			$("#report_upload_form").closest(".pop").showLoading({
+		    	'addClass': 'loading-indicator'						
+		    });
 			var $form = $("#report_upload_form");
 			var data = JSON.parse($form.serializeObject());
 			data['fileType']=$("#report_upload_form [name='fileType']").val();
 			up.settings.multipart_params = data;
 		},
 		FileUploaded: function(up, files, rtn) {
+			$("#report_upload_form").closest(".pop").hideLoading();
 			var data = $.parseJSON(rtn.response);
 			if(data.result.status == 'OK')
 			{
