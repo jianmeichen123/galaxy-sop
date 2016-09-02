@@ -103,8 +103,12 @@ var pId;
   $(function(){
 	pId="${pid}";
 	  $("#tabApprAllList").children('div').remove(); 
-		reloadData(null,pId);
-	 //只有创建人显示编辑按钮
+	  searchPartMoney ="${searchPartMoney}";
+	  	if(searchPartMoney == "null" || "" == searchPartMoney){
+	  		searchPartMoney = null;
+	  	}
+	  	reloadData(searchPartMoney,pId);
+	  //只有创建人显示编辑按钮
 	  if(isEditable != 'true')
 	  {
 		  $("#tabApprAllList .b_agreement_r").hide();
@@ -345,15 +349,11 @@ var pId;
 		}
   }
 
- $("#search").click( function(){
-		var searchPartMoney=$("#searchPartMoney").val();
-		if(null==searchPartMoney||""==searchPartMoney){
-			reloadData(null,pId);
-		}else{
-			reloadData(searchPartMoney,pId);
-		}
-		  showTwo();
+   $("#search").click( function(){
+	    showTabs('${pid}'+"/"+$("#searchPartMoney").val(),8);
+		showTwo();
 	})
+
 
   //获取 页面数据\保存数据
 function paramsContion(){
