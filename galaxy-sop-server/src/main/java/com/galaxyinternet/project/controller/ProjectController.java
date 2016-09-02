@@ -1010,7 +1010,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			int in = Integer.parseInt(p.getStage().substring(p.getStage().length() - 1));
 			int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length() - 1));
 			if (in < pin) {
-				if(!utilsService.checkProIsGreenChannel(SopConstatnts.Redis._GREEN_CHANNEL_6_, p.getPid())){
+				//if(!utilsService.checkProIsGreenChannel(SopConstatnts.Redis._GREEN_CHANNEL_6_, p.getPid())){
+				if(!utilsService.checkProIsGreenChannel(p.getPid())){
 					responseBody.setResult(new Result(Status.ERROR, null, "该操作已过期!"));
 					return responseBody;				
 				}
@@ -1443,7 +1444,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_);
-			
+			/*
 			boolean toGreen = false;
 			SopFile file = new SopFile();
 			file.setProjectId(pid);
@@ -1465,7 +1466,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			if(toGreen){
 				utilsService.saveByRedis(SopConstatnts.Redis._GREEN_CHANNEL_6_, pid);
 			}
-			
+			*/
 			
 		} catch (Exception e) {
 			responseBody

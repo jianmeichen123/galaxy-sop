@@ -11,14 +11,11 @@ import org.springframework.stereotype.Component;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.cache.Cache;
-import com.galaxyinternet.framework.core.exception.BusinessException;
-import com.galaxyinternet.scheduling.BaseGalaxyTask;
 import com.galaxyinternet.service.ProjectService;
-import com.galaxyinternet.utils.SopConstatnts;
 
 
 @Component(value="utilsService")
-public class UtilsService extends BaseGalaxyTask {
+public class UtilsService{
 
 	@Autowired
 	private ProjectService projectService;
@@ -31,15 +28,16 @@ public class UtilsService extends BaseGalaxyTask {
 	private boolean hasCheckedGreenChannel = false;
 	
 	
-	/**
+	/*
+	*//**
 		设置过时时间， 重新检索时间，单位秒，2小时 = 4 * 60 * 60
 		refreshTime = 2 * 60 * 60;
-	*/
+	*//*
 	@Override
 	protected void executeInteral() throws BusinessException {
 		 saveByRedis(SopConstatnts.Redis._GREEN_CHANNEL_6_,initIds());
 	}
-	
+	*/
 	
 	/**
 	 * 检查 项目id 是否跳过尽调阶段
@@ -65,6 +63,7 @@ public class UtilsService extends BaseGalaxyTask {
 		
 		return isGreen;
 	}
+	
 	
 	/**
 	 * 检查 项目id 是否跳过尽调阶段
@@ -136,9 +135,9 @@ public class UtilsService extends BaseGalaxyTask {
 		初始化 redis值时 用到
 	*/
 	public synchronized void saveByRedis(String key,List<Long> ids){
-		/*if(ids == null){
+		if(ids == null){
 			ids = new ArrayList<Long>();
-		}*/
+		}
 		cache.set(key, ids);
 	}
 	

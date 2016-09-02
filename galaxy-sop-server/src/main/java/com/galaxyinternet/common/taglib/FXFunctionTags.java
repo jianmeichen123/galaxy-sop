@@ -108,7 +108,7 @@ public class FXFunctionTags
 	{
 		UtilsService util = WebUtils.getBean(UtilsService.class);
 		if(projectId != null && util != null){
-			return util.checkProIsGreenChannel(SopConstatnts.Redis._GREEN_CHANNEL_6_, projectId);
+			return util.checkProIsGreenChannel(projectId);
 		}
 		return false;
 	}
