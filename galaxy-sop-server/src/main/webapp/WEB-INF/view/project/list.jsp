@@ -414,7 +414,8 @@
 	    				}
 
 	    				$('.pagination li').each(function(){
-	    	    			if($(this).text()==initParams.pageNum){
+	    					var totalPages = $("#project-table").bootstrapTable('getOptions').totalPages;
+	    	    			if($(this).text()==totalPages){
 	    	    				$(this).click();
 	    	    				//$(this).addClass('active')
 	    	    			}
