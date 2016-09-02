@@ -65,6 +65,7 @@ $(function(){
 	}
 }); */
 var isCreatedByUser = "${isCreatedByUser}";
+var isEditable = "${isEditable}";
 var pid='${pid}';
 if(null==pid||typeof(pid)=="underfind"||pid==""){
 	pid='${projectId}';

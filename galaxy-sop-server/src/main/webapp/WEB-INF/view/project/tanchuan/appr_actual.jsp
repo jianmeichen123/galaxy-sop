@@ -34,6 +34,10 @@
         </div>
     </div>
     <script type="text/javascript">
+    	if(isContainResourceByMark('add_appr_actual') && isTransfering != 'true')
+		{
+			$('[resource-mark="add_appr_actual"]').css("display","inline-block");
+		}
 	    function createDateFormat(value, row, index){
 	    	return time_zh(value, "年", "月", "日");
 	    }
@@ -41,12 +45,17 @@
 	    	return addCommas(fixSizeDecimal(value));
 	    }
 	    function operatorFormat(value, row, index){
-		      return [
-		              //
-					'<a resource-mark="edit_appr_actual" style="display: none"  class="editActualLink blue"  href="javascript:void(0)">编辑</a>',
-					'<a resource-mark="delete_appr_actual" style="display: none"  class="deleteActualLink blue"  href="javascript:void(0)">删除</a>',
-					'<a class="showActualLink blue" href="javascript:void(0)">查看</a>'
-			        ].join('');
+	    	var opts = '';
+	    	if(isContainResourceByMark('edit_appr_actual') && isTransfering != 'true')
+    		{
+	    		opts += '<a class="editActualLink blue"  href="javascript:void(0)">编辑</a>';
+    		}
+	    	if(isContainResourceByMark('delete_appr_actual') && isTransfering != 'true')
+    		{
+	    		opts += '<a class="deleteActualLink blue"  href="javascript:void(0)">删除</a>';
+    		}
+	    	opts += '<a class="showActualLink blue" href="javascript:void(0)">查看</a>';
+		    return opts;
 		 }
 	    var operatorEvent = {
 	    		'click .editActualLink' : function(e, value, row, index){
@@ -108,11 +117,7 @@
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
-	        	 $.each(allResourceToUser, function(index, element){
-	        		 console.log(element.resourceMark)
-	     			 $('[resource-mark="' + element.resourceMark + '"]').css("display","inline-block");
-	     			 
-	     		});
+	        	
 	        }
 	    });
 	    
@@ -128,7 +133,6 @@
     </script>
     <script src="<%=path %>/js/editApprActualDialog.js"></script>
     <script type="text/javascript">
-    
 	    function init(){
 	    	$("#btn_add_appr_actual").click(function(){
 	    		var formdata = {
@@ -144,7 +148,6 @@
 	    		editApprActualDialog.init(formdata);
 	    	});
 	    }
-	    console.log(allResourceToUser);
 	    $(document).ready(init());
     	
     </script>
