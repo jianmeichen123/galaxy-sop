@@ -86,12 +86,20 @@
 		    	        			var options = $('#actual-table').bootstrapTable('getOptions');
 		    	                	var data = options.data;
 		    	                	var pageNum_ = options.pageNumber; 
-		    	                	console.log(data);
+		    	                	
+		    	                	var toPageNum = 1;
+		    	                	if(pageNum_ != 1 &&　data.length != 1){
+		    	                		toPageNum = pageNum_;
+	                	        	}else if(pageNum_ != 1 &&　data.length == 1){
+		    	                		toPageNum = pageNum_ - 1;
+	                	        	}else
+	                	        		toPageNum = pageNum_;
 		    	                	
 		    	        			$('#actual-table').bootstrapTable('destroy');
 	    	                		$('#actual-table').bootstrapTable({
 	    	                	    	queryParamsType: 'size|page',
 	    	                			pageSize:5,
+	    	                			pageNumber:toPageNum,
 	    	                			showRefresh : false ,
 	    	                			url : Constants.sopEndpointURL+"/galaxy/grant/actual/searchActualList",
 	    	                			sidePagination: 'server',
@@ -101,9 +109,6 @@
 	    	                			pagination: true,
 	    	                	        search: false,
 	    	                	        queryParams:function(param){
-	    	                	        	if(pageNum_ != 1 &&　data.length != 1){
-	    	                	        		param.pageNum = pageNum_-1;
-	    	                	        	}
 	    	                	        	param.partGrantId = ${partId};
 	    	                	        	return param;
 	    	                	        },
