@@ -2130,4 +2130,4 @@ margin: 45px auto 30px;}
 .actual_all .health_case{border-radius:5px;border-bottom:0;}
 #actual-table td a{margin-right:10px;}
 
-.money{ position: absolute; top: -37px;  left: 300px;}
+.moeny_all .money ,#setValue .money{ position: absolute; top: -37px;  left: 300px;}
