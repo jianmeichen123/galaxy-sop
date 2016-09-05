@@ -30,7 +30,7 @@
 		                <dt>拨款时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" name="grantDetail" type="text" value="" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/>
+		                    	<input class="edittxt" name="grantDetail" type="text" value="" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>拨款时间只能是汉字或字符，长度为20"/>
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -39,7 +39,7 @@
 		                <dd>
 		                	
 		                	<div>
-		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="LIMIT_9_NUMBER" msg="<font color=red>*</font>支持9位长度的两位小数"/>
+		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="OTHER" regString="^((0\.\d*[1-9])|[1-9][0-9]{1,8}|([1-9]{1,9}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
 		                    </div> 
 	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>元</div> 
 		                </dd>

@@ -57,7 +57,7 @@
             	<div class="member proOperation">
                     <div class="top clearfix">
                         <!--按钮-->
-                        <c:if test="${isCreatedByUser }">
+                        <c:if test="${isEditable }">
                         <div class="btnbox_f btnbox_f1">
                             <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总拨款计划'>添加总拨款计划</a>
                         </div>
@@ -71,7 +71,7 @@
                         <dl class="fmdl fmdll clearfix">
                           <dt>计划拨款金额：</dt>
                           <dd>
-                            <input type="text" class="txt" id="searchPartMoney"/>
+                            <input type="text" class="txt" id="searchPartMoney" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')"/>
                           </dd>
                           <dd><a href="javascript:;" class="bluebtn ico cx" id="search" >搜索</a></dd>
                         </dl>
@@ -98,13 +98,18 @@
 <script src="<%=path %>/js/batchUpload.js" type="text/javascript" charset="utf-8"></script>
 <script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script>
+var isTransfering = "${fx:isTransfering(pid) }";
 var pId;
-  $(function(){  
+  $(function(){
 	pId="${pid}";
 	  $("#tabApprAllList").children('div').remove(); 
-		reloadData(null,pId);
-	 //只有创建人显示编辑按钮
-	  if(isCreatedByUser != 'true')
+	  searchPartMoney ="${searchPartMoney}";
+	  	if(searchPartMoney == "null" || "" == searchPartMoney){
+	  		searchPartMoney = null;
+	  	}
+	  	reloadData(searchPartMoney,pId);
+	  //只有创建人显示编辑按钮
+	  if(isEditable != 'true')
 	  {
 		  $("#tabApprAllList .b_agreement_r").hide();
 		  $("#tabApprAllList .edit-btn, #tabApprAllList .del-btn").hide();
@@ -145,6 +150,19 @@ var pId;
 		var _name= $self.attr("data-name");
 		var _total_name = $self.attr("data-total-name");
 		
+		var isFlag = true;
+		
+		if(_data_type == "edit"){
+			var _is_url =  Constants.sopEndpointURL + '/galaxy/grant/part/isGrantPart/'+$self.attr("data-part-id");
+			sendPostRequestByJsonObj(_is_url, {}, function(data){
+				if (data.result.status=="ERROR") {
+					layer.msg(data.result.message);
+					isFlag = false;
+				} 
+			});
+			
+		}
+		if(isFlag){
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
@@ -214,7 +232,8 @@ var pId;
 					initDialogVal();	
 				}//模版反回成功执行	
 			});
-			return false;
+		}
+	    return false;
 		});
 
 		//实际拨款信息列表
@@ -343,15 +362,16 @@ var pId;
 			 }
 		}
   }
- $("#search").click( function(){
+
+   $("#search").click( function(){
 		var searchPartMoney=$("#searchPartMoney").val();
 		if(null==searchPartMoney||""==searchPartMoney){
-			reloadData(null,pId);
-		}else{
-			reloadData(searchPartMoney,pId);
+			searchPartMoney = null;
 		}
-		  showTwo();
+		showTabs('${pid}'+"/"+searchPartMoney,8);
+		showTwo();
 	})
+
 
   //获取 页面数据\保存数据
 function paramsContion(){

@@ -17,6 +17,9 @@ public interface SopConstatnts {
 	public interface Redis{
 		//正在移交中的项目集，在redis对应的key
 		public static final String _transfer_projects_key_ = "transfer_projects_key";
+		
+		//跳过 尽调阶段 的项目id集，在redis对应的key
+		public static final String _GREEN_CHANNEL_6_ = "green_channel_6";
 	}
 	
 	public interface TaskCode{

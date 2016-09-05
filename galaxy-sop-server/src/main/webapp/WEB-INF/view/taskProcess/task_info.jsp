@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%
 	String path = request.getContextPath(); 
 %>
@@ -128,6 +129,9 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
+
+var isPrivilege_6 = "${fx:isPrivilege_6(projectId) }";
+
 $(function(){
 	createMenus(2);
 	getProjectInfo(projectLoaded);

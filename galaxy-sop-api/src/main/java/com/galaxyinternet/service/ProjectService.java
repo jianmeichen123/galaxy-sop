@@ -49,6 +49,8 @@ public interface ProjectService extends BaseService<Project> {
 	 * @return
 	 */
 	public Page<Project> queryPageListByChart(Project query,PageRequest pageRequest);
+
+	List<Long> getProIdsForPrivilege(Map<String, Object> params);
 	
 
 }

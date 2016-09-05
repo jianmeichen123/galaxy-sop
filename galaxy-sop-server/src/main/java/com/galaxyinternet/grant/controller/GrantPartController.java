@@ -131,6 +131,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 				return responseBody;
 			}
 			
+			
 			UrlNumber uNum = null;
 			Project project = new Project();
 			project = projectService.queryById(total.getProjectId());
@@ -161,6 +162,13 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 				uNum = UrlNumber.one;
 				grantPartService.insertGrantPart(grantPart);
 			}else{
+				GrantActual ga = new GrantActual();
+				ga.setPartGrantId(grantPart.getId());
+				Long actual = grantActualService.queryCount(ga);
+				if(actual > 0){
+					responseBody.setResult(new Result(Status.ERROR,null, "存在分期拨款计划,不允许进行删除操作"));
+					return responseBody;
+				}
 				uNum = UrlNumber.two;
 				grantPartService.upateGrantPart(grantPart);
 			}
@@ -181,8 +189,8 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
 	@RequestMapping(value = "/delGrantPart/{grantPartid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Delivery> delGrantPart(@PathVariable("grantPartid") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
-		ResponseData<Delivery> responseBody = new ResponseData<Delivery>();
+	public ResponseData<GrantPart> delGrantPart(@PathVariable("grantPartid") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<GrantPart> responseBody = new ResponseData<GrantPart>();
 		if(StringUtils.isEmpty(grantPartid)){
 			responseBody.setResult(new Result(Status.ERROR,null, "参数丢失!"));
 			return responseBody;
@@ -192,7 +200,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 			ga.setPartGrantId(grantPartid);
 			Long actual = grantActualService.queryCount(ga);
 			if(actual > 0){
-				responseBody.setResult(new Result(Status.ERROR,null, "存在分期拨款计划,不允许进行删除操作"));
+				responseBody.setResult(new Result(Status.ERROR,null, "存在实际拨款,不允许进行删除操作,不允许进行删除操作"));
 				return responseBody;
 			}
 			GrantPart part = grantPartService.queryById(grantPartid);
@@ -206,6 +214,34 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR,null, "删除失败"));
 			_common_logger_.error("delGrantPart 删除失败",e);
+		}
+		return responseBody;
+	}
+	
+	/**
+	 *校验
+	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@ResponseBody
+	@RequestMapping(value = "/isGrantPart/{grantPartid}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantPart> isGrantPart(@PathVariable("grantPartid") Long grantPartid,HttpServletRequest request,HttpServletResponse response ) {
+		ResponseData<GrantPart> responseBody = new ResponseData<GrantPart>();
+		if(StringUtils.isEmpty(grantPartid)){
+			responseBody.setResult(new Result(Status.ERROR,null, "参数丢失!"));
+			return responseBody;
+		}
+		try {
+			GrantActual ga = new GrantActual();
+			ga.setPartGrantId(grantPartid);
+			Long actual = grantActualService.queryCount(ga);
+			if(actual > 0){
+				responseBody.setResult(new Result(Status.ERROR,null, "存在实际拨款,不允许进行删除操作"));
+				return responseBody;
+			}
+			
+		} catch (Exception e) {
+			responseBody.setResult(new Result(Status.ERROR,null, "校验失败"));
+			_common_logger_.error("校验失败",e);
 		}
 		return responseBody;
 	}

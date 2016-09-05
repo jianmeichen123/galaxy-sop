@@ -531,7 +531,7 @@
  	    search: false, //显示搜索框
  	    pageList: [10,20,30],
  	   	queryParamsType: 'size|page',
- 	    queryParams:function(params){return params;},
+ 	    queryParams:function(params){params.projectId =projectId; return params;},
  	    sidePagination: "server", //服务端处理分页
  	          columns: [
  	                  {
@@ -620,7 +620,7 @@
      showRefresh: true,
      pageList: [10,20,30],
      queryParamsType: 'size|page',
-     queryParams:function(params){return params;},
+     queryParams:function(params){params.projectId =projectId;return params;},
      sidePagination: "server", //服务端处理分页
            columns: [
                    {

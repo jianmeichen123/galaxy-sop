@@ -20,7 +20,7 @@
     <div class="form clearfix">
         <div class="actual_all">
         	<input type="hidden" value="" name="partGrantId">
-        	<table id="actual-table" data-page-list="[5]" 
+        	<table id="actual-table" data-page-list="[5,10]" 
         		data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
@@ -34,6 +34,10 @@
         </div>
     </div>
     <script type="text/javascript">
+    	if(isContainResourceByMark('add_appr_actual') && isTransfering != 'true')
+		{
+			$('[resource-mark="add_appr_actual"]').css("display","inline-block");
+		}
 	    function createDateFormat(value, row, index){
 	    	return time_zh(value, "年", "月", "日");
 	    }
@@ -41,12 +45,17 @@
 	    	return addCommas(fixSizeDecimal(value));
 	    }
 	    function operatorFormat(value, row, index){
-		      return [
-		              //
-					'<a resource-mark="edit_appr_actual" style="display: none"  class="editActualLink blue"  href="javascript:void(0)">编辑</a>',
-					'<a resource-mark="delete_appr_actual" style="display: none"  class="deleteActualLink blue"  href="javascript:void(0)">删除</a>',
-					'<a class="showActualLink blue" href="javascript:void(0)">查看</a>'
-			        ].join('');
+	    	var opts = '';
+	    	if(isContainResourceByMark('edit_appr_actual') && isTransfering != 'true')
+    		{
+	    		opts += '<a class="editActualLink blue"  href="javascript:void(0)">编辑</a>';
+    		}
+	    	if(isContainResourceByMark('delete_appr_actual') && isTransfering != 'true')
+    		{
+	    		opts += '<a class="deleteActualLink blue"  href="javascript:void(0)">删除</a>';
+    		}
+	    	opts += '<a class="showActualLink blue" href="javascript:void(0)">查看</a>';
+		    return opts;
 		 }
 	    var operatorEvent = {
 	    		'click .editActualLink' : function(e, value, row, index){
@@ -67,13 +76,52 @@
 	    			layer.confirm('确定要删除吗?', {
 		        		  btn: ['确定', '取消'] //可以无限个按钮
 		        		}, function(index, layero){
+		        			
+		        			
 		        			sendGetRequest(platformUrl.deleteApprActual + "/" + row.id ,null,function(data){
 		    	        		if(data.result.status=="OK"){
-		    	        			layer.msg("删除成功");
-		    	        			 $('#actual-table').bootstrapTable('refresh',function(param){
-			    				        	param.partGrantId = ${partId};
-			    				        	return param;
-			    				        });
+		    	        			
+		    	        			layer.msg("删除成功"); 
+		    	        			
+		    	        			var options = $('#actual-table').bootstrapTable('getOptions');
+		    	                	var data = options.data;
+		    	                	var pageNum_ = options.pageNumber; 
+		    	                	
+		    	                	var toPageNum = 1;
+		    	                	if(pageNum_ != 1 &&　data.length != 1){
+		    	                		toPageNum = pageNum_;
+	                	        	}else if(pageNum_ != 1 &&　data.length == 1){
+		    	                		toPageNum = pageNum_ - 1;
+	                	        	}else
+	                	        		toPageNum = pageNum_;
+		    	                	
+		    	        			$('#actual-table').bootstrapTable('destroy');
+	    	                		$('#actual-table').bootstrapTable({
+	    	                	    	queryParamsType: 'size|page',
+	    	                			pageSize:5,
+	    	                			pageNumber:toPageNum,
+	    	                			showRefresh : false ,
+	    	                			url : Constants.sopEndpointURL+"/galaxy/grant/actual/searchActualList",
+	    	                			sidePagination: 'server',
+	    	                			method : 'post',
+	    	                			sortOrder : 'desc',
+	    	                			sortName : 'updated_time',
+	    	                			pagination: true,
+	    	                	        search: false,
+	    	                	        queryParams:function(param){
+	    	                	        	param.partGrantId = ${partId};
+	    	                	        	return param;
+	    	                	        },
+	    	                	        onLoadSuccess: function (data) {
+	    	                	        	 $.each(allResourceToUser, function(index, element){
+	    	                	        		 console.log(element.resourceMark)
+	    	                	     			 $('[resource-mark="' + element.resourceMark + '"]').css("display","inline-block");
+	    	                	     			 
+	    	                	     		});
+	    	                	        }
+	    	                	    });
+		    	        			 
+	    	                	    
 		    					}else{
 		    						layer.msg(data.result.errorCode);
 		    					}
@@ -108,11 +156,7 @@
 	        	return param;
 	        },
 	        onLoadSuccess: function (data) {
-	        	 $.each(allResourceToUser, function(index, element){
-	        		 console.log(element.resourceMark)
-	     			 $('[resource-mark="' + element.resourceMark + '"]').css("display","inline-block");
-	     			 
-	     		});
+	        	
 	        }
 	    });
 	    
@@ -128,7 +172,6 @@
     </script>
     <script src="<%=path %>/js/editApprActualDialog.js"></script>
     <script type="text/javascript">
-    
 	    function init(){
 	    	$("#btn_add_appr_actual").click(function(){
 	    		var formdata = {
@@ -144,7 +187,6 @@
 	    		editApprActualDialog.init(formdata);
 	    	});
 	    }
-	    console.log(allResourceToUser);
 	    $(document).ready(init());
     	
     </script>

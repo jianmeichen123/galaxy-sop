@@ -10,7 +10,7 @@
 			<li class="no"><a href="javascript:;">访谈记录</a></li>
 			<li class="no"><a href="javascript:;">会议纪要</a></li>
 			<li data-index="7"><a href="javascript:;" onclick="showTabs(${projectId},7)">交割前事项</a></li>
-			<li data-index="8"><a href="javascript:;" onclick="showTabs(${projectId},8)">拨款信息</a></li>
+			<li data-index="8"><a href="javascript:;" onclick="showTabs('${projectId}/null',8)">拨款信息</a></li>
 			<li data-index="9"><a href="javascript:;" onclick="showTabs(${projectId},9)">运营分析</a></li>
 			<li data-index="5"><a href="javascript:;" onclick="showTabs(${projectId},5)">项目文档</a></li>
 			<li data-index="6"><a href="javascript:;" onclick="showTabs(${projectId},6)">操作日志</a></li>
@@ -21,7 +21,7 @@
 			<li data-index="3"><a href="javascript:;" onclick="showTabs(${projectId},3)">访谈记录</a></li>
 			<li data-index="4"><a href="javascript:;" onclick="showTabs(${projectId},4)">会议纪要</a></li>
 			<li data-index="7"><a href="javascript:;" onclick="showTabs(${projectId},7)">交割前事项</a></li>
-			<li data-index="8"><a href="javascript:;" onclick="showTabs(${projectId},8)">拨款信息</a></li>
+			<li data-index="8"><a href="javascript:;" onclick="showTabs('${projectId}/null',8)">拨款信息</a></li>
 			<li data-index="9"><a href="javascript:;" onclick="showTabs(${projectId},9)">运营分析</a></li>
 			<li data-index="5"><a href="javascript:;" onclick="showTabs(${projectId},5)">项目文档</a></li>
 			<li data-index="6"><a href="javascript:;" onclick="showTabs(${projectId},6)">操作日志</a></li>

@@ -30,4 +30,10 @@
 		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
 		<function-signature>java.lang.String getTransferingPids()</function-signature>
 	</function>
+	
+	<function>
+		<name>isPrivilege_6</name>
+		<function-class>com.galaxyinternet.common.taglib.FXFunctionTags</function-class>
+		<function-signature>boolean isPrivilege_6(java.lang.Long)</function-signature>
+	</function>
 </taglib>

@@ -353,7 +353,11 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 
 	private OperationLogs populateOperationLog(OperationLogType type, User user, Map<String, Object> map, RecordType recordType) {
 		OperationLogs entity = new OperationLogs();
+		
 		entity.setOperationContent(type.getContent());
+		if(type.getUniqueKey().contains("project/breakpro")){
+			entity.setOperationContent(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
+		}
 		entity.setOperationType(type.getType());
 		entity.setUid(user.getId());
 		entity.setUname(user.getRealName());
@@ -380,6 +384,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 		}
 		entity.setReason(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON)));
 		entity.setRecordType(recordType.getType());
+		
 		return entity;
 	}
 

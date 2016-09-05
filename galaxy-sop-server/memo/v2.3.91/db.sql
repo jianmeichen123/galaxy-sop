@@ -27,6 +27,7 @@ CREATE TABLE `sop_grant_part` (
   `part_status` int(11) DEFAULT 0 COMMENT '分期拨款记录状态：默认0表示正常',
   `updated_time` bigint(20) DEFAULT NULL COMMENT '项目的最近一次修改日期',
   `created_time` bigint(20) NOT NULL COMMENT '项目的创建日期',
+  `file_num` tinyint(4) DEFAULT NULL COMMENT '文件个数',
   PRIMARY KEY (`id`),
   KEY `sop_grant_part_index` (`total_grant_id`,`create_uid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

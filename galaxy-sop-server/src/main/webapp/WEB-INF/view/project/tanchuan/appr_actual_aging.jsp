@@ -35,7 +35,7 @@
 		                <dd>
 		                	
 		                	<div>
-		                    	<input class=" txt " name="grantMoney" type="text" value="" valType="LIMIT_9_NUMBER" msg="<font color=red>*</font>支持9位长度的两位小数"/>
+		                    	<input class=" txt " name="grantMoney" type="text" value="" valType="OTHER" regString="^([1-9]{1,9}|[0-9]{1,9}\.[0-9]{1,2})$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
 		                    </div> 
 	                        <div class="gray">剩余金额${remainMoney }元</div> 
 		                </dd>

@@ -94,8 +94,8 @@ public enum OperationLogType {
 	//点击工商变更登记凭证催办列里的“催办”
 	REMIND_COMPANY_CHANGE_CERTIFICATE("", OperType.REMINDER.getOperationType(), "工商变更登记凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
 	
-	//点击工商变更登记凭证催办列里的“催办”
-	BREAK_PROJECT("/galaxy/project/breakpro", OperType.BREAK.getOperationType(), null,null),
+	//否决项目日志
+	BREAK_PROJECT("/galaxy/project/breakpro", OperType.BREAK.getOperationType(), null,"否决项目"),
 	
 	 /**
      * 人，法，财操作项目日志添加开始
@@ -151,7 +151,7 @@ public enum OperationLogType {
 
 	//实际拨款信息
 	_14_3_1	    ("/galaxy/grant/actual/saveApprActual/"+UrlNumber.one,		OperType.ADD.getOperationType() ,	    "实际拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_3_2	    ("/galaxy/grant/actual/saveApprActual/"+UrlNumber.two,		OperType.UPDATE.getOperationType() ,	"实际拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_3_2	    ("/galaxy/grant/actual/saveApprActual/"+UrlNumber.two,		"编辑",									"实际拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 	_14_3_3     ("/galaxy/grant/actual/deleteApprActual/"+UrlNumber.three,	OperType.DELETE.getOperationType() ,	"实际拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 	
 	/*项目操作日志的配置------------------------------------结束----------------------------------------------------------*/
