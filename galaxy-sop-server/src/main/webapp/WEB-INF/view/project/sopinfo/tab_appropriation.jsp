@@ -450,7 +450,7 @@ function del_grantPart(id){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			showTabs('${pid}'+'/'+searchPartMoney,8);
+			showTabs('${pid}'+'/null',8);
 		} else {
 			layer.msg(data.result.message);
 		}
