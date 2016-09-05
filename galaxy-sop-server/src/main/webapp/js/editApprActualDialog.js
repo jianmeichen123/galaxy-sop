@@ -80,7 +80,7 @@ var editApprActualDialog = {
 													var remainMoneyNew=remainMoneyTotal-grantMoney;
 													remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
 													if(remainMoneyNew<0 || remainMoneyNew==0){
-														$surplusGrantMoney.html("剩余金额0.00元");
+														$surplusGrantMoney.html("剩余金额0元");
 													}else{
 													    $surplusGrantMoney.html("剩余金额" + remainMoney + "元");
 													}	          
