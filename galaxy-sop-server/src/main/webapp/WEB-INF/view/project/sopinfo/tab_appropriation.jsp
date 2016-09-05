@@ -100,13 +100,18 @@
 <script>
 var isTransfering = "${fx:isTransfering(pid) }";
 var pId;
+var searchPartMoney;
   $(function(){
 	pId="${pid}";
 	  $("#tabApprAllList").children('div').remove(); 
 	  searchPartMoney ="${searchPartMoney}";
 	  	if(searchPartMoney == "null" || "" == searchPartMoney){
 	  		searchPartMoney = null;
+	  		$("#searchPartMoney").val("");
+	  	}else{
+	  		$("#searchPartMoney").val(searchPartMoney);
 	  	}
+	  	
 	  	reloadData(searchPartMoney,pId);
 	  //只有创建人显示编辑按钮
 	  if(isEditable != 'true')
@@ -364,7 +369,7 @@ var pId;
   }
 
    $("#search").click( function(){
-		var searchPartMoney=$("#searchPartMoney").val();
+	    var searchPartMoney=$("#searchPartMoney").val();
 		if(null==searchPartMoney||""==searchPartMoney){
 			searchPartMoney = null;
 		}
@@ -414,7 +419,7 @@ function toInitBachUpload(){
  * 回调函数
  */
 function saveCallBackFuc(data){
-	showTabs('${pid}'+'/null',8);
+	showTabs('${pid}'+'/'+searchPartMoney,8);
 }
 function to_del_grantPart(selectRowId){
 	layer.confirm('是否删除分期拨款计划?',
@@ -445,7 +450,7 @@ function del_grantPart(id){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			showTabs('${pid}'+'/null',8);
+			showTabs('${pid}'+'/'+searchPartMoney,8);
 		} else {
 			layer.msg(data.result.message);
 		}
