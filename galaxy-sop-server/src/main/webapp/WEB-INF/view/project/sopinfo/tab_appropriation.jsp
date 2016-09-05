@@ -390,7 +390,7 @@ function paramsContion(){
 	var grantDetail = $("#grantDetail").val();
 	
 	if(grantDetail.indexOf(" ") > -1){
-		layer.msg("输入参数格式错误!");
+		layer.msg("拨款时间输入错误!");
 		return false;
 	}
 	var remainMoney = $("#remainMoney").val();
