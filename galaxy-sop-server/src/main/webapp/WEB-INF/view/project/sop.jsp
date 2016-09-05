@@ -270,7 +270,7 @@
 				<!--表格内容-->
 				<table id="projectProgress_2_table"
 					data-url="<%=path%>/galaxy/project/progress/queryMeet"
-					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[10,20,30]">
+					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[3,10]">
 					<thead>
 						<tr>
 							<th  data-formatter="metcolumnFormat" class="th_no1">会议概况</th>
@@ -297,7 +297,7 @@
 				</div>
 				<!--表格内容-->
 				<table id="projectProgress_3_table"
-					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,10]"
 					data-toolbar="#projectProgress_3_table_custom-toolbar">
 					<thead>
 						<tr>
@@ -337,7 +337,7 @@
 				</div>
 				<!--表格内容-->
 				<table id="projectProgress_4_table"
-					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,10]"
 					data-toolbar="#projectProgress_4_table_custom-toolbar">
 					<thead>
 						<tr>
@@ -364,7 +364,7 @@
 				</div>
 				<!--表格内容-->
 				<table id="projectProgress_7_table"
-					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[10,20,30]"
+					data-url="<%=path%>/galaxy/project/progress/queryMeet"  data-page-list="[3,10]"
 					data-toolbar="#projectProgress_7_table_custom-toolbar">
 					<thead>
 						<tr>
