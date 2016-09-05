@@ -39,7 +39,7 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="OTHER" regString="^(([1-9])|(0\.\d*[1-9])|[1-9][0-9]{1,8}|([1-9]{1,9}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
+		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="OTHER" regString="^(([1-9])|(0\.\d*[1-9])|[1-9][0-9]{1,8}|([1-9][0-9]{1,8}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
 		                    	<span class='money'>元</span>
 		                    </div> 
 	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>元</div> 
