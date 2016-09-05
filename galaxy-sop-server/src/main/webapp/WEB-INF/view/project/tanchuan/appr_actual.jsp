@@ -20,6 +20,7 @@
     <div class="form clearfix">
         <div class="actual_all">
         	<input type="hidden" value="" name="partGrantId">
+        	<input type="hidden" value="" id="partFlag">
         	<table id="actual-table" data-page-list="[5,10]" 
         		data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
