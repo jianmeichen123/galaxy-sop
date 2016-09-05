@@ -92,7 +92,7 @@
 			  var remainMoneyNew=remainMoney-grantMoney;
 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
 			      if(remainMoneyNew<0 || remainMoneyNew==0){
-			    	  $("#formatRemainMoney").html("0.00");
+			    	  $("#formatRemainMoney").html("0");
 			      }else{
 			    	  $("#formatRemainMoney").html(remainMoney);
 			      }	          
