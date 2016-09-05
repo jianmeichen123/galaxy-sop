@@ -94,7 +94,7 @@ function  assembleHtml(grantTotal,i){
 
 function  assembleSingleTabHtml(grantPart,grantName){
 	 var value='<tr>'	 
-		   +'<td><a class="blue" href="javascript:void(0)" data-part-id='+grantPart.id+' data-btn="actual" data-name="实际拨款信息列表">'+grantPart.grantName+'</a></td>'
+		   +'<td><a class="blue" href="javascript:void(0)" title="点击进入详情可查看实际拨款信息" data-part-id='+grantPart.id+' data-btn="actual" data-name="实际拨款信息列表">'+grantPart.grantName+'</a></td>'
 		   +'<td>'+grantPart.grantDetail+'</td>'
 		   +'<td>'+addCommas(fixSizeDecimal(grantPart.grantMoney))+'</td>'
 		   +'<td>'+addCommas(fixSizeDecimal(grantPart.actualMoney))+'</td>'
