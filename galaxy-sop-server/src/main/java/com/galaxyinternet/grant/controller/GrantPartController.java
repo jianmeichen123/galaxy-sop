@@ -200,7 +200,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 			ga.setPartGrantId(grantPartid);
 			Long actual = grantActualService.queryCount(ga);
 			if(actual > 0){
-				responseBody.setResult(new Result(Status.ERROR,null, "存在实际拨款,不允许进行删除操作,不允许进行删除操作"));
+				responseBody.setResult(new Result(Status.ERROR,null, "存在实际拨款,不允许进行删除操作"));
 				return responseBody;
 			}
 			GrantPart part = grantPartService.queryById(grantPartid);
@@ -235,7 +235,7 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 			ga.setPartGrantId(grantPartid);
 			Long actual = grantActualService.queryCount(ga);
 			if(actual > 0){
-				responseBody.setResult(new Result(Status.ERROR,null, "存在实际拨款,不允许进行删除操作"));
+				responseBody.setResult(new Result(Status.ERROR,null, "存在实际拨款,不允许进行编辑操作"));
 				return responseBody;
 			}
 			
