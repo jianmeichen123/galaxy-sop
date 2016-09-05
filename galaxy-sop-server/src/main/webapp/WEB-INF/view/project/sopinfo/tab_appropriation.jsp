@@ -253,53 +253,14 @@ var searchPartMoney;
 			var $self = $(this);
 			var _url=platformUrl.toApprActualPage + "/" + $self.attr("data-part-id");
 			var _name= $self.attr("data-name");
+			var _flag= $self.attr("data-flag");
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
+					$("#partFlag").val(_flag);
+					var  v=$("#partFlag").val();
 					$("#popup_name").html(_name);
-						//查看实际拨款信息
-					$("[data-btn='actual_look']").on("click",function(){ 
-						var $self = $(this);
-						var _url = platformUrl.toApprActualLock;
-						var _name= $self.attr("data-name");
-						$.getHtml({
-							url:_url,//模版请求地址
-							data:"",//传递参数
-							okback:function(){
-								$("#popup_name_look").html(_name);
-							}//模版反回成功执行	
-						});
-						return false;
-					});
-						//编辑实际拨款信息
-					$("[data-btn='edit_actual']").on("click",function(){ 
-						var $self = $(this);
-						var _url=platformUrl.toApprActualPage;
-						var _name= $self.attr("data-name");
-						$.getHtml({
-							url:_url,//模版请求地址
-							data:"",//传递参数
-							okback:function(){
-								$(".popup_name_edit").html(_name);
-							}//模版反回成功执行	
-						});
-						return false;
-					});
-				//添加实际拨款信息
-					$("[data-btn='edit_actual']").on("click",function(){ 
-						var $self = $(this);
-						var _url = platformUrl.toApprActualPage;
-						var _name= $self.attr("data-name");
-						$.getHtml({
-							url:_url,//模版请求地址
-							data:"",//传递参数
-							okback:function(){
-								$(".popup_name_edit").html(_name);
-							}//模版反回成功执行	
-						});
-						return false;
-					});
 				}//模版反回成功执行	
 			});
 			return false;
