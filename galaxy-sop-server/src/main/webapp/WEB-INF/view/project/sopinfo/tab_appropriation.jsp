@@ -221,16 +221,21 @@ var searchPartMoney;
 
 						 var remainMoney=parseInt(delCommas($("#formatRemainMoney").text()));
 						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
-				          $("#grantMoney").blur(function(){
-				 			 var grantMoney=$("#grantMoney").val();
-				 			  var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
-				 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
-				 			      if(remainMoneyNew<0 || remainMoneyNew==0){
-				 			    	  $("#formatRemainMoney").html("0");
-				 			      }else{
-				 			    	  $("#formatRemainMoney").html(remainMoney+'fff');
-				 			      }	          
-				 		  }) 
+						  $("#grantMoney").blur(function(){
+					 			 var grantMoney=$("#grantMoney").val();
+					 			 if(grantMoney<0){
+					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))))
+					 			 }else{
+					 				var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
+					 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+					 			      if(remainMoneyNew<0 || remainMoneyNew==0){
+					 			    	  $("#formatRemainMoney").html("0");
+					 			      }else{
+					 			    	  $("#formatRemainMoney").html(remainMoney);
+					 			      }	
+					 			 }
+					 			            
+					 		  })  
 						 
 					}else{
 						$("#partId").remove();
