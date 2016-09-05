@@ -162,13 +162,6 @@ public class GrantPartController extends BaseControllerImpl<GrantPart, GrantPart
 				uNum = UrlNumber.one;
 				grantPartService.insertGrantPart(grantPart);
 			}else{
-				GrantActual ga = new GrantActual();
-				ga.setPartGrantId(grantPart.getId());
-				Long actual = grantActualService.queryCount(ga);
-				if(actual > 0){
-					responseBody.setResult(new Result(Status.ERROR,null, "存在分期拨款计划,不允许进行删除操作"));
-					return responseBody;
-				}
 				uNum = UrlNumber.two;
 				grantPartService.upateGrantPart(grantPart);
 			}

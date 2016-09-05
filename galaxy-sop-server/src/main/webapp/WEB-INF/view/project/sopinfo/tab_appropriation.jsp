@@ -155,20 +155,18 @@ var searchPartMoney;
 		var _name= $self.attr("data-name");
 		var _total_name = $self.attr("data-total-name");
 		
-		var isFlag = true;
+		var isFlag = false;
 		
 		if(_data_type == "edit"){
 			var _is_url =  Constants.sopEndpointURL + '/galaxy/grant/part/isGrantPart/'+$self.attr("data-part-id");
 			sendPostRequestByJsonObj(_is_url, {}, function(data){
 				if (data.result.status=="ERROR") {
-					layer.msg(data.result.message);
-					isFlag = false;
+					isFlag = true;
 				} 
 			});
 			
 		}
-		if(isFlag){
-			$.getHtml({
+		$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
@@ -191,7 +189,11 @@ var searchPartMoney;
 								$("#actual_aging_container [name='grantDetail']").val(grantPartInfo.grantDetail);
 								$("#actual_aging_container [name='grantMoney']").val(grantPartInfo.grantMoney);
 								$("#actual_aging_container [name='oldRemainMoney']").val(grantPartInfo.grantMoney);
-								
+								if(isFlag)
+								{
+									$("#actual_aging_container [name='grantMoney']").attr("type","hidden");
+									$("#editMoney").html(grantPartInfo.grantMoney);
+								}
 								$.each(data.entity.files,function(){
 									var but = "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
 									var htm = "<tr id='"+this.id+"tr'>"+
@@ -219,16 +221,21 @@ var searchPartMoney;
 
 						 var remainMoney=parseInt(delCommas($("#formatRemainMoney").text()));
 						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
-				          $("#grantMoney").blur(function(){
-				 			 var grantMoney=$("#grantMoney").val();
-				 			  var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
-				 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
-				 			      if(remainMoneyNew<0 || remainMoneyNew==0){
-				 			    	  $("#formatRemainMoney").html("0.00");
-				 			      }else{
-				 			    	  $("#formatRemainMoney").html(remainMoney);
-				 			      }	          
-				 		  }) 
+						  $("#grantMoney").blur(function(){
+					 			 var grantMoney=$("#grantMoney").val();
+					 			 if(grantMoney<0){
+					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))))
+					 			 }else{
+					 				var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
+					 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+					 			      if(remainMoneyNew<0 || remainMoneyNew==0){
+					 			    	  $("#formatRemainMoney").html("0");
+					 			      }else{
+					 			    	  $("#formatRemainMoney").html(remainMoney);
+					 			      }	
+					 			 }
+					 			            
+					 		  })  
 						 
 					}else{
 						$("#partId").remove();
@@ -237,7 +244,7 @@ var searchPartMoney;
 					initDialogVal();	
 				}//模版反回成功执行	
 			});
-		}
+		
 	    return false;
 		});
 
@@ -259,45 +266,50 @@ var searchPartMoney;
 			return false;
 		});
 	 createMenus(5);
-     showTwo();
-  })
- 
-   function showTwo(){
-	// 点击一次加载2条
-	    var tabApprSingleListBlock=$("#tabApprAllList .agreement").length;
-	    $("#tabApprAllList .agreement:lt(2)").css("display","block");
-	    if(tabApprSingleListBlock==0){
-	    	$(".proOperation .show_total").css("display","none");
-	    }
-	    if(tabApprSingleListBlock<3){
-	    	 $(".proOperation .show_more").css("display","none");
-	    	 $(".show_total .end").text(tabApprSingleListBlock);//左侧显示条数
-	    	 $(".show_total .total").text(tabApprSingleListBlock);//左侧显示条数
-	    }
-	    if(tabApprSingleListBlock>2){
-	 	   $(".proOperation .show_more").css("display","block");
-	 	  $(".show_total .end").text('2');//左侧显示条数
-	 	  $(".show_total .total").text(tabApprSingleListBlock);//左侧显示条数
-	    }
-
-	    var clickNum = 0; //点击的次数
-	    $(".proOperation .show_more").unbind('click').click(function(event) {
-	    clickNum++;
-	    var iNum = 2*clickNum+2; //每次点击加载的条数
-	    //console.log(iNum)
-	    $("#tabApprAllList .agreement:lt("+iNum+")").css("display","block");
-	    if(iNum>tabApprSingleListBlock){
-	    	$(".show_total .end").text(tabApprSingleListBlock);
-	    }else{
-	    	$(".show_total .end").text(iNum);
-	    }
-	    if(iNum>tabApprSingleListBlock || iNum==tabApprSingleListBlock){
-	    	 $(".proOperation .show_more").css("display","none");
-	    } 
-	    return false;
-	    });
-	    
+	 showRow("${numOfShow}");
+  });
+  /***
+  *显示数据
+  *param nums 显示记录数
+  ***/
+  function showRow(nums)
+  {
+	  var total = $("#tabApprAllList .agreement").length;
+	  if(typeof(nums) == 'undefined')
+	  {
+		  nums = 2;
+	  }
+	  num = Math.min(nums,total);
+      if(num<=0)
+      {
+      	$(".proOperation .show_total").css("display","none");
+      	return;
+      }
+      //显示数据
+	  $("#tabApprAllList .agreement:lt("+num+")").css("display","block");
+      //统计信息
+	  var numOfShow = $("#tabApprAllList .agreement:visible").length;
+	  var numOfHide = $("#tabApprAllList .agreement:hidden").length;
+	  $(".show_total .end").text(numOfShow);//左侧显示条数
+ 	  $(".show_total .total").text(total);//左侧显示条数
+ 	  //是否全部显示
+ 	  if(numOfShow >= total)
+	  {
+ 		 $(".proOperation .show_more").css("display","none");
+	  }
+ 	  else
+	  {
+ 		 $(".proOperation .show_more").css("display","block");
+	  }
+ 	 $(".proOperation .show_more")
+ 	 .unbind('click')
+ 	 .click(function(event) {
+ 		showRow(numOfShow+2);
+ 	 });
+ 	  
+ 	  
   }
+   
    function queryBack1(data){
 	  var result = data.result.status;
 		if(result == "ERROR"){ //OK, ERROR
@@ -335,7 +347,7 @@ var searchPartMoney;
 			searchPartMoney = null;
 		}
 		showTabs('${pid}'+"/"+searchPartMoney,8);
-		showTwo();
+		showRow(2);
 	})
 
 
@@ -346,6 +358,12 @@ function paramsContion(){
 		return false;
 	}
 	var partMoney = $("#grantMoney").val();
+	var grantDetail = $("#grantDetail").val();
+	
+	if(grantDetail.indexOf(" ") > -1){
+		layer.msg("拨款时间输入错误!");
+		return false;
+	}
 	var remainMoney = $("#remainMoney").val();
 	var grantMoneyOld=$("#oldRemainMoney").val();
 	var newgrant = Number(grantMoneyOld)+Number(remainMoney);
@@ -381,6 +399,7 @@ function toInitBachUpload(){
  */
 function saveCallBackFuc(data){
 	showTabs('${pid}'+'/'+searchPartMoney,8);
+	
 }
 function to_del_grantPart(selectRowId){
 	layer.confirm('是否删除分期拨款计划?',
@@ -411,7 +430,7 @@ function del_grantPart(id){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			showTabs('${pid}'+'/'+searchPartMoney,8);
+			showTabs('${pid}'+'/null',8);
 		} else {
 			layer.msg(data.result.message);
 		}

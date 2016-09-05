@@ -30,7 +30,7 @@
 		                <dt>拨款时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" name="grantDetail" type="text" value="" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>拨款时间只能是汉字或字符，长度为20"/>
+		                    	<input class="edittxt" id="grantDetail" name="grantDetail" type="text" value="" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>拨款时间只能是汉字或字符，长度为20"/>
 		                    </div> 
 		                </dd>
 		            </dl>
@@ -40,6 +40,7 @@
 		                	
 		                	<div class='moeny_all'>
 		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="OTHER" regString="^(([1-9])|(0\.\d*[1-9])|[1-9][0-9]{1,8}|([1-9]{1,9}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
+		                    	<span id="editMoney"></span>
 		                    	<span class='money'>元</span>
 		                    </div> 
 	                        <div class="gray">剩余金额<span id="formatRemainMoney"></span>元</div> 
@@ -88,14 +89,19 @@
 	         
 		  $("#grantMoney").blur(function(){
 			 var grantMoney=$("#grantMoney").val();
-			  var remainMoney = '${remainMoney}';
-			  var remainMoneyNew=remainMoney-grantMoney;
-			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
-			      if(remainMoneyNew<0 || remainMoneyNew==0){
-			    	  $("#formatRemainMoney").html("0.00");
-			      }else{
-			    	  $("#formatRemainMoney").html(remainMoney);
-			      }	          
+			 if(grantMoney<0){
+	 				$("#formatRemainMoney").html(remainMoney)
+	 			 }else{
+	 				var remainMoney = '${remainMoney}';
+	 				var remainMoneyNew=remainMoney-grantMoney;
+	 				    remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+	 				if(remainMoneyNew<0 || remainMoneyNew==0){
+	 				    $("#formatRemainMoney").html("0");
+	 				}else{
+	 				    $("#formatRemainMoney").html(remainMoney);
+	 				      }	 
+	 			 }
+			            
 		  })
 		  
 	   });
