@@ -414,7 +414,7 @@ function toInitBachUpload(){
  * 回调函数
  */
 function saveCallBackFuc(data){
-	showTabs('${pid}',8);
+	showTabs('${pid}'+'/null',8);
 }
 function to_del_grantPart(selectRowId){
 	layer.confirm('是否删除分期拨款计划?',
@@ -445,7 +445,7 @@ function del_grantPart(id){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			showTabs('${pid}',8);
+			showTabs('${pid}'+'/null',8);
 		} else {
 			layer.msg(data.result.message);
 		}
