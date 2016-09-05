@@ -71,7 +71,7 @@
                         <dl class="fmdl fmdll clearfix">
                           <dt>计划拨款金额：</dt>
                           <dd>
-                            <input type="text" class="txt" id="searchPartMoney" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')"/>
+                            <input type="text" class="txt" id="searchPartMoney" valType="OTHER" regString="^(([1-9])|(0\.\d*[1-9])|[1-9][0-9]{1,8}|([1-9]{1,9}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
                           </dd>
                           <dd><a href="javascript:;" class="bluebtn ico cx" id="search" >搜索</a></dd>
                         </dl>
