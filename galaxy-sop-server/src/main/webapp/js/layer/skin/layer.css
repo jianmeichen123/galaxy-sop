@@ -403,7 +403,7 @@ html #layui_layer_skinlayercss{
 	background-position:-49px -40px
 }
 .layui-layer-setwin .layui-layer-close1{
-	background-position:0 -40px;
+	background-position:2px -38px;
 	cursor:pointer
 }
 .layui-layer-setwin .layui-layer-close1:hover{
