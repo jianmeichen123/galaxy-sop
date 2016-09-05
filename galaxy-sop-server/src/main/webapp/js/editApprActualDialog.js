@@ -24,6 +24,7 @@ var editApprActualDialog = {
 										if(data.result.status=='OK'){
 											var $protocolName = $("#form_edit_actual_dialog").find("#label_protocol_name") //创业服务协议
 											var $planGrantTime = $("#form_edit_actual_dialog").find("#label_plan_grant_time") //计划拨款时间
+											var $planGrantMoney = $("#form_edit_actual_dialog").find("#label_plan_grant_money") //计划拨款金额
 											var $labelGrantMoney = $("#form_edit_actual_dialog").find("#label_grant_money"); //实际拨款协议上层标签
 											var $formGrantMoney = $("#form_edit_actual_dialog").find("#form_grant_money"); //实际拨款金额文本
 											var $surplusGrantMoney = $("#form_edit_actual_dialog").find("#label_surplus_grant_money"); //剩余金额
@@ -56,6 +57,9 @@ var editApprActualDialog = {
 											}
 											if(data.entity.planGrantTime){
 												$planGrantTime.html(data.entity.planGrantTime)
+											}
+											if(data.entity.planGrantMoney){
+												$planGrantMoney.html((data.entity.planGrantMoney ? addCommas(fixSizeDecimal(parseFloat(data.entity.planGrantMoney))) : 0) + "元");
 											}
 											if(data.entity.grantMoney){
 												if(formdata.operatorFlag=='3'){

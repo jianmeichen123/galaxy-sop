@@ -155,20 +155,9 @@ var searchPartMoney;
 		var _name= $self.attr("data-name");
 		var _total_name = $self.attr("data-total-name");
 		
-		var isFlag = true;
 		
-		if(_data_type == "edit"){
-			var _is_url =  Constants.sopEndpointURL + '/galaxy/grant/part/isGrantPart/'+$self.attr("data-part-id");
-			sendPostRequestByJsonObj(_is_url, {}, function(data){
-				if (data.result.status=="ERROR") {
-					layer.msg(data.result.message);
-					isFlag = false;
-				} 
-			});
 			
-		}
-		if(isFlag){
-			$.getHtml({
+		$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
@@ -191,6 +180,8 @@ var searchPartMoney;
 								$("#actual_aging_container [name='grantDetail']").val(grantPartInfo.grantDetail);
 								$("#actual_aging_container [name='grantMoney']").val(grantPartInfo.grantMoney);
 								$("#actual_aging_container [name='oldRemainMoney']").val(grantPartInfo.grantMoney);
+								$("#actual_aging_container [name='grantMoney']").attr("disabled","disabled");
+								
 								
 								$.each(data.entity.files,function(){
 									var but = "<button type='button' id='"+this.id+"btn' onclick=del('"+this.id+"','"+this.fileName+"','textarea2')>删除</button>" ;
@@ -237,7 +228,7 @@ var searchPartMoney;
 					initDialogVal();	
 				}//模版反回成功执行	
 			});
-		}
+		
 	    return false;
 		});
 
@@ -419,7 +410,12 @@ function toInitBachUpload(){
  * 回调函数
  */
 function saveCallBackFuc(data){
-	showTabs('${pid}'+'/'+searchPartMoney,8);
+	if(data.result.status = "OK"){
+		showTabs('${pid}'+'/'+searchPartMoney,8);
+	}else{
+		layer.msg(data.result.message);
+	}
+	
 }
 function to_del_grantPart(selectRowId){
 	layer.confirm('是否删除分期拨款计划?',
@@ -450,7 +446,7 @@ function del_grantPart(id){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			showTabs('${pid}'+'/'+searchPartMoney,8);
+			showTabs('${pid}'+'/null',8);
 		} else {
 			layer.msg(data.result.message);
 		}
