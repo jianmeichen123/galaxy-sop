@@ -49,7 +49,7 @@
 						layer.msg(data.result.message);
 				}else{
 					layer.msg(data.result.message);
-					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}");
+					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}/null");
 				}
 				
 			});
