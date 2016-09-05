@@ -3085,6 +3085,13 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("pname", proinfo.getProjectName());
 		request.setAttribute("projectId", pid);
 		request.setAttribute("searchPartMoney", searchPartMoney);
+		
+		String numOfShow = request.getParameter("numOfShow");
+		if(numOfShow == null)
+		{
+			numOfShow = "2";
+		}
+		request.setAttribute("numOfShow", numOfShow);
 		return "project/sopinfo/tab_appropriation";
 	}
 	
