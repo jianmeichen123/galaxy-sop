@@ -22,7 +22,7 @@
 	                <dt>计划拨款金额 ：</dt>
 	                <dd>	
 	                	<div id="setValue">
-	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  valType="OTHER" regString="^((0\.\d*[1-9])|[1-9][0-9]{1,8}|([1-9]{1,9}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数">
+	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  valType="OTHER" regString="^(([1-9])|(0\.\d*[1-9])|[1-9][0-9]{1,8}|([1-9]{1,9}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数">
 	                    	<span class='money'>元</span>
 	                    </div> 
 	                </dd>
@@ -49,7 +49,7 @@
 						layer.msg(data.result.message);
 				}else{
 					layer.msg(data.result.message);
-					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}");
+					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}/null");
 				}
 				
 			});

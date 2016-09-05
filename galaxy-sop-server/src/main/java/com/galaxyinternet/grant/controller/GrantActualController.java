@@ -125,7 +125,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			Page<GrantActual> actualPage = grantActualService.queryPageList(actual,
 					new PageRequest(actual.getPageNum(), 
 							actual.getPageSize(), 
-							Direction.fromString("desc"), 
+							Direction.fromString("asc"), 
 							"updated_time", "created_time"));
 			responseBody.setPageList(actualPage);
 		} catch (Exception e) {
