@@ -71,7 +71,7 @@
                         <dl class="fmdl fmdll clearfix">
                           <dt>计划拨款金额：</dt>
                           <dd>
-                            <input type="text" class="txt" id="searchPartMoney" valType="OTHER" regString="^(([1-9])|(0\.\d*[1-9])|[1-9][0-9]{1,8}|([1-9]{1,9}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
+                            <input type="text" class="txt" id="searchPartMoney" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')"/>
                           </dd>
                           <dd><a href="javascript:;" class="bluebtn ico cx" id="search" >搜索</a></dd>
                         </dl>
@@ -221,16 +221,21 @@ var searchPartMoney;
 
 						 var remainMoney=parseInt(delCommas($("#formatRemainMoney").text()));
 						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
-				          $("#grantMoney").blur(function(){
-				 			 var grantMoney=$("#grantMoney").val();
-				 			  var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
-				 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
-				 			      if(remainMoneyNew<0 || remainMoneyNew==0){
-				 			    	  $("#formatRemainMoney").html("0");
-				 			      }else{
-				 			    	  $("#formatRemainMoney").html(remainMoney+'fff');
-				 			      }	          
-				 		  }) 
+						  $("#grantMoney").blur(function(){
+					 			 var grantMoney=$("#grantMoney").val();
+					 			 if(grantMoney<0){
+					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))))
+					 			 }else{
+					 				var remainMoneyNew=remainMoneyTotal-Number(grantMoney);
+					 			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+					 			      if(remainMoneyNew<0 || remainMoneyNew==0){
+					 			    	  $("#formatRemainMoney").html("0");
+					 			      }else{
+					 			    	  $("#formatRemainMoney").html(remainMoney);
+					 			      }	
+					 			 }
+					 			            
+					 		  })  
 						 
 					}else{
 						$("#partId").remove();
@@ -469,3 +474,4 @@ function del_grantPart(id){
 </script>
 
 </html>
+>>>>>>> refs/remotes/origin/develop2

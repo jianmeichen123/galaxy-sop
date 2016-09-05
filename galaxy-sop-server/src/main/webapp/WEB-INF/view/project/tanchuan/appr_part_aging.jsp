@@ -90,14 +90,19 @@
 	         
 		  $("#grantMoney").blur(function(){
 			 var grantMoney=$("#grantMoney").val();
-			  var remainMoney = '${remainMoney}';
-			  var remainMoneyNew=remainMoney-grantMoney;
-			      remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
-			      if(remainMoneyNew<0 || remainMoneyNew==0){
-			    	  $("#formatRemainMoney").html("0");
-			      }else{
-			    	  $("#formatRemainMoney").html(remainMoney);
-			      }	          
+			 if(grantMoney<0){
+	 				$("#formatRemainMoney").html(remainMoney)
+	 			 }else{
+	 				var remainMoney = '${remainMoney}';
+	 				var remainMoneyNew=remainMoney-grantMoney;
+	 				    remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+	 				if(remainMoneyNew<0 || remainMoneyNew==0){
+	 				    $("#formatRemainMoney").html("0");
+	 				}else{
+	 				    $("#formatRemainMoney").html(remainMoney);
+	 				      }	 
+	 			 }
+			            
 		  })
 		  
 	   });
