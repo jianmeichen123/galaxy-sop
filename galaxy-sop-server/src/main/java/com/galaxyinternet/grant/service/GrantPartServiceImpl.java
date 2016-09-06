@@ -180,7 +180,8 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 		if(allNum == null || allNum == 0){
 			grantPart.setFileNum((byte) 0);
 		}else{
-			grantPart.setFileNum(allNum);
+			//grantPart.setFileNum(allNum);
+			grantPart.setFileNum((byte) (oldHasNum+upNum));
 			if(upNum != 0){ 
 				List<GrantFile> dfileIn = new ArrayList<GrantFile>();
 				Project project =  projectDao.selectById(grantPart.getGrantTotal().getProjectId());
@@ -200,11 +201,12 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 					dfileIn.add(df);
 				}
 				grantFileDao.insertInBatch(dfileIn);
-			}else{
+			}
+			/*else{
 				if(StringUtils.isEmpty(toDelfileids)){
 					grantPart.setFileNum(oldNum);
 				}
-			}
+			}*/
 		}
 		
 		//更新交割事项
