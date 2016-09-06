@@ -60,6 +60,11 @@
 		<where>
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
+			  <!-- 过滤项目 -->
+				<if test="idFilter != null">
+					AND id !=  #{idFilter,jdbcType=BIGINT}
+				</if>
+				
 			   <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
 			    <if test="createtUids != null">
 					AND create_uid IN
