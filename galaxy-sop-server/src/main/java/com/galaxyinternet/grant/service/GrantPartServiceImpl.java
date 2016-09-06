@@ -199,6 +199,10 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 					dfileIn.add(df);
 				}
 				grantFileDao.insertInBatch(dfileIn);
+			}else{
+				if(toDelfileids!=null && !toDelfileids.isEmpty()){
+					grantPart.setFileNum(oldNum);
+				}
 			}
 		}
 		
