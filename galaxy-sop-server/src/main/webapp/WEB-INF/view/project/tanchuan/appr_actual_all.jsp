@@ -53,6 +53,7 @@
 					var url = Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}/null";
 					if(numOfShow>0)
 					{
+						numOfShow = Math.max(numOfShow,2);
 						url+="?numOfShow="+numOfShow;
 					}
 					forwardWithHeader(url);
