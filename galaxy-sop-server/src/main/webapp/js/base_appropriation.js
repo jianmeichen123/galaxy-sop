@@ -126,51 +126,28 @@ function del_appr(id){
 			if (data.result.status=="OK") {
 				layer.msg("删除成功");
                 window.location=location;
-			} else {
-				if(data.result.errorCode=='cantDelete'){
-					var _url = Constants.sopEndpointURL+"/galaxy/grant/total/tipsDelete";
-					$.getHtml({
-						url:_url,//模版请求地址
-						data:"",//传递参数
-						okback:function(){
-							$('#powindow[data-id="popid0"]').remove();	
-					}//模版反回成功执行	
-				});
-				 		
-				}else{
-					layer.msg(data.result.message);
-				}
-				
-			}
-		});
+			}else{
+			    layer.msg(data.result.message);
+		}
+	});
 }
 
 function flushData(money){
 	var val=$("#partFlag").val();
 	 $("#"+val).text(money);
 	 var total=$(".money_total").text();
-	 setData(money,total);
-	 if(typeof(sumActualMoney)=="underfined"||null==sumActualMoney||sumActualMoney==0){
-			sumActualMoney=0;
+	  var oldTotal=$("#planMoney").val();
+	 setData(oldTotal,money);
+	 if(typeof(money)=="underfined"||null==money||money==0){
+		 money=0;
 		 }else{
-			 var format=addCommas(fixSizeDecimal(sumActualMoney/10000));
+			 var format=addCommas(fixSizeDecimal(money/10000));
 			 if(format==0.00){
-				sumActualMoney=0;
+				 money=0;
 			 }else{
-				sumActualMoney=format ;
+				 money=format ;
 			 }
 		 }
-		 if(null==sumPlanMoney||typeof(sumPlanMoney)=="underfined"||sumPlanMoney==0){
-			    sumPlanMoney=0;
-	 		 }else{
-	 			 var format=addCommas(fixSizeDecimal(sumPlanMoney/10000));
-	 			 if(format==0.00){
-	 				sumPlanMoney=0;
-	 			 }else{
-	 				sumPlanMoney=format ;
-	 			 }
-	 			
-	 		 }
 	 $(".money_complete").text(money);
 //	 $(".money_total").text(total);
 	
