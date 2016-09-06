@@ -134,6 +134,7 @@ if('${fx:isTransfering(pid) }' == 'true')
 	}else{
 	  $(".cxxm_btn").attr("style","display:block;");
 	  $(".cxxm_btn").addClass("disabled");
+	  $(".cxxm_btn").removeAttr("onclick");
 	}
 		
 }else{
@@ -143,6 +144,7 @@ if('${fx:isTransfering(pid) }' == 'true')
 	}else{
 	  $(".yjxm_btn").attr("style","display:block;");
 	  $(".yjxm_btn").addClass("disabled");
+	  $(".yjxm_btn").removeAttr("onclick");
 	}
 	$("#cxxm_btn").attr("style","display:none;");
 }

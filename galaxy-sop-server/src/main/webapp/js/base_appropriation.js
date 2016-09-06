@@ -112,7 +112,7 @@ function deleteAppr(id){
 		url:_url,//模版请求地址
 		data:"",//传递参数
 		okback:function(){
-			$("#popup_name").html("信息");
+			$("#popup_name").html("提示");
 			$("[data-btn='appr_delete']").click(function(){
 				del_appr(id);
 			})
