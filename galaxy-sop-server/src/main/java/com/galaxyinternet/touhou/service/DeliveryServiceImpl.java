@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.touhou.DeliveryBo;
@@ -264,6 +265,10 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 					dfileIn.add(df);
 				}
 				deliveryFileDao.insertInBatch(dfileIn);
+			}else{
+				if(StringUtils.isEmpty(toDelfileids)){
+					delivery.setFileNum(oldNum);
+				}
 			}
 		}
 		
