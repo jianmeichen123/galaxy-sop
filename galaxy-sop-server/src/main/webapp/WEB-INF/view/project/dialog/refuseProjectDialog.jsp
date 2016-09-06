@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
 <link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 <div class="addmentc margin_45">
-	<div class="title_bj">信息</div>
+	<div class="title_bj">否决原因</div>
     <div class="form clearfix">
         <div class="role_all">
         <form action="" id="form_refuse_project" method="post">

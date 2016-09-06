@@ -402,10 +402,15 @@ function saveCallBackFuc(data){
 	
 }
 function to_del_grantPart(selectRowId){
+	
 	layer.confirm('是否删除分期拨款计划?',
+			
+			
 		{
-		  btn: ['确定', '取消'] 
+		  btn: ['确定', '取消'] ,
+		  title :'提示',
 		}, 
+		
 		function(index, layero){
 			del_grantPart(selectRowId);
 		}, 
