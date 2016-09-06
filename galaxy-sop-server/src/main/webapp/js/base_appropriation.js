@@ -141,7 +141,7 @@ function flushData(money){
 	 if(typeof(money)=="underfined"||null==money||money==0){
 		 money=0;
 		 }else{
-			 var format=addCommas(fixSizeDecimal(money/10000));
+			 var format=addCommas(fixSizeTwo(money/10000));
 			 if(format==0.00){
 				 money=0;
 			 }else{

@@ -204,7 +204,7 @@ $(function(){
 	 		 if(typeof(sumActualMoney)=="underfined"||null==sumActualMoney||sumActualMoney==0){
 	 			sumActualMoney=0;
 	 		 }else{
-	 			 var format=addCommas(fixSizeDecimal(sumActualMoney/10000));
+	 			 var format=addCommas(fixSizeTwo(sumActualMoney/10000));
 	 			 if(format==0.00){
 	 				sumActualMoney=0;
 	 			 }else{
@@ -214,7 +214,7 @@ $(function(){
 	 		 if(null==sumPlanMoney||typeof(sumPlanMoney)=="underfined"||sumPlanMoney==0){
 	 			    sumPlanMoney=0;
 		 		 }else{
-		 			 var format=addCommas(fixSizeDecimal(sumPlanMoney/10000));
+		 			 var format=addCommas(fixSizeTwo(sumPlanMoney/10000));
 		 			 if(format==0.00){
 		 				sumPlanMoney=0;
 		 			 }else{

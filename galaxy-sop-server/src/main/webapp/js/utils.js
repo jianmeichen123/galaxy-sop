@@ -69,3 +69,24 @@ function delCommas(num){
   console.log(num);
   return num;
 }
+
+/**
+ * 保留指定位数的小数
+ * 若为0，则为0
+ * 若不为0，则按照四舍五入保留指定位数的小数
+ */
+function fixSizeTwo(numberOld, size){
+	if(typeof(size) == "undefined"){
+		size = 2;
+	}
+	var number=numberOld.toString();
+	if(number != 0){
+	  var index=number.indexOf(".");
+		if(index>0){
+			number=number.substr(0, index+size+1);
+		}
+		return number;
+	}
+	return 0;
+}
+
