@@ -242,7 +242,7 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 			//delivery.setFileNum(null);
 			delivery.setFileNum((byte) 0);
 		}else{
-			delivery.setFileNum(allNum);
+			delivery.setFileNum((byte) (oldHasNum+upNum));
 
 			if(upNum != 0){ 
 				List<DeliveryFile> dfileIn = new ArrayList<DeliveryFile>();
@@ -265,11 +265,13 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 					dfileIn.add(df);
 				}
 				deliveryFileDao.insertInBatch(dfileIn);
-			}else{
+			}
+			
+			/*else{
 				if(StringUtils.isEmpty(toDelfileids)){
 					delivery.setFileNum(oldNum);
 				}
-			}
+			}*/
 		}
 		
 		//更新交割事项
