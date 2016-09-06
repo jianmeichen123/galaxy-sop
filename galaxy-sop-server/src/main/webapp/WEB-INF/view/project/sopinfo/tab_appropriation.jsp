@@ -324,7 +324,7 @@ var searchPartMoney;
 			 }
 			 if(grantTotal.is_edit==false){
 				 $("#grantMoney").attr("readonly","readonly");
-				 $("#grantMoney").css("border",0);
+				 $("#grantMoney").css("background-color","#f8f8f8");
 			 }
 			 if(null!=grantTotal){
 				 $("#info dd input")
@@ -402,10 +402,15 @@ function saveCallBackFuc(data){
 	
 }
 function to_del_grantPart(selectRowId){
+	
 	layer.confirm('是否删除分期拨款计划?',
+			
+			
 		{
-		  btn: ['确定', '取消'] 
+		  btn: ['确定', '取消'] ,
+		  title :'提示',
 		}, 
+		
 		function(index, layero){
 			del_grantPart(selectRowId);
 		}, 
