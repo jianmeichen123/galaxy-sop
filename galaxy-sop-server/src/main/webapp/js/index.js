@@ -95,8 +95,8 @@
 				' </tr>'; 			
 			tbodyList.append(noData);
 	   }
-		if(list.length>2){
-			$("#ceo_p .position").css("display","block");
+		if(list.length<3){
+			$("#ceo_p .position").css("display","none");
 		}
 	}
 	

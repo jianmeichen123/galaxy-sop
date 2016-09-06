@@ -49,7 +49,13 @@
 						layer.msg(data.result.message);
 				}else{
 					layer.msg(data.result.message);
-					forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}/null");
+					var numOfShow = $("#tabApprAllList .agreement:visible").length;
+					var url = Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}/null";
+					if(numOfShow>0)
+					{
+						url+="?numOfShow="+numOfShow;
+					}
+					forwardWithHeader(url);
 				}
 				
 			});

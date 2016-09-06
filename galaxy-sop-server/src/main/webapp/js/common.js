@@ -1580,6 +1580,37 @@ function to_pro_info(id){
 	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
 }
 
+function setData(sumPlanMoney,sumActualMoney){
+	 //拨款进度
+	  $("#bar_m").css("width","0px");  //初始化进度条宽度；
+	    var moneyComplete=sumActualMoney;
+	        moneyTotal=sumPlanMoney;
+	        m_width=$(".progressBar").width();
+	        if(moneyComplete==0){
+	        	barWidth=0+"px";
+	        }else{
+	        	barWidth=parseInt(moneyComplete/moneyTotal*m_width)+"px";
+	        }
+	        
+	    $("#bar_m").css("width",barWidth)
+	    //获取表格除第一行，第二行之外的元素
+	    var tr_n=$(".moneyAgreement tbody tr")
+	    var tr_s=$(".moneyAgreement tbody tr").eq(1).nextAll();
+	    tr_s.css("display","none");
+	    if(tr_n.length>2){
+	      $(".agreement .show_more").show();
+	      $(".agreement .show_more").click(function(){
+	        $(this).hide();
+	        $(".agreement .show_hide").show();
+	        tr_n.show();
+	      })
+	       $(".agreement .show_hide").click(function(){
+	        $(this).hide();
+	        $(".agreement .show_more").show();
+	        tr_s.css("display","none");
+	      })
+	    }
 
+}
 
 

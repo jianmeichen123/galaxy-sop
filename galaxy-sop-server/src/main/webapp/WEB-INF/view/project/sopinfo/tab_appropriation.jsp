@@ -253,97 +253,63 @@ var searchPartMoney;
 			var $self = $(this);
 			var _url=platformUrl.toApprActualPage + "/" + $self.attr("data-part-id");
 			var _name= $self.attr("data-name");
+			var _flag= $self.attr("data-flag");
 			$.getHtml({
 				url:_url,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
+					$("#partFlag").val(_flag);
+					var  v=$("#partFlag").val();
 					$("#popup_name").html(_name);
-						//查看实际拨款信息
-					$("[data-btn='actual_look']").on("click",function(){ 
-						var $self = $(this);
-						var _url = platformUrl.toApprActualLock;
-						var _name= $self.attr("data-name");
-						$.getHtml({
-							url:_url,//模版请求地址
-							data:"",//传递参数
-							okback:function(){
-								$("#popup_name_look").html(_name);
-							}//模版反回成功执行	
-						});
-						return false;
-					});
-						//编辑实际拨款信息
-					$("[data-btn='edit_actual']").on("click",function(){ 
-						var $self = $(this);
-						var _url=platformUrl.toApprActualPage;
-						var _name= $self.attr("data-name");
-						$.getHtml({
-							url:_url,//模版请求地址
-							data:"",//传递参数
-							okback:function(){
-								$(".popup_name_edit").html(_name);
-							}//模版反回成功执行	
-						});
-						return false;
-					});
-				//添加实际拨款信息
-					$("[data-btn='edit_actual']").on("click",function(){ 
-						var $self = $(this);
-						var _url = platformUrl.toApprActualPage;
-						var _name= $self.attr("data-name");
-						$.getHtml({
-							url:_url,//模版请求地址
-							data:"",//传递参数
-							okback:function(){
-								$(".popup_name_edit").html(_name);
-							}//模版反回成功执行	
-						});
-						return false;
-					});
 				}//模版反回成功执行	
 			});
 			return false;
 		});
 	 createMenus(5);
-     showTwo();
-  })
- 
-   function showTwo(){
-	// 点击一次加载2条
-	    var tabApprSingleListBlock=$("#tabApprAllList .agreement").length;
-	    $("#tabApprAllList .agreement:lt(2)").css("display","block");
-	    if(tabApprSingleListBlock==0){
-	    	$(".proOperation .show_total").css("display","none");
-	    }
-	    if(tabApprSingleListBlock<3){
-	    	 $(".proOperation .show_more").css("display","none");
-	    	 $(".show_total .end").text(tabApprSingleListBlock);//左侧显示条数
-	    	 $(".show_total .total").text(tabApprSingleListBlock);//左侧显示条数
-	    }
-	    if(tabApprSingleListBlock>2){
-	 	   $(".proOperation .show_more").css("display","block");
-	 	  $(".show_total .end").text('2');//左侧显示条数
-	 	  $(".show_total .total").text(tabApprSingleListBlock);//左侧显示条数
-	    }
-
-	    var clickNum = 0; //点击的次数
-	    $(".proOperation .show_more").unbind('click').click(function(event) {
-	    clickNum++;
-	    var iNum = 2*clickNum+2; //每次点击加载的条数
-	    //console.log(iNum)
-	    $("#tabApprAllList .agreement:lt("+iNum+")").css("display","block");
-	    if(iNum>tabApprSingleListBlock){
-	    	$(".show_total .end").text(tabApprSingleListBlock);
-	    }else{
-	    	$(".show_total .end").text(iNum);
-	    }
-	    if(iNum>tabApprSingleListBlock || iNum==tabApprSingleListBlock){
-	    	 $(".proOperation .show_more").css("display","none");
-	    } 
-	    return false;
-	    });
-	    
+	 showRow("${numOfShow}");
+  });
+  /***
+  *显示数据
+  *param nums 显示记录数
+  ***/
+  function showRow(nums)
+  {
+	  var total = $("#tabApprAllList .agreement").length;
+	  if(typeof(nums) == 'undefined')
+	  {
+		  nums = 2;
+	  }
+	  num = Math.min(nums,total);
+      if(num<=0)
+      {
+      	$(".proOperation .show_total").css("display","none");
+      	return;
+      }
+      //显示数据
+	  $("#tabApprAllList .agreement:lt("+num+")").css("display","block");
+      //统计信息
+	  var numOfShow = $("#tabApprAllList .agreement:visible").length;
+	  var numOfHide = $("#tabApprAllList .agreement:hidden").length;
+	  $(".show_total .end").text(numOfShow);//左侧显示条数
+ 	  $(".show_total .total").text(total);//左侧显示条数
+ 	  //是否全部显示
+ 	  if(numOfShow >= total)
+	  {
+ 		 $(".proOperation .show_more").css("display","none");
+	  }
+ 	  else
+	  {
+ 		 $(".proOperation .show_more").css("display","block");
+	  }
+ 	 $(".proOperation .show_more")
+ 	 .unbind('click')
+ 	 .click(function(event) {
+ 		showRow(numOfShow+2);
+ 	 });
+ 	  
+ 	  
   }
+   
    function queryBack1(data){
 	  var result = data.result.status;
 		if(result == "ERROR"){ //OK, ERROR
@@ -381,7 +347,7 @@ var searchPartMoney;
 			searchPartMoney = null;
 		}
 		showTabs('${pid}'+"/"+searchPartMoney,8);
-		showTwo();
+		showRow(2);
 	})
 
 
