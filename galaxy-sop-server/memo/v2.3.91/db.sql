@@ -91,3 +91,6 @@ VALUES ('fileWorktype','尽职调查启动会报告',18,'fileWorktype:18','18',1
 /**数据字典-尽职调查总结会报告**/ 
 INSERT INTO `fx_db`.`dict` (`parent_code`,`name`,`dict_value`,`dict_code`,`dict_sort`,`created_time`,`updated_time`,`is_delete`)
 VALUES ('fileWorktype','尽职调查总结会报告',19,'fileWorktype:19','19',1456818150913,1456818150913,'0');
+
+/**菜单数据修正**/
+UPDATE `fx_db`.`platform_resource` SET `resource_url` = NULL WHERE `resource_mark` = 'task_into_view';
