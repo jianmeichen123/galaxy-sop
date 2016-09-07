@@ -354,7 +354,7 @@ var searchPartMoney;
   //获取 页面数据\保存数据
 function paramsContion(){
 	 
-	if(!beforeSubmit()){
+	if(!beforeSubmitById("actual_aging_container")){
 		return false;
 	}
 	var partMoney = $("#grantMoney").val();
