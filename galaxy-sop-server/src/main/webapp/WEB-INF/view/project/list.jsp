@@ -462,6 +462,7 @@
 			}else{
 				$("select[name='projectDepartid']").val(did);
 				createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+				$("select[name='createUid']").val(userId);
 			}
 			$('input[name="nameCodeLike"]').val("");
 			$('input[name="faFlag"]').removeAttr("checked");
