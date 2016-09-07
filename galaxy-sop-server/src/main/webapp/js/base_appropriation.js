@@ -127,6 +127,8 @@ function del_appr(id){
 				layer.msg("删除成功");
                 window.location=location;
 			}else{
+				$("#powindow").remove();
+				$("#popbg").remove();
 			    layer.msg(data.result.message);
 		}
 	});

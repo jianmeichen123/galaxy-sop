@@ -71,7 +71,7 @@
                         <dl class="fmdl fmdll clearfix">
                           <dt>计划拨款金额：</dt>
                           <dd>
-                            <input type="text" class="txt" id="searchPartMoney"/>
+                            <input class=" txt " id="searchPartMoney" type="text" value="" valType="OTHER" regString="^((0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9]\d*(?:[.]\d{1,2}))|(0\.[0-9]{0,1}[1-9])|[1-9][0-9]{0,8}|([1-9][0-9]{0,8}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
                           </dd>
                           <dd><a href="javascript:;" class="bluebtn ico cx" id="search" >搜索</a></dd>
                         </dl>
@@ -346,7 +346,7 @@ var searchPartMoney;
 		if(null==searchPartMoney||""==searchPartMoney){
 			searchPartMoney = null;
 		}
-		showTabs('${pid}'+"/"+searchPartMoney,8);
+		showTabs(searchPartMoney+"/"+'${pid}',8);
 		showRow(2);
 	})
 
@@ -354,7 +354,7 @@ var searchPartMoney;
   //获取 页面数据\保存数据
 function paramsContion(){
 	 
-	if(!beforeSubmit()){
+	if(!beforeSubmitById("actual_aging_container")){
 		return false;
 	}
 	var partMoney = $("#grantMoney").val();
@@ -399,7 +399,7 @@ function toInitBachUpload(){
  */
 function saveCallBackFuc(data){
 	//编辑之后刷新，显示相同记录数 - fix bug 953
-	var url = '${pid}'+'/'+searchPartMoney;
+	var url = searchPartMoney+'/'+'${pid}';
 	var numOfShow = $("#tabApprAllList .agreement:visible").length;
 	if(numOfShow>0)
 	{
@@ -442,7 +442,7 @@ function del_grantPart(id){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			showTabs('${pid}'+'/null',8);
+			showTabs('null/'+'${pid}',8);
 		} else {
 			layer.msg(data.result.message);
 		}

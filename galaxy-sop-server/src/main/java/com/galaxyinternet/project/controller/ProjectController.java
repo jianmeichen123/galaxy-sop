@@ -3088,7 +3088,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/**
 	 * sop tab页面  日志 详情    /galaxy/project/proview/
 	 */
-	@RequestMapping(value = "/toAppropriation/{pid}/{searchPartMoney}", method = RequestMethod.GET)
+	@RequestMapping(value = "/toAppropriation/{searchPartMoney}/{pid}", method = RequestMethod.GET)
 	public String toAppropriation(@PathVariable("pid") Long pid, @PathVariable("searchPartMoney") String searchPartMoney, HttpServletRequest request) {
 		Project proinfo = new Project();
 		proinfo = projectService.queryById(pid);
