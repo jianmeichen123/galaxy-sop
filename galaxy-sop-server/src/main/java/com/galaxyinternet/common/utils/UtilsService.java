@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +13,7 @@ import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.utils.SopConstatnts;
 
 
 @Component(value="utilsService")
@@ -23,10 +25,15 @@ public class UtilsService{
 	@Autowired
 	private Cache cache;
 	
-	
 	//用于检查是否检索过
 	private boolean hasCheckedGreenChannel = false;
 	
+	
+	/*//程序启动时，清空redis中签署的值
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		cache.remove(SopConstatnts.Redis._VOCHER_CHANNEL);
+	}*/
 	
 	/*
 	*//**
@@ -84,7 +91,7 @@ public class UtilsService{
 	
 	
 	/**
-	获取缓存中的 跳过尽调阶段的 项目ids
+	获取缓存中的 跳过尽调阶段的 项目ids 
 	*@param key = SopConstatnts.Redis._GREEN_CHANNEL_6_
 	*/
 	@SuppressWarnings("unchecked")
@@ -165,6 +172,75 @@ public class UtilsService{
 
 
 	
+	
+	
+	/*
+	//所有   签署证明  并发检查 key，
+	public static final String _VOCHER_CHANNEL = "voucher_channel_key";
+	//投资意向书阶段   签署证明 并发检查， 在redis中的list中的值，为   "voucher_channel_5_" + 项目id
+	public static final String _VOCHER_CHANNEL_5_ = "voucher_channel_5_";
+	//设置签署并发过时时间， 单位秒，5分钟= 5 * 60 
+	private	final static int concurrentRefreshTime = 5 * 60;
+	*/
+	/**
+	 * 检查 value 是否在 key 中
+	 * true  有跳过
+	 */
+	public boolean checkValueInKey(String key, String value){
+		boolean isGreen = false;
+		List<String> values = getCachValues(key);
+		if(values.contains(value)){
+			isGreen = true;
+		}
+		return isGreen;
+	}
+	
+	/**
+		获取缓存中的 正在进行签署凭证上传的 key 值 
+	*@param key = SopConstatnts.Redis._VOCHER_CHANNEL
+	*/
+	@SuppressWarnings("unchecked")
+	public List<String> getCachValues(String key){
+		List<String> values = new ArrayList<String>();
+		Object obj = cache.get(key);
+		if(obj != null){
+			values = (List<String>) obj;
+		}
+		return values;
+	}
+	
+	/**
+		values 值 保存到 redis
+		String value = SopConstatnts.Redis._VOCHER_CHANNEL_5_ + pid;
+		@return 1:成功  2：存在并发
+	*/
+	public synchronized int saveByRedis(String key, String value){
+		int result = 1;
+		List<String> values = getCachValues(key);
+		if(values.contains(value)){
+			result = 2;
+		}else{
+			values.add(value);
+			cache.set(key,values); //concurrentRefreshTime
+		}
+		return result;
+	}
+	 
+	/**
+		values 值 从 redis 中移除
+		String value = SopConstatnts.Redis._VOCHER_CHANNEL_5_ + pid;
+		@return 1:成功  2：存在并发
+	*/
+	public synchronized void removeByRedis(String key, String value){
+		List<String> values = getCachValues(key);
+		if(values.contains(value)){
+			values.remove(value);
+			cache.set(key, values);
+		}
+	}
+
+
+
 	
 	
 
