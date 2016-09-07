@@ -69,7 +69,7 @@
 		    				        	param.partGrantId = ${partId};
 		    				        	return param;
 		    				        });
-		    					 flushData(data);
+		    					 flushData(${partId});
 		    					}
 	    			}
 	    			editApprActualDialog.init(formdata);
@@ -86,7 +86,7 @@
 		    	        			
 		    	        			layer.msg("删除成功");
 		    	        			 
-	    	                		flushData(data.userData.moneyAvtual,data.userData.moneyAvtualAll);
+	    	                		flushData(${partId});
 		    	        			var options = $('#actual-table').bootstrapTable('getOptions');
 		    	                	var data = options.data;
 		    	                	var pageNum_ = options.pageNumber; 
@@ -183,7 +183,7 @@
 	    				        	param.partGrantId = ${partId};
 	    				        	return param;
 	    				        });
-	    					 flushData(data.userData.moneyAvtual,data.userData.moneyAvtualAll);
+	    					 flushData(${partId});
 	    				}
 	    		}
 	    		editApprActualDialog.init(formdata);

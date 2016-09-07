@@ -132,21 +132,26 @@ function del_appr(id){
 	});
 }
 
-function flushData(money,moneyTotal){
-	var val=$("#partFlag").val();
-	 $("#"+val).text(addCommas(fixSizeDecimal(money)));
-	 var total=$(".money_total").text();
-	  var oldTotal=$("#planMoney").val();
-	 setData(oldTotal,moneyTotal);
-	 if(typeof(moneyTotal)=="underfined"||null==moneyTotal||moneyTotal==0){
-		 moneyTotal=0;
-		 }else{
-			 var format=addCommas(fixSizeTwo(moneyTotal/10000));
-			 if(format==0.00){
-				 moneyTotal=0;
+function flushData(partId){
+	sendGetRequest(platformUrl.getActualPartMoney + "/" + partId,null,function(data){
+		var money = data.userData.moneyAvtual;
+		var moneyTotal = data.userData.moneyAvtualAll;
+		var val=$("#partFlag").val();
+		 $("#"+val).text(addCommas(fixSizeDecimal(money)));
+		 var total=$(".money_total").text();
+		  var oldTotal=$("#planMoney").val();
+		 setData(oldTotal,moneyTotal);
+		 if(typeof(moneyTotal)=="underfined"||null==moneyTotal||moneyTotal==0){
+			 moneyTotal=0;
 			 }else{
-				 moneyTotal=format ;
+				 var format=addCommas(fixSizeTwo(moneyTotal/10000));
+				 if(format==0.00){
+					 moneyTotal=0;
+				 }else{
+					 moneyTotal=format ;
+				 }
 			 }
-		 }
-	 $(".money_complete").text(moneyTotal);
+		 $(".money_complete").text(moneyTotal);
+	});
+	
 }

@@ -243,18 +243,42 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			User blongUser = userService.queryById(project.getCreateUid());
 			
 			grantActualService.deleteById(id);
-			double calculateBelongToActualMoney = grantActualService.calculateBelongToActualMoney(actual.getPartGrantId());
+			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", UrlNumber.three);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (DaoException e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, "系统出现不可预知的错误"));
+			_common_logger_.error("删除错误", e);
+		}
+		return responseBody;
+	}
+	
+	
+	/**
+	 * 获取分拨中所有实际金额
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getActualPartMoney/{partId}",method=RequestMethod.GET,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<GrantActual> getActualPartMoney( @PathVariable Long partId,HttpServletRequest request){
+		ResponseData<GrantActual> responseBody = new ResponseData<GrantActual>();
+		try {
+			double calculateBelongToActualMoney = grantActualService.calculateBelongToActualMoney(partId);
+			GrantPart part = grantPartService.queryById(partId);
+			GrantTotal total = grantTotalService.queryById(part.getTotalGrantId());
+			Project project = projectService.queryById(total.getProjectId());
 			Double sumProjectToActualMoney = grantTotalService.sumProjectToActualMoney(project.getId());
 			Map<String,Object> map=new HashMap<String,Object>();
 			map.put("moneyAvtual", calculateBelongToActualMoney);
 			map.put("moneyAvtualAll", sumProjectToActualMoney);
 			responseBody.setUserData(map);
 			responseBody.setResult(new Result(Status.OK, ""));
-			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", UrlNumber.three);
 		} catch (DaoException e) {
 			// TODO: handle exception
 			responseBody.setResult(new Result(Status.ERROR, "系统出现不可预知的错误"));
-			_common_logger_.error("删除错误", e);
+			_common_logger_.error("获取分拨实际金额出现错误", e);
 		}
 		return responseBody;
 	}

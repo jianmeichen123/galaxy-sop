@@ -910,7 +910,9 @@ var platformUrl = {
 	//保存实际拨款
 	saveApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/saveApprActual",
 	//删除实际拨款
-	deleteApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/deleteApprActual"
+	deleteApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/deleteApprActual",
+	//获取分拨中所有实际金额
+	getActualPartMoney : Constants.sopEndpointURL + "/galaxy/grant/actual/getActualPartMoney"
 
 
 	
