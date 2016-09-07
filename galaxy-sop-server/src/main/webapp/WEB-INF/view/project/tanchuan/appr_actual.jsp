@@ -64,11 +64,12 @@
 	    					parentId　:	${partId},
 	    					actualId : row.id,
 	    					operatorFlag : 2,
-	    					callFuc : function(){
+	    					callFuc : function(data){
 		    					 $('#actual-table').bootstrapTable('refresh',function(param){
 		    				        	param.partGrantId = ${partId};
 		    				        	return param;
 		    				        });
+		    					 flushData(data);
 		    					}
 	    			}
 	    			editApprActualDialog.init(formdata);
@@ -83,8 +84,9 @@
 		        			sendGetRequest(platformUrl.deleteApprActual + "/" + row.id ,null,function(data){
 		    	        		if(data.result.status=="OK"){
 		    	        			
-		    	        			layer.msg("删除成功"); 
-		    	        			
+		    	        			layer.msg("删除成功");
+		    	        			 
+	    	                		flushData(data.userData.moneyAvtual,data.userData.moneyAvtualAll);
 		    	        			var options = $('#actual-table').bootstrapTable('getOptions');
 		    	                	var data = options.data;
 		    	                	var pageNum_ = options.pageNumber; 
@@ -122,9 +124,7 @@
 	    	                	     		});
 	    	                	        }
 	    	                	    });
-		    	        			 
-	    	                	    
-		    					}else{
+		    	        			}else{
 		    						layer.msg(data.result.errorCode);
 		    					}
 		    	        	});
@@ -178,12 +178,12 @@
 	    	$("#btn_add_appr_actual").click(function(){
 	    		var formdata = {
 	    				parentId　:	${partId},
-	    				callFuc : function(){
+	    				callFuc : function(data){
 	    					 $('#actual-table').bootstrapTable('refresh',function(param){
 	    				        	param.partGrantId = ${partId};
 	    				        	return param;
 	    				        });
-
+	    					 flushData(data.userData.moneyAvtual,data.userData.moneyAvtualAll);
 	    				}
 	    		}
 	    		editApprActualDialog.init(formdata);

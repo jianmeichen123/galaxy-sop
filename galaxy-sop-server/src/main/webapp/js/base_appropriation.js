@@ -132,25 +132,21 @@ function del_appr(id){
 	});
 }
 
-function flushData(money){
+function flushData(money,moneyTotal){
 	var val=$("#partFlag").val();
-	 $("#"+val).text(money);
+	 $("#"+val).text(addCommas(fixSizeDecimal(money)));
 	 var total=$(".money_total").text();
 	  var oldTotal=$("#planMoney").val();
-	 setData(oldTotal,money);
-	 if(typeof(money)=="underfined"||null==money||money==0){
-		 money=0;
+	 setData(oldTotal,moneyTotal);
+	 if(typeof(moneyTotal)=="underfined"||null==moneyTotal||moneyTotal==0){
+		 moneyTotal=0;
 		 }else{
-			 var format=addCommas(fixSizeTwo(money/10000));
+			 var format=addCommas(fixSizeTwo(moneyTotal/10000));
 			 if(format==0.00){
-				 money=0;
+				 moneyTotal=0;
 			 }else{
-				 money=format ;
+				 moneyTotal=format ;
 			 }
 		 }
-	 $(".money_complete").text(money);
-//	 $(".money_total").text(total);
-	
-	// alert(money+"----"+total);
-//	 alert($("#"+val).text());
+	 $(".money_complete").text(moneyTotal);
 }

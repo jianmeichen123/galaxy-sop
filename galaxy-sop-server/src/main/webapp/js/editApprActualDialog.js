@@ -132,9 +132,8 @@ var editApprActualDialog = {
 											layer.msg("保存成功");
 											editApprActualDialog.close(_this);
 											if(formdata.callFuc){
-												formdata.callFuc();
+												formdata.callFuc(data);
 											}
-											flushData(200000000);
 										}else{
 											layer.msg(data.result.errorCode);
 										}
