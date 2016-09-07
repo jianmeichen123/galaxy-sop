@@ -140,13 +140,13 @@ public enum OperationLogType {
 	
 	//总拨款计划
 	_14_1_1	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.one,	 OperType.ADD.getOperationType() ,	    "总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_1_2	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.two,	 OperType.UPDATE.getOperationType() ,	"总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_1_2_1	("/galaxy/grant/total/resetGrantTotal/"+UrlNumber.two,	 OperType.UPDATE.getOperationType() ,	"总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_2	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.two,	 "编辑" ,							    "总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_2_1	("/galaxy/grant/total/resetGrantTotal/"+UrlNumber.two,	 "编辑" ,								"总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 	_14_1_3_1   ("/galaxy/grant/total/deleteGrantTotal/"+UrlNumber.three,OperType.DELETE.getOperationType() ,	"总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 	
 	//分期拨款计划
 	_14_2_1	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.one,		OperType.ADD.getOperationType() ,	    "分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_2_2	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.two,		OperType.UPDATE.getOperationType() ,	"分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_2_2	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.two,		"编辑",									"分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 	_14_2_3	    ("/galaxy/grant/part/delGrantPart/"+UrlNumber.three,	OperType.DELETE.getOperationType() ,	"分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 
 	//实际拨款信息
