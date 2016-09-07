@@ -414,12 +414,12 @@
 	    				}
 
 	    				$('.pagination li').each(function(){
-	    					var totalPages = $("#project-table").bootstrapTable('getOptions').totalPages;
-	    	    			if($(this).text()==totalPages){
+	    	    			if($(this).text()==initParams.pageNum){
 	    	    				$(this).click();
+	    	    				 return false;
 	    	    				//$(this).addClass('active')
 	    	    			}
-	    				})
+	    				});
 	    			}
 	    		}
 	        	initPageSize=10;
