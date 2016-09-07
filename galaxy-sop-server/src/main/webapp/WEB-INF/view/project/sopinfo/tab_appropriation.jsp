@@ -219,8 +219,7 @@ var searchPartMoney;
 						});
 					
 						   var grantMoneyOld=$("#grantMoney").val();
-
-						 var remainMoney=parseInt(delCommas($("#formatRemainMoney").text()));
+						 var remainMoney=Number(delCommas($("#formatRemainMoney").text()));
 						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
 						  $("#grantMoney").blur(function(){
 					 			 var grantMoney=$("#grantMoney").val();
