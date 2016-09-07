@@ -50,7 +50,7 @@
 				}else{
 					layer.msg(data.result.message);
 					var numOfShow = $("#tabApprAllList .agreement:visible").length;
-					var url = Constants.sopEndpointURL + "/galaxy/project/toAppropriation/${projectId}/null";
+					var url = Constants.sopEndpointURL + "/galaxy/project/toAppropriation/null/${projectId}";
 					if(numOfShow>0)
 					{
 						numOfShow = Math.max(numOfShow,2);

@@ -346,7 +346,7 @@ var searchPartMoney;
 		if(null==searchPartMoney||""==searchPartMoney){
 			searchPartMoney = null;
 		}
-		showTabs('${pid}'+"/"+searchPartMoney,8);
+		showTabs(searchPartMoney+"/"+'${pid}',8);
 		showRow(2);
 	})
 
@@ -399,7 +399,7 @@ function toInitBachUpload(){
  */
 function saveCallBackFuc(data){
 	//编辑之后刷新，显示相同记录数 - fix bug 953
-	var url = '${pid}'+'/'+searchPartMoney;
+	var url = searchPartMoney+'/'+'${pid}';
 	var numOfShow = $("#tabApprAllList .agreement:visible").length;
 	if(numOfShow>0)
 	{
@@ -442,7 +442,7 @@ function del_grantPart(id){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			showTabs('${pid}'+'/null',8);
+			showTabs('null/'+'${pid}',8);
 		} else {
 			layer.msg(data.result.message);
 		}
