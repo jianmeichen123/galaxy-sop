@@ -317,7 +317,13 @@ $(function(){
 	$("[data-on='save']").click(function(){
 		var data=getUpdateData();
 		if(beforeSubmit()){
-			sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
+			sendPostRequestByJsonObj(platformUrl.updateProject,data, function(data){
+				var result = data.result.status;
+				if(result == "ERROR"){ //OK, ERROR
+					layer.msg(data.result.message);
+					removePop1();
+					return;
+				}
 				layer.msg("修改项目基本信息成功!");
 				window.location.reload();
 			});

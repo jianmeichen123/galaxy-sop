@@ -134,7 +134,7 @@ var editApprActualDialog = {
 											if(formdata.callFuc){
 												formdata.callFuc();
 											}
-											flushData(888);
+											flushData(200000000);
 										}else{
 											layer.msg(data.result.errorCode);
 										}

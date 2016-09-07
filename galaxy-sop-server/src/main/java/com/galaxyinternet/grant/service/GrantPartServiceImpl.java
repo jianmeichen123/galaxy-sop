@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.common.enums.DictEnum;
@@ -179,7 +180,8 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 		if(allNum == null || allNum == 0){
 			grantPart.setFileNum((byte) 0);
 		}else{
-			grantPart.setFileNum(allNum);
+			//grantPart.setFileNum(allNum);
+			grantPart.setFileNum((byte) (oldHasNum+upNum));
 			if(upNum != 0){ 
 				List<GrantFile> dfileIn = new ArrayList<GrantFile>();
 				Project project =  projectDao.selectById(grantPart.getGrantTotal().getProjectId());
@@ -200,6 +202,11 @@ public class GrantPartServiceImpl extends BaseServiceImpl<GrantPart> implements 
 				}
 				grantFileDao.insertInBatch(dfileIn);
 			}
+			/*else{
+				if(StringUtils.isEmpty(toDelfileids)){
+					grantPart.setFileNum(oldNum);
+				}
+			}*/
 		}
 		
 		//更新交割事项

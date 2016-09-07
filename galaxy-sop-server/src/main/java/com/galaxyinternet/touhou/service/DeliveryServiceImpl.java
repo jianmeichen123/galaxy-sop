@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.touhou.DeliveryBo;
@@ -241,7 +242,7 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 			//delivery.setFileNum(null);
 			delivery.setFileNum((byte) 0);
 		}else{
-			delivery.setFileNum(allNum);
+			delivery.setFileNum((byte) (oldHasNum+upNum));
 
 			if(upNum != 0){ 
 				List<DeliveryFile> dfileIn = new ArrayList<DeliveryFile>();
@@ -265,6 +266,12 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 				}
 				deliveryFileDao.insertInBatch(dfileIn);
 			}
+			
+			/*else{
+				if(StringUtils.isEmpty(toDelfileids)){
+					delivery.setFileNum(oldNum);
+				}
+			}*/
 		}
 		
 		//更新交割事项

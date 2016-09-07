@@ -6,7 +6,7 @@
 	<div class="title_bj" id="popup_name"></div>
 	<p class="tips">
 		<input type="hidden" id="del_deliver_id" value="" />
-		<b class="null tips_d">ico</b>
+		<!-- <b class="null tips_d">ico</b> -->
 		是否删除总拨款计划？
 	</p>
     <div class="btnbox">

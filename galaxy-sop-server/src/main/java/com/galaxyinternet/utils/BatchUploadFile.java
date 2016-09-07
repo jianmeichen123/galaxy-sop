@@ -59,6 +59,7 @@ public class BatchUploadFile {
 					     sopFileList.add(sop);
 				}
 			}else{
+				resultResponse.setResult(new Result(Status.ERROR,""));
 				cache.removeRedisKeyOBJ(fileRedisKey);
 			}
 			resultResponse.setEntityList(sopFileList);

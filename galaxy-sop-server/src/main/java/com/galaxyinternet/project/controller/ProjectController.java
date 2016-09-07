@@ -325,6 +325,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 
+		//验证项目名是否重复
+		if(project.getProjectName() != null){
+			ProjectBo obj = new ProjectBo();
+			obj.setProjectName(project.getProjectName());
+			obj.setIdFilter(project.getId());
+			List<Project> projectList = projectService.queryList(obj);
+			if (null != projectList && projectList.size() > 0) {
+				responseBody.setResult(new Result(Status.ERROR, "mccf", "项目名重复!"));
+				return responseBody;
+			}
+		}
+		
 		// 执行转换
 		project.getProjectContribution();
 		project.getProjectValuations();

@@ -206,6 +206,7 @@
 		$('input:radio[name="projectType"]').click(function(){
 			$("#projectTypeTip").css("display","none");
 		});
+		
 	});
 	function calculationValuations(){
 		var projectShareRatio = $("#formatShareRatio").val();
@@ -256,6 +257,9 @@
 			$("#faName").attr("style","display:inline-block;")
 			$("#faName").removeAttr("allowNULL");
 			$("#faName").focus();
+			if($("#faName").val()=="请输入FA名称"){
+				$("#faName").attr("style","color:#999;");
+			}
 		}else{
 			$('.tip-yellowsimple').remove();
 			$("#faName").val('');
@@ -269,14 +273,21 @@
   		if(this.value=="请输入FA名称"){
   			this.value = "";
   		}
+  		if(this.value!="请输入FA名称"){
+  			$("#faName").attr("style","color:#333;");
+  		}
 		
 	})
 	$("#faName").blur(function(){
   		if(this.value==""){
   			this.value = "请输入FA名称";
   		}
+  		if(this.value=="请输入FA名称"){
+  			$("#faName").attr("style","color:#999;");
+  		}
 		
 	})
+	
 </script>
 
 </html>

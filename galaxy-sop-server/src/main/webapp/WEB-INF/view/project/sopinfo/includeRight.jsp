@@ -32,9 +32,10 @@
 					 <!-- 拨款进度 -->
               <div class="money">
                 <div class="title">拨款进度</div>
+                <input type="hidden" id="planMoney">
                 <ul class="clearfix">
-                  <li class="fl">已拨款：<span class="money_complete">123</span>万</li>
-                  <li class="fr">计划拨款：<span class="money_total">800</span>万</li>
+                  <li class="fl">已拨款：<span class="money_complete"></span>万</li>
+                  <li class="fr">计划拨款：<span class="money_total"></span>万</li>
                 </ul>
                 <div class="progressBar"><div id="bar_m"></div></div>
               </div>
@@ -198,11 +199,12 @@ $(function(){
 	 		 var grantTotal = data.userData;
 	 		 var sumPlanMoney=grantTotal.sumPlanMoney;
 	 		 var sumActualMoney=grantTotal.sumActualMoney;
+	 		 $("#planMoney").val(sumPlanMoney);
 	 		  setData(sumPlanMoney,sumActualMoney);
 	 		 if(typeof(sumActualMoney)=="underfined"||null==sumActualMoney||sumActualMoney==0){
 	 			sumActualMoney=0;
 	 		 }else{
-	 			 var format=addCommas(fixSizeDecimal(sumActualMoney/10000));
+	 			 var format=addCommas(fixSizeTwo(sumActualMoney/10000));
 	 			 if(format==0.00){
 	 				sumActualMoney=0;
 	 			 }else{
@@ -212,7 +214,7 @@ $(function(){
 	 		 if(null==sumPlanMoney||typeof(sumPlanMoney)=="underfined"||sumPlanMoney==0){
 	 			    sumPlanMoney=0;
 		 		 }else{
-		 			 var format=addCommas(fixSizeDecimal(sumPlanMoney/10000));
+		 			 var format=addCommas(fixSizeTwo(sumPlanMoney/10000));
 		 			 if(format==0.00){
 		 				sumPlanMoney=0;
 		 			 }else{
