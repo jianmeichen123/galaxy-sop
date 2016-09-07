@@ -107,7 +107,6 @@
 
 	    				$('.pagination li').each(function(){
 	    	    			if($(this).text()==initParams.pageNum){
-	    	    				alert($(this).text())
 	    	    				$(this).click();
 	    	    				//$(this).addClass('active')
 	    	    			}
