@@ -2130,5 +2130,6 @@ margin: 45px auto 30px;}
 .actual_all .health_case{border-radius:5px;border-bottom:0;}
 #actual-table td a{margin-right:10px;}
 .moeny_all .money ,#setValue .money ,#label_grant_money .money{ position: absolute; top: -39px;  left: 285px;}
-.bj_hui{ background-color:rgb(248, 248, 248) !important; display:block;}
+.bj_hui{ background-color:rgb(248, 248, 248) !important; display:none ; width: 150px;    border: 1px solid #dadfe3; border-radius: 4px;
+    padding: 0 4px;  font-size: 12px;}
 

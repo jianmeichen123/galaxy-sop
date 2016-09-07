@@ -192,6 +192,7 @@ var searchPartMoney;
 								if(isFlag)
 								{
 									$("#actual_aging_container [name='grantMoney']").attr("type","hidden");
+									$("#editMoney").css('display','block');
 									$("#editMoney").html(grantPartInfo.grantMoney);
 								}
 								$.each(data.entity.files,function(){
