@@ -399,8 +399,15 @@ function toInitBachUpload(){
  * 回调函数
  */
 function saveCallBackFuc(data){
-	showTabs('${pid}'+'/'+searchPartMoney,8);
-	
+	//编辑之后刷新，显示相同记录数 - fix bug 953
+	var url = '${pid}'+'/'+searchPartMoney;
+	var numOfShow = $("#tabApprAllList .agreement:visible").length;
+	if(numOfShow>0)
+	{
+		numOfShow = Math.max(numOfShow,2);
+		url+="?numOfShow="+numOfShow;
+	}
+	showTabs(url,8);
 }
 function to_del_grantPart(selectRowId){
 	
