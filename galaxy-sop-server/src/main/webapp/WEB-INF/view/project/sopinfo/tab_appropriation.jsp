@@ -71,7 +71,7 @@
                         <dl class="fmdl fmdll clearfix">
                           <dt>计划拨款金额：</dt>
                           <dd>
-                            <input type="text" class="txt" id="searchPartMoney" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')"/>
+                            <input type="text" class="txt" id="searchPartMoney" valType="OTHER" regString="^((0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9]\d*(?:[.]\d{1,2}))|(0\.[0-9]{0,2}[1-9])|[1-9][0-9]{0,8}|([1-9][0-9]{0,8}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
                           </dd>
                           <dd><a href="javascript:;" class="bluebtn ico cx" id="search" >搜索</a></dd>
                         </dl>
@@ -192,6 +192,7 @@ var searchPartMoney;
 								if(isFlag)
 								{
 									$("#actual_aging_container [name='grantMoney']").attr("type","hidden");
+									$("#editMoney").css('display','block');
 									$("#editMoney").html(grantPartInfo.grantMoney);
 								}
 								$.each(data.entity.files,function(){
@@ -218,8 +219,7 @@ var searchPartMoney;
 						});
 					
 						   var grantMoneyOld=$("#grantMoney").val();
-
-						 var remainMoney=parseInt(delCommas($("#formatRemainMoney").text()));
+						 var remainMoney=Number(delCommas($("#formatRemainMoney").text()));
 						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
 						  $("#grantMoney").blur(function(){
 					 			 var grantMoney=$("#grantMoney").val();
@@ -398,8 +398,15 @@ function toInitBachUpload(){
  * 回调函数
  */
 function saveCallBackFuc(data){
-	showTabs('${pid}'+'/'+searchPartMoney,8);
-	
+	//编辑之后刷新，显示相同记录数 - fix bug 953
+	var url = '${pid}'+'/'+searchPartMoney;
+	var numOfShow = $("#tabApprAllList .agreement:visible").length;
+	if(numOfShow>0)
+	{
+		numOfShow = Math.max(numOfShow,2);
+		url+="?numOfShow="+numOfShow;
+	}
+	showTabs(url,8);
 }
 function to_del_grantPart(selectRowId){
 	

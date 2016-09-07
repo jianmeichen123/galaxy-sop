@@ -7,4 +7,5 @@ import com.galaxyinternet.model.GrantTotal;
 
 public interface GrantTotalService extends BaseService<GrantTotal>{
 	public Map<String,Object> setApprProcess(Long query);
+	 public Double sumProjectToActualMoney(Long query);
 }
