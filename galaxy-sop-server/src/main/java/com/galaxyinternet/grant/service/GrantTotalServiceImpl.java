@@ -34,4 +34,8 @@ public class GrantTotalServiceImpl extends BaseServiceImpl<GrantTotal> implement
 		map.put("sumActualMoney", sumProjectToActualMoney);
 		return map;
 	}
+	 public Double sumProjectToActualMoney(Long query){
+		 Double sumProjectToActualMoney = grantTotalDao.sumProjectToActualMoney(query);
+		 return sumProjectToActualMoney;
+	 }
 }

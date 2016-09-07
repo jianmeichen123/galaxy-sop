@@ -1,5 +1,6 @@
 package com.galaxyinternet.grant.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -242,6 +243,12 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			User blongUser = userService.queryById(project.getCreateUid());
 			
 			grantActualService.deleteById(id);
+			double calculateBelongToActualMoney = grantActualService.calculateBelongToActualMoney(actual.getPartGrantId());
+			Double sumProjectToActualMoney = grantTotalService.sumProjectToActualMoney(project.getId());
+			Map<String,Object> map=new HashMap<String,Object>();
+			map.put("moneyAvtual", calculateBelongToActualMoney);
+			map.put("moneyAvtualAll", sumProjectToActualMoney);
+			responseBody.setUserData(map);
 			responseBody.setResult(new Result(Status.OK, ""));
 			ControllerUtils.setRequestParamsForMessageTip(request, blongUser, project, "14.3", UrlNumber.three);
 		} catch (DaoException e) {
