@@ -117,7 +117,7 @@ var editApprActualDialog = {
 									if(!beforeSubmit()){
 										return false;
 									}else{
-										if(parseFloat(grantMoney) - parseFloat(saveParam.preMoney) > parseFloat(saveParam.surplusGrantMoney)){
+										if(fixSizeTwo(parseFloat(grantMoney) - parseFloat(saveParam.preMoney),2) > fixSizeTwo(parseFloat(saveParam.surplusGrantMoney),2)){
 											layer.msg("实际拨款金额之和大于分期拨款金额");
 											return false;
 										}
