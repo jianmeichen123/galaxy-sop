@@ -315,7 +315,7 @@
 	 * 根据事业线查询相应的投资经理
 	 * @version 2016-06-21
 	 */
-    createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
+    createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 0);
 	$(function(){
 		//返回附带参数功能代码
 		var initParams,
@@ -372,7 +372,7 @@
 	        		}
 	        		param.projectDepartid = initParams.projectDepartid;
 	        		$("select[name='projectDepartid']").val(initParams.projectDepartid);
-	        		createUserOptions(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
+	        		createUserOptions_All(platformUrl.getUserList+initParams.projectDepartid, "createUid", 1);
 	        		param.createUid = initParams.createUid;
 	        		$("select[name='createUid']").val(initParams.createUid);
 	        		param.nameCodeLike = initParams.nameCodeLike;
@@ -431,7 +431,7 @@
 		 */
 		$('select[name="projectDepartid"]').change(function(){
 			var did = $('select[name="projectDepartid"]').val();
-		    createUserOptions(platformUrl.getUserList+did, "createUid", 1);
+		    createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
 		});
 		/**
 		 * 控制"重置"按钮
@@ -463,13 +463,16 @@
 			
 			if(typeof(did) == "undefined"){
 				$("select[name='projectDepartid']").val(0);
-				createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 1);
+				createUserOptions_All(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 1);
 				$("select[name='createUid']").val(0);
 			}else{
 				$("select[name='projectDepartid']").val(did);
 // 				$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
-				createUserOptions(platformUrl.getUserList+did, "createUid", 1);
-				$("select[name='createUid']").val(userId);
+				createUserOptions_All(platformUrl.getUserList+did, "createUid", 1);
+				if(($("select[name='createUid']").find("option[value='"+userId+"']")).length == 0){
+					$("select[name='createUid']").val(0);
+				}else $("select[name='createUid']").val(userId);
+				
 			}
 			$('input[name="nameCodeLike"]').val("");
 			$('input[name="faFlag"]').removeAttr("checked");

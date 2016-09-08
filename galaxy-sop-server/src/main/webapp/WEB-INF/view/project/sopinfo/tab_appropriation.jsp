@@ -227,7 +227,7 @@ var searchPartMoney;
 						  $("#grantMoney").blur(function(){
 					 			 var grantMoney=$("#grantMoney").val();
 					 			 if(!beforeSubmitById("actual_aging_container")){
-					 				$("#formatRemainMoney").html(remainMoneyTotal);
+					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))));
 					 				return false;
 					 			} 
 					 			 if(grantMoney<0){
@@ -330,7 +330,7 @@ var searchPartMoney;
 				 $("#totallId").val(grantTotal.id);
 			 }
 			 if(grantTotal.is_edit==false){
-				 $("#grantMoney").attr("disabled","disabled");
+				 $("#grantMoney").attr("readonly","readonly");
 				 $("#grantMoney").css("background-color","#f8f8f8");
 			 }
 			 if(null!=grantTotal){
@@ -375,7 +375,7 @@ function paramsContion(){
 	var grantMoneyOld=$("#oldRemainMoney").val();
 	var newgrant = Number(grantMoneyOld)+Number(remainMoney);
 	
-	if(parseFloat(partMoney) -parseFloat(newgrant) > 0.01 &&  parseFloat(partMoney) > parseFloat(newgrant)){
+	if((parseFloat(partMoney) - parseFloat(newgrant)) >= 0.01 &&  parseFloat(partMoney) > parseFloat(newgrant)){
 		layer.msg("分期拨款金额之和大于总拨款金额");
 		return false;
 	}

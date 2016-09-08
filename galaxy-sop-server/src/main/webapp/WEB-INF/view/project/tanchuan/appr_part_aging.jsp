@@ -86,10 +86,12 @@
 		   var remainMoney = '${remainMoney}';
 			  remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
 	          $("#formatRemainMoney").html(remainMoney);	
+	          var remainMoneyOld=$("#formatRemainMoney").text();
 	         
 		  $("#grantMoney").blur(function(){
 			 var grantMoney=$("#grantMoney").val();
 			 if(!beforeSubmitById("actual_aging_container")){
+				 $("#formatRemainMoney").html(remainMoneyOld);
 	 				return false;
 	 			} 
 			 if(grantMoney<0){
@@ -97,11 +99,11 @@
 	 			 }else{
 	 				var remainMoney = '${remainMoney}';
 	 				var remainMoneyNew=remainMoney-grantMoney;
-	 				    remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+	 				remainMoneyNew = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
 	 				if(remainMoneyNew<0 || remainMoneyNew==0){
 	 				    $("#formatRemainMoney").html("0");
 	 				}else{
-	 				    $("#formatRemainMoney").html(remainMoney);
+	 				    $("#formatRemainMoney").html(remainMoneyNew);
 	 				      }	 
 	 			 }
 			            
