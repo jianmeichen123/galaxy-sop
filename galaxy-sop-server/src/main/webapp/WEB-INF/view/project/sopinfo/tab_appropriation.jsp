@@ -227,7 +227,7 @@ var searchPartMoney;
 						  $("#grantMoney").blur(function(){
 					 			 var grantMoney=$("#grantMoney").val();
 					 			 if(!beforeSubmitById("actual_aging_container")){
-					 				$("#formatRemainMoney").html(remainMoneyTotal);
+					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))));
 					 				return false;
 					 			} 
 					 			 if(grantMoney<0){
