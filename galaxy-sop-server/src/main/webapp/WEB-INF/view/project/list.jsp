@@ -449,18 +449,25 @@
 			$("select[name='projectProgress']").find("option[index='-1']").removeAttr("selected");
 			$("select[name='projectStatus']").find("option[index='-1']").removeAttr("selected");
 			//set selected status
-			$("select[name='projectType']").find("option[index='-1']").attr("selected",true);
-			$("select[name='financeStatus']").find("option[index='-1']").attr("selected",true);
-			$("select[name='projectProgress']").find("option[index='-1']").attr("selected",true);
-			$("select[name='projectStatus']").find("option[index='-1']").attr("selected",true);
-			$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
+// 			$("select[name='projectType']").find("option[index='-1']").attr("selected",true);
+// 			$("select[name='financeStatus']").find("option[index='-1']").attr("selected",true);
+// 			$("select[name='projectProgress']").find("option[index='-1']").attr("selected",true);
+// 			$("select[name='projectStatus']").find("option[index='-1']").attr("selected",true);
+// 			$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
+			$("select[name='projectType']").val("");
+			$("select[name='financeStatus']").val("");
+			$("select[name='projectProgress']").val("");
+			$("select[name='projectStatus']").val("");
+			$("select[name='projectDepartid']").val("");
 			var did = $("select[name='projectDepartid']").find('option[back="link"]').val();
+			
 			if(typeof(did) == "undefined"){
 				$("select[name='projectDepartid']").val(0);
 				createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 1);
 				$("select[name='createUid']").val(0);
 			}else{
-				$("select[name='projectDepartid']").val(did);
+// 				$("select[name='projectDepartid']").val(did);
+				$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
 				createUserOptions(platformUrl.getUserList+did, "createUid", 1);
 				$("select[name='createUid']").val(userId);
 			}
