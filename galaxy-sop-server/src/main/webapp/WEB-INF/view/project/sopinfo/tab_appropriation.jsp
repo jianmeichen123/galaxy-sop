@@ -371,7 +371,7 @@ function paramsContion(){
 	var grantMoneyOld=$("#oldRemainMoney").val();
 	var newgrant = Number(grantMoneyOld)+Number(remainMoney);
 	
-	if(parseFloat(partMoney) -parseFloat(newgrant) > 0.01 &&  parseFloat(partMoney) > parseFloat(newgrant)){
+	if((parseFloat(partMoney) - parseFloat(newgrant)) >= 0.01 &&  parseFloat(partMoney) > parseFloat(newgrant)){
 		layer.msg("分期拨款金额之和大于总拨款金额");
 		return false;
 	}
