@@ -34,7 +34,7 @@
 	                <dd>
 	                	
 	                	<div id="label_grant_money">
-	                    	<input class="txt" id="form_grant_money" type="text" valType="OTHER" regString="^((0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9]\d*(?:[.]\d{1,2}))|(0\.[0-9]{0,1}[1-9])|[1-9][0-9]{0,8}|([1-9][0-9]{0,8}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数">
+	                    	<input class="txt" id="form_grant_money" type="text" valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,2})$" msg="<font color=red>*</font>支持9位长度的两位小数">
 	                   		<span class='money'>元</span>
 	                    </div> 
                         <div class="gray" id="label_surplus_grant_money">剩余金额0元</div> 

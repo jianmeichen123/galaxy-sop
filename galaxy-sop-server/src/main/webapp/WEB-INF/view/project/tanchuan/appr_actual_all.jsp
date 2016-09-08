@@ -22,7 +22,7 @@
 	                <dt>计划拨款金额 ：</dt>
 	                <dd>	
 	                	<div id="setValue">
-	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  valType="OTHER" regString="^((0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9]\d*(?:[.]\d{1,2}))|(0\.[0-9]{0,1}[1-9])|[1-9][0-9]{0,8}|([1-9][0-9]{0,8}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数">
+	                    	<input class=" txt " type="text" id="grantMoney"  name="grantMoney"  valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,2})$" msg="<font color=red>*</font>支持9位长度的两位小数">
 	                    	<span class='money'>元</span>
 	                    </div> 
 	                </dd>
@@ -42,14 +42,15 @@
 	function saveAppr(){
 		if(beforeSubmitById("add_form")){
 			sendPostRequestByJsonStr(platformUrl.addGrantTotal, $("#add_form").serializeObject(), function(data){
-				/* if(!beforeSubmitById("add_form")){
-					return false;
-				} */
 				if(!data){
 					layer.msg("提交表单过于频繁!");
 				}else if(data.result.status=="ERROR"){
-					
+					if($("#grantName").val().trim().length<1){
+						layer.msg("协议名称输入错误!");   //协议名称输入内容全为空格时
+					}else{
 						layer.msg(data.result.message);
+					}
+						
 				}else{
 					layer.msg(data.result.message);
 					var numOfShow = $("#tabApprAllList .agreement:visible").length;

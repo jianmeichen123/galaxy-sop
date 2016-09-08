@@ -71,7 +71,7 @@
                         <dl class="fmdl fmdll clearfix">
                           <dt>计划拨款金额：</dt>
                           <dd>
-                            <input class=" txt " id="searchPartMoney" type="text" value="" valType="OTHER" regString="^((0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9]\d*(?:[.]\d{1,2}))|(0\.[0-9]{0,1}[1-9])|[1-9][0-9]{0,8}|([1-9][0-9]{0,8}\.[0-9]{1,2}))$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
+                            <input class=" txt " id="searchPartMoney" type="text" value="" onkeyup="value=value.replace(/[^\d.]/g,'')"/>
                           </dd>
                           <dd><a href="javascript:;" class="bluebtn ico cx" id="search" >搜索</a></dd>
                         </dl>
@@ -221,12 +221,15 @@ var searchPartMoney;
 						   var grantMoneyOld=$("#grantMoney").val();
 						 var remainMoney=Number(delCommas($("#formatRemainMoney").text()));
 						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
+						 if(!beforeSubmitById("actual_aging_container")){
+				 				return false;
+				 			} 
 						  $("#grantMoney").blur(function(){
 					 			 var grantMoney=$("#grantMoney").val();
-					 			 $(".tip-yellowsimple").hide();
-					 			if(!beforeSubmit()){
-									return false;
-								}
+					 			 if(!beforeSubmitById("actual_aging_container")){
+					 				$("#formatRemainMoney").html(remainMoneyTotal);
+					 				return false;
+					 			} 
 					 			 if(grantMoney<0){
 					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))))
 					 			 }else{
@@ -327,7 +330,7 @@ var searchPartMoney;
 				 $("#totallId").val(grantTotal.id);
 			 }
 			 if(grantTotal.is_edit==false){
-				 $("#grantMoney").attr("readonly","readonly");
+				 $("#grantMoney").attr("disabled","disabled");
 				 $("#grantMoney").css("background-color","#f8f8f8");
 			 }
 			 if(null!=grantTotal){
@@ -371,7 +374,8 @@ function paramsContion(){
 	var remainMoney = $("#remainMoney").val();
 	var grantMoneyOld=$("#oldRemainMoney").val();
 	var newgrant = Number(grantMoneyOld)+Number(remainMoney);
-	if(parseFloat(partMoney) > parseFloat(newgrant)){
+	
+	if(parseFloat(partMoney) -parseFloat(newgrant) > 0.01 &&  parseFloat(partMoney) > parseFloat(newgrant)){
 		layer.msg("分期拨款金额之和大于总拨款金额");
 		return false;
 	}

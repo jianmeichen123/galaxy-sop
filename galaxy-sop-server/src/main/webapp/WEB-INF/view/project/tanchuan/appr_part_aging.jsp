@@ -39,7 +39,7 @@
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
-		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="OTHER" regString="^((0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9]\d*(?:[.]\d{1,2}))|(0\.[0-9]{0,1}[1-9])|[1-9][0-9]{0,8})$|^([1-9][0-9]{0,8}\.[0-9]{1,2})$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
+		                    	<input class=" txt " id="grantMoney" name="grantMoney" type="text" value="" valType="OTHER" regString="^(0(?:[.](?:[1-9]\d?|0[1-9]))|[1-9][0-9]{0,8}|[1-9][0-9]{0,8}\.[0-9]{1,2})$" msg="<font color=red>*</font>支持9位长度的两位小数"/>
 		                    	<span id="editMoney" class="bj_hui"></span>
 		                    	<span class='money'>元</span>
 		                    </div> 
@@ -89,6 +89,9 @@
 	         
 		  $("#grantMoney").blur(function(){
 			 var grantMoney=$("#grantMoney").val();
+			 if(!beforeSubmitById("actual_aging_container")){
+	 				return false;
+	 			} 
 			 if(grantMoney<0){
 	 				$("#formatRemainMoney").html(remainMoney)
 	 			 }else{

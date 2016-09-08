@@ -69,7 +69,7 @@ var editApprActualDialog = {
 												}
 												
 											}
-											if(data.entity.surplusGrantMoney){
+											if(data.entity.surplusGrantMoney || data.entity.surplusGrantMoney==0){
 													var grantMoneyOld=$formGrantMoney.val(); 
 													var remainMoney = data.entity.surplusGrantMoney;
 													remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoney)));
@@ -78,17 +78,16 @@ var editApprActualDialog = {
 													$formGrantMoney.blur(function(){
 													var grantMoney=$formGrantMoney.val();
 													if(!beforeSubmitById("form_edit_actual_dialog")){
+														$surplusGrantMoney.html("剩余金额" + addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))) + "元");
 														return false;
 													}
+													
 													if(grantMoney<0){
 														$surplusGrantMoney.html("剩余金额" + remainMoney + "元");
 										 			 }else{
 										 				var remainMoneyNew=fixSizeDecimal(parseFloat(remainMoneyTotal)-parseFloat(grantMoney),2);
 										 				remainMoneyNew = parseFloat(remainMoneyNew);
 														remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
-														console.log(remainMoneyTotal);
-														console.log(grantMoney);
-														console.log(remainMoneyNew);
 														if(remainMoneyNew<0 || remainMoneyNew==0){
 															$surplusGrantMoney.html("剩余金额0元");
 														}else{
