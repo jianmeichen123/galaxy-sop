@@ -326,7 +326,7 @@ var searchPartMoney;
 				 $("#totallId").val(grantTotal.id);
 			 }
 			 if(grantTotal.is_edit==false){
-				 $("#grantMoney").attr("readonly","readonly");
+				 $("#grantMoney").attr("disabled","disabled");
 				 $("#grantMoney").css("background-color","#f8f8f8");
 			 }
 			 if(null!=grantTotal){
