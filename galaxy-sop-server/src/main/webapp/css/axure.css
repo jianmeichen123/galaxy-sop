@@ -1655,7 +1655,7 @@ font-family: "宋体";
 .searchall_prj{width:100%;padding:10px 0;background-color: #d6d8e1;border-radius: 4px;margin-top: 10px;position: relative;}
 .searchall_prj .searchall_top,.searchall_prj .searchall_bottom{padding:0 20px;overflow: hidden;width:95%;}
 .searchall_prj .searchall_top{margin-bottom: 10px;display: none;}
-.searchall_prj .fmdl{margin-right: 1.2%;}
+.searchall_prj .fmdl{margin-right: 1%;}
 .searchall_prj .fmdl select{box-sizing: border-box; height:30px;}
 .searchall_prj dt{width:75px;text-align: right;font-size: 14px;color:#3e4351;}
 .searchall_prj dd,.searchall_prj dd select{width:110px;}
