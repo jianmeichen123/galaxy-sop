@@ -89,6 +89,9 @@
 	         
 		  $("#grantMoney").blur(function(){
 			 var grantMoney=$("#grantMoney").val();
+			 if(!beforeSubmitById("actual_aging_container")){
+	 				return false;
+	 			} 
 			 if(grantMoney<0){
 	 				$("#formatRemainMoney").html(remainMoney)
 	 			 }else{

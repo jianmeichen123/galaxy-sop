@@ -221,11 +221,15 @@ var searchPartMoney;
 						   var grantMoneyOld=$("#grantMoney").val();
 						 var remainMoney=Number(delCommas($("#formatRemainMoney").text()));
 						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
+						 if(!beforeSubmitById("actual_aging_container")){
+				 				return false;
+				 			} 
 						  $("#grantMoney").blur(function(){
 					 			 var grantMoney=$("#grantMoney").val();
-					 			if(!beforeSubmitById("actual_aging_container")){
+					 			 if(!beforeSubmitById("actual_aging_container")){
+					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))));
 					 				return false;
-					 			}
+					 			} 
 					 			 if(grantMoney<0){
 					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))))
 					 			 }else{
