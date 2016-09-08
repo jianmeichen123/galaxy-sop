@@ -223,6 +223,10 @@ var searchPartMoney;
 						 remainMoneyTotal=remainMoney+Number(grantMoneyOld);
 						  $("#grantMoney").blur(function(){
 					 			 var grantMoney=$("#grantMoney").val();
+					 			 $(".tip-yellowsimple").hide();
+					 			if(!beforeSubmit()){
+									return false;
+								}
 					 			 if(grantMoney<0){
 					 				$("#formatRemainMoney").html(addCommas(fixSizeDecimal(parseFloat(remainMoneyTotal))))
 					 			 }else{

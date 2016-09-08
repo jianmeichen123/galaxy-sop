@@ -121,7 +121,7 @@ var editApprActualDialog = {
 								 */
 								save : function(saveParam){
 									var grantMoney = $("#form_edit_actual_dialog").find("#form_grant_money").val();
-									if(!beforeSubmit()){
+									if(!beforeSubmitById("form_edit_actual_dialog")){
 										return false;
 									}else{
 //										console.log(saveParam);
