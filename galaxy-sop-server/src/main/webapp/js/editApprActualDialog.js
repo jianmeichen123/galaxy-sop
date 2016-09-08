@@ -77,11 +77,18 @@ var editApprActualDialog = {
 													$surplusGrantMoney.html("剩余金额" + remainMoney + "元");											         
 													$formGrantMoney.blur(function(){
 													var grantMoney=$formGrantMoney.val();
+													if(!beforeSubmit()){
+														return false;
+													}
 													if(grantMoney<0){
 														$surplusGrantMoney.html("剩余金额" + remainMoney + "元");
 										 			 }else{
-										 				var remainMoneyNew=remainMoneyTotal-grantMoney;
+										 				var remainMoneyNew=fixSizeDecimal(parseFloat(remainMoneyTotal)-parseFloat(grantMoney),2);
+										 				remainMoneyNew = parseFloat(remainMoneyNew);
 														remainMoney = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
+														console.log(remainMoneyTotal);
+														console.log(grantMoney);
+														console.log(remainMoneyNew);
 														if(remainMoneyNew<0 || remainMoneyNew==0){
 															$surplusGrantMoney.html("剩余金额0元");
 														}else{
@@ -117,7 +124,16 @@ var editApprActualDialog = {
 									if(!beforeSubmit()){
 										return false;
 									}else{
-										if(fixSizeTwo(parseFloat(grantMoney) - parseFloat(saveParam.preMoney),2) > fixSizeTwo(parseFloat(saveParam.surplusGrantMoney),2)){
+//										console.log(saveParam);
+										//原理: 本次编辑后实际金额 - 本次编辑前 实际金额  应该小于等于 本次添加前剩余金额
+										//修改后金额与初始实际金额差
+										var fallMoney = fixSizeDecimal(parseFloat(grantMoney) - parseFloat(saveParam.preMoney),2);
+										fallMoney = parseFloat(fallMoney);
+										saveParam.surplusGrantMoney = parseFloat(fixSizeDecimal(parseFloat(saveParam.surplusGrantMoney),2));
+//										console.log("修改后金额与修改前的金额差:" + fallMoney);
+//										console.log("初始剩余金额" + saveParam.surplusGrantMoney);
+										console.log(fallMoney>saveParam.surplusGrantMoney);
+										if(fallMoney > saveParam.surplusGrantMoney){
 											layer.msg("实际拨款金额之和大于分期拨款金额");
 											return false;
 										}
