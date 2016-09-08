@@ -44,8 +44,13 @@
 			sendPostRequestByJsonStr(platformUrl.addGrantTotal, $("#add_form").serializeObject(), function(data){
 				if(!data){
 					layer.msg("提交表单过于频繁!");
-				}else if(data.result.status=="ERROR"){					
-						layer.msg("协议名称输入错误!");
+				}else if(data.result.status=="ERROR"){
+					if($("#grantName").val().trim().length<1){
+						layer.msg("协议名称输入错误!");   //协议名称输入内容全为空格时
+					}else{
+						layer.msg(data.result.message);
+					}
+						
 				}else{
 					layer.msg(data.result.message);
 					var numOfShow = $("#tabApprAllList .agreement:visible").length;
