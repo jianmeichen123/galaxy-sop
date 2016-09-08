@@ -359,8 +359,8 @@ function paramsContion(){
 	}
 	var partMoney = $("#grantMoney").val();
 	var grantDetail = $("#grantDetail").val();
-	
-	if(grantDetail.indexOf(" ") > -1){
+	var check =/^[\s]*$/;
+	if(check.test(grantDetail)){
 		layer.msg("拨款时间输入错误!");
 		return false;
 	}
