@@ -44,9 +44,8 @@
 			sendPostRequestByJsonStr(platformUrl.addGrantTotal, $("#add_form").serializeObject(), function(data){
 				if(!data){
 					layer.msg("提交表单过于频繁!");
-				}else if(data.result.status=="ERROR"){
-					
-						layer.msg(data.result.message);
+				}else if(data.result.status=="ERROR"){					
+						layer.msg("协议名称输入错误!");
 				}else{
 					layer.msg(data.result.message);
 					var numOfShow = $("#tabApprAllList .agreement:visible").length;
