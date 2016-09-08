@@ -77,7 +77,7 @@ var editApprActualDialog = {
 													$surplusGrantMoney.html("剩余金额" + remainMoney + "元");											         
 													$formGrantMoney.blur(function(){
 													var grantMoney=$formGrantMoney.val();
-													if(!beforeSubmit()){
+													if(!beforeSubmitById("form_edit_actual_dialog")){
 														return false;
 													}
 													if(grantMoney<0){
