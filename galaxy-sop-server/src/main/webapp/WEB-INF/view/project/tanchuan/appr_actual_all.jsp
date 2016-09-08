@@ -42,9 +42,6 @@
 	function saveAppr(){
 		if(beforeSubmitById("add_form")){
 			sendPostRequestByJsonStr(platformUrl.addGrantTotal, $("#add_form").serializeObject(), function(data){
-				/* if(!beforeSubmitById("add_form")){
-					return false;
-				} */
 				if(!data){
 					layer.msg("提交表单过于频繁!");
 				}else if(data.result.status=="ERROR"){
