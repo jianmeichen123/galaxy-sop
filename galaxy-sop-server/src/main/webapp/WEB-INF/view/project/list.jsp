@@ -466,8 +466,8 @@
 				createUserOptions(platformUrl.getUserList+$('select[name="projectDepartid"]').val(), "createUid", 1);
 				$("select[name='createUid']").val(0);
 			}else{
-// 				$("select[name='projectDepartid']").val(did);
-				$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
+				$("select[name='projectDepartid']").val(did);
+// 				$("select[name='projectDepartid']").find('option[back="link"]').attr("selected",true);
 				createUserOptions(platformUrl.getUserList+did, "createUid", 1);
 				$("select[name='createUid']").val(userId);
 			}
