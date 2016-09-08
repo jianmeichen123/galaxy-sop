@@ -99,7 +99,7 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
-import com.galaxyinternet.utils.SopConstatnts;
+import com.galaxyinternet.utils.CollectionUtils;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -401,10 +401,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
 		if (project != null) {
-			//Department Department = new Department();//
-			//Department.setId(project.getProjectDepartid());
-		Map<Long ,Department> map = (Map<Long ,Department>)cache.get(PlatformConst.REQUEST_DEPARTMENT);
-			Department queryOne =map.get(project.getProjectDepartid());
+			List<Department> departments = departmentService.queryAll();
+			Department queryOne = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
 			Long deptId = null;
 			if (queryOne != null) {
 				project.setProjectCareerline(queryOne.getName());
@@ -419,9 +417,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			if(project.getIndustryOwn()!=null){
-			//	Department Dt= new Department();
-			//	Dt.setId(project.getIndustryOwn());
-				Department queryTwo = map.get(project.getIndustryOwn());
+				Department queryTwo = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
 				if (queryTwo != null) {
 					project.setIndustryOwnDs(queryTwo.getName());				
 				}
