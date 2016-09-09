@@ -98,9 +98,10 @@
 	 				$("#formatRemainMoney").html(remainMoney)
 	 			 }else{
 	 				var remainMoney = '${remainMoney}';
-	 				var remainMoneyNew=remainMoney-grantMoney;
-	 				remainMoneyNew = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
-	 				if(remainMoneyNew<0 || remainMoneyNew==0){
+	 				var sremainMoneyNew=remainMoney-Number(grantMoney);
+	 				remainMoneyNew = addCommas(fixSizeDecimal(parseFloat(sremainMoneyNew)));
+	 				
+	 				if( sremainMoneyNew < 0 || sremainMoneyNew == 0){
 	 				    $("#formatRemainMoney").html("0");
 	 				}else{
 	 				    $("#formatRemainMoney").html(remainMoneyNew);
