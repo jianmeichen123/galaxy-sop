@@ -373,9 +373,10 @@ function paramsContion(){
 	}
 	var remainMoney = $("#remainMoney").val();
 	var grantMoneyOld=$("#oldRemainMoney").val();
-	var newgrant = Number(grantMoneyOld)+Number(remainMoney);
+	var newgrant = (Number(grantMoneyOld)+Number(remainMoney)).toFixed(2);
 	
-	if((parseFloat(partMoney) - parseFloat(newgrant)) >= 0.01 &&  parseFloat(partMoney) > parseFloat(newgrant)){
+	var inputValueMoney = Number(partMoney).toFixed(2);
+	if(parseFloat(inputValueMoney) > parseFloat(newgrant)){
 		layer.msg("分期拨款金额之和大于总拨款金额");
 		return false;
 	}
