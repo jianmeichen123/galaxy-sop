@@ -127,7 +127,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 					new PageRequest(actual.getPageNum(), 
 							actual.getPageSize(), 
 							Direction.fromString("asc"), 
-							"updated_time", "created_time"));
+							"created_time"));
 			responseBody.setPageList(actualPage);
 		} catch (Exception e) {
 			_common_logger_.error("查询实际拨款列表失败！查询条件：" + actual, e);
