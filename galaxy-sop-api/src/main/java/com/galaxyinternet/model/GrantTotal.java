@@ -16,6 +16,7 @@ public class GrantTotal extends PagableEntity {
 	private Long createUid;
 	private String createUname;
 	private boolean is_edit;
+	private String updatedUname;
 	
 	public Long getProjectId() {
 		return projectId;
@@ -48,7 +49,16 @@ public class GrantTotal extends PagableEntity {
 		this.createUname = createUname;
 	}
 	
-	
+	public String getUpdatedUname()
+	{
+		return updatedUname;
+	}
+	public void setUpdatedUname(String updatedUname)
+	{
+		this.updatedUname = updatedUname;
+	}
+
+
 	//----bo----
 	private List<GrantPart> partList;
 	private String formatCreatedTime;

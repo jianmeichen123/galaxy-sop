@@ -94,3 +94,5 @@ VALUES ('fileWorktype','尽职调查总结会报告',19,'fileWorktype:19','19',1
 
 /**菜单数据修正**/
 UPDATE `fx_db`.`platform_resource` SET `resource_url` = NULL WHERE `resource_mark` = 'task_into_view';
+/**总拨款计划添加编辑人名**/
+ALTER TABLE sop_grant_total ADD COLUMN updated_uname VARCHAR(50) NULL COMMENT '编辑人名';

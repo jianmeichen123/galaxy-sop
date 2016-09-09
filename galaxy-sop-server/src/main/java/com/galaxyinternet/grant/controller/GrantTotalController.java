@@ -111,11 +111,12 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			project = projectService.queryById(grantTotal.getProjectId());
 			
 			User user = (User) getUserFromSession(request);
-			grantTotal.setCreateUid(user.getId());
-			grantTotal.setCreateUname(user.getRealName());
+			grantTotal.setUpdatedUname(user.getRealName());
 			grantTotal.setUpdatedTime(System.currentTimeMillis());
 			long id=0;
 			if(null==grantTotal.getId()||grantTotal.getId()==0){
+				grantTotal.setCreateUid(user.getId());
+				grantTotal.setCreateUname(user.getRealName());
 				uNum = UrlNumber.one;
 				 grantTotal.setId(null);
 				 id = grantTotalService.insert(grantTotal);

@@ -10,11 +10,12 @@
 		<result column="create_uname" property="createUname" />
 		<result column="updated_time" property="updatedTime" />
 		<result column="created_time" property="createdTime" />
+		<result column="updated_uname" property="updatedUname" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
 		id, project_id, grant_name, grant_money, create_uid, create_uname,
-		updated_time,created_time
+		updated_time,created_time,updated_uname
 	</sql>
 
 
@@ -76,6 +77,9 @@
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
 			</if>
+			<if test="updatedUname != null"> 
+				updated_uname = #{updatedUname,jdbcType=BIGINT}
+			</if>
 		</set>
 		where id = #{id}
 	</update>
@@ -92,6 +96,9 @@
 			</if>
 			<if test="updatedTime != null"> 
 				updated_time = #{updatedTime,jdbcType=BIGINT}, 
+			</if>
+			<if test="updatedUname != null"> 
+				updated_uname = #{updatedUname,jdbcType=BIGINT}
 			</if>
 		</set>
 		<where>
@@ -119,10 +126,10 @@
 	    <![CDATA[
 	     insert into sop_grant_total(
 	     	id, project_id, grant_name, grant_money, create_uid, 
-	     	create_uname, updated_time,created_time
+	     	create_uname, updated_time,created_time,updated_uname
 	     )values(
 	     	#{id}, #{projectId}, #{grantName}, #{grantMoney}, #{createUid}, 
-	     	#{createUname},#{updatedTime}, #{createdTime}
+	     	#{createUname},#{updatedTime}, #{createdTime}, #{updatedUname}
 		 )
 	    ]]>
 	</insert>
