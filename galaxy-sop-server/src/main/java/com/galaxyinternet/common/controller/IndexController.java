@@ -84,6 +84,14 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	public String index(HttpServletRequest request) {
 		return "index";
 	}
+	/**
+	 * 跳转到首页-工作桌面
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteAlert", method = RequestMethod.GET)
+	public String deleteAlert(HttpServletRequest request) {
+		return "project/tanchuan/tipsAppr";
+	}
 	
 	/**
 	 * 跳转到添加项目页面

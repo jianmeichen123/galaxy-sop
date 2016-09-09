@@ -81,6 +81,12 @@ public class Project extends PagableEntity {
 	
 	private String faName;//中介名称
 	
+	/**
+	 * 项目成员
+	 */
+	private String projectPerson;
+
+	
 	
 	
 	
@@ -578,6 +584,17 @@ public class Project extends PagableEntity {
 	public void setFaName(String faName) {
 		this.faName = faName;
 	}
+
+	public String getProjectPerson() {
+		return projectPerson;
+	}
+
+	public void setProjectPerson(String projectPerson) {
+		this.projectPerson = projectPerson;
+	}
+
+
+	
 	
 	
 

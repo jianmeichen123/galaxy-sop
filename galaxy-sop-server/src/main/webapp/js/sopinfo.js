@@ -27,14 +27,13 @@ function showTabs(id,index)
 		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/delivery/toprodeliver/" + id);
 		break;
 	case 8 :
-		
+		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/toAppropriation/" + id);
 		break;
 	case 9 :
 		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/postOperation/toPostMeeting/" + id);
 		break;
 	default : 
 		forwardWithHeader(Constants.sopEndpointURL+"/galaxy/project/detail/" + id);
-	
 	}
 	
 

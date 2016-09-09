@@ -1,12 +1,8 @@
 package com.galaxyinternet.sopfile.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -23,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,8 +64,6 @@ import com.galaxyinternet.framework.core.oss.OSSConstant;
 import com.galaxyinternet.framework.core.oss.OSSFactory;
 import com.galaxyinternet.framework.core.service.BaseService;
 import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.framework.core.utils.GSONUtil;
-import com.galaxyinternet.framework.core.utils.JSONUtils;
 import com.galaxyinternet.framework.core.utils.mail.MailTemplateUtils;
 import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.department.Department;
@@ -260,7 +253,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 	}
 	
 	/**
-	 * 获取档案列表(	查询)
+	 * 获取档案列表(分页查询)
 	 * 
 	 * @param
 	 * @return
@@ -286,138 +279,95 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 //			for(RoleWorkTypeRule tempRule : tempRuleList){
 //				fileworktypeList.add(tempRule.getWorkType());
 //			}
-//			sopFile.setFileworktypeList(fileworktypeList);
-			
-			if ("dialog".equals(sopFile.getPageType())) {
-				sopFile.setFileWorktypeNullFilter("true");
-			} else {
-				
-				if (roleIdList.contains(UserConstant.HRZJ)) {
-					// 人事总监
-					List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
-					List<String> fileWorktypeList = new ArrayList<String>();
-					for(RoleWorkTypeRule roleWork : roleRuleList){
-						fileWorktypeList.add(roleWork.getWorkType());
-					}
-					sopFile.setFileworktypeList(fileWorktypeList);
-					List<String> fileStatusList = new ArrayList<String>();
-					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
-					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
-					sopFile.setFileStatusList(fileStatusList);
-					sopFile.setFileValid(1);
-				} else if(roleIdList.contains(UserConstant.HRJL)){
-					// 人事经理
-					sopFile.setBelongUid(obj.getId());
-				} else if (roleIdList.contains(UserConstant.FWZJ)) {
-					// 法务总监
-					List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
-					List<String> fileWorktypeList = new ArrayList<String>();
-					for(RoleWorkTypeRule roleWork : roleRuleList){
-						fileWorktypeList.add(roleWork.getWorkType());
-					}
-					sopFile.setFileworktypeList(fileWorktypeList);
-					List<String> fileStatusList = new ArrayList<String>();
-					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
-					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
-					sopFile.setFileStatusList(fileStatusList);
-					sopFile.setFileValid(1);
-				} else if(roleIdList.contains(UserConstant.FWJL)){
-					// 法务经理
-					sopFile.setBelongUid(obj.getId());
-				} else if (roleIdList.contains(UserConstant.CWZJ)) {
-					// 财务总监
-					List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
-					List<String> fileWorktypeList = new ArrayList<String>();
-					for(RoleWorkTypeRule roleWork : roleRuleList){
-						fileWorktypeList.add(roleWork.getWorkType());
-					}
-					sopFile.setFileworktypeList(fileWorktypeList);
-					List<String> fileStatusList = new ArrayList<String>();
-					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
-					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
-					sopFile.setFileStatusList(fileStatusList);
-					sopFile.setFileValid(1);
-				} else if(roleIdList.contains(UserConstant.CWJL)){
-					// 财务经理
-					sopFile.setBelongUid(obj.getId());
-				} else if (roleIdList.contains(UserConstant.TZJL)) {
-					// 投资经理
-					Project pQuery = new Project();
-					pQuery.setCreateUid(obj.getId());
-					List<Project> projectList = proJectService
-							.queryList(pQuery);
-					List<Long> projectIdList = new ArrayList<Long>();
-					for (Project temp : projectList) {
-						projectIdList.add(temp.getId());
-					}
-					if(projectList.size() > 0){
-						sopFile.setProjectIdList(projectIdList);
-					}else{
-						Page<SopFile> pageSopFile = new Page<SopFile>(
-								new ArrayList<SopFile>(), new PageRequest(
-										sopFile.getPageNum()==null || sopFile.getPageNum() < 0 ? 0 : sopFile.getPageNum(),
-										sopFile.getPageSize()==null || sopFile.getPageSize() < 1? 10 : sopFile.getPageSize()), 0l);
-						responseBody.setPageList(pageSopFile);
-						responseBody.setResult(new Result(Status.OK, ""));
-						return responseBody;
-					}
-				} else if (roleIdList.contains(UserConstant.DAGLY)) {
-					// 档案管理员
-					List<String> fileStatusList = new ArrayList<String>();
-					fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
-					fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
-					sopFile.setFileStatusList(fileStatusList);
-					sopFile.setFileValid(1);
-					
-				} else {
-					// 其他人怎么办
-				}
-				sopFile.setFileWorktypeNullFilter("true");
-//				sopFile.setFileStatus(DictEnum.fileStatus.已上传.getCode());
-//				List<String> fileStatusList = new ArrayList<String>();
-//				fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
-//				fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
-//				sopFile.setFileStatusList(fileStatusList);
-				// 模糊搜索
-				if (sopFile.getKeyword() != null
-						&& !sopFile.getKeyword().isEmpty()) {
-					ProjectBo pQuery = new ProjectBo();
-					pQuery.setKeyword(sopFile.getKeyword());
-					pQuery.setFlagkeyword("onlyName");
-					List<Project> projectList = projectService
-							.queryList(pQuery);
-					User user = new User();
-					user.setKeyword(sopFile.getKeyword());
-					user.setFlagkeyword("onlyName");
-					// user.setRealName(sopFile.getKeyword());
-					List<User> userList = userService.queryList(user);
-					if ((projectList == null || projectList.size() <= 0)
-							&& (userList == null || userList.size() <= 0)) {
-						Page<SopFile> pageSopFile = new Page<SopFile>(
-								new ArrayList<SopFile>(), new PageRequest(
-										sopFile.getPageNum()==null? 0 : sopFile.getPageNum(),
-												sopFile.getPageSize()==null? 0 : sopFile.getPageSize()), 0l);
-						responseBody.setPageList(pageSopFile);
-						responseBody.setResult(new Result(Status.OK, ""));
-						return responseBody;
-					}
-					if (projectList != null && projectList.size() > 0) {
-						List<Long> projectIdList = new ArrayList<Long>();
-						for (Project tempPro : projectList) {
-							projectIdList.add(tempPro.getId());
-						}
-						sopFile.setProjectLikeIdList(projectIdList);
-					}
-					if (userList != null && userList.size() > 0) {
-						List<Long> fileUidList = new ArrayList<Long>();
-						for (User tempUser : userList) {
-							fileUidList.add(tempUser.getId());
-						}
-						sopFile.setFileULikeidList(fileUidList);
-					}
 
+			
+			if (roleIdList.contains(UserConstant.HRZJ)) {
+				// 人事总监
+				List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
+				List<String> fileWorktypeList = new ArrayList<String>();
+				for(RoleWorkTypeRule roleWork : roleRuleList){
+					fileWorktypeList.add(roleWork.getWorkType());
 				}
+				sopFile.setFileworktypeList(fileWorktypeList);
+				List<String> fileStatusList = new ArrayList<String>();
+				fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
+				fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+				sopFile.setFileStatusList(fileStatusList);
+				sopFile.setFileValid(1);
+			} else if(roleIdList.contains(UserConstant.HRJL)){
+				// 人事经理
+				sopFile.setBelongUid(obj.getId());
+			} else if (roleIdList.contains(UserConstant.FWZJ)) {
+				// 法务总监
+				List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
+				List<String> fileWorktypeList = new ArrayList<String>();
+				for(RoleWorkTypeRule roleWork : roleRuleList){
+					fileWorktypeList.add(roleWork.getWorkType());
+				}
+				sopFile.setFileworktypeList(fileWorktypeList);
+				List<String> fileStatusList = new ArrayList<String>();
+				fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
+				fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+				sopFile.setFileStatusList(fileStatusList);
+				sopFile.setFileValid(1);
+			} else if(roleIdList.contains(UserConstant.FWJL)){
+				// 法务经理
+				sopFile.setBelongUid(obj.getId());
+			} else if (roleIdList.contains(UserConstant.CWZJ)) {
+				// 财务总监
+				List<RoleWorkTypeRule> roleRuleList = RoleUtils.getWorktypeByShow(roleIdList, "true");
+				List<String> fileWorktypeList = new ArrayList<String>();
+				for(RoleWorkTypeRule roleWork : roleRuleList){
+					fileWorktypeList.add(roleWork.getWorkType());
+				}
+				sopFile.setFileworktypeList(fileWorktypeList);
+				List<String> fileStatusList = new ArrayList<String>();
+				fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
+				fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+				sopFile.setFileStatusList(fileStatusList);
+				sopFile.setFileValid(1);
+			} else if(roleIdList.contains(UserConstant.CWJL)){
+				// 财务经理
+				sopFile.setBelongUid(obj.getId());
+			} else if (roleIdList.contains(UserConstant.TZJL)) {
+				// 投资经理
+				Project pQuery = new Project();
+				pQuery.setCreateUid(obj.getId());
+				List<Project> projectList = proJectService
+						.queryList(pQuery);
+				List<Long> projectIdList = new ArrayList<Long>();
+				for (Project temp : projectList) {
+					projectIdList.add(temp.getId());
+				}
+				if(projectList.size() > 0){
+					sopFile.setProjectIdList(projectIdList);
+				}else{
+					Page<SopFile> pageSopFile = new Page<SopFile>(
+							new ArrayList<SopFile>(), new PageRequest(
+									sopFile.getPageNum()==null || sopFile.getPageNum() < 0 ? 0 : sopFile.getPageNum(),
+									sopFile.getPageSize()==null || sopFile.getPageSize() < 1? 10 : sopFile.getPageSize()), 0l);
+					responseBody.setPageList(pageSopFile);
+					responseBody.setResult(new Result(Status.OK, ""));
+					return responseBody;
+				}
+			} else if (roleIdList.contains(UserConstant.DAGLY)) {
+				// 档案管理员
+				List<String> fileStatusList = new ArrayList<String>();
+				fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
+				fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+				sopFile.setFileStatusList(fileStatusList);
+				sopFile.setFileValid(1);
+				
+			} else {
+				// 其他人怎么办
+				List<String> fileStatusList = new ArrayList<String>();
+				fileStatusList.add(DictEnum.fileStatus.已上传.getCode());
+				fileStatusList.add(DictEnum.fileStatus.已签署.getCode());
+				sopFile.setFileStatusList(fileStatusList);
+				sopFile.setFileValid(1);
 			}
+
+		
 
 			PageRequest pageRequest = null;
 			if ("index".equals(sopFile.getPageType())) {
@@ -428,15 +378,13 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 				pageRequest = new PageRequest(sopFile.getPageNum(),
 						sopFile.getPageSize());
 			}
-		//	sopFile.setFileValid(1);
 			Page<SopFile> pageSopFile = sopFileService.queryPageList(sopFile,
 					pageRequest);
-			// 操作权限判断 && 上传文件任务权限判断
-			
+			// 操作权限判断 && 上传文件任务权限判断	
 			for (SopFile temp : pageSopFile.getContent()) {
 				String isEdit = RoleUtils.getWorkTypeEdit(roleIdList,
 						temp.getFileWorktype());
-				if(!roleIdList.contains(UserConstant.DAGLY)){
+				if(roleIdList.contains(UserConstant.TZJL)){
 					if(temp.getEditUser()!=null){
 						if(!temp.getEditUser().equals(obj.getId()) ){
 							isEdit = "false";
@@ -1447,6 +1395,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			//form.setFileName(nameMap.get("fileName"));
 			form.setFileName(request.getParameter("fileName").substring(0, request.getParameter("fileName").lastIndexOf(".")));
 			form.setFileSuffix(nameMap.get("fileSuffix"));
+			form.setFileType(FileUtils.getFileType(form.getFileSuffix()));
 			form.setFileLength(multipartFile.getSize());
 			form.setFileStatus(DictEnum.fileStatus.已上传.getCode());
 			form.setFileUid(user.getId());
@@ -1465,10 +1414,10 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 		
 	}
 
-	@RequestMapping("/showLxReportUpload")
-	public String showLxReportUpload()
+	@RequestMapping("/showReportUpload")
+	public String showReportUpload()
 	{
-		return "/project/lxReportUpload";
+		return "/project/reportUpload";
 	}
 	@ResponseBody
 	@RequestMapping(value="/upload")
@@ -1503,10 +1452,19 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			sopFile.setUpdatedTime(new Date().getTime());
 			sopFile.setFileUid(user.getId());
 			sopFile.setCareerLine(user.getDepartmentId());
+			sopFile.setFileValid(1);
 			UrlNumber urlNumber = null;
 			if(DictEnum.fileWorktype.立项报告.getCode().endsWith(sopFile.getFileWorktype()))
 			{
 				urlNumber = isInsert ? UrlNumber.one : UrlNumber.two;
+			}
+			else if(DictEnum.fileWorktype.尽职调查启动会报告.getCode().endsWith(sopFile.getFileWorktype()))
+			{
+				urlNumber = isInsert ? UrlNumber.three : UrlNumber.four;
+			}
+			else if(DictEnum.fileWorktype.尽职调查总结会报告.getCode().endsWith(sopFile.getFileWorktype()))
+			{
+				urlNumber = isInsert ? UrlNumber.five : UrlNumber.six;
 			}
 			if(isInsert)
 			{

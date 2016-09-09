@@ -503,12 +503,17 @@ function dateFormatter(val,row,index)
 					});
 				},
 				BeforeUpload : function(up,file){
+					$(_dialog.id).showLoading(
+							 {
+							    'addClass': 'loading-indicator'						
+							 });
 					var $form = $(_dialog.id).find("#upload-form");
 					var data = JSON.parse($form.serializeObject());
 					data['fileType']=$(_dialog.id).find("[name='fileType']").val();
 					up.settings.multipart_params = data;
 				},
 				FileUploaded: function(up, files, rtn) {
+					$(_dialog.id).hideLoading();
 					var data = $.parseJSON(rtn.response);
 					if(data.result.status == 'OK')
 					{
@@ -526,6 +531,7 @@ function dateFormatter(val,row,index)
 					}
 				},
 				Error: function(up, err) {
+					$(_dialog.id).hideLoading();
 					layer.msg(err.message);
 				}
 			}
@@ -634,6 +640,7 @@ function dateFormatter(val,row,index)
 				},
 				
 				FileUploaded: function(up, files, rtn) {  //文件上传后回掉
+					$('#powindow[data-id="popid1"]').hideLoading();
 					var response = $.parseJSON(rtn.response);
 					var rs = response.result.status;
 					if(rs == "ERROR"){ //OK, ERROR
@@ -664,8 +671,13 @@ function dateFormatter(val,row,index)
 					}
 				},
 				BeforeUpload:function(up){
+					$('#powindow[data-id="popid1"]').showLoading(
+							 {
+							    'addClass': 'loading-indicator'						
+							 });
 				},
 				Error: function(up, err) {
+					$('#powindow[data-id="popid1"]').hideLoading();
 					$("#savemeet").removeClass("disabled");
 					$("#fileName").val("");
 					layer.msg(err.message);

@@ -9,28 +9,15 @@ import com.galaxyinternet.model.operationMessage.OperationMessage;
 public class ProjectTransferMessageHandler implements MessageHandler
 {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 7.1	催办人事尽调任务
-	 */
 	public static final String MESSAGE_TYPE_APPLY = "15.1";
-	/**
-	 * 7.2	催办财务尽调任务
-	 */
 	public static final String MESSAGE_TYPE_REVOKE = "15.2";
-	/**
-	 * 7.3	催办法务尽调任务
-	 */
 	public static final String MESSAGE_TYPE_RECIVICE = "15.3";
-	
 	public static final String MESSAGE_TYPE_REFUSE = "15.4";
 	@Override
 	public int getOrder()
 	{
-		return 7;
+		return 15;
 	}
 
 	@Override

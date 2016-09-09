@@ -433,9 +433,14 @@
 		    $("#loading-indicator-view").remove();
 		    $("#loading-indicator-view-overlay").remove();
 			return;
+		}else{
+			layer.msg(data.result.message);
+		    $("#loading-indicator-view").remove();
+		    $("#loading-indicator-view-overlay").remove();
+		    //window.location.reload();
+		    $('#meeting-shedule-list').bootstrapTable('refresh');  
 		}
-	    layer.msg(data.result.message);
-	    window.location.reload();
+	    
 	}
 </script>
 </html>

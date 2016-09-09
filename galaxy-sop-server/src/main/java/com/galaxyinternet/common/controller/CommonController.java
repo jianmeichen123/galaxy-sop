@@ -1,6 +1,8 @@
 package com.galaxyinternet.common.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -72,7 +74,6 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 	 * @author yangshuhua
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	@ResponseBody
 	@RequestMapping(value = "/menu/{selected}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<Menus> menu(@PathVariable("selected") int selected, HttpServletRequest request){
@@ -81,45 +82,13 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		
 		ResponseData<Menus> responseBody = new ResponseData<Menus>();
 		
-		User user = (User) getUserFromSession(request);
-		List<Menus> tabs = null;
-		HttpSession session = request.getSession();
-		if(session != null)
-		{
-			String key = Constants.SESSION_USER_MENUS_KEY+getSessionId(request);
-			if(session.getAttribute(key) != null)
-			{
-				tabs = (List<Menus>)session.getAttribute(key);
-			}
-			else
-			{
-				String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request)+ "&"+SopConstant.REQUEST_SCOPE_ATTR_IS_MENU +"=true";
-				tabs = getUserMenus(user.getId(), 0L, params);
-				session.setAttribute(key, tabs);
-			}
-		}
+		List<Menus> tabs = getUserMenus(request);
 		//选中菜单
-		String referer = request.getHeader("Referer");
-		String key = Constants.USER_LAST_ACCESS_MENU+getSessionId(request);
-		if(StringUtils.isNotEmpty(referer) && referer.contains(SopConstant.REQUEST_SCOPE_ATTR_IS_MENU))
+		Long selectedMenuId = getSelectMenuId(request);
+		if(selectedMenuId != null)
 		{
-			session.setAttribute(key, referer);
+			selected = selectedMenuId.intValue();
 		}
-		else if(session.getAttribute(key) != null)
-		{
-			referer = (String)session.getAttribute(key);
-		}
-		Menus selectedMenu = getSelectedMenu(referer, tabs);
-		if(selectedMenu != null && selectedMenu.getId() != null)
-		{
-			selected = selectedMenu.getId().intValue();
-		}
-		
-		
-		
-		
-		
-		
 		
 		Header header = new Header();
 		header.setAttachment(selected);
@@ -128,15 +97,6 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		return responseBody;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	@Override
 	protected BaseService<User> getBaseService() {
@@ -356,25 +316,117 @@ public class CommonController extends BaseControllerImpl<User, UserBo>{
 		}
 		return menus;
 	}
-	private Menus getSelectedMenu(String url,List<Menus> menus)
+	/**
+	 * 用户菜单
+	 * @param request
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private List<Menus> getUserMenus(HttpServletRequest request)
 	{
-		Menus menu = null;
-		if(StringUtils.isNotEmpty(url) && menus != null && menus.size() >0 )
+		User user = (User) getUserFromSession(request);
+		List<Menus> tabs = null;
+		HttpSession session = request.getSession();
+		if(session != null)
 		{
-			for(Menus item : menus)
+			String key = Constants.SESSION_USER_MENUS_KEY+getSessionId(request);
+			if(session.getAttribute(key) != null)
 			{
-				if(StringUtils.isNotEmpty(item.getUrl()) && item.getUrl().contains(url))
+				tabs = (List<Menus>)session.getAttribute(key);
+			}
+			else
+			{
+				String params = Constants.SESSOPM_SID_KEY + "=" + getSessionId(request) + "&" + Constants.REQUEST_URL_USER_ID_KEY + "=" + getUserId(request)+ "&"+SopConstant.REQUEST_SCOPE_ATTR_IS_MENU +"=true";
+				tabs = getUserMenus(user.getId(), 0L, params);
+				session.setAttribute(key, tabs);
+			}
+		}
+		return tabs;
+	}
+	/**
+	 * 选中菜单
+	 * @param request
+	 * @return
+	 */
+	private Long getSelectMenuId(HttpServletRequest request)
+	{
+		PlatformResource res = null;
+		String referer = request.getHeader("Referer");
+		String key = Constants.USER_LAST_ACCESS_MENU+getSessionId(request);
+		HttpSession session = request.getSession();
+		//从其他地方跳转（非菜单）
+		if(StringUtils.isNotEmpty(referer) && !referer.contains(SopConstant.REQUEST_SCOPE_ATTR_IS_MENU))
+		{
+			if(session.getAttribute(key) != null)
+			{
+				res = (PlatformResource)session.getAttribute(key);
+				if(!"index".equals(res.getResourceMark()))
 				{
-					menu = item;
-					break;
-				}
-				List<Menus> subMenus = item.getNodes();
-				if(subMenus != null && subMenus.size()>0)
-				{
-					menu = getSelectedMenu(url,subMenus);
+					return res.getId();
 				}
 			}
 		}
-		return menu;
+
+		User user = (User) getUserFromSession(request);
+		List<PlatformResource> userRes = new ArrayList<>(user.getAllResourceToUser());
+		Collections.sort(userRes, new Comparator<PlatformResource>(){
+			@Override
+			public int compare(PlatformResource o1, PlatformResource o2)
+			{
+				String url1 = StringUtils.isBlank(o1.getResourceUrl()) ? "" : o1.getResourceUrl();
+				String url2 = StringUtils.isBlank(o2.getResourceUrl()) ? "" : o2.getResourceUrl();
+				return url2.length() - url1.length();
+			}
+		});
+		
+		res = getResourceByUrl(userRes, referer);
+		do
+		{
+			if(res != null && "1".equals(res.getResourceType()))
+			{
+				if("index".equals(res.getProductMark()))
+				{
+					session.removeAttribute(key);
+				}
+				else
+				{
+					session.setAttribute(key, res);
+				}
+				return res.getId();
+			}
+			if(res != null)
+			{
+				res = getResourceById(userRes, res.getParentId());
+			}
+		}
+		while(res != null);
+		return null;
+	}
+	private PlatformResource getResourceByUrl(List<PlatformResource> userRes, String url)
+	{
+		PlatformResource res = null;
+		for(PlatformResource r : userRes)
+		{
+			if(!StringUtils.isBlank(r.getResourceUrl()) && url.contains(r.getResourceUrl()))
+			{
+				res = r;
+				break;
+			}
+		}
+		
+		return res;
+	}
+	private PlatformResource getResourceById(List<PlatformResource> userRes, Long id)
+	{
+		PlatformResource res = null;
+		for(PlatformResource r : userRes)
+		{
+			if(r.getId().equals(id))
+			{
+				res = r;
+				break;
+			}
+		}
+		return res;
 	}
 }

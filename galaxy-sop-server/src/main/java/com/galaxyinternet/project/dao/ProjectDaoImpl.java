@@ -151,4 +151,10 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 		Map<String, Object> params = BeanUtils.toMap(query);
 		return sqlSessionTemplate.selectList(getSqlName("selectColumnList"),params);
 	}
+
+	
+	@Override
+	public List<Long> selectProIdsForPrivilege(Map<String, Object> params) {
+		return sqlSessionTemplate.selectList(getSqlName("selectProIdsForPrivilege"),params);
+	}
 }

@@ -73,6 +73,7 @@ var fileGrid = {
 	projectId : undefined,
 	domid : undefined,
 	progress : undefined,
+	initFlag : false,
 	init : 	function(data){
 		 fileGrid.domid = data._domid;
 		 fileGrid.projectId = data._projectId;
@@ -85,79 +86,85 @@ var fileGrid = {
 			 fileGrid.callFuc = data._callFuc;
 		 }
 		 searchPanel.initData();
-		 $('#' + data._domid).bootstrapTable({
-			url : platformUrl.searchSopFileList, // 请求后台的URL（*）
-			queryParamsType : 'size|page', // undefined
-			showRefresh : false,
-			search : false,
-			method : 'post', // 请求方式（*）
-			// toolbar: '#toolbar', //工具按钮用哪个容器
-			// striped: true, //是否显示行间隔色
-			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-			pagination : true, // 是否显示分页（*）
-			sortable : false, // 是否启用排序
-			sortOrder : "asc", // 排序方式
-			queryParams : fileGrid.queryParams,// 传递参数（*）
-			sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）
-			pageNumber : 1, // 初始化加载第一页，默认第一页
-			pageSize : 10, // 每页的记录行数（*）
-			pageList : [ 10, 20 ], // 可供选择的每页的行数（*）
-			strictSearch : true,
-			clickToSelect : true, // 是否启用点击选中行
-			// height: 460, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-			uniqueId : "id", // 每一行的唯一标识，一般为主键列
-			cardView : false, // 是否显示详细视图
-			detailView : false, // 是否显示父子表
-			columns : [{
-				field : 'checkbox',
-				checkbox : "true",
-				title : ''
-			},{
-				field : 'fSource',
-				title : '文件来源'
-			}, {
-				field : 'fileUName',
-				title : '起草者'
-			}, {
-				field : 'fType',
-				title : '存储类型'
-			}, {
-				field : 'fWorktype',
-				title : '业务分类'
-			}, {
-			    field: 'voucherFile',
-			    title: '签署凭证',
-			    events : fileGrid.operatorVEvents,
-			    formatter: fileGrid.operateVFormatter 	
-			  }, {
-				field : 'updatedDate',
-				title : '更新日期'
-			}, {
-				field : 'fileStatusDesc',
-				title : '档案状态'
-			}, {
-				field : 'operate',
-				title : '操作',
-				events : fileGrid.updateEvents,
-				formatter : fileGrid.updateFormatter
+		 if(!fileGrid.initFlag){
+			 $('#' + data._domid).bootstrapTable({
+					url : platformUrl.searchSopFileList, // 请求后台的URL（*）
+					queryParamsType : 'size|page', // undefined
+					showRefresh : false,
+					search : false,
+					method : 'post', // 请求方式（*）
+					// toolbar: '#toolbar', //工具按钮用哪个容器
+					// striped: true, //是否显示行间隔色
+					cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+					pagination : true, // 是否显示分页（*）
+					sortable : false, // 是否启用排序
+					sortOrder : "asc", // 排序方式
+					queryParams : fileGrid.queryParams,// 传递参数（*）
+					sidePagination : "server", // 分页方式：client客户端分页，server服务端分页（*）
+					pageNumber : 1, // 初始化加载第一页，默认第一页
+					pageSize : 10, // 每页的记录行数（*）
+					pageList : [ 10, 20 ], // 可供选择的每页的行数（*）
+					strictSearch : true,
+					clickToSelect : true, // 是否启用点击选中行
+					// height: 460, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+					uniqueId : "id", // 每一行的唯一标识，一般为主键列
+					cardView : false, // 是否显示详细视图
+					detailView : false, // 是否显示父子表
+					columns : [{
+						field : 'checkbox',
+						checkbox : "true",
+						title : ''
+					},{
+						field : 'fSource',
+						title : '文件来源'
+					}, {
+						field : 'fileUName',
+						title : '起草者'
+					}, {
+						field : 'fType',
+						title : '存储类型'
+					}, {
+						field : 'fWorktype',
+						title : '业务分类'
+					}, {
+					    field: 'voucherFile',
+					    title: '签署凭证',
+					    events : fileGrid.operatorVEvents,
+					    formatter: fileGrid.operateVFormatter 	
+					  }, {
+						field : 'updatedDate',
+						title : '更新日期'
+					}, {
+						field : 'fileStatusDesc',
+						title : '档案状态'
+					}, {
+						field : 'operate',
+						title : '操作',
+						events : fileGrid.updateEvents,
+						formatter : fileGrid.updateFormatter
 
-			}, {
-				field : 'operate2',
-				title : '附件查看',
-				events : fileGrid.downloadEvents,
-				formatter : fileGrid.downloadFomatter
+					}, {
+						field : 'operate2',
+						title : '附件查看',
+						events : fileGrid.downloadEvents,
+						formatter : fileGrid.downloadFomatter
 
-			} ],
-			onLoadSuccess : function(){
-				if(typeof(isTransfering) != 'undefined' && isTransfering == 'true')
-				{
-					$('#' + data._domid).find('.fileuploadlink').parent().addClass('limits_gray');
-					$('#' + data._domid).find('.fileupdatelink').parent().addClass('limits_gray');
-				}
-			}
-		});
-		 // 初始化查询按钮
-		 $("#file_repository_btn").click(fileGrid.serarchData);
+					} ],
+					onLoadSuccess : function(){
+						if(typeof(isTransfering) != 'undefined' && isTransfering == 'true')
+						{
+							$('#' + data._domid).find('.fileuploadlink').parent().addClass('limits_gray');
+							$('#' + data._domid).find('.fileupdatelink').parent().addClass('limits_gray');
+						}
+					}
+				});
+				 // 初始化查询按钮
+				 $("#file_repository_btn").click(fileGrid.serarchData);
+				 fileGrid.initFlag = true;
+		 }else{
+			 fileGrid.serarchData();
+		 }
+		 
 
 		  
 	},

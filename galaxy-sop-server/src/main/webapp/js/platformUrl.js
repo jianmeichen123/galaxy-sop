@@ -33,7 +33,7 @@ var platformUrl = {
 	/**
 	 * 关闭项目
 	 */
-	closeProject : Constants.sopEndpointURL + "/galaxy/project/breakpro/",
+	closeProject : Constants.sopEndpointURL + "/galaxy/project/breakpro",
 	/**
 	 * 获取事业部——高管查询select
 	 */
@@ -614,11 +614,11 @@ var platformUrl = {
 	deletePostMeeting: Constants.sopEndpointURL + "/galaxy/project/postOperation/deletePostMeeting",
 	
 	/**
-	 * 立项报告
+	 * 立项报告/尽调启动会报告/尽调总结会报告
 	 */
-	showLxReportUpload: Constants.sopEndpointURL + "/galaxy/sopFile/showLxReportUpload",
+	showReportUpload: Constants.sopEndpointURL + "/galaxy/sopFile/showReportUpload",
 	/**
-	 * 立项报告
+	 * 立项报告/尽调启动会报告/尽调总结会报告
 	 */
 	uploadSimpleFile: Constants.sopEndpointURL + "/galaxy/sopFile/upload",
 	
@@ -869,8 +869,52 @@ var platformUrl = {
 	 * 
 	 */
 	receiveTransfer : Constants.sopEndpointURL + "/galaxy/projectTransfer/receiveTransfer",
-
+	/**
+	 * 否决项目
+	 */
+	toRefuseProject : Constants.sopEndpointURL + "/galaxy/project/toRefuseProject",
 	
+	/**
+	 * 拨款信息开始
+	 */
+    //添加分期拨款计划弹出页面
+	toApprActualAging : Constants.sopEndpointURL + "/galaxy/grant/part/toApprActualAging",
+    //添加总拨款计划弹出页面
+	toApprAllAdd : Constants.sopEndpointURL + "/galaxy/grant/total/toApprAllAdd",
+    //添加总拨款计划提交
+	addGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/addGrantTotal",
+	//查询总拨款计划列表
+	queryGrantTotalList : Constants.sopEndpointURL + "/galaxy/grant/total/search",
+	//查询单个总拨款计划列表
+	getGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/getGrantTotal",
+	//删除总拨款计划列表
+	deleteGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/deleteGrantTotal",
+	//编辑总拨款计划列表
+	resetGrantTotal : Constants.sopEndpointURL + "/galaxy/grant/total/resetGrantTotal",
+	//添加分期拨款计划
+	toAddApprActualAging : Constants.sopEndpointURL + "/galaxy/grant/part/addGrantPart",
+	//谈书实际拨款列表
+	toApprActualPage : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualPage",
+	//查看实际拨款详情
+	toApprActualLook : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLook",
+	//查看实际拨款详情
+	toApprActualAdd : Constants.sopEndpointURL + "/galaxy/grant/actual/toApprActualLook",
+	//右侧拨款进度
+	getApprProcess : Constants.sopEndpointURL + "/galaxy/grant/total/getApprProcess",
+	//删除成功提示框
+	deleteAlert : Constants.sopEndpointURL + "/galaxy/deleteAlert",
+	//实际拨款编辑弹窗
+	toEditApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/toEditApprActual",
+	//初始化拨款编辑弹窗
+	initEditApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/initEditApprActual",
+	//保存实际拨款
+	saveApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/saveApprActual",
+	//删除实际拨款
+	deleteApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/deleteApprActual",
+	//获取分拨中所有实际金额
+	getActualPartMoney : Constants.sopEndpointURL + "/galaxy/grant/actual/getActualPartMoney"
+
+
 	
 }
 

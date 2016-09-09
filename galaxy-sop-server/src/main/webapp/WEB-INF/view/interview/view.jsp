@@ -195,6 +195,7 @@ function showLogdetail(selectRowId){
 	//	alert(uid+"----"+interviewSelectRow.createdId);
 		if(uid!=interviewSelectRow.createdId){
 			$("#interviewsave").hide();
+			um.setDisabled();
 		}
 		//$("#interviewsave").hide();
 		$("#vid").val(selectRowId);
@@ -209,11 +210,13 @@ function interviewsave(){
 	if(pid != ''){
 		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
 			if (data.result.status=="OK") {
+				$("#hint_all").css("display","none");
 				layer.msg("保存成功");
 				$(".meetingtc").find("[data-close='close']").click();
 				$("#data-table").bootstrapTable('refresh');
 			} else {
 				layer.msg(data.result.message);
+				$("#hint_all").css("display","block");
 			}
 			
 		});

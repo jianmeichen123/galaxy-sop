@@ -19,7 +19,9 @@
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForHour.js"></script>
-
+<!-- 保存进度条 -->
+<link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 
 <!-- 校验 -->
 <script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>

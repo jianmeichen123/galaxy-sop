@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -40,6 +41,7 @@ import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.common.query.ProjectQuery;
 import com.galaxyinternet.common.taglib.FXFunctionTags;
 import com.galaxyinternet.common.utils.ControllerUtils;
+import com.galaxyinternet.common.utils.UtilsService;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.config.PlaceholderConfigurer;
 import com.galaxyinternet.framework.core.constants.Constants;
@@ -63,6 +65,7 @@ import com.galaxyinternet.framework.core.utils.mail.SimpleMailSender;
 import com.galaxyinternet.model.common.Config;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.dict.Dict;
+import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationLog.UrlNumber;
 import com.galaxyinternet.model.project.FormatData;
 import com.galaxyinternet.model.project.InterviewRecord;
@@ -96,6 +99,7 @@ import com.galaxyinternet.service.SopTaskService;
 import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
+import com.galaxyinternet.utils.CollectionUtils;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -135,6 +139,9 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@Autowired
 	private SopTaskService sopTaskService;
+	
+	@Resource(name ="utilsService")
+	private UtilsService utilsService;
 	
 	@Autowired
 	com.galaxyinternet.framework.cache.Cache cache;
@@ -185,6 +192,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			project.setProperty(" CAST(REPLACE(project_progress,'projectProgress---','')  AS SIGNED) ");
 			
 		}
+		if(project.getProjectPerson()!=null) project.setProjectPerson(project.getProjectPerson().toUpperCase());
 		List<Department> departmentList = departmentService.queryAll();
 		Page<Project> pageProject = projectService.queryPageList(project,
 						new PageRequest(project.getPageNum(), 
@@ -317,6 +325,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			return responseBody;
 		}
 
+		//验证项目名是否重复
+		if(project.getProjectName() != null){
+			ProjectBo obj = new ProjectBo();
+			obj.setProjectName(project.getProjectName());
+			obj.setIdFilter(project.getId());
+			List<Project> projectList = projectService.queryList(obj);
+			if (null != projectList && projectList.size() > 0) {
+				responseBody.setResult(new Result(Status.ERROR, "mccf", "项目名重复!"));
+				return responseBody;
+			}
+		}
+		
 		// 执行转换
 		project.getProjectContribution();
 		project.getProjectValuations();
@@ -381,10 +401,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 		Project project = projectService.queryById(Long.parseLong(pid));
 		if (project != null) {
-			//Department Department = new Department();//
-			//Department.setId(project.getProjectDepartid());
-		Map<Long ,Department> map = (Map<Long ,Department>)cache.get(PlatformConst.REQUEST_DEPARTMENT);
-			Department queryOne =map.get(project.getProjectDepartid());
+			List<Department> departments = departmentService.queryAll();
+			Department queryOne = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
 			Long deptId = null;
 			if (queryOne != null) {
 				project.setProjectCareerline(queryOne.getName());
@@ -399,9 +417,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			if(project.getIndustryOwn()!=null){
-			//	Department Dt= new Department();
-			//	Dt.setId(project.getIndustryOwn());
-				Department queryTwo = map.get(project.getIndustryOwn());
+				Department queryTwo = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
 				if (queryTwo != null) {
 					project.setIndustryOwnDs(queryTwo.getName());				
 				}
@@ -998,15 +1014,18 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						"必要的参数丢失!"));
 				return responseBody;
 			}
-			int in = Integer.parseInt(p.getStage().substring(
-					p.getStage().length() - 1));
-			int pin = Integer.parseInt(project.getProjectProgress().substring(
-					project.getProjectProgress().length() - 1));
+
+			int in = Integer.parseInt(p.getStage().substring(p.getStage().length() - 1));
+			int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length() - 1));
 			if (in < pin) {
-				responseBody
-						.setResult(new Result(Status.ERROR, null, "该操作已过期!"));
-				return responseBody;
+				//if(!utilsService.checkProIsGreenChannel(SopConstatnts.Redis._GREEN_CHANNEL_6_, p.getPid())){
+				if(!utilsService.checkProIsGreenChannel(p.getPid())){
+					responseBody.setResult(new Result(Status.ERROR, null, "该操作已过期!"));
+					return responseBody;				
+				}
 			}
+			
+			
 			// 如果是内部创建/未勾选"涉及股权转让"没有股权转让文档
 			if (p.getFileWorktype().equals(
 					DictEnum.fileWorktype.股权转让协议.getCode())) {
@@ -1433,6 +1452,30 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setId(project.getId());
 			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_);
+			/*
+			boolean toGreen = false;
+			SopFile file = new SopFile();
+			file.setProjectId(pid);
+			file.setFileValid(1);
+			file.setProjectProgress(DictEnum.projectProgress.尽职调查.getCode());
+			List<SopFile> files = sopFileService.queryList(file);
+			if (files == null
+					|| (project.getProjectType().equals(DictEnum.projectType.外部投资.getCode()) && files.size() < 4)
+					|| (project.getProjectType().equals(DictEnum.projectType.内部创建.getCode()) && files.size() < 2)) {
+				toGreen = true;
+			}
+			if(!toGreen){
+				for (SopFile f : files) {
+					if (f.getFileKey() == null || "".equals(f.getFileKey().trim())) {
+						toGreen = true;
+					}
+				}
+			}
+			if(toGreen){
+				utilsService.saveByRedis(SopConstatnts.Redis._GREEN_CHANNEL_6_, pid);
+			}
+			*/
+			
 		} catch (Exception e) {
 			responseBody
 					.setResult(new Result(Status.ERROR, null, "异常，申请投决会失败!"));
@@ -1525,10 +1568,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	 *            项目id
 	 * @return
 	 */
-	@com.galaxyinternet.common.annotation.Logger
+	@com.galaxyinternet.common.annotation.Logger(operationScope=LogType.LOG)
 	@ResponseBody
-	@RequestMapping(value = "/breakpro/{pid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> breakproject(@PathVariable Long pid,
+	@RequestMapping(value = "/breakpro",method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> breakproject(@RequestBody OperationLogs param,
 			HttpServletRequest request) {
 		ResponseData<Project> responseBody = new ResponseData<Project>();
 
@@ -1537,10 +1580,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		try {
 			// project id 验证
 			Project project = new Project();
-			project = projectService.queryById(pid);
+			project = projectService.queryById(param.getProjectId());
 			// 项目关闭将会议记录修改为否决项目
 			MeetingScheduling me = new MeetingScheduling();
-			me.setProjectId(pid);
+			me.setProjectId(param.getProjectId());
 			List<MeetingScheduling> meetingList = meetingSchedulingService
 					.queryList(me);
 			if (!meetingList.isEmpty()) {
@@ -1598,8 +1641,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				return responseBody;
 			}
 			responseBody.setResult(new Result(Status.OK, ""));
-			ControllerUtils.setRequestParamsForMessageTip(request,
-					project.getProjectName(), project.getId());
+			ControllerUtils.setRequestParamsForMessageTip(request,project.getProjectName(), project.getId(),null, false, null, param.getReason(), null);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null,
 					"add meetingRecord faild"));
@@ -2329,7 +2371,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	/**
 	 * 更新排期池时间/updateReserveTime
 	 */
-	@com.galaxyinternet.common.annotation.Logger(operationScope = LogType.MESSAGE)
+	@com.galaxyinternet.common.annotation.Logger(operationScope = {LogType.BATCHMESSAGE,LogType.IOSPUSHMESS})
 	@ResponseBody
 	@RequestMapping(value = "/updateReserveTime", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<MeetingScheduling> updateReserveTime(
@@ -2401,12 +2443,21 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		}
 		StringBuffer proNameList=new StringBuffer();
+		List<Map<String, Object>> messageList = new ArrayList<Map<String, Object>>();
 		try {
 			for (MeetingScheduling ms : query) {
+				MeetingScheduling  redisPush = new MeetingScheduling();
 				String mestr = "";
-				String messageType = null;
+				String messageType = "";
 				MeetingScheduling oldMs = msmap.get(ms.getId());
+				
+				redisPush.setId(oldMs.getId());
+				redisPush.setProjectId(oldMs.getProjectId());
+				redisPush.setMeetingType(oldMs.getMeetingType());
 				Project pj = mapProject.get(oldMs.getProjectId());
+				
+				redisPush.setProjectName(pj.getProjectName());
+				redisPush.setCreateId(pj.getCreateUid().toString());
 				//验证已经已通过|已否决的会议不能进行排期
 				if(2 == oldMs.getScheduleStatus() || 3 == oldMs.getScheduleStatus()){
 					proNameList.append(pj.getProjectName());
@@ -2451,6 +2502,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,null,null,0,UrlNumber.three);
 						belongUser.setKeyword("cancle:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
+					
+						redisPush.setReserveTimeStart(oldMs.getReserveTimeStart());
+						cache.removeRedisSetOBJ(Constants.PUSH_MESSAGE_LIST, redisPush);
+						
 					} else {
 						// 更新会议时间
 						if (oldMs.getReserveTimeStart().getTime() != ms
@@ -2459,7 +2514,14 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 										.getReserveTimeEnd().getTime()) {
 							meetingSchedulingService.updateByIdSelective(ms);
 							sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.two);
-							belongUser.setKeyword("update:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart()));	
+							belongUser.setKeyword("update:"+DateUtil.convertDateToStringForChina(oldMs.getReserveTimeStart())+","+DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));	
+							
+							redisPush.setReserveTimeStart(oldMs.getReserveTimeStart());
+							cache.removeRedisSetOBJ(Constants.PUSH_MESSAGE_LIST, redisPush);
+							
+							redisPush.setReserveTimeStart(ms.getReserveTimeStart());
+							cache.setRedisSetOBJ(Constants.PUSH_MESSAGE_LIST,redisPush);
+							
 						}else{
 							belongUser.setKeyword("operate");	
 						}
@@ -2471,22 +2533,35 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 						meetingSchedulingService.updateByIdSelective(ms);
 						sendTaskProjectEmail(request,pj,messageInfo,userlist,ms.getReserveTimeStart(),ms.getReserveTimeEnd(),1,UrlNumber.one);
 						belongUser.setKeyword("insert:"+DateUtil.convertDateToStringForChina(ms.getReserveTimeStart()));	
+						
+						
+						redisPush.setReserveTimeStart(ms.getReserveTimeStart());
+						cache.setRedisSetOBJ(Constants.PUSH_MESSAGE_LIST,redisPush);
+						
 					}else{
 						belongUser.setKeyword("operate");	
 					}
 
 				}
+				//消息数据
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put(PlatformConst.REQUEST_SCOPE_PROJECT_NAME, pj.getProjectName());
+				params.put(PlatformConst.REQUEST_SCOPE_USER, belongUser);
+				params.put(PlatformConst.REQUEST_SCOPE_PROJECT_ID, pj.getId());
+				params.put(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE, messageType);
+				params.put(PlatformConst.REQUEST_SCOPE_URL_NUMBER, UrlNumber.one);
 				if(!"operate".equals(belongUser.getKeyword())){
-					ControllerUtils.setRequestParamsForMessageTip(request, belongUser, pj.getProjectName(), pj.getId(), messageType, UrlNumber.one);
+					messageList.add(params);
 				}
-				
 			}
+			ControllerUtils.setRequestBatchParamsForMessageTip(request,messageList);
 		} catch (Exception e) {
 			responseBody.setResult(new Result(Status.ERROR, null, "更新失败!"));
 			_common_logger_.error("更新排期失败 ",e.getMessage());
 			e.printStackTrace();
 			return responseBody;
 		}
+		
 		responseBody.setResult(new Result(Status.OK, null, "更新成功!"));
 		if(proNameList.length() > 0){
 			responseBody.setResult(new Result(Status.OK, null, proNameList.toString()+" 项目已经通过,不能进行排期!"));
@@ -3005,6 +3080,36 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		request.setAttribute("prograss", project.getProjectProgress());
 		request.setAttribute("projectName", project.getProjectName());
 		return "project/sopinfo/tab_filelist";
+	}
+	/**
+	 * sop tab页面  日志 详情    /galaxy/project/proview/
+	 */
+	@RequestMapping(value = "/toAppropriation/{searchPartMoney}/{pid}", method = RequestMethod.GET)
+	public String toAppropriation(@PathVariable("pid") Long pid, @PathVariable("searchPartMoney") String searchPartMoney, HttpServletRequest request) {
+		Project proinfo = new Project();
+		proinfo = projectService.queryById(pid);
+		request.setAttribute("pid", pid);
+		request.setAttribute("prograss", proinfo.getProjectProgress());
+		request.setAttribute("pname", proinfo.getProjectName());
+		request.setAttribute("projectId", pid);
+		request.setAttribute("searchPartMoney", searchPartMoney);
+		
+		String numOfShow = request.getParameter("numOfShow");
+		if(numOfShow == null)
+		{
+			numOfShow = "2";
+		}
+		request.setAttribute("numOfShow", numOfShow);
+		return "project/sopinfo/tab_appropriation";
+	}
+	
+	/**
+	 * 否决项目弹框
+	 * @return
+	 */
+	@RequestMapping(value = "/toRefuseProject", method = RequestMethod.GET)
+	public String toRefuseProject(){
+		return "project/dialog/refuseProjectDialog";
 	}
 	
 	

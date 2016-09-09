@@ -20,7 +20,6 @@ import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.constants.SopConstant;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.query.ChartKpiQuery;
-import com.galaxyinternet.dao.chart.ChartDao;
 import com.galaxyinternet.dao.project.MeetingRecordDao;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
 import com.galaxyinternet.dao.project.ProjectDao;
@@ -30,7 +29,6 @@ import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
-import com.galaxyinternet.model.chart.Chart;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.MeetingRecord;
 import com.galaxyinternet.model.project.MeetingScheduling;
@@ -43,13 +41,10 @@ import com.galaxyinternet.service.chart.KpiService;
 
 
 @Service("com.galaxyinternet.service.chart.KpiService")
-public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService {
+public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiService {
 
 	public static final int PER_YEAR_PRO_TARGET = 500; // 每人 每年 项目目标
 
-	
-	@Autowired
-	private ChartDao chartDao;
 
 	@Autowired
 	private ProjectDao projectDao;
@@ -70,8 +65,8 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 	private SopTaskDao sopTaskDao;
 	
 	@Override
-	protected BaseDao<Chart, Long> getBaseDao() {
-		return this.chartDao;
+	protected BaseDao<ChartDataBo, Long> getBaseDao() {
+		return null;
 	}
 
 
@@ -173,7 +168,7 @@ public class KpiServiceImpl extends BaseServiceImpl<Chart>implements KpiService 
 		proQuery.setStartTime(query.getStartTime());
 		proQuery.setEndTime(query.getEndTime());
 		proQuery.setProjectDepartid(query.getDeptid());
-		proQuery.setResultCloseFilter(DictEnum.projectStatus.GJZ.getCode()); //过滤已否决
+		proQuery.setResultCloseFilter(DictEnum.projectStatus.GJZ.getCode()); //过滤跟进中
 		List<Project> proList = projectDao.selectColumnList(proQuery);
 		
 		if(proList == null || proList.isEmpty()){

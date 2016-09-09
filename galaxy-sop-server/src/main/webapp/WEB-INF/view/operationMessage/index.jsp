@@ -59,7 +59,7 @@
 
 <script type="text/javascript">
 	$(function(){
-		createMenus(3);
+		createMenus(1);
 		var initParams,
 				pageParams=cookieOperator.getDataNoDelete({_paramKey : 'messageList',_path : "/"}),
 				initPageSize = 10;

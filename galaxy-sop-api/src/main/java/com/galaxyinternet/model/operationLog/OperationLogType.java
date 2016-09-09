@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.operationLog;
 
+
 /**
  * @Description: sop流程中操作日志的规范类
  * @author keifer
@@ -93,6 +94,9 @@ public enum OperationLogType {
 	//点击工商变更登记凭证催办列里的“催办”
 	REMIND_COMPANY_CHANGE_CERTIFICATE("", OperType.REMINDER.getOperationType(), "工商变更登记凭证",SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
 	
+	//否决项目日志
+	BREAK_PROJECT("/galaxy/project/breakpro", OperType.BREAK.getOperationType(), null,"否决项目"),
+	
 	 /**
      * 人，法，财操作项目日志添加开始
      * 
@@ -131,6 +135,25 @@ public enum OperationLogType {
 	
 	//更新投资意向书 1
 	UPDATE_INVESTMENT_INTENT_FILE("/galaxy/sopFile/commonUploadFile/"+UrlNumber.one, OperType.UPDATE.getOperationType() , "投资意向书",SopStage.INVESTMENT_INTENT.getStageName()),
+	
+	
+	
+	//总拨款计划
+	_14_1_1	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.one,	 OperType.ADD.getOperationType() ,	    "总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_2	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.two,	 "编辑" ,							    "总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_2_1	("/galaxy/grant/total/resetGrantTotal/"+UrlNumber.two,	 "编辑" ,								"总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_3_1   ("/galaxy/grant/total/deleteGrantTotal/"+UrlNumber.three,OperType.DELETE.getOperationType() ,	"总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	
+	//分期拨款计划
+	_14_2_1	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.one,		OperType.ADD.getOperationType() ,	    "分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_2_2	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.two,		"编辑",									"分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_2_3	    ("/galaxy/grant/part/delGrantPart/"+UrlNumber.three,	OperType.DELETE.getOperationType() ,	"分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+
+	//实际拨款信息
+	_14_3_1	    ("/galaxy/grant/actual/saveApprActual/"+UrlNumber.one,		OperType.ADD.getOperationType() ,	    "实际拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_3_2	    ("/galaxy/grant/actual/saveApprActual/"+UrlNumber.two,		"编辑",									"实际拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_3_3     ("/galaxy/grant/actual/deleteApprActual/"+UrlNumber.three,	OperType.DELETE.getOperationType() ,	"实际拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	
 	/*项目操作日志的配置------------------------------------结束----------------------------------------------------------*/
 	
 	
@@ -175,8 +198,15 @@ public enum OperationLogType {
 	APPLY_TRANSFER("/galaxy/projectTransfer/applyTransfer",OperType.APPLY.getOperationType(), "移交项目","移交项目"),
 	UNDO_TRANSFER("/galaxy/projectTransfer/undoTransfer",OperType.REVOKE.getOperationType(), "撤销项目","撤销移交"),
 	REJECT_TRANSFER("/galaxy/projectTransfer/rejectTransfer",OperType.REFUSE.getOperationType(), "拒接项目","拒接项目"),
-	RECEIVE_TRANSFER("/galaxy/projectTransfer/receiveTransfer",OperType.RECIEIVE.getOperationType(), "接收项目","接收项目");
-
+	RECEIVE_TRANSFER("/galaxy/projectTransfer/receiveTransfer",OperType.RECIEIVE.getOperationType(), "接收项目","接收项目"),
+	/**上传尽调启动报告**/
+	JDQD_REPORT_UPLOAD("/galaxy/sopFile/upload/"+UrlNumber.three, OperType.UPLOAD.getOperationType(), "尽职调查启动会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	/**更新尽调启动报告**/
+	JDQD_REPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.four, OperType.UPDATE.getOperationType(), "尽职调查启动会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	/**上传尽调总结报告**/
+	JDZJ_REPORT_UPLOAD("/galaxy/sopFile/upload/"+UrlNumber.five, OperType.UPLOAD.getOperationType(), "尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
+	/**更新尽调总结报告**/
+	JDZJREPORT_UPDATE("/galaxy/sopFile/upload/"+UrlNumber.six, OperType.UPDATE.getOperationType(), "尽职调查总结会报告",SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName());
 
 
 	/*创意操作日志的配置-------------------结束---------------------------------------------------------------------------*/
@@ -192,9 +222,20 @@ public enum OperationLogType {
 		OperationLogType[] types = OperationLogType.values();
 		OperationLogType result = null;
 		for (OperationLogType type : types) {
-			if (type.getUniqueKey()!=null && type.getUniqueKey().trim().length()>0 && uniqueKey.contains(type.getUniqueKey())) {
-				result = type;
-				break;
+			if (type.getUniqueKey()!=null && type.getUniqueKey().trim().length()>0){
+					
+				String requestNum = uniqueKey.substring(uniqueKey.lastIndexOf("/"));
+				String localNum = type.getUniqueKey().substring(type.getUniqueKey().lastIndexOf("/"));
+				
+				if(requestNum.equals(localNum)){
+					if ( uniqueKey.substring(0,uniqueKey.lastIndexOf("/")).contains(type.getUniqueKey().substring(0,type.getUniqueKey().lastIndexOf("/")))) {
+						result = type;
+						break;
+					}
+				}else if ( uniqueKey.contains(type.getUniqueKey())) {
+					result = type;
+					break;
+				}
 			}
 		}
 		return result;

@@ -105,33 +105,7 @@ function getProjectInfo(dtd)
 	<div class="new_left">
        	<div class="tabtable assessment label_static1">
           	<!-- tab标签 -->
-            <ul class="tablink tablinks">
-                <li  class="on"><a href="javascript:;" onclick="showTabs(${pid},0)">基本信息</a></li>
-                <c:choose>
-             	<c:when test="${aclViewProject==true}">
-                <li><a href="javascript:;" onclick="showTabs(${pid},1)">团队成员</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},2)">股权结构</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},3)">访谈记录</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},4)">会议纪要</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},7)">交割前事项</a></li>
-              <!--   <li><a href="javascript:;" onclick="showTabs(${pid},8)">拨款信息</a></li> -->
-               	<li><a href="javascript:;" onclick="showTabs(${pid},9)">运营分析</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},5)">项目文档</a></li>
-                <li><a href="javascript:;" onclick="showTabs(${pid},6)">操作日志</a></li>
-                </c:when>
-                <c:otherwise>
-                <li class="no"><a href="javascript:;">团队成员</a></li>
-                <li class="no"><a href="javascript:;">股权结构</a></li>
-                <li class="no"><a href="javascript:;">访谈记录</a></li>
-                <li class="no"><a href="javascript:;">会议纪要</a></li>
-                <li class="no"><a href="javascript:;">交割前事项</a></li>
-<!--                 <li class="no"><a href="javascript:;">拨款信息</a></li> -->
-               	<li class="no"><a href="javascript:;">运营分析</a></li>
-				<li class="no"><a href="javascript:;">项目文档</a></li>
-                <li class="no"><a href="javascript:;">操作日志</a></li> 
-                </c:otherwise>
-             	</c:choose>
-            </ul>
+            <jsp:include page="tab_header.jsp?index=0" flush="true"></jsp:include>
 
             <!-- 基本信息 -->
 			<div class="tabtable_con_jbxx">
@@ -241,7 +215,7 @@ function getProjectInfo(dtd)
                                 <span class="mar_left">
                                 	<div class="mar_left"><input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否 </div>
                                     <div class="mar_left"><input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlagEdit">是</div>
-                                    <div class="mar_left"><input type="text" class="new_nputr" placeholder="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></div>
+                                    <div class="mar_left"><input type="text" class="new_nputr" value="请输入FA名称"  maxlength="20" name="faName" id="faNameEdit" style="display:none" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20"/></div>
                                 </span></td>
                               </tr>
 				        </table>  
@@ -285,9 +259,6 @@ function getProjectInfo(dtd)
 					<span class="new_ico_book"></span> <span class="new_color size16">商业计划书</span>
 				</div>
 				<ul class="new_ul_all new_top_color" id='business_plan'>
-					<li></li>
-					<li></li>
-					<li></li>
 
 					<li class="new_ul_right"><span class="new_fctbox"> <a href="javascript:;" class="ico f2" data-btn="describe">查看</a>
 							<a href="javascript:;" class="ico new1" data-btn="edit" id="uploadOperator">更新</a>
@@ -559,6 +530,11 @@ function getProjectInfo(dtd)
 var projectId = <%=projectId%>;
 
 $(function(){
+	//未上传上传计划书，用于调样式
+	if($("#plan_name").text()==''){
+		$("#plan_name").parent('li').css("margin-right","0");
+	}
+	
 	var menu=$('#top_menu a:nth-child(2)').text();
 	if(menu == '创投项目'){
 		createMenus(5);
@@ -623,7 +599,18 @@ $(function(){
 var width_fwb=$('.tabtable_con_on').width();
 $('.width_fwb').css('width',(width_fwb-20));
 
+$("#faNameEdit").keydown(function(){
+		if(this.value=="请输入FA名称"){
+			this.value = "";
+		}
 	
+})
+$("#faNameEdit").blur(function(){
+		if(this.value==""){
+			this.value = "请输入FA名称";
+		}
+	
+})	
 
 
 

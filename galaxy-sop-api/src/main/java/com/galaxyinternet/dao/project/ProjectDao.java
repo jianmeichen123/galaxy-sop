@@ -1,6 +1,7 @@
 package com.galaxyinternet.dao.project;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 
@@ -56,6 +57,8 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 	List<Project> selectHasMeetProList(MeetingRecordBo query, Pageable pageable);
 
 	public List<Project> selectColumnList(ProjectBo proQuery);
+
+	public List<Long> selectProIdsForPrivilege(Map<String, Object> params);
 
 	
 	

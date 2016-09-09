@@ -12,7 +12,7 @@
 <title>繁星</title>
 
 
-<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"  type="text/css">
+<%-- <link rel="stylesheet" href="<%=path %>/bootstrap/css/bootstrap.min.css"  type="text/css"> --%>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
    <!-- bootstrap-table -->
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">

@@ -132,7 +132,9 @@ var fileGrid = {
 		      }]
 		    });
 		 //初始化查询按钮
-		 $("#searchBtn").click(searchPanel.serarchData);
+		 $("#searchBtn").click(function(){
+			 $('#fileGrid').bootstrapTable('querySearch',fileGrid.queryParams);	
+		 });
 		 $('#fileGrid').on("load-success.bs.table", function (data) {
 			    // ... 
 //			 $(".ritmin").hideLoading();

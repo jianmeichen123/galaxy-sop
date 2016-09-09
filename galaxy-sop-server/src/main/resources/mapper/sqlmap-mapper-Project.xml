@@ -42,9 +42,8 @@
     <result column="idea_id" property="ideaId" jdbcType="BIGINT" />
     <result column="completed" property="completed" />
     <result column="type_completed" property="type_completed" />
-     <result column="fa_flag" property="faFlag" jdbcType="INTEGER" />
+    <result column="fa_flag" property="faFlag" jdbcType="INTEGER" />
     <result column="fa_name" property="faName" jdbcType="VARCHAR"/>
-    
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -61,6 +60,11 @@
 		<where>
 			<trim prefixOverrides="and">
 			  <if test="id != null"> and id =#{id}</if>
+			  <!-- 过滤项目 -->
+				<if test="idFilter != null">
+					AND id !=  #{idFilter,jdbcType=BIGINT}
+				</if>
+				
 			   <if test="createUid != null" > and create_uid = #{createUid,jdbcType=BIGINT} </if>
 			    <if test="createtUids != null">
 					AND create_uid IN
@@ -194,13 +198,15 @@
 				<if test="ideaId != null">
 					and idea_id = #{ideaId}
 				</if>
-				<if test="ideaId != null">
+				<if test="faFlag != null">
 					and fa_flag = #{faFlag}
 				</if>
-				<if test="ideaId != null">
+				<if test="faName != null">
 					and fa_name = #{faName}
 				</if>
-				
+				<if test="stopSearch != null">
+					and 1 = 2
+				</if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -480,12 +486,43 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
+	<!-- 拉取   跳过尽调阶段的 项目id -->
+	<select id="selectProIdsForPrivilege" resultType="java.lang.Long" parameterType="java.util.Map">
+		SELECT 
+			id
+		FROM
+			sop_project
+		<where>
+			<trim prefixOverrides="and">
+				<if test="progressIntValue != null" > 
+					CAST(REPLACE(project_progress,'projectProgress:','') AS SIGNED) > #{progressIntValue} 
+				</if>
+				
+				<if test="notCompleteTaskStatus != null and taskFlags !=null" > 
+					AND id IN(
+						SELECT 
+							project_id
+						FROM
+							sop_task
+						<where>
+							<trim prefixOverrides="and">
+								<if test="projectId != null"> AND project_id = #{projectId,jdbcType=BIGINT} </if>
+								AND task_flag IN
+								<foreach collection="taskFlags" index="item" item="item" open="(" separator="," close=")">
+									#{item}
+								</foreach>
+								AND task_status  !=  #{notCompleteTaskStatus,jdbcType=VARCHAR}
+							</trim>
+						</where>
+						GROUP BY project_id
+					)
+				</if>
+				
+				<!-- 过滤已关闭项目 -->
+				<if test="resultCloseFilter != null"> AND project_status != #{resultCloseFilter,jdbcType=VARCHAR} </if>
+			</trim>
+		</where>
+	</select>
 	
 	
 	

@@ -424,9 +424,9 @@ public class MeetingSchedulingServiceImpl
 	}
 
 	@Override
-	public Page<MeetingScheduling> getMeetingList(MeetingSchedulingBo bo,PageRequest page) {
+	public Page<MeetingScheduling> getMeetingListForReport(MeetingSchedulingBo bo,PageRequest page) {
 		// TODO Auto-generated method stub
-		Page<MeetingScheduling> list=meetingSchedulingDao.getMeetingList(bo,page);
+		Page<MeetingScheduling> list=meetingSchedulingDao.getMeetingListForReport(bo,page);
 		return list;
 	}
 
