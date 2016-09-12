@@ -818,7 +818,7 @@ function intervierInfoFormat(value, row, index){
 	}else{
 		targerHtml = "</br>访谈对象："+targetStr;
 	}
-	rc = "<div style=\"text-align:left;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;padding:10px 0 10px 25px;\">"+
 				"访谈时间："+row.viewDateStr+
 				targerHtml+
 				"</br>访谈录音："+fileinfo+
@@ -843,7 +843,7 @@ function metcolumnFormat(value, row, index){
 		fileinfo = "<a href=\"javascript:filedown("+row.fileId+","+row.fkey+");\" class=\"blue\" >"+row.fname+"</a>"
 		}
 	var str="<label class=\"meeting_result\">"+row.meetingResultStr+"</label>"
-	rc = "<div style=\"text-align:left;padding:10px 0;\">"+
+	rc = "<div style=\"text-align:left;padding:10px 0 10px 25px;\">"+
 				"会议日期："+row.meetingDateStr+
 				"</br>会议结论："+str+
 				"</br>会议录音："+fileinfo+
@@ -1178,6 +1178,33 @@ function createUserOptions(url, name, mark){
 		}
 	});
 }
+
+
+
+/**
+ * 根据事业线查询相应的投资经理
+ * @param url   请求地址
+ * @param name  select的name属性值
+ */
+function createUserOptions_All(url, name, mark){
+	sendGetRequest(url, null, function(data){
+		var options = [];
+		if(mark == 1){
+			options.push('<option value="0">全部</option>');
+		}
+		$.each(data.entityList, function(i, value){
+			options.push('<option value="'+value.id+'" '+(value.isCurrentUser ? 'back="link"' : '')+'>'+value.realName+'</option>');
+		});
+		if(mark == 1){
+	     	$('select[name="'+name+'"]').html(options.join(''));
+		}else{
+			$('select[name="'+name+'"]').append(options.join(''));
+			$('select[name="'+name+'"]').find('option[back="link"]').attr("selected",true);	
+				
+		}
+	});
+}
+
 
 /*
  * 
@@ -1556,6 +1583,7 @@ function ajaxPopup(obj,tite_mame){
 		    search: false, //显示搜索框
 		    queryParamsType: 'size|page',
 		    method : 'post',
+		    height:350,
 		    queryParams: function(params){params.meetingType=obj.params.meetingType;params.scheduleStatus=obj.params.scheduleStatus;params.type=obj.params.type;return params;},
 		    pageSize:20,
 		    pagination: true,
@@ -1579,6 +1607,37 @@ function to_pro_info(id){
 	forwardWithHeader(Constants.sopEndpointURL + "/galaxy/project/detail/" + id);
 }
 
+function setData(sumPlanMoney,sumActualMoney){
+	 //拨款进度
+	  $("#bar_m").css("width","0px");  //初始化进度条宽度；
+	    var moneyComplete=sumActualMoney;
+	        moneyTotal=sumPlanMoney;
+	        m_width=$(".progressBar").width();
+	        if(moneyComplete==0){
+	        	barWidth=0+"px";
+	        }else{
+	        	barWidth=parseInt(moneyComplete/moneyTotal*m_width)+"px";
+	        }
+	        
+	    $("#bar_m").css("width",barWidth)
+	    //获取表格除第一行，第二行之外的元素
+	    var tr_n=$(".moneyAgreement tbody tr")
+	    var tr_s=$(".moneyAgreement tbody tr").eq(1).nextAll();
+	    tr_s.css("display","none");
+	    if(tr_n.length>2){
+	      $(".agreement .show_more").show();
+	      $(".agreement .show_more").click(function(){
+	        $(this).hide();
+	        $(".agreement .show_hide").show();
+	        tr_n.show();
+	      })
+	       $(".agreement .show_hide").click(function(){
+	        $(this).hide();
+	        $(".agreement .show_more").show();
+	        tr_s.css("display","none");
+	      })
+	    }
 
+}
 
 

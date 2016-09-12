@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.galaxyinternet.bo.sopfile.SopFileBo;
 import com.galaxyinternet.bo.touhou.DeliveryBo;
@@ -213,11 +214,35 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 		Byte oldHasNum = (byte) (oldHasFileIds ==null?0:oldHasFileIds.size());
 		Byte upNum = (byte) (upFiles == null?0:upFiles.size());
 		
+		//文件删除
+		if(oldNum!=0){
+			if(oldHasNum == 0){
+				toDelfileids = deliveryFileList(delivery.getId());
+			}else if(oldNum.byteValue() != oldHasNum.byteValue()){
+				List<Long> oldfileids = deliveryFileList(delivery.getId());  //查询中间表， 取原 fileids
+				for(Long oldId : oldfileids){
+					if(!oldHasFileIds.contains(oldId)){
+						toDelfileids.add(oldId);
+					}
+				}
+			}
+		}
+		if(toDelfileids!=null && !toDelfileids.isEmpty()){
+			SopFileBo fileQ = new SopFileBo();
+			fileQ.setIds(toDelfileids);
+			fileDao.delete(fileQ);    // 删除 file、表
+			
+			DeliveryFile dfQ = new DeliveryFile();
+			dfQ.setFileIds(toDelfileids);
+			deliveryFileDao.delete(dfQ); // 删除 中间表
+		}
+		
+		//新文件上传
 		if(allNum == null || allNum == 0){
 			//delivery.setFileNum(null);
 			delivery.setFileNum((byte) 0);
 		}else{
-			delivery.setFileNum(allNum);
+			delivery.setFileNum((byte) (oldHasNum+upNum));
 
 			if(upNum != 0){ 
 				List<DeliveryFile> dfileIn = new ArrayList<DeliveryFile>();
@@ -241,32 +266,21 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 				}
 				deliveryFileDao.insertInBatch(dfileIn);
 			}
-		}
-		
-		if(oldNum!=0){
-			if(oldHasNum == 0){
-				toDelfileids = deliveryFileList(delivery.getId());
-			}else if(oldNum.byteValue() != oldHasNum.byteValue()){
-				List<Long> oldfileids = deliveryFileList(delivery.getId());  //查询中间表， 取原 fileids
-				for(Long oldId : oldfileids){
-					if(!oldHasFileIds.contains(oldId)){
-						toDelfileids.add(oldId);
-					}
+			
+			/*else{
+				if(StringUtils.isEmpty(toDelfileids)){
+					delivery.setFileNum(oldNum);
 				}
-			}
+			}*/
 		}
 		
+		//更新交割事项
+		int num = deliveryDao.updateById(delivery);
+		
+		// 删除 阿里云 文件
 		if(toDelfileids!=null && !toDelfileids.isEmpty()){
-			SopFileBo fileQ = new SopFileBo();
-			fileQ.setIds(toDelfileids);
-			fileDao.delete(fileQ);    // 删除 file、表
-			
-			DeliveryFile dfQ = new DeliveryFile();
-			dfQ.setFileIds(toDelfileids);
-			deliveryFileDao.delete(dfQ); // 删除 中间表
-			
 			final List<Long> alifileidlist = toDelfileids;
-			if(alifileidlist!=null && !alifileidlist.isEmpty()){  // 删除 阿里云 文件
+			if(alifileidlist!=null && !alifileidlist.isEmpty()){ 
 				GalaxyThreadPool.getExecutorService().execute(new Runnable() {
 					@Override
 					public void run() {
@@ -276,13 +290,12 @@ public class DeliveryServiceImpl extends BaseServiceImpl<Delivery> implements De
 			}
 		}
 		
-		int num = deliveryDao.updateById(delivery);
-		
 		if(num > 0){
 			return delivery.getId();
 		}else{
 			throw new DaoException(String.format("updateDelivery 一条记录出错: " + GSONUtil.toJson(delivery)));
 		}
+		
 		
 	}
 

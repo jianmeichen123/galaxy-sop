@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.galaxyinternet.model.GrantTotal">
+	<resultMap id="BaseResultMap" type="com.galaxyinternet.model.GrantTotal">
+		<id column="id" property="id" />
+		<result column="project_id" property="projectId" />
+		<result column="grant_name" property="grantName" />
+		<result column="grant_money" property="grantMoney" />
+		<result column="create_uid" property="createUid" />
+		<result column="create_uname" property="createUname" />
+		<result column="updated_time" property="updatedTime" />
+		<result column="created_time" property="createdTime" />
+		<result column="updated_uname" property="updatedUname" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, project_id, grant_name, grant_money, create_uid, create_uname,
+		updated_time,created_time,updated_uname
+	</sql>
+
+
+
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id =#{id} </if>
+				<if test="projectId != null"> and project_id = #{projectId} </if>
+				<if test="createUid != null"> and create_uid = #{createUid} </if>
+				<if test="keyword != null">
+			  		and grant_name like CONCAT("%",#{keyword},"%")
+					<if test="escapeChar ">
+						escape '/'
+					</if>
+			  	</if>
+			</trim>
+			<if test="sorting != null">order by ${sorting}</if>
+			<if test="property != null">order by ${property} ${direction}</if>
+			<if test="offset != null and limit != null">
+				limit #{offset}, #{limit}
+			</if>
+		</where>
+	</sql>
+
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long"
+		parameterType="java.util.Map">
+		select count(id) from sop_grant_total
+		<include refid="Base_Where_Clause" />
+	</select>
+
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sop_grant_total
+		<include refid="Base_Where_Clause" />
+	</select>
+
+
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from sop_grant_total where id = #{id}
+	</select>
+	
+	<!-- 通过ID更新 -->
+	<update id="updateById" parameterType="com.galaxyinternet.model.GrantTotal">
+		update sop_grant_total
+		<set>
+			<if test="grantName != null"> 
+				grant_name = #{grantName}, 
+			</if>
+			<if test="grantMoney != null"> 
+				grant_money = #{grantMoney}, 
+			</if>
+			<if test="updatedTime != null"> 
+				updated_time = #{updatedTime,jdbcType=BIGINT}, 
+			</if>
+			<if test="updatedUname != null"> 
+				updated_uname = #{updatedUname,jdbcType=BIGINT}
+			</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 更新 -->
+	<update id="updateByIdSelective" parameterType="com.galaxyinternet.model.GrantTotal">
+		update sop_grant_total
+		<set>
+			<if test="grantName != null"> 
+				grant_name = #{grantName}, 
+			</if>
+			<if test="grantMoney != null"> 
+				grant_money = #{grantMoney}, 
+			</if>
+			<if test="updatedTime != null"> 
+				updated_time = #{updatedTime,jdbcType=BIGINT}, 
+			</if>
+			<if test="updatedUname != null"> 
+				updated_uname = #{updatedUname,jdbcType=BIGINT}
+			</if>
+		</set>
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> id =#{id} </if>
+				<if test="projectId != null"> and project_id = #{projectId} </if>
+				<if test="createUid != null"> and create_uid = #{createUid} </if>
+			</trim>
+		</where>
+	</update>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sop_grant_total
+		<include refid="Base_Where_Clause" />
+	</delete>
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.lang.Long">
+		delete from sop_grant_total
+		where id = #{id}
+	</delete>
+
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.galaxyinternet.model.GrantTotal">
+	    <![CDATA[
+	     insert into sop_grant_total(
+	     	id, project_id, grant_name, grant_money, create_uid, 
+	     	create_uname, updated_time,created_time,updated_uname
+	     )values(
+	     	#{id}, #{projectId}, #{grantName}, #{grantMoney}, #{createUid}, 
+	     	#{createUname},#{updatedTime}, #{createdTime}, #{updatedUname}
+		 )
+	    ]]>
+	</insert>
+	
+	<!-- 计算该项目的协议拨款总金额 -->
+	<select id="sumPlanMoney" resultType="java.lang.Double" parameterType="java.lang.Long">
+		SELECT IFNULL(SUM(st.grant_money), 0) FROM sop_grant_total st WHERE st.project_id= #{projectId}
+	</select>
+	
+		<!-- 计算所属的实际拨款总金额 -->
+	<select id="sumProjectToActualMoney" resultType="java.lang.Double" parameterType="java.lang.Long">
+		SELECT SUM(sa.`grant_money`)FROM `sop_grant_actual` sa,`sop_grant_part` sp, `sop_grant_total` st WHERE sa.`part_grant_id`=sp.`id` AND sp.`total_grant_id`=st.`id`
+      and sp.part_status = 0 AND st.`project_id`=#{projectId} 
+	</select>
+	
+</mapper>

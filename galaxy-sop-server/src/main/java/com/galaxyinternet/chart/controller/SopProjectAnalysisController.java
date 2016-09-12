@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.MediaType;
@@ -25,6 +26,7 @@ import com.galaxyinternet.framework.core.model.ResponseData;
 import com.galaxyinternet.framework.core.model.Result;
 import com.galaxyinternet.framework.core.model.Result.Status;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.chart.SopCharts;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
@@ -75,11 +77,14 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 		try {
 			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
 					.getId());
-			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
-				
+			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ) || roleIdList.contains(UserConstant.YYFZR) || roleIdList.contains(UserConstant.THYY)) {
+				query.setCreateUid(null);
 			}else if(roleIdList.contains(UserConstant.HHR)){
 				query.setDepartmentId(user.getDepartmentId());
+			}else if(roleIdList.contains(UserConstant.TZJL)){
+				query.setCreateUid(user.getId());
 			}
+			
 			List<SopCharts> overViewList = analysisService.queryProjectOverView(query);
 			responseBody.setEntityList(overViewList);
 			responseBody.setResult(new Result(Status.OK, ""));

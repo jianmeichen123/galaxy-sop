@@ -43,6 +43,7 @@ $(function(){
 			CHINESE : "^([\u4E00-\uFA29]|[\uE7C7-\uE7F3])*$",
 			URL : "^http[s]?://[\\w\\.\\-]+$",
 			LIMIT_11_NUMBER : "^(([0-9]{1,11})|([0-9]{1,11}\.[0-9]{1,2}))$",
+			LIMIT_9_NUMBER : "^(([0-9]{1,9})|([0-9]{1,9}\.[0-9]{1,2}))$",
 			LIMIT_2_INTEGER : "^[0-9]{1,2}$",
 			CODE : "^[A-Za-z0-9\-]+$"
 		};
@@ -191,6 +192,57 @@ function beforeSubmit() {
      return flag;
 }
 
+//submit之前对所有表单进行验证
+function beforeSubmitById(id) {
+	var flag=true;
+	 $.each($("#"+id).find("[valType]"),function(i, n) {
+		 //清除可能已有的提示信息
+		 $(n).poshytip('hide');
+		 if($(n).attr("valType")=='required') {//对不能为空的文本框进行验证
+			if($(n).val()=='' || $.trim($(n).val())=='') {
+				//显示tips			
+				$(n).poshytip('show');
+				flag=false;
+			}
+		 } else if($(n).attr("valType")=='requiredDiv'){//html元素的文本值是否为空
+			 if($(n).text()!='') {
+				if(!($(n).text()!=''&&$.Validator.match({data:$(n).text(), rule:'OTHER', regString:$(n).attr('regString')}))) {
+					//显示tips			
+					$(n).poshytip('show');
+					flag=false;
+				}
+			 }
+		} else if($(n).attr("valType")=='MAXBYTE') {//对自定义的文本框进行验证
+			if($.trim($(n).html())!='') {
+				if (!($(n).html()!=''&&$.Validator.match({
+					data : $.trim($(n).html()),
+					rule : $(n).attr('valType'),
+					regString : $(n).attr('regString')
+				}))) {
+					$(n).poshytip('show');
+					flag = false;
+				}
+			}
+		} else{
+			if($(this).attr("allowNULL") =='yes' && $(this).val() == ''){
+				//允许为空且未输入值,放行
+			}else{
+				 if($(n).attr("valType")=='OTHER') {//对自定义的文本框进行验证
+					if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType'), regString:$(this).attr('regString')}))) {
+						$(n).poshytip('show');
+						flag=false;
+					}
+				} else {//对使用已定义规则的文本框进行验证	
+					if(!($(this).val()!=''&&$.Validator.match({data:$(this).val(), rule:$(this).attr('valType')}))) {
+						$(n).poshytip('show');
+						flag=false;
+					}
+				}
+			}
+		}
+	 });
+     return flag;
+}
 
 function initDialogVal(){
 	$.each($("[valType]"),function(i, n) {

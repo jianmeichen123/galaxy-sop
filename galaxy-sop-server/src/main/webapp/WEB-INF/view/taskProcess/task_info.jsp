@@ -1,4 +1,5 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%
 	String path = request.getContextPath(); 
 %>
@@ -22,6 +23,9 @@
 <script type="text/javascript" src="<%=path %>/js/validate/fx.validate-ext.js"></script>
 <script src="<%=path %>/js/my.js" type="text/javascript"></script>
 <script src="<%=path %>/js/my_ext.js" type="text/javascript"></script>
+<!-- 保存进度条 -->
+<link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 </head>
 
 <body>
@@ -125,6 +129,9 @@
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include></body>
 <script type="text/javascript">
+
+var isPrivilege_6 = "${fx:isPrivilege_6(projectId) }";
+
 $(function(){
 	createMenus(2);
 	getProjectInfo(projectLoaded);

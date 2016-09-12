@@ -38,11 +38,15 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						up.stop();
 						return;
 					}
-					
-					layer.load(1);
+					$("#powindow").showLoading(
+							 {
+							    'addClass': 'loading-indicator'						
+							 });
+					//layer.load(1);
 					if(up.files.length == 0){
 							sendPostRequestByJsonObj(sendFileUrl,params,function(data){
-								layer.closeAll('loading');
+								//layer.closeAll('loading');
+								$(".pop").hideLoading();
 								var result = data.result.status;
 								if(result == "OK"){
 									if(callBackFun && typeof(callBackFun) == "function"){
@@ -53,9 +57,10 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 								}else{
 								    layer.msg(data.result.errorCode);
 								}
+								
 							});
 					}else{
-						layer.closeAll('loading');
+						//layer.closeAll('loading');
 						up.settings.multipart_params = params;
 						uploader.start();
 					}
@@ -75,12 +80,17 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 					$("#"+file.id+"_progress").html('<span>'+"上传失败!"+"</span>");
 					return false;
 				}
-				layer.closeAll('loading');
+				//layer.closeAll('loading');
              }, 
 			FilesAdded: function(up, files) {
 				var max_files = 10;
 				plupload.each(files, function(file) {
 					var fileLength = $("#"+fileListId+" tr:gt(0)").length;
+					var fileLength1 = $("#"+fileListId+" tr").length;
+					//console.log(fileLength1)
+					if(fileLength1>0){
+						$("#"+fileListId).css("display","block")
+					}
 					/**
 					 * 最多只能上传10个文件
 					 */
@@ -106,13 +116,12 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 				 }
 			},
 			UploadComplete: function(up, files){//所有都上传完成
-			
 				if($("#"+fieInputId).val().trim()){
 					sendPostRequestByJsonObj(sendFileUrl,params,function(data){
-					var result = data.result.status;
 					$(".pop").hideLoading();
+					var result = data.result.status;
 					if(result == "OK"){
-						$.each(files, function(i) {     
+						$.each(files, function(i) {  
 						    $("#"+files[i].id+"_progress").html('<span>'+ files[i].percent + "%</span>"); 
 						}); 
 						if(callBackFun && typeof(callBackFun) == "function"){
@@ -125,8 +134,9 @@ function toBachUpload(fileurl,sendFileUrl,fieInputId,selectBtnId,submitBtnId,con
 						    $("#"+files[i].id+"_progress").html('<span>'+"上传失败!"+"</span>"); 
 						}); 
 					    $("#"+fieInputId).val('');
-					    layer.closeAll('loading');
+					    //layer.closeAll('loading');
 					    alert(data.result.message);
+					    
 					}
 					
 				});
@@ -150,6 +160,10 @@ function del(id,name,fieInputId){
 	$("#"+fieInputId).val($("#"+fieInputId).val().replace(name,""));
     uploader.removeFile(id);
     $("#"+id+"tr").remove();
+    var fieInputLen=$("tr[id]").length;
+    if(fieInputLen==0){
+    	$("#filelist").css("display","none");
+    }
 }
 
 /**

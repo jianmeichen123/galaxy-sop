@@ -6,17 +6,22 @@ String path = request.getContextPath();
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <%@ taglib uri="http://www.galaxyinternet.com/tags/acl" prefix="acl" %>
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>繁星</title>
 <jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 <!--  shedule start -->
-<link href="<%=request.getContextPath() %>/shedule/css/axure.css" type="text/css" rel="stylesheet"/>
-<link rel='stylesheet' href='<%=request.getContextPath() %>/shedule/fullcalendar/lib/cupertino/jquery-ui.min.css' />
-<link href='<%=request.getContextPath() %>/shedule/fullcalendar/fullcalendar.css' rel='stylesheet' />
-<link href='<%=request.getContextPath() %>/shedule/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
-<link href='<%=request.getContextPath() %>/shedule/css/fancybox.css' rel='stylesheet' />
+<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
+<link rel='stylesheet' href='<%=path %>/shedule/fullcalendar/lib/cupertino/jquery-ui.min.css' />
+<link href='<%=path %>/shedule/fullcalendar/fullcalendar.css' rel='stylesheet' />
+<link href='<%=path %>/shedule/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+<link href='<%=path %>/shedule/css/fancybox.css' rel='stylesheet' />
 <%-- <script src="<%=request.getContextPath() %>/shedule/js/jquery-1.10.2.min.js" type="text/javascript"></script> --%>
-<script src='<%=request.getContextPath() %>/shedule/fullcalendar/lib/moment.min.js'></script>
-<script src='<%=request.getContextPath() %>/shedule/fullcalendar/fullcalendar.min.js'></script>
-<script src='<%=request.getContextPath() %>/shedule/js/jquery.fancybox-1.3.1.pack.js'></script>
+<script src='<%=path %>/shedule/fullcalendar/lib/moment.min.js'></script>
+<script src='<%=path %>/shedule/fullcalendar/fullcalendar.min.js'></script>
+<script src='<%=path %>/shedule/js/jquery.fancybox-1.3.1.pack.js'></script>
 <!--  shedule end -->
 <script>
 
@@ -41,7 +46,7 @@ String path = request.getContextPath();
               today: '今天',  
               month: '月',  
               week: '周',  
-              day: '日',  
+              day: '日'
               // prev: '上一月',  
               // next: '下一月'  
             }, 
@@ -116,6 +121,7 @@ String path = request.getContextPath();
 	}
   
 </script>
+</head>
 <jsp:include page="../common/header.jsp" flush="true"></jsp:include>
 <div class="pagebox clearfix">
      <jsp:include page="../common/menu.jsp" flush="true"></jsp:include>
@@ -126,3 +132,4 @@ String path = request.getContextPath();
     </div>
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"></jsp:include>
+</html>

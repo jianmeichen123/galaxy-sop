@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.galaxyinternet.framework.core.model.BaseEntity;
 import com.galaxyinternet.framework.core.utils.DateUtil;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 
 public class InterviewRecord extends BaseEntity{
 
@@ -158,5 +159,9 @@ public class InterviewRecord extends BaseEntity{
 		return dateStr;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return GSONUtil.toJson(this);
+	}
+
 }

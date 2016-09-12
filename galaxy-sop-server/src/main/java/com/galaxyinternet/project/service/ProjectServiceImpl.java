@@ -3,6 +3,7 @@ package com.galaxyinternet.project.service;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,13 +11,16 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.math.NumberUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.dao.project.MeetingSchedulingDao;
+import com.galaxyinternet.dao.project.PersonPoolDao;
 import com.galaxyinternet.dao.project.ProjectDao;
 import com.galaxyinternet.dao.sopfile.SopFileDao;
 import com.galaxyinternet.dao.sopfile.SopVoucherFileDao;
@@ -28,6 +32,7 @@ import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.model.department.Department;
 import com.galaxyinternet.model.project.MeetingScheduling;
+import com.galaxyinternet.model.project.PersonPool;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.role.Role;
 import com.galaxyinternet.model.sopfile.SopFile;
@@ -61,6 +66,8 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	private SopTaskService sopTaskService;
 	@Autowired
 	private DepartmentService departmentService;
+	@Autowired
+	private PersonPoolDao personPoolDao;
 
 	
 	@Override
@@ -526,6 +533,36 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 		return projectPage;
 		
 	}
-
+	
+	@Override
+	public Page<Project> queryPageList(ProjectBo query, Pageable pageable) {
+		// TODO Auto-generated method stub
+		//条件查询项目成员
+		List<String> ids = new ArrayList<String>();
+		if(!StringUtils.isBlank(query.getProjectPerson())){
+			PersonPool pQuery = new PersonPool();
+			pQuery.setPersonName(query.getProjectPerson());
+			List<PersonPool> personPoolList = personPoolDao.selectProjectIdByPersonName(pQuery);
+			for(PersonPool personPool : personPoolList){
+				if(!ids.contains(personPool.getProjectId().toString())){
+					ids.add(personPool.getProjectId().toString());
+				}	
+			}
+			if(ids.size() > 0 ){
+				query.setIds(ids);
+			}else{
+				query.setStopSearch("true");
+			}
+		}
+		Page<Project> pageProject = super.queryPageList(query, pageable);
+		return pageProject;
+	}
+	
+	
+	@Override
+	public List<Long> getProIdsForPrivilege(Map<String,Object> params) {
+		return projectDao.selectProIdsForPrivilege(params);
+	}
+	
 	
 }

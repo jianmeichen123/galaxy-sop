@@ -30,6 +30,7 @@
     <result column="create_id" property="createId" jdbcType="BIGINT" />
     <result column="updated_time" property="updatedTime" jdbcType="BIGINT" />
     <result column="created_time" property="createdTime" jdbcType="BIGINT" />
+    <result column="project_id" property="projectId" jdbcType="BIGINT"/>
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -207,6 +208,24 @@
 	<delete id="deleteById" parameterType="java.lang.Long">
 		delete from sop_person_pool where id = #{id}
 	</delete>
+	
+	
+	
+	<sql id="sql_search_project_List" >
+    	spool.id,spool.person_name,spp.project_id
+  	</sql>
+	<select id="selectProjectIdByPersonName" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="sql_search_project_List" />
+		from	sop_person_pool spool,sop_project_person spp
+		where	spool.id = spp.person_id
+		and		 UPPER(spool.person_name) like CONCAT("%",#{personName},"%")
+	</select>
+	
+	
+	
+	
+	
 	
 	
 </mapper>

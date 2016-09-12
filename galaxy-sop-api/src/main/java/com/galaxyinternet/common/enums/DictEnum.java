@@ -429,7 +429,9 @@ public enum DictEnum {
 		公司资料("公司资料","fileWorktype:10"),
 		财务预测报告("财务预测报告","fileWorktype:11"),
 		商业计划("商业计划书","fileWorktype:12"),
-		立项报告("立项报告","fileWorktype:17");
+		立项报告("立项报告","fileWorktype:17"),
+		尽职调查启动会报告("尽职调查启动会报告","fileWorktype:18"),
+		尽职调查总结会报告("尽职调查总结会报告","fileWorktype:19");
 		
 		private String name;
 

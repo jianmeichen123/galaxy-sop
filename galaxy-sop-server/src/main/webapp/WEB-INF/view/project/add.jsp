@@ -79,7 +79,7 @@
                             <span class="m_r30" style="with:400px">
                              <input type="radio" name="faFlag" checked=checked  value="0" onclick="setText('reset')">否
                              <input type="radio" name="faFlag" onclick="setText('set')" value="1" id="faFlag2">是
-                             <input type="text" class="new_nputr" placeholder="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
+                             <input type="text" class="new_nputr" value="请输入FA名称" style="display:none" maxlength="20" name="faName" allowNULL="yes" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>姓名只能是汉字或是字符,长度为20" id="faName"/>
                         </span>
                         </li>
                     </ul>  
@@ -206,6 +206,7 @@
 		$('input:radio[name="projectType"]').click(function(){
 			$("#projectTypeTip").css("display","none");
 		});
+		
 	});
 	function calculationValuations(){
 		var projectShareRatio = $("#formatShareRatio").val();
@@ -256,6 +257,9 @@
 			$("#faName").attr("style","display:inline-block;")
 			$("#faName").removeAttr("allowNULL");
 			$("#faName").focus();
+			if($("#faName").val()=="请输入FA名称"){
+				$("#faName").attr("style","color:#999;");
+			}
 		}else{
 			$('.tip-yellowsimple').remove();
 			$("#faName").val('');
@@ -264,6 +268,26 @@
 		}
 		
 	}
+
+	$("#faName").keydown(function(){
+  		if(this.value=="请输入FA名称"){
+  			this.value = "";
+  		}
+  		if(this.value!="请输入FA名称"){
+  			$("#faName").attr("style","color:#333;");
+  		}
+		
+	})
+	$("#faName").blur(function(){
+  		if(this.value==""){
+  			this.value = "请输入FA名称";
+  		}
+  		if(this.value=="请输入FA名称"){
+  			$("#faName").attr("style","color:#999;");
+  		}
+		
+	})
+	
 </script>
 
 </html>

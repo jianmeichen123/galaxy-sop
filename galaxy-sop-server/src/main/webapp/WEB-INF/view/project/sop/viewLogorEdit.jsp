@@ -45,8 +45,9 @@
         </dl>
     </div> --%>
     <dl class="fmdl clearfix">
-        <dd>
-            <div type="text/plain" id="viewNotes" style="width:100%; min-width:646px; height:100px;" valType="requiredDiv" regString="^.{0,9000}$" msg="<font color=red>*</font>会议纪要不能超过9000字符"></div>
+        <dd style='position: relative'>
+			<script id="viewNotes" name="content" type="text/plain" style="width:680px"></script>
+			<div class="tip-yellowsimple" id='hint_all' style="visibility: inherit; display: none; left: 678px; top: 60.472px; opacity: 1; width: 169.778px;"><div class="tip-inner tip-bg-image"><font color="red">*</font>访谈纪要不能超过9000字节</div><div class="tip-arrow tip-arrow-left" style="visibility: inherit;"></div></div>
         </dd>
     </dl>
 <!--     <dl class="fmdl clearfix">
@@ -65,6 +66,6 @@
     </div>
 </div>
 <script type="text/javascript">
-	UM.getEditor('viewNotes');
+	//UM.getEditor('viewNotes');
 	$("#viewDate").val(new Date().format("yyyy-MM-dd"));
 </script>

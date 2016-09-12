@@ -8,7 +8,7 @@ var code = "0";
  */
 var alertid="";
 var projectId;
-
+var proDef = $.Deferred();
 function info(id){
 	projectId = id;
 	var _url = Constants.sopEndpointURL + '/galaxy/ips';
@@ -29,6 +29,9 @@ function info(id){
 				//项目的最新动态
 				if(data.entity.hasOwnProperty('updatedTime')){
 					updatedTime = Number(data.entity.updatedTime).toDate().format('yyyy-MM-dd');
+				}
+				if(fileGrid){
+					fileGrid.initFlag = false;
 				}
 				$("#pj-title-updated-time").html('<span>&#40;</span>'+updatedTime+'<span>&#41;</span>');
 				//设置全局参数
@@ -186,7 +189,7 @@ function info(id){
 							 tiggerTable($("#projectProgress_6_table"),3);
 							 
 							 if(parseInt(indexNum) < parseInt(index)){
-								 $("#jzdc_options").remove();
+								 $("#jzdc_options .toggle").remove();
 							 /*}else if(!canUseBut){*///尽职调查去掉文件验证
 								$("#tjhsqBut").remove();
 							}
@@ -240,6 +243,7 @@ function info(id){
 				if(!canToOption){
 					$(".option_item_mark").remove();
 				}
+				proDef.resolve();
 				//立项报告列表
 				$("#lx_report_table").bootstrapTable();
 				initLxReportTable();
@@ -1394,6 +1398,7 @@ function showLogdetail(selectRowId){
 		$("#vid").val(selectRowId);
 		if(typeof(variable) !== 'undefined' && uid!=interviewSelectRow.createdId){
 			$("#interviewsave").hide();
+			um.setDisabled();
 		}
 		
 	}//模版反回成功执行	
@@ -1407,11 +1412,13 @@ function interviewsave(){
 	if(pid != '' && log != ''){
 		sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
 			if (data.result.status=="OK") {
+				$("#hint_all").css("display","none");
 				layer.msg("保存成功");
 				$(".meetingtc").find("[data-close='close']").click();
 				$("#projectProgress_1_table").bootstrapTable('refresh');
 			} else {
 				layer.msg(data.result.message);
+				$("#hint_all").css("display","block");
 			}
 			
 		});

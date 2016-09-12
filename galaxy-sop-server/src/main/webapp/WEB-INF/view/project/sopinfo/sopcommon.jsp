@@ -11,7 +11,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-
+<!-- 保存进度条 -->
+<link href="<%=path %>/css/showLoading.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <style type="text/css">
 div.tip-yellowsimple {
     visibility: hidden;
@@ -45,9 +47,11 @@ position:absolute;
         </div>
 </body>
 <%-- <script src="<%=request.getContextPath() %>/js/cookie.js"></script> --%>
+<!-- 高管/投资经理 -->
 <c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isCreatedByUser" value="${fx:isCreatedByUser('project',projectId)  }" scope="request"/>
 <c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+<c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>
 <script>
 /* var number_on;
 $(function(){
@@ -61,6 +65,7 @@ $(function(){
 	}
 }); */
 var isCreatedByUser = "${isCreatedByUser}";
+var isEditable = "${isEditable}";
 var pid='${pid}';
 if(null==pid||typeof(pid)=="underfind"||pid==""){
 	pid='${projectId}';

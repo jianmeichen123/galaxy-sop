@@ -116,7 +116,7 @@ public class MeetingSheduleController extends BaseControllerImpl<MeetingScheduli
 			if(meetingType.contains("meetingType:3") && meetingType.contains("meetingType:4")){
 				query.setMeetingType(null);
 			}
-			Page<MeetingScheduling> list=meetingSchedulingService.getMeetingList(query,new PageRequest(query.getPageNum(), query.getPageSize()));
+			Page<MeetingScheduling> list=meetingSchedulingService.getMeetingListForReport(query,new PageRequest(query.getPageNum(), query.getPageSize()));
 			
 			List<MeetingScheduling> schedulingList = list.getContent();
 			if(schedulingList.size() == 0){

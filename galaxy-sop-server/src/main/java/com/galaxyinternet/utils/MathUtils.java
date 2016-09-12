@@ -99,6 +99,31 @@ public class MathUtils {
 		return result;
 	}
 	
+	public static String calculate(Double a, Double b,String compute, int reservation) {
+		numberFormat.setMaximumFractionDigits(reservation);
+		numberFormat.setGroupingUsed(false); 
+		String result = null;
+		switch (compute) {
+		case "+":
+			result = numberFormat.format((double) a + (double) b);
+			break;
+		case "-":
+			result = numberFormat.format((double) a - (double) b);
+			break;
+		case "*":
+			result = numberFormat.format((double) a * (double) b);
+			break;
+		case "/":
+			result = numberFormat.format((double) a / (double) b);
+			break;
+		default:
+			break;
+		}
+		return result;
+	}
+	
+	
+	
 
 	
 	

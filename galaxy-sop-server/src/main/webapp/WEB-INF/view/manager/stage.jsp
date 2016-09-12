@@ -255,7 +255,7 @@
 				<!--表格内容-->
 				<table id="projectProgress_2_table"
 					data-url="<%=path%>/galaxy/project/progress/queryMeet"
-					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[10,20,30]">
+					data-toolbar="#projectProgress_2_table_custom-toolbar" data-page-list="[3,10]">
 					<thead>
 						<tr>
 							<th  data-formatter="metcolumnFormat">会议概况</th>
@@ -797,6 +797,7 @@
  			$("#vid").val(selectRowId);
  			if(uid!=interviewSelectRow.createdId){
  				$("#interviewsave").hide();
+ 				um.setDisabled();
  			}
  			
  		}//模版反回成功执行	
@@ -810,11 +811,13 @@
  		if(pid != '' && log != ''){
  			sendPostRequestByJsonObj(platformUrl.updateInterview, {"id" : pid, "viewNotes" : log}, function(data){
  				if (data.result.status=="OK") {
+ 					$("#hint_all").css("display","none");
  					layer.msg("保存成功");
  					$(".meetingtc").find("[data-close='close']").click();
  					$("#projectProgress_1_table").bootstrapTable('refresh');
  				} else {
  					layer.msg(data.result.message);
+ 					$("#hint_all").css("display","block");
  				}
  				
  			});

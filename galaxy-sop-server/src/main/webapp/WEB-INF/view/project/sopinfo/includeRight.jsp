@@ -13,7 +13,7 @@
         <div class="new_right">
         	<b class="sj_ico null">三角</b>
         	<!-- 投后运营Start -->
-        	<c:if test="${aclViewProject }">
+        	<c:if test="${aclViewProject or isThyy}">
         	
         	<div id="thyy_div" style="display:none;">
 				<div class="correlation">投后运营</div>
@@ -29,6 +29,17 @@
 							<div id="bar"></div>
 						</div>
 					</div>
+					 <!-- 拨款进度 -->
+              <div class="money">
+                <div class="title">拨款进度</div>
+                <input type="hidden" id="planMoney">
+                <ul class="clearfix">
+                  <li class="fl">已拨款：<span class="money_complete"></span>万</li>
+                  <li class="fr">计划拨款：<span class="money_total"></span>万</li>
+                </ul>
+                <div class="progressBar"><div id="bar_m"></div></div>
+              </div>
+              <!-- 拨款进度end -->
 				</div>
 				
 				<div class="correlation">相关操作</div> 
@@ -37,7 +48,7 @@
 	            	<span class="bluebtn new_btn yjxm_btn" onclick="transferPro()" style="display:none">移交项目</span>
 	                <span class="bluebtn new_btn cxxm_btn" onclick="revokePro()" style="display:none" >撤销移交</span>
 	            </div>
-            
+            	
 				<div class="correlation">近期会议纪要 <span class="more null new_righ" id="thyy_meet_more" style="cursor: pointer;">more</span>
 				</div>
 				<div class="new_correlation_cen new_correlation_cen_con" id="thyy_meet_div">
@@ -109,7 +120,7 @@
         <!-- 投前End -->
         </div>
         <!--右边 end-->
-   
+<script src="<%=path %>/js/refuseProject.js"></script>
 <script>
 var proid = pid;
 var prograss = projectInfo.projectProgress;
@@ -123,6 +134,7 @@ if('${fx:isTransfering(pid) }' == 'true')
 	}else{
 	  $(".cxxm_btn").attr("style","display:block;");
 	  $(".cxxm_btn").addClass("disabled");
+	  $(".cxxm_btn").removeAttr("onclick");
 	}
 		
 }else{
@@ -132,6 +144,7 @@ if('${fx:isTransfering(pid) }' == 'true')
 	}else{
 	  $(".yjxm_btn").attr("style","display:block;");
 	  $(".yjxm_btn").addClass("disabled");
+	  $(".yjxm_btn").removeAttr("onclick");
 	}
 	$("#cxxm_btn").attr("style","display:none;");
 }
@@ -159,14 +172,6 @@ $(function(){
 	}
 	else
 	{
-		$.each($('.new_left .tablinks li'),function(){
-			var tab = $(this);
-			if(tab.find('a').text() == '运营分析')
-			{
-				tab.remove();
-			}
-		});
-		
 		$(".tq_div").show();
 	}
 	init_lct(); //流程图初始化
@@ -183,9 +188,77 @@ $(function(){
 		//more 链接初始化
 		initMoreLine();
 	}
-	
-	
-	setJgqrProgress();
+	 setJgqrProgress();
+	 sendPostRequest(platformUrl.getApprProcess+"/"+proid,appropriationProcessBack);
+	 function appropriationProcessBack(data){
+	 	var result = data.result.status;
+	 	if(result == "ERROR"){ //OK, ERROR
+	 		layer.msg(data.result.message);
+	 		return;
+	 	}else{
+	 		 var grantTotal = data.userData;
+	 		 var sumPlanMoney=grantTotal.sumPlanMoney;
+	 		 var sumActualMoney=grantTotal.sumActualMoney;
+	 		 $("#planMoney").val(sumPlanMoney);
+	 		  setData(sumPlanMoney,sumActualMoney);
+	 		 if(typeof(sumActualMoney)=="underfined"||null==sumActualMoney||sumActualMoney==0){
+	 			sumActualMoney=0;
+	 		 }else{
+	 			 var format=addCommas(fixSizeTwo(sumActualMoney/10000));
+	 			 if(format==0.00){
+	 				sumActualMoney=0;
+	 			 }else{
+	 				sumActualMoney=format ;
+	 			 }
+	 		 }
+	 		 if(null==sumPlanMoney||typeof(sumPlanMoney)=="underfined"||sumPlanMoney==0){
+	 			    sumPlanMoney=0;
+		 		 }else{
+		 			 var format=addCommas(fixSizeTwo(sumPlanMoney/10000));
+		 			 if(format==0.00){
+		 				sumPlanMoney=0;
+		 			 }else{
+		 				sumPlanMoney=format ;
+		 			 }
+		 			
+		 		 }
+	 		$(".money_complete").text(sumActualMoney);
+	 		$(".money_total").text(sumPlanMoney);
+	  	}
+	 }
+		function setData(sumPlanMoney,sumActualMoney){
+			 //拨款进度
+			  $("#bar_m").css("width","0px");  //初始化进度条宽度；
+			    var moneyComplete=sumActualMoney;
+			        moneyTotal=sumPlanMoney;
+			        m_width=$(".progressBar").width();
+			        if(moneyComplete==0){
+			        	barWidth=0+"px";
+			        }else{
+			        	barWidth=parseInt(moneyComplete/moneyTotal*m_width)+"px";
+			        }
+			        
+			    $("#bar_m").css("width",barWidth)
+			    //获取表格除第一行，第二行之外的元素
+			    var tr_n=$(".moneyAgreement tbody tr")
+			    var tr_s=$(".moneyAgreement tbody tr").eq(1).nextAll();
+			    tr_s.css("display","none");
+			    if(tr_n.length>2){
+			      $(".agreement .show_more").show();
+			      $(".agreement .show_more").click(function(){
+			        $(this).hide();
+			        $(".agreement .show_hide").show();
+			        tr_n.show();
+			      })
+			       $(".agreement .show_hide").click(function(){
+			        $(this).hide();
+			        $(".agreement .show_more").show();
+			        tr_s.css("display","none");
+			      })
+			    }
+
+		}
+
 });
 
 function toCheckShowIcon(){
@@ -370,17 +443,23 @@ function closePro(){
 	if($(".fjxm_but").hasClass('limits_gray')){
 		return;
 	}
-	layer.confirm('你确定要否决项目吗?', 
-			{
-			  btn: ['确定', '取消'] 
-			}, 
-			function(index, layero){
-				sendGetRequest(platformUrl.closeProject+proid,null,closeback);
-			}, 
-			function(index){
+// 	layer.confirm('你确定要否决项目吗?', 
+// 			{
+// 			  btn: ['确定', '取消'] 
+// 			}, 
+// 			function(index, layero){
+// 				sendGetRequest(platformUrl.closeProject+proid,null,closeback);
+// 			}, 
+// 			function(index){
 				
-			}
-		);
+// 			}
+// 		);
+	var formdata = {
+			projectId : proid
+	}
+	refuseProjectDialog.init(formdata);
+	
+	
 }
 
 function transferPro(){
@@ -407,7 +486,7 @@ function revokePro(){
 
 
 //关闭回调
-function closeback(data){
+function closeback(data,fuc){
 	var result = data.result.status;
 	if(result == "ERROR"){ //OK, ERROR
 		alert("error "+data.result.message);
@@ -415,6 +494,7 @@ function closeback(data){
 	}else{
 		layer.msg("该项目已关闭");
 		//toDetail(proid);
+		fuc();
 		showTabs(proid,0)
 		//forwardWithHeader(platformUrl.mpl);
 	}
@@ -495,5 +575,6 @@ function setJgqrProgress()
 
 
 </script>
+
 
 

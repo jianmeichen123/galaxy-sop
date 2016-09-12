@@ -18,7 +18,10 @@ import com.galaxyinternet.common.enums.DictEnum;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.thread.GalaxyThreadPool;
+import com.galaxyinternet.iosMessage.IosMessageGenerator;
+import com.galaxyinternet.iosMessage.operType.IosMeaageOperation;
 import com.galaxyinternet.model.common.ProgressLog;
+import com.galaxyinternet.model.iosMessage.IosMessage;
 import com.galaxyinternet.model.operationLog.OperationLogType;
 import com.galaxyinternet.model.operationLog.OperationLogs;
 import com.galaxyinternet.model.operationMessage.OperationMessage;
@@ -27,14 +30,15 @@ import com.galaxyinternet.model.sopfile.SopParentFile;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.operationMessage.MessageGenerator;
 import com.galaxyinternet.operationMessage.handler.MeetMessageHandler;
-import com.galaxyinternet.operationMessage.handler.ProjectTransferMessageHandler;
 import com.galaxyinternet.operationMessage.handler.SopFileMessageHandler;
 import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.service.OperationLogsService;
 import com.galaxyinternet.service.OperationMessageService;
 import com.galaxyinternet.service.ProgressLogService;
-import com.galaxyinternet.service.UserService;
+import com.tencent.xinge.XGPush;
+
+import net.sf.json.JSONObject;
 
 /**
  * @description 消息提醒拦截器
@@ -85,12 +89,11 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	OperationMessageService operationMessageService;
 	
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
 	OperationLogsService operationLogsService;
 	@Autowired
 	MessageGenerator messageGenerator;
+	@Autowired
+	IosMessageGenerator iosMessageGenerator;
 
 	@Autowired
 	ProgressLogService ideaNewsService;
@@ -100,7 +103,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	public void afterCompletion(final HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 		if (handler instanceof HandlerMethod) {
 			HandlerMethod handlerMethod = (HandlerMethod) handler;
-			Method method = handlerMethod.getMethod();
+			final Method method = handlerMethod.getMethod();
 			final Logger logger = method.getAnnotation(Logger.class);
 			if (logger != null) {
 				final Map<String, Object> map = (Map<String, Object>) request.getAttribute(PlatformConst.REQUEST_SCOPE_MESSAGE_TIP);
@@ -108,7 +111,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 					String uniqueKey = getUniqueKey(request, map, logger);
 					final OperationType type = OperationType.getObject(uniqueKey);   //message
 					final OperationLogType operLogType = OperationLogType.getObject(uniqueKey); //log
-					if (null != type || null != operLogType) {
+					final IosMeaageOperation iosMessageOper = IosMeaageOperation.getObject(uniqueKey); //ios
+					
+					if (null != type || null != operLogType || null != iosMessageOper) {
 						final User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 						final RecordType recordType = logger.recordType();
 						final LogType[] logTypes = logger.operationScope();  //log message 
@@ -124,7 +129,30 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 										insertOperationLog(populateOperationLog(operLogType, user, map, recordType));
 									} else if (ltype == LogType.IDEANEWS) {
 										insertIdeaNews(populateProgressLog(operLogType, user, map, recordType));
-									} else if (ltype == LogType.PROJECTNEWS) {
+									}else if (ltype == LogType.IOSPUSHMESS) {
+										if(method.getName().contains("updateReserveTime")){
+											if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH) != null){
+												List<Map<String,Object>> mapList = (List<Map<String, Object>>) map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH);
+												if(mapList != null && mapList.size() > 0){
+													for(Map<String,Object> map:mapList){
+														toPushIosMessage(iosMessageOper, user, map);
+													}
+												}
+											}else
+												toPushIosMessage(iosMessageOper,user,map);
+										}else
+											toPushIosMessage(iosMessageOper,user,map);
+										
+									}else if(ltype == LogType.BATCHMESSAGE){
+										if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH) != null){
+											List<Map<String,Object>> mapList = (List<Map<String, Object>>) map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_BATCH);
+											if(mapList != null && mapList.size() > 0){
+												for(Map<String,Object> map:mapList){
+													insertMessageTip(populateOperationMessage(type, user, map));
+												}
+											}
+										}
+									}else if (ltype == LogType.PROJECTNEWS) {
 										// 这里用于扩展
 									}
 								}
@@ -144,6 +172,9 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	private void insertMessageTip(OperationMessage message) {
 		try {
+			if(message == null){
+				return;
+			}
 			Long c=operationMessageService.insert(message);
 			StringBuffer content = new StringBuffer();
 			
@@ -277,6 +308,7 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
                 User user = (User) message.getUserData();
 				message.setBelongUid(user.getId());
 				message.setBelongDepartmentId(user.getDepartmentId());
+				message.setSingleMark((byte) 1);
 			    operationMessageService.insert(message);
 			}
 		} catch (Exception e1) {
@@ -321,27 +353,38 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 
 	private OperationLogs populateOperationLog(OperationLogType type, User user, Map<String, Object> map, RecordType recordType) {
 		OperationLogs entity = new OperationLogs();
+		
 		entity.setOperationContent(type.getContent());
+		if(type.getUniqueKey().contains("project/breakpro")){
+			entity.setOperationContent(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
+		}
 		entity.setOperationType(type.getType());
 		entity.setUid(user.getId());
 		entity.setUname(user.getRealName());
 		entity.setDepartName(user.getDepartmentName());
 		entity.setUserDepartid(user.getDepartmentId());
-		Object flag=map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_NUM);
-		Object obj=map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_STAGE);
-		if(null!=flag&&null!=obj){
-			boolean f=(boolean) flag;
-			String stage=(String)obj;
-			if(f==true&&!"".equals(stage)){
-				entity.setSopstage(stage);
-			  }
-			}else{
-			entity.setSopstage(type.getSopstage());
-		}
+		
 		entity.setProjectName(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_NAME)));
 		entity.setProjectId(Long.valueOf(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_ID))));
+		
+		if(map.containsKey(PlatformConst.REQUEST_SCOPE_PROJECT_PROGRESS)&& map.get(PlatformConst.REQUEST_SCOPE_PROJECT_PROGRESS)!=null){
+			entity.setSopstage(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_PROJECT_PROGRESS)));
+		}else{
+			Object flag=map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_NUM);
+			Object obj=map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_STAGE);
+			if(null!=flag&&null!=obj){
+				boolean f=(boolean) flag;
+				String stage=(String)obj;
+				if(f==true&&!"".equals(stage)){
+					entity.setSopstage(stage);
+				 }
+			}else{
+				entity.setSopstage(type.getSopstage());
+			}
+		}
 		entity.setReason(String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_REASON)));
 		entity.setRecordType(recordType.getType());
+		
 		return entity;
 	}
 
@@ -365,4 +408,46 @@ public class MessageHandlerInterceptor extends HandlerInterceptorAdapter {
 	private OperationMessage populateOperationMessage(OperationType type, User user, Map<String, Object> map) {
 		return messageGenerator.generate(type, user, map);
 	}
+	
+	
+	
+	// ios message push
+	private void toPushIosMessage(IosMeaageOperation type, User user, Map<String, Object> map) {
+		try{
+			if(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE) != null){
+				String messageType = String.valueOf(map.get(PlatformConst.REQUEST_SCOPE_MESSAGE_TYPE));
+				if(messageType.equals("8.4") || messageType.equals("8.5") ||
+						messageType.equals("9.4") || messageType.equals("9.5")){
+					return;
+				}
+			}else throw new Exception("requset 封装的  map 中  messageType 信息缺失");
+			
+			IosMessage entity = iosMessageGenerator.generate(type, user,map);
+		
+			if(entity==null || entity.getUidList()==null || entity.getUidList().isEmpty() || StringUtils.isBlank(entity.getContent())){
+				return;
+			}
+
+			XGPush xinge = XGPush.getInstance();
+			org.json.JSONObject result = xinge.pushAccountList(entity.getUidList(),entity.getTitle(), entity.getContent());
+			
+			if(result!=null){
+				String backStr = result.toString();
+				String iosmarkV = backStr.substring(backStr.indexOf("ret_code\":")+10, backStr.indexOf("ret_code\":")+11);
+				String andriodmarkV = backStr.substring(backStr.lastIndexOf("ret_code\":")+10, backStr.lastIndexOf("ret_code\":")+11);
+				if(!iosmarkV.equals("0") || !andriodmarkV.equals("0")){
+					throw new Exception("xingge 推送失败 "+backStr);
+				}
+			}
+			
+		} catch (Exception e) {
+			loger.error("xingge 消息推送失败" +e);
+		}
+	}
+	
+	
+		
+	
+	
+	
 }

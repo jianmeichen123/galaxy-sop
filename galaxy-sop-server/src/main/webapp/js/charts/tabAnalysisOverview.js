@@ -1,3 +1,4 @@
+var onclock='';
 var searchOverviewPanel = {
 		init : function(){
 			//初始化日期
@@ -102,7 +103,6 @@ var projectGrid = {
 			}
 			//返回页面加载
 			if(getCookieValue("backProjectList")!=''){
-
 				$('#search_department_id').val(getCookieValue('search_department_id'))
 				$('#search_project_type').val(getCookieValue('search_project_type'));
 				$('#search_start_time').val(getCookieValue('search_start_time'));
@@ -212,10 +212,21 @@ var projectGrid = {
 				    field: 'updateDate',
 				    title: '最后修改时间'
 				  }],onLoadSuccess:function(){
+
+						
+						
 					  //console.log('0dddddddddddddddd')
 						//显示页码
 						if(getCookieValue("one_click_number")==''){
+							if(onclock ==''){
+								$("#search_btn").click();
+								onclock ='onclock';
+							}
+							//$("#search_btn").click();
+							
 							if(getCookieValue("tempPageNum")!='' ){
+
+								
 								if(getCookieValue("tempPageNum")==1){
 									return;
 								}else{
@@ -270,8 +281,8 @@ var projectGrid = {
 		nameEvents : {
 			'click .projectNameLink': function (e, value, row, index) {
 				
-				var PageSize_ab = $( ".dropdown-toggle .page-size").text();
-				var tempPageNum = $( ".pagination .active").text();
+				var PageSize_ab = $( ".tabtable_con_overview .dropdown-toggle .page-size").text();
+				var tempPageNum = $( ".tabtable_con_overview .pagination .active").text();
 				var href_url=window.location
 				//ie兼容
 				setCookie("PageSize_ab", PageSize_ab,24,'/');
