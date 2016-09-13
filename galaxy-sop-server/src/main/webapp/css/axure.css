@@ -2132,4 +2132,10 @@ margin: 45px auto 30px;}
 .moeny_all .money ,#setValue .money ,#label_grant_money .money{ position: absolute; top: -39px;  left: 285px;}
 .bj_hui{ background-color:rgb(248, 248, 248) !important; display:none ; width: 150px;    border: 1px solid #dadfe3; border-radius: 4px;
     padding: 0 4px;  font-size: 12px;}
-
+/*------------------------------- V2.3.101-------------------------------- */
+.tablist .Htips{font-size:12px;color:#aaa;font-family:"宋体"}
+.ytxm_tab{width:156px;height:18px;}
+.ytxm_tab li{float:left;min-width:30px;text-align:center;margin-left:2px;background:#e9ebf2;color:#7a8798;font-size:12px;font-family:"宋体";line-height:18px;padding:0 6px;cursor:pointer;}
+.position_tab{position: absolute; right: 10px;top: 8px;}
+.position_tab li.on{background:#c1d0dd;color:#fff;}
+.pagebox .min .tablist dt .t13{ background-position:0 -287px}
