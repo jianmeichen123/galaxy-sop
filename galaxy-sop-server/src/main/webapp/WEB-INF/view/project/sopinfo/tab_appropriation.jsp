@@ -40,9 +40,12 @@
                   </div>
              <span class="show_total">显示第 <span class="start">1</span> 条到第 <span class="end">2</span> 条，总共 <span class="total">2</span> 条记录</span>
             <span class="show_more blue fr" id="reloadAll">显示更多</span>
+              
         </div>  
                    <!--tab end-->
+                 
           </div>
+            
 <script>
 var isEditable = "${isEditable}";
 var isTransfering = "${fx:isTransfering(pid) }";
