@@ -935,7 +935,7 @@ var platformUrl = {
 	/**
 	 * 运营分析
 	 */
-	showOperationsAnalysis: Constants.sopEndpointURL+"/galaxy/project/postOperation/toPostMeeting"
+	showOperationsAnalysis: Constants.sopEndpointURL+"/galaxy/project/postOperation/toPostMeeting",
 	/**
 	 * 项目详情-右边
 	 */
