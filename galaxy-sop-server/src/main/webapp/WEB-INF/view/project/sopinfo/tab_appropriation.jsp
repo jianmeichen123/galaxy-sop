@@ -4,59 +4,21 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>繁星</title>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
-<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
-<!-- bootstrap-table -->
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-<!-- 日历插件 -->
-<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-
-<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
-<!-- 校验 -->
-<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-
-
-<script src="<%=path %>/js/sopinfo.js"></script>
-<script src="<%=path %>/js/projectDetail/appro.js"></script>
-<script src="<%=path %>/js/utils.js"></script>
 <style type="text/css">
-.bars{margin:0 !important;}
+
 </style></head>
 <body>
 
-<div class="pagebox clearfix">
 	<!--左侧导航-->
-     
-    <!--右中部内容-->
- 	<div class="ritmin">
-    	<div class="new_left">
+
 			<div class="tabtable assessment label_static">
-				<!-- tab标签 -->
-	            <jsp:include page="tab_header.jsp?index=8" flush="true"></jsp:include>
-            <!-- 拨款信息 -->
-        
             	<div class="member proOperation">
                     <div class="top clearfix">
                         <!--按钮-->
-                        <c:if test="${isEditable }">
+                       
                         <div class="btnbox_f btnbox_f1">
                             <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总拨款计划'>添加总拨款计划</a>
                         </div>
-                        </c:if>
-
                     </div>
                     <!-- 搜索条件 -->
                     
@@ -79,18 +41,6 @@
         </div>  
                    <!--tab end-->
           </div>
-        </div>
-        <!--右边-->
-           <jsp:include page="includeRight.jsp" flush="true"></jsp:include>
-      </div>
- 
-</div>
-
-<!-- file -->
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
-<script src="<%=path %>/js/batchUpload.js" type="text/javascript" charset="utf-8"></script>
-<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
 <script>
 var isTransfering = "${fx:isTransfering(pid) }";
 var pId;

@@ -33,6 +33,9 @@ $(function(){
 //基本信息
 function initTabInfo(projectId){
 	tabInfo.init(projectId);
+	$.getTabHtml({
+		url : platformUrl.showPersonDetail +'/'+ projectId
+	});
 }
 
 //团队成员
@@ -62,7 +65,9 @@ function initTabDelivery(){
 }
 //拨款信息
 function initTabAppropriation(){
-	tabAppro.init(projectId);
+	$.getTabHtml({
+		url : Constants.sopEndpointURL+"/galaxy/project/toAppropriation/null/"+projectId
+	});
 }
 //运营分析
 function initTabPostMeeting(){
