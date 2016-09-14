@@ -4,99 +4,49 @@
 <% 
 	String path = request.getContextPath(); 
 %>
+      <!-- 运营分析 -->
+      <div id="post_meeting_anlysis">
+      	<div class="member proOperation">
+              <div class="top clearfix">
+                  <!--按钮-->
+                  <div class="btnbox_f btnbox_f1 clearfix">
+                  	<c:if test="${isEditable}">
+                      <a href="javascript:void(0)" class="pbtn bluebtn h_bluebtn" id="addPostMeetingBtn"  data-btn="conference">添加运营会议纪要</a>
+                  	</c:if>
+                  	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
+                      <c:if test="${isEditable}">
+                  	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
+                      </c:if>
+                  </div>
+              </div>
+              <!-- 搜索条件 -->
+              <div class="min_document pro_analysis clearfix">
+              <form id="search_meet">
+                <div class="bottom searchall clearfix">
+                  <dl class="fmdl fmdll clearfix">
+                    <dt>类型：</dt>
+                    <dd id="search_meet_type">
+                    </dd>
+                  </dl>
+                  <dl class="fmdl fmdll clearfix">
+                    <dt>会议日期：</dt>
+                    <dd>
+		<input type="text" class="datepicker txt time" name="meet_startDate"  /> 
+		<span>至</span>
+		<input type="text" class="datepicker txt time" name="meet_endDate"  />
+      </dd>
+                    <dd><a href="javascript:;" id="searchBtn" class="bluebtn ico cx">查询</a></dd>
+                  </dl>
+                </div>
+                </form>
+              </div>                            
+              <!--表格内容-->
+              <table id="meetGrid" width="100%" cellspacing="0" cellpadding="0" class="commonsize delivery">
+              </table>
+  		</div>  
+  	</div>
+     	
 
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>项目详情</title>
-
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
-<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-
-<!-- bootstrap-table -->
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-
-<!-- 日历插件 -->
-<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-<%-- <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/> --%>
-<link href="<%=path %>/bootstrap/bootstrap-datepicker/datetimepicker/css/bootstrap-datetimepicker.min.css">
-<!-- 富文本编辑器 -->
-<link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-
-<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
-<script src="<%=path %>/js/sopinfo.js"></script>
-</head>
-
-
-
-<body>
-
-<jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
-
-<div class="pagebox clearfix">
-	<!--左侧导航-->
-	<jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
-    <!--右中部内容-->
- 	<div class="ritmin">
-	
-    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
-		
-        <div class="new_left">
-        	<div class="tabtable assessment label_static">
-			<!-- tab标签 -->
-            <jsp:include page="tab_header.jsp?index=9" flush="true"></jsp:include>
-            <!-- 运营分析 -->
-            <div id="post_meeting_anlysis">
-            	<div class="member proOperation">
-                    <div class="top clearfix">
-                        <!--按钮-->
-                        <div class="btnbox_f btnbox_f1 clearfix">
-                        	<c:if test="${isEditable}">
-                            <a href="javascript:void(0)" class="pbtn bluebtn h_bluebtn" id="addPostMeetingBtn"  data-btn="conference">添加运营会议纪要</a>
-                        	</c:if>
-                        	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_case" data-name='健康状况变更记录'></a>
-                            <c:if test="${isEditable}">
-                        	<a href="javascript:void(0)"  class="pbtn bluebtn h_bluebtn" data-btn="health_status" data-name='健康状况'></a>
-                            </c:if>
-                        </div>
-                    </div>
-                    <!-- 搜索条件 -->
-                    <div class="min_document pro_analysis clearfix">
-                    <form id="search_meet">
-                      <div class="bottom searchall clearfix">
-                        <dl class="fmdl fmdll clearfix">
-                          <dt>类型：</dt>
-                          <dd id="search_meet_type">
-                          </dd>
-                        </dl>
-                        <dl class="fmdl fmdll clearfix">
-                          <dt>会议日期：</dt>
-                          <dd>
-								<input type="text" class="datepicker txt time" name="meet_startDate"  /> 
-								<span>至</span>
-								<input type="text" class="datepicker txt time" name="meet_endDate"  />
-						  </dd>
-                          <dd><a href="javascript:;" id="searchBtn" class="bluebtn ico cx">查询</a></dd>
-                        </dl>
-                      </div>
-                      </form>
-                    </div>                            
-                    <!--表格内容-->
-                    <table id="meetGrid" width="100%" cellspacing="0" cellpadding="0" class="commonsize delivery">
-                    </table>
-        		</div>  
-        	</div>
-          </div>
-        </div>
-        <!--右边-->
-        <jsp:include page="./includeRight.jsp" flush="true"></jsp:include>	
-    </div>
-</div>
-
-<jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
 <script type="text/javascript">
 	var isTransfering = "${fx:isTransfering(pid) }";
 	if(isTransfering == 'true')

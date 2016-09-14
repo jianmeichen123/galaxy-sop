@@ -930,7 +930,13 @@ var platformUrl = {
 	/**
 	 * 项目详情-团队成员
 	 */
-	showPersonDetail: Constants.sopEndpointURL + "/galaxy/personTab"
+	showPersonDetail: Constants.sopEndpointURL + "/galaxy/personTab",
+	
+	/**
+	 * 运营分析
+	 */
+	showOperationsAnalysis: Constants.sopEndpointURL+"/galaxy/project/postOperation/toPostMeeting"
+	
 
 
 	
