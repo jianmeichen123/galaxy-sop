@@ -39,17 +39,16 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 
+<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+
 <script type="text/javascript">
 var isCreatedByUser = "${fx:isCreatedByUser('project',projectId) }";
 var isTransfering = "${fx:isTransfering(projectId) }";
 var projectInfo;
 $(function(){
 	createMenus(4);
-	var dtd = $.Deferred();
-	$.when(getProjectInfo(dtd))
-	.done(function(){
-// 		initProjectData();
-	});
 });
 /**
 *项目信息

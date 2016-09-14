@@ -37,11 +37,16 @@ function initTabInfo(projectId){
 
 //团队成员
 function initTabProjectTeam(){
-	
+	$.getTabHtml({
+		url : platformUrl.showPersonDetail +'/'+ projectId
+	});
 }
 //股权结构
 function initTabEquity(){
-	
+	$.getTabHtml({
+		url : platformUrl.showShareDetail,
+		data:{'id':projectId}
+	});
 }
 //访谈记录
 function initTabInterview(){
@@ -70,7 +75,10 @@ function initTabSopFile(){
 }
 //操作日志
 function initTabOperLog(){
-	
+	var url = Constants.sopEndpointURL+"/galaxy/project/toprolog/" + projectId;
+	$.getTabHtml({
+		url : url
+	});
 }
 
 
