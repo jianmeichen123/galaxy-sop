@@ -86,7 +86,6 @@
 </div>
 
 <script type="text/javascript">
-console.log('${isEditable}');
 	var $sharesTable;
 	var isTransfering = "${fx:isTransfering(pid) }";
 	if(isTransfering == 'true')

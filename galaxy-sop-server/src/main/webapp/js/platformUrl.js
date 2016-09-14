@@ -926,7 +926,11 @@ var platformUrl = {
 	/**
 	 * 项目详情-股权结构
 	 */
-	showShareDetail: Constants.sopEndpointURL + "/galaxy/project/tabShares"
+	showShareDetail: Constants.sopEndpointURL + "/galaxy/project/tabShares",
+	/**
+	 * 项目详情-团队成员
+	 */
+	showPersonDetail: Constants.sopEndpointURL + "/galaxy/personTab"
 
 
 	
