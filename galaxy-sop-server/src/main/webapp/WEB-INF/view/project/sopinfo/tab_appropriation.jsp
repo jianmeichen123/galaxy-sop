@@ -7,6 +7,7 @@
 <style type="text/css">
 
 </style></head>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 <body>
 
 	<!--左侧导航-->
@@ -15,10 +16,11 @@
             	<div class="member proOperation">
                     <div class="top clearfix">
                         <!--按钮-->
-                       
+                        <c:if test="${isEditable}">
                         <div class="btnbox_f btnbox_f1">
                             <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总拨款计划'>添加总拨款计划</a>
                         </div>
+                        </c:if>
                     </div>
                     <!-- 搜索条件 -->
                     
@@ -42,6 +44,7 @@
                    <!--tab end-->
           </div>
 <script>
+var isEditable = "${isEditable}";
 var isTransfering = "${fx:isTransfering(pid) }";
 var pId;
 var searchPartMoney;
@@ -297,7 +300,18 @@ var searchPartMoney;
 		if(null==searchPartMoney||""==searchPartMoney){
 			searchPartMoney = null;
 		}
-		showTabs(searchPartMoney+"/"+'${pid}',8);
+		var numOfShow = $("#tabApprAllList .agreement:visible").length;
+		var url = Constants.sopEndpointURL + "/galaxy/project/toAppropriation/"+searchPartMoney+"/${projectId}";
+		if(numOfShow>0)
+		{
+			numOfShow = Math.max(numOfShow,2);
+			url+="?numOfShow="+numOfShow;
+		}
+		$("#powindow").remove();
+		$("#popbg").remove();
+		$.getTabHtml({
+			url : url
+		});
 		showRow(2);
 	})
 
