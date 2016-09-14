@@ -49,11 +49,6 @@ var isTransfering = "${fx:isTransfering(projectId) }";
 var projectInfo;
 $(function(){
 	createMenus(4);
-	var dtd = $.Deferred();
-	$.when(getProjectInfo(dtd))
-	.done(function(){
-// 		initProjectData();
-	});
 });
 /**
 *项目信息

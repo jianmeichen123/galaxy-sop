@@ -75,7 +75,10 @@ function initTabSopFile(){
 }
 //操作日志
 function initTabOperLog(){
-	
+	var url = Constants.sopEndpointURL+"/galaxy/project/toprolog/" + projectId;
+	$.getTabHtml({
+		url : url
+	});
 }
 
 
