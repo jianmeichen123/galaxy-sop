@@ -856,13 +856,13 @@
 				hideback:function(){}
 			},options);
 			function popEve(){
-				this.strpopTab="<div id=\"tab-content\" data-id=\"tab-content\"><div class=\"tabtxt\"></div></div>"
+				this.strpopTab="<div id=\"div-content\" data-id=\"div-content\"><div class=\"divtxt\"></div></div>"
 				this.txt = opts.txt;//弹层添加数据
 				//显示出来之后执行
 				this.showback = opts.showback;
 				//隐藏后执行
 				this.hideback = opts.hideback;
-				this.id = "[data-id='tab-content']";
+				this.id = "[data-id='div-content']";
 				this.domid = opts.domid;
 			}
 			popEve.prototype = {
@@ -881,7 +881,7 @@
 					//插入弹窗外部皮肤
 					$("#"+ _this.domid).append(_this.strpopTab);
 					//插入内容
-					$("#"+ _this.domid).find(_this.id).children(".tabtxt").html(_this.txt);
+					$("#"+ _this.domid).find(_this.id).children(".divtxt").html(_this.txt);
 					//对外接口
 					_this.showback.apply(_this);
 					return _this;	
@@ -911,7 +911,7 @@
 						dataType:"html",
 						url:opts.url,
 						success:function(html){
-							$("#" + _this.domid).find(_this.id).find(".tabtxt").html(html);
+							$("#" + _this.domid).find(_this.id).find(".divtxt").html(html);
 							opts.okback();
 						},
 						error:function(){
