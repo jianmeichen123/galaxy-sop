@@ -101,7 +101,8 @@ function getProjectInfo(dtd)
 		</div>
 	</div>
     <!--右边-->
-    <jsp:include page="./includeRight.jsp" flush="true"></jsp:include>
+<%--     <jsp:include page="./includeRight.jsp" flush="true"></jsp:include> --%>
+    <div class="new_right" id="new_right"></div>
         
 </div>
  

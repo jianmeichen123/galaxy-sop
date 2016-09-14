@@ -5,7 +5,8 @@
 	String path = request.getContextPath(); 
 	Long projectId = (Long)request.getAttribute("projectId");
 %>
-<c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>  
+<c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
+<c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>  
 		  <!-- 档案库信息 -->
           <div id="file_repository">
           	<c:if test="${aclViewProject==true or isThyy}">

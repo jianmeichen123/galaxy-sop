@@ -4,13 +4,12 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
+<c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
+<c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>  
 
 
 
         
-        <!--右边        li  class="green_dot"  span class="green_dot_on"    <span class="gray_dot"></span> -->  
-        <div class="new_right">
         	<b class="sj_ico null">三角</b>
         	<!-- 投后运营Start -->
         	<c:if test="${aclViewProject or isThyy}">
@@ -118,8 +117,6 @@
             
         </div>
         <!-- 投前End -->
-        </div>
-        <!--右边 end-->
 <script src="<%=path %>/js/refuseProject.js"></script>
 <script>
 var proid = pid;
