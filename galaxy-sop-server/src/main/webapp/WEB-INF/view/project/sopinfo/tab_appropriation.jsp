@@ -30,25 +30,19 @@
 
 
 <script src="<%=path %>/js/sopinfo.js"></script>
-<script src="<%=path %>/js/base_appropriation.js"></script>
+<script src="<%=path %>/js/projectDetail/appro.js"></script>
 <script src="<%=path %>/js/utils.js"></script>
 <style type="text/css">
 .bars{margin:0 !important;}
 </style></head>
 <body>
-<jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 
 <div class="pagebox clearfix">
 	<!--左侧导航-->
-	<jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
      
     <!--右中部内容-->
  	<div class="ritmin">
- 	
-    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
-
-
-		<div class="new_left">
+    	<div class="new_left">
 			<div class="tabtable assessment label_static">
 				<!-- tab标签 -->
 	            <jsp:include page="tab_header.jsp?index=8" flush="true"></jsp:include>
@@ -91,7 +85,7 @@
       </div>
  
 </div>
-<jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
+
 <!-- file -->
 <script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>

@@ -122,6 +122,8 @@ function getProjectInfo(dtd)
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/tabFile.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/projectDetail.js" type="text/javascript"></script>
+<script src="<%=path %>/js/projectDetail/appro.js" type="text/javascript"></script>
+<script src="<%=path %>/js/base_appropriation.js" type="text/javascript"></script>
 
 
 <%-- <script src="<%=path %>/js/person.js"></script> --%>

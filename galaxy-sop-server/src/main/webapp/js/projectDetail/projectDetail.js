@@ -57,7 +57,7 @@ function initTabDelivery(){
 }
 //拨款信息
 function initTabAppropriation(){
-	
+	tabAppro.init(projectId);
 }
 //运营分析
 function initTabPostMeeting(){
