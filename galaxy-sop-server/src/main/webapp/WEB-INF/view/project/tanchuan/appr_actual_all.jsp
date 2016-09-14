@@ -60,7 +60,8 @@
 						numOfShow = Math.max(numOfShow,2);
 						url+="?numOfShow="+numOfShow;
 					}
-					forwardWithHeader(url);
+					$(".addmentc").css("display","none");
+					reloadData(null,'${projectId}');
 				}
 				
 			});
