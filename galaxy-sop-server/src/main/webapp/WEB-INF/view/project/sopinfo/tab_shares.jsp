@@ -1,6 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 <!--法人信息-->
 <div class="legal">
 	<div class="show">
@@ -85,6 +86,7 @@
 </div>
 
 <script type="text/javascript">
+console.log('${isEditable}');
 	var $sharesTable;
 	var isTransfering = "${fx:isTransfering(pid) }";
 	if(isTransfering == 'true')

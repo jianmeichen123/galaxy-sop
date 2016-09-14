@@ -41,7 +41,11 @@ function initTabProjectTeam(){
 }
 //股权结构
 function initTabEquity(){
-	
+	var url = "/galaxy/project/tabShares?id="+projectId;
+	$.getTabHtml({
+		url : platformUrl.showShareDetail,
+		data:{'id':projectId}
+	});
 }
 //访谈记录
 function initTabInterview(){
