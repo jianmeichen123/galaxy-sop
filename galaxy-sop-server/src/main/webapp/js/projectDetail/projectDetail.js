@@ -25,6 +25,14 @@ $(function(){
 			}
 			
 			//右侧刷新	
+			$.getDivHtml({
+				domid : "new_right",
+				url : platformUrl.toRight + "/" + projectId,//模版请求地址
+				data:"",//传递参数
+				okback:function(){
+					console.log("right completed");
+				}
+			})
 		}
 });
 	

@@ -3137,6 +3137,22 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	}
 	
 	
+	/**
+	 * 跳转Right页面
+	 */
+	@RequestMapping(value = "/detail/toRight/{projectId}", method = RequestMethod.GET)
+	public String toRight(@PathVariable("projectId") Long projectId, HttpServletRequest request) {
+		Project project = new Project();
+		project = projectService.queryById(projectId);
+		request.setAttribute("proinfo", GSONUtil.toJson(project));
+		request.setAttribute("projectId", projectId);
+		request.setAttribute("prograss", project.getProjectProgress());
+		request.setAttribute("projectName", project.getProjectName());
+		return "project/sopinfo/includeRight";
+	}
+	
+	
+	
 	
 	
 	

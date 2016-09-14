@@ -707,7 +707,7 @@
 	
 	
 		/*
-		弹出层{
+		Tab弹出层{
 			w:弹出层宽度
 			tit:弹出层标题
 			txt:弹出层内容模版
@@ -837,6 +837,96 @@
 				});
 		    });
 		};
+		
+		
+		
+		/*
+		Tab弹出层{
+			w:弹出层宽度
+			tit:弹出层标题
+			txt:弹出层内容模版
+			callback:弹出后执行	
+			}
+		 */
+		$.divup = function(options){
+			var opts = $.extend({
+				txt:"",
+				domid : "divId",
+				showback:function(){},
+				hideback:function(){}
+			},options);
+			function popEve(){
+				this.strpopTab="<div id=\"tab-content\" data-id=\"tab-content\"><div class=\"tabtxt\"></div></div>"
+				this.txt = opts.txt;//弹层添加数据
+				//显示出来之后执行
+				this.showback = opts.showback;
+				//隐藏后执行
+				this.hideback = opts.hideback;
+				this.id = "[data-id='tab-content']";
+				this.domid = opts.domid;
+			}
+			popEve.prototype = {
+				init:function(){
+					var _this = this;
+					$("#" + _this.domid).find(_this.id).remove();
+//					$("#tab-content").remove();
+					_this.inserttxt();
+		//			$("#tab-content").hide();
+		//			$("#tab-content").animate({left: '0px'}, 1000);  	
+		
+				},
+				//内容插入
+				inserttxt:function(){
+					var _this = this;
+					//插入弹窗外部皮肤
+					$("#"+ _this.domid).append(_this.strpopTab);
+					//插入内容
+					$("#"+ _this.domid).find(_this.id).children(".tabtxt").html(_this.txt);
+					//对外接口
+					_this.showback.apply(_this);
+					return _this;	
+				},
+			};
+			var obj = new popEve();
+			obj.init();
+		};
+		
+		
+		/*获取html模版弹窗*/
+		$.getDivHtml = function(options){
+			var opts = $.extend({
+				domid : "divid",
+				url:"",//模版请求地址
+				data:"",//传递参数
+				okback:function(){}//模版反回成功执行	
+			},options);
+			//拉取静态模版
+			$.divup({
+				domid : opts.domid,
+				showback:function(){
+					var _this = this;
+					$.ajax({
+						type:"GET",
+						data:opts.data,
+						dataType:"html",
+						url:opts.url,
+						success:function(html){
+							$("#" + _this.domid).find(_this.id).find(".tabtxt").html(html);
+							opts.okback();
+						},
+						error:function(){
+							alert("网络错误")
+						}	
+					})
+				}	
+			});
+		};	
+		
+		
+		
+		
+		
+		
 	
 	
 	/*
