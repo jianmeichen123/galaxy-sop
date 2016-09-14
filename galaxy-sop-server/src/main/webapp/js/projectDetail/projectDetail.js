@@ -71,7 +71,9 @@ function initTabAppropriation(){
 }
 //运营分析
 function initTabPostMeeting(){
-	
+	$.getTabHtml({
+		url : platformUrl.showOperationsAnalysis +'/'+ projectId
+	});
 }
 //项目文档
 function initTabSopFile(){
