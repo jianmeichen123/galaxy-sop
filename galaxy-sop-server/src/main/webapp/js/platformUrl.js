@@ -912,7 +912,17 @@ var platformUrl = {
 	//删除实际拨款
 	deleteApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/deleteApprActual",
 	//获取分拨中所有实际金额
-	getActualPartMoney : Constants.sopEndpointURL + "/galaxy/grant/actual/getActualPartMoney"
+	getActualPartMoney : Constants.sopEndpointURL + "/galaxy/grant/actual/getActualPartMoney",
+	
+	
+	/**
+	 * 项目详情-基本信息
+	 */
+	toTabProjectInfo : Constants.sopEndpointURL + "/galaxy/project/detail/toTabProjectInfo",
+	/**
+	 * 项目详情-项目文档
+	 */
+	toTabFile : Constants.sopEndpointURL + "/galaxy/project/detail/toTabFile"
 
 
 	

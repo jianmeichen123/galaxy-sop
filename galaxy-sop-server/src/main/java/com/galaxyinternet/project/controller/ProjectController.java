@@ -2789,7 +2789,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ModelAndView detail(@PathVariable("id") Long id)
 	{
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/project/sopinfo/projectinfo");
+//		mv.setViewName("/project/sopinfo/projectinfo");
+		mv.setViewName("/project/sopinfo/project_detail");
 		mv.addObject("projectId", id);
 		mv.addObject("pid", id);
 		return mv;
@@ -3111,6 +3112,33 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String toRefuseProject(){
 		return "project/dialog/refuseProjectDialog";
 	}
+	
+	
+	
+	@RequestMapping(value="/detail/toTabProjectInfo/{projectId}", method=RequestMethod.GET)
+	public String toTabProjectInfo(HttpServletRequest request,@PathVariable Long projectId){
+		if(projectId!=null && projectId.intValue() != 0)
+			request.setAttribute("projectId", projectId);
+		return "project/sopinfo/tab_info";
+	}
+	
+	/**
+	 * 跳转tabFile页面
+	 */
+	@RequestMapping(value = "/detail/toTabFile/{projectId}", method = RequestMethod.GET)
+	public String toTabFile(@PathVariable("projectId") Long projectId, HttpServletRequest request) {
+		Project project = new Project();
+		project = projectService.queryById(projectId);
+		request.setAttribute("proinfo", GSONUtil.toJson(project));
+		request.setAttribute("projectId", projectId);
+		request.setAttribute("prograss", project.getProjectProgress());
+		request.setAttribute("projectName", project.getProjectName());
+		return "project/sopinfo/tab_file";
+	}
+	
+	
+	
+	
 	
 	
 }
