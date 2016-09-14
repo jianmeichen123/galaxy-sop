@@ -53,15 +53,21 @@ function initTabEquity(){
 }
 //访谈记录
 function initTabInterview(){
-	
+	$.getTabHtml({
+		url : Constants.sopEndpointURL+"/galaxy/project/proview/" + projectId
+	});
 }
 //会议纪要
 function initTabMeeting(){
-	
+	$.getTabHtml({
+		url : Constants.sopEndpointURL+"/galaxy/project/promeet/" + projectId
+	});
 }
 //交割前事项
 function initTabDelivery(){
-	
+	$.getTabHtml({
+		url : Constants.sopEndpointURL+"/galaxy/delivery/toprodeliver/" + projectId
+	});
 }
 //拨款信息
 function initTabAppropriation(){

@@ -21,9 +21,10 @@
 <!-- 日历插件 -->
 <link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 
+<!-- 高管/投资经理 -->
+<c:set var="isCreatedByUser" value="${fx:isCreatedByUser('project',projectId)  }" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
-<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
-<script src="<%=path %>/js/sopinfo.js"></script>
 <style type="text/css">
 .bars{margin:0 !important;}
 </style>
@@ -32,22 +33,7 @@
 
 <body>
 
-<jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 
-<div class="pagebox clearfix">
-	<!--左侧导航-->
-	<jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
-     
-    <!--右中部内容-->
- 	<div class="ritmin">
- 	
-    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
-
-
-		<div class="new_left">
-			<div class="tabtable assessment label_static">
-				<!-- tab标签 -->
-	            <jsp:include page="tab_header.jsp?index=7" flush="true"></jsp:include>
 
 
 
@@ -91,17 +77,7 @@
 			<!-- </div>
 				tab end-->
 
-			</div>
-		</div>
-
-		<!--右边-->
-        <jsp:include page="./includeRight.jsp" flush="true"></jsp:include>
-        
-    </div>
- 
-</div>
-
-<jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
+</body>
 
 
 <!-- 分页二css+四js -->
@@ -124,7 +100,6 @@
 	var deliver_selectRow = null;
 	var isTransfering = "${fx:isTransfering(pid) }";
 $(function(){
-	createMenus(5);
 	
 	$("#projectId").val(proid);
 	if(isTransfering == 'true')
