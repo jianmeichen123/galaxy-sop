@@ -359,7 +359,11 @@ function saveCallBackFuc(data){
 		numOfShow = Math.max(numOfShow,2);
 		url+="?numOfShow="+numOfShow;
 	}
-	showTabs(url,8);
+	$("#powindow").remove();
+	$("#popbg").remove();
+	$.getTabHtml({
+		url : Constants.sopEndpointURL + "/galaxy/project/toAppropriation/"+url
+	});
 }
 function to_del_grantPart(selectRowId){
 	
@@ -390,12 +394,22 @@ function to_download_grantPart(id){
 }
 
 function del_grantPart(id){  
+
 	var _url =  Constants.sopEndpointURL + '/galaxy/grant/part/delGrantPart/'+id;
 	sendPostRequestByJsonObj(_url, {}, function(data){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			showTabs('null/'+'${pid}',8);
+			var url = searchPartMoney+'/'+'${pid}';
+			var numOfShow = $("#tabApprAllList .agreement:visible").length;
+			if(numOfShow>0)
+			{
+				numOfShow = Math.max(numOfShow,2);
+				url+="?numOfShow="+numOfShow;
+			}
+			$.getTabHtml({
+				url : Constants.sopEndpointURL + "/galaxy/project/toAppropriation/"+url
+			});
 		} else {
 			layer.msg(data.result.message);
 		}

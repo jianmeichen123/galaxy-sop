@@ -123,7 +123,12 @@ function del_appr(id){
 	sendPostRequest(platformUrl.deleteGrantTotal+"/"+id,function(data){
 			if (data.result.status=="OK") {
 				layer.msg("删除成功");
-                window.location=location;
+				$("#powindow").remove();
+				$("#popbg").remove();
+		        var url = Constants.sopEndpointURL + "/galaxy/project/toAppropriation/null/"+pId;
+				$.getTabHtml({
+					url : url
+				});
 			}else{
 				$("#powindow").remove();
 				$("#popbg").remove();

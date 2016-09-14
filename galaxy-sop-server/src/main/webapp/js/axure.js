@@ -695,7 +695,7 @@
 						opts.okback(_this);
 						//重新定位
 						_this.postionEve();
-						$("body").css("overflow-y","hidden");
+					//	$("body").css("overflow-y","hidden");
 					},
 					error:function(){
 						alert("网络错误")

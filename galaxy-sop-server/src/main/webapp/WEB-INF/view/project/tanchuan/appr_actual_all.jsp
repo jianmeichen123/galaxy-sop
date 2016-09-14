@@ -60,8 +60,11 @@
 						numOfShow = Math.max(numOfShow,2);
 						url+="?numOfShow="+numOfShow;
 					}
-					$(".addmentc").css("display","none");
-					reloadData(null,'${projectId}');
+					$("#powindow").remove();
+					$("#popbg").remove();
+					$.getTabHtml({
+						url : url
+					});
 				}
 				
 			});
