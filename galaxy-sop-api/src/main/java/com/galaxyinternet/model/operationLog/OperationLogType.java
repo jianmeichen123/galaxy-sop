@@ -114,6 +114,8 @@ public enum OperationLogType {
 	//认领任务-法务工商变更
 	UPLOAD_EQUITY_CLAIMT_SOPTASK_FW_GSBG("/galaxy/soptask/goClaimtcPage/"+UrlNumber.six, OperType.CLAIMT.getOperationType(), Target.DUE_DILIGENCE_FW_GSBG.getTargetName(),SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
 	
+	//完成任务-业务尽调
+	UPLOAD_EQUITY_SUBMIT_SOPTASK_YW("/galaxy/soptask/submitTask/"+UrlNumber.seven, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_YW.getTargetName(),SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
     //完成任务-人事完善简历
 	UPLOAD_EQUITY_SUBMIT_SOPTASK_RS_JL("/galaxy/soptask/updateTaskStatus/"+UrlNumber.one, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_PERFECTED_PINFO.getTargetName(),SopStage.TOUCH_INTERVIEW.getStageName()),
 	//完成任务-人事尽职调查
@@ -126,7 +128,6 @@ public enum OperationLogType {
 	UPLOAD_EQUITY_SUBMIT_SOPTASK_FW_JD("/galaxy/soptask/submitTask/"+UrlNumber.five, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_FW_JD.getTargetName(),SopStage.DUE_DILIGENCE_INVESTIGATION.getStageName()),
 	//完成任务-法务工商变更
 	UPLOAD_EQUITY_SUBMIT_SOPTASK_FW_GSBG("/galaxy/soptask/submitTask/"+UrlNumber.six, OperType.FINISH.getOperationType(), Target.DUE_DILIGENCE_FW_GSBG.getTargetName(),SopStage.EQUITY_DELIVERY_STAGE.getStageName()),
-	
 	/**
     * 人，法，财操作项目日志添加结束
     * 

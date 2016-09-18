@@ -399,6 +399,8 @@ public class SopTaskController extends BaseControllerImpl<SopTask, SopTaskBo> {
 				fileWorktype = "fileWorktype:4";
 				break;
 			case 5 : //业务尽调报告	
+				urlNum=UrlNumber.seven;
+				messageType="9.6";
 				fileWorktype = "fileWorktype:1";
 				break;
 			case 6 : //投资协议

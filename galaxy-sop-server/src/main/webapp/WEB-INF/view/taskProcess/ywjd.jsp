@@ -20,6 +20,7 @@
 	</table>
 	<ul>
 		<li><a href="javascript:;" id="show-upload-btn">上传业务尽职调查报告</a></li>
+		<li><a href="javascript:;" id="complete-task-btn" class="disabled">提交完成</a></li>
 		<li><a href="javascript:;" id="apply-decision-btn" class="disabled">申请投决会排期</a></li>
 	</ul>
 </div>
@@ -143,6 +144,7 @@ function loadRows()
 						if("fileWorktype:1" == this.fileWorktype)
 						{
 							$("#show-upload-btn").text('更新业务尽职调查报告');
+							$("#complete-task-btn").removeClass('disabled');
 						}
 					}
 					$("#hrjzdc-table tbody").append($tr);
@@ -151,10 +153,38 @@ function loadRows()
 					hasEmpty = true;
 				}
 				$("#apply-decision-btn").toggleClass('disabled',hasEmpty);
+				rowLoaded();
 			}
 	);
 }
-
+function rowLoaded()
+{
+	$("#complete-task-btn").unbind('click').click(function(){
+		if($(this).hasClass('disabled'))
+		{
+			return;
+		}
+		//更新task为完成状态
+		sendPostRequestByJsonObj(
+			platformUrl.submitTask,
+			{
+				id:"${taskId}",
+				taskStatus:"taskStatus:3"
+			},
+			function(data){
+				if(data.result.status=="OK"){
+					layer.msg("提交成功。");
+					var url = $("#menus .on a").attr('href');
+					window.location=url;
+				}
+				else
+				{
+					layer.msg("提交失败。");
+				}
+			}
+		);
+	});
+}
 function isBlank(val)
 {
 	if(val == "" || val == null || val == 'undefined')
