@@ -100,6 +100,7 @@ import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.CollectionUtils;
+import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -1448,11 +1449,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		}*/
 		try {
-			projectService.toSureMeetingStage(project);
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(project.getId());
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_);
-			/*
+			//绿色通道标识 入库
 			boolean toGreen = false;
 			SopFile file = new SopFile();
 			file.setProjectId(pid);
@@ -1464,6 +1461,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					|| (project.getProjectType().equals(DictEnum.projectType.内部创建.getCode()) && files.size() < 2)) {
 				toGreen = true;
 			}
+			//校验，文件记录存在，并且 aliyun中对应的key也存在
 			if(!toGreen){
 				for (SopFile f : files) {
 					if (f.getFileKey() == null || "".equals(f.getFileKey().trim())) {
@@ -1472,9 +1470,17 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 			}
 			if(toGreen){
-				utilsService.saveByRedis(SopConstatnts.Redis._GREEN_CHANNEL_6_, pid);
+				if(project.getGreanChannel() == null || StringUtils.isBlank(project.getGreanChannel())){
+					project.setGreanChannel(SopConstatnts.GreanMark.JZDC);
+				}else if(project.getGreanChannel().indexOf(SopConstatnts.GreanMark.JZDC) == -1){
+					project.setGreanChannel(project.getGreanChannel() + "," +SopConstatnts.GreanMark.JZDC);
+				}
 			}
-			*/
+			
+			projectService.toSureMeetingStage(project);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(project.getId());
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_);
 			
 		} catch (Exception e) {
 			responseBody

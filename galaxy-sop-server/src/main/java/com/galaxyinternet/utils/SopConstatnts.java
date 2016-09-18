@@ -39,4 +39,23 @@ public interface SopConstatnts {
 		public static final int _reject_status_ = 3;
 	}
 	
+	
+	/**
+	 * 绿色通道阶段标识
+	 * 1：接触访谈，2：内部评审，3：CEO评审，4：立项会，5：投资意向书，6：尽职调查，7：投资决策会，8：投资协议，9：股权交割'
+	 * */
+	public interface GreanMark{
+		String JCFT = "1";
+		String NBPS = "2";
+		String CEOPS = "3";
+		String LXH = "4";
+		String TZYXS = "5";
+		String JZDC = "6";
+		String TZJCH = "7";
+		String TZXY = "8";
+		String GQJG = "9";
+		
+	}
+	
+	
 }
