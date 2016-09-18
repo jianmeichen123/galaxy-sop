@@ -44,6 +44,8 @@
     <result column="type_completed" property="type_completed" />
     <result column="fa_flag" property="faFlag" jdbcType="INTEGER" />
     <result column="fa_name" property="faName" jdbcType="VARCHAR"/>
+    <result column="grean_channel" property="greanChannel" jdbcType="VARCHAR"/>
+    
   </resultMap>
   
   <sql id="Base_Column_List" >
@@ -51,7 +53,7 @@
     project_valuations, final_valuations, finance_status, project_contribution, final_contribution, currency_unit, project_share_ratio, final_share_ratio,service_charge, project_company, formation_date, project_company_code, company_legal, create_uid, 
     create_uname, create_uposition, project_progress, project_status, updated_time, created_time,
     project_describe, project_business_model, company_location, user_portrait, prospect_analysis, next_financing_source,
-    industry_analysis,operational_data, idea_id,fa_flag,fa_name
+    industry_analysis,operational_data, idea_id,fa_flag,fa_name,grean_channel
   </sql>
   
   
@@ -207,6 +209,9 @@
 				<if test="stopSearch != null">
 					and 1 = 2
 				</if>
+				<if test="greanChannel != null">
+					and (grean_channel like CONCAT("%",#{greanChannel},"%")
+				</if>
 			</trim>
 		</where>
 		<if test="sorting != null">order by ${sorting}</if>
@@ -268,7 +273,7 @@
 	      project_status, updated_time, created_time, 
 	      project_describe, project_business_model, 
 	      company_location, user_portrait, 
-	      prospect_analysis,idea_id,fa_flag,fa_name)
+	      prospect_analysis,idea_id,fa_flag,fa_name,grean_channel)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT}, #{industryOwn,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
@@ -277,7 +282,7 @@
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
 	      #{companyLocation,jdbcType=LONGVARCHAR}, #{userPortrait,jdbcType=LONGVARCHAR}, 
-	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR})
+	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR},#{greanChannel,jdbcType=VARCHAR})
 	    ]]>
     </insert>
     
@@ -291,7 +296,7 @@
 	      project_status, updated_time, created_time, 
 	      project_describe, project_business_model, 
 	      company_location, user_portrait, 
-	      prospect_analysis,idea_id,fa_flag,fa_name)
+	      prospect_analysis,idea_id,fa_flag,fa_name,grean_channel)
 	    values (#{id,jdbcType=BIGINT}, #{projectName,jdbcType=VARCHAR}, #{projectCode,jdbcType=VARCHAR},
 	      #{projectType,jdbcType=VARCHAR}, #{stockTransfer,jdbcType=INTEGER}, #{projectCareerline,jdbcType=VARCHAR}, #{projectDepartid,jdbcType=BIGINT},  #{industryOwn,jdbcType=BIGINT}, 
 	      #{projectValuations,jdbcType=DECIMAL}, #{finalValuations,jdbcType=DECIMAL}, #{financeStatus,jdbcType=VARCHAR}, #{projectContribution,jdbcType=DECIMAL}, #{finalContribution,jdbcType=DECIMAL}, 
@@ -300,7 +305,7 @@
 	      #{projectStatus,jdbcType=VARCHAR}, #{updatedTime,jdbcType=BIGINT}, #{createdTime,jdbcType=BIGINT}, 
 	      #{projectDescribe,jdbcType=LONGVARCHAR}, #{projectBusinessModel,jdbcType=LONGVARCHAR}, 
 	      #{companyLocation,jdbcType=LONGVARCHAR}, #{userPortrait,jdbcType=LONGVARCHAR}, 
-	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR})
+	      #{prospectAnalysis,jdbcType=LONGVARCHAR},#{ideaId,jdbcType=BIGINT},#{faFlag,jdbcType=BIGINT},#{faName,jdbcType=VARCHAR},#{greanChannel,jdbcType=VARCHAR})
 	    ]]>
     </insert>
     
@@ -348,6 +353,7 @@
 		      <if test="operationalData != null" >  operational_data = #{operationalData,jdbcType=LONGVARCHAR}, </if>
 		      <if test="faFlag != null" >  fa_flag = #{faFlag,jdbcType=INTEGER}, </if>
 		      <if test="faName != null" >  fa_name = #{faName,jdbcType=VARCHAR} </if>
+		      <if test="greanChannel != null" >  grean_channel = #{greanChannel,jdbcType=VARCHAR} </if>
 		</set>
 		<where>
 			<trim prefixOverrides="and">
@@ -432,7 +438,7 @@
 		      <if test="operationalData != null" >  operational_data = #{operationalData,jdbcType=LONGVARCHAR} ,</if>
 		      <if test="faFlag != null" >  fa_flag = #{faFlag,jdbcType=INTEGER} ,</if>
 		      <if test="faName != null" >  fa_name = #{faName,jdbcType=VARCHAR} </if>
-		      
+		      <if test="greanChannel != null" >  grean_channel = #{greanChannel,jdbcType=VARCHAR} </if>
 		</set>
 		where id = #{id}
 	</update>
