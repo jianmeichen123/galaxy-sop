@@ -150,7 +150,6 @@
 	var projectId = '${projectId}';
 	var prograss = '${prograss}';
 	var isTransfering = "${fx:isTransfering(projectId) }";
-	createMenus(5);
     //搜索框显示隐藏
   $('.show_more a').on("click",function(){
     var $self=$(this),

@@ -222,7 +222,6 @@ var searchPartMoney;
 			});
 			return false;
 		});
-	 createMenus(5);
 	 showRow("${numOfShow}");
   });
   /***

@@ -535,17 +535,6 @@ $(function(){
 		$("#plan_name").parent('li').css("margin-right","0");
 	}
 	
-	var menu=$('#top_menu a:nth-child(2)').text();
-	if(menu == '创投项目'){
-		createMenus(5);
-	}else if(menu == '立项会'){
-		createMenus(18);
-	}else if(menu == '投决会'){
-		createMenus(19);
-	}else if(menu == 'CEO评审会'){
-		createMenus(20);
-	}
-// 	createMenus(5);
 	UM.getEditor('editor');
 	UM.getEditor('describe_editor');
 	UM.getEditor('company_editor');
