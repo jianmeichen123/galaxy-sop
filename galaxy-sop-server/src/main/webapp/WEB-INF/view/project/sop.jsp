@@ -125,7 +125,7 @@
 						<div class="clearfix">
 						</div>
 						<div class="tab-pane active" id="view">
-							<table id="tablePerson" data-height="555" data-method="post"
+							<table id="tab_tablePerson" data-method="post"
 								data-show-refresh="true" data-side-pagination="server"
 								data-pagination="true" data-page-list="[10,20,30]"
 								data-search="false">
@@ -145,7 +145,7 @@
 					<dd class="full_w describe clearfix">
 						<div class="clearfix"></div>
 						<div class="tab-pane active" id="pView">
-							<table id="table" data-height="555" data-method="post"
+							<table id="table" data-method="post"
 								data-show-refresh="true">
 							</table>
 						</div>
@@ -523,7 +523,7 @@
 	 getTabShareforP();
 	 	
  	function getTabPersonforP(){
- 		var $table = $('#tablePerson');
+ 		var $table = $('#tab_tablePerson');
  	    $table.bootstrapTable({
  	    url: Constants.sopEndpointURL + "/galaxy/project/queryProjectPerson", 
  	    dataType: "json",
