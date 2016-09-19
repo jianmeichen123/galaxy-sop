@@ -382,10 +382,10 @@
 			<div class="block" data-tab="con" id="projectProgress_6_con">
 				<!--按钮-->
 				<div id="jzdc_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn option_item_mark toggle">上传业务尽职调查报告</a>
+					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn option_item_mark toggle" id="tjhsqBut">申请投决会排期</a>
+					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn option_item_mark toggle"  id="scywjzdcbg">上传业务尽职调查报告</a>
 					<a href="javascript:;" id="jdqd_report_upload_btn" onclick="showJDUpload('fileWorktype:18')" class="pubbtn fffbtn llpubbtn option_item_mark">上传尽职调查启动会报告</a>
 					<a href="javascript:;" id="jdzj_report_upload_btn" onclick="showJDUpload('fileWorktype:19')" class="pubbtn fffbtn llpubbtn option_item_mark">上传尽职调查总结会报告</a>
-					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn option_item_mark toggle" id="tjhsqBut">申请投决会排期</a>
 				</div>
 				<div class="process clearfix">
 					<h2>业务尽调报告审核流程</h2>

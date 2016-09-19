@@ -352,7 +352,7 @@
 		      <if test="industryAnalysis != null" >  industry_analysis = #{industryAnalysis,jdbcType=LONGVARCHAR}, </if>
 		      <if test="operationalData != null" >  operational_data = #{operationalData,jdbcType=LONGVARCHAR}, </if>
 		      <if test="faFlag != null" >  fa_flag = #{faFlag,jdbcType=INTEGER}, </if>
-		      <if test="faName != null" >  fa_name = #{faName,jdbcType=VARCHAR} </if>
+		      <if test="faName != null" >  fa_name = #{faName,jdbcType=VARCHAR}, </if>
 		      <if test="greanChannel != null" >  grean_channel = #{greanChannel,jdbcType=VARCHAR} </if>
 		</set>
 		<where>
@@ -437,7 +437,7 @@
 		      <if test="industryAnalysis != null" >  industry_analysis = #{industryAnalysis,jdbcType=LONGVARCHAR}, </if>
 		      <if test="operationalData != null" >  operational_data = #{operationalData,jdbcType=LONGVARCHAR} ,</if>
 		      <if test="faFlag != null" >  fa_flag = #{faFlag,jdbcType=INTEGER} ,</if>
-		      <if test="faName != null" >  fa_name = #{faName,jdbcType=VARCHAR} </if>
+		      <if test="faName != null" >  fa_name = #{faName,jdbcType=VARCHAR}, </if>
 		      <if test="greanChannel != null" >  grean_channel = #{greanChannel,jdbcType=VARCHAR} </if>
 		</set>
 		where id = #{id}
