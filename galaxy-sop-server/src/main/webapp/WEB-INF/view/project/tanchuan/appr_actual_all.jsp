@@ -65,6 +65,11 @@
 					$.getTabHtml({
 						url : url
 					});
+					//启用滚动条
+					 $(document.body).css({
+					   "overflow-x":"auto",
+					   "overflow-y":"auto"
+					 });
 				}
 				
 			});
