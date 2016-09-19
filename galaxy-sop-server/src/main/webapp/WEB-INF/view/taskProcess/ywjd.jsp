@@ -224,7 +224,7 @@ function initUpload(_dialog){
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
-		url : platformUrl.stageChange,
+		url : platformUrl.businessAdjustment,
 		multi_selection:false,
 		filters : {
 			max_file_size : '25mb'

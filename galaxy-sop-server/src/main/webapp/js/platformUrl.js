@@ -240,6 +240,9 @@ var platformUrl = {
 	 * 项目阶段过程的记录保存
 	 */
 	stageChange : Constants.sopEndpointURL + "/galaxy/project/stageChange?sid="+sessionId + "&guid="+userId,
+	
+	businessAdjustment :  Constants.sopEndpointURL + "/galaxy/project/businessAdjustment?sid="+sessionId + "&guid="+userId,
+	
 	/**
 	 * 申请立项会操作
 	 */

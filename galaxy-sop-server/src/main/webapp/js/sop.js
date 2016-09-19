@@ -874,7 +874,7 @@ function uploadYwjd(){
 			$(".meetingtc").tabchange();
 			$('.searchbox').toggleshow();
 			leicj();
-			toinitUpload(platformUrl.stageChange,projectId, "select_file_btn","file_obj","save_file_btn","fileType",
+			toinitUpload(platformUrl.businessAdjustment,projectId, "select_file_btn","file_obj","save_file_btn","fileType",
 					function getSaveCondition(){
 				var	condition = {};
 				var pid = projectId;
