@@ -26,6 +26,13 @@ function info(id){
 			sendGetRequest(platformUrl.detailProject + id, {}, function(data){
 				hasClosed = (data.entity.projectStatus == 'meetingResult:3' || data.entity.projectStatus == 'projectStatus:2' || data.entity.projectStatus == 'projectStatus:3');
 				var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');
+				
+				var isGreenChannel_6 = "false";
+				if(data.entity.greanChannel.indexOf('6')!=-1){
+					isGreenChannel_6 = "true";
+				}
+				
+				
 				//项目的最新动态
 				if(data.entity.hasOwnProperty('updatedTime')){
 					updatedTime = Number(data.entity.updatedTime).toDate().format('yyyy-MM-dd');
@@ -189,10 +196,13 @@ function info(id){
 							 tiggerTable($("#projectProgress_6_table"),3);
 							 
 							 if(parseInt(indexNum) < parseInt(index)){
-								 $("#jzdc_options .toggle").remove();
+								 if(isGreenChannel_6 == "false";){
+									 $("#scywjzdcbg").remove();
+								 }
 							 /*}else if(!canUseBut){*///尽职调查去掉文件验证
 								$("#tjhsqBut").remove();
 							}
+							
 						}else if(indexNum == '7'){
 							$("#projectProgress_6_con").css("display","none");
 							$("#projectProgress_7_con").css("display","block");
@@ -831,8 +841,8 @@ function updateSopFile(stage,fileSource,fileWorkType,fileType,id,voucher){
 					 html += "<td>无</td>";
 				 }else if(o.fileStatus == 'fileStatus:2'){
 					 if(o.fileWorktype == 'fileWorktype:1'){
-						 $("#jzdc_options a:eq(0)").text('更新业务尽职调查报告');
-						 $("#jzdc_options a:eq(0)").attr("onclick","updateSopFile('"+o.projectProgress+"',"+o.fileSource+",'"+o.fileWorktype+"','"+o.fileType+"',"+o.id+","+0+")");
+						 $("#jzdc_options a:eq(1)").text('更新业务尽职调查报告');
+						 $("#jzdc_options a:eq(1)").attr("onclick","updateSopFile('"+o.projectProgress+"',"+o.fileSource+",'"+o.fileWorktype+"','"+o.fileType+"',"+o.id+","+0+")");
 					 }
 					 html += "<td>"+o.fType+"</td>";
 					 html += "<td>已上传</td>";
