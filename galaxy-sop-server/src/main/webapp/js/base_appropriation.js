@@ -113,6 +113,11 @@ function deleteAppr(id){
 			$("#popup_name").html("提示");
 			$("[data-btn='appr_delete']").click(function(){
 				del_appr(id);
+				//启用滚动条
+				 $(document.body).css({
+				   "overflow-x":"auto",
+				   "overflow-y":"auto"
+				 });
 			})
 			
 		}//模版反回成功执行	

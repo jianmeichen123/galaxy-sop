@@ -377,6 +377,11 @@ function saveCallBackFuc(data){
 	}
 	$("#powindow").remove();
 	$("#popbg").remove();
+	//启用滚动条
+	 $(document.body).css({
+	   "overflow-x":"auto",
+	   "overflow-y":"auto"
+	 });
 	$.getTabHtml({
 		url : Constants.sopEndpointURL + "/galaxy/project/toAppropriation/"+url
 	});
