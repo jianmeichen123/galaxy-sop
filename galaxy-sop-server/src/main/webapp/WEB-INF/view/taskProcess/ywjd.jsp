@@ -20,8 +20,8 @@
 	</table>
 	<ul>
 		<li><a href="javascript:;" id="show-upload-btn">上传业务尽职调查报告</a></li>
-		<li><a href="javascript:;" id="complete-task-btn" class="disabled">提交完成</a></li>
-		<li><a href="javascript:;" id="apply-decision-btn" class="disabled">申请投决会排期</a></li>
+		<li><a href="javascript:;" id="complete-task-btn" class="disabled" style="display:none">提交完成</a></li>
+		<li><a href="javascript:;" id="apply-decision-btn" class="disabled" style="display:none">申请投决会排期</a></li>
 	</ul>
 </div>
 <!-- 弹出页面 -->
@@ -102,13 +102,16 @@ $(function(){
 });
 function projectLoaded(project)
 {
-	if(project.projectProgress != 'projectProgress:6')
+	if(project.projectProgress == 'projectProgress:6')
 	{
-		if(typeof(isPrivilege_6) != 'undefined' && isPrivilege_6 == 'false'){
-			$("#show-upload-btn").addClass('disabled');
-		}
-		$("#apply-decision-btn").addClass('disabled');
+		$("#apply-decision-btn").show();
 	}
+	//绿色通道-显示提交完成按钮
+	if(typeof(isPrivilege_6) != 'undefined' && isPrivilege_6 == 'true')
+	{
+		$("#complete-task-btn").show();
+	}
+	
 }
 function loadRows()
 {
@@ -149,9 +152,6 @@ function loadRows()
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
-				if(typeof(isPrivilege_6) != 'undefined' && isPrivilege_6 == 'true'){
-					hasEmpty = true;
-				}
 				$("#apply-decision-btn").toggleClass('disabled',hasEmpty);
 				rowLoaded();
 			}
