@@ -16,8 +16,8 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
  /*弹窗列表*/
  #businessplan-history-dialog .fixed-table-body{max-height:350px; overflow-y:auto}
 /*固定弹窗排期头部*/
-.fixed_table_tit{position:fixed; width:680px}
-.fixed_table{width:680px}
+.fixed_table_tit{position:fixed; width:795px}
+.fixed_table{width:795px}
 /*clearfix-浮动清理*/
 .clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden }
 .clearfix { display:inline-block }
@@ -1032,9 +1032,9 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .scheduletc .btnbox{}
 .scheduletc .btnbox .pubbtn{ margin:0 20px 0 0; display:inline-block; *display:inline; zoom:1;}
 /*立项弹窗*/
-.projecttc{ width:700px; height:320px; overflow-y:auto}
+.projecttc{ width:800px; height:320px; overflow-y:auto}
 .xmstjtc,.ghltjtc,.tjltjtc{ width:900px; height:430px; }
-.xmstjtc .fixed-table-body,.ghltjtc .fixed-table-body,.tjltjtc .fixed-table-body{height:350px; overflow-y:scroll;}
+.xmstjtc .fixed-table-body,.ghltjtc .fixed-table-body,.tjltjtc .fixed-table-body{height:350px; overflow-y:auto;}
 /*新增会议*/
 .meetingtc{ width:680px}
 .meetingtc .top{ margin:0 0 15px}
