@@ -477,6 +477,7 @@
 			$('input[name="nameCodeLike"]').val("");
 			$('input[name="faFlag"]').removeAttr("checked");
 			$('input[name="projectPerson"]').val("");
+			$("#showResetBtn").val(0);
 			$("#resetBtn").addClass("none");
 		});
 	});
