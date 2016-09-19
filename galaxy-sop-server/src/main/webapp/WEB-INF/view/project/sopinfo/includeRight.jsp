@@ -174,7 +174,7 @@ $(function(){
 	init_lct(); //流程图初始化
 	
 	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || admin!="true"){
-		$(".fjxm_but").removeAttr("onclick").attr("disabled","disabled").addClass("disabled");
+		$(".fjxm_but").removeAttr("onclick").attr("readonly","readonly").addClass("disabled");
 	}
 		
 	//获取近期访谈、会议 记录
