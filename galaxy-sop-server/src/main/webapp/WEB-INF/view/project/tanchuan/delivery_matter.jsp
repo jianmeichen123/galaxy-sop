@@ -69,7 +69,7 @@
     
     
     <div class="button_affrim" id="choose_oper">
-        <a href="javascript:;"  class="register_all_affrim fl" id="save_file" >确认</a>
+        <a href="javascript:;"  class="register_all_affrim fl" id="save_file" >确定</a>
         <a href="javascript:;"  class="register_all_input fr"  data-close="close">取消</a>
     </div>
   	
