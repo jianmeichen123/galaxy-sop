@@ -231,8 +231,8 @@ function xmstjprojectList(userid,deptid){
          plotBackgroundColor: null,
          plotBorderWidth: null,
          plotShadow: false,
-         height :340,
-         width:450
+         height :300,
+         width:400
      },
      title: {
          text: '已完成项目占比',

@@ -820,7 +820,8 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .chart_m{margin-top: 20px;}
 .table_m{margin-bottom: 50px !important;}
 .middle{margin: 10px 0 30px 0;}
-.middle .middle_l,.chartbox .middle .middle_r{width: 50%;float: left;}
+.middle .middle_l{width: 60%;float: left;}
+.chartbox .middle .middle_r{width: 40%;float: left;}
 .middle .middle_l table{border-top-right-radius: 0 !important;}
 .search_box dl dd select {font-size: 12px !important;}
 /* .search_box .qx{width: 50px;}
