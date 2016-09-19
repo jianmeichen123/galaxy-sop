@@ -1347,7 +1347,7 @@ em{font-style: normal;}
 .calendar_box dl{height:30px;line-height: 30px;color:#3e4351;}
 .calendar_box dl dt{font-size: 14px;font-family: "微软雅黑";}
 .calendar_box dl dd{font-size: 12px;font-family: "宋体";}
-.calendar_box .closed{position: absolute;top: -10px;right: -10px;width: 26px;height:26px;background: url(../img/tcclose.png) 0 0 no-repeat;font-size: 0;cursor: pointer;}
+.calendar_box .closed{position: absolute;top: 3px;right: 3px;width: 26px;height:26px;z-index:10;background: url(../img/tcclose.png) 0 0 no-repeat;font-size: 0;cursor: pointer;}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}
