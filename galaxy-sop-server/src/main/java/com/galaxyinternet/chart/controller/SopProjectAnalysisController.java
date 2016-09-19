@@ -84,7 +84,8 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			}else if(roleIdList.contains(UserConstant.TZJL)){
 				query.setCreateUid(user.getId());
 			}
-			
+			//去掉关闭的项目统计
+			query.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 			List<SopCharts> overViewList = analysisService.queryProjectOverView(query);
 			responseBody.setEntityList(overViewList);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -120,6 +121,8 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			}
 			PageRequest pageRequest = new PageRequest(project.getPageNum(),
 					project.getPageSize(),Direction.DESC,"created_time");
+			//去掉关闭的项目统计
+			project.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode());
 			Page<Project> pageProject = projectService.queryPageListByChart(project, pageRequest);
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));

@@ -145,6 +145,7 @@ public class SopCharts extends BaseEntity implements Serializable {
 	protected Integer pageNum;
 	
 	
+	private String projectStatus;
 	
 	
 	
@@ -325,10 +326,10 @@ public class SopCharts extends BaseEntity implements Serializable {
 	public void setInvest(Long invest) {
 		this.invest = invest;
 	}
-
-	
-
-
-
-	
+	public String getProjectStatus() {
+		return projectStatus;
+	}
+	public void setProjectStatus(String projectStatus) {
+		this.projectStatus = projectStatus;
+	}
 }

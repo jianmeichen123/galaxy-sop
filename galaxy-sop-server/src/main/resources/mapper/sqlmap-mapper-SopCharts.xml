@@ -17,6 +17,7 @@
 		<where>
 			<trim prefixOverrides="and">
 				<if test="projectType != null"> and project_type = #{projectType,jdbcType=VARCHAR} </if>
+				<if test="projectStatus != null"> and project_status != #{projectStatus,jdbcType=VARCHAR} </if>
 				<if test="startTime!=null"><![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]></if>
 				<if test="endTime!=null"><![CDATA[  and created_time <= #{endTime,jdbcType=BIGINT} ]]></if>
 				<if test="departmentId != null"> and project_departId = #{departmentId,jdbcType=BIGINT}</if>
