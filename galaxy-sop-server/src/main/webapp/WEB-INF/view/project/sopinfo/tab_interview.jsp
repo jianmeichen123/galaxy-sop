@@ -63,7 +63,7 @@
 									<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
 								</dd>
 								<dd>
-									<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
+									<a href="javascript:;" class="search_icon" action="querySearch">搜索</a>
 								</dd>
 							</dl>
 							-->

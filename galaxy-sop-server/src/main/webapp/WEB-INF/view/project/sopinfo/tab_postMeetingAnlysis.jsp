@@ -43,7 +43,7 @@
 <span>至</span>
 <input type="text" class="datepicker txt time" name="meet_endDate"  />
     </dd>
-                  <dd><a href="javascript:;" id="searchBtn" class="bluebtn ico cx">查询</a></dd>
+                  <dd><a href="javascript:;" id="searchBtn" class="bluebtn ico cx">搜索</a></dd>
                 </dl>
               </div>
               </form>

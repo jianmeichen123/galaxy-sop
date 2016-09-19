@@ -73,7 +73,7 @@
 							</dd>
 							 -->
 							<dd>
-								<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
+								<a href="javascript:;" class="search_icon" action="querySearch">搜索</a>
 							</dd>
 							
 						</dl>
