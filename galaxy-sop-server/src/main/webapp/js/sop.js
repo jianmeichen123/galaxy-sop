@@ -196,7 +196,7 @@ function info(id){
 							 tiggerTable($("#projectProgress_6_table"),3);
 							 
 							 if(parseInt(indexNum) < parseInt(index)){
-								 if(isGreenChannel_6 == "false";){
+								 if(isGreenChannel_6 == "false"){
 									 $("#scywjzdcbg").remove();
 								 }
 							 /*}else if(!canUseBut){*///尽职调查去掉文件验证
