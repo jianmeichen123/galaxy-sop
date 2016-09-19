@@ -28,7 +28,7 @@ function info(id){
 				var updatedTime = Number(data.entity.createdTime).toDate().format('yyyy-MM-dd');
 				
 				var isGreenChannel_6 = "false";
-				if(data.entity.greanChannel.indexOf('6')!=-1){
+				if(data.entity.greanChannel && data.entity.greanChannel != null && data.entity.greanChannel.indexOf("6")!=-1){
 					isGreenChannel_6 = "true";
 				}
 				
