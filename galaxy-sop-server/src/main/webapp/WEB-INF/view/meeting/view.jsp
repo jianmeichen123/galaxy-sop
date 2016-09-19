@@ -55,7 +55,7 @@
             <dl class="fmdl fmmr fmdll clearfix">
               <dt>会议类型：</dt>
               <dd class="clearfix">
-					<label><input type="radio" name="meetingType" value="" />不限 </label>
+					<label><input type="radio" name="meetingType" value="" / checked="checked">不限 </label>
 			 		<label><input type="radio" name="meetingType" value="meetingType:1" />内评会 </label>
 					<label><input type="radio" name="meetingType" value="meetingType:2" />CEO评审</label>
 					<label><input type="radio" name="meetingType" value="meetingType:3" />立项会</label>

@@ -53,7 +53,7 @@
               <dt >&nbsp;&nbsp;&nbsp;档案来源：</dt>
               <dd class="clearfix">
 				<!--name="fileSource" -->
-                <label><input type="radio" name="source" value = "all"/>不限</label>
+                <label><input type="radio" name="source" value = "all" checked="checked"/>不限</label>
                 <label><input type="radio" name="source" value = "1"/>内部</label>
                 <label><input type="radio" name="source" value = "2"/>外部</label>
             </dd>
