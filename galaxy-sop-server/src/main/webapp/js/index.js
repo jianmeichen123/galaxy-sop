@@ -487,6 +487,9 @@ $(function(){
 					//$("#data-table").bootstrapTable("refresh");
 					window.location.reload();
 				 });
+				$(".pop").on("click", "[data-close='close']", function() {
+					window.location.reload();
+				 });
 			}//模版反回成功执行	
 		});
 		return false;
