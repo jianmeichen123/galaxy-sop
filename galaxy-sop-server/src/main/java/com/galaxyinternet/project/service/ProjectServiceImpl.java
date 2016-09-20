@@ -563,6 +563,45 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public List<Long> getProIdsForPrivilege(Map<String,Object> params) {
 		return projectDao.selectProIdsForPrivilege(params);
 	}
+	@Override
+	public Map<String, Object> gtHealthyChart(Map<String, Object> params) {
+		List<Project> healthyChart = projectDao.getHealthyChart(params);
+		Map<String,Object> map=new HashMap<String,Object>();
+		if(null!=healthyChart&&!healthyChart.isEmpty()){
+			for(Project p:healthyChart){
+			    String healthState=p.getHealthState();
+			    int flag=Integer.parseInt(healthState);
+			    int num=0;
+			    String attr="";
+				switch(flag)
+				{
+					case 1://高于预期
+						num=p.getHealthHighNum();
+						attr="healthHighNum";
+						break;
+					case 2 : //健康
+						num=p.getHealthGoodNum();
+						attr="healthGoodNum";
+						break;
+					case 3 : //健康预警
+						num=p.getHealthWarnNum();
+						attr="healthWarnNum";
+						break;
+					default :
+						num=0;
+				}
+				map.put(attr, num);
+				
+			}
+			
+		}else{
+			map.put("healthHighNum", 0);
+			map.put("healthGoodNum", 0);
+			map.put("healthWarnNum", 0);
+		}
+		return map;
+	}
+
 	
 	
 }

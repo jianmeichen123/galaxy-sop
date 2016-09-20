@@ -942,7 +942,12 @@ var platformUrl = {
 	/**
 	 * 项目详情-右边
 	 */
-	toRight : Constants.sopEndpointURL + "/galaxy/project/detail/toRight"	
+	toRight : Constants.sopEndpointURL + "/galaxy/project/detail/toRight",
+	/**
+	 * 高管首页-健康状况报表展示
+	 */
+	getHealthyCharts : Constants.sopEndpointURL + "/galaxy/charts/analysis/getHealthyCharts"
+
 }
 
 /**

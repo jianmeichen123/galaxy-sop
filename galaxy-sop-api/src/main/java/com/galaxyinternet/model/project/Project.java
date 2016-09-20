@@ -90,6 +90,14 @@ public class Project extends PagableEntity {
 	 * 项目绿色通道标识
 	 */
 	private String greanChannel;
+	//健康
+	private Integer healthGoodNum;
+	//健康预警
+	private Integer healthWarnNum;
+	//高于预期
+	private Integer healthHighNum;
+	
+	private String healthState;
 	
 	
     public Long getId() {
@@ -602,6 +610,39 @@ public class Project extends PagableEntity {
 	public void setGreanChannel(String greanChannel) {
 		this.greanChannel = greanChannel;
 	}
+
+	public Integer getHealthGoodNum() {
+		return healthGoodNum;
+	}
+
+	public void setHealthGoodNum(Integer healthGoodNum) {
+		this.healthGoodNum = healthGoodNum;
+	}
+
+	public Integer getHealthWarnNum() {
+		return healthWarnNum;
+	}
+
+	public void setHealthWarnNum(Integer healthWarnNum) {
+		this.healthWarnNum = healthWarnNum;
+	}
+
+	public Integer getHealthHighNum() {
+		return healthHighNum;
+	}
+
+	public void setHealthHighNum(Integer healthHighNum) {
+		this.healthHighNum = healthHighNum;
+	}
+
+	public String getHealthState() {
+		return healthState;
+	}
+
+	public void setHealthState(String healthState) {
+		this.healthState = healthState;
+	}
+
 
 
 

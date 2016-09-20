@@ -41,6 +41,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/highcharts_ext.js" type="text/javascript"></script>
 
+
 <script src="<%=path %>/js/time.js" type="text/javascript"></script>
 </head>
 
@@ -317,8 +318,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							</dt>
 							<dd>
 								<div id="charts_Joint" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;"></div>
-								<div id="charts_rk" data-tab="con" style="width:430px;min-width:300px; height: 200px;padding-top:5px;"></div>
-								<div id="charts_cbl" data-tab="con" style="width:430px;min-width:300px; height: 200px;padding-top:5px;"></div>
+								<div id="charts_rk" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;"></div>
+								<div id="charts_cbl" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;"></div>
 							</dd>
 						</dl>						
             </div>

@@ -80,7 +80,7 @@
                         {
                             "name":"项目数",
                             "type":"bar",
-                            "data":[5, 40, 10],
+                            "data":[],
                             "barWidth":"20",//柱图宽度
                             itemStyle: {
                                 normal: {
@@ -98,8 +98,22 @@
                         }
                     ]
                 };
-        
+                
                 // 为echarts对象加载数据 
+               var obj={};
+                sendPostRequestByJsonObj(platformUrl.getHealthyCharts,obj,function(data){
+            		var result = data.result.status;
+            		if(result == "ERROR"){ //OK, ERROR
+            			layer.msg(data.result.message);
+            			return;
+            		}else{
+            			var userData = data.userData;
+            	
+            			option.series[0].data[0] =userData.healthHighNum;
+            			option.series[0].data[1] =userData.healthGoodNum;
+            			option.series[0].data[2] =userData.healthWarnNum;
+            		}
+               	});
                 myChart.setOption(option); 
                  //下面是需要添加的方法内容
             //点击柱状图跳转相应页面的功能，其中param.name参数为横坐标的值 
