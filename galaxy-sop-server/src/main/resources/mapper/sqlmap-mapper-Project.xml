@@ -126,11 +126,11 @@
 		      <if test="userPortrait != null" > and user_portrait = #{userPortrait,jdbcType=LONGVARCHAR} </if>
 		      <if test="prospectAnalysis != null" > and prospect_analysis = #{prospectAnalysis,jdbcType=LONGVARCHAR} </if>
 			  <if test="nameCodeLike != null">
-			  	and (project_name like CONCAT("%",#{nameCodeLike},"%")
+			  	and (upper(project_name) like CONCAT("%",upper(#{nameCodeLike}),"%")
 				<if test="escapeChar ">
 					escape '/'
 				</if>
-				or project_code like CONCAT("%",#{nameCodeLike},"%")
+				or upper(project_code) like CONCAT("%",upper(#{nameCodeLike}),"%")
 				<if test="escapeChar ">
 					escape '/'
 				</if>
@@ -143,7 +143,7 @@
 				<if test="keyword != null">
 					<choose>
 						<when test="flagkeyword=='concatcode'" >
-							and (project_name like CONCAT("%",#{keyword},"%")
+							and (upper(project_name) like CONCAT("%",upper(#{keyword}),"%")
 							<if test="escapeChar ">
 								escape '/'
 							</if>
@@ -154,18 +154,18 @@
 							)
 						</when>
 						<when test="flagkeyword==null">
-							and (project_name like CONCAT("%",#{keyword},"%")
+							and (upper(project_name) like CONCAT("%",upper(#{keyword}),"%")
 							<if test="escapeChar ">
 								escape '/'
 							</if>
-							or project_code like CONCAT("%",#{keyword},"%")
+							or upper(project_code) like CONCAT("%",upper(#{keyword}),"%")
 							<if test="escapeChar ">
 								escape '/'
 							</if>
 							)
 						</when>
 						<when test="flagkeyword=='onlyName'">
-							and project_name like CONCAT("%",#{keyword},"%")
+							and upper(project_name) like CONCAT("%",upper(#{keyword}),"%")
 							<if test="escapeChar ">
 								escape '/'
 							</if>
