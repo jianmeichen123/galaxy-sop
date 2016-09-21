@@ -153,9 +153,21 @@ var chartPostAnalysisUtils = {
 				            		nbCountArr.push(parseFloat(this.nbCount));
 				            		wbCountArr.push(parseFloat(this.wbCount));
 				            	})
-
-				            	
 				            	chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = departmentArr;
+				            	//融快、创保联去掉前缀
+				            	var departmentArrNum=chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data.length
+				            	var departmentArrNew = []
+				            	for(var i=0;i<departmentArrNum;i++){
+				            		departmentArrNew.push(chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data[i].replace(/(^(融快\-))|(^(创保联\-))/g, ""));
+				            	}
+				            	
+				            	chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = departmentArrNew;
+				            	//默认显示5条数据，不足5条，显示全部
+				            	if(departmentArrNum>5){
+				            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=5/departmentArrNum*100;
+				            	}else{
+				            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=100;
+				            	}
 					            //内部
 					            chartPostAnalysisUtils.postAnalysisOptions.series[0].data = nbCountArr;
 					            //外部
