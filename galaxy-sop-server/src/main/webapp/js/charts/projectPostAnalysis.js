@@ -160,7 +160,7 @@ var chartPostAnalysisUtils = {
 					            chartPostAnalysisUtils.postAnalysisOptions.series[0].data = nbCountArr;
 					            //外部
 					            chartPostAnalysisUtils.postAnalysisOptions.series[1].data = wbCountArr;
-					             
+					            window.onresize = myChart.resize; 
 					            myChart.setOption(chartPostAnalysisUtils.postAnalysisOptions);
 				            });
 				
