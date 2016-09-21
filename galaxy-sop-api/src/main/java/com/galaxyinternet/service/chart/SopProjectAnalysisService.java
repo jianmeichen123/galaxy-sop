@@ -32,4 +32,7 @@ public interface SopProjectAnalysisService {
 	
 	
 	public List<SopCharts> queryInvestmentGroupDate(SopCharts query);
+	
+	
+	public List<SopCharts> queryPostAnalysis(SopCharts query);
 }

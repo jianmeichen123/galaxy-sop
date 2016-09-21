@@ -97,7 +97,11 @@ $(function(){
 	$(".assessment").tabchange();
 	$(".project_analysis").tabchange2();
 	$(".chartbox_bottom").tabchange1();
-	$(".ytxm_block").tabchange2();
+	$(".ytxm_block").tabchange2({
+		onchangeSuccess:function(){
+			init();
+		}
+	});
 
 	//------------------------------弹窗部分
 		//添加团队成员信息弹窗

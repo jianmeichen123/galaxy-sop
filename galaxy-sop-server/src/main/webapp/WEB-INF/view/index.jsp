@@ -625,7 +625,8 @@ function paiqidate(type){
 </script>
 <script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
 <script src="<%=path %>/js/echarts_health.js" type="text/javascript"></script>
-<script src="<%=path %>/js/echarts_ytxm.js" type="text/javascript"></script>
+<%-- <script src="<%=path %>/js/echarts_ytxm.js" type="text/javascript"></script> --%>
+<script src="<%=path %>/js/charts/projectPostAnalysis.js" type="text/javascript"></script>
 <%-- <jsp:include page="./common/sop.jsp" flush="true"></jsp:include> --%>
 </html>
 
