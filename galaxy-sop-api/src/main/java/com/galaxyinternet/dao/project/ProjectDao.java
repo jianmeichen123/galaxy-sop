@@ -60,7 +60,6 @@ public interface ProjectDao extends BaseDao<Project, Long> {
 
 	public List<Long> selectProIdsForPrivilege(Map<String, Object> params);
 	
-	public List<Project> getHealthyChart(Map<String, Object> params) ;
 
 	
 	

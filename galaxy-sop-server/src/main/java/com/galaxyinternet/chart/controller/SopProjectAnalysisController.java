@@ -233,34 +233,6 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 		}
 		return responseBody;
 	}
-	
-	/**
-	 * 高管页面的项目度
-	 * @param request
-	 * @param project
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value="/getHealthyCharts",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<Project> getHealthyCharts(HttpServletRequest request,@RequestBody ProjectBo project){
-		ResponseData<Project> responseBody = new ResponseData<Project>();
-		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-		if (user == null) {
-			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
-			return responseBody;
-		}	
-		Map<String,Object> params=new HashMap<String,Object>();
-		Map<String,Object> map=new HashMap<String,Object>();
-		
-		try {
-			map=projectService.gtHealthyChart(params);
-			responseBody.setUserData(map);
-			responseBody.setResult(new Result(Status.OK, ""));
-		} catch (DaoException e) {
-			// TODO: handle exception
-			responseBody.setResult(new Result(Status.ERROR, "系统出现误不可预知错"));
-		}
-		return responseBody;
-	}
-	
+
+
 }

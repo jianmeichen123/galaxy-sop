@@ -946,7 +946,13 @@ var platformUrl = {
 	/**
 	 * 高管首页-健康状况报表展示
 	 */
-	getHealthyCharts : Constants.sopEndpointURL + "/galaxy/charts/analysis/getHealthyCharts"
+	getHealthyCharts : Constants.sopEndpointURL + "/galaxy/health/getHealthyCharts",
+	/**
+	 * 高管首页-健康状况报表展示详情
+	 */
+	toHealthChartDetail : Constants.sopEndpointURL + "/galaxy/health/toHealthChartDetail",
+
+	
 
 }
 

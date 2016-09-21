@@ -45,10 +45,6 @@
     <result column="fa_flag" property="faFlag" jdbcType="INTEGER" />
     <result column="fa_name" property="faName" jdbcType="VARCHAR"/>
     <result column="grean_channel" property="greanChannel" jdbcType="VARCHAR"/>
-    <result column="health_good_num" property="healthGoodNum" jdbcType="INTEGER" />
-    <result column="health_warn_num" property="healthWarnNum" jdbcType="INTEGER" />
-    <result column="health_high_num" property="healthHighNum" jdbcType="INTEGER" />
-    <result column="health_state" property="healthState" jdbcType="INTEGER" />
    
     
   </resultMap>
@@ -1018,21 +1014,5 @@
 		<!-- <if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if> -->
-	</select>
-	<select id="getHealthyCharts" resultMap="BaseResultMap" parameterType="java.util.Map">
-		SELECT  
-		    sh.`health_state`,
-			SUM(CASE WHEN sh.`health_state`='1' THEN 1 ELSE 0 END) AS health_high_num,
-			SUM(CASE WHEN sh.`health_state`='2' THEN 1 ELSE 0 END) AS health_good_num,
-			SUM(CASE WHEN sh.`health_state`='3' THEN 1 ELSE 0 END) AS health_warn_num
-			FROM(
-			SELECT a.`health_state`,a.`id`,a.`project_id`
-			 FROM `sop_project_health` a INNER JOIN sop_project s ON a.`project_id`=s.`id`
-			 WHERE 
-			 NOT EXISTS(
-			 SELECT 1 FROM `sop_project_health` b
-			WHERE a.`id`=b.`id` AND b.`created_time`>a.`created_time`)
-			 AND s.project_status!='projectStatus:2' GROUP BY a.`project_id`) 
-			sh GROUP BY sh.health_state
 	</select>
 </mapper>
