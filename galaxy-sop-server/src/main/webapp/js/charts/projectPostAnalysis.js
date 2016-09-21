@@ -149,19 +149,13 @@ var chartPostAnalysisUtils = {
 				            	var nbCountArr = new Array();
 				            	var wbCountArr = new Array();
 				            	$.each(data.entityList,function(){
-				            		departmentArr.push(this.departmentName ? this.departmentName : this.createUname);
+				            		var departmentName=this.departmentName.replace(/(^(融快\-))|(^(创保联\-))/g, "");  //融快、创保联去掉前缀
+				            		departmentArr.push(this.departmentName ? departmentName : this.createUname);
 				            		nbCountArr.push(parseFloat(this.nbCount));
 				            		wbCountArr.push(parseFloat(this.wbCount));
 				            	})
 				            	chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = departmentArr;
-				            	//融快、创保联去掉前缀
-				            	var departmentArrNum=chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data.length
-				            	var departmentArrNew = []
-				            	for(var i=0;i<departmentArrNum;i++){
-				            		departmentArrNew.push(chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data[i].replace(/(^(融快\-))|(^(创保联\-))/g, ""));
-				            	}
-				            	
-				            	chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = departmentArrNew;
+				            	var departmentArrNum=departmentArr.length
 				            	//默认显示5条数据，不足5条，显示全部
 				            	if(departmentArrNum>5){
 				            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=5/departmentArrNum*100;
