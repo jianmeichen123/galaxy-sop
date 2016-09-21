@@ -208,7 +208,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 	
 	@ResponseBody
 	@RequestMapping(value="/searchInvestmentGroupDate",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopCharts> searchInvestmentGroupDate(HttpServletRequest request,SopCharts query){
+	public ResponseData<SopCharts> searchInvestmentGroupDate(HttpServletRequest request,@RequestBody SopCharts query){
 		ResponseData<SopCharts> responseBody = new ResponseData<SopCharts>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if (user == null) {
@@ -234,5 +234,36 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 		return responseBody;
 	}
 
-
+	
+	@ResponseBody
+	@RequestMapping(value="/searchPostAnalysis",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopCharts> searchPostAnalysis(HttpServletRequest request,@RequestBody(required=false) SopCharts query){
+		ResponseData<SopCharts> responseBody = new ResponseData<SopCharts>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		if(query.getBelongType()==null){
+			responseBody.setResult(new Result(Status.ERROR, "业务部门分类不能为空"));
+			return responseBody;
+		}
+		try {
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+					.getId());
+			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
+				
+			}else if(roleIdList.contains(UserConstant.HHR)){
+				query.setDepartmentId(user.getDepartmentId());
+			}
+			List<SopCharts> chartsList = analysisService.queryPostAnalysis(query);
+			responseBody.setEntityList(chartsList);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (DaoException e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, "系统出现误不可预知错"));
+		}
+		return responseBody;
+	}
+	
 }

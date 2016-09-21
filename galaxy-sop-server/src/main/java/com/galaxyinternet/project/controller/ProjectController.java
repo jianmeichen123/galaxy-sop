@@ -3288,6 +3288,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 		project = projectService.queryById(projectId);
 		request.setAttribute("proinfo", GSONUtil.toJson(project));
 		request.setAttribute("projectId", projectId);
+		request.setAttribute("pid", projectId);
 		request.setAttribute("prograss", project.getProjectProgress());
 		request.setAttribute("projectName", project.getProjectName());
 		return "project/sopinfo/includeRight";

@@ -11,8 +11,7 @@ var tabInfo = {
 			$.getTabHtml({
 				url : platformUrl.toTabProjectInfo + "/" + pid,//模版请求地址
 				data:"",//传递参数
-				okback:function(){	
-					
+				okback:function(){
 					var width_fwb=$('.tabtable_con_on').width();
 					$('.width_fwb').css('width',(width_fwb-20));
 

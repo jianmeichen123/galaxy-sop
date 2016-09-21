@@ -753,6 +753,10 @@ var platformUrl = {
 	 * 项目投资金额
 	 */
 	searchInvestmentGroupDate : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchInvestmentGroupDate",	
+	/**
+	 * 投后项目分析（图表）
+	 */
+	searchPostAnalysis : Constants.sopEndpointURL + "/galaxy/charts/analysis/searchPostAnalysis",
 
 	/**
 	 * 1.数据简报－投资事业线目标完成对比
