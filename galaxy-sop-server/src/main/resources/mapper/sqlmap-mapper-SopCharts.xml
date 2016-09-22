@@ -162,7 +162,7 @@
 	
 	
 	<select id="searchPostAnalysis" resultMap="BaseResultMap" parameterType="java.util.Map">		
-		select a.project_departId as department_id,a.department_name,ifnull(a.wbCount,0) as wbCount,ifnull(b.nbCount,0) as nbCount from 
+		select a.project_departId as department_id,a.department_name,ifnull(a.wbCount,0) as wbCount,ifnull(b.nbCount,0) as nbCount,ifnull((wbCount+ nbCount),0) as allCount from 
 			(select dm.id as project_departId,dm.name as department_name,pc.wbCount
 			 from
 				(select id,name,belong_type 
@@ -195,10 +195,11 @@
 				on dm.id = pc.project_departId
 				) b
 			on	 a.project_departId = b.project_departId
+			order by allCount desc
 	</select>
 	
 	<select id="searchPostAnalysisByHhr" resultMap="BaseResultMap" parameterType="java.util.Map">
-	select a.create_uid,a.create_uname,ifnull(a.wbCount,0) as wbCount,ifnull(b.nbCount,0) as nbCount from 
+	select a.create_uid,a.create_uname,ifnull(a.wbCount,0) as wbCount,ifnull(b.nbCount,0) as nbCount,ifnull((wbCount+ nbCount),0) as allCount from 
 	   (select du.id as create_uid,du.real_name as create_uname,pc.wbCount from
 	   			(select 	pu.id,pu.real_name,pu.department_id  
 	   		 	 from 		platform_user pu,platform_user_role pur
@@ -229,6 +230,7 @@
 			 	  group by 	create_Uid	 ) pc
 	   	on	du.id = pc.create_uid ) b
 	on a.create_uid = b.create_uid
+	order by allCount desc
 	</select>
 	
 	
