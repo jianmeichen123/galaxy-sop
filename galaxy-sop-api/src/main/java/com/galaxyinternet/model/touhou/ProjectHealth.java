@@ -1,5 +1,6 @@
 package com.galaxyinternet.model.touhou;
 
+import com.galaxyinternet.common.enums.EnumUtil;
 import com.galaxyinternet.framework.core.model.PagableEntity;
 
 public class ProjectHealth extends PagableEntity {
@@ -24,8 +25,16 @@ public class ProjectHealth extends PagableEntity {
   	private Integer healthWarnNum;
   	//高于预期
   	private Integer healthHighNum;
-
-
+  	
+  	//高于预期
+  	private String flagUrl;
+  	
+    private String projectName;
+    
+    private Long depId;
+    
+    private String projectCareerline;
+    
     public Long getProjectId() {
         return projectId;
     }
@@ -115,6 +124,38 @@ public class ProjectHealth extends PagableEntity {
 
 	public void setHealthHighNum(Integer healthHighNum) {
 		this.healthHighNum = healthHighNum;
+	}
+
+	public String getFlagUrl() {
+		return flagUrl;
+	}
+
+	public void setFlagUrl(String flagUrl) {
+		this.flagUrl = flagUrl;
+	}
+
+	public String getProjectName() {
+		return projectName;
+	}
+
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+
+
+
+	public Long getDepId() {
+		return depId;
+	}
+
+	public void setDepId(Long depId) {
+		this.projectCareerline = EnumUtil.getCareerline(depId);
+
+		this.depId = depId;
+	}
+
+	public String getProjectCareerline() {
+		return projectCareerline;
 	}
 
 	

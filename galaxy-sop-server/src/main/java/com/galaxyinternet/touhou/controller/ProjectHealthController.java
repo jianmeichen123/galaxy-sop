@@ -196,4 +196,40 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 		return "charts/listHealthy";
 	}
 	
+	/**
+	 *首页健康度详情
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getHealthChartGrid", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectHealth> getHealthChartGrid(HttpServletRequest request, @RequestBody ProjectHealthBo query) {
+		
+		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
+		
+		try {
+			PageRequest pageRequest = new PageRequest();
+			Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
+			Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 10;
+			if(null!=query.getFlagUrl()&&!"".equals(query.getFlagUrl())){
+				if(query.getFlagUrl().equals("healthHighNum")){
+					query.setHealthState((byte)1);
+				}else if(query.getFlagUrl().equals("healthGoodNum")){
+					query.setHealthState((byte)2);
+				}else{
+					query.setHealthState((byte)3);
+				}
+			}
+			Direction direction = Direction.DESC;
+			String property = "created_time"; //updated_time
+			pageRequest = new PageRequest(pageNum,pageSize, direction,property);
+			Page<ProjectHealth> deliverypage =  projectHealthService.getHealthChartGrid(query, pageRequest);
+			responseBody.setPageList(deliverypage);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"列表查询失败"));
+			logger.error("queryHealthPage 列表查询失败", e);
+		}
+		return responseBody;
+	}
+	
 }

@@ -5,10 +5,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.galaxyinternet.bo.touhou.DeliveryBo;
 import com.galaxyinternet.dao.touhou.ProjectHealthDao;
+import com.galaxyinternet.framework.core.constants.SqlId;
 import com.galaxyinternet.framework.core.dao.BaseDao;
+import com.galaxyinternet.framework.core.exception.DaoException;
+import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.service.impl.BaseServiceImpl;
 import com.galaxyinternet.model.touhou.ProjectHealth;
 import com.galaxyinternet.service.ProjectHealthService;
@@ -60,6 +65,11 @@ public class ProjectHealthServiceImpl extends BaseServiceImpl<ProjectHealth> imp
 			map.put("healthWarnNum", 0);
 		}
 		return map;
+	}
+	
+	public Page<ProjectHealth> getHealthChartGrid(ProjectHealth query, Pageable pageable){
+		Page<ProjectHealth> healthChartGrid = projectHealthDao.getHealthChartGrid(query, pageable);
+		return healthChartGrid;
 	}
 
 

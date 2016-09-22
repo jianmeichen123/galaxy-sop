@@ -122,13 +122,14 @@
                 if (typeof param.seriesIndex != 'undefined') {
                     switch (param.name) {
                         case "高于预期": 
-                        	window.location.href = "http://www.sina.com";                           
+                        	var re=
+                        	window.location.href = platformUrl.toHealthChartDetail+"?flagUrl=healthHighNum";                           
                             break;
                         case "健康":  
-                            window.location.href = "http://www.baidu.com";
+                            window.location.href = platformUrl.toHealthChartDetail+"?flagUrl=healthGoodNum";
                             break;
                         case "健康预警":  
-                            window.location.href = "http://www.qq.com";
+                            window.location.href = platformUrl.toHealthChartDetail+"?flagUrl=healthWarnNum";
                             break;
                         default:
                             break;
