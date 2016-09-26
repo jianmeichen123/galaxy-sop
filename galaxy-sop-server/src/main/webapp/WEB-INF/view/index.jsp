@@ -404,7 +404,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						</dd>
 					</dl> -->
                 <!-- 项目健康度 -->
-                <dl class="r_news">
+                <dl class="r_news" resource-mark="div_health_gg" style="display:none">
 					<dt>
 						<h3 class="ico t13">项目健康度<span class="Htips">（截止至当前）</span></h3>
 						<span class="more null position_0" id="platform_health_more" style="cursor: pointer;">more</span>
@@ -620,6 +620,9 @@ $(function(){
 function paiqidate(type){
 	forwardWithHeader(platformUrl.popupMeetingList + type);
 }
+$("#platform_health_more").click(function(){
+	forwardWithHeader(platformUrl.toHealthChartDetail+"?urlFlag=null");
+})
 
 
 </script>

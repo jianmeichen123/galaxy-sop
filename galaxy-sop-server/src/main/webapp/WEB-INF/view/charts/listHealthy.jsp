@@ -3,6 +3,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	String path = request.getContextPath(); 
+    String flag=(String)request.getAttribute("flagUrl");
+    String title="";
+    if(flag.equals("healthHighNum")){
+    	title="高于预期";
+    }else if(flag.equals("healthGoodNum")){
+    	title="健康";
+    }else if(flag.equals("healthWarnNum")){
+    	title="健康预警";
+    }else{
+    	title="全部";
+    }
 %>
 <!doctype html>
 <html>
@@ -33,6 +44,13 @@
 	<!--右中部内容-->
  	<div class="ritmin prj_all" >
     	<div class="new_tit_a"><a href="#" onclick="backIndex()">工作桌面</a>>项目健康度</div>
+    		
+    	<div class="new_tit_b">
+        	<span class="size18" id="project_name_t"><%=title %></span>
+        	<span class="b_span"> 
+	        	<a href="#" onclick="back();">返回></a>
+			</span>
+        </div>
     	 	<div class="min_document clearfix" id="health-custom-toolbar" style="display:none;" >
 				<div class="bottom searchall clearfix">
 					<input type="hidden" name="flagUrl" value="${ flagUrl}"> 
@@ -67,10 +85,10 @@
 
 <script type="text/javascript">
     $(function(){
-    	
+    	createMenus(1);
     	init_bootstrapTable('chart_health_table',5);
+    	
     })
-	  createMenus(5);
 	 function rematkFormat(value,row,index){
 			var str=row.rematk;
 			var options="";

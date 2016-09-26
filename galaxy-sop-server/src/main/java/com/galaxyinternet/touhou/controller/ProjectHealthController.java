@@ -192,7 +192,12 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	@RequestMapping(value = "/toHealthChartDetail", method = RequestMethod.GET)
 	public String toHealthChartDetail(HttpServletRequest request) {
 		String parameter = request.getParameter("flagUrl");
-		request.setAttribute("flagUrl", parameter);
+		if(null!=parameter&&!"".equals(parameter)){
+			request.setAttribute("flagUrl", parameter);
+		}else{
+			request.setAttribute("flagUrl", "");
+		}
+	
 		return "charts/listHealthy";
 	}
 	
