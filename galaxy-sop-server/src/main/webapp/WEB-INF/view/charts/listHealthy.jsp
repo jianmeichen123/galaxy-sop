@@ -85,7 +85,7 @@
 
 <script type="text/javascript">
     $(function(){
-    	createMenus(1);
+    	createMenus(160);
     	init_bootstrapTable('chart_health_table',5);
     	
     })
@@ -176,7 +176,8 @@
 			}/* else
 				window.history.go(-1); */
 				
-		} */
+		//} 
+	//*/
 	   function backIndex(){
 	    	forwardWithHeader("<%= path%>/galaxy/index");
 	    }
