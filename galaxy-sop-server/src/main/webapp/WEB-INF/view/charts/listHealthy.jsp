@@ -168,16 +168,6 @@
 	 function back(){
 		 window.history.go(-1);
 		}
-	/*  function back(){
-			var href_url=getCookieValue("href_url");
-			if(href_url){
-				deleteCookie("href_url","/");
-				window.location=href_url;
-			}/* else
-				window.history.go(-1); */
-				
-		//} 
-	//*/
 	   function backIndex(){
 	    	forwardWithHeader("<%= path%>/galaxy/index");
 	    }
