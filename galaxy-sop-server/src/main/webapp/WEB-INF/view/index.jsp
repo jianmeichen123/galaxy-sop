@@ -307,7 +307,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							</dd>
 						</dl> -->
 						<!-- 已投项目分析 -->
-						<dl class="executive_last ytxm_block">
+						<dl class="executive_last ytxm_block" resource-mark="div_project_post_analysis_gg" style="display:none">
 							<dt>
 								<h3 class="ico t9">已投项目分析<span class="Htips">（截止至当前）</span></h3>
 								<ul class="ytxm_tab position_tab clearfix">
