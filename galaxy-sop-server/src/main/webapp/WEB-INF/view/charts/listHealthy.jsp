@@ -174,6 +174,9 @@
 				window.history.go(-1); */
 				
 		}
+	   function backIndex(){
+	    	forwardWithHeader("<%= path%>/galaxy/role/index");
+	    }
 	 
 </script>
 </html>
