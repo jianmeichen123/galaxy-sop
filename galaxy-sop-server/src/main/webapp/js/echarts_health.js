@@ -122,13 +122,15 @@
                 if (typeof param.seriesIndex != 'undefined') {
                     switch (param.name) {
                         case "高于预期": 
-                        	var re=
+                        	setCookie("href_url", window.location,24,'/');
                         	window.location.href = platformUrl.toHealthChartDetail+"?flagUrl=healthHighNum";                           
                             break;
                         case "健康":  
+                        	setCookie("href_url", window.location,24,'/');
                             window.location.href = platformUrl.toHealthChartDetail+"?flagUrl=healthGoodNum";
                             break;
-                        case "健康预警":  
+                        case "健康预警":
+                        	setCookie("href_url", window.location,24,'/');
                             window.location.href = platformUrl.toHealthChartDetail+"?flagUrl=healthWarnNum";
                             break;
                         default:

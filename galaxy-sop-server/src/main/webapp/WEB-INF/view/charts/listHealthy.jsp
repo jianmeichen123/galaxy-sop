@@ -165,7 +165,15 @@
 			setCookie("href_url", href_url,24,'/');
 			cookieOperator.forwardPushCookie(formdata);
 		}
-	
+	 function back(){
+			var href_url=getCookieValue("href_url");
+			if(href_url){
+				deleteCookie("href_url","/");
+				window.location=href_url;
+			}/* else
+				window.history.go(-1); */
+				
+		}
 	 
 </script>
 </html>
