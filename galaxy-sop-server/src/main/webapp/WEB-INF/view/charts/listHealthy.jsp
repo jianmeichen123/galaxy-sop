@@ -175,7 +175,7 @@
 				
 		}
 	   function backIndex(){
-	    	forwardWithHeader("<%= path%>/galaxy/role/index");
+	    	forwardWithHeader("<%= path%>/galaxy/index");
 	    }
 	 
 </script>
