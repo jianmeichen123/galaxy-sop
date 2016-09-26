@@ -43,9 +43,9 @@ $(function(){
 //基本信息
 function initTabInfo(projectId){
 	tabInfo.init(projectId);
-	$.getTabHtml({
-		url : platformUrl.toTabProjectInfo +'/'+ projectId
-	});
+//	$.getTabHtml({
+//		url : platformUrl.toTabProjectInfo +'/'+ projectId
+//	});
 }
 
 //团队成员

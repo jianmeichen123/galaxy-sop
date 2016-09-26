@@ -178,23 +178,48 @@ var chartPostAnalysisUtils = {
 }
 
 function init(){
-	var formdata1 = {
+	$(".ytxm_block").tabchange2({
+		onchangeSuccess:function(index){
+			var formdata;
+			switch (index) {
+			case 0:
+				formdata = {
+					domid : 'charts_Joint',
+					belongType : 1
+				};
+				chartPostAnalysisUtils.init(formdata);
+				break;
+			case 1 :
+				formdata = {
+					domid : 'charts_rk',
+					belongType : 2
+					
+				};
+				chartPostAnalysisUtils.init(formdata);
+				break;
+			case 2 : 
+				var formdata = {
+					domid : 'charts_cbl',
+					belongType : 3
+					
+				};
+				chartPostAnalysisUtils.init(formdata);
+				break;
+			default:
+				console.log("错误");
+				break;
+			}
+		}
+	});
+	
+	var formdata = {
 			domid : 'charts_Joint',
 			belongType : 1
-	}
-	var formdata2 = {
-			domid : 'charts_rk',
-			belongType : 2
-			
-	}
-	var formdata3 = {
-			domid : 'charts_cbl',
-			belongType : 3
-			
-	}
-	chartPostAnalysisUtils.init(formdata1);
-	chartPostAnalysisUtils.init(formdata2);
-	chartPostAnalysisUtils.init(formdata3);
+		};
+	chartPostAnalysisUtils.init(formdata);
+	
+	
+
 }
 
 $(document).ready(init());
