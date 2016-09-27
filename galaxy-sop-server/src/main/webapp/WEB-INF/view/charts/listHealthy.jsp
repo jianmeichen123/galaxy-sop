@@ -94,9 +94,9 @@
 			var options="";
 			if(str.length>10){
 				subStr = str.substring(0,10);
-				var options = "<span  title='"+str+"'>"+subStr+"</span>";
+				var options = "<label  title='"+str+"'>"+subStr+"</label>";
 			}else{
-				var options = "<span title='"+str+"'>"+str+"</span>";
+				var options = "<label title='"+str+"'>"+str+"</label>";
 			}
 			return options;
 		
