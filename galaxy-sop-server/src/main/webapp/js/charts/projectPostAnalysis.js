@@ -12,6 +12,9 @@ var chartPostAnalysisUtils = {
 		        end : 80,
 		       // handleSize:"5",
 		        handleColor:"#539be2",
+		        dataBackgroundColor:'#e9f3fb',
+		        fillerColor:'#e9f3fb',
+		        handleSize:5,
 		        height:12,
 		        y:175,
 		    },
@@ -49,6 +52,7 @@ var chartPostAnalysisUtils = {
 		        	data : ["数字娱乐","互联网金融","互联网餐饮","云计算大数据","互联网医疗","互联网旅游","互联网教育"],
 		        	axisLabel: {
 		        		show: true,
+		        		interval:0,
 		        		textStyle: {
 		        			color: '#7a8798'
 		        				}
@@ -99,6 +103,7 @@ var chartPostAnalysisUtils = {
 		            type:'bar',
 		            stack:"项目数",
 		            "barWidth":"20",//柱图宽度
+		            borderWidth:0,
 		            data:[60,50,40,30,20,10,5],
 		            itemStyle: {
                      normal: {
@@ -139,12 +144,8 @@ var chartPostAnalysisUtils = {
 			}
 			sendPostRequestByJsonObj(platformUrl.searchPostAnalysis,form,function(data){
 				if(data.result.status=="OK"){
-					require(
-				            [
-				                'echarts',
-				                'echarts/chart/bar' // 使用柱状图就加载bar模块，按需加载
-				            ],function(ec){
-				            	var myChart = ec.init($('#' + formdata.domid)[0]); 
+					
+				            	var myChart = echarts.init($('#' + formdata.domid)[0]); 
 				            	var departmentArr = new Array();
 				            	var nbCountArr = new Array();
 				            	var wbCountArr = new Array();
@@ -153,9 +154,12 @@ var chartPostAnalysisUtils = {
 				            		departmentArr.push(this.departmentName ? departmentName : this.createUname);
 				            		nbCountArr.push(parseFloat(this.nbCount));
 				            		wbCountArr.push(parseFloat(this.wbCount));
+				            		//console.log(this.nbCount)
 				            	})
 				            	chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data = departmentArr;
 				            	var departmentArrNum=departmentArr.length
+				            	
+				            	
 				            	//默认显示5条数据，不足5条，显示全部
 				            	if(departmentArrNum>5){
 				            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=5/departmentArrNum*100;
@@ -164,11 +168,23 @@ var chartPostAnalysisUtils = {
 				            	}
 					            //内部
 					            chartPostAnalysisUtils.postAnalysisOptions.series[0].data = nbCountArr;
+					            var sum_nb=0;
+					            for(var i=0;i<nbCountArr.length;i++){
+					            	sum_nb+=nbCountArr[i];
+					            }
 					            //外部
 					            chartPostAnalysisUtils.postAnalysisOptions.series[1].data = wbCountArr;
+					            var sum_wb=0;
+					            for(var i=0;i<nbCountArr.length;i++){
+					            	sum_wb+=nbCountArr[i];
+					            }
+					            //无数据显示
+					            if(sum_nb==0 && sum_wb==0){
+					            	$('#' + formdata.domid).html('<div  class="no_info_div"><span class="no_info_icon">　没有找到匹配的记录</span></div>');
+					            }
 					            window.onresize = myChart.resize; 
 					            myChart.setOption(chartPostAnalysisUtils.postAnalysisOptions);
-				            });
+				           
 				
 				}else{
 					layer.msg(data.result.errorCode);
@@ -222,5 +238,5 @@ function init(){
 
 }
 
-$(document).ready(init());
+$(function(){init()});
 
