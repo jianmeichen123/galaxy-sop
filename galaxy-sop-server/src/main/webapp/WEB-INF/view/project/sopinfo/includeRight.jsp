@@ -119,9 +119,10 @@
         <!-- 投前End -->
 <script src="<%=path %>/js/refuseProject.js"></script>
 <script>
+var pRigthInfo = ${proinfo}
 var proid = pid;
-var prograss = projectInfo.projectProgress;
-
+var prograss = pRigthInfo.projectProgress;
+console.log('${fx:isTransfering(pid) }:' + '哈哈哈');
 if('${fx:isTransfering(pid) }' == 'true')
 {
 	$('.fjxm_but').addClass("disabled");
@@ -173,7 +174,7 @@ $(function(){
 	}
 	init_lct(); //流程图初始化
 	
-	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || admin!="true"){
+	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
 		$(".fjxm_but").removeAttr("onclick").attr("readonly","readonly").addClass("disabled");
 	}
 		
@@ -492,7 +493,6 @@ function closeback(data,fuc){
 		layer.msg("该项目已关闭");
 		//toDetail(proid);
 		fuc();
-		showTabs(proid,0)
 		//forwardWithHeader(platformUrl.mpl);
 	}
 }
