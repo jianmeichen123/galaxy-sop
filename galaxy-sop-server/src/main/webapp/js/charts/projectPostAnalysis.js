@@ -22,6 +22,9 @@ var chartPostAnalysisUtils = {
 		    legend:{
 		        show:true,
 		        orient:'horizontal',
+		        textStyle:{
+		        	 fontFamily:'宋体'
+		        },
 		        data:[
 		            {
 		                name:'内部创建',
@@ -54,7 +57,8 @@ var chartPostAnalysisUtils = {
 		        		show: true,
 		        		interval:0,
 		        		textStyle: {
-		        			color: '#7a8798'
+		        			color: '#7a8798',
+		        			fontFamily:'宋体'
 		        				}
 		        },
                   axisLine:{

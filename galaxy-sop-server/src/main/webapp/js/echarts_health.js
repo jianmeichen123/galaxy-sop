@@ -15,7 +15,8 @@ $(function(){
 	                  axisLabel: {
 	                      show: true,
 	                      textStyle: {
-	                          color: '#7a8798'
+	                          color: '#7a8798',
+	                          fontFamily:'宋体'
 	                      }
 	                  },
 	                  axisLine:{
