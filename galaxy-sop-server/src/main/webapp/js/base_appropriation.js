@@ -134,6 +134,7 @@ function del_appr(id){
 				$.getTabHtml({
 					url : url
 				});
+				reference(pId);
 			}else{
 				$("#powindow").remove();
 				$("#popbg").remove();
