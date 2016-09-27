@@ -17,7 +17,7 @@
 	                    </div>
 	                </dd>
 	            </dl>
-                <input type="hidden" name="projectId" value="${projectId}">
+                <input type="hidden" name="projectId" id="projectId" value="${projectId}">
                 <dl class="fmdl fl_l  clearfix">
 	                <dt>计划拨款金额 ：</dt>
 	                <dd>	
@@ -65,6 +65,7 @@
 					$.getTabHtml({
 						url : url
 					});
+					reference('${projectId}');
 					//启用滚动条
 					 $(document.body).css({
 					   "overflow-x":"auto",
