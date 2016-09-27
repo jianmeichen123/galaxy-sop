@@ -16,7 +16,11 @@
                 var myChart = ec.init(document.getElementById('container_health'));                 
                 var option = {
                     tooltip: {
-                        show: true
+                        show: true,
+                        trigger:'axis',
+                        axisPointer:{  //删除中轴线
+                        	type:'none'
+                        }
                     },
                     xAxis : [
                         {
