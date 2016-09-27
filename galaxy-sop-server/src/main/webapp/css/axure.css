@@ -1908,7 +1908,7 @@ dl{position: relative;}
     right: 10px;
     top: 15px; display:block;
 }
-.no_info_div{ width:230px; margin-left:auto; margin-right:auto; padding-top:80px;}
+.no_info_div{ /* width:230px; */width:155px; margin-left:auto; margin-right:auto; padding-top:80px;}
 .no_info_div span{ text-align: center; line-height:30px; color:#bbb;}
 .mask_platform_time,.mask_platform_progress{width:100%;height:148px;position:absolute;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0);display:none;}
 /*交割前事项*/
