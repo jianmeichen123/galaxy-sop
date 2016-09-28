@@ -2,6 +2,9 @@ package com.galaxyinternet.touhou.controller;
 
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.galaxyinternet.bo.project.ProjectBo;
 import com.galaxyinternet.bo.touhou.ProjectHealthBo;
 import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
 import com.galaxyinternet.framework.core.model.ResponseData;
@@ -153,6 +158,83 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 		}
 		return responseBody;
 	}
+	/**
+	 * 首页-高管页面的项目健康度
+	 * @param request
+	 * @param project
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/getHealthyCharts",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<Project> getHealthyCharts(HttpServletRequest request,@RequestBody ProjectBo project){
+		ResponseData<Project> responseBody = new ResponseData<Project>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}	
+		Map<String,Object> params=new HashMap<String,Object>();
+		Map<String,Object> map=new HashMap<String,Object>();
+		
+		try {
+			map=projectHealthService.gtHealthyChart(params);
+			responseBody.setUserData(map);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (DaoException e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, "系统出现误不可预知错"));
+		}
+		return responseBody;
+	}
+	/**
+	 * 弹窗   健康列表
+	 */
+	@RequestMapping(value = "/toHealthChartDetail", method = RequestMethod.GET)
+	public String toHealthChartDetail(HttpServletRequest request) {
+		String parameter = request.getParameter("flagUrl");
+		if(null!=parameter&&!"".equals(parameter)){
+			request.setAttribute("flagUrl", parameter);
+		}else{
+			request.setAttribute("flagUrl", "");
+		}
 	
+		return "charts/listHealthy";
+	}
+	
+	/**
+	 *首页健康度详情
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getHealthChartGrid", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectHealth> getHealthChartGrid(HttpServletRequest request, @RequestBody ProjectHealthBo query) {
+		
+		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
+		
+		try {
+			PageRequest pageRequest = new PageRequest();
+			Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
+			Integer pageSize = query.getPageSize() != null ? query.getPageSize() : 10;
+			if(null!=query.getFlagUrl()&&!"".equals(query.getFlagUrl())){
+				if(query.getFlagUrl().equals("healthHighNum")){
+					query.setHealthState((byte)1);
+				}else if(query.getFlagUrl().equals("healthGoodNum")){
+					query.setHealthState((byte)2);
+				}else{
+					query.setHealthState((byte)3);
+				}
+			}
+			Direction direction = Direction.DESC;
+			String property = "created_time"; //updated_time
+			pageRequest = new PageRequest(pageNum,pageSize, direction,property);
+			Page<ProjectHealth> deliverypage =  projectHealthService.getHealthChartGrid(query, pageRequest);
+			responseBody.setPageList(deliverypage);
+			responseBody.setResult(new Result(Status.OK, ""));
+			return responseBody;
+		} catch (PlatformException e) {
+			responseBody.setResult(new Result(Status.ERROR, null,"列表查询失败"));
+			logger.error("queryHealthPage 列表查询失败", e);
+		}
+		return responseBody;
+	}
 	
 }

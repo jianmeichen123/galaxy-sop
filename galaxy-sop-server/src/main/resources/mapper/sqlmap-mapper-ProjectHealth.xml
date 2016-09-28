@@ -12,6 +12,13 @@
     <result column="created_time" jdbcType="BIGINT" property="createdTime" />
     <result column="updated_uid" jdbcType="BIGINT" property="updatedUid" />
     <result column="updated_time" jdbcType="BIGINT" property="updatedTime" />
+    <result column="health_good_num" property="healthGoodNum" jdbcType="INTEGER" />
+    <result column="health_warn_num" property="healthWarnNum" jdbcType="INTEGER" />
+    <result column="health_high_num" property="healthHighNum" jdbcType="INTEGER" />
+    <result column="project_name" property="projectName" jdbcType="VARCHAR" />
+    <result column="project_departId" property="depId" jdbcType="VARCHAR" />
+    
+  
   </resultMap>
   
   <sql id="Base_Column_List">
@@ -101,6 +108,49 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	
-  
+	<select id="getHealthyCharts" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT  
+		    sh.`health_state`,
+			SUM(CASE WHEN sh.`health_state`='1' THEN 1 ELSE 0 END) AS health_high_num,
+			SUM(CASE WHEN sh.`health_state`='2' THEN 1 ELSE 0 END) AS health_good_num,
+			SUM(CASE WHEN sh.`health_state`='3' THEN 1 ELSE 0 END) AS health_warn_num
+			FROM(
+			SELECT a.`health_state`,a.`id`,a.`project_id`
+			 FROM `sop_project_health` a INNER JOIN sop_project s ON a.`project_id`=s.`id`
+			 WHERE 
+			 NOT EXISTS(
+			 SELECT 1 FROM `sop_project_health` b
+			WHERE a.`project_id`=b.`project_id` AND b.`created_time`>a.`created_time`)
+			 AND s.project_status!='projectStatus:2' GROUP BY a.`project_id`) 
+			sh GROUP BY sh.health_state
+	</select>
+  <select id="getHealthyChartsGrid" resultMap="BaseResultMap" parameterType="java.util.Map">
+            SELECT a.`health_state`,a.`id`,a.`project_id`,s.`project_name` project_name,a.`rematk`,a.`user_name`,a.`created_time`,s.project_departId depId
+			 FROM `sop_project_health` a INNER JOIN sop_project s ON a.`project_id`=s.`id`
+			 WHERE 
+			 NOT EXISTS(
+			 SELECT 1 FROM `sop_project_health` b
+			WHERE a.`project_id`=b.`project_id` AND b.`created_time`>a.`created_time`)
+			 AND s.project_status!='projectStatus:2' 
+			  <if test="healthState!= null">
+			  AND a.`health_state`=#{healthState}
+			 </if>
+			 GROUP BY a.`project_id`
+			limit #{offset}, #{limit}
+		
+		</select>
+			<!-- 查询总数 -->
+	<select id="selectCountChart" resultType="java.lang.Long" parameterType="java.util.Map">
+		 SELECT count(a.id)
+			 FROM `sop_project_health` a INNER JOIN sop_project s ON a.`project_id`=s.`id`
+			 WHERE 
+			 NOT EXISTS(
+			 SELECT 1 FROM `sop_project_health` b
+			WHERE a.`project_id`=b.`project_id` AND b.`created_time`>a.`created_time`)
+			 AND s.project_status!='projectStatus:2' 
+			  <if test="healthState!= null">
+			  AND a.`health_state`=#{healthState}
+			 </if>
+	</select>
   
 </mapper>

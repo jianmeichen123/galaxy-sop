@@ -20,7 +20,8 @@
 	</table>
 	<ul>
 		<li><a href="javascript:;" id="show-upload-btn">上传业务尽职调查报告</a></li>
-		<li><a href="javascript:;" id="apply-decision-btn" class="disabled">申请投决会排期</a></li>
+		<li><a href="javascript:;" id="complete-task-btn" class="disabled" style="display:none">提交完成</a></li>
+		<li><a href="javascript:;" id="apply-decision-btn" class="disabled" style="display:none">申请投决会排期</a></li>
 	</ul>
 </div>
 <!-- 弹出页面 -->
@@ -101,13 +102,16 @@ $(function(){
 });
 function projectLoaded(project)
 {
-	if(project.projectProgress != 'projectProgress:6')
+	if(project.projectProgress == 'projectProgress:6')
 	{
-		if(typeof(isPrivilege_6) != 'undefined' && isPrivilege_6 == 'false'){
-			$("#show-upload-btn").addClass('disabled');
-		}
-		$("#apply-decision-btn").addClass('disabled');
+		$("#apply-decision-btn").show();
 	}
+	//绿色通道-显示提交完成按钮
+	if(typeof(isPrivilege_6) != 'undefined' && isPrivilege_6 == 'true')
+	{
+		$("#complete-task-btn").show();
+	}
+	
 }
 function loadRows()
 {
@@ -143,18 +147,44 @@ function loadRows()
 						if("fileWorktype:1" == this.fileWorktype)
 						{
 							$("#show-upload-btn").text('更新业务尽职调查报告');
+							$("#complete-task-btn").removeClass('disabled');
 						}
 					}
 					$("#hrjzdc-table tbody").append($tr);
 				});
-				if(typeof(isPrivilege_6) != 'undefined' && isPrivilege_6 == 'true'){
-					hasEmpty = true;
-				}
 				$("#apply-decision-btn").toggleClass('disabled',hasEmpty);
+				rowLoaded();
 			}
 	);
 }
-
+function rowLoaded()
+{
+	$("#complete-task-btn").unbind('click').click(function(){
+		if($(this).hasClass('disabled'))
+		{
+			return;
+		}
+		//更新task为完成状态
+		sendPostRequestByJsonObj(
+			platformUrl.submitTask,
+			{
+				id:"${taskId}",
+				taskStatus:"taskStatus:3"
+			},
+			function(data){
+				if(data.result.status=="OK"){
+					layer.msg("提交成功。");
+					var url = $("#menus .on a").attr('href');
+					window.location=url;
+				}
+				else
+				{
+					layer.msg("提交失败。");
+				}
+			}
+		);
+	});
+}
 function isBlank(val)
 {
 	if(val == "" || val == null || val == 'undefined')
@@ -194,7 +224,7 @@ function initUpload(_dialog){
 	var uploader = new plupload.Uploader({
 		runtimes : 'html5,html4,flash,silverlight',
 		browse_button : $(_dialog.id).find("#file-select-btn")[0], 
-		url : platformUrl.stageChange,
+		url : platformUrl.businessAdjustment,
 		multi_selection:false,
 		filters : {
 			max_file_size : '25mb'

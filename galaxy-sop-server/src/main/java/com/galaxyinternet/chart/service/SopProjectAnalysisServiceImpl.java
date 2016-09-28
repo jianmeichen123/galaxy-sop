@@ -218,6 +218,26 @@ public class SopProjectAnalysisServiceImpl implements SopProjectAnalysisService 
 		// TODO Auto-generated method stub
 		return analysisDao.selectInvestmentGroupDate(query);
 	}
+
+
+
+
+	@Override
+	public List<SopCharts> queryPostAnalysis(SopCharts query) {
+		// TODO Auto-generated method stub
+		List<SopCharts> retList;
+		if(query.getDepartmentId()!=null){
+			retList = analysisDao.searchPostAnalysisByHhr(query);
+		}else{
+			retList = analysisDao.searchPostAnalysis(query);
+		} 
+		return retList;
+	}
+	
+	
+	
+	
+	
 	
 	
 	

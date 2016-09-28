@@ -4,65 +4,23 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>繁星</title>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
-<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
-<!-- bootstrap-table -->
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-<!-- 日历插件 -->
-<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
-
-<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
-<!-- 校验 -->
-<script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-<script type="text/javascript" src="<%=request.getContextPath() %>/js/validate/lib/jquery.poshytip.js"></script>
-<script type='text/javascript' src='<%=request.getContextPath() %>/js/validate/lib/jq.validate.js'></script>
-
-
-<script src="<%=path %>/js/sopinfo.js"></script>
-<script src="<%=path %>/js/base_appropriation.js"></script>
-<script src="<%=path %>/js/utils.js"></script>
 <style type="text/css">
-.bars{margin:0 !important;}
+
 </style></head>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 <body>
-<jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 
-<div class="pagebox clearfix">
 	<!--左侧导航-->
-	<jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
-     
-    <!--右中部内容-->
- 	<div class="ritmin">
- 	
-    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
 
-
-		<div class="new_left">
 			<div class="tabtable assessment label_static">
-				<!-- tab标签 -->
-	            <jsp:include page="tab_header.jsp?index=8" flush="true"></jsp:include>
-            <!-- 拨款信息 -->
-        
             	<div class="member proOperation">
                     <div class="top clearfix">
                         <!--按钮-->
-                        <c:if test="${isEditable }">
+                        <c:if test="${isEditable}">
                         <div class="btnbox_f btnbox_f1">
                             <a class="pbtn bluebtn h_bluebtn" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="save" data-name='添加总拨款计划'>添加总拨款计划</a>
                         </div>
                         </c:if>
-
                     </div>
                     <!-- 搜索条件 -->
                     
@@ -82,22 +40,14 @@
                   </div>
              <span class="show_total">显示第 <span class="start">1</span> 条到第 <span class="end">2</span> 条，总共 <span class="total">2</span> 条记录</span>
             <span class="show_more blue fr" id="reloadAll">显示更多</span>
+              
         </div>  
                    <!--tab end-->
+                 
           </div>
-        </div>
-        <!--右边-->
-           <jsp:include page="includeRight.jsp" flush="true"></jsp:include>
-      </div>
- 
-</div>
-<jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
-<!-- file -->
-<script src="<%=path %>/js/plupload.full.min.js" type="text/javascript"></script>
-<script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
-<script src="<%=path %>/js/batchUpload.js" type="text/javascript" charset="utf-8"></script>
-<script src="<%=path %>/js/jquery.showLoading.min.js"></script>
+            
 <script>
+var isEditable = "${isEditable}";
 var isTransfering = "${fx:isTransfering(pid) }";
 var pId;
 var searchPartMoney;
@@ -272,7 +222,6 @@ var searchPartMoney;
 			});
 			return false;
 		});
-	 createMenus(5);
 	 showRow("${numOfShow}");
   });
   /***
@@ -353,7 +302,18 @@ var searchPartMoney;
 		if(null==searchPartMoney||""==searchPartMoney){
 			searchPartMoney = null;
 		}
-		showTabs(searchPartMoney+"/"+'${pid}',8);
+		var numOfShow = $("#tabApprAllList .agreement:visible").length;
+		var url = Constants.sopEndpointURL + "/galaxy/project/toAppropriation/"+searchPartMoney+"/${projectId}";
+		if(numOfShow>0)
+		{
+			numOfShow = Math.max(numOfShow,2);
+			url+="?numOfShow="+numOfShow;
+		}
+		$("#powindow").remove();
+		$("#popbg").remove();
+		$.getTabHtml({
+			url : url
+		});
 		showRow(2);
 	})
 
@@ -373,9 +333,10 @@ function paramsContion(){
 	}
 	var remainMoney = $("#remainMoney").val();
 	var grantMoneyOld=$("#oldRemainMoney").val();
-	var newgrant = Number(grantMoneyOld)+Number(remainMoney);
+	var newgrant = (Number(grantMoneyOld)+Number(remainMoney)).toFixed(2);
 	
-	if((parseFloat(partMoney) - parseFloat(newgrant)) >= 0.01 &&  parseFloat(partMoney) > parseFloat(newgrant)){
+	var inputValueMoney = Number(partMoney).toFixed(2);
+	if(parseFloat(inputValueMoney) > parseFloat(newgrant)){
 		layer.msg("分期拨款金额之和大于总拨款金额");
 		return false;
 	}
@@ -414,7 +375,16 @@ function saveCallBackFuc(data){
 		numOfShow = Math.max(numOfShow,2);
 		url+="?numOfShow="+numOfShow;
 	}
-	showTabs(url,8);
+	$("#powindow").remove();
+	$("#popbg").remove();
+	//启用滚动条
+	 $(document.body).css({
+	   "overflow-x":"auto",
+	   "overflow-y":"auto"
+	 });
+	$.getTabHtml({
+		url : Constants.sopEndpointURL + "/galaxy/project/toAppropriation/"+url
+	});
 }
 function to_del_grantPart(selectRowId){
 	
@@ -445,12 +415,22 @@ function to_download_grantPart(id){
 }
 
 function del_grantPart(id){  
+
 	var _url =  Constants.sopEndpointURL + '/galaxy/grant/part/delGrantPart/'+id;
 	sendPostRequestByJsonObj(_url, {}, function(data){
 		if (data.result.status=="OK") {
 			layer.msg("删除成功");
 			removePop1();
-			showTabs('null/'+'${pid}',8);
+			var url = searchPartMoney+'/'+'${pid}';
+			var numOfShow = $("#tabApprAllList .agreement:visible").length;
+			if(numOfShow>0)
+			{
+				numOfShow = Math.max(numOfShow,2);
+				url+="?numOfShow="+numOfShow;
+			}
+			$.getTabHtml({
+				url : Constants.sopEndpointURL + "/galaxy/project/toAppropriation/"+url
+			});
 		} else {
 			layer.msg(data.result.message);
 		}

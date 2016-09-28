@@ -17,7 +17,7 @@
 	                    </div>
 	                </dd>
 	            </dl>
-                <input type="hidden" name="projectId" value="${projectId}">
+                <input type="hidden" name="projectId" id="projectId" value="${projectId}">
                 <dl class="fmdl fl_l  clearfix">
 	                <dt>计划拨款金额 ：</dt>
 	                <dd>	
@@ -32,7 +32,7 @@
 	    </div>
 
 	    <div class="button_affrim">
-	        <a href="javascript:;" id="win_ok_btn" onclick="saveAppr()" class="register_all_affrim fl">确认</a>
+	        <a href="javascript:;" id="win_ok_btn" onclick="saveAppr()" class="register_all_affrim fl">确定</a>
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr" data-close="close">取消</a>
 	    </div> 
 	    	    </form> 	
@@ -60,7 +60,17 @@
 						numOfShow = Math.max(numOfShow,2);
 						url+="?numOfShow="+numOfShow;
 					}
-					forwardWithHeader(url);
+					$("#powindow").remove();
+					$("#popbg").remove();
+					$.getTabHtml({
+						url : url
+					});
+					reference('${projectId}');
+					//启用滚动条
+					 $(document.body).css({
+					   "overflow-x":"auto",
+					   "overflow-y":"auto"
+					 });
 				}
 				
 			});

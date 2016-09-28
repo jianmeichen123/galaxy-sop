@@ -22,7 +22,16 @@ var refuseProjectDialog = {
 						},
 						saveCallBackFuc : function(data){
 							closeback(data,function(){
-								refuseProjectDialog.close(_this)
+								refuseProjectDialog.close(_this);
+								//右侧刷新	
+								$.getDivHtml({
+									domid : "new_right",
+									url : platformUrl.toRight + "/" + formdata.projectId,//模版请求地址
+									data:"",//传递参数
+									okback:function(){
+										console.log("right completed");
+									}
+								})
 							});
 						}
 				}

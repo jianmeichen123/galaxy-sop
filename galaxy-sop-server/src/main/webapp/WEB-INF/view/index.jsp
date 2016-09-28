@@ -296,8 +296,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 									style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
 							</dd>
 						</dl>
-					<!-- 投资资金 -->
-						<dl class="executive_last" resource-mark="div_investment_gg" style="display:none">
+					<!-- 投资资金  删 -->
+						<!-- <dl class="executive_last" resource-mark="div_investment_gg" style="display:none">
 							<dt>
 								<h3 class="ico t9">投资资金</h3>
 							</dt>
@@ -305,7 +305,23 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 								<div id="charts_investment"
 									style="min-width:300px; height: 200px;padding-top:5px;"></div>
 							</dd>
-						</dl>
+						</dl> -->
+						<!-- 已投项目分析 -->
+						<dl class="executive_last ytxm_block" resource-mark="div_project_post_analysis_gg" style="display:none">
+							<dt>
+								<h3 class="ico t9">已投项目分析<span class="Htips">（截止至当前）</span></h3>
+								<ul class="ytxm_tab position_tab clearfix">
+									<li data-tab="nav">联合创业</li>
+									<li data-tab="nav">融快</li>
+									<li data-tab="nav">创保联</li>
+								</ul>
+							</dt>
+							<dd>
+								<div id="charts_Joint" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;"></div>
+								<div id="charts_rk" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;"></div>
+								<div id="charts_cbl" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;"></div>
+							</dd>
+						</dl>						
             </div>
             <!--右侧列表-->
             <div class="r r_executive">
@@ -377,8 +393,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 </dl>
             </acl:acl>
                 
-                <!-- 绩效考核 -->
-					<dl resource-mark="div_performance_gg" style="display:none" class="r_news">
+                <!-- 绩效考核位置下移-->
+				<!-- 	<dl resource-mark="div_performance_gg" style="display:none" class="r_news">
 						<dt>
 							<h3 class="ico t10">绩效考核</h3>
 							<span class="more null position_0" id="platform_jxkh_more" style="cursor: pointer;">more</span>
@@ -386,7 +402,17 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						<dd>
 							<div id="container_kpi" style="min-width:300px; height: 162px;padding-top:5px;"></div>
 						</dd>
-					</dl>
+					</dl> -->
+                <!-- 项目健康度 -->
+                <dl class="r_news" resource-mark="div_health_gg" style="display:none">
+					<dt>
+						<h3 class="ico t13">项目健康度<span class="Htips">（截止至当前）</span></h3>
+						<span class="more null position_0" id="platform_health_more" style="cursor: pointer;">more</span>
+					</dt>
+					<dd>
+						<div id="container_health" style="width:100%; height: 162px;padding-top:5px;"></div>
+					</dd>
+				</dl>
                 
                 <!-- 项目历时 -->
 					<dl resource-mark="div_duration_gg" style="display:none">
@@ -401,7 +427,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 					</dl>
                 
                 <!-- 项目运营 -->
-					<dl resource-mark="div_operation_gg" style="display:none" class="tool_radius executive_last">
+					<%-- <dl resource-mark="div_operation_gg" style="display:none" class="tool_radius executive_last">
 						<img src="<%=request.getContextPath()%>/img/sy.png" alt="" />
 						<dt>
 							<h3 class="ico t12">项目运营</h3>
@@ -411,7 +437,18 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							<div id="container_operation" style="min-width:440px;  height: 200px;padding-top:5px;"></div>
 							</div>
 						</dd>
+					</dl> --%>
+					<!-- 绩效考核 -->
+					<dl resource-mark="div_performance_gg" style="display:none" class="r_news executive_last">
+						<dt>
+							<h3 class="ico t10">绩效考核</h3>
+							<span class="more null position_0" id="platform_jxkh_more" style="cursor: pointer;">more</span>
+						</dt>
+						<dd>
+							<div id="container_kpi" style="min-width:300px; height: 200px;padding-top:5px;"></div>
+						</dd>
 					</dl>
+                
                     
             </div>
         </div>
@@ -583,9 +620,16 @@ $(function(){
 function paiqidate(type){
 	forwardWithHeader(platformUrl.popupMeetingList + type);
 }
+$("#platform_health_more").click(function(){
+	forwardWithHeader(platformUrl.toHealthChartDetail+"?urlFlag=null");
+})
 
 
 </script>
+<script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
+<script src="<%=path %>/js/echarts_health.js" type="text/javascript"></script>
+<%-- <script src="<%=path %>/js/echarts_ytxm.js" type="text/javascript"></script> --%>
+<script src="<%=path %>/js/charts/projectPostAnalysis.js" type="text/javascript"></script>
 <%-- <jsp:include page="./common/sop.jsp" flush="true"></jsp:include> --%>
 </html>
 

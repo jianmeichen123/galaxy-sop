@@ -479,7 +479,6 @@ var editPostMeetingDialog = {
 
 function init(){
 	datePickerInitByHandler();
-	createMenus(5);
 	pInfo = getProject();
 	meetingSearchPanel.initData();
 	

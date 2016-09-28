@@ -77,7 +77,7 @@
 	        </div>
 	    </div>
 	    <div class="button_affrim">
-	        <a href="javascript:;" id="win_ok_btn" class="register_all_affrim fl">确认</a>
+	        <a href="javascript:;" id="win_ok_btn" class="register_all_affrim fl">确定</a>
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr" data-close="close">取消</a>
 	    </div>  	
 	</div>
@@ -98,9 +98,10 @@
 	 				$("#formatRemainMoney").html(remainMoney)
 	 			 }else{
 	 				var remainMoney = '${remainMoney}';
-	 				var remainMoneyNew=remainMoney-grantMoney;
-	 				remainMoneyNew = addCommas(fixSizeDecimal(parseFloat(remainMoneyNew)));
-	 				if(remainMoneyNew<0 || remainMoneyNew==0){
+	 				var sremainMoneyNew=remainMoney-Number(grantMoney);
+	 				remainMoneyNew = addCommas(fixSizeDecimal(parseFloat(sremainMoneyNew)));
+	 				
+	 				if( sremainMoneyNew < 0 || sremainMoneyNew == 0){
 	 				    $("#formatRemainMoney").html("0");
 	 				}else{
 	 				    $("#formatRemainMoney").html(remainMoneyNew);

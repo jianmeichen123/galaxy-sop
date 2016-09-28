@@ -97,6 +97,7 @@ $(function(){
 	$(".assessment").tabchange();
 	$(".project_analysis").tabchange2();
 	$(".chartbox_bottom").tabchange1();
+	
 
 	//------------------------------弹窗部分
 		//添加团队成员信息弹窗

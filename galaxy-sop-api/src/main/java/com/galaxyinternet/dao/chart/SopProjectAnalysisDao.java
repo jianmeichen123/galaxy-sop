@@ -23,4 +23,7 @@ public interface SopProjectAnalysisDao {
 	
 	public List<SopCharts> selectInvestmentGroupDate(SopCharts query);
 	
+	public List<SopCharts> searchPostAnalysis(SopCharts query);
+	public List<SopCharts> searchPostAnalysisByHhr(SopCharts query);
+	
 }

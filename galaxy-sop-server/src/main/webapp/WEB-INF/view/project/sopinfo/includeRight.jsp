@@ -4,13 +4,12 @@
 <% 
 	String path = request.getContextPath(); 
 %>
-
+<c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
+<c:set var="isThyy" value="${fx:hasRole(20)}" scope="request"/>  
 
 
 
         
-        <!--右边        li  class="green_dot"  span class="green_dot_on"    <span class="gray_dot"></span> -->  
-        <div class="new_right">
         	<b class="sj_ico null">三角</b>
         	<!-- 投后运营Start -->
         	<c:if test="${aclViewProject or isThyy}">
@@ -118,13 +117,12 @@
             
         </div>
         <!-- 投前End -->
-        </div>
-        <!--右边 end-->
 <script src="<%=path %>/js/refuseProject.js"></script>
 <script>
+var pRigthInfo = ${proinfo}
 var proid = pid;
-var prograss = projectInfo.projectProgress;
-
+var prograss = pRigthInfo.projectProgress;
+console.log('${fx:isTransfering(pid) }:' + '哈哈哈');
 if('${fx:isTransfering(pid) }' == 'true')
 {
 	$('.fjxm_but').addClass("disabled");
@@ -176,8 +174,8 @@ $(function(){
 	}
 	init_lct(); //流程图初始化
 	
-	if(projectInfo.projectStatus == 'meetingResult:3' || projectInfo.projectStatus == 'projectStatus:2' || projectInfo.projectStatus == 'projectStatus:3' || admin!="true"){
-		$(".fjxm_but").removeAttr("onclick").attr("disabled","disabled").addClass("disabled");
+	if(pRigthInfo.projectStatus == 'meetingResult:3' || pRigthInfo.projectStatus == 'projectStatus:2' || pRigthInfo.projectStatus == 'projectStatus:3' || admin!="true"){
+		$(".fjxm_but").removeAttr("onclick").attr("readonly","readonly").addClass("disabled");
 	}
 		
 	//获取近期访谈、会议 记录
@@ -495,7 +493,6 @@ function closeback(data,fuc){
 		layer.msg("该项目已关闭");
 		//toDetail(proid);
 		fuc();
-		showTabs(proid,0)
 		//forwardWithHeader(platformUrl.mpl);
 	}
 }

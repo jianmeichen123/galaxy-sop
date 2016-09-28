@@ -53,7 +53,7 @@
               <dt >&nbsp;&nbsp;&nbsp;档案来源：</dt>
               <dd class="clearfix">
 				<!--name="fileSource" -->
-                <label><input type="radio" name="source" value = "all"/>不限</label>
+                <label><input type="radio" name="source" value = "all" checked="checked"/>不限</label>
                 <label><input type="radio" name="source" value = "1"/>内部</label>
                 <label><input type="radio" name="source" value = "2"/>外部</label>
             </dd>
@@ -91,7 +91,7 @@
               <input type="text" id="searchProjectId" class="txt" placeholder="请输入项目名称或投资经理姓名" />
             </dd>
             <dd>
-            <button type="button" class="bluebtn ico cx"   id="searchBtn">查询</button>
+            <button type="button" class="bluebtn ico cx"   id="searchBtn">搜索</button>
             </dd>
           </dl>         
         </div>

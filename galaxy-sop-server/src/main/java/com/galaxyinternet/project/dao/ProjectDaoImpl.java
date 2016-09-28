@@ -157,4 +157,4 @@ public class ProjectDaoImpl extends BaseDaoImpl<Project, Long> implements Projec
 	public List<Long> selectProIdsForPrivilege(Map<String, Object> params) {
 		return sqlSessionTemplate.selectList(getSqlName("selectProIdsForPrivilege"),params);
 	}
-}
+	}

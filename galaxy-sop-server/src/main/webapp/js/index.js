@@ -487,6 +487,9 @@ $(function(){
 					//$("#data-table").bootstrapTable("refresh");
 					window.location.reload();
 				 });
+				$(".pop").on("click", "[data-close='close']", function() {
+					window.location.reload();
+				 });
 			}//模版反回成功执行	
 		});
 		return false;
@@ -536,8 +539,8 @@ function cyIndexCallback(data){
 				'<td>'+ temp.ideaCode+'</td>'+
 				'<td class="cutstr" title="'+ temp.ideaName+'">'+ temp.ideaName+'</td>'+
 				'<td>'+ temp.departmentDesc+'</td>'+ 
-				'<td>'+ ((isNaN(temp.createdTime))?'-': Number(temp.createdTime).toDate().format("yyyy-MM-dd"))+'</td>'+
-				'<td>'+ ((isNaN(temp.updatedTime))?'-': Number(temp.updatedTime).toDate().format("yyyy-MM-dd"))+'</td>'+
+				'<td>'+ ((isNaN(temp.createdTime))?'&nbsp;&nbsp;-': Number(temp.createdTime).toDate().format("yyyy-MM-dd"))+'</td>'+
+				'<td>'+ ((isNaN(temp.updatedTime))?'&nbsp;&nbsp;-': Number(temp.updatedTime).toDate().format("yyyy-MM-dd"))+'</td>'+
 				'<td class="cutstrName" title="'+ temp.createdUname+'">'+ temp.createdUname+'</td>'+
 				'<td>'+ ideaProgressDesc+'</td>'+
 				'</tr>'; 
