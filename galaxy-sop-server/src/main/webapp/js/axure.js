@@ -771,6 +771,10 @@
 						data:opts.data,
 						dataType:"html",
 						url:opts.url,
+						beforeSend: function () {
+							var imgDiv='<div><center><img src="'+Constants.sopEndpointURL+'img/pc_color.gif">'+'</img></center></div>';
+							$(_this.id).find(".tabtxt").html(imgDiv);
+						},
 						success:function(html){
 							$(_this.id).find(".tabtxt").html(html);
 							opts.okback();
