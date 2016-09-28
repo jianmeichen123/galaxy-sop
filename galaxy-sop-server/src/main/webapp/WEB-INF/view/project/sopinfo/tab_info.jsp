@@ -405,3 +405,4 @@
 
 <!--隐藏-->
 <div class="bj_hui_on"></div>
+<script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
