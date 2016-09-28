@@ -67,7 +67,6 @@ function getProjectInfo(dtd)
 			{
 				dtd.resolve();
 			}
-			var len=$("#project_name").length
 		}
 	);
 	if(hasDtd)
@@ -119,7 +118,6 @@ function getProjectInfo(dtd)
 <script src="<%=path %>/js/plupload/zh_CN.js" type="text/javascript"></script>
 <script src="<%=path %>/js/teamSheetNew.js"></script>
 <script src="<%=path %>/js/planbusiness.js"></script>
-<script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/tabFile.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/projectDetail.js" type="text/javascript"></script>
 <script src="<%=path %>/js/projectDetail/appro.js" type="text/javascript"></script>
