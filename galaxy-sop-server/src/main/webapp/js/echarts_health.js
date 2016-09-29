@@ -72,7 +72,7 @@ $(function(){
 	                  "name":"项目数",
 	                  "type":"bar",
 	                  "data":[],
-	                  "barWidth":"20",//柱图宽度
+	                  "barWidth":"18",//柱图宽度
 	                  itemStyle: {
 	                      normal: {
 	                          color: function(params) {

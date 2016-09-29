@@ -17,6 +17,7 @@ var chartPostAnalysisUtils = {
 		        handleSize:5,
 		        height:12,
 		        y:175,
+		        zoomLock:true
 		    },
 		    calculable : true,
 		    legend:{
@@ -106,8 +107,7 @@ var chartPostAnalysisUtils = {
 		            name:'内部创建',
 		            type:'bar',
 		            stack:"项目数",
-		            "barWidth":"20",//柱图宽度
-		            borderWidth:0,
+		            "barWidth":"18",//柱图宽度
 		            data:[60,50,40,30,20,10,5],
 		            itemStyle: {
                      normal: {
@@ -122,7 +122,7 @@ var chartPostAnalysisUtils = {
 		            name:'外部投资',
 		            type:'bar',
 		            stack:"项目数",
-		            "barWidth":"20",//柱图宽度
+		            "barWidth":"18",//柱图宽度
 		            tooltip : {trigger: 'item'},
 		            data:[90,70,50,40,30,20,10],
 		            itemStyle: {
