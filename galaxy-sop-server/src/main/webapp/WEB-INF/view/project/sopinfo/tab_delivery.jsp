@@ -58,7 +58,7 @@
 							<th data-field="endByUname" data-align="left">编辑人</th>
 							<th data-field="updatedTime" data-align="left" data-formatter="longTime_Format" >编辑日期</th>
 							<th data-field="fileNum" data-align="left" data-formatter="notReturn_Format">附件数</th>
-							<th data-align="left" data-formatter="operFormat">操作</th>
+							<th data-align="left" class="w_150" data-formatter="operFormat">操作</th>
 						</tr>
 					</thead>
 				</table>

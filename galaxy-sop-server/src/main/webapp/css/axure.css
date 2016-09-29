@@ -1696,9 +1696,10 @@ font-family: "宋体";
 .member table th,.member table td{text-align: left;padding-left: 30px;}
 .member table td .del{background:url(../img/btnico.png) 0 -61px no-repeat;margin-left: 15px;}
 .member table td .resume{background:url(../img/functionico.png) 0 -331px no-repeat;margin-right: 15px;}
-.personName,#project_delivery_table th,#meetGrid th{padding-left:30px !important;}
+/* .personName,#project_delivery_table th,#meetGrid th{padding-left:30px !important;}
 #tablePerson td,#project_delivery_table td,#meetGrid td{padding-left:35px !important;}
-/*股权结构*/
+ */
+ /*股权结构*/
 .sharesType{padding-left:30px !important;}
 #shares-table td{padding-left:35px !important;}
 .stock{border-radius: 6px;}
@@ -2010,6 +2011,8 @@ dl{position: relative;}
 .role_center{ width:100%; background-color:#fff; border-radius:6px; margin-top:10px; padding-bottom: 20px;}
 .role_center_info{ padding:20px;}
 .width_150{ width:100px;  line-height: 28px;}
+.w_150{ width:190px !important;  }
+#project_delivery_table td{    overflow: hidden; white-space: nowrap;}
 .align_r{ text-align:right;}
 .ul_role{ width:100%; overflow:hidden;}
 .ul_role li{ width:100%; overflow:hidden; margin-bottom:10px; position:relative;}
