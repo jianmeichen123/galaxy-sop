@@ -9,7 +9,7 @@ var chartPostAnalysisUtils = {
 	              	type:'none'
 	              },
 	              //tooltip样式
-	              backgroundColor:'rgba(255,255,255,0.7)',
+	              backgroundColor:'rgba(255,255,255,0.9)',
 	              borderColor:'#9dd2fc',
 	              borderWidth:1,
 	              borderRadius:1,
