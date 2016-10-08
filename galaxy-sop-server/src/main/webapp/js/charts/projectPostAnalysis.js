@@ -94,11 +94,19 @@ var chartPostAnalysisUtils = {
 		    ],
 		    yAxis : [
 		             {
+		            //name样式
+		             name:'项目数（个）\n',
+		             position:'left',
+		             nameLocation:'middle',
+		             nameTextStyle:{
+		             color:"#7a8798",
+		            	fontFamily:'宋体'
+		            },
                       type : 'value',
                       axisLabel: {
                           show: true,
                           textStyle: {
-                              color: '#999'
+                              color: '#7a8798'
                           }
                       },
                       axisLine:{
