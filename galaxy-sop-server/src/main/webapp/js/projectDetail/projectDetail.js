@@ -30,7 +30,7 @@ $(function(){
 				url : platformUrl.toRight + "/" + projectId,//模版请求地址
 				data:"",//传递参数
 				okback:function(){
-					console.log("right completed");
+					
 				}
 			})
 			

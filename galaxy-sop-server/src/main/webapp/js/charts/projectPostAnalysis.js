@@ -192,8 +192,8 @@ var chartPostAnalysisUtils = {
 				            	var nbCountArr = new Array();
 				            	var wbCountArr = new Array();
 				            	$.each(data.entityList,function(){
-				            		var departmentName=this.departmentName.replace(/(^(融快\-))|(^(创保联\-))/g, "");  //融快、创保联去掉前缀
-				            		departmentArr.push(this.departmentName ? departmentName : this.createUname);
+//				            		var departmentName=this.departmentName.replace(/(^(融快\-))|(^(创保联\-))/g, "");  //融快、创保联去掉前缀
+				            		departmentArr.push(this.departmentName ? this.departmentName : this.createUname);
 				            		nbCountArr.push(parseFloat(this.nbCount));
 				            		wbCountArr.push(parseFloat(this.wbCount));
 				            		//console.log(this.nbCount)

@@ -230,6 +230,12 @@ public class SopProjectAnalysisServiceImpl implements SopProjectAnalysisService 
 			retList = analysisDao.searchPostAnalysisByHhr(query);
 		}else{
 			retList = analysisDao.searchPostAnalysis(query);
+			//去除前缀
+			for(SopCharts sopCharts : retList){
+				if(sopCharts.getDepartmentName().contains("-")){
+					sopCharts.setDepartmentName(sopCharts.getDepartmentName().split("-")[1]);
+				}	
+			}
 		} 
 		return retList;
 	}
