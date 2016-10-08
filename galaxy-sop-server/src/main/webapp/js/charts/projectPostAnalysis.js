@@ -20,7 +20,8 @@ var chartPostAnalysisUtils = {
 		        handleSize:5,
 		        height:12,
 		        y:175,
-		        zoomLock:true
+		        zoomLock:true,
+		        showDetail:false
 		    },
 		    calculable : true,
 		    legend:{
