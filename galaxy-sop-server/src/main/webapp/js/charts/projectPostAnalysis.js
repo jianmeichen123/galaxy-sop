@@ -4,7 +4,26 @@
 var chartPostAnalysisUtils = {
 		postAnalysisOptions : {
 			tooltip : {
-				trigger: 'axis'
+				trigger: 'axis',
+				axisPointer:{  //删除中轴线
+	              	type:'none'
+	              },
+	              //tooltip样式
+	              backgroundColor:'rgba(255,255,255,0.9)',
+	              borderColor:'#9dd2fc',
+	              borderWidth:1,
+	              borderRadius:1,
+	              textStyle:{
+	            	  color:'#333',
+	            	  fontFamily:'宋体',
+	            	  fontSize:'12'
+	              },
+	              formatter: function (params){
+	                  return params[0].name + '<br/>'
+	                         + params[0].seriesName + ' : ' + params[0].value + '<br/>'
+	                         + params[1].seriesName + ' : ' + params[1].value;
+	              }
+	              
 					},
 		    dataZoom: {
 		        show: true,
@@ -17,6 +36,8 @@ var chartPostAnalysisUtils = {
 		        handleSize:5,
 		        height:12,
 		        y:175,
+		        zoomLock:true,
+		        showDetail:false
 		    },
 		    calculable : true,
 		    legend:{
@@ -79,11 +100,19 @@ var chartPostAnalysisUtils = {
 		    ],
 		    yAxis : [
 		             {
+		            //name样式
+		             name:'项目数（个）\n',
+		             position:'left',
+		             nameLocation:'middle',
+		             nameTextStyle:{
+		             color:"#7a8798",
+		            	fontFamily:'宋体'
+		            },
                       type : 'value',
                       axisLabel: {
                           show: true,
                           textStyle: {
-                              color: '#999'
+                              color: '#7a8798'
                           }
                       },
                       axisLine:{
@@ -106,8 +135,7 @@ var chartPostAnalysisUtils = {
 		            name:'内部创建',
 		            type:'bar',
 		            stack:"项目数",
-		            "barWidth":"20",//柱图宽度
-		            borderWidth:0,
+		            "barWidth":"18",//柱图宽度
 		            data:[60,50,40,30,20,10,5],
 		            itemStyle: {
                      normal: {
@@ -122,14 +150,24 @@ var chartPostAnalysisUtils = {
 		            name:'外部投资',
 		            type:'bar',
 		            stack:"项目数",
-		            "barWidth":"20",//柱图宽度
-		            tooltip : {trigger: 'item'},
+		            "barWidth":"18",//柱图宽度
 		            data:[90,70,50,40,30,20,10],
 		            itemStyle: {
                      normal: {
                          color: '#51d7cc',
                          label: {  
-                             show: false,
+                             show: true,
+                             position: 'top',
+                             formatter: function (params) {
+                                 for (var i = 0, l =chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data.length; i < l; i++) {
+                                     if (chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data[i] == params.name) {
+                                         return chartPostAnalysisUtils.postAnalysisOptions.series[0].data[i] + params.value;
+                                     }
+                                 }
+                             },
+                             textStyle: {
+                                 color: '#999'
+                             }
                          }
                      }
                  },
@@ -154,8 +192,8 @@ var chartPostAnalysisUtils = {
 				            	var nbCountArr = new Array();
 				            	var wbCountArr = new Array();
 				            	$.each(data.entityList,function(){
-				            		var departmentName=this.departmentName.replace(/(^(融快\-))|(^(创保联\-))/g, "");  //融快、创保联去掉前缀
-				            		departmentArr.push(this.departmentName ? departmentName : this.createUname);
+//				            		var departmentName=this.departmentName.replace(/(^(融快\-))|(^(创保联\-))/g, "");  //融快、创保联去掉前缀
+				            		departmentArr.push(this.departmentName ? this.departmentName : this.createUname);
 				            		nbCountArr.push(parseFloat(this.nbCount));
 				            		wbCountArr.push(parseFloat(this.wbCount));
 				            		//console.log(this.nbCount)

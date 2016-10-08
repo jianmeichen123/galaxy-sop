@@ -12,7 +12,7 @@
     }else if(flag.equals("healthWarnNum")){
     	title="健康预警";
     }else{
-    	title="全部";
+    	title="项目健康度详情";
     }
 %>
 <!doctype html>
@@ -32,7 +32,7 @@
 
 <!-- 校验 -->
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
-<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" /
+<link rel="stylesheet" type="text/css" href="<%=path %>/js/validate/fx.validate.css" />
 
 </head>
 
@@ -58,15 +58,15 @@
 			</div>
      	<div class="tab-pane active ctlist" id="view">	
 			<table id="chart_health_table" data-url="<%=path %>/galaxy/health/getHealthChartGrid" 
-				data-page-list="[10, 20, 30]" data-toolbar="#health-custom-toolbar" data-show-refresh="true">
+				data-page-list="[5, 10, 20]" data-toolbar="#health-custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
 			        	<th data-field="projectName"  data-formatter="projectNameInfo" class="data-input" data-width="16%">项目名称</th>
 			        	<th data-field="projectCareerline"  class="data-input" data-width="9%">投资事业线</th>
 			        	<th data-field="healthStateDesc"  data-formatter="healthStateFormat"    data-width="6%">健康状态<span></span></th>
 			        	<th data-field="rematk"   data-formatter="rematkFormat" class="data-input" data-width="17%">风险点</th>
-			        	<th data-field="userName"   class="data-input sort" data-sortable="true" data-width="8%">分析人<span></span></th>
-			        	<th data-field="createdTime" data-formatter="longTime_Format"  data-width="5%">分析日期</th>
+			        	<th data-field="userName"   class="data-input" data-width="8%">分析人<span></span></th>
+			        	<th class="noborder" data-field="createdTime" data-formatter="longTime_Format"  data-width="5%">分析日期</th>
 			        	</tr>
  				</thead>
 			</table>

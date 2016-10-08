@@ -54,7 +54,7 @@ function queryBack(data){
 function  assembleHtml(grantTotal,i){
 	var updatedUname=grantTotal.updatedUname;
 	if($(window).width()<1400){  //编辑人针对窄屏显示器截断显示
-		if(updatedUname.length>5){
+		if(updatedUname!=undefined && updatedUname.length>5){
 			updatedUname=updatedUname.substring(0,5);
 		}
 	}	

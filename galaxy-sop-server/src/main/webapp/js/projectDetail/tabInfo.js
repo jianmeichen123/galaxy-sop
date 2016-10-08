@@ -278,6 +278,7 @@ $(function(){
 				$(".next_financing_source_show").hide();
 			}
 
+
 			function  display_show(obj){
 				
 				var height=$('#'+obj).outerHeight();
@@ -379,6 +380,7 @@ $(function(){
 			return null;
 		}
 
+
 		function projectProgress(data){
 			var projectPro = projectInfo.projectProgress;
 			var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
@@ -395,7 +397,8 @@ $(function(){
 			if(beforeSubmit()){
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
 					layer.msg("修改项目基本信息成功!");
-					window.location.reload();
+//					window.location.reload();
+					initTabInfo(data.id)
 				});
 			}
 		})

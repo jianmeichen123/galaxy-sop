@@ -6,6 +6,16 @@ $(function(){
 	              trigger:'axis',
 	              axisPointer:{  //删除中轴线
 	              	type:'none'
+	              },
+	              //tooltip样式
+	              backgroundColor:'rgba(255,255,255,0.9)',
+	              borderColor:'#9dd2fc',
+	              borderWidth:1,
+	              borderRadius:1,
+	              textStyle:{
+	            	  color:'#555',
+	            	  fontFamily:'宋体',
+	            	  fontSize:'12'
 	              }
 	          },
 	          xAxis : [
@@ -37,11 +47,19 @@ $(function(){
 	          ],
 	          yAxis : [
 	              {
+	            	  //name样式
+	            	  name:'项目数（个）\n',
+	            	  position:'left',
+	            	  nameLocation:'middle',
+	            	  nameTextStyle:{
+	            		color:"#7a8798",
+	            		fontFamily:'宋体'
+	            	  },
 	                  type : 'value',
 	                  axisLabel: {
 	                      show: true,
 	                      textStyle: {
-	                          color: '#999'
+	                          color: '#7a8798'
 	                      }
 	                  },
 	                  axisLine:{
@@ -72,7 +90,7 @@ $(function(){
 	                  "name":"项目数",
 	                  "type":"bar",
 	                  "data":[],
-	                  "barWidth":"20",//柱图宽度
+	                  "barWidth":"18",//柱图宽度
 	                  itemStyle: {
 	                      normal: {
 	                          color: function(params) {
