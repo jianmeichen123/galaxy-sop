@@ -17,7 +17,13 @@ var chartPostAnalysisUtils = {
 	            	  color:'#333',
 	            	  fontFamily:'宋体',
 	            	  fontSize:'12'
+	              },
+	              formatter: function (params){
+	                  return params[0].name + '<br/>'
+	                         + params[0].seriesName + ' : ' + params[0].value + '<br/>'
+	                         + params[1].seriesName + ' : ' + params[1].value;
 	              }
+	              
 					},
 		    dataZoom: {
 		        show: true,
@@ -145,7 +151,6 @@ var chartPostAnalysisUtils = {
 		            type:'bar',
 		            stack:"项目数",
 		            "barWidth":"18",//柱图宽度
-		            tooltip : {trigger: 'item'},
 		            data:[90,70,50,40,30,20,10],
 		            itemStyle: {
                      normal: {
