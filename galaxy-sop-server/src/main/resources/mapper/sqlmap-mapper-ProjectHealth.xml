@@ -121,8 +121,12 @@
 			 NOT EXISTS(
 			 SELECT 1 FROM `sop_project_health` b
 			WHERE a.`project_id`=b.`project_id` AND b.`created_time`>a.`created_time`)
-			 AND s.project_status!='projectStatus:2' GROUP BY a.`project_id`) 
-			sh GROUP BY sh.health_state
+			 AND s.project_status!='projectStatus:2'
+			  <if test="depId!= null">
+			    and s.`project_departId`=#{depId}
+			 </if> 
+			  GROUP BY a.`project_id`) 
+			sh  GROUP BY sh.health_state
 	</select>
   <select id="getHealthyChartsGrid" resultMap="BaseResultMap" parameterType="java.util.Map">
             SELECT a.`health_state`,a.`id`,a.`project_id`,s.`project_name` project_name,a.`rematk`,a.`user_name`,a.`created_time`,s.project_departId depId
@@ -134,6 +138,9 @@
 			 AND s.project_status!='projectStatus:2' 
 			  <if test="healthState!= null">
 			  AND a.`health_state`=#{healthState}
+			 </if>
+			   <if test="depId!= null">
+			  AND s.`project_departId`=#{depId}
 			 </if>
 			 GROUP BY a.`project_id`
 			 

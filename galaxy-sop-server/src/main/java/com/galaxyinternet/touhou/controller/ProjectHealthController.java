@@ -3,6 +3,7 @@ package com.galaxyinternet.touhou.controller;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import com.galaxyinternet.common.controller.BaseControllerImpl;
 import com.galaxyinternet.common.utils.ControllerUtils;
 import com.galaxyinternet.exception.PlatformException;
 import com.galaxyinternet.framework.core.constants.Constants;
+import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.exception.DaoException;
 import com.galaxyinternet.framework.core.model.Page;
 import com.galaxyinternet.framework.core.model.PageRequest;
@@ -39,6 +41,7 @@ import com.galaxyinternet.model.touhou.ProjectHealth;
 import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.ProjectHealthService;
 import com.galaxyinternet.service.ProjectService;
+import com.galaxyinternet.service.UserRoleService;
 
 
 /**
@@ -55,6 +58,8 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 	private ProjectHealthService projectHealthService;
 	@Autowired
 	private ProjectService projectService;
+	@Autowired
+	private UserRoleService userRoleService;
 	
 	private String tempfilePath;
 
@@ -173,9 +178,14 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
 			return responseBody;
 		}	
+		
+		//有搜索条件则不启动默认筛选
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
 		Map<String,Object> params=new HashMap<String,Object>();
 		Map<String,Object> map=new HashMap<String,Object>();
-		
+		if (roleIdList.contains(UserConstant.HHR)){
+			params.put("depId", user.getDepartmentId());
+		}
 		try {
 			map=projectHealthService.gtHealthyChart(params);
 			responseBody.setUserData(map);
@@ -210,6 +220,13 @@ public class ProjectHealthController extends BaseControllerImpl<ProjectHealth, P
 		
 		ResponseData<ProjectHealth> responseBody = new ResponseData<ProjectHealth>();
 		
+        User user = (User) getUserFromSession(request);
+		
+		//有搜索条件则不启动默认筛选
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		if (roleIdList.contains(UserConstant.HHR)){
+			query.setDepId(user.getDepartmentId());
+		}
 		try {
 			PageRequest pageRequest = new PageRequest();
 			Integer pageNum = query.getPageNum() != null ? query.getPageNum() : 0;
