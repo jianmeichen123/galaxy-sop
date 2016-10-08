@@ -6,6 +6,16 @@ $(function(){
 	              trigger:'axis',
 	              axisPointer:{  //删除中轴线
 	              	type:'none'
+	              },
+	              //tooltip样式
+	              backgroundColor:'rgba(255,255,255,0.9)',
+	              borderColor:'#9dd2fc',
+	              borderWidth:1,
+	              borderRadius:1,
+	              textStyle:{
+	            	  color:'#333',
+	            	  fontFamily:'宋体',
+	            	  fontSize:'12'
 	              }
 	          },
 	          xAxis : [
