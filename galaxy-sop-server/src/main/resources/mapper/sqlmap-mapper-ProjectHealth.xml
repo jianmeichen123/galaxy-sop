@@ -136,6 +136,8 @@
 			  AND a.`health_state`=#{healthState}
 			 </if>
 			 GROUP BY a.`project_id`
+			 
+			<if test="sorting != null"> order by ${sorting}</if>
 			limit #{offset}, #{limit}
 		
 		</select>
