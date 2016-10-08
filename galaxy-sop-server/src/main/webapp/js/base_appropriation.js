@@ -52,10 +52,14 @@ function queryBack(data){
 	}
 }
 function  assembleHtml(grantTotal,i){
-	var updatedUname=grantTotal.updatedUname;
+	var name=grantTotal.updatedUname;
+	if(typeof(name) == "undefined"){
+		name = grantTotal.createUname;
+	}
+	var subName = name;
 	if($(window).width()<1400){  //编辑人针对窄屏显示器截断显示
-		if(updatedUname!=undefined && updatedUname.length>5){
-			updatedUname=updatedUname.substring(0,5);
+		if(name.length>5){
+			subName=name.substring(0,5);
 		}
 	}	
 	var html=
@@ -64,7 +68,7 @@ function  assembleHtml(grantTotal,i){
 		  +'<div class="b_agreement_l fl">'
 		     +'<h3>'+grantTotal.grantName+'</h3>'
 	         +'<dl><dt>计划总拨款金额（元）：</dt><dd>'+addCommas(fixSizeDecimal(grantTotal.grantMoney))+'</dd></dl>'
-             +'<dl><dt>编辑人：</dt><dd title="'+grantTotal.updatedUname+'">'+updatedUname+'</dd></dl>'    
+             +'<dl><dt>编辑人：</dt><dd title="'+name+'">'+subName+'</dd></dl>'    
              +'<dl><dt>编辑日期：</dt><dd>'+time_zh(grantTotal.updatedTime)+'</dd></dl>'
           +'</div>'    
          +'<div class="b_agreement_r fr">'

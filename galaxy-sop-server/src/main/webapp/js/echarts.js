@@ -13081,7 +13081,7 @@ function(t, e) {
 			d = l.each,
 			f = c.toCamelCase,
 			p = ["", "-webkit-", "-moz-", "-o-"],
-			g = "position:absolute;display:block;border-style:solid;white-space:nowrap;z-index:9999999;";
+			g = "position:absolute;display:block;border-style:solid;white-space:nowrap;z-index:8;";
 		r.prototype = {
 			constructor: r,
 			enterable: !0,
