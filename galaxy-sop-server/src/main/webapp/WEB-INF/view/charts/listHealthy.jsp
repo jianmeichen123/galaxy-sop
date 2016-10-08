@@ -66,7 +66,7 @@
 			        	<th data-field="healthStateDesc"  data-formatter="healthStateFormat"    data-width="6%">健康状态<span></span></th>
 			        	<th data-field="rematk"   data-formatter="rematkFormat" class="data-input" data-width="17%">风险点</th>
 			        	<th data-field="userName"   class="data-input sort" data-sortable="true" data-width="8%">分析人<span></span></th>
-			        	<th data-field="createdTime" data-formatter="longTime_Format"  data-width="5%">分析日期</th>
+			        	<th class="noborder" data-field="createdTime" data-formatter="longTime_Format"  data-width="5%">分析日期</th>
 			        	</tr>
  				</thead>
 			</table>
