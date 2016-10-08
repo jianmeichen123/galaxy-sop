@@ -12,7 +12,7 @@
     }else if(flag.equals("healthWarnNum")){
     	title="健康预警";
     }else{
-    	title="全部";
+    	title="项目健康度详情";
     }
 %>
 <!doctype html>
