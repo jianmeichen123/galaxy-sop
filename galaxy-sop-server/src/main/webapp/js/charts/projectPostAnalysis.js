@@ -4,7 +4,10 @@
 var chartPostAnalysisUtils = {
 		postAnalysisOptions : {
 			tooltip : {
-				trigger: 'axis'
+				trigger: 'axis',
+				axisPointer:{  //删除中轴线
+	              	type:'none'
+	              }
 					},
 		    dataZoom: {
 		        show: true,
@@ -129,7 +132,18 @@ var chartPostAnalysisUtils = {
                      normal: {
                          color: '#51d7cc',
                          label: {  
-                             show: false,
+                             show: true,
+                             position: 'top',
+                             formatter: function (params) {
+                                 for (var i = 0, l =chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data.length; i < l; i++) {
+                                     if (chartPostAnalysisUtils.postAnalysisOptions.xAxis[0].data[i] == params.name) {
+                                         return chartPostAnalysisUtils.postAnalysisOptions.series[0].data[i] + params.value;
+                                     }
+                                 }
+                             },
+                             textStyle: {
+                                 color: '#999'
+                             }
                          }
                      }
                  },
