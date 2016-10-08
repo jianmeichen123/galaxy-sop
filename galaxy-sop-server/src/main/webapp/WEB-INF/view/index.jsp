@@ -541,6 +541,7 @@ var forwardParam = {
 					domid : 'container_progress'
 			}
 			chartProjectProgressUtils.init(progressFormdata);
+			noDataProGressDiv();
 			
 			//项目进度图表默认加载链接
 			$("#container_progress .highcharts-title tspan").click(function(){

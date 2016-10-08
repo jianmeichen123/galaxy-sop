@@ -1,6 +1,97 @@
 /**
  * 
  */
+function noDataProGressDiv(){
+	//项目进度无数据样式
+	if($("#container_progress .highcharts-title tspan").text()=="0个" || $("#container_progress .highcharts-title span").text()=="0个"){
+		$(".mask_platform_progress").show();
+		$("#more_progress").hide();
+		$('#container_progress').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+            },
+            title: {
+                text: "<span style='color:#e9ebf2'>"+'0个'+"</span>",
+                verticalAlign:'middle',
+                y:5,
+                x:-95,
+                style:{
+                    fontFamily:'微软雅黑',
+                    color:'#e9ebf2',
+                    fontWeight:'bold',
+                },
+            },
+            //去除版权
+            credits: {
+              enabled:false
+            },
+            //去除右上角导出图标
+            exporting: {
+                enabled:true
+            },
+            plotOptions: {
+            pie: {
+                borderWidth: 0,
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35,
+                dataLabels: {
+                    color:'black',
+                    rotation: -90,
+                    enabled: true,
+                    connectorWidth:0,
+                    connectorPadding:0,
+                    distance:120
+                },
+                showInLegend: true
+            }
+        },
+
+        legend: {                                                 
+            layout: 'horizontal', 
+            floating: false,                                       
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0,
+            itemWidth:90,
+            width:200,
+            padding:-25,
+            minHeight:100,
+            itemStyle:{
+                fontWeight:'normal',
+                color:'#7a8798',
+            },
+            //x:0,
+        },            
+
+            series: [{
+                type: 'pie',
+                size:'140%',
+                innerSize :'70%',
+                name: '项目退出占比',
+                data: [
+                    {name:'接触访谈',color:'#e9ebf2',y:8},
+                    {name: '内部评审',color:'#e9ebf2',y: 10},
+                    { name:'CEO评审',color:'#e9ebf2',y:16},
+                    { name:'立项会',color:'#e9ebf2',y:20},
+                    { name:'投资意向书',color:'#e9ebf2',y: 30},
+                    { name:'尽职调查',color:'#e9ebf2',y:40},
+                    { name:'投决会',color:'#e9ebf2',y:50},
+                    { name:'投资协议',color:'#e9ebf2',y:55},
+                    { name:'股权交割',color:'#e9ebf2',y:60},
+                    { name:'投后运营',color:'#e9ebf2',y:90},
+                ],
+                dataLabels: {
+                    enabled: false, 
+                }
+            }]
+        });
+	}
+};
+
 var chartIndexPProgressUtils = {
 		chartIndexPProgressOptions : {
 			chart: {
