@@ -165,7 +165,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 		
 		//统计查询， 项目
 		ProjectBo proQuery = new ProjectBo();
-		proQuery.setStartTime(query.getStartTime());
+		//proQuery.setStartTime(query.getStartTime());
 		proQuery.setEndTime(query.getEndTime());
 		proQuery.setProjectDepartid(query.getDeptid());
 		proQuery.setResultCloseFilter(DictEnum.projectStatus.GJZ.getCode()); //过滤跟进中
@@ -217,7 +217,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 		
 		//查询会议 开始时间、通过时间
 		MeetingRecordBo mquery1 = new MeetingRecordBo();
-		mquery1.setStartTime(query.getSdate());
+		//mquery1.setStartTime(query.getSdate());
 		mquery1.setEndTime(query.getEdate());
 		mquery1.setMeetingResult(DictEnum.meetingResult.通过.getCode());
 		mquery1.setProIdList(proIds);
@@ -246,20 +246,20 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 			if(proid_meetType_logo_time.containsKey(meet.getProjectId())){
 				meetType_logo_time = proid_meetType_logo_time.get(meet.getProjectId());
 				
-				logo_time.put("firstMeetTime", meet.getFirstMeetTime()==null?null:DateUtil.dateToLong(meet.getFirstMeetTime()));
-				logo_time.put("passMeetTime", meet.getPassMeetTime()==null?null:DateUtil.dateToLong(meet.getPassMeetTime()));
+				//logo_time.put("firstMeetTime", meet.getFirstMeetTime()==null?null:DateUtil.dateToLong(meet.getFirstMeetTime()));
+				//logo_time.put("passMeetTime", meet.getPassMeetTime()==null?null:DateUtil.dateToLong(meet.getPassMeetTime()));
 				
-				//logo_time.put("firstMeetTime",meet.getFirstCreatedTime());
-				//logo_time.put("passMeetTime", meet.getLastCreatedTime());
+				logo_time.put("firstMeetTime",meet.getFirstCreatedTime());
+				logo_time.put("passMeetTime", meet.getLastCreatedTime());
 				
 				meetType_logo_time.put(meet.getMeetingType(), logo_time);
 				
 			}else{
-				logo_time.put("firstMeetTime", meet.getFirstMeetTime()==null?null:DateUtil.dateToLong(meet.getFirstMeetTime()));
-				logo_time.put("passMeetTime", meet.getPassMeetTime()==null?null:DateUtil.dateToLong(meet.getPassMeetTime()));
+				//logo_time.put("firstMeetTime", meet.getFirstMeetTime()==null?null:DateUtil.dateToLong(meet.getFirstMeetTime()));
+				//logo_time.put("passMeetTime", meet.getPassMeetTime()==null?null:DateUtil.dateToLong(meet.getPassMeetTime()));
 				
-				//logo_time.put("firstMeetTime", meet.getFirstCreatedTime());
-				//logo_time.put("passMeetTime", meet.getLastCreatedTime());
+				logo_time.put("firstMeetTime", meet.getFirstCreatedTime());
+				logo_time.put("passMeetTime", meet.getLastCreatedTime());
 				
 				meetType_logo_time.put(meet.getMeetingType(), logo_time);
 				
@@ -273,7 +273,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 		
 		//查询开始申请排期时间
 		MeetingScheduling m = new MeetingScheduling();
-		m.setStartTime(query.getStartTime());
+		//m.setStartTime(query.getStartTime());
 		m.setEndTime(query.getEndTime());
 		m.setProjectIdList(proIds);
 		List<MeetingScheduling> tm = meetingSchedulingDao.selectList(m);
@@ -311,7 +311,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 		taskFlagList.add(SopConstant.TASK_FLAG_GSBG);
 		
 		SopTask taQ = new SopTask();
-		taQ.setStartTime(query.getStartTime());
+		//taQ.setStartTime(query.getStartTime());
 		taQ.setEndTime(query.getEndTime());
 		taQ.setTaskFlagS(taskFlagList);
 		taQ.setProjectIdList(proIds);
