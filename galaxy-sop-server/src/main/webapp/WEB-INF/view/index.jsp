@@ -292,11 +292,13 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						<dl class="executive_last ytxm_block" resource-mark="div_project_post_analysis_gg" style="display:none">
 							<dt>
 								<h3 class="ico t9">已投项目分析<span class="Htips">（截止至当前）</span></h3>
-								<ul class="ytxm_tab position_tab clearfix">
+								<c:if test ="${!fx:hasRole(3)}">
+					        	<ul class="ytxm_tab position_tab clearfix">
 									<li data-tab="nav">联合创业</li>
 									<li data-tab="nav">融快</li>
 									<li data-tab="nav">创保联</li>
 								</ul>
+					        	</c:if>
 							</dt>
 							<dd>
 								<div id="charts_Joint" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;"></div>
