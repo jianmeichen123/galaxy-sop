@@ -88,6 +88,8 @@ public class EnumUtil {
 			return CodeEnum.CBLcy.getCode();
 		}else if(id == CodeEnum.CBLjy.getId()){
 			return CodeEnum.CBLjy.getCode();
+		}else if(id == CodeEnum.CBLjy2.getId()){
+			return CodeEnum.CBLjy2.getCode();
 		}else if(id == CodeEnum.CBLny.getId()){
 			return CodeEnum.CBLny.getCode();
 		}else if(id == CodeEnum.CBLyl.getId()){
