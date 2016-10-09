@@ -48,7 +48,7 @@
     	<div class="new_tit_b">
         	<span class="size18" id="project_name_t"><%=title %></span>
         	<span class="b_span"> 
-	        	<a href="#" onclick="back();">返回></a>
+	        	<a href="#" onclick="backIndex();">返回></a>
 			</span>
         </div>
     	 	<div class="min_document clearfix" id="health-custom-toolbar" style="display:none;" >
