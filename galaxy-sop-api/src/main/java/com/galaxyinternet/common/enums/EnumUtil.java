@@ -10,6 +10,8 @@ public class EnumUtil {
 			return CodeEnum.bigdata.getCode();
 		}else if(id == CodeEnum.internetEducation.getId()){
 			return CodeEnum.internetEducation.getCode();
+		}else if(id == CodeEnum.internetEducation2.getId()){
+			return CodeEnum.internetEducation2.getCode();
 		}else if(id == CodeEnum.internetSteel.getId()){
 			return CodeEnum.internetSteel.getCode();
 		}else if(id == CodeEnum.socialMedia.getId()){
@@ -44,6 +46,8 @@ public class EnumUtil {
 			return CodeEnum.rongKuai.getCode();
 		}else if(id == CodeEnum.internetMedical2.getId()){
 			return CodeEnum.internetMedical2.getCode();
+		}else if(id == CodeEnum.virtualReality.getId()){
+			return CodeEnum.virtualReality.getCode();
 		}else if(id == CodeEnum.RKo2o.getId()){
 			return CodeEnum.RKo2o.getCode();
 		}else if(id == CodeEnum.RKjr.getId()){
@@ -88,8 +92,6 @@ public class EnumUtil {
 			return CodeEnum.CBLcy.getCode();
 		}else if(id == CodeEnum.CBLjy.getId()){
 			return CodeEnum.CBLjy.getCode();
-		}else if(id == CodeEnum.CBLjy2.getId()){
-			return CodeEnum.CBLjy2.getCode();
 		}else if(id == CodeEnum.CBLny.getId()){
 			return CodeEnum.CBLny.getCode();
 		}else if(id == CodeEnum.CBLyl.getId()){

@@ -5,6 +5,7 @@ public enum CodeEnum {
 	o2oDS(11, "O2O及电商", 10),
 	bigdata(8, "大数据云计算", 11),
 	internetEducation(14, "互联网教育", 12),
+	internetEducation2(32, "互联网教育二部", 32),
 	internetSteel(25, "互联网钢铁", 13),
 	socialMedia(16, "媒体社交", 14),
 	internetAgriculture(12, "互联网农业", 15),
@@ -18,11 +19,12 @@ public enum CodeEnum {
 	internetCar(17, "互联网汽车", 23),
 	/*internetOfThings(16, "物联网", 24),*/
 	internetMedical(9, "互联网医疗", 25), 
+	internetMedical2(30, "互联网医疗二部", 30),
 	internetTourism(10, "互联网旅游", 26),
 	artificialIntelligence(13, "人工智能事业部", 27),
 	enterpriseService(28, "企业服务", 28),
 	rongKuai(29, "融快事业部", 29),
-	internetMedical2(30, "互联网医疗二部", 30),
+	virtualReality(31, "虚拟现实", 31),
 	
 	
 	RKo2o(2000, "融快-O2O及电商", 61),
@@ -49,7 +51,6 @@ public enum CodeEnum {
 	CBLly(3002, "创保联-互联网旅游", 33),
 	CBLcy(3003, "创保联-互联网餐饮", 34),
 	CBLjy(3004, "创保联-互联网教育", 35),
-	CBLjy2(3004, "创保联-互联网教育二部", 47),
 	CBLny(3005, "创保联-互联网农业", 36),
 	CBLyl(3006, "创保联-数字娱乐", 37),
 	CBLzn(3007, "创保联-人工智能", 38),
