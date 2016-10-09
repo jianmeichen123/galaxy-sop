@@ -6,6 +6,7 @@ function noDataProGressDiv(){
 	//项目进度无数据样式
 	if($("#container_progress .highcharts-title tspan").text()=="0个" || $("#container_progress .highcharts-title span").text()=="0个"){
 		$(".mask_platform_progress").show();
+		$("#more_progress").hide();
 		$('#container_progress').highcharts({
             chart: {
                 plotBackgroundColor: null,
