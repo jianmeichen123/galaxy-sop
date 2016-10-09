@@ -3259,8 +3259,12 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	
 	@RequestMapping(value="/detail/toTabProjectInfo/{projectId}", method=RequestMethod.GET)
 	public String toTabProjectInfo(HttpServletRequest request,@PathVariable Long projectId){
-		if(projectId!=null && projectId.intValue() != 0)
+		if(projectId!=null && projectId.intValue() != 0){
+			Project project = projectService.queryById(projectId);
+			request.setAttribute("proinfo", GSONUtil.toJson(project));
 			request.setAttribute("projectId", projectId);
+		}
+			
 		return "project/sopinfo/tab_info";
 	}
 	

@@ -405,4 +405,7 @@
 
 <!--隐藏-->
 <div class="bj_hui_on"></div>
+<script type="text/javascript">
+	var projectInfo = ${proinfo}
+</script>
 <script src="<%=path %>/js/projectDetail/tabInfo.js" type="text/javascript"></script>
