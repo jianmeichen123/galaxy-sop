@@ -41,6 +41,18 @@ var chartIndexPProgressUtils = {
 		        x:5,
 		    },
 		    tooltip: {
+		    	backgroundColor: 'rgba(255,255,255,0.9)',   // 背景颜色
+		        borderColor: '#9dd2fc',         // 边框颜色
+		        borderRadius: 1,             // 边框圆角
+		        borderWidth: 1,               // 边框宽度
+		        shadow: false,                 // 是否显示阴影
+		        animation: true,               // 是否启用动画效果
+		        style: {                      // 文字内容相关样式
+		            color: "#ff0000",
+		            fontSize: "12px",
+		            fontWeight: "normal",
+		            fontFamily: "宋体"
+		        },
 		    	/*useHTML: true,
 		    	formatter: function(){
 		    		return this.point.x +'<br/>项目数:'+ this.point.y +'个';

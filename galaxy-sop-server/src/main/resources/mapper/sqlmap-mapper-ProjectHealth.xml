@@ -160,6 +160,9 @@
 			  <if test="healthState!= null">
 			  AND a.`health_state`=#{healthState}
 			 </if>
+			  <if test="depId!= null">
+			  AND s.`project_departId`=#{depId}
+			 </if>
 	</select>
   
 </mapper>

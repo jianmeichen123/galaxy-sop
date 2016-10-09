@@ -2,7 +2,7 @@ var totalNum_all='';
 /**
  * 项目进度
  */
-$(document).ready(function(){
+function noDataProGressDiv(){
 	//项目进度无数据样式
 	if($("#container_progress .highcharts-title tspan").text()=="0个" || $("#container_progress .highcharts-title span").text()=="0个"){
 		$(".mask_platform_progress").show();
@@ -90,7 +90,7 @@ $(document).ready(function(){
             }]
         });
 	}
-});
+};
 
 
 var chartProjectProgressUtils = {

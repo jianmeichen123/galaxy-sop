@@ -17,13 +17,7 @@ var chartPostAnalysisUtils = {
 	            	  color:'#333',
 	            	  fontFamily:'宋体',
 	            	  fontSize:'12'
-	              },
-	              formatter: function (params){
-	                  return params[0].name + '<br/>'
-	                         + params[0].seriesName + ' : ' + params[0].value + '<br/>'
-	                         + params[1].seriesName + ' : ' + params[1].value;
 	              }
-	              
 					},
 		    dataZoom: {
 		        show: true,

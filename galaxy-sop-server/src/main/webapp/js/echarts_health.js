@@ -120,6 +120,11 @@ $(function(){
 				option.series[0].data[0] =userData.healthHighNum;
 				option.series[0].data[1] =userData.healthGoodNum;
 				option.series[0].data[2] =userData.healthWarnNum;
+				//无数据显示
+				var healthTotalNum=userData.healthHighNum+userData.healthGoodNum+userData.healthWarnNum;
+				if(healthTotalNum==0){
+					$('#container_health').html('<div  class="no_info_div" style="padding-top:65px;"><span class="no_info_icon">　没有找到匹配的记录</span></div>');
+				}
 			}
 	  	});
 	   window.onresize = myChart.resize; 
