@@ -423,7 +423,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			if(project.getIndustryOwn()!=null){
-				Department queryTwo = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
+				Department queryTwo = CollectionUtils.getItem(departments, "id", project.getIndustryOwn());
 				if (queryTwo != null) {
 					project.setIndustryOwnDs(queryTwo.getName());				
 				}
