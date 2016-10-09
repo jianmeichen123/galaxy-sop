@@ -123,6 +123,7 @@ $(function(){
 				//无数据显示
 				var healthTotalNum=userData.healthHighNum+userData.healthGoodNum+userData.healthWarnNum;
 				if(healthTotalNum==0){
+					$("#platform_health_more").hide();
 					$('#container_health').html('<div  class="no_info_div" style="padding-top:65px;"><span class="no_info_icon">　没有找到匹配的记录</span></div>');
 				}
 			}
