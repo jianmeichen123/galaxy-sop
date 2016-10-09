@@ -38,14 +38,14 @@ public class EnumUtil {
 			return CodeEnum.internetOfThings.getCode();*/
 		}else if(id == CodeEnum.internetMedical.getId()){
 			return CodeEnum.internetMedical.getCode();
+		}else if(id == CodeEnum.internetMedical2.getId()){
+			return CodeEnum.internetMedical2.getCode();
 		}else if(id == CodeEnum.internetTourism.getId()){
 			return CodeEnum.internetTourism.getCode();
 		}else if(id == CodeEnum.artificialIntelligence.getId()){
 			return CodeEnum.artificialIntelligence.getCode();
 		}else if(id == CodeEnum.rongKuai.getId()){
 			return CodeEnum.rongKuai.getCode();
-		}else if(id == CodeEnum.internetMedical2.getId()){
-			return CodeEnum.internetMedical2.getCode();
 		}else if(id == CodeEnum.virtualReality.getId()){
 			return CodeEnum.virtualReality.getCode();
 		}else if(id == CodeEnum.RKo2o.getId()){
