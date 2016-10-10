@@ -48,7 +48,7 @@ var chartIndexPProgressUtils = {
 		        shadow: false,                 // 是否显示阴影
 		        animation: true,               // 是否启用动画效果
 		        style: {                      // 文字内容相关样式
-		            color: "#ff0000",
+		            color: "#555",
 		            fontSize: "12px",
 		            fontWeight: "normal",
 		            fontFamily: "宋体"
