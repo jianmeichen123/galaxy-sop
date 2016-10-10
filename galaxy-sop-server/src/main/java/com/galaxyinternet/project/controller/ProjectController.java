@@ -3261,6 +3261,30 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String toTabProjectInfo(HttpServletRequest request,@PathVariable Long projectId){
 		if(projectId!=null && projectId.intValue() != 0){
 			Project project = projectService.queryById(projectId);
+			if (project != null) {
+				List<Department> departments = departmentService.queryAll();
+				Department queryOne = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
+				Long deptId = null;
+				if (queryOne != null) {
+					project.setProjectCareerline(queryOne.getName());
+					deptId = queryOne.getManagerId();
+					if (null != deptId && deptId.longValue() > 0L) {
+						User queryById = userService.queryById(queryOne
+								.getManagerId());
+						if (queryById != null) {
+							project.setHhrName(queryById.getRealName());
+						}
+					}
+				}
+				
+				if(project.getIndustryOwn()!=null){
+					Department queryTwo = CollectionUtils.getItem(departments, "id", project.getIndustryOwn());
+					if (queryTwo != null) {
+						project.setIndustryOwnDs(queryTwo.getName());				
+					}
+				}						
+				
+			} 
 			request.setAttribute("proinfo", GSONUtil.toJson(project));
 			request.setAttribute("projectId", projectId);
 		}
