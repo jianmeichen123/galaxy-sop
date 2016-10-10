@@ -91,6 +91,8 @@ $(function(){
 					layer.msg("申请成功.");
 					$("#apply-decision-btn").addClass('disabled');
 					$("#show-upload-btn").addClass('disabled');
+					var url = $("#menus .on a").attr('href');
+					window.location=url;
 				}
 				else
 				{
