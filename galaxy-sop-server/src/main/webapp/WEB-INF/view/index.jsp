@@ -301,9 +301,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 					        	</c:if>
 							</dt>
 							<dd>
-								<div id="charts_Joint" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;"></div>
-								<div id="charts_rk" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;"></div>
-								<div id="charts_cbl" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;"></div>
+								<div id="charts_Joint" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;z-index:0;"></div>
+								<div id="charts_rk" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;z-index:0;"></div>
+								<div id="charts_cbl" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;z-index:0;"></div>
 							</dd>
 						</dl>						
             </div>
@@ -394,7 +394,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						<span class="more null position_0" id="platform_health_more" style="cursor: pointer;">more</span>
 					</dt>
 					<dd>
-						<div id="container_health" style="width:100%; height: 162px;padding-top:5px;"></div>
+						<div id="container_health" style="width:100%; height: 162px;padding-top:5px;z-index:0;"></div>
 					</dd>
 				</dl>
                 
