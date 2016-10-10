@@ -21,7 +21,6 @@ $(function(){
 			$("#plan_name").parent('li').css("margin-right","0");
 		}
 		
-
 //		UM.getEditor('editor');
 		var describeUm = UM.getEditor('describe_editor');
 		var companyUm = UM.getEditor('company_editor');
@@ -82,10 +81,12 @@ $(function(){
 			$("#end").hide();
 			$("#s").hide();
 		}
+		
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
-
+		
 			$("#project_name_title").text(projectInfo.projectName);
 			$("#project_name").text(projectInfo.projectName);
+
 			$("#project_code").text(projectInfo.projectCode);
 			$("#create_date").text(projectInfo.createDate);
 			$("#updateDate").text(projectInfo.updateDate);

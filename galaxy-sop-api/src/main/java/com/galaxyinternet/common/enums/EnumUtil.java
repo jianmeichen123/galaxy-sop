@@ -10,6 +10,8 @@ public class EnumUtil {
 			return CodeEnum.bigdata.getCode();
 		}else if(id == CodeEnum.internetEducation.getId()){
 			return CodeEnum.internetEducation.getCode();
+		}else if(id == CodeEnum.internetEducation2.getId()){
+			return CodeEnum.internetEducation2.getCode();
 		}else if(id == CodeEnum.internetSteel.getId()){
 			return CodeEnum.internetSteel.getCode();
 		}else if(id == CodeEnum.socialMedia.getId()){
@@ -36,14 +38,16 @@ public class EnumUtil {
 			return CodeEnum.internetOfThings.getCode();*/
 		}else if(id == CodeEnum.internetMedical.getId()){
 			return CodeEnum.internetMedical.getCode();
+		}else if(id == CodeEnum.internetMedical2.getId()){
+			return CodeEnum.internetMedical2.getCode();
 		}else if(id == CodeEnum.internetTourism.getId()){
 			return CodeEnum.internetTourism.getCode();
 		}else if(id == CodeEnum.artificialIntelligence.getId()){
 			return CodeEnum.artificialIntelligence.getCode();
 		}else if(id == CodeEnum.rongKuai.getId()){
 			return CodeEnum.rongKuai.getCode();
-		}else if(id == CodeEnum.internetMedical2.getId()){
-			return CodeEnum.internetMedical2.getCode();
+		}else if(id == CodeEnum.virtualReality.getId()){
+			return CodeEnum.virtualReality.getCode();
 		}else if(id == CodeEnum.RKo2o.getId()){
 			return CodeEnum.RKo2o.getCode();
 		}else if(id == CodeEnum.RKjr.getId()){
@@ -122,6 +126,8 @@ public class EnumUtil {
 			return CodeEnum.bigdata.getCareerLine();
 		}else if(id == CodeEnum.internetEducation.getId()){
 			return CodeEnum.internetEducation.getCareerLine();
+		}else if(id == CodeEnum.internetEducation2.getId()){
+			return CodeEnum.internetEducation2.getCareerLine();
 		}else if(id == CodeEnum.internetSteel.getId()){
 			return CodeEnum.internetSteel.getCareerLine();
 		}else if(id == CodeEnum.socialMedia.getId()){
@@ -148,14 +154,16 @@ public class EnumUtil {
 			return CodeEnum.internetOfThings.getCode();*/
 		}else if(id == CodeEnum.internetMedical.getId()){
 			return CodeEnum.internetMedical.getCareerLine();
+		}else if(id == CodeEnum.internetMedical2.getId()){
+			return CodeEnum.internetMedical2.getCareerLine();
 		}else if(id == CodeEnum.internetTourism.getId()){
 			return CodeEnum.internetTourism.getCareerLine();
 		}else if(id == CodeEnum.artificialIntelligence.getId()){
 			return CodeEnum.artificialIntelligence.getCareerLine();
 		}else if(id == CodeEnum.rongKuai.getId()){
 			return CodeEnum.rongKuai.getCareerLine();
-		}else if(id == CodeEnum.internetMedical2.getId()){
-			return CodeEnum.internetMedical2.getCareerLine();
+		}else if(id == CodeEnum.virtualReality.getId()){
+			return CodeEnum.virtualReality.getCareerLine();
 		}else if(id == CodeEnum.RKo2o.getId()){
 			return CodeEnum.RKo2o.getCareerLine();
 		}else if(id == CodeEnum.RKjr.getId()){
