@@ -162,7 +162,8 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	 */
 	@RequestMapping(value = "/touserkpi", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String touserkpi(HttpServletRequest request) {
-		return "report/jxkh/tab_perkpi";
+		//return "report/jxkh/tab_perkpi";
+		return "report/jxkh/kpi";
 	}
 	
 	/**
@@ -172,7 +173,8 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	 */
 	@RequestMapping(value = "/toteamkpi", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String toteamkpi(HttpServletRequest request) {
-		return "report/jxkh/tab_teamkpi";
+		//return "report/jxkh/tab_teamkpi";
+		return "report/jxkh/kpi";
 	}
 	
 	
