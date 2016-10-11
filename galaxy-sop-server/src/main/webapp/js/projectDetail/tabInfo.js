@@ -93,16 +93,16 @@ $(function(){
 			$("#createUname").text(projectInfo.createUname);
 			$("#projectCareerline").text(projectInfo.projectCareerline);
 			$("#projectType").text(projectInfo.type);
-			$("#project_contribution").text(typeof(projectInfo.projectContribution)=="undefined"?"--":projectInfo.projectContribution);
-			$("#project_valuations").text(typeof(projectInfo.projectValuations)=="undefined"?"--":projectInfo.projectValuations);
-			$("#project_share_ratio").text(typeof(projectInfo.projectShareRatio)=="undefined"?"--":projectInfo.projectShareRatio);
+			$("#project_contribution").text(typeof(projectInfo.projectContribution)=="undefined"?"--":(projectInfo.projectContribution==0?"--":projectInfo.projectContribution));
+			$("#project_valuations").text(typeof(projectInfo.projectValuations)=="undefined"?"--":(projectInfo.projectValuations==0?"--":projectInfo.projectValuations));
+			$("#project_share_ratio").text(typeof(projectInfo.projectShareRatio)=="undefined"?"--":(projectInfo.projectShareRatio==0?"--":projectInfo.projectShareRatio));
 			$("#projectProgress").text(projectInfo.progress);
 			$("#projectStatusDs").text(projectInfo.projectProgress=="projectProgress:10"?"":projectInfo.projectStatusDs);
 			$("#financeStatusDs").text(projectInfo.financeStatusDs==null?"不明确":projectInfo.financeStatusDs);
-			$("#finalValuations").text(typeof(projectInfo.finalValuations)=="undefined"?"--":projectInfo.finalValuations);
-			$("#finalContribution").text(typeof(projectInfo.finalContribution)=="undefined"?"--":projectInfo.finalContribution);
-			$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":projectInfo.finalShareRatio);
-			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":projectInfo.serviceCharge);
+			$("#finalValuations").text(typeof(projectInfo.finalValuations)=="undefined"?"--":(projectInfo.finalValuations==0?"--":projectInfo.finalValuations));
+			$("#finalContribution").text(typeof(projectInfo.finalContribution)=="undefined"?"--":(projectInfo.finalContribution==0?"--":projectInfo.finalContribution));
+			$("#finalShareRatio").text(typeof(projectInfo.finalShareRatio)=="undefined"?"--":(projectInfo.finalShareRatio==0?"--":projectInfo.finalShareRatio));
+			$("#serviceCharge").text(typeof(projectInfo.serviceCharge)=="undefined"?"--":(projectInfo.serviceCharge==0?"--":projectInfo.serviceCharge));
 			$("#industryOwnDs").text(projectInfo.industryOwnDs);
 			$("#faName").text(projectInfo.faFlag==0?"无":projectInfo.faName);
 			var ht=projectProgress(data)
@@ -122,16 +122,16 @@ $(function(){
 				$("#createUname_edit").text(projectInfo.createUname);
 				$("#projectCareerline_edit").text(projectInfo.projectCareerline);
 				$("#projectType_edit").text(projectInfo.type);
-				$("#project_contribution_edit").val(projectInfo.projectContribution==0?0:projectInfo.projectContribution);
-				$("#project_valuations_edit").val(projectInfo.projectValuations==0?0:projectInfo.projectValuations);
-				$("#project_share_ratio_edit").val(projectInfo.projectShareRatio==0?0:projectInfo.projectShareRatio);
+				$("#project_contribution_edit").val(projectInfo.projectContribution==0?"":projectInfo.projectContribution);
+				$("#project_valuations_edit").val(projectInfo.projectValuations==0?"":projectInfo.projectValuations);
+				$("#project_share_ratio_edit").val(projectInfo.projectShareRatio==0?"":projectInfo.projectShareRatio);
 				$("#projectProgress_edit").text(projectInfo.progress);
 				$("#projectStatusDs_edit").text(projectInfo.projectStatusDs);
 				$("#financeStatusDs_edit").text(projectInfo.financeStatusDs);
-				$("#finalValuations_edit").val(projectInfo.finalValuations==0?0:projectInfo.finalValuations);
-				$("#finalContribution_edit").val(projectInfo.finalContribution==0?0:projectInfo.finalContribution);
-				$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?0:projectInfo.finalShareRatio);
-				$("#serviceChargeedit").val(projectInfo.serviceCharge==0?0:projectInfo.serviceCharge)
+				$("#finalValuations_edit").val(projectInfo.finalValuations==0?"":projectInfo.finalValuations);
+				$("#finalContribution_edit").val(projectInfo.finalContribution==0?"":projectInfo.finalContribution);
+				$("#finalShareRatio_edit").val(projectInfo.finalShareRatio==0?"":projectInfo.finalShareRatio);
+				$("#serviceChargeedit").val(projectInfo.serviceCharge==0?"":projectInfo.serviceCharge)
 				
 				if(typeof(projectInfo.faFlag)!="underfined" && projectInfo.faFlag!=0){
 					$('#faFlagEdit').attr("checked","checked");

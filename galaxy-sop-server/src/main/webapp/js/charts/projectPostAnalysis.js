@@ -62,7 +62,7 @@ var chartPostAnalysisUtils = {
              y : 30,
              y2 : 55,
              x : 40,
-             x2 : 0
+             x2 : 5
              },
 		    xAxis : [
 		        {
@@ -198,7 +198,7 @@ var chartPostAnalysisUtils = {
 				            	
 				            	//默认显示5条数据，不足5条，显示全部
 				            	if(departmentArrNum>5){
-				            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=5/departmentArrNum*100;
+				            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=4/departmentArrNum*100;
 				            	}else{
 				            		chartPostAnalysisUtils.postAnalysisOptions.dataZoom.end=100;
 				            	}
