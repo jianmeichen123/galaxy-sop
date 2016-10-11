@@ -219,7 +219,7 @@ var projectGrid = {
 						//显示页码
 						if(getCookieValue("one_click_number")==''){
 							if(onclock ==''){
-								$("#search_btn").click();
+								//$("#search_btn").click();
 								onclock ='onclock';
 							}
 							//$("#search_btn").click();
