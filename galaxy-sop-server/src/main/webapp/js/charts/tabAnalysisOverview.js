@@ -91,6 +91,7 @@ var queryOverviewUtils = {
 			
 			
 			$("#search_overview_form").find("#search_project_progress").val("projectProgress:" + projectProgress);
+			projectGrid.research = true;
 			$('#grid_overview').bootstrapTable('refresh',projectGrid.queryParams);
 		}
 }
