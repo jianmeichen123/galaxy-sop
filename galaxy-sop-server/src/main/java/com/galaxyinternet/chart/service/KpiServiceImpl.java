@@ -299,7 +299,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 			}
 		}
 		
-		meetList.clear();
+		tm.clear();
 		
 		
 		//查询任务 开始 完成 时间
