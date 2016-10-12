@@ -2,12 +2,13 @@ var totalDay_all='';
 /**
  * 项目历时
  */
+$(function(){
+	noDataProTimeDiv();
+})
 
 function noDataProTimeDiv(){
 	//项目历时无数据样式
 	if(($("#container_time .highcharts-title span").text()=="0天") || ($("#container_time .highcharts-title tspan").text()=="0天")){
-		alert($("#container_time .highcharts-title tspan").text());
-		alert($("#container_time .highcharts-title span").text());
 		$(".mask_platform_time").show();
 		$('#container_time').highcharts({
             chart: {

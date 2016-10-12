@@ -2,6 +2,10 @@ var totalNum_all='';
 /**
  * 项目进度
  */
+$(function(){
+	noDataProGressDiv();
+})
+
 function noDataProGressDiv(){
 	//项目进度无数据样式
 	if(($("#container_progress .highcharts-title span").text()=="0个") || ($("#container_progress .highcharts-title tspan").text()=="0个")){
