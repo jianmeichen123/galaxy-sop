@@ -480,6 +480,14 @@ var transferingIds = "${fx:getTransferingPids()}".split(",");
 <script src="<%=path %>/js/indexMsResource.js" type="text/javascript"></script>
 
 
+<!-- charts -->
+<script src="<%=path %>/js/charts/projectInvestment.js"></script>
+<script src="<%=path %>/js/charts/projectProgress.js"></script>
+<script src="<%=path %>/js/charts/indexKpi.js"></script>
+<script src="<%=path %>/js/charts/indexProjectDuration.js"></script>
+<script src="<%=path %>/js/charts/indexMatterPreview.js"></script>
+
+
 
 
 <script type="text/javascript">
@@ -608,11 +616,5 @@ $("#platform_health_more").click(function(){
 <%-- <script src="<%=path %>/js/echarts_ytxm.js" type="text/javascript"></script> --%>
 <script src="<%=path %>/js/charts/projectPostAnalysis.js" type="text/javascript"></script>
 <%-- <jsp:include page="./common/sop.jsp" flush="true"></jsp:include> --%>
-<!-- charts -->
-<script src="<%=path %>/js/charts/projectInvestment.js"></script>
-<script src="<%=path %>/js/charts/projectProgress.js"></script>
-<script src="<%=path %>/js/charts/indexKpi.js"></script>
-<script src="<%=path %>/js/charts/indexProjectDuration.js"></script>
-<script src="<%=path %>/js/charts/indexMatterPreview.js"></script>
 </html>
 
