@@ -771,6 +771,7 @@
 						data:opts.data,
 						dataType:"html",
 						url:opts.url,
+						cache:false,
 						beforeSend: function () {
 							var imgDiv='<div style="margin-top:50px;"><center><img src="'+Constants.sopEndpointURL+'img/pc_color.gif">'+'</img></center></div>';
 							$(_this.id).find(".tabtxt").html(imgDiv);
