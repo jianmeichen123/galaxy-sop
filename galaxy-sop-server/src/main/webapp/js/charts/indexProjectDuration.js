@@ -5,7 +5,7 @@ var totalDay_all='';
 
 function noDataProTimeDiv(){
 	//项目历时无数据样式
-	if($("#container_time .highcharts-title tspan").text()=="0天" || $("#container_time .highcharts-title span").text()=="0天"){
+	if(($("#container_time .highcharts-title tspan").text()=="0天") || ($("#container_time .highcharts-title span").text()=="0天")){
 		$(".mask_platform_time").show();
 		$('#container_time').highcharts({
             chart: {

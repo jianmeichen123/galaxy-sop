@@ -1,4 +1,5 @@
 $(function(){
+		
 		var width_fwb=$('.tabtable_con_on').width();
 		$('.width_fwb').css('width',(width_fwb-20));
 
@@ -85,8 +86,8 @@ $(function(){
 		var num = projectPro.substring(projectPro.lastIndexOf(":")+1,projectPro.length);
 		
 			$("#project_name_title").text(projectInfo.projectName);
+			$("#project_name_t").text(projectInfo.projectName);
 			$("#project_name").text(projectInfo.projectName);
-
 			$("#project_code").text(projectInfo.projectCode);
 			$("#create_date").text(projectInfo.createDate);
 			$("#updateDate").text(projectInfo.updateDate);
@@ -399,7 +400,7 @@ $(function(){
 				sendPostRequestByJsonObj(platformUrl.updateProject,data, function(){
 					layer.msg("修改项目基本信息成功!");
 //					window.location.reload();
-					initTabInfo(data.id)
+					initTabInfo(data.id);
 				});
 			}
 		})
