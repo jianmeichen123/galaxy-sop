@@ -93,7 +93,7 @@
 								<input type="text" class="datepicker txt time" name="file_endDate" value="2016-01-01" />
 							</dd>
                             <dd>
-								<a href="javascript:;" id="file_repository_btn" class="pubbtn bluebtn">查询</a>
+								<a href="javascript:;" id="file_repository_btn" class="pubbtn bluebtn">搜索</a>
 							</dd>
                           </dl>
                         </div>
@@ -150,7 +150,6 @@
 	var projectId = '${projectId}';
 	var prograss = '${prograss}';
 	var isTransfering = "${fx:isTransfering(projectId) }";
-	createMenus(5);
     //搜索框显示隐藏
   $('.show_more a').on("click",function(){
     var $self=$(this),

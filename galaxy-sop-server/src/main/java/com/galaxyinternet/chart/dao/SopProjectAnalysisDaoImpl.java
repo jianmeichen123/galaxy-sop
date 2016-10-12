@@ -38,6 +38,15 @@ public class SopProjectAnalysisDaoImpl extends BaseChartDaoImpl<SopCharts> imple
 		return selectListBySqlName("selectInvestmentGroupDate", query);
 	}
 	
+	@Override
+	public List<SopCharts> searchPostAnalysis(SopCharts query){
+		return selectListBySqlName("searchPostAnalysis", query);
+	}
+	
+	public List<SopCharts> searchPostAnalysisByHhr(SopCharts query){
+		return selectListBySqlName("searchPostAnalysisByHhr", query); 
+	}
+	
 	
 	
 }

@@ -563,6 +563,4 @@ public class ProjectServiceImpl extends BaseServiceImpl<Project> implements Proj
 	public List<Long> getProIdsForPrivilege(Map<String,Object> params) {
 		return projectDao.selectProIdsForPrivilege(params);
 	}
-	
-	
 }

@@ -60,6 +60,8 @@ public class SopCharts extends BaseEntity implements Serializable {
 	
 	private Long createUid;
 	
+
+	
 	
 	
 	/**
@@ -81,6 +83,16 @@ public class SopCharts extends BaseEntity implements Serializable {
 	 * 项目总数量
 	 */
 	private Long totalCount;
+	
+	/**
+	 * 内部数量
+	 */
+	private Long nbCount;
+	
+	/**
+	 * 外部数量
+	 */
+	private Long wbCount;
 	
 	/**
 	 * 目标数
@@ -135,9 +147,16 @@ public class SopCharts extends BaseEntity implements Serializable {
 	
 	
 	
+	
+	
 	private String createUname;
 	private String departmentName;
 	private String projectTypeName;
+	
+	/**
+	 * 业务部门大分类(1:联合创业 2：融快 3：创宝联)
+	 */
+	private Long belongType;
 
 	
 	
@@ -145,6 +164,7 @@ public class SopCharts extends BaseEntity implements Serializable {
 	protected Integer pageNum;
 	
 	
+	private String projectStatus;
 	
 	
 	
@@ -325,10 +345,32 @@ public class SopCharts extends BaseEntity implements Serializable {
 	public void setInvest(Long invest) {
 		this.invest = invest;
 	}
-
+	public String getProjectStatus() {
+		return projectStatus;
+	}
+	public void setProjectStatus(String projectStatus) {
+		this.projectStatus = projectStatus;
+	}
+	public Long getNbCount() {
+		return nbCount;
+	}
+	public void setNbCount(Long nbCount) {
+		this.nbCount = nbCount;
+	}
+	public Long getWbCount() {
+		return wbCount;
+	}
+	public void setWbCount(Long wbCount) {
+		this.wbCount = wbCount;
+	}
+	public Long getBelongType() {
+		return belongType;
+	}
+	public void setBelongType(Long belongType) {
+		this.belongType = belongType;
+	}
 	
-
-
-
+	
+	
 	
 }

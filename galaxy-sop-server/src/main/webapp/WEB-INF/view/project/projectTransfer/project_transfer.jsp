@@ -39,7 +39,7 @@
                     <div class="fl width_150 align_r">　</div>
                     <div class="fl">
                     	<div class="button_affrim">
-        <a href="javascript:;" class="register_all_affrim fl" id="projectTransfer" action="save" >确认</a>
+        <a href="javascript:;" class="register_all_affrim fl" id="projectTransfer" action="save" >确定</a>
         <a href="javascript:;" class="register_all_input fr" data-close="close">取消</a>
     </div>
                     </div>

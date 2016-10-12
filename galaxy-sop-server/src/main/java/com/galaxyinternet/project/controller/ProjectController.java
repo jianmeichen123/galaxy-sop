@@ -85,6 +85,7 @@ import com.galaxyinternet.operationMessage.handler.StageChangeHandler;
 import com.galaxyinternet.platform.constant.PlatformConst;
 import com.galaxyinternet.project.service.HandlerManager;
 import com.galaxyinternet.project.service.handler.Handler;
+import com.galaxyinternet.project.service.handler.YwjzdcHandler;
 import com.galaxyinternet.service.ConfigService;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.InterviewRecordService;
@@ -100,6 +101,7 @@ import com.galaxyinternet.service.SopVoucherFileService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.utils.CollectionUtils;
+import com.galaxyinternet.utils.SopConstatnts;
 
 @Controller
 @RequestMapping("/galaxy/project")
@@ -136,6 +138,10 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	private DepartmentService departmentService;
 	@Autowired
 	private PassRateService passRateService;
+	
+	@Autowired
+	private YwjzdcHandler ywjzdcHandler;
+	
 	
 	@Autowired
 	private SopTaskService sopTaskService;
@@ -417,7 +423,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 			
 			if(project.getIndustryOwn()!=null){
-				Department queryTwo = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
+				Department queryTwo = CollectionUtils.getItem(departments, "id", project.getIndustryOwn());
 				if (queryTwo != null) {
 					project.setIndustryOwnDs(queryTwo.getName());				
 				}
@@ -1177,6 +1183,123 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 
 		return responseBody;
 	}
+	
+	/**
+	 * 上传业务尽调报告
+	 */
+	/**
+	 * 项目阶段中的文档上传 该项目对应的创建人操作
+	 */
+	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
+	@ResponseBody
+	@RequestMapping(value = "/businessAdjustment", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ProjectQuery> businessAdjustment(ProjectQuery p,
+			HttpServletRequest request) {
+		ResponseData<ProjectQuery> responseBody = new ResponseData<ProjectQuery>();
+		
+		// 解析文件上传的非file表单值
+		if (p.getPid() == null) {
+			String json = JSONUtils.getBodyString(request);
+			p = GSONUtil.fromJson(json, ProjectQuery.class);
+		}
+		/**
+		 * 1.参数校验
+		 */
+		// 所有都必须附带pid和stage
+		if (p.getPid() == null
+				|| p.getStage() == null
+				|| !SopConstant._progress_pattern_.matcher(p.getStage())
+						.matches() || p.getParseDate() == null) {
+			responseBody.setResult(new Result(Status.ERROR, null, "必要的参数丢失!"));
+			return responseBody;
+		}
+		
+		Project project = projectService.queryById(p.getPid());
+		if (project == null) {
+			responseBody
+					.setResult(new Result(Status.ERROR, null, "未找到相应的项目信息!"));
+			return responseBody;
+		}
+		//上传只能在当前阶段才能进行
+		if (p.getType() == null
+				|| p.getFileType() == null
+				|| !SopConstant._file_type_pattern_
+						.matcher(p.getFileType()).matches()
+				|| p.getFileWorktype() == null
+				|| !SopConstant._file_worktype_pattern_.matcher(
+						p.getFileWorktype()).matches()) {
+			responseBody.setResult(new Result(Status.ERROR, null,
+					"必要的参数丢失!"));
+			return responseBody;
+		}
+		
+		int in = Integer.parseInt(p.getStage().substring(p.getStage().length() - 1));
+		int pin = Integer.parseInt(project.getProjectProgress().substring(project.getProjectProgress().length() - 1));
+		if (in < pin) {
+			if(!utilsService.checkProIsGreenChannel(p.getPid())){
+				responseBody.setResult(new Result(Status.ERROR, null, "该操作已过期!"));
+				return responseBody;				
+			}
+		}
+		
+		User user = (User) getUserFromSession(request);
+		// 项目创建者用户ID与当前登录人ID是否一样
+		if (user.getId().longValue() != project.getCreateUid().longValue()) {
+			responseBody
+					.setResult(new Result(Status.ERROR, null, "没有权限修改该项目!"));
+			return responseBody;
+		}
+		p.setCreatedUid(user.getId());
+		p.setDepartmentId(user.getDepartmentId());
+		/**
+		 * 2.文件上传 这里都是上传，无更新，所以每次都生成一个新的fileKey
+		 */
+		String fileKey = String
+				.valueOf(IdGenerator.generateId(OSSHelper.class));
+		UploadFileResult result = uploadFileToOSS(request, fileKey,
+				tempfilePath);
+
+		// 验证是否文件是必须的
+		if (result == null
+				|| !result.getResult().getStatus().equals(Result.Status.OK)) {
+			responseBody
+					.setResult(new Result(Status.ERROR, null, "缺失相应文档!"));
+			return responseBody;
+		}
+
+		/**
+		 * 3.处理业务
+		 */
+		try {
+			if (result != null
+					&& result.getResult().getStatus().equals(Result.Status.OK)) {
+				p.setFileName(result.getFileName());
+				p.setSuffix(result.getFileSuffix());
+				p.setBucketName(result.getBucketName());
+				p.setFileKey(fileKey);
+				p.setFileSize(result.getContentLength());
+			}
+			if (handlerManager.getStageHandlers().containsKey(p.getStage())) {
+				SopResult r = ywjzdcHandler.handler(p, project);
+				if (r != null && r.getStatus().equals(Result.Status.OK)) {
+					responseBody.setResult(r);
+					// 记录操作日志
+					ControllerUtils.setRequestParamsForMessageTip(request,
+							project.getProjectName(), project.getId(),
+							r.getMessageType(), r.getNumber(),r.getAttachment());
+				}
+			}
+		} catch (Exception e) {
+			_common_logger_.error("操作失败", e);
+			responseBody.getResult().addError("操作失败!");
+		}
+
+		
+		return responseBody;
+	}
+	
+	
+	
 
 	/**
 	 * 是否涉及"股权转让"点击事件
@@ -1448,11 +1571,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 			}
 		}*/
 		try {
-			projectService.toSureMeetingStage(project);
-			responseBody.setResult(new Result(Status.OK, ""));
-			responseBody.setId(project.getId());
-			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_);
-			/*
+			//绿色通道标识 入库
 			boolean toGreen = false;
 			SopFile file = new SopFile();
 			file.setProjectId(pid);
@@ -1464,6 +1583,7 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 					|| (project.getProjectType().equals(DictEnum.projectType.内部创建.getCode()) && files.size() < 2)) {
 				toGreen = true;
 			}
+			//校验，文件记录存在，并且 aliyun中对应的key也存在
 			if(!toGreen){
 				for (SopFile f : files) {
 					if (f.getFileKey() == null || "".equals(f.getFileKey().trim())) {
@@ -1472,9 +1592,31 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 				}
 			}
 			if(toGreen){
-				utilsService.saveByRedis(SopConstatnts.Redis._GREEN_CHANNEL_6_, pid);
+				if(project.getGreanChannel() == null || StringUtils.isBlank(project.getGreanChannel())){
+					project.setGreanChannel(SopConstatnts.GreanMark.JZDC);
+				}else if(project.getGreanChannel().indexOf(SopConstatnts.GreanMark.JZDC) == -1){
+					project.setGreanChannel(project.getGreanChannel() + "," +SopConstatnts.GreanMark.JZDC);
+				}
+				
+			//如果不是绿色通道,则处理任务	
+			}else{
+				SopTask task = new SopTask();
+				//条件
+				task.setProjectId(pid);
+				task.setTaskType(DictEnum.taskType.协同办公.getCode());
+				task.setTaskFlag(SopConstant.TASK_FLAG_YWJD);
+				//修改
+				Date time = new Date();
+				task.setTaskStatus(DictEnum.taskStatus.已完成.getCode());
+				task.setUpdatedTime(time.getTime());
+				task.setTaskDeadline(time);
+				sopTaskService.updateTask(task);
 			}
-			*/
+			
+			projectService.toSureMeetingStage(project);
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setId(project.getId());
+			ControllerUtils.setRequestParamsForMessageTip(request, project.getProjectName(), project.getId(), StageChangeHandler._6_7_);
 			
 		} catch (Exception e) {
 			responseBody
@@ -2789,7 +2931,8 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public ModelAndView detail(@PathVariable("id") Long id)
 	{
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/project/sopinfo/projectinfo");
+//		mv.setViewName("/project/sopinfo/projectinfo");
+		mv.setViewName("/project/sopinfo/project_detail");
 		mv.addObject("projectId", id);
 		mv.addObject("pid", id);
 		return mv;
@@ -3111,6 +3254,78 @@ public class ProjectController extends BaseControllerImpl<Project, ProjectBo> {
 	public String toRefuseProject(){
 		return "project/dialog/refuseProjectDialog";
 	}
+	
+	
+	
+	@RequestMapping(value="/detail/toTabProjectInfo/{projectId}", method=RequestMethod.GET)
+	public String toTabProjectInfo(HttpServletRequest request,@PathVariable Long projectId){
+		if(projectId!=null && projectId.intValue() != 0){
+			Project project = projectService.queryById(projectId);
+			if (project != null) {
+				List<Department> departments = departmentService.queryAll();
+				Department queryOne = CollectionUtils.getItem(departments, "id", project.getProjectDepartid());
+				Long deptId = null;
+				if (queryOne != null) {
+					project.setProjectCareerline(queryOne.getName());
+					deptId = queryOne.getManagerId();
+					if (null != deptId && deptId.longValue() > 0L) {
+						User queryById = userService.queryById(queryOne
+								.getManagerId());
+						if (queryById != null) {
+							project.setHhrName(queryById.getRealName());
+						}
+					}
+				}
+				
+				if(project.getIndustryOwn()!=null){
+					Department queryTwo = CollectionUtils.getItem(departments, "id", project.getIndustryOwn());
+					if (queryTwo != null) {
+						project.setIndustryOwnDs(queryTwo.getName());				
+					}
+				}						
+				
+			} 
+			request.setAttribute("proinfo", GSONUtil.toJson(project));
+			request.setAttribute("projectId", projectId);
+		}
+			
+		return "project/sopinfo/tab_info";
+	}
+	
+	/**
+	 * 跳转tabFile页面
+	 */
+	@RequestMapping(value = "/detail/toTabFile/{projectId}", method = RequestMethod.GET)
+	public String toTabFile(@PathVariable("projectId") Long projectId, HttpServletRequest request) {
+		Project project = new Project();
+		project = projectService.queryById(projectId);
+		request.setAttribute("proinfo", GSONUtil.toJson(project));
+		request.setAttribute("projectId", projectId);
+		request.setAttribute("prograss", project.getProjectProgress());
+		request.setAttribute("projectName", project.getProjectName());
+		return "project/sopinfo/tab_file";
+	}
+	
+	
+	/**
+	 * 跳转Right页面
+	 */
+	@RequestMapping(value = "/detail/toRight/{projectId}", method = RequestMethod.GET)
+	public String toRight(@PathVariable("projectId") Long projectId, HttpServletRequest request) {
+		Project project = new Project();
+		project = projectService.queryById(projectId);
+		request.setAttribute("proinfo", GSONUtil.toJson(project));
+		request.setAttribute("projectId", projectId);
+		request.setAttribute("pid", projectId);
+		request.setAttribute("prograss", project.getProjectProgress());
+		request.setAttribute("projectName", project.getProjectName());
+		return "project/sopinfo/includeRight";
+	}
+	
+	
+	
+	
+	
 	
 	
 }

@@ -10,7 +10,7 @@
     <div class="left">
       <dl class="fmdl fml">
         <dt>所有权人：</dt>
-        <dd><input type="text" name="sharesOwner" value="" class="txt" valType="OTHER" regString="^.{1,20}$"msg="<font color=red>*</font>只能是汉字或是字符,长度为20"/></dd>
+        <dd><input type="text" name="sharesOwner" value="" class="txt" valType="OTHER" regstring="^\S{1,20}[^\d]+$" msg="<font color=red>*</font>只能是汉字或是字符,最长度为20"/></dd>
       </dl>
       <dl class="fmdl">
         <dt>占比：</dt>

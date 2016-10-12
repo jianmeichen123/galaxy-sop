@@ -16,8 +16,8 @@ input{outline: none;font-size:14px; font-family:"宋体";color:#525662;}
  /*弹窗列表*/
  #businessplan-history-dialog .fixed-table-body{max-height:350px; overflow-y:auto}
 /*固定弹窗排期头部*/
-.fixed_table_tit{position:fixed; width:680px}
-.fixed_table{width:680px}
+.fixed_table_tit{position:fixed; width:775px}
+.fixed_table{width:775px}
 /*clearfix-浮动清理*/
 .clearfix:after { content:"."; display:block; height:0; clear:both; visibility:hidden }
 .clearfix { display:inline-block }
@@ -820,7 +820,8 @@ background-size: cover;margin:0 5px 0  0;position: relative;top: 3px;}
 .chart_m{margin-top: 20px;}
 .table_m{margin-bottom: 50px !important;}
 .middle{margin: 10px 0 30px 0;}
-.middle .middle_l,.chartbox .middle .middle_r{width: 50%;float: left;}
+.middle .middle_l{width: 60%;float: left;}
+.chartbox .middle .middle_r{width: 40%;float: left;}
 .middle .middle_l table{border-top-right-radius: 0 !important;}
 .search_box dl dd select {font-size: 12px !important;}
 /* .search_box .qx{width: 50px;}
@@ -1031,9 +1032,9 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .scheduletc .btnbox{}
 .scheduletc .btnbox .pubbtn{ margin:0 20px 0 0; display:inline-block; *display:inline; zoom:1;}
 /*立项弹窗*/
-.projecttc{ width:700px; height:320px; overflow-y:auto}
+.projecttc{ width:800px; height:320px; overflow-y:auto}
 .xmstjtc,.ghltjtc,.tjltjtc{ width:900px; height:430px; }
-.xmstjtc .fixed-table-body,.ghltjtc .fixed-table-body,.tjltjtc .fixed-table-body{height:350px; overflow-y:scroll;}
+.xmstjtc .fixed-table-body,.ghltjtc .fixed-table-body,.tjltjtc .fixed-table-body{height:350px; overflow-y:auto;}
 /*新增会议*/
 .meetingtc{ width:680px}
 .meetingtc .top{ margin:0 0 15px}
@@ -1346,7 +1347,7 @@ em{font-style: normal;}
 .calendar_box dl{height:30px;line-height: 30px;color:#3e4351;}
 .calendar_box dl dt{font-size: 14px;font-family: "微软雅黑";}
 .calendar_box dl dd{font-size: 12px;font-family: "宋体";}
-.calendar_box .closed{position: absolute;top: -10px;right: -10px;width: 26px;height:26px;background: url(../img/tcclose.png) 0 0 no-repeat;font-size: 0;cursor: pointer;}
+.calendar_box .closed{position: absolute;top: 3px;right: 3px;width: 26px;height:26px;z-index:10;background: url(../img/tcclose.png) 0 0 no-repeat;font-size: 0;cursor: pointer;}
 /* 公共调样式 ------------------------------------------------------------------*/
 dl dt,dl label{font-weight: normal !important;}
 #itemDate{border-radius:4px;border:1px solid #dadfe3;padding-left:3px;font-size: 12px;height: 28px !important;}
@@ -1695,9 +1696,10 @@ font-family: "宋体";
 .member table th,.member table td{text-align: left;padding-left: 30px;}
 .member table td .del{background:url(../img/btnico.png) 0 -61px no-repeat;margin-left: 15px;}
 .member table td .resume{background:url(../img/functionico.png) 0 -331px no-repeat;margin-right: 15px;}
-.personName,#project_delivery_table th,#meetGrid th{padding-left:30px !important;}
+/* .personName,#project_delivery_table th,#meetGrid th{padding-left:30px !important;}
 #tablePerson td,#project_delivery_table td,#meetGrid td{padding-left:35px !important;}
-/*股权结构*/
+ */
+ /*股权结构*/
 .sharesType{padding-left:30px !important;}
 #shares-table td{padding-left:35px !important;}
 .stock{border-radius: 6px;}
@@ -1907,7 +1909,7 @@ dl{position: relative;}
     right: 10px;
     top: 15px; display:block;
 }
-.no_info_div{ width:230px; margin-left:auto; margin-right:auto; padding-top:80px;}
+.no_info_div{ /* width:230px; */width:155px; margin-left:auto; margin-right:auto; padding-top:80px;}
 .no_info_div span{ text-align: center; line-height:30px; color:#bbb;}
 .mask_platform_time,.mask_platform_progress{width:100%;height:148px;position:absolute;background-color: #000;z-index: 9;opacity: 0;filter:Alpha(opacity=0);display:none;}
 /*交割前事项*/
@@ -2009,6 +2011,8 @@ dl{position: relative;}
 .role_center{ width:100%; background-color:#fff; border-radius:6px; margin-top:10px; padding-bottom: 20px;}
 .role_center_info{ padding:20px;}
 .width_150{ width:100px;  line-height: 28px;}
+.w_150{ width:190px !important;  }
+#project_delivery_table td{    overflow: hidden; white-space: nowrap;}
 .align_r{ text-align:right;}
 .ul_role{ width:100%; overflow:hidden;}
 .ul_role li{ width:100%; overflow:hidden; margin-bottom:10px; position:relative;}
@@ -2132,4 +2136,10 @@ margin: 45px auto 30px;}
 .moeny_all .money ,#setValue .money ,#label_grant_money .money{ position: absolute; top: -39px;  left: 285px;}
 .bj_hui{ background-color:rgb(248, 248, 248) !important; display:none ; width: 150px;    border: 1px solid #dadfe3; border-radius: 4px;
     padding: 0 4px;  font-size: 12px;}
-
+/*------------------------------- V2.3.101-------------------------------- */
+.tablist .Htips{font-size:12px;color:#aaa;font-family:"宋体"}
+.ytxm_tab{width:156px;height:18px;}
+.ytxm_tab li{float:left;min-width:30px;text-align:center;margin-left:2px;background:#e9ebf2;color:#7a8798;font-size:12px;font-family:"宋体";line-height:18px;padding:0 6px;cursor:pointer;}
+.position_tab{position: absolute; right: 10px;top: 8px;}
+.position_tab li.on{background:#c1d0dd;color:#fff;}
+.pagebox .min .tablist dt .t13{ background-position:0 -287px}

@@ -16,7 +16,7 @@
 		FILEINFO对应info级别，文件名以log-info-xxx.log形式命名
 		FILEDEBUG对应debug级别，文件名以log-debug-xxx.log形式命名
 		stdout将日志信息输出到控制上，为方便开发测试使用
- --
+ -->
 <configuration>
 
        <!-- 在Eclipse中运行，请到Eclipse的安装目录中找log文件，Tomcat下，请到Tomcat目录下找 -->

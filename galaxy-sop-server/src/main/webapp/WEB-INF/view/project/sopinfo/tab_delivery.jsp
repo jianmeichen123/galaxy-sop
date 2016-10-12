@@ -10,20 +10,11 @@
 <head>
 <meta charset="utf-8">
 <title>项目详情</title>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/js/validate/lib/tip-yellowsimple/tip-yellowsimple.css" />
-<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/beautify.css" type="text/css" rel="stylesheet"/>
-<link href="<%=path %>/css/style.css" type="text/css" rel="stylesheet"/>
-<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-<link rel="stylesheet" href="<%=path %>/css/showLoading.css"  type="text/css">
-<!-- bootstrap-table -->
-<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
-<!-- 日历插件 -->
-<link href="<%=path %>/bootstrap/bootstrap-datepicker/css/bootstrap-datepicker3.css" type="text/css" rel="stylesheet"/>
 
+<!-- 高管/投资经理 -->
+<c:set var="isCreatedByUser" value="${fx:isCreatedByUser('project',projectId)  }" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
 
-<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
-<script src="<%=path %>/js/sopinfo.js"></script>
 <style type="text/css">
 .bars{margin:0 !important;}
 </style>
@@ -32,22 +23,7 @@
 
 <body>
 
-<jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
 
-<div class="pagebox clearfix">
-	<!--左侧导航-->
-	<jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
-     
-    <!--右中部内容-->
- 	<div class="ritmin">
- 	
-    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
-
-
-		<div class="new_left">
-			<div class="tabtable assessment label_static">
-				<!-- tab标签 -->
-	            <jsp:include page="tab_header.jsp?index=7" flush="true"></jsp:include>
 
 
 
@@ -82,7 +58,7 @@
 							<th data-field="endByUname" data-align="left">编辑人</th>
 							<th data-field="updatedTime" data-align="left" data-formatter="longTime_Format" >编辑日期</th>
 							<th data-field="fileNum" data-align="left" data-formatter="notReturn_Format">附件数</th>
-							<th data-align="left" data-formatter="operFormat">操作</th>
+							<th data-align="left" class="w_150" data-formatter="operFormat">操作</th>
 						</tr>
 					</thead>
 				</table>
@@ -91,17 +67,7 @@
 			<!-- </div>
 				tab end-->
 
-			</div>
-		</div>
-
-		<!--右边-->
-        <jsp:include page="./includeRight.jsp" flush="true"></jsp:include>
-        
-    </div>
- 
-</div>
-
-<jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
+</body>
 
 
 <!-- 分页二css+四js -->
@@ -124,7 +90,6 @@
 	var deliver_selectRow = null;
 	var isTransfering = "${fx:isTransfering(pid) }";
 $(function(){
-	createMenus(5);
 	
 	$("#projectId").val(proid);
 	if(isTransfering == 'true')

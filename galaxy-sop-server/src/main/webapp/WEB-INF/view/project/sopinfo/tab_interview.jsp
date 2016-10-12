@@ -23,29 +23,16 @@
 <!-- 富文本编辑器 -->
 <link href="<%=path %>/ueditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 
-<jsp:include page="../../common/taglib.jsp" flush="true"></jsp:include>
-<script src="<%=path %>/js/sopinfo.js"></script>
+<!-- 高管/投资经理 -->
+<c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
+<c:set var="isCreatedByUser" value="${fx:isCreatedByUser('project',projectId)  }" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+
 </head>
 
 
 <body>
 
-<jsp:include page="../../common/header.jsp" flush="true"></jsp:include>
-
-<div class="pagebox clearfix">
-	<!--左侧导航-->
-	<jsp:include page="../../common/menu.jsp" flush="true"></jsp:include>
-     
-    <!--右中部内容-->
- 	<div class="ritmin">
- 	
-    	<jsp:include page="sopcommon.jsp" flush="true"></jsp:include>
-
-
-		<div class="new_left">
-			<div class="tabtable assessment label_static">
-				<!-- tab标签 -->
-	            <jsp:include page="tab_header.jsp?index=3" flush="true"></jsp:include>
 
 
 				<!-- 访谈记录
@@ -76,7 +63,7 @@
 									<input type="text" class="datepicker txt time" readonly id="endTime" name="endTime" style="height: 23px;" />
 								</dd>
 								<dd>
-									<a href="javascript:;" class="search_icon" action="querySearch">查询</a>
+									<a href="javascript:;" class="search_icon" action="querySearch">搜索</a>
 								</dd>
 							</dl>
 							-->
@@ -99,19 +86,7 @@
 
 				<!-- </div>
 				tab end-->
-				
-			</div>
-		</div>
-
-		<!--右边-->
-        <jsp:include page="./includeRight.jsp" flush="true"></jsp:include>
-        
-    </div>
- 
-</div>
-
-<jsp:include page="../../common/footer.jsp" flush="true"></jsp:include>
-
+</body>
 
 <!-- 分页二css+四js -->
 <script src="<%=path %>/js/bootstrap-v3.3.6.js"></script>
@@ -143,7 +118,6 @@
 	var isTransfering = "${fx:isTransfering(pid) }";
 
 $(function(){
-	createMenus(5);
 	
 	$("#projectId").val(proid);
 	if(isTransfering == 'true')

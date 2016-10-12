@@ -240,6 +240,9 @@ var platformUrl = {
 	 * 项目阶段过程的记录保存
 	 */
 	stageChange : Constants.sopEndpointURL + "/galaxy/project/stageChange?sid="+sessionId + "&guid="+userId,
+	
+	businessAdjustment :  Constants.sopEndpointURL + "/galaxy/project/businessAdjustment?sid="+sessionId + "&guid="+userId,
+	
 	/**
 	 * 申请立项会操作
 	 */
@@ -750,6 +753,10 @@ var platformUrl = {
 	 * 项目投资金额
 	 */
 	searchInvestmentGroupDate : Constants.sopEndpointURL+"/galaxy/charts/analysis/searchInvestmentGroupDate",	
+	/**
+	 * 投后项目分析（图表）
+	 */
+	searchPostAnalysis : Constants.sopEndpointURL + "/galaxy/charts/analysis/searchPostAnalysis",
 
 	/**
 	 * 1.数据简报－投资事业线目标完成对比
@@ -912,10 +919,45 @@ var platformUrl = {
 	//删除实际拨款
 	deleteApprActual : Constants.sopEndpointURL + "/galaxy/grant/actual/deleteApprActual",
 	//获取分拨中所有实际金额
-	getActualPartMoney : Constants.sopEndpointURL + "/galaxy/grant/actual/getActualPartMoney"
-
+	getActualPartMoney : Constants.sopEndpointURL + "/galaxy/grant/actual/getActualPartMoney",
+	
+	
+	/**
+	 * 项目详情-基本信息
+	 */
+	toTabProjectInfo : Constants.sopEndpointURL + "/galaxy/project/detail/toTabProjectInfo",
+	/**
+	 * 项目详情-项目文档
+	 */
+	toTabFile : Constants.sopEndpointURL + "/galaxy/project/detail/toTabFile",
+	/**
+	 * 项目详情-股权结构
+	 */
+	showShareDetail: Constants.sopEndpointURL + "/galaxy/project/tabShares",
+	/**
+	 * 项目详情-团队成员
+	 */
+	showPersonDetail: Constants.sopEndpointURL + "/galaxy/personTab",
+	
+	/**
+	 * 运营分析
+	 */
+	showOperationsAnalysis: Constants.sopEndpointURL+"/galaxy/project/postOperation/toPostMeeting",
+	/**
+	 * 项目详情-右边
+	 */
+	toRight : Constants.sopEndpointURL + "/galaxy/project/detail/toRight",
+	/**
+	 * 高管首页-健康状况报表展示
+	 */
+	getHealthyCharts : Constants.sopEndpointURL + "/galaxy/health/getHealthyCharts",
+	/**
+	 * 高管首页-健康状况报表展示详情
+	 */
+	toHealthChartDetail : Constants.sopEndpointURL + "/galaxy/health/toHealthChartDetail",
 
 	
+
 }
 
 /**

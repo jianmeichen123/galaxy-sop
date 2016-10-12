@@ -86,8 +86,13 @@ public class Project extends PagableEntity {
 	 */
 	private String projectPerson;
 
+	/**
+	 * 项目绿色通道标识
+	 */
+	private String greanChannel;
 	
 	
+
 	
 	
     public Long getId() {
@@ -593,10 +598,16 @@ public class Project extends PagableEntity {
 		this.projectPerson = projectPerson;
 	}
 
+	public String getGreanChannel() {
+		return greanChannel;
+	}
 
-	
-	
-	
+	public void setGreanChannel(String greanChannel) {
+		this.greanChannel = greanChannel;
+	}
+
+
+
 
 
 }

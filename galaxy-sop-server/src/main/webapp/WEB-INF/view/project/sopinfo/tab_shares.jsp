@@ -1,6 +1,9 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.galaxyinternet.com/fx" prefix="fx" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
+<c:set var="aclViewProject" value="${fx:hasRole(1) || fx:hasRole(2) || (fx:hasRole(3) && fx:inOwnDepart('project',projectId)) || fx:hasRole(18)||fx:hasRole(19)|| fx:isCreatedByUser('project',projectId)  }" scope="request"/>
+<c:set var="isEditable" value="${fx:isCreatedByUser('project',projectId) && !fx:isTransfering(projectId)}" scope="request"/>
+<c:if test="${aclViewProject==true}">
 <!--法人信息-->
 <div class="legal">
 	<div class="show">
@@ -72,7 +75,7 @@
    	<thead>
 	    <tr>
 	    	<th data-field="sharesType" data-align="left" class="data-input sharesType" data-formatter="typeFormatter">类型</th>
-        	<th data-field="sharesOwner" data-align="left" class="data-input" data-formatter="sharesOwnerFormatter">所有人</th>
+        	<th data-field="sharesOwner" data-align="left" class="data-input" data-formatter="sharesOwnerFormatter">所有权人</th>
         	<th data-field="sharesRatio" data-align="left" class="data-input">占比(%)</th>
         	<th data-field="gainMode" data-align="left" class="data-input" data-formatter="gainModeFormatter">获取方式</th>
         	<th data-field="remark" data-align="left" class="data-input" data-formatter="remarkFormater">备注</th>
@@ -411,3 +414,4 @@
 	}
 	
 </script>
+</c:if>

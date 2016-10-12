@@ -26,6 +26,9 @@ $(function(){
 				$(".btnbox").on("click", "#notdo", function() {
 					$("#data-table").bootstrapTable("refresh");
 				 });
+				$(".pop").on("click", "[data-close='close']", function() {
+					$("#data-table").bootstrapTable("refresh");
+				 });
 			}//模版反回成功执行	
 		});
 		return false;

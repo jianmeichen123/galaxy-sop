@@ -50,13 +50,78 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 <jsp:include page="./common/header.jsp" flush="true"></jsp:include>
 
 <div class="pagebox clearfix">
-
-
-
-
 	<!--右侧-->
     <div class="rit rit_executive">
-    	<div id="position_7">
+        <!--时间-->
+        <div class="top"  resource-mark="shedule_list" style="height: 178px;display:none">
+        	<b class="sj ico null">三角</b>
+            <div class="tody ico">
+            	<p class="time"></p>
+                <p class="date"></p>
+            </div>
+            <div id="top">
+            </div>
+            <div class="morebox">
+               <!-- <a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加1日程</a> -->
+                <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="add_schedule blue">添加日程</a>
+            </div>
+        </div>
+        <!--投决会排期-->
+        <acl:acl resourceMark="shedule_tjh">
+        <dl class="tjh_block" style="position:relative;">
+        	<dt>投决会排期</dt>
+            <dd>
+            	<table width="100%" cellspacing="0" cellpadding="0" >
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>项目名称</th>
+                            <th>上次过会时间</th>
+                            <th>过会次数</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        
+                    </tbody>
+                </table>
+            </dd>
+            <dd class="clearfix position">
+                <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
+            </dd>
+            <c:if test="${fx:hasRole(4)}">
+        	<dd><a href="javascript:;" class="blue paiqidate" onclick="paiqidate('meetingType:4');">排期时间</a></dd>
+        	</c:if>
+        </dl>
+        </acl:acl>
+        <!--立项排期会-->
+        <acl:acl resourceMark="shedule_lxh">
+        <dl style="position:relative;">
+        	<dt>立项会排期</dt>
+            <dd>
+            	<table id="projectMeeting" width="100%" cellspacing="0" cellpadding="0" class="index">
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>项目名称</th>
+                            <th>上次过会时间</th>
+                            <th>过会次数</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tlbody">
+                    </tbody>
+                </table>
+            </dd>
+            <dd class="clearfix position">           
+              <a href="<%=path %>/html/projectMeeting.html" data-btn="project" class="more null">more</a>
+            </dd>
+            
+            <c:if test="${fx:hasRole(4)}">
+        	 <dd><a href="javascript:;" class="blue paiqidate" onclick="paiqidate('meetingType:3');">排期时间</a></dd>
+        	</c:if>
+        	
+        </dl>
+        </acl:acl>
+        <div id="position_7">
 	        <acl:acl resourceMark="shedule_ceo">
 	        <!--CEO评审排期  -->
 	        <div class="top top_rit_executive"  id="ceo_cat">
@@ -79,95 +144,12 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						</table>
 					</dd>
 					<dd class="clearfix position">
-						<!-- <a href="javascript:;" class="more null">more</a> -->
 						<a href="<%=path %>/html/ceopsMeeting.html" data-btn="ceops" class="more null">more</a>
 					</dd>
 				</dl> 
 			</div>
 			</acl:acl>
 		</div>
-        <!--时间-->
-        <div class="top"  resource-mark="shedule_list" style="height: 178px;display:none">
-        	<b class="sj ico null">三角</b>
-            <div class="tody ico">
-            	<p class="time"></p>
-                <p class="date"></p>
-            </div>
-            <div id="top">
-            <!-- 
-            <a href="javascript:;" class="link"><b class="b1 null">点</b>明天，要和创业团队见面</a>
-            <a href="javascript:;" class="link"><b class="b2 null">点</b>后天，要和夹克的虾团队见面</a>
-            <a href="javascript:;" class="link"><b class="b3 null">点</b>5天后，买飞机票</a>
-             -->
-            </div>
-            <div class="morebox">
-               <!-- <a href="javascript:;" class="add_schedule blue"  onclick="shecudle();">添加1日程</a> -->
-                <a href="<%=path %>/html/shecudle_list.html" data-btn="shecudle_list" class="add_schedule blue">添加日程</a>
-            </div>
-        </div>
-        <!--立项排期会-->
-        <acl:acl resourceMark="shedule_lxh">
-        <dl style="position:relative;">
-        	<dt>立项会排期</dt>
-            <dd>
-            	<table id="projectMeeting" width="100%" cellspacing="0" cellpadding="0" class="index">
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>项目名称</th>
-                            <th>上次过会时间</th>
-                            <th>过会次数</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tlbody">
-                    </tbody>
-                </table>
-            </dd>
-            <dd class="clearfix position">           
-<!--              <a href="/html/projectMeeting.html" data-btn="project" class="more null">more</a>
- -->            
-              <a href="<%=path %>/html/projectMeeting.html" data-btn="project" class="more null">more</a>
-            </dd>
-            
-            <c:if test="${fx:hasRole(4)}">
-        	 <dd><a href="javascript:;" class="blue paiqidate" onclick="paiqidate('meetingType:3');">排期时间</a></dd>
-        	</c:if>
-        	
-        </dl>
-        </acl:acl>
-        <!--投决会排期-->
-        <acl:acl resourceMark="shedule_tjh">
-        <dl class="tjh_block" style="position:relative;">
-        	<dt>投决会排期</dt>
-            <dd>
-            	<table width="100%" cellspacing="0" cellpadding="0" >
-                    <thead>
-                        <tr>
-                            <th>序号</th>
-                            <th>项目名称</th>
-                            <th>上次过会时间</th>
-                            <th>过会次数</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody">
-                        
-                    </tbody>
-                </table>
-            </dd>
-            <dd class="clearfix position">
-                <a href="<%=path %>/html/voteMeeting.html" data-btn="vote"  class="more null">more</a>
-<!--                 <a href="/html/voteMeeting.html" data-btn="vote"  class="more null">more</a> -->
-            </dd>
-            <c:if test="${fx:hasRole(4)}">
-        	<dd><a href="javascript:;" class="blue paiqidate" onclick="paiqidate('meetingType:4');">排期时间</a></dd>
-        	</c:if>
-        </dl>
-        </acl:acl>
-        
-        
-        
-		
-        
     </div>
     
     
@@ -296,8 +278,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 									style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
 							</dd>
 						</dl>
-					<!-- 投资资金 -->
-						<dl class="executive_last" resource-mark="div_investment_gg" style="display:none">
+					<!-- 投资资金  删 -->
+						<!-- <dl class="executive_last" resource-mark="div_investment_gg" style="display:none">
 							<dt>
 								<h3 class="ico t9">投资资金</h3>
 							</dt>
@@ -305,7 +287,25 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 								<div id="charts_investment"
 									style="min-width:300px; height: 200px;padding-top:5px;"></div>
 							</dd>
-						</dl>
+						</dl> -->
+						<!-- 已投项目分析 -->
+						<dl class="executive_last ytxm_block" resource-mark="div_project_post_analysis_gg" style="display:none">
+							<dt>
+								<h3 class="ico t9">已投项目分析<span class="Htips">（截止至当前）</span></h3>
+								<c:if test ="${!fx:hasRole(3)}">
+					        	<ul class="ytxm_tab position_tab clearfix">
+									<li data-tab="nav">联合创业</li>
+									<li data-tab="nav">融快</li>
+									<li data-tab="nav">创保联</li>
+								</ul>
+					        	</c:if>
+							</dt>
+							<dd>
+								<div id="charts_Joint" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;z-index:0;"></div>
+								<div id="charts_rk" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;z-index:0;"></div>
+								<div id="charts_cbl" data-tab="con" style="min-width:300px; height: 200px;padding-top:5px;z-index:0;"></div>
+							</dd>
+						</dl>						
             </div>
             <!--右侧列表-->
             <div class="r r_executive">
@@ -377,8 +377,8 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
                 </dl>
             </acl:acl>
                 
-                <!-- 绩效考核 -->
-					<dl resource-mark="div_performance_gg" style="display:none" class="r_news">
+                <!-- 绩效考核位置下移-->
+				<!-- 	<dl resource-mark="div_performance_gg" style="display:none" class="r_news">
 						<dt>
 							<h3 class="ico t10">绩效考核</h3>
 							<span class="more null position_0" id="platform_jxkh_more" style="cursor: pointer;">more</span>
@@ -386,7 +386,17 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 						<dd>
 							<div id="container_kpi" style="min-width:300px; height: 162px;padding-top:5px;"></div>
 						</dd>
-					</dl>
+					</dl> -->
+                <!-- 项目健康度 -->
+                <dl class="r_news" resource-mark="div_health_gg" style="display:none">
+					<dt>
+						<h3 class="ico t13">项目健康度<span class="Htips">（截止至当前）</span></h3>
+						<span class="more null position_0" id="platform_health_more" style="cursor: pointer;">more</span>
+					</dt>
+					<dd>
+						<div id="container_health" style="width:100%; height: 162px;padding-top:5px;z-index:0;"></div>
+					</dd>
+				</dl>
                 
                 <!-- 项目历时 -->
 					<dl resource-mark="div_duration_gg" style="display:none">
@@ -401,7 +411,7 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 					</dl>
                 
                 <!-- 项目运营 -->
-					<dl resource-mark="div_operation_gg" style="display:none" class="tool_radius executive_last">
+					<%-- <dl resource-mark="div_operation_gg" style="display:none" class="tool_radius executive_last">
 						<img src="<%=request.getContextPath()%>/img/sy.png" alt="" />
 						<dt>
 							<h3 class="ico t12">项目运营</h3>
@@ -411,7 +421,18 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							<div id="container_operation" style="min-width:440px;  height: 200px;padding-top:5px;"></div>
 							</div>
 						</dd>
+					</dl> --%>
+					<!-- 绩效考核 -->
+					<dl resource-mark="div_performance_gg" style="display:none" class="r_news executive_last">
+						<dt>
+							<h3 class="ico t10">绩效考核</h3>
+							<span class="more null position_0" id="platform_jxkh_more" style="cursor: pointer;">more</span>
+						</dt>
+						<dd>
+							<div id="container_kpi" style="min-width:300px; height: 200px;padding-top:5px;"></div>
+						</dd>
 					</dl>
+                
                     
             </div>
         </div>
@@ -522,6 +543,7 @@ var forwardParam = {
 					domid : 'container_progress'
 			}
 			chartProjectProgressUtils.init(progressFormdata);
+			noDataProGressDiv();
 			
 			//项目进度图表默认加载链接
 			$("#container_progress .highcharts-title tspan").click(function(){
@@ -583,9 +605,16 @@ $(function(){
 function paiqidate(type){
 	forwardWithHeader(platformUrl.popupMeetingList + type);
 }
+$("#platform_health_more").click(function(){
+	forwardWithHeader(platformUrl.toHealthChartDetail+"?urlFlag=null");
+})
 
 
 </script>
+<script src="<%=path %>/js/echarts.js" type="text/javascript"></script>
+<script src="<%=path %>/js/echarts_health.js" type="text/javascript"></script>
+<%-- <script src="<%=path %>/js/echarts_ytxm.js" type="text/javascript"></script> --%>
+<script src="<%=path %>/js/charts/projectPostAnalysis.js" type="text/javascript"></script>
 <%-- <jsp:include page="./common/sop.jsp" flush="true"></jsp:include> --%>
 </html>
 
