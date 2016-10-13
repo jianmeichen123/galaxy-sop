@@ -21,7 +21,7 @@ public enum CodeEnum {
 	internetMedical(9, "互联网医疗", 25), 
 	internetMedical2(30, "互联网医疗二部", 30),
 	internetTourism(10, "互联网旅游", 26),
-	artificialIntelligence(13, "人工智能事业部", 27),
+	artificialIntelligence(13, "人工智能", 27),
 	enterpriseService(28, "企业服务", 28),
 	rongKuai(29, "融快事业部", 29),
 	virtualReality(31, "虚拟现实", 31),

@@ -40,6 +40,9 @@ var chartPostAnalysisUtils = {
 		        textStyle:{
 		        	 fontFamily:'宋体'
 		        },
+		        itemWidth:16,
+		        itemHeight:12,
+		        itemGap:20,
 		        data:[
 		            {
 		                name:'内部创建',

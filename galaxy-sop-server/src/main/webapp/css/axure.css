@@ -2143,3 +2143,6 @@ margin: 45px auto 30px;}
 .position_tab{position: absolute; right: 10px;top: 8px;}
 .position_tab li.on{background:#c1d0dd;color:#fff;}
 .pagebox .min .tablist dt .t13{ background-position:0 -287px}
+/* ie8X轴名称显示 */
+.highchartsAxisName{color:#7a8798;font-size:12px;font-family:"宋体";writing-mode:lr-tb;}
+.highcharts-yaxis-title{color:#333;z-index:999999;}
