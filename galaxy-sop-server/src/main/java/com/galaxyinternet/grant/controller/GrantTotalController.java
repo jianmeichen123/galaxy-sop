@@ -91,7 +91,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 	}
 	
 	/**
-	 * 新建总拨款计划
+	 * 新建总注资计划
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
@@ -128,18 +128,18 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			}
 			
 			responseBody.setId(id);
-			responseBody.setResult(new Result(Status.OK, "success", deal+"总拨款计划成功!"));
+			responseBody.setResult(new Result(Status.OK, "success", deal+"总注资计划成功!"));
 			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.1", uNum);
-			_common_logger_.info(deal+"总拨款计划成功"+grantTotal.toString());
+			_common_logger_.info(deal+"总注资计划成功"+grantTotal.toString());
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "error", "添加总拨款计划失败!"));
-			_common_logger_.error(deal+"总拨款计划失败！", e);
+			responseBody.setResult(new Result(Status.ERROR, "error", "添加总注资计划失败!"));
+			_common_logger_.error(deal+"总注资计划失败！", e);
 		}
 		return responseBody;
 	}
 	
 	/**
-	 * 总拨款计划列表查询
+	 * 总注资计划列表查询
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/search", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -154,7 +154,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			total.setDirection("desc");
 			List<GrantTotal> totalList = grantTotalService.queryList(total);
 			GrantPart part = new GrantPart();
-			//封装分期拨款
+			//封装分期注资
 			List<GrantTotal> tList = new ArrayList<GrantTotal>();
 			for(GrantTotal t : totalList){
 				boolean isSearch = false;
@@ -177,16 +177,16 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			}
 			Page<GrantTotal> totalPage = new Page<GrantTotal>(tList, Long.parseLong(String.valueOf(tList.size())));
 			responseBody.setPageList(totalPage);
-			responseBody.setResult(new Result(Status.OK, "success", "查询总拨款计划列表成功!"));
+			responseBody.setResult(new Result(Status.OK, "success", "查询总注资计划列表成功!"));
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "error", "查询总拨款计划列表失败!"));
-			_common_logger_.error("查询总拨款计划列表失败！", e);
+			responseBody.setResult(new Result(Status.ERROR, "error", "查询总注资计划列表失败!"));
+			_common_logger_.error("查询总注资计划列表失败！", e);
 		}
 		return responseBody;
 	}
 	
 	/**
-	 * 根据id查询某个总拨款计划
+	 * 根据id查询某个总注资计划
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getGrantTotal/{tid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -209,17 +209,17 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 				c.setIs_edit(true);
 			}
 			responseBody.setEntity(c);
-			responseBody.setResult(new Result(Status.OK, "ok", "查询总拨款计划成功!"));
+			responseBody.setResult(new Result(Status.OK, "ok", "查询总注资计划成功!"));
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "error", "查询总拨款计划成功!"));
-			_common_logger_.error("查询总拨款计划成功！", e);
+			responseBody.setResult(new Result(Status.ERROR, "error", "查询总注资计划成功!"));
+			_common_logger_.error("查询总注资计划成功！", e);
 		}
 		return responseBody;
 	}
 	
 	
 	/**
-	 * 删除总拨款计划
+	 * 删除总注资计划
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
@@ -230,7 +230,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		
 		GrantTotal c = grantTotalService.queryById(tid);
 		if(c == null){
-			responseBody.setResult(new Result(Status.ERROR, "error" , "要删除的总拨款记录不存在!"));
+			responseBody.setResult(new Result(Status.ERROR, "error" , "要删除的总注资记录不存在!"));
 			return responseBody;
 		}
 		
@@ -238,7 +238,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		part.setTotalGrantId(c.getId());
 		Long count = grantPartService.queryCount(part);
 		if(count > 0){
-			responseBody.setResult(new Result(Status.ERROR, "cantDelete" , "存在分期拨款计划，不允许进行删除操作!"));
+			responseBody.setResult(new Result(Status.ERROR, "cantDelete" , "存在分期注资计划，不允许进行删除操作!"));
 			return responseBody;
 		}
 		
@@ -247,18 +247,18 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			project = projectService.queryById(c.getProjectId());
 			
 			grantTotalService.deleteById(c.getId());
-			responseBody.setResult(new Result(Status.OK, "ok", "删除总拨款计划失败!"));
+			responseBody.setResult(new Result(Status.OK, "ok", "删除总注资计划失败!"));
 			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.1", UrlNumber.three);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "error", "删除总拨款计划失败!"));
-			_common_logger_.error("删除总拨款计划失败！", e);
+			responseBody.setResult(new Result(Status.ERROR, "error", "删除总注资计划失败!"));
+			_common_logger_.error("删除总注资计划失败！", e);
 		}
 		return responseBody;
 	}
 	
 	
 	/**
-	 * 编辑总拨款计划
+	 * 编辑总注资计划
 	 */
 	@com.galaxyinternet.common.annotation.Logger(operationScope = { LogType.LOG, LogType.MESSAGE })
 	@ResponseBody
@@ -272,7 +272,7 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		}
 		GrantTotal c = grantTotalService.queryById(grantTotal.getId());
 		if(c == null){
-			responseBody.setResult(new Result(Status.ERROR, "error" , "要编辑的总拨款记录不存在!"));
+			responseBody.setResult(new Result(Status.ERROR, "error" , "要编辑的总注资记录不存在!"));
 			return responseBody;
 		}
 		try {
@@ -280,16 +280,16 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 			project = projectService.queryById(c.getProjectId());
 			
 			grantTotalService.updateById(grantTotal);
-			responseBody.setResult(new Result(Status.OK, "ok", "编辑总拨款计划失败!"));
+			responseBody.setResult(new Result(Status.OK, "ok", "编辑总注资计划失败!"));
 			ControllerUtils.setRequestParamsForMessageTip(request, null, project, "14.1", UrlNumber.two);
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "error", "编辑总拨款计划失败!"));
-			_common_logger_.error("编辑总拨款计划失败！", e);
+			responseBody.setResult(new Result(Status.ERROR, "error", "编辑总注资计划失败!"));
+			_common_logger_.error("编辑总注资计划失败！", e);
 		}
 		return responseBody;
 	}
 	/**
-	 * 编辑总拨款计划
+	 * 编辑总注资计划
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/getApprProcess/{pid}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -303,10 +303,10 @@ public class GrantTotalController extends BaseControllerImpl<GrantTotal, GrantTo
 		try {
 			Map<String,Object> setApprProcess = grantTotalService.setApprProcess(pid);
 			responseBody.setUserData(setApprProcess);
-			responseBody.setResult(new Result(Status.OK, "ok", "查询拨款进度失败!"));
+			responseBody.setResult(new Result(Status.OK, "ok", "查询注资进度失败!"));
 		} catch (Exception e) {
-			responseBody.setResult(new Result(Status.ERROR, "error", "查询拨款进度失败!"));
-			_common_logger_.error("查询拨款进度失败！", e);
+			responseBody.setResult(new Result(Status.ERROR, "error", "查询注资进度失败!"));
+			_common_logger_.error("查询注资进度失败！", e);
 		}
 		return responseBody;
 	}

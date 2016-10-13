@@ -120,7 +120,7 @@ function paramsContion(){
 	var grantDetail = $("#grantDetail").val();
 	var check =/^[\s]*$/;
 	if(check.test(grantDetail)){
-		layer.msg("拨款时间输入错误!");
+		layer.msg("注资时间输入错误!");
 		return false;
 	}
 	var remainMoney = $("#remainMoney").val();
@@ -129,7 +129,7 @@ function paramsContion(){
 	
 	var inputValueMoney = Number(partMoney).toFixed(2);
 	if(parseFloat(inputValueMoney) > parseFloat(newgrant)){
-		layer.msg("分期拨款金额之和大于总拨款金额");
+		layer.msg("分期注资金额之和大于总注资金额");
 		return false;
 	}
 	var condition = JSON.parse($("#actual_aging_form").serializeObject());
@@ -171,7 +171,7 @@ function saveCallBackFuc(data){
 }
 function to_del_grantPart(selectRowId){
 	
-	layer.confirm('是否删除分期拨款计划?',
+	layer.confirm('是否删除分期注资计划?',
 			
 			
 		{
@@ -224,7 +224,7 @@ function queryBack(data){
 		return;
 	}else{ 
 	    var entityList = data.pageList;
-	    //暂无拨款计划
+	    //暂无注资计划
 	    if(entityList.total==0){
 	    	var noContent='<div class="no_con" style="display: block;">没有找到匹配的记录</div>';
 	    	$("#tabApprAllList").append(noContent);

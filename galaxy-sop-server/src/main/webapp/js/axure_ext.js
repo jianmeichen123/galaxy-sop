@@ -521,7 +521,7 @@ $(function(){
 		return false;
 	});
 	
-	/*//实际拨款信息列表
+	/*//实际注资信息列表
 	$("[data-btn='health_case']").on("click",function(){ 
 		var $self = $(this);
 		var _url = $self.attr("href");
@@ -539,7 +539,7 @@ $(function(){
 
 	
 	
-	//编辑分期拨款计划
+	//编辑分期注资计划
 	$("[data-btn='actual_aging']").on("click",function(){ 
 		var $self = $(this);
 		var _url = $self.attr("href");

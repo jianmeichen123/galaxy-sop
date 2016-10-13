@@ -46,17 +46,17 @@ public class GrantActual extends PagableEntity{
 	private String protocolName;
 	
 	/**
-	 * 计划拨款时间(grantPart grantDetail)
+	 * 计划注资时间(grantPart grantDetail)
 	 */
 	private String planGrantTime;
 	
 	/**
-	 * 计划拨款金额(grantPart grantMoney)
+	 * 计划注资金额(grantPart grantMoney)
 	 */
 	private Double planGrantMoney;
 	
 	/**
-	 * 剩余拨款金额
+	 * 剩余注资金额
 	 */
 	private Double surplusGrantMoney;
 	
