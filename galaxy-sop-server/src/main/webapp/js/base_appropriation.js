@@ -14,7 +14,7 @@ function queryBack(data){
 		return;
 	}else{ 
 	    var entityList = data.pageList;
-	    //暂无拨款计划
+	    //暂无注资计划
 	    if(entityList.total==0){
 	    	var noContent='<div class="no_con" style="display: block;">没有找到匹配的记录</div>';
 	    	$("#tabApprAllList").append(noContent);
@@ -67,13 +67,13 @@ function  assembleHtml(grantTotal,i){
 	     +'<div class="b_agreement clearfix">'
 		  +'<div class="b_agreement_l fl">'
 		     +'<h3>'+grantTotal.grantName+'</h3>'
-	         +'<dl><dt>计划总拨款金额（元）：</dt><dd>'+addCommas(fixSizeDecimal(grantTotal.grantMoney))+'</dd></dl>'
+	         +'<dl><dt>计划总注资金额（元）：</dt><dd>'+addCommas(fixSizeDecimal(grantTotal.grantMoney))+'</dd></dl>'
              +'<dl><dt>编辑人：</dt><dd title="'+name+'">'+subName+'</dd></dl>'    
              +'<dl><dt>编辑日期：</dt><dd>'+time_zh(grantTotal.updatedTime)+'</dd></dl>'
           +'</div>'    
          +'<div class="b_agreement_r fr">'
-            +'<button class="pbtn bluebtn" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+grantTotal.id+'" data-name="添加分期拨款计划" data-total-name="'+grantTotal.grantName+'">添加分期拨款计划</button>'
-            +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总拨款计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" onclick="deleteAppr('+grantTotal.id+')" data-name="提示">删除</label>'
+            +'<button class="pbtn bluebtn" href="/sop/html/actual_aging.html" data_type="add" data-btn="actual_aging" data-id="'+grantTotal.id+'" data-name="添加分期注资计划" data-total-name="'+grantTotal.grantName+'">添加分期注资计划</button>'
+            +'<label class="blue" href="/sop/html/actual_all.html" data-btn="actual_all" data-on="edit" data-val="'+grantTotal.id+'"data-name="编辑总注资计划">编辑</label><label class="blue" href="/sop/html/1tips.html" data-btn="tips" onclick="deleteAppr('+grantTotal.id+')" data-name="提示">删除</label>'
          +'</div>'
     +'</div>'                      
   //  <!--表格内容-->
@@ -81,9 +81,9 @@ function  assembleHtml(grantTotal,i){
      + '<thead>'
           +'<tr>'
              +'<th>分拨</th>'
-              +'<th>拨款时间</th>'
-              +'<th>计划拨款金额（元）</th>'
-               +'<th>实际拨款金额（元）</th>'
+              +'<th>注资时间</th>'
+              +'<th>计划注资金额（元）</th>'
+               +'<th>实际注资金额（元）</th>'
               +'<th>附件数</th>'
               +'<th>操作</th>'
              +'</tr>'
@@ -96,12 +96,12 @@ function  assembleHtml(grantTotal,i){
 
 function  assembleSingleTabHtml(grantPart,grantName,i,k){
 	 var value='<tr>'	 
-		   +'<td><a class="blue" href="javascript:void(0)" title="点击进入详情可查看实际拨款信息" data-part-id='+grantPart.id+' data-btn="actual" data-flag="part_'+i+'_'+k+'" data-name="实际拨款信息列表">'+grantPart.grantName+'</a></td>'
+		   +'<td><a class="blue" href="javascript:void(0)" title="点击进入详情可查看实际注资信息" data-part-id='+grantPart.id+' data-btn="actual" data-flag="part_'+i+'_'+k+'" data-name="实际注资信息列表">'+grantPart.grantName+'</a></td>'
 		   +'<td>'+grantPart.grantDetail+'</td>'
 		   +'<td>'+addCommas(fixSizeDecimal(grantPart.grantMoney))+'</td>'
 		   +'<td id="part_'+i+'_'+k+'">'+addCommas(fixSizeDecimal(grantPart.actualMoney))+'</td>'
 		   +'<td>'+grantPart.fileNum+'</td>'                                 
-		   +'<td><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期拨款计划" data-total-name="'+grantName+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>';
+		   +'<td><label class="blue edit-btn" href="/sop/html/actual_aging.html" data_type="edit" data-btn="actual_aging" data-part-id="'+grantPart.id+'" data-id="'+grantPart.totalGrantId+'" data-name="编辑分期注资计划" data-total-name="'+grantName+'">编辑</label><label class="blue del-btn" href="javascript:void(0);" onclick="to_del_grantPart('+grantPart.id+')" data-btn="tips" data-name="提示">删除</label>';
 		   if(grantPart.fileNum != 0){
 			   value +='<label class="blue noMargin" onclick="to_download_grantPart('+grantPart.id+')">下载附件</label></td>';
 		   }

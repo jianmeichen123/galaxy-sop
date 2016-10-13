@@ -7,7 +7,7 @@
 	<p class="tips">
 		<input type="hidden" id="del_deliver_id" value="" />
 		<!-- <b class="null tips_d">ico</b> -->
-		是否删除总拨款计划？
+		是否删除总注资计划？
 	</p>
     <div class="btnbox">
     	<a href="javascript:;" class="pubbtn bluebtn" data-btn="appr_delete">确定</a>

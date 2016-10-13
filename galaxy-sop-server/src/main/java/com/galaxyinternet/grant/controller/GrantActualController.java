@@ -68,7 +68,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		return this.grantActualService;
 	}
 	/**
-	 * 查看实际拨款列表弹出层
+	 * 查看实际注资列表弹出层
 	 */
 	@RequestMapping(value = "/toApprActualPage/{partId}", method = RequestMethod.GET)
 	public ModelAndView toApprActualPage(@PathVariable("partId") Long partId, HttpServletRequest request) {
@@ -77,7 +77,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		return mv;
 	}
 	/**
-	 * 查看实际拨款详细信息弹出层
+	 * 查看实际注资详细信息弹出层
 	 */
 	@RequestMapping(value = "/lookActual/{actualId}", method = RequestMethod.GET)
 	public ModelAndView lookActual(@PathVariable("actualId") Long actualId, HttpServletRequest request) {
@@ -111,7 +111,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 	
 	
 	/**
-	 * 实际拨款记录列表查询
+	 * 实际注资记录列表查询
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/searchActualList", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -130,7 +130,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 							"created_time"));
 			responseBody.setPageList(actualPage);
 		} catch (Exception e) {
-			_common_logger_.error("查询实际拨款列表失败！查询条件：" + actual, e);
+			_common_logger_.error("查询实际注资列表失败！查询条件：" + actual, e);
 		}
 		return responseBody;
 	}
@@ -146,7 +146,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 		ResponseData<GrantActual> responseBody = new ResponseData<GrantActual>();
 		try {	
 			GrantActual actual = null;
-			//获取实际拨款中实际拨款金额
+			//获取实际注资中实际注资金额
 			if(aQuery.getId()!=null){
 				actual = grantActualService.queryById(aQuery.getId());
 			}
@@ -174,7 +174,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			}
 			
 		} catch (DaoException e) {
-			_common_logger_.error("初始化实际拨款对话框出现错误", e);
+			_common_logger_.error("初始化实际注资对话框出现错误", e);
 			responseBody.setResult(new Result(Status.ERROR, "系统出现不可预知的错误"));
 		}
 		return responseBody;
@@ -191,7 +191,7 @@ public class GrantActualController extends BaseControllerImpl<GrantActual, Grant
 			return responseBody;
 		}
 		if(form.getGrantMoney()==null){
-			responseBody.setResult(new Result(Status.ERROR, "实际拨款金额不能为空"));
+			responseBody.setResult(new Result(Status.ERROR, "实际注资金额不能为空"));
 			return responseBody;
 		}
 		//还需存在金额校验

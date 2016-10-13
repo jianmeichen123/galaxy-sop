@@ -27,15 +27,15 @@
 		                </dd>
 		            </dl>
 	                <dl class="fmdl fl_l  clearfix">
-		                <dt>拨款时间 ：</dt>
+		                <dt>计划注资时间 ：</dt>
 		                <dd>
 		                	<div>
-		                    	<input class="edittxt" id="grantDetail" name="grantDetail" type="text" value="" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>拨款时间只能是汉字或字符，长度为20"/>
+		                    	<input class="edittxt" id="grantDetail" name="grantDetail" type="text" value="" maxLength="20" valType="OTHER" regString="^.{1,20}$" msg="<font color=red>*</font>注资时间只能是汉字或字符，长度为20"/>
 		                    </div> 
 		                </dd>
 		            </dl>
 	                 <dl class="fmdl fl_l  clearfix">
-		                <dt>拨款金额 ：</dt>
+		                <dt>计划注资金额 ：</dt>
 		                <dd>
 		                	
 		                	<div class='moeny_all'>
