@@ -65,7 +65,7 @@ if(createTime !='' || createTime !=null || typeof(createTime) != "undefined"){
 
 $(function(){
 	
-	setDateRange(new Date(),"INIT",this);
+	setDateRange(new Date(),"INIT");
 	//日期视图
 	$('.weekStartDatepicker').datepicker({
 	    format: 'yyyy-mm-dd',
