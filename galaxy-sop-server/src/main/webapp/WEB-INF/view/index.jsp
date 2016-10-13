@@ -428,7 +428,9 @@ String reportEndpoint = map.get("galaxy.project.report.endpoint");
 							<h3 class="ico t10">绩效考核</h3>
 							<span class="more null position_0" id="platform_jxkh_more" style="cursor: pointer;">more</span>
 						</dt>
-						<dd>
+						<dd style="position:relative;">
+							<span class="highchartsAxisName name1">项目数(个)</span>
+							<span class="highchartsAxisName name2">过会率(%)</span>
 							<div id="container_kpi" style="min-width:300px; height: 200px;padding-top:5px;"></div>
 						</dd>
 					</dl>
