@@ -1,64 +1,7 @@
-
-
-//===
 var teamkpi_url = platformUrl.deptkpi;
 var teamkpi_pageNum = 1;
 
 function partner_kpi_init(){
-	
-	
-	//星期几
-	var now = new Date();
-	var nowYear = now.getYear();//当前年
-	var nowMonth = now.getMonth();//当前月
-	
-	var nowDay = now.getDate();//当前日
-	var nowDayOfWeek = now.getDay();//今天本周的第几天
-	
-	
-	 //获得本周的开始日期
-    var getWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -1);
-    var getWeekStartDate =  formatDate(getWeekStartDate);
-    //获得本周的结束日期
-    var getWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek-1));
-    var getWeekEndDate =  formatDate(getWeekEndDate);
-    
-    //alert("本周开始日期:"+getWeekStartDate);
-    //alert("本周结束日期:"+getWeekEndDate);
-	
-	//获得上周的开始日期
-    var getUpWeekStartDate = new Date(nowYear, nowMonth, nowDay - nowDayOfWeek -7 -1);
-    var getUpWeekStartDate =  formatDate(getUpWeekStartDate);
-    
-    //alert("上周开始日期:"+getUpWeekStartDate);
-
-    //获得上周的结束日期
-    var getUpWeekEndDate = new Date(nowYear, nowMonth, nowDay + (6 - nowDayOfWeek - 7 -1));
-    var getUpWeekEndDate =  formatDate(getUpWeekEndDate);
-	
-	
-    //alert("上周结束日期:"+getUpWeekEndDate);
-    
-    
-    
-    
-    
-    
-    //格式化日期：yyyy-MM-dd
-    function formatDate(date) {
-        var myyear = date.getFullYear();
-        var mymonth = date.getMonth()+1;
-        var myweekday = date.getDate();
-
-        if(mymonth < 10){
-            mymonth = "0" + mymonth;
-        }
-        if(myweekday < 10){
-            myweekday = "0" + myweekday;
-        }
-        return (myyear+"-"+mymonth + "-" + myweekday);
-    }
-	
 	
 	/*$("#querySearch_teamkpi").on('click',function(){
 		$('#data-table-parterkpi').bootstrapTable('refresh',getToobarQueryParams('custom-toolbasr-deptkpi')); 
