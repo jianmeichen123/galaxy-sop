@@ -34,7 +34,14 @@ public class MeetingPassRateServiceImpl implements MeetingPassRateService {
 
 	@Override
 	public long scoreCreateProject(long startDate, long endDate, long departmentId) throws Exception {
-		return 0;
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("departmentId", departmentId);
+		params.put("startDate", startDate);
+		params.put("endDate", endDate);
+		
+		long a = chartDao.scoreCEOMeeting(params);
+		
+		return a;
 	}
 
 
