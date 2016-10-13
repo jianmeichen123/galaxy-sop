@@ -8,8 +8,9 @@ import com.galaxyinternet.service.chart.statistics.MeetingPassRateService;
 public class MeetingPassRateServiceImpl implements MeetingPassRateService {
 
 	@Override
-	public int scorePassCEOMeeting() throws Exception {
+	public int scorePassCEOMeeting(String startDate, String endDate, long departmentId) throws Exception {
 		return 0;
 	}
+
 
 }
