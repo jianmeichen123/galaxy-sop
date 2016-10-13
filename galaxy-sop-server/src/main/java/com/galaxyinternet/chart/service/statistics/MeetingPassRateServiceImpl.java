@@ -7,4 +7,9 @@ import com.galaxyinternet.service.chart.statistics.MeetingPassRateService;
 @Service("com.galaxyinternet.service.chart.statistics.MeetingPassRateService")
 public class MeetingPassRateServiceImpl implements MeetingPassRateService {
 
+	@Override
+	public int scorePassCEOMeeting() throws Exception {
+		return 0;
+	}
+
 }
