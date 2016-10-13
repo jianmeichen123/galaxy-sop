@@ -15,7 +15,7 @@ $(function(){
 	createMenus(7);
 	
 	//表单日期初始化
-	var currDate = new Date();
+    var currDate = new Date();
 	var sdate = currDate.format("yyyy-01-01");
 	var edate = currDate.format("yyyy-MM-dd");
 	$("input[name='sdate']").val(sdate);
@@ -28,6 +28,7 @@ $(function(){
 			switch(index){
 				case 0: loadDataUserKpi(); break; //标签0:投资经理绩效
 				case 1: loadDataDetpKpi(); break; //标签1:团队绩效
+				case 2: loadDataPartnerKpi(); break; //标签1:合伙人绩效考核
 				default: return false;
 			}
 		}
@@ -53,6 +54,10 @@ function loadDataUserKpi(){
 
 function loadDataDetpKpi(){
 	team_kpi_init();
+}
+
+function loadDataPartnerKpi(){
+	partner_kpi_init();
 }
 
 
