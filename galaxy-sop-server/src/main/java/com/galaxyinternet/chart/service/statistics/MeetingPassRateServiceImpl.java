@@ -12,5 +12,10 @@ public class MeetingPassRateServiceImpl implements MeetingPassRateService {
 		return 0;
 	}
 
+	@Override
+	public int scoreCreateProject(String startDate, String endDate, long departmentId) throws Exception {
+		return 0;
+	}
+
 
 }
