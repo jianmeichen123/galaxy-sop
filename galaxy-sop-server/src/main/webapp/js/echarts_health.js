@@ -16,6 +16,14 @@ $(function(){
 	            	  color:'#555',
 	            	  fontFamily:'宋体',
 	            	  fontSize:'12'
+	              },
+	              formatter: function (params) {
+	                  var tar = params[0];
+	                  var num=tar.value;
+	                  if(num==undefined){
+	                	  num=0;
+	                  }
+	                  return tar.name + '<br/>' +'<span style="display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:#a3e394"></span>'+ tar.seriesName + ' : ' + num;
 	              }
 	          },
 	          xAxis : [
@@ -120,6 +128,7 @@ $(function(){
 				option.series[0].data[0] =userData.healthHighNum;
 				option.series[0].data[1] =userData.healthGoodNum;
 				option.series[0].data[2] =userData.healthWarnNum;
+				console.log(userData.healthGoodNum)
 				//无数据显示
 				var healthTotalNum=userData.healthHighNum+userData.healthGoodNum+userData.healthWarnNum;
 				if(healthTotalNum==0){
