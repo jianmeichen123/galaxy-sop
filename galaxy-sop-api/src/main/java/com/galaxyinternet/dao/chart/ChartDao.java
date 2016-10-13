@@ -26,5 +26,8 @@ public interface ChartDao extends BaseDao<Chart, Long> {
 	public List<Map<String,Object>> meetingSchedList(Map<String,Object> params); 
 	public List<Map<String,Object>> progressDurationList(Map<String,Object> params); 
 	public List<Map<String,Object>> departmentList(Map<String,Object> params); 
-	public List<Map<String,Object>> appBrief(Map<String,Object> params); 
+	public List<Map<String,Object>> appBrief(Map<String,Object> params);
+	public long scoreCEOMeeting(Map<String,Object> params);
+	public long scoreCreateProject(Map<String,Object> params);
+	public long countMeetingRate(Map<String, Object> params);
 }
