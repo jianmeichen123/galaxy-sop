@@ -1424,8 +1424,12 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .tablinks li a{ color: #f9f9fb;}
 .assessment .tablinks .no {
     background: #d6d8e1;
+    pointer-events:none;
+    cursor:default;
 }
-.assessment .tablinks .no a{ color:#9ea1ad}
+.assessment .tablinks li{color:#fff;}
+.assessment .tablinks li.on{color:#5d678a}
+.assessment .tablinks .no{ color:#5d678a}
 .new_table{ margin-top:10px;}
 .new_table td{ border:0}
 .new_table .on td{ background-color:transparent;}
