@@ -2,10 +2,11 @@ var totalNum_all='';
 /**
  * 项目进度
  */
-$(document).ready(function(){
+function noDataProGressDiv(){
 	//项目进度无数据样式
-	if($("#container_progress .highcharts-title tspan").text()=="0个" || $("#container_progress .highcharts-title span").text()=="0个"){
+	if(($("#container_progress .highcharts-title span").text()=="0个") || ($("#container_progress .highcharts-title tspan").text()=="0个")){
 		$(".mask_platform_progress").show();
+		$("#more_progress").hide();
 		$('#container_progress').highcharts({
             chart: {
                 plotBackgroundColor: null,
@@ -90,7 +91,7 @@ $(document).ready(function(){
             }]
         });
 	}
-});
+};
 
 
 var chartProjectProgressUtils = {
@@ -123,7 +124,18 @@ var chartProjectProgressUtils = {
 		        enabled:true
 		    },
 		    tooltip: {
-		        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+		        pointFormat: '{series.name}: <span>{point.percentage:.1f}%</span>',
+		        backgroundColor: 'rgba(255,255,255,0.9)',   // 背景颜色
+		         borderColor: '#9dd2fc',         // 边框颜色
+		         borderRadius: 1,             // 边框圆角
+		         borderWidth: 1,               // 边框宽度
+		         shadow: false,                 // 是否显示阴影
+		         animation: true,               // 是否启用动画效果
+		         style: {                      // 文字内容相关样式
+		             color: "#555",
+		             fontSize: "12px",
+		             fontFamily: "Courir new"
+		         }
 		    },
 		    plotOptions: {
 			    pie: {

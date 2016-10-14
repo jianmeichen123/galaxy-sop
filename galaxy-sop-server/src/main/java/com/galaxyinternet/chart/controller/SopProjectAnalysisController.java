@@ -1,6 +1,8 @@
 package com.galaxyinternet.chart.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -84,7 +86,8 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			}else if(roleIdList.contains(UserConstant.TZJL)){
 				query.setCreateUid(user.getId());
 			}
-			
+			//去掉关闭的项目统计
+			query.setProjectStatus(DictEnum.projectStatus.YFJ.getCode());
 			List<SopCharts> overViewList = analysisService.queryProjectOverView(query);
 			responseBody.setEntityList(overViewList);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -120,6 +123,8 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 			}
 			PageRequest pageRequest = new PageRequest(project.getPageNum(),
 					project.getPageSize(),Direction.DESC,"created_time");
+			//去掉关闭的项目统计
+			project.setResultCloseFilter(DictEnum.projectStatus.YFJ.getCode());
 			Page<Project> pageProject = projectService.queryPageListByChart(project, pageRequest);
 			responseBody.setPageList(pageProject);
 			responseBody.setResult(new Result(Status.OK, ""));
@@ -203,7 +208,7 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 	
 	@ResponseBody
 	@RequestMapping(value="/searchInvestmentGroupDate",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseData<SopCharts> searchInvestmentGroupDate(HttpServletRequest request,SopCharts query){
+	public ResponseData<SopCharts> searchInvestmentGroupDate(HttpServletRequest request,@RequestBody SopCharts query){
 		ResponseData<SopCharts> responseBody = new ResponseData<SopCharts>();
 		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
 		if (user == null) {
@@ -228,6 +233,37 @@ public class SopProjectAnalysisController extends BaseControllerImpl<SopCharts, 
 		}
 		return responseBody;
 	}
+
 	
+	@ResponseBody
+	@RequestMapping(value="/searchPostAnalysis",method=RequestMethod.POST,produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<SopCharts> searchPostAnalysis(HttpServletRequest request,@RequestBody(required=false) SopCharts query){
+		ResponseData<SopCharts> responseBody = new ResponseData<SopCharts>();
+		User user = (User) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+		if (user == null) {
+			responseBody.setResult(new Result(Status.ERROR, "未登录!"));
+			return responseBody;
+		}
+		if(query.getBelongType()==null){
+			responseBody.setResult(new Result(Status.ERROR, "业务部门分类不能为空"));
+			return responseBody;
+		}
+		try {
+			List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user
+					.getId());
+			if (roleIdList.contains(UserConstant.CEO) || roleIdList.contains(UserConstant.DSZ)) {
+				
+			}else if(roleIdList.contains(UserConstant.HHR)){
+				query.setDepartmentId(user.getDepartmentId());
+			}
+			List<SopCharts> chartsList = analysisService.queryPostAnalysis(query);
+			responseBody.setEntityList(chartsList);
+			responseBody.setResult(new Result(Status.OK, ""));
+		} catch (DaoException e) {
+			// TODO: handle exception
+			responseBody.setResult(new Result(Status.ERROR, "系统出现误不可预知错"));
+		}
+		return responseBody;
+	}
 	
 }

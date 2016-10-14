@@ -125,7 +125,7 @@
 						<div class="clearfix">
 						</div>
 						<div class="tab-pane active" id="view">
-							<table id="tablePerson" data-height="555" data-method="post"
+							<table id="tab_tablePerson" data-method="post"
 								data-show-refresh="true" data-side-pagination="server"
 								data-pagination="true" data-page-list="[10,20,30]"
 								data-search="false">
@@ -145,7 +145,7 @@
 					<dd class="full_w describe clearfix">
 						<div class="clearfix"></div>
 						<div class="tab-pane active" id="pView">
-							<table id="table" data-height="555" data-method="post"
+							<table id="table" data-method="post"
 								data-show-refresh="true">
 							</table>
 						</div>
@@ -213,7 +213,7 @@
 								<input type="text" class="datepicker txt time" name="file_endDate" value="2016-01-01" />
 							</dd>
 							<dd>
-								<a href="javascript:;" id="file_repository_btn" class="pubbtn bluebtn">查询</a>
+								<a href="javascript:;" id="file_repository_btn" class="pubbtn bluebtn">搜索</a>
 							</dd>
 						</dl>
 					</div>
@@ -382,10 +382,10 @@
 			<div class="block" data-tab="con" id="projectProgress_6_con">
 				<!--按钮-->
 				<div id="jzdc_options" class="btnbox_f btnbox_f1 btnbox_m clearfix">
-					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn option_item_mark toggle">上传业务尽职调查报告</a>
+					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn option_item_mark toggle" id="tjhsqBut">申请投决会排期</a>
+					<a href="javascript:;" onclick="uploadYwjd()" class="pubbtn fffbtn llpubbtn option_item_mark toggle"  id="scywjzdcbg">上传业务尽职调查报告</a>
 					<a href="javascript:;" id="jdqd_report_upload_btn" onclick="showJDUpload('fileWorktype:18')" class="pubbtn fffbtn llpubbtn option_item_mark">上传尽职调查启动会报告</a>
 					<a href="javascript:;" id="jdzj_report_upload_btn" onclick="showJDUpload('fileWorktype:19')" class="pubbtn fffbtn llpubbtn option_item_mark">上传尽职调查总结会报告</a>
-					<a href="javascript:;" onclick="inTjh()" class="pubbtn fffbtn lpubbtn option_item_mark toggle" id="tjhsqBut">申请投决会排期</a>
 				</div>
 				<div class="process clearfix">
 					<h2>业务尽调报告审核流程</h2>
@@ -523,7 +523,7 @@
 	 getTabShareforP();
 	 	
  	function getTabPersonforP(){
- 		var $table = $('#tablePerson');
+ 		var $table = $('#tab_tablePerson');
  	    $table.bootstrapTable({
  	    url: Constants.sopEndpointURL + "/galaxy/project/queryProjectPerson", 
  	    dataType: "json",

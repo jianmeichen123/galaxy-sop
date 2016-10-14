@@ -39,7 +39,7 @@
 	        </div>
 	    </div>
 	    <div class="button_affrim">
-	        <a href="javascript:;" id="win_ok_btn" class="register_all_affrim fl">确认</a>
+	        <a href="javascript:;" id="win_ok_btn" class="register_all_affrim fl">确定</a>
 	        <a href="javascript:;" id="win_cancel_btn" class="register_all_input fr" data-close="close">取消</a>
 	    </div>  	
 	</div>

@@ -7,8 +7,10 @@
 		<result column="project_progress" jdbcType="VARCHAR" property="projectProgress" />
 		<result column="project_date" jdbcType="VARCHAR" property="projectDate" />
 		<result column="department_id" jdbcType="BIGINT" property="departmentId"/>
+		<result column="department_name" jdbcType="VARCHAR" property="departmentName"/>
 		<result column="project_type" jdbcType="VARCHAR" property="projectType"/>
 		<result column="create_uid" jdbcType="BIGINT" property="createUid"/>
+		<result column="create_uname" jdbcType="VARCHAR" property="createUname"/>
 		<result column="appraisement" jdbcType="BIGINT" property="appraisement"/>
 		<result column="invest" jdbcType="BIGINT" property="invest"/>
 	</resultMap>
@@ -17,6 +19,7 @@
 		<where>
 			<trim prefixOverrides="and">
 				<if test="projectType != null"> and project_type = #{projectType,jdbcType=VARCHAR} </if>
+				<if test="projectStatus != null"> and project_status != #{projectStatus,jdbcType=VARCHAR} </if>
 				<if test="startTime!=null"><![CDATA[  and created_time >= #{startTime,jdbcType=BIGINT} ]]></if>
 				<if test="endTime!=null"><![CDATA[  and created_time <= #{endTime,jdbcType=BIGINT} ]]></if>
 				<if test="departmentId != null"> and project_departId = #{departmentId,jdbcType=BIGINT}</if>
@@ -156,6 +159,80 @@
 		<include refid="Base_Where_Clause" />
 		group by 	from_unixtime(created_time/1000,'%Y-%m')
 	</select>
+	
+	
+	<select id="searchPostAnalysis" resultMap="BaseResultMap" parameterType="java.util.Map">		
+		select a.project_departId as department_id,a.department_name,ifnull(a.wbCount,0) as wbCount,ifnull(b.nbCount,0) as nbCount,ifnull((ifnull(wbCount,0)+ ifnull(nbCount,0)),0) as allCount from 
+			(select dm.id as project_departId,dm.name as department_name,pc.wbCount
+			 from
+				(select id,name,belong_type 
+				 from 	t_department 
+				 where 	type='1'
+				 <if test="belongType != null"> and belong_type = #{belongType,jdbcType=BIGINT} </if>
+				) dm
+				left join
+				(select 	project_type,project_departId,count(0) as wbCount
+				 from		sop_project
+				 where		project_type='projectType:1'
+				 and		project_progress='projectProgress:10'
+				 group by	project_departId) pc
+				on dm.id = pc.project_departId
+				) a
+		left join 
+			(select dm.id as project_departId,dm.name as department_name,pc.nbCount
+			 from
+				(select 	id,name,belong_type 
+				 from 		t_department 
+				 where 		type='1'	
+				 <if test="belongType != null"> and belong_type = #{belongType,jdbcType=BIGINT} </if>
+				) dm
+			 left join
+				(select 	project_type,project_departId,count(0) as nbCount
+				 from		sop_project
+				 where		project_type='projectType:2'
+				 and		project_progress='projectProgress:10'
+				 group by	project_departId) pc
+				on dm.id = pc.project_departId
+				) b
+			on	 a.project_departId = b.project_departId
+			order by allCount desc
+	</select>
+	
+	<select id="searchPostAnalysisByHhr" resultMap="BaseResultMap" parameterType="java.util.Map">
+	select a.create_uid,a.create_uname,ifnull(a.wbCount,0) as wbCount,ifnull(b.nbCount,0) as nbCount,ifnull((ifnull(wbCount,0)+ ifnull(nbCount,0)),0) as allCount from 
+	   (select du.id as create_uid,du.real_name as create_uname,pc.wbCount from
+	   			(select 	pu.id,pu.real_name,pu.department_id  
+	   		 	 from 		platform_user pu,platform_user_role pur
+	   		 	 where 		pu.id = pur.user_id 
+	   		 	 and 		pur.role_id = '4'
+	   		 	 <if test="departmentId != null"> and pu.department_id = #{departmentId,jdbcType=BIGINT}</if> ) du
+	    left join
+	   			(select 	create_Uid,count(0) as wbCount
+			 	 from		sop_project
+			 	 where		project_type='projectType:1'
+			 	 and		project_progress='projectProgress:10'
+			 	 <if test="departmentId != null"> and project_departId = #{departmentId,jdbcType=BIGINT}</if> 
+			 	 group by 	create_Uid	 ) pc
+	    on	du.id = pc.create_uid ) a
+	left join 	   
+	   (select du.id as create_uid,du.real_name as create_uname,pc.nbCount from
+	   			(select 	pu.id,pu.real_name,pu.department_id  
+	   		 	 from 		platform_user pu,platform_user_role pur
+	   		 	 where 		pu.id = pur.user_id 
+	   		 	 and 		pur.role_id = '4'
+	   		 	 <if test="departmentId != null"> and pu.department_id = #{departmentId,jdbcType=BIGINT}</if> ) du
+	    left join
+	   			 (select 	create_Uid,count(0) as nbCount
+			 	  from		sop_project
+			 	  where		project_type='projectType:2'
+			 	  and		project_progress='projectProgress:10'
+			 	  <if test="departmentId != null"> and project_departId = #{departmentId,jdbcType=BIGINT}</if> 			   	  
+			 	  group by 	create_Uid	 ) pc
+	   	on	du.id = pc.create_uid ) b
+	on a.create_uid = b.create_uid
+	order by allCount desc
+	</select>
+	
 	
 	
 </mapper>

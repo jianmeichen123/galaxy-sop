@@ -83,10 +83,9 @@
 		        			
 		        			sendGetRequest(platformUrl.deleteApprActual + "/" + row.id ,null,function(data){
 		    	        		if(data.result.status=="OK"){
-		    	        			
 		    	        			layer.msg("删除成功");
-		    	        			 
 	    	                		flushData(${partId});
+	    	                		//reference('${projectId}');
 		    	        			var options = $('#actual-table').bootstrapTable('getOptions');
 		    	                	var data = options.data;
 		    	                	var pageNum_ = options.pageNumber; 

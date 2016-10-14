@@ -136,7 +136,18 @@ var containerKpiOptions = {
         },
     },
     tooltip: {
-        shared: true
+        shared: true,
+        backgroundColor: 'rgba(255,255,255,0.9)',   // 背景颜色
+        borderColor: '#9dd2fc',         // 边框颜色
+        borderRadius: 1,             // 边框圆角
+        borderWidth: 1,               // 边框宽度
+        shadow: false,                 // 是否显示阴影
+        animation: true,               // 是否启用动画效果
+        style: {                      // 文字内容相关样式
+            color: "#555",
+            fontSize: "12px",
+            fontFamily: "Courir new"
+        }
     },
     legend: {
         itemMarginTop:-10,
@@ -170,6 +181,17 @@ var containerKpiOptions = {
         }
     }]
 };
+
+
+/*ie8浏览器显示Y轴名称*/
+var browser=navigator.appName 
+var b_version=navigator.appVersion 
+var version=b_version.split(";"); 
+var trim_Version=version[1].replace(/[ ]/g,""); 
+if(browser=="Microsoft Internet Explorer" && trim_Version=="MSIE8.0") 
+{ 
+	$(".highchartsAxisName").show();
+} 
 
 
 

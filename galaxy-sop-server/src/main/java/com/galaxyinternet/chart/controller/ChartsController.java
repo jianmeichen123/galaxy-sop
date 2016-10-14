@@ -1067,5 +1067,12 @@ public class ChartsController extends BaseControllerImpl<Chart, Chart> {
 		} 
 		return false;
 	}
+	
+	
+	
+	
+	
+	
+	
 
 }

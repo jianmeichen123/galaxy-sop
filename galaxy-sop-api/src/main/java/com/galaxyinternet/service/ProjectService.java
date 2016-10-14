@@ -52,5 +52,6 @@ public interface ProjectService extends BaseService<Project> {
 
 	List<Long> getProIdsForPrivilege(Map<String, Object> params);
 	
+	
 
 }

@@ -103,12 +103,32 @@ public class FXFunctionTags
 		}
 		return "";
 	}
-
+	/**
+	 * 绿色通道 - 尽职调查阶段
+	 * @param projectId
+	 * @return
+	 */
 	public static boolean isPrivilege_6(Long projectId)
 	{
-		UtilsService util = WebUtils.getBean(UtilsService.class);
-		if(projectId != null && util != null){
-			return util.checkProIsGreenChannel(projectId);
+		ProjectService projectService = WebUtils.getBean(ProjectService.class);
+		if(projectService == null)
+		{
+			return false;
+		}
+		
+		Project project = projectService.queryById(projectId);
+		if(project == null || project.getGreanChannel() == null)
+		{
+			return false;
+		}
+		
+		String[] stages = project.getGreanChannel().split(",");
+		for(String stage : stages)
+		{
+			if("6".equals(stage))
+			{
+				return true;
+			}
 		}
 		return false;
 	}

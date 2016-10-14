@@ -36,7 +36,7 @@
             <input type="hidden"  id="tipslink_val"/>
             <input type="hidden"  id="flagUrl" name="flagUrl" value="${flagUrl}"/>
             <input  name="keyword" type="text" placeholder="请输入项目名称或投资经理姓名" class="txt"/>
-            <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">查询</a>
+            <a href="javascript:;" class="bluebtn ico cx"  action="querySearch">搜索</a>
 
           </div>
             <!--tips连接-->

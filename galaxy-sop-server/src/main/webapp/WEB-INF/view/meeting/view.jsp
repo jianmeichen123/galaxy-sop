@@ -55,7 +55,7 @@
             <dl class="fmdl fmmr fmdll clearfix">
               <dt>会议类型：</dt>
               <dd class="clearfix">
-					<label><input type="radio" name="meetingType" value="" />不限 </label>
+					<label><input type="radio" name="meetingType" value="" / checked="checked">不限 </label>
 			 		<label><input type="radio" name="meetingType" value="meetingType:1" />内评会 </label>
 					<label><input type="radio" name="meetingType" value="meetingType:2" />CEO评审</label>
 					<label><input type="radio" name="meetingType" value="meetingType:3" />立项会</label>
@@ -85,7 +85,7 @@
                 <input type="text" class="txt s_txt" placeholder="请输入项目名称或项目编码"  id="keyword" name="keyword" maxlength="100"/>  <!-- proNameCode -->
               </dd>
               <dd>
-               <a href="javascript:;" class="bluebtn ico cx" action="querySearch">查询</a>
+               <a href="javascript:;" class="bluebtn ico cx" action="querySearch">搜索</a>
               </dd>
             </dl>
             

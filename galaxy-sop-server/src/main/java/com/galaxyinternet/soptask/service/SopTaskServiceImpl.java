@@ -502,7 +502,9 @@ public class SopTaskServiceImpl extends BaseServiceImpl<SopTask> implements SopT
 		if(task.getTaskFlag() != null){
 			SopFile file = new SopFile();
 			file.setProjectId(task.getProjectId());
-			if(task.getTaskFlag().intValue() == 2){
+			if(task.getTaskFlag().intValue() == 5){
+				file.setFileWorktype(DictEnum.fileWorktype.业务尽职调查报告.getCode());
+			}else if(task.getTaskFlag().intValue() == 2){
 				file.setFileWorktype(DictEnum.fileWorktype.人力资源尽职调查报告.getCode());
 			}else if(task.getTaskFlag().intValue() == 3){
 				file.setFileWorktype(DictEnum.fileWorktype.法务尽职调查报告.getCode());
