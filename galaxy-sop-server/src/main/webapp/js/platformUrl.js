@@ -824,6 +824,9 @@ var platformUrl = {
 	 * 2. 工作桌面－绩效考核
 	 */
 	deptkpi : Constants.sopEndpointURL + "/galaxy/kpireport/deptkpi",
+	
+	
+	partnerkpi : Constants.sopEndpointURL + "/galaxy/kpireport/partnerkpi",
 	/**
 	 * 团队kpi 弹窗
 	 * 团队绩效－项目列表页面

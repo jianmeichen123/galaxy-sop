@@ -13,6 +13,8 @@ public interface KpiService extends BaseService<ChartDataBo> {
 	Page<ChartDataBo> userKpi(ChartKpiQuery query);
 
 	Page<ChartDataBo> deptkpi(ChartKpiQuery query);
+	
+	Page<ChartDataBo> parterkpi(ChartKpiQuery query) throws Exception;
 
 	Page<ChartDataBo> ggLineChart(ChartKpiQuery query);
 

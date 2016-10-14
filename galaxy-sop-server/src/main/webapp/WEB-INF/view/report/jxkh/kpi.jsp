@@ -173,19 +173,19 @@
 					</dl>
 					<dl class="fmdl fmmr clearfix">
 						<dd id="weekType">
-							<input type="text" class="txt time weekStartDatepicker" id="partnerkpi_sdate" name="parter_sdate" value="" /> 
+							<input type="text" class="txt time weekStartDatepicker" id="partnerkpi_sdate" name="partnerSdate" value="" /> 
 							<span>至</span> 
-							<input type="text" class="txt time weekEndDatepicker" id="partnerkpi_edate" name="parter_edate" value="" />
+							<input type="text" class="txt time weekEndDatepicker" id="partnerkpi_edate" name="partnerEdate" value="" />
 						</dd>
 						
-						<dd id="definedType" style="display:none">
-							<input type="text" class="txt time datepicker" name="sdate" id="partnerkpi_sdate" value="" /> 
+					   <dd id="definedType" style="display:none">
+							<input type="text" class="txt time datepicker" name="partnerSdate" id="partnerkpi_sdate" value="" /> 
 							<span>至</span> 
-							<input type="text" class="txt time datepicker" name="edate" id="partnerkpi_edate" value="" />
+							<input type="text" class="txt time datepicker" name="partnerEdate" id="partnerkpi_edate" value="" />
 						</dd>
 						
 						<dd>
-							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_teamkpi">查询</a>  <!-- id="querySearch_deptkpi" -->
+							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_partnerkpi">查询</a>  <!-- id="querySearch_deptkpi" -->
 						</dd>
 					</dl>
 				</div>
@@ -198,8 +198,8 @@
 					<thead>
 						<tr>
 							<th data-field="departmentName"  	class="data-input">投资事业线</th>
-							<th data-field="target"  			class="data-input">分数/生成项目 </th>
-							<th data-field="completed"  		class="data-input" data-formatter="cat_deptkpi">分数/通过CEO评审</th>
+							<th data-field="score1"  			class="data-input">分数/生成项目 </th>
+							<th data-field="score2"  		class="data-input" data-formatter="cat_deptkpi">分数/通过CEO评审</th>
 							<th data-field="completedAll"  		class="data-input">分数/通过立项会</th>
 							<th data-field="companyRank"  		class="data-input">总分数</th>
 							<th data-field="zjRate"  		class="data-input" data-formatter="rate_format">过会率/CEO评审会</th>
@@ -239,16 +239,32 @@
 
 <script>
 
+
 //周报|自定义选择切换
 $("#week").on('click',function(){
+	$("#weekType").find(':input').attr('data', 'false');
 	$("#weekType").show();
 	$("#definedType").hide();
+	
 });
 
 $("#defined").on('click',function(){
+	$("#definedType").find(':input').attr('data', 'false');
 	$("#weekType").hide();
 	$("#definedType").show();
+	setDefineDate("definedType");
+	
+	
 });
+
+function setDefineDate(id){
+	//表单日期初始化
+    var currDate = new Date();
+	var sdate = currDate.format("yyyy-01-01");
+	var edate = currDate.format("yyyy-MM-dd");
+	$("#"+id).find("input[name='partnerSdate']").val(sdate);
+	$("#"+id).find("input[name='partnerEdate']").val(edate);
+}
 
 	
 </script>

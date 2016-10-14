@@ -18,8 +18,10 @@ $(function(){
     var currDate = new Date();
 	var sdate = currDate.format("yyyy-01-01");
 	var edate = currDate.format("yyyy-MM-dd");
+	
 	$("input[name='sdate']").val(sdate);
 	$("input[name='edate']").val(edate);
+	
 	
 	
 	//切换tab，加载目标tab数据

@@ -274,6 +274,46 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	}
 	
 	
+	@ResponseBody
+	@RequestMapping(value = "/partnerkpi", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseData<ChartDataBo> partnerkpi(HttpServletRequest request,@RequestBody ChartKpiQuery query) {
+		
+		//返回对象
+		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
+		
+		try {
+			String queryParamsJsonStr = GSONUtil.toJson(query);
+			if(StringUtils.isBlank(query.getPartnerSdate())){
+				query.setPartnerSdate(DateUtil.getDefaultSdate(1));
+			}
+			if(StringUtils.isBlank(query.getPartnerEdate())){
+				query.setPartnerEdate(DateUtil.getDefaultEdate(1));
+			}
+			
+			query.setPartnerSdate(query.getPartnerSdate().trim() + " 00:00:00");
+			query.setPartnerEdate(query.getPartnerEdate().trim() + " 23:59:59");
+			Long startTime = DateUtil.stringToLong(query.getPartnerSdate(), "yyyy-MM-dd HH:mm:ss");
+			Long endTime = DateUtil.stringToLong(query.getPartnerEdate(), "yyyy-MM-dd HH:mm:ss");
+			if(startTime > endTime){
+				responseBody.setResult(new Result(Status.ERROR,null, "开始时间不能大于结束时间"));
+				return responseBody;
+			}
+			query.setStartTime(startTime);
+			query.setEndTime(endTime);
+
+			Page<ChartDataBo> pageList = kpiService.parterkpi(query);
+			//pageList.setHHR(isHHR(request));
+			responseBody.setResult(new Result(Status.OK, ""));
+			responseBody.setQueryParamsJsonStr(queryParamsJsonStr);
+			responseBody.setPageList(pageList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			responseBody.setResult(new Result(Status.ERROR,null, "绩效考核统计失败"));
+			logger.error("deptkpi report 绩效考核统计失败",e);
+		}
+		
+		return responseBody;
+	}
 	
 	
 	

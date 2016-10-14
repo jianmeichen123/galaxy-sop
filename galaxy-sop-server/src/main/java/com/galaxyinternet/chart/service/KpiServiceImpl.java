@@ -38,6 +38,7 @@ import com.galaxyinternet.model.user.User;
 import com.galaxyinternet.service.DepartmentService;
 import com.galaxyinternet.service.UserService;
 import com.galaxyinternet.service.chart.KpiService;
+import com.galaxyinternet.service.chart.statistics.MeetingPassRateService;
 
 
 @Service("com.galaxyinternet.service.chart.KpiService")
@@ -63,6 +64,9 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 
 	@Autowired
 	private SopTaskDao sopTaskDao;
+	
+	@Autowired
+	private MeetingPassRateService meetingPassRateService;
 	
 	@Override
 	protected BaseDao<ChartDataBo, Long> getBaseDao() {
@@ -1915,6 +1919,39 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 		}
 		
 		kpiPage = new Page<ChartDataBo>(kpiDataList,total);
+		return kpiPage;
+	}
+
+
+
+	@Override
+	public Page<ChartDataBo> parterkpi(ChartKpiQuery query) throws Exception {
+		// TODO Auto-generated method stub
+		
+		Long total = 0l;
+		List<ChartDataBo> kpiDataList = new ArrayList<ChartDataBo>();
+		Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList,total);
+		
+		total = departmentService.queryCount();
+		
+		Department de = new Department();
+		Page<Department> departmentList = departmentService.queryPageList(de, new PageRequest(query.getPageNum(), query.getPageSize()));
+		List<Department> list = departmentList.getContent();
+		
+		if(departmentList != null){
+			for(Department dep:list){
+				ChartDataBo cb = new ChartDataBo();
+				cb.setDepartmentName(dep.getName());
+				long a = meetingPassRateService.scoreCreateProject(query.getStartTime(), query.getEndTime(), dep.getId());
+				long b = meetingPassRateService.scorePassCEOMeeting(query.getStartTime(), query.getEndTime(), dep.getId());
+				cb.setScore1(a);
+				cb.setScore2(b);
+				kpiDataList.add(cb);
+			}
+		}
+		kpiPage.setContent(kpiDataList);
+		kpiPage.setPageable(departmentList.getPageable());
+		kpiPage.setTotal(total);
 		return kpiPage;
 	}
 	
