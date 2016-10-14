@@ -1424,8 +1424,12 @@ form#update_form_basic tr td:nth-child(1){padding-left: 10% !important;}
 .tablinks li a{ color: #f9f9fb;}
 .assessment .tablinks .no {
     background: #d6d8e1;
+    pointer-events:none;
+    cursor:default;
 }
-.assessment .tablinks .no a{ color:#9ea1ad}
+.assessment .tablinks li{color:#fff;}
+.assessment .tablinks li.on{color:#5d678a}
+.assessment .tablinks .no{ color:#5d678a}
 .new_table{ margin-top:10px;}
 .new_table td{ border:0}
 .new_table .on td{ background-color:transparent;}
@@ -2143,3 +2147,7 @@ margin: 45px auto 30px;}
 .position_tab{position: absolute; right: 10px;top: 8px;}
 .position_tab li.on{background:#c1d0dd;color:#fff;}
 .pagebox .min .tablist dt .t13{ background-position:0 -287px}
+/* ie8X轴名称显示 */
+.highchartsAxisName{color:#7a8798;font-size:12px;font-family:"宋体";writing-mode:tb-rl;position:absolute;display:none;}
+.name1{top:75px;left:30px}
+.name2{top:75px;right:30px;}

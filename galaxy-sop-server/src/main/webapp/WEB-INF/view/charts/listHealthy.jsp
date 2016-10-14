@@ -58,7 +58,7 @@
 			</div>
      	<div class="tab-pane active ctlist" id="view">	
 			<table id="chart_health_table" data-url="<%=path %>/galaxy/health/getHealthChartGrid" 
-				data-page-list="[5, 10, 20]" data-toolbar="#health-custom-toolbar" data-show-refresh="true">
+				data-page-list="[10, 20, 30]" data-toolbar="#health-custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
 			        	<th data-field="projectName"  data-formatter="projectNameInfo" class="data-input" data-width="16%">项目名称</th>
@@ -86,9 +86,8 @@
 <script type="text/javascript">
     $(function(){
     	createMenus(160);
-    	init_bootstrapTable('chart_health_table',5);
-    	
-    })
+    	init_bootstrapTable('chart_health_table',10);
+    });
 	 function rematkFormat(value,row,index){
 			var str=row.rematk;
 			var options="";
