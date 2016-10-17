@@ -99,7 +99,7 @@
 	
 	<!-- 统计"过会率"相关参数 -->
 	<select id="countMeetingRate" resultType="java.lang.Long" parameterType="java.util.Map">
-		select count(p.id) from fx_db.sop_project as p inner join fx_db.sop_meeting_record as m on p.id = m.project_id 
+		select count(distinct p.id) from fx_db.sop_project as p inner join fx_db.sop_meeting_record as m on p.id = m.project_id 
 		where m.meeting_type = #{meetingType}
 		<if test="meetingResult != null"> and m.meeting_result = #{meetingResult}</if>
 		and p.project_departId = #{departmentId}
@@ -107,7 +107,6 @@
 		and m.created_time >= #{startDate}
 		and m.created_time <= #{endDate}
 		]]>
-		group by p.id
 	</select>
 	
 	
