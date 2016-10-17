@@ -21,7 +21,7 @@ public class GrantActualDaoImpl extends BaseDaoImpl<GrantActual, Long> implement
 			return sqlSessionTemplate.selectOne(getSqlName("lookActualDetail"), actualId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new DaoException(String.format("查询实际拨款信息出错！语句：%s", getSqlName("lookActualDetail")), e);
+			throw new DaoException(String.format("查询实际注资信息出错！语句：%s", getSqlName("lookActualDetail")), e);
 		}
 	}
 
@@ -32,7 +32,7 @@ public class GrantActualDaoImpl extends BaseDaoImpl<GrantActual, Long> implement
 			return sqlSessionTemplate.selectOne(getSqlName("sumBelongToActualMoney"), partId);
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new DaoException(String.format("计算实际拨款总金额出错！语句：%s", getSqlName("sumBelongToActualMoney")), e);
+			throw new DaoException(String.format("计算实际注资总金额出错！语句：%s", getSqlName("sumBelongToActualMoney")), e);
 		}
 	}
 

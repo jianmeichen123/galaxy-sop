@@ -40,6 +40,8 @@
             <ul class="tablink tablinks">
             	<li data-tab="nav"><a href="javascript:;">个人绩效考核</a></li>
             	<li data-tab="nav" id="team_kpi_li" style="display:none;"><a href="javascript:;">团队绩效考核</a></li>
+            	<li data-tab="nav"><a href="javascript:;">合伙人日常业务绩效评分表</a></li>
+            	
             </ul>
 
 			<!-- 个人绩效考核   高管、合伙人都可以查看  -->
@@ -157,6 +159,55 @@
 					</thead>
 				</table>
 			</div>
+			
+			<!-- 合伙人日常绩效考核   高管可以查看  -->
+			<div class="tabtable_con" data-tab="con">
+				<div class="search_box searchall" id="custom-toolbasr-partnerkpi">
+					<dl class="fmdl fmmr clearfix">
+						<dt>查询时间：</dt>
+						<dd>
+							<input id="week" type="radio" name="week" value="" checked/>周报
+							<input id="defined" type="radio" name="week" value=""/>自定义
+						</dd>
+						
+					</dl>
+					<dl class="fmdl fmmr clearfix">
+						<dd id="weekType">
+							<input type="text" class="txt time weekStartDatepicker" id="partnerkpi_sdate" name="partnerSdate" value="" /> 
+							<span>至</span> 
+							<input type="text" class="txt time weekEndDatepicker" id="partnerkpi_edate" name="partnerEdate" value="" />
+						</dd>
+						
+					   <dd id="definedType" style="display:none">
+							<input type="text" class="txt time datepicker" name="partnerSdate" id="partnerkpi_sdate" value="" /> 
+							<span>至</span> 
+							<input type="text" class="txt time datepicker" name="partnerEdate" id="partnerkpi_edate" value="" />
+						</dd>
+						
+						<dd>
+							<a href="javascript:;" class="bluebtn ico tj" id="querySearch_partnerkpi">查询</a>  <!-- id="querySearch_deptkpi" -->
+						</dd>
+					</dl>
+				</div>
+				<div>
+				    <a href="javascript:;" class="bluebtn ico tj" id="querySearch_teamkpi">导出</a>
+				</div>
+				<!--表格内容-->
+				<table id="data-table-partnerkpi"
+					width="100%" cellspacing="0" cellpadding="0" class="table_m">
+					<thead>
+						<tr>
+							<th data-field="departmentName"  	class="data-input">投资事业线</th>
+							<th data-field="score1"  			class="data-input">分数/生成项目 </th>
+							<th data-field="score2"  		class="data-input">分数/通过CEO评审</th>
+							<th data-field="score3"  		class="data-input">分数/通过立项会</th>
+							<th data-field="sumScore"  		class="data-input">总分数</th>
+							<th data-field="ceoRate"  		class="data-input" data-formatter="rate_format">过会率/CEO评审会</th>
+							<th data-field="lxhRate"  		class="data-input" data-formatter="rate_format">过会率/立项会</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
 		
 		
 		</div>
@@ -179,7 +230,10 @@
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script src="<%=path %>/bootstrap/bootstrap-datepicker/js/datepicker-init.js"></script>
+<script src="<%=path %>/bootstrap/bootstrap-datepicker/js/rangeDateForWeek.js"></script>
+
 <!-- kpi js -->
+<script src="<%=path%>/js/kpi/tab_partnerkpi.js"></script>
 <script src="<%=path%>/js/kpi/tab_perkpi.js"></script>
 <script src="<%=path%>/js/kpi/tab_teamkpi.js"></script>
 <script src="<%=path%>/js/kpi/kpi_tag.js"></script>
@@ -187,6 +241,31 @@
 <script>
 
 
+//周报|自定义选择切换
+$("#week").on('click',function(){
+	$("#weekType").find(':input').attr('data', 'false');
+	$("#weekType").show();
+	$("#definedType").hide();
+	
+});
+
+$("#defined").on('click',function(){
+	$("#definedType").find(':input').attr('data', 'false');
+	$("#weekType").hide();
+	$("#definedType").show();
+	setDefineDate("definedType");
+	
+	
+});
+
+function setDefineDate(id){
+	//表单日期初始化
+    var currDate = new Date();
+	var sdate = currDate.format("yyyy-01-01");
+	var edate = currDate.format("yyyy-MM-dd");
+	$("#"+id).find("input[name='partnerSdate']").val(sdate);
+	$("#"+id).find("input[name='partnerEdate']").val(edate);
+}
 
 	
 </script>

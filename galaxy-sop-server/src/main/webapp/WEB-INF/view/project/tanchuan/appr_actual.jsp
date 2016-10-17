@@ -12,10 +12,10 @@
 <script src="<%=path %>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 
 <div class="addmentc">
-	<div class="title_bj" id="popup_name">实际拨款信息列表</div>
+	<div class="title_bj" id="popup_name">实际注资信息列表</div>
      
     <div class="addbutton btnbox_f1 clearfix margin_45">                        	
-        <a href="javascript:;" id="btn_add_appr_actual" style="display: none"  resource-mark="add_appr_actual" class="pbtn bluebtn h_bluebtn">添加实际拨款信息</a>        
+        <a href="javascript:;" id="btn_add_appr_actual" style="display: none"  resource-mark="add_appr_actual" class="pbtn bluebtn h_bluebtn">添加实际注资信息</a>        
     </div>
     <div class="form clearfix">
         <div class="actual_all">
@@ -25,9 +25,9 @@
         		data-toolbar="#custom-toolbar" data-show-refresh="true">
 				<thead>
 				    <tr>
-			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="25%">实际拨款金额（元）</th>
-			        	<th data-field="createdTime" data-formatter="createDateFormat" class="data-input  data-width="25%">拨款日期<span></span></th>
-			        	<th data-field="createUname" class="data-input  data-width="25%">拨款人<span></span></th>
+			        	<th data-field="grantMoney" data-formatter="grantMoneyFormat"  class="data-input" data-formatter="projectInfo" data-width="25%">实际注资金额（元）</th>
+			        	<th data-field="createdTime" data-formatter="createDateFormat" class="data-input  data-width="25%">注资日期<span></span></th>
+			        	<th data-field="createUname" class="data-input  data-width="25%">注资人<span></span></th>
 			        	<th class="col-md-2" data-formatter="operatorFormat" data-events="operatorEvent" data-class="noborder" data-width="25%">操作</th>
  					</tr>	
  				</thead>
@@ -75,7 +75,7 @@
 	    			editApprActualDialog.init(formdata);
 	    		},
 	    		'click .deleteActualLink'  : function(e, value, row, index){
-	    			layer.confirm('是否删除实际拨款信息?', {
+	    			layer.confirm('是否删除实际注资信息?', {
 		        		  btn: ['确定', '取消'], //可以无限个按钮
 		        		  title:"提示",
 		        		}, function(index, layero){

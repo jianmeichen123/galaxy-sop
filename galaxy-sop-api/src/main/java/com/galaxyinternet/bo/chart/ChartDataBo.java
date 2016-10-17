@@ -51,7 +51,25 @@ public class ChartDataBo extends PagableEntity{
 	private Long dayLine;        //目标数
 	
 	
+	private String name;
+	private Long score1; //分数/生成项目
+	private Long score2; //分数/通过CEO评审
+	private Long score3; // 分数/通过立项会
+	private Long sumScore; //总分数
 	
+	private Double ceoRate; //CEO评审过会率
+	private Double lxhRate; //立项会过会率
+	
+	
+	
+	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public Long getUserId() {
 		return userId;
 	}
@@ -341,6 +359,44 @@ public class ChartDataBo extends PagableEntity{
 	public void setDayLine(Long dayLine) {
 		this.dayLine = dayLine;
 	}
+	public Long getScore1() {
+		return score1;
+	}
+	public void setScore1(Long score1) {
+		this.score1 = score1;
+	}
+	public Long getScore2() {
+		return score2;
+	}
+	public void setScore2(Long score2) {
+		this.score2 = score2;
+	}
+	public Long getScore3() {
+		return score3;
+	}
+	public void setScore3(Long score3) {
+		this.score3 = score3;
+	}
+	public Long getSumScore() {
+		return sumScore;
+	}
+	public void setSumScore(Long sumScore) {
+		this.sumScore = sumScore;
+	}
+	public Double getCeoRate() {
+		return ceoRate;
+	}
+	public void setCeoRate(Double ceoRate) {
+		this.ceoRate = ceoRate;
+	}
+	public Double getLxhRate() {
+		return lxhRate;
+	}
+	public void setLxhRate(Double lxhRate) {
+		this.lxhRate = lxhRate;
+	}
+	
+	
 	
 	
 	

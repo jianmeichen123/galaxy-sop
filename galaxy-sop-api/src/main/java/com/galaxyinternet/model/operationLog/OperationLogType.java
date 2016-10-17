@@ -139,21 +139,21 @@ public enum OperationLogType {
 	
 	
 	
-	//总拨款计划
-	_14_1_1	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.one,	 OperType.ADD.getOperationType() ,	    "总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_1_2	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.two,	 "编辑" ,							    "总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_1_2_1	("/galaxy/grant/total/resetGrantTotal/"+UrlNumber.two,	 "编辑" ,								"总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_1_3_1   ("/galaxy/grant/total/deleteGrantTotal/"+UrlNumber.three,OperType.DELETE.getOperationType() ,	"总拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	//总注资计划
+	_14_1_1	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.one,	 OperType.ADD.getOperationType() ,	    "总注资计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_2	    ("/galaxy/grant/total/addGrantTotal/"+UrlNumber.two,	 "编辑" ,							    "总注资计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_2_1	("/galaxy/grant/total/resetGrantTotal/"+UrlNumber.two,	 "编辑" ,								"总注资计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_1_3_1   ("/galaxy/grant/total/deleteGrantTotal/"+UrlNumber.three,OperType.DELETE.getOperationType() ,	"总注资计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 	
-	//分期拨款计划
-	_14_2_1	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.one,		OperType.ADD.getOperationType() ,	    "分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_2_2	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.two,		"编辑",									"分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_2_3	    ("/galaxy/grant/part/delGrantPart/"+UrlNumber.three,	OperType.DELETE.getOperationType() ,	"分期拨款计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	//分期注资计划
+	_14_2_1	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.one,		OperType.ADD.getOperationType() ,	    "分期注资计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_2_2	    ("/galaxy/grant/part/addGrantPart/"+UrlNumber.two,		"编辑",									"分期注资计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_2_3	    ("/galaxy/grant/part/delGrantPart/"+UrlNumber.three,	OperType.DELETE.getOperationType() ,	"分期注资计划",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 
-	//实际拨款信息
-	_14_3_1	    ("/galaxy/grant/actual/saveApprActual/"+UrlNumber.one,		OperType.ADD.getOperationType() ,	    "实际拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_3_2	    ("/galaxy/grant/actual/saveApprActual/"+UrlNumber.two,		"编辑",									"实际拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
-	_14_3_3     ("/galaxy/grant/actual/deleteApprActual/"+UrlNumber.three,	OperType.DELETE.getOperationType() ,	"实际拨款信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	//实际注资信息
+	_14_3_1	    ("/galaxy/grant/actual/saveApprActual/"+UrlNumber.one,		OperType.ADD.getOperationType() ,	    "实际注资信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_3_2	    ("/galaxy/grant/actual/saveApprActual/"+UrlNumber.two,		"编辑",									"实际注资信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
+	_14_3_3     ("/galaxy/grant/actual/deleteApprActual/"+UrlNumber.three,	OperType.DELETE.getOperationType() ,	"实际注资信息",	SopStage.EQUITY_DELIVERY_END.getStageName()),
 	
 	/*项目操作日志的配置------------------------------------结束----------------------------------------------------------*/
 	

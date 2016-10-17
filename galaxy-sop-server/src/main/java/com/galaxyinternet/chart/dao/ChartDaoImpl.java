@@ -112,5 +112,20 @@ public class ChartDaoImpl extends BaseDaoImpl<Chart, Long>implements ChartDao {
 	public List<Map<String, Object>> appBrief(Map<String, Object> params) {
 		return sqlSessionTemplate.selectList(getSqlName(MSqlId.SQL_APP_BRIEF), params);
 	}
+
+	@Override
+	public long scoreCEOMeeting(Map<String, Object> params) {
+		return sqlSessionTemplate.selectOne(getSqlName("scoreCEOMeeting"), params);
+	}
+
+	@Override
+	public long scoreCreateProject(Map<String, Object> params) {
+		return sqlSessionTemplate.selectOne(getSqlName("scoreCreateProject"), params);
+	}
+	
+	@Override
+	public long countMeetingRate(Map<String, Object> params) {
+		return sqlSessionTemplate.selectOne(getSqlName("countMeetingRate"), params);
+	}
 	
 }
