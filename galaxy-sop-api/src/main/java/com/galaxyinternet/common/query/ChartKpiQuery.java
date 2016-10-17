@@ -17,14 +17,17 @@ public class ChartKpiQuery extends PagableEntity {
 	
 	private String partnerSdate;
 	private String partnerEdate;
+	private Long sumScore; //总分数
 	
 	private String forPerOrDept;   //'per' or 'dept'
 	
 	
-	
-	
-	
-	
+	public Long getSumScore() {
+		return sumScore;
+	}
+	public void setSumScore(Long sumScore) {
+		this.sumScore = sumScore;
+	}
 	public String getPartnerSdate() {
 		return partnerSdate;
 	}
