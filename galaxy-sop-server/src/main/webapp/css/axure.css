@@ -1093,8 +1093,8 @@ background-size: 93%;position: relative;z-index: 10;position: relative;}
 .addmentc .left,.addmentc .right{width:390px;float: left;}
 .addmentc dl{margin:10px 0;overflow: hidden;}
 .addmentc dl dt,.addmentc dl dd{float: left;}
-.addmentc dl dt{width:110px;text-align: right;font-family: '微软雅黑';line-height: 30px;}
-.addmentc .fmdl dd .txt{ width:150px;font-size: 12px;font-family: '宋体';}
+.addmentc dl dt{width:120px;text-align: right;font-family: '微软雅黑';line-height: 30px;}
+.addmentc .fmdl dd .txt{ width:140px;font-size: 12px;font-family: '宋体';}
 .addmentc .pubbtn{margin: 20px 0 0 250px;}
 /* 立项会弹窗 */
 .workexpricetc{width:400px;}
@@ -2138,7 +2138,7 @@ margin: 45px auto 30px;}
 .actual_all .health_case{border-radius:5px;border-bottom:0;}
 #actual-table td a{margin-right:10px;}
 .moeny_all .money ,#setValue .money ,#label_grant_money .money{ position: absolute; top: -39px;  left: 285px;}
-.bj_hui{ background-color:rgb(248, 248, 248) !important; display:none ; width: 150px;    border: 1px solid #dadfe3; border-radius: 4px;
+.bj_hui{ background-color:rgb(248, 248, 248) !important; display:none ; width: 140px;    border: 1px solid #dadfe3; border-radius: 4px;
     padding: 0 4px;  font-size: 12px;}
 /*------------------------------- V2.3.101-------------------------------- */
 .tablist .Htips{font-size:12px;color:#aaa;font-family:"宋体"}
