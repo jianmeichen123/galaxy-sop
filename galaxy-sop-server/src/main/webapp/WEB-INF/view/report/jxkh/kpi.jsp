@@ -200,9 +200,10 @@
 							<th data-field="departmentName"  	class="data-input">投资事业线</th>
 							<th data-field="score1"  			class="data-input">分数/生成项目 </th>
 							<th data-field="score2"  		class="data-input" data-formatter="cat_deptkpi">分数/通过CEO评审</th>
-							<th data-field="completedAll"  		class="data-input">分数/通过立项会</th>
-							<th data-field="companyRank"  		class="data-input">总分数</th>
-							<th data-field="zjRate"  		class="data-input" data-formatter="rate_format">过会率/CEO评审会</th>
+							<th data-field="score3"  		class="data-input">分数/通过立项会</th>
+							<th data-field="sumScore"  		class="data-input">总分数</th>
+							<th data-field="ceoRate"  		class="data-input" data-formatter="rate_format">过会率/CEO评审会</th>
+							<th data-field="lxhRate"  		class="data-input" data-formatter="rate_format">过会率/立项会</th>
 						</tr>
 					</thead>
 				</table>

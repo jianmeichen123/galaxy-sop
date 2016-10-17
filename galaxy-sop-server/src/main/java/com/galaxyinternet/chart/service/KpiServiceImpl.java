@@ -1944,8 +1944,15 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo>implements KpiSe
 				cb.setDepartmentName(dep.getName());
 				long a = meetingPassRateService.scoreCreateProject(query.getStartTime(), query.getEndTime(), dep.getId());
 				long b = meetingPassRateService.scorePassCEOMeeting(query.getStartTime(), query.getEndTime(), dep.getId());
+				long c = meetingPassRateService.scorePassLXHMeeting(query.getStartTime(), query.getEndTime(), dep.getId());
 				cb.setScore1(a);
 				cb.setScore2(b);
+				cb.setScore3(c);
+				cb.setSumScore(a + b + c);
+				double ceoRate = meetingPassRateService.passCEOMeetingRate(query.getStartTime(), query.getEndTime(), dep.getId());
+				cb.setCeoRate(Double.parseDouble(String.valueOf(ceoRate)));
+				double lxhRate = meetingPassRateService.passLXHMeetingRate(query.getStartTime(), query.getEndTime(), dep.getId());
+				cb.setLxhRate(Double.parseDouble(String.valueOf(lxhRate)));
 				kpiDataList.add(cb);
 			}
 		}

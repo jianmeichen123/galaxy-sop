@@ -101,7 +101,7 @@
 	<select id="countMeetingRate" resultType="java.lang.Long" parameterType="java.util.Map">
 		select count(p.id) from fx_db.sop_project as p inner join fx_db.sop_meeting_record as m on p.id = m.project_id 
 		where m.meeting_type = #{meetingType}
-		<if test="pass != null"> and m.meeting_result = #{meetingResult}</if>
+		<if test="meetingResult != null"> and m.meeting_result = #{meetingResult}</if>
 		and p.project_departId = #{departmentId}
 		<![CDATA[
 		and m.created_time >= #{startDate}
