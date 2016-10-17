@@ -282,6 +282,13 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
 		
 		try {
+			
+			//强制 HHR 只能看个人部门下的数据
+			int hhrDeptId = getDepId(request);
+			if(hhrDeptId!=-1){
+				query.setDeptid((long) hhrDeptId);
+			}
+			
 			String queryParamsJsonStr = GSONUtil.toJson(query);
 			if(StringUtils.isBlank(query.getPartnerSdate())){
 				query.setPartnerSdate(DateUtil.getDefaultSdate(1));

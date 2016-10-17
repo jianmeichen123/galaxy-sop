@@ -2094,7 +2094,13 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 		Page<ChartDataBo> kpiPage = new Page<ChartDataBo>(kpiDataList, total);
 		ListSortUtil<ChartDataBo> sortList = new ListSortUtil<ChartDataBo>();
 
-		total = departmentService.queryCount();
+		Department de = new Department();
+		if(query.getDeptid() != null){
+			de.setId(query.getDeptid());
+		}
+		List<Department> departmentList = departmentService.queryList(de);
+		total = (long) departmentList.size();
+		
 		int pageSize = query.getPageSize();
 		int pageNum = total.intValue() % pageSize;
 		if (pageNum > 0) {
@@ -2102,12 +2108,10 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 		} else {
 			pageNum = total.intValue() / pageSize;
 		}
-		Department de = new Department();
+		
 		/*Page<Department> departmentList = departmentService.queryPageList(de,
 				new PageRequest(query.getPageNum(), query.getPageSize()));
 		List<Department> list = departmentList.getContent();*/	
-		List<Department> departmentList = departmentService.queryList(de);
-	
 		if (departmentList != null) {
 			for (Department dep : departmentList) {
 				ChartDataBo cb = new ChartDataBo();
