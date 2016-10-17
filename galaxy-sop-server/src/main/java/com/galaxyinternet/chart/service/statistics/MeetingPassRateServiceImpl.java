@@ -27,7 +27,7 @@ public class MeetingPassRateServiceImpl implements MeetingPassRateService {
 		params.put("startDate", startDate);
 		params.put("endDate", endDate);
 		
-		long a = chartDao.scoreCEOMeeting(params);
+		long a = chartDao.scoreCreateProject(params);
 		logger.info("score by  create.project:[" + a + "]");
 		return a;
 	}
