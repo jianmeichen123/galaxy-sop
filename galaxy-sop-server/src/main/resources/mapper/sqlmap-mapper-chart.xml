@@ -107,6 +107,7 @@
 		and m.created_time >= #{startDate}
 		and m.created_time <= #{endDate}
 		]]>
+		group by p.id
 	</select>
 	
 	
