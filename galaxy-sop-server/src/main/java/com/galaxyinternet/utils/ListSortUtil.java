@@ -7,10 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.lang.reflect.Field; 
 
-import com.galaxyinternet.model.department.Department;
-
-
-
 public class ListSortUtil<T> {
 	
 	 // 按任意属性进行排序   
