@@ -9,7 +9,7 @@ import com.galaxyinternet.model.report.KpiGradeReport;
 import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.report.service.ReportService;
 
-public class KpiGradeService extends ReportService<ChartDataBo> {
+public class KpiGradeServiceImpl extends ReportService<ChartDataBo> {
 
 	@Override
 	public List<BasicElement> getColumns() {
