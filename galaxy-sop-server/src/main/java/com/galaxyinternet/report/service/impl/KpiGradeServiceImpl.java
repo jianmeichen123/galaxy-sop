@@ -3,18 +3,20 @@ package com.galaxyinternet.report.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.model.report.BasicElement;
-import com.galaxyinternet.model.report.KpiGradeReport;
 import com.galaxyinternet.model.report.SopReportModal;
-import com.galaxyinternet.report.service.ReportService;
+import com.galaxyinternet.report.service.ReportServiceImpl;
+import com.galaxyinternet.service.chart.KpiGradeService;
 
-public class KpiGradeServiceImpl extends ReportService<ChartDataBo> {
-
+@Service("kpiGradeServiceImpl") 
+public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implements KpiGradeService {
+	
 	@Override
 	public List<BasicElement> getColumns() {
 		// TODO Auto-generated method stub
-
 		List<BasicElement> columnList = new ArrayList<BasicElement>();
 		for(int i=0;i<8;i++){
 			BasicElement element = new BasicElement();

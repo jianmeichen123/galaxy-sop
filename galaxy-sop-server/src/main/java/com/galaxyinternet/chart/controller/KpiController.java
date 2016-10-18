@@ -1,6 +1,7 @@
 package com.galaxyinternet.chart.controller;
 
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +29,7 @@ import com.galaxyinternet.framework.core.utils.DateUtil;
 import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.report.service.ReportServiceImpl;
 import com.galaxyinternet.service.chart.KpiService;
 
 @Controller
@@ -42,6 +43,8 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	
 	@Autowired
 	private KpiService kpiService;
+	@Resource(name="kpiGradeServiceImpl")
+	private ReportServiceImpl reportService;
 	
 	
 

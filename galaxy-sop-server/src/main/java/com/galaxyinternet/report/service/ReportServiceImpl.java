@@ -24,8 +24,9 @@ import com.galaxyinternet.model.report.BasicElement;
 import com.galaxyinternet.model.report.DataReport;
 import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.report.manager.ImportExcel2007Manager;
+import com.galaxyinternet.service.ReportService;
 
-public abstract class ReportService<T extends DataReport> {
+public abstract class ReportServiceImpl<T extends DataReport> implements ReportService<T> {
 	
 	public static String modelPath = "J:/report.xlsx";
 	public static String outPath = "J:/";
