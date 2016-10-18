@@ -89,7 +89,7 @@
 			});
 			cutStr(10,'cutstr');
 			cutStr(4,'cutstrName');
-			if(list.length<4){
+			if(list.length<3){
 				$("#cy_index").parent().parent().siblings().children('.more').css("display","none");	
 			}
 		}else{
@@ -102,6 +102,9 @@
 		}	
 	}
 	
+	function toCyPage(){
+		window.location.href=$("#menus").find("[data-menueid='137']").attr("href");
+	}
 </script>
 
 
