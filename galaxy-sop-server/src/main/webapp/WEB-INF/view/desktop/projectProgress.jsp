@@ -1,0 +1,59 @@
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+%>
+<link href="<%=path%>/css/axure.css" type="text/css" rel="stylesheet" />
+<link rel="stylesheet" href="<%=path%>/bootstrap/bootstrap-table/bootstrap-table.css" type="text/css">
+
+<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
+<script src="<%=path%>/js/bootstrap-v3.3.6.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
+<script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+
+<dl id="project-progress-div">
+	<dt>
+		<h3 class="ico t4">项目进度</h3>
+	</dt>
+	<dd>
+		<table id="project-progress-table">
+			<thead>
+				<tr>
+					<th data-field="projectName" data-align="left" >项目名称</th>
+					<th data-field="projectCareerline" data-align="left">事业线</th>
+					<th data-field="progress" data-align="left">目前进度</th>
+				</tr>
+			</thead>
+		</table>
+	</dd>
+	<dd class="clearfix position">
+		<a href="<%=path%>/galaxy/mpl" class="more null">more</a>
+	</dd>
+</dl>
+
+<script>
+	$(function() {
+		var url = "<%=path%>/galaxy/mpl?sid="+sessionId+"&guid="+userId;
+		$("#project-progress-div .more").attr('href',url);
+		$('#project-progress-table').bootstrapTable({
+			queryParamsType : 'size|page', // undefined
+			pageSize : 3,
+			showRefresh : false,
+			url : '../project/search',
+			sidePagination : 'server',
+			method : 'post',
+			sortOrder : 'desc',
+			sortName : 'updated_time',
+			search : false,
+			queryParams:function(param){
+				param.pageNum=0;
+				param.pageSize=3;
+				return param;
+			},
+			onLoadSuccess : function(data) {
+				if (data.pageList.total < 3) {
+					$("#project-progress-div .more").css("display", "none");
+				}
+			}
+		});
+	});
+</script>
