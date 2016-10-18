@@ -81,7 +81,7 @@ function SopTaskCallback(data){
 		var tbodyList = $("#sopStak"); 
 		var noData =
 			'<tr>'+
-			 '<td colspan="7" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
+			 '<td colspan="5" class="no_info no_info01"><span class="no_info_icon">没有找到匹配的记录</span></td>'+
 			' </tr>'; 			
 		tbodyList.append(noData);
 	}	
