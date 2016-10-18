@@ -10,7 +10,7 @@
 <body>
 <div class="pagebox clearfix">
 	<%
-		String[] modules = {"task","dataChart","div_duration_gg","div_performance_gg","idea_summary","message_tip","projectProgress","matterPreview"};
+		String[] modules = {"task","dataChart","div_duration_gg","div_performance_gg","idea_summary","message_tip","projectProgress","matterPreview","ytxmfx"};
 		for(String module : modules)
 		{
 			String url = "/galaxy/desktop/"+module;
@@ -19,6 +19,7 @@
 			<div><!-- 模块标签 -->
 			<jsp:include page="<%=url %>" flush="true"></jsp:include>
 			</div>
+			<br>
 	<%
 			
 		}
