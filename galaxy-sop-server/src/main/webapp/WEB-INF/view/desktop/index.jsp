@@ -10,7 +10,7 @@
 <body>
 <div class="pagebox clearfix">
 	<%
-		String[] modules = {"task","dataChart","div_duration_gg","div_performance_gg","idea_summary","message_tip"};
+		String[] modules = {"task","dataChart","div_duration_gg","div_performance_gg","idea_summary","message_tip","projectProgress","matterPreview"};
 		for(String module : modules)
 		{
 			String url = "/galaxy/desktop/"+module;

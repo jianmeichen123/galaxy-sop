@@ -31,29 +31,29 @@
 </dl>
 
 <script>
-	$(function() {
-		var url = "<%=path%>/galaxy/mpl?sid="+sessionId+"&guid="+userId;
-		$("#project-progress-div .more").attr('href',url);
-		$('#project-progress-table').bootstrapTable({
-			queryParamsType : 'size|page', // undefined
-			pageSize : 3,
-			showRefresh : false,
-			url : '../project/search',
-			sidePagination : 'server',
-			method : 'post',
-			sortOrder : 'desc',
-			sortName : 'updated_time',
-			search : false,
-			queryParams:function(param){
-				param.pageNum=0;
-				param.pageSize=3;
-				return param;
-			},
-			onLoadSuccess : function(data) {
-				if (data.pageList.total < 3) {
-					$("#project-progress-div .more").css("display", "none");
-				}
+
+	var url = "<%=path%>/galaxy/mpl?sid="+sessionId+"&guid="+userId;
+	$("#project-progress-div .more").attr('href',url);
+	$('#project-progress-table').bootstrapTable({
+		queryParamsType : 'size|page', // undefined
+		pageSize : 3,
+		showRefresh : false,
+		url : '../project/search',
+		sidePagination : 'server',
+		method : 'post',
+		sortOrder : 'desc',
+		sortName : 'updated_time',
+		search : false,
+		queryParams:function(param){
+			param.pageNum=0;
+			param.pageSize=3;
+			return param;
+		},
+		onLoadSuccess : function(data) {
+			if (data.pageList.total < 3) {
+				$("#project-progress-div .more").css("display", "none");
 			}
-		});
+		}
 	});
+
 </script>
