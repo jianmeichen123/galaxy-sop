@@ -20,9 +20,9 @@
 		
 		<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet" />
 		<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-		<!-- bootstrap-table -->
+		<!-- bootstrap-table
 		<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css" type="text/css">
-		
+		 -->
 		<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 	</head>
 
@@ -43,13 +43,15 @@
 	</dl>
 </div>
 
+
+
 <script src="<%=path %>/js/charts/indexKpi.js"></script>
 <script type="text/javascript">
 
 //项目历时
 $(function() {
 	load_data_chart_kpi();
-}
+});
 	
 </script>
 

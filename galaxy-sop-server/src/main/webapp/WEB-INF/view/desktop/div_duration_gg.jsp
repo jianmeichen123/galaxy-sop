@@ -20,9 +20,10 @@
 		
 		<link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet" />
 		<!--[if lt IE 9]><link href="css/lfie8.css" type="text/css" rel="stylesheet"/><![endif]-->
-		<!-- bootstrap-table -->
-		<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css" type="text/css">
 		
+		<!-- bootstrap-table -->
+		<link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+		 
 		<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 	</head>
 
@@ -42,6 +43,8 @@
 	</dl>
 </div>
 
+
+
 <script src="<%=path %>/js/charts/indexProjectDuration.js"></script>
 <script type="text/javascript">
 
@@ -49,7 +52,7 @@
 $(function() {
 	load_data_chart_project_time();
 	noDataProTimeDiv();
-}
+});
 	
 </script>
 
