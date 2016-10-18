@@ -2,12 +2,13 @@ package com.galaxyinternet.bo.chart;
 
 
 import com.galaxyinternet.framework.core.model.PagableEntity;
+import com.galaxyinternet.model.report.DataReport;
 
 /**
  * 图表返回数据
  *
  */
-public class ChartDataBo extends PagableEntity{
+public class ChartDataBo extends DataReport{
 	
 	private static final long serialVersionUID = 1L;
 	

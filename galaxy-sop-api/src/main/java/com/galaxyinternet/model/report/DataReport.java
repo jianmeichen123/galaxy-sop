@@ -1,6 +1,10 @@
 package com.galaxyinternet.model.report;
 
-public class DataReport {
+import com.galaxyinternet.framework.core.model.PagableEntity;
+
+public class DataReport extends PagableEntity {
+	
+	private static final long serialVersionUID = 1L;
 	protected String startTime;
 	protected String endTime;
 	protected String createUname;

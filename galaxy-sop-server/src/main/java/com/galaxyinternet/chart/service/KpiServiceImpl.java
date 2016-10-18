@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
@@ -2086,7 +2089,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 	}
 
 	@Override
-	public Page<ChartDataBo> parterkpi(ChartKpiQuery query) throws Exception {
+	public Page<ChartDataBo> parterkpi(ChartKpiQuery query,HttpSession session) throws Exception {
 		// TODO Auto-generated method stub
 
 		Long total = 0l;
@@ -2132,6 +2135,8 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 				double lxhRate = meetingPassRateService.passLXHMeetingRate(
 						query.getStartTime(), query.getEndTime(), dep.getId());
 				cb.setLxhRate(Double.parseDouble(String.valueOf(lxhRate)));
+				cb.setStartTime(query.getSdate());
+				cb.setEndTime(query.getEdate());
 				kpiDataList.add(cb);
 			}
 		}
@@ -2147,7 +2152,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 			sortList.Sort(kpiDataList,property,
 					directioin);
 		}
-		
+		session.setAttribute("kpiDataList", kpiDataList);
 		List<ChartDataBo> list = getPageList(kpiDataList, query.getPageNum(), pageSize, pageNum);
 		kpiPage.setContent(list);
 		kpiPage.setPageable(new PageRequest(query.getPageNum(), query.getPageSize()));

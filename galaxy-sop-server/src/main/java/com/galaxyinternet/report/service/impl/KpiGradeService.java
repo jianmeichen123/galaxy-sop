@@ -2,12 +2,14 @@ package com.galaxyinternet.report.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.galaxyinternet.bo.chart.ChartDataBo;
 import com.galaxyinternet.model.report.BasicElement;
 import com.galaxyinternet.model.report.KpiGradeReport;
 import com.galaxyinternet.model.report.SopReportModal;
 import com.galaxyinternet.report.service.ReportService;
 
-public class KpiGradeService extends ReportService<KpiGradeReport> {
+public class KpiGradeService extends ReportService<ChartDataBo> {
 
 	@Override
 	public List<BasicElement> getColumns() {

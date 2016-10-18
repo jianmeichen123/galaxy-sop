@@ -2,6 +2,7 @@ package com.galaxyinternet.chart.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -273,16 +274,13 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 		return responseBody;
 	}
 	
-	
 	@ResponseBody
 	@RequestMapping(value = "/partnerkpi", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseData<ChartDataBo> partnerkpi(HttpServletRequest request,@RequestBody ChartKpiQuery query) {
 		
 		//返回对象
 		ResponseData<ChartDataBo> responseBody = new ResponseData<ChartDataBo>();
-		
 		try {
-			
 			//强制 HHR 只能看个人部门下的数据
 			int hhrDeptId = getDepId(request);
 			if(hhrDeptId!=-1){
@@ -307,8 +305,8 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 			}
 			query.setStartTime(startTime);
 			query.setEndTime(endTime);
-
-			Page<ChartDataBo> pageList = kpiService.parterkpi(query);
+			HttpSession session = request.getSession();
+			Page<ChartDataBo> pageList = kpiService.parterkpi(query,session);
 			//pageList.setHHR(isHHR(request));
 			responseBody.setResult(new Result(Status.OK, ""));
 			responseBody.setQueryParamsJsonStr(queryParamsJsonStr);
