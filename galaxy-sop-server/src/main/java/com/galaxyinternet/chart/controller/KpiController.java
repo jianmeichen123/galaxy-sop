@@ -306,6 +306,8 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 				responseBody.setResult(new Result(Status.ERROR,null, "开始时间不能大于结束时间"));
 				return responseBody;
 			}
+			query.setSdate(query.getPartnerSdate().trim() + " 00:00:00");
+			query.setEdate(query.getPartnerEdate().trim() + " 23:59:59");
 			query.setStartTime(startTime);
 			query.setEndTime(endTime);
 			HttpSession session = request.getSession();

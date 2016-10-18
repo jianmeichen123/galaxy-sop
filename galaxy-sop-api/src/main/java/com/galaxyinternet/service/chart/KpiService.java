@@ -1,7 +1,6 @@
 package com.galaxyinternet.service.chart;
 
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.galaxyinternet.bo.chart.ChartDataBo;
