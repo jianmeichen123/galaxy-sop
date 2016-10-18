@@ -1,6 +1,8 @@
 package com.galaxyinternet.common.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,14 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.galaxyinternet.bo.IndexConfigBo;
 import com.galaxyinternet.bo.UserBo;
 import com.galaxyinternet.framework.cache.Cache;
 import com.galaxyinternet.framework.core.constants.Constants;
 import com.galaxyinternet.framework.core.constants.UserConstant;
 import com.galaxyinternet.framework.core.service.BaseService;
+import com.galaxyinternet.framework.core.utils.GSONUtil;
 import com.galaxyinternet.model.project.Project;
 import com.galaxyinternet.model.template.SopTemplate;
 import com.galaxyinternet.model.user.User;
+import com.galaxyinternet.service.IndexConfigService;
 import com.galaxyinternet.service.ProjectService;
 import com.galaxyinternet.service.UserRoleService;
 import com.galaxyinternet.sopfile.controller.SopFileController;
@@ -36,6 +41,8 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	final Logger logger = LoggerFactory.getLogger(IndexController.class);
 	@Autowired
 	private UserRoleService userRoleService;
+	@Autowired
+	private IndexConfigService indexConfigService;
 	
 	@Autowired
 	Cache cache;
@@ -82,8 +89,16 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request) {
+		User user = (User) getUserFromSession(request);
+		List<Long> roleIdList = userRoleService.selectRoleIdByUserId(user.getId());
+		Map<String,Object> params = new HashMap<String,Object>();
+		params.put("roleIds", roleIdList);
+		List<IndexConfigBo> models = indexConfigService.queryUserIndexModel(params);
+		logger.debug(GSONUtil.toJson(models));
+		request.setAttribute("modules", models);
 		return "index";
 	}
+	
 	/**
 	 * 跳转到首页-工作桌面
 	 * @return
