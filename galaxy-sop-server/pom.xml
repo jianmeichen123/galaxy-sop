@@ -30,7 +30,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
-<!-- 				<version>3.0.0</version> -->
+				<version>2.3</version>
 				<configuration>
 					<warName>${project.artifactId}</warName>
 				</configuration>
@@ -86,22 +86,21 @@
 				<jdbc.username>fxuser</jdbc.username>
 				<jdbc.password>fxdb_Fp9EPkG2</jdbc.password>
 				<!-- 本地项目地址 -->
-				<log4j.path>${catalina.base}/logs/</log4j.path>
+				<log4j.path>d:/logs/</log4j.path>
 				<sop.oss.tempfile.path>/data/apps/osstemp/</sop.oss.tempfile.path>
 				<!-- dubbo -->
 				<dubbo.application.name>galaxySopDubboProvider</dubbo.application.name>
 				<dubbo.protocol.name>dubbo</dubbo.protocol.name>
 				<dubbo.registry.address>zookeeper://127.0.0.1:2181?client=zkclient</dubbo.registry.address>
 				<dubbo.protocol.port>8082</dubbo.protocol.port>
-
-
-				<project.server.url>http://fx.local.galaxyinternet.com/</project.server.url>
-				<galaxy.project.platform.endpoint>http://fx.local.galaxyinternet.com/platform/</galaxy.project.platform.endpoint>
-				<galaxy.project.report.endpoint>http://fx.local.galaxyinternet.com/report/</galaxy.project.report.endpoint>
-				<galaxy.project.sop.endpoint>http://fx.local.galaxyinternet.com/sop/</galaxy.project.sop.endpoint>
 				
 				<xinge.enviroment>2</xinge.enviroment>
 				
+				<project.server.url>http://zfeng.local.com/</project.server.url>
+				<galaxy.project.platform.endpoint>http://zfeng.local.com/platform/</galaxy.project.platform.endpoint>
+				<galaxy.project.report.endpoint>http://zfeng.local.com/report/</galaxy.project.report.endpoint>
+				<galaxy.project.sop.endpoint>http://zfeng.local.com/sop/</galaxy.project.sop.endpoint>
+
 			</properties>
 		</profile>
 		<profile>

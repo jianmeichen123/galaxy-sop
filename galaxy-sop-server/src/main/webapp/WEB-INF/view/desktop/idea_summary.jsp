@@ -29,7 +29,7 @@
 <body>
 
 <div class="floatBox fl">
-	<dl style="position: relative; display: none;" class="Creative_library" resource-mark="idea_summary">
+	<dl style="position: relative; class="Creative_library" resource-mark="idea_summary">
 
 		<dt>
 			<h3 class="ico t2">项目创意</h3>
