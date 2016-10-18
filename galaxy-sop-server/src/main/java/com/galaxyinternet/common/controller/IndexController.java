@@ -367,5 +367,15 @@ public class IndexController extends BaseControllerImpl<User, UserBo> {
 		request.setAttribute("projectId", id);
 		return "project/sopinfo/tab_person";
 	}
+	/**
+	 * 显示桌面模块
+	 * @param moudle
+	 * @return
+	 */
+	@RequestMapping(value="/desktop/{moudle}")
+	public String showMoudle(@PathVariable String moudle)
+	{
+		return "desktop/"+moudle;
+	}
 	
 }
