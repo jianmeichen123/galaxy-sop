@@ -42,6 +42,4 @@ $("#container_progress .highcharts-title tspan").click(function(){
 
 </script>
 
-</body>
-</html>
 

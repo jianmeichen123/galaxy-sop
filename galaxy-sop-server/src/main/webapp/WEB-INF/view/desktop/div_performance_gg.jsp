@@ -29,6 +29,4 @@ load_data_chart_kpi();
 
 </script>
 
-</body>
-</html>
 
