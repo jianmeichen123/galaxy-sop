@@ -875,7 +875,7 @@ public class SopFileController extends BaseControllerImpl<SopFile, SopFileBo> {
 			//上传人，文件后缀均不在此处没有在此处set
 
 //			//校验项目信息
-//			if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.内部创建.getCode()) && workType.equals(DictEnum.fileWorktype.股权转让协议.getCode())){
+//			if(project.getProjectType()!=null && project.getProjectType().equals(DictEnum.projectType.创建.getCode()) && workType.equals(DictEnum.fileWorktype.股权转让协议.getCode())){
 //				responseBody.setResult(new Result(Status.ERROR,null, "该项目不需要股权转让协议"));
 //				return responseBody;
 //			}		
