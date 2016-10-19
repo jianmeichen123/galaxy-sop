@@ -2097,6 +2097,7 @@ public class KpiServiceImpl extends BaseServiceImpl<ChartDataBo> implements
 		ListSortUtil<ChartDataBo> sortList = new ListSortUtil<ChartDataBo>();
 
 		Department de = new Department();
+		de.setType(1);
 		if(query.getDeptid() != null){
 			de.setId(query.getDeptid());
 		}

@@ -2,11 +2,8 @@ var partnerpi_url = platformUrl.partnerkpi;
 var partnerkpi_pageNum = 1;
 
 function partner_kpi_init(){
-	
-	$("#querySearch_partnerkpi").on('click',function(){
-		$('#data-table-partnerkpi').bootstrapTable('refresh',getPartnerToobarQueryParams('custom-toolbasr-partnerkpi')); 
-	});
-	
+	$('#data-table-partnerkpi').bootstrapTable('destroy');
+	$("#kpiExport").attr("class","bluebtn ico tj disabled");
 	//绑定querySearch事件
 	$('#data-table-partnerkpi').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
@@ -41,9 +38,16 @@ function partner_kpi_init(){
 	    		containerDeptKpiOptions.xAxis.categories = categories;
     	   		var chart = new Highcharts.Chart(containerDeptKpiOptions);
         	}
+        	$("#kpiExport").attr("class","bluebtn ico tj");
         }
 	});
 }
+
+$("#querySearch_partnerkpi").on('click',function(){
+	$("#kpiExport").attr("class","bluebtn ico tj disabled");
+	$('#data-table-partnerkpi').bootstrapTable('refresh',getPartnerToobarQueryParams('custom-toolbasr-partnerkpi')); 
+});
+
 
 //根据toobar id 获取表单参数
 function getPartnerToobarQueryParams(ToolbarId){
