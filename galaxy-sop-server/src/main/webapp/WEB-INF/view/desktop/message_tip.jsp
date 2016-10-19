@@ -10,7 +10,7 @@ String path = request.getContextPath();
 <script src="<%=path%>/bootstrap/bootstrap-table/bootstrap-table-xhhl.js"></script>
 <script src="<%=path%>/bootstrap/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
 
-<dl resource-mark="div_tip_message" class="r_news" style="display:none;position:relative;">
+<dl>
 <dt><h3 class="ico t4">消息提醒</h3></dt>
    <dd>
    <table id="message-data-table" data-url="operationMessageQueryList" data-page-size="3" data-page-list="[3,20,30]" data-show-refresh="true">
@@ -28,7 +28,7 @@ String path = request.getContextPath();
 </dl>
 
 <script>
-$(function(){
+
 	$('#message-data-table').bootstrapTable({
 		queryParamsType: 'size|page', // undefined
 		pageSize:4,
@@ -38,14 +38,19 @@ $(function(){
 		method : 'post',
 		sortOrder : 'desc',
 		sortName : 'updated_time',
-		pagination: true,
+		pagination: false,
+		queryParams:function(param){
+			param.pageNum=0;
+			param.pageSize=3;
+			return param;
+		},
         search: false,
         onLoadSuccess: function (data){
-        	if(data.pageList.total<4){
+        	if(data.pageList.total<3){
         		$(".r_news .more").css("display","none");
         	}
         }
 	});
-});
+
 
 </script>

@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 
 
-<div class="floatBox fl">
 	<!-- 绩效考核 -->
 	<dl resource-mark="div_performance_gg" class="r_news executive_last">
 		<dt>
@@ -19,7 +18,6 @@
 			<div id="container_kpi" style="min-width:300px; height: 200px;padding-top:5px;"></div>
 		</dd>
 	</dl>
-</div>
 
 
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>

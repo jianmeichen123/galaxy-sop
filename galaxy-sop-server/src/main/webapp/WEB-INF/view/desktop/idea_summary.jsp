@@ -4,9 +4,8 @@
 %>
 <link href="<%=path %>/css/axure.css" type="text/css" rel="stylesheet"/>
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
+<jsp:include page="../common/taglib.jsp" flush="true"></jsp:include>
 
-
-<div class="floatBox fl">
 	<dl style="position: relative; class="Creative_library" resource-mark="idea_summary">
 
 		<dt>
@@ -37,13 +36,12 @@
 		</dd>
 
 	</dl>
-</div>
 
 <script type="text/javascript">
 
-	$(function(){	
+		
 		selectCyIndex();
-	});
+	
 	
 	
 	//主页创意

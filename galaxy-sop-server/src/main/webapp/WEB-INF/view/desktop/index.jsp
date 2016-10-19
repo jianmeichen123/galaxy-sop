@@ -198,21 +198,13 @@ String path = request.getContextPath();
 			String url = "/galaxy/desktop/"+module;
 			//if(!hasPermission) break;
 	%>
-			<div class="floatBox fl">
+			<div class="floatBox fl" style="display:none">
 			<jsp:include page="<%=url %>" flush="true"></jsp:include>
 			</div>
-			<br>
 	<%
 			
 		}
 	%>
-      <div class="floatBox fl"></div>
-      <div class="floatBox fl"></div>
-      <div class="floatBox fl"></div>
-      <div class="floatBox fl"></div>
-      <div class="floatBox fl"></div>
-    	<div class="floatBox fl"></div>
-                 
   </div>
 <!--内容显示区域结束-->
 
@@ -266,7 +258,8 @@ String path = request.getContextPath();
       $(".man_info ul").show();
     });
     $(".man_info ul").closeDom();
-
+	
+    $(".floatBox").show();
     
   })
 </script>

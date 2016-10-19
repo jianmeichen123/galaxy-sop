@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="<%=path %>/bootstrap/bootstrap-table/bootstrap-table.css"  type="text/css">
 
 
-<div class="floatBox fl">
 	<!-- 项目历时 -->
 	<dl resource-mark="div_duration_gg" >
 		<dt>
@@ -18,7 +17,6 @@
 				style="min-width:300px; height: 145px; padding-top: 15px; margin-left: -5%"></div>
 		</dd>
 	</dl>
-</div>
 
 
 <script src="<%=path %>/js/highcharts.js" type="text/javascript"></script>
