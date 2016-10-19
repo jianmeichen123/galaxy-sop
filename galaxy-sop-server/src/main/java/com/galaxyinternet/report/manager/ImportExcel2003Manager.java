@@ -1,4 +1,4 @@
-﻿package com.galaxyinternet.report.manager;
+package com.galaxyinternet.report.manager;
 
 
 import java.io.FileNotFoundException;

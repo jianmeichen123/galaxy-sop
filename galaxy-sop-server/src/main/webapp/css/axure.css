@@ -2151,3 +2151,101 @@ margin: 45px auto 30px;}
 .highchartsAxisName{color:#7a8798;font-size:12px;font-family:"宋体";writing-mode:tb-rl;position:absolute;display:none;}
 .name1{top:75px;left:30px}
 .name2{top:75px;right:30px;}
+/*------------------------------- V2.3.102-------------------------------- */
+/* 后台桌面配置 */
+.eblockRow{margin-bottom: 10px;}
+.eblock{height:216px;margin:0 10px;background-color: #fff;border-radius: 5px;box-shadow: 3px 5px 5px #ddd;}
+.addEblockCon button{margin:70px auto;cursor: pointer;display: block;}
+.addCircleBtn{width:76px;height:76px;border-radius: 50%;border:1px dashed #b6bbcd;background-color: #fff;font-size: 45px;color:#b6bbcd;}
+.addEblockContc label{display:block;text-align: center;margin:10px 0;cursor: pointer;}
+.addEblockContc label input{margin-right:5px;}
+.addEblockContc .form{padding-top: 40px;}
+.addEblockContc .btnbox{margin:20px 0 10px;}
+.addEblockContc .btnbox a{margin:0 10px;}
+.equipmentBoxBtn{border:0;font-size: 16px;font-family: "微软雅黑";padding:12px 20px 12px 40px;border-radius:3px;background:#539be2 url(../img/btnico2.png) 0 0 no-repeat;background-position: 18px -113px;line-height: 18px;display: block;margin:38px auto;}
+.deleteEblockCon{display: none;margin:90px auto;text-align: center;}
+.deleteEblockCon  span{margin-right: 30px;}
+.new_tit_b button.save{margin-top: 20px;}
+.deleteCircleBtn{width: 33px;height: 33px;border:1px solid #539be2;border-radius:50%;background-color: #fff;font-size: 20px;font-weight: bold;color: #539be2;}
+.usermsg div.xingmou{width:81px;height:50px;background:#3e8bd9;margin-top:-15px;position: relative;}
+.xingmou{background-position: -37px -1230px;}
+.usermsg div.xingmou a{padding-left: 40px;}
+.usermsg div.xingmou .navbar{left:10px;width:24px;}
+.usermsg a,.man_info span{font-size: 14px;font-family: "微软雅黑";line-height: 24px;}
+.man_info .avator{width:24px;height:24px;display:inline-block;background:url(../img/defalut_avator.png) 0 0 no-repeat;margin-right: 10px;}
+.header .usermsg .name{line-height: 24px;background:url(../img/xiala.png) right 6px no-repeat;padding:0 15px 0 0px;margin:0 30px 0 0;}
+.usermsg div.xingmou a{line-height: 50px;}
+.pagebox .small{width:76px;background-color: #e9ebf2;box-shadow:-5px 0px 3px #ddd;position: fixed;top: 0px;right: 0;height: 100%; }
+.pagebox .rit{margin-top: 50px;padding:0 0 0 5px;}
+.pagebox .rit .top_small{height:78px;}
+.top_small .add{margin-top: 27px;text-align: center;width: 100%;display: inline-block;margin-bottom: 8px;}
+.top_small .b1{width:8px;height: 8px;background-color: #769fd6;border-radius: 50%;display: inline-block;margin:0 5px 0 6px;}
+.top_small span{font-size: 12px;font-family:"宋体";}
+.bottom_small{height:100%;background-color: #fff;}
+.bottom_small ul li{padding:20px 0 10px 0;}
+.bottom_small ul li span{display: block;text-align: center;width: 100%;font-size: 14px;color: #c2c2c2;}
+.bottom_small ul li .ico_small{width:36px;height:36px;margin:0 auto 6px;background:url(../img/ico_index.png) 0 0 no-repeat;}
+.bottom_small ul li .tjh{background-position: 0 -55px;}
+.bottom_small ul li .psh{background-position: 0 -109px;}
+.bottom_small ul li .tool{background-position: 0 -164px;}
+.sico,.bico{width:16px;height:61px;position: absolute;background: url(../img/ico_index.png) 0 -210px no-repeat;box-shadow:-5px 0px 3px #ddd;cursor: pointer; }
+.bico{background-position: -20px -210px;}
+.pagebox .big{display:none;width:325px;background-color: #e9ebf2;position:fixed;box-shadow:-5px 0px 3px #ddd;top: 0px;right: 0;height: 100%; }
+.big_con{background-color: #fff;height: 100%;}
+.pagebox .big dl{border:0;}
+.pagebox .rit dt{background:none;}
+.pagebox .rit .top .tody{padding:0;}
+.pagebox .rit .top{padding-top: 16px;}
+.month_box{width:56px;padding-top: 4px;margin-right: 18px;}
+.month_box p{text-align: center;}
+.month_box .month{color:#fff;}
+.month_box .month_box_date{font-size: 22px;color:#7a8094;line-height: 24px;}
+.pagebox .rit .top .tody .time_moment{font-weight: bold;font-size: 30px;color:#7a8094;margin-top: 10px;}
+.pagebox .rit .top .tody button{font-size: 12px;background-color: #539be2;border:none;padding:3px 8px;margin-right: 14px;margin-top: 17px;}
+.pagebox .rit .top .link{font-size: 14px;font-family: "微软雅黑";color:#7a8094;margin:0 22px 15px;}
+.pagebox .big dd{border-top:1px solid #f1f1f1;border-bottom:1px solid #f1f1f1; padding:0;}
+.pagebox .big dl {text-align: right;height:122px;}
+.pagebox .big dl dt{line-height: 20px;height: 20px;}
+.pagebox .big dl a{margin:0 14px 0 6px;}
+.pagebox .big dl a.more{display: inline-block;}
+.pagebox .big table td{height:40px;line-height: 40px;font-size: 14px;font-family: "微软雅黑";color:#7a8094;}
+.pagebox .big table td.noborder{border-bottom: 0;}
+.pagebox .big .ico_index{width:36px;height:36px;background: url(../img/ico_index.png) 0 0 no-repeat;margin:22px 16px;}
+.pagebox .big .table{width:255px;}
+.pagebox .big .tjh{background-position: 0 -55px;}
+.pagebox .big .psh{background-position: 0 -109px;}
+/* 常用工具 */
+.pagebox .big .tool{border:0;}
+.pagebox .big .tool a{position: relative;
+    float:left;
+    zoom: 1;
+    width: 50px;
+    height: 60px;
+    margin: 0 15px 10px;
+    font-size: 12px;
+    color: #536379;
+    text-align: center;
+    line-height: 20px;
+  }
+.pagebox .big .tool .ico{background-image: url(../img/toolico.png);height:48px;}
+.pagebox .big .tool a .b1{width: 50px;
+    background-position: 4px 6px;}
+.pagebox .big .tool a .b2{width: 50px;
+    background-position: 4px -44px;}
+.pagebox .big .tool a .b3{width: 50px;
+    background-position: 4px -95px;}
+.pagebox .big .tool a .b4{width: 50px;
+    background-position: 4px -140px;}
+.pagebox .big .tool a .b5{width: 50px;
+    background-position: 4px -181px;}
+.pagebox .big .tool .add{width: 50px;
+  background-position: 3px -226px;
+    font-size: 12px;
+    color: #FFF;}
+/* 内容区域 */
+.floatBox{margin:0 10px 10px;height:216px;background-color: #fff;}
+/* 下拉修改密码 */
+.man_info ul{width: 140px;height: 148px;background:url(../img/xialak.png) 0 0 no-repeat;margin-top: 35px;margin-left: -33px;display: none;padding-top: 16px;}
+.man_info ul li{height:54px;line-height: 54px;}
+.header .usermsg .man_info ul a{color:#666;text-align: center;display: block;width: 100%;line-height: 50px;}
+.header .usermsg .man_info ul a:hover{color:#529be2;text-decoration: none;};
