@@ -51,32 +51,32 @@ public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implemen
 			case 2:
 				element.setColumn(i);
 				element.setValue("分数/生成项目");
-				element.setGetterMethod("getCreateProjectSource");
+				element.setGetterMethod("getScore1");
 				break;
 			case 3:
 				element.setColumn(i);
 				element.setValue("分数/通过CEO评审");
-				element.setGetterMethod("getCeoReviewSource");
+				element.setGetterMethod("getScore2");
 				break;
 			case 4:
 				element.setColumn(i);
 				element.setValue("分数/通过立项会");
-				element.setGetterMethod("getProjectMettingSource");
+				element.setGetterMethod("getScore3");
 				break;
 			case 5:
 				element.setColumn(i);
 				element.setValue("总分数");
-				element.setGetterMethod("getTotalSource");
+				element.setGetterMethod("getSumScore");
 				break;
 			case 6:
 				element.setColumn(i);
 				element.setValue("过会率/CEO评审会");
-				element.setGetterMethod("getCeoReviewRate");
+				element.setGetterMethod("getCeoRate");
 				break;
 			case 7:
 				element.setColumn(i);
 				element.setValue("过会率/立项会");
-				element.setGetterMethod("getProjectMettingRate");
+				element.setGetterMethod("getLxhRate");
 				break;
 			default:
 				break;
@@ -105,6 +105,7 @@ public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implemen
 		modal.setColumns(getColumns());
 		modal.setTemplateName("template/kpiGradeTemplate.xlsx");
 		modal.setDownloadName("绩效报表");
+		modal.setFileSuffix("xlsx");
 		return modal;
 	}
 
@@ -125,7 +126,7 @@ public class KpiGradeServiceImpl extends ReportServiceImpl<ChartDataBo> implemen
 		}
 		
 		try{			
-			String fileName = getFileNameByBrowser(request,modal.getDownloadName());
+			String fileName = getFileNameByBrowser(request,modal.getDownloadName()+"."+modal.getFileSuffix());
 			response.reset();
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/x-download");

@@ -827,11 +827,11 @@ public class KpiController extends BaseControllerImpl<ChartDataBo, ChartDataBo>{
 	}
 
 	@ResponseBody
-	@RequestMapping(value="/exportKpiGrade",method=RequestMethod.POST)
+	@RequestMapping(value="/exportKpiGrade")
 	public void exportKpiGrade(HttpServletRequest request,HttpServletResponse response){
 		List<ChartDataBo> chartDataList = (List<ChartDataBo>) request.getSession().getAttribute("kpiDataList");	
 		try {
-			SopReportModal modal = reportService.createReport(chartDataList,tempfilePath);
+			SopReportModal modal = reportService.createReport(chartDataList,request.getSession().getServletContext().getRealPath(""),tempfilePath);
 			reportService.download(request, response, modal);
 		} catch (Exception e) {
 			logger.error("下载失败.",e);

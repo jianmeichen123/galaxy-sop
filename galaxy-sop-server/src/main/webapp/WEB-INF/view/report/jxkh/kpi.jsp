@@ -267,7 +267,7 @@ function setDefineDate(id){
 	$("#"+id).find("input[name='partnerEdate']").val(edate);
 }
 
-("#kpiExport").on('click',function(){
+$("#kpiExport").on('click',function(){
 	window.location.href = platformUrl.exportKpiGrade;
 });
 	

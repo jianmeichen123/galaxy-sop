@@ -30,7 +30,7 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 	
 	private ImportExcel2007Manager excelManager = new ImportExcel2007Manager();
 	
-	public SopReportModal createReport(List<T> dataSource,String tempFilePath) throws Exception{
+	public SopReportModal createReport(List<T> dataSource,String templatePath,String tempFilePath) throws Exception{
 		String path = "";
 		InputStream is = null;
 		OutputStream out = null;
@@ -45,7 +45,7 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 			path = tempFilePath + tempName + "." + templeteSuffix;
 			//此处需判断模板格式并进行判断模板的生成后缀（xls,xlsx）(现在写死了xlsx)
 			
-			excelManager.copyFile(ReportServiceImpl.class.getClassLoader().getResource(modal.getTemplateName()).toString(), path);
+			excelManager.copyFile(templatePath + "/" +  modal.getTemplateName(),tempFilePath,path);
 			File file = new File(path);
 			is = new FileInputStream(file);
 			XSSFWorkbook workbook = new XSSFWorkbook(is);
@@ -130,7 +130,7 @@ public abstract class ReportServiceImpl<T extends DataReport> implements ReportS
 		cell.setCellStyle(cellStyle);
 		if(BasicElement.VALUE_DATE.equals(be.getValue())){
 			String time1 = "导出时间:" + DateUtil.longToString(System.currentTimeMillis());
-			String time2 = "   统计时段:" + t.getStartTime() + "!!" + t.getEndTime();
+			String time2 = "   统计时段:" + t.getStartTime() + "~" + t.getEndTime();
 			dateOutPut = time1 + time2;
 		}
 		cell.setCellValue(dateOutPut);
