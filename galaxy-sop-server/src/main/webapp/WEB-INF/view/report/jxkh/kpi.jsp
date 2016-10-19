@@ -190,7 +190,7 @@
 					</dl>
 				</div>
 				<div>
-				    <a href="javascript:;" class="bluebtn ico tj" id="querySearch_teamkpi">导出</a>
+				    <a href="javascript:;" class="bluebtn ico tj" id="kpiExport">导出</a>
 				</div>
 				<!--表格内容-->
 				<table id="data-table-partnerkpi"
@@ -267,6 +267,9 @@ function setDefineDate(id){
 	$("#"+id).find("input[name='partnerEdate']").val(edate);
 }
 
+("#kpiExport").on('click',function(){
+	window.location.href = platformUrl.exportKpiGrade;
+});
 	
 </script>
 </html>
